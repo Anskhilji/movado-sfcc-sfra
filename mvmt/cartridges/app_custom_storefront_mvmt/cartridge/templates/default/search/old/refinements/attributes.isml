@@ -3,7 +3,7 @@
         <isif condition="${refinementValue.type === 'color'}">
             <isinclude template="search/refinements/attributes/color"/>
         <iselseif condition="${refinementValue.type === 'size'}">
-            <isinclude template="search/refinements/attributes/size"/>
+            <isinclude template="search/old/refinements/attributes/size"/>
         <iselse>
             <isinclude template="search/old/refinements/attributes/boolean"/>
         </isif>

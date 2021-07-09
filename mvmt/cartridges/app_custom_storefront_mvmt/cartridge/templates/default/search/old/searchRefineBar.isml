@@ -1,7 +1,7 @@
 <isset name="refinements" value="${pdict.productSearch.refinements}" scope="page" />
 <div class="mobile-filter">
     <div class="mobile-filter-bar">
-        <ul class="mobile-filter-btn-list">
+        <ul class="mobile-filter-btn-list filter-open">
             <li>
                 <button type="button" data-menu=".mobile-sort-menu">
                     ${Resource.msgf('lable.filter.sort', 'search', null)}
