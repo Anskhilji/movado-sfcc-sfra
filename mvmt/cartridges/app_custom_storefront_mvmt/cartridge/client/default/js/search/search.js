@@ -100,7 +100,8 @@ function parseMobileResults(response) {
         '.filter-bar',
         '.mobile-filter-menu',
         '.sort-dropdown',
-        '.mobile-sort-order'
+        '.mobile-sort-order',
+        '.mvmt-redesign-filter-bar',
     ].forEach(function (selector) {
         updateDom($results, selector);
     });
@@ -399,6 +400,7 @@ module.exports = {
                     $('.mobile-filter-redesign .sort-dropdown-toggle').find('span.selected-value').text($selectedItem.text());
                     $(".plp-filter-redesign .sort-dropdown-toggle").find('span.selected-value').text($selectedItem.text());
                     $('.plp-filter-redesign .sort-dropdown .sort-dropdown-item').removeClass('selected');
+                    $('.mobile-filter-redesign .sort-dropdown .sort-dropdown-item').removeClass('selected');
                     $selectedItem.addClass('selected');
 
                     /**
