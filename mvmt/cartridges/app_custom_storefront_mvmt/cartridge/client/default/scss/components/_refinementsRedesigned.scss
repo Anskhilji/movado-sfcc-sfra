@@ -60,11 +60,11 @@
                                         content: "+";
                                         display: inline-block;
                                         position: absolute;
-                                        right: rem(8);
-                                        top: 0;
+                                        right: rem(10);
+                                        top: rem(3);
                                         transform: rotate(45deg);
                                         color: $black;
-                                        font-size: rem(24);
+                                        font-size: rem(20);
                                         line-height: 1;
                                     }
 
@@ -103,10 +103,6 @@
 
                     @include media-breakpoint-up(md) {
                         max-width: 100%;
-                    }
-
-                    span.close-icon {
-                        display: none;
                     }
 
                     >.refinement-name {
@@ -226,7 +222,7 @@
                 display: flex;
                 flex-wrap: nowrap;
                 justify-content: flex-start;
-                max-width: calc(100% - rem(250));
+                max-width: calc(100% - 250px); //rem function does not work in calc function that's why giving value direct in px
                 align-content: space-between;
                 align-items: flex-start;
                 flex-direction: row;
