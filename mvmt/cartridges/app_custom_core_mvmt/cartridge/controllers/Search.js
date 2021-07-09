@@ -340,7 +340,7 @@ server.replace('UpdateGrid', cache.applyPromotionSensitiveCache, function (req, 
     var isEnableSingleProductRow;
     var isEyewearTile = false;
     var categoryTemplate;
-    var isNonWatchesTileEnable = searchCustomHelper.getIsNonWatchesTileAttribute(res.viewData.productSearch);
+    var isNonWatchesTileEnable;
 
     var apiProductSearch = new ProductSearchModel();
     apiProductSearch = searchHelper.setupSearch(apiProductSearch, req.querystring);
@@ -364,6 +364,8 @@ server.replace('UpdateGrid', cache.applyPromotionSensitiveCache, function (req, 
         marketingProductData = JSON.stringify(marketingProductsData);
         isEnableSingleProductRow = searchCustomHelper.getSingleColumnPerRow(productSearch);
         isEyewearTile = searchCustomHelper.getEyewearTile(productSearch);
+        isNonWatchesTileEnable = searchCustomHelper.getIsNonWatchesTileAttribute(productSearch);
+
     }
 
     var productGridTemplate = '/search/old/productGrid';

@@ -36,6 +36,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var tileImage300X375;
     var tile512X640;
     var defaultVariantLifeStyleImage;
+    var defaultVariantLifeStyleImage512x512;
     var defaultVariantLifeStyleImage300X375;
     var defaultVariantEyeWearLifeStyleImage;
     var tileImage300X300;
@@ -136,6 +137,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                         defaultVariantLifeStyleImage = !empty(varAttr[key].lifeStyleImage) ? varAttr[key].lifeStyleImage.url : '';
                         defaultVariantLifeStyleImage300X375 = !empty(varAttr[key].lifeStyleImage300X375) ? varAttr[key].lifeStyleImage300X375.url : '';
                         defaultVariantEyeWearLifeStyleImage = !empty(varAttr[key].eyeWearLifeStyleImage) ? varAttr[key].eyeWearLifeStyleImage.url : '';
+                        defaultVariantLifeStyleImage512x512 =  !empty(varAttr[key].lifeStyleImage512x512) ? varAttr[key].lifeStyleImage512x512.url : '';
                         tileImage300X300 = !empty(varAttr[key].tileImage300X300) ? varAttr[key].tileImage300X300.url : '';
                         defaultVariantLifeStyleImage300X300 = !empty(varAttr[key].lifeStyleImage300X300) ? varAttr[key].lifeStyleImage300X300.url : '';
 
@@ -154,12 +156,18 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                 defaultVariantEyeWearLifeStyleImage = !empty(varAttr[0].eyeWearLifeStyleImage) ? varAttr[0].eyeWearLifeStyleImage.url : '';
                 tileImage300X300 = !empty(varAttr[0].tileImage300X300) ? varAttr[0].tileImage300X300.url : '';
                 defaultVariantLifeStyleImage300X300 = !empty(varAttr[0].lifeStyleImage300X300) ? varAttr[0].lifeStyleImage300X300.url : '';
+                defaultVariantLifeStyleImage512x512 =  !empty(varAttr[0].lifeStyleImage512x512) ? varAttr[0].lifeStyleImage512x512.url : '';
 
             }
 
             Object.defineProperty(product, 'defaultVariantLifeStyleImage', {
                 enumerable: true,
                 value: defaultVariantLifeStyleImage
+            });
+            
+            Object.defineProperty(product, 'defaultVariantLifeStyleImage512x512', {
+                enumerable: true,
+                value: defaultVariantLifeStyleImage512x512
             });
 
             Object.defineProperty(product, 'defaultVariantEyeWearLifeStyleImage', {

@@ -73,18 +73,26 @@
             <isif condition="${pdict.display.isLifeStyleEnabled && !empty(product.images.tile512X640[3])}">
                 <a href="${pdict.urls.product}" class="${product.promotionObj ? 'gtm-promotion-view': ''}" data-gtm-product-promo="${product.promotionObj}" data-page-type="${session.custom.gtmPageType}">
                     <picture class="life-style-image">
-                        <isif condition="${product.images.tile512X640[3]}"><source  media="(min-width: 992px)" data-lazy="${product.images.tile512X640[3].url}" /></isif>
-                        <isif condition="${product.images.tile512X640[3]}"><source media="(min-width: 544px)" data-lazy="${product.images.tile512X640[3].url}" /></isif>
-                        <isif condition="${pdict.display.isEnableSingleProductRow}">
-                            <isif condition="${product.images.tile512X640[3]}"><source media="(min-width: 320px)" data-lazy="${product.images.tile512X640[3].url}" /></isif>
+
+                        <isif condition="${pdict.display.isEnableSingleProductRow && pdict.display.isNonWatchesTileEnable}">
+                            <isif condition="${product.images.tile256[3]}"><source  media="(min-width: 992px)" data-lazy="${product.images.tile256[3].url}" /></isif>
+                            <isif condition="${product.images.tile256[3]}"><source media="(min-width: 544px)" data-lazy="${product.images.tile256[3].url}" /></isif>
+                            <isif condition="${product.images.tile256[3]}"><source media="(min-width: 320px)" data-lazy="${product.images.tile256[3].url}" /></isif>
+                            <isif condition="${product.images.tile256[3]}"><img class="tile-image gtm-product"  data-lazy="${product.images.tile256[3].url}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
+                        
                         <iselse>
                             <isif condition="${pdict.display.isNonWatchesTileEnable}">
+                                <isif condition="${product.images.tile256[3]}"><source  media="(min-width: 992px)" data-lazy="${product.images.tile256[3].url}" /></isif>
+                                <isif condition="${product.images.tile256[3]}"><source media="(min-width: 544px)" data-lazy="${product.images.tile256[3].url}" /></isif>
                                 <isif condition="${product.images.tile300X300[3]}"><source media="(min-width: 320px)" data-lazy="${product.images.tile300X300[3].url}" /></isif>
+                                <isif condition="${product.images.tile256[3]}"><img class="tile-image gtm-product"  data-lazy="${product.images.tile256[3].url}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>                                
                             <iselse/>
+                                <isif condition="${product.images.tile512X640[3]}"><source  media="(min-width: 992px)" data-lazy="${product.images.tile512X640[3].url}" /></isif>
+                                <isif condition="${product.images.tile512X640[3]}"><source media="(min-width: 544px)" data-lazy="${product.images.tile512X640[3].url}" /></isif>
                                 <isif condition="${product.images.tile300X375[3]}"><source media="(min-width: 320px)" data-lazy="${product.images.tile300X375[3].url}" /></isif>
+                                <isif condition="${product.images.tile512X640[3]}"><img class="tile-image gtm-product"  data-lazy="${product.images.tile512X640[3].url}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>                                                                
                             </isif>
                         </isif>                        
-                        <isif condition="${product.images.tile512X640[3]}"><img class="tile-image gtm-product"  data-lazy="${product.images.tile512X640[3].url}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
                     </picture>
                 </a>
             </isif>
@@ -93,34 +101,50 @@
             <isif condition="${pdict.display.isLifeStyleEnabled && !empty(product.defaultVariantLifeStyleImage)}">
                     <a href="${product.variationPdpURL}" class="${product.promotionObj ? 'gtm-promotion-view': ''}" data-page-type="${session.custom.gtmPageType}" data-gtm-product-promo="${product.promotionObj}">
                         <picture>
-                            <isif condition="${product.defaultVariantTile512X640}"><source media="(min-width: 992px)" srcset="${product.defaultVariantTile512X640}" /></isif>
-                            <isif condition="${product.defaultVariantTile512X640}"><source media="(min-width: 544px)" srcset="${product.defaultVariantTile512X640}" /></isif>
-                            <isif condition="${pdict.display.isEnableSingleProductRow}">
-                                <isif condition="${product.images.defaultVariantTile512X640}"><source media="(min-width: 320px)" srcset="${product.images.defaultVariantTile512X640.url}" /></isif>
+                            <isif condition="${pdict.display.isEnableSingleProductRow && pdict.display.isNonWatchesTileEnable}">
+                                <isif condition="${product.defaultVariantImageDIS}"><source media="(min-width: 992px)" srcset="${product.defaultVariantImageDIS}" /></isif>
+                                <isif condition="${product.defaultVariantImageDIS}"><source media="(min-width: 544px)" srcset="${product.defaultVariantImageDIS}" /></isif>
+                                <isif condition="${product.defaultVariantImageDIS}"><source media="(min-width: 320px)" srcset="${product.defaultVariantImageDIS}" /></isif>
+                                <isif condition="${product.defaultVariantImageDIS}"><img class="tile-image gtm-product" loading="${pdict.display.lazyload ? 'lazy' : ''}" src="${defaultVariantImageDIS}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
+
                             <iselse>
                                 <isif condition="${pdict.display.isNonWatchesTileEnable}">
+                                    <isif condition="${product.defaultVariantImageDIS}"><source media="(min-width: 992px)" srcset="${product.defaultVariantImageDIS}" /></isif>
+                                    <isif condition="${product.defaultVariantImageDIS}"><source media="(min-width: 544px)" srcset="${product.defaultVariantImageDIS}" /></isif>
                                     <isif condition="${product.defaultVariantTileImage300X300}"><source media="(min-width: 320px)" srcset="${product.defaultVariantTileImage300X300}" /></isif>
+                                    <isif condition="${product.defaultVariantImageDIS}"><img class="tile-image gtm-product" loading="${pdict.display.lazyload ? 'lazy' : ''}" src="${defaultVariantImageDIS}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
+
                                 <iselse/>
+                                    <isif condition="${product.defaultVariantTile512X640}"><source media="(min-width: 992px)" srcset="${product.defaultVariantTile512X640}" /></isif>
+                                    <isif condition="${product.defaultVariantTile512X640}"><source media="(min-width: 544px)" srcset="${product.defaultVariantTile512X640}" /></isif>
                                     <isif condition="${product.defaultVariantTileImage300X375}"><source media="(min-width: 320px)" srcset="${product.defaultVariantTileImage300X375}" /></isif>
+                                    <isif condition="${product.defaultVariantTile512X640}"><img class="tile-image gtm-product" loading="${pdict.display.lazyload ? 'lazy' : ''}" src="${product.defaultVariantTile512X640}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
+
                                 </isif>
                             </isif>
-                            <isif condition="${product.defaultVariantTile512X640}"><img class="tile-image gtm-product" loading="${pdict.display.lazyload ? 'lazy' : ''}" src="${product.images.tile512X640[0].url}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
                         </picture>
                     </a>
                     <a href="${pdict.urls.product}" class="${product.promotionObj ? 'gtm-promotion-view': ''}" data-gtm-product-promo="${product.promotionObj}" data-page-type="${session.custom.gtmPageType}">
                         <picture class="life-style-image">
-                            <isif condition="${product.defaultVariantLifeStyleImage}"><source  media="(min-width: 992px)" data-lazy="${product.defaultVariantLifeStyleImage}" /></isif>
-                            <isif condition="${product.defaultVariantLifeStyleImage}"><source  media="(min-width: 544px)" data-lazy="${product.defaultVariantLifeStyleImage}" /></isif>
-                            <isif condition="${pdict.display.isEnableSingleProductRow}">
-                                <isif condition="${product.images.defaultVariantLifeStyleImage}"><source media="(min-width: 320px)" data-lazy="${product.images.defaultVariantLifeStyleImage.url}" /></isif>
+                          
+                            <isif condition="${pdict.display.isEnableSingleProductRow && pdict.display.isNonWatchesTileEnable}">
+                                <isif condition="${product.defaultVariantLifeStyleImage512x512}"><source  media="(min-width: 992px)" data-lazy="${product.defaultVariantLifeStyleImage512x512}" /></isif>
+                                <isif condition="${product.defaultVariantLifeStyleImage512x512}"><source  media="(min-width: 544px)" data-lazy="${product.defaultVariantLifeStyleImage512x512}" /></isif>
+                                <isif condition="${product.defaultVariantLifeStyleImage512x512}"><source media="(min-width: 320px)" data-lazy="${product.defaultVariantLifeStyleImage512x512}" /></isif>
+                                <isif condition="${product.defaultVariantLifeStyleImage512x512}"><img class="tile-image gtm-product"  data-lazy="${product.defaultVariantLifeStyleImage512x512}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
                             <iselse>
                                 <isif condition="${pdict.display.isNonWatchesTileEnable}">
+                                    <isif condition="${product.defaultVariantLifeStyleImage512x512}"><source  media="(min-width: 992px)" data-lazy="${product.defaultVariantLifeStyleImage512x512}" /></isif>
+                                    <isif condition="${product.defaultVariantLifeStyleImage512x512}"><source  media="(min-width: 544px)" data-lazy="${product.defaultVariantLifeStyleImage512x512}" /></isif>
                                     <isif condition="${product.defaultVariantLifeStyleImage300X300}"><source media="(min-width: 320px)" data-lazy="${product.defaultVariantLifeStyleImage300X300}" /></isif>
+                                    <isif condition="${product.defaultVariantLifeStyleImage512x512}"><img class="tile-image gtm-product"  data-lazy="${product.defaultVariantLifeStyleImage512x512}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
                                 <iselse/>
-                                    <isif condition="${product.defaultVariantLifeStyleImage300X375}"><source media="(min-width: 320px)" data-lazy="${product.defaultVariantLifeStyleImage300X375}" /></isif>                                    
+                                    <isif condition="${product.defaultVariantLifeStyleImage}"><source media="(min-width: 992px)" srcset="${product.defaultVariantLifeStyleImage}" /></isif>
+                                    <isif condition="${product.defaultVariantLifeStyleImage}"><source media="(min-width: 544px)" srcset="${product.defaultVariantLifeStyleImage}" /></isif>
+                                    <isif condition="${product.defaultVariantLifeStyleImage300X375}"><source media="(min-width: 320px)" data-lazy="${product.defaultVariantLifeStyleImage300X375}" /></isif>                 
+                                    <isif condition="${product.defaultVariantLifeStyleImage}"><img class="tile-image gtm-product"  data-lazy="${product.defaultVariantLifeStyleImage}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
                                 </isif>
                             </isif>                            
-                            <isif condition="${product.defaultVariantLifeStyleImage}"><img class="tile-image gtm-product"  data-lazy="${product.defaultVariantLifeStyleImage}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
                         </picture>
                     </a>
 
