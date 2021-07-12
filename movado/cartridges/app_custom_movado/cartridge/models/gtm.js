@@ -39,6 +39,9 @@ function gtmModel(req) {
     this.tertiarySiteSection = '';
     this.searchTerm = '';
     this.googleAnalyticsParameters = '';
+    this.customerIPAddressLoaction = '';
+    this.rakutenAllowedCountries =  [];
+    this.rakutenAllowedCountry;
 
 
         if (req.querystring != undefined) {
@@ -138,6 +141,20 @@ function gtmModel(req) {
         getOrderConfirmationArray(this.orderConfirmation, orderId);
     }
 
+    if (request.geolocation.countryCode != undefined) {
+        var customerIPAddressLoaction = !empty(request.geolocation.countryCode) ? request.geolocation.countryCode : '';
+    }
+
+    this.rakutenAllowedCountry = !empty(Site.getCurrent().getCustomPreferenceValue('rakutenAllowedCountries')) ? Site.getCurrent().getCustomPreferenceValue('rakutenAllowedCountries') : '';
+    if (!empty(this.rakutenAllowedCountry) && this.rakutenAllowedCountry) {
+        if (this.rakutenAllowedCountry.length > 0) {
+           for ( var i = 0; i < this.rakutenAllowedCountry.length; i++) {
+            this.rakutenAllowedCountries.push(this.rakutenAllowedCountry[i]);
+           }
+        }
+    }
+   
+    this.rakutenAllowedCountries = this.rakutenAllowedCountries.toString();
     this.pageUrl = pageUrl != null ? pageUrl : '';
     this.action = action != null ? action : '';
     this.referralUrl = referralUrl != null ? referralUrl : '';
@@ -147,6 +164,7 @@ function gtmModel(req) {
     this.loginStatus = (loginStatus != null && loginStatus != undefined) ? loginStatus : '';
     this.searchCount = (searchCount != null && searchCount != undefined) ? searchCount : '';
     this.googleAnalyticsParameters = googleAnalyticsParameters != null ? googleAnalyticsParameters : '';
+    this.customerIPAddressLoaction = (customerIPAddressLoaction != null && customerIPAddressLoaction != undefined) ? customerIPAddressLoaction : '';
 }
 
 
