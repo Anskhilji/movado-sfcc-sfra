@@ -164,7 +164,7 @@ function gtmModel(req) {
     this.loginStatus = (loginStatus != null && loginStatus != undefined) ? loginStatus : '';
     this.searchCount = (searchCount != null && searchCount != undefined) ? searchCount : '';
     this.googleAnalyticsParameters = googleAnalyticsParameters != null ? googleAnalyticsParameters : '';
-    this.customerIPAddressLoaction = (customerIPAddressLoaction != null && customerIPAddressLoaction != undefined) ? customerIPAddressLoaction : '';
+    this.customerIPAddressLoaction = customerIPAddressLoaction || '';
 }
 
 
