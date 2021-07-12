@@ -808,7 +808,7 @@ module.exports = {
 
             setTimeout(function () {
                 $('' + loadClass + '').addClass('loaded');
-                if(!$('.mobile-active-actions').parents('.mobile-filter-redesign')) {
+                if (!$('.mobile-active-actions').parents('.mobile-filter-redesign')) {
                     $('' + optionMenu + ' .mobile-active-filters, ' + optionMenu + ' .mobile-active-actions').addClass('loaded skip-animation');
                 }
             }, 500);
