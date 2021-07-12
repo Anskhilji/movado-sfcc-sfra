@@ -419,6 +419,7 @@
       &.loaded {
         .filter-group-outer {
           opacity: 1;
+          display: flex;
           transform: translateY(0);
         }
       }
