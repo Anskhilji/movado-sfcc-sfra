@@ -462,7 +462,7 @@
           color: $black;
           line-height: rem(20);
           letter-spacing: rem(1);
-          @include font-book;
+          @include font-medium;
     
           @include media-breakpoint-up(md-down) {
             font-size: rem(14);
@@ -476,7 +476,7 @@
         .pdp-link { 
           margin: 0 0 rem(10) 0;
           letter-spacing: rem(1);
-          @include font-book;
+          @include font-light;
     
           @include media-breakpoint-up(lg) {
             margin: 0 0 rem(10) 0;
