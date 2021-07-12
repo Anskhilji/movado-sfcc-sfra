@@ -732,8 +732,8 @@ module.exports = {
             var $headerSize = $('.header-menu-wrapper').height();
             var $headerBannerSize = $('.hero').height();
             var $totalHeaderSize = $headerBannerSize - 50;
-            $totalHeaderSize += $('.top-refinements').outerHeight();
-            if ($(this).scrollTop() > $totalHeaderSize) {
+            $totalHeaderSize += $('.top-refinements').outerHeight() || 0;
+            if ($(this).scrollTop() > $totalHeaderSize && $(this).scrollTop() > 0) {
                 $headerSize = parseInt($headerSize) === 0 ? $('.sticky-header-wrapper').height() - 2 : $headerSize - 2;
                 $('.plp-filter-bar').addClass('sticky');
                 $('.plp-filter-bar').css('top', $headerSize);

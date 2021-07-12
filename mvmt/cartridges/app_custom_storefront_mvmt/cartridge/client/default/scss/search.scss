@@ -419,7 +419,7 @@
       &.loaded {
         .filter-group-outer {
           opacity: 1;
-          display: block;
+          display: flex;
           transform: translateY(0);
         }
       }
