@@ -447,7 +447,7 @@
     
             .sales {
               span {
-                @include font-book;
+                @include font-medium;
               }
             }
     
@@ -491,6 +491,7 @@
             line-height: rem(20);
             text-transform: none;
             color: $light-gray2;
+            @include font-book;
     
             @include media-breakpoint-up(lg) {
               font-size: rem(14);
