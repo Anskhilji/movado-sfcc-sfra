@@ -97,6 +97,11 @@
                     width: 100%;
                 }
 
+                &.loaded {
+                    .filter-group-outer {
+                        display: block;
+                    }
+                }
 
                 &-outer {
                     display: block;
@@ -246,6 +251,7 @@
                     height: rem(40);
                     width: rem(190);
                     padding: 0 rem(20);
+                    background: $white;
 
                     &:after {
                         display: none;
