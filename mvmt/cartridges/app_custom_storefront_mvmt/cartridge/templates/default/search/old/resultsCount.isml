@@ -4,6 +4,9 @@
     </span>
 <iselse>
     <p>
+
+        <iscomment> Template Added for Changing Button Text in New Design </iscomment>
+
         <span class="total-product-count" data-total-product-count="${pdict.productSearch.count}">
             <isif condition="${pdict.productSearch.productIds.length > 0}">
                 <isprint value="${Resource.msgf('label.resultsfor', 'search', null, pdict.productSearch.count)}" encoding="off">
