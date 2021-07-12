@@ -397,6 +397,22 @@
             text-transform: none;
         }
 
+        .mobile-sticky {
+            position: fixed;
+            top:0;
+            left:0;
+            width: 100%;
+            display: block;
+            z-index: 1111;
+        }
+
+        .mobile-active {
+            &-actions.loaded, &-actions.skip-animation{
+                transform: translateY(100%);
+            }
+        }
+        
+
         .filter-group {
             &-outer {
                 .refinement-name.mobile-hide {
@@ -700,8 +716,7 @@
                         z-index: 111111;
 
                         .mobile-active-actions {
-                            transform: translateY(0);
-
+                             transform: translateY(100%);
                             .mobile-active-shop-btn {
                                 background-color: $black;
                                 border-radius: rem(3);
@@ -1390,6 +1405,11 @@
                 width: 100%;
                 left: 0;
                 bottom: 20.5vh;
+            }
+            &-actions {
+                &.loaded {
+                    transform: translateY(100%);
+                }
             }
 
             &-shop-btn {
