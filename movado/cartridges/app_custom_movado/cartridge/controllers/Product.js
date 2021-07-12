@@ -52,6 +52,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var isEmbossEnabled;
     var isEngraveEnabled;
     var isGiftWrapEnabled;
+    var isPdpStorePickup = true;
     yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
 
     var productDecimalPrice = 0.0;
@@ -125,7 +126,8 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         eswModuleEnabled: eswModuleEnabled,
         relativeURL: URLUtils.url('Product-Show','pid', product.ID),
         explicitRecommendations: explicitRecommendations,
-        strapGuideText: strapGuideText
+        strapGuideText: strapGuideText,
+        isPdpStorePickup: isPdpStorePickup
     };
     var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
     res.setViewData(smartGift);
