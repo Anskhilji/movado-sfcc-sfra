@@ -100,7 +100,7 @@
                             <div class="mobile-active-option">
                                 <div class="mobile-active-actions">
                                     <button type="button" class="mobile-active-shop-btn results-count-loaded"
-                                        data-mobile-close-filters="">${Resource.msgf('label.btn.shop', 'search', null)}
+                                        data-mobile-close-filters="">${Resource.msgf('label.btn.shop.redesigned', 'search', null)}
                                         <isinclude template="search/resultsCount" /></button>
                                 </div>
                             </div>
@@ -197,7 +197,7 @@
             <div class="mobile-active-option-redesign">
                 <div class="mobile-active-actions">
                     <button type="button" class="mobile-active-shop-btn results-count-loaded"
-                        data-mobile-close-filters="">${Resource.msgf('label.btn.shop', 'search', null)}
+                        data-mobile-close-filters="">${Resource.msgf('label.btn.shop.redesigned', 'search', null)}
                         <isinclude template="search/resultsCount" /></button>
                 </div>
             </div>

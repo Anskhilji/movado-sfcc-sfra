@@ -1250,10 +1250,13 @@
 
         &.color-swatch-image {
           &.selected-color-swatch-image {
-            box-shadow: 0 0 0 rem(1) $black;
             display: inline-block;
             margin-top: rem(2);
             border-radius: 50%;
+
+            .rounded-color {
+              border: 1px solid $black;
+            }
 
             @include media-breakpoint-down(md) {
               display: block;
