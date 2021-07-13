@@ -4,7 +4,8 @@
  * @returns {boolean} booleal - returned true if there is any rakuten country available.
  */
 function isRakutenAllowedCountry() {
-    var rakutenAllowedCountries = dw.system.Site.current.preferences.custom.rakutenAllowedCountries || '';
+    var Site = require('dw/system/Site');
+    var rakutenAllowedCountries = !empty(Site.getCurrent().getCustomPreferenceValue('rakutenAllowedCountries')) ? Site.getCurrent().getCustomPreferenceValue('rakutenAllowedCountries') : '';
     var customerIPAddressLoaction = (!empty(request.geolocation.countryCode) && request.geolocation.countryCode) ? request.geolocation.countryCode : '';
 
     if (!empty(rakutenAllowedCountries) && rakutenAllowedCountries) {
