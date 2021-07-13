@@ -506,7 +506,7 @@
         .add-to-cart {
           border-color: $light-green;
           border-radius: rem(2.33008);
-          background-color: $emerald;
+          background-color: $emerald2;
           color: $white;
 
           @include media-breakpoint-down(xs) {
@@ -516,7 +516,7 @@
             max-height: rem(35);
             width: 100%;
             display: block;
-            background-color: $emerald;
+            background-color: $emerald2;
           }
       
           &:hover {
