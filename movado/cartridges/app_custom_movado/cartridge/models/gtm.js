@@ -141,9 +141,7 @@ function gtmModel(req) {
         getOrderConfirmationArray(this.orderConfirmation, orderId);
     }
 
-    if (request.geolocation.countryCode != undefined) {
-        var customerIPAddressLoaction = !empty(request.geolocation.countryCode) ? request.geolocation.countryCode : '';
-    }
+    var customerIPAddressLoaction = !empty(request.geolocation.countryCode) ? request.geolocation.countryCode : '';
 
     this.rakutenAllowedCountry = !empty(Site.getCurrent().getCustomPreferenceValue('rakutenAllowedCountries')) ? Site.getCurrent().getCustomPreferenceValue('rakutenAllowedCountries') : '';
     if (!empty(this.rakutenAllowedCountry) && this.rakutenAllowedCountry) {
