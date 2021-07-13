@@ -412,6 +412,17 @@
             z-index: 1111;
         }
 
+        .plp-active-filters-redesign.mobile-sticky {
+
+            .plp-active-filter {
+                padding: rem(5) rem(0);
+
+                &-list {
+                    margin-bottom: rem(0);
+                }
+            }
+        }
+
         .mobile-active {
             &-actions.loaded, &-actions.skip-animation{
                 transform: translateY(100%);
@@ -437,6 +448,7 @@
                     background-color: $light-gray14;
                     padding: rem(0);
                     overflow-x: auto;
+
                 }
 
                 &-inner {
@@ -739,6 +751,7 @@
                 }
             }
         }
+
 
         .filter-redesigned {
 

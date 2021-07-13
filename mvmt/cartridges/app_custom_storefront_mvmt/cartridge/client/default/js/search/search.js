@@ -737,13 +737,14 @@ module.exports = {
                 $headerSize = parseInt($headerSize) === 0 ? $('.sticky-header-wrapper').height() - 2 : $headerSize - 2;
                 $('.plp-filter-bar').addClass('sticky');
                 $('.plp-filter-bar').css('top', $headerSize);
-                $('.mvmt-redesign-filter-bar').addClass('mobile-sticky');
+                $('.mvmt-redesign-filter-bar,.mobile-filter-redesign .plp-active-filters-redesign').addClass('mobile-sticky');
                 $('.mvmt-redesign-filter-bar').css('top', $headerSize + 12);
+                $('.mobile-filter-redesign .plp-active-filters-redesign').css('top', $headerSize + ($(".mvmt-redesign-filter-bar").outerHeight()));
             } else {
                 $('.plp-filter-bar').removeClass('sticky');
                 $('.plp-filter-bar').css('top', '');
-                $('.mvmt-redesign-filter-bar').removeClass('mobile-sticky');
-                $('.mvmt-redesign-filter-bar').css('top', '');
+                $('.mvmt-redesign-filter-bar,.mobile-filter-redesign .plp-active-filters-redesign').removeClass('mobile-sticky');
+                $('.mvmt-redesign-filter-bar,.mobile-filter-redesign .plp-active-filters-redesign').css('top', '');
             }
         });
     },
@@ -808,7 +809,7 @@ module.exports = {
 
             setTimeout(function () {
                 $('' + loadClass + '').addClass('loaded');
-                if (!$('.mobile-active-actions').parents('.mobile-filter-redesign')) {
+                if (!$('.mobile-active-actions').parents('.mobile-filter-redesign').length) {
                     $('' + optionMenu + ' .mobile-active-filters, ' + optionMenu + ' .mobile-active-actions').addClass('loaded skip-animation');
                 }
             }, 500);
@@ -858,7 +859,7 @@ module.exports = {
             if ($(this).scrollTop() > $totalHeaderSize) {
                 $headerSize = parseInt($headerSize) === 0 ? $('.sticky-header-wrapper').height() - 2 : $headerSize - 2;
                 $('.straps-nav-mobile').addClass('sticky');
-                $('.straps-nav-mobile').css('top', $headerSize + 17);
+                $('.straps-nav-mobile').css('top', $headerSize + 15);
             } else {
                 $('.straps-nav-mobile').removeClass('sticky');
                 $('.straps-nav-mobile').css('top', '');

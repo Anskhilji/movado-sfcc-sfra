@@ -78,7 +78,7 @@
                                 <a href="${pdict.productSearch.resetLink}" class="mobile-active-clear-btn">
                                     ${Resource.msgf('lable.btn.clear', 'search', null)}
                                 </a>
-                                <button type="button" class="mobile-active-shop-btn results-count-loaded" data-mobile-close-filters="">${Resource.msgf('label.btn.shop', 'search', null)} <isinclude template="search/resultsCount" /></button>
+                                <button type="button" class="mobile-active-shop-btn results-count-loaded" data-mobile-close-filters="">${Resource.msgf('label.btn.shop', 'search', null)} <isinclude template="search/old/resultsCount" /></button>
                             </div>
                         </div>
                     </div>
@@ -157,7 +157,7 @@
                                             <div class="filter-result-count">
                                                 <div class="grid-header">
                                                     <div class="result-count">
-                                                        <isinclude template="search/resultsCount" />
+                                                        <isinclude template="search/old/resultsCount" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -185,7 +185,7 @@
                 <div class="filter-result-count">
                     <div class="grid-header">
                         <div class="result-count">
-                            <isinclude template="search/resultsCount" />
+                            <isinclude template="search/old/resultsCount" />
                         </div>
                     </div>
                 </div>
