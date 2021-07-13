@@ -5,7 +5,7 @@
  */
 function isRakutenAllowedCountry() {
     var Site = require('dw/system/Site');
-    var rakutenAllowedCountries = !empty(Site.getCurrent().getCustomPreferenceValue('rakutenAllowedCountries')) ? Site.getCurrent().getCustomPreferenceValue('rakutenAllowedCountries') : '';
+    var rakutenAllowedCountries = !empty(Site.current.preferences.custom.rakutenAllowedCountries) ? Site.current.preferences.custom.rakutenAllowedCountries : '';
     var customerIPAddressLoaction = (!empty(request.geolocation.countryCode) && request.geolocation.countryCode) ? request.geolocation.countryCode : '';
 
     if (!empty(rakutenAllowedCountries) && rakutenAllowedCountries) {

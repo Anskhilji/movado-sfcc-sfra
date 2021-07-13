@@ -143,7 +143,7 @@ function gtmModel(req) {
 
     var customerIPAddressLoaction = !empty(request.geolocation.countryCode) ? request.geolocation.countryCode : '';
 
-    this.rakutenAllowedCountry = !empty(Site.getCurrent().getCustomPreferenceValue('rakutenAllowedCountries')) ? Site.getCurrent().getCustomPreferenceValue('rakutenAllowedCountries') : '';
+    this.rakutenAllowedCountry = !empty(Site.current.preferences.custom.rakutenAllowedCountries) ? Site.current.preferences.custom.rakutenAllowedCountries : '';
     if (!empty(this.rakutenAllowedCountry) && this.rakutenAllowedCountry) {
         if (this.rakutenAllowedCountry.length > 0) {
            for ( var i = 0; i < this.rakutenAllowedCountry.length; i++) {
