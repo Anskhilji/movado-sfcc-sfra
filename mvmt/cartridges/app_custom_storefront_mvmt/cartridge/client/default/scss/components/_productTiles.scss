@@ -506,7 +506,9 @@
         .add-to-cart {
           border-color: $light-green;
           border-radius: rem(2.33008);
-      
+          background-color: $emerald;
+          color: $white;
+
           @include media-breakpoint-down(xs) {
             line-height: 0;
             border: none;
@@ -518,10 +520,7 @@
           }
       
           &:hover {
-
-            @include media-breakpoint-up(lg) {
-                background: $light-green;
-            }
+            background: $light-green;
           }
       
           &.out-of-stock-btn {
