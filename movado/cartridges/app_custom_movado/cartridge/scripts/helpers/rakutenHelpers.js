@@ -60,8 +60,36 @@ function getDateString(date, dateFormat) {
     var formattedDate = StringUtils.formatCalendar(date, dateFormat);
     return formattedDate;
 }
+
+/**
+ * This method is used to get the rakuten allowed countries from site preferences.
+ *
+ * @returns {boolean} booleal - returned true if there is any rakuten country available.
+ */
+function isRakutenAllowedCountry() {
+    var Site = require('dw/system/Site');
+    var rakutenAllowedCountries = !empty(Site.current.preferences.custom.rakutenAllowedCountries) ? Site.current.preferences.custom.rakutenAllowedCountries : '';
+    var customerIPAddressLoaction = (!empty(request.geolocation.countryCode) && request.geolocation.countryCode) ? request.geolocation.countryCode : '';
+
+    if (!empty(rakutenAllowedCountries) && rakutenAllowedCountries) {
+        if (rakutenAllowedCountries.length > 0) {
+            var isIPAddressLocationMatched = false;
+            for ( var i = 0; i < rakutenAllowedCountries.length; i++) {
+                if (!empty(customerIPAddressLoaction) && customerIPAddressLoaction) {
+                    if (customerIPAddressLoaction == rakutenAllowedCountries[i]) {
+                        isIPAddressLocationMatched = true;
+                        break;
+                    }
+                }
+            }
+            return isIPAddressLocationMatched;
+        }
+    }
+}
+
 module.exports = {
     createCookieInSession: createCookieInSession,
     setCookiesResponse: setCookiesResponse,
-    getDateString: getDateString
+    getDateString: getDateString,
+    isRakutenAllowedCountry: isRakutenAllowedCountry
 }
