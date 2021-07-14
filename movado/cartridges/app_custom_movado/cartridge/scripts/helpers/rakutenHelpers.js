@@ -69,14 +69,14 @@ function getDateString(date, dateFormat) {
 function isRakutenAllowedCountry() {
     var Site = require('dw/system/Site');
     var rakutenAllowedCountries = !empty(Site.current.preferences.custom.rakutenAllowedCountries) ? Site.current.preferences.custom.rakutenAllowedCountries : '';
-    var customerIPAddressLoaction = (!empty(request.geolocation.countryCode) && request.geolocation.countryCode) ? request.geolocation.countryCode : '';
+    var customerIPAddressLocation = (!empty(request.geolocation.countryCode) && request.geolocation.countryCode) ? request.geolocation.countryCode : '';
 
     if (!empty(rakutenAllowedCountries) && rakutenAllowedCountries) {
         if (rakutenAllowedCountries.length > 0) {
             var isIPAddressLocationMatched = false;
             for ( var i = 0; i < rakutenAllowedCountries.length; i++) {
-                if (!empty(customerIPAddressLoaction) && customerIPAddressLoaction) {
-                    if (customerIPAddressLoaction == rakutenAllowedCountries[i]) {
+                if (!empty(customerIPAddressLocation) && customerIPAddressLocation) {
+                    if (customerIPAddressLocation == rakutenAllowedCountries[i]) {
                         isIPAddressLocationMatched = true;
                         break;
                     }
