@@ -43,7 +43,6 @@ function gtmModel(req) {
     this.googleAnalyticsParameters = '';
     this.customerIPAddressLoaction = '';
     this.rakutenAllowedCountries =  [];
-    this.rakutenAllowedCountry;
 
     if (req.querystring != undefined) {
         var queryString = req.querystring.urlQueryString;
@@ -140,8 +139,7 @@ function gtmModel(req) {
     }
 
     var customerIPAddressLoaction = !empty(request.geolocation.countryCode) ? request.geolocation.countryCode : '';
-    this.rakutenAllowedCountry = new ArrayList(!empty(Site.current.preferences.custom.rakutenAllowedCountries) ? Site.current.preferences.custom.rakutenAllowedCountries : '').toArray();
-    this.rakutenAllowedCountries.push(this.rakutenAllowedCountry);
+    this.rakutenAllowedCountries = new ArrayList(!empty(Site.current.preferences.custom.rakutenAllowedCountries) ? Site.current.preferences.custom.rakutenAllowedCountries : '').toArray();
    
     this.rakutenAllowedCountries = this.rakutenAllowedCountries.toString();
     this.pageUrl = pageUrl != null ? pageUrl : '';
