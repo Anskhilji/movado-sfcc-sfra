@@ -2,8 +2,16 @@
             <!---item price--->
             <div class="col-4 d-none line-item-price-${lineItem.UUID}">
                 <p class="line-item-price-info">${Resource.msg('label.each.item.price','cart',null)}</p>
-                <isset name="price" value="${lineItem.price}" scope="page"/>
-                <isinclude template="/product/components/pricing/main" />
+                <iscomment> Custom Start: Clyde integration </iscomment>
+                <isif condition="${(lineItem.productName).substring(0, 13) === 'clydeContract'}">
+                	<div class="pricing line-item-total-price-amount item-total-${lineItem.UUID}">
+                		${lineItem.formattedPrice}
+                	</div>
+                <iselse>
+                    <isset name="price" value="${lineItem.price}" scope="page"/>
+                    <isinclude template="/product/components/pricing/main" />
+                </isif>
+                <iscomment> Custom: End </iscomment>
             </div>
 
             <!--- quantity --->
@@ -17,7 +25,13 @@
                     ${Resource.msg('label.total.price','cart',null)}
                 </p>
                 <div class="item-total-${lineItem.UUID} price">
-                    <isinclude template="checkout/productCard/productCardProductTotalPrice" />
+                    <iscomment> Custom Start: Clyde </iscomment>
+                    <isif condition="${(lineItem.productName).substring(0, 13) === 'clydeContract'}">
+                        <div class="pricing line-item-total-price-amount item-total-${lineItem.UUID}">${lineItem.formattedPrice}</div>
+                    <iselse>
+                        <isinclude template="checkout/productCard/productCardProductTotalPrice" />
+                    </isif>
+                    <iscomment> Custom End: </iscomment>
                 </div>
             </div>
 

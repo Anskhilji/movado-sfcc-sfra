@@ -1,4 +1,5 @@
 'use strict';
+var clydeWidget = require('link_clyde/getClydeWidget.js');
 
 /**
  * Retrieves the relevant pid value
@@ -764,6 +765,7 @@ module.exports = {
                 childProducts: getChildProducts(),
                 quantity: getQuantitySelected($(this))
             };
+            form = clydeWidget.getSelectedClydeContract(form);
             /**
              * Custom Start: Add to cart form for MVMT
              */

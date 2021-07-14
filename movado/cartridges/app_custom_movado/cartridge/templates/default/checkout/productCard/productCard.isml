@@ -15,6 +15,19 @@
     <iselse/>
         <div class="product-line-item-details item-info d-flex flex-row">
             <div class="item-image">
+                <iscomment> Custom Start: Clyde </iscomment>
+
+                <isif condition="${(lineItem.productName).substring(0, 13) === 'clydeContract'}">
+                   <img class="product-image" src="${URLUtils.staticURL('/images/clyde.png')}" alt="${lineItem.productName}" title="${lineItem.productName}">
+                <iselse/>
+                    <img class="product-image"
+                        src="${!empty(lineItem.images) && !empty(lineItem.images.tile150[0]) && !empty(lineItem.images.tile150[0].url) ? lineItem.images.tile150[0].url : ''}"
+                        alt="${!empty(lineItem.images) && !empty(lineItem.images.tile150[0]) && !empty(lineItem.images.tile150[0].alt) ? lineItem.images.tile150[0].alt : ''}"
+                        title="${!empty(lineItem.images) && !empty(lineItem.images.tile150[0]) && !empty(lineItem.images.tile150[0].title) ? lineItem.images.tile150[0].title : ''}">
+                </isif>
+                <iscomment> Custom End: </iscomment>
+
+
                 <img class="product-image"
                     src="${!empty(lineItem.images) && !empty(lineItem.images.tile150[0]) && !empty(lineItem.images.tile150[0].url) ? lineItem.images.tile150[0].url : ''}"
                     alt="${!empty(lineItem.images) && !empty(lineItem.images.tile150[0]) && !empty(lineItem.images.tile150[0].alt) ? lineItem.images.tile150[0].alt : ''}"
@@ -130,7 +143,13 @@
                 </span>
             </p>
             <div class="item-total-${lineItem.UUID} price">
-                <isinclude template="checkout/productCard/productCardProductTotalPrice" />
+                <iscomment> Custom Start: Clyde Integration</iscomment>
+                <isif condition="${(lineItem.productName).substring(0, 13) === 'clydeContract'}">
+                    <div class="pricing line-item-total-price-amount item-total-${lineItem.UUID}">${lineItem.formattedPrice}</div>
+                <iselse>
+                    <isinclude template="checkout/productCard/productCardProductTotalPrice" />
+                </isif>
+                <iscomment> Custom End: </iscomment>
             </div>
         </div>
     </div>

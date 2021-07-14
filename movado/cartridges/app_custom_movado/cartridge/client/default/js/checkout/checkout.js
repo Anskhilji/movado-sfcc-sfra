@@ -319,7 +319,8 @@ var formHelpers = require('base/checkout/formErrors');
                               var continueUrl = data.continueUrl;
                               var urlParams = {
                                   ID: data.orderID,
-                                  token: data.orderToken
+                                  token: data.orderToken,
+                                  clydeContractProductList: data.contractProductList // Clyde Integration
                               };
 
                               continueUrl += (continueUrl.indexOf('?') !== -1 ? '&' : '?') +
