@@ -22,7 +22,7 @@
         'Page': '${pdict.gtm.pageType}',
         'googleAnalyticsParameters': '${pdict.gtm.googleAnalyticsParameters}',
         'departmentCategoryName': '',
-        'customerIPAddressLoaction': '${pdict.gtm.customerIPAddressLoaction}',
+        'customerIPAddressLocation': '${pdict.gtm.customerIPAddressLocation}',
         'rakutenAllowedCountries': '${pdict.gtm.rakutenAllowedCountries}'
         
         // Custom: Added country dimension on the the base of ESW enabled
