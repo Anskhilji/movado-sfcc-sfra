@@ -19,22 +19,6 @@ function Response(response) {
     this.cachePeriodUnit = null;
     this.personalized = false;
     this.renderings = [];
-    var isRakutenEnable = !empty(dw.system.Site.current.preferences.custom.isRakutenEnable) ? dw.system.Site.current.preferences.custom.isRakutenEnable : false;
-    if (isRakutenEnable) {
-        renderRakutenCookies();
-    }
-}
-
-/**
- * This method is used to call care Rakuten Cookie method.
- */
-function renderRakutenCookies() {
-    if (!empty(session.privacy.rakutenCookieValues)) {
-        var Constants = require('*/cartridge/scripts/util/Constants');
-        var rakutenCookiesHelper = require('*/cartridge/scripts/helpers/rakutenHelpers');
-        rakutenCookiesHelper.setCookiesResponse(Constants.RAKUTEN_COOKIE_NAME, session.privacy.rakutenCookieValues, '/');
-        delete session.privacy.rakutenCookieValues;
-    }
 }
 
 /**

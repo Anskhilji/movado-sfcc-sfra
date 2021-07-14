@@ -302,18 +302,11 @@ function Request(request, customer, session) {
     // Custom Start : Adding ESW logic
     if (!request.includeRequest) {
         var eswEnabled = dw.system.Site.getCurrent().getCustomPreferenceValue('eswEshopworldModuleEnabled');
-        var isRakutenEnable = !empty(dw.system.Site.current.preferences.custom.isRakutenEnable) ? dw.system.Site.current.preferences.custom.isRakutenEnable : false;
         var Logger = require('dw/system/Logger');
         // Custom Start : Adding URL Cupon Logic
         var referralCouponHelper = require('*/cartridge/scripts/helpers/referralHelper');
         referralCouponHelper.addReferralCoupon(request);
         // Custom End: Adding URL Cupon Logic
-        //Custom Start: Adding Rakuten cookies logic
-        if (isRakutenEnable) {
-            var rakutenCookiesHelper = require('*/cartridge/scripts/helpers/rakutenHelpers');
-            rakutenCookiesHelper.createCookieInSession(request);
-        }
-        //Custom End
         if (!eswEnabled) {
             setCurrency(request, session);
         } else {
