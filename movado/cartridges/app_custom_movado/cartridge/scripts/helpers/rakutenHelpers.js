@@ -73,14 +73,16 @@ function isRakutenAllowedCountry() {
 
     if (!empty(rakutenAllowedCountries) && rakutenAllowedCountries) {
         if (rakutenAllowedCountries.length > 0) {
+            var isIPAddressLocationMatched = false;
             for ( var i = 0; i < rakutenAllowedCountries.length; i++) {
                 if (!empty(customerIPAddressLoaction) && customerIPAddressLoaction) {
                     if (customerIPAddressLoaction == rakutenAllowedCountries[i]) {
-                        return true;
+                        isIPAddressLocationMatched = true;
+                        break;
                     }
                 }
             }
-            return false;
+            return isIPAddressLocationMatched;
         }
     }
 }
