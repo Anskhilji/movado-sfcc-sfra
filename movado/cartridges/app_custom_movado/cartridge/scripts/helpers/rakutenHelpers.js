@@ -25,8 +25,7 @@ function createCookieInSession(request) {
         var expiryDateFormat = getDateString(calendar, Constants.DATE_FORMAT);
         var auld = Math.round(new Date().getTime() / 1000).toString();
         var rakutenCookieValuesFormat = Resource.msgf('rakuten.cookie', 'rakuten', null, ranMID, ald, auld, ranSiteID);
-        var rakutenCookiesOptionalValues = Resource.msgf('rakuten.optional.cookie.values', 'rakuten',null, expiryDateFormat, (!empty(sitePreferences.rakutenDomainName) ? sitePreferences.rakutenDomainName : ''));
-        var encodedValues = encoding.toURI(rakutenCookieValuesFormat) + rakutenCookiesOptionalValues;
+        var encodedValues = encoding.toURI(rakutenCookieValuesFormat);
         session.privacy.rakutenCookieValues = encodedValues;
         return;
     }
@@ -44,6 +43,8 @@ function setCookiesResponse(name, value, path) {
     var Cookie = require('dw/web/Cookie');
     var newCookie = new Cookie(name, value);
     newCookie.setPath(path);
+    newCookie.setMaxAge(2592000);
+    newCookie.setDomain(sitePreferences.rakutenDomainName || '');
     response.addHttpCookie(newCookie);
     return newCookie;
 }
