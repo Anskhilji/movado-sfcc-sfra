@@ -309,8 +309,11 @@ function Request(request, customer, session) {
         referralCouponHelper.addReferralCoupon(request);
         // Custom End: Adding URL Cupon Logic
         //Custom Start: Adding Rakuten cookies logic
-        if (isRakutenEnable) {
-            var rakutenCookiesHelper = require('*/cartridge/scripts/helpers/rakutenHelpers');
+        var Constants = require('*/cartridge/scripts/util/Constants');
+        var rakutenCookiesHelper = require('*/cartridge/scripts/helpers/rakutenHelpers');
+        var OptanonConsentCookieValue = request.getHttpCookies()[Constants.OPTANON_CONSENT_COOKIE_NAME] ? decodeURIComponent(request.getHttpCookies()[Constants.OPTANON_CONSENT_COOKIE_NAME].value) : '';
+        var isOptanonCookieEnabled = OptanonConsentCookieValue.indexOf(Constants.ONE_TRUST_COOKIE_ENABLED);
+        if (isRakutenEnable && isOptanonCookieEnabled != -1 && rakutenCookiesHelper.isRakutenAllowedCountry()) {
             rakutenCookiesHelper.createCookieInSession(request);
         }
         //Custom End
