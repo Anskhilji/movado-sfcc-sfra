@@ -35,7 +35,7 @@
                 </button>
                 <isloop items="${refinements}" var="refinement">
                     <isif condition="${refinement.values && (refinement.values.length > 0) && (refinement.values[0].id != 'dialStyle')}">
-                        <button class="mvmt-redesign-filter-button" data-option-select=".mobile-${refinement.displayName}">
+                        <button class="mvmt-redesign-filter-button" data-option-select=".mobile-${refinement.values[0].id}">
                             <span>${refinement.displayName}</span>
                         </button>
                     </isif>
@@ -66,7 +66,7 @@
                 <isloop items="${refinements}" var="refinement">
                     <isif
                         condition="${refinement.values && (refinement.values.length > 0) && (refinement.values[0].id != 'dialStyle')}">
-                        <div class="mobile-selection mobile-${refinement.displayName}">
+                        <div class="mobile-selection mobile-${refinement.values[0].id}">
                             <div class="mobile-selection-group">
                                 <div class="mobile-menu-close" data-close-menu=".mobile-filter-menu">
                                     <svg width="12" height="10" viewBox="0 0 12 10" xmlns="http://www.w3.org/2000/svg">
@@ -123,10 +123,21 @@
                 <div class="col-lg-12">
                     <isif condition="${pdict.productSearch.productIds.length > 0}">
                         <div class="sort-dropdown">
-                            <button type="button" class="btn sort-dropdown-toggle dropdown-toggle"
+                            <button type="button" class="btn sort-dropdown-toggle dropdown-toggle msdfhsdhfghsdf"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 ${Resource.msgf('lable.filter.sort', 'search', null)}<span>:</span>
-                                <span class="selected-value"></span>
+                                <isset name="isSortSelected" value="${false}" scope="page" />
+                                <isloop items="${pdict.productSearch.productSort.options}" var="option">
+                                    <isif condition="${pdict.productSearch.productSort.ruleId.toLowerCase() == option.id.toLowerCase()}">
+                                        <span class="selected-value"> ${option.displayName.toLowerCase()} </span>
+                                        <isset name="isSortSelected" value="${true}" scope="page" />
+                                        <isbreak/>
+                                    </isif>
+                                </isloop>
+                                <isif condition="${!isSortSelected}">
+                                    <span class="selected-value"> ${Resource.msg('text.our.favorites', 'search', null)} </span>
+                                </isif>
+                                <isset name="isSortSelected" value="${false}" scope="page" />
                             </button>
                             <div class="sort-dropdown-menu dropdown-menu">
                                 <isloop items="${pdict.productSearch.productSort.options}" var="option">
