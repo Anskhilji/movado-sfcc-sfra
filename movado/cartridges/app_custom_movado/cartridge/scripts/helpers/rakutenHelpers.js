@@ -13,16 +13,13 @@ var sitePreferences = Site.getCurrent().getPreferences().getCustom();
  */
 function createCookieInSession(request) {
     var requestHttpParameterMap = request.getHttpParameterMap();
-    if (!empty(requestHttpParameterMap) && !empty(requestHttpParameterMap.get('ranMID').value) && !empty(requestHttpParameterMap.get('ranSiteID').value)
-        && !empty(requestHttpParameterMap.get('ranEAID').value)) {
+    if (!empty(requestHttpParameterMap) && !empty(requestHttpParameterMap.get('ranMID').value) && !empty(requestHttpParameterMap.get('ranSiteID').value)) {
         var ranMID = requestHttpParameterMap.get('ranMID').value;
-        var ranEAID = requestHttpParameterMap.get('ranEAID').value;
         var ranSiteID = requestHttpParameterMap.get('ranSiteID').value;
         var calendar = Site.current.calendar;
         calendar.setTimeZone('GMT');
         var ald = getDateString(calendar, Constants.ALD_DATE_FORMAT);
         calendar.add(calendar.DAY_OF_MONTH, 30);
-        var expiryDateFormat = getDateString(calendar, Constants.DATE_FORMAT);
         var auld = Math.round(new Date().getTime() / 1000).toString();
         var rakutenCookieValuesFormat = Resource.msgf('rakuten.cookie', 'rakuten', null, ranMID, ald, auld, ranSiteID);
         var encodedValues = encoding.toURI(rakutenCookieValuesFormat);
@@ -44,7 +41,6 @@ function setCookiesResponse(name, value, path) {
     var newCookie = new Cookie(name, value);
     newCookie.setPath(path);
     newCookie.setMaxAge(2592000);
-    newCookie.setDomain(sitePreferences.rakutenDomainName || '');
     response.addHttpCookie(newCookie);
     return newCookie;
 }
