@@ -42,7 +42,7 @@
             ct.type = "text/javascript";
             ct.async = true; ct.src = url; loc = document.getElementsByTagName('script')[0];
             loc.parentNode.insertBefore(ct, loc);
-            }(document.location.protocol + "${dw.system.Site.current.getCustomPreferenceValue('rakutenJS')}"));
+            }(document.location.protocol + "${dw.system.Site.current.preferences.custom.rakutenJS}"));
         </script>
     </isif>
 <!-- END Rakuten Marketing Tracking -->
