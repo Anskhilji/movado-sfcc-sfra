@@ -22,10 +22,15 @@ function Response(response) {
     var Constants = require('*/cartridge/scripts/util/Constants');
     var rakutenHelpers = require('*/cartridge/scripts/helpers/rakutenHelpers');
     var isRakutenEnable = !empty(dw.system.Site.current.preferences.custom.isRakutenEnable) ? dw.system.Site.current.preferences.custom.isRakutenEnable : false;
+    var isOneTrustEnabled = !empty(dw.system.Site.current.preferences.custom.oneTrustCookieEnabled) ? dw.system.Site.current.preferences.custom.oneTrustCookieEnabled : false;
     var OptanonConsentCookieValue = request.getHttpCookies()[Constants.OPTANON_CONSENT_COOKIE_NAME] ? decodeURIComponent(request.getHttpCookies()[Constants.OPTANON_CONSENT_COOKIE_NAME].value) : '';
     var isOptanonCookieEnabled = OptanonConsentCookieValue.indexOf(Constants.ONE_TRUST_COOKIE_ENABLED);
-    if (isRakutenEnable && isOptanonCookieEnabled != -1 && rakutenHelpers.isRakutenAllowedCountry()) {
-        renderRakutenCookies();
+    if (isRakutenEnable && rakutenHelpers.isRakutenAllowedCountry()) {
+        if (isOneTrustEnabled && isOptanonCookieEnabled != -1) {
+            renderRakutenCookies();
+        } else if (!isOneTrustEnabled) {
+            renderRakutenCookies();
+        }
     }
 }
 
