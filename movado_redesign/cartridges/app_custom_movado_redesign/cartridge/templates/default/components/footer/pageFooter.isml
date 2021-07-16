@@ -105,4 +105,8 @@
 
     <iscomment>Logged in Customer tracking for Yotpo Swell Loyalty</iscomment>
     <isinclude template="include/yotpofooter"/>
+
+    <iscomment> Custom Start: Clyde Integration </iscomment>
+        <script src="${URLUtils.staticURL('/js/customClydeWidget.js')}" ></script>
+    <iscomment> Custom End: </iscomment>
 </footer>
