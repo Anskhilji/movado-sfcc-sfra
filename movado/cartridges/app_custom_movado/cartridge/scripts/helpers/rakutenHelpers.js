@@ -13,7 +13,8 @@ var sitePreferences = Site.getCurrent().getPreferences().getCustom();
  */
 function createCookieInSession(request) {
     var requestHttpParameterMap = request.getHttpParameterMap();
-    if (!empty(requestHttpParameterMap) && !empty(requestHttpParameterMap.get('ranMID').value) && !empty(requestHttpParameterMap.get('ranSiteID').value)) {
+    if (!empty(requestHttpParameterMap) && !empty(requestHttpParameterMap.get('ranMID').value) && !empty(requestHttpParameterMap.get('ranSiteID').value) 
+        && !empty(requestHttpParameterMap.get('ranEAID').value)) {
         var ranMID = requestHttpParameterMap.get('ranMID').value;
         var ranSiteID = requestHttpParameterMap.get('ranSiteID').value;
         var calendar = Site.current.calendar;
