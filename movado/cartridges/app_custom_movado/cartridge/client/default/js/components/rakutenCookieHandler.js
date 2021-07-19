@@ -37,7 +37,6 @@ function initializeRakutenCookieCall() {
             }
         }
     }
-
 }
 
 $(document).ready(function() {
