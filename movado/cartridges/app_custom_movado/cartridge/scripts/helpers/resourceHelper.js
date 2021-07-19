@@ -1,4 +1,5 @@
 'use strict';
+var Constants = require('*/cartridge/scripts/util/Constants');
 
 /**
  * Resource helper
@@ -36,6 +37,7 @@ function getResources(pageContext) {
         KLARNA_PDP_MESSAGES_ENABLED: !empty(Site.current.preferences.custom.klarnaPdpPromoMsg) ? Site.current.preferences.custom.klarnaPdpPromoMsg : false,
         IS_RAKUTEN_ENABLED:  Site.current.preferences.custom.isRakutenEnable || false,
         ONE_TRUST_COOKIE_ENABLED: Site.current.preferences.custom.oneTrustCookieEnabled || false,
+        OPTANON_ALLOWED_COOKIE: Constants.ONE_TRUST_COOKIE_ENABLED,
         CART_GIFT_MESSAGE_LIMIT: !empty(Site.current.preferences.custom.cartGiftMessageLimit) ? Site.current.preferences.custom.cartGiftMessageLimit : 0
     };
     return resources;

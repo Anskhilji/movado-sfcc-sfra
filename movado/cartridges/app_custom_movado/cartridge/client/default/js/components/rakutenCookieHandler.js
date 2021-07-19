@@ -26,12 +26,17 @@ function initializeRakutenCookieCall() {
         cookieWriteAttempts++;
         if (window.Resources && window.Resources.IS_RAKUTEN_ENABLED && window.Resources.ONE_TRUST_COOKIE_ENABLED) {
             if (!isEmptyCookie('OptanonConsent') && isEmptyCookie('rmStoreGateway')) {
-                $.ajax({
-                    type: "GET",
-                    url: window.location.href,
-                    success: function () {
-                    }
-                });
+                var optanonCookie = cookieHandler.getCookie("OptanonConsent");
+                var isOptanonAllowedCookie = optanonCookie.indexOf(window.Resources.OPTANON_ALLOWED_COOKIE);
+                if (isOptanonAllowedCookie != -1) {
+                    $.ajax({
+                        type: "GET",
+                        url: window.location.href,
+                        success: function () {
+                        }
+                    });
+                }
+
             } else if (cookieWriteAttempts <= 3) {
                 setTimeout(initializeRakutenCookieCall(), 500);
             }
