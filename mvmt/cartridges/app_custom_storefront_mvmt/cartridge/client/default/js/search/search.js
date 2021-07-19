@@ -596,6 +596,9 @@ module.exports = {
                         $('.mvmt-plp .grid-header .sort-col, .mvmt-plp .grid-header .filter-col').remove();
                         $('.plp-grid-overlay').removeClass('active');
                         bulidLifeStyleCarousel();
+                        if (isInfiniteScrollEnabled && (isPaginationEnabled == false)) {
+                            loadMoreIndex = $('#product-search-results .product-tile').length - (parseInt(initiallyLoadedProducts / 2) + 1);
+                        }
                     },
                     error: function () {
                         $.spinner().stop();
@@ -646,7 +649,11 @@ module.exports = {
                         $('.mobile-filter-menu').removeClass('active').addClass('disable-events');
                         $('body').removeClass('lock-bg');
                         $('.mvmt-plp .grid-header .sort-col').remove();
-                        $('.mvmt-plp .grid-header .filter-col').remove()
+                        $('.mvmt-plp .grid-header .filter-col').remove();
+                        if (isInfiniteScrollEnabled && (isPaginationEnabled == false)) {
+                            loadMoreIndex = $('#product-search-results .product-tile').length - (parseInt(initiallyLoadedProducts / 2) + 1);
+                        }
+                        bulidLifeStyleCarousel();
                     },
                     error: function () {
                         $.spinner().stop();
