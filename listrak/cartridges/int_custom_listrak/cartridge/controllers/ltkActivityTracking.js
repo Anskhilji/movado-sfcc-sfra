@@ -27,10 +27,12 @@ server.replace('TrackRequest', server.middleware.https, function (req, res, next
 
         if (pid != null && format === null) {
             _ltk.AT.AddProductBrowse(pid);
+            //Custom Start [MSS-1450]: Get CountryCode and Price from ltkHandler
             session.privacy.ltkCountryCode = ltkHandler.getCountryCode(req);
             var product = ProductMgr.getProduct(pid);
             var ltkProductPrice = ltkHandler.getProductPrice(product);
             session.privacy.ltkProductPrice = ltkProductPrice;
+            //Custom End
             return;
         }
     }
@@ -39,12 +41,14 @@ server.replace('TrackRequest', server.middleware.https, function (req, res, next
 
 server.replace('ClearTracker', function (req, res, next) {
     require('dw/system/Site');
-    if (dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled)	{
-	 	session.privacy.ProdBrowse = '';
-	 	session.privacy.ltkCountryCode = '';
-	 	session.privacy.ltkProductPrice = '';
-	    session.privacy.QuickViewSkus = '';
-	    session.privacy.SendActivity = false;
+    if (dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
+        session.privacy.ProdBrowse = '';
+        //Custom Start [MSS-1450]: Remove session values 
+        session.privacy.ltkCountryCode = '';
+        session.privacy.ltkProductPrice = '';
+        //Custom End
+        session.privacy.QuickViewSkus = '';
+        session.privacy.SendActivity = false;
     }
 });
 

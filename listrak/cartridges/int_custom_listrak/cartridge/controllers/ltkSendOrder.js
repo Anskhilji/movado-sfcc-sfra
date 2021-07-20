@@ -37,7 +37,9 @@ server.replace('Send', function (req, res, next) {
                 scaJSON = _ltk.SCA.Serialize();
             }
         }
+        //Custom Start [MSS-1450]: Store countryCode in session
         session.privacy.ltkCountryCode = ltkHandler.getCountryCode(req);
+        //Custom End:
         res.render('ltkSendOrder.isml', { SCACart: scaJSON, OrderCart: orderJSON });
     }
     next();
@@ -49,7 +51,7 @@ server.replace('Clear', function (req, res, next) {
         session.privacy.SendOrder = false;
         session.privacy.OrderNumber = null;
         session.privacy.OrderNumber = null;
-        session.privacy.ltkCountryCode = '';
+        session.privacy.ltkCountryCode = ''; //Remove session value [MSS-1450]
     }
 });
 
