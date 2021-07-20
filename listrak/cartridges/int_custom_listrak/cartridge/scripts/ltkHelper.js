@@ -9,12 +9,12 @@
 
 function getCountryCode(request) {
     var countryCode;
-    if (empty(session.privacy.countryCode)) {
+    if (!empty(session.privacy.countryCode)) {
+        countryCode = session.privacy.countryCode;
+    } else {
         var Locale = require('dw/util/Locale');
         var currentLocale = Locale.getLocale(request.locale.id);
         countryCode = currentLocale.getCountry();
-    } else {
-        countryCode = ssesion.privacy.countryCode;
     }
     return countryCode;
 }
