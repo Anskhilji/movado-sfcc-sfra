@@ -15,5 +15,6 @@
 !**/module_pagedesigner**/cartridge/static/**/css/*
 !**/int_listrak**/cartridge/static/**/js/*
 !**/int_listrak_sfra**/cartridge/static/**/js/*
+!**/int_custom_listrak**/cartridge/static/**/js/*
 !einstein-recommendations.js
 rkb.code-workspace
