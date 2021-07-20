@@ -4,4 +4,4 @@
 Line No: 6, 43, 68, 69, 144, 154
 
 ## int_Listrak_sfra > cartridge > controllers > Cart.js
-Line No: 12-16
+Line No: 13

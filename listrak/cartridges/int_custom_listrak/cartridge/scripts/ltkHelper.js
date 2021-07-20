@@ -8,13 +8,18 @@
  */
 
 function getCountryCode(request) {
-    var Locale = require('dw/util/Locale');
-    var currentLocale = Locale.getLocale(request.locale.id);
-    var countryCode = currentLocale.getCountry();
+    var countryCode;
+    if (empty(session.privacy.countryCode)) {
+        var Locale = require('dw/util/Locale');
+        var currentLocale = Locale.getLocale(request.locale.id);
+        countryCode = currentLocale.getCountry();
+    } else {
+        countryCode = ssesion.privacy.countryCode;
+    }
     return countryCode;
 }
 
- function getProductPrice(product) {
+function getProductPrice(product) {
     var Currency = require('dw/util/Currency');
     var productPrice;
     var currency;
@@ -39,11 +44,11 @@ function getCurrencySymbol(currency) {
         // Try to convert to utf-8
         utf8Text = decodeURIComponent(escape(currency.symbol));
         // If the conversion succeeds, text is not utf-8
-    }catch(e) {
+    } catch (e) {
         // console.log(e.message); // URI malformed
         // This exception means text is utf-8
         return symbol;
-    }   
+    }
     return currency.currencyCode + ' '; // returned text is always utf-8
 }
 

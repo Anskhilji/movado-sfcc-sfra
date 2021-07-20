@@ -6,7 +6,7 @@ server.extend(page);
 server.replace('TrackRequest', server.middleware.https, function (req, res, next) {
     var Site = require('dw/system/Site');
     var ltk = require('*/cartridge/scripts/objects/ltk.js');
-    var ltkHandler = require('*/cartridge/scripts/ltkHandler.js');
+    var ltkHelper = require('*/cartridge/scripts/ltkHelper.js');
     if (Site.getCurrent().getCustomPreferenceValue('Listrak_ActivityTracker_Enabled') &&
         dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
         var ProductMgr = require('dw/catalog/ProductMgr');
@@ -27,10 +27,10 @@ server.replace('TrackRequest', server.middleware.https, function (req, res, next
 
         if (pid != null && format === null) {
             _ltk.AT.AddProductBrowse(pid);
-            //Custom Start [MSS-1450]: Get CountryCode and Price from ltkHandler
-            session.privacy.ltkCountryCode = ltkHandler.getCountryCode(req);
+            //Custom Start [MSS-1450]: Get CountryCode and Price from ltkHelper
+            session.privacy.ltkCountryCode = ltkHelper.getCountryCode(req);
             var product = ProductMgr.getProduct(pid);
-            var ltkProductPrice = ltkHandler.getProductPrice(product);
+            var ltkProductPrice = ltkHelper.getProductPrice(product);
             session.privacy.ltkProductPrice = ltkProductPrice;
             //Custom End
             return;

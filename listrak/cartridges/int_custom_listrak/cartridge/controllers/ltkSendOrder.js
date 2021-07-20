@@ -15,7 +15,7 @@ var Site = require('dw/system/Site');
 
 server.replace('Send', function (req, res, next) {
     require('dw/system/Site');
-    var ltkHandler = require('*/cartridge/scripts/ltkHandler.js');
+    var ltkHelper = require('*/cartridge/scripts/ltkHelper.js');
     if (dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
         var orderJSON = '';
         var scaJSON = '';
@@ -38,7 +38,7 @@ server.replace('Send', function (req, res, next) {
             }
         }
         //Custom Start [MSS-1450]: Store countryCode in session
-        session.privacy.ltkCountryCode = ltkHandler.getCountryCode(req);
+        session.privacy.ltkCountryCode = ltkHelper.getCountryCode(req);
         //Custom End:
         res.render('ltkSendOrder.isml', { SCACart: scaJSON, OrderCart: orderJSON });
     }

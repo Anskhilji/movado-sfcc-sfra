@@ -3,7 +3,7 @@
 */
 var Site = require('dw/system/Site');
 var Product = require('*/cartridge/scripts/objects/ltkProduct.js');
-var ltkHandler = require('*/cartridge/scripts/ltkHandler.js');
+var ltkHelper = require('*/cartridge/scripts/ltkHelper.js');
 
 /**
  * Object to represent a cart with details.
@@ -141,7 +141,7 @@ function _SessionTracker() {
         			var qty = orderItem.quantity.value;
         			var price = orderItem.product.getPriceModel().getPrice().value;
         			var name = orderItem.lineItemText;
-                    var ltkProductPrice = ltkHandler.getProductPrice(orderItem.product); //Get price with symbol [MSS-1450]
+                    var ltkProductPrice = ltkHelper.getProductPrice(orderItem.product); //Get price with symbol [MSS-1450]
 
 
         			/* Image URL. */
