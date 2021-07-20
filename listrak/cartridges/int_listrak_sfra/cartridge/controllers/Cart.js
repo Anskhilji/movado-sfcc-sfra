@@ -9,6 +9,10 @@ var ltkSendSca = require('~/cartridge/controllers/ltkSendSca');
  */
 server.append('AddProduct', server.middleware.https, function (req, res, next) {
     if (dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled)	{
+        var Locale = require('dw/util/Locale');
+        var currentLocale = Locale.getLocale(req.locale.id);
+        var countryCode = currentLocale.getCountry();
+        session.privacy.ltkCountryCode = countryCode;
         ltkSendSca.SendSCAPost();
     }
     next();
