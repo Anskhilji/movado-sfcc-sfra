@@ -43,7 +43,7 @@ function initializeRakutenCookieCall() {
     if (document.readyState == "complete") {
         clearInterval(intializeCookieInterval);
         if (window.Resources && window.Resources.IS_RAKUTEN_ENABLED && window.Resources.ONE_TRUST_COOKIE_ENABLED) {
-            cookieWriteInterval = setInterval(setRakutenCookie(), 500);
+            cookieWriteInterval = setInterval(setRakutenCookie, 500);
         }
     }
 }
