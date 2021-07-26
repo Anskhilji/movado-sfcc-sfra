@@ -2,6 +2,7 @@
 var cookieHandler = require('../utilities/cookieHandler');
 var intializeCookieInterval;
 var cookieWriteInterval;
+var cookieWriteAttempts = 0;
 
 /**
  * Checks if cookie is present or not
@@ -22,6 +23,7 @@ function isEmptyCookie(cookieName) {
  */
 function setRakutenCookie() {
     if (!isEmptyCookie('OptanonConsent') && isEmptyCookie('rmStoreGateway')) {
+        cookieWriteAttempts++;
         var optanonCookie = cookieHandler.getCookie("OptanonConsent");
         var isOptanonAllowedCookie = optanonCookie.indexOf(window.Resources.OPTANON_ALLOWED_COOKIE);
         if (isOptanonAllowedCookie != -1) {
@@ -29,10 +31,14 @@ function setRakutenCookie() {
                 type: "GET",
                 url: window.location.href,
                 success: function () {
+                    clearInterval(cookieWriteInterval);
                 }
             });
         }
-        clearInterval(cookieWriteInterval);
+
+        if (cookieWriteAttempts == 10) {
+            clearInterval(cookieWriteInterval);
+        }
     }
 }
 
