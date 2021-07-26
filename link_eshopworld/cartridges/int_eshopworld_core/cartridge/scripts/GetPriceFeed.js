@@ -2,7 +2,7 @@
  * Script file for calling price feed service api and update site preferences from response.
  * @return {boolean} - returns execute result
  */
- function execute() {
+function execute() {
     var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper(),
         eswServices = require('*/cartridge/scripts/services/EswCoreService').getEswServices(),
         logger = require('dw/system/Logger'),
