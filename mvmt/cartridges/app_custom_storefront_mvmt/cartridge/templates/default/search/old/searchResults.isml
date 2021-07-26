@@ -92,23 +92,16 @@
                                     <isslot id="cs-category-fifth-tile" context="category" description="5th slot on PLP" context-object="${pdict.productSearch.category.raw}"/>
                                 </div>
                             </isif>
-                        
-                            <isif condition="${pdict.productSearch.enableGridSlot && pdict.productSearch.pageNumber == 0 && prodStatus.index === (pdict.productSearch.defaultPageSize-1)}">
-                            <iselse>
                             </iscomment>
-                                <div class="col-6 col-sm-4 col-lg-3" data-gtm-refinements='${product.productSearchHit.productID}'>
-                                    <isobject object="${product.productSearchHit}" view="searchhit">
-                                        <isif condition="${pdict.productSearch.category}">
-                                            <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true,'plpTile', true, 'showAddToCart', true, 'ratings', true, 'cgid', pdict.productSearch.category.id, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count, 'categoryName',pdict.productSearch.category.name)}" />
-                                        <iselse>
-                                            <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true,'plpTile', true, 'showAddToCart', true, 'ratings', true, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count)}" />
-                                        </isif>
-                                    </isobject>
-                                </div>
-                            <iscomment>
-                            This functionlaity is not requried on old PLP
-                            </isif>
-                            </iscomment>
+                            <div class="col-6 col-sm-4 col-lg-3" data-gtm-refinements='${product.productSearchHit.productID}'>
+                                <isobject object="${product.productSearchHit}" view="searchhit">
+                                    <isif condition="${pdict.productSearch.category}">
+                                        <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true,'plpTile', true, 'showAddToCart', true, 'ratings', true, 'cgid', pdict.productSearch.category.id, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count, 'categoryName',pdict.productSearch.category.name)}" />
+                                    <iselse>
+                                        <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.productID, 'swatches', true,'plpTile', true, 'showAddToCart', true, 'ratings', true, 'compare', pdict.compareBoxEnabled, 'position', prodStatus.count)}" />
+                                    </isif>
+                                </isobject>
+                            </div>
                         </isloop>
 
                         <isif condition="${pdict.productSearch.enablePagination}">
