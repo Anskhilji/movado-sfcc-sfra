@@ -29,6 +29,9 @@ var ATTR_WTR_RESISTANCE = 'waterResistance';
 var ATTR_FABRICATION = 'crystalFabrication';
 var ATTR_RING_SIZE = 'ringSize';
 var ATTR_LENGTH = 'length';
+var ATTR_POWER_RESERVE  = 'powerReserve';
+var ATTR_MOVEMENT_FUNCTIONS = 'movementFunctions';
+var ATTR_CALIBER = 'caliber';
 
 var STRAP = 'strap';
 var BRACELET = 'bracelet';
@@ -288,6 +291,12 @@ function getPdpAttributes(apiProduct) {
     }				else if (attr == ATTR_GEM_CLARITY && apiProduct.custom.gemstoneClarity) {
         attributes = pushAttributeToList(attributes, attrNameMapping.gemstoneClarity, apiProduct.custom.gemstoneClarity, gemstoneClarityImage.URL);
     }
+    } else if (attr && attr == ATTR_CALIBER && apiProduct.custom.caliber) {
+        attributes = pushAttributeToList(attributes, attrNameMapping.caliber, apiProduct.custom.caliber, null);
+    } else if (attr && attr == ATTR_MOVEMENT_FUNCTIONS && apiProduct.custom.movementFunctions) {
+        attributes = pushAttributeToList(attributes, attrNameMapping.movementFunctions, apiProduct.custom.movementFunctions, null);
+    } else if (attr && attr == ATTR_POWER_RESERVE && apiProduct.custom.powerReserve) {
+        attributes = pushAttributeToList(attributes, attrNameMapping.powerReserve, apiProduct.custom.powerReserve, null);
     }
         }
     } catch (e) {
