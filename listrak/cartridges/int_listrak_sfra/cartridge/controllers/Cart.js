@@ -18,6 +18,7 @@ server.append('AddProduct', server.middleware.https, function (req, res, next) {
 
 server.append('RemoveProductLineItem', server.middleware.https, function (req, res, next) {
     if (dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled)	{
+        session.privacy.ltkCountryCode = ltkHelper.getCountryCode(req);
         ltkSendSca.SendSCA();
     }
     next();
@@ -25,6 +26,7 @@ server.append('RemoveProductLineItem', server.middleware.https, function (req, r
 
 server.append('UpdateQuantity', server.middleware.https, function (req, res, next) {
     if (dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled)	{
+        session.privacy.ltkCountryCode = ltkHelper.getCountryCode(req);
         ltkSendSca.SendSCA();
     }
     next();
