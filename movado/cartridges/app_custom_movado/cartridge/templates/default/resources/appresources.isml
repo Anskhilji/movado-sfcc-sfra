@@ -22,4 +22,11 @@
         window.AmazonURLs = ${amazonURLs};
         window.AmazonSitePreferences = ${amazonSitePreferences};
     }());
+
+    <iscomment> Custom Start: Clyde Integration </iscomment>
+    (function(){
+        window.ClydeSitePreferences = <isprint value="${JSON.stringify(pdict.resourceHelper.getClydePreferences())}"/>;
+    }());
+    <iscomment> Custom End </iscomment>
+    
 </script>
