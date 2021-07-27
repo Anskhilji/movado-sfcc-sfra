@@ -6,7 +6,6 @@ var server = require('server');
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var shareByEmailHelper = require('*/cartridge/scripts/helpers/shareByEmailHelper');
 var productFactory = require('*/cartridge/scripts/factories/product');
-var SFMCApi = require('*/cartridge/scripts/api/SFMCApi');
 var EmailSubscriptionHelper = require('int_custom_marketing_cloud/cartridge/scripts/helper/EmailSubscriptionHelper');
 
 
@@ -121,7 +120,15 @@ server.post('SendToFriend', server.middleware.https, csrfProtection.validateAjax
                 var requestParams = {
                     email: result.youremail
                 }
-                SFMCApi.sendSubscriberToSFMC(requestParams);
+                if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
+                    var LTKApi = require('*/cartridge/scripts/api/ListrakAPI');
+                    var ltkConstants = require('*/cartridge/scripts/utils/ListrakConstants');
+                    requestParams.source = ltkConstants.Source.SendToFriend;
+                    LTKApi.sendSubscriberToListrak(requestParams);
+                } else {
+                    var sfmcApi = require('*/cartridge/scripts/api/SFMCApi');
+                    SFMCApi.sendSubscriberToSFMC(requestParams);
+                }
                 status = EmailSubscriptionHelper.emailSubscriptionResponse(true);
             }
 

@@ -5,7 +5,6 @@ server.extend(module.superModule);
 
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
-var sfmcApi = require('*/cartridge/scripts/api/SFMCApi');
 
 server.replace('UpdateShippingMethodsList', server.middleware.https, function (req, res, next) {
     var BasketMgr = require('dw/order/BasketMgr');
@@ -167,7 +166,15 @@ server.replace(
                     requestLocation: 'CHECKOUT_SERVICE'
                 }
                 if (!empty(requestParams) && !empty(requestParams.email)) {
-                    sfmcApi.sendSubscriberToSFMC(requestParams);
+                    if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
+                        var LTKApi = require('*/cartridge/scripts/api/ListrakAPI');
+                        var ltkConstants = require('*/cartridge/scripts/utils/ListrakConstants');
+                        requestParams.source = ltkConstants.Source.Checkout;
+                        LTKApi.sendSubscriberToListrak(requestParams);
+                    } else {
+                        var sfmcApi = require('*/cartridge/scripts/api/SFMCApi');
+                        SFMCApi.sendSubscriberToSFMC(requestParams);
+                    }
                     var isGtmEnabled = Site.current.getCustomPreferenceValue('gtmEnabled');
                     if (isGtmEnabled) {
                         var userEmail = !empty(form.shippingAddress.addressFields.email.htmlValue) ? form.shippingAddress.addressFields.email.htmlValue : '';

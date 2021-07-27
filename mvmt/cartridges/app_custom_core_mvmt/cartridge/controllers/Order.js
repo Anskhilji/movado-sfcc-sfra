@@ -5,7 +5,7 @@ server.extend(module.superModule);
 
 server.append('Confirm', function (req, res, next) {
     var OrderMgr = require('dw/order/OrderMgr');
-    var sfmcApi = require('*/cartridge/scripts/api/SFMCApi');
+    var Site = require('dw/system/Site');
     var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 
     var Constants = require('*/cartridge/scripts/util/Constants');
@@ -21,7 +21,15 @@ server.append('Confirm', function (req, res, next) {
         }
 
         if (!empty(requestParams.email)) {
-            sfmcApi.sendSubscriberToSFMC(requestParams);
+            if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
+                var LTKApi = require('*/cartridge/scripts/api/ListrakAPI');
+                var ltkConstants = require('*/cartridge/scripts/utils/ListrakConstants');
+                requestParams.source = ltkConstants.Source.Checkout;
+                LTKApi.sendSubscriberToListrak(requestParams);
+            } else {
+                var sfmcApi = require('*/cartridge/scripts/api/SFMCApi');
+                SFMCApi.sendSubscriberToSFMC(requestParams);
+            }
         }
     } catch (e) {
         checkoutLogger.error('(Order-Confirm) -> Exception occurred while try to send email to SFMC: {0}', e.toString());

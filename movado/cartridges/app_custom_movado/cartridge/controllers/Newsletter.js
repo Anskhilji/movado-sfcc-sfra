@@ -13,6 +13,7 @@ var newletterHelper = require('*/cartridge/scripts/helpers/newsletterHelper');
 server.post('Subscribe', server.middleware.https, function (req, res, next) {
     var Site = require('dw/system/Site');
     var SFMCApi = require('int_custom_marketing_cloud/cartridge/scripts/api/SFMCApi');
+    var LTKApi = require('*/cartridge/scripts/api/ListrakAPI');
     var EmailSubscriptionHelper = require('int_custom_marketing_cloud/cartridge/scripts/helper/EmailSubscriptionHelper');
 
     var emailSubmitLocation = !empty(req.querystring) ? req.querystring.pageType : 'footer';
@@ -29,7 +30,14 @@ server.post('Subscribe', server.middleware.https, function (req, res, next) {
         phoneNumber: !empty(request.httpParameterMap.phoneNumber.value) ? request.httpParameterMap.phoneNumber.value : '',
         isEmailCheckDisabled: !empty(request.httpParameterMap.isEmailCheckDisabled.value) ? request.httpParameterMap.isEmailCheckDisabled.value : false
     };
-    var result = SFMCApi.sendSubscriberToSFMC(requestParams);
+    var result;
+    if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
+        var ltkConstants = require('*/cartridge/scripts/utils/ListrakConstants');
+        requestParams.source = ltkConstants.Source.Footer;
+        result = LTKApi.sendSubscriberToListrak(requestParams);
+    } else {
+        result = SFMCApi.sendSubscriberToSFMC(requestParams);
+    }
     var emailObj = [];
     emailObj.push({
         userEmail: requestParams.email,

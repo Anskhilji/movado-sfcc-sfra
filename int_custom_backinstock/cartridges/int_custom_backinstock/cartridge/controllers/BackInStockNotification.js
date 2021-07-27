@@ -3,6 +3,7 @@
 var server = require('server');
 
 var backInStockNotificationHelper = require('*/cartridge/scripts/helpers/backInStockNotificationHelper');
+var Site = require('dw/system/Site');
 
 server.post('Subscribe',
     server.middleware.https,
@@ -27,6 +28,14 @@ server.post('Subscribe',
                         result.success = backInStockNotificationHelper.saveBackInStockNotificationObj(backInStockNotificationObj);
                     }
                 }
+                //Custom Start [MSS-1453]: Send Subscriber to Listrak 
+                if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
+                    var LTKApi = require('*/cartridge/scripts/api/ListrakAPI');
+                    var ltkConstants = require('*/cartridge/scripts/utils/ListrakConstants');
+                    requestParams.source = ltkConstants.Source.Checkout;
+                    LTKApi.sendSubscriberToListrak(requestParams);
+                }
+                //Custom End: 
             }
         }
         res.json({
