@@ -13,12 +13,17 @@
             <div class="row">
                 <div class="col-lg-12 d-flex flex-row mb-2">
                     <iscomment> Custom Start: Clyde Integration </iscomment>
-                    <isif condition="${(lineItem.productName).substring(0, 13) === 'clydeContract'}">
-                        <img class="product-image mr-4" src="${URLUtils.staticURL('/images/clyde.png')}" alt="${lineItem.productName}" title="${lineItem.productName}">
-                    <iselseif condition="${lineItem && lineItem.images && lineItem.images.tile150[0]}">
-                   		<isset name="productImage" value="${lineItem.images.tile150[0]}" scope="page"/>
-                   		<img class="product-image mr-4" src="${productImage.url}" alt="${productImage.alt}" title="${productImage.title}">
-                   </isif>
+                        <isif condition="${dw.system.Site.current.preferences.custom.isClydeEnabled}">
+                            <isif condition="${(lineItem.productName).substring(0, 13) === 'clydeContract'}">
+                                <img class="product-image mr-4" src="${URLUtils.staticURL('/images/clyde.png')}" alt="${lineItem.productName}" title="${lineItem.productName}">
+                            <iselseif condition="${lineItem && lineItem.images && lineItem.images.tile150[0]}">
+                                <isset name="productImage" value="${lineItem.images.tile150[0]}" scope="page"/>
+                                <img class="product-image mr-4" src="${productImage.url}" alt="${productImage.alt}" title="${productImage.title}">
+                            </isif>
+                        <iselse/>
+                            <isset name="productImage" value="${lineItem.images.tile150[0]}" scope="page"/>
+                            <img class="product-image mr-4" src="${productImage.url}" alt="${productImage.alt}" title="${productImage.title}">
+                        </isif>
                     <iscomment> Custom End: </iscomment>
 
                    <isif condition="${lineItem && lineItem.images && lineItem.images.tile150[0]}">
@@ -28,19 +33,29 @@
                     <div class="item-attributes d-flex flex-column">
 
                         <iscomment> Custom Start: Clyde Integration </iscomment>
-                        <isif condition="${(lineItem.productName).substring(0, 13) === 'clydeContract'}">
-                            <p class="line-item-attributes">${(lineItem.lineItemText)}</p>
-                        <iselse/>
-                            <isloop items="${lineItem.variationAttributes}" var="attribute">
-                                <isif condition="${typeof option != 'undefined' && option.optionId === Resource.msg('emboss.displayValue', 'cart', null) && lineItem.customAttributes.emboss}"> 
-                                    <p class="line-item-attributes mb-2">${Resource.msg('emboss.displayValue.change', 'cart', null)}: ${attribute.displayValue}</p>                 
-                                <iselse>
-                                    <p class="line-item-attributes mb-2">${attribute.displayName}: ${attribute.displayValue}</p>
+                            <isif condition="${dw.system.Site.current.preferences.custom.isClydeEnabled}">
+                                <isif condition="${(lineItem.productName).substring(0, 13) === 'clydeContract'}">
+                                    <p class="line-item-attributes">${(lineItem.lineItemText)}</p>
+                                <iselse/>
+                                    <isloop items="${lineItem.variationAttributes}" var="attribute">
+                                        <isif condition="${typeof option != 'undefined' && option.optionId === Resource.msg('emboss.displayValue', 'cart', null) && lineItem.customAttributes.emboss}"> 
+                                            <p class="line-item-attributes mb-2">${Resource.msg('emboss.displayValue.change', 'cart', null)}: ${attribute.displayValue}</p>                 
+                                        <iselse>
+                                            <p class="line-item-attributes mb-2">${attribute.displayName}: ${attribute.displayValue}</p>
+                                        </isif>
+                                        
+                                    </isloop>
                                 </isif>
-                                
-                            </isloop>
-                        </isif>
-
+                            <iselse/>
+                                <isloop items="${lineItem.variationAttributes}" var="attribute">
+                                    <isif condition="${typeof option != 'undefined' && option.optionId === Resource.msg('emboss.displayValue', 'cart', null) && lineItem.customAttributes.emboss}"> 
+                                        <p class="line-item-attributes mb-2">${Resource.msg('emboss.displayValue.change', 'cart', null)}: ${attribute.displayValue}</p>                 
+                                    <iselse>
+                                        <p class="line-item-attributes mb-2">${attribute.displayName}: ${attribute.displayValue}</p>
+                                    </isif>
+                                    
+                                </isloop>
+                            </isif>
                         <iscomment> Custom End: </iscomment>
 
                         <p class="line-item-attributes model-name mb-2">${lineItem.resources.Model} ${lineItem.id}</p>

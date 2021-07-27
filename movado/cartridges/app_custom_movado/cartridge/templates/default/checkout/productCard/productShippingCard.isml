@@ -10,11 +10,15 @@
     <iselse/>
         <div class="product-line-item-details d-flex flex-row">
             <iscomment> Custom Start: Clyde Integration </iscomment>
-            <isif condition="${(lineItem.productName).substring(0, 13) === 'clydeContract'}">
-                <img class="product-image" src="${URLUtils.staticURL('/images/clyde.png')}" alt="${lineItem.productName}" title="${lineItem.productName}">
-            <iselse/>
-                <div class="item-image"><img class="product-image" src="${lineItem.images.tile150[0].url}" alt="${lineItem.images.tile150[0].alt}" title="${lineItem.images.tile150[0].title}"></div>
-            </isif>
+                <isif condition="${dw.system.Site.current.preferences.custom.isClydeEnabled}">
+                    <isif condition="${(lineItem.productName).substring(0, 13) === 'clydeContract'}">
+                        <img class="product-image" src="${URLUtils.staticURL('/images/clyde.png')}" alt="${lineItem.productName}" title="${lineItem.productName}">
+                    <iselse/>
+                        <div class="item-image"><img class="product-image" src="${lineItem.images.tile150[0].url}" alt="${lineItem.images.tile150[0].alt}" title="${lineItem.images.tile150[0].title}"></div>
+                    </isif>
+                <iselse/>
+                    <div class="item-image"><img class="product-image" src="${lineItem.images.tile150[0].url}" alt="${lineItem.images.tile150[0].alt}" title="${lineItem.images.tile150[0].title}"></div>
+                </isif>
             <iscomment> Custom End: </iscomment>
 
             <div class="item-attributes">

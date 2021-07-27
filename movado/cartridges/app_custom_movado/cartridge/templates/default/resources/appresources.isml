@@ -24,9 +24,13 @@
     }());
 
     <iscomment> Custom Start: Clyde Integration </iscomment>
-    (function(){
-        window.ClydeSitePreferences = <isprint value="${JSON.stringify(pdict.resourceHelper.getClydePreferences())}"/>;
-    }());
+
+    <isif condition="${sitePreferences.isClydeEnabled}">
+        (function(){
+            window.ClydeSitePreferences = <isprint value="${JSON.stringify(pdict.resourceHelper.getClydePreferences())}"/>;
+        }());
+    </isif>
+    
     <iscomment> Custom End </iscomment>
     
 </script>
