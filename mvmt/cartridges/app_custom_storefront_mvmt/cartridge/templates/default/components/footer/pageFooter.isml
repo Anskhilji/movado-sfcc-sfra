@@ -83,5 +83,11 @@
 
     <iscomment>Logged in Customer tracking for Yotpo Swell Loyalty</iscomment>
     <isinclude template="include/yotpofooter"/>
+
+    <iscomment> Custom Start: Clyde Integration </iscomment>
+        <isif condition="${dw.system.Site.current.preferences.custom.isClydeEnabled}">
+            <script src="${URLUtils.staticURL('/js/customClydeWidget.js')}" ></script>
+        </isif>
+    <iscomment> Custom End: </iscomment>
 </footer>
 <iscomment> Custom End</iscomment>
