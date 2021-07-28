@@ -278,6 +278,5 @@
                 </div>
             </div>
         </div>
-        <isinclude template="search/resultsCount" /></button>
     </div>
 </div>
