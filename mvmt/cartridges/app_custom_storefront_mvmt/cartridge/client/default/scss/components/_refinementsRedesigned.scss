@@ -371,9 +371,9 @@
     .mobile-filter-redesign {
 
         @mixin mvmtIcon {
-            display: inline-flex;
+            display: inline-block;
             margin-left: rem(10);
-            vertical-align: 0.255em;
+            vertical-align: middle;
             content: "";
             background: url(../images/dropdownArrowDown.svg) center center no-repeat;
             width: rem(6);
@@ -394,8 +394,7 @@
             font-weight: 500;
             letter-spacing: rem(1);
             line-height: rem(20);
-            display: inline-flex;
-            align-items: center;
+            display: inline-block;
             padding: rem(5) rem(10);
             min-width: fit-content;
             width: auto;
@@ -410,6 +409,11 @@
             width: 100%;
             display: block;
             z-index: 1111;
+        }
+
+        .mobile-active-filters {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         .plp-active-filters-redesign.mobile-sticky {
@@ -492,7 +496,7 @@
                     &::before {
                         @include mvmtIcon;
                         position: relative;
-                        left: rem(-10);
+                        left: rem(-6);
                     }
                 }
             }
@@ -616,7 +620,7 @@
                             top: rem(70);
                             transform: translate(rem(45));
                             width: 80%;
-                            z-index: 10;
+                            z-index: 1000;
                             list-style: none;
                             padding: 0;
                             background-color: $white;
@@ -731,10 +735,11 @@
                         width: 100%;
                         left: 0;
                         bottom: 20vh;
-                        z-index: 111111;
+                        z-index: 111;
 
                         .mobile-active-actions {
                              transform: translateY(100%);
+
                             .mobile-active-shop-btn {
                                 background-color: $black;
                                 border-radius: rem(3);
@@ -756,8 +761,10 @@
         .filter-redesigned {
 
             &-mobile {
+                position: relative;
                 top: rem(96.5);
                 left: rem(30);
+                z-index: 100;
 
                 .plp-filter {
 
@@ -858,12 +865,16 @@
                         .filter-group {
                             display: none;
                             position: relative;
+                            z-index: 2222;
                             top: 0;
                             background: $cyan-blue;
                             overflow-y: auto;
+                            -webkit-overflow-scrolling:touch;
 
                             &.active {
                                 display: block;
+                                border-bottom: rem(0);
+                                margin-bottom: rem(20);
                             }
 
                             &-outer {
@@ -872,6 +883,7 @@
                                     min-height: fit-content;
                                     max-height: fit-content;
                                     min-width: fit-content;
+                                    width: 100%;
                                     overflow: hidden;
                                     display: flex;
                                     align-items: center;

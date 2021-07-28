@@ -33,7 +33,7 @@
                 <li class="nav-item">
                   <a class="nav-link active product-search" href="#product-search-results" data-toggle="tab" role="tab"
                   aria-expanded="true">
-                    <isif condition="${pdict.productSearch.count>0}" >
+                    <isif condition="${pdict.productSearch.count > 0}" >
                         ${Resource.msgf('tab.nav.search.productsresults', 'search', null, pdict.productSearch.count)}
                     <iselse/>
                         ${Resource.msg('tab.nav.search.productsresults.empty', 'search', null)}
