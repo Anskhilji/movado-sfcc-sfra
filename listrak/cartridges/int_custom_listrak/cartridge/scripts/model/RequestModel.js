@@ -4,11 +4,8 @@ var Site = require('dw/system/Site');
 var Constants = require('~/cartridge/scripts/utils/ListrakConstants');
 
 function generateAuthenticationPayLoad(params) {
-    return {
-        "grant_type": "client_credentials",
-        "client_id": params.clientID,
-        "client_secret": params.clientSecret,
-    };
+    var queryParam = "client_id=" + params.clientID + '&client_secret=' + params.clientSecret + '&grant_type=client_credentials';
+    return queryParam;
 }
 
 function generateAddContactToLTKPayload(params) {
@@ -46,7 +43,7 @@ function generateAddContactToLTKPayload(params) {
             }
         ]
     };
-    return JSON.stringify(payload);
+    return payload;
 }
 module.exports = {
     generateAuthenticationPayLoad: generateAuthenticationPayLoad,

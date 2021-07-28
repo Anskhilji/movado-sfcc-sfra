@@ -5,7 +5,7 @@ exports.LTK_ACCESS_TOKEN_OBJECT_ID = 'ltk_AccessToken';
 exports.CURRENCY_USD = 'USD';
 exports.Subscription_State = 'Subscribed';
 exports.LTK_API_ENDPOINT = {
-    CONTACT: '/List/{listId}/Contact/items',
+    CONTACT: '/List/{listId}/Contact/',
 }
 exports.SERVICE_ID = {
     LTK_AUTH: 'listrak.auth.api',

@@ -23,10 +23,9 @@ function getDataAPIServiceConfigs() {
 function getAuthorizationServiceConfigs() {
     var serviceConfig = {
         createRequest: function (svc, args) {
-            var requestJSONString = JSON.stringify(args);
             svc.addHeader('Content-Type', 'application/x-www-form-urlencoded');
             svc.setRequestMethod('POST');
-            return requestJSONString;
+            return args;
         },
         parseResponse: function (svc, client) {
             return JSON.parse(client.text);

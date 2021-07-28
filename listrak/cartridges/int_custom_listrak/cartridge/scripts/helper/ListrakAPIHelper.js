@@ -37,12 +37,13 @@ function getAuthToken(params) {
     var accessToken = null;
     if (!params.isExpired) {
         accessToken = ltkHelper.getSavedAuthToken();
+        return accessToken.custom.token;
     }
     if (!accessToken) {
         accessToken = getAuthTokenFromAPI(params);
         ltkHelper.saveNewAuthToken(accessToken);
+        return accessToken;
     }
-    return accessToken.custom.token;
 }
 function addContactToLTK(params, service) {
     var allSubscriberPayload = RequestModel.generateAddContactToLTKPayload(params);
@@ -70,14 +71,9 @@ function addContactToLTK(params, service) {
 
     }
 
-    var isSaveCustomObject = true;
-    if (responsePayload.error != 201) {
+    if (!responsePayload.object && responsePayload.error) {
         result.message = Resource.msg('listrak.error.msg', 'listrak', null);
         Logger.debug('Listrak addContactToLTK: {0}', Resource.msg('listrak.' + responsePayload.error, 'listrak', null));
-        isSaveCustomObject = false;
-        result.success = false;
-    }
-    if (responsePayload.error && params.isJob == false && isSaveCustomObject) {
         result.success = false;
     }
     return result;
