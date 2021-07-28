@@ -8,6 +8,7 @@ var loadMoreIndex = parseInt(initiallyLoadedProducts / 2) - 1;
 var totalProductCount = $('.total-product-count').data('total-product-count');
 
 var loadMoreInProcessing = false;
+var filterLoadInProgress = false;
 
 /**
  * Update DOM elements with Ajax results
@@ -342,6 +343,9 @@ function moveFocusToTop() {
     $('html, body').animate({
         scrollTop: topScrollHeight
     }, 500);
+    setTimeout(() => {
+        filterLoadInProgress = false;
+    }, 600);
 }
 
 // Added container-fluid class alongside container
@@ -461,6 +465,10 @@ module.exports = {
         if (isInfiniteScrollEnabled && (isPaginationEnabled == false)) {
 
             $(window).scroll(function (e) {
+
+                if (filterLoadInProgress) {
+                    return;
+                }
                 
                 if (!loadMoreInProcessing) {
                     loadMoreInProcessing = true;
@@ -558,7 +566,7 @@ module.exports = {
             function (e) {
                 e.preventDefault();
                 e.stopPropagation();
-
+                filterLoadInProgress = true;
                 // Get currently selected sort option to retain sorting rules
                 var urlparams = getUrlParamObj(document.location.href);
                 var filtersURL = e.currentTarget.href;
@@ -599,9 +607,11 @@ module.exports = {
                         if (isInfiniteScrollEnabled && (isPaginationEnabled == false)) {
                             loadMoreIndex = $('#product-search-results .product-tile').length - (parseInt(initiallyLoadedProducts / 2) + 1);
                         }
+
                     },
                     error: function () {
                         $.spinner().stop();
+                        filterLoadInProgress = false;
                     }
                 });
             });
