@@ -24,35 +24,40 @@
 	            </isif>
             </isloop>
         </isif>
-        <isinclude template="product/components/productTileImage" />
+        <isif condition="${pdict.display.isEyewearTile}">
+            <isinclude template="product/components/productTileImageEyewear" />
+        <iselse>
+            <isinclude template="product/components/productTileImage" />
+        </isif>
 
-        <div class="tile-body pt-2">
+        <div class="tile-body">
             <div class="tile-badges">
-                <div class="product-tag-content ${pdict.display.recommendattionTile ? 'd-none' : ''} ${outOfStock || product.badges.textBadges.length > 0 ? '' : 'd-none'}">
-                    <div class="m-0">
-                        <div class="out-of-stock badge red-tag mvmt-avilability ${outOfStock ? '' : 'd-none'}">
-                            ${Resource.msg('label.soldout', 'common', null)}
-                        </div>
-                    </div>
-
-                    <isinclude template="product/components/badges" />
-                </div>
                 <isif condition="${pdict.display.swatches !== false && product.productType == 'master'}">
                     <div class="plp-swatches ${product.variationsAttributes && product.variationsAttributes[0] && product.variationsAttributes[0].values && product.variationsAttributes[0].values.length > 0 ? '':'0-opacity'}">
-                        <isinclude template="product/components/productTileSwatch" />
+                        <isif condition="${pdict.display.isEyewearTile}">
+                            <isinclude template="product/components/productTileEyewearSwatch" />
+                        <iselse>
+                            <isinclude template="product/components/productTileSwatch" />
+                        </isif>
                     </div>
                 </isif>
             </div>
             <div class="tile-inner-content">
                 <isif condition="${pdict.display.showAddToCart}">
                     <div class="product-brand-info">
-                        <isif condition="${!empty(product.defaultVariantCollectionName) || !empty(product.collectionName)}"> </isif>
+                    <isif condition="${product.isWatchTile}">
+                        <isif condition="${!empty(product.defaultVariantCollectionName) || !empty(product.collectionName)}">
                             <span class="collection-name">${!empty(product.defaultVariantCollectionName) ? product.defaultVariantCollectionName : product.collectionName}</span>
-                        <isif condition="${!empty(product.caseDiameter) || !empty(product.defaultVariantCaseDiameter)}">
-                            <span class="case-diameter">${!empty(product.defaultVariantCaseDiameter) ? product.defaultVariantCaseDiameter : product.caseDiameter}</span>
+                        </isif>
+                    <iselse>
+                        <span class="collection-name">${product.productName}</span>
+                    </isif>
+                        <isif condition="${!empty(product.caseDiameterRedesigned) || !empty(product.defaultVariantcaseDiameterRedesigned)}">
+                            <span class="case-diameter">${!empty(product.defaultVariantcaseDiameterRedesigned) ? product.defaultVariantcaseDiameterRedesigned : product.caseDiameterRedesigned}</span>
                         </isif>
                     </div>
                 </isif>
+     
                 <isinclude template="product/components/productTileName" />
 
                 <isif condition="${product.productType == 'master' && !empty(product.defaultVariantPrice)}">

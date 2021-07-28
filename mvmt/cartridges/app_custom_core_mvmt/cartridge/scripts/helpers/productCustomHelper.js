@@ -113,6 +113,30 @@ function getProductAttributes(apiProduct) {
 }
 
 /**
+ * It is used to get if current product belongs to watches category
+ * @param {Object} apiProduct - apiProduct is from ProductMgr
+ * @returns {Boolean} - true if product belongs to watches
+ */
+
+function getIsWatchTile(apiProduct) {
+    var isWatchTile = false;
+    var currentCategory = null;
+    var apiCategories = apiProduct.getOnlineCategories().iterator();
+    while (apiCategories.hasNext()) {
+        currentCategory = apiCategories.next();
+        while (currentCategory.parent != null) {
+            currentCategory = currentCategory.parent;
+            if (!empty(currentCategory) && currentCategory.ID == Constants.WATCHES_CATEGORY) {
+                isWatchTile = true;
+                break; // break inner loop
+            }
+        }
+        break; // break outer loop
+    }
+    return isWatchTile;
+}
+
+/**
  * It is used to get category object of current product
  * @param {Object} apiProduct - apiProduct is from ProductMgr
  * @param {Object} categories - categories json configured in site preference
@@ -309,9 +333,10 @@ function getGtmPromotionObject (promotions) {
  * @param {Product} apiProduct
  * @returns {String }Diameter name
  */
-function getCaseDiameter(apiProduct) {
+function getCaseDiameter(apiProduct, isRedesigned) {
     var caseDiameterWatches = '';
-    var caseDiameterHyphen = Constants.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR;
+    var caseDiameterHyphen = isRedesigned ? Constants.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR_REDESIGN
+        : Constants.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR;
     var caseDiameterUnit = Constants.MM_UNIT;
     var caseDiameter = !empty(apiProduct.custom.caseDiameter) ? apiProduct.custom.caseDiameter : '';
     var collectionName = !empty(apiProduct.custom.familyName) ? apiProduct.custom.familyName[0] : '';
@@ -345,6 +370,30 @@ function getPDPContentAssetHTML (apiProduct) {
         return '';
     }
 }
+/**
+ * Method use to get color name from product's custom attribute`
+ * @param {Product} apiProduct
+ * @returns {String }color name
+ */
+function getColor(apiProduct, product) {
+    var color = '';
+    color = apiProduct.custom.color || '';
+    if (apiProduct.master && product && product.variationAttributes.length > 0) {
+        try {
+            product.variationAttributes[0].values.forEach(function (attribute) {
+                if (attribute.selected) {
+                    color = attribute.value;
+                    return;
+                }
+            })
+        } catch (error) {
+            Logger.error('(productCustomHepler.js -> getColor) Error occured while getting color from product variationAttribute : ' + error.message);
+            return;
+        }
+    }
+
+    return color || '';
+}
 
 movadoProductCustomHelper.getProductAttributes = getProductAttributes;
 movadoProductCustomHelper.getRefinementSwatches = getRefinementSwatches;
@@ -354,5 +403,7 @@ movadoProductCustomHelper.getCurrentCountry = getCurrentCountry;
 movadoProductCustomHelper.getGtmPromotionObject = getGtmPromotionObject;
 movadoProductCustomHelper.getPDPContentAssetHTML = getPDPContentAssetHTML;
 movadoProductCustomHelper.getCaseDiameter = getCaseDiameter;
+movadoProductCustomHelper.getColor = getColor;
+movadoProductCustomHelper.getIsWatchTile = getIsWatchTile;
 
 module.exports = movadoProductCustomHelper;

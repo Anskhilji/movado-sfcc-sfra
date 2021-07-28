@@ -1,0 +1,82 @@
+<div class="image-container">
+    <!-- First two conditions are for PLP and the last is applicable on PDP -->
+    <isif condition="${(product.defaultVariantAvailabilityStatus === 'IN_STOCK' && pdict.display.plpTile === true)}">
+        <isloop items="${product.defaultVariantBadges.imageBadges}" var="imageBadge" status="loopStatus">
+            <isif condition="${loopStatus.first}">
+                <div class="product-badge left"><span class="badge-text"><img src="${imageBadge.imageUrl}" alt="${imageBadge.imageAlt}" /></span></div>
+            <iselseif condition="${loopStatus.last}">
+                <div class="product-badge right"><span class="badge-text"><img src="${imageBadge.imageUrl}" alt="${imageBadge.imageAlt}" /></span></div>
+            </isif>
+        </isloop>
+    <iselseif condition="${(product.available && pdict.display.plpTile === true && product.productType !== 'master') || (product.available && pdict.display.plpTile === false)}">
+        <isloop items="${product.badges.imageBadges}" var="imageBadge" status="loopStatus">
+            <isif condition="${loopStatus.first}">
+                <div class="product-badge left"><span class="badge-text"><img src="${imageBadge.imageUrl}" alt="${imageBadge.imageAlt}" /></span></div>
+            <iselseif condition="${loopStatus.last}">
+                <div class="product-badge right"><span class="badge-text"><img src="${imageBadge.imageUrl}" alt="${imageBadge.imageAlt}" /></span></div>
+            </isif>
+        </isloop>
+    </isif>
+    <div class="plp-image-carousel">
+        <isif condition="${product && product.images && !pdict.display.plpTile && product.productType != 'master'}"> 
+            <a href="${pdict.urls.product}" class="${product.promotionObj ? 'gtm-promotion-view': ''}" data-page-type="${session.custom.gtmPageType}" data-gtm-product-promo="${product.promotionObj}">
+                <picture>
+                    <iscomment> duplicate this template from productTileimage and change tile size for eyewear images </iscomment>
+                    <isif condition="${product.images.tile256[0]}"><source media="(min-width: 992px)" srcset="${product.images.tile256[0].url}" /></isif>
+                    <isif condition="${product.images.tile256[0]}"><source media="(min-width: 544px)" srcset="${product.images.tile256[0].url}" /></isif>
+                    <isif condition="${product.images.tile256[0]}"><source media="(min-width: 320px)" srcset="${product.images.tile256[0].url}" /></isif>
+                    <isif condition="${product.images.tile256[0]}"><img class="tile-image gtm-product" loading="${pdict.display.lazyload ? 'lazy' : ''}" src="${product.images.tile256[0].url}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
+                </picture>
+            </a>
+        <iselseif condition="${product && product.images && (product.productType != 'master' || !product.variationPdpURL)}" >
+            <a href="${pdict.urls.product}" class="${product.promotionObj ? 'gtm-promotion-view': ''}" data-gtm-product-promo="${product.promotionObj}" data-page-type="${session.custom.gtmPageType}">
+                <picture>
+                    <iscomment> duplicate this template from productTileimage and change tile size for eyewear images </iscomment>
+                    <isif condition="${product.images.tile532X300[0]}"><source media="(min-width: 992px)" srcset="${product.images.tile532X300[0].url}" /></isif>
+                    <isif condition="${product.images.tile532X300[0]}"><source media="(min-width: 544px)" srcset="${product.images.tile532X300[0].url}" /></isif>
+                    <isif condition="${product.images.tile532X300[0]}"><source media="(min-width: 320px)" srcset="${product.images.tile532X300[0].url}" /></isif>
+                    <isif condition="${product.images.tile532X300[0]}"><img class="tile-image gtm-product" loading="${pdict.display.lazyload ? 'lazy' : ''}" src="${product.images.tile532X300[0].url}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
+                </picture>
+            </a>
+            <isif condition="${pdict.display.isLifeStyleEnabled && !empty(product.images.tile532X300[3])}">
+                <a href="${pdict.urls.product}" class="${product.promotionObj ? 'gtm-promotion-view': ''}" data-gtm-product-promo="${product.promotionObj}" data-page-type="${session.custom.gtmPageType}">
+                    <picture class="life-style-image">
+                        <isif condition="${product.images.tile532X300[3]}"><source srcset="${URLUtils.staticURL('/images/532x300.gif')}" media="(min-width: 992px)" data-lazy="${product.images.tile532X300[3].url}" /></isif>
+                        <isif condition="${product.images.tile532X300[3]}"><source srcset="${URLUtils.staticURL('/images/532x300.gif')}" media="(min-width: 544px)" data-lazy="${product.images.tile532X300[3].url}" /></isif>
+                        <isif condition="${product.images.tile532X300[3]}"><source srcset="${URLUtils.staticURL('/images/532x300.gif')}" media="(min-width: 320px)" data-lazy="${product.images.tile532X300[3].url}" /></isif>
+                        <isif condition="${product.images.tile532X300[3]}"><img src="${URLUtils.staticURL('/images/532x300.gif')}" class="tile-image gtm-product"  data-lazy="${product.images.tile532X300[3].url}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
+                    </picture>
+                </a>
+            </isif>
+        <iselse>
+            <a href="${product.variationPdpURL}" class="${product.promotionObj ? 'gtm-promotion-view': ''}" data-page-type="${session.custom.gtmPageType}" data-gtm-product-promo="${product.promotionObj}">
+                <picture>
+                    <iscomment> duplicate this template from productTileimage and change default varaint tile size for eyewear images </iscomment>
+                    <isif condition="${product.defulatVariantEyewearImage}"><source media="(min-width: 992px)" srcset="${product.defulatVariantEyewearImage}" /></isif>
+                    <isif condition="${product.defulatVariantEyewearImage}"><source media="(min-width: 544px)" srcset="${product.defulatVariantEyewearImage}" /></isif>
+                    <isif condition="${product.defulatVariantEyewearImage}"><source media="(min-width: 320px)" srcset="${product.defulatVariantEyewearImage}" /></isif>
+                    <isif condition="${product.defulatVariantEyewearImage}"><img class="tile-image gtm-product" loading="${pdict.display.lazyload ? 'lazy' : ''}" src="${product.defulatVariantEyewearImage}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
+                </picture>
+            </a>
+            <isif condition="${pdict.display.isLifeStyleEnabled && !empty(product.defaultVariantEyeWearLifeStyleImage)}">
+                <a href="${pdict.urls.product}" class="${product.promotionObj ? 'gtm-promotion-view': ''}" data-gtm-product-promo="${product.promotionObj}" data-page-type="${session.custom.gtmPageType}">
+                    <picture class="life-style-image">
+                        <isif condition="${product.defaultVariantEyeWearLifeStyleImage}"><source srcset="${URLUtils.staticURL('/images/532x300.gif')}" media="(min-width: 992px)" data-lazy="${product.defaultVariantEyeWearLifeStyleImage}" /></isif>
+                        <isif condition="${product.defaultVariantEyeWearLifeStyleImage]}"><source srcset="${URLUtils.staticURL('/images/532x300.gif')}" media="(min-width: 544px)" data-lazy="${product.defaultVariantEyeWearLifeStyleImage}" /></isif>
+                        <isif condition="${product.defaultVariantEyeWearLifeStyleImage}"><source srcset="${URLUtils.staticURL('/images/532x300.gif')}" media="(min-width: 320px)" data-lazy="${product.defaultVariantEyeWearLifeStyleImage}" /></isif>
+                        <isif condition="${product.defaultVariantEyeWearLifeStyleImage}"><img src="${URLUtils.staticURL('/images/532x300.gif')}" class="tile-image gtm-product"  data-lazy="${product.defaultVariantEyeWearLifeStyleImage}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
+                    </picture>
+                </a>
+            </isif>
+        </isif>
+    </div>    
+    <isif condition="${!empty(product.saveMessage)}">
+        <div class="product-tag-content">
+            <span class="badge">${product.saveMessage}</span>
+        </div>
+    <iselse/>
+        <div class="product-tag-content ${pdict.display.recommendattionTile ? 'd-none' : ''} ${outOfStock || product.badges.textBadges.length > 0 ? '' : 'd-none'}">
+            <isinclude template="product/components/badges" />
+        </div>
+    </isif>
+</div>

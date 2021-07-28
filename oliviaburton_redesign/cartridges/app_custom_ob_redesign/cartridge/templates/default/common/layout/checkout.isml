@@ -34,6 +34,7 @@
         <isinclude template="analyticsTracking/analyticsTrackingFooter.isml"/>
         <iscomment>CUSTOM: Include resources template to avail backend resource messages on all pages.</iscomment>
         <isinclude template="resources/appresources"/>
+        <isinclude template="common/oneTrustCookiesHTML" sf-toolkit="off" />
 
     </body>
 </html>

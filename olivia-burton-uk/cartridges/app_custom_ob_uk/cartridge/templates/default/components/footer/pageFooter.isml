@@ -88,4 +88,6 @@
             <script src="${URLUtils.staticURL('/js/customClydeWidget.js')}" ></script>
         </isif>
     <iscomment> Custom End: </iscomment>
+    <iscomment> One trust html script </iscomment>
+    <isinclude template="common/oneTrustCookiesHTML" sf-toolkit="off" />
 </footer>
