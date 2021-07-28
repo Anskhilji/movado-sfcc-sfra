@@ -248,7 +248,8 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                 var variantCaseDiameterRedesigned = '';
                 var caseDiameter = !empty(variant.custom.caseDiameter) ? variant.custom.caseDiameter : '';
                 var familyName = !empty(variant.custom.familyName) ? variant.custom.familyName[0] : '';
-                if (!empty(familyName) && !empty(caseDiameter)) {
+                var productName = !empty(variant.name) ? variant.name : '';
+                if ((!empty(familyName) || !empty(productName)) && !empty(caseDiameter)) {
                     variantCaseDiameter = Constants.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR + caseDiameter + Constants.MM_UNIT;
                     variantCaseDiameterRedesigned = Constants.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR_REDESIGN + caseDiameter + Constants.MM_UNIT;
                 } else if (!empty(caseDiameter)) {

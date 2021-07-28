@@ -50,7 +50,7 @@
                             <span class="collection-name">${!empty(product.defaultVariantCollectionName) ? product.defaultVariantCollectionName : product.collectionName}</span>
                         </isif>
                     <iselse>
-                        <span class="collection-name">${product.productName}</span>
+                        <span class="collection-name">${!empty(product.productName) ? product.productName : ''}</span>
                     </isif>
                         <isif condition="${!empty(product.caseDiameterRedesigned) || !empty(product.defaultVariantcaseDiameterRedesigned)}">
                             <span class="case-diameter">${!empty(product.defaultVariantcaseDiameterRedesigned) ? product.defaultVariantcaseDiameterRedesigned : product.caseDiameterRedesigned}</span>
