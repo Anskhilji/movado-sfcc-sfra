@@ -1,13 +1,9 @@
 'use strict';
 
 var Logger = require('dw/system/Logger').getLogger('Listrak');
-var Site = require('dw/system/Site');
-var StringUtils = require('dw/util/StringUtils');
 
 var Constants = require('~/cartridge/scripts/utils/ListrakConstants');
-var ListrakServiceRegistry = require('~/cartridge/scripts/service/ListrakCloudServiceRegistry');
 var LTKAPIHelper = require('~/cartridge/scripts/helper/ListrakAPIHelper');
-var ltkHelper = require('~/cartridge/scripts/helper/ltkHelper');
 
 function sendSubscriberToListrak(requestParams) {
     var authServiceID = Constants.SERVICE_ID.LTK_AUTH;

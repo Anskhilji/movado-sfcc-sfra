@@ -36,7 +36,7 @@ function getAuthorizationServiceConfigs() {
 }
 
 function getAPIService(serviceID, endpoint, eventId, subscribe) {
-    var serviceConfig = null;   
+    var serviceConfig = null;
     serviceConfig = getDataAPIServiceConfigs();
     var dataService = LocalServiceRegistry.createService(serviceID, serviceConfig);
     var baseUrl = dataService.getConfiguration().getCredential().URL;
@@ -47,7 +47,7 @@ function getAPIService(serviceID, endpoint, eventId, subscribe) {
     if (!empty(endpoint)) {
         url = baseUrl.toString() + endpoint.replace('{listId}', listID) + '?eventIds=' + eventIdPref + '&overrideUnsubscribe=' + subscribePref;
     }
-    
+
     dataService.setURL(url);
     return dataService;
 }
@@ -58,6 +58,6 @@ function getAuthorizationService(serviceID) {
 }
 
 module.exports = {
-    getAuthorizationService : getAuthorizationService,
+    getAuthorizationService: getAuthorizationService,
     getAPIService: getAPIService
 }
