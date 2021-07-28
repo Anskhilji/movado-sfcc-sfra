@@ -26,6 +26,8 @@ server.post('Subscribe', server.middleware.https, function (req, res, next) {
         campaignName: !empty(request.httpParameterMap.campaignName.value) ? request.httpParameterMap.campaignName.value : '',
         eventName: !empty(request.httpParameterMap.eventName.value) ? request.httpParameterMap.eventName.value : '',
         birthday: !empty(request.httpParameterMap.birthday.value) ? request.httpParameterMap.birthday.value : '',
+        birthDate: !empty(request.httpParameterMap.birthDate.value) ? request.httpParameterMap.birthDate.value : '',
+        birthMonth: !empty(request.httpParameterMap.birthMonth.value) ? request.httpParameterMap.birthMonth.value : '',
         gender: !empty(request.httpParameterMap.gender.value) ? request.httpParameterMap.gender.value : '',
         phoneNumber: !empty(request.httpParameterMap.phoneNumber.value) ? request.httpParameterMap.phoneNumber.value : '',
         isEmailCheckDisabled: !empty(request.httpParameterMap.isEmailCheckDisabled.value) ? request.httpParameterMap.isEmailCheckDisabled.value : false
@@ -34,6 +36,8 @@ server.post('Subscribe', server.middleware.https, function (req, res, next) {
     if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
         var ltkConstants = require('*/cartridge/scripts/utils/ListrakConstants');
         requestParams.source = ltkConstants.Source.Footer;
+        requestParams.event = ltkConstants.Event.Footer;
+        requestParams.subscribe = ltkConstants.Subscribe.Footer;
         result = LTKApi.sendSubscriberToListrak(requestParams);
     } else {
         result = SFMCApi.sendSubscriberToSFMC(requestParams);

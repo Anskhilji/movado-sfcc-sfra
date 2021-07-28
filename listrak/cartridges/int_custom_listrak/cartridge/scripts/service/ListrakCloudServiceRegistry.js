@@ -35,15 +35,17 @@ function getAuthorizationServiceConfigs() {
     return serviceConfig;
 }
 
-function getAPIService(serviceID, endpoint, serviceType) {
+function getAPIService(serviceID, endpoint, eventId, subscribe) {
     var serviceConfig = null;   
     serviceConfig = getDataAPIServiceConfigs();
     var dataService = LocalServiceRegistry.createService(serviceID, serviceConfig);
     var baseUrl = dataService.getConfiguration().getCredential().URL;
     var listID = Site.current.preferences.custom.Listrak_ListID || '';
+    var eventIdPref = Site.getCurrent().getCustomPreferenceValue(eventId) || '';
+    var subscribePref = Site.getCurrent().getCustomPreferenceValue(subscribe) || '';
     var url = baseUrl.toString();
     if (!empty(endpoint)) {
-        url = baseUrl.toString() + endpoint.replace('{listId}', listID);
+        url = baseUrl.toString() + endpoint.replace('{listId}', listID) + '?eventIds=' + eventIdPref + '&overrideUnsubscribe=' + subscribePref;
     }
     
     dataService.setURL(url);

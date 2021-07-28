@@ -3,8 +3,9 @@
 exports.LTK_ACCESS_TOKEN_OBJECT = 'ltk_AccessToken';
 exports.LTK_ACCESS_TOKEN_OBJECT_ID = 'ltk_AccessToken';
 exports.CURRENCY_USD = 'USD';
+exports.Subscription_State = 'Subscribed';
 exports.LTK_API_ENDPOINT = {
-    CONTACT: '/List/{listId}/Contact',
+    CONTACT: '/List/{listId}/Contact/items',
 }
 exports.SERVICE_ID = {
     LTK_AUTH: 'listrak.auth.api',
@@ -15,4 +16,16 @@ exports.Source = {
     Create_Account: 'Listrak_AccountCreateSourceID',
     Checkout: 'Listrak_CheckoutSourceID',
     BackInStock: 'Listrak_BackInStockSourceID'
+}
+exports.Event = {
+    Footer: 'Listrak_FooterEventID',
+    Create_Account: 'Listrak_AccountCreateEventID',
+    Checkout: 'Listrak_CheckoutEventID',
+    BackInStock: 'Listrak_BackInStockEventID'
+}
+exports.Subscribe = {
+    Footer: 'Listrak_Footer_OverrideUnsubscribe',
+    Create_Account: 'Listrak_AccountCreate_OverrideUnsubscribe',
+    Checkout: 'Listrak_Checkout_OverrideUnsubscribe',
+    BackInStock: 'Listrak_BackInStock_OverrideUnsubscribe'
 }

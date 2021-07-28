@@ -32,7 +32,9 @@ server.post('Subscribe',
                 if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
                     var LTKApi = require('*/cartridge/scripts/api/ListrakAPI');
                     var ltkConstants = require('*/cartridge/scripts/utils/ListrakConstants');
-                    requestParams.source = ltkConstants.Source.Checkout;
+                    requestParams.source = ltkConstants.Source.BackInStock;
+                    requestParams.event = ltkConstants.Event.BackInStock;
+                    requestParams.subscribe = ltkConstants.Subscribe.BackInStock;
                     LTKApi.sendSubscriberToListrak(requestParams);
                 }
                 //Custom End: 

@@ -1,6 +1,7 @@
 'use strict';
 
 var Site = require('dw/system/Site');
+var Constants = require('~/cartridge/scripts/utils/ListrakConstants');
 
 function generateAuthenticationPayLoad(params) {
     return {
@@ -11,9 +12,9 @@ function generateAuthenticationPayLoad(params) {
 }
 
 function generateAddContactToLTKPayload(params) {
-    return {
+    var payload = {
         "emailAddress": params.email,
-        "subscriptionState": "Subscribed",
+        "subscriptionState": Constants.Subscription_State,
         "segmentationFieldValues": [
             {
                 "segmentationFieldId": Site.current.preferences.custom.Listrak_FirstName || '',
@@ -36,7 +37,7 @@ function generateAddContactToLTKPayload(params) {
                 "value": true
             },
             {
-                "segmentationFieldId": Site.current.preferences.custom.Listrak_CountryCode,
+                "segmentationFieldId": Site.current.preferences.custom.Listrak_CountryCode || '',
                 "value": params.countryCode || require('*/cartridge/scripts/helpers/productCustomHelper').getCurrentCountry()
             },
             {
@@ -45,6 +46,7 @@ function generateAddContactToLTKPayload(params) {
             }
         ]
     };
+    return JSON.stringify(payload);
 }
 module.exports = {
     generateAuthenticationPayLoad: generateAuthenticationPayLoad,
