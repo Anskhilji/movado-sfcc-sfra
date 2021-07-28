@@ -44,9 +44,13 @@
             </div>
             <div class="tile-inner-content">
                 <isif condition="${pdict.display.showAddToCart}">
-                    <div class="product-brand-info">
+                    <div class="product-brand-info" data-isWatchTile="${product.isWatchTile}">
+                    <isif condition="${product.isWatchTile}">
                         <isif condition="${!empty(product.defaultVariantCollectionName) || !empty(product.collectionName)}"> </isif>
                             <span class="collection-name">${!empty(product.defaultVariantCollectionName) ? product.defaultVariantCollectionName : product.collectionName}</span>
+                    <iselse>
+                        <span class="collection-name">${product.productName}</span>
+                    </isif>
                         <isif condition="${!empty(product.caseDiameterRedesigned) || !empty(product.defaultVariantcaseDiameterRedesigned)}">
                             <span class="case-diameter">${!empty(product.defaultVariantcaseDiameterRedesigned) ? product.defaultVariantcaseDiameterRedesigned : product.caseDiameterRedesigned}</span>
                         </isif>
