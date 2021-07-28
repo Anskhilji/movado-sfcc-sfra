@@ -124,6 +124,12 @@ function getIsWatchTile(apiProduct) {
     var apiCategories = apiProduct.getOnlineCategories().iterator();
     while (apiCategories.hasNext()) {
         currentCategory = apiCategories.next();
+
+        if (!empty(currentCategory) && currentCategory.ID == Constants.WATCHES_CATEGORY) {
+            isWatchTile = true;
+            break; // break outer loop
+        }
+        
         while (currentCategory.parent != null) {
             currentCategory = currentCategory.parent;
             if (!empty(currentCategory) && currentCategory.ID == Constants.WATCHES_CATEGORY) {
