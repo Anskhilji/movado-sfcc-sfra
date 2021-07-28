@@ -113,6 +113,30 @@ function getProductAttributes(apiProduct) {
 }
 
 /**
+ * It is used to get if current product belongs to watches category
+ * @param {Object} apiProduct - apiProduct is from ProductMgr
+ * @returns {Boolean} - true if product belongs to watches
+ */
+
+function getIsWatchTile(apiProduct) {
+    var isWatchTile = false;
+    var currentCategory = null;
+    var apiCategories = apiProduct.getOnlineCategories().iterator();
+    while (apiCategories.hasNext()) {
+        currentCategory = apiCategories.next();
+        while (currentCategory.parent != null) {
+            currentCategory = currentCategory.parent;
+            if (!empty(currentCategory) && currentCategory.ID == Constants.WATCHES_CATEGORY) {
+                isWatchTile = true;
+                break; // break inner loop
+            }
+        }
+        break; // break outer loop
+    }
+    return isWatchTile;
+}
+
+/**
  * It is used to get category object of current product
  * @param {Object} apiProduct - apiProduct is from ProductMgr
  * @param {Object} categories - categories json configured in site preference
@@ -380,5 +404,6 @@ movadoProductCustomHelper.getGtmPromotionObject = getGtmPromotionObject;
 movadoProductCustomHelper.getPDPContentAssetHTML = getPDPContentAssetHTML;
 movadoProductCustomHelper.getCaseDiameter = getCaseDiameter;
 movadoProductCustomHelper.getColor = getColor;
+movadoProductCustomHelper.getIsWatchTile = getIsWatchTile;
 
 module.exports = movadoProductCustomHelper;

@@ -27,6 +27,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var swatchesURL;
     var caseDiameter = productCustomHelper.getCaseDiameter(apiProduct);
     var caseDiameterRedesigned = productCustomHelper.getCaseDiameter(apiProduct, true);
+    var isWatchTile = productCustomHelper.getIsWatchTile(apiProduct);
     var color = productCustomHelper.getColor(apiProduct);
     var promotions = PromotionMgr.activeCustomerPromotions.getProductPromotions(apiProduct);
     var promotionObj = productCustomHelper.getGtmPromotionObject(promotions);
@@ -310,6 +311,13 @@ module.exports = function productTile(product, apiProduct, productType, params) 
         Object.defineProperty(product, 'caseDiameterRedesigned', {
             enumerable: true,
             value: caseDiameterRedesigned
+        });
+    }
+
+    if (!empty(isWatchTile)) {
+        Object.defineProperty(product, 'isWatchTile', {
+            enumerable: true,
+            value: isWatchTile
         });
     }
 
