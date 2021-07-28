@@ -128,9 +128,10 @@ function getIsWatchTile(apiProduct) {
             currentCategory = currentCategory.parent;
             if (!empty(currentCategory) && currentCategory.ID == Constants.WATCHES_CATEGORY) {
                 isWatchTile = true;
-                break;
+                break; // break inner loop
             }
         }
+        break; // break outer loop
     }
     return isWatchTile;
 }
