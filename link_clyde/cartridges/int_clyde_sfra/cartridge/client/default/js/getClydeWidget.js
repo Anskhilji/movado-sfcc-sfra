@@ -3,20 +3,23 @@
 /* global $, document, Clyde, ClydeSitePreferences */
 
 var clydeWidget;
-var productId = document.querySelector('.product-number span').innerHTML || '';
+if (document.querySelector('.product-number span')) {
+    var productId = document.querySelector('.product-number span').innerHTML || '';
 
-if (Clyde.checkReady() === false) {
-    Clyde.init({
-        key: ClydeSitePreferences.CLYDE_API_KEY,
-        defaultSelector: '#clyde-cta',
-        type: ClydeSitePreferences.CLYDE_WIDGET_TYPE,
-        environment: ClydeSitePreferences.CLYDE_WIDGET_ENVIRONMENT,
-        skipGeoIp: true
-    }, function () {
-        Clyde.setActiveProduct(productId);
+    if (Clyde.checkReady() === false) {
+        Clyde.init({
+            key: ClydeSitePreferences.CLYDE_API_KEY,
+            defaultSelector: '#clyde-cta',
+            type: ClydeSitePreferences.CLYDE_WIDGET_TYPE,
+            environment: ClydeSitePreferences.CLYDE_WIDGET_ENVIRONMENT,
+            skipGeoIp: true
+        }, function () {
+            Clyde.setActiveProduct(productId);
+        }
+        );
     }
-    );
 }
+
 
 clydeWidget = {
     getSelectedClydeContract: function (form) {

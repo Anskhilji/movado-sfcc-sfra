@@ -26,8 +26,9 @@
     <iscomment> Custom Start: Clyde Integration </iscomment>
 
     <isif condition="${sitePreferences.isClydeEnabled}">
+        <isset name="clydeResourceHelper" value="${require('*/cartridge/scripts/util/resource')}" scope="page" />
         (function(){
-            window.ClydeSitePreferences = <isprint value="${JSON.stringify(pdict.resourceHelper.getClydePreferences())}"/>;
+            window.ClydeSitePreferences = <isprint value="${JSON.stringify(clydeResourceHelper.getClydePreferences())}"/>;
         }());
     </isif>
     

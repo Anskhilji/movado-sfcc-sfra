@@ -11,6 +11,7 @@ var Resource = require('dw/web/Resource');
 var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
+var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
 
 server.replace(
     'Confirm',
@@ -21,6 +22,7 @@ server.replace(
         var ABTestMgr = require('dw/campaign/ABTestMgr');
         var Locale = require('dw/util/Locale');
         var OrderMgr = require('dw/order/OrderMgr');
+        var Site = require('dw/system/Site');
         var Transaction = require('dw/system/Transaction');
 
         var OrderModel = require('*/cartridge/models/order');
@@ -78,6 +80,16 @@ server.replace(
                 order.custom.abTestParticipationSegment = abTestParticipationSegments;
             });
         }
+        /**~
+         * Custom Start: Clyde Integration
+         */
+        if (Site.getCurrent().preferences.custom.isClydeEnabled) {
+            var contractProductList = req.querystring.clydeContractProductList;
+            addClydeContract.createOrderCustomAttr(contractProductList, order);
+        }
+        /**
+         * Custom: End
+         */
 
 
         if (!req.currentCustomer.profile) {

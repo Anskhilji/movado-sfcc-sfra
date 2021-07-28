@@ -1,5 +1,6 @@
 'use strict';
 var movadoBase = require('movado/product/base');
+var clydeWidget = require('link_clyde/getClydeWidget.js');
 var updateMiniCart = true;
 var pdpVideoLoaded = false;
 var videoStatusChecker;
@@ -1027,6 +1028,16 @@ movadoBase.addToCart = function () {
         }
         /**
          *  Custom End
+         */
+
+        /**
+         * Custom Start: Clyde Integration
+         */
+        if (window.Resources && window.Resources.IS_CLYDE_ENABLED) {
+            form = clydeWidget.getSelectedClydeContract(form);
+        }
+        /**
+         * Custom end:
          */
         $productContainer.find('input[type="text"], textarea').filter('[required]')
         .each(function() {
