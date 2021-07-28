@@ -79,8 +79,12 @@ module.exports = function () {
         }
 
         // Update Family Name and Case Diameter
-        if (typeof response.product.collectionName !== 'undefined' && response.product.collectionName !== '' && response.product.collectionName !== null) {
-            $productContainer.find('.product-brand-info .collection-name').text(response.product.collectionName);
+        if ($product.isWatchTile) {
+            if (typeof response.product.collectionName !== 'undefined' && response.product.collectionName !== '' && response.product.collectionName !== null) {
+                $productContainer.find('.product-brand-info .collection-name').text(response.product.collectionName);
+            }
+        } else {
+            $productContainer.find('.product-brand-info .collection-name').text(response.product.productName);
         }
         if (!isPLPRedesign && typeof response.product.caseDiameter !== 'undefined' && response.product.caseDiameter !== '' && response.product.caseDiameter !== null) {
             $productContainer.find('.product-brand-info .case-diameter').text(response.product.caseDiameter);
