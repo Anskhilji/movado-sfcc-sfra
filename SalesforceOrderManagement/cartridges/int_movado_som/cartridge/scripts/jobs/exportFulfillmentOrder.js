@@ -213,6 +213,9 @@ function createSAPOrderFile(args, impexFilePath, record) {
         if (Object.hasOwnProperty.call(record.poHeader, 'returnWOReceipt')) {
             writeXmlElement(streamWriter, 'ReturnWOReceipt', record.poHeader.returnWOReceipt);
         }
+        if (Object.hasOwnProperty.call(record.poHeader, 'returnTrackingNumber')) {
+            writeXmlElement(streamWriter, 'ReturnTrackingNumber', record.poHeader.returnTrackingNumber);
+        }
         if (Object.hasOwnProperty.call(record.poHeader, 'registerAssociateId')) {
             writeXmlElement(streamWriter, 'RegisterAssociateId', record.poHeader.registerAssociateId);
         }
