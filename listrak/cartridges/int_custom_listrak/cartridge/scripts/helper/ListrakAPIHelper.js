@@ -48,7 +48,7 @@ function getAuthToken(params) {
 function addContactToLTK(params, service) {
     var allSubscriberPayload = RequestModel.generateAddContactToLTKPayload(params);
     var result = {
-        message: Resource.msg('newsletter.signup.success', 'common', null),
+        message: Resource.msg('newsletter.signup.success', 'listrak', null),
         success: true
     }
     var responsePayload = null;
@@ -73,7 +73,7 @@ function addContactToLTK(params, service) {
 
     if (!responsePayload.object && responsePayload.error) {
         result.message = Resource.msg('listrak.error.msg', 'listrak', null);
-        Logger.debug('Listrak addContactToLTK: {0}', Resource.msg('listrak.' + responsePayload.error, 'listrak', null));
+        Logger.error('Listrak addContactToLTK: {0}', Resource.msg('listrak.' + responsePayload.error, 'listrak', null));
         result.success = false;
     }
     return result;
