@@ -40,6 +40,7 @@
 
                     .dropdown-wrapper {
                         display: flex;
+                        justify-content: space-between;
                     }
 
                     .menu-pane {
@@ -385,6 +386,7 @@
 
     .submenu-recommendations {
         max-width: rem(300);
+        margin-right: rem(150);
 
         @include media-breakpoint-down(md) {
             margin: 0 auto;
@@ -657,6 +659,7 @@
     }
 
     .suggestions {
+        opacity: 0.9;
 
         &:after {
             right: rem(9);
@@ -664,6 +667,9 @@
 
         &:before {
             right: rem(10);
+        }
+        .items-header {
+            font-size: rem(16);
         }
     }
 }
