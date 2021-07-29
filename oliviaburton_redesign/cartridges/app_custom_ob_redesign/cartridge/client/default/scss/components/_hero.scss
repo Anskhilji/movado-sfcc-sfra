@@ -260,16 +260,6 @@
 
     .img-slide {
         position: relative;
-
-        img {
-            height: rem(200);
-            @include media-breakpoint-up(sm) {
-                height: rem(350);
-            }
-            @include media-breakpoint-up(lg) {
-                height: rem(500);
-            }
-        }
     }
 }
 
