@@ -14,7 +14,7 @@
                 <script>
                     //Used to show the listrak popup
                     var interval = setInterval(function() {
-                        if (typeof _ltk != "undefined" && typeof _ltk.Popup != 'undefined') {
+                        if (typeof _ltk != "undefined" && typeof _ltk.Popup != "undefined") {
                             _ltk.Popup.openManualByName("${pdict.popupID}");
                             clearInterval(interval);
                         }
