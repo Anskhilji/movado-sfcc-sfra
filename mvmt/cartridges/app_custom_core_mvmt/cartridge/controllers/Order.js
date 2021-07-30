@@ -22,12 +22,12 @@ server.append('Confirm', function (req, res, next) {
 
         if (!empty(requestParams.email)) {
             if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
-                var LTKApi = require('*/cartridge/scripts/api/ListrakAPI');
+                var ltkApi = require('*/cartridge/scripts/api/ListrakAPI');
                 var ltkConstants = require('*/cartridge/scripts/utils/ListrakConstants');
                 requestParams.source = ltkConstants.Source.Checkout;
                 requestParams.event = ltkConstants.Event.Checkout;
                 requestParams.subscribe = ltkConstants.Subscribe.Checkout;
-                LTKApi.sendSubscriberToListrak(requestParams);
+                ltkApi.sendSubscriberToListrak(requestParams);
             } else {
                 var sfmcApi = require('*/cartridge/scripts/api/SFMCApi');
                 SFMCApi.sendSubscriberToSFMC(requestParams);

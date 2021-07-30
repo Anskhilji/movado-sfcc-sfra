@@ -37,7 +37,7 @@ function getAuthToken(params) {
     var accessToken = null;
     if (!params.isExpired) {
         accessToken = ltkHelper.getSavedAuthToken();
-        return accessToken.custom.token;
+        return accessToken ? accessToken.custom.token : '';
     }
     if (!accessToken) {
         accessToken = getAuthTokenFromAPI(params);
@@ -73,7 +73,7 @@ function addContactToLTK(params, service) {
 
     if (!responsePayload.object && responsePayload.error) {
         result.message = Resource.msg('listrak.error.msg', 'listrak', null);
-        Logger.error('Listrak addContactToLTK: {0}', Resource.msg('listrak.' + responsePayload.error, 'listrak', null));
+        Logger.error('Listrak addContactToLTK: {0}', responsePayload.errorMessage.tostring());
         result.success = false;
     }
     return result;

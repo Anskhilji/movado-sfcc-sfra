@@ -30,12 +30,14 @@ server.post('Subscribe',
                 }
                 //Custom Start [MSS-1453]: Send Subscriber to Listrak 
                 if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
-                    var LTKApi = require('*/cartridge/scripts/api/ListrakAPI');
+                    var ltkApi = require('*/cartridge/scripts/api/ListrakAPI');
                     var ltkConstants = require('*/cartridge/scripts/utils/ListrakConstants');
-                    requestParams.source = ltkConstants.Source.BackInStock;
-                    requestParams.event = ltkConstants.Event.BackInStock;
-                    requestParams.subscribe = ltkConstants.Subscribe.BackInStock;
-                    LTKApi.sendSubscriberToListrak(requestParams);
+                    var requestParams = {
+                        source: ltkConstants.Source.BackInStock,
+                        event = ltkConstants.Event.BackInStock,
+                        subscribe = ltkConstants.Subscribe.BackInStock
+                    }
+                    ltkApi.sendSubscriberToListrak(requestParams);
                 }
                 //Custom End: 
             }
