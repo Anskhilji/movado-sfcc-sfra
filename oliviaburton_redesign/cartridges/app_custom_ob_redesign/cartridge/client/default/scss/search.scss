@@ -365,6 +365,7 @@
     }
 }
 
+
 .plp-redesign {
     margin-bottom: rem(20);
 
@@ -540,7 +541,7 @@
                 }
 
                 &-toggle {
-                    font-family: $font-gill-std-bold;
+                    font-family: $font-gill-sans-std;
                     font-size: rem(15);
                     font-weight: 600;
                     color: $gray20;
@@ -552,7 +553,7 @@
                     right: 0;
                     width: rem(200);
                     text-align: left;
-                    padding: rem(19) rem(20);
+                    padding: rem(18) rem(20);
 
                     &::after {
                         content: "";
@@ -561,7 +562,7 @@
                         height: rem(20);
                         position: absolute;
                         right: rem(20);
-                        top: rem(22);
+                        top: rem(20);
                         transition: transform 0.3s;
                         background-size: 100%;
                         margin: 0;
@@ -1053,7 +1054,7 @@
                 width: 100%;
                 border: rem(1) solid $gray90;
                 border-radius: rem(5);
-                font-family: $font-gill-std-semibold;
+                font-family: $font-gill-sans-std;
                 font-size: rem(12);
                 line-height: rem(16);
                 font-weight: 600;
@@ -1566,7 +1567,7 @@
                     }
 
                     .save-value {
-                        font-family: $font-gill-std-semibold;
+                        font-family: $font-gill-sans-std;
                         font-size: rem(12);
                         color: $black;
                         font-weight: 600;
@@ -1768,6 +1769,7 @@
         margin-bottom: rem(30);
     }
 }
+
 
 .no-overflow {
     overflow: hidden;

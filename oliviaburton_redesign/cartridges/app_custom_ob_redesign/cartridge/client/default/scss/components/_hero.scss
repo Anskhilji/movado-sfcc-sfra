@@ -93,7 +93,7 @@
 
             &-item {
                 a {
-                    font-family: $font-gill-std-semibold;
+                    font-family: $font-gill-sans-std;
                     font-size: rem(12);
                     font-weight: 600;
                     line-height: rem(16);
@@ -260,16 +260,6 @@
 
     .img-slide {
         position: relative;
-
-        img {
-            height: rem(200);
-            @include media-breakpoint-up(sm) {
-                height: rem(350);
-            }
-            @include media-breakpoint-up(lg) {
-                height: rem(500);
-            }
-        }
     }
 }
 
