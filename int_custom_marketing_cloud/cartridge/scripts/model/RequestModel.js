@@ -32,6 +32,22 @@ function generateAddContactToMCPayload(params) {
                     }
                 ]
             }
+        ],
+        "Country": params.country,
+        "value": [
+            {
+                "name": "Country",
+                "items": [
+                    {
+                        "values": [
+                            {
+                                "name": "Country",
+                                "value": params.country
+                            }
+                        ]
+                    }
+                ]
+            }
         ]
     };
 }
@@ -42,7 +58,8 @@ function generateAddContactToJourneyPayload(params) {
         "EventDefinitionKey": params.eventDefinationKey,
         "Data": {
             "Email Address": params.email,
-            "Subscriber Key": params.email
+            "Subscriber Key": params.email,
+            "Country": params.country
         }
     };
 }
@@ -51,10 +68,12 @@ function generateAddContactToDataExtensionPayload(params) {
     return [
         {
             "keys": {
-                "Email Address": params.email
+                "Email Address": params.email,
+                "Country": params.country
             },
             "values": {
-                "Email Address": params.email
+                "Email Address": params.email,
+                "Country": params.country
             }
         }
     ];
