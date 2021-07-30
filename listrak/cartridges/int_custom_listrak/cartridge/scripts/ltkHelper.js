@@ -31,11 +31,11 @@ function getProductPrice(product) {
     }
     if (product.getPriceModel().getPrice()) {
         if (product.getPriceModel().getPrice().value) {
-            productDecimalPrice = product.getPriceModel().getPrice().value.toString()
+            productPrice = product.getPriceModel().getPrice().value.toString()
         }
     }
 
-    return productDecimalPrice ? currencySymbol + productDecimalPrice : '';
+    return productPrice ? currencySymbol + productPrice : '';
 }
 
 function getCurrencySymbol(currency) {
