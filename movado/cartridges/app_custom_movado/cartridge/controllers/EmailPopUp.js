@@ -16,13 +16,13 @@ server.get('Show', function (req, res, next) {
     var popupID;
     if (SitePreferences.Listrak_Cartridge_Enabled) {
         var Constants = require('*/cartridge/scripts/util/Constants');
-
+        var doubleOptInPopupCountries = !empty(SitePreferences.Listrak_DoubleOptInPopupCountries) ? SitePreferences.Listrak_DoubleOptInPopupCountries : '';
         if (session.privacy.countryCode == Constants.US_COUNTRY_CODE) {
-            popupID = SitePreferences.Listrak_USPopupID;
-        } else if (session.privacy.countryCode == Constants.GERMANY_COUNTRY_CODE) {
-            popupID = SitePreferences.Listrak_GermanyPopupID;
+            popupID = !empty(SitePreferences.Listrak_USPopupID) ? SitePreferences.Listrak_USPopupID : '';
+        } else if (emailPopupHelper.isDoubleOptInPopupCountry(doubleOptInPopupCountries)) {
+            popupID = !empty(SitePreferences.Listrak_DoubleOptInPopup) ? SitePreferences.Listrak_DoubleOptInPopup : '';
         } else {
-            popupID = SitePreferences.Listrak_InternationalPopupID;
+            popupID = !empty(SitePreferences.Listrak_InternationalPopupID) ? SitePreferences.Listrak_InternationalPopupID : '';
         }
     }
     res.render('common/emailOptInPopUp', {
