@@ -386,7 +386,7 @@
 
     .submenu-recommendations {
         max-width: rem(300);
-        margin-right: rem(150);
+        margin-right: rem(0);
 
         @include media-breakpoint-down(md) {
             margin: 0 auto;
@@ -659,8 +659,6 @@
     }
 
     .suggestions {
-        opacity: 0.9;
-
         &:after {
             right: rem(9);
         }
