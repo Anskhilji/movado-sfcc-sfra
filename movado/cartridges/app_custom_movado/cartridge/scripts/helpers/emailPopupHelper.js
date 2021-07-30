@@ -125,19 +125,14 @@ function checkPopupQualifications (req) {
  * @param {Object} - Countries which are configured
  * @returns {boolean} - Return true if the country is configured
  */
-function isDoubleOptInPopupCountry(DoubleOptInPopupCountries) {
-      if (DoubleOptInPopupCountries.length > 0) {
-        var isMatchedCountry = false;
-        for (var i = 0; i < DoubleOptInPopupCountries.length; i++) {
-            if (!empty(session.privacy.countryCode) && session.privacy.countryCode) {
-                if (session.privacy.countryCode == DoubleOptInPopupCountries[i]) {
-                    isMatchedCountry = true;
-                    break;
-                }
-            }
+function isDoubleOptInPopupCountry(doubleOptInPopupCountries) {
+    var isMatchedCountry = false;
+    if (!empty(session.privacy.countryCode) ) {
+        if (doubleOptInPopupCountries.indexOf(session.privacy.countryCode) != -1){
+            isMatchedCountry = true;
         }
-        return isMatchedCountry;
     }
+    return isMatchedCountry;
 }
 
 module.exports.getPopUpSettings = getPopUpSettings;
