@@ -6,6 +6,10 @@
  * @param {dw.catalog.Product} product
  * @returns {String} product price.
  */
+var Constants = require('~/cartridge/scripts/utils/ListrakConstants');
+var CustomObjectMgr = require('dw/object/CustomObjectMgr');
+var Logger = require('dw/system/Logger').getLogger('Listrak');
+var Transaction = require('dw/system/Transaction');
 
 function getCountryCode(request) {
     var countryCode;
@@ -19,20 +23,27 @@ function getCountryCode(request) {
     return countryCode;
 }
 
-function getProductPrice(product) {
+function getProductPrice(product, currencyCode) {
     var Currency = require('dw/util/Currency');
     var productPrice;
     var currency;
     var currencySymbol = '';
-    var currencyCode = session.currency.currencyCode;
+    var defaultCurrency;
+    var currencyCode = currencyCode || session.currency.currencyCode;
     if (currencyCode) {
+        defaultCurrency = session.getCurrency();
         currency = Currency.getCurrency(currencyCode);
+        session.setCurrency(currency);
         currencySymbol = getCurrencySymbol(currency);
     }
     if (product.getPriceModel().getPrice()) {
         if (product.getPriceModel().getPrice().value) {
             productPrice = product.getPriceModel().getPrice().value.toString()
         }
+    }
+
+    if (currencyCode && defaultCurrency) {
+        session.setCurrency(defaultCurrency);
     }
 
     return productPrice ? currencySymbol + productPrice : '';
@@ -52,7 +63,32 @@ function getCurrencySymbol(currency) {
     return currency.currencyCode + ' '; // returned text is always utf-8
 }
 
+function getSavedAuthToken() {
+    var accessToken = CustomObjectMgr.getCustomObject(Constants.LTK_ACCESS_TOKEN_OBJECT, Constants.LTK_ACCESS_TOKEN_OBJECT_ID);
+    return accessToken;
+}
+
+function saveNewAuthToken(accessToken) {
+    var existingAccessToken = getSavedAuthToken();
+    try {
+        if (existingAccessToken) {
+            Transaction.wrap(function () {
+                existingAccessToken.custom.token = accessToken;
+            });
+        } else {
+            Transaction.wrap(function () {
+                var ltkAccessToken = CustomObjectMgr.createCustomObject(Constants.LTK_ACCESS_TOKEN_OBJECT, Constants.LTK_ACCESS_TOKEN_OBJECT_ID);
+                ltkAccessToken.custom.token = accessToken;
+            });
+        }
+    } catch (e) {
+        Logger.error('Error occurred while trying to update access Token, ERROR: ' + e);
+    }
+}
+
 module.exports = {
     getProductPrice: getProductPrice,
-    getCountryCode: getCountryCode
+    getCountryCode: getCountryCode,
+    saveNewAuthToken: saveNewAuthToken,
+    getSavedAuthToken: getSavedAuthToken
 };

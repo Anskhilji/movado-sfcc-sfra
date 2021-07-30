@@ -123,7 +123,6 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
     var Resource = require('dw/web/Resource');
     var URLUtils = require('dw/web/URLUtils');
 
-    var SFMCApi = require('int_custom_marketing_cloud/cartridge/scripts/api/SFMCApi');
     var EmailSubscriptionHelper = require('int_custom_marketing_cloud/cartridge/scripts/helper/EmailSubscriptionHelper');
     var formErrors = require('*/cartridge/scripts/formErrors');
     var registrationForm = null;
@@ -220,7 +219,17 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
                                 var requestParams = {
                                     email: registrationForm.email
                                 }
-                                SFMCApi.sendSubscriberToSFMC(requestParams);
+                                if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
+                                    var ltkApi = require('*/cartridge/scripts/api/ListrakAPI');
+                                    var ltkConstants = require('*/cartridge/scripts/utils/ListrakConstants');
+                                    requestParams.source = ltkConstants.Source.Create_Account;
+                                    requestParams.event = ltkConstants.Event.Create_Account;
+                                    requestParams.subscribe = ltkConstants.Subscribe.Create_Account;
+                                    ltkApi.sendSubscriberToListrak(requestParams);
+                                } else {
+                                    var SFMCApi = require('int_custom_marketing_cloud/cartridge/scripts/api/SFMCApi');
+                                    SFMCApi.sendSubscriberToSFMC(requestParams);
+                                }
                                 newsletterSignupProssesed = EmailSubscriptionHelper.emailSubscriptionResponse(true);
                             } else {
                                 newsletterSignupProssesed = EmailSubscriptionHelper.emailSubscriptionResponse(false);
