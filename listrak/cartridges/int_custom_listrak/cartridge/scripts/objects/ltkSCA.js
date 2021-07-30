@@ -3,7 +3,7 @@
 */
 var Site = require('dw/system/Site');
 var Product = require('*/cartridge/scripts/objects/ltkProduct.js');
-var ltkHelper = require('*/cartridge/scripts/ltkHelper.js');
+var ltkHelper = require('*/cartridge/scripts/helper/ltkHelper.js');
 
 /**
  * Object to represent a cart with details.
