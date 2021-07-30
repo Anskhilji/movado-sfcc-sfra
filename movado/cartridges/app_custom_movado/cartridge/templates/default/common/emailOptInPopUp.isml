@@ -9,17 +9,31 @@
          data-emailpopupposition = "${pdict.popUpSettings.emailPopUpPosition}"
          data-emailpopupdelaytime = "${pdict.popUpSettings.emailPopupWaitTime}">
         <div class=" modal-dialog quick-view-dialog email-popup-container popup-form" role="dialog" aria-label="modal">
+            <isset name="sitePref" value="${dw.system.Site.current.preferences}" scope="page" />
+            <isif condition="${sitePref.custom.Listrak_Cartridge_Enabled && !empty(pdict.popupID)}">
+                <script>
+                    //Used to show the listrak popup
+                    var interval = setInterval(function() {
+                        if (typeof _ltk != "undefined" && typeof _ltk.Popup != 'undefined') {
+                            _ltk.Popup.openManualByName("${pdict.popupID}");
+                            clearInterval(interval);
+                        }
+                    }, 500);
+                </script>
+            <iselse/>
             <!-- Modal content-->
-            <div id = "emailOptInPopUp_Content" class="modal-content email-popup-content overflow-hidden">
-                <div class="modal-body">
-                    <div class="email-optin-control">
-                        <isslot id="email-popup-content" description="Email Popup Content" context="global" />   
-                    </div>
-                    <div class="thankyou-note-control d-none">
-                        <isslot id="email-popup-thank-you-note-content" description="Email Popup thank You Note Content" context="global" /> 
+                <div id = "emailOptInPopUp_Content" class="modal-content email-popup-content overflow-hidden">
+                    <div class="modal-body">
+                        <div class="email-optin-control">
+                            <isslot id="email-popup-content" description="Email Popup Content" context="global" />   
+                        </div>
+                        <div class="thankyou-note-control d-none">
+                            <isslot id="email-popup-thank-you-note-content" description="Email Popup thank You Note Content" context="global" /> 
+                        </div>
                     </div>
                 </div>
-            </div>
+            </isif>
+           
         </div>
     </div>
 </isif>
