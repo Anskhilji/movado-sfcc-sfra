@@ -363,6 +363,15 @@
             }
         }
     }
+
+    .cs-carousel-wrapper {
+        margin-top: rem(32);
+
+        img {
+            max-width: 100%;
+            width: 100%;
+        }
+    }
 }
 
 
