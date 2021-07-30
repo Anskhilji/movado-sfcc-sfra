@@ -57,11 +57,14 @@ function ltkOrder() {
 /* Loads order information into the object. */
 ltkOrder.prototype.LoadOrder = function (order) {
     /* Set the order information. */
+
+     /* MSS[1474]. Get Order Prices by FX rates Conversions */
     this.Order.OrderNumber = order.orderNo;
     this.Order.ItemTotal = ltkHelper.getOrderItemTotal(order) || order.adjustedMerchandizeTotalNetPrice.value;
     this.Order.TaxTotal = ltkHelper.getOrderTaxTotal(order) || order.getTotalTax().value;
     this.Order.ShipTotal = ltkHelper.getOrderShipTotal(order) || order.getAdjustedShippingTotalNetPrice().value;
     this.Order.OrderTotal = ltkHelper.getOrderTotal(order) || order.totalGrossPrice.value;
+    /* MSS[1474]. Get Order Prices by FX rates Conversions */
     this.Order.EmailAddress = order.customerEmail;
     this.Order.FirstName = order.billingAddress.firstName;
     this.Order.LastName = order.billingAddress.lastName;
@@ -108,8 +111,13 @@ ltkOrder.prototype.GetOrderItem = function (item) {
     /* Ensure that the item has an associated product. */
     if (!empty(item.product)) {
         orderItem.Sku = item.product.ID;
+        /* MSS[1474]. Get Product Price by FX rates Conversions */
         orderItem.Price = ltkHelper.getItemPrice(item.custom.eswRetailerCurrencyItemPriceInfo, this.Order) || item.product.getPriceModel().getPrice().value;
-        orderItem.localPrice = item.custom.eswShopperCurrencyItemPriceInfo ? ltkHelper.getCurrencySymbol(Currency.getCurrency(this.Order.custom.eswShopperCurrencyCode)) + item.custom.eswShopperCurrencyItemPriceInfo : ''
+        orderItem.localPrice = item.custom.eswShopperCurrencyItemPriceInfo 
+        ? 
+        ltkHelper.getCurrencySymbol(Currency.getCurrency(this.Order.custom.eswShopperCurrencyCode)) + item.custom.eswShopperCurrencyItemPriceInfo 
+        : ''
+        /* MSS[1474]. Get Product Price by FX rates Conversions */
     }
 
     if (!empty(item.shipment) && item.shipment.trackingNumber != null) {
