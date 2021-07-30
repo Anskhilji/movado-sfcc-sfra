@@ -119,7 +119,29 @@ function checkPopupQualifications (req) {
     }
 }
 
+
+/**
+ * Matching the current country with configured countries
+ * @param {Object} - Countries which are configured
+ * @returns {boolean} - Return true if the country is configured
+ */
+function isDoubleOptInPopupCountry(DoubleOptInPopupCountries) {
+      if (DoubleOptInPopupCountries.length > 0) {
+        var isMatchedCountry = false;
+        for (var i = 0; i < DoubleOptInPopupCountries.length; i++) {
+            if (!empty(session.privacy.countryCode) && session.privacy.countryCode) {
+                if (session.privacy.countryCode == DoubleOptInPopupCountries[i]) {
+                    isMatchedCountry = true;
+                    break;
+                }
+            }
+        }
+        return isMatchedCountry;
+    }
+}
+
 module.exports.getPopUpSettings = getPopUpSettings;
 module.exports.isWhiteListed = isWhiteListed;
 module.exports.isEmailPopUpEnabled = isEmailPopUpEnabled;
 module.exports.checkPopupQualifications = checkPopupQualifications;
+module.exports.isDoubleOptInPopupCountry = isDoubleOptInPopupCountry;
