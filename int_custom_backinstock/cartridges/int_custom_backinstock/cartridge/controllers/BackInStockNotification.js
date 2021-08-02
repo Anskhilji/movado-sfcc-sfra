@@ -33,10 +33,9 @@ server.post('Subscribe',
                     var ltkApi = require('*/cartridge/scripts/api/ListrakAPI');
                     var ltkConstants = require('*/cartridge/scripts/utils/ListrakConstants');
                     var requestParams = {
-                        email: form.email,
                         source: ltkConstants.Source.BackInStock,
-                        event: ltkConstants.Event.BackInStock,
-                        subscribe: ltkConstants.Subscribe.BackInStock
+                        event = ltkConstants.Event.BackInStock,
+                        subscribe = ltkConstants.Subscribe.BackInStock
                     }
                     ltkApi.sendSubscriberToListrak(requestParams);
                 }
