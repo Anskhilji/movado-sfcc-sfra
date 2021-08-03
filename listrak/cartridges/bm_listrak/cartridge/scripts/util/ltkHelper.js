@@ -1,5 +1,7 @@
 /* eslint-disable no-undef */
 'use strict';
+var constant = require('*/cartridge/scripts/helpers/constants');
+
 var Site = require('dw/system/Site').getCurrent();
 /**
  * Get Fx Rate of shopper currency
@@ -22,7 +24,7 @@ function getOrderItemTotal(order) {
     var itemTotal;
     if (order.custom.eswRetailerCurrencyCode) {
         itemTotal = order.custom.eswRetailerCurrencyTotal + order.custom.eswRetailerCurrencyDuty;
-        if (order.custom.eswRetailerCurrencyCode == 'USD') {
+        if (order.custom.eswRetailerCurrencyCode == constant.USD_CURRENCY_CODE) {
             return itemTotal;
         } else {
             fxRate = getESWCurrencyFXRate(order.custom.eswRetailerCurrencyCode)[0].rate;
@@ -36,7 +38,7 @@ function getOrderTaxTotal(order) {
     var taxTotal;
     if (order.custom.eswRetailerCurrencyCode) {
         taxTotal = order.custom.eswRetailerCurrencyTaxes;
-        if (order.custom.eswRetailerCurrencyCode == 'USD') {
+        if (order.custom.eswRetailerCurrencyCode == constant.USD_CURRENCY_CODE) {
             return taxTotal;
         } else {
             fxRate = getESWCurrencyFXRate(order.custom.eswRetailerCurrencyCode)[0].rate;
@@ -50,7 +52,7 @@ function getOrderShipTotal(order) {
     var shipTotal;
     if (order.custom.eswRetailerCurrencyCode) {
         shipTotal = order.custom.eswRetailerCurrencyDelivery;
-        if (order.custom.eswRetailerCurrencyCode == 'USD') {
+        if (order.custom.eswRetailerCurrencyCode == constant.USD_CURRENCY_CODE) {
             return shipTotal;
         } else {
             fxRate = getESWCurrencyFXRate(order.custom.eswRetailerCurrencyCode)[0].rate;
@@ -64,7 +66,7 @@ function getOrderTotal(order) {
     var orderTotal;
     if (order.custom.eswRetailerCurrencyCode) {
         orderTotal = order.custom.eswRetailerCurrencyPaymentAmount;
-        if (order.custom.eswRetailerCurrencyCode == 'USD') {
+        if (order.custom.eswRetailerCurrencyCode == constant.USD_CURRENCY_CODE) {
             return orderTotal;
         } else {
             fxRate = getESWCurrencyFXRate(order.custom.eswRetailerCurrencyCode);
@@ -77,7 +79,6 @@ function getOrderTotal(order) {
 function getItemPrice(eswPrice, order) {
     var itemPrice;
     if (order.custom.eswRetailerCurrencyCode) {
-        var constant = require('*/cartridge/scripts/helpers/constants');
         itemPrice = eswPrice;
         if (order.custom.eswRetailerCurrencyCode == constant.USD_CURRENCY_CODE) {
             return itemPrice;
