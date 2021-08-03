@@ -77,8 +77,9 @@ function getOrderTotal(order) {
 function getItemPrice(eswPrice, order) {
     var itemPrice;
     if (order.custom.eswRetailerCurrencyCode) {
+        var constant = require('*/cartridge/scripts/helpers/constants');
         itemPrice = eswPrice;
-        if (order.custom.eswRetailerCurrencyCode == 'USD') {
+        if (order.custom.eswRetailerCurrencyCode == constant.USD_CURRENCY_CODE) {
             return itemPrice;
         } else {
             fxRate = getESWCurrencyFXRate(order.custom.eswRetailerCurrencyCode);
@@ -95,7 +96,6 @@ function getCurrencySymbol(currency) {
         utf8Text = decodeURIComponent(escape(currency.symbol));
         // If the conversion succeeds, text is not utf-8
     } catch (e) {
-        // console.log(e.message); // URI malformed
         // This exception means text is utf-8
         return symbol;
     }
