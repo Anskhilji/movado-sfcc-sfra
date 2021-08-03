@@ -1,5 +1,5 @@
 <!--- TEMPLATENAME: emailOptInPopUp.isml --->
-<isif condition="${pdict.isEmailPopUpEnabled}">
+<isif condition="${pdict.isEmailPopUpEnabled}"><h1>${pdict.popupID} and ${dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled}</h1>
     <isinclude template="/components/modules" sf-toolkit="off" />
     <isinclude template="common/emailPopUpStyle"/>
     <isset name="currentSite" value="${dw.system.Site.getCurrent()}" scope="page" />
@@ -10,7 +10,6 @@
          data-emailpopupdelaytime = "${pdict.popUpSettings.emailPopupWaitTime}">
         <div class=" modal-dialog quick-view-dialog email-popup-container popup-form" role="dialog" aria-label="modal">
             <isset name="sitePref" value="${dw.system.Site.current.preferences}" scope="page" />
-            <isif condition="${sitePref.custom.Listrak_Cartridge_Enabled && !empty(pdict.popupID)}">
                 <script>
                     //Used to show the listrak popup
                     var interval = setInterval(function() {
@@ -18,7 +17,7 @@
                             _ltk.Popup.openManualByName("${pdict.popupID}");
                             clearInterval(interval);
                         }
-                    }, 500);
+                    }, 1000);
                 </script>
             <iselse/>
             <!-- Modal content-->

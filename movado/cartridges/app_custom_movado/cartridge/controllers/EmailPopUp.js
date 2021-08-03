@@ -17,7 +17,10 @@ server.get('Show', function (req, res, next) {
     if (SitePreferences.Listrak_Cartridge_Enabled) {
         var Constants = require('*/cartridge/scripts/util/Constants');
         var doubleOptInPopupCountries = !empty(SitePreferences.Listrak_DoubleOptInPopupCountries) ? SitePreferences.Listrak_DoubleOptInPopupCountries : '';
-        if (session.privacy.countryCode == Constants.US_COUNTRY_CODE) {
+        var countryCode = !empty(req.geolocation.countryCode) ? req.geolocation.countryCode : '';
+        var currentCountry = emailPopupHelper.eswCountryCode(countryCode);
+            
+        if (currentCountry == Constants.US_COUNTRY_CODE) {
             popupID = !empty(SitePreferences.Listrak_USPopupID) ? SitePreferences.Listrak_USPopupID : '';
         } else if (emailPopupHelper.isDoubleOptInPopupCountry(doubleOptInPopupCountries)) {
             popupID = !empty(SitePreferences.Listrak_DoubleOptInPopup) ? SitePreferences.Listrak_DoubleOptInPopup : '';
