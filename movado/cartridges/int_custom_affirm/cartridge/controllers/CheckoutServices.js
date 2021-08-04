@@ -86,8 +86,9 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	  var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
 	  var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 	  var orderCustomHelpers = require('*/cartridge/scripts/helpers/orderCustomHelper');
-	  var Site = require('dw/system/Site');
-
+	var Site = require('dw/system/Site');
+	var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
+	
 	  var currentBasket = BasketMgr.getCurrentBasket();
 	  checkoutLogger.debug('(CheckoutServices) -> PlaceOrder: Inside PlaceOrder to validate the payment and order');
 
@@ -256,7 +257,22 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	    return next();
 	  }
 	  // If payment is redirected, order is created first
-	  if (placeOrderResult.order.paymentInstrument.paymentMethod == 'Adyen' && placeOrderResult.order_created) {
+	if (placeOrderResult.order.paymentInstrument.paymentMethod == 'Adyen' && placeOrderResult.order_created) {
+		/**~    
+         * Custom Start: Clyde Integration
+         */
+		if (Site.getCurrent().preferences.custom.isClydeEnabled) {
+			Transaction.wrap(function () {
+                order.custom.isContainClydeContract = false;
+                order.custom.clydeContractProductMapping = '';
+            });
+			var contractProductList = currentBasket.custom.clydeContractProductList || false;
+			addClydeContract.createOrderCustomAttr(contractProductList, order);
+
+		}
+		/**
+		 * Custom: End
+		 */
         checkoutLogger.debug('(CheckoutServices) -> PlaceOrder: Going to set order value in the session and going to the (Adyen-Redirect) and order number: ' + order.orderNo);
 	    session.custom.orderNo = placeOrderResult.order.orderNo;
 	    res.json({
