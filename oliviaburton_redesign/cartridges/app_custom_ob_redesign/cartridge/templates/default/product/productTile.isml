@@ -30,7 +30,7 @@
                     </isif>
 
                     <isif condition="${pdict.plpProductFamilyName}">
-                    <a href="${pdict.urls.product}"  class="product-family"> <h3>${product.collectionName ? product.collectionName :''}</h3> </a>
+                        <a href="${pdict.urls.product}"  class="product-family"> <h3>${product.collectionName ? product.collectionName :''}</h3> </a>
                     </isif>
                 
                     <isinclude template="product/components/productTileName" />

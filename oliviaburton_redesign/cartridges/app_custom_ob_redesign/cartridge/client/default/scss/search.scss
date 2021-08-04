@@ -1402,10 +1402,6 @@
                             height: auto;
                         }
     
-                        @include media-breakpoint-up(md) {
-    
-                        }
-    
                         @include media-breakpoint-up(sm) {
                             padding: rem(15) rem(20);
                         }
@@ -1422,11 +1418,11 @@
                     border: none;
                     height: auto;
 
-                    @include media-breakpoint-up(custom-xs) {
+                    @include media-breakpoint-up(xs-custom) {
                         min-height: 80vw;
                     }
 
-                    @include media-breakpoint-up(custom-sm) {
+                    @include media-breakpoint-up(sm-custom) {
                         min-height: 76.5vw;
                     }
 
@@ -1483,10 +1479,6 @@
                     @include media-breakpoint-up(lg) {
                         min-height: rem(100);
                         height: auto;
-                    }
-
-                    @include media-breakpoint-up(md) {
-
                     }
 
                     @include media-breakpoint-up(sm) {
