@@ -16,38 +16,44 @@
             </isif>
         </isloop>
 
-        <isinclude template="product/components/productTileImage" />
+        <isif condition="${!pdict.display.plpTile}">
+            <isinclude template="product/components/old/productTileImage" sf-toolkit="on" />
+          <iselse/>
 
-        <div class="tile-body">
+            <div class="image-container" style="background-color: ${pdict.tileImageBackground};">
+                <isinclude template="product/components/productTileImage" />
 
-            <isif condition="${pdict.display.swatches !== false && product.productType == 'master'}">
-                <isinclude template="product/components/productTileSwatch" />
-            </isif>
+                <div class="tile-body">
 
-            <isif condition="${pdict.plpProductFamilyName}">
-               <a href="${pdict.urls.product}"  class="product-family"> <h3>${product.collectionName ? product.collectionName :''}</h3> </a>
-            </isif>
-        
-            <isinclude template="product/components/productTileName" />
-            <div class="pricing-save">
-                <isset name="price" value="${product.price}" scope="page" />
-                <isif condition="${product.productType === 'set'}">
-                    <isinclude template="product/components/pricing/setPrice" />
-                <iselse>
-                    <isinclude template="product/components/pricing/main" />
-                </isif>
-                <isif condition="${!empty(product.saveMessage)}">
-                    <span class="save-value">
-                        ${product.saveMessage}
-                    </span>
-                </isif>
+                    <isif condition="${pdict.display.swatches !== false && product.productType == 'master'}">
+                        <isinclude template="product/components/productTileSwatch" />
+                    </isif>
+
+                    <isif condition="${pdict.plpProductFamilyName}">
+                    <a href="${pdict.urls.product}"  class="product-family"> <h3>${product.collectionName ? product.collectionName :''}</h3> </a>
+                    </isif>
+                
+                    <isinclude template="product/components/productTileName" />
+                    <div class="pricing-save">
+                        <isset name="price" value="${product.price}" scope="page" />
+                        <isif condition="${product.productType === 'set'}">
+                            <isinclude template="product/components/pricing/setPrice" />
+                        <iselse>
+                            <isinclude template="product/components/pricing/main" />
+                        </isif>
+                        <isif condition="${!empty(product.saveMessage)}">
+                            <span class="save-value">
+                                ${product.saveMessage}
+                            </span>
+                        </isif>
+                    </div>
+
+                    <iscomment> new add to card button template addded </iscomment>
+                    <isinclude template="product/components/addToCartPLP.isml" sf-toolkit="on" />
+                    
+                </div>
             </div>
-
-            <iscomment> new add to card button template addded </iscomment>
-            <isinclude template="product/components/addToCartPLP.isml" sf-toolkit="on" />
-            
-        </div>
-    
+        </isif>
         <!-- END_dwmarker -->
     </div>
 </isif>
