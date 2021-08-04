@@ -261,7 +261,7 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 		/**~    
          * Custom Start: Clyde Integration
          */
-		if (Site.getCurrent().preferences.custom.isClydeEnabled) {
+		if (Site.current.preferences.custom.isClydeEnabled) {
 			Transaction.wrap(function () {
                 order.custom.isContainClydeContract = false;
                 order.custom.clydeContractProductMapping = '';
