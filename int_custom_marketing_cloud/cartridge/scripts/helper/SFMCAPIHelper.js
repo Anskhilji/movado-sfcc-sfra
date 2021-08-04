@@ -226,11 +226,29 @@ function updateEvent(params, service) {
     return result;
 }
 
+
+function getCurrentCountry(country) {
+    var countryCode;
+    if (!empty(country)) {
+        countryCode = country;
+    } else {
+        if (!empty(session.privacy.countryCode)) {
+             countryCode = session.privacy.countryCode;
+        } else if (request.httpCookies['esw.location'] != null && request.httpCookies['esw.location'].value != '') {
+            countryCode = request.getHttpCookies()['esw.location'].value;
+        } else {
+            countryCode = request.geolocation.countryCode;
+        }
+    }
+    return countryCode;
+}
+
 module.exports = {
     getAuthToken: getAuthToken,
     getDataAPIService: getDataAPIService,
     addContactToMC: addContactToMC,
     addContactToJourney: addContactToJourney,
     addContactToDataExtension: addContactToDataExtension,
-    updateEvent: updateEvent
+    updateEvent: updateEvent,
+    getCurrentCountry: getCurrentCountry
 }
