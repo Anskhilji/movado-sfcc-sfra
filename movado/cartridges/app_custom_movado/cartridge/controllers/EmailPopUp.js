@@ -17,14 +17,16 @@ server.get('Show', function (req, res, next) {
     if (SitePreferences.Listrak_Cartridge_Enabled) {
         var Constants = require('*/cartridge/scripts/util/Constants');
         var doubleOptInPopupCountries = !empty(SitePreferences.Listrak_DoubleOptInPopupCountries) ? SitePreferences.Listrak_DoubleOptInPopupCountries : '';
-        var countryCode = !empty(req.geolocation.countryCode) ? req.geolocation.countryCode : '';
-        var currentCountry = emailPopupHelper.eswCountryCode(countryCode);
+        var currentCountry = emailPopupHelper.countryCode();
             
-        if (currentCountry == Constants.US_COUNTRY_CODE) {
+        if (currentCountry == Constants.US_COUNTRY_CODE && Site.current.ID == 'MVMTUS') {
             popupID = !empty(SitePreferences.Listrak_USPopupID) ? SitePreferences.Listrak_USPopupID : '';
-        } else if (emailPopupHelper.isDoubleOptInPopupCountry(doubleOptInPopupCountries)) {
-            popupID = !empty(SitePreferences.Listrak_DoubleOptInPopup) ? SitePreferences.Listrak_DoubleOptInPopup : '';
-        } else {
+        } else if (Site.current.ID == 'MVMTUS' && currentCountry != Constants.US_COUNTRY_CODE) {
+            popupID = !empty(SitePreferences.Listrak_USInternationalOptInPopupID) ? SitePreferences.Listrak_USInternationalOptInPopupID : '';
+        }
+        else if (currentCountry == Constants.DE_COUNTRY_CODE) {
+            popupID = !empty(SitePreferences.Listrak_GermanyOptInPopup) ? SitePreferences.Listrak_GermanyOptInPopup : '';
+        } else if (Site.current.ID == 'MVMTEU' && currentCountry != Constants.US_COUNTRY_CODE) {
             popupID = !empty(SitePreferences.Listrak_InternationalPopupID) ? SitePreferences.Listrak_InternationalPopupID : '';
         }
     }

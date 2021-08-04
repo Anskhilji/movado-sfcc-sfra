@@ -6,3 +6,4 @@ exports.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR = ' - ';
 exports.MM_UNIT='MM';
 exports.MVMT_CHECKOUT_CAMPAIGN_NAME='Checkout';
 exports.US_COUNTRY_CODE='US';
+exports.DE_COUNTRY_CODE='DE';
