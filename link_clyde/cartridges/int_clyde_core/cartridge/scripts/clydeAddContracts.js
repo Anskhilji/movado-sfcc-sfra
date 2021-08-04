@@ -138,6 +138,13 @@ function clydeContractProductList(contractProductListObj, itemObject, cart, curr
 
     Transaction.wrap(function () {
         cart.custom.clydeContractProductList = JSON.stringify(contractProductListObj);
+        /**
+         * Custom Start: Clyde Integration. Logic to handle apple pay scenario
+         */
+        session.custom.clydeContractProductList = JSON.stringify(contractProductListObj);
+        /**
+         * Custom End:
+         */
     });
 }
 /**
@@ -286,6 +293,13 @@ function updateCartCustomAttr(cart, contractProductID, quantity) {
         }
         Transaction.wrap(function () {
             cart.custom.clydeContractProductList = JSON.stringify(newContractProductList);
+            /**
+             * Custom Start: Clyde Integration. Logic to handle apple pay scenario
+             */
+            session.custom.clydeContractProductList = JSON.stringify(newContractProductList);
+            /**
+             * Custom End:
+             */
         });
     } catch (e) {
         Logger.error('Error occurred while parsing contract products list ' + e);
