@@ -1364,13 +1364,47 @@
 
             &-tile {
                 background: $snow;
+                min-height: auto;
+
+                .tile-picture {
+                    transition: 0.3s all;
+                    display: block;
+
+                    &-hidden {
+                        display: none;
+                    }
+
+                    img {
+                        width: 100%;
+                    }
+                }
 
                 &:hover {
                     box-shadow: 0 rem(2) rem(6) rgba(155, 155, 155, 0.5);
+
                     @include media-breakpoint-up(lg) {
                         margin-bottom: rem(-56);
                         position: relative;
                         z-index: 5;
+                    }
+
+                    .tile-picture {
+                        display: none;
+
+                        &-hidden {
+                            display: block;
+                        }
+                    }
+
+                    .tile-body {
+                        @include media-breakpoint-up(lg) {
+                            min-height: rem(140);
+                            height: auto;
+                        }
+    
+                        @include media-breakpoint-up(sm) {
+                            padding: rem(15) rem(20);
+                        }
                     }
 
                     .cta-add-to-cart {
@@ -1378,54 +1412,38 @@
                             display: block;
                         }
                     }
-
-                    .image-container {
-                        a {
-                            .tile-picture {
-                                &-primary {
-                                    opacity: 0;
-                                }
-                                &-hidden {
-                                    opacity: 1;
-                                }
-                            }
-                        }
-                    }
                 }
                 .image-container {
                     background: $pink-smoke;
                     border: none;
-                    height: rem(225);
+                    height: auto;
+
+                    @include media-breakpoint-up(xs-custom) {
+                        min-height: 80vw;
+                    }
+
+                    @include media-breakpoint-up(sm-custom) {
+                        min-height: 76.5vw;
+                    }
 
                     @include media-breakpoint-up(sm) {
-                        height: rem(240);
+                        min-height: rem(368);
                     }
+
                     @include media-breakpoint-up(lg) {
-                        height: rem(260);
+                        min-height: rem(328);
                     }
-                    @include media-breakpoint-up(xxl) {
-                        height: rem(340);
+
+                    @include media-breakpoint-up(xl) {
+                        min-height: rem(450);
+                        height: auto;
                     }
+                    
                     a {
                         height: 100%;
                         width: 100%;
                         position: relative;
                         display: block;
-
-                        .tile-picture {
-                            position: absolute;
-                            height: 100%;
-                            width: 100%;
-                            transition: 0.3s all;
-
-                            &-hidden {
-                                opacity: 0;
-                            }
-
-                            img {
-                                height: 100%;
-                            }
-                        }
                     }
 
                     .product-badge.redesigned {
@@ -1450,6 +1468,18 @@
                 .tile-body {
                     text-align: left;
                     padding: rem(10) rem(15);
+                    background-color: $snow;
+                    position: absolute;
+                    left: 0;
+                    bottom: 0;
+                    width: 100%;
+                    display: block;
+                    transition: 0.5s all;
+
+                    @include media-breakpoint-up(lg) {
+                        min-height: rem(100);
+                        height: auto;
+                    }
 
                     @include media-breakpoint-up(sm) {
                         padding: rem(15) rem(20);
