@@ -80,6 +80,7 @@ function orderSync(args) {
         itemfile.AddRowItem('Price');
         itemfile.AddRowItem('TrackingNumber');
         itemfile.AddRowItem('ItemTotal');
+        itemfile.AddRowItem('Meta 1'); // [MSS-1474] Column for local price
         itemfile.WriteRow();
 
 		// Process all orders
@@ -157,6 +158,7 @@ function orderSync(args) {
                 itemfile.AddRowItem(item.Price.toFixed(2));
                 itemfile.AddRowItem(item.TrackingNumber, true);
                 itemfile.AddRowItem((item.Price * item.Qty).toFixed(2));
+                itemfile.AddRowItem(item.localPrice); //[MSS-1474] Get Local Price for product
                 itemfile.WriteRow();
 
                 if (item.Product != null) { products.push(item.Product); }

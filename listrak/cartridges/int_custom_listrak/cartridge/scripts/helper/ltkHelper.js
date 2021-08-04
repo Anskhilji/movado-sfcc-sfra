@@ -28,6 +28,7 @@ function getProductPrice(product, currencyCode) {
     var productPrice;
     var currency;
     var currencySymbol = '';
+    var defaultCurrency;
     var currencyCode = currencyCode || session.currency.currencyCode;
     if (currencyCode) {
         defaultCurrency = session.getCurrency();
@@ -37,7 +38,7 @@ function getProductPrice(product, currencyCode) {
     }
     if (product.getPriceModel().getPrice()) {
         if (product.getPriceModel().getPrice().value) {
-            productDecimalPrice = product.getPriceModel().getPrice().value.toString()
+            productPrice = product.getPriceModel().getPrice().value.toString()
         }
     }
 
@@ -45,7 +46,7 @@ function getProductPrice(product, currencyCode) {
         session.setCurrency(defaultCurrency);
     }
 
-    return productDecimalPrice ? currencySymbol + productDecimalPrice : '';
+    return productPrice ? currencySymbol + productPrice : '';
 }
 
 function getCurrencySymbol(currency) {
