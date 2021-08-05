@@ -135,8 +135,20 @@ function isDoubleOptInPopupCountry(doubleOptInPopupCountries) {
     return isMatchedCountry;
 }
 
+/**
+ * Getting the country code of current country
+ * @returns {boolean} - Return current country code
+ */
+function eswCountryCode() {
+    var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
+    var currentCountry = eswHelper.getAvailableCountry();
+    currentCountry = request.httpParameterMap.get('countryCode').value || currentCountry;
+    return currentCountry;
+}
+
 module.exports.getPopUpSettings = getPopUpSettings;
 module.exports.isWhiteListed = isWhiteListed;
 module.exports.isEmailPopUpEnabled = isEmailPopUpEnabled;
 module.exports.checkPopupQualifications = checkPopupQualifications;
 module.exports.isDoubleOptInPopupCountry = isDoubleOptInPopupCountry;
+module.exports.eswCountryCode = eswCountryCode;
