@@ -1365,10 +1365,13 @@
             &-tile {
                 background: $snow;
                 min-height: auto;
+                height: 100%;
+                position: relative;
 
                 .tile-picture {
                     transition: 0.3s all;
                     display: block;
+                    height: 100%;
 
                     &-hidden {
                         display: none;
@@ -1402,6 +1405,7 @@
                             height: auto;
                         }
     
+    
                         @include media-breakpoint-up(sm) {
                             padding: rem(15) rem(20);
                         }
@@ -1413,32 +1417,37 @@
                         }
                     }
                 }
+
                 .image-container {
                     background: $pink-smoke;
                     border: none;
                     height: auto;
+                    padding-bottom: rem(65);
 
                     @include media-breakpoint-up(xs-custom) {
-                        min-height: 80vw;
+                        padding-bottom: rem(128);
                     }
 
                     @include media-breakpoint-up(sm-custom) {
-                        min-height: 76.5vw;
+                        padding-bottom: rem(124.8);
+                    }
+                    
+                    @include media-breakpoint-up(sm) {
+                        padding-bottom: rem(136);
                     }
 
-                    @include media-breakpoint-up(sm) {
-                        min-height: rem(368);
+                    @include media-breakpoint-up(md) {
+                        padding-bottom: rem(128);
                     }
 
                     @include media-breakpoint-up(lg) {
-                        min-height: rem(328);
+                        padding-bottom: rem(96);
                     }
 
                     @include media-breakpoint-up(xl) {
-                        min-height: rem(450);
-                        height: auto;
+                        padding-bottom: rem(96);
                     }
-                    
+
                     a {
                         height: 100%;
                         width: 100%;
