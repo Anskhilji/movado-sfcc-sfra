@@ -6,7 +6,7 @@ server.extend(page);
 server.replace('TrackRequest', server.middleware.https, function (req, res, next) {
     var Site = require('dw/system/Site');
     var ltk = require('*/cartridge/scripts/objects/ltk.js');
-    var ltkHelper = require('*/cartridge/scripts/ltkHelper.js');
+    var ltkHelper = require('*/cartridge/scripts/helper/ltkHelper.js');
     if (Site.getCurrent().getCustomPreferenceValue('Listrak_ActivityTracker_Enabled') &&
         dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
         var ProductMgr = require('dw/catalog/ProductMgr');

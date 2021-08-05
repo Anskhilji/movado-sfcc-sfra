@@ -15,7 +15,7 @@ var Site = require('dw/system/Site');
 
 server.replace('Send', function (req, res, next) {
     require('dw/system/Site');
-    var ltkHelper = require('*/cartridge/scripts/ltkHelper.js');
+    var ltkHelper = require('*/cartridge/scripts/helper/ltkHelper.js');
     if (dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
         var orderJSON = '';
         var scaJSON = '';
