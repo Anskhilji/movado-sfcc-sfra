@@ -3,7 +3,7 @@ server.extend(module.superModule);
 var cart = require('app_storefront_base/cartridge/controllers/Cart');
 server.extend(cart);
 var ltkSendSca = require('~/cartridge/controllers/ltkSendSca');
-var ltkHelper = require('*/cartridge/scripts/ltkHelper.js');
+var ltkHelper = require('*/cartridge/scripts/helper/ltkHelper');
 
 /**
  * Extension method for AddProduct
