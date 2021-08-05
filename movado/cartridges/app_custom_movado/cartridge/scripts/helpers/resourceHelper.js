@@ -1,4 +1,5 @@
 'use strict';
+var Constants = require('*/cartridge/scripts/util/Constants');
 
 /**
  * Resource helper
@@ -34,9 +35,12 @@ function getResources(pageContext) {
         LINK_QUICKVIEW_CLOSE: Resource.msg('link.quickview.close', 'product', null),
         CREDIT_CARD_PAYMENT_METHOD_ID: Resource.msg('checkout.payment.method.credit.card.id', 'checkout', null),
         KLARNA_PDP_MESSAGES_ENABLED:!empty(Site.current.preferences.custom.klarnaPdpPromoMsg) ? Site.current.preferences.custom.klarnaPdpPromoMsg : false,
-        CART_GIFT_MESSAGE_LIMIT: !empty(Site.current.preferences.custom.cartGiftMessageLimit) ? Site.current.preferences.custom.cartGiftMessageLimit : 0,
         BOPIS_STORE_FETCHING_ERROR: Resource.msg('store.pickup.search.result.error', 'pdpStorePickUp', null),
-        BOPIS_STORE_AVAILABLE_TEXT: Resource.msg('store.pickup.search.available.text', 'pdpStorePickUp', null) 
+        BOPIS_STORE_AVAILABLE_TEXT: Resource.msg('store.pickup.search.available.text', 'pdpStorePickUp', null),
+        IS_RAKUTEN_ENABLED:  Site.current.preferences.custom.isRakutenEnable || false,
+        ONE_TRUST_COOKIE_ENABLED: Site.current.preferences.custom.oneTrustCookieEnabled || false,
+        OPTANON_ALLOWED_COOKIE: Constants.ONE_TRUST_COOKIE_ENABLED,
+        CART_GIFT_MESSAGE_LIMIT: !empty(Site.current.preferences.custom.cartGiftMessageLimit) ? Site.current.preferences.custom.cartGiftMessageLimit : 0
     };
     return resources;
 }
