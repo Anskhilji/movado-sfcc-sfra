@@ -1401,8 +1401,10 @@
 
                     .tile-body {
                         @include media-breakpoint-up(lg) {
-                            min-height: rem(140);
                             height: auto;
+                            transform: translateY(50px);
+                            margin-bottom: rem(5);
+                            box-shadow: 0 rem(2) rem(2) rgba(155, 155, 155, 0.5);
                         }
     
     
@@ -1483,11 +1485,14 @@
                     bottom: 0;
                     width: 100%;
                     display: block;
-                    transition: 0.5s all;
+                    overflow: hidden;
 
                     @include media-breakpoint-up(lg) {
                         min-height: rem(100);
                         height: auto;
+                        transition: transform 0.4s all;
+                        transform: translateY(0px);
+                        
                     }
 
                     @include media-breakpoint-up(sm) {
