@@ -21,7 +21,7 @@ function sendSubscriberToListrak(requestParams) {
         params.lastName = requestParams.lastName;
         params.birthday = requestParams.birthDate;
         params.birthMonth = requestParams.birthMonth;
-        params.countryCode = requestParams.countryCode;
+        params.countryCode = requestParams.country;
 
         service = LTKAPIHelper.getAPIService(serviceID, Constants.LTK_API_ENDPOINT.CONTACT, accessToken, requestParams.event, requestParams.subscribe);
         var result = LTKAPIHelper.addContactToLTK(params, service);
