@@ -21,7 +21,8 @@ function getCountryCode(request) {
 
 function getProductPrice(product) {
     var Currency = require('dw/util/Currency');
-    var productPrice;
+    var productPrice = 0;
+    var promotionalPrice;
     var currency;
     var currencySymbol = '';
     var currencyCode = session.currency.currencyCode;
@@ -29,15 +30,15 @@ function getProductPrice(product) {
         currency = Currency.getCurrency(currencyCode);
         currencySymbol = getCurrencySymbol(currency);
     }
-    if (product.getPriceModel().getPrice()) {
-        if (product.getPriceModel().getPrice().value) {
-            productDecimalPrice = product.getPriceModel().getPrice().value.toString()
-        }
+    promotionalPrice = getProductPromoAndSalePrice(product).salePrice;
+    if (promotionalPrice > 0) {
+        productPrice = promotionalPrice;
+    } else if (product.getPriceModel().getPrice() && product.getPriceModel().getPrice().value) {
+        productPrice = product.getPriceModel().getPrice().value.toString()
     }
 
-    return productDecimalPrice ? currencySymbol + productDecimalPrice : '';
+    return productPrice ? currencySymbol + productPrice : '';
 }
-
 function getCurrencySymbol(currency) {
     var symbol = currency.symbol;
     try {
@@ -45,11 +46,51 @@ function getCurrencySymbol(currency) {
         utf8Text = decodeURIComponent(escape(currency.symbol));
         // If the conversion succeeds, text is not utf-8
     } catch (e) {
-        // console.log(e.message); // URI malformed
         // This exception means text is utf-8
         return symbol;
     }
     return currency.currencyCode + ' '; // returned text is always utf-8
+}
+
+function getProductPromoAndSalePrice(product) {
+    var Currency = require('dw/util/Currency');
+    var PromotionMgr = require('dw/campaign/PromotionMgr');
+    var Promotion = require('dw/campaign/Promotion');
+    var Money = require('dw/value/Money');
+    var salePrice = '';
+    var PromotionIt = PromotionMgr.activePromotions.getProductPromotions(product).iterator();
+    var promotionalPrice = Money.NOT_AVAILABLE;
+    var currentPromotionalPrice = Money.NOT_AVAILABLE;
+    var storefrontPromo;
+
+    while (PromotionIt.hasNext()) {
+        var promo = PromotionIt.next();
+        if (promo.getPromotionClass() != null && promo.getPromotionClass().equals(Promotion.PROMOTION_CLASS_PRODUCT) && !promo.basedOnCoupons) {
+            if (product.optionProduct) {
+                currentPromotionalPrice = promo.getPromotionalPrice(product, product.getOptionModel());
+            } else {
+                currentPromotionalPrice = promo.getPromotionalPrice(product);
+            }
+            if (promotionalPrice.value > currentPromotionalPrice.value && currentPromotionalPrice.value !== 0) {
+                promotionalPrice = currentPromotionalPrice;
+                storefrontPromo = promo;
+            } else if (promotionalPrice.value == 0) {
+                if ((currentPromotionalPrice.value !== 0 && currentPromotionalPrice.value !== null)) {
+                    promotionalPrice = currentPromotionalPrice;
+                    storefrontPromo = promo;
+                }
+            }
+        }
+    }
+
+    if (promotionalPrice.available) {
+        salePrice = promotionalPrice.decimalValue.toString();
+    }
+
+    return {
+        storefrontPromo: storefrontPromo,
+        salePrice: salePrice
+    };
 }
 
 module.exports = {
