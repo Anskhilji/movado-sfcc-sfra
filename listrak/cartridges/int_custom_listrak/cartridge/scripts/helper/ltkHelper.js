@@ -23,15 +23,18 @@ function getCountryCode(request) {
     return countryCode;
 }
 
-function getProductPrice(product) {
+function getProductPrice(product, currencyCode) {
     var Currency = require('dw/util/Currency');
     var productPrice = 0;
     var promotionalPrice;
     var currency;
     var currencySymbol = '';
-    var currencyCode = session.currency.currencyCode;
+    var defaultCurrency;
+    var currencyCode = currencyCode || session.currency.currencyCode;
     if (currencyCode) {
+        defaultCurrency = session.getCurrency();
         currency = Currency.getCurrency(currencyCode);
+        session.setCurrency(currency);
         currencySymbol = getCurrencySymbol(currency);
     }
     promotionalPrice = getProductPromoAndSalePrice(product).salePrice;
@@ -40,7 +43,9 @@ function getProductPrice(product) {
     } else if (product.getPriceModel().getPrice() && product.getPriceModel().getPrice().value) {
         productPrice = product.getPriceModel().getPrice().value.toString()
     }
-
+    if (currencyCode && defaultCurrency) {
+        session.setCurrency(defaultCurrency);
+    }
     return productPrice ? currencySymbol + productPrice : '';
 }
 
