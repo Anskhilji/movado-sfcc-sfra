@@ -30,6 +30,7 @@ $(document).ready(function () {
     processInclude(require('./components/newsLetterSubscription'));
     processInclude(require('./videoPopup'));
     processInclude(require('./components/miniCartRecommendations'));
+    processInclude(require('movado/components/rakutenCookieHandler'));
 });
 
 require('base/components/spinner');
