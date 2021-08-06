@@ -170,7 +170,7 @@ function getProductPromoAndSalePrice(product) {
     }
 
     if (promotionalPrice.available) {
-        salePrice = promotionalPrice.decimalValue.toString();
+        salePrice = promotionalPrice.value.toString();
     }
 
     return {
