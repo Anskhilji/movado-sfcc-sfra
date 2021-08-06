@@ -15,19 +15,19 @@ function generateAddContactToLTKPayload(params) {
         "segmentationFieldValues": [
             {
                 "segmentationFieldId": Site.current.preferences.custom.Listrak_FirstName || '',
-                "value": params.firstName
+                "value": params.firstName || ''
             },
             {
                 "segmentationFieldId": Site.current.preferences.custom.Listrak_LastName || '',
-                "value": params.lastName
+                "value": params.lastName || ''
             },
             {
                 "segmentationFieldId": Site.current.preferences.custom.Listrak_Birthday || '',
-                "value": params.birthday
+                "value": params.birthday || ''
             },
             {
                 "segmentationFieldId": Site.current.preferences.custom.Listrak_BirthMonth || '',
-                "value": params.birthMonth
+                "value": params.birthMonth || ''
             },
             {
                 "segmentationFieldId": Site.getCurrent().getCustomPreferenceValue(params.source),

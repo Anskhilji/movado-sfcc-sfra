@@ -41,7 +41,7 @@ function getAPIService(serviceID, endpoint, eventId, subscribe) {
     var baseUrl = dataService.getConfiguration().getCredential().URL;
     var listID = Site.current.preferences.custom.Listrak_ListID || '';
     var eventIdPref = Site.getCurrent().getCustomPreferenceValue(eventId) || '';
-    var subscribePref = subscribe == true || Site.getCurrent().getCustomPreferenceValue(subscribe) || '';
+    var subscribePref = subscribe == true || Site.getCurrent().getCustomPreferenceValue(subscribe) || false;
     var url = baseUrl.toString();
     if (!empty(endpoint)) {
         url = baseUrl.toString() + endpoint.replace('{listId}', listID) + '?eventIds=' + eventIdPref + '&overrideUnsubscribe=' + subscribePref;

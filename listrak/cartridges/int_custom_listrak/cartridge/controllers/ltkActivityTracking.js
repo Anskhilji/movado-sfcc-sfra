@@ -28,9 +28,7 @@ server.replace('TrackRequest', server.middleware.https, function (req, res, next
         if (pid != null && format === null) {
             _ltk.AT.AddProductBrowse(pid);
             //Custom Start [MSS-1450]: Get CountryCode and Price from ltkHelper
-            if (empty(session.privacy.ltkCountryCode)) {
-                session.privacy.ltkCountryCode = ltkHelper.getCountryCode(req);
-            }
+            session.privacy.ltkCountryCode = ltkHelper.getCountryCode(req);
             var product = ProductMgr.getProduct(pid);
             var ltkProductPrice = ltkHelper.getProductPrice(product);
             session.privacy.ltkProductPrice = ltkProductPrice;

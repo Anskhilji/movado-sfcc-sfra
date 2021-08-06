@@ -16,13 +16,19 @@ server.get('Show', function (req, res, next) {
     var popupID;
     if (SitePreferences.Listrak_Cartridge_Enabled) {
         var Constants = require('*/cartridge/scripts/util/Constants');
-
-        if (session.privacy.countryCode == Constants.US_COUNTRY_CODE) {
-            popupID = SitePreferences.Listrak_USPopupID;
-        } else if (session.privacy.countryCode == Constants.GERMANY_COUNTRY_CODE) {
-            popupID = SitePreferences.Listrak_GermanyPopupID;
-        } else {
-            popupID = SitePreferences.Listrak_InternationalPopupID;
+        var currentCountry = emailPopupHelper.eswCountryCode();
+        if (Site.current.ID == 'MVMTUS') {
+            if (currentCountry == Constants.US_COUNTRY_CODE) {
+                popupID = SitePreferences.Listrak_USPopupID || false;
+            } else {
+                popupID = SitePreferences.Listrak_USInternationalOptInPopupID || false;
+            }
+        } else if (Site.current.ID == 'MVMTEU') {
+            if (currentCountry == Constants.DE_COUNTRY_CODE) {
+                popupID = SitePreferences.Listrak_GermanyOptInPopup || false;
+            } else {
+                popupID = SitePreferences.Listrak_EUInternationalOptInPopupID || false;
+            }
         }
     }
     res.render('common/emailOptInPopUp', {
