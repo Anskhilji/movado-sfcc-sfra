@@ -116,11 +116,11 @@ ltkOrder.prototype.GetOrderItem = function (item) {
     if (!empty(item.product)) {
         orderItem.Sku = item.product.ID;
         /* MSS[1474]. Get Product Price by FX rates Conversions */
-        orderItem.Price = ltkHelper.getItemPrice(item.custom.eswRetailerCurrencyItemPriceInfo, this.Order) || ltkHelper.getProductPrice(item.product);
+        orderItem.Price = ltkHelper.getItemPrice(item.custom.eswRetailerCurrencyItemPriceInfo, this.Order) || item.adjustedPrice.value.toFixed(2) || ltkHelper.getProductPrice(item.product);
         orderItem.localPrice = item.custom.eswShopperCurrencyItemPriceInfo 
         ? 
         ltkHelper.getCurrencySymbol(Currency.getCurrency(this.Order.custom.eswShopperCurrencyCode)) + item.custom.eswShopperCurrencyItemPriceInfo 
-        : ltkHelper.getCurrencySymbol(Currency.getCurrency(this.Order.currencyCode)) + ltkHelper.getProductPrice(item.product);
+        : ltkHelper.getCurrencySymbol(Currency.getCurrency(this.Order.currencyCode)) + (item.adjustedPrice.value.toFixed(2) || ltkHelper.getProductPrice(item.product));
         /* MSS[1474]. Get Product Price by FX rates Conversions */
     }
 
