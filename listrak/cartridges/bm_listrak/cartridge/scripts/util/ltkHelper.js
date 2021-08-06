@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 'use strict';
 var constant = require('*/cartridge/scripts/helpers/constants');
-var Logger = require('dw/system/Logger').getLogger('Listrak');
+
 var Site = require('dw/system/Site').getCurrent();
 var Currency = require('dw/util/Currency');
 /**
@@ -24,16 +24,12 @@ function getESWCurrencyFXRate(shopperCurrencyIso) {
 function getOrderItemTotal(order) {
     var itemTotal;
     if (order.custom.eswRetailerCurrencyCode) {
-        var fxRate = getESWCurrencyFXRate(order.custom.eswRetailerCurrencyCode);
         itemTotal = order.custom.eswRetailerCurrencyTotal + order.custom.eswRetailerCurrencyDuty;
         if (order.custom.eswRetailerCurrencyCode == constant.USD_CURRENCY_CODE) {
             return itemTotal;
         } else {
-            if (fxRate.length) {
-                itemTotal = itemTotal / fxRate[0].rate;
-            } else {
-                Logger.error('There is no FX Rate found for orderNumber: ' + order.orderNo);
-            }
+            var fxRate = getESWCurrencyFXRate(order.custom.eswRetailerCurrencyCode)[0].rate;
+            itemTotal = itemTotal / fxRate;
         }
     }
     return itemTotal;
@@ -56,16 +52,12 @@ function getOrderItemTotalLocal(order) {
 function getOrderTaxTotal(order) {
     var taxTotal;
     if (order.custom.eswRetailerCurrencyCode) {
-        var fxRate = getESWCurrencyFXRate(order.custom.eswRetailerCurrencyCode);
         taxTotal = order.custom.eswRetailerCurrencyTaxes;
         if (order.custom.eswRetailerCurrencyCode == constant.USD_CURRENCY_CODE) {
             return taxTotal;
         } else {
-            if (fxRate.length) {
-                taxTotal = taxTotal / fxRate[0].rate;
-            } else {
-                Logger.error('There is no FX Rate found for orderNumber: ' + order.orderNo);
-            }
+            var fxRate = getESWCurrencyFXRate(order.custom.eswRetailerCurrencyCode)[0].rate;
+            taxTotal = taxTotal / fxRate;
         }
     }
     return taxTotal;
@@ -74,16 +66,12 @@ function getOrderTaxTotal(order) {
 function getOrderShipTotal(order) {
     var shipTotal;
     if (order.custom.eswRetailerCurrencyCode) {
-        var fxRate = getESWCurrencyFXRate(order.custom.eswRetailerCurrencyCode)
         shipTotal = order.custom.eswRetailerCurrencyDelivery;
         if (order.custom.eswRetailerCurrencyCode == constant.USD_CURRENCY_CODE) {
             return shipTotal;
         } else {
-            if (fxRate.length) {
-                shipTotal = shipTotal / fxRate[0].rate;
-            } else {
-                Logger.error('There is no FX Rate found for orderNumber: ' + order.orderNo);
-            }
+            var fxRate = getESWCurrencyFXRate(order.custom.eswRetailerCurrencyCode)[0].rate;
+            shipTotal = shipTotal / fxRate;
         }
     }
     return shipTotal;
@@ -92,16 +80,12 @@ function getOrderShipTotal(order) {
 function getOrderTotal(order) {
     var orderTotal;
     if (order.custom.eswRetailerCurrencyCode) {
-        var fxRate = getESWCurrencyFXRate(order.custom.eswRetailerCurrencyCode)
         orderTotal = order.custom.eswRetailerCurrencyPaymentAmount;
         if (order.custom.eswRetailerCurrencyCode == constant.USD_CURRENCY_CODE) {
             return orderTotal;
         } else {
-            if (fxRate.length) {
-                orderTotal = orderTotal / fxRate[0].rate;
-            } else {
-                Logger.error('There is no FX Rate found for orderNumber: ' + order.orderNo);
-            }
+            var fxRate = getESWCurrencyFXRate(order.custom.eswRetailerCurrencyCode)[0].rate;
+            orderTotal = orderTotal / fxRate;
         }
     }
     return orderTotal;
@@ -110,16 +94,12 @@ function getOrderTotal(order) {
 function getItemPrice(eswPrice, order) {
     var itemPrice;
     if (order.custom.eswRetailerCurrencyCode) {
-        var fxRate = getESWCurrencyFXRate(order.custom.eswRetailerCurrencyCode);
         itemPrice = eswPrice;
         if (order.custom.eswRetailerCurrencyCode == constant.USD_CURRENCY_CODE) {
             return itemPrice;
         } else {
-            if (fxRate.length) {
-                itemPrice = itemPrice / fxRate[0].rate;
-            } else {
-                Logger.error('There is no FX Rate found for orderNumber: ' + order.orderNo);
-            }
+            var fxRate = getESWCurrencyFXRate(order.custom.eswRetailerCurrencyCode)[0].rate;
+            itemPrice = itemPrice / fxRate;
         }
     }
     return itemPrice ? itemPrice.toFixed(2) : itemPrice;
