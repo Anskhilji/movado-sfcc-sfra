@@ -40,8 +40,11 @@ function getOrderItemTotalLocal(order) {
     if (order.custom.eswShopperCurrencyCode) {
         itemTotal = order.custom.eswShopperCurrencyTotal
             + order.custom.eswShopperCurrencyDuty
-            + order.custom.eswShopperCurrencyTaxes;
+            + order.custom.eswShopperCurrencyTaxes
+            + order.custom.eswShopperCurrencyDelivery;
         itemTotal = getCurrencySymbol(Currency.getCurrency(order.custom.eswShopperCurrencyCode)) + itemTotal;
+    } else {
+        itemTotal = getCurrencySymbol(Currency.getCurrency(order.currencyCode)) + order.totalGrossPrice;
     }
     return itemTotal;
 }
@@ -115,6 +118,67 @@ function getCurrencySymbol(currency) {
     return currency.currencyCode + ' '; // returned text is always utf-8
 }
 
+function getProductPrice(product) {
+    var Currency = require('dw/util/Currency');
+    var productPrice = 0;
+    var promotionalPrice;
+    var currency;
+    var currencyCode = session.currency.currencyCode;
+    if (currencyCode) {
+        currency = Currency.getCurrency(currencyCode);
+        session.setCurrency(currency);
+    }
+    promotionalPrice = getProductPromoAndSalePrice(product).salePrice;
+    if (promotionalPrice > 0) {
+        productPrice = promotionalPrice;
+    } else if (product.getPriceModel().getPrice() && product.getPriceModel().getPrice().value) {
+        productPrice = product.getPriceModel().getPrice().value.toString()
+    }
+
+    return productPrice || '';
+}
+
+function getProductPromoAndSalePrice(product) {
+    var Currency = require('dw/util/Currency');
+    var PromotionMgr = require('dw/campaign/PromotionMgr');
+    var Promotion = require('dw/campaign/Promotion');
+    var Money = require('dw/value/Money');
+    var salePrice = '';
+    var PromotionIt = PromotionMgr.activePromotions.getProductPromotions(product).iterator();
+    var promotionalPrice = Money.NOT_AVAILABLE;
+    var currentPromotionalPrice = Money.NOT_AVAILABLE;
+    var storefrontPromo;
+
+    while (PromotionIt.hasNext()) {
+        var promo = PromotionIt.next();
+        if (promo.getPromotionClass() != null && promo.getPromotionClass().equals(Promotion.PROMOTION_CLASS_PRODUCT) && !promo.basedOnCoupons) {
+            if (product.optionProduct) {
+                currentPromotionalPrice = promo.getPromotionalPrice(product, product.getOptionModel());
+            } else {
+                currentPromotionalPrice = promo.getPromotionalPrice(product);
+            }
+            if (promotionalPrice.value > currentPromotionalPrice.value && currentPromotionalPrice.value !== 0) {
+                promotionalPrice = currentPromotionalPrice;
+                storefrontPromo = promo;
+            } else if (promotionalPrice.value == 0) {
+                if ((currentPromotionalPrice.value !== 0 && currentPromotionalPrice.value !== null)) {
+                    promotionalPrice = currentPromotionalPrice;
+                    storefrontPromo = promo;
+                }
+            }
+        }
+    }
+
+    if (promotionalPrice.available) {
+        salePrice = promotionalPrice.decimalValue.toString();
+    }
+
+    return {
+        storefrontPromo: storefrontPromo,
+        salePrice: salePrice
+    };
+}
+
 module.exports = {
     getOrderItemTotal: getOrderItemTotal,
     getOrderItemTotalLocal: getOrderItemTotalLocal,
@@ -122,5 +186,6 @@ module.exports = {
     getOrderShipTotal: getOrderShipTotal,
     getOrderTotal: getOrderTotal,
     getItemPrice: getItemPrice,
-    getCurrencySymbol: getCurrencySymbol
+    getCurrencySymbol: getCurrencySymbol,
+    getProductPrice: getProductPrice
 };

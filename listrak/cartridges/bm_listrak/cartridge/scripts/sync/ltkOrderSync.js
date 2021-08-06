@@ -157,7 +157,7 @@ function orderSync(args) {
                 itemfile.AddRowItem(o.Order.OrderNumber, true);
                 itemfile.AddRowItem(item.Sku, true);
                 itemfile.AddRowItem(item.Qty);
-                itemfile.AddRowItem(item.Price.toFixed(2));
+                itemfile.AddRowItem(item.Price);
                 itemfile.AddRowItem(item.TrackingNumber, true);
                 itemfile.AddRowItem((item.Price * item.Qty).toFixed(2));
                 itemfile.AddRowItem(item.localPrice); //[MSS-1474] Get Local Price for product
