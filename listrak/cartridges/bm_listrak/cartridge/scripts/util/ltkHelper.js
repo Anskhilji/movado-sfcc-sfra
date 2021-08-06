@@ -102,7 +102,7 @@ function getItemPrice(eswPrice, order) {
             itemPrice = itemPrice / fxRate;
         }
     }
-    return itemPrice;
+    return itemPrice ? itemPrice.toFixed(2) : itemPrice;
 }
 
 function getCurrencySymbol(currency) {
