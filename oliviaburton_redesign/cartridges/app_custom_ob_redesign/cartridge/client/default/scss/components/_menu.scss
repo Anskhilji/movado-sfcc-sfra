@@ -387,7 +387,7 @@
     .submenu-recommendations {
         @include media-breakpoint-up(lg) {
            max-width: rem(300);
-           margin-right: rem(80);
+           margin-right: rem(150);
         }
 
         @include media-breakpoint-down(md) {
