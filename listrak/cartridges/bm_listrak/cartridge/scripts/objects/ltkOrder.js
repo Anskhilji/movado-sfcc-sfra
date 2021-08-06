@@ -32,6 +32,8 @@ function Order() {
     this.CouponCodes = null;
     this.TrackingNumbers = null;
     this.OrderItems = [];
+    this.localPrice = null;
+    this.currencyCode = null;
 }
 
 /**
@@ -64,6 +66,8 @@ ltkOrder.prototype.LoadOrder = function (order) {
     this.Order.TaxTotal = ltkHelper.getOrderTaxTotal(order) || order.getTotalTax().value;
     this.Order.ShipTotal = ltkHelper.getOrderShipTotal(order) || order.getAdjustedShippingTotalNetPrice().value;
     this.Order.OrderTotal = ltkHelper.getOrderTotal(order) || order.totalGrossPrice.value;
+    this.Order.localPrice = ltkHelper.getOrderItemTotalLocal(order) || ''; 
+    this.Order.currencyCode = order.currencyCode; 
     /* MSS[1474]. Get Order Prices by FX rates Conversions */
     this.Order.EmailAddress = order.customerEmail;
     this.Order.FirstName = order.billingAddress.firstName;
@@ -112,11 +116,11 @@ ltkOrder.prototype.GetOrderItem = function (item) {
     if (!empty(item.product)) {
         orderItem.Sku = item.product.ID;
         /* MSS[1474]. Get Product Price by FX rates Conversions */
-        orderItem.Price = ltkHelper.getItemPrice(item.custom.eswRetailerCurrencyItemPriceInfo, this.Order) || item.product.getPriceModel().getPrice().value;
+        orderItem.Price = ltkHelper.getItemPrice(item.custom.eswRetailerCurrencyItemPriceInfo, this.Order) || ltkHelper.getProductPrice(item.product);
         orderItem.localPrice = item.custom.eswShopperCurrencyItemPriceInfo 
         ? 
         ltkHelper.getCurrencySymbol(Currency.getCurrency(this.Order.custom.eswShopperCurrencyCode)) + item.custom.eswShopperCurrencyItemPriceInfo 
-        : ''
+        : ltkHelper.getCurrencySymbol(Currency.getCurrency(this.Order.currencyCode)) + ltkHelper.getProductPrice(item.product);
         /* MSS[1474]. Get Product Price by FX rates Conversions */
     }
 
