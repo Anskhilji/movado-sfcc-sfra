@@ -71,6 +71,7 @@ function orderSync(args) {
         orderfile.AddRowItem('CouponCode');
         orderfile.AddRowItem('TrackingNumber');
         orderfile.AddRowItem('InternalStatus');
+        orderfile.AddRowItem('Meta 1');
         orderfile.WriteRow();
 
 		// item header row
@@ -146,6 +147,7 @@ function orderSync(args) {
             orderfile.AddRowItem(o.Order.CouponCodes, true);
             orderfile.AddRowItem(o.Order.TrackingNumbers, true);
             orderfile.AddRowItem(o.Order.Status, true);
+            orderfile.AddRowItem(o.Order.localPrice);
 
             orderfile.WriteRow();
 

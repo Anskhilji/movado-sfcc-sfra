@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 'use strict';
 var Site = require('dw/system/Site').getCurrent();
+var Currency = require('dw/util/Currency');
 /**
  * Get Fx Rate of shopper currency
  * @param {string} shopperCurrencyIso - getting from site preference
@@ -28,6 +29,17 @@ function getOrderItemTotal(order) {
             fxRate = getESWCurrencyFXRate(order.custom.eswRetailerCurrencyCode)[0].rate;
             itemTotal = itemTotal / fxRate;
         }
+    }
+    return itemTotal;
+}
+
+function getOrderItemTotalLocal(order) {
+    var itemTotal;
+    if (order.custom.eswShopperCurrencyCode) {
+        itemTotal = order.custom.eswShopperCurrencyTotal
+            + order.custom.eswShopperCurrencyDuty
+            + order.custom.eswShopperCurrencyTaxes;
+        itemTotal = getCurrencySymbol(Currency.getCurrency(order.custom.eswShopperCurrencyCode)) + itemTotal;
     }
     return itemTotal;
 }
@@ -67,7 +79,7 @@ function getOrderTotal(order) {
         if (order.custom.eswRetailerCurrencyCode == 'USD') {
             return orderTotal;
         } else {
-            fxRate = getESWCurrencyFXRate(order.custom.eswRetailerCurrencyCode);
+            fxRate = getESWCurrencyFXRate(order.custom.eswRetailerCurrencyCode)[0].rate;
             orderTotal = orderTotal / fxRate;
         }
     }
@@ -81,7 +93,7 @@ function getItemPrice(eswPrice, order) {
         if (order.custom.eswRetailerCurrencyCode == 'USD') {
             return itemPrice;
         } else {
-            fxRate = getESWCurrencyFXRate(order.custom.eswRetailerCurrencyCode);
+            fxRate = getESWCurrencyFXRate(order.custom.eswRetailerCurrencyCode)[0].rate;
             itemPrice = itemPrice / fxRate;
         }
     }
@@ -104,6 +116,7 @@ function getCurrencySymbol(currency) {
 
 module.exports = {
     getOrderItemTotal: getOrderItemTotal,
+    getOrderItemTotalLocal: getOrderItemTotalLocal,
     getOrderTaxTotal: getOrderTaxTotal,
     getOrderShipTotal: getOrderShipTotal,
     getOrderTotal: getOrderTotal,

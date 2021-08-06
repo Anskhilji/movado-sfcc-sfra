@@ -32,6 +32,7 @@ function Order() {
     this.CouponCodes = null;
     this.TrackingNumbers = null;
     this.OrderItems = [];
+    this.localPrice = null;
 }
 
 /**
@@ -64,6 +65,7 @@ ltkOrder.prototype.LoadOrder = function (order) {
     this.Order.TaxTotal = ltkHelper.getOrderTaxTotal(order) || order.getTotalTax().value;
     this.Order.ShipTotal = ltkHelper.getOrderShipTotal(order) || order.getAdjustedShippingTotalNetPrice().value;
     this.Order.OrderTotal = ltkHelper.getOrderTotal(order) || order.totalGrossPrice.value;
+    this.Order.localPrice = ltkHelper.getOrderItemTotalLocal(order) || ''; 
     /* MSS[1474]. Get Order Prices by FX rates Conversions */
     this.Order.EmailAddress = order.customerEmail;
     this.Order.FirstName = order.billingAddress.firstName;
