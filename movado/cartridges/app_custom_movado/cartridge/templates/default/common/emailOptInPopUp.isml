@@ -9,8 +9,8 @@
          data-emailpopupposition = "${pdict.popUpSettings.emailPopUpPosition}"
          data-emailpopupdelaytime = "${pdict.popUpSettings.emailPopupWaitTime}">
         <div class=" modal-dialog quick-view-dialog email-popup-container popup-form" role="dialog" aria-label="modal">
-            <isset name="sitePref" value="${dw.system.Site.current.preferences}" scope="page" />
-            <isif condition="${sitePref.custom.Listrak_Cartridge_Enabled && !empty(pdict.popupID)}">
+            <isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page" />
+            <isif condition="${sitePref.Listrak_Cartridge_Enabled && pdict.popupID}">
                 <script>
                     //Used to show the listrak popup
                     var interval = setInterval(function() {
@@ -18,7 +18,7 @@
                             _ltk.Popup.openManualByName("${pdict.popupID}");
                             clearInterval(interval);
                         }
-                    }, 500);
+                    }, 1000);
                 </script>
             <iselse/>
             <!-- Modal content-->

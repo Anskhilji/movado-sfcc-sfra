@@ -16,13 +16,19 @@ server.get('Show', function (req, res, next) {
     var popupID;
     if (SitePreferences.Listrak_Cartridge_Enabled) {
         var Constants = require('*/cartridge/scripts/util/Constants');
-        var doubleOptInPopupCountries = !empty(SitePreferences.Listrak_DoubleOptInPopupCountries) ? SitePreferences.Listrak_DoubleOptInPopupCountries : '';
-        if (session.privacy.countryCode == Constants.US_COUNTRY_CODE) {
-            popupID = !empty(SitePreferences.Listrak_USPopupID) ? SitePreferences.Listrak_USPopupID : '';
-        } else if (emailPopupHelper.isDoubleOptInPopupCountry(doubleOptInPopupCountries)) {
-            popupID = !empty(SitePreferences.Listrak_DoubleOptInPopup) ? SitePreferences.Listrak_DoubleOptInPopup : '';
-        } else {
-            popupID = !empty(SitePreferences.Listrak_InternationalPopupID) ? SitePreferences.Listrak_InternationalPopupID : '';
+        var currentCountry = emailPopupHelper.eswCountryCode();
+        if (Site.current.ID == 'MVMTUS') {
+            if (currentCountry == Constants.US_COUNTRY_CODE) {
+                popupID = SitePreferences.Listrak_USPopupID || false;
+            } else {
+                popupID = SitePreferences.Listrak_USInternationalOptInPopupID || false;
+            }
+        } else if (Site.current.ID == 'MVMTEU') {
+            if (currentCountry == Constants.DE_COUNTRY_CODE) {
+                popupID = SitePreferences.Listrak_GermanyOptInPopup || false;
+            } else {
+                popupID = SitePreferences.Listrak_EUInternationalOptInPopupID || false;
+            }
         }
     }
     res.render('common/emailOptInPopUp', {
