@@ -163,7 +163,7 @@
                     width: fit-content;
                     font-family: $font-gill-std-semibold;
                     font-weight: 500;
-                    font-size: rem(14);
+                    font-size: rem(16);
                     text-transform: capitalize;
                     padding: rem(30) rem(10);
                     margin: 0 rem(3);
@@ -385,8 +385,10 @@
     }
 
     .submenu-recommendations {
-        max-width: rem(300);
-        margin-right: rem(0);
+        @include media-breakpoint-up(lg) {
+           max-width: rem(300);
+           margin-right: rem(150);
+        }
 
         @include media-breakpoint-down(md) {
             margin: 0 auto;
@@ -554,7 +556,7 @@
 
                     .nav-link, .dropdown-link {
                         font-family: $font-gill-std-semibold;
-                        font-size: rem(12);
+                        font-size: rem(16);
                         font-weight: 500;
                         color: $gray20;
                         letter-spacing: normal;
