@@ -25,10 +25,10 @@ server.get(
         var assigned = ABTestMgr.getAssignedTestSegments();
         var headerTemplate = null;
         // A/B testing for header design
-        if (ABTestMgr.isParticipant('MVMTHeaderRedesign','HamburgerRight')) {
+        if (ABTestMgr.isParticipant('MVMTHeaderRedesign','header-redesign')) {
             headerTemplate = '/components/header/pageHeader';
         } else {
-            headerTemplate = '/components/header/old/pageHeader';
+            headerTemplate = '/components/header/pageHeader';
         }
 
         var countryCode = "";
