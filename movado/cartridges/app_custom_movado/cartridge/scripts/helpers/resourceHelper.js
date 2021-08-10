@@ -14,6 +14,7 @@ var Constants = require('*/cartridge/scripts/util/Constants');
 function getResources(pageContext) {
     var Resource = require('dw/web/Resource');
     var Site = require('dw/system/Site');
+    var URLUtils = require('dw/web/URLUtils');
 
     var resources = {
         KLARNA_SLICE_IT_PAYMENT_METHOD_BRAND_CODE: Resource.msg('checkout.payment.method.klarna.slice.it.brand.code', 'checkout', null),
@@ -38,7 +39,8 @@ function getResources(pageContext) {
         IS_RAKUTEN_ENABLED:  Site.current.preferences.custom.isRakutenEnable || false,
         ONE_TRUST_COOKIE_ENABLED: Site.current.preferences.custom.oneTrustCookieEnabled || false,
         OPTANON_ALLOWED_COOKIE: Constants.ONE_TRUST_COOKIE_ENABLED,
-        CART_GIFT_MESSAGE_LIMIT: !empty(Site.current.preferences.custom.cartGiftMessageLimit) ? Site.current.preferences.custom.cartGiftMessageLimit : 0
+        CART_GIFT_MESSAGE_LIMIT: !empty(Site.current.preferences.custom.cartGiftMessageLimit) ? Site.current.preferences.custom.cartGiftMessageLimit : 0,
+        CALL_RAKUTEN_CONTROLLER: URLUtils.url('Rakuten-Request')
     };
     return resources;
 }

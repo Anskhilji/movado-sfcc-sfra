@@ -29,7 +29,7 @@ function setRakutenCookie() {
         if (isOptanonAllowedCookie != -1) {
             $.ajax({
                 type: "GET",
-                url: window.location.href,
+                url: window.Resources.CALL_RAKUTEN_CONTROLLER,
                 success: function () {
                     clearInterval(cookieWriteInterval);
                 }
@@ -49,15 +49,15 @@ function setRakutenCookie() {
  * Executes call to same page in order to set rakuten cookie
  */
 function initializeRakutenCookieCall() {
+    console.info('rakutenCookieHandler.js ~ initializeRakutenCookieCall() -> Inside rakuten cookies call method.');
     if (document.readyState == "complete") {
+        console.info('rakutenCookieHandler.js ~ initializeRakutenCookieCall -> Page is in the completed state and inside if condition.');
         clearInterval(intializeCookieInterval);
         if (window.Resources && window.Resources.IS_RAKUTEN_ENABLED && window.Resources.ONE_TRUST_COOKIE_ENABLED) {
+            console.info('rakutenCookieHandler.js ~ initializeRakutenCookieCall -> Inside if condition because Rakuten and OneTrust is enabled.');
             cookieWriteInterval = setInterval(setRakutenCookie, 500);
-            console.info('rakutenCookieHandler.js ~ initializeRakutenCookieCall -> Inside if because Rakuten and OneTrust is enabled.');
         }
-        console.info('rakutenCookieHandler.js ~ initializeRakutenCookieCall -> Page is in the completed state.');
     }
-    console.info('rakutenCookieHandler.js ~ initializeRakutenCookieCall() -> Inside rakuten cookies call method.');
 }
 
 $(document).ready(function() {
