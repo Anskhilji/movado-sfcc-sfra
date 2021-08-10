@@ -14,9 +14,11 @@ var sitePreferences = Site.getCurrent().getPreferences().getCustom();
  * @param {dw.system.Request} request - request
  */
 function createCookieInSession(request) {
+    RakutenLogger.info('rakutenHelpers.js ~ createCookieInSession() -> Inside createCookiesInSession method.')
     var requestHttpParameterMap = request.getHttpParameterMap();
     if (!empty(requestHttpParameterMap) && !empty(requestHttpParameterMap.get('ranMID').value) && !empty(requestHttpParameterMap.get('ranSiteID').value) 
         && !empty(requestHttpParameterMap.get('ranEAID').value)) {
+        RakutenLogger.info('rakutenHelpers.js ~ createCookieInSession() -> Inside if condition because current request contains rakuten parameters.')
         var ranMID = requestHttpParameterMap.get('ranMID').value;
         var ranSiteID = requestHttpParameterMap.get('ranSiteID').value;
         var calendar = Site.current.calendar;
@@ -27,10 +29,8 @@ function createCookieInSession(request) {
         var rakutenCookieValuesFormat = Resource.msgf('rakuten.cookie', 'rakuten', null, ranMID, ald, auld, ranSiteID);
         var encodedValues = encoding.toURI(rakutenCookieValuesFormat);
         session.privacy.rakutenCookieValues = encodedValues;
-        RakutenLogger.info('rakutenHelpers.js ~ createCookieInSession() -> Request contains rakuten parameters therefore inside the condition.')
         return;
     }
-    RakutenLogger.info('rakutenHelpers.js ~ createCookieInSession() -> Inside createCookiesInSession method.')
 }
 
 /**
@@ -42,13 +42,13 @@ function createCookieInSession(request) {
  * @returns {Object} newCookie - returned a new cookie.
  */
 function setCookiesResponse(name, value, path) {
+    RakutenLogger.info('rakutenHelpers.js ~ setCookiesResponse() -> Inside set cookies response method to set response.');
     var Cookie = require('dw/web/Cookie');
     var newCookie = new Cookie(name, value);
     newCookie.setPath(path);
     newCookie.setMaxAge(2592000);
     newCookie.setDomain('.' + request.httpHost);
     response.addHttpCookie(newCookie);
-    RakutenLogger.info('rakutenHelpers.js ~ setCookiesResponse() -> Inside set cookies response method.');
     return newCookie;
 }
 
@@ -60,9 +60,9 @@ function setCookiesResponse(name, value, path) {
  * @returns {Date} formattedDate - returned date in the form of given format.
  */
 function getDateString(date, dateFormat) {
+    RakutenLogger.info('rakutenHelpers.js ~ getDateString() -> Inside getDateString method to set the date.');
     var StringUtils = require('dw/util/StringUtils');
     var formattedDate = StringUtils.formatCalendar(date, dateFormat);
-    RakutenLogger.info('rakutenHelpers.js ~ getDateString() -> Inside getDateString method.');
     return formattedDate;
 }
 

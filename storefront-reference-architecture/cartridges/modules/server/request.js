@@ -317,14 +317,14 @@ function Request(request, customer, session) {
         var OptanonConsentCookieValue = request.getHttpCookies()[Constants.OPTANON_CONSENT_COOKIE_NAME] ? decodeURIComponent(request.getHttpCookies()[Constants.OPTANON_CONSENT_COOKIE_NAME].value) : '';
         var isOptanonCookieEnabled = OptanonConsentCookieValue.indexOf(Constants.ONE_TRUST_COOKIE_ENABLED);
         if (isRakutenEnable && rakutenCookiesHelper.isRakutenAllowedCountry()) {
+            RakutenLogger.info('request.js ~ Request -> Inside if condtion because rakuten is enabled & current country is allowed for rakuten.');
             if (isOneTrustEnabled && isOptanonCookieEnabled != -1) {
+                RakutenLogger.info('request.js ~ Request -> Inside if condtion because OneTrust and targeting cookies are enabled.');
                 rakutenCookiesHelper.createCookieInSession(request);
-                RakutenLogger.info('request.js ~ Request -> OneTrust and targeting cookies are enabled.');
             } else if (!isOneTrustEnabled) {
+                RakutenLogger.info('request.js ~ Request -> Inside else if condition because rakuten is enabled but OneTrust is disabled.');
                 rakutenCookiesHelper.createCookieInSession(request);
-                RakutenLogger.info('request.js ~ Request -> Rakuten is enabled & OneTrust is disabled.');
             }
-            RakutenLogger.info('request.js ~ Request -> Rakuten is enabled & country is allowed.');
         }
         //Custom End
         if (!eswEnabled) {

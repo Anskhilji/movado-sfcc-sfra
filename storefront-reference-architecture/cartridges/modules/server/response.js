@@ -27,14 +27,14 @@ function Response(response) {
     var OptanonConsentCookieValue = request.getHttpCookies()[Constants.OPTANON_CONSENT_COOKIE_NAME] ? decodeURIComponent(request.getHttpCookies()[Constants.OPTANON_CONSENT_COOKIE_NAME].value) : '';
     var isOptanonCookieEnabled = OptanonConsentCookieValue.indexOf(Constants.ONE_TRUST_COOKIE_ENABLED);
     if (isRakutenEnable && rakutenHelpers.isRakutenAllowedCountry()) {
+        RakutenLogger.info('response.js ~ Response -> Rakuten is enabled and current country is allowed for rakuten.');
         if (isOneTrustEnabled && isOptanonCookieEnabled != -1) {
+            RakutenLogger.info('response.js ~ Response -> Inside if condition as OneTrust and targeting cookies are enabled.');
             renderRakutenCookies();
-            RakutenLogger.info('response.js ~ Response -> OneTrust and targeting cookies are enabled.');
         } else if (!isOneTrustEnabled) {
+            RakutenLogger.info('response.js ~ Response -> Inside else if condition as rakuten is enabled but OneTrust is disabled.');
             renderRakutenCookies();
-            RakutenLogger.info('response.js ~ Response -> Rakuten is enabled & OneTrust is disabled.');
         }
-        RakutenLogger.info('response.js ~ Response -> Rakuten is enabled & country is allowed.');
     }
 }
 
@@ -42,14 +42,14 @@ function Response(response) {
  * This method is used to call care Rakuten Cookie method.
  */
 function renderRakutenCookies() {
+    RakutenLogger.info('response.js ~ renderRakutenCookies() -> Inside renderRakutenCookies method.');
     if (!empty(session.privacy.rakutenCookieValues)) {
+        RakutenLogger.info('response.js ~ renderRakutenCookies() -> Inside if condtion as rakutenCookieValues exists.');
         var Constants = require('*/cartridge/scripts/util/Constants');
         var rakutenCookiesHelper = require('*/cartridge/scripts/helpers/rakutenHelpers');
         rakutenCookiesHelper.setCookiesResponse(Constants.RAKUTEN_COOKIE_NAME, session.privacy.rakutenCookieValues, '/');
         delete session.privacy.rakutenCookieValues;
-        RakutenLogger.info('response.js ~ renderRakutenCookies() -> rakutenCookieValues exists and inside if condition');
     }
-    RakutenLogger.info('response.js ~ renderRakutenCookies() -> Inside renderRakutenCookies method.')
 }
 
 /**

@@ -22,11 +22,14 @@ function isEmptyCookie(cookieName) {
  * Sets rmStoreGateway cookie if Optanon Consent cookie is present
  */
 function setRakutenCookie() {
+    console.info('rakutenCookieHandler.js ~ setRakutenCookie() -> Inside method to set rakuten cookie');
     if (!isEmptyCookie('OptanonConsent') && isEmptyCookie('rmStoreGateway')) {
+        console.info('rakutenCookieHandler.js ~ setRakutenCookie() -> Optanon cookies is found and there is no Rakuten cookie');
         cookieWriteAttempts++;
         var optanonCookie = cookieHandler.getCookie("OptanonConsent");
         var isOptanonAllowedCookie = optanonCookie.indexOf(window.Resources.OPTANON_ALLOWED_COOKIE);
         if (isOptanonAllowedCookie != -1) {
+            console.info('rakutenCookieHandler.js ~ setRakutenCookie() -> Targeting cookie is allowed and going to make an Ajax call on:' + window.Resources.CALL_RAKUTEN_CONTROLLER);
             $.ajax({
                 type: "GET",
                 url: window.Resources.CALL_RAKUTEN_CONTROLLER,
@@ -34,15 +37,13 @@ function setRakutenCookie() {
                     clearInterval(cookieWriteInterval);
                 }
             });
-            console.info('rakutenCookieHandler.js ~ setRakutenCookie() -> Targeting cookie is allowed and going to make an Ajax call on:' + url);
+            console.info('rakutenCookieHandler.js ~ setRakutenCookie() -> Ajax call was successful to following URL: ' + window.Resources.CALL_RAKUTEN_CONTROLLER);
         }
 
         if (cookieWriteAttempts == 10) {
             clearInterval(cookieWriteInterval);
         }
-        console.info('rakutenCookieHandler.js ~ setRakutenCookie() -> Optanon cookies is found and there is no Rakuten cookie');
     }
-    console.info('rakutenCookieHandler.js ~ setRakutenCookie() -> Inside method to set rakuten cookie');
 }
 
 /**

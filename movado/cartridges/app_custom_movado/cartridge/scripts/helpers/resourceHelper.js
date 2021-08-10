@@ -40,7 +40,7 @@ function getResources(pageContext) {
         ONE_TRUST_COOKIE_ENABLED: Site.current.preferences.custom.oneTrustCookieEnabled || false,
         OPTANON_ALLOWED_COOKIE: Constants.ONE_TRUST_COOKIE_ENABLED,
         CART_GIFT_MESSAGE_LIMIT: !empty(Site.current.preferences.custom.cartGiftMessageLimit) ? Site.current.preferences.custom.cartGiftMessageLimit : 0,
-        CALL_RAKUTEN_CONTROLLER: URLUtils.url('Rakuten-Request')
+        CALL_RAKUTEN_CONTROLLER: URLUtils.url('Rakuten-Request').https().toString()
     };
     return resources;
 }
