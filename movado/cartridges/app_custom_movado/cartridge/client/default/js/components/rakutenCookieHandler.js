@@ -34,12 +34,15 @@ function setRakutenCookie() {
                     clearInterval(cookieWriteInterval);
                 }
             });
+            console.info('rakutenCookieHandler.js ~ setRakutenCookie() -> Targeting cookie is allowed and going to make an Ajax call on:' + url);
         }
 
         if (cookieWriteAttempts == 10) {
             clearInterval(cookieWriteInterval);
         }
+        console.info('rakutenCookieHandler.js ~ setRakutenCookie() -> Optanon cookies is found and there is no Rakuten cookie');
     }
+    console.info('rakutenCookieHandler.js ~ setRakutenCookie() -> Inside method to set rakuten cookie');
 }
 
 /**
@@ -50,8 +53,11 @@ function initializeRakutenCookieCall() {
         clearInterval(intializeCookieInterval);
         if (window.Resources && window.Resources.IS_RAKUTEN_ENABLED && window.Resources.ONE_TRUST_COOKIE_ENABLED) {
             cookieWriteInterval = setInterval(setRakutenCookie, 500);
+            console.info('rakutenCookieHandler.js ~ initializeRakutenCookieCall -> Inside if because Rakuten and OneTrust is enabled.');
         }
+        console.info('rakutenCookieHandler.js ~ initializeRakutenCookieCall -> Page is in the completed state.');
     }
+    console.info('rakutenCookieHandler.js ~ initializeRakutenCookieCall() -> Inside rakuten cookies call method.');
 }
 
 $(document).ready(function() {

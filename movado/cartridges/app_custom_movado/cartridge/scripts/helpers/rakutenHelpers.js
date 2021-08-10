@@ -4,6 +4,8 @@ var Constants = require('~/cartridge/scripts/util/Constants');
 var encoding = require('dw/crypto/Encoding');
 var Site = require('dw/system/Site');
 var Resource = require('dw/web/Resource');
+var RakutenLogger = require('dw/system/Logger').getLogger('Rakuten');
+
 var sitePreferences = Site.getCurrent().getPreferences().getCustom();
 
 /**
@@ -25,8 +27,10 @@ function createCookieInSession(request) {
         var rakutenCookieValuesFormat = Resource.msgf('rakuten.cookie', 'rakuten', null, ranMID, ald, auld, ranSiteID);
         var encodedValues = encoding.toURI(rakutenCookieValuesFormat);
         session.privacy.rakutenCookieValues = encodedValues;
+        RakutenLogger.info('rakutenHelpers.js ~ createCookieInSession() -> Request contains rakuten parameters therefore inside the condition.')
         return;
     }
+    RakutenLogger.info('rakutenHelpers.js ~ createCookieInSession() -> Inside createCookiesInSession method.')
 }
 
 /**
@@ -44,6 +48,7 @@ function setCookiesResponse(name, value, path) {
     newCookie.setMaxAge(2592000);
     newCookie.setDomain('.' + request.httpHost);
     response.addHttpCookie(newCookie);
+    RakutenLogger.info('rakutenHelpers.js ~ setCookiesResponse() -> Inside set cookies response method.');
     return newCookie;
 }
 
@@ -57,6 +62,7 @@ function setCookiesResponse(name, value, path) {
 function getDateString(date, dateFormat) {
     var StringUtils = require('dw/util/StringUtils');
     var formattedDate = StringUtils.formatCalendar(date, dateFormat);
+    RakutenLogger.info('rakutenHelpers.js ~ getDateString() -> Inside getDateString method.');
     return formattedDate;
 }
 
@@ -81,9 +87,12 @@ function isRakutenAllowedCountry() {
                     }
                 }
             }
+            // RakutenLogger.info('rakutenHelpers.js ~ isRakutenAllowedCountry() -> Rakuten allowed countries contains value therefore inside if condtion and IP address location matched is {0}', isIPAddressLocationMatched);
             return isIPAddressLocationMatched;
         }
+        RakutenLogger.info('rakutenHelpers.js ~ isRakutenAllowedCountry() -> Custom preference for rakuten allowed country is not empty therefore inside if condition');
     }
+    RakutenLogger.info('rakutenHelpers.js ~ isRakutenAllowedCountry() -> Inside method to check if country is allowed for Rakuten.');
 }
 
 module.exports = {

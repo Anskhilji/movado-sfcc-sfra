@@ -3,6 +3,8 @@
 var QueryString = require('./queryString');
 var SimpleCache = require('./simpleCache');
 
+var RakutenLogger = require('dw/system/Logger').getLogger('Rakuten');
+
 /**
  * Translates global session object into local object
  * @param {dw.session} session - Global customer object
@@ -317,9 +319,12 @@ function Request(request, customer, session) {
         if (isRakutenEnable && rakutenCookiesHelper.isRakutenAllowedCountry()) {
             if (isOneTrustEnabled && isOptanonCookieEnabled != -1) {
                 rakutenCookiesHelper.createCookieInSession(request);
+                RakutenLogger.info('request.js ~ Request -> OneTrust and targeting cookies are enabled.');
             } else if (!isOneTrustEnabled) {
                 rakutenCookiesHelper.createCookieInSession(request);
+                RakutenLogger.info('request.js ~ Request -> Rakuten is enabled & OneTrust is disabled.');
             }
+            RakutenLogger.info('request.js ~ Request -> Rakuten is enabled & country is allowed.');
         }
         //Custom End
         if (!eswEnabled) {

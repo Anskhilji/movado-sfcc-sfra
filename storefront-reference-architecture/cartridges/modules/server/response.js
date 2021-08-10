@@ -1,6 +1,7 @@
 'use strict';
 
 var assign = require('./assign');
+var RakutenLogger = require('dw/system/Logger').getLogger('Rakuten');
 
 /**
  * @constructor
@@ -28,9 +29,12 @@ function Response(response) {
     if (isRakutenEnable && rakutenHelpers.isRakutenAllowedCountry()) {
         if (isOneTrustEnabled && isOptanonCookieEnabled != -1) {
             renderRakutenCookies();
+            RakutenLogger.info('response.js ~ Response -> OneTrust and targeting cookies are enabled.');
         } else if (!isOneTrustEnabled) {
             renderRakutenCookies();
+            RakutenLogger.info('response.js ~ Response -> Rakuten is enabled & OneTrust is disabled.');
         }
+        RakutenLogger.info('response.js ~ Response -> Rakuten is enabled & country is allowed.');
     }
 }
 
@@ -43,7 +47,9 @@ function renderRakutenCookies() {
         var rakutenCookiesHelper = require('*/cartridge/scripts/helpers/rakutenHelpers');
         rakutenCookiesHelper.setCookiesResponse(Constants.RAKUTEN_COOKIE_NAME, session.privacy.rakutenCookieValues, '/');
         delete session.privacy.rakutenCookieValues;
+        RakutenLogger.info('response.js ~ renderRakutenCookies() -> rakutenCookieValues exists and inside if condition');
     }
+    RakutenLogger.info('response.js ~ renderRakutenCookies() -> Inside renderRakutenCookies method.')
 }
 
 /**
