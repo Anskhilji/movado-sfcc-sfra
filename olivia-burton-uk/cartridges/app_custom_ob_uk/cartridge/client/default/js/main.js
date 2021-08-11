@@ -25,7 +25,6 @@ $(document).ready(function () {
     processInclude(require('movado/utilities/swatches'));
     processInclude(require('movado/components/emailPopUpSubscription'));
     processInclude(require('./components/mobileMenu'));
-    processInclude(require('movado/components/rakutenCookieHandler'));
 });
 
 require('base/components/spinner');

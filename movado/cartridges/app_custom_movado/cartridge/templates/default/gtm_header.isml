@@ -21,9 +21,8 @@
         'pageUrl': '${pdict.gtm.pageUrl}',
         'Page': '${pdict.gtm.pageType}',
         'googleAnalyticsParameters': '${pdict.gtm.googleAnalyticsParameters}',
-        'departmentCategoryName': '',
-        'customerIPAddressLocation': '${pdict.gtm.customerIPAddressLocation}',
-        'rakutenAllowedCountries': '${pdict.gtm.rakutenAllowedCountries}'
+        'departmentCategoryName': ''
+
         
         // Custom: Added country dimension on the the base of ESW enabled
         

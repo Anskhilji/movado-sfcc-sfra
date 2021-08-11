@@ -12,8 +12,6 @@ var URLUtils = require('dw/web/URLUtils');
 var Constants = require('*/cartridge/scripts/helpers/utils/Constants');
 var searchCustomHelper = require('*/cartridge/scripts/helpers/searchCustomHelper');
 
-var ArrayList = require('dw/util/ArrayList');
-
 var Logger = require('dw/system/Logger');
 var formatMoney = require('dw/util/StringUtils').formatMoney;
 
@@ -41,96 +39,98 @@ function gtmModel(req) {
     this.tertiarySiteSection = '';
     this.searchTerm = '';
     this.googleAnalyticsParameters = '';
-    this.customerIPAddressLocation = '';
-    this.rakutenAllowedCountries =  [];
 
-    if (req.querystring != undefined) {
-        var queryString = req.querystring.urlQueryString;
-        var searchQuery = getSearchQuery(queryString);
-        // Custom Start : get google analytics arrat from site prefrence
-        var googleAnalyticsParameters = getGoogleAnalyticsParameters(queryString, googleAnalyticsHelpers.getGoogleAnalyticsParameters());
-        // Custom End
-        searchkeyword = searchQuery.q;
-        cgid = searchQuery.cgid;
-        pid = searchQuery.pid;
-    }
-    if (action.equals('cart-show') || reqQueryString.urlAction.indexOf('Checkout') > -1) {
-        this.checkout = [];
-        getCartJSONArray(this.checkout);
-        if (action.equals('checkout-login')) {
-            this.checkoutAction = 'checkout';
-            checkoutStage = 1;
-        } else {
-            var checkoutActionObject = getCheckoutQueryString(reqQueryString.urlQueryString).stage;
-            var checkoutStage = '';
-            switch (checkoutActionObject) {
-            case 'shipping':
-                checkoutStage = 2;
-                break;
-            case 'payment':
-                checkoutStage = 3;
-                break;
-            case 'placeOrder':
-                checkoutStage = 4;
-                break;
-            }
+
+        if (req.querystring != undefined) {
+            var queryString = req.querystring.urlQueryString;
+            var searchQuery = getSearchQuery(queryString);
+            // Custom Start : get google analytics arrat from site prefrence
+            var googleAnalyticsParameters = getGoogleAnalyticsParameters(queryString, googleAnalyticsHelpers.getGoogleAnalyticsParameters());
+            // Custom End
+            searchkeyword = searchQuery.q;
+            cgid = searchQuery.cgid;
+            pid = searchQuery.pid;
         }
-        this.checkoutStage = checkoutStage;
-    }
+        if (action.equals('cart-show') || reqQueryString.urlAction.indexOf('Checkout') > -1) {
+            this.checkout = [];
+            getCartJSONArray(this.checkout);
+            if (action.equals('checkout-login')) {
+                this.checkoutAction = 'checkout';
+                checkoutStage = 1;
+            } else {
+                var checkoutActionObject = getCheckoutQueryString(reqQueryString.urlQueryString).stage;
+                var checkoutStage = '';
+                switch (checkoutActionObject) {
+                case 'shipping':
+                    checkoutStage = 2;
+                    break;
+                case 'payment':
+                    checkoutStage = 3;
+                    break;
+                case 'placeOrder':
+                    checkoutStage = 4;
+                    break;
+                }
+            }
+            this.checkoutStage = checkoutStage;
+        }
 
-    // get page Type
+
+        // get page Type
     var pageType = escapeHyphon(getPageType(action, searchkeyword, this.checkoutAction));
 
-    // login status of user
+        // login status of user
     var loginStatus = getLoginStatus(currentCustomer);
 
-    // locale
+        // locale
     var currentLocale = getCurrentLocale(req);
 
-    // language
+        // language
     var language = currentLocale.language ? currentLocale.language : 'en_us';
 
-    // tenant
-    var tenant = getTenant(language); 
+        // tenant
+    var tenant = getTenant(language);
+        
 
-    if (pid != null) {
-        var ProductMgr = require('dw/catalog/ProductMgr');
-        productObj = ProductMgr.getProduct(formatProductId(pid));
-        productBreadcrumbs = getProductBreadcrumb(productObj);
-        var primarySiteSection = escapeQuotes(productBreadcrumbs.primaryCategory);
-        var secoundarySiteSection = escapeQuotes(productBreadcrumbs.secondaryCategory);
-        secoundarySiteSection = (!empty(secoundarySiteSection)) ? '|' + secoundarySiteSection : '';
+        if (pid != null) {
+            var ProductMgr = require('dw/catalog/ProductMgr');
+            productObj = ProductMgr.getProduct(formatProductId(pid));
+            productBreadcrumbs = getProductBreadcrumb(productObj);
+            var primarySiteSection = escapeQuotes(productBreadcrumbs.primaryCategory);
+            var secoundarySiteSection = escapeQuotes(productBreadcrumbs.secondaryCategory);
+            secoundarySiteSection = (!empty(secoundarySiteSection)) ? '|' + secoundarySiteSection : '';
 
-        // get product impressions tags for PDP
-        var productImpressionTags = getPDPProductImpressionsTags(productObj);
-        this.product = {
-            productID: productImpressionTags.productID,
-            productName: stringUtils.removeSingleQuotes(productImpressionTags.productName),
-            brand: productImpressionTags.brand,
-            productPersonalization: productImpressionTags.productPersonalization,
-            category: primarySiteSection,
-            productPrice: productImpressionTags.productPrice,
-            list: productImpressionTags.list,
-            currency: productImpressionTags.currency,
-            // Custom start: Added secoundary category if exist and quantity on product on pdp
-            deparmentIncludedCategoryName: primarySiteSection + secoundarySiteSection,
-            quantity: '1'
-            // Custom End
-        };
-    } else if (searchkeyword != null) {
-        // search count
-        searchCount = (getProductSearch(req, searchQuery).count) != 0 ? (getProductSearch(req, searchQuery).count) : '';
-        this.searchTerm = (searchkeyword != null && searchkeyword != undefined) ? stringUtils.removeSingleQuotes(searchkeyword) : '';
+            // get product impressions tags for PDP
+            var productImpressionTags = getPDPProductImpressionsTags(productObj);
+            this.product = {
+                productID: productImpressionTags.productID,
+                productName: stringUtils.removeSingleQuotes(productImpressionTags.productName),
+                brand: productImpressionTags.brand,
+                productPersonalization: productImpressionTags.productPersonalization,
+                category: primarySiteSection,
+                productPrice: productImpressionTags.productPrice,
+                list: productImpressionTags.list,
+                currency: productImpressionTags.currency,
+                // Custom start: Added secoundary category if exist and quantity on product on pdp
+                deparmentIncludedCategoryName: primarySiteSection + secoundarySiteSection,
+                quantity: '1'
+                // Custom End
+            };
+        } else if (searchkeyword != null) {
+            // search count
+            searchCount = (getProductSearch(req, searchQuery).count) != 0 ? (getProductSearch(req, searchQuery).count) : '';
+            this.searchTerm = (searchkeyword != null && searchkeyword != undefined) ? stringUtils.removeSingleQuotes(searchkeyword) : '';
 
-        var searchQuery = { q: searchkeyword };
-        var productArray = getSearchResultProducts(req, searchQuery);
-        if (productArray == 0) {
-            searchCount = 0;
+            var searchQuery = { q: searchkeyword };
+            var productArray = getSearchResultProducts(req, searchQuery);
+            if (productArray == 0) {
+                searchCount = 0;
+            }
+            if (searchCount == 0 && pageNameJSON != null) {
+                pageType = pageNameJSON['no-searchresult-page'];
+            }
         }
-        if (searchCount == 0 && pageNameJSON != null) {
-            pageType = pageNameJSON['no-searchresult-page'];
-        }
-    }
+
 
     if (action.equals('order-confirm')) {
         var orderId = getOrderIDfromQueryString(queryString);
@@ -138,11 +138,6 @@ function gtmModel(req) {
         getOrderConfirmationArray(this.orderConfirmation, orderId);
     }
 
-    var customerIPAddressLocation = !empty(request.geolocation.countryCode) ? request.geolocation.countryCode : '';
-    var isRakutenEnabled = !empty(Site.current.preferences.custom.isRakutenEnable) ? Site.current.preferences.custom.isRakutenEnable : false;
-    this.rakutenAllowedCountries = new ArrayList(!empty(Site.current.preferences.custom.rakutenAllowedCountries) ? Site.current.preferences.custom.rakutenAllowedCountries : '').toArray();
-   
-    this.rakutenAllowedCountries = isRakutenEnabled ? this.rakutenAllowedCountries.toString() : '';
     this.pageUrl = pageUrl != null ? pageUrl : '';
     this.action = action != null ? action : '';
     this.referralUrl = referralUrl != null ? referralUrl : '';
@@ -152,7 +147,6 @@ function gtmModel(req) {
     this.loginStatus = (loginStatus != null && loginStatus != undefined) ? loginStatus : '';
     this.searchCount = (searchCount != null && searchCount != undefined) ? searchCount : '';
     this.googleAnalyticsParameters = googleAnalyticsParameters != null ? googleAnalyticsParameters : '';
-    this.customerIPAddressLocation = customerIPAddressLocation || '';
 }
 
 
