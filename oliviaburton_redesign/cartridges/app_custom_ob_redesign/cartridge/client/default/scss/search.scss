@@ -616,7 +616,7 @@
 
                     &::-webkit-scrollbar-thumb {
                         background: $dark-gray; 
-                        border-radius: 20px;
+                        border-radius: rem(20);
                     }
 
                     @include media-breakpoint-up(xl) {
