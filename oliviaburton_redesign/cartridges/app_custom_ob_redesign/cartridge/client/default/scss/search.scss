@@ -390,6 +390,14 @@
         max-width: none;
     }
 
+    .banner-title {
+        font-family: $font-gill-sans-std;
+    }
+
+    .banner-links li a {
+        font-weight: 500;
+    }
+
     .plp-filter {
         &-bar {
             box-shadow: 0 rem(2) rem(6) 0 rgba(206, 206, 206, 0.5);
@@ -531,7 +539,7 @@
                 &-item {
                     padding: rem(8) rem(20);
                     display: block;
-                    font-family: $font-gill-std-bold;
+                    font-family: $font-gill-sans-std;
                     font-weight: 600;
                     font-size: rem(15);
                     color: $black;
@@ -550,7 +558,7 @@
                 }
 
                 &-toggle {
-                    font-family: $font-gill-std-bold;
+                    font-family: $font-gill-sans-std;
                     font-size: rem(15);
                     font-weight: 600;
                     color: $gray20;
@@ -600,9 +608,25 @@
                     overflow-x: auto;
                     max-width: 55vw;
 
-                    @include media-breakpoint-up(xl) {
-                        max-width: none;
+                    &::-webkit-scrollbar {
+                        width: rem(15);
+                        height: rem(4);
+                        cursor: pointer;
                     }
+
+                    &::-webkit-scrollbar-thumb {
+                        background: $dark-gray; 
+                        border-radius: rem(20);
+                    }
+
+                    @include media-breakpoint-up(xl) {
+                        max-width: 60vw;
+                    }
+
+                    @include media-breakpoint-up(xxxl) {
+                        max-width: 70vw;
+                    }
+                    
                 }
 
                 .values {
@@ -655,7 +679,7 @@
                 left: rem(25);
 
                 .category-name {
-                    font-family: $font-gill-std-bold;
+                    font-family: $font-gill-sans-std;
                     font-size: rem(15);
                     font-weight: 600;
                     color: $gray20;
@@ -672,10 +696,10 @@
                 }
 
                 span {
-                    font-family: $font-gill-std-normal;
+                    font-family: $font-gill-sans-std;
                     font-size: rem(15);
                     line-height: rem(20);
-                    font-weight: 400;
+                    font-weight: 500;
                     color: $gray20;
                     letter-spacing: normal;
                     text-transform: capitalize;
@@ -705,7 +729,7 @@
         &-btn {
             font-family: $font-gill-std-normal;
             font-size: rem(15);
-            font-weight: 400;
+            font-weight: 500;
             line-height: rem(20);
             letter-spacing: normal;
             text-transform: capitalize;
@@ -718,6 +742,7 @@
             position: relative;
             padding: rem(20) 0;
             border-bottom: rem(1) solid transparent;
+
             @include media-breakpoint-up(lg) {
                 min-width: rem(80);
                 margin: 0 rem(10);
@@ -726,7 +751,15 @@
             @include media-breakpoint-up(xl) {
                 margin: 0 rem(20);
                 font-size: rem(15);
+                min-width: rem(80);
+            }
+            @include media-breakpoint-up(xxl) {
+                margin: 0 rem(20);
+                font-size: rem(15);
                 min-width: auto;
+            }
+            @include media-breakpoint-up(xxxl) {
+                min-width: none;
             }
             &::after {
                 content: "";
@@ -782,7 +815,7 @@
         &-reset {
             font-family: $font-gill-std-normal;
             font-size: rem(14);
-            font-weight: 400;
+            font-weight: 500;
             letter-spacing: normal;
             color: $eclipse;
             text-decoration: underline;
@@ -1010,7 +1043,7 @@
                 
                 .result-count {
                     .category-name {
-                        font-family: $font-gill-std-bold;
+                        font-family: $font-gill-sans-std;
                         font-size: rem(12);
                         font-weight: 600;
                         color: $gray20;
@@ -1027,10 +1060,10 @@
                     }
 
                     span {
-                        font-family: $font-gills-light;
+                        font-family: $font-gill-sans-std;
                         font-size: rem(12);
+                        font-weight: 500;
                         line-height: rem(16);
-                        font-weight: 300;
                         color: $gray20;
                         letter-spacing: normal;
                         text-transform: capitalize;
@@ -1220,7 +1253,7 @@
                             font-family: $font-gill-std-normal;
                             font-size: rem(14);
                             line-height: rem(16);
-                            font-weight: 400;
+                            font-weight: 500;
                             letter-spacing: rem(0.5);
                         }
 
@@ -1295,10 +1328,11 @@
                 padding-right: rem(15);
                 font-family: $font-gill-std-normal;
                 font-size: rem(14);
-                font-weight: 400;
+                font-weight: 500;
                 letter-spacing: normal;
                 color: $gray20;
                 text-transform: capitalize;
+
                 &::before {
                     content: "+";
                     display: inline-block;
@@ -1514,6 +1548,7 @@
                             font-size: rem(12);
                             font-family: $font-gills-light;
                             font-weight: 300;
+                            color: $gray20;
                             line-height: rem(18);
                             letter-spacing: 0.5px;
 
@@ -1641,7 +1676,7 @@
                 }
 
                 h3 {
-                    font-family: $font-gill-std-semibold;
+                    font-family: $font-gill-sans-std;
                     font-size: rem(12);
                     color: $gray20;
                     font-weight: 600;
@@ -1676,7 +1711,7 @@
             background-color: $white;
             border: rem(1) solid $black;
             border-radius: rem(3);
-            font-family: $font-gill-std-bold;
+            font-family: $font-gill-sans-std;
             font-weight: 600;
             font-size: rem(15);
             color: $gray20;
