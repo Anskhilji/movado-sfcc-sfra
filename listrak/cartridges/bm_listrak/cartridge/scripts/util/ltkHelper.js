@@ -32,7 +32,7 @@ function getOrderItemTotal(order) {
             itemTotal = itemTotal / fxRate;
         }
     }
-    return itemTotal;
+    return itemTotal ? itemTotal.toFixed(2) : itemTotal;
 }
 
 function getOrderItemTotalLocal(order) {
@@ -46,7 +46,7 @@ function getOrderItemTotalLocal(order) {
     } else {
         itemTotal = getCurrencySymbol(Currency.getCurrency(order.currencyCode)) + order.totalGrossPrice;
     }
-    return itemTotal;
+    return itemTotal ? itemTotal.toFixed(2) : itemTotal;
 }
 
 function getOrderTaxTotal(order) {
@@ -60,7 +60,7 @@ function getOrderTaxTotal(order) {
             taxTotal = taxTotal / fxRate;
         }
     }
-    return taxTotal;
+    return taxTotal ? taxTotal.toFixed(2) : taxTotal;
 }
 
 function getOrderShipTotal(order) {
@@ -74,7 +74,7 @@ function getOrderShipTotal(order) {
             shipTotal = shipTotal / fxRate;
         }
     }
-    return shipTotal;
+    return shipTotal ? shipTotal.toFixed(2) : shipTotal;
 }
 
 function getOrderTotal(order) {
@@ -88,7 +88,7 @@ function getOrderTotal(order) {
             orderTotal = orderTotal / fxRate;
         }
     }
-    return orderTotal;
+    return orderTotal ? orderTotal.toFixed(2) : orderTotal;
 }
 
 function getItemPrice(eswPrice, order) {
