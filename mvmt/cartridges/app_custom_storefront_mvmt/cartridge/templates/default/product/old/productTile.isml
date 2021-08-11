@@ -26,7 +26,7 @@
             
         </isif>
 
-        <isinclude template="product/components/productTileName" />
+        <isinclude template="product/components/old/productTileName" />
         
         <isif condition="${preOrder}">
             <div class="out-of-stock">
