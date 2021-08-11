@@ -28,8 +28,8 @@ server.post('Subscribe',
                         result.success = backInStockNotificationHelper.saveBackInStockNotificationObj(backInStockNotificationObj);
                     }
                 }
-                //Custom Start [MSS-1453]: Send Subscriber to Listrak 
-                if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
+                //Custom Start [MSS-1453]: Send Subscriber to Listrak if checkbox is checked
+                if ((form.enabledMarketing == 'true' || form.enabledMarketing == true) && Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
                     var ltkApi = require('*/cartridge/scripts/api/ListrakAPI');
                     var ltkConstants = require('*/cartridge/scripts/utils/ListrakConstants');
                     var requestParams = {
