@@ -4,7 +4,7 @@
 </div><iscomment> Custom: HTML Structure change</iscomment>
 <isinclude template="/components/modules" sf-toolkit="off" />
 
-<header class="new-header mvmt-header-design mvmt-header-redesign">
+<header class="new-header mvmt-header-design">
     <iscomment>Custom Start: Adding ESW cartridge integration </iscomment>
     <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page"/>
     <isif condition="${eswHelper.getEShopWorldModuleEnabled() && eswHelper.getEnableLandingPage()}" >
@@ -13,7 +13,7 @@
     </isif>
     <iscomment> Custom End </iscomment>
     <nav>
-        <h2>New </h2>
+        <h2>Old </h2>
         <div class="sticky-header-wrapper">
             <div class="sticky-header-placeholder"></div>
             <div class="header-menu-wrapper non-sticky">
