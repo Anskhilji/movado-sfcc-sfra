@@ -42,11 +42,11 @@ function getOrderItemTotalLocal(order) {
             + order.custom.eswShopperCurrencyDuty
             + order.custom.eswShopperCurrencyTaxes
             + order.custom.eswShopperCurrencyDelivery;
-        itemTotal = getCurrencySymbol(Currency.getCurrency(order.custom.eswShopperCurrencyCode)) + itemTotal;
+        itemTotal = getCurrencySymbol(Currency.getCurrency(order.custom.eswShopperCurrencyCode)) + itemTotal.toFixed(2);
     } else {
-        itemTotal = getCurrencySymbol(Currency.getCurrency(order.currencyCode)) + order.totalGrossPrice;
+        itemTotal = getCurrencySymbol(Currency.getCurrency(order.currencyCode)) + order.totalGrossPrice.toFixed(2);
     }
-    return itemTotal ? itemTotal.toFixed(2) : itemTotal;
+    return itemTotal;
 }
 
 function getOrderTaxTotal(order) {
