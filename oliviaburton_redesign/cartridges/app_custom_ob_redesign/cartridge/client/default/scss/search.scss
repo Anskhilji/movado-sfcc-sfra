@@ -609,8 +609,8 @@
                     max-width: 55vw;
 
                     &::-webkit-scrollbar {
-                        width: 15px;
-                        height: 4px;
+                        width: rem(15);
+                        height: rem(4);
                         cursor: pointer;
                     }
 
