@@ -4,7 +4,6 @@ var Constants = require('~/cartridge/scripts/util/Constants');
 var encoding = require('dw/crypto/Encoding');
 var Site = require('dw/system/Site');
 var Resource = require('dw/web/Resource');
-var RakutenLogger = require('dw/system/Logger').getLogger('Rakuten');
 
 var sitePreferences = Site.getCurrent().getPreferences().getCustom();
 
@@ -14,11 +13,9 @@ var sitePreferences = Site.getCurrent().getPreferences().getCustom();
  * @param {dw.system.Request} request - request
  */
 function createCookieInSession(request) {
-    RakutenLogger.info('rakutenHelpers.js ~ createCookieInSession() -> Inside createCookiesInSession method.')
     var requestHttpParameterMap = request.getHttpParameterMap();
     if (!empty(requestHttpParameterMap) && !empty(requestHttpParameterMap.get('ranMID').value) && !empty(requestHttpParameterMap.get('ranSiteID').value) 
         && !empty(requestHttpParameterMap.get('ranEAID').value)) {
-        RakutenLogger.info('rakutenHelpers.js ~ createCookieInSession() -> Inside if condition because current request contains rakuten parameters.')
         var ranMID = requestHttpParameterMap.get('ranMID').value;
         var ranSiteID = requestHttpParameterMap.get('ranSiteID').value;
         var calendar = Site.current.calendar;
@@ -42,7 +39,6 @@ function createCookieInSession(request) {
  * @returns {Object} newCookie - returned a new cookie.
  */
 function setCookiesResponse(name, value, path) {
-    RakutenLogger.info('rakutenHelpers.js ~ setCookiesResponse() -> Inside set cookies response method to set response.');
     var Cookie = require('dw/web/Cookie');
     var newCookie = new Cookie(name, value);
     newCookie.setPath(path);
@@ -60,7 +56,6 @@ function setCookiesResponse(name, value, path) {
  * @returns {Date} formattedDate - returned date in the form of given format.
  */
 function getDateString(date, dateFormat) {
-    RakutenLogger.info('rakutenHelpers.js ~ getDateString() -> Inside getDateString method to set the date.');
     var StringUtils = require('dw/util/StringUtils');
     var formattedDate = StringUtils.formatCalendar(date, dateFormat);
     return formattedDate;
@@ -83,7 +78,6 @@ function isRakutenAllowedCountry() {
                 if (!empty(customerIPAddressLocation) && customerIPAddressLocation) {
                     if (customerIPAddressLocation == rakutenAllowedCountries[i]) {
                         isIPAddressLocationMatched = true;
-                        RakutenLogger.info('rakutenHelpers.js ~ isRakutenAllowedCountry() -> Rakuten allowed countries contains value and country matching is {0}', isIPAddressLocationMatched);
                         break;
                     }
                 }
@@ -93,9 +87,37 @@ function isRakutenAllowedCountry() {
     }
 }
 
+/**
+ * This method is used to get the rakuten allowed countries from site preferences.
+ *
+ * @returns {Object} Object - Contains rakuten request object.
+ */
+function getRakutenRequestObject() {
+    var URLUtils = require('dw/web/URLUtils');
+
+    var rakutenRequest;
+    var requestHttpParameterMap = request.getHttpParameterMap();
+
+    if (!empty(requestHttpParameterMap) && !empty(requestHttpParameterMap.get('ranMID').value) && !empty(requestHttpParameterMap.get('ranSiteID').value) 
+    && !empty(requestHttpParameterMap.get('ranEAID').value)) {
+        rakutenRequest = {
+            rakutenRequestURL: URLUtils.url('Rakuten-Request', 'ranMID', requestHttpParameterMap.ranMID, 'ranEAID', requestHttpParameterMap.ranEAID, 'ranSiteID', requestHttpParameterMap.ranSiteID).https().toString(),
+            containRakutenParameters: true
+        }
+    } else {
+        rakutenRequest = {
+            rakutenRequestURL: URLUtils.url('Rakuten-Request').https().toString(),
+            containRakutenParameters: false
+        }
+    }
+
+    return rakutenRequest;
+}
+
 module.exports = {
     createCookieInSession: createCookieInSession,
     setCookiesResponse: setCookiesResponse,
     getDateString: getDateString,
-    isRakutenAllowedCountry: isRakutenAllowedCountry
+    isRakutenAllowedCountry: isRakutenAllowedCountry,
+    getRakutenRequestObject: getRakutenRequestObject
 }
