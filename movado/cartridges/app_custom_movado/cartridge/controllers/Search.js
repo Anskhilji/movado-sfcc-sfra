@@ -6,6 +6,8 @@ var server = require('server');
 var page = module.superModule;
 server.extend(page);
 
+var RakutenLogger = require('dw/system/Logger').getLogger('Rakuten');
+
 var pageMetaData = require('*/cartridge/scripts/middleware/pageMetaData');
 var cache = require('*/cartridge/scripts/middleware/cache');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
@@ -34,6 +36,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     });
     var isAjax = Object.hasOwnProperty.call(req.httpHeaders, 'x-requested-with')
         && req.httpHeaders['x-requested-with'] === 'XMLHttpRequest';
+    RakutenLogger.info('Search.js ~ Show -> isAjax variable in Search-Show is: {0}', isAjax);
     var resultsTemplate = isAjax ? 'search/searchResultsNoDecorator' : 'search/searchResults';
     /**
      * Custom Start: Added logic for OB Redesign.

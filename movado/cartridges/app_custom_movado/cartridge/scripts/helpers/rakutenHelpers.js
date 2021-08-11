@@ -77,7 +77,6 @@ function isRakutenAllowedCountry() {
     var customerIPAddressLocation = (!empty(request.geolocation.countryCode) && request.geolocation.countryCode) ? request.geolocation.countryCode : '';
 
     if (!empty(rakutenAllowedCountries) && rakutenAllowedCountries) {
-        RakutenLogger.info('rakutenHelpers.js ~ isRakutenAllowedCountry() -> Inside countries enabled check and found these countries enabled {0}' + rakutenAllowedCountries);
         if (rakutenAllowedCountries.length > 0) {
             var isIPAddressLocationMatched = false;
             for ( var i = 0; i < rakutenAllowedCountries.length; i++) {
