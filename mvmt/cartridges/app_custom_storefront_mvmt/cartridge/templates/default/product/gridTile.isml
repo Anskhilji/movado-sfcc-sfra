@@ -9,6 +9,10 @@
             <isinclude template="product/old/productSlotTile" />
         </isif>
     <iselse>
-        <isinclude template="product/productTile" />
+        <isif condition="${!empty(pdict.display.isRedesigned)}">
+            <isinclude template="product/productTile" />
+        <iselse/>
+            <isinclude template="product/old/productTile" />
+        </isif>
     </isif>
 </div>
