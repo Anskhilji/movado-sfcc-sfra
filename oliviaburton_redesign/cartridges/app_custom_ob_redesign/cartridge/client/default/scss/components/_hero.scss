@@ -144,6 +144,11 @@
         picture {
             img {
                 width: 100%;
+
+                @include media-breakpoint-up(lg) {
+                    min-height: rem(300);
+                    max-height: auto;
+                }
             }
         }
     }
