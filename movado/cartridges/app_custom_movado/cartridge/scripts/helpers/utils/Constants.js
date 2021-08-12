@@ -16,4 +16,3 @@ exports.SHIPPING_METHODS_UPGRADES_PRECEDENCE = Site.getCurrent().preferences.cus
 exports.SERVICE_ID = {
     FB_CONVERSION: 'fb.conversion.event.api',
 }
-

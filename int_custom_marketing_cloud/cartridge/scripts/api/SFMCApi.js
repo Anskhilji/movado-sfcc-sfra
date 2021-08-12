@@ -57,6 +57,9 @@ function sendSubscriberToSFMC(requestParams) {
         } else {
             var service = null;
             service = SFMCAPIHelper.getDataAPIService(dataServiceID, Constants.SFMC_DATA_API_ENDPOINT.CONTACT, accessToken, Constants.SFMC_SERVICE_API_TYPE.CONTACT);
+            if (Site.current.ID == 'MovadoUS') {
+                params.country = !empty(requestParams.country) ? requestParams.country : SFMCAPIHelper.getCurrentCountry(requestParams.country);
+            }
             result = SFMCAPIHelper.addContactToMC(params, service);
             if (result.success) {
                 if (Site.current.ID === 'MovadoUS' || Site.current.ID === 'OliviaBurtonUS' || Site.current.ID === 'OliviaBurtonUK' || Site.current.ID === 'MCSUS') {
