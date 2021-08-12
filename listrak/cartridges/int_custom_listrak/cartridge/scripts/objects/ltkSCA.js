@@ -124,7 +124,7 @@ function _SessionTracker() {
 
 
     	/* Set the order values. */
-        this.Cart.Total = Basket.getMerchandizeTotalNetPrice().value;
+        this.Cart.Total = Basket.getAdjustedMerchandizeTotalNetPrice().value || Basket.getMerchandizeTotalNetPrice().value;
 
         /* If there is no order number, add the cart items. */
         if (this.Cart.OrderNumber.length === 0)    	{
@@ -139,7 +139,7 @@ function _SessionTracker() {
 
         			var sku = prd.sku;
         			var qty = orderItem.quantity.value;
-        			var price = orderItem.product.getPriceModel().getPrice().value;
+                    var price = ltkHelper.getProductPrice(orderItem.product, undefined, true);
         			var name = orderItem.lineItemText;
                     var ltkProductPrice = ltkHelper.getProductPrice(orderItem.product); //Get price with symbol [MSS-1450]
 
