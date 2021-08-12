@@ -101,7 +101,17 @@ function exportGoogleFeed(args) {
             "salePrice_CA": 22,
             "sale_price_effective_date_CA": 23,
             "link_CA": 24,
-            "availability_CA": 25
+            "availability_CA": 25,
+            "price_GBP": 26,
+            "salePrice_GBP": 27,
+            "sale_price_effective_date_UK": 28,
+            "price_EUR": 29,
+            "price_MXN": 30,
+            "price_SGD": 31,
+            "price_MYR": 32,
+            "price_HKD": 33,
+            "price_CHF": 34
+
         }
     } else if (Site.current.ID === 'MCSUS') {
         feedColumnsGoogle = {
@@ -495,12 +505,48 @@ function buildCsvHeader(feedColumns) {
         csvFileHeader.push("price_CA");
     }
 
+    if (!empty(feedColumns['price_GBP'])) {
+        csvFileHeader.push("price_GBP");
+    }
+
+    if (!empty(feedColumns['price_EUR'])) {
+        csvFileHeader.push("price_EUR");
+    }
+
+    if (!empty(feedColumns['price_MXN'])) {
+        csvFileHeader.push("price_MXN");
+    }
+
+    if (!empty(feedColumns['price_SGD'])) {
+        csvFileHeader.push("price_SGD");
+    }
+
+    if (!empty(feedColumns['price_MYR'])) {
+        csvFileHeader.push("price_MYR");
+    }
+
+    if (!empty(feedColumns['price_CHF'])) {
+        csvFileHeader.push("price_CHF");
+    }
+
+    if (!empty(feedColumns['price_HKD'])) {
+        csvFileHeader.push("price_HKD");
+    }
+
     if (!empty(feedColumns['salePrice_CA'])) {
         csvFileHeader.push("Sale Price_CA");
     }
 
+    if (!empty(feedColumns['salePrice_GBP'])) {
+        csvFileHeader.push("Sale Price_GBP");
+    }
+
     if (!empty(feedColumns['sale_price_effective_date_CA'])) {
         csvFileHeader.push("sale_price_effective_date_CA");
+    }
+
+    if (!empty(feedColumns['sale_price_effective_date_UK'])) {
+        csvFileHeader.push("sale_price_effective_date_UK");
     }
 
     if (!empty(feedColumns['link_CA'])) {
@@ -962,15 +1008,87 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
         }
     }
 
+    if (!empty(feedColumns['price_GBP'])) {
+        if (product.price_GBP) {
+            productDetails.push(product.price_GBP)
+        } else {
+            productDetails.push("");
+        }
+    }
+
+    if (!empty(feedColumns['price_EUR'])) {
+        if (product.price_EUR) {
+            productDetails.push(product.price_EUR)
+        } else {
+            productDetails.push("");
+        }
+    }
+
+    if (!empty(feedColumns['price_MXN'])) {
+        if (product.price_MXN) {
+            productDetails.push(product.price_MXN)
+        } else {
+            productDetails.push("");
+        }
+    }
+
+    if (!empty(feedColumns['price_SGD'])) {
+        if (product.price_SGD) {
+            productDetails.push(product.price_SGD)
+        } else {
+            productDetails.push("");
+        }
+    }
+
+    if (!empty(feedColumns['price_MYR'])) {
+        if (product.price_MYR) {
+            productDetails.push(product.price_MYR)
+        } else {
+            productDetails.push("");
+        }
+    }
+
+    if (!empty(feedColumns['price_CHF'])) {
+        if (product.price_CHF) {
+            productDetails.push(product.price_CHF)
+        } else {
+            productDetails.push("");
+        }
+    }
+
+    if (!empty(feedColumns['price_HKD'])) {
+        if (product.price_HKD) {
+            productDetails.push(product.price_HKD)
+        } else {
+            productDetails.push("");
+        }
+    }
+
     if (!empty(feedColumns['salePrice_CA'])) {
         if (product.salePrice_CA) {
             productDetails.push(product.salePrice_CA)
         } else {
             productDetails.push("");
         }
-    }
+    } 
+
+    if (!empty(feedColumns['salePrice_GBP'])) {
+        if (product.salePrice_GBP) {
+            productDetails.push(product.salePrice_GBP)
+        } else {
+            productDetails.push("");
+        }
+    } 
 
     if (!empty(feedColumns['sale_price_effective_date_CA'])) {
+        if (product.salePrice_CA) {
+            productDetails.push(product.salePriceEffectiveDate)
+        } else {
+            productDetails.push("");
+        }
+    }
+
+    if (!empty(feedColumns['sale_price_effective_date_UK'])) {
         if (product.salePrice_CA) {
             productDetails.push(product.salePriceEffectiveDate)
         } else {
@@ -1108,8 +1226,32 @@ function getProductAttributes(product, feedParameters, feedColumns) {
     if (!empty(feedColumns['price_CA'])) {
         productAttributes.price_CA = getProductPriceByCurrencyCode(product, Constants.CURRENCY_CAD) + " " + Constants.CURRENCY_CAD;
     }
+    if (!empty(feedColumns['price_GBP'])) {
+        productAttributes.price_GBP = getProductPriceByCurrencyCode(product, Constants.CURRENCY_GBP) + " " + Constants.CURRENCY_GBP;
+    }
+    if (!empty(feedColumns['price_EUR'])) {
+        productAttributes.price_EUR = getProductPriceByCurrencyCode(product, Constants.CURRENCY_EUR) + " " + Constants.CURRENCY_EUR;
+    }
+    if (!empty(feedColumns['price_MXN'])) {
+        productAttributes.price_MXN = getProductPriceByCurrencyCode(product, Constants.CURRENCY_MXN) + " " + Constants.CURRENCY_MXN;
+    }
+    if (!empty(feedColumns['price_SGD'])) {
+        productAttributes.price_SGD = getProductPriceByCurrencyCode(product, Constants.CURRENCY_SGD) + " " + Constants.CURRENCY_SGD;
+    }
+    if (!empty(feedColumns['price_MYR'])) {
+        productAttributes.price_MYR = getProductPriceByCurrencyCode(product, Constants.CURRENCY_MYR) + " " + Constants.CURRENCY_MYR;
+    }
+    if (!empty(feedColumns['price_CHF'])) {
+        productAttributes.price_CHF = getProductPriceByCurrencyCode(product, Constants.CURRENCY_CHF) + " " + Constants.CURRENCY_CHF;
+    }
+    if (!empty(feedColumns['price_HKD'])) {
+        productAttributes.price_HKD = getProductPriceByCurrencyCode(product, Constants.CURRENCY_HKD) + " " + Constants.CURRENCY_HKD;
+    }
     if (!empty(feedColumns['salePrice_CA'])) {
         productAttributes.salePrice_CA = getPromotionalPricePerPriceBook(Constants.CURRENCY_CAD, product, true);
+    }
+    if (!empty(feedColumns['salePrice_GBP'])) {
+        productAttributes.salePrice_GBP = getPromotionalPricePerPriceBook(Constants.CURRENCY_GBP, product, true);
     }
     if (!empty(feedColumns['availability_CA'])) {
         productAttributes.availability_CA = getProductAvailability(product, Constants.COUNTRY_CA);
