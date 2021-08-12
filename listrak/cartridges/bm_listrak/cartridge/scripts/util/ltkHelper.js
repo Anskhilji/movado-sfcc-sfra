@@ -32,19 +32,19 @@ function getOrderItemTotal(order) {
             itemTotal = itemTotal / fxRate;
         }
     }
-    return itemTotal ? itemTotal.toFixed(2) : itemTotal;
+    return itemTotal;
 }
 
 function getOrderItemTotalLocal(order) {
     var itemTotal;
     if (order.custom.eswShopperCurrencyCode) {
-        itemTotal = order.custom.eswShopperCurrencyTotal
+        var itemSubTotal = order.custom.eswShopperCurrencyTotal
             + order.custom.eswShopperCurrencyDuty
             + order.custom.eswShopperCurrencyTaxes
             + order.custom.eswShopperCurrencyDelivery;
-        itemTotal = getCurrencySymbol(Currency.getCurrency(order.custom.eswShopperCurrencyCode)) + itemTotal.toFixed(2);
+        itemTotal = getCurrencySymbol(Currency.getCurrency(order.custom.eswShopperCurrencyCode)) + itemSubTotal.toFixed(2);
     } else {
-        itemTotal = getCurrencySymbol(Currency.getCurrency(order.currencyCode)) + order.totalGrossPrice.toFixed(2);
+        itemTotal = getCurrencySymbol(Currency.getCurrency(order.currencyCode)) + order.getTotalGrossPrice().value.toFixed(2);
     }
     return itemTotal;
 }
@@ -60,7 +60,7 @@ function getOrderTaxTotal(order) {
             taxTotal = taxTotal / fxRate;
         }
     }
-    return taxTotal ? taxTotal.toFixed(2) : taxTotal;
+    return taxTotal;
 }
 
 function getOrderShipTotal(order) {
@@ -74,7 +74,7 @@ function getOrderShipTotal(order) {
             shipTotal = shipTotal / fxRate;
         }
     }
-    return shipTotal ? shipTotal.toFixed(2) : shipTotal;
+    return shipTotal;
 }
 
 function getOrderTotal(order) {
@@ -88,7 +88,7 @@ function getOrderTotal(order) {
             orderTotal = orderTotal / fxRate;
         }
     }
-    return orderTotal ? orderTotal.toFixed(2) : orderTotal;
+    return orderTotal;
 }
 
 function getItemPrice(eswPrice, order) {
