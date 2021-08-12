@@ -45,7 +45,7 @@ server.prepend('AnalysisNotificationEndpoint', function (req, res, next) {
     }
 
     if (order && !order.custom.isOrderCompleted) {
-        res.setStatus(400);
+        res.setStatusCode(400);
         res.render('riskified/riskifiedorderanalysisresponse', {
             AnalysisUpdateError:true,
             AnalysisErrorMessage: 'Order is not placed yet: ' + orderId

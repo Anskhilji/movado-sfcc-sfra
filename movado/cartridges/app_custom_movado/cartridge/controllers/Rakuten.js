@@ -3,7 +3,7 @@
 var server = require('server');
 
 server.get('Request', function(res, req, next){
-    res.setStatus(200);
+    res.setStatusCode(200);
     next();
 });
 
