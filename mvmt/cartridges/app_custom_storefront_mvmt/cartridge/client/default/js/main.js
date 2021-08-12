@@ -22,6 +22,7 @@ $(document).ready(function () {
     processInclude(require('./clp/clpcustom'));
     processInclude(require('./components/dashboard'));
     processInclude(require('./components/mobileMenu'));
+    processInclude(require('./components/plpVariations'));
     processInclude(require('./components/search'));
     processInclude(require('./utilities/sticky-header'));
     processInclude(require('./utilities/gtm-events'));
@@ -30,7 +31,6 @@ $(document).ready(function () {
     processInclude(require('./components/newsLetterSubscription'));
     processInclude(require('./videoPopup'));
     processInclude(require('./components/miniCartRecommendations'));
-    processInclude(require('movado/components/rakutenCookieHandler'));
 });
 
 require('base/components/spinner');

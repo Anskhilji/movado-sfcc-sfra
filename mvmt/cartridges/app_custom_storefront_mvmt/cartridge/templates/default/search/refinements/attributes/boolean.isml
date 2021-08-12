@@ -1,8 +1,8 @@
 <iscomment>Custom Start: Adding swatchImageURL in the background image and adding new classes swatch-image and selected-swatch-image for changing the selection</iscomment>
 <li title="${refinementValue.title}" class="col-sm-auto col-md-12 ${!refinementValue.selectable ? 'disabled' : ''}">
     <isif condition="${empty(refinementValue.swatchImageURL) && !refinementValue.isSwatchImagesEnabled}" >
-        <label class="elements">
-            <a role="checkbox" aria-checked="<isif condition="${refinementValue.selected && refinementValue.selectable}">true<iselse/>false</isif>" tabindex="0" href="${refinementValue.url}" class="${!refinementValue.selectable ? 'disabled' : ''}" <isif condition="${!refinementValue.selectable}">disabled</isif>>
+        <label class="elements btn-boolean-redesign ${refinementValue.selected ? "label-selected" : ''}"> <span class="d-inline d-md-none">${refinementValue.displayValue}</span>
+            <a class="filters-checkbox"  role="checkbox" aria-checked="<isif condition="${refinementValue.selected && refinementValue.selectable}">true<iselse/>false</isif>" tabindex="0" href="${refinementValue.url}" class="${!refinementValue.selectable ? 'disabled' : ''}" <isif condition="${!refinementValue.selectable}">disabled</isif>>
                 <iscomment>Checkbox</iscomment>
                 <isif condition="${refinementValue.selected && refinementValue.selectable}">
                     <i class="fa fa-check-square"></i>
@@ -10,16 +10,20 @@
                     <i class="fa fa-square-o"></i>
                 </isif>
                 <iscomment>Label</iscomment>
-                <span class="<isif condition="${refinementValue.selected && refinementValue.selectable}">selected</isif>" >${refinementValue.displayValue}</span>
+                <span class="boolean-filters-text-redesign <isif condition="${refinementValue.selected && refinementValue.selectable}">selected</isif>" >${refinementValue.displayValue}</span>
             </a>
         </label>
     <iselse>
         <label class="elements">
             <a role="checkbox" aria-checked="<isif condition="${refinementValue.selected && refinementValue.selectable}">true<iselse/>false</isif>" tabindex="0" href="${refinementValue.url}" class="${!refinementValue.selectable ? 'disabled' : ''} swatch-image <isif condition="${refinementValue.selected && refinementValue.selectable}">selected-swatch-image</isif>" <isif condition="${!refinementValue.selectable}">disabled</isif>>
                 <isif condition="${refinementValue.selected && refinementValue.selectable}">
-                    <div class="fa fa-check-square rounded-image" style="background-image: url('${refinementValue.swatchImageURL}')"></div>
+                    <div class="fa fa-check-square rounded-image" >
+                        <img src="${refinementValue.swatchImageURL}" loading="lazy" alt="bg-image">
+                    </div>
                 <iselse>
-                    <div class="fa fa-square-o rounded-image" style="background-image: url('${refinementValue.swatchImageURL}')"></div>
+                    <div class="fa fa-square-o rounded-image" >
+                        <img src="${refinementValue.swatchImageURL}" loading="lazy" alt="bg-image">
+                    </div>
                 </isif>
             </a>
             <span class="<isif condition="${refinementValue.selected && refinementValue.selectable}">selected</isif>" >${refinementValue.displayValue}</span>
