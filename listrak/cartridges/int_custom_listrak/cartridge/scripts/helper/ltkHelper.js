@@ -23,7 +23,7 @@ function getCountryCode(request) {
     return countryCode;
 }
 
-function getProductPrice(product, currencyCode) {
+function getProductPrice(product, currencyCode, withoutSymbol) {
     var Currency = require('dw/util/Currency');
     var productPrice = 0;
     var promotionalPrice;
@@ -45,6 +45,9 @@ function getProductPrice(product, currencyCode) {
     }
     if (currencyCode && defaultCurrency) {
         session.setCurrency(defaultCurrency);
+    }
+    if (withoutSymbol) {
+        return productPrice || '';
     }
     return productPrice ? currencySymbol + productPrice : '';
 }
