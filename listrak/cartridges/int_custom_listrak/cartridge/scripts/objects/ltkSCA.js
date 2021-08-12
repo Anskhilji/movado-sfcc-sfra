@@ -133,25 +133,25 @@ function _SessionTracker() {
         	for (index = 0; index < orderItems.length; index++)        	{
         		var orderItem = orderItems[index];
         		var product = orderItem.getProduct();
-        		if (product != null)        		{
-        			var prd = new Product.ltkProduct();
-        			prd.LoadProduct(product);
+        		if (product != null) {
+                    var prd = new Product.ltkProduct();
+                    prd.LoadProduct(product);
 
-        			var sku = prd.sku;
-        			var qty = orderItem.quantity.value;
+                    var sku = prd.sku;
+                    var qty = orderItem.quantity.value;
                     var price = ltkHelper.getProductPrice(orderItem.product, undefined, true);
-        			var name = orderItem.lineItemText;
+                    var name = orderItem.lineItemText;
                     var ltkProductPrice = ltkHelper.getProductPrice(orderItem.product); //Get price with symbol [MSS-1450]
 
 
-        			/* Image URL. */
-        			var imageurl = prd.imageURL;
+                    /* Image URL. */
+                    var imageurl = prd.imageURL;
 
-        			/* Link URL. */
-        			var linkurl = prd.linkURL;
+                    /* Link URL. */
+                    var linkurl = prd.linkURL;
 
-        			/* Add the cart item to the array of cart items. */
-        			this.AddItemWithLinks(sku, qty, price, name, imageurl, linkurl, ltkProductPrice);
+                    /* Add the cart item to the array of cart items. */
+                    this.AddItemWithLinks(sku, qty, price, name, imageurl, linkurl, ltkProductPrice);
         		}
         	}
     	}
