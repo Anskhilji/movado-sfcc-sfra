@@ -1,10 +1,10 @@
 <isif condition="${pdict.productSearch.isCategorySearch}">
-    <span>
+    <span class="total-product-count" data-total-product-count="${pdict.productSearch.count}">
         <isprint value="${Resource.msgf('label.results', 'search', null, pdict.productSearch.count)}" encoding="off">
     </span>
 <iselse>
     <p>
-        <span>
+        <span class="total-product-count" data-total-product-count="${pdict.productSearch.count}">
             <isif condition="${pdict.productSearch.productIds.length > 0}">
                 <isprint value="${Resource.msgf('label.resultsfor', 'search', null, pdict.productSearch.count)}" encoding="off">
             <iselse>
