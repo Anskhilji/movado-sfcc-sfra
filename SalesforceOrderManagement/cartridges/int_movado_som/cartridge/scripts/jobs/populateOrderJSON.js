@@ -137,7 +137,7 @@ function populateByOrder(order) {
          * Add pricebookID to Order
          */
         var pricebooks = collections.map(order.productLineItems, function (productLineItem) {
-            return productLineItem.product ? productLineItem.product.priceModel.priceInfo.priceBook.ID : 'DEFAULT';
+            return productLineItem.product && productLineItem.product.priceModel.priceInfo ? productLineItem.product.priceModel.priceInfo.priceBook.ID : 'DEFAULT';
         });
 
         // Set the PriceBook ID
