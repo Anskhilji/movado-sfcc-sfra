@@ -700,8 +700,8 @@
 
 .product-detail {
     padding: rem(16) 0 0;
-    max-width: $container-max-width;
     margin: 0 auto;
+    width: 60%;
 
     @include media-breakpoint-up(md-down) {
         padding: rem(45) rem(32);
@@ -820,6 +820,7 @@
 
                     .carousel-tile {
                         overflow: visible !important;
+                 
 
                         &.active {
                             min-height: 80vh;
@@ -833,7 +834,6 @@
                     }
 
                     .normal-zoom, .slide-video {
-                        max-width: rem(320);
                         margin: 0 auto;
                         width: 100%;
 
@@ -1132,6 +1132,8 @@
 
             .ratings {
                 margin: 0;
+                width: 100%;
+                height: 24px;
             }
         }
     }
@@ -1178,6 +1180,7 @@
             margin: 0 auto;
             letter-spacing: rem(1.25);
             transition: all .4s;
+
 
             @include media-breakpoint-up(md-down) {
                 position: relative;
@@ -1724,7 +1727,7 @@
                         height: rem(36);
                         transform: rotate(45deg);
                     }
-    
+
                     &:after {
                         content: "";
                         position: absolute;
@@ -2802,7 +2805,7 @@
             del {
 
                 .strike-through {
-    
+
                     span {
                         color: $light-gray2;
                         font-weight: 600;
