@@ -29,7 +29,7 @@ function setRakutenCookie() {
         if (isOptanonAllowedCookie != -1) {
             $.ajax({
                 type: "GET",
-                url: window.Resources.RAKUTEN_REQUEST.CALL_RAKUTEN_CONTROLLER,
+                url: window.Resources.RAKUTEN_REQUEST.rakutenRequestURL,
                 success: function () {
                     clearInterval(cookieWriteInterval);
                 }
