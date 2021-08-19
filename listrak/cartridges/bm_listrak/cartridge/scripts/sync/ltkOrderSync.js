@@ -73,6 +73,7 @@ function orderSync(args) {
         orderfile.AddRowItem('TrackingNumber');
         orderfile.AddRowItem('InternalStatus');
         orderfile.AddRowItem('Meta 1');
+        orderfile.AddRowItem('DiscountAmount'); // Added Discount for [MSS-1473]
         orderfile.WriteRow();
 
         // item header row
@@ -83,6 +84,8 @@ function orderSync(args) {
         itemfile.AddRowItem('TrackingNumber');
         itemfile.AddRowItem('ItemTotal');
         itemfile.AddRowItem('Meta 1'); // [MSS-1474] Column for local price
+        itemfile.AddRowItem('DiscountAmount'); // Added Discount for [MSS-1473]
+
         itemfile.WriteRow();
 
         // Process all orders
@@ -150,6 +153,7 @@ function orderSync(args) {
                 orderfile.AddRowItem(o.Order.TrackingNumbers, true);
                 orderfile.AddRowItem(o.Order.Status, true);
                 orderfile.AddRowItem(o.Order.localPrice);
+                orderfile.AddRowItem(o.Order.OrderDiscount); // Added order discount for [MSS-1473]
 
                 orderfile.WriteRow();
 
@@ -163,6 +167,7 @@ function orderSync(args) {
                     itemfile.AddRowItem(item.TrackingNumber, true);
                     itemfile.AddRowItem((item.Price * item.Qty).toFixed(2));
                     itemfile.AddRowItem(item.localPrice); //[MSS-1474] Get Local Price for product
+                    itemfile.AddRowItem(item.ItemDiscount); // Added item discount for [MSS-1473]
                     itemfile.WriteRow();
 
                     if (item.Product != null) { products.push(item.Product); }

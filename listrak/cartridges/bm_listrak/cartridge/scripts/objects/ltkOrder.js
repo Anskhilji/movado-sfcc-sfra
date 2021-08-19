@@ -34,6 +34,7 @@ function Order() {
     this.OrderItems = [];
     this.localPrice = null;
     this.currencyCode = null;
+    this.OrderDiscount = null;
 }
 
 /**
@@ -46,6 +47,7 @@ function OrderItem() {
     this.TrackingNumber = null;
     this.Product = null;
     this.custom = null;
+    this.ItemDiscount = null;
 }
 
 /**
@@ -97,6 +99,10 @@ ltkOrder.prototype.LoadOrder = function (order) {
         var item = self.GetOrderItem(orderItem);
         if (!empty(item.Sku)) { self.Order.OrderItems.push(item); }
     });
+
+    // Custom Start: Added Logic for order discount [MSS-1473]
+    this.Order.OrderDiscount = this.getDiscountAmount(order.getPriceAdjustments());
+    // Custom End
 };
 
 /* Helper function to calculate the total order price. */
@@ -130,7 +136,22 @@ ltkOrder.prototype.GetOrderItem = function (item) {
 
     orderItem.Qty = item.quantity.value;
     orderItem.Product = item.product;
+    // Custom Start: Add logic to get discount amount [MSS-1473]
+    orderItem.ItemDiscount = this.getDiscountAmount(item.getPriceAdjustments());
+    // Custom End
 
     return orderItem;
 };
 
+
+// Custom Start: Add logic to get discount [MSS-1473]
+ltkOrder.prototype.getDiscountAmount = function (priceAdjustments) {
+    var priceAdjustmentsItr = priceAdjustments.iterator();
+    var discount = 0;
+    while(priceAdjustmentsItr.hasNext()) {
+        var priceAdjustment = priceAdjustmentsItr.next();
+        discount += priceAdjustment.getPriceValue();
+    }
+    return discount;
+};
+// Custom End
