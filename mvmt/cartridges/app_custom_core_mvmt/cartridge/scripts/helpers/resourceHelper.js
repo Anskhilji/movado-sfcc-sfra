@@ -14,6 +14,7 @@ var rakutenCookiesHelper = require('*/cartridge/scripts/helpers/rakutenHelpers')
  */
 function getResources(pageContext) {
     var Resource = require('dw/web/Resource');
+    var Site = require('dw/system/Site');
 
     var resources = {
         MINI_CART_HEADER_MESSAGE: Resource.msg('title.your.shopping.cart','cart',null),
