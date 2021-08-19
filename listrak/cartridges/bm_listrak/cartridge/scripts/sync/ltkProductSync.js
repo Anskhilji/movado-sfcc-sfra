@@ -77,6 +77,15 @@ function productSync() {
                 productFile.AddRowItem('Related_Type_' + x.toString());
                 productFile.AddRowItem('Related_Rank_' + x.toString());
             }
+
+            // Custom Start: Add Sales Info [MSS-1473]
+            productFile.AddRowItem('OnSale');
+            // Custom End
+
+            // Custom Start: Adding category value [MSS-1473]
+            productFile.AddRowItem('CategoryValue');
+            // Custom End
+
             productFile.WriteRow();
 
 			// //////// Write product rows //////////
@@ -189,6 +198,13 @@ function productSync() {
                     }
                 }
 
+                // Custom Start: Adding Sales info [MSS-1473]
+                productFile.AddRowItem(prd.onSale, true);
+                // Custom End
+
+                // Custom Start: Adding Category Value [MSS-1473]
+                productFile.AddRowItem(prd.categoryValue, true);
+                // Custom End:
                 productFile.WriteRow();
             }
         } catch (e) {

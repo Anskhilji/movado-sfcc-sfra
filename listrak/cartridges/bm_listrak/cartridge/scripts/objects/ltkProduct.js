@@ -8,8 +8,12 @@ require('dw/util');
 require('dw/web');
 require('dw/content');
 
+var ArrayList = require('dw/util/ArrayList');
+var Promotion = require('dw/campaign/Promotion');
+var PromotionMgr = require('dw/campaign/PromotionMgr');
+
 /**
- *  Object that holds inflated product information.
+ * Object that holds inflated product information.
  * */
 function ltkProduct() {
     var viewtype = dw.system.Site.current.preferences.custom.Listrak_ProductImageViewType;
@@ -37,6 +41,13 @@ function ltkProduct() {
     this.categoryStartLevel = catStartLevel;
     this.additionalAttributes = dw.system.Site.current.preferences.custom.Listrak_Additional_Attributes;
     this.additionalAttributeValues = new dw.util.HashMap();
+
+    // Custom Start: Adding Product Sale information
+    this.onSale = false;
+    // Custom End:
+
+    // Custom Start: Adding product catgory value
+    this.categoryValue = '';
 }
 
 /* Method to load product URLs only. */
@@ -93,6 +104,13 @@ ltkProduct.prototype.LoadProduct = function (product) {
 	// instock flag. This is calculated to support strict validation.
     this.inStock = this.QOH !== 0;
     this.getAttributes(product);
+     // Custom Start: Adding product sale info [MSS-1473]
+     this.onSale = this.getSaleInfo(product);
+     // Custom End:
+ 
+     // Custom Start: Adding Catagory value [MSS-1473]
+     this.categoryValue = this.getCategoriesValue(product);
+     // Custom End
 };
 // MOD 16.3 Extra Prod Attributes
 ltkProduct.prototype.getAttributes = function (product) {
@@ -124,7 +142,6 @@ ltkProduct.prototype.getAttributes = function (product) {
 	  	});
     }
 };
-
 
 /* Helper method to retrieve the product image. */
 ltkProduct.prototype.getImage = function (product) {
@@ -208,3 +225,41 @@ ltkProduct.prototype.getCategory = function () {
         this.categories.reverse();
     }
 };
+
+// Custom Start: Get Product Sales Info [MSS-1473]
+ltkProduct.prototype.getSaleInfo = function (product) {
+
+    var PromotionIt = PromotionMgr.activePromotions.getProductPromotions(product).iterator();
+    var onSale = false;
+    while (PromotionIt.hasNext()) {
+        var promo = PromotionIt.next();
+        if (promo.getPromotionClass() != null && promo.getPromotionClass().equals(Promotion.PROMOTION_CLASS_PRODUCT) && !promo.basedOnCoupons) {
+            onSale = true;
+            break;
+        }
+    }
+    return onSale;
+}
+// Custom End
+
+// Custom Start: Get the product categories [MSS-1473]
+ltkProduct.prototype.getCategoriesValue = function (product) {
+        var categoriesIt = product.getOnlineCategories().iterator();
+        var categoryList = new Array();
+        while (categoriesIt.hasNext()) {
+            var category = categoriesIt.next();
+            var categoryArray = new ArrayList();
+            while (!empty(category)) {
+                if ((!empty(category.displayName)) && category.ID !== 'root' && category.online) {
+                    categoryArray.add(category.displayName);
+                    category = category.parent;
+                } else {
+                    category = null;
+                }
+            }
+            categoryArray.reverse();
+            categoryList.push(categoryArray.join('>'));
+        }
+        return categoryArray.join(',');
+}
+// Custom End
