@@ -184,6 +184,11 @@ function createSAPOrderFile(args, impexFilePath, record) {
                 writeXmlElement(streamWriter, 'PaymentMethod', p.paymentMethod);
                 writeXmlElement(streamWriter, 'PaymentAmount', p.paymentAmount.toFixed(2), true);
 
+                // MVMT-419
+                if (Object.hasOwnProperty.call(p, 'giftCardNumber')) {
+                    writeXmlElement(streamWriter, 'GiftCardNumber', p.giftCardNumber);
+                }
+
                 streamWriter.writeEndElement(); 
             });
         }
