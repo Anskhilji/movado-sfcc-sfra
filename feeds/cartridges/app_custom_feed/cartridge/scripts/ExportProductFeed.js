@@ -1082,15 +1082,15 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
 
     if (!empty(feedColumns['sale_price_effective_date_CA'])) {
         if (product.salePrice_CA) {
-            productDetails.push(product.salePriceEffectiveDate)
+            productDetails.push(product.sale_price_effective_date_CA)
         } else {
             productDetails.push("");
         }
     }
 
     if (!empty(feedColumns['sale_price_effective_date_UK'])) {
-        if (product.salePrice_CA) {
-            productDetails.push(product.salePriceEffectiveDate)
+        if (product.salePrice_GBP) {
+            productDetails.push(product.sale_price_effective_date_UK)
         } else {
             productDetails.push("");
         }
@@ -1136,7 +1136,7 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
 
     if (!empty(feedColumns['sale_price_effective_date_FR'])) {
         if (product.salePrice_FR) {
-            productDetails.push(product.salePriceEffectiveDate)
+            productDetails.push(product.sale_price_effective_date_FR)
         } else {
             productDetails.push("");
         }
@@ -1177,7 +1177,7 @@ function getProductAttributes(product, feedParameters, feedColumns) {
     }
     var saleEffectiveDate = '';
     if (!empty(getProductPromoAndSalePrice(product).storefrontPromo)) {
-        saleEffectiveDate = getSalePriceEffectiveDate(getProductPromoAndSalePrice(product).storefrontPromo);
+        saleEffectiveDate = getProductPromoAndSalePrice(product).salePriceEffectiveDate;
     }
     var productSalePriceCurrencyCode = getProductPromoAndSalePrice(product).salePrice != "" ? product.getPriceModel().getPrice().currencyCode : "";
     var productCurrencyCode = product.getPriceModel().getPrice() != null ? product.getPriceModel().getPrice().currencyCode : "";
@@ -1248,10 +1248,16 @@ function getProductAttributes(product, feedParameters, feedColumns) {
         productAttributes.price_HKD = getProductPriceByCurrencyCode(product, Constants.CURRENCY_HKD) + " " + Constants.CURRENCY_HKD;
     }
     if (!empty(feedColumns['salePrice_CA'])) {
-        productAttributes.salePrice_CA = getPromotionalPricePerPriceBook(Constants.CURRENCY_CAD, product, true);
+        productAttributes.salePrice_CA = getPromotionalPricePerPriceBook(Constants.CURRENCY_CAD, product, true).productDecimalPrice;
+    }
+    if (!empty(feedColumns['sale_price_effective_date_CA'])) {
+        productAttributes.sale_price_effective_date_CA = getPromotionalPricePerPriceBook(Constants.CURRENCY_CAD, product, true).salePriceEffectiveDate;
     }
     if (!empty(feedColumns['salePrice_GBP'])) {
-        productAttributes.salePrice_GBP = getPromotionalPricePerPriceBook(Constants.CURRENCY_GBP, product, true);
+        productAttributes.salePrice_GBP = getPromotionalPricePerPriceBook(Constants.CURRENCY_GBP, product, true).productDecimalPrice;
+    }
+    if (!empty(feedColumns['sale_price_effective_date_UK'])) {
+        productAttributes.sale_price_effective_date_UK = getPromotionalPricePerPriceBook(Constants.CURRENCY_GBP, product, true).salePriceEffectiveDate;
     }
     if (!empty(feedColumns['availability_CA'])) {
         productAttributes.availability_CA = getProductAvailability(product, Constants.COUNTRY_CA);
@@ -1260,7 +1266,10 @@ function getProductAttributes(product, feedParameters, feedColumns) {
         productAttributes.price_FR = getProductPriceByCurrencyCode(product, Constants.CURRENCY_EUR) + " " + Constants.CURRENCY_EUR;
     }
     if (!empty(feedColumns['salePrice_FR'])) {
-        productAttributes.salePrice_FR = getPromotionalPricePerPriceBook(Constants.CURRENCY_EUR, product, true);
+        productAttributes.salePrice_FR = getPromotionalPricePerPriceBook(Constants.CURRENCY_EUR, product, true).productDecimalPrice;
+    }
+    if (!empty(feedColumns['sale_price_effective_date_FR'])) {
+        productAttributes.sale_price_effective_date_FR = getPromotionalPricePerPriceBook(Constants.CURRENCY_EUR, product, true).salePriceEffectiveDate;
     }
     if (!empty(feedColumns['availability_FR'])) {
         productAttributes.availability_FR = getProductAvailability(product, Constants.COUNTRY_FR);
@@ -1268,19 +1277,19 @@ function getProductAttributes(product, feedParameters, feedColumns) {
     //End Custom Columns for MovadoUS and OBUK
     
     if (!empty(feedColumns['priceUSD'])) {
-        productAttributes.priceUSD = getPromotionalPricePerPriceBook(Constants.CURRENCY_USD, product);
+        productAttributes.priceUSD = getPromotionalPricePerPriceBook(Constants.CURRENCY_USD, product).productDecimalPrice;
     }
     if (!empty(feedColumns['priceGBP'])) {
-        productAttributes.priceGBP = getPromotionalPricePerPriceBook(Constants.CURRENCY_GBP, product);
+        productAttributes.priceGBP = getPromotionalPricePerPriceBook(Constants.CURRENCY_GBP, product).productDecimalPrice;
     }
     if (!empty(feedColumns['priceCAD'])) {
-        productAttributes.priceCAD = getPromotionalPricePerPriceBook(Constants.CURRENCY_CAD, product);
+        productAttributes.priceCAD = getPromotionalPricePerPriceBook(Constants.CURRENCY_CAD, product).productDecimalPrice;
     }
     if (!empty(feedColumns['priceEUR'])) {
-        productAttributes.priceEUR = getPromotionalPricePerPriceBook(Constants.CURRENCY_EUR, product);
+        productAttributes.priceEUR = getPromotionalPricePerPriceBook(Constants.CURRENCY_EUR, product).productDecimalPrice;
     }
     if (!empty(feedColumns['priceAUD'])) {
-        productAttributes.priceAUD = getPromotionalPricePerPriceBook(Constants.CURRENCY_AUD, product);
+        productAttributes.priceAUD = getPromotionalPricePerPriceBook(Constants.CURRENCY_AUD, product).productDecimalPrice;
     }
 
     return productAttributes;
@@ -1378,6 +1387,7 @@ function getProductPromoAndSalePrice(product) {
     var promotionalPrice = Money.NOT_AVAILABLE;
     var currentPromotionalPrice = Money.NOT_AVAILABLE;
     var storefrontPromo;
+    var salePriceEffectiveDate;
     
     while (PromotionIt.hasNext()) {
         var promo = PromotionIt.next();
@@ -1390,10 +1400,12 @@ function getProductPromoAndSalePrice(product) {
             if (promotionalPrice.value > currentPromotionalPrice.value && currentPromotionalPrice.value !== 0) {
                 promotionalPrice = currentPromotionalPrice;
                 storefrontPromo = promo;
+                salePriceEffectiveDate = getSalePriceEffectiveDate(promo, product);
             } else if (promotionalPrice.value == 0) {
                 if ((currentPromotionalPrice.value !== 0 && currentPromotionalPrice.value !== null)) {
                     promotionalPrice = currentPromotionalPrice;
                     storefrontPromo = promo;
+                    salePriceEffectiveDate = getSalePriceEffectiveDate(promo, product);
                 }
             }
         }
@@ -1405,7 +1417,8 @@ function getProductPromoAndSalePrice(product) {
     
     return {
         storefrontPromo: storefrontPromo,
-        salePrice: salePrice
+        salePrice: salePrice,
+        salePriceEffectiveDate: salePriceEffectiveDate
     };
 }
 
@@ -1465,6 +1478,7 @@ function getPromotionalPricePerPriceBook(currencyCode, product, skipOriginalPric
         session.setCurrency(currency);
     }
         promotionalPrice = getProductPromoAndSalePrice(product).salePrice;
+        salePriceEffectiveDate = getProductPromoAndSalePrice(product).salePriceEffectiveDate;
     });
     if (promotionalPrice > 0) {
         productDecimalPrice = promotionalPrice;
@@ -1480,7 +1494,10 @@ function getPromotionalPricePerPriceBook(currencyCode, product, skipOriginalPric
         session.setCurrency(defaultCurrency);
     }
 
-    return productDecimalPrice !== '' ? productDecimalPrice + " " + currencyCode : '';
+    return {
+        productDecimalPrice: productDecimalPrice !== '' ? productDecimalPrice + " " + currencyCode : '',
+        salePriceEffectiveDate: salePriceEffectiveDate
+    }
 }
 
 /**
