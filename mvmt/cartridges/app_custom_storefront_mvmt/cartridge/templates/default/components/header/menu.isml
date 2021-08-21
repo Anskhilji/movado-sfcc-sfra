@@ -4,9 +4,14 @@
     <div class="menu-group" aria-label="Main menu" role="navigation">
      <ul class="nav navbar-nav" role="menu">
        <isif condition="${pdict.categories}">
-         <isif condition="${pdict.ABTestSegmentID == isParticipant('MVMTHeaderRedesign','header-redesign')}">
+         
 
           <isloop items="${pdict.categories}" var="category">
+            <isloop items="${category.custom.abTestSegmentID}" var="abTestID">
+                <isif condition="${abTestID}">
+                    
+                </isif>
+            </isloop>
             <isif condition="${category.subCategories || category.disableSubCategories}">
               <iscomment> Custom: sub-dropdown class added</iscomment>
               <li class="nav-item sub-dropdown dropdown gtm-customEvent" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
@@ -27,7 +32,7 @@
             </isif>
           </isloop>
 
-         </isif>
+
        </isif>
      </ul>
     </div>

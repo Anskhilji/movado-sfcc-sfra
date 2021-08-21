@@ -19,7 +19,7 @@ server.replace(
                 siteRootCategory.getOnlineSubCategories() : null;
 
         var ABTestMgr = require('dw/campaign/ABTestMgr');
-        var assigned = ABTestMgr.getAssignedTestSegments().ID;
+        var assigned = ABTestMgr.getAssignedTestSegments();
         var menuTemplate = null;
         
         // A/B testing for header design
