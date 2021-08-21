@@ -496,7 +496,12 @@ module.exports = function () {
                     setAnalyticsTrackingByAJAX.cartAnalyticsTrackingData = data.cartAnalyticsTrackingData;
                     window.dispatchEvent(setAnalyticsTrackingByAJAX);
                 }
-
+                //Custom Start: [MSS-1451] Listrak SendSCA on Remove
+                if (window.Resources.Listrak_Enabled) {
+                    var ltkSendSCA = require('listrak_custom/ltkSendSCA');
+                    ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
+                }
+                //Custom End
                 $.spinner().stop();
             },
             error: function (err) {

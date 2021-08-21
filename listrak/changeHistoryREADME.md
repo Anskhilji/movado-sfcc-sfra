@@ -4,7 +4,7 @@
 Line No: 6, 43, 68, 69, 144, 154
 
 ## int_Listrak_sfra > cartridge > controllers > Cart.js
-Line No: 13, 21, 29
+Line No: 13, 21, 29, 16-18, 27-29, 38-40
 
 ## bm_listrak > cartridge > scripts > objects > ltkOrder.js 
 Line No: 37, 50, 103, 139, 148, 

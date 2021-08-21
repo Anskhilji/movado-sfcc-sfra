@@ -348,6 +348,12 @@ function updateCartQuantity (quantitySelector, isKeyEvent) {
             validateBasket(data);
             $(quantitySelector).data('pre-select-qty', $quantity);
             $.spinner().stop();
+            //Custom Start: [MSS-1451] Listrak SendSCA on Cart Quantity Update
+            if(window.Resources.Listrak_Enabled){
+                var ltkSendSCA = require('listrak_custom/ltkSendSCA');
+                ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
+            }
+            //Custom End
         },
         error: function (err) {
             if (err.responseJSON.redirectUrl) {
@@ -473,6 +479,12 @@ module.exports = function () {
                     setAnalyticsTrackingByAJAX.cartAnalyticsTrackingData = data.cartAnalyticsTrackingData;
                     window.dispatchEvent(setAnalyticsTrackingByAJAX);
                 }
+                //Custom Start: [MSS-1451] Listrak SendSCA on Quantity Remove
+                if (window.Resources.Listrak_Enabled) {
+                    var ltkSendSCA = require('listrak_custom/ltkSendSCA');
+                    ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
+                }
+                //Custom End
                 $.spinner().stop();
             },
             error: function (err) {
@@ -573,6 +585,12 @@ module.exports = function () {
                     $('body').trigger('setShippingMethodSelection', data.basket);
                     validateBasket(data.basket);
                 }
+                //Custom Start: [MSS-1451] Listrak SendSCA on Remove
+                if (window.Resources.Listrak_Enabled) {
+                    var ltkSendSCA = require('listrak_custom/ltkSendSCA');
+                    ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
+                }
+                //Custom End
                 $.spinner().stop();
             },
             error: function (err) {

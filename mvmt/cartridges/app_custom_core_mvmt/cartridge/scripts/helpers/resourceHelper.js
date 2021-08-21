@@ -14,7 +14,7 @@ var Constants = require('*/cartridge/scripts/util/Constants');
 function getResources(pageContext) {
     var Resource = require('dw/web/Resource');
     var Site = require('dw/system/Site');
-
+    var URLUtils = require('dw/web/URLUtils');
     var resources = {
         MINI_CART_HEADER_MESSAGE: Resource.msg('title.your.shopping.cart','cart',null),
         CART_EMPTY_MESSAGE: Resource.msg('info.cart.empty.msg', 'cart', null),
@@ -50,7 +50,8 @@ function getResources(pageContext) {
         IS_RAKUTEN_ENABLED:  Site.current.preferences.custom.isRakutenEnable || false,
         ONE_TRUST_COOKIE_ENABLED: Site.current.preferences.custom.oneTrustCookieEnabled || false,
         OPTANON_ALLOWED_COOKIE: Constants.ONE_TRUST_COOKIE_ENABLED,
-        KLARNA_PDP_MESSAGES_ENABLED:!empty(Site.current.preferences.custom.klarnaPdpPromoMsg) ? Site.current.preferences.custom.klarnaPdpPromoMsg : false
+        KLARNA_PDP_MESSAGES_ENABLED:!empty(Site.current.preferences.custom.klarnaPdpPromoMsg) ? Site.current.preferences.custom.klarnaPdpPromoMsg : false,
+        Listrak_Enabled: Site.current.preferences.custom.Listrak_Cartridge_Enabled
     };
     return resources;
 }
