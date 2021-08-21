@@ -15,7 +15,6 @@
             </div>
             <ul>
                 <div class="top-category-heading"><h4>${topCat.name}</h4></div>
-                <div> New Mobile Menu </div>
                 <isloop items="${menuItem.subCategories}" var="category">
                     <isif condition="${category.subCategories}">
                         <li class="dropdown dropdown-item-mvmt grey-arrow-right gtm-customEvent submenu-control" role="menuitem" data-category=$ {category.id} data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
@@ -43,7 +42,7 @@
                            <a href="${category.url}" role="button" class="dropdown-link">${category.name}</a>
                       </li>
                   </isif>
-                </isloop>
+              </isloop>
             </ul>
         </div>
     </div>

@@ -6,6 +6,7 @@ var cache = require('*/cartridge/scripts/middleware/cache');
 server.extend(page);
 
 var URLUtils = require('dw/web/URLUtils');
+var Site = require('dw/system/Site');
 
 server.replace(
     'IncludeHeaderMenu',
@@ -18,12 +19,14 @@ server.replace(
                 siteRootCategory.getOnlineSubCategories() : null;
 
         var ABTestMgr = require('dw/campaign/ABTestMgr');
-        var assigned = ABTestMgr.getAssignedTestSegments();
+        var assigned = ABTestMgr.getAssignedTestSegments().ID;
         var menuTemplate = null;
+        
         // A/B testing for header design
         if (ABTestMgr.isParticipant('MVMTHeaderRedesign','header-redesign')) {
             menuTemplate = '/components/header/menu';
-        } else {
+        } 
+        else {
             menuTemplate = '/components/header/old/menu';
         }
 

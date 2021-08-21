@@ -1,28 +1,33 @@
 <div class="d-none d-lg-inline-block">
+  <h2>New Menu </h2>
   <nav class="navbar header-desktop-categories navbar-expand-lg bg-inverse col-12">
     <div class="menu-group" aria-label="Main menu" role="navigation">
      <ul class="nav navbar-nav" role="menu">
        <isif condition="${pdict.categories}">
-         <isloop items="${pdict.categories}" var="category">
-              <isif condition="${category.subCategories || category.disableSubCategories}">
-                <iscomment> Custom: sub-dropdown class added</iscomment>
-                <li class="nav-item sub-dropdown dropdown gtm-customEvent" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-                <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    ${category.name}
-                  </a>
-                <isset name="topCat" value="${category}" scope="page"/>
-                <isset name="gtmCategoryVal" value="${JSON.stringify(category.gtmNavVal)}" scope="page"/>
-                <isset name="menuItem" value="${category}" scope="page" />
-                <isinclude template="components/header/menuItem" />
-                </li>
-              <iselse/>
-                <li class="nav-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-                  <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" role="button" class="nav-link">
-                    ${category.name}
-                  </a>
-                </li>
-              </isif>
-         </isloop>
+         <isif condition="${pdict.ABTestSegmentID == isParticipant('MVMTHeaderRedesign','header-redesign')}">
+
+          <isloop items="${pdict.categories}" var="category">
+            <isif condition="${category.subCategories || category.disableSubCategories}">
+              <iscomment> Custom: sub-dropdown class added</iscomment>
+              <li class="nav-item sub-dropdown dropdown gtm-customEvent" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
+              <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  ${category.name}
+                </a>
+              <isset name="topCat" value="${category}" scope="page"/>
+              <isset name="gtmCategoryVal" value="${JSON.stringify(category.gtmNavVal)}" scope="page"/>
+              <isset name="menuItem" value="${category}" scope="page" />
+              <isinclude template="components/header/menuItem" />
+              </li>
+            <iselse/>
+              <li class="nav-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
+                <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" role="button" class="nav-link">
+                  ${category.name}
+                </a>
+              </li>
+            </isif>
+          </isloop>
+
+         </isif>
        </isif>
      </ul>
     </div>
