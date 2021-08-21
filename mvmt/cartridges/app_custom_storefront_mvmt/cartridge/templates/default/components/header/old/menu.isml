@@ -6,7 +6,7 @@
        <isif condition="${pdict.categories}">
          <isloop items="${pdict.categories}" var="category">
          <isloop items="${category.abTestSegmentIDs}" var="abTestID">
-         <isif condition="${abTestID == ${!dw.campaign.ABTestMgr.isParticipant('MVMTHeaderRedesign','header-redesign')}}">
+         <isif condition="${abTestID == "Control"}">
            <isif condition="${category.subCategories || category.disableSubCategories}">
              <iscomment> Custom: sub-dropdown class added</iscomment>
              <li class="nav-item sub-dropdown dropdown gtm-customEvent" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
