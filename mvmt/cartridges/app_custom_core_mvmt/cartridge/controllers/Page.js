@@ -19,18 +19,31 @@ server.replace(
                 siteRootCategory.getOnlineSubCategories() : null;
 
         var ABTestMgr = require('dw/campaign/ABTestMgr');
-        var assigned = ABTestMgr.getAssignedTestSegments();
+        var assignedTestSegmentsIterator = ABTestMgr.getAssignedTestSegments().iterator();
+        var currentABTestSegment;
+        var headerRedesignABTest;
+
+        while(assignedTestSegmentsIterator.hasNext()) {
+            currentABTestSegment = assignedTestSegmentsIterator.next();
+            if (currentABTestSegment.ID == 'header-redesign') {
+                headerRedesignABTest = currentABTestSegment.ID;
+                break;
+            }
+        }
+        
         var menuTemplate = null;
         
         // A/B testing for header design
         if (ABTestMgr.isParticipant('MVMTHeaderRedesign','header-redesign')) {
             menuTemplate = '/components/header/menu';
-        } 
-        else {
+        } else {
             menuTemplate = '/components/header/old/menu';
         }
 
-        res.setViewData({ loggedIn: req.currentCustomer.raw.authenticated });
+        res.setViewData({ 
+            loggedIn: req.currentCustomer.raw.authenticated,
+            headerRedesignABTestID: headerRedesignABTest
+         });
         res.render(menuTemplate, new Categories(topLevelCategories));
         next();
     }

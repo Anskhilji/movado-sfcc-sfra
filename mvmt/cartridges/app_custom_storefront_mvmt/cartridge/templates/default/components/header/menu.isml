@@ -7,12 +7,9 @@
          
 
           <isloop items="${pdict.categories}" var="category">
-            <isloop items="${category.custom.abTestSegmentID}" var="abTestID">
-                <isif condition="${abTestID}">
-                    
-                </isif>
-            </isloop>
-            <isif condition="${category.subCategories || category.disableSubCategories}">
+            <isloop items="${category.abTestSegmentIDs}" var="abTestID">
+              <isif condition="${abTestID == pdict.headerRedesignABTestID}">
+              <isif condition="${category.subCategories || category.disableSubCategories}">
               <iscomment> Custom: sub-dropdown class added</iscomment>
               <li class="nav-item sub-dropdown dropdown gtm-customEvent" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
               <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -30,6 +27,9 @@
                 </a>
               </li>
             </isif>
+              </isif>
+            </isloop>
+            
           </isloop>
 
 
