@@ -123,7 +123,50 @@ function getPlPDepartmentCategory(apiProductSearch) {
     return plpCategory;
 }
 
+function getSingleColumnPerRow(productSearch) {
+    var CatalogMgr = require('dw/catalog/CatalogMgr');
+    var currentCategory;
+    var isEnableSingleProductRow;
+    if (!empty(productSearch) && productSearch.category &&  !empty(productSearch.category.id)) {
+        currentCategory = CatalogMgr.getCategory(productSearch.category.id);
+        if (!empty(currentCategory.custom.isEnableSingleProductRow)) {
+            isEnableSingleProductRow = currentCategory.custom.isEnableSingleProductRow;
+        }
+    }
+    return isEnableSingleProductRow;
+}
+
+function getIsNonWatchesTileAttribute (productSearch) {
+    var CatalogMgr = require('dw/catalog/CatalogMgr');
+    var isNonWatchesTileEnable = false;
+    var currentCategory;
+    if (!empty(productSearch) && productSearch.category &&  !empty(productSearch.category.id)) {
+        currentCategory = CatalogMgr.getCategory(productSearch.category.id);
+        if (!empty(currentCategory.custom.isNonWatchesTile)) {
+            isNonWatchesTileEnable = currentCategory.custom.isNonWatchesTile;
+        }
+    }
+    return isNonWatchesTileEnable;
+}
+
+function getEyewearTile(productSearch) {
+    var CatalogMgr = require('dw/catalog/CatalogMgr');
+    var isEyewearTile = false;
+    if (!empty(productSearch) && productSearch.category && !empty(productSearch.category.id)) {
+        var currentCategory = CatalogMgr.getCategory(productSearch.category.id);
+        var currentCategoryTemplate = currentCategory.template;
+        var categoryTemplateEyewear = 'search/searchResultsEyewear';
+        if (currentCategoryTemplate == categoryTemplateEyewear) {
+            isEyewearTile = true;
+        }
+    }
+    return isEyewearTile;
+}
+
 exports.getBreadCrumbs = getBreadCrumbs;
+exports.getSingleColumnPerRow= getSingleColumnPerRow;
+exports.getEyewearTile= getEyewearTile;
 exports.setupContentFolderSearch = setupContentFolderSearch;
 exports.getPlPDepartmentCategory = getPlPDepartmentCategory;
 exports.getCategoryBreadcrumb = getCategoryBreadcrumb;
+exports.getIsNonWatchesTileAttribute = getIsNonWatchesTileAttribute;

@@ -132,6 +132,12 @@ var getEswHelper = {
     getSelectedInstance: function () {
         return Site.getCustomPreferenceValue('eswInstance').value.toString();
     },
+    getSelectedPriceFeedInstance: function () {
+        return Site.getCustomPreferenceValue('eswPriceFeedInstance').value.toString();
+    },
+    getProductionClientSecret: function () {
+        return Site.getCustomPreferenceValue('eswProductionClientSecret');
+    },    
     getCheckoutServiceName: function () {
         return Site.getCustomPreferenceValue('eswCheckoutServiceName');
     },

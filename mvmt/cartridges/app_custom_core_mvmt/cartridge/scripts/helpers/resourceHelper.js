@@ -1,5 +1,4 @@
 'use strict';
-var Constants = require('*/cartridge/scripts/util/Constants');
 
 /**
  * Resource helper
@@ -47,9 +46,6 @@ function getResources(pageContext) {
         US_COUNTRY_CODE: Resource.msg('label.us.country.code', 'common', null),
         CREDIT_CARD_PAYMENT_METHOD_ID: Resource.msg('checkout.payment.method.credit.card.id', 'checkout', null),
         LABEL_SWELL_POINTS_APPLIED: Resource.msg('label.swell.points.applied', 'cart', null),
-        IS_RAKUTEN_ENABLED:  Site.current.preferences.custom.isRakutenEnable || false,
-        ONE_TRUST_COOKIE_ENABLED: Site.current.preferences.custom.oneTrustCookieEnabled || false,
-        OPTANON_ALLOWED_COOKIE: Constants.ONE_TRUST_COOKIE_ENABLED,
         KLARNA_PDP_MESSAGES_ENABLED:!empty(Site.current.preferences.custom.klarnaPdpPromoMsg) ? Site.current.preferences.custom.klarnaPdpPromoMsg : false
     };
     return resources;

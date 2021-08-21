@@ -302,26 +302,12 @@ function Request(request, customer, session) {
     // Custom Start : Adding ESW logic
     if (!request.includeRequest) {
         var eswEnabled = dw.system.Site.getCurrent().getCustomPreferenceValue('eswEshopworldModuleEnabled');
-        var isRakutenEnable = !empty(dw.system.Site.current.preferences.custom.isRakutenEnable) ? dw.system.Site.current.preferences.custom.isRakutenEnable : false;
-        var isOneTrustEnabled = !empty(dw.system.Site.current.preferences.custom.oneTrustCookieEnabled) ? dw.system.Site.current.preferences.custom.oneTrustCookieEnabled : false;
         var Logger = require('dw/system/Logger');
+
         // Custom Start : Adding URL Cupon Logic
         var referralCouponHelper = require('*/cartridge/scripts/helpers/referralHelper');
         referralCouponHelper.addReferralCoupon(request);
         // Custom End: Adding URL Cupon Logic
-        //Custom Start: Adding Rakuten cookies logic
-        var Constants = require('*/cartridge/scripts/util/Constants');
-        var rakutenCookiesHelper = require('*/cartridge/scripts/helpers/rakutenHelpers');
-        var OptanonConsentCookieValue = request.getHttpCookies()[Constants.OPTANON_CONSENT_COOKIE_NAME] ? decodeURIComponent(request.getHttpCookies()[Constants.OPTANON_CONSENT_COOKIE_NAME].value) : '';
-        var isOptanonCookieEnabled = OptanonConsentCookieValue.indexOf(Constants.ONE_TRUST_COOKIE_ENABLED);
-        if (isRakutenEnable && rakutenCookiesHelper.isRakutenAllowedCountry()) {
-            if (isOneTrustEnabled && isOptanonCookieEnabled != -1) {
-                rakutenCookiesHelper.createCookieInSession(request);
-            } else if (!isOneTrustEnabled) {
-                rakutenCookiesHelper.createCookieInSession(request);
-            }
-        }
-        //Custom End
         if (!eswEnabled) {
             setCurrency(request, session);
         } else {

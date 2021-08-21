@@ -21,7 +21,6 @@ $(document).ready(function () {
     processInclude(require('./product/wishlistHeart'));
     processInclude(require('./utilities/swatches'));
     processInclude(require('./components/emailPopUpSubscription'));
-    processInclude(require('./components/rakutenCookieHandler'));
 });
 
 require('base/components/spinner');
