@@ -5,10 +5,11 @@
      <ul class="nav navbar-nav" role="menu">
        <isif condition="${pdict.categories}">
          
-
+          <isset name="headerRedesignSegment" value="${dw.campaign.ABTestMgr.isParticipant('MVMTHeaderRedesign','header-redesign')}" scope="page" />
           <isloop items="${pdict.categories}" var="category">
+          <isif condition="${category.abTestSegmentIDs}">
             <isloop items="${category.abTestSegmentIDs}" var="abTestID">
-              <isif condition="${abTestID == pdict.headerRedesignABTestID}">
+              <isif condition="${headerRedesignSegment && abTestID == "header-redesign"}">
               <isif condition="${category.subCategories || category.disableSubCategories}">
               <iscomment> Custom: sub-dropdown class added</iscomment>
               <li class="nav-item sub-dropdown dropdown gtm-customEvent" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
@@ -29,7 +30,7 @@
             </isif>
               </isif>
             </isloop>
-            
+            </isif>
           </isloop>
 
 

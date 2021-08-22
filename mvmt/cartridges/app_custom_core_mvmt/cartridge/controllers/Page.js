@@ -19,17 +19,6 @@ server.replace(
                 siteRootCategory.getOnlineSubCategories() : null;
 
         var ABTestMgr = require('dw/campaign/ABTestMgr');
-        var assignedTestSegmentsIterator = ABTestMgr.getAssignedTestSegments().iterator();
-        var currentABTestSegment;
-        var headerRedesignABTest;
-
-        while(assignedTestSegmentsIterator.hasNext()) {
-            currentABTestSegment = assignedTestSegmentsIterator.next();
-            if (currentABTestSegment.ID == 'header-redesign') {
-                headerRedesignABTest = currentABTestSegment.ID;
-                break;
-            }
-        }
         
         var menuTemplate = null;
         
@@ -41,9 +30,8 @@ server.replace(
         }
 
         res.setViewData({ 
-            loggedIn: req.currentCustomer.raw.authenticated,
-            headerRedesignABTestID: headerRedesignABTest
-         });
+            loggedIn: req.currentCustomer.raw.authenticated
+        });
         res.render(menuTemplate, new Categories(topLevelCategories));
         next();
     }
