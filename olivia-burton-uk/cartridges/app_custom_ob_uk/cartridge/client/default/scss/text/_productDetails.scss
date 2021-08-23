@@ -40,6 +40,12 @@
     color: $black;
     background: $pink-hot;
     border: rem(1) solid $pink-hot;
+
+    @include media-breakpoint-up(xl) {
+      width: 54% ;
+      padding: rem(10) 0 rem(10) 0;
+    }
+    
   }
 
   .description {
