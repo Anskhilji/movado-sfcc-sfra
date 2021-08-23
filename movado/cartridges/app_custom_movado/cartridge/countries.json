@@ -6105,10 +6105,10 @@
     },{
         "countryCode": "BB",
         "name": {
-            "en_US": "Bangladesh",
-            "en_GB": "Bangladesh",
-            "default": "Bangladesh",
-            "en": "Bangladesh"
+            "en_US": "Barbados",
+            "en_GB": "Barbados",
+            "default": "Barbados",
+            "en": "Barbados"
         },
         "continent": "europe",
         "locales": ["en_US", "default", "en"],
