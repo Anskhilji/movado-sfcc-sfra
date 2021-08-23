@@ -301,13 +301,6 @@ server.append('Confirm', function (req, res, next) {
     if (!empty(session.custom.orderNumber)) {
         session.custom.orderNumber = '';
     }
-
-    // this.on('route:BeforeComplete', function (req, res) {
-    //     Transaction.wrap(function () {
-    //         order.custom.isOrderCompleted = true;
-    //     });
-    // });
-
     next();
 });
 server.post('FBConversion', function (req, res, next) {
