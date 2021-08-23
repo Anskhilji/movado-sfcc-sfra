@@ -16,9 +16,7 @@ function getCountryCode(request) {
     if (!empty(session.privacy.countryCode)) {
         countryCode = session.privacy.countryCode;
     } else {
-        var Locale = require('dw/util/Locale');
-        var currentLocale = Locale.getLocale(request.locale.id);
-        countryCode = currentLocale.getCountry();
+        var countryCode = request.httpCookies['esw.location'] != null ? (request.httpCookies['esw.location'].value != null ? request.httpCookies['esw.location'].value : '') : '';
     }
     return countryCode;
 }

@@ -803,7 +803,7 @@ module.exports = {
                         $('body').trigger('product:afterAddToCart', data);
                         $.spinner().stop();
                         //Custom Start: [MSS-1451] Listrak SendSCA on AddToCart
-                        if (window.Resources.Listrak_Enabled) {
+                        if (window.Resources.LISTRAK_ENABLED) {
                             var ltkSendSCA = require('listrak_custom/ltkSendSCA');
                             ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
                         }

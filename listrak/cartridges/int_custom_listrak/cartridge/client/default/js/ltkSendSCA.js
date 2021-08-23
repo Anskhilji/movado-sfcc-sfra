@@ -34,7 +34,7 @@ module.exports = {
             var cartLink = '';
             /* If there are cart items, add them. */
             if (sca.Items.length > 0) {
-                for (i = 0; i < sca.Items.length; i++) {
+                for (var i = 0; i < sca.Items.length; i++) {
                     if (i > 0) { cartLink += ','; }
                     var item = new SCAItem(sca.Items[i].Sku, sca.Items[i].Quantity, sca.Items[i].Price, sca.Items[i].Name);
                     item.ImageUrl = sca.Items[i].ImageUrl;

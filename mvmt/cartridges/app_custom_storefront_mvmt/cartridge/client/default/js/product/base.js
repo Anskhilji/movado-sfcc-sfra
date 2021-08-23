@@ -1056,7 +1056,7 @@ movadoBase.addToCart = function () {
                     updateMiniCart = false;
                     $(window).resize(); // This is used to fix zoom feature after add to cart
                     //Custom Start: [MSS-1451] Listrak SendSCA on AddToCart
-                    if (window.Resources.Listrak_Enabled) {
+                    if (window.Resources.LISTRAK_ENABLED) {
                         var ltkSendSCA = require('listrak_custom/ltkSendSCA');
                         ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
                     }

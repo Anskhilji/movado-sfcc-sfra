@@ -497,7 +497,7 @@ module.exports = function () {
                     window.dispatchEvent(setAnalyticsTrackingByAJAX);
                 }
                 //Custom Start: [MSS-1451] Listrak SendSCA on Remove
-                if (window.Resources.Listrak_Enabled) {
+                if (window.Resources.LISTRAK_ENABLED) {
                     var ltkSendSCA = require('listrak_custom/ltkSendSCA');
                     ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
                 }

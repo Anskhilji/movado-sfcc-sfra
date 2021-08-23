@@ -349,7 +349,7 @@ function updateCartQuantity (quantitySelector, isKeyEvent) {
             $(quantitySelector).data('pre-select-qty', $quantity);
             $.spinner().stop();
             //Custom Start: [MSS-1451] Listrak SendSCA on Cart Quantity Update
-            if(window.Resources.Listrak_Enabled){
+            if(window.Resources.LISTRAK_ENABLED){
                 var ltkSendSCA = require('listrak_custom/ltkSendSCA');
                 ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
             }
@@ -480,7 +480,7 @@ module.exports = function () {
                     window.dispatchEvent(setAnalyticsTrackingByAJAX);
                 }
                 //Custom Start: [MSS-1451] Listrak SendSCA on Quantity Remove
-                if (window.Resources.Listrak_Enabled) {
+                if (window.Resources.LISTRAK_ENABLED) {
                     var ltkSendSCA = require('listrak_custom/ltkSendSCA');
                     ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
                 }
@@ -586,7 +586,7 @@ module.exports = function () {
                     validateBasket(data.basket);
                 }
                 //Custom Start: [MSS-1451] Listrak SendSCA on Remove
-                if (window.Resources.Listrak_Enabled) {
+                if (window.Resources.LISTRAK_ENABLED) {
                     var ltkSendSCA = require('listrak_custom/ltkSendSCA');
                     ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
                 }

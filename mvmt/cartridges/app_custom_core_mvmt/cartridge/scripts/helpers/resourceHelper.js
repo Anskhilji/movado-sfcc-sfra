@@ -51,7 +51,7 @@ function getResources(pageContext) {
         ONE_TRUST_COOKIE_ENABLED: Site.current.preferences.custom.oneTrustCookieEnabled || false,
         OPTANON_ALLOWED_COOKIE: Constants.ONE_TRUST_COOKIE_ENABLED,
         KLARNA_PDP_MESSAGES_ENABLED:!empty(Site.current.preferences.custom.klarnaPdpPromoMsg) ? Site.current.preferences.custom.klarnaPdpPromoMsg : false,
-        Listrak_Enabled: Site.current.preferences.custom.Listrak_Cartridge_Enabled
+        LISTRAK_ENABLED: Site.current.preferences.custom.Listrak_Cartridge_Enabled
     };
     return resources;
 }

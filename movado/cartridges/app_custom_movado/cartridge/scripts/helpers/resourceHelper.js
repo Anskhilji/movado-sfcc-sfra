@@ -40,7 +40,7 @@ function getResources(pageContext) {
         ONE_TRUST_COOKIE_ENABLED: Site.current.preferences.custom.oneTrustCookieEnabled || false,
         OPTANON_ALLOWED_COOKIE: Constants.ONE_TRUST_COOKIE_ENABLED,
         CART_GIFT_MESSAGE_LIMIT: !empty(Site.current.preferences.custom.cartGiftMessageLimit) ? Site.current.preferences.custom.cartGiftMessageLimit : 0,
-        Listrak_Enabled: Site.current.preferences.custom.Listrak_Cartridge_Enabled,
+        LISTRAK_ENABLED: Site.current.preferences.custom.Listrak_Cartridge_Enabled,
     };
     return resources;
 }

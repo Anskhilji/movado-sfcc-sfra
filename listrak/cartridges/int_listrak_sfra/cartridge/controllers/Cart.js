@@ -14,7 +14,7 @@ server.append('AddProduct', server.middleware.https, function (req, res, next) {
         session.privacy.ltkCountryCode = ltkHelper.getCountryCode(req);
         ltkSendSca.SendSCAPost();
         res.setViewData({
-            SCACart: ltkCartHelper.ltkLoadBasket(),
+            SCACart: ltkCartHelper.ltkLoadBasket(req),
             listrakCountryCode: session.privacy.ltkCountryCode
         });
     }
