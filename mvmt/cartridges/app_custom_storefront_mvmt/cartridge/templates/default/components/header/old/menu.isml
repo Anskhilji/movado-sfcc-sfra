@@ -1,5 +1,4 @@
 <div class="d-none d-lg-inline-block">
-  <h2>Old Menu </h2>
   <nav class="navbar header-desktop-categories navbar-expand-lg bg-inverse col-12">
     <div class="menu-group" aria-label="Main menu" role="navigation">
      <ul class="nav navbar-nav" role="menu">
