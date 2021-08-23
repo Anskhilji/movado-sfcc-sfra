@@ -1,3 +1,4 @@
+<isinclude url="${URLUtils.https('ltkActivityTracking-TrackRequest', 'pid', pdict.product.id)}"/>
 <iscomment> Custom: divs repositioned </iscomment>
 <isdecorate template="common/layout/page">
 

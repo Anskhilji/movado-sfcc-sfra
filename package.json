@@ -128,6 +128,7 @@
     "mcsus": "./mcsus/cartridges/app_custom_storefront_mcsus/cartridge/client/default/js",
 	"custom_backinstock": "./int_custom_backinstock/cartridges/int_custom_backinstock/cartridge/client/default/js",
     "movado": "./movado/cartridges/app_custom_movado/cartridge/client/default/js",
+    "listrak_custom": "./listrak/cartridges/int_custom_listrak/cartridge/client/default/js",
     "movado_china": "./movado_china/cartridges/app_custom_storefront_movado_china/cartridge/client/default/js",
     "mvmt": "./mvmt/cartridges/app_custom_storefront_mvmt/cartridge/client/default/js",
     "app_custom_page_designer_mvmt": "./mvmt/cartridges/app_custom_page_designer_mvmt/cartridge/client/default/js",
