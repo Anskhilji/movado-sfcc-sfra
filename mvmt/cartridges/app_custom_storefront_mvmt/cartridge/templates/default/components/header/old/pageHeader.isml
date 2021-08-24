@@ -13,7 +13,6 @@
     </isif>
     <iscomment> Custom End </iscomment>
     <nav>
-        <h2>Old </h2>
         <div class="sticky-header-wrapper">
             <div class="sticky-header-placeholder"></div>
             <div class="header-menu-wrapper non-sticky">

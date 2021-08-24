@@ -17,7 +17,7 @@
              <isset name="topCat" value="${category}" scope="page"/>
              <isset name="gtmCategoryVal" value="${JSON.stringify(category.gtmNavVal)}" scope="page"/>
              <isset name="menuItem" value="${category}" scope="page" />
-             <isinclude template="components/header/mobile/old/menuItem" />
+             <isinclude template="components/header/old/menuItem" />
              </li>
            <iselse/>
              <li class="nav-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
@@ -111,7 +111,7 @@
               <isset name="topCat" value="${category}" scope="page"/>
               <isset name="gtmCategoryVal" value="${JSON.stringify(category.gtmNavVal)}" scope="page"/>
               <isset name="menuItem" value="${category}" scope="page" />
-                <isinclude template="components/header/menuItem" />
+                <isinclude template="components/header/mobile/old/menuItem" />
             </li>
           <iselse/>
             <li class="nav-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>

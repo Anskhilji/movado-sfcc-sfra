@@ -3,7 +3,6 @@
     <isslot id="header-banner-m" description="Slot above the site header" context="global" />
 </div><iscomment> Custom: HTML Structure change</iscomment>
 <isinclude template="/components/modules" sf-toolkit="off" />
-
 <header class="new-header mvmt-header-design mvmt-header-redesign">
     <iscomment>Custom Start: Adding ESW cartridge integration </iscomment>
     <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page"/>
@@ -13,7 +12,6 @@
     </isif>
     <iscomment> Custom End </iscomment>
     <nav>
-        <h2>New </h2>
         <div class="sticky-header-wrapper">
             <div class="sticky-header-placeholder"></div>
             <div class="header-menu-wrapper non-sticky">
