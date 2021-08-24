@@ -241,6 +241,7 @@ $arrow-height: 1.25em;
                     @include media-breakpoint-up(xl) {
                         min-width: auto;
                         max-width: 70%;
+                        height: 745.5px;
                     }
                 }
             }
