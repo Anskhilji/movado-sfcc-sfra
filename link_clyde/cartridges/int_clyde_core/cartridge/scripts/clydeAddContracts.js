@@ -210,6 +210,8 @@ function clydeProductList() {
 function updateContracts(cart) {
     var contractProductList = cart.custom.clydeContractProductList ? cart.custom.clydeContractProductList : '';
     var productSku;
+    var deletedContractUUIDs = [];
+    var deletedContractUUID;
     if (contractProductList) {
         try {
             var parsedValue = JSON.parse(contractProductList);
@@ -232,10 +234,16 @@ function updateContracts(cart) {
                 }
                 if (contractQuantity <= productQuantity) {
                     contractPrice = price * contractQuantity;
-                    updateProductLineItem(cart, contractQuantity, contractPrice, items.clydeProductID);
+                    deletedContractUUID = updateProductLineItem(cart, contractQuantity, contractPrice, items.clydeProductID);
+                    if (!empty(deletedContractUUID)) {
+                        deletedContractUUIDs.push(deletedContractUUID);
+                    }
                 } else {
                     contractPrice = price * productQuantity;
-                    updateProductLineItem(cart, productQuantity, contractPrice, items.clydeProductID);
+                    deletedContractUUID = updateProductLineItem(cart, productQuantity, contractPrice, items.clydeProductID);
+                    if (!empty(deletedContractUUID)) {
+                        deletedContractUUIDs.push(deletedContractUUID);
+                    }
                 }
             }
         } catch (e) {
@@ -243,22 +251,26 @@ function updateContracts(cart) {
         }
 
         emptyCartCustomAttribute(cart);
+        return deletedContractUUIDs;
     }
 }
 /**
  * updates ProductLine Item.
- *@param {Object} cart - this cart object to add clyde.
- *@param {number} contractQuantity - quantity of the contract.
+ * @param {Object} cart - this cart object to add clyde.
+ * @param {number} contractQuantity - quantity of the contract.
  * @param {Object} contractPrice - price value of contract.
  * @param {string} contractProductID - contract product ID.
+ * @return {string} deletedContractUUID - contract id which deleted
  */
 function updateProductLineItem(cart, contractQuantity, contractPrice, contractProductID) {
     var productLineItems = cart.getAllProductLineItems().iterator();
+    var deletedContractUUID;
     while (productLineItems.hasNext()) {
         var productLineItem = productLineItems.next();
         var product = productLineItem.product;
         if (product != null && product.ID === contractProductID) {
             if (contractQuantity === 0) {
+                deletedContractUUID = productLineItem.getUUID();
                 cart.removeProductLineItem(productLineItem);
                 updateCartCustomAttr(cart, contractProductID, 0);
                 break;
@@ -270,6 +282,7 @@ function updateProductLineItem(cart, contractQuantity, contractPrice, contractPr
             }
         }
     }
+    return deletedContractUUID;
 }
 /**
  * updates Cart Custom Attribute.

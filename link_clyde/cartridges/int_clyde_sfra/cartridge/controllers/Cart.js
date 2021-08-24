@@ -144,14 +144,15 @@ server.append('RemoveProductLineItem', function (req, res, next) {
     var currentBasket = BasketMgr.getCurrentBasket();
     var CartModel = require('*/cartridge/models/cart');
     var bonusProductsUUIDs = [];
+    var deletedContractUUIDs = [];
     Transaction.wrap(function () {
-        addClydeContract.updateContracts(currentBasket);
+        deletedContractUUIDs = addClydeContract.updateContracts(currentBasket);
     });
 
     var basketModel = new CartModel(currentBasket);
     var basketModelPlus = {
         basket: basketModel,
-        toBeDeletedUUIDs: bonusProductsUUIDs
+        toBeDeletedUUIDs: deletedContractUUIDs ? bonusProductsUUIDs : []
     };
     res.json(basketModelPlus);
 
