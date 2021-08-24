@@ -104,13 +104,14 @@ function exportGoogleFeed(args) {
             "availability_CA": 25,
             "price_GBP": 26,
             "salePrice_GBP": 27,
-            "sale_price_effective_date_UK": 28,
-            "price_EUR": 29,
-            "price_MXN": 30,
-            "price_SGD": 31,
-            "price_MYR": 32,
-            "price_HKD": 33,
-            "price_CHF": 34
+            "salePrice_EUR": 28,
+            "sale_price_effective_date_UK": 29,
+            "price_EUR": 30,
+            "price_MXN": 31,
+            "price_SGD": 32,
+            "price_MYR": 33,
+            "price_HKD": 34,
+            "price_CHF": 35
 
         }
     } else if (Site.current.ID === 'MCSUS') {
@@ -539,6 +540,10 @@ function buildCsvHeader(feedColumns) {
 
     if (!empty(feedColumns['salePrice_GBP'])) {
         csvFileHeader.push("Sale Price_GBP");
+    }
+
+    if (!empty(feedColumns['salePrice_EUR'])) {
+        csvFileHeader.push("Sale Price_EUR");
     }
 
     if (!empty(feedColumns['sale_price_effective_date_CA'])) {
@@ -1080,6 +1085,14 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
         }
     } 
 
+    if (!empty(feedColumns['salePrice_EUR'])) {
+        if (product.salePrice_EUR) {
+            productDetails.push(product.salePrice_EUR)
+        } else {
+            productDetails.push("");
+        }
+    } 
+
     if (!empty(feedColumns['sale_price_effective_date_CA'])) {
         if (product.salePrice_CA) {
             productDetails.push(product.sale_price_effective_date_CA)
@@ -1095,6 +1108,15 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
             productDetails.push("");
         }
     }
+
+    if (!empty(feedColumns['sale_price_effective_date_EUR'])) {
+        if (product.salePrice_EUR) {
+            productDetails.push(product.sale_price_effective_date_EUR)
+        } else {
+            productDetails.push("");
+        }
+    }
+
 
     if (!empty(feedColumns['link_CA'])) {
         if (product.link_CA) {
@@ -1255,6 +1277,10 @@ function getProductAttributes(product, feedParameters, feedColumns) {
     }
     if (!empty(feedColumns['salePrice_GBP'])) {
         productAttributes.salePrice_GBP = getPromotionalPricePerPriceBook(Constants.CURRENCY_GBP, product, true).productDecimalPrice;
+    }
+
+    if (!empty(feedColumns['salePrice_EUR'])) {
+        productAttributes.salePrice_EUR = getPromotionalPricePerPriceBook(Constants.CURRENCY_EUR, product, true).productDecimalPrice;
     }
     if (!empty(feedColumns['sale_price_effective_date_UK'])) {
         productAttributes.sale_price_effective_date_UK = getPromotionalPricePerPriceBook(Constants.CURRENCY_GBP, product, true).salePriceEffectiveDate;
