@@ -1,4 +1,9 @@
-
+    <isscript>
+            var assets = require('*/cartridge/scripts/assets');
+            assets.addJs('/js/jquery-3.3.1.min.js');
+            assets.addCss('/css/bootstrap.min.css');
+            assets.addJs('/js/bootstrap.min.js');
+    </isscript>
   <div class="d-none d-lg-inline-block">
     <nav class="navbar header-desktop-categories navbar-expand-lg bg-inverse col-12">
       <div class="menu-group" aria-label="Main menu" role="navigation">
@@ -90,6 +95,8 @@
       </isloop>
     </div>
   </div>
+  
+
 
   <nav class="d-block d-lg-none navbar navbar-expand-lg col-12">
     <div class="close-menu grey-sub-menu clearfix hidden-lg-up">
@@ -105,48 +112,41 @@
       </a>
     </div>
     <div class="menu-group mvmt-menu-group menu-group-redesign" aria-label="Main menu" role="navigation">
-      
-      <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
-        <li><a data-toggle="tab" href="#menu1">Menu 1</a></li>
-        <li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
-      </ul>
-
-      <div class="tab-content">
-        <div id="home" class="tab-pane fade in active">
-          <h3>HOME</h3>
-          <p>Some content.</p>
-        </div>
-        <div id="menu1" class="tab-pane fade">
-          <h3>Menu 1</h3>
-          <p>Some content in menu 1.</p>
-        </div>
-      </div>
 
       <ul class="nav navbar-nav" role="menu">
-        <isif condition="${pdict.categories}">
-          <isloop items="${pdict.categories}" var="category">
-            <isif condition="${category.id == "mens" || category.id == "womens"}" >
-              <isif condition="${category.subCategories}">
-
-                <iscomment> Custom: sub-dropdown class added</iscomment>
-                  <li class="nav-item sub-dropdown dropdown grey-arrow-right gtm-customEvent" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-                    <span class="image-text" style="color: ${category.hexColor}">${category.name}</span>
-                    <isset name="topCat" value="${category}" scope="page"/>
-                    <isset name="gtmCategoryVal" value="${JSON.stringify(category.gtmNavVal)}" scope="page"/>
-                    <isset name="menuItem" value="${category}" scope="page" />
-                    <isinclude template="components/header/mobile/menuItem" />
-                  </li>
-              <iselse/>
-                <li class="nav-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-                  <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" role="button">
-                    <span class="image-text" style="color: ${category.hexColor}">${category.name}</span>
-                  </a>
-                </li>
-              </isif>
+      <div class="mobile-tabs-container">
+            <ul class="mobile-menu-tabs">
+                <isif condition="${pdict.categories}">
+                  <isloop items="${pdict.categories}" var="category">
+                    <isif condition="${category.id == "mens" || category.id == "womens"}" >
+                        <li class="nav-item tab-link current gtm-customEvent" role="menuitem" data-tab="${category.name}" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
+                          <span  id="${category.id}" role="button">
+                            <span class="image-text" style="color: ${category.hexColor}">${category.name}</span>
+                          </span>
+                        </li>
+                    </isif>
+                  </isloop>
+                </isif>
+            </ul>
+            <isif condition="${pdict.categories}">
+            <div class="mobile-tabs-content">
+                <isloop items="${pdict.categories}" var="category">
+                    <isif condition="${category.id == "mens" || category.id == "womens"}" >
+                        <isif condition="${category.subCategories}">
+                          <iscomment> Custom: sub-dropdown class added</iscomment>
+                              <span id="${category.name}" class="tab-content  ${category.name}">
+                                    <isset name="topCat" value="${category}" scope="page"/>
+                                    <isset name="gtmCategoryVal" value="${JSON.stringify(category.gtmNavVal)}" scope="page"/>
+                                    <isset name="menuItem" value="${category}" scope="page" />
+                                    <isinclude template="components/header/mobile/menuItem" />
+                              </span>
+                        </isif>
+                    </isif>
+                </isloop>
+            </div>    
             </isif>
-          </isloop>
-        </isif>
+      </div><!-- container -->
+
         <isinclude url="${URLUtils.url('Account-Header', 'mobile', true)}" />
         <isinclude url="${URLUtils.url('Page-Locale', 'mobile', true)}" />
       </ul>
