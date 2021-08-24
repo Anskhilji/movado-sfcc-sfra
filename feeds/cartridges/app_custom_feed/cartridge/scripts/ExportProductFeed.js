@@ -1109,15 +1109,6 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
         }
     }
 
-    if (!empty(feedColumns['sale_price_effective_date_EUR'])) {
-        if (product.salePrice_EUR) {
-            productDetails.push(product.sale_price_effective_date_EUR)
-        } else {
-            productDetails.push("");
-        }
-    }
-
-
     if (!empty(feedColumns['link_CA'])) {
         if (product.link_CA) {
             productDetails.push(product.link_CA)
