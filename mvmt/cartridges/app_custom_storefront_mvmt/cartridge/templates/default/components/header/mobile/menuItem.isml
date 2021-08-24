@@ -2,8 +2,15 @@
 
     <div class="menu-content mvmt-header-dropdown">
         <div class="menu-pane">
+
+            <div class="close-menu grey-sub-menu-unset clearfix hidden-lg-up">
+                <a class="back-menu" href="${'#'}" role="button">
+                    <span class="caret-left"></span>
+                    ${Resource.msg('label.header.menu.back', 'common', null)}
+                </a>
+            </div>
             <ul>
-                <div class="top-category-heading"></div>
+                <div class="top-category-heading"><h4>${topCat.name}</h4></div>
                 <isloop items="${menuItem.subCategories}" var="category">
                     <isif condition="${category.subCategories}">
                         <li class="dropdown dropdown-item-mvmt grey-arrow-right gtm-customEvent submenu-control" role="menuitem" data-category=$ {category.id} data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
