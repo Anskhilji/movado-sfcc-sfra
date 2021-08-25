@@ -33,11 +33,12 @@ header.new-header.mvmt-header-redesign {
     .mobile-tabs-container {
         
         ul.mobile-menu-tabs {
+
             display: block;
             margin: 0 auto;
             text-align: center;
-			padding: rem(0);
-			list-style: none;
+            padding: rem(0);
+            list-style: none;
             border-bottom: rem(2) solid $light-silver;
 
             li {
