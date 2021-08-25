@@ -1,5 +1,6 @@
 'use strict';
 
+var ArrayList = require('dw/util/ArrayList');
 var Bytes = require('dw/util/Bytes');
 var CatalogMgr = require('dw/catalog/CatalogMgr');
 var Encoding = require('dw/crypto/Encoding');
@@ -52,6 +53,8 @@ function gtmModel(req) {
     this.tertiarySiteSection = '';
     this.searchTerm = '';
     this.googleAnalyticsParameters = '';
+    this.customerIPAddressLocation = '';
+    this.rakutenAllowedCountries =  [];
 
 
         if (!empty(req.querystring)) {
@@ -219,6 +222,11 @@ function gtmModel(req) {
     this.userHashedEmail = userShippingDetails && !empty (userShippingDetails.userShippingEmail) ? Encoding.toHex(new Bytes(userShippingDetails.userShippingEmail, 'UTF-8')) : (!empty(userHashedEmail) ? userHashedEmail : '');
     this.googleAnalyticsParameters = googleAnalyticsParameters != null ? googleAnalyticsParameters : '';
     this.departmentCategoryName = (departmentCategoryName != null && departmentCategoryName != undefined && !empty(departmentCategoryName)) ? departmentCategoryName : '';
+    var customerIPAddressLocation = !empty(request.geolocation.countryCode) ? request.geolocation.countryCode : '';
+    var isRakutenEnabled = !empty(Site.current.preferences.custom.isRakutenEnable) ? Site.current.preferences.custom.isRakutenEnable : false;
+    this.rakutenAllowedCountries = new ArrayList(!empty(Site.current.preferences.custom.rakutenAllowedCountries) ? Site.current.preferences.custom.rakutenAllowedCountries : '').toArray();
+    this.rakutenAllowedCountries = isRakutenEnabled ? this.rakutenAllowedCountries.toString() : '';
+    this.customerIPAddressLocation = customerIPAddressLocation || '';
 }
 
 
