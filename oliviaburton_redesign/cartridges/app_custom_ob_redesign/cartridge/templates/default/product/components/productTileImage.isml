@@ -1,8 +1,4 @@
-<isif condition="${!pdict.display.plpTile}">
-    <isinclude template="product/components/old/productTileImage" sf-toolkit="on" />
-<iselse/>
-<iscomment> Custom Start: quick view button removed</iscomment>
-    <div class="image-container" style="background-color: ${pdict.tileImageBackground};">
+
         <isloop items="${product.badges.imageBadges}" var="imageBadge">
             <div class="product-badge left ${imageBadge.isRedesigned ? 'redesigned' : ''}"><span class="badge-text"><img src="${imageBadge.imageUrl}" alt="${imageBadge.imageAlt}" /></span></div>
         </isloop>
@@ -19,6 +15,3 @@
                 </isif>
             </picture>
         </a>
-    </div>
-<iscomment> Custom End: quick view button removed</iscomment>
-</isif>

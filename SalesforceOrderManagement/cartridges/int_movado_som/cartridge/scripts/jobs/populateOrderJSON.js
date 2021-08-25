@@ -3,6 +3,7 @@
 var Transaction = require('dw/system/Transaction');
 var Status = require('dw/system/Status');
 var Site = require('dw/system/Site');
+var Calendar = require('dw/util/Calendar');
 var logger = require('dw/system/Logger').getLogger('SOM', '');
 var collections = require('*/cartridge/scripts/util/collections');
 var _ = require('*/cartridge/scripts/libs/underscore');
@@ -69,14 +70,25 @@ function getPriceAdjustmentObject(priceAdjustment) {
  * @param {Object} args the passed in arguments
  * @return {dw.system.Status} Status of the job
  */
-function searchAndPopulateByOrderID() {
+function searchAndPopulateByOrderID(args) {
     var OrderMgr = require('dw/order/OrderMgr');
     var orderIterator;
+    var currentDateCal = new Calendar();
+    currentDateCal.setTime(new Date());
+    var minutesBack = 24 * 60;
+    if (args.MinutesBack != null) {
+        minutesBack = args.MinutesBack;
+    }
+
+    currentDateCal.add(Calendar.MINUTE, minutesBack * -1);
+    var searchDate = currentDateCal.getTime().toISOString();
+
     try {
-        orderIterator = OrderMgr.searchOrders("(custom.SOMAddressData = NULL OR custom.SOMAddressData='') AND (status != 0 AND status != 8)", null, null);
+        orderIterator = OrderMgr.searchOrders("(custom.SOMAddressData = NULL OR custom.SOMAddressData='') AND (status != 0 AND status != 8) AND (creationDate > {0})", null, searchDate);
     } 
     catch (exSearch) {
-        logger.error('OrderMgr.searchOrders FAILED: ' + exSearch.toString());
+        var a = exSearch;
+        logger.error('OrderMgr.searchOrders FAILED: ' + exSearch.toString()); 
     }
     while (orderIterator.hasNext()) {
 		try {

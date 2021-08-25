@@ -137,12 +137,11 @@
 	
 	</div>
 	</div>
-	</div>
-	
-    
-    <isif condition="${pdict.productSearch.category}">
+	<isif condition="${pdict.productSearch.category}">
         <isslot id="cs_plp_bottom_slot" context="category" description="Recommendation content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
     </isif>
+	</div>
+	
     
     <isif condition="${dw.system.Site.current.getCustomPreferenceValue('enableSwatch')}">
         <div class="d-none" id="color-swatch-images">

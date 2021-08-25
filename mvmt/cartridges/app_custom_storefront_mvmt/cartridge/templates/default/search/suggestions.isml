@@ -37,7 +37,7 @@
                         <iscomment>
                             Custom Start: Added new parameter isSuggestionTile to detect suggestion tiles in template
                         </iscomment>
-                        <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.id, 'pview', 'tile', 'ratings', true, 'swatches', true, 'isSuggestionTile', true, 'lazyload', true)}"/>
+                        <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.id, 'pview', 'tile', 'ratings', true, 'swatches', true, 'isSuggestionTile', true, 'lazyload', true, 'isRedesigned', true)}"/>
                         <iscomment>
                             Custom End:
                         </iscomment>

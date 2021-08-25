@@ -1,5 +1,6 @@
 'use strict';
 var Constants = require('*/cartridge/scripts/util/Constants');
+var rakutenCookiesHelper = require('*/cartridge/scripts/helpers/rakutenHelpers');
 
 /**
  * Resource helper
@@ -39,7 +40,9 @@ function getResources(pageContext) {
         IS_CLYDE_ENABLED: Site.current.preferences.custom.isClydeEnabled || false,
         IS_RAKUTEN_ENABLED:  Site.current.preferences.custom.isRakutenEnable || false,
         ONE_TRUST_COOKIE_ENABLED: Site.current.preferences.custom.oneTrustCookieEnabled || false,
-        OPTANON_ALLOWED_COOKIE: Constants.ONE_TRUST_COOKIE_ENABLED
+        OPTANON_ALLOWED_COOKIE: Constants.ONE_TRUST_COOKIE_ENABLED,
+        CART_GIFT_MESSAGE_LIMIT: !empty(Site.current.preferences.custom.cartGiftMessageLimit) ? Site.current.preferences.custom.cartGiftMessageLimit : 0,
+        RAKUTEN_REQUEST: rakutenCookiesHelper.getRakutenRequestObject()
     };
     return resources;
 }

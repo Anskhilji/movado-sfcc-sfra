@@ -29,7 +29,7 @@ function setRakutenCookie() {
         if (isOptanonAllowedCookie != -1) {
             $.ajax({
                 type: "GET",
-                url: window.location.href,
+                url: window.Resources.RAKUTEN_REQUEST.rakutenRequestURL,
                 success: function () {
                     clearInterval(cookieWriteInterval);
                 }
@@ -48,8 +48,10 @@ function setRakutenCookie() {
 function initializeRakutenCookieCall() {
     if (document.readyState == "complete") {
         clearInterval(intializeCookieInterval);
-        if (window.Resources && window.Resources.IS_RAKUTEN_ENABLED && window.Resources.ONE_TRUST_COOKIE_ENABLED) {
-            cookieWriteInterval = setInterval(setRakutenCookie, 500);
+        if (window.Resources && window.Resources.RAKUTEN_REQUEST.containRakutenParameters) {
+            if (window.Resources && window.Resources.IS_RAKUTEN_ENABLED && window.Resources.ONE_TRUST_COOKIE_ENABLED) {
+                cookieWriteInterval = setInterval(setRakutenCookie, 500);
+            }
         }
     }
 }
