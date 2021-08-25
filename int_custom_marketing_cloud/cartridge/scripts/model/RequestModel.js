@@ -1,6 +1,7 @@
 'use strict';
 
 var Constants = require('~/cartridge/scripts/util/Constants');
+var Site = require('dw/system/Site');
 
 function generateAuthenticationPayLoad(params) {
     return {
@@ -12,6 +13,46 @@ function generateAuthenticationPayLoad(params) {
 }
 
 function generateAddContactToMCPayload(params) {
+    if (Site.current.ID === 'MovadoUS') {
+        return {
+            "contactKey": params.email,
+            "attributeSets": [
+                {
+                    "name": "Email Addresses",
+                    "items": [
+                        {
+                            "values": [
+                                {
+                                    "name": "Email Address",
+                                    "value": params.email
+                                },
+                                {
+                                    "name": "HTML Enabled",
+                                    "value": true
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "Country": params.country,
+            "value": [
+                {
+                    "name": "Country",
+                    "items": [
+                        {
+                            "values": [
+                                {
+                                    "name": "Country",
+                                    "value": params.country
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        };
+    }
     return {
         "contactKey": params.email,
         "attributeSets": [
@@ -37,6 +78,17 @@ function generateAddContactToMCPayload(params) {
 }
 
 function generateAddContactToJourneyPayload(params) {
+    if (Site.current.ID === 'MovadoUS') {
+        return {
+            "ContactKey": params.email,
+            "EventDefinitionKey": params.eventDefinationKey,
+            "Data": {
+                "Email Address": params.email,
+                "Subscriber Key": params.email,
+                "Country": params.country
+            }
+        };
+    }
     return {
         "ContactKey": params.email,
         "EventDefinitionKey": params.eventDefinationKey,
@@ -48,6 +100,20 @@ function generateAddContactToJourneyPayload(params) {
 }
 
 function generateAddContactToDataExtensionPayload(params) {
+    if (Site.current.ID === 'MovadoUS') {
+        return [
+            {
+                "keys": {
+                    "Email Address": params.email,
+                    "Country": params.country
+                },
+                "values": {
+                    "Email Address": params.email,
+                    "Country": params.country
+                }
+            }
+        ];
+    }
     return [
         {
             "keys": {

@@ -4,6 +4,7 @@ var Constants = require('~/cartridge/scripts/util/Constants');
 var encoding = require('dw/crypto/Encoding');
 var Site = require('dw/system/Site');
 var Resource = require('dw/web/Resource');
+
 var sitePreferences = Site.getCurrent().getPreferences().getCustom();
 
 /**
@@ -86,9 +87,37 @@ function isRakutenAllowedCountry() {
     }
 }
 
+/**
+ * This method is used to get the rakuten allowed countries from site preferences.
+ *
+ * @returns {Object} Object - Contains rakuten request object.
+ */
+function getRakutenRequestObject() {
+    var URLUtils = require('dw/web/URLUtils');
+
+    var rakutenRequest;
+    var requestHttpParameterMap = request.getHttpParameterMap();
+
+    if (!empty(requestHttpParameterMap) && !empty(requestHttpParameterMap.get('ranMID').value) && !empty(requestHttpParameterMap.get('ranSiteID').value) 
+    && !empty(requestHttpParameterMap.get('ranEAID').value)) {
+        rakutenRequest = {
+            rakutenRequestURL: URLUtils.url('Rakuten-Request', 'ranMID', requestHttpParameterMap.ranMID, 'ranEAID', requestHttpParameterMap.ranEAID, 'ranSiteID', requestHttpParameterMap.ranSiteID).https().toString(),
+            containRakutenParameters: true
+        }
+    } else {
+        rakutenRequest = {
+            rakutenRequestURL: URLUtils.url('Rakuten-Request').https().toString(),
+            containRakutenParameters: false
+        }
+    }
+
+    return rakutenRequest;
+}
+
 module.exports = {
     createCookieInSession: createCookieInSession,
     setCookiesResponse: setCookiesResponse,
     getDateString: getDateString,
-    isRakutenAllowedCountry: isRakutenAllowedCountry
+    isRakutenAllowedCountry: isRakutenAllowedCountry,
+    getRakutenRequestObject: getRakutenRequestObject
 }

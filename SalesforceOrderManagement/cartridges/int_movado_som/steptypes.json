@@ -226,6 +226,14 @@
                             "@type": "boolean",
                             "@required": false,
                             "@trim": true
+                        },
+                        {
+                            "@name": "MinutesBack",
+                            "description": "Minutes Back - Search",
+                            "@type": "string",
+                            "@required": "false",
+                            "@trim": "true",
+                            "default-value": "120"
                         }
                     ]
                 },
