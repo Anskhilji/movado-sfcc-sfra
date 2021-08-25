@@ -19,7 +19,7 @@
                 <isif condition="${isexpressCheckoutEnable}">
                     <isapplepay class="apple-pay-pdp btn ml-sm-2 ml-lg-0" sku="${product.id}"></isapplepay>
                 </isif>
-             <div class="product-not-available-msg <isif condition="${!product.isProductRestricted}">d-none</isif>">${Resource.msg('esw.product.notavailable','esw',null)}</div>
+                <div class="product-not-available-msg <isif condition="${!product.isProductRestricted}">d-none</isif>">${Resource.msg('esw.product.notavailable','esw',null)}</div>
             <iselse>
                 <isapplepay class="apple-pay-pdp btn ml-sm-2 ml-lg-0" sku="${product.id}"></isapplepay>
             </isif>
