@@ -10,6 +10,8 @@ var Site = require('dw/system/Site');
 
 server.replace(
     'IncludeHeaderMenu',
+    server.middleware.include,
+    cache.applyPromotionSensitiveCache,
     function (req, res, next) {
         var catalogMgr = require('dw/catalog/CatalogMgr');
         var Categories = require('*/cartridge/models/categories');
