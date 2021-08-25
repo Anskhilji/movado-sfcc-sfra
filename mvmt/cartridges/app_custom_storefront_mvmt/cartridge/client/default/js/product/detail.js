@@ -54,7 +54,7 @@ module.exports = {
                 })),
 
                 $(document).off("click", ".zoom-icon.zoom-out").on("click", ".zoom-icon.zoom-out", (function (a) {
-                        $('.primary-images').removeClass('zoomed-images');
+                    $('.primary-images').removeClass('zoomed-images');
                     $(t).trigger('onZoomOut');
                     $(".zoom-icon.zoom-out").hasClass("is-active") && ( $(t).addClass("disabled"),
                     $(".zoom-icon.zoom-out").removeClass("is-active"))
