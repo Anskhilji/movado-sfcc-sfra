@@ -9,6 +9,7 @@ $font-futura-pt-demi: "futura-pt-demi", Arial, sans-serif;
 $font-GaramondMTPro-italic: "GaramondMTPro-Italic", Arial, sans-serif;
 $font-GaramondPro: "Adobe Garamond Pro", Arial, sans-serif;
 $font-primary: "gill-sans-nova", Arial, sans-serif;
+$font-gill-sans-std: "Gill-Sans-MT-Medium", Arial, sans-serif;
 $font-awesome: "FontAwesome";
 
 $pink-snow: #FBF7F7;
@@ -42,6 +43,8 @@ $white-smoke: #F0F0F0;
 
 $grid-breakpoints: (
   xs: 0,
+  xs-custom:280px,
+  sm-custom:400px,
   sm: 576px,
   md: 768px,
   lg: 992px,

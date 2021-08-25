@@ -1,5 +1,6 @@
 'use strict';
 var Constants = require('*/cartridge/scripts/util/Constants');
+var rakutenCookiesHelper = require('*/cartridge/scripts/helpers/rakutenHelpers');
 
 /**
  * Resource helper
@@ -50,7 +51,8 @@ function getResources(pageContext) {
         IS_RAKUTEN_ENABLED:  Site.current.preferences.custom.isRakutenEnable || false,
         ONE_TRUST_COOKIE_ENABLED: Site.current.preferences.custom.oneTrustCookieEnabled || false,
         OPTANON_ALLOWED_COOKIE: Constants.ONE_TRUST_COOKIE_ENABLED,
-        KLARNA_PDP_MESSAGES_ENABLED:!empty(Site.current.preferences.custom.klarnaPdpPromoMsg) ? Site.current.preferences.custom.klarnaPdpPromoMsg : false
+        KLARNA_PDP_MESSAGES_ENABLED:!empty(Site.current.preferences.custom.klarnaPdpPromoMsg) ? Site.current.preferences.custom.klarnaPdpPromoMsg : false,
+        RAKUTEN_REQUEST: rakutenCookiesHelper.getRakutenRequestObject()
     };
     return resources;
 }

@@ -7,18 +7,7 @@ server.extend(module.superModule);
 
 server.replace('MiniCart', server.middleware.include, function (req, res, next) {
     var BasketMgr = require('dw/order/BasketMgr');
-    var ABTestMgr = require('dw/campaign/ABTestMgr');
-    var miniCartTemplate = null;
-
-    // A/B testing for header design
-    if (ABTestMgr.isParticipant('OBRedesignABTest', 'Control')) {
-        miniCartTemplate = '/components/header/old/miniCart';
-    } else if (ABTestMgr.isParticipant('OBRedesignABTest', 'render-new-design')) {
-        miniCartTemplate = '/components/header/miniCart';
-    } else {
-        miniCartTemplate = '/components/header/old/miniCart';
-    }
-
+    var miniCartTemplate = '/components/header/miniCart';
     var currentBasket = BasketMgr.getCurrentBasket();
     var quantityTotal;
 
