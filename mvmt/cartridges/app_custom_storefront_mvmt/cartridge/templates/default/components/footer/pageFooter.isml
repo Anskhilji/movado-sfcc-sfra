@@ -86,5 +86,8 @@
     
     <iscomment>Listrak Cartridge Integration</iscomment>
     <isinclude url="${URLUtils.url('ltkInclude-Start')}"/>
+    <iscomment> One trust html script </iscomment>
+    <isinclude template="common/oneTrustCookiesHTML" sf-toolkit="off" />
+
 </footer>
 <iscomment> Custom End</iscomment>

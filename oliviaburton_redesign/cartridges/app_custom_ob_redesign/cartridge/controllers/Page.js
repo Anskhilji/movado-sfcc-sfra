@@ -12,26 +12,15 @@ server.replace(
         server.middleware.include,
         cache.applyPromotionSensitiveCache,
         function (req, res, next) {
-            var ABTestMgr = require('dw/campaign/ABTestMgr');
             var catalogMgr = require('dw/catalog/CatalogMgr');
             var Categories = require('*/cartridge/models/categories');
             var siteRootCategory = catalogMgr.getSiteCatalog().getRoot();
-            
             var topLevelCategories = siteRootCategory.hasOnlineSubCategories() ?
                     siteRootCategory.getOnlineSubCategories() : null;
-            
-            var menuTemplate = null;
-            // A/B testing for header design
-            if (ABTestMgr.isParticipant('OBRedesignABTest','Control')) {
-                menuTemplate = '/components/header/old/menu';
-            } else if (ABTestMgr.isParticipant('OBRedesignABTest','render-new-design')) {
-                menuTemplate = '/components/header/menu';
-            } else {
-                menuTemplate = '/components/header/old/menu';
-                }
-                res.render(menuTemplate, new Categories(topLevelCategories));
-                next();
-            }
+            var menuTemplate = '/components/header/menu';
+            res.render(menuTemplate, new Categories(topLevelCategories));
+            next();
+        }
 );
 
 server.get(
@@ -39,17 +28,7 @@ server.get(
     server.middleware.include,
     cache.applyPromotionSensitiveCache,
     function (req, res, next) {
-        var ABTestMgr = require('dw/campaign/ABTestMgr');
-
-        var headerTemplate = null;
-        // A/B testing for header design
-        if (ABTestMgr.isParticipant('OBRedesignABTest','Control')) {
-            headerTemplate = '/components/header/old/pageHeader';
-        } else if (ABTestMgr.isParticipant('OBRedesignABTest','render-new-design')) {
-            headerTemplate = '/components/header/pageHeader';
-        } else {
-            headerTemplate = '/components/header/old/pageHeader';
-        }
+        var headerTemplate = '/components/header/pageHeader';
         var countryCode = "";
         if (!empty(request.httpParameterMap.get('countryCode').value)) {
             countryCode = request.httpParameterMap.get('countryCode').value;
@@ -67,17 +46,7 @@ server.get(
     server.middleware.include,
     cache.applyPromotionSensitiveCache,
     function (req, res, next) {
-        var ABTestMgr = require('dw/campaign/ABTestMgr');
-
-        var footerTemplate = null;
-        // A/B testing for header design
-        if (ABTestMgr.isParticipant('OBRedesignABTest', 'Control')) {
-            footerTemplate = '/components/footer/old/pageFooterInnerContent';
-        } else if (ABTestMgr.isParticipant('OBRedesignABTest', 'render-new-design')) {
-            footerTemplate = '/components/footer/pageFooterInnerContent';
-        } else {
-            footerTemplate = '/components/footer/old/pageFooterInnerContent';
-        }
+        var footerTemplate = '/components/footer/pageFooterInnerContent';
         var parentController = req.querystring.parentController;
         var homeFlag = false;
         var countryCode = "";

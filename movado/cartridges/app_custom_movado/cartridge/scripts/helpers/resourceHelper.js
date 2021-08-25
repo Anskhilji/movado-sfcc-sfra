@@ -1,5 +1,6 @@
 'use strict';
 var Constants = require('*/cartridge/scripts/util/Constants');
+var rakutenCookiesHelper = require('*/cartridge/scripts/helpers/rakutenHelpers');
 
 /**
  * Resource helper
@@ -41,6 +42,7 @@ function getResources(pageContext) {
         OPTANON_ALLOWED_COOKIE: Constants.ONE_TRUST_COOKIE_ENABLED,
         CART_GIFT_MESSAGE_LIMIT: !empty(Site.current.preferences.custom.cartGiftMessageLimit) ? Site.current.preferences.custom.cartGiftMessageLimit : 0,
         LISTRAK_ENABLED: Site.current.preferences.custom.Listrak_Cartridge_Enabled,
+        RAKUTEN_REQUEST: rakutenCookiesHelper.getRakutenRequestObject()
     };
     return resources;
 }

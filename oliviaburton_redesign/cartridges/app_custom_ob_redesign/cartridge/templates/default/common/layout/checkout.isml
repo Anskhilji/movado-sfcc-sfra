@@ -36,5 +36,7 @@
         <isinclude template="resources/appresources"/>
         <iscomment> Listrak Activity Track Call </iscomment>
         <isinclude url="${URLUtils.url('ltkInclude-Start')}"/>
+        <isinclude template="common/oneTrustCookiesHTML" sf-toolkit="off" />
+
     </body>
 </html>
