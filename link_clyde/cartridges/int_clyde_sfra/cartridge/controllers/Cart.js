@@ -143,7 +143,6 @@ server.append('RemoveProductLineItem', function (req, res, next) {
     var Transaction = require('dw/system/Transaction');
     var currentBasket = BasketMgr.getCurrentBasket();
     var CartModel = require('*/cartridge/models/cart');
-    var bonusProductsUUIDs = [];
     var deletedContractUUIDs = [];
     Transaction.wrap(function () {
         deletedContractUUIDs = addClydeContract.updateContracts(currentBasket);
@@ -152,7 +151,7 @@ server.append('RemoveProductLineItem', function (req, res, next) {
     var basketModel = new CartModel(currentBasket);
     var basketModelPlus = {
         basket: basketModel,
-        toBeDeletedUUIDs: deletedContractUUIDs ? bonusProductsUUIDs : []
+        toBeDeletedUUIDs: deletedContractUUIDs ? deletedContractUUIDs : []
     };
     res.json(basketModelPlus);
 
