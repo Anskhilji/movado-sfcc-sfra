@@ -1,0 +1,88 @@
+header.new-header.mvmt-header-redesign {
+
+    .mvmt-menu-group {
+
+        &.menu-group-redesign  {
+
+            li {
+                .image-text {
+                    position: relative;
+                    margin-top: rem(0);
+                    left: auto;
+                    color: $black;
+                    padding: rem(12) rem(20);
+                    display: block;
+                    font-size: rem(14);
+                }
+            }
+        }
+    
+        li.nav-item {
+
+            &.sub-dropdown {
+                display: block;
+                position: static;
+            }
+            
+            &.grey-arrow-right {
+                background: url(../images/Grey.svg) right rem(20) center no-repeat;
+            }
+        }     
+    }
+
+    .mobile-tabs-container {
+        
+        ul.mobile-menu-tabs {
+
+            display: block;
+            margin: 0 auto;
+            text-align: center;
+            padding: rem(0);
+            list-style: none;
+            border-bottom: rem(2) solid $light-silver;
+
+            li {
+                font-size: rem(14);
+                color: $mardi-gras;
+                letter-spacing: rem(1.75);
+                background: none;
+                display: inline-block;
+                margin: rem(0) rem(8);
+                padding: rem(2) rem(10);
+                font-size: rem(14);
+                cursor: pointer;
+
+                &.current {
+                    border-bottom: rem(2) solid $black;
+                }
+
+                .image-text {
+                    position: relative;
+                    margin-top: rem(0);
+                    padding: rem(12) rem(6);
+                    display: block;
+                    font-size: rem(14);
+                }
+            }
+		}
+
+        .mobile-tabs-content {
+            
+            .tab-content {
+                display: none;
+                padding: rem(25) rem(15);
+    
+                &.current {
+                    display: inherit;
+                }
+            }
+
+            .dropdown-item-mvmt {  
+
+                .dropdown-link {
+                    line-height: rem(50);
+                }
+            }
+        }
+    }
+}

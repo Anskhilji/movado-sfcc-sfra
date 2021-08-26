@@ -3,6 +3,7 @@
 var collections = require('*/cartridge/scripts/util/collections');
 var URLUtils = require('dw/web/URLUtils');
 var ContentMgr = require('dw/content/ContentMgr');
+var ArrayList = require('dw/util/ArrayList');
 
 /**
  * Get category url
@@ -51,6 +52,10 @@ function categoryToObject(category) {
         var contentAsset = ContentMgr.getContent(category.custom.staticContentAssetID);
         staticContentAsset = contentAsset ? contentAsset.custom.body : '';
     }
+
+    if (category.custom.abTestSegmentID) {
+        var abTestSegmentIDs = new ArrayList(category.custom.abTestSegmentID);
+    }
     var result = {
         name: category.getDisplayName(),
         url: getCategoryUrl(category),
@@ -59,7 +64,8 @@ function categoryToObject(category) {
         gtmNavVal: gtmNavVal,
         disableSubCategories: category.custom.disableSubCategories,
         gender: category.custom.gender,
-        staticContentAsset: staticContentAsset
+        staticContentAsset: staticContentAsset,
+        abTestSegmentIDs: abTestSegmentIDs
     };
     if (!empty(category.custom.categoryImageURL)) {
         result.categoryImageURL = category.custom.categoryImageURL.absURL;
