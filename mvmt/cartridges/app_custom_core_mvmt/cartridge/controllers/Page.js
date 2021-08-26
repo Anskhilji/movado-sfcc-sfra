@@ -25,7 +25,9 @@ server.replace(
         var menuTemplate = null;
         
         // A/B testing for header design
-        if (ABTestMgr.isParticipant('MVMTHeaderRedesign','header-redesign')) {
+        if (ABTestMgr.isParticipant('MVMTHeaderRedesign','Control')) {
+            menuTemplate = '/components/header/old/menu';
+        } else if (ABTestMgr.isParticipant('MVMTHeaderRedesign','header-redesign')) {
             menuTemplate = '/components/header/menu';
         } else {
             menuTemplate = '/components/header/old/menu';
