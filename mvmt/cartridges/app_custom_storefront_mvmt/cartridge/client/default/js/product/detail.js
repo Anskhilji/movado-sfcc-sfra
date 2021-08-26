@@ -10,6 +10,10 @@ module.exports = {
             $(t).addClass("disabled");
             $(".zoom-icon.zoom-out").removeClass("is-active");
             var n = $(".main-mvmt-carousel .slick-current").find("img").attr("src");
+            var $primaryImagesContainer = $('.primary-images');
+            var $videoSlide = $primaryImagesContainer.find('.slick-slide.slick-current .slide-video');
+            var $zoomButtons = $primaryImagesContainer.find('.quickview.js-zoom-image, .zoom-icon');
+            var $imageSlide = $primaryImagesContainer.find('.slick-slide.slick-current .carousel-tile, .slick-slide.slick-current .normal-zoom');
             $(window).width() > 767 ? (
                 $(t).trigger("zoom.destroy"), 
                 $(t).zoom({
@@ -47,6 +51,11 @@ module.exports = {
                 $(document).off("click", ".zoom-icon.zoom-in").on("click", ".zoom-icon.zoom-in", (function (a) {
                     $(t).trigger('onZoomIn');
                     $('.primary-images').addClass('zoomed-images');
+                    if ($videoSlide.length > 0) {
+                        $zoomButtons.removeClass('d-none');
+                        $imageSlide.css('pointer-events', '');
+                        $primaryImagesContainer.find('.slick-slide.slick-current').css('cursor', '');
+                    }
                     if ($(t).hasClass("disabled")) {
                         $(".zoom-icon.zoom-out").addClass("is-active");
                         $(t).removeClass("disabled");
@@ -55,6 +64,11 @@ module.exports = {
 
                 $(document).off("click", ".zoom-icon.zoom-out").on("click", ".zoom-icon.zoom-out", (function (a) {
                     $('.primary-images').removeClass('zoomed-images');
+                    if ($videoSlide.length > 0) {
+                        $zoomButtons.addClass('d-none');
+                        $imageSlide.css('pointer-events', 'none');
+                        $primaryImagesContainer.find('.slick-slide.slick-current').css('cursor', 'default');
+                    }
                     $(t).trigger('onZoomOut');
                     $(".zoom-icon.zoom-out").hasClass("is-active") && ( $(t).addClass("disabled"),
                     $(".zoom-icon.zoom-out").removeClass("is-active"))
