@@ -168,6 +168,7 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
         lastName: registrationForm.customer.lastname.value,
         birthdate: registrationForm.customer.birthdate.value,
         birthmonth: registrationForm.customer.birthmonth.value,
+        birthmonthNumber: registrationForm.customer.birthmonth.selectedOption,
         phone: registrationForm.customer.phone.value,
         email: registrationForm.customer.email.value,
         emailConfirm: registrationForm.customer.emailconfirm.value,
@@ -228,7 +229,7 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
                                     requestParams.firstName= registrationForm.firstName;
                                     requestParams.lastName= registrationForm.lastName;
                                     requestParams.birthDate= registrationForm.birthdate;
-                                    requestParams.birthMonth= registrationForm.birthmonth;
+                                    requestParams.birthMonth= registrationForm.birthmonthNumber;
                                     ltkApi.sendSubscriberToListrak(requestParams);
                                 } else {
                                     var SFMCApi = require('int_custom_marketing_cloud/cartridge/scripts/api/SFMCApi');
