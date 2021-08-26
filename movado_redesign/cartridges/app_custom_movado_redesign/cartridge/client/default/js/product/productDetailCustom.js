@@ -283,22 +283,21 @@ $(document).ready(function() {
 
     $(window).on("load resize", function() {
         $zoomSlick = true;
-        if ($(window).width() > 786) {
-            $('.primary-images .main-carousel img').click(function() {
-                if ($(this).parents('.slick-active.slick-center').length > 0) {
-                    $('#zoomProduct').modal('show');
-                    if ($zoomSlick) {
+        $('.primary-images .main-carousel img').click(function() {
+            if ($(this).parents('.slick-active.slick-center').length > 0) {
+                $('#zoomProduct').modal('show');
+                if ($zoomSlick) {
+                    $('.zoom-carousel .slick-slider').slick('refresh');
+                    setTimeout(function() {
                         $('.zoom-carousel .slick-slider').slick('refresh');
-                        setTimeout(function() {
-                            $('.zoom-carousel .slick-slider').slick('refresh');
-                            $('.zoom-carousel-nav .slick-slider').slick('refresh');
-                        }, 300);
-                        slickHeight();
-                        zoom();
-                        $zoomSlick = false;
-                    }
+                        $('.zoom-carousel-nav .slick-slider').slick('refresh');
+                    }, 300);
+                    slickHeight();
+                    zoom();
+                    $zoomSlick = false;
                 }
-            });
-        }
+            }
+        });
+        
     });
 });

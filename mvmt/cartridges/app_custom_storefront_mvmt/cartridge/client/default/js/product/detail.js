@@ -29,27 +29,33 @@ module.exports = {
                     }
                 })
             ) : (
-                $('.main-mvmt-carousel .carousel-tile').zoom({
+                $(t).zoom({
                     url: $(this).find('img').attr('src'),
                     magnify: 1.1,
                     on: "click",
                     target: $(".zoom-box"),
                     onZoomIn: function() {
                         $(".zoom-box").addClass("zoom-active");
+                        $(".zoom-out").addClass("active");
                     },
                     onZoomOut: function() {
-                        $(".zoom-box").removeClass("zoom-active")
+                        $(".zoom-box").removeClass("zoom-active");
+                        $(".zoom-out").removeClass("active");
                     }
                 }),
 
-                $(document).off("click", ".zoom-icon.zoom-in").on("click", ".zoom-icon.zoom-in", (function(a) {
+                $(document).off("click", ".zoom-icon.zoom-in").on("click", ".zoom-icon.zoom-in", (function (a) {
+                    $(t).trigger('onZoomIn');
+                    $('.primary-images').addClass('zoomed-images');
                     if ($(t).hasClass("disabled")) {
                         $(".zoom-icon.zoom-out").addClass("is-active");
                         $(t).removeClass("disabled");
                     }
                 })),
 
-                $(document).off("click", ".zoom-icon.zoom-out").on("click", ".zoom-icon.zoom-out", (function(a) {
+                $(document).off("click", ".zoom-icon.zoom-out").on("click", ".zoom-icon.zoom-out", (function (a) {
+                    $('.primary-images').removeClass('zoomed-images');
+                    $(t).trigger('onZoomOut');
                     $(".zoom-icon.zoom-out").hasClass("is-active") && ( $(t).addClass("disabled"),
                     $(".zoom-icon.zoom-out").removeClass("is-active"))
                 }))
