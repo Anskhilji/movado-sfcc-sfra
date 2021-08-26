@@ -40,8 +40,26 @@
     color: $black;
     background: $pink-hot;
     border: rem(1) solid $pink-hot;
-  }
 
+    @include media-breakpoint-up(lg) {
+      width: rem(296);
+      height: rem(42.44);
+      padding: rem(10) rem(12) rem(10) rem(12);
+    }
+    
+  }
+.cart-and-ipay {
+
+  .apple-pay-pdp {
+    
+    @include media-breakpoint-up(lg) {
+      width: rem(296);
+      height: rem(42.44);
+      margin-top: rem(15);
+      padding: rem(10) rem(12) rem(10) rem(12);
+    }
+  }
+}
   .description {
     font-family: $font-gills-light;
     font-size: $font-size-text-heading1;
