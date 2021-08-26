@@ -699,9 +699,9 @@
 }
 
 .product-detail {
+    max-width: $container-max-width;
     padding: rem(16) 0 0;
     margin: 0 auto;
-    width: 60%;
 
     @include media-breakpoint-up(md-down) {
         padding: rem(45) rem(32);
@@ -834,6 +834,7 @@
                     }
 
                     .normal-zoom, .slide-video {
+                        max-width: rem(320);
                         margin: 0 auto;
                         width: 100%;
 
@@ -1155,6 +1156,7 @@
             margin-top: 0;
             margin-bottom: rem(15);
             padding-left: 0;
+            width: 100%;
         }
     }
 
@@ -1180,6 +1182,7 @@
             margin: 0 auto;
             letter-spacing: rem(1.25);
             transition: all .4s;
+            height: rem(60);
 
 
             @include media-breakpoint-up(md-down) {
