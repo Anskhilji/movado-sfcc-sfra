@@ -468,7 +468,7 @@ var updateCheckoutStage = function () {
      case 'payment':
              checkoutStep = ['3'];
              pageDataGTM.pageType = 'Checkout – Billing';
-             onCheckoutOption(checkoutStep - 1, shippingMethod);
+             onCheckoutOption(checkoutStep , shippingMethod);
              dataLayer.push({ pageData: pageDataGTM});
          break;
      case 'placeOrder':
@@ -476,7 +476,7 @@ var updateCheckoutStage = function () {
              checkoutStage = 'Confirm';
              pageDataGTM.pageType = 'Checkout – Review';
              if (paymentMethod != undefined) {
-                 onCheckoutOption(checkoutStep - 1, paymentMethod);
+                 onCheckoutOption(checkoutStep , paymentMethod);
              }
              dataLayer.push({ pageData: pageDataGTM});
          break;
