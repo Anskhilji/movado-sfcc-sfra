@@ -286,13 +286,12 @@ $(document).ready(function() {
             if ($(this).parents('.slick-active.slick-center').length > 0) {
                 $('#zoomProduct').modal('show');
                 if ($('.zoom-carousel.slick-slider:visible').length == 0) {
-                    $('.zoom-carousel.slick-slider').slick('refresh');
                     setTimeout(function() {
                         $('.zoom-carousel.slick-slider').slick('refresh');
                         $('.zoom-carousel-nav .slick-slider').slick('refresh');
+                        slickHeight();
+                        zoom();
                     }, 300);
-                    slickHeight();
-                    zoom();
                 }
             }
         });
