@@ -47,6 +47,7 @@ label.color ~ a:hover {
 .product-detail .description {
 
     margin-bottom: rem(30);
+    width: 100%;
 
     @include media-breakpoint-up(sm) {
         margin-bottom: 2rem;
@@ -66,9 +67,13 @@ label.availability {
 }
 
 .ratings {
-
+    width: rem(212);
+    height: rem(20);
+    
     @include media-breakpoint-up(sm) {
         margin-top: 0.625em;
+        width: rem(212);
+        height: rem(20);
     }
 
     @include media-breakpoint-only(xs) {
@@ -83,6 +88,7 @@ label.availability {
     font-weight: normal;
     text-align: center;
     color: $danger;
+    width: 100%;
 
     .callout {
         font-size: rem(16);
@@ -274,6 +280,18 @@ label.availability {
     }
 }
 
+.affirm-as-low-as {
+    width: 100%;
+    height: rem(45);
+}
+
+.cta-add-to-cart {
+
+    .add-to-cart {
+        width: 100%;
+        height: rem(35);
+    }
+}
 .slick-slider{
     touch-action: auto!important;
 }

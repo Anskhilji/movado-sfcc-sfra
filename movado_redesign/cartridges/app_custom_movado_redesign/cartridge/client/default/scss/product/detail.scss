@@ -56,6 +56,7 @@ $arrow-height: 1.25em;
         font-size: rem(17);
         color: $grey8;
         letter-spacing: normal;
+        width: 100%;
     }
 
     .price {
@@ -75,6 +76,8 @@ $arrow-height: 1.25em;
         color: $grey8;
         letter-spacing: normal;
         margin: 0;
+        width: 100%;
+        height: rem(40);
 
         .affirm-modal-trigger {
             @include font-demi;
@@ -98,6 +101,7 @@ $arrow-height: 1.25em;
         font-size: rem(16);
         letter-spacing: normal;
         width: 100%;
+        height: rem(38);
     }
 
     .slick-slide {
@@ -240,7 +244,7 @@ $arrow-height: 1.25em;
 
                     @include media-breakpoint-up(xl) {
                         min-width: auto;
-                        max-width: 70%;
+                        max-width: 100%;
                     }
                 }
             }
@@ -461,6 +465,7 @@ $arrow-height: 1.25em;
     .product-number-rating {
         display: flex;
         align-items: center;
+        width: 100%;
     }
 
     .drop-hint {
@@ -472,11 +477,16 @@ $arrow-height: 1.25em;
         outline: none;
         letter-spacing: normal;
         text-decoration: none;
+        width: rem(200);
+        height: rem(22);
+        
     }
 
     .ratings {
         margin: 0;
         margin-right: rem(25);
+        width: rem(200);
+        height: rem(20);
     }
 
     .product-tile {

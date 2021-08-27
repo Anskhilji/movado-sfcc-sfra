@@ -20,6 +20,8 @@
     font-size: $font-size-heading2;
     letter-spacing: rem(0.4);
     font-weight: normal;
+    width: 100%;
+    height: rem(45);
 
     a {
       font-family: $font-museo-light;
@@ -66,12 +68,20 @@
       }
    }
 
+  button.add-to-cart {
+    color: $black;
+    background: $pink-hot;
+    border: rem(1) solid $pink-hot;
+    width: rem(150);
+    height: rem(35);
+  }
 
   .description {
     font-family: $font-gills-light;
     font-size: $font-size-text-heading1;
     letter-spacing: rem(0.35);
     font-weight: normal;
+    width: 100%;
   }
 
   .product-options {
@@ -79,6 +89,8 @@
     font-size: $font-size-heading2;
     letter-spacing: rem(0.4);
     font-weight: normal;
+    width: 100%;
+    height: rem(90);
 
     a {
       font-family: $font-museo-light;
@@ -250,6 +262,7 @@
 
   .promotions {
     letter-spacing: rem(1.4);
+    width: 100%;
   }
 
   .prices {
@@ -588,6 +601,8 @@
 
 .price-availability {
   margin-top: rem(14);
+  width: 100%;
+  height: rem(25);
 
   .prices {
     margin-right: rem(10);
