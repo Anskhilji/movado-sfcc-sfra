@@ -23,7 +23,7 @@ function sendSubscriberToListrak(requestParams) {
         params.birthMonth = requestParams.birthMonth;
         params.countryCode = requestParams.country;
 
-        service = LTKAPIHelper.getAPIService(serviceID, Constants.LTK_API_ENDPOINT.CONTACT, accessToken, requestParams.event, requestParams.subscribe);
+        service = LTKAPIHelper.getAPIService(serviceID, Constants.LTK_API_ENDPOINT.CONTACT, accessToken, requestParams.event, requestParams.subscribe, requestParams.country);
         var result = LTKAPIHelper.addContactToLTK(params, service);
     } catch (e) {
         Logger.error('Listrak sendSubscriberToListrak: some exception occured while exporting subscriber - {0}', e.toString());
