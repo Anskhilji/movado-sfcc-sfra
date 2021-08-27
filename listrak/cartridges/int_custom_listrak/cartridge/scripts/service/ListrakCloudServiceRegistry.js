@@ -34,7 +34,7 @@ function getAuthorizationServiceConfigs() {
     return serviceConfig;
 }
 
-function getAPIService(serviceID, endpoint, eventId, subscribe) {
+function getAPIService(serviceID, endpoint, eventId, subscribe, countryCode) {
     var serviceConfig = null;
     serviceConfig = getDataAPIServiceConfigs();
     var dataService = LocalServiceRegistry.createService(serviceID, serviceConfig);
@@ -42,9 +42,10 @@ function getAPIService(serviceID, endpoint, eventId, subscribe) {
     var listID = Site.current.preferences.custom.Listrak_ListID || '';
     var eventIdPref = Site.getCurrent().getCustomPreferenceValue(eventId) || '';
     var subscribePref = subscribe == true || Site.getCurrent().getCustomPreferenceValue(subscribe) || false;
+    var countryCode = session.privacy.countryCode || countryCode;
     var url = baseUrl.toString();
     if (!empty(endpoint)) {
-        if (session.privacy.countryCode == Constants.GERMANY_COUNTRYCODE) {
+        if (countryCode == Constants.GERMANY_COUNTRYCODE) {
             url = baseUrl.toString() + endpoint.replace('{listId}', listID) + '?eventIds=' + eventIdPref + '&overrideUnsubscribe=' + subscribePref + '&sendDoubleOptIn=' + true;
         }
         else {

@@ -27,6 +27,8 @@ server.append('Confirm', function (req, res, next) {
                 requestParams.source = ltkConstants.Source.Checkout;
                 requestParams.event = ltkConstants.Event.Checkout;
                 requestParams.subscribe = ltkConstants.Subscribe.Checkout;
+                requestParams.firstName = order.getBillingAddress().firstName || '';
+                requestParams.lastName = order.getBillingAddress().lastName || '';
                 ltkApi.sendSubscriberToListrak(requestParams);
             } else {
                 var sfmcApi = require('*/cartridge/scripts/api/SFMCApi');
