@@ -578,7 +578,7 @@ function handleVariantResponse(response, $productContainer) {
 
     // Update primary images
     var primaryImageUrls = response.product.images;
-    primaryImageUrls.zoom1660.forEach(function (imageUrl, idx) {
+    primaryImageUrls.pdp600.forEach(function (imageUrl, idx) {
         $productContainer.find('.primary-images .cs-carousel-wrapper').find('img').eq(idx)
             .attr('src', imageUrl.url);
         $productContainer.find('.primary-images .cs-carousel-wrapper').find('.carousel-tile').eq(idx)
