@@ -289,7 +289,7 @@ $(document).ready(function() {
                     $('.zoom-carousel.slick-slider').slick('refresh');
                     setTimeout(function() {
                         $('.zoom-carousel.slick-slider').slick('refresh');
-                        $('.zoom-carousel-nav.slick-slider').slick('refresh');
+                        $('.zoom-carousel-nav .slick-slider').slick('refresh');
                     }, 300);
                     slickHeight();
                     zoom();
