@@ -458,7 +458,7 @@ var updateCheckoutStage = function () {
 
     $('body').off('checkOutStage:success').on('checkOutStage:success', function (evt, data) {
         updateDataLayer('checkout');
-        checkoutStage = data;debugger
+        checkoutStage = data;
 		 switch (data) {
      case 'shipping':
              checkoutStep = ['2'];
@@ -512,7 +512,7 @@ var updateCheckoutStage = function () {
  * A function to handle a click leading to a checkout option selection.
  */
 function onCheckoutOption(step, checkoutOption) {
-    debugger
+
     updateDataLayer('checkoutOption');
     dataLayer.push({
         event: 'checkoutOption',
