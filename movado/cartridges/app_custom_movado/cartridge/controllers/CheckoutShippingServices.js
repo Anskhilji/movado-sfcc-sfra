@@ -172,6 +172,9 @@ server.replace(
                         requestParams.source = ltkConstants.Source.Checkout;
                         requestParams.event = ltkConstants.Event.Checkout;
                         requestParams.subscribe = ltkConstants.Subscribe.Checkout;
+                        requestParams.firstName= form.shippingAddress.addressFields.firstName.value;
+                        requestParams.lastName= form.shippingAddress.addressFields.lastName.value;
+                        
                         ltkApi.sendSubscriberToListrak(requestParams);
                     } else {
                         var sfmcApi = require('*/cartridge/scripts/api/SFMCApi');

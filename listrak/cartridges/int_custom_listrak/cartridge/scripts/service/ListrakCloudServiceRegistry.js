@@ -44,7 +44,12 @@ function getAPIService(serviceID, endpoint, eventId, subscribe) {
     var subscribePref = subscribe == true || Site.getCurrent().getCustomPreferenceValue(subscribe) || false;
     var url = baseUrl.toString();
     if (!empty(endpoint)) {
-        url = baseUrl.toString() + endpoint.replace('{listId}', listID) + '?eventIds=' + eventIdPref + '&overrideUnsubscribe=' + subscribePref;
+        if (session.privacy.countryCode == Constants.GERMANY_COUNTRYCODE) {
+            url = baseUrl.toString() + endpoint.replace('{listId}', listID) + '?eventIds=' + eventIdPref + '&overrideUnsubscribe=' + subscribePref + '&sendDoubleOptIn=' + true;
+        }
+        else {
+            url = baseUrl.toString() + endpoint.replace('{listId}', listID) + '?eventIds=' + eventIdPref + '&overrideUnsubscribe=' + subscribePref;
+        }
     }
 
     dataService.setURL(url);

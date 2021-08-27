@@ -236,6 +236,8 @@ server.append('NotifyV2', function(req, res, next) {
                 var ltkConstants = require('*/cartridge/scripts/utils/ListrakConstants');
                 requestParams.source = ltkConstants.Source.Checkout;
                 requestParams.event = ltkConstants.Event.Checkout;
+                requestParams.firstName = billingCustomer[0].firstName;
+                requestParams.lastName = billingCustomer[0].lastName;
                 requestParams.subscribe = true;
                 ltkApi.sendSubscriberToListrak(requestParams);
             } else {
