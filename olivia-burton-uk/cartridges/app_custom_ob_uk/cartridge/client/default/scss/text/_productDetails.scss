@@ -37,6 +37,36 @@
     letter-spacing: rem(0.4);
     font-weight: $font-semi-bold;
   }
+  
+   &.pdp-obuk {
+
+      button.add-to-cart {
+        color: $black;
+        background: $pink-hot;
+        border: rem(1) solid $pink-hot;
+    
+        @include media-breakpoint-up(custom-md) {
+          width: rem(296);
+          height: rem(42.44);
+          padding: rem(10) rem(12) rem(10) rem(12);
+        }
+        
+      }
+      
+      .cart-and-ipay {
+    
+        .apple-pay-pdp {
+          
+          @include media-breakpoint-up(custom-md) {
+            width: rem(296);
+            min-width: initial;
+            height: rem(42.44);
+            margin-top: rem(15);
+            padding: rem(10) rem(12) rem(10) rem(12);
+          }
+        }
+      }
+   }
 
   button.add-to-cart {
     color: $black;
