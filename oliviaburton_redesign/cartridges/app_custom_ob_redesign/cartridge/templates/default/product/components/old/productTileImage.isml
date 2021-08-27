@@ -6,8 +6,7 @@
     </isloop>
     <a href="${pdict.urls.product}">
 	    <isif condition="${product && product.images}">
-            <isprint value="${product}" />
-	        <picture class="${product.images.tile640[0]}">
+	        <picture>
 	            <isif condition="${typeof pdict.display.isHighResolutionImage !== 'undefined' && pdict.display.isHighResolutionImage == true}">
                     <isif condition="${product.images.tile640[0]}"><img class="tile-image gtm-product" src="${product.images.tile640[0].url}" alt="${product.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
                     <isif condition="${product.images.tile640[0]}"><source media="(min-width: 992px)" srcset="${product.images.tile640[0].url}" /></isif>
