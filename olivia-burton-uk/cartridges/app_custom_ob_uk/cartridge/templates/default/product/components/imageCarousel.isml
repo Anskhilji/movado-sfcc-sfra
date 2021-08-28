@@ -18,7 +18,8 @@
                 <div class="carousel-tile">
                     <picture>
                          <source media="(min-width: 992px)" srcset="${product.images.pdp533[loopStatus.count - 1].url}" />
--                        <source media="(max-width: 991px)" srcset="${product.images.pdp533[loopStatus.count - 1].url}" />
+                         <source media="(max-width: 544px)" srcset="${product.images.pdp533[loopStatus.count - 1].url}" />
+-                        <source media="(max-width: 320px)" srcset="${product.images.pdp533[loopStatus.count - 1].url}" />
                         <img src="${image.url}" alt="${image.alt}" itemprop="image"
                         data-zoom-mobile-url="${product.images.zoom830[loopStatus.count - 1].url}"
                         data-zoom-desktop-url="${product.images.zoom1660[loopStatus.count - 1].url}" />
