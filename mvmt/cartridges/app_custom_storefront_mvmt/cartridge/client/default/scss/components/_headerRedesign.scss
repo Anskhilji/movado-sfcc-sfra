@@ -1,3 +1,7 @@
+
+
+}
+
 header.new-header.mvmt-header-redesign {
 
     .mvmt-menu-group {
@@ -67,13 +71,18 @@ header.new-header.mvmt-header-redesign {
 		}
 
         .mobile-tabs-content {
-            
+            border-bottom: rem(2) solid $light-silver;
+
             .tab-content {
                 display: none;
-                padding: rem(25) rem(15);
-    
+                padding: rem(25) rem(2) rem(25) rem(15);
+                
                 &.current {
                     display: inherit;
+                }
+
+                ul {
+                    padding: rem(0);
                 }
             }
 
@@ -81,6 +90,7 @@ header.new-header.mvmt-header-redesign {
 
                 .dropdown-link {
                     line-height: rem(50);
+                    padding: rem(0) rem(15) rem(0) rem(35);
                 }
             }
         }
