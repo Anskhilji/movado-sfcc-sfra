@@ -31,7 +31,8 @@ header.new-header.mvmt-header-redesign {
     }
 
     .mobile-tabs-container {
-        
+        margin-bottom: rem(22.4);
+
         ul.mobile-menu-tabs {
 
             display: block;
@@ -86,7 +87,7 @@ header.new-header.mvmt-header-redesign {
 
                 .dropdown-link {
                     line-height: rem(50);
-                    padding: rem(0) rem(15) rem(0) rem(35);
+                    padding: rem(0) rem(15) rem(0) rem(16);
                 }
             }
         }
