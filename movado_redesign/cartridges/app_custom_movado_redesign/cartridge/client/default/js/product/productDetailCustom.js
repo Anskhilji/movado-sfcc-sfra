@@ -297,4 +297,13 @@ $(document).ready(function() {
         });
         
     });
+    ratingRedesign();
 });
+
+function ratingRedesign() {
+    if (document.readyState == "interactive") {
+        if ($('.ratings').children().length == 0){
+            $('.ratings').addClass('ratings-redesign');
+        }
+    }
+}

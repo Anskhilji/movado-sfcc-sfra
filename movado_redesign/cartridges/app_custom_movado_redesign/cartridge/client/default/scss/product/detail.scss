@@ -489,6 +489,11 @@ $arrow-height: 1.25em;
         height: rem(20);
     }
 
+    .ratings-redesign {
+        width: rem(0)!important;
+        height: rem(0)!important;
+    }
+
     .product-tile {
         min-height: unset;
         position: relative;
