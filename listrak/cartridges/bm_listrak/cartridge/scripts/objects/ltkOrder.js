@@ -48,6 +48,7 @@ function OrderItem() {
     this.Product = null;
     this.custom = null;
     this.ItemDiscount = null;
+    this.DiscountedPrice = null;
 }
 
 /**
@@ -64,7 +65,7 @@ ltkOrder.prototype.LoadOrder = function (order) {
 
      /* MSS[1474]. Get Order Prices by FX rates Conversions */
     this.Order.OrderNumber = order.orderNo;
-    this.Order.ItemTotal = ltkHelper.getOrderItemTotal(order) || order.adjustedMerchandizeTotalNetPrice.value;
+    this.Order.ItemTotal = ltkHelper.getOrderItemTotal(order) || order.totalNetPrice.value; //There was order.adjustedMerchandizeTotalNetPrice.value but due change request to get original price not discounted
     this.Order.TaxTotal = ltkHelper.getOrderTaxTotal(order) || order.getTotalTax().value;
     this.Order.ShipTotal = ltkHelper.getOrderShipTotal(order) || order.getAdjustedShippingTotalNetPrice().value;
     this.Order.OrderTotal = ltkHelper.getOrderTotal(order) || order.totalGrossPrice.value;
@@ -122,7 +123,8 @@ ltkOrder.prototype.GetOrderItem = function (item) {
     if (!empty(item.product)) {
         orderItem.Sku = item.product.ID;
         /* MSS[1474]. Get Product Price by FX rates Conversions */
-        orderItem.Price = ltkHelper.getItemPrice(item.custom.eswRetailerCurrencyItemPriceInfo, this.Order) || item.adjustedPrice.value.toFixed(2) || ltkHelper.getProductPrice(item.product);
+        orderItem.Price = item.product.getPriceModel().getPrice().value;
+        orderItem.DiscountedPrice = ltkHelper.getItemPrice(item.custom.eswRetailerCurrencyItemPriceInfo, this.Order) || item.adjustedPrice.value.toFixed(2) || ltkHelper.getProductPrice(item.product);
         orderItem.localPrice = item.custom.eswShopperCurrencyItemPriceInfo 
         ? 
         ltkHelper.getCurrencySymbol(Currency.getCurrency(this.Order.custom.eswShopperCurrencyCode)) + item.custom.eswShopperCurrencyItemPriceInfo 
