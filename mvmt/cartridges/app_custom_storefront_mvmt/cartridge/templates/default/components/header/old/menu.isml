@@ -5,7 +5,7 @@
        <isif condition="${pdict.categories}">
           <isset name="headerRedesignControlSegment" value="${!dw.campaign.ABTestMgr.isParticipant('MVMTHeaderRedesign','header-redesign')}" scope="page" />
           <isloop items="${pdict.categories}" var="category">
-            <isif condition="${category.abTestSegmentIDs}">
+            <isif condition="${category.abTestSegmentIDs.length > 0}"> <iscomment> if to check segment ids </iscomment>
               <isloop items="${category.abTestSegmentIDs}" var="abTestID">
                 <isif condition="${headerRedesignControlSegment && abTestID == "Control"}">
                     <isif condition="${category.subCategories || category.disableSubCategories}">
@@ -28,6 +28,25 @@
                     </isif>
                 </isif>
               </isloop>
+            <iselse/>
+              <isif condition="${category.subCategories || category.disableSubCategories}">
+                <iscomment> Custom: sub-dropdown class added</iscomment>
+                <li class="nav-item sub-dropdown dropdown gtm-customEvent" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
+                  <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      ${category.name}
+                  </a>
+                  <isset name="topCat" value="${category}" scope="page"/>
+                  <isset name="gtmCategoryVal" value="${JSON.stringify(category.gtmNavVal)}" scope="page"/>
+                  <isset name="menuItem" value="${category}" scope="page" />
+                  <isinclude template="components/header/old/menuItem" />
+                </li>
+              <iselse/>
+                <li class="nav-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
+                  <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" role="button" class="nav-link">
+                     ${category.name}
+                  </a>
+                </li>
+              </isif>
             </isif>
           </isloop>
        </isif>
