@@ -405,12 +405,8 @@
   &-products {
     display: flex;
 
-      .slick-track {
-        width: rem(310)!important;
-      }
       .slick-slide {
           padding: 0 rem(10);
-          width: rem(155)!important;
       }
 
       .upsell {

@@ -1314,13 +1314,8 @@
         &-products {
             display: flex;
 
-            .slick-track {
-                width: rem(351)!important;
-            }
-
             .slick-slide {
                 padding: 0 rem(10);
-                width: rem(117)!important;
             }
 
             .upsell {
