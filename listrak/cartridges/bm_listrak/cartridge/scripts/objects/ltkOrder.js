@@ -65,7 +65,7 @@ ltkOrder.prototype.LoadOrder = function (order) {
 
      /* MSS[1474]. Get Order Prices by FX rates Conversions */
     this.Order.OrderNumber = order.orderNo;
-    this.Order.ItemTotal = ltkHelper.getOrderItemTotal(order) || order.totalNetPrice.value; //There was order.adjustedMerchandizeTotalNetPrice.value but due change request to get original price not discounted
+    this.Order.ItemTotal = ltkHelper.getOrderItemTotal(order) || order.merchandizeTotalPrice.value; //There was order.adjustedMerchandizeTotalNetPrice.value but due change request to get original price not discounted
     this.Order.TaxTotal = ltkHelper.getOrderTaxTotal(order) || order.getTotalTax().value;
     this.Order.ShipTotal = ltkHelper.getOrderShipTotal(order) || order.getAdjustedShippingTotalNetPrice().value;
     this.Order.OrderTotal = ltkHelper.getOrderTotal(order) || order.totalGrossPrice.value;
