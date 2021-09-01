@@ -122,7 +122,7 @@ function orderSync(args) {
                 orderfile.AddRowItem(o.Order.OrderNumber, true);
                 orderfile.AddRowItemAsDate(o.Order.OrderDate);
                 orderfile.AddRowItem(o.orderTotal().toFixed(2));
-                orderfile.AddRowItem(o.Order.ItemTotal.toFixed(2));
+                orderfile.AddRowItem(o.lineItemTotal(order).toFixed(2));
                 orderfile.AddRowItem(o.Order.TaxTotal.toFixed(2));
                 orderfile.AddRowItem(o.Order.ShipTotal.toFixed(2));
 

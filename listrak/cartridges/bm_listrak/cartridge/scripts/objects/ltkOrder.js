@@ -65,7 +65,7 @@ ltkOrder.prototype.LoadOrder = function (order) {
 
      /* MSS[1474]. Get Order Prices by FX rates Conversions */
     this.Order.OrderNumber = order.orderNo;
-    this.Order.ItemTotal = ltkHelper.getOrderItemTotal(order) || order.merchandizeTotalPrice.value; //There was order.adjustedMerchandizeTotalNetPrice.value but due change request to get original price not discounted
+    this.Order.ItemTotal = ltkHelper.getOrderItemTotal(order) || order.adjustedMerchandizeTotalNetPrice.value;
     this.Order.TaxTotal = ltkHelper.getOrderTaxTotal(order) || order.getTotalTax().value;
     this.Order.ShipTotal = ltkHelper.getOrderShipTotal(order) || order.getAdjustedShippingTotalNetPrice().value;
     this.Order.OrderTotal = ltkHelper.getOrderTotal(order) || order.totalGrossPrice.value;
@@ -111,6 +111,17 @@ ltkOrder.prototype.orderTotal = function () {
     return this.Order.ItemTotal + this.Order.TaxTotal + this.Order.ShipTotal;
 };
 
+// Custom Start: Get the Order Line Item Total [MSS-1474]
+ltkOrder.prototype.lineItemTotal = function (order) {
+    var lineItemAmount = 0;
+    var lineItemIt = order.getProductLineItems().iterator();
+    while (lineItemIt.hasNext()) {
+        var lineItem = lineItemIt.next();
+        lineItemAmount += lineItem.adjustedNetPrice;
+    }
+    return lineItemAmount;
+}
+// Custom End
 ltkOrder.prototype.Serialize = function () {
     return encodeURI(JSON.stringify(this.Order));
 };
