@@ -7,7 +7,9 @@ var ProductMgr = require('dw/catalog/ProductMgr')
 var PromotionMgr = require('dw/campaign/PromotionMgr');
 var Promotion = require('dw/campaign/Promotion');
 var Money = require('dw/value/Money');
+var Site = require('dw/system/Site');
 var Resource = require('dw/web/Resource');
+
 var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
@@ -31,6 +33,7 @@ server.replace(
         var abTestSegment;
         var order = OrderMgr.getOrder(req.querystring.ID);
         var token = req.querystring.token ? req.querystring.token : null;
+        var userIPAddress = request.httpRemoteAddress || '';
 
         if (!order
             || !token
@@ -74,11 +77,29 @@ server.replace(
             }
         }
 
-        // Save test segments in order custom attribute
-        if (!empty(abTestParticipationSegments)) {
-            Transaction.wrap(function () {
+        // Custom Start: Save values in order custom attributes
+        Transaction.wrap(function() {
+            if(!empty(abTestParticipationSegments)) {
                 order.custom.abTestParticipationSegment = abTestParticipationSegments;
-            });
+            }
+            order.custom.userIPAddress = userIPAddress;
+            order.custom.isOrderCompleted = true;
+        });
+
+        // Custom Start: Salesforce Order Management attributes.  Backup method - only executed if attributes are null (i.e., ORM exception after COPlaceOrder)
+        if (Site.current.getCustomPreferenceValue('SOMIntegrationEnabled')) {
+            if ('SFCCPriceBookId' in order.custom && !order.custom.SFCCPriceBookId) {
+                var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
+                var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
+                somLog.debug('Processing Order ' + order.orderNo);
+                try {
+                    Transaction.wrap(function () {
+                        populateOrderJSON.populateByOrder(order);
+                    });
+                } catch (exSOM) {
+                    somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
+                }
+            }
         }
         /**~
          * Custom Start: Clyde Integration
@@ -115,28 +136,30 @@ server.replace(
 server.append('Confirm', function (req, res, next) {
     var OrderMgr = require('dw/order/OrderMgr');
     var Site = require('dw/system/Site');
-    var Transaction = require('dw/system/Transaction');
     var viewData = res.getViewData();
     var marketingProductsData = [];
     var orderAnalyticsTrackingData;
     var uniDaysTrackingLineItems;
-    var orderNo = !empty(viewData.order) && !empty(viewData.order.orderNumber) ? viewData.order.orderNumber : session.custom.orderNumber;
+    var orderNo = '';
+
+    if (!empty(viewData) && !empty(viewData.order) && !empty(viewData.order.orderNumber)) {
+        orderNo = viewData.order.orderNumber;
+    } else if (!empty(session) && !empty(session.custom.orderNumber)) {
+        orderNo = session.custom.orderNumber;
+    } else {
+        orderNo = req.querystring.ID
+    }
+
     var order = OrderMgr.getOrder(orderNo);
     var orderLineItems = order.getAllProductLineItems();
     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
     var productLineItem;
-    var userIPAddress = request.httpRemoteAddress || '';
     var couponLineItemsItr = order.getCouponLineItems().iterator();
     var checkoutAddrHelper = require('*/cartridge/scripts/helpers/checkoutAddressHelper');
     var orderCustomHelper = require('*/cartridge/scripts/helpers/orderCustomHelper');
     if (!empty(viewData.order)) {
         checkoutAddrHelper.saveCheckoutShipAddress(viewData.order);
     }
-    
-
-    Transaction.wrap(function () {
-        order.custom.userIPAddress = userIPAddress;
-    });
 
     if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
         var queryStringIntoParts = viewData.queryString.split('&');
@@ -251,23 +274,6 @@ server.append('Confirm', function (req, res, next) {
     res.setViewData({
         marketingProductData : JSON.stringify(marketingProductsData)
     });
-
-    
-    // Custom Start: Salesforce Order Management attributes.  Backup method - only executed if attributes are null (i.e., ORM exception after COPlaceOrder)
-    if (Site.current.getCustomPreferenceValue('SOMIntegrationEnabled')) {
-        if ('SFCCPriceBookId' in order.custom && !order.custom.SFCCPriceBookId) {
-            var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
-            var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
-            somLog.debug('Processing Order ' + order.orderNo);
-            try {
-                Transaction.wrap(function () {
-                    populateOrderJSON.populateByOrder(order);
-                });
-            } catch (exSOM) {
-                somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
-            }
-        }
-    }
     
     var customerID = '';
     var loggedIn = req.currentCustomer.raw.authenticated;
@@ -307,13 +313,6 @@ server.append('Confirm', function (req, res, next) {
     if (!empty(session.custom.orderNumber)) {
         session.custom.orderNumber = '';
     }
-
-    this.on('route:BeforeComplete', function (req, res) {
-        Transaction.wrap(function () {
-            order.custom.isOrderCompleted = true;
-        });
-    });
-
     next();
 });
 server.post('FBConversion', function (req, res, next) {
