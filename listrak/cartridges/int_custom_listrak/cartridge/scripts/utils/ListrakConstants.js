@@ -4,6 +4,8 @@ exports.LTK_ACCESS_TOKEN_OBJECT = 'ltk_AccessToken';
 exports.LTK_ACCESS_TOKEN_OBJECT_ID = 'ltk_AccessToken';
 exports.CURRENCY_USD = 'USD';
 exports.GERMANY_COUNTRYCODE = 'DE';
+exports.BIRTH_YEAR = '1900';
+exports.DATE_SEPRATOR = '/';
 exports.Subscription_State = 'Subscribed';
 exports.LTK_API_ENDPOINT = {
     CONTACT: '/List/{listId}/Contact/',
