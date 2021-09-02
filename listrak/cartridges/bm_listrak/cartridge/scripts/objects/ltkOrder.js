@@ -114,14 +114,17 @@ ltkOrder.prototype.orderTotal = function () {
 // Custom Start: Get the Order Line Item Total [MSS-1474]
 ltkOrder.prototype.lineItemTotal = function (order) {
     var lineItemAmount = 0;
+    var Money = require('dw/value/Money');
     lineItemAmount = ltkHelper.getOrderItemTotal(order);
     if (!lineItemAmount) {
         lineItemAmount = 0;
+        var lineItemTotal = new Money(lineItemAmount, order.currencyCode);
         var lineItemIt = order.getProductLineItems().iterator();
         while (lineItemIt.hasNext()) {
             var lineItem = lineItemIt.next();
-            lineItemAmount += lineItem.adjustedNetPrice;
+            lineItemTotal = lineItemTotal.add(lineItem.adjustedNetPrice);
         }
+        return lineItemTotal.value;
     }
     return lineItemAmount;
 }
