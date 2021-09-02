@@ -1360,19 +1360,24 @@
         padding-right: rem(5);
         padding-left: rem(5);
 
+        @include media-breakpoint-up(xs-custom) {    
+            margin-bottom: rem(48);
+        }
+
         @include media-breakpoint-up(sm) {
+            margin-bottom: rem(48);
             padding-right: rem(8);
             padding-left: rem(8);
         }
 
         @include media-breakpoint-up(lg) {
-            margin-bottom: rem(20);
+            margin-bottom: rem(60);
             flex: 0 0 25%;
             max-width: 25%;
         }
 
         @include media-breakpoint-up(xl) {
-            margin-bottom: rem(20);
+            margin-bottom: rem(60);
             flex: 0 0 20%;
             max-width: 20%;
         }
@@ -1420,7 +1425,6 @@
                     box-shadow: 0 rem(2) rem(6) rgba(155, 155, 155, 0.5);
 
                     @include media-breakpoint-up(lg) {
-                        margin-bottom: rem(-56);
                         position: relative;
                         z-index: 5;
                     }
@@ -1436,7 +1440,7 @@
                     .tile-body {
                         @include media-breakpoint-up(lg) {
                             height: auto;
-                            transform: translateY(50px);
+                            transform: translateY(80px);
                             margin-bottom: rem(5);
                             box-shadow: 0 rem(2) rem(2) rgba(155, 155, 155, 0.5);
                         }
@@ -1461,19 +1465,19 @@
                     padding-bottom: rem(65);
 
                     @include media-breakpoint-up(xs-custom) {
-                        padding-bottom: rem(128);
+                        padding-bottom: rem(140);
                     }
 
                     @include media-breakpoint-up(sm-custom) {
-                        padding-bottom: rem(124.8);
+                        padding-bottom: rem(144);
                     }
                     
                     @include media-breakpoint-up(sm) {
-                        padding-bottom: rem(136);
+                        padding-bottom: rem(160);
                     }
 
                     @include media-breakpoint-up(md) {
-                        padding-bottom: rem(128);
+                        padding-bottom: rem(160);
                     }
 
                     @include media-breakpoint-up(lg) {
@@ -1525,7 +1529,7 @@
                         min-height: rem(100);
                         height: auto;
                         transition: transform 0.4s all;
-                        transform: translateY(0px);
+                        transform: translateY(25px);
                         
                     }
 
