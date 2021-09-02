@@ -31,7 +31,7 @@ function generateAddContactToLTKPayload(params) {
             },
             {
                 "segmentationFieldId": Site.current.preferences.custom.Listrak_BirthDate || '',
-                "value": (params.birthMonth || '')  + Constants.DATE_SEPRATOR + (params.birthday || '') + Constants.DATE_SEPRATOR + Constants.BIRTH_YEAR
+                "value": params.birthMonth && params.birthday ? (params.birthMonth || '')  + Constants.DATE_SEPRATOR + (params.birthday || '') + Constants.DATE_SEPRATOR + Constants.BIRTH_YEAR : ''
             },
             {
                 "segmentationFieldId": Site.getCurrent().getCustomPreferenceValue(params.source),
