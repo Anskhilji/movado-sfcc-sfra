@@ -301,7 +301,6 @@ server.append('Confirm', function (req, res, next) {
     if (!empty(session.custom.orderNumber)) {
         session.custom.orderNumber = '';
     }
-
     next();
 });
 server.post('FBConversion', function (req, res, next) {
