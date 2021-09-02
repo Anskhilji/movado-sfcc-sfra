@@ -360,6 +360,10 @@ function getSearchQuery(queryStringVal) {
                 searchArray = queryString.split('=');
                 searchQuery = { pid: searchArray[searchArray.length - 1] };
             }
+            else if ((queryString.indexOf('pid')) > -1) {
+                searchArray = queryString.split('=');
+                searchQuery = { pid: searchArray[1] };
+            }
     
         } else if ((queryString.indexOf('pid')) > -1) {
                 searchArray = queryString.split('=');
