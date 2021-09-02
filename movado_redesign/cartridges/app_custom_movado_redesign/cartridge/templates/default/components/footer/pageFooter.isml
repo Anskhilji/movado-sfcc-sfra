@@ -105,5 +105,8 @@
 
     <iscomment>Logged in Customer tracking for Yotpo Swell Loyalty</iscomment>
     <isinclude template="include/yotpofooter"/>
+
+    <iscomment>Listrak Cartridge Integration</iscomment>
+    <isinclude url="${URLUtils.url('ltkInclude-Start')}"/>
     <isinclude template="common/oneTrustCookiesHTML" sf-toolkit="off" />
 </footer>

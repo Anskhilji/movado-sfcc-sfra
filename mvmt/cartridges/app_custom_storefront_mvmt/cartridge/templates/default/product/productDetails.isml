@@ -1,4 +1,5 @@
 <iscomment> Custom: Start [Change classes and structure as per requirment] </iscomment> 
+<isinclude url="${URLUtils.https('ltkActivityTracking-TrackRequest', 'pid', pdict.product.id)}"/>
 
 <isdecorate template="common/layout/page">
 <isinclude template="/components/modules" sf-toolkit="off" />

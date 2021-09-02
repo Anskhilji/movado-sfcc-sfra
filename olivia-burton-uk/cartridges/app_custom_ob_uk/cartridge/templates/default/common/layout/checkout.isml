@@ -34,6 +34,8 @@
         <isinclude template="analyticsTracking/analyticsTrackingFooter.isml"/>
         <iscomment>CUSTOM: Include resources template to avail backend resource messages on all pages.</iscomment>
         <isinclude template="resources/appresources"/>
+        <iscomment> Listrak Activity Track Call </iscomment>
+        <isinclude url="${URLUtils.url('ltkInclude-Start')}"/>
         <isinclude template="common/oneTrustCookiesHTML" sf-toolkit="off" />
     </body>
 </html>

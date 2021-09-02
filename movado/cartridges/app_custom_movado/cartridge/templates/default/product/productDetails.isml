@@ -1,3 +1,5 @@
+<isinclude url="${URLUtils.https('ltkActivityTracking-TrackRequest', 'pid', pdict.product.id)}"/>
+
 <isdecorate template="common/layout/page">
 
     <isscript>
