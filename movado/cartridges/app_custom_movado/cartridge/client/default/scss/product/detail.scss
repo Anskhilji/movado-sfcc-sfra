@@ -208,17 +208,40 @@ label.availability {
     }
 }
 
-.dw-apple-pay-button.apple-pay-pdp,
-.dw-apple-pay-button.apple-pay-pdp:hover {
+.dw-apple-pay-button.apple-pay-pdp {
+
     min-width: 30%;
+
     @include media-breakpoint-down(lg) {
         min-width: 96%;
         font-size: rem(16);
         margin-top: rem(5);
-        margin-left: rem(0) !important;
     }
+
+    @include media-breakpoint-down(sm) {
+        min-width: 94%;
+    }
+
     &:after {
         font-size: rem(6);
+    } 
+    
+    &:hover {
+        min-width: 30%;
+
+        @include media-breakpoint-down(lg) {
+            min-width: 96%;
+            font-size: rem(16);
+            margin-top: rem(5);
+        }
+
+        @include media-breakpoint-down(sm) {
+            min-width: 94%;
+        }
+
+        &:after {
+            font-size: rem(6);
+        }
     }
 }
 
@@ -240,13 +263,6 @@ label.availability {
     }
     @include media-breakpoint-down(xs) {
         width: auto;
-    }
-}
-
-.dw-apple-pay-button.apple-pay-pdp,
-.dw-apple-pay-button.apple-pay-pdp:hover {
-    @include media-breakpoint-down(sm) {
-        min-width: 100%;
     }
 }
 
