@@ -1,5 +1,4 @@
 <iscomment> Custom: Start [Change classes and structure as per requirment] </iscomment> 
-<isinclude url="${URLUtils.https('ltkActivityTracking-TrackRequest', 'pid', pdict.product.id)}"/>
 
 <isdecorate template="common/layout/page">
 <isinclude template="/components/modules" sf-toolkit="off" />
@@ -9,7 +8,10 @@
         assets.addJs('/js/productDetail.js');
         assets.addCss('/css/product/detail.css');
     </isscript>
-
+    <isset name="isListrackEnable" value="${!empty(dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) ? dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled : false}" scope="page" />
+    <isif condition="${isListrackEnable}">
+        <isinclude url="${URLUtils.https('ltkActivityTracking-TrackRequest', 'pid', pdict.product.id)}"/>  
+    </isif>
     <isset name="sitePref" value="${dw.system.Site.getCurrent().preferences.custom}" scope="page">
     <isif condition="${sitePref.EUMEnabled}">
         <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.pdp', 'eum', null))}"/>
