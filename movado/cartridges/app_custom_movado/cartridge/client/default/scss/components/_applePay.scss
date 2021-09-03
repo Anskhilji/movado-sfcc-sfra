@@ -26,9 +26,8 @@
     flex-basis: 0;
     flex-grow: 0;
     max-width: 100%;
-    margin: auto;
+    margin: auto 0;
     border-radius: 0;
-    
 }
 
 isapplepay.btn {
@@ -48,16 +47,8 @@ isapplepay.btn {
 }
 
 .cart-and-ipay {
-
-    .apple-pay-pdp.btn {
     display: flex;
-    justify-content: center;
-
-    @include media-breakpoint-up(md) {
-        justify-content: flex-start;
-        margin-left: rem(15);
-    }
-  }
+    justify-content: flex-start;
 }
 
 .applepay-tab-wrapper {
