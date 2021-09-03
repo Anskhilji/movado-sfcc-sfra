@@ -54,16 +54,28 @@
       }
       
       .cart-and-ipay {
+
+        &.btn {
+          width: 98.5%;
+          margin: 0 auto;
+        }
     
         .apple-pay-pdp {
           
           @include media-breakpoint-up(custom-md) {
             width: rem(296);
-            min-width: initial;
+            min-width: rem(296);
             height: rem(42.44);
             margin-top: rem(15);
+            margin-left: rem(15);
             padding: rem(10) rem(12) rem(10) rem(12);
           }
+
+          @include media-breakpoint-down(sm) {
+            margin:2% auto;
+            min-width: 92.3%;
+          }
+
         }
       }
    }
@@ -82,7 +94,6 @@
     letter-spacing: rem(0.4);
     font-weight: normal;
     width: 100%;
-    height: rem(90);
 
     a {
       font-family: $font-museo-light;

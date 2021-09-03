@@ -10,7 +10,7 @@
                      ${Resource.msg('button.addtocart', 'common', null)}
                 </isif>
         </button>
-        <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}">
+        <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}" />
         
         <isif condition="${product.available && product.readyToOrder}">
             <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
@@ -20,7 +20,7 @@
                     <isapplepay class="apple-pay-pdp btn ml-sm-2 ml-lg-0" sku="${product.id}"></isapplepay>
                 </isif>
                 <div class="product-not-available-msg <isif condition="${!product.isProductRestricted}">d-none</isif>">${Resource.msg('esw.product.notavailable','esw',null)}</div>
-            <iselse>
+            <iselse/>
                 <isapplepay class="apple-pay-pdp btn ml-sm-2 ml-lg-0" sku="${product.id}"></isapplepay>
             </isif>
         </isif>
