@@ -24,6 +24,7 @@
                         data-zoom-mobile-url="${product.images.zoom830[loopStatus.count - 1].url}"
                         data-zoom-desktop-url="${product.images.zoom1660[loopStatus.count - 1].url}" />
                         <isset name="isImageExist" value="true" scope="page" />
+                        <p>${isImageExist}</p>
                     </picture>
                     <isif condition="${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL) }">
                         <video class="slide-video d-none " loop muted autoplay playsinline>
