@@ -33,4 +33,7 @@
 <isinclude template="util/reporting/ReportUserRegistration.isml"/>
 
 <isinclude template="components/footer/footer_UI"/>
-<isinclude url="${URLUtils.url('ltkInclude-Start')}"/>
+<isset name="isListrakEnable" value="${!empty(dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) ? dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled : false}" scope="page" />
+<isif condition="${isListrakEnable}">
+    <isinclude url="${URLUtils.url('ltkInclude-Start')}" />
+</isif>

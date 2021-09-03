@@ -15,8 +15,10 @@ function getCountryCode(request) {
     var countryCode;
     if (!empty(session.privacy.countryCode)) {
         countryCode = session.privacy.countryCode;
+    } else if (request.httpCookies && request.httpCookies['esw.location'] != null && request.httpCookies['esw.location'].value != '') {
+        countryCode = request.httpCookies['esw.location'] != null ? (request.httpCookies['esw.location'].value != null ? request.httpCookies['esw.location'].value : '') : '';
     } else {
-        var countryCode = request.httpCookies['esw.location'] != null ? (request.httpCookies['esw.location'].value != null ? request.httpCookies['esw.location'].value : '') : '';
+        countryCode = request.geolocation.countryCode;
     }
     return countryCode;
 }

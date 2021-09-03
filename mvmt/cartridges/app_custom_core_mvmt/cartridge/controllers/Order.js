@@ -32,7 +32,7 @@ server.append('Confirm', function (req, res, next) {
                 ltkApi.sendSubscriberToListrak(requestParams);
             } else {
                 var sfmcApi = require('*/cartridge/scripts/api/SFMCApi');
-                SFMCApi.sendSubscriberToSFMC(requestParams);
+                sfmcApi.sendSubscriberToSFMC(requestParams);
             }
         }
     } catch (e) {

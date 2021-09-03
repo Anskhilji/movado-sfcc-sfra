@@ -178,7 +178,7 @@ server.replace(
                         ltkApi.sendSubscriberToListrak(requestParams);
                     } else {
                         var sfmcApi = require('*/cartridge/scripts/api/SFMCApi');
-                        SFMCApi.sendSubscriberToSFMC(requestParams);
+                        sfmcApi.sendSubscriberToSFMC(requestParams);
                     }
                     var isGtmEnabled = Site.current.getCustomPreferenceValue('gtmEnabled');
                     if (isGtmEnabled) {
