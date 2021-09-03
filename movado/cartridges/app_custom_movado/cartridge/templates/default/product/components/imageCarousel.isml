@@ -21,7 +21,6 @@
             <source media="(max-width: 991px)" srcset="${product.images.pdp533[loopStatus.count-1].url}" />
             <img src="${image.url}" alt="${image.alt}" itemprop="image" data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom830[loopStatus.count-1]) && !empty(product.images.zoom830[loopStatus.count-1].url) ? product.images.zoom830[loopStatus.count-1].url : ''}" data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count-1]) && !empty(product.images.zoom1660[loopStatus.count-1].url) ? product.images.zoom1660[loopStatus.count-1].url : ''}" />
             <isset name="isImageExist" value="true" scope="page" />
-            <p>${isImageExist}</p>
           </picture>
           <isif condition="${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL) }">
             <video id="slide-video" class="slide-video d-none" loop muted autoplay playsinline >
