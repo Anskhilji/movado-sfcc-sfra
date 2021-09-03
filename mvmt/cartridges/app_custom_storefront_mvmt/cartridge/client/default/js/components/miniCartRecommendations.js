@@ -176,6 +176,12 @@ $(document).ready(function (params) {
                 }
                 updateCartTotals(response.cart); 
                 handlePostCartAdd(response); 
+                //Custom Start: [MSS-1451] Listrak SendSCA on AddToCart
+                if (window.Resources.LISTRAK_ENABLED) {
+                    var ltkSendSCA = require('listrak_custom/ltkSendSCA');
+                    ltkSendSCA.renderSCA(response.SCACart, response.listrakCountryCode);
+                }
+                //Custom End
                 $.spinner().stop();
             },
             error: function() {
