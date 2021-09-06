@@ -14,12 +14,12 @@
 <input type="hidden" class="form-control selectedCardID" value=""
 	id="selectedCardID"${creditFields.selectedCardID.attributes} >
 
+<h6>Card Informantion</h6>
 <div class="row">
 	<div class="col-12">
-		<div class="form-group
-            required">
-			<label class="form-control-label" for="holderName">${Resource.msg('field.credit.card.holderName','creditCard',null)}</label>
-			<input type="text" class="form-control holderName" id="holderName" data-encrypted-name="holderName" ${creditFields.cardOwner.attributes} >
+		<div class="form-group">
+			<label class="form-control-label" for="holderName"></label>
+			<input type="text" class="form-control holderName" id="holderName" placeholder="Cardholder Name*" data-encrypted-name="holderName" ${creditFields.cardOwner.attributes} >
 			<div class="invalid-feedback"></div>
 		</div>
 	</div>
@@ -28,10 +28,10 @@
 <div class="row">
 	<div class="col-12">
 		<div
-			class="form-group required ${creditFields.cardNumber.htmlName}">
-			<label class="form-control-label" for="cardNumber">${Resource.msg('field.credit.card.number','creditCard',null)}</label>
+			class="form-group  ${creditFields.cardNumber.htmlName}">
+			<label class="form-control-label" for="cardNumber"></label>
 			<div class="card-number-wrapper">
-				<input inputmode="numeric" pattern="[0-9]*" type="text" class="form-control cardNumber" id="cardNumber"
+				<input inputmode="numeric" pattern="[0-9]*" type="text" class="form-control cardNumber" id="cardNumber" placeholder="Card Number*"
                     value="${pdict.order.billing.payment.selectedPaymentInstruments
                         && pdict.order.billing.payment.selectedPaymentInstruments.length > 0
                         ? pdict.order.billing.payment.selectedPaymentInstruments[0].maskedCreditCardNumber||''
@@ -48,45 +48,26 @@
 <div class="row">
 	<div class="col-6 field-left">
 		<div
-			class="form-group required ${creditFields.expirationMonth.htmlName} relative">
-			<label class="form-control-label" for="expirationMonth">${Resource.msg('field.credit.card.expiration.month','creditCard',null)}</label>
-			<select class="form-control expirationMonth custom-select"
-				id="expirationMonth"
-				${creditFields.expirationMonth.attributes}
-                    autocomplete="cc-exp-month"
-				data-encrypted-name="expiryMonth">
-				<isloop items=${creditFields.expirationMonth.options} var="month">
-				<option id="${month.id}" value="${month.htmlValue}"<isif
-						condition="${pdict.order.billing.payment.selectedPaymentInstruments
-                            && pdict.order.billing.payment.selectedPaymentInstruments.length > 0
-                            && month.id == pdict.order.billing.payment.selectedPaymentInstruments[0].expirationMonth}">
-					selected </isif> > ${month.label}
-				</option>
-				</isloop>
-			</select>
-			<i class="fa fa-angle-down"></i>
-			<div class="invalid-feedback"></div>
+			class="form-group ${creditFields.expirationMonthandYear.htmlName} relative">
+			<label class="form-control-label" for="expirationMonthandYear"></label>
+			<input type="text" class="form-control expirationMonthandYear custom-select"
+				id="expirationMonthandYear" placeholder="Expiration (MM/YY)*"
+				${creditFields.expirationMonthandYear.attributes}
+                    autocomplete="cc-exp-monthandYear"
+				data-encrypted-name="expiryMonthandYear">
+			</input>
 		</div>
 	</div>
 	<div class="col-6 field-right">
 		<div
-			class="form-group required ${creditFields.expirationYear.htmlName} relative">
-			<label class="form-control-label invisible" for="expirationYear">${Resource.msg('field.credit.card.expiration.year','creditCard',null)}</label>
-			<select class="form-control expirationYear custom-select"
-				id="expirationYear" data-encrypted-name="expiryYear"
-				${creditFields.expirationYear.attributes} autocomplete="cc-exp-year">
-				<option
-					value="${pdict.forms.billingForm.creditCardFields.expirationYear.options[0].htmlValue}">${pdict.forms.billingForm.creditCardFields.expirationYear.options[0].label}</option>
-				<isloop items=${pdict.expirationYears} var="year">
-				<option id="${year.toFixed(0)}" value="${year.toFixed(0)}"<isif
-						condition="${pdict.order.billing.payment.selectedPaymentInstruments
-                            && pdict.order.billing.payment.selectedPaymentInstruments.length > 0
-                            && year == pdict.order.billing.payment.selectedPaymentInstruments[0].expirationYear}">
-					selected </isif> >
-					<isprint value="${year}" formatter="####" /></option>
-				</isloop>
-			</select>
-			<i class="fa fa-angle-down"></i>
+			class="form-group ${creditFields.securityCode.htmlName}">
+			<label class="form-control-label" for="securityCode"> </label>
+			<iscomment> <span class="info-icon"> <span class="icon">i</span>
+				<div class="tooltip">
+					${Resource.msg('tooltip.security.code','creditCard',null)}</div>
+			</span> </iscomment>
+			 <input type="password" class="form-control securityCode"
+				id="securityCode" placeholder="Security Code*"    data-encrypted-name="cvc" maxlength="3">
 			<div class="invalid-feedback"></div>
 		</div>
 	</div>
@@ -94,16 +75,7 @@
 
 <div class="row">
 	<div class="col-sm-6 field-left">
-		<div
-			class="form-group required ${creditFields.securityCode.htmlName}">
-			<label class="form-control-label" for="securityCode">${Resource.msg('field.credit.card.security.code','creditCard',null)}</label>
-			<span class="info-icon"> <span class="icon">i</span>
-				<div class="tooltip">
-					${Resource.msg('tooltip.security.code','creditCard',null)}</div>
-			</span> <input type="password" class="form-control securityCode"
-				id="securityCode" data-encrypted-name="cvc" maxlength="3">
-			<div class="invalid-feedback"></div>
-		</div>
+		
 	</div>
 </div>
 <span id="invalidCardDetails" class="invalid-feedback"
