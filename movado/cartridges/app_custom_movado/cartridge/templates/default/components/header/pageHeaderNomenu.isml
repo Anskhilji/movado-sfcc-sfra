@@ -4,15 +4,22 @@
       <div class="sticky-header-placeholder"></div>
       <div class="header-menu-wrapper">
         <div class="header-wrapper checkout-header-wrapper">
-          <div class="middle flex align-items-center checkout-logo">
-            <isslot id="brand-logo" description="Brand Logo" context="global" />
-            <div class="logo-checkout-text"><a href="${URLUtils.url('Home-Show')}">${Resource.msg('title.checkout','checkout',null)}</a></div>
+
+          <div class="header-left">
+              <div class="flex align-items-center checkout-logo">
+                <isslot id="brand-logo" description="Brand Logo" context="global" />
+              </div>
+              <div class="checkout-text">
+                 <h5>Secure Checkout</h5>
+              </div>
           </div>
+
           <div class="right">
             <div class="minicart" data-action-url="${URLUtils.url('Cart-MiniCartShow')}">
               <isinclude url="${URLUtils.url('Cart-MiniCart')}"/>
             </div>
           </div>
+          
         </div>
       </div>
     </div>
