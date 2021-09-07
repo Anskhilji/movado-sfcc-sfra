@@ -97,7 +97,7 @@ function getOrderTotal(order) {
 function getItemPrice(productPrice, order) {
     var itemPrice;
     if (order.custom.eswRetailerCurrencyCode) {
-        itemPrice = productPrice / order.custom.eswFxrateOc;;
+        itemPrice = productPrice / order.custom.eswFxrateOc;
         if (order.custom.eswRetailerCurrencyCode == constant.USD_CURRENCY_CODE) {
             return itemPrice;
         } else {
