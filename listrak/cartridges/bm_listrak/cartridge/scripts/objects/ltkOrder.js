@@ -97,12 +97,12 @@ ltkOrder.prototype.LoadOrder = function (order) {
 
     /* Load each order item. */
     order.allProductLineItems.toArray().forEach(function (orderItem) {
-        var item = self.GetOrderItem(orderItem);
+        var item = self.GetOrderItem(orderItem, order);
         if (!empty(item.Sku)) { self.Order.OrderItems.push(item); }
     });
 
     // Custom Start: Added Logic for order discount [MSS-1473]
-    this.Order.OrderDiscount = this.getDiscountAmount(order.getPriceAdjustments());
+    this.Order.OrderDiscount = this.getDiscountAmount(order.getPriceAdjustments(), order);
     // Custom End
 };
 
@@ -115,18 +115,18 @@ ltkOrder.prototype.orderTotal = function () {
 ltkOrder.prototype.lineItemTotal = function (order) {
     var lineItemAmount = 0;
     var Money = require('dw/value/Money');
-    lineItemAmount = ltkHelper.getOrderItemTotal(order);
-    if (!lineItemAmount) {
-        lineItemAmount = 0;
-        var lineItemTotal = new Money(lineItemAmount, order.currencyCode);
-        var lineItemIt = order.getProductLineItems().iterator();
-        while (lineItemIt.hasNext()) {
-            var lineItem = lineItemIt.next();
-            lineItemTotal = lineItemTotal.add(lineItem.adjustedNetPrice);
-        }
-        return lineItemTotal.value;
+    lineItemAmount = 0;
+    var lineItemTotal = new Money(lineItemAmount, order.currencyCode);
+    var lineItemIt = order.getProductLineItems().iterator();
+    while (lineItemIt.hasNext()) {
+        var lineItem = lineItemIt.next();
+        lineItemTotal = lineItemTotal.add(lineItem.adjustedNetPrice);
     }
-    return lineItemAmount;
+    if (order.custom.eswRetailerCurrencyCode) {
+        return ltkHelper.getESWLineItemTotal(order, lineItemTotal);
+    }
+
+    return lineItemTotal.value;
 }
 // Custom End
 ltkOrder.prototype.Serialize = function () {
@@ -134,7 +134,7 @@ ltkOrder.prototype.Serialize = function () {
 };
 
 /* Function to inflate an order item. */
-ltkOrder.prototype.GetOrderItem = function (item) {
+ltkOrder.prototype.GetOrderItem = function (item, order) {
     var orderItem = new OrderItem();
 
     /* Ensure that the item has an associated product. */
@@ -142,11 +142,8 @@ ltkOrder.prototype.GetOrderItem = function (item) {
         orderItem.Sku = item.product.ID;
         /* MSS[1474]. Get Product Price by FX rates Conversions */
         orderItem.Price = item.product.getPriceModel().getPrice().value;
-        orderItem.DiscountedPrice = ltkHelper.getItemPrice(item.custom.eswRetailerCurrencyItemPriceInfo, this.Order) || item.adjustedPrice.value.toFixed(2) || ltkHelper.getProductPrice(item.product);
-        orderItem.localPrice = item.custom.eswShopperCurrencyItemPriceInfo 
-        ? 
-        ltkHelper.getCurrencySymbol(Currency.getCurrency(this.Order.custom.eswShopperCurrencyCode)) + item.custom.eswShopperCurrencyItemPriceInfo 
-        : ltkHelper.getCurrencySymbol(Currency.getCurrency(this.Order.currencyCode)) + (item.adjustedPrice.value.toFixed(2) || ltkHelper.getProductPrice(item.product));
+        orderItem.DiscountedPrice = ltkHelper.getItemPrice(item.adjustedPrice.value, this.Order) || item.adjustedPrice.value.toFixed(2) || ltkHelper.getProductPrice(item.product);
+        orderItem.localPrice = ltkHelper.getCurrencySymbol(Currency.getCurrency(this.Order.currencyCode)) + (item.adjustedPrice.value.toFixed(2) || ltkHelper.getProductPrice(item.product));
         /* MSS[1474]. Get Product Price by FX rates Conversions */
     }
 
@@ -157,7 +154,7 @@ ltkOrder.prototype.GetOrderItem = function (item) {
     orderItem.Qty = item.quantity.value;
     orderItem.Product = item.product;
     // Custom Start: Add logic to get discount amount [MSS-1473]
-    orderItem.ItemDiscount = this.getDiscountAmount(item.getPriceAdjustments());
+    orderItem.ItemDiscount = this.getDiscountAmount(item.getPriceAdjustments(), order);
     // Custom End
 
     return orderItem;
@@ -165,13 +162,16 @@ ltkOrder.prototype.GetOrderItem = function (item) {
 
 
 // Custom Start: Add logic to get discount [MSS-1473]
-ltkOrder.prototype.getDiscountAmount = function (priceAdjustments) {
+ltkOrder.prototype.getDiscountAmount = function (priceAdjustments, order) {
     var priceAdjustmentsItr = priceAdjustments.iterator();
     var discount = 0;
     while(priceAdjustmentsItr.hasNext()) {
         var priceAdjustment = priceAdjustmentsItr.next();
         discount += priceAdjustment.getPriceValue();
     }
-    return discount;
+    if (order.custom.eswRetailerCurrencyCode) {
+        discount = ltkHelper.getESWDiscountAmount(order, discount);
+    }
+    return discount.toFixed(2);
 };
 // Custom End
