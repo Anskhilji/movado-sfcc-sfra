@@ -54,134 +54,157 @@ $stored-payment-spacing: rem(16);
   }
 }
 
-.data-checkout-stage {
-  padding-top: rem(10);
-  margin-bottom: rem(50);
-  .top-grandtotal-label {
-    text-transform: uppercase;
-  }
-  .card-body {
-    padding: rem(15) rem(10);
-  }
-  .card-header {
-    @extend %card-header;
-    padding-left: rem(10);
-    padding-right: rem(10);
-    padding-bottom: rem(7);
-  }
-  .form-group {
-    .form-control-label {
-      margin-bottom: 0;
-      font-family: $font-book;
-      font-size: rem(14);
-      line-height: rem(17);
-      letter-spacing: rem(1);
-      color: $grey14;
-      padding-bottom: rem(4);
+#mainContent {
+
+  .data-checkout-stage {
+    padding-top: rem(10);
+    margin-bottom: rem(50);
+
+    @include media-breakpoint-up(lg) {
+      max-width: 100%;
+      padding-left: rem(100);
+      padding-right: rem(100);
     }
 
-    > .info-icon {
-        padding-bottom: rem(4);
+    @include media-breakpoint-up(md) {
+      margin-top: rem(100);
+      max-width: 100%;
     }
 
-    .form-control {
-      border: rem(1) solid $grey14;
-      color: $grey14;
-    }
-    .add-address,
-    .edit-address {
-      margin-top: rem(10);
-    }
-  }
-  .custom-select {
-    font-family: $font-medium;
-    font-size: rem(14);
-    line-height: rem(17);
-    letter-spacing: rem(2);
-
-    @include media-breakpoint-down(sm) {
-      font-size: rem(16);
-    }
-
-    + i {
-      top: rem(30);
-      right: rem(8);
-    }
-  }
-  .single-shipping {
-    .card-header {
-      color: $grey14;
-    }
-
-    .summary-section-label {
-      margin-bottom: 0;
-    }
-  }
-
-  .shipping-method-block {
-    .ship-method-header {
-      @extend %card-header;
-      color: $grey14;
-      margin-top: rem(10);
-      margin-bottom: rem(10);
+    .top-grandtotal-label {
       text-transform: uppercase;
     }
-  }
-
-  .order-total-summary {
-    .order-receipt-label,
-    .text-right,
-    .sub-total {
-      font-family: $font-medium;
-      font-size: rem(16);
-      letter-spacing: rem(2);
-      line-height: rem(21);
-      color: $grey14;
-      font-weight: 500;
+    .card-body {
+      padding: rem(15) rem(10);
+    }
+    .card-header {
+      @extend %card-header;
+      padding-left: rem(10);
+      padding-right: rem(10);
+      padding-bottom: rem(7);
     }
 
-    .grand-total {
-      .order-receipt-label,
-      .text-right {
-        font-family: $font-bold;
-        font-size: rem(18);
-        letter-spacing: rem(2);
-        line-height: rem(22);
+    .form-group {
+
+      .form-control-label {
+        margin-bottom: 0;
+        font-family: $font-book;
+        font-size: rem(14);
+        line-height: rem(17);
+        letter-spacing: rem(1);
+        color: $grey14;
+        padding-bottom: rem(4);
+      }
+
+      > .info-icon {
+          padding-bottom: rem(4);
+      }
+
+      .form-control {
+        border: rem(1) solid $grey14;
         color: $grey14;
       }
-    }
-  }
-
-  .multi-shipping-checkbox-block {
-    display: none;
-  }
-  .checkout-promo-code-form .form-group {
-    padding: 0 rem(10);
-  }
-  @include media-breakpoint-down(xs) {
-    padding-left: rem(10);
-    padding-right: rem(10);
-    overflow-x: hidden;
-    .order-summary-card {
-      border: none;
-      box-shadow: unset;
-      .card-header {
-        border: none;
+      .add-address,
+      .edit-address {
+        margin-top: rem(10);
       }
     }
+
+    .custom-select {
+      font-family: $font-medium;
+      font-size: rem(14);
+      line-height: rem(17);
+      letter-spacing: rem(2);
+
+      @include media-breakpoint-down(sm) {
+        font-size: rem(16);
+      }
+
+      + i {
+        top: rem(30);
+        right: rem(8);
+      }
+    }
+
+    .single-shipping {
+      .card-header {
+        color: $grey14;
+      }
+
+      .summary-section-label {
+        margin-bottom: 0;
+      }
+    }
+
+    .shipping-method-block {
+      .ship-method-header {
+        @extend %card-header;
+        color: $grey14;
+        margin-top: rem(10);
+        margin-bottom: rem(10);
+        text-transform: uppercase;
+      }
+    }
+
+    .order-total-summary {
+      .order-receipt-label,
+      .text-right,
+      .sub-total {
+        font-family: $font-medium;
+        font-size: rem(16);
+        letter-spacing: rem(2);
+        line-height: rem(21);
+        color: $grey14;
+        font-weight: 500;
+      }
+
+      .grand-total {
+        .order-receipt-label,
+        .text-right {
+          font-family: $font-bold;
+          font-size: rem(18);
+          letter-spacing: rem(2);
+          line-height: rem(22);
+          color: $grey14;
+        }
+      }
+    }
+
+    .multi-shipping-checkbox-block {
+      display: none;
+    }
+
+    .checkout-promo-code-form .form-group {
+      padding: 0 rem(10);
+    }
+
+    @include media-breakpoint-down(xs) {
+      padding-left: rem(10);
+      padding-right: rem(10);
+      overflow-x: hidden;
+
+      .order-summary-card {
+        border: none;
+        box-shadow: unset;
+
+        .card-header {
+          border: none;
+        }
+    }
   }
 
-  @include media-breakpoint-up(md) {
-    .field-right,
-    .right-section {
-      padding-left: rem(5);
-    }
-    .field-left,
-    .left-section {
-      padding-right: rem(5);
-    }
-    .checkout-promo-code-form .form-group {
-      padding: 0;
+    @include media-breakpoint-up(md) {
+      .field-right,
+      .right-section {
+        padding-left: rem(5);
+      }
+      .field-left,
+      .left-section {
+        padding-right: rem(5);
+      }
+      .checkout-promo-code-form .form-group {
+        padding: 0;
+      }
     }
   }
 }
