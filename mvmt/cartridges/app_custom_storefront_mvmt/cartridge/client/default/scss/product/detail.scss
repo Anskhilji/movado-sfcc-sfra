@@ -1170,15 +1170,13 @@
             display: inline-block;
             text-align: center;
             text-transform: uppercase;
-            line-height: 0.75;
+            line-height: 1;
             font-size: rem(16);
             padding: rem(16) rem(20);
             background-color: $light-green2;
             border-color: $light-green2;
-            border-radius: 3px;
-            height: 45px;
             color: $white;
-            width: 355px;
+            width: 100%;
             letter-spacing: rem(3);
             margin: 0 auto;
             letter-spacing: rem(1.25);
@@ -1191,6 +1189,11 @@
                 
             }
 
+            @include media-breakpoint-down(sm){
+                width: 94.62%;
+                border-radius: 3px;
+            }
+                       
             &:hover {
                 background: $gossamer;
                 border-color: $gossamer;
@@ -1214,6 +1217,10 @@
             @include media-breakpoint-up(md-down) {
               
                 border-radius: rem(5);
+            }
+
+            @include media-breakpoint-down(sm){
+                justify-content: center;
             }
         }
 
@@ -2099,7 +2106,7 @@
         }
     }
 
-    @include media-breakpoint-up(sm){
+    @include media-breakpoint-down(sm){
         display: none;
     }
 }
