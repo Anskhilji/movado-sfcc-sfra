@@ -168,7 +168,6 @@ module.exports = {
 };
 $( document ).ready(function() {
     refreshAffirmUI();
-    handleRecomendationCarousel()
 });
 function updateKlarnaPayment(updatedPrice) {
     if (typeof isklarnaPromoEnabled !== 'undefined' && isklarnaPromoEnabled) {
@@ -191,8 +190,3 @@ function refreshAffirmUI() {
     }
 }
 
-function handleRecomendationCarousel() {
-    if (document.readyState == "interactive") {
-        $('.recomended-products').find('.upsell-wrapper').css('padding','0');
-    }
-}

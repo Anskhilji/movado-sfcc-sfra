@@ -361,12 +361,5 @@ module.exports = {
             }
         });
     },
-    handleRecomendationCarousel: function() {
-        $( document ).ready(function() {
-            if (document.readyState == "interactive") {
-                $('.linked-products').find('.upsell_wrapper').css('padding','0');
-            }
-        });
-    },
     base: base
 };
