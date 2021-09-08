@@ -101,6 +101,7 @@ function parseRiskifiedResponse(order) {
         }
         /* Send Cancellation Email*/
         if(responseObject.decision == RESP_SUCCESS){
+            checkoutLogger.info('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Order is cancelled and going to send cancellation email for order number: ' + order.orderNo);
         	var orderObj ={
         			customerEmail :order.customerEmail,
         			firstName  :order.billingAddress.firstName,
