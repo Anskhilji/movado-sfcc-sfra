@@ -1251,6 +1251,8 @@
         .add-to-cart {
             display: flex;
             justify-content: space-between;
+            width: 100%;
+            height: rem(60);
 
             @include media-breakpoint-up(md-down) {
                 border-radius: rem(5);
