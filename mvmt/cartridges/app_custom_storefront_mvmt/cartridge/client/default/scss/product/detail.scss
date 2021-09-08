@@ -1181,6 +1181,13 @@
 
     .prices-add-to-cart-actions {
 
+        .cta-add-to-cart {
+            @include media-breakpoint-down(lg) {
+                width: 100%;
+                height: rem(60);
+            }
+        }
+
         @include media-breakpoint-up(sm) {
             position: fixed;
             padding: 0;
