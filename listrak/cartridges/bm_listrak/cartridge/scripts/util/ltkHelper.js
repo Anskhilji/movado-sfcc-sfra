@@ -24,7 +24,8 @@ function getESWCurrencyFXRate(shopperCurrencyIso) {
 function getOrderItemTotal(order) {
     var itemTotal;
     if (order.custom.eswRetailerCurrencyCode) {
-        itemTotal = order.custom.eswRetailerCurrencyTotal + order.custom.eswRetailerCurrencyDuty;
+        itemTotal = order.adjustedMerchandizeTotalNetPrice.value;
+        itemTotal = itemTotal / order.custom.eswFxrateOc;
         if (order.custom.eswRetailerCurrencyCode == constant.USD_CURRENCY_CODE) {
             return itemTotal;
         } else {
@@ -52,7 +53,8 @@ function getOrderItemTotalLocal(order) {
 function getOrderTaxTotal(order) {
     var taxTotal;
     if (order.custom.eswRetailerCurrencyCode) {
-        taxTotal = order.custom.eswRetailerCurrencyTaxes;
+        taxTotal =  order.getTotalTax().value || 0;
+        taxTotal = taxTotal / order.custom.eswFxrateOc;
         if (order.custom.eswRetailerCurrencyCode == constant.USD_CURRENCY_CODE) {
             return taxTotal;
         } else {
@@ -66,7 +68,8 @@ function getOrderTaxTotal(order) {
 function getOrderShipTotal(order) {
     var shipTotal;
     if (order.custom.eswRetailerCurrencyCode) {
-        shipTotal = order.custom.eswRetailerCurrencyDelivery;
+        shipTotal = order.getAdjustedShippingTotalNetPrice().value;
+        shipTotal = shipTotal / order.custom.eswFxrateOc;
         if (order.custom.eswRetailerCurrencyCode == constant.USD_CURRENCY_CODE) {
             return shipTotal;
         } else {
@@ -91,10 +94,10 @@ function getOrderTotal(order) {
     return orderTotal;
 }
 
-function getItemPrice(eswPrice, order) {
+function getItemPrice(productPrice, order) {
     var itemPrice;
     if (order.custom.eswRetailerCurrencyCode) {
-        itemPrice = eswPrice;
+        itemPrice = productPrice / order.custom.eswFxrateOc;
         if (order.custom.eswRetailerCurrencyCode == constant.USD_CURRENCY_CODE) {
             return itemPrice;
         } else {
@@ -103,6 +106,28 @@ function getItemPrice(eswPrice, order) {
         }
     }
     return itemPrice ? itemPrice.toFixed(2) : itemPrice;
+}
+
+function getESWLineItemTotal(order, lineItemTotal){
+    var eswTotal = lineItemTotal / order.custom.eswFxrateOc;
+    if (order.custom.eswRetailerCurrencyCode == constant.USD_CURRENCY_CODE) {
+        return eswTotal;
+    } else {
+        var fxRate = getESWCurrencyFXRate(order.custom.eswRetailerCurrencyCode)[0].rate;
+        eswTotal = eswTotal / fxRate;
+    }
+    return eswTotal;
+}
+
+function getESWDiscountAmount(order, discount){
+    var eswDiscountTotal = discount / order.custom.eswFxrateOc;
+    if (order.custom.eswRetailerCurrencyCode == constant.USD_CURRENCY_CODE) {
+        return eswDiscountTotal;
+    } else {
+        var fxRate = getESWCurrencyFXRate(order.custom.eswRetailerCurrencyCode)[0].rate;
+        eswDiscountTotal = eswDiscountTotal / fxRate;
+    }
+    return eswDiscountTotal ? eswDiscountTotal.toFixed(2) : eswDiscountTotal;
 }
 
 function getCurrencySymbol(currency) {
@@ -187,5 +212,7 @@ module.exports = {
     getOrderTotal: getOrderTotal,
     getItemPrice: getItemPrice,
     getCurrencySymbol: getCurrencySymbol,
-    getProductPrice: getProductPrice
+    getProductPrice: getProductPrice,
+    getESWLineItemTotal: getESWLineItemTotal,
+    getESWDiscountAmount: getESWDiscountAmount
 };
