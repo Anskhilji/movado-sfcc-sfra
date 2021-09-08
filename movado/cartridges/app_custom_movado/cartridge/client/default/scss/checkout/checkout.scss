@@ -305,6 +305,23 @@ header {
         height: rem(85);
     }
 
+    &.checkout-header {
+        .sticky-header-placeholder {
+            height: rem(60);
+            
+            .sticky-header-wrapper {
+                
+            }
+
+
+            @include media-breakpoint-up(md) {
+                height: rem(60);
+            }
+        }
+    }
+
+    
+
     .checkout-header-wrapper {
         display: flex;
         justify-content: space-between;
@@ -419,6 +436,14 @@ header {
 .checkout-progressbar {
     margin-bottom: rem(51);
 
+    @include media-breakpoint-up(xs) {
+        display: none;
+    }
+    
+    @include media-breakpoint-up(sm) {
+        display: block;
+    }
+
     li {
 
         @include media-breakpoint-up(sm) {
@@ -520,13 +545,6 @@ header {
 
 }
 
-@include media-breakpoint-up(md) {
-    header.checkout-header {
-        .sticky-header-placeholder {
-            height: rem(60);
-        }
-    }
-}
 
 .form-control-label {
 
