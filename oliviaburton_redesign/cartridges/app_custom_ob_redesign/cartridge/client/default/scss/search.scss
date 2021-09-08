@@ -1501,8 +1501,18 @@
                         padding-bottom: rem(160);
                     }
 
+                    &.family-name-enabled {
+                        @include media-breakpoint-up(md) {
+                            padding-bottom: rem(160);
+                        }
+
+                        @include media-breakpoint-up(lg) {
+                            padding-bottom: rem(96);
+                        }
+                    }
+
                     @include media-breakpoint-up(md) {
-                        padding-bottom: rem(160);
+                        padding-bottom: rem(136);
                     }
 
                     @include media-breakpoint-up(lg) {
