@@ -1424,6 +1424,8 @@ $arrow-height: 1.25em;
 
         .primary-images {
             margin-bottom: rem(20);
+            min-height: 70vh;
+            height: auto;
         }
     }
 
