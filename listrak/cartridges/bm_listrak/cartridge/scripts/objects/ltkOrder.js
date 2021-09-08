@@ -170,6 +170,7 @@ ltkOrder.prototype.getDiscountAmount = function (priceAdjustments, order) {
     }
     if (order.custom.eswRetailerCurrencyCode) {
         discount = ltkHelper.getESWDiscountAmount(order, discount);
+        return discount;
     }
     return discount.toFixed(2);
 };
