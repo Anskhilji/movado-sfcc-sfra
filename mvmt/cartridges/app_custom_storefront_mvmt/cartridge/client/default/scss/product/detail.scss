@@ -739,8 +739,6 @@
         .cs-carousel-wrapper {
             position: relative;
             margin-bottom: 0;
-            width: 100%;
-            height: 100%;
 
             .zoom-icon {
                 transition: all .25s ease;
@@ -1245,6 +1243,8 @@
             &.mobileBtn {
                 background-color: $light-green2;
                 border-color: $light-green2;
+                width: 100%;
+                height: rem(60);
             }
         }
 
