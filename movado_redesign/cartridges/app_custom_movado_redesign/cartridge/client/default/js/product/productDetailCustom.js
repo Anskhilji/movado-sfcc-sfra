@@ -281,7 +281,10 @@ $(document).ready(function() {
         });
     }   
 
-    $(window).on("load resize", function() {
+    $(window).on("load resize", function () {
+        var winWidth = $(window).width();
+        var mediumBreakPoint= 767;
+
         $('.primary-images .main-carousel img').click(function() {
             if ($(this).parents('.slick-active.slick-center').length > 0) {
                 $('#zoomProduct').modal('show');
@@ -290,7 +293,9 @@ $(document).ready(function() {
                         $('.zoom-carousel.slick-slider').slick('refresh');
                         $('.zoom-carousel-nav .slick-slider').slick('refresh');
                         slickHeight();
-                        zoom();
+                        if (winWidth > mediumBreakPoint) {
+                            zoom();
+                        }
                     }, 300);
                 }
             }
