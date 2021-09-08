@@ -98,7 +98,8 @@
     @include media-breakpoint-down(xs) {
         margin: 0;
         padding: 0;
-        height: 66vh;
+        min-height: 66vh;
+        height: auto;
     }
 
     .carousel-item {

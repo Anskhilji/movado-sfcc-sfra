@@ -727,7 +727,8 @@
         position: relative;
         width: 100%;
         text-align: center;
-        height: 45vh;
+        min-height: 45vh;
+        height: auto;
 
         @include media-breakpoint-up(md-down) {
             flex-basis: 100%;
