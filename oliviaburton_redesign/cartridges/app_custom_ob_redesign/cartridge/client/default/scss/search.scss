@@ -1551,15 +1551,8 @@
                     display: block;
                     overflow: hidden;
 
-                    @include media-breakpoint-up(xs-custom) {
-                        // min-height: 34vw;
-                        // height: auto;
-                    }
-
                     @include media-breakpoint-up(sm) {
                         padding: rem(15) rem(20);
-                        // min-height: rem(160);
-                        // height: auto;
                     }
 
                     @include media-breakpoint-up(lg) {
@@ -1567,7 +1560,6 @@
                         height: auto;
                         transition: transform 0.4s all;
                         transform: translateY(25px);
-                        
                     }
 
                     .pdp-link {
