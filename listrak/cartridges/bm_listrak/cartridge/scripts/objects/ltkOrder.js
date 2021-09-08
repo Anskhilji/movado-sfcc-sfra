@@ -115,7 +115,6 @@ ltkOrder.prototype.orderTotal = function () {
 ltkOrder.prototype.lineItemTotal = function (order) {
     var lineItemAmount = 0;
     var Money = require('dw/value/Money');
-    lineItemAmount = 0;
     var lineItemTotal = new Money(lineItemAmount, order.currencyCode);
     var lineItemIt = order.getProductLineItems().iterator();
     while (lineItemIt.hasNext()) {
