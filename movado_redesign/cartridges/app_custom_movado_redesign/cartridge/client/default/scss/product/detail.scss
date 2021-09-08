@@ -203,6 +203,8 @@ $arrow-height: 1.25em;
 
         .cs-carousel-wrapper {
             margin-bottom: rem(10);
+            width: 100%;
+            height: 100%;
 
             .slick-arrow.slick-next {
                 background-image: url("../../images/slide-right-arrow.png");
