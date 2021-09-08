@@ -727,6 +727,7 @@
         position: relative;
         width: 100%;
         text-align: center;
+        height: 45vh;
 
         @include media-breakpoint-up(md-down) {
             flex-basis: 100%;
