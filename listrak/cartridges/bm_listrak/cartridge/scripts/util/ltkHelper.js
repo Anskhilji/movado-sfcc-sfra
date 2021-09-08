@@ -38,15 +38,7 @@ function getOrderItemTotal(order) {
 
 function getOrderItemTotalLocal(order) {
     var itemTotal;
-    if (order.custom.eswShopperCurrencyCode) {
-        var itemSubTotal = order.custom.eswShopperCurrencyTotal
-            + order.custom.eswShopperCurrencyDuty
-            + order.custom.eswShopperCurrencyTaxes
-            + order.custom.eswShopperCurrencyDelivery;
-        itemTotal = getCurrencySymbol(Currency.getCurrency(order.custom.eswShopperCurrencyCode)) + itemSubTotal.toFixed(2);
-    } else {
-        itemTotal = getCurrencySymbol(Currency.getCurrency(order.currencyCode)) + order.getTotalGrossPrice().value.toFixed(2);
-    }
+    itemTotal = getCurrencySymbol(Currency.getCurrency(order.currencyCode)) + order.getTotalGrossPrice().value.toFixed(2);
     return itemTotal;
 }
 
