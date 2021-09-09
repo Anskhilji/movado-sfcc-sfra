@@ -91,7 +91,7 @@ function getItemPrice(productPrice, order) {
     if (order.custom.eswRetailerCurrencyCode) {
         itemPrice = productPrice / order.custom.eswFxrateOc;
         if (order.custom.eswRetailerCurrencyCode == constant.USD_CURRENCY_CODE) {
-            return itemPrice;
+            return itemPrice ? itemPrice.toFixed(2) : itemPrice;
         } else {
             var fxRate = getESWCurrencyFXRate(order.custom.eswRetailerCurrencyCode)[0].rate;
             itemPrice = itemPrice / fxRate;
@@ -114,7 +114,7 @@ function getESWLineItemTotal(order, lineItemTotal){
 function getESWDiscountAmount(order, discount){
     var eswDiscountTotal = discount / order.custom.eswFxrateOc;
     if (order.custom.eswRetailerCurrencyCode == constant.USD_CURRENCY_CODE) {
-        return eswDiscountTotal;
+        return eswDiscountTotal ? eswDiscountTotal.toFixed(2) : eswDiscountTotal;
     } else {
         var fxRate = getESWCurrencyFXRate(order.custom.eswRetailerCurrencyCode)[0].rate;
         eswDiscountTotal = eswDiscountTotal / fxRate;
@@ -133,6 +133,16 @@ function getCurrencySymbol(currency) {
         return symbol;
     }
     return currency.currencyCode + ' '; // returned text is always utf-8
+}
+
+function getProductPriceInUSD(product){
+    var Currency = require('dw/util/Currency');
+    var defaultCurrency = session.getCurrency(); //Store Default currency before setting USD currency in session
+    var USDCurrency = Currency.getCurrency(constant.USD_CURRENCY_CODE);
+    session.setCurrency(USDCurrency);
+    var price = product.getPriceModel().getPrice().value;
+    session.setCurrency(defaultCurrency); // set back previous currency after getting price in USD
+    return price;
 }
 
 function getProductPrice(product) {
@@ -206,5 +216,6 @@ module.exports = {
     getCurrencySymbol: getCurrencySymbol,
     getProductPrice: getProductPrice,
     getESWLineItemTotal: getESWLineItemTotal,
-    getESWDiscountAmount: getESWDiscountAmount
+    getESWDiscountAmount: getESWDiscountAmount,
+    getProductPriceInUSD: getProductPriceInUSD
 };
