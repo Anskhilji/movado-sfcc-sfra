@@ -135,20 +135,6 @@ function getCurrencySymbol(currency) {
     return currency.currencyCode + ' '; // returned text is always utf-8
 }
 
-function getProductPriceInUSD(product, order) {
-    var productPrice = product.getPriceModel().getPrice().value;
-    if(order.custom.eswRetailerCurrencyCode){
-        var convertedPrice = productPrice / order.custom.eswFxrateOc;
-        if (order.custom.eswRetailerCurrencyCode == constant.USD_CURRENCY_CODE) {
-            return convertedPrice ? convertedPrice.toFixed(2) : convertedPrice;
-        } else {
-            var fxRate = getESWCurrencyFXRate(order.custom.eswRetailerCurrencyCode)[0].rate;
-            productPrice = convertedPrice / fxRate;
-        }
-    }
-    return productPrice ? productPrice.toFixed(2) : productPrice;
-}
-
 function getProductPrice(product) {
     var Currency = require('dw/util/Currency');
     var productPrice = 0;
@@ -220,6 +206,5 @@ module.exports = {
     getCurrencySymbol: getCurrencySymbol,
     getProductPrice: getProductPrice,
     getESWLineItemTotal: getESWLineItemTotal,
-    getESWDiscountAmount: getESWDiscountAmount,
-    getProductPriceInUSD: getProductPriceInUSD
+    getESWDiscountAmount: getESWDiscountAmount
 };
