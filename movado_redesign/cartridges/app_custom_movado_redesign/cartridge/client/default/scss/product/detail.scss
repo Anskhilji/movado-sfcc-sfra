@@ -486,7 +486,7 @@ $arrow-height: 1.25em;
             width: rem(160);
         }
 
-        @media only screen and (min-width: 320px) and (max-width: 351px)  {
+        @media only screen and (max-width: $custom-sm13) {
             width: rem(96);
             padding-left: rem(25);
         }
@@ -504,7 +504,7 @@ $arrow-height: 1.25em;
             width: 100%;
         }
 
-        @media only screen and (min-width: 320px) and (max-width: 351px)  {
+        @media only screen and (max-width: $custom-sm13) {
             margin-right: rem(0);
         }
 
