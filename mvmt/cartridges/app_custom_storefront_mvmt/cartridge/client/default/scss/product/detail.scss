@@ -1376,26 +1376,6 @@
                     opacity: 0;
                     z-index: 1;
                     cursor: pointer;
-
-                    &:checked ~ {
-
-                        .upsell_text {
-
-                            .upsell_text-add {
-                                display: none;
-                            }
-        
-                            .upsell_text-added {
-                                display: block;
-                                padding-left: rem(20);
-                                color: $white;
-                            }
-                        }
-
-                        .upsell_wrapper-inner {
-                            border-color: $light-green;
-                        }
-                    }
                 }
             }
 

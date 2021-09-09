@@ -321,25 +321,5 @@ module.exports = {
         });
     },
 
-    updatePrice: function () {
-        $(document).on('click', '.upsell_input', function() {
-            var upselprice = $(this).siblings('.upsell_wrapper-inner').find('.sales .value').attr('content');
-            var currentPrice = $('.product-price-mobile .sales .value').attr('content');
-            var updatedPrice;
-            var updatedText;
-            if ($(this).is(':checked')) {
-                updatedPrice = parseFloat(currentPrice) + parseFloat(upselprice);
-            } else {
-                updatedPrice  = parseFloat(currentPrice) - parseFloat(upselprice);
-            }
-
-            if (updatedPrice && !isNaN(updatedPrice)) {
-                $('.product-price-mobile .sales .value').each(function() {
-                    updatedText = $(this).text().replace(/(\d+.+|\d+)|(\d+[.,]\d+|\d+)/g, updatedPrice.toFixed(2));
-                    $(this).text(updatedText).attr('content', updatedPrice);
-                });
-            }
-        });
-    },
     base: base
 };
