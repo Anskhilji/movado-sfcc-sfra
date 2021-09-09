@@ -33,11 +33,15 @@
         <div class="row">
             <div class="col-md-7 left-section">
 
+                <!-- Progressbar Template for desktop -->
+                <div class="d-none d-sm-block progressbar-container">
+                    <isinclude template="checkout/checkoutProgressbar.isml" />
+                </div>
+
                 <!----------------------------------------------------------------------------------->
                 <!-- Checkout Forms: Shipping, Payment, Coupons, Billing, etc -->
                 <!----------------------------------------------------------------------------------->
-                <isinclude template="checkout/checkoutProgressbar.isml" />
-
+                
                 <!-- Step 1: Shipping -->
                 <isinclude template="checkout/shipping/shipping" />
 

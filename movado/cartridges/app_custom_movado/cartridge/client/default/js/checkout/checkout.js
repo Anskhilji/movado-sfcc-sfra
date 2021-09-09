@@ -49,6 +49,8 @@ var formHelpers = require('base/checkout/formErrors');
           'submitted'
       ];
 
+      
+
     /**
      * Updates the URL to determine stage
      * @param {number} currentStage - The current stage the user is currently on in the checkout
@@ -63,6 +65,36 @@ var formHelpers = require('base/checkout/formErrors');
           + '#'
           + checkoutStages[currentStage]
       );
+
+        var stageUrl = new URL(window.location.href);
+        let searchParams = new URLSearchParams(stageUrl.search);
+        var stage = searchParams.get('stage');
+
+       if($(".progressbar-container .checkout-progressbar").length) {
+            $(".checkout-progressbar li").removeClass("active");
+            $(".checkout-progressbar li").removeClass("completed");
+            var checkedIcon = '<i class="fa fa-check"></i>';
+
+            if (stage == "shipping") {
+                $(".checkout-progressbar li:nth-child(1)").addClass("active");
+            }
+            else if (stage === 'payment') {
+                $(".checkout-progressbar li:nth-child(2)").addClass("active");
+                $(".checkout-progressbar li:nth-child(1)").addClass("completed");
+            }
+
+            else if (stage === 'placeOrder' && $('.payment-information').data('payment-method-id') !== 'Affirm') {
+                $(".checkout-progressbar li:nth-child(3)").addClass("active");
+                $(".checkout-progressbar li:nth-child(2)").addClass("completed");
+            }
+            else {
+                $(".checkout-progressbar li:nth-child(4)").addClass("active");
+                $(".checkout-progressbar li:nth-child(3)").addClass("completed");
+            }
+            $(".checkout-progressbar li.completed").find(".step-no").html(checkedIcon); 
+        }
+
+
       $('.checkout-promo-section').removeClass('d-none');
          if (checkoutStages[currentStage] == 'placeOrder') {
         	 $('.checkout-promo-section').addClass('d-none');
@@ -96,7 +128,8 @@ var formHelpers = require('base/checkout/formErrors');
          */
           updateStage: function () {
               var stage = checkoutStages[members.currentStage];
-          var defer = $.Deferred(); // eslint-disable-line
+              var defer = $.Deferred(); // eslint-disable-line
+              //  Handle active and completed step
 
               if (stage === 'shipping') {
             //
@@ -338,12 +371,12 @@ var formHelpers = require('base/checkout/formErrors');
                   });
                   return defer;
               }
-          var p = $('<div>').promise(); // eslint-disable-line
-              setTimeout(function () {
-            p.done(); // eslint-disable-line
-              }, 500);
-          return p; // eslint-disable-line
-          },
+              var p = $('<div>').promise(); // eslint-disable-line
+                setTimeout(function () {
+                p.done(); // eslint-disable-line
+                }, 500);
+                return p; // eslint-disable-line
+              },
 
         /**
          * Initialize the checkout stage.
@@ -429,6 +462,7 @@ var formHelpers = require('base/checkout/formErrors');
             // Update UI with new stage
                   members.handleNextStage(true);
                   $('.next-step-button button').removeAttr('disabled');
+                  
               });
 
               promise.fail(function (data) {
@@ -611,10 +645,10 @@ var exports = {
             summaryHelpers.updateTotals(data.order.totals);
             data.order.shipping.forEach(function (shipping) {
                 shippingHelpers.methods.updateShippingInformation(
-              shipping,
-              data.order,
-              data.customer,
-              data.options
+                shipping,
+                data.order,
+                data.customer,
+                data.options
           );
                 $('body').trigger('checkOutShipping:success', [shipping.selectedShippingMethod.shippingCost,shipping.selectedShippingMethod.displayName, data.order.couponLineItemArray]);
             });

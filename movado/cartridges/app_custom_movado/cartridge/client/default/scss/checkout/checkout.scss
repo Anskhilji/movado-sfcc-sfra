@@ -309,13 +309,51 @@ header {
         .sticky-header-placeholder {
             height: rem(60);
             
-            .sticky-header-wrapper {
-                
-            }
-
-
             @include media-breakpoint-up(md) {
                 height: rem(60);
+            }
+        }
+
+        .sticky-header-wrapper {
+            .desktop-menu-wrapper {
+                @include media-breakpoint-up(xs) {
+                    display: none;
+                }
+
+                @include media-breakpoint-up(sm) {
+                    display: block;
+                }
+            }
+            
+            .mobile-menu-wrapper {
+                @include media-breakpoint-up(xs) {
+                    display: block;
+
+                   .header-wrapper {
+                        background-color: $black;
+                        color: $white;
+
+                        .checkout-logo {
+                            &:before {
+                                font-family: "FontAwesome";
+                                content: '\f023';
+                                font-size: rem(24);
+                                margin-right: rem(5);
+                            }
+                        }
+
+                        .minicart-quantity {
+                            color: $black;
+                            background-color:$white;
+                            font-size: rem(12);
+                        }
+                   }
+
+                }
+                
+                @include media-breakpoint-up(sm) {
+                    display: none;
+                }
             }
         }
     }
@@ -454,6 +492,14 @@ header {
             margin-bottom: rem(0);
         }
 
+        &.completed {
+            a {
+                .step-no {
+
+                }
+            }
+        }
+
         a {
             display: flex;
             align-items: center;
@@ -489,7 +535,7 @@ header {
                  border-radius: 50%;
                  font-size: rem(12);
                  margin-right: rem(10);
-             }
+            }
         }
     }
    
