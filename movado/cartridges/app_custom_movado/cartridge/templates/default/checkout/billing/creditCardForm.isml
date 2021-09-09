@@ -17,8 +17,8 @@
 <div class="row">
 	<div class="col-12">
 		<div class="form-group">
-			<label class="form-control-label" id="cardH-name" for="holderName"> Cardholder Name* </label>
-			<input type="text" class="form-control holderName" id="holderName"  data-encrypted-name="holderName" ${creditFields.cardOwner.attributes} >
+			<label class="form-control-label" for="holderName"> </label>
+			<input type="text" class="form-control holderName" id="holderName" placeholder="Cardholder Name*" data-encrypted-name="holderName" ${creditFields.cardOwner.attributes} >
 			<div class="invalid-feedback"></div>
 		</div>
 	</div>
