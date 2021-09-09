@@ -481,14 +481,33 @@ $arrow-height: 1.25em;
         text-decoration: none;
         width: rem(200);
         height: rem(22);
+
+        @include media-breakpoint-down(xs) {
+            width: rem(160);
+        }
+
+        @media only screen and (max-width: $custom-sm13) {
+            width: rem(96);
+            padding-left: rem(25);
+        }
+        
         
     }
 
     .ratings {
         margin: 0;
         margin-right: rem(25);
-        width: rem(200);
+        width: rem(212);
         height: rem(20);
+
+        @include media-breakpoint-down(xs) {
+            width: 100%;
+        }
+
+        @media only screen and (max-width: $custom-sm13) {
+            margin-right: rem(0);
+        }
+
     }
 
     .ratings-redesign {
