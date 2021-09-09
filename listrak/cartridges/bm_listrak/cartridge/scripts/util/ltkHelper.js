@@ -135,14 +135,18 @@ function getCurrencySymbol(currency) {
     return currency.currencyCode + ' '; // returned text is always utf-8
 }
 
-function getProductPriceInUSD(product){
-    var Currency = require('dw/util/Currency');
-    var defaultCurrency = session.getCurrency(); //Store Default currency before setting USD currency in session
-    var USDCurrency = Currency.getCurrency(constant.USD_CURRENCY_CODE);
-    session.setCurrency(USDCurrency);
-    var price = product.getPriceModel().getPrice().value;
-    session.setCurrency(defaultCurrency); // set back previous currency after getting price in USD
-    return price;
+function getProductPriceInUSD(product, order) {
+    var productPrice = product.getPriceModel().getPrice().value;
+    if(order.custom.eswRetailerCurrencyCode){
+        var convertedPrice = productPrice / order.custom.eswFxrateOc;
+        if (order.custom.eswRetailerCurrencyCode == constant.USD_CURRENCY_CODE) {
+            return convertedPrice ? convertedPrice.toFixed(2) : convertedPrice;
+        } else {
+            var fxRate = getESWCurrencyFXRate(order.custom.eswRetailerCurrencyCode)[0].rate;
+            productPrice = convertedPrice / fxRate;
+        }
+    }
+    return productPrice ? productPrice.toFixed(2) : productPrice;
 }
 
 function getProductPrice(product) {
