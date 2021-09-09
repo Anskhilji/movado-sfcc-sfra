@@ -140,7 +140,7 @@ ltkOrder.prototype.GetOrderItem = function (item, order) {
     if (!empty(item.product)) {
         orderItem.Sku = item.product.ID;
         /* MSS[1474]. Get Product Price by FX rates Conversions */
-        orderItem.Price = ltkHelper.getProductPriceInUSD(item.product);
+        orderItem.Price = ltkHelper.getProductPriceInUSD(item.product, order);
         orderItem.DiscountedPrice = ltkHelper.getItemPrice(item.adjustedPrice.value, this.Order) || item.adjustedPrice.value.toFixed(2) || ltkHelper.getProductPrice(item.product);
         orderItem.localPrice = ltkHelper.getCurrencySymbol(Currency.getCurrency(this.Order.currencyCode)) + (item.adjustedPrice.value.toFixed(2) || ltkHelper.getProductPrice(item.product));
         /* MSS[1474]. Get Product Price by FX rates Conversions */
