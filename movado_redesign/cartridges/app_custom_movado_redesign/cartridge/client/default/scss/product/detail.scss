@@ -500,6 +500,14 @@ $arrow-height: 1.25em;
         width: rem(212);
         height: rem(20);
 
+        @include media-breakpoint-up(md) {
+            margin-right: rem(25);
+        }
+
+        @include media-breakpoint-up(lg) {
+            margin-right: rem(10);
+        }
+
         @include media-breakpoint-down(xs) {
             width: 100%;
         }
