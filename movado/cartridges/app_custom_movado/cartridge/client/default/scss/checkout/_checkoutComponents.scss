@@ -70,29 +70,24 @@ $stored-payment-spacing: rem(16);
     padding-bottom: rem(7);
   }
    .payment-options {
-    .form-group {
-      .form-control-label {
-
-        {
-          box-sizing: border-box;
-          height: 45px;
-          width: 395px;
-          border: 1px solid;
-          border-radius: 3px;
+     .credit-card-form {
+      .form-group {
+        .form-control-label {
+            box-sizing: border-box;
+            position: relative;
+        }
+        > .info-icon {
+            position: absolute;
+            right: 25px;
+            top: 25px;
+        }
+        .form-control {
+          border: rem(1) solid $grey15;
+          color: $grey14;
+          border-radius: 5px;
         }
       }
-      > .info-icon {
-          padding-bottom: rem(4);
-      }
-      .form-control {
-        border: rem(1) solid $grey14;
-        color: $grey14;
-      }
-      .add-address,
-      .edit-address {
-        margin-top: rem(10);
-      }
-    }
+     }
    }
 
   .form-group {
