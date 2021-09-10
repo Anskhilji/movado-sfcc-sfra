@@ -620,23 +620,6 @@ function validateOptions($el) {
         });
     }
 }
-/**
- * Custom Start: Retrieve recommended products
- *
- */
-function getRecommendationProducts() {
-    var $recommendedProductSelector = $('.upsell-input:checked');
-    var productArray = [];
-    for (var i = 0; i < $recommendedProductSelector.length; i++) {
-        var $currentRecommendedProduct = $recommendedProductSelector[i];
-            var form = {
-                pid: $currentRecommendedProduct.value,
-                quantity: 1
-            };
-        productArray.push(form);
-    }
-    return productArray.length ? JSON.stringify(productArray) : [] ;
-}
 
 var updateCartPage = function(data) {
   $('.cart-section-wrapper').html(data.cartPageHtml);
@@ -737,7 +720,7 @@ module.exports = {
     },
 
     addToCart: function () {
-        $(document).off('click.addToCart').on('click.addToCart', 'button.add-to-cart, button.add-to-cart-global', function (e) {
+        $(document).off('click.addToCart').on('click.addToCart', 'button.add-to-cart, button.add-to-cart-global, button.add-to-cart-recomendations', function (e) {
             var addToCartUrl;
             var pid;
             var pidsObj;
@@ -760,7 +743,12 @@ module.exports = {
                 pidsObj = JSON.stringify(setPids);
             }
 
-            pid = getPidValue($(this));
+            if ($(this).closest('.recomended-products') && $(this).closest('.recomended-products').data('recomendation') == true) {
+                pid = $(this).data('pid');
+            } else {
+                pid = getPidValue($(this));
+            }
+
 
             var $productContainer = $(this).closest('.product-detail');
             if (!$productContainer.length) {
@@ -773,9 +761,7 @@ module.exports = {
                 pid: pid,
                 pidsObj: pidsObj,
                 childProducts: getChildProducts(),
-                quantity: getQuantitySelected($(this)),
-                recommendationArray: getRecommendationProducts()
-            };
+                quantity: getQuantitySelected($(this))            };
             /**
             * Custom Start: Add to cart form for Oliva Burton
             */
@@ -784,9 +770,7 @@ module.exports = {
                     pid: pid,
                     pidsObj: pidsObj,
                     childProducts: getChildProducts(),
-                    quantity: 1,
-                    recommendationArray: getRecommendationProducts()
-                };
+                    quantity: 1                };
             }
             /**
             *  Custom End
