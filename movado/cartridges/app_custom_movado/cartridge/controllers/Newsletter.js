@@ -13,7 +13,6 @@ var newletterHelper = require('*/cartridge/scripts/helpers/newsletterHelper');
 server.post('Subscribe', server.middleware.https, function (req, res, next) {
     var Site = require('dw/system/Site');
     var SFMCApi = require('int_custom_marketing_cloud/cartridge/scripts/api/SFMCApi');
-    var ltkApi = require('*/cartridge/scripts/api/ListrakAPI');
     var EmailSubscriptionHelper = require('int_custom_marketing_cloud/cartridge/scripts/helper/EmailSubscriptionHelper');
 
     var emailSubmitLocation = !empty(req.querystring) ? req.querystring.pageType : 'footer';
@@ -34,6 +33,7 @@ server.post('Subscribe', server.middleware.https, function (req, res, next) {
     };
     var result;
     if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
+        var ltkApi = require('*/cartridge/scripts/api/ListrakAPI');
         var ltkConstants = require('*/cartridge/scripts/utils/ListrakConstants');
         requestParams.source = ltkConstants.Source.Footer;
         requestParams.event = ltkConstants.Event.Footer;
