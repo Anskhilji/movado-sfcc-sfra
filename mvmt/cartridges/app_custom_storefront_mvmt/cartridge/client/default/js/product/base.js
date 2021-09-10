@@ -950,7 +950,7 @@ movadoBase.colorAttribute = function () {
 }
 
 movadoBase.addToCart = function () {
-    $(document).off('click.addToCart', 'button.add-to-cart-recomendations', 'button.add-to-cart, button.add-to-cart-global').on('click','button.add-to-cart-recomendations' ,'button.add-to-cart, .addToCart , button.add-to-cart-global', function (e) {
+    $(document).off('click.addToCart', 'button.add-to-cart, button.add-to-cart-global, button.add-to-cart-recomendations').on('click', 'button.add-to-cart, .addToCart , button.add-to-cart-global , button.add-to-cart-recomendations', function (e) {
         e.preventDefault();
         var addToCartUrl;
         var pid;
@@ -975,6 +975,8 @@ movadoBase.addToCart = function () {
         }
 
         if ($(this).closest('.product-detail') && $(this).closest('.product-detail').data('isplp') == true) {
+            pid = $(this).data('pid');
+        } else if ($(this).closest('.linked-products') && $(this).closest('.linked-products').data('recomendation') == true) {
             pid = $(this).data('pid');
         } else {
             pid = movadoBase.getPidValue($(this));

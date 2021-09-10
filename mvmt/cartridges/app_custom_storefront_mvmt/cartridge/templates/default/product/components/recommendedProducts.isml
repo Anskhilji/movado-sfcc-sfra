@@ -10,7 +10,7 @@
                 </button>
             </isif>
         </div>
-        <div class="linked-products">
+        <div class="linked-products" data-recomendation="true">
             <isloop items="${pdict.explicitRecommendations}" var="recommendation">
                 <isif condition="${recommendation != null}">
                     <div class="upsell_wrapper">
