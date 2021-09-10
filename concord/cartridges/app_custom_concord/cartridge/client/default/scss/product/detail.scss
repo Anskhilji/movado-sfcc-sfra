@@ -196,14 +196,14 @@ label.availability {
         margin-right: rem(8);
     }
 
-    @include media-breakpoint-down(lg) {
+    @include media-breakpoint-down(xs) {
         .add-to-cart {
             width: 100%;
             height: rem(38.4);
         }
         .apple-pay-pdp {
             margin-top: rem(15);
-            
+
             &:hover {
                 margin-top: rem(15);
             }
