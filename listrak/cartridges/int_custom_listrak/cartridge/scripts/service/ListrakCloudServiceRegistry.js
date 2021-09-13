@@ -46,7 +46,7 @@ function getAPIService(serviceID, endpoint, eventId, subscribe, countryCode) {
     var url = baseUrl.toString();
     if (!empty(endpoint)) {
         if (countryCode == Constants.GERMANY_COUNTRYCODE) {
-            url = baseUrl.toString() + endpoint.replace('{listId}', listID) + '?eventIds=' + eventIdPref + '&sendDoubleOptIn=' + true;
+            url = baseUrl.toString() + endpoint.replace('{listId}', listID) + '?eventIds=' + eventIdPref + '&sendDoubleOptIn=' + true + '&subscribedByContact=' + true;
         }
         else {
             url = baseUrl.toString() + endpoint.replace('{listId}', listID) + '?eventIds=' + eventIdPref + '&overrideUnsubscribe=' + subscribePref;
