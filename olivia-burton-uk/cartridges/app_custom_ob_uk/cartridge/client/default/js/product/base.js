@@ -12,6 +12,8 @@ function getPidValue($el) {
         pid = $($el).closest('.modal-content').find('.product-quickview').data('pid');
     } else if ($('.product-set-detail').length || $('.product-set').length) {
         pid = $($el).closest('.product-detail').find('.product-id').text();
+    } else if ($($el).closest('.recomended-products') && $($el).closest('.recomended-products').data('recomendation') == true) {
+        pid = $($el).data('pid');
     } else {
         pid = $('.product-detail:not(".bundle-item")').data('pid');
     }
@@ -743,11 +745,7 @@ module.exports = {
                 pidsObj = JSON.stringify(setPids);
             }
 
-            if ($(this).closest('.recomended-products') && $(this).closest('.recomended-products').data('recomendation') == true) {
-                pid = $(this).data('pid');
-            } else {
-                pid = getPidValue($(this));
-            }
+            pid = getPidValue($(this));
 
 
             var $productContainer = $(this).closest('.product-detail');
@@ -761,7 +759,8 @@ module.exports = {
                 pid: pid,
                 pidsObj: pidsObj,
                 childProducts: getChildProducts(),
-                quantity: getQuantitySelected($(this))            };
+                quantity: getQuantitySelected($(this))            
+            };
             /**
             * Custom Start: Add to cart form for Oliva Burton
             */
@@ -770,7 +769,8 @@ module.exports = {
                     pid: pid,
                     pidsObj: pidsObj,
                     childProducts: getChildProducts(),
-                    quantity: 1                };
+                    quantity: 1                
+                };
             }
             /**
             *  Custom End
