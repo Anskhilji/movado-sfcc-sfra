@@ -6,5 +6,5 @@
     ${payment.maskedCreditCardNumber}
 </div>
 <div class="credit-card-expiration-date">
-    <span>${Resource.msg('msg.card.type.ending', 'confirmation', null)} ${payment.expirationMonth}/${payment.formattedExpirationYear}</span>
+    <span>${Resource.msg('msg.card.type.ending', 'confirmation', null)} ${payment.expirationMonthandYear}/${payment.formattedExpirationYear}</span>
 </div>
