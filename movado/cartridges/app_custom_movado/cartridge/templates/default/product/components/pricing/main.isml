@@ -1,11 +1,10 @@
 <iscomment> Custom Start: Adding Esw updated cartridge code </iscomment>
-
 <isif condition="${price && price.type === 'tiered'}">
     <div class="price <isif condition="${product.isProductRestricted}">d-none</isif>">
         <isinclude template="/product/components/pricing/tiered" />
     </div>
 <iselseif condition="${price && price.type === 'range'}">
-    <div class="price <isif condition="${product.isProductRestricted}">d-none</isif>"  itemprop="offers" itemscope itemtype="http://schema.org/AggregateOffer">
+    <div class="price <isif condition="${product.isProductRestricted}">d-none</isif>"  itemprop="offers" itemscope itemtype="http://schema.org/AggregateOffer"">
         <isinclude template="/product/components/pricing/range" />
     </div>
 <iselse>
@@ -14,8 +13,4 @@
         <isinclude template="/product/components/pricing/default" />
     </div>
 </isif>
-
-
-
-
 <iscomment> Custom End </iscomment>
