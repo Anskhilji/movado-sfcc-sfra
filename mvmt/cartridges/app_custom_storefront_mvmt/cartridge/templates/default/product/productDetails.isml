@@ -29,7 +29,7 @@
                         <isset name="price" value="${product.price}" scope="page" />
                         <isinclude template="product/components/pricing/main" />
                     </span>
-                     <isinclude template="product/components/showCartButtonProduct" />
+                    <isinclude template="product/components/showCartButtonProduct" />
                 </div>
             </div>
         </section>
