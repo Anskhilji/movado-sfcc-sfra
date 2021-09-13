@@ -66,7 +66,7 @@ function gtmModel(req) {
             searchkeyword = searchQuery.q ? searchQuery.q : '';
             cgid = searchQuery.cgid;
             pid = searchQuery.pid;
-        }            
+        }
         if (cgid != null || searchkeyword != null) {
             departmentCategoryName = getPLPDepartmentCategory(req, cgid, searchkeyword);
         }
@@ -75,7 +75,7 @@ function gtmModel(req) {
             getCartJSONArray(this.checkout);
             if (action.equals('checkout-login')) {
                 this.checkoutAction = 'checkout';
-                checkoutStage = 1;
+                checkoutStage;
             } else {
                 checkoutActionObject = getCheckoutQueryString(reqQueryString.urlQueryString).stage;
                 var checkoutStage = '';
