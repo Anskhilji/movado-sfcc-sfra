@@ -101,7 +101,7 @@ function updateBillingAddressFormValues(order) {
     if (billing.payment && billing.payment.selectedPaymentInstruments
       && billing.payment.selectedPaymentInstruments.length > 0) {
         var instrument = billing.payment.selectedPaymentInstruments[0];
-        $('select[name$=expirationMonth]', form).val(instrument.expirationMonth);
+        $('select[name$=expirationMonthandYear]', form).val(instrument.expirationMonthandYear);
         $('select[name$=expirationYear]', form).val(instrument.expirationYear);
     // Force security code and card number clear
         $('.securityCode', form).val('');
@@ -179,7 +179,7 @@ function updatePaymentInformation(order) {
       + order.billing.payment.selectedPaymentInstruments[0].maskedCreditCardNumber
       + '</div><div><span>'
       + order.resources.cardEnding + ' '
-      + order.billing.payment.selectedPaymentInstruments[0].expirationMonth
+      + order.billing.payment.selectedPaymentInstruments[0].expirationMonthandYear
       + '/' + order.billing.payment.selectedPaymentInstruments[0].expirationYear
       + '</span></div>';
         } else if (order.billing.payment.selectedPaymentInstruments[0].paymentMethod == 'Adyen') {
@@ -222,6 +222,7 @@ function clearCreditCardForm() {
     $('input[name$="_securityCode"]').val('');
     $('input[name$="_email"]').val('');
     $('input[name$="_phone"]').val('');
+    $('select[name$="expirationMonthandYear"]').val('');
 }
 
 module.exports = {

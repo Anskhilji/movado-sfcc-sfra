@@ -38,8 +38,7 @@ function getCardData(selectedCard) {
     if (!selectedCard) {
         cardData.number = $('#cardNumber').val();
         cardData.holderName = $('#holderName').val();
-        cardData.expiryMonth = $('#expirationMonth').val();
-        cardData.expiryYear = $('#expirationYear').val();
+        cardData.expiryMonth = $('#expirationMonthandYear').val();
         cardData.cvc = $('#securityCode').val();
     } else {
         cardData.cvc = $('.selected-payment #saved-payment-security-code').val();
@@ -78,6 +77,9 @@ function showValidation(validationResult) {
                 case 'expiryMonth':
                     $('#expirationMonth').addClass('is-invalid');
                     break;
+                case 'expirationMonthandYear':
+                    $('#expirationMonthandYear').addClass('is-invalid');
+                    break;
                 case 'expiryYear':
                     $('#expirationYear').addClass('is-invalid');
                     break;
@@ -98,6 +100,7 @@ function clearValidations() {
     $('#expirationMonth').removeClass('is-invalid');
     $('#expirationYear').removeClass('is-invalid');
     $('#securityCode').removeClass('is-invalid');
+    $('#expirationMonthandYear').removeClass('is-invalid');
 }
 
 function maskValue(value) {

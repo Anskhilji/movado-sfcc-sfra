@@ -4,13 +4,13 @@
     &::after {
         content: '';
         position: absolute;
-        right: 3px;
+        right: 10px;
         background-repeat: no-repeat;
         background-image: url('../../images/payment-methods.png');
-        background-size: contain;
+        // background-size: contain;
         width: 128px;
         height: 25px;
-        top: 5px;
+        top: 12px;
     }
 
     &[data-type="visa"]::after {

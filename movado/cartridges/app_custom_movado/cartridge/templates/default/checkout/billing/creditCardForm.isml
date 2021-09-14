@@ -16,18 +16,17 @@
 
 <div class="row">
 	<div class="col-12">
-		<div class="form-group">
+		<div class="form-group ${creditFields.holderName.htmlName}">
 			<label class="form-control-label" for="holderName"> </label>
-			<input type="text" class="form-control holderName" id="holderName" placeholder="Cardholder Name*" data-encrypted-name="holderName" ${creditFields.cardOwner.attributes} >
-			<div class="invalid-feedback"></div>
+			<input type="text" class="form-control holderName" id="holderName" placeholder="Cardholder Name*" pattern="[a-zA-Z]*" data-encrypted-name="holderName" ${creditFields.cardOwner.attributes}   />
+			<div class="invalid-feedback">Only letters Can Be Inputted</div>
 		</div>
 	</div>
 </div>
 
 <div class="row">
 	<div class="col-12">
-		<div
-			class="form-group  ${creditFields.cardNumber.htmlName}">
+		<div class="form-group  ${creditFields.cardNumber.htmlName}">
 			<label class="form-control-label" for="cardNumber"></label>
 			<div class="card-number-wrapper">
 				<input inputmode="numeric" pattern="[0-9]*" type="text" class="form-control cardNumber" id="cardNumber" placeholder="Card Number*"
@@ -37,7 +36,7 @@
                         : ''}"
                     <isprint value=${creditFields.cardNumber.attributes} encoding="htmlsinglequote"/>
                     autocomplete="cc-number">
-				<div class="invalid-feedback"></div>
+				<div class="invalid-feedback">Please Enter a Valid Card Number</div>
 			</div>
 		</div>
 	</div>
@@ -54,6 +53,7 @@
                     autocomplete="cc-exp-monthandYear"
 				data-encrypted-name="expiryMonthandYear">
 			</input>
+			<div class="invalid-feedback">Please Enter Expiry Date In Format MM/YY</div>
 		</div>
 	</div>
 	<div class="col-6 field-right">
@@ -63,13 +63,10 @@
 					<div class="tooltip"> ${Resource.msg('tooltip.security.code','creditCard',null)}</div>
 				 </span>
 			 <input type="password" class="form-control securityCode" id="securityCode" placeholder="Security Code*"   data-encrypted-name="cvc" maxlength="3">
-			<div class="invalid-feedback"></div>
+			<div class="invalid-feedback security-code">Please Enter a Valid Security Code</div>
 		</div>
 	</div>
 </div>
-<span id="invalidCardDetails" class="invalid-feedback"
-	style="display: none">${Resource.msg('creditCard.invalidCardDetails',
-	'creditCard', null)}</span>
 
 <iscomment> <div class="row">
 	<div class="col">
