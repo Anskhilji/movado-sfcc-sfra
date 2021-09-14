@@ -164,4 +164,8 @@ module.exports = function () {
         $('.suggestions').hide();
         tearDownSuggestions();
     });
+
+    if (window.Resources.FAMILY_NAME_ENABLED) {
+            $('.product-tile .image-container').addClass('family-name-enabled');
+    } 
 };

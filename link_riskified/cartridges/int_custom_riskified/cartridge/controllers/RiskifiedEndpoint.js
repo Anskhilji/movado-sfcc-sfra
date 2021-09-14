@@ -45,6 +45,7 @@ server.prepend('AnalysisNotificationEndpoint', function (req, res, next) {
     }
 
     if (order && !order.custom.isOrderCompleted) {
+        checkoutLogger.info('(RiskifiedParseResponseResult) ->  Order is not completed yet therefore holding riskified to update status and order number is: ' + order.orderNo);
         res.setStatusCode(400);
         res.render('riskified/riskifiedorderanalysisresponse', {
             AnalysisUpdateError:true,
@@ -72,9 +73,10 @@ server.append('AnalysisNotificationEndpoint', function (req, res, next) {
     var responseMessage = viewData.responseMessage ? viewData.responseMessage : "";
 
     if (order && !isError) {
+        checkoutLogger.info('(RiskifiedParseResponseResult) ->  parseRiskifiedResponse: Order is completed therefore going to update riskified status and order number is: ' + order.orderNo);
         riskifiedResponseResult.parseRiskifiedResponse(order);
     } else if (order && isError == true && order.custom.isOrderCompleted) {
-
+        checkoutLogger.info('(RiskifiedParseResponseResult) ->  parseRiskifiedResponse: There is an error with message ' + responseMessage + ' and going to cancel order in OMS and order number is: ' + order.orderNo);
         /* Reject in OMS - Do not process to fulfillment status */
         if ('SOMIntegrationEnabled' in Site.getCurrent().preferences && Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {
             var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');

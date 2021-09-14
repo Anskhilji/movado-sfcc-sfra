@@ -37,7 +37,11 @@ server.append('AddProduct', function (req, res, next) {
         var marketingProductData;
 
         // Custom logic to add product recommendation
-        if (!empty(req.form.recommendationArray)) {
+        /*
+        Listrak Cartridge check is added because if listrak is enabled this logic is shifted to there
+        bcz listrak controller calls first and recommendations were not added in calculations.
+        */
+        if (!Site.current.preferences.custom.Listrak_Cartridge_Enabled && !empty(req.form.recommendationArray)) {
             var recommendationArray = JSON.parse(req.form.recommendationArray);
             if (recommendationArray.length > 0 ) {
                 recommendationArray.forEach(function (recommendation) {
