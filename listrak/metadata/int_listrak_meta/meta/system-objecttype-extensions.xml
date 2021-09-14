@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://www.demandware.com/xml/impex/metadata/2006-10-31">
+    <type-extension type-id="Library">        
+        <custom-attribute-definitions>
+            <attribute-definition attribute-id="ltkClickToken">
+                <display-name xml:lang="x-default">Listrak Click Tracking Token</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="ltkProcessed">
+                <display-name xml:lang="x-default">Processed by Listrak</display-name>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="ltkProcessedDate">
+                <display-name xml:lang="x-default">Date order data was sent to Listrak</display-name>
+                <type>datetime</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="ltkSessionID">
+                <display-name xml:lang="x-default">Listrak Session ID</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+        </custom-attribute-definitions>
+        <group-definitions>
+            <attribute-group group-id="Listrak">
+                <display-name xml:lang="x-default">Listrak Order Tracking Information</display-name>
+                <attribute attribute-id="ltkSessionID"/>
+                <attribute attribute-id="ltkClickToken"/>
+                <attribute attribute-id="lastModified" system="true"/>
+            </attribute-group>
+        </group-definitions>
+    </type-extension>
+    <type-extension type-id="SitePreferences">
+        <custom-attribute-definitions>
+            <attribute-definition attribute-id="GoogleVerificationTag">
+                <display-name xml:lang="x-default">GoogleVerificationTag - Content Attribute</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="Listrak_ActivityTracker_Enabled">
+                <display-name xml:lang="x-default">Enable Activity Tracking Service</display-name>
+                <description xml:lang="x-default">Turn on/off Listrak's Activity Tracker service</description>
+                <type>boolean</type>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>false</default-value>
+            </attribute-definition>
+            <attribute-definition attribute-id="Listrak_Additional_Attributes">
+                <display-name xml:lang="x-default">Additional Product Attributes</display-name>
+                <type>set-of-string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="Listrak_Cartridge_Enabled">
+                <display-name xml:lang="x-default">Enable Listrak Cartridge</display-name>
+                <description xml:lang="x-default">Turn on/off Listrak's Cartridge</description>
+                <type>boolean</type>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>true</default-value>
+            </attribute-definition>
+            <attribute-definition attribute-id="Listrak_Cartridge_Version">
+                <display-name xml:lang="x-default">Listrak Cartridge Version</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+                <default-value>20.1</default-value>
+            </attribute-definition>
+            <attribute-definition attribute-id="Listrak_CustomerExport_Enabled">
+                <display-name xml:lang="x-default">Enable Customer Sync</display-name>
+                <description xml:lang="x-default">Submits changes in customer data to Listrak via daily FTP export.</description>
+                <type>boolean</type>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="Listrak_EmailCapture">
+                <display-name xml:lang="x-default">Email Capture Fields</display-name>
+                <description xml:lang="x-default">Enter the field names of the input fields in the website that a user can enter their email address.</description>
+                <type>set-of-string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <field-length>0</field-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="Listrak_EmailCapture_Watermarks">
+                <display-name xml:lang="x-default">Email Watermarks</display-name>
+                <description xml:lang="x-default">List any watermarks that are used in email fields so they will not be sent to Listrak as for email capture or email subscriptions.</description>
+                <type>set-of-string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <field-length>0</field-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="Listrak_ExportPrefix">
+                <display-name xml:lang="x-default">FTP Filename Prefix</display-name>
+                <description xml:lang="x-default">Enter the prefix to be used for files being sent to Listrak via FTP.</description>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="Listrak_LogExceptions">
+                <display-name xml:lang="x-default">Enable Exception Logging</display-name>
+                <description xml:lang="x-default">Enables the use of custom objects to log server side exceptions.</description>
+                <type>boolean</type>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="Listrak_MaxRecommendedProductExport">
+                <display-name xml:lang="x-default">Max # of Recommendations Exported</display-name>
+                <description xml:lang="x-default">Enter the maximum number of recommended (related) sku's to export per product (up to 25).  Enter a '0' (zero) to disable exporting recommended products.</description>
+                <type>int</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <field-length>0</field-length>
+                <min-value>0.0</min-value>
+                <max-value>25.0</max-value>
+                <default-value>0</default-value>
+            </attribute-definition>
+            <attribute-definition attribute-id="Listrak_MerchantTrackingID">
+                <display-name xml:lang="x-default">Listrak Merchant Tracking ID</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="Listrak_OrderExport_Enabled">
+                <display-name xml:lang="x-default">Enable Order Sync</display-name>
+                <description xml:lang="x-default">Submits changes in order data to Listrak via FTP export.</description>
+                <type>boolean</type>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="Listrak_OrderStatusFilter">
+                <display-name xml:lang="x-default">Order Status Filter</display-name>
+                <description xml:lang="x-default">Enter the order status names you want to filter. Orders with a status listed here will not be sent to Listrak.</description>
+                <type>set-of-string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <field-length>0</field-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="Listrak_ProductExport_Enabled">
+                <display-name xml:lang="x-default">Enable Product Sync</display-name>
+                <description xml:lang="x-default">Submits product data to Listrak via daily FTP export.</description>
+                <type>boolean</type>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="Listrak_ProductExport_IncludeOfflineProducts">
+                <display-name xml:lang="x-default">Include Offline Products</display-name>
+                <description xml:lang="x-default">Include product that are offline or out of stock.</description>
+                <type>boolean</type>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="Listrak_ProductImageViewType">
+                <display-name xml:lang="x-default">Product Image Viewtype</display-name>
+                <description xml:lang="x-default">If you are not using either "small" or "large" as the Demandware viewtype for your product image files, specify your custom viewtype here.</description>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+                <field-length>0</field-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="Listrak_SCA_Enabled">
+                <display-name xml:lang="x-default">Enable Shopping Cart Abandonment</display-name>
+                <description xml:lang="x-default">Enables collection and submission of Shopping Cart Abandonment data to Listrak.</description>
+                <type>boolean</type>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="Listrak_Signup">
+                <display-name xml:lang="x-default">Subscription forms</display-name>
+                <description xml:lang="x-default">Enter the form names / ids you would like to use as a subscription point</description>
+                <type>set-of-string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <field-length>0</field-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="Listrak_SubcategoryLevels">
+                <display-name xml:lang="x-default">Product Sub-category Levels to export</display-name>
+                <description xml:lang="x-default">Number of product sub-category levels to exports.  For Example, if you have products categorized as such: Men's -&gt; Clothing -&gt; Outerwear -&gt; Jackets, you would want this set to 3 so that Men's would be the category, then you would get 3 subcategories (Clothing, Outerwear, Jackets).</description>
+                <type>int</type>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <field-length>0</field-length>
+                <min-value>1.0</min-value>
+                <max-value>10.0</max-value>
+                <default-value>1</default-value>
+            </attribute-definition>
+            <attribute-definition attribute-id="Listrak_TopLevelCategory">
+                <display-name xml:lang="x-default">Top Level Category Index</display-name>
+                <display-name xml:lang="en">Top Level Category Index</display-name>
+                <description xml:lang="x-default">The level that your product category should be displayed.  For example, if your category 'tree' is: Root -&gt; Online -&gt; Men's -&gt; Clothing..., then if you want Men's to be your starting Category, this value should be set to 3.</description>
+                <description xml:lang="en">The level that your product category should be displayed.  For example, if your category 'tree' is: Root -&gt; Online -&gt; Men's -&gt; Clothing..., then if you want Men's to be your starting Category, this value should be set to 3.</description>
+                <type>int</type>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <field-length>0</field-length>
+                <min-value>1.0</min-value>
+                <max-value>10.0</max-value>
+                <default-value>2</default-value>
+            </attribute-definition>
+            <attribute-definition attribute-id="Listrak_TrackingEndpoint">
+                <display-name xml:lang="x-default">Listrak Tracking Endpoint</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+                <field-length>0</field-length>
+                <default-value>s1.listrakbi.com</default-value>
+            </attribute-definition>
+            <attribute-definition attribute-id="Listrak_UseAbsoluteImageURLs">
+                <display-name xml:lang="x-default">Use Absolute Image URLs</display-name>
+                <type>boolean</type>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="Listrak_UseAbsoluteProductURLs">
+                <display-name xml:lang="x-default">Use Absolute Product URLs</display-name>
+                <type>boolean</type>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>            
+            </attribute-definition>            
+        </custom-attribute-definitions>
+        <group-definitions>            
+            <attribute-group group-id="Listrak">
+                <display-name xml:lang="x-default">Listrak Store Preferences</display-name>
+                <attribute attribute-id="Listrak_Cartridge_Enabled"/>
+                <attribute attribute-id="Listrak_MerchantTrackingID"/>
+                <attribute attribute-id="Listrak_SCA_Enabled"/>
+                <attribute attribute-id="Listrak_ActivityTracker_Enabled"/>
+                <attribute attribute-id="Listrak_ProductExport_Enabled"/>
+                <attribute attribute-id="Listrak_MaxRecommendedProductExport"/>
+                <attribute attribute-id="Listrak_CustomerExport_Enabled"/>
+                <attribute attribute-id="Listrak_OrderExport_Enabled"/>
+                <attribute attribute-id="Listrak_TopLevelCategory"/>
+                <attribute attribute-id="Listrak_SubcategoryLevels"/>
+                <attribute attribute-id="Listrak_Signup"/>
+                <attribute attribute-id="Listrak_EmailCapture"/>
+                <attribute attribute-id="Listrak_EmailCapture_Watermarks"/>
+                <attribute attribute-id="Listrak_OrderStatusFilter"/>
+                <attribute attribute-id="Listrak_TrackingEndpoint"/>
+                <attribute attribute-id="Listrak_UseAbsoluteProductURLs"/>
+                <attribute attribute-id="Listrak_UseAbsoluteImageURLs"/>
+                <attribute attribute-id="Listrak_ProductImageViewType"/>
+                <attribute attribute-id="Listrak_LogExceptions"/>
+                <attribute attribute-id="Listrak_ProductExport_IncludeOfflineProducts"/>
+                <attribute attribute-id="Listrak_Additional_Attributes"/>
+                <attribute attribute-id="Listrak_ExportPrefix"/>
+                <attribute attribute-id="Listrak_Cartridge_Version"/>
+            </attribute-group>
+        </group-definitions>
+    </type-extension>
+</metadata>

@@ -24,9 +24,9 @@
 .dw-apple-pay-button.apple-pay-pdp:hover {
     padding: rem(6) rem(12);
     flex-basis: 0;
-    flex-grow: 1;
+    flex-grow: 0;
     max-width: 100%;
-    margin: auto;
+    margin: auto 0;
     border-radius: 0;
 }
 
@@ -48,7 +48,7 @@ isapplepay.btn {
 
 .cart-and-ipay {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 .applepay-tab-wrapper {

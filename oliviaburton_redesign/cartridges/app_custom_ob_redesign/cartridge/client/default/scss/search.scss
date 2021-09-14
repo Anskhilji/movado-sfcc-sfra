@@ -374,7 +374,6 @@
     }
 }
 
-
 .plp-redesign {
     margin-bottom: rem(20);
 
@@ -1360,19 +1359,24 @@
         padding-right: rem(5);
         padding-left: rem(5);
 
+        @include media-breakpoint-up(xs-custom) {    
+            margin-bottom: rem(48);
+        }
+
         @include media-breakpoint-up(sm) {
+            margin-bottom: rem(48);
             padding-right: rem(8);
             padding-left: rem(8);
         }
 
         @include media-breakpoint-up(lg) {
-            margin-bottom: rem(20);
+            margin-bottom: rem(60);
             flex: 0 0 25%;
             max-width: 25%;
         }
 
         @include media-breakpoint-up(xl) {
-            margin-bottom: rem(20);
+            margin-bottom: rem(60);
             flex: 0 0 20%;
             max-width: 20%;
         }
@@ -1402,6 +1406,31 @@
                 height: 100%;
                 position: relative;
 
+                @include media-breakpoint-up(xs-custom) {
+                    min-height: rem(300);
+                    height: auto;
+                }
+
+                @include media-breakpoint-up(xsm-custom) {
+                    min-height: rem(324);
+                    height: auto;
+                }
+
+                @include media-breakpoint-up(sm-custom) {
+                    min-height: rem(340);
+                    height: auto;
+                }
+
+                @media (min-width:$grid-breakpoint-one) and (max-width:$grid-breakpoint-two) {
+                    min-height: rem(380);
+                    height: 100%;
+                }
+
+                @include media-breakpoint-up(sm) {
+                    min-height: auto;
+                    height: 100%;
+                }
+
                 .tile-picture {
                     transition: 0.3s all;
                     display: block;
@@ -1420,7 +1449,6 @@
                     box-shadow: 0 rem(2) rem(6) rgba(155, 155, 155, 0.5);
 
                     @include media-breakpoint-up(lg) {
-                        margin-bottom: rem(-56);
                         position: relative;
                         z-index: 5;
                     }
@@ -1435,8 +1463,9 @@
 
                     .tile-body {
                         @include media-breakpoint-up(lg) {
+                            min-height: rem(172);
                             height: auto;
-                            transform: translateY(50px);
+                            transform: translateY(80px);
                             margin-bottom: rem(5);
                             box-shadow: 0 rem(2) rem(2) rgba(155, 155, 155, 0.5);
                         }
@@ -1461,19 +1490,29 @@
                     padding-bottom: rem(65);
 
                     @include media-breakpoint-up(xs-custom) {
-                        padding-bottom: rem(128);
+                        padding-bottom: 0;
                     }
 
                     @include media-breakpoint-up(sm-custom) {
-                        padding-bottom: rem(124.8);
+                        padding-bottom: 0;
                     }
                     
                     @include media-breakpoint-up(sm) {
-                        padding-bottom: rem(136);
+                        padding-bottom: rem(160);
+                    }
+
+                    &.family-name-enabled {
+                        @include media-breakpoint-up(md) {
+                            padding-bottom: rem(160);
+                        }
+
+                        @include media-breakpoint-up(lg) {
+                            padding-bottom: rem(96);
+                        }
                     }
 
                     @include media-breakpoint-up(md) {
-                        padding-bottom: rem(128);
+                        padding-bottom: rem(136);
                     }
 
                     @include media-breakpoint-up(lg) {
@@ -1510,6 +1549,7 @@
                         }
                     }
                 }
+
                 .tile-body {
                     text-align: left;
                     padding: rem(10) rem(15);
@@ -1521,16 +1561,15 @@
                     display: block;
                     overflow: hidden;
 
-                    @include media-breakpoint-up(lg) {
-                        min-height: rem(100);
-                        height: auto;
-                        transition: transform 0.4s all;
-                        transform: translateY(0px);
-                        
-                    }
-
                     @include media-breakpoint-up(sm) {
                         padding: rem(15) rem(20);
+                    }
+
+                    @include media-breakpoint-up(lg) {
+                        min-height: rem(128);
+                        height: auto;
+                        transition: transform 0.4s all;
+                        transform: translateY(25px);
                     }
 
                     .pdp-link {
@@ -1605,6 +1644,7 @@
                         }
                     }
                 }
+
                 .cta-add-to-cart {
                     display: block;
                     margin-top: rem(8);

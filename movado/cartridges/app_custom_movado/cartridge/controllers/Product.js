@@ -44,6 +44,12 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var product = viewData.product;
     var productPrice = !empty(product) ? product.price : '';
     var YotpoIntegrationHelper = require('*/cartridge/scripts/common/integrationHelper.js');
+    var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
+    var smartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
+    var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
+    var smartGift = smartGiftHelper.getSmartGiftCardBasket(showProductPageHelperResult.product.id);
+    var smartGiftAddToCartURL = Site.current.preferences.custom.smartGiftURL + showProductPageHelperResult.product.id;
+
 
     var collectionContentList;
     var socialShareEnable = Site.getCurrent().preferences.custom.addthis_enabled;
@@ -131,7 +137,10 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         relativeURL: URLUtils.url('Product-Show','pid', product.ID),
         explicitRecommendations: explicitRecommendations,
         strapGuideText: strapGuideText,
-        collectionName: collectionName
+        collectionName: collectionName,
+        addToCartUrl: showProductPageHelperResult.addToCartUrl,
+        isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
+        smartGiftAddToCartURL : smartGiftAddToCartURL
     };
     var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
     res.setViewData(smartGift);
@@ -333,7 +342,6 @@ server.get('ShowAvailability', function (req, res, next) {
 server.get('ShowCartButton', function (req, res, next) {
     var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
     var smartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
-    
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
     var smartGift = smartGiftHelper.getSmartGiftCardBasket(showProductPageHelperResult.product.id);
     var smartGiftAddToCartURL = Site.current.preferences.custom.smartGiftURL + showProductPageHelperResult.product.id;
@@ -345,7 +353,7 @@ server.get('ShowCartButton', function (req, res, next) {
         loggedIn: req.currentCustomer.raw.authenticated,
         restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites,
         ecommerceFunctionalityEnabled : Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled,
-        smartGiftAddToCartURL : smartGiftAddToCartURL 
+        smartGiftAddToCartURL : smartGiftAddToCartURL
     });
     next();
 });
