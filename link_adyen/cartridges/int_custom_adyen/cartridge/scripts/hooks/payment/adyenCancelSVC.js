@@ -128,7 +128,10 @@ function cancelOrRefund(order, amount, isJob, sendMail) {
     return response;
 }
 
-
+/**
+ * Initiates technical cancel call for order
+ * @param {dw.order.Order} order
+ */
 function technicalCancel(order) {
     var callResult = null;
     if (empty(order)) {
@@ -152,14 +155,13 @@ function technicalCancel(order) {
             /* Parse the response */
             var result = JSON.parse(callResult.object.getText());
 
-            if (!empty(result) && result.status == "received") {
+            if (!empty(result) && result.status == 'received') {
                 Transaction.wrap(function () {
                     order.custom.Adyen_eventCode = 'TECHNICAL_CANCEL';
                     order.custom.Adyen_pspReference = result.pspReference;
                 });
             }
         }
-
     } catch (e) {
         adyenLogger.error('An error occurred during the call to Adyen API and order number: ' + orderNo + ' and exception is: ' + e + '\n' + e.stack);
     }
