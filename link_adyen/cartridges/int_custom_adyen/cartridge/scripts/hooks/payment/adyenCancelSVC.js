@@ -129,6 +129,42 @@ function cancelOrRefund(order, amount, isJob, sendMail) {
 }
 
 
+function technicalCancel(order) {
+    var callResult = null;
+    if (empty(order)) {
+        adyenLogger.error('(adyenCancelSVC) -> technicalCancel: Can not proceed with Order technical cancel as order parameter is empty');
+    }
+    var orderNo = order.getOrderNo();
+    try {
+        adyenLogger.debug('(adyenCancelSVC) -> technicalCancel: Inside the technicalCancel to validate the order and order number is: ' + order.getOrderNo());
+
+        var merchantAccount = Site.getCurrent().getCustomPreferenceValue('Adyen_merchantCode');
+        var technicalCancelRequest = adyenCustomHelper.createTechnicalCancelRequest(orderNo, merchantAccount);
+        var technicalCancelSVC = AdyenHelper.getService('AdyenCancel');
+        /* add service headers*/
+        technicalCancelSVC.addHeader('Content-type', 'application/json');
+
+        /* call service*/
+        callResult = technicalCancelSVC.call(technicalCancelRequest);
+        if (callResult && callResult.isOk() == false) {
+            adyenLogger.error('Failed to refund order using technical cancel: Call error code' + callResult.getError().toString() + ' Error => ResponseStatus: ' + callResult.getStatus() + ' | ResponseErrorText: ' + callResult.getErrorMessage() + ' | ResponseText: ' + callResult.getMsg());
+        } else {
+            /* Parse the response */
+            var result = JSON.parse(callResult.object.getText());
+
+            if (!empty(result) && result.status == "received") {
+                Transaction.wrap(function () {
+                    order.custom.Adyen_eventCode = 'TECHNICAL_CANCEL';
+                    order.custom.Adyen_pspReference = result.pspReference;
+                });
+            }
+        }
+
+    } catch (e) {
+        adyenLogger.error('An error occurred during the call to Adyen API and order number: ' + orderNo + ' and exception is: ' + e + '\n' + e.stack);
+    }
+}
 module.exports = {
-    cancelOrRefund: cancelOrRefund
+    cancelOrRefund: cancelOrRefund,
+    technicalCancel: technicalCancel
 };
