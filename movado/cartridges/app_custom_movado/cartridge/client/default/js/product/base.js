@@ -802,6 +802,12 @@ module.exports = {
                         handlePostCartAdd(data);
                         $('body').trigger('product:afterAddToCart', data);
                         $.spinner().stop();
+                        //Custom Start: [MSS-1451] Listrak SendSCA on AddToCart
+                        if (window.Resources.LISTRAK_ENABLED) {
+                            var ltkSendSCA = require('listrak_custom/ltkSendSCA');
+                            ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
+                        }
+                        //Custom End
                         $(window).resize(); // This is used to fix zoom feature after add to cart
                     },
                     error: function () {
