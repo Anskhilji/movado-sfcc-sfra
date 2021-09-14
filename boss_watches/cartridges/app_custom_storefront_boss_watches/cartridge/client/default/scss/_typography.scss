@@ -1,17 +1,20 @@
 @font-face {
     font-family: "Ubuntu-Book";
+    font-display: Block;
     src: url('fonts/Ubuntu-Regular.ttf');src: url('fonts/Ubuntu-Regular.ttf?#iefix') format('embedded-opentype'),url('fonts/Ubuntu-Regular.ttf') format('ttf'),url('fonts/Ubuntu-Regular.ttf') format('ttf'),url('fonts/Ubuntu-Regular.ttf') format('truetype');
     font-style: normal;
     font-weight: 300;
   }
   @font-face {
     font-family: "Ubuntu-Medium";
+    font-display: Block;
     src: url('fonts/Ubuntu-Regular.ttf');src: url('fonts/Ubuntu-Regular.ttf?#iefix') format('embedded-opentype'),url('fonts/Ubuntu-Regular.ttf') format('ttf'),url('fonts/Ubuntu-Regular.ttf') format('ttf'),url('fonts/Ubuntu-Regular.ttf') format('truetype');
     font-style: normal;
     font-weight: 500;
   }
   @font-face {
     font-family: "Ubuntu-Bold";
+    font-display: Block;
     src: url('fonts/Ubuntu-Bold.ttf');src: url('fonts/Ubuntu-Bold.ttf?#iefix') format('embedded-opentype'),url('fonts/Ubuntu-Bold.ttf') format('ttf'),url('fonts/Ubuntu-Bold.ttf') format('ttf'),url('fonts/Ubuntu-Bold.ttf') format('truetype');
     font-style: normal;
     font-weight: 700;
