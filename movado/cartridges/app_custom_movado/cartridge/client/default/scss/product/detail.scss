@@ -47,6 +47,7 @@ label.color ~ a:hover {
 .product-detail .description {
 
     margin-bottom: rem(30);
+    width: 100%;
 
     @include media-breakpoint-up(sm) {
         margin-bottom: 2rem;
@@ -66,9 +67,13 @@ label.availability {
 }
 
 .ratings {
-
+    width: rem(212);
+    height: rem(20);
+    
     @include media-breakpoint-up(sm) {
         margin-top: 0.625em;
+        width: rem(212);
+        height: rem(20);
     }
 
     @include media-breakpoint-only(xs) {
@@ -83,6 +88,7 @@ label.availability {
     font-weight: normal;
     text-align: center;
     color: $danger;
+    width: 100%;
 
     .callout {
         font-size: rem(16);
@@ -206,10 +212,10 @@ label.availability {
 .dw-apple-pay-button.apple-pay-pdp:hover {
     min-width: 30%;
     @include media-breakpoint-down(lg) {
-        min-width: 96%;
+        min-width: 100%;
         font-size: rem(16);
         margin-top: rem(5);
-        margin-left: rem(0) !important;
+        margin-left: rem(0);
     }
     &:after {
         font-size: rem(6);
@@ -272,4 +278,28 @@ label.availability {
     .btn.quickview, .btn.title {
         background-color: transparent;
     }
+}
+
+.affirm-as-low-as {
+    width: 100%;
+    height: rem(45);
+}
+
+.cta-add-to-cart {
+
+    .add-to-cart {
+        width: rem(151);
+        height: rem(38.4);
+        margin-right: rem(8);
+    }
+
+    @include media-breakpoint-down(lg) {
+        .add-to-cart {
+            width: 100%;
+            height: rem(38.4);
+        }
+    }
+}
+.slick-slider{
+    touch-action: auto!important;
 }

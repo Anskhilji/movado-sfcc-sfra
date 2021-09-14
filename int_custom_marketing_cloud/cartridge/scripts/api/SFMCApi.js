@@ -10,11 +10,18 @@ var SFMCAPIHelper = require('~/cartridge/scripts/helper/SFMCAPIHelper');
 var SFMCCOHelper = require('~/cartridge/scripts/helper/SFMCCOHelper');
 
 function sendSubscriberToSFMC(requestParams) {
-    var authServiceID = Constants.SERVICE_ID.INSTANT_AUTH;
-    var dataServiceID = Constants.SERVICE_ID.INSTANT_DATA;
     var result = {
         success: true
     }
+    //Custom Start: [MSS-1429] Disable SMFC if Listrak is Enabled
+    if (dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
+        result.success = false;
+        return result;
+    }
+    //Custom End
+    var authServiceID = Constants.SERVICE_ID.INSTANT_AUTH;
+    var dataServiceID = Constants.SERVICE_ID.INSTANT_DATA;
+
     if (!empty(requestParams.requestLocation) && requestParams.requestLocation === 'CHECKOUT_SERVICE') {
         authServiceID = Constants.SERVICE_ID.INSTANT_CHECKOUT_AUTH;
         dataServiceID = Constants.SERVICE_ID.INSTANT_CHECKOUT_DATA;

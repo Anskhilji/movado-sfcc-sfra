@@ -28,6 +28,8 @@
 		target.style.position = /(absolute|fixed)/.test(position) ? position : 'relative';
 		target.style.overflow = 'hidden';
 		img.style.width = img.style.height = '';
+		var imageHeight = 1826;
+		var imageWidth = 1826;
 
 		$(img)
 			.addClass('zoomImg')
@@ -36,8 +38,8 @@
 				top: 0,
 				left: 0,
 				opacity: 0,
-				width: img.width * magnify,
-				height: img.height * magnify,
+				width: imageWidth * magnify,
+				height: imageHeight * magnify,
 				border: 'none',
 				maxWidth: 'none',
 				maxHeight: 'none'
@@ -57,8 +59,8 @@
 					sourceHeight = $source.outerHeight();
 				}
 
-				xRatio = (img.width - targetWidth) / sourceWidth;
-				yRatio = (img.height - targetHeight) / sourceHeight;
+				xRatio = (imageWidth - targetWidth) / sourceWidth;
+				yRatio = (imageHeight - targetHeight) / sourceHeight;
 
 				offset = $source.offset();
 			},
