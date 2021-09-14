@@ -1,0 +1,10 @@
+
+<script src="${URLUtils.staticURL('/js/ltkActivityTracking.js')}" 
+ltk-data-clearurl='<isprint value="${URLUtils.url('ltkActivityTracking-ClearTracker')}"/>' 
+ltk-data-sku='<isprint value="${pdict.CurrentSession.privacy.ProdBrowse}"/>' 
+ltk-data-qvsku='<isprint value="${pdict.CurrentSession.privacy.QuickViewSkus}"/>' 
+ltk-data-category='<isprint value="${pdict.CurrentSession.privacy.Category}"/>'
+ltk-data-price='<isprint value="${pdict.CurrentSession.privacy.ltkProductPrice}"/>'
+ltk-data-countryCode='<isprint value="${pdict.CurrentSession.privacy.ltkCountryCode}"/>'></script>
+
+

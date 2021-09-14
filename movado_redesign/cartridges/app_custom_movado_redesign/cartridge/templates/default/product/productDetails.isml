@@ -7,6 +7,10 @@
         assets.addJs('/js/productDetail.js');
         assets.addCss('/css/product/detail.css');
     </isscript>
+    <isset name="isListrakEnable" value="${!empty(dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) ? dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled : false}" scope="page" />
+    <isif condition="${isListrakEnable}">
+        <isinclude url="${URLUtils.https('ltkActivityTracking-TrackRequest', 'pid', pdict.product.id)}"/>  
+    </isif>
     <isif condition="${dw.system.Site.current.preferences.custom.EUMEnabled}">
         <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.pdp', 'eum', null))}"/>
     </isif>
@@ -90,7 +94,6 @@
                                     <isinclude template="product/components/pricing/main" />
                                 </isif>
                             </div>
-                            
                             <!-- Applicable Promotions -->
                             <iscomment> Custom Start: Promotions shows when following requirements meet </iscomment>
                             <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
@@ -134,18 +137,54 @@
                             </isif>
                                 <!-- Cart and [Optionally] Apple Pay -->
                             <div class="cart-wishlist ${product.available && product.readyToOrder ? '' : 'cart-wishlist-out-of-stock'}">
-                                <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
+                                <iscomment> Custom Start: Adding Esw updated cartridge code for add to cart button and applepay </iscomment>
+                                <div class="cart-and-ipay ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "d-none" : ""}">
+                                    <div class="cta-add-to-cart">
+                                        <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}">
+                                        <iscomment> Custom Start: Adding Esw updated cartridge code ({product.isProductRestricted}>d-none) </iscomment>
+                                        <button class='add-to-cart btn btn-primary <isif condition="${product.isProductRestricted}">d-none</isif>'
+                                            data-pid="${product.id}"
+                                            ${!product.readyToOrder ? 'disabled' : ''}  >
+                                                <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>
+                                                <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
+                                                    ${Resource.msg('button.preorder.now', 'common', null)} </br>
+                                                <iselse/>
+                                                    ${Resource.msg('button.addtocart', 'common', null)}
+                                                </isif>
+                                        </button>
+                                        <isif condition="${product.available && product.readyToOrder}">
+                                            <iscomment> Custom Start: Adding check for applepay button to show only when country US is selected</iscomment>
+                                            <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
+                                            <isif condition="${isEswEnabled}">
+                                                <isif condition="${!empty(request.httpCookies['esw.location'])  &&  !empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US') && !product.isProductRestricted}" >
+                                                    <isapplepay class="apple-pay-pdp btn mt-2" sku="${product.id}"></isapplepay>
+                                                    <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
+                                                        <isinclude template="product/components/smartGift" />
+                                                    </isif>
+                                                </isif>
+                                                <div class="product-not-available-msg <isif condition="${!product.isProductRestricted}">d-none</isif>">${Resource.msg('esw.product.notavailable','esw',null)}</div>
+                                            <iselse/>
+                                                <isapplepay class="apple-pay-pdp btn mt-2" sku="${product.id}"></isapplepay>
+                                                <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}"> 
+                                                    <isinclude template="product/components/smartGift" />
+                                                </isif>
+                                            </isif>
+                                            <iscomment> Custom End </iscomment>
+                                        </isif>
+                                    </div>
+                                </div>
                                 <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
                                     <div class="traditional-wishlist-row wishlist-row">
                                         <isinclude url="${URLUtils.https('Wishlist-ShowIcon', 'gtmObj',JSON.stringify(pdict.wishlistGtmObj))}"/>
                                     </div>
                                 </isif>
-                            </div>
+                           </div>
+
                             <isif condition="${sitePref.enableBackInStock}">
                                 <isinclude template="product/backInStockNotification" sf-toolkit="on" />
                             </isif>
                         </div>
-                    </div>
+                        </div>
 
                     <!-- Size Chart -->
                     <isif condition="${product.variationAttributes && product.sizeChartId}">

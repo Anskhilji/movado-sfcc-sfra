@@ -89,6 +89,12 @@
             <script src="${URLUtils.staticURL('/js/customClydeWidget.js')}" ></script>
         </isif>
     <iscomment> Custom End: </iscomment>
+
+    <iscomment>Listrak Cartridge Integration</iscomment>
+    <isset name="isListrakEnable" value="${!empty(dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) ? dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled : false}" scope="page" />
+    <isif condition="${isListrakEnable}">
+        <isinclude url="${URLUtils.url('ltkInclude-Start')}"/>
+    </isif>
     <iscomment> One trust html script </iscomment>
     <isinclude template="common/oneTrustCookiesHTML" sf-toolkit="off" />
 

@@ -182,6 +182,16 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	    });
 	    return next();
 	  }
+
+	//Custom Start: [MSS-1429] Add this piece of Code from int_listrak_sfra to here beacuse this method is replace
+	if (dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
+		var ltkSendOrder = require('*/cartridge/controllers/ltkSendOrder.js');
+		session.privacy.SendOrder = true;
+		session.privacy.OrderNumber = order.orderNo;
+		ltkSendOrder.SendPost();
+	}
+	//Custom End
+
       checkoutLogger.debug('(CheckoutServices) -> PlaceOrder: Order is created with order number: ' + order.orderNo);
 	  //Set order custom attribute if there is any pre-order item exists in order
 	  if (isPreOrder) {
