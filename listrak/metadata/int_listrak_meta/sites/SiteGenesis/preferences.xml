@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<preferences xmlns="http://www.demandware.com/xml/impex/preferences/2007-03-31">
+    <custom-preferences>
+        <all-instances/>
+        <development>
+            <preference preference-id="Listrak_ActivityTracker_Enabled">true</preference>
+            <preference preference-id="Listrak_Cartridge_Enabled">true</preference>
+            <preference preference-id="Listrak_CustomerExport_Enabled">true</preference>
+            <preference preference-id="Listrak_ExportPrefix"></preference>
+            <preference preference-id="Listrak_LogExceptions">true</preference>
+            <preference preference-id="Listrak_MaxRecommendedProductExport">20</preference>
+            <preference preference-id="Listrak_MerchantTrackingID"></preference>
+            <preference preference-id="Listrak_OrderExport_Enabled"></preference>
+            <preference preference-id="Listrak_OrderStatusFilter">
+                <value>FAILED</value>
+            </preference>
+            <preference preference-id="Listrak_ProductExport_Enabled">true</preference>
+            <preference preference-id="Listrak_ProductExport_IncludeOfflineProducts">true</preference>
+            <preference preference-id="Listrak_SCA_Enabled">true</preference>
+            <preference preference-id="Listrak_Signup">
+                <value>RegistrationForm</value>
+            </preference>
+            <preference preference-id="Listrak_SubcategoryLevels">1</preference>
+            <preference preference-id="Listrak_TopLevelCategory">2</preference>
+            <preference preference-id="Listrak_UseAbsoluteImageURLs">true</preference>
+            <preference preference-id="Listrak_UseAbsoluteProductURLs">true</preference>
+        </development>
+        <staging/>
+        <production/>
+    </custom-preferences>
+</preferences>
+

@@ -26,11 +26,24 @@ var eShopWorldServices = {
         return oAuthService;
     },
     /*
-     * service for getting V2 pricing feed
+     * service for getting oAuth Token for Pricing Advisor
      */
-    getPricingV2Service: function () {
-        var priceFeedV2Service = LocalServiceRegistry.createService('EswPriceFeedV3Service', {
-
+    getPricingOAuthService: function () {
+        var priceFeedOAuthServiceName = eswHelper.getSelectedPriceFeedInstance() === 'production' ? 'EswPriceFeedOAuthService.PROD' : 'EswOAuthService';
+        var oAuthService = LocalServiceRegistry.createService(priceFeedOAuthServiceName, {
+            parseResponse: function (service, listOutput) {
+                eswHelper.eswInfoLogger('Esw Price Feed OAuth Response', listOutput.text);
+                return listOutput.text;
+            }
+        });
+        return oAuthService;
+    },
+    /*
+     * service for getting version 3 Pricing Advisor data
+     */
+    getPricingV3Service: function () {
+        var priceFeedServiceName = eswHelper.getSelectedPriceFeedInstance() === 'production' ? 'EswPriceFeedV3Service.PROD' : 'EswPriceFeedV3Service';
+        var priceFeedV3Service = LocalServiceRegistry.createService(priceFeedServiceName, {
             createRequest: function (service, params) {
                 var clientID = eswHelper.getClientID(),
                     bearerToken = 'Bearer ' + params;
@@ -55,8 +68,10 @@ var eShopWorldServices = {
                 return serviceResponse;
             }
         });
-        return priceFeedV2Service;
+        return priceFeedV3Service;
     },
+
+
     /*
      * service pre-order version 2 request definition
      */
