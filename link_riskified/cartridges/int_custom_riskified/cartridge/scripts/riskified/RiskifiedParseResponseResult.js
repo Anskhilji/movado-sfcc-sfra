@@ -29,15 +29,15 @@ function parseRiskifiedResponse(order) {
     var RESP_SUCCESS ='SUCCESS';
     session.custom.currencyCode = order.currencyCode;
 
-    checkoutLogger.debug('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Inside parseRiskifiedResponse to check riskified status and order number is: ' + order.orderNo);
+    checkoutLogger.info('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Inside parseRiskifiedResponse to check riskified status and order number is: ' + order.orderNo);
 
     if (riskifiedStatus.displayValue === 'Declined') {
-         checkoutLogger.debug('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is declined and going to check the payment and order statuses and order number is: ' + order.orderNo);
+         checkoutLogger.info('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is declined and going to check the payment and order statuses and order number is: ' + order.orderNo);
     	// void or reverse the payment if card payment or not paid
 		// (Order.PAYMENT_STATUS_NOTPAID) else refund the payment if already
 		// captured and send mail to customer
         if (order.getPaymentStatus() == Order.PAYMENT_STATUS_NOTPAID || (paymentMethod.ID == 'CREDIT_CARD' && order.getPaymentStatus() == Order.PAYMENT_STATUS_NOTPAID)) {
-            checkoutLogger.debug('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is declined and going to get the responseObject from hooksHelper with paymentReversal param and order number is: ' + order.orderNo);
+            checkoutLogger.info('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is declined and going to get the responseObject from hooksHelper with paymentReversal param and order number is: ' + order.orderNo);
         	responseObject = hooksHelper(
 					'app.riskified.paymentreversal',
 					'paymentReversal',
@@ -46,7 +46,7 @@ function parseRiskifiedResponse(order) {
 					false,
 					require('*/cartridge/scripts/hooks/paymentProcessHook').paymentReversal);
         } else {
-            checkoutLogger.debug('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is declined and going to get the responseObject from hooksHelper with paymentRefund param and order number is: ' + order.orderNo);
+            checkoutLogger.info('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Riskified status is declined and going to get the responseObject from hooksHelper with paymentRefund param and order number is: ' + order.orderNo);
             responseObject = hooksHelper(
 					'app.riskified.paymentrefund',
 					'paymentRefund',
@@ -58,7 +58,7 @@ function parseRiskifiedResponse(order) {
 
         /* Reject in OMS - Do not process to fulfillment status */
         if ('SOMIntegrationEnabled' in Site.getCurrent().preferences && Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {
-            checkoutLogger.debug('(RiskifiedParseResponseResult) -> Riskified status is declined.  Sending to SOM queue and order number is: ' + order.orderNo);
+            checkoutLogger.info('(RiskifiedParseResponseResult) -> Riskified status is declined.  Sending to SOM queue and order number is: ' + order.orderNo);
             var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
             try {
                 var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
@@ -101,6 +101,7 @@ function parseRiskifiedResponse(order) {
         }
         /* Send Cancellation Email*/
         if(responseObject.decision == RESP_SUCCESS){
+            checkoutLogger.info('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Order is cancelled and going to send cancellation email for order number: ' + order.orderNo);
         	var orderObj ={
         			customerEmail :order.customerEmail,
         			firstName  :order.billingAddress.firstName,

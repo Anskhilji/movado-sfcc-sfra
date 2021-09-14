@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services xmlns="http://www.demandware.com/xml/impex/services/2014-09-26">
+    <service-credential service-credential-id="ListrakFTPCredentials">
+        <url>ftp.listrak.com</url>
+        <user-id></user-id>
+        <password masked="true"></password>
+    </service-credential>
+
+    <service-profile service-profile-id="ListrakWebServicesProfile">
+        <timeout-millis>3000</timeout-millis>
+        <rate-limit-enabled>false</rate-limit-enabled>
+        <rate-limit-calls>0</rate-limit-calls>
+        <rate-limit-millis>0</rate-limit-millis>
+        <cb-enabled>false</cb-enabled>
+        <cb-calls>0</cb-calls>
+        <cb-millis>0</cb-millis>
+    </service-profile>
+
+    <service service-id="listrak.ftp">
+        <service-type>SFTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix>listrak_ftp</log-prefix>
+        <comm-log-enabled>true</comm-log-enabled>
+        <force-prd-enabled>false</force-prd-enabled>
+        <mock-mode-enabled>false</mock-mode-enabled>
+        <profile-id>ListrakWebServicesProfile</profile-id>
+        <credential-id>ListrakFTPCredentials</credential-id>
+    </service>
+
+    <service service-id="listrak.http">
+        <service-type>HTTP</service-type>
+        <enabled>true</enabled>
+        <log-prefix>listrak_http</log-prefix>
+        <comm-log-enabled>true</comm-log-enabled>
+        <force-prd-enabled>false</force-prd-enabled>
+        <mock-mode-enabled>false</mock-mode-enabled>
+        <profile-id>ListrakWebServicesProfile</profile-id>
+        <credential-id/>
+    </service>
+
+</services>

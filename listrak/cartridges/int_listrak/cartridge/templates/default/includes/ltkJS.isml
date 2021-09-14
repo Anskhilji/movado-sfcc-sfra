@@ -1,0 +1,11 @@
+<iscomment>
+	Purpose: Load the Listrak Javascript onto the website pages.
+	Requirements: Listrak Tracking Endpoint must be configured in custom preferences.
+</iscomment>
+
+<isif condition = "${!empty(dw.system.Site.current.preferences.custom.Listrak_TrackingEndpoint) && dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled}">
+<isset name="config" value="${dw.system.Site.current.preferences.custom.Listrak_MerchantTrackingID}" scope="page" />
+
+<script src="${URLUtils.staticURL('/js/ltkJS.js')}" ltk-data='<isprint value="${config}"/>'"></script>
+</isif>
+
