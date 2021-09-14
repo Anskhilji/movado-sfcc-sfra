@@ -111,7 +111,6 @@
     position: static;
 
     @include media-breakpoint-down(xs) {
-        // background-color: rgba($grey10,0.3);
         background-color: transparent;
         .price {
             text-align: center;
