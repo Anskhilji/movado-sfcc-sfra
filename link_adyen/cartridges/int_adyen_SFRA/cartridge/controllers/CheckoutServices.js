@@ -29,9 +29,6 @@ server.append('SubmitPayment',
           expirationMonth: {
               value: parseInt(paymentForm.creditCardFields.expirationMonth.selectedOption, 10)
           },
-          expirationYear: {
-              value: parseInt(paymentForm.creditCardFields.expirationYear.value, 10)
-          },
           securityCode: {
               value: paymentForm.creditCardFields.securityCode.value
           }
