@@ -226,7 +226,6 @@ function updateContracts(cart) {
                 var contractPrice = 0;
                 var contractPriceByProduct = 0;
                 var productPriceByContract = 0;
-                var test = parsedValue.length;
 
                 if (parsedValue.length > 1) {
                     while (productQuantitiesIt.hasNext()) {
