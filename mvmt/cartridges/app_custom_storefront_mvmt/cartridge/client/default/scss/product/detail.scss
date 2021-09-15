@@ -1277,11 +1277,9 @@
                 border-radius: rem(3);
                 margin-top: rem(4);
                 margin-bottom: rem(4);
-            }
-
-            @include media-breakpoint-down(sm){
                 justify-content: center;
             }
+
         }
 
         .apple-pay-pdp {
