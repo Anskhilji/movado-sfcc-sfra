@@ -105,7 +105,18 @@ server.replace(
          * Custom Start: Clyde Integration
          */
         if (Site.getCurrent().preferences.custom.isClydeEnabled) {
+            var productLineItemsIterator = order.getAllProductLineItems().iterator();
+            var currentProductLineItem;
             var contractProductList = req.querystring.clydeContractProductList;
+            var parsedContractProductList = JSON.parse(contractProductList);
+            while (productLineItemsIterator.hasNext()) {
+                productLineItem = productLineItemsIterator.next();
+                for (var i = 0; i < parsedContractProductList.length; i++) {
+                    if (currentProductLineItem.productID === parsedContractProductList[i].productSku) {
+                        addClydeContract.addClydeContractSkuToLineItem(currentProductLineItem, parsedContractProductList[i].clydeSku);
+                    }
+                }
+            }
             addClydeContract.createOrderCustomAttr(contractProductList, order);
         }
         /**
