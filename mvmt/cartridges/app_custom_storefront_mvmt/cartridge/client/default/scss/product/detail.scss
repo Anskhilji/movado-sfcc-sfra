@@ -1237,6 +1237,7 @@
 
             @include media-breakpoint-down(sm){
                 width: 94.62%;
+                height: rem(45);
                 border-radius: rem(3);
                 margin-top: rem(4);
                 margin-bottom: rem(4);
@@ -1268,6 +1269,14 @@
             @include media-breakpoint-up(md-down) {
               
                 border-radius: rem(5);
+            }
+
+            @include media-breakpoint-down(sm){
+                width: 94.62%;
+                height: rem(45);
+                border-radius: rem(3);
+                margin-top: rem(4);
+                margin-bottom: rem(4);
             }
 
             @include media-breakpoint-down(sm){
