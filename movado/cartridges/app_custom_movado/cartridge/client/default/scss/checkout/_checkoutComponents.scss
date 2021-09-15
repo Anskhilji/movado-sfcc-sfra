@@ -60,15 +60,10 @@ $stored-payment-spacing: rem(16);
     padding-top: rem(10);
     margin-bottom: rem(50);
 
-    @include media-breakpoint-up(lg) {
-      max-width: 100%;
-      padding-left: rem(100);
-      padding-right: rem(100);
-    }
-
-    @include media-breakpoint-up(md) {
-      margin-top: rem(100);
-      max-width: 100%;
+    .checkout-content {
+      @include media-breakpoint-up(md) {
+        max-width: rem(940);
+      }
     }
 
     .top-grandtotal-label {

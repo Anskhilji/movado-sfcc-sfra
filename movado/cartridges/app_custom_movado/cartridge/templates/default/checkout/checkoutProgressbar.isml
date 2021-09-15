@@ -1,27 +1,28 @@
 <div class="checkout-progressbar">
     <ul class="nav">
         <li class="nav-item active">
-           <a href="${#}"> 
+           <p> 
                 <span class="step-no">${Resource.msg('checkout.progressbar.item.stepOne', 'checkout', null)}</span>
                 <span class="step-text">${Resource.msg('checkout.progressbar.item.contact', 'checkout', null)}</span>  
-            </a>
+            </p>
         </li>
         <li class="nav-item">
-           <a href="${#}"> 
+           <p> 
                 <span class="step-no">${Resource.msg('checkout.progressbar.item.stepTwo', 'checkout', null)}</span> 
                 <span class="step-text">${Resource.msg('checkout.progressbar.item.payment', 'checkout', null)}</span> 
-            </a>
+            </p>
         </li>
         <li class="nav-item">
-           <a href="${#}"> 
+           <p> 
                 <span class="step-no">${Resource.msg('checkout.progressbar.item.stepThree', 'checkout', null)}</span> 
                 <span class="step-text">${Resource.msg('checkout.progressbar.item.review', 'checkout', null)}</span>
-           </a>
+           </p>
         </li>
         <li class="nav-item">
-           <a href="${#}">
+           <p>
             <span class="step-no">${Resource.msg('checkout.progressbar.item.stepFour', 'checkout', null)}</span> 
-            <span class="step-text">${Resource.msg('checkout.progressbar.item.confirm', 'checkout', null)}</span> </a>
+            <span class="step-text">${Resource.msg('checkout.progressbar.item.confirm', 'checkout', null)}</span> 
+          </p>
         </li>
     </ul>
 </div>

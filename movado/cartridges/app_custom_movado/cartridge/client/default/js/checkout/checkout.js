@@ -86,10 +86,12 @@ var formHelpers = require('base/checkout/formErrors');
             else if (stage === 'placeOrder' && $('.payment-information').data('payment-method-id') !== 'Affirm') {
                 $(".checkout-progressbar li:nth-child(3)").addClass("active");
                 $(".checkout-progressbar li:nth-child(2)").addClass("completed");
+                $(".checkout-progressbar li:nth-child(1)").find(".step-no").html("1");
             }
             else {
                 $(".checkout-progressbar li:nth-child(4)").addClass("active");
                 $(".checkout-progressbar li:nth-child(3)").addClass("completed");
+                $(".checkout-progressbar li:nth-child(2)").find(".step-no").html("2");
             }
             $(".checkout-progressbar li.completed").find(".step-no").html(checkedIcon); 
         }

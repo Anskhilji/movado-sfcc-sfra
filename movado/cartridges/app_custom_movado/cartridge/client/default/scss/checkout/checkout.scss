@@ -268,18 +268,6 @@ span.ship-to-city-st-zip {
     }
 }
 
-@include media-breakpoint-up(md) {
-    .data-checkout-stage {
-        max-width: 100%;
-    }
-}
-
-@include media-breakpoint-up(md) {
-    .data-checkout-stage  {
-        max-width: rem(940);
-    }
-}
-
 [data-customer-type=guest] .single-shipping .shipment-selector-block {
     display: none;
 }
@@ -330,21 +318,24 @@ header {
                     display: block;
 
                    .header-wrapper {
-                        background-color: $black;
-                        color: $white;
 
                         .checkout-logo {
+                            width: rem(103);
+                            
                             &:before {
                                 font-family: "FontAwesome";
                                 content: '\f023';
-                                font-size: rem(24);
+                                font-size: rem(18);
                                 margin-right: rem(5);
+                                margin-bottom: rem(12);
                             }
                         }
 
+                        .minicart-link {
+                            top: rem(-6)
+                        }
+
                         .minicart-quantity {
-                            color: $black;
-                            background-color:$white;
                             font-size: rem(12);
                         }
                    }
@@ -391,7 +382,7 @@ header {
             width: 100%;
 
             @include media-breakpoint-up(sm) {
-                max-width: 100%;
+                max-width: 70%;
             }
 
             @include media-breakpoint-up(md) {
@@ -399,7 +390,7 @@ header {
             }
 
             .checkout-logo {
-                width: rem(200);
+                width: rem(155);
     
                 @include media-breakpoint-up(md) {
                     width: rem(155);
@@ -472,7 +463,7 @@ header {
 }
 
 .checkout-progressbar {
-    margin-bottom: rem(51);
+    margin-bottom: rem(45);
 
     @include media-breakpoint-up(xs) {
         display: none;
@@ -480,6 +471,13 @@ header {
     
     @include media-breakpoint-up(sm) {
         display: block;
+        margin-top: rem(70);
+        padding: 0 rem(15) 0 rem(15);
+    }
+    
+    @include media-breakpoint-up(lg) {
+        padding: 0 rem(80) 0 rem(100);
+        padding-top: auto;
     }
 
     li {
@@ -492,20 +490,13 @@ header {
             margin-bottom: rem(0);
         }
 
-        &.completed {
-            a {
-                .step-no {
-
-                }
-            }
-        }
-
-        a {
+        p {
             display: flex;
             align-items: center;
             font-size: rem(12);
             text-transform: uppercase;
             text-decoration: none ;
+            margin-bottom: rem(0);
      
             &:after {
               content: "";
@@ -541,7 +532,7 @@ header {
    
    li {
        &.active {
-            a {
+            p {
                 
                 .step-text {
                     color: $black;
@@ -558,7 +549,7 @@ header {
        }
        
         &.completed {
-            a {
+            p {
                 
                 &:after {
                     color: $black;
@@ -580,7 +571,7 @@ header {
         }
   
 
-    &:nth-child(4) a {
+    &:nth-child(4) p {
         &:after {
         content: "";
         height: rem(0);
@@ -590,7 +581,6 @@ header {
    }
 
 }
-
 
 .form-control-label {
 
