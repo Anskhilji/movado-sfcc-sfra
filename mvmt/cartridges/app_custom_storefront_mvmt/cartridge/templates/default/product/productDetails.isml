@@ -115,6 +115,24 @@
                         <isinclude template="product/components/pricing/main" />
                     </div>
 
+                    <div class="d-block d-sm-none">
+                        <div class="row">
+                            <div class="col-12 prices-add-to-cart-actions">
+                                <div class="d-block">
+                                    <!-- Cart and [Optionally] Apple Pay -->
+                                    <isinclude template="product/components/showCartButtonProduct" />
+
+                                    <isif condition="${product.shortDescription}">
+                                        <div class="d-flex justify-content-center content mb-2" itemprop="description">
+                                            <isprint value="${product.shortDescription}" encoding="off" />
+                                        </div>
+                                    </isif>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+
                     <div class="hidden-sm-down">
                         <isinclude template="product/components/pidRating" />
                     </div>
@@ -163,30 +181,20 @@
                         <isinclude template="product/components/mainAttributes" />
                     </div>
 
-                    <div class="row">
-                        <div class="col-12">
-                            <isif condition="${product.shortDescription}">
-                                 <div class="d-flex d-md-none justify-content-center mb-2" itemprop="description">
-                                     <isprint value="${product.shortDescription}" encoding="off" />
-                                 </div>
-                            </isif>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-12 prices-add-to-cart-actions">
-                            <div class="d-block">
-                                <!-- Cart and [Optionally] Apple Pay -->
+                    <div class="d-none d-sm-block">
+                        <div class="row">
+                            <div class="col-12 prices-add-to-cart-actions">
                                 <isinclude template="product/components/showCartButtonProduct" />
 
                                 <isif condition="${product.shortDescription}">
-                                     <div class="d-none d-md-flex justify-content-center col-12 content" itemprop="description">
-                                         <isprint value="${product.shortDescription}" encoding="off" />
-                                     </div>
+                                    <div class="d-flex justify-content-center mb-2" itemprop="description">
+                                        <isprint value="${product.shortDescription}" encoding="off" />
+                                    </div>
                                 </isif>
                             </div>
                         </div>
                     </div>
+
                 </div>
 
                 <!-- Size Chart -->

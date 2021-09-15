@@ -1206,15 +1206,11 @@
             width: 100%;
         }
     }
-
     .cart-and-ipay {
         display: block !important;
 
-        @include media-breakpoint-down(md-down) {
-            margin-bottom: 0;
-        }
-
         .add-to-cart, .add-to-cart-mvmt {
+           
             display: inline-block;
             text-align: center;
             text-transform: uppercase;
@@ -1235,9 +1231,17 @@
             @include media-breakpoint-up(md-down) {
                 position: relative;
                 font-size: rem(15);
-                padding: rem(22) 1.75rem;
+                padding: rem(22) rem(28);
+                
             }
 
+            @include media-breakpoint-down(sm){
+                width: 94.62%;
+                border-radius: rem(3);
+                margin-top: rem(4);
+                margin-bottom: rem(4);
+            }
+                       
             &:hover {
                 background: $gossamer;
                 border-color: $gossamer;
@@ -1262,7 +1266,12 @@
             height: rem(60);
 
             @include media-breakpoint-up(md-down) {
+              
                 border-radius: rem(5);
+            }
+
+            @include media-breakpoint-down(sm){
+                justify-content: center;
             }
         }
 
@@ -2135,6 +2144,7 @@
     float: right;
     font-size: rem(11);
     letter-spacing: rem(3);
+  
 
     .price {
         color: $white;
@@ -2146,6 +2156,10 @@
             color: $white;
             display: none;
         }
+    }
+
+    @include media-breakpoint-down(sm){
+        display: none;
     }
 }
 
