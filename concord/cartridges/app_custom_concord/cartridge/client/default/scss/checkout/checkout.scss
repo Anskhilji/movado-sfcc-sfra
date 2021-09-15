@@ -296,6 +296,22 @@ header {
             height: rem(85);
         }
 
+        .header-menu-wrapper {
+            @include media-breakpoint-up(sm) {
+                background-color: $white;
+            }
+
+            .header-wrapper {
+                @include media-breakpoint-up(sm) {
+                    background-color: $white ;
+                }
+    
+                @include media-breakpoint-up(xs) {
+                    background-color: $alabaster;
+                }
+            }
+        }
+
         .checkout-header-wrapper {
             display: flex;
             justify-content: space-between;
@@ -304,13 +320,13 @@ header {
             padding: 0 rem(20);
 
             @include media-breakpoint-up(sm) {
-                padding: 0 rem(15) 0 rem(15);
+                padding: 0 rem(15) rem(15) rem(15);
                 margin-top: rem(0);
                 padding-top: rem(20);
             }
             
             @include media-breakpoint-up(lg) {
-                padding: 0 rem(80) 0 rem(100);
+                padding: 0 rem(80) rem(25) rem(100);
                 margin-top: rem(40);
                 padding-top: auto;
             }
@@ -371,6 +387,17 @@ header {
                     a:hover {
                         text-decoration: none;
                     }
+                }
+            }
+        }
+
+        .checkout-logo {
+            &.concord-logo {
+                overflow: hidden;
+                height: auto;
+
+                @include media-breakpoint-up(xs) {
+                    height: auto;
                 }
             }
         }

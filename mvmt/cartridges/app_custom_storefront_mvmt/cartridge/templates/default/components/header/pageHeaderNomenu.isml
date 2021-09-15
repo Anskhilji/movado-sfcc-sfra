@@ -1,5 +1,53 @@
-<header class="cart-and-checkout-header">
+<iscomment> <header class="cart-and-checkout-header">
     <div class="middle flex align-items-center justify-content-center checkout-logo">
         <isslot id="cart-and-checkout-logo" description="Cart and checkout logo" context="global" />
     </div>
+</header> </iscomment>
+
+<header class="checkout-header">
+  <nav>
+    <div class="sticky-header-wrapper">
+      <div class="sticky-header-placeholder"></div>
+      <div class="header-menu-wrapper desktop-menu-wrapper">
+        <div class="header-wrapper checkout-header-wrapper">
+
+          <div class="header-left">
+              <div class="flex align-items-center checkout-logo">
+                <isslot id="brand-logo" description="Brand Logo" context="global" />
+              </div>
+              <div class="checkout-text">
+                 <h5>Secure Checkout</h5>
+              </div>
+          </div>
+
+          <div class="right">
+            <div class="minicart" data-action-url="${URLUtils.url('Cart-MiniCartShow')}">
+              <isinclude url="${URLUtils.url('Cart-MiniCartCheckout')}"/>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+
+      <div class="header-menu-wrapper mobile-menu-wrapper">
+        <div class="header-wrapper checkout-header-wrapper">
+
+          <div class="header-left">
+              <div class="flex align-items-center checkout-logo">
+                <isslot id="brand-logo" description="Brand Logo" context="global" />
+              </div>
+          </div>
+
+          <div class="right">
+            <div class="minicart" data-action-url="${URLUtils.url('Cart-MiniCartShow')}">
+              <isinclude url="${URLUtils.url('Cart-MiniCartCheckout')}"/>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+
+    </div>
+  </nav>
 </header>
+
