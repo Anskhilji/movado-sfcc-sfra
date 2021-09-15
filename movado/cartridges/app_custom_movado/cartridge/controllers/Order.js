@@ -108,15 +108,27 @@ server.replace(
             var productLineItemsIterator = order.getAllProductLineItems().iterator();
             var currentProductLineItem;
             var contractProductList = req.querystring.clydeContractProductList;
-            var parsedContractProductList = JSON.parse(contractProductList);
-            while (productLineItemsIterator.hasNext()) {
-                productLineItem = productLineItemsIterator.next();
-                for (var i = 0; i < parsedContractProductList.length; i++) {
-                    if (currentProductLineItem.productID === parsedContractProductList[i].productSku) {
-                        addClydeContract.addClydeContractSkuToLineItem(currentProductLineItem, parsedContractProductList[i].clydeSku);
+            if (!empty(contractProductList)) {
+                var parsedContractProductList = JSON.parse(contractProductList);
+                while (productLineItemsIterator.hasNext()) {
+                    currentProductLineItem = productLineItemsIterator.next();
+                    if (currentProductLineItem.productID.indexOf("clyde") > -1) {
+                        continue;
+                    }
+                    for (var i = 0; i < parsedContractProductList.length; i++) {
+                        if (currentProductLineItem.productID === parsedContractProductList[i].productSku) {
+                            addClydeContract.addClydeContractSkuToLineItem(currentProductLineItem, parsedContractProductList[i].clydeSku);
+                            break;
+                        }
+                    }
+    
+                    if (i == parsedContractProductList.length) {
+                        break;
                     }
                 }
             }
+
+
             addClydeContract.createOrderCustomAttr(contractProductList, order);
         }
         /**
