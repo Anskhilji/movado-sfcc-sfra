@@ -33,8 +33,11 @@
     	   parse-error="error.message.invalid"
     	   />
 
-    <field formid="expirationMonthandYear" label="label.input.payment.expirationMonthandYear" type="integer" mandatory="false" binding="expirationMonthandYear" missing-error="error.message.required"
-           value-error="address.field.invalid">
+    <field formid="expiryMonth" label="label.input.payment.expiryMonth" type="integer" mandatory="false" binding="expiryMonth" missing-error="error.message.required"
+           value-error="address.field.invalid"
+           regexp="^(0[1-9]|1[0-2])\/?([0-9]{2})$"
+    	   parse-error="error.message.invalid"
+    	   />
     </field>
 
 

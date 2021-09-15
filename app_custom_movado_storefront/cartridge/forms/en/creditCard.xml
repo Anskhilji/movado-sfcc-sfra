@@ -34,8 +34,8 @@
            />
 
 
-    <field formid="expirationMonthandYear" label="label.input.payment.expirationMonthandYear" type="integer" mandatory="false"
-           missing-error="error.message.required">
+    <field formid="expirationMonth" label="label.input.payment.expirationMonth" type="integer" mandatory="false" binding="expirationMonth"
+           max-length="4" missing-error="error.message.required">
     </field>
 
     <field formid="securityCode" label="profile.securitycode" type="string" mandatory="false" binding="securityCode"

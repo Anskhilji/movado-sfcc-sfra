@@ -18,7 +18,7 @@
 	<div class="col-12">
 		<div class="form-group ${creditFields.holderName.htmlName}">
 			<label class="form-control-label" for="holderName"> </label>
-			<input type="text" class="form-control holderName" id="holderName" placeholder="Cardholder Name*" pattern="[a-zA-Z]*" data-encrypted-name="holderName" ${creditFields.cardOwner.attributes}   />
+			<input type="text" pattern="[a-zA-Z]*" class="form-control holderName" id="holderName" placeholder="Cardholder Name*" data-encrypted-name="holderName" ${creditFields.cardOwner.attributes}   />
 			<div class="invalid-feedback">Only letters Can Be Inputted</div>
 		</div>
 	</div>
@@ -45,15 +45,15 @@
 <div class="row">
 	<div class="col-6 field-left">
 		<div
-			class="form-group ${creditFields.expirationMonthandYear.htmlName} relative">
-			<label class="form-control-label" for="expirationMonthandYear"></label>
-			<input type="text" class="form-control expirationMonthandYear custom-select"
-				id="expirationMonthandYear" placeholder="Expiration (MM/YY)*"
-				${creditFields.expirationMonthandYear.attributes}
-                    autocomplete="cc-exp-monthandYear"
-				data-encrypted-name="expiryMonthandYear">
+			class="form-group ${creditFields.expirationMonth.htmlName} relative">
+			<label class="form-control-label" for="expirationMonth"></label>
+			<input type="text" class="form-control expirationMonth custom-select"
+				id="expirationMonth" placeholder="Expiration Date (MM/YY)*"
+				${creditFields.expirationMonth.attributes}
+                    autocomplete="cc-exp-expirationMonth"
+				data-encrypted-name="expirationMonth">
 			</input>
-			<div class="invalid-feedback">Please Enter Expiry Date In Format MM/YY</div>
+			<div class="invalid-feedback">Please Enter Valid Expiry Date In Format MM/YY</div>
 		</div>
 	</div>
 	<div class="col-6 field-right">
