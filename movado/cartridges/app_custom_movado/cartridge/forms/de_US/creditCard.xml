@@ -33,7 +33,7 @@
     	   parse-error="error.message.invalid"
     	   />
 
-    <field formid="expiryMonth" label="label.input.payment.expiryMonth" type="integer" mandatory="false" binding="expiryMonth" missing-error="error.message.required"
+    <field formid="expirationMonth" label="label.input.payment.expirationMonth" type="integer" mandatory="false" binding="expirationMonth" missing-error="error.message.required"
            value-error="address.field.invalid">
     </field>
 

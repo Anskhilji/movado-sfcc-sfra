@@ -49,9 +49,7 @@
 			<label class="form-control-label" for="expirationMonth"></label>
 			<input type="text" class="form-control expirationMonth custom-select"
 				id="expirationMonth" placeholder="Expiration Date (MM/YY)*"
-				${creditFields.expirationMonth.attributes}
-                    autocomplete="cc-exp-expirationMonth"
-				data-encrypted-name="expirationMonth">
+				${creditFields.expirationMonth.attributes}>
 			</input>
 			<div class="invalid-feedback">Please Enter Valid Expiry Date In Format MM/YY</div>
 		</div>

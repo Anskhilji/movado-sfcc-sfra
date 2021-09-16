@@ -28,7 +28,7 @@
             regexp="(^[^(\\'\\&lt;\\>\\\\)]+$)" 
             parse-error="error.message.invalid" />
 
-    <field formid="expiryMonth" label="label.input.payment.expirationmonthandYear" type="integer" mandatory="false" binding="expiryMonth" missing-error="error.message.required"
+    <field formid="expirationMonth" label="label.input.payment.expirationmonth" type="integer" mandatory="false" binding="expirationMonth" missing-error="error.message.required"
            value-error="address.field.invalid">
     </field>
 
