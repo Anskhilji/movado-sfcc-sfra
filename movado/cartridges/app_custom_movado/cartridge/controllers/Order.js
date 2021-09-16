@@ -121,14 +121,13 @@ server.replace(
                             break;
                         }
                     }
-    
+
                     if (i == parsedContractProductList.length) {
                         break;
                     }
                 }
             }
-
-
+            
             addClydeContract.createOrderCustomAttr(contractProductList, order);
         }
         /**
