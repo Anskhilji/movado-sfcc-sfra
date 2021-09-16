@@ -33,7 +33,7 @@
         <div class="header-wrapper checkout-header-wrapper">
 
           <div class="header-left">
-              <div class="flex align-items-center checkout-logo">
+              <div class="flex v-middle align-items-center checkout-logo">
                 <isslot id="brand-logo" description="Brand Logo" context="global" />
               </div>
           </div>
