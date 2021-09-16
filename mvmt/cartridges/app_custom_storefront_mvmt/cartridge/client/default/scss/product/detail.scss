@@ -1227,14 +1227,19 @@
             transition: all .4s;
             height: rem(60);
 
+            &.mobileBtn.btn-primary {
+                @include media-breakpoint-down(sm){
+                    width: 94.62%;
+                    height: rem(45);
+                }
+            }
 
             @include media-breakpoint-up(md-down) {
                 position: relative;
                 font-size: rem(15);
                 padding: rem(22) rem(28);
-                
             }
-
+            
             @include media-breakpoint-down(sm){
                 width: 94.62%;
                 height: rem(45);
@@ -1274,6 +1279,7 @@
             @include media-breakpoint-down(sm){
                 width: 94.62%;
                 height: rem(45);
+                line-height: 0.75;
                 border-radius: rem(3);
                 margin-top: rem(4);
                 margin-bottom: rem(4);
@@ -1293,6 +1299,11 @@
                 border-radius: rem(5);
                 height: rem(56);
             }
+
+            @include media-breakpoint-down(sm){
+                display: none;
+            }
+
         }
     }
 
