@@ -862,25 +862,6 @@ function attributeSelect(selectedValueUrl, $productContainer) {
     }
 }
 
-/**
- * Custom Start: Retrieve recommended products
- *
- * @param {Link} addToCartUrl - link of add to cart URL for variation product
- * 
- */
-function getRecommendationProducts() {
-    var $recommendedProductSelector = $('.upsell_input:checked');
-    var productArray = [];
-    for (var i = 0; i < $recommendedProductSelector.length; i++) {
-        var $currentRecommendedProduct = $recommendedProductSelector[i];
-            var form = {
-                pid: $currentRecommendedProduct.value,
-                quantity: 1
-            };
-        productArray.push(form);
-    }
-    return productArray.length ? JSON.stringify(productArray) : [] ;
-}
 
 /**
  * Retrieve product options
@@ -969,7 +950,7 @@ movadoBase.colorAttribute = function () {
 }
 
 movadoBase.addToCart = function () {
-    $(document).off('click.addToCart', 'button.add-to-cart, button.add-to-cart-global').on('click', 'button.add-to-cart, .addToCart , button.add-to-cart-global', function (e) {
+    $(document).off('click.addToCart', 'button.add-to-cart, button.add-to-cart-global, button.add-to-cart-recomendations').on('click', 'button.add-to-cart, .addToCart , button.add-to-cart-global , button.add-to-cart-recomendations', function (e) {
         e.preventDefault();
         var addToCartUrl;
         var pid;
@@ -995,6 +976,8 @@ movadoBase.addToCart = function () {
 
         if ($(this).closest('.product-detail') && $(this).closest('.product-detail').data('isplp') == true) {
             pid = $(this).data('pid');
+        } else if ($(this).closest('.linked-products') && $(this).closest('.linked-products').data('recomendation') == true) {
+            pid = $(this).data('pid');
         } else {
             pid = movadoBase.getPidValue($(this));
         }
@@ -1011,7 +994,6 @@ movadoBase.addToCart = function () {
             pidsObj: pidsObj,
             childProducts: getChildProducts(),
             quantity: movadoBase.getQuantitySelected($(this)),
-            recommendationArray: getRecommendationProducts()
         };
         /**
          * Custom Start: Add to cart form for MVMT
@@ -1022,7 +1004,6 @@ movadoBase.addToCart = function () {
                 pidsObj: pidsObj,
                 childProducts: getChildProducts(),
                 quantity: 1,
-                recommendationArray: getRecommendationProducts()
             };
         }
         /**
