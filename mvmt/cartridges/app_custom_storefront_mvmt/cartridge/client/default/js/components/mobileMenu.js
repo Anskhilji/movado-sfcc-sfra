@@ -40,6 +40,24 @@ module.exports = function () {
 
         $('.mobile-menu .tab-content-submenu ul').height(height);
     });
+
+    
+	$(document).ready(function() {
+        $('.mobile-tabs-container').find('span:nth-child(1)').addClass('current');
+        $('.mobile-tabs-container').find('.mobile-menu-tabs li:nth-child(2)').removeClass('current');
+    
+        $('ul.mobile-menu-tabs li').click(function() {
+            var tab_id = $(this).attr('data-tab');
+            $('ul.mobile-menu-tabs li').removeClass('current');
+            $('.tab-content').removeClass('current');
+            $(this).addClass('current');
+            $('.'+tab_id).addClass('current');
+        });
+    });
+
+
+    
+    
     
 };
 

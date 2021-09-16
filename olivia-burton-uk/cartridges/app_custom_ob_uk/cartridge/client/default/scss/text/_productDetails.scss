@@ -20,6 +20,8 @@
     font-size: $font-size-heading2;
     letter-spacing: rem(0.4);
     font-weight: normal;
+    width: 100%;
+    height: rem(45);
 
     a {
       font-family: $font-museo-light;
@@ -35,18 +37,55 @@
     letter-spacing: rem(0.4);
     font-weight: $font-semi-bold;
   }
+  
+   &.pdp-obuk {
 
-  button.add-to-cart {
-    color: $black;
-    background: $pink-hot;
-    border: rem(1) solid $pink-hot;
-  }
+      button.add-to-cart {
+        color: $black;
+        background: $pink-hot;
+        border: rem(1) solid $pink-hot;
+    
+        @include media-breakpoint-up(custom-md) {
+          width: rem(296);
+          height: rem(42.44);
+          padding: rem(10) rem(12) rem(10) rem(12);
+        }
+        
+      }
+      
+      .cart-and-ipay {
+
+        &.btn {
+          width: 98.5%;
+          margin: 0 auto;
+        }
+    
+        .apple-pay-pdp {
+          
+          @include media-breakpoint-up(custom-md) {
+            width: rem(296);
+            min-width: rem(296);
+            height: rem(42.44);
+            margin-top: rem(15);
+            margin-left: rem(15);
+            padding: rem(10) rem(12) rem(10) rem(12);
+          }
+
+          @include media-breakpoint-down(sm) {
+            margin:2% auto;
+            min-width: 92.3%;
+          }
+
+        }
+      }
+   }
 
   .description {
     font-family: $font-gills-light;
     font-size: $font-size-text-heading1;
     letter-spacing: rem(0.35);
     font-weight: normal;
+    width: 100%;
   }
 
   .product-options {
@@ -54,6 +93,7 @@
     font-size: $font-size-heading2;
     letter-spacing: rem(0.4);
     font-weight: normal;
+    width: 100%;
 
     a {
       font-family: $font-museo-light;
@@ -225,6 +265,7 @@
 
   .promotions {
     letter-spacing: rem(1.4);
+    width: 100%;
   }
 
   .prices {
@@ -371,8 +412,9 @@
       padding-top: rem(15);
       border-top: rem(2) solid $white-gray;
   }
-
+  
   &-products {
+
       .slick-slide {
           padding: 0 rem(10);
       }
@@ -382,7 +424,6 @@
           &-wrapper {
               text-align: center;
               position: relative;
-              border: rem(1) solid $gray92;
 
               &:hover {
                   .upsell-text {
@@ -403,7 +444,7 @@
               }
 
               &-inner {
-                  border: none;
+                  border: rem(1) solid $gray92;
               }
           }
 
@@ -563,6 +604,8 @@
 
 .price-availability {
   margin-top: rem(14);
+  width: 100%;
+  height: rem(25);
 
   .prices {
     margin-right: rem(10);

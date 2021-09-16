@@ -15,6 +15,7 @@ var rakutenCookiesHelper = require('*/cartridge/scripts/helpers/rakutenHelpers')
 function getResources(pageContext) {
     var Resource = require('dw/web/Resource');
     var Site = require('dw/system/Site');
+    var URLUtils = require('dw/web/URLUtils');
 
     var resources = {
         KLARNA_SLICE_IT_PAYMENT_METHOD_BRAND_CODE: Resource.msg('checkout.payment.method.klarna.slice.it.brand.code', 'checkout', null),
@@ -40,7 +41,9 @@ function getResources(pageContext) {
         ONE_TRUST_COOKIE_ENABLED: Site.current.preferences.custom.oneTrustCookieEnabled || false,
         OPTANON_ALLOWED_COOKIE: Constants.ONE_TRUST_COOKIE_ENABLED,
         CART_GIFT_MESSAGE_LIMIT: !empty(Site.current.preferences.custom.cartGiftMessageLimit) ? Site.current.preferences.custom.cartGiftMessageLimit : 0,
-        RAKUTEN_REQUEST: rakutenCookiesHelper.getRakutenRequestObject()
+        LISTRAK_ENABLED: Site.current.preferences.custom.Listrak_Cartridge_Enabled,
+        RAKUTEN_REQUEST: rakutenCookiesHelper.getRakutenRequestObject(),
+        FAMILY_NAME_ENABLED: !empty(Site.current.preferences.custom.plpProductFamilyName) ? Site.current.preferences.custom.plpProductFamilyName : false,
     };
     return resources;
 }

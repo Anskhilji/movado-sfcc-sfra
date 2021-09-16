@@ -6,9 +6,8 @@ var server = require('server');
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var shareByEmailHelper = require('*/cartridge/scripts/helpers/shareByEmailHelper');
 var productFactory = require('*/cartridge/scripts/factories/product');
-var SFMCApi = require('*/cartridge/scripts/api/SFMCApi');
 var EmailSubscriptionHelper = require('int_custom_marketing_cloud/cartridge/scripts/helper/EmailSubscriptionHelper');
-
+var SFMCApi = require('*/cartridge/scripts/api/SFMCApi');
 
 /**
  * Opens the Modal and populates it with form data.

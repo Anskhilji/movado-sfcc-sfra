@@ -1,0 +1,7 @@
+<isset name="SCA" value="${pdict.SCACart}" scope="page" />
+<isscript>
+    var assets = require('*/cartridge/scripts/assets.js');
+    assets.addJs('/js/ltkSendSCA.js');
+</isscript>
+
+<script src="${URLUtils.staticURL('/js/ltkSendSCA.js')}"  ltk-data-sca='<isprint value="${SCA}"/>' ltk-data-url='<isprint value="${URLUtils.url("ltkSendSca-ClearFlag")}"/>'></script>

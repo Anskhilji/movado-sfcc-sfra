@@ -1,0 +1,7 @@
+{
+  "name": "bm_listrak",
+  "version": "20.1",
+  "description": "Listrak Controllers Cartridge",
+  	"init": ["./cartridge/scripts/init/ftpServiceInit.js",
+    		"./cartridge/scripts/init/httpServiceInit.js"]
+}

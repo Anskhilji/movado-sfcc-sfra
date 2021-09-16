@@ -184,6 +184,11 @@ function createSAPOrderFile(args, impexFilePath, record) {
                 writeXmlElement(streamWriter, 'PaymentMethod', p.paymentMethod);
                 writeXmlElement(streamWriter, 'PaymentAmount', p.paymentAmount.toFixed(2), true);
 
+                // MVMT-419
+                if (Object.hasOwnProperty.call(p, 'giftCardNumber')) {
+                    writeXmlElement(streamWriter, 'GiftCardNumber', p.giftCardNumber);
+                }
+
                 streamWriter.writeEndElement(); 
             });
         }
@@ -421,6 +426,51 @@ function createSAPOrderFile(args, impexFilePath, record) {
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                         });
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'contractSku')) {
+                        writeXmlElement(streamWriter, 'ContractSku', personalization.contractSku);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'grossValue')) {
+                        writeXmlElement(streamWriter, 'GrossValue', personalization.grossValue.toFixed(2), true);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'markDownAmount')) {
+                        writeXmlElement(streamWriter, 'MarkDownAmount', personalization.markDownAmount.toFixed(2), true);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'promoCode')) {
+                        writeXmlElement(streamWriter, 'PromoCode', personalization.promoCode);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'promoAmount')) {
+                        writeXmlElement(streamWriter, 'PromoAmount', personalization.promoAmount.toFixed(2), true);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'loyaltyAmount')) {
+                        writeXmlElement(streamWriter, 'LoyaltyAmount', personalization.loyaltyAmount.toFixed(2), true);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'subTotal')) {
+                        writeXmlElement(streamWriter, 'sSubTotal', personalization.contractSku.subTotal(2), true);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'taxAmount')) {
+                        writeXmlElement(streamWriter, 'TaxAmount', personalization.taxAmount.toFixed(2), true);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'tax1')) {
+                        writeXmlElement(streamWriter, 'Tax1', personalization.tax1.toFixed(2), true);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'tax2')) {
+                        writeXmlElement(streamWriter, 'Tax2', personalization.tax2.toFixed(2), true);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'tax3')) {
+                        writeXmlElement(streamWriter, 'Tax3', personalization.tax3.toFixed(2), true);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'tax4')) {
+                        writeXmlElement(streamWriter, 'Tax4', personalization.tax4.toFixed(2), true);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'tax5')) {
+                        writeXmlElement(streamWriter, 'Tax5', personalization.tax5.toFixed(2), true);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'tax6')) {
+                        writeXmlElement(streamWriter, 'Tax6', personalization.tax6.toFixed(2), true);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'netAmount')) {
+                        writeXmlElement(streamWriter, 'NetAmount', personalization.netAmount.toFixed(2), true);
                     }
 
                     /* Create EcommercePOItemPersonalization Elements : end */

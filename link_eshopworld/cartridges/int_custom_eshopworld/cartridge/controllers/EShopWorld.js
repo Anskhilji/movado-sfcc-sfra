@@ -223,7 +223,6 @@ server.append('NotifyV2', function(req, res, next) {
     }
     var emailOptIn = !empty(obj.shopperCheckoutExperience.emailMarketingOptIn) ? obj.shopperCheckoutExperience.emailMarketingOptIn : false;
     if (emailOptIn) {
-        var SFMCApi = require('*/cartridge/scripts/api/SFMCApi');
         var billingCustomer = obj.contactDetails;
         var deliveryCountry = obj.deliveryCountryIso;
         var requestParams = {
@@ -232,7 +231,19 @@ server.append('NotifyV2', function(req, res, next) {
             campaignName: Constants.MVMT_CHECKOUT_CAMPAIGN_NAME
         }
         if (!empty(requestParams) && !empty(requestParams.email)) {
-            SFMCApi.sendSubscriberToSFMC(requestParams);
+            if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
+                var ltkApi = require('*/cartridge/scripts/api/ListrakAPI');
+                var ltkConstants = require('*/cartridge/scripts/utils/ListrakConstants');
+                requestParams.source = ltkConstants.Source.Checkout;
+                requestParams.event = ltkConstants.Event.Checkout;
+                requestParams.firstName = billingCustomer[0].firstName;
+                requestParams.lastName = billingCustomer[0].lastName;
+                requestParams.subscribe = true;
+                ltkApi.sendSubscriberToListrak(requestParams);
+            } else {
+                var SFMCApi = require('*/cartridge/scripts/api/SFMCApi');
+                SFMCApi.sendSubscriberToSFMC(requestParams);
+            }
         }
     }
     return next();
