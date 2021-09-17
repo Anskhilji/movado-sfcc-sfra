@@ -48,9 +48,6 @@ var formHelpers = require('base/checkout/formErrors');
           'placeOrder',
           'submitted'
       ];
-
-      
-
     /**
      * Updates the URL to determine stage
      * @param {number} currentStage - The current stage the user is currently on in the checkout
@@ -70,30 +67,30 @@ var formHelpers = require('base/checkout/formErrors');
         let searchParams = new URLSearchParams(stageUrl.search);
         var stage = searchParams.get('stage');
 
-       if($(".progressbar-container .checkout-progressbar").length) {
-            $(".checkout-progressbar li").removeClass("active");
-            $(".checkout-progressbar li").removeClass("completed");
+       if($('.progressbar-container .checkout-progressbar').length) {
+            $('.checkout-progressbar li').removeClass('active');
+            $('.checkout-progressbar li').removeClass('completed');
             var checkedIcon = '<i class="fa fa-check"></i>';
 
-            if (stage == "shipping") {
-                $(".checkout-progressbar li:nth-child(1)").addClass("active");
+            if (stage == 'shipping') {
+                $('.checkout-progressbar li:nth-child(1)').addClass('active');
             }
             else if (stage === 'payment') {
-                $(".checkout-progressbar li:nth-child(2)").addClass("active");
-                $(".checkout-progressbar li:nth-child(1)").addClass("completed");
+                $('.checkout-progressbar li:nth-child(2)').addClass('active');
+                $('.checkout-progressbar li:nth-child(1)').addClass('completed');
             }
 
             else if (stage === 'placeOrder' && $('.payment-information').data('payment-method-id') !== 'Affirm') {
-                $(".checkout-progressbar li:nth-child(3)").addClass("active");
-                $(".checkout-progressbar li:nth-child(2)").addClass("completed");
-                $(".checkout-progressbar li:nth-child(1)").find(".step-no").html("1");
+                $('.checkout-progressbar li:nth-child(3)').addClass('active');
+                $('.checkout-progressbar li:nth-child(2)').addClass('completed');
+                $('.checkout-progressbar li:nth-child(1)').find('.step-no').html('1');
             }
             else {
-                $(".checkout-progressbar li:nth-child(4)").addClass("active");
-                $(".checkout-progressbar li:nth-child(3)").addClass("completed");
-                $(".checkout-progressbar li:nth-child(2)").find(".step-no").html("2");
+                $('.checkout-progressbar li:nth-child(4)').addClass('active');
+                $('.checkout-progressbar li:nth-child(3)').addClass('completed');
+                $('.checkout-progressbar li:nth-child(2)').find('.step-no').html('2');
             }
-            $(".checkout-progressbar li.completed").find(".step-no").html(checkedIcon); 
+            $('.checkout-progressbar li.completed').find('.step-no').html(checkedIcon); 
         }
 
 

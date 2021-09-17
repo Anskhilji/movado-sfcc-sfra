@@ -10,7 +10,7 @@
                 <isslot id="brand-logo" description="Brand Logo" context="global" />
               </div>
               <div class="checkout-text">
-                 <h5>Secure Checkout</h5>
+                 <h5>${Resource.msg('checkout.secure.text', 'checkout', null)}</h5>
               </div>
           </div>
 

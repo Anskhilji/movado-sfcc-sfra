@@ -1,9 +1,3 @@
-<iscomment> <header class="cart-and-checkout-header">
-    <div class="middle flex align-items-center justify-content-center checkout-logo">
-        <isslot id="cart-and-checkout-logo" description="Cart and checkout logo" context="global" />
-    </div>
-</header> </iscomment>
-
 <header class="checkout-header">
   <nav>
     <div class="sticky-header-wrapper">
@@ -16,7 +10,7 @@
                 <isslot id="brand-logo" description="Brand Logo" context="global" />
               </div>
               <div class="checkout-text">
-                 <h5>Secure Checkout</h5>
+                 <h5>${Resource.msg('checkout.secure.text', 'checkout', null)}</h5>
               </div>
           </div>
 

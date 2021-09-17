@@ -303,7 +303,7 @@ header {
 
             .header-wrapper {
                 @include media-breakpoint-up(sm) {
-                    background-color: $white ;
+                    background-color: $white;
                 }
     
                 @include media-breakpoint-up(xs) {
@@ -534,14 +534,14 @@ header {
         }
   
 
-    &:nth-child(4) p {
-        &:after {
-        content: "";
-        height: rem(0);
-        width: rem(0);
-      }
+        &:nth-child(4) p {
+            &:after {
+            content: "";
+            height: rem(0);
+            width: rem(0);
+          }
+        }
     }
-   }
 
 }
 
