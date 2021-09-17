@@ -585,15 +585,16 @@ var onLoginIn = function () {
 var onCheckoutOptionOnCart = function (data) {
     updateDataLayer('checkoutOption');
     var checkoutOptionData = $('[data-gtm-shipping-method]').data('gtm-shipping-method');
-
-    dataLayer.push({
-        event: 'checkoutOption',
-        ecommerce: {
-            checkout_option: {
-                actionField: { step: data}
+    if (checkoutOptionData) {
+        dataLayer.push({
+            event: 'checkoutOption',
+            ecommerce: {
+                checkout_option: {
+                    actionField: { step: data, option: checkoutOptionData}
+                }
             }
-        }
-    });
+        });
+    }
 };
 
 var onQuickViewLoad = function () {
