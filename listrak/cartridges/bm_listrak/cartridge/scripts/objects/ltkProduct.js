@@ -11,7 +11,7 @@ require('dw/content');
 var ArrayList = require('dw/util/ArrayList');
 var Promotion = require('dw/campaign/Promotion');
 var PromotionMgr = require('dw/campaign/PromotionMgr');
-
+var Logger = require('dw/system/Logger').getLogger('Listrak');
 /**
  * Object that holds inflated product information.
  * */
@@ -246,20 +246,25 @@ ltkProduct.prototype.getSaleInfo = function (product) {
 ltkProduct.prototype.getCategoriesValue = function (product) {
         var categoriesIt = product.getOnlineCategories().iterator();
         var categoryList = new Array();
-        while (categoriesIt.hasNext()) {
-            var category = categoriesIt.next();
-            var categoryArray = new ArrayList();
-            while (!empty(category)) {
-                if ((!empty(category.displayName)) && category.ID !== 'root' && category.online) {
-                    categoryArray.add(category.displayName);
-                    category = category.parent;
-                } else {
-                    category = null;
+        var categoryArray = new ArrayList();
+        try {
+            while (categoriesIt.hasNext()) {
+                var category = categoriesIt.next();
+                categoryArray = new ArrayList();
+                while (!empty(category)) {
+                    if ((!empty(category.displayName)) && category.ID !== 'root' && category.online) {
+                        categoryArray.add(category.displayName);
+                        category = category.parent;
+                    } else {
+                        category = null;
+                    }
                 }
+                categoryArray.reverse();
+                categoryList.push(categoryArray.join('>'));
             }
-            categoryArray.reverse();
-            categoryList.push(categoryArray.join('>'));
+        } catch (error) {
+            Logger.error('Listrak Product Processing Failed for Product: {0}, Error: {1}', product.ID, error);
         }
-        return categoryArray.join(',');
+        return categoryArray ? categoryArray.join(',') : categoryArray;
 }
 // Custom End
