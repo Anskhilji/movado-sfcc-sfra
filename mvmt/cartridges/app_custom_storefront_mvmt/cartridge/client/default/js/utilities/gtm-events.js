@@ -586,15 +586,15 @@ var onCheckoutOptionOnCart = function (data) {
     updateDataLayer('checkoutOption');
     var checkoutOptionData = $('[data-gtm-shipping-method]').data('gtm-shipping-method');
     if (checkoutOptionData) {
-    dataLayer.push({
-        event: 'checkoutOption',
-        ecommerce: {
-            checkout_option: {
-                actionField: { step: data, option: checkoutOptionData}
+        dataLayer.push({
+            event: 'checkoutOption',
+            ecommerce: {
+                checkout_option: {
+                    actionField: { step: data, option: checkoutOptionData}
+                }
             }
-        }
-    });
-  }
+        });
+    }
 };
 
 var onQuickViewLoad = function () {
