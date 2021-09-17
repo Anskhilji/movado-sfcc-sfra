@@ -118,3 +118,22 @@ function maskValue(value) {
     return '';
 }
 
+$(document).on('keypress', '.expirationMonth', function(e) {
+    var count = $(this).val().length;
+    if (count == 2) {
+       $(this).val($(this).val() + "/");
+    }
+  });
+
+  $(document).ready(function() {
+    $('.expirationMonth').on('input propertychange', function() {
+        charLimit(this, 5);
+    });
+});
+
+function charLimit(input, maxChar) {
+    var len = $(input).val().length;
+    if (len > maxChar) {
+        $(input).val($(input).val().substring(0, maxChar));
+    }
+}
