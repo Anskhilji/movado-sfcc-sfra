@@ -330,6 +330,17 @@ function emptyCartCustomAttribute(cart) {
         cart.custom.clydeContractProductList = JSON.stringify('');
     }
 }
+
+/**
+ * creates order custom attribue.
+ * @param {Object} productLineItem - object with product line item.
+ * @param {Object} order - Order object.
+ */
+function addClydeContractSkuToLineItem(productLineItem, clydeSku) {
+    Transaction.wrap(function () {
+        productLineItem.custom.ClydeContractSku = clydeSku;
+    });
+}
 /**
  * creates order custom attribue.
  * @param {Object} contractProductList - object with contract Product Lists.
@@ -369,6 +380,7 @@ function createOrderCustomAttr(contractProductList, order) {
 module.exports = {
     addContractsToCart: addContractsToCart,
     updateContracts: updateContracts,
-    createOrderCustomAttr: createOrderCustomAttr
+    createOrderCustomAttr: createOrderCustomAttr,
+    addClydeContractSkuToLineItem: addClydeContractSkuToLineItem
 };
 
