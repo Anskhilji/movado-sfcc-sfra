@@ -308,13 +308,13 @@ function updateContracts(cart) {
  */
 function updateProductLineItem(cart, contractQuantity, contractPrice, contractProductID, contractTotalPrice, productSku) {
     var productLineItems = cart.getAllProductLineItems().iterator();
-    var updateProductLineItemOBJ;
+    var updateProductLineItemObj;
     while (productLineItems.hasNext()) {
         var productLineItem = productLineItems.next();
         var product = productLineItem.product;
         if (product != null && product.ID === contractProductID) {
             if (contractQuantity === 0) {
-                updateProductLineItemOBJ = {
+                updateProductLineItemObj = {
                     deletedContractUUID: productLineItem.getUUID(),
                     breakLoop: false
                 };
@@ -329,7 +329,7 @@ function updateProductLineItem(cart, contractQuantity, contractPrice, contractPr
             }
         }
     }
-    return updateProductLineItemOBJ;
+    return updateProductLineItemObj;
 }
 /**
  * updates Cart Custom Attribute.
