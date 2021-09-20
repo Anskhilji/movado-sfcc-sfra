@@ -242,18 +242,12 @@ function updateContracts(cart) {
                             if (!empty(updateProductLineItemObject.deletedContractUUID)) {
                                 deletedContractUUIDs.push(updateProductLineItemObject.deletedContractUUID);
                             }
-                            if (updateProductLineItemObject.breakLoop) {
-                                break;
-                            }
                         } else {
                             contractPrice = price * productQuantity;
                             productPriceByContract = price * contractQuantity;
                             updateProductLineItemObject = updateProductLineItem(cart, productQuantity, contractPrice, items.clydeProductID, productPriceByContract, productSku);
                             if (!empty(updateProductLineItemObject.deletedContractUUID)) {
                                 deletedContractUUIDs.push(updateProductLineItemObject.deletedContractUUID);
-                            }
-                            if (updateProductLineItemObject.breakLoop) {
-                                break;
                             }
                         }
                     }
