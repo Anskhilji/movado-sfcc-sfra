@@ -355,16 +355,10 @@ function getSearchQuery(queryStringVal) {
             if ((searchArray[0].indexOf('q')) > -1) {
                 searchQuery = { q: searchArray[1] };
             }
-    
             if ((queryString.indexOf('dwvar_')) > -1 && (queryString.indexOf('pid')) > -1) {
                 searchArray = queryString.split('=');
                 searchQuery = { pid: searchArray[searchArray.length - 1] };
             }
-            else if ((queryString.indexOf('pid')) > -1) {
-                searchArray = queryString.split('=');
-                searchQuery = { pid: searchArray[1] };
-            }
-    
         } else if ((queryString.indexOf('pid')) > -1) {
                 searchArray = queryString.split('=');
                 searchQuery = { pid: searchArray[1] };
@@ -378,7 +372,6 @@ function getSearchQuery(queryStringVal) {
         return searchQuery;
     } catch(ex) {
         Logger.error('Error occured while getting search query for gtm. Error: {0} \n Stack: {1} \n', ex.message, ex.stack);
-        
         return '';
     }
 }
