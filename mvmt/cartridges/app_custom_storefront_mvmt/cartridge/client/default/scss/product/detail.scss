@@ -1189,8 +1189,8 @@
         }
 
         @include media-breakpoint-up(sm) {
-            position: fixed;
-            padding: 0;
+            position: static;
+            padding: 0 rem(10);
         }
 
         @include media-breakpoint-up(md-down) {
@@ -1206,6 +1206,7 @@
             width: 100%;
         }
     }
+
     .cart-and-ipay {
         display: block !important;
 
@@ -1229,7 +1230,7 @@
 
             &.mobileBtn.btn-primary {
                 @include media-breakpoint-down(sm){
-                    width: 94.62%;
+                    width: 96%;
                     height: rem(45);
                 }
             }
@@ -1241,7 +1242,7 @@
             }
             
             @include media-breakpoint-down(sm){
-                width: 94.62%;
+                width: 96%;
                 height: rem(45);
                 border-radius: rem(3);
                 margin-top: rem(4);
@@ -1304,6 +1305,26 @@
                 display: none;
             }
 
+        }
+    }
+
+    @include media-breakpoint-up(xss) {
+        .show-cart-button-desktop {
+            display: none;
+        }
+
+        .show-cart-button-mobile {
+            display: block;
+        }
+    }
+
+    @include media-breakpoint-up(md-down) {
+        .show-cart-button-desktop {
+            display: block;
+        }
+
+        .show-cart-button-mobile {
+            display: none;
         }
     }
 
