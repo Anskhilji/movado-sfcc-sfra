@@ -1189,8 +1189,8 @@
         }
 
         @include media-breakpoint-up(sm) {
-            position: fixed;
-            padding: 0;
+            position: static;
+            padding: 0 rem(10);
         }
 
         @include media-breakpoint-up(md-down) {
@@ -1228,8 +1228,8 @@
             height: rem(60);
 
             &.mobileBtn.btn-primary {
-                @include media-breakpoint-down(sm){
-                    width: 94.62%;
+                @include media-breakpoint-down(md){
+                    width: 96%;
                     height: rem(45);
                 }
             }
@@ -1240,8 +1240,8 @@
                 padding: rem(22) rem(28);
             }
             
-            @include media-breakpoint-down(sm){
-                width: 94.62%;
+            @include media-breakpoint-down(md){
+                width: 96%;
                 height: rem(45);
                 border-radius: rem(3);
                 margin-top: rem(4);
