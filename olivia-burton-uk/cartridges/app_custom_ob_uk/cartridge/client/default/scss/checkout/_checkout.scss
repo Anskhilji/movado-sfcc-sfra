@@ -140,25 +140,27 @@ header {
                   opacity: 0.4;
                   margin:rem(0) rem(10);
                 }
-    
-                .step-text {
-                    color: $grey15;
-                    opacity: 0.4;
-                }
-         
-                .step-no {
-                     height: rem(21);
-                     width: rem(21);
-                     display: flex;
-                     align-items: center;
-                     justify-content: center;
-                     background:$white;
-                     border:1px solid $grey15;
-                     color: $grey15;
-                     opacity: 0.4;
-                     border-radius: 50%;
-                     font-size: rem(12);
-                     margin-right: rem(10);
+
+                .step {
+                    &-text {
+                        color: $grey15;
+                        opacity: 0.4;
+                    }
+
+                    &-no {
+                        height: rem(21);
+                        width: rem(21);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        background:$white;
+                        border:1px solid $grey15;
+                        color: $grey15;
+                        opacity: 0.4;
+                        border-radius: 50%;
+                        font-size: rem(12);
+                        margin-right: rem(10);
+                    }
                 }
             }
         }
@@ -166,17 +168,19 @@ header {
        li {
            &.active {
                 p {
-                    
-                    .step-text {
-                        color: $black;
-                        opacity: 1;
-                    }
+
+                    .step {
+                        &-text {
+                            color: $black;
+                            opacity: 1;
+                        }
     
-                    .step-no {
-                        background:$black;
-                        border:1px solid $black;
-                        color: $white;
-                        opacity: 1;
+                        &-no {
+                            background:$black;
+                            border:1px solid $black;
+                            color: $white;
+                            opacity: 1;
+                        }
                     }
                 }
            }
@@ -188,17 +192,19 @@ header {
                         color: $black;
                         opacity: 1;
                     }
+
+                    .step {
+                        &-text {
+                            color: $parrot-green;
+                            opacity: 1;
+                        }
     
-                    .step-no {
-                        background: $parrot-green;
-                        border: 1px solid $parrot-green;
-                        color: $white;
-                        opacity: 1;
-                    }
-    
-                    .step-text {
-                        color: $parrot-green;
-                        opacity: 1;
+                        &-no {
+                            background: $parrot-green;
+                            border: 1px solid $parrot-green;
+                            color: $white;
+                            opacity: 1;
+                        }
                     }
                 }
             }

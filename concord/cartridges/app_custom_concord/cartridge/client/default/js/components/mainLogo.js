@@ -9,6 +9,7 @@ $(window).scroll(function (event) {
         if (screenSize <= mediumScreenSize) {
             if (scroll != 0) {
                 $('.logo-link img').css("width", "10rem");
+                $('.concord-logo').css("height", "1.5rem");
             } else {
                 $('.logo-link img').css("width", "8rem");
                 $('.concord-logo').css("height", "");
