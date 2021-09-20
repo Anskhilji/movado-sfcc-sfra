@@ -1,3 +1,4 @@
+@import "~movado/checkout/checkout";
 @import "../variables";
 @import "../mixins";
 @import "bootstrap/scss/variables";
@@ -274,11 +275,6 @@ span.ship-to-city-st-zip {
     }
 }
 
-@include media-breakpoint-up(md) {
-    .data-checkout-stage  {
-        max-width: rem(940);
-    }
-}
 
 [data-customer-type=guest] .single-shipping .shipment-selector-block {
     display: none;
@@ -301,79 +297,122 @@ span.ship-to-city-st-zip {
 }
 
 header {
-    .checkout-header-placeholder {
-        height: rem(85);
-    }
-    .checkout-header-wrapper {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: rem(60);
-        padding: 0 rem(20);
-        border-bottom: rem(1) solid $grey-transparent-4;
+    &.checkout-header {
 
-        .right {
-            margin-left: auto;
-        }
-    }
-    .checkout-logo {
-        width: 100%;
-
-        p, span {
-            margin-bottom: 0;
-        }
-
-        &:before {
-            font-family: "FontAwesome";
-            content: '\f023';
-            font-size: rem(18);
-            padding-right: rem(5);
-            margin-top: rem(28);
-
-           @include media-breakpoint-down(md) {
-               margin-top: rem(25);
-           }
-        }
-
-        .logo-link {
-
-            img {
-                 width: rem(120);
+        .sticky-header-wrapper {
+            &.fixed-header {
+                @include media-breakpoint-up(md) {
+                    .checkout-header-wrapper {
+                        margin-top: rem(5);
+                    }
+                }
             }
         }
 
-        .logo-checkout-text {
-            font-family: $font-book;
-            color: $grey14;
-            font-size: rem(18);
-            line-height: rem(22);
-            text-transform: uppercase;
-            margin-top: rem(3);
-            a:hover {
-                text-decoration: none;
-            }
+        .checkout-header-placeholder {
+            height: rem(85);
         }
-    }
-
-    .logo-link {
-
-         img {
-             width: rem(128);
-         }
-     }
-
-    @include media-breakpoint-up(md) {
-        .checkout-logo {
-
-            .logo-checkout-text {
-                font-size: rem(19);
-            }
-        }
-    }
-
-    @include media-breakpoint-up(lg) {
         .checkout-header-wrapper {
-            padding: 0 rem(80);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: rem(60);
+            padding: 0 rem(20);
+    
+            .right {
+                margin-left: auto;
+            }
+        }
+        .checkout-logo {
+            width: 100%;
+
+            @include media-breakpoint-up(xs) {
+                &:before {
+                    margin-top: rem(26);
+                }
+
+                .ebel-logo {
+                    &:before {
+                        content: "";
+                    }
+                }
+            }
+
+            @include media-breakpoint-up(sm) {
+                &.ebel-logo {
+                    img {
+                        transform: translateY(20px);
+                    }
+                }
+            }
+
+            p, span {
+                margin-bottom: 0;
+            }
+    
+            .logo-link {
+    
+                img {
+                     width: rem(120);
+                }
+            }
+    
+            .logo-checkout-text {
+                font-family: $font-book;
+                color: $grey14;
+                font-size: rem(18);
+                line-height: rem(22);
+                text-transform: uppercase;
+                margin-top: rem(3);
+                a:hover {
+                    text-decoration: none;
+                }
+            }
+        }
+    
+        .logo-link {
+    
+             img {
+                 width: rem(128);
+             }
+         }
+    
+        @include media-breakpoint-up(md) {
+            .checkout-logo {
+    
+                .logo-checkout-text {
+                    font-size: rem(19);
+                }
+            }
+        }
+    
+        @include media-breakpoint-up(lg) {
+            .checkout-header-wrapper {
+                padding: 0 rem(80);
+            }
+        }
+    }
+}
+
+@include media-breakpoint-up(xs) {
+    header {
+        &.checkout-header {
+
+            .sticky-header-wrapper {
+
+                .mobile-menu-wrapper .header-wrapper {
+
+                    .checkout-logo {
+                        width: 100%;
+
+                        &.ebel-logo {
+                            &:before {
+                                content: "";
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
@@ -383,6 +422,134 @@ header {
         .sticky-header-placeholder {
             height: rem(60);
         }
+    }
+}
+
+.progressbar-container {
+    .checkout-progressbar {
+        margin-bottom: rem(45);
+    
+        @include media-breakpoint-up(xs) {
+            display: none;
+        }
+        
+        @include media-breakpoint-up(sm) {
+            display: block;
+            margin-top: rem(85);
+            padding: 0 rem(15) 0 rem(15);
+        }
+        
+        @include media-breakpoint-up(lg) {
+            padding: 0 rem(80) 0 rem(100);
+            padding-top: auto;
+        }
+    
+        li {
+    
+            @include media-breakpoint-up(sm) {
+                margin-bottom: rem(15);
+            }
+    
+            @include media-breakpoint-up(xxl) {
+                margin-bottom: rem(0);
+            }
+    
+            p {
+                display: flex;
+                align-items: center;
+                font-size: rem(12);
+                text-transform: uppercase;
+                text-decoration: none ;
+                margin-bottom: rem(0);
+         
+                &:after {
+                  content: "";
+                  box-sizing: border-box;
+                  height: rem(2);
+                  width: rem(30);
+                  background-color: $black;
+                  opacity: 0.4;
+                  margin:rem(0) rem(10);
+                }
+
+                .step {
+                    &-text {
+                        color: $grey15;
+                        opacity: 0.4;
+                    }
+
+                    &-no {
+                        height: rem(21);
+                        width: rem(21);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        background:$white;
+                        border:1px solid $grey15;
+                        color: $grey15;
+                        opacity: 0.4;
+                        border-radius: 50%;
+                        font-size: rem(12);
+                        margin-right: rem(10);
+                    }
+                }
+            }
+        }
+       
+       li {
+           &.active {
+                p {
+
+                    .step {
+                        &-text {
+                            color: $black;
+                            opacity: 1;
+                        }
+    
+                        &-no {
+                            background:$black;
+                            border:1px solid $black;
+                            color: $white;
+                            opacity: 1;
+                        }
+                    }
+                }
+           }
+           
+            &.completed {
+                p {
+                    
+                    &:after {
+                        color: $black;
+                        opacity: 1;
+                    }
+
+                    .step {
+                        &-text {
+                            color: $parrot-green;
+                            opacity: 1;
+                        }
+    
+                        &-no {
+                            background: $parrot-green;
+                            border: 1px solid $parrot-green;
+                            color: $white;
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+      
+    
+            &:nth-child(4) p {
+                &:after {
+                content: "";
+                height: rem(0);
+                width: rem(0);
+              }
+            }
+        }
+    
     }
 }
 

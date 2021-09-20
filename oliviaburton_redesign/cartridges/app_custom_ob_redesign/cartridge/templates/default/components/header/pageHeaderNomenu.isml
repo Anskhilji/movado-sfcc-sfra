@@ -2,14 +2,17 @@
     <nav>
         <div class="sticky-header-wrapper">
             <div class="sticky-header-placeholder"></div>
-            <div class="header-menu-wrapper">
+            <div class="header-menu-wrapper desktop-menu-wrapper">
                 <div class="header-wrapper checkout-header-wrapper">
-                    <div class="middle flex align-items-center checkout-logo">
-                        <isslot id="olivia-logo" description="Olivia Brand Logo" context="global" />
-                        <iscomment>
-                            Removed div used to display checkout text in checkout menu.
-                        </iscomment>
+                    <div class="header-left">
+                        <div class="flex align-items-center checkout-logo">
+                            <isslot id="olivia-logo" description="Olivia Brand Logo" context="global" />
+                        </div>
+                        <div class="checkout-text">
+                            <h5>${Resource.msg('checkout.secure.text', 'checkout', null)}</h5>
+                        </div>
                     </div>
+                    
                     <div class="right">
                         <div class="minicart" data-action-url="${URLUtils.url('Cart-MiniCartShow')}">
                             <isinclude url="${URLUtils.url('Cart-MiniCart')}"/>
@@ -17,6 +20,24 @@
                     </div>
                 </div>
             </div>
+
+            <div class="header-menu-wrapper mobile-menu-wrapper">
+                <div class="header-wrapper checkout-header-wrapper">
+                    <div class="header-left">
+                        <div class="v-middle flex align-items-center checkout-logo">
+                            <isslot id="olivia-logo" description="Olivia Brand Logo" context="global" />
+                        </div>
+                    </div>
+
+                    <div class="right">
+                        <div class="minicart" data-action-url="${URLUtils.url('Cart-MiniCartShow')}">
+                            <isinclude url="${URLUtils.url('Cart-MiniCart')}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
     </nav>
 </header>
