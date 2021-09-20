@@ -274,18 +274,12 @@ function updateContracts(cart) {
                         if (!empty(updateProductLineItemObject.deletedContractUUID)) {
                             deletedContractUUIDs.push(updateProductLineItemObject.deletedContractUUID);
                         }
-                        if (updateProductLineItemObject.breakLoop) {
-                            break;
-                        }
                     } else {
                         contractPrice = price * productQuantity;
                         productPriceByContract = price * contractQuantity;
                         updateProductLineItemObject = updateProductLineItem(cart, productQuantity, contractPrice, items.clydeProductID, productPriceByContract, productSku);
                         if (!empty(updateProductLineItemObject.deletedContractUUID)) {
                             deletedContractUUIDs.push(updateProductLineItemObject.deletedContractUUID);
-                        }
-                        if (updateProductLineItemObject.breakLoop) {
-                            break;
                         }
                     }
                 }
@@ -315,8 +309,7 @@ function updateProductLineItem(cart, contractQuantity, contractPrice, contractPr
         if (product != null && product.ID === contractProductID) {
             if (contractQuantity === 0) {
                 updateProductLineItemObj = {
-                    deletedContractUUID: productLineItem.getUUID(),
-                    breakLoop: false
+                    deletedContractUUID: productLineItem.getUUID()
                 };
                 cart.removeProductLineItem(productLineItem);
                 updateCartCustomAttr(cart, contractProductID, 0);
