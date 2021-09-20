@@ -1206,6 +1206,7 @@
             width: 100%;
         }
     }
+
     .cart-and-ipay {
         display: block !important;
 
@@ -1228,7 +1229,7 @@
             height: rem(60);
 
             &.mobileBtn.btn-primary {
-                @include media-breakpoint-down(md){
+                @include media-breakpoint-down(sm){
                     width: 96%;
                     height: rem(45);
                 }
@@ -1240,7 +1241,7 @@
                 padding: rem(22) rem(28);
             }
             
-            @include media-breakpoint-down(md){
+            @include media-breakpoint-down(sm){
                 width: 96%;
                 height: rem(45);
                 border-radius: rem(3);
@@ -1304,6 +1305,26 @@
                 display: none;
             }
 
+        }
+    }
+
+    @include media-breakpoint-up(xss) {
+        .show-cart-button-desktop {
+            display: none;
+        }
+
+        .show-cart-button-mobile {
+            display: block;
+        }
+    }
+
+    @include media-breakpoint-up(md-down) {
+        .show-cart-button-desktop {
+            display: block;
+        }
+
+        .show-cart-button-mobile {
+            display: none;
         }
     }
 

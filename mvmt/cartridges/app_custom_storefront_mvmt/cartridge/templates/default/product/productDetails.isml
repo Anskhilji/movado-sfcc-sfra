@@ -115,7 +115,7 @@
                         <isinclude template="product/components/pricing/main" />
                     </div>
 
-                    <div class="d-block d-md-none">
+                    <div class="show-cart-button-mobile">
                         <div class="row">
                             <div class="col-12 prices-add-to-cart-actions">
                                 <div class="d-block">
@@ -165,7 +165,7 @@
                         </div>
                     </isif>
 
-                    <div class="d-none d-md-block">
+                    <div class="show-cart-button-desktop">
                         <div class="row">
                             <div class="col-12 prices-add-to-cart-actions">
                                 <isinclude template="product/components/showCartButtonProduct" />
