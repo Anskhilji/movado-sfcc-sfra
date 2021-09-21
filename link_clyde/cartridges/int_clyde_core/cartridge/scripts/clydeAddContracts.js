@@ -211,7 +211,7 @@ function updateContracts(cart) {
     var contractProductList = cart.custom.clydeContractProductList ? cart.custom.clydeContractProductList : '';
     var productSku;
     var deletedContractUUIDs = [];
-    var deletedContractUUID;
+    var updateProductLineItemObject;
     if (contractProductList) {
         try {
             var parsedValue = JSON.parse(contractProductList);
@@ -224,25 +224,57 @@ function updateContracts(cart) {
                 var productQuantity = 0;
                 var contractQuantity = 0;
                 var contractPrice = 0;
-                while (productQuantitiesIt.hasNext()) {
-                    var prod = productQuantitiesIt.next();
-                    if (prod.ID === productSku) {
-                        productQuantity = productQuantities.get(prod).value;
-                    } else if (prod.ID === items.clydeProductID) {
-                        contractQuantity = productQuantities.get(prod).value;
-                    }
-                }
-                if (contractQuantity <= productQuantity) {
-                    contractPrice = price * contractQuantity;
-                    deletedContractUUID = updateProductLineItem(cart, contractQuantity, contractPrice, items.clydeProductID);
-                    if (!empty(deletedContractUUID)) {
-                        deletedContractUUIDs.push(deletedContractUUID);
+                var contractPriceByProduct = 0;
+                var productPriceByContract = 0;
+
+                if (parsedValue.length > 1) {
+                    while (productQuantitiesIt.hasNext()) {
+                        var prod = productQuantitiesIt.next();
+                        if (prod.ID === productSku) {
+                            productQuantity = productQuantities.get(prod).value;
+                        } else if (prod.ID === items.clydeProductID) {
+                            contractQuantity = productQuantities.get(prod).value;
+                        }
+                        if (contractQuantity < productQuantity) {
+                            contractPrice = price * contractQuantity;
+                            contractPriceByProduct = price * productQuantity;
+                            updateProductLineItemObject = updateProductLineItem(cart, contractQuantity, contractPrice, items.clydeProductID, contractPriceByProduct, productSku);
+                            if (!empty(updateProductLineItemObject.deletedContractUUID)) {
+                                deletedContractUUIDs.push(updateProductLineItemObject.deletedContractUUID);
+                            }
+                        } else {
+                            contractPrice = price * productQuantity;
+                            productPriceByContract = price * contractQuantity;
+                            updateProductLineItemObject = updateProductLineItem(cart, productQuantity, contractPrice, items.clydeProductID, productPriceByContract, productSku);
+                            if (!empty(updateProductLineItemObject.deletedContractUUID)) {
+                                deletedContractUUIDs.push(updateProductLineItemObject.deletedContractUUID);
+                            }
+                        }
                     }
                 } else {
-                    contractPrice = price * productQuantity;
-                    deletedContractUUID = updateProductLineItem(cart, productQuantity, contractPrice, items.clydeProductID);
-                    if (!empty(deletedContractUUID)) {
-                        deletedContractUUIDs.push(deletedContractUUID);
+                    while (productQuantitiesIt.hasNext()) {
+                        var prod = productQuantitiesIt.next();
+                        if (prod.ID === productSku) {
+                            productQuantity = productQuantities.get(prod).value;
+                        } else if (prod.ID === items.clydeProductID) {
+                            contractQuantity = productQuantities.get(prod).value;
+                        }
+                    }
+    
+                    if (contractQuantity <= productQuantity) {
+                        contractPrice = price * contractQuantity;
+                        contractPriceByProduct = price * productQuantity;
+                        updateProductLineItemObject = updateProductLineItem(cart, contractQuantity, contractPrice, items.clydeProductID, contractPriceByProduct, productSku);
+                        if (!empty(updateProductLineItemObject.deletedContractUUID)) {
+                            deletedContractUUIDs.push(updateProductLineItemObject.deletedContractUUID);
+                        }
+                    } else {
+                        contractPrice = price * productQuantity;
+                        productPriceByContract = price * contractQuantity;
+                        updateProductLineItemObject = updateProductLineItem(cart, productQuantity, contractPrice, items.clydeProductID, productPriceByContract, productSku);
+                        if (!empty(updateProductLineItemObject.deletedContractUUID)) {
+                            deletedContractUUIDs.push(updateProductLineItemObject.deletedContractUUID);
+                        }
                     }
                 }
             }
@@ -262,15 +294,17 @@ function updateContracts(cart) {
  * @param {string} contractProductID - contract product ID.
  * @return {string} deletedContractUUID - contract id which deleted
  */
-function updateProductLineItem(cart, contractQuantity, contractPrice, contractProductID) {
+function updateProductLineItem(cart, contractQuantity, contractPrice, contractProductID, contractTotalPrice, productSku) {
     var productLineItems = cart.getAllProductLineItems().iterator();
-    var deletedContractUUID;
+    var updateProductLineItemObj;
     while (productLineItems.hasNext()) {
         var productLineItem = productLineItems.next();
         var product = productLineItem.product;
         if (product != null && product.ID === contractProductID) {
             if (contractQuantity === 0) {
-                deletedContractUUID = productLineItem.getUUID();
+                updateProductLineItemObj = {
+                    deletedContractUUID: productLineItem.getUUID()
+                };
                 cart.removeProductLineItem(productLineItem);
                 updateCartCustomAttr(cart, contractProductID, 0);
                 break;
@@ -282,7 +316,7 @@ function updateProductLineItem(cart, contractQuantity, contractPrice, contractPr
             }
         }
     }
-    return deletedContractUUID;
+    return updateProductLineItemObj;
 }
 /**
  * updates Cart Custom Attribute.
