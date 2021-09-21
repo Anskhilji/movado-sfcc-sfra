@@ -109,11 +109,10 @@ server.replace(
             addClydeContract.createOrderCustomAttr(contractProductList, order);
             var productLineItemsIterator = order.getAllProductLineItems().iterator();
             var currentProductLineItem;
-            var contractProductList = order.custom.clydeContractProductMapping;
+            var contractProductListMapping = order.custom.clydeContractProductMapping;
             var previousSKU;
-            if (!empty(contractProductList)) {
-                var parsedContractProductList = JSON.parse(contractProductList);
-                var counter = 0;
+            if (!empty(contractProductListMapping)) {
+                var parsedContractProductList = JSON.parse(contractProductListMapping);
                 while (productLineItemsIterator.hasNext()) {
                     currentProductLineItem = productLineItemsIterator.next();
                     if (currentProductLineItem.productID.indexOf("clyde") > -1) {
@@ -128,7 +127,6 @@ server.replace(
                         }
                     } else {
                         for (var i = 0; i < parsedContractProductList.length; i++) {
-
                             if (currentProductLineItem.productID === parsedContractProductList[i].productId) {
                                 if (parsedContractProductList[i].contractSku === previousSKU) {
                                     continue;
@@ -137,18 +135,11 @@ server.replace(
                                     previousSKU = parsedContractProductList[i].contractSku;
                                     break;
                                 }
-                                    
                             }
                         }
                     }
-
-                    // if (i == parsedContractProductList.length) {
-                    //     break;
-                    // }
-                    counter += 1;
                 }
             }
-            
         }
         /**
          * Custom: End
