@@ -105,35 +105,41 @@ server.replace(
          * Custom Start: Clyde Integration
          */
         if (Site.getCurrent().preferences.custom.isClydeEnabled) {
+            var contractProductList = req.querystring.clydeContractProductList;
+            addClydeContract.createOrderCustomAttr(contractProductList, order);
             var productLineItemsIterator = order.getAllProductLineItems().iterator();
             var currentProductLineItem;
-            var contractProductList = req.querystring.clydeContractProductList;
-            if (!empty(contractProductList)) {
-                var parsedContractProductList = JSON.parse(contractProductList);
-                var counter = 0;
+            var contractProductListMapping = order.custom.clydeContractProductMapping;
+            var previousSKU;
+            if (!empty(contractProductListMapping)) {
+                var parsedContractProductList = JSON.parse(contractProductListMapping);
                 while (productLineItemsIterator.hasNext()) {
                     currentProductLineItem = productLineItemsIterator.next();
                     if (currentProductLineItem.productID.indexOf("clyde") > -1) {
                         continue;
                     }
-                    for (var i = 0; i < parsedContractProductList.length; i++) {
-                        if (counter == 1 && i == 0){
-                            continue;
-                        } 
-                        if (currentProductLineItem.productID === parsedContractProductList[i].productSku) {
-                            addClydeContract.addClydeContractSkuToLineItem(currentProductLineItem, parsedContractProductList[i].clydeSku);
-                            break;
+                    if (parsedContractProductList.length == 1) {
+                        for (var i = 0; i < parsedContractProductList.length; i++) {
+                            if (currentProductLineItem.productID === parsedContractProductList[i].productId) {
+                                addClydeContract.addClydeContractSkuToLineItem(currentProductLineItem, parsedContractProductList[i].contractSku);
+                                break;
+                            }
+                        }
+                    } else {
+                        for (var i = 0; i < parsedContractProductList.length; i++) {
+                            if (currentProductLineItem.productID === parsedContractProductList[i].productId) {
+                                if (parsedContractProductList[i].contractSku === previousSKU) {
+                                    continue;
+                                } else {
+                                    addClydeContract.addClydeContractSkuToLineItem(currentProductLineItem, parsedContractProductList[i].contractSku);
+                                    previousSKU = parsedContractProductList[i].contractSku;
+                                    break;
+                                }
+                            }
                         }
                     }
-
-                    if (i == parsedContractProductList.length) {
-                        break;
-                    }
-                    counter += 1;
                 }
             }
-            
-            addClydeContract.createOrderCustomAttr(contractProductList, order);
         }
         /**
          * Custom: End
