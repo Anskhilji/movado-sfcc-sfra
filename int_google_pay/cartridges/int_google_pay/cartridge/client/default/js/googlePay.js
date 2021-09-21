@@ -185,13 +185,23 @@ function addGooglePayButton() {
  * @returns {object} transaction info, suitable for use as transactionInfo property of PaymentDataRequest
  */
 function getGoogleTransactionInfo() {
-    return {
-        countryCode: 'US',
-        currencyCode: 'USD',
-        totalPriceStatus: 'FINAL',
-        // set to cart total
-        totalPrice: '1.00'
-    };
+    return new Promise(function (resolve, reject) {
+        var data = {
+            googlePayEntryPoint: $('#google-pay-container').data('entry-point'),
+            pid: $('#google-pay-container').data('pid') ? $('#google-pay-container').data('pid') : false
+        };
+        $.ajax({
+            url: $('#google-pay-container').data('url'),
+            method: 'POST',
+            data: data,
+            success: function(data) {
+                resolve(data) // Resolve promise and go to then()
+            },
+            error: function(err) {
+                reject(err) // Reject the promise and go to catch()
+            }
+        });
+      });
 }
 
 /**
@@ -215,18 +225,26 @@ function prefetchGooglePaymentData() {
  */
 function onGooglePaymentButtonClicked() {
     const paymentDataRequest = getGooglePaymentDataRequest();
-    paymentDataRequest.transactionInfo = getGoogleTransactionInfo();
+    getGoogleTransactionInfo()
+        .then(function (transactionData) {
+        paymentDataRequest.transactionInfo = transactionData.transactionInfo;
 
-    const paymentsClient = getGooglePaymentsClient();
-    paymentsClient.loadPaymentData(paymentDataRequest)
-        .then(function (paymentData) {
-            // handle the response
-            processPayment(paymentData);
+        const paymentsClient = getGooglePaymentsClient();
+        paymentsClient.loadPaymentData(paymentDataRequest)
+            .then(function (paymentData) {
+                // handle the response
+                processPayment(paymentData);
+            })
+            .catch(function (err) {
+                // show error in developer console for debugging
+                console.error(err);
+            });
         })
         .catch(function (err) {
             // show error in developer console for debugging
             console.error(err);
         });
+
 }
 
 /**

@@ -1,0 +1,15 @@
+<isif condition="${pdict.isGooglePayEnabled}">
+    <script>
+        window.googlePayMerchantID = "${pdict.googlePayMerchantID }";
+        window.googlePayEnvironment = "${pdict.googlePayEnvironment}";
+        window.googlePayButtonColor = "${pdict.googlePayButtonColor}";
+        window.googlePayButtonType = "${pdict.googlePayButtonType}";
+        window.isEnabledGooglePayCustomSize = "${pdict.isEnabledGooglePayCustomSize}";
+        window.googlePayMerchantName = "${pdict.googlePayMerchantName}";
+    </script>
+    <div id="google-pay-container" class="google-pay-container" 
+        data-url=${pdict.actionURL} 
+        data-entry-point=${pdict.googlePayEntryPoint} 
+        data-pid=${pdict.pid}>
+    </div>
+</isif>

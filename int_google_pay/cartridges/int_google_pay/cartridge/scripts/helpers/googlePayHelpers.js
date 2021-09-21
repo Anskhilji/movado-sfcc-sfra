@@ -59,6 +59,33 @@ function getAdyenMerchantID() {
     return Site.current.preferences.custom.isEnabledGooglePayCustomSize.Adyen_merchantCode;
 }
 
+/**
+ * Adds product to cart for express checkout
+ * @param {dw.order.Basket} currentBasket 
+ * @param {String} productId 
+ * @returns {Boolean}
+ */
+function addProductToCart(currentBasket, productId) {
+    try {
+        var cartHelper = require('*/cartridge/scripts/cart/cartHelpers');
+        var result = cartHelper.addProductToCart(
+            currentBasket,
+            productId,
+            1,
+            [],
+            []
+        );
+
+        if (!result.error) {
+            return true;
+        }
+    } catch (error) {
+        var Logger = require('dw/system/Logger');
+        Logger.error('Error occurred while adding product to cart. Error : \n {0}, \n Stack: \n {1}', error, error.stack);
+    }
+    return false;
+}
+
 module.exports = {
     isGooglePayEnabled: isGooglePayEnabled,
     getGooglePayMerchantID: getGooglePayMerchantID,
@@ -66,5 +93,6 @@ module.exports = {
     getGooglePayButtonColor: getGooglePayButtonColor,
     getGooglePayButtonType: getGooglePayButtonType,
     isEnabledGooglePayCustomSize: isEnabledGooglePayCustomSize,
-    getAdyenMerchantID: getAdyenMerchantID
+    getAdyenMerchantID: getAdyenMerchantID,
+    addProductToCart: addProductToCart
 }

@@ -120,8 +120,9 @@
                                         fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
                                 </isif>
                             </div>
-                            <isinclude template="/googlePay/googlePay" sf-toolkit="on" />
 
+                            <isinclude url="${URLUtils.https('GooglePay-RenderButton', 'googlePayEntryPoint', 'Product-Show')}" sf-toolkit="on"/>
+                            <isinclude template="/googlePay/googlePayScripts" sf-toolkit="on" />
                             <!-- Product Availability -->
                             <iscomment> Custom Start: Affirm text shows when following requirements meet </iscomment>
                             <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
