@@ -17,7 +17,8 @@
         
         <iscomment> Custom: [added just a plp check here] </iscomment>
         <isif condition="${!pdict.display.plpTile}"> 
-            <button class='add-to-cart btn btn-primary ${(!product.readyToOrder || !product.available) ? "out-of-stock-btn" : ""} ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "out-of-stock-btn" : ""}'
+
+         <button class='add-to-cart btn btn-primary ${(!product.readyToOrder || !product.available) ? "out-of-stock-btn" : ""} ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "out-of-stock-btn" : ""}'
                 data-pid="${product.id}"
                 data-add-to-cart-text="${Resource.msg('button.addtocart', 'common', null)}" 
                 data-out-of-stock-text="${Resource.msg('button.out.of.stock', 'product', null)}" 
