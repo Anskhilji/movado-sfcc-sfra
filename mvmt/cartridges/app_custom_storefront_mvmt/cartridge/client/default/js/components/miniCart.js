@@ -90,9 +90,33 @@ module.exports = function () {
      * This event is override from movado and it is used to show miniCart on the click event.
      */
      $('body').off('click', '.minicart').on('click', '.minicart', function (event) {
+         
+        var amazonPaymentsObject = {
+            addButtonToCheckoutPage: function () {
+                    setTimeout(function(){
+                        if ($('#AmazonPayButtonCheckout').length) {
+                            // eslint-disable-next-line
+                            amazon.Pay.renderButton('#AmazonPayButtonCheckout', {
+                                merchantId: AmazonSitePreferences.AMAZON_MERCHANT_ID,
+                                createCheckoutSession: {
+                                    url: AmazonURLs.createCheckoutSession
+                                },
+                                ledgerCurrency: AmazonSitePreferences.AMAZON_CURRENCY,
+                                checkoutLanguage: AmazonSitePreferences.AMAZON_CHECKOUT_LANGUAGE,
+                                productType: AmazonSitePreferences.AMAZON_PRODUCT_TYPE,
+                                sandbox: AmazonSitePreferences.AMAZON_SANDBOX_MODE,
+                                placement: 'Checkout'
+                            });
+                        }
+                    },900)
+            },
+            init: function () {
+                this.addButtonToCheckoutPage();
+            }
+        };
+        amazonPaymentsObject.init();
          var $url = $('.minicart').data('action-url');
          var $count = parseInt($('.minicart .minicart-quantity').text());
-
          if ($count !== 0 && $('.mini-cart-data .popover.show').length === 0) {
             if (!updateMiniCart) {
                 $('.mini-cart-data .popover').addClass('show');

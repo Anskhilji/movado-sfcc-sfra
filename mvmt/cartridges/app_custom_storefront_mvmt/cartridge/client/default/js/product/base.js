@@ -44,6 +44,30 @@ function openMiniCart () {
     var url = $('.minicart').data('action-url');
     var count = parseInt($('.minicart .minicart-quantity').text());
     if (count !== 0 && $('.mini-cart-data .popover.show').length === 0) {
+        var amazonPaymentsObject = {
+            addButtonToCheckoutPage: function () {
+                    setTimeout(function(){
+                        if ($('#AmazonPayButtonCheckout').length) {
+                            // eslint-disable-next-line
+                            amazon.Pay.renderButton('#AmazonPayButtonCheckout', {
+                                merchantId: AmazonSitePreferences.AMAZON_MERCHANT_ID,
+                                createCheckoutSession: {
+                                    url: AmazonURLs.createCheckoutSession
+                                },
+                                ledgerCurrency: AmazonSitePreferences.AMAZON_CURRENCY,
+                                checkoutLanguage: AmazonSitePreferences.AMAZON_CHECKOUT_LANGUAGE,
+                                productType: AmazonSitePreferences.AMAZON_PRODUCT_TYPE,
+                                sandbox: AmazonSitePreferences.AMAZON_SANDBOX_MODE,
+                                placement: 'Checkout'
+                            });
+                        }
+                    },800)
+            },
+            init: function () {
+                this.addButtonToCheckoutPage();
+            }
+        };
+        amazonPaymentsObject.init();
         $.get(url, function (data) {
             $('.mini-cart-data .popover').empty();
             $('.mini-cart-data .popover').append(data);
