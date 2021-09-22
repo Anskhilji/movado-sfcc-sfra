@@ -1,3 +1,5 @@
+'use strict';
+
 $('button[value="submit-payment"]').on('click', function (e) {
     if ($('#selectedPaymentOption').val() == 'CREDIT_CARD') {
         var cardData;
@@ -36,9 +38,12 @@ $('button[value="add-new-payment"]').on('click', function (e) {
 function getCardData(selectedCard) {
     var cardData = {};
     if (!selectedCard) {
+        setCreditCardMonth();
+        setCreditCardYear();
         cardData.number = $('#cardNumber').val();
         cardData.holderName = $('#holderName').val();
-        cardData.expirationMonth = $('#expirationMonth').val();
+        cardData.expiryMonth = $('#expirationMonth').val();
+        cardData.expiryYear = $('#expirationYear').val();
         cardData.cvc = $('#securityCode').val();
     } else {
         cardData.cvc = $('.selected-payment #saved-payment-security-code').val();
@@ -68,10 +73,10 @@ function customcardvalidation(cardData, validationResult) {
     if (!nameRegex.test(cardData.holderName)){
         validationResult.holderName=false;
     }
-    var expdateRegex = new RegExp("^(?:0?[1-9]|1[0-2]) *\/ *[1-9][0-9]$");
-    if (!expdateRegex.test(cardData.expirationMonth)){
-        validationResult.expirationMonth=false;
-    }
+    // var expdateRegex = new RegExp("^(?:0?[1-9]|1[0-2]) *\/ *[1-9][0-9]$");
+    // if (!expdateRegex.test(cardData.expirationMonth)){
+    //     validationResult.expirationMonth=false;
+    // }
     return validationResult;
 }
 
@@ -86,7 +91,7 @@ function showValidation(validationResult) {
                 case 'number':
                     $('#cardNumber').addClass('is-invalid');
                     break;
-                case 'expirationMonth':
+                case 'expiryMonth':
                     $('#expirationMonth').addClass('is-invalid');
                     break;
                 case 'expiryYear':
@@ -118,22 +123,55 @@ function maskValue(value) {
     return '';
 }
 
-$(document).on('keypress', '.expirationMonth', function(e) {
-    var count = $(this).val().length;
-    if (count == 2) {
-       $(this).val($(this).val() + "/");
-    }
-  });
+// $(document).on('keypress', '.expirationMonth', function(e) {
+//     var count = $(this).val().length;
+//     if (count == 2) {
+//        $(this).val($(this).val() + "/");
+//     }
+//   });
 
-  $(document).ready(function() {
-    $('.expirationMonth').on('input propertychange', function() {
-        charLimit(this, 5);
+//   $(document).ready(function() {
+//     $('.expirationMonth').on('input propertychange', function() {
+//         charLimit(this, 5);
+//     });
+// });
+
+// function charLimit(input, maxChar) {
+//     var len = $(input).val().length;
+//     if (len > maxChar) {
+//         $(input).val($(input).val().substring(0, maxChar));
+//     }
+// }
+
+function setCreditCardYear() {
+    var creditCardYear = $('#expirationYear');
+    var creditCardDate = $('#expirationDate').val().split('/');
+    var cuurentDate = new Date();
+    var currentYear = cuurentDate.getFullYear().toString();
+    var cruuentDate = currentYear.substring(0,2);
+    var selectedCreditCardYear = cruuentDate + creditCardDate[1];
+    $("#expirationYear > option").each(function() {
+        if (this.text === selectedCreditCardYear) {
+            this.selected = true;
+        }
     });
-});
-
-function charLimit(input, maxChar) {
-    var len = $(input).val().length;
-    if (len > maxChar) {
-        $(input).val($(input).val().substring(0, maxChar));
-    }
 }
+
+function setCreditCardMonth() {
+    var creditCardDate = $('#expirationDate').val().split('/');
+    $("#expirationMonth > option").each(function() {
+        if (this.text === creditCardDate[0]) {
+            this.selected = true;
+        }
+    });
+}
+
+document.ready (function () {
+    var cleave = require('base/components/cleave');
+    var cleave = new Cleave('#expirationDate', {
+        date: true,
+        datePattern: ['m', 'y']
+    });
+}
+
+)

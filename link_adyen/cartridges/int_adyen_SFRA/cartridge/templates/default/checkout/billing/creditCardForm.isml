@@ -44,16 +44,16 @@
 <div class="row">
     <div class="col-6">
         <div class="form-group
-            <isif condition=${creditFields.expiryMonth.mandatory === true}>required</isif>
-            ${creditFields.expiryMonth.htmlName}">
-            <label class="form-control-label" for="expiryMonth">${Resource.msg('field.credit.card.expiration.month','creditCard',null)}</label>
-            <select class="form-control expiryMonth custom-select" id="expiryMonth" ${creditFields.expiryMonth.attributes}
-                    autocomplete="cc-exp-month" data-encrypted-name="expiryMonth">
-                <isloop items=${creditFields.expiryMonth.options} var="month">
+            <isif condition=${creditFields.expirationMonth.mandatory === true}>required</isif>
+            ${creditFields.expirationMonth.htmlName}">
+            <label class="form-control-label" for="expirationMonth">${Resource.msg('field.credit.card.expiration.month','creditCard',null)}</label>
+            <select class="form-control expirationMonth custom-select" id="expirationMonth" ${creditFields.expirationMonth.attributes}
+                    autocomplete="cc-exp-month" data-encrypted-name="expirationMonth">
+                <isloop items=${creditFields.expirationMonth.options} var="month">
                     <option id="${month.id}" value="${month.htmlValue}"
                     <isif condition="${pdict.order.billing.payment.selectedPaymentInstruments
                             && pdict.order.billing.payment.selectedPaymentInstruments.length > 0
-                            && month.id == pdict.order.billing.payment.selectedPaymentInstruments[0].expiryMonth}">
+                            && month.id == pdict.order.billing.payment.selectedPaymentInstruments[0].expirationMonth}">
                         selected
                     </isif> >
                     ${month.label}
@@ -63,7 +63,7 @@
             <div class="invalid-feedback"></div>
         </div>
     </div>
-    <iscomment> <div class="col-6">
+    <div class="col-6">
         <div class="form-group
             <isif condition=${creditFields.expirationYear.mandatory === true}>required</isif>
             ${creditFields.expirationYear.htmlName}">
@@ -83,7 +83,7 @@
             </select>
             <div class="invalid-feedback"></div>
         </div>
-    </div> </iscomment>
+    </div>
 </div>
 
 <div class="row">

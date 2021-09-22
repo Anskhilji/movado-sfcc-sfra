@@ -44,12 +44,10 @@
 
 <div class="row">
 	<div class="col-6 field-left">
-		<div
-			class="form-group ${creditFields.expirationMonth.htmlName} relative">
-			<label class="form-control-label" for="expirationMonth"></label>
-			<input type="text" class="form-control expirationMonth" pattern="^((0[1-9])|(1[0-2]))\/(([2-9][1-9]))\/(\d{2})$"
-				id="expirationMonth" placeholder="Expiration Date (MM/YY)*"
-				${creditFields.expirationMonth.attributes}>
+		<div class="form-group  relative">
+			<label class="form-control-label"></label>
+			<input type="text" class="form-control expirationDate" pattern="^((0[1-9])|(1[0-2]))\/(([2-9][1-9]))\/(\d{2})$"
+				id="expirationDate" placeholder="Expiration Date (MM/YY)*">
 			</input>
 			<div class="invalid-feedback">Please enter a valid expiry date in format MM/YY</div>
 		</div>
@@ -62,6 +60,53 @@
 				 </span>
 			 <input type="password" class="form-control securityCode" id="securityCode" placeholder="Security Code*"   data-encrypted-name="cvc" maxlength="3">
 			<div class="invalid-feedback security-code">Please enter a valid security code</div>
+		</div>
+	</div>
+</div>
+
+<div class="row d-none">
+	<div class="col-6 field-left">
+		<div
+			class="form-group required ${creditFields.expirationMonth.htmlName} relative">
+			<label class="form-control-label" for="expirationMonth">${Resource.msg('field.credit.card.expiration.month','creditCard',null)}</label>
+			<select class="form-control expirationMonth custom-select"
+				id="expirationMonth"
+				${creditFields.expirationMonth.attributes}
+                    autocomplete="cc-exp-month"
+				data-encrypted-name="expiryMonth">
+				<isloop items=${creditFields.expirationMonth.options} var="month">
+				<option id="${month.id}" value="${month.htmlValue}"<isif
+						condition="${pdict.order.billing.payment.selectedPaymentInstruments
+                            && pdict.order.billing.payment.selectedPaymentInstruments.length > 0
+                            && month.id == pdict.order.billing.payment.selectedPaymentInstruments[0].expirationMonth}">
+					selected </isif> > ${month.label}
+				</option>
+				</isloop>
+			</select>
+			<i class="fa fa-angle-down"></i>
+			<div class="invalid-feedback"></div>
+		</div>
+	</div>
+	<div class="col-6 field-right">
+		<div
+			class="form-group required ${creditFields.expirationYear.htmlName} relative">
+			<label class="form-control-label invisible" for="expirationYear">${Resource.msg('field.credit.card.expiration.year','creditCard',null)}</label>
+			<select class="form-control expirationYear custom-select"
+				id="expirationYear" data-encrypted-name="expiryYear"
+				${creditFields.expirationYear.attributes} autocomplete="cc-exp-year">
+				<option
+					value="${pdict.forms.billingForm.creditCardFields.expirationYear.options[0].htmlValue}">${pdict.forms.billingForm.creditCardFields.expirationYear.options[0].label}</option>
+				<isloop items=${pdict.expirationYears} var="year">
+				<option id="${year.toFixed(0)}" value="${year.toFixed(0)}"<isif
+						condition="${pdict.order.billing.payment.selectedPaymentInstruments
+                            && pdict.order.billing.payment.selectedPaymentInstruments.length > 0
+                            && year == pdict.order.billing.payment.selectedPaymentInstruments[0].expirationYear}">
+					selected </isif> >
+					<isprint value="${year}" formatter="####" /></option>
+				</isloop>
+			</select>
+			<i class="fa fa-angle-down"></i>
+			<div class="invalid-feedback"></div>
 		</div>
 	</div>
 </div>
