@@ -922,7 +922,8 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
                 produtObj.variant = variants;
                 produtObj.price = (productLineItem.getAdjustedNetPrice().getDecimalValue() - averageOrderLevelDiscount) / productLineItem.quantityValue;
                 produtObj.unitBasePrice = productLineItem.basePrice.decimalValue.toString();
-                produtObj.unitPriceLessTax = (productLineItem.basePrice.decimalValue + productLineItem.tax.decimalValue).toString();
+                produtObj.taxOnBasePrice = (productLineItem.basePrice.decimalValue * productLineItem.taxRate).toString();
+                produtObj.unitPriceLessTax = (parseFloat(produtObj.unitBasePrice) - parseFloat(produtObj.taxOnBasePrice)).toFixed(2).toString();
                 produtObj.currency = (productLineItem.product.priceModel.price.available ? (productLineItem.product.priceModel.price.currencyCode) : (productLineItem.product.priceModel.minPrice.currencyCode));
                 produtObj.description = '';
                 // Custom Start : Added subtotal
