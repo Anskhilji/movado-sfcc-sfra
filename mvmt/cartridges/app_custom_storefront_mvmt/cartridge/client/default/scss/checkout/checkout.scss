@@ -330,15 +330,14 @@ header {
         .checkout-header-wrapper {
 
             &.header-wrapper {
-                @include media-breakpoint-down(xs) {
+                @include media-breakpoint-up(xss) {
                     margin-top: rem(20);
 
                     .checkout-logo {
                         svg {
                             width: rem(104);
                             height: rem(25);
-                        }
-                        
+                        }  
                     }
 
                     .v-middle {
@@ -346,7 +345,18 @@ header {
                         top: 50%;
                         transform: translateY(-50%)
                     }
-                } 
+                }
+
+                @include media-breakpoint-up(sm) {
+                    .checkout-logo {
+                        svg {
+                            width: rem(125);
+                            height: rem(30);
+                        }
+                        
+                    }
+                }
+ 
             }
 
             .minicart-link {
@@ -392,7 +402,7 @@ header {
         }
     
         li {
-    
+            @include font-medium;
             @include media-breakpoint-up(sm) {
                 margin-bottom: rem(15);
             }

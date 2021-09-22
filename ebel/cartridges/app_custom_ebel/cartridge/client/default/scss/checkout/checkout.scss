@@ -445,7 +445,7 @@ header {
         }
     
         li {
-    
+            font-weight: 600;
             @include media-breakpoint-up(sm) {
                 margin-bottom: rem(15);
             }

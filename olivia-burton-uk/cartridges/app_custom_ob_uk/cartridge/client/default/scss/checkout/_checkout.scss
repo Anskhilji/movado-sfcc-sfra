@@ -114,7 +114,8 @@ header {
         }
     
         li {
-    
+            font-family: $font-gill-std-medium;
+
             @include media-breakpoint-up(sm) {
                 margin-bottom: rem(15);
             }

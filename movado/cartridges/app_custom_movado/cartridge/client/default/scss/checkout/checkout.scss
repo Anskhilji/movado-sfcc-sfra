@@ -410,7 +410,13 @@ header {
                 }
     
                 img {
-                    width: 100%;
+                    max-width: 100%;
+                    width: rem(155);
+                    filter: unset;
+
+                    @include media-breakpoint-up(md) {
+                        width: rem(155);
+                    }
                 }
     
                 .logo-checkout-text {
@@ -429,16 +435,22 @@ header {
 
             .checkout-text {
                 h5 {
-                    font-size: rem(15);
-                    color: $grey8;
-                    opacity: 0.4;;
-                    text-transform: uppercase;
+                    display: flex;
 
+                    .secure-text {
+                        font-size: rem(15);
+                        color: $grey8;
+                        opacity: 0.4;
+                        text-transform: uppercase;
+                    }
+                    
                     &:before {
-                        font-family: "FontAwesome";
-                        content: '\f023';
-                        font-size: rem(18);
-                        margin-right: rem(5);
+                        content: "";
+                        width: rem(11);
+                        height: rem(15);
+                        display: inline-block;
+                        margin-right: rem(10);
+                        background: url(../../images/icon-lock.svg) center center no-repeat;
                     }
                 }
             }
@@ -452,7 +464,7 @@ header {
                 display: inline-block;
                 margin-right: rem(20);
                 position: relative;
-                top: rem(1);
+                top: rem(0);
                 background: url(../../images/cart-icon-black.svg) center center no-repeat;
             }
             
@@ -460,6 +472,14 @@ header {
                 color: $white;
                 background-color: $black;
                 font-size: rem(12);
+                right: rem(-10);
+                top: rem(-10);
+                width: rem(19);
+                height: rem(19);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                letter-spacing: rem(1);
             }
         } 
     }
@@ -520,6 +540,7 @@ header {
                 &-no {
                     height: rem(21);
                     width: rem(21);
+                    line-height: rem(21);
                     display: flex;
                     align-items: center;
                     justify-content: center;
