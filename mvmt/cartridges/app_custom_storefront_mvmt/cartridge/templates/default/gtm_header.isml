@@ -216,6 +216,7 @@
                                 'coupon': '${orderObj.productObj.itemCoupon}',
                                 'unitBasePrice': '${orderObj.productObj.unitBasePrice}',
                                 'unitPriceLessTax': '${orderObj.productObj.unitPriceLessTax}',
+                                'taxOnBasePrice': '${orderObj.productObj.taxOnBasePrice}',
                                 'brand':  '${orderObj.productObj.brand}',
                                 'discountTaxShipping': '${orderObj.productObj.discountTaxShipping}',
                                 'cityStateZipCode': '${orderObj.productObj.cityStateZipCode}',
