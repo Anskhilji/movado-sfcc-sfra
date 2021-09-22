@@ -121,7 +121,7 @@
                                 </isif>
                             </div>
 
-                            <isinclude url="${URLUtils.https('GooglePay-RenderButton', 'googlePayEntryPoint', 'Product-Show')}" sf-toolkit="on"/>
+                            <isinclude url="${URLUtils.https('GooglePay-RenderButton', 'googlePayEntryPoint', 'Product-Show', 'pid', product.id)}" sf-toolkit="on"/>
                             <isinclude template="/googlePay/googlePayScripts" sf-toolkit="on" />
                             <!-- Product Availability -->
                             <iscomment> Custom Start: Affirm text shows when following requirements meet </iscomment>

@@ -1,6 +1,10 @@
 'use strict';
 
 var Site = require('dw/system/Site');
+var Transaction = require('dw/system/Transaction');
+var cartHelper = require('*/cartridge/scripts/cart/cartHelpers');
+
+
 
 /**
  * Checks if google pay is enabled
@@ -56,7 +60,7 @@ function isEnabledGooglePayCustomSize() {
  * @returns {String}
  */
 function getAdyenMerchantID() {
-    return Site.current.preferences.custom.isEnabledGooglePayCustomSize.Adyen_merchantCode;
+    return Site.current.preferences.custom.Adyen_merchantCode;
 }
 
 /**
@@ -66,23 +70,22 @@ function getAdyenMerchantID() {
  * @returns {Boolean}
  */
 function addProductToCart(currentBasket, productId) {
-    try {
-        var cartHelper = require('*/cartridge/scripts/cart/cartHelpers');
-        var result = cartHelper.addProductToCart(
-            currentBasket,
-            productId,
-            1,
-            [],
-            []
-        );
-
+    var result = {
+        error: true
+    };
+        Transaction.wrap(function () {
+            result = cartHelper.addProductToCart(
+                currentBasket,
+                productId,
+                1,
+                null,
+                null
+            );
+        });
         if (!result.error) {
             return true;
         }
-    } catch (error) {
-        var Logger = require('dw/system/Logger');
-        Logger.error('Error occurred while adding product to cart. Error : \n {0}, \n Stack: \n {1}', error, error.stack);
-    }
+
     return false;
 }
 

@@ -16,26 +16,29 @@ server.post('GetTransactionInfo',
             var Locale = require('dw/util/Locale');
             var currentLocale = Locale.getLocale(req.locale.id);
             var transactionInfo =  {
-                countryCode: currentLocale.country,
+                countryCode: 'US',
                 currencyCode: session.currency.currencyCode
             }
 
             switch (req.form.googlePayEntryPoint) {
                 case 'Product-Show':
                     googlePayHelper.addProductToCart(currentBasket, req.form.pid);
+                    currentBasket = BasketMgr.getCurrentOrNewBasket();
                     transactionInfo.totalPriceStatus = 'ESTIMATED';
+                    transactionInfo.totalPrice = currentBasket.totalNetPrice.value.toString();
                     break;
-                
+
                 case 'Cart-Show':
                     transactionInfo.totalPriceStatus = 'ESTIMATED';
+                    transactionInfo.totalPrice = currentBasket.totalNetPrice.value.toString();
                     break;
-                    
+
                 default:
-                    transactionInfo.totalPriceStatus =  'FINAL';
+                    transactionInfo.totalPriceStatus = 'FINAL';
+                    transactionInfo.totalPrice = currentBasket.totalGrossPrice.value.toString();
                     break;
             }
 
-            transactionInfo.totalPrice = currentBasket.totalGrossPrice.value
 
             res.json({
                 transactionInfo: transactionInfo,

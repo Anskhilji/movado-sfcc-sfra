@@ -105,20 +105,31 @@ function getGoogleIsReadyToPayRequest() {
  * @returns {object} PaymentDataRequest fields
  */
 function getGooglePaymentDataRequest() {
-    const paymentDataRequest = Object.assign({}, baseRequest);
-    paymentDataRequest.allowedPaymentMethods = [cardPaymentMethod];
-    paymentDataRequest.transactionInfo = getGoogleTransactionInfo();
-    paymentDataRequest.merchantInfo = {
-        // @todo a merchant ID is available for a production environment after approval by Google
-        // See {@link https://developers.google.com/pay/api/web/guides/test-and-deploy/integration-checklist|Integration checklist}
-        // merchantId: '01234567890123456789',
-        merchantName: window.googlePayMerchantName
-    };
+    return new Promise(function (resolve, reject) {
+        const paymentDataRequest = Object.assign({}, baseRequest);
+        paymentDataRequest.allowedPaymentMethods = [cardPaymentMethod];
+        getGoogleTransactionInfo()
+            .then(function (transactionData) {
+                paymentDataRequest.transactionInfo = transactionData.transactionInfo;
+                paymentDataRequest.merchantInfo = {
+                    // @todo a merchant ID is available for a production environment after approval by Google
+                    // See {@link https://developers.google.com/pay/api/web/guides/test-and-deploy/integration-checklist|Integration checklist}
+                    // merchantId: '01234567890123456789',
+                    merchantName: window.googlePayMerchantName
+                };
+            
+                if (window.googlePayEnvironment == 'PRODUCTION') {
+                    paymentDataRequest.merchantInfo.merchantId = window.googlePayMerchantID;
+                }
+                resolve(paymentDataRequest);
 
-    if (window.googlePayEnvironment == 'PRODUCTION') {
-        paymentDataRequest.merchantInfo.merchantId = window.googlePayMerchantID;
-    }
-    return paymentDataRequest;
+        })
+        .catch(function (err) {
+            // show error in developer console for debugging
+            reject(err);
+        });
+    });
+    
 }
 
 /**
@@ -224,27 +235,21 @@ function prefetchGooglePaymentData() {
  * Show Google Pay payment sheet when Google Pay payment button is clicked
  */
 function onGooglePaymentButtonClicked() {
-    const paymentDataRequest = getGooglePaymentDataRequest();
-    getGoogleTransactionInfo()
-        .then(function (transactionData) {
-        paymentDataRequest.transactionInfo = transactionData.transactionInfo;
-
-        const paymentsClient = getGooglePaymentsClient();
-        paymentsClient.loadPaymentData(paymentDataRequest)
-            .then(function (paymentData) {
-                // handle the response
-                processPayment(paymentData);
-            })
-            .catch(function (err) {
-                // show error in developer console for debugging
-                console.error(err);
-            });
-        })
-        .catch(function (err) {
-            // show error in developer console for debugging
+    getGooglePaymentDataRequest()
+        .then(function (paymentDataRequest) {
+            const paymentsClient = getGooglePaymentsClient();
+            paymentsClient.loadPaymentData(paymentDataRequest)
+                .then(function (paymentData) {
+                    // handle the response
+                    processPayment(paymentData);
+                })
+                .catch(function (err) {
+                    // show error in developer console for debugging
+                    console.error(err);
+                });
+        }).catch(function (err) {
             console.error(err);
-        });
-
+        })
 }
 
 /**
