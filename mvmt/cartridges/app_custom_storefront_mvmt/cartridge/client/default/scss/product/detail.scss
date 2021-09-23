@@ -1184,9 +1184,13 @@
             position: relative;
             background-color: transparent;
 
+            @include media-breakpoint-up(md-down){
+                display: none;
+            }
+
             button.add-to-cart{
                 
-                    width: 87.62%;
+                    width: 94.64%;
                     height: rem(45);
                     line-height: 0.75;
                     border-radius: rem(3);
@@ -1198,7 +1202,7 @@
             &.mobileBtn.btn-primary {
                 @include media-breakpoint-down(xss){
                     display: block;
-                    width: 87.62%;
+                    width: 94.64%;
                     height: rem(45);
                     line-height: 0.75;
                     border-radius: rem(3);
@@ -1234,8 +1238,9 @@
         }
 
         @include media-breakpoint-up(sm) {
-            position: static;
-            padding: 0 rem(10);
+            position: fixed;
+            bottom: 0;
+            margin-bottom: rem(-20);
         }
 
         @include media-breakpoint-up(md-down) {
@@ -1871,7 +1876,11 @@
     on top on bottom-navigation-header on PDP page
 */ 
         .add-cart-bottom-navigation {
-            bottom: rem(70);
+            bottom: rem(0);
+
+            @include media-breakpoint-down(xs){
+                bottom: rem(70);
+            }
 
         &.prices-add-to-cart-actions-top.add-cart-bottom-navigation{
             bottom: 0px;

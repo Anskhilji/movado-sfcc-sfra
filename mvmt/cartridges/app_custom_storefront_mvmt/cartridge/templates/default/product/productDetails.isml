@@ -117,7 +117,7 @@
 
                     <div class="show-cart-button-below-price">
                         <div class="row">
-                            <div class="col-12 prices-add-to-cart-actions prices-add-to-cart-actions-top d-block d-sm-none">
+                            <div class="col-12 prices-add-to-cart-actions-top">
                                 <div class="d-block">
                                     <!-- Cart and [Optionally] Apple Pay -->
                                     <isinclude template="product/components/showCartButtonProduct" />
