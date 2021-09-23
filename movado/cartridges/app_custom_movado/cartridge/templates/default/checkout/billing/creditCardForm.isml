@@ -46,7 +46,7 @@
 	<div class="col-6 field-left">
 		<div class="form-group  relative">
 			<label class="form-control-label"></label>
-			<input type="text" class="form-control expirationDate" pattern="^((0[1-9])|(1[0-2]))\/(([2-9][1-9]))\/(\d{2})$"
+			<input type="text" class="form-control expirationDate"
 				id="expirationDate" placeholder="Expiration Date (MM/YY)*">
 			</input>
 			<div class="invalid-feedback">Please enter a valid expiry date in format MM/YY</div>
@@ -58,7 +58,7 @@
 				 <span class="info-icon"> <span class="icon">i</span>
 					<div class="tooltip"> ${Resource.msg('tooltip.security.code','creditCard',null)}</div>
 				 </span>
-			 <input type="password" class="form-control securityCode" id="securityCode" placeholder="Security Code*"   data-encrypted-name="cvc" maxlength="3">
+			 <input type="password" class="form-control securityCode" id="securityCode" placeholder="Security Code*" data-encrypted-name="cvc" maxlength="3">
 			<div class="invalid-feedback security-code">Please enter a valid security code</div>
 		</div>
 	</div>
