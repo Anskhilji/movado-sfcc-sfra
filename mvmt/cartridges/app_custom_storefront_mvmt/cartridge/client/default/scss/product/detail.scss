@@ -1180,15 +1180,15 @@
         }
     }
     .show-cart-button-below-price {
-        .prices-add-to-cart-actions-top{
+        .prices-add-to-cart-actions-top {
             position: relative;
             background-color: transparent;
 
-            @include media-breakpoint-up(md-down){
+            @include media-breakpoint-up(md-down) {
                 display: none;
             }
 
-            button.add-to-cart{
+            button.add-to-cart {
                 
                     width: 94.64%;
                     height: rem(45);
@@ -1200,7 +1200,7 @@
             }
 
             &.mobileBtn.btn-primary {
-                @include media-breakpoint-down(xss){
+                @include media-breakpoint-down(xss) {
                     display: block;
                     width: 94.64%;
                     height: rem(45);
@@ -1276,7 +1276,7 @@
             height: rem(60);
 
             .btn-primary {
-                @include media-breakpoint-down(sm){
+                @include media-breakpoint-down(sm) {
                     width: 100%;
                 }
             }
@@ -1328,7 +1328,7 @@
                 height: rem(56);
             }
 
-            @include media-breakpoint-down(sm){
+            @include media-breakpoint-down(sm) {
                 display: none;
             }
 
@@ -1875,15 +1875,15 @@
         .add-cart-bottom-navigation {
             bottom: rem(0);
 
-            @include media-breakpoint-down(xs){
+            @include media-breakpoint-down(xs) {
                 bottom: rem(70);
             }
 
-        &.prices-add-to-cart-actions-top{
+        &.prices-add-to-cart-actions-top { 
             bottom: rem(0);
             }
         }
-        
+
         .cart-and-ipay  {
             padding: 0;
             position: relative;
