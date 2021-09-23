@@ -2,6 +2,7 @@
 
 var server = require('server');
 
+var BasketMgr = require('dw/order/BasketMgr');
 var URLUtils = require('dw/web/URLUtils');
 
 var googlePayHelper = require('*/cartridge/scripts/helpers/googlePayHelpers.js');
@@ -10,7 +11,6 @@ var googlePayHelper = require('*/cartridge/scripts/helpers/googlePayHelpers.js')
 server.post('GetTransactionInfo',
     server.middleware.https,
     function (req, res, next) {
-        var BasketMgr = require('dw/order/BasketMgr');
         var currentBasket = BasketMgr.getCurrentOrNewBasket();
         if (!empty(currentBasket)) {
             var Locale = require('dw/util/Locale');
@@ -25,18 +25,24 @@ server.post('GetTransactionInfo',
                     googlePayHelper.addProductToCart(currentBasket, req.form.pid);
                     currentBasket = BasketMgr.getCurrentOrNewBasket();
                     transactionInfo.totalPriceStatus = 'ESTIMATED';
-                    transactionInfo.totalPrice = currentBasket.totalNetPrice.value.toString();
+                    transactionInfo.totalPrice = currentBasket.totalGrossPrice.value.toString();
                     break;
 
                 case 'Cart-Show':
                     transactionInfo.totalPriceStatus = 'ESTIMATED';
-                    transactionInfo.totalPrice = currentBasket.totalNetPrice.value.toString();
+                    transactionInfo.totalPrice = currentBasket.totalGrossPrice.value.toString();
                     break;
 
                 default:
                     transactionInfo.totalPriceStatus = 'FINAL';
                     transactionInfo.totalPrice = currentBasket.totalGrossPrice.value.toString();
                     break;
+                
+            }
+
+            if (req.form.shippingOptionId && !empty(req.form.shippingOptionId)) {
+                var shippingMethods = googlePayHelper.getShippingMethods(currentBasket);
+                transactionInfo.newShippingOptionParameters = shippingMethods;
             }
 
 
@@ -82,7 +88,7 @@ server.get('RenderButton',
             pid: pid
         }
         res.render('/googlePay/googlePayButton', googlePayConfigs);
-            
+
         next();
     }
 );

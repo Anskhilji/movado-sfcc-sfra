@@ -1,10 +1,11 @@
 'use strict';
 
 var Site = require('dw/system/Site');
+var ShippingMgr = require('dw/order/ShippingMgr');
 var Transaction = require('dw/system/Transaction');
 var cartHelper = require('*/cartridge/scripts/cart/cartHelpers');
-
-
+var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
+var cartHelper = require('*/cartridge/scripts/cart/cartHelpers');
 
 /**
  * Checks if google pay is enabled
@@ -73,20 +74,51 @@ function addProductToCart(currentBasket, productId) {
     var result = {
         error: true
     };
-        Transaction.wrap(function () {
-            result = cartHelper.addProductToCart(
-                currentBasket,
-                productId,
-                1,
-                null,
-                null
-            );
-        });
+    Transaction.wrap(function () {
+        result = cartHelper.addProductToCart(
+            currentBasket,
+            productId,
+            1,
+            null,
+            null
+        );
         if (!result.error) {
-            return true;
+            cartHelper.ensureAllShipmentsHaveMethods(currentBasket);
+            basketCalculationHelpers.calculateTotals(currentBasket);
         }
+    });
 
     return false;
+
+}
+
+
+/**
+ * Prepares shipping method data for google pay
+ * @param {dw.order.Basket} currentBasket 
+ * @returns {Object} defaultShippingMethods
+ */
+function getShippingMethods(currentBasket) {
+    var applicableShippingMethodsOnCart = ShippingMgr.getShipmentShippingModel(currentBasket.shipments[0]).applicableShippingMethods.toArray();
+    var defaultShippingMethods = {
+        defaultSelectedOptionId: '',
+        shippingOptions: []
+    }
+    var shippingOptions = [];
+    for (let index = 0; index < applicableShippingMethodsOnCart.length; index++) {
+        const shippingMethod = applicableShippingMethodsOnCart[index];
+        if (index == 0) {
+            defaultShippingMethods.defaultSelectedOptionId = shippingMethod.ID;
+        }
+        const shippingOption = {
+            id: shippingMethod.ID,
+            label: shippingMethod.displayName,
+            description: shippingMethod.description,
+        }
+        shippingOptions.push(shippingOption);
+    }
+    defaultShippingMethods.shippingOptions = shippingOptions;
+    return applicableShippingMethodsOnCart;
 }
 
 module.exports = {
@@ -97,5 +129,6 @@ module.exports = {
     getGooglePayButtonType: getGooglePayButtonType,
     isEnabledGooglePayCustomSize: isEnabledGooglePayCustomSize,
     getAdyenMerchantID: getAdyenMerchantID,
-    addProductToCart: addProductToCart
+    addProductToCart: addProductToCart,
+    getShippingMethods: getShippingMethods
 }
