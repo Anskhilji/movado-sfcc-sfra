@@ -1,39 +1,93 @@
-.card-number-wrapper {
-    position: relative;
+.data-checkout-stage {
+    .payment-form {
+        .credit-card-form {
+            .form-group {
+                margin-bottom: rem(15);
+                line-height: rem(0);
 
-    &::after {
-        content: '';
-        position: absolute;
-        right: 3px;
-        background-repeat: no-repeat;
-        background-image: url('../../images/credit.png');
-        background-size: contain;
-        width: 48px;
-        height: 30px;
-        top: 5px;
-    }
+                input {
+                    color: $grey15;
+                    font-size: rem(13);
+                    font-weight: 500;
+                    letter-spacing: rem(0.7);
+                    height: rem(45);
+                    line-height: rem(45);
+                    border: rem(1) solid $grey16;
+                    border-radius: rem(3);
+                }
 
-    &[data-type="visa"]::after {
-        background-image: url('../../images/payment-types.png');
-        background-size: auto;
-        background-position: -162px -110px;
-    }
+                .invalid-feedback {
+                    line-height: rem(22);
+                    font-size: rem(12);
+                }
 
-    &[data-type="mastercard"]::after {
-        background-image: url('../../images/payment-types.png');
-        background-size: auto;
-        background-position: -295px -110px;
+                .card-number-wrapper {
+                    position: relative;
+                
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        right: rem(10);
+                        background-repeat: no-repeat;
+                        background-image: url('../../images/payment-methods.png');
+                        width: rem(110);
+                        height: rem(22);
+                        top: rem(12);
+                        transform: translateY(0);
+                    }
+                
+                    &[data-type="visa"]::after {
+                        background-image: url('../../images/payment-types.png');
+                        background-size: auto;
+                        background-position: -162px -110px;
+                    }
+                
+                    &[data-type="mastercard"]::after {
+                        background-image: url('../../images/payment-types.png');
+                        background-size: auto;
+                        background-position: -295px -110px;
+                    }
+                
+                    &[data-type="amex"]::after {
+                        background-image: url('../../images/payment-types.png');
+                        background-size: auto;
+                        background-position: -230px -15px;
+                    }
+                
+                    &[data-type="discover"]::after {
+                        background-image: url('../../images/payment-types.png');
+                        background-size: auto;
+                        background-position: -95px -110px;
+                    }
+                }
+                
+                &.security-code-group {
+                    position: relative;
+            
+                    .info-icon {
+                        position: absolute;
+                        right: rem(15);
+                        top: rem(20);
+            
+                        .icon {
+                            background-color: $white;
+                            border: rem(1.5) solid $black;
+                            width: rem(15);
+                            height: rem(15);
+                            line-height: rem(15);
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            text-align: center;
+                            text-transform: lowercase;
+                            color: $black;
+                            font-size: rem(12);
+            
+                        }
+                    }
+                }
+            }
+        }
     }
-
-    &[data-type="amex"]::after {
-        background-image: url('../../images/payment-types.png');
-        background-size: auto;
-        background-position: -230px -15px;
-    }
-
-    &[data-type="discover"]::after {
-        background-image: url('../../images/payment-types.png');
-        background-size: auto;
-        background-position: -95px -110px;
-    }
+    
 }
