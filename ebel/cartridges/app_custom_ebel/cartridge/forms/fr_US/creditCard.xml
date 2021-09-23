@@ -27,7 +27,7 @@
            max-length="20" missing-error="error.message.required" parse-error="error.message.required" 
            />
 
-    <field formid="holderName" label="label.input.creditcard.holderName" type="string" mandatory="false" binding="holderName"
+    <field formid="cardOwner" label="label.input.creditcard.owner" type="string" mandatory="false" binding="cardOwner"
            max-length="50" missing-error="error.message.required" 
     	   regexp="^(\(?\+?[A-Za-z]*\)?)?[A-Za-z(\)]*$" 
     	   parse-error="error.message.invalid"
