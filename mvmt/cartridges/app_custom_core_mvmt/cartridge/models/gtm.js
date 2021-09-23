@@ -349,6 +349,7 @@ function getSearchQuery(queryStringVal) {
         var searchArray = [];
         var searchQuery = '';
         var queryString = queryStringVal ? Encoding.fromURI(queryStringVal) : '';
+        var searchArrayQuery = [];
         if (queryString.indexOf('&') >= 0) {
             searchArray = queryString.split('&');
             searchArray = searchArray[1].split('=');
@@ -358,6 +359,10 @@ function getSearchQuery(queryStringVal) {
             if ((queryString.indexOf('dwvar_')) > -1 && (queryString.indexOf('pid')) > -1) {
                 searchArray = queryString.split('=');
                 searchQuery = { pid: searchArray[searchArray.length - 1] };
+            } else if ((queryString.indexOf('pid')) > -1) {
+                searchArray = queryString.split('&');
+                searchArrayQuery = searchArray.split('=');
+                searchQuery = { pid: searchArrayQuery[1] };
             }
         } else if ((queryString.indexOf('pid')) > -1) {
                 searchArray = queryString.split('=');
