@@ -100,6 +100,10 @@ server.replace(
             }
         }
 
+        var YotpoIntegrationHelper = require('*/cartridge/scripts/common/integrationHelper.js');
+
+        var yotpoConversionTrackingData = YotpoIntegrationHelper.getConversionTrackingData(req, order, currentLocale);
+
         if (!req.currentCustomer.profile) {
             passwordForm = server.forms.getForm('newPasswords');
             passwordForm.clear();
@@ -107,13 +111,15 @@ server.replace(
                 order: orderModel,
                 returningCustomer: false,
                 passwordForm: passwordForm,
-                reportingURLs: reportingURLs
+                reportingURLs: reportingURLs,
+                yotpoConversionTrackingData: yotpoConversionTrackingData
             });
         } else {
             res.render('checkout/confirmation/confirmation', {
                 order: orderModel,
                 returningCustomer: true,
-                reportingURLs: reportingURLs
+                reportingURLs: reportingURLs,
+                yotpoConversionTrackingData: yotpoConversionTrackingData
             });
         }
         req.session.raw.custom.orderID = req.querystring.ID; // eslint-disable-line no-param-reassign

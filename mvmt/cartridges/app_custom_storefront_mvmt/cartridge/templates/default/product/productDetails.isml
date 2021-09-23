@@ -8,7 +8,10 @@
         assets.addJs('/js/productDetail.js');
         assets.addCss('/css/product/detail.css');
     </isscript>
-
+    <isset name="isListrakEnable" value="${!empty(dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) ? dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled : false}" scope="page" />
+    <isif condition="${isListrakEnable}">
+        <isinclude url="${URLUtils.https('ltkActivityTracking-TrackRequest', 'pid', pdict.product.id)}"/>  
+    </isif>
     <isset name="sitePref" value="${dw.system.Site.getCurrent().preferences.custom}" scope="page">
     <isif condition="${sitePref.EUMEnabled}">
         <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.pdp', 'eum', null))}"/>
@@ -112,6 +115,29 @@
                         <isinclude template="product/components/pricing/main" />
                     </div>
 
+                    <div class="show-cart-button-below-price">
+                        <div class="row">
+                            <div class="col-12 prices-add-to-cart-actions-top">
+                                <div class="d-block">
+                                    <!-- Cart and [Optionally] Apple Pay -->
+                                    <isinclude template="product/components/showCartButtonProduct" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="show-cart-button-mobile">
+                        <div class="row">
+                            <div class="col-12 prices-add-to-cart-actions">
+                                <div class="d-block">
+                                    <!-- Cart and [Optionally] Apple Pay -->
+                                    <isinclude template="product/components/showCartButtonProduct" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+
                     <div class="hidden-sm-down">
                         <isinclude template="product/components/pidRating" />
                     </div>
@@ -149,6 +175,25 @@
                             <isinclude template="product/components/recommendedProducts" />
                         </div>
                     </isif>
+
+                    <div class="show-cart-button-desktop">
+                        <div class="row">
+                            <div class="col-12 prices-add-to-cart-actions">
+                                <isinclude template="product/components/showCartButtonProduct" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <isif condition="${product.shortDescription}">
+                      <div class="row">
+                            <div class="col-12">
+                                <div class="d-flex justify-content-center mb-2" itemprop="description">
+                                    <isprint value="${product.shortDescription}" encoding="off" />
+                                </div>
+                            </div>
+                      </div>  
+                    </isif>
+                    
                     <isif condition="${sitePref.enableBackInStock}">
                         <isinclude template="product/backInStockNotification" sf-toolkit="on" />
                     </isif>
@@ -158,31 +203,6 @@
                     </isif>
                     <div class="col-md-10 col-12">
                         <isinclude template="product/components/mainAttributes" />
-                    </div>
-
-                    <div class="row">
-                        <div class="col-12">
-                            <isif condition="${product.shortDescription}">
-                                 <div class="d-flex d-md-none justify-content-center mb-2" itemprop="description">
-                                     <isprint value="${product.shortDescription}" encoding="off" />
-                                 </div>
-                            </isif>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-12 prices-add-to-cart-actions">
-                            <div class="d-block">
-                                <!-- Cart and [Optionally] Apple Pay -->
-                                <isinclude template="product/components/showCartButtonProduct" />
-
-                                <isif condition="${product.shortDescription}">
-                                     <div class="d-none d-md-flex justify-content-center col-12 content" itemprop="description">
-                                         <isprint value="${product.shortDescription}" encoding="off" />
-                                     </div>
-                                </isif>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
