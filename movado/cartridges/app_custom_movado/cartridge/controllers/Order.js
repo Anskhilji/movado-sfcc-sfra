@@ -111,30 +111,19 @@ server.replace(
             var currentProductLineItem;
             var contractProductListMapping = order.custom.clydeContractProductMapping;
             var previousSKU;
+
             if (!empty(contractProductListMapping)) {
                 var parsedContractProductList = JSON.parse(contractProductListMapping);
                 while (productLineItemsIterator.hasNext()) {
                     currentProductLineItem = productLineItemsIterator.next();
-                    if (currentProductLineItem.productID.indexOf("clyde") > -1) {
-                        continue;
-                    }
-                    if (parsedContractProductList.length == 1) {
-                        for (var i = 0; i < parsedContractProductList.length; i++) {
-                            if (currentProductLineItem.productID === parsedContractProductList[i].productId) {
+                    for (var i = 0; i < parsedContractProductList.length; i++) {
+                        if (currentProductLineItem.productID.indexOf("clyde") > -1) {
+                            if (parsedContractProductList[i].contractSku === previousSKU) {
+                                continue;
+                            } else {
                                 addClydeContract.addClydeContractSkuToLineItem(currentProductLineItem, parsedContractProductList[i].contractSku);
+                                previousSKU = parsedContractProductList[i].contractSku;
                                 break;
-                            }
-                        }
-                    } else {
-                        for (var i = 0; i < parsedContractProductList.length; i++) {
-                            if (currentProductLineItem.productID === parsedContractProductList[i].productId) {
-                                if (parsedContractProductList[i].contractSku === previousSKU) {
-                                    continue;
-                                } else {
-                                    addClydeContract.addClydeContractSkuToLineItem(currentProductLineItem, parsedContractProductList[i].contractSku);
-                                    previousSKU = parsedContractProductList[i].contractSku;
-                                    break;
-                                }
                             }
                         }
                     }
