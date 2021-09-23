@@ -225,157 +225,136 @@ function clearCreditCardForm() {
 }
 
 module.exports = {
-  methods: {
-    updateBillingAddressSelector: updateBillingAddressSelector,
-    updateBillingAddressFormValues: updateBillingAddressFormValues,
-    clearBillingAddressFormValues: clearBillingAddressFormValues,
-    updateBillingInformation: updateBillingInformation,
-    updatePaymentInformation: updatePaymentInformation,
-    clearCreditCardForm: clearCreditCardForm,
-  },
+    methods: {
+        updateBillingAddressSelector: updateBillingAddressSelector,
+        updateBillingAddressFormValues: updateBillingAddressFormValues,
+        clearBillingAddressFormValues: clearBillingAddressFormValues,
+        updateBillingInformation: updateBillingInformation,
+        updatePaymentInformation: updatePaymentInformation,
+        clearCreditCardForm: clearCreditCardForm
+    },
 
-  showBillingDetails: function () {
-    $(".btn-show-billing-details").on("click", function () {
-      $(this).parents("[data-address-mode]").attr("data-address-mode", "new");
-    });
-  },
+    showBillingDetails: function () {
+        $('.btn-show-billing-details').on('click', function () {
+            $(this).parents('[data-address-mode]').attr('data-address-mode', 'new');
+        });
+    },
 
-  hideBillingDetails: function () {
-    $(".btn-hide-billing-details").on("click", function () {
-      $(this)
-        .parents("[data-address-mode]")
-        .attr("data-address-mode", "shipment");
-    });
-  },
+    hideBillingDetails: function () {
+        $('.btn-hide-billing-details').on('click', function () {
+            $(this).parents('[data-address-mode]').attr('data-address-mode', 'shipment');
+        });
+    },
 
-  selectBillingAddress: function () {
-    $(".payment-form .addressSelector").on("change", function () {
-      var form = $(this).parents("form")[0];
-      var selectedOption = $("option:selected", this);
-      var optionID = selectedOption[0].value;
+    selectBillingAddress: function () {
+        $('.payment-form .addressSelector').on('change', function () {
+            var form = $(this).parents('form')[0];
+            var selectedOption = $('option:selected', this);
+            var optionID = selectedOption[0].value;
 
-      if (optionID === "new") {
-        // Show Address
-        $(form).attr("data-address-mode", "new");
-      } else {
-        // Hide Address
-        $(form).attr("data-address-mode", "shipment");
-      }
+            if (optionID === 'new') {
+          // Show Address
+                $(form).attr('data-address-mode', 'new');
+            } else {
+          // Hide Address
+                $(form).attr('data-address-mode', 'shipment');
+            }
 
-      // Copy fields
-      var attrs = selectedOption.data();
-      var element;
+        // Copy fields
+            var attrs = selectedOption.data();
+            var element;
 
-      Object.keys(attrs).forEach(function (attr) {
-        element = attr === "countryCode" ? "country" : attr;
-        if (element === "cardNumber") {
-          $(".cardNumber").data("cleave").setRawValue(attrs[attr]);
-        } else {
-          $("[name$=" + element + "]", form).val(attrs[attr]);
+            Object.keys(attrs).forEach(function (attr) {
+                element = attr === 'countryCode' ? 'country' : attr;
+                if (element === 'cardNumber') {
+                    $('.cardNumber').data('cleave').setRawValue(attrs[attr]);
+                } else {
+                    $('[name$=' + element + ']', form).val(attrs[attr]);
+                }
+            });
+        });
+    },
+
+    handleCreditCardNumber: function () {
+        if ($('#cardNumber').length && $('#cardType').length) {
+            cleave.handleCreditCardNumber('#cardNumber', '#cardType');
         }
+    },
+
+    santitizeForm: function () {
+        $('body').on('checkout:serializeBilling', function (e, data) {
+            var serializedForm = cleave.serializeData(data.form);
+
+            data.callback(serializedForm);
+        });
+    },
+
+    selectSavedPaymentInstrument: function () {
+        $(document).on('click', '.saved-payment-instrument', function (e) {
+            e.preventDefault();
+            $('.saved-payment-security-code').val('');
+            $('.saved-payment-instrument').removeClass('selected-payment');
+            $(this).addClass('selected-payment');
+            $('.saved-payment-instrument .card-image').removeClass('checkout-hidden');
+            $('.saved-payment-instrument .security-code-input').addClass('checkout-hidden');
+            $('.saved-payment-instrument.selected-payment' +
+        ' .card-image').addClass('checkout-hidden');
+            $('.saved-payment-instrument.selected-payment ' +
+        '.security-code-input').removeClass('checkout-hidden');
+        });
+    },
+
+    addNewPaymentInstrument: function () {
+        $('.btn.add-payment').on('click', function (e) {
+            e.preventDefault();
+            $('.payment-information').data('is-new-payment', true);
+            clearCreditCardForm();
+            $('.credit-card-form').removeClass('checkout-hidden');
+            $('.user-payment-instruments').addClass('checkout-hidden');
+        });
+    },
+
+    cancelNewPayment: function () {
+        $('.cancel-new-payment').on('click', function (e) {
+            e.preventDefault();
+            $('.payment-information').data('is-new-payment', false);
+            clearCreditCardForm();
+            $('.user-payment-instruments').removeClass('checkout-hidden');
+            $('.credit-card-form').addClass('checkout-hidden');
+        });
+    },
+
+    clearBillingForm: function () {
+        $('body').on('checkout:clearBillingForm', function () {
+            clearBillingAddressFormValues();
+        });
+    },
+
+    paymentTabs: function () {
+        $('.payment-options .accordion-link').on('click', function () {
+            var methodID = $(this).closest('.form-check').data('method-id');
+            var brandCode = $(this).closest('.form-check').data('brand-code');
+            $(this).parent().find('a').trigger('click');
+            $('#selectedPaymentOption').val(methodID);
+            $('.payment-information').data('payment-method-id', methodID);
+            $('#adyenPaymentMethod, #brandCode').val('');
+
+            if (methodID === Resources.ADYEN_PAYMENT_METHOD_ID && !brandCode) {
+                $('#adyenPaymentMethod').val(Resources.PAYPAL_PAYMENT_METHOD_TEXT);
+                $('#brandCode').val(Resources.PAYPAL_PAYMENT_METHOD_BRAND_CODE);
+            } else if (methodID === Resources.ADYEN_PAYMENT_METHOD_ID && brandCode === Resources.KLARNA_PAY_LATER_PAYMENT_METHOD_BRAND_CODE) {
+                $('#adyenPaymentMethod').val(Resources.KLARNA_PAY_LATER_PAYMENT_METHOD_TEXT);
+                $('#brandCode').val(Resources.KLARNA_PAY_LATER_PAYMENT_METHOD_BRAND_CODE);
+            } else if (methodID === Resources.ADYEN_PAYMENT_METHOD_ID && brandCode === Resources.KLARNA_SLICE_IT_PAYMENT_METHOD_BRAND_CODE) {
+                $('#adyenPaymentMethod').val(Resources.KLARNA_SLICE_IT_PAYMENT_METHOD_TEXT);
+                $('#brandCode').val(Resources.KLARNA_SLICE_IT_PAYMENT_METHOD_BRAND_CODE);
+            }
+        });
+    },
+    credeitCardExpiryDate: function () {
+      new Cleave("#expirationDate", {
+        date: true,
+        datePattern: ["m", "y"],
       });
-    });
-  },
-
-  handleCreditCardNumber: function () {
-    if ($("#cardNumber").length && $("#cardType").length) {
-      cleave.handleCreditCardNumber("#cardNumber", "#cardType");
-    }
-  },
-
-  santitizeForm: function () {
-    $("body").on("checkout:serializeBilling", function (e, data) {
-      var serializedForm = cleave.serializeData(data.form);
-
-      data.callback(serializedForm);
-    });
-  },
-
-  selectSavedPaymentInstrument: function () {
-    $(document).on("click", ".saved-payment-instrument", function (e) {
-      e.preventDefault();
-      $(".saved-payment-security-code").val("");
-      $(".saved-payment-instrument").removeClass("selected-payment");
-      $(this).addClass("selected-payment");
-      $(".saved-payment-instrument .card-image").removeClass("checkout-hidden");
-      $(".saved-payment-instrument .security-code-input").addClass(
-        "checkout-hidden"
-      );
-      $(".saved-payment-instrument.selected-payment" + " .card-image").addClass(
-        "checkout-hidden"
-      );
-      $(
-        ".saved-payment-instrument.selected-payment " + ".security-code-input"
-      ).removeClass("checkout-hidden");
-    });
-  },
-
-  addNewPaymentInstrument: function () {
-    $(".btn.add-payment").on("click", function (e) {
-      e.preventDefault();
-      $(".payment-information").data("is-new-payment", true);
-      clearCreditCardForm();
-      $(".credit-card-form").removeClass("checkout-hidden");
-      $(".user-payment-instruments").addClass("checkout-hidden");
-    });
-  },
-
-  cancelNewPayment: function () {
-    $(".cancel-new-payment").on("click", function (e) {
-      e.preventDefault();
-      $(".payment-information").data("is-new-payment", false);
-      clearCreditCardForm();
-      $(".user-payment-instruments").removeClass("checkout-hidden");
-      $(".credit-card-form").addClass("checkout-hidden");
-    });
-  },
-
-  clearBillingForm: function () {
-    $("body").on("checkout:clearBillingForm", function () {
-      clearBillingAddressFormValues();
-    });
-  },
-
-  paymentTabs: function () {
-    $(".payment-options .accordion-link").on("click", function () {
-      var methodID = $(this).closest(".form-check").data("method-id");
-      var brandCode = $(this).closest(".form-check").data("brand-code");
-      $(this).parent().find("a").trigger("click");
-      $("#selectedPaymentOption").val(methodID);
-      $(".payment-information").data("payment-method-id", methodID);
-      $("#adyenPaymentMethod, #brandCode").val("");
-
-      if (methodID === Resources.ADYEN_PAYMENT_METHOD_ID && !brandCode) {
-        $("#adyenPaymentMethod").val(Resources.PAYPAL_PAYMENT_METHOD_TEXT);
-        $("#brandCode").val(Resources.PAYPAL_PAYMENT_METHOD_BRAND_CODE);
-      } else if (
-        methodID === Resources.ADYEN_PAYMENT_METHOD_ID &&
-        brandCode === Resources.KLARNA_PAY_LATER_PAYMENT_METHOD_BRAND_CODE
-      ) {
-        $("#adyenPaymentMethod").val(
-          Resources.KLARNA_PAY_LATER_PAYMENT_METHOD_TEXT
-        );
-        $("#brandCode").val(
-          Resources.KLARNA_PAY_LATER_PAYMENT_METHOD_BRAND_CODE
-        );
-      } else if (
-        methodID === Resources.ADYEN_PAYMENT_METHOD_ID &&
-        brandCode === Resources.KLARNA_SLICE_IT_PAYMENT_METHOD_BRAND_CODE
-      ) {
-        $("#adyenPaymentMethod").val(
-          Resources.KLARNA_SLICE_IT_PAYMENT_METHOD_TEXT
-        );
-        $("#brandCode").val(
-          Resources.KLARNA_SLICE_IT_PAYMENT_METHOD_BRAND_CODE
-        );
-      }
-    });
-  },
-
-  credeitCardExpiryDate: function () {
-    new Cleave("#expirationDate", {
-      date: true,
-      datePattern: ["m", "y"],
-    });
-  },
+    },
 };
