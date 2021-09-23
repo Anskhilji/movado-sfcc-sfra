@@ -19,21 +19,25 @@
             <label class="shipping-express-checkout_label text-center"><span class="shipping-express-checkout_span">${Resource.msg('checkout.shipping.express', 'checkout', null)}</span></label>
             <div class="shipping-express-checkout-buttons">
                 <div class="shipping-paypal-btn col">
-                    <a href="${URLUtils.https('AdyenExpressPaypal-ExpressCheckoutFromCart')}" class="btn btn-block checkout-btn paypal-btn rounded ${pdict.valid.error ? 'disabled' : ''} ${!empty(pdict.countrySwitch) ? 'disabled' : ''}"
-                       role="button" aria-pressed="true">
-                       <isprint value="${paypalButtonImg}" encoding="off" />
-                    </a>
-                <isapplepay class="apple-pay-cart col btn btn-block rounded"></isapplepay>
+                    <div class="col-6 checkout-btn-adjustment">
+                        <a href="${URLUtils.https('AdyenExpressPaypal-ExpressCheckoutFromCart')}" class="btn btn-block checkout-btn paypal-btn rounded ${pdict.valid.error ? 'disabled' : ''} ${!empty(pdict.countrySwitch) ? 'disabled' : ''}"
+                            role="button" aria-pressed="true">
+                            <isprint value="${paypalButtonImg}" encoding="off" />
+                        </a>
+                    </div>
+                <div class="apple-btn-adjustment">
+                    <isapplepay class="apple-pay-cart col btn btn-block rounded"></isapplepay>
+                </div>
                                          <iscomment> Amazon Pay Button </iscomment>
             <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
             <isif condition="${isEswEnabled && !empty(request.httpCookies['esw.location']) && !empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US')}" > 
                 <isif condition="${sitePreferences.amzPayEnabled}">
-                    <div class="col-6">
+                    <div class="col-6 checkout-btn-adjustment">
                         <div id="AmazonPayButtonCheckout"></div>
                     </div>
                 </isif>
             <iselseif condition="${!isEswEnabled && sitePreferences.amzPayEnabled}">
-                <div class="col-6">
+                <div class="col-6 checkout-btn-adjustment">
                     <div id="AmazonPayButtonCheckout"></div>
                 </div>
             </isif>

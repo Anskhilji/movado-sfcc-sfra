@@ -38,36 +38,53 @@ function getQuantitySelector($el) {
         ? $($el).closest('.product-detail').find('.quantity-select') 
         : $('.quantity-select');
 }
-
+function loadAmazonButton() {
+    var amazonPaymentsObject = {
+        addButtonToCheckoutPage: function () {
+                    if ($('#AmazonPayButtonCheckout').length) {
+                        // eslint-disable-next-line
+                        amazon.Pay.renderButton('#AmazonPayButtonCheckout', {
+                            merchantId: AmazonSitePreferences.AMAZON_MERCHANT_ID,
+                            createCheckoutSession: {
+                                url: AmazonURLs.createCheckoutSession
+                            },
+                            ledgerCurrency: AmazonSitePreferences.AMAZON_CURRENCY,
+                            checkoutLanguage: AmazonSitePreferences.AMAZON_CHECKOUT_LANGUAGE,
+                            productType: AmazonSitePreferences.AMAZON_PRODUCT_TYPE,
+                            sandbox: AmazonSitePreferences.AMAZON_SANDBOX_MODE,
+                            placement: 'Checkout'
+                        });
+                    }
+        },
+        init: function () {
+            this.addButtonToCheckoutPage();
+        }
+    };
+    amazonPaymentsObject.init();
+    var tries = 0;
+    var interval = setInterval(function(){
+        tries++;
+        if( $('.dw-apple-pay-button').length) {
+            $('.checkout-btn-adjustment').removeClass('col-6');
+            $('.checkout-btn-adjustment').addClass('col-4');
+            $('.apple-btn-adjustment').addClass('col-4');
+            $('#AmazonPayButtonCheckout').css('width','inherit');
+            clearInterval(interval);
+            } else {
+            $('.checkout-btn-adjustment').removeClass('col-4');
+            $('.checkout-btn-adjustment').addClass('col-6');
+            $('.apple-btn-adjustment').removeClass('col-4');
+            }
+            if(tries >= 10){
+                clearInterval(interval);
+            }
+    },100)
+}
 function openMiniCart () {
     //Custom Start: Open the mini cart
     var url = $('.minicart').data('action-url');
     var count = parseInt($('.minicart .minicart-quantity').text());
     if (count !== 0 && $('.mini-cart-data .popover.show').length === 0) {
-        var amazonPaymentsObject = {
-            addButtonToCheckoutPage: function () {
-                    setTimeout(function(){
-                        if ($('#AmazonPayButtonCheckout').length) {
-                            // eslint-disable-next-line
-                            amazon.Pay.renderButton('#AmazonPayButtonCheckout', {
-                                merchantId: AmazonSitePreferences.AMAZON_MERCHANT_ID,
-                                createCheckoutSession: {
-                                    url: AmazonURLs.createCheckoutSession
-                                },
-                                ledgerCurrency: AmazonSitePreferences.AMAZON_CURRENCY,
-                                checkoutLanguage: AmazonSitePreferences.AMAZON_CHECKOUT_LANGUAGE,
-                                productType: AmazonSitePreferences.AMAZON_PRODUCT_TYPE,
-                                sandbox: AmazonSitePreferences.AMAZON_SANDBOX_MODE,
-                                placement: 'Checkout'
-                            });
-                        }
-                    },800)
-            },
-            init: function () {
-                this.addButtonToCheckoutPage();
-            }
-        };
-        amazonPaymentsObject.init();
         $.get(url, function (data) {
             $('.mini-cart-data .popover').empty();
             $('.mini-cart-data .popover').append(data);
@@ -77,6 +94,7 @@ function openMiniCart () {
             $('body').trigger('miniCart:recommendations');
             updateMiniCart = false;
             $.spinner().stop();
+            loadAmazonButton();
         });
     } else if (count === 0 && $('.mini-cart-data .popover.show').length === 0) {
         $.get(url, function (data) {

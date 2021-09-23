@@ -89,11 +89,9 @@ module.exports = function () {
     /**
      * This event is override from movado and it is used to show miniCart on the click event.
      */
-     $('body').off('click', '.minicart').on('click', '.minicart', function (event) {
-         
+    function loadAmazonButton() {
         var amazonPaymentsObject = {
             addButtonToCheckoutPage: function () {
-                    setTimeout(function(){
                         if ($('#AmazonPayButtonCheckout').length) {
                             // eslint-disable-next-line
                             amazon.Pay.renderButton('#AmazonPayButtonCheckout', {
@@ -108,13 +106,33 @@ module.exports = function () {
                                 placement: 'Checkout'
                             });
                         }
-                    },900)
             },
             init: function () {
                 this.addButtonToCheckoutPage();
             }
         };
         amazonPaymentsObject.init();
+        var tries = 0;
+        var interval = setInterval(function(){
+            tries++;
+            if( $('.dw-apple-pay-button').length) {
+                $('.checkout-btn-adjustment').removeClass('col-6');
+                $('.checkout-btn-adjustment').addClass('col-4');
+                $('.apple-btn-adjustment').addClass('col-4');
+                $('#AmazonPayButtonCheckout').css('width','inherit');
+                clearInterval(interval);
+                } else {
+                $('.checkout-btn-adjustment').removeClass('col-4');
+                $('.checkout-btn-adjustment').addClass('col-6');
+                $('.apple-btn-adjustment').removeClass('col-4');
+                }
+                if(tries >= 10){
+                    clearInterval(interval);
+                }
+        },100)
+    }
+     $('body').off('click', '.minicart').on('click', '.minicart', function (event) {
+         
          var $url = $('.minicart').data('action-url');
          var $count = parseInt($('.minicart .minicart-quantity').text());
          if ($count !== 0 && $('.mini-cart-data .popover.show').length === 0) {
@@ -135,6 +153,7 @@ module.exports = function () {
                 $('body').trigger('miniCart:recommendations');
                 $('.mobile-cart-icon').hide();
                 $('.mobile-cart-close-icon').show();
+                loadAmazonButton();
             });
          } else if ($count === 0 && $('.mini-cart-data .popover.show').length === 0) {
             if (!updateMiniCart) {
