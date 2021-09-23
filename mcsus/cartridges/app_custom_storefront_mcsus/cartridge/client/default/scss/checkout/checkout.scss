@@ -1,0 +1,45 @@
+@import '~movado/checkout/checkout'; 
+
+header {
+
+    &.checkout-header {
+    
+        .sticky-header-wrapper {
+            
+            .mobile-menu-wrapper {
+                @include media-breakpoint-up(xs) {
+                    display: block;
+
+                   .header-wrapper {
+                        .checkout-logo {
+                            width: rem(103);
+                        }
+                   }
+
+                }
+
+                .header-wrapper {
+
+                    .checkout-logo {
+                        @include media-breakpoint-down(xs) {
+                            margin-top: rem(8);
+                        }
+                    }
+
+                    .minicart-link {
+                        &.header-icon {
+                            @include media-breakpoint-down(xs) {
+                                top: rem(-2);
+                            }
+                        }
+                    }
+                }
+
+                
+                @include media-breakpoint-up(sm) {
+                    display: none;
+                }
+            }
+        }
+    }
+}

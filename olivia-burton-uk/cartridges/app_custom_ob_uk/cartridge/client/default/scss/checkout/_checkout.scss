@@ -27,7 +27,7 @@ header {
 
                         .v-middle {
                             position: absolute;
-                            top: 50%;
+                            top: 58%;
                             transform: translateY(-50%);
                         }
 
@@ -46,7 +46,29 @@ header {
                                 margin-bottom: rem(12);
                             }
                          }
-                    }  
+                    } 
+                    
+                    .header-wrapper {
+
+                        .obright-menu {
+                             .minicart {
+
+                                &-link {
+                                    @include media-breakpoint-down(xs) {
+                                        margin-right: rem(0);
+                                        top: rem(0);
+                                    }
+                                }
+                
+                                &-quantity {
+                                    color: $black;
+                                    background-color: $pink-grey;
+                                    font-size: rem(12);
+                                }
+                             }
+                        }
+                         
+                    }
                 }
                 
                 @include media-breakpoint-up(sm) {
@@ -58,6 +80,11 @@ header {
       
         .checkout-header-wrapper {
             
+            @include media-breakpoint-up(lg) {
+                padding: 0 rem(80) 0 rem(120);
+                margin-top: rem(33);
+            }
+
             .header-left {
                 .checkout-logo {
                     width: rem(150);
@@ -70,8 +97,13 @@ header {
     
                 .checkout-text {
                     h5 {
-                        font-family: $font-museo-light;
-                        color: $light-gray5;
+                        .secure-text {
+                            font-family: $font-museo-light;
+                            font-size: rem(14);
+                            color: $light-gray5;
+                            opacity: 0.8;
+                        }
+                        
                     }
                 }
             }
@@ -79,15 +111,6 @@ header {
             @include media-breakpoint-up(sm) {
                 padding-top: rem(0);
             }
-
-            .minicart {
-
-                &-quantity {
-                    color: $black;
-                    background-color: $pink-grey;
-                    font-size: rem(12);
-                }
-            } 
         }
 
     }
@@ -131,6 +154,11 @@ header {
                 text-transform: uppercase;
                 text-decoration: none ;
                 margin-bottom: rem(0);
+
+                @include media-breakpoint-down(sm) {
+                    font-size: rem(10);
+                    letter-spacing: rem(1);
+                }
          
                 &:after {
                   content: "";
@@ -140,6 +168,12 @@ header {
                   background-color: $black;
                   opacity: 0.4;
                   margin:rem(0) rem(10);
+
+                  @include media-breakpoint-down(sm) {
+                    height: rem(2);
+                    width: rem(14);
+                    margin:rem(0) rem(5);
+                  }
                 }
 
                 .step {
@@ -161,6 +195,13 @@ header {
                         border-radius: 50%;
                         font-size: rem(12);
                         margin-right: rem(10);
+
+                        @include media-breakpoint-down(sm) {
+                            height: rem(16);
+                            width: rem(16);
+                            margin-right: rem(8);
+                            font-size: rem(8);
+                        }
                     }
                 }
             }

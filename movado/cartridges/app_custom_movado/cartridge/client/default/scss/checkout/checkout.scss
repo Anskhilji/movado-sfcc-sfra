@@ -520,6 +520,10 @@ header {
             text-transform: uppercase;
             text-decoration: none ;
             margin-bottom: rem(0);
+
+            @include media-breakpoint-down(sm) {
+                font-size: rem(10);
+            }
      
             &:after {
               content: "";
@@ -529,6 +533,12 @@ header {
               background-color: $black;
               opacity: 0.4;
               margin:rem(0) rem(10);
+              
+              @include media-breakpoint-down(sm) {
+                height: rem(2);
+                width: rem(14);
+                margin:rem(0) rem(5);
+              }
             }
 
             .step {
@@ -551,6 +561,13 @@ header {
                     border-radius: 50%;
                     font-size: rem(12);
                     margin-right: rem(10);
+
+                    @include media-breakpoint-down(sm) {
+                        height: rem(16);
+                        width: rem(16);
+                        margin-right: rem(8);
+                        font-size: rem(8);
+                    }
                 }
             }
         }
