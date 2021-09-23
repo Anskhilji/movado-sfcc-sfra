@@ -1218,7 +1218,7 @@
                }
            }
 
-            .sales{
+            .sales {
                 display: none;
             }
         }
@@ -1251,7 +1251,7 @@
             bottom: 0;
         }
 
-        @include media-breakpoint-up(sm){
+        @include media-breakpoint-up(sm) {
             margin-bottom: rem(-20);
         }
 
