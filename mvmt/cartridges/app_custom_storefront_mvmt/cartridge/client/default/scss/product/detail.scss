@@ -1210,8 +1210,6 @@
                     margin-bottom: rem(4);
                     justify-content: center;
                 }
-
-
             }
 
             .sales{
@@ -1220,15 +1218,14 @@
         }
     }
 
-
     .prices-add-to-cart-actions {
         width: 100%;
         position: fixed;
         bottom: 0;
         z-index: 99;
-        padding-right: 0;
-        padding-left: 0;
-        left: 0;
+        padding-right: rem(0);
+        padding-left: rem(0);
+        left: rem(0);
 
         .cta-add-to-cart {
             @include media-breakpoint-down(lg) {
@@ -1882,10 +1879,9 @@
                 bottom: rem(70);
             }
 
-        &.prices-add-to-cart-actions-top.add-cart-bottom-navigation{
-            bottom: 0px;
-        }
-
+        &.prices-add-to-cart-actions-top{
+            bottom: rem(0);
+            }
         }
 
         .cart-and-ipay  {
