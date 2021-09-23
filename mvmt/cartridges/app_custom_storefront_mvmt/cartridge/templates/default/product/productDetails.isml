@@ -115,6 +115,17 @@
                         <isinclude template="product/components/pricing/main" />
                     </div>
 
+                    <div class="show-cart-button-below-price">
+                        <div class="row">
+                            <div class="col-12 prices-add-to-cart-actions-top">
+                                <div class="d-block">
+                                    <!-- Cart and [Optionally] Apple Pay -->
+                                    <isinclude template="product/components/showCartButtonProduct" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="show-cart-button-mobile">
                         <div class="row">
                             <div class="col-12 prices-add-to-cart-actions">
