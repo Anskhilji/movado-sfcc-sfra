@@ -114,10 +114,15 @@
 
 .prices-add-to-cart-actions {
     width: 100%;
-    position: static;
+    position: fixed;
+    bottom: rem(0);
+    z-index: 1;
+    padding-right: rem(0);
+    padding-left: rem(0);
+    left: rem(0);
 
     @include media-breakpoint-down(xs) {
-        background-color: transparent;
+        background-color: $grey12;
         .price {
             text-align: center;
         }

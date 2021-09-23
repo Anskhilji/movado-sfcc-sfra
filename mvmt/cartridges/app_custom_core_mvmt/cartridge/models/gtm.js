@@ -75,7 +75,7 @@ function gtmModel(req) {
             getCartJSONArray(this.checkout);
             if (action.equals('checkout-login')) {
                 this.checkoutAction = 'checkout';
-                checkoutStage;
+                checkoutStage = 1;
             } else {
                 checkoutActionObject = getCheckoutQueryString(reqQueryString.urlQueryString).stage;
                 var checkoutStage = '';
@@ -921,6 +921,9 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
                 produtObj.category = stringUtils.removeSingleQuotes(customCategory),
                 produtObj.variant = variants;
                 produtObj.price = (productLineItem.getAdjustedNetPrice().getDecimalValue() - averageOrderLevelDiscount) / productLineItem.quantityValue;
+                produtObj.unitBasePrice = productLineItem.basePrice.decimalValue.toString();
+                produtObj.taxOnBasePrice = (productLineItem.basePrice.decimalValue * productLineItem.taxRate).toString();
+                produtObj.unitPriceLessTax = (productLineItem.basePrice.decimalValue + productLineItem.tax.decimalValue).toString();
                 produtObj.currency = (productLineItem.product.priceModel.price.available ? (productLineItem.product.priceModel.price.currencyCode) : (productLineItem.product.priceModel.minPrice.currencyCode));
                 produtObj.description = '';
                 // Custom Start : Added subtotal
