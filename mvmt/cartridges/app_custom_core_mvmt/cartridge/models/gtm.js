@@ -75,7 +75,7 @@ function gtmModel(req) {
             getCartJSONArray(this.checkout);
             if (action.equals('checkout-login')) {
                 this.checkoutAction = 'checkout';
-                checkoutStage;
+                checkoutStage = 1;
             } else {
                 checkoutActionObject = getCheckoutQueryString(reqQueryString.urlQueryString).stage;
                 var checkoutStage = '';
