@@ -100,15 +100,25 @@ function addProductToCart(currentBasket, productId) {
  */
 function getShippingMethods(currentBasket) {
     var applicableShippingMethodsOnCart = ShippingMgr.getShipmentShippingModel(currentBasket.shipments[0]).applicableShippingMethods.toArray();
+    var shippingMethodData = {
+        defaultShippingMethods: {},
+        selectedMethodObject: {}
+    };
     var defaultShippingMethods = {
         defaultSelectedOptionId: '',
         shippingOptions: []
     }
+    var selectedMethodObject = {};
     var shippingOptions = [];
     for (let index = 0; index < applicableShippingMethodsOnCart.length; index++) {
         const shippingMethod = applicableShippingMethodsOnCart[index];
         if (index == 0) {
             defaultShippingMethods.defaultSelectedOptionId = shippingMethod.ID;
+            selectedMethodObject.type = 'LINE_ITEM';
+            selectedMethodObject.label = 'Shipping cost';
+            selectedMethodObject.price = '20';
+            selectedMethodObject.status = 'FINAL';
+            shippingMethodData.selectedMethodObject = selectedMethodObject;
         }
         const shippingOption = {
             id: shippingMethod.ID,
@@ -118,7 +128,8 @@ function getShippingMethods(currentBasket) {
         shippingOptions.push(shippingOption);
     }
     defaultShippingMethods.shippingOptions = shippingOptions;
-    return applicableShippingMethodsOnCart;
+    shippingMethodData.defaultShippingMethods = defaultShippingMethods;
+    return shippingMethodData;
 }
 
 module.exports = {

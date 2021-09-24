@@ -15,9 +15,10 @@ server.post('GetTransactionInfo',
         if (!empty(currentBasket)) {
             var Locale = require('dw/util/Locale');
             var currentLocale = Locale.getLocale(req.locale.id);
-            var transactionInfo =  {
+            var transactionInfo = {
                 countryCode: 'US',
-                currencyCode: session.currency.currencyCode
+                currencyCode: session.currency.currencyCode,
+                totalPriceLabel: 'Total Price'
             }
 
             switch (req.form.googlePayEntryPoint) {
@@ -25,25 +26,41 @@ server.post('GetTransactionInfo',
                     googlePayHelper.addProductToCart(currentBasket, req.form.pid);
                     currentBasket = BasketMgr.getCurrentOrNewBasket();
                     transactionInfo.totalPriceStatus = 'ESTIMATED';
-                    transactionInfo.totalPrice = currentBasket.totalGrossPrice.value.toString();
+                    transactionInfo.totalPrice = currentBasket.totalNetPrice.value.toString();
                     break;
 
                 case 'Cart-Show':
                     transactionInfo.totalPriceStatus = 'ESTIMATED';
-                    transactionInfo.totalPrice = currentBasket.totalGrossPrice.value.toString();
+                    transactionInfo.totalPrice = currentBasket.totalNetPrice.value.toString();
                     break;
 
                 default:
                     transactionInfo.totalPriceStatus = 'FINAL';
                     transactionInfo.totalPrice = currentBasket.totalGrossPrice.value.toString();
                     break;
-                
+
+            }
+            var displayItems = [{
+                label: 'Subtotal',
+                type: 'SUBTOTAL',
+                price: currentBasket.totalNetPrice.value.toString()
+            },
+            {
+                label: 'Tax',
+                type: 'TAX',
+                price: currentBasket.totalTax.value.toString()
+            }]
+
+            if (req.form.includeShippingDetails && !empty(req.form.includeShippingDetails) && (req.form.includeShippingDetails != 'false')) {
+                var shippingMethods = googlePayHelper.getShippingMethods(currentBasket);
+                transactionInfo.newShippingOptionParameters = shippingMethods.defaultShippingMethods;
+                displayItems.push(shippingMethods.selectedMethodObject);
             }
 
-            if (req.form.shippingOptionId && !empty(req.form.shippingOptionId)) {
-                var shippingMethods = googlePayHelper.getShippingMethods(currentBasket);
-                transactionInfo.newShippingOptionParameters = shippingMethods;
-            }
+            transactionInfo.displayItems = displayItems;
+
+
+
 
 
             res.json({

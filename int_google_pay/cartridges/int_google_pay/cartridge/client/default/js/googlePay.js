@@ -108,7 +108,7 @@ function getGooglePaymentDataRequest() {
     return new Promise(function (resolve, reject) {
         const paymentDataRequest = Object.assign({}, baseRequest);
         paymentDataRequest.allowedPaymentMethods = [cardPaymentMethod];
-        getGoogleTransactionInfo(false)
+        getGoogleTransactionInfo(false, null)
             .then(function (transactionData) {
                 paymentDataRequest.transactionInfo = transactionData.transactionInfo;
                 paymentDataRequest.merchantInfo = {
@@ -211,29 +211,33 @@ function onPaymentAuthorized(paymentData) {
           paymentDataRequestUpdate.error = getGoogleUnserviceableAddressError();
         }
         else {
-            getGoogleTransactionInfo(false)
+            getGoogleTransactionInfo(true, null)
             .then(function (transactionData) {
-                paymentDataRequestUpdate.newTransactionInfo = transactionData;
+                paymentDataRequestUpdate.newTransactionInfo = transactionData.transactionInfo;
+                resolve(paymentDataRequestUpdate);
             })
             .catch(function (err) {
                 // show error in developer console for debugging
                 console.error(err);
+                reject(err);
             });
 
         }
       }
       else if (intermediatePaymentData.callbackTrigger == "SHIPPING_OPTION") {
-          getGoogleTransactionInfo(shippingOptionData.id)
+          getGoogleTransactionInfo(true, shippingOptionData.id)
               .then(function (transactionData) {
-                  paymentDataRequestUpdate.newTransactionInfo = transactionData;
+                  paymentDataRequestUpdate.newTransactionInfo = transactionData.transactionInfo;
+                  resolve(paymentDataRequestUpdate);
+
               })
               .catch(function (err) {
-                console.error(err);
+                  console.error(err);
+                  reject(err);
               })
           
       }
   
-      resolve(paymentDataRequestUpdate);
     });
 }
   
@@ -315,12 +319,13 @@ function addGooglePayButton() {
  * @see {@link https://developers.google.com/pay/api/web/reference/request-objects#TransactionInfo|TransactionInfo}
  * @returns {object} transaction info, suitable for use as transactionInfo property of PaymentDataRequest
  */
-function getGoogleTransactionInfo(shippingOptionId) {
+function getGoogleTransactionInfo(includeShippingDetails, shippingOptionId) {
     return new Promise(function (resolve, reject) {
         var data = {
             googlePayEntryPoint: $('#google-pay-container').data('entry-point'),
             pid: $('#google-pay-container').data('pid') ? $('#google-pay-container').data('pid') : false,
-            shippingOptionId: shippingOptionId
+            shippingOptionId: shippingOptionId,
+            includeShippingDetails: includeShippingDetails
         };
         $.ajax({
             url: $('#google-pay-container').data('url'),
