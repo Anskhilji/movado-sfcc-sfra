@@ -48,7 +48,7 @@
             <div class="invalid-feedback"></div>
         </div>
     </div>
-    <iscomment> <div class="col-6">
+    <div class="col-6">
         <div class="form-group
             <isif condition=${creditFields.expirationYear.mandatory === true}>required</isif>
             ${creditFields.expirationYear.htmlName}">
@@ -68,7 +68,7 @@
             </select>
             <div class="invalid-feedback"></div>
         </div>
-    </div> </iscomment>
+    </div>
 </div>
 
 <div class="row">
