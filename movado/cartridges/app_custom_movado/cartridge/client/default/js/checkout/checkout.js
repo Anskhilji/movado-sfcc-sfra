@@ -63,36 +63,36 @@ var formHelpers = require('base/checkout/formErrors');
           + checkoutStages[currentStage]
       );
 
-        var stageUrl = new URL(window.location.href);
-        let searchParams = new URLSearchParams(stageUrl.search);
-        var stage = searchParams.get('stage');
-
        if($('.progressbar-container .checkout-progressbar').length) {
             $('.checkout-progressbar li').removeClass('active');
             $('.checkout-progressbar li').removeClass('completed');
             var checkedIcon = '<i class="fa fa-check"></i>';
 
-            if (stage == 'shipping') {
+            if (checkoutStages[currentStage] == 'shipping') {
                 $('.checkout-progressbar li:nth-child(1)').addClass('active');
+                $('.checkout-progressbar li:nth-child(1)').find('.step-no').html('1');
             }
-            else if (stage === 'payment') {
+            else if (checkoutStages[currentStage] === 'payment') {
                 $('.checkout-progressbar li:nth-child(2)').addClass('active');
-                $('.checkout-progressbar li:nth-child(1)').addClass('completed');
+                $('.checkout-progressbar li:nth-child(2)').find('.step-no').html('2');
+                $('.checkout-progressbar li:nth-child(1)').addClass('completed'); 
             }
 
-            else if (stage === 'placeOrder' && $('.payment-information').data('payment-method-id') !== 'Affirm') {
+            else if (checkoutStages[currentStage] === 'placeOrder' && $('.payment-information').data('payment-method-id') !== 'Affirm') {
                 $('.checkout-progressbar li:nth-child(3)').addClass('active');
+                $('.checkout-progressbar li:nth-child(3)').find('.step-no').html('3');
                 $('.checkout-progressbar li:nth-child(2)').addClass('completed');
-                $('.checkout-progressbar li:nth-child(1)').find('.step-no').html('1');
+                $('.checkout-progressbar li:nth-child(1)').addClass('completed'); 
             }
             else {
                 $('.checkout-progressbar li:nth-child(4)').addClass('active');
+                $('.checkout-progressbar li:nth-child(4)').find('.step-no').html('4');
                 $('.checkout-progressbar li:nth-child(3)').addClass('completed');
-                $('.checkout-progressbar li:nth-child(2)').find('.step-no').html('2');
+                $('.checkout-progressbar li:nth-child(2)').addClass('completed');
+                $('.checkout-progressbar li:nth-child(1)').addClass('completed');
             }
             $('.checkout-progressbar li.completed').find('.step-no').html(checkedIcon); 
         }
-
 
       $('.checkout-promo-section').removeClass('d-none');
          if (checkoutStages[currentStage] == 'placeOrder') {
@@ -544,6 +544,8 @@ var formHelpers = require('base/checkout/formErrors');
 
       return this;
   };
+
+
 }(jQuery));
 
 function appendToUrl(url, params) {

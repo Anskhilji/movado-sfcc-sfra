@@ -296,19 +296,37 @@ header {
             height: rem(85);
         }
 
+        .sticky-header {
+            &.header-menu-wrapper {
+
+                .header-wrapper {
+                    &.checkout-header-wrapper {
+    
+                        .header-left {
+                            .checkout-logo {
+                                @include media-breakpoint-up(xs) {
+                                    display: flex;
+                                    align-items: flex-start;
+                                }
+
+                                &:before {
+                                    display: none;
+                                    content: "";
+                                }
+                            } 
+                        }
+                    }
+                }
+            }
+        }
+
         .header-menu-wrapper {
             @include media-breakpoint-up(sm) {
                 background-color: $white;
             }
 
             .header-wrapper {
-                @include media-breakpoint-up(sm) {
-                    background-color: $white;
-                }
-    
-                @include media-breakpoint-up(xs) {
-                    background-color: $alabaster;
-                }
+                background-color: $white;
 
                 &.checkout-header-wrapper {
                     display: flex;
@@ -332,6 +350,7 @@ header {
                     .right {
                         margin-left: auto;
                     }
+    
         
                     .header-left {
                         display: flex;
@@ -350,16 +369,31 @@ header {
                 
                         .checkout-logo {
                             width: rem(155);
+
+                            @include media-breakpoint-up(xs) {
+                                display: flex;
+                                align-items: flex-end;
+                            }
+
                 
                             @include media-breakpoint-up(md) {
                                 width: rem(155);
                                 height: rem(70);
                             }
-            
+                            
                             &:before {
-                                content: "";
-                                display: none;
+                                font-family: "FontAwesome";
+                                content: '\f023';
+                                font-size: rem(18);
+                                margin-right: rem(5);
+                                margin-bottom: rem(0);
+
+                                @include media-breakpoint-up(md) {
+                                    content: "";
+                                    display: none;
+                                }
                             }
+                            
             
                             &.concord-logo {
                                 overflow: hidden;
@@ -397,10 +431,31 @@ header {
                                 display: none;
                             }
                         }
+
+                        .minicart-link {
+                            @include media-breakpoint-down(xs) {
+                                margin-right: rem(0);
+                            }
+                        }
                     }
                 }
             }
         }
+
+        .checkout-header-wrapper {
+            .minicart {
+                &-link {
+                    @include media-breakpoint-down(xs) {
+                        margin-right: rem(0);
+                    }
+                }
+                &-quantity {
+                    color: $black;
+                    background-color: $grey10;
+                }
+            }
+        }
+
     }
     
     .logo-link {
@@ -440,7 +495,7 @@ header {
     
     @include media-breakpoint-up(lg) {
         padding: 0 rem(80) 0 rem(100);
-        margin-top: rem(70);
+        margin-top: rem(84);
         padding-top: auto;
     }
 
@@ -461,6 +516,10 @@ header {
             text-transform: uppercase;
             text-decoration: none ;
             margin-bottom: rem(0);
+
+            @include media-breakpoint-down(sm) {
+                font-size: rem(10);
+            }
      
             &:after {
               content: "";
@@ -470,6 +529,12 @@ header {
               background-color: $black;
               opacity: 0.4;
               margin:rem(0) rem(10);
+
+              @include media-breakpoint-down(sm) {
+                height: rem(2);
+                width: rem(14);
+                margin:rem(0) rem(5);
+              }
             }
 
             .step {
@@ -491,6 +556,13 @@ header {
                     border-radius: 50%;
                     font-size: rem(12);
                     margin-right: rem(10);
+
+                    @include media-breakpoint-down(sm) {
+                        height: rem(16);
+                        width: rem(16);
+                        margin-right: rem(8);
+                        font-size: rem(8);
+                    }
                 }
             }
         }

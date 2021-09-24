@@ -33,7 +33,7 @@
     </button>
     <iselse>
         <div class="minicart-total hide-link-med">
-            <a class="minicart-link header-icon m-0">
+            <a class="minicart-link header-icon m-0" href="${URLUtils.https('Cart-Show')}">
                 <span class="header-nav-cart-icon cart-quantity-items" aria-hidden="true" data-quantity-id="${pdict.quantityTotal}">
                     <div class="cart-icon"></div>
                     <span data-item-count="" data-cart-render="item_count"

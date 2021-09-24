@@ -9,7 +9,9 @@
                             <isslot id="olivia-logo" description="Olivia Brand Logo" context="global" />
                         </div>
                         <div class="checkout-text">
-                            <h5>${Resource.msg('checkout.secure.text', 'checkout', null)}</h5>
+                            <h5> 
+                                <div class="secure-text">${Resource.msg('checkout.secure.text', 'checkout', null)} </div>
+                            </h5>
                         </div>
                     </div>
                     
@@ -29,7 +31,7 @@
                         </div>
                     </div>
 
-                    <div class="right">
+                    <div class="right obright-menu">
                         <div class="minicart" data-action-url="${URLUtils.url('Cart-MiniCartShow')}">
                             <isinclude url="${URLUtils.url('Cart-MiniCart')}"/>
                         </div>

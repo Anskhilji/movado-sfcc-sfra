@@ -29,8 +29,8 @@
                 <span class="grand-total-price">${pdict.order.totals.subTotal}</span>
             </div>
         </div>
-        <div class="alert card alert-dismissible error-message" role="alert">
-                <p class="error-message-text checkout-global-error"></p>
+        <div class="alert card alert-dismissible error-message mt-2" role="alert">
+            <p class="error-message-text checkout-global-error mt-2"></p>
         </div>
 
         <!-- Progressbar Template for desktop -->
