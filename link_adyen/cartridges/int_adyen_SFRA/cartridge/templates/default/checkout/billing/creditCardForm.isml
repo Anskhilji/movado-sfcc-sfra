@@ -48,7 +48,7 @@
             ${creditFields.expirationMonth.htmlName}">
             <label class="form-control-label" for="expirationMonth">${Resource.msg('field.credit.card.expiration.month','creditCard',null)}</label>
             <select class="form-control expirationMonth custom-select" id="expirationMonth" ${creditFields.expirationMonth.attributes}
-                    autocomplete="cc-exp-month" data-encrypted-name="expirationMonth">
+                    autocomplete="cc-exp-month" data-encrypted-name="expiryMonth">
                 <isloop items=${creditFields.expirationMonth.options} var="month">
                     <option id="${month.id}" value="${month.htmlValue}"
                     <isif condition="${pdict.order.billing.payment.selectedPaymentInstruments
