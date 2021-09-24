@@ -122,7 +122,7 @@ module.exports = function () {
             if (!$('#AmazonPayButtonCheckout').attr('class')) {
                 $('.amazon-mini-button').remove();
             }
-            $('.checkout-btn-adjustment').removeClass("col-12 col-6 col-4");
+            $('.checkout-btn-adjustment').removeClass('col-12 col-6 col-4');
             var colSize = 12 / ($('.shipping-paypal-btn > div').length - applePayLength);
             $('.checkout-btn-adjustment').addClass('col-' + colSize);
             if ($('.dw-apple-pay-button').length) {
