@@ -159,6 +159,7 @@ function technicalCancel(order) {
                 Transaction.wrap(function () {
                     order.custom.Adyen_eventCode = 'TECHNICAL_CANCEL';
                     order.custom.Adyen_pspReference = result.pspReference;
+                    order.custom.isRefunded = true;
                 });
             }
         }
