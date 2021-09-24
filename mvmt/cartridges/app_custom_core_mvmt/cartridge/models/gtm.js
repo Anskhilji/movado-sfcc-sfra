@@ -361,7 +361,7 @@ function getSearchQuery(queryStringVal) {
                 searchQuery = { pid: searchArray[searchArray.length - 1] };
             } else if ((queryString.indexOf('pid')) > -1) {
                 searchArray = queryString.split('&');
-                searchArrayQuery = searchArray.split('=');
+                searchArrayQuery = searchArray[0].split('=');
                 searchQuery = { pid: searchArrayQuery[1] };
             }
         } else if ((queryString.indexOf('pid')) > -1) {
