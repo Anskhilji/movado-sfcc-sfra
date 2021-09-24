@@ -338,6 +338,7 @@ function getProductLineItem(currentBasket, pliUUID) {
  */
 function validateBillingForm(form) {
     return validateFields(form);
+    
 }
 
 /**

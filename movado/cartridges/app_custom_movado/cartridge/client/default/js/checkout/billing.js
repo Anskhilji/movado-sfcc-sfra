@@ -350,5 +350,11 @@ module.exports = {
                 $('#brandCode').val(Resources.KLARNA_SLICE_IT_PAYMENT_METHOD_BRAND_CODE);
             }
         });
-    }
+    },
+    credeitCardExpiryDate: function () {
+      new Cleave("#expirationDate", {
+        date: true,
+        datePattern: ["m", "y"],
+      });
+    },
 };

@@ -54,6 +54,56 @@ $stored-payment-spacing: rem(16);
   }
 }
 
+.data-checkout-stage {
+  padding-top: rem(10);
+  margin-bottom: rem(50);
+  .top-grandtotal-label {
+    text-transform: uppercase;
+  }
+  .card-body {
+    padding: rem(15) rem(10);
+  }
+  .card-header {
+    @extend %card-header;
+    padding-left: rem(10);
+    padding-right: rem(10);
+    padding-bottom: rem(7);
+  }
+   .payment-options {
+     .credit-card-form {
+      .form-group {
+        .form-control-label {
+            box-sizing: border-box;
+            position: relative;
+        }
+        > .info-icon {
+            position: absolute;
+            right: rem(25);
+            top: rem(25);
+        }
+        .form-control {
+          border: rem(1) solid $grey15;
+          color: $grey14;
+          border-radius: rem(3);
+          font-family: inherit;
+        }
+      }
+     }
+   }
+
+  .form-group {
+    .form-control-label {
+      margin-bottom: 0;
+      font-family: $font-book;
+      font-size: rem(14);
+      line-height: rem(17);
+      letter-spacing: rem(1);
+      color: $grey14;
+      padding-bottom: rem(4);
+    }
+  }
+}
+
 #mainContent {
 
   .data-checkout-stage {
