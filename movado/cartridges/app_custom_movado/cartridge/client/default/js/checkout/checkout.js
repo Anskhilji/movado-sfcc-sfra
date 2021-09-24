@@ -94,7 +94,6 @@ var formHelpers = require('base/checkout/formErrors');
             $('.checkout-progressbar li.completed').find('.step-no').html(checkedIcon); 
         }
 
-
       $('.checkout-promo-section').removeClass('d-none');
          if (checkoutStages[currentStage] == 'placeOrder') {
         	 $('.checkout-promo-section').addClass('d-none');
