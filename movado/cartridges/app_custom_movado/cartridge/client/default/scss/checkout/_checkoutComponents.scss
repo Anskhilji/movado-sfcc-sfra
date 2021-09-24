@@ -78,13 +78,13 @@ $stored-payment-spacing: rem(16);
         }
         > .info-icon {
             position: absolute;
-            right: 25px;
-            top: 25px;
+            right: rem(25);
+            top: rem(25);
         }
         .form-control {
           border: rem(1) solid $grey15;
           color: $grey14;
-          border-radius: 3px;
+          border-radius: rem(3);
           font-family: inherit;
         }
       }

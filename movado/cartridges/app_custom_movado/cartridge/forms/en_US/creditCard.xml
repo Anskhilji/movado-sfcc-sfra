@@ -29,8 +29,8 @@
 
     <field formid="cardOwner" label="label.input.creditcard.owner" type="string" mandatory="false" binding="cardOwner"
            max-length="50" missing-error="error.message.required" 
-    	   regexp="^(\(?\+?[A-Za-z_ ]*\)?)?[A-Za-z_ (\)]*$" 
-    	   parse-error="error.message.invalid"
+    	    regexp="^(\(?\+?[A-Za-z_ ]*\)?)?[A-Za-z_ (\)]*$" 
+    	    parse-error="error.message.invalid"
     	   />
 
     <field formid="expirationMonth" label="label.input.payment.expirationmonth" type="integer" mandatory="false" binding="expirationMonth" missing-error="error.message.required"

@@ -57,7 +57,7 @@ function encryptData(cardData, options) {
     var encryptedDataValue;
     var cseInstance = adyen.createEncryption(options);
     var validationResult = cseInstance.validate(cardData);
-    validationResult =  customcardvalidation(cardData,validationResult);
+    validationResult =  customCardValidation(cardData,validationResult);
     $('#invalidCardDetails').hide();
     if (!validationResult.valid) {
         showValidation(validationResult);
@@ -69,7 +69,7 @@ function encryptData(cardData, options) {
     encryptedData.val(encryptedDataValue);
     return true;
 }
-function customcardvalidation(cardData, validationResult) {
+function customCardValidation(cardData, validationResult) {
     var nameRegex = new RegExp("^[a-zA-Z_ ]+$");
     if (!nameRegex.test(cardData.holderName)){
         validationResult.holderName=false;
