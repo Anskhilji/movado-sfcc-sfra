@@ -106,9 +106,15 @@ header {
 header.checkout-header {
   .checkout-header-wrapper {
     background-color: $white-smoke;
-
+    
     @include media-breakpoint-up(sm) {
       background-color: $white;
+    }
+
+    @include media-breakpoint-up(lg) {
+      background-color: $white;
+      padding: 0 rem(80) 0 rem(120);
+      margin-top: rem(33);
     }
 
   }

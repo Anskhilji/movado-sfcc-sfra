@@ -76,7 +76,6 @@ header {
                 }
             }
         }
-
       
         .checkout-header-wrapper {
             
@@ -107,6 +106,19 @@ header {
                     }
                 }
             }
+
+            .minicart {
+                &-link {
+                    height: rem(20);
+                    width: rem(20);
+                    display: inline-block;
+                    margin-right: rem(0);
+
+                    @include media-breakpoint-down(xs) {
+                        margin-right: rem(20);
+                    }
+                }
+            }
             
             @include media-breakpoint-up(sm) {
                 padding-top: rem(0);
@@ -131,7 +143,7 @@ header {
         }
         
         @include media-breakpoint-up(lg) {
-            padding: 0 rem(80) 0 rem(100);
+            padding: 0 rem(80) 0 rem(120);
             margin-top: rem(73);
             padding-top: auto;
         }
@@ -260,7 +272,6 @@ header {
           }
         }
       }
-    
     }
 }
 

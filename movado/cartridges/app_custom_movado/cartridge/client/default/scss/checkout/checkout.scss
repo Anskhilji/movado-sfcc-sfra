@@ -306,7 +306,7 @@ header {
             &.fixed-header {
                 @include media-breakpoint-up(md) {
                     .checkout-header-wrapper {
-                        margin-top: rem(5);
+                        margin-top: rem(0);
                     }
                 }
             }
@@ -357,8 +357,6 @@ header {
         }
     }
 
-    
-
     .checkout-header-wrapper {
         display: flex;
         justify-content: space-between;
@@ -373,8 +371,8 @@ header {
         }
         
         @include media-breakpoint-up(lg) {
-            padding: 0 rem(80) 0 rem(100);
-            margin-top: rem(40);
+            padding: 0 rem(91.5) 0 rem(100);
+            margin-top: rem(33);
             padding-top: auto;
         }
 
@@ -497,9 +495,15 @@ header {
         margin-top: rem(70);
         padding: 0 rem(15) 0 rem(15);
     }
+
+    @include media-breakpoint-up(md) {
+        margin-top: rem(61);
+        padding-top: auto;
+    }
     
     @include media-breakpoint-up(lg) {
         padding: 0 rem(80) 0 rem(100);
+        margin-top: rem(61);
         padding-top: auto;
     }
 
