@@ -89,10 +89,54 @@ module.exports = function () {
     /**
      * This event is override from movado and it is used to show miniCart on the click event.
      */
+    function loadAmazonButton() {
+        var amazonPaymentsObject = {
+            addButtonToCheckoutPage: function () {
+                if ($('#AmazonPayButtonCheckout').length) {
+                    // eslint-disable-next-line
+                    amazon.Pay.renderButton('#AmazonPayButtonCheckout', {
+                        merchantId: AmazonSitePreferences.AMAZON_MERCHANT_ID,
+                        createCheckoutSession: {
+                            url: AmazonURLs.createCheckoutSession
+                        },
+                        ledgerCurrency: AmazonSitePreferences.AMAZON_CURRENCY,
+                        checkoutLanguage: AmazonSitePreferences.AMAZON_CHECKOUT_LANGUAGE,
+                        productType: AmazonSitePreferences.AMAZON_PRODUCT_TYPE,
+                        sandbox: AmazonSitePreferences.AMAZON_SANDBOX_MODE,
+                        placement: 'Checkout'
+                    });
+                }
+            },
+            init: function () {
+                this.addButtonToCheckoutPage();
+            }
+        };
+        amazonPaymentsObject.init();
+        var tries = 0;
+        var applePayLength = 1;
+        var interval = setInterval(function () {
+            tries++;
+            if ($('.dw-apple-pay-button').length) {
+                applePayLength = 0;
+            }
+            if (!$('#AmazonPayButtonCheckout').attr('class')) {
+                $('.amazon-mini-button').remove();
+            }
+            $('.checkout-btn-adjustment').removeClass('col-12 col-6 col-4');
+            var colSize = 12 / ($('.shipping-paypal-btn > div').length - applePayLength);
+            $('.checkout-btn-adjustment').addClass('col-' + colSize);
+            if ($('.dw-apple-pay-button').length) {
+                $('.apple-btn-adjustment').addClass('col-' + colSize);
+            }
+            $('#AmazonPayButtonCheckout').css('width', 'inherit');
+            if (tries >= 10) {
+                clearInterval(interval);
+            }
+        }, 100)
+    }
      $('body').off('click', '.minicart').on('click', '.minicart', function (event) {
          var $url = $('.minicart').data('action-url');
          var $count = parseInt($('.minicart .minicart-quantity').text());
-
          if ($count !== 0 && $('.mini-cart-data .popover.show').length === 0) {
             if (!updateMiniCart) {
                 $('.mini-cart-data .popover').addClass('show');
@@ -111,6 +155,7 @@ module.exports = function () {
                 $('body').trigger('miniCart:recommendations');
                 $('.mobile-cart-icon').hide();
                 $('.mobile-cart-close-icon').show();
+                loadAmazonButton();
             });
          } else if ($count === 0 && $('.mini-cart-data .popover.show').length === 0) {
             if (!updateMiniCart) {

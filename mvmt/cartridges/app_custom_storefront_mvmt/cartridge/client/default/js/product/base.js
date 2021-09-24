@@ -38,8 +38,52 @@ function getQuantitySelector($el) {
         ? $($el).closest('.product-detail').find('.quantity-select') 
         : $('.quantity-select');
 }
-
-function openMiniCart () {
+function loadAmazonButton() {
+    var amazonPaymentsObject = {
+        addButtonToCheckoutPage: function () {
+            if ($('#AmazonPayButtonCheckout').length) {
+                // eslint-disable-next-line
+                amazon.Pay.renderButton('#AmazonPayButtonCheckout', {
+                    merchantId: AmazonSitePreferences.AMAZON_MERCHANT_ID,
+                    createCheckoutSession: {
+                        url: AmazonURLs.createCheckoutSession
+                    },
+                    ledgerCurrency: AmazonSitePreferences.AMAZON_CURRENCY,
+                    checkoutLanguage: AmazonSitePreferences.AMAZON_CHECKOUT_LANGUAGE,
+                    productType: AmazonSitePreferences.AMAZON_PRODUCT_TYPE,
+                    sandbox: AmazonSitePreferences.AMAZON_SANDBOX_MODE,
+                    placement: 'Checkout'
+                });
+            }
+        },
+        init: function () {
+            this.addButtonToCheckoutPage();
+        }
+    };
+    amazonPaymentsObject.init();
+    var tries = 0;
+    var applePayLength = 1;
+    var interval = setInterval(function () {
+        tries++;
+        if ($('.dw-apple-pay-button').length) {
+            applePayLength = 0;
+        }
+        if (!$('#AmazonPayButtonCheckout').attr('class')) {
+            $('.amazon-mini-button').remove();
+        }
+        $('.checkout-btn-adjustment').removeClass('col-12 col-6 col-4');
+        var colSize = 12 / ($('.shipping-paypal-btn > div').length - applePayLength);
+        $('.checkout-btn-adjustment').addClass('col-' + colSize);
+        if ($('.dw-apple-pay-button').length) {
+            $('.apple-btn-adjustment').addClass('col-' + colSize);
+        }
+        $('#AmazonPayButtonCheckout').css('width', 'inherit');
+        if (tries >= 10) {
+            clearInterval(interval);
+        }
+    }, 100)
+}
+function openMiniCart() {
     //Custom Start: Open the mini cart
     var url = $('.minicart').data('action-url');
     var count = parseInt($('.minicart .minicart-quantity').text());
@@ -53,6 +97,7 @@ function openMiniCart () {
             $('body').trigger('miniCart:recommendations');
             updateMiniCart = false;
             $.spinner().stop();
+            loadAmazonButton();
         });
     } else if (count === 0 && $('.mini-cart-data .popover.show').length === 0) {
         $.get(url, function (data) {
