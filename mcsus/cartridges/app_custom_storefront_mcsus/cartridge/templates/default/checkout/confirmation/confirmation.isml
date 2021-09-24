@@ -22,7 +22,7 @@
     <div class="d-none d-sm-block progressbar-container confirmation-container">
         <div class="row">
             <div class="col-md-12">
-                <isinclude template="checkout/checkoutProgressbar.isml" />
+                <isinclude template="checkout/checkoutProgressbar" />
             </div>
         </div>
     </div>
