@@ -37,12 +37,7 @@
                         <isapplepay class="apple-pay-cart col btn btn-block rounded"></isapplepay>
                     </div>
                     <iscomment> Amazon Pay Button </iscomment>
-                    <isset name="isEswEnabled"
-                        value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom
-                               .eswEshopworldModuleEnabled : false}"
-                        scope="page" />
-                    <isif
-                        condition="${isEswEnabled && !empty(request.httpCookies['esw.location']) && !empty(request.httpCookies['esw.location'].value) &&
+                    <isif condition="${isEswEnabled && !empty(request.httpCookies['esw.location']) && !empty(request.httpCookies['esw.location'].value) &&
                                    request.httpCookies['esw.location'].value.equalsIgnoreCase('US')}">
                         <isif condition="${sitePreferences.amzPayEnabled}">
                             <div class="checkout-btn-adjustment amazon-mini-button p-0 pl-1">
