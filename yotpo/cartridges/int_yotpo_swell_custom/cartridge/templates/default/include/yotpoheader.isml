@@ -42,8 +42,6 @@ from Yotpo which is mandatory for the Yotpo functionality to work</iscomment>
         <isscript>
             var swellGUID : String = YotpoUtils.getGUIDForCurrentLocale(currentLocaleID);
             var swellStaticContentURL = dw.system.Site.getCurrent().preferences.custom.yotpoSwellStaticContentURL.replace('<GUID>', swellGUID);
-            var assets = require('*/cartridge/scripts/assets.js');
-            var assign = assets.addJs('https://static-na.payments-amazon.com/checkout.js');
         </isscript>
         <script type="text/javascript">
             var swellStaticContentURL = "${swellStaticContentURL}";
