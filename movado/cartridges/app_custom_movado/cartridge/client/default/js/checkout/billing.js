@@ -350,5 +350,14 @@ module.exports = {
                 $('#brandCode').val(Resources.KLARNA_SLICE_IT_PAYMENT_METHOD_BRAND_CODE);
             }
         });
-    }
+    },
+
+    creditCardNumberFormat: function () {
+        if($('.cardNumber').length) {
+            new Cleave('.cardNumber', {
+                creditCard: true,
+                delimiter: '-',
+            });
+        }
+    },      
 };
