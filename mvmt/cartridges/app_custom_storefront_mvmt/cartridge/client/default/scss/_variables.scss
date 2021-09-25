@@ -145,7 +145,7 @@ $emerald2: #53C56F;
     font-style: normal;
 }
 @font-face {
-    font-family: "futura-pt,Arial,sans-serif";
+    font-family: 'futura-pt';
     font-display: block;
     src: url('fonts/38DBC0_1_0.eot'); src: url('fonts/38DBC0_1_0.eot?#iefix') format('embedded-opentype'),url('fonts/38DBC0_1_0.woff2') format('woff2'),url('fonts/38DBC0_1_0.woff') format('woff'),url('fonts/38DBC0_1_0.ttf') format('truetype');
   }
@@ -168,7 +168,7 @@ $font-oswald-medium: "oswald", "futura-pt", Arial !default;
 $font-oswald-light: "oswald", "futura-pt", Arial !default;
 $font-oswald-extra-light: "oswald", "futura-pt", Arial !default;
 $custom-xl: 1440px;
-$font-futura-pt: "futura-pt", "Arial" , "sans-serif" !default;
+$font-futura-pt: "futura-pt", Arial , sans-serif !default;
 
 $grid-breakpoints: (
     xss: 0,
