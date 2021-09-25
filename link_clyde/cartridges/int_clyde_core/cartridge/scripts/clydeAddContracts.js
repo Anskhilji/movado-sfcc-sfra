@@ -91,13 +91,14 @@ function addContracts(clydeSku, clydePrice, cart, productId, productLineItems, q
             existingContract(productLineItems, clydeTotalPrice, clydeQuantity, currentClydeProductID, contractDisplayName);
             totalQuantity = clydeQuantity;
         } else {
-            currentClydeProduct = addNewContractProduct(parsedValue, contractDisplayName, quantity, priceNumber, cart, shipment);
+            currentClydeProduct = addNewContractProduct(parsedValue, contractDisplayName, quantity, priceNumber, cart, shipment, productId);
             totalQuantity = quantity;
         }
 
         var itemObject = {
             clydeContactID: currentContractID,
             clydeProductID: currentClydeProduct || '',
+            clydeAssociatedProductSku: productId,
             clydeSku: clydeSku,
             eachPrice: priceNumber,
             productSku: productId,
@@ -177,9 +178,11 @@ function existingContract(productLineItems, clydeTotalPrice, clydeQuantity, curr
  * @param {number} priceNumber - price of the clyde contract.
  * @param {Object} cart - cart object
  * @param {Object} shipment - shipment object.
+ * @param {string} productId - product id of associated product.
  * @returns {string} Returns current clyde product.
+ * 
  */
-function addNewContractProduct(parsedValue, contractDisplayName, quantity, priceNumber, cart, shipment) {
+function addNewContractProduct(parsedValue, contractDisplayName, quantity, priceNumber, cart, shipment, productId) {
     var productLineItem;
     var addThisClydeProduct = parsedValue && parsedValue.length > 0 ? parsedValue.length : 0;
     var productList = clydeProductList();
@@ -191,6 +194,7 @@ function addNewContractProduct(parsedValue, contractDisplayName, quantity, price
     productLineItem.setPriceValue(priceNumber);
     productLineItem.setProductName(contractDisplayName);
     productLineItem.setQuantityValue(quantity);
+    productLineItem.custom.clydeAssociatedProductSku = productId;
 
     return currentClydeProduct;
 }
@@ -215,10 +219,19 @@ function updateContracts(cart,deletedProductId,productUUID) {
     if (contractProductList) {
         try {
             var parsedValue = JSON.parse(contractProductList);
-            
+            var productLineItems = cart.getAllProductLineItems().iterator();
+            while (productLineItems.hasNext()) {
+                var productLineItem = productLineItems.next();                            
+                if (!empty(productLineItem.custom.clydeAssociatedProductSku)) {
+                    if (productLineItem.custom.clydeAssociatedProductSku === deletedProductId) {
+                        deletedContractUUIDs.push(productLineItem.getUUID());
+                        break;
+                    }
+                }
+            }
             for (var i = 0; i < parsedValue.length; i++) {
                 var items = parsedValue[i];
-                if (deletedProductId ==  items.clydeProductID || deletedProductId == items.productSku) {
+                if ((deletedProductId ==  items.clydeProductID || deletedProductId == items.productSku) && items.clydeAssociatedProductSku == deletedProductId) {
                     productSku = items.productSku;
                     var price = items.eachPrice;
                     var productQuantities = cart.getProductQuantities();
@@ -241,17 +254,13 @@ function updateContracts(cart,deletedProductId,productUUID) {
                             if (contractQuantity < productQuantity) {
                                 contractPrice = price * contractQuantity;
                                 contractPriceByProduct = price * productQuantity;
-                                updateProductLineItemObject = updateProductLineItem(cart, contractQuantity, contractPrice, items.clydeProductID, contractPriceByProduct, productSku);
-                                if (!empty(updateProductLineItemObject.deletedContractUUID)) {
-                                    deletedContractUUIDs.push(updateProductLineItemObject.deletedContractUUID);
-                                }
+                                updateProductLineItem(cart, contractQuantity, contractPrice, items.clydeProductID, contractPriceByProduct, productSku);
+  
                             } else {
                                 contractPrice = price * productQuantity;
                                 productPriceByContract = price * contractQuantity;
-                                updateProductLineItemObject = updateProductLineItem(cart, productQuantity, contractPrice, items.clydeProductID, productPriceByContract, productSku);
-                                if (!empty(updateProductLineItemObject.deletedContractUUID)) {
-                                    deletedContractUUIDs.push(updateProductLineItemObject.deletedContractUUID);
-                                }
+                                updateProductLineItem(cart, productQuantity, contractPrice, items.clydeProductID, productPriceByContract, productSku);
+                                
                             }
                         }
                      } 
@@ -268,17 +277,11 @@ function updateContracts(cart,deletedProductId,productUUID) {
                         if (contractQuantity <= productQuantity) {
                             contractPrice = price * contractQuantity;
                             contractPriceByProduct = price * productQuantity;
-                            updateProductLineItemObject = updateProductLineItem(cart, contractQuantity, contractPrice, items.clydeProductID, contractPriceByProduct, productSku);
-                            if (!empty(updateProductLineItemObject.deletedContractUUID)) {
-                                deletedContractUUIDs.push(updateProductLineItemObject.deletedContractUUID);
-                            }
+                            updateProductLineItem(cart, contractQuantity, contractPrice, items.clydeProductID, contractPriceByProduct, productSku);
                         } else {
                             contractPrice = price * productQuantity;
                             productPriceByContract = price * contractQuantity;
-                            updateProductLineItemObject = updateProductLineItem(cart, productQuantity, contractPrice, items.clydeProductID, productPriceByContract, productSku);
-                            if (!empty(updateProductLineItemObject.deletedContractUUID)) {
-                                deletedContractUUIDs.push(updateProductLineItemObject.deletedContractUUID);
-                            }
+                            updateProductLineItem(cart, productQuantity, contractPrice, items.clydeProductID, productPriceByContract, productSku);
                         }
                     }
                 }
@@ -299,18 +302,14 @@ function updateContracts(cart,deletedProductId,productUUID) {
  * @param {string} contractProductID - contract product ID.
  * @return {string} deletedContractUUID - contract id which deleted
  */
-function updateProductLineItem(cart, contractQuantity, contractPrice, contractProductID, contractTotalPrice, productSku) {
+function updateProductLineItem(cart, contractQuantity, contractPrice, contractProductID, contractTotalPrice, productSku, deletedProductId) {
     var productLineItems = cart.getAllProductLineItems().iterator();
-    var updateProductLineItemObj;
     while (productLineItems.hasNext()) {
         var productLineItem = productLineItems.next();
         var product = productLineItem.product;
+
         if (product != null && product.ID === contractProductID) {
             if (contractQuantity === 0) {
-                updateProductLineItemObj = {
-                    deletedContractUUID: productLineItem.getUUID(),
-                    breakLoop: true
-                };
                 cart.removeProductLineItem(productLineItem);
                 updateCartCustomAttr(cart, contractProductID, 0);
                 break;
@@ -322,7 +321,6 @@ function updateProductLineItem(cart, contractQuantity, contractPrice, contractPr
             }
         }
     }
-    return updateProductLineItemObj;
 }
 /**
  * updates Cart Custom Attribute.
@@ -387,6 +385,14 @@ function addClydeContractSkuToLineItem(productLineItem, clydeSku) {
  * @param {Object} order - Order object.
  */
 function createOrderCustomAttr(contractProductList, order) {
+    var productLineItems = order.getAllProductLineItems().iterator();
+    var isClydeProduct = false;
+    while (productLineItems.hasNext()) {
+        var productLineItem = productLineItems.next();                            
+        if (!empty(productLineItem.custom.clydeAssociatedProductSku)) {
+            isClydeProduct = true;
+        } 
+    }
     if (contractProductList) {
         try {
             var parsedValue = JSON.parse(contractProductList);
@@ -408,8 +414,8 @@ function createOrderCustomAttr(contractProductList, order) {
             }
 
             Transaction.wrap(function () {
-                order.custom.isContainClydeContract = true;
-                order.custom.clydeContractProductMapping = JSON.stringify(contractjsonObj);
+                order.custom.isContainClydeContract = isClydeProduct;
+                order.custom.clydeContractProductMapping = isClydeProduct ? JSON.stringify(contractjsonObj) : '';
             });
         } catch (e) {
             Logger.error('Error occurred while parsing contract products list' + e);
