@@ -10,9 +10,35 @@
      .leading-lines {
     display:none;
   }
+ }
 }
 
+.progressbar-container {
+  &.confirmation-container {
+    max-width: rem(990);
+    display: block;
+    padding-left: rem(15);
+    padding-right: rem(15);
+    margin:0 auto;
+
+    .checkout-progressbar {
+      @include media-breakpoint-up(xs) {
+          display: none;
+      }
+    
+      @include media-breakpoint-up(sm) {
+          display: block;
+          padding: 0;
+      }
+    
+      @include media-breakpoint-up(lg) {
+          padding: 0;
+          padding-top: auto;
+      }
+    }
+  }
 }
+
 .order-thank-you-email-msg {
   font-family: $font-book;
   font-size: rem(14);

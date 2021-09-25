@@ -392,6 +392,9 @@ header {
                                     content: "";
                                     display: none;
                                 }
+                                @include media-breakpoint-down(xs) {
+                                    margin-bottom: rem(-2);
+                                }
                             }
                             
             
@@ -516,6 +519,7 @@ header {
             text-transform: uppercase;
             text-decoration: none ;
             margin-bottom: rem(0);
+            line-height: 1.45;
 
             @include media-breakpoint-down(sm) {
                 font-size: rem(10);
@@ -524,7 +528,7 @@ header {
             &:after {
               content: "";
               box-sizing: border-box;
-              height: rem(2);
+              height: rem(1.8);
               width: rem(30);
               background-color: $black;
               opacity: 0.4;
@@ -546,6 +550,7 @@ header {
                 &-no {
                     height: rem(21);
                     width: rem(21);
+                    line-height: 1.4;
                     display: flex;
                     align-items: center;
                     justify-content: center;
