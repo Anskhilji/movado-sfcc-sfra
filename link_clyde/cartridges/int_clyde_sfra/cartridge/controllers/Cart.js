@@ -137,7 +137,11 @@ server.replace('AddProduct', function (req, res, next) {
     next();
 });
 
+
 server.append('RemoveProductLineItem', function (req, res, next) {
+    var query = req.querystring;
+    var deletedProductId = query.pid;
+    var productUUID = query.uuid;
     var addClydeContract = require('*/cartridge/scripts/clydeAddContracts');
     var BasketMgr = require('dw/order/BasketMgr');
     var Transaction = require('dw/system/Transaction');
@@ -145,7 +149,7 @@ server.append('RemoveProductLineItem', function (req, res, next) {
     var CartModel = require('*/cartridge/models/cart');
     var deletedContractUUIDs = [];
     Transaction.wrap(function () {
-        deletedContractUUIDs = addClydeContract.updateContracts(currentBasket);
+        deletedContractUUIDs = addClydeContract.updateContracts(currentBasket,deletedProductId,productUUID);
     });
 
     var basketModel = new CartModel(currentBasket);
