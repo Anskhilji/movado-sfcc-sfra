@@ -3,8 +3,11 @@
 var server = require('server');
 
 var BasketMgr = require('dw/order/BasketMgr');
+var Transaction = require('dw/system/Transaction');
 var URLUtils = require('dw/web/URLUtils');
 
+var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
+var cartHelper = require('*/cartridge/scripts/cart/cartHelpers');
 var googlePayHelper = require('*/cartridge/scripts/helpers/googlePayHelpers.js');
 
 
@@ -15,10 +18,17 @@ server.post('GetTransactionInfo',
         if (!empty(currentBasket)) {
             var Locale = require('dw/util/Locale');
             var currentLocale = Locale.getLocale(req.locale.id);
+            var test = req.form.shippingAddress;
             var transactionInfo = {
                 countryCode: 'US',
                 currencyCode: session.currency.currencyCode,
                 totalPriceLabel: 'Total Price'
+            }
+            var displayItems = [];
+            if (req.form.includeShippingDetails && !empty(req.form.includeShippingDetails) && (req.form.includeShippingDetails != 'false')) {
+                var shippingMethods = googlePayHelper.getShippingMethods(currentBasket, req.form.selectedShippingMethod, req.form.shippingAddress);
+                transactionInfo.newShippingOptionParameters = shippingMethods.defaultShippingMethods;
+                displayItems.push(shippingMethods.selectedMethodObject);
             }
 
             switch (req.form.googlePayEntryPoint) {
@@ -31,6 +41,10 @@ server.post('GetTransactionInfo',
 
                 case 'Cart-Show':
                     transactionInfo.totalPriceStatus = 'ESTIMATED';
+                    Transaction.wrap(function () {
+                        cartHelper.ensureAllShipmentsHaveMethods(currentBasket);
+                        basketCalculationHelpers.calculateTotals(currentBasket);
+                    })
                     transactionInfo.totalPrice = currentBasket.totalNetPrice.value.toString();
                     break;
 
@@ -40,29 +54,19 @@ server.post('GetTransactionInfo',
                     break;
 
             }
-            var displayItems = [{
+            var subTotal = {
                 label: 'Subtotal',
                 type: 'SUBTOTAL',
                 price: currentBasket.totalNetPrice.value.toString()
-            },
-            {
+            };
+            var taxTotal = {
                 label: 'Tax',
                 type: 'TAX',
                 price: currentBasket.totalTax.value.toString()
-            }]
-
-            if (req.form.includeShippingDetails && !empty(req.form.includeShippingDetails) && (req.form.includeShippingDetails != 'false')) {
-                var shippingMethods = googlePayHelper.getShippingMethods(currentBasket);
-                transactionInfo.newShippingOptionParameters = shippingMethods.defaultShippingMethods;
-                displayItems.push(shippingMethods.selectedMethodObject);
-            }
-
+            };
+            displayItems.push(subTotal);
+            displayItems.push(taxTotal);
             transactionInfo.displayItems = displayItems;
-
-
-
-
-
             res.json({
                 transactionInfo: transactionInfo,
                 error: false
@@ -91,6 +95,7 @@ server.get('RenderButton',
         var pid = req.querystring.pid;
 
         var actionURL = URLUtils.url('GooglePay-GetTransactionInfo');
+        var processingURL = URLUtils.url('GooglePay-ExpressCheckout');
 
         var googlePayConfigs = {
             googlePayMerchantID: googlePayMerchantID,
@@ -102,11 +107,27 @@ server.get('RenderButton',
             isGooglePayEnabled: isGooglePayEnabled,
             actionURL: actionURL,
             googlePayEntryPoint: googlePayEntryPoint,
-            pid: pid
+            pid: pid,
+            processingURL:processingURL
         }
         res.render('/googlePay/googlePayButton', googlePayConfigs);
 
         next();
+    }
+);
+
+
+server.post('ExpressCheckout',
+    server.middleware.https,
+    function (req, res, next) {
+        var currentBasket =  BasketMgr.getCurrentOrNewBasket();
+        var googlePayResponse = JSON.parse(req.form.googlePayResponse);
+        var selectedShippingMethod = googlePayResponse.shippingOptionData.id;
+        var shippingAddressData = googlePayResponse.shippingAddress;
+        googlePayHelper.setShippingAndBillingAddress(currentBasket, selectedShippingMethod, shippingAddressData, currentBasket.defaultShipment);
+        
+
+
     }
 );
 

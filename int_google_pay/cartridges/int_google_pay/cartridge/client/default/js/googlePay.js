@@ -108,7 +108,7 @@ function getGooglePaymentDataRequest() {
     return new Promise(function (resolve, reject) {
         const paymentDataRequest = Object.assign({}, baseRequest);
         paymentDataRequest.allowedPaymentMethods = [cardPaymentMethod];
-        getGoogleTransactionInfo(false, null)
+        getGoogleTransactionInfo(false, null, null)
             .then(function (transactionData) {
                 paymentDataRequest.transactionInfo = transactionData.transactionInfo;
                 paymentDataRequest.merchantInfo = {
@@ -117,8 +117,9 @@ function getGooglePaymentDataRequest() {
                     // merchantId: '01234567890123456789',
                     merchantName: window.googlePayMerchantName
                 };
-                paymentDataRequest.callbackIntents = ["SHIPPING_ADDRESS",  "SHIPPING_OPTION", "PAYMENT_AUTHORIZATION"];
+                paymentDataRequest.callbackIntents = ["SHIPPING_ADDRESS", "SHIPPING_OPTION", "PAYMENT_AUTHORIZATION"];
                 paymentDataRequest.shippingAddressRequired = true;
+                paymentDataRequest.emailRequired = true;
                 paymentDataRequest.shippingAddressParameters = getGoogleShippingAddressParameters();
                 paymentDataRequest.shippingOptionRequired = true;
 
@@ -142,11 +143,11 @@ function getGooglePaymentDataRequest() {
  * @see {@link https://developers.google.com/pay/api/web/reference/request-objects#ShippingAddressParameters|ShippingAddressParameters}
  * @returns {object} shipping address details, suitable for use as shippingAddressParameters property of PaymentDataRequest
  */
- function getGoogleShippingAddressParameters() {
-    return  {
-      phoneNumberRequired: true
+function getGoogleShippingAddressParameters() {
+    return {
+        phoneNumberRequired: true
     };
-  }
+}
 
 /**
  * Return an active PaymentsClient or initialize
@@ -169,27 +170,27 @@ function getGooglePaymentsClient() {
 
 
 function onPaymentAuthorized(paymentData) {
-    return new Promise(function(resolve, reject){
-  
-    // handle the response
-    processPayment(paymentData)
-      .then(function() {
-        resolve({transactionState: 'SUCCESS'});
-      })
-      .catch(function() {
-          resolve({
-          transactionState: 'ERROR',
-          error: {
-            intent: 'PAYMENT_AUTHORIZATION',
-            message: 'Insufficient funds',
-            reason: 'PAYMENT_DATA_INVALID'
-          }
-        });
-      });
-  
+    return new Promise(function (resolve, reject) {
+
+        // handle the response
+        processPayment(paymentData)
+            .then(function () {
+                resolve({ transactionState: 'SUCCESS' });
+            })
+            .catch(function () {
+                resolve({
+                    transactionState: 'ERROR',
+                    error: {
+                        intent: 'PAYMENT_AUTHORIZATION',
+                        message: 'Insufficient funds',
+                        reason: 'PAYMENT_DATA_INVALID'
+                    }
+                });
+            });
+
     });
 }
-  
+
 /**
  * Handles dynamic buy flow shipping address and shipping options callback intents.
  *
@@ -199,48 +200,51 @@ function onPaymentAuthorized(paymentData) {
  * @see {@link https://developers.google.com/pay/api/web/reference/response-objects#PaymentDataRequestUpdate|PaymentDataRequestUpdate}
  * @returns Promise<{object}> Promise of PaymentDataRequestUpdate object to update the payment sheet.
  */
- function onPaymentDataChanged(intermediatePaymentData) {
-    return new Promise(function(resolve, reject) {
-  
-      let shippingAddress = intermediatePaymentData.shippingAddress;
-      let shippingOptionData = intermediatePaymentData.shippingOptionData;
-      let paymentDataRequestUpdate = {};
-  
-      if (intermediatePaymentData.callbackTrigger == "INITIALIZE" || intermediatePaymentData.callbackTrigger == "SHIPPING_ADDRESS") {
-        if(false)  { // @Todo add check for un supported shipping areas
-          paymentDataRequestUpdate.error = getGoogleUnserviceableAddressError();
+function onPaymentDataChanged(intermediatePaymentData) {
+    return new Promise(function (resolve, reject) {
+
+        let shippingAddress = intermediatePaymentData.shippingAddress;
+        let shippingOptionData = intermediatePaymentData.shippingOptionData;
+        let paymentDataRequestUpdate = {};
+
+        if (intermediatePaymentData.callbackTrigger == "INITIALIZE" || intermediatePaymentData.callbackTrigger == "SHIPPING_ADDRESS") {
+            if (false) { // @Todo add check for un supported shipping areas
+                paymentDataRequestUpdate.error = getGoogleUnserviceableAddressError();
+            }
+            else {
+                getGoogleTransactionInfo(true, null, shippingAddress)
+                    .then(function (transactionData) {
+                        paymentDataRequestUpdate.newShippingOptionParameters = transactionData.transactionInfo.newShippingOptionParameters;
+                        delete transactionData.transactionInfo.newShippingOptionParameters;
+                        paymentDataRequestUpdate.newTransactionInfo = transactionData.transactionInfo;
+                        resolve(paymentDataRequestUpdate);
+                    })
+                    .catch(function (err) {
+                        // show error in developer console for debugging
+                        console.error(err);
+                        reject(err);
+                    });
+
+            }
         }
-        else {
-            getGoogleTransactionInfo(true, null)
-            .then(function (transactionData) {
-                paymentDataRequestUpdate.newTransactionInfo = transactionData.transactionInfo;
-                resolve(paymentDataRequestUpdate);
-            })
-            .catch(function (err) {
-                // show error in developer console for debugging
-                console.error(err);
-                reject(err);
-            });
+        else if (intermediatePaymentData.callbackTrigger == "SHIPPING_OPTION") {
+            getGoogleTransactionInfo(true, shippingOptionData.id, shippingAddress)
+                .then(function (transactionData) {
+                    delete transactionData.transactionInfo.newShippingOptionParameters;
+                    paymentDataRequestUpdate.newTransactionInfo = transactionData.transactionInfo;
+                    resolve(paymentDataRequestUpdate);
+
+                })
+                .catch(function (err) {
+                    console.error(err);
+                    reject(err);
+                })
 
         }
-      }
-      else if (intermediatePaymentData.callbackTrigger == "SHIPPING_OPTION") {
-          getGoogleTransactionInfo(true, shippingOptionData.id)
-              .then(function (transactionData) {
-                  paymentDataRequestUpdate.newTransactionInfo = transactionData.transactionInfo;
-                  resolve(paymentDataRequestUpdate);
 
-              })
-              .catch(function (err) {
-                  console.error(err);
-                  reject(err);
-              })
-          
-      }
-  
     });
 }
-  
+
 
 /**
  * Provide Google Pay API with shipping options and a default selected shipping option.
@@ -251,7 +255,7 @@ function onPaymentAuthorized(paymentData) {
 function getGoogleDefaultShippingOptions() {
     return new Promise(function (resolve, reject) {
         $.ajax({
-            url:  $('#google-pay-container').data('default-shipping-methods-url'),
+            url: $('#google-pay-container').data('default-shipping-methods-url'),
             method: 'POST',
             success: function (data) {
                 if (data.shippingMethods) {
@@ -259,7 +263,7 @@ function getGoogleDefaultShippingOptions() {
                 } else {
                     reject(data);
                 }
-               
+
             },
             error: function (err) {
                 reject(err) // Reject the promise and go to catch()
@@ -267,7 +271,7 @@ function getGoogleDefaultShippingOptions() {
         });
     });
 }
-  
+
 
 /**
  * Initialize Google PaymentsClient after Google-hosted JavaScript has loaded
@@ -319,13 +323,14 @@ function addGooglePayButton() {
  * @see {@link https://developers.google.com/pay/api/web/reference/request-objects#TransactionInfo|TransactionInfo}
  * @returns {object} transaction info, suitable for use as transactionInfo property of PaymentDataRequest
  */
-function getGoogleTransactionInfo(includeShippingDetails, shippingOptionId) {
+function getGoogleTransactionInfo(includeShippingDetails, selectedShippingMethod, shippingAddress) {
     return new Promise(function (resolve, reject) {
         var data = {
             googlePayEntryPoint: $('#google-pay-container').data('entry-point'),
             pid: $('#google-pay-container').data('pid') ? $('#google-pay-container').data('pid') : false,
-            shippingOptionId: shippingOptionId,
-            includeShippingDetails: includeShippingDetails
+            selectedShippingMethod: selectedShippingMethod,
+            includeShippingDetails: includeShippingDetails,
+            shippingAddress: shippingAddress ? JSON.stringify(shippingAddress) : shippingAddress
         };
         $.ajax({
             url: $('#google-pay-container').data('url'),
@@ -379,9 +384,28 @@ function onGooglePaymentButtonClicked() {
 function processPayment(paymentData) {
     // show returned data in developer console for debugging
     console.log(paymentData);
-    // @todo pass payment token to your gateway to process payment
-    paymentToken = paymentData.paymentMethodData.tokenizationData.token;
-}
+    return new Promise(function(resolve, reject) {
+        setTimeout(function () {
+            $.ajax({
+                url: $('#google-pay-container').data('process-payments-url'),
+                method: 'POST',
+                data: {paymentData: JSON.stringify(paymentData)},
+                success: function (data) {
+                    if (!data.error) {
+                        resolve(data) // Resolve promise and go to then()
+                    } else {
+                        reject(data);
+                    }
+    
+                },
+                error: function (err) {
+                    reject(err) // Reject the promise and go to catch()
+                }
+            });
+  
+      }, 3000);
+    });
+  }
 
 
 $(document).ready(function name(params) {
