@@ -92,7 +92,11 @@ $stored-payment-spacing: rem(16);
     .expirationDate {
       margin-top: rem(2);
     }
-    
+
+    #securityCode {
+      margin-top: rem(-2);
+    }
+
     .add-address,
     .edit-address {
       margin-top: rem(10);
