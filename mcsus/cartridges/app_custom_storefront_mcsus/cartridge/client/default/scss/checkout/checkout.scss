@@ -24,6 +24,14 @@ header {
                         @include media-breakpoint-down(xs) {
                             margin-top: rem(8);
                         }
+                        &:before {
+                            margin-bottom: rem(12);
+
+                            @include media-breakpoint-down(xs) {
+                                margin-bottom: rem(20);
+                            }
+
+                        }
                     }
 
                     .minicart-link {
