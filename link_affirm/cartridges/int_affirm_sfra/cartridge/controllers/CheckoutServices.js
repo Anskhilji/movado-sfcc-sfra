@@ -85,10 +85,7 @@ server.replace(
                     htmlName: paymentForm.creditCardFields.securityCode.htmlName
                 },
                 expirationMonth: {
-                    value: parseInt(
-                                paymentForm.creditCardFields.expirationMonth.selectedOption,
-                                10
-                            ),
+                    value: parseInt(paymentForm.creditCardFields.expirationMonth.selectedOption, 10),
                     htmlName: paymentForm.creditCardFields.expirationMonth.htmlName
                 },
                 expirationYear: {

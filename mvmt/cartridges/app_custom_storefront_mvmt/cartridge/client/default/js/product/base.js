@@ -38,8 +38,52 @@ function getQuantitySelector($el) {
         ? $($el).closest('.product-detail').find('.quantity-select') 
         : $('.quantity-select');
 }
-
-function openMiniCart () {
+function loadAmazonButton() {
+    var amazonPaymentsObject = {
+        addButtonToCheckoutPage: function () {
+            if ($('#AmazonPayButtonCheckout').length) {
+                // eslint-disable-next-line
+                amazon.Pay.renderButton('#AmazonPayButtonCheckout', {
+                    merchantId: AmazonSitePreferences.AMAZON_MERCHANT_ID,
+                    createCheckoutSession: {
+                        url: AmazonURLs.createCheckoutSession
+                    },
+                    ledgerCurrency: AmazonSitePreferences.AMAZON_CURRENCY,
+                    checkoutLanguage: AmazonSitePreferences.AMAZON_CHECKOUT_LANGUAGE,
+                    productType: AmazonSitePreferences.AMAZON_PRODUCT_TYPE,
+                    sandbox: AmazonSitePreferences.AMAZON_SANDBOX_MODE,
+                    placement: 'Checkout'
+                });
+            }
+        },
+        init: function () {
+            this.addButtonToCheckoutPage();
+        }
+    };
+    amazonPaymentsObject.init();
+    var tries = 0;
+    var applePayLength = 1;
+    var interval = setInterval(function () {
+        tries++;
+        if ($('.dw-apple-pay-button').length) {
+            applePayLength = 0;
+        }
+        if (!$('#AmazonPayButtonCheckout').attr('class')) {
+            $('.amazon-mini-button').remove();
+        }
+        $('.checkout-btn-adjustment').removeClass('col-12 col-6 col-4');
+        var colSize = 12 / ($('.shipping-paypal-btn > div').length - applePayLength);
+        $('.checkout-btn-adjustment').addClass('col-' + colSize);
+        if ($('.dw-apple-pay-button').length) {
+            $('.apple-btn-adjustment').addClass('col-' + colSize);
+        }
+        $('#AmazonPayButtonCheckout').css('width', 'inherit');
+        if (tries >= 10) {
+            clearInterval(interval);
+        }
+    }, 100)
+}
+function openMiniCart() {
     //Custom Start: Open the mini cart
     var url = $('.minicart').data('action-url');
     var count = parseInt($('.minicart .minicart-quantity').text());
@@ -53,6 +97,7 @@ function openMiniCart () {
             $('body').trigger('miniCart:recommendations');
             updateMiniCart = false;
             $.spinner().stop();
+            loadAmazonButton();
         });
     } else if (count === 0 && $('.mini-cart-data .popover.show').length === 0) {
         $.get(url, function (data) {
@@ -862,25 +907,6 @@ function attributeSelect(selectedValueUrl, $productContainer) {
     }
 }
 
-/**
- * Custom Start: Retrieve recommended products
- *
- * @param {Link} addToCartUrl - link of add to cart URL for variation product
- * 
- */
-function getRecommendationProducts() {
-    var $recommendedProductSelector = $('.upsell_input:checked');
-    var productArray = [];
-    for (var i = 0; i < $recommendedProductSelector.length; i++) {
-        var $currentRecommendedProduct = $recommendedProductSelector[i];
-            var form = {
-                pid: $currentRecommendedProduct.value,
-                quantity: 1
-            };
-        productArray.push(form);
-    }
-    return productArray.length ? JSON.stringify(productArray) : [] ;
-}
 
 /**
  * Retrieve product options
@@ -969,7 +995,7 @@ movadoBase.colorAttribute = function () {
 }
 
 movadoBase.addToCart = function () {
-    $(document).off('click.addToCart', 'button.add-to-cart, button.add-to-cart-global').on('click', 'button.add-to-cart, .addToCart , button.add-to-cart-global', function (e) {
+    $(document).off('click.addToCart', 'button.add-to-cart, button.add-to-cart-global, button.add-to-cart-recomendations').on('click', 'button.add-to-cart, .addToCart , button.add-to-cart-global , button.add-to-cart-recomendations', function (e) {
         e.preventDefault();
         var addToCartUrl;
         var pid;
@@ -995,6 +1021,8 @@ movadoBase.addToCart = function () {
 
         if ($(this).closest('.product-detail') && $(this).closest('.product-detail').data('isplp') == true) {
             pid = $(this).data('pid');
+        } else if ($(this).closest('.linked-products') && $(this).closest('.linked-products').data('recomendation') == true) {
+            pid = $(this).data('pid');
         } else {
             pid = movadoBase.getPidValue($(this));
         }
@@ -1011,7 +1039,6 @@ movadoBase.addToCart = function () {
             pidsObj: pidsObj,
             childProducts: getChildProducts(),
             quantity: movadoBase.getQuantitySelected($(this)),
-            recommendationArray: getRecommendationProducts()
         };
         /**
          * Custom Start: Add to cart form for MVMT
@@ -1022,7 +1049,6 @@ movadoBase.addToCart = function () {
                 pidsObj: pidsObj,
                 childProducts: getChildProducts(),
                 quantity: 1,
-                recommendationArray: getRecommendationProducts()
             };
         }
         /**

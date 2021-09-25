@@ -8,7 +8,7 @@
     <div class="cta-add-to-cart">
         <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}">
         <iscomment> Custom Start: Adding Esw updated cartridge code ({product.isProductRestricted}>d-none) </iscomment>
-        <button class='add-to-cart btn btn-primary pdpToCart gtm-addtocart <isif condition="${product.isProductRestricted}">d-none</isif>'
+         <button class='add-to-cart btn btn-primary pdpToCart gtm-addtocart <isif condition="${product.isProductRestricted}">d-none</isif>'
             data-pid="${product.id}"
             ${!product.readyToOrder ? "disabled" : ""}  >
                 <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>
