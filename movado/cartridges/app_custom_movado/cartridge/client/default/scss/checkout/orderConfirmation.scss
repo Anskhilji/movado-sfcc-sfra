@@ -36,6 +36,51 @@
           padding-top: auto;
       }
     }
+
+
+    li {
+
+      @include media-breakpoint-up(sm) {
+          margin-bottom: rem(15);
+      }
+
+      @include media-breakpoint-up(xxl) {
+          margin-bottom: rem(0);
+      }
+
+      p {
+          display: flex;
+          align-items: center;
+          font-size: rem(12);
+          text-transform: uppercase;
+          text-decoration: none ;
+          margin-bottom: rem(0);
+          line-height: 1.45;
+
+          @include media-breakpoint-down(sm) {
+              font-size: rem(10);
+          }
+   
+          &:after {
+            content: "";
+            box-sizing: border-box;
+            height: rem(1.5);
+            width: rem(30);
+            background-color: $black;
+            opacity: 0.4;
+            margin:rem(0) rem(10);
+            
+          }
+      }
+
+      &:nth-child(4) p {
+          &:after {
+          content: "";
+          height: rem(0);
+          width: rem(0);
+        }
+      }
+    }
   }
 }
 

@@ -1,4 +1,3 @@
-@import "~movado/checkout/checkout";
 @import "../variables";
 @import "../mixins";
 @import "bootstrap/scss/variables";
@@ -289,6 +288,21 @@ span.ship-to-city-st-zip {
     margin-left: 10px;
 }
 
+.form-control-label {
+
+    > .content-asset {
+        display: inline-block;
+    }
+}
+
+.shipping-method-option {
+    .arrival-time {
+        white-space: pre-wrap;
+    }
+}
+//  Import movado-checkout at the end to prevent variable overwrite
+
+@import "~movado/checkout/checkout";
 header {
     &.checkout-header {
 
@@ -633,18 +647,5 @@ header {
         .sticky-header-placeholder {
             height: rem(60);
         }
-    }
-}
-
-.form-control-label {
-
-    > .content-asset {
-        display: inline-block;
-    }
-}
-
-.shipping-method-option {
-    .arrival-time {
-        white-space: pre-wrap;
     }
 }
