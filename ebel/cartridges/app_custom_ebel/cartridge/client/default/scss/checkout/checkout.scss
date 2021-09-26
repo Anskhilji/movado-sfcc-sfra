@@ -548,8 +548,12 @@ header {
                 margin-bottom: rem(0);
                 line-height: 1.45;
 
-                @include media-breakpoint-down(sm) {
+                @include media-breakpoint-up(xs) {
                     font-size: rem(10);
+                }
+
+                @include media-breakpoint-up(sm) {
+                    font-size: rem(12);
                 }
             
                 &:after {
@@ -561,10 +565,16 @@ header {
                     opacity: 0.4;
                     margin:rem(0) rem(10);
 
-                    @include media-breakpoint-down(sm) {
-                    height: rem(2);
-                    width: rem(14);
-                    margin:rem(0) rem(5);
+                    @include media-breakpoint-up(xs) {
+                        height: rem(2);
+                        width: rem(14);
+                        margin:rem(0) rem(5);
+                    }
+
+                    @include media-breakpoint-up(sm) {
+                        height: rem(2);
+                        width: rem(30);
+                        margin:rem(0) rem(10);
                     }
                 }
 

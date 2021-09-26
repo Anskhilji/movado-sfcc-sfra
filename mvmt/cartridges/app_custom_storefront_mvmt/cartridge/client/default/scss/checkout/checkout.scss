@@ -358,6 +358,10 @@ header {
                 }
 
                 @include media-breakpoint-up(md-down) {
+                    margin-top: rem(0);
+                }
+
+                @include media-breakpoint-up(lg) {
                     margin-top: rem(36);
                 }
             }
