@@ -69,7 +69,7 @@ function loadAmazonButton() {
             applePayLength = 0;
             $('.amazon-mini-button').removeClass('pl-1');
         }
-        if (!$('#AmazonPayButtonCheckout').attr('class')) {
+        if (!$('#AmazonPayButtonCheckout').attr('class') || $('#AmazonPayButtonCheckout iframe').length == 0) {
             $('.amazon-mini-button').remove();
         }
         $('.checkout-btn-adjustment').removeClass('col-12 col-6 col-4');
@@ -86,6 +86,9 @@ function loadAmazonButton() {
             $('.apple-btn-adjustment').addClass('col-6');
             $('.paypal-mini-button').addClass('col-12');
             $('.apple-btn-adjustment').addClass('pl-0');
+            if(applePayLength == 1){
+                $('.shipping-paypal-btn img').css('height', '19px')
+            }
             $('.dw-apple-pay-button').css({ "margin-left": "0", "height": "20px" });
         } else if (colSize == 4) {
             $('.dw-apple-pay-button').css({ "height": "34px" });
