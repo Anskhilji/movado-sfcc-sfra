@@ -93,14 +93,6 @@ $stored-payment-spacing: rem(16);
       color: $grey14;
     }
 
-    .expirationDate {
-      margin-top: rem(2);
-    }
-
-    #securityCode {
-      margin-top: rem(-2);
-    }
-
     .add-address,
     .edit-address {
       margin-top: rem(10);
@@ -379,6 +371,41 @@ $stored-payment-spacing: rem(16);
 
 .multi-ship .single-shipping .shipping-content {
   display: none;
+}
+
+.shipping-content {
+
+  .shippingLastName {
+    margin-top: rem(-2);
+  }
+
+  .shippingState {
+    margin-top: rem(-2);
+  }
+
+  .shippingZipCode {
+    margin-top: rem(-2);
+  }
+
+  #securityCode {
+    margin-top: rem(-2);
+  }
+}
+
+.payment-form {
+
+  .billingLastName {
+    margin-top: rem(-2);
+  }
+
+  .billingState {
+    margin-top: rem(-2);
+  }
+
+  .billingZipCode {
+    margin-top: rem(-2);
+  }
+
 }
 
 .multi-ship .shipping-summary .single-shipping {
