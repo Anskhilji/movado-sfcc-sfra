@@ -92,14 +92,14 @@ function loadAmazonButton() {
             $('.paypal-mini-button').addClass('col-12');
             $('.apple-btn-adjustment').addClass('pl-0');
             if(applePayLength == 1){
-                $('.shipping-paypal-btn img').css('height', '19px')
+                $('.shipping-paypal-btn img').css('height', '19px');
             }
             $('.dw-apple-pay-button').css({ "margin-left": "0", "height": "20px" });
         } else if(colSize == 4){
             $('.dw-apple-pay-button').css("height", "34px");
-            $('.shipping-paypal-btn img').css('height', '24px') 
+            $('.shipping-paypal-btn img').css('height', '24px');
         }else if (colSize == 6 && $(window).width() <= 742) {
-            $('.shipping-paypal-btn img').css('height', '20px')
+            $('.shipping-paypal-btn img').css('height', '20px');
         }else if(colSize == 6 && applePayLength == 0){
             $('.shipping-paypal-btn img').css('height', '30px');
         }else if(colSize == 6) {
