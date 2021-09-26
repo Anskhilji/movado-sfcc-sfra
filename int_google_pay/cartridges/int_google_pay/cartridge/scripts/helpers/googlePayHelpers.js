@@ -1,5 +1,6 @@
 'use strict';
 
+var BasketMgr = require('dw/order/BasketMgr');
 var Site = require('dw/system/Site');
 var ShippingMgr = require('dw/order/ShippingMgr');
 var Transaction = require('dw/system/Transaction');
@@ -8,9 +9,12 @@ var Logger = require('dw/system/Logger');
 
 var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
 var cartHelper = require('*/cartridge/scripts/cart/cartHelpers');
+var constants = require('*/cartridge/scripts/helpers/constants');
+var collections = require('*/cartridge/scripts/util/collections');
 var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
 var checkoutAddrHelper = require('*/cartridge/scripts/helpers/checkoutAddressHelper');
 var ShippingHelper = require('*/cartridge/scripts/checkout/shippingHelpers');
+
 
 /**
  * Checks if google pay is enabled
@@ -79,6 +83,7 @@ function addProductToCart(currentBasket, productId) {
     var result = {
         error: true
     };
+    removeAllProductLineItemsFromBasket(currentBasket);
     Transaction.wrap(function () {
         result = cartHelper.addProductToCart(
             currentBasket,
@@ -94,6 +99,20 @@ function addProductToCart(currentBasket, productId) {
     });
 
     return false;
+
+}
+
+
+function removeAllProductLineItemsFromBasket(currentBasket) {
+    Transaction.wrap(function () {
+        collections.forEach(currentBasket.productLineItems, function (item) {
+            var shipmentToRemove = item.shipment;
+            currentBasket.removeProductLineItem(item);
+            if (shipmentToRemove.productLineItems.empty && !shipmentToRemove.default) {
+                currentBasket.removeShipment(shipmentToRemove);
+            }
+        });
+    });
 
 }
 
@@ -208,17 +227,87 @@ function setShippingAndBillingAddress(currentBasket, selectedShippingMethod, shi
     }
 }
 
-function createGooglePayCheckoutRequest(googlePayResponse, order) {
+function createGooglePayCheckoutRequest(order, googlePayToken) {
 
-    var token = paymentData.paymentMethodData.tokenizationData.token;
+    var requestObj = {
+        "amount": {
+          "currency": order.currencyCode,
+          "value": order.totalGrossPrice.value
+        },
+        "reference": order.orderNo,
+        "paymentMethod": {
+          "type": constants.PAY_WITH_GOOGLE,
+          "googlePayToken": googlePayToken
+        },
+        "merchantAccount": getAdyenMerchantID()
+    }
 
-    
-
-    
+    return  JSON.stringify(requestObj);
 }
 
-function handleGooglePayment(googlePayResponse) {
-    
+function getTransactionInfo(req) {
+    var currentBasket = BasketMgr.getCurrentOrNewBasket();
+    var Locale = require('dw/util/Locale');
+    var currentLocale = Locale.getLocale(req.locale.id);
+    var transactionInfo = {
+        countryCode: currentLocale.country,
+        currencyCode: session.currency.currencyCode,
+        totalPriceLabel: 'Total Price'
+    }
+    var displayItems = [];
+
+
+    switch (req.form.googlePayEntryPoint) {
+        case 'Product-Show':
+            addProductToCart(currentBasket, req.form.pid);
+            if (req.form.includeShippingDetails && !empty(req.form.includeShippingDetails) && (req.form.includeShippingDetails != 'false')) {
+                var shippingMethods = getShippingMethods(currentBasket, req.form.selectedShippingMethod, req.form.shippingAddress);
+                transactionInfo.newShippingOptionParameters = shippingMethods.defaultShippingMethods;
+                displayItems.push(shippingMethods.selectedMethodObject);
+            }
+            currentBasket = BasketMgr.getCurrentOrNewBasket();
+            transactionInfo.totalPriceStatus = 'ESTIMATED';
+            transactionInfo.totalPrice = currentBasket.totalNetPrice.value.toString();
+            break;
+
+        case 'Cart-Show':
+            transactionInfo.totalPriceStatus = 'ESTIMATED';
+            Transaction.wrap(function () {
+                cartHelper.ensureAllShipmentsHaveMethods(currentBasket);
+            });
+            if (req.form.includeShippingDetails && !empty(req.form.includeShippingDetails) && (req.form.includeShippingDetails != 'false')) {
+                var shippingMethods = getShippingMethods(currentBasket, req.form.selectedShippingMethod, req.form.shippingAddress);
+                transactionInfo.newShippingOptionParameters = shippingMethods.defaultShippingMethods;
+                displayItems.push(shippingMethods.selectedMethodObject);
+            }
+            Transaction.wrap(function () {
+                basketCalculationHelpers.calculateTotals(currentBasket);
+            });
+
+            transactionInfo.totalPrice = currentBasket.totalNetPrice.value.toString();
+            break;
+
+        default:
+            transactionInfo.totalPriceStatus = 'FINAL';
+            transactionInfo.totalPrice = currentBasket.totalGrossPrice.value.toString();
+            break;
+
+    }
+
+    var subTotal = {
+        label: 'Subtotal',
+        type: 'SUBTOTAL',
+        price: currentBasket.totalNetPrice.value.toString()
+    };
+    var taxTotal = {
+        label: 'Tax',
+        type: 'TAX',
+        price: currentBasket.totalTax.value.toString()
+    };
+    displayItems.push(subTotal);
+    displayItems.push(taxTotal);
+    transactionInfo.displayItems = displayItems;
+    return transactionInfo;
 }
 
 module.exports = {
@@ -231,5 +320,7 @@ module.exports = {
     getAdyenMerchantID: getAdyenMerchantID,
     addProductToCart: addProductToCart,
     getShippingMethods: getShippingMethods,
-    setShippingAndBillingAddress: setShippingAndBillingAddress
+    setShippingAndBillingAddress: setShippingAndBillingAddress,
+    createGooglePayCheckoutRequest: createGooglePayCheckoutRequest,
+    getTransactionInfo: getTransactionInfo
 }

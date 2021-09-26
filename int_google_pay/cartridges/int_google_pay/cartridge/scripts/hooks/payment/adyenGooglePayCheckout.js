@@ -7,7 +7,7 @@ var googlePayHelper = require('*/cartridge/scripts/helpers/googlePayHelpers.js')
  * Initiates Adyen Google Pay payments call for order
  * @param {dw.order.Order} order
  */
-function googlePayCheckout(order) {
+function googlePayCheckout(order, googlePayToken, paymentInstrument) {
     var result = {
         error: true
     }
@@ -19,8 +19,7 @@ function googlePayCheckout(order) {
     try {
         adyenLogger.debug('(adyenGooglePayCheckout) -> googlePayCheckout: Inside the googlePayCheckout for authorization of the order and order number is: ' + order.getOrderNo());
 
-
-        var adyenGooglePayCheckoutRequest = googlePayHelper.createGooglePayCheckoutRequest(order);
+        var adyenGooglePayCheckoutRequest = googlePayHelper.createGooglePayCheckoutRequest(order, googlePayToken);
         var adyenGooglePayCheckout = AdyenHelper.getService('adyenGooglePayCheckout');
         /* add service headers*/
         adyenGooglePayCheckout.addHeader('Content-type', 'application/json');
@@ -37,7 +36,8 @@ function googlePayCheckout(order) {
                 Transaction.wrap(function () {
                     result.error = false;
                     order.custom.Adyen_eventCode = 'AUTHORIZATION';
-                    order.custom.Adyen_pspReference = result.pspReference;
+                    order.custom.Adyen_pspReference = parsedResult.pspReference;
+                    paymentInstrument.paymentTransaction.transactionID = parsedResult.PspReference;
                 });
             }
         }

@@ -39,7 +39,7 @@ const tokenizationSpecification = {
     type: 'PAYMENT_GATEWAY',
     parameters: {
         'gateway': 'adyen',
-        'gatewayMerchantId': 'Movado_us'
+        'gatewayMerchantId': window.googlePayMerchantName
     }
 };
 
@@ -117,11 +117,16 @@ function getGooglePaymentDataRequest() {
                     // merchantId: '01234567890123456789',
                     merchantName: window.googlePayMerchantName
                 };
-                paymentDataRequest.callbackIntents = ["SHIPPING_ADDRESS", "SHIPPING_OPTION", "PAYMENT_AUTHORIZATION"];
-                paymentDataRequest.shippingAddressRequired = true;
+                paymentDataRequest.callbackIntents = ["PAYMENT_AUTHORIZATION"];
+                if (window.isGooglePayExpress) {
+                    paymentDataRequest.callbackIntents = ["SHIPPING_ADDRESS", "SHIPPING_OPTION", "PAYMENT_AUTHORIZATION"];
+                    paymentDataRequest.shippingAddressRequired = true;
+                    paymentDataRequest.shippingAddressParameters = getGoogleShippingAddressParameters();
+                    paymentDataRequest.shippingOptionRequired = true;
+                }
+
                 paymentDataRequest.emailRequired = true;
-                paymentDataRequest.shippingAddressParameters = getGoogleShippingAddressParameters();
-                paymentDataRequest.shippingOptionRequired = true;
+
 
                 if (window.googlePayEnvironment == 'PRODUCTION') {
                     paymentDataRequest.merchantInfo.merchantId = window.googlePayMerchantID;
@@ -157,12 +162,14 @@ function getGoogleShippingAddressParameters() {
  */
 function getGooglePaymentsClient() {
     if (paymentsClient === null) {
+        var paymentDataCallbacks = {};
+        paymentDataCallbacks.onPaymentAuthorized = onPaymentAuthorized;
+        if (window.isGooglePayExpress) {
+            paymentDataCallbacks.onPaymentDataChanged = onPaymentDataChanged;
+        }
         paymentsClient = new google.payments.api.PaymentsClient({
-            environment: 'TEST',
-            paymentDataCallbacks: {
-                onPaymentAuthorized: onPaymentAuthorized,
-                onPaymentDataChanged: onPaymentDataChanged
-            }
+            environment: window.googlePayEnvironment,
+            paymentDataCallbacks: paymentDataCallbacks
         });
     }
     return paymentsClient;
@@ -174,8 +181,22 @@ function onPaymentAuthorized(paymentData) {
 
         // handle the response
         processPayment(paymentData)
-            .then(function () {
-                resolve({ transactionState: 'SUCCESS' });
+            .then(function (data) {
+                if (data.error) {
+                    resolve({
+                        transactionState: 'ERROR',
+                        error: {
+                            intent: 'PAYMENT_AUTHORIZATION',
+                            message: 'Insufficient funds',
+                            reason: 'PAYMENT_DATA_INVALID'
+                        }
+                    });
+                } else {
+                    setTimeout(() => {
+                        window.location.href = data.redirectUrl
+                    }, 300);
+                    resolve({ transactionState: 'SUCCESS' });
+                }
             })
             .catch(function () {
                 resolve({
@@ -280,19 +301,25 @@ function getGoogleDefaultShippingOptions() {
  * ability to pay.
  */
 function onGooglePayLoaded() {
-    const paymentsClient = getGooglePaymentsClient();
-    paymentsClient.isReadyToPay(getGoogleIsReadyToPayRequest())
-        .then(function (response) {
-            if (response.result) {
-                addGooglePayButton();
-                // @todo prefetch payment data to improve performance after confirming site functionality
-                // prefetchGooglePaymentData();
-            }
-        })
-        .catch(function (err) {
-            // show error in developer console for debugging
-            console.error(err);
-        });
+    if (window.googlePayButtonAvailable) {
+        const paymentsClient = getGooglePaymentsClient();
+        paymentsClient.isReadyToPay(getGoogleIsReadyToPayRequest())
+            .then(function (response) {
+                if (response.result) {
+                    addGooglePayButton();
+                    // @todo prefetch payment data to improve performance after confirming site functionality
+                    // prefetchGooglePaymentData();
+                }
+            })
+            .catch(function (err) {
+                // show error in developer console for debugging
+                console.error(err);
+            });
+    } else {
+        setTimeout(() => {
+            onGooglePayLoaded();
+        }, 1000);
+    }
 }
 
 /**
@@ -384,32 +411,40 @@ function onGooglePaymentButtonClicked() {
 function processPayment(paymentData) {
     // show returned data in developer console for debugging
     console.log(paymentData);
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
         setTimeout(function () {
             $.ajax({
                 url: $('#google-pay-container').data('process-payments-url'),
                 method: 'POST',
-                data: {paymentData: JSON.stringify(paymentData)},
+                data: {
+                    paymentData: JSON.stringify(paymentData),
+                    isGooglePayExpress: window.isGooglePayExpress
+                },
                 success: function (data) {
                     if (!data.error) {
                         resolve(data) // Resolve promise and go to then()
                     } else {
                         reject(data);
                     }
-    
+
                 },
                 error: function (err) {
                     reject(err) // Reject the promise and go to catch()
                 }
             });
-  
-      }, 3000);
+
+        }, 3000);
     });
-  }
+}
 
 
 $(document).ready(function name(params) {
-    setTimeout(() => {
+    var script = document.createElement('script');
+    script.async = true;
+    script.onload = function () {
         onGooglePayLoaded();
-    }, 2000);
+    };
+    script.src = 'https://pay.google.com/gp/p/js/pay.js';
+
+    document.head.appendChild(script); //or something of the likes
 });

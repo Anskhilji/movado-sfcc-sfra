@@ -6,8 +6,10 @@
         window.googlePayButtonType = "${pdict.googlePayButtonType}";
         window.isEnabledGooglePayCustomSize = "${pdict.isEnabledGooglePayCustomSize}";
         window.googlePayMerchantName = "${pdict.googlePayMerchantName}";
+        window.googlePayButtonAvailable = true;
+        window.isGooglePayExpress = ${pdict.isExpressCheckout};
     </script>
-    <div id="google-pay-container" class="google-pay-container" 
+    <div id="google-pay-container" class="google-pay-container mt-2" 
         data-url=${pdict.actionURL} 
         data-entry-point=${pdict.googlePayEntryPoint} 
         data-pid=${pdict.pid}

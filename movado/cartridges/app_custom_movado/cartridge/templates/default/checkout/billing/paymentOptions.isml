@@ -111,6 +111,12 @@
                             <isinclude template="checkout/billing/paymentOptions/applePayContent" />
                         </div>
                         </isif>
+                        <isif condition="${paymentOption.ID === 'GOOGLE_PAY'}">
+                            <div class="panel panel-default">
+                                <isinclude url="${URLUtils.https('GooglePay-RenderButton')}" sf-toolkit="on"/>
+                                <isinclude template="/googlePay/googlePayScripts" sf-toolkit="on" />
+                            </div>
+                        </isif>
                     <iselse/>
                         <isif condition="${paymentOption.ID === 'AMAZON_PAY'}">
                         <div class="panel panel-default">
