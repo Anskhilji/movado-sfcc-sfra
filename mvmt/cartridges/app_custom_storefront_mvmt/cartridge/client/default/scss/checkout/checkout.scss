@@ -78,8 +78,7 @@
         .card-number-wrapper {
 
             &:after {
-                top: 50%;
-                transform: translateY(-50%);
+                top: rem(7);
             }
         }
 

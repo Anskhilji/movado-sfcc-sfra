@@ -19,8 +19,8 @@
 		<div class="form-group ${creditFields.cardOwner.htmlName}">
             <label class="form-control-label" for="holderName">${Resource.msg('field.credit.card.holderName','creditCard',null)}</label>
 			<label class="form-control-label" for="holderName"> </label>
-			<input type="text" pattern="^[a-zA-Z_ ]+$" class="form-control holderName" id="holderName" placeholder="Cardholder Name*" data-encrypted-name="holderName" ${creditFields.cardOwner.attributes}   />
-			<div class="invalid-feedback">Only letters are allowed</div>
+			<input type="text" pattern="^[a-z|A-Z]+(?: [a-z|A-Z]+)*$" class="form-control holderName" id="holderName" data-encrypted-name="holderName" ${creditFields.cardOwner.attributes}   />
+			<div class="invalid-feedback">Please enter valid card name</div>
 		</div>
 	</div>
 </div>
@@ -31,7 +31,7 @@
             <label class="form-control-label" for="cardNumber">${Resource.msg('field.credit.card.number','creditCard',null)}</label>
 			<label class="form-control-label" for="cardNumber"></label>
 			<div class="card-number-wrapper">
-				<input inputmode="numeric" pattern="[0-9]*" type="text" class="form-control cardNumber" id="cardNumber" placeholder="Card Number*"
+				<input inputmode="numeric" pattern="[0-9]*" type="text" class="form-control cardNumber" id="cardNumber"
                     value="${pdict.order.billing.payment.selectedPaymentInstruments
                         && pdict.order.billing.payment.selectedPaymentInstruments.length > 0
                         ? pdict.order.billing.payment.selectedPaymentInstruments[0].maskedCreditCardNumber||''
@@ -50,7 +50,7 @@
 			<label class="form-control-label" for="expirationMonth">${Resource.msg('field.credit.card.expiration.month','creditCard',null)}</label>
 			<label class="form-control-label"></label>
 			<input type="text" class="form-control expirationDate"
-				id="expirationDate" placeholder="Expiration Date (MM/YY)*">
+				id="expirationDate">
 			</input>
 			<div class="invalid-feedback">Please enter a valid expiry date in format MM/YY</div>
 		</div>
@@ -62,7 +62,7 @@
 				 <span class="info-icon"> <span class="icon">i</span>
 					<div class="tooltip"> ${Resource.msg('tooltip.security.code','creditCard',null)}</div>
 				 </span>
-			 <input type="password" class="form-control securityCode" id="securityCode" placeholder="Security Code*" data-encrypted-name="cvc" maxlength="3">
+			 <input type="password" class="form-control securityCode" id="securityCode" data-encrypted-name="cvc" maxlength="3">
 			<div class="invalid-feedback security-code">Please enter a valid security code</div>
 		</div>
 	</div>

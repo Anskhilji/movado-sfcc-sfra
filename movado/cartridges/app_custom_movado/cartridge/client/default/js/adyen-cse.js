@@ -70,7 +70,7 @@ function encryptData(cardData, options) {
     return true;
 }
 function customCardValidation(cardData, validationResult) {
-    var nameRegex = new RegExp("^[a-zA-Z_ ]+$");
+    var nameRegex = new RegExp("^[a-z|A-Z]+(?: [a-z|A-Z]+)*$");
     if (!nameRegex.test(cardData.holderName)){
         validationResult.holderName=false;
     }

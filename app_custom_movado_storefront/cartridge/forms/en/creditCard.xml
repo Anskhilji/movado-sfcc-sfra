@@ -29,7 +29,7 @@
 
     <field formid="cardOwner" label="label.input.creditcard.owner" type="string" mandatory="false" binding="cardOwner"
            max-length="50" missing-error="error.message.required" 
-           regexp="^(\(?\+?[A-Za-z_ ]*\)?)?[A-Za-z_ (\)]*$" 
+           regexp="^[a-z|A-Z]+(?: [a-z|A-Z]+)*$"
            parse-error="error.message.invalid"
           />
 
