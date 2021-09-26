@@ -9,6 +9,15 @@ header {
 
         .sticky-header-wrapper {
 
+            .header-wrapper.checkout-header-wrapper {
+                .minicart {
+                    &-quantity {
+                        color: $black;
+                        background-color: $pink-grey;
+                    }
+                }
+            }
+
             .desktop-menu-wrapper {
                 @include media-breakpoint-up(xs) {
                     display: none;
@@ -50,24 +59,21 @@ header {
                     
                     .header-wrapper {
 
-                        .obright-menu {
-                             .minicart {
+                        .minicart {
 
-                                &-link {
-                                    @include media-breakpoint-down(xs) {
-                                        margin-right: rem(0);
-                                        top: rem(0);
-                                    }
+                            &-link {
+                                @include media-breakpoint-down(xs) {
+                                    margin-right: rem(0);
+                                    top: rem(0);
                                 }
-                
-                                &-quantity {
-                                    color: $black;
-                                    background-color: $pink-grey;
-                                    font-size: rem(12);
-                                }
-                             }
+                            }
+        
+                            &-quantity {
+                                color: $black;
+                                background-color: $pink-grey;
+                                font-size: rem(12);
+                            }
                         }
-                         
                     }
                 }
                 

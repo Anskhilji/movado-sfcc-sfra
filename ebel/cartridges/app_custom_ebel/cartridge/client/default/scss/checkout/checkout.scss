@@ -1,10 +1,11 @@
 @import "../variables";
 @import "../mixins";
 @import "bootstrap/scss/variables";
-@import "checkoutComponents";
 @import "bootstrap/scss/mixins/breakpoints";
+@import "checkoutComponents";
 @import "../components/formFields";
 @import "../components/creditCardField";
+
 
 $checkout-font-weight: 600;
 
@@ -562,9 +563,9 @@ header {
                     margin:rem(0) rem(10);
 
                     @include media-breakpoint-down(sm) {
-                    height: rem(2);
-                    width: rem(14);
-                    margin:rem(0) rem(5);
+                        height: rem(2);
+                        width: rem(14);
+                        margin:rem(0) rem(5);
                     }
                 }
 
