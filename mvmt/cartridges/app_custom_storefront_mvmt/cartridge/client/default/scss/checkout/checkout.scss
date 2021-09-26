@@ -369,6 +369,14 @@ header {
             .minicart-link {
                 background: none;
 
+                @include media-breakpoint-down(md) {
+                    top: rem(-8);
+                }
+
+                @include media-breakpoint-down(sm) {
+                    top: rem(0);
+                }
+
                 @include media-breakpoint-down(xs) {
                     top: rem(-6);
                 }

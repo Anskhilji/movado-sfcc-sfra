@@ -402,7 +402,7 @@ header {
                                 margin-right: rem(5);
                                 margin-bottom: rem(0);
 
-                                @include media-breakpoint-up(md) {
+                                @include media-breakpoint-up(sm) {
                                     content: "";
                                     display: none;
                                 }

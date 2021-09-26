@@ -4,7 +4,7 @@
 @import "../commonPlaceholders";
 
 $checkout-font-weight: 600;
-
+$custom-weight: 400;
 $receipt-font-size: rem(14);
 $receipt-spacing: 0.625em;
 $stored-payment-spacing: rem(16);
@@ -134,16 +134,19 @@ $stored-payment-spacing: rem(16);
   }
 
   .order-total-summary {
-    .order-receipt-label,
-    .text-right,
-    .sub-total {
-      font-family: $font-medium;
-      font-size: rem(16);
-      letter-spacing: rem(2);
-      line-height: rem(21);
-      color: $grey14;
+    &.card-body {
+      .order-receipt-label,
+      .text-right,
+      .sub-total {
+        font-family: $font-medium;
+        font-size: rem(16);
+        letter-spacing: rem(2);
+        line-height: rem(21);
+        color: $grey14;
+        font-weight: $custom-weight;
+      }
     }
-
+  
     .grand-total {
       .order-receipt-label,
       .text-right {
