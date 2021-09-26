@@ -26,7 +26,12 @@ function setMiniCartProductSummaryHeight () {
         }
     }
 }
-
+function isIE() {
+    ua = navigator.userAgent;
+    /* MSIE used to detect old browsers and Trident used to newer ones*/
+    var is_ie = ua.indexOf("MSIE ") > -1 || ua.indexOf("Trident/") > -1;
+    return is_ie; 
+}
 
 /**
  * Retrieve contextual quantity selector
@@ -69,7 +74,7 @@ function loadAmazonButton() {
             applePayLength = 0;
             $('.amazon-mini-button').removeClass('pl-1');
         }
-        if (!$('#AmazonPayButtonCheckout').attr('class') || $('#AmazonPayButtonCheckout iframe').length == 0) {
+        if ((!$('#AmazonPayButtonCheckout').attr('class') && !isIE()) || ($('#AmazonPayButtonCheckout iframe').length == 0 && isIE())) {
             $('.amazon-mini-button').remove();
         }
         $('.checkout-btn-adjustment').removeClass('col-12 col-6 col-4');
@@ -80,23 +85,25 @@ function loadAmazonButton() {
             $('.apple-btn-adjustment').addClass('col-' + colSize);
         }
         $('#AmazonPayButtonCheckout').css('width', 'inherit');
-        if ($(window).width() < 480 && colSize == 4) {
+        if ($(window).width() <= 480 && colSize == 4) {
             $('.checkout-btn-adjustment').removeClass('col-12 col-6 col-4');
             $('.checkout-btn-adjustment').addClass('col-6');
             $('.apple-btn-adjustment').addClass('col-6');
             $('.paypal-mini-button').addClass('col-12');
             $('.apple-btn-adjustment').addClass('pl-0');
             if(applePayLength == 1){
-                $('.shipping-paypal-btn img').css('height', '19px')
+                $('.shipping-paypal-btn img').css('height', '19px');
             }
             $('.dw-apple-pay-button').css({ "margin-left": "0", "height": "20px" });
-        } else if (colSize == 4) {
-            $('.dw-apple-pay-button').css({ "height": "34px" });
-            $('.shipping-paypal-btn img').css('height', '24px')
-        } else if (colSize == 6 && $(window).width() <= 742) {
-            $('.shipping-paypal-btn img').css('height', '20px')
-        }else if(colSize == 6){
-            $('.shipping-paypal-btn img').css('height', '24px')
+        } else if(colSize == 4){
+            $('.dw-apple-pay-button').css("height", "34px");
+            $('.shipping-paypal-btn img').css('height', '24px');
+        }else if (colSize == 6 && $(window).width() <= 742) {
+            $('.shipping-paypal-btn img').css('height', '20px');
+        }else if(colSize == 6 && applePayLength == 0){
+            $('.shipping-paypal-btn img').css('height', '30px');
+        }else if(colSize == 6) {
+            $('.shipping-paypal-btn img').css('height', '24px');
         }
         if (tries >= 10) {
             clearInterval(interval);
