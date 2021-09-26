@@ -30,13 +30,13 @@
 
           <div class="header-left">
               <div class="flex align-items-center checkout-logo">
-                <isslot id="brand-logo" description="Brand Logo" context="global" />
+                  <isslot id="brand-logo" description="Brand Logo" context="global" />
               </div>
           </div>
 
           <div class="right">
               <div class="minicart" data-action-url="${URLUtils.url('Cart-MiniCartShow')}">
-                <isinclude url="${URLUtils.url('Cart-MiniCart')}"/>
+                  <isinclude url="${URLUtils.url('Cart-MiniCart')}"/>
               </div>
           </div>
           
