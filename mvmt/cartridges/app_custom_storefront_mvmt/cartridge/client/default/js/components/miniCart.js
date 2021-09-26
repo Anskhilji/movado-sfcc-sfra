@@ -137,9 +137,9 @@ module.exports = function () {
                 $('.apple-btn-adjustment').addClass('col-6');
                 $('.paypal-mini-button').addClass('col-12');
                 $('.apple-btn-adjustment').addClass('pl-0');
-                $(".dw-apple-pay-button").css({ "margin-left": "0", "height": "20px" });
+                $('.dw-apple-pay-button').css({ "margin-left": "0", "height": "20px" });
             } else if (colSize == 4) {
-                $(".dw-apple-pay-button").css({ "height": "34px" });
+                $('.dw-apple-pay-button').css({ "height": "34px" });
                 $('.shipping-paypal-btn img').css('height', '24px')
             } else if (colSize == 6 && $(window).width() <= 742) {
                 $('.shipping-paypal-btn img').css('height', '20px')
