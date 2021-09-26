@@ -15,11 +15,15 @@
 
 .progressbar-container {
   &.confirmation-container {
-    max-width: rem(990);
-    display: block;
-    padding-left: rem(15);
-    padding-right: rem(15);
-    margin:0 auto;
+     max-width: rem(1300);
+     width: 100%;
+     margin: 0 auto;
+
+     @include media-breakpoint-down(lg) {
+        padding-left: rem(15);
+        padding-right: rem(15);
+        margin: 0 auto;
+    }
 
     .checkout-progressbar {
       @include media-breakpoint-up(xs) {
