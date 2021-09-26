@@ -135,8 +135,12 @@ $stored-payment-spacing: rem(16);
       color: $grey14;
     }
 
-    .expirationDate {
-      margin-top: rem(2);
+    #expirationDate {
+      margin-top: rem(4);
+    }
+
+    #securityCode {
+      margin-top: rem(1);
     }
 
     .add-address,
