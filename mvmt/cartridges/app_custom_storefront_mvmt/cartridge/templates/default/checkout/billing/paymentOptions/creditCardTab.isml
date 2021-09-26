@@ -8,7 +8,7 @@
     </isif>
     <input type='radio' id="${paymentOption.ID}" name='paymentOption' class="form-check-input accordion-link" value='credit card' ${checked}/>
     <label for="${paymentOption.ID}" class="form-check-label d-block">
-      ${Resource.msg('checkout.card.description', 'checkout', null)}
+      ${Resource.msg('checkout.card.description', 'checkout', null)}  <img src="${URLUtils.staticURL('/images/payment-methods.png')}" alt="${Resource.msg('checkout.credit.logo.text', 'checkout', null)}"/>
     </label>
     <a class="credit-card-panel" data-toggle="collapse" aria-controls="credit-card-content" href="${'#' + 'credit-card-content'}">
     </a>

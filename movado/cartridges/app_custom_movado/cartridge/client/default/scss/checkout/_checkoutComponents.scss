@@ -69,27 +69,6 @@ $stored-payment-spacing: rem(16);
     padding-right: rem(10);
     padding-bottom: rem(7);
   }
-   .payment-options {
-     .credit-card-form {
-      .form-group {
-        .form-control-label {
-            box-sizing: border-box;
-            position: relative;
-        }
-        > .info-icon {
-            position: absolute;
-            right: rem(25);
-            top: rem(25);
-        }
-        .form-control {
-          border: rem(1) solid $grey15;
-          color: $grey14;
-          border-radius: rem(3);
-          font-family: inherit;
-        }
-      }
-     }
-   }
 
   .form-group {
     .form-control-label {
@@ -154,6 +133,10 @@ $stored-payment-spacing: rem(16);
     .form-control {
       border: rem(1) solid $grey14;
       color: $grey14;
+    }
+
+    .expirationDate {
+      margin-top: rem(2);
     }
 
     .add-address,
