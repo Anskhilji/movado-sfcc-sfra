@@ -41,7 +41,17 @@ module.exports = function productLineItem(product, apiProduct, options) {
     productLineItemDecorators.preOrderUUID(product, options.lineItem);
     productLineItemDecorators.discountBonusLineItems(product, options.lineItem.UUID);
     productLineItemDecorators.mgProductLineItemCutomAttr(product, options.lineItem);
+
+    /**
+     * Custom Start:  Clyde Integration
+     */
     
+    productLineItemDecorators.lineItemText(product, options.lineItem);
+    
+    /**
+     * Custom End:
+     */
+
     Object.defineProperty(product, 'bonusProductText', {
         enumerable: true,
         value: !empty(apiProduct.custom.bonusProductText) ? apiProduct.custom.bonusProductText : ''

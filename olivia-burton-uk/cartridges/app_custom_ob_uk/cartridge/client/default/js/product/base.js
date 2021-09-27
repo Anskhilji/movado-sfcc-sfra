@@ -1,4 +1,5 @@
 'use strict';
+var clydeWidget = require('link_clyde/getClydeWidget.js');
 
 /**
  * Retrieves the relevant pid value
@@ -775,6 +776,16 @@ module.exports = {
             /**
             *  Custom End
             */
+            
+            /**
+             * Custom Start: Clyde Integration
+             */
+            if (window.Resources && window.Resources.IS_CLYDE_ENABLED) {
+                form = clydeWidget.getSelectedClydeContract(form);
+            }
+            /**
+             * Custom end:
+             */
             $productContainer.find('input[type="text"], textarea, input[type="radio"]:checked').filter('[required]')
             .each(function() {
                 if($(this).val() && $(this).closest("form.submitted").length) {

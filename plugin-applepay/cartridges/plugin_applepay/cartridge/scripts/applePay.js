@@ -6,6 +6,7 @@ var OrderMgr = require('dw/order/OrderMgr');
 var Resource = require('dw/web/Resource');
 var Transaction = require('dw/system/Transaction');
 var ApplePayHookResult = require('dw/extensions/applepay/ApplePayHookResult');
+var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
 
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 var collections = require('*/cartridge/scripts/util/collections');
@@ -289,6 +290,21 @@ function updateOptionLineItem(lineItemCtnr, embossOptionID, engraveOptionID, emb
 exports.beforeAuthorization = function (order, payment, custom) {
 
     var Status = require('dw/system/Status');
+    /**~    
+     * Custom Start: Clyde Integration
+     */
+    if (Site.current.preferences.custom.isClydeEnabled) {
+        Transaction.wrap(function () {
+            order.custom.isContainClydeContract = false;
+            order.custom.clydeContractProductMapping = '';
+        });
+        var contractProductList = session.custom.clydeContractProductList || false;
+        addClydeContract.createOrderCustomAttr(contractProductList, order);
+        delete session.custom.clydeContractProductList;
+    }
+    /**
+     * Custom: End
+     */
 
     var riskifiedCheckoutCreateResponse = RiskifiedService.sendCheckoutCreate(order);
     RiskifiedService.storePaymentDetails({

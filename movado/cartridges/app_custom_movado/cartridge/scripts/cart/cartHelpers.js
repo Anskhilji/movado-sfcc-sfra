@@ -9,6 +9,7 @@ var collections = require('*/cartridge/scripts/util/collections');
 var ShippingHelpers = require('*/cartridge/scripts/checkout/shippingHelpers');
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 var arrayHelper = require('*/cartridge/scripts/util/array');
+var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
 var BONUS_PRODUCTS_PAGE_SIZE = 6;
 var PRODUCTLINEEXCEPTION = 'NumberOfProductLineItemsExceededException';
 var Site = require('dw/system/Site');
@@ -336,7 +337,7 @@ function checkBundledProductCanBeAdded(childProducts, productLineItems, quantity
  * @param {SelectedOption[]} options - product options
  *  @return {Object} returns an error object
  */
-function addProductToCart(currentBasket, productId, quantity, childProducts, options) {
+function addProductToCart(currentBasket, productId, quantity, childProducts, options, form) {
     var availableToSell;
     var defaultShipment = currentBasket.defaultShipment;
     var perpetual;
@@ -347,6 +348,7 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
     var quantityToSet;
     var optionModel = productHelper.getCurrentOptionModel(product.optionModel, options);
     var addSeprateLineItemEnabled = Site.getCurrent().preferences.custom.enableSeprateLineItemInCart;
+    var isClydeEnabled = Site.getCurrent().preferences.custom.isClydeEnabled;
 
 
     var result = {
@@ -390,7 +392,15 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
         productQuantityInCart = productInCart.quantity.value;
         quantityToSet = quantity ? quantity + productQuantityInCart : productQuantityInCart + 1;
         availableToSell = productInCart.product.availabilityModel.inventoryRecord.ATS.value;
-
+        /**
+         * Custom Start: Clyde Integration
+         */
+        if (isClydeEnabled) {
+            addClydeContract.addContractsToCart(quantity, form, defaultShipment, currentBasket, productLineItems, productId);
+        }
+        /**
+         * Custom End
+         */
         if (availableToSell >= quantityToSet || perpetual) {
             productInCart.setQuantityValue(quantityToSet);
             result.uuid = productInCart.UUID;
@@ -412,6 +422,9 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
                 defaultShipment
             );
             result.uuid = productLineItem.UUID;
+            if (isClydeEnabled) {
+                addClydeContract.addContractsToCart(quantity, form, defaultShipment, currentBasket, productLineItems, productId);
+            }
         } catch (e) {
             var msg = e;
             result.error = true;
