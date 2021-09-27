@@ -83,9 +83,6 @@ server.post('ProcessPayments',
         var PaymentManager = require('dw/order/PaymentMgr');
 
         var validationHelpers = require('*/cartridge/scripts/helpers/basketValidationHelpers');
-
-        var result;
-        var viewData = {};
         var currentBasket = BasketMgr.getCurrentOrNewBasket();
         if (!currentBasket) {
             res.json({

@@ -374,7 +374,7 @@ function getGoogleTransactionInfo(includeShippingDetails, selectedShippingMethod
 }
 
 /**
- * Prefetch payment data to improve performance
+ * Prefetch payment data to improve performance // Not used might need in future
  *
  * @see {@link https://developers.google.com/pay/api/web/reference/client#prefetchPaymentData|prefetchPaymentData()}
  */
@@ -446,5 +446,5 @@ $(document).ready(function name(params) {
     };
     script.src = 'https://pay.google.com/gp/p/js/pay.js';
 
-    document.head.appendChild(script); //or something of the likes
+    document.head.appendChild(script); 
 });

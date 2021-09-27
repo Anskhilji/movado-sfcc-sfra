@@ -1,6 +1,7 @@
 'use strict';
 
 var BasketMgr = require('dw/order/BasketMgr');
+var Resource = require('dw/web/Resource');
 var Site = require('dw/system/Site');
 var ShippingMgr = require('dw/order/ShippingMgr');
 var Transaction = require('dw/system/Transaction');
@@ -138,7 +139,7 @@ function getShippingMethods(currentBasket, selectedShippingMethod, shippingAddre
         defaultShippingMethods.defaultSelectedOptionId = currentBasket.defaultShipment.shippingMethod.ID;
         shippingMethodData.selectedMethodObject = {
             type: 'LINE_ITEM',
-            label: 'Shipping cost',
+            label: Resource.msg('shipping.cost.label', 'googlePay', null),
             price: currentBasket.shippingTotalGrossPrice.value.toString(),
             status: 'FINAL'
         }
@@ -157,7 +158,7 @@ function getShippingMethods(currentBasket, selectedShippingMethod, shippingAddre
         defaultShippingMethods.defaultSelectedOptionId = currentBasket.defaultShipment.shippingMethod.ID;
         shippingMethodData.selectedMethodObject = {
             type: 'LINE_ITEM',
-            label: 'Shipping cost',
+            label: Resource.msg('shipping.cost.label', 'googlePay', null),
             price: currentBasket.shippingTotalGrossPrice.value.toString(),
             status: 'FINAL'
         }
@@ -252,7 +253,7 @@ function getTransactionInfo(req) {
     var transactionInfo = {
         countryCode: currentLocale.country,
         currencyCode: session.currency.currencyCode,
-        totalPriceLabel: 'Total Price'
+        totalPriceLabel: Resource.msg('total.price.label', 'googlePay', null)
     }
     var displayItems = [];
 
@@ -295,12 +296,12 @@ function getTransactionInfo(req) {
     }
 
     var subTotal = {
-        label: 'Subtotal',
+        label: Resource.msg('subtotal.label', 'googlePay', null),
         type: 'SUBTOTAL',
         price: currentBasket.totalNetPrice.value.toString()
     };
     var taxTotal = {
-        label: 'Tax',
+        label: Resource.msg('tax.label', 'googlePay', null),
         type: 'TAX',
         price: currentBasket.totalTax.value.toString()
     };
