@@ -3,6 +3,11 @@
 var Site = require('dw/system/Site');
 
 var isClydeEnabled = !empty(Site.current.getCustomPreferenceValue('isClydeEnabled')) ? Site.current.getCustomPreferenceValue('isClydeEnabled') : false;
+var lineItemText = '';
+
+if (isClydeEnabled) {
+    lineItemText = require('*/cartridge/models/productLineItem/decorators/lineItemText');
+}
 
 module.exports = {
     gift: require('*/cartridge/models/productLineItem/decorators/gift'),
@@ -22,5 +27,5 @@ module.exports = {
     discountBonusLineItems: require('*/cartridge/models/productLineItem/decorators/discountBonusLineItems'),
     bonusUnitPrice: require('*/cartridge/models/productLineItem/decorators/bonusUnitPrice'),
     mgProductLineItemCutomAttr: require('*/cartridge/models/productLineItem/decorators/mgProductLineItemCutomAttr'),
-    lineItemText: isClydeEnabled ? require('*/cartridge/models/productLineItem/decorators/lineItemText') : '' // Custom Start: Clyde Integration
+    lineItemText: lineItemText // Custom Start: Clyde Integration
 };
