@@ -21,6 +21,7 @@
     <isobject object="${product.raw}" view="detail">
         <div class="container-fluid pdp-mobile pdp-v-one product-detail product-wrapper" data-pid="${product.id}" itemscope
             itemtype="http://schema.org/Product">
+
             <div class="row mobile-detail-head d-md-none">
                 <div class="col-12">
                     <!---Breadcrumbs--->
@@ -56,7 +57,7 @@
 	                    </div>
 	                </div>
                     <!-- Product Name -->
-                    <h1 class="product-name product-title-for-gtm d-sm-none d-md-block text-capitalize">${product.productName}</h1>
+                    <h2 class="product-name product-title-for-gtm d-sm-none d-md-block text-capitalize">${product.productName}</h2>
 
                     <div class="hidden-sm-down">
                         <isinclude template="product/components/pidRating" />
@@ -64,6 +65,7 @@
                     <div class="row mt-4 description">
                         <isinclude template="product/components/description" />
                     </div>
+                    
                     <div class="row m-0">
                         <!-- Attributes and Quantity -->
                         <div class="col-md-10 col-12">
@@ -178,7 +180,7 @@
                                 <isinclude template="product/backInStockNotification" sf-toolkit="on" />
                             </isif>
                         </div>
-                        </div>
+                    </div>
 
                     <!-- Size Chart -->
                     <isif condition="${product.variationAttributes && product.sizeChartId}">
