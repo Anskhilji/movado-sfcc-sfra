@@ -13,6 +13,10 @@
                      ${Resource.msg('button.addtocart', 'common', null)}
                 </isif>
         </button>
+            <div class="col col-sm-12">
+                <isinclude url="${URLUtils.https('GooglePay-RenderButton', 'googlePayEntryPoint', 'Cart-Show')}" sf-toolkit="on" />
+                <isinclude template="/googlePay/googlePayScripts" sf-toolkit="on" />
+            </div>
         <iscomment> Custom Start: Adding check for applepay button to show only when country US is selected</iscomment>
         <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
         <isif condition="${isEswEnabled}">

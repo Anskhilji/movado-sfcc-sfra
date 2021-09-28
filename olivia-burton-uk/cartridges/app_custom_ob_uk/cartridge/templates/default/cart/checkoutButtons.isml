@@ -85,6 +85,10 @@
                 </a>
             </div>
             <isapplepay class="apple-pay-cart col btn btn-block mx-3 mt-sm-3"></isapplepay>
+            <div class="col col-sm-12">
+                <isinclude url="${URLUtils.https('GooglePay-RenderButton', 'googlePayEntryPoint', 'Cart-Show')}" sf-toolkit="on" />
+                <isinclude template="/googlePay/googlePayScripts" sf-toolkit="on" />
+            </div>
         </div>
         <iscomment> Amazon Pay Button </iscomment>
         <isset name="sitePreferences" value="${require('dw/system/Site').getCurrent().getPreferences().getCustom()}" scope="page" />
