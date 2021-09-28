@@ -104,13 +104,10 @@ server.replace(
          * Custom Start: Clyde Integration
          */
         if (Site.getCurrent().preferences.custom.isClydeEnabled) {
-<<<<<<< Updated upstream
-            var contractProductList = req.querystring.clydeContractProductList;
-            addClydeContract.createOrderCustomAttr(contractProductList, order);
-=======
             var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
+            var contractProductList = req.querystring.clydeContractProductList;
 
->>>>>>> Stashed changes
+            addClydeContract.createOrderCustomAttr(contractProductList, order);
             var productLineItemsIterator = order.getAllProductLineItems().iterator();
             var currentProductLineItem;
             var contractProductListMapping = order.custom.clydeContractProductMapping;
