@@ -6,7 +6,6 @@ var OrderMgr = require('dw/order/OrderMgr');
 var Resource = require('dw/web/Resource');
 var Transaction = require('dw/system/Transaction');
 var ApplePayHookResult = require('dw/extensions/applepay/ApplePayHookResult');
-var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
 
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 var collections = require('*/cartridge/scripts/util/collections');
@@ -294,6 +293,7 @@ exports.beforeAuthorization = function (order, payment, custom) {
      * Custom Start: Clyde Integration
      */
     if (Site.current.preferences.custom.isClydeEnabled) {
+        var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
         Transaction.wrap(function () {
             order.custom.isContainClydeContract = false;
             order.custom.clydeContractProductMapping = '';

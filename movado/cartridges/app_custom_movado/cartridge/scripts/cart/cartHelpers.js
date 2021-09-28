@@ -9,7 +9,6 @@ var collections = require('*/cartridge/scripts/util/collections');
 var ShippingHelpers = require('*/cartridge/scripts/checkout/shippingHelpers');
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 var arrayHelper = require('*/cartridge/scripts/util/array');
-var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
 var BONUS_PRODUCTS_PAGE_SIZE = 6;
 var PRODUCTLINEEXCEPTION = 'NumberOfProductLineItemsExceededException';
 var Site = require('dw/system/Site');
@@ -396,6 +395,7 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
          * Custom Start: Clyde Integration
          */
         if (isClydeEnabled) {
+            var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
             addClydeContract.addContractsToCart(quantity, form, defaultShipment, currentBasket, productLineItems, productId);
         }
         /**
@@ -423,6 +423,7 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
             );
             result.uuid = productLineItem.UUID;
             if (isClydeEnabled) {
+                var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
                 addClydeContract.addContractsToCart(quantity, form, defaultShipment, currentBasket, productLineItems, productId);
             }
         } catch (e) {

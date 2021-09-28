@@ -1,7 +1,11 @@
 'use strict';
 
+var Site = require('dw/system/Site');
+
 var productDecorators = require('*/cartridge/models/product/decorators/index');
 var productLineItemDecorators = require('*/cartridge/models/productLineItem/decorators/index');
+
+var isClydeEnabled = !empty(Site.getCurrent().preferences.custom.isClydeEnabled) ? Site.getCurrent().preferences.custom.isClydeEnabled : '';
 
 /**
  * Decorate product with product line item information
@@ -45,9 +49,9 @@ module.exports = function productLineItem(product, apiProduct, options) {
     /**
      * Custom Start:  Clyde Integration
      */
-    
-    productLineItemDecorators.lineItemText(product, options.lineItem);
-    
+    if (isClydeEnabled) {
+        productLineItemDecorators.lineItemText(product, options.lineItem);
+    }
     /**
      * Custom End:
      */
