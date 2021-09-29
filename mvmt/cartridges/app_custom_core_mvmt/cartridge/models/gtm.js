@@ -75,7 +75,7 @@ function gtmModel(req) {
             getCartJSONArray(this.checkout);
             if (action.equals('checkout-login')) {
                 this.checkoutAction = 'checkout';
-                checkoutStage;
+                checkoutStage = 1;
             } else {
                 checkoutActionObject = getCheckoutQueryString(reqQueryString.urlQueryString).stage;
                 var checkoutStage = '';
@@ -349,18 +349,21 @@ function getSearchQuery(queryStringVal) {
         var searchArray = [];
         var searchQuery = '';
         var queryString = queryStringVal ? Encoding.fromURI(queryStringVal) : '';
+        var searchArrayQuery = [];
         if (queryString.indexOf('&') >= 0) {
             searchArray = queryString.split('&');
             searchArray = searchArray[1].split('=');
             if ((searchArray[0].indexOf('q')) > -1) {
                 searchQuery = { q: searchArray[1] };
             }
-    
             if ((queryString.indexOf('dwvar_')) > -1 && (queryString.indexOf('pid')) > -1) {
                 searchArray = queryString.split('=');
                 searchQuery = { pid: searchArray[searchArray.length - 1] };
+            } else if ((queryString.indexOf('pid')) > -1) {
+                searchArray = queryString.split('&');
+                searchArrayQuery = searchArray[0].split('=');
+                searchQuery = { pid: searchArrayQuery[1] };
             }
-    
         } else if ((queryString.indexOf('pid')) > -1) {
                 searchArray = queryString.split('=');
                 searchQuery = { pid: searchArray[1] };
@@ -374,7 +377,6 @@ function getSearchQuery(queryStringVal) {
         return searchQuery;
     } catch(ex) {
         Logger.error('Error occured while getting search query for gtm. Error: {0} \n Stack: {1} \n', ex.message, ex.stack);
-        
         return '';
     }
 }
@@ -921,6 +923,9 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
                 produtObj.category = stringUtils.removeSingleQuotes(customCategory),
                 produtObj.variant = variants;
                 produtObj.price = (productLineItem.getAdjustedNetPrice().getDecimalValue() - averageOrderLevelDiscount) / productLineItem.quantityValue;
+                produtObj.unitBasePrice = productLineItem.basePrice.decimalValue.toString();
+                produtObj.taxOnBasePrice = (productLineItem.basePrice.decimalValue * productLineItem.taxRate).toString();
+                produtObj.unitPriceLessTax = (productLineItem.basePrice.decimalValue + productLineItem.tax.decimalValue).toString();
                 produtObj.currency = (productLineItem.product.priceModel.price.available ? (productLineItem.product.priceModel.price.currencyCode) : (productLineItem.product.priceModel.minPrice.currencyCode));
                 produtObj.description = '';
                 // Custom Start : Added subtotal

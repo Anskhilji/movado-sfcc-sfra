@@ -85,48 +85,48 @@
         <iscomment> Custom Start: Add Amazon Pay Integeration </iscomment>
         <div class="panel-group payment-options" id="accordion">
             <isloop items="${pdict.order.billing.payment.applicablePaymentMethods}" var="paymentOption" status="loopstate">
-                    <isif condition="${!pdict.order.amzPayRedirectURL}">
-                        <isif condition="${paymentOption.ID === 'CREDIT_CARD'}">
+                <isif condition="${!pdict.order.amzPayRedirectURL}">
+                    <isif condition="${paymentOption.ID === 'CREDIT_CARD'}">
                         <div class="panel panel-default">
                             <isinclude template="checkout/billing/paymentOptions/creditCardTab" />
                             <isslot id="available-payment-methods" description="Available Payment Methods" context="global" />
                             <isinclude template="checkout/billing/paymentOptions/creditCardContent" />
                         </div>
-                        </isif>
-                        <isif condition="${paymentOption.ID ==='Adyen'}">
+                    </isif>
+                    <isif condition="${paymentOption.ID ==='Adyen'}">
                         <div class="panel panel-default">
                             <isinclude template="checkout/billing/paymentOptions/alternativePaymentMethodTab" />
                             <isinclude template="checkout/billing/paymentOptions/alternativePaymentMethodsContent" />
                         </div>
-                        </isif>
-                        <isif condition="${paymentOption.ID === 'Affirm' && require('int_affirm/cartridge/scripts/utils/affirmHelper').IsAffirmApplicable()}">
+                    </isif>
+                    <isif condition="${paymentOption.ID === 'Affirm' && require('int_affirm/cartridge/scripts/utils/affirmHelper').IsAffirmApplicable()}">
                         <div class="panel panel-default">
                             <isinclude template="affirm/affirmpaymethodli" />
                             <isinclude template="affirm/paymentmethodinput_mf" />
                         </div>
-                        </isif>
-                        <isif condition="${paymentOption.ID === 'DW_APPLE_PAY'}">
+                    </isif>
+                    <isif condition="${paymentOption.ID === 'DW_APPLE_PAY'}">
                         <div class="panel panel-default applepay-tab-wrapper">
                             <isinclude template="checkout/billing/paymentOptions/applePayTab" />
                             <isinclude template="checkout/billing/paymentOptions/applePayContent" />
                         </div>
-                        </isif>
-                        <isif condition="${paymentOption.ID === 'GOOGLE_PAY'}">
-                            <div class="panel panel-default">
-                                <isinclude template="checkout/billing/paymentOptions/googlePayTab" />
-                                <isinclude template="checkout/billing/paymentOptions/googlePayContent" />
-                            </div>
-                        </isif>
-                    <iselse/>
-                        <isif condition="${paymentOption.ID === 'AMAZON_PAY'}">
+                    </isif>
+                     <isif condition="${paymentOption.ID === 'GOOGLE_PAY'}">
+                        <div class="panel panel-default">
+                            <isinclude template="checkout/billing/paymentOptions/googlePayTab" />
+                            <isinclude template="checkout/billing/paymentOptions/googlePayContent" />
+                        </div>
+                     </isif>
+                <iselse/>
+                    <isif condition="${paymentOption.ID === 'AMAZON_PAY'}">
                         <div class="panel panel-default">
                             <isinclude template="checkout/billing/paymentOptions/amazonPayTab" />
                             <isinclude template="checkout/billing/paymentOptions/amazonPayContent" />
                         </div>
-                        </isif>
                     </isif>
+                </isif>
             </isloop>
             <iscomment> Custom End </iscomment>
         </div>
+    </fieldset>
 </div>
-</fieldset>

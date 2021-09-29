@@ -115,18 +115,23 @@
                         <isinclude template="product/components/pricing/main" />
                     </div>
 
-                    <div class="d-block d-sm-none">
+                    <div class="show-cart-button-below-price">
+                        <div class="row">
+                            <div class="col-12 prices-add-to-cart-actions-top">
+                                <div class="d-block">
+                                    <!-- Cart and [Optionally] Apple Pay -->
+                                    <isinclude template="product/components/showCartButtonProduct" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="show-cart-button-mobile">
                         <div class="row">
                             <div class="col-12 prices-add-to-cart-actions">
                                 <div class="d-block">
                                     <!-- Cart and [Optionally] Apple Pay -->
                                     <isinclude template="product/components/showCartButtonProduct" />
-
-                                    <isif condition="${product.shortDescription}">
-                                        <div class="d-flex justify-content-center content mb-2" itemprop="description">
-                                            <isprint value="${product.shortDescription}" encoding="off" />
-                                        </div>
-                                    </isif>
                                 </div>
                             </div>
                         </div>
@@ -155,6 +160,12 @@
                     <isif condition="${product.variationAttributes && product.variationAttributes.length > 0}">
                         <isinclude template="product/components/variationAttributes" />
                     </isif>
+                    <iscomment> Custom Start: Clyde Integration </iscomment>
+                        <isif condition = "${dw.system.Site.current.preferences.custom.clydeWidgetDisplay}">
+                            <div id="clyde-cta" >
+                            </div>
+                        </isif>
+                    <iscomment> Custom End: </iscomment>
 
                     <isif condition="${sitePref.enableSeeTheFitPopUp && !empty(product.seeTheFitPrimaryImg)}"> 
                         <div class="seefit-text-label">
@@ -170,6 +181,25 @@
                             <isinclude template="product/components/recommendedProducts" />
                         </div>
                     </isif>
+
+                    <div class="show-cart-button-desktop">
+                        <div class="row">
+                            <div class="col-12 prices-add-to-cart-actions">
+                                <isinclude template="product/components/showCartButtonProduct" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <isif condition="${product.shortDescription}">
+                      <div class="row">
+                            <div class="col-12">
+                                <div class="d-flex justify-content-center mb-2" itemprop="description">
+                                    <isprint value="${product.shortDescription}" encoding="off" />
+                                </div>
+                            </div>
+                      </div>  
+                    </isif>
+                    
                     <isif condition="${sitePref.enableBackInStock}">
                         <isinclude template="product/backInStockNotification" sf-toolkit="on" />
                     </isif>
@@ -180,21 +210,6 @@
                     <div class="col-md-10 col-12">
                         <isinclude template="product/components/mainAttributes" />
                     </div>
-
-                    <div class="d-none d-sm-block">
-                        <div class="row">
-                            <div class="col-12 prices-add-to-cart-actions">
-                                <isinclude template="product/components/showCartButtonProduct" />
-
-                                <isif condition="${product.shortDescription}">
-                                    <div class="d-flex justify-content-center mb-2" itemprop="description">
-                                        <isprint value="${product.shortDescription}" encoding="off" />
-                                    </div>
-                                </isif>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
 
                 <!-- Size Chart -->

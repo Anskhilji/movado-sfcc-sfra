@@ -1,5 +1,6 @@
 'use strict';
 var movadoBase = require('movado/product/base');
+var clydeWidget = require('link_clyde/getClydeWidget.js');
 var updateMiniCart = true;
 var pdpVideoLoaded = false;
 var videoStatusChecker;
@@ -26,7 +27,12 @@ function setMiniCartProductSummaryHeight () {
         }
     }
 }
-
+function isIE() {
+    ua = navigator.userAgent;
+    /* MSIE used to detect old browsers and Trident used to newer ones*/
+    var is_ie = ua.indexOf("MSIE ") > -1 || ua.indexOf("Trident/") > -1;
+    return is_ie; 
+}
 
 /**
  * Retrieve contextual quantity selector
@@ -38,8 +44,79 @@ function getQuantitySelector($el) {
         ? $($el).closest('.product-detail').find('.quantity-select') 
         : $('.quantity-select');
 }
-
-function openMiniCart () {
+function loadAmazonButton() {
+    var amazonPaymentsObject = {
+        addButtonToCheckoutPage: function () {
+            if ($('#AmazonPayButtonCheckout').length) {
+                // eslint-disable-next-line
+                amazon.Pay.renderButton('#AmazonPayButtonCheckout', {
+                    merchantId: AmazonSitePreferences.AMAZON_MERCHANT_ID,
+                    createCheckoutSession: {
+                        url: AmazonURLs.createCheckoutSession
+                    },
+                    ledgerCurrency: AmazonSitePreferences.AMAZON_CURRENCY,
+                    checkoutLanguage: AmazonSitePreferences.AMAZON_CHECKOUT_LANGUAGE,
+                    productType: AmazonSitePreferences.AMAZON_PRODUCT_TYPE,
+                    sandbox: AmazonSitePreferences.AMAZON_SANDBOX_MODE,
+                    placement: 'Checkout'
+                });
+            }
+        },
+        init: function () {
+            this.addButtonToCheckoutPage();
+        }
+    };
+    amazonPaymentsObject.init();
+    var tries = 0;
+    var applePayLength = 1;
+    var interval = setInterval(function () {
+        tries++;
+        if ($('.dw-apple-pay-button').length) {
+            applePayLength = 0;
+            $('.amazon-mini-button').removeClass('pl-1');
+        }
+        if ((!$('#AmazonPayButtonCheckout').attr('class') && !isIE()) || ($('#AmazonPayButtonCheckout iframe').length == 0 && isIE())) {
+            $('.amazon-mini-button').remove();
+        }
+        $('.checkout-btn-adjustment').removeClass('col-12 col-6 col-4');
+        $('.apple-btn-adjustment').removeClass('col-12 col-6 col-4 pl-0');
+        var colSize = 12 / ($('.shipping-paypal-btn > div').length - applePayLength);
+        $('.checkout-btn-adjustment').addClass('col-' + colSize);
+        if ($('.dw-apple-pay-button').length) {
+            $('.apple-btn-adjustment').addClass('col-' + colSize);
+        }
+        $('#AmazonPayButtonCheckout').css('width', 'inherit');
+        if ($(window).width() <= 480 && colSize == 4) {
+            $('.checkout-btn-adjustment').removeClass('col-12 col-6 col-4');
+            $('.checkout-btn-adjustment').addClass('col-6');
+            $('.apple-btn-adjustment').addClass('col-6');
+            $('.paypal-mini-button').addClass('col-12');
+            $('.apple-btn-adjustment').addClass('pl-0');
+            if(applePayLength == 1){
+                $('.shipping-paypal-btn img').css('height', '19px');
+                $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "19px" });
+        }
+            $('.dw-apple-pay-button').css({ "margin-left": "0", "height": "20px" });
+        } else if(colSize == 4){
+            $('.dw-apple-pay-button').css("height", "34px");
+            $('.shipping-paypal-btn img').css('height', '24px');
+            $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "34px" });
+        }else if (colSize == 6 && $(window).width() <= 742) {
+            $('.shipping-paypal-btn img').css('height', '20px');
+            $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "20px" });
+        }else if(colSize == 6 && applePayLength == 0){
+            $('.shipping-paypal-btn img').css('height', '30px');
+            $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "30px" });
+        }else if(colSize == 6) {
+            $('.shipping-paypal-btn img').css('height', '24px');
+            $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "24px" });
+        }
+        if (tries >= 10) {
+            clearInterval(interval);
+        }
+    }, 100)
+}
+function openMiniCart() {
     //Custom Start: Open the mini cart
     var url = $('.minicart').data('action-url');
     var count = parseInt($('.minicart .minicart-quantity').text());
@@ -53,6 +130,7 @@ function openMiniCart () {
             $('body').trigger('miniCart:recommendations');
             updateMiniCart = false;
             $.spinner().stop();
+            loadAmazonButton();
         });
     } else if (count === 0 && $('.mini-cart-data .popover.show').length === 0) {
         $.get(url, function (data) {
@@ -1008,6 +1086,16 @@ movadoBase.addToCart = function () {
         }
         /**
          *  Custom End
+         */
+
+        /**
+         * Custom Start: Clyde Integration
+         */
+        if (window.Resources && window.Resources.IS_CLYDE_ENABLED) {
+            form = clydeWidget.getSelectedClydeContract(form);
+        }
+        /**
+         * Custom end:
          */
         $productContainer.find('input[type="text"], textarea').filter('[required]')
         .each(function() {

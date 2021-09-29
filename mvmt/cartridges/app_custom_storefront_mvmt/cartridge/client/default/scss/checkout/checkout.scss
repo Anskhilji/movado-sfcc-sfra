@@ -73,13 +73,16 @@
             .cardNumber {
                 padding-right: rem(50);
             }
+
+            #expirationDate {
+                margin-top: rem(3);
+            }
         }
 
         .card-number-wrapper {
 
             &:after {
-                top: 50%;
-                transform: translateY(-50%);
+                top: rem(7);
             }
         }
 
@@ -318,6 +321,234 @@
         }
     }
 }
+
+#mainContent .data-checkout-stage {
+    @include media-breakpoint-down(xs) {
+        margin-top: rem(8);
+    }
+}
+
+header {
+    &.checkout-header {
+        .checkout-header-wrapper {
+
+            &.header-wrapper {
+                @include media-breakpoint-up(xss) {
+                    margin-top: rem(15);
+
+                    .checkout-logo {
+                        svg {
+                            width: rem(104);
+                            height: rem(25);
+                        }  
+                    }
+
+                    .v-middle {
+                        position: absolute;
+                        top: 50%;
+                        transform: translateY(-50%)
+                    }
+                }
+
+                @include media-breakpoint-up(sm) {
+                    .checkout-logo {
+                        svg {
+                            width: rem(125);
+                            height: rem(30);
+                        }
+                        
+                    }
+                }
+
+                @include media-breakpoint-up(md-down) {
+                    margin-top: rem(0);
+                }
+
+                @include media-breakpoint-up(lg) {
+                    margin-top: rem(36);
+                }
+            }
+
+            .minicart-link {
+                background: none;
+
+                @include media-breakpoint-down(md) {
+                    top: rem(-8);
+                }
+
+                @include media-breakpoint-down(sm) {
+                    top: rem(0);
+                }
+
+                @include media-breakpoint-down(xs) {
+                    top: rem(-6);
+                }
+            }
+
+            .cart-icon {
+                background: url(../../images/cart-icon-black.svg) center center no-repeat;
+                width: rem(20);
+                height: rem(20);
+            }
+    
+            .checkout-text {
+                h5 {
+                    font-size: rem(15);
+                    font-family: $font-medium;
+                    color: $dark-gray;
+                    opacity: 1;
+                    text-transform: uppercase;
+                }
+            }
+        }
+    }
+}
+
+.progressbar-container {
+    .checkout-progressbar {
+        margin-bottom: rem(45);
+    
+        @include media-breakpoint-up(xs) {
+            display: none;
+        }
+        
+        @include media-breakpoint-up(sm) {
+            display: block;
+            margin-top: rem(64);
+            padding: 0 rem(15) 0 rem(15);
+        }
+        
+        @include media-breakpoint-up(lg) {
+            padding: 0 rem(80) 0 rem(100);
+            padding-top: auto;
+        }
+    
+        li {
+            @include font-medium;
+            @include media-breakpoint-up(sm) {
+                margin-bottom: rem(15);
+            }
+    
+            @include media-breakpoint-up(xxl) {
+                margin-bottom: rem(0);
+            }
+    
+            p {
+                display: flex;
+                align-items: center;
+                font-size: rem(12);
+                text-transform: uppercase;
+                text-decoration: none ;
+                margin-bottom: rem(0);
+
+                @include media-breakpoint-down(sm) {
+                    font-size: rem(10);
+                }
+         
+                &:after {
+                  content: "";
+                  box-sizing: border-box;
+                  height: rem(1.8);
+                  width: rem(30);
+                  background-color: $black;
+                  opacity: 0.4;
+                  margin:rem(0) rem(10);
+
+                  @include media-breakpoint-down(sm) {
+                    height: rem(2);
+                    width: rem(14);
+                    margin:rem(0) rem(5);
+                  }
+                }
+
+                .step {
+                    &-text {
+                        color: $grey15;
+                        opacity: 0.4;
+                    }
+
+                    &-no {
+                        height: rem(21);
+                        width: rem(21);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        background:$white;
+                        border:1px solid $grey15;
+                        color: $grey15;
+                        opacity: 0.4;
+                        border-radius: 50%;
+                        font-size: rem(12);
+                        margin-right: rem(10);
+
+                        @include media-breakpoint-down(sm) {
+                            height: rem(16);
+                            width: rem(16);
+                            margin-right: rem(8);
+                            font-size: rem(8);
+                        }
+                    }
+                }
+            }
+        }
+       
+       li {
+           &.active {
+                p {
+
+                    .step {
+                        &-text {
+                            color: $black;
+                            opacity: 1;
+                        }
+    
+                        &-no {
+                            background:$black;
+                            border:1px solid $black;
+                            color: $white;
+                            opacity: 1;
+                        }
+                    }
+                }
+           }
+           
+            &.completed {
+                p {
+                    
+                    &:after {
+                        color: $black;
+                        opacity: 1;
+                    }
+
+                    .step {
+                        &-text {
+                            color: $parrot-green;
+                            opacity: 1;
+                        }
+    
+                        &-no {
+                            background: $parrot-green;
+                            border: 1px solid $parrot-green;
+                            color: $white;
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+      
+    
+        &:nth-child(4) p {
+            &:after {
+            content: "";
+            height: rem(0);
+            width: rem(0);
+          }
+        }
+       }
+    
+    }
+}
+
 
 .receipt {
 

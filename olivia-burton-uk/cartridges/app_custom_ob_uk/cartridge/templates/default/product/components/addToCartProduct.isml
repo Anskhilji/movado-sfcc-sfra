@@ -18,10 +18,18 @@
                 <isset name="isexpressCheckoutEnable" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
                 <isif condition="${isexpressCheckoutEnable}">
                     <isapplepay class="apple-pay-pdp btn ml-sm-2 ml-lg-0" sku="${product.id}"></isapplepay>
+                    <div class="btn ml-sm-2 ml-lg-0 pt-0">
+                        <isinclude url="${URLUtils.https('GooglePay-RenderButton', 'googlePayEntryPoint', 'Product-Show', 'pid', product.id)}" sf-toolkit="on"/>
+                        <isinclude template="/googlePay/googlePayScripts" sf-toolkit="on" />
+                    </div>
                 </isif>
                 <div class="product-not-available-msg <isif condition="${!product.isProductRestricted}">d-none</isif>">${Resource.msg('esw.product.notavailable','esw',null)}</div>
             <iselse/>
                 <isapplepay class="apple-pay-pdp btn ml-sm-2 ml-lg-0" sku="${product.id}"></isapplepay>
+                  <div class="btn ml-sm-2 ml-lg-0 pt-0">
+                        <isinclude url="${URLUtils.https('GooglePay-RenderButton', 'googlePayEntryPoint', 'Product-Show', 'pid', product.id)}" sf-toolkit="on"/>
+                        <isinclude template="/googlePay/googlePayScripts" sf-toolkit="on" />
+                  </div>
             </isif>
         </isif>
     </div>

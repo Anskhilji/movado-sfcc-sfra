@@ -23,6 +23,7 @@ server.replace(
         var ABTestMgr = require('dw/campaign/ABTestMgr');
         var Locale = require('dw/util/Locale');
         var OrderMgr = require('dw/order/OrderMgr');
+        var Site = require('dw/system/Site');
         var Transaction = require('dw/system/Transaction');
 
         var OrderModel = require('*/cartridge/models/order');
@@ -99,6 +100,43 @@ server.replace(
                 }
             }
         }
+        /**~
+         * Custom Start: Clyde Integration
+         */
+        if (Site.getCurrent().preferences.custom.isClydeEnabled) {
+            var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
+            var contractProductList = req.querystring.clydeContractProductList;
+            addClydeContract.createOrderCustomAttr(contractProductList, order);
+            var productLineItemsIterator = order.getAllProductLineItems().iterator();
+            var currentProductLineItem;
+            var contractProductListMapping = order.custom.clydeContractProductMapping;
+            var previousSKU;
+
+            if (!empty(contractProductListMapping)) {
+                var parsedContractProductList = JSON.parse(contractProductListMapping);
+                while (productLineItemsIterator.hasNext()) {
+                    currentProductLineItem = productLineItemsIterator.next();
+                    for (var i = 0; i < parsedContractProductList.length; i++) {
+                        if (currentProductLineItem.productID.indexOf("clyde") > -1) {
+                            if (parsedContractProductList[i].contractSku === previousSKU) {
+                                continue;
+                            } else {
+                                addClydeContract.addClydeContractSkuToLineItem(currentProductLineItem, parsedContractProductList[i].contractSku);
+                                previousSKU = parsedContractProductList[i].contractSku;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        /**
+         * Custom: End
+         */
+
+        var YotpoIntegrationHelper = require('*/cartridge/scripts/common/integrationHelper.js');
+
+        var yotpoConversionTrackingData = YotpoIntegrationHelper.getConversionTrackingData(req, order, currentLocale);
 
         if (!req.currentCustomer.profile) {
             passwordForm = server.forms.getForm('newPasswords');
@@ -107,13 +145,15 @@ server.replace(
                 order: orderModel,
                 returningCustomer: false,
                 passwordForm: passwordForm,
-                reportingURLs: reportingURLs
+                reportingURLs: reportingURLs,
+                yotpoConversionTrackingData: yotpoConversionTrackingData
             });
         } else {
             res.render('checkout/confirmation/confirmation', {
                 order: orderModel,
                 returningCustomer: true,
-                reportingURLs: reportingURLs
+                reportingURLs: reportingURLs,
+                yotpoConversionTrackingData: yotpoConversionTrackingData
             });
         }
         req.session.raw.custom.orderID = req.querystring.ID; // eslint-disable-line no-param-reassign

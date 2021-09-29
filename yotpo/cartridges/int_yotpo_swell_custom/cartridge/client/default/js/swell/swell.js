@@ -194,7 +194,7 @@ $(document).ready(function() {
  * @param {Object} data - AJAX response from the server
  */
 function updateSwellPointsContainer(data) {
-    if (data.swellRedemption.swellRedemptionID !== '') {
+    if (data && data.swellRedemption && data.swellRedemption.swellRedemptionID !== '') {
         var swellPointsContainar =
         '<div class="redeem-rewards-promos swell-promotion-information col-12">' +
         '<div class="promotion-price-adjustment">'+

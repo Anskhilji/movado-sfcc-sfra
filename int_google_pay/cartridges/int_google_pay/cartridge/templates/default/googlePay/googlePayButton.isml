@@ -11,7 +11,7 @@
         window.isGooglePayMiniCart = "${pdict.googlePayMiniCart}"
     </script>
     <isif condition="${pdict.googlePayMiniCart}">
-        <div id="google-pay-container-mini-cart" class="col btn btn-block rounded google-pay-container mt-2" 
+        <div id="google-pay-container-mini-cart" class="btn btn-block rounded google-pay-container checkout-btn-adjustment p-0 pl-1" 
             data-url=${pdict.actionURL} 
             data-entry-point=${pdict.googlePayEntryPoint} 
             data-process-payments-url=${pdict.processingURL}>

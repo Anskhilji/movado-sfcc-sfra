@@ -1,6 +1,5 @@
 <div class="panel-collapse collapse" id="googlepay-content" data-parent="#accordion">
-<div class="panel-body">
+<div class="panel-body pb-3">
     <isinclude url="${URLUtils.https('GooglePay-RenderButton')}" sf-toolkit="on"/>
-    <isinclude template="/googlePay/googlePayScripts" sf-toolkit="on" />
 </div>
 </div>

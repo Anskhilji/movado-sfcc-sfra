@@ -192,13 +192,19 @@ module.exports = {
         function mobileCartButton () {
             var windowWidth = $(window).width();
 
-            if (windowWidth < 768) {
+                if (windowWidth < 768) {
 
-                $(window).on('scroll', function(e) {
-                    if ($(window).scrollTop() > 300) {
-                        $('.add-to-cart').addClass('mobileBtn');
-                    }
-                });
+                    $(window).on('scroll', function (e) {
+                        if ($(window).scrollTop() > 300) {
+                            $('.add-to-cart').addClass('mobileBtn');
+                        }
+                        var bottomNavigationHeader = $('.bottom-navigation-header').outerHeight() || 0;
+                        if (!$('.bottom-navigation-header').is(':visible')) {
+                            bottomNavigationHeader = 0;
+                            $('.prices-add-to-cart-actions').css('margin-bottom', bottomNavigationHeader + 'px');
+                        }
+                        $('.add-cart-bottom-navigation').css('margin-bottom', bottomNavigationHeader + 'px');
+                    });
             } else {
                 $('.add-to-cart').removeClass('mobileBtn');
             }

@@ -350,5 +350,31 @@ module.exports = {
                 $('#brandCode').val(Resources.KLARNA_SLICE_IT_PAYMENT_METHOD_BRAND_CODE);
             }
         });
-    }
+    },
+
+    credeitCardExpiryDate: function () {
+        if ($('#expirationDate').length) {
+            new Cleave('#expirationDate', {
+              date: true,
+              datePattern: ['m', 'y'],
+            });
+        }
+    },
+
+    trimSpaces: function() {
+        $('#holderName').focusout(function() {
+            var $holderName = $(this).val();
+            $holderName = $.trim($holderName);
+            $(this).val($holderName);
+        });
+    },
+
+    creditCardHypenSeparator: function() {
+        if ($('#cardNumber').length) {
+            new Cleave('#cardNumber', {
+                creditCard: true,
+                delimiter: '-'
+            });
+        }
+    },
 };
