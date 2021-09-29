@@ -17,7 +17,7 @@
             data-process-payments-url=${pdict.processingURL}>
         </div>
     <iselse>
-        <div id="google-pay-container" class="google-pay-container mt-2" 
+        <div id="google-pay-container" class="google-pay-container" 
             data-url=${pdict.actionURL} 
             data-entry-point=${pdict.googlePayEntryPoint} 
             data-pid=${pdict.pid}
