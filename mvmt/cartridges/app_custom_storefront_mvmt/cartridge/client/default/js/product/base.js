@@ -743,6 +743,11 @@ function handleVariantResponse(response, $productContainer) {
     * Custom End:
     */
 
+    // Update variation id to google pay
+    if (window.Resources.GOOGLE_PAY_ENABLED) {
+        $productContainer.find('.google-pay-container').data('pid', response.product.id);
+    }
+
     // Attach Slider and Zoom
     zoomfeature(); 
     initializePDPMainSlider();
