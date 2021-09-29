@@ -1,7 +1,0 @@
-<isset name="isGooglePayEnabled" value="${dw.Site.current.preferences.custom.isGooglePayEnabled}" scope="page" />
-<isif condition="${isGooglePayEnabled}">
-    <isscript>
-        var assets = require('*/cartridge/scripts/assets');
-        assets.addJs('/js/googlePay.js');
-    </isscript>
-</isif>

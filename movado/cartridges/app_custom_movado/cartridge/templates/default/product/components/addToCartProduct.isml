@@ -22,15 +22,19 @@
                 </isif>
             </isif>
              <div class="product-not-available-msg <isif condition="${!product.isProductRestricted}">d-none</isif>">${Resource.msg('esw.product.notavailable','esw',null)}</div>
-              <div class="btn p-0">
-                <isinclude url="${URLUtils.https('GooglePay-RenderButton', 'googlePayEntryPoint', 'Product-Show', 'pid', product.id)}" sf-toolkit="on"/>
-            </div>
+              <isif condition="${Site.current.preferences.custom.isGooglePayEnabled}">
+                <div class="btn p-0">
+                    <isinclude url="${URLUtils.https('GooglePay-RenderButton', 'googlePayEntryPoint', 'Product-Show', 'pid', product.id)}" sf-toolkit="on"/>
+                </div>
+              </isif>
         <iselse/>
              <isif condition="${product.available && product.readyToOrder}">
                 <isapplepay class="apple-pay-pdp btn" sku="${product.id}"></isapplepay>
-                 <div class="btn p-0">
-                    <isinclude url="${URLUtils.https('GooglePay-RenderButton', 'googlePayEntryPoint', 'Product-Show', 'pid', product.id)}" sf-toolkit="on"/>
-                </div>
+                <isif condition="${Site.current.preferences.custom.isGooglePayEnabled}">
+                    <div class="btn p-0">
+                        <isinclude url="${URLUtils.https('GooglePay-RenderButton', 'googlePayEntryPoint', 'Product-Show', 'pid', product.id)}" sf-toolkit="on"/>
+                    </div>
+                </isif>
             </isif>   
         </isif>
     </div>

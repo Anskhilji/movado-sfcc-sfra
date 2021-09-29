@@ -36,7 +36,9 @@
                     <div class="apple-btn-adjustment p-0">
                         <isapplepay class="apple-pay-cart col btn btn-block rounded"></isapplepay>
                     </div>
-                    <isinclude url="${URLUtils.https('GooglePay-RenderButton', 'googlePayEntryPoint', 'Cart-Show', 'miniCart', 'true')}" sf-toolkit="on"/>
+                    <isif condition="${Site.current.preferences.custom.isGooglePayEnabled}">
+                         <isinclude url="${URLUtils.https('GooglePay-RenderButton', 'googlePayEntryPoint', 'Cart-Show', 'miniCart', 'true')}" sf-toolkit="on"/>
+                    </isif>
                     <iscomment> Amazon Pay Button </iscomment>
                     <isif condition="${isEswEnabled && !empty(request.httpCookies['esw.location']) && !empty(request.httpCookies['esw.location'].value) &&
                                    request.httpCookies['esw.location'].value.equalsIgnoreCase('US')}">
@@ -71,5 +73,7 @@
 </isif>
 
 <script>
-    window.loadGooglePayButtons(true);
+    if (window.Resources.GOOGLE_PAY_ENABLED) {
+        window.loadGooglePayButtons(true);
+    }
 </script>

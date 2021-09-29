@@ -458,13 +458,15 @@ function processPayment(paymentData) {
 
 
 $(document).ready(function name(params) {
-    var script = document.createElement('script');
-    script.async = true;
-    script.onload = function () {
-        onGooglePayLoaded();
-    };
-    script.src = 'https://pay.google.com/gp/p/js/pay.js';
+    if (window.Resources.GOOGLE_PAY_ENABLED) {
+        var script = document.createElement('script');
+        script.async = true;
+        script.onload = function () {
+            onGooglePayLoaded();
+        };
+        script.src = 'https://pay.google.com/gp/p/js/pay.js';
 
-    document.head.appendChild(script);
-    window.loadGooglePayButtons = onGooglePayLoaded;
+        document.head.appendChild(script);
+        window.loadGooglePayButtons = onGooglePayLoaded;
+    }
 });

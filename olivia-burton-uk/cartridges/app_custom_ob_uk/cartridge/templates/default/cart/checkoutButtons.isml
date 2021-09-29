@@ -85,9 +85,11 @@
                 </a>
             </div>
             <isapplepay class="apple-pay-cart col btn btn-block mx-3 mt-sm-3"></isapplepay>
-            <div class="col col-sm-12">
-                <isinclude url="${URLUtils.https('GooglePay-RenderButton', 'googlePayEntryPoint', 'Cart-Show')}" sf-toolkit="on" />
-            </div>
+            <isif condition="${Site.current.preferences.custom.isGooglePayEnabled}">
+                <div class="col col-sm-12 mt-2">
+                     <isinclude url="${URLUtils.https('GooglePay-RenderButton', 'googlePayEntryPoint', 'Cart-Show')}" sf-toolkit="on" />
+                </div>
+            </isif>
         </div>
         <iscomment> Amazon Pay Button </iscomment>
         <isset name="sitePreferences" value="${require('dw/system/Site').getCurrent().getPreferences().getCustom()}" scope="page" />
@@ -107,6 +109,12 @@
             </a>
         </div>
         <isapplepay class="apple-pay-cart col btn btn-block mx-3 mt-sm-3"></isapplepay>
+        <isif condition="${Site.current.preferences.custom.isGooglePayEnabled}">
+            <div class="col col-sm-12 mt-2">
+                <isinclude url="${URLUtils.https('GooglePay-RenderButton', 'googlePayEntryPoint', 'Cart-Show')}" sf-toolkit="on" />
+            </div>
+        </isif>
+      
     </div>
     <iscomment> Amazon Pay Button </iscomment>
     <isset name="sitePreferences" value="${require('dw/system/Site').getCurrent().getPreferences().getCustom()}" scope="page" />
