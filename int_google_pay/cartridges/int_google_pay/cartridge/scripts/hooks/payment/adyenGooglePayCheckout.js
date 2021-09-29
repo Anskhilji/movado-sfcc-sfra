@@ -37,7 +37,7 @@ function googlePayCheckout(order, googlePayToken, paymentInstrument) {
                     result.error = false;
                     order.custom.Adyen_eventCode = 'AUTHORIZATION';
                     order.custom.Adyen_pspReference = parsedResult.pspReference;
-                    paymentInstrument.paymentTransaction.transactionID = parsedResult.PspReference;
+                    paymentInstrument.paymentTransaction.setTransactionID(parsedResult.pspReference);
                 });
             }
         }
