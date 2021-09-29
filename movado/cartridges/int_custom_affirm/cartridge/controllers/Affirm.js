@@ -19,7 +19,6 @@ var Transaction = require('dw/system/Transaction');
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 var orderCustomHelpers = require('*/cartridge/scripts/helpers/orderCustomHelper');
-var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
 
 /**
  * Handle successful response from Affirm
@@ -97,14 +96,14 @@ server.replace(
          * Custom Start: Clyde Integration
          */
          if (Site.current.preferences.custom.isClydeEnabled) {
-			Transaction.wrap(function () {
+            var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
+            Transaction.wrap(function () {
                 order.custom.isContainClydeContract = false;
                 order.custom.clydeContractProductMapping = '';
             });
-			var contractProductList = currentBasket.custom.clydeContractProductList || false;
-			addClydeContract.createOrderCustomAttr(contractProductList, order);
-
-		}
+            var contractProductList = currentBasket.custom.clydeContractProductList || false;
+            addClydeContract.createOrderCustomAttr(contractProductList, order);
+        }
 		/**
 		 * Custom: End
 		 */

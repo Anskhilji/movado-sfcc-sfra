@@ -1,5 +1,9 @@
 'use strict';
 
+var Site = require('dw/system/Site');
+
+var isClydeEnabled = !empty(Site.current.preferences.custom.isClydeEnabled) ? Site.current.preferences.custom.isClydeEnabled : false;
+
 module.exports = {
     gift: require('*/cartridge/models/productLineItem/decorators/gift'),
     bonusProductLineItem: require('*/cartridge/models/productLineItem/decorators/bonusProductLineItem'),
@@ -18,5 +22,5 @@ module.exports = {
     discountBonusLineItems: require('*/cartridge/models/productLineItem/decorators/discountBonusLineItems'),
     bonusUnitPrice: require('*/cartridge/models/productLineItem/decorators/bonusUnitPrice'),
     mgProductLineItemCutomAttr: require('*/cartridge/models/productLineItem/decorators/mgProductLineItemCutomAttr'),
-    lineItemText: require('*/cartridge/models/productLineItem/decorators/lineItemText') // Custom Start: Clyde Integration
+    lineItemText: isClydeEnabled ? require('*/cartridge/models/productLineItem/decorators/lineItemText') : '' // Custom Start: Clyde Integration
 };

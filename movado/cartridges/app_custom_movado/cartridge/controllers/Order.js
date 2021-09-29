@@ -13,7 +13,6 @@ var Resource = require('dw/web/Resource');
 var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
-var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
 
 server.replace(
     'Confirm',
@@ -105,6 +104,7 @@ server.replace(
          * Custom Start: Clyde Integration
          */
         if (Site.getCurrent().preferences.custom.isClydeEnabled) {
+            var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
             var contractProductList = req.querystring.clydeContractProductList;
             addClydeContract.createOrderCustomAttr(contractProductList, order);
             var productLineItemsIterator = order.getAllProductLineItems().iterator();

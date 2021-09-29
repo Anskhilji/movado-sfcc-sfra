@@ -87,7 +87,6 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	  var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 	  var orderCustomHelpers = require('*/cartridge/scripts/helpers/orderCustomHelper');
 	var Site = require('dw/system/Site');
-	var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
 	
 	  var currentBasket = BasketMgr.getCurrentBasket();
 	  checkoutLogger.debug('(CheckoutServices) -> PlaceOrder: Inside PlaceOrder to validate the payment and order');
@@ -272,14 +271,14 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
          * Custom Start: Clyde Integration
          */
 		if (Site.current.preferences.custom.isClydeEnabled) {
-			Transaction.wrap(function () {
+            var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
+            Transaction.wrap(function () {
                 order.custom.isContainClydeContract = false;
                 order.custom.clydeContractProductMapping = '';
             });
-			var contractProductList = currentBasket.custom.clydeContractProductList || false;
-			addClydeContract.createOrderCustomAttr(contractProductList, order);
-
-		}
+            var contractProductList = currentBasket.custom.clydeContractProductList || false;
+            addClydeContract.createOrderCustomAttr(contractProductList, order);
+        }
 		/**
 		 * Custom: End
 		 */
