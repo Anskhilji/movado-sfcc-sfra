@@ -26,12 +26,14 @@
     </isif>
 
     <script>
-        if (window.dw &&
-            window.dw.applepay &&
-            window.ApplePaySession &&
-            window.ApplePaySession.canMakePayments()) {
-            $('#google-pay-container-mini-cart').remove();
-            $('#google-pay-container').remove();
-        }
+        $(document).ready(function () {
+            if (window.dw &&
+                window.dw.applepay &&
+                window.ApplePaySession &&
+                window.ApplePaySession.canMakePayments()) {
+                $('#google-pay-container-mini-cart').remove();
+                $('#google-pay-container').remove();
+            }
+        })
     </script>
 </isif>
