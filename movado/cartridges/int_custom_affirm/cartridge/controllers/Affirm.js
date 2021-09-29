@@ -97,14 +97,13 @@ server.replace(
          */
          if (Site.current.preferences.custom.isClydeEnabled) {
             var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
-			Transaction.wrap(function () {
+            Transaction.wrap(function () {
                 order.custom.isContainClydeContract = false;
                 order.custom.clydeContractProductMapping = '';
             });
-			var contractProductList = currentBasket.custom.clydeContractProductList || false;
-			addClydeContract.createOrderCustomAttr(contractProductList, order);
-
-		}
+            var contractProductList = currentBasket.custom.clydeContractProductList || false;
+            addClydeContract.createOrderCustomAttr(contractProductList, order);
+        }
 		/**
 		 * Custom: End
 		 */

@@ -106,7 +106,6 @@ server.replace(
         if (Site.getCurrent().preferences.custom.isClydeEnabled) {
             var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
             var contractProductList = req.querystring.clydeContractProductList;
-
             addClydeContract.createOrderCustomAttr(contractProductList, order);
             var productLineItemsIterator = order.getAllProductLineItems().iterator();
             var currentProductLineItem;

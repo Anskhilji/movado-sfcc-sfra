@@ -5,7 +5,7 @@ var Site = require('dw/system/Site');
 var productDecorators = require('*/cartridge/models/product/decorators/index');
 var productLineItemDecorators = require('*/cartridge/models/productLineItem/decorators/index');
 
-var isClydeEnabled = !empty(Site.getCurrent().preferences.custom.isClydeEnabled) ? Site.getCurrent().preferences.custom.isClydeEnabled : false;
+var isClydeEnabled = !empty(Site.current.preferences.custom.isClydeEnabled) ? Site.current.preferences.custom.isClydeEnabled : false;
 
 /**
  * Decorate product with product line item information
