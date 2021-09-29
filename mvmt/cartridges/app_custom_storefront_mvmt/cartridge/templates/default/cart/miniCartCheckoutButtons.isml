@@ -23,6 +23,7 @@
                        <isprint value="${paypalButtonImg}" encoding="off" />
                     </a>
                     <isapplepay class="apple-pay-cart col btn btn-block rounded"></isapplepay>
+                      <isinclude url="${URLUtils.https('GooglePay-RenderButton', 'googlePayEntryPoint', 'Cart-Show', 'miniCart', 'true')}" sf-toolkit="on"/>
                 </div>
             </div>
         </div>
@@ -37,7 +38,14 @@
                    <isprint value="${paypalButtonImg}" encoding="off" />
                 </a>
                 <isapplepay class="apple-pay-cart col btn btn-block rounded"></isapplepay>
+                <isinclude url="${URLUtils.https('GooglePay-RenderButton', 'googlePayEntryPoint', 'Cart-Show', 'miniCart', 'true')}" sf-toolkit="on"/>
             </div>
         </div>
     </div> 
 </isif>
+
+<script>
+  if (window.Resources.GOOGLE_PAY_ENABLED) {
+       window.loadGooglePayButtons(true);
+    }
+</script>

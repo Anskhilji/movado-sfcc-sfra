@@ -9,6 +9,8 @@ const baseRequest = {
     apiVersionMinor: 0
 };
 
+var isGlobalMiniCart = false;
+
 /**
  * Card networks supported by your site and your gateway
  *
@@ -187,7 +189,7 @@ function onPaymentAuthorized(paymentData) {
                         transactionState: 'ERROR',
                         error: {
                             intent: 'PAYMENT_AUTHORIZATION',
-                            message: 'Insufficient funds',
+                            message: data.error.errorText,
                             reason: 'PAYMENT_DATA_INVALID'
                         }
                     });
@@ -198,12 +200,12 @@ function onPaymentAuthorized(paymentData) {
                     resolve({ transactionState: 'SUCCESS' });
                 }
             })
-            .catch(function () {
+            .catch(function (error) {
                 resolve({
                     transactionState: 'ERROR',
                     error: {
                         intent: 'PAYMENT_AUTHORIZATION',
-                        message: 'Insufficient funds',
+                        message: error.message,
                         reason: 'PAYMENT_DATA_INVALID'
                     }
                 });
@@ -275,8 +277,9 @@ function onPaymentDataChanged(intermediatePaymentData) {
  */
 function getGoogleDefaultShippingOptions() {
     return new Promise(function (resolve, reject) {
+        var $selector = isGlobalMiniCart ? $('#google-pay-container-mini-cart') : $('#google-pay-container');
         $.ajax({
-            url: $('#google-pay-container').data('default-shipping-methods-url'),
+            url: $selector.data('default-shipping-methods-url'),
             method: 'POST',
             success: function (data) {
                 if (data.shippingMethods) {
@@ -300,13 +303,17 @@ function getGoogleDefaultShippingOptions() {
  * Display a Google Pay payment button after confirmation of the viewer's
  * ability to pay.
  */
-function onGooglePayLoaded() {
+function onGooglePayLoaded(isMiniCart) {
+    if (isMiniCart) {
+        isGlobalMiniCart = true;
+    }
+
     if (window.googlePayButtonAvailable) {
         const paymentsClient = getGooglePaymentsClient();
         paymentsClient.isReadyToPay(getGoogleIsReadyToPayRequest())
             .then(function (response) {
                 if (response.result) {
-                    addGooglePayButton();
+                    addGooglePayButton(isGlobalMiniCart);
                     // @todo prefetch payment data to improve performance after confirming site functionality
                     // prefetchGooglePaymentData();
                 }
@@ -341,7 +348,16 @@ function addGooglePayButton() {
     const button =
         paymentsClient.createButton(buttonConfigs);
 
-    document.getElementById('google-pay-container').appendChild(button);
+    if (!isGlobalMiniCart) {
+        var googlePayContainer = document.getElementsByClassName('google-pay-container');
+        for (var i = 0; i < googlePayContainer.length; i++) {
+            googlePayContainer[i].appendChild(button);
+        }
+    } else {
+        document.getElementById('google-pay-container-mini-cart').appendChild(button);
+    }
+    
+
 }
 
 /**
@@ -352,15 +368,17 @@ function addGooglePayButton() {
  */
 function getGoogleTransactionInfo(includeShippingDetails, selectedShippingMethod, shippingAddress) {
     return new Promise(function (resolve, reject) {
+        var $selector = isGlobalMiniCart ? $('#google-pay-container-mini-cart') : $('#google-pay-container');
+
         var data = {
-            googlePayEntryPoint: $('#google-pay-container').data('entry-point'),
-            pid: $('#google-pay-container').data('pid') ? $('#google-pay-container').data('pid') : false,
+            googlePayEntryPoint: $selector.data('entry-point'),
+            pid: $selector.data('pid') ? $selector.data('pid') : false,
             selectedShippingMethod: selectedShippingMethod,
             includeShippingDetails: includeShippingDetails,
             shippingAddress: shippingAddress ? JSON.stringify(shippingAddress) : shippingAddress
         };
         $.ajax({
-            url: $('#google-pay-container').data('url'),
+            url: $selector.data('url'),
             method: 'POST',
             data: data,
             success: function (data) {
@@ -412,9 +430,10 @@ function processPayment(paymentData) {
     // show returned data in developer console for debugging
     console.log(paymentData);
     return new Promise(function (resolve, reject) {
+        var $selector = isGlobalMiniCart ? $('#google-pay-container-mini-cart') : $('#google-pay-container');
         setTimeout(function () {
             $.ajax({
-                url: $('#google-pay-container').data('process-payments-url'),
+                url: $selector.data('process-payments-url'),
                 method: 'POST',
                 data: {
                     paymentData: JSON.stringify(paymentData),
@@ -446,5 +465,6 @@ $(document).ready(function name(params) {
     };
     script.src = 'https://pay.google.com/gp/p/js/pay.js';
 
-    document.head.appendChild(script); 
+    document.head.appendChild(script);
+    window.loadGooglePayButtons = onGooglePayLoaded;
 });

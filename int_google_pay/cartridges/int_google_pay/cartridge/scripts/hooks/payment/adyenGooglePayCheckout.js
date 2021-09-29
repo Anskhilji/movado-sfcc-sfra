@@ -20,7 +20,7 @@ function googlePayCheckout(order, googlePayToken, paymentInstrument) {
         adyenLogger.debug('(adyenGooglePayCheckout) -> googlePayCheckout: Inside the googlePayCheckout for authorization of the order and order number is: ' + order.getOrderNo());
 
         var adyenGooglePayCheckoutRequest = googlePayHelper.createGooglePayCheckoutRequest(order, googlePayToken);
-        var adyenGooglePayCheckout = AdyenHelper.getService('adyenGooglePayCheckout');
+        var adyenGooglePayCheckout = AdyenHelper.getService('AdyenPaymentCheckout');
         /* add service headers*/
         adyenGooglePayCheckout.addHeader('Content-type', 'application/json');
 

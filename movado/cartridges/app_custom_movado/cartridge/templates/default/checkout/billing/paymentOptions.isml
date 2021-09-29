@@ -113,8 +113,8 @@
                         </isif>
                         <isif condition="${paymentOption.ID === 'GOOGLE_PAY'}">
                             <div class="panel panel-default">
-                                <isinclude url="${URLUtils.https('GooglePay-RenderButton')}" sf-toolkit="on"/>
-                                <isinclude template="/googlePay/googlePayScripts" sf-toolkit="on" />
+                                <isinclude template="checkout/billing/paymentOptions/googlePayTab" />
+                                <isinclude template="checkout/billing/paymentOptions/googlePayContent" />
                             </div>
                         </isif>
                     <iselse/>

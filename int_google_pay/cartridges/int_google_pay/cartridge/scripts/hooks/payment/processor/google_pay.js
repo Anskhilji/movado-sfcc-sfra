@@ -1,7 +1,7 @@
 var Resource = require('dw/web/Resource');
 var Transaction = require('dw/system/Transaction');
 var collections = require('*/cartridge/scripts/util/collections');
-var constants = require('*/cartridge/scripts/helpers/constants');
+var constants = require('*/cartridge/scripts/helpers/googlePayConstants');
 var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 
 function Handle(basket, paymentInformation) {

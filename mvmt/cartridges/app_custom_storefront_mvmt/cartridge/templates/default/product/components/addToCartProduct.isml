@@ -45,6 +45,7 @@
             <isif condition="${currentCountry.equalsIgnoreCase('US')}" >
                 <isif condition="${product.available && product.readyToOrder}">
                     <isapplepay class="apple-pay-pdp btn" sku="${product.id}"></isapplepay>
+                    <isinclude url="${URLUtils.https('GooglePay-RenderButton', 'googlePayEntryPoint', 'Product-Show', 'pid', product.id)}" sf-toolkit="on"/>
                 </isif>
             </isif>
             <iscomment> Custom End </iscomment>

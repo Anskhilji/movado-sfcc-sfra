@@ -10,7 +10,7 @@ var Logger = require('dw/system/Logger');
 
 var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
 var cartHelper = require('*/cartridge/scripts/cart/cartHelpers');
-var constants = require('*/cartridge/scripts/helpers/constants');
+var constants = require('*/cartridge/scripts/helpers/googlePayConstants');
 var collections = require('*/cartridge/scripts/util/collections');
 var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
 var checkoutAddrHelper = require('*/cartridge/scripts/helpers/checkoutAddressHelper');
@@ -168,8 +168,8 @@ function getShippingMethods(currentBasket, selectedShippingMethod, shippingAddre
         var shippingMethod = applicableShippingMethodsOnCart[index];
         var shippingOption = {
             id: shippingMethod.ID,
-            label: shippingMethod.displayName,
-            description: shippingMethod.description,
+            label: shippingMethod.displayName ? shippingMethod.displayName : '' ,
+            description: shippingMethod.description ? shippingMethod.description : '',
         }
         shippingOptions.push(shippingOption);
     }
@@ -251,12 +251,11 @@ function getTransactionInfo(req) {
     var Locale = require('dw/util/Locale');
     var currentLocale = Locale.getLocale(req.locale.id);
     var transactionInfo = {
-        countryCode: currentLocale.country,
+        countryCode: currentLocale.country ? currentLocale.country : 'US',
         currencyCode: session.currency.currencyCode,
         totalPriceLabel: Resource.msg('total.price.label', 'googlePay', null)
     }
     var displayItems = [];
-
 
     switch (req.form.googlePayEntryPoint) {
         case 'Product-Show':

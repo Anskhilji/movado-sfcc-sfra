@@ -53,7 +53,8 @@ function getResources(pageContext) {
         OPTANON_ALLOWED_COOKIE: Constants.ONE_TRUST_COOKIE_ENABLED,
         KLARNA_PDP_MESSAGES_ENABLED:!empty(Site.current.preferences.custom.klarnaPdpPromoMsg) ? Site.current.preferences.custom.klarnaPdpPromoMsg : false,
         LISTRAK_ENABLED: Site.current.preferences.custom.Listrak_Cartridge_Enabled,
-        RAKUTEN_REQUEST: rakutenCookiesHelper.getRakutenRequestObject()
+        RAKUTEN_REQUEST: rakutenCookiesHelper.getRakutenRequestObject(),
+        GOOGLE_PAY_ENABLED: Site.current.preferences.custom.isGooglePayEnabled || false
     };
     return resources;
 }
