@@ -4,7 +4,7 @@
             <label for="${paymentOption.ID}" class="form-check-label d-block" >
               <img src="${URLUtils.staticURL('/images/google-pay-logo.png')}" alt="${Resource.msg('payment.name', 'googlePay', null)}"/>
             </label>
-        <a class="googlepay-panel" data-toggle="collapse" aria-controls="googlepay-content" href="${'#' + 'googlepay-content'}">
+            <a class="googlepay-panel" data-toggle="collapse" aria-controls="googlepay-content" href="${'#' + 'googlepay-content'}">
         </a>
      </div>
 </div>
