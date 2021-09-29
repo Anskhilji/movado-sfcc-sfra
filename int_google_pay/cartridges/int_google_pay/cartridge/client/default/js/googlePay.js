@@ -308,6 +308,15 @@ function onGooglePayLoaded(isMiniCart) {
         isGlobalMiniCart = true;
     }
 
+    if (window.dw &&
+        window.dw.applepay &&
+        window.ApplePaySession &&
+        window.ApplePaySession.canMakePayments()) {
+        $('.google-pay-container').remove();
+        $('#google-pay-container-mini-cart').remove();
+        return;
+    }
+
     if (window.googlePayButtonAvailable) {
         const paymentsClient = getGooglePaymentsClient();
         paymentsClient.isReadyToPay(getGoogleIsReadyToPayRequest())
