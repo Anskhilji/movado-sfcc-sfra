@@ -129,7 +129,7 @@
 	                    </div>
                     </isif>
                       <isif condition="${paymentOption.ID === 'GOOGLE_PAY'}">
-                        <div class="panel panel-default">
+                        <div class="panel panel-default google-pay-options">
                             <isinclude template="checkout/billing/paymentOptions/googlePayTab" />
                             <isinclude template="checkout/billing/paymentOptions/googlePayContent" />
                         </div>

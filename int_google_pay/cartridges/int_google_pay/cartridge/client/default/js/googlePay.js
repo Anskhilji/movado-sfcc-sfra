@@ -321,12 +321,15 @@ function onGooglePayLoaded(isMiniCart) {
         window.ApplePaySession.canMakePayments()) {
         $('.google-pay-container').remove();
         $('#google-pay-container-mini-cart').remove();
+        $('.google-pay-options').remove();
         return;
     }
 
     if (isIEOrApple()) {
         $('.google-pay-container').remove();
         $('#google-pay-container-mini-cart').remove();
+        $('.google-pay-options').remove();
+        return;
     }
 
     if (window.googlePayButtonAvailable) {
