@@ -28,6 +28,13 @@ const allowedCardNetworks = ["AMEX", "DISCOVER", "INTERAC", "JCB", "MASTERCARD",
  */
 const allowedCardAuthMethods = ["PAN_ONLY", "CRYPTOGRAM_3DS"];
 
+function isIE() {
+    var ua = navigator.userAgent;
+    /* MSIE used to detect old browsers and Trident used to newer ones*/
+    var is_ie = ua.indexOf("MSIE ") > -1 || ua.indexOf("Trident/") > -1;
+    return is_ie; 
+}
+
 /**
  * Identify your gateway and your site's gateway merchant identifier
  *
@@ -315,6 +322,11 @@ function onGooglePayLoaded(isMiniCart) {
         $('.google-pay-container').remove();
         $('#google-pay-container-mini-cart').remove();
         return;
+    }
+
+    if (isIE()) {
+        $('.google-pay-container').remove();
+        $('#google-pay-container-mini-cart').remove();
     }
 
     if (window.googlePayButtonAvailable) {
