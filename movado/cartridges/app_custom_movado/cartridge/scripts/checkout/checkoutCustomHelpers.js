@@ -114,7 +114,7 @@ function sendCancellationEmail(emailObject) {
         emailMarketingContent: (emailMarketingContent && emailMarketingContent.custom && emailMarketingContent.custom.body ? emailMarketingContent.custom.body : ''),
         topContent: (topContent && topContent.custom && topContent.custom.body ? topContent.custom.body : ''),
         orderCancellationHeading: Resource.msg('order.cancellation.email.heading', 'order', null),
-        salution: Resource.msgf('order.cancellation.email.salution', 'order', null, emailObject.firstName, emailObject.lastName),
+        salution: Resource.msgf('order.cancellation.email.salution', 'order', null, emailObject.firstName, emailObject.lastName ? emailObject.lastName : ''),
         orderProcess: Resource.msgf('order.cancellation.email.placed', 'order', null, emailObject.creationDate),
         orderNumber: Resource.msgf('order.cancellation.email.number.heading', 'order', null, emailObject.orderNumber),
         order: emailObject.order
