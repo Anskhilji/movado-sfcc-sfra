@@ -898,12 +898,19 @@ function handleVariantResponse(response, $productContainer) {
         $addToCartSelector.each(function (index, button) {
             $(button).contents().first().replaceWith($addToCartSelector.data('add-to-cart-text'));
         });
+        if (window.Resources.GOOGLE_PAY_ENABLED) {
+            $('.google-pay-container').show();
+        }
     } else {
         $addToCartSelector.addClass('out-of-stock-btn');
         $addToCartSelector.prop('disabled', true);
         $addToCartSelector.each(function (index, button) {
             $(button).contents().first().replaceWith($addToCartSelector.data('out-of-stock-text'));
         });
+
+        if (window.Resources.GOOGLE_PAY_ENABLED) {
+            $('.google-pay-container').hide();
+        }
     }
 }
 
