@@ -365,7 +365,11 @@ function addGooglePayButton() {
     } else {
         document.getElementById('google-pay-container-mini-cart').appendChild(button);
     }
-    
+
+    var $googlePayButton = $('#google-pay-container-mini-cart > .gpay-button-fill');
+    if ($googlePayButton.length > 1) {
+        $googlePayButton.first().remove();
+    }
 
 }
 
