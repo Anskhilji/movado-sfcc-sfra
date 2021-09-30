@@ -21,7 +21,7 @@
     scope="page" />
 <isif condition="${isEswEnabled}">
     <isif condition="${currentCountry.equalsIgnoreCase('US')}">
-        <div class="shipping-express-checkout">
+        <div class="shipping-express-checkout pb-3">
             <label class="shipping-express-checkout_label text-center"><span
                     class="shipping-express-checkout_span">${Resource.msg('checkout.shipping.express', 'checkout', null)}</span></label>
             <div class="shipping-express-checkout-buttons">
