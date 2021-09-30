@@ -100,7 +100,8 @@ function loadAmazonButton() {
             if(applePayLength == 1){
                 $('.shipping-paypal-btn img').css('height', '19px');
                 $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "28px" });
-        }
+                $(".gpay-button-fill > .gpay-button.white, .gpay-button-fill > .gpay-button.black").css({"padding":"12px 15% 6px"});
+            }
             $('.dw-apple-pay-button').css({ "margin-left": "0", "height": "20px" });
         } else if(colSize == 4){
             $('.dw-apple-pay-button').css("height", "34px");

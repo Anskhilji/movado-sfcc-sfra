@@ -1,0 +1,24 @@
+.cart {
+    &-page {
+        .checkout-continue {
+            .gpay-button {
+                border-radius: rem(0);
+            }
+
+            .row {
+                @include media-breakpoint-down(sm){
+                    margin-left: rem(-10);
+                    margin-right: rem(-10);
+                }
+
+
+                >div {
+                    @include media-breakpoint-down(sm){
+                        padding-left: rem(10);
+                        padding-right: rem(10);
+                    }
+                }
+            }
+        }
+    }
+}

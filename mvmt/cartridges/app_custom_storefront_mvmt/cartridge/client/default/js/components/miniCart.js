@@ -154,7 +154,7 @@ module.exports = function () {
             } else if(colSize == 4){
                 $('.dw-apple-pay-button').css("height", "34px");
                 $('.shipping-paypal-btn img').css('height', '24px');
-                $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "34px" });
+                $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "28px" });
             }else if (colSize == 6 && $(window).width() <= 742) {
                 $('.shipping-paypal-btn img').css('height', '18px');
                 $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "20px" });
