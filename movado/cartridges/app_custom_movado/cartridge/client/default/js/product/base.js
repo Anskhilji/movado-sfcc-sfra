@@ -1,5 +1,7 @@
 'use strict';
-var clydeWidget = require('link_clyde/getClydeWidget.js');
+if(Resources.IS_CLYDE_ENABLED) {
+    var clydeWidget = require('link_clyde/getClydeWidget.js');
+}
 
 /**
  * Retrieves the relevant pid value

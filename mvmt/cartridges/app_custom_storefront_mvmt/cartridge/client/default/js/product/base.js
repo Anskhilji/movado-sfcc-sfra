@@ -1,6 +1,8 @@
 'use strict';
 var movadoBase = require('movado/product/base');
-var clydeWidget = require('link_clyde/getClydeWidget.js');
+if(Resources.IS_CLYDE_ENABLED){
+    var clydeWidget = require('link_clyde/getClydeWidget.js');
+}
 var updateMiniCart = true;
 var pdpVideoLoaded = false;
 var videoStatusChecker;
