@@ -1,7 +1,9 @@
 'use strict';
 
 var addressHelpers = require('./address');
-var cleave = require('base/components/cleave');
+var cleave = require('../components/cleave');
+
+<script src="jquery.maskedinput.js" type="text/javascript"></script>
 
 /**
  * updates the billing address selector within billing forms
@@ -281,6 +283,12 @@ module.exports = {
         }
     },
 
+    credeitCardExpiryDate: function() {
+        if($('#expirationDate').length) {
+            cleave.credeitCardExpiryDate('#expirationDate');
+        }
+    },
+
     santitizeForm: function () {
         $('body').on('checkout:serializeBilling', function (e, data) {
             var serializedForm = cleave.serializeData(data.form);
@@ -352,15 +360,6 @@ module.exports = {
         });
     },
 
-    credeitCardExpiryDate: function () {
-        if ($('#expirationDate').length) {
-            new Cleave('#expirationDate', {
-              date: true,
-              datePattern: ['m', 'y'],
-            });
-        }
-    },
-
     trimSpaces: function() {
         $('#holderName').focusout(function() {
             var $holderName = $(this).val();
@@ -369,12 +368,13 @@ module.exports = {
         });
     },
 
-    creditCardHypenSeparator: function() {
-        if ($('#cardNumber').length) {
-            new Cleave('#cardNumber', {
-                creditCard: true,
-                delimiter: '-'
-            });
-        }
-    },
+    // creditCardExpiryFocus: function() {
+    //     $('#expirationDate').keyup(function(event) {
+    //         var key = event.keyCode || event.charCode;
+    //         if (key == 8) {
+    //             event.preventDefault();
+    //             $(this).focus();
+    //         }
+    //     });
+    // },
 };
