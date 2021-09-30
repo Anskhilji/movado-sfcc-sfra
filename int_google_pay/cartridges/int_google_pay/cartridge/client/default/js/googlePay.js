@@ -331,7 +331,7 @@ function onGooglePayLoaded(isMiniCart) {
         return;
     }
 
-    if (isIE() || isApple()) {
+    if (isIE() || window.ApplePaySession) {
         $('.google-pay-container').remove();
         $('#google-pay-container-mini-cart').remove();
         $('.google-pay-options').remove();
