@@ -28,10 +28,10 @@ const allowedCardNetworks = ["AMEX", "DISCOVER", "INTERAC", "JCB", "MASTERCARD",
  */
 const allowedCardAuthMethods = ["PAN_ONLY", "CRYPTOGRAM_3DS"];
 
-function isIE() {
+function isIEOrApple() {
     var ua = navigator.userAgent;
     /* MSIE used to detect old browsers and Trident used to newer ones*/
-    var is_ie = ua.indexOf("MSIE ") > -1 || ua.indexOf("Trident/") > -1;
+    var is_ie = ua.indexOf("MSIE ") > -1 || ua.indexOf("Trident/") > -1 || ua.indexOf("Safari/") > -1;
     return is_ie; 
 }
 
@@ -324,7 +324,7 @@ function onGooglePayLoaded(isMiniCart) {
         return;
     }
 
-    if (isIE()) {
+    if (isIEOrApple()) {
         $('.google-pay-container').remove();
         $('#google-pay-container-mini-cart').remove();
     }
