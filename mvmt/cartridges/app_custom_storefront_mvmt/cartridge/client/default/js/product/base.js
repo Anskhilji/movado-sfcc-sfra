@@ -101,7 +101,7 @@ function loadAmazonButton() {
             $('.dw-apple-pay-button').css("height", "34px");
             $('.shipping-paypal-btn img').css('height', '24px');
         }else if (colSize == 6 && $(window).width() <= 742) {
-            $('.shipping-paypal-btn img').css('height', '20px');
+            $('.shipping-paypal-btn img').css('height', '18px');
         }else if(colSize == 6 && applePayLength == 0){
             $('.shipping-paypal-btn img').css('height', '30px');
         }else if(colSize == 6) {
