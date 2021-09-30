@@ -30,7 +30,7 @@ function setMiniCartProductSummaryHeight () {
     }
 }
 function isIE() {
-    ua = navigator.userAgent;
+    var ua = navigator.userAgent;
     /* MSIE used to detect old browsers and Trident used to newer ones*/
     var is_ie = ua.indexOf("MSIE ") > -1 || ua.indexOf("Trident/") > -1;
     return is_ie; 
@@ -109,7 +109,8 @@ module.exports = function () {
                         checkoutLanguage: AmazonSitePreferences.AMAZON_CHECKOUT_LANGUAGE,
                         productType: AmazonSitePreferences.AMAZON_PRODUCT_TYPE,
                         sandbox: AmazonSitePreferences.AMAZON_SANDBOX_MODE,
-                        placement: 'Checkout'
+                        placement: 'Checkout',
+                        buttonColor: 'LightGray'
                     });
                 }
             },
