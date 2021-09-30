@@ -12,6 +12,7 @@ var adyenHelpers = require('*/cartridge/scripts/checkout/adyenHelpers');
 var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
 var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
 var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
+var checkoutLogger = require('app_custom_movado/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 var constants = require('*/cartridge/scripts/helpers/googlePayConstants');
 var googlePayHelper = require('*/cartridge/scripts/helpers/googlePayHelpers.js');
 var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
@@ -146,6 +147,7 @@ server.post('ProcessPayments',
 
         // Check to make sure there is a shipping address
         if (currentBasket.defaultShipment.shippingAddress === null) {
+            checkoutLogger.error('(GooglePay) -> ProcessPayments: Default shipping Address is null going to send error!');
             res.json({
                 error: true,
                 serverErrors: [Resource.msg('error.no.shipping.address', 'checkout', null)]
@@ -155,6 +157,7 @@ server.post('ProcessPayments',
 
         // Check to make sure billing address exists
         if (!currentBasket.billingAddress) {
+            checkoutLogger.error('(GooglePay) -> ProcessPayments: No basket found for current customer');
             res.json({
                 error: true,
                 serverErrors: [Resource.msg('error.no.billing.address', 'checkout', null)]
@@ -184,6 +187,7 @@ server.post('ProcessPayments',
         );
 
         if (calculatedPaymentTransaction.error) {
+            checkoutLogger.error('(GooglePay) -> ProcessPayments: basket calculation is failed and going to the error page');
             res.json({
                 fieldErrors: [],
                 serverErrors: [Resource.msg('error.technical', 'checkout', null)],
@@ -195,6 +199,7 @@ server.post('ProcessPayments',
         // Creates a new order.
         var order = COHelpers.createOrder(currentBasket);
         if (!order) {
+            checkoutLogger.error('(GooglePay) -> ProcessPayments: Order creation is failed and going to send error and order number is: ' + order.orderNo);
             res.json({
                 error: true,
                 errorMessage: Resource.msg('error.technical', 'checkout', null)
@@ -206,6 +211,7 @@ server.post('ProcessPayments',
         // Handles payment authorization
         var handlePaymentResult = COHelpers.handlePayments(order, order.orderNo);
         if (handlePaymentResult.error) {
+            checkoutLogger.error('(GooglePay) -> ProcessPayments: payment authorization is failed and going to send error and order number is: ' + order.orderNo);
             Transaction.wrap(function () { OrderMgr.failOrder(order, true); });
             res.json({
                 error: true,
@@ -231,7 +237,7 @@ server.post('ProcessPayments',
                 orderNumber,
                 paymentInstrument,
                 require('*/cartridge/scripts/hooks/fraudDetectionHook').checkoutDenied);
-            Logger.error('Unable to find Google Pay payment instrument for order.');
+            checkoutLogger.error('Unable to find Google Pay payment instrument for order.');
             checkoutLogger.error('(GooglePay) -> ProcessPayments: Riskified checkout create call failed for order:' + order.orderNo);
             return new Status(Status.ERROR);
         }
@@ -292,6 +298,7 @@ server.post('ProcessPayments',
         var orderPlacementStatus = adyenHelpers.placeOrder(order, fraudDetectionStatus);
 
         if (orderPlacementStatus.error) {
+            checkoutLogger.error('(GooglePay) -> ProcessPayments: Order placement is failed and going to the error page and order number is: ' + order.orderNo);
             var sendMail = true;
             var isJob = false;
             var refundResponse = hooksHelper(
