@@ -41,7 +41,7 @@ const tokenizationSpecification = {
     type: 'PAYMENT_GATEWAY',
     parameters: {
         'gateway': 'adyen',
-        'gatewayMerchantId': window.googlePayMerchantName
+        'gatewayMerchantId': window.Resources.GOOGLE_PAY_MERCHANT_NAME
     }
 };
 
@@ -117,7 +117,7 @@ function getGooglePaymentDataRequest() {
                     // @todo a merchant ID is available for a production environment after approval by Google
                     // See {@link https://developers.google.com/pay/api/web/guides/test-and-deploy/integration-checklist|Integration checklist}
                     // merchantId: '01234567890123456789',
-                    merchantName: window.googlePayMerchantName
+                    merchantName: window.Resources.GOOGLE_PAY_MERCHANT_NAME
                 };
                 paymentDataRequest.callbackIntents = ["PAYMENT_AUTHORIZATION"];
                 if (window.isGooglePayExpress) {
@@ -131,7 +131,7 @@ function getGooglePaymentDataRequest() {
 
 
                 if (window.googlePayEnvironment == 'PRODUCTION') {
-                    paymentDataRequest.merchantInfo.merchantId = window.googlePayMerchantID;
+                    paymentDataRequest.merchantInfo.merchantId = window.Resources.GOOGLE_PAY_MERCHANT_ACCOUNT;
                 }
                 resolve(paymentDataRequest);
 
@@ -363,12 +363,10 @@ function addGooglePayButton() {
             googlePayContainer[i].appendChild(button);
         }
     } else {
-        document.getElementById('google-pay-container-mini-cart').appendChild(button);
-    }
-
-    var $googlePayButton = $('#google-pay-container-mini-cart > .gpay-button-fill');
-    if ($googlePayButton.length > 1) {
-        $googlePayButton.first().remove();
+        var $googlePayButton = $('#google-pay-container-mini-cart > .gpay-button-fill');
+        if ($googlePayButton.length === 0) {
+            document.getElementById('google-pay-container-mini-cart').appendChild(button);
+        }
     }
 
 }
