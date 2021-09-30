@@ -1,6 +1,8 @@
 'use strict';
 var movadoBase = require('movado/product/base');
-var clydeWidget = require('link_clyde/getClydeWidget.js');
+if(Resources.IS_CLYDE_ENABLED){
+    var clydeWidget = require('link_clyde/getClydeWidget.js');
+}
 var updateMiniCart = true;
 var pdpVideoLoaded = false;
 var videoStatusChecker;
@@ -104,13 +106,15 @@ function loadAmazonButton() {
             $('.dw-apple-pay-button').css("height", "34px");
             $('.shipping-paypal-btn img').css('height', '24px');
             $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "34px" });
-        }else if (colSize == 6 && $(window).width() <= 742) {
+        } else if (colSize == 6 && $(window).width() <= 742) {
             $('.shipping-paypal-btn img').css('height', '18px');
             $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "20px" });
-        }else if(colSize == 6 && applePayLength == 0){
+        } else if (colSize == 6 && $(window).width() >= 1920 && isIE()){
+            $('.shipping-paypal-btn img').css('height', '19px');
+        } else if(colSize == 6 && applePayLength == 0){
             $('.shipping-paypal-btn img').css('height', '30px');
             $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "30px" });
-        }else if(colSize == 6) {
+        } else if(colSize == 6) {
             $('.shipping-paypal-btn img').css('height', '24px');
             $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "24px" });
         }

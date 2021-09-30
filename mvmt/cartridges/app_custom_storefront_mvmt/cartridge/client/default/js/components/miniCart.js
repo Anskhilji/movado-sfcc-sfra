@@ -158,10 +158,13 @@ module.exports = function () {
             }else if (colSize == 6 && $(window).width() <= 742) {
                 $('.shipping-paypal-btn img').css('height', '18px');
                 $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "20px" });
-            }else if(colSize == 6 && applePayLength == 0){
+            }else if (colSize == 6 && $(window).width() >= 1920 && isIE()){
+                $('.shipping-paypal-btn img').css('height', '19px');
+            }
+            else if (colSize == 6 && applePayLength == 0){
                 $('.shipping-paypal-btn img').css('height', '30px');
                 $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "30px" });
-            }else if(colSize == 6) {
+            }else if (colSize == 6) {
                 $('.shipping-paypal-btn img').css('height', '24px');
                 $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "24px" });
             }
