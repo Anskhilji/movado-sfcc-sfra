@@ -164,7 +164,8 @@ server.post('ProcessPayments',
 
         // Calculate the basket
         Transaction.wrap(function () {
-            basketCalculationHelpers.calculateTotals(currentBasket);
+            HookMgr.callHook('dw.order.calculateTax', 'calculateTax', currentBasket);
+            HookMgr.callHook('dw.order.calculate', 'calculate', currentBasket);
         });
 
         var processor = PaymentManager.getPaymentMethod(constants.GOOGLE_PAY_PAYMENT_METHOD).getPaymentProcessor();
@@ -312,6 +313,14 @@ server.post('ProcessPayments',
         Transaction.wrap(function () {
             Order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
         });
+
+        // Listrack Integeration
+        if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
+            var ltkSendOrder = require('*/cartridge/controllers/ltkSendOrder.js');
+            session.privacy.SendOrder = true;
+            session.privacy.OrderNumber = order.orderNo;
+            ltkSendOrder.SendPost();
+        }
 
         // SOM API call
         if ('SOMIntegrationEnabled' in Site.getCurrent().preferences.custom && Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {

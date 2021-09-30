@@ -188,7 +188,8 @@ function setShippingAndBillingAddress(currentBasket, selectedShippingMethod, shi
         companyName: shippingAddressData.companyName || '',
         address1: shippingAddressData.address1 || '',
         address2: shippingAddressData.address2 || '',
-        city: shippingAddressData.administrativeArea || '',
+        city: shippingAddressData.locality || '',
+        stateCode: shippingAddressData.administrativeArea,
         postalCode: shippingAddressData.postalCode || '',
         countryCode: shippingAddressData.countryCode || '',
         phone: shippingAddressData.phoneNumber || ''

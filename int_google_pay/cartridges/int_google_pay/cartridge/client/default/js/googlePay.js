@@ -196,7 +196,7 @@ function onPaymentAuthorized(paymentData) {
                         transactionState: 'ERROR',
                         error: {
                             intent: 'PAYMENT_AUTHORIZATION',
-                            message: data.error.errorText,
+                            message: data.error.errorText ? data.error.errorText : data.errorMessage,
                             reason: 'PAYMENT_DATA_INVALID'
                         }
                     });
