@@ -105,7 +105,7 @@ function loadAmazonButton() {
             $('.shipping-paypal-btn img').css('height', '24px');
             $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "34px" });
         }else if (colSize == 6 && $(window).width() <= 742) {
-            $('.shipping-paypal-btn img').css('height', '20px');
+            $('.shipping-paypal-btn img').css('height', '18px');
             $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "20px" });
         }else if(colSize == 6 && applePayLength == 0){
             $('.shipping-paypal-btn img').css('height', '30px');
