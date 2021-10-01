@@ -40,5 +40,5 @@ module.exports = {
         $(expirationDate).data('cleave', cleave);
     },
 
-    base: base
+    serializeData: base.serializeData
 };
