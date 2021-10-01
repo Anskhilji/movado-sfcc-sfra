@@ -43,13 +43,11 @@
     .cart-and-ipay {
 
       @include media-breakpoint-only(xs) {
-          padding-bottom: rem(26);
-  
-          .btn {
-              width: 99%;
-              margin: 1% auto;
-              display: block;
-          }
+        .btn {
+            width: 99%;
+            margin: 1% auto;
+            display: block;
+        }
       }
     }
 
@@ -69,7 +67,7 @@
       .google-pay-container {
          $gpay-padding : rem(24);
 
-        .gpay-button.black.plain {
+        .gpay-button.black {
            width: 100%;
            min-width: 100%;
            margin: 0 auto;
