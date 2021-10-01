@@ -1,6 +1,6 @@
 'use strict';
 
-var Cleave = require('cleave.js');
+var base = require('base/components/cleave');
 
 module.exports = {
     handleCreditCardNumber: function (cardFieldSelector, cardTypeSelector) {
@@ -32,11 +32,13 @@ module.exports = {
         $(cardFieldSelector).data('cleave', cleave);
     },
 
-    credeitCardExpiryDate: function (expirationDate) {
+    creditCardExpiryDate: function (expirationDate) {
         var cleave = new Cleave(expirationDate, {
             date: true,
             datePattern: ['m', 'y']
         });
         $(expirationDate).data('cleave', cleave);
     },
+
+    base: base
 };

@@ -3,8 +3,6 @@
 var addressHelpers = require('./address');
 var cleave = require('../components/cleave');
 
-<script src="jquery.maskedinput.js" type="text/javascript"></script>
-
 /**
  * updates the billing address selector within billing forms
  * @param {Object} order - the order model
@@ -283,9 +281,9 @@ module.exports = {
         }
     },
 
-    credeitCardExpiryDate: function() {
+    creditCardExpiryDate: function() {
         if($('#expirationDate').length) {
-            cleave.credeitCardExpiryDate('#expirationDate');
+            cleave.creditCardExpiryDate('#expirationDate');
         }
     },
 
@@ -367,14 +365,4 @@ module.exports = {
             $(this).val($holderName);
         });
     },
-
-    // creditCardExpiryFocus: function() {
-    //     $('#expirationDate').keyup(function(event) {
-    //         var key = event.keyCode || event.charCode;
-    //         if (key == 8) {
-    //             event.preventDefault();
-    //             $(this).focus();
-    //         }
-    //     });
-    // },
 };
