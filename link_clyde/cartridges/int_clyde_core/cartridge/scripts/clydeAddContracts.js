@@ -379,6 +379,26 @@ function addClydeContractSkuToLineItem(productLineItem, clydeSku) {
         productLineItem.custom.ClydeContractSku = clydeSku;
     });
 }
+
+function contractMappingAssociation(contractProductList, order) {
+    if (!empty(contractProductList)) {
+        var parsedContractProductList = JSON.parse(contractProductList);
+        var productLineItemsIterator = order.getAllProductLineItems().iterator();
+        var currentProductLineItem;
+        while (productLineItemsIterator.hasNext()) {
+            currentProductLineItem = productLineItemsIterator.next();
+            for (var i = 0; i < parsedContractProductList.length; i++) {
+                if (currentProductLineItem.productID === parsedContractProductList[i].clydeProductID) {
+                    addClydeContractSkuToLineItem(currentProductLineItem, parsedContractProductList[i].clydeSku);
+                    break;
+                }
+            }
+        }
+    }
+}
+
+
+
 /**
  * creates order custom attribue.
  * @param {Object} contractProductList - object with contract Product Lists.
@@ -417,6 +437,7 @@ function createOrderCustomAttr(contractProductList, order) {
                 order.custom.isContainClydeContract = isClydeProduct;
                 order.custom.clydeContractProductMapping = isClydeProduct ? JSON.stringify(contractjsonObj) : '';
             });
+            contractMappingAssociation(contractProductList, order);
         } catch (e) {
             Logger.error('Error occurred while parsing contract products list' + e);
         }
@@ -427,6 +448,7 @@ module.exports = {
     addContractsToCart: addContractsToCart,
     updateContracts: updateContracts,
     createOrderCustomAttr: createOrderCustomAttr,
-    addClydeContractSkuToLineItem: addClydeContractSkuToLineItem
+    addClydeContractSkuToLineItem: addClydeContractSkuToLineItem,
+    contractMappingAssociation: contractMappingAssociation
 };
 
