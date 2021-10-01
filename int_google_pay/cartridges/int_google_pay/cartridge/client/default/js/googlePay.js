@@ -328,6 +328,7 @@ function onGooglePayLoaded(isMiniCart) {
         $('.google-pay-container').remove();
         $('#google-pay-container-mini-cart').remove();
         $('.google-pay-options').remove();
+        $('.google-pay-column').remove();
         return;
     }
 

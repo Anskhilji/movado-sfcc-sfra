@@ -40,6 +40,19 @@
   
    &.pdp-obuk {
 
+    .cart-and-ipay {
+
+      @include media-breakpoint-only(xs) {
+          padding-bottom: rem(26);
+  
+          .btn {
+              width: 99%;
+              margin: 1% auto;
+              display: block;
+          }
+      }
+    }
+
       button.add-to-cart {
         color: $black;
         background: $pink-hot;
@@ -51,6 +64,41 @@
           padding: rem(10) rem(12) rem(10) rem(12);
         }
         
+      }
+
+      .google-pay-container {
+         $gpay-padding : rem(24);
+
+        .gpay-button.black.plain {
+           width: 100%;
+           min-width: 100%;
+           margin: 0 auto;
+           border-radius: rem(0);
+          
+           @include media-breakpoint-down(xs) {
+            width: calc(100% + #{$gpay-padding});
+            margin: 1% rem(-24);
+            margin-bottom: 0;
+           }
+
+           @include media-breakpoint-up(sm) {
+            width: 100%;
+            min-width: 45vw;
+            height: rem(42.44);
+            transform: translateX(-12px);
+          }
+
+          @include media-breakpoint-up(custom-md) {
+            width: rem(296);
+            min-width: rem(296);
+            height: rem(42.44);
+            padding: rem(10) rem(12) rem(10) rem(12);
+            transform: translateX(-12px);
+            border-radius: rem(0);
+          }
+
+        } 
+
       }
       
       .cart-and-ipay {

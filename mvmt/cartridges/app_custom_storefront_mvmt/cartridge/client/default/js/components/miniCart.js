@@ -148,14 +148,19 @@ module.exports = function () {
                 $('.paypal-mini-button').addClass('col-12');
                 if(applePayLength == 1){
                     $('.shipping-paypal-btn img').css('height', '19px');
-                    $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "28.5px" });
-                    $(".gpay-button-fill > .gpay-button.white, .gpay-button-fill > .gpay-button.black").css({"padding":"6px 15% 6px","margin-left":"-5px"});
+                    $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "28.5px","vertical-align":"middle" });
+                    $(".gpay-button-fill > .gpay-button.white, .gpay-button-fill > .gpay-button.black").css({"padding":"6px 15% 6px","margin-left":"-8px"});
                }
                 $('.dw-apple-pay-button').css({ "margin-left": "0", "height": "20px" });
             } else if(colSize == 4){
-                $('.dw-apple-pay-button').css("height", "34px");
-                $('.shipping-paypal-btn img').css('height', '18px');
-                $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "29px" });
+                $('.dw-apple-pay-button').css("height", "31px");
+                if(applePayLength == 0){
+                    $('.shipping-paypal-btn img').css('height', '22.2px');
+                }else{
+                    $('.shipping-paypal-btn img').css('height', '19px');
+                }
+                
+                $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "29px","vertical-align":"middle" });
                 $(".gpay-button-fill > .gpay-button.white, .gpay-button-fill > .gpay-button.black").css({"padding":"8px 15% 8px"});
             }else if (colSize == 6 && $(window).width() <= 742) {
                 $('.shipping-paypal-btn img').css('height', '18px');
