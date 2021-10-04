@@ -97,6 +97,16 @@
                     }
                     ]
                 }
+            },
+            {
+                "@type-id": "custom.feed.RiskifiedDecisionNotification",
+                "@supports-parallel-execution": "false",
+                "@supports-site-context": "true",
+                "@supports-organization-context": "false",
+                "description": "This step is used to update order with riskified decision notification.",
+                "module": "app_custom_feed/cartridge/scripts/RiskifiedDecisionNotification.js",
+                "function": "riskifiedDecisionNotification",
+                "transactional": "true"
             }
         ]
     }
