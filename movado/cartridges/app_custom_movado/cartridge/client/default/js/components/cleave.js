@@ -1,6 +1,6 @@
 'use strict';
 
-var base = require('base/components/cleave');
+var Cleave = require('cleave.js/src/Cleave');
 
 module.exports = {
     handleCreditCardNumber: function (cardFieldSelector, cardTypeSelector) {
@@ -40,5 +40,15 @@ module.exports = {
         $(expirationDate).data('cleave', cleave);
     },
 
-    serializeData: base.serializeData
+    serializeData: function (form) {
+        var serializedArray = form.serializeArray();
+
+        serializedArray.forEach(function (item) {
+            if (item.name.indexOf('cardNumber') > -1) {
+                item.value = $('#cardNumber').data('cleave').getRawValue(); // eslint-disable-line
+            }
+        });
+
+        return $.param(serializedArray);
+    }
 };
