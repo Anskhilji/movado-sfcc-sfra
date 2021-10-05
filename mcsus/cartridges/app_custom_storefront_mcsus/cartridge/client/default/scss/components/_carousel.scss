@@ -1,0 +1,148 @@
+.cs-carousel-wrapper {
+    margin-bottom: rem(40);
+    .carousel-title {
+        color: $grey14;
+        font-family: $font-bold;
+        font-size: rem(20);
+        font-weight: 500;
+        margin-bottom: rem(20);
+        letter-spacing: rem(2);
+        text-align: center;
+        line-height: rem(20);
+      }
+    .slick-track {
+        margin: 0;
+    }
+    .cs-carousel {
+        position: relative;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: rem(20);
+        margin-bottom: rem(30);
+    }
+    .bottom-section {
+        text-align: center;
+    }
+    .slick-slide {
+        margin: 0 rem(20);
+    }
+    .slick-list {
+        padding: 0 !important; // Overwrite inline style by slick plugin
+        margin: 0 rem(-20);
+    }
+    .slick-dots {
+        display: flex;
+        justify-content: center;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        margin: 0;
+        left: 0;
+        padding: 0;
+        li {
+            list-style: none;
+            margin-right: rem(5);
+        }
+        button {
+            height: rem(12);
+            width: rem(12);
+            border: 0;
+            border-radius: 50%;
+            background-color: $grey10;
+            font-size: 0;
+            padding: 0;
+            cursor: pointer;
+        }
+        .slick-active {
+            button {
+                background-color: $grey14;
+            }
+        }
+    }
+    .slick-arrow {
+        height: rem(50);
+        width: rem(50);
+        background-color: $grey12;
+        font-size: 0;
+        border: 0;
+        background-size: rem(15) rem(30);
+        background-repeat: no-repeat;
+        background-position: center;
+        display: inline-block;
+        padding: rem(5) rem(8);
+        cursor: pointer;
+        top: 28%;
+        position: absolute;
+        z-index: 1;
+        &.slick-prev {
+            background-image: url(../../images/icons/arrow_left.png);
+            left: rem(-15);
+        }
+        &.slick-next {
+            background-image: url(../../images/icons/arrow_right.png);
+            right: rem(-15);
+        }
+    }
+    .product-tile {
+        .tile-body {
+            .price {
+                float: none;
+            }
+        }
+    }
+}
+
+@include media-breakpoint-down(xs) {
+    .cs-carousel-wrapper {
+        .cs-carousel {
+            margin-left: rem(-10);
+            margin-right: rem(-10);
+        }
+        .slick-slide {
+            margin: 0 rem(5);
+        }
+        .slick-list {
+            margin: 0 rem(-5);
+        }
+    }
+}
+
+@include media-breakpoint-up(md) {
+  .cs-carousel-wrapper {
+    .carousel-title {
+      font-size: rem(26);
+			font-weight: 300;
+			line-height: rem(26);
+    }
+  }
+}
+
+@include media-breakpoint-up(lg) {
+    .cs-carousel-wrapper {
+        .carousel-title {
+          font-size: rem(36);
+					font-weight: 300;
+					line-height: rem(38);
+        }
+        .slick-slide {
+            margin: 0 rem(29);
+        }
+        .slick-list {
+            margin: 0 rem(-29);
+        }
+        .slick-arrow {
+            &.slick-prev {
+                left: rem(-25);
+            }
+            &.slick-next {
+                right: rem(-25);
+            }
+        }
+    }
+}
+.cs-carousel-wrapper {
+    .carousel-title-left-align {
+        text-align: left;
+    }
+}

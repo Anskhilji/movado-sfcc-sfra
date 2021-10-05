@@ -1,0 +1,44 @@
+.video-wrapper{
+    position: relative;
+    .video-button {
+        position: absolute;
+        top: 0;
+        align-items: center;
+        bottom: 0;
+        width: 100%;
+        display: flex;
+
+        picture {
+            position: absolute;
+            top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            max-width: 100%;
+            flex: 100%;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            margin: auto;
+
+            img {
+                width: 100%;
+            }
+        }
+        
+
+        .mod_button {
+            margin: 0 auto;
+            height: rem(82);
+            z-index: 0;
+            width: rem(82);
+            background-size: 100% auto;
+            background-repeat: no-repeat;
+            background-image: url('../images/icons/play_icon.png');
+        }
+    }
+    video{
+      width:100%;
+    }
+}

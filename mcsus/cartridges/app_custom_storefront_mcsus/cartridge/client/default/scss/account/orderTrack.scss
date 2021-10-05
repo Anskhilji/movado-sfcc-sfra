@@ -1,0 +1,64 @@
+@import "../variables";
+@import "../checkout/checkoutComponents";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins/breakpoints";
+@import "account";
+
+.section-label {
+    font-size: $receipt-font-size;
+    font-weight: bolder;
+}
+
+.my-account {
+    text-align: center;
+    margin-bottom: 0.938em;
+}
+
+.receipt {
+    .summary-section-label{
+        text-transform: uppercase;
+        font-size: rem(14);
+        letter-spacing: rem(1);
+        line-height: rem(17);
+    }
+    .summary-details {
+        font-size: rem(14);
+        margin-bottom: rem(16);
+        line-height: rem(17);
+        color: $grey-dark-1;
+        -webkit-text-fill-color: $grey-dark-1; 
+    }
+    .line-item-name {
+        text-transform: uppercase;
+        font-size: rem(16);
+        line-height: rem(19);
+        font-weight: 500;
+        letter-spacing: rem(2);
+        color: $black;
+    }
+    .line-item-divider {
+        display: none;
+    }
+    .product-line-item {
+        .align-items-start {
+            margin-left: rem(90);
+        }
+    }
+}
+
+.bonus-line-item-heading{
+    font-family: $font-primary;
+    font-size: rem(16); 
+    border-top: rem(1) solid $grey-transparent-7;
+    padding-top: rem(5);
+    margin-top: rem(5);
+}
+.bonus-item-cart{
+    border-bottom: 0.063em dashed $grey-transparent-7;
+    margin-top: rem(10);
+    padding-top: rem(10);
+}
+
+.bonus-item-cart:last-child{
+    border-bottom: none;
+}

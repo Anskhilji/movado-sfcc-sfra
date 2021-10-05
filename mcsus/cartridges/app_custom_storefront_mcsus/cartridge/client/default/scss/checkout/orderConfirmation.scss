@@ -1,0 +1,81 @@
+@import "./../variables";
+@import "./../mixins";
+@import "bootstrap/scss/mixins/breakpoints";
+@import "bootstrap/scss/variables";
+
+.receipt {
+  max-width: rem(990);
+  margin-bottom:rem(40);
+  .order-product-summary{
+     .leading-lines {
+    display:none;
+  }
+}
+
+}
+.order-thank-you-email-msg {
+  font-family: $font-book;
+  font-size: rem(14);
+  letter-spacing: rem(1);
+  font-weight: 500;
+  @include media-breakpoint-up(md) {
+    font-size: rem(15);
+  }
+  @include media-breakpoint-up(lg) {
+    font-size: rem(16);
+  }
+}
+.confirmation-hero-banner {
+  position: relative;
+    max-width: rem(1300);
+    width: 100%;
+    margin: 0 auto;
+  img {
+    width: 100%;
+  }
+  .content-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    @include translate(-50%, -50%);
+  }
+}
+.summary-section-label{
+  font-weight: 500;
+}
+
+.card-information{
+  padding-left: 0;
+  li{
+    padding-left: 0;
+    list-style: none;
+    display: block;
+     span{
+      display: block;
+      line-height: rem(24);
+     }
+
+  }
+}
+.grand-total{
+   span{
+     font-weight: 700;
+     font-size: rem(18);
+   }
+}
+.checkout-order-total-summary{
+  box-shadow: none;
+  border: none;
+  border-radius:unset;
+}
+.order-summary-title{
+  h5{
+    font-size: rem(16);
+    font-family: $font-medium;
+    font-weight: 500;
+    letter-spacing: rem(2);
+  }
+  .order-item-quantity{
+    font-size: rem(16);
+  }
+}

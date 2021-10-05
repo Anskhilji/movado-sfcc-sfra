@@ -1,0 +1,53 @@
+.country-selector-wrapper {
+  select {
+    outline: 0;
+    border: 0;
+    appearance: none;
+    background-color: $white;
+    background-image: url(../../images/icons/arrow_down.png);
+    background-repeat: no-repeat;
+    background-size: rem(15);
+    background-position: right;
+    padding-right: rem(25);
+    letter-spacing: rem(2);
+    font-family: $font-book;
+    font-size: rem(14);
+    font-weight: 300;
+    letter-spacing: rem(1);
+    &::-ms-expand {
+      display: none;
+    }
+  }
+}
+
+.main-menu .country-selector-mobile {
+  padding: rem(7) rem(15);
+  border-bottom: none;
+  .country-selector-wrapper {
+    border: 1px solid $grey14;
+    border-radius: rem(3);
+    padding: 0 rem(12);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    select {
+      flex: 0 1 90%;
+      padding: rem(10) 0;
+    }
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  .country-selector-wrapper {
+    margin-left: rem(30);
+    select {
+      font-family: $font-medium;
+      font-size: rem(16);
+      font-weight: 500;
+      letter-spacing: rem(2);
+    }
+  }
+  .country-selector-mobile {
+    display: none;
+  }
+}

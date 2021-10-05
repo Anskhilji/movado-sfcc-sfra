@@ -1,0 +1,201 @@
+@import "../variables";
+@import "../mixins";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins/breakpoints";
+@import "../components/formFields";
+
+.account-image {
+    background-image: url(../../images/account.jpg);
+    background-position-y: 40%;
+}
+
+.card-footer > a {
+    color: $primary;
+    text-decoration: underline;
+}
+
+.card-header > a {
+    color: $primary;
+    float: right;
+    text-decoration: underline;
+}
+
+.card-info-group {
+    p {
+        margin-bottom: 0;
+    }
+
+    div {
+        margin-bottom: 1rem;
+    }
+
+    div:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.order-history-control,
+.order-history {
+    h4 {
+        font-weight: bold;
+        margin-top: 0.5rem;
+    }
+}
+
+.dashboard-order-card-image {
+    width: 7rem;
+    padding-right: 1rem;
+}
+
+.dashboard-order-card-footer-columns:last-child {
+    text-align: right;
+}
+
+.dashboard-order-card-footer-value {
+    font-weight: bold;
+    font-size: 1rem;
+}
+.account-pages{
+  margin-bottom: rem(40);
+  @include media-breakpoint-down(sm){
+      padding-top:rem(15);
+  }
+  .card-header {
+      border-bottom: 1px solid $grey3;
+      padding: rem(12) rem(20) rem(7) rem(20);
+      h3,
+      h4{
+          text-transform: uppercase;
+          @include headline;
+          &.pull-left{
+            max-width:90%;
+            @include media-breakpoint-up(lg){
+              font-size: rem(20);
+            }
+          }
+      }
+      a.pull-right{
+        font-size: rem(14);
+      }
+  }
+  .card-body.form-control-label{
+      @include formlabel;
+  }
+  .card {
+      border: 1px solid $grey3;
+      @include boxShadow(0, 2px, 2px, 0, $grey-transparent-7);
+      .line-item-header{
+        margin-bottom: 0;
+      }
+      .remove-btn-lg{
+          background: none;
+          border: 0;
+          padding: 0;
+          span{
+              font-size: rem(26);
+              line-height: rem(26);
+          }
+      }
+      .wishlist-hide{
+          margin-left: rem(10);
+          margin-bottom: rem(5);
+      }
+      .add-to-cart{
+          margin-left: rem(10);
+          margin-bottom: rem(10);
+      }
+      .card-body{
+          .account-wishlist-item {
+            padding: rem(15);
+            .remove-from-wishlist {
+              float: right;
+              background: no-repeat;
+              border: none;
+              padding: 0;
+              vertical-align: middle;
+              font-size: rem(24);
+              font-weight: 300;
+              font-family: $font-medium;
+              line-height: rem(25);
+            }
+            .account-wl-image{
+              @include media-breakpoint-down(sm){
+                padding-left:0;
+                padding-right:0;
+              }
+            }
+          }
+          dt,.field-label{
+            color: $grey14;
+            font-size: rem(14);
+            font-family: $font-medium;
+          }
+          dd,.field-value{
+            color: $grey-dark-1;
+            line-height: rem(21);
+            font-size: rem(14);
+          }
+          & > div{
+            div{
+              font-size: rem(14);
+              color: $grey-dark-1;
+              &.dashboard-cards-block-title{
+                font-family: $font-medium;
+                font-weight: 500;
+                color:$grey14;
+              }
+            }
+          }
+          .line-item-name {
+            text-transform: uppercase;
+            color: $grey14;
+            @include headline;
+          }
+          .disabled .custom-control-label{
+            text-transform: none;
+          }
+      }
+      .card-footer {
+          border-top: 1px solid $grey3;
+          &.no-card-body{
+            border-top:none;
+          }
+          .card-link{
+              font-size: rem(14);
+          }
+          .field-label{
+            color: $grey14;
+            font-size: rem(14);
+            font-family: $font-medium;
+          }
+          .field-value{
+            color: $grey-dark-1;
+            line-height: rem(21);
+            font-size: rem(14);
+          }
+      }
+  }
+  .product-card-price{
+      .line-item-price-info{
+          margin-bottom: 0;
+      }
+      .price .value{
+          @include headline(18);
+          line-height: rem(22);
+          color: $black;
+
+      }
+  }
+  .my-account a{
+      text-decoration: underline;
+  }
+  .wl-social-sharing{
+    margin-bottom: rem(5);
+    .share-icons{
+      margin:rem(5);
+    }
+    .wl-social-sharing-text{
+      font-size: rem(14);
+    }
+  }
+}

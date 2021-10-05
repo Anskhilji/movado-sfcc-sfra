@@ -1,0 +1,86 @@
+@import "variables";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins/breakpoints";
+@import "components/formFields";
+@import "mixins";
+
+.login-page {
+    margin-top: 1em;
+
+    .login-form-nav {
+        margin-bottom: 1.25em;
+    }
+
+    .privacy-policy{
+        width:100%;
+        a{
+           text-decoration: underline;
+           display:block;
+           text-align: center;
+        }
+    }
+
+    .login {
+        margin-bottom: 0.938em;
+
+        .error-message-form {
+            padding: 0.625em;
+            background-color: $danger;
+            color: $state-danger-text;
+            border-radius: 0.188em;
+        }
+    }
+}
+
+.registration-page {
+    .privacy-policy {
+        margin-top: 1rem;
+    }
+}
+
+
+
+.equal-height .card {
+    width: 100%;
+}
+
+.login-form-nav{
+    form.login,form.registration{
+        margin-top: rem(16);
+    }
+    .hidden-xs-down{
+        text-decoration: underline;
+        font-size: rem(14);
+        font-family: $font-medium;
+    }
+    .privacy-policy{
+        margin-top: rem(16);
+        font-family: $font-medium;
+    }
+    .add-to-email-list {
+        text-transform: none;
+	}
+}
+.login-page{
+    .card{
+        @include boxShadow(0, 2px, 2px, 0, $grey-transparent-7);
+        align-self: self-start;
+    }
+    input[placeholder],label{
+        font-family: $font-medium;
+    }
+}
+.alert.alert-danger.alert-custom{
+    background-color: transparent;
+    border-color:$grey3;
+    color: $dark-red;
+}
+
+  .track-order-header-description {
+    & a {
+	text-decoration: underline;
+    font-size: rem(13);
+    font-family: $font-medium;
+	
+    }
+  }

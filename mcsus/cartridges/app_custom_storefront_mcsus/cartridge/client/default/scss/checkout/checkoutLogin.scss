@@ -1,0 +1,35 @@
+@import "../variables";
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins/breakpoints";
+@import "../components/formFields";
+@import "../mixins";
+
+.login-oauth {
+    margin-top: 1rem;
+}
+
+.total-items-label {
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+}
+
+.total-price {
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+}
+.checkout-page{
+    padding-top: rem(85);
+    .card{
+        @include boxShadow(0, 2px, 2px, 0, $grey-transparent-7);
+        align-self: self-start;
+    }
+    input[placeholder],label{
+        font-family: $font-medium;
+    }
+    .hidden-xs-down{
+        text-decoration: underline;
+        font-size: rem(14);
+        font-family: $font-medium;
+    }
+}

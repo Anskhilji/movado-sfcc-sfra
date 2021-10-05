@@ -1,0 +1,60 @@
+@import "~base/variables";
+@import "bootstrap/scss/mixins/breakpoints";
+@import "bootstrap/scss/variables";
+
+.dw-apple-pay-button.apple-pay-cart,
+.dw-apple-pay-button.apple-pay-cart:hover {
+    padding: rem(8) rem(16);
+    margin: auto;
+    border-radius: 0;
+}
+
+.checkout-and-applepay .btn {
+    margin: 1%;
+}
+
+.checkout-continue .checkout-and-applepay {
+
+    @include media-breakpoint-only(xs) {
+        padding: 0 $grid-gutter-width / 2 1.625em;
+    }
+}
+
+.dw-apple-pay-button.apple-pay-pdp,
+.dw-apple-pay-button.apple-pay-pdp:hover {
+    padding: rem(6) rem(12);
+    flex-basis: 0;
+    flex-grow: 0;
+    max-width: 100%;
+    margin: auto 0;
+    border-radius: 0;
+}
+
+isapplepay.btn {
+    display: none !important;
+}
+
+.add-to-cart,
+.add-to-cart-global {
+    flex-basis: 0;
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    @include media-breakpoint-down(xs) {
+        max-width: 100%;
+    }
+}
+
+.cart-and-ipay {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.applepay-tab-wrapper {
+    display: none;
+}
+
+body.apple-pay-enabled .applepay-tab-wrapper {
+    display: block;
+}

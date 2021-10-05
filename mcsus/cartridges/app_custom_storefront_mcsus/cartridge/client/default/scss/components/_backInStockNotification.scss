@@ -1,0 +1,160 @@
+/*
+Font family and minor adjustments have been made in _backInStockNotification SCSS of each site
+*/
+.back-in-stock-notification {
+
+    &-button {
+        position: absolute;
+        right: rem(15);
+        background: transparent;
+        border: none;
+        height: rem(45);
+        width: rem(67);
+        color: $cerulean;
+        font-size: rem(14);
+        font-weight: 500;
+        letter-spacing: rem(1);
+        line-height: rem(18);
+        text-align: right;
+        display: none;
+        text-transform: uppercase;
+        margin-right: rem(15);
+
+
+        &:hover {
+            background: transparent;
+            border: none;
+            outline: none;
+        }
+
+        &:focus {
+            background: transparent;
+            border: none;
+            outline: none;
+        }
+    }
+
+    &-confirmation-copy {
+        height: rem(20);
+        width: rem(320);
+        color: $granite-gray;
+        font-size: rem(13);
+        font-weight: 300;
+        letter-spacing: rem(0.5);
+        line-height: rem(17);
+        margin-left: rem(12.5);
+        text-align: left;
+    }
+
+    &-email {
+        width: 100%;
+        border-radius: 0;
+        border: rem(1) solid $black;
+        height: rem(45);
+        padding-left: rem(15);
+        padding-right: rem(97);
+        background: transparent;
+
+        &:focus {
+            outline: $black;
+        }
+
+        &:-ms-clear {
+            display: none;
+        }
+    }
+
+    &-email-notification-copy {
+        height: rem(18);
+        color: $black;
+        font-size: rem(14);
+        font-weight: 300;
+        letter-spacing: rem(1.2);
+        line-height: rem(18);
+        margin-bottom: rem(12);
+        text-align: left;
+    }
+
+    &-form {
+        display: flex;
+        position: relative;
+    }
+
+    &-marketing-container {
+        display: flex;
+        margin-top: rem(15);
+
+        .checkmark {
+            height: rem(13);
+            position: absolute;
+            width: rem(13);
+            content: "";
+            margin-top: rem(3);
+            left: rem(14.5);
+
+            &:after {
+                height: rem(13);
+                position: absolute;
+                left: 0;
+                width: rem(13);
+                background-color: $white;
+                border: solid $black rem(1);
+                content: "";
+            }
+        }
+
+        input {
+            height: rem(20);
+            opacity: 0;
+            z-index: 1;
+
+            &:checked {
+                ~.checkmark {
+                    background-color: $black;
+
+                    &:after {
+                        border-width: 0 rem(3) rem(3) 0;
+                        -webkit-transform: rotate(45deg);
+                        -ms-transform: rotate(45deg);
+                        transform: rotate(45deg);
+                        border: solid $white;
+                        border-width: 0 rem(1) rem(1) 0;
+                        height: 10px;
+                        left: rem(4);
+                        width: rem(5);
+                        background-color: $black;
+                    }
+                }
+
+            }
+        }
+    }
+
+    &-container-success {
+        display: flex;
+        margin-bottom: rem(10);
+
+        p {
+            color: $apple;
+            font-size: rem(14);
+            font-weight: 500;
+            letter-spacing: rem(0.26);
+            line-height: rem(24);
+            margin-bottom: 0;
+            text-align: left;
+            margin-left: rem(5);
+        }
+
+        img {
+            height: rem(20.83);
+            margin-top: rem(2.9);
+        }
+    }
+
+    &-invalid-email, &-technical-error, &-already-subscribed {
+        text-align: left;
+        color: $red;
+        margin-top: rem(5);
+    }
+
+}
