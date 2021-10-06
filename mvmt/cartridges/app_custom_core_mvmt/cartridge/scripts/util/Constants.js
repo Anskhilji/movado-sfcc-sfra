@@ -5,6 +5,7 @@ exports.NOT_AVAILABILITY_STATUS = 'NOT_AVAILABLE';
 exports.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR = ' - ';
 exports.MM_UNIT='MM';
 exports.MVMT_CHECKOUT_CAMPAIGN_NAME='Checkout';
+exports.WATCHES_CATEGORY='watches';
 exports.US_COUNTRY_CODE='US';
 exports.DE_COUNTRY_CODE='DE';
 exports.RAKUTEN_COOKIE_NAME='rmStoreGateway';

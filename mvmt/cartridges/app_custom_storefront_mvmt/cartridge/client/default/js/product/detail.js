@@ -192,13 +192,19 @@ module.exports = {
         function mobileCartButton () {
             var windowWidth = $(window).width();
 
-            if (windowWidth < 768) {
+                if (windowWidth < 768) {
 
-                $(window).on('scroll', function(e) {
-                    if ($(window).scrollTop() > 300) {
-                        $('.add-to-cart').addClass('mobileBtn');
-                    }
-                });
+                    $(window).on('scroll', function (e) {
+                        if ($(window).scrollTop() > 300) {
+                            $('.add-to-cart').addClass('mobileBtn');
+                        }
+                        var bottomNavigationHeader = $('.bottom-navigation-header').outerHeight() || 0;
+                        if (!$('.bottom-navigation-header').is(':visible')) {
+                            bottomNavigationHeader = 0;
+                            $('.prices-add-to-cart-actions').css('margin-bottom', bottomNavigationHeader + 'px');
+                        }
+                        $('.add-cart-bottom-navigation').css('margin-bottom', bottomNavigationHeader + 'px');
+                    });
             } else {
                 $('.add-to-cart').removeClass('mobileBtn');
             }
@@ -341,25 +347,5 @@ module.exports = {
         });
     },
 
-    updatePrice: function () {
-        $(document).on('click', '.upsell_input', function() {
-            var upselprice = $(this).siblings('.upsell_wrapper-inner').find('.sales .value').attr('content');
-            var currentPrice = $('.product-price-mobile .sales .value').attr('content');
-            var updatedPrice;
-            var updatedText;
-            if ($(this).is(':checked')) {
-                updatedPrice = parseFloat(currentPrice) + parseFloat(upselprice);
-            } else {
-                updatedPrice  = parseFloat(currentPrice) - parseFloat(upselprice);
-            }
-
-            if (updatedPrice && !isNaN(updatedPrice)) {
-                $('.product-price-mobile .sales .value').each(function() {
-                    updatedText = $(this).text().replace(/(\d+.+|\d+)|(\d+[.,]\d+|\d+)/g, updatedPrice.toFixed(2));
-                    $(this).text(updatedText).attr('content', updatedPrice);
-                });
-            }
-        });
-    },
     base: base
 };

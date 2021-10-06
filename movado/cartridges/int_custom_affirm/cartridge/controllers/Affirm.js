@@ -92,11 +92,27 @@ server.replace(
                 somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
             }
         }
+		/**~    
+         * Custom Start: Clyde Integration
+         */
+         if (Site.current.preferences.custom.isClydeEnabled) {
+            var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
+            Transaction.wrap(function () {
+                order.custom.isContainClydeContract = false;
+                order.custom.clydeContractProductMapping = '';
+            });
+            var contractProductList = currentBasket.custom.clydeContractProductList || false;
+            addClydeContract.createOrderCustomAttr(contractProductList, order);
+        }
+		/**
+		 * Custom: End
+		 */
 
         COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
         if (!empty(currentBasket.custom.smartGiftTrackingCode)) {
             SmartGiftHelper.sendSmartGiftDetails(currentBasket.custom.smartGiftTrackingCode, order.orderNo);
         }
+        
         //set custom attirbute in session to avoid order confirmation page reload
         session.custom.orderJustPlaced = true;
         var URLUtils = require('dw/web/URLUtils');

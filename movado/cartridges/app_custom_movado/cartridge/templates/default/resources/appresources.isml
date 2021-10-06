@@ -22,4 +22,16 @@
         window.AmazonURLs = ${amazonURLs};
         window.AmazonSitePreferences = ${amazonSitePreferences};
     }());
+
+    <iscomment> Custom Start: Clyde Integration </iscomment>
+
+    <isif condition="${sitePreferences.isClydeEnabled}">
+        <isset name="clydeResourceHelper" value="${require('*/cartridge/scripts/util/resource')}" scope="page" />
+        (function(){
+            window.ClydeSitePreferences = <isprint value="${JSON.stringify(clydeResourceHelper.getClydePreferences())}"/>;
+        }());
+    </isif>
+    
+    <iscomment> Custom End </iscomment>
+    
 </script>

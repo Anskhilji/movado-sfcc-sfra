@@ -1124,6 +1124,9 @@
                 font-size: rem(28);
                 letter-spacing: rem(3);
             }
+            @include media-breakpoint-up(md-down){
+                font-family: $font-futura-pt;
+            }
         }
 
         &-price-rating {
@@ -1176,10 +1179,62 @@
                 width: 100%;
                 height: 24px;
             }
+
+        }
+    }
+    .show-cart-button-below-price {
+        .prices-add-to-cart-actions-top {
+            position: relative;
+            background-color: transparent;
+
+            @include media-breakpoint-up(md-down) {
+                display: none;
+            }
+
+            button.add-to-cart {
+                
+                    width: 94.64%;
+                    height: rem(45);
+                    line-height: 0.75;
+                    border-radius: rem(3);
+                    margin-top: rem(4);
+                    margin-bottom: rem(4);
+                    justify-content: center;
+            }
+
+            &.mobileBtn.btn-primary {
+                @include media-breakpoint-down(xss) {
+                    display: block;
+                    width: 94.64%;
+                    height: rem(45);
+                    line-height: 0.75;
+                    border-radius: rem(3);
+                    margin-top: rem(4);
+                    margin-bottom: rem(4);
+                    justify-content: center;
+                }
+            }
+
+            .cart-and-ipay {
+                @include media-breakpoint-down(sm) {
+                   margin-bottom: 0;
+               }
+           }
+
+            .sales {
+                display: none;
+            }
         }
     }
 
     .prices-add-to-cart-actions {
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+        z-index: 2;
+        padding-right: rem(0);
+        padding-left: rem(0);
+        left: rem(0);
 
         .cta-add-to-cart {
             @include media-breakpoint-down(lg) {
@@ -1188,14 +1243,25 @@
             }
         }
 
-        @include media-breakpoint-up(sm) {
+        .cart-and-ipay {
+             @include media-breakpoint-down(sm) {
+                margin-bottom: 0;
+            }
+        }
+        
+        @include media-breakpoint-down(sm) {
             position: fixed;
-            padding: 0;
+            bottom: 0;
+        }
+
+        @include media-breakpoint-up(sm) {
+            margin-bottom: rem(-20);
         }
 
         @include media-breakpoint-up(md-down) {
             position: static;
             padding: 0 rem(15);
+            margin-bottom: 0;
         }
     
         .content {
@@ -1210,11 +1276,8 @@
     .cart-and-ipay {
         display: block !important;
 
-        @include media-breakpoint-down(md-down) {
-            margin-bottom: 0;
-        }
-
         .add-to-cart, .add-to-cart-mvmt {
+           
             display: inline-block;
             text-align: center;
             text-transform: uppercase;
@@ -1231,13 +1294,18 @@
             transition: all .4s;
             height: rem(60);
 
+            .btn-primary {
+                @include media-breakpoint-down(sm) {
+                    width: 100%;
+                }
+            }
 
             @include media-breakpoint-up(md-down) {
                 position: relative;
                 font-size: rem(15);
-                padding: rem(22) 1.75rem;
+                padding: rem(22) rem(28);
             }
-
+                       
             &:hover {
                 background: $gossamer;
                 border-color: $gossamer;
@@ -1262,6 +1330,7 @@
             height: rem(60);
 
             @include media-breakpoint-up(md-down) {
+              
                 border-radius: rem(5);
             }
         }
@@ -1277,6 +1346,31 @@
                 border-radius: rem(5);
                 height: rem(56);
             }
+
+            @include media-breakpoint-down(sm) {
+                display: none;
+            }
+
+        }
+    }
+
+    @include media-breakpoint-up(xss) {
+        .show-cart-button-desktop {
+            display: none;
+        }
+
+        .show-cart-button-mobile {
+            display: block;
+        }
+    }
+
+    @include media-breakpoint-up(md-down) {
+        .show-cart-button-desktop {
+            display: block;
+        }
+
+        .show-cart-button-mobile {
+            display: none;
         }
     }
 
@@ -1434,26 +1528,6 @@
                     opacity: 0;
                     z-index: 1;
                     cursor: pointer;
-
-                    &:checked ~ {
-
-                        .upsell_text {
-
-                            .upsell_text-add {
-                                display: none;
-                            }
-        
-                            .upsell_text-added {
-                                display: block;
-                                padding-left: rem(20);
-                                color: $white;
-                            }
-                        }
-
-                        .upsell_wrapper-inner {
-                            border-color: $light-green;
-                        }
-                    }
                 }
             }
 
@@ -1818,7 +1892,7 @@
     on top on bottom-navigation-header on PDP page
 */ 
         .add-cart-bottom-navigation {
-            bottom: rem(70);
+            bottom: rem(0);
         }
 
         .cart-and-ipay  {
@@ -2135,6 +2209,7 @@
     float: right;
     font-size: rem(11);
     letter-spacing: rem(3);
+  
 
     .price {
         color: $white;

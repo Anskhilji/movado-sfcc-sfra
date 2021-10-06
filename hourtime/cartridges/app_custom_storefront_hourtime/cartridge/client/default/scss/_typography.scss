@@ -1,5 +1,6 @@
 @font-face {
     font-family: "PTSans-Regular";
+    font-display: block;
     src: url('fonts/PTSans-Regular.ttf');src: url('fonts/PTSans-Regular.ttf?#iefix') format('embedded-opentype'),url('fonts/PTSans-Regular.ttf') format('ttf'),url('fonts/PTSans-Regular.ttf') format('ttf'),url('fonts/PTSans-Regular.ttf') format('truetype');
     font-style: normal;
     font-weight: 300;
@@ -7,6 +8,7 @@
 
 @font-face {
     font-family: "PTSans-Medium";
+    font-display: block;
     src: url('fonts/PTSans-Regular.ttf');src: url('fonts/PTSans-Regular.ttf?#iefix') format('embedded-opentype'),url('fonts/PTSans-Regular.ttf') format('ttf'),url('fonts/PTSans-Regular.ttf') format('ttf'),url('fonts/PTSans-Regular.ttf') format('truetype');
     font-style: normal;
     font-weight: 500;
@@ -14,6 +16,7 @@
 
 @font-face {
     font-family: "PTSans-Bold";
+    font-display: block;
     src: url('fonts/PTSans-Bold.ttf');src: url('fonts/PTSans-Bold.ttf?#iefix') format('embedded-opentype'),url('fonts/PTSans-Bold.ttf') format('ttf'),url('fonts/PTSans-Bold.ttf') format('ttf'),url('fonts/PTSans-Bold.ttf') format('truetype');
     font-style: normal;
     font-weight: 700;
