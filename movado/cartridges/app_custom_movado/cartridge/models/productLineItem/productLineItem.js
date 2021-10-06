@@ -1,7 +1,11 @@
 'use strict';
 
+var Site = require('dw/system/Site');
+
 var productDecorators = require('*/cartridge/models/product/decorators/index');
 var productLineItemDecorators = require('*/cartridge/models/productLineItem/decorators/index');
+
+var isClydeEnabled = !empty(Site.current.preferences.custom.isClydeEnabled) ? Site.current.preferences.custom.isClydeEnabled : false;
 
 /**
  * Decorate product with product line item information
@@ -41,7 +45,17 @@ module.exports = function productLineItem(product, apiProduct, options) {
     productLineItemDecorators.preOrderUUID(product, options.lineItem);
     productLineItemDecorators.discountBonusLineItems(product, options.lineItem.UUID);
     productLineItemDecorators.mgProductLineItemCutomAttr(product, options.lineItem);
-    
+
+    /**
+     * Custom Start:  Clyde Integration
+     */
+    if (isClydeEnabled) {
+        productLineItemDecorators.lineItemText(product, options.lineItem);
+    }
+    /**
+     * Custom End:
+     */
+
     Object.defineProperty(product, 'bonusProductText', {
         enumerable: true,
         value: !empty(apiProduct.custom.bonusProductText) ? apiProduct.custom.bonusProductText : ''

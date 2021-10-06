@@ -230,7 +230,8 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
         session.custom.klarnaRiskifiedFlag = '';
         return next();
     }
-
+    // Adding hook for technical cancel
+    hooksHelper('app.payment.adyen.cancelOrRefund', 'technicalCancel', order, require('*/cartridge/scripts/hooks/payment/adyenCancelSVC').technicalCancel);
     checkoutCustomHelpers.failOrderRisifiedCall(order, orderNumber, paymentInstrument);
     checkoutLogger.error('(Adyen) -> ShowConfirmation: Order is Failed due to payment result is not authorized and redirecting to the Checkout-Begin and stage is payment and order number: ' + orderNumber);
     session.custom.klarnaRiskifiedFlag = '';
