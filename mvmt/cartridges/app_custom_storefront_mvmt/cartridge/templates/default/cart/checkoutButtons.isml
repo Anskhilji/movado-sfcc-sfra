@@ -31,14 +31,14 @@
         <div class="row more-options">
             <div class="col-sm-12">
                 <a href="${URLUtils.https('AdyenExpressPaypal-ExpressCheckoutFromCart')}"
-                    class="btn btn-block checkout-btn paypal-btn mb-1 ${pdict.valid.error ? 'disabled' : ''}"
+                    class="btn btn-block checkout-btn paypal-btn mb-3 ${pdict.valid.error ? 'disabled' : ''}"
                     role="button" aria-pressed="true">
                     <isprint value="${pdict.paypalButtonImg}" encoding="off" />
                 </a>
             </div>
             <isif condition="${!empty(request.httpCookies['esw.location'])  &&  !empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US')}" >
                 <div class="col-12">
-                    <isapplepay class="apple-pay-cart col btn btn-block mt-sm-3 mb-3"></isapplepay>
+                    <isapplepay class="apple-pay-cart col btn btn-block mb-3"></isapplepay>
                 </div>
             </isif>
         </div>
@@ -56,13 +56,13 @@
     <div class="row more-options">
         <div class="col-sm-12">
             <a href="${URLUtils.https('AdyenExpressPaypal-ExpressCheckoutFromCart')}"
-                class="btn btn-block checkout-btn paypal-btn mb-1 ${pdict.valid.error ? 'disabled' : ''}" role="button"
+                class="btn btn-block checkout-btn paypal-btn mb-3 ${pdict.valid.error ? 'disabled' : ''}" role="button"
                 aria-pressed="true">
                 <isprint value="${pdict.paypalButtonImg}" encoding="off" />
             </a>
         </div>
         <div class="col-12">
-            <isapplepay class="apple-pay-cart col btn btn-block mb-1 mb-3"></isapplepay>
+            <isapplepay class="apple-pay-cart col btn btn-block mb-3"></isapplepay>
         </div>
     </div>
     <isset name="sitePreferences" value="${require('dw/system/Site').getCurrent().getPreferences().getCustom()}"
