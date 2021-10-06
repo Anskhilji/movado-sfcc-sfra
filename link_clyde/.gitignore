@@ -1,0 +1,7 @@
+node_modules
+dw.json
+package-lock.json
+.sfdx/**
+.vscode/**
+
+storefront-reference-architecture/**
