@@ -36,10 +36,15 @@ $('button[value="add-new-payment"]').on('click', function (e) {
 function getCardData(selectedCard) {
     var cardData = {};
     if (!selectedCard) {
+        var creditCardDate = creditCardDateValidation();
         cardData.number = $('#cardNumber').val();
         cardData.holderName = $('#holderName').val();
         cardData.expiryMonth = $('#expirationMonth').val();
-        cardData.expiryYear = $('#expirationYear').val();
+        if (creditCardDate) {
+            cardData.expiryYear = $('#expirationYear').val();
+        } else {
+            cardData.expiryYear = false;
+        }
         cardData.cvc = $('#securityCode').val();
     } else {
         cardData.cvc = $('.selected-payment #saved-payment-security-code').val();
@@ -52,6 +57,7 @@ function encryptData(cardData, options) {
     var encryptedDataValue;
     var cseInstance = adyen.createEncryption(options);
     var validationResult = cseInstance.validate(cardData);
+    validationResult =  customCardValidation(cardData,validationResult);
     $('#invalidCardDetails').hide();
     if (!validationResult.valid) {
         showValidation(validationResult);
@@ -62,6 +68,13 @@ function encryptData(cardData, options) {
     encryptedDataValue = cseInstance.encrypt(cardData);
     encryptedData.val(encryptedDataValue);
     return true;
+}
+function customCardValidation(cardData, validationResult) {
+    var nameRegex = new RegExp("^[a-z|A-Z]+(?: [a-z|A-Z]+)*$");
+    if (!nameRegex.test(cardData.holderName)){
+        validationResult.holderName=false;
+    }
+    return validationResult;
 }
 
 function showValidation(validationResult) {
@@ -76,10 +89,10 @@ function showValidation(validationResult) {
                     $('#cardNumber').addClass('is-invalid');
                     break;
                 case 'expiryMonth':
-                    $('#expirationMonth').addClass('is-invalid');
+                    $('#expirationDate').addClass('is-invalid');
                     break;
                 case 'expiryYear':
-                    $('#expirationYear').addClass('is-invalid');
+                    $('#expirationDate').addClass('is-invalid');
                     break;
                 case 'cvc':
                     $('#securityCode').addClass('is-invalid');
@@ -95,8 +108,7 @@ function showValidation(validationResult) {
 function clearValidations() {
     $('#holderName').removeClass('is-invalid');
     $('#cardNumber').removeClass('is-invalid');
-    $('#expirationMonth').removeClass('is-invalid');
-    $('#expirationYear').removeClass('is-invalid');
+    $('#expirationDate').removeClass('is-invalid');
     $('#securityCode').removeClass('is-invalid');
 }
 
@@ -107,3 +119,32 @@ function maskValue(value) {
     return '';
 }
 
+function creditCardDateValidation() {
+    var creditCardDate = $('#expirationDate').val().split('/');
+    var expdateRegex = new RegExp("^[[2-9]{1}]?([0-9]{1})$");
+    if (!expdateRegex.test(creditCardDate[1])){
+        $('#expirationDate').addClass('is-invalid');
+        return false;
+    } else {
+        return true;
+    }
+}
+
+
+
+$(document).ready(function(){
+    
+    $("input").change(function(){
+        var creditCardDate = $('#expirationDate').val().split('/');
+        $("#expirationMonth").val(parseInt(creditCardDate[0]));
+    });
+
+    $("input").change(function(){
+        var creditCardDate = $('#expirationDate').val().split('/');
+        var cuurentDate = new Date();
+        var currentYear = cuurentDate.getFullYear().toString();
+        var cruuentDate = currentYear.substring(0,2);
+        var selectedCreditCardYear = cruuentDate + creditCardDate[1];
+        $("#expirationYear").val(parseInt(selectedCreditCardYear));
+    });
+});
