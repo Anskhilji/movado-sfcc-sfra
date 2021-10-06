@@ -84,12 +84,15 @@
         .pdp-link {
             line-height: 1.2;
 			margin-bottom: 0.5rem;
+            font-size: rem(20);
             a {
                 font-size: rem(20);
                 text-decoration: none;
                 text-transform: uppercase;
                 @include headline;
                 line-height: rem(22);
+                @include button-headline;
+                font-size: rem(20);
                 @include media-breakpoint-down(md) {
                   font-size: rem(15);
                   letter-spacing: 1.76px;

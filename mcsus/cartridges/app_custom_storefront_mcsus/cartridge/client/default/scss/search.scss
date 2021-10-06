@@ -105,7 +105,7 @@
             margin-bottom: rem(10);
           }
           a {
-            font-size: .75rem;
+            font-size: rem(16);
             letter-spacing: 1.6px;
             font-weight: 300;
             text-transform: uppercase;
@@ -230,7 +230,7 @@
 	        padding: 0.25rem 1rem;
 	        cursor: pointer;
 	        text-transform: uppercase;
-          @include headline(18);
+          @include headline(16);
           line-height: rem(22);
 	    		&::after {
 	            display: block;

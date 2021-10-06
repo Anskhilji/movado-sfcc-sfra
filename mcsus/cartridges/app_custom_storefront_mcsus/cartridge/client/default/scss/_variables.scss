@@ -111,42 +111,9 @@ $svg-check: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org
 
 //font Families:
 $font-medium : "proxima-nova";
-$font-thin : "proxima-nova-t";
-$font-book : "FuturaStd-Book", Arial, sans-serif !default;
+$font-thin : "proxima-nova";
+$font-book : "proxima-nova";
 $font-bold :  "baskerville-display-pt";
 $font-primary: $font-book;
-
-
-
-@mixin font-medium {
-    font-family: "proxima-nova";
-    font-weight: 500;
-    font-display: auto;
-    font-style: normal;
-}
-
-@mixin font-bold {
-    font-family: "baskerville-display-pt";
-    font-weight: bold;
-    font-display: auto;
-    font-style: normal;
-}
-
-@mixin font-regular {
-    font-family: "proxima-nova-r";
-    font-weight: 400;
-    font-display: auto;
-    font-style: normal;
-}
-@mixin font-thin {
-    font-family: "proxima-nova-t";
-    font-weight: 100;
-    font-display: auto;
-    font-style: normal;
-}
-
-
-$font-regular : "proxima-nova-r";
-$font-primary: $font-book;
-
+$font-regular : "proxima-nova";
 $font-awesome: "FontAwesome";
