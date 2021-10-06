@@ -305,10 +305,12 @@ function Request(request, customer, session) {
         var isRakutenEnable = !empty(dw.system.Site.current.preferences.custom.isRakutenEnable) ? dw.system.Site.current.preferences.custom.isRakutenEnable : false;
         var isOneTrustEnabled = !empty(dw.system.Site.current.preferences.custom.oneTrustCookieEnabled) ? dw.system.Site.current.preferences.custom.oneTrustCookieEnabled : false;
         var Logger = require('dw/system/Logger');
+
         // Custom Start : Adding URL Cupon Logic
         var referralCouponHelper = require('*/cartridge/scripts/helpers/referralHelper');
         referralCouponHelper.addReferralCoupon(request);
         // Custom End: Adding URL Cupon Logic
+
         //Custom Start: Adding Rakuten cookies logic
         var Constants = require('*/cartridge/scripts/util/Constants');
         var rakutenCookiesHelper = require('*/cartridge/scripts/helpers/rakutenHelpers');
@@ -322,6 +324,7 @@ function Request(request, customer, session) {
             }
         }
         //Custom End
+
         if (!eswEnabled) {
             setCurrency(request, session);
         } else {
@@ -335,7 +338,7 @@ function Request(request, customer, session) {
                 if (!empty(countryCode)) {
                     session.custom.isWelcomeMat = true;
                     var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
-                   
+
                     var country = eswCustomHelper.getCustomCountryByCountryCode(countryCode);
                     if (!empty(country)) {
                         var language = country.lang[0].languageCode;

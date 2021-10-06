@@ -19,6 +19,7 @@ function Response(response) {
     this.cachePeriodUnit = null;
     this.personalized = false;
     this.renderings = [];
+
     var Constants = require('*/cartridge/scripts/util/Constants');
     var rakutenHelpers = require('*/cartridge/scripts/helpers/rakutenHelpers');
     var isRakutenEnable = !empty(dw.system.Site.current.preferences.custom.isRakutenEnable) ? dw.system.Site.current.preferences.custom.isRakutenEnable : false;

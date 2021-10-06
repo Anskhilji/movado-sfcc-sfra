@@ -77,7 +77,7 @@
   "dependencies": {
     "animate.css": "^3.7.2",
     "bootstrap": "4.1.1",
-    "cleave.js": "1.0.2",
+    "cleave.js": "1.6.0",
     "flag-icon-css": "^2.3.0",
     "font-awesome": "^4.6.3",
     "jquery": "^3.1.1",
@@ -122,7 +122,8 @@
     "page_designer": "./page_designer",
     "oliviaburton_redesign": "./oliviaburton_redesign",
     "custom_backinstock": "./int_custom_backinstock",
-    "omnichannel": "./omnichannel"
+    "omnichannel": "./omnichannel",
+    "link_clyde": "./link_clyde"
   },
   "jsAliases": {
     "base": "./storefront-reference-architecture/cartridges/app_storefront_base/cartridge/client/default/js",
@@ -141,6 +142,7 @@
     "oliviaburton_redesign": "./oliviaburton_redesign/cartridges/app_custom_ob_redesign/cartridge/client/default/js",
     "app_custom_page_designer": "./page_designer/cartridges/app_custom_page_designer/cartridge/client/default/js",
     "movad_redesign": "./movado_redesign/cartridges/app_custom_movado_redesign/cartridge/client/default/js",
+    "link_clyde": "./link_clyde/cartridges/int_clyde_sfra/cartridge/client/default/js",
     "hourtime": "./hourtime/cartridges/app_custom_storefront_hourtime/cartridge/client/default/js",
     "concord": "./concord/cartridges/app_custom_concord/cartridge/client/default/js",
     "ebel": "./ebel/cartridges/app_custom_ebel/cartridge/client/default/js",
