@@ -23,6 +23,7 @@ server.replace(
         var ABTestMgr = require('dw/campaign/ABTestMgr');
         var Locale = require('dw/util/Locale');
         var OrderMgr = require('dw/order/OrderMgr');
+        var Site = require('dw/system/Site');
         var Transaction = require('dw/system/Transaction');
 
         var OrderModel = require('*/cartridge/models/order');
@@ -99,6 +100,21 @@ server.replace(
                 }
             }
         }
+        /**~
+         * Custom Start: Clyde Integration
+         */
+         if (Site.getCurrent().preferences.custom.isClydeEnabled) {
+            var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
+            var contractProductList = req.querystring.clydeContractProductList;
+            addClydeContract.createOrderCustomAttr(contractProductList, order);
+        }
+        /**
+         * Custom: End
+         */
+
+        var YotpoIntegrationHelper = require('*/cartridge/scripts/common/integrationHelper.js');
+
+        var yotpoConversionTrackingData = YotpoIntegrationHelper.getConversionTrackingData(req, order, currentLocale);
 
         if (!req.currentCustomer.profile) {
             passwordForm = server.forms.getForm('newPasswords');
@@ -107,13 +123,15 @@ server.replace(
                 order: orderModel,
                 returningCustomer: false,
                 passwordForm: passwordForm,
-                reportingURLs: reportingURLs
+                reportingURLs: reportingURLs,
+                yotpoConversionTrackingData: yotpoConversionTrackingData
             });
         } else {
             res.render('checkout/confirmation/confirmation', {
                 order: orderModel,
                 returningCustomer: true,
-                reportingURLs: reportingURLs
+                reportingURLs: reportingURLs,
+                yotpoConversionTrackingData: yotpoConversionTrackingData
             });
         }
         req.session.raw.custom.orderID = req.querystring.ID; // eslint-disable-line no-param-reassign

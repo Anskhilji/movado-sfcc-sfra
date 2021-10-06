@@ -120,27 +120,6 @@ module.exports = {
             arrows: true,
         });
     },
-    updatePrice: function () {
-        $(document).on('click', '.upsell-input', function() {
-            var upselprice = $(this).siblings('.upsell-wrapper-inner').find('.sales .value').attr('content');
-            var currentPrice = $('.prices .sales .value').attr('content');
-            var updatedPrice;
-            var updatedText;
-            if ($(this).is(':checked')) {
-                updatedPrice = parseFloat(currentPrice) + parseFloat(upselprice);
-            } else {
-                updatedPrice  = parseFloat(currentPrice) - parseFloat(upselprice);
-            }
-
-            if (updatedPrice && !isNaN(updatedPrice)) {
-                $('.prices .sales .value').each(function() {
-                    updatedText = $(this).text().replace(/(\d+.+|\d+)|(\d+[.,]\d+|\d+)/g, updatedPrice.toFixed(2));
-                    $(this).text(updatedText).attr('content', updatedPrice);
-                });
-            }
-            updateKlarnaPayment(updatedPrice);
-        });
-    },
     sizeChart: function () {
         var $sizeChart = $('.size-chart-collapsible');
         $('.size-chart a').on('click', function (e) {
@@ -169,15 +148,7 @@ module.exports = {
 $( document ).ready(function() {
     refreshAffirmUI();
 });
-function updateKlarnaPayment(updatedPrice) {
-    if (typeof isklarnaPromoEnabled !== 'undefined' && isklarnaPromoEnabled) {
-        $('klarna-placement').attr('data-purchase_amount', updatedPrice * 100);
-        window.KlarnaOnsiteService = window.KlarnaOnsiteService || [];
-        window.KlarnaOnsiteService.push({
-            eventName: 'refresh-placements'
-        });
-    }
-}
+
 function refreshAffirmUI() {
     if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
         if (document.readyState === "complete") {
