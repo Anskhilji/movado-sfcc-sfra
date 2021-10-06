@@ -407,6 +407,45 @@ module.exports = function () {
     // Check if Is gift message is checked on cart load then show text area otherwise hide it.
     handleAddGiftCheckbox();
 
+    $('body').on('click', '.add-gift-message', function (e) {
+        e.preventDefault();
+        var $this = $(this);
+        var endPointURL = $this.attr('href');
+        var giftMessage = $this.parent().find('.gift-text').val();
+        var prodUUID = $this.data('product-uuid');
+
+        $this.parent().find('.gift-message-blank').hide();
+        $this.parent().find('.gift-message-error').hide();
+        if (!giftMessage) {
+            $this.parent().find('.gift-message-blank').show();
+            return false;
+        }
+
+        $.spinner().start();
+
+        $.ajax({
+            url: endPointURL,
+            method: 'POST',
+            data: {
+                giftMessage: giftMessage,
+                productUUID: prodUUID
+            },
+            success: function (data) {
+                $.spinner().stop();
+                if (data.result.error) {
+                    $this.parent().find('.gift-message-error').show();
+                    return false;
+                }
+                $this.prop('disabled', 'disabled').find('.saved-button').removeClass('d-none');
+                $this.parent().find('.gift-message-error').hide();
+                $this.find('.apply-button').addClass('d-none');
+            },
+            error: function (data) {
+            	$.spinner().stop();
+            }
+        });
+    });
+
     $('body').on('click', '.gift-check', function () {
         $(this).closest('.product-gift-wrap').find('.gift-message-wrapper, .character-limit').toggle(this.checked);
         if (!this.checked) {
