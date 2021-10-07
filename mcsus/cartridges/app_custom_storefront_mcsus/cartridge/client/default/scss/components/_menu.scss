@@ -368,5 +368,19 @@ $slide-out-animation: left 0.5s cubic-bezier(0, 1, 0.5, 1);
     text-align: left;
     width: 100%;
 }
+
+.main-menu.menu-toggleable-left {
+    &.in {
+        .mcs-show {
+            > .dropdown-menu {
+                left: 0;
+            }
+        }
+        
+        .dropdown-menu {
+            overflow-y: auto;
+        }
+    }
+}
     
    
