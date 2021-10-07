@@ -237,7 +237,14 @@ function getSearchQuery(queryStringVal) {
             searchQuery = { q: searchArray[1] };
         } else if ((queryString.indexOf('pid')) > -1) {
             searchArray = queryString.split('&');
-            searchArrayQuery = searchArray[0].split('=');
+            var productID;
+            for (var index = 0; index < searchArray.length; index++) {
+                if (searchArray[index].indexOf('pid=') > -1) {
+                    productID = searchArray[index];
+                    break;
+                }
+            }
+            searchArrayQuery = productID ? productID.split('=') : '';
             searchQuery = { pid: searchArrayQuery[1] };
         }
     } else if ((queryString.indexOf('pid')) > -1) {
