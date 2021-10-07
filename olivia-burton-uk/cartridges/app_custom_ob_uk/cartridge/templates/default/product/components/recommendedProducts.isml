@@ -5,11 +5,13 @@
         <div class="linked-head">
             <iscontentasset aid="style-with-text-configs" />
         </div>
-        <div class="recomended-products">
+        <div class="recomended-products" data-recomendation="true">
             <isloop items="${pdict.explicitRecommendations}" var="recommendation">
                 <isif condition="${recommendation != null}">
                     <div class="upsell-wrapper">
-                        <input type="checkbox" autocomplete="off" class="upsell-input" name="additionalProducts" value="${recommendation.id}">
+                        <input type="hidden" class="add-to-cart-url" value="${URLUtils.url('Cart-AddProduct')}">
+                        <button  class="upsell-input add-to-cart-recomendations" data-pid="${recommendation.id}" name="additionalProducts" value="${recommendation.id}">
+                        </button>
                         <div class="upsell-wrapper-inner">
                             <img class="upsell-image" alt="" src="${recommendation.images.tile150[0].url}"/>
                             
@@ -27,7 +29,6 @@
                         </div>
                         <div class="upsell-text">
                             <p class="upsell-text-add"><span class="upsell-text-add-icon"></span> ${Resource.msg('label.add.text', 'product', null)}</p>
-                            <p class="upsell-text-added"> <span class="upsell-text-added-checkmark"></span> ${Resource.msg('label.added', 'product', null)}</p>
                         </div>
                     </div>
                 </isif>

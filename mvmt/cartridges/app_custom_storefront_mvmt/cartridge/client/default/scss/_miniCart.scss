@@ -973,6 +973,7 @@
                         .shipping-paypal-btn {
                             display: flex;
                             position: relative;
+                            flex-wrap: wrap;
 
                             img {
                                 height: rem(30);
@@ -998,8 +999,8 @@
                             width: -webkit-fill-available;
                             text-align: center;
                             line-height: 0.1em;
-                            margin: rem(3) rem(0) rem(0) rem(5);
-                            height: rem(35);
+                            margin: rem(0) rem(5) rem(0) rem(5);
+                            height: rem(40);
                             padding: 0;
                         }
 
@@ -1375,4 +1376,8 @@
             }
         }
     }
+}
+
+.amazon-mini-button {
+    display: flex;
 }

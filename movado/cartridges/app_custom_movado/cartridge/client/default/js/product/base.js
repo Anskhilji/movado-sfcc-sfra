@@ -1,4 +1,7 @@
 'use strict';
+if(Resources.IS_CLYDE_ENABLED) {
+    var clydeWidget = require('link_clyde/getClydeWidget.js');
+}
 
 /**
  * Retrieves the relevant pid value
@@ -764,6 +767,7 @@ module.exports = {
                 childProducts: getChildProducts(),
                 quantity: getQuantitySelected($(this))
             };
+
             /**
              * Custom Start: Add to cart form for MVMT
              */
@@ -777,6 +781,16 @@ module.exports = {
             }
             /**
              *  Custom End
+             */
+
+            /**
+             * Custom Start: Clyde Integration
+             */
+            if (window.Resources && window.Resources.IS_CLYDE_ENABLED) {
+                form = clydeWidget.getSelectedClydeContract(form);
+            }
+            /**
+             * Custom end:
              */
             $productContainer.find('input[type="text"], textarea').filter('[required]')
             .each(function() {
