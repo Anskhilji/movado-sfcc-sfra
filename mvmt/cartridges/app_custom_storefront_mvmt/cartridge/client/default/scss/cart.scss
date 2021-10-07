@@ -201,7 +201,7 @@
                     font-family: $font-book;
                     font-size: rem(14);
                     letter-spacing: normal;
-
+                    margin: rem(5) rem(0) rem(5) rem(0);
                     @include media-breakpoint-down(xs) {
                         border: none;
                     }

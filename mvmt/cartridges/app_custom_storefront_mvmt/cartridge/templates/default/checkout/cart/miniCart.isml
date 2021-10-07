@@ -2,6 +2,8 @@
 <isset name="miniCart" value="${true}" scope="page" />
 <isset name="itemsLength" value="${empty(pdict.items.length) ? 0 : pdict.items.length}" scope="page"/>
 <isset name="orderLevelDiscountTotal" value="${pdict.totals.orderLevelDiscountTotal.value}" scope="page">
+<isset name="enableGiftMessage" value="${dw.system.Site.getCurrent().preferences.custom.enableGiftMessage}" scope="page"/>
+
 <isif condition="${!empty(pdict.reportingURLs)}">
     <isinclude template="reporting/reportingUrls" />
 </isif>
@@ -47,22 +49,25 @@
             </isif>
         </div>
     <isslot id="cs-mincart-top-slot" description="Static text slot on Mini Cart" context="global" />
-    <div class="gift-messages">
-        <div class="row gift-messages-wrapper">
-            <div class="col-12 d-flex justify-content-center">
-                <input name="giftbox" class="gift-messages-chekbox" type="checkbox">
-                <label for="gift-message-checkbox" class="gift-messages-label">This order includes a gift</label>
-                <a class="gift-messages-tooltip">Details</a>
+    <isif condition="${enableGiftMessage}">
+        <div class="gift-messages">
+            <div class="row gift-messages-wrapper">
+                <div class="col-12 d-flex justify-content-center">
+                    <input name="giftbox" class="gift-messages-chekbox" type="checkbox">
+                    <label for="gift-message-checkbox" class="gift-messages-label">This order includes a gift</label>
+                    <a class="gift-messages-tooltip">Details</a>
+                </div>
             </div>
-        </div>
-        <div class="row gift-messages-model">
-            <div class="col-12">
-                <div class="custom-tooltipsmart">
-                    <isslot id="gift-model-content-minicart" description="gift model content" context="global" />
+            <div class="row gift-messages-model">
+                <div class="col-12">
+                    <div class="custom-tooltipsmart">
+                        <isslot id="gift-model-content-minicart" description="gift model content" context="global" />
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </isif>
+
     <div class="product-summary">
         <isloop items="${items}" var="lineItem" status="loopStatus">
             <div class="row">
