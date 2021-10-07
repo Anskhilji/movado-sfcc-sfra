@@ -81,7 +81,7 @@ server.replace(
                 order.custom.abTestParticipationSegment = abTestParticipationSegments;
             }
             order.custom.userIPAddress = userIPAddress;
-            order.custom.isOrderCompleted = true;
+            order.custom.isOrderCompleted = false;
         });
 
         // Custom Start: Salesforce Order Management attributes.  Backup method - only executed if attributes are null (i.e., ORM exception after COPlaceOrder)

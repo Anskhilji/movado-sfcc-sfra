@@ -13,10 +13,12 @@ var OrderMgr = require('dw/order/OrderMgr');
 var Transaction = require('dw/system/Transaction');
 var Site = require('dw/system/Site');
 
+
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 var RCLogger = require('*/cartridge/scripts/riskified/util/RCLogger');
 var RCUtilities = require('*/cartridge/scripts/riskified/util/RCUtilities');
 var riskifiedResponseResult = require('*/cartridge/scripts/riskified/RiskifiedParseResponseResult');
+var decisionNotification = require('*/cartridge/scripts/helper/decisionNotification');
 
 
 
@@ -47,6 +49,7 @@ server.prepend('AnalysisNotificationEndpoint', function (req, res, next) {
     if (order && !order.custom.isOrderCompleted) {
         checkoutLogger.info('(RiskifiedParseResponseResult) ->  Order is not completed yet therefore holding riskified to update status and order number is: ' + order.orderNo);
         res.setStatusCode(400);
+        decisionNotification.saveDecisionNotification(body);
         res.render('riskified/riskifiedorderanalysisresponse', {
             AnalysisUpdateError:true,
             AnalysisErrorMessage: 'Order is not placed yet: ' + orderId
