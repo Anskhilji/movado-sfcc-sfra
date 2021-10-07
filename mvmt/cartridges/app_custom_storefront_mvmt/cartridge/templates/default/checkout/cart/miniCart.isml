@@ -57,15 +57,8 @@
         </div>
         <div class="row gift-messages-model">
             <div class="col-12">
-                <span class="tooltip-custom-shape"></span>
                 <div class="custom-tooltipsmart">
-                    <div class="card">
-                        <div class="card-body">
-                                <h5 class="card-title">Gifting made eassy title</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <span class="gift-messages-model-close">Close</span>
-                        </div>
-                    </div>
+                    <isslot id="gift-model-content-minicart" description="gift model content" context="global" />
                 </div>
             </div>
         </div>

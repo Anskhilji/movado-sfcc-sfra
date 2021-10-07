@@ -33,12 +33,10 @@ function setMiniCartProductSummaryHeight () {
 function giftMessageTooltip() {
     $('body').on('click','.gift-messages-tooltip', function() {
         $('.custom-tooltipsmart').show();
-        $('.tooltip-custom-shape').show();
     });
     
     $('body').on('click','.gift-messages-model-close', function() {
         $('.custom-tooltipsmart').hide();
-        $('.tooltip-custom-shape').hide();
     });
 }
 
