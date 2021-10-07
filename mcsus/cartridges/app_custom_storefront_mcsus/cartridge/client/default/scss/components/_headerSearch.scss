@@ -75,8 +75,8 @@
 }
 
 .suggestions {
+    font-size: rem(14);
     font-family: $font-medium;
-    font-size: rem(14) ;
     display: block;
     position: absolute;
     background-color: $white;
@@ -121,6 +121,7 @@
 
     .item {
         padding-bottom: rem(10);
+        font-size: rem(14);
 
         .name {
             font-size: rem(14);
@@ -135,6 +136,7 @@
 
     .category-parent {
         color: $grey14;
+        font-size: 0.875em;
     }
 }
 

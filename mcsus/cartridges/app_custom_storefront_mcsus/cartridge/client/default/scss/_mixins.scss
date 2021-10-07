@@ -112,14 +112,14 @@ $base-font-size: 16px;
     letter-spacing: 2px;
     font-weight: 500;
     font-family: $font-medium;
-}
+  }
   @mixin formlabel($fontSize:14){
     font-size: rem($fontSize);
     letter-spacing: 1px;
     font-weight: 300;
     font-family: $font-book;
-}
+  }
  
-@mixin boxShadow($horizantal,$vertical,$blur,$spread,$color){
+  @mixin boxShadow($horizantal,$vertical,$blur,$spread,$color){
   box-shadow:$horizantal $vertical $blur $spread $color;
 }

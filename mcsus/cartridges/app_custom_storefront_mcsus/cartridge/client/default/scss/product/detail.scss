@@ -51,8 +51,6 @@ label.color ~ a:hover {
 
     @include media-breakpoint-up(sm) {
         margin-bottom: 2rem;
-        font-family: $font-medium;
-        font-size: rem(16);
     }
 }
 
@@ -93,7 +91,6 @@ label.availability {
     width: 100%;
 
     .callout {
-        font-family: $font-medium;
         font-size: rem(16);
         padding-top: rem(23);
         text-align: left;
@@ -280,8 +277,6 @@ label.availability {
 
     .btn.quickview, .btn.title {
         background-color: transparent;
-        font-family: $font-bold;
-        font-size: rem(30);
     }
 }
 
@@ -296,6 +291,7 @@ label.availability {
         width: rem(151);
         height: rem(38.4);
         margin-right: rem(8);
+        font-family: $font-medium;
     }
 
     @include media-breakpoint-down(lg) {

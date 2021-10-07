@@ -86,6 +86,7 @@
 			margin-bottom: 0.5rem;
             font-size: rem(20);
             a {
+                color: $grey-transparent-1;
                 font-size: rem(20);
                 text-decoration: none;
                 text-transform: uppercase;
@@ -97,7 +98,7 @@
                   font-size: rem(15);
                   letter-spacing: 1.76px;
                   line-height: rem(20);
-                  font-family: $font-book;
+                  font-family: $font-medium;
                 }
 
                 @include media-breakpoint-down(sm) {

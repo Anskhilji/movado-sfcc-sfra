@@ -187,6 +187,8 @@ html.modal-is-open {
   .user {
     a {
       text-transform: uppercase;
+      font-size: rem(14);
+      font-family: $font-medium;
     }
   }
 }

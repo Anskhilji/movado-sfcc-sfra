@@ -11,8 +11,83 @@
     display:none;
   }
 }
-
 }
+
+.progressbar-container {
+  &.confirmation-container {
+    max-width: rem(1300);
+    width: 100%;
+    margin: 0 auto;
+
+    @include media-breakpoint-down(lg) {
+      padding-left: rem(15);
+      padding-right: rem(15);
+      margin: 0 auto;
+    }
+
+    .checkout-progressbar {
+      @include media-breakpoint-up(xs) {
+          display: none;
+      }
+    
+      @include media-breakpoint-up(sm) {
+          display: block;
+          padding: 0;
+      }
+    
+      @include media-breakpoint-up(lg) {
+          padding: 0;
+          padding-top: auto;
+      }
+    }
+
+
+    li {
+
+      @include media-breakpoint-up(sm) {
+          margin-bottom: rem(15);
+      }
+
+      @include media-breakpoint-up(xxl) {
+          margin-bottom: rem(0);
+      }
+
+      p {
+          display: flex;
+          align-items: center;
+          font-size: rem(12);
+          text-transform: uppercase;
+          text-decoration: none ;
+          margin-bottom: rem(0);
+          line-height: 1.45;
+
+          @include media-breakpoint-down(sm) {
+              font-size: rem(10);
+          }
+   
+          &:after {
+            content: "";
+            box-sizing: border-box;
+            height: rem(1.5);
+            width: rem(30);
+            background-color: $black;
+            opacity: 0.4;
+            margin:rem(0) rem(10);
+            
+          }
+      }
+
+      &:nth-child(4) p {
+          &:after {
+          content: "";
+          height: rem(0);
+          width: rem(0);
+        }
+      }
+    }
+  }
+}
+
 .order-thank-you-email-msg {
   font-family: $font-book;
   font-size: rem(14);
@@ -26,7 +101,7 @@
   }
 }
 .confirmation-hero-banner {
-  position: relative;
+    position: relative;
     max-width: rem(1300);
     width: 100%;
     margin: 0 auto;

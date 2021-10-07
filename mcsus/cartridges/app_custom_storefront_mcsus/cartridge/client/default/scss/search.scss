@@ -83,7 +83,6 @@
         padding: 0.313em 0;
         overflow: auto;
         margin-bottom: rem(5);
-        font-family: $font-regular;
         li {
           padding-left: 1px;
           list-style-type: none;
@@ -201,8 +200,9 @@
 
 .result-count {
     font-size: rem(20);
-    font-family: $font-medium;
     line-height: rem(19);
+    font-family: $font-medium;
+    font-weight: 500;
     & > span{
       display: block;
       @include media-breakpoint-up(sm){
@@ -437,11 +437,11 @@
 .search-results{
   .result-count{
     p, .search-tips li{
-      font-size: rem(14);
+      font-size: rem(20);
       line-height: rem(16);
       letter-spacing: 1px;
-      font-family: $font-regular;
-      font-weight:300;
+      font-family: $font-medium;
+      font-weight:500;
     }
     p a{
       text-decoration: underline;

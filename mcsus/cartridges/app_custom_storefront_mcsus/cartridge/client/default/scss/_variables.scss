@@ -32,6 +32,9 @@ $grey11: #6a6969 !default;
 $grey12: #eaebeb !default;
 $grey13: #E1E2E3 !default;
 $grey14: #060506 !default;
+$grey16: #D2D2D2 !default;
+$grey15: #070707 !default;
+$grey17: #787777 !default;
 
 $grey-transparent-1: rgba(0, 0, 0, 0.65) !default;
 $grey-transparent-2: rgba(0, 0, 0, 0.25) !default;
@@ -64,6 +67,7 @@ $white-smoke:#F2F2F2 !default;
 $granite-gray:  #5C5C5C;
 $apple: #59AF2C;
 $cerulean: #0092DB;
+$parrot-green: #3AAB4A;
 
 $grid-breakpoints: (
     xs: 0,
@@ -106,7 +110,6 @@ $breadcrumb-bg: transparent !default;
 $table-border-color: $grey3 !default;
 
 $svg-check: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3E%3C/svg%3E") !default;
-
 
 
 //font Families:
