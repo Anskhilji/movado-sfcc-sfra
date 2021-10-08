@@ -47,15 +47,21 @@ server.prepend('AnalysisNotificationEndpoint', function (req, res, next) {
     }
 
     if (order && !order.custom.isOrderCompleted) {
-        checkoutLogger.info('(RiskifiedParseResponseResult) ->  Order is not completed yet therefore holding riskified to update status and order number is: ' + order.orderNo);
-        res.setStatusCode(400);
-        decisionNotification.saveDecisionNotification(body);
-        res.render('riskified/riskifiedorderanalysisresponse', {
-            AnalysisUpdateError:true,
-            AnalysisErrorMessage: 'Order is not placed yet: ' + orderId
-        });
-        this.emit('route:Complete', req, res);
-        return;
+        checkoutLogger.info('(RiskifiedParseResponseResult) ->  Order is not completed yet therefore saving response in custom object and order number is: ' + order.orderNo);
+        // res.setStatusCode(400);
+        var response = decisionNotification.saveDecisionNotification(body);
+        if (response) {
+            res.render('riskified/riskifiedorderanalysisresponse', {
+                AnalysisUpdateError:false
+            });
+        } else {
+            res.render('riskified/riskifiedorderanalysisresponse', {
+                AnalysisUpdateError:true,
+                AnalysisErrorMessage: 'Order is not placed yet: ' + orderId
+            });
+        }
+        // this.emit('route:Complete', req, res);
+        // return;
     }
     return next();
 });
