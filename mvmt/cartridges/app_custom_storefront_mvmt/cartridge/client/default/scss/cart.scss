@@ -201,14 +201,13 @@
                     font-family: $font-book;
                     font-size: rem(14);
                     letter-spacing: normal;
-
+                    margin: rem(5) rem(0) rem(5) rem(0);
                     @include media-breakpoint-down(xs) {
                         border: none;
                     }
                 }
 
                 .checkout-btn {
-                    margin-bottom: rem(16);
                     line-height: rem(44);
                     background-color: $light-green;
                     box-shadow: none;
@@ -225,7 +224,9 @@
                     &.paypal-btn {
                         background-color: $yellow;
                         border-color: $yellow;
-                        padding: rem(16) rem(20);
+                        padding: rem(0) rem(20);
+                        height: rem(32);
+                        line-height: rem(32);
 
                         &:not(:disabled):not(.disabled):active, &:hover {
                             background-color: $yellow;
@@ -245,7 +246,7 @@
                 }
 
                 .apple-pay-cart {
-                    height: rem(58);
+                    height: rem(32);
                     background-size: 50%;
                 }
 

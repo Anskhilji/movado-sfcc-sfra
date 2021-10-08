@@ -10,6 +10,13 @@
         ${Resource.msg('button.mini.cart.checkout','cart',null)}
     </a>
 </div>
+<div class="row fullcart-button-wrapper">
+    <a  href="${URLUtils.https('Cart-Show')}" data-url="${dw.web.URLUtils.https('EShopWorld-PreOrderRequest').toString()}" class="
+     btn btn-primary btn-block checkout-fullcart-btn"
+        role="button" aria-pressed="true">
+        ${Resource.msg('button.mini.cart.checkout','cart',null)}
+    </a>
+</div>
 <isset name="paypalButtonImg"
     value="${require('*/cartridge/scripts/helpers/customCartHelpers').getContentAssetContent('ca-paypal-button')}"
     scope="page" />
