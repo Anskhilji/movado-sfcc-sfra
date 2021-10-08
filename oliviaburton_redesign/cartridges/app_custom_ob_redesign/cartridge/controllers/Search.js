@@ -16,7 +16,21 @@ var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 var URLUtils = require('dw/web/URLUtils');
 var ABTestMgr = require('dw/campaign/ABTestMgr');
 
+/**
+ * Prepending controller for PLP A/B testing
+ */
 
+server.prepend('Show', cache.applyShortPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
+    var resultsTemplate;
+    var viewData = res.getViewData();
+    var isAjax = Object.hasOwnProperty.call(req.httpHeaders, 'x-requested-with')
+    && req.httpHeaders['x-requested-with'] === 'XMLHttpRequest';
+    resultsTemplate = isAjax ? 'search/searchResultsNoDecorator' : 'search/searchResults';
+    viewData.resultsTemplate = resultsTemplate;
+    res.setViewData(viewData);
+
+    return next();
+});
 
 /**
  * Replacing controller from base as need to remove cache and apply A/B test
@@ -36,6 +50,9 @@ server.replace('Refinebar', cache.applyShortPromotionSensitiveCache,  function (
         CatalogMgr.getSortingOptions(),
         CatalogMgr.getSiteCatalog().getRoot()
     );
+    
+    var refineBarTemplate;
+    refineBarTemplate ='/search/searchRefineBar';
 
     res.render(refineBarTemplate, {
         productSearch: productSearch,
@@ -64,6 +81,8 @@ server.replace('UpdateGrid', cache.applyShortPromotionSensitiveCache, function (
         CatalogMgr.getSiteCatalog().getRoot()
     );
 
+    var productGridTemplate;
+    productGridTemplate ='/search/productGrid';
 
     res.render(productGridTemplate, {
         productSearch: productSearch
