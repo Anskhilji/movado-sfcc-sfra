@@ -132,6 +132,109 @@
             }
         }
 
+        .gift-messages {
+
+            &-wrapper {
+                border-bottom: rem(1) solid $alice-blue;
+            }
+
+            &-label {
+                font-family: $font-medium;
+                font-size: rem(13);
+                text-transform: capitalize;
+                padding-left: rem(20);
+                padding-right: rem(20);
+                color: $black;
+                font-style: normal;
+                font-weight: 500;
+            }
+
+            &-tooltip {
+                font-family: $font-medium;
+                font-weight: 500;
+                font-size: rem(12);
+                text-transform: capitalize;
+                text-decoration: underline;
+
+                &.active {
+                    &::after, &::before {
+                        display: block;
+                    }
+                }
+            }
+
+            &-chekbox {
+                position: relative;
+                top: rem(3); 
+            }
+
+            &-model {
+
+                .card-title {
+                    font-family: $font-medium;
+                    font-size: rem(13);
+                    font-weight: 500;
+                    color: $black;
+                    text-transform: uppercase; 
+                }
+
+                .card-text {
+                    letter-spacing: rem(0.5);
+                    font-size: rem(12);
+                    font-family: $font-book;
+                    color: $light-gray;
+                    line-height: rem(18);
+                }
+
+                .gift-messages-model-close {
+                    font-family: $font-medium;
+                    font-size: rem(13);
+                    font-weight: 500;
+                    color: $pelorous2;
+                    letter-spacing: rem(0.5);
+                }
+            }
+
+            .custom-tooltipsmart {
+                display: none;
+                position: relative;
+                background-color: $white;
+                border-radius: rem(2);
+                box-shadow: rem(1) rem(1.5) rem(4) rem(0) $gift-message-border;
+                -webkit-transform: translateX(6px);
+                        transform: translateX(6px);
+
+                &::after, &::before {
+                    right: 27%;
+                    transform: rotate(90deg);
+                    top: -5%;
+                    border: solid transparent;
+                    content: " ";
+                    height: 0;
+                    z-index: 999;
+                    width: 0;
+                    position: absolute;
+                    pointer-events: none;
+                }
+                    
+                &::after {
+                    border-color: rgba(211, 211, 211, 0);
+                    border-right-color: $white;
+                    border-width: rem(7);
+                    margin-top: rem(-6);
+                    border-left-color: $white;
+                }
+                    
+                &::before {
+                    border-color: rgba(211, 211, 211, 0);
+                    border-right-color: $gray11;
+                    border-width: rem(7);
+                    margin-top: rem(-7);
+                }
+            }
+
+        }
+
         .product-summary {
             height: 100%;
             margin: 0;
@@ -798,6 +901,10 @@
                     line-height: rem(18);
                 }
 
+                .checkout-fullcart-btn {
+                    line-height: rem(18);
+                }
+
                 .checkout-continue {
                     position: relative;
 
@@ -827,6 +934,19 @@
                             flex-basis: 100%;
                             height: 0;
                             margin: 0 rem(8) rem(8) rem(8);
+                        }
+                    }
+                    .fullcart-button-wrapper {
+                        position: relative;
+                        display: none;
+
+                        .checkout-fullcart-btn {
+                            flex: 1;
+                            margin: 0 rem(8) rem(8) rem(8);
+                        }
+
+                        .checkout-fullcart-btn {
+                            margin-bottom: rem(10);
                         }
                     }
                     .shipping-express-checkout {
@@ -1126,6 +1246,33 @@
                 border: 0;
                 border-radius: rem(1);
                 transition: all 0.25s ease-in-out;
+
+                &:hover {
+                    background-image: linear-gradient($light-green, $light-green3);
+                    border-color: $light-green3;
+                }
+
+                &:not(:disabled):not(.disabled):active:focus, &:focus, &:hover {
+                    box-shadow: none;
+                }
+            }
+
+            .checkout-fullcart-btn, button[type="submit"] {
+                font-weight: 600;
+                margin-bottom: rem(12);
+                display: block;
+                font-size: rem(14);
+                letter-spacing: rem(2);
+                background-color: $light-green;
+                color: $white;
+                padding: rem(14) rem(5);
+                text-align: center;
+                line-height: 1;
+                border: 0;
+                border-radius: rem(1);
+                transition: all 0.25s ease-in-out;
+                margin: 0 rem(8) rem(8) rem(8);
+                
 
                 &:hover {
                     background-image: linear-gradient($light-green, $light-green3);
