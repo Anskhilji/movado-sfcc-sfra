@@ -336,7 +336,7 @@ function checkBundledProductCanBeAdded(childProducts, productLineItems, quantity
  * @param {SelectedOption[]} options - product options
  *  @return {Object} returns an error object
  */
-function addProductToCart(currentBasket, productId, quantity, childProducts, options) {
+function addProductToCart(currentBasket, productId, quantity, childProducts, options, form) {
     var availableToSell;
     var defaultShipment = currentBasket.defaultShipment;
     var perpetual;
@@ -347,6 +347,7 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
     var quantityToSet;
     var optionModel = productHelper.getCurrentOptionModel(product.optionModel, options);
     var addSeprateLineItemEnabled = Site.getCurrent().preferences.custom.enableSeprateLineItemInCart;
+    var isClydeEnabled = Site.getCurrent().preferences.custom.isClydeEnabled;
 
 
     var result = {
@@ -390,7 +391,16 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
         productQuantityInCart = productInCart.quantity.value;
         quantityToSet = quantity ? quantity + productQuantityInCart : productQuantityInCart + 1;
         availableToSell = productInCart.product.availabilityModel.inventoryRecord.ATS.value;
-
+        /**
+         * Custom Start: Clyde Integration
+         */
+        if (isClydeEnabled) {
+            var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
+            addClydeContract.addContractsToCart(quantity, form, defaultShipment, currentBasket, productLineItems, productId);
+        }
+        /**
+         * Custom End
+         */
         if (availableToSell >= quantityToSet || perpetual) {
             productInCart.setQuantityValue(quantityToSet);
             result.uuid = productInCart.UUID;
@@ -412,6 +422,10 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
                 defaultShipment
             );
             result.uuid = productLineItem.UUID;
+            if (isClydeEnabled) {
+                var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
+                addClydeContract.addContractsToCart(quantity, form, defaultShipment, currentBasket, productLineItems, productId);
+            }
         } catch (e) {
             var msg = e;
             result.error = true;

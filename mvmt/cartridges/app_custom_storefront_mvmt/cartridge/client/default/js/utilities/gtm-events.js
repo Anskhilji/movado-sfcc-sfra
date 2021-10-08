@@ -464,25 +464,29 @@ var updateCheckoutStage = function () {
              checkoutStep = ['2'];
                  pageDataGTM.pageType = 'Checkout – Shipping';
                  dataLayer.push({ pageData: pageDataGTM});
+                 onCheckoutOptionOnCart('2');
          break;
      case 'payment':
              checkoutStep = ['3'];
              pageDataGTM.pageType = 'Checkout – Billing';
-             onCheckoutOption(checkoutStep - 1, shippingMethod);
+             onCheckoutOption(checkoutStep , shippingMethod);
              dataLayer.push({ pageData: pageDataGTM});
+             onCheckoutOptionOnCart('3');
          break;
      case 'placeOrder':
              checkoutStep = ['4'];
              checkoutStage = 'Confirm';
              pageDataGTM.pageType = 'Checkout – Review';
              if (paymentMethod != undefined) {
-                 onCheckoutOption(checkoutStep - 1, paymentMethod);
+                 onCheckoutOption(checkoutStep , paymentMethod);
              }
              dataLayer.push({ pageData: pageDataGTM});
+             onCheckoutOptionOnCart('4');
          break;
      case 'submitted':
              checkoutStep = ['5'];
              checkoutStage = 'Confirmation';
+             onCheckoutOptionOnCart('5');
          break;
         }
         if (checkoutDataLayer) {
@@ -512,6 +516,7 @@ var updateCheckoutStage = function () {
  * A function to handle a click leading to a checkout option selection.
  */
 function onCheckoutOption(step, checkoutOption) {
+
     updateDataLayer('checkoutOption');
     dataLayer.push({
         event: 'checkoutOption',
@@ -577,7 +582,7 @@ var onLoginIn = function () {
 /**
  * A function to handle a click leading to a checkout option selection.
  */
-var onCheckoutOptionOnCart = function () {
+var onCheckoutOptionOnCart = function (data) {
     updateDataLayer('checkoutOption');
     var checkoutOptionData = $('[data-gtm-shipping-method]').data('gtm-shipping-method');
     if (checkoutOptionData) {
@@ -585,7 +590,7 @@ var onCheckoutOptionOnCart = function () {
             event: 'checkoutOption',
             ecommerce: {
                 checkout_option: {
-                    actionField: { step: 1, option: checkoutOptionData }
+                    actionField: { step: data, option: checkoutOptionData}
                 }
             }
         });
@@ -659,7 +664,6 @@ var onPageLoad = function () {
     getSiteSectionOnPageLoad();
     onPromoImpressionsLoad();
     onLoadProductTile();
-    onCheckoutOptionOnCart();
     getCookieSessionId();
     $('body').trigger('gtmOnLoadEvents:fired');
 };
