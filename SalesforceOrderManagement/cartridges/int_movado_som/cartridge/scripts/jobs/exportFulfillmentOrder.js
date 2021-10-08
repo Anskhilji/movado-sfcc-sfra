@@ -446,7 +446,7 @@ function createSAPOrderFile(args, impexFilePath, record) {
                         writeXmlElement(streamWriter, 'LoyaltyAmount', personalization.loyaltyAmount.toFixed(2), true);
                     }
                     if (Object.hasOwnProperty.call(personalization, 'subTotal')) {
-                        writeXmlElement(streamWriter, 'sSubTotal', personalization.contractSku.subTotal(2), true);
+                        writeXmlElement(streamWriter, 'SubTotal', personalization.subTotal.toFixed(2), true);
                     }
                     if (Object.hasOwnProperty.call(personalization, 'taxAmount')) {
                         writeXmlElement(streamWriter, 'TaxAmount', personalization.taxAmount.toFixed(2), true);

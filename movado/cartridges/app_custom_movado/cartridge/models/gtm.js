@@ -227,20 +227,28 @@ function getTenant(currentLocale) {
  * @returns searchQuery
  */
 function getSearchQuery(queryStringVal) {
-    var searchArray = [];
-    var searchQuery = '';
-    var queryString = queryStringVal ? Encoding.fromURI(queryStringVal) : '';
-    if (queryString.indexOf('&') >= 0) {
-        searchArray = queryString.split('&');
-        searchArray = searchArray[1].split('=');
-        if ((searchArray[0].indexOf('q')) > -1) {
-            searchQuery = { q: searchArray[1] };
-        } else if ((queryString.indexOf('pid')) > -1) {
+    try {
+        var searchArray = [];
+        var searchQuery = '';
+        var queryString = queryStringVal ? Encoding.fromURI(queryStringVal) : '';
+        if (queryString.indexOf('&') >= 0) {
             searchArray = queryString.split('&');
-            searchArrayQuery = searchArray[0].split('=');
-            searchQuery = { pid: searchArrayQuery[1] };
-        }
-    } else if ((queryString.indexOf('pid')) > -1) {
+            searchArray = searchArray[1].split('=');
+            if ((searchArray[0].indexOf('q')) > -1) {
+                searchQuery = { q: searchArray[1] };
+            } else if ((queryString.indexOf('pid')) > -1) {
+                searchArray = queryString.split('&');
+                var productID;
+                for (var index = 0; index < searchArray.length; index++) {
+                    if (searchArray[index].indexOf('pid=') > -1) {
+                        productID = searchArray[index];
+                        break;
+                    }
+                }
+                searchArrayQuery = productID ? productID.split('=') : '';
+                searchQuery = { pid: searchArrayQuery[1] };
+            }
+        } else if ((queryString.indexOf('pid')) > -1) {
             searchArray = queryString.split('=');
             searchQuery = { pid: searchArray[1] };
         } else if ((queryString.indexOf('cgid')) > -1) {
@@ -250,7 +258,11 @@ function getSearchQuery(queryStringVal) {
             searchArray = queryString.split('=');
             searchQuery = { q: searchArray[1] };
         }
-    return searchQuery;
+        return searchQuery;
+    } catch (ex) {
+        Logger.error('Error occured while getting search query for gtm. Error: {0} \n Stack: {1} \n', ex.message, ex.stack);
+        return '';
+    }
 }
 
 

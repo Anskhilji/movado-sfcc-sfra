@@ -77,7 +77,7 @@
   "dependencies": {
     "animate.css": "^3.7.2",
     "bootstrap": "4.1.1",
-    "cleave.js": "1.0.2",
+    "cleave.js": "1.6.0",
     "flag-icon-css": "^2.3.0",
     "font-awesome": "^4.6.3",
     "jquery": "^3.1.1",
