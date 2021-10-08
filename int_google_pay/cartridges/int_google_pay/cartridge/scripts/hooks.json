@@ -1,8 +1,0 @@
-{
-	"hooks": [
-        {
-            "name": "app.payment.processor.google_pay",
-            "script": "./hooks/payment/processor/google_pay"
-        }
-	]
-}

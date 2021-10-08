@@ -18,6 +18,7 @@ var googlePayHelper = require('*/cartridge/scripts/helpers/googlePayHelpers.js')
 var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 var Riskified = require('int_riskified/cartridge/scripts/Riskified');
 var RiskifiedService = require('int_riskified');
+var googlePayProcessor = require('*/cartridge/scripts/hooks/google_pay.js');
 
 server.post('GetTransactionInfo',
     server.middleware.https,
@@ -172,14 +173,9 @@ server.post('ProcessPayments',
         });
 
         var processor = PaymentManager.getPaymentMethod(constants.GOOGLE_PAY_PAYMENT_METHOD).getPaymentProcessor();
+        var processorHanlde = googlePayProcessor.Handle(currentBasket, googlePayResponse.paymentMethodData);
         // Saving payment data in payment instrument
-        if (HookMgr.hasHook('app.payment.processor.' + processor.ID.toLowerCase())) {
-            result = HookMgr.callHook('app.payment.processor.' + processor.ID.toLowerCase(),
-                'Handle',
-                currentBasket,
-                googlePayResponse.paymentMethodData
-            );
-        }
+        
 
         // Re-calculate the payments.
         var calculatedPaymentTransaction = COHelpers.calculatePaymentTransaction(
@@ -209,8 +205,8 @@ server.post('ProcessPayments',
 
 
         // Handles payment authorization
-        var handlePaymentResult = COHelpers.handlePayments(order, order.orderNo);
-        if (handlePaymentResult.error) {
+        var processorResult = googlePayProcessor.Authorize(order.orderNo, processor);
+        if (processorResult.error) {
             checkoutLogger.error('(GooglePay) -> ProcessPayments: payment authorization is failed and going to send error and order number is: ' + order.orderNo);
             Transaction.wrap(function () { OrderMgr.failOrder(order, true); });
             res.json({

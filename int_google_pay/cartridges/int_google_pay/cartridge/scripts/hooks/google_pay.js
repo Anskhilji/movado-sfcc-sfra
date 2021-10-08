@@ -25,12 +25,23 @@ function Handle(basket, paymentInformation) {
 
 }
 
-function Authorize(orderNumber, paymentInstrument, paymentProcessor) {
+function Authorize(orderNumber, paymentProcessor) {
     var OrderMgr = require('dw/order/OrderMgr');
     var order = OrderMgr.getOrder(orderNumber);
-    var result = hooksHelper('app.payment.adyen.googlePay', 'googlePayCheckout', order, paymentInstrument.custom.googlePayToken, paymentInstrument,
-        require('*/cartridge/scripts/hooks/payment/adyenGooglePayCheckout').googlePayCheckout);
+    var paymentInstruments = order.paymentInstruments;
+
+    if (paymentInstruments.length === 0) {
+        Transaction.wrap(function () { OrderMgr.failOrder(order); });
+        result.error = true;
+    }
+
+    for (var i = 0; i < paymentInstruments.length; i++) {
+        paymentInstrument = paymentInstruments[i];
+    }
     
+    var result = hooksHelper('app.payment.adyen.googlePay', 'googlePayCheckout', order, paymentInstrument.custom.googlePayToken, paymentInstrument,
+    require('*/cartridge/scripts/hooks/payment/adyenGooglePayCheckout').googlePayCheckout);
+
     if (result.error) {
             var errors = [];
             errors.push( Resource.msg('error.technical', 'checkout', null));
