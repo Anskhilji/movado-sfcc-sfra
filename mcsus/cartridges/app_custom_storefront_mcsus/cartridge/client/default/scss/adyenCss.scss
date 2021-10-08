@@ -1,15 +1,1 @@
-.paymentMethod {
-    list-style-type: none;
-    margin: rem(10) 0 rem(10) 0;
-
-    .paymentMethod_img, .form-check-label:before{
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-    }
-}
-
-.hppAdditionalFields{
-    display: inline-block;
-    margin: 0 0 0 rem(10);
-}
+@import "~movado/adyenCss";

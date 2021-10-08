@@ -1,7 +1,1 @@
-
-.form-group {
-    &.required .form-control-label::before {
-        content: "*";
-        color: $danger;
-    }
-}
+@import "~movado/components/_formFields";
