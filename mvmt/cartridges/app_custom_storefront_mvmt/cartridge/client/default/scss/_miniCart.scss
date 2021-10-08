@@ -174,12 +174,12 @@
                     font-family: $font-medium;
                     font-size: rem(13);
                     font-weight: 500;
-                    color: #000000;
+                    color: $black;
                     text-transform: uppercase; 
                 }
 
                 .card-text {
-                    letter-spacing: 0.03125rem;
+                    letter-spacing: rem(0.5);
                     font-size: rem(12);
                     font-family: $font-book;
                     color: $light-gray;
