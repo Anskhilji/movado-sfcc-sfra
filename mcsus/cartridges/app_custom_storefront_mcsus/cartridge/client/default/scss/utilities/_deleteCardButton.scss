@@ -1,9 +1,1 @@
-@mixin delete-card-button() {
-    border: none;
-    border-radius: 0;
-    font-size: 1.625em;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-}
+@import "~movado/utilities/_deleteCardButton";
