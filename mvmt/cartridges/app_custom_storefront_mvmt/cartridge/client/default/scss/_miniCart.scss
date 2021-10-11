@@ -141,12 +141,13 @@
             &-label {
                 font-family: $font-medium;
                 font-size: rem(13);
-                text-transform: capitalize;
-                padding-left: rem(20);
-                padding-right: rem(20);
+                text-transform: inherit;
+                padding-left: rem(15);
+                padding-right: rem(15);
                 color: $black;
                 font-style: normal;
                 font-weight: 500;
+                margin-bottom: rem(11);
             }
 
             &-tooltip {
@@ -163,9 +164,68 @@
                 }
             }
 
-            &-chekbox {
-                position: relative;
-                top: rem(3); 
+            &-wrapper {
+
+                .custom-checkbox {
+
+                    .custom-control-label {
+                        position: relative;
+                        top: rem(-18);
+                        left: rem(8);
+                    }
+                }
+
+                .custom-control {
+                    padding: rem(0);
+                }
+    
+                input[type="checkbox"] {
+    
+                    &:focus {
+                        box-shadow: none;
+                        border: none;
+                        outline: none;
+                    }
+    
+                    &:checked {
+    
+                        &:focus {
+                            box-shadow: none;
+                            border: none;
+                            outline: none;
+                        }
+    
+                        + label {
+    
+                            &:focus {
+                                box-shadow: none;
+                                outline: 0;
+                            }
+    
+                            &:before {
+                                background-color: $light-green4;
+                                border-color: transparent;
+                            }
+                        }
+                    }
+    
+                    + {
+    
+                        label {
+    
+                            &:focus {
+                                box-shadow: none;
+                                outline: 0;
+                            }
+    
+                            &:before {
+                                color: $white;
+                                border: rem(2) solid $black;
+                                background-color: transparent;
+                            }
+                        }
+                    }
+                }
             }
 
             &-model {
@@ -207,29 +267,62 @@
                 &::after, &::before {
                     right: 27%;
                     transform: rotate(90deg);
-                    top: -5%;
+                    top: -9%;
                     border: solid transparent;
                     content: " ";
-                    height: 0;
                     z-index: 999;
-                    width: 0;
                     position: absolute;
                     pointer-events: none;
+
+                    @include media-breakpoint-up(xs-custom) {
+                        top: -8%;
+                        right: 15%;
+                    }
+
+                    @include media-breakpoint-up(xsm) {
+                        top: -9%;
+                        right: 19%;
+                    }
+
+                    @include media-breakpoint-up(xs) {
+                        top: -9%;
+                        right: 21%;
+                    }
+
+                    @include media-breakpoint-up(sm) {
+                        top: -9%;
+                        right: 24%;
+                    }
+
+                    @media only screen and (min-width: $custom-sm-tb-width) {
+                        top: -11%;
+                        right: 36%;
+                    }
+
+                    @media only screen and (min-width: $custom-lg-width) {
+                        top: -9%;
+                        right: 28%;
+                    }
+
                 }
                     
                 &::after {
-                    border-color: rgba(211, 211, 211, 0);
+                    border-color: $transparent-gray;
                     border-right-color: $white;
-                    border-width: rem(7);
+                    border-width: rem(9);
                     margin-top: rem(-6);
-                    border-left-color: $white;
+                    border-left-color: $transparent-gray;
+                    border-left-width: rem(12);
+                    border-right-width: rem(12);
                 }
                     
                 &::before {
-                    border-color: rgba(211, 211, 211, 0);
+                    border-color: $transparent-gray;
                     border-right-color: $gray11;
-                    border-width: rem(7);
+                    border-width: rem(9);
                     margin-top: rem(-7);
+                    border-left-width: rem(12);
+                    border-right-width: rem(12);
                 }
             }
 
