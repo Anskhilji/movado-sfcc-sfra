@@ -30,6 +30,9 @@ function Authorize(orderNumber, paymentProcessor) {
     var order = OrderMgr.getOrder(orderNumber);
     var paymentInstruments = order.paymentInstruments;
     var paymentInstrument;
+    var result = {
+        error : false
+    }
 
     if (paymentInstruments.length === 0) {
         Transaction.wrap(function () { OrderMgr.failOrder(order); });
