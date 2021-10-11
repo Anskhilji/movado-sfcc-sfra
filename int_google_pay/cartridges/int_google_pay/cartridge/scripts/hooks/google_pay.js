@@ -29,14 +29,17 @@ function Authorize(orderNumber, paymentProcessor) {
     var OrderMgr = require('dw/order/OrderMgr');
     var order = OrderMgr.getOrder(orderNumber);
     var paymentInstruments = order.paymentInstruments;
+    var paymentInstrument;
 
     if (paymentInstruments.length === 0) {
         Transaction.wrap(function () { OrderMgr.failOrder(order); });
         result.error = true;
     }
 
-    for (var i = 0; i < paymentInstruments.length; i++) {
-        paymentInstrument = paymentInstruments[i];
+    if (!empty(paymentInstruments) && !result.error) {
+        for (var i = 0; i < paymentInstruments.length; i++) {
+            paymentInstrument = paymentInstruments[i];
+        }
     }
     
     var result = hooksHelper('app.payment.adyen.googlePay', 'googlePayCheckout', order, paymentInstrument.custom.googlePayToken, paymentInstrument,
