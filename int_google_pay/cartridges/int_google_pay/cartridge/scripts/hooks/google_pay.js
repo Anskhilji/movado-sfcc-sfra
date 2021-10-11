@@ -36,14 +36,14 @@ function Authorize(orderNumber, paymentProcessor) {
         result.error = true;
     }
 
-    if (!empty(paymentInstruments) && !result.error) {
-        for (var i = 0; i < paymentInstruments.length; i++) {
-            paymentInstrument = paymentInstruments[i];
-        }
+    for (var i = 0; i < paymentInstruments.length; i++) {
+        paymentInstrument = paymentInstruments[i];
     }
     
-    var result = hooksHelper('app.payment.adyen.googlePay', 'googlePayCheckout', order, paymentInstrument.custom.googlePayToken, paymentInstrument,
-    require('*/cartridge/scripts/hooks/payment/adyenGooglePayCheckout').googlePayCheckout);
+    if (!empty(paymentInstrument) && !result.error) {
+        var result = hooksHelper('app.payment.adyen.googlePay', 'googlePayCheckout', order, paymentInstrument.custom.googlePayToken, paymentInstrument,
+        require('*/cartridge/scripts/hooks/payment/adyenGooglePayCheckout').googlePayCheckout);
+    }
 
     if (result.error) {
             var errors = [];
