@@ -2,7 +2,7 @@
 @import "../mixins";
 @import "bootstrap/scss/variables";
 @import "bootstrap/scss/mixins/breakpoints";
-@import "../components/formFields";
+@import "..~movado/components/formFields";
 
 .account-image {
     background-image: url(../../images/account.jpg);

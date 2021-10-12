@@ -3,7 +3,7 @@
 @import "./commonPlaceholders";
 @import "bootstrap/scss/variables";
 @import "bootstrap/scss/mixins/breakpoints";
-@import "utilities/deleteCardButton";
+@import "~movado/utilities/deleteCardButton";
 
 $spacer: 0.625em;
 $negative-spacer: -0.625rem;

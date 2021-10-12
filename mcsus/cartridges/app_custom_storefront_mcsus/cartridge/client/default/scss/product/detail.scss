@@ -2,11 +2,11 @@
 @import "../mixins";
 @import "bootstrap/scss/variables";
 @import "bootstrap/scss/mixins/breakpoints";
-@import "../utilities/shapes";
-@import "../utilities/responsiveUtils";
+@import "..~movado/utilities/shapes";
+@import "..~movado/utilities/responsiveUtils";
 @import "../utilities/swatch";
-@import "./recommendation";
-@import "../components/_backInStockNotification";
+@import "..~movado/product/recommendation";
+@import "..~movado/components/_backInStockNotification";
 
 .product-detail .swatch-circle {
     // $white will be replaced by color image background in ISML

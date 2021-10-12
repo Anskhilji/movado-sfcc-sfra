@@ -3,8 +3,8 @@
 @import "bootstrap/scss/variables";
 @import "checkoutComponents";
 @import "bootstrap/scss/mixins/breakpoints";
-@import "../components/formFields";
-@import "../components/creditCardField";
+@import "..~movado/components/formFields";
+@import "..~movado/components/creditCardField";
 
 $checkout-font-weight: 600;
 

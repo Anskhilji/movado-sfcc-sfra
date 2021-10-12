@@ -4,7 +4,7 @@
 @import "bootstrap/scss/mixins";
 @import "bootstrap/scss/mixins/breakpoints";
 @import "utilities/swatch";
-@import "components/categoryTiles";
+@import "~movado/components/categoryTiles";
 
 .refinement-bar {
     overflow: auto;
