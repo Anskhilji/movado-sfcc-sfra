@@ -196,6 +196,27 @@ label.availability {
         margin-right: rem(8);
     }
 
+    .google-pay-container {
+        .gpay-button.black.plain {
+            width: rem(151);
+            height: rem(38.4);
+            margin-top: rem(4);
+            border-radius: rem(0);
+
+            @include media-breakpoint-down(md) {
+                margin-top: rem(4);
+            }
+
+            @include media-breakpoint-down(xs) {
+                width: 100%;
+                height: rem(38.4);
+                margin-top: rem(4);
+                border-radius: rem(0);
+            }
+        }
+    }
+
+
     @include media-breakpoint-down(xs) {
         .add-to-cart {
             width: 100%;

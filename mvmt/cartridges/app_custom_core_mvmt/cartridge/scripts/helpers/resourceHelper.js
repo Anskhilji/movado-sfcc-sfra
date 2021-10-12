@@ -54,7 +54,11 @@ function getResources(pageContext) {
         ONE_TRUST_COOKIE_ENABLED: Site.current.preferences.custom.oneTrustCookieEnabled || false,
         OPTANON_ALLOWED_COOKIE: Constants.ONE_TRUST_COOKIE_ENABLED,
         LISTRAK_ENABLED: Site.current.preferences.custom.Listrak_Cartridge_Enabled,
-        RAKUTEN_REQUEST: rakutenCookiesHelper.getRakutenRequestObject()
+        RAKUTEN_REQUEST: rakutenCookiesHelper.getRakutenRequestObject(),
+        GOOGLE_PAY_ENABLED: Site.current.preferences.custom.isGooglePayEnabled || false,
+        GOOGLE_PAY_MERCHANT_ACCOUNT: Site.current.preferences.custom.googlePayMerchantID,
+        GOOGLE_PAY_MERCHANT_NAME: Site.current.preferences.custom.Adyen_merchantCode,
+        CART_GIFT_MESSAGE_LIMIT: !empty(Site.current.preferences.custom.cartGiftMessageLimit) ? Site.current.preferences.custom.cartGiftMessageLimit : 0
     };
     return resources;
 }

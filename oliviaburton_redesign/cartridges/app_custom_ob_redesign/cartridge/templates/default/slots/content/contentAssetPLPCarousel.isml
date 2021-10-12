@@ -1,6 +1,3 @@
-<isif condition="${!dw.campaign.ABTestMgr.isParticipant('OBRedesignPLPABTest', 'render-new-design')}">
-    <isinclude template="slots/content/old/contentAssetCarouselBody" sf-toolkit="on" />
-<iselse/>
     <isif condition="${slotcontent && !!slotcontent.content.length}">
         <div class="container-fluid plp-carousel">
             <div class="row">
@@ -27,4 +24,3 @@
             </div>
         </div>
     </isif>
-</isif>

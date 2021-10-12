@@ -22,6 +22,7 @@ $(document).ready(function () {
     processInclude(require('./utilities/swatches'));
     processInclude(require('./components/emailPopUpSubscription'));
     processInclude(require('./components/rakutenCookieHandler'));
+    processInclude(require('googlePay/googlePay'));
 });
 
 require('base/components/spinner');

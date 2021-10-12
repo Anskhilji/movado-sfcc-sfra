@@ -19,7 +19,7 @@
     scope="page" />
 <isif condition="${isEswEnabled}">
     <isif condition="${currentCountry.equalsIgnoreCase('US')}">
-        <div class="row more-ways-text mb-3 justify-content-center">${pdict.resources.additionalCheckout}</div>
+        <div class="row more-ways-text justify-content-center">${pdict.resources.additionalCheckout}</div>
             <div class="row more-options">
                 <div class="col-sm-12">
                     <a href="${URLUtils.https('AdyenExpressPaypal-ExpressCheckoutFromCart')}" class="btn btn-block checkout-btn paypal-btn mb-3 ${pdict.valid.error ? 'disabled' : ''}" role="button"
