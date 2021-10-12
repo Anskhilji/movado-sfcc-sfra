@@ -2,22 +2,24 @@
 
 var CustomObjectMgr = require('dw/object/CustomObjectMgr');
 var Transaction = require('dw/system/Transaction');
-var UUIDUtils = require('dw/util/UUIDUtils');
-
 var checkoutLogger = require('app_custom_movado/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 
-function saveDecisionNotification(decisionNotificationObject) {
+function saveDecisionNotification(OrderID ,decisionNotificationObject) {
     try {
-        var UUID = UUIDUtils.createUUID();
-        if (UUID) {
+        if (OrderID && decisionNotificationObject) {
             Transaction.wrap(function () {
-                var decisionNotification = CustomObjectMgr.createCustomObject(RiskifiedOrderDecisionNotification, UUID);
-                decisionNotification.custom.decisionNoticiationObject = decisionNotificationObject;
+                var existingObject =  CustomObjectMgr.getCustomObject('RiskifiedOrderDecisionNotification', OrderID);
+                if(!existingObject){
+                    var decisionNotification = CustomObjectMgr.createCustomObject('RiskifiedOrderDecisionNotification', OrderID);
+                    decisionNotification.custom.decisionNotification = decisionNotificationObject;
+                }else{
+                    existingObject.custom.decisionNotification = decisionNotificationObject;
+                }
             });
         }
         return true;
     } catch (ex) {
-        checkoutLogger.error('(decisionNotification.js) -> saveDecisionNotification: Error occured while saving decision notification object');
+        checkoutLogger.error('(decisionNotification.js) -> saveDecisionNotification: Error occured while saving decision notification object: Error is: ' + ex);
         return false;
     }
 }
