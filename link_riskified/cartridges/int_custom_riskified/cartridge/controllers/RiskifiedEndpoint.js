@@ -13,7 +13,6 @@ var OrderMgr = require('dw/order/OrderMgr');
 var Transaction = require('dw/system/Transaction');
 var Site = require('dw/system/Site');
 
-
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 var RCLogger = require('*/cartridge/scripts/riskified/util/RCLogger');
 var RCUtilities = require('*/cartridge/scripts/riskified/util/RCUtilities');
