@@ -11,7 +11,7 @@
 @import "components/header";
 @import "components/footer";
 @import "~movado/components/hero";
-@import "~movado/components/headers";
+@import "./components/header";
 @import "~movado/components/notification";
 @import "components/countrySelector";
 @import url(https://fonts.googleapis.com/css?family=Dosis&subset=latin-ext);
@@ -33,7 +33,7 @@
 @import "~movado/product/bonus-product";
 @import "~movado/lib/slick";
 @import "product/comparison";
-@import "~movado/components/quickView";
+@import "./components/quickView";
 @import "~movado/components/wishlistGlobal";
 @import "~movado/components/primaryImagesCarousel";
 @import "~movado/components/emailOptInPopUp";

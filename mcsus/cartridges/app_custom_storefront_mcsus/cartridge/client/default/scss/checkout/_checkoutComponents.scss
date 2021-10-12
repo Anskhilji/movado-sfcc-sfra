@@ -73,7 +73,7 @@ $stored-payment-spacing: rem(16);
   .form-group {
     .form-control-label {
       margin-bottom: 0;
-      font-family: $font-book;
+      font-family: $font-regular;
       font-size: rem(14);
       line-height: rem(17);
       letter-spacing: rem(1);
@@ -270,6 +270,7 @@ $stored-payment-spacing: rem(16);
 
   .start-lines {
     padding: 1px;
+    font-family: $font-regular;
 
     span {
       position: relative;

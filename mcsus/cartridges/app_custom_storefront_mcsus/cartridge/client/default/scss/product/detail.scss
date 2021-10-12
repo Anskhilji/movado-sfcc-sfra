@@ -1,12 +1,6 @@
 @import "../variables";
-@import "../mixins";
-@import "bootstrap/scss/variables";
-@import "bootstrap/scss/mixins/breakpoints";
-@import "..~movado/utilities/shapes";
-@import "..~movado/utilities/responsiveUtils";
-@import "../utilities/swatch";
-@import "..~movado/product/recommendation";
-@import "..~movado/components/_backInStockNotification";
+@import "~movado/product/detail";
+
 
 .product-detail .swatch-circle {
     // $white will be replaced by color image background in ISML
@@ -45,7 +39,9 @@ label.color ~ a:hover {
 }
 
 .product-detail .description {
-
+    font-family: $font-medium;
+    font-size: rem(16);
+    font-weight: 500;
     margin-bottom: rem(30);
     width: 100%;
 
@@ -91,6 +87,8 @@ label.availability {
     width: 100%;
 
     .callout {
+        font-family: $font-medium;
+        font-weight: 500;
         font-size: rem(16);
         padding-top: rem(23);
         text-align: left;

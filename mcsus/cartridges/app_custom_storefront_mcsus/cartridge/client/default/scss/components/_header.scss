@@ -1,93 +1,18 @@
+@import "~movado/components/_header";
 @import "menu";
+@import "../variables";
 
 .header-banner {
   background-color: $grey14;
   .html-slot-container {
-    color: $white;
-    text-align: center;
-    padding: rem(10) 0;
     font-family: $font-medium;
     font-size: rem(14);
     font-weight: 500;
-    letter-spacing: rem(1);
   }
 }
 
-.accessible-link {
-  position: absolute;
-  z-index: 1000;
-  color: $white;
-  top: rem(10);
-  right: rem(20);
-  font-size: rem(14);
-
-  &:focus {
-    outline: $white dashed rem(2);
-  }
-
-  &:hover {
-    color: $white;
-    text-decoration: underline;
-  }
-
-  @include media-breakpoint-down(md) {
-    position: relative;
-    width: 100%;
-    right: 0;
-    text-align: center;
-    display: block;
-    top: 0;
-    height: rem(28);
-    padding-top: rem(6);
-    background-color: $black;
-  }
-}
 
 header {
-  letter-spacing: rem(2);
-  .logo-link {
-    img {
-      width: rem(110);
-    }
-  }
-  .sticky-header-wrapper {
-    position: relative;
-  }
-  .sticky-header-placeholder {
-    height: rem(60);
-  }
-  .navbar-toggler {
-    padding-left: rem(5);
-  }
-  .header-wrapper {
-    position: relative;
-    width: 100%;
-    .header-container {
-      display: flex;
-      width: 100%;
-      height: rem(60);
-      justify-content: space-between;
-      align-items: center;
-    }
-    .right,
-    .account-wrapper {
-      display: flex;
-      align-items: center;
-    }
-    .middle {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      .html-slot-container {
-        p {
-          margin: 0;
-          padding: 0;
-        }
-      }
-    }
-
-  }
   .menu-text {
     font-size: rem(16);
   }
@@ -97,40 +22,10 @@ header {
   .header-banner {
     .html-slot-container {
       font-size: rem(15);
-      letter-spacing: rem(2);
-    }
-  }
-  header {
-    .logo-link {
-      img {
-        width: rem(150);
-      }
-    }
-    .minicart {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
     }
   }
 }
 
-@include media-breakpoint-down(md) {
-  header {
-    .header-wrapper {
-      position: absolute;
-      width: 100%;
-      top: 0;
-      background-color: $white;
-      z-index: 1015;
-    }
-
-    .fixed-header {
-      .header-wrapper {
-        position: fixed;
-      }
-    }
-  }
-}
 
 @include media-breakpoint-up(lg) {
   .header-banner {
@@ -138,111 +33,17 @@ header {
       font-size: rem(16);
     }
   }
-  header {
-    .logo-link {
-      img {
-        width: rem(215);
-      }
-    }
-    .sticky-header-placeholder {
-      height: rem(120);
-    }
-    .header-menu-wrapper {
-      position: absolute;
-      width: 100%;
-      top: 0;
-      background-color: $white;
-      z-index: 1015;
-    }
-
-    .fixed-header {
-      .header-menu-wrapper {
-        position: fixed;
-      }
-    }
-    .header-wrapper {
-      .header-container {
-        height: rem(70);
-      }
-    }
-    .main-menu {
-      height: rem(50);
-    }
-    .navbar-nav {
-      justify-content: center;
-    }
-    .user {
-      position: relative;
-      .fa-sign-in,
-      .user-message {
-        cursor: pointer;
-      }
-
-      .popover {
-        position: absolute;
-        display: none;
-        top: rem(24);
-        left: rem(-11);
-        min-height: rem(100);
-        width: rem(172);
-        padding: rem(25) rem(21);
-        border: 0;
-        border-radius: rem(3);
-        background-color: $white;
-        box-shadow: 0 rem(2) rem(10) 0 $grey10;
-        a {
-          display: block;
-          margin-bottom: rem(10);
-          &:last-child {
-            margin: 0;
-          }
-        }
-        &:before {
-          content: '';
-          position: absolute;
-          width: 0;
-          height: 0;
-          border-width: 11px;
-          border-style: solid;
-          border-color: transparent transparent $white transparent;
-          top: rem(-21);
-          left: rem(6);
-        }
-        &.show {
-          display: block;
-        }
-      }
+}
+header {
+  .user {
+    position: relative;
+    .fa-sign-in,
+    .user-message {
+      cursor: pointer;
+      font-family: $font-medium;
+      font-size: rem(14);
     }
   }
 }
 
-header {
 
-    .modalBg {
-        z-index: 1016;
-    }
-
-    .eswModalWrapper {
-
-        .eswModal {
-            z-index: 1017;
-        }
-    }
-
-    .account-wrapper {
-
-        .selectors {
-            width: auto;
-
-            .dropdown {
-                width: auto;
-
-                &-menu {
-                    overflow-y: auto;
-                    height: auto;
-                    max-height: rem(300);
-                }
-            }
-        }
-    }
-}

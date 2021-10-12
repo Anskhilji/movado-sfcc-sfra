@@ -399,6 +399,9 @@ input[type="radio"] {
   [class*="collapsible-"] {
     margin-bottom: 0;
     .title {
+      font-family: $font-medium;
+      font-weight: 500;
+      font-size: rem(14);
       width: 100%;
       line-height: rem(17);
       cursor: pointer;
