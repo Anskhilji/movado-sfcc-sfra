@@ -22,6 +22,7 @@ function riskifiedDecisionNotification() {
                     riskifiedResponseResult.parseRiskifiedResponse(order, body);
                     order.custom.isOrderCompleted = true;
                     CustomObjectMgr.remove(currentObject);
+                    Logger.info('(RiskifiedDecisionNotification Job) -> riskifiedDecisionNotification: OrderID: ' + orderID + ' has been processed therefore removed it from Custom Object');
                 } else {
                     Logger.error('(RiskifiedDecisionNotification Job) -> riskifiedDecisionNotification: Custom Object has Empty Value for OrderID: ' + orderID);
                 }
