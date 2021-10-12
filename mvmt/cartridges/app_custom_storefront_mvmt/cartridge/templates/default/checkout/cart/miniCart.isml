@@ -52,10 +52,12 @@
     <isif condition="${enableGiftMessage}">
         <div class="gift-messages">
             <div class="row gift-messages-wrapper">
-                <div class="col-12 d-flex justify-content-center">
-                    <input name="giftbox" class="gift-messages-chekbox" type="checkbox">
-                    <label for="gift-message-checkbox" class="gift-messages-label">This order includes a gift</label>
-                    <a class="gift-messages-tooltip">Details</a>
+                <div class="col-12 d-flex pr-0  justify-content-center">
+                    <div class="custom-control custom-checkbox">
+                        <input name="giftMessageCheck" class="custom-control-input gift-messages-chekbox" id="gift-messages-route" type="checkbox">
+                        <label class="checkout-checkbox custom-control-label gift-messages-label" for="gift-messages-route">${Resource.msg('label.minicart.gift.message', 'cart', null)}</label>
+                    </div>
+                    <a class="gift-messages-tooltip">${Resource.msg('label.minicart.gift.detail', 'cart', null)}</a>
                 </div>
             </div>
             <div class="row gift-messages-model">

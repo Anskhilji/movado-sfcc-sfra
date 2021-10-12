@@ -122,6 +122,7 @@ $gainsboro-light: rgba(216,216,216,0.39);
 $gray88-solid: #E0E0E0;
 $badge-bg: rgba(238,238,238,0.69);
 $emerald2: #53C56F;
+$transparent-gray: rgba(211, 211, 211, 0);
 
 @mixin font-bold {
     font-family: "futura-pt-bold", sans-serif;
@@ -174,11 +175,14 @@ $font-futura-pt: "futura-pt", Arial , sans-serif !default;
 
 $grid-breakpoints: (
     xss: 0,
-    xs: 375,
+    xs-custom:320px,
+    xsm: 360px,
+    xs: 375px,
     sm: 544px,
     md-down: 768px,
     md: 769px,
     lg: 992px,
+    custom-lg: 1024px, 
     xl: 1280px,
     xl-custom: 1440px,
     xxl: 1920px
