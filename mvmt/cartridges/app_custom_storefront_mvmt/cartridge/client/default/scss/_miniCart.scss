@@ -156,6 +156,8 @@
                 font-size: rem(12);
                 text-transform: capitalize;
                 text-decoration: underline;
+                position: inherit;
+                top: rem(2);
 
                 &.active {
                     &::after, &::before {
@@ -170,8 +172,12 @@
 
                     .custom-control-label {
                         position: relative;
-                        top: rem(-18);
                         left: rem(8);
+
+                        &::before {
+                            position: absolute;
+                            top: rem(3);
+                        }
                     }
                 }
 
@@ -294,12 +300,12 @@
                         right: 24%;
                     }
 
-                    @media only screen and (min-width: $custom-sm-tb-width) {
+                    @include media-breakpoint-up(md-down) {
                         top: -11%;
                         right: 36%;
                     }
 
-                    @media only screen and (min-width: $custom-lg-width) {
+                    @include media-breakpoint-up(custom-lg) {
                         top: -9%;
                         right: 28%;
                     }

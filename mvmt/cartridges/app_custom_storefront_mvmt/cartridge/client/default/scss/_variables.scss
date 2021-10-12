@@ -182,6 +182,7 @@ $grid-breakpoints: (
     md-down: 768px,
     md: 769px,
     lg: 992px,
+    custom-lg: 1024px, 
     xl: 1280px,
     xl-custom: 1440px,
     xxl: 1920px
@@ -192,9 +193,7 @@ $custom-xl: 1280px;
 $custom-lg: 1070px;
 $custom-sm: 800px;
 $custom-md-width: 991px;
-$custom-lg-width: 1024px;
 $custom-sm-width: 767px;
-$custom-sm-tb-width: 768px;
 $custom-mobile: 600px;
 /* Button Mixins */
 
