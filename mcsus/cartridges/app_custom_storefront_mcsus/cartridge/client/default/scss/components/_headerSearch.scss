@@ -1,0 +1,47 @@
+@import "~movado/components/_headerSearch";
+@import "../utilities/swatch";
+@import "../variables";
+
+.site-search {
+
+    .fa-close,
+    .fa-search {
+        font-size: 1.125rem;
+    }
+
+    .search-field {
+        font-family: $font-medium;
+        font-size: rem(14);
+
+    }
+}
+
+
+
+.suggestions {
+    font-size: rem(14);
+    font-family: $font-medium;
+
+    .items-header {
+        font-size: rem(14);
+    }
+
+    .item {
+        font-size: rem(14);
+
+        .name {
+            font-size: rem(14);
+        }
+    }
+
+    .category-parent {
+        font-size: rem(14);
+    }
+}
+
+
+.more-below {
+    i.fa-long-arrow-down {
+        font-size: 1.5rem;
+    }
+}

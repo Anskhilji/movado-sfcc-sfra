@@ -1,0 +1,123 @@
+@import "~movado/components/_common";
+@import "../variables";
+
+body {
+  @include primary-font;
+}
+
+h1 {
+  font-size: rem(38);
+}
+
+.heading-one {
+  font-family: $font-book;
+  font-size: rem(26);
+}
+.heading-two {
+  font-family: $font-medium;
+  font-size: rem(20);
+}
+.heading-three {
+  font-family: $font-medium;
+  font-size: rem(18);
+
+}
+.heading-four {
+  font-family: $font-medium;
+  font-size: rem(16);
+}
+.body-text {
+  font-family: $font-book;
+  font-size: rem(14);
+}
+
+
+
+@include media-breakpoint-up(md) {
+  .heading-one {
+    font-size: rem(46);
+  }
+  .heading-two {
+    font-size: rem(32);
+    font-family: $font-book;
+  }
+  .heading-three {
+    font-size: rem(24);
+  }
+  .heading-four {
+    font-size: rem(20);
+  }
+}
+@include media-breakpoint-only(md) {
+  .body-text {
+    font-size: rem(15);
+  }
+}
+@include media-breakpoint-up(lg) {
+  .body-text {
+    font-size: rem(16);
+  }
+}
+
+
+// Styles for promo code form on cart and checkout page
+.collapsible-promo-wrapper {
+
+
+  [class*="collapsible-"] {
+
+    .title {
+      font-family: $font-medium;
+      font-weight: 500;
+      font-size: rem(14);
+
+      &::after {
+        font-size: rem(24);
+      }
+    }
+
+    &.active {
+      .title::after {
+        font-size: rem(24);
+      }
+    }
+  }
+
+}
+
+// Styles for coupons on cart and checkout page
+.coupons-wrapper {
+
+  .coupon-promotion-relationship {
+    font-size: rem(14);
+  }
+
+  .coupon-code {
+    font-family: $font-medium;
+    font-size: rem(16);
+  }
+
+
+  .coupon-applied,
+  .coupon-not-applied {
+    font-family: $font-medium;
+    font-size: rem(12);
+  }
+
+  .remove-coupon {
+    font-size: rem(24);
+  }
+}
+
+
+.form-group {
+	.form-control-field-label {
+		font-family: $font-medium;
+		font-size: rem(14);
+	}
+}
+
+
+.password-description {
+  font-size: rem(14);
+}
