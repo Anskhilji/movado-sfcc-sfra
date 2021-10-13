@@ -1,0 +1,25 @@
+@import "../vars";
+header {
+
+    .main-menu {
+        background-color: $Grey;
+    }
+
+    .user {
+        .user-message {
+            text-transform: capitalize;
+        }
+    }
+}
+
+.header-banner {
+    background-color: $light-silver;
+
+    .html-slot-container {
+        color: $Grey;
+    }
+}
+
+.accessible-link {
+    color: $black;
+}

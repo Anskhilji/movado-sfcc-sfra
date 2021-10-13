@@ -1,0 +1,17 @@
+@import "../vars";
+.navbar {
+    .navbar-nav {
+        .nav-link {
+            color: $white;
+            
+            &:hover {
+                color: $black;
+            }
+
+            @include media-breakpoint-down(md) {
+                color: $black;
+            }
+
+        }
+    }
+}

@@ -11,3 +11,26 @@
         }
     }
 }
+
+.main-menu {
+    .nav-item {
+        .nav-link {
+            text-transform: capitalize;
+        }
+    }
+}
+
+nav {
+    .menu-group {
+        .navbar-nav {
+            li {
+                &:hover {
+                    a {
+                        color: $black;
+                    }
+
+                }
+            }
+        }
+    }
+}
