@@ -16,8 +16,14 @@ $orange: #EA4138 !default;
 $dark-blue: #2A326D !default;
 $dark-red: #981608 !default;
 $yellow: #FFC517 !default;
+$amber: #FFC107 !default;
 $border-color: #979797 !default;
+
 // Consolidated values
+$black1 : #212529 !default;
+
+$light-grey: #d8d8d8 !default;
+$light-grey2: #f8f8f8 !default;  
 $grey1: #f9f9f9 !default;
 $grey2: #eee !default;
 $grey3: #ccc !default;
@@ -35,6 +41,8 @@ $grey14: #060506 !default;
 $grey16: #D2D2D2 !default;
 $grey15: #070707 !default;
 $grey17: #787777 !default;
+
+$white-transparent: rgba(255,255,255,0.5) !default;
 
 $grey-transparent-1: rgba(0, 0, 0, 0.65) !default;
 $grey-transparent-2: rgba(0, 0, 0, 0.25) !default;
