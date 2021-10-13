@@ -63,6 +63,7 @@
     <field formid="country" label="label.input.country" type="string" mandatory="true" binding="countryCode"
            missing-error="error.message.required">
         <options>
+            <option optionid="" 	label="resource.select" value=""/>
             <option optionid="US" label="select.option.country.unitedstates" value="US"/>
             
         </options>

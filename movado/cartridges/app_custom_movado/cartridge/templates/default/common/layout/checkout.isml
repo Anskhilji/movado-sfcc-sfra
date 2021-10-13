@@ -40,6 +40,7 @@
             <isinclude url="${URLUtils.url('ltkInclude-Start')}" />
         </isif>
         <isinclude template="common/oneTrustCookiesHTML" sf-toolkit="off" />
+        <isinclude template="/common/googleMapsApi" sf-toolkit="off" />
 
     </body>
 </html>

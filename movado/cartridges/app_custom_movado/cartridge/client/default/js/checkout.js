@@ -11,6 +11,7 @@ $(document).ready(function() { // eslint-disable-line
     }
     processInclude(require('./checkout/billing'));
     processInclude(require('./checkout/checkout'));
+    processInclude(require('./checkout/autoCompleteAddress'));
     var paymentMethod = $('.payment-options .show').parent().find('.form-check').data('method-id');
     var brandCode = $('.payment-options .show').parent().find('.form-check').data('brand-code');
     $('#selectedPaymentOption').val(paymentMethod);
