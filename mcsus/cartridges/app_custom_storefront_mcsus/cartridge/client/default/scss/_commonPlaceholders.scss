@@ -1,34 +1,22 @@
+@import "~movado/_commonPlaceholders";
 @import "./mixins";
-
-%card-box {
-  box-shadow: 0 rem(2) rem(2) 0 $grey-transparent-7;
-  border-radius: rem(3);
-  border: rem(1) solid $grey3;
-}
+@import "./variables";
 
 %address-link {
-  margin-top: rem(15);
   font-family: $font-medium;
   font-size: rem(14);
-  line-height: rem(14);
-  color: $grey14;
 }
 
 %store-name {
   font-size: rem(18);
-  color: $grey14;
-  line-height: rem(24);
 }
 
 %store-map {
   font-family: $font-book;
   font-size: rem(15);
-  color: $grey14;
 }
 
 %card-header {
   font-family: $font-medium;
   font-size: rem(16);
-  letter-spacing: rem(2);
-  line-height: rem(19);
 }

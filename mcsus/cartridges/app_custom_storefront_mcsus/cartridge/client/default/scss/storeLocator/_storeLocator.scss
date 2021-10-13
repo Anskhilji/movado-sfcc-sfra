@@ -1,146 +1,33 @@
+@import "~movado/storeLocator/_storeLocator";
 @import "../variables";
 @import "../mixins";
 
 .store-locator-container {
-
-    padding-bottom: rem(40);
-
-    @include media-breakpoint-down(sm) {
-        padding-left: rem(5);
-        padding-right: rem(5);
-    }
-
-    @include media-breakpoint-up(md) {
-	    max-width: rem(720);
-    }
     .card-button {
-        padding: rem(11) rem(12);
         font-family: $font-medium;
         font-size: rem(16);
-        border: rem(1) solid $grey14;
-        letter-spacing: rem(2);
-        line-height: rem(14);
-    }
-    .btn-storelocator-search {
-        &:hover {
-            background-color: $grey14;
-            color: $white;
-        }
-    }
-
-    .detect-location {
-        background-color: $grey14;
-    }
-
-    .search-form {
-        width: 100%;
-        margin-bottom: rem(32);
-    }
-
-    .select-store {
-        @include media-breakpoint-up(sm) {
-            margin-top: -3rem;
-        }
-    }
-
-    .custom-radio {
-        .store-details {
-            margin-left: 1.125em;
-        }
-    }
-
-    .store-locator-no-results {
-        display: none;
-        margin-top: rem(16);
-    }
-
-    .results {
-        @include media-breakpoint-up(md) {
-            overflow-y: auto;
-            overflow-x: hidden;
-            max-height: 21.875em;
-        }
-    }
-
-    .card-header {
-        border-bottom: 1px solid $border-color;
     }
 
     .find-store-form {
         @extend %card-box;
-        padding: rem(10) rem(15) rem(25) rem(15);
 
         .form-control-label {
             font-family: $font-book;
             font-size: rem(14);
-            color: $grey14;
-            letter-spacing: rem(1);
-            line-height: rem(17);
-            margin-bottom: 0;
-        }
-
-        .form-control {
-            border: rem(1) solid $grey14;
-            color: $grey14;
         }
     }
 
     .results-card {
-        @extend %card-box;
-
-        .stores-list {
-            padding: 0;
-
-            .store-details {
-                margin-left: rem(40);
-
-                & > address {
-                    margin-bottom: 0;
-
-                    & > p {
-                        @extend %address-link;
-                    }
-                }
-            }
-        }
-
-        .card-body.store-marker {
-            padding:0;
-                &:not(:first-child) {
-                    border-top: 1px solid $border-color;
-                }
-                .store-card-tile{
-                    cursor: pointer;
-                    padding: rem(7) rem(21) rem(25) rem(7);
-                    margin:rem(4) rem(4) 0;
-                }
-        }
 
         .store-name {
             font-family: $font-bold;
-            @extend %store-name;
-        }
-
-        .store-map {
-            @extend %store-map;
-            line-height: rem(24);
         }
     }
 
     .find-store-select {
         position: relative;
         select {
-            @include select-appearance(none);
-            text-align-last: left;
-            border: rem(1) solid $grey14;
-            color: $grey14;
             font-family: $font-medium;
-            line-height: rem(19);
-            letter-spacing: rem(1);
-
-            &.radius {
-                text-transform: lowercase;
-            }
         }
     }
 }
@@ -149,7 +36,6 @@
     a {
         font-family: $font-book;
         font-size: rem(14);
-        text-decoration: underline;
         @include media-breakpoint-up(md) {
             font-size: rem(15);
         }

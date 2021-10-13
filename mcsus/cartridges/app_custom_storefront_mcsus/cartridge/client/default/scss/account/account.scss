@@ -1,11 +1,5 @@
+@import "~movado/account/account";
 @import "../variables";
-@import "../mixins";
-@import "bootstrap/scss/variables";
-@import "bootstrap/scss/mixins/breakpoints";
-@import "..~movado/components/formFields";
-
-
-
 
 .account-pages{
 
@@ -17,82 +11,39 @@
               font-weight: 300;
               font-family: $font-medium;
             }
-            .account-wl-image{
-              @include media-breakpoint-down(sm){
-                padding-left:0;
-                padding-right:0;
-              }
-            }
+
           }
           dt,.field-label{
-            color: $grey14;
             font-size: rem(14);
             font-family: $font-medium;
           }
           dd,.field-value{
-            color: $grey-dark-1;
-            line-height: rem(21);
             font-size: rem(14);
           }
           & > div{
             div{
               font-size: rem(14);
-              color: $grey-dark-1;
               &.dashboard-cards-block-title{
                 font-family: $font-medium;
                 font-weight: 500;
-                color:$grey14;
               }
             }
           }
-          .line-item-name {
-            text-transform: uppercase;
-            color: $grey14;
-            @include headline;
-          }
-          .disabled .custom-control-label{
-            text-transform: none;
-          }
       }
       .card-footer {
-          border-top: 1px solid $grey3;
-          &.no-card-body{
-            border-top:none;
-          }
           .card-link{
               font-size: rem(14);
           }
           .field-label{
-            color: $grey14;
             font-size: rem(14);
             font-family: $font-medium;
           }
           .field-value{
-            color: $grey-dark-1;
-            line-height: rem(21);
             font-size: rem(14);
           }
       }
   }
-  .product-card-price{
-      .line-item-price-info{
-          margin-bottom: 0;
-      }
-      .price .value{
-          @include headline(18);
-          line-height: rem(22);
-          color: $black;
-
-      }
-  }
-  .my-account a{
-      text-decoration: underline;
-  }
   .wl-social-sharing{
-    margin-bottom: rem(5);
-    .share-icons{
-      margin:rem(5);
-    }
     .wl-social-sharing-text{
       font-size: rem(14);
     }

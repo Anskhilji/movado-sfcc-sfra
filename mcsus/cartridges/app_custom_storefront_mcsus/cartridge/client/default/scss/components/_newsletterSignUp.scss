@@ -1,73 +1,30 @@
-.home-email-signup {
-    background-color: $light-black;
-    margin-bottom: rem(20);
-    > .container {
-        padding-top: rem(14);
-        padding-bottom: rem(14);
-    }
+@import "~movado/components/_newsletterSignUp";
+@import "../variables";
 
+.home-email-signup {
     .email-description {
-        padding-top:rem(2);
-        color: $white;
-        line-height: normal;
-        text-align: center;
         font-size: rem(12);
         font-family: $font-medium;
         font-weight: 500;
     }
     .form-control{
-      line-height: rem(22);
-      letter-spacing: 1px;
-      border-radius: 2px;
-      border-right: 0;
       font-family: $font-medium;
       font-weight: 500;
-      height:36px;
     }
     .input-group-btn{
-      background: $white;
-      border-top-right-radius: 2px;
-      border-bottom-right-radius: 2px;
-      padding-right: 1px;
-      border-top: 1px solid $black;
-      border-bottom: 1px solid $black;
+
       .btn-primary{
-        letter-spacing: 2px;
         font-family: $font-medium;
         font-weight: 500;
-        line-height: rem(18);
-        margin-top: rem(1);
+
       }
     }
-    .submission-status{
-      margin-top:rem(5);
-      text-align: center;
-      .success{
-        color:$white;
-      }
-      .error{
-        color: $red;
-      }
-    }
+
 }
 @include media-breakpoint-up(sm) {
   .home-email-signup {
     .email-description {
-      padding-left:0;
       font-size: rem(16);
-    }
-    .submission-status{
-      text-align: left;
-    }
-}
-}
-@include media-breakpoint-up(lg) {
-  .home-email-signup {
-    > .container {
-      max-width: 950px;
-      .email-description {
-        padding-top:rem(9);
-      }
     }
   }
 }

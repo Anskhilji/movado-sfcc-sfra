@@ -1,31 +1,10 @@
-@import "../variables";
-@import "bootstrap/scss/variables";
-@import "bootstrap/scss/mixins/breakpoints";
+@import "~movado/account/profile";
 @import "account";
+@import "../variables";
 
-.profile-back-to-account-link {
-    color: $primary;
-    text-decoration: underline;
-    display: block;
-    text-align: center;
-}
-
-.tracking-consent {
-    color: $blue;
-    text-decoration: underline;
-    cursor: pointer;
-}
-p.order-info{
-    span{
-        display: block;
-    }
-    .summary-section-label{
-        margin-bottom: rem(10);
-    }
-}
 .grand-total{
-.order-receipt-label,.grand-total-sum{
-    font-family: $font-bold;
-    font-size: rem(18);
-}
+    .order-receipt-label,.grand-total-sum{
+        font-family: $font-bold;
+        font-size: rem(18);
+    }
 }

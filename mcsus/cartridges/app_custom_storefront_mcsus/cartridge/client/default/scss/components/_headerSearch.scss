@@ -1,203 +1,47 @@
+@import "~movado/components/_headerSearch";
 @import "../utilities/swatch";
 @import "../variables";
 
 .site-search {
-    position: relative;
-    @include media-breakpoint-up(md) {
-        margin-right: rem(20);
-    }
+
     .fa-close,
     .fa-search {
-        position: absolute;
-        padding: 0;
-		top: rem(13);
-    right: rem(22);
-    background-color: transparent;
-    outline: none;
-    border: none;
         font-size: 1.125rem;
-
-        @include media-breakpoint-up(md) {
-            top: rem(10);
-            right: rem(13);
-        }
     }
 
     .search-field {
-        padding: .75rem 2rem .75rem .75rem;
-        height: 100%;
-        border: 2px solid $primary;
-        color: $grey14;
         font-family: $font-medium;
         font-size: rem(14);
 
-        &:focus {
-            box-shadow: 0 2px 10px 0 $grey-transparent-6;
-        }
-
-        @include media-breakpoint-up(md) {
-            border: 1px solid $primary;
-            padding: .6rem 2rem .6rem .75rem;
-            width: rem(200);
-        }
-        @include media-breakpoint-up(xl) {
-          width: rem(320);
-        }
     }
 }
 
-@include media-breakpoint-down(xs) {
-    .header-search {
-        .site-search {
-            display: none;
-        }
 
-        .search-button {
-            display: block;
-        }
-    }
-
-    .search-row {
-        .search-button {
-            display: none;
-        }
-    }
-}
-
-.search-button {
-    display: none;
-    margin-top: 0.375em; /* 6/16 */
-    margin-right: 0.375em;
-}
-
-.suggestions-wrapper {
-    position: relative;
-}
 
 .suggestions {
     font-size: rem(14);
     font-family: $font-medium;
-    display: block;
-    position: absolute;
-    background-color: $white;
-    top: 0;
-    right: 0;
-    width: rem(293);
-    z-index: 3;
-
-    @include media-breakpoint-down(sm) {
-        display: flex;
-        position: fixed;
-        width: 100%;
-
-        .items:last-of-type {
-            border-bottom: 1px solid $grey3;
-        }
-    }
-
-    .swatch-circle {
-        @include swatch(2.5em, $white);
-        border: none;
-        height: rem(50);
-        width: rem(50);
-        margin-right: 0;
-    }
 
     .items-header {
-        color: $grey10;
-        padding-top: rem(15);
-        text-transform: uppercase;
         font-size: rem(14);
-        line-height: rem(17);
-        letter-spacing: 2px;
-
-        &:not(:first-child) {
-            border-top: 1px solid $grey3;
-        }
-    }
-    .items {
-        padding: 0.313em 0;
     }
 
     .item {
-        padding-bottom: rem(10);
         font-size: rem(14);
 
         .name {
             font-size: rem(14);
-            line-height: rem(19);
-            letter-spacing: 2px;
-            flex: 1;
-            > a {
-            color: $grey14;
-            }
         }
     }
 
     .category-parent {
-        color: $grey14;
         font-size: rem(14);
     }
 }
 
-@include media-breakpoint-up(md) {
-
-    .suggestions {
-        border-radius: rem(3);
-        box-shadow: 0 rem(2) rem(10) 0 $grey10;
-        top: rem(11)
-        }
-
-    .suggestions:after, .suggestions:before {
-        position: absolute;
-        content: '';
-        width: 0;
-        height: 0;
-    }
-
-    .suggestions:before {
-        top:rem(-10);
-        right:rem(20);
-        border-left: 6px solid transparent;
-        border-right: 6px solid transparent;
-        border-bottom: 10px solid $white;
-        z-index:2;
-    }
-
-    .suggestions:after {
-        /* This is the shadow triangle */
-        top:rem(-12);
-        right:rem(20);
-        border-left: 8px solid transparent;
-        border-right: 8px solid transparent;
-        border-bottom: 12px solid $grey-transparent-3;
-        z-index:1;
-    }
-}
 
 .more-below {
-    -moz-border-radius: 1.25em;
-    background: $grey3;
-    border: 0.063em solid $grey-transparent-4;
-    border-radius: 1.25em;
-    bottom: 1.875em;
-    box-shadow: 0 1px 7px $grey-transparent-5;
-    display: none;
-    height: 2.5em;
-    position: fixed;
-    right: 1.875em;
-    width: 2.5em;
-
     i.fa-long-arrow-down {
-        border-radius: 50%;
-        color: $white;
-        display: table-caption;
-        height: 0.75em;
         font-size: 1.5rem;
-        left: 0.57em;
-        line-height: 0.8em;
-        position: absolute;
-        top: 0.4em;
-        width: 0.8em;
     }
 }

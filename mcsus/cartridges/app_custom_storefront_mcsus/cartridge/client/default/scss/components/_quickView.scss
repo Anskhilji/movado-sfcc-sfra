@@ -1,133 +1,13 @@
-@import "../utilities/swatch";
+@import "~movado/components/_quickView";
 @import "productCommon";
+@import "../variables";
 
 .quick-view-dialog,
 .choose-bonus-product-dialog {
-    max-width: 56.25em;
-
-    .selectable-bonus-product-line-item {
-        margin-top: 0.2em;
-        margin-bottom: 0.2em;
-        padding-top: 0.3em;
-        padding-bottom: 0.3em;
-    }
-
-    .beenSelected {
-        background-color: $grey2;
-    }
-
-    .modal-header {
-        background-color: $grey2;
-        border-top-left-radius: 0.1875rem;
-        border-top-right-radius: 0.1875rem;
-        border-bottom: 0;
-
-        .full-pdp-link {
-            display: inline-block;
-            margin: rem(11.2) rem(52) rem(8);
-            color: $primary;
-        }
-
-        .close {
-
-            font-size: rem(16);
-            line-height: rem(32);
-            padding: rem(21.6) rem(16);
-
-            &-icon {
-                font-size: rem(16);
-                padding: 0 rem(72) 0 0;
-                height: auto;
-                background-position: right;
-            }
-        }
-    }
-
-    .modal-title {
-        font-size: 1em;
-    }
-
-    .product-name {
-        font-size: 1.875em;
-    }
-
-    .swatch-circle {
-        // $white will be replaced by color image background via Javascript
-        @include swatch(2.5em, $white);
-    }
-
-    a[disabled] .swatch-circle {
-        cursor: not-allowed;
-
-        &.color-value.selected::after {
-            background-color: $gray-700;
-        }
-    }
-
-    .availablity-container {
-        text-align: right;
-    }
-
-    .availablity-container,
-    .size-chart {
-        margin-top: 0.938em;
-    }
-
-    .modal-content {
-        border: 1px solid rgba(0, 0, 0, 0.2);
-    }
-
-    .modal-body {
-        height: auto; /* 450/16 */
-        overflow-y: visible;
-    }
-
-    button.close {
-        font-size: 1.25em;
-    }
-
-    .modal-footer {
-        background-color: $white;
-        border: none;
-        border-bottom-right-radius: 0.1875rem;
-        border-bottom-left-radius: 0.1875rem;
-
-        .prices .price {
-            font-size: 1.6em;
-        }
-    }
-
-    .prices .sales {
-        font-size: 1.5rem;
-    }
-
-    .promotions {
-        text-align: left;
-        color: $red;
-    }
-
-    .bonus-summary {
-        @include media-breakpoint-down(sm) {
-            font-size: 0.625em;
-        }
-
-        .bonus-product-name {
-            @include media-breakpoint-down(sm) {
-                padding: 0;
-            }
-        }
-    }
-
     .product-not-available-msg {
-        color: $red;
-
         @include media-breakpoint-down(xs) {
             font-size: rem(14);
             padding-bottom: rem(6);
         }
-    }
-
-    .pre-cart-products {
-        margin-right: 0.125em;
     }
 }

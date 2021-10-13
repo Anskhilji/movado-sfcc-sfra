@@ -1,81 +1,35 @@
+@import "~movado/staticContent";
 @import "variables";
 @import "mixins";
-@import "bootstrap/scss/variables";
-@import "bootstrap/scss/mixins/breakpoints";
 
 .pt_customerservice {
 
-  .content {
-    margin-bottom: rem(16);
-    @include media-breakpoint-up(md) {
-      margin-bottom: rem(32);
-    }
-  }
+
   aside {
     nav {
       ul {
-        padding-left: 0;
         li {
-          list-style: none;
-          border-bottom: rem(1) solid $grey3;
           a {
-            padding: rem(16) 0;
-            display: block;
             font-family: $font-medium;
             font-size: rem(14);
-            letter-spacing: rem(2);
-            position: relative;
-            text-transform: uppercase;
-            &:hover {
-              text-decoration: none;
-            }
             &:after {
-              content: "\F105";
               font-size: rem(28);
               font-family: "FontAwesome";
-              position: absolute;
-              right: 0;
-              top: 50%;
-              transform: translateY(-50%);
             }
-            &:not(.btn-primary):not(.btn-outline-primary) {
-              &.is-selected {
-                color: $grey3;
-              }
-            }
+
             @include media-breakpoint-up(md) {
               font-size: rem(18);
-              &:after {
-                content: unset;
-              }
-              &.is-selected {
-                content: unset;
-              }
             }
-          }
-          &:first-child a{
-            padding-top: rem(6);
-          }
-          &:last-child {
-            border-bottom-color: $grey3;
           }
         }
       }
     }
   }
   .right-content {
-    margin-top: rem(40);
-    @include media-breakpoint-up(md) {
-      margin-top: 0;
-    }
-    h2 {
-      margin-bottom: rem(40);
-    }
+
     p {
       font-family: $font-book;
       font-size: rem(14);
-      letter-spacing: rem(1);
-      margin-bottom: rem(40);
       font-weight: 500;
       @include media-breakpoint-up(md) {
         font-size: rem(15);
@@ -87,71 +41,9 @@
     a {
       font-family: $font-medium;
       font-size: rem(16);
-      letter-spacing: rem(2);
-      text-decoration: underline;
       @include media-breakpoint-up(md) {
         font-size: rem(16);
       }
     }
-    .accordian-panel {
-      border-bottom: rem(1) solid $grey3;
-      margin-bottom: rem(10);
-      .accordian-title {
-        text-decoration: none;
-        padding: rem(16) 0;
-        display: block;
-        padding-right: rem(20);
-        position: relative;
-        &:after,
-        &:before {
-          content: " ";
-          position: absolute;
-          right: 0;
-          top: rem(24);
-          width: rem(16);
-          height: rem(1);
-          background-color: $black;
-        }
-        &:before {
-          width: rem(1);
-          height: rem(16);
-          right: rem(8);
-          top: rem(16);
-          display: none;
-        }
-        &.collapsed {
-          &:before {
-            display: block;
-          }
-        }
-      }
-    }
-    .btn-save {
-      margin-bottom: rem(40);
-      @include media-breakpoint-up(md) {
-        margin-bottom: 0;
-        display: inline-block;
-        width: auto;
-      }
-    }
-    .contactus-page {
-      padding-left: 0;
-      padding-right: 0;
-    }
-  }
-}
-.content-hero-banner {
-  position: relative;
-    max-width: 1300px;
-    width: 100%;
-    margin: 0 auto;
-  img {
-    width: 100%;
-  }
-  .content-title {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    @include translate(-50%, -50%);
   }
 }

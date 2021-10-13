@@ -1,100 +1,50 @@
-@import "../variables";
 @import "~movado/components/_productCommon";
+@import "../variables";
 
 
 .description-and-detail .attribute {
-    margin-bottom: rem(20);
-    display: flex;
-
-    &-detail {
-        margin-left: rem(26.2);
-        margin-top: rem(7);
-    }
-
-    &-badge {
-        width: rem(50);
-        flex-shrink: 0;
-        img {
-            width: 100%;
-            height: rem(50);
-        }
-    }
 
     &-name {
-        display: block;
         font-family: $font-thin;
         font-weight: 300;
         font-size: rem(24);
     }
 
     &-value {
-        text-transform: uppercase;
         font-family: $font-medium;
         font-weight: 500;
         font-size: rem(16);
     }
 
-    label {
-        display: block;
-    }
 }
 
 .product-detail {
     @import "../product/imageCarousel";
 
     .product-name {
-        margin-bottom: 0;
         font-size: rem(40);
-        line-height: rem(38);
         font-family: $font-bold;
-
-        @include media-breakpoint-only(xs){
-            text-align: center;
-        }
     }
 
     .product-number {
-        color: $grey5;
         font-size: rem(14);
-        padding-bottom: rem(15);
-        padding-top: 0.938em;
-
-        @include media-breakpoint-down(xs) {
-            padding: rem(5) 0;
-        }
     }
 
     .exclusive-badges {
-        margin-bottom: rem(16);
+
         .badge {
-            background-color: rgba($grey10,0.3);
-            border-radius: rem(10);
-            color: $black;
-            padding: rem(5) rem(8);
             font-size: rem(12);
             font-weight: 500;
-            margin-bottom: rem(8);
-            line-height: rem(14);
-        }
-
-        @include media-breakpoint-down(xs) {
-            text-align: center;
-            margin: rem(16) 0;
         }
     }
 
     .availability-msg {
-        margin-bottom: 0;
         font-family:$font-medium;
         font-size: rem(10);
-        @include media-breakpoint-down(xs) {
-            text-align: center;
-        }
     }
 
     .price {
         font-family: $font-medium;
-        color: $black;
         font-size: rem(20);
         @include media-breakpoint-down(xs) {
             font-size: rem(16);
@@ -102,315 +52,26 @@
     }
 }
 
-.swatch a {
-    text-decoration: none;
-}
 
-.primary-images {
 
-    @include media-breakpoint-down(xs) {
-        margin: 0;
-        padding: 0;
-        min-height: 66vh;
-        height: auto;
-    }
 
-    .carousel-item {
-        min-height: 350px;
-        @include media-breakpoint-up(md) {
-            min-height: 500px;
-        }
-    }
-}
-
-.prices-add-to-cart-actions {
-    width: 100%;
-    position: fixed;
-    bottom: rem(0);
-    z-index: 1;
-    padding-right: rem(0);
-    padding-left: rem(0);
-    left: rem(0);
-
-    @include media-breakpoint-down(xs) {
-        background-color: $grey12;
-        .price {
-            text-align: center;
-        }
-    }
-
-    @include media-breakpoint-up(sm) {
-        position: static;
-        padding: 0 0.9375em;
-    }
-}
-
-.prices {
-    padding-bottom: rem(15);
-    @include media-breakpoint-down(xs) {
-        padding: 0.625rem 0;
-    }
-}
 
 .more-styles-wrapper {
     h3 {
         font-size: rem(18);
-        border-bottom: rem(2) solid $grey13;
         font-weight: 500;
-        letter-spacing: rem(2);
-        margin-bottom: rem(25);
-        display: inline-block;
-    }
-    a {
-        text-decoration: none;
-    }
-    .more-styles {
-        margin: 0 rem(-12.5);
-    }
-    img {
-        border: 1px solid rgba($grey10,0.3); // Rem in IE does not work properly
-        width: rem(70);
-        height: rem(70);
-        margin: 0 rem(12.5);
-        margin-bottom: rem(25);
     }
 }
 
-div.quantity {
-    float: right;
-    padding: 0;
-    width: 25%;
-}
 
-.cart-and-ipay {
-    margin-bottom: rem(20);
-    @include media-breakpoint-only(xs) {
-        padding-bottom: rem(26);
 
-        .btn {
-            width: 99%;
-            margin: 1%;
-            display: block;
-        }
-    }
-
-    @include media-breakpoint-down(xs) {
-        padding: 0 rem(15) rem(10);
-        margin-bottom: 0;
-    }
-}
-
-.add-to-cart-messages {
-    @include toast-message();
-}
-
-.add-to-basket-alert {
-    @include toast-alert();
-}
-
-.simple-quantity {
-    margin-top: 1em;
-}
-
-.wishlist-row {
-    margin-bottom: rem(20);
-    @include media-breakpoint-down(xs) {
-        justify-content: center;
-    }
-}
-
-.add-to-wish-list{
-    padding-left: 0;
-    padding-right: 0;
-    text-decoration: underline;
-}
-
-.main-attributes {
-    margin-bottom: 1em;
-    margin-top: 0;
-
-    .attribute-values {
-        @include media-breakpoint-down(xs) {
-            text-align: center;
-        }
-    }
-}
-
-.size-chart {
-    margin-top: 1.071em;
-}
-
-div.availability {
-    margin-top: rem(5);
-}
-
-.bundle-item {
-    padding-bottom: 1em;
-    border-bottom: 1px solid $hr-border-color;
-
-    &:last-child {
-        border-bottom: none;
-    }
-}
-
-.container.product-detail {
-    margin-top: 2em;
-    margin-bottom: 2em;
-
-    @include media-breakpoint-only(xs) {
-        margin-top: 0;
-        margin-bottom: 0;
-    }
-}
-
-.product-option:not(:first-child) {
-    margin-top: 1.071rem;
-}
-
-.embossing-attribute, .engraving-attribute {
-    > a {
-        text-decoration: none;
-        &:hover {
-            text-decoration: none;
-        }
-    }
-    .add, .remove {
-        span {
-            text-decoration: underline;
-        }
-    }
-    &.active {
-        .add {
-            display: none;
-        }
-        .remove {
-            display: inline-block;
-        }
-    }
-
-    .add {
-        display: inline;
-    }
-
-    .remove {
-        display: none;
-    }
-
-    .attribute-text {
-        margin-top: rem(12);
-        display: none;
-
-        input[type='text'] {
-            height: rem(36);
-            padding: 0 rem(10);
-        }
-
-        textarea {
-            resize: none;
-            padding: rem(6) rem(10);
-        }
-
-        input[type='text'], textarea {
-            width: rem(198);
-            border: rem(1) solid $black;
-            line-height: rem(19);
-
-            ~ label {
-                text-transform: unset;
-                display: block;
-                &.error {
-                    color: $red;
-                }
-            }
-        }
-    }
-}
-.affirm-as-low-as {
-
-    .__affirm-logo.__affirm-logo-black {
-        color: $black;
-    }
-
-    .affirm-modal-trigger {
-        display: block;
-        padding: rem(10) 0;
-        text-decoration: underline;
-    }
-
-    @include media-breakpoint-down(xs) {
-        text-align: center;
-    }
-}
-
-.product-badges {
-    position: relative;
-}
-.badge {
-    &-left, &-right {
-        position: absolute;
-        top: 0;
-        z-index: 1;
-    }
-
-    &-left {
-        left: 0;
-    }
-    &-right {
-        right: 0;
-    }
-}
 .description-and-detail {
     [class*="collapsible-"] {
-        h2 {
-            margin-bottom: 0;
-        }
+
         .title {
-            display: inline-block;
-            width: 100%;
             font-family: $font-bold;
             font-weight: bold;
             font-size: rem(30);
-
-            &::after {
-                content: "\F107";
-
-                @include media-breakpoint-up(md) {
-                    content: unset;
-                }
-            }
-        }
-
-        &.active {
-            .title::after {
-                content: "\F106";
-
-                @include media-breakpoint-up(md) {
-                    content: unset;
-                }
-            }
-        }
-
-    }
-}
-
-div.variationAttribute {
-    .attribute {
-        margin-bottom: 1rem;
-
-        > label {
-            display: none;
-        }
-    }
-}
-
-.estimated-text {
-    display: none;
-}
-
-.product-detail {
-    .estimated-text {
-        @include media-breakpoint-down(xs) {
-            display: inline;
         }
     }
 }
@@ -418,13 +79,5 @@ div.variationAttribute {
 select {
     + i.fa {
         font-size: rem(20);
-    }
-}
-
-.sku-text-alignment {
-    float: left;
-    @include media-breakpoint-down(xs) {
-        float: none;
-        text-align: center;
     }
 }

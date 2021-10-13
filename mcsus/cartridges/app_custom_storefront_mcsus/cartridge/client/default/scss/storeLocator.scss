@@ -1,107 +1,28 @@
+@import "~movado/storeLocator";
 @import "variables";
-@import "bootstrap/scss/variables";
-@import "bootstrap/scss/mixins/breakpoints";
 @import "./commonPlaceholders";
 @import "storeLocator/storeLocator";
 
-.map-marker {
-    float: left;
-    width: rem(26);
-    height: rem(26);
-    line-height: rem(26);
-    text-align: center;
-    border-radius: rem(6);
-    color: $white;
-    background-color: $grey-dark-1;
-    position: relative;
-
-    &::after {
-        position: absolute;
-        bottom: -0.625em;
-        left: 50%;
-        transform: translate(-50%, 0);
-        content: '';
-        width: 0;
-        height: 0;
-        border-style: solid;
-        border-width: rem(8) rem(4) rem(4);
-        border-color: $grey5 transparent transparent transparent;
-    }
-}
-
-.map-canvas {
-    display: none;
-
-    @include media-breakpoint-down(sm) {
-        margin-top: rem(15);
-    }
-
-    @include media-breakpoint-up(sm) {
-        height: rem(380);
-        display: block;
-    }
-}
 
 .gm-style-iw {
-    max-width: rem(255) !important;
-    border-radius: rem(3) !important;
-
-    & > button {
-        top: 0 !important;
-        right: 0 !important;
-    }
-
     .store-details {
-        margin-left: 0;
         font-family: $font-family-sans-serif;
         font-size: 1rem;
         font-weight: normal;
-        line-height: 1.5;
-
-        & > address {
-            margin-bottom: 0;
-            & > p {
-                @extend %address-link;
-            }
-        }
 
         .store-name {
             font-family: $font-medium;
-            @extend %store-name;
         }
 
-        .store-map {
-            @extend %store-map;
-        }
     }
 }
 
-
-.store-locator-no-apiKey {
-    display: none;
-}
 
 .store-locator-hero {
-    margin-bottom: rem(15);
-    margin-top: rem(15);
-
-    @include media-breakpoint-up(sm) {
-        display: none;
-    }
 
     h1.page-title {
         font-family: $font-book;
         font-size: rem(26);
-        letter-spacing: rem(2);
-        line-height: rem(31);
-    }
-}
 
-.results {
-
-    @include media-breakpoint-up(md) {
-        overflow-y: auto;
-        overflow-x: hidden;
-        max-height: 21.875em;
     }
 }

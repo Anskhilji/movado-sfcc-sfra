@@ -4,295 +4,31 @@
 @import "~base/components/toastMessage";
 @import "mixins";
 
-
-$spacer: 0.625em;
-$negative-spacer: -0.625rem;
-
-.add-to-wishlist-messages,
-.remove-from-wishlist-messages {
-    transform: translate(-50%, -50%);
-    position: fixed;
-    top: 15%;
-    left: 50%;
-}
-
-.add-to-wishlist-alert,
-.remove-from-wishlist-alert {
-    animation: fade 5s linear forwards;
-    box-shadow: 1px 1px 5px $grey4;
-    padding: 1em;
-
-    @keyframes fade {
-        0% { opacity: 0; }
-        10% { opacity: 1; }
-        90% { opacity: 1; }
-        100% { opacity: 0; }
-    }
-
-    &.show {
-        display: block;
-    }
-}
-
-.add-to-cart-wishList {
-    .add-to-cart-button {
-        float: right;
-        margin-right: 1.5em;
-
-        @include media-breakpoint-down(xs) {
-            float: none;
-            width: 100%;
-        }
-    }
-}
-
-.select-attributes-wishList {
-    .select-attributes-btn {
-        float: right;
-        margin-right: 1.5em;
-
-        @include media-breakpoint-down(xs) {
-            float: none;
-            width: 100%;
-        }
-    }
-}
-
-.product-info {
-    margin-bottom: 0.313em;
-    padding: $spacer;
-
-    @include media-breakpoint-up(md) {
-        height: auto;
-    }
-}
-
-.item-image {
-    height: rem(80);
-    width: rem(80);
-    margin-right: rem(16);
-    flex-grow: 0;
-    flex-shrink: 0;
-
-    img.product-image {
-        display: block;
-        margin: 0 auto;
-        max-width: 100%;
-        height: auto;
-        max-height: rem(80);
-    }
-}
-
-.line-item-attributes {
-    font-size: 0.813rem;
-    margin: 0;
-}
-
-.item-attributes {
-    display: inline-block;
-    vertical-align: top;
-}
-
-.line-item-name {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    font-size: 1em;
-    color: $darker-gray;
-    font-weight: bold;
-    margin-bottom: $spacer;
-    width: 90%;
-}
-
-.product-card-price {
-    font-size: 0.75rem;
-    margin-bottom: 0.5rem;
-
-    @include media-breakpoint-down(xs) {
-        margin-left: 6.5rem;
-    }
-}
-
-.edit {
-    font-size: 0.813rem;
-}
-
-.wishlist-line-item-divider {
-    margin: 0.625em -0.615em 0.625em -0.615em;
-}
-
-.wishlist-edit-item-divider {
-    margin: 0.625em -0.615em 0.625em -0.615em;
-}
-
-.product-info {
-    .remove-btn {
-        color: $slightly-darker-gray;
-        font-size: 1.625em;
-        padding: 0;
-        position: absolute;
-        top: 0;
-        right: 0.25rem;
-        border: none;
-        background-color: $white;
-
-        @include media-breakpoint-up(lg) {
-            top: 0;
-            bottom: 0;
-            right: $negative-spacer;
-            margin-top: $negative-spacer;
-            margin-bottom: $negative-spacer;
-        }
-    }
-}
-
-.remove-btn-lg {
-    border: none;
-    border-radius: 0;
-    font-size: 1.625em;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    padding-left: 0.3125rem;
-    padding-right: 0.3125rem;
-    z-index: 1;
-}
-
-.wishlist-hide {
-    margin-left:0;
-    margin-bottom: rem(5);
-    .custom-control-label{
-        color:$grey14;
-    }
-}
-
-.line-item-price-info {
-    margin-bottom: 0.25rem;
-}
-
-.wishlist-item-update-button-block {
-    margin-bottom: rem(20);
-
-    @include media-breakpoint-only(xs) {
-        padding-bottom: rem(26);
-
-        .btn {
-            width: 98%;
-            margin: 1%;
-            display: block;
-        }
-    }
-}
-
-.update-wishlist-messages {
-    @include toast-message();
-}
-
-.update-wishlist-alert {
-    @include toast-alert();
-}
-
-.more-wl-items,
-.my-account {
-    margin-bottom: 0.5rem;
-    margin-top: 0.5rem;
-}
-
-#wishlist-search {
-    .wishlist-error-search {
-        margin-top: 1rem;
-    }
-
-    button {
-        margin-bottom: 1rem;
-    }
-}
-
-.wl-hit,
-.find-another-wl {
-    margin-top: 1rem;
-}
-
 /*Wishlist designs need to move it wishlist specific css*/
 .my-wishlist-page, .wishlist-page{
-  margin-bottom: rem(40);
-  .heading-four{
-    text-align: center;
-  }
-  @include media-breakpoint-down(sm){
-      padding-top:rem(15);
-  }
+
   .wishlistItemCards{
-      .line-item-name{
-        text-transform: uppercase;
-        @include headline;
-        color: $grey14;
-      }
-      .wishlist-hide{
-        margin-top:rem(8);
-        margin-bottom: rem(2);
-      }
       .product-card-price{
           .line-item-price-info{
-              margin-bottom: 0;
               font-size: rem(14);
           }
-          .price .value{
-              @include headline(18);
-              line-height: rem(22);
-              color: $black;
 
-          }
-          @include media-breakpoint-down(xs) {
-              margin-left: 0;
-          }
       }
       .edit-add-to-wishlist{
         .edit{
           font-size: rem(14);
           font-family: $font-medium;
-          text-decoration: underline;
         }
       }
       .line-item-attributes{
         font-size: rem(14);
         font-family: $font-medium;
-        .attr-val{
-          color: $grey-dark-1;
-        }
-        .attr-lbl{
-            &::after{
-              content: " ";
-            }
-        }
-      }
-      .line-item-availability {
-          .line-item-attributes{
-              letter-spacing: rem(2);
-              color: $grey14;
-          }
       }
   }
-  .my-account a{
-      text-decoration: underline;
-  }
+
   .wl-social-sharing{
-      margin-bottom: rem(5);
-      margin-top:rem(20);
-      .share-icons{
-          margin:rem(5);
-          &:hover{
-            text-decoration: none;
-          }
-      }
       .wl-social-sharing-text{
           font-size: rem(16);
       }
-  }
-}
-.wishlist-page{
-  .add-to-cart-wishList .add-to-cart-button{
-    float: none;
   }
 }

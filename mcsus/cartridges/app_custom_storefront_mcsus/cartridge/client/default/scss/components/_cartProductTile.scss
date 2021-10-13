@@ -1,57 +1,32 @@
 @import "../commonPlaceholders";
 
 .product-card-wrapper {
-      @extend %card-box;
-      margin-bottom: rem(16);
-      padding: rem(10);
+    .line-item-name {
+        font-family: $font-medium;
+        font-size: rem(16);
+        font-weight: 500;
+    }
+    .item-info {
+        .item-attributes {
+            .total-amount {
+                font-family: $font-medium;
+                font-weight: 500;
+                font-size: rem(18);
+            }
+            .model-name, .original-price, .savings {
+                font-family: $font-medium;
+                font-weight: 500;
+                font-size: rem(14);
+            }
+            .savings {
+                color: $green;
+            }
+            .personalize-msg, .personalize-price {
+                font-family: $font-book;
+                font-weight: 300;
+                font-size: rem(14);
 
-  .line-item-name {
-      font-family: $font-medium;
-      font-size: rem(16);
-      letter-spacing: rem(2);
-      line-height: rem(19);
-      font-weight: 500;
-      color: $grey14;
-      text-transform: uppercase;
-  }
-  .item-info {
-      .item-attributes {
-          color: $grey14;
-          .total-amount {
-              font-family: $font-medium;
-              font-weight: 500;
-              font-size: rem(18);
-              letter-spacing: rem(2);
-              line-height: rem(22);
-              color: $grey14;
-          }
-          .line-item-total-price {
-              margin-top: auto;
-          }
-          .model-name, .original-price, .savings {
-              font-family: $font-medium;
-              font-weight: 500;
-              font-size: rem(14);
-              letter-spacing: rem(1.75);
-              line-height: rem(17);
-              color: $grey4;
-          }
-          .savings {
-              color: $green;
-          }
-          .personalize-msg, .personalize-price {
-              font-family: $font-book;
-              font-weight: 300;
-              font-size: rem(14);
-              letter-spacing: rem(1);
-              line-height: rem(20);
-          }
-          .personalize-msg {
-              color: $grey4;
-          }
-          .out-of-stock {
-              color:  $danger;
-          }
-      }
-  }
+            }
+        }
+    }
 }

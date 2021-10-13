@@ -1,175 +1,38 @@
+@import "~movado/_miniCart";
 @import "variables";
-@import "bootstrap/scss/variables";
-@import "bootstrap/scss/mixins/breakpoints";
-@import "~movado/productCard";
 
 .minicart {
-    position: relative;
+
 
     .minicart-quantity {
-      position: absolute;
-      right: rem(-9);
-      top: rem(-9);
-      background-color: $grey10;
-      border-radius: 50%;
-      text-align: center;
       font-size: rem(13);
-      color: $black;
-      height: rem(20);
-      width: rem(20);
-      line-height: rem(20);
     }
 
     .minicart-icon {
       font-size: rem(19);
     }
 
-    a.minicart-link {
-      position: relative;
-
-      &:hover {
-        text-decoration: none;
-      }
-    }
-
     h4 {
         font-size: rem(18);
-        line-height: rem(25);
-        text-transform: uppercase;
-        color: $grey14;
-        padding: rem(10) 0 0 0;
-    }
-    .product-line-item-details.item-info{
-        border-bottom: none;
-    }
-    .cart {
-        padding-top: 0.625em;
-        padding-bottom: 0.625em;
     }
 
-    .remove-line-item{
-        display: none;
-    }
-
-    .remove-btn {
-        color: $slightly-darker-gray;
-        float: right;
-        background-color: white;
-        border: none;
-        font-size: 1.625em;
-        margin-top: -0.313em;
-        padding: 0;
-    }
-
-    .product-summary {
-        margin-right: -0.938em;
-        max-height: 21.875em;
-        overflow-y: auto;
-        overflow-x: hidden;
-        padding-right: 0.938em;
-    }
-
-    .card-body {
-        padding: 0.625em;
-    }
-
-
-    .quantity {
-        width: 100%;
-    }
-
-    .popover {
-        top: rem(30);
-        left: auto;
-        right: rem(-15);
-        min-width: 23.44rem;
-        max-width: 23.44rem;
-        min-height: 6.25rem;
-        display: none;
-        padding: 0;
-
-        &:after, &:before {
-            position: absolute;
-            content: '';
-            width: 0;
-            height: 0;
-        }
-
-        &:before {
-            top:rem(-10);
-            right:rem(20);
-            border-left: rem(6) solid transparent;
-            border-right: rem(6) solid transparent;
-            border-bottom: rem(10) solid $white;
-            z-index:2;
-        }
-
-        &:after {
-            /* This is the shadow triangle */
-            top:rem(-12);
-            right:rem(18);
-            border-left: rem(8) solid transparent;
-            border-right: rem(8) solid transparent;
-            border-bottom: rem(12) solid $grey-transparent-2;
-            z-index:1;
-        }
-
-        &.show {
-            display: block;
-        }
-    }
-
-    .minicart-footer {
-        padding: rem(10) rem(20) rem(30);
-        @include boxShadow(0, -2px, 4px, 0, $grey-transparent-7);
-    }
     .bonus-line-item-heading{
         font-family: $font-primary;
         font-size: rem(16);
-        border-top: rem(1) solid $grey-transparent-7;
-        padding-top: rem(5);
-        margin-top: rem(5);
-    }
-    .bonus-item-cart{
-        border-bottom: 0.063em dashed $grey-transparent-7;
-        margin-top: rem(10);
-        padding-top: rem(10);
-        padding-bottom: rem(1);
-    }
-
-    .bonus-item-cart:last-child{
-        border-bottom: none;
-    }
-
-    .estimated-total {
-        margin-top: 0.625em;
-        .col-5{
-            padding-left: 0;
-        }
-        .col-7{
-            padding-right: 0;
-        }
     }
 
     .sub-total-label {
         font-weight: bold;
         font-size: rem(18);
-        line-height: rem(22);
-        letter-spacing: rem(2);
-        color: $grey14;
         font-family: $font-bold;
     }
     .promo-msg{
-        color: $green;
         font-size: rem(14);
-        line-height: rem(17);
         font-family: $font-primary;
     }
     .sub-total {
         font-size: rem(18);
         font-weight: bold;
-        line-height: rem(22);
-        color: $grey14;
         font-family: $font-bold;
     }
     .line-item-attributes{
@@ -178,29 +41,14 @@
     .view-cart{
         font-family: $font-book;
     }
-    .line-item-divider {
-        margin: 0.625em -0.625em 0.625em -1.325em;
-    }
-
-    .line-item-name {
-        width: 90%;
-    }
 }
 
 .model-name{
-    color: $grey4;
     font-size: rem(14);
     font-family: $font-medium;
-    line-height: rem(17);
-    letter-spacing: rem(1.75);
 }
 label.quantity-label{
     font-family: $font-medium;
     font-size: rem(14);
-    text-transform: inherit;
-}
-
-.hide-no-link {
-    display: none;
 }
 
