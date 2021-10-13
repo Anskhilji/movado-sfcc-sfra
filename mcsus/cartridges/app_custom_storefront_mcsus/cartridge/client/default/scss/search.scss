@@ -59,8 +59,10 @@
     &.card {
 
         .card-header {
+          font-family: $font-medium;
+          font-weight:400;
 	    	&::after {
-              font-family: "FontAwesome";
+              font-family: $font-medium;
               font-weight:400;
 	        }
 	    }
