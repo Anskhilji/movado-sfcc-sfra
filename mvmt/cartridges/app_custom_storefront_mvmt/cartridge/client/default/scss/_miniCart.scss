@@ -179,6 +179,10 @@
                             top: rem(3);
                             left: rem(-18);
                         }
+
+                        &::after {
+                            left: rem(-18);
+                        }
                     }
                 }
 
