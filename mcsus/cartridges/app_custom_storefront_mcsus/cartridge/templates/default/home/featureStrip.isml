@@ -1,0 +1,41 @@
+<div class="mcs-feature">
+    <div class="container mcs-feature-container">
+        <div class="row mcs-feature-row">
+            <div class="col-md-4">
+                <div class="mcs-feature-column">
+                    <div class="mcs-feature-icon"> </div>
+
+                    <div class="mcs-feature-content">
+                        <h4>Free Shipping </h4>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Officiis debitis doloribus, aperiam sint quam, iure veritatis </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="mcs-feature-column">
+                    <div class="mcs-feature-icon"> </div>
+
+                    <div class="mcs-feature-content">
+                        <h4>Free Returns </h4>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Officiis debitis doloribus, aperiam sint quam, iure veritatis </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="mcs-feature-column">
+                    <div class="mcs-feature-icon"> </div>
+
+                    <div class="mcs-feature-content">
+                        <h4> 2 Year Limited Waranty </h4>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Officiis debitis doloribus, aperiam sint quam, iure veritatis </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

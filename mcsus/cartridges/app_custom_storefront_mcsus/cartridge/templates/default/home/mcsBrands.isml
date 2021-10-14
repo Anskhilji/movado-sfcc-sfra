@@ -1,0 +1,43 @@
+<div class="mcs-brand">
+    <div class="container mcs-brand-container">
+        <div class="row mcs-brand-row">
+            <div class="col-md-6">
+                <div class="mcs-brand-column">
+                    <img src="images/homepage/movado-brands.jpg" alt="movado-brands"/>
+                </div>
+            </div>
+
+            <div class="col-md-6 ">
+               <div class="mcs-brand-column">
+                    <h4>Movado Group Brand Portfolio </h4>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <ul class="nav flex-column">
+                                <li> Movado </li>
+                                <li> Coach </li>
+                                <li> Lacoste </li>
+                                <li> Tommy Hilfiger </li>
+                                <li> Olivia Burton </li>
+                                <li> Scuderia Ferrari </li>
+                                <li> MVMT </li>
+                            </ul>
+                        </div>
+
+                        <div class="col-6">
+                            <ul class="nav flex-column">
+                                <li> Boss </li>
+                                <li> Hugo </li>
+                                <li> Ebel </li>
+                                <li> Concord </li>
+                                <li> Rebecca Minkoff </li>
+                                <li> Jettison </li>
+                                <li> <a href="#"> Shop All Brands </a> </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

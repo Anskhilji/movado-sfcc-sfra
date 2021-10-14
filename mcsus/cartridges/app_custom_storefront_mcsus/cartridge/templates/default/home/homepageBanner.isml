@@ -1,0 +1,55 @@
+<div class="mcs_hero-banner">
+   <div class="full-width-container mcs_hero-banner-container">
+        <div class="row mcs_hero-banner-row">
+            <div class="col-md-6">
+                <div class="mcs_hero-banner-column">
+                   <a class="mcs_hero-banner-column-link" href="#">
+                        <picture>
+                            <source media="(min-width:320px)" srcset="images/homepage/lacoste-01.jpg?$staticlink$">
+                            <source media="(min-width:544px)" srcset="images/homepage/lacoste-01.jpg?$staticlink$">
+                            <img src="images/homepage/lacoste-01.jpg?$staticlink$" alt="banner-image">
+                        </picture>
+                    </a>
+                    <div class="mcs_hero-banner-column-inner">
+                        <h3 class="product-name"> Lacoste </h3>
+                        <h6 class="product-price"> Starting $75 </h6>
+                        <a class="btn mcs_hero-banner-column-inner-btn" href="#">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="mcs_hero-banner-column">
+                   <a class="mcs_hero-banner-column-link" href="#">
+                        <picture>
+                            <source media="(min-width:320px)" srcset="images/homepage/coach-01.jpg?$staticlink$">
+                            <source media="(min-width:544px)" srcset="images/homepage/coach-01.jpg?$staticlink$">
+                            <img src="images/homepage/coach-01.jpg?$staticlink$" alt="banner-image">
+                        </picture>
+                    </a>
+                    <div class="mcs_hero-banner-column-inner">
+                        <h3 class="product-name"> Coach </h3>
+                        <h6 class="product-price"> Starting $75 </h6>
+                        <a class="btn mcs_hero-banner-column-inner-btn" href="#">Shop Now</a>
+                    </div>
+                </div>
+       
+
+                <div class="mcs_hero-banner-column">    
+                    <a class="mcs_hero-banner-column-link" href="#">
+                        <picture>
+                            <source media="(min-width:320px)" srcset="images/homepage/tommy-hilfiger-01.jpg?$staticlink$">
+                            <source media="(min-width:544px)" srcset="images/homepage/tommy-hilfiger-01.jpg?$staticlink$">
+                            <img src="images/homepage/tommy-hilfiger-01.jpg?$staticlink$" alt="banner-image">
+                        </picture>
+                    </a>
+                    <div class="mcs_hero-banner-column-inner">
+                        <h3 class="product-name"> Tommy Hilfiger </h3>
+                        <h6 class="product-price"> Starting $49 </h6>
+                        <a class="btn mcs_hero-banner-column-inner-btn" href="#">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

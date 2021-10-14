@@ -9,6 +9,7 @@ $white: #fff !default;
 $black: #000 !default;
 $light-black: $black !default;
 $blue: #0070d2 !default;
+$blue2 : #007BFF !default;
 $green: #008827 !default;
 $red: #c00 !default;
 $light-blue: #7ed0ee !default;
@@ -21,6 +22,8 @@ $border-color: #979797 !default;
 
 // Consolidated values
 $black1 : #212529 !default;
+
+$silver : #C6C4C4 !default;
 
 $light-grey: #d8d8d8 !default;
 $light-grey2: #f8f8f8 !default;  
@@ -43,7 +46,6 @@ $grey15: #070707 !default;
 $grey17: #787777 !default;
 
 $white-transparent: rgba(255,255,255,0.5) !default;
-
 $grey-transparent-1: rgba(0, 0, 0, 0.65) !default;
 $grey-transparent-2: rgba(0, 0, 0, 0.25) !default;
 $grey-transparent-3: rgba(0,0,0, 0.05) !default;
@@ -52,8 +54,10 @@ $grey-transparent-5: rgba(0, 0, 0, 0.3) !default;
 $grey-transparent-6: rgba(0,0,0,0.5) !default;
 $grey-transparent-7: rgba(0,0,0,0.24) !default;
 $grey-light: rgba(187, 189, 191, 0.3) !default;
+$grey-light2: rgba(195,195,195,0.5) !default;
 $grey-dark: rgba(187, 189, 191, 0.5) !default;
 $grey-dark-1: rgba(6,5,6,0.6) !default;
+
 
 $light-gray: $grey1 !default;
 $slightly-darker-gray: $grey4 !default;
@@ -72,6 +76,7 @@ $success: $green !default;
 $danger: $red !default;
 $placeholder: $grey4 !default;
 $white-smoke:#F2F2F2 !default;
+$white-smoke2: rgba(245,245,245,0.9) !default;
 $granite-gray:  #5C5C5C;
 $apple: #59AF2C;
 $cerulean: #0092DB;
@@ -83,7 +88,8 @@ $grid-breakpoints: (
     custom-md: 768px,
     md: 769px,
     lg: 992px,
-    xl: 1200px
+    xl: 1200px,
+    xxl: 1440px,
 ) !default;
 
 $container-max-widths: (
@@ -124,5 +130,4 @@ $font-medium : "FuturaStd-Medium", Arial, sans-serif !default;
 $font-book : "FuturaStd-Book", Arial, sans-serif !default;
 $font-bold : "FuturaStd-Bold", Arial, sans-serif !default;
 $font-primary: $font-book;
-
 $font-awesome: "FontAwesome";
