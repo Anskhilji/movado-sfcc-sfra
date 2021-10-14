@@ -11,7 +11,7 @@
 	                    <a href="${category.url}">
 	                        <div class="dropdown-menu-item-img-wrap third-level-menu-images ${category.categoryImageURL == null ? 'no-img' : ''}">
 	                            <isif condition="${category.categoryImageURL}">
-	                               <img class="dropdown-menu-item-img" alt="" src="${category.categoryImageURL ? category.categoryImageURL : '#'}" title="${category.name}" />
+	                               <img class="dropdown-menu-item-img" alt="" src="${category.categoryImageURL ? category.categoryImageURL : '#'}" loading="lazy" title="${category.name}" />
 	                            </isif>
 	                            <span class="third-level-menu-text">${category.name}</span>
 	                        </div>
@@ -29,7 +29,7 @@
 	                    <a href="${category.url}">
 	                        <div class="dropdown-menu-item-img-wrap third-level-menu-images ${category.categoryImageURL == null ? 'no-img' : ''}">
 	                            <isif condition="${category.categoryImageURL}">
-	                               <img class="dropdown-menu-item-img" alt="" src="${category.categoryImageURL ? category.categoryImageURL : '#'}" title="${category.name}" />
+	                               <img class="dropdown-menu-item-img" alt="" src="${category.categoryImageURL ? category.categoryImageURL : '#'}" loading="lazy" title="${category.name}" />
 	                            </isif>
 	                            <span class="third-level-menu-text">${category.name}</span>
 	                        </div>
@@ -47,7 +47,7 @@
                     <a href="${category.url}">
                         <div class="dropdown-menu-item-img-wrap third-level-menu-images ${category.categoryImageURL == null ? 'no-img' : ''}">
                             <isif condition="${category.categoryImageURL}">
-                                <img class="dropdown-menu-item-img" alt="" src="${category.categoryImageURL ? category.categoryImageURL : '#'}" title="${category.name}" />
+                                <img class="dropdown-menu-item-img" alt="" src="${category.categoryImageURL ? category.categoryImageURL : '#'}" loading="lazy" title="${category.name}" />
                             </isif>
                             <span class="third-level-menu-text">${category.name}</span>
                         </div>
