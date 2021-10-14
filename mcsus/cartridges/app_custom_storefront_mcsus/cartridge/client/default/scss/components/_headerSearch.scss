@@ -1,6 +1,9 @@
+@import "../vars";
 @import "~movado/components/_headerSearch";
 @import "../utilities/swatch";
 @import "../variables";
+
+
 
 .site-search {
 
@@ -14,9 +17,118 @@
         font-size: rem(14);
 
     }
+        form {
+            position: relative;
+        }
+
+        height: rem(30);
+
+        @include media-breakpoint-up(xs) {
+            padding-left: rem(15);
+        }
+
+        @include media-breakpoint-up(custom-md) {
+           margin-right: rem(20);
+        }
+        
+        @include media-breakpoint-down(custom-md) {
+            margin-bottom: rem(10);
+        }
+
+    .search-recomendation {
+
+        @include media-breakpoint-up(md) {
+            width: rem(280);
+        }
+
+        @include media-breakpoint-down(md) {
+            width: 97%;
+        }
+
+        @include media-breakpoint-up(xl) {
+          width: rem(335);
+        }
+
+        visibility: hidden;
+        background-color: $white;
+        border: rem(1) solid $black;
+        border-radius: 0 0 rem(3) rem(3);
+        background-color: $white;
+        box-sizing: border-box;
+        height: rem(241);
+        width: rem(336);
+        position: relative;
+        z-index: 999;
+        margin: rem(0);
+
+        .search-suggestions {
+            .category-slot {
+                h3 {
+                    opacity: 0.5;
+                    color: $grayish-blue;
+                    font-size: rem(14);
+                    font-weight: 500;
+                    letter-spacing: 0;
+                    line-height: rem(25);
+                    padding-top: rem(15);  
+                }
+                ul {
+                    padding: rem(0);
+
+                    li {
+                        list-style: none;
+                    }
+
+                    a {
+                        font-weight: 500;
+                        letter-spacing: 0;
+                        line-height: rem(25);
+                        color: $black;
+                        font-size: rem(14);
+                    }
+                }
+            }
+        }
+    }
+    .search-field{
+        height: rem(34);
+        width: rem(336);
+        border-radius: rem(3);
+
+        @include media-breakpoint-up(md) {
+            border: rem(1) solid $primary;
+            width: rem(280);
+        }
+        @include media-breakpoint-down(md) {
+            border: rem(1) solid $primary;
+            width: 97%;
+        }
+        @include media-breakpoint-up(custom-md) {
+            border: rem(1) solid $silver;
+        }
+        @include media-breakpoint-up(xl) {
+          width: rem(336);
+        }
+    }
+    .fa-search {
+        top: rem(8);
+
+        @include media-breakpoint-down(custom-md) {
+            right: rem(28);
+        }
+
+        @include media-breakpoint-down(xs) {
+            right: rem(20);
+        }
+        
+    }
 }
 
-
+.search-mobile {
+    @include media-breakpoint-up(custom-md) {
+        display: none;
+    }
+}
 
 .suggestions {
     font-size: rem(14);

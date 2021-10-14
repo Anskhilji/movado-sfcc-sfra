@@ -1,0 +1,16 @@
+<isif condition="${slotcontent.content.length}">
+    <div class="category-slot">
+        <isif condition="${slotcontent.custom.carouselTitle}">
+            <h3 class="carousel-title">${slotcontent.custom.carouselTitle}</h3>
+        </isif>
+        <ul>
+            <isloop items="${slotcontent.content}" var="category">
+                <li>
+                    <a href="${URLUtils.url('Search-Show', 'cgid', category.ID)}" title="${category.displayName}">
+                        <isprint value="${category.displayName}" encoding="htmlcontent"/>
+                    </a>
+                </li>
+            </isloop>
+        </ul>
+    </div>
+</isif>

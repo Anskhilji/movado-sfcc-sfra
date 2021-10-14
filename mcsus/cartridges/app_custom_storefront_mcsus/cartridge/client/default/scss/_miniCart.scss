@@ -10,6 +10,11 @@
 
     .minicart-icon {
       font-size: rem(19);
+      background: url("../images/shopping-bag-icon.svg") center center no-repeat;
+      height: rem(30);
+      width: rem(24);
+      background-size: contain;
+      display: inline-block;
     }
 
     h4 {
