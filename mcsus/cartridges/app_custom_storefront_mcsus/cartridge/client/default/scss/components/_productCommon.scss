@@ -6,7 +6,7 @@
 
     &-name {
         font-family: $font-thin;
-        font-weight: 300;
+        font-weight: 100;
         font-size: rem(24);
     }
 
@@ -24,6 +24,7 @@
     .product-name {
         font-size: rem(40);
         font-family: $font-bold;
+        font-weight: bold;
     }
 
     .product-number {
@@ -40,11 +41,13 @@
 
     .availability-msg {
         font-family:$font-medium;
+        font-weight: 500;
         font-size: rem(10);
     }
 
     .price {
         font-family: $font-medium;
+        font-weight: 500;
         font-size: rem(20);
         @include media-breakpoint-down(xs) {
             font-size: rem(16);
@@ -79,5 +82,25 @@
 select {
     + i.fa {
         font-size: rem(20);
+    }
+}
+
+.affirm-as-low-as {
+    font-family: $font-medium;
+    font-weight: 500;
+    font-size:rem(16) ;
+
+    .__affirm-logo.__affirm-logo-black {
+        color: $black;
+    }
+
+    .affirm-modal-trigger {
+        display: block;
+        padding: rem(10) 0;
+        text-decoration: underline;
+    }
+
+    @include media-breakpoint-down(xs) {
+        text-align: center;
     }
 }

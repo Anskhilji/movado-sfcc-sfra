@@ -37,6 +37,7 @@
     }
     .line-item-attributes{
         font-family: $font-medium;
+        font-weight: 500;
     }
     .view-cart{
         font-family: $font-book;
@@ -46,9 +47,11 @@
 .model-name{
     font-size: rem(14);
     font-family: $font-medium;
+    font-weight: 500;
 }
 label.quantity-label{
     font-family: $font-medium;
+    font-weight: 500;
     font-size: rem(14);
 }
 

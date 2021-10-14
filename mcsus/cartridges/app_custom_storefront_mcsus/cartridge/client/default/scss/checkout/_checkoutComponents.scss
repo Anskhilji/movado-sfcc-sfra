@@ -10,6 +10,7 @@ $receipt-font-size: rem(14);
   .form-group {
     .form-control-label {
       font-family: $font-regular;
+      font-weight: 400;
       font-size: rem(14);
     }
   }
@@ -28,6 +29,7 @@ $receipt-font-size: rem(14);
   }
   .custom-select {
     font-family: $font-medium;
+    font-weight: 500;
     font-size: rem(14);
 
     @include media-breakpoint-down(sm) {
@@ -50,6 +52,7 @@ $receipt-font-size: rem(14);
       .order-receipt-label,
       .text-right {
         font-family: $font-medium;
+        font-weight: 500;
         font-size: rem(18);
       }
     }
@@ -61,6 +64,7 @@ $receipt-font-size: rem(14);
 .leading-lines {
   .start-lines {
     font-family: $font-regular;
+    font-weight: 400;
   }
 }
 

@@ -81,5 +81,14 @@
 .cta-add-to-cart {
     .add-to-cart {
         font-family: $font-medium;
+        font-weight: 500;
     }
+}
+
+.affirm-as-low-as {
+    width: 100%;
+    height: rem(45);
+    font-size: 500;
+    font-size: rem(16);
+    font-family: $font-medium;
 }

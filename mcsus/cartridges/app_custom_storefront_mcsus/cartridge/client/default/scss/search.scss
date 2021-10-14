@@ -25,6 +25,7 @@
           a {
             font-size: rem(16);
             font-family: $font-regular;
+            font-weight: 400;
           }
           .fa-square-o{
             font-size: rem(20);
@@ -60,10 +61,8 @@
 
         .card-header {
           font-family: $font-medium;
-          font-weight:400;
+          font-weight:500;
 	    	&::after {
-              font-family: $font-medium;
-              font-weight:400;
 	        }
 	    }
 
@@ -126,7 +125,7 @@
     }
     p a{
       font-family: $font-bold;
-      font-weight:700;
+      font-weight:bold;
     }
     .make-bold{
       font-weight: 700;
