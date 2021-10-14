@@ -7,6 +7,15 @@
       font-size: rem(14);
       text-transform: capitalize;
     }
+
+    .login-icon {
+      width: rem(25);
+      height: rem(25);
+      background: url(../images/sign-in-icon.svg) center center no-repeat;
+      background-size: contain;
+      display: inline-block;
+      vertical-align: middle;
+    }
   }
   .dropdown-link {
     font-weight: 500;

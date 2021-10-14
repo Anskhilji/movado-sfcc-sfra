@@ -92,7 +92,7 @@
     }
     .search-field{
         height: rem(34);
-        width: rem(335);
+        width: rem(336);
         border-radius: rem(3);
 
         @include media-breakpoint-up(md) {
@@ -107,7 +107,7 @@
             border: rem(1) solid $silver;
         }
         @include media-breakpoint-up(xl) {
-          width: rem(335);
+          width: rem(336);
         }
     }
     .fa-search {
