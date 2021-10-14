@@ -164,38 +164,6 @@ header {
 
 }
 
-.pac-container {
-
-    border: 1px solid black;
-    border-radius: 3px;
-
-    .pac-item {
-        color: #444444;
-        font-family: "Futura PT";
-        font-size: 13px;
-        font-weight: 500;
-        letter-spacing: 0.7px;
-        line-height: 24px;
-        
-        .pac-item-query {
-            color: #444444;
-            font-family: "Futura PT";
-            font-size: 13px;
-            font-weight: 500;
-            letter-spacing: 0.7px;
-            line-height: 24px;
-        }
-    }
-
-    .pac-item:nth-child(even) {
-        background-color: #FFFFFF !important;
-        height: 45px !important;
-    }
-
-    .pac-item:nth-child(odd) {
-        background-color: #F6F6F6 !important;
-        height: 45px !important;
-    }
 .checkout-checkbox {
     font-size: 0.875em;
 }
