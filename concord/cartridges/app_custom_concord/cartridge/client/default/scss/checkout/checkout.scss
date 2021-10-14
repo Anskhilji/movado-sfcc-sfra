@@ -641,3 +641,11 @@ header {
     }
 
 }
+
+@include media-breakpoint-up(md) {
+    header.checkout-header {
+        .sticky-header-placeholder {
+            height: rem(60);
+        }
+    }
+}
