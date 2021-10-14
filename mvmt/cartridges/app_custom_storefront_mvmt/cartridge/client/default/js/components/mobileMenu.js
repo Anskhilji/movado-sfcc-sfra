@@ -43,10 +43,8 @@ module.exports = function () {
 
         $('.mobile-menu .tab-content-submenu ul').height(height);
 
-        if (screenSize != null) {
-            if (screenSize <= mobileScreenSize) {
-                $('.menu-right-aside').remove();
-            }
+        if (screenSize <= mobileScreenSize) {
+            $('.menu-right-aside').remove();
         }
     });
 
