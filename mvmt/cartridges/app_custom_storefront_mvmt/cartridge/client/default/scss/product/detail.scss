@@ -1259,9 +1259,13 @@
         }
 
         @include media-breakpoint-up(md-down) {
-            position: static;
+            position: relative;
             padding: 0 rem(15);
-            margin-bottom: 0;
+            margin-bottom: rem(35);
+        }
+
+        @include media-breakpoint-up(xl) {
+            margin-bottom: rem(-5);
         }
     
         .content {

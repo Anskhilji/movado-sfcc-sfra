@@ -1,0 +1,95 @@
+@import "~movado/checkout/_checkoutComponents";
+@import "../commonPlaceholders";
+@import "../variables";
+
+$checkout-font-weight: 600;
+
+$receipt-font-size: rem(14);
+
+.data-checkout-stage {
+  .form-group {
+    .form-control-label {
+      font-family: $font-regular;
+      font-size: rem(14);
+    }
+  }
+}
+
+
+.data-checkout-stage {
+
+
+  .form-group {
+    .form-control-label {
+      font-family: $font-book;
+      font-size: rem(14);
+    }
+
+  }
+  .custom-select {
+    font-family: $font-medium;
+    font-size: rem(14);
+
+    @include media-breakpoint-down(sm) {
+      font-size: rem(16);
+    }
+
+  }
+
+
+  .order-total-summary {
+    .order-receipt-label,
+    .text-right,
+    .sub-total {
+      font-family: $font-medium;
+      font-size: rem(16);
+      font-weight: 500;
+    }
+
+    .grand-total {
+      .order-receipt-label,
+      .text-right {
+        font-family: $font-medium;
+        font-size: rem(18);
+      }
+    }
+  }
+}
+
+
+
+.leading-lines {
+  .start-lines {
+    font-family: $font-regular;
+  }
+}
+
+.summary-details {
+  font-family: $font-book;
+  font-size: rem(14);
+}
+
+
+.summary-section-label {
+  font-family: $font-medium;
+  font-size: rem(14);
+}
+
+.saved-credit-card-type {
+  font-weight: 600;
+}
+
+
+.payment-form {
+  .payment-information {
+    .accordion-link {
+      margin-top: rem(8);
+      + label {
+        &:after {
+          font-family: "FontAwesome";
+          font-size: rem(18);
+        }
+      }
+    }
+  }
+}

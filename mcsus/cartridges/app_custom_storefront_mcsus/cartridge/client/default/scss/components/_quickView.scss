@@ -1,0 +1,13 @@
+@import "~movado/components/_quickView";
+@import "productCommon";
+@import "../variables";
+
+.quick-view-dialog,
+.choose-bonus-product-dialog {
+    .product-not-available-msg {
+        @include media-breakpoint-down(xs) {
+            font-size: rem(14);
+            padding-bottom: rem(6);
+        }
+    }
+}

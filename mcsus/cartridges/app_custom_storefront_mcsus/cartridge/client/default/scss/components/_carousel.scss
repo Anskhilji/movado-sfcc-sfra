@@ -1,0 +1,37 @@
+@import "~movado/components/_carousel";
+.cs-carousel-wrapper {
+
+    .carousel-title {
+        font-family: $font-bold;
+        font-size: rem(20);
+        font-weight: 500;
+      }
+
+    .slick-dots {
+        button {
+            font-size: 0;
+        }
+    }
+    .slick-arrow {
+        font-size: 0;
+    }
+}
+
+
+@include media-breakpoint-up(md) {
+  .cs-carousel-wrapper {
+    .carousel-title {
+        font-size: rem(26);
+        font-weight: 300;
+    }
+  }
+}
+
+@include media-breakpoint-up(lg) {
+    .cs-carousel-wrapper {
+        .carousel-title {
+            font-size: rem(36);   
+            font-weight: bold;
+        }
+    }
+}
