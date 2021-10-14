@@ -4,9 +4,9 @@ var address2Field;
 var postalField;
 
 window.initAutocomplete = function() {
-    address1Field = document.querySelector("#shippingAddressOne");
-    address2Field = document.querySelector("#shippingAddressTwo");
-    postalField = document.querySelector("#shippingZipCode");
+    address1Field = document.querySelector("#billingAddressOne");
+    address2Field = document.querySelector("#billingAddressTwo");
+    postalField = document.querySelector("#billingZipCode");
   
     // Create the autocomplete object, restricting the search predictions to
     // addresses in the US and Canada.
@@ -28,7 +28,6 @@ function fillInAddress(){
   const place = autocomplete.getPlace();
   var address1 = "";
   var postcode = "";
-  var shippingCountrydefault = document.querySelector("#shippingCountrydefault");
 
   // Get each component of the address from the place details,
   // and then fill-in the corresponding field on the form.
@@ -60,15 +59,22 @@ function fillInAddress(){
       }
 
       case "locality":
-        (document.querySelector("#shippingAddressCity")).value =
+        (document.querySelector("#billingAddressCity")).value =
           component.long_name;
         break;
 
       case "administrative_area_level_1": {
-        (document.querySelector("#shippingState")).value =
+        (document.querySelector("#billingState")).value =
           component.short_name;
         break;
       }
+
+      case "country": {
+        (document.querySelector("#billingCountry")).value =
+          component.short_name;
+        break;
+      }
+
     }
   }
 

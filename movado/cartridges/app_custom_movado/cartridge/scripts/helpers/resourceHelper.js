@@ -45,7 +45,8 @@ function getResources(pageContext) {
         LISTRAK_ENABLED: Site.current.preferences.custom.Listrak_Cartridge_Enabled,
         RAKUTEN_REQUEST: rakutenCookiesHelper.getRakutenRequestObject(),
         FAMILY_NAME_ENABLED: !empty(Site.current.preferences.custom.plpProductFamilyName) ? Site.current.preferences.custom.plpProductFamilyName : false,
-        GOOGLE_AUT_COMPLETE_API : !empty(Site.current.preferences.custom.GMapAPIKey) ? Site.current.preferences.custom.GMapAPIKey : ''
+        GOOGLE_AUTO_COMPLETE_ENABLED: !empty(Site.current.preferences.custom.enableAutoComplete) ? Site.current.preferences.custom.enableAutoComplete : false,
+
     };
     return resources;
 }

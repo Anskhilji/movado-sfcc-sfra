@@ -28,7 +28,6 @@ function fillInAddress(){
   const place = autocomplete.getPlace();
   var address1 = "";
   var postcode = "";
-  var shippingCountrydefault = document.querySelector("#shippingCountrydefault");
 
   // Get each component of the address from the place details,
   // and then fill-in the corresponding field on the form.
@@ -69,11 +68,6 @@ function fillInAddress(){
           component.short_name;
         break;
       }
-
-      case "country":
-        shippingCountrydefault.value =
-          component.long_name;
-        break;
     }
   }
 

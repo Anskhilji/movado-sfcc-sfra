@@ -1,4 +1,4 @@
 <isset name="sitePreferences" value="${require('dw/system/Site').getCurrent().getPreferences().getCustom()}" scope="page" />
-<script async
-    src="https://maps.googleapis.com/maps/api/js?key=${sitePreferences.GMapAPIKey}&libraries=places">
-</script>
+<isif condition="${sitePreferences.enableAutoComplete}">
+    <script async src="https://maps.googleapis.com/maps/api/js?key=${sitePreferences.GMapAPIKey}&libraries=places"></script>
+</isif>

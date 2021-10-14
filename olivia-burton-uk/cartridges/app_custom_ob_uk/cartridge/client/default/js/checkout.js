@@ -5,7 +5,11 @@ var processInclude = require('base/util');
 
 $(document).ready(function () {
     processInclude(require('movado/checkout'));
-    processInclude(require('./checkout/autoCompleteAddress'));
+
+    if (Resources.GOOGLE_AUTO_COMPLETE_ENABLED) {
+        processInclude(require('./checkout/autoCompleteAddress'));
+        processInclude(require('./checkout/autoCompleteBillingAddress'));
+    }
     
     $('body').load(function() {
         if (history.state == "shipping") {

@@ -54,7 +54,8 @@ function getResources(pageContext) {
         ONE_TRUST_COOKIE_ENABLED: Site.current.preferences.custom.oneTrustCookieEnabled || false,
         OPTANON_ALLOWED_COOKIE: Constants.ONE_TRUST_COOKIE_ENABLED,
         LISTRAK_ENABLED: Site.current.preferences.custom.Listrak_Cartridge_Enabled,
-        RAKUTEN_REQUEST: rakutenCookiesHelper.getRakutenRequestObject()
+        RAKUTEN_REQUEST: rakutenCookiesHelper.getRakutenRequestObject(),
+        GOOGLE_AUTO_COMPLETE_ENABLED: !empty(Site.current.preferences.custom.enableAutoComplete) ? Site.current.preferences.custom.enableAutoComplete : false,
     };
     return resources;
 }
