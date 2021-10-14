@@ -32,6 +32,7 @@ $(document).ready(function () {
     processInclude(require('./videoPopup'));
     processInclude(require('./components/miniCartRecommendations'));
     processInclude(require('movado/components/rakutenCookieHandler'));
+    processInclude(require('googlePay/googlePay'));
 });
 
 require('base/components/spinner');

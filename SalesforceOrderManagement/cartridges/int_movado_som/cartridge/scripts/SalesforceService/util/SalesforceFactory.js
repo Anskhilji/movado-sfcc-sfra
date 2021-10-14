@@ -6,7 +6,7 @@
 
 /* API Modules */
 var Logger = require('dw/system/Logger');
-const APIROOT = '/services/data/v49.0';
+const APIROOT = '/services/data/v52.0';
 
 // Public
 var SalesforceFactory = {

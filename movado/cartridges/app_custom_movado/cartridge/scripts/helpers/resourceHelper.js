@@ -46,7 +46,9 @@ function getResources(pageContext) {
         RAKUTEN_REQUEST: rakutenCookiesHelper.getRakutenRequestObject(),
         FAMILY_NAME_ENABLED: !empty(Site.current.preferences.custom.plpProductFamilyName) ? Site.current.preferences.custom.plpProductFamilyName : false,
         GOOGLE_AUTO_COMPLETE_ENABLED: !empty(Site.current.preferences.custom.enableAutoComplete) ? Site.current.preferences.custom.enableAutoComplete : false,
-
+        GOOGLE_PAY_ENABLED: Site.current.preferences.custom.isGooglePayEnabled || false,
+        GOOGLE_PAY_MERCHANT_ACCOUNT: Site.current.preferences.custom.googlePayMerchantID,
+        GOOGLE_PAY_MERCHANT_NAME: Site.current.preferences.custom.Adyen_merchantCode
     };
     return resources;
 }

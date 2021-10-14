@@ -1,0 +1,135 @@
+@import "~movado/search";
+@import "variables";
+@import "./mixins";
+
+.header-bar {
+    button.close {
+        @include headline;
+        i{
+          font-size: rem(20);
+        }
+    }
+
+    .fa.fa-close::before {
+        font-size: 1.25em;
+    }
+
+}
+
+.refinements {
+
+    .values {
+
+        li {
+
+          a {
+            font-size: rem(16);
+            font-family: $font-regular;
+          }
+          .fa-square-o{
+            font-size: rem(20);
+          }
+        }
+    }
+}
+
+
+
+.grid-header,
+.content-grid-header {
+
+    @include media-breakpoint-only(xs) {
+        .result-count {
+            font-size: rem(12);
+        }
+
+    }
+
+
+}
+
+.result-count {
+    font-size: rem(20);
+    font-family: $font-medium;
+    font-weight: 500;
+}
+
+.refinement {
+
+    &.card {
+
+        .card-header {
+          font-family: $font-medium;
+          font-weight:400;
+	    	&::after {
+              font-family: $font-medium;
+              font-weight:400;
+	        }
+	    }
+
+    }
+
+}
+
+.search-keywords {
+    font-weight: bold;
+}
+
+.filter-bar {
+
+    li {
+
+        &.filter-value {
+            a {
+                font-size: rem(14);
+            }
+        }
+
+        &.swatch-filter {
+            font-size: 1.38em;
+            &::after {
+
+                font: normal normal normal 14px/1 FontAwesome;
+
+                font-size: 1em;
+
+            }
+        }
+    }
+}
+
+.search-tips {
+    h5{
+      font-family:$font-medium;
+      font-weight:500;
+      font-size: rem(18);
+    }
+}
+
+
+
+.search-nav {
+    .nav-link{
+      font-size: rem(18);
+      font-family: $font-medium;
+      font-weight:500;
+    }
+}
+
+
+.search-results{
+  .result-count{
+    p, .search-tips li{
+      font-size: rem(20);
+      font-family: $font-medium;
+      font-weight:500;
+    }
+    p a{
+      font-family: $font-bold;
+      font-weight:700;
+    }
+    .make-bold{
+      font-weight: 700;
+    }
+  }
+}

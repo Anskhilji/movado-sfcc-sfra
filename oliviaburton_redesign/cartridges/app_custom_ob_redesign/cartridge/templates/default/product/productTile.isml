@@ -17,7 +17,7 @@
         </isloop>
 
         <isif condition="${!pdict.display.plpTile}">
-            <isinclude template="product/components/old/productTileImage" sf-toolkit="on" />
+            <isinclude template="product/components/productTileImage" sf-toolkit="on" />
           <iselse/>
 
             <div class="image-container" style="background-color: ${pdict.tileImageBackground};">

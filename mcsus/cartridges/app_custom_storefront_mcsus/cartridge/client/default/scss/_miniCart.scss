@@ -1,0 +1,59 @@
+@import "~movado/_miniCart";
+@import "variables";
+
+.minicart {
+
+
+    .minicart-quantity {
+      font-size: rem(13);
+    }
+
+    .minicart-icon {
+      font-size: rem(19);
+      background: url("../images/shopping-bag-icon.svg") center center no-repeat;
+      height: rem(30);
+      width: rem(24);
+      background-size: contain;
+      display: inline-block;
+    }
+
+    h4 {
+        font-size: rem(18);
+    }
+
+    .bonus-line-item-heading{
+        font-family: $font-primary;
+        font-size: rem(16);
+    }
+
+    .sub-total-label {
+        font-weight: bold;
+        font-size: rem(18);
+        font-family: $font-bold;
+    }
+    .promo-msg{
+        font-size: rem(14);
+        font-family: $font-primary;
+    }
+    .sub-total {
+        font-size: rem(18);
+        font-weight: bold;
+        font-family: $font-bold;
+    }
+    .line-item-attributes{
+        font-family: $font-medium;
+    }
+    .view-cart{
+        font-family: $font-book;
+    }
+}
+
+.model-name{
+    font-size: rem(14);
+    font-family: $font-medium;
+}
+label.quantity-label{
+    font-family: $font-medium;
+    font-size: rem(14);
+}
+

@@ -1,0 +1,123 @@
+@import "~movado/components/_footer";
+@import "components/collapsibleItem";
+@import "../variables";
+
+footer {
+
+
+    .store {
+
+        .selectors {
+
+            .collapsible-xl {
+
+
+                .title {
+
+                    @include media-breakpoint-up(sm) {
+                        font-size: rem(12);
+
+                    }
+
+                    @include media-breakpoint-up(lg) {
+                        font-size: rem(16);
+                    }
+
+                    &:after {
+                        font-size: 1.5625rem;
+                        font-family: $font-awesome;
+                    }
+                }
+            }
+
+            .esw-country-selector {
+
+
+
+                .dropdown {
+
+                    &-item {
+
+                        @include media-breakpoint-up(sm) {
+                            font-size: rem(12);
+                        }
+
+                        @include media-breakpoint-up(md) {
+                            font-size: rem(14);
+                        }
+                    }
+                }
+            }
+
+            &.footerDropdown {
+
+                .dropdown {
+
+                    &-toggle {
+
+                        @include media-breakpoint-down(xs) {
+
+                            &::after {
+                                font-size: rem(25);
+                                font-family: $font-awesome;
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+
+    h3 {
+        font-size: rem(14);
+        font-family: $font-book;
+        font-weight: 500;
+    }
+
+
+
+    .social-links {
+
+        a {
+            font-size: 2.25em;
+
+        }
+    }
+    .content {
+        font-size: 0.875em;
+        li {
+            a {
+                font-family: $font-regular;
+            }
+        }
+    }
+    .copyright {
+        font-size: rem(13);
+    }
+}
+
+
+
+@include media-breakpoint-down(xs) {
+
+    .store {
+        h3 {
+            &::after {
+                font-family: $font-awesome;
+            }
+        }
+    }
+    .footer-item {
+        &.collapsible-xs {
+            .title:after {
+                font-size: rem(25);
+            }
+
+        }
+        h3 {
+          font-family: $font-medium;
+          font-weight: 500;
+        }
+    }
+}

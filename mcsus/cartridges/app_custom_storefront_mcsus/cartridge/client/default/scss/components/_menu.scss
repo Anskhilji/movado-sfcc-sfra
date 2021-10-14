@@ -1,13 +1,74 @@
-.main-menu.menu-toggleable-left {
-    &.in {
-        .mcs-show {
-            > .dropdown-menu {
-                left: 0;
+@import "~movado/components/_menu";
+@import "../variables";
+
+.main-menu {
+  .nav-item {
+    .nav-link {
+      font-size: rem(14);
+      text-transform: capitalize;
+    }
+
+    .login-icon {
+      width: rem(25);
+      height: rem(25);
+      background: url(../images/sign-in-icon.svg) center center no-repeat;
+      background-size: contain;
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+  .dropdown-link {
+    font-weight: 500;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  .main-menu {
+    display: flex;
+    align-items: center;
+    .nav-item {
+      .nav-link {
+        font-family: $font-medium;
+        font-weight: 500;
+        font-size: rem(16);
+        text-transform: capitalize;
+      }
+    }
+    .dropdown-menu {
+
+      .featured-promotion {
+
+        p {
+          span {
+            font-size: rem(14);
+            font-family: $font-book;
+            font-weight: 300;
+          }
+        }
+      }
+    }
+
+    .browse-collection {
+      .dropdown-toggle {
+        font-family: $font-bold;
+        font-size: rem(14);
+        font-weight: bold;
+      }
+    }
+}
+
+nav {
+    .menu-group {
+        .navbar-nav {
+            li {
+                &:hover {
+                    a {
+                        color: $black;
+                    }
+
+                }
             }
         }
-        
-        .dropdown-menu {
-            overflow-y: auto;
-        }
     }
+  }
 }
