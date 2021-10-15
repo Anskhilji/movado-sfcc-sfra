@@ -13,6 +13,7 @@
 
     .search-field {
         font-family: $font-medium;
+        font-weight: 500;
         font-size: rem(14);
 
     }
@@ -175,23 +176,24 @@
 }
 
 .suggestions {
-    font-size: rem(14);
+    font-size: rem(16);
     font-family: $font-medium;
+    font-weight: 500;
 
     .items-header {
-        font-size: rem(14);
+        font-size: rem(16);
     }
 
     .item {
-        font-size: rem(14);
+        font-size: rem(16);
 
         .name {
-            font-size: rem(14);
+            font-size: rem(16);
         }
     }
 
     .category-parent {
-        font-size: rem(14);
+        font-size: rem(16);
     }
 }
 

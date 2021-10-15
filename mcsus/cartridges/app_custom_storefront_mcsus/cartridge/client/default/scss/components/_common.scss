@@ -121,3 +121,141 @@ h1 {
 .password-description {
   font-size: rem(14);
 }
+
+.custom-select {
+  background: none !important;
+}
+
+.btn-outline-primary {
+  font-size: rem(20);
+}
+
+.btn-primary {
+  font-weight: 500;
+}
+
+.btn-outline-primary {
+    font-weight: 500;
+}
+
+.yotpo .text-m {
+  font-family: $font-medium;
+  font-size: rem(16) !important;
+  font-weight: 500;
+}
+
+.yotpo-sum-reviews {
+  .font-color-gray.based-on {
+    font-family: $font-medium;
+    font-size: rem(16);
+    font-weight: 500;
+    @include media-breakpoint-down(xs) {
+      font-size: rem(16) !important;
+    }
+  }
+}
+
+.show-more {
+  .text-center {
+    button {
+      font-family: $font-regular;
+      font-weight: 400;
+      font-size: rem(20);
+    }
+  }
+}
+
+@include media-breakpoint-down(xs) {
+  font-size: rem(30);
+}
+
+.yotpo .yotpo-regular-box {
+  font-family: $font-book;
+}
+
+.yotpo-review.yotpo-regular-box {
+  .content-title {
+    font-family: $font-medium;
+    @include media-breakpoint-down(xs) {
+      font-size: rem(14);
+    }
+  }
+}
+.yotpo-review.yotpo-regular-box {
+  .content-review {
+    font-family: $font-medium;
+    @include media-breakpoint-down(xs) {
+      font-size: rem(14);
+    }
+  }
+}
+
+.yotpo-review.yotpo-regular-box {
+  .yotpo-header-element span {
+    font-family: $font-medium;
+    @include media-breakpoint-down(xs) {
+      font-size: rem(16);
+    }
+  }
+}
+
+.yotpo-footer {
+  font-family: $font-medium !important;
+
+  .footer-actions {
+    font-family: $font-medium;
+
+  .yotpo-action {
+
+      .y-label {
+        font-family: $font-medium;
+
+        @include media-breakpoint-down(xs) {
+          font-size: rem(12);
+        }
+      }
+    }
+  }
+}
+
+.yotpo-footer {
+  font-family: $font-medium;
+
+  .footer-additional-actions {
+    font-family: $font-medium;
+
+    .y-label.yotpo-review-date {
+      font-family: $font-medium;
+
+      @include media-breakpoint-down(xs) {
+        font-size: rem(13);
+      }
+    }
+  }
+}
+
+
+.yotpo-label.yotpo-small-box {
+  font-family: $font-medium;
+  .yotpo-logo-title {
+    font-family: $font-medium;
+    @include media-breakpoint-down(xs) {
+      font-size: rem(14);
+    }
+ }
+}
+
+.yotpo-small-box {
+  .yotpo-nav.yotpo-nav-primary ul {
+    font-family: $font-medium;
+    font-size: rem(14) ;
+    .yotpo-nav-tab {
+    .yotpo-nav-wrapper span {
+      font-family: $font-medium;
+      @include media-breakpoint-down(xs) {
+      font-size: rem(14);
+        }
+      }
+    }
+  }
+}
