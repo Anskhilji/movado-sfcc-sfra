@@ -25,7 +25,7 @@
     font-weight: 500;
 
     .items-header {
-        font-size: rem(16);
+        font-size: rem(14);
     }
 
     .item {
@@ -33,6 +33,12 @@
 
         .name {
             font-size: rem(16);
+        }
+        a {
+            text-decoration: none;
+        }
+        .product-serach-container {
+            text-decoration: none;
         }
     }
 
