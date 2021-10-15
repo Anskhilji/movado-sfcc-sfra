@@ -16,6 +16,9 @@ function getResources(pageContext) {
     var Resource = require('dw/web/Resource');
     var Site = require('dw/system/Site');
     var URLUtils = require('dw/web/URLUtils');
+    var ArrayList = require('dw/util/ArrayList');
+    var autoComplete = new ArrayList(Site.current.preferences.custom.autoCompleteAllowedCountries).toArray();
+
     var resources = {
         MINI_CART_HEADER_MESSAGE: Resource.msg('title.your.shopping.cart','cart',null),
         CART_EMPTY_MESSAGE: Resource.msg('info.cart.empty.msg', 'cart', null),
@@ -55,9 +58,11 @@ function getResources(pageContext) {
         OPTANON_ALLOWED_COOKIE: Constants.ONE_TRUST_COOKIE_ENABLED,
         LISTRAK_ENABLED: Site.current.preferences.custom.Listrak_Cartridge_Enabled,
         RAKUTEN_REQUEST: rakutenCookiesHelper.getRakutenRequestObject(),
+        GOOGLE_AUTO_COMPLETE_ENABLED: !empty(Site.current.preferences.custom.enableAutoComplete) ? Site.current.preferences.custom.enableAutoComplete : false,
         GOOGLE_PAY_ENABLED: Site.current.preferences.custom.isGooglePayEnabled || false,
         GOOGLE_PAY_MERCHANT_ACCOUNT: Site.current.preferences.custom.googlePayMerchantID,
         GOOGLE_PAY_MERCHANT_NAME: Site.current.preferences.custom.Adyen_merchantCode,
+        GOOGLE_PAY_AUTOCOMPLETE: autoComplete,
         CART_GIFT_MESSAGE_LIMIT: !empty(Site.current.preferences.custom.cartGiftMessageLimit) ? Site.current.preferences.custom.cartGiftMessageLimit : 0
     };
     return resources;
