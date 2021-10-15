@@ -1,6 +1,6 @@
 <div class="site-search">
     <form role="search" action="${URLUtils.url('Search-Show')}" method="get" name="simpleSearch">
-        <button class="fa fa-search gtm-customEvent" type="submit" data-gtm-tracking='{"event": "dataTrack","eventCategory": "Search CTA","eventAction": "Click","eventLabel": "${request.httpURL}"}'>
+        <button class="search-icon gtm-customEvent" type="submit" data-gtm-tracking='{"event": "dataTrack","eventCategory": "Search CTA","eventAction": "Click","eventLabel": "${request.httpURL}"}'>
              <span class="sr-only">"${Resource.msg('label.header.search', 'common', null)}"</span>
         </button>
         	<input class="form-control search-field"
