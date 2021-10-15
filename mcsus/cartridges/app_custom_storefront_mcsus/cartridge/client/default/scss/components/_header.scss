@@ -30,7 +30,7 @@ header {
 @include media-breakpoint-up(lg) {
   .header-banner {
     .html-slot-container {
-      font-size: rem(16);
+      font-size: rem(14);
     }
   }
 }

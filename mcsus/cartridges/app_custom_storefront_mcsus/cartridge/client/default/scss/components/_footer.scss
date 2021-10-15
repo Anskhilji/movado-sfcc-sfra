@@ -74,6 +74,13 @@ footer {
         font-family: $font-book;
         font-weight: 500;
     }
+    .footer-item {
+        a{
+            &:hover{
+                text-decoration: none;
+            }
+        }
+    }
 
 
 
@@ -90,11 +97,15 @@ footer {
             a {
                 font-family: $font-regular;
                 font-weight: 400;
+                &:hover{
+                    text-decoration: none;
+                }
             }
         }
     }
     .copyright {
         font-size: rem(13);
+        font-weight: 400;
     }
 }
 
