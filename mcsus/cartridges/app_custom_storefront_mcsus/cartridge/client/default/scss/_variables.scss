@@ -128,16 +128,16 @@ $table-border-color: $grey3 !default;
 $svg-check: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3E%3C/svg%3E") !default;
 
 @mixin equal-padding-container($custom-padding) {
-    padding-left : #{ $custom-padding };
+    padding-left: #{ $custom-padding };
     padding-right: #{ $custom-padding };
 }
 
 //font Families:
-$font-medium : "proxima-nova" !default;
-$font-thin : "proxima-nova" !default;
-$font-book : "proxima-nova" !default;
-$font-bold :  "baskerville-display-pt" !default;
+$font-medium: "proxima-nova" !default;
+$font-thin: "proxima-nova" !default;
+$font-book: "proxima-nova" !default;
+$font-bold:  "baskerville-display-pt" !default;
 $font-primary: $font-book;
-$font-regular : "proxima-nova" !default;
+$font-regular: "proxima-nova" !default;
 $font-awesome: "FontAwesome";
 $font-proxima-nova: "proxima-nova-bold" !default;
