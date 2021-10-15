@@ -49,10 +49,10 @@ $receipt-font-size: rem(14);
   .order-summary-card {
     .order-total-summary {
      .order-label-wrapper {
-    @include media-breakpoint-down(lg) {
+      @include media-breakpoint-down(lg) {
       font-family: $font-regular;
       font-weight: 400;
-   }
+      }
        @include media-breakpoint-down(xs) {
          font-family: $font-regular;
          font-weight: 400;
@@ -105,7 +105,6 @@ $receipt-font-size: rem(14);
   font-weight: 600;
 }
 
-
 .payment-form {
   .payment-information {
     .accordion-link {
@@ -125,7 +124,5 @@ $receipt-font-size: rem(14);
     font-size:rem(16);
     font-family: $font-medium;
     font-weight: 500;
-
   }
 }
-
