@@ -35,17 +35,17 @@ header {
 @include media-breakpoint-up(lg) {
   .header-banner {
     .html-slot-container {
-      font-size: rem(16);
+      font-size: rem(14);
     }
   }
 }
 header {
   .user {
     position: relative;
-    .fa-sign-in,
     .user-message {
       cursor: pointer;
       font-family: $font-medium;
+      font-weight: 500;
       font-size: rem(14);
       text-transform: capitalize;
       padding-right: rem(10);
