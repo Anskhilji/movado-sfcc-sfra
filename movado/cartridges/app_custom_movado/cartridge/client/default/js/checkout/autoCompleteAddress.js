@@ -21,7 +21,6 @@ window.initAutocomplete = function() {
     autocomplete = new google.maps.places.Autocomplete(address1Field, {
       componentRestrictions: { country: window.Resources.GOOGLE_PAY_AUTOCOMPLETE },
       fields: ["address_components", "geometry"],
-      types: ["address"],
     });
 
     // Create the autocomplete object, restricting the search predictions to Billing Form
@@ -29,7 +28,6 @@ window.initAutocomplete = function() {
     autocompleteBilling = new google.maps.places.Autocomplete(address1FieldBilling, {
       componentRestrictions: { country: window.Resources.GOOGLE_PAY_AUTOCOMPLETE },
       fields: ["address_components", "geometry"],
-      types: ["address"],
     });
 
     address1Field.focus();
