@@ -39,17 +39,16 @@ $receipt-font-size: rem(14);
   }
 
   .shipping-method-block {
-    .ship-method-header{
+    .ship-method-header {
       @include media-breakpoint-down(xs) {
         font-size: rem(14);
       }
     }
   }
-  
 
   .order-summary-card {
     .order-total-summary {
-   .order-label-wrapper{
+     .order-label-wrapper {
     @include media-breakpoint-down(lg) {
       font-family: $font-regular;
       font-weight: 400;

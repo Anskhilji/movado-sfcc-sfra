@@ -75,14 +75,12 @@ footer {
         font-weight: 500;
     }
     .footer-item {
-        a{
-            &:hover{
+        a {
+            &:hover {
                 text-decoration: none;
             }
         }
     }
-
-
 
     .social-links {
 
@@ -97,7 +95,7 @@ footer {
             a {
                 font-family: $font-regular;
                 font-weight: 400;
-                &:hover{
+                &:hover {
                     text-decoration: none;
                 }
             }
@@ -108,8 +106,6 @@ footer {
         font-weight: 400;
     }
 }
-
-
 
 @include media-breakpoint-down(xs) {
 
@@ -125,7 +121,6 @@ footer {
             .title:after {
                 font-size: rem(25);
             }
-
         }
         h3 {
           font-family: $font-medium;
