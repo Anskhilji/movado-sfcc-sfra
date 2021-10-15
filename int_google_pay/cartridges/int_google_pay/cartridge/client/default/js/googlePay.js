@@ -410,6 +410,13 @@ function getGoogleTransactionInfo(includeShippingDetails, selectedShippingMethod
             includeShippingDetails: includeShippingDetails,
             shippingAddress: shippingAddress ? JSON.stringify(shippingAddress) : shippingAddress
         };
+
+            var clydeContract = Clyde.getSelectedContract();
+            if (clydeContract) {
+                data.clydeContractSku = clydeContract.sku;
+                data.clydeContractPrice = clydeContract.recommendedPrice;
+            }
+
         $.ajax({
             url: $selector.data('url'),
             method: 'POST',

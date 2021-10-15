@@ -80,7 +80,7 @@ function getAdyenMerchantID() {
  * @param {String} productId 
  * @returns {Boolean}
  */
-function addProductToCart(currentBasket, productId) {
+function addProductToCart(currentBasket, productId,quantity,childProducts, options, form) {
     var result = {
         error: true
     };
@@ -89,9 +89,10 @@ function addProductToCart(currentBasket, productId) {
         result = cartHelper.addProductToCart(
             currentBasket,
             productId,
-            1,
-            null,
-            null
+            quantity,
+            childProducts,
+            options,
+            form
         );
         if (!result.error) {
             cartHelper.ensureAllShipmentsHaveMethods(currentBasket);
@@ -257,16 +258,22 @@ function getTransactionInfo(req) {
         totalPriceLabel: Resource.msg('total.price.label', 'googlePay', null)
     }
     var displayItems = [];
+    var quantity = 1;
+    var productId = req.form.pid;
+    var form = req.form;
+    var childProducts = [];
+    var options = [];
+    form.options = [];
 
     switch (req.form.googlePayEntryPoint) {
         case 'Product-Show':
-            addProductToCart(currentBasket, req.form.pid);
+            addProductToCart(currentBasket, productId, quantity, childProducts, options, form);
             if (req.form.includeShippingDetails && !empty(req.form.includeShippingDetails) && (req.form.includeShippingDetails != 'false')) {
                 var shippingMethods = getShippingMethods(currentBasket, req.form.selectedShippingMethod, req.form.shippingAddress);
                 transactionInfo.newShippingOptionParameters = shippingMethods.defaultShippingMethods;
                 displayItems.push(shippingMethods.selectedMethodObject);
             }
-            currentBasket = BasketMgr.getCurrentOrNewBasket();
+           // currentBasket = BasketMgr.getCurrentOrNewBasket();
             transactionInfo.totalPriceStatus = 'ESTIMATED';
             transactionInfo.totalPrice = currentBasket.totalNetPrice.value.toString();
             break;
@@ -319,7 +326,6 @@ module.exports = {
     getGooglePayButtonType: getGooglePayButtonType,
     isEnabledGooglePayCustomSize: isEnabledGooglePayCustomSize,
     getAdyenMerchantID: getAdyenMerchantID,
-    addProductToCart: addProductToCart,
     getShippingMethods: getShippingMethods,
     setShippingAndBillingAddress: setShippingAndBillingAddress,
     createGooglePayCheckoutRequest: createGooglePayCheckoutRequest,
