@@ -26,6 +26,7 @@ header {
   .minicart {
     margin-right: rem(30);
     margin-left: rem(10);
+    top: rem(6);
 
     @include media-breakpoint-down(md) {
       margin-left: rem(0);
@@ -77,6 +78,16 @@ header {
         display: inline-block;
         vertical-align: middle;
     }
+  }
+  .navbar-toggler {
+
+    .new-hamburger {
+      background: url(../images/icon_hamburger.svg) center center no-repeat;
+      width: rem(22.05);
+      height: rem(12.75);
+      display: block;
+    }
+
   }
 }
 

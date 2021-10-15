@@ -3,11 +3,16 @@
 
 .minicart {
 
-
     .minicart-quantity {
       font-size: rem(13);
       top: rem(-24);
       right: rem(-10);
+
+      @include media-breakpoint-down(xs) {
+        top: rem(-14);
+        right: rem(-14);
+        }
+
     }
 
     .minicart-icon {
@@ -17,6 +22,12 @@
       width: rem(24);
       background-size: contain;
       display: inline-block;
+
+      @include media-breakpoint-down(xs) {
+        width: rem(16);
+        height: rem(20);
+        }
+
     }
 
     h4 {
