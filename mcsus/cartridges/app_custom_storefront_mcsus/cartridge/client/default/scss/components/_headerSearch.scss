@@ -153,10 +153,6 @@
         right: rem(4);
         top: rem(3);
 
-        // @include media-breakpoint-between(sm, custom-md) {
-        //     right: rem(28);
-        // }
-
         @include media-breakpoint-up(sm) {
             right: rem(28);
         }
