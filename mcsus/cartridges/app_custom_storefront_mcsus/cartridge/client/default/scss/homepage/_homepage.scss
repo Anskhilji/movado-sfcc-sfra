@@ -52,7 +52,7 @@
             .product {
                 &-name {
                     color: $white;
-                    font-family: $font-baskerville;
+                    font-family: $font-bold;
                     font-weight: 500;
                     font-size: rem(40);
                     margin-bottom: rem(15);
@@ -75,7 +75,7 @@
 
                 &-price {
                     color: $white;
-                    font-family: $font-proxima-medium;
+                    font-family: $font-medium;
                     font-size: rem(24);
                     font-weight: 500;
                     margin-bottom: rem(20);
@@ -102,7 +102,7 @@
                 border-radius: rem(5);
                 height: rem(48);
                 color: $black;
-                font-family: $font-proxima-medium;
+                font-family: $font-medium;
                 font-size: rem(20);
                 text-transform: capitalize;
                 letter-spacing: rem(0.8);
@@ -190,7 +190,7 @@
                         font-size: rem(16);
                         line-height: rem(25);
                         margin-bottom: rem(14);
-                        font-family: $font-proxima-medium;
+                        font-family: $font-medium;
                         font-weight: 500;
 
                         @include media-breakpoint-up(xs) {
@@ -221,7 +221,7 @@
 
                         .pdp-link {
                             a,.product-name {
-                                font-family: $font-proxima-medium;
+                                font-family: $font-medium;
                                 font-weight: 500;
                                 font-size: rem(20);
                                 line-height: rem(24);
@@ -237,7 +237,7 @@
                         }
 
                         .price {
-                            font-family: $font-proxima-medium;
+                            font-family: $font-medium;
                             font-weight: 500;
                             font-size: rem(16);
                             line-height: rem(25);
@@ -263,7 +263,7 @@
         } 
 
         .carousel-title {
-            font-family: $font-baskerville;
+            font-family: $font-bold;
             font-size: rem(36);
             font-weight: 500;
             margin-bottom: rem(35);
@@ -301,7 +301,7 @@
 
     &-heading {
         text-align: center;
-        font-family: $font-baskerville;
+        font-family: $font-bold;
         font-size: rem(36);
         font-weight: 500;
         margin-bottom: rem(35);
@@ -314,7 +314,7 @@
         height: auto;
         width: 100%;
         background-color: $light-grey; 
-        box-shadow: rem(0) rem(0) rem(2) #aaa;
+        box-shadow: rem(0) rem(0) rem(2) $grey-light3;
 
         img {
             width: 100%;
@@ -334,7 +334,7 @@
 
             h4 {
                 color: $black;
-                font-family: $font-baskerville;
+                font-family: $font-bold;
                 font-weight: 500;
                 font-size: rem(26);
 
@@ -348,7 +348,7 @@
             }
 
             &-link {
-                font-family: $font-proxima-medium;
+                font-family: $font-medium;
                 font-size: rem(16);
                 font-weight: 500;
                 line-height: rem(25);
@@ -451,7 +451,7 @@
 
         h4 {
             color: $black1;
-            font-family: $font-proxima-medium;
+            font-family: $font-medium;
             font-size: rem(24);
             font-weight: 500;
 
@@ -472,7 +472,7 @@
 
         p {
             color: $black1;
-            font-family: $font-proxima-medium;
+            font-family: $font-medium;
             font-size: rem(16);
             font-weight: 500; 
 
@@ -535,7 +535,7 @@
         }
 
         & > div:nth-child(2) {
-            background-color: #F6F6F6;
+            background-color: $white-smoke3;
 
             @include media-breakpoint-down(custom-md) {
                 padding-left: rem(15);
@@ -562,7 +562,7 @@
             }
 
             h4 {
-                font-family: $font-baskerville;
+                font-family: $font-bold;
                 font-weight: 500;
                 font-size: rem(26);
 
@@ -584,7 +584,7 @@
 
                 li {
                     color: $blue2;
-                    font-family: $font-proxima-medium;
+                    font-family: $font-medium;
                     font-size: rem(16);
                     font-weight: 500;
                     padding: rem(8) rem(0);
