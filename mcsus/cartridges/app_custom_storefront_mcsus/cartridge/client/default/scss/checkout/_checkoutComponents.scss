@@ -10,6 +10,7 @@ $receipt-font-size: rem(14);
   .form-group {
     .form-control-label {
       font-family: $font-regular;
+      font-weight: 400;
       font-size: rem(14);
     }
   }
@@ -28,6 +29,7 @@ $receipt-font-size: rem(14);
   }
   .custom-select {
     font-family: $font-medium;
+    font-weight: 500;
     font-size: rem(14);
 
     @include media-breakpoint-down(sm) {
@@ -36,6 +38,28 @@ $receipt-font-size: rem(14);
 
   }
 
+  .shipping-method-block {
+    .ship-method-header {
+      @include media-breakpoint-down(xs) {
+        font-size: rem(14);
+      }
+    }
+  }
+
+  .order-summary-card {
+    .order-total-summary {
+     .order-label-wrapper {
+      @include media-breakpoint-down(lg) {
+      font-family: $font-regular;
+      font-weight: 400;
+      }
+       @include media-breakpoint-down(xs) {
+         font-family: $font-regular;
+         font-weight: 400;
+      }
+    }
+  }
+}
 
   .order-total-summary {
     .order-receipt-label,
@@ -50,6 +74,7 @@ $receipt-font-size: rem(14);
       .order-receipt-label,
       .text-right {
         font-family: $font-medium;
+        font-weight: bold;
         font-size: rem(18);
       }
     }
@@ -57,10 +82,10 @@ $receipt-font-size: rem(14);
 }
 
 
-
 .leading-lines {
   .start-lines {
     font-family: $font-regular;
+    font-weight: 400;
   }
 }
 
@@ -73,12 +98,12 @@ $receipt-font-size: rem(14);
 .summary-section-label {
   font-family: $font-medium;
   font-size: rem(14);
+  font-weight: 500;
 }
 
 .saved-credit-card-type {
   font-weight: 600;
 }
-
 
 .payment-form {
   .payment-information {
@@ -91,5 +116,13 @@ $receipt-font-size: rem(14);
         }
       }
     }
+  }
+}
+
+.data-checkout-stage .form-group .form-control {
+  @include media-breakpoint-up(lg) {
+    font-size:rem(16);
+    font-family: $font-medium;
+    font-weight: 500;
   }
 }

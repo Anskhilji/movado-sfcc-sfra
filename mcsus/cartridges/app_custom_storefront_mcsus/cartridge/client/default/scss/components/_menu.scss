@@ -77,8 +77,15 @@ nav {
                 }
             }
         }
-     }
-   }
-  } 
- }
+    }
+  }
 }
+.navbar-nav {
+  li {
+    a {
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+  }

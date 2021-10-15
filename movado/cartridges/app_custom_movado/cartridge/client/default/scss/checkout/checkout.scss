@@ -667,3 +667,38 @@ header {
         transform: translateX(-50%);
     }
 }
+
+// Google Autocomplete Address Style -------------------------------
+.pac-container {
+
+    border: 1px solid $black;
+    border-radius: rem(3);
+
+    .pac-item {
+        color: $google-grey1;
+        font-family: $font-medium;
+        font-size: rem(13);
+        font-weight: 500;
+        letter-spacing: rem(0.7);
+        line-height: rem(24);
+        
+        .pac-item-query {
+            color: $google-grey1;
+            font-family: $font-medium;
+            font-size: rem(13);
+            font-weight: 500;
+            letter-spacing: rem(0.7);
+            line-height: rem(24);
+        }
+    }
+
+    .pac-item:nth-child(even) {
+        background-color: $white !important;
+        height: rem(45) !important;
+    }
+
+    .pac-item:nth-child(odd) {
+        background-color: $google-white1 !important;
+        height: rem(45) !important;
+    }
+}
