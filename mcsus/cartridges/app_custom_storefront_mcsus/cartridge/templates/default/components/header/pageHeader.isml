@@ -13,7 +13,6 @@
       <div class="header-menu-wrapper">
         <div class="header-wrapper">
           <div class="container header-menu-container">
-          <div class="container">
             <div class="row">
               <div class="col-12 header-container">
                 <div class="left navbar-header">
@@ -56,14 +55,13 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="main-menu navbar-toggleable-sm menu-toggleable-left multilevel-dropdown" id="sg-navbar-collapse">
-          <div class="container">
-            <div class="row">
-              <isinclude url="${URLUtils.url('Page-IncludeHeaderMenu')}" />
+          <div class="main-menu navbar-toggleable-sm menu-toggleable-left multilevel-dropdown" id="sg-navbar-collapse">
+            <div class="container">
+              <div class="row">
+                <isinclude url="${URLUtils.url('Page-IncludeHeaderMenu')}" />
+              </div>
             </div>
           </div>
-        </div>
       </div>
     </div>
     <div class="search-mobile d-md-none">

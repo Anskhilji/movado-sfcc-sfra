@@ -44,7 +44,6 @@
                 ${Resource.msg('label.soldout', 'common', null)}
             </div>
         </isif>
-<<<<<<< HEAD
         
         <isloop items="${product.badges.textBadges}" var="badge">
             <div class="exclusive-product">
@@ -58,18 +57,6 @@
             </div>
         </div>
 
-=======
-			<isloop items="${product.badges.textBadges}" var="badge">
-		        <div class="exclusive-product">
-		        	${badge.text}
-		        </div>
-		    </isloop>
-        <div class="row m-0">
-            <div class="justify-content-around d-flex mb-3 mt-1 w-100">
-                <isinclude template="product/components/ratings" />
-            </div>
-        </div>
->>>>>>> release-34
         <isset name="price" value="${product.price}" scope="page" />
         <iscomment> Custom: Start [pricing shows only when following requirements meet] </iscomment>
             <isinclude url="${URLUtils.https('Product-ShowMcsProdutPrice', 'pid', product.id)}"/>
@@ -84,9 +71,6 @@
             </button>
         </isif>
     </div>
-<<<<<<< HEAD
     
-=======
->>>>>>> release-34
     <!-- END_dwmarker -->
 </div>
