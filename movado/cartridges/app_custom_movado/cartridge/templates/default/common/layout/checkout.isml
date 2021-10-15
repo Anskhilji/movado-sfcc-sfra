@@ -24,6 +24,7 @@
       <div id="skip-to-content"><a href="#mainContent">${Resource.msg('global.skiptomaincontent', 'common', null)}</a></div>
         <div class="page">
             <isinclude template="/components/header/pageHeaderNomenu" />
+            <isset name="enableAutoComplete" value="${!empty(dw.system.Site.current.preferences.custom.enableAutoComplete) ? dw.system.Site.current.preferences.custom.enableAutoComplete : false}" scope="page" />
             <div id="mainContent">
               <isreplace/>
             </div>
@@ -40,7 +41,9 @@
             <isinclude url="${URLUtils.url('ltkInclude-Start')}" />
         </isif>
         <isinclude template="common/oneTrustCookiesHTML" sf-toolkit="off" />
-        <isinclude template="/common/googleMapsApi" sf-toolkit="off" />
+        <isif condition="${enableAutoComplete}">
+            <isinclude template="/common/googleMapsApi" sf-toolkit="off" />
+        </isif>
 
     </body>
 </html>

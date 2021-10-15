@@ -13,7 +13,6 @@ $(document).ready(function() { // eslint-disable-line
     processInclude(require('./checkout/checkout'));
     if (Resources.GOOGLE_AUTO_COMPLETE_ENABLED) {
         processInclude(require('./checkout/autoCompleteAddress'));
-        processInclude(require('./checkout/autoCompleteBillingAddress'));
     }
     var paymentMethod = $('.payment-options .show').parent().find('.form-check').data('method-id');
     var brandCode = $('.payment-options .show').parent().find('.form-check').data('brand-code');

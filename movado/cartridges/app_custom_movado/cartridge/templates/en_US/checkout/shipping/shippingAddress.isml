@@ -9,7 +9,6 @@
 
 <iscomment> Custom Start: Add Amazon Pay Integeration and make fields read only if it returns from Amazon</iscomment>
 <isset name="isAmazonPay" value="${!empty(pdict.order.amzPayRedirectURL)}" scope="page" />
-<isset name="sitePreferences" value="${require('dw/system/Site').getCurrent().getPreferences().getCustom()}" scope="page" />
 <div class="row">
     <div class="col-sm-6 field-left">
         <div class="form-group
@@ -98,7 +97,7 @@
                     <iscontentasset aid="calloutMsgAddress1"/>
                 </isif>
             </label>
-            <span><input <isif condition="${isAmazonPay}">readonly</isif> type="text" class="form-control shippingAddressOne" id="shippingAddressOne" <isif condition="${sitePreferences.enableAutoComplete}">placeholder="${Resource.msg('input.autocomplete.address.placeholder','forms',null)}"</isif>
+            <span><input <isif condition="${isAmazonPay}">readonly</isif> type="text" class="form-control shippingAddressOne" id="shippingAddressOne" <isif condition="${enableAutoComplete}">placeholder="${Resource.msg('input.autocomplete.address.placeholder','forms',null)}"</isif>
                 value="${shippingAddress.address1||''}" <isprint value="${addressFields.address1.attributes}" encoding="off"/>
                 autocomplete="shipping address-line1">
                 <div class="invalid-feedback"><isprint value="${addressFields.address1.error}" ></div>

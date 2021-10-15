@@ -1,5 +1,4 @@
 <isset name="billingFields" value="${pdict.forms.billingForm.addressFields}" scope="page"/>
-<isset name="sitePreferences" value="${require('dw/system/Site').getCurrent().getPreferences().getCustom()}" scope="page" />
 
 <div class="row">
     <div class="col-sm-6 field-left">
@@ -59,7 +58,7 @@
             ${billingFields.address1.mandatory === true ? 'required' : ''}
             ${billingFields.address1.htmlName}">
             <label class="form-control-label" for="billingAddressOne">${Resource.msg('field.billing.address.one','address',null)}</label>
-            <input type="text" class="form-control billingAddressOne" id="billingAddressOne" <isif condition="${sitePreferences.enableAutoComplete}">placeholder="${Resource.msg('input.autocomplete.address.placeholder','forms',null)}"</isif>
+            <input type="text" class="form-control billingAddressOne" id="billingAddressOne" <isif condition="${enableAutoComplete}">placeholder="${Resource.msg('input.autocomplete.address.placeholder','forms',null)}"</isif>
                 value="${pdict.order.billing.billingAddress.address
                     && pdict.order.billing.billingAddress.address.address1
                     ? pdict.order.billing.billingAddress.address.address1
