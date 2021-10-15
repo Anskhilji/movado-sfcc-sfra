@@ -19,6 +19,8 @@
     }
         form {
             position: relative;
+            display: block;
+            margin: rem(0) rem(10);
         }
 
         height: rem(30);
@@ -27,7 +29,11 @@
             padding-left: rem(15);
         }
 
-        @include media-breakpoint-up(custom-md) {
+        @include media-breakpoint-up(md) {
+            margin-right: rem(10);
+         }
+
+        @include media-breakpoint-up(lg) {
            margin-right: rem(20);
         }
         
@@ -42,11 +48,11 @@
         }
 
         @include media-breakpoint-down(md) {
-            width: 97%;
+            width: 100%;
         }
 
         @include media-breakpoint-up(xl) {
-          width: rem(335);
+          width: rem(336);
         }
 
         visibility: hidden;
@@ -59,7 +65,7 @@
         width: rem(336);
         position: relative;
         z-index: 999;
-        margin: rem(0);
+        margin-left: rem(10);
 
         .search-suggestions {
             .category-slot {
@@ -77,6 +83,7 @@
 
                     li {
                         list-style: none;
+                        line-height: rem(25);
                     }
 
                     a {
@@ -93,15 +100,19 @@
     .search-field{
         height: rem(34);
         width: rem(336);
-        border-radius: rem(3);
+        border-radius: rem(3) rem(3) rem(0) rem(0);
+
+        &::-webkit-input-placeholder {
+            color: $grayish-blue;
+          }
 
         @include media-breakpoint-up(md) {
-            border: rem(1) solid $primary;
+            border: rem(1) solid $silver;
             width: rem(280);
         }
         @include media-breakpoint-down(md) {
-            border: rem(1) solid $primary;
-            width: 97%;
+            border: rem(1) solid $silver;
+            width: 100%;
         }
         @include media-breakpoint-up(custom-md) {
             border: rem(1) solid $silver;
