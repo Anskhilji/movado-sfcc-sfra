@@ -16,6 +16,7 @@ function getResources(pageContext) {
     var Resource = require('dw/web/Resource');
     var Site = require('dw/system/Site');
     var URLUtils = require('dw/web/URLUtils');
+    var ArrayList = require('dw/util/ArrayList');
     var autoComplete = new ArrayList(Site.current.preferences.custom.autoCompleteAllowedCountries).toArray();
 
     var resources = {
