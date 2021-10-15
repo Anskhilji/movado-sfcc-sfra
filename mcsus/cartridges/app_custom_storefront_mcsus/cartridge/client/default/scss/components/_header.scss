@@ -1,0 +1,69 @@
+@import "~movado/components/_header";
+@import "menu";
+@import "../variables";
+@import "../vars";
+
+.header-banner {
+  background-color: $grey14;
+  .html-slot-container {
+    font-family: $font-medium;
+    font-size: rem(14);
+    font-weight: 500;
+    color: $Grey;
+  }
+}
+
+
+header {
+  .main-menu {
+    background-color: $Grey;
+  }
+  .menu-text {
+    font-size: rem(16);
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .header-banner {
+    .html-slot-container {
+      font-size: rem(15);
+    }
+  }
+}
+
+
+@include media-breakpoint-up(lg) {
+  .header-banner {
+    .html-slot-container {
+      font-size: rem(16);
+    }
+  }
+}
+header {
+  .user {
+    position: relative;
+    .fa-sign-in,
+    .user-message {
+      cursor: pointer;
+      font-family: $font-medium;
+      font-size: rem(14);
+      text-transform: capitalize;
+      padding-right: rem(10);
+    }
+
+    .login-icon {
+        width: rem(25);
+        height: rem(25);
+        background: url(../images/sign-in-icon.svg) center center no-repeat;
+        background-size: contain;
+        display: inline-block;
+        vertical-align: middle;
+    }
+  }
+}
+
+.accessible-link {
+  color: $black;
+}
+
+

@@ -1,0 +1,83 @@
+@import "~movado/components/_productCommon";
+@import "../variables";
+
+
+.description-and-detail .attribute {
+
+    &-name {
+        font-family: $font-thin;
+        font-weight: 300;
+        font-size: rem(24);
+    }
+
+    &-value {
+        font-family: $font-medium;
+        font-weight: 500;
+        font-size: rem(16);
+    }
+
+}
+
+.product-detail {
+    @import "../product/imageCarousel";
+
+    .product-name {
+        font-size: rem(40);
+        font-family: $font-bold;
+    }
+
+    .product-number {
+        font-size: rem(14);
+    }
+
+    .exclusive-badges {
+
+        .badge {
+            font-size: rem(12);
+            font-weight: 500;
+        }
+    }
+
+    .availability-msg {
+        font-family:$font-medium;
+        font-size: rem(10);
+    }
+
+    .price {
+        font-family: $font-medium;
+        font-size: rem(20);
+        @include media-breakpoint-down(xs) {
+            font-size: rem(16);
+        }
+    }
+}
+
+
+
+
+
+.more-styles-wrapper {
+    h3 {
+        font-size: rem(18);
+        font-weight: 500;
+    }
+}
+
+
+
+.description-and-detail {
+    [class*="collapsible-"] {
+
+        .title {
+            font-family: $font-bold;
+            font-weight: bold;
+            font-size: rem(30);
+        }
+    }
+}
+
+select {
+    + i.fa {
+        font-size: rem(20);
+    }
+}

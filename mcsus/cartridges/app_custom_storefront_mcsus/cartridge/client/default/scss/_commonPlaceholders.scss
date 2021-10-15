@@ -1,0 +1,22 @@
+@import "~movado/_commonPlaceholders";
+@import "./mixins";
+@import "./variables";
+
+%address-link {
+  font-family: $font-medium;
+  font-size: rem(14);
+}
+
+%store-name {
+  font-size: rem(18);
+}
+
+%store-map {
+  font-family: $font-book;
+  font-size: rem(15);
+}
+
+%card-header {
+  font-family: $font-medium;
+  font-size: rem(16);
+}

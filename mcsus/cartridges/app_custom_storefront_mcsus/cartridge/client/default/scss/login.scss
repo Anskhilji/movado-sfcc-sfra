@@ -1,0 +1,27 @@
+@import "~movado/login";
+@import "./variables";
+
+.login-form-nav{
+
+    .hidden-xs-down{
+        font-size: rem(14);
+        font-family: $font-medium;
+    }
+    .privacy-policy{
+        font-family: $font-medium;
+    }
+
+}
+.login-page{
+    input[placeholder],label{
+        font-family: $font-medium;
+    }
+}
+
+
+.track-order-header-description {
+    & a {
+        font-size: rem(13);
+        font-family: $font-medium;
+    }
+}

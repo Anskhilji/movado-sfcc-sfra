@@ -12,6 +12,14 @@ $arrow-height: 1.25em;
     min-width: auto;
 }
 
+.product-detail {
+    .google-pay-container {
+        .gpay-button {
+            border-radius: rem(0);
+        }
+    }
+}
+
 .container-fluid.pdp-v-one {
     padding-top: rem(16);
     padding-bottom: rem(16);

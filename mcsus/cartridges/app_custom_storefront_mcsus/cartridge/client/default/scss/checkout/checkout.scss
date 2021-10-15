@@ -1,4 +1,8 @@
-@import '~movado/checkout/checkout'; 
+@import "~movado/checkout/checkout";
+@import "../variables";
+@import "checkoutComponents";
+
+$checkout-font-weight: 600;
 
 header {
 
@@ -156,6 +160,146 @@ header {
             width: rem(0);
           }
         }
+    }
+
+}
+.checkout-checkbox {
+    font-size: 0.875em;
+}
+
+
+.shipping-methods {
+    font-size: 1.125em;
+    font-weight: $checkout-font-weight;
+}
+
+.shipping-method-option {
+    font-family: $font-book;
+    font-size: rem(16);
+}
+
+.shipping-method-pricing {
+    font-family: $font-medium;
+    font-size: rem(16);
+}
+
+
+.data-checkout-stage {
+    // Initial states ------------------------
+    .card-header {
+        h4 {
+        @include headline;
+          &.pull-left{
+            @include media-breakpoint-up(lg){
+              font-size: rem(20);
+            }
+          }
+        }
+    }
+
+    h5 > span {
+        font-size: 0.8em;
+    }
+}
+
+
+
+
+header {
+    &.checkout-header {
+        .sticky-header-wrapper {
+            .mobile-menu-wrapper {
+                @include media-breakpoint-up(xs) {
+                   .header-wrapper {
+                        .checkout-logo {
+                            
+                            &:before {
+                                font-family: "FontAwesome";
+                                font-size: rem(18);
+                            }
+                        }
+                        .minicart-quantity {
+                            font-size: rem(12);
+                        }
+                   }
+
+                }
+            }
+        }
+    }
+
+    .checkout-header-wrapper {
+        .header-left {
+            .checkout-logo {
+    
+                .logo-checkout-text {
+                    font-family: $font-book;
+                    font-size: rem(18);
+                }
+            }
+
+            .checkout-text {
+                h5 {
+                    .secure-text {
+                        font-size: rem(15);
+                    }
+                }
+            }
+
+        }
+
+        .minicart {
+
+            &-quantity {
+                font-size: rem(12);
+            }
+        } 
+    }
+}
+
+.checkout-progressbar {
+
+    li {
+
+        p {
+
+            font-size: rem(12);
+
+            @include media-breakpoint-down(sm) {
+                font-size: rem(10);
+            }
+    
+            .step {
+
+                &-no {
+                    font-size: rem(12);
+
+                    @include media-breakpoint-down(sm) {
+                        font-size: rem(8);
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+
+
+
+.checkout-progressbar {
+
+    li {
+        p {
+
+            font-size: rem(12);
+
+            @include media-breakpoint-down(sm) {
+                font-size: rem(10);
+            }
+
+        }
+
     }
 
 }

@@ -13,6 +13,7 @@
       <div class="header-menu-wrapper">
         <div class="header-wrapper">
           <div class="container header-menu-container">
+          <div class="container">
             <div class="row">
               <div class="col-12 header-container">
                 <div class="left navbar-header">

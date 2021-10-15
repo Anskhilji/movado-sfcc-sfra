@@ -1,7 +1,7 @@
 <isif condition="${pdict.name === null}">
   <li class="nav-item d-lg-none" role="menuitem">
     <a href="${URLUtils.https('Login-Show')}" class="nav-link">
-      <i class="fa fa-sign-in" aria-hidden="true"></i>
+      <i class="login-icon" aria-hidden="true"></i>
       <span class="user-message">${Resource.msg('link.header.login', 'account', null)}</span>
     </a>
   </li>
@@ -24,7 +24,7 @@
       </li>
       <li class="dropdown-item logout-login" role="menuitem">
         <a href="${URLUtils.url('Login-Logout')}" class="dropdown-link" role="button">
-          <i class="fa fa-sign-in" aria-hidden="true"></i>
+          <i class="login-icon" aria-hidden="true"></i>
           ${Resource.msg('link.header.logout', 'account', null)}
         </a>
       </li>

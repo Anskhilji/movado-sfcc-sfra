@@ -126,7 +126,7 @@
             <iscomment> Custom: sub-dropdown class added</iscomment>
             <li class="nav-item sub-dropdown dropdown gtm-customEvent" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
               <span class="image-text" style="color: ${category.hexColor}">${category.name}</span>
-              <img alt="${category.name}" src="${category.categoryImageURL ? category.categoryImageURL : '#'}" title="${category.name}" />
+              <img alt="${category.name}" src="${category.categoryImageURL ? category.categoryImageURL : '#'}" loading="lazy" title="${category.name}" />
               <isset name="topCat" value="${category}" scope="page"/>
               <isset name="gtmCategoryVal" value="${JSON.stringify(category.gtmNavVal)}" scope="page"/>
               <isset name="menuItem" value="${category}" scope="page" />
@@ -136,7 +136,7 @@
             <li class="nav-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
               <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" role="button">
                 <span class="image-text" style="color: ${category.hexColor}">${category.name}</span>
-                <img alt="${category.name}" src="${category.categoryImageURL ? category.categoryImageURL : '#'}" title="${category.name}" />
+                <img alt="${category.name}" src="${category.categoryImageURL ? category.categoryImageURL : '#'}" loading="lazy" title="${category.name}" />
               </a>
             </li>
           </isif>
