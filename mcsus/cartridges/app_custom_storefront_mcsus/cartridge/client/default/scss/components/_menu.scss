@@ -1,3 +1,16 @@
+@import "../variables";
+
+header {
+    &-menu {
+        &-container {
+            @include media-breakpoint-up(xl) {
+                @include equal-padding-container(rem(30));
+                max-width: 100%;
+            }
+        }
+    }
+}
+
 .main-menu.menu-toggleable-left {
     &.in {
         .mcs-show {
