@@ -212,6 +212,17 @@
                     .image-container {
                         border: none;
 
+                        .wishlistTile {
+                            position: absolute;
+                            top: 1rem;
+                            right: 1rem;
+                            left: auto;
+
+                            .fa-stack-1x {
+                                font-size: rem(21);
+                            }
+                        }
+
                         a.quickview {
                             
                         }

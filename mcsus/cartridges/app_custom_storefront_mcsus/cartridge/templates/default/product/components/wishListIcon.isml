@@ -1,0 +1,8 @@
+<isif condition="${!('display' in pdict && 'wishlists' in pdict.display && pdict.display.wishlists == false) && pdict.loggedIn}">
+    <a class="wishlistTile hidden-xs-down" href="${URLUtils.url('Wishlist-AddProduct')}" title="${Resource.msg('wishlist.addto.wishlist.heart', 'wishlist', null)}" aria-label="${Resource.msg('wishlist.addto.wishlist.heart', 'wishlist', null)}" data-gtm-tracking='${JSON.stringify(pdict.wishlistGtmObj)}'>
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-bookmark-o fa-stack-1x" ></i>
+        </span>
+        <span class="hidden-label d-none">${Resource.msg('wishlist.addto.wishlist.heart', 'wishlist', null)}</span>
+    </a>
+</isif>
