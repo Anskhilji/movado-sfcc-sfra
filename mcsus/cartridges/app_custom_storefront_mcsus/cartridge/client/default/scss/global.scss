@@ -8,8 +8,9 @@
 @import "font-awesome/scss/font-awesome";
 @import "flag-icon";
 @import "components/header";
-@import "../scss/bootstrapOverrides";
+@import "bootstrapOverrides";
 @import "components/footer";
+@import "components/menu";
 @import "~movado/components/hero";
 @import "./components/header";
 @import "~movado/components/notification";
@@ -46,3 +47,4 @@
 @import "components/common";
 @import "checkout/checkout";
 @import "components/navbar";
+@import "homepage/homepage";

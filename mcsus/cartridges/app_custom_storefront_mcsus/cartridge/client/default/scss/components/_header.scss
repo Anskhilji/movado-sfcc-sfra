@@ -1,7 +1,6 @@
 @import "~movado/components/_header";
 @import "menu";
 @import "../variables";
-@import "../vars";
 
 .header-banner {
   background-color: $light-silver;
@@ -11,6 +10,17 @@
     font-size: rem(14);
     font-weight: 500;
     color: $Grey;
+  }
+}
+
+header {
+  &-menu {
+      &-container {
+          @include media-breakpoint-up(xl) {
+              @include equal-padding-container(rem(30));
+              max-width: 100%;
+          }
+      }
   }
 }
 
@@ -67,17 +77,17 @@ header {
 @include media-breakpoint-up(lg) {
   .header-banner {
     .html-slot-container {
-      font-size: rem(16);
+      font-size: rem(14);
     }
   }
 }
 header {
   .user {
     position: relative;
-    .fa-sign-in,
     .user-message {
       cursor: pointer;
       font-family: $font-medium;
+      font-weight: 500;
       font-size: rem(14);
       text-transform: capitalize;
       padding-right: rem(10);
