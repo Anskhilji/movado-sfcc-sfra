@@ -1,3 +1,4 @@
+//font Families:
 @import "bootstrap/scss/functions";
 // font-awesome font file locations in relation to target location of the css file.
 $fa-font-path: "../fonts" !default;
@@ -9,15 +10,25 @@ $white: #fff !default;
 $black: #000 !default;
 $light-black: $black !default;
 $blue: #0070d2 !default;
+$blue2 : #007BFF !default;
 $green: #008827 !default;
 $red: #c00 !default;
+$light-red: #DC3545 !default;
 $light-blue: #7ed0ee !default;
 $orange: #EA4138 !default;
 $dark-blue: #2A326D !default;
 $dark-red: #981608 !default;
 $yellow: #FFC517 !default;
+$amber: #FFC107 !default;
 $border-color: #979797 !default;
 // Consolidated values
+$black1 : #212529 !default;
+
+$silver : #C6C4C4 !default;
+
+$light-grey: #d8d8d8 !default;
+$light-grey2: #f8f8f8 !default;
+
 $grey1: #f9f9f9 !default;
 $grey2: #eee !default;
 $grey3: #ccc !default;
@@ -40,6 +51,7 @@ $light-silver: #D8D8D8;
 $Grey: #242526;
 $silver: #B0B0B0;
 
+$white-transparent: rgba(255,255,255,0.5) !default;
 $grey-transparent-1: rgba(0, 0, 0, 0.65) !default;
 $grey-transparent-2: rgba(0, 0, 0, 0.25) !default;
 $grey-transparent-3: rgba(0,0,0, 0.05) !default;
@@ -48,6 +60,8 @@ $grey-transparent-5: rgba(0, 0, 0, 0.3) !default;
 $grey-transparent-6: rgba(0,0,0,0.5) !default;
 $grey-transparent-7: rgba(0,0,0,0.24) !default;
 $grey-light: rgba(187, 189, 191, 0.3) !default;
+$grey-light2: rgba(195,195,195,0.5) !default;
+$grey-light3: #aaa !default;
 $grey-dark: rgba(187, 189, 191, 0.5) !default;
 $grey-dark-1: rgba(6,5,6,0.6) !default;
 
@@ -68,6 +82,8 @@ $success: $green !default;
 $danger: $red !default;
 $placeholder: $grey4 !default;
 $white-smoke:#F2F2F2 !default;
+$white-smoke2: rgba(245,245,245,0.9) !default;
+$white-smoke3: #F6F6F6 !default;
 $granite-gray:  #5C5C5C;
 $apple: #59AF2C;
 $cerulean: #0092DB;
@@ -115,13 +131,17 @@ $table-border-color: $grey3 !default;
 
 $svg-check: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3E%3C/svg%3E") !default;
 
+@mixin equal-padding-container($custom-padding) {
+    padding-left: #{ $custom-padding };
+    padding-right: #{ $custom-padding };
+}
 
 //font Families:
-$font-medium : "proxima-nova";
-$font-thin : "proxima-nova";
-$font-book : "proxima-nova";
-$font-bold :  "baskerville-display-pt";
+$font-medium: "proxima-nova" !default;
+$font-thin: "proxima-nova" !default;
+$font-book: "proxima-nova" !default;
+$font-bold:  "baskerville-display-pt" !default;
 $font-primary: $font-book;
-$font-regular : "proxima-nova";
+$font-regular: "proxima-nova" !default;
 $font-awesome: "FontAwesome";
-$font-proxima-nova: "proxima-nova-bold";
+$font-proxima-nova: "proxima-nova-bold" !default;

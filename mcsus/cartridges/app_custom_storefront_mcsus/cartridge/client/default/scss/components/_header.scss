@@ -12,6 +12,17 @@
   }
 }
 
+header {
+  &-menu {
+      &-container {
+          @include media-breakpoint-up(xl) {
+              @include equal-padding-container(rem(30));
+              max-width: 100%;
+          }
+      }
+  }
+}
+
 
 header {
   .main-menu {
