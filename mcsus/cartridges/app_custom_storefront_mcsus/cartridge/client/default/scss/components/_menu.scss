@@ -23,9 +23,11 @@
 }
 
 @include media-breakpoint-up(lg) {
-  .main-menu {
-    display: flex;
-    align-items: center;
+  .header-menu-wrapper {
+    .main-menu {
+      display: flex;
+      align-items: center;
+
     .nav-item {
       .nav-link {
         font-family: $font-medium;
@@ -34,6 +36,12 @@
         text-transform: capitalize;
       }
     }
+
+    &.show,
+    &:hover {
+      box-shadow: 0 rem(1) rem(3) 0 $grey10;
+    }
+
     .dropdown-menu {
 
       .featured-promotion {
@@ -55,7 +63,9 @@
         font-weight: bold;
       }
     }
+  }
 }
+ 
 
 nav {
     .menu-group {
@@ -72,3 +82,27 @@ nav {
     }
   }
 }
+
+// .main-menu {
+//   display: flex;
+//   align-items: center;
+//   .nav-item {
+//     .nav-link {
+//       font-family: $font-medium;
+//       font-weight: 500;
+//       font-size: rem(16);
+//     }
+//   }
+//   .dropdown-toggle::after {
+//     border: none;
+//   }
+//   .navbar-nav {
+//     position: relative;
+//     z-index: 2;
+//   }
+//   .nav-item {
+//     position: static;
+//     &.show, &:hover {
+//       box-shadow: 0 rem(2) rem(10) 0 $grey10;
+//     }
+//   }

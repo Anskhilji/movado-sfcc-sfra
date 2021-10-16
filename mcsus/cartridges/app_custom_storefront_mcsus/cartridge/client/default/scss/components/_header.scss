@@ -5,6 +5,7 @@
 
 .header-banner {
   background-color: $light-silver;
+  opacity: 0.39;
   .html-slot-container {
     font-family: $font-medium;
     font-size: rem(14);
@@ -32,6 +33,18 @@ header {
       margin-left: rem(0);
     }
 
+    .minicart-icon{
+
+      @include media-breakpoint-down(sm) {
+        width: rem(16);
+        height: rem(20);
+      } 
+      
+      @include media-breakpoint-down(xs) {
+        width: rem(16);
+        height: rem(20);
+      }  
+    }
   }
 
   .header-wrapper {
@@ -80,16 +93,22 @@ header {
     }
   }
   .navbar-toggler {
+   display: inline-flex;
+   align-items: center;
 
-    .new-hamburger {
-      background: url(../images/icon_hamburger.svg) center center no-repeat;
-      width: rem(22.05);
-      height: rem(12.75);
-      display: block;
-    }
+   .menu-text {
+     margin-left:rem(10) ;
+   }
 
-  }
-}
+   .new-hamburger {
+     background: url(../images/icon_hamburger.svg) center center no-repeat;
+     width: rem(22.05);
+     height: rem(12.75);
+     display: block;
+   }
+
+ }
+ }
 
 .accessible-link {
   color: $black;

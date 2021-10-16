@@ -5,12 +5,16 @@
 
     .minicart-quantity {
       font-size: rem(13);
-      top: rem(-24);
-      right: rem(-10);
+      top: rem(-16);
+
+      @include media-breakpoint-down(sm) {
+        top: rem(-11);
+        right: rem(-12);
+      } 
 
       @include media-breakpoint-down(xs) {
-        top: rem(-14);
-        right: rem(-14);
+        top: rem(-9);
+        right: rem(-13);
         }
 
     }
