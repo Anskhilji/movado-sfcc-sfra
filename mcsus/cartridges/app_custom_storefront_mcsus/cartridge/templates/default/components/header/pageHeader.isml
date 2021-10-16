@@ -12,7 +12,7 @@
       <div class="sticky-header-placeholder"></div>
       <div class="header-menu-wrapper">
         <div class="header-wrapper">
-          <div class="container header-menu-container">
+          <div class="container-fluid header-menu-container">
             <div class="row">
               <div class="col-12 header-container">
                 <div class="left navbar-header">
@@ -34,7 +34,7 @@
                   </div>
                   <button class="navbar-toggler d-lg-none" role="tab" type="button" aria-controls="sg-navbar-collapse"
                     aria-expanded="false">
-                    <i class="fa fa-bars"></i>
+                    <i class="new-hamburger"></i>
                     <span class="sr-only"> ${Resource.msg('link.header.toggleNavigation', 'common', null)}</span>
                     <span class="menu-text d-none d-md-inline-block d-lg-none">
                       ${Resource.msg('link.header.menu', 'common', null)}

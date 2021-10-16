@@ -6,9 +6,11 @@ $('body').on('focus, keydown', ".search-field:visible", function (e) {
     }
 });
 $(".search-field").on('click', function (e) {
-    $(".search-recomendation").css('visibility', 'visible');
-    $(".search-recomendation").fadeIn();
-    e.stopPropagation();
+    if ($(this).val() === '') {
+        $(".search-recomendation").css('visibility', 'visible');
+        $(".search-recomendation").fadeIn();
+        e.stopPropagation();
+    }
 });
 $('body').on('click', function (e) {
     $(".search-recomendation").fadeOut();

@@ -1,10 +1,9 @@
 @import "~movado/components/_header";
 @import "menu";
 @import "../variables";
-@import "../vars";
 
 .header-banner {
-  background-color: $grey14;
+  background-color: $light-silver;
   .html-slot-container {
     font-family: $font-medium;
     font-size: rem(14);
@@ -29,9 +28,28 @@ header {
   .main-menu {
     background-color: $Grey;
   }
+
   .menu-text {
     font-size: rem(16);
   }
+
+  .minicart {
+    margin-right: rem(30);
+    margin-left: rem(10);
+    top: rem(6);
+
+    @include media-breakpoint-down(md) {
+      margin-left: rem(0);
+    }
+
+  }
+
+  .header-wrapper {
+    .account-wrapper {
+      margin-left: rem(30);
+    }
+  }
+
 }
 
 @include media-breakpoint-up(md) {
@@ -70,6 +88,16 @@ header {
         display: inline-block;
         vertical-align: middle;
     }
+  }
+  .navbar-toggler {
+
+    .new-hamburger {
+      background: url(../images/icon_hamburger.svg) center center no-repeat;
+      width: rem(22.05);
+      height: rem(12.75);
+      display: block;
+    }
+
   }
 }
 
