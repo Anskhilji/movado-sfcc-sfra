@@ -135,8 +135,31 @@
 }
 .result-count > span  {
   font-size: rem(20);
+  @include media-breakpoint-down(xs){
+    font-size: rem(14);
+    font-family: $font-medium;
+    font-weight: 500;
+  }
 }
 .grid-header select {
+  font-family: $font-regular;
   font-size: rem(16);
   font-weight: 400;
+
+  @include media-breakpoint-down(xs){
+    font-size: rem(16);
+    font-family: $font-regular;
+    font-weight: 400;
+  }
+}
+
+.grid-header select {
+
+  .filter-results .button {
+    @include media-breakpoint-down(xs){
+      font-size: rem(16);
+      font-family: $font-regular;
+      font-weight: 400;
+    }
+  }
 }

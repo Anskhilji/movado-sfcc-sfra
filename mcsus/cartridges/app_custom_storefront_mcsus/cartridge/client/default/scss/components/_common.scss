@@ -35,11 +35,14 @@ h1 {
 
 @include media-breakpoint-up(md) {
   .heading-one {
-    font-size: rem(46);
+    font-family: $font-bold;
+    font-weight: bold !important;
+    font-size: rem(40);
   }
   .heading-two {
     font-size: rem(32);
-    font-family: $font-book;
+    font-family: $font-bold;
+    font-weight: bold;
   }
   .heading-three {
     font-size: rem(24);
@@ -135,7 +138,8 @@ h1 {
 }
 
 .btn-outline-primary {
-    font-weight: 500;
+  font-family: $font-regular;
+    font-weight: 400;
     font-size: rem(16);
 }
 
@@ -148,11 +152,19 @@ h1 {
 .yotpo-sum-reviews {
   .font-color-gray.based-on {
     font-family: $font-medium;
-    font-size: rem(16);
+    font-size: rem(20);
     font-weight: 500;
     @include media-breakpoint-down(xs) {
       font-size: rem(16) !important;
     }
+  }
+}
+
+.yotpo-label {
+  .yotpo-default-button span {
+      font-family: $font-medium;
+      font-weight: 500;
+      font-size: rem(16);
   }
 }
 
@@ -177,6 +189,8 @@ h1 {
 .yotpo-review.yotpo-regular-box {
   .content-title {
     font-family: $font-medium;
+    font-weight: 500;
+    font-size: rem(24);
     @include media-breakpoint-down(xs) {
       font-size: rem(14);
     }
@@ -184,7 +198,9 @@ h1 {
 }
 .yotpo-review.yotpo-regular-box {
   .content-review {
-    font-family: $font-medium;
+    font-family: $font-regular;
+    font-weight: 400;
+    font-size: rem(16);
     @include media-breakpoint-down(xs) {
       font-size: rem(14);
     }
@@ -192,8 +208,10 @@ h1 {
 }
 
 .yotpo-review.yotpo-regular-box {
-  .yotpo-header-element span {
+  .yotpo-header-element  {
     font-family: $font-medium;
+    font-weight: 500;
+    font-size: rem(16);
     @include media-breakpoint-down(xs) {
       font-size: rem(16);
     }
@@ -221,6 +239,11 @@ h1 {
 
 .yotpo-footer {
   font-family: $font-medium;
+
+  .label-helpful {
+    font-family: $font-regular;
+    font-weight: 400;
+  }
 
   .footer-additional-actions {
     font-family: $font-medium;
@@ -262,6 +285,14 @@ h1 {
 }
 .nav-tabs {
   .nav-link {
+    font-weight: 500;
+  }
+}
+
+.value {
+  .b {
+    font-family: $font-medium;
+    font-size: rem(16);
     font-weight: 500;
   }
 }
