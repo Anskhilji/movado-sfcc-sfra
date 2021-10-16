@@ -3,16 +3,23 @@
 @import "../variables";
 
 .header-banner {
-  background-color: $light-silver;
-  opacity: 0.39;
+  background-color: $light-grey3;
+
   .html-slot-container {
     font-family: $font-medium;
     font-size: rem(14);
     font-weight: 500;
-    color: $Grey;
+    color: $grayish-blue;
   }
 }
+header .header-wrapper .header-container {
+  height: rem(75);
 
+  @include media-breakpoint-down(xs) {
+    padding-left: rem(0);
+    padding-right: rem(0);
+  }
+}
 header {
   &-menu {
       &-container {
@@ -39,21 +46,24 @@ header {
     margin-left: rem(10);
     top: rem(6);
 
+    @include media-breakpoint-down(xs) {
+      margin-right: rem(15);
+    }
+
     @include media-breakpoint-down(md) {
       margin-left: rem(0);
     }
 
     .minicart-icon {
+      @include media-breakpoint-down(xs) {
+        width: rem(16);
+        height: rem(20);
+      }
 
       @include media-breakpoint-down(sm) {
         width: rem(16);
         height: rem(20);
-      } 
-      
-      @include media-breakpoint-down(xs) {
-        width: rem(16);
-        height: rem(20);
-      }  
+      }
     }
   }
 
@@ -84,6 +94,7 @@ header {
     }
   }
 }
+
 header {
   .user {
     position: relative;
@@ -110,7 +121,7 @@ header {
    align-items: center;
 
    .menu-text {
-     margin-left:rem(10) ;
+     margin-left: rem(10);
    }
 
    .new-hamburger {
