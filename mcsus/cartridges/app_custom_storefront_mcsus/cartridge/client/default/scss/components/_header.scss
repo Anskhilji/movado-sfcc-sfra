@@ -43,7 +43,7 @@ header {
       margin-left: rem(0);
     }
 
-    .minicart-icon{
+    .minicart-icon {
 
       @include media-breakpoint-down(sm) {
         width: rem(16);
