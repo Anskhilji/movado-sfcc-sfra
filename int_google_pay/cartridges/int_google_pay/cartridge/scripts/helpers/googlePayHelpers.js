@@ -114,6 +114,8 @@ function removeAllProductLineItemsFromBasket(currentBasket) {
                 currentBasket.removeShipment(shipmentToRemove);
             }
         });
+        currentBasket.custom.clydeContractProductList = JSON.stringify('');
+        delete session.custom.clydeContractProductList;
     });
 
 }
@@ -273,7 +275,7 @@ function getTransactionInfo(req) {
                 transactionInfo.newShippingOptionParameters = shippingMethods.defaultShippingMethods;
                 displayItems.push(shippingMethods.selectedMethodObject);
             }
-           // currentBasket = BasketMgr.getCurrentOrNewBasket();
+            currentBasket = BasketMgr.getCurrentBasket();
             transactionInfo.totalPriceStatus = 'ESTIMATED';
             transactionInfo.totalPrice = currentBasket.totalNetPrice.value.toString();
             break;

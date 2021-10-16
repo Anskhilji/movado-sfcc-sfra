@@ -411,11 +411,13 @@ function getGoogleTransactionInfo(includeShippingDetails, selectedShippingMethod
             shippingAddress: shippingAddress ? JSON.stringify(shippingAddress) : shippingAddress
         };
 
+        if (window.Resources.IS_CLYDE_ENABLED) {
             var clydeContract = Clyde.getSelectedContract();
             if (clydeContract) {
                 data.clydeContractSku = clydeContract.sku;
                 data.clydeContractPrice = clydeContract.recommendedPrice;
             }
+        }
 
         $.ajax({
             url: $selector.data('url'),
