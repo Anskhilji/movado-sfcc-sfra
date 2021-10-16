@@ -172,11 +172,16 @@
 
                     .custom-control-label {
                         position: relative;
-                        left: rem(8);
+                        left: rem(0);
 
                         &::before {
                             position: absolute;
                             top: rem(3);
+                            left: rem(-18);
+                        }
+
+                        &::after {
+                            left: rem(-18);
                         }
                     }
                 }

@@ -117,7 +117,9 @@ function processStatusOrder(SAPOrderStatus) {
             '(SELECT+' +
             'Id,Type,Quantity,' +
             'OrderItemSummary.Id,OrderItemSummary.LineNumber,' +
-            'OrderItemSummary.ProductCode+' +
+            'OrderItemSummary.ProductCode,' +
+            'OrderItemSummary.WarrantyParentOrderItemSummary__r.Id,' +
+            'OrderItemSummary.WarrantyChildOrderItemSummary__r.Id,OrderItemSummary.WarrantyChildOrderItemSummary__r.Quantity+' +
             'FROM+FulfillmentOrderLineItems)+' +
             'FROM+FulfillmentOrder+WHERE+FulfillmentOrderNumber=\'' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber + '\'',
         referenceId: 'SalesforceOrderStatus'

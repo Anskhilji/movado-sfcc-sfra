@@ -3,19 +3,53 @@
 @import "../variables";
 
 .header-banner {
-  background-color: $grey14;
+  background-color: $light-silver;
   .html-slot-container {
     font-family: $font-medium;
     font-size: rem(14);
     font-weight: 500;
+    color: $Grey;
+  }
+}
+
+header {
+  &-menu {
+      &-container {
+          @include media-breakpoint-up(xl) {
+              @include equal-padding-container(rem(30));
+              max-width: 100%;
+          }
+      }
   }
 }
 
 
 header {
+  .main-menu {
+    background-color: $Grey;
+  }
+
   .menu-text {
     font-size: rem(16);
   }
+
+  .minicart {
+    margin-right: rem(30);
+    margin-left: rem(10);
+    top: rem(6);
+
+    @include media-breakpoint-down(md) {
+      margin-left: rem(0);
+    }
+
+  }
+
+  .header-wrapper {
+    .account-wrapper {
+      margin-left: rem(30);
+    }
+  }
+
 }
 
 @include media-breakpoint-up(md) {
@@ -42,8 +76,33 @@ header {
       font-family: $font-medium;
       font-weight: 500;
       font-size: rem(14);
+      text-transform: capitalize;
+      padding-right: rem(10);
+    }
+
+    .login-icon {
+        width: rem(25);
+        height: rem(25);
+        background: url(../images/sign-in-icon.svg) center center no-repeat;
+        background-size: contain;
+        display: inline-block;
+        vertical-align: middle;
     }
   }
+  .navbar-toggler {
+
+    .new-hamburger {
+      background: url(../images/icon_hamburger.svg) center center no-repeat;
+      width: rem(22.05);
+      height: rem(12.75);
+      display: block;
+    }
+
+  }
+}
+
+.accessible-link {
+  color: $black;
 }
 
 

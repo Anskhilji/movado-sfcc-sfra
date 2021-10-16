@@ -1,16 +1,34 @@
 @import "~movado/components/_menu";
 @import "../variables";
 
-.main-menu {
-  .nav-item {
-    .nav-link {
-      font-size: rem(14);
+.main-menu.menu-toggleable-left {
+    &.in {
+        .mcs-show {
+            > .dropdown-menu {
+                left: 0;
+        }
+
+    .main-menu {
+        .nav-item {
+            .nav-link {
+                font-size: rem(14);
+                text-transform: capitalize;
+            }
+
+            .login-icon {
+                width: rem(25);
+                height: rem(25);
+                background: url(../images/sign-in-icon.svg) center center no-repeat;
+                background-size: contain;
+                display: inline-block;
+                vertical-align: middle;
+            }
+        }
+            .dropdown-link {
+                font-weight: 500;
+            }
+        }
     }
-  }
-  .dropdown-link {
-    font-weight: 500;
-  }
-}
 
 @include media-breakpoint-up(lg) {
   .main-menu {
@@ -21,6 +39,7 @@
         font-family: $font-medium;
         font-weight: 500;
         font-size: rem(16);
+        text-transform: capitalize;
       }
     }
     .dropdown-menu {
@@ -44,14 +63,31 @@
         font-weight: bold;
       }
     }
+}
+
+nav {
+    .menu-group {
+        .navbar-nav {
+            li {
+                &:hover {
+                    a {
+                        color: $black;
+                    }
+
+                }
+            }
+        }
+    }
   }
 }
 .navbar-nav {
   li {
     a {
-      &:hover {
-        text-decoration: none;
+        &:hover {
+          text-decoration: none;
+        }
       }
     }
   }
+ }  
 }

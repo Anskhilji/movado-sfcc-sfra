@@ -4,8 +4,7 @@
 
 .site-search {
 
-    .fa-close,
-    .fa-search {
+    .fa-close {
         font-size: 1.125rem;
     }
 
@@ -15,9 +14,163 @@
         font-size: rem(14);
 
     }
+        form {
+            position: relative;
+            display: block;
+            margin: rem(0) rem(10);
+
+            @include media-breakpoint-down(xs) {
+                margin: rem(0) rem(7);
+            }
+        }
+
+        height: rem(30);
+
+        @include media-breakpoint-up(xs) {
+            padding-left: rem(0);
+        }
+
+        @include media-breakpoint-up(sm) {
+            margin-right: rem(9);
+        }
+
+        @include media-breakpoint-up(md) {
+            margin-right: rem(10);
+         }
+
+        @include media-breakpoint-up(lg) {
+           margin-right: rem(20);
+        }
+        
+        @include media-breakpoint-down(custom-md) {
+            margin-bottom: rem(10);
+        }
+
+    .search-recomendation {
+
+        @include media-breakpoint-down(sm) {
+            width: 97%;
+            margin: 0 auto;
+        }
+
+        @include media-breakpoint-down(xs) {
+            width: 96.8%;
+            margin: 0 auto;
+        }
+      
+        @include media-breakpoint-up(custom-md) {
+            width: rem(218);
+            margin-right: rem(10);
+            margin-left: rem(10);
+        }
+
+        @include media-breakpoint-up(xl) {
+          width: rem(336);
+        }
+
+        visibility: hidden;
+        background-color: $white;
+        border: rem(1) solid $black;
+        border-radius: 0 0 rem(3) rem(3);
+        background-color: $white;
+        box-sizing: border-box;
+        height: rem(241);
+        width: rem(336);
+        position: relative;
+        z-index: 999;
+        margin-left: rem(0);
+
+        .search-suggestions {
+            .category-slot {
+                h3 {
+                    opacity: 0.5;
+                    color: $grayish-blue;
+                    font-size: rem(14);
+                    font-weight: 500;
+                    letter-spacing: 0;
+                    line-height: rem(25);
+                    padding-top: rem(15);  
+                }
+                ul {
+                    padding: rem(0);
+
+                    li {
+                        list-style: none;
+                        line-height: rem(25);
+                    }
+
+                    a {
+                        font-weight: 500;
+                        letter-spacing: 0;
+                        line-height: rem(25);
+                        color: $black;
+                        font-size: rem(14);
+                    }
+                }
+            }
+        }
+    }
+    .search-field{
+        height: rem(34);
+        width: rem(336);
+        border-radius: rem(3) rem(3) rem(0) rem(0);
+        border: rem(1) solid $silver;
+
+        &::-webkit-input-placeholder {
+            color: $grayish-blue;
+          }
+
+        &:-ms-input-placeholder.form-control{
+            line-height: rem(10);
+        }
+        
+        @include media-breakpoint-down(sm) {
+            width: 100%;
+        }
+       
+
+        @include media-breakpoint-up(custom-md) {
+            border: rem(1) solid $silver;
+            width: rem(218);
+        }
+          
+        @include media-breakpoint-up(xl) {
+          width: rem(336);
+        }
+    }
+    .search-icon {
+        top: rem(8);
+        background-image: url(../images/icon-search.svg);
+        background-color: transparent;
+        border: none;
+        outline: none;
+        padding: rem(15) rem(15);
+        background-repeat: no-repeat;
+        background-position: center;
+        position: absolute;
+        right: rem(4);
+        top: rem(3);
+
+        @include media-breakpoint-up(sm) {
+            right: rem(28);
+        }
+        
+        @include media-breakpoint-up(custom-md) {
+            right: rem(4);
+        }
+
+        @include media-breakpoint-down(xs) {
+            right: rem(20);
+        }
+        
+    }
 }
 
-
+.search-mobile {
+    @include media-breakpoint-up(custom-md) {
+        display: none;
+    }
+}
 
 .suggestions {
     font-size: rem(16);
