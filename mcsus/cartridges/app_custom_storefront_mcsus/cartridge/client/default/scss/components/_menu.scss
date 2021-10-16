@@ -7,6 +7,9 @@
             > .dropdown-menu {
                 left: 0;
         }
+      }
+    }
+}
 
     .main-menu {
         .nav-item {
@@ -24,9 +27,8 @@
                 vertical-align: middle;
             }
         }
-            .dropdown-link {
-                font-weight: 500;
-            }
+        .dropdown-link {
+            font-weight: 500;
         }
     }
 
@@ -72,6 +74,7 @@
       }
     }
   }
+ }
 }
  
 
@@ -89,7 +92,6 @@ nav {
         }
     }
   }
-}
 
 .navbar-nav {
   li {
@@ -99,6 +101,4 @@ nav {
         }
       }
     }
-  }
- }  
-}
+}  
