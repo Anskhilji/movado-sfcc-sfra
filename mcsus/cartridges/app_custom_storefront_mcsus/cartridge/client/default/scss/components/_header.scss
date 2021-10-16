@@ -61,6 +61,9 @@ header {
     .account-wrapper {
       margin-left: rem(30);
     }
+    @include media-breakpoint-down(md) {
+      z-index: auto;
+    }
   }
 
 }
