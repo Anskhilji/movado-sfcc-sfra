@@ -54,7 +54,7 @@
         }
 
         @include media-breakpoint-down(xs) {
-            width: 96.8%;
+            width: 96.5%;
             margin: 0 auto;
         }
       
@@ -106,12 +106,13 @@
                         line-height: rem(25);
                         color: $black;
                         font-size: rem(14);
+                        text-decoration: none;
                     }
                 }
             }
         }
     }
-    .search-field{
+    .search-field {
         height: rem(34);
         width: rem(336);
         border-radius: rem(3);
@@ -119,7 +120,7 @@
 
         &::-webkit-input-placeholder {
             color: $grayish-blue;
-            opacity: 50%;
+            opacity: 0.5;
           }
 
         &:-ms-input-placeholder.form-control{
