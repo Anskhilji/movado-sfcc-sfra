@@ -80,7 +80,7 @@ function getAdyenMerchantID() {
  * @param {String} productId 
  * @returns {Boolean}
  */
-function addProductToCart(currentBasket, productId,quantity,childProducts, options, form) {
+function addProductToCart(currentBasket, productId, quantity, childProducts, options, form) {
     var result = {
         error: true
     };
