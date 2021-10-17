@@ -16,9 +16,6 @@
         .nav-link {
             font-size: rem(14);
             text-transform: capitalize;
-
-
-
         }
 
         .login-icon {
@@ -58,6 +55,7 @@
         font-family: $font-medium;
         font-weight: 500;
         font-size: rem(16);
+        letter-spacing: 0.5px;
         text-transform: capitalize;
       }
     }
