@@ -3,7 +3,7 @@
 @import "../variables";
 
 
-.account-pages.container{
+.account-pages.container {
 
     .card {
       .card-header {
@@ -30,12 +30,12 @@
               }
             }
         }
-        a.pull-right{
+        a.pull-right {
           font-size: rem(14);
         }
       }
   
-        .card-body{
+        .card-body {
             .account-wishlist-item {
               .remove-from-wishlist {
                 font-size: rem(24);
@@ -44,15 +44,15 @@
               }
   
             }
-            dt,.field-label{
+            dt,.field-label {
               font-size: rem(14);
               font-family: $font-medium;
             }
-            dd,.field-value{
+            dd,.field-value {
               font-size: rem(14);
             }
-            & > div{
-              div{
+            & > div {
+              div {
                 font-size: rem(14);
                 &.dashboard-cards-block-title{
                   font-family: $font-medium;
@@ -62,20 +62,20 @@
             }
         }
         .card-footer {
-            .card-link{
+            .card-link {
                 font-size: rem(14);
             }
-            .field-label{
+            .field-label {
               font-size: rem(14);
               font-family: $font-medium;
             }
-            .field-value{
+            .field-value {
               font-size: rem(14);
             }
         }
     }
-    .wl-social-sharing{
-      .wl-social-sharing-text{
+    .wl-social-sharing {
+      .wl-social-sharing-text {
         font-size: rem(14);
       }
     }

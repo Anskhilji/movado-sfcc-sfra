@@ -32,7 +32,7 @@ header {
 
   .sticky-header-wrapper {
     position: relative;
-    z-index: 999;
+    // z-index: 999;
   }
 }
 
@@ -99,7 +99,7 @@ header {
     .header-wrapper {
         @include media-breakpoint-down(md) {
           position: fixed;
-          z-index: 1050;
+          z-index: 20;
         }
     }
   }
@@ -155,7 +155,7 @@ header {
 
      .popover a {
       display: block;
-      margin-bottom: 0.625rem;
+      margin-bottom: rem(10);
       font-family: $font-medium;
       font-weight: 500;
     }
