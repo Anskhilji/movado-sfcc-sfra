@@ -12,7 +12,7 @@ h1 {
 .heading-one {
   font-family: $font-bold;
   font-size: rem(30);
-  font-weight: bold !important;
+  font-weight: bold;
 }
 .heading-two {
   font-family: $font-medium;
@@ -37,7 +37,7 @@ h1 {
 @include media-breakpoint-up(md) {
   .heading-one {
     font-family: $font-bold;
-    font-weight: bold !important;
+    font-weight: bold;
     font-size: rem(40);
   }
   .heading-two {
@@ -261,12 +261,14 @@ h1 {
   }
 }
 
-.yotpo-review {
-  .yotpo-review-date {
-    font-family: $font-medium;
-    font-weight: 500 !important;
-    font-size: rem(14) !important;
-  }
+.yotpo.yotpo-main-widget {
+    .yotpo-review {
+      .yotpo-review-date {
+        font-family: $font-medium;
+        font-weight: 500;
+        font-size: rem(14) !important;
+      }
+    }
 }
 
 .yotpo-label.yotpo-small-box {

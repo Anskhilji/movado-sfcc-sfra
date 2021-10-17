@@ -3,6 +3,7 @@
 
 .hero {
     position: relative;
+
     h1.page-title {
       text-align:center;
       position: absolute;
@@ -14,13 +15,16 @@
       color: $white;
       font-weight:300;
       line-height: rem(31);
-      @include media-breakpoint-up(md){
+
+      @include media-breakpoint-up(md) {
         line-height: rem(55);
       }
-      &.dark-text-on-light{
+
+      &.dark-text-on-light {
         color: $black;
       }
-      &.text-in-uppercase{
+
+      &.text-in-uppercase {
         text-transform:uppercase;
       }
   }
@@ -32,12 +36,12 @@
         &::after {
             content: "";
             position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 0;
-            height: 0;
-            border: 0 solid transparent;
-            border-right-width: 0;
+            bottom: rem(0);
+            right: rem(0);
+            width: rem(0);
+            height: rem(0);
+            border: rem(0) solid transparent;
+            border-right-width: rem(0);
             border-left-width: 90vw;
             border-bottom: 4vw solid $body-bg;
         }
@@ -50,12 +54,12 @@
         &::after {
             content: "";
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 0;
-            height: 0;
-            border: 0 solid transparent;
-            border-left-width: 0;
+            top: rem(0);
+            left: rem(0);
+            width: rem(0);
+            height: rem(0);
+            border: rem(0) solid transparent;
+            border-left-width: rem(0);
             border-right-width: 90vw;
             border-top: 4vw solid $body-bg;
         }
