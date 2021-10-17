@@ -26,19 +26,12 @@
             position: relative;
             display: block;
 
-            // @include media-breakpoint-down(xs) {
-            //     margin: rem(0) rem(7);
-            // }
         }
 
         height: rem(30);
 
         @include media-breakpoint-up(xs) {
             padding-left: rem(0);
-        }
-
-        @include media-breakpoint-up(sm) {
-            // margin-right: rem(9);
         }
 
         @include media-breakpoint-up(md) {
