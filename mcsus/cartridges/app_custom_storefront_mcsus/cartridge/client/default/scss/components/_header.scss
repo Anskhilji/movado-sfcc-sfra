@@ -152,6 +152,14 @@ header {
         display: inline-block;
         vertical-align: middle;
     }
+
+     .popover a {
+      display: block;
+      margin-bottom: 0.625rem;
+      font-family: $font-medium;
+      font-weight: 500;
+    }
+
   }
   .navbar-toggler {
    display: inline-flex;

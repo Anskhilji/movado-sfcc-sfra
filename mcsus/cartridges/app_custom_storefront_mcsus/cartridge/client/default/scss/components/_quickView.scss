@@ -16,6 +16,20 @@
 .quick-view-dialog {
     max-width: rem(900);
 
+    .modal-header .full-pdp-link {
+        font-size: rem(16);
+        font-family: $font-regular;
+        font-weight: 400;
+    }
+
+    .promotions {
+        .callout {
+            font-size: rem(16);
+            font-family: $font-regular;
+            font-weight: 400;
+        }
+    }
+
     .price {
         .strike-through {
               .value {

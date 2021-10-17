@@ -92,6 +92,17 @@ $receipt-font-size: rem(14);
       font-size: rem(14);
     }
   }
+
+  .end-lines span {
+    font-family: $font-regular;
+    font-weight: 400;
+
+    @include media-breakpoint-down(md) {
+      font-family: $font-regular;
+      font-weight: 400;
+      font-size: rem(14);
+    }
+  }
 }
 
 .summary-details {
