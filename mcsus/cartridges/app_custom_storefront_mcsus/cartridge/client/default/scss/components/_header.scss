@@ -99,7 +99,7 @@ header {
     .header-wrapper {
         @include media-breakpoint-down(md) {
           position: fixed;
-          z-index: 20;
+          z-index: 2;
         }
     }
   }
