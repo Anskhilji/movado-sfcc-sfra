@@ -107,6 +107,14 @@ $base-font-size: 16px;
       font-weight: 500;
       font-family: $font-medium;
   }
+
+  @mixin Accountheadline($fontSize:16){
+    font-size: rem($fontSize);
+    letter-spacing: 2px;
+    font-weight: 500;
+    font-family: $font-medium;
+}
+
   @mixin button-headline($fontSize:20){
     font-size: rem($fontSize);
     letter-spacing: 2px;

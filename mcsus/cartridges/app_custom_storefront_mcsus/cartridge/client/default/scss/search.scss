@@ -62,8 +62,11 @@
         .card-header {
           font-family: $font-medium;
           font-weight:500;
-	    	&::after {
-	        }
+          font-size: rem(16);
+
+          &::after {
+
+          }
 	    }
 
     }
@@ -116,26 +119,52 @@
 }
 
 
-.search-results{
-  .result-count{
-    p, .search-tips li{
-      font-size: rem(20);
-      font-family: $font-medium;
-      font-weight:500;
+.search-results {
+  .result-count {
+
+    p, .search-tips li {
+        font-size: rem(20);
+        font-family: $font-medium;
+        font-weight:500;
     }
-    p a{
+
+    p a {
       font-family: $font-bold;
       font-weight:bold;
     }
-    .make-bold{
-      font-weight: 700;
+
+    .make-bold {
+      font-weight: 500;
     }
   }
 }
 .result-count > span  {
-  font-size: rem(14);
+  font-size: rem(20);
+
+  @include media-breakpoint-down(xs) {
+    font-size: rem(14);
+    font-family: $font-medium;
+    font-weight: 500;
+  }
 }
 .grid-header select {
+  font-family: $font-regular;
   font-size: rem(16);
   font-weight: 400;
+
+  @include media-breakpoint-down(xs) {
+    font-size: rem(16);
+    font-family: $font-regular;
+    font-weight: 400;
+  }
+}
+
+.grid-header, .content-grid-header {
+    @include media-breakpoint-down(xs) {
+        .filter-results {
+            font-size: rem(16);
+            font-family: $font-regular;
+            font-weight: 400;
+        }
+    }
 }

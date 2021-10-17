@@ -14,6 +14,8 @@
     font-size: rem(16);
     font-weight: 500;
 
+    @include media-breakpoint-down(md) {
+        font-size: rem(14);
 }
 
 .social-icons {
@@ -25,7 +27,7 @@
 }
 
 .promotions {
-    font-weight: normal;
+    font-weight: 500;
 
 
     .callout {
@@ -96,4 +98,5 @@
     @include media-breakpoint-down(xs) {
         font-size: rem(14);
     }
+}
 }

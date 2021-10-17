@@ -135,13 +135,13 @@ $svg-check: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org
     padding-left: #{ $custom-padding };
     padding-right: #{ $custom-padding };
 }
-
 //font Families:
-$font-medium: "proxima-nova" !default;
-$font-thin: "proxima-nova" !default;
-$font-book: "proxima-nova" !default;
-$font-bold:  "baskerville-display-pt" !default;
+
+$font-medium: "proxima-nova";
+$font-thin: "proxima-nova";
+$font-book: "proxima-nova";
+$font-bold:  "baskerville-display-pt";
 $font-primary: $font-book;
-$font-regular: "proxima-nova" !default;
+$font-regular: "proxima-nova";
 $font-awesome: "FontAwesome";
-$font-proxima-nova: "proxima-nova-bold" !default;
+$font-proxima-nova: "proxima-nova-bold";

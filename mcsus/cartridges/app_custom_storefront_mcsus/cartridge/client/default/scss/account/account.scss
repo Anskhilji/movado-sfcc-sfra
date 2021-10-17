@@ -1,9 +1,30 @@
 @import "~movado/account/account";
-@import "../variables";
+@import "../mixins";
+@import "variables";
 
 .account-pages{
 
   .card {
+    .card-header {
+      border-bottom: 1px solid $grey3;
+      padding: rem(12) rem(20) rem(7) rem(20);
+      h3,
+      h4{
+          text-transform: uppercase;
+
+          @include Accountheadline;
+          &.pull-left{
+            max-width:90%;
+            @include media-breakpoint-up(lg){
+              font-size: rem(20);
+            }
+          }
+      }
+      a.pull-right{
+        font-size: rem(14);
+      }
+    }
+
       .card-body{
           .account-wishlist-item {
             .remove-from-wishlist {
@@ -49,3 +70,5 @@
     }
   }
 }
+
+
