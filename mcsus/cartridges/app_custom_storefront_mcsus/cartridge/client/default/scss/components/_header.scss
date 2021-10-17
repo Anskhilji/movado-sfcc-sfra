@@ -29,6 +29,11 @@ header {
           }
       }
   }
+
+  .sticky-header-wrapper {
+    position: relative;
+    z-index: 999;
+  }
 }
 
 
@@ -87,6 +92,15 @@ header {
         width: rem(16);
         height: rem(20);
       }
+    }
+  }
+
+  .fixed-header {
+    .header-wrapper {
+        @include media-breakpoint-down(md) {
+          position: fixed;
+          z-index: 1050;
+        }
     }
   }
 

@@ -14,7 +14,7 @@
     }
 }
 .quick-view-dialog {
-    max-width: 56.25em !important;
+    max-width: rem(900);
 
     .price {
         .strike-through {
