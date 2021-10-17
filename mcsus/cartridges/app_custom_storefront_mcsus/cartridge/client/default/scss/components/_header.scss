@@ -48,7 +48,13 @@ header {
     @include media-breakpoint-up(custom-md) {
       margin-right: rem(30);
       margin-left: rem(10);
-      top: rem(10);
+      top: rem(6);
+      display: flex;
+      -ms-flex-align: center;
+      align-items: center;
+      -ms-flex-pack: end;
+      justify-content: flex-end;
+
     }
 
     @include media-breakpoint-up(lg) {
@@ -62,7 +68,7 @@ header {
     }
 
     @include media-breakpoint-down(md) {
-      margin-left: rem(0);
+      margin-left: rem(8);
       margin-right: rem(8);
     }
 
@@ -77,7 +83,7 @@ header {
         height: rem(20);
       }
 
-      @include media-breakpoint-down(md) {
+      @include media-breakpoint-down(custom-md) {
         width: rem(16);
         height: rem(20);
       }
