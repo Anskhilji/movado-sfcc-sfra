@@ -84,7 +84,6 @@
 .product-detail {
     &.product-quickview {
         @import "../product/imageCarousel";
-    }
 
     .availability-msg {
         font-family:$font-medium;
@@ -97,7 +96,7 @@
             font-size: rem(16);
         }
     }
-
+  }
 }
 
 
