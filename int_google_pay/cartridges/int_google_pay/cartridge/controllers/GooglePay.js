@@ -325,6 +325,22 @@ server.post('ProcessPayments',
             ltkSendOrder.SendPost();
         }
 
+		/**~    
+         * Custom Start: Clyde Integration
+        */
+        if (Site.current.preferences.custom.isClydeEnabled) {
+            var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
+            Transaction.wrap(function () {
+                order.custom.isContainClydeContract = false;
+                order.custom.clydeContractProductMapping = '';
+            });
+            var contractProductList = currentBasket.custom.clydeContractProductList || false;
+            addClydeContract.createOrderCustomAttr(contractProductList, order);
+        }
+		/**
+		 * Custom: End
+		*/
+
         // SOM API call
         if ('SOMIntegrationEnabled' in Site.getCurrent().preferences.custom && Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {
             // Salesforce Order Management attributes
