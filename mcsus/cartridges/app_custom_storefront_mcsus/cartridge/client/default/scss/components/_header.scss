@@ -15,9 +15,9 @@
 header .header-wrapper .header-container {
   height: rem(75);
 
-  @include media-breakpoint-down(xs) {
-    padding-left: rem(0);
-    padding-right: rem(0);
+  @include media-breakpoint-down(custom-md) {
+    padding-left: rem(10);
+    padding-right: rem(10);
   }
 }
 header {
@@ -42,9 +42,20 @@ header {
   }
 
   .minicart {
-    margin-right: rem(30);
     margin-left: rem(10);
-    top: rem(6);
+    top: rem(-1);
+
+    @include media-breakpoint-up(custom-md) {
+      margin-right: rem(30);
+      margin-left: rem(10);
+      top: rem(10);
+    }
+
+    @include media-breakpoint-up(lg) {
+      margin-right: rem(30);
+      margin-left: rem(10);
+      top: rem(4);
+    }
 
     @include media-breakpoint-down(xs) {
       margin-right: rem(15);
@@ -52,6 +63,7 @@ header {
 
     @include media-breakpoint-down(md) {
       margin-left: rem(0);
+      margin-right: rem(8);
     }
 
     .minicart-icon {
@@ -61,6 +73,11 @@ header {
       }
 
       @include media-breakpoint-down(sm) {
+        width: rem(16);
+        height: rem(20);
+      }
+
+      @include media-breakpoint-down(md) {
         width: rem(16);
         height: rem(20);
       }
