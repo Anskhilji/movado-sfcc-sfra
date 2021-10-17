@@ -153,13 +153,12 @@
   }
 }
 
-.grid-header select {
-
-  .filter-results .button {
-    @include media-breakpoint-down(xs){
-      font-size: rem(16);
-      font-family: $font-regular;
-      font-weight: 400;
+.grid-header, .content-grid-header {
+    @include media-breakpoint-down(xs) {
+        .filter-results {
+            font-size: rem(16);
+            font-family: $font-regular;
+            font-weight: 400;
+        }
     }
-  }
 }

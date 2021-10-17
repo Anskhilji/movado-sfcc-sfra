@@ -10,8 +10,9 @@ h1 {
 }
 
 .heading-one {
-  font-family: $font-book;
-  font-size: rem(26);
+  font-family: $font-bold;
+  font-size: rem(30);
+  font-weight: bold !important;
 }
 .heading-two {
   font-family: $font-medium;
@@ -135,6 +136,8 @@ h1 {
 
 .btn-primary {
   font-weight: 500;
+  font-family: $font-medium;
+  font-size: rem(16);
 }
 
 .btn-outline-primary {
@@ -258,6 +261,13 @@ h1 {
   }
 }
 
+.yotpo-review {
+  .yotpo-review-date {
+    font-family: $font-medium;
+    font-weight: 500 !important;
+    font-size: rem(14) !important;
+  }
+}
 
 .yotpo-label.yotpo-small-box {
   font-family: $font-medium;

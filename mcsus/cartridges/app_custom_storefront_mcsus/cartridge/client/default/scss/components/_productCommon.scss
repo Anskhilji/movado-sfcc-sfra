@@ -37,9 +37,9 @@
     }
 
     .product-number {
-        font-size: rem(14);
-        font-weight: 400;
-        font-family: $font-regular;
+        font-size: rem(16);
+        font-weight: 500;
+        font-family: $font-medium;
     }
 
     .exclusive-badges {
@@ -92,7 +92,7 @@
         .title {
             font-family: $font-bold;
             font-weight: bold !important;
-            font-size: rem(32);
+            font-size: rem(30);
         }
     }
 }
