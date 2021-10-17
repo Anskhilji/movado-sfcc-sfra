@@ -29,6 +29,11 @@ header {
           }
       }
   }
+
+  .sticky-header-wrapper {
+    position: relative;
+    // z-index: 999;
+  }
 }
 
 
@@ -90,6 +95,15 @@ header {
     }
   }
 
+  .fixed-header {
+    .header-wrapper {
+        @include media-breakpoint-down(md) {
+          position: fixed;
+          z-index: 20;
+        }
+    }
+  }
+
   .header-wrapper {
     .account-wrapper {
       margin-left: rem(30);
@@ -138,6 +152,14 @@ header {
         display: inline-block;
         vertical-align: middle;
     }
+
+     .popover a {
+      display: block;
+      margin-bottom: rem(10);
+      font-family: $font-medium;
+      font-weight: 500;
+    }
+
   }
   .navbar-toggler {
    display: inline-flex;

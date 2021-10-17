@@ -40,6 +40,10 @@
         font-size: rem(16);
         font-weight: 500;
         font-family: $font-medium;
+
+        @include media-breakpoint-down(md) {
+            font-size: rem(14);
+        }
     }
 
     .exclusive-badges {
@@ -58,7 +62,7 @@
         li {
             font-family: $font-medium;
             font-weight: 500;
-            font-size: rem(10);
+            font-size: rem(16);
         }
     }
 

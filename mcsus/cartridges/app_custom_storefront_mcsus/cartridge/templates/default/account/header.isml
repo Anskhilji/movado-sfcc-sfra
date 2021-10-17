@@ -7,7 +7,7 @@
   </div>
 <iselse/>
   <div class="user hidden-md-down" tabindex="0">
-    <i class="fa fa-sign-in" aria-hidden="true"></i>
+    <i class="login-icon"></i>
     <span class="user-message">${pdict.name}</span>
     <div class="popover popover-bottom">
       <a href="${URLUtils.https('Account-Show')}">${Resource.msg('link.header.myaccount', 'account', null)}</a>
