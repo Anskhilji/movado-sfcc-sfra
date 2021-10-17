@@ -42,9 +42,13 @@ header {
   }
 
   .minicart {
-    margin-right: rem(30);
     margin-left: rem(10);
-    top: rem(6);
+    top: rem(-1);
+
+    @include media-breakpoint-up(lg) {
+      margin-right: rem(30);
+      margin-left: rem(10);
+    }
 
     @include media-breakpoint-down(xs) {
       margin-right: rem(15);
@@ -61,6 +65,11 @@ header {
       }
 
       @include media-breakpoint-down(sm) {
+        width: rem(16);
+        height: rem(20);
+      }
+
+      @include media-breakpoint-down(md) {
         width: rem(16);
         height: rem(20);
       }

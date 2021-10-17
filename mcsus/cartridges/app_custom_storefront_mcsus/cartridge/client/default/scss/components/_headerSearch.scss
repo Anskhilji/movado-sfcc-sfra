@@ -4,6 +4,14 @@
 
 .site-search {
 
+    position: relative;
+    margin: rem(0);
+    z-index: 100;
+
+    @include media-breakpoint-down(sm) {
+        margin: rem(0) rem(15);
+    }
+
     .fa-close {
         font-size: 1.125rem;
     }
@@ -17,11 +25,10 @@
         form {
             position: relative;
             display: block;
-            margin: rem(0) rem(10);
 
-            @include media-breakpoint-down(xs) {
-                margin: rem(0) rem(7);
-            }
+            // @include media-breakpoint-down(xs) {
+            //     margin: rem(0) rem(7);
+            // }
         }
 
         height: rem(30);
@@ -31,7 +38,7 @@
         }
 
         @include media-breakpoint-up(sm) {
-            margin-right: rem(9);
+            // margin-right: rem(9);
         }
 
         @include media-breakpoint-up(md) {
@@ -48,20 +55,23 @@
 
     .search-recomendation {
 
+        position: absolute;
+        top: rem(33);
+        left: rem(0);
+
         @include media-breakpoint-down(sm) {
-            width: 97%;
+            width: 100%;
             margin: 0 auto;
         }
 
         @include media-breakpoint-down(xs) {
-            width: 96.5%;
+            width: 100%;
             margin: 0 auto;
         }
       
         @include media-breakpoint-up(custom-md) {
             width: rem(218);
             margin-right: rem(10);
-            margin-left: rem(10);
         }
 
         @include media-breakpoint-up(xl) {
@@ -76,7 +86,6 @@
         box-sizing: border-box;
         height: rem(241);
         width: rem(336);
-        position: relative;
         z-index: 999;
         margin-left: rem(0);
 
@@ -89,7 +98,7 @@
                     font-weight: 500;
                     letter-spacing: 0;
                     line-height: rem(25);
-                    padding-top: rem(15);  
+                    padding-top: rem(15);
                 }
                 ul {
                     padding: rem(0);
