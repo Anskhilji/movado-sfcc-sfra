@@ -411,7 +411,7 @@ function getGoogleTransactionInfo(includeShippingDetails, selectedShippingMethod
             shippingAddress: shippingAddress ? JSON.stringify(shippingAddress) : shippingAddress
         };
 
-        if (window.Resources.IS_CLYDE_ENABLED) {
+        if (window.Resources.IS_CLYDE_ENABLED && typeof Clyde !== 'undefined') {
             var clydeContract = Clyde.getSelectedContract();
             if (clydeContract) {
                 data.clydeContractSku = clydeContract.sku;
