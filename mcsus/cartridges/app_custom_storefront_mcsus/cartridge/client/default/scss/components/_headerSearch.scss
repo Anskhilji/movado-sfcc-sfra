@@ -4,6 +4,14 @@
 
 .site-search {
 
+    position: relative;
+    margin: rem(0);
+    z-index: 100;
+
+    @include media-breakpoint-down(sm) {
+        margin: rem(0) rem(15);
+    }
+
     .fa-close {
         font-size: 1.125rem;
     }
@@ -17,21 +25,13 @@
         form {
             position: relative;
             display: block;
-            margin: rem(0) rem(10);
 
-            @include media-breakpoint-down(xs) {
-                margin: rem(0) rem(7);
-            }
         }
 
         height: rem(30);
 
         @include media-breakpoint-up(xs) {
             padding-left: rem(0);
-        }
-
-        @include media-breakpoint-up(sm) {
-            margin-right: rem(9);
         }
 
         @include media-breakpoint-up(md) {
@@ -48,20 +48,23 @@
 
     .search-recomendation {
 
+        position: absolute;
+        top: rem(33);
+        left: rem(0);
+
         @include media-breakpoint-down(sm) {
-            width: 97%;
+            width: 100%;
             margin: 0 auto;
         }
 
         @include media-breakpoint-down(xs) {
-            width: 96.8%;
+            width: 100%;
             margin: 0 auto;
         }
       
         @include media-breakpoint-up(custom-md) {
             width: rem(218);
             margin-right: rem(10);
-            margin-left: rem(10);
         }
 
         @include media-breakpoint-up(xl) {
@@ -76,7 +79,6 @@
         box-sizing: border-box;
         height: rem(241);
         width: rem(336);
-        position: relative;
         z-index: 999;
         margin-left: rem(0);
 
@@ -89,7 +91,7 @@
                     font-weight: 500;
                     letter-spacing: 0;
                     line-height: rem(25);
-                    padding-top: rem(15);  
+                    padding-top: rem(15);
                 }
                 ul {
                     padding: rem(0);
@@ -97,6 +99,7 @@
                     li {
                         list-style: none;
                         line-height: rem(25);
+                        padding-bottom: rem(10);
                     }
 
                     a {
@@ -105,22 +108,28 @@
                         line-height: rem(25);
                         color: $black;
                         font-size: rem(14);
+                        text-decoration: none;
                     }
                 }
             }
         }
     }
-    .search-field{
+    .search-field {
         height: rem(34);
         width: rem(336);
-        border-radius: rem(3) rem(3) rem(0) rem(0);
+        border-radius: rem(3);
         border: rem(1) solid $silver;
 
         &::-webkit-input-placeholder {
             color: $grayish-blue;
+            opacity: 0.5;
           }
 
         &:-ms-input-placeholder.form-control{
+            line-height: rem(10);
+        }
+
+        &:focus {
             line-height: rem(10);
         }
         
@@ -148,19 +157,19 @@
         background-repeat: no-repeat;
         background-position: center;
         position: absolute;
-        right: rem(4);
+        right: rem(8);
         top: rem(3);
 
         @include media-breakpoint-up(sm) {
-            right: rem(28);
+            right: rem(8);
         }
         
         @include media-breakpoint-up(custom-md) {
-            right: rem(4);
+            right: rem(8);
         }
 
         @include media-breakpoint-down(xs) {
-            right: rem(20);
+            right: rem(8);
         }
         
     }

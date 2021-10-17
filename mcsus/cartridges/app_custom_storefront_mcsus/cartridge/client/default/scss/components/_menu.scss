@@ -9,7 +9,7 @@
         }
       }
     }
-  }
+}
 
     .main-menu {
         .nav-item {
@@ -26,17 +26,18 @@
                 display: inline-block;
                 vertical-align: middle;
             }
-
-            .dropdown-link {
-                font-weight: 500;
-            }
+        }
+        .dropdown-link {
+            font-weight: 500;
         }
     }
 
 @include media-breakpoint-up(lg) {
-  .main-menu {
-    display: flex;
-    align-items: center;
+  .header-menu-wrapper {
+    .main-menu {
+      display: flex;
+      align-items: center;
+
     .nav-item {
       .nav-link {
         font-family: $font-medium;
@@ -45,6 +46,12 @@
         text-transform: capitalize;
       }
     }
+
+    &.show,
+    &:hover {
+      box-shadow: 0 rem(1) rem(3) 0 $grey10;
+    }
+
     .dropdown-menu {
 
       .featured-promotion {
@@ -66,7 +73,10 @@
         font-weight: bold;
       }
     }
+  }
+ }
 }
+ 
 
 nav {
     .menu-group {
@@ -82,7 +92,7 @@ nav {
         }
     }
   }
-}
+
 .navbar-nav {
   li {
     a {
@@ -91,4 +101,4 @@ nav {
         }
       }
     }
-  }
+}
