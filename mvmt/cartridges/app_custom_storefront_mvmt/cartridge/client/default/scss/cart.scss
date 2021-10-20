@@ -845,3 +845,13 @@
 .add-bonus-products {
     @include btn-primary;
 }
+
+.google-pay-express-button {
+    margin-bottom: rem(16);
+
+    .google-pay-container {
+        .gpay-button {
+            min-height: rem(32)!important;
+        }
+    }
+}

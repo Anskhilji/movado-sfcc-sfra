@@ -154,7 +154,7 @@ function loadAmazonButton() {
         if (tries >= 10) {
             clearInterval(interval);
         }
-    }, 100)
+    }, 200)
 }
 function openMiniCart() {
     //Custom Start: Open the mini cart
