@@ -20,7 +20,7 @@
 
 	<link rel="canonical" href="${URLUtils.url('Product-Show','pid', pdict.Product.ID)}"/>
 	
- 	<isprint value="${dw.system.Site.current.preferences.custom.clydeWidgetURL}" encoding="off" />
+ 	<script src="${dw.system.Site.current.preferences.custom.clydeWidgetURL}"></script>
 
 </head>
 <body>
