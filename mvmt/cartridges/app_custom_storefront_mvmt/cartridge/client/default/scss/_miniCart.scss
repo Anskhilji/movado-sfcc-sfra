@@ -318,17 +318,17 @@
                 }
                     
                 &::after {
-                    border-color: $transparent-gray;
+                    border-color: $transparent-gray-1;
                     border-right-color: $white;
                     border-width: rem(9);
                     margin-top: rem(-6);
-                    border-left-color: $transparent-gray;
+                    border-left-color: $transparent-gray-1;
                     border-left-width: rem(12);
                     border-right-width: rem(12);
                 }
                     
                 &::before {
-                    border-color: $transparent-gray;
+                    border-color: $transparent-gray-1;
                     border-right-color: $gray11;
                     border-width: rem(9);
                     margin-top: rem(-7);
