@@ -19,7 +19,7 @@
 		<div class="form-group required ${creditFields.cardOwner.htmlName}">
             <label class="form-control-label" for="holderName">${Resource.msg('field.credit.card.holderName','creditCard',null)}</label>
 			<input type="text" pattern="^[a-z|A-Z]+(?: [a-z|A-Z]+)*$" class="form-control holderName" id="holderName" data-encrypted-name="holderName" ${creditFields.cardOwner.attributes}   />
-			<div class="invalid-feedback">Please enter valid cardholder name</div>
+			<div class="invalid-feedback">${Resource.msg('error.card.holderName','creditCard',null)}</div>
 		</div>
 	</div>
 </div>
@@ -36,7 +36,7 @@
                         : ''}"
                     <isprint value=${creditFields.cardNumber.attributes} encoding="htmlsinglequote"/>
                     autocomplete="">
-				<div class="invalid-feedback">Please enter a valid card number</div>
+				<div class="invalid-feedback">${Resource.msg('error.card.number','creditCard',null)}</div>
 			</div>
 		</div>
 	</div>
@@ -49,7 +49,7 @@
 			<input type="text" class="form-control expirationDate"
 				id="expirationDate">
 			</input>
-			<div class="invalid-feedback">Please enter a valid expiry date in format MM/YY</div>
+			<div class="invalid-feedback">${Resource.msg('error.credit.card.expiry','creditCard',null)}</div>
 		</div>
 	</div>
 	<div class="col-md-6 col-sm-12 field-right">
@@ -59,7 +59,7 @@
 					<div class="tooltip"> ${Resource.msg('tooltip.security.code','creditCard',null)}</div>
 				 </span>
 			 <input type="password" class="form-control securityCode" id="securityCode" data-encrypted-name="cvc" maxlength="3">
-			<div class="invalid-feedback security-code">Please enter a valid security code</div>
+			<div class="invalid-feedback security-code">${Resource.msg('error.credit.card.security.code.validate','creditCard',null)}</div>
 		</div>
 	</div>
 </div>
