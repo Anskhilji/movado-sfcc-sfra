@@ -92,7 +92,7 @@
                 <isloop items="${subCategory.subCategories}" var="thirdLevelCategory">
                   <li class="menu-list-item">
                     <a href="${thirdLevelCategory.url}" class="menu-item-link">
-                      <img class="dropdown-menu-item-img ${thirdLevelCategory.categoryImageURL == null ? 'no-img' : ''}" alt="${thirdLevelCategory.name}" src="${thirdLevelCategory.categoryImageURL ? thirdLevelCategory.categoryImageURL : '#'}" title="${thirdLevelCategory.name}" />
+                      <img class="dropdown-menu-item-img ${thirdLevelCategory.categoryImageURL == null ? 'no-img' : ''}" alt="${thirdLevelCategory.name}" src="${thirdLevelCategory.categoryImageURL ? thirdLevelCategory.categoryImageURL : '#'}" title="${thirdLevelCategory.name}" loading="lazy" />
                       <span>${thirdLevelCategory.name}</span>
                     </a>
                   </li>
@@ -119,7 +119,7 @@
     </a>
   </div>
   <div class="menu-group mvmt-menu-group" aria-label="Main menu" role="navigation">
-    <ul class="nav navbar-nav" role="menu">
+    <ul class="nav navbar-nav lazy-load d-none" role="menu">
       <isif condition="${pdict.categories}">
         <isloop items="${pdict.categories}" var="category">
           <isif condition="${category.subCategories}">
