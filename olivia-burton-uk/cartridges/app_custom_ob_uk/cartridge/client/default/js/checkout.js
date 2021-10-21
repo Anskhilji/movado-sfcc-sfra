@@ -12,8 +12,3 @@ $(document).ready(function () {
     });
 
 });
-
-$(document).ready(function () { 
-        $('#shippingState').attr("id", "shippingCounty");
-        $('#billingState').attr("id", "billingCounty");
-});
