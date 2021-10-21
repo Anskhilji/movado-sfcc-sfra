@@ -525,11 +525,18 @@ header {
         }
         
         @include media-breakpoint-up(lg) {
-            padding: 0 rem(80) 0 rem(100);
-            margin-top: rem(60);
-            padding-top: auto;
+            padding: 0 rem(80) 0 rem(60);
+            margin-top: rem(60);           
         }
-    
+
+        @include media-breakpoint-up(xl) {
+            padding: 0 rem(16);
+            margin-top: rem(61);
+            max-width: 66%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
         li {
             font-weight: 600;
             @include media-breakpoint-up(sm) {
