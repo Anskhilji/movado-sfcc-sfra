@@ -84,9 +84,15 @@
     }
 
     .promo-msg.callout {
-      font-size: rem(14);
+      font-size: rem(16);
       font-weight: 500;
       font-family: $font-medium;
+      
+      @include media-breakpoint-down(xs){
+        font-size: rem(14);
+        font-family: $font-medium;
+        font-weight: 500;
+      }
 
     }
     .out-of-stock {

@@ -674,6 +674,11 @@ header {
     border: 1px solid $black;
     border-radius: rem(3);
 
+    &::after {
+        background-image: none !important;
+        height: rem(0);
+    }
+
     .pac-item {
         color: $google-grey1;
         font-family: $font-medium;

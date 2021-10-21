@@ -8,8 +8,8 @@ $base-font-size: 16px;
     line-height: normal;
     letter-spacing: 1px;
     text-rendering: optimizeLegibility !important;
-	-webkit-font-smoothing: antialiased !important;
-	color: $primary;
+    -webkit-font-smoothing: antialiased !important;
+    color: $primary;
 }
 
 @mixin placeholder{
@@ -107,6 +107,14 @@ $base-font-size: 16px;
       font-weight: 500;
       font-family: $font-medium;
   }
+
+  @mixin Accountheadline($fontSize:16){
+    font-size: rem($fontSize);
+    letter-spacing: 2px;
+    font-weight: 500;
+    font-family: $font-medium;
+}
+
   @mixin button-headline($fontSize:20){
     font-size: rem($fontSize);
     letter-spacing: 2px;

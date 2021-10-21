@@ -3,12 +3,36 @@
 @import "../variables";
 
 .header-banner {
-  background-color: $light-silver;
+  background-color: $light-grey3;
+
   .html-slot-container {
     font-family: $font-medium;
     font-size: rem(14);
     font-weight: 500;
-    color: $Grey;
+    color: $grayish-blue;
+  }
+}
+header .header-wrapper .header-container {
+  height: rem(75);
+
+  @include media-breakpoint-down(custom-md) {
+    padding-left: rem(10);
+    padding-right: rem(10);
+  }
+}
+header {
+  &-menu {
+      &-container {
+          @include media-breakpoint-up(xl) {
+              @include equal-padding-container(rem(30));
+              max-width: 100%;
+          }
+      }
+  }
+
+  .sticky-header-wrapper {
+    position: relative;
+    // z-index: 999;
   }
 }
 
@@ -23,19 +47,69 @@ header {
   }
 
   .minicart {
-    margin-right: rem(30);
     margin-left: rem(10);
-    top: rem(6);
+    top: rem(-1);
 
-    @include media-breakpoint-down(md) {
-      margin-left: rem(0);
+    @include media-breakpoint-up(custom-md) {
+      margin-right: rem(30);
+      margin-left: rem(10);
+      top: rem(6);
+      display: flex;
+      -ms-flex-align: center;
+      align-items: center;
+      -ms-flex-pack: end;
+      justify-content: flex-end;
+
     }
 
+    @include media-breakpoint-up(lg) {
+      margin-right: rem(30);
+      margin-left: rem(10);
+      top: rem(4);
+    }
+
+    @include media-breakpoint-down(xs) {
+      margin-right: rem(15);
+    }
+
+    @include media-breakpoint-down(md) {
+      margin-left: rem(8);
+      margin-right: rem(8);
+    }
+
+    .minicart-icon {
+      @include media-breakpoint-down(xs) {
+        width: rem(16);
+        height: rem(20);
+      }
+
+      @include media-breakpoint-down(sm) {
+        width: rem(16);
+        height: rem(20);
+      }
+
+      @include media-breakpoint-down(custom-md) {
+        width: rem(16);
+        height: rem(20);
+      }
+    }
+  }
+
+  .fixed-header {
+    .header-wrapper {
+        @include media-breakpoint-down(md) {
+          position: fixed;
+          z-index: 2;
+        }
+    }
   }
 
   .header-wrapper {
     .account-wrapper {
       margin-left: rem(30);
+    }
+    @include media-breakpoint-down(md) {
+      z-index: auto;
     }
   }
 
@@ -57,6 +131,7 @@ header {
     }
   }
 }
+
 header {
   .user {
     position: relative;
@@ -77,18 +152,32 @@ header {
         display: inline-block;
         vertical-align: middle;
     }
-  }
-  .navbar-toggler {
 
-    .new-hamburger {
-      background: url(../images/icon_hamburger.svg) center center no-repeat;
-      width: rem(22.05);
-      height: rem(12.75);
+     .popover a {
       display: block;
+      margin-bottom: rem(10);
+      font-family: $font-medium;
+      font-weight: 500;
     }
 
   }
-}
+  .navbar-toggler {
+   display: inline-flex;
+   align-items: center;
+
+   .menu-text {
+     margin-left: rem(10);
+   }
+
+   .new-hamburger {
+     background: url(../images/icon_hamburger.svg) center center no-repeat;
+     width: rem(22.05);
+     height: rem(12.75);
+     display: block;
+   }
+
+ }
+ }
 
 .accessible-link {
   color: $black;

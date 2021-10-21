@@ -1,39 +1,70 @@
 @import "~movado/components/_menu";
 @import "../variables";
 
-.main-menu {
-  .nav-item {
-    .nav-link {
-      font-size: rem(14);
-      text-transform: capitalize;
+.main-menu.menu-toggleable-left {
+    &.in {
+        .mcs-show {
+            > .dropdown-menu {
+                left: 0;
+        }
+      }
     }
-
-    .login-icon {
-      width: rem(25);
-      height: rem(25);
-      background: url(../images/sign-in-icon.svg) center center no-repeat;
-      background-size: contain;
-      display: inline-block;
-      vertical-align: middle;
-    }
-  }
-  .dropdown-link {
-    font-weight: 500;
-  }
 }
 
+.main-menu {
+    .nav-item {
+        .nav-link {
+            font-size: rem(14);
+            text-transform: capitalize;
+        }
+
+        .login-icon {
+            width: rem(25);
+            height: rem(25);
+            background: url(../images/sign-in-icon.svg) center center no-repeat;
+            background-size: contain;
+            display: inline-block;
+            vertical-align: middle;
+        }
+    }
+    .dropdown-link {
+        font-weight: 500;
+    }
+
+    .navbar .navbar-nav {
+
+      .nav-link {
+        font-weight: 500;
+        &:hover {
+           font-weight: 500;
+        }
+      }
+    }
+}
+
+
+
 @include media-breakpoint-up(lg) {
-  .main-menu {
-    display: flex;
-    align-items: center;
+  .header-menu-wrapper {
+    .main-menu {
+      display: flex;
+      align-items: center;
+
     .nav-item {
       .nav-link {
         font-family: $font-medium;
         font-weight: 500;
         font-size: rem(16);
+        letter-spacing: 0.5px;
         text-transform: capitalize;
       }
     }
+
+    &.show,
+    &:hover {
+      box-shadow: 0 rem(1) rem(3) 0 $grey10;
+    }
+
     .dropdown-menu {
 
       .featured-promotion {
@@ -55,7 +86,10 @@
         font-weight: bold;
       }
     }
+  }
+ }
 }
+ 
 
 nav {
     .menu-group {
@@ -71,13 +105,13 @@ nav {
         }
     }
   }
-}
+
 .navbar-nav {
   li {
     a {
-      &:hover {
-        text-decoration: none;
+        &:hover {
+          text-decoration: none;
+        }
       }
     }
-  }
 }

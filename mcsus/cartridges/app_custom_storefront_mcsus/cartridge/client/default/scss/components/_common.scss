@@ -10,8 +10,9 @@ h1 {
 }
 
 .heading-one {
-  font-family: $font-book;
-  font-size: rem(26);
+  font-family: $font-bold;
+  font-size: rem(30);
+  font-weight: bold;
 }
 .heading-two {
   font-family: $font-medium;
@@ -35,11 +36,14 @@ h1 {
 
 @include media-breakpoint-up(md) {
   .heading-one {
-    font-size: rem(46);
+    font-family: $font-bold;
+    font-weight: bold;
+    font-size: rem(40);
   }
   .heading-two {
     font-size: rem(32);
-    font-family: $font-book;
+    font-family: $font-bold;
+    font-weight: bold;
   }
   .heading-three {
     font-size: rem(24);
@@ -124,6 +128,8 @@ h1 {
 
 .custom-select {
   background: none !important;
+  font-family: $font-medium;
+  font-weight: 400;
 }
 
 .btn-outline-primary {
@@ -132,26 +138,32 @@ h1 {
 
 .btn-primary {
   font-weight: 500;
+  font-family: $font-medium;
+  font-size: rem(16);
 }
 
 .btn-outline-primary {
-    font-weight: 500;
+  font-family: $font-regular;
+    font-weight: 400;
+    font-size: rem(16);
 }
 
 .yotpo .text-m {
   font-family: $font-medium;
-  font-size: rem(16) !important;
   font-weight: 500;
 }
 
 .yotpo-sum-reviews {
   .font-color-gray.based-on {
     font-family: $font-medium;
-    font-size: rem(16);
     font-weight: 500;
-    @include media-breakpoint-down(xs) {
-      font-size: rem(16) !important;
-    }
+  }
+}
+
+.yotpo-label {
+  .yotpo-default-button span {
+      font-family: $font-medium;
+      font-weight: 500;
   }
 }
 
@@ -176,26 +188,20 @@ h1 {
 .yotpo-review.yotpo-regular-box {
   .content-title {
     font-family: $font-medium;
-    @include media-breakpoint-down(xs) {
-      font-size: rem(14);
-    }
+    font-weight: 500;
   }
 }
 .yotpo-review.yotpo-regular-box {
   .content-review {
-    font-family: $font-medium;
-    @include media-breakpoint-down(xs) {
-      font-size: rem(14);
-    }
+    font-family: $font-regular;
+    font-weight: 400;
   }
 }
 
 .yotpo-review.yotpo-regular-box {
-  .yotpo-header-element span {
+  .yotpo-header-element  {
     font-family: $font-medium;
-    @include media-breakpoint-down(xs) {
-      font-size: rem(16);
-    }
+    font-weight: 500;
   }
 }
 
@@ -209,10 +215,6 @@ h1 {
 
       .y-label {
         font-family: $font-medium;
-
-        @include media-breakpoint-down(xs) {
-          font-size: rem(12);
-        }
       }
     }
   }
@@ -221,41 +223,78 @@ h1 {
 .yotpo-footer {
   font-family: $font-medium;
 
+  .label-helpful {
+    font-family: $font-regular;
+    font-weight: 400;
+  }
+
   .footer-additional-actions {
     font-family: $font-medium;
 
     .y-label.yotpo-review-date {
       font-family: $font-medium;
-
-      @include media-breakpoint-down(xs) {
-        font-size: rem(13);
-      }
     }
   }
 }
 
+.yotpo.yotpo-main-widget {
+    .yotpo-review {
+      .yotpo-review-date {
+        font-family: $font-medium;
+        font-weight: 500;
+      }
+    }
+}
 
 .yotpo-label.yotpo-small-box {
   font-family: $font-medium;
   .yotpo-logo-title {
     font-family: $font-medium;
-    @include media-breakpoint-down(xs) {
-      font-size: rem(14);
-    }
  }
 }
 
 .yotpo-small-box {
   .yotpo-nav.yotpo-nav-primary ul {
     font-family: $font-medium;
-    font-size: rem(14) ;
     .yotpo-nav-tab {
     .yotpo-nav-wrapper span {
       font-family: $font-medium;
-      @include media-breakpoint-down(xs) {
-      font-size: rem(14);
-        }
       }
     }
+  }
+}
+.nav-tabs {
+  .nav-link {
+    font-weight: 500;
+  }
+}
+
+.value {
+  .b {
+    font-family: $font-medium;
+    font-weight: 500;
+  }
+}
+
+.yotpo-nav-content {
+
+  .yotpo-first-review {
+    
+    .yotpo-default-button {
+      font-family: $font-regular;
+      font-weight: 400;
+    }
+  }
+}
+
+.main-widget.yotpo-display-wrapper {
+  .yotpo-header-element .yotpo-user-name {
+    font-family: $font-medium;
+    font-weight: 500 !important;
+  }
+
+  .y-label.yotpo-user-title {
+    font-family: $font-book-std;
+    font-weight: 300 !important;
   }
 }

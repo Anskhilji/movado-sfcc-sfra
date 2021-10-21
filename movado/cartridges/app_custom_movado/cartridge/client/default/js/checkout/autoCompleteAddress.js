@@ -15,7 +15,7 @@ window.initAutocomplete = function() {
     address1FieldBilling = document.querySelector("#billingAddressOne");
     address2FieldBilling = document.querySelector("#billingAddressTwo");
     postalFieldBilling = document.querySelector("#billingZipCode");
-  
+
     // Create the autocomplete object, restricting the search predictions to Shipping Form
     // addresses in the US and UK.
     autocomplete = new google.maps.places.Autocomplete(address1Field, {
@@ -30,9 +30,6 @@ window.initAutocomplete = function() {
       fields: ["address_components", "geometry"],
     });
 
-    address1Field.focus();
-    address1FieldBilling.focus();
-  
     // When the user selects an address from the drop-down, populate the
     // address fields in the form.
     autocomplete.addListener("place_changed", fillInAddress);
@@ -46,6 +43,8 @@ function fillInAddress(){
   var address1 = "";
   var postcode = "";
   var shippingCountrydefault = document.querySelector("#shippingCountrydefault");
+  var billingCounty = document.querySelector("#shippingCounty");
+  var billingState = document.querySelector("#shippingState");
 
   // Get each component of the address from the place details,
   // and then fill-in the corresponding field on the form.
@@ -62,17 +61,12 @@ function fillInAddress(){
       }
 
       case "route": {
-        address1 += component.short_name;
+        address1 += component.long_name;
         break;
       }
 
       case "postal_code": {
-        postcode = `${component.long_name}${postcode}`;
-        break;
-      }
-
-      case "postal_code_suffix": {
-        postcode = `${postcode}-${component.long_name}`;
+        postcode = `${component.short_name}`;
         break;
       }
 
@@ -82,27 +76,38 @@ function fillInAddress(){
         break;
 
       case "administrative_area_level_1": {
-        (document.querySelector("#shippingState")).value =
+        if (billingState !== null) {
+          billingState.value =
           component.short_name;
+        }
+        break;
+      }
+  
+      case "administrative_area_level_2": {
+        if (billingCounty !== null) {
+            billingCounty.value =
+            component.short_name;
+        }
         break;
       }
     }
   }
 
-  address1Field.value = address1;
+  var $address1Value = address1;
+  address1Field.value = $address1Value.replace(/'/g, ' ');
   postalField.value = postcode;
-
-  // After filling the form with address components from the Autocomplete
-  // prediction, set cursor focus on the second address line to encourage
-  // entry of subpremise information such as apartment, unit, or floor number.
-  address2Field.focus();
 }
 
 function fillInAddressBilling(){
   // Get the place details from the autocomplete object.
-  const place = autocomplete.getPlace();
+  const place = autocompleteBilling.getPlace();
   var address1Billing = "";
   var postcodeBilling = "";
+  var billingCounty = document.querySelector("#billingCounty");
+  var billingState = document.querySelector("#billingState");
+
+
+  
 
   // Get each component of the address from the place details,
   // and then fill-in the corresponding field on the form.
@@ -119,17 +124,12 @@ function fillInAddressBilling(){
       }
 
       case "route": {
-        address1Billing += component.short_name;
+        address1Billing += component.long_name;
         break;
       }
 
       case "postal_code": {
-        postcodeBilling = `${component.long_name}${postcodeBilling}`;
-        break;
-      }
-
-      case "postal_code_suffix": {
-        postcodeBilling = `${postcodeBilling}-${component.long_name}`;
+        postcodeBilling = `${component.long_name}`;
         break;
       }
 
@@ -139,8 +139,18 @@ function fillInAddressBilling(){
         break;
 
       case "administrative_area_level_1": {
-        (document.querySelector("#billingState")).value =
+        if (billingState !== null) {
+          billingState.value =
           component.short_name;
+        }
+        break;
+      }
+
+      case "administrative_area_level_2": {
+        if (billingCounty !== null) {
+          billingCounty.value =
+          component.short_name;
+        }
         break;
       }
 
@@ -153,13 +163,9 @@ function fillInAddressBilling(){
     }
   }
 
-  address1FieldBilling.value = address1Billing;
+  var $address1BillingValue = address1Billing;
+  address1FieldBilling.value = $address1BillingValue.replace(/'/g, ' ');;
   postalFieldBilling.value = postcodeBilling;
-
-  // After filling the form with address components from the Autocomplete
-  // prediction, set cursor focus on the second address line to encourage
-  // entry of subpremise information such as apartment, unit, or floor number.
-  address2FieldBilling.focus();
 }
-  
+
 window.initAutocomplete()

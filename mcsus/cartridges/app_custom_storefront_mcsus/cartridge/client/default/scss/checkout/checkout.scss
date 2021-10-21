@@ -176,6 +176,10 @@ header {
 .shipping-method-option {
     font-family: $font-book;
     font-size: rem(16);
+
+    @include media-breakpoint-down(md) {
+        font-size: rem(16);
+    }
 }
 
 .shipping-method-pricing {
@@ -184,6 +188,15 @@ header {
     font-size: rem(16);
 }
 
+.shippingMethods {
+    font-family: $font-medium;
+    font-weight: 500;
+    font-size: rem(16);
+
+    @include media-breakpoint-down(md) {
+        font-size: rem(14);
+    }
+}
 
 .data-checkout-stage {
     // Initial states ------------------------

@@ -4,6 +4,8 @@
 
 .quick-view-dialog,
 .choose-bonus-product-dialog {
+    font-size: rem(20);
+
     .product-not-available-msg {
         @include media-breakpoint-down(xs) {
             font-size: rem(14);
@@ -12,5 +14,33 @@
     }
 }
 .quick-view-dialog {
-    max-width: 56.25em !important;
+    max-width: rem(900);
+
+    .modal-header .full-pdp-link {
+        font-size: rem(16);
+        font-family: $font-regular;
+        font-weight: 400;
+    }
+
+    .promotions {
+        .callout {
+            font-size: rem(16);
+            font-family: $font-regular;
+            font-weight: 400;
+        }
+    }
+
+    .price {
+        .strike-through {
+              .value {
+                font-size: rem(18);
+            }
+        }
+
+        .sales {
+            .value {
+                font-size: rem(24);
+            }
+        }
+    }
 }
