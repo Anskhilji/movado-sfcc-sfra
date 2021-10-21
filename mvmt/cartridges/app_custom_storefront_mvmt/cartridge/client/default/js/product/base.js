@@ -1,6 +1,8 @@
 'use strict';
 var movadoBase = require('movado/product/base');
-var clydeWidget = require('link_clyde/getClydeWidget.js');
+if(Resources.IS_CLYDE_ENABLED){
+    var clydeWidget = require('link_clyde/getClydeWidget.js');
+}
 var updateMiniCart = true;
 var pdpVideoLoaded = false;
 var videoStatusChecker;
@@ -27,6 +29,33 @@ function setMiniCartProductSummaryHeight () {
         }
     }
 }
+
+function giftMessageTooltip() {
+    $('body').on('click','.gift-messages-tooltip', function() {
+        $('.custom-tooltipsmart').show();
+    });
+    
+    $('body').on('click','.gift-messages-model-close', function() {
+        $('.custom-tooltipsmart').hide();
+    });
+}
+
+function checkGiftBoxItem() {
+    $('body').on('click', '.gift-messages-chekbox', function () {
+        if (this.checked) {
+            $('.fullcart-button-wrapper').css('display','flex');
+            $('.checkout-button-wrapper').hide();
+            $('.shipping-express-checkout').hide();
+
+        } else {
+            $('.fullcart-button-wrapper').hide();
+            $('.checkout-button-wrapper').show();
+            $('.shipping-express-checkout').show();
+
+        }
+    });
+}
+
 function isIE() {
     var ua = navigator.userAgent;
     /* MSIE used to detect old browsers and Trident used to newer ones*/
@@ -125,6 +154,8 @@ function openMiniCart() {
             $('.mini-cart-data .popover').append(data);
             $('#footer-overlay').addClass('footer-form-overlay');
             setMiniCartProductSummaryHeight();
+            giftMessageTooltip();
+            checkGiftBoxItem();
             $('.mini-cart-data .popover').addClass('show');
             $('body').trigger('miniCart:recommendations');
             updateMiniCart = false;
