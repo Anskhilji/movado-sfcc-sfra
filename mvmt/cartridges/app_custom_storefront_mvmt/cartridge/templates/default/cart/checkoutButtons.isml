@@ -29,7 +29,7 @@
                 </div>
                 <isif condition="${!empty(request.httpCookies['esw.location']) && !empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US')}">
                     <div class="col-12">
-                        <isapplepay class="apple-pay-cart col btn btn-block mb-3"></isapplepay>
+                        <isapplepay class="apple-pay-cart col btn btn-block"></isapplepay>
                     </div>
                 </isif>
                 <isif condition="${dw.system.Site.current.preferences.custom.isGooglePayEnabled}">
@@ -56,7 +56,7 @@
             </a>
         </div>
         <div class="col-12">
-            <isapplepay class="apple-pay-cart col btn btn-block mb-3"></isapplepay>
+            <isapplepay class="apple-pay-cart col btn btn-block"></isapplepay>
         </div>
         <isinclude url="${URLUtils.https('GooglePay-RenderButton', 'googlePayEntryPoint', 'Cart-Show', 'true')}" sf-toolkit="on"/>
     </div>

@@ -852,6 +852,8 @@
     .google-pay-container {
         .gpay-button {
             min-height: rem(32)!important;
+            padding: rem(8) 15% !important;
+            margin-left: rem(0) !important;
         }
     }
 }
