@@ -10,5 +10,4 @@ $(document).ready(function () {
             $('body').trigger('checkOutStage:success', history.state);
         } 
     });
-
 });

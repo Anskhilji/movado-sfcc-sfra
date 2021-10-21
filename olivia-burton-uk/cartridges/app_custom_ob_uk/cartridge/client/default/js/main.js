@@ -27,7 +27,6 @@ $(document).ready(function () {
     processInclude(require('./components/mobileMenu'));
     processInclude(require('movado/components/rakutenCookieHandler'));
     processInclude(require('googlePay/googlePay'));
-    processInclude(require('./checkout/checkout'));
 });
 
 require('base/components/spinner');
