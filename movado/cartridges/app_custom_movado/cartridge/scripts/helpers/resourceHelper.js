@@ -51,8 +51,7 @@ function getResources(pageContext) {
         GOOGLE_PAY_ENABLED: Site.current.preferences.custom.isGooglePayEnabled || false,
         GOOGLE_PAY_MERCHANT_ACCOUNT: Site.current.preferences.custom.googlePayMerchantID,
         GOOGLE_PAY_MERCHANT_NAME: Site.current.preferences.custom.Adyen_merchantCode,
-        GOOGLE_PAY_AUTOCOMPLETE: autoComplete,
-        CURRENT_SITE : Site.current.ID
+        GOOGLE_PAY_AUTOCOMPLETE: autoComplete
     };
     return resources;
 }
