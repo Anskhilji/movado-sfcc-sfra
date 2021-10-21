@@ -18,13 +18,13 @@
 
     <isslot id="cs-account-orderconfirmation-banner" description="orderconfirmation banner Image" context="global" />
 
-    <div class="d-none d-sm-block progressbar-container confirmation-container">
+    <iscomment> <div class="d-none d-sm-block progressbar-container confirmation-container">
         <div class="row">
             <div class="col-md-12">
                 <isinclude template="checkout/checkoutProgressbar" />
             </div>
         </div>
-    </div>
+    </div> </iscomment>
 
     <div class="container receipt mt-3 <isif condition="${pdict.order.shipping.length > 1}">multi-ship</isif>">
 

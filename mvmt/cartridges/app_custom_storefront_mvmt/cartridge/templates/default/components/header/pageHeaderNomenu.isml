@@ -5,11 +5,11 @@
       <div class="header-menu-wrapper desktop-menu-wrapper">
         <div class="header-wrapper checkout-header-wrapper">
 
-          <div class="header-left">
+          <div class="header-left align-StartBox">
               <div class="flex align-items-center checkout-logo">
                 <isslot id="brand-logo" description="Brand Logo" context="global" />
               </div>
-              <div class="checkout-text">
+              <div class="checkout-text checkout-labelCustom">
                  <h5> 
                     <div class="secure-text">${Resource.msg('checkout.secure.text', 'checkout', null)} </div>
                   </h5>

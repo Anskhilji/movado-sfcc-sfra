@@ -92,6 +92,12 @@ $stored-payment-spacing: rem(16);
       @include media-breakpoint-up(md) {
         max-width: rem(940);
       }
+      @include media-breakpoint-up(lg) {
+        max-width: 90%;
+      }
+      @include media-breakpoint-up(xl) {
+        max-width: 66%;
+      }
     }
   }
 }

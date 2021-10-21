@@ -1,25 +1,20 @@
-@import '~movado/checkout/checkout'; 
+@import "~movado/checkout/checkout";
 
 header {
-
     &.checkout-header {
-    
         .sticky-header-wrapper {
-            
             .mobile-menu-wrapper {
                 @include media-breakpoint-up(xs) {
                     display: block;
 
-                   .header-wrapper {
+                    .header-wrapper {
                         .checkout-logo {
                             width: rem(103);
                         }
-                   }
-
+                    }
                 }
 
                 .header-wrapper {
-
                     .checkout-logo {
                         @include media-breakpoint-down(xs) {
                             margin-top: rem(8);
@@ -30,7 +25,6 @@ header {
                             @include media-breakpoint-down(xs) {
                                 margin-bottom: rem(20);
                             }
-
                         }
                     }
 
@@ -43,7 +37,6 @@ header {
                     }
                 }
 
-                
                 @include media-breakpoint-up(sm) {
                     display: none;
                 }
@@ -69,9 +62,9 @@ header {
             margin-top: rem(0);
             transform: translateX(-2px);
         }
-        
+
         @include media-breakpoint-up(lg) {
-            padding: 0 rem(91.5) 0 rem(83);
+            padding: 0 rem(91.5) 0 rem(60);
             margin-top: rem(33);
             padding-top: auto;
             transform: translateX(0px);
@@ -81,8 +74,6 @@ header {
             margin-left: auto;
         }
     }
-
-
 }
 
 .checkout-progressbar {
@@ -91,7 +82,7 @@ header {
     @include media-breakpoint-up(xs) {
         display: none;
     }
-    
+
     @include media-breakpoint-up(sm) {
         display: block;
         margin-top: rem(70);
@@ -102,15 +93,23 @@ header {
         margin-top: rem(61);
         padding-top: auto;
     }
-    
+
     @include media-breakpoint-up(lg) {
-        padding: 0 rem(80) 0 rem(100);
-        margin-top: rem(68);
+        padding: 0 rem(80) 0 rem(70);
+        margin-top: rem(61);
         padding-top: auto;
     }
 
-    li {
+    @include media-breakpoint-up(xl) {
+        padding: 0 rem(16);
+        margin-top: rem(61);
+        padding-top: auto;
+        max-width: 66%;
+        margin-left: auto;
+        margin-right: auto;
+    }
 
+    li {
         @include media-breakpoint-up(sm) {
             margin-bottom: rem(15);
         }
@@ -124,38 +123,63 @@ header {
             align-items: center;
             font-size: rem(12);
             text-transform: uppercase;
-            text-decoration: none ;
+            text-decoration: none;
             margin-bottom: rem(0);
             line-height: 1.45;
 
             @include media-breakpoint-down(sm) {
                 font-size: rem(10);
             }
-     
+
             &:after {
-              content: "";
-              box-sizing: border-box;
-              height: rem(1.5);
-              width: rem(30);
-              background-color: $black;
-              opacity: 0.4;
-              margin:rem(0) rem(10);
-              
-              @include media-breakpoint-down(sm) {
-                height: rem(2);
-                width: rem(14);
-                margin: rem(0) rem(5);
-              }
+                content: "";
+                box-sizing: border-box;
+                height: rem(1.5);
+                width: rem(30);
+                background-color: $black;
+                opacity: 0.4;
+                margin: rem(0) rem(10);
+
+                @include media-breakpoint-down(sm) {
+                    height: rem(2);
+                    width: rem(14);
+                    margin: rem(0) rem(5);
+                }
             }
         }
 
         &:nth-child(4) p {
             &:after {
-            content: "";
-            height: rem(0);
-            width: rem(0);
-          }
+                content: "";
+                height: rem(0);
+                width: rem(0);
+            }
         }
     }
+}
 
+.checkout-labelCustom {
+    @include media-breakpoint-up(xxxxl) {
+        margin-left: 17%;
+    }
+    @include media-breakpoint-up(xxxl) {
+        margin-left: 11%;
+    }
+    @include media-breakpoint-up(xxl) {
+        margin-left: 8%;
+    }
+    @include media-breakpoint-up(xl) {
+        margin-left: rem(36);
+    }   
+}
+
+
+header {
+    .checkout-header-wrapper {
+        .align-StartBox {
+            @include media-breakpoint-up(xl) {
+                justify-content: flex-start;
+            }
+        }
+    }
 }
