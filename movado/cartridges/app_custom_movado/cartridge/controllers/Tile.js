@@ -99,6 +99,21 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
             viewData.yotpoWidgetData = YotpoIntegrationHelper.getRatingsOrReviewsData(session.custom.yotpoConfig, req.querystring.pid);
             res.setViewData(viewData);
         }
+        else {
+            try {
+                var viewData = res.getViewData();
+                var YotpoIntegrationHelper = require('/int_yotpo_sfra/cartridge/scripts/common/integrationHelper.js');
+                var yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
+        
+                if (yotpoConfig.isCartridgeEnabled) {
+                    viewData.yotpoWidgetData = YotpoIntegrationHelper.getRatingsOrReviewsData(yotpoConfig, req.querystring.pid);
+                    res.setViewData(viewData);
+                }
+            } catch (ex) {
+                var YotpoLogger = require('/int_yotpo/cartridge/scripts/yotpo/utils/YotpoLogger');
+                YotpoLogger.logMessage('Something went wrong while retrieving ratings and reviews configuration data, Exception code is: ' + ex, 'error', 'Yotpo~Search-Show');
+            }
+        }
     } catch (ex) {
         var YotpoLogger = require('/int_yotpo/cartridge/scripts/yotpo/utils/YotpoLogger');
         YotpoLogger.logMessage('Something went wrong while retrieving ratings and reviews data for current product, Exception code is: ' + ex, 'error', 'Yotpo~Tile-Show');

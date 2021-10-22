@@ -117,6 +117,12 @@
             font-weight: bold;
             font-size: rem(30);
         }
+
+        h2 {
+           @include media-breakpoint-down(xs) {
+                line-height: rem(40);
+           } 
+        }
     }
 }
 
