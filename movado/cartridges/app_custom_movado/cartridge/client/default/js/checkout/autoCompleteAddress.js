@@ -75,6 +75,13 @@ function fillInAddress(){
           component.long_name;
         break;
 
+      case "postal_town":
+        (document.querySelector("#shippingAddressCity")).value =
+          component.long_name;
+        break;
+
+      
+
       case "administrative_area_level_1": {
         if (billingState !== null) {
           billingState.value =
@@ -134,6 +141,11 @@ function fillInAddressBilling(){
       }
 
       case "locality":
+        (document.querySelector("#billingAddressCity")).value =
+          component.long_name;
+        break;
+
+      case "postal_town":
         (document.querySelector("#billingAddressCity")).value =
           component.long_name;
         break;
