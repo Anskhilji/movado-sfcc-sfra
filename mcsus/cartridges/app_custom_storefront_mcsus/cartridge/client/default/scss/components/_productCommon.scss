@@ -117,6 +117,14 @@
             font-weight: bold;
             font-size: rem(30);
         }
+
+        .detail-heading {
+           button {
+                @include media-breakpoint-down(xs) {
+                    line-height: rem(45);
+                } 
+           }
+        }
     }
 }
 
