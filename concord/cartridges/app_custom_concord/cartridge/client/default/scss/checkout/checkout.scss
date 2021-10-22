@@ -379,7 +379,6 @@ header {
                             align-items: flex-end;
                         }
 
-
                         .checkout-logo {
                             width: rem(155);
 
@@ -501,14 +500,15 @@ header {
 
     @include media-breakpoint-up(sm) {
         display: block;
-        margin-top: rem(50);
-        padding: 0 rem(15) 0 rem(15);
+        margin-top: rem(40);
+        margin-bottom: rem(24);
+          padding: 0 rem(15) 0 rem(15);
     }
 
     @include media-breakpoint-up(lg) {
         padding: 0 rem(80) 0 rem(70);
-        margin-top: rem(84);
-        padding-top: auto;
+        margin-top: rem(70);
+        margin-bottom: rem(24);
     }
 
     @include media-breakpoint-up(xl) {
@@ -652,19 +652,20 @@ header {
 }
 
 .checkout-labelCustom {
-    @include media-breakpoint-up(xxxxl) {
-        margin-left: 17%;
+    @include media-breakpoint-up(xl) {
+        margin-left: rem(30);
+    }
+    @include media-breakpoint-up(xxl) {
+        margin-left: 6%;
     }
     @include media-breakpoint-up(xxxl) {
         margin-left: 11%;
     }
-    @include media-breakpoint-up(xxl) {
-        margin-left: 8%;
-    }
-    @include media-breakpoint-up(xl) {
-        margin-left: rem(36);
+    @include media-breakpoint-up(xxxxl) {
+        margin-left: 17%;
     }
 }
+
 header {
     .checkout-header {
         .header-menu-wrapper {

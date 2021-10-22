@@ -6,9 +6,7 @@
 
 header {
     &.checkout-header {
-
         .sticky-header-wrapper {
-
             .header-wrapper.checkout-header-wrapper {
                 .minicart {
                     &-quantity {
@@ -27,13 +25,12 @@ header {
                     display: block;
                 }
             }
-            
+
             .mobile-menu-wrapper {
                 @include media-breakpoint-up(xs) {
                     display: block;
 
-                   .header-wrapper.checkout-header-wrapper {
-
+                    .header-wrapper.checkout-header-wrapper {
                         .v-middle {
                             position: absolute;
                             top: 58%;
@@ -42,32 +39,30 @@ header {
 
                         .checkout-logo {
                             width: rem(110);
-                
-                             img {
+
+                            img {
                                 width: 100%;
-                             }
-                            
+                            }
+
                             &:before {
                                 font-family: "FontAwesome";
-                                content: '\f023';
+                                content: "\f023";
                                 font-size: rem(18);
                                 margin-right: rem(5);
                                 margin-bottom: rem(12);
                             }
-                         }
-                    } 
-                    
+                        }
+                    }
+
                     .header-wrapper {
-
                         .minicart {
-
                             &-link {
                                 @include media-breakpoint-down(xs) {
                                     margin-right: rem(0);
                                     top: rem(0);
                                 }
                             }
-        
+
                             &-quantity {
                                 color: $black;
                                 background-color: $pink-grey;
@@ -76,31 +71,29 @@ header {
                         }
                     }
                 }
-                
+
                 @include media-breakpoint-up(sm) {
                     display: none;
                 }
             }
         }
-      
+
         .checkout-header-wrapper {
-            
             @include media-breakpoint-up(lg) {
                 padding: 0 rem(91.5) 0 rem(60);
                 margin-top: rem(33);
             }
-            
 
             .header-left {
                 .checkout-logo {
                     width: rem(150);
-        
+
                     @include media-breakpoint-up(md) {
                         width: rem(150);
                         height: rem(27);
                     }
                 }
-    
+
                 .checkout-text {
                     h5 {
                         .secure-text {
@@ -109,7 +102,6 @@ header {
                             color: $light-gray5;
                             opacity: 0.8;
                         }
-                        
                     }
                 }
             }
@@ -126,60 +118,60 @@ header {
                     }
                 }
             }
-            
+
             @include media-breakpoint-up(sm) {
                 padding-top: rem(0);
             }
         }
-
     }
 }
 
 .progressbar-container {
     .checkout-progressbar {
         margin-bottom: rem(45);
-    
+
         @include media-breakpoint-up(xs) {
             display: none;
         }
-        
+
         @include media-breakpoint-up(sm) {
             display: block;
-            margin-top: rem(45);
+            margin-top: rem(24);
+            margin-bottom: rem(24);
             padding: 0 rem(15) 0 rem(15);
         }
-        
+
         @include media-breakpoint-up(lg) {
             padding: 0 rem(80) 0 rem(70);
-            margin-top: rem(61);
-            padding-top: auto;
+            margin-top: rem(56);
+            margin-bottom: rem(16);
         }
         @include media-breakpoint-up(xl) {
             padding: 0 rem(16);
             margin-top: rem(61);
-            padding-top: auto;
             max-width: 66%;
             margin-left: auto;
             margin-right: auto;
+            margin-bottom: rem(24);
         }
-    
+
         li {
             font-family: $font-gill-std-medium;
 
             @include media-breakpoint-up(sm) {
                 margin-bottom: rem(15);
             }
-    
+
             @include media-breakpoint-up(xxl) {
                 margin-bottom: rem(0);
             }
-    
+
             p {
                 display: flex;
                 align-items: center;
                 font-size: rem(12);
                 text-transform: uppercase;
-                text-decoration: none ;
+                text-decoration: none;
                 margin-bottom: rem(0);
 
                 @include media-breakpoint-down(md) {
@@ -190,21 +182,21 @@ header {
                     font-size: rem(10);
                     letter-spacing: rem(1);
                 }
-         
-                &:after {
-                  content: "";
-                  box-sizing: border-box;
-                  height: rem(2);
-                  width: rem(30);
-                  background-color: $black;
-                  opacity: 0.4;
-                  margin:rem(0) rem(10);
 
-                  @include media-breakpoint-down(sm) {
+                &:after {
+                    content: "";
+                    box-sizing: border-box;
                     height: rem(2);
-                    width: rem(14);
-                    margin:rem(0) rem(5);
-                  }
+                    width: rem(30);
+                    background-color: $black;
+                    opacity: 0.4;
+                    margin: rem(0) rem(10);
+
+                    @include media-breakpoint-down(sm) {
+                        height: rem(2);
+                        width: rem(14);
+                        margin: rem(0) rem(5);
+                    }
                 }
 
                 .step {
@@ -219,8 +211,8 @@ header {
                         display: flex;
                         align-items: center;
                         justify-content: center;
-                        background:$white;
-                        border:1px solid $grey15;
+                        background: $white;
+                        border: 1px solid $grey15;
                         color: $grey15;
                         opacity: 0.4;
                         border-radius: 50%;
@@ -237,30 +229,28 @@ header {
                 }
             }
         }
-       
-       li {
-           &.active {
-                p {
 
+        li {
+            &.active {
+                p {
                     .step {
                         &-text {
                             color: $black;
                             opacity: 1;
                         }
-    
+
                         &-no {
-                            background:$black;
-                            border:1px solid $black;
+                            background: $black;
+                            border: 1px solid $black;
                             color: $white;
                             opacity: 1;
                         }
                     }
                 }
-           }
-           
+            }
+
             &.completed {
                 p {
-                    
                     &:after {
                         color: $black;
                         opacity: 1;
@@ -271,7 +261,7 @@ header {
                             color: $parrot-green;
                             opacity: 1;
                         }
-    
+
                         &-no {
                             background: $parrot-green;
                             border: 1px solid $parrot-green;
@@ -281,19 +271,17 @@ header {
                     }
                 }
             }
-      
-    
-        &:nth-child(4) p {
-            &:after {
-            content: "";
-            height: rem(0);
-            width: rem(0);
-          }
+
+            &:nth-child(4) p {
+                &:after {
+                    content: "";
+                    height: rem(0);
+                    width: rem(0);
+                }
+            }
         }
-      }
     }
 }
-
 
 .checkout-labelCustom {
     margin-left: rem(36);

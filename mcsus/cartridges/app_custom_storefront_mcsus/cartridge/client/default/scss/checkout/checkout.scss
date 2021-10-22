@@ -85,19 +85,25 @@ header {
 
     @include media-breakpoint-up(sm) {
         display: block;
-        margin-top: rem(70);
+        margin-top: rem(26);
         padding: 0 rem(15) 0 rem(15);
+        margin-bottom: rem(26);
+
     }
 
     @include media-breakpoint-up(md) {
-        margin-top: rem(61);
-        padding-top: auto;
+        margin-top: rem(28);
+        margin-bottom: rem(24);
+
+        
     }
 
     @include media-breakpoint-up(lg) {
         padding: 0 rem(80) 0 rem(70);
-        margin-top: rem(61);
-        padding-top: auto;
+        margin-top: rem(56);
+        margin-bottom: rem(20);
+
+        
     }
 
     @include media-breakpoint-up(xl) {
@@ -107,6 +113,7 @@ header {
         max-width: 66%;
         margin-left: auto;
         margin-right: auto;
+        margin-bottom: rem(32);
     }
 
     li {
@@ -159,20 +166,19 @@ header {
 }
 
 .checkout-labelCustom {
-    @include media-breakpoint-up(xxxxl) {
-        margin-left: 17%;
+    @include media-breakpoint-up(xl) {
+        margin-left: rem(30);
+    }
+    @include media-breakpoint-up(xxl) {
+        margin-left: 6%;
     }
     @include media-breakpoint-up(xxxl) {
         margin-left: 11%;
     }
-    @include media-breakpoint-up(xxl) {
-        margin-left: 8%;
+    @include media-breakpoint-up(xxxxl) {
+        margin-left: 17%;
     }
-    @include media-breakpoint-up(xl) {
-        margin-left: rem(34);
-    }   
 }
-
 
 header {
     .checkout-header-wrapper {
