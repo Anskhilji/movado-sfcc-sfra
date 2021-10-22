@@ -52,7 +52,7 @@
         </isloop>
 
         <div class="row m-0">
-            <div class="col d-flex align-items-center justify-content-around w-100 mb-3">
+            <div class="col d-flex align-items-center justify-content-around w-100 mb-2 mb-lg-3">
                 <isinclude template="product/components/ratings" />
             </div>
         </div>

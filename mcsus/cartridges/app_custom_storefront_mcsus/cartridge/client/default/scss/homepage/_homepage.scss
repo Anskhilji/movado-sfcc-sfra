@@ -218,7 +218,7 @@
                 .yotpo-display-wrapper {
                     .yotpo-bottomline {
                         margin-top: rem(6);
-                        margin-bottom: rem(12);
+                        margin-bottom: rem(0);
                     }
                 }
                }
@@ -530,7 +530,7 @@
 
       @include media-breakpoint-up(lg) {
         width: rem(101.6);
-        height: rem(102);
+        height: rem(85);
         display: block;
         margin: rem(0);
       }
@@ -549,6 +549,7 @@
       @include media-breakpoint-up(lg) {
         font-size: rem(24);
         text-align: left;
+        line-height: rem(26.8);
       }
 
       h4 {
@@ -591,6 +592,7 @@
         @include media-breakpoint-up(lg) {
           font-size: rem(16);
           text-align: left;
+          margin-bottom: rem(0);
         }
       }
     }
@@ -682,6 +684,10 @@
 
           @include media-breakpoint-up(sm) {
             font-size: rem(26);
+          }
+
+          @include media-breakpoint-up(sm) {
+            margin-bottom: rem(20);
           }
         }
 
