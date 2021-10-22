@@ -57,7 +57,7 @@
             ${billingFields.address1.mandatory === true ? 'required' : ''}
             ${billingFields.address1.htmlName}">
             <label class="form-control-label" for="billingAddressOne">${Resource.msg('field.billing.address.one','address',null)}</label>
-            <input type="text" class="form-control billingAddressOne" id="billingAddressOne"
+            <input type="text" class="form-control billingAddressOne" id="billingAddressOne" <isif condition="${enableAutoComplete}">placeholder="${Resource.msg('input.autocomplete.address.placeholder','forms',null)}"</isif>
                 value="${pdict.order.billing.billingAddress.address
                     && pdict.order.billing.billingAddress.address.address1
                     ? pdict.order.billing.billingAddress.address.address1
@@ -119,7 +119,7 @@
             ${billingFields.states.stateCode.mandatory === true ? 'required' : ''}
             ${billingFields.states.stateCode.htmlName}">
             <label class="form-control-label" for="billingState">${Resource.msg('field.billing.address.state','address',null)}</label>
-            <input class="form-control billingState" id="billingState" name="${billingFields.states.stateCode.htmlName}"
+            <input class="form-control billingState" id="billingCounty" name="${billingFields.states.stateCode.htmlName}"
                 value="${pdict.order.billing.billingAddress.address
                     && pdict.order.billing.billingAddress.address.stateCode
                     ? pdict.order.billing.billingAddress.address.stateCode

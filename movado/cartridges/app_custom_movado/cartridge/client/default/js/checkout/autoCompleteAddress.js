@@ -43,6 +43,8 @@ function fillInAddress(){
   var address1 = "";
   var postcode = "";
   var shippingCountrydefault = document.querySelector("#shippingCountrydefault");
+  var billingCounty = document.querySelector("#shippingCounty");
+  var billingState = document.querySelector("#shippingState");
 
   // Get each component of the address from the place details,
   // and then fill-in the corresponding field on the form.
@@ -59,17 +61,12 @@ function fillInAddress(){
       }
 
       case "route": {
-        address1 += component.short_name;
+        address1 += component.long_name;
         break;
       }
 
       case "postal_code": {
-        postcode = `${component.long_name}${postcode}`;
-        break;
-      }
-
-      case "postal_code_suffix": {
-        postcode = `${postcode}-${component.long_name}`;
+        postcode = `${component.short_name}`;
         break;
       }
 
@@ -79,8 +76,18 @@ function fillInAddress(){
         break;
 
       case "administrative_area_level_1": {
-        (document.querySelector("#shippingState")).value =
+        if (billingState !== null) {
+          billingState.value =
           component.short_name;
+        }
+        break;
+      }
+  
+      case "administrative_area_level_2": {
+        if (billingCounty !== null) {
+            billingCounty.value =
+            component.short_name;
+        }
         break;
       }
     }
@@ -96,6 +103,11 @@ function fillInAddressBilling(){
   const place = autocompleteBilling.getPlace();
   var address1Billing = "";
   var postcodeBilling = "";
+  var billingCounty = document.querySelector("#billingCounty");
+  var billingState = document.querySelector("#billingState");
+
+
+  
 
   // Get each component of the address from the place details,
   // and then fill-in the corresponding field on the form.
@@ -112,17 +124,12 @@ function fillInAddressBilling(){
       }
 
       case "route": {
-        address1Billing += component.short_name;
+        address1Billing += component.long_name;
         break;
       }
 
       case "postal_code": {
-        postcodeBilling = `${component.long_name}${postcodeBilling}`;
-        break;
-      }
-
-      case "postal_code_suffix": {
-        postcodeBilling = `${postcodeBilling}-${component.long_name}`;
+        postcodeBilling = `${component.long_name}`;
         break;
       }
 
@@ -132,8 +139,18 @@ function fillInAddressBilling(){
         break;
 
       case "administrative_area_level_1": {
-        (document.querySelector("#billingState")).value =
+        if (billingState !== null) {
+          billingState.value =
           component.short_name;
+        }
+        break;
+      }
+
+      case "administrative_area_level_2": {
+        if (billingCounty !== null) {
+          billingCounty.value =
+          component.short_name;
+        }
         break;
       }
 
