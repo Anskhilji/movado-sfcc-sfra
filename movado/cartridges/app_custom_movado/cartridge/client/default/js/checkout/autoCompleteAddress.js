@@ -146,7 +146,7 @@ function fillInAddressBilling(){
         break;
 
       case "postal_town":
-        (document.querySelector("#shippingAddressCity")).value =
+        (document.querySelector("#billingAddressCity")).value =
           component.long_name;
         break;
 
