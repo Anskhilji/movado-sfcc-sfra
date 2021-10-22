@@ -100,7 +100,6 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
             res.setViewData(viewData);
         }
         else {
-
                 var viewData = res.getViewData();
                 var YotpoIntegrationHelper = require('/int_yotpo_sfra/cartridge/scripts/common/integrationHelper.js');
                 var yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
