@@ -5,6 +5,14 @@
       <span class="user-message">${Resource.msg('link.header.login', 'account', null)}</span>
     </a>
   </li>
+
+  <li class="nav-item my-stores d-lg-none" role="menuitem">
+    <a href="${URLUtils.https('Stores-Find')}" class="nav-link">
+      <i class="fa stores-icon" aria-hidden="true"></i>
+      <span class="user-message">${Resource.msg('link.header.stores', 'account', null)}</span>
+    </a>
+  </li>
+
 <iselse/>
   <iscomment> Custom: Change [just added mcs-account-name class in following li tag] </iscomment>
   <li class="nav-item d-lg-none dropdown mcs-account-name" role="menuitem">
@@ -30,4 +38,12 @@
       </li>
     </ul>
   </li>
+
+  <li class="nav-item my-stores d-lg-none" role="menuitem">
+    <a href="${URLUtils.https('Stores-Find')}" class="nav-link">
+      <i class="fa stores-icon" aria-hidden="true"></i>
+      <span class="user-message">${Resource.msg('link.header.stores', 'account', null)}</span>
+    </a>
+  </li>
+
 </isif>
