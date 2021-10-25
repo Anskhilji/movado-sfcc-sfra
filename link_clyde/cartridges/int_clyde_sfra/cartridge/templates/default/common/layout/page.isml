@@ -14,7 +14,7 @@
         </isif>
         <isactivedatahead/>
         <isinclude template="/components/schema" />
-        <script src="https://api.sb.joinclyde.com/scripts/widget.js"></script>
+        <script src="${dw.system.Site.current.preferences.custom.clydeWidgetURL}"></script>
     </head>
     <body>
         ${dw.system.HookMgr.callHook('app.template.beforeHeader', 'beforeHeader') || ''}
