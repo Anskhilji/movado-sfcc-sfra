@@ -377,6 +377,7 @@ header {
                         @include media-breakpoint-up(xl) {
                             justify-content: flex-start;
                             align-items: flex-end;
+                            max-width: 100%;
                         }
 
                         .checkout-logo {
@@ -390,6 +391,16 @@ header {
                             @include media-breakpoint-up(md) {
                                 width: rem(155);
                                 height: rem(70);
+                            }
+                            @include media-breakpoint-up(xl) {
+                                position: absolute;
+                                left: rem(12);
+                                width: rem(120);
+                            }
+                            @include media-breakpoint-up(lg-media) {
+                                position: absolute;
+                                left: rem(50);
+                                width: rem(155);
                             }
 
                             &:before {
@@ -502,7 +513,7 @@ header {
         display: block;
         margin-top: rem(40);
         margin-bottom: rem(24);
-          padding: 0 rem(15) 0 rem(15);
+        padding: 0 rem(15) 0 rem(15);
     }
 
     @include media-breakpoint-up(lg) {
@@ -513,12 +524,12 @@ header {
 
     @include media-breakpoint-up(xl) {
         padding: 0 rem(16);
-        margin-top: rem(80);
+        margin-top: rem(64);
         padding-top: auto;
-        max-width: 66%;
+        max-width: rem(940);
         margin-left: auto;
         margin-right: auto;
-        margin-bottom: rem(32);
+        margin-bottom: rem(20);
     }
 
     li {
@@ -653,16 +664,13 @@ header {
 
 .checkout-labelCustom {
     @include media-breakpoint-up(xl) {
-        margin-left: rem(30);
+        max-width: rem(908);
+        margin: 0 auto;
+        width: rem(908);
+        padding-left: rem(15);
     }
-    @include media-breakpoint-up(xxl) {
-        margin-left: 6%;
-    }
-    @include media-breakpoint-up(xxxl) {
-        margin-left: 11%;
-    }
-    @include media-breakpoint-up(xxxxl) {
-        margin-left: 17%;
+    h5{
+        margin-bottom: rem(0);
     }
 }
 
@@ -673,9 +681,17 @@ header {
                 .align-StartBox {
                     @include media-breakpoint-up(xl) {
                         justify-content: flex-start;
+                        max-width: 100%;
                     }
                 }
             }
         }
+    }
+}
+
+.miniCart-wrapper {
+    @include media-breakpoint-up(xl) {
+        position: absolute;
+        right: rem(40);
     }
 }

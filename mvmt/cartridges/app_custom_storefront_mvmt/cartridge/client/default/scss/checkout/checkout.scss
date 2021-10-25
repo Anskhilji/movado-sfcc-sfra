@@ -360,6 +360,24 @@ header {
                     }
                 }
 
+                @include media-breakpoint-up(lg-custom) {
+                    .checkout-logo {
+                        position: absolute;
+                        left: rem(30);
+                        width: rem(104);
+                        svg{
+                            width: rem(88);
+                            height: rem(26);
+                        }
+                    }
+                   
+                }
+                @include media-breakpoint-up(lg-media) {
+                    position: absolute;
+                    left: rem(50);
+                    width: rem(155);
+                }
+
                 @include media-breakpoint-up(md-down) {
                     margin-top: rem(0);
                 }
@@ -423,15 +441,14 @@ header {
             padding: 0 rem(80) 0 rem(70);
             margin-top: rem(61);
             margin-bottom: rem(16);
-           
         }
-        @include media-breakpoint-up(xl) {
+        @include media-breakpoint-up(lg-custom) {
             padding: 0 rem(16);
-            margin-top: rem(61);
-            margin-bottom: rem(16);
-            max-width: 66%;
+            margin-top: rem(70);
+            max-width: rem(940);
             margin-left: auto;
             margin-right: auto;
+            margin-bottom: rem(24);
         }
 
         li {
@@ -704,16 +721,36 @@ header {
 }
 
 .checkout-labelCustom {
-    @include media-breakpoint-up(xlcustom) {
-        margin-left: rem(30);
+    @include media-breakpoint-up(lg-custom) {
+        max-width: rem(908);
+        margin: 0 auto;
+        width: rem(908);
+        padding-left: rem(24);
     }
-    @include media-breakpoint-up(xxlcustom) {
-        margin-left: 6%;
+}
+
+header {
+    .checkout-header-wrapper {
+        .align-StartBox {
+            @include media-breakpoint-up(lg-custom) {
+                justify-content: flex-start;
+                max-width: 100%;
+            }
+        }
     }
-    @include media-breakpoint-up(xxxlcustom) {
-        margin-left: 11%;
-    }
-    @include media-breakpoint-up(xxxxlcustom) {
-        margin-left: 17%;
+}
+
+#mainContent {
+    .data-checkout-stage {
+        .checkout-content {
+            @include media-breakpoint-up(lg-custom) {
+                padding: 0 rem(16);
+                margin-top: rem(24);
+                max-width: rem(940);
+                margin-left: auto;
+                margin-right: auto;
+                margin-bottom: rem(24);
+            }
+        }
     }
 }

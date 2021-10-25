@@ -16,7 +16,7 @@
               </div>
           </div>
 
-          <div class="right">
+          <div class="right miniCart-wrapper">
             <div class="minicart" data-action-url="${URLUtils.url('Cart-MiniCartShow')}">
               <isinclude url="${URLUtils.url('Cart-MiniCart')}"/>
             </div>
