@@ -139,8 +139,8 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
                 quantity: rejectedQuantity
             });
 
-            // Attached Warranties
-            if (foLineItem.OrderItemSummary.WarrantyChildOrderItemSummary__r.Id != null) {
+             // Attached Warranties
+             if (foLineItem.OrderItemSummary.WarrantyChildOrderItemSummary__r.Id != null) {
                 var warrantyRejectedQuantity = Math.min(rejectedQuantity, foLineItem.OrderItemSummary.WarrantyChildOrderItemSummary__r.Quantity);
                 pendingFOCancelChangeItems.push({
                     fulfillmentOrderLineItemId: foLineItem.OrderItemSummary.WarrantyChildOrderItemSummary__r.Id,
@@ -171,13 +171,10 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
 
     // Find fulfillment order items missing from SAP XML.  Cancel them to move them back to the OrderSummary
     for (let i = 0; i < fulfillmentOrderLineItems.length; i++) {
-
         var isWarranty = (fulfillmentOrderLineItems[i].OrderItemSummary.WarrantyParentOrderItemSummary__r != null);
-
         if (!isWarranty) {
             var found = false;
             for (let j = 0; j < SAPOrderStatus.EcommerceOrderStatusItem.length; j++) {
-
                 var foLineNumber = parseInt(fulfillmentOrderLineItems[i].OrderItemSummary.LineNumber);
                 var sapLineNumber = parseInt(SAPOrderStatus.EcommerceOrderStatusItem[j].POItemNumber);
                 if (foLineNumber === sapLineNumber || foLineNumber === 1000) { // Do not cancel shipping line item
