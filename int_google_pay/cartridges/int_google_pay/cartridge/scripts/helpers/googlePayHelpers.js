@@ -237,7 +237,7 @@ function createGooglePayCheckoutRequest(order, googlePayToken) {
     var requestObj = {
         "amount": {
           "currency": order.currencyCode,
-          "value": order.totalGrossPrice.value
+          "value": Math.round(order.totalGrossPrice * 100)
         },
         "reference": order.orderNo,
         "paymentMethod": {
