@@ -135,6 +135,40 @@ header {
 
 header {
 
+  .user {
+    position: relative;
+
+    &-message {
+      cursor: pointer;
+      font-family: $font-medium;
+      font-weight: 500;
+      font-size: rem(14);
+      text-transform: capitalize;
+      padding-right: rem(10);
+
+      @include media-breakpoint-up(lg) {
+        padding-right: rem(30);
+      }
+    }
+
+    .login-icon {
+        width: rem(25);
+        height: rem(25);
+        background: url(../images/sign-in-icon.svg) center center no-repeat;
+        background-size: contain;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+     .popover a {
+      display: block;
+      margin-bottom: rem(10);
+      font-family: $font-medium;
+      font-weight: 500;
+    }
+
+  }
+
   .menu-group { 
     .nav-item {
       .fa.stores-icon {
@@ -158,14 +192,15 @@ header {
         font-weight: 500;
         font-size: rem(14);
         text-transform: capitalize;
-        padding-left: rem(30);
-
+        
         @include media-breakpoint-up(xs) {
             display: none;
         }
 
         @include media-breakpoint-up(lg) {
             display: block;
+            padding-left: rem(0);
+            margin-left: rem(-1);
         }
         
         .location {
@@ -192,35 +227,6 @@ header {
           }
         }
     }
-  }
-
-  .user {
-    position: relative;
-    .user-message {
-      cursor: pointer;
-      font-family: $font-medium;
-      font-weight: 500;
-      font-size: rem(14);
-      text-transform: capitalize;
-      padding-right: rem(10);
-    }
-
-    .login-icon {
-        width: rem(25);
-        height: rem(25);
-        background: url(../images/sign-in-icon.svg) center center no-repeat;
-        background-size: contain;
-        display: inline-block;
-        vertical-align: middle;
-    }
-
-     .popover a {
-      display: block;
-      margin-bottom: rem(10);
-      font-family: $font-medium;
-      font-weight: 500;
-    }
-
   }
 
   .navbar-toggler {
