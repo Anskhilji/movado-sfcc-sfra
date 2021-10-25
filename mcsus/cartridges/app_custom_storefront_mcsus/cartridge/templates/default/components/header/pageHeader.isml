@@ -40,9 +40,9 @@
                       ${Resource.msg('link.header.menu', 'common', null)}
                     </span>
                   </button>
-                  <button type="button" class="btn btn-store-locator">
+                  <div class="btn btn-store-locator">
                       <iscontentasset aid="ca-header-locate-store" />
-                  </button>
+                  </div>
                 </div>
                 <div class="middle">
                   <isslot id="brand-logo" description="Brand Logo" context="global" />
