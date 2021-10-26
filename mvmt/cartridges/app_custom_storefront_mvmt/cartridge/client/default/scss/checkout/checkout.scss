@@ -341,7 +341,9 @@ header {
                         svg {
                             width: rem(104);
                             height: rem(25);
+
                         }
+
                     }
 
                     .v-middle {
@@ -358,26 +360,30 @@ header {
                             height: rem(30);
                         }
                     }
-                }
-
+                }      
                 @include media-breakpoint-up(lg-custom) {
                     .checkout-logo {
                         position: absolute;
-                        left: rem(30);
-                        width: rem(104);
-                        svg{
-                            width: rem(88);
-                            height: rem(26);
+                        left: rem(24);
+                        width: rem(155);
+                        svg {
+                            width: rem(80);
+                            height: rem(30);
                         }
                     }
-                   
-                }
+                }  
                 @include media-breakpoint-up(lg-media) {
+                  .checkout-logo {
                     position: absolute;
                     left: rem(50);
                     width: rem(155);
-                }
-
+                        svg {
+                            width: rem(125);
+                            height: rem(30);
+                        }
+                    }
+                }  
+             
                 @include media-breakpoint-up(md-down) {
                     margin-top: rem(0);
                 }
@@ -438,10 +444,14 @@ header {
         }
 
         @include media-breakpoint-up(lg) {
-            padding: 0 rem(80) 0 rem(70);
+            padding: 0 rem(15) 0 rem(15);
             margin-top: rem(61);
             margin-bottom: rem(16);
+            max-width: rem(940);
+            margin-left: auto;
+            margin-right: auto;
         }
+
         @include media-breakpoint-up(lg-custom) {
             padding: 0 rem(16);
             margin-top: rem(70);
@@ -754,3 +764,6 @@ header {
         }
     }
 }
+
+
+

@@ -107,10 +107,12 @@ span.ship-to-city-st-zip {
         .price {
             margin-top: auto;
         }
+
         .leading-lines {
             @include media-breakpoint-down(sm) {
                 margin: 0 rem(10);
             }
+
             .grand-total-label {
                 text-transform: uppercase;
             }
@@ -374,6 +376,7 @@ header {
                         @include media-breakpoint-up(md) {
                             max-width: 58.33333%;
                         }
+
                         @include media-breakpoint-up(xl) {
                             justify-content: flex-start;
                             align-items: flex-end;
@@ -392,11 +395,13 @@ header {
                                 width: rem(155);
                                 height: rem(70);
                             }
+
                             @include media-breakpoint-up(xl) {
                                 position: absolute;
                                 left: rem(12);
                                 width: rem(120);
                             }
+
                             @include media-breakpoint-up(lg-media) {
                                 position: absolute;
                                 left: rem(50);
@@ -414,6 +419,7 @@ header {
                                     content: "";
                                     display: none;
                                 }
+
                                 @include media-breakpoint-down(xs) {
                                     margin-bottom: rem(-2);
                                 }
@@ -517,9 +523,12 @@ header {
     }
 
     @include media-breakpoint-up(lg) {
-        padding: 0 rem(80) 0 rem(70);
+        padding: 0 rem(15) 0 rem(15);
         margin-top: rem(70);
         margin-bottom: rem(24);
+        max-width: rem(940);
+        margin-left: auto;
+        margin-right: auto;
     }
 
     @include media-breakpoint-up(xl) {
@@ -669,7 +678,8 @@ header {
         width: rem(908);
         padding-left: rem(15);
     }
-    h5{
+
+    h5 {
         margin-bottom: rem(0);
     }
 }
@@ -692,6 +702,6 @@ header {
 .miniCart-wrapper {
     @include media-breakpoint-up(xl) {
         position: absolute;
-        right: rem(40);
+        right: rem(92);
     }
 }

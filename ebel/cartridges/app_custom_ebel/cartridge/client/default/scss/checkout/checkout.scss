@@ -449,6 +449,7 @@ header {
                 }
             }
         }
+        
         @include media-breakpoint-up(xl) {
             .checkout-logo {
                 position: absolute;
@@ -520,9 +521,12 @@ header {
         }
 
         @include media-breakpoint-up(lg) {
-            padding: 0 rem(80) 0 rem(60);
+            padding: 0 rem(15) 0 rem(15);
             margin-top: rem(32);
             margin-bottom: rem(28);
+            max-width: rem(940);
+            margin-left: auto;
+            margin-right: auto;
         }
 
         @include media-breakpoint-up(xl) {
@@ -684,6 +688,7 @@ header {
         }
     }
 }
+
 #mainContent {
     .data-checkout-stage {
         @include media-breakpoint-up(lg) {
@@ -695,6 +700,6 @@ header {
 .miniCart-wrapper {
     @include media-breakpoint-up(xl) {
         position: absolute;
-        right: rem(40);
+        right: rem(92);
     }
 }
