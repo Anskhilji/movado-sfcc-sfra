@@ -83,6 +83,7 @@ $receipt-font-size: rem(14);
 
 
 .leading-lines {
+
   .start-lines span {
     font-family: $font-regular;
     font-weight: 400;
@@ -93,14 +94,45 @@ $receipt-font-size: rem(14);
     }
   }
 
-  .end-lines span {
-    font-family: $font-regular;
-    font-weight: 400;
-
-    @include media-breakpoint-down(md) {
+  .end-lines {
+    
+    span {
       font-family: $font-regular;
       font-weight: 400;
-      font-size: rem(14);
+  
+      @include media-breakpoint-down(md) {
+        font-family: $font-regular;
+        font-weight: 400;
+        font-size: rem(14);
+      }
+    }
+  } 
+
+  &.grand-total {
+
+    .start-lines span {
+      font-family: $font-book;
+      font-weight: bold;
+      font-size: rem(18);
+  
+      @include media-breakpoint-down(md) {
+        font-size: rem(14);
+      }
+    }
+
+    .end-lines {
+
+      span {
+        font-family: $font-book;
+        font-weight: bold;
+        font-size: rem(18);
+    
+        @include media-breakpoint-down(md) {
+          font-family: $font-book;
+          font-weight: bold;
+          font-size: rem(14);
+        }
+      }
     }
   }
 }
