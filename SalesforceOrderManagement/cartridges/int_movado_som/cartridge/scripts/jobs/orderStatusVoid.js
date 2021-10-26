@@ -62,16 +62,37 @@ function processStatusVoid(SAPOrderStatus, fulfillmentOrder) {
             var foItemRemainingQuantity = parseInt(foLineItem.Quantity);
 
             // Cancel this portion of the fulfillment order if necessary.  For split ship/reject orders, this is expected to happen in a separate request.  e.g., SAP Sends 2 XML message.  First one with a short ship, second with a rejection
+            var cancelQuantity = 0;
             if (parseInt(foLineItem.Quantity) >= rejectedQuantity) {
-                pendingFOCancelChangeItems.push({
-                    fulfillmentOrderLineItemId: foLineItem.Id,
-                    quantity: rejectedQuantity
-                });
+                cancelQuantity = rejectedQuantity;
             } else if (foItemRemainingQuantity > 0) {
-                pendingFOCancelChangeItems.push({
-                    fulfillmentOrderLineItemId: foLineItem.Id,
-                    quantity: foItemRemainingQuantity
+                cancelQuantity = foItemRemainingQuantity;
+            }
+            pendingFOCancelChangeItems.push({
+                fulfillmentOrderLineItemId: foLineItem.Id,
+                quantity: cancelQuantity
+            });
+
+            // Warranties
+            if (foLineItem.OrderItemSummary.WarrantyChildOrderItemSummary__r != null) {
+                var warrantyCancelQuantity = Math.min(cancelQuantity, foLineItem.OrderItemSummary.WarrantyChildOrderItemSummary__r.Quantity);
+                var warrantyFulfillmentLineItem = _.find(fulfillmentOrderLineItems, function (foMatch) {
+                    return (foMatch.OrderItemSummary.Id === foLineItem.OrderItemSummary.WarrantyChildOrderItemSummary__r.Id);
                 });
+
+                // Cancel from Fulfillment Order
+                pendingFOCancelChangeItems.push({
+                    fulfillmentOrderLineItemId: warrantyFulfillmentLineItem.Id,
+                    quantity: warrantyCancelQuantity
+                });
+
+                // Cancel from Order Summary
+                pendingOSCancelChangeItems.push(
+                    SalesforceModel.buildOrderSummaryCancelRequestItem({
+                        orderItemSummaryId: warrantyFulfillmentLineItem.OrderItemSummary.Id,
+                        quantity: warrantyCancelQuantity
+                    })
+                );
             }
 
             // Cancel the original order line summary.
