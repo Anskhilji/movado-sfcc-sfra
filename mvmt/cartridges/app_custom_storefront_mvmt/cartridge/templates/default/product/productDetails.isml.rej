@@ -1,0 +1,13 @@
+diff a/mvmt/cartridges/app_custom_storefront_mvmt/cartridge/templates/default/product/productDetails.isml b/mvmt/cartridges/app_custom_storefront_mvmt/cartridge/templates/default/product/productDetails.isml	(rejected hunks)
+@@ -245,6 +245,11 @@
+ 
+         <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"
+             context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}" />
++
++        <isslot id="Collection" context="global" description="Global slot at the bottom of the trending now" 
++        context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}"
++        />
++
+         <iscomment> Custom start: removing AB test from this template and adding recommendation slot</iscomment>
+ 
+         <iscomment> Custom Start: Adding condition for check enableSeeTheFitPopUp is enable/disable </iscomment>

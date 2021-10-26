@@ -246,9 +246,9 @@
         <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"
             context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}" />
 
-        <isslot id="Collection" context="global" description="Global slot at the bottom of the trending now" 
-        context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}"
-        />
+        <isslot id="pdp-bottom-slot" description="PDP Bottom Slot" context="global"/>
+
+        
 
         <iscomment> Custom start: removing AB test from this template and adding recommendation slot</iscomment>
 
