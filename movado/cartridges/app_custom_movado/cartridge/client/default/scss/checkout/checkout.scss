@@ -107,6 +107,7 @@ span.ship-to-city-st-zip {
         .price {
             margin-top: auto;
         }
+
         .leading-lines {
             @include media-breakpoint-down(sm) {
                 margin: 0 rem(10);
@@ -330,7 +331,7 @@ header {
 
                             &:before {
                                 font-family: "FontAwesome";
-                                content: "\f023";
+                                content: '\f023';
                                 font-size: rem(18);
                                 margin-right: rem(5);
                                 margin-bottom: rem(12);
@@ -408,7 +409,7 @@ header {
                     left: rem(30);
                     width: rem(104);
                 }
-                
+
                 @include media-breakpoint-up(lg-media) {
                     position: absolute;
                     left: rem(50);
