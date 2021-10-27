@@ -472,7 +472,7 @@
             letter-spacing: normal;
             font-size: rem(15);
             @include font-medium;
-            color: $blue15;
+            color: $dark-green;
             text-overflow: ellipsis;
             overflow: hidden;
             width: 60%;
@@ -504,7 +504,6 @@
         width: inherit;
         font-size: rem(15);
         text-align: left;
-        color: $blue15;
 
         @include media-breakpoint-down(sm) {
           font-size: rem(13);
