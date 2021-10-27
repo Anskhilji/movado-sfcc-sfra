@@ -16,6 +16,7 @@ window.initAutocomplete = function() {
     address2FieldBilling = document.querySelector("#billingAddressTwo");
     postalFieldBilling = document.querySelector("#billingZipCode");
 
+  if (typeof google != 'undefined') {
     // Create the autocomplete object, restricting the search predictions to Shipping Form
     // addresses in the US and UK.
     autocomplete = new google.maps.places.Autocomplete(address1Field, {
@@ -34,6 +35,7 @@ window.initAutocomplete = function() {
     // address fields in the form.
     autocomplete.addListener("place_changed", fillInAddress);
     autocompleteBilling.addListener("place_changed", fillInAddressBilling);
+  }
 }
 
 
