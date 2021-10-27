@@ -294,9 +294,11 @@ span.ship-to-city-st-zip {
 }
 
 .form-control-label {
+
     > .content-asset {
         display: inline-block;
     }
+    
 }
 
 .shipping-method-option {
@@ -515,27 +517,19 @@ header {
 
         @include media-breakpoint-up(sm) {
             display: block;
-            margin-top: rem(32);
-            padding: 0 rem(15) 0 rem(15);
-            margin-bottom: rem(28);
+            margin: rem(0) auto rem(12);
+            padding: 0 rem(15);            
         }
 
         @include media-breakpoint-up(lg) {
-            padding: 0 rem(15) 0 rem(15);
-            margin-top: rem(32);
-            margin-bottom: rem(28);
-            max-width: rem(940);
-            margin-left: auto;
-            margin-right: auto;
+            padding: 0 rem(15);
+            margin: rem(0) auto rem(16);            
+            max-width: rem(940);            
         }
 
         @include media-breakpoint-up(xl) {
             padding: 0 rem(16);
-            margin-top: rem(36);
-            max-width: rem(940);
-            margin-left: auto;
-            margin-right: auto;
-            margin-bottom: rem(20);
+            margin: rem(16) auto;
         }
 
         li {
@@ -689,15 +683,7 @@ header {
     }
 }
 
-#mainContent {
-    .data-checkout-stage {
-        @include media-breakpoint-up(lg) {
-            padding-top: rem(0);
-        }
-    }
-}
-
-.miniCart-wrapper {
+.mini-cart-wrapper {
     @include media-breakpoint-up(xl) {
         position: absolute;
         right: rem(92);

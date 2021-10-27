@@ -347,15 +347,13 @@ header {
                     padding: 0 rem(20);
 
                     @include media-breakpoint-up(sm) {
-                        padding: 0 rem(15) rem(15) rem(15);
+                        padding: rem(20) rem(15) rem(15) rem(15);
                         margin-top: rem(0);
-                        padding-top: rem(20);
                     }
 
                     @include media-breakpoint-up(lg) {
                         padding: 0 rem(80) rem(25) rem(60);
                         margin-top: rem(40);
-                        padding-top: auto;
                     }
 
                     .right {
@@ -517,33 +515,24 @@ header {
 
     @include media-breakpoint-up(sm) {
         display: block;
-        margin-top: rem(40);
-        margin-bottom: rem(24);
-        padding: 0 rem(15) 0 rem(15);
+        margin: rem(24) auto rem(24);
+        padding: 0 rem(15);
     }
 
     @include media-breakpoint-up(lg) {
-        padding: 0 rem(15) 0 rem(15);
-        margin-top: rem(70);
-        margin-bottom: rem(24);
+        padding: 0 rem(15);
+        margin: rem(70) auto rem(24);
         max-width: rem(940);
-        margin-left: auto;
-        margin-right: auto;
     }
 
     @include media-breakpoint-up(xl) {
         padding: 0 rem(16);
-        margin-top: rem(64);
-        padding-top: auto;
-        max-width: rem(940);
-        margin-left: auto;
-        margin-right: auto;
-        margin-bottom: rem(20);
+        margin: rem(64) auto rem(32);
     }
 
     li {
         @include media-breakpoint-up(sm) {
-            margin-bottom: rem(15);
+            margin-bottom: rem(0);
         }
 
         @include media-breakpoint-up(xxl) {
@@ -699,7 +688,7 @@ header {
     }
 }
 
-.miniCart-wrapper {
+.mini-cart-wrapper {
     @include media-breakpoint-up(xl) {
         position: absolute;
         right: rem(92);

@@ -110,7 +110,7 @@ span.ship-to-city-st-zip {
 
         .leading-lines {
             @include media-breakpoint-down(sm) {
-                margin: 0 rem(10);
+                margin: rem(0) rem(10);
             }
             .grand-total-label {
                 text-transform: uppercase;
@@ -359,7 +359,7 @@ header {
         display: flex;
         align-items: center;
         height: rem(60);
-        padding: 0 rem(20);
+        padding: rem(0) rem(20);
         border-bottom: rem(1) solid $grey2;
 
         @include media-breakpoint-up(sm) {
@@ -500,31 +500,28 @@ header {
 
     @include media-breakpoint-up(sm) {
         display: block;
-        margin-top: rem(32) auto rem(32) auto;
-        padding: 0 rem(15) 0 rem(15);
+        margin: rem(24) auto;
+        padding: 0 rem(15);
     }
 
     @include media-breakpoint-up(md) {
-        margin-top: rem(48);
-        margin-bottom: rem(32);
-
+        margin: rem(24) auto;
     }
 
     @include media-breakpoint-up(lg) {
-        padding: 0 rem(15) 0 rem(15);
-        margin: rem(64) auto rem(32) auto;
+        padding: 0 rem(15);
+        margin: rem(64) auto rem(32);
         max-width: rem(940);       
     }
 
     @include media-breakpoint-up(xl) {
         padding: 0 rem(16);
-        margin: rem(70) auto rem(32) auto;
-        max-width: rem(940);        
+        margin: rem(70) auto rem(32);         
     }
 
     li {
         @include media-breakpoint-up(sm) {
-            margin-bottom: rem(15);
+            margin-bottom: rem(0);
         }
 
         @include media-breakpoint-up(xxl) {
@@ -665,7 +662,7 @@ header {
     border: rem(1) solid;
     position: relative;
     padding: rem(14) 0;
-    margin: rem(11) 0 rem(11) 0;
+    margin: rem(11) rem(0) rem(11);
 
     &_label {
         padding: rem(10);
@@ -697,7 +694,7 @@ header {
     }
 }
 
-.miniCart-wrapper {
+.mini-cart-wrapper {
     @include media-breakpoint-up(xl) {
         position: absolute;
         right: rem(92);
