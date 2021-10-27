@@ -289,6 +289,22 @@ function updateOptionLineItem(lineItemCtnr, embossOptionID, engraveOptionID, emb
 exports.beforeAuthorization = function (order, payment, custom) {
 
     var Status = require('dw/system/Status');
+    /**~    
+     * Custom Start: Clyde Integration
+     */
+    if (Site.current.preferences.custom.isClydeEnabled) {
+        var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
+        Transaction.wrap(function () {
+            order.custom.isContainClydeContract = false;
+            order.custom.clydeContractProductMapping = '';
+        });
+        var contractProductList = session.custom.clydeContractProductList || false;
+        addClydeContract.createOrderCustomAttr(contractProductList, order);
+        delete session.custom.clydeContractProductList;
+    }
+    /**
+     * Custom: End
+     */
 
     var riskifiedCheckoutCreateResponse = RiskifiedService.sendCheckoutCreate(order);
     RiskifiedService.storePaymentDetails({

@@ -15,6 +15,7 @@ var rakutenCookiesHelper = require('*/cartridge/scripts/helpers/rakutenHelpers')
 function getResources(pageContext) {
     var Resource = require('dw/web/Resource');
     var Site = require('dw/system/Site');
+    var URLUtils = require('dw/web/URLUtils');
 
     var resources = {
         KLARNA_SLICE_IT_PAYMENT_METHOD_BRAND_CODE: Resource.msg('checkout.payment.method.klarna.slice.it.brand.code', 'checkout', null),
@@ -35,12 +36,15 @@ function getResources(pageContext) {
         LINK_QUICKVIEW_VIEWDETAILS: Resource.msg('link.quickview.viewdetails', 'product', null),
         LINK_QUICKVIEW_CLOSE: Resource.msg('link.quickview.close', 'product', null),
         CREDIT_CARD_PAYMENT_METHOD_ID: Resource.msg('checkout.payment.method.credit.card.id', 'checkout', null),
-        KLARNA_PDP_MESSAGES_ENABLED: !empty(Site.current.preferences.custom.klarnaPdpPromoMsg) ? Site.current.preferences.custom.klarnaPdpPromoMsg : false,
+        KLARNA_PDP_MESSAGES_ENABLED:!empty(Site.current.preferences.custom.klarnaPdpPromoMsg) ? Site.current.preferences.custom.klarnaPdpPromoMsg : false,
+        CART_GIFT_MESSAGE_LIMIT: !empty(Site.current.preferences.custom.cartGiftMessageLimit) ? Site.current.preferences.custom.cartGiftMessageLimit : 0,
+        IS_CLYDE_ENABLED: Site.current.preferences.custom.isClydeEnabled || false,
         IS_RAKUTEN_ENABLED:  Site.current.preferences.custom.isRakutenEnable || false,
         ONE_TRUST_COOKIE_ENABLED: Site.current.preferences.custom.oneTrustCookieEnabled || false,
         OPTANON_ALLOWED_COOKIE: Constants.ONE_TRUST_COOKIE_ENABLED,
-        CART_GIFT_MESSAGE_LIMIT: !empty(Site.current.preferences.custom.cartGiftMessageLimit) ? Site.current.preferences.custom.cartGiftMessageLimit : 0,
-        RAKUTEN_REQUEST: rakutenCookiesHelper.getRakutenRequestObject()
+        LISTRAK_ENABLED: Site.current.preferences.custom.Listrak_Cartridge_Enabled,
+        RAKUTEN_REQUEST: rakutenCookiesHelper.getRakutenRequestObject(),
+        FAMILY_NAME_ENABLED: !empty(Site.current.preferences.custom.plpProductFamilyName) ? Site.current.preferences.custom.plpProductFamilyName : false
     };
     return resources;
 }

@@ -1,0 +1,161 @@
+@import '~movado/checkout/checkout'; 
+
+header {
+
+    &.checkout-header {
+    
+        .sticky-header-wrapper {
+            
+            .mobile-menu-wrapper {
+                @include media-breakpoint-up(xs) {
+                    display: block;
+
+                   .header-wrapper {
+                        .checkout-logo {
+                            width: rem(103);
+                        }
+                   }
+
+                }
+
+                .header-wrapper {
+
+                    .checkout-logo {
+                        @include media-breakpoint-down(xs) {
+                            margin-top: rem(8);
+                        }
+                        &:before {
+                            margin-bottom: rem(12);
+
+                            @include media-breakpoint-down(xs) {
+                                margin-bottom: rem(20);
+                            }
+
+                        }
+                    }
+
+                    .minicart-link {
+                        &.header-icon {
+                            @include media-breakpoint-down(xs) {
+                                top: rem(-2);
+                            }
+                        }
+                    }
+                }
+
+                
+                @include media-breakpoint-up(sm) {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    .checkout-header-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: rem(60);
+        padding: 0 rem(20);
+
+        @include media-breakpoint-up(sm) {
+            padding: 0 rem(15) 0 rem(15);
+            margin-top: rem(0);
+            padding-top: rem(20);
+        }
+
+        @include media-breakpoint-up(custom-md) {
+            padding: 0 rem(15) 0 rem(0);
+            margin-top: rem(0);
+            transform: translateX(-2px);
+        }
+        
+        @include media-breakpoint-up(lg) {
+            padding: 0 rem(91.5) 0 rem(83);
+            margin-top: rem(33);
+            padding-top: auto;
+            transform: translateX(0px);
+        }
+
+        .right {
+            margin-left: auto;
+        }
+    }
+
+
+}
+
+.checkout-progressbar {
+    margin-bottom: rem(45);
+
+    @include media-breakpoint-up(xs) {
+        display: none;
+    }
+    
+    @include media-breakpoint-up(sm) {
+        display: block;
+        margin-top: rem(70);
+        padding: 0 rem(15) 0 rem(15);
+    }
+
+    @include media-breakpoint-up(md) {
+        margin-top: rem(61);
+        padding-top: auto;
+    }
+    
+    @include media-breakpoint-up(lg) {
+        padding: 0 rem(80) 0 rem(100);
+        margin-top: rem(68);
+        padding-top: auto;
+    }
+
+    li {
+
+        @include media-breakpoint-up(sm) {
+            margin-bottom: rem(15);
+        }
+
+        @include media-breakpoint-up(xxl) {
+            margin-bottom: rem(0);
+        }
+
+        p {
+            display: flex;
+            align-items: center;
+            font-size: rem(12);
+            text-transform: uppercase;
+            text-decoration: none ;
+            margin-bottom: rem(0);
+            line-height: 1.45;
+
+            @include media-breakpoint-down(sm) {
+                font-size: rem(10);
+            }
+     
+            &:after {
+              content: "";
+              box-sizing: border-box;
+              height: rem(1.5);
+              width: rem(30);
+              background-color: $black;
+              opacity: 0.4;
+              margin:rem(0) rem(10);
+              
+              @include media-breakpoint-down(sm) {
+                height: rem(2);
+                width: rem(14);
+                margin: rem(0) rem(5);
+              }
+            }
+        }
+
+        &:nth-child(4) p {
+            &:after {
+            content: "";
+            height: rem(0);
+            width: rem(0);
+          }
+        }
+    }
+
+}
