@@ -16,16 +16,6 @@
 
 <div class="row">
 	<div class="col-12">
-		<div class="form-group required ${creditFields.cardOwner.htmlName}">
-            <label class="form-control-label" for="holderName">${Resource.msg('field.credit.card.holderName','creditCard',null)}</label>
-			<input type="text" pattern="^[a-z|A-Z]+(?: [a-z|A-Z]+)*$" class="form-control holderName" id="holderName" data-encrypted-name="holderName" ${creditFields.cardOwner.attributes}   />
-			<div class="invalid-feedback">Please enter valid cardholder name</div>
-		</div>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-12">
 		<div class="form-group required ${creditFields.cardNumber.htmlName}">
             <label class="form-control-label" for="cardNumber">${Resource.msg('field.credit.card.number','creditCard',null)}</label>
 			<div class="card-number-wrapper">
@@ -38,6 +28,16 @@
                     autocomplete="">
 				<div class="invalid-feedback">Please enter a valid card number</div>
 			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-12">
+		<div class="form-group required ${creditFields.cardOwner.htmlName}">
+            <label class="form-control-label" for="holderName">${Resource.msg('field.credit.card.holderName','creditCard',null)}</label>
+			<input type="text" pattern="^[a-z|A-Z]+(?: [a-z|A-Z]+)*$" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)" class="form-control holderName" id="holderName" data-encrypted-name="holderName" ${creditFields.cardOwner.attributes}   />
+			<div class="invalid-feedback">Please enter a valid cardholder name</div>
 		</div>
 	</div>
 </div>
@@ -58,7 +58,7 @@
 				 <span class="info-icon"> <span class="icon">i</span>
 					<div class="tooltip"> ${Resource.msg('tooltip.security.code','creditCard',null)}</div>
 				 </span>
-			 <input type="password" class="form-control securityCode" id="securityCode" data-encrypted-name="cvc" maxlength="3">
+			 <input type="password" onkeypress="return event.charCode >= 48 && event.charCode <= 57" class="form-control securityCode" id="securityCode" data-encrypted-name="cvc" maxlength="3">
 			<div class="invalid-feedback security-code">Please enter a valid security code</div>
 		</div>
 	</div>
