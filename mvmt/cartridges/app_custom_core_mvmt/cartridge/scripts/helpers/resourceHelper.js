@@ -18,6 +18,7 @@ function getResources(pageContext) {
     var URLUtils = require('dw/web/URLUtils');
     var ArrayList = require('dw/util/ArrayList');
     var autoComplete = new ArrayList(Site.current.preferences.custom.autoCompleteAllowedCountries).toArray();
+    var allowedCountryCodes = new ArrayList(Site.current.preferences.custom.googlePayShippingAllowedCountryCodes).toArray();
 
     var resources = {
         MINI_CART_HEADER_MESSAGE: Resource.msg('title.your.shopping.cart','cart',null),
@@ -63,7 +64,8 @@ function getResources(pageContext) {
         GOOGLE_PAY_MERCHANT_ACCOUNT: Site.current.preferences.custom.googlePayMerchantID,
         GOOGLE_PAY_MERCHANT_NAME: Site.current.preferences.custom.Adyen_merchantCode,
         GOOGLE_PAY_AUTOCOMPLETE: autoComplete,
-        CART_GIFT_MESSAGE_LIMIT: !empty(Site.current.preferences.custom.cartGiftMessageLimit) ? Site.current.preferences.custom.cartGiftMessageLimit : 0
+        CART_GIFT_MESSAGE_LIMIT: !empty(Site.current.preferences.custom.cartGiftMessageLimit) ? Site.current.preferences.custom.cartGiftMessageLimit : 0,
+        GOOGLE_PAY_ALLOWED_COUNTRY_CODES: allowedCountryCodes
     };
     return resources;
 }
