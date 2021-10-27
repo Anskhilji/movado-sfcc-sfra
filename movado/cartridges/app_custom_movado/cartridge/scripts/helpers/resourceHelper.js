@@ -18,6 +18,7 @@ function getResources(pageContext) {
     var URLUtils = require('dw/web/URLUtils');
     var ArrayList = require('dw/util/ArrayList');
     var autoComplete = new ArrayList(Site.current.preferences.custom.autoCompleteAllowedCountries).toArray();
+    var allowedCountryCodes = new ArrayList(Site.current.preferences.custom.googlePayShippingAllowedCountryCodes).toArray();
 
     var resources = {
         KLARNA_SLICE_IT_PAYMENT_METHOD_BRAND_CODE: Resource.msg('checkout.payment.method.klarna.slice.it.brand.code', 'checkout', null),
@@ -51,7 +52,8 @@ function getResources(pageContext) {
         GOOGLE_PAY_ENABLED: Site.current.preferences.custom.isGooglePayEnabled || false,
         GOOGLE_PAY_MERCHANT_ACCOUNT: Site.current.preferences.custom.googlePayMerchantID,
         GOOGLE_PAY_MERCHANT_NAME: Site.current.preferences.custom.Adyen_merchantCode,
-        GOOGLE_PAY_AUTOCOMPLETE: autoComplete
+        GOOGLE_PAY_AUTOCOMPLETE: autoComplete,
+        GOOGLE_PAY_ALLOWED_COUNTRY_CODES: allowedCountryCodes
     };
     return resources;
 }

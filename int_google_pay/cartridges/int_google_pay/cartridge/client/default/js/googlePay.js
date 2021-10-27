@@ -165,6 +165,7 @@ function getGooglePaymentDataRequest() {
  */
 function getGoogleShippingAddressParameters() {
     return {
+        allowedCountryCodes: window.Resources.GOOGLE_PAY_ALLOWED_COUNTRY_CODES,
         phoneNumberRequired: true
     };
 }
