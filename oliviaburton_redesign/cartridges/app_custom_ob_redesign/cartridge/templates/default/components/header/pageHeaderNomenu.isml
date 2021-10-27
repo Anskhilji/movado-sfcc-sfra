@@ -4,11 +4,11 @@
             <div class="sticky-header-placeholder"></div>
             <div class="header-menu-wrapper desktop-menu-wrapper">
                 <div class="header-wrapper checkout-header-wrapper checkout-box-container">
-                    <div class="header-left align-StartBox">
+                    <div class="header-left align-start-box">
                         <div class="flex align-items-center checkout-logo">
                             <isslot id="olivia-logo" description="Olivia Brand Logo" context="global" />
                         </div>
-                        <div class="checkout-text checkout-labelCustom">
+                        <div class="checkout-text checkout-label-custom">
                             <h5> 
                                 <div class="secure-text">${Resource.msg('checkout.secure.text', 'checkout', null)} </div>
                             </h5>

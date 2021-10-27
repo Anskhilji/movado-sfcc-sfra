@@ -133,7 +133,7 @@ span.ship-to-city-st-zip {
     }
 
     // Shipping ------------------------------
-    &[data-checkout-stage="shipping"] {
+    &[data-checkout-stage=shipping] {
         &.multi-ship .order-product-summary {
             display: none;
         }
@@ -146,25 +146,25 @@ span.ship-to-city-st-zip {
             display: block;
         }
 
-        [data-address-mode="customer"] {
+        [data-address-mode=customer] {
             .shipping-address-block {
                 display: none;
             }
         }
 
-        [data-address-mode="shipment"] {
+        [data-address-mode=shipment] {
             .shipping-address-form {
                 display: none;
             }
         }
 
-        [data-address-mode="edit"] {
+        [data-address-mode=edit] {
             .shipping-address-block {
                 display: none;
             }
         }
 
-        [data-address-mode="new"] {
+        [data-address-mode=new] {
             .btn-show-details,
             .btn-add-new {
                 display: none;
@@ -173,7 +173,7 @@ span.ship-to-city-st-zip {
     }
 
     // Payment -------------------------------
-    &[data-checkout-stage="payment"] {
+    &[data-checkout-stage=payment] {
         .shipping-section,
         .card.ghost {
             display: none;
@@ -188,32 +188,32 @@ span.ship-to-city-st-zip {
             display: block;
         }
 
-        [data-address-mode="customer"] {
+        [data-address-mode=customer] {
             .billing-address {
                 display: none;
             }
         }
 
-        [data-address-mode="shipment"] {
+        [data-address-mode=shipment] {
             .billing-address {
                 display: none;
             }
         }
 
-        [data-address-mode="edit"] {
+        [data-address-mode=edit] {
             .billing-address {
                 display: none;
             }
         }
 
-        [data-address-mode="new"] {
+        [data-address-mode=new] {
             .btn-show-details,
             .btn-add-new {
                 display: none;
             }
         }
 
-        [data-address-mode="details"] {
+        [data-address-mode=details] {
             .btn-show-details,
             .btn-add-new {
                 display: none;
@@ -222,7 +222,7 @@ span.ship-to-city-st-zip {
     }
 
     // Place Order -----------------------------
-    &[data-checkout-stage="placeOrder"] {
+    &[data-checkout-stage=placeOrder] {
         .shipping-section,
         .card.payment-form,
         .card.ghost {
@@ -239,7 +239,7 @@ span.ship-to-city-st-zip {
         }
     }
 
-    &[data-checkout-stage="submitted"] {
+    &[data-checkout-stage=submitted] {
         .shipping-form,
         .card.payment-form,
         .card.ghost {
@@ -269,7 +269,7 @@ span.ship-to-city-st-zip {
     }
 }
 
-[data-customer-type="guest"] .single-shipping .shipment-selector-block {
+[data-customer-type=guest] .single-shipping .shipment-selector-block {
     display: none;
 }
 
@@ -410,7 +410,7 @@ header {
 
                             &:before {
                                 font-family: "FontAwesome";
-                                content: "\f023";
+                                content: '\f023';
                                 font-size: rem(18);
                                 margin-right: rem(5);
                                 margin-bottom: rem(0);
@@ -671,7 +671,7 @@ header {
     }
 }
 
-.checkout-labelCustom {
+.checkout-label-custom {
     @include media-breakpoint-up(xl) {
         max-width: rem(908);
         margin: 0 auto;
@@ -688,7 +688,7 @@ header {
     .checkout-header {
         .header-menu-wrapper {
             .checkout-header-wrapper {
-                .align-StartBox {
+                .align-start-box {
                     @include media-breakpoint-up(xl) {
                         justify-content: flex-start;
                         max-width: 100%;

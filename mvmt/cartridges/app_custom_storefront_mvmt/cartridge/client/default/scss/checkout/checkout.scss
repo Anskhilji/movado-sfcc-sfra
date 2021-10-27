@@ -730,7 +730,7 @@ header {
     }
 }
 
-.checkout-labelCustom {
+.checkout-label-custom {
     @include media-breakpoint-up(lg-custom) {
         max-width: rem(908);
         margin: 0 auto;
@@ -741,7 +741,7 @@ header {
 
 header {
     .checkout-header-wrapper {
-        .align-StartBox {
+        .align-start-box {
             @include media-breakpoint-up(lg-custom) {
                 justify-content: flex-start;
                 max-width: 100%;
