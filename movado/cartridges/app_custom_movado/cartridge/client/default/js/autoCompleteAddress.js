@@ -4,6 +4,10 @@ var processInclude = require('base/util');
 
 $(document).ready(function () {
     processInclude(require('./checkout/autoCompleteAddress'));
-    google.maps.event.addDomListener(window, 'load', initAutocomplete);
+    try {
+        if (typeof google != 'undefined') {
+            google.maps.event.addDomListener(window, 'load', initAutocomplete);
+        }
+    } catch (error) { }
 });
 
