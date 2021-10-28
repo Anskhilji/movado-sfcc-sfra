@@ -596,7 +596,7 @@
         right: rem(5);
       }
       @include media-breakpoint-down(xs) {
-        font-size: rem(8);
+        font-size: rem(5.6);
       }
     }
 
@@ -655,15 +655,24 @@
 
       .price {
         padding: 0;
-        display: block;
+        display: flex;
         font-size: rem(15);
         @include font-light;
         float: none;
         letter-spacing: normal;
         color: $grey8;
         margin-bottom: rem(5);
+
+        span:nth-child(1) {
+          display: inline-flex;
+        }
+
         span:nth-child(2) {
-          display: flex;
+          display: inline-flex;
+        }
+
+        del {
+          display: inline-flex;
         }
 
         @include media-breakpoint-down(xs) {
