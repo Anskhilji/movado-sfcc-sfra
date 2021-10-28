@@ -159,25 +159,23 @@
      }
      return false;
  };
- 
 
-/**
+ /**
  * This function is used to rebuild cart on redirecting back to store front from ESW Checkout for SFRA.
  * @param {boolean} isCart - true/ false
  */
  eswHelper.rebuildCart = function () {
-    var eswServiceHelper = require('*/cartridge/scripts/helper/serviceHelper');
-    // ESW fail order if order no is set in session
-    if (eswHelper.getEShopWorldModuleEnabled() && eswHelper.isESWSupportedCountry()) {
+     var eswServiceHelper = require('*/cartridge/scripts/helper/serviceHelper');
+     // ESW fail order if order no is set in session
+     if (eswHelper.getEShopWorldModuleEnabled() && eswHelper.isESWSupportedCountry()) {
         if (session.privacy.eswfail || !empty(session.privacy.orderNo)) { // eslint-disable-line no-undef
             eswServiceHelper.failOrder();
         }
     }
-};
-
+ };
+ 
  module.exports = {
      getEswHelper: function () {
          return eswHelper;
      }
  };
- 
