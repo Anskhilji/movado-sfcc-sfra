@@ -32,8 +32,7 @@ eswHelper.setBaseCurrencyPriceBook = function (req, currencyCode) {
  */
 eswHelper.setDefaultCurrencyLocal = function (req, foundCountry) {
     var Site = require('dw/system/Site');
-    if (empty(foundCountry)) {
-        // eslint-disable-line no-undef
+    if (empty(foundCountry)) { // eslint-disable-line no-undef
         eswHelper.setAllAvailablePriceBooks();
         eswHelper.setBaseCurrencyPriceBook(req, eswHelper.getBaseCurrencyPreference());
         eswHelper.createCookie('esw.currency', session.getCurrency(), '/');
@@ -55,8 +54,7 @@ eswHelper.getOverrideCountry = function (selectedCountry, selectedCurrency) {
         overrideCountries = JSON.parse(overridePricebooks).filter(function (item) {
             return item.countryCode === selectedCountry;
         });
-        if (!empty(overrideCountries)) {
-            // eslint-disable-line no-undef
+        if (!empty(overrideCountries)) { // eslint-disable-line no-undef
             if ((!request.httpCookies['esw.location'] && selectedCurrency) || (request.httpCookies['esw.location'] && selectedCountry === request.httpCookies['esw.location'].value)) {
                 overrideCountry = overrideCountries.filter(function (item) {
                     return item.currencyCode === selectedCurrency;
@@ -123,7 +121,7 @@ eswHelper.getMatchingLineItem = function (lineItem) {
     var matchingLineItem;
     if (currentBasket != null) {
         matchingLineItem = collections.find(currentBasket.productLineItems, function (item) {
-                return item.productID === lineItem.id && item.UUID === lineItem.UUID;
+            return item.productID === lineItem.id && item.UUID === lineItem.UUID;
             }
         );
     }
@@ -138,7 +136,7 @@ eswHelper.getMatchingLineItemWithID = function (lineItemID, lineItemUUID) {
     var matchingLineItem;
     if (currentBasket != null) {
         matchingLineItem = collections.find(currentBasket.productLineItems, function (item) {
-                return item.productID === lineItemID && item.UUID === lineItemUUID;
+            return item.productID === lineItemID && item.UUID === lineItemUUID;
             }
         );
     }
@@ -181,5 +179,5 @@ eswHelper.rebuildCart = function () {
 module.exports = {
     getEswHelper: function () {
         return eswHelper;
-    },
+    }
 };
