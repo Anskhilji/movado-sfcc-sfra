@@ -3,19 +3,19 @@
  * Helper script to get all ESW site preferences
  **/
 
-var eswHelper = require("*/cartridge/scripts/helper/eswCoreHelper").getEswHelper;
-var Transaction = require("dw/system/Transaction");
-var logger = require("dw/system/Logger");
-var formatMoney = require("dw/util/StringUtils").formatMoney;
-var collections = require("*/cartridge/scripts/util/collections");
+var eswHelper = require('*/cartridge/scripts/helper/eswCoreHelper').getEswHelper;
+var Transaction = require('dw/system/Transaction');
+var logger = require('dw/system/Logger');
+var formatMoney = require('dw/util/StringUtils').formatMoney;
+var collections = require('*/cartridge/scripts/util/collections');
 
 /*
  * Function that is used to set the pricebook and update session currency
  */
 eswHelper.setBaseCurrencyPriceBook = function (req, currencyCode) {
-    var Currency = require("dw/util/Currency");
-    var BasketMgr = require("dw/order/BasketMgr");
-    var HookMgr = require("dw/system/HookMgr");
+    var Currency = require('dw/util/Currency');
+    var BasketMgr = require('dw/order/BasketMgr');
+    var HookMgr = require('dw/system/HookMgr');
     var currentBasket = BasketMgr.getCurrentOrNewBasket();
     var currency = Currency.getCurrency(currencyCode);
 
@@ -23,7 +23,7 @@ eswHelper.setBaseCurrencyPriceBook = function (req, currencyCode) {
         req.session.setCurrency(currency);
         // if (!empty(currentBasket.productLineItems)) {
         currentBasket.updateCurrency();
-        HookMgr.callHook("dw.order.calculate", "calculate", currentBasket);
+        HookMgr.callHook('dw.order.calculate', 'calculate', currentBasket);
         //  }
     });
 };
@@ -31,13 +31,13 @@ eswHelper.setBaseCurrencyPriceBook = function (req, currencyCode) {
  * Function is used to set default currency locale from given country
  */
 eswHelper.setDefaultCurrencyLocal = function (req, foundCountry) {
-    var Site = require("dw/system/Site");
+    var Site = require('dw/system/Site');
     if (empty(foundCountry)) {
         // eslint-disable-line no-undef
         eswHelper.setAllAvailablePriceBooks();
         eswHelper.setBaseCurrencyPriceBook(req, eswHelper.getBaseCurrencyPreference());
-        eswHelper.createCookie("esw.currency", session.getCurrency(), "/");
-        eswHelper.createCookie("esw.LanguageIsoCode", Site.getCurrent().getDefaultLocale(), "/");
+        eswHelper.createCookie('esw.currency', session.getCurrency(), '/');
+        eswHelper.createCookie('esw.LanguageIsoCode', Site.getCurrent().getDefaultLocale(), '/');
         req.setLocale(Site.getCurrent().getDefaultLocale());
         var language = Site.getCurrent().getDefaultLocale();
         return language;
@@ -57,11 +57,7 @@ eswHelper.getOverrideCountry = function (selectedCountry, selectedCurrency) {
         });
         if (!empty(overrideCountries)) {
             // eslint-disable-line no-undef
-            if (
-                (!request.httpCookies["esw.location"] && selectedCurrency) ||
-                (request.httpCookies["esw.location"] &&
-                    selectedCountry === request.httpCookies["esw.location"].value)
-            ) {
+            if ((!request.httpCookies['esw.location'] && selectedCurrency) || (request.httpCookies['esw.location'] && selectedCountry === request.httpCookies['esw.location'].value)) {
                 overrideCountry = overrideCountries.filter(function (item) {
                     return item.currencyCode === selectedCurrency;
                 });
@@ -70,10 +66,7 @@ eswHelper.getOverrideCountry = function (selectedCountry, selectedCurrency) {
                 }
             } else {
                 overrideCountry.push(overrideCountries[0]);
-                if (
-                    request.httpCookies["esw.currency"] &&
-                    selectedCurrency !== request.httpCookies["esw.currency"].value
-                ) {
+                if (request.httpCookies['esw.currency'] && selectedCurrency !== request.httpCookies['esw.currency'].value) {
                     overrideCountry = overrideCountries.filter(function (item) {
                         return item.currencyCode === selectedCurrency;
                     });
@@ -87,12 +80,9 @@ eswHelper.getOverrideCountry = function (selectedCountry, selectedCurrency) {
  * Function to apply pricebook if country is override country
  */
 eswHelper.overridePrice = function (req, selectedCountry, selectedCurrency) {
-    var PriceBookMgr = require("dw/catalog/PriceBookMgr");
+    var PriceBookMgr = require('dw/catalog/PriceBookMgr');
     var arrPricebooks = [];
-    var overrideCountry = this.getOverrideCountry(
-        selectedCountry,
-        selectedCurrency
-    );
+    var overrideCountry = this.getOverrideCountry(selectedCountry, selectedCurrency);
 
     if (!empty(overrideCountry) && overrideCountry[0].priceBooks != null) {
         overrideCountry[0].priceBooks.map(function (pricebookId) {
@@ -100,30 +90,13 @@ eswHelper.overridePrice = function (req, selectedCountry, selectedCurrency) {
         });
         try {
             PriceBookMgr.setApplicablePriceBooks(arrPricebooks);
-            if (
-                overrideCountry[0].currencyCode !== null &&
-                overrideCountry[0].currencyCode !== this.getBaseCurrency()
-            ) {
-                eswHelper.setBaseCurrencyPriceBook(
-                    req,
-                    overrideCountry[0].currencyCode
-                );
+            if (overrideCountry[0].currencyCode !== null && overrideCountry[0].currencyCode !== this.getBaseCurrency()) {
+                eswHelper.setBaseCurrencyPriceBook(req, overrideCountry[0].currencyCode);
             }
-            if (
-                request.httpCookies["esw.currency"] === null ||
-                typeof request.httpCookies["esw.currency"] == "undefined"
-            ) {
-                eswHelper.selectCountry(
-                    selectedCountry,
-                    overrideCountry[0].currencyCode,
-                    req.locale.id
-                );
+            if (request.httpCookies['esw.currency'] === null || typeof request.httpCookies['esw.currency'] == 'undefined') {
+                eswHelper.selectCountry(selectedCountry, overrideCountry[0].currencyCode, req.locale.id);
             } else {
-                eswHelper.selectCountry(
-                    selectedCountry,
-                    request.httpCookies["esw.currency"].value,
-                    req.locale.id
-                );
+                eswHelper.selectCountry(selectedCountry, request.httpCookies['esw.currency'].value, req.locale.id);
             }
         } catch (e) {
             logger.error(e.message + e.stack);
@@ -138,20 +111,8 @@ eswHelper.overridePrice = function (req, selectedCountry, selectedCurrency) {
  * Function is used to get Order total including shipping cost
  */
 eswHelper.getOrderTotalWithShippingCost = function () {
-    var BasketMgr = require("dw/order/BasketMgr");
-    return formatMoney(
-        new dw.value.Money(
-            eswHelper.getFinalOrderTotalsObject().value +
-            eswHelper.getMoneyObject(
-                BasketMgr.currentBasket.shippingTotalPrice,
-                true,
-                false,
-                false
-            ).value -
-            eswHelper.getShippingDiscount(BasketMgr.currentBasket),
-            request.httpCookies["esw.currency"].value
-        )
-    );
+    var BasketMgr = require('dw/order/BasketMgr');
+    return formatMoney(new dw.value.Money(eswHelper.getFinalOrderTotalsObject().value + eswHelper.getMoneyObject(BasketMgr.currentBasket.shippingTotalPrice, true, false, false).value - eswHelper.getShippingDiscount(BasketMgr.currentBasket), request.httpCookies['esw.currency'].value));
 };
 
 /*
@@ -161,9 +122,7 @@ eswHelper.getMatchingLineItem = function (lineItem) {
     var currentBasket = dw.order.BasketMgr.getCurrentBasket();
     var matchingLineItem;
     if (currentBasket != null) {
-        matchingLineItem = collections.find(
-            currentBasket.productLineItems,
-            function (item) {
+        matchingLineItem = collections.find(currentBasket.productLineItems, function (item) {
                 return item.productID === lineItem.id && item.UUID === lineItem.UUID;
             }
         );
@@ -178,9 +137,7 @@ eswHelper.getMatchingLineItemWithID = function (lineItemID, lineItemUUID) {
     var currentBasket = dw.order.BasketMgr.getCurrentBasket();
     var matchingLineItem;
     if (currentBasket != null) {
-        matchingLineItem = collections.find(
-            currentBasket.productLineItems,
-            function (item) {
+        matchingLineItem = collections.find(currentBasket.productLineItems, function (item) {
                 return item.productID === lineItemID && item.UUID === lineItemUUID;
             }
         );
@@ -195,11 +152,7 @@ eswHelper.getMatchingLineItemWithID = function (lineItemID, lineItemUUID) {
  */
 eswHelper.isProductRestricted = function (prdCustomAttr) {
     var currCountry = this.getAvailableCountry();
-    var restrictedCountries =
-        "eswProductRestrictedCountries" in prdCustomAttr &&
-            !!prdCustomAttr.eswProductRestrictedCountries
-            ? prdCustomAttr.eswProductRestrictedCountries
-            : null;
+    var restrictedCountries = 'eswProductRestrictedCountries' in prdCustomAttr && !!prdCustomAttr.eswProductRestrictedCountries ? prdCustomAttr.eswProductRestrictedCountries : null;
     if (!empty(restrictedCountries)) {
         for (var con in restrictedCountries) {
             if (restrictedCountries[con] == currCountry) {
@@ -215,12 +168,9 @@ eswHelper.isProductRestricted = function (prdCustomAttr) {
  * @param {boolean} isCart - true/ false
  */
 eswHelper.rebuildCart = function () {
-    var eswServiceHelper = require("*/cartridge/scripts/helper/serviceHelper");
+    var eswServiceHelper = require('*/cartridge/scripts/helper/serviceHelper');
     // ESW fail order if order no is set in session
-    if (
-        eswHelper.getEShopWorldModuleEnabled() &&
-        eswHelper.isESWSupportedCountry()
-    ) {
+    if (eswHelper.getEShopWorldModuleEnabled() && eswHelper.isESWSupportedCountry()) {
         if (session.privacy.eswfail || !empty(session.privacy.orderNo)) {
             // eslint-disable-line no-undef
             eswServiceHelper.failOrder();
