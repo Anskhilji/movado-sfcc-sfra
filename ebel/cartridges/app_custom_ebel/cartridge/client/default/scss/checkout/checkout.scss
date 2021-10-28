@@ -659,11 +659,11 @@ header {
 .checkout-label-custom {
     @include media-breakpoint-up(xl) {
         max-width: rem(908);
-            margin: 0 auto;
-            width: rem(908);
-            padding-left: rem(15);
+        margin: 0 auto;
+        width: rem(908);
+        padding-left: rem(15);
     }
-
+    
     h5 {
         @include media-breakpoint-up(xl) {
             margin-bottom: rem(0);
