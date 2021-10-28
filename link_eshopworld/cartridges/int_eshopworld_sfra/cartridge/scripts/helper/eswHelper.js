@@ -122,7 +122,7 @@ eswHelper.getMatchingLineItem = function (lineItem) {
     if (currentBasket != null) {
         matchingLineItem = collections.find(currentBasket.productLineItems, function (item) {
             return item.productID === lineItem.id && item.UUID === lineItem.UUID;
-            });
+        });
     }
     return matchingLineItem;
 };
@@ -136,7 +136,7 @@ eswHelper.getMatchingLineItemWithID = function (lineItemID, lineItemUUID) {
     if (currentBasket != null) {
         matchingLineItem = collections.find(currentBasket.productLineItems, function (item) {
             return item.productID === lineItemID && item.UUID === lineItemUUID;
-            });
+        });
     }
     return matchingLineItem;
 };
