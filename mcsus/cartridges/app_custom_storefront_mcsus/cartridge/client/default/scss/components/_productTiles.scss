@@ -74,6 +74,12 @@
           }
         }
 
+        .yotpo-display-wrapper {
+          .yotpo-bottomline {
+            margin-bottom: rem(10);   
+          }
+        }
+        
     }
 
     .image-container {
@@ -108,8 +114,3 @@
     }
 }
 
-.yotpo-display-wrapper {
-  .yotpo-bottomline {
-    margin-bottom: rem(10);   
-  }
-}
