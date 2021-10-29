@@ -24,7 +24,6 @@
         }
 
         .price {
-          height: rem(25);
           margin-bottom: rem(10);
           width: 100%;
           @include media-breakpoint-down(sm) {
@@ -74,10 +73,7 @@
 
           }
         }
-        .star-rating-inner {  
-          margin-bottom: rem(10);
-          height: rem(25);
-        }
+
     }
 
     .image-container {
@@ -110,4 +106,10 @@
     .exclusive-product {
         font-size: rem(12);
     }
+}
+
+.yotpo-display-wrapper {
+  .yotpo-bottomline {
+    margin-bottom: rem(10);   
+  }
 }
