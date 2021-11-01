@@ -83,7 +83,7 @@ function addContracts(clydeSku, clydePrice, cart, productId, productLineItems, q
 
         var priceNumber = Number(clydePrice);
         var totalPrice = priceNumber * quantity;
-        var contractDisplayName = clydeWarrantyMessage + ProductMgr.getProduct(productId).name;
+        var contractDisplayName = clydeWarrantyMessage + " " + ProductMgr.getProduct(productId).name;
         var currentClydeProduct;
         var totalQuantity;
 
