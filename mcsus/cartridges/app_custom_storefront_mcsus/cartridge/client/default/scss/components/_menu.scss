@@ -11,6 +11,21 @@
     }
 }
 
+.modal-background {
+
+    &.popup-modal {
+        @include media-breakpoint-down(md) {
+            position: fixed;
+            left: calc(#{$width} - #{$marginLeftlg});
+        }
+  
+        @include media-breakpoint-down(sm) {
+            position: fixed;
+            left: calc(#{$width} - #{$spaceLeft});
+        }
+    }
+}
+
 .main-menu {
     .nav-item {
         .nav-link {
