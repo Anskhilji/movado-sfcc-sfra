@@ -17,3 +17,10 @@ $('body').on('click', function (e) {
     $(".search-recomendation").fadeOut();
     $(".search-field").css('border-radius', '3px');
 });
+$('.navbar-nav').on('click', '.close-button', function (e) {
+    $('.modal-background').removeClass('popup-modal');
+    
+  });
+  $('.navbar-toggler').click(function (e) {
+    $('.modal-background').addClass('popup-modal');
+  });
