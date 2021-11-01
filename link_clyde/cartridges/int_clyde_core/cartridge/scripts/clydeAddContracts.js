@@ -58,6 +58,7 @@ function addContracts(clydeSku, clydePrice, cart, productId, productLineItems, q
         var contractProductListObj = [];
         var parsedValue;
         var contractProductList = cart.custom.clydeContractProductList ? cart.custom.clydeContractProductList : '';
+        var clydeWarrantyMessage = !empty(dw.system.Site.current.preferences.custom.clydeWarrantyMessage) ? dw.system.Site.current.preferences.custom.clydeWarrantyMessage : '';
         var clydeQuantity = 1;
         var clydeTotalPrice = 0;
         var isExistingContract = false;
@@ -82,8 +83,7 @@ function addContracts(clydeSku, clydePrice, cart, productId, productLineItems, q
 
         var priceNumber = Number(clydePrice);
         var totalPrice = priceNumber * quantity;
-        var warrantyPeriod = clydeSku.substring(clydeSku.length - 2);
-        var contractDisplayName = warrantyPeriod + ' warranty for: ' + ProductMgr.getProduct(productId).name;
+        var contractDisplayName = clydeWarrantyMessage + ProductMgr.getProduct(productId).name;
         var currentClydeProduct;
         var totalQuantity;
 
