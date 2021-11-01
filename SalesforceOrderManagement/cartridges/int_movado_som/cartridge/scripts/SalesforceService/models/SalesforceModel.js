@@ -106,6 +106,12 @@ var SalesforceModel = ({
             requestMethod: 'GET'
         });
     },
+    createWarrantyCancellationRequest: function (isOrderCancelled, foParentItemIds, orderSummaryId) {
+        return SalesforceModel.createSalesforceRestRequest({
+            url: SalesforceFactory.ENDPOINTS.WARRANTYCANCELLATION + '?isOrderCancelled=' + isOrderCancelled + '&foParentItemIds=' + foParentItemIds + '&orderSummaryId=' + orderSummaryId,
+            requestMethod: 'GET'
+        });
+    },
     buildCompositeFulfillmentOrderUpdateRequest: function (req) {
         var requestData = {
             url: SalesforceFactory.ENDPOINTS.FULFILLMENTORDER + '/' + req.fulfillmentOrderId,

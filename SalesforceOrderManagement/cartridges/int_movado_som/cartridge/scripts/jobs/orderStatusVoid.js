@@ -28,6 +28,16 @@ function processStatusVoid(SAPOrderStatus, fulfillmentOrder) {
     // Determine if this is an eShopWorld Order
     var isESWOrder = (fulfillmentOrderRecord.OrderSummary.eswOrderNo__c && fulfillmentOrderRecord.OrderSummary.eswOrderNo__c !== '');
 
+        // Count total number of warranties remaining on order
+        var qtyWarranty = 0;
+        var qtyWarrantyCancelled = 0;
+        var warrantyParentIdList = [];
+        fulfillmentOrderLineItems.forEach(function (foLineItem) {
+            if (foLineItem.OrderItemSummary.WarrantyChildOrderItemSummary__r != null) {
+                qtyWarranty += foLineItem.OrderItemSummary.WarrantyChildOrderItemSummary__r.Quantity;
+            }
+        });
+
     // Find a Delivery Charge in the fulfillment order line items
     var foShippingLineItem = _.find(fulfillmentOrderLineItems, function (r) {
         return r.Type.toUpperCase() === 'DELIVERY CHARGE';
@@ -93,6 +103,10 @@ function processStatusVoid(SAPOrderStatus, fulfillmentOrder) {
                         quantity: warrantyCancelQuantity
                     })
                 );
+
+                // Increment the counter of cancelled warranties
+                qtyWarrantyCancelled += warrantyCancelQuantity;
+                warrantyParentIdList.push(foLineItem.Id);
             }
 
             // Cancel the original order line summary.
@@ -173,7 +187,6 @@ function processStatusVoid(SAPOrderStatus, fulfillmentOrder) {
                 Logger.error('orderStatusVoid - error sending cancellation email: ' + JSON.stringify(cancellationEmailRequest));
             }
         }
-
     }
 
     // Platform event to trigger Fulfillment order status change process and flow
@@ -196,6 +209,19 @@ function processStatusVoid(SAPOrderStatus, fulfillmentOrder) {
             statusDescription: SAPOrderStatus.EcommerceOrderStatusHeader.TransactionType + '/' + SAPOrderStatus.EcommerceOrderStatusHeader.EventType
         })
     );
+
+        // Add Warranty Cancellations if applicable
+        if (warrantyParentIdList.length > 0) {
+            var isOrderCancelled = qtyWarrantyCancelled >= qtyWarranty;
+            var cancelWarrantiesResponse = SalesforceModel.createWarrantyCancellationRequest(
+                isOrderCancelled,
+                warrantyParentIdList.join(),
+                orderSummaryId
+            );
+            if (!cancelWarrantiesResponse.ok || !cancelWarrantiesResponse.object || !cancelWarrantiesResponse.object.success) {
+                return new Status(Status.ERROR, 'ERROR', 'processStatusVoid - Unable to perform warranty cancellation. PONumber:' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber + ',apistatus:' + cancelWarrantiesResponse.status + ',errorMessage:' + cancelWarrantiesResponse.errorMessage);
+            }
+        }
 
     // Send the composite request
     var platformEventResponse = SalesforceModel.createSalesforceCompositeRequest(true, requestPlatformEvent);
