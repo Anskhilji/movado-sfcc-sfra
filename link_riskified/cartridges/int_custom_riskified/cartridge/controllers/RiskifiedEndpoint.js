@@ -17,6 +17,7 @@ var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger')
 var RCLogger = require('*/cartridge/scripts/riskified/util/RCLogger');
 var RCUtilities = require('*/cartridge/scripts/riskified/util/RCUtilities');
 var riskifiedResponseResult = require('*/cartridge/scripts/riskified/RiskifiedParseResponseResult');
+var decisionNotification = require('*/cartridge/scripts/helper/decisionNotification');
 
 
 
@@ -45,12 +46,19 @@ server.prepend('AnalysisNotificationEndpoint', function (req, res, next) {
     }
 
     if (order && !order.custom.isOrderCompleted) {
-        checkoutLogger.info('(RiskifiedParseResponseResult) ->  Order is not completed yet therefore holding riskified to update status and order number is: ' + order.orderNo);
-        res.setStatusCode(400);
-        res.render('riskified/riskifiedorderanalysisresponse', {
-            AnalysisUpdateError:true,
-            AnalysisErrorMessage: 'Order is not placed yet: ' + orderId
-        });
+        checkoutLogger.info('(RiskifiedParseResponseResult) ->  Order is not completed yet therefore saving response in custom object and order number is: ' + order.orderNo);
+        // res.setStatusCode(400);
+        var response = decisionNotification.saveDecisionNotification(orderId, body);
+        if (response) {
+            res.render('riskified/riskifiedorderanalysisresponse', {
+                AnalysisUpdateError:false
+            });
+        } else {
+            res.render('riskified/riskifiedorderanalysisresponse', {
+                AnalysisUpdateError:true,
+                AnalysisErrorMessage: 'Order is not placed yet: ' + orderId
+            });
+        }
         this.emit('route:Complete', req, res);
         return;
     }

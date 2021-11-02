@@ -1,10 +1,18 @@
 <isif condition="${pdict.name === null}">
   <li class="nav-item d-lg-none" role="menuitem">
     <a href="${URLUtils.https('Login-Show')}" class="nav-link">
-      <i class="fa fa-sign-in" aria-hidden="true"></i>
+      <i class="login-icon" aria-hidden="true"></i>
       <span class="user-message">${Resource.msg('link.header.login', 'account', null)}</span>
     </a>
   </li>
+
+  <li class="nav-item my-stores d-lg-none" role="menuitem">
+    <a href="${URLUtils.https('Stores-Find')}" class="nav-link">
+      <i class="fa stores-icon" aria-hidden="true"></i>
+      <span class="user-message">${Resource.msg('link.header.stores', 'account', null)}</span>
+    </a>
+  </li>
+
 <iselse/>
   <iscomment> Custom: Change [just added mcs-account-name class in following li tag] </iscomment>
   <li class="nav-item d-lg-none dropdown mcs-account-name" role="menuitem">
@@ -24,10 +32,18 @@
       </li>
       <li class="dropdown-item logout-login" role="menuitem">
         <a href="${URLUtils.url('Login-Logout')}" class="dropdown-link" role="button">
-          <i class="fa fa-sign-in" aria-hidden="true"></i>
+          <i class="login-icon" aria-hidden="true"></i>
           ${Resource.msg('link.header.logout', 'account', null)}
         </a>
       </li>
     </ul>
   </li>
+
+  <li class="nav-item my-stores d-lg-none" role="menuitem">
+    <a href="${URLUtils.https('Stores-Find')}" class="nav-link">
+      <i class="fa stores-icon" aria-hidden="true"></i>
+      <span class="user-message">${Resource.msg('link.header.stores', 'account', null)}</span>
+    </a>
+  </li>
+
 </isif>

@@ -1,5 +1,6 @@
 <isdecorate template="common/layout/checkout">
     <isset name="sitePreferences" value="${require('dw/system/Site').getCurrent().getPreferences().getCustom()}" scope="page" />
+    <isset name="enableAutoComplete" value="${!empty(dw.system.Site.current.preferences.custom.enableAutoComplete) ? dw.system.Site.current.preferences.custom.enableAutoComplete : false}" scope="page" />
 
     <!----------------------------------------------------------------------------------->
     <!-- Load Static Assets -->
