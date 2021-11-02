@@ -36,6 +36,32 @@ function isIE() {
     return is_ie; 
 }
 
+function giftMessageTooltip() {
+    $('body').on('click','.gift-messages-tooltip', function() {
+        $('.custom-tooltipsmart').show();
+    });
+    
+    $('body').on('click','.gift-messages-model-close', function() {
+        $('.custom-tooltipsmart').hide();
+    });
+}
+
+function checkGiftBoxItem() {
+    $('body').on('click', '.gift-messages-chekbox', function () {
+        if (this.checked) {
+            $('.fullcart-button-wrapper').css('display','flex');
+            $('.checkout-button-wrapper').hide();
+            $('.shipping-express-checkout').hide();
+
+        } else {
+            $('.fullcart-button-wrapper').hide();
+            $('.checkout-button-wrapper').show();
+            $('.shipping-express-checkout').show();
+
+        }
+    });
+}
+
 module.exports = function () {
     $cart();
 
@@ -141,25 +167,39 @@ module.exports = function () {
             if ($(window).width() <= 480 && colSize == 4) {
                 $('.checkout-btn-adjustment').removeClass('col-12 col-6 col-4');
                 $('.checkout-btn-adjustment').addClass('col-6');
-                $('.apple-btn-adjustment').addClass('col-6');
-                $('.paypal-mini-button').addClass('col-12');
-                $('.apple-btn-adjustment').addClass('pl-0');
-                if(applePayLength == 1){
-                    $('.shipping-paypal-btn img').css('height', '19px')
+                if(applePayLength == 0){
+                    $('.apple-btn-adjustment').addClass('col-6');
+                    $('.apple-btn-adjustment').addClass('pl-0');
                 }
+                $('.paypal-mini-button').addClass('col-12');
+                if(applePayLength == 1){
+                    $('.shipping-paypal-btn img').css('height', '19px');
+                    $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "28.5px","vertical-align":"middle" });
+                    $(".gpay-button-fill > .gpay-button.white, .gpay-button-fill > .gpay-button.black").css({"padding":"6px 15% 6px","margin-left":"-8px"});
+               }
                 $('.dw-apple-pay-button').css({ "margin-left": "0", "height": "20px" });
             } else if(colSize == 4){
-                $('.dw-apple-pay-button').css("height", "34px");
-                $('.shipping-paypal-btn img').css('height', '24px');
+                $('.dw-apple-pay-button').css("height", "31px");
+                if(applePayLength == 0){
+                    $('.shipping-paypal-btn img').css('height', '22.2px');
+                }else{
+                    $('.shipping-paypal-btn img').css('height', '19px');
+                }
+                
+                $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "29px","vertical-align":"middle" });
+                $(".gpay-button-fill > .gpay-button.white, .gpay-button-fill > .gpay-button.black").css({"padding":"8px 15% 8px"});
             }else if (colSize == 6 && $(window).width() <= 742) {
                 $('.shipping-paypal-btn img').css('height', '18px');
+                $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "20px" });
             }else if (colSize == 6 && $(window).width() >= 1920 && isIE()){
                 $('.shipping-paypal-btn img').css('height', '19px');
             }
-            else if(colSize == 6 && applePayLength == 0){
+            else if (colSize == 6 && applePayLength == 0){
                 $('.shipping-paypal-btn img').css('height', '30px');
-            }else if(colSize == 6) {
+                $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "30px" });
+            }else if (colSize == 6) {
                 $('.shipping-paypal-btn img').css('height', '24px');
+                $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "24px" });
             }
             if (tries >= 10) {
                 clearInterval(interval);
@@ -175,6 +215,8 @@ module.exports = function () {
                 $('#footer-overlay').addClass('footer-form-overlay');
                 $('.mobile-cart-icon').hide();
                 $('.mobile-cart-close-icon').show();
+                giftMessageTooltip();
+                checkGiftBoxItem();
                 return;
             }
             $.get($url, function (data) {
@@ -183,6 +225,8 @@ module.exports = function () {
                 $('.mini-cart-data .popover').append(data);
                 $('#footer-overlay').addClass('footer-form-overlay');
                 setMiniCartProductSummaryHeight();
+                giftMessageTooltip();
+                checkGiftBoxItem();
                 $('.mini-cart-data .popover').addClass('show');
                 $('body').trigger('miniCart:recommendations');
                 $('.mobile-cart-icon').hide();
@@ -196,10 +240,14 @@ module.exports = function () {
                 $('#footer-overlay').addClass('footer-form-overlay');
                 $('.mobile-cart-icon').hide();
                 $('.mobile-cart-close-icon').show();
+                giftMessageTooltip();
+                checkGiftBoxItem();
                 return;
             }
             $.get($url, function (data) {
                 updateMiniCart = false;
+                giftMessageTooltip();
+                checkGiftBoxItem();
                 $('.mini-cart-data .popover').empty();
                 $('.mini-cart-data .popover').append(data);
                 $('#footer-overlay').addClass('footer-form-overlay');
@@ -221,6 +269,8 @@ module.exports = function () {
                 $('.mini-cart-data .popover').append(data);
                 $('#footer-overlay').addClass('footer-form-overlay');
                 setMiniCartProductSummaryHeight();
+                giftMessageTooltip();
+                checkGiftBoxItem();
                 $('.mini-cart-data .popover').addClass('show');
                 $('body').trigger('miniCart:recommendations');
                 $('.mobile-cart-icon').hide();

@@ -185,6 +185,7 @@ module.exports = function () {
     });
 
     $('.navbar-toggler').click(function (e) {
+        $('.lazy-load').removeClass('d-none');
         e.preventDefault();
         $('.main-menu').toggleClass('in');
         $('.modal-background').show();

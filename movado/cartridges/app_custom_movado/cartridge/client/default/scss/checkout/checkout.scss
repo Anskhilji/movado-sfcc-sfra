@@ -488,6 +488,13 @@ header {
                 letter-spacing: rem(1);
             }
         }
+
+        .align-start-box {
+            @include media-breakpoint-up(xl) {
+                justify-content: flex-start;
+                max-width: 100%;
+            }
+        }
     }
 }
 
@@ -683,20 +690,49 @@ header {
     }
 }
 
-header {
-    .checkout-header-wrapper {
-        .align-start-box {
-            @include media-breakpoint-up(xl) {
-                justify-content: flex-start;
-                max-width: 100%;
-            }
-        }
-    }
-}
-
 .mini-cart-wrapper {
     @include media-breakpoint-up(xl) {
         position: absolute;
         right: rem(92);
+    }
+}
+
+// Google Autocomplete Address Style -------------------------------
+.pac-container {
+
+    border: 1px solid $black;
+    border-radius: rem(3);
+
+    &::after {
+        background-image: none !important;
+        height: rem(0);
+    }
+
+    .pac-item {
+        color: $google-grey1;
+        font-family: $font-medium;
+        font-size: rem(13);
+        font-weight: 500;
+        letter-spacing: rem(0.7);
+        line-height: rem(24);
+        
+        .pac-item-query {
+            color: $google-grey1;
+            font-family: $font-medium;
+            font-size: rem(13);
+            font-weight: 500;
+            letter-spacing: rem(0.7);
+            line-height: rem(24);
+        }
+    }
+
+    .pac-item:nth-child(even) {
+        background-color: $white !important;
+        height: rem(45) !important;
+    }
+
+    .pac-item:nth-child(odd) {
+        background-color: $google-white1 !important;
+        height: rem(45) !important;
     }
 }

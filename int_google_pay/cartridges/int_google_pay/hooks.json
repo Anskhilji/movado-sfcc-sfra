@@ -1,0 +1,8 @@
+{
+	"hooks": [
+		{
+			"name": "app.payment.adyen.googlePay",
+			"script": "./cartridge/scripts/hooks/payment/adyenGooglePayCheckout"
+		}
+	]
+}
