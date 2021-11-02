@@ -38,7 +38,14 @@ module.exports = function () {
     $(window).on('resize load',function () {
         var height = $(window).height()-212;
 
+        var screenSize = $(window).width();
+        var mobileScreenSize = 991;
+
         $('.mobile-menu .tab-content-submenu ul').height(height);
+
+        if (screenSize <= mobileScreenSize) {
+            $('.menu-right-aside').remove();
+        }
     });
 
     
@@ -54,11 +61,4 @@ module.exports = function () {
             $('.'+tab_id).addClass('current');
         });
     });
-
-
-    
-    
-    
 };
-
-

@@ -1259,9 +1259,13 @@
         }
 
         @include media-breakpoint-up(md-down) {
-            position: static;
+            position: relative;
             padding: 0 rem(15);
-            margin-bottom: 0;
+            margin-bottom: rem(35);
+        }
+
+        @include media-breakpoint-up(xl) {
+            margin-bottom: rem(-5);
         }
     
         .content {
@@ -2974,5 +2978,11 @@
             padding-top: rem(20);
             padding-bottom: rem(16);
         }
+    }
+}
+
+.google-pay-container {
+    .gpay-button {
+        padding: rem(8) 15% !important;
     }
 }

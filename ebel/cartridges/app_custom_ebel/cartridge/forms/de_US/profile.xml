@@ -27,18 +27,18 @@
 		
 		<field formid="birthmonth" label="label.profile.dateOfBirth"  type="string" mandatory="false" binding="profile.custom.birthmonth" max-length="10" value-error="error.message.invalid.birthdate">
 			<options>
-				<option optionid="01" value="January" label="January"/>
-				<option optionid="02" value="February" label="February"/>
-				<option optionid="03" value="March" label="March"/>
+				<option optionid="01" value="January" label="Januar"/>
+				<option optionid="02" value="February" label="Februar"/>
+				<option optionid="03" value="March" label="März"/>
 				<option optionid="04" value="April" label="April"/>
-				<option optionid="05" value="May" label="May"/>
-				<option optionid="06" value="June" label="June"/>
-				<option optionid="07" value="July" label="July"/>
+				<option optionid="05" value="May" label="Mai"/>
+				<option optionid="06" value="June" label="Juni"/>
+				<option optionid="07" value="July" label="Juli"/>
 				<option optionid="08" value="August" label="August"/>
 				<option optionid="09" value="September" label="September"/>
-				<option optionid="10" value="October" label="October"/>
+				<option optionid="10" value="October" label="Oktober"/>
 				<option optionid="11" value="November" label="November"/>
-				<option optionid="12" value="December" label="December"/>
+				<option optionid="12" value="December" label="Dezember"/>
 			</options>
 		</field>
 		<field formid="birthdate" label="label.profile.dateOfBirth"  type="number" mandatory="false" binding="profile.custom.birthdate" max-length="10" value-error="error.message.invalid.birthdate">

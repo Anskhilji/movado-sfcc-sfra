@@ -1,0 +1,105 @@
+@import "~movado/product/detail";
+@import "../variables";
+
+.description-and-detail {
+    .title {
+        font-family: $font-medium;
+        font-size: rem(20);
+        font-weight: 500;
+    }
+}
+
+.product-detail {
+
+    .description {
+        font-family: $font-medium;
+        font-size: rem(16);
+        font-weight: 500;
+    
+        @include media-breakpoint-down(xs) {
+            font-size: rem(14);
+        }
+    }
+
+    .promotions {
+        font-weight: 500;
+    
+        .callout {
+            font-family: $font-medium;
+            font-weight: 500;
+            font-size: rem(16);
+    
+            @include media-breakpoint-down (sm) {
+                font-size: rem(14);
+            }
+        }
+    }
+
+}
+
+.social-icons {
+    font-size: 1.875em;
+
+    @include media-breakpoint-down(md) {
+        font-size: 1.5625em;
+    }
+}
+
+
+@include media-breakpoint-up(md) {
+	.description-and-detail {
+		.title {
+			font-size: rem(26);
+			font-weight: 300;
+		}
+    }
+}
+
+@include media-breakpoint-up(lg) {
+	.description-and-detail {
+		.title {
+			font-size: rem(32);
+		}
+	}
+}
+
+
+.smartgift-btn {
+    font-weight: 600;
+}
+
+.dw-apple-pay-button.apple-pay-pdp,
+.dw-apple-pay-button.apple-pay-pdp:hover {
+    min-width: 30%;
+    @include media-breakpoint-down(lg) {
+        font-size: rem(16);
+    }
+    &:after {
+        font-size: rem(6);
+    }
+}
+
+
+.product-not-available-msg {
+
+    @include media-breakpoint-down(xs) {
+        font-size: rem(14);
+    }
+}
+
+.cta-add-to-cart {
+    .add-to-cart {
+        font-family: $font-medium;
+        font-weight: 500;
+    }
+}
+
+.affirm-as-low-as {
+    width: 100%;
+    height: rem(45);
+    font-size: rem(16);
+    font-family: $font-medium;
+    @include media-breakpoint-down(xs) {
+        font-size: rem(14);
+    }
+}
