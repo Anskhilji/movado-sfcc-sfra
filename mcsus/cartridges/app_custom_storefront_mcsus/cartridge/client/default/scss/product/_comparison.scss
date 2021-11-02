@@ -1,0 +1,54 @@
+@import "~movado/product/_comparison";
+@import "../variables";
+
+@media only screen and (min-width: 768px) {
+  // Compare Widget
+  .compare-bar-wrapper {
+
+    .clear-all {
+      font-size: rem(15);
+      font-weight: 500;
+
+    }
+  }
+
+  // Compare page
+  .product-comparison {
+    .product-tile {
+
+      .tile-body {
+        .pdp-link a {
+          font-family: $font-medium;
+          font-size: rem(16);
+          font-weight: 500;
+        }
+        .price {
+          font-size: rem(14);
+        }
+      }
+    }
+
+    tbody {
+      th,
+      td {
+        font-size: rem(14);
+      }
+
+    }
+
+  }
+
+}
+
+@include media-breakpoint-up(lg) {
+// Compare page
+  .product-comparison {
+    .product-tile {
+      .tile-body {
+        .price {
+          font-size: rem(18);
+        }
+      }
+    }
+  }
+}

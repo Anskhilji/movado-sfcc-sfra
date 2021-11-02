@@ -16,8 +16,8 @@ var Site = require('dw/system/Site');
 var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 
-function parseRiskifiedResponse(order) {
-    var body = request.httpParameterMap.requestBodyAsString;
+function parseRiskifiedResponse(order, reqBody) {
+    var body = reqBody || request.httpParameterMap.requestBodyAsString;
     var jsonObj = JSON.parse(body);
     var riskifiedOrderAnalysis = jsonObj.order.status;
     var riskifiedStatus = order.custom.riskifiedOrderAnalysis;
@@ -131,8 +131,12 @@ function parseRiskifiedResponse(order) {
                 order.setExportStatus(Order.EXPORT_STATUS_READY);
             });
         }
-        var customerLocale = order.customerLocaleID || Site.current.defaultLocale;
-        COCustomHelpers.sendOrderConfirmationEmail(order, customerLocale);
+        try {
+            var customerLocale = order.customerLocaleID || Site.current.defaultLocale;
+            COCustomHelpers.sendOrderConfirmationEmail(order, customerLocale);
+        } catch (error) {
+            checkoutLogger.error('RiskifiedParseResponseResult.js -> COCustomHelpers.sendOrderConfirmationEmail() -> throw error on sending confirmation email, Error: ' + error);
+        }
         
 
         /* Accept in OMS */

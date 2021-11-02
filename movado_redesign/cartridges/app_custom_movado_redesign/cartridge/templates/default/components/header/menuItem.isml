@@ -47,9 +47,5 @@
             <isslot id="cs_header_top_trending_recommendations" context="category" description="Recommendation slot on right of sub menu" context-object="${dw.catalog.CatalogMgr.getCategory(topCat.id)}" />
         </div>
     </div>
-    
-    
-    </isif>
-    
-    
+  </isif>
 </div>
