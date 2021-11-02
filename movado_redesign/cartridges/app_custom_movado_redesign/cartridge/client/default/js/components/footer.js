@@ -9,10 +9,10 @@ $('footer .esw-country-selector').on('click', function(){
 
 $('footer .esw-country-selector').each(function() {
     $(this).click(function() {
-      if ($(this).hasClass( 'active' )) {
-        $(this).removeClass( 'active' );
+      if ($(this).hasClass('active')) {
+        $(this).removeClass('active');
       } else {
-          $(this).addClass( 'active' );
+          $(this).addClass('active');
       }
     });
 });
