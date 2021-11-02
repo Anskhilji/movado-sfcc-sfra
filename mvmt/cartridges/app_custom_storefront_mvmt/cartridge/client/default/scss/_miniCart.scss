@@ -132,6 +132,213 @@
             }
         }
 
+        .gift-messages {
+
+            &-wrapper {
+                border-bottom: rem(1) solid $alice-blue;
+            }
+
+            &-label {
+                font-family: $font-medium;
+                font-size: rem(13);
+                text-transform: inherit;
+                padding-left: rem(15);
+                padding-right: rem(15);
+                color: $black;
+                font-style: normal;
+                font-weight: 500;
+                margin-bottom: rem(11);
+            }
+
+            &-tooltip {
+                font-family: $font-medium;
+                font-weight: 500;
+                font-size: rem(12);
+                text-transform: capitalize;
+                text-decoration: underline;
+                position: inherit;
+                top: rem(2);
+
+                &.active {
+                    &::after, &::before {
+                        display: block;
+                    }
+                }
+            }
+
+            &-wrapper {
+
+                .custom-checkbox {
+
+                    .custom-control-label {
+                        position: relative;
+                        left: rem(0);
+
+                        &::before {
+                            position: absolute;
+                            top: rem(3);
+                            left: rem(-18);
+                        }
+
+                        &::after {
+                            left: rem(-18);
+                        }
+                    }
+                }
+
+                .custom-control {
+                    padding: rem(0);
+                }
+    
+                input[type="checkbox"] {
+    
+                    &:focus {
+                        box-shadow: none;
+                        border: none;
+                        outline: none;
+                    }
+    
+                    &:checked {
+    
+                        &:focus {
+                            box-shadow: none;
+                            border: none;
+                            outline: none;
+                        }
+    
+                        + label {
+    
+                            &:focus {
+                                box-shadow: none;
+                                outline: 0;
+                            }
+    
+                            &:before {
+                                background-color: $light-green4;
+                                border-color: transparent;
+                            }
+                        }
+                    }
+    
+                    + {
+    
+                        label {
+    
+                            &:focus {
+                                box-shadow: none;
+                                outline: 0;
+                            }
+    
+                            &:before {
+                                color: $white;
+                                border: rem(2) solid $black;
+                                background-color: transparent;
+                            }
+                        }
+                    }
+                }
+            }
+
+            &-model {
+
+                .card-title {
+                    font-family: $font-medium;
+                    font-size: rem(13);
+                    font-weight: 500;
+                    color: $black;
+                    text-transform: uppercase; 
+                }
+
+                .card-text {
+                    letter-spacing: rem(0.5);
+                    font-size: rem(12);
+                    font-family: $font-book;
+                    color: $light-gray;
+                    line-height: rem(18);
+                }
+
+                .gift-messages-model-close {
+                    font-family: $font-medium;
+                    font-size: rem(13);
+                    font-weight: 500;
+                    color: $pelorous2;
+                    letter-spacing: rem(0.5);
+                }
+            }
+
+            .custom-tooltipsmart {
+                display: none;
+                position: relative;
+                background-color: $white;
+                border-radius: rem(2);
+                box-shadow: rem(1) rem(1.5) rem(4) rem(0) $gift-message-border;
+                -webkit-transform: translateX(6px);
+                        transform: translateX(6px);
+
+                &::after, &::before {
+                    right: 27%;
+                    transform: rotate(90deg);
+                    top: -9%;
+                    border: solid transparent;
+                    content: " ";
+                    z-index: 999;
+                    position: absolute;
+                    pointer-events: none;
+
+                    @include media-breakpoint-up(xs-custom) {
+                        top: -8%;
+                        right: 15%;
+                    }
+
+                    @include media-breakpoint-up(xsm) {
+                        top: -9%;
+                        right: 19%;
+                    }
+
+                    @include media-breakpoint-up(xs) {
+                        top: -9%;
+                        right: 21%;
+                    }
+
+                    @include media-breakpoint-up(sm) {
+                        top: -9%;
+                        right: 24%;
+                    }
+
+                    @include media-breakpoint-up(md-down) {
+                        top: -11%;
+                        right: 36%;
+                    }
+
+                    @include media-breakpoint-up(custom-lg) {
+                        top: -9%;
+                        right: 28%;
+                    }
+
+                }
+                    
+                &::after {
+                    border-color: $transparent-gray-1;
+                    border-right-color: $white;
+                    border-width: rem(9);
+                    margin-top: rem(-6);
+                    border-left-color: $transparent-gray-1;
+                    border-left-width: rem(12);
+                    border-right-width: rem(12);
+                }
+                    
+                &::before {
+                    border-color: $transparent-gray-1;
+                    border-right-color: $gray11;
+                    border-width: rem(9);
+                    margin-top: rem(-7);
+                    border-left-width: rem(12);
+                    border-right-width: rem(12);
+                }
+            }
+
+        }
+
         .product-summary {
             height: 100%;
             margin: 0;
@@ -798,6 +1005,10 @@
                     line-height: rem(18);
                 }
 
+                .checkout-fullcart-btn {
+                    line-height: rem(18);
+                }
+
                 .checkout-continue {
                     position: relative;
 
@@ -827,6 +1038,19 @@
                             flex-basis: 100%;
                             height: 0;
                             margin: 0 rem(8) rem(8) rem(8);
+                        }
+                    }
+                    .fullcart-button-wrapper {
+                        position: relative;
+                        display: none;
+
+                        .checkout-fullcart-btn {
+                            flex: 1;
+                            margin: 0 rem(8) rem(8) rem(8);
+                        }
+
+                        .checkout-fullcart-btn {
+                            margin-bottom: rem(10);
                         }
                     }
                     .shipping-express-checkout {
@@ -1126,6 +1350,33 @@
                 border: 0;
                 border-radius: rem(1);
                 transition: all 0.25s ease-in-out;
+
+                &:hover {
+                    background-image: linear-gradient($light-green, $light-green3);
+                    border-color: $light-green3;
+                }
+
+                &:not(:disabled):not(.disabled):active:focus, &:focus, &:hover {
+                    box-shadow: none;
+                }
+            }
+
+            .checkout-fullcart-btn, button[type="submit"] {
+                font-weight: 600;
+                margin-bottom: rem(12);
+                display: block;
+                font-size: rem(14);
+                letter-spacing: rem(2);
+                background-color: $light-green;
+                color: $white;
+                padding: rem(14) rem(5);
+                text-align: center;
+                line-height: 1;
+                border: 0;
+                border-radius: rem(1);
+                transition: all 0.25s ease-in-out;
+                margin: 0 rem(8) rem(8) rem(8);
+                
 
                 &:hover {
                     background-image: linear-gradient($light-green, $light-green3);

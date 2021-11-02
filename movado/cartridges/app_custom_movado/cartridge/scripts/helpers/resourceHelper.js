@@ -16,6 +16,9 @@ function getResources(pageContext) {
     var Resource = require('dw/web/Resource');
     var Site = require('dw/system/Site');
     var URLUtils = require('dw/web/URLUtils');
+    var ArrayList = require('dw/util/ArrayList');
+    var autoComplete = new ArrayList(Site.current.preferences.custom.autoCompleteAllowedCountries).toArray();
+    var allowedCountryCodes = new ArrayList(Site.current.preferences.custom.googlePayShippingAllowedCountryCodes).toArray();
 
     var resources = {
         KLARNA_SLICE_IT_PAYMENT_METHOD_BRAND_CODE: Resource.msg('checkout.payment.method.klarna.slice.it.brand.code', 'checkout', null),
@@ -44,7 +47,13 @@ function getResources(pageContext) {
         OPTANON_ALLOWED_COOKIE: Constants.ONE_TRUST_COOKIE_ENABLED,
         LISTRAK_ENABLED: Site.current.preferences.custom.Listrak_Cartridge_Enabled,
         RAKUTEN_REQUEST: rakutenCookiesHelper.getRakutenRequestObject(),
-        FAMILY_NAME_ENABLED: !empty(Site.current.preferences.custom.plpProductFamilyName) ? Site.current.preferences.custom.plpProductFamilyName : false
+        FAMILY_NAME_ENABLED: !empty(Site.current.preferences.custom.plpProductFamilyName) ? Site.current.preferences.custom.plpProductFamilyName : false,
+        GOOGLE_AUTO_COMPLETE_ENABLED: !empty(Site.current.preferences.custom.enableAutoComplete) ? Site.current.preferences.custom.enableAutoComplete : false,
+        GOOGLE_PAY_ENABLED: Site.current.preferences.custom.isGooglePayEnabled || false,
+        GOOGLE_PAY_MERCHANT_ACCOUNT: Site.current.preferences.custom.googlePayMerchantID,
+        GOOGLE_PAY_MERCHANT_NAME: Site.current.preferences.custom.Adyen_merchantCode,
+        GOOGLE_PAY_AUTOCOMPLETE: autoComplete,
+        GOOGLE_PAY_ALLOWED_COUNTRY_CODES: allowedCountryCodes
     };
     return resources;
 }

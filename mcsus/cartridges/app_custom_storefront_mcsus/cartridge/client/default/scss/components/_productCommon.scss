@@ -1,0 +1,155 @@
+@import "~movado/components/_productCommon";
+@import "../variables";
+
+
+.description-and-detail .attribute {
+
+    &-name {
+        font-family: $font-thin;
+        font-weight: 100;
+        font-size: rem(24);
+        @include media-breakpoint-down(xs) {
+            font-size: rem(20);
+        }
+    }
+
+    &-value {
+        font-family: $font-medium;
+        font-weight: 500;
+        font-size: rem(16);
+        @include media-breakpoint-down(xs) {
+            font-size: rem(16);
+        }
+    }
+
+}
+
+.product-detail {
+    @import "../product/imageCarousel";
+
+    .product-name {
+        font-size: rem(40);
+        font-family: $font-bold;
+        font-weight: bold;
+        @include media-breakpoint-down(xs) {
+            font-size: rem(30);
+        }
+    }
+
+    .product-number {
+        font-size: rem(16);
+        font-weight: 500;
+        font-family: $font-medium;
+
+        @include media-breakpoint-down(md) {
+            font-size: rem(14);
+        }
+    }
+
+    .exclusive-badges {
+
+        .badge {
+            font-size: rem(12);
+            font-weight: 500;
+        }
+    }
+
+    .availability-msg {
+        font-family:$font-medium;
+        font-weight: 500;
+        font-size: rem(10);
+
+        li {
+            font-family: $font-medium;
+            font-weight: 500;
+            font-size: rem(10);
+        }
+    }
+
+    .price {
+        font-family: $font-medium;
+        font-weight: 500;
+        font-size: rem(20);
+
+        @include media-breakpoint-down(xs) {
+            font-size: rem(20);
+        }
+    }
+    .add-to-wish-list {
+        font-family: $font-medium;
+        font-weight: 500;
+    }
+}
+
+.product-detail {
+    &.product-quickview {
+        @import "../product/imageCarousel";
+
+    .availability-msg {
+        font-family:$font-medium;
+        font-weight: 500;
+        font-size: rem(16);
+
+        li {
+            font-family: $font-medium;
+            font-weight: 500;
+            font-size: rem(16);
+        }
+    }
+  }
+}
+
+
+.more-styles-wrapper {
+    h3 {
+        font-size: rem(18);
+        font-weight: 500;
+    }
+}
+
+
+
+.description-and-detail {
+    [class*="collapsible-"] {
+
+        .title {
+            font-family: $font-bold;
+            font-weight: bold;
+            font-size: rem(30);
+        }
+
+        .detail-heading {
+           button {
+                @include media-breakpoint-down(xs) {
+                    line-height: rem(45);
+                } 
+           }
+        }
+    }
+}
+
+select {
+    + i.fa {
+        font-size: rem(20);
+    }
+}
+
+.affirm-as-low-as {
+    font-family: $font-medium;
+    font-weight: 500;
+    font-size:rem(16) ;
+
+    .__affirm-logo.__affirm-logo-black {
+        color: $black;
+    }
+
+    .affirm-modal-trigger {
+        display: block;
+        padding: rem(10) 0;
+        text-decoration: underline;
+    }
+
+    @include media-breakpoint-down(xs) {
+        text-align: center;
+    }
+}

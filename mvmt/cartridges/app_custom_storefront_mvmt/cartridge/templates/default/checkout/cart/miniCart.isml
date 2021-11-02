@@ -2,6 +2,8 @@
 <isset name="miniCart" value="${true}" scope="page" />
 <isset name="itemsLength" value="${empty(pdict.items.length) ? 0 : pdict.items.length}" scope="page"/>
 <isset name="orderLevelDiscountTotal" value="${pdict.totals.orderLevelDiscountTotal.value}" scope="page">
+<isset name="enableGiftMessage" value="${dw.system.Site.getCurrent().preferences.custom.enableGiftMessage}" scope="page"/>
+
 <isif condition="${!empty(pdict.reportingURLs)}">
     <isinclude template="reporting/reportingUrls" />
 </isif>
@@ -36,17 +38,38 @@
 <iselse>
     <isset name="items" value="${pdict.items}" scope="page"/>
     <isinclude template="include/yotpoheader"/>
-    <div class="minicart-error cart-error">
-        <isif condition="${pdict.valid.error}">
-            <div class="alert alert-danger alert-dismissible valid-cart-error fade show" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                ${pdict.valid.message}
-            </div>
-        </isif>
-    </div>
+        <div class="minicart-error cart-error">
+            <isif condition="${pdict.valid.error}">
+                <div class="alert alert-danger alert-dismissible valid-cart-error fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    ${pdict.valid.message}
+                </div>
+            </isif>
+        </div>
     <isslot id="cs-mincart-top-slot" description="Static text slot on Mini Cart" context="global" />
+    <isif condition="${enableGiftMessage}">
+        <div class="gift-messages">
+            <div class="row gift-messages-wrapper">
+                <div class="col-12 d-flex pr-0  justify-content-center">
+                    <div class="custom-control custom-checkbox">
+                        <input name="giftMessageCheck" class="custom-control-input gift-messages-chekbox" id="gift-messages-route" type="checkbox">
+                        <label class="checkout-checkbox custom-control-label gift-messages-label" for="gift-messages-route">${Resource.msg('label.minicart.gift.message', 'cart', null)}</label>
+                    </div>
+                    <a class="gift-messages-tooltip">${Resource.msg('label.minicart.gift.detail', 'cart', null)}</a>
+                </div>
+            </div>
+            <div class="row gift-messages-model">
+                <div class="col-12">
+                    <div class="custom-tooltipsmart">
+                        <isslot id="gift-model-content-minicart" description="gift model content" context="global" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </isif>
+
     <div class="product-summary">
         <isloop items="${items}" var="lineItem" status="loopStatus">
             <div class="row">

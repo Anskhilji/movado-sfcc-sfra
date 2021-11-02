@@ -88,7 +88,7 @@
                                 <isaffirmpromo context="pdp"
                                     fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
                             </div>
-
+                            <isinclude url="${URLUtils.https('GooglePay-RenderButton', 'googlePayEntryPoint', 'Product-Show', 'pid', product.id)}" sf-toolkit="on"/>
 	                        <isif condition="${product.options && product.options.length > 0}">
 	                            <isinclude template="product/components/options" />
 	                        </isif>
