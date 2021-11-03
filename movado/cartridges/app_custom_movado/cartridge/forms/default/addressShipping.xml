@@ -52,10 +52,10 @@
     	   parse-error="error.message.invalid"
            />
     <!--  postal code -->
-    <field formid="postalCode" label="label.input.zipcode" type="string" mandatory="true" min-length="5" max-length="10"
-           regexp="(^(?!0{5})[0-9][0-9]{4}$)|(^[abceghjklmnprstvxyABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Za-z]{1} *\d{1}[A-Za-z]{1}\d{1}$)"
+    <field formid="postalCode" label="label.input.zipcode" type="string" mandatory="true" min-length="4" max-length="10"
+           regexp="(^[a-zA-Z0-9 ]+$)"
            binding="postalCode"
-           range-error="error.message.between5and10"
+           range-error="error.message.between4and10"
            missing-error="error.message.required"
            parse-error="error.message.parse.zip"/>
 
@@ -68,12 +68,12 @@
     </field>
 
     <!-- use global state list -->
-    <include formid="states" name="addressStates" missing-error="error.message.required" parse-error="error.message.required" value-error="error.message.required"/>
+    <include formid="states" name="states" missing-error="error.message.required" parse-error="error.message.required" value-error="error.message.required"/>
 
     <!-- phone is mandatory for addresses -->
     <field formid="phone" label="label.input.phonenumber" description="address.phone.example" type="string" mandatory="true"
            binding="phone" min-length="10" max-length="20"
-           regexp="(^(?!(?=(000-000-0000|0000000000)))(\(?([0-9]{3})\)?[-]?([0-9]{3})[-]?([0-9]{4}))$)" 
+           regexp="^[0-9\\s-]+$" 
            missing-error="error.message.required"
            range-error="error.message.between10and20"
            parse-error="error.message.parse.phone"/>
