@@ -36,7 +36,7 @@
 	<div class="col-12">
 		<div class="form-group required ${creditFields.cardOwner.htmlName}">
             <label class="form-control-label" for="holderName">${Resource.msg('field.credit.card.holderName','creditCard',null)}</label>
-			<input type="text" pattern="^[a-z|A-Z]+(?: [a-z|A-Z]+)*$" class="form-control holderName" id="holderName" data-encrypted-name="holderName" ${creditFields.cardOwner.attributes}   />
+			<input type="text" pattern="^[a-z|A-Z]+(?: [a-z|A-Z]+)*$" class="form-control holderName creditcard-holdername" id="holderName" data-encrypted-name="holderName" ${creditFields.cardOwner.attributes}   />
 			<div class="invalid-feedback">${Resource.msg('error.card.holderName','creditCard',null)}</div>
 		</div>
 	</div>
@@ -58,7 +58,7 @@
 				 <span class="info-icon"> <span class="icon">i</span>
 					<div class="tooltip"> ${Resource.msg('tooltip.security.code','creditCard',null)}</div>
 				 </span>
-			 <input inputmode="numeric" type="password" onkeypress="return event.charCode >= 48 && event.charCode <= 57" class="form-control securityCode" id="securityCode" data-encrypted-name="cvc" maxlength="3">
+			 <input inputmode="numeric" type="password" class="form-control securityCode creditcard-securitycode" id="securityCode" data-encrypted-name="cvc" maxlength="3">
 			<div class="invalid-feedback security-code">${Resource.msg('error.credit.card.security.code.validate','creditCard',null)}</div>
 		</div>
 	</div>
