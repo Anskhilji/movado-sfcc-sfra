@@ -164,8 +164,10 @@ function formsValidation(currentBasket, formData) {
     // MSS-1263 Improve check in case of state code
     if (!empty(stateCode) || (empty(stateCode) && fetchFromMap(formData, 'deliveryAddress.country') == Constants.COUNTRY_GB)) {
         stateCode = false;
-        var CurrentForms = session.getForms();
-        stateCode = CurrentForms.shipping.shippingAddress.addressFields.states.stateCode;
+        var shippingForms = session.forms.shipping;
+        Transaction.wrap(function () {
+            shippingForms.shippingAddress.addressFields.states.stateCode.value = stateCode;
+        });
     } else {
         stateCode = true;
         adyenLogger.error('(adyenExpressPaypalHelper) -> formsValidation: Shipping address state is not valid and value is: ' + fetchFromMap(formData, 'deliveryAddress.stateOrProvince'));
@@ -174,8 +176,10 @@ function formsValidation(currentBasket, formData) {
     // MSS-1263 Improve check in case of state code
     if (!empty(billingAddressState) || (empty(billingAddressState) && fetchFromMap(formData, 'billingAddress.country') == Constants.COUNTRY_GB)) {
         billingAddressState = false;
-        var CurrentForms = session.getForms();
-        billingAddressState = CurrentForms.billing.addressFields.states.stateCode;
+        var billingForms = session.forms.billing;
+        Transaction.wrap(function () {
+            billingForms.addressFields.states.stateCode.value = billingAddressState;
+        });
     } else {
         billingAddressState = true;
         adyenLogger.error('(adyenExpressPaypalHelper) -> formsValidation: Billing address state is not valid and value is: ' + fetchFromMap(formData, 'billingAddress.state'));
