@@ -84,6 +84,8 @@ function isRakutenAllowedCountry() {
             }
             return isIPAddressLocationMatched;
         }
+    } else {
+        return true;
     }
 }
 

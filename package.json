@@ -121,13 +121,15 @@
     "mcsus": "./mcsus",
     "page_designer": "./page_designer",
     "oliviaburton_redesign": "./oliviaburton_redesign",
+    "googlePay": "./int_google_pay",
     "custom_backinstock": "./int_custom_backinstock",
     "link_clyde": "./link_clyde"
   },
   "jsAliases": {
     "base": "./storefront-reference-architecture/cartridges/app_storefront_base/cartridge/client/default/js",
     "mcsus": "./mcsus/cartridges/app_custom_storefront_mcsus/cartridge/client/default/js",
-    "custom_backinstock": "./int_custom_backinstock/cartridges/int_custom_backinstock/cartridge/client/default/js",
+    "googlePay": "./int_google_pay/cartridges/int_google_pay/cartridge/client/default/js",
+  	"custom_backinstock": "./int_custom_backinstock/cartridges/int_custom_backinstock/cartridge/client/default/js",
     "movado": "./movado/cartridges/app_custom_movado/cartridge/client/default/js",
     "listrak_custom": "./listrak/cartridges/int_custom_listrak/cartridge/client/default/js",
     "movado_china": "./movado_china/cartridges/app_custom_storefront_movado_china/cartridge/client/default/js",
@@ -151,6 +153,7 @@
     "bootstrap": "./node_modules/bootstrap",
     "lodash": "./node_modules/lodash",
     "jquery": "./node_modules/jquery"
+	
   },
   "scssAliases": {
     "base": "./storefront-reference-architecture/cartridges/app_storefront_base/cartridge/client/default/scss",

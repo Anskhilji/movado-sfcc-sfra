@@ -5,18 +5,18 @@
       <div class="header-menu-wrapper">
         <div class="header-wrapper checkout-header-wrapper">
 
-          <div class="header-left">
+          <div class="header-left align-start-box">
               <div class="flex checkout-logo">
                 <isslot id="brand-logo" description="Brand Logo" context="global" />
               </div>
-              <div class="checkout-text">
+              <div class="checkout-text checkout-label-custom">
                  <h5> 
                     <div class="secure-text">${Resource.msg('checkout.secure.text', 'checkout', null)} </div>
                   </h5>
               </div>
           </div>
 
-          <div class="right">
+          <div class="right mini-cart-wrapper">
             <div class="minicart" data-action-url="${URLUtils.url('Cart-MiniCartShow')}">
               <isinclude url="${URLUtils.url('Cart-MiniCart')}"/>
             </div>

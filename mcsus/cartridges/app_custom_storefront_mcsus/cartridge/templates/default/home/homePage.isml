@@ -1,0 +1,13 @@
+<isdecorate template="common/layout/page">
+    <isif condition="${dw.system.Site.current.preferences.custom.EUMEnabled}">
+        <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.home', 'eum', null))}"/>
+    </isif>
+    <div class="static-content-wrapper mcs-homepage-wrapper">
+        <isslot id="cs-homepage-slot1" description="Homepage content Slot 1." context="global" />
+        <isslot id="cs-homepage-slot2" description="Homepage content Slot 2." context="global" />
+        <isslot id="cs-homepage-slot3" description="Homepage content Slot 3." context="global" />
+        <isslot id="cs-homepage-slot4" description="Homepage content Slot 4." context="global" />
+        <isslot id="cs-homepage-slot5" description="Homepage content Slot 5." context="global" />
+        <isslot id="cs-homepage-slot6" description="Homepage content Slot 6." context="global" />
+    </div>
+</isdecorate>

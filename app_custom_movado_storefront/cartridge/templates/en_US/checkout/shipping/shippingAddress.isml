@@ -8,7 +8,6 @@
 <iselse/>
     <isset name="shippingAddress" value="${{}}" scope="page" />
 </isif>
-
 <div class="row">
     <div class="col-sm-6 field-left">
         <div class="form-group
@@ -97,7 +96,7 @@
                     <iscontentasset aid="calloutMsgAddress1"/>
                 </isif>
             </label>
-            <span><input type="text" class="form-control shippingAddressOne" id="shippingAddressOne"
+            <span><input type="text" class="form-control shippingAddressOne" id="shippingAddressOne" <isif condition="${enableAutoComplete}">placeholder="${Resource.msg('input.autocomplete.address.placeholder','forms',null)}"</isif>
                 value="${shippingAddress.address1||''}" <isprint value="${addressFields.address1.attributes}" encoding="off"/>
                 autocomplete="shipping address-line1">
                 <div class="invalid-feedback"><isprint value="${addressFields.address1.error}" ></div>
