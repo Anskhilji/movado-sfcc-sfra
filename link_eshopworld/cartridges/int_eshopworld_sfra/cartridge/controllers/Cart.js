@@ -1,8 +1,22 @@
 'use strict';
 
+/**
+ * @namespace Cart
+ */
+
 var server = require('server');
 server.extend(module.superModule);
 
+/**
+ * Cart-Show : The Cart-Show endpoint renders the cart page with the current basket
+ * @name esw/Cart-Show
+ * @function
+ * @memberof Cart
+ * @param {middleware} - server.middleware.https
+ * @param {category} - sensitive
+ * @param {renders} - isml
+ * @param {serverfunction} - get
+ */
 server.prepend(
     'Show',
     function (req, res, next) {
@@ -12,14 +26,9 @@ server.prepend(
         var BasketMgr = require('dw/order/BasketMgr');
         var Transaction = require('dw/system/Transaction');
         var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
-        var session = req.session.raw;
 
         var viewData = res.getViewData();
-        // ESW fail order if order no is set in session
         if (eswHelper.getEShopWorldModuleEnabled() && eswHelper.isESWSupportedCountry()) {
-            if (session.privacy.eswfail || (session.privacy.orderNo && !empty(session.privacy.orderNo))) { // eslint-disable-line no-undef
-                eswServiceHelper.failOrder();
-            }
             var currentBasket = BasketMgr.getCurrentBasket();
             if (currentBasket) {
                 Transaction.wrap(function () {
