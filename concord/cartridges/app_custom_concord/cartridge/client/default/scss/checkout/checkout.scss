@@ -329,6 +329,23 @@ header {
                     }
                 }
             }
+
+        }
+
+        .sticky-header-wrapper {
+            &.fixed-header {
+                .header-menu-wrapper {
+                    .header-wrapper {
+                        &.checkout-header-wrapper .header-left {                    
+                            @include media-breakpoint-up(xl) {
+                                display: flex;
+                                align-items: flex-start;
+                            }
+                        }
+                    }
+                    
+                }
+            }
         }
 
         .header-menu-wrapper {
@@ -391,7 +408,12 @@ header {
 
                             @include media-breakpoint-up(md) {
                                 width: rem(155);
-                                height: rem(70);
+                                height: rem(44);
+                            }
+
+                            @include media-breakpoint-up(lg) {
+                                width: rem(155);
+                                height: rem(25);
                             }
 
                             @include media-breakpoint-up(xl) {
@@ -450,6 +472,7 @@ header {
                                     }
                                 }
                             }
+                            
                         }
 
                         .checkout-text {
@@ -483,6 +506,7 @@ header {
                 }
             }
         }
+
     }
 
     .logo-link {
@@ -684,7 +708,7 @@ header {
                     }
                 }
             }
-        }
+        }       
     }
 }
 
@@ -694,3 +718,4 @@ header {
         right: rem(92);
     }
 }
+

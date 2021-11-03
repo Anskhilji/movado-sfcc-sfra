@@ -9,9 +9,7 @@
                 @include clearfix;
 
                 &::after {
-                    float: right;
                     content: "\f078";
-                    font-family: "FontAwesome";
                 }
             }
 

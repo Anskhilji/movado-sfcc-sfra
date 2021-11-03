@@ -513,6 +513,7 @@ header {
 
     @include media-breakpoint-up(md) {
         margin: rem(24) auto;
+        max-width: rem(940);
     }
 
     @include media-breakpoint-up(lg) {

@@ -16,7 +16,7 @@
               </div>
           </div>
 
-          <div class="right">
+          <div class="right mini-cart-wrapper">
               <div class="minicart" data-action-url="${URLUtils.url('Cart-MiniCartShow')}">
                 <isinclude url="${URLUtils.url('Cart-MiniCartCheckout')}"/>
               </div>
@@ -34,7 +34,7 @@
               </div>
           </div>
 
-          <div class="right mini-cart-wrapper">
+          <div class="right">
               <div class="minicart" data-action-url="${URLUtils.url('Cart-MiniCartShow')}">
                   <isinclude url="${URLUtils.url('Cart-MiniCartCheckout')}"/>
               </div>
