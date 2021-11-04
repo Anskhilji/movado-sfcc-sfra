@@ -65,7 +65,8 @@ function getResources(pageContext) {
         GOOGLE_PAY_MERCHANT_NAME: Site.current.preferences.custom.Adyen_merchantCode,
         GOOGLE_PAY_AUTOCOMPLETE: autoComplete,
         CART_GIFT_MESSAGE_LIMIT: !empty(Site.current.preferences.custom.cartGiftMessageLimit) ? Site.current.preferences.custom.cartGiftMessageLimit : 0,
-        GOOGLE_PAY_ALLOWED_COUNTRY_CODES: allowedCountryCodes
+        GOOGLE_PAY_ALLOWED_COUNTRY_CODES: allowedCountryCodes,
+        COUPONCODE_URL: URLUtils.url('CouponCode-Apply').toString()
     };
     return resources;
 }
