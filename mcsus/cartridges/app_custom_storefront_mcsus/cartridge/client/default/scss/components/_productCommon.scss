@@ -79,11 +79,20 @@
         font-family: $font-medium;
         font-weight: 500;
     }
+    
+    .primary-images {
+        .quickview {
+            span {              
+             color: $black;
+            }
+        }
+    }
+
 }
 
 .product-detail {
     &.product-quickview {
-        @import "../product/imageCarousel";
+        @import "../product/imageCarousel";       
 
     .availability-msg {
         font-family:$font-medium;
@@ -95,18 +104,7 @@
             font-weight: 500;
             font-size: rem(16);
         }
-    }
-    
-    .primary-images {
-        .quickview {
-            span {
-                &.fa-stack {
-                    color: $black;
-                } 
-            }
-        }
-    }
-    
+    }    
   }
 }
 
