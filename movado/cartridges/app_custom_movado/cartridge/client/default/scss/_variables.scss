@@ -122,3 +122,12 @@ $font-book : "FuturaStd-Book", Arial, sans-serif !default;
 $font-bold : "FuturaStd-Bold", Arial, sans-serif !default;
 $font-primary: $font-book;
 $font-awesome: "FontAwesome";
+
+// Larger Screen
+$lg-media: 1400px;
+
+// @mixin custom-media-query($min-width,$max-width) {
+//     @media (min-width:#{$min-width}) and (max-width:#{$max-width}) {
+//        width: 1400px;
+//     }
+// }
