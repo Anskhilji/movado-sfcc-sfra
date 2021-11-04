@@ -515,6 +515,9 @@
         @include media-breakpoint-up(md) {
           font-size: rem(15);
           margin-left: rem(12);
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
 
         @include media-breakpoint-down(sm) {
