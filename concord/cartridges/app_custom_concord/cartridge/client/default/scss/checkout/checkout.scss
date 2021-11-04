@@ -419,7 +419,7 @@ header {
                             @include media-breakpoint-up(xl) {
                                 position: absolute;
                                 left: rem(12);
-                                width: rem(120);
+                                width: rem(128);
                             }
 
                             @include media-breakpoint-up(lg-media) {
@@ -556,7 +556,7 @@ header {
 
     li {
         @include media-breakpoint-up(sm) {
-            margin-bottom: rem(0);
+            margin-bottom: rem(10);
         }
 
         @include media-breakpoint-up(xxl) {

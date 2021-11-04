@@ -121,7 +121,7 @@ header {
 
     li {
         @include media-breakpoint-up(sm) {
-            margin-bottom: rem(0);
+            margin-bottom: rem(10);
         }
 
         @include media-breakpoint-up(xxl) {
@@ -323,10 +323,8 @@ header {
 
 
 .checkout-progressbar {
-
     li {
         p {
-
             font-size: rem(12);
 
             @include media-breakpoint-down(sm) {

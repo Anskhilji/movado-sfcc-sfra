@@ -1,3 +1,5 @@
+$lg-media: 1400px;
+
 .shipping-method-option {
     .arrival-time {
         white-space: pre-wrap;
@@ -99,7 +101,7 @@ header {
                         width: rem(104);
                     }
 
-                    @include media-breakpoint-up(lg-media) {
+                    @media (min-width: $lg-media) {
                         position: absolute;
                         left: rem(50);
                         width: rem(155);
@@ -169,7 +171,7 @@ header {
             font-family: $font-gill-std-medium;
 
             @include media-breakpoint-up(sm) {
-                margin-bottom: rem(15);
+                margin-bottom: rem(10);
             }
 
             @include media-breakpoint-up(xxl) {

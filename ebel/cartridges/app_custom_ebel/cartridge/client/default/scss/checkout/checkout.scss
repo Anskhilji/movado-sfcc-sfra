@@ -497,9 +497,17 @@ header {
             }
         }
 
+        @media (min-width: $lg-media) {
+            .checkout-logo {
+                position: absolute;
+                left: rem(50);
+                width: rem(155);
+            }   
+        }
+
         @include media-breakpoint-up(lg) {
             .checkout-header-wrapper {
-                padding: 0 rem(91.5) 0 rem(60);
+                padding: 0 rem(91.5) rem(10) rem(60);
                 margin-top: rem(0);
             }
         }
