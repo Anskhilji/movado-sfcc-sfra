@@ -85,18 +85,28 @@
     &.product-quickview {
         @import "../product/imageCarousel";
 
-    .availability-msg {
-        font-family:$font-medium;
-        font-weight: 500;
-        font-size: rem(16);
-
-        li {
-            font-family: $font-medium;
+       .availability-msg {
+            font-family:$font-medium;
             font-weight: 500;
             font-size: rem(16);
+
+            li {
+                font-family: $font-medium;
+                font-weight: 500;
+                font-size: rem(16);
+            }
+        }    
+    }
+
+    .primary-images {
+        .quickview {
+            span {
+                &.fa-stack{
+                color: $black;
+                } 
+            }
         }
     }
-  }
 }
 
 
@@ -122,6 +132,7 @@
            button {
                 @include media-breakpoint-down(xs) {
                     line-height: rem(45);
+                    color: $black;
                 } 
            }
         }
