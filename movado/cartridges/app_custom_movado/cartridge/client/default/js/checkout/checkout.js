@@ -772,13 +772,13 @@ var exports = {
             });
         });
 
-        $('.creditcard-holdername').on('keypress',function(event){
+        $('.creditcard-holdername').on('keypress', function(event) {
             if(!((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123))) {
                 return false;
             }
         })
 
-        $('.creditcard-securitycode').on('keypress',function(event){
+        $('.creditcard-securitycode').on('keypress', function(event) {
             if(!((event.charCode >= 48 && event.charCode <= 57))) {
                 return false;
             }
