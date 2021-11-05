@@ -74,7 +74,7 @@
                 </div>
                 <div class="pdp-content-body">
                     <div class="w-100">
-                        <isif condition="${!empty(dw.system.Site.current.preferences.custom.HighlightsFeature) ? dw.system.Site.current.preferences.custom.HighlightsFeature :false}">
+                        <isif condition="${!empty(dw.system.Site.current.preferences.custom.isHighlightEnabled) ? dw.system.Site.current.preferences.custom.isHighlightEnabled :false}">
                             <isinclude template="product/components/highlights" />
                         </isif>
                     </div>
