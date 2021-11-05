@@ -1548,18 +1548,20 @@
                                 height: rem(32);                               
                                 position: relative;                               
                                 left: rem(8);
+                                top: rem(-8);
                             }
                             
                             @include media-breakpoint-down(md) {    
                                 left: rem(6);
+                                top: rem(-6);
                             }
 
                             @include media-breakpoint-up(xl) {
                                 width: rem(48);
                                 height: rem(48);
-                                left: rem(15);
                                 position: relative;
-
+                                left: rem(15);
+                                top: rem(-15);
                             }
                         }
                     }
