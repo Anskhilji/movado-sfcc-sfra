@@ -1543,17 +1543,14 @@
                             width: rem(35);
                             height: rem(35);
 
-                            @include media-breakpoint-down(sm) {
+                            @include media-breakpoint-up(xs) {
                                 width: rem(32);
-                                height: rem(32);
-                                position: relative;
+                                height: rem(32);                               
+                                position: relative;                               
                                 left: rem(8);
                             }
                             
-                            @include media-breakpoint-down(md) {
-                                width: rem(32);
-                                height: rem(32);
-                                position: relative;
+                            @include media-breakpoint-down(md) {    
                                 left: rem(6);
                             }
 
