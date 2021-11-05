@@ -703,9 +703,12 @@ function handleVariantResponse(response, $productContainer) {
             .attr('src', imageUrl.url);
         $productContainer.find('.primary-images .cs-carousel-wrapper').find('.carousel-tile').eq(idx)
             .attr('data-thumb', imageUrl.url);
-        $productContainer.find('.primary-images .cs-carousel-wrapper').find('picture source').eq(idx)
+        $productContainer.find('.primary-images .cs-carousel-wrapper').find('picture source:nth-child(1)').eq(idx)
+            .attr('srcset', imageUrl.url);
+        $productContainer.find('.primary-images .cs-carousel-wrapper').find('picture source:nth-child(2)').eq(idx)
             .attr('srcset', imageUrl.url);
     });
+
     // pdp Video for variations
     var pdpVideoConfigs = response.product.pdpVideoConfigs;
     if (pdpVideoConfigs && pdpVideoConfigs != 'undefined' && pdpVideoConfigs != '') {
