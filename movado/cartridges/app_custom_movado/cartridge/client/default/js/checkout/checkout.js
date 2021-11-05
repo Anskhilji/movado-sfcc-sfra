@@ -771,12 +771,37 @@ var exports = {
                 }
             });
         });
+        // var holderName = document.getElementById('holderName');
+        // holderName.addEventListener('textInput', function (event) {
+        //     var char = event.data;
+        //     var keyCode = char.charCodeAt(0);
+        //     // alert(keyCode)
+        //     if(!((keyCode > 64 && keyCode < 91) || (keyCode > 96 && keyCode < 123) || keyCode == 32)) {
+        //         event.preventDefault();
+        //     }
+        // });
 
-        $('.creditcard-holdername').on('keypress', function(event) {
-            if(!((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123))) {
-                return false;
-            }
-        })
+        // var holderName = document.getElementById('holderName');
+        // holderName.addEventListener('textInput', function (event) {
+        //     var char = event.data;
+        //     var keyCode = char.charCodeAt(0);
+        //     // alert(keyCode);
+        //     if(!((keyCode > 64 && keyCode < 91) || (keyCode > 96 && keyCode < 123) || keyCode == 32)) {
+        //         event.preventDefault();
+        //     }
+        // });
+
+        $('#holderName').keyup(function () {
+            this.value = this.value.replace(/[^A-z\ ]/g,'');
+        });
+
+
+        // $('.creditcard-holdername').bind('keydown', function(event) {
+        //     alert(event.keyCode)
+        //     if(!((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || event.charCode == 32)) {
+        //         event.preventDefault();
+        //     }
+        // })
 
         $('.creditcard-securitycode').on('keypress', function(event) {
             if(!((event.charCode >= 48 && event.charCode <= 57))) {
