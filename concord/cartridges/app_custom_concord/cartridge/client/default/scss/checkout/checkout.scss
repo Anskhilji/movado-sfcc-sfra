@@ -422,7 +422,7 @@ header {
                                 width: rem(128);
                             }
 
-                            @include media-breakpoint-up(lg-media) {
+                            @include custom-media-query($large-screen-width) {
                                 position: absolute;
                                 left: rem(50);
                                 width: rem(155);

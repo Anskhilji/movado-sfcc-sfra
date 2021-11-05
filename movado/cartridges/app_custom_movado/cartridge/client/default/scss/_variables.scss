@@ -124,4 +124,10 @@ $font-primary: $font-book;
 $font-awesome: "FontAwesome";
 
 // Larger Screen
-$min-width: 1400px;
+$large-screen-width: 1400px;
+
+@mixin custom-media-query($large-screen-width) {
+  @media (min-width:#{$large-screen-width}) {
+      @content;
+  }
+}

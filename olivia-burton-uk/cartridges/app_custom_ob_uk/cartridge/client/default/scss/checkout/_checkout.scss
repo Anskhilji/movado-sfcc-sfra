@@ -102,7 +102,7 @@ header {
                         width: rem(104);
                     }
 
-                    @media (min-width: $lg-media) {
+                    @include custom-media-query($large-screen-width) {
                         position: absolute;
                         left: rem(50);
                         width: rem(155);

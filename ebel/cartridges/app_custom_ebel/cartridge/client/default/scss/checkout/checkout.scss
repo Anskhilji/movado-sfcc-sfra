@@ -473,6 +473,19 @@ header {
                     text-decoration: none;
                 }
             }
+
+            @include media-breakpoint-up(xl) {           
+                position: absolute;
+                left: rem(30);
+                width: rem(104);        
+            }
+            
+            @include custom-media-query($large-screen-width) {
+                position: absolute;
+                left: rem(50);
+                width: rem(155);
+            }
+
         }
 
         .logo-link {
@@ -487,22 +500,6 @@ header {
                     font-size: rem(19);
                 }
             }
-        }
-        
-        @include media-breakpoint-up(xl) {
-            .checkout-logo {
-                position: absolute;
-                left: rem(30);
-                width: rem(104);
-            }
-        }
-
-        @media (min-width: $lg-media) {
-            .checkout-logo {
-                position: absolute;
-                left: rem(50);
-                width: rem(155);
-            }   
         }
 
         @include media-breakpoint-up(lg) {
