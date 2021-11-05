@@ -7,7 +7,7 @@
             </div>
         </isif>
     </isif>
-    <isif condition="${product.longDescription}">
+    <isif condition="${product.longDescription && !empty(dw.system.Site.current.preferences.custom.HighlightsFeature) ? dw.system.Site.current.preferences.custom.HighlightsFeature :false}">
         <hr/>
         <div class="row description collapsible-sm">
             <isinclude template="product/components/highlights" />
