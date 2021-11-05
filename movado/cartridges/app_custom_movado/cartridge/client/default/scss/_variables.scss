@@ -81,7 +81,6 @@ $grid-breakpoints: (
     md: 769px,
     lg: 992px,
     xl: 1200px,
-    lg-media: 1400px
     ) !default;
 
 $container-max-widths: (
@@ -123,3 +122,12 @@ $font-book : "FuturaStd-Book", Arial, sans-serif !default;
 $font-bold : "FuturaStd-Bold", Arial, sans-serif !default;
 $font-primary: $font-book;
 $font-awesome: "FontAwesome";
+
+// Larger Screen
+$large-screen-width: 1400px;
+
+@mixin custom-media-query($large-screen-width) {
+  @media (min-width:#{$large-screen-width}) {
+      @content;
+  }
+}

@@ -6,6 +6,7 @@
 @import "../components/formFields";
 @import "../components/creditCardField";
 
+
 $checkout-font-weight: 600;
 
 .card.ghost {
@@ -408,13 +409,13 @@ header {
                     position: absolute;
                     left: rem(30);
                     width: rem(104);
-                }
+                }  
 
-                @include media-breakpoint-up(lg-media) {
+                @include custom-media-query($large-screen-width) {
                     position: absolute;
                     left: rem(50);
                     width: rem(155);
-                }
+                }   
 
                 img {
                     max-width: 100%;
@@ -513,6 +514,7 @@ header {
 
     @include media-breakpoint-up(md) {
         margin: rem(24) auto;
+        max-width: rem(940);
     }
 
     @include media-breakpoint-up(lg) {
@@ -528,7 +530,7 @@ header {
 
     li {
         @include media-breakpoint-up(sm) {
-            margin-bottom: rem(0);
+            margin-bottom: rem(10);
         }
 
         @include media-breakpoint-up(xxl) {

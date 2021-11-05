@@ -339,6 +339,17 @@ header {
                         }
                     }
                 }
+                .header-menu-wrapper {
+                    .header-wrapper {
+                        &.checkout-header-wrapper .header-left {                    
+                            @include media-breakpoint-up(xl) {
+                                display: flex;
+                                align-items: flex-start;
+                            }
+                        }
+                    }                    
+                }
+
             }
 
             .mobile-menu-wrapper {
@@ -362,6 +373,19 @@ header {
                     }
                 }
             }
+
+            .header-menu-wrapper {
+                .header-wrapper {
+                    &.checkout-header-wrapper .header-left {                    
+                        @include media-breakpoint-up(xl) {
+                            display: flex;
+                            align-items: flex-start;
+                        }
+                    }
+                }
+                
+            }
+
         }
 
         .checkout-header-placeholder {
@@ -389,6 +413,13 @@ header {
                     background-color: $grey4;
                 }
             }
+            .header-left {
+                .checkout-logo {
+                    @include media-breakpoint-up(md) {
+                        height: rem(25);
+                    }
+                }
+            }
         }
 
         .checkout-logo {
@@ -400,9 +431,15 @@ header {
                 }
 
                 .ebel-logo {
+
                     &:before {
                         content: "";
                     }
+
+                    @include media-breakpoint-up(md) {
+                        height: rem(24);
+                    }
+
                 }
             }
 
@@ -436,6 +473,19 @@ header {
                     text-decoration: none;
                 }
             }
+
+            @include media-breakpoint-up(xl) {           
+                position: absolute;
+                left: rem(30);
+                width: rem(104);        
+            }
+            
+            @include custom-media-query($large-screen-width) {
+                position: absolute;
+                left: rem(50);
+                width: rem(155);
+            }
+
         }
 
         .logo-link {
@@ -451,18 +501,10 @@ header {
                 }
             }
         }
-        
-        @include media-breakpoint-up(xl) {
-            .checkout-logo {
-                position: absolute;
-                left: rem(30);
-                width: rem(104);
-            }
-        }
 
         @include media-breakpoint-up(lg) {
             .checkout-header-wrapper {
-                padding: 0 rem(91.5) 0 rem(60);
+                padding: 0 rem(91.5) rem(10) rem(60);
                 margin-top: rem(0);
             }
         }
@@ -519,6 +561,11 @@ header {
             display: block;
             margin: rem(0) auto rem(12);
             padding: 0 rem(15);            
+        }
+
+        @include media-breakpoint-up(md) {
+            margin: rem(24) auto;
+            max-width: rem(940);
         }
 
         @include media-breakpoint-up(lg) {
@@ -676,7 +723,6 @@ header {
         .align-start-box {
             @include media-breakpoint-up(xl) {
                 justify-content: flex-start;
-                align-items: flex-end;
                 max-width: 100%;
             }
         }

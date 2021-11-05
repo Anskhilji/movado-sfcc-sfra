@@ -99,7 +99,7 @@ header {
                         width: rem(104);
                     }
 
-                    @include media-breakpoint-up(lg-media) {
+                    @include custom-media-query($large-screen-width) {
                         position: absolute;
                         left: rem(50);
                         width: rem(155);
@@ -169,7 +169,7 @@ header {
             font-family: $font-gill-std-medium;
 
             @include media-breakpoint-up(sm) {
-                margin-bottom: rem(15);
+                margin-bottom: rem(10);
             }
 
             @include media-breakpoint-up(xxl) {

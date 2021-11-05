@@ -30,11 +30,18 @@ header {
                                 margin-bottom: rem(20);
                             }
                         }
+                        
                         @include media-breakpoint-up(xl) {
                             position: absolute;
                             left: rem(30);
                             width: rem(104);
                         }
+                        @include custom-media-query($large-screen-width) {
+                            position: absolute;
+                            left: rem(50);
+                            width: rem(155);
+                        }   
+
                     }
 
                     .minicart-link {
@@ -100,8 +107,7 @@ header {
 
     @include media-breakpoint-up(sm) {
         display: block;
-        margin: rem(24) auto;
-        padding: rem(0) rem(24);
+        margin: rem(24) auto;        
     }
 
     @include media-breakpoint-up(md) {
@@ -117,12 +123,12 @@ header {
 
     @include media-breakpoint-up(xl) {
         padding: rem(0) rem(16);
-        margin-top: rem(61) auto rem(20);
+        margin: rem(61) auto rem(20);
     }
 
     li {
         @include media-breakpoint-up(sm) {
-            margin-bottom: rem(0);
+            margin-bottom: rem(10);
         }
 
         @include media-breakpoint-up(xxl) {
@@ -171,10 +177,10 @@ header {
 
 .checkout-label-custom {
     @include media-breakpoint-up(xl) {
-        max-width: rem(892);
+        max-width: rem(940);
         margin: rem(0) auto;
-        width: rem(892);
-        padding-left: rem(15);
+        width: rem(940);
+        padding-left: rem(31);
     }
    
 }
@@ -324,10 +330,8 @@ header {
 
 
 .checkout-progressbar {
-
     li {
         p {
-
             font-size: rem(12);
 
             @include media-breakpoint-down(sm) {
@@ -336,5 +340,12 @@ header {
 
         }
 
+    }
+}
+
+.mini-cart-wrapper {
+    @include media-breakpoint-up(xl) {
+        position: absolute;
+        right: rem(76);
     }
 }

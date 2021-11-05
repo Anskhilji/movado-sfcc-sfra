@@ -613,18 +613,18 @@ div {
   
     [class*="collapsible-"] {
       margin-bottom: 0;
-      .title {
-        width: 100%;
-        line-height: rem(17);
-        cursor: pointer;
+        .title {
+            width: 100%;
+            line-height: rem(17);
+            cursor: pointer;
   
-        &::after {
-          content: "\F107";
-          font-size: rem(24);
-          font-family: "FontAwesome";
-          float: right;
+            &::after {
+                content: "\F107";
+                font-size: rem(24);
+                font-family: "FontAwesome";
+                float: right;
+            }
         }
-      }   
-      
-    } 
-  }
+
+    }
+}
