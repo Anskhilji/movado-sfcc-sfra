@@ -79,7 +79,7 @@ server.append('AddProduct', function (req, res, next) {
         if (!!req.form.currentPage && req.form.currentPage.match('Cart-Show')) {
             viewData.cartPageHtml = customCartHelpers.getcartPageHtml(req);
         }
-
+        
         if (req.form.isCartRecommendation && !empty(req.form.isCartRecommendation)) {
             basketModel.removeProductLineItemUrl = basketModel.actionUrls.removeProductLineItemUrl;
             recommendedProductCardHtml = renderTemplateHelper.getRenderedHtml(basketModel, 'cart/productCard/recommendationProductCard');
