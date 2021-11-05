@@ -488,8 +488,7 @@
             }
 
             @include media-breakpoint-down(md) {
-              font-size: rem(8);
-             
+              font-size: rem(8);             
             }
 
             @include media-breakpoint-down(sm) {
