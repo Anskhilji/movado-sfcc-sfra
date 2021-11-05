@@ -1,34 +1,70 @@
 <isinclude template="/components/modules" sf-toolkit="off" />
 <div class="row">
-<iscomment> continue Shopping button removed </iscomment>
     <div class="col-sm-12">
         <iscomment> Custom Start: Adding ESW cartridge integration </iscomment>
-        <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page" />
-        <a href="${URLUtils.https('Checkout-Login')}" data-url="${dw.web.URLUtils.https('EShopWorld-PreOrderRequest').toString()}" class="
-        <isif condition="${eswHelper.getEShopWorldModuleEnabled() && request.httpCookies['esw.location'] != null && request.httpCookies['esw.location'].value != null && !!eswHelper.checkIsEswAllowedCountry(request.httpCookies['esw.location'].value)}">btnCheckout</isif> btn btn-primary btn-block checkout-btn ${pdict.valid.error ? 'disabled' : ''}
-            ${!empty(pdict.countrySwitch) ? 'disabled' : ''}" 
+        <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}"
+            scope="page" />
+        <a href="${URLUtils.https('Checkout-Login')}"
+            data-url="${dw.web.URLUtils.https('EShopWorld-PreOrderRequest').toString()}" class="<isif condition=" ${eswHelper.getEShopWorldModuleEnabled() && request.httpCookies['esw.location'] != null && request.httpCookies['esw.location'].value != null && !!eswHelper.checkIsEswAllowedCountry(request.httpCookies['esw.location'].value)}">btnCheckout</isif> btn
+            btn-primary btn-block checkout-btn ${pdict.valid.error ? 'disabled' : ''}
+            ${!empty(pdict.countrySwitch) ? 'disabled' : ''}"
             role="button" aria-pressed="true">
-            ${Resource.msg('button.checkout','cart',null)}
+            ${Resource.msg('button.checkout', 'cart', null)}
         </a>
-        <iscomment> Custom End </iscomment>
     </div>
 </div>
-<iscomment> Custom : Hide Express Payment Methods From Cart Page
+<isset name="currentCountry" value="${require('*/cartridge/scripts/helpers/productCustomHelper').getCurrentCountry()}"
+    scope="page" />
+<isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}"
+    scope="page" />
+<isif condition="${isEswEnabled}">
+    <isif condition="${currentCountry.equalsIgnoreCase('US')}">
+        <div class="row more-ways-text justify-content-center">${pdict.resources.additionalCheckout}</div>
+            <div class="row more-options">
+                <div class="col-sm-12">
+                    <a href="${URLUtils.https('AdyenExpressPaypal-ExpressCheckoutFromCart')}" class="btn btn-block checkout-btn paypal-btn mb-3 ${pdict.valid.error ? 'disabled' : ''}" role="button"
+                        aria-pressed="true">
+                        <isprint value="${pdict.paypalButtonImg}" encoding="off" />
+                    </a>
+                </div>
+                <isif condition="${!empty(request.httpCookies['esw.location']) && !empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US')}">
+                    <div class="col-12">
+                        <isapplepay class="apple-pay-cart col btn btn-block"></isapplepay>
+                    </div>
+                </isif>
+                <isif condition="${dw.system.Site.current.preferences.custom.isGooglePayEnabled}">
+                    <div class="col-12 google-pay-express-button">
+                        <isinclude url="${URLUtils.https('GooglePay-RenderButton', 'googlePayEntryPoint', 'Cart-Show', 'true')}" sf-toolkit="on"/>
+                    </div>
+                </isif>
+            </div>
+        <isset name="sitePreferences" value="${require('dw/system/Site').getCurrent().getPreferences().getCustom()}"
+            scope="page" />
+        <isif condition="${sitePreferences.amzPayEnabled}">
+            <div class="mb-sm-3">
+                <div id="AmazonPayButtonCart"></div>
+            </div>
+        </isif>
+    </isif>
+<iselse/>
     <div class="row more-ways-text mb-3 justify-content-center">${pdict.resources.additionalCheckout}</div>
-
     <div class="row more-options">
         <div class="col-sm-12">
-            <a href="${URLUtils.https('AdyenExpressPaypal-ExpressCheckoutFromCart')}" class="btn btn-block checkout-btn paypal-btn ${pdict.valid.error ? 'disabled' : ''}"
-                role="button" aria-pressed="true">
+            <a href="${URLUtils.https('AdyenExpressPaypal-ExpressCheckoutFromCart')}" class="btn btn-block checkout-btn paypal-btn mb-3 ${pdict.valid.error ? 'disabled' : ''}" role="button"
+                aria-pressed="true">
                 <isprint value="${pdict.paypalButtonImg}" encoding="off" />
             </a>
         </div>
-        <isapplepay class="apple-pay-cart col btn btn-block mx-3 mb-3"></isapplepay>
+        <div class="col-12">
+            <isapplepay class="apple-pay-cart col btn btn-block"></isapplepay>
+        </div>
+        <isinclude url="${URLUtils.https('GooglePay-RenderButton', 'googlePayEntryPoint', 'Cart-Show', 'true')}" sf-toolkit="on"/>
     </div>
-    <isset name="sitePreferences" value="${require('dw/system/Site').getCurrent().getPreferences().getCustom()}" scope="page" />
+    <isset name="sitePreferences" value="${require('dw/system/Site').getCurrent().getPreferences().getCustom()}"
+        scope="page" />
     <isif condition="${sitePreferences.amzPayEnabled}">
         <div class="mb-sm-3">
             <div id="AmazonPayButtonCart"></div>
         </div>
     </isif>
-</iscomment> 
+</isif>

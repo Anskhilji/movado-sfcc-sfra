@@ -971,13 +971,11 @@
 
 @media only screen and (max-width: $custom-sm) {
   .plp-new-design  {
-
     .product-tile { 
-
       .image-container {
         padding-bottom: rem(0);
       }
-
+      
       .tile-body {
         position: relative;
         height: auto;

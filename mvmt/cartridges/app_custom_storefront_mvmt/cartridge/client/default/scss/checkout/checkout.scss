@@ -1,11 +1,11 @@
-@import '../variables';
-@import '~movado/checkout/checkout';
-@import '../components/formFields';
+@import "../variables";
+@import "~movado/checkout/checkout";
+@import "../components/formFields";
 
-.mvmt-checkout, .checkout-page, .receipt {
-
+.mvmt-checkout,
+.checkout-page,
+.receipt {
     .card-header {
-
         h4 {
             font-family: $font-book;
             font-weight: 500;
@@ -23,14 +23,13 @@
     }
 
     .shipping-method-block {
-
         .ship-method-header {
             font-family: $font-book;
             font-weight: 500;
             font-size: rem(18);
             letter-spacing: normal;
             letter-spacing: 1.5px;
-         }
+        }
     }
 
     .summary-section-label {
@@ -40,7 +39,6 @@
     }
 
     .form-group {
-
         .form-control {
             box-sizing: border-box;
             height: rem(45);
@@ -80,7 +78,6 @@
         }
 
         .card-number-wrapper {
-
             &:after {
                 top: rem(7);
             }
@@ -102,7 +99,6 @@
         }
 
         select {
-
             &.form-control {
                 padding: rem(10);
                 padding-right: rem(38);
@@ -137,7 +133,13 @@
         }
     }
 
-    .submit-shipping, .submit-payment, .order-confirmation-continue-shopping, .place-order, .checkout-as-guest, .submit-form-section button, .order-confirm-create-account .btn-block {
+    .submit-shipping,
+    .submit-payment,
+    .order-confirmation-continue-shopping,
+    .place-order,
+    .checkout-as-guest,
+    .submit-form-section button,
+    .order-confirm-create-account .btn-block {
         letter-spacing: 1px;
         white-space: nowrap;
         padding: 0 rem(14);
@@ -171,19 +173,20 @@
         background-color: $light-green;
         color: $white;
 
-        &:hover, &:focus {
+        &:hover,
+        &:focus {
             border-color: $gossamer;
             background-color: $gossamer;
         }
     }
 
-    .checkout-as-guest, .submit-form-section button {
+    .checkout-as-guest,
+    .submit-form-section button {
         width: 100%;
         float: none;
     }
 
     .shipping-method {
-
         &-header {
             font-family: $font-book;
             font-weight: 500;
@@ -192,16 +195,16 @@
             margin-bottom: rem(15);
         }
 
-        &-list, &-list span {
+        &-list,
+        &-list span {
             letter-spacing: normal;
         }
     }
 
     .order-total-summary {
-
         .leading-lines {
-
-            span, p {
+            span,
+            p {
                 letter-spacing: normal;
                 font-family: $font-book;
                 text-transform: uppercase;
@@ -212,15 +215,14 @@
     }
 
     .order-product-summary {
-
         .leading-lines {
-
             .order-receipt-label {
                 font-size: rem(14);
                 font-family: $font-book;
             }
 
-            .grand-total-price, .grand-total-price-value {
+            .grand-total-price,
+            .grand-total-price-value {
                 font-family: $font-medium;
                 font-size: rem(24);
                 font-weight: 500;
@@ -230,11 +232,8 @@
     }
 
     .payment-form {
-
         .payment-information {
-
             .accordion-link + label {
-
                 &:after {
                     content: "\F107";
                     position: absolute;
@@ -251,21 +250,24 @@
     }
 
     .single-shipping {
-
         span {
             letter-spacing: 0;
         }
     }
 
-    .address-summary, .payment-details, .confirm-details {
-
-        div, span, p {
+    .address-summary,
+    .payment-details,
+    .confirm-details {
+        div,
+        span,
+        p {
             letter-spacing: normal;
             font-family: $font-book;
         }
     }
 
-    .edit-button, .order-thank-you-email-msg {
+    .edit-button,
+    .order-thank-you-email-msg {
         letter-spacing: normal;
         font-family: $font-book;
     }
@@ -275,16 +277,15 @@
         font-size: rem(14);
     }
 
-    .payment-options, #forget-password-btn {
+    .payment-options,
+    #forget-password-btn {
         font-family: $font-book;
         font-size: rem(14);
     }
 }
 
 .checkout-page {
-
     .btn-outline-primary {
-
         &:not(:disabled):not(.disabled) {
             white-space: nowrap;
             padding: 0 rem(14);
@@ -306,13 +307,14 @@
                 }
             }
 
-            &:active, &:focus, &:hover {
+            &:active,
+            &:focus,
+            &:hover {
                 background-color: $gossamer;
                 color: $white;
                 box-shadow: none;
 
                 svg {
-
                     path {
                         fill: $white;
                     }
@@ -331,7 +333,6 @@
 header {
     &.checkout-header {
         .checkout-header-wrapper {
-
             &.header-wrapper {
                 @include media-breakpoint-up(xss) {
                     margin-top: rem(15);
@@ -340,13 +341,15 @@ header {
                         svg {
                             width: rem(104);
                             height: rem(25);
-                        }  
+
+                        }
+
                     }
 
                     .v-middle {
                         position: absolute;
                         top: 50%;
-                        transform: translateY(-50%)
+                        transform: translateY(-50%);
                     }
                 }
 
@@ -356,10 +359,31 @@ header {
                             width: rem(125);
                             height: rem(30);
                         }
-                        
                     }
-                }
-
+                }      
+                @include media-breakpoint-up(lg-custom) {
+                    .checkout-logo {
+                        position: absolute;
+                        left: rem(24);
+                        width: rem(155);
+                        svg {
+                            width: rem(80);
+                            height: rem(30);
+                        }
+                    }
+                }  
+                @include media-breakpoint-up(lg-media) {
+                  .checkout-logo {
+                    position: absolute;
+                    left: rem(50);
+                    width: rem(155);
+                        svg {
+                            width: rem(125);
+                            height: rem(30);
+                        }
+                    }
+                }  
+             
                 @include media-breakpoint-up(md-down) {
                     margin-top: rem(0);
                 }
@@ -390,7 +414,7 @@ header {
                 width: rem(20);
                 height: rem(20);
             }
-    
+
             .checkout-text {
                 h5 {
                     font-size: rem(15);
@@ -407,58 +431,69 @@ header {
 .progressbar-container {
     .checkout-progressbar {
         margin-bottom: rem(45);
-    
+
         @include media-breakpoint-up(xs) {
             display: none;
         }
-        
+
         @include media-breakpoint-up(sm) {
             display: block;
-            margin-top: rem(64);
-            padding: 0 rem(15) 0 rem(15);
+            margin: rem(32) auto rem(24);
+            padding: 0 rem(15);
         }
-        
+        @include media-breakpoint-up(md-down) {
+            display: block;
+            margin: rem(32) auto;
+            padding: 0 rem(15);
+        }
+
         @include media-breakpoint-up(lg) {
-            padding: 0 rem(80) 0 rem(100);
-            padding-top: auto;
+            padding: 0 rem(15);
+            margin: rem(61) auto rem(16);          
+            max-width: rem(940);           
         }
-    
+
+        @include media-breakpoint-up(lg-custom) {
+            padding: 0 rem(16);
+            margin: rem(70) auto rem(24);          
+        }
+
         li {
             @include font-medium;
             @include media-breakpoint-up(sm) {
-                margin-bottom: rem(15);
+                margin-bottom: rem(0);
             }
-    
+
             @include media-breakpoint-up(xxl) {
                 margin-bottom: rem(0);
             }
-    
+
             p {
                 display: flex;
                 align-items: center;
                 font-size: rem(12);
                 text-transform: uppercase;
-                text-decoration: none ;
+                text-decoration: none;
                 margin-bottom: rem(0);
 
                 @include media-breakpoint-down(sm) {
                     font-size: rem(10);
                 }
-         
-                &:after {
-                  content: "";
-                  box-sizing: border-box;
-                  height: rem(1.8);
-                  width: rem(30);
-                  background-color: $black;
-                  opacity: 0.4;
-                  margin:rem(0) rem(10);
 
-                  @include media-breakpoint-down(sm) {
-                    height: rem(2);
-                    width: rem(14);
-                    margin:rem(0) rem(5);
-                  }
+                &:after {
+                    content: "";
+                    box-sizing: border-box;
+                    height: rem(1.8);
+                    width: rem(30);
+                    background-color: $black;
+                    opacity: 0.4;
+                    margin: rem(0) rem(10);
+
+                    @include media-breakpoint-down(sm) {
+                        height: rem(2);
+                        width: rem(14);
+                        margin: rem(0) rem(5);
+                    }
                 }
 
                 .step {
@@ -473,8 +508,8 @@ header {
                         display: flex;
                         align-items: center;
                         justify-content: center;
-                        background:$white;
-                        border:1px solid $grey15;
+                        background: $white;
+                        border: 1px solid $grey15;
                         color: $grey15;
                         opacity: 0.4;
                         border-radius: 50%;
@@ -491,30 +526,28 @@ header {
                 }
             }
         }
-       
-       li {
-           &.active {
-                p {
 
+        li {
+            &.active {
+                p {
                     .step {
                         &-text {
                             color: $black;
                             opacity: 1;
                         }
-    
+
                         &-no {
-                            background:$black;
-                            border:1px solid $black;
+                            background: $black;
+                            border: 1px solid $black;
                             color: $white;
                             opacity: 1;
                         }
                     }
                 }
-           }
-           
+            }
+
             &.completed {
                 p {
-                    
                     &:after {
                         color: $black;
                         opacity: 1;
@@ -525,7 +558,7 @@ header {
                             color: $parrot-green;
                             opacity: 1;
                         }
-    
+
                         &-no {
                             background: $parrot-green;
                             border: 1px solid $parrot-green;
@@ -535,23 +568,19 @@ header {
                     }
                 }
             }
-      
-    
-        &:nth-child(4) p {
-            &:after {
-            content: "";
-            height: rem(0);
-            width: rem(0);
-          }
+
+            &:nth-child(4) p {
+                &:after {
+                    content: "";
+                    height: rem(0);
+                    width: rem(0);
+                }
+            }
         }
-       }
-    
     }
 }
 
-
 .receipt {
-
     .order-total-summary {
         padding: 0 !important;
     }
@@ -562,8 +591,8 @@ header {
 }
 
 #requestPasswordResetModal {
-
-    .request-password-title, .forget-password-header-title {
+    .request-password-title,
+    .forget-password-header-title {
         font-family: $font-medium;
         letter-spacing: rem(1);
     }
@@ -594,18 +623,17 @@ header {
 }
 
 .shipping-express-checkout {
-    
-    &_label { 
-        font-size: rem(13);    
+    &_label {
+        font-size: rem(13);
     }
 
     &-buttons {
         display: flex;
 
-        @media only screen and (max-width: 320px){
+        @media only screen and (max-width: 320px) {
             margin-left: rem(5);
         }
-        
+
         .apple-pay-cart {
             border-radius: rem(4);
             padding: 0;
@@ -614,10 +642,10 @@ header {
             margin-top: 0;
 
             @include media-breakpoint-down(xs) {
-                margin-left: rem(5);    
+                margin-left: rem(5);
             }
         }
-        
+
         .shipping-paypal-btn {
             padding: 0;
             background: $yellow;
@@ -628,7 +656,7 @@ header {
             margin-top: 0;
 
             @include media-breakpoint-down(xs) {
-                margin-left: rem(5);    
+                margin-left: rem(5);
             }
         }
 
@@ -638,7 +666,7 @@ header {
 
             @include media-breakpoint-down(xs) {
                 margin-left: rem(5);
-                padding-right: rem(5); 
+                padding-right: rem(5);
             }
 
             #AmazonPayButtonCheckout {
@@ -646,7 +674,6 @@ header {
                 height: rem(61) !important;
             }
         }
-        
     }
 }
 
@@ -670,7 +697,6 @@ header {
             }
 
             &[aria-expanded="true"] {
-                
                 &::after {
                     transform: rotate(180deg);
                 }
@@ -679,11 +705,10 @@ header {
     }
 
     .collapsible-xl {
-
         .content {
             display: flex;
         }
-        
+
         .collapse {
             &:not(.show) {
                 display: none;
@@ -693,11 +718,31 @@ header {
 }
 
 .klarna {
-  &-panel {
-    &-image {
-      width: rem(77);
-      border-radius: rem(8);
-      height: rem(39);
+    &-panel {
+        &-image {
+            width: rem(77);
+            border-radius: rem(8);
+            height: rem(39);
+        }
     }
-  }
+}
+
+.checkout-label-custom {
+    @include media-breakpoint-up(lg-custom) {
+        max-width: rem(908);
+        margin: 0 auto;
+        width: rem(908);
+        padding-left: rem(24);
+    }
+}
+
+header {
+    .checkout-header-wrapper {
+        .align-start-box {
+            @include media-breakpoint-up(lg-custom) {
+                justify-content: flex-start;
+                max-width: 100%;
+            }
+        }
+    }
 }

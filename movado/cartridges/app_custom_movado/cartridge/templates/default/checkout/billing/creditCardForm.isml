@@ -16,16 +16,6 @@
 
 <div class="row">
 	<div class="col-12">
-		<div class="form-group required ${creditFields.cardOwner.htmlName}">
-            <label class="form-control-label" for="holderName">${Resource.msg('field.credit.card.holderName','creditCard',null)}</label>
-			<input type="text" pattern="^[a-z|A-Z]+(?: [a-z|A-Z]+)*$" class="form-control holderName" id="holderName" data-encrypted-name="holderName" ${creditFields.cardOwner.attributes}   />
-			<div class="invalid-feedback">Please enter valid cardholder name</div>
-		</div>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-12">
 		<div class="form-group required ${creditFields.cardNumber.htmlName}">
             <label class="form-control-label" for="cardNumber">${Resource.msg('field.credit.card.number','creditCard',null)}</label>
 			<div class="card-number-wrapper">
@@ -36,8 +26,18 @@
                         : ''}"
                     <isprint value=${creditFields.cardNumber.attributes} encoding="htmlsinglequote"/>
                     autocomplete="">
-				<div class="invalid-feedback">Please enter a valid card number</div>
+				<div class="invalid-feedback">${Resource.msg('error.card.number','creditCard',null)}</div>
 			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-12">
+		<div class="form-group required ${creditFields.cardOwner.htmlName}">
+            <label class="form-control-label" for="holderName">${Resource.msg('field.credit.card.holderName','creditCard',null)}</label>
+			<input type="text" pattern="^[a-z|A-Z]+(?: [a-z|A-Z]+)*$" class="form-control holderName creditcard-holdername" id="holderName" data-encrypted-name="holderName" ${creditFields.cardOwner.attributes}   />
+			<div class="invalid-feedback">${Resource.msg('error.card.holderName','creditCard',null)}</div>
 		</div>
 	</div>
 </div>
@@ -46,10 +46,10 @@
 	<div class="col-md-6 col-sm-12 field-left">
 		<div class="form-group required relative">
 			<label class="form-control-label" for="expirationMonth">${Resource.msg('field.credit.card.expiration.month','creditCard',null)}</label>
-			<input type="text" class="form-control expirationDate"
+			<input inputmode="numeric" type="text" class="form-control expirationDate"
 				id="expirationDate">
 			</input>
-			<div class="invalid-feedback">Please enter a valid expiry date in format MM/YY</div>
+			<div class="invalid-feedback">${Resource.msg('error.credit.card.expiry','creditCard',null)}</div>
 		</div>
 	</div>
 	<div class="col-md-6 col-sm-12 field-right">
@@ -58,8 +58,8 @@
 				 <span class="info-icon"> <span class="icon">i</span>
 					<div class="tooltip"> ${Resource.msg('tooltip.security.code','creditCard',null)}</div>
 				 </span>
-			 <input type="password" class="form-control securityCode" id="securityCode" data-encrypted-name="cvc" maxlength="3">
-			<div class="invalid-feedback security-code">Please enter a valid security code</div>
+			 <input inputmode="numeric" type="password" class="form-control securityCode creditcard-securitycode" id="securityCode" data-encrypted-name="cvc" maxlength="3">
+			<div class="invalid-feedback security-code">${Resource.msg('error.credit.card.security.code.validate','creditCard',null)}</div>
 		</div>
 	</div>
 </div>
@@ -69,7 +69,7 @@
 		<div
 			class="form-group required ${creditFields.expirationMonth.htmlName} relative">
 			<label class="form-control-label" for="expirationMonth">${Resource.msg('field.credit.card.expiration.month','creditCard',null)}</label>
-			<select class="form-control expirationMonth custom-select"
+			<select inputmode="numeric" class="form-control expirationMonth custom-select"
 				id="expirationMonth"
 				${creditFields.expirationMonth.attributes}
                     autocomplete="cc-exp-month"
@@ -91,7 +91,7 @@
 		<div
 			class="form-group required ${creditFields.expirationYear.htmlName} relative">
 			<label class="form-control-label invisible" for="expirationYear">${Resource.msg('field.credit.card.expiration.year','creditCard',null)}</label>
-			<select class="form-control expirationYear custom-select"
+			<select inputmode="numeric" class="form-control expirationYear custom-select"
 				id="expirationYear" data-encrypted-name="expiryYear"
 				${creditFields.expirationYear.attributes} autocomplete="cc-exp-year">
 				<option
