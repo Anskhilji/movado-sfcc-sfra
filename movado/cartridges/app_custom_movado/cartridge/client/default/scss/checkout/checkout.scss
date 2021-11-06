@@ -441,17 +441,17 @@ header {
                         text-decoration: none;
                     }
                 }
-                    p {
-                        @include media-breakpoint-up(xl) {
-                           margin-bottom: 0;
-                        } 
 
-                        @include custom-media-query($large-screen-width) {
-                            bottom: rem(32);
-                        }
+                p {
+                    @include media-breakpoint-up(xl) {
+                        margin-bottom: 0;
+                    } 
+
+                    @include custom-media-query($large-screen-width) {
+                        bottom: rem(32);
                     }
-
-
+                }
+                
             }
 
             .checkout-text {
