@@ -358,6 +358,13 @@ module.exports = {
         });
     },
 
+    restrictNumbers: function() {
+        $('#holderName').keyup(function () {
+            var $holderName = $(this).val();
+            $holderName = $holderName.replace(/[^A-z\ ]/g,'');
+        });
+    },
+
     trimSpaces: function() {
         $('#holderName').focusout(function() {
             var $holderName = $(this).val();
