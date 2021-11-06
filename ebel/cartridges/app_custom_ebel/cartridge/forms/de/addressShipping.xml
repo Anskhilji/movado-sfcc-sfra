@@ -16,6 +16,11 @@
            regexp="(^[^(\\'\\&lt;\\>\\\)]+$)"
            parse-error="error.message.invalid"
            />
+   <field formid="companyName" label="label.input.companyName" type="string" mandatory="false" binding="companyName"
+           max-length="35" range-error="error.message.lessthan35"
+           regexp="(^[^(\\'\\&lt;\\>\\\)]+$)"
+           parse-error="error.message.invalid"
+           />
     <field formid="email" label="profile.email" type="string" mandatory="true" binding="email"
            max-length="254" missing-error="error.card.info.missing.email"
            regexp="(^(?=[\w]{1,64}(?!.*?\.\.)+(?!\@)+[\w!.#$%&amp;'*+-=?^_`{|}~\S+-]{1,64})+[^\@\s]{1,64}[^\@\.\s-]+@[^\-\.\s][\w\.-]+[\.]+(?!.*web|.*'')[\w\.]{2,6}[^\-\.@\s]+$)" 
@@ -28,11 +33,6 @@
            checked="false"
            default-value="false"
            mandatory="true"
-           />
-   <field formid="companyName" label="label.input.companyName" type="string" mandatory="false" binding="companyName"
-           max-length="35" range-error="error.message.lessthan35"
-           regexp="(^[^(\\'\\&lt;\\>\\\)]+$)"
-           parse-error="error.message.invalid"
            />
     <field formid="address1" label="label.input.address1"  type="string" mandatory="true"
            binding="address1" max-length="35"
@@ -86,14 +86,14 @@
     </field>
 
     <!-- use global state list -->
-    <include formid="states" name="addressStates" missing-error="error.message.required" parse-error="error.message.required" value-error="error.message.required"/>
+    <include formid="states" name="states" missing-error="error.message.required" parse-error="error.message.required" value-error="error.message.required"/>
 
     <!-- phone is mandatory for addresses -->
     <field formid="phone" label="label.input.phonenumber" description="address.phone.example" type="string" mandatory="true"
            binding="phone" min-length="8" max-length="20"
            regexp="(^[0-9\\s-]+$)"
            missing-error="error.message.required"
-           range-error="error.message.between8and20"
+           range-error="error.message.between10and20"
            parse-error="error.message.parse.phone"/>
 
     <field formid="saveShippingAddress" label="description.checkbox.saveShippingAddress" type="boolean" mandatory="false" binding="saveShippingAddress"/>
