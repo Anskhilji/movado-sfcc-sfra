@@ -133,6 +133,14 @@
                 } 
            }
         }
+
+        h2 {
+            button {
+                @include media-breakpoint-down(xs) {
+                    line-height: rem(58);
+                }    
+            }
+        }
     }
 }
 
