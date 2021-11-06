@@ -371,7 +371,7 @@ header {
 
         @include media-breakpoint-up(lg) {
             padding: 0 rem(91.5) 0 rem(60);
-            margin-top: rem(33);
+            margin-top: rem(30);
         }
 
         .right {
@@ -409,14 +409,14 @@ header {
                     position: absolute;
                     left: rem(30);
                     width: rem(104);
-                    top: rem(19);
+                    top: rem(12);
                 }  
 
                 @include custom-media-query($large-screen-width) {
                     position: absolute;
-                    left: rem(50);
+                    left: rem(84);
                     width: rem(155);
-                    top: rem(14);
+                    top: rem(10);
                 }   
 
                 img {
@@ -714,8 +714,14 @@ header {
 .mini-cart-wrapper {
     @include media-breakpoint-up(xl) {
         position: absolute;
-        right: rem(92);
+        right: rem(48);
     }
+
+    @include custom-media-query($large-screen-width) {
+        position: absolute;
+        right: rem(92);
+       
+    } 
 }
 
 // Google Autocomplete Address Style -------------------------------

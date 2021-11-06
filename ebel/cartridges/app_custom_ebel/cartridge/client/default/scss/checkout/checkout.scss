@@ -482,8 +482,7 @@ header {
             
             @include custom-media-query($large-screen-width) {
                 position: absolute;
-                left: rem(50);
-                width: rem(155);
+                left: rem(80);          
             }
 
         }
@@ -732,6 +731,12 @@ header {
 .mini-cart-wrapper {
     @include media-breakpoint-up(xl) {
         position: absolute;
-        right: rem(92);
+        right: rem(40);
     }
+
+    @include custom-media-query($large-screen-width) {
+        position: absolute;
+        right: rem(92);
+       
+    } 
 }
