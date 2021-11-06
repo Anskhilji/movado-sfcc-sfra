@@ -193,8 +193,7 @@ header {
 
     @include custom-media-query($large-screen-width) {
         position: absolute;
-        right: rem(80);
-       
+        right: rem(80);       
     } 
 }
 
@@ -346,7 +345,6 @@ header {
             }
 
         }
-
     }
 }
 
@@ -357,7 +355,6 @@ header {
     }
     @include custom-media-query($large-screen-width) {
         position: absolute;
-        right: rem(76);
-    
+        right: rem(76);    
     } 
 }
