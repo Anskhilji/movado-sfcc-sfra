@@ -441,7 +441,7 @@ header {
                         text-decoration: none;
                     }
                 }
-                    p{
+                    p {
                         @include media-breakpoint-up(xl) {
                            margin-bottom: 0;
                         } 
@@ -702,9 +702,12 @@ header {
         margin: 0 auto;
         width: rem(892);
         padding-left: rem(9);
-    }
-    h5 {
-        margin-bottom: 0;
+    } 
+    h5{
+        @include media-breakpoint-up(xl) {
+            margin-bottom: 0;
+        }
+
     }
 }
 
