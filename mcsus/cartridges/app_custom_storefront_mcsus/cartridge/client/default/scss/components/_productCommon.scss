@@ -126,16 +126,19 @@
         }
 
         .detail-heading {
-           button {
+            button {
+                color: $black;
+
                 @include media-breakpoint-down(xs) {
                     line-height: rem(45);
-                    color: $black;
                 } 
            }
         }
 
         h2 {
             button {
+                color: $black;
+                
                 @include media-breakpoint-down(xs) {
                     line-height: rem(58);
                 }    
