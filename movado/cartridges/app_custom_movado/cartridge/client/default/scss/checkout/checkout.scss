@@ -409,12 +409,14 @@ header {
                     position: absolute;
                     left: rem(30);
                     width: rem(104);
+                    top: rem(19);
                 }  
 
                 @include custom-media-query($large-screen-width) {
                     position: absolute;
                     left: rem(50);
                     width: rem(155);
+                    top: rem(14);
                 }   
 
                 img {
@@ -439,6 +441,17 @@ header {
                         text-decoration: none;
                     }
                 }
+                    p{
+                        @include media-breakpoint-up(xl) {
+                           margin-bottom: 0;
+                        } 
+
+                        @include custom-media-query($large-screen-width) {
+                            bottom: rem(32);
+                        }
+                    }
+
+
             }
 
             .checkout-text {
@@ -690,7 +703,7 @@ header {
         width: rem(892);
         padding-left: rem(9);
     }
-    h5{
+    h5 {
         margin-bottom: 0;
     }
 }
