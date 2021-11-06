@@ -82,7 +82,6 @@ span.ship-to-city-st-zip {
     display: block;
 }
 
-
 .data-checkout-stage {
     // Initial states ------------------------
     &[data-checkout-stage] {
@@ -108,11 +107,13 @@ span.ship-to-city-st-zip {
         .price {
             margin-top: auto;
         }
-        .leading-lines{
-            @include media-breakpoint-down(sm){
-                margin:0 rem(10);
+
+        .leading-lines {
+            @include media-breakpoint-down(sm) {
+                margin: 0 rem(10);
             }
-            .grand-total-label{
+
+            .grand-total-label {
                 text-transform: uppercase;
             }
         }
@@ -120,14 +121,14 @@ span.ship-to-city-st-zip {
 
     .card-header {
         h4 {
-        text-transform: uppercase;
-        @include headline;
-          &.pull-left{
-            max-width:90%;
-            @include media-breakpoint-up(lg){
-              font-size: rem(20);
+            text-transform: uppercase;
+            @include headline;
+            &.pull-left {
+                max-width: 90%;
+                @include media-breakpoint-up(lg) {
+                    font-size: rem(20);
+                }
             }
-          }
         }
     }
 
@@ -289,7 +290,6 @@ span.ship-to-city-st-zip {
 }
 
 .form-control-label {
-
     > .content-asset {
         display: inline-block;
     }
@@ -305,17 +305,14 @@ span.ship-to-city-st-zip {
 @import "~movado/checkout/checkout";
 header {
     &.checkout-header {
-
         .checkout-header-placeholder {
             height: rem(85);
         }
 
         .sticky-header {
             &.header-menu-wrapper {
-
                 .header-wrapper {
                     &.checkout-header-wrapper {
-    
                         .header-left {
                             .checkout-logo {
                                 @include media-breakpoint-up(xs) {
@@ -327,9 +324,26 @@ header {
                                     display: none;
                                     content: "";
                                 }
-                            } 
+                            }
                         }
                     }
+                }
+            }
+
+        }
+
+        .sticky-header-wrapper {
+            &.fixed-header {
+                .header-menu-wrapper {
+                    .header-wrapper {
+                        &.checkout-header-wrapper .header-left {                    
+                            @include media-breakpoint-up(xl) {
+                                display: flex;
+                                align-items: flex-start;
+                            }
+                        }
+                    }
+                    
                 }
             }
         }
@@ -348,39 +362,42 @@ header {
                     align-items: center;
                     height: rem(60);
                     padding: 0 rem(20);
-        
+
                     @include media-breakpoint-up(sm) {
-                        padding: 0 rem(15) rem(15) rem(15);
+                        padding: rem(20) rem(15) rem(15) rem(15);
                         margin-top: rem(0);
-                        padding-top: rem(20);
                     }
-                    
+
                     @include media-breakpoint-up(lg) {
-                        padding: 0 rem(80) rem(25) rem(100);
+                        padding: 0 rem(80) rem(25) rem(60);
                         margin-top: rem(40);
-                        padding-top: auto;
                     }
-            
+
                     .right {
                         margin-left: auto;
                     }
-    
-        
+
                     .header-left {
                         display: flex;
                         align-items: center;
                         justify-content: space-between;
                         max-width: 58.33333%;
                         width: 100%;
-            
+
                         @include media-breakpoint-up(sm) {
                             max-width: 70%;
                         }
-            
+
                         @include media-breakpoint-up(md) {
                             max-width: 58.33333%;
                         }
-                
+
+                        @include media-breakpoint-up(xl) {
+                            justify-content: flex-start;
+                            align-items: flex-end;
+                            max-width: 100%;
+                        }
+
                         .checkout-logo {
                             width: rem(155);
 
@@ -389,12 +406,28 @@ header {
                                 align-items: flex-end;
                             }
 
-                
                             @include media-breakpoint-up(md) {
                                 width: rem(155);
-                                height: rem(70);
+                                height: rem(44);
                             }
-                            
+
+                            @include media-breakpoint-up(lg) {
+                                width: rem(155);
+                                height: rem(25);
+                            }
+
+                            @include media-breakpoint-up(xl) {
+                                position: absolute;
+                                left: rem(12);
+                                width: rem(128);
+                            }
+
+                            @include custom-media-query($large-screen-width) {
+                                position: absolute;
+                                left: rem(50);
+                                width: rem(155);
+                            }
+
                             &:before {
                                 font-family: "FontAwesome";
                                 content: '\f023';
@@ -406,39 +439,40 @@ header {
                                     content: "";
                                     display: none;
                                 }
+
                                 @include media-breakpoint-down(xs) {
                                     margin-bottom: rem(-2);
                                 }
                             }
-                            
-            
+
                             &.concord-logo {
                                 overflow: hidden;
                                 height: auto;
-        
+
                                 @include media-breakpoint-up(xs) {
                                     height: auto;
                                 }
-        
+
                                 @include media-breakpoint-up(md) {
                                     height: rem(24);
                                 }
                             }
-        
-                            p, span {
+
+                            p,
+                            span {
                                 margin: 0;
                             }
-                    
+
                             .logo-link {
-                    
                                 img {
-                                     width: rem(144);
-                    
+                                    width: rem(144);
+
                                     @include media-breakpoint-down(md) {
                                         width: rem(128);
                                     }
                                 }
                             }
+                            
                         }
 
                         .checkout-text {
@@ -474,13 +508,12 @@ header {
         }
 
     }
-    
-    .logo-link {
 
-         img {
-             width: rem(128);
-         }
-     }
+    .logo-link {
+        img {
+            width: rem(128);
+        }
+    }
 
     @include media-breakpoint-up(md) {
         .checkout-logo {
@@ -503,23 +536,27 @@ header {
     @include media-breakpoint-up(xs) {
         display: none;
     }
-    
+
     @include media-breakpoint-up(sm) {
         display: block;
-        margin-top: rem(50);
-        padding: 0 rem(15) 0 rem(15);
+        margin: rem(24) auto rem(24);
+        padding: 0 rem(15);
     }
-    
+
     @include media-breakpoint-up(lg) {
-        padding: 0 rem(80) 0 rem(100);
-        margin-top: rem(84);
-        padding-top: auto;
+        padding: 0 rem(15);
+        margin: rem(70) auto rem(24);
+        max-width: rem(940);
+    }
+
+    @include media-breakpoint-up(xl) {
+        padding: 0 rem(16);
+        margin: rem(64) auto rem(32);
     }
 
     li {
-
         @include media-breakpoint-up(sm) {
-            margin-bottom: rem(15);
+            margin-bottom: rem(10);
         }
 
         @include media-breakpoint-up(xxl) {
@@ -531,28 +568,28 @@ header {
             align-items: center;
             font-size: rem(12);
             text-transform: uppercase;
-            text-decoration: none ;
+            text-decoration: none;
             margin-bottom: rem(0);
             line-height: 1.45;
 
             @include media-breakpoint-down(sm) {
                 font-size: rem(10);
             }
-     
-            &:after {
-              content: "";
-              box-sizing: border-box;
-              height: rem(1.8);
-              width: rem(30);
-              background-color: $black;
-              opacity: 0.4;
-              margin:rem(0) rem(10);
 
-              @include media-breakpoint-down(sm) {
-                height: rem(2);
-                width: rem(14);
-                margin:rem(0) rem(5);
-              }
+            &:after {
+                content: "";
+                box-sizing: border-box;
+                height: rem(1.8);
+                width: rem(30);
+                background-color: $black;
+                opacity: 0.4;
+                margin: rem(0) rem(10);
+
+                @include media-breakpoint-down(sm) {
+                    height: rem(2);
+                    width: rem(14);
+                    margin: rem(0) rem(5);
+                }
             }
 
             .step {
@@ -568,8 +605,8 @@ header {
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    background:$white;
-                    border:1px solid $grey15;
+                    background: $white;
+                    border: 1px solid $grey15;
                     color: $grey15;
                     opacity: 0.4;
                     border-radius: 50%;
@@ -586,29 +623,28 @@ header {
             }
         }
     }
-   
-   li {
-       &.active {
+
+    li {
+        &.active {
             p {
                 .step {
                     &-text {
                         color: $black;
                         opacity: 1;
                     }
-    
+
                     &-no {
-                        background:$black;
-                        border:1px solid $black;
+                        background: $black;
+                        border: 1px solid $black;
                         color: $white;
                         opacity: 1;
                     }
                 }
             }
-       }
-       
+        }
+
         &.completed {
             p {
-                
                 &:after {
                     color: $black;
                     opacity: 1;
@@ -619,7 +655,7 @@ header {
                         color: $parrot-green;
                         opacity: 1;
                     }
-    
+
                     &-no {
                         background: $parrot-green;
                         border: 1px solid $parrot-green;
@@ -629,17 +665,15 @@ header {
                 }
             }
         }
-  
 
         &:nth-child(4) p {
             &:after {
-            content: "";
-            height: rem(0);
-            width: rem(0);
-          }
+                content: "";
+                height: rem(0);
+                width: rem(0);
+            }
         }
     }
-
 }
 
 @include media-breakpoint-up(md) {
@@ -649,3 +683,39 @@ header {
         }
     }
 }
+
+.checkout-label-custom {
+    @include media-breakpoint-up(xl) {
+        max-width: rem(908);
+        margin: 0 auto;
+        width: rem(908);
+        padding-left: rem(15);
+    }
+
+    h5 {
+        margin-bottom: rem(0);
+    }
+}
+
+header {
+    .checkout-header {
+        .header-menu-wrapper {
+            .checkout-header-wrapper {
+                .align-start-box {
+                    @include media-breakpoint-up(xl) {
+                        justify-content: flex-start;
+                        max-width: 100%;
+                    }
+                }
+            }
+        }       
+    }
+}
+
+.mini-cart-wrapper {
+    @include media-breakpoint-up(xl) {
+        position: absolute;
+        right: rem(92);
+    }
+}
+

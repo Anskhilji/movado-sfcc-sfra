@@ -185,7 +185,7 @@ $(document).ready(function (params) {
                 $.spinner().stop();
             },
             error: function() {
-                $.spinner().stop();   
+                $.spinner().stop(); 
             },
             complete: function () {
                 $('body').trigger('miniCart:recommendations');

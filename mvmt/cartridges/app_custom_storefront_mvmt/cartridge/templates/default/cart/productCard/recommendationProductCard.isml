@@ -1,5 +1,5 @@
 <isset name="items" value="${pdict.items}" scope="page"/>
-<isset name="lineItem" value="${pdict.items[pdict.items.length - 1]}" scope="page" />
+<isset name="lineItem" value="${pdict.items[pdict.items.length - (pdict.hasBonusProduct ? 2 : 1)]}" scope="page" />
 <isif condition="${!empty(lineItem)}">
     <div class="row">
         <isif condition="${lineItem.bonusProductLineItemUUID === 'bonus'}">

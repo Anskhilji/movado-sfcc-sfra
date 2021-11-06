@@ -48,3 +48,12 @@ $grid-breakpoints: (
   xxl: 1400px,
   xxxl: 1600px
 );
+
+// Large Screen
+$large-screen-width: 1400px;
+
+@mixin custom-media-query($large-screen-width) {
+  @media (min-width:#{$large-screen-width}) {
+      @content;
+  }
+}
