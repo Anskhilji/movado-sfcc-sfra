@@ -21,9 +21,9 @@ function createErrorNotification(message) {
 }
 $(function(){
     var $form = $('form.address-form');
-    if ($form[0].elements["state"]) {
-        var stateCode = $form[0].elements["state"].value;
-        $form[0].elements["state"].value = usStateCodes.getStateNameByStateCode(stateCode) || stateCode;
+    if ($form[0].elements['state']) {
+        var stateCode = $form[0].elements['state'].value;
+        $form[0].elements['state'].value = usStateCodes.getStateNameByStateCode(stateCode) || stateCode;
     }
 })
 module.exports = {
@@ -86,10 +86,10 @@ module.exports = {
             url = $form.attr('action');
             $form.spinner().start();
             $('form.address-form').trigger('address:submit', e);
-            if ($form[0].elements["state"]) {
-                var state = $form[0].elements["state"].value;
+            if ($form[0].elements['state']) {
+                var state = $form[0].elements['state'].value;
                 var stateCode = usStateCodes.getStateCodeByStateName(state);
-                $form[0].elements["state"].value = stateCode || state;
+                $form[0].elements['state'].value = stateCode || state;
             }
             $.ajax({
                 url: url,
