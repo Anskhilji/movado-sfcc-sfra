@@ -360,8 +360,7 @@ module.exports = {
 
     restrictNumbers: function() {
         $('#holderName').keyup(function () {
-            var $holderName = $(this).val();
-            $holderName = $holderName.replace(/[^A-z\ ]/g,'');
+            this.value = this.value.replace(/[^a-z|A-Z ]+(?: [a-z|A-Z ]+)*$/g,'');
         });
     },
 
