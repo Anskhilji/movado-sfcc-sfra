@@ -38,7 +38,7 @@ header {
                         }
                         @include custom-media-query($large-screen-width) {
                             position: absolute;
-                            left: rem(50);
+                            left: rem(48);
                             width: rem(155);
                         }   
 
@@ -188,9 +188,16 @@ header {
 .mini-cart-wrapper {
     @include media-breakpoint-up(xl) {
         position: absolute;
-        right: rem(50);
+        right: rem(48);
     }
+
+    @include custom-media-query($large-screen-width) {
+        position: absolute;
+        right: rem(80);
+       
+    } 
 }
+
 .checkout-checkbox {
     font-size: 0.875em;
 }
@@ -346,6 +353,11 @@ header {
 .mini-cart-wrapper {
     @include media-breakpoint-up(xl) {
         position: absolute;
-        right: rem(76);
+        right: rem(40);
     }
+    @include custom-media-query($large-screen-width) {
+        position: absolute;
+        right: rem(76);
+    
+    } 
 }
