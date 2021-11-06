@@ -21,8 +21,10 @@ function createErrorNotification(message) {
 }
 $(function(){
     var $form = $('form.address-form');
-    var stateCode = $form[0].elements["state"].value;
-    $form[0].elements["state"].value = usStateCodes.getStateNameByStateCode(stateCode) || stateCode;
+    if ($form[0].elements['state']) {
+        var stateCode = $form[0].elements['state'].value;
+        $form[0].elements['state'].value = usStateCodes.getStateNameByStateCode(stateCode) || stateCode;
+    }
 })
 module.exports = {
     removeAddress: function () {
@@ -84,9 +86,11 @@ module.exports = {
             url = $form.attr('action');
             $form.spinner().start();
             $('form.address-form').trigger('address:submit', e);
-            var state = $form[0].elements["state"].value;
-            var stateCode = usStateCodes.getStateCodeByStateName(state);
-            $form[0].elements["state"].value = stateCode || state;
+            if ($form[0].elements['state']) {
+                var state = $form[0].elements['state'].value;
+                var stateCode = usStateCodes.getStateCodeByStateName(state);
+                $form[0].elements['state'].value = stateCode || state;
+            }
             $.ajax({
                 url: url,
                 type: 'post',
