@@ -1,5 +1,5 @@
 
-$(document).ready(function(){
+$(document).ready(function() {
     try {
         var urlParams;
         (window.onpopstate = function () {
@@ -14,7 +14,7 @@ $(document).ready(function(){
         })();
 
 
-        if(urlParams.popup_code) {
+        if (urlParams.popup_code) {
             var url = Resources.COUPONCODE_URL+'?popup_code=' + urlParams.popup_code
             $.ajax({
                 type: "POST",
