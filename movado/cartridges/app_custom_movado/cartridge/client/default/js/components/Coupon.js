@@ -12,7 +12,7 @@ var urlParams;
 
 $(document).ready(function(){
     if(urlParams.popup_code) {
-        var url=Resources.COUPONCODE_URL+'?popup_code=' + urlParams.popup_code
+        var url = Resources.COUPONCODE_URL+'?popup_code=' + urlParams.popup_code
         $.ajax({
             type: "POST",
             url: url,
