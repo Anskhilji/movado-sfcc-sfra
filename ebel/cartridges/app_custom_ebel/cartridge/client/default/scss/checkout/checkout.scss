@@ -504,7 +504,7 @@ header {
         @include media-breakpoint-up(lg) {
             .checkout-header-wrapper {
                 padding: 0 rem(91.5) rem(10) rem(60);
-                margin-top: rem(0);
+                margin-top: rem(16);
             }
         }
     }
@@ -737,6 +737,7 @@ header {
     @include custom-media-query($large-screen-width) {
         position: absolute;
         right: rem(92);
+        top: rem(16);
        
     } 
 }
