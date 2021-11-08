@@ -372,6 +372,9 @@ header {
                         padding: 0 rem(80) rem(25) rem(60);
                         margin-top: rem(40);
                     }
+                    @include media-breakpoint-up(xl) {
+                        margin-top: rem(32);
+                    }
 
                     .right {
                         margin-left: auto;
@@ -689,7 +692,7 @@ header {
         max-width: rem(908);
         margin: 0 auto;
         width: rem(908);
-        padding-left: rem(15);
+        padding-left: rem(9);
     }
 
     h5 {
