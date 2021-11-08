@@ -358,6 +358,6 @@ header {
     @include custom-media-query($large-screen-width) {
         position: absolute;
         right: rem(76);
-        top: rem(16);
+        top: rem(15);
     } 
 }

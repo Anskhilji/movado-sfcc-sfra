@@ -537,7 +537,7 @@ header {
     }
 
     @include media-breakpoint-up(xl) {
-        padding: 0 rem(16);
+        padding: 0 rem(15);
         margin: rem(70) auto rem(32);         
     }
 
@@ -701,7 +701,7 @@ header {
         max-width: rem(892);
         margin: 0 auto;
         width: rem(892);
-        padding-left: rem(9);
+        padding-left: rem(6);
     } 
     h5{
         @include media-breakpoint-up(xl) {
@@ -715,6 +715,7 @@ header {
     @include media-breakpoint-up(xl) {
         position: absolute;
         right: rem(48);
+        top: rem(16);
     }
 
     @include custom-media-query($large-screen-width) {

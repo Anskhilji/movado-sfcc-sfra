@@ -373,7 +373,7 @@ header {
                         margin-top: rem(40);
                     }
                     @include media-breakpoint-up(xl) {
-                        margin-top: rem(32);
+                        margin-top: rem(40);
                     }
 
                     .right {
@@ -397,7 +397,7 @@ header {
 
                         @include media-breakpoint-up(xl) {
                             justify-content: flex-start;
-                            align-items: flex-end;
+                            align-items: flex-start;
                             max-width: 100%;
                         }
 
@@ -429,6 +429,8 @@ header {
                                 position: absolute;
                                 left: rem(50);
                                 width: rem(155);
+                                top: rem(-6);
+                                align-items: flex-start;
                             }
 
                             &:before {
@@ -690,7 +692,7 @@ header {
 .checkout-label-custom {
     @include media-breakpoint-up(xl) {
         max-width: rem(908);
-        margin: 0 auto;
+        margin: rem(-10) auto 0 auto;
         width: rem(908);
         padding-left: rem(9);
     }
@@ -719,6 +721,7 @@ header {
     @include media-breakpoint-up(xl) {
         position: absolute;
         right: rem(76);
+        top: rem(6);
     }
 }
 
