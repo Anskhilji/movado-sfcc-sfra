@@ -141,11 +141,13 @@ header {
                     @include media-breakpoint-up(xl) {
                         position: absolute;
                         right: rem(40);
+                        top: rem(0); 
                     }
     
                     @include custom-media-query($large-screen-width) {
                         position: absolute;
-                        right: rem(56);                    
+                        right: rem(56);   
+                        top: rem(16);                 
                     } 
                 }
             }
@@ -327,7 +329,7 @@ header {
                 max-width: rem(940);
                 margin: 0 auto;
                 width: rem(940);
-                padding-left: rem(24);
+                padding-left: rem(29);
             }
         }
     }

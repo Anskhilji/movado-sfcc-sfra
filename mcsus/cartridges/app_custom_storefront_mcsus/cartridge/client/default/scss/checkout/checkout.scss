@@ -352,9 +352,12 @@ header {
     @include media-breakpoint-up(xl) {
         position: absolute;
         right: rem(40);
+        top: rem(16);
     }
+    
     @include custom-media-query($large-screen-width) {
         position: absolute;
-        right: rem(76);    
+        right: rem(76);
+        top: rem(16);
     } 
 }
