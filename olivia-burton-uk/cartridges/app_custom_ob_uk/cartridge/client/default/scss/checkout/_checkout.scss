@@ -146,7 +146,7 @@ header {
     
                     @include custom-media-query($large-screen-width) {
                         position: absolute;
-                        right: rem(56);   
+                        right: rem(56);
                         top: rem(16);
                     } 
                 }
