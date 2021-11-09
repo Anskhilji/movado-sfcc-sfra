@@ -169,7 +169,7 @@ server.replace(
             salesChannel: Site.getCurrent().getID()
         });
 
-        var ordersArray = orders.object.orders;
+        var ordersArray = !empty(orders.object.orders) ? orders.object.orders : '';
         var orderNumberParam = req.querystring.trackOrderNumber;
         if (!empty(ordersArray) && !empty(orderNumberParam)) {
             var filteredOrder = ordersArray.filter(function (orderIndex) {
@@ -233,7 +233,7 @@ server.replace(
                     exitLinkText: exitLinkText,
                     exitLinkUrl: exitLinkUrl,
                     orders: orders.object.orders,
-                    filteredOrder: filteredOrder
+                    filteredOrder: !empty(filteredOrder) ? filteredOrder : ''
 
                 });
             } else {
