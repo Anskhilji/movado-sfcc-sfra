@@ -176,6 +176,10 @@
           width: 75%;
           height: rem(2);
           background: $black;
+
+          @include media-breakpoint-down(lg) {
+           top: auto;
+          }
         }
       }
 
