@@ -81,8 +81,11 @@ server.append('AddProduct', function (req, res, next) {
         }
         
         if (req.form.isCartRecommendation && !empty(req.form.isCartRecommendation)) {
+            var proId = req.form.pid;
             basketModel.removeProductLineItemUrl = basketModel.actionUrls.removeProductLineItemUrl;
-            recommendedProductCardHtml = renderTemplateHelper.getRenderedHtml(basketModel, 'cart/productCard/recommendationProductCard');
+            var basket =  { basketModel: basketModel, proId: proId };
+            recommendedProductCardHtml = renderTemplateHelper.getRenderedHtml(basket, 'cart/productCard/recommendationProductCard');
+            var end = '';
         }
 
         var addCartGtmArray = customCartHelpers.createAddtoCartProdObj(currentBasket, viewData.pliUUID, embossedMessage, engravedMessage);

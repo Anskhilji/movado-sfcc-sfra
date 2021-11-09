@@ -74,6 +74,7 @@
         <isloop items="${items}" var="lineItem" status="loopStatus">
             <div class="row">
                <isif condition="${lineItem.bonusProductLineItemUUID === 'bonus'}">
+               Mini Cart A
                    <div class="card ${miniCart ? 'bonus-product-line-item' : ''} uuid-${lineItem.UUID}">
                        <div class="card-body">
                            <isinclude template="checkout/productCard/miniCartBonusProductCard" />
@@ -81,6 +82,7 @@
                    </div>
                <iselse/>
                    <div class="card uuid-${lineItem.UUID}">
+                   Mini Cart B
                        <div class="card-body">
                            <isinclude template="checkout/productCard/miniCartProductCard" />
                        </div>
