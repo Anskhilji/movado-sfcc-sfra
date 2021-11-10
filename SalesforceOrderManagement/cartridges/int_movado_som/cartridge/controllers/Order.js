@@ -144,109 +144,40 @@ server.replace(
     }
 );
 
-server.replace(
+server.append(
     'Track',
     consentTracking.consent,
     server.middleware.https,
     csrfProtection.validateRequest,
     csrfProtection.generateToken,
     function (req, res, next) {
-        var OrderMgr = require('dw/order/OrderMgr');
-        var OrderModel = require('*/cartridge/models/order');
-        var Locale = require('dw/util/Locale');
+        this.on('route:BeforeComplete', function (req, res) {
 
-        var order;
-        var validForm = true;
+            var emailAddress = req.querystring.trackOrderEmail;
+            var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
 
-        var profileForm = server.forms.getForm('profile');
-        profileForm.clear();
+            var orders = SalesforceModel.getOrdersByCustomerEmail({
+                emailAddress: emailAddress,
+                salesChannel: Site.getCurrent().getID()
+            });
 
-        var emailAddress = req.querystring.trackOrderEmail;
-        var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
-
-        var orders = SalesforceModel.getOrdersByCustomerEmail({
-            emailAddress: emailAddress,
-            salesChannel: Site.getCurrent().getID()
+            var ordersArray = !empty(orders.object.orders) ? orders.object.orders : '';
+            var orderNumberParam = req.querystring.trackOrderNumber;
+            if (!empty(ordersArray) && !empty(orderNumberParam)) {
+                var filteredOrder = ordersArray.filter(function (orderObject) {
+                    return orderObject.num == orderNumberParam
+                });
+            }
+            var orderStaus = {
+                omsOrderStaus : !empty(filteredOrder) && filteredOrder.length > -1 ?  filteredOrder[0] : null
+            } 
+            var viewData = res.getViewData();
+            res.setViewData(orderStaus);
+            var test = res.getViewData();
+            var test = 123;
         });
 
-        var ordersArray = !empty(orders.object.orders) ? orders.object.orders : '';
-        var orderNumberParam = req.querystring.trackOrderNumber;
-        if (!empty(ordersArray) && !empty(orderNumberParam)) {
-            var filteredOrder = ordersArray.filter(function (orderIndex) {
-                return orderIndex.num == orderNumberParam
-            });
-        }
-
-        if (req.querystring.trackOrderEmail
-            && req.querystring.trackOrderPostal
-            && req.querystring.trackOrderNumber) {
-            order = OrderMgr.getOrder(req.querystring.trackOrderNumber);
-        } else {
-            validForm = false;
-        }
-
-        if (!order) {
-            res.render('/account/login', {
-                navTabValue: 'login',
-                orderTrackFormError: validForm,
-                profileForm: profileForm,
-                userName: ''
-            });
-            next();
-        } else {
-            var config = {
-                numberOfLineItems: '*'
-            };
-
-            var currentLocale = Locale.getLocale(req.locale.id);
-
-            var orderModel = new OrderModel(
-                order,
-                { config: config, countryCode: currentLocale.country, containerView: 'order' }
-            );
-
-            // check the email and postal code of the form
-            if (req.querystring.trackOrderEmail.toLowerCase()
-                    !== orderModel.orderEmail.toLowerCase()) {
-                validForm = false;
-            }
-
-            if (req.querystring.trackOrderPostal
-                !== orderModel.billing.billingAddress.address.postalCode) {
-                validForm = false;
-            }
-
-            if (validForm) {
-                var exitLinkText;
-                var exitLinkUrl;
-
-                exitLinkText = !req.currentCustomer.profile
-                    ? Resource.msg('link.continue.shop', 'order', null)
-                    : Resource.msg('link.orderdetails.myaccount', 'account', null);
-
-                exitLinkUrl = !req.currentCustomer.profile
-                    ? URLUtils.url('Home-Show')
-                    : URLUtils.https('Account-Show');
-
-                res.render('account/orderDetails', {
-                    order: orderModel,
-                    exitLinkText: exitLinkText,
-                    exitLinkUrl: exitLinkUrl,
-                    orders: orders.object.orders,
-                    filteredOrder: !empty(filteredOrder) ? filteredOrder : ''
-
-                });
-            } else {
-                res.render('/account/login', {
-                    navTabValue: 'login',
-                    profileForm: profileForm,
-                    orderTrackFormError: !validForm,
-                    userName: ''
-                });
-            }
-
-            next();
-        }
+        next();
     }
 );
 
