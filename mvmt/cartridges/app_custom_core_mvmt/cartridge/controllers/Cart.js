@@ -123,6 +123,7 @@ server.get('Recommendations', function (req, res, next) {
         explicitRecommendations = productCustomHelper.getExplicitRecommendations(pid);
     }
     var attributeContext = {
+        pid: pid,
         explicitRecommendations: explicitRecommendations
     };
     var attributeTemplateLinked = 'cart/recommendedProducts';
