@@ -173,8 +173,7 @@ server.append(
             } 
             var viewData = res.getViewData();
             res.setViewData(orderStaus);
-            var test = res.getViewData();
-            var test = 123;
+            
         });
 
         next();
