@@ -172,7 +172,7 @@ server.append(
                     });
                 }
                 var orderStaus = {
-                    omsOrderStaus : !empty(filteredOrder) && filteredOrder.length > -1 ?  filteredOrder[0] : null
+                    omsOrderStaus : !empty(filteredOrder) && filteredOrder.length > 0 ? filteredOrder[0] : null
                 }  
                 res.setViewData(orderStaus);
             } 
