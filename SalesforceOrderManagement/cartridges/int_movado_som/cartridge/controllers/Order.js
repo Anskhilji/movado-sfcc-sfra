@@ -153,27 +153,29 @@ server.append(
     function (req, res, next) {
         this.on('route:BeforeComplete', function (req, res) {
 
-            var emailAddress = req.querystring.trackOrderEmail;
-            var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
-
-            var orders = SalesforceModel.getOrdersByCustomerEmail({
-                emailAddress: emailAddress,
-                salesChannel: Site.getCurrent().getID()
-            });
-
-            var ordersArray = !empty(orders.object.orders) ? orders.object.orders : '';
-            var orderNumberParam = req.querystring.trackOrderNumber;
-            if (!empty(ordersArray) && !empty(orderNumberParam)) {
-                var filteredOrder = ordersArray.filter(function (orderObject) {
-                    return orderObject.num == orderNumberParam
-                });
-            }
-            var orderStaus = {
-                omsOrderStaus : !empty(filteredOrder) && filteredOrder.length > -1 ?  filteredOrder[0] : null
-            } 
             var viewData = res.getViewData();
-            res.setViewData(orderStaus);
-            
+            var trackOrderError = viewData.orderTrackFormError;
+            if (!trackOrderError) {
+                var emailAddress = req.querystring.trackOrderEmail;
+                var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
+
+                var orders = SalesforceModel.getOrdersByCustomerEmail({
+                    emailAddress: emailAddress,
+                    salesChannel: Site.getCurrent().getID()
+                });
+
+                var ordersArray = !empty(orders.object.orders) ? orders.object.orders : '';
+                var orderNumberParam = req.querystring.trackOrderNumber;
+                if (!empty(ordersArray) && !empty(orderNumberParam)) {
+                    var filteredOrder = ordersArray.filter(function (orderObject) {
+                        return orderObject.num == orderNumberParam
+                    });
+                }
+                var orderStaus = {
+                    omsOrderStaus : !empty(filteredOrder) && filteredOrder.length > -1 ?  filteredOrder[0] : null
+                }  
+                res.setViewData(orderStaus);
+            } 
         });
 
         next();
