@@ -1,19 +1,20 @@
 <isset name="items" value="${pdict.items}" scope="page"/>
-<isset name="lineItem" value="${pdict.items[pdict.items.length - (pdict.hasBonusProduct ? 2 : 1)]}" scope="page" />
-<isif condition="${!empty(lineItem)}">
-    <div class="row">
-        <isif condition="${lineItem.bonusProductLineItemUUID === 'bonus'}">
-            <div class="card ${miniCart ? 'bonus-product-line-item' : ''} uuid-${lineItem.UUID}">
-                <div class="card-body">
-                    <isinclude template="checkout/productCard/miniCartBonusProductCard" />
+<isloop items="${items}" var="lineItem" status="loopStatus">
+    <isif condition="${!empty(lineItem)} ">
+        <div class="row">
+            <isif condition="${lineItem.bonusProductLineItemUUID === 'bonus'}">
+                <div class="card ${miniCart ? 'bonus-product-line-item' : ''} uuid-${lineItem.UUID}">
+                    <div class="card-body">
+                        <isinclude template="checkout/productCard/miniCartBonusProductCard" />
+                    </div>
                 </div>
-            </div>
-        <iselse/>
-            <div class="card uuid-${lineItem.UUID}">
-                <div class="card-body">
-                    <isinclude template="checkout/productCard/miniCartProductCard" />
+            <iselse/>
+                <div class="card uuid-${lineItem.UUID}">
+                    <div class="card-body">
+                        <isinclude template="checkout/productCard/miniCartProductCard" />
+                    </div>
                 </div>
-            </div>
-        </isif>
-    </div>
-</isif>
+            </isif>
+        </div>
+    </isif>
+</isloop>

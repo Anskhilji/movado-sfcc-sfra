@@ -106,7 +106,7 @@
 }
 
 $(document).ready(function (params) {
-        
+    var $pairsBestWith;
     
     $('body').on('miniCart:recommendations', function () {
         $('.cart-recommendations').each(function (event) {
@@ -117,12 +117,16 @@ $(document).ready(function (params) {
             var url = $this.data('url');
             $.get(url, function (response) {
                 $this.html(response.recommendedProductTemplate);
+                if($pairsBestWith !== undefined && $pairsBestWith !== '') {
+                    $($pairsBestWith).trigger('click');
+                };
             });
         });
     });
 
     $('body').on('click', '.mini-cart-show-recommendations', function() {
         var $this = $(this);
+        $pairsBestWith = "#" + $(this).attr('id');
         $this.addClass('d-none');
         $this.siblings('.mini-cart-hide-recommendations').removeClass('d-none');
         var $recommendationContainer = $this.siblings('.mini-cart-recommendations')
@@ -172,6 +176,7 @@ $(document).ready(function (params) {
                     $quantitySelector.siblings('.quantity-btn-group').children('.quantity-btn-down').prop('disabled', false);
                     $quantitySelector.val($quantity);
                 } else {
+                    $('.mini-cart-data .product-summary').empty();
                     $('.mini-cart-data .product-summary').append(response.recommendedProductCardHtml);
                 }
                 updateCartTotals(response.cart); 
