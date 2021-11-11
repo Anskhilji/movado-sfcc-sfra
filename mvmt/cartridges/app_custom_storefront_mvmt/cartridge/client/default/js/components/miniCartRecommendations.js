@@ -117,7 +117,7 @@ $(document).ready(function (params) {
             var url = $this.data('url');
             $.get(url, function (response) {
                 $this.html(response.recommendedProductTemplate);
-                if($pairsBestWith) {
+                if($pairsBestWith !== undefined && $pairsBestWith !== '') {
                     $($pairsBestWith).trigger('click');
                 };
             });
