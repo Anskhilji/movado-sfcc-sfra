@@ -794,9 +794,6 @@ function handleVariantResponse(response, $productContainer) {
     }
 
     // Attach Slider and Zoom
-    setTimeout(function(){
-        zoomfeature();
-    },500)
     initializePDPMainSlider();
     gallerySlider();
 
@@ -950,6 +947,11 @@ function handleVariantResponse(response, $productContainer) {
             $('.google-pay-container').hide();
         }
     }
+    $('body').on('product:afterAttributeSelect', function (e, response) {
+        setTimeout(function(){
+            zoomfeature();
+        },500)
+    })
 }
 
 /**
