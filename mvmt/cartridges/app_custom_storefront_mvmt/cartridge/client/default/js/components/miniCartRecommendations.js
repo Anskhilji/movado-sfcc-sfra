@@ -107,7 +107,6 @@
 
 $(document).ready(function (params) {
     var $pairsBestWith;
-    
     $('body').on('miniCart:recommendations', function () {
         $('.cart-recommendations').each(function (event) {
             var $this = $(this);
@@ -196,5 +195,10 @@ $(document).ready(function (params) {
                 $('body').trigger('miniCart:recommendations');
             }
         });
+    });
+
+    $('body').on('click', '#close-mini-cart, #footer-overlay', function() {
+        $pairsBestWith = undefined;
+        $('.mini-cart-hide-recommendations').trigger('click');
     });
 });
