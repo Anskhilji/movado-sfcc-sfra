@@ -950,10 +950,6 @@ function handleVariantResponse(response, $productContainer) {
             $('.google-pay-container').hide();
         }
     }
-    // zoomfeature(); 
-    // setTimeout(function () {
-    //     window.dispatchEvent(new Event('resize'));
-    // },1000)
 }
 
 /**
