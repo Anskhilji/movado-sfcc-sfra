@@ -590,7 +590,7 @@ function zoomfeature () {
     $(t).trigger('zoom.destroy');
     var n = $('.main-mvmt-carousel .slick-active').find('img').attr('src');
     $(window).width() > 767 ? ($(t).trigger('zoom.destroy'), $(t).zoom({
-        url: n,
+        url: undefined,
         magnify: 1.1,
         on: 'click',
         target: $('.zoom-box'),
@@ -609,7 +609,7 @@ function zoomfeature () {
         $(t).hasClass('disabled') && ($('.zoom-icon.zoom-out').addClass('is-active'),
         $(t).removeClass('disabled'),
         $(t).zoom({
-            url: n,
+            url: undefined,
             magnify: 1.1,
             on: 'click',
             target: $('.zoom-box'),
@@ -794,7 +794,9 @@ function handleVariantResponse(response, $productContainer) {
     }
 
     // Attach Slider and Zoom
-    zoomfeature(); 
+    setTimeout(function(){
+        zoomfeature();
+    },500)
     initializePDPMainSlider();
     gallerySlider();
 
