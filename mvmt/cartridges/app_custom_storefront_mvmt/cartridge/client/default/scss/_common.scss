@@ -604,3 +604,27 @@ div {
 .cart-message {
     padding: 0 rem(30);
 }
+
+// Styles for promo code form on cart and checkout page
+.collapsible-promo-wrapper {
+    .form-control {
+      border-right: 0;
+    }
+  
+    [class*="collapsible-"] {
+      margin-bottom: 0;
+        .title {
+            width: 100%;
+            line-height: rem(17);
+            cursor: pointer;
+  
+            &::after {
+                content: "\F107";
+                font-size: rem(24);
+                font-family: "FontAwesome";
+                float: right;
+            }
+        }
+
+    }
+}
