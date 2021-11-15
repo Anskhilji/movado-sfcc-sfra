@@ -64,7 +64,7 @@
 			</aside>
 			<div class="right-content offset-md-1 col-md-8 text">
 				<isif condition="${pdict.content}">
-					<h2 class="heading-two text-uppercase"> ${pdict.content.name} </h2>
+					<h1 class="heading-two text-uppercase"> ${pdict.content.name} </h1>
 					<isinclude template="components/content/contentAssetInc" />
 					<iselseif condition="${!pdict.cid}">
 						<isprint value="${pdict.foldersearch.customerServiceContent}" encoding="off" />

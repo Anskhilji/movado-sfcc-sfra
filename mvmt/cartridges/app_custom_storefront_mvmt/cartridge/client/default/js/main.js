@@ -33,6 +33,7 @@ $(document).ready(function () {
     processInclude(require('./components/miniCartRecommendations'));
     processInclude(require('movado/components/rakutenCookieHandler'));
     processInclude(require('googlePay/googlePay'));
+    processInclude(require('movado/components/Coupon'));
 });
 
 require('base/components/spinner');
