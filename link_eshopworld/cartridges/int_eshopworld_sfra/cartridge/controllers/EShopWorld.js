@@ -482,4 +482,31 @@ server.get('Failure', function (req, res, next) {
     next();
 });
 
+
+/**
+ * Function to return to home page after rebuilding cart
+ */
+ server.get('Home', function (req, res, next) {
+    res.cachePeriod = 0;
+    res.cachePeriodUnit = 'minutes';
+    // Rebuild cart starts here
+    eswHelper.rebuildCart();
+    // Rebuild cart ends here
+    res.redirect(URLUtils.url('Home-Show'));
+    next();
+});
+
+/**
+ * Function to return to cart page after rebuilding cart
+ */
+ server.get('GetCart', function (req, res, next) {
+    res.cachePeriod = 0;
+    res.cachePeriodUnit = 'minutes';
+    // Rebuild cart starts here
+    eswHelper.rebuildCart();
+    // Rebuild cart ends here
+    res.redirect(URLUtils.https('Cart-Show'));
+    next();
+});
+
 module.exports = server.exports();

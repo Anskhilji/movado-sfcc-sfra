@@ -135,6 +135,14 @@ $svg-check: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org
     padding-left: #{ $custom-padding };
     padding-right: #{ $custom-padding };
 }
+// Large Screen
+$large-screen-width: 1400px;
+
+@mixin custom-media-query($large-screen-width) {
+  @media (min-width:#{$large-screen-width}) {
+      @content;
+  }
+}
 //font Families:
 
 $font-medium: "proxima-nova";

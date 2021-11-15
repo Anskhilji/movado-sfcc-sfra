@@ -552,6 +552,15 @@ header~.container .promotions .callout a{
   color: $grey14;
   line-height: rem(14);
 }
+
+.pt_customerservice {
+  .right-content {
+    .heading-two {
+      margin-bottom: rem(40);
+    }
+  }
+}
+
 @media only screen and (max-width: 1300px) {
     .static-content-wrapper {
         .cs-carousel-wrapper {

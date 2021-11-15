@@ -122,7 +122,12 @@ function maskValue(value) {
 function creditCardDateValidation() {
     var creditCardDate = $('#expirationDate').val().split('/');
     var expdateRegex = new RegExp("^[[2-9]{1}]?([0-9]{1})$");
-    if (!expdateRegex.test(creditCardDate[1])){
+    var cuurentDate = new Date();
+    const d = new Date();
+    let currentMonth = d.getMonth() +1;
+    var currentYear = cuurentDate.getFullYear().toString();
+
+    if (!expdateRegex.test(creditCardDate[1]) || ((currentYear.substring(0,2) + creditCardDate[1] <= currentYear) && parseInt(creditCardDate[0]) < currentMonth)){
         $('#expirationDate').addClass('is-invalid');
         return false;
     } else {

@@ -306,11 +306,6 @@ function Request(request, customer, session) {
         var isOneTrustEnabled = !empty(dw.system.Site.current.preferences.custom.oneTrustCookieEnabled) ? dw.system.Site.current.preferences.custom.oneTrustCookieEnabled : false;
         var Logger = require('dw/system/Logger');
 
-        // Custom Start : Adding URL Cupon Logic
-        var referralCouponHelper = require('*/cartridge/scripts/helpers/referralHelper');
-        referralCouponHelper.addReferralCoupon(request);
-        // Custom End: Adding URL Cupon Logic
-
         //Custom Start: Adding Rakuten cookies logic
         var Constants = require('*/cartridge/scripts/util/Constants');
         var rakutenCookiesHelper = require('*/cartridge/scripts/helpers/rakutenHelpers');

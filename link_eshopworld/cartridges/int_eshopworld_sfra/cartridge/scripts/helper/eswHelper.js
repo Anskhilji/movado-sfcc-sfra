@@ -31,7 +31,7 @@ eswHelper.setBaseCurrencyPriceBook = function (req, currencyCode) {
  * Function is used to set default currency locale from given country
  */
 eswHelper.setDefaultCurrencyLocal = function (req, foundCountry) {
-	var Site = require('dw/system/Site');
+    var Site = require('dw/system/Site');
     if (empty(foundCountry)) { // eslint-disable-line no-undef
         eswHelper.setAllAvailablePriceBooks();
         eswHelper.setBaseCurrencyPriceBook(req, eswHelper.getBaseCurrencyPreference());
@@ -105,14 +105,13 @@ eswHelper.overridePrice = function (req, selectedCountry, selectedCurrency) {
     return false;
 };
 
- /*
+/*
  * Function is used to get Order total including shipping cost
  */
 eswHelper.getOrderTotalWithShippingCost = function () {
     var BasketMgr = require('dw/order/BasketMgr');
     return formatMoney(new dw.value.Money(eswHelper.getFinalOrderTotalsObject().value + eswHelper.getMoneyObject(BasketMgr.currentBasket.shippingTotalPrice, true, false, false).value - eswHelper.getShippingDiscount(BasketMgr.currentBasket), request.httpCookies['esw.currency'].value));
 };
-
 
 /*
  * FUnction is used to return matching line item from current basket
@@ -148,16 +147,31 @@ eswHelper.getMatchingLineItemWithID = function (lineItemID, lineItemUUID) {
  * @return {Boolean} - true/ false
  */
 eswHelper.isProductRestricted = function (prdCustomAttr) {
-	var currCountry = this.getAvailableCountry();
-	var restrictedCountries = 'eswProductRestrictedCountries' in prdCustomAttr && !!prdCustomAttr.eswProductRestrictedCountries ? prdCustomAttr.eswProductRestrictedCountries : null;
-	if (!empty(restrictedCountries)) {
-		for (var con in restrictedCountries) {
-			if (restrictedCountries[con] == currCountry) {
-				return true;
-			}
-		}
-	}
-	return false;
+    var currCountry = this.getAvailableCountry();
+    var restrictedCountries = 'eswProductRestrictedCountries' in prdCustomAttr && !!prdCustomAttr.eswProductRestrictedCountries ? prdCustomAttr.eswProductRestrictedCountries : null;
+    if (!empty(restrictedCountries)) {
+        for (var con in restrictedCountries) {
+            if (restrictedCountries[con] == currCountry) {
+                return true;
+            }
+        }
+    }
+    return false;
+};
+
+/**
+ * This function is used to rebuild cart on redirecting back to store front from ESW Checkout for SFRA.
+ * @param {boolean} isCart - true/ false
+ */
+eswHelper.rebuildCart = function () {
+    var eswServiceHelper = require('*/cartridge/scripts/helper/serviceHelper');
+    // ESW fail order if order no is set in session
+    if (eswHelper.getEShopWorldModuleEnabled() && eswHelper.isESWSupportedCountry()) {
+        if (session.privacy.eswfail || !empty(session.privacy.orderNo)) {
+            // eslint-disable-line no-undef
+            eswServiceHelper.failOrder();
+        }
+    }
 };
 
 module.exports = {

@@ -57,6 +57,7 @@ $stored-payment-spacing: rem(16);
 .data-checkout-stage {
   padding-top: rem(10);
   margin-bottom: rem(50);
+  
   .top-grandtotal-label {
     text-transform: uppercase;
   }
@@ -187,6 +188,10 @@ $stored-payment-spacing: rem(16);
     .checkout-promo-code-form .form-group {
       padding: 0;
     }
+  }
+ 
+  @include media-breakpoint-up(lg) {
+    padding-top: rem(0);
   }
 }
 
