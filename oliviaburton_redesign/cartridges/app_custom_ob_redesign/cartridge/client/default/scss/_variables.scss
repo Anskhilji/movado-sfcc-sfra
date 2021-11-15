@@ -63,3 +63,11 @@ $grid-breakpoints: (
     font-weight: $font-weight;
     letter-spacing: rem($letter-spacing);
 }
+// Large Screen
+$large-screen-width: 1400px;
+
+@mixin custom-media-query($large-screen-width) {
+  @media (min-width:#{$large-screen-width}) {
+      @content;
+  }
+}

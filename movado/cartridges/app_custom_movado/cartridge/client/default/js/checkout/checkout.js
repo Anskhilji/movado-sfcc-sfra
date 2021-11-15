@@ -771,16 +771,24 @@ var exports = {
                 }
             });
         });
+
+        $('.creditcard-securitycode').on('keypress', function(event) {
+            if(!((event.charCode >= 48 && event.charCode <= 57))) {
+                return false;
+            }
+        })
     }
 };
 
 [billingHelpers, shippingHelpers, addressHelpers].forEach(function (library) {
     Object.keys(library).forEach(function (item) {
-        exports[item] = library[item];
-        if (typeof library[item] === 'object') {
-            exports[item] = $.extend({}, exports[item], library[item]);
-        } else {
+        if (item != 'handleCreditCardNumber' && item != 'creditCardExpiryDate') {
             exports[item] = library[item];
+            if (typeof library[item] === 'object') {
+                exports[item] = $.extend({}, exports[item], library[item]);
+            } else {
+                exports[item] = library[item];
+            }
         }
     });
 });

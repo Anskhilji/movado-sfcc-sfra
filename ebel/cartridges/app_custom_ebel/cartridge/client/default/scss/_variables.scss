@@ -72,8 +72,8 @@ $grid-breakpoints: (
     custom-md: 768px,
     md: 769px,
     lg: 992px,
-    xl: 1200px
-) !default;
+    xl: 1200px,
+    ) !default;
 
 $container-max-widths: (
     md: 720px,
@@ -116,3 +116,12 @@ $light-font : "HelveticaNeueLT-LightExt", helvetica, arial, sans-serif !default;
 $font-primary: $font-book;
 $maroon : rgb(75,40,9) !default;
 $footer-custom : rgb(254,253,252) !default;
+
+// Larger Screen
+$large-screen-width: 1400px;
+
+@mixin custom-media-query($large-screen-width) {
+  @media (min-width:#{$large-screen-width}) {
+      @content;
+  }
+}

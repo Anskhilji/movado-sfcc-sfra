@@ -23,6 +23,7 @@ $(document).ready(function () {
     processInclude(require('./components/emailPopUpSubscription'));
     processInclude(require('./components/rakutenCookieHandler'));
     processInclude(require('googlePay/googlePay'));
+    processInclude(require('./components/Coupon'));
 });
 
 require('base/components/spinner');
