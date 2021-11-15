@@ -358,6 +358,12 @@ module.exports = {
         });
     },
 
+    restrictNumbers: function() {
+        $('#holderName').keyup(function () {
+            this.value = this.value.replace(/[^a-z|A-Z ]+(?: [a-z|A-Z ]+)*$/g,'');
+        });
+    },
+
     trimSpaces: function() {
         $('#holderName').focusout(function() {
             var $holderName = $(this).val();

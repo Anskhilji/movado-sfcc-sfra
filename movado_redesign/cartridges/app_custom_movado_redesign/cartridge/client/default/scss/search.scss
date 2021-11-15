@@ -464,15 +464,17 @@
     }
     .promotions, .plp-promotions {
         margin-left: rem(15);
+
         @include media-breakpoint-down(sm) {
             margin-left: rem(10);
         }
+
         .callout.promo-msg {
             padding-top: 0;
             letter-spacing: normal;
             font-size: rem(15);
             @include font-medium;
-            color: $dark-green;
+            color: $dark-blue2;
             text-overflow: ellipsis;
             overflow: hidden;
             width: 60%;
@@ -483,6 +485,10 @@
                 margin: 0;
                 text-overflow: ellipsis;
                 overflow: hidden;
+            }
+
+            @include media-breakpoint-down(md) {
+              font-size: rem(8);             
             }
 
             @include media-breakpoint-down(sm) {
@@ -505,17 +511,23 @@
         font-size: rem(15);
         text-align: left;
 
+        @include media-breakpoint-up(md) {
+          font-size: rem(15);
+          margin-left: rem(12);
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
         @include media-breakpoint-down(sm) {
-          font-size: rem(13);
+          font-size: rem(12);
+          margin-left: rem(12);
         }
   
         @include media-breakpoint-down(xs) {
           font-size: rem(10); 
         }
   
-        @include media-breakpoint-down(sm) {
-            margin-left: rem(10);
-        }
       }
     } 
 
@@ -592,6 +604,7 @@
       border-radius: rem(10);
       z-index: 99;
       float: right;
+
       @include media-breakpoint-down(sm) {
         right: rem(5);
       }
@@ -662,8 +675,35 @@
         letter-spacing: normal;
         color: $grey8;
         margin-bottom: rem(5);
+
+        span:nth-child(1) {
+          display: flex;
+        }
+
         span:nth-child(2) {
           display: flex;
+          
+          @include media-breakpoint-up(lg) {
+            font-size: rem(15);
+          }
+
+          @include media-breakpoint-down(md) {
+            font-size: rem(12);
+          }
+
+        }
+
+        del {
+          display: inline-flex;
+
+          @include media-breakpoint-up(lg) {
+            font-size: rem(15);
+          }
+
+          @include media-breakpoint-down(md) {
+            font-size: rem(12);
+          }
+
         }
 
         @include media-breakpoint-down(xs) {
@@ -930,13 +970,11 @@
 
 @media only screen and (max-width: $custom-sm) {
   .plp-new-design  {
-
     .product-tile { 
-
       .image-container {
         padding-bottom: rem(0);
       }
-
+      
       .tile-body {
         position: relative;
         height: auto;
@@ -945,8 +983,6 @@
   }
 
 }
-
-
 
 @media only screen and (min-width: $custom-sm) {
   .plp-new-design {

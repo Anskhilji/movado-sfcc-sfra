@@ -79,11 +79,19 @@
         font-family: $font-medium;
         font-weight: 500;
     }
+    .primary-images {
+        .quickview {
+            span {              
+             color: $black;
+            }
+        }
+    }
+
 }
 
 .product-detail {
     &.product-quickview {
-        @import "../product/imageCarousel";
+        @import "../product/imageCarousel";       
 
     .availability-msg {
         font-family:$font-medium;
@@ -95,10 +103,9 @@
             font-weight: 500;
             font-size: rem(16);
         }
-    }
+    }    
   }
 }
-
 
 .more-styles-wrapper {
     h3 {
@@ -119,11 +126,23 @@
         }
 
         .detail-heading {
-           button {
+            button {
+                color: $black;
+
                 @include media-breakpoint-down(xs) {
                     line-height: rem(45);
                 } 
            }
+        }
+
+        h2 {
+            button {
+                color: $black;
+                
+                @include media-breakpoint-down(xs) {
+                    line-height: rem(58);
+                }    
+            }
         }
     }
 }
