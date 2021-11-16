@@ -56,7 +56,7 @@ server.post(
 
             var emailObj = {
                     to: Site.current.getCustomPreferenceValue('customerServiceEmail'),
-                    subject: Resource.msg('subject.contactus.email', 'common', null),
+                    subject: result.myquestion + ' | ' + Resource.msg('subject.contactus.email', 'common', null),
                     from: result.email,
                     type: emailHelpers.emailTypes.contactUs
                 };
