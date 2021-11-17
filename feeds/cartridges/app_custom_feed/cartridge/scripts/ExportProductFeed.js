@@ -687,7 +687,7 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
         if (product.salePrice != "") {
             productDetails.push(product.salePrice)
         } else {
-            productDetails.push(product.decimalPrice);
+            productDetails.push(product.decimalPrice || "");
         }
     }
 
