@@ -51,6 +51,9 @@ function getTaxService(basket) {
 		parseResponse: function(svc,responseObject){
 			return responseObject;
 		},
+		filterLogMessage: function (msg) {
+            return msg;
+        },
 		mockCall: function(svc,params){
 			return {
 				statusCode: 200,
