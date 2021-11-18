@@ -55,6 +55,15 @@
         }
       }
     }
+    @include media-breakpoint-down(lg) {
+      &.menu-scroll-bar {
+        overflow-y: auto;
+        -webkit-overflow-y: auto;
+        -ms-overflow-y: auto;
+        -moz-overflow-y: auto;
+        -o-overflow-y: auto;
+      }
+  }
 }
 
 
