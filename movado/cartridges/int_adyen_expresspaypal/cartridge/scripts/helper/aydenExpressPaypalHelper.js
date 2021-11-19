@@ -194,7 +194,7 @@ function formsValidation(currentBasket, formData) {
         var shippingFormServerStateCode = shippingFormServer.shippingAddress.addressFields.states.stateCode.options
         for (var index = 0; index < shippingFormServerStateCode.length; index++) {
             if (shippingFormServerStateCode[index].toString().indexOf(stateCode) > -1) {
-                stateCode = false;
+                stateCode = true;
             }
 
         stateCode = false;
