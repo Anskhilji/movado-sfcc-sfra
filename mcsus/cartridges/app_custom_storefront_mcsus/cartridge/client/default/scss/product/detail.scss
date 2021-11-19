@@ -214,22 +214,6 @@
         top: 50%;
         transform: translateY(-50%);
     }
-    // .slick-prev, .slick-next {
-    //     position: absolute;
-    //     display: block;
-    //     height: 20px;
-    //     width: 20px;
-    //     line-height: 0px;
-    //     font-size: 0px;
-    //     cursor: pointer;
-    //     background: transparent;
-    //     color: transparent;
-    //     top: 50%;
-    //     transform: translate(0, -50%);
-    //     padding: 0;
-    //     border: none;
-    //     outline: none;
-    // }
 
     .slick-arrow.slick-next {
         background-image: url("../../images/slide-right-arrow.png");
@@ -240,7 +224,7 @@
         background-image: url("../../images/left-arrow.png");
         left: 25%;
     }
-
+  
     .slick-arrow {
         background-color: transparent;
         background-size: rem(24) rem(43);
