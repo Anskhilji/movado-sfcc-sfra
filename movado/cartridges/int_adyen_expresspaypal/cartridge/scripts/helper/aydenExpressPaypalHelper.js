@@ -1,5 +1,7 @@
 'use strict';
 
+var server = require('server');
+
 var adyenLogger = require('dw/system/Logger').getLogger('Adyen', 'adyen');
 var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 var Transaction = require('dw/system/Transaction');
@@ -7,6 +9,9 @@ var ShippingMgr = require('dw/order/ShippingMgr');
 var Site = require('dw/system/Site');
 var checkoutFieldsRegex = require('*/cartridge/utils/ExpressCheckoutRegexUtils');
 var Constants = require('*/cartridge/utils/Constants');
+
+
+var ArrayList = require('dw/util/ArrayList');
 
 /**
 * Splits the string into multiple based on the passed limit.
@@ -161,13 +166,38 @@ function formsValidation(currentBasket, formData) {
         adyenLogger.error('(adyenExpressPaypalHelper) -> formsValidation: Phone number is not valid and value is: ' + fetchFromMap(formData, 'shopper.telephoneNumber'));
     }
 
+    if (!empty(stateCode) || (empty(stateCode) && fetchFromMap(formData, 'deliveryAddress.country') == Constants.COUNTRY_GB)) {
+        var shippingForm = server.forms.getForm('shipping');
+        var stateOptionIterator;
+        
+        stateOptionIterator = shippingForm.shippingAddress.addressFields.states.stateCode.options;
+
+        for (var index = 0; index < stateOptionIterator.length; index++) {
+            if (stateOptionIterator[index].toString().indexOf(stateCode) > -1) {
+                stateCode = false;
+            } else {
+                stateCode = true
+                adyenLogger.error('(adyenExpressPaypalHelper) -> formsValidation: this state is not allowed and value is: ' + fetchFromMap(formData, 'deliveryAddress.stateOrProvince'));
+            }
+            
+        }
+    }
+
     // MSS-1263 Improve check in case of state code
     if (!empty(stateCode) || (empty(stateCode) && fetchFromMap(formData, 'deliveryAddress.country') == Constants.COUNTRY_GB)) {
-        stateCode = false;
+        
         var shippingForms = session.forms.shipping;
         Transaction.wrap(function () {
             shippingForms.shippingAddress.addressFields.states.stateCode.value = stateCode;
         });
+        var shippingFormServer = server.forms.getForm('shipping');
+        var shippingFormServerStateCode = shippingFormServer.shippingAddress.addressFields.states.stateCode.options
+        for (var index = 0; index < shippingFormServerStateCode.length; index++) {
+            if (shippingFormServerStateCode[index].toString().indexOf(stateCode) > -1) {
+                stateCode = false;
+            }
+
+        stateCode = false;
     } else {
         stateCode = true;
         adyenLogger.error('(adyenExpressPaypalHelper) -> formsValidation: Shipping address state is not valid and value is: ' + fetchFromMap(formData, 'deliveryAddress.stateOrProvince'));
