@@ -103,3 +103,236 @@
         font-size: rem(14);
     }
 }
+
+
+
+
+
+.pinch-zoom-container {
+    display: none;
+}
+.slick-slide {
+
+    img {
+        margin: 0 auto;
+    }
+}
+.edit-popup {
+    display: none;
+}
+
+.primary-images {
+
+    .js-zoom-image {
+        display: none;
+    }
+
+    .cs-carousel-wrapper {
+        margin-bottom: rem(10);
+        width: 100%;
+        height: 100%;
+
+        .slick-arrow.slick-next {
+            background-image: url("../../images/slide-right-arrow.png");
+        }
+
+        .slick-arrow.slick-prev {
+            background-image: url("../../images/left-arrow.png");
+        }
+
+        .slick-arrow {
+            background-color: transparent;
+            background-size: rem(24) rem(43);
+            outline: none;
+
+            @include media-breakpoint-down(sm) {
+                background-size: rem(15);
+            }
+        }
+    }
+
+    .main-carousel {
+
+        .slick-slide {
+            overflow: hidden;
+
+            img {
+
+                @include media-breakpoint-up(sm) {
+                    min-width: 100%;
+                }
+            }
+        }
+    }
+    
+    .traditional-main-carousel {
+        .slick-slide {
+
+            img {
+
+                @include media-breakpoint-up(xl) {
+                    min-width: auto;
+                    max-width: 100%;
+                }
+            }
+        }
+
+        .slide-video {
+
+            @include media-breakpoint-up(xl) {
+                padding-left: 15%;
+                padding-right: 15%;
+            }
+        }
+    }
+
+    .carousel-nav {
+
+        .slick-track {
+            margin: 0 auto;
+        }
+    }
+
+    .main-carousel {
+
+        .slick-center {
+
+            img {
+
+                &:hover {
+                    cursor: zoom-in;
+                }
+            }
+        }
+    }
+}
+
+.zoom-carousel {
+
+    @include media-breakpoint-down(sm) {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    // .slick-prev, .slick-next {
+    //     position: absolute;
+    //     display: block;
+    //     height: 20px;
+    //     width: 20px;
+    //     line-height: 0px;
+    //     font-size: 0px;
+    //     cursor: pointer;
+    //     background: transparent;
+    //     color: transparent;
+    //     top: 50%;
+    //     transform: translate(0, -50%);
+    //     padding: 0;
+    //     border: none;
+    //     outline: none;
+    // }
+
+    .slick-arrow.slick-next {
+        background-image: url("../../images/slide-right-arrow.png");
+        right: 25%;
+    }
+
+    .slick-arrow.slick-prev {
+        background-image: url("../../images/left-arrow.png");
+        left: 25%;
+    }
+
+    .slick-arrow {
+        background-color: transparent;
+        background-size: rem(24) rem(43);
+        background-repeat: no-repeat;
+        outline: none;
+        height: rem(50);
+        width: rem(50);
+        z-index: 9;
+    }
+}
+.zoom-modal {
+    .close {
+        background: url("../../images/zoom-close.png") center center no-repeat;
+        background-size: rem(18);
+        right: rem(20);
+        position: relative;
+        top: rem(15);
+    }
+
+    background: $white;
+}
+
+.carousel-tile.zoomit {
+    max-width: 70%;
+    padding-top: rem(25);
+}
+
+.zoom-img {
+   cursor: zoom-in;
+
+    &.zoomed-img {
+        cursor: zoom-out;
+    }
+}
+
+.opacity-0 {
+    opacity: 0;
+}
+
+.zoom-carousel-nav {
+    position: absolute;
+    left: rem(30);
+    top: 50%;
+    transform: translateY(-30%);
+    width: rem(102);
+    float: left;
+    z-index: 9;
+    height: 100%;
+}
+
+.zoom-carousel-slider {
+    img {
+        width: rem(100);
+        height: rem(100);
+    }
+    .slick-slide {
+        img {
+            border:rem(1) solid transparent;
+        }
+    }
+    .slick-current {
+        img {
+            border-color: $black;
+        }
+    }
+}
+
+.carousel-nav {
+
+    .slick-slide {
+        width: rem(100) !important;
+        height: rem(100);
+
+        .carousel-tile {
+            border: 1px solid transparent;
+
+            img {
+                width: 100%;
+            }
+        }
+
+        &.slick-current {
+
+            .carousel-tile {
+                border: 1px solid $black;
+            }
+        }
+    }
+
+    .slick-track {
+        display: flex;
+        justify-content: center;
+        transform: none !important;
+    }
+}
