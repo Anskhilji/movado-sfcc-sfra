@@ -16,11 +16,11 @@
   <div class="cs-carousel-wrapper">
       <div class="js-carousel main-carousel traditional-main-carousel cs-carousel" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
           <isset name="pdpVideoConfigs" value="${product.pdpVideoConfigs}" scope="page" />
-          <isloop items="${product.images['pdp533']}" var="image" status="loopStatus">
+          <isloop items="${product.images['pdp700']}" var="image" status="loopStatus">
               <div class="carousel-tile">
                   <picture>
-                      <source media="(min-width: 992px)" srcset="${product.images.pdp533[loopStatus.count-1].url}" />
-                      <source media="(max-width: 991px)" srcset="${product.images.pdp533[loopStatus.count-1].url}" />
+                      <source media="(min-width: 992px)" srcset="${product.images.pdp700[loopStatus.count-1].url}" />
+                      <source media="(max-width: 991px)" srcset="${product.images.pdp700[loopStatus.count-1].url}" />
                       <img src="${image.url}" alt="${image.alt}" itemprop="image" data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom830) && !empty(product.images.zoom830[loopStatus.count-1]) && !empty(product.images.zoom830[loopStatus.count-1].url) ? product.images.zoom830[loopStatus.count-1].url : ''}" data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1660) && !empty(product.images.zoom1660[loopStatus.count-1]) && !empty(product.images.zoom1660[loopStatus.count-1].url) ? product.images.zoom1660[loopStatus.count-1].url : ''}" />
                       <isset name="isImageExist" value="true" scope="page" />
                   </picture>
@@ -34,11 +34,11 @@
       </div>
       <iscomment>Added pagination slider</iscomment>
       <div class="carousel-nav" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
-          <isloop items="${product.images['tile150']}" var="image" status="loopStatus">
+          <isloop items="${product.images['tile100']}" var="image" status="loopStatus">
               <div class="carousel-tile">
                   <picture>
-                      <source media="(min-width: 992px)" srcset="${product.images.tile150[loopStatus.count-1].url}" />
-                      <source media="(max-width: 991px)" srcset="${product.images.tile150[loopStatus.count-1].url}" />
+                      <source media="(min-width: 992px)" srcset="${product.images.tile100[loopStatus.count-1].url}" />
+                      <source media="(max-width: 991px)" srcset="${product.images.tile100[loopStatus.count-1].url}" />
                       <img src="${image.url}" alt="${image.alt}" itemprop="image" data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom830) && !empty(product.images.zoom830[loopStatus.count-1]) && !empty(product.images.zoom830[loopStatus.count-1].url) ? product.images.zoom830[loopStatus.count-1].url : ''}" data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1660) && !empty(product.images.zoom1660[loopStatus.count-1]) && !empty(product.images.zoom1660[loopStatus.count-1].url) ? product.images.zoom1660[loopStatus.count-1].url : ''}" />
                       <isset name="isImageExist" value="true" scope="page" />
                   </picture>
