@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+<form xmlns="http://www.demandware.com/xml/form/2008-04-19" secure="false">
+	<group formid="customer">
+		<field 
+			formid="firstname" 
+			label="label.input.firstname.profile" 
+			mandatory="true" 
+			max-length="50"
+			missing-error="error.message.required" 
+			range-error="error.message.lessthan50" 
+			type="string"   
+    	   regexp="(^[^(\\'\\&lt;\\>\\\\)]+$)" 
+    	   parse-error="error.message.invalid"
+    	   />
+
+		<field 
+			formid="lastname" 
+			label="label.input.lastname.profile" 
+			mandatory="true" 
+			max-length="50" 
+			missing-error="error.message.required"
+			range-error="error.message.lessthan50" 
+			type="string"   
+    	   regexp="(^[^(\\'\\&lt;\\>\\\\)]+$)" 
+    	   parse-error="error.message.invalid"
+    	    />
+		
+		<field formid="birthmonth" label="label.profile.dateOfBirth"  type="string" mandatory="false" binding="profile.custom.birthmonth" max-length="10" value-error="error.message.invalid.birthdate">
+			<options>
+				<option optionid="01" value="January" label="January"/>
+				<option optionid="02" value="February" label="February"/>
+				<option optionid="03" value="March" label="March"/>
+				<option optionid="04" value="April" label="April"/>
+				<option optionid="05" value="May" label="May"/>
+				<option optionid="06" value="June" label="June"/>
+				<option optionid="07" value="July" label="July"/>
+				<option optionid="08" value="August" label="August"/>
+				<option optionid="09" value="September" label="September"/>
+				<option optionid="10" value="October" label="October"/>
+				<option optionid="11" value="November" label="November"/>
+				<option optionid="12" value="December" label="December"/>
+			</options>
+		</field>
+		<field formid="birthdate" label="label.profile.dateOfBirth"  type="number" mandatory="false" binding="profile.custom.birthdate" max-length="10" value-error="error.message.invalid.birthdate">
+			<options>
+				<option optionid="01" value="01" />
+				<option optionid="02" value="02" />
+				<option optionid="03" value="03" />
+				<option optionid="04" value="04" />
+				<option optionid="05" value="05" />
+				<option optionid="06" value="06" />
+				<option optionid="07" value="07" />
+				<option optionid="08" value="08" />
+				<option optionid="09" value="09" />
+				<option optionid="10" value="10" />
+				<option optionid="11" value="11" />
+				<option optionid="12" value="12" />
+				<option optionid="13" value="13" />
+				<option optionid="14" value="14" />
+				<option optionid="15" value="15" />
+				<option optionid="16" value="16" />
+				<option optionid="17" value="17" />
+				<option optionid="18" value="18" />
+				<option optionid="19" value="19" />
+				<option optionid="20" value="20" />
+				<option optionid="21" value="21" />
+				<option optionid="22" value="22" />
+				<option optionid="23" value="23" />
+				<option optionid="24" value="24" />
+				<option optionid="25" value="25" />
+				<option optionid="26" value="26" />
+				<option optionid="27" value="27" />
+				<option optionid="28" value="28" />
+				<option optionid="29" value="29" />
+				<option optionid="30" value="30" />
+				<option optionid="31" value="31" />
+			</options>
+		</field>
+		
+		<field
+			formid="email" 
+			label="label.input.email.profile" 
+			mandatory="true" 
+			max-length="50" 
+			missing-error="error.message.required"
+			parse-error="error.message.parse.email.profile.form"
+			range-error="error.message.lessthan50"
+			regexp="^[\w.%+-]+@[\w.-]+\.[\w]{2,6}$" 
+			value-error="ValueErrorText"
+			type="string"/> 
+			<!-- TODO value-error not comming back from the platform -->
+
+		<field 
+			formid="emailconfirm"
+			label="label.input.emailconfirm.profile"
+			mandatory="true"
+			max-length="50"
+			missing-error="error.message.required"
+			parse-error="error.message.parse.email.profile.form"
+			range-error="error.message.lessthan50"
+			regexp="^[\w.%+-]+@[\w.-]+\.[\w]{2,6}$"
+			value-error="ValueErrorText"
+			type="string"/> 
+			<!-- TODO value-error not comming back from the platform -->
+
+		<field 
+			formid="phone"
+			label="label.input.phone.profile"
+			mandatory="true"
+			regexp="^\(?([2-9][0-8][0-9])\)?[\-\. ]?([2-9][0-9]{2})[\-\. ]?([0-9]{4})(\s*x[0-9]+)?$"
+			missing-error="error.message.required"
+			parse-error="error.message.parse.phone.profile.form"
+			type="string"/> 
+
+		<field 
+			formid="addtoemaillist" 
+			label="checkbox.emailsignup.profile.desc"  
+			type="boolean" binding="profile.custom.addtoemaillist"/>
+	</group>
+
+	<group formid="login">
+		<field 
+			formid="password" 
+			label="label.input.password.profile"
+			mandatory="true"
+			min-length="8"
+			max-length="255"
+			range-error="error.message.8_255characters"
+			value-error="error.message.currentpasswordnomatch"
+			type="string"/>
+			<!-- TODO value-error -->
+
+		<field 
+			formid="passwordconfirm"
+			label="label.input.passwordconfirm.profile"
+			type="string"
+			mandatory="true"
+			min-length="8"
+			max-length="255"
+			range-error="error.message.8_255characters"
+			value-error="error.message.currentpasswordnomatch" />
+			<!-- TODO value-error -->
+		
+		<field 
+			formid="currentpassword" 
+			label="label.input.currentpassword.profile" 
+			mandatory="true"
+			min-length="5"
+			max-length="255"
+			range-error="error.message.5_255characters"
+			value-error="error.message.currentpasswordnomatch"
+			type="string"/>
+		
+		<include formid="newpasswords" name="newPasswords"/>
+	</group>
+</form>
