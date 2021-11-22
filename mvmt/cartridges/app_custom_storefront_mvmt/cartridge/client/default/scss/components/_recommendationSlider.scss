@@ -77,7 +77,6 @@
         .slick {
 
             &-arrow {
-
                 position: absolute;
                 cursor: pointer;
                 display: inline;
@@ -97,13 +96,12 @@
                     transform: translateY(-50%);
                 }
                 @include media-breakpoint-up(sm) {
-                    top: 42%;
-
+                    top: 43%;
                 }
                 @include media-breakpoint-up(md-down) {
                     position: absolute;
                     z-index: 7;
-                    top: 40%;
+                    top: 38%;
                 }
                 @include media-breakpoint-up(md) {
                     top: 40%;
