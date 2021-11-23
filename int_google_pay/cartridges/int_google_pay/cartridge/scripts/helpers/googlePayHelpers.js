@@ -1,5 +1,7 @@
 'use strict';
 
+// var server = require('server');
+// var adyenLogger = require('dw/system/Logger').getLogger('AdyenLogger', 'adyenLogger');
 var BasketMgr = require('dw/order/BasketMgr');
 var Resource = require('dw/web/Resource');
 var Site = require('dw/system/Site');
@@ -198,6 +200,8 @@ function setShippingAndBillingAddress(currentBasket, selectedShippingMethod, shi
         phone: shippingAddressData.phoneNumber || ''
     };
 
+    // var error = false;
+
     try {
         Transaction.wrap(function () {
             var shippingAddress = shipment.shippingAddress;
@@ -213,11 +217,25 @@ function setShippingAndBillingAddress(currentBasket, selectedShippingMethod, shi
             shippingAddress.setAddress2(address.address2 || '');
             shippingAddress.setCity(address.city || '');
             shippingAddress.setPostalCode(address.postalCode || '');
-            shippingAddress.setStateCode(address.stateCode || '');
+            shippingAddress.setStateCode(address.stateCode|| '');
             shippingAddress.setCountryCode(address.countryCode || '');
             shippingAddress.setPhone(address.phone || '');
 
-            currentBasket.setCustomerEmail(shippingAddressData.email || ''); // ToDo Set email from google pay
+        var stateCode = '';
+        var shippingFormServer = server.forms.getForm('shipping');
+        var shippingFormServerStateCode = shippingFormServer.shippingAddress.addressFields.states.stateCode.options
+        for (var index = 0; index < shippingFormServerStateCode.length; index++) {
+            if (shippingFormServerStateCode[index].toString().indexOf(stateCode) > -1) {
+                stateCode = true;
+                adyenLogger.error('(googlePayHelpers) -> formsValidation: Shipping address state is not valid and value is: ' );
+                error = true;
+                break;
+            } else {
+                stateCode = false;
+            }
+        }
+
+        currentBasket.setCustomerEmail(shippingAddressData.email || ''); // ToDo Set email from google pay
             if (!empty(currentBasket.billingAddress)) {
                 currentBasket.billingAddress.setPhone(address.phone || '');
             }
@@ -227,6 +245,7 @@ function setShippingAndBillingAddress(currentBasket, selectedShippingMethod, shi
             // Re calculating basket
             COHelpers.recalculateBasket(currentBasket);
         });
+        // return error;
     } catch (err) {
         Logger.error('(CheckoutShippingServices) -> SelectShippingMethod: Error in selecting shipping method and exception is : ' + err);
     }

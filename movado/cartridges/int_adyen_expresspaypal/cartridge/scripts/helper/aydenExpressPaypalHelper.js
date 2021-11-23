@@ -166,41 +166,23 @@ function formsValidation(currentBasket, formData) {
         adyenLogger.error('(adyenExpressPaypalHelper) -> formsValidation: Phone number is not valid and value is: ' + fetchFromMap(formData, 'shopper.telephoneNumber'));
     }
 
-    if (!empty(stateCode) || (empty(stateCode) && fetchFromMap(formData, 'deliveryAddress.country') == Constants.COUNTRY_GB)) {
-        var shippingForm = server.forms.getForm('shipping');
-        var stateOptionIterator;
-        
-        stateOptionIterator = shippingForm.shippingAddress.addressFields.states.stateCode.options;
-
-        for (var index = 0; index < stateOptionIterator.length; index++) {
-            if (stateOptionIterator[index].toString().indexOf(stateCode) > -1) {
-                stateCode = false;
-            } else {
-                stateCode = true
-                adyenLogger.error('(adyenExpressPaypalHelper) -> formsValidation: this state is not allowed and value is: ' + fetchFromMap(formData, 'deliveryAddress.stateOrProvince'));
-            }
-            
-        }
-    }
-
     // MSS-1263 Improve check in case of state code
     if (!empty(stateCode) || (empty(stateCode) && fetchFromMap(formData, 'deliveryAddress.country') == Constants.COUNTRY_GB)) {
-        
         var shippingForms = session.forms.shipping;
+        var currentStateCodeID;
         Transaction.wrap(function () {
             shippingForms.shippingAddress.addressFields.states.stateCode.value = stateCode;
         });
         var shippingFormServer = server.forms.getForm('shipping');
-        var shippingFormServerStateCode = shippingFormServer.shippingAddress.addressFields.states.stateCode.options
+        var shippingFormServerStateCode = shippingFormServer.shippingAddress.addressFields.states.stateCode.options;
         for (var index = 0; index < shippingFormServerStateCode.length; index++) {
-            if (shippingFormServerStateCode[index].toString().indexOf(stateCode) > -1) {
+            currentStateCodeID = shippingFormServerStateCode[index].id.toString();
+            if (!empty(currentStateCodeID) && currentStateCodeID.indexOf(stateCode) == -1) {
                 stateCode = true;
+                adyenLogger.error('(adyenExpressPaypalHelper) -> formsValidation: Shipping address state is not valid and value is: ' + fetchFromMap(formData, 'deliveryAddress.stateOrProvince'));
             }
-
-        stateCode = false;
-    } else {
-        stateCode = true;
-        adyenLogger.error('(adyenExpressPaypalHelper) -> formsValidation: Shipping address state is not valid and value is: ' + fetchFromMap(formData, 'deliveryAddress.stateOrProvince'));
+        }
+        return stateCode;
     }
 
     // MSS-1263 Improve check in case of state code

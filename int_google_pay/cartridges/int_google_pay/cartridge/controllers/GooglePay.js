@@ -143,6 +143,12 @@ server.post('ProcessPayments',
             var shippingAddressData = googlePayResponse.shippingAddress;
             shippingAddressData.email = googlePayResponse.email;
             googlePayHelper.setShippingAndBillingAddress(currentBasket, selectedShippingMethod, shippingAddressData, currentBasket.defaultShipment);
+            // var isErrorExists = googlePayHelper.setShippingAndBillingAddress(currentBasket, selectedShippingMethod, shippingAddressData, currentBasket.defaultShipment);
+
+            // if (isErrorExists) {
+            //     res.redirect(URLUtils.url('Home-Show'));
+            //     return next();
+            // }
         }
 
 
