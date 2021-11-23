@@ -119,6 +119,10 @@
                     @include media-breakpoint-up(md-down) {
                         margin-right: rem(10);
                     }
+                    @include media-breakpoint-up(lg-custom) {
+                        left: rem(-30);
+                    }
+                    
                 }
 
                 &.next {
@@ -126,6 +130,9 @@
 
                     @include media-breakpoint-up(md-down) {
                         margin-left: rem(10);
+                    }
+                    @include media-breakpoint-up(lg-custom) {
+                        right: rem(-30);
                     }
                 }
             }
