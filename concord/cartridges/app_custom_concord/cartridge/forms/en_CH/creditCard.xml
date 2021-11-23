@@ -2,15 +2,14 @@
 <form xmlns="http://www.demandware.com/xml/form/2008-04-19">
 
     <!-- field for edit credit card number -->
-    <field
-        formid="editNumber"
-        label="label.input.creditcard.number"
-        type="string"
-        mandatory="false"
-        max-length="16"
-       regexp="(^[^(\\'\\&lt;\\>\\\\)]+$)" 
-       parse-error="error.message.invalid"
-       />
+    <field formid="editNumber"
+           label="label.input.creditcard.number"
+           type="string"
+           mandatory="false"
+           max-length="16"
+           regexp="(^[^(\\'\\&lt;\\>\\\\)]+$)" 
+           parse-error="error.message.invalid"
+           />
 
     <field formid="paymentMethod" type="string" mandatory="true" 
            regexp="(^[^(\\'\\&lt;\\>\\\\)]+$)" 

@@ -2,19 +2,19 @@
 <form xmlns="http://www.demandware.com/xml/form/2008-04-19">
 
     <field formid="addressId" label="label.input.addressid" type="string" mandatory="true"
-    	   max-length="20" missing-error="error.message.required" range-error="error.message.lessthan20"
-    	   regexp="(^[^(\\'\\&lt;\\>\\\\)]+$)" 
-    	   parse-error="error.message.invalid"
-    	   />
+          max-length="20" missing-error="error.message.required" range-error="error.message.lessthan20"
+          regexp="(^[^(\\'\\&lt;\\>\\\\)]+$)" 
+          parse-error="error.message.invalid"
+         />
     <field formid="firstName" label="label.input.firstname.profile" type="string" mandatory="true" binding="firstName"
-           max-length="35" missing-error="error.message.required" range-error="error.message.lessthan35"
-    	   regexp="(^[^(\\'\\&lt;\\>\\\)]+$)"
-    	   parse-error="error.message.invalid"
+          max-length="35" missing-error="error.message.required" range-error="error.message.lessthan35"
+          regexp="(^[^(\\'\\&lt;\\>\\\)]+$)"
+          parse-error="error.message.invalid"
            />
     <field formid="lastName" label="label.input.lastname.profile" type="string" mandatory="true" binding="lastName" max-length="35"
            missing-error="error.message.required" range-error="error.message.lessthan35"
-    	   regexp="(^[^(\\'\\&lt;\\>\\\)]+$)"
-    	   parse-error="error.message.invalid"
+           regexp="(^[^(\\'\\&lt;\\>\\\)]+$)"
+           parse-error="error.message.invalid"
            />
     <field formid="email" label="profile.email" type="string" mandatory="true" binding="email"
            max-length="254" missing-error="error.card.info.missing.email"
@@ -48,8 +48,8 @@
            parse-error="error.message.parse.addressPObox"/>  
     <field formid="city" label="label.input.city" type="string" mandatory="true" binding="city" min-length="2"
            max-length="25" missing-error="error.message.required" range-error="error.message.lessthan25"
-    	   regexp="(^[^(\\'\\&lt;\\>\\\)]+$)"
-    	   parse-error="error.message.invalid"
+           regexp="(^[^(\\'\\&lt;\\>\\\)]+$)"
+           parse-error="error.message.invalid"
            />
     <!--  postal code -->
     <field formid="postalCode" label="label.input.zipcode" type="string" mandatory="true" min-length="5" max-length="10"
@@ -78,9 +78,9 @@
            range-error="error.message.between10and20"
            parse-error="error.message.parse.phone"/>
 
-	<field formid="saveShippingAddress" label="description.checkbox.saveShippingAddress" type="boolean" mandatory="false" binding="saveShippingAddress"/>
-	<field formid="shippingAddressId" label="shippingAddressId" type="string" mandatory="false" binding="shippingAddressId"/>
-				
+       <field formid="saveShippingAddress" label="description.checkbox.saveShippingAddress" type="boolean" mandatory="false" binding="saveShippingAddress"/>
+       <field formid="shippingAddressId" label="shippingAddressId" type="string" mandatory="false" binding="shippingAddressId"/>
+
     <!-- actions provided by the edit shipping address dialog -->
     <action formid="apply" valid-form="true"/>
     <action formid="remove" valid-form="false"/>
