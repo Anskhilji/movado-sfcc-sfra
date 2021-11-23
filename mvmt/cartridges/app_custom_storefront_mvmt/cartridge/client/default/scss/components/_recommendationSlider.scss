@@ -19,26 +19,17 @@
     .cs-carousel-wrapper {
         position: relative;
 
-        @include media-breakpoint-up(md-down) {
-            display: flex;
-        }
-
         .product-slider-aside {
             width: 100%;
-            padding: rem(30) 0;
+            padding: rem(20) 0;
             flex-grow: 1;
             flex-shrink: 1;
             flex-basis: 0%;
             flex-direction: column;
             border: none;
 
-            @include media-breakpoint-up(md-down) {
-                border-right: rem(2) solid $light-gray4;
-            }
-
             @include media-breakpoint-up(lg) {
-                width: 20%;
-                margin-right: rem(20);
+                width: 100%;
             }
 
             .carousel-title {
@@ -81,46 +72,42 @@
         .js-carousel, .cs-carousel {
             margin: 0;
             padding: 0;
-
-            @include media-breakpoint-up(md-down) {
-                width: 70%;
-                padding-left: rem(30);
-            }
-
-            @include media-breakpoint-up(xl) {
-                width: 75%;
-                padding-left: rem(50);
-            }
         }
 
         .slick {
 
             &-arrow {
-
                 position: absolute;
-                border: 1px solid $light-gray6;
-                box-shadow: 0 2rem 5rem -2.5rem rgba(0,0,0,.25), 0 0.3rem 1rem 0 rgba(0,0,0,.3);
                 cursor: pointer;
                 display: inline;
                 font-size: rem(10);
-                padding: rem(23) rem(25);
+                padding: rem(10) rem(10);
                 background: $white;
                 z-index: 1;
                 width: auto;
                 height: auto;
 
                 &:hover {
-                    background: $white-smoke;
+                    background: $white;
                 }
 
                 @include media-breakpoint-down(sm) {
-                    top: 50%;
+                    top: 44%;
                     transform: translateY(-50%);
                 }
-
+                @include media-breakpoint-up(sm) {
+                    top: 43%;
+                }
                 @include media-breakpoint-up(md-down) {
-                    position: relative;
+                    position: absolute;
                     z-index: 7;
+                    top: 38%;
+                }
+                @include media-breakpoint-up(md) {
+                    top: 40%;
+                }
+                @include media-breakpoint-up(lg) {
+                    top: 48%;
                 }
 
                 &.prev {
