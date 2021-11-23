@@ -10,9 +10,9 @@
             <option optionid="AS" 	label="state.us.americansamoa"  value="AS"/>
             <option optionid="AZ" 	label="state.us.arizona"        value="AZ"/>
             <option optionid="AR" 	label="state.us.arkansas"       value="AR"/>
-            <option optionid="CA" 	label="state.us.california"     value="CA"/>
+            <option optionid="CA"   label="state.us.california"     value="CA"/>
             <option optionid="CO" 	label="state.us.colorado"       value="CO"/>
-            <option optionid="CT" 	label="state.us.connecticut"    value="CT"/>
+            <option optionid="CT"   label="state.us.connecticut"    value="CT"/>
             <option optionid="DE" 	label="state.us.delaware"       value="DE"/>
             <option optionid="DC" 	label="state.us.dc"             value="DC"/>
             <option optionid="FL" 	label="state.us.florida"        value="FL"/>
