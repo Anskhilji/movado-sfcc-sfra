@@ -175,14 +175,23 @@ function formsValidation(currentBasket, formData) {
         });
         var shippingFormServer = server.forms.getForm('shipping');
         var shippingFormServerStateCode = shippingFormServer.shippingAddress.addressFields.states.stateCode.options;
+        var isValidStateCode = false;
         for (var index = 0; index < shippingFormServerStateCode.length; index++) {
             currentStateCodeID = shippingFormServerStateCode[index].id.toString();
-            if (!empty(currentStateCodeID) && currentStateCodeID.indexOf(stateCode) == -1) {
-                stateCode = true;
-                adyenLogger.error('(adyenExpressPaypalHelper) -> formsValidation: Shipping address state is not valid and value is: ' + fetchFromMap(formData, 'deliveryAddress.stateOrProvince'));
+            if (!empty(currentStateCodeID) && currentStateCodeID == stateCode) {
+                isValidStateCode = true;
+                break;
             }
         }
-        return stateCode;
+        if (isValidStateCode) {
+            stateCode = false
+        } else {
+            stateCode = true;
+            adyenLogger.error('(adyenExpressPaypalHelper) -> formsValidation: Shipping address state is restricted and value is: ' + fetchFromMap(formData, 'deliveryAddress.stateOrProvince'));
+        }
+    } else {
+        stateCode = true;
+        adyenLogger.error('(adyenExpressPaypalHelper) -> formsValidation: Shipping address state is not valid and value is: ' + fetchFromMap(formData, 'deliveryAddress.stateOrProvince'));
     }
 
     // MSS-1263 Improve check in case of state code

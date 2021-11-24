@@ -112,7 +112,7 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	      return next();
 	  }
 	  // Check to make sure there is a shipping address
-	  if (currentBasket.defaultShipment.shippingAddress === null || currentBasket.defaultShipment.shippingAddress.stateCode === null) {
+	  if (currentBasket.defaultShipment.shippingAddress === null) {
           checkoutLogger.error('(CheckoutServices) -> PlaceOrder: Shipping address is not valid');
 		  res.json({
 	      error: true,
@@ -126,7 +126,7 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	  }
 
 	  // Check to make sure billing address exists
-	  if (!currentBasket.billingAddress || currentBasket.billingAddress.stateCode === null) {
+	  if (!currentBasket.billingAddress) {
           checkoutLogger.error('(CheckoutServices) -> PlaceOrder: Billing address is not valid');
 		  res.json({
 	      error: true,
