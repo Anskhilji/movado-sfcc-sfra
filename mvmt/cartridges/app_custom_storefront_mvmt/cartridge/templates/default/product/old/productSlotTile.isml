@@ -27,7 +27,7 @@
         <isinclude template="product/components/old/productTileImage" />
 
         <div class="tile-body pt-2">
-            <div class="tile-badges">
+            <div class="tile-badges tile-badges-inner1">
                 <div class="product-tag-content ${pdict.display.recommendattionTile ? 'd-none' : ''} ${outOfStock || product.badges.textBadges.length > 0 ? '' : 'd-none'}">
                     <div class="m-0">
                         <div class="out-of-stock badge red-tag mvmt-avilability ${outOfStock ? '' : 'd-none'}">

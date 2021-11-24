@@ -29,6 +29,8 @@
                     </isif>
 			    </isloop>
 		    </div>
+        <iselse/>
+            <div class="promo-none-visible"></div>
 		</isif>
 
         <isinclude template="product/components/productTileName" />

@@ -89,7 +89,17 @@
                 @include headline;
                 letter-spacing: rem(.4);
                 font-size: rem(15);
-                line-height: rem(22);
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -ms-flexbox;
+                display: -webkit-box;
+                display: -moz-box;
+                display: box;
+                line-clamp: 2;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                height: rem(36);
+
                 @include media-breakpoint-down(md) {
                   font-size: rem(15);
                   line-height: rem(20);
@@ -103,6 +113,10 @@
                     font-family: $font-book;
                 }
             }
+            &.flex-wrapper-center{
+                display: flex;
+                justify-content: center;
+              }
         }
 
         .ratings {
@@ -228,5 +242,8 @@
             padding: 0 rem(60);
         }
     }
+    .promotions {
+        height: rem(27);
+      }
 }
 
