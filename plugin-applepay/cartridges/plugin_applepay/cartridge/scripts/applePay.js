@@ -14,6 +14,8 @@ var Riskified = require('int_riskified/cartridge/scripts/Riskified');
 var Site = require('dw/system/Site');
 var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 
+var server = require('server');
+
 var EMBOSSED = 'Embossed';
 var ENGRAVED = 'Engraved';
 var NEWLINE = '\n';
@@ -60,6 +62,7 @@ function comparePostalCode(address) {
 exports.afterAuthorization = function (order, payment, custom, status) {
     var isBillingPostalNotValid;
     var orderShippingAddress;
+    var orderBillingAddress;
     var isShippingPostalNotValid;
     var paymentInstruments = order.getPaymentInstruments(
 			PaymentInstrument.METHOD_DW_APPLE_PAY).toArray();
@@ -145,15 +148,54 @@ exports.afterAuthorization = function (order, payment, custom, status) {
             var shippingAddressLastName = !empty(orderShippingAddress.lastName) ? orderShippingAddress.lastName.trim() : '';
             var shippingAddressAddress1 = !empty(orderShippingAddress.address1) ? orderShippingAddress.address1.trim() : '';
             var shippingAddressCity = !empty(orderShippingAddress.city) ? orderShippingAddress.city.trim() : '';
+            var shippingAddressStateCode = !empty(orderShippingAddress.stateCode) ? orderShippingAddress.stateCode.trim() : '';
+            var billingAddressStateCode = !empty(orderShippingAddress.stateCode) ? orderShippingAddress.stateCode.trim() : '';
         }
         if (empty(shippingAddressFirstName) || empty(shippingAddressLastName) || empty(shippingAddressAddress1) || isShippingPostalNotValid || empty(shippingAddressCity)) {
             addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_SHIPPING_ADDRESS);
             deliveryValidationFail = true;
             Logger.error('There is something missing or invalid in shipping address for order: {0}', order.orderNo);
         }
+
+        if (shippingAddressStateCode) {
+            var shippingFormServer = server.forms.getForm('shipping');
+            var shippingFormServerStateCode = shippingFormServer.shippingAddress.addressFields.states.stateCode.options;
+            var isValidStateCode = false;
+            for (var index = 0; index < shippingFormServerStateCode.length; index++) {
+                currentStateCodeID = shippingFormServerStateCode[index].id.toString();
+                if (!empty(currentStateCodeID) && currentStateCodeID == shippingAddressStateCode) {
+                    isValidStateCode = true;
+                    break;
+                }
+            }
+            if (!isValidStateCode) {
+                addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_SHIPPING_ADDRESS);
+                deliveryValidationFail = true;
+                Logger.error('Selected state is {0} which is restricted for order: {1}', shippingAddressStateCode, order.orderNo);
+            }
+        }
+
+        if (billingAddressStateCode) {
+            var billingFormServer = server.forms.getForm('billing');
+            var billingFormServerStateCode = billingFormServer.addressFields.states.stateCode.options;
+            var isValidStateCode = false;
+            for (var index = 0; index < billingFormServerStateCode.length; index++) {
+                currentStateCodeID = billingFormServerStateCode[index].id.toString();
+                if (!empty(currentStateCodeID) && currentStateCodeID == billingAddressStateCode) {
+                    isValidStateCode = true;
+                    break;
+                }
+            }
+            if (!isValidStateCode) {
+                addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_SHIPPING_ADDRESS);
+                deliveryValidationFail = true;
+                Logger.error('Selected state is {0} which is restricted for order: {1}', billingAddressStateCode, order.orderNo);
+            }
+        }
     } catch(e) {
         Logger.error('(applePay.js) --> Exception occured while try to validate shipping & billing address for orderID: {0} and exception is: {1}', order.orderNo, e);
     }
+
     hooksHelper(
         'app.fraud.detection.create',
         'create',

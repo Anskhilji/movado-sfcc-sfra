@@ -169,20 +169,9 @@ function formsValidation(currentBasket, formData) {
     // MSS-1263 Improve check in case of state code
     if (!empty(stateCode) || (empty(stateCode) && fetchFromMap(formData, 'deliveryAddress.country') == Constants.COUNTRY_GB)) {
         var shippingForms = session.forms.shipping;
-        var currentStateCodeID;
         Transaction.wrap(function () {
             shippingForms.shippingAddress.addressFields.states.stateCode.value = stateCode;
         });
-        var shippingFormServer = server.forms.getForm('shipping');
-        var shippingFormServerStateCode = shippingFormServer.shippingAddress.addressFields.states.stateCode.options;
-        var isValidStateCode = false;
-        for (var index = 0; index < shippingFormServerStateCode.length; index++) {
-            currentStateCodeID = shippingFormServerStateCode[index].id.toString();
-            if (!empty(currentStateCodeID) && currentStateCodeID == stateCode) {
-                isValidStateCode = true;
-                break;
-            }
-        }
         if (isValidStateCode) {
             stateCode = false
         } else {
@@ -196,11 +185,26 @@ function formsValidation(currentBasket, formData) {
 
     // MSS-1263 Improve check in case of state code
     if (!empty(billingAddressState) || (empty(billingAddressState) && fetchFromMap(formData, 'billingAddress.country') == Constants.COUNTRY_GB)) {
-        billingAddressState = false;
         var billingForms = session.forms.billing;
         Transaction.wrap(function () {
             billingForms.addressFields.states.stateCode.value = billingAddressState;
         });
+        var billingFormServer = server.forms.getForm('billing');
+        var billingFormServerStateCode = billingFormServer.addressFields.states.stateCode.options;
+        var isValidStateCode = false;
+        for (var index = 0; index < billingFormServerStateCode.length; index++) {
+            currentStateCodeID = billingFormServerStateCode[index].id.toString();
+            if (!empty(currentStateCodeID) && currentStateCodeID == billingAddressState) {
+                isValidStateCode = true;
+                break;
+            }
+        }
+        if (isValidStateCode) {
+            billingAddressState = false
+        } else {
+            billingAddressState = true;
+            adyenLogger.error('(adyenExpressPaypalHelper) -> formsValidation: Billing address state is restricted and value is: ' + fetchFromMap(formData, 'billingAddress.state'));
+        }
     } else {
         billingAddressState = true;
         adyenLogger.error('(adyenExpressPaypalHelper) -> formsValidation: Billing address state is not valid and value is: ' + fetchFromMap(formData, 'billingAddress.state'));
@@ -354,6 +358,9 @@ function getPaypalErrors(queryString) {
         }
         if (queryString.phoneNumber && queryString.phoneNumber == 'true') {
             paypalerrors.push(Resource.msg('cart.paypal.billing.phone.error', 'cart', null));
+        }
+        if (queryString.stateCode && queryString.stateCode == 'true') {
+            paypalerrors.push(Resource.msg('cart.paypal.shipping.address.state.not.valid.error', 'cart', null));
         }
     } else {
         if (!empty(queryString.paypalerror)) {
