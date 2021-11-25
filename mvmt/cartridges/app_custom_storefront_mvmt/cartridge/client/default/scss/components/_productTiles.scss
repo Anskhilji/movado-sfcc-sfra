@@ -389,11 +389,15 @@
         }
       }
       &.d-none {
+        &.product-tag-content-inner1 {
         visibility: visible;
+        display: initial !important;
+      }
       }
       .out-of-stock {
             &.d-none {
-              visibility: visible;
+              visibility: hidden;
+              display: initial !important;
             }
       } 
     }
