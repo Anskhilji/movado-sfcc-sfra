@@ -48,12 +48,16 @@
         <iselse/>
             <div class="adjust-badges-alignment"></div>     
         </isif>
-        
-        <isloop items="${product.badges.textBadges}" var="badge">
-            <div class="exclusive-product">
-                ${badge.text}
-            </div>
-        </isloop>
+
+        <isif condition="${product.badges.textBadges}">
+            <isloop items="${product.badges.textBadges}" var="badge">
+                <div class="exclusive-product">
+                    ${badge.text}
+                </div>
+            </isloop>
+        <iselse/>
+            <div class="align-plp-badges"></div>
+        </isif>
 
         <div class="row m-0 adjust-rating-alignment">
             <div class="col d-flex align-items-center justify-content-around w-100">

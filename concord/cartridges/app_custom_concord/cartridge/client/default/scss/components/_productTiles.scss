@@ -24,8 +24,9 @@
     @include media-breakpoint-up(sm) {
       .tile-body{
         .price{
-          float: left;
           padding-left: rem(10);
+          display: flex;
+          justify-content: center;
         }
         .compare{
           float:right;
