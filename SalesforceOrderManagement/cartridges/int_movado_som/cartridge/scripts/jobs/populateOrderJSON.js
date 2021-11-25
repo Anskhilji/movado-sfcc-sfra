@@ -166,7 +166,6 @@ function populateByOrder(order) {
         // Replace the billing address company name
         if (order.billingAddress.companyName && order.billingAddress.companyName !== '') {
             order.billingAddress.custom.SOMCompanyName = order.billingAddress.companyName;
-            order.billingAddress.companyName = '';
         }
 
         addressJSON.shippingAddresses = [];
@@ -180,7 +179,6 @@ function populateByOrder(order) {
             // Replace the shipping address company name
             if (shipment.shippingAddress.companyName && shipment.shippingAddress.companyName !== '') {
                 shipment.shippingAddress.custom.SOMCompanyName = shipment.shippingAddress.companyName;
-                shipment.shippingAddress.companyName = '';
             }
 
             // Add the shipping price's sabrix tax fields
