@@ -56,7 +56,10 @@
           flex-flow: column;
           justify-content: space-between;
         }
-        .tile-badges-inner1 {
+        // .tile-badges-inner1 {
+        //   height: rem(36);
+        // }
+        .adjust-noswatch-height {
           height: rem(36);
         }
       }
@@ -385,6 +388,14 @@
           justify-content: center;
         }
       }
+      &.d-none {
+        visibility: visible;
+      }
+      .out-of-stock {
+            &.d-none {
+              visibility: visible;
+            }
+      } 
     }
   
     .vat-duty-label {

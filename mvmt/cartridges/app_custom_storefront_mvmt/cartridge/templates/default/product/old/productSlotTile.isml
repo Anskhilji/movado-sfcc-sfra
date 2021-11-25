@@ -41,6 +41,8 @@
                     <div class="plp-swatches ${product.variationsAttributes && product.variationsAttributes[0] && product.variationsAttributes[0].values && product.variationsAttributes[0].values.length > 0 ? '':'0-opacity'}">
                         <isinclude template="product/components/productTileSwatch" />
                     </div>
+                <iselse/>
+                    <div class="adjust-noswatch-height"></div>
                 </isif>
             </div>
             <div class="tile-inner-content">

@@ -45,6 +45,8 @@
 			<div class="out-of-stock">
                 ${Resource.msg('label.soldout', 'common', null)}
             </div>
+        <iselse/>
+            <div class="adjust-badges-alignment"></div>     
         </isif>
         
         <isloop items="${product.badges.textBadges}" var="badge">
@@ -53,7 +55,7 @@
             </div>
         </isloop>
 
-        <div class="row m-0">
+        <div class="row m-0 adjust-rating-alignment">
             <div class="col d-flex align-items-center justify-content-around w-100">
                 <isinclude template="product/components/ratings" />
             </div>
