@@ -1,5 +1,46 @@
 @import "~movado/components/_carousel";
 .cs-carousel-wrapper {
+    
+    .slick-arrow {
+        padding: rem(0) rem(0);
+        &.slick-prev {
+            left: rem(10);
+        }
+        &.slick-next {
+            right: rem(10);
+        }
+    }
+}
+
+@include media-breakpoint-up(sm) {
+    .cs-carousel-wrapper {
+        
+        .slick-arrow {
+            &.slick-prev {
+                left: rem(-5);
+            }
+            &.slick-next {
+                right: rem(-5);
+            }
+        }
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    .cs-carousel-wrapper {
+        
+        .slick-arrow {
+            &.slick-prev {
+                left: rem(21);
+            }
+            &.slick-next {
+                right: rem(21);
+            }
+        }
+    }
+}
+
+.cs-carousel-wrapper {
 
     .carousel-title {
         font-family: $font-bold;

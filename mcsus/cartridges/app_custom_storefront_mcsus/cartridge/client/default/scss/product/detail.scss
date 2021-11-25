@@ -124,20 +124,30 @@
 .primary-images {
 
     .js-zoom-image {
-        display: none;
+        display: block;
     }
-
+    .font-icon-size {
+        position: relative;
+        bottom: rem(2);
+        left: rem(1);
+        font-size: rem(16.58);
+    }
+    
     .cs-carousel-wrapper {
         margin-bottom: rem(10);
         width: 100%;
         height: 100%;
 
+        @include custom-media-query1($small-screen-width , $small-screen-width4) {
+            height: auto;
+        }
+
         .slick-arrow.slick-next {
-            background-image: url("../../images/slide-right-arrow.png");
+            background-image: url("../../images/chevron_right_black_24dp.svg");
         }
 
         .slick-arrow.slick-prev {
-            background-image: url("../../images/left-arrow.png");
+            background-image: url("../../images/chevron_left_black_24dp.svg");
         }
 
         .slick-arrow {
@@ -200,7 +210,7 @@
             img {
 
                 &:hover {
-                    cursor: zoom-in;
+                    cursor: default;
                 }
             }
         }
@@ -216,18 +226,54 @@
     }
 
     .slick-arrow.slick-next {
-        background-image: url("../../images/slide-right-arrow.png");
-        right: 25%;
+        background-image: url("../../images/chevron_right_black_24dp.svg");
+        right: 25.5%;
+        @include media-breakpoint-up(custom-md) {
+            justify-content: space-between;
+            overflow: hidden;
+            transform: translate(140%, -50%);
+            display: flex;
+        }
+        @include media-breakpoint-up(lg) {
+            justify-content: space-between;
+            overflow: hidden;
+            transform: translate(152%, -50%);
+            display: flex;
+        }
+        
+        @include media-breakpoint-up(xl) {
+            justify-content: space-between;
+            overflow: hidden;
+            transform: translate(-26%, -50%);
+            display: flex;
+        }
     }
 
     .slick-arrow.slick-prev {
-        background-image: url("../../images/left-arrow.png");
-        left: 25%;
-    }
-  
+        background-image: url("../../images/chevron_left_black_24dp.svg");
+        left: 26%;
+        @include media-breakpoint-up(custom-md) {
+            justify-content: space-between;
+            overflow: hidden;
+            transform: translate(-150%, -50%);
+            display: flex;
+        }
+        @include media-breakpoint-up(lg) {
+            justify-content: space-between;
+            overflow: hidden;
+            transform: translate(-166%, -50%);
+            display: flex;
+        }
+        @include media-breakpoint-up(xl) {
+            justify-content: space-between;
+            overflow: hidden;
+            transform: translate(10%, -50%);
+            display: flex;
+        }
+    }  
     .slick-arrow {
         background-color: transparent;
-        background-size: rem(24) rem(43);
+        background-size: cover;
         background-repeat: no-repeat;
         outline: none;
         height: rem(50);

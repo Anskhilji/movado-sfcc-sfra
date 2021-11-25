@@ -158,3 +158,11 @@ $font-book-std : "FuturaStd-Book", Arial, sans-serif !default;
 $width: 100%;
 $spaceLeft: rem(20);
 $marginLeftlg : 60%;
+$small-screen-width: 320px;
+$small-screen-width4: 543px;
+
+@mixin custom-media-query1($small-screen-width,$small-screen-width4) {
+    @media (min-width:#{$small-screen-width}) and (max-width:#{$small-screen-width4}) {
+        @content;
+    }
+}

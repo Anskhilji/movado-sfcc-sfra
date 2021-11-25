@@ -71,8 +71,8 @@ $(document).ready(function() {
         var winWidth = $(window).width();
         var mediumBreakPoint= 767;
 
-        $('.primary-images .main-carousel img').click(function() {
-            if ($(this).parents('.slick-active.slick-center').length > 0) {
+        $('.test').click(function() {
+            if ($('.primary-images .main-carousel img').parents('.slick-active.slick-center').length > 0) {
                 $('#zoomProduct').modal('show');
                 if ($('.zoom-carousel.slick-slider:visible').length == 0) {
                     setTimeout(function() {
