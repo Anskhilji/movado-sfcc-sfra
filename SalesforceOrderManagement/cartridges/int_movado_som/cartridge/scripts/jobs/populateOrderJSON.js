@@ -165,7 +165,7 @@ function populateByOrder(order) {
 
         // Replace the billing address company name
         if (order.billingAddress.companyName && order.billingAddress.companyName !== '') {
-            order.billingAddress.custom.SOMCompanyName = order.billingAddress.companyName;  
+            order.billingAddress.custom.SOMCompanyName = order.billingAddress.companyName;
         }
 
         addressJSON.shippingAddresses = [];
