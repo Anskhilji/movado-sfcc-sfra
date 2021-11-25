@@ -9,7 +9,7 @@ var server = require('server');
  * @param {Obj} order - current order model
  */
 function saveCheckoutShipAddress(order) {
-	// check these values for guest user for testing purpose
+    // check these values for guest user for testing purpose
     if (order.saveShippingAddress && order.customerNo) {
         var CustomerMgr = require('dw/customer/CustomerMgr');
 
@@ -23,38 +23,38 @@ function saveCheckoutShipAddress(order) {
         }
 
         Transaction.wrap(function () {
-            var address = order.shippingAddressId
-            ? addressBook.getAddress(order.shippingAddressId)
-            : addressBook.createAddress(addressId);
+            var address = order.shippingAddressId ?
+                addressBook.getAddress(order.shippingAddressId) :
+                addressBook.createAddress(addressId);
 
-	        if (address) {
-	            address.setAddress1(shipAddress.address1 || '');
-	            address.setAddress2(shipAddress.address2 || '');
-	            address.setCity(shipAddress.city || '');
-	            address.setFirstName(shipAddress.firstName || '');
-	            address.setLastName(shipAddress.lastName || '');
-	            address.setPhone(shipAddress.phone || '');
-	            address.setPostalCode(shipAddress.postalCode || '');
+            if (address) {
+                address.setAddress1(shipAddress.address1 || '');
+                address.setAddress2(shipAddress.address2 || '');
+                address.setCity(shipAddress.city || '');
+                address.setFirstName(shipAddress.firstName || '');
+                address.setLastName(shipAddress.lastName || '');
+                address.setPhone(shipAddress.phone || '');
+                address.setPostalCode(shipAddress.postalCode || '');
 
-	            if (shipAddress.stateCode) {
-	                address.setStateCode(shipAddress.stateCode);
-	            }
+                if (shipAddress.stateCode) {
+                    address.setStateCode(shipAddress.stateCode);
+                }
 
-	            if (shipAddress.countryCode) {
-	            	var countryCode = shipAddress.countryCode.value ? shipAddress.countryCode.value : shipAddress.countryCode;
-	                address.setCountryCode(countryCode);
-	            }
+                if (shipAddress.countryCode) {
+                    var countryCode = shipAddress.countryCode.value ? shipAddress.countryCode.value : shipAddress.countryCode;
+                    address.setCountryCode(countryCode);
+                }
 
-	            address.setJobTitle(shipAddress.jobTitle || '');
-	            address.setPostBox(shipAddress.postBox || '');
-	            address.setSalutation(shipAddress.salutation || '');
-	            address.setSecondName(shipAddress.secondName || '');
-	            address.setCompanyName(shipAddress.companyName || '');
-	            address.setSuffix(shipAddress.suffix || '');
-	            address.setSuite(shipAddress.suite || '');
-	            address.setJobTitle(shipAddress.title || '');
-	        }
-	    });
+                address.setJobTitle(shipAddress.jobTitle || '');
+                address.setPostBox(shipAddress.postBox || '');
+                address.setSalutation(shipAddress.salutation || '');
+                address.setSecondName(shipAddress.secondName || '');
+                address.setCompanyName(shipAddress.companyName || '');
+                address.setSuffix(shipAddress.suffix || '');
+                address.setSuite(shipAddress.suite || '');
+                address.setJobTitle(shipAddress.title || '');
+            }
+        });
     }
 }
 
@@ -93,17 +93,16 @@ function copyShippingAddressToShipment(shippingData, shipmentOrNull) {
     });
 }
 
-function isStateCodeRestricted(shippingFormServer, stateCode) {
-        var currentStateCodeID;
-        var shippingFormServerStateCode = shippingFormServer.shippingAddress.addressFields.states.stateCode.options;
-        var isValidStateCode = false;
-        for (var index = 0; index < shippingFormServerStateCode.length; index++) {
-            currentStateCodeID = shippingFormServerStateCode[index].id.toString();
-            if (!empty(currentStateCodeID) && currentStateCodeID == stateCode) {
-                isValidStateCode = true;
-                break;
-            }
+function isStateCodeRestricted(allowedStateCodes, stateCode) {
+    var isValidStateCode = false;
+    var currentStateCodeID;
+    for (var index = 0; index < allowedStateCodes.length; index++) {
+        currentStateCodeID = allowedStateCodes[index].id.toString();
+        if (!empty(currentStateCodeID) && currentStateCodeID == stateCode) {
+            isValidStateCode = true;
+            break;
         }
+    }
 
     return isValidStateCode;
 }
@@ -160,5 +159,6 @@ module.exports = {
     saveCheckoutShipAddress: saveCheckoutShipAddress,
     copyShippingAddressToShipment: copyShippingAddressToShipment,
     copyBillingAddressToBasket: copyBillingAddressToBasket,
-    getAddressFromRequest: getAddressFromRequest
+    getAddressFromRequest: getAddressFromRequest,
+    isStateCodeRestricted: isStateCodeRestricted
 };

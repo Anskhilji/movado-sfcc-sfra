@@ -1,7 +1,5 @@
 'use strict';
 
-// var server = require('server');
-// var adyenLogger = require('dw/system/Logger').getLogger('AdyenLogger', 'adyenLogger');
 var BasketMgr = require('dw/order/BasketMgr');
 var Resource = require('dw/web/Resource');
 var Site = require('dw/system/Site');
