@@ -213,6 +213,7 @@ function setShippingAndBillingAddress(currentBasket, selectedShippingMethod, shi
             shippingAddress.setAddress2(address.address2 || '');
             shippingAddress.setCity(address.city || '');
             shippingAddress.setPostalCode(address.postalCode || '');
+            shippingAddress.setStateCode(address.stateCode || '');
             shippingAddress.setCountryCode(address.countryCode || '');
             shippingAddress.setPhone(address.phone || '');
 
