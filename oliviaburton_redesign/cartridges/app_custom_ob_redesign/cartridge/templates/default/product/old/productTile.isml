@@ -33,11 +33,15 @@
             </div>
         </isif>
         
-			<isloop items="${product.badges.textBadges}" var="badge">
+        <isif condition="${product.badges.textBadges.length > 0}">
+            			<isloop items="${product.badges.textBadges}" var="badge">
 		        <div class="exclusive-product">
 		        	${badge.text}
 		        </div>
 		    </isloop>
+        <iselse/>
+            <div class="adjust-exclusive-callout"></div>
+        </isif>
 
         <isset name="price" value="${product.price}" scope="page" />
         <isif condition="${product.productType === 'set'}">
@@ -58,6 +62,8 @@
                     </isif>
 			    </isloop>
 		    </div>
+        <iselse/>
+            <div class="adjust-promotion-allignmnet"></div>
 		</isif>
         <isif condition="${pdict.display.selectBonusProductsButton}">
             <button class="btn btn-block btn-outline-primary select-bonus-product" data-pid="${product.id}" ${outOfStock || !product.available ? "disabled" : "" }>

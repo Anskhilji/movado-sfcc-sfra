@@ -245,3 +245,25 @@
 .adjust-nostock-align {
     height: rem(23);
 }
+.adjust-exclusive-callout {
+   height: rem(38);
+}
+.adjust-name-productTile {
+    display: flex;
+    justify-content: center;
+    a {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -ms-flexbox;
+        display: -webkit-box;                
+        display: -moz-box;
+        display: box;
+        line-clamp: 2;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        height: rem(44);
+    }
+}
+.adjust-promotion-allignmnet {
+    height: rem(27);
+}
