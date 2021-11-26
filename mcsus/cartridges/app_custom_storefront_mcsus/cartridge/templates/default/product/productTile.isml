@@ -19,19 +19,15 @@
             <isinclude template="product/components/productTileSwatch" />
         </isif>
 
-        <isif condition="${product.promotions}">
-		    <div class="promotions">
-			    <isloop items="${product.promotions}" var="promotion" status ="promoStatus">
-                    <isif condition="${promotion.plpCalloutMsg !== ''}">
-                        <div class="callout promo-msg">
-                            <isprint value="${promotion.plpCalloutMsg}" encoding="off">
-                        </div>
-                    </isif>
-			    </isloop>
-		    </div>
-        <iselse/>
-            <div class="promo-none-visible"></div>
-		</isif>
+        <div class="${product.promotions ? 'promotions' : 'promo-none-visible'}">
+            <isloop items="${product.promotions}" var="promotion" status ="promoStatus">
+                <isif condition="${promotion.plpCalloutMsg !== ''}">
+                    <div class="callout promo-msg">
+                        <isprint value="${promotion.plpCalloutMsg}" encoding="off">
+                    </div>
+                </isif>
+            </isloop>
+        </div>
 
         <isinclude template="product/components/productTileName" />
         
@@ -49,15 +45,11 @@
             <div class="adjust-badges-alignment"></div>     
         </isif>
 
-        <isif condition="${product.badges.textBadges.length > 0 }">
+        <div class="${product.badges.textBadges.length > 0 ? 'exclusive-product' : 'align-plp-badges'}">
             <isloop items="${product.badges.textBadges}" var="badge">
-                <div class="exclusive-product">
-                    ${badge.text}
-                </div>
+                ${badge.text}
             </isloop>
-        <iselse/>
-            <div class="align-plp-badges"></div>
-        </isif>
+        </div>
 
         <div class="row m-0 adjust-rating-alignment">
             <div class="col d-flex align-items-center justify-content-around w-100">
