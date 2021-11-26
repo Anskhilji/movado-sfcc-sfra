@@ -96,9 +96,18 @@ function copyShippingAddressToShipment(shippingData, shipmentOrNull) {
 function isStateCodeRestricted(allowedStateCodes, stateCode) {
     var isValidStateCode = false;
     var currentStateCodeID;
+    if (!empty(allowedStateCodes)) {
+        for (var index = 0; index < allowedStateCodes.length; index++) {
+            currentStateCodeID = allowedStateCodes[index].id.toString();
+            if (!empty(currentStateCodeID) && currentStateCodeID == stateCode) {
+                isValidStateCode = true;
+                break;
+            }
+        }
+    }
     for (var index = 0; index < allowedStateCodes.length; index++) {
         currentStateCodeID = allowedStateCodes[index].id.toString();
-        if (!empty(currentStateCodeID) && currentStateCodeID == stateCode) {
+        if (!empty(currentStateCodeID) && !empty(stateCode) && currentStateCodeID == stateCode) {
             isValidStateCode = true;
             break;
         }

@@ -10,8 +10,6 @@ var Site = require('dw/system/Site');
 var checkoutFieldsRegex = require('*/cartridge/utils/ExpressCheckoutRegexUtils');
 var Constants = require('*/cartridge/utils/Constants');
 var checkoutAddressHelper = require('*/cartridge/scripts/helpers/checkoutAddressHelper');
-
-
 var ArrayList = require('dw/util/ArrayList');
 
 /**
