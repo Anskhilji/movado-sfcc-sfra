@@ -19,7 +19,7 @@
             <isinclude template="product/components/productTileSwatch" />
         </isif>
 
-        <div class="${product.promotions ? 'promotions' : 'promo-none-visible'}">
+        <div class="${product.promotions.length > 0 ? 'promotions' : 'promo-none-visible'}">
             <isloop items="${product.promotions}" var="promotion" status ="promoStatus">
                 <isif condition="${promotion.plpCalloutMsg !== ''}">
                     <div class="callout promo-msg">

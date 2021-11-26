@@ -60,7 +60,7 @@
 		    </div>
         <iselse/>
             <div class="adjust-promotion-allignmnet"></div>
-		</isif>
+        </isif>
         <isif condition="${pdict.display.selectBonusProductsButton}">
             <button class="btn btn-block btn-outline-primary select-bonus-product" data-pid="${product.id}" ${outOfStock || !product.available ? "disabled" : "" }>
                 ${Resource.msg('button.choiceofbonus.select', 'product', null)}
