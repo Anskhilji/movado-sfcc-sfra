@@ -56,12 +56,9 @@
           flex-flow: column;
           justify-content: space-between;
         }
-        // .tile-badges-inner1 {
-        //   height: rem(36);
-        // }
         .adjust-noswatch-height {
           height: rem(36);
-        }
+        }        
       }
 
     }
@@ -387,18 +384,6 @@
           text-align: center;
           justify-content: center;
         }
-      }
-      &.d-none {
-        &.product-tag-content-inner1 {
-        visibility: visible;
-        display: initial !important;
-      }
-      }
-      .out-of-stock {
-            &.d-none {
-              visibility: hidden;
-              display: initial !important;
-            }
       } 
     }
   
