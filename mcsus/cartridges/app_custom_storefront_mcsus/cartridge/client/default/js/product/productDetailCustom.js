@@ -67,7 +67,7 @@ $(document).ready(function() {
         });
     }   
 
-    // Custom Start: MSS-1564 Add thumbnails to PDP
+    // Custom Start: MSS-1564 zoom carousel popup active on click after zoom icon on pdp
     $(window).on("load resize", function () {
         var winWidth = $(window).width();
         var mediumBreakPoint= 767;
@@ -89,5 +89,5 @@ $(document).ready(function() {
         });
         
     });
-    // Custom End: MSS-1564 Add thumbnails to PDP
+    // Custom End: MSS-1564 zoom carousel popup active on click after zoom icon on pdp
 });
