@@ -1,5 +1,7 @@
 @import "~movado/components/_breadcrumb";
 .container .breadcrumb {
+      border-bottom: none;
+
     .breadcrumb-item a {
       font-size: rem(14);
       font-family: $font-regular;
