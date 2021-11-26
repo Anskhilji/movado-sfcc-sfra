@@ -49,7 +49,7 @@
             <div class="adjust-badges-alignment"></div>     
         </isif>
 
-        <isif condition="${product.badges.textBadges}">
+        <isif condition="${product.badges.textBadges.length > 0 }">
             <isloop items="${product.badges.textBadges}" var="badge">
                 <div class="exclusive-product">
                     ${badge.text}

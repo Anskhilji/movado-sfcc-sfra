@@ -35,13 +35,12 @@
             <div class="adjust-nostock-align"></div>
         </isif>
         
-        <isif condition="${product.badges.textBadges != 'null' }">
+        <isif condition="${product.badges.textBadges.length > 0 }">
 			<isloop items="${product.badges.textBadges}" var="badge">
 		        <div class="exclusive-product">
 		        	${badge.text}
 		        </div>
 		    </isloop>
-            <h1 data-badge="${JSON.stringify(product.badges.textBadges)}"></h1>
         <iselse/>
             <div class="align-plp-badges"></div>
         </isif>
