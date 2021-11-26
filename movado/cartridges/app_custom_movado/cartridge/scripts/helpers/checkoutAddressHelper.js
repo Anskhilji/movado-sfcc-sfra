@@ -99,21 +99,13 @@ function isStateCodeRestricted(allowedStateCodes, stateCode) {
     if (!empty(allowedStateCodes)) {
         for (var index = 0; index < allowedStateCodes.length; index++) {
             currentStateCodeID = allowedStateCodes[index].id.toString();
-            if (!empty(currentStateCodeID) && currentStateCodeID == stateCode) {
+            if (!empty(currentStateCodeID) && !empty(stateCode) && currentStateCodeID == stateCode) {
                 isValidStateCode = true;
                 break;
             }
         }
+        return isValidStateCode;
     }
-    for (var index = 0; index < allowedStateCodes.length; index++) {
-        currentStateCodeID = allowedStateCodes[index].id.toString();
-        if (!empty(currentStateCodeID) && !empty(stateCode) && currentStateCodeID == stateCode) {
-            isValidStateCode = true;
-            break;
-        }
-    }
-
-    return isValidStateCode;
 }
 
 /**

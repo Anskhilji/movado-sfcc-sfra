@@ -198,7 +198,6 @@ function setShippingAndBillingAddress(currentBasket, selectedShippingMethod, shi
         phone: shippingAddressData.phoneNumber || ''
     };
 
-
     try {
         Transaction.wrap(function () {
             var shippingAddress = shipment.shippingAddress;
@@ -217,8 +216,7 @@ function setShippingAndBillingAddress(currentBasket, selectedShippingMethod, shi
             shippingAddress.setCountryCode(address.countryCode || '');
             shippingAddress.setPhone(address.phone || '');
 
-
-        currentBasket.setCustomerEmail(shippingAddressData.email || ''); // ToDo Set email from google pay
+            currentBasket.setCustomerEmail(shippingAddressData.email || ''); // ToDo Set email from google pay
             if (!empty(currentBasket.billingAddress)) {
                 currentBasket.billingAddress.setPhone(address.phone || '');
             }
