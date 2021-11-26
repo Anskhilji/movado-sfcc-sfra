@@ -37,8 +37,8 @@
         
         <div class="${product.badges.textBadges.length > 0 ? 'exclusive-product' : 'align-plp-badges'}">
             <isloop items="${product.badges.textBadges}" var="badge">
-		        	${badge.text}
-		    </isloop>
+		        ${badge.text}
+            </isloop>
         </div>
 
         <isset name="price" value="${product.price}" scope="page" />
