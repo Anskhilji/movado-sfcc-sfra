@@ -1,9 +1,10 @@
 @import "~movado/components/_carousel";
-// Custom Start: MSS-1564 Add thumbnails to PDP
+
 .cs-carousel-wrapper {
     
     .slick-arrow {
         padding: rem(0) rem(0);
+
         &.slick-prev {
             left: rem(10);
         }
@@ -17,6 +18,7 @@
     .cs-carousel-wrapper {
         
         .slick-arrow {
+            
             &.slick-prev {
                 left: rem(-5);
             }
@@ -40,7 +42,6 @@
         }
     }
 }
-// Custom End: MSS-1564 Add thumbnails to PDP
 
 .cs-carousel-wrapper {
 

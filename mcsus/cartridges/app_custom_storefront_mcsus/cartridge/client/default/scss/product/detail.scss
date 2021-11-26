@@ -118,11 +118,9 @@
 
 .primary-images {
 
-    // Custom Start: MSS-1564 Add thumbnails to PDP
     .js-zoom-image {
         display: block;
     }
-    // Custom End: MSS-1564 Add thumbnails to PDP
 
     .font-icon-size {
         position: relative;
@@ -136,11 +134,9 @@
         width: 100%;
         height: 100%;
 
-        // Custom Start: MSS-1564 Add thumbnails to PDP
         @include custom-media-query1($small-screen-width , $small-screen-width4) {
             height: auto;
         }
-        // Custom End: MSS-1564 Add thumbnails to PDP
 
         .slick-arrow.slick-next {
             background-image: url("../../images/chevron_right_black_24dp.svg");
@@ -225,7 +221,6 @@
         transform: translateY(-50%);
     }
 
-    // Custom Start: MSS-1564 Add thumbnails to PDP
     .slick-arrow.slick-next {
         background-image: url("../../images/chevron_right_black_24dp.svg");
         right: 25.5%;
@@ -272,7 +267,6 @@
             display: flex;
         }
     }  
-    // Custom End: MSS-1564 Add thumbnails to PDP
 
     .slick-arrow {
         background-color: transparent;
