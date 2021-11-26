@@ -67,6 +67,7 @@ $(document).ready(function() {
         });
     }   
 
+    // Custom Start: MSS-1564 Add thumbnails to PDP
     $(window).on("load resize", function () {
         var winWidth = $(window).width();
         var mediumBreakPoint= 767;
@@ -88,4 +89,5 @@ $(document).ready(function() {
         });
         
     });
+    // Custom End: MSS-1564 Add thumbnails to PDP
 });
