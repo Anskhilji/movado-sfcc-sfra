@@ -6,6 +6,5 @@ $(document).ready(function () {
     processInclude(require('./accountLogout'));
     processInclude(require('./header/header'));
     processInclude(require('./product/productDetailCustom'));
-    processInclude(require('./product/zoom'));
 });
 
