@@ -20,7 +20,7 @@
         </isif>
 
         <div class="${product.promotions.length > 0 ? 'promotions' : 'promo-none-visible'}">
-            <isloop items="${product.promotions}" var="promotion" status ="promoStatus">
+            <isloop items="${product.promotions}" var="promotion" status="promoStatus">
                 <isif condition="${promotion.plpCalloutMsg !== ''}">
                     <div class="callout promo-msg">
                         <isprint value="${promotion.plpCalloutMsg}" encoding="off">
@@ -37,13 +37,11 @@
             </div>
         </isif>
 
-		<isif condition="${outOfStock}">
-			<div class="out-of-stock">
-                ${Resource.msg('label.soldout', 'common', null)}
-            </div>
-        <iselse/>
-            <div class="adjust-badges-alignment"></div>     
-        </isif>
+        <div class="${outOfStock ? 'out-of-stock' : 'adjust-badges-alignment'}">
+            <isif condition="${outOfStock}">
+                ${Resource.msg('label.soldout', 'common', null)}.
+            </isif>
+        </div>
 
         <div class="${product.badges.textBadges.length > 0 ? 'exclusive-product' : 'align-plp-badges'}">
             <isloop items="${product.badges.textBadges}" var="badge">

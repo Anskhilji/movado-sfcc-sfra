@@ -27,13 +27,11 @@
             </div>
         </isif>
 
-		<isif condition="${outOfStock}">
-			<div class="out-of-stock">
-                ${Resource.msg('label.soldout', 'common', null)}
-            </div>
-        <iselse/>
-            <div class="adjust-nostock-align"></div>
-        </isif>
+        <div class="${outOfStock ? 'out-of-stock' : 'adjust-nostock-align'}">
+            <isif condition="${outOfStock}">
+                ${Resource.msg('label.soldout', 'common', null)}.
+            </isif>
+        </div>
         
         <div class="${product.badges.textBadges.length > 0 ? 'exclusive-product' : 'align-plp-badges'}">
             <isloop items="${product.badges.textBadges}" var="badge">
@@ -50,19 +48,19 @@
         <isif condition="${!pdict.isCompareableDisabled}"> 
             <isinclude template="product/components/compare" />
         </isif>
-        <isif condition="${product.promotions}">
-		    <div class="promotions">
-			    <isloop items="${product.promotions}" var="promotion" status ="promoStatus">
+
+        <div class="${product.promotions.length > 0 ? 'promotions' : 'adjust-promo-message'}">
+            <isif condition="${product.promotions}">
+                <isloop items="${product.promotions}" var="promotion" status ="promoStatus">
                     <isif condition="${promotion.plpCalloutMsg !== ''}">
                         <div class="callout promo-msg">
                             <isprint value="${promotion.plpCalloutMsg}" encoding="off">
                         </div>
                     </isif>
-			    </isloop>
-		    </div>
-        <iselse/>
-            <div class="adjust-promo-message"></div>
-		</isif>
+                </isloop>
+            </isif>
+        </div>
+
         <isif condition="${pdict.display.selectBonusProductsButton}">
             <button class="btn btn-block btn-outline-primary select-bonus-product" data-pid="${product.id}" ${outOfStock || !product.available ? "disabled" : "" }>
                 ${Resource.msg('button.choiceofbonus.select', 'product', null)}
