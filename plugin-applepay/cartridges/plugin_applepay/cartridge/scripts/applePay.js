@@ -163,7 +163,7 @@ exports.afterAuthorization = function (order, payment, custom, status) {
         if (shippingAddressStateCode) {
             var shippingFormServer = server.forms.getForm('shipping');
             var shippingFormServerStateCode = shippingFormServer.shippingAddress.addressFields.states.stateCode.options;
-            var isValidStateCode = checkoutAddressHelper.isStateCodeRestricted(shippingFormServerStateCode, shippingAddressStateCode);
+            var isValidStateCode = checkoutAddressHelper.isAllowedStateCode(shippingFormServerStateCode, shippingAddressStateCode);
 
             if (!isValidStateCode) {
                 addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_SHIPPING_ADDRESS);
@@ -175,7 +175,7 @@ exports.afterAuthorization = function (order, payment, custom, status) {
         if (billingStateCode) {
             var billingFormServer = server.forms.getForm('billing');
             var billingFormServerStateCode = billingFormServer.addressFields.states.stateCode.options;
-            var isValidStateCode = checkoutAddressHelper.isStateCodeRestricted(billingFormServerStateCode, billingStateCode);
+            var isValidStateCode = checkoutAddressHelper.isAllowedStateCode(billingFormServerStateCode, billingStateCode);
 
             if (!isValidStateCode) {
                 addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_BILLING_ADDRESS);
