@@ -37,13 +37,14 @@
 
                     <isinclude template="product/components/badges" />
                 </div>
-                <isif condition="${pdict.display.swatches !== false && product.productType == 'master'}">
-                    <div class="plp-swatches ${product.variationsAttributes && product.variationsAttributes[0] && product.variationsAttributes[0].values && product.variationsAttributes[0].values.length > 0 ? '':'0-opacity'}">
-                        <isinclude template="product/components/productTileSwatch" />
-                    </div>
-                <iselse/>
-                    <div class="adjust-noswatch-height"></div>
-                </isif>
+
+                <div class="${pdict.display.swatches !== false && product.productType == 'master' ? 'plp-swatches' : 'adjust-noswatch-height' }">
+                    <isif condition="${pdict.display.swatches !== false && product.productType == 'master'}">
+                        <div class="plp-swatches ${product.variationsAttributes && product.variationsAttributes[0] && product.variationsAttributes[0].values && product.variationsAttributes[0].values.length > 0 ? '':'0-opacity'}">
+                            <isinclude template="product/components/productTileSwatch" />
+                        </div>
+                    </isif>
+               </div>
             </div>
             <div class="tile-inner-content">
                 <isif condition="${pdict.display.showAddToCart}">
