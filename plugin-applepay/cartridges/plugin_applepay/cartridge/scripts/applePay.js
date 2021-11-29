@@ -131,6 +131,9 @@ exports.afterAuthorization = function (order, payment, custom, status) {
         addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_BILLING_ADDRESS);
         deliveryValidationFail = true;
     }
+    // State code Check for billing Address
+    var billingStateCode = order.getBillingAddress().stateCode;
+
     try {
         isBillingPostalNotValid = comparePostalCode(order.billingAddress.postalCode);
         var billingAddressFirstName = !empty(order.billingAddress.firstName) ? order.billingAddress.firstName.trim() : '';
@@ -144,14 +147,12 @@ exports.afterAuthorization = function (order, payment, custom, status) {
         }
         if (order.shipments.length) {
             orderShippingAddress = order.shipments[0].getShippingAddress();
-            orderBillingAddress = order.shipments[0].getBillingAddress();
             isShippingPostalNotValid = comparePostalCode(orderShippingAddress.postalCode);
             var shippingAddressFirstName = !empty(orderShippingAddress.firstName) ? orderShippingAddress.firstName.trim() : '';
             var shippingAddressLastName = !empty(orderShippingAddress.lastName) ? orderShippingAddress.lastName.trim() : '';
             var shippingAddressAddress1 = !empty(orderShippingAddress.address1) ? orderShippingAddress.address1.trim() : '';
             var shippingAddressCity = !empty(orderShippingAddress.city) ? orderShippingAddress.city.trim() : '';
             var shippingAddressStateCode = !empty(orderShippingAddress.stateCode) ? orderShippingAddress.stateCode.trim() : '';
-            var billingAddressStateCode = !empty(orderBillingAddress.stateCode) ? orderBillingAddress.stateCode.trim() : '';
         }
         if (empty(shippingAddressFirstName) || empty(shippingAddressLastName) || empty(shippingAddressAddress1) || isShippingPostalNotValid || empty(shippingAddressCity)) {
             addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_SHIPPING_ADDRESS);
@@ -171,15 +172,15 @@ exports.afterAuthorization = function (order, payment, custom, status) {
             }
         }
 
-        if (billingAddressStateCode) {
+        if (billingStateCode) {
             var billingFormServer = server.forms.getForm('billing');
             var billingFormServerStateCode = billingFormServer.addressFields.states.stateCode.options;
-            var isValidStateCode = checkoutAddressHelper.isStateCodeRestricted(billingFormServerStateCode, billingAddressStateCode);
+            var isValidStateCode = checkoutAddressHelper.isStateCodeRestricted(billingFormServerStateCode, billingStateCode);
 
             if (!isValidStateCode) {
                 addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_BILLING_ADDRESS);
                 deliveryValidationFail = true;
-                Logger.error('Selected state is {0} which is restricted for order: {1}', billingAddressStateCode, order.orderNo);
+                Logger.error('Selected state is {0} which is restricted for order: {1}', billingStateCode, order.orderNo);
             }
         }
     } catch (e) {
