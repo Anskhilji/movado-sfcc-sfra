@@ -144,13 +144,14 @@ exports.afterAuthorization = function (order, payment, custom, status) {
         }
         if (order.shipments.length) {
             orderShippingAddress = order.shipments[0].getShippingAddress();
+            orderBillingAddress = order.shipments[0].getBillingAddress();
             isShippingPostalNotValid = comparePostalCode(orderShippingAddress.postalCode);
             var shippingAddressFirstName = !empty(orderShippingAddress.firstName) ? orderShippingAddress.firstName.trim() : '';
             var shippingAddressLastName = !empty(orderShippingAddress.lastName) ? orderShippingAddress.lastName.trim() : '';
             var shippingAddressAddress1 = !empty(orderShippingAddress.address1) ? orderShippingAddress.address1.trim() : '';
             var shippingAddressCity = !empty(orderShippingAddress.city) ? orderShippingAddress.city.trim() : '';
             var shippingAddressStateCode = !empty(orderShippingAddress.stateCode) ? orderShippingAddress.stateCode.trim() : '';
-            var billingAddressStateCode = !empty(orderShippingAddress.stateCode) ? orderShippingAddress.stateCode.trim() : '';
+            var billingAddressStateCode = !empty(orderBillingAddress.stateCode) ? orderBillingAddress.stateCode.trim() : '';
         }
         if (empty(shippingAddressFirstName) || empty(shippingAddressLastName) || empty(shippingAddressAddress1) || isShippingPostalNotValid || empty(shippingAddressCity)) {
             addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_SHIPPING_ADDRESS);

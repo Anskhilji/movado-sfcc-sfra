@@ -1,8 +1,6 @@
 'use strict';
 
 var Transaction = require('dw/system/Transaction');
-var adyenLogger = require('dw/system/Logger').getLogger('Adyen', 'adyen');
-var server = require('server');
 
 /**
  * Creates/Updates address provided on Shipping page
@@ -93,18 +91,18 @@ function copyShippingAddressToShipment(shippingData, shipmentOrNull) {
     });
 }
 
-function isStateCodeRestricted(allowedStateCodes, stateCode) {
-    var isValidStateCode = false;
+function isStateCodeAllowed(allowedStateCodes, stateCode) {
+    var isCheckoutAllowedStateCode = false;
     var currentStateCodeID;
     if (!empty(allowedStateCodes)) {
         for (var index = 0; index < allowedStateCodes.length; index++) {
             currentStateCodeID = allowedStateCodes[index].id.toString();
             if (!empty(currentStateCodeID) && !empty(stateCode) && currentStateCodeID == stateCode) {
-                isValidStateCode = true;
+                isCheckoutAllowedStateCode = true;
                 break;
             }
         }
-        return isValidStateCode;
+        return isCheckoutAllowedStateCode;
     }
 }
 
@@ -161,5 +159,5 @@ module.exports = {
     copyShippingAddressToShipment: copyShippingAddressToShipment,
     copyBillingAddressToBasket: copyBillingAddressToBasket,
     getAddressFromRequest: getAddressFromRequest,
-    isStateCodeRestricted: isStateCodeRestricted
+    isStateCodeAllowed: isStateCodeAllowed
 };

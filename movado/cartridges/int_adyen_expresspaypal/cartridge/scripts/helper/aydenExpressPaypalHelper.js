@@ -10,7 +10,6 @@ var Site = require('dw/system/Site');
 var checkoutFieldsRegex = require('*/cartridge/utils/ExpressCheckoutRegexUtils');
 var Constants = require('*/cartridge/utils/Constants');
 var checkoutAddressHelper = require('*/cartridge/scripts/helpers/checkoutAddressHelper');
-var ArrayList = require('dw/util/ArrayList');
 
 /**
  * Splits the string into multiple based on the passed limit.
@@ -170,7 +169,7 @@ function formsValidation(currentBasket, formData) {
         var shippingForms = session.forms.shipping;
         var shippingFormServer = server.forms.getForm('shipping');
         var shippingFormServerStateCode = shippingFormServer.shippingAddress.addressFields.states.stateCode.options
-        var isValidStateCode = checkoutAddressHelper.isStateCodeRestricted(shippingFormServerStateCode, stateCode);
+        var isValidStateCode = checkoutAddressHelper.isStateCodeAllowed(shippingFormServerStateCode, stateCode);
 
         Transaction.wrap(function () {
             shippingForms.shippingAddress.addressFields.states.stateCode.value = stateCode;
@@ -192,7 +191,7 @@ function formsValidation(currentBasket, formData) {
         var billingForms = session.forms.billing;
         var billingFormServer = server.forms.getForm('billing');
         var billingFormServerStateCode = billingFormServer.addressFields.states.stateCode.options;
-        var isValidStateCode = checkoutAddressHelper.isStateCodeRestricted(billingFormServerStateCode, billingAddressState)
+        var isValidStateCode = checkoutAddressHelper.isStateCodeAllowed(billingFormServerStateCode, billingAddressState)
 
         Transaction.wrap(function () {
             billingForms.addressFields.states.stateCode.value = billingAddressState;
