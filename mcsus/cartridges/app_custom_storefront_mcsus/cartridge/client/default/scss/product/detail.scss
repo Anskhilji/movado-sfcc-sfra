@@ -352,7 +352,7 @@
         &.slick-current {
 
             .carousel-tile {
-                border: 1px solid $black;
+                border: rem(1) solid $black;
             }
         }
     }
