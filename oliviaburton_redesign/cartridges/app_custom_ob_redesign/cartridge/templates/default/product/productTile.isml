@@ -31,6 +31,8 @@
 
                 <isif condition="${pdict.plpProductFamilyName}">
                     <a href="${pdict.urls.product}"  class="product-family"> <h3>${product.collectionName ? product.collectionName :''}</h3> </a>
+                <iselse/>
+                    <div class="adjust-plp-badges"></div>
                 </isif>
             
                 <isinclude template="product/components/productTileName" />
