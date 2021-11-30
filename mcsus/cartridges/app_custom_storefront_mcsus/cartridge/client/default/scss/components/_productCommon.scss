@@ -91,8 +91,7 @@
 
 .product-detail {
     &.product-quickview {
-        @import "../product/imageCarousel";       
-
+        @import "../product/imageCarousel";  
     .availability-msg {
         font-family:$font-medium;
         font-weight: 500;
