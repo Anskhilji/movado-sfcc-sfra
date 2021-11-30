@@ -58,7 +58,10 @@
                 -webkit-line-clamp: 2;
                 -webkit-box-orient: vertical;
                 height: rem(44);
-
+                @include media-breakpoint-down(sm) {
+                  height: rem(36);
+                }
+                
                 @include media-breakpoint-down(md) {
                   font-size: rem(15);
                   font-weight: 500;
