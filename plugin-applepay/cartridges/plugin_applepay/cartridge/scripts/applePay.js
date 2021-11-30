@@ -131,7 +131,7 @@ exports.afterAuthorization = function (order, payment, custom, status) {
         deliveryValidationFail = true;
     }
     // State code Check for billing Address
-    var billingStateCode = order.getBillingAddress().stateCode;
+    var billingStateCode = order.getBillingAddress().stateCode ? order.getBillingAddress().stateCode : '';
 
     try {
         isBillingPostalNotValid = comparePostalCode(order.billingAddress.postalCode);
