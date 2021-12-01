@@ -89,19 +89,10 @@
                 text-decoration: none;
                 text-transform: uppercase;
                 @include headline;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                display: -ms-flexbox;
-                display: -webkit-box;
-                display: -moz-box;
-                display: box;
-                line-clamp: 2;
-                -webkit-line-clamp: 2;
-                -webkit-box-orient: vertical;
-                height: rem(41);
+                height: rem(30);
 
                 @include media-breakpoint-down(md) {
-                  font-size: rem(15);
+                  font-size: rem(13);
                   letter-spacing: 1.76px;
                   line-height: rem(20);
                   font-weight:300;
@@ -116,6 +107,76 @@
                     font-family: $font-book;
                 }
             }
+            @include media-breakpoint-up(xs) {
+                .truncate-text-sm {
+                  display: block;
+                }
+                .truncate-text-md {
+                  display: none;
+                }
+                .truncate-text-lg {
+                  display: none;
+                }
+                .truncate-text-xl {
+                  display: none;
+                }
+              }
+              @include media-breakpoint-up(sm) {
+                .truncate-text-sm {
+                  display: block;
+                }
+                .truncate-text-md {
+                  display: none;
+                }
+                .truncate-text-lg {
+                  display: none;
+                }
+                .truncate-text-xl {
+                  display: none;
+                }
+              }
+              @include media-breakpoint-up(custom-md) {
+                .truncate-text-lg {
+                  display: none;
+                }
+                .truncate-text-xl {
+                  display: none;
+                }
+                .truncate-text-md {
+                  display: block;
+                }
+                .truncate-text-sm {
+                  display: none;
+                }
+              }
+              @include media-breakpoint-up(lg) {
+                .truncate-text-lg {
+                  display: block;
+                }
+                .truncate-text-md {
+                  display: none;
+                }
+                .truncate-text-sm {
+                  display: none;
+                }
+                .truncate-text-xl {
+                  display: none;
+                }
+              }
+              @include media-breakpoint-up(xl) {
+                .truncate-text-xl {
+                  display: block;
+                }
+                .truncate-text-md {
+                  display: none;
+                }
+                .truncate-text-sm {
+                  display: none;
+                }
+                .truncate-text-lg {
+                  display: none;
+                }
+              }
             
             &.flex-wrapper-center{
                 display: flex;

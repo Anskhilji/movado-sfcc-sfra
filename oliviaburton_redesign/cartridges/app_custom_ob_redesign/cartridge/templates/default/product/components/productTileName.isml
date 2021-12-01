@@ -1,5 +1,12 @@
 <isif condition="${!('display' in pdict && 'showName' in pdict.display && pdict.display.showName == false)}">
-    <div class="pdp-link adjust-name-productTile" itemprop="name">
-        <a class="link product-name" href="${pdict.urls.product}" itemprop="url">${product.productName}</a>
+    <div class="pdp-link" itemprop="name">
+        <isif condition="${product.productName.length > 130}">
+            <a class="link product-name truncate-text-sm" href="${pdict.urls.product}" itemprop="url">${product.productName.length > 30? product.productName.substring(0,40)+'...': product.productName}</a>
+            <a class="link product-name truncate-text-md" href="${pdict.urls.product}" itemprop="url">${product.productName.length > 30? product.productName.substring(0,60)+'...': product.productName}</a>
+            <a class="link product-name truncate-text-lg" href="${pdict.urls.product}" itemprop="url">${product.productName.length > 50? product.productName.substring(0,50)+'...': product.productName}</a>
+            <a class="link product-name truncate-text-xl" href="${pdict.urls.product}" itemprop="url">${product.productName.length > 50? product.productName.substring(0,50)+'...': product.productName}</a>
+        <iselse/>
+            <a class="link product-name" href="${pdict.urls.product}" itemprop="url">${product.productName}</a>
+        </isif>
     </div>
 </isif>
