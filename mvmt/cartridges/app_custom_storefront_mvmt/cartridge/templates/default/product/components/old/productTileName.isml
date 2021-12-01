@@ -18,10 +18,10 @@
             <a class="link product-name truncate-text-lg" href="${pdict.urls.product}" itemprop="url">${product.productName.length > 50? product.productName.substring(0,35)+'...': product.productName}</a>
             <a class="link product-name truncate-text-xl" href="${pdict.urls.product}" itemprop="url">${product.productName.length > 50? product.productName.substring(0,50)+'...': product.productName}</a>
         <iselse/>
-            <a class="link product-name fdf" href="${pdict.urls.product}" itemprop="url">${product.productName}</a>
+            <a class="link product-name" href="${pdict.urls.product}" itemprop="url">${product.productName}</a>
         </isif>      
     <iselse>
-        <a class="link product-name ssd" href="${pdict.urls.product}" itemprop="url">${apiProduct.variationModel.defaultVariant.name}</a>
+        <a class="link product-name" href="${pdict.urls.product}" itemprop="url">${apiProduct.variationModel.defaultVariant.name}</a>
     </isif>
 </div>
 </isif>

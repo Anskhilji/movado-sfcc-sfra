@@ -41,7 +41,7 @@
         }
 
         .pdp-link {
-          font-size: rem(20);
+                font-size: rem(20);
             a {
                 font-size: rem(16);
                 height: rem(40);
@@ -62,10 +62,10 @@
                     font-family: $font-medium;
                 }
             }
-              &.flex-wrapper-center{
-                display: flex;
-                justify-content: center;
-              }
+            &.flex-wrapper-center {
+              display: flex;
+              justify-content: center;
+            }
             
             @include media-breakpoint-up(xs) {
               .truncate-text-sm {
