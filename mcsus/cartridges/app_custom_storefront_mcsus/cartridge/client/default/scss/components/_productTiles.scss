@@ -1,8 +1,6 @@
 @import "~movado/components/_productTiles";
 @import "../variables";
 
-
-
 .product-tile {
 
     .tile-body {
@@ -42,10 +40,8 @@
             }
         }
 
-
         .pdp-link {
-
-            font-size: rem(20);
+          font-size: rem(20);
             a {
                 font-size: rem(16);
                 height: rem(40);
@@ -66,9 +62,80 @@
                     font-family: $font-medium;
                 }
             }
-            &.flex-wrapper-center{
-              display: flex;
-              justify-content: center;
+              &.flex-wrapper-center{
+                display: flex;
+                justify-content: center;
+              }
+            
+            @include media-breakpoint-up(xs) {
+              .truncate-text-sm {
+                display: block;
+              }
+              .truncate-text-md {
+                display: none;
+              }
+              .truncate-text-lg {
+                display: none;
+              }
+              .truncate-text-xl {
+                display: none;
+              }
+            }
+            @include media-breakpoint-up(sm) {
+              .truncate-text-sm {
+                display: block;
+              }
+              .truncate-text-md {
+                display: none;
+              }
+              .truncate-text-lg {
+                display: none;
+              }
+              .truncate-text-xl {
+                display: none;
+              }
+            }
+            @include media-breakpoint-up(md) {
+              .truncate-text-lg {
+                display: none;
+              }
+              .truncate-text-xl {
+                display: none;
+              }
+              .truncate-text-md {
+                display: block;
+              }
+              .truncate-text-sm {
+                display: none;
+              }
+            }
+            @include media-breakpoint-up(lg) {
+              .truncate-text-lg {
+                display: block;
+              }
+              .truncate-text-md {
+                display: none;
+              }
+              .truncate-text-sm {
+                display: none;
+              }
+              .truncate-text-xl {
+                display: none;
+              }
+            }
+            @include media-breakpoint-up(xl) {
+              .truncate-text-xl {
+                display: block;
+              }
+              .truncate-text-md {
+                display: none;
+              }
+              .truncate-text-sm {
+                display: none;
+              }
+              .truncate-text-lg {
+                display: none;
+              }
             }
         }
 
