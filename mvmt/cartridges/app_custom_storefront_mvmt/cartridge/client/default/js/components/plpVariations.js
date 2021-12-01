@@ -6,17 +6,6 @@ module.exports = function () {
         var primaryImageUrls = response.product.images;
         var $imageContainer = $productContainer.find('.image-container').find('img');
         var isPLPRedesign = ($('.mvmt-plp-redesign').length > 0);
-        var tile256 =$lifeStyleImageContainer.data('tile256');
-        var tile300x300 =$lifeStyleImageContainer.data('tile300x300');
-        var tile512x640 =$lifeStyleImageContainer.data('tile512x640');
-        var tile300x375 =$lifeStyleImageContainer.data('tile300x375');
-        var image512x512 =$lifeStyleImageContainer.data('image512x512');
-        var image300x300 =$lifeStyleImageContainer.data('image300x300');
-        var image300x375 =$lifeStyleImageContainer.data('image300x375');
-        var lifestyleimage =$lifeStyleImageContainer.data('lifestyleimage');
-        var productName =$lifeStyleImageContainer.data('product-name');
-        var gtmProduct =$lifeStyleImageContainer.data('gtm-product');
-        var gtmFacet =$lifeStyleImageContainer.data('gtm-facets');
         if (isPLPRedesign) {
             var $categoryRendringTemplate = $productContainer.find('.color-swatches').data('categroy-eyeware');
             var $lifeStyleImageContainer = $productContainer.find('.image-container .life-style-image');
@@ -68,49 +57,6 @@ module.exports = function () {
                 // life style image handling
                 if ($lifeStyleImageContainer.length > 0) {
                     if (isEnableSingleProductRow && isNonWatchesTileEnable) {
-                        var html = '';
-                        if (tile256) {
-                            html += '<source srcset="' + tile256 + '" media="(min-width: 992px)" data-lazy=" '+tile256.url+' " />';
-                            html += '<source srcset="' + tile256 + '" media="(min-width: 544px)" data-lazy=" '+tile256.url+' " />';
-                            html + '<source srcset="' + tile256 + '" media="(min-width: 320px)" data-lazy=" '+tile256.url+' " />';
-                            html += '<img src="' + tile256 + '" class="tile-image gtm-product"  data-lazy=" '+tile256.url+' " alt="' + productName + '" itemprop="image"  data-gtm-product=' + gtmProduct + ' data-gtm-facets=' + gtmFacet + '/>';
-                            $lifeStyleImageContainer.html(html);
-                        }
-                        if(tile300x300){
-                            html += '<source srcset="' + tile300x300 + '" media="(min-width: 320px)" data-lazy=" '+tile300x300.url+' " />';
-                            $lifeStyleImageContainer.html(html);
-                        }
-                        if(tile512x640){
-                            html += '<source srcset="' + tile512x640 + '" media="(min-width: 992px)" data-lazy=" '+tile512x640.url+' " />';
-                            html += '<source srcset="' + tile512x640 + '" media="(min-width: 544px)" data-lazy=" '+tile512x640.url+' " />';
-                            html += '<img src="' + tile512x640 + '" class="tile-image gtm-product"  data-lazy=" '+tile512x640.url+' " alt="' + productName + '" itemprop="image"  data-gtm-product=' + gtmProduct + ' data-gtm-facets=' + gtmFacet + '/>';
-                            $lifeStyleImageContainer.html(html);
-                        }
-                        if(tile300x375){
-                            html += '<source srcset="' + tile300x375 + '" media="(min-width: 320px)" data-lazy=" '+tile300x375.url+' " />';
-                            $lifeStyleImageContainer.html(html);
-                        }
-                        if(image512x512){
-                            html += '<source srcset="' + image512x512 + '" media="(min-width: 992px)" data-lazy=" '+image512x512.url+' " />';
-                            html += '<source srcset="' + image512x512 + '" media="(min-width: 544px)" data-lazy=" '+image512x512.url+' " />';
-                            html += '<source srcset="' + image512x512 + '" media="(min-width: 320px)" data-lazy=" '+image512x512.url+' " />';
-                            html += '<img src="' +image512x512+ '" class="tile-image gtm-product"  data-lazy=" '+image512x512.url+' " alt="' +productName+ '" itemprop="image"  data-gtm-product=' +gtmProduct+ ' data-gtm-facets=' +gtmFacet+ '/>';
-                            $lifeStyleImageContainer.html(html);
-                        }
-                        if(image300x300){
-                            html += '<source srcset="' + image300x300 + '" media="(min-width: 320px)" data-lazy=" '+image300x300.url+' " />';
-                            $lifeStyleImageContainer.html(html);
-                        }
-                        if(image300x375){
-                            html += '<source srcset="' + image300x375 + '" media="(min-width: 320px)" data-lazy=" '+image300x375.url+' " />';
-                            $lifeStyleImageContainer.html(html);
-                        }
-                        if(lifestyleimage){
-                            html += '<source srcset="' + lifestyleimage + '" media="(min-width: 992px)" data-lazy=" '+lifestyleimage.url+' " />';
-                            html += '<source srcset="' + lifestyleimage + '" media="(min-width: 544px)" data-lazy=" '+lifestyleimage.url+' " />';
-                            html += '<img src="' +lifestyleimage+ '" class="tile-image gtm-product"  data-lazy=" '+lifestyleimage.url+' " alt="' +productName+ '" itemprop="image"  data-gtm-product=' +gtmProduct+ ' data-gtm-facets=' +gtmFacet+ '/>';
-                            $lifeStyleImageContainer.html(html);
-                        }
                         $lifeStyleImageContainer.find('source').attr('srcset', primaryImageUrls.tile256[3].url).data('lazy', primaryImageUrls.tile256[3].url);                        
                         $lifeStyleImageContainer.find('source:nth-child(3)').attr('srcset', primaryImageUrls.tile256[3].url).data('lazy', primaryImageUrls.tile256[3].url);
                         $lifeStyleImageContainer.find('img').attr('src', primaryImageUrls.tile256[3].url).data('lazy', primaryImageUrls.tile256[3].url); 
