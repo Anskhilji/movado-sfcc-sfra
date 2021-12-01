@@ -54,7 +54,7 @@
       <isif condition="${!isQuickView}">
 	      <button class="quickview js-zoom-image btn p-0 carousel-zoom-icon" data-toggle="modal" data-target="#zoomProduct" aria-label="${product.resources.Zoom}">
 		      <span class="fa-stack fa-lg">
-		          <i class="fa fa-circle fa-inverse fa-stack-2x"></i>
+		          <i class="fa fa-circle fa-inverse"></i>
                   <i class="fa fa-search-plus font-icon-size"></i>
 		      </span>
 	      </button>
