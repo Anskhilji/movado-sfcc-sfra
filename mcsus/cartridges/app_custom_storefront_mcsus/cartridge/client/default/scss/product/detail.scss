@@ -148,7 +148,6 @@
 
         .slick-arrow {
             background-color: transparent;
-            // background-size: rem(24) rem(43);
             background-size: cover;
             background-position: center;
             width: rem(40);
@@ -350,13 +349,13 @@
     .slick-slide {
         img {
             border:rem(1) solid transparent;
-            border-radius: 3px;
+            border-radius: rem(3);
         }
     }
     .slick-current {
         img {
             border-color: $black;
-            border-radius: 3px;
+            border-radius: rem(3);
         }
     }
 }
@@ -369,10 +368,10 @@
 
         .carousel-tile {
             border: 1px solid transparent;
-            border-radius: 3px;
+            border-radius: rem(3);
             img {
                 width: 100%;
-                border-radius: 3px;
+                border-radius: rem(3);
             }
         }
 
