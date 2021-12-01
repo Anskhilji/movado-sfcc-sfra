@@ -7,6 +7,7 @@
 } 
 
 .primary-images {
+
     .quickview {
       @include custom-media-query1($small-screen-width , $small-screen-width4) { 
         position: relative;
@@ -14,20 +15,20 @@
         bottom: rem(185);
       }
       @include media-breakpoint-up(sm) {
-        bottom: rem(150);
+        bottom: rem(160);
         left: rem(20);
       }
       @include media-breakpoint-up(custom-md) {
         bottom: rem(142);
-        left: rem(34);
+        left: rem(32);
       }
       @include media-breakpoint-up(md) {
         bottom: rem(176);
-        left: rem(34);
+        left: rem(32);
       }
       @include media-breakpoint-up(lg) {
         bottom: rem(148);
-        left: rem(34);
+        left: rem(32);
       }
 
     }

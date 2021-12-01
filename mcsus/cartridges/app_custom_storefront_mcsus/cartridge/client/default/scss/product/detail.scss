@@ -148,11 +148,35 @@
 
         .slick-arrow {
             background-color: transparent;
-            background-size: rem(24) rem(43);
+            // background-size: rem(24) rem(43);
+            background-size: cover;
+            background-position: center;
+            width: rem(40);
+            height: rem(40);
             outline: none;
-
+            top: 48%;
+            
+            @include media-breakpoint-down(lg) {
+                top: 47.5%;
+                
+                &.slick-prev {
+                    left: rem(12px);
+                }
+                &.slick-next {
+                    right: rem(12px);
+                }
+            }
+            @include media-breakpoint-down(md) {
+                top: 46.5%;
+            }
             @include media-breakpoint-down(sm) {
-                background-size: rem(15);
+                background-size: cover;
+                background-position: center;
+                width: rem(20);
+                height: rem(20);
+            }
+            @include custom-media-query1($small-screen-width , $small-screen-width4) {
+                top: 46.6%;
             }
         }
     }
@@ -326,11 +350,13 @@
     .slick-slide {
         img {
             border:rem(1) solid transparent;
+            border-radius: 3px;
         }
     }
     .slick-current {
         img {
             border-color: $black;
+            border-radius: 3px;
         }
     }
 }
@@ -343,9 +369,10 @@
 
         .carousel-tile {
             border: 1px solid transparent;
-
+            border-radius: 3px;
             img {
                 width: 100%;
+                border-radius: 3px;
             }
         }
 
