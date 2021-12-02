@@ -7,12 +7,15 @@ var Resource = require('dw/web/Resource');
 var Transaction = require('dw/system/Transaction');
 var ApplePayHookResult = require('dw/extensions/applepay/ApplePayHookResult');
 
+var checkoutAddressHelper = require('*/cartridge/scripts/helpers/checkoutAddressHelper');
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 var collections = require('*/cartridge/scripts/util/collections');
 var RiskifiedService = require('int_riskified');
 var Riskified = require('int_riskified/cartridge/scripts/Riskified');
 var Site = require('dw/system/Site');
 var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
+
+var server = require('server');
 
 var EMBOSSED = 'Embossed';
 var ENGRAVED = 'Engraved';
@@ -62,7 +65,7 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     var orderShippingAddress;
     var isShippingPostalNotValid;
     var paymentInstruments = order.getPaymentInstruments(
-			PaymentInstrument.METHOD_DW_APPLE_PAY).toArray();
+        PaymentInstrument.METHOD_DW_APPLE_PAY).toArray();
     if (!paymentInstruments.length) {
         hooksHelper(
             'app.fraud.detection.checkoutdenied',
@@ -73,7 +76,7 @@ exports.afterAuthorization = function (order, payment, custom, status) {
         checkoutLogger.error('Unable to find Apple Pay payment instrument for order:' + order.orderNo);
         return new Status(Status.ERROR);
     }
-    
+
     if (!empty(status) && status.isError()) {
         hooksHelper(
             'app.fraud.detection.checkoutdenied',
@@ -98,14 +101,14 @@ exports.afterAuthorization = function (order, payment, custom, status) {
 
     // loop of order shipments
     collections.forEach(order.getShipments(), function (shipment) {
-    	var address1 = shipment.getShippingAddress().getAddress1();
+        var address1 = shipment.getShippingAddress().getAddress1();
         var address2 = shipment.getShippingAddress().getAddress2();
         countryCode = shipment.getShippingAddress().getCountryCode().value;
-		// Check for PO box validation and CountryCode
+        // Check for PO box validation and CountryCode
         if (comparePoBox(address1) || comparePoBox(address2) || !isAllowedCountryCode(countryCode)) {
             addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_SHIPPING_ADDRESS);
-		    // order.addNote('Payment Authorization fails!', 'Delivery not allowed on PO Box');
-		    deliveryValidationFail = true;
+            // order.addNote('Payment Authorization fails!', 'Delivery not allowed on PO Box');
+            deliveryValidationFail = true;
         }
     });
     // copying the phone number from shipping address to billing Address
@@ -124,9 +127,12 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     // Country code Check for billing Address
     var billCountryCode = order.getBillingAddress().getCountryCode().value;
     if (!isAllowedCountryCode(billCountryCode) && !deliveryValidationFail) {
-    	addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_BILLING_ADDRESS);
-    	deliveryValidationFail = true;
+        addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_BILLING_ADDRESS);
+        deliveryValidationFail = true;
     }
+    // State code Check for billing Address
+    var billingStateCode = order.getBillingAddress().stateCode ? order.getBillingAddress().stateCode : '';
+
     try {
         isBillingPostalNotValid = comparePostalCode(order.billingAddress.postalCode);
         var billingAddressFirstName = !empty(order.billingAddress.firstName) ? order.billingAddress.firstName.trim() : '';
@@ -145,15 +151,41 @@ exports.afterAuthorization = function (order, payment, custom, status) {
             var shippingAddressLastName = !empty(orderShippingAddress.lastName) ? orderShippingAddress.lastName.trim() : '';
             var shippingAddressAddress1 = !empty(orderShippingAddress.address1) ? orderShippingAddress.address1.trim() : '';
             var shippingAddressCity = !empty(orderShippingAddress.city) ? orderShippingAddress.city.trim() : '';
+            var shippingAddressStateCode = !empty(orderShippingAddress.stateCode) ? orderShippingAddress.stateCode.trim() : '';
         }
         if (empty(shippingAddressFirstName) || empty(shippingAddressLastName) || empty(shippingAddressAddress1) || isShippingPostalNotValid || empty(shippingAddressCity)) {
             addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_SHIPPING_ADDRESS);
             deliveryValidationFail = true;
             Logger.error('There is something missing or invalid in shipping address for order: {0}', order.orderNo);
         }
-    } catch(e) {
+
+        if (shippingAddressStateCode) {
+            var shippingFormServer = server.forms.getForm('shipping');
+            var shippingFormServerStateCode = shippingFormServer.shippingAddress.addressFields.states.stateCode.options;
+            var isValidStateCode = checkoutAddressHelper.isStateCodeAllowed(shippingFormServerStateCode, shippingAddressStateCode);
+
+            if (!isValidStateCode) {
+                addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_SHIPPING_ADDRESS);
+                deliveryValidationFail = true;
+                Logger.error('Selected state is {0} which is restricted for order: {1}', shippingAddressStateCode, order.orderNo);
+            }
+        }
+
+        if (billingStateCode) {
+            var billingFormServer = server.forms.getForm('billing');
+            var billingFormServerStateCode = billingFormServer.addressFields.states.stateCode.options;
+            var isValidStateCode = checkoutAddressHelper.isStateCodeAllowed(billingFormServerStateCode, billingStateCode);
+
+            if (!isValidStateCode) {
+                addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_BILLING_ADDRESS);
+                deliveryValidationFail = true;
+                Logger.error('Selected state is {0} which is restricted for order: {1}', billingStateCode, order.orderNo);
+            }
+        }
+    } catch (e) {
         Logger.error('(applePay.js) --> Exception occured while try to validate shipping & billing address for orderID: {0} and exception is: {1}', order.orderNo, e);
     }
+
     hooksHelper(
         'app.fraud.detection.create',
         'create',
@@ -161,16 +193,16 @@ exports.afterAuthorization = function (order, payment, custom, status) {
         order.paymentInstrument,
         require('*/cartridge/scripts/hooks/fraudDetectionHook').create);
     if (deliveryValidationFail) {
-        var sendMail = true;// send email is set to true
+        var sendMail = true; // send email is set to true
         var isJob = false; // isJob is set to false because in case of job this hook is never called
         var refundResponse = hooksHelper(
-				'app.payment.adyen.refund',
-				'refund',
-				order,
-				order.getTotalGrossPrice().value,
-				sendMail,
-				isJob,
-				require('*/cartridge/scripts/hooks/payment/adyenCaptureRefundSVC').refund);
+            'app.payment.adyen.refund',
+            'refund',
+            order,
+            order.getTotalGrossPrice().value,
+            sendMail,
+            isJob,
+            require('*/cartridge/scripts/hooks/payment/adyenCaptureRefundSVC').refund);
         Riskified.sendCancelOrder(order, Resource.msg('error.payment.not.valid', 'checkout', null));
         if (refundResponse.decision !== 'SUCCESS') {
             Logger.error('Ayden refund not processed : order failed due to PO BOX check : refundResponse.decision ' + refundResponse.decision);
@@ -181,7 +213,7 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     Transaction.wrap(function () {
         Order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
     });
-    
+
     if ('SOMIntegrationEnabled' in Site.getCurrent().preferences.custom && Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {
         // Salesforce Order Management attributes
         var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
@@ -195,10 +227,10 @@ exports.afterAuthorization = function (order, payment, custom, status) {
         }
     }
     // End Salesforce Order Management
-    
+
     // order.addNote('After Authorization for Payment completed','Proceed with completing the order');
 
-	// remove personalization details from session once order is authorized and placed
+    // remove personalization details from session once order is authorized and placed
     session.custom.appleProductId = '';
     session.custom.appleEngraveOptionId = '';
     session.custom.appleEmbossOptionId = '';
@@ -217,7 +249,7 @@ exports.afterAuthorization = function (order, payment, custom, status) {
  * @returns status
  */
 exports.prepareBasket = function (basket, parameters) {
-	// get personalization data from session for PDP and Quickview
+    // get personalization data from session for PDP and Quickview
     if (parameters.sku && parameters.sku === session.custom.appleProductId) {
         var appleEngraveOptionId = session.custom.appleEngraveOptionId;
         var appleEmbossOptionId = session.custom.appleEmbossOptionId;
@@ -225,13 +257,13 @@ exports.prepareBasket = function (basket, parameters) {
         var appleEngravedMessage = session.custom.appleEngravedMessage;
 
         updateOptionLineItem(basket, appleEmbossOptionId, appleEngraveOptionId, appleEmbossedMessage, appleEngravedMessage);
-		// sample data for testing
-		// updateOptionLineItem(basket, 'MovadoUS-3650057', 'MovadoUS-0607271', 'embossedMessage', 'engraved\nMessage');
+        // sample data for testing
+        // updateOptionLineItem(basket, 'MovadoUS-3650057', 'MovadoUS-0607271', 'embossedMessage', 'engraved\nMessage');
     }
-        var currentBasket = BasketMgr.getCurrentBasket();
-        if (currentBasket && !empty(currentBasket.custom.smartGiftTrackingCode)) {
-            session.custom.trackingCode = currentBasket.custom.smartGiftTrackingCode;
-        }
+    var currentBasket = BasketMgr.getCurrentBasket();
+    if (currentBasket && !empty(currentBasket.custom.smartGiftTrackingCode)) {
+        session.custom.trackingCode = currentBasket.custom.smartGiftTrackingCode;
+    }
     var status = new Status(Status.OK);
     var result = new ApplePayHookResult(status, null);
     return result;
@@ -248,41 +280,41 @@ exports.prepareBasket = function (basket, parameters) {
  */
 function updateOptionLineItem(lineItemCtnr, embossOptionID, engraveOptionID, embossedMessage, engravedMessage) {
     var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
-	// since there will be only on Product from PDP/ Quick view
+    // since there will be only on Product from PDP/ Quick view
     var pli = lineItemCtnr.productLineItems[0];
     if (pli.optionProductLineItems) {
-    	Transaction.wrap(function () {
-	        collections.forEach(pli.optionProductLineItems, function (option) {
-	                if (option.optionID === EMBOSSED) {
-	                	if (embossOptionID) {
-	                        var optionModel = option.parent.optionModel;
-	                        var getOption = optionModel.getOption(EMBOSSED);
-	                        var optionValue = optionModel.getOptionValue(getOption, embossOptionID);
-	                        option.updateOptionValue(optionValue);
-	                        option.updateOptionPrice();
-	                        if (embossedMessage) {
-	                    		pli.custom.embossMessageLine1 = embossedMessage;
-	                    	}
-	                	}
-	                } else if (option.optionID === ENGRAVED) {
-	                	if (engraveOptionID) {
-	                		var optionModel = option.parent.optionModel;
-	                        var getOption = optionModel.getOption(ENGRAVED);
-	                        var optionValue = optionModel.getOptionValue(getOption, engraveOptionID);
-	                        option.updateOptionValue(optionValue);
-	                        option.updateOptionPrice();
-	                        if (engravedMessage) {
-								// code to split the message based on newline character
-	                        	engravedMessage = engravedMessage.split(NEWLINE);
-	                            pli.custom.engraveMessageLine1 = engravedMessage[0];
-	                            if (engravedMessage[1]) {
-	                                pli.custom.engraveMessageLine2 = engravedMessage[1];
-	                            }
-	                    	}
-	                	}
-	                }
-	    		});
-    });// end of Trasaction
+        Transaction.wrap(function () {
+            collections.forEach(pli.optionProductLineItems, function (option) {
+                if (option.optionID === EMBOSSED) {
+                    if (embossOptionID) {
+                        var optionModel = option.parent.optionModel;
+                        var getOption = optionModel.getOption(EMBOSSED);
+                        var optionValue = optionModel.getOptionValue(getOption, embossOptionID);
+                        option.updateOptionValue(optionValue);
+                        option.updateOptionPrice();
+                        if (embossedMessage) {
+                            pli.custom.embossMessageLine1 = embossedMessage;
+                        }
+                    }
+                } else if (option.optionID === ENGRAVED) {
+                    if (engraveOptionID) {
+                        var optionModel = option.parent.optionModel;
+                        var getOption = optionModel.getOption(ENGRAVED);
+                        var optionValue = optionModel.getOptionValue(getOption, engraveOptionID);
+                        option.updateOptionValue(optionValue);
+                        option.updateOptionPrice();
+                        if (engravedMessage) {
+                            // code to split the message based on newline character
+                            engravedMessage = engravedMessage.split(NEWLINE);
+                            pli.custom.engraveMessageLine1 = engravedMessage[0];
+                            if (engravedMessage[1]) {
+                                pli.custom.engraveMessageLine2 = engravedMessage[1];
+                            }
+                        }
+                    }
+                }
+            });
+        }); // end of Trasaction
     }
 }
 
