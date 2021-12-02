@@ -185,9 +185,16 @@ function setShippingAndBillingAddress(currentBasket, selectedShippingMethod, shi
     if (empty(shipment)) {
         shipment = currentBasket.defaultShipment;
     }
+
+    if (!empty(shippingAddressData.name)){
+        var splitFullName= shippingAddressData.name.split(" ");
+        var fname= split[0];
+        var lname= split[1];
+    }
+
     var address = {
-        firstName: shippingAddressData.name || '',
-        lastName: shippingAddressData.lastName || '',
+        firstName: fname || '',
+        lastName:  lname || '',
         companyName: shippingAddressData.companyName || '',
         address1: shippingAddressData.address1 || '',
         address2: shippingAddressData.address2 || '',
