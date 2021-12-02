@@ -252,6 +252,76 @@
             font-size: rem(16);
           }
         }
+        @include media-breakpoint-up(xss) {
+          .truncate-text-sm {
+            display: block;
+          }
+          .truncate-text-md {
+            display: none;
+          }
+          .truncate-text-lg {
+            display: none;
+          }
+          .truncate-text-xl {
+            display: none;
+          }
+        }
+        @include media-breakpoint-up(sm) {
+          .truncate-text-sm {
+            display: block;
+          }
+          .truncate-text-md {
+            display: none;
+          }
+          .truncate-text-lg {
+            display: none;
+          }
+          .truncate-text-xl {
+            display: none;
+          }
+        }
+        @include media-breakpoint-up(md) {
+          .truncate-text-lg {
+            display: none;
+          }
+          .truncate-text-xl {
+            display: none;
+          }
+          .truncate-text-md {
+            display: block;
+          }
+          .truncate-text-sm {
+            display: none;
+          }
+        }
+        @include media-breakpoint-up(lg) {
+          .truncate-text-lg {
+            display: block;
+          }
+          .truncate-text-md {
+            display: none;
+          }
+          .truncate-text-sm {
+            display: none;
+          }
+          .truncate-text-xl {
+            display: none;
+          }
+        }
+        @include media-breakpoint-up(lg-custom) {
+          .truncate-text-xl {
+            display: block;
+          }
+          .truncate-text-md {
+            display: none;
+          }
+          .truncate-text-sm {
+            display: none;
+          }
+          .truncate-text-lg {
+            display: none;
+          }
+        }
       }
     }
   
