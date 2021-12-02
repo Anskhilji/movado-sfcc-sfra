@@ -28,7 +28,7 @@
       @include custom-media-query1($small-screen-width , $small-screen-width4) { 
         position: relative;
         left: rem(9);
-        bottom: rem(185);
+        bottom: rem(138);
       }
       @include media-breakpoint-up(sm) {
         bottom: rem(160);

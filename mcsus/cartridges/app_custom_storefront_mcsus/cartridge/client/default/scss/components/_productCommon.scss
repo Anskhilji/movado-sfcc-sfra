@@ -80,7 +80,10 @@
         font-weight: 500;
     }
     .primary-images {
-        
+
+        @include media-breakpoint-down(xs) {
+            min-height: 55vh;
+        }
         .quickview {
             span {              
              color: $black;

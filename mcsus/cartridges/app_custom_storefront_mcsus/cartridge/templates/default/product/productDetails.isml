@@ -51,7 +51,7 @@
 
             <div class="row">
                 <!-- Product Images Carousel -->
-                <isinclude template="product/components/imageCarousel" />
+                <isinclude template="product/components/imageCarouselPdp" />
 
                 <div class="col-12 col-sm-6">
                     <!---Breadcrumbs--->

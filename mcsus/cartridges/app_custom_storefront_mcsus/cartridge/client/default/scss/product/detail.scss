@@ -137,6 +137,9 @@
         @include custom-media-query1($small-screen-width , $small-screen-width4) {
             height: auto;
         }
+        @include media-breakpoint-down(xs) {
+            margin-bottom: rem(-13.41);
+        }
 
         .slick-arrow.slick-next {
             background-image: url("../../images/chevron_right_black_24dp.svg");
@@ -171,13 +174,27 @@
             @include media-breakpoint-down(sm) {
                 background-size: cover;
                 background-position: center;
-                width: rem(20);
-                height: rem(20);
+                width: rem(30);
+                height: rem(30);
             }
             @include custom-media-query1($small-screen-width , $small-screen-width4) {
                 top: 46.6%;
             }
         }
+
+        .carousel-nav{
+            .slick-slide {
+                margin-right: rem(6);
+    
+                @include media-breakpoint-down(xs) {
+                    margin-right: rem(20);
+                }
+                &:last-child {
+                    margin-right: rem(0);
+                }
+            }
+        }
+        
     }
 
     .main-carousel {
@@ -185,6 +202,9 @@
         .slick-slide {
             overflow: hidden;
 
+            .carousel-tile {
+                background-color: #F9F9F9;
+            }
             img {
 
                 @include media-breakpoint-up(sm) {
@@ -365,10 +385,16 @@
     .slick-slide {
         width: rem(100) !important;
         height: rem(100);
-
+        
+        @include media-breakpoint-down(xs) {
+            width: rem(53) !important;
+            height: rem(53);
+        }
         .carousel-tile {
             border: 1px solid transparent;
             border-radius: rem(3);
+            background-color: #F9F9F9;
+            
             img {
                 width: 100%;
                 border-radius: rem(3);
