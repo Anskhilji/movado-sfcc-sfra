@@ -6,7 +6,9 @@
             <a class="link product-name truncate-text-lg" href="${pdict.urls.product}" itemprop="url">${product.productName.length > 50? product.productName.substring(0,50)+'...': product.productName}</a>
             <a class="link product-name truncate-text-xl" href="${pdict.urls.product}" itemprop="url">${product.productName.length > 50? product.productName.substring(0,50)+'...': product.productName}</a>
         <iselse/>
-            <a class="link product-name" href="${pdict.urls.product}" itemprop="url">${product.productName}</a>
+            <div class="adjust-plp-product-name">
+                <a class="link product-name" href="${pdict.urls.product}" itemprop="url">${product.productName}</a>
+            </div>
         </isif>
     </div>
 </isif>
