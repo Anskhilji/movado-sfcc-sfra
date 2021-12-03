@@ -168,14 +168,14 @@ function formsValidation(currentBasket, formData) {
     if (!empty(stateCode) || (empty(stateCode) && fetchFromMap(formData, 'deliveryAddress.country') == Constants.COUNTRY_GB)) {
         var shippingForms = session.forms.shipping;
         var shippingFormServer = server.forms.getForm('shipping');
-        var shippingFormServerStateCode = shippingFormServer.shippingAddress.addressFields.states.stateCode.options
+        var shippingFormServerStateCode = shippingFormServer.shippingAddress.addressFields.states.stateCode.options;
         var isValidStateCode = checkoutAddressHelper.isStateCodeAllowed(shippingFormServerStateCode, stateCode);
 
         Transaction.wrap(function () {
             shippingForms.shippingAddress.addressFields.states.stateCode.value = stateCode;
         });
 
-        if (isValidStateCode) {
+        if (!empty(isValidStateCode) || (empty(isValidStateCode) && fetchFromMap(formData, 'deliveryAddress.country') == Constants.COUNTRY_GB)) {
             stateCode = false
         } else {
             stateCode = true;
@@ -197,7 +197,7 @@ function formsValidation(currentBasket, formData) {
             billingForms.addressFields.states.stateCode.value = billingAddressState;
         });
 
-        if (isValidStateCode) {
+        if (!empty(isValidStateCode) || (empty(isValidStateCode) && fetchFromMap(formData, 'billingAddress.country') == Constants.COUNTRY_GB)) {
             billingAddressState = false
         } else {
             billingAddressState = true;
