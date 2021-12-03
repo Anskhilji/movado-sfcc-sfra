@@ -31,7 +31,7 @@
         </isif>
 
         <div class="tile-body">
-            <div class="tile-badges">
+            <div class="tile-badges adjust-badges-allignent">
                 <isif condition="${pdict.display.swatches !== false && product.productType == 'master'}">
                     <div class="plp-swatches ${product.variationsAttributes && product.variationsAttributes[0] && product.variationsAttributes[0].values && product.variationsAttributes[0].values.length > 0 ? '':'0-opacity'}">
                         <isif condition="${pdict.display.isEyewearTile}">
