@@ -124,8 +124,29 @@
                     }
                     
                 }
+                &.prev-home {
+                    left: 0;
+
+                    @include media-breakpoint-up(md-down) {
+                        margin-right: rem(10);
+                    }
+                    @include media-breakpoint-up(lg-custom) {
+                        left: rem(-30);
+                    }
+                    
+                }
 
                 &.next {
+                    right: 0;
+
+                    @include media-breakpoint-up(md-down) {
+                        margin-left: rem(10);
+                    }
+                    @include media-breakpoint-up(lg-custom) {
+                        right: rem(-30);
+                    }
+                }
+                &.next-home {
                     right: 0;
 
                     @include media-breakpoint-up(md-down) {
