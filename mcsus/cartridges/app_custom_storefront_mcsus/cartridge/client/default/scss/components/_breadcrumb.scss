@@ -4,9 +4,19 @@
       margin: rem(20) 0 rem(19.04);
       padding: rem(11) 0;
 
-    .breadcrumb-item a {
-      font-size: rem(16);
-      font-family: $font-regular;
-      font-weight: 400;
-    }
+  .breadcrumb-item {
+        &:last-child{
+          a {
+            color: $light-grey4;
+          }
+        }
+
+        a {
+          font-size: rem(16);
+          font-family: $font-regular;
+          font-weight: 400;
+          color: $blue2;
+        }
+  }
+
 }
