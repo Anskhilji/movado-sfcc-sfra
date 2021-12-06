@@ -5,18 +5,18 @@
       padding: rem(11) 0;
 
   .breadcrumb-item {
-        &:last-child{
-          a {
-            color: $light-grey4;
-          }
-        }
-
+      &:last-child{
         a {
-          font-size: rem(16);
-          font-family: $font-regular;
-          font-weight: 400;
-          color: $blue2;
+          color: $light-grey4;
         }
+      }
+
+      a {
+        font-size: rem(16);
+        font-family: $font-regular;
+        font-weight: 400;
+        color: $blue2;
+      }
   }
 
 }
