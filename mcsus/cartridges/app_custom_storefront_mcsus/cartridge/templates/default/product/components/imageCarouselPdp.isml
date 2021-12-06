@@ -12,6 +12,9 @@
       asNavFor: '.carousel-nav'
     }
     <!-- primaryImageCarouselConfig = primaryImageCarouselConfig.replace(/[\n\s]/gi, ''); -->
+
+
+    
   </isscript>
   <div class="cs-carousel-wrapper">
       <div class="js-carousel main-carousel traditional-main-carousel cs-carousel" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
@@ -79,19 +82,17 @@
                       </div>
                     </isloop>
                 </div>
-                <div class="zoom-carousel-nav hidden-md-down">
-                    <div class="zoom-carousel-slider">
-                        <isloop items="${product.images['zoom1660']}" var="image" status="loopStatus">
-                            <div class="carousel-tile">
-                                <picture>
-                                  <source media="(min-width: 992px)" srcset="${product.images.pdp533[loopStatus.count-1].url}" />
-                                  <source media="(max-width: 991px)" srcset="${product.images.pdp533[loopStatus.count-1].url}" />
-                                  <img src="${!empty(product.images) && !empty(product.images.zoom1660) && !empty(product.images.zoom1660[loopStatus.count-1]) && !empty(product.images.zoom1660[loopStatus.count-1].url) ? product.images.zoom1660[loopStatus.count-1].url : ''}" alt="${image.alt}" itemprop="image" data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom830) && !empty(product.images.zoom830[loopStatus.count-1]) && !empty(product.images.zoom830[loopStatus.count-1].url) ? product.images.zoom830[loopStatus.count-1].url : ''}" data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoompdp533) && !empty(product.images.zoompdp533[loopStatus.count-1]) && !empty(product.images.zoompdp533[loopStatus.count-1].url) ? product.images.zoompdp533[loopStatus.count-1].url : ''}" />
-                                  <isset name="isImageExist" value="true" scope="page" />
-                                </picture>
-                            </div>
-                        </isloop>
-                    </div>
+                <div class="carousel-nav-zoom">
+                    <isloop items="${product.images['tile100']}" var="image" status="loopStatus">
+                        <div class="carousel-tile">
+                            <picture>
+                                <source media="(min-width: 992px)" srcset="${product.images.tile100[loopStatus.count-1].url}" />
+                                <source media="(max-width: 991px)" srcset="${product.images.tile100[loopStatus.count-1].url}" />
+                                <img src="${image.url}" alt="${image.alt}" itemprop="image" data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom830) && !empty(product.images.zoom830[loopStatus.count-1]) && !empty(product.images.zoom830[loopStatus.count-1].url) ? product.images.zoom830[loopStatus.count-1].url : ''}" data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1660) && !empty(product.images.zoom1660[loopStatus.count-1]) && !empty(product.images.zoom1660[loopStatus.count-1].url) ? product.images.zoom1660[loopStatus.count-1].url : ''}" />
+                                <isset name="isImageExist" value="true" scope="page" />
+                            </picture>
+                        </div>
+                    </isloop>
                 </div>
             </div>
         </div>
