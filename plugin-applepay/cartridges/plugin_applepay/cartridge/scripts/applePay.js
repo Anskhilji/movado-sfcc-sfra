@@ -153,7 +153,8 @@ exports.afterAuthorization = function (order, payment, custom, status) {
             var shippingAddressAddress1 = !empty(orderShippingAddress.address1) ? orderShippingAddress.address1.trim() : '';
             var shippingAddressCity = !empty(orderShippingAddress.city) ? orderShippingAddress.city.trim() : '';
             var shippingAddressStateCode = !empty(orderShippingAddress.stateCode) ? orderShippingAddress.stateCode.trim() : '';
-            var shippingAddressCountryCode = !empty(orderShippingAddress.coutry) ? orderShippingAddress.country.trim() : '';
+            var shippingAddressCountryCode = !empty(orderShippingAddress.country) ? orderShippingAddress.country.trim() : '';
+            var BillingAddressCountryCode = !empty(orderShippingAddress.country) ? orderShippingAddress.country.trim() : '';
         }
         if (empty(shippingAddressFirstName) || empty(shippingAddressLastName) || empty(shippingAddressAddress1) || isShippingPostalNotValid || empty(shippingAddressCity)) {
             addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_SHIPPING_ADDRESS);
@@ -166,7 +167,7 @@ exports.afterAuthorization = function (order, payment, custom, status) {
             var shippingFormServerStateCode = shippingFormServer.shippingAddress.addressFields.states.stateCode.options;
             var isValidStateCode = checkoutAddressHelper.isStateCodeAllowed(shippingFormServerStateCode, shippingAddressStateCode);
 
-            if (!empty(isValidStateCode) || (empty(isValidStateCode) && shippingAddressCountryCode == Constants.COUNTRY_GB)) {
+            if (empty(isValidStateCode) && shippingAddressCountryCode == Constants.COUNTRY_US) {
                 addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_SHIPPING_ADDRESS);
                 deliveryValidationFail = true;
                 Logger.error('Selected state is {0} which is restricted for order: {1}', shippingAddressStateCode, order.orderNo);
@@ -178,7 +179,7 @@ exports.afterAuthorization = function (order, payment, custom, status) {
             var billingFormServerStateCode = billingFormServer.addressFields.states.stateCode.options;
             var isValidStateCode = checkoutAddressHelper.isStateCodeAllowed(billingFormServerStateCode, billingStateCode);
 
-            if (!isValidStateCode) {
+            if (empty(isValidStateCode) && BillingAddressCountryCode == Constants.COUNTRY_US) {
                 addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_BILLING_ADDRESS);
                 deliveryValidationFail = true;
                 Logger.error('Selected state is {0} which is restricted for order: {1}', billingStateCode, order.orderNo);
