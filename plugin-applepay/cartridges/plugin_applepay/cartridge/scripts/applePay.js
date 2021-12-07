@@ -140,7 +140,7 @@ exports.afterAuthorization = function (order, payment, custom, status) {
         var billingAddressLastName = !empty(order.billingAddress.lastName) ? order.billingAddress.lastName.trim() : '';
         var billingAddressAddress1 = !empty(order.billingAddress.address1) ? order.billingAddress.address1.trim() : '';
         var billingAddressCity = !empty(order.billingAddress.city) ? order.billingAddress.city.trim() : '';
-        var BillingAddressCountryCode = !empty(order.billingAddress.country) ? order.billingAddress.country.trim() : '';
+        var billingAddressCountryCode = !empty(order.billingAddress.country) ? order.billingAddress.country.trim() : '';
         if (empty(billingAddressFirstName) || empty(billingAddressLastName) || empty(billingAddressAddress1) || isBillingPostalNotValid || empty(billingAddressCity)) {
             addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_BILLING_ADDRESS);
             deliveryValidationFail = true;
@@ -179,7 +179,7 @@ exports.afterAuthorization = function (order, payment, custom, status) {
             var billingFormServerStateCode = billingFormServer.addressFields.states.stateCode.options;
             var isValidStateCode = checkoutAddressHelper.isStateCodeAllowed(billingFormServerStateCode, billingStateCode);
 
-            if (empty(isValidStateCode) && BillingAddressCountryCode == Constants.COUNTRY_US) {
+            if (empty(isValidStateCode) && billingAddressCountryCode == Constants.COUNTRY_US) {
                 addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_BILLING_ADDRESS);
                 deliveryValidationFail = true;
                 Logger.error('Selected state is {0} which is restricted for order: {1}', billingStateCode, order.orderNo);
