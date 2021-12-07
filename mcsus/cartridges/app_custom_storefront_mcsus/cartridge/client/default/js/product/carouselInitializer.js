@@ -1,53 +1,53 @@
 $(document).ready(function() {
 
-  $('.carousel-nav').slick({
-      slidesToShow: 5,
-      slidesToScroll: 1,
-      asNavFor: '.primary-images .main-carousel',
-      dots: false,
-      centerMode: true,
-      focusOnSelect: true,
-  });
+    $('.carousel-nav').slick({
+        slidesToShow: 5,
+        slidesToScroll: 1,
+        asNavFor: '.primary-images .main-carousel',
+        dots: false,
+        centerMode: true,
+        focusOnSelect: true,
+    });
 
-  $('.zoom-carousel').slick({
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      dots: false,
-      arrows:true,
-      focusOnSelect: true,
-      asNavFor: '.carousel-nav-zoom',
-      responsive: [
-        {
-          breakpoint: 769,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            arrows: false,
-            dots:false,
-          }
-        },
-    ]
-  });
+    $('.zoom-carousel').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        dots: false,
+        arrows:true,
+        focusOnSelect: true,
+        asNavFor: '.carousel-nav-zoom',
+        responsive: [
+            {
+            breakpoint: 769,
+            settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                arrows: false,
+                dots:false,
+            }
+            },
+        ]
+    });
 
-  $('.carousel-nav-zoom').slick({
-    slidesToShow: 5,
-    slidesToScroll: 1,
-    asNavFor: '.zoom-carousel',
-    dots: false,
-    vertical: true,
-    verticalSwiping: true,
-    centerMode: true,
-    focusOnSelect: true,
-    responsive: [
-        {
-          breakpoint: 768,
-          settings: {
-            vertical: false,
-            verticalSwiping: false,
-          }
-        },
-    ]
-});
+    $('.carousel-nav-zoom').slick({
+        slidesToShow: 5,
+        slidesToScroll: 1,
+        asNavFor: '.zoom-carousel',
+        dots: false,
+        vertical: true,
+        verticalSwiping: true,
+        centerMode: true,
+        focusOnSelect: true,
+        responsive: [
+            {
+            breakpoint: 768,
+            settings: {
+                vertical: false,
+                verticalSwiping: false,
+            }
+            },
+        ]
+    });
 
     function zoom() {
         $('.zoomit').zoom({
