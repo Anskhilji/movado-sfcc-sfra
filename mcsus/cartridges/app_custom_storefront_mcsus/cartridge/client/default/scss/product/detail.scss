@@ -124,8 +124,8 @@
 
     .font-icon-size {
         position: relative;
-        bottom: rem(2);
-        left: rem(1);
+        bottom: rem(-5);
+        left: rem(-33);
         font-size: rem(16.58);
     }
     
@@ -136,6 +136,9 @@
 
         @include custom-media-query1($small-screen-width , $small-screen-width4) {
             height: auto;
+        }
+        @include media-breakpoint-down(xs) {
+            margin-bottom: rem(-13.41);
         }
 
         .slick-arrow.slick-next {
@@ -148,11 +151,47 @@
 
         .slick-arrow {
             background-color: transparent;
-            background-size: rem(24) rem(43);
+            background-size: cover;
+            background-position: center;
+            width: rem(40);
+            height: rem(40);
             outline: none;
-
+            top: 48%;
+            
+            @include media-breakpoint-down(lg) {
+                top: 47.5%;
+                
+                &.slick-prev {
+                    left: rem(12);
+                }
+                &.slick-next {
+                    right: rem(12);
+                }
+            }
+            @include media-breakpoint-down(md) {
+                top: 46.5%;
+            }
             @include media-breakpoint-down(sm) {
-                background-size: rem(15);
+                background-size: cover;
+                background-position: center;
+                width: rem(30);
+                height: rem(30);
+            }
+            @include custom-media-query1($small-screen-width , $small-screen-width4) {
+                top: 46.6%;
+            }
+        }
+
+        .carousel-nav{
+            .slick-slide {
+                margin-right: rem(6);
+    
+                @include media-breakpoint-down(xs) {
+                    margin-right: rem(20);
+                }
+                &:last-child {
+                    margin-right: rem(0);
+                }
             }
         }
     }
@@ -162,6 +201,9 @@
         .slick-slide {
             overflow: hidden;
 
+            .carousel-tile {
+                background-color: $white-smoke4;
+            }
             img {
 
                 @include media-breakpoint-up(sm) {
@@ -293,6 +335,14 @@
 .carousel-tile.zoomit {
     max-width: 70%;
     padding-top: rem(25);
+
+    @include media-breakpoint-down(sm) {
+        max-width: 65%;
+        padding-top: rem(0);
+    }
+    @include media-breakpoint-down(xs) {
+        max-width: 100%;
+    }
 }
 
 .zoom-img {
@@ -326,11 +376,13 @@
     .slick-slide {
         img {
             border:rem(1) solid transparent;
+            border-radius: rem(3);
         }
     }
     .slick-current {
         img {
             border-color: $black;
+            border-radius: rem(3);
         }
     }
 }
@@ -340,12 +392,19 @@
     .slick-slide {
         width: rem(100) !important;
         height: rem(100);
-
+        
+        @include media-breakpoint-down(xs) {
+            width: rem(53) !important;
+            height: rem(53);
+        }
         .carousel-tile {
             border: 1px solid transparent;
-
+            border-radius: rem(3);
+            background-color: $white-smoke4;
+            
             img {
                 width: 100%;
+                border-radius: rem(3);
             }
         }
 
@@ -361,5 +420,126 @@
         display: flex;
         justify-content: center;
         transform: none !important;
+    }
+}
+
+.zoom-modal {
+
+    .modal-dialog{
+        .carousel-nav-zoom {
+            position: absolute;
+            left: rem(30);
+            top: 50%;
+            transform: translateY(-30%);
+            width: rem(90);
+            float: left;
+            z-index: 9;
+            height: 100%;
+            
+            @include media-breakpoint-down(xs) {
+                position: absolute;
+                top: 73vh;
+                width: 100%;
+                left: 0 !important;
+                z-index: 9;
+                
+                .slick-list {
+
+                    .slick-track {
+                        height: auto !important;
+                        width: 100% !important;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        transform: none !important;
+                    }
+                }
+            }
+            @include media-breakpoint-up(custom-md) {
+                left: rem(19);
+            }
+            @include media-breakpoint-up(lg) {
+                left: rem(30);
+            }
+            @include media-breakpoint-down(custom-md) {
+                position: absolute;
+                top: 114vh;
+                width: 100%;
+                left: 0 !important;
+                z-index: 9;
+                
+                .slick-list {
+
+                    &.draggable {
+                       padding : rem(25) 0;
+                    }
+                    .slick-track {
+                        height: auto !important;
+                        width: 100% !important;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        transform: none !important;
+                    }
+                }
+            }
+            @include media-breakpoint-down(sm) {
+                position: absolute;
+                top: 124vh;
+                width: 100%;
+                left: 0 !important;
+                z-index: 9;
+                
+                .slick-list {
+
+                    .slick-track {
+                        height: auto !important;
+                        width: 100% !important;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        transform: none !important;
+                    }
+                }
+            }
+
+            .slick-slide {
+
+            @include custom-media-query1($small-screen-width , $small-screen-width4) {
+                margin-right: rem(18);
+                width: rem(52) !important;
+                
+                &:last-child {
+                    margin-right: rem(0);
+                }
+            }
+            @include media-breakpoint-down(custom-md) {
+                margin-right: rem(18);
+                width: rem(60) !important;
+                
+                &:last-child {
+                    margin-right: rem(0);
+                }
+            }
+                .carousel-tile {
+                    border: 1px solid transparent;
+                    border-radius: rem(3);
+                    background-color: $white-smoke4;
+                    
+                    img {
+                        width: 100%;
+                        border-radius: rem(3);
+                    }
+                }
+        
+                &.slick-current {
+        
+                    .carousel-tile {
+                        border: rem(1) solid $black;
+                    }
+                }
+            }
+           
+        }
     }
 }

@@ -113,7 +113,8 @@
                     top: 47%;
                 }
 
-                &.prev {
+                &.prev,
+                &.prev-home {
                     left: 0;
 
                     @include media-breakpoint-up(md-down) {
@@ -125,7 +126,8 @@
                     
                 }
 
-                &.next {
+                &.next,
+                &.next-home {
                     right: 0;
 
                     @include media-breakpoint-up(md-down) {
@@ -134,7 +136,7 @@
                     @include media-breakpoint-up(lg-custom) {
                         right: rem(-30);
                     }
-                }
+                }                
             }
 
             &-slide {
