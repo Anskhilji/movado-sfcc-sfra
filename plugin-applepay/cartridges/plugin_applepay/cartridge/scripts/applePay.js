@@ -140,7 +140,6 @@ exports.afterAuthorization = function (order, payment, custom, status) {
         var billingAddressLastName = !empty(order.billingAddress.lastName) ? order.billingAddress.lastName.trim() : '';
         var billingAddressAddress1 = !empty(order.billingAddress.address1) ? order.billingAddress.address1.trim() : '';
         var billingAddressCity = !empty(order.billingAddress.city) ? order.billingAddress.city.trim() : '';
-        var billingAddressCountryCode = !empty(order.billingAddress.country) ? order.billingAddress.country.trim() : '';
         if (empty(billingAddressFirstName) || empty(billingAddressLastName) || empty(billingAddressAddress1) || isBillingPostalNotValid || empty(billingAddressCity)) {
             addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_BILLING_ADDRESS);
             deliveryValidationFail = true;
@@ -154,7 +153,7 @@ exports.afterAuthorization = function (order, payment, custom, status) {
             var shippingAddressAddress1 = !empty(orderShippingAddress.address1) ? orderShippingAddress.address1.trim() : '';
             var shippingAddressCity = !empty(orderShippingAddress.city) ? orderShippingAddress.city.trim() : '';
             var shippingAddressStateCode = !empty(orderShippingAddress.stateCode) ? orderShippingAddress.stateCode.trim() : '';
-            var shippingAddressCountryCode = !empty(orderShippingAddress.country) ? orderShippingAddress.country.trim() : '';
+            var shippingAddressCountryCode = !empty(orderShippingAddress.countryCode) ? orderShippingAddress.countryCode.value : '';
         }
         if (empty(shippingAddressFirstName) || empty(shippingAddressLastName) || empty(shippingAddressAddress1) || isShippingPostalNotValid || empty(shippingAddressCity)) {
             addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_SHIPPING_ADDRESS);
@@ -167,7 +166,7 @@ exports.afterAuthorization = function (order, payment, custom, status) {
             var shippingFormServerStateCode = shippingFormServer.shippingAddress.addressFields.states.stateCode.options;
             var isValidStateCode = checkoutAddressHelper.isStateCodeAllowed(shippingFormServerStateCode, shippingAddressStateCode);
 
-            if (empty(isValidStateCode) && shippingAddressCountryCode == Constants.COUNTRY_US) {
+            if ((!empty(isValidStateCode) && !isValidStateCode) || (empty(isValidStateCode) && shippingAddressCountryCode == Constants.COUNTRY_US)) {
                 addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_SHIPPING_ADDRESS);
                 deliveryValidationFail = true;
                 Logger.error('Selected state is {0} which is restricted for order: {1}', shippingAddressStateCode, order.orderNo);
@@ -179,7 +178,7 @@ exports.afterAuthorization = function (order, payment, custom, status) {
             var billingFormServerStateCode = billingFormServer.addressFields.states.stateCode.options;
             var isValidStateCode = checkoutAddressHelper.isStateCodeAllowed(billingFormServerStateCode, billingStateCode);
 
-            if (empty(isValidStateCode) && billingAddressCountryCode == Constants.COUNTRY_US) {
+            if ((!empty(isValidStateCode) && !isValidStateCode) || (empty(isValidStateCode) && billCountryCode == Constants.COUNTRY_US)) {
                 addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_BILLING_ADDRESS);
                 deliveryValidationFail = true;
                 Logger.error('Selected state is {0} which is restricted for order: {1}', billingStateCode, order.orderNo);
