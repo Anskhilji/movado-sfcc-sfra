@@ -1,12 +1,11 @@
+<isscript>
+    var assets = require('*/cartridge/scripts/assets.js');
+    assets.addCss('css/lib/product-tile-name.css');
+ </isscript>
 <isif condition="${!('display' in pdict && 'showName' in pdict.display && pdict.display.showName == false)}">
     <div class="pdp-link flex-wrapper-center" itemprop="name">
-      <isif condition="${product.productName.length > 40}">
-        <a class="link product-name truncate-text-sm" href="${pdict.urls.product}" itemprop="url">${product.productName.length > 20? product.productName.substring(0,22)+'...': product.productName}</a>
-        <a class="link product-name truncate-text-md" href="${pdict.urls.product}" itemprop="url">${product.productName.length > 20? product.productName.substring(0,22)+'...': product.productName}</a>
-        <a class="link product-name truncate-text-lg" href="${pdict.urls.product}" itemprop="url">${product.productName.length > 20? product.productName.substring(0,25 )+'...': product.productName}</a>
-        <a class="link product-name truncate-text-xl" href="${pdict.urls.product}" itemprop="url">${product.productName.length > 20? product.productName.substring(0,35)+'...': product.productName}</a>
-            <iselse/>
-            <a class="link product-name" href="${pdict.urls.product}" itemprop="url">${product.productName}</a>
+        <isif condition="${product.productName}">
+            <a class="link product-name text-truncate-wrapper" href="${pdict.urls.product}" itemprop="url">${product.productName}</a>
         </isif>
     </div>
 </isif>

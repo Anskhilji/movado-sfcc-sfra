@@ -45,6 +45,10 @@
             a {
                 font-size: rem(16);
                 height: rem(40);
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
 
                 @include media-breakpoint-down(sm) {
                     height: rem(25);
@@ -162,7 +166,7 @@
           height: rem(35);
         }
         .adjust-badges-alignment {
-          height:rem(28);
+          height:rem(34);
        }
     }
 
@@ -194,6 +198,7 @@
     }
 
     .out-of-stock {
+      padding-top: rem(9);
       font-size: rem(12);
       font-family: $font-regular;
       font-weight: 400;

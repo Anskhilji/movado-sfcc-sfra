@@ -43,12 +43,6 @@
             </isif>
         </div>
 
-        <div class="${product.badges.textBadges.length > 0 ? 'exclusive-product' : 'align-plp-badges'}">
-            <isloop items="${product.badges.textBadges}" var="badge">
-                ${badge.text}
-            </isloop>
-        </div>
-
         <div class="row m-0 adjust-rating-alignment">
             <div class="col d-flex align-items-center justify-content-around w-100">
                 <isinclude template="product/components/ratings" />

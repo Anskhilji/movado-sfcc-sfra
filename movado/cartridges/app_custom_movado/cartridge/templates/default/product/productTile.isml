@@ -32,12 +32,6 @@
                 ${Resource.msg('label.soldout', 'common', null)}.
             </isif>
         </div>
-        
-        <div class="${product.badges.textBadges.length > 0 ? 'exclusive-product' : 'align-plp-badges'}">
-            <isloop items="${product.badges.textBadges}" var="badge">
-                ${badge.text}
-            </isloop>
-        </div>
 
         <isset name="price" value="${product.price}" scope="page" />
         <isif condition="${product.productType === 'set'}">
