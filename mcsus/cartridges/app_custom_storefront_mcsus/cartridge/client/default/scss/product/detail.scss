@@ -379,12 +379,6 @@
             border-radius: rem(3);
         }
     }
-    .slick-current {
-        img {
-            border-color: $black;
-            border-radius: rem(3);
-        }
-    }
 }
 
 .carousel-nav {
@@ -426,12 +420,12 @@
 .zoom-modal {
 
     .modal-dialog{
-        .carousel-nav-zoom {
+        .zoom-carousel-slider {
             position: absolute;
             left: rem(30);
             top: 50%;
             transform: translateY(-30%);
-            width: rem(90);
+            width: rem(102);
             float: left;
             z-index: 9;
             height: 100%;

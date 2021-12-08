@@ -14,7 +14,7 @@
     <!-- primaryImageCarouselConfig = primaryImageCarouselConfig.replace(/[\n\s]/gi, ''); -->
   </isscript>
   <div class="cs-carousel-wrapper">
-      <div class="js-carousel main-carousel traditional-main-carousel cs-carousel" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
+      <div class="js-carousel main-carousel traditional-main-carousel pdp-carousel cs-carousel" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
           <isset name="pdpVideoConfigs" value="${product.pdpVideoConfigs}" scope="page" />
             <iscomment> Custom Start: MSS-1564 Add thumbnails to PDP </iscomment>
           <isloop items="${product.images['pdp700']}" var="image" status="loopStatus">
@@ -79,7 +79,7 @@
                       </div>
                     </isloop>
                 </div>
-                <div class="carousel-nav-zoom">
+                <div class="zoom-carousel-slider">
                     <isloop items="${product.images['tile100']}" var="image" status="loopStatus">
                         <div class="carousel-tile">
                             <picture>
