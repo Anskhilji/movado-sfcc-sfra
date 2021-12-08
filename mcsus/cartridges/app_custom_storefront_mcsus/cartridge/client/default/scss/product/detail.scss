@@ -392,7 +392,7 @@
             height: rem(53);
         }
         .carousel-tile {
-            border: 1px solid transparent;
+            border: rem(1) solid transparent;
             border-radius: rem(3);
             background-color: $white-smoke4;
             
@@ -420,7 +420,7 @@
 .zoom-modal {
 
     .modal-dialog{
-        .zoom-carousel-slider {
+        .zoom-carousel-slider {   
             position: absolute;
             left: rem(30);
             top: 50%;
@@ -457,7 +457,7 @@
             }
             @include media-breakpoint-down(custom-md) {
                 position: absolute;
-                top: 114vh;
+                top: 123vh;
                 width: 100%;
                 left: 0 !important;
                 z-index: 9;
@@ -465,7 +465,7 @@
                 .slick-list {
 
                     &.draggable {
-                       padding : rem(25) 0;
+                       padding : 0 0 !important;
                     }
                     .slick-track {
                         height: auto !important;
@@ -479,7 +479,7 @@
             }
             @include media-breakpoint-down(sm) {
                 position: absolute;
-                top: 124vh;
+                top: 123vh;
                 width: 100%;
                 left: 0 !important;
                 z-index: 9;
@@ -506,6 +506,9 @@
                 &:last-child {
                     margin-right: rem(0);
                 }
+                .carousel-thumbnail-wrapper {
+                    width: rem(53) !important;
+                }
             }
             @include media-breakpoint-down(custom-md) {
                 margin-right: rem(18);
@@ -514,15 +517,25 @@
                 &:last-child {
                     margin-right: rem(0);
                 }
+                .carousel-thumbnail-wrapper{
+                    width: rem(53) !important;
+                }
             }
                 .carousel-tile {
-                    border: 1px solid transparent;
+                    border: rem(1) solid transparent;
                     border-radius: rem(3);
                     background-color: $white-smoke4;
-                    
+
                     img {
                         width: 100%;
                         border-radius: rem(3);
+                    }
+
+                    @include media-breakpoint-down(custom-md) {
+
+                        img {
+                            height: 100%;
+                        }
                     }
                 }
         
