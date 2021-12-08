@@ -175,7 +175,7 @@ function formsValidation(currentBasket, formData) {
             shippingForms.shippingAddress.addressFields.states.stateCode.value = stateCode;
         });
 
-        if (!empty(isValidStateCode) || (empty(isValidStateCode) && fetchFromMap(formData, 'deliveryAddress.country') == Constants.COUNTRY_GB)) {
+        if ((!empty(isValidStateCode) && isValidStateCode) || (empty(isValidStateCode) && fetchFromMap(formData, 'deliveryAddress.country') == Constants.COUNTRY_GB)) {
             stateCode = false
         } else {
             stateCode = true;
@@ -197,7 +197,7 @@ function formsValidation(currentBasket, formData) {
             billingForms.addressFields.states.stateCode.value = billingAddressState;
         });
 
-        if (!empty(isValidStateCode) || (empty(isValidStateCode) && fetchFromMap(formData, 'billingAddress.country') == Constants.COUNTRY_GB)) {
+        if ((!empty(isValidStateCode) && isValidStateCode) || (empty(isValidStateCode) && fetchFromMap(formData, 'billingAddress.country') == Constants.COUNTRY_GB)) {
             billingAddressState = false
         } else {
             billingAddressState = true;
