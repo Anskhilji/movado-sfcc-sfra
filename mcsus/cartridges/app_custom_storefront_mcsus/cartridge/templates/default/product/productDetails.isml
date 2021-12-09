@@ -23,7 +23,7 @@
     <isset name="isQuickView" value="${false}" scope="page" />
     <isset name="isProductSet" value="${pdict.product.productType === 'set'}" scope="page" />
     <isobject object="${product.raw}" view="detail">
-        <div class="container product-detail product-wrapper" data-pid="${product.id}" itemscope
+        <div class="container product-detail product-wrapper product-detail1-wrapper" data-pid="${product.id}" itemscope
             itemtype="http://schema.org/Product">
             <div class="row hidden-xs-down d-md-none">
                 <div class="col-12">
@@ -50,14 +50,17 @@
             <hr class="hidden-xs-down d-md-none"/>
 
             <div class="row">
+            <div class="col-12">
+                <!---Breadcrumbs--->
+                <div class="product-breadcrumb hidden-sm-down">
+                    <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
+                </div>
+            </div>
                 <!-- Product Images Carousel -->
                 <isinclude template="product/components/imageCarouselPdp" />
 
                 <div class="col-12 col-sm-6">
-                    <!---Breadcrumbs--->
-                    <div class="product-breadcrumb hidden-sm-down">
-                        <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
-                    </div>
+
 
                     <!-- Product Name -->
                     <h2 class="product-name prdouct-name-gtm d-sm-none d-md-block text-uppercase">${product.productName}</h2>
