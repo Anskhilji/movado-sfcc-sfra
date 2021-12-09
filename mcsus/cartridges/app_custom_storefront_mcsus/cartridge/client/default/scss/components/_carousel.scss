@@ -2,7 +2,7 @@
 
 .cs-carousel-wrapper {
 
-    .pdp-carousel {
+.pdp-carousel {
 
         .slick-arrow {
             padding: rem(0) rem(0);
@@ -86,6 +86,7 @@
 
 @include media-breakpoint-up(lg) {
     .cs-carousel-wrapper {
+        
         .carousel-title {
             font-size: rem(36);   
             font-weight: bold;
