@@ -105,7 +105,53 @@
                   }
                 }
             }
-        } 
+        }
+        .horizontal-line-wrapper {
+            border-top: rem(1) solid $light-grey5;
+            opacity: 0.71;
+            margin: rem(30) auto rem(19);
+        }
+        .availability-msg {
+            color: $green2;
+            letter-spacing: rem(0);
+            border: rem(1) solid $green2;
+            display: inline-block;
+            padding: rem(2) rem(10);
+            border-radius: rem(3);
+        }
+        .affirm-as-low-as {
+            font-family: $font-medium;
+            font-weight: 500;
+            font-size:rem(16);
+            border-bottom: rem(1) solid $light-grey5;
+            margin-bottom: rem(0);
+            padding-bottom: rem(20);
+            letter-spacing: rem(0);
+            height: initial;
+        
+            .__affirm-logo.__affirm-logo-black {
+                color: $black;
+            }
+        
+            .affirm-modal-trigger {
+                display: block;
+                padding: rem(6) rem(0) rem(0);
+                text-decoration: underline;
+            }
+        
+            @include media-breakpoint-down(xs) {
+                text-align: center;
+            }
+        }
+        .prices {
+            padding: rem(33) rem(0) rem(27);
+            @include media-breakpoint-down(xs) {
+                padding: 0.625rem 0;
+            }
+            .price {
+                color: #212529;
+            }
+        }
     }
 }
 
@@ -176,7 +222,7 @@ select {
 .affirm-as-low-as {
     font-family: $font-medium;
     font-weight: 500;
-    font-size:rem(16) ;
+    font-size:rem(16);
 
     .__affirm-logo.__affirm-logo-black {
         color: $black;

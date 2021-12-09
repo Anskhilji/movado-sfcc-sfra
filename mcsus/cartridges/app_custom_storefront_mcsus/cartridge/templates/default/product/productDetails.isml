@@ -92,7 +92,7 @@
                                     <isinclude template="product/components/quantity" />
                                 </div>
                             </isif>
-                            <hr />
+                            <hr class="horizontal-line-wrapper" />
                         </div>
                         <isif condition="${product.options && product.options.length > 0}">
                             <isinclude template="product/components/options" />
@@ -137,7 +137,7 @@
                         </div>
 
                         <div class="col-12">
-                            <div class="wishlist-row row">
+                            <iscomment> <div class="wishlist-row row">
                                 <isinclude url="${URLUtils.https('Wishlist-ShowIcon','gtmObj',JSON.stringify(pdict.wishlistGtmObj))}"/>
                                 <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
                                     <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
@@ -149,7 +149,7 @@
                                 <isif condition="${dw.system.Site.getCurrent().preferences.custom.addthis_enabled}">
                                     <isinclude template="product/components/socialIcons" />
                                 </isif>
-                            </div>
+                            </div> </iscomment>
                             <div class="row description">
                                 <isinclude template="product/components/description" />
                             </div>
