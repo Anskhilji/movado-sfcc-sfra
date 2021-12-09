@@ -34,6 +34,16 @@
               </div>
           </isloop>
       </div>
+      <isif condition="${typeof isImageExist != 'undefined'}">
+            <isif condition="${!isQuickView}">
+                <button class="quickview js-zoom-image btn p-0 carousel-zoom-icon" data-toggle="modal" data-target="#zoomProduct" aria-label="${product.resources.Zoom}">
+                    <span class="fa-stack fa-lg">
+                        <i class="fa fa-circle fa-inverse"></i>
+                        <i class="fa fa-search-plus font-icon-size"></i>
+                    </span>
+                </button>
+            </isif>
+        </isif>
       <iscomment>Added pagination slider</iscomment>
       <div class="carousel-nav" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
       <iscomment> Custom Start: MSS-1564 Add thumbnails to PDP </iscomment>
@@ -50,16 +60,6 @@
           </isloop>
       </div>
   </div>
-  <isif condition="${typeof isImageExist != 'undefined'}">
-      <isif condition="${!isQuickView}">
-	      <button class="quickview js-zoom-image btn p-0 carousel-zoom-icon" data-toggle="modal" data-target="#zoomProduct" aria-label="${product.resources.Zoom}">
-		      <span class="fa-stack fa-lg">
-		          <i class="fa fa-circle fa-inverse"></i>
-                  <i class="fa fa-search-plus font-icon-size"></i>
-		      </span>
-	      </button>
-      </isif>
-  </isif>
 </div>
 
 <iscomment> Zoom Modal </iscomment>

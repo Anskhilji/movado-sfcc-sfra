@@ -178,7 +178,7 @@
                 height: rem(30);
             }
             @include custom-media-query1($small-screen-width , $small-screen-width4) {
-                top: 46.6%;
+                top: 44.6%;
             }
         }
 
@@ -187,7 +187,7 @@
                 margin-right: rem(6);
     
                 @include media-breakpoint-down(xs) {
-                    margin-right: rem(20);
+                    margin-right: rem(18);
                 }
                 &:last-child {
                     margin-right: rem(0);
@@ -382,7 +382,14 @@
 }
 
 .carousel-nav {
+    position: relative;
+    margin-top: rem(-39);
+    margin-bottom: rem(15);
 
+    @include media-breakpoint-down(xs) {
+        margin-top: rem(-42);
+        margin-bottom: rem(45);
+    }
     .slick-slide {
         width: rem(100) !important;
         height: rem(100);
@@ -424,16 +431,21 @@
             position: absolute;
             left: rem(30);
             top: 50%;
-            transform: translateY(-30%);
+            transform: translateY(-50%);
+            margin-top: rem(25) !important;
             width: rem(102);
             float: left;
             z-index: 9;
-            height: 100%;
             
+            .slick-list {
+                height: auto !important;
+            }
+
             @include media-breakpoint-down(xs) {
                 position: absolute;
                 top: 73vh;
                 width: 100%;
+                margin-top: 0 !important;
                 left: 0 !important;
                 z-index: 9;
                 
@@ -457,8 +469,9 @@
             }
             @include media-breakpoint-down(custom-md) {
                 position: absolute;
-                top: 123vh;
+                top: 98vh;
                 width: 100%;
+                margin-top: 0 !important;
                 left: 0 !important;
                 z-index: 9;
                 
@@ -479,8 +492,9 @@
             }
             @include media-breakpoint-down(sm) {
                 position: absolute;
-                top: 123vh;
+                top: 98vh;
                 width: 100%;
+                margin-top: 0 !important;
                 left: 0 !important;
                 z-index: 9;
                 
@@ -500,7 +514,7 @@
             .slick-slide {
 
             @include custom-media-query1($small-screen-width , $small-screen-width4) {
-                margin-right: rem(18);
+                margin-right: rem(11);
                 width: rem(52) !important;
                 
                 &:last-child {
@@ -511,7 +525,7 @@
                 }
             }
             @include media-breakpoint-down(custom-md) {
-                margin-right: rem(18);
+                margin-right: rem(11);
                 width: rem(60) !important;
                 
                 &:last-child {

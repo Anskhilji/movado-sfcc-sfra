@@ -1,5 +1,25 @@
 $(document).ready(function() {
 
+    var winWidth = $(window).width();
+    var mediumBreakPoint= 767;
+
+    function initializeCarousel(winWidth, isResize) {
+        if ($('.primary-images .main-carousel img').parents('.slick-active.slick-center').length > 0) {
+            if (!isResize) {
+              $("#zoomProduct").modal("show");
+            }
+            if ($('.zoom-carousel.slick-slider:visible').length == 0) {
+                setTimeout(function() {
+                    $('.zoom-carousel.slick-slider').slick('refresh');
+                    $('.zoom-carousel-slider.slick-slider').slick('refresh');
+                    if (winWidth > mediumBreakPoint) {
+                        zoom();
+                    }
+                }, 300);
+            }
+        }
+    }
+
     $('.carousel-nav').slick({
         slidesToShow: 5,
         slidesToScroll: 1,
@@ -64,25 +84,13 @@ $(document).ready(function() {
     }   
 
     // Custom Start: MSS-1564 zoom carousel popup active on click after zoom icon on pdp
-    $(window).on("load resize", function () {
-        var winWidth = $(window).width();
-        var mediumBreakPoint= 767;
+        $(window).on("resize", function () {
+            var winWidth = $(window).width();
+             initializeCarousel(winWidth, true);
+        });
 
         $('.carousel-zoom-icon').click(function() {
-            if ($('.primary-images .main-carousel img').parents('.slick-active.slick-center').length > 0) {
-                $('#zoomProduct').modal('show');
-                if ($('.zoom-carousel.slick-slider:visible').length == 0) {
-                    setTimeout(function() {
-                        $('.zoom-carousel.slick-slider').slick('refresh');
-                        $('.zoom-carousel-slider.slick-slider').slick('refresh');
-                        if (winWidth > mediumBreakPoint) {
-                            zoom();
-                        }
-                    }, 300);
-                }
-            }
+            initializeCarousel(winWidth);
         });
-        
-    });
     // Custom End: MSS-1564 zoom carousel popup active on click after zoom icon on pdp
 });
