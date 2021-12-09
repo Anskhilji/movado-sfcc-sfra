@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
     var winWidth = $(window).width();
     var mediumBreakPoint= 767;
 
