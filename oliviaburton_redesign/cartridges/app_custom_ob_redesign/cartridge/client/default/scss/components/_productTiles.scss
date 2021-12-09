@@ -1,0 +1,39 @@
+@import "~movado/utilities/swatch";
+
+.product-tile {
+    .tile-body {
+        .pdp-link {
+            font-size: rem(20);
+            a {
+                font-size: rem(16);
+                height: rem(40);
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+
+
+                @include media-breakpoint-down(sm) {
+                    height: rem(40);
+                    line-height: inherit;
+                }
+                
+                @include media-breakpoint-down(md) {
+                    font-size: rem(15);
+                    font-weight: 500;
+                    font-family: $font-medium;
+                }
+
+                @include media-breakpoint-down(sm) {
+                    font-size: rem(16);
+                    font-weight:500;
+                    font-family: $font-medium;
+                }
+            }
+            &.flex-wrapper-center {
+                display: flex;
+                justify-content: center;
+            }
+        }
+    }
+}

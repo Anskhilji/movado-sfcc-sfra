@@ -1,7 +1,4 @@
-<isscript>
-    var assets = require('*/cartridge/scripts/assets.js');
-    assets.addCss('css/lib/product-tile-name.css');
- </isscript>
+
 <isif condition="${!('display' in pdict && 'showName' in pdict.display && pdict.display.showName == false)}">
     <div class="pdp-link flex-wrapper-center" itemprop="name">
         <isif condition="${product.productName}">

@@ -5,6 +5,7 @@
         assets.addJs('/js/search.js');
         assets.addCss('/css/search.css');
         assets.addJs('/js/productDetail.js');
+        assets.addCss('/css/lib/product-tile-name.css');
     </isscript>
     <isif condition=${false}>
         <isslot id="cs_header_top_trending_recommendations" context="category" description="Recommendation slot on right of sub menu" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />

@@ -87,6 +87,11 @@
             a {
                 text-decoration: none;
                 text-transform: uppercase;
+                height: rem(40);
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
                 @include headline;
                 letter-spacing: rem(.4);
                 font-size: rem(15);
@@ -100,7 +105,6 @@
                 @include media-breakpoint-down(sm) {
                     font-size: rem(14);
                     letter-spacing: rem(.4);
-                    line-height: rem(17);
                     font-family: $font-book;
                 }
             }
@@ -108,77 +112,7 @@
                 display: flex;
                 justify-content: center;
             }
-            @include media-breakpoint-up(xs) {
-                .truncate-text-sm {
-                  display: block;
-                }
-                .truncate-text-md {
-                  display: none;
-                }
-                .truncate-text-lg {
-                  display: none;
-                }
-                .truncate-text-xl {
-                  display: none;
-                }
-              }
-              @include media-breakpoint-up(sm) {
-                .truncate-text-sm {
-                  display: block;
-                }
-                .truncate-text-md {
-                  display: none;
-                }
-                .truncate-text-lg {
-                  display: none;
-                }
-                .truncate-text-xl {
-                  display: none;
-                }
-              }
-              @include media-breakpoint-up(custom-md) {
-                .truncate-text-lg {
-                  display: none;
-                }
-                .truncate-text-xl {
-                  display: none;
-                }
-                .truncate-text-md {
-                  display: block;
-                }
-                .truncate-text-sm {
-                  display: none;
-                }
-              }
-              @include media-breakpoint-up(lg) {
-                .truncate-text-lg {
-                  display: block;
-                }
-                .truncate-text-md {
-                  display: none;
-                }
-                .truncate-text-sm {
-                  display: none;
-                }
-                .truncate-text-xl {
-                  display: none;
-                }
-              }
-              @include media-breakpoint-up(xl) {
-                .truncate-text-xl {
-                  display: block;
-                }
-                .truncate-text-md {
-                  display: none;
-                }
-                .truncate-text-sm {
-                  display: none;
-                }
-                .truncate-text-lg {
-                  display: none;
-                }
-              }
-        }
+         }
 
         .ratings {
             font-size: 0.9em;

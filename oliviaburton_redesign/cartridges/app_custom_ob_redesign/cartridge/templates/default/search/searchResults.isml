@@ -4,6 +4,7 @@
 		var assets = require('*/cartridge/scripts/assets');
 		assets.addJs('/js/search-redesign.js');
 		assets.addCss('/css/search.css');
+		assets.addCss('/css/lib/product-tile-name.css');
 	</isscript>
 	<isif condition=${false}>
 		<isslot id="cs_header_top_trending_recommendations" context="category" description="Recommendation slot on right of sub menu" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />

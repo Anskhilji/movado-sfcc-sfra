@@ -88,6 +88,11 @@
                 font-size: 1rem;
                 text-decoration: none;
                 text-transform: uppercase;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                
                 @include headline;
                 line-height: rem(22);
                 @include media-breakpoint-down(md) {
@@ -250,11 +255,6 @@
 }
 .adjust-soldout-badge {
     height: rem(14);
-}
-.adjust-name-productTile {
-    a {
-        height: rem(44);
-    }
 }
 .adjust-promotion-allignmnet {
     height: rem(27);
