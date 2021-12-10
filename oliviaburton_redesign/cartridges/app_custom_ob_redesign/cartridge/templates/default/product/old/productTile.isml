@@ -29,7 +29,7 @@
 
         <div class="${outOfStock ? 'out-of-stock' : 'adjust-soldout-badge'}">
             <isif condition="${outOfStock}">
-                ${Resource.msg('label.soldout', 'common', null)}.
+                ${Resource.msg('label.soldout', 'common', null)}
             </isif>
         </div>
 
