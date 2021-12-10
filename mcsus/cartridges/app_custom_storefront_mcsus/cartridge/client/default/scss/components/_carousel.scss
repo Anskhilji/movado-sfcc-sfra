@@ -34,10 +34,10 @@
         
         .slick-arrow {
             &.slick-prev {
-                left: rem(21);
+                left: rem(20);
             }
             &.slick-next {
-                right: rem(21);
+                right: rem(20);
             }
         }
     }
@@ -45,6 +45,11 @@
 
 .cs-carousel-wrapper {
 
+    @include media-breakpoint-down(xs) {
+        .cs-carousel {
+            padding-bottom: rem(40.59);
+        }
+    }
     .carousel-title {
         font-family: $font-bold;
         font-size: rem(30);
@@ -60,7 +65,6 @@
         font-size: 0;
     }
 }
-
 
 @include media-breakpoint-up(md) {
   .cs-carousel-wrapper {
