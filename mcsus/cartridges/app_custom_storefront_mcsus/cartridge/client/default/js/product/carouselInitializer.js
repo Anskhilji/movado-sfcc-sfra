@@ -35,6 +35,7 @@ $(document).ready(function() {
         arrows:true,
         focusOnSelect: true,
         asNavFor: '.zoom-carousel-slider',
+        swipe: false,
         responsive: [
             {
             breakpoint: 769,
@@ -43,6 +44,7 @@ $(document).ready(function() {
                 slidesToScroll: 1,
                 arrows: false,
                 dots:false,
+                swipe: true,
             }
             },
         ]
@@ -59,7 +61,7 @@ $(document).ready(function() {
         focusOnSelect: true,
         responsive: [
             {
-            breakpoint: 768,
+            breakpoint: 992,
             settings: {
                 vertical: false,
                 verticalSwiping: false,
