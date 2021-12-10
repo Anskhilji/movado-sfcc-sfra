@@ -32,25 +32,23 @@
             font-size: rem(14);
           }
           @include media-breakpoint-up(lg) {
-            padding-left: rem(0);
+              padding-left: rem(0);
           }
             .tiered {
                 font-size: 0.875em;
-
                 .value {
                     font-weight: bold;
                 }
             }
             del {
-              @include media-breakpoint-down(md) {
-               display: block;
-               .strike-through {
                 @include media-breakpoint-down(md) {
-                 margin-right: rem(0);
-               }
-              }
-              }
-
+                    display: block;
+                    .strike-through {
+                        @include media-breakpoint-down(md) {
+                        margin-right: rem(0);
+                        }
+                    }
+                }
             }
         }
 
@@ -86,7 +84,7 @@
                 display: flex;
                 justify-content: center;
             }
-          }
+        }
 
         .ratings {
             font-size: 0.9em;
@@ -97,7 +95,7 @@
             font-family: $font-medium;
             font-size: rem(16);
             @include media-breakpoint-down(md) {
-              font-size: rem(14);
+                font-size: rem(14);
             }
           }
         }
