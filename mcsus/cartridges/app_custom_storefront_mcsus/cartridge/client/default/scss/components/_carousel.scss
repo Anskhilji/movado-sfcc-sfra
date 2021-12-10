@@ -1,29 +1,35 @@
 @import "~movado/components/_carousel";
 
 .cs-carousel-wrapper {
-    
-    .slick-arrow {
-        padding: rem(0) rem(0);
 
-        &.slick-prev {
-            left: rem(10);
-        }
-        &.slick-next {
-            right: rem(10);
+.pdp-carousel {
+
+        .slick-arrow {
+            padding: rem(0) rem(0);
+    
+            &.slick-prev {
+                left: rem(10);
+            }
+            &.slick-next {
+                right: rem(10);
+            }
         }
     }
 }
 
 @include media-breakpoint-up(sm) {
     .cs-carousel-wrapper {
-        
-        .slick-arrow {
+
+        .pdp-carousel { 
             
-            &.slick-prev {
-                left: rem(-5);
-            }
-            &.slick-next {
-                right: rem(-5);
+            .slick-arrow {
+            
+                &.slick-prev {
+                    left: rem(-5);
+                }
+                &.slick-next {
+                    right: rem(-5);
+                }
             }
         }
     }
@@ -31,13 +37,16 @@
 
 @include media-breakpoint-up(lg) {
     .cs-carousel-wrapper {
-        
-        .slick-arrow {
-            &.slick-prev {
-                left: rem(20);
-            }
-            &.slick-next {
-                right: rem(20);
+
+        .pdp-carousel {
+
+            .slick-arrow {
+                &.slick-prev {
+                    left: rem(20);
+                }
+                &.slick-next {
+                    right: rem(20);
+                }
             }
         }
     }
@@ -77,6 +86,7 @@
 
 @include media-breakpoint-up(lg) {
     .cs-carousel-wrapper {
+        
         .carousel-title {
             font-size: rem(36);   
             font-weight: bold;
