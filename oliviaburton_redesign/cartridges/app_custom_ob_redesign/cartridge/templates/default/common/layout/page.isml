@@ -16,7 +16,6 @@
     <body>
         <isscript>
             session.setTrackingAllowed(true);
-            var assets = require('*/cartridge/scripts/assets');
         </isscript>
         <div id="skip-to-content"><a href="#mainContent">${Resource.msg('global.skiptomaincontent', 'common', null)}</a></div>
         <div class="page" data-action="${pdict.action}" data-querystring="${pdict.queryString}" >
