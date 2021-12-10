@@ -120,7 +120,8 @@ server.post('RedirectFromExpressPay', server.middleware.https, function (req, re
         'billingAddressCountry', shippingFormValidationFailed.billingAddressCountry,
         'phoneNumber', shippingFormValidationFailed.phoneNumber,
         'billingAddressStateOrProvince', shippingFormValidationFailed.billingAddressStateOrProvince,
-        'stateCode', shippingFormValidationFailed.stateCode));
+        'stateCode', shippingFormValidationFailed.stateCode),
+        'stateCodeRestrcited', 'Invalid shipping state');
         return next();
     }
     var result = adyenHandleExpressPayPalResponse.execute(currentBasket, paymentProcessor, req.form);
