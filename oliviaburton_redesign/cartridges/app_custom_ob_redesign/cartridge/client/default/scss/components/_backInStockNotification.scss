@@ -10,7 +10,7 @@
         }
         
         &-email {
-            width: rem(305);
+            width: rem(416);
             opacity: 0.5;
             color: $black;
             font-family: $font-gill-std-semibold;
@@ -19,10 +19,12 @@
             letter-spacing: rem(1);
             line-height: rem(20);
             border: none;
+            height: rem(20);
+            margin-top: rem(11);
         }
 
         &-email-notification-copy {
-            margin-bottom: rem(16);
+            margin-bottom: rem(10);
             height: rem(21);
             width: rem(430);
             color: $black;
@@ -34,10 +36,19 @@
         }
 
         &-marketing-container {
+            position: relative;
+            overflow: hidden;
             margin-top: rem(10);
+
+            .checkmark {
+                left: rem(0);
+            }
+            input {
+                position: absolute;
+            }
         }
 
-        &-confirmation-copy{
+        &-confirmation-copy {
             height: rem(20);
             width: rem(360);
             color: $gray36;
@@ -45,6 +56,8 @@
             font-size: rem(13);
             letter-spacing: rem(0.5);
             line-height: rem(15);
+            padding-top: rem(2);
+            padding-left: rem(11);
         }
     }
 

@@ -13,6 +13,7 @@
 
     <isset name="product" value="${pdict.product}" scope="page" />
     <isset name="isQuickView" value="${false}" scope="page" />
+    <isset name="sitePref" value="${dw.system.Site.getCurrent().preferences.custom}" scope="page">
     <isset name="isProductSet" value="${pdict.product.productType === 'set'}" scope="page" />
     <isobject object="${product.raw}" view="detail">
     <isset name="topLevelBackground" value="${dw.system.Site.getCurrent().getCustomPreferenceValue('topLevelBackground')}" scope="page" />
@@ -98,6 +99,9 @@
                                 <!-- Cart and [Optionally] Apple Pay -->
                                 <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
                             </div>
+                            <isif condition="${sitePref.enableBackInStock}">
+                                <isinclude template="product/backInStockNotification" sf-toolkit="on" />
+                            </isif>
                         </div>
                     </div>
                 </div>
