@@ -8,8 +8,18 @@
         font-family: $font-thin;
         font-weight: 100;
         font-size: rem(24);
+        margin-bottom: rem(10);
+        color: $black1;
         @include media-breakpoint-down(xs) {
             font-size: rem(20);
+        }
+    }
+    &-detail {
+        margin-left: rem(26.2);
+        margin-top: rem(7);
+        @include media-breakpoint-down(xs) {
+            margin-left: rem(0);
+            margin-top: rem(7);
         }
     }
 
@@ -17,11 +27,13 @@
         font-family: $font-medium;
         font-weight: 500;
         font-size: rem(16);
+        letter-spacing: rem(0);
+        text-transform: capitalize;
+        color: $black1;
         @include media-breakpoint-down(xs) {
             font-size: rem(16);
         }
     }
-
 }
 
 .product-detail {
@@ -192,8 +204,12 @@
         }
 
         .detail-heading {
+            margin-bottom: rem(30);
+            padding:rem(0);
             button {
-                color: $black;
+                color: $black1;
+                text-transform:capitalize;
+                letter-spacing: rem(0);
 
                 @include media-breakpoint-down(xs) {
                     line-height: rem(45);
@@ -209,6 +225,17 @@
                     line-height: rem(58);
                 }    
             }
+        }
+    }
+    .extra-space-top1 {
+        margin: rem(50) 0 rem(53);
+    }
+    .mx-product-img-wrapper {
+        max-width: rem(400);
+    }
+    .space-wrapper-mobile {
+        @include media-breakpoint-down(xs) {
+        padding: rem(0);
         }
     }
 }

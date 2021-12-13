@@ -170,6 +170,7 @@
 
         <div class="container">
             <isinclude template="product/components/descriptionAndDetails" />
+            <iscomment> <isinclude template="product/carousel" /> </iscomment>
         </div>
         <isif condition="${!dw.system.Site.getCurrent().getCustomPreferenceValue('disableRecommendationsTypesOnPDP')}">
             <isinclude template="product/components/youMayLikeRecommendation" />
