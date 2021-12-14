@@ -92,7 +92,27 @@
             }
         }
     }
+  &.product-detail1-wrapper {
+      margin-top: rem(26);
+      .product-breadcrumb {
+          .breadcrumb {
+              margin-bottom: rem(16);
+              .breadcrumb-item {
+                  &:last-child {
+                      a {
+                         color: $light-grey4;
+                        }
+                    }
 
+                  a {
+                    font-size: rem(16);
+                    letter-spacing: rem(0);
+                    color: $blue2;
+                  }
+                }
+            }
+        } 
+    }
 }
 
 .product-detail {
