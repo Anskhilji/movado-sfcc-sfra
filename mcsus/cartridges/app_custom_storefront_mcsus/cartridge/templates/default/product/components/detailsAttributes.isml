@@ -4,7 +4,13 @@
     </h2>
     <div class="col-sm-12 col-md-4 col-lg-4">
         <div class="mx-product-img-wrapper">
-            <img src="https://edge.disstg.commercecloud.salesforce.com/dw/image/v2/BDKZ_STG/on/demandware.static/-/Sites-mgi-master/default/dw9f2d1328/images/products/2001072.jpg?sw=533&amp;sh=533" class="img-fluid">
+            <isif condition="${product && product.images['pdp700'].length > 0}">
+                <isif condition="${product.images.pdp700[1]}">
+                    <div class="carousel-tile">
+                        <img src="${product.images.pdp700[1].url}" alt="${product.images.pdp700[1].alt}" />
+                    </div>
+                </isif>
+            </isif>
         </div>
     </div>
     <div class="col-sm-12 col-md-2 col-lg-2">

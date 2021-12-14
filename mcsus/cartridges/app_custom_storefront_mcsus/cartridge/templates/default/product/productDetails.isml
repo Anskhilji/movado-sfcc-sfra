@@ -167,11 +167,19 @@
             </div>
         </div>
 
-
         <div class="container">
             <isinclude template="product/components/descriptionAndDetails" />
             <iscomment> <isinclude template="product/carousel" /> </iscomment>
         </div>
+            <div class="mx-product-img-wrapper">
+                <isif condition="${product && product.images['pdp700'].length > 0}">
+                    <isif condition="${product.images.pdp700[3]}">
+                        <div class="carousel-tile">
+                            <img src="${product.images.pdp700[3].url}" alt="${product.images.pdp700[3].alt}" />
+                        </div>
+                    </isif>
+                </isif>
+            </div>
         <isif condition="${!dw.system.Site.getCurrent().getCustomPreferenceValue('disableRecommendationsTypesOnPDP')}">
             <isinclude template="product/components/youMayLikeRecommendation" />
        </isif>
