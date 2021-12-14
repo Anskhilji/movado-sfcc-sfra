@@ -42,7 +42,8 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
 		}
 
 		// Custom Start: [Added Honeypot Logic]
-		if ((!empty(registrationForm.customer.hpemail.htmlValue)) || (!empty(registrationForm.customer.hpemailconfirm.htmlValue))){
+		if ((!empty(registrationForm.customer.hpemail.htmlValue)) ||
+		    (!empty(registrationForm.customer.hpemailconfirm.htmlValue))){
 	     	registrationForm.valid = false;
 		} else {
 			registrationForm.valid = true;
