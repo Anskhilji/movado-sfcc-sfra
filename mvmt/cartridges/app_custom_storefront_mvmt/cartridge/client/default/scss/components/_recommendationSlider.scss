@@ -19,26 +19,17 @@
     .cs-carousel-wrapper {
         position: relative;
 
-        @include media-breakpoint-up(md-down) {
-            display: flex;
-        }
-
         .product-slider-aside {
             width: 100%;
-            padding: rem(30) 0;
+            padding: rem(20) 0;
             flex-grow: 1;
             flex-shrink: 1;
             flex-basis: 0%;
             flex-direction: column;
             border: none;
 
-            @include media-breakpoint-up(md-down) {
-                border-right: rem(2) solid $light-gray4;
-            }
-
             @include media-breakpoint-up(lg) {
-                width: 20%;
-                margin-right: rem(20);
+                width: 100%;
             }
 
             .carousel-title {
@@ -51,19 +42,21 @@
                 text-transform: uppercase;
                 line-height: rem(42);
 
-
                 @include media-breakpoint-up(sm) {
                     font-size: rem(25);
                     font-weight: 300;
                     line-height: 1.625rem;
                     margin-bottom: 1.25rem;
                 }
-
                 @include media-breakpoint-up(md) {
                     font-size: rem(32);
                     font-weight: 300;
                     line-height: rem(45);
                 }
+                @include media-breakpoint-up(lg) {
+                    margin-bottom: rem(15);
+                }
+
             }
 
             > ul {
@@ -73,7 +66,7 @@
                 text-align: center;
 
                 @include media-breakpoint-up(md-down) {
-                    margin-top: rem(40);
+                    margin-top: rem(0);
                 }
             }
         }
@@ -81,63 +74,69 @@
         .js-carousel, .cs-carousel {
             margin: 0;
             padding: 0;
-
-            @include media-breakpoint-up(md-down) {
-                width: 70%;
-                padding-left: rem(30);
-            }
-
-            @include media-breakpoint-up(xl) {
-                width: 75%;
-                padding-left: rem(50);
-            }
         }
 
         .slick {
 
             &-arrow {
-
                 position: absolute;
-                border: 1px solid $light-gray6;
-                box-shadow: 0 2rem 5rem -2.5rem rgba(0,0,0,.25), 0 0.3rem 1rem 0 rgba(0,0,0,.3);
                 cursor: pointer;
                 display: inline;
                 font-size: rem(10);
-                padding: rem(23) rem(25);
-                background: $white;
+                padding: rem(10) rem(10);
+                background: $transparent-white;
                 z-index: 1;
                 width: auto;
                 height: auto;
 
                 &:hover {
-                    background: $white-smoke;
+                    background: $transparent-white;
                 }
 
                 @include media-breakpoint-down(sm) {
-                    top: 50%;
+                    top: 42%;
                     transform: translateY(-50%);
                 }
-
+                @include media-breakpoint-up(sm) {
+                    top: 42%;
+                }
                 @include media-breakpoint-up(md-down) {
-                    position: relative;
+                    position: absolute;
                     z-index: 7;
+                    top: 35%;
+                }
+                @include media-breakpoint-up(md) {
+                    top: 40%;
+                    padding: 0;
+                }
+                @include media-breakpoint-up(lg) {
+                    top: 47%;
                 }
 
-                &.prev {
+                &.prev,
+                &.prev-home {
                     left: 0;
 
                     @include media-breakpoint-up(md-down) {
                         margin-right: rem(10);
                     }
+                    @include media-breakpoint-up(lg-custom) {
+                        left: rem(-30);
+                    }
+                    
                 }
 
-                &.next {
+                &.next,
+                &.next-home {
                     right: 0;
 
                     @include media-breakpoint-up(md-down) {
                         margin-left: rem(10);
                     }
-                }
+                    @include media-breakpoint-up(lg-custom) {
+                        right: rem(-30);
+                    }
+                }                
             }
 
             &-slide {

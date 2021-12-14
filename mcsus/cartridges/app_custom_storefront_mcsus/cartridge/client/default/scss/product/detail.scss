@@ -127,7 +127,6 @@
 	}
 }
 
-
 .smartgift-btn {
     font-weight: 600;
 }
@@ -165,5 +164,446 @@
     font-family: $font-medium;
     @include media-breakpoint-down(xs) {
         font-size: rem(14);
+    }
+}
+
+.pinch-zoom-container {
+    display: none;
+}
+.slick-slide {
+
+    img {
+        margin: 0 auto;
+    }
+}
+.edit-popup {
+    display: none;
+}
+
+.primary-images {
+
+    .js-zoom-image {
+        display: block;
+    }
+
+    .font-icon-size {
+        position: relative;
+        bottom: rem(-5);
+        left: rem(-33);
+        font-size: rem(16.58);
+    }
+    
+    .cs-carousel-wrapper {
+        margin-bottom: rem(10);
+        width: 100%;
+        height: 100%;
+
+        @include custom-media-query1($small-screen-width , $small-screen-width4) {
+            height: auto;
+        }
+        @include media-breakpoint-down(xs) {
+            margin-bottom: rem(-13.41);
+        }
+
+        .slick-arrow.slick-next {
+            background-image: url("../../images/chevron_right_black_24dp.svg");
+        }
+
+        .slick-arrow.slick-prev {
+            background-image: url("../../images/chevron_left_black_24dp.svg");
+        }
+
+        .slick-arrow {
+            background-color: transparent;
+            background-size: cover;
+            background-position: center;
+            width: rem(40);
+            height: rem(40);
+            outline: none;
+            top: 48%;
+            
+            @include media-breakpoint-down(lg) {
+                top: 47.5%;
+                
+                &.slick-prev {
+                    left: rem(12);
+                }
+                &.slick-next {
+                    right: rem(12);
+                }
+            }
+            @include media-breakpoint-down(md) {
+                top: 46.5%;
+            }
+            @include media-breakpoint-down(sm) {
+                background-size: cover;
+                background-position: center;
+                width: rem(30);
+                height: rem(30);
+            }
+            @include custom-media-query1($small-screen-width , $small-screen-width4) {
+                top: 46.6%;
+            }
+        }
+
+        .carousel-nav{
+            .slick-slide {
+                margin-right: rem(6);
+    
+                @include media-breakpoint-down(xs) {
+                    margin-right: rem(20);
+                }
+                &:last-child {
+                    margin-right: rem(0);
+                }
+            }
+        }
+    }
+
+    .main-carousel {
+
+        .slick-slide {
+            overflow: hidden;
+
+            .carousel-tile {
+                background-color: $white-smoke4;
+            }
+            img {
+
+                @include media-breakpoint-up(sm) {
+                    min-width: 100%;
+                }
+            }
+        }
+    }
+    
+    .traditional-main-carousel {
+        .slick-slide {
+
+            img {
+
+                @include media-breakpoint-up(xl) {
+                    min-width: auto;
+                    max-width: 100%;
+                }
+            }
+        }
+
+        .slide-video {
+
+            @include media-breakpoint-up(xl) {
+                padding-left: 15%;
+                padding-right: 15%;
+            }
+        }
+    }
+
+    .carousel-nav {
+
+        .slick-track {
+            margin: 0 auto;
+        }
+    }
+
+    .main-carousel {
+
+        .slick-center {
+
+            img {
+
+                &:hover {
+                    cursor: default;
+                }
+            }
+        }
+    }
+}
+
+.zoom-carousel {
+
+    @include media-breakpoint-down(sm) {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .slick-arrow.slick-next {
+        background-image: url("../../images/chevron_right_black_24dp.svg");
+        right: 25.5%;
+        @include media-breakpoint-up(custom-md) {
+            justify-content: space-between;
+            overflow: hidden;
+            transform: translate(140%, -50%);
+            display: flex;
+        }
+        @include media-breakpoint-up(lg) {
+            justify-content: space-between;
+            overflow: hidden;
+            transform: translate(152%, -50%);
+            display: flex;
+        }
+        
+        @include media-breakpoint-up(xl) {
+            justify-content: space-between;
+            overflow: hidden;
+            transform: translate(-26%, -50%);
+            display: flex;
+        }
+    }
+
+    .slick-arrow.slick-prev {
+        background-image: url("../../images/chevron_left_black_24dp.svg");
+        left: 26%;
+        @include media-breakpoint-up(custom-md) {
+            justify-content: space-between;
+            overflow: hidden;
+            transform: translate(-150%, -50%);
+            display: flex;
+        }
+        @include media-breakpoint-up(lg) {
+            justify-content: space-between;
+            overflow: hidden;
+            transform: translate(-166%, -50%);
+            display: flex;
+        }
+        @include media-breakpoint-up(xl) {
+            justify-content: space-between;
+            overflow: hidden;
+            transform: translate(10%, -50%);
+            display: flex;
+        }
+    }  
+
+    .slick-arrow {
+        background-color: transparent;
+        background-size: cover;
+        background-repeat: no-repeat;
+        outline: none;
+        height: rem(50);
+        width: rem(50);
+        z-index: 9;
+    }
+}
+.zoom-modal {
+    .close {
+        background: url("../../images/zoom-close.png") center center no-repeat;
+        background-size: rem(18);
+        right: rem(20);
+        position: relative;
+        top: rem(15);
+    }
+
+    background: $white;
+}
+
+.carousel-tile.zoomit {
+    max-width: 70%;
+    padding-top: rem(25);
+
+    @include media-breakpoint-down(sm) {
+        max-width: 65%;
+        padding-top: rem(0);
+    }
+    @include media-breakpoint-down(xs) {
+        max-width: 100%;
+    }
+}
+
+.zoom-img {
+   cursor: zoom-in;
+
+    &.zoomed-img {
+        cursor: zoom-out;
+    }
+}
+
+.opacity-0 {
+    opacity: 0;
+}
+
+.zoom-carousel-nav {
+    position: absolute;
+    left: rem(30);
+    top: 50%;
+    transform: translateY(-30%);
+    width: rem(102);
+    float: left;
+    z-index: 9;
+    height: 100%;
+}
+
+.zoom-carousel-slider {
+    img {
+        width: rem(100);
+        height: rem(100);
+    }
+    .slick-slide {
+        img {
+            border:rem(1) solid transparent;
+            border-radius: rem(3);
+        }
+    }
+    .slick-current {
+        img {
+            border-color: $black;
+            border-radius: rem(3);
+        }
+    }
+}
+
+.carousel-nav {
+
+    .slick-slide {
+        width: rem(100) !important;
+        height: rem(100);
+        
+        @include media-breakpoint-down(xs) {
+            width: rem(53) !important;
+            height: rem(53);
+        }
+        .carousel-tile {
+            border: 1px solid transparent;
+            border-radius: rem(3);
+            background-color: $white-smoke4;
+            
+            img {
+                width: 100%;
+                border-radius: rem(3);
+            }
+        }
+
+        &.slick-current {
+
+            .carousel-tile {
+                border: rem(1) solid $black;
+            }
+        }
+    }
+
+    .slick-track {
+        display: flex;
+        justify-content: center;
+        transform: none !important;
+    }
+}
+
+.zoom-modal {
+
+    .modal-dialog{
+        .carousel-nav-zoom {
+            position: absolute;
+            left: rem(30);
+            top: 50%;
+            transform: translateY(-30%);
+            width: rem(90);
+            float: left;
+            z-index: 9;
+            height: 100%;
+            
+            @include media-breakpoint-down(xs) {
+                position: absolute;
+                top: 73vh;
+                width: 100%;
+                left: 0 !important;
+                z-index: 9;
+                
+                .slick-list {
+
+                    .slick-track {
+                        height: auto !important;
+                        width: 100% !important;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        transform: none !important;
+                    }
+                }
+            }
+            @include media-breakpoint-up(custom-md) {
+                left: rem(19);
+            }
+            @include media-breakpoint-up(lg) {
+                left: rem(30);
+            }
+            @include media-breakpoint-down(custom-md) {
+                position: absolute;
+                top: 114vh;
+                width: 100%;
+                left: 0 !important;
+                z-index: 9;
+                
+                .slick-list {
+
+                    &.draggable {
+                       padding : rem(25) 0;
+                    }
+                    .slick-track {
+                        height: auto !important;
+                        width: 100% !important;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        transform: none !important;
+                    }
+                }
+            }
+            @include media-breakpoint-down(sm) {
+                position: absolute;
+                top: 124vh;
+                width: 100%;
+                left: 0 !important;
+                z-index: 9;
+                
+                .slick-list {
+
+                    .slick-track {
+                        height: auto !important;
+                        width: 100% !important;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        transform: none !important;
+                    }
+                }
+            }
+
+            .slick-slide {
+
+            @include custom-media-query1($small-screen-width , $small-screen-width4) {
+                margin-right: rem(18);
+                width: rem(52) !important;
+                
+                &:last-child {
+                    margin-right: rem(0);
+                }
+            }
+            @include media-breakpoint-down(custom-md) {
+                margin-right: rem(18);
+                width: rem(60) !important;
+                
+                &:last-child {
+                    margin-right: rem(0);
+                }
+            }
+                .carousel-tile {
+                    border: 1px solid transparent;
+                    border-radius: rem(3);
+                    background-color: $white-smoke4;
+                    
+                    img {
+                        width: 100%;
+                        border-radius: rem(3);
+                    }
+                }
+        
+                &.slick-current {
+        
+                    .carousel-tile {
+                        border: rem(1) solid $black;
+                    }
+                }
+            }
+           
+        }
     }
 }

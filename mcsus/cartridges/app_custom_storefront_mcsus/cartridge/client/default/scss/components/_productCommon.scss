@@ -92,9 +92,15 @@
         font-weight: 500;
     }
     .primary-images {
+
+        @include media-breakpoint-down(xs) {
+            min-height: 55vh;
+        }
         .quickview {
             span {              
              color: $black;
+             bottom: rem(7);
+             left: rem(3);
             }
         }
     }
@@ -169,8 +175,7 @@
 
 .product-detail {
     &.product-quickview {
-        @import "../product/imageCarousel";       
-
+        @import "../product/imageCarousel";  
     .availability-msg {
         font-family:$font-medium;
         font-weight: 500;

@@ -91,6 +91,9 @@ $granite-gray:  #5C5C5C;
 $apple: #59AF2C;
 $cerulean: #0092DB;
 $parrot-green: #3AAB4A;
+$white-smoke4: #F9F9F9;
+$light-gray1: rgba(205,205,205,0.5);
+$white1: #FFFFFF;
 
 $grid-breakpoints: (
     xs: 0,
@@ -146,6 +149,17 @@ $large-screen-width: 1400px;
       @content;
   }
 }
+
+// For screen 320px to 543px
+$small-screen-width: 320px;
+$small-screen-width4: 543px;
+
+@mixin custom-media-query1($small-screen-width, $small-screen-width4) {
+    @media (min-width:#{$small-screen-width}) and (max-width:#{$small-screen-width4}) {
+        @content;
+    }
+}
+
 //font Families:
 
 $font-medium: "proxima-nova";

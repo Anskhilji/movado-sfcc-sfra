@@ -95,6 +95,16 @@ footer {
             display: block;
         }
     }
+
+    .footerDropdown {
+        display: inline;
+
+        .esw-country-selector {
+           span {
+               padding-left: rem(0);
+           }
+        }
+    }
 }
 #consent-tracking {
     .button-wrapper {

@@ -1,1 +1,51 @@
 @import "~movado/product/_imageCarousel";
+
+.product-detail {
+    .cs-carousel-wrapper {
+      position: relative;
+    }
+} 
+
+.primary-images {
+
+    .quickview {
+      &.btn{
+        box-shadow: none;
+      }
+      &.btn:focus{
+        box-shadow: none;
+      }
+      i {
+        &.fa-circle {
+          height: rem(35);
+          width: rem(35);
+          border-radius: rem(17.5);
+          background-color: $white1;
+          box-shadow: 0 rem(2) rem(7) 0 $light-gray1;
+        }
+      }
+
+      @include custom-media-query1($small-screen-width , $small-screen-width4) { 
+        position: relative;
+        left: rem(9);
+        bottom: rem(138);
+      }
+      @include media-breakpoint-up(sm) {
+        bottom: rem(160);
+        left: rem(20);
+      }
+      @include media-breakpoint-up(custom-md) {
+        bottom: rem(142);
+        left: rem(24);
+      }
+      @include media-breakpoint-up(md) {
+        bottom: rem(176);
+        left: rem(24);
+      }
+      @include media-breakpoint-up(lg) {
+        bottom: rem(150);
+        left: rem(31);
+      }
+
+    }
+  }
