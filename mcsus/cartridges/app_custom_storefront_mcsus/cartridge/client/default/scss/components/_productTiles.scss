@@ -24,17 +24,30 @@
         .price {
           margin-bottom: rem(10);
           width: 100%;
-            font-size: rem(16);
-            font-weight: 500;
-            font-family: $font-medium;
-            @include media-breakpoint-down(md) {
-              font-size: rem(14);
-            }
+          font-size: rem(16);
+          font-weight: 500;
+          font-family: $font-medium;
+
+          @include media-breakpoint-down(sm) {
+            font-size: rem(14);
+          }
+          @include media-breakpoint-up(lg) {
+              padding-left: rem(0);
+          }
             .tiered {
                 font-size: 0.875em;
-
                 .value {
                     font-weight: bold;
+                }
+            }
+            del {
+                @include media-breakpoint-down(md) {
+                    display: block;
+                    .strike-through {
+                        @include media-breakpoint-down(md) {
+                        margin-right: rem(0);
+                        }
+                    }
                 }
             }
         }
@@ -43,10 +56,16 @@
             font-size: rem(20);
             a {
                 font-size: rem(16);
-                height: rem(40);              
+                height: rem(40);
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+
 
                 @include media-breakpoint-down(sm) {
-                    height: rem(25);
+                    height: rem(40);
+                    line-height: inherit;
                 }
                 
                 @include media-breakpoint-down(md) {
@@ -65,77 +84,6 @@
                 display: flex;
                 justify-content: center;
             }
-            
-            @include media-breakpoint-up(xs) {
-              .truncate-text-sm {
-                display: block;
-              }
-              .truncate-text-md {
-                display: none;
-              }
-              .truncate-text-lg {
-                display: none;
-              }
-              .truncate-text-xl {
-                display: none;
-              }
-            }
-            @include media-breakpoint-up(sm) {
-              .truncate-text-sm {
-                display: block;
-              }
-              .truncate-text-md {
-                display: none;
-              }
-              .truncate-text-lg {
-                display: none;
-              }
-              .truncate-text-xl {
-                display: none;
-              }
-            }
-            @include media-breakpoint-up(md) {
-              .truncate-text-lg {
-                display: none;
-              }
-              .truncate-text-xl {
-                display: none;
-              }
-              .truncate-text-md {
-                display: block;
-              }
-              .truncate-text-sm {
-                display: none;
-              }
-            }
-            @include media-breakpoint-up(lg) {
-              .truncate-text-lg {
-                display: block;
-              }
-              .truncate-text-md {
-                display: none;
-              }
-              .truncate-text-sm {
-                display: none;
-              }
-              .truncate-text-xl {
-                display: none;
-              }
-            }
-            @include media-breakpoint-up(xl) {
-              .truncate-text-xl {
-                display: block;
-              }
-              .truncate-text-md {
-                display: none;
-              }
-              .truncate-text-sm {
-                display: none;
-              }
-              .truncate-text-lg {
-                display: none;
-              }
-            }
         }
 
         .ratings {
@@ -147,7 +95,7 @@
             font-family: $font-medium;
             font-size: rem(16);
             @include media-breakpoint-down(md) {
-              font-size: rem(14);
+                font-size: rem(14);
             }
           }
         }
@@ -164,7 +112,7 @@
           height: rem(35);
         }
         .adjust-badges-alignment {
-          height:rem(28);
+          height:rem(34);
        }
     }
 
@@ -198,6 +146,7 @@
     }
 
     .out-of-stock {
+      padding-top: rem(9);
       font-size: rem(12);
       font-family: $font-regular;
       font-weight: 400;

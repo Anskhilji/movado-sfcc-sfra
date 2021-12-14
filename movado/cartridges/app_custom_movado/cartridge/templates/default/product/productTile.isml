@@ -32,7 +32,7 @@
                 ${Resource.msg('label.soldout', 'common', null)}.
             </isif>
         </div>
-        
+                
         <div class="${product.badges.textBadges.length > 0 ? 'exclusive-product' : 'align-plp-badges'}">
             <isloop items="${product.badges.textBadges}" var="badge">
                 ${badge.text}

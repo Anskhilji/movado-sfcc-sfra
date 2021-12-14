@@ -27,11 +27,12 @@
             </div>
         </isif>
 
-		<isif condition="${outOfStock}">
-			<div class="out-of-stock">
+        <div class="${outOfStock ? 'out-of-stock' : 'adjust-soldout-badge'}">
+            <isif condition="${outOfStock}">
                 ${Resource.msg('label.soldout', 'common', null)}
-            </div>
-        </isif>
+            </isif>
+        </div>
+
         
         <div class="${product.badges.textBadges.length > 0 ? 'exclusive-product' : 'adjust-exclusive-callout'}">
             <isloop items="${product.badges.textBadges}" var="badge">

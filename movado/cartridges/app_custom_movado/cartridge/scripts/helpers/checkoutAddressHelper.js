@@ -102,8 +102,10 @@ function isStateCodeAllowed(allowedStateCodes, stateCode) {
                 break;
             }
         }
-        return isCheckoutAllowedStateCode;
+    } else {
+        isCheckoutAllowedStateCode = true;
     }
+    return isCheckoutAllowedStateCode;
 }
 
 /**
