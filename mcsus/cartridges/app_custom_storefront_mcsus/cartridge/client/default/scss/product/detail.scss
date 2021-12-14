@@ -257,12 +257,18 @@
 
 .zoom-carousel {
 
-    @include media-breakpoint-down(sm) {
+    @include media-breakpoint-down(lg) {
         position: relative;
         top: 50%;
         transform: translateY(-50%);
     }
 
+    @include media-breakpoint-down(sm) {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+   
     .slick-arrow.slick-next {
         background-image: url("../../images/chevron_right_black_24dp.svg");
         right: 25.5%;
@@ -467,7 +473,7 @@
             @include media-breakpoint-up(lg) {
                 left: rem(30);
             }
-            @include media-breakpoint-down(custom-md) {
+            @include media-breakpoint-down(md) {
                 position: absolute;
                 top: 98vh;
                 width: 100%;
@@ -524,7 +530,7 @@
                     width: rem(53) !important;
                 }
             }
-            @include media-breakpoint-down(custom-md) {
+            @include media-breakpoint-down(md) {
                 margin-right: rem(11);
                 width: rem(60) !important;
                 
@@ -545,7 +551,7 @@
                         border-radius: rem(3);
                     }
 
-                    @include media-breakpoint-down(custom-md) {
+                    @include media-breakpoint-down(md) {
 
                         img {
                             height: 100%;
