@@ -130,6 +130,7 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
     var redirectUrl = null;
     var accountHelpers = require('*/cartridge/scripts/helpers/accountHelpers');
     var isYotpoSwellLoyaltyEnabled = !empty(Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) ? Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled : false;
+    var isAccountSignupVerificationEnabled = !empty(Site.current.preferences.custom.isAccountSignupVerificationEnabled) ? Site.current.preferences.custom.isAccountSignupVerificationEnabled : false;
 
     // setting variables for the BeforeComplete function
     registrationForm = server.forms.getForm('profile');
@@ -143,13 +144,15 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
     }
 
         // Custom Start: [Added Honeypot Logic]
-		if ((!empty(registrationForm.customer.hpemail.htmlValue)) ||
-            (!empty(registrationForm.customer.hpemailconfirm.htmlValue))){
-                registrationForm.valid = false;
-        } else {
-            registrationForm.valid = true;
-        }
-        // Custom End
+		if (isAccountSignupVerificationEnabled) {
+			if ((!empty(registrationForm.customer.hpemail.htmlValue)) ||
+		    	(!empty(registrationForm.customer.hpemailconfirm.htmlValue))) {
+	     			registrationForm.valid = false;
+			} else {
+				registrationForm.valid = true;
+			}
+	    }
+		// Custom End
 
     if (registrationForm.login.password.value !== registrationForm.login.passwordconfirm.value) {
         registrationForm.login.password.valid = false;
