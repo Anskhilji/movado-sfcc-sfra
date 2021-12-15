@@ -182,15 +182,18 @@ function getShippingMethods(currentBasket, selectedShippingMethod, shippingAddre
 }
 
 function setShippingAndBillingAddress(currentBasket, selectedShippingMethod, shippingAddressData, shipment) {
+    var firstName = '';
+    var lastName = '';
+
     if (empty(shipment)) {
         shipment = currentBasket.defaultShipment;
     }
 
-    if (!empty(shippingAddressData.name)){
+    if (!empty(shippingAddressData.name)) {
         var fullName = shippingAddressData.name;
         var splitFullName = fullName.split(" ");
-        var firstName = splitFullName[0];
-        var lastName = splitFullName[1];
+        firstName = splitFullName[0];
+        lastName = splitFullName[1];
     }
 
     var address = {
