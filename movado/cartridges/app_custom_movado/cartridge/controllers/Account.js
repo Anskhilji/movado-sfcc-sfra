@@ -144,15 +144,15 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
     }
 
         // Custom Start: [Added Honeypot Logic]
-		if (isAccountSignupVerificationEnabled) {
-		    if ((!empty(registrationForm.customer.hpemail.htmlValue)) ||
-		        (!empty(registrationForm.customer.hpemailconfirm.htmlValue))) {
-	     		    registrationForm.valid = false;
-			} else {
-				registrationForm.valid = true;
-			}
-	    }
-	    // Custom End
+        if (isAccountSignupVerificationEnabled) {
+            if ((!empty(registrationForm.customer.hpemail.htmlValue)) ||
+                (!empty(registrationForm.customer.hpemailconfirm.htmlValue))) {
+                    registrationForm.valid = false;
+            } else {
+                registrationForm.valid = true;
+            }
+        }
+        // Custom End
 
     if (registrationForm.login.password.value !== registrationForm.login.passwordconfirm.value) {
         registrationForm.login.password.valid = false;
