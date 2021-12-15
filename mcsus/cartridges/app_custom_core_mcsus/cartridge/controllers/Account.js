@@ -51,7 +51,7 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
 				registrationForm.valid = true;
 			}
 	    }
-		// Custom End
+	    // Custom End
 
 		if (registrationForm.login.password.value
 			!== registrationForm.login.passwordconfirm.value
