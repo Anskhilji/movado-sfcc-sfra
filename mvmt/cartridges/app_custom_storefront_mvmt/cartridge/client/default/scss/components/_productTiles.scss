@@ -238,7 +238,7 @@
           display: -webkit-box;
           -webkit-line-clamp: 2;
           @include media-breakpoint-down(sm) {
-            height: rem(28.8);
+            height: rem(28.5);
           }
           @include media-breakpoint-up(sm) {
             font-size: rem(14);
@@ -487,6 +487,7 @@
           }
     
           @include media-breakpoint-down(xs) {
+            height: rem(20);
             font-size: rem(9);
           }
         }
