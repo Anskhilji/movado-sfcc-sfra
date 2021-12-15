@@ -60,6 +60,15 @@
     .add-to-email-list {
         text-transform: none;
 	}
+    .signup-verification {
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 0;
+        width: 0;
+        z-index: -1;
+    }
 }
 .login-page{
     .card{
@@ -84,13 +93,3 @@
 	
     }
   }
-
-.signup-verification {
-    opacity: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 0;
-    width: 0;
-    z-index: -1;
-}
