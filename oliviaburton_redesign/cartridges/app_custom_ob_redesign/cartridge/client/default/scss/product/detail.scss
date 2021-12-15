@@ -469,6 +469,12 @@
                 padding: rem(60) 0 rem(100) 0;
             }
 
+            @include media-breakpoint-down(md) {
+                &.description-and-detail-pad {
+                    padding-top: rem(187);
+                }
+            }
+
             .product-attributes {
                 margin: 0;
 

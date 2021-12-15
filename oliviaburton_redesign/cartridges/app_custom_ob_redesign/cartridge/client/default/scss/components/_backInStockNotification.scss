@@ -28,7 +28,7 @@
             height: rem(21);
             width: rem(430);
             color: $black;
-            font-family: $font-GaramondPro;
+            font-family: $font-GaramondMTPro-italic;
             font-size: rem(20);
             font-style: italic;
             letter-spacing: rem(1.71);
@@ -70,5 +70,53 @@
     &-success img {
         height: rem(20.83);
         width: rem(20.83);
+    }
+}
+
+.form-outer {
+
+    @include media-breakpoint-down(md) {    
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.back-in-stock-notification-container {
+
+    @include media-breakpoint-down(md) {   
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        max-width: 100%;
+        display: block;
+        text-align: center;
+        margin: 0 rem(10) 0 rem(10);
+    }
+
+    .back-in-stock-notification {
+
+        &-email-notification-copy {
+            @include media-breakpoint-down(md) {
+                font-size: rem(16);
+                text-align: center;
+                width: 100%;
+            }
+        }
+    }
+}
+
+.back-in-stock-notification-container {
+
+    .back-in-stock-notification-container {
+        &-success p {
+            font-size: rem(15);
+            font-weight: 600;
+            letter-spacing: 0;
+            line-height: 21px;
+            font-family: $font-gill-sans-std;
+            margin-top: rem(3);
+        }
     }
 }
