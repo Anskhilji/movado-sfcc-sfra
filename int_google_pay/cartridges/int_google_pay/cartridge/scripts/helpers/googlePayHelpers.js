@@ -186,15 +186,18 @@ function setShippingAndBillingAddress(currentBasket, selectedShippingMethod, shi
         shipment = currentBasket.defaultShipment;
     }
 
-    if (!empty(shippingAddressData.name)){
-        var splitFullName= shippingAddressData.name.split(" ");
-        var fname= split[0];
-        var lname= split[1];
+    if (!empty(shippingAddressData.lastName)){
+        lastName = shippingAddressData.lastName;
+    } else {
+        var fullName = shippingAddressData.name;
+        var splitFullName = fullName.split(" ");
+        var firstName = splitFullName[0];
+        var lastName = splitFullName[1];
     }
 
     var address = {
-        firstName: fname || '',
-        lastName:  lname || '',
+        firstName: firstName || '',
+        lastName:  lastName || '',
         companyName: shippingAddressData.companyName || '',
         address1: shippingAddressData.address1 || '',
         address2: shippingAddressData.address2 || '',
