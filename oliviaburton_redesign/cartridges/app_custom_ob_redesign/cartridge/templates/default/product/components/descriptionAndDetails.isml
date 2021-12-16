@@ -1,5 +1,5 @@
 <iscomment> Custom Comment: change in HTML structure</iscomment>
-<div class="description-and-detail <isif condition="${sitePref.enableBackInStock}">description-and-detail-pad</isif>">
+<div class="description-and-detail description-and-detail-pt <isif condition="${sitePref.enableBackInStock}">description-and-detail-pad</isif>">
     <iscomment> Custom Comment: Why buy me added here</iscomment>
     <isinclude template="product/components/productWhyBuyMe" />
     <iscomment> Custom Comment: Long Description added here</iscomment>

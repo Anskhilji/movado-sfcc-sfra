@@ -6,7 +6,10 @@ var processResponse = function ($selector, data) {
         var mediumWidth = 992;
         var $windowWidth = $(window).width();
         if ($windowWidth < mediumWidth) {
-            $('.description-and-detail-pad').css('padding-top', '126px');
+            $('.description-and-detail').addClass('description-and-detail-pt');
+            $('.description-and-detail').removeClass('description-and-detail-pad');
+        }else {
+            $('.back-in-stock-notification-container-success').addClass('back-in-stock-notification-container-mb')
         }
         $('.back-in-stock-notification-container-success').removeClass('d-none').focus();
     } else {

@@ -1,6 +1,10 @@
 .back-in-stock-notification-container {
     margin-top: rem(30);
 
+    @include media-breakpoint-up(lg) {
+        margin-bottom: rem(103);
+    }
+
     .back-in-stock-notification {
         &-form {
             height: rem(45);
@@ -70,6 +74,14 @@
     &-success img {
         height: rem(20.83);
         width: rem(20.83);
+        margin-top: 0;
+    }
+
+    @include media-breakpoint-up(md) {
+
+        &-success {
+            margin-top: rem(3);
+        }
     }
 }
 
@@ -84,7 +96,7 @@
 
 .back-in-stock-notification-container {
 
-    @include media-breakpoint-down(md) {   
+    @include media-breakpoint-down(md) { 
         overflow: hidden;
         display: flex;
         justify-content: center;
@@ -92,7 +104,8 @@
         max-width: 100%;
         display: block;
         text-align: center;
-        margin: 0 rem(10) 0 rem(10);
+        margin: 0 rem(9) 0 rem(9);
+        margin-top: rem(15);
     }
 
     .back-in-stock-notification {
@@ -116,7 +129,11 @@
             letter-spacing: 0;
             line-height: 21px;
             font-family: $font-gill-sans-std;
-            margin-top: rem(3);
+            margin-top: 0;
         }
     }
+}
+
+.back-in-stock-notification-container-mb {
+    margin-bottom: rem(169);
 }
