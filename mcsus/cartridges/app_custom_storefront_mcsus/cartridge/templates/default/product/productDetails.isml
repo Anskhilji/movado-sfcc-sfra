@@ -180,6 +180,11 @@
                     </isif>
                 </isif>
             </div>
+            <div class="pdp-content-asset-wrapper">
+                <isif condition="${!empty(product.pdpContentAssetHTML)}">
+                    <isprint value="${product.pdpContentAssetHTML}" encoding="off" />
+                </isif>
+            </div>
         <isif condition="${!dw.system.Site.getCurrent().getCustomPreferenceValue('disableRecommendationsTypesOnPDP')}">
             <isinclude template="product/components/youMayLikeRecommendation" />
        </isif>
