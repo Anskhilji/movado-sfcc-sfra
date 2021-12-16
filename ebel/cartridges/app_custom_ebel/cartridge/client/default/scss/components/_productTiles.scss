@@ -42,7 +42,7 @@
     border: 0;
     margin-bottom: 0;
     .tile-body {
-        padding: 0.625rem 0 2.5rem;
+        padding: rem(10) 0 rem(40);
         text-align: center;
 
         .color-swatches {
