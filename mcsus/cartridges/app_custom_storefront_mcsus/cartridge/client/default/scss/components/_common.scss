@@ -183,6 +183,9 @@ h1 {
 
 .yotpo .yotpo-regular-box {
   font-family: $font-book;
+  border-radius: rem(3);
+  background-color: #FFFFFF;
+  box-shadow: 0 rem(2) rem(8) 0 $grey-dark-2;
 }
 
 .yotpo-review.yotpo-regular-box {
@@ -283,6 +286,16 @@ h1 {
     .yotpo-default-button {
       font-family: $font-regular;
       font-weight: 400;
+    }
+  }
+  .yotpo-reviews {
+    .yotpo-regular-box {
+      margin-bottom: rem(30);
+    }
+    .yotpo-header{
+      .yotpo-icon-profile {
+        display: none !important;
+    }
     }
   }
 }
