@@ -182,8 +182,8 @@ function getShippingMethods(currentBasket, selectedShippingMethod, shippingAddre
 }
 
 function setShippingAndBillingAddress(currentBasket, selectedShippingMethod, shippingAddressData, shipment) {
-    var firstName = '';
-    var lastName = '';
+    var firstName = shippingAddressData.name;
+    var lastName = shippingAddressData.name;
 
     if (empty(shipment)) {
         shipment = currentBasket.defaultShipment;
