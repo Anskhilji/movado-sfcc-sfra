@@ -1,6 +1,7 @@
 @import "~movado/product/_imageCarousel";
 
 .product-detail {
+
     .cs-carousel-wrapper {
       position: relative;
     }
@@ -29,7 +30,7 @@
       }
 
       @include media-breakpoint-down(xs) {
-        bottom: rem(100);
+        bottom: rem(79);
         left: rem(11);
       }
 
