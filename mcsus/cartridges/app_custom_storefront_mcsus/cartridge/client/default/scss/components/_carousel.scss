@@ -35,9 +35,15 @@
         .slick-arrow {
             &.slick-prev {
                 left: rem(20);
+                border-radius: 50%;
+                border: 0.0625rem solid #B0B0B0;
+                background-color: #F2F2F2;
             }
             &.slick-next {
                 right: rem(20);
+                border-radius: 50%;
+                border: 0.0625rem solid #B0B0B0;
+                background-color: #F2F2F2;
             }
         }
     }

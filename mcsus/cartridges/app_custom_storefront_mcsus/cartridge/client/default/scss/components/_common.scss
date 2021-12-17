@@ -151,6 +151,7 @@ h1 {
 .yotpo .text-m {
   font-family: $font-medium;
   font-weight: 500;
+  font-size: rem(16) !important;
 }
 
 .yotpo-sum-reviews {
@@ -245,6 +246,8 @@ h1 {
       .yotpo-review-date {
         font-family: $font-medium;
         font-weight: 500;
+        font-size: rem(14);
+        margin-right: rem(50);
       }
     }
 }
@@ -309,5 +312,30 @@ h1 {
   .y-label.yotpo-user-title {
     font-family: $font-book-std;
     font-weight: 300 !important;
+  }
+}
+
+.product-number-rating {
+  &.flex-box-column {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .yotpo .text-m {
+    font-size: rem(16);
+  }
+}
+
+.ratings-two {
+  .yotpo {
+    .yotpo-bottomline {
+      .yotpo-stars {
+        .yotpo-icon-star {
+          &.rating-star {
+            color: $amber;
+          }
+        }
+      }
+    }
   }
 }

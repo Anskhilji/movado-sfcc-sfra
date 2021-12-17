@@ -52,6 +52,7 @@
         font-size: rem(16);
         font-weight: 500;
         font-family: $font-medium;
+        color: $grayish-blue;
 
         @include media-breakpoint-down(md) {
             font-size: rem(14);
