@@ -8,7 +8,7 @@ var processResponse = function ($selector, data) {
         if ($windowWidth < mediumWidth) {
             $('.description-and-detail').addClass('description-and-detail-pt');
             $('.description-and-detail').removeClass('description-and-detail-pad');
-        }else {
+        } else {
             $('.back-in-stock-notification-container-success').addClass('back-in-stock-notification-container-mb')
         }
         $('.back-in-stock-notification-container-success').removeClass('d-none').focus();
