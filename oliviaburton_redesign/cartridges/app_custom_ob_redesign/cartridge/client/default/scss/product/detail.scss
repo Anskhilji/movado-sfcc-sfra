@@ -25,10 +25,6 @@
             .main-ob-carousel {
                 padding: rem(10) rem(40) 0;
 
-                @include media-breakpoint-up(md) {
-                    padding: 0;
-                }
-
                 @include media-breakpoint-up(lg) {
                     padding-left: rem(100);
                 }
@@ -81,17 +77,20 @@
                         margin-right: rem(12);
 
                         @include media-breakpoint-up(lg) {
-                            width: rem(150);
+                            width: rem(88);
                             margin-top: 0;
                             position: absolute;
                             top: 0;
-                            left: rem(50);
+                            left: rem(4);
                             display: block;
                             background: transparent;
                             height: rem(400);
                             overflow-y: scroll;
+                            -ms-overflow-style: none;
+                            scrollbar-width: none;
 
                             &::-webkit-scrollbar {
+                                display: none;
                                 width: 0;
                             }
                         }
@@ -131,8 +130,13 @@
                             }
 
                             &.slick-active {
+
                                 button {
                                     background: $black;
+
+                                    @include media-breakpoint-up(lg) {
+                                        background: none;
+                                    }
                                 }
                             }
 
@@ -145,13 +149,11 @@
                                 margin-bottom: rem(12);
                                 cursor: pointer;
                                 transition: all 0.4s;
-                                box-shadow: 0 rem(2) rem(4) 0 hsla(0, 0%, 78%, 0.6);
-                                border: rem(2) solid transparent;
+                                border: rem(1) solid transparent;
                                 display: inline-block;
 
                                 &:hover {
-                                    box-shadow: 0 rem(6) rem(4) 0 hsla(0, 0%, 78%, 0.6);
-                                    border-color: $light-grey;
+                                    border: rem(1) solid #E9D7D5;
                                 }
                             }
                         }
@@ -160,6 +162,13 @@
                     &-arrow {
                         position: absolute;
                         outline: none;
+                        width: rem(25);
+                        height: rem(25);
+
+                        @include media-breakpoint-up(lg) {
+                            width: rem(76);
+                            height: rem(76);
+                        }
 
                         &.slick-prev {
                             background: url("../../images/LeftArrowMob.svg") center center no-repeat;
@@ -197,7 +206,6 @@
             position: absolute;
             margin-left: rem(20);
             top: rem(400);
-            outline: none;
 
             @include media-breakpoint-up(lg) {
                 position: absolute;

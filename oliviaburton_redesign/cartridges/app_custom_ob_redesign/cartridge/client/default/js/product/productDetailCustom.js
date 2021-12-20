@@ -49,9 +49,5 @@ module.exports = {
                 return '<button class="tab"> <img  src="'+ thumb +'" /> </button>';
             },
         });
-
-        $( "img" ).dblclick(function() {
-            $(".js-zoom-image").trigger( "click" );
-        });
     },
 }
