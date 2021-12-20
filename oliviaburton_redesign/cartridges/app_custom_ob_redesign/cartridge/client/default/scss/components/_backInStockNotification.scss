@@ -98,9 +98,6 @@
 
     @include media-breakpoint-down(md) { 
         overflow: hidden;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
         max-width: 100%;
         display: block;
         text-align: center;
