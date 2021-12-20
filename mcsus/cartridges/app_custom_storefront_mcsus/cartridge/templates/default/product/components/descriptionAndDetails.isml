@@ -14,9 +14,7 @@
         </div>
     </isif>
 
-    <iscomment>Yotpo reviews widget will appear here, if these needs to be relocated
-     then appropriate template should be overridden. </iscomment>
-    <isinclude template="widget/yotporeviewswidget" />
+    
     <hr />
 </div>
 

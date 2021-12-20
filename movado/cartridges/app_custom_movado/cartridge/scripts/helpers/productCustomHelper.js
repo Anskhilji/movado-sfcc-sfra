@@ -1,5 +1,6 @@
 'use strict';
 
+var ContentMgr = require('dw/content/ContentMgr');
 var ProductMgr = require('dw/catalog/ProductMgr');
 var Logger = require('dw/system/Logger');
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');

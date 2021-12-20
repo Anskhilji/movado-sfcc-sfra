@@ -36,14 +36,24 @@
             &.slick-prev {
                 left: rem(20);
                 border-radius: 50%;
-                border: 0.0625rem solid #B0B0B0;
-                background-color: #F2F2F2;
+                border: 0.052rem solid $silver ;
+                background-color: $white-smoke;
+                height: 50.83px;
+                width: 50.83px;
+                margin-top: rem(70);
+                background-image: url(../../images/icons/long-arrow-left.svg);
+                box-shadow: 0 2px 8px 0 $silver2;
             }
             &.slick-next {
                 right: rem(20);
                 border-radius: 50%;
-                border: 0.0625rem solid #B0B0B0;
-                background-color: #F2F2F2;
+                border: 0.052rem solid $silver ;
+                background-color: $white-smoke;
+                height: 50.83px;
+                width: 50.83px;
+                margin-top: rem(70);
+                background-image: url(../../images/icons/long-arrow-right.svg);
+                box-shadow: 0 2px 8px 0 $silver2;
             }
         }
     }
@@ -65,6 +75,9 @@
     .slick-dots {
         button {
             font-size: 0;
+            width: 2.5rem;
+            height: 0.1125rem;
+            border-radius: 0rem;
         }
     }
     .slick-arrow {
