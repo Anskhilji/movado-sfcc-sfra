@@ -90,7 +90,7 @@
             type="text"
             class="form-control signup-verification"
             id="hpemail"
-            autocomplete="off"
+            autocomplete="disabled"
             <isprint value=${pdict.profileForm.customer.hpemail.attributes} encoding="off" />>
         </isif>
         <iscomment> Custom End </iscomment>
@@ -113,7 +113,7 @@
             type="text"
             class="form-control signup-verification"
             id="hpemailconfirm"
-            autocomplete="off"
+            autocomplete="disabled"
             <isprint value=${pdict.profileForm.customer.hpemailconfirm.attributes} encoding="off"/>>
         </isif>
         <iscomment> Custom End </iscomment>
