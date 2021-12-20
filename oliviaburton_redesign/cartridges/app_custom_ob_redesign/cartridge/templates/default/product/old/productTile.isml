@@ -50,7 +50,7 @@
             <isinclude template="product/components/compare" />
         </isif>
         
-        <div class="${product.promotions.length > 0 ? 'promotions' : 'adjust-promotion-allignmnet'}">
+        <div class="${product.promotions != null ? 'promotions' : 'adjust-promotion-allignmnet'}">
             <isif condition="${product.promotions}">
                 <div class="promotions">
                     <isloop items="${product.promotions}" var="promotion" status ="promoStatus">

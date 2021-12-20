@@ -273,7 +273,8 @@ function ProductSearch(productSearch, httpParams, sortingRule, sortingOptions, r
             pageTitle: productSearch.category.pageTitle,
             pageDescription: productSearch.category.pageDescription,
             pageKeywords: productSearch.category.pageKeywords,
-            raw: productSearch.category
+            raw: productSearch.category,
+            renderingTemplate: productSearch.category.template
         };
     }
     this.pageMetaTags = productSearch.pageMetaTags;
