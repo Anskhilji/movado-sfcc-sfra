@@ -1,0 +1,8 @@
+@import "~movado/components/productCommon";
+
+.primary-images {
+
+    @include media-breakpoint-down(sm-small) {
+        min-height: 45vh;
+    }
+}

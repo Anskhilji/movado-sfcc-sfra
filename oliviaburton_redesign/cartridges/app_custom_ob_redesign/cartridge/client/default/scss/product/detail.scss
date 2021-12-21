@@ -1,6 +1,7 @@
 @import "~movado/product/detail";
 @import "../variables";
 @import "../components/backInStockNotification";
+@import "../components/_productCommon";
 
 .product-detail {
 
@@ -9,13 +10,14 @@
         margin: 0 auto;
 
         &.product-wrapper {
-            height: rem(740);
+            height: auto;
         }
 
         .primary-images {
             position: relative;
             width: 100%;
             text-align: center;
+            margin-bottom: rem(100);
 
             .cs-carousel-wrapper {
                 position: relative;
@@ -469,6 +471,12 @@
                 padding: rem(60) 0 rem(100) 0;
             }
 
+            @include media-breakpoint-down(md) {
+                &.description-and-detail-pad {
+                    padding-top: rem(40);
+                }
+            }
+
             .product-attributes {
                 margin: 0;
 
@@ -775,4 +783,8 @@
 .linked-product-list {
     width: 100%;
     height: 100%;
+}
+
+.description-and-detail-pt {
+    padding-top: rem(30);
 }
