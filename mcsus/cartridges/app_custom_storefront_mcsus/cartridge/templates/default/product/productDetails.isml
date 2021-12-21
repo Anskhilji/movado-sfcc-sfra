@@ -194,7 +194,9 @@
 
             <iscomment>Yotpo reviews widget will appear here, if these needs to be relocated
             then appropriate template should be overridden. </iscomment>
-            <isinclude template="widget/yotporeviewswidget" />
+            <div class="mcs-yotpo-reviews">
+                <isinclude template="widget/yotporeviewswidget" />
+            </div>
 
              <div class="pdp-content-asset-wrapper">
                 <isif condition="${!empty(product.pdpContentAssetHTML)}">
