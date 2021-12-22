@@ -36,7 +36,7 @@
         <div class="js-carousel cs-carousel main-ob-carousel">
             <isset name="pdpVideoConfigs" value="${product.pdpVideoConfigs}" scope="page" />
             <isloop items="${product.images['zoom1660']}" var="image" status="loopStatus">
-                <div class="carousel-tile" data-thumb="${!empty(product.images) && !empty(product.images.tile150[loopStatus.count - 1]) ? product.images.tile150[loopStatus.count - 1].url : ''}">
+                <div class="carousel-tile" data-thumb="${!empty(product.images) && !empty(product.images.tile156[loopStatus.count - 1]) && product.images.tile156[loopStatus.count - 1].url ? product.images.tile156[loopStatus.count - 1].url : ''}">
                     <img class="normal-zoom" src="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count - 1]) && !empty(product.images.zoom1660[loopStatus.count - 1].url) ? product.images.zoom1660[loopStatus.count - 1].url : ''}" alt="${image.alt}" itemprop="image"
                         data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom830[loopStatus.count - 1]) && !empty(product.images.zoom830[loopStatus.count - 1].url) ? product.images.zoom830[loopStatus.count - 1].url : ''}"
                         data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count - 1]) && !empty(product.images.zoom1660[loopStatus.count - 1].url) ? product.images.zoom1660[loopStatus.count - 1].url : ''}" />
