@@ -15,6 +15,9 @@
     <isset name="isQuickView" value="${false}" scope="page" />
     <isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page">
     <isset name="isProductSet" value="${pdict.product.productType === 'set'}" scope="page" />
+    <isset name="isCollectionHighlightEnabled" value="${!empty(dw.system.Site.current.preferences.custom.collectionHighLightsEnabled) ? dw.system.Site.current.preferences.custom.collectionHighLightsEnabled : false}" scope="page" />
+    <isset name="isCollectionYouMayLikeEnabled" value="${!empty(dw.system.Site.current.preferences.custom.collectionYouMayLikeEnabled) ? dw.system.Site.current.preferences.custom.collectionYouMayLikeEnabled : false}" scope="page" />
+    <isset name="isStyleYouMayLikeEnabled" value="${!empty(dw.system.Site.current.preferences.custom.styleYouMayLikeEnabled) ? dw.system.Site.current.preferences.custom.styleYouMayLikeEnabled : false}" scope="page" />
     <isobject object="${product.raw}" view="detail">
     <isset name="topLevelBackground" value="${dw.system.Site.getCurrent().getCustomPreferenceValue('topLevelBackground')}" scope="page" />
         <iscomment> ${topLevelBackground}; </iscomment>
@@ -112,6 +115,20 @@
         <div class="container-fluid detail-specs product-detail-redesign">
             <isinclude template="product/components/descriptionAndDetails" />
         </div>
+
+        <isif condition="${isCollectionHighlightEnabled}">
+            <isslot id="cs_pdp_collection_highlight" context="global" description="collection Highlights pdp slot" />
+        </isif>
+
+        <isif condition="${isStyleYouMayLikeEnabled}">
+            <isslot id="cs_pdp_you_may_like" context="global" description="style you may like pdp slot" />
+        </isif>
+        
+        <isif condition="${isCollectionYouMayLikeEnabled}">
+            <isslot id="cs_pdp_collection_you_may_like" context="global" description="Collection you may like slot" />
+        </isif>
+        
+        
         <isif condition="${!dw.system.Site.getCurrent().getCustomPreferenceValue('disableRecommendationsTypesOnPDP')}">
             <isinclude template="product/components/youMayLikeRecommendation" />
         </isif>
