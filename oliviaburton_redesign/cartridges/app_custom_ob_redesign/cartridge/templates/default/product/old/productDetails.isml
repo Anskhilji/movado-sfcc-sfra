@@ -229,7 +229,7 @@
         </isif>
 
         <isif condition="${isStyleYouMayLikeEnabled}">
-            <isslot id="cs_pdp_you_may_like" context="global" description="collection Highlights pdp slot" />
+            <isslot id="cs_pdp_you_may_like" context="global" description="style you may like pdp slot" />
         </isif>
         
         <isif condition="${isCollectionYouMayLikeEnabled}">
