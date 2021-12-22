@@ -198,7 +198,7 @@
 
             .promotions {
               @include media-breakpoint-up(xs) {
-                  height: rem(55);
+                height: rem(55);
               }
             }
             .promo-msg.callout {

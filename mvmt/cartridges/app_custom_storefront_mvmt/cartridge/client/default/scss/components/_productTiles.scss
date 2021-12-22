@@ -85,11 +85,11 @@
       @include media-breakpoint-up(lg) {
         padding: rem(20) 0;
       }
-  
+        .plp-swatches-wrapper{
+          height: rem(36);
+        }
+
       .plp-swatches {
-        min-height: rem(27);
-        margin: auto auto rem(10);
-  
         .swatches {
           max-width: 100%;
           overflow: hidden;
@@ -336,12 +336,8 @@
     }
   
     .product-tag-content {
-      height: rem(18);
-      margin-bottom: rem(15);
-  
-      @include media-breakpoint-up(md-down) {
-        height: rem(26);
-      }
+      height: rem(21);
+      margin-bottom: rem(10);
   
       .badge {
         text-align: center;
@@ -384,7 +380,7 @@
       }
   
       .exclusive-badges {
-        margin-bottom: rem(16);
+        margin-bottom: rem(0);
   
         @include media-breakpoint-down(xs) {
           text-align: center;
