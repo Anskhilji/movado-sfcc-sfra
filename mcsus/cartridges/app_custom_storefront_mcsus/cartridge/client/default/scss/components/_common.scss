@@ -21,7 +21,6 @@ h1 {
 .heading-three {
   font-family: $font-medium;
   font-size: rem(18);
-
 }
 .heading-four {
   font-family: $font-medium;
@@ -31,8 +30,6 @@ h1 {
   font-family: $font-book;
   font-size: rem(14);
 }
-
-
 
 @include media-breakpoint-up(md) {
   .heading-one {
@@ -63,13 +60,9 @@ h1 {
   }
 }
 
-
 // Styles for promo code form on cart and checkout page
 .collapsible-promo-wrapper {
-
-
   [class*="collapsible-"] {
-
     .title {
       font-family: $font-medium;
       font-weight: 500;
@@ -86,12 +79,10 @@ h1 {
       }
     }
   }
-
 }
 
 // Styles for coupons on cart and checkout page
 .coupons-wrapper {
-
   .coupon-promotion-relationship {
     font-size: rem(14);
   }
@@ -100,7 +91,6 @@ h1 {
     font-family: $font-medium;
     font-size: rem(16);
   }
-
 
   .coupon-applied,
   .coupon-not-applied {
@@ -113,14 +103,12 @@ h1 {
   }
 }
 
-
 .form-group {
   .form-control-field-label {
     font-family: $font-medium;
     font-size: rem(14);
   }
 }
-
 
 .password-description {
   font-size: rem(14);
@@ -182,8 +170,25 @@ h1 {
   font-size: rem(30);
 }
 .mcs-yotpo-reviews {
+  .title {
+    font-family: $font-bold;
+    font-size: rem(36);
+    color: $black1;
+    font-weight: bold;
+    letter-spacing: rem(0);
+    text-align: center;
+  }
+
   .yotpo {
     &.yotpo-main-widget {
+      @mixin ReviewText() {
+        font-family: $font-medium;
+        font-size: rem(20);
+        font-weight: 500;
+        letter-spacing: rem(0);
+        color: $black1;
+      }
+
       .main-widget {
         .yotpo-bottomline-3-boxes {
           position: relative;
@@ -195,13 +200,91 @@ h1 {
 
         .yotpo-small-box {
           border: none;
+          display: none;
+        }
+
+        .yotpo-nav-content {
+          & > div.yotpo-active {
+            margin-left: rem(45);
+            margin-right: rem(51);
+          }
+
+          .yotpo-header {
+            .yotpo-review-stars {
+              .yotpo-icon {
+                color: $amber3;
+              }
+            }
+          }
+          .yotpo-review {
+            &.yotpo-regular-box {
+              border-radius: rem(3);
+              background-color: $white1;
+              box-shadow: 0 rem(2) rem(8) 0 rgba(207, 207, 207, 0.5);
+              min-height: rem(278);
+              padding: rem(30) rem(50);
+              margin-left: auto;
+              margin-right: auto;
+            }
+
+            .yotpo-review-date {
+              margin-right: rem(0);
+            }
+
+            .yotpo-main {
+              .content-title {
+                color: $grayish-blue;
+                font-family: $font-medium;
+                font-size: rem(24);
+                font-weight: 500;
+                letter-spacing: 0;
+              }
+
+              .content-review {
+                color: $grayish-blue;
+                font-family: $font-medium;
+                font-weight: 400;
+                font-size: rem(16);
+                letter-spacing: 0;
+                margin-top: rem(15);
+              }
+
+              .yotpo-user-name {
+                color: $grayish-blue;
+                font-family: $font-medium;
+                font-size: rem(16);
+                font-weight: 500;
+                letter-spacing: 0;
+                line-height: rem(25);
+                margin-top: rem(15);
+              }
+
+              .yotpo-user-title {
+                color: rgba(0, 0, 0, 0.4);
+                font-family: $font-user;
+                font-size: rem(12);
+                font-weight: 300;
+                letter-spacing: rem(0.6);
+              }
+            }
+          }
+
+          .yotpo-main {
+            margin-left: rem(0);
+          }
+        }
+
+        .yotpo-bottomline {
+          .yotpo-star-digits {
+            @include ReviewText;
+          }
         }
 
         .yotpo-label {
           &.yotpo-small-box {
             .yotpo-icon-btn {
               display: block;
-              padding: 6px 11px;
+              padding: rem(6) rem(11);
               left: 50%;
               top: 65%;
               z-index: 11;
@@ -210,11 +293,13 @@ h1 {
             }
           }
         }
+
         .yotpo-regular-box {
           .yotpo-bottomline-box-2 {
             .yotpo-star-distribution {
               border: none;
-              .yotpo-star-distribution-content {
+
+              &-content {
                 .yotpo-distibutions-stars {
                   .review-stars {
                     .yotpo-icon {
@@ -229,12 +314,31 @@ h1 {
                     }
                   }
                 }
+
+                .yotpo-distributions-graphs {
+                  .yotpo-star-distribution-graph {
+                    width: rem(325) !important;
+
+                    &-background {
+                      height: rem(6);
+                      width: rem(325);
+                      border-radius: rem(5);
+                      background-color: $light-grey;
+                    }
+
+                    &-score {
+                      background-color: $black;
+                    }
+                  }
+                }
               }
             }
           }
           .yotpo-bottomline-box-1 {
             display: flex;
             align-items: center;
+            margin-right: rem(100);
+
             .yotpo-stars {
               .yotpo-icon {
                 &.yotpo-icon-star:nth-child(1),
@@ -243,32 +347,70 @@ h1 {
                 &.yotpo-icon-star:nth-child(4) {
                   display: none;
                 }
+
+                &.yotpo-icon-star:nth-child(5) {
+                  font-size: rem(31);
+                  height: rem(32);
+                  width: rem(30);
+                }
               }
             }
             .yotpo-sum-reviews {
               position: relative !important;
-              left: 0 !important;
+              left: rem(10) !important;
               top: 0 !important;
+              @include ReviewText;
+
+              .based-on {
+                @include ReviewText;
+              }
+
+              .star-digits {
+                @include ReviewText;
+              }
+
+              &::before {
+                position: absolute;
+                left: rem(-4.5);
+                top: rem(5);
+                content: "(";
+                @include ReviewText;
+              }
+
+              &::after {
+                position: absolute;
+                right: rem(-4.5);
+                top: rem(5);
+                content: ")";
+                @include ReviewText;
+              }
             }
           }
         }
       }
     }
+
+    .yotpo-regular-box {
+      padding: rem(30) 0 rem(22);
+    }
+
+    .yotpo-icon-star:before {
+      color: $amber;
+    }
   }
-  .yotpo-logo-link-new {
-    display: none;
-  }
-}
-.yotpo {
-  .yotpo-icon-star:before {
-    color: $amber;
+
+  .yotpo-label {
+    &.yotpo-small-box {
+      padding: rem(0);
+      display: none;
+    }
   }
 }
 
 .yotpo .yotpo-regular-box {
   font-family: $font-book;
   border-radius: rem(3);
-  background-color: #ffffff;
+  background-color: $white1;
   box-shadow: 0 rem(2) rem(8) 0 $grey-dark-2;
 }
 
@@ -289,8 +431,6 @@ h1 {
   .yotpo-header-element {
     font-family: $font-medium;
     font-weight: 500;
-    margin-left: rem(50);
-    margin-right: rem(50);
   }
 }
 
@@ -376,9 +516,7 @@ h1 {
 }
 
 .yotpo-nav-content {
-
   .yotpo-first-review {
-    
     .yotpo-default-button {
       font-family: $font-regular;
       font-weight: 400;
@@ -401,21 +539,13 @@ h1 {
 .main-widget.yotpo-display-wrapper {
   .yotpo-header-element {
     .yotpo-user-name {
-      font-family: $font-medium;
-      font-weight: 500 !important;
       position: absolute;
       top: rem(90);
     }
-    .yotpo-user-title{
+    .yotpo-user-title {
       position: absolute;
       top: rem(110);
     }
-  }
-  
-
-  .y-label.yotpo-user-title {
-    font-family: $font-book-std;
-    font-weight: 300 !important;
   }
 }
 
@@ -427,5 +557,19 @@ h1 {
 
   .yotpo .text-m {
     font-size: rem(16);
+  }
+}
+
+.ratings-two {
+  .yotpo {
+    .yotpo-bottomline {
+      .yotpo-stars {
+        .yotpo-icon-star {
+          &.rating-star {
+            color: $amber;
+          }
+        }
+      }
+    }
   }
 }

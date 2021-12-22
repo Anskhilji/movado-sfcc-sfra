@@ -195,6 +195,7 @@
             <iscomment>Yotpo reviews widget will appear here, if these needs to be relocated
             then appropriate template should be overridden. </iscomment>
             <div class="mcs-yotpo-reviews">
+                <div class="title text-capitalize p-0 shadow-none">${Resource.msg('label.product.reviews.text', 'product', null)}</div>
                 <isinclude template="widget/yotporeviewswidget" />
             </div>
 
