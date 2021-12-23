@@ -1,11 +1,17 @@
 .back-in-stock-notification-container {
     margin-top: rem(30);
-
+    
     @include media-breakpoint-up(lg) {
         margin-bottom: rem(103);
     }
 
     .back-in-stock-notification {
+
+        &-button {
+            right: rem(1);
+            width: auto;
+        }
+
         &-form {
             height: rem(45);
             box-sizing: border-box;
@@ -23,8 +29,6 @@
             letter-spacing: rem(1);
             line-height: rem(20);
             border: none;
-            height: rem(20);
-            margin-top: rem(11);
         }
 
         &-email-notification-copy {
@@ -47,8 +51,12 @@
             .checkmark {
                 left: rem(0);
             }
+
             input {
                 position: absolute;
+                width: rem(15);
+                height: rem(15);
+                margin-top: rem(1);
             }
         }
 
@@ -58,9 +66,9 @@
             color: $gray36;
             font-family: $font-primary;
             font-size: rem(13);
+            font-weight: 400;
             letter-spacing: rem(0.5);
             line-height: rem(15);
-            padding-top: rem(2);
             padding-left: rem(11);
         }
     }
@@ -109,9 +117,21 @@
 
         &-email-notification-copy {
             @include media-breakpoint-down(md) {
+                height: rem(16);
+                width: rem(355);
                 font-size: rem(16);
                 text-align: center;
-                width: 100%;
+                letter-spacing: rem(1.37);
+                line-height: rem(19);
+                margin-bottom: rem(9);
+                margin-top: rem(-1);
+            }
+        }
+        
+        @include media-breakpoint-down(md) {
+
+            &-confirmation-copy {
+                padding-top: rem(1);
             }
         }
     }
@@ -121,12 +141,16 @@
 
     .back-in-stock-notification-container {
         &-success p {
-            font-size: rem(15);
-            font-weight: 600;
-            letter-spacing: 0;
-            line-height: rem(21);
+            font-size: rem(16);
+            font-weight: 400;
+            letter-spacing: rem(0.3);
+            line-height: rem(24);
             font-family: $font-gill-sans-std;
             margin-top: 0;
+
+            @include media-breakpoint-down(md) {
+                margin-top: rem(-1);
+            }
         }
     }
 }
