@@ -1,5 +1,5 @@
 
-     <button type='button' id="${paymentOption.ID}" name='paymentOption' class="nav-link" 
+     <button type='button' id="${paymentOption.ID}" name='paymentOption' class="nav-link google-pay-link" 
       data-bs-toggle="pill" data-bs-target="#googlepay-content" role="tab" aria-controls="googlepay-content"
       aria-selected="false">
             <label for="${paymentOption.ID}" class="form-check-label d-block" >
