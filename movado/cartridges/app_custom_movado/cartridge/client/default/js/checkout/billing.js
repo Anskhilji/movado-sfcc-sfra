@@ -375,7 +375,6 @@ module.exports = {
             if (tabContentId === $activeTab) {
                 $(this).addClass('active');
                 $(this).addClass('show');
-                break;
             }
         });
                      
