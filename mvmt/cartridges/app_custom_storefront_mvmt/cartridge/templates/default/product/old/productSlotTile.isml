@@ -31,7 +31,7 @@
                 <div class="product-tag-content product-tag-content-inner1 ${pdict.display.recommendattionTile ? 'visible' : ''} ${outOfStock || product.badges.textBadges.length > 0 ? '' : 'visible'}">
                     <isif condition="${outOfStock}">
                         <div class="m-0">
-                            <div class="out-of-stock badge red-tag mvmt-avilability ${outOfStock ? '' : 'invisible'}">
+                            <div class="out-of-stock badge red-tag mvmt-avilability mb-0 ${outOfStock ? '' : 'invisible'}">
                                 ${Resource.msg('label.soldout', 'common', null)}
                             </div>
                         </div>
@@ -40,7 +40,7 @@
                     </isif>
                 </div>
 
-                <div class="${pdict.display.swatches !== false && product.productType == 'master' ? 'plp-swatches' : 'adjust-noswatch-height' }">
+                <div class="plp-swatches-wrapper ${pdict.display.swatches !== false && product.productType == 'master' ? 'plp-swatches' : 'adjust-noswatch-height' }">
                     <isif condition="${pdict.display.swatches !== false && product.productType == 'master'}">
                         <div class="plp-swatches ${product.variationsAttributes && product.variationsAttributes[0] && product.variationsAttributes[0].values && product.variationsAttributes[0].values.length > 0 ? '':'0-opacity'}">
                             <isinclude template="product/components/productTileSwatch" />

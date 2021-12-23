@@ -196,6 +196,11 @@
         .product {
           &-tile {
 
+            .promotions {
+              @include media-breakpoint-up(xs) {
+                height: rem(55);
+              }
+            }
             .promo-msg.callout {
               color: $light-red;
               font-size: rem(16);
@@ -244,17 +249,20 @@
                   line-height: rem(24);
                   letter-spacing: rem(0);
                   color: $black1;
+                  height: rem(50);
 
                   @include media-breakpoint-up(xs) {
                     font-size: rem(16);
                     line-height: rem(20);
                     letter-spacing: rem(0.5);
+                    height: rem(43.2);
                   }
 
                   @include media-breakpoint-up(sm) {
                     font-size: rem(20);
                     line-height: rem(26);
                     letter-spacing: rem(0);
+                    height: rem(50);
                   }
                 }
               }

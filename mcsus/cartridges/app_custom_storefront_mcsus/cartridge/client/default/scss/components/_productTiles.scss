@@ -131,6 +131,8 @@
       font-size: rem(16);
       font-weight: 500;
       font-family: $font-medium;
+      height: rem(44);
+      overflow: hidden;
       @include media-breakpoint-down(md){
         font-size: rem(14);
       }

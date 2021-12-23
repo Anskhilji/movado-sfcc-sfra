@@ -1,4 +1,4 @@
-<div class="image-container">
+<div class="image-container ${!pdict.display.isNonWatchesTileEnable ? 'jewellary-tile-height' : ''}">
     <!-- First two conditions are for PLP and the last is applicable on PDP -->
     <isif condition="${(product.defaultVariantAvailabilityStatus === 'IN_STOCK' && pdict.display.plpTile === true)}">
         <isloop items="${product.defaultVariantBadges.imageBadges}" var="imageBadge" status="loopStatus">
