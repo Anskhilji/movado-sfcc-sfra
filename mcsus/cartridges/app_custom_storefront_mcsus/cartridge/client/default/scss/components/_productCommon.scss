@@ -43,6 +43,8 @@
         font-size: rem(40);
         font-family: $font-bold;
         font-weight: bold;
+        margin-bottom: rem(17);
+
         @include media-breakpoint-down(xs) {
             font-size: rem(30);
         }
@@ -52,6 +54,8 @@
         font-size: rem(16);
         font-weight: 500;
         font-family: $font-medium;
+        letter-spacing: rem(0);
+        opacity: 0.5;
         color: $grayish-blue;
 
         @include media-breakpoint-down(md) {

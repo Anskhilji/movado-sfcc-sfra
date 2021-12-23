@@ -26,6 +26,8 @@
     
         .callout {
             font-family: $font-medium;
+            color: $light-red;
+            letter-spacing: rem(0);
             font-weight: 500;
             font-size: rem(16);
             padding-top: rem(30);
@@ -47,7 +49,8 @@
                 justify-content: space-between;
                 align-items: center;
                 margin-bottom: rem(0);
-             }
+            }
+
             .add-to-cart {
                 font-family: $font-medium;
                 font-weight: 500;
@@ -73,6 +76,7 @@
                     margin-bottom: rem(16);
                 }
             }
+            
             .apple-pay-pdp  {
                 font-family: $font-medium;
                 font-weight: 500;
