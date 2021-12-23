@@ -116,6 +116,24 @@
             padding: rem(0) rem(10);
         }
     }
+    &.promo-callout-wrapper-icon {
+        .callout {
+            position: relative;
+            padding-left: rem(33);
+            &::before {
+                position: absolute;
+                background-image: url("../../images/callout-promo-icon.svg");
+                content: '';
+                position: absolute;
+                left: rem(0);
+                background-size: contain;
+                width: rem(25);
+                height: rem(25);
+                top: rem(30);
+                background-repeat: no-repeat;
+            }
+        }
+    }
 }
 
 .social-icons {

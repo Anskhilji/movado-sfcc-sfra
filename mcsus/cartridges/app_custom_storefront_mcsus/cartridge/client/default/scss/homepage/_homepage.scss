@@ -732,3 +732,18 @@
     }
   }
 }
+
+.carousel-slick-icon-dots {
+  .slick-dots {
+    li {
+    margin-right: rem(17);
+    }
+  }
+  .yotpo{
+    .yotpo-bottomline {
+      .yotpo-icon-star {
+        color: $amber;
+      }
+    }
+  }  
+}

@@ -196,6 +196,18 @@ h1 {
           justify-content: center;
           box-shadow: none;
           border: none;
+          @include media-breakpoint-down(md) {
+           flex-direction: column;
+           justify-content: center;
+        }
+          .yotpo-regular-box {
+            .yotpo-bottomline-box-2 {
+              @include media-breakpoint-down(md) {
+                display: none;
+            }
+            }
+          }
+
         }
 
         .yotpo-small-box {
@@ -207,6 +219,11 @@ h1 {
           & > div.yotpo-active {
             margin-left: rem(45);
             margin-right: rem(51);
+
+            @include media-breakpoint-down(md) {
+              margin-left: rem(10);
+              margin-right: rem(10);
+            }
           }
 
           .yotpo-header {
@@ -225,6 +242,13 @@ h1 {
               padding: rem(30) rem(50);
               margin-left: auto;
               margin-right: auto;
+              @include media-breakpoint-down(md) {
+                background-color: transparent;
+                box-shadow: none;
+                border-bottom: rem(1) solid $grey10;
+                border-top: none;
+                padding: rem(0);
+              }
 
               .yotpo-header-element  {
 
@@ -347,13 +371,22 @@ h1 {
                   }
                 }
               }
+              .yotpo-star-distribution-content {
+                @include media-breakpoint-down(md) {
+                  display: none;
+                }
+              }
             }
           }
           .yotpo-bottomline-box-1 {
             display: flex;
             align-items: center;
             margin-right: rem(100);
-
+            
+            @include media-breakpoint-down(md) {
+              justify-content: center;
+              width: 100%;
+            }
             .yotpo-stars {
               .yotpo-icon {
                 &.yotpo-icon-star:nth-child(1),

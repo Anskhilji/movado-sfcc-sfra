@@ -1,0 +1,27 @@
+<isif condition="${slotcontent && !!slotcontent.content.length}">
+  <div class="mcs-redesign mcs-product-carousel carousel-slick-icon-dots">
+      <div class="container mcs-product-carousel-container custom-conntainer-pdp">
+        <div class="row mcs-product-carousel-row">
+          <div class="col-12 mcs-product-carousel-column">
+            <div class="cs-carousel-wrapper">
+              <isif condition="${slotcontent.custom.carouselTitle}">
+                <h3 class="carousel-title ${slotcontent.custom.isCarouselTitleLeftAligned ? 'carousel-title-center-align' : 'text-center'}">${slotcontent.custom.carouselTitle}</h3>
+              </isif>
+              <div class="js-carousel cs-carousel" data-carousel-config="${slotcontent.custom.carouselConfig ? slotcontent.custom.carouselConfig.replace(/[\n\s]/gi, '') : ''}">
+                <isloop items="${slotcontent.content}" var="product">
+                    <div class="carousel-tile">
+                      <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true)}"/>
+                    </div>
+                </isloop>
+              </div>
+              <isif condition="${slotcontent.custom.bottomSectionCarousel}">
+                <div class="bottom-section">
+                  <isprint value="${slotcontent.custom.bottomSectionCarousel}" encoding="off" />
+                </div>
+              </isif>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</isif>
