@@ -1,12 +1,11 @@
-<div class="form-check panel-heading py-3" data-method-id="${paymentOption.ID}">
-    <div class="panel-title" tabindex="0">
-     <input type='radio' id="${paymentOption.ID}" name='paymentOption' class="form-check-input accordion-link" value='${paymentOption.ID}' required />
+
+     <button type='button' id="${paymentOption.ID}" name='paymentOption' class="nav-link"
+      data-bs-toggle="pill" data-bs-target="#applepay-content" role="tab" aria-controls="applepay-content"
+      aria-selected="false">
             <label for="${paymentOption.ID}" class="form-check-label d-block" >
               <img src="${URLUtils.staticURL('/images/apple-pay-logo.png')}" alt="${Resource.msg('checkout.applepay.logo.text', 'checkout', null)}"/>
             </label>
-        <a class="applepay-panel" data-toggle="collapse" aria-controls="applepay-content" href="${'#' + 'applepay-content'}">
-        </a>
-     </div>
-</div>
+    </button>
+
 
 

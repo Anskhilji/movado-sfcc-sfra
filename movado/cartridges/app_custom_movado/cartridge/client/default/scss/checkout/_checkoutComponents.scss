@@ -360,6 +360,36 @@ $stored-payment-spacing: rem(16);
     padding-bottom: 0;
   }
   .payment-information {
+     
+   .payment-options {
+      .nav-item {
+        margin-right: rem(25);
+      }
+      .nav-link{
+        box-sizing: border-box;
+        height: 45px;
+        width: 120px;
+        border: 2px solid #000000;
+        border-radius: 3px;
+        background-color: #FFFFFF;
+      }
+      .credit-card-label {
+        height: 24px;
+        width: 85px;
+        color: #000000;
+        font-family: "Futura PT";
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        line-height: 24px;
+        text-align: center;
+      }
+   }
+   
+
+
+
+
     .panel {
       padding-right: rem(10);
       padding-left: rem(10);

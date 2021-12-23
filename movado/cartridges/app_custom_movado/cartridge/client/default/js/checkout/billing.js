@@ -358,6 +358,34 @@ module.exports = {
         });
     },
 
+
+    paymentOptions: function () {
+        $('.payment-options .nav-link').on('click', function () {
+           
+
+        $('.payment-options .nav-link').removeClass('active');
+
+        $('.payment-options .nav-link').attr('aria-selected','false');
+        $('.tab-content-payment-options .tab-pane').removeClass('active');
+        $('.tab-content-payment-options .tab-pane').removeClass('show');
+        var  $activeTab = $(this).attr('aria-controls');
+        $('.tab-content-payment-options .tab-pane').each(function() {
+ 
+            var tabContentId = $(this).attr('id');
+            if (tabContentId === $activeTab) {
+                $(this).addClass('active');
+                $(this).addClass('show');
+                break;
+            }
+        });
+                     
+        });
+    },
+
+
+
+
+
     restrictNumbers: function() {
         $('#holderName').keyup(function () {
             this.value = this.value.replace(/[^a-z|A-Z ]+(?: [a-z|A-Z ]+)*$/g,'');

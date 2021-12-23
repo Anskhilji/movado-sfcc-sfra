@@ -1,12 +1,10 @@
-<div class="form-check panel-heading py-3" data-method-id="${paymentOption.ID}">
-    <div class="panel-title" tabindex="0">
-     <input type='radio' id="${paymentOption.ID}" name='paymentOption' class="form-check-input accordion-link" value='${paymentOption.ID}' required />
+
+     <button type='button' id="${paymentOption.ID}" name='paymentOption' class="nav-link" 
+      data-bs-toggle="pill" data-bs-target="#googlepay-content" role="tab" aria-controls="googlepay-content"
+      aria-selected="false">
             <label for="${paymentOption.ID}" class="form-check-label d-block" >
               <img src="${URLUtils.staticURL('/images/google-pay-logo.png')}" alt="${Resource.msg('payment.name', 'googlePay', null)}"/>
             </label>
-            <a class="googlepay-panel" data-toggle="collapse" aria-controls="googlepay-content" href="${'#' + 'googlepay-content'}">
-        </a>
-     </div>
-</div>
+      </button>
 
 
