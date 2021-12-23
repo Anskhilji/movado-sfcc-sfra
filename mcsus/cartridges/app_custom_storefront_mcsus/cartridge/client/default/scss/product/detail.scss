@@ -81,7 +81,7 @@
                 font-family: $font-medium;
                 font-weight: 500;
                 background: $grey14;
-                border-radius: rem(3);    
+                border-radius: rem(3);
                 color: $white;
                 font-size: rem(16);
                 letter-spacing: rem(2);
@@ -102,6 +102,16 @@
                 }
             }
         } 
+    }
+
+    &.custom-conntainer-pdp {
+        max-width: 100%;
+        width: 100%;
+        padding: rem(0) rem(52) rem(0) rem(118);
+        
+        @include media-breakpoint-down(md) {
+            padding: rem(0) rem(10);
+        }
     }
 }
 

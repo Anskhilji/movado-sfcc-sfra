@@ -2,7 +2,7 @@
     <isif condition="${!pdict.isCompareableDisabled}">
         <isif condition="${product.attributes && product.attributes.length}">
             <hr/>
-            <div class="row product-attributes collapsible-sm extra-space-top1">
+            <div class="row product-attributes extra-space-top1 justify-between-wrapper">
                 <isinclude template="product/components/detailsAttributes" />
             </div>
         </isif>

@@ -1,6 +1,16 @@
 @import "~movado/components/_productCommon";
 @import "../variables";
 
+.container {
+    &.custom-conntainer-pdp {
+        max-width: 100%;
+        width: 100%;
+        padding: rem(0) rem(52) rem(0) rem(118);
+        @include media-breakpoint-down(md) {
+            padding: rem(0) rem(10);
+        }
+    }
+}
 
 .description-and-detail .attribute {
 
@@ -15,11 +25,11 @@
         }
     }
     &-detail {
-        margin-left: rem(26.2);
-        margin-top: rem(7);
+        margin-left: rem(0);
+        margin-top: rem(0);
         @include media-breakpoint-down(xs) {
             margin-left: rem(0);
-            margin-top: rem(7);
+            margin-top: rem(0);
         }
     }
 
@@ -240,8 +250,35 @@
     .extra-space-top1 {
         margin: rem(50) 0 rem(53);
     }
+    .justify-between-wrapper {
+        justify-content: space-between;
+    }
+    .details-box-container {
+        margin-left: auto;
+        max-width: rem(468.32);
+        @include media-breakpoint-down(md) {
+           margin: auto;
+        } 
+    }
+
+    .details-btn-box {
+        font-size: rem(30);
+        color: $black1;
+        font-family: $font-bold;
+        margin-bottom: rem(30);
+        line-height: rem(67);
+
+        @include media-breakpoint-down(md) {
+            text-align: center;
+        } 
+    }
     .mx-product-img-wrapper {
         max-width: rem(400);
+
+        @include media-breakpoint-down(md) {
+            margin: auto;
+            margin-bottom: rem(32);
+        }
     }
     .space-wrapper-mobile {
         @include media-breakpoint-down(xs) {
