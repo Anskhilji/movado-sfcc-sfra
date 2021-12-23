@@ -77,6 +77,10 @@
         height: rem(280);
         overflow: hidden;
       }
+      &.jewellary-tile-height {
+        height: rem(320);
+        overflow: hidden;
+      }
     }
   
     .tile-body {
@@ -336,7 +340,7 @@
     }
   
     .product-tag-content {
-      height: rem(21);
+      height: rem(25);
       margin-bottom: rem(10);
   
       .badge {
