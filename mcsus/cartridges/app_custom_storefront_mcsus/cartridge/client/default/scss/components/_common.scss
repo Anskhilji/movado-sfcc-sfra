@@ -225,6 +225,34 @@ h1 {
               padding: rem(30) rem(50);
               margin-left: auto;
               margin-right: auto;
+
+              .yotpo-header-element  {
+
+                .yotpo-user-name {
+                  position: absolute;
+                  top: rem(165);
+                  bottom: rem(0);
+                  color: $grayish-blue;
+                  font-family: $font-medium;
+                  font-size: rem(16);
+                  font-weight: 500;
+                  letter-spacing: 0;
+                  line-height: rem(25);
+                  margin-top: rem(15);
+                }
+
+                .yotpo-user-title {
+                  position: absolute;
+                  top: rem(204);
+                  bottom: rem(0);
+                  color: rgba(0, 0, 0, 0.4);
+                  font-family: $font-user;
+                  font-size: rem(12);
+                  font-weight: 300;
+                  letter-spacing: rem(0.6);
+                }
+              }
+
             }
 
             .yotpo-review-date {
@@ -232,12 +260,17 @@ h1 {
             }
 
             .yotpo-main {
+                margin-top: rem(0);
+                margin-bottom: rem(0);
+
               .content-title {
                 color: $grayish-blue;
                 font-family: $font-medium;
                 font-size: rem(24);
                 font-weight: 500;
-                letter-spacing: 0;
+                letter-spacing: 0; 
+                padding-top: rem(15);
+                padding-bottom: rem(15);
               }
 
               .content-review {
@@ -247,24 +280,6 @@ h1 {
                 font-size: rem(16);
                 letter-spacing: 0;
                 margin-top: rem(15);
-              }
-
-              .yotpo-user-name {
-                color: $grayish-blue;
-                font-family: $font-medium;
-                font-size: rem(16);
-                font-weight: 500;
-                letter-spacing: 0;
-                line-height: rem(25);
-                margin-top: rem(15);
-              }
-
-              .yotpo-user-title {
-                color: rgba(0, 0, 0, 0.4);
-                font-family: $font-user;
-                font-size: rem(12);
-                font-weight: 300;
-                letter-spacing: rem(0.6);
               }
             }
           }
@@ -531,6 +546,8 @@ h1 {
     .yotpo-header {
       .yotpo-icon-profile {
         display: none !important;
+        height: rem(0) !important;
+        width: rem(0) !important
       }
     }
   }
