@@ -1,7 +1,5 @@
 <isif condition="${product.pdpAttributesList && product.pdpAttributesList.length}">
-    <h2 class="col-sm-12 col-md-12 col-lg-12 detail-heading">
-      <h3 class="col-sm-12 col-md-12 col-lg-12 details-btn-box">${product.resources.Details}</h3>
-    </h2>
+      <h3 class="col-sm-12 col-md-12 col-lg-12 details-btn-box p-0">${product.resources.Details}</h3>
     <div class="col-sm-12 col-md-12 col-lg-5 mx-product-img-wrapper">
         <div class="mx-product-img-wrapper">
             <isif condition="${product && product.images['pdp700'].length > 0}">

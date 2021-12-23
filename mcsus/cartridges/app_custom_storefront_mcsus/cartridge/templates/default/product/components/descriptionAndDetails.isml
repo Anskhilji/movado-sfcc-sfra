@@ -1,4 +1,4 @@
-<div class="description-and-detail">
+<div class="description-and-detail pdp-description-wrapper">
     <isif condition="${!pdict.isCompareableDisabled}">
         <isif condition="${product.attributes && product.attributes.length}">
             <hr/>
@@ -15,6 +15,6 @@
     </isif>
 
     
-    <hr />
+    <hr class="pdp-spce-bottom" />
 </div>
 
