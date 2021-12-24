@@ -212,13 +212,13 @@ h1 {
 
         .yotpo-small-box {
           border: none;
-          display: none;
         }
 
         .yotpo-nav-content {
           & > div.yotpo-active {
             margin-left: rem(45);
             margin-right: rem(51);
+            margin-top: rem(53);
 
             @include media-breakpoint-down(md) {
               margin-left: rem(10);
@@ -324,12 +324,35 @@ h1 {
             .yotpo-icon-btn {
               display: block;
               padding: rem(6) rem(11);
+              position: absolute;
               left: 50%;
-              top: 65%;
               z-index: 11;
-              transform: translate(-335%, 647%);
+              transform: translate(-50%, 375%);
               margin: auto;
+              height: rem(45);
+              width: rem(200);
+              background-color: $white;
+              border: rem(1) solid #000000;
+              border-radius: rem(5);
+
+              .yotpo-icon-button-text {
+                color: $black1;
+                font-family: $font-medium;
+                font-size: rem(16);
+                font-weight: 500;
+                letter-spacing: rem(0);
+                line-height: rem(30);
+                text-align: center;
+                text-transform: capitalize;
+              }
+
             }
+          }
+        }
+
+        .yotpo-nav {
+          &.yotpo-nav-primary {
+            display: none;
           }
         }
 
@@ -339,8 +362,13 @@ h1 {
               border: none;
 
               &-content {
+                width: rem(440) !important;
+
                 .yotpo-distibutions-stars {
+                  
                   .review-stars {
+                    margin-bottom: rem(12) !important;;
+
                     .yotpo-icon {
                       &.yotpo-icon-star {
                         &.pull-left {
@@ -354,9 +382,19 @@ h1 {
                   }
                 }
 
+                .yotpo-distibutions-sum-reviews {
+                  .yotpo-sum-reviews  {
+                    margin-bottom: rem(10) !important;
+                  }
+                }
+
                 .yotpo-distributions-graphs {
+            
                   .yotpo-star-distribution-graph {
                     width: rem(325) !important;
+                    height: rem(8) !important;
+                    border-radius: rem(5);
+                    margin-bottom: rem(20) !important;
 
                     &-background {
                       height: rem(6);
@@ -366,10 +404,13 @@ h1 {
                     }
 
                     &-score {
+                      height: rem(6);
+                      width: rem(325);
+                      border-radius: rem(5);
                       background-color: $black;
                     }
                   }
-                }
+                }      
               }
               .yotpo-star-distribution-content {
                 @include media-breakpoint-down(md) {
@@ -450,7 +491,10 @@ h1 {
   .yotpo-label {
     &.yotpo-small-box {
       padding: rem(0);
-      display: none;
+
+      .yotpo-logo-link-new {
+        display: none;
+      }
     }
   }
 }
