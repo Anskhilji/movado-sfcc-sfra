@@ -25,7 +25,7 @@
             }
 
             .main-ob-carousel {
-                padding: rem(10) rem(40) 0;
+                padding: 0 rem(40) 0;
 
                 @include media-breakpoint-up(lg) {
                     padding-left: rem(100);
@@ -83,7 +83,7 @@
                             width: rem(88);
                             margin-top: 0;
                             position: absolute;
-                            top: 0;
+                            top: 7%;
                             left: rem(43);
                             display: block;
                             background: transparent;
@@ -168,6 +168,9 @@
                         outline: none;
                         width: rem(24.96);
                         height: rem(24.96);
+                        top: 50%;
+                        transform: translateY(-50%);
+                        border-radius: rem(12);
 
                         @include media-breakpoint-up(lg) {
                             width: rem(76);
@@ -826,7 +829,11 @@
             top: 47%;
             left: -34%;
             margin-left: 0;
-            
+
+            &:focus {
+                box-shadow: none;
+            }
+
             @include media-breakpoint-down(md) {
                 transform: translate(-434%, 328%);
                 left: 0%;

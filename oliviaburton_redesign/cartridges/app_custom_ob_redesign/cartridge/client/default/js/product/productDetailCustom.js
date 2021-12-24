@@ -38,6 +38,7 @@ module.exports = {
     
     primarySlider: function () {
         $('.primary-images .main-ob-carousel').slick({
+            lazyLoad: 'ondemand',
             slidesToShow: 1,
             slidesToScroll: 1,
             dots: true,
@@ -49,5 +50,18 @@ module.exports = {
                 return '<button class="tab"> <img  src="'+ thumb +'" /> </button>';
             },
         });
+
+        $(document).on('beforeChange', '.primary-images .main-ob-carousel', function (event, slick, currentSlide, nextSlide) {
+            var nextSlide = slick.$slides.get(nextSlide);
+            var $slideSourceSets = $(nextSlide).find('source');
+            if ($slideSourceSets.length) {
+                var $slideImage = $(nextSlide).find('img');
+                $slideImage.attr('src', $($slideSourceSets[0]).data('lazy'))
+            }
+            $($slideSourceSets).each(function () {
+                $(this).attr('srcset', $(this).data('lazy'));
+            });
+        });
+
     },
 }
