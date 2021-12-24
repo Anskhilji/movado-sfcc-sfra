@@ -18,6 +18,7 @@
         font-family: $font-medium;
         font-size: rem(16);
         font-weight: 500;
+        letter-spacing: rem(0);
     
         @include media-breakpoint-down(xs) {
             font-size: rem(14);
@@ -119,13 +120,15 @@
     &.promo-callout-wrapper-icon {
         .callout {
             position: relative;
-            padding-left: rem(33);
+            padding-left: rem(65);
+            display: flex;
+            letter-spacing: rem(0);
             &::before {
                 position: absolute;
                 background-image: url("../../images/callout-promo-icon.svg");
                 content: '';
                 position: absolute;
-                left: rem(0);
+                left: 2rem;
                 background-size: contain;
                 width: rem(25);
                 height: rem(25);

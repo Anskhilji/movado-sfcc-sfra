@@ -20,8 +20,10 @@
         font-size: rem(24);
         margin-bottom: rem(10);
         color: $black1;
+        letter-spacing: rem(0);
         @include media-breakpoint-down(xs) {
             font-size: rem(20);
+            letter-spacing: rem(0);
         }
     }
     &-detail {
@@ -42,6 +44,7 @@
         color: $black1;
         @include media-breakpoint-down(xs) {
             font-size: rem(16);
+            letter-spacing: rem(0);
         }
     }
 }
@@ -54,6 +57,7 @@
         font-family: $font-bold;
         font-weight: bold;
         margin-bottom: rem(17);
+        letter-spacing: rem(0);
 
         @include media-breakpoint-down(xs) {
             font-size: rem(30);
@@ -97,6 +101,7 @@
         font-family: $font-medium;
         font-weight: 500;
         font-size: rem(20);
+        letter-spacing: rem(0);
 
         @include media-breakpoint-down(xs) {
             font-size: rem(20);
@@ -128,12 +133,15 @@
                   &:last-child {
                       a {
                          color: $light-grey4;
+                         font-family: $font-regular;
+                         letter-spacing: rem(0);
                         }
                     }
 
                   a {
                     font-size: rem(16);
                     letter-spacing: rem(0);
+                    font-family: $font-regular;
                     color: $blue2;
                   }
                 }
@@ -178,6 +186,7 @@
         
             @include media-breakpoint-down(xs) {
                 text-align: center;
+                font-size: rem(14);
             }
         }
         .prices {
@@ -272,8 +281,10 @@
         font-size: rem(30);
         color: $black1;
         font-family: $font-bold;
+        font-weight: bold;
         margin-bottom: rem(30);
         line-height: rem(67);
+        letter-spacing: rem(0);
 
         @include media-breakpoint-down(md) {
             text-align: center;

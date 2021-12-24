@@ -177,6 +177,10 @@ h1 {
     font-weight: bold;
     letter-spacing: rem(0);
     text-align: center;
+
+    @include media-breakpoint-down(xs) {
+      font-size: rem(30);
+    }
   }
 
   .yotpo {
@@ -295,15 +299,23 @@ h1 {
                 letter-spacing: 0; 
                 padding-top: rem(15);
                 padding-bottom: rem(15);
+
+                @include media-breakpoint-down(xs) {
+                  font-size: rem(20);
+                }
               }
 
               .content-review {
                 color: $grayish-blue;
                 font-family: $font-medium;
-                font-weight: 400;
+                font-weight: 500;
                 font-size: rem(16);
                 letter-spacing: 0;
                 margin-top: rem(15);
+
+                @include media-breakpoint-down(xs) {
+                  font-size: rem(14);
+                }
               }
             }
           }
@@ -334,6 +346,10 @@ h1 {
               background-color: $white;
               border: rem(1) solid #000000;
               border-radius: rem(5);
+              font-family: $font-medium;
+              font-size: 16px;
+              font-weight: 500;
+              letter-spacing: 0;
 
               .yotpo-icon-button-text {
                 color: $black1;
@@ -565,6 +581,10 @@ h1 {
       font-weight: 500;
       font-size: rem(14);
       margin-right: rem(50);
+
+      @include media-breakpoint-down(xs) {
+        font-size: rem(12);
+      }
     }
   }
   .yotpo-icon-btn {
