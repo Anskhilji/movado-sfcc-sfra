@@ -4,10 +4,8 @@
     <isset name="show" value="show" scope="page"/>      
 <iselse/>
     <isset name="show" value="" scope="page"/>
-</isif>
-
-<div class="panel-collapse collapse" id="klarna-slice-it-content" data-parent="#accordion">
-    <div class="panel-body">
-        <div class="mb-3">${Resource.msg('hpp.klarna.slice.it.description', 'hpp', null)}</div>
-    </div>
+</isif>    
+<div class="panel-body">
+    <div class="mb-3">${Resource.msg('hpp.klarna.slice.it.description', 'hpp', null)}</div>
 </div>
+
