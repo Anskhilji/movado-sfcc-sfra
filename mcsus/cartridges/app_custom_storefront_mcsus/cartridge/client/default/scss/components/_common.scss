@@ -338,7 +338,7 @@ h1 {
               padding: rem(6) rem(11);
               position: absolute;
               left: 50%;
-              z-index: 11;
+              z-index: 0;
               transform: translate(-50%, 375%);
               margin: auto;
               height: rem(45);
@@ -350,6 +350,7 @@ h1 {
               font-size: 16px;
               font-weight: 500;
               letter-spacing: 0;
+              margin-top: rem(40);
 
               .yotpo-icon-button-text {
                 color: $black1;
@@ -379,6 +380,7 @@ h1 {
 
               &-content {
                 width: rem(440) !important;
+                margin-bottom: rem(0) !important;
 
                 .yotpo-distibutions-stars {
                   

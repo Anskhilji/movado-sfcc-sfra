@@ -27,6 +27,11 @@
 
     .promotions {
         font-weight: 500;
+        justify-content: start;
+        @include media-breakpoint-down(xs) {
+            display: flex;
+            justify-content: center;
+        }
     
         .callout {
             font-family: $font-medium;
@@ -95,12 +100,28 @@
                 height: initial;
                 margin-bottom: rem(0);
 
-                @include media-breakpoint-up (md) {
+                @include media-breakpoint-up (custom-md) {
                     width: rem(176);
                 }
                 @include media-breakpoint-up (lg) {
                     width: rem(222);
                 }
+                @include media-breakpoint-down (sm) {
+                    width: 100%;
+                }
+            }
+            .btn {
+                
+                @include media-breakpoint-up (custom-md) {
+                    width: rem(176);
+                }
+                @include media-breakpoint-up (lg) {
+                    width: rem(222);
+                }
+                @include media-breakpoint-up (xl) {
+                    width: rem(254.4);
+                }
+
                 @include media-breakpoint-down (sm) {
                     width: 100%;
                 }
@@ -120,7 +141,7 @@
     &.promo-callout-wrapper-icon {
         .callout {
             position: relative;
-            padding-left: rem(65);
+            padding-left: rem(36);
             display: flex;
             letter-spacing: rem(0);
             &::before {
@@ -128,7 +149,7 @@
                 background-image: url("../../images/callout-promo-icon.svg");
                 content: '';
                 position: absolute;
-                left: 2rem;
+                left: rem(0);
                 background-size: contain;
                 width: rem(25);
                 height: rem(25);
@@ -309,7 +330,7 @@
             overflow: hidden;
 
             .carousel-tile {
-                background-color: $white-smoke4;
+                // background-color: $white-smoke4;
                 display: inherit !important;
             }
             img {
