@@ -9,7 +9,7 @@
             <isinclude template="product/components/newnessBadge" />
         </isif>
     </div>
-    <isscript>
+    <iscomment> <isscript>
          var primaryImageCarouselConfig = {
         "slidesToShow": 1,
         "slidesToScroll": 1,
@@ -30,7 +30,7 @@
         ],
       }
       
-    </isscript>
+    </isscript> </iscomment>
     
     <div class="cs-carousel-wrapper">
         <div class="js-carousel cs-carousel main-ob-carousel">
