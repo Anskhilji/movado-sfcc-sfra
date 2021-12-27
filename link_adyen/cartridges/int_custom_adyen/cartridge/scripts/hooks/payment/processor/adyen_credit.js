@@ -149,9 +149,7 @@ function Authorize(orderNumber, paymentInstrument, paymentProcessor) {
             };
         }
         // Save full response to transaction custom attribute
-        // Custom Start: MSS-1663 Commented code which was saving the CC infomration in logs
-        // paymentInstrument.paymentTransaction.custom.Adyen_log = JSON
-        //     .stringify(result);
+        // Custom Start: MSS-1663 Removed code which was saving the CC infomration in paymentTransaction custom attribute 'Adyen_log'
         // Custom End
         paymentInstrument.paymentTransaction.transactionID = result.PspReference;
         paymentInstrument.paymentTransaction.paymentProcessor = paymentProcessor;
@@ -207,9 +205,7 @@ function Authorize(orderNumber, paymentInstrument, paymentProcessor) {
         order.custom.Adyen_paymentMethod = result.AdyenCardType;
     }
     // Save full response to transaction custom attribute
-    // Custom Start: MSS-1663 Commented code which was saving the CC infomration in logs
-    // paymentInstrument.paymentTransaction.custom.Adyen_log = JSON
-    //     .stringify(result);
+    // Custom Start: MSS-1663 Removed code which was saving the CC infomration in paymentTransaction custom attribute 'Adyen_log'
     // Custom End
     paymentInstrument.paymentTransaction.transactionID = result.PspReference;
     paymentInstrument.paymentTransaction.paymentProcessor = paymentProcessor;
