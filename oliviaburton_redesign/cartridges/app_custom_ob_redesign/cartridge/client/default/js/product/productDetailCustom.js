@@ -37,14 +37,14 @@ module.exports = {
     },
     
     primarySlider: function () {
+
+        
         $('.primary-images .main-ob-carousel').slick({
             lazyLoad: 'ondemand',
             slidesToShow: 1,
             slidesToScroll: 1,
             dots: true,
             arrows:true,
-            focusOnSelect: true,
-            fade: true,
             customPaging: function (slick, index) {
                 var thumb = $(slick.$slides[index]).find('.carousel-tile').attr('data-thumb');
                 return '<button class="tab"> <img  src="'+ thumb +'" /> </button>';
@@ -56,11 +56,8 @@ module.exports = {
             var $slideSourceSets = $(nextSlide).find('source');
             if ($slideSourceSets.length) {
                 var $slideImage = $(nextSlide).find('img');
-                $slideImage.attr('src', $($slideSourceSets[0]).data('lazy'))
+                $slideImage.attr('data-lazy', $($slideSourceSets[0]).data('lazy'));
             }
-            $($slideSourceSets).each(function () {
-                $(this).attr('srcset', $(this).data('lazy'));
-            });
         });
 
     },

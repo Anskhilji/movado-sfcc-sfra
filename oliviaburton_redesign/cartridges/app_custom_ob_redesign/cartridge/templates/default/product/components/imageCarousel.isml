@@ -38,10 +38,10 @@
             <isloop items="${product.images['zoom1660']}" var="image" status="loopStatus">
                 <div class="carousel-tile" data-thumb="${!empty(product.images) && !empty(product.images.tile156[loopStatus.count - 1]) && product.images.tile156[loopStatus.count - 1].url ? product.images.tile156[loopStatus.count - 1].url : ''}">
                     <picture>
-                        <source srcset="${product.images.zoom1660[loopStatus.count - 1].url}" media="(min-width: 992px)" data-lazy="${product.images.zoom1660[loopStatus.count - 1].url}" />
-                        <source srcset="${product.images.zoom1660[loopStatus.count - 1].url}" media="(min-width: 544px)" data-lazy="${product.images.zoom1660[loopStatus.count - 1].url}" />
-                        <source srcset="${product.images.zoom1660[loopStatus.count - 1].url}" media="(min-width: 320px)" data-lazy="${product.images.zoom1660[loopStatus.count - 1].url}" />
-                        <img class="normal-zoom" src="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count - 1]) && !empty(product.images.zoom1660[loopStatus.count - 1].url) ? product.images.zoom1660[loopStatus.count - 1].url : ''}" loading="lazy" alt="${image.alt}" itemprop="image"
+                        <source media="(min-width: 992px)" data-lazy="${product.images.zoom1660[loopStatus.count - 1].url}" />
+                        <source media="(min-width: 544px)" data-lazy="${product.images.zoom1660[loopStatus.count - 1].url}" />
+                        <source media="(min-width: 320px)" data-lazy="${product.images.zoom1660[loopStatus.count - 1].url}" />
+                        <img class="normal-zoom" loading="lazy" data-lazy="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count - 1]) && !empty(product.images.zoom1660[loopStatus.count - 1].url) ? product.images.zoom1660[loopStatus.count - 1].url : ''}"  alt="${image.alt}" itemprop="image"
                             data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom830[loopStatus.count - 1]) && !empty(product.images.zoom830[loopStatus.count - 1].url) ? product.images.zoom830[loopStatus.count - 1].url : ''}"
                             data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count - 1]) && !empty(product.images.zoom1660[loopStatus.count - 1].url) ? product.images.zoom1660[loopStatus.count - 1].url : ''}" />
                     </picture>
