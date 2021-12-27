@@ -640,6 +640,9 @@
                 font-size: rem(15);
                 line-height: rem(20);
             }
+            @include media-breakpoint-down(md) {
+                line-height: rem(16);
+            }
 
             li {
                 text-transform: capitalize !important;
