@@ -50,6 +50,10 @@
 }
 
 .product-detail {
+
+    #zoomProduct {
+        overflow: auto !important;
+    }
     @import "../product/imageCarousel";
 
     .product-name {

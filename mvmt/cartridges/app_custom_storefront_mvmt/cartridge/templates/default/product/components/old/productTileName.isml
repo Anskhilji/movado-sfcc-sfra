@@ -1,27 +1,17 @@
 <isif condition="${!('display' in pdict && 'showName' in pdict.display && pdict.display.showName == false)}">
-<div class="pdp-link" itemprop="name">
-    <iscomment> Custom: [added just a plp check here] </iscomment>
-    <isif condition="${!pdict.display.plpTile}">
-        <isif condition="${product.productName.length > 60}">
-            <a class="link product-name truncate-text-sm" href="${pdict.urls.product}" itemprop="url">${product.productName.length > 30? product.productName.substring(0,25)+'...': product.productName}</a>
-            <a class="link product-name truncate-text-md" href="${pdict.urls.product}" itemprop="url">${product.productName.length > 30? product.productName.substring(0,35)+'...': product.productName}</a>
-            <a class="link product-name truncate-text-lg" href="${pdict.urls.product}" itemprop="url">${product.productName.length > 50? product.productName.substring(0,35)+'...': product.productName}</a>
-            <a class="link product-name truncate-text-xl" href="${pdict.urls.product}" itemprop="url">${product.productName.length > 50? product.productName.substring(0,50)+'...': product.productName}</a>
-        <iselse/>
-            <a class="link product-name" href="${pdict.urls.product}" itemprop="url">${product.productName}</a>
-        </isif>    
-    <iscomment> Custom: Start [added this code for plp either it is master product or not] </iscomment>
-    <iselseif condition="${product.productType != 'master' || !product.defaultVariant}">
-        <isif condition="${product.productName.length > 0}">
-            <a class="link product-name truncate-text-sm" href="${pdict.urls.product}" itemprop="url">${product.productName.length > 30? product.productName.substring(0,25)+'...': product.productName}</a>
-            <a class="link product-name truncate-text-md" href="${pdict.urls.product}" itemprop="url">${product.productName.length > 30? product.productName.substring(0,35)+'...': product.productName}</a>
-            <a class="link product-name truncate-text-lg" href="${pdict.urls.product}" itemprop="url">${product.productName.length > 50? product.productName.substring(0,35)+'...': product.productName}</a>
-            <a class="link product-name truncate-text-xl" href="${pdict.urls.product}" itemprop="url">${product.productName.length > 50? product.productName.substring(0,50)+'...': product.productName}</a>
-        <iselse/>
-            <a class="link product-name" href="${pdict.urls.product}" itemprop="url">${product.productName}</a>
-        </isif>      
-    <iselse>
-        <a class="link product-name" href="${pdict.urls.product}" itemprop="url">${apiProduct.variationModel.defaultVariant.name}</a>
-    </isif>
-</div>
+    <div class="pdp-link" itemprop="name">
+        <iscomment> Custom: [added just a plp check here] </iscomment>
+        <isif condition="${!pdict.display.plpTile}">
+            <isif condition="${product.productName}">
+                <a class="link product-name text-truncate-wrapper" href="${pdict.urls.product}" itemprop="url">${product.productName}</a>
+            </isif>    
+        <iscomment> Custom: Start [added this code for plp either it is master product or not] </iscomment>
+        <iselseif condition="${product.productType != 'master' || !product.defaultVariant}">
+            <isif condition="${product.productName}">
+                <a class="link product-name text-truncate-wrapper" href="${pdict.urls.product}" itemprop="url">${product.productName}</a>
+            </isif>      
+        <iselse>
+            <a class="link product-name text-truncate-wrapper" href="${pdict.urls.product}" itemprop="url">${apiProduct.variationModel.defaultVariant.name}</a>
+        </isif>
+    </div>
 </isif>

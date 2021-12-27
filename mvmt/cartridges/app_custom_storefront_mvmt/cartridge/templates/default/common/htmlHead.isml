@@ -1,4 +1,8 @@
 <meta charset=UTF-8>
+<isscript>
+    var assets = require('*/cartridge/scripts/assets.js');
+    assets.addCss('/css/lib/product-tile-name.css');
+</isscript>
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <isinclude template="/common/oneTrustCookiesScript" sf-toolkit="off" />

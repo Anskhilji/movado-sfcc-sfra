@@ -258,7 +258,7 @@
             width: rem(40);
             height: rem(40);
             outline: none;
-            top: 48%;
+            top: 50%;
             
             @include media-breakpoint-down(lg) {
                 top: 47.5%;
@@ -280,7 +280,7 @@
                 height: rem(30);
             }
             @include custom-media-query1($small-screen-width , $small-screen-width4) {
-                top: 46.6%;
+                top: 44.6%;
             }
         }
 
@@ -289,12 +289,17 @@
                 margin-right: rem(6);
     
                 @include media-breakpoint-down(xs) {
-                    margin-right: rem(20);
+                    margin-right: rem(18);
                 }
                 &:last-child {
                     margin-right: rem(0);
                 }
             }
+        }
+        
+        .cs-carousel {
+            padding-bottom: 0;
+            margin-bottom: rem(24);
         }
     }
 
@@ -305,6 +310,7 @@
 
             .carousel-tile {
                 background-color: $white-smoke4;
+                display: inherit !important;
             }
             img {
 
@@ -359,12 +365,18 @@
 
 .zoom-carousel {
 
-    @include media-breakpoint-down(sm) {
+    @include media-breakpoint-down(lg) {
         position: relative;
         top: 50%;
         transform: translateY(-50%);
     }
 
+    @include media-breakpoint-down(sm) {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+   
     .slick-arrow.slick-next {
         background-image: url("../../images/chevron_right_black_24dp.svg");
         right: 25.5%;
@@ -477,30 +489,31 @@
     }
     .slick-slide {
         img {
-            border:rem(1) solid transparent;
-            border-radius: rem(3);
-        }
-    }
-    .slick-current {
-        img {
-            border-color: $black;
+            border: rem(1) solid transparent;
             border-radius: rem(3);
         }
     }
 }
 
 .carousel-nav {
+    position: relative;
+    margin-top: rem(-39);
+    margin-bottom: rem(15);
 
+    @include media-breakpoint-down(xs) {
+        margin-top: rem(-24.87);
+        margin-bottom: rem(45);
+    }
     .slick-slide {
-        width: rem(100) !important;
-        height: rem(100);
+        width: rem(102) !important;
+        height: rem(102);
         
         @include media-breakpoint-down(xs) {
             width: rem(53) !important;
             height: rem(53);
         }
         .carousel-tile {
-            border: 1px solid transparent;
+            border: rem(1) solid transparent;
             border-radius: rem(3);
             background-color: $white-smoke4;
             
@@ -528,20 +541,25 @@
 .zoom-modal {
 
     .modal-dialog{
-        .carousel-nav-zoom {
+        .zoom-carousel-slider {   
             position: absolute;
             left: rem(30);
             top: 50%;
-            transform: translateY(-30%);
-            width: rem(90);
+            transform: translateY(-50%);
+            margin-top: rem(25) !important;
+            width: rem(102);
             float: left;
             z-index: 9;
-            height: 100%;
             
+            .slick-list {
+                height: auto !important;
+            }
+
             @include media-breakpoint-down(xs) {
                 position: absolute;
                 top: 73vh;
                 width: 100%;
+                margin-top: 0 !important;
                 left: 0 !important;
                 z-index: 9;
                 
@@ -563,17 +581,18 @@
             @include media-breakpoint-up(lg) {
                 left: rem(30);
             }
-            @include media-breakpoint-down(custom-md) {
+            @include media-breakpoint-down(md) {
                 position: absolute;
-                top: 114vh;
+                top: 96vh;
                 width: 100%;
+                margin-top: 0 !important;
                 left: 0 !important;
                 z-index: 9;
                 
                 .slick-list {
 
                     &.draggable {
-                       padding : rem(25) 0;
+                       padding : 0 0 !important;
                     }
                     .slick-track {
                         height: auto !important;
@@ -587,8 +606,9 @@
             }
             @include media-breakpoint-down(sm) {
                 position: absolute;
-                top: 124vh;
+                top: 96vh;
                 width: 100%;
+                margin-top: 0 !important;
                 left: 0 !important;
                 z-index: 9;
                 
@@ -608,29 +628,42 @@
             .slick-slide {
 
             @include custom-media-query1($small-screen-width , $small-screen-width4) {
-                margin-right: rem(18);
+                margin-right: rem(11);
                 width: rem(52) !important;
                 
                 &:last-child {
                     margin-right: rem(0);
                 }
+                .carousel-thumbnail-wrapper {
+                    width: rem(53) !important;
+                }
             }
-            @include media-breakpoint-down(custom-md) {
-                margin-right: rem(18);
+            @include media-breakpoint-down(md) {
+                margin-right: rem(11);
                 width: rem(60) !important;
                 
                 &:last-child {
                     margin-right: rem(0);
                 }
+                .carousel-thumbnail-wrapper{
+                    width: rem(53) !important;
+                }
             }
                 .carousel-tile {
-                    border: 1px solid transparent;
+                    border: rem(1) solid transparent;
                     border-radius: rem(3);
                     background-color: $white-smoke4;
-                    
+
                     img {
                         width: 100%;
                         border-radius: rem(3);
+                    }
+
+                    @include media-breakpoint-down(md) {
+
+                        img {
+                            height: 100%;
+                        }
                     }
                 }
         

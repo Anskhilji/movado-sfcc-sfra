@@ -17,6 +17,7 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
 		var formErrors = require('*/cartridge/scripts/formErrors');
 
 		var registrationForm = server.forms.getForm('profile');
+		var isAccountSignupVerificationEnabled = !empty(Site.current.preferences.custom.isAccountSignupVerificationEnabled) ? Site.current.preferences.custom.isAccountSignupVerificationEnabled : false;
 		// Custom: Start [added the registration limit on this controller]
 		var blockRegistrationOnSalesSites = Site.current.preferences.custom.blockRegistrationOnSalesSites;
 
@@ -40,6 +41,17 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
 				Resource.msg('error.message.mismatch.email', 'forms', null);
 			registrationForm.valid = false;
 		}
+
+        // Custom Start: [Added Honeypot Logic]
+        if (isAccountSignupVerificationEnabled) {
+            if ((!empty(registrationForm.customer.hpemail.htmlValue)) ||
+                (!empty(registrationForm.customer.hpemailconfirm.htmlValue))) {
+                    registrationForm.valid = false;
+            } else {
+                registrationForm.valid = true;
+            }
+        }
+        // Custom End
 
 		if (registrationForm.login.password.value
 			!== registrationForm.login.passwordconfirm.value

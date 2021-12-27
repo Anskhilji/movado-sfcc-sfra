@@ -49,12 +49,6 @@
             </isloop>
         </div>
 
-        <div class="row m-0 adjust-rating-alignment">
-            <div class="col d-flex align-items-center justify-content-around w-100">
-                <isinclude template="product/components/ratings" />
-            </div>
-        </div>
-
         <isset name="price" value="${product.price}" scope="page" />
         <iscomment> Custom: Start [pricing shows only when following requirements meet] </iscomment>
             <isinclude url="${URLUtils.https('Product-ShowMcsProdutPrice', 'pid', product.id)}"/>
@@ -62,6 +56,12 @@
         <isif condition="${!pdict.isCompareableDisabled}"> 
             <isinclude template="product/components/compare" />
         </isif>
+        
+        <div class="row m-0 adjust-rating-alignment">
+            <div class="col d-flex align-items-center justify-content-around w-100">
+                <isinclude template="product/components/ratings" />
+            </div>
+        </div>
         
         <isif condition="${pdict.display.selectBonusProductsButton}">
             <button class="btn btn-block btn-outline-primary select-bonus-product" data-pid="${product.id}" ${outOfStock || !product.available ? "disabled" : "" }>

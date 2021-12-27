@@ -182,12 +182,26 @@ function getShippingMethods(currentBasket, selectedShippingMethod, shippingAddre
 }
 
 function setShippingAndBillingAddress(currentBasket, selectedShippingMethod, shippingAddressData, shipment) {
+    var firstName = shippingAddressData.name;
+    var lastName = shippingAddressData.name;
+
     if (empty(shipment)) {
         shipment = currentBasket.defaultShipment;
     }
+
+    if (!empty(shippingAddressData.name)) {
+        var fullName = shippingAddressData.name;
+        var splitFullName = fullName.split(" ");
+
+        if (splitFullName.length > 0) {
+            firstName = splitFullName[0];
+            lastName = splitFullName[1];
+        }
+    }
+
     var address = {
-        firstName: shippingAddressData.name || '',
-        lastName: shippingAddressData.lastName || '',
+        firstName: firstName || '',
+        lastName:  lastName || '',
         companyName: shippingAddressData.companyName || '',
         address1: shippingAddressData.address1 || '',
         address2: shippingAddressData.address2 || '',
