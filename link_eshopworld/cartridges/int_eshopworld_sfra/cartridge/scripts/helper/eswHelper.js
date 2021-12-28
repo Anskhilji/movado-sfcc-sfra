@@ -110,7 +110,15 @@ eswHelper.overridePrice = function (req, selectedCountry, selectedCurrency) {
  */
 eswHelper.getOrderTotalWithShippingCost = function () {
     var BasketMgr = require('dw/order/BasketMgr');
-    return formatMoney(new dw.value.Money(eswHelper.getFinalOrderTotalsObject().value + eswHelper.getMoneyObject(BasketMgr.currentBasket.shippingTotalPrice, true, false, false).value - eswHelper.getShippingDiscount(BasketMgr.currentBasket), request.httpCookies['esw.currency'].value));
+    var currencyCode = '';
+    if (!empty(request.httpCookies['esw.currency'] && !empty(request.httpCookies['esw.currency'].value))) {
+        currencyCode = request.httpCookies['esw.currency'].value;
+    }  else if (session.custom.currencyCode) {
+        currencyCode = session.custom.currencyCode;
+    }  else {
+        currencyCode = session.currency.currencyCode;
+    }
+    return formatMoney(new dw.value.Money(eswHelper.getFinalOrderTotalsObject().value + eswHelper.getMoneyObject(BasketMgr.currentBasket.shippingTotalPrice, true, false, false).value - eswHelper.getShippingDiscount(BasketMgr.currentBasket), currencyCode));
 };
 
 /*
