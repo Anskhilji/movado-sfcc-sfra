@@ -82,7 +82,7 @@
                         left: 50%;
                         transform: translateX(-50%);
                         margin-right: rem(12);
-                        bottom: rem(-22);
+                        bottom: rem(-18);
 
                         @include media-breakpoint-up(lg) {
                             width: rem(88);
@@ -453,8 +453,9 @@
                     padding-right: rem(15);
                     padding-left: rem(60);
                 }
+
                 @include media-breakpoint-down(sm-custom) {
-                    margin-top: 0;
+                    margin-top: rem(8);
                 }
 
                 .cart-and-ipay {
@@ -862,10 +863,12 @@
             @include media-breakpoint-down(sm-custom) {
                 transform: translate(-299%, 73%);
                 left: 0%;
+                bottom: rem(84);
             }
             @include media-breakpoint-down(xsm-custom) {
                 transform: translate(-225%, 73%);
                 left: 0%;
+                bottom: rem(84);
             }
 
         }
