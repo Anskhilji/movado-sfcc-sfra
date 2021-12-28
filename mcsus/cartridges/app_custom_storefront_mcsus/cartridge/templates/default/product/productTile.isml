@@ -15,9 +15,12 @@
     <isinclude template="product/components/productTileImage" />
 
     <div class="tile-body">
-        <isif condition="${pdict.display.swatches !== false}">
-            <isinclude template="product/components/productTileSwatch" />
-        </isif>
+        <div class="swatches-wrapper-box">
+            <isif condition="${pdict.display.swatches !== false}">
+                <isinclude template="product/components/productTileSwatch" />
+            </isif>
+        </div>
+ 
 
         <div class="${product.promotions.length > 0 ? 'promotions' : 'promo-none-visible'}">
             <isloop items="${product.promotions}" var="promotion" status="promoStatus">
