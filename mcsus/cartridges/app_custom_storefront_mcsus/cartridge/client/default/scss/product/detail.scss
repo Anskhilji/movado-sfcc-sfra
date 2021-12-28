@@ -9,6 +9,10 @@
     }
     &.pdp-description-wrapper {
         margin: rem(39.2) 0 0;
+
+        @include media-breakpoint-down(xs) {
+        margin: rem(0);
+        }
     }
 }
 
@@ -22,6 +26,9 @@
     
         @include media-breakpoint-down(xs) {
             font-size: rem(14);
+            line-height: rem(25);
+            padding-top: rem(33);
+            margin-bottom: rem(0);
         }
     }
 

@@ -75,6 +75,7 @@
         letter-spacing: rem(0);
         opacity: 0.5;
         color: $grayish-blue;
+        padding: rem(18) rem(0) rem(11);
 
         @include media-breakpoint-down(md) {
             font-size: rem(14);
@@ -177,9 +178,10 @@
             padding-bottom: rem(20);
             letter-spacing: rem(0);
             height: initial;
+            color: $black1;
         
             .__affirm-logo.__affirm-logo-black {
-                color: $black;
+                color: $grey14;
             }
         
             .affirm-modal-trigger {
@@ -266,6 +268,9 @@
     }
     .extra-space-top1 {
         margin: rem(50) 0 rem(53);
+        @include media-breakpoint-down(xs) {
+            margin: rem(0);
+         } 
     }
     .justify-between-wrapper {
         justify-content: space-between;
@@ -332,5 +337,12 @@ select {
 
     @include media-breakpoint-down(xs) {
         text-align: center;
+    }
+}
+.promo-callout-wrapper-icon {
+    .prices-add-to-cart-actions {
+        .cart-and-ipay  {
+            margin-bottom: rem(2);
+        }
     }
 }
