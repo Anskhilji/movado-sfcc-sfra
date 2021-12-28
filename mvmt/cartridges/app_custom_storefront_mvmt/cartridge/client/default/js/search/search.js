@@ -294,13 +294,13 @@ function bulidLifeStyleCarousel() {
         arrows: false,
     });
 
-    // $(document).on('beforeChange', '.product-grid .plp-image-carousel', function (event, slick, currentSlide, nextSlide) {
-    //     var nextSlide = slick.$slides.get(nextSlide);
-    //     var $slideSourceSets = $(nextSlide).find('source');
-    //     $($slideSourceSets).each(function () {
-    //         $(this).attr('srcset', $(this).data('lazy'));
-    //     });
-    // });
+    $(document).on('beforeChange', '.product-grid .plp-image-carousel', function (event, slick, currentSlide, nextSlide) {
+        var nextSlide = slick.$slides.get(nextSlide);
+        var $slideSourceSets = $(nextSlide).find('source');
+        $($slideSourceSets).each(function () {
+            $(this).attr('srcset', $(this).data('lazy'));
+        });
+    });
 }
 
 /**
