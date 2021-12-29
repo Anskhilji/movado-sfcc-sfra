@@ -35,6 +35,9 @@
             padding: rem(33) rem(0) rem(53);
             margin: rem(0);
         }
+        @include media-breakpoint-up(sm) {
+            margin-top: rem(30);
+        }
     }
     .ratings {
         @include media-breakpoint-down(xs) {
