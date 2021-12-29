@@ -1,7 +1,7 @@
 <div class="description-and-detail pdp-description-wrapper">
     <isif condition="${!pdict.isCompareableDisabled}">
         <isif condition="${product.attributes && product.attributes.length}">
-            <hr/>
+            <hr class="d-none-md-wrapper" />
             <div class="row product-attributes extra-space-top1 justify-between-wrapper">
                 <isinclude template="product/components/detailsAttributes" />
             </div>

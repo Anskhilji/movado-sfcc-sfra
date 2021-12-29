@@ -246,6 +246,7 @@ h1 {
               padding: rem(30) rem(50);
               margin-left: auto;
               margin-right: auto;
+              position: relative;
               @include media-breakpoint-down(md) {
                 background-color: transparent;
                 box-shadow: none;
@@ -352,6 +353,14 @@ h1 {
               letter-spacing: 0;
               margin-top: rem(40);
 
+              @include media-breakpoint-down(sm) {
+                transform: translate(-50%, 140%);
+              }
+              @include media-breakpoint-down(xs) {
+                transform: translate(-50%, 250%);
+              }
+
+
               .yotpo-icon-button-text {
                 color: $black1;
                 font-family: $font-medium;
@@ -361,8 +370,9 @@ h1 {
                 line-height: rem(30);
                 text-align: center;
                 text-transform: capitalize;
+                display: block !important;
               }
-
+              
             }
           }
         }
@@ -560,6 +570,12 @@ h1 {
   font-family: $font-medium;
 
   .yotpo-helpful {
+    @include media-breakpoint-down(md) {
+      position: relative;
+      top: 50%;
+      transform: translateY(299%);
+  }
+
     .label-helpful {
       font-family: $font-regular;
       font-weight: 400;
@@ -591,9 +607,10 @@ h1 {
   }
   .yotpo-icon-btn {
     .yotpo-icon-button-text {
+      display: block;
       color: $black1;
     }
-    .yotpo-icon {
+    .yotpo-icon-write {
       display: none;
     }
   }
