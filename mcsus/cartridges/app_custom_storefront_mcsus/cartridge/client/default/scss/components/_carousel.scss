@@ -42,24 +42,24 @@
             &.slick-prev {
                 left: rem(20);
                 border-radius: 50%;
-                border: 0.052rem solid $silver ;
+                border: 0.052rem solid $silver;
                 background-color: $white-smoke;
-                height: 50.83px;
-                width: 50.83px;
+                height: rem(50.83);
+                width: rem(50.83);
                 margin-top: rem(70);
                 background-image: url(../../images/icons/long-arrow-left.svg);
-                box-shadow: 0 2px 8px 0 $silver2;
+                box-shadow: 0 rem(2) rem(8) 0 $silver2;
             }
             &.slick-next {
                 right: rem(20);
                 border-radius: 50%;
-                border: 0.052rem solid $silver ;
+                border: 0.052rem solid $silver;
                 background-color: $white-smoke;
-                height: 50.83px;
-                width: 50.83px;
+                height: rem(50.83);
+                width: rem(50.83);
                 margin-top: rem(70);
                 background-image: url(../../images/icons/long-arrow-right.svg);
-                box-shadow: 0 2px 8px 0 $silver2;
+                box-shadow: 0 rem(2) rem(8) 0 $silver2;
             }
         }
     }

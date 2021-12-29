@@ -36,13 +36,24 @@
             margin: rem(0);
         }
     }
+    .ratings {
+        @include media-breakpoint-down(xs) {
+            margin: auto;
+        }
+    }
 
     .promotions {
         font-weight: 500;
         justify-content: start;
+        padding-top: rem(30);
+
         @include media-breakpoint-down(xs) {
             display: flex;
             justify-content: center;
+            padding-top: rem(0);
+        }
+        @include media-breakpoint-down(md) {
+            padding-top: rem(0);
         }
     
         .callout {
@@ -51,10 +62,13 @@
             letter-spacing: rem(0);
             font-weight: 500;
             font-size: rem(16);
-            padding-top: rem(30);
+            padding-top: rem(0);
     
             @include media-breakpoint-down (sm) {
                 font-size: rem(14);
+            }
+            @include media-breakpoint-down (xs) {
+                padding-top: rem(0);
             }
         }
     }
@@ -145,10 +159,13 @@
         max-width: 100%;
         width: 100%;
         padding: rem(0) rem(52) rem(0) rem(118);
-        
+        @include media-breakpoint-down(lg) {
+            padding: rem(52) rem(52);
+        }
         @include media-breakpoint-down(md) {
             padding: rem(0) rem(10);
         }
+
     }
     &.promo-callout-wrapper-icon {
         .callout {
@@ -165,8 +182,12 @@
                 background-size: contain;
                 width: rem(25);
                 height: rem(25);
-                top: rem(30);
+                top: rem(0);
                 background-repeat: no-repeat;
+                
+                @include media-breakpoint-down(xs) {
+                    top: rem(0);
+                }  
             }
         }
     }
@@ -353,7 +374,7 @@
             overflow: hidden;
 
             .carousel-tile {
-                // background-color: $white-smoke4;
+
                 display: inherit !important;
             }
             img {

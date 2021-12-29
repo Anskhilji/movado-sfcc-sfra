@@ -1,6 +1,6 @@
 <div class="product-number-rating clearfix flex-box-column">
     <!-- Product Rating -->
-    <div class="ratings pull-left ratings-two hidden-sm-down">
+    <div class="ratings ratings-two">
         <isinclude template="product/components/productRating" />
     </div>
 
