@@ -124,7 +124,7 @@ server.append(
         var authenticatedCustomer = viewData.authenticatedCustomer;
         var newProfile = authenticatedCustomer.getProfile();
         Transaction.wrap(function () {
-            newProfile.custom.customerCurrentCounry = req.geolocation.countryCode;
+            newProfile.custom.customerCurrentCountry = req.geolocation.countryCode;
         });
         return next();
     });
@@ -270,7 +270,7 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
                             newCustomerProfile.phoneHome = registrationForm.phone;
                             newCustomerProfile.custom.birthdate = registrationForm.birthdate;
                             newCustomerProfile.custom.birthmonth = registrationForm.birthmonth;
-                            newCustomerProfile.custom.customerCurrentCounry = req.geolocation.countryCode;
+                            newCustomerProfile.custom.customerCurrentCountry = req.geolocation.countryCode;
                             if (newsletterSignupProssesed.success) {
                                 newCustomerProfile.custom.addtoemaillist = newsletterSignupProssesed.optOutFlag || registrationForm.addToEmailList;
                             }
