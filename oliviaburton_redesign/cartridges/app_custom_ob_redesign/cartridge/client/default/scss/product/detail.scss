@@ -139,7 +139,7 @@
                             }
 
                             &.slick-active {
-                                border: rem(1) solid #E9D7D5;
+                                border: rem(1) solid $pink-rose;
 
                                 @include media-breakpoint-down(md) {
                                     border: rem(1) solid $light-border-black;
@@ -173,7 +173,7 @@
                                 display: inline-block;
 
                                 &:hover {
-                                    border: rem(1) solid #E9D7D5;
+                                    border: rem(1) solid $pink-rose;
                                 }
                             }
                         }
