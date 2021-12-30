@@ -122,10 +122,12 @@ server.append(
     function (req, res, next) {
         var viewData = res.getViewData();
         var authenticatedCustomer = viewData.authenticatedCustomer;
-        var newProfile = authenticatedCustomer.getProfile();
-        Transaction.wrap(function () {
-            newProfile.custom.customerCurrentCountry = req.geolocation.countryCode;
-        });
+        if (!empty(authenticatedCustomer)) {
+            var newProfile = authenticatedCustomer.getProfile();
+            Transaction.wrap(function () {
+                newProfile.custom.customerCurrentCountry = req.geolocation.countryCode;
+            });
+        }
         return next();
     });
 
