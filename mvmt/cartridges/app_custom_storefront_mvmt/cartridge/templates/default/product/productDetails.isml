@@ -132,11 +132,12 @@
                                 <div class="d-block">
                                     <!-- Cart and [Optionally] Apple Pay -->
                                     <isinclude template="product/components/showCartButtonProduct" />
+                                    <isapplepay class="apple-pay-pdp btn apple-pay" sku="${product.id}"></isapplepay>
+
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
 
                     <div class="hidden-sm-down">
                         <isinclude template="product/components/pidRating" />

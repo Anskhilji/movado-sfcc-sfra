@@ -12,13 +12,17 @@
                 font-size: 1em;
 
                 @include media-breakpoint-down(md) {
-                    font-size: 0.9375em;
+                  font-size: 0.9375em;
                 }
 
                 @include media-breakpoint-down(sm) {
-                    font-size: 0.8125em;
+                  font-size: 0.8125em;
                 }
             }
+        }
+
+        .swatches-wrapper-box {
+          height: rem(28);
         }
 
         .price {

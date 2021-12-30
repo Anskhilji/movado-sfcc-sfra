@@ -504,7 +504,15 @@ var getEswHelper = {
         if (totalDiscount < 0) {
             totalDiscount *= -1;
         }
-        return new dw.value.Money(totalDiscount, request.httpCookies['esw.currency'].value);
+        var currencyCode = '';
+        if (!empty(request.httpCookies['esw.currency'] && !empty(request.httpCookies['esw.currency'].value))) {
+            currencyCode = request.httpCookies['esw.currency'].value;
+        }  else if (session.custom.currencyCode) {
+            currencyCode = session.custom.currencyCode;
+        }  else {
+            currencyCode = session.currency.currencyCode;
+        }
+        return new dw.value.Money(totalDiscount, currencyCode);
     },
     /*
      * This function is used to get total of cart or productlineitems based on input
@@ -524,7 +532,15 @@ var getEswHelper = {
         } else {
             total = this.getMoneyObject(cart.basePrice.value, false, false).value * cart.quantity.value;
             if (listPrice) {
-                return new dw.value.Money(total, request.httpCookies['esw.currency'].value);
+                var currencyCode = '';
+                if (!empty(request.httpCookies['esw.currency'] && !empty(request.httpCookies['esw.currency'].value))) {
+                    currencyCode = request.httpCookies['esw.currency'].value;
+                }  else if (session.custom.currencyCode) {
+                    currencyCode = session.custom.currencyCode;
+                }  else {
+                    currencyCode = session.currency.currencyCode;
+                }
+                return new dw.value.Money(total, currencyCode);
             }
             var that = this;
             cart.priceAdjustments.toArray().forEach(function (adjustment) {
@@ -542,7 +558,16 @@ var getEswHelper = {
             // var price = (cart.adjustedPrice.value / cart.quantity).toFixed(2);
             // total += this.getMoneyObject(cart.getAdjustedPrice(false).value,false,false).value;
         }
-        return new dw.value.Money(total, request.httpCookies['esw.currency'].value);
+        var currencyCode = '';
+        if (!empty(request.httpCookies['esw.currency']) && !empty(request.httpCookies['esw.currency'].value)) {
+            currencyCode = request.httpCookies['esw.currency'].value;
+        } else if (session.custom.currencyCode) {
+            currencyCode = session.custom.currencyCode;
+        } else {
+            currencyCode = session.currency.currencyCode;
+        }
+
+        return new dw.value.Money(total, currencyCode);
     },
     /*
      * This function is used to get order discount if it exist
@@ -568,10 +593,12 @@ var getEswHelper = {
         var currencyCode = '';
         if (!empty(request.httpCookies['esw.currency']) && !empty(request.httpCookies['esw.currency'].value)) {
             currencyCode = request.httpCookies['esw.currency'].value;
-        } else if (session.custom.currencyCode) {
+        }  else if (session.custom.currencyCode) {
             currencyCode = session.custom.currencyCode;
-        }  else {
+        }  else if ('originalOrder' in cart) {
             currencyCode = cart.originalOrder.custom.eswShopperCurrencyCode ? cart.originalOrder.custom.eswShopperCurrencyCode : cart.originalOrder.currencyCode;
+        }  else {
+            currencyCode = session.currency.currencyCode;
         }
         // Custom End
 
@@ -613,7 +640,15 @@ var getEswHelper = {
      */
     getFinalOrderTotalsObject: function () {
         var BasketMgr = require('dw/order/BasketMgr');
-        return new dw.value.Money(this.getSubtotalObject(BasketMgr.currentBasket, true).value - (this.getOrderDiscount(BasketMgr.currentBasket).value), request.httpCookies['esw.currency'].value);
+        var currencyCode = '';
+        if (!empty(request.httpCookies['esw.currency'] && !empty(request.httpCookies['esw.currency'].value))) {
+            currencyCode = request.httpCookies['esw.currency'].value;
+        }  else if (session.custom.currencyCode) {
+            currencyCode = session.custom.currencyCode;
+        }  else {
+            currencyCode = session.currency.currencyCode;
+        }
+        return new dw.value.Money(this.getSubtotalObject(BasketMgr.currentBasket, true).value - (this.getOrderDiscount(BasketMgr.currentBasket).value), currencyCode);
 
     },
     /*
@@ -911,7 +946,15 @@ var getEswHelper = {
         return StringUtils.encodeBase64(concatenatedString);
     },
     getUnitPriceCost: function (lineItem) {
-        return new dw.value.Money((this.getSubtotalObject(lineItem, false).value / lineItem.quantity.value), request.httpCookies['esw.currency'].value);
+        var currencyCode = '';
+        if (!empty(request.httpCookies['esw.currency'] && !empty(request.httpCookies['esw.currency'].value))) {
+            currencyCode = request.httpCookies['esw.currency'].value;
+        }  else if (session.custom.currencyCode) {
+            currencyCode = session.custom.currencyCode;
+        }  else {
+            currencyCode = session.currency.currencyCode;
+        }
+        return new dw.value.Money((this.getSubtotalObject(lineItem, false).value / lineItem.quantity.value), currencyCode);
     },
     /**
      * Check if it is esw supported country or not,
