@@ -130,6 +130,7 @@
                         <div class="row">
                             <div class="col-12 prices-add-to-cart-actions">
                                 <div class="d-block">
+                                    <!-- Cart and [Optionally] Apple Pay -->
                                     <isinclude template="product/components/showCartButtonProduct" />
                                     <isapplepay class="apple-pay-pdp btn apple-pay" sku="${product.id}"></isapplepay>
 
