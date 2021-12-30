@@ -31,6 +31,12 @@
           font-size: rem(16);
           font-weight: 500;
           font-family: $font-medium;
+          letter-spacing: rem(0);
+
+            @include media-breakpoint-down(md) {
+              font-size: rem(14);
+              letter-spacing: rem(0);
+            }
 
           @include media-breakpoint-down(sm) {
             font-size: rem(14);
@@ -59,13 +65,15 @@
         .pdp-link {
             font-size: rem(20);
             a {
+                font-size: rem(20);
+                height: rem(40);
+                letter-spacing: rem(0);
                 font-size: rem(16);
                 height: rem(40);
                 overflow: hidden;
                 text-overflow: ellipsis;
                 display: -webkit-box;
                 -webkit-line-clamp: 2;
-
 
                 @include media-breakpoint-down(sm) {
                     height: rem(40);
@@ -76,6 +84,7 @@
                     font-size: rem(16);
                     font-weight: 500;
                     font-family: $font-medium;
+                    letter-spacing: rem(0);
                 }
 
                 @include media-breakpoint-down(sm) {
@@ -135,8 +144,10 @@
       font-size: rem(16);
       font-weight: 500;
       font-family: $font-medium;
+      letter-spacing: rem(0);
       height: rem(44);
       overflow: hidden;
+      
       @include media-breakpoint-down(md){
         font-size: rem(14);
       }

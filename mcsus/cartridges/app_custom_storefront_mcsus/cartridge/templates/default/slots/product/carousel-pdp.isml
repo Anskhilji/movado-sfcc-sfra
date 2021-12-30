@@ -1,6 +1,6 @@
 <isif condition="${slotcontent && !!slotcontent.content.length}">
-  <div class="mcs-redesign mcs-product-carousel">
-      <div class="container mcs-product-carousel-container">
+  <div class="mcs-redesign mcs-product-carousel carousel-slick-icon-dots">
+      <div class="container mcs-product-carousel-container custom-conntainer-pdp">
         <div class="row mcs-product-carousel-row">
           <div class="col-12 mcs-product-carousel-column">
             <div class="cs-carousel-wrapper">

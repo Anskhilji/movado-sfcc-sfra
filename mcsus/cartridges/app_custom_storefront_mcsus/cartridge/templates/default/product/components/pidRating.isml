@@ -1,0 +1,13 @@
+<div class="product-number-rating clearfix flex-box-column">
+    <!-- Product Rating -->
+    <div class="ratings ratings-two">
+        <isinclude template="product/components/productRating" />
+    </div>
+
+    <!-- Product Number -->
+    <isif condition="${dw.system.Site.getCurrent().preferences.custom.enableProductSKU}">
+        <div class="product-number sku-text-alignment">
+            <isinclude template="product/components/productNumber" />
+        </div>
+    </isif>
+</div>

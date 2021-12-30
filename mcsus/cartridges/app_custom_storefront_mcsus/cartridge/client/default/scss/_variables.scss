@@ -12,6 +12,7 @@ $light-black: $black !default;
 $blue: #0070d2 !default;
 $blue2: #007BFF !default;
 $green: #008827 !default;
+$green2: #28A745;
 $red: #c00 !default;
 $light-red: #DC3545 !default;
 $light-blue: #7ed0ee !default;
@@ -20,11 +21,13 @@ $dark-blue: #2A326D !default;
 $dark-red: #981608 !default;
 $yellow: #FFC517 !default;
 $amber: #FFC107 !default;
+$amber2: #E4AC04 !default;
+$amber3: #F7DD52 !default; 
 $border-color: #979797 !default;
 // Consolidated values
-$black1 : #212529 !default;
-
-$silver : #C6C4C4 !default;
+$black1: #212529 !default;
+$silver: #C6C4C4 !default;
+$silver2: #C3C3C3 !default; 
 
 $light-grey: #d8d8d8 !default;
 $light-grey2: #f8f8f8 !default;
@@ -51,6 +54,7 @@ $light-silver: #D8D8D8;
 $Grey: #242526;
 $silver: #B0B0B0;
 $light-grey4: #6C757D;
+$light-grey5: #D6D6D6;
 
 $white-transparent: rgba(255,255,255,0.5) !default;
 $grey-transparent-1: rgba(0, 0, 0, 0.65) !default;
@@ -65,6 +69,7 @@ $grey-light2: rgba(195,195,195,0.5) !default;
 $grey-light3: #aaa !default;
 $grey-dark: rgba(187, 189, 191, 0.5) !default;
 $grey-dark-1: rgba(6,5,6,0.6) !default;
+$grey-dark-2: rgba(207,207,207,0.5) !default;
 
 $light-gray: $grey1 !default;
 $slightly-darker-gray: $grey4 !default;
@@ -169,6 +174,7 @@ $font-regular: "proxima-nova";
 $font-awesome: "FontAwesome";
 $font-proxima-nova: "proxima-nova-bold";
 $font-book-std : "FuturaStd-Book", Arial, sans-serif !default;
+$font-user: "Futura PT" !default;
 
 $width: 100%;
 $spaceLeft: rem(20);

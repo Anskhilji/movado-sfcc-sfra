@@ -1,6 +1,16 @@
 @import "~movado/components/_productCommon";
 @import "../variables";
 
+.container {
+    &.custom-conntainer-pdp {
+        max-width: 100%;
+        width: 100%;
+        padding: rem(0) rem(52) rem(0) rem(118);
+        @include media-breakpoint-down(md) {
+            padding: rem(0) rem(10);
+        }
+    }
+}
 
 .description-and-detail .attribute {
 
@@ -8,8 +18,20 @@
         font-family: $font-thin;
         font-weight: 100;
         font-size: rem(24);
+        margin-bottom: rem(10);
+        color: $black1;
+        letter-spacing: rem(0);
         @include media-breakpoint-down(xs) {
             font-size: rem(20);
+            letter-spacing: rem(0);
+        }
+    }
+    &-detail {
+        margin-left: rem(0);
+        margin-top: rem(0);
+        @include media-breakpoint-down(xs) {
+            margin-left: rem(0);
+            margin-top: rem(0);
         }
     }
 
@@ -17,11 +39,14 @@
         font-family: $font-medium;
         font-weight: 500;
         font-size: rem(16);
+        letter-spacing: rem(0);
+        text-transform: capitalize;
+        color: $black1;
         @include media-breakpoint-down(xs) {
             font-size: rem(16);
+            letter-spacing: rem(0);
         }
     }
-
 }
 
 .product-detail {
@@ -35,7 +60,11 @@
         font-size: rem(40);
         font-family: $font-bold;
         font-weight: bold;
+        margin-bottom: rem(17);
+        letter-spacing: rem(0);
+
         @include media-breakpoint-down(xs) {
+            margin: rem(23) 0 rem(25);
             font-size: rem(30);
         }
     }
@@ -44,10 +73,18 @@
         font-size: rem(16);
         font-weight: 500;
         font-family: $font-medium;
+        letter-spacing: rem(0);
+        opacity: 0.5;
+        color: $grayish-blue;
+        padding: rem(18) rem(0) rem(11);
 
+        @include media-breakpoint-down(xs) {
+            padding: rem(15) rem(0) rem(6);
+        }
         @include media-breakpoint-down(md) {
             font-size: rem(14);
         }
+
     }
 
     .exclusive-badges {
@@ -74,6 +111,7 @@
         font-family: $font-medium;
         font-weight: 500;
         font-size: rem(20);
+        letter-spacing: rem(0);
 
         @include media-breakpoint-down(xs) {
             font-size: rem(20);
@@ -105,17 +143,76 @@
                   &:last-child {
                       a {
                          color: $light-grey4;
+                         font-family: $font-regular;
+                         letter-spacing: rem(0);
                         }
                     }
 
                   a {
                     font-size: rem(16);
                     letter-spacing: rem(0);
+                    font-family: $font-regular;
                     color: $blue2;
                   }
                 }
             }
-        } 
+        }
+        .horizontal-line-wrapper {
+            border-top: rem(1) solid $light-grey5;
+            opacity: 0.71;
+            margin: rem(30) auto rem(19);
+
+            @include media-breakpoint-down(xs) {
+                display: none;
+            }
+        }
+        .availability-msg {
+            color: $green2;
+            letter-spacing: rem(0);
+            border: rem(1) solid $green2;
+            display: inline-block;
+            padding: rem(2) rem(10);
+            border-radius: rem(3);
+            
+            @include media-breakpoint-down(md) {
+                display: none;
+            }
+        }
+        .affirm-as-low-as {
+            font-family: $font-medium;
+            font-weight: 500;
+            font-size:rem(16);
+            border-bottom: rem(1) solid $light-grey5;
+            margin-bottom: rem(0);
+            padding-bottom: rem(20);
+            letter-spacing: rem(0);
+            height: initial;
+            color: $black1;
+        
+            .__affirm-logo.__affirm-logo-black {
+                color: $grey14;
+            }
+        
+            .affirm-modal-trigger {
+                display: block;
+                padding: rem(6) rem(0) rem(0);
+                text-decoration: underline;
+            }
+        
+            @include media-breakpoint-down(xs) {
+                text-align: center;
+                font-size: rem(14);
+            }
+        }
+        .prices {
+            padding: rem(33) rem(0) rem(27);
+            @include media-breakpoint-down(xs) {
+                padding: 0.625rem 0;
+            }
+            .price {
+                color: #212529;
+            }
+        }
     }
 }
 
@@ -155,8 +252,12 @@
         }
 
         .detail-heading {
+            margin-bottom: rem(30);
+            padding:rem(0);
             button {
-                color: $black;
+                color: $black1;
+                text-transform:capitalize;
+                letter-spacing: rem(0);
 
                 @include media-breakpoint-down(xs) {
                     line-height: rem(45);
@@ -174,6 +275,61 @@
             }
         }
     }
+    .extra-space-top1 {
+        margin: rem(50) 0 rem(53);
+        @include media-breakpoint-down(xs) {
+            margin: rem(0);
+         } 
+    }
+    .justify-between-wrapper {
+        justify-content: space-between;
+    }
+    .pdp-spce-bottom {
+        margin-bottom: rem(50);
+
+        @include media-breakpoint-down(md) {
+            display: none;
+        }
+    }
+    .details-box-container {
+        margin-left: auto;
+        max-width: rem(468.32);
+        @include media-breakpoint-down(md) {
+           margin: rem(0) auto rem(29);
+        } 
+    }
+
+    .details-btn-box {
+        font-size: rem(30);
+        color: $black1;
+        font-family: $font-bold;
+        font-weight: bold;
+        margin-bottom: rem(30);
+        line-height: rem(67);
+        letter-spacing: rem(0);
+
+        @include media-breakpoint-down(md) {
+            text-align: center;
+            margin-bottom: rem(23);
+        }
+        @include media-breakpoint-down(xs) {
+            text-align: center;
+            margin-bottom: rem(50);
+        }
+    }
+    .mx-product-img-wrapper {
+        max-width: rem(400);
+
+        @include media-breakpoint-down(md) {
+            margin: auto;
+            margin-bottom: rem(16);
+        }
+    }
+    .space-wrapper-mobile {
+        @include media-breakpoint-down(xs) {
+        padding: rem(0);
+        }
+    }
 }
 
 select {
@@ -185,7 +341,7 @@ select {
 .affirm-as-low-as {
     font-family: $font-medium;
     font-weight: 500;
-    font-size:rem(16) ;
+    font-size:rem(16);
 
     .__affirm-logo.__affirm-logo-black {
         color: $black;
@@ -199,5 +355,12 @@ select {
 
     @include media-breakpoint-down(xs) {
         text-align: center;
+    }
+}
+.promo-callout-wrapper-icon {
+    .prices-add-to-cart-actions {
+        .cart-and-ipay  {
+            margin-bottom: rem(2);
+        }
     }
 }

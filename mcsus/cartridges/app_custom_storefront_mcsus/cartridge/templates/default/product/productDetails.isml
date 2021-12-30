@@ -23,7 +23,7 @@
     <isset name="isQuickView" value="${false}" scope="page" />
     <isset name="isProductSet" value="${pdict.product.productType === 'set'}" scope="page" />
     <isobject object="${product.raw}" view="detail">
-        <div class="container product-detail product-wrapper product-detail1-wrapper" data-pid="${product.id}" itemscope
+        <div class="container product-detail product-wrapper product-detail1-wrapper custom-conntainer-pdp promo-callout-wrapper-icon" data-pid="${product.id}" itemscope
             itemtype="http://schema.org/Product">
             <div class="row hidden-xs-down d-md-none">
                 <div class="col-12">
@@ -33,21 +33,21 @@
                     </div>
 
                     <!-- Product Name -->
-                    <div class="row">
+                    <iscomment> <div class="row">
                         <div class="col-sm-12">
                             <h1 class="product-name text-uppercase" itemprop="name">${product.productName}</h1>
                         </div>
-                    </div>
+                    </div> </iscomment>
 
-                    <div class="row">
+                    <iscomment> <div class="row">
                         <div class="col-sm-12">
                             <isinclude template="product/components/pidRating" />
                         </div>
-                    </div>
+                    </div> </iscomment>
 
                 </div>
             </div>
-            <hr class="hidden-xs-down d-md-none"/>
+            <iscomment> <hr class="hidden-xs-down d-md-none"/> </iscomment>
 
             <div class="row">
             <div class="col-12">
@@ -63,9 +63,10 @@
 
 
                     <!-- Product Name -->
-                    <h2 class="product-name prdouct-name-gtm d-sm-none d-md-block text-uppercase">${product.productName}</h2>
+                    <h2 class="product-name prdouct-name-gtm">${product.productName}</h2>
 
-                    <div class="d-block d-md-block d-sm-none">
+                    <iscomment> <p> <span>Model:</span> <span><isprint value="${product.id}" encoding="on" /></span> </p> </iscomment>
+                    <div class="d-block">
                         <isinclude template="product/components/pidRating" />
                     </div>
 
@@ -83,7 +84,7 @@
                             </div>
 
                             <!-- Applicable Promotions -->
-                            <div class="promotions">
+                            <div class="promotions promotion-callout-promo-box">
                                 <isinclude template="product/components/promotions" />
                             </div>
 
@@ -92,7 +93,7 @@
                                     <isinclude template="product/components/quantity" />
                                 </div>
                             </isif>
-                            <hr />
+                            <hr class="horizontal-line-wrapper" />
                         </div>
                         <isif condition="${product.options && product.options.length > 0}">
                             <isinclude template="product/components/options" />
@@ -137,7 +138,7 @@
                         </div>
 
                         <div class="col-12">
-                            <div class="wishlist-row row">
+                            <iscomment> <div class="wishlist-row row">
                                 <isinclude url="${URLUtils.https('Wishlist-ShowIcon','gtmObj',JSON.stringify(pdict.wishlistGtmObj))}"/>
                                 <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
                                     <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
@@ -149,7 +150,7 @@
                                 <isif condition="${dw.system.Site.getCurrent().preferences.custom.addthis_enabled}">
                                     <isinclude template="product/components/socialIcons" />
                                 </isif>
-                            </div>
+                            </div> </iscomment>
                             <div class="row description">
                                 <isinclude template="product/components/description" />
                             </div>
@@ -167,17 +168,43 @@
             </div>
         </div>
 
-
-        <div class="container">
+        <div class="container custom-conntainer-pdp">
             <isinclude template="product/components/descriptionAndDetails" />
+            <iscomment> <isinclude template="product/carousel" /> </iscomment>
         </div>
+
         <isif condition="${!dw.system.Site.getCurrent().getCustomPreferenceValue('disableRecommendationsTypesOnPDP')}">
             <isinclude template="product/components/youMayLikeRecommendation" />
        </isif>
+
        <isset name="apiProduct" value="${dw.catalog.ProductMgr.getProduct(pdict.product.id)}" scope="page" />
        <isinclude template="product/components/contentAssets" />
+       
        <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"
                 context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}" />
+
+            <div class="mx-product-img-wrapper">
+                <isif condition="${product && product.images['pdp700'].length > 0}">
+                    <isif condition="${product.images.pdp700[3]}">
+                        <div class="carousel-tile">
+                            <img src="${product.images.pdp700[3].url}" alt="${product.images.pdp700[3].alt}" />
+                        </div>
+                    </isif>
+                </isif>
+            </div>
+
+            <iscomment>Yotpo reviews widget will appear here, if these needs to be relocated
+            then appropriate template should be overridden. </iscomment>
+            <div class="mcs-yotpo-reviews">
+                <div class="title text-capitalize p-0 shadow-none">${Resource.msg('label.product.reviews.text', 'product', null)}</div>
+                <isinclude template="widget/yotporeviewswidget" />
+            </div>
+
+             <div class="pdp-content-asset-wrapper">
+                <isif condition="${!empty(product.pdpContentAssetHTML)}">
+                    <isprint value="${product.pdpContentAssetHTML}" encoding="off" />
+                </isif>
+            </div> 
 
         <!-- The Modal: Starts | To be filled by the from rendered by the ShareByEmail controller-->
         <div class="modal fade share-via-email-overlay" id="sendtofriendform">

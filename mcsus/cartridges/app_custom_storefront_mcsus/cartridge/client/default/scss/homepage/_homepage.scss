@@ -197,16 +197,17 @@
           &-tile {
 
             .tile-body {
-              .swatches-wrapper-box {
-                height: rem(28);
-              }
               .promotions {
                 overflow: hidden;
-                height: rem(44);
+                height: rem(60);
 
-                  @include media-breakpoint-down(sm) {
-                    height: rem(60);
-                  }
+                @include media-breakpoint-down(sm) {
+                  height: rem(60);
+                }
+
+                .swatches-wrapper-box {
+                  height: rem(28);
+                }
               }
             }
 
@@ -308,7 +309,7 @@
         font-weight: 500;
         color: $black1;
         letter-spacing: rem(0);
-        margin-bottom: rem(35);
+        margin-bottom: rem(30);
       }
     }
   }
@@ -749,4 +750,19 @@
       }
     }
   }
+}
+
+.carousel-slick-icon-dots {
+  .slick-dots {
+    li {
+    margin-right: rem(5);
+    }
+  }
+  .yotpo{
+    .yotpo-bottomline {
+      .yotpo-icon-star {
+        color: $amber;
+      }
+    }
+  }  
 }
