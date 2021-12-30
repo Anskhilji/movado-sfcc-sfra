@@ -3,9 +3,10 @@ module.exports = {
         $('.product-grid .plp-image-carousel').slick({
             slidesToShow: 1,
             slidesToScroll: 1,
-            infinite: false,
+            infinite: true,
             dots: true,
             arrows: false,
+            useTransform: false
         });
 
         $(document).on('beforeChange', '.product-grid .plp-image-carousel', function (event, slick, currentSlide, nextSlide) {
