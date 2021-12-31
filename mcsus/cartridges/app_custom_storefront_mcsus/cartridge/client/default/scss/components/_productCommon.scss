@@ -219,18 +219,29 @@
 .product-detail {
     &.product-quickview {
         @import "../product/imageCarousel";  
-    .availability-msg {
-        font-family:$font-medium;
-        font-weight: 500;
-        font-size: rem(16);
-
-        li {
-            font-family: $font-medium;
+        .availability-msg {
+            font-family:$font-medium;
             font-weight: 500;
             font-size: rem(16);
+
+            li {
+                font-family: $font-medium;
+                font-weight: 500;
+                font-size: rem(16);
+            }
         }
-    }    
-  }
+        .cs-carousel-wrapper {
+            .js-carousel {
+                .slick-dots {
+                    li {
+                        width: auto;
+                        margin: rem(0);
+                        margin-right: rem(5);
+                    }
+                }
+            }
+        }
+    }
 }
 
 .more-styles-wrapper {
