@@ -71,31 +71,65 @@
                     <iscomment> Custom Start: Change Naming Conventions for PDP </iscomment>
                     <div class="product-brand-info">
                         <isif condition="${(product.isCategory) == "watches"}">
-                            <isif condition="${!empty(product.collectionName)}">
-                                <h1><span class="collection-name" data-selected-variation-attr="collectionName">${product.collectionName}</span></h1>
-                            </isif>
-                            <h1 class="product-name product-title-for-gtm text-uppercase">${product.productName}</h1>
-                            <isif condition="${!empty(product.caseDiameter)}">
-                               <h1 class="product-label-wrapper-one"><span>${Resource.msg('separator', 'product', null)}</span>
-                                    <span class="case-diameter" data-selected-variation-attr="caseDiameter">${product.caseDiameter}</span></h1>
-                            </isif>
+                            <div class="category-watches">
+                                <h1>
+                                    <isif condition="${!empty(product.collectionName)}">
+                                        <span class="watches-collection-name" data-selected-variation-attr="collectionName">${product.collectionName}</span>
+                                    </isif>
+                                    <span class="product-name watches-product-name product-title-for-gtm text-uppercase">${product.productName}</span>
+                                    <isif condition="${!empty(product.caseDiameter)}">
+                                        <span class="watches-seprator">${Resource.msg('separator', 'product', null)}</span>
+                                            <span class="watches-case-diameter" data-selected-variation-attr="caseDiameter">${product.caseDiameter}</span>
+                                    
+                                    </isif>
+                                </h1>
+                            </div>
                         <iselseif condition="${(product.isCategory) == "jewelry"}">
-                            <h1 class="product-name product-title-for-gtm text-uppercase">${product.productName}</h1>
-                            <isif condition="${!empty(product.color)}">
-                                <h1><span class="color" data-selected-variation-attr="color">${product.color}</span></h1>
-                            </isif>
+                        <div class="category-jewlery">
+                            <h1>
+                                <span class="product-name jewlery-product-name product-title-for-gtm text-uppercase">${product.productName}</span>
+                                <isif condition="${!empty(product.color)}">
+                                    <span class="jewlery-heading"><span class="color" data-selected-variation-attr="color">${product.color}</span></span>
+                                </isif>
+                            </h1>
+                        </div>
                         <iselseif condition="${(product.isCategory) == "eyewear"}">
-                            <h1 class="product-name product-title-for-gtm text-uppercase">${product.productName}</h1>
-                            <isif condition="${!empty(product.color)}">
-                                <h1><span class="color" data-selected-variation-attr="color">${product.color}</span></h1>
-                            </isif>
+                        <div class="category-eyewear">
+                            <h1>
+                                <span class="product-name eyewear-product-name product-title-for-gtm text-uppercase">${product.productName}</span>
+                                <span class="eyewear-heading">
+                                    <isif condition="${!empty(product.color)}">
+                                        <span class="color" data-selected-variation-attr="color">${product.color}</span>
+                                    </isif>
+                                    <isif condition="${product.variationAttributes.length > 0}">
+                                        <isloop items="${product.variationAttributes}" var="attr" status="attributeStatus">
+                                            <isif condition="${attr.id.indexOf('polarization') !== -1}">
+                                                
+                                                    <span>${Resource.msg('separator', 'product', null)}</span>
+                                                    <span class="selected-variation" data-selected-variation-attr="${attr.id}">
+                                                        <isloop items="${attr.values}" var="attrValue">
+                                                            <isif condition="${attrValue.selected}">
+                                                                <isset name="selectedAttributeValue" value="${attrValue.value}" scope="page" />
+                                                                ${attrValue.displayValue} 
+                                                            </isif>
+                                                        </isloop>
+                                                    </span>
+                                                
+                                            </isif>
+                                        </isloop>
+                                    </isif>
+                                </span>
+                            </h1>
+                        </div>
                         <iselseif condition="${(product.isCategory) == "strapguide"}">
-                            <h1 class="product-name product-title-for-gtm text-uppercase">${product.productName}</h1>
+                            <h1 class="product-name product-name-strapguide product-title-for-gtm text-uppercase">${product.productName}</h1>
                         <iselseif condition="${(product.isCategory) !== "watches" && (product.isCategory) !== "jewelry" && (product.isCategory) !== "eyewear" && (product.isCategory) !== "strapguide"}">
-                            <h1 class="product-name product-title-for-gtm text-uppercase">${product.productName}</h1>
-                            <isif condition="${!empty(product.color)}">
-                                <h1><span class="color" data-selected-variation-attr="color">${product.color}</span></h1>
-                            </isif>
+                            <h1>
+                                <span class="product-name product-title-for-gtm text-uppercase">${product.productName}</span>
+                                <isif condition="${!empty(product.color)}">
+                                    <span class="color product-colors" data-selected-variation-attr="color">${product.color}</span>
+                                </isif>
+                            </h1>
                         </isif>
                     </div>
                     <iscomment> Custom End: Change Naming Conventions for PDP </iscomment>
