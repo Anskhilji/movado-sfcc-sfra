@@ -291,7 +291,7 @@ function bulidLifeStyleCarousel() {
         slidesToScroll: 1,
         infinite: false,
         dots: true,
-        arrows: false,
+        arrows: false
     });
 
     $(document).on('beforeChange', '.product-grid .plp-image-carousel', function (event, slick, currentSlide, nextSlide) {

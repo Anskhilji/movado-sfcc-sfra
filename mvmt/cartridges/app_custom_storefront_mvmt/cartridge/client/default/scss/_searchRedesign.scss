@@ -61,7 +61,6 @@
                 }
 
                 .slick {
-
                     &-dots {
                         position: absolute;
                         display: flex;
@@ -100,7 +99,26 @@
                     }
                 }
             }
+            &.eyewear-template-wrapper {
+                .slick {
+                    &-track {
+                        display: flex;
+                    }
+
+                    &-slide {
+                        display: flex;
+                        height: auto;
+
+                        img {
+                            height: 100%;
+                            object-fit: cover;
+                            object-position: center;
+                        }
+                    }
+                }
+            }
         }
+
 
         .tile {
             &-body {
