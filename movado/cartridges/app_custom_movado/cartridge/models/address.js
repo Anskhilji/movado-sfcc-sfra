@@ -14,7 +14,7 @@ function createAddressObject(addressObject, companyName) {
         }
 
         if (empty(cpnyName)) {
-            cpnyName = addressObject.custom.SOMCompanyName ? addressObject.custom.SOMCompanyName : ''
+            cpnyName = 'SOMCompanyName' in addressObject.custom ? addressObject.custom.SOMCompanyName : ''
         }
 
     	result = {
