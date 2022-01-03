@@ -18,7 +18,7 @@
             position: relative;
             width: 100%;
             text-align: center;
-            margin-bottom: rem(100);
+            margin-bottom: rem(50);
 
             .cs-carousel-wrapper {
                 position: relative;
@@ -27,6 +27,7 @@
 
             .main-ob-carousel {
                 padding: 0 rem(40) 0;
+                margin-top: -90px;
 
                 @include media-breakpoint-up(lg) {
                     padding-left: rem(100);
@@ -43,6 +44,7 @@
 
                         .carousel-tile {
                             overflow: visible;
+                            right: rem(-54);
 
                             &.active {
                                 min-height: 80vh;
@@ -89,8 +91,8 @@
                             width: rem(88);
                             margin-top: 0;
                             position: absolute;
-                            top: 7%;
-                            left: rem(43);
+                            top: rem(135);
+                            left: rem(51);
                             display: block;
                             background: transparent;
                             height: rem(400);
@@ -206,7 +208,7 @@
 
                             @include media-breakpoint-up(lg) {
                                 background: url("../../images/RightArrowPDP.svg") center center no-repeat;
-                                right: rem(-15);
+                                right: rem(-14);
                             }
                         }
                     }
@@ -230,10 +232,16 @@
             margin-left: rem(20);
             top: rem(400);
 
+
             @include media-breakpoint-up(lg) {
                 position: absolute;
                 margin-left: rem(150);
                 top: rem(475);
+            }
+
+            &.btn:not(:disabled):not(.disabled):active,
+            &.btn:not(:disabled):not(.disabled).active {
+                background-image: inherit !important;
             }
         }
 
@@ -479,14 +487,16 @@
 
                 .slick {
                     &-slide {
+                        width: rem(650) !important;
+
                         img {
                             margin: 0 auto;
                             height: rem(375);
                             width: rem(375);
 
                             @include media-breakpoint-up(lg) {
-                                height: rem(450);
-                                width: rem(450);
+                                height: rem(650) !important;
+                                width: rem(650)
                             }
                             @include media-breakpoint-down(sm-custom) {
                                 height: rem(300);
@@ -850,13 +860,10 @@
     .ob-carousel-quickview {
         
         .quickview {
-            position: relative;
+            position: absolute;
             transform: translate(50%, 328%);
-            top: 47%;
-            left: -34%;
-            margin-left: 0;
-            border-radius: rem(20);
-            box-shadow: 0 rem(3) rem(5) 0 $light-grey-3;
+            left: 5px;
+            top: 73.4%;
 
             &:focus {
                 box-shadow: none;
@@ -880,8 +887,12 @@
                 left: 0%;
                 bottom: rem(84);
             }
+            &.btn:not(:disabled):not(.disabled).active{
+                background-image: inherit !important;
+            }
 
         }
+
     }
 }
 .primary-images {
