@@ -27,7 +27,6 @@
 
             .main-ob-carousel {
                 padding: 0 rem(40) 0;
-                margin-top: -90px;
 
                 @include media-breakpoint-up(lg) {
                     padding-left: rem(100);
@@ -44,7 +43,7 @@
 
                         .carousel-tile {
                             overflow: visible;
-                            right: rem(-54);
+                            right: rem(0);
 
                             &.active {
                                 min-height: 80vh;
@@ -91,11 +90,11 @@
                             width: rem(88);
                             margin-top: 0;
                             position: absolute;
-                            top: rem(135);
+                            top: rem(0);
                             left: rem(51);
                             display: block;
                             background: transparent;
-                            height: rem(400);
+                            height: rem(390);
                             overflow-y: scroll;
                             -ms-overflow-style: none;
                             scrollbar-width: none;
@@ -460,7 +459,7 @@
                     flex: 0 0 43.4%;
                     max-width: 45.4%;
                     padding-right: rem(15);
-                    padding-left: rem(60);
+                    padding-left: rem(51);
                 }
 
                 @include media-breakpoint-down(sm-custom) {
@@ -487,25 +486,25 @@
 
                 .slick {
                     &-slide {
-                        width: rem(650) !important;
+                        // width: rem(650) !important;
 
                         img {
                             margin: 0 auto;
                             height: rem(375);
                             width: rem(375);
 
-                            @include media-breakpoint-up(lg) {
-                                height: rem(650) !important;
-                                width: rem(650)
-                            }
-                            @include media-breakpoint-down(sm-custom) {
-                                height: rem(300);
-                                width: rem(300);
-                            }
-                            @include media-breakpoint-down(xsm-custom) {
-                                height: rem(241);
-                                width: rem(241);
-                            }
+                            // @include media-breakpoint-up(lg) {
+                            //     height: rem(650) !important;
+                            //     width: rem(650)
+                            // }
+                            // @include media-breakpoint-down(sm-custom) {
+                            //     height: rem(300);
+                            //     width: rem(300);
+                            // }
+                            // @include media-breakpoint-down(xsm-custom) {
+                            //     height: rem(241);
+                            //     width: rem(241);
+                            // }
 
                         }
                     }
@@ -625,6 +624,7 @@
                 }
 
                 &-list {
+                    
                     @include media-breakpoint-up(lg) {
                         display: flex;
                         flex-direction: column;
@@ -862,8 +862,8 @@
         .quickview {
             position: absolute;
             transform: translate(50%, 328%);
-            left: 5px;
-            top: 73.4%;
+            left: rem(4);
+            top: 86.95%;
 
             &:focus {
                 box-shadow: none;

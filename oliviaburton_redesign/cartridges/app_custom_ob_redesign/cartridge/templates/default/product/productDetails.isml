@@ -29,7 +29,7 @@
                     <!-- Product Images Carousel -->
                     <isinclude template="product/components/imageCarousel" />
 
-                    <div class="col-12 col-lg-5 product-top-detail">
+                    <div class="col-12 col-sm-6 product-top-detail">
 
                         <!-- Family Name -->
                         <h1 class="family-name">${pdict.collectionName}</h1>
