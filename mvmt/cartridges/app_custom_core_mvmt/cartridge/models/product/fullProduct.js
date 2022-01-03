@@ -28,7 +28,7 @@ module.exports = function fullProduct(product, apiProduct, options) {
     var caseDiameterRedesigned = productCustomHelper.getCaseDiameter(apiProduct, true);
     var isWatchTile = productCustomHelper.getIsWatchTile(apiProduct);
     var pdpContentAssetHTML = productCustomHelper.getPDPContentAssetHTML(apiProduct);
-
+    var isCategory = productCustomHelper.getCategory(apiProduct, product);
 
     if (!empty(currentCountry)) {
         Object.defineProperty(product, 'currentCountry', {
@@ -140,6 +140,13 @@ module.exports = function fullProduct(product, apiProduct, options) {
         Object.defineProperty(product, 'isWatchTile', {
             enumerable: true,
             value: isWatchTile
+        });
+    }
+
+    if (!empty(isCategory)) {
+        Object.defineProperty(product, 'isCategory', {
+            enumerable: true,
+            value: isCategory
         });
     }
 

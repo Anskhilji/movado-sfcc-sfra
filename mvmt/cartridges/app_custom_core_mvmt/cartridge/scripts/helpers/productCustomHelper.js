@@ -405,6 +405,52 @@ function getColor(apiProduct, product) {
     return color || '';
 }
 
+//Custom Start: Get Category of Product
+function getCategory(apiProduct, product) {
+    var isCategory;
+    var currentCategory = null;
+    var apiCategories;
+
+    if (!apiProduct.master || apiProduct.variant) {
+        apiCategories = apiProduct.getVariationModel().getMaster().getOnlineCategories();
+    } else {
+        apiCategories = apiProduct.getOnlineCategories();
+    }
+
+    for (i = 0 ; apiCategories.length > 0 ; i++) {
+        currentCategory = apiCategories[i];
+
+        if ((!empty(currentCategory) && currentCategory.ID == Constants.WATCHES_CATEGORY) || (!empty(currentCategory) && currentCategory.ID == Constants.EYEWEAR_CATEGORY) || (!empty(currentCategory) && currentCategory.ID == Constants.JEWELRY_CATEGORY)) {
+            isCategory = currentCategory.ID;
+            break;
+        }
+
+        if(!empty(currentCategory)) {
+            var category;
+            var index;
+            category = currentCategory.ID;
+            index = category.indexOf("strapguide");
+
+            if (index == 0) {
+                isCategory = Constants.STRAPS_CATEGORY;
+                break; // break outer loop
+            }
+        }
+
+        if (!empty(currentCategory)) {
+                if (currentCategory.parent != null) {
+                    currentCategory = currentCategory.parent;
+                    if ((!empty(currentCategory) && currentCategory.ID == Constants.WATCHES_CATEGORY) || (!empty(currentCategory) && currentCategory.ID == Constants.EYEWEAR_CATEGORY) || (!empty(currentCategory) && currentCategory.ID == Constants.JEWELRY_CATEGORY)) {
+                        isCategory = currentCategory.ID;
+                        break; // break outer loop
+                    }
+                }
+        }
+    }
+    return isCategory;
+}
+//Custom End: Get Category of Product
+
 movadoProductCustomHelper.getProductAttributes = getProductAttributes;
 movadoProductCustomHelper.getRefinementSwatches = getRefinementSwatches;
 movadoProductCustomHelper.getPdpDetailAndSpecsAttributes = getPdpDetailAndSpecsAttributes;
@@ -415,5 +461,7 @@ movadoProductCustomHelper.getPDPContentAssetHTML = getPDPContentAssetHTML;
 movadoProductCustomHelper.getCaseDiameter = getCaseDiameter;
 movadoProductCustomHelper.getColor = getColor;
 movadoProductCustomHelper.getIsWatchTile = getIsWatchTile;
+movadoProductCustomHelper.getCategory = getCategory;
 
 module.exports = movadoProductCustomHelper;
+
