@@ -1067,6 +1067,10 @@
             .product-colors {
                 @include collection-subtitle-font;
             }
+
+            .uncategotized-product-name {
+                display: block;
+            }
         }
 
         .exclusive-badges {
