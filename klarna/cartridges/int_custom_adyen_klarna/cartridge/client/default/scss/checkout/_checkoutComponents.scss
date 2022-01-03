@@ -3,9 +3,18 @@
 .klarna {
   &-panel {
     &-image {
-      width: rem(77);
+      width: 100%;
       border-radius: rem(8);
-      height: rem(39);
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
     }
+  }
+}
+
+.payment-options{
+  .nav-link {
+    position: relative;
   }
 }
