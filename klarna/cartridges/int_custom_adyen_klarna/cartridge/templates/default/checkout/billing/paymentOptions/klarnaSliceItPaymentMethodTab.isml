@@ -8,7 +8,7 @@
         <button id='pay-later-${paymentOption.ID}' data-bs-toggle='pill' data-bs-target='#klarna-slice-it-content' 
         name='paymentOption' class='nav-link' type='button' 
         role="tab" aria-controls="klarna-slice-it-content" aria-selected="false">
-            <label for='slice-it-${paymentOption.ID}' class="form-check-label d-block">
+            <label for='${paymentOption.ID}' class="form-check-label d-block">
                 <img src="${URLUtils.staticURL('/images/klarna.png')}" class="klarna-panel-image" alt="Klarna logo"/>
             </label>
         </button>

@@ -5,7 +5,7 @@
 <iselse/>
     <isset name="show" value="" scope="page"/>
 </isif>
-        <button id='pay-later-${paymentOption.ID}' data-bs-toggle='pill' data-bs-target='#klarna-pay-later-content' 
+        <button id='${paymentOption.ID}' data-bs-toggle='pill' data-bs-target='#klarna-pay-later-content' 
         name='paymentOption' class='nav-link' type='button' 
         role="tab" aria-controls="klarna-pay-later-content" aria-selected="false">
         <label for='pay-later-${paymentOption.ID}' class="form-check-label d-block">

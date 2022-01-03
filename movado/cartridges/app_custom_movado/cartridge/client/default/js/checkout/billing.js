@@ -337,7 +337,7 @@ module.exports = {
     },
 
     paymentTabs: function () {
-        $('.payment-options .accordion-link').on('click', function () {
+        $('.payment-options .nav-link').on('click', function () {
             var methodID = $(this).closest('.form-check').data('method-id');
             var brandCode = $(this).closest('.form-check').data('brand-code');
             $(this).parent().find('a').trigger('click');

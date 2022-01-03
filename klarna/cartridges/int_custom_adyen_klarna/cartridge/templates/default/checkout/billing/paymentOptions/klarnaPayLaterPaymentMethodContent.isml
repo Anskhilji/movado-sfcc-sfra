@@ -6,6 +6,29 @@
     <isset name="show" value="" scope="page"/>
 </isif>
 
-    <div class="panel-body">
-        <div class="mb-3">${Resource.msg('hpp.klarna.pay.later.description', 'hpp', null)}</div>
+<div class="panel-body">
+    <div class="mb-3 klarna-payment-message">${Resource.msg('hpp.klarna.pay.later.description', 'hpp', null)}</div>
+</div>
+<div class="form-check panel-heading py-3" data-method-id="${paymentOption.ID}" data-brand-code="klarna">
+    <div class="panel-title">
+        <input type='radio' id="pay-later-${paymentOption.ID}" name='paymentOption' class="form-check-input klarna-payment-links accordion-link"
+                value='adyen' required ${checked}/>
+        <label for='pay-later-${paymentOption.ID}' class="form-check-label d-block">
+            <span class="klarna-pay-letter-option">${Resource.msg('hpp.klaran.pay.later.label', 'hpp', null)}</span>
+        </label>
+        <a class="klarna-pay-later-panel" data-toggle="collapse" aria-controls="klarna-pay-later-content" href="${'#' + 'klarna-pay-later-content'}">
+        </a>
     </div>
+</div>
+
+<div class="form-check panel-heading py-3" data-method-id="${paymentOption.ID}" data-brand-code="klarna_account">
+    <div class="panel-title">
+        <input type='radio' id="slice-it-${paymentOption.ID}" name='paymentOption' class="form-check-input klarna-payment-links accordion-link"
+                value='adyen' required ${checked}/>
+        <label for='slice-it-${paymentOption.ID}' class="form-check-label d-block">
+            <span class="klarna-pay-letter-option">${Resource.msg('hpp.klarna.slice.it.label', 'hpp', null)}</span>
+        </label>
+        <a class="klarna-slice-it-panel" data-toggle="collapse" aria-controls="klarna-slice-it-content" href="${'#' + 'klarna-slice-it-content'}">
+        </a> 
+    </div>
+</div>
