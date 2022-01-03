@@ -9,6 +9,6 @@
         name='paymentOption' class='nav-link' type='button' 
         role="tab" aria-controls="klarna-slice-it-content" aria-selected="false">
             <label for='${paymentOption.ID}' class="form-check-label d-block">
-                <img src="${URLUtils.staticURL('/images/klarna.png')}" class="klarna-panel-image" alt="Klarna logo"/>
+                <div class="klarna-panel-image"></div>
             </label>
         </button>

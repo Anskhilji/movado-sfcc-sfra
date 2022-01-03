@@ -409,22 +409,11 @@ $stored-payment-spacing: rem(16);
     .accordion-link {
       margin-top: rem(8);
       + label {
-        &:after,
         &:before {
+          width: rem(22)!important;
+          height: rem(22)!important;
           top: 50%;
           transform: translateY(-50%);
-        }
-        &:after {
-          content: "\F107";
-          position: absolute;
-          font-family: "FontAwesome";
-          font-size: rem(18);
-          right: 0;
-        }
-      }
-      &:checked {
-        + label::after {
-          content: "\F106";
         }
       }
     }
