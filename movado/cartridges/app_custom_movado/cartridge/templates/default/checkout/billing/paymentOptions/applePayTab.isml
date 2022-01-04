@@ -1,11 +1,8 @@
-
-     <button type='button' id="${paymentOption.ID}" name='paymentOption' class="nav-link"
-      data-bs-toggle="pill" data-bs-target="#applepay-content" role="tab" aria-controls="applepay-content"
-      aria-selected="false">
-            <label for="${paymentOption.ID}" class="form-check-label d-block" >
+<div class="form-check panel-heading" data-method-id="${paymentOption.ID}">
+    <button type='button' id="${paymentOption.ID}" name='paymentOption' class="nav-link apple-pay-link" data-bs-toggle="pill" data-bs-target="#applepay-content" role="tab" aria-controls="applepay-content" aria-selected="false">
+        <label for="${paymentOption.ID}" class="form-check-label d-block" >
               <img src="${URLUtils.staticURL('/images/apple-pay-logo.png')}" alt="${Resource.msg('checkout.applepay.logo.text', 'checkout', null)}"/>
             </label>
     </button>
-
-
+</div>
 

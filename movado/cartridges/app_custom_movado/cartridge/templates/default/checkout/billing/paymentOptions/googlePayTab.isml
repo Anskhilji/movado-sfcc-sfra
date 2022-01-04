@@ -1,4 +1,4 @@
-
+<div class="form-check panel-heading" data-method-id="${paymentOption.ID}">
      <button type='button' id="${paymentOption.ID}" name='paymentOption' class="nav-link google-pay-link" 
       data-bs-toggle="pill" data-bs-target="#googlepay-content" role="tab" aria-controls="googlepay-content"
       aria-selected="false">
@@ -6,5 +6,5 @@
               <img src="${URLUtils.staticURL('/images/google-pay-logo.png')}" alt="${Resource.msg('payment.name', 'googlePay', null)}"/>
             </label>
       </button>
-
+</div>
 

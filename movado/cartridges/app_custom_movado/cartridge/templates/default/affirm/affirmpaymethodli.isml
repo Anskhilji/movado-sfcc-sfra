@@ -3,10 +3,11 @@
 <iselse/>
     <isset name="checked" value="" scope="page"/>
 </isif>
+<div class="form-check panel-heading" data-method-id="${paymentOption.ID}">
     <button id="${paymentOption.ID}" name='paymentOption' class="nav-link" data-bs-toggle="pill" data-bs-target="#affirm-content"
     type="button" role="tab" aria-controls="affirm-content" aria-selected="false">
             <label for="${paymentOption.ID}" class="form-check-label d-block" >
               <img src="${URLUtils.staticURL('/images/blue-logo-affirm.png')}" class="affirm-panel-image" alt="${Resource.msg('checkout.affirm.logo.text', 'checkout', null)}"/>
             </label>
     </button>
-
+</div>

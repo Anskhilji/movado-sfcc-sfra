@@ -1,5 +1,3 @@
-<div class="tab-pane active amazon-pay-content" id="amazon-pay-content" role="tabpanel">
-    <iscomment> Custom Start: Add text in panel for Amazon Pay </iscomment>
+<iscomment> Custom Start: Add text in panel for Amazon Pay </iscomment>
     <div class="mb-3">${Resource.msg('hpp.empty', 'hpp', null)}</div>
-    <iscomment> Custom End </iscomment>
-</div>
+<iscomment> Custom End </iscomment>

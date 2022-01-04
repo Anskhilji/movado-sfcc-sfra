@@ -1,12 +1,12 @@
 <isif condition="${!!pymtMethod && (pymtMethod.paymentMethod === 'Adyen')}">
-        <isset name="checked" value="checked" scope="page" />
-    <iselse/>
-        <isset name="checked" value="" scope="page" />
+    <isset name="checked" value="checked" scope="page" />
+<iselse/>
+    <isset name="checked" value="" scope="page" />
 </isif>
-<button id="${paymentOption.ID}" data-bs-toggle="pill" data-bs-target="#adyen-content"
-        name='paymentOption' class="nav-link alternative-payment-methods-links" type="button" role="tab" aria-controls="adyen-content"
-        aria-selected="false">
+<div class="form-check panel-heading" data-method-id="${paymentOption.ID}">
+    <button id="${paymentOption.ID}" data-bs-toggle="pill" data-bs-target="#adyen-content" name='paymentOption' class="nav-link alternative-payment-methods-links" type="button" role="tab" aria-controls="adyen-content" aria-selected="false">
         <label for='${paymentOption.ID}' class="form-check-label d-block">
-                <img src="${URLUtils.staticURL('/images/paypal-logo.png')}" alt="Paypal logo" />
+            <img src="${URLUtils.staticURL('/images/paypal-logo.png')}" alt="Paypal logo" />
         </label>
-</button>
+    </button>
+</div>

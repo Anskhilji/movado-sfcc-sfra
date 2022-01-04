@@ -93,37 +93,37 @@
                         </li>
                     </isif>
                     <isif condition="${paymentOption.ID ==='Adyen'}">
-                        <div class="nav-item" role="presentation">
+                        <li class="nav-item" role="presentation">
                             <isinclude template="checkout/billing/paymentOptions/alternativePaymentMethodTab" />
-                        </div>
+                        </li>
                         <iscomment>Custom Start: Add klarna payment methods </iscomment>
 	                    <isif condition="${!empty(openInvoiceWhiteListMethods)}">
-                            <div class="nav-item" role="presentation">
+                            <li class="nav-item" role="presentation">
 		                            <isinclude template="checkout/billing/paymentOptions/klarnaPayLaterPaymentMethodTab"/>
-                            </div>       
+                            </li>       
 	                    </isif>
 	                    <iscomment>Custom End: Add klarna payment methods </iscomment>
                     </isif>
                     <isif condition="${paymentOption.ID === 'Affirm' && require('int_affirm/cartridge/scripts/utils/affirmHelper').IsAffirmApplicable()}">
-                        <div class="nav-item" role="presentation">
+                        <li class="nav-item" role="presentation">
                             <isinclude template="affirm/affirmpaymethodli" />
-                        </div>
+                        </li>
                     </isif>
                     <isif condition="${paymentOption.ID === 'DW_APPLE_PAY'}">
-                        <div class="nav-item applepay-tab-wrapper" role="presentation">
+                        <li class="nav-item applepay-tab-wrapper" role="presentation">
                             <isinclude template="checkout/billing/paymentOptions/applePayTab" />
-                        </div>
+                        </li>
                     </isif>
                      <isif condition="${paymentOption.ID === 'GOOGLE_PAY'}">
-                        <div class="nav-item google-pay-options" role="presentation">
+                        <li class="nav-item google-pay-options" role="presentation">
                             <isinclude template="checkout/billing/paymentOptions/googlePayTab" />
-                        </div>
+                        </li>
                      </isif>
                 <iselse/>
                     <isif condition="${paymentOption.ID === 'AMAZON_PAY'}">
-                        <iscomment> <div class="nav-item" role="presentation">
+                        <div class="nav-item" role="presentation">
                             <isinclude template="checkout/billing/paymentOptions/amazonPayTab" />
-                        </div> </iscomment>
+                        </div>
                     </isif>
                 </isif>
             </isloop>
@@ -168,9 +168,9 @@
                      </isif>
                 <iselse/>
                     <isif condition="${paymentOption.ID === 'AMAZON_PAY'}">
-                    <iscomment> <div class="tab-pane fade" id="amazon-pay-content" role="tabpanel" aria-labelledby="${paymentOption.ID}">
-                            <isinclude template="checkout/billing/paymentOptions/amazonPayContent" />
-                    </div> </iscomment>
+                        <div class="tab-pane fade amazon-pay-content" id="amazon-pay-content" role="tabpanel" aria-labelledby="${paymentOption.ID}">
+                                <isinclude template="checkout/billing/paymentOptions/amazonPayContent" />
+                        </div>
                     </isif>
                 </isif>
             </isloop>

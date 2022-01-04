@@ -337,9 +337,10 @@ module.exports = {
     },
 
     paymentTabs: function () {
-        $('.payment-options .nav-link').on('click', function () {
+        $('.payment-options .nav-link, .klarna-split-it').on('click', function () {
             var methodID = $(this).closest('.form-check').data('method-id');
             var brandCode = $(this).closest('.form-check').data('brand-code');
+
             $(this).parent().find('a').trigger('click');
             $('#selectedPaymentOption').val(methodID);
             $('.payment-information').data('payment-method-id', methodID);
@@ -357,17 +358,26 @@ module.exports = {
             }
         });
     },
-
+    
+    defualtPaymentMethodSelection: function () {
+        $(document).ready( function () {
+            var methodID = $('.payment-options .nav-link').closest('.form-check').data('method-id');
+            $('#selectedPaymentOption').val(methodID);
+            $('.payment-information').data('payment-method-id', methodID);
+            
+            if (methodID === Resources.ADYEN_PAYMENT_METHOD_ID) {
+                $('#adyenPaymentMethod').val(Resources.PAYPAL_PAYMENT_METHOD_TEXT);
+            }
+        });
+    },
 
     paymentOptions: function () {
         $('.payment-options .nav-link').on('click', function () {
-           
-
         $('.payment-options .nav-link').removeClass('active');
-
         $('.payment-options .nav-link').attr('aria-selected','false');
         $('.tab-content-payment-options .tab-pane').removeClass('active');
         $('.tab-content-payment-options .tab-pane').removeClass('show');
+        $(this).addClass('active');
         var  $activeTab = $(this).attr('aria-controls');
         $('.tab-content-payment-options .tab-pane').each(function() {
  
