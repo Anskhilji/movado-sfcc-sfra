@@ -741,19 +741,6 @@ header {
       justify-content: center;
       align-items: center;
     }
-  
-    .form-check {
-      .panel-title {
-        .accordion-link {
-          + label {
-            &:before {
-              width: rem(22)!important;
-              height: rem(22)!important;
-            } 
-          }
-        }
-      }
-    } 
   }
 
 .checkout-label-custom {

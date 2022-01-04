@@ -2,18 +2,18 @@
 <isset name="checked" value="checked" scope="page"/>
 <div class="form-check panel-heading py-3 amazon-pay-tab" data-method-id="${paymentOption.ID}">
     <div class="panel-title" tabindex="0">
-            <button type='button' id="${paymentOption.ID}" name='paymentOption' class="form-check-input accordion-link"
-            data-bs-toggle="pill"   data-bs-target="#amazon-pay-content" role="tab" aria-controls="amazon-pay-content"
-            aria-selected="false">
-                <label for='${paymentOption.ID}' class="form-check-label d-block">
-                    <img class="amazon-pay-option"
-                            src="${URLUtils.staticURL('/images/Black-XL._TTD_.png')}"
-                            height="32"
-                            alt="${paymentOption.name}"
-                            title="${paymentOption.name}"
-                        >
-                </label>
-            </button>
+            <input type='radio' id="${paymentOption.ID}" name='paymentOption' class="form-check-input accordion-link"
+                    value='Amazon' required ${checked}/>
+            <label for='${paymentOption.ID}' class="form-check-label d-block">
+               <img class="amazon-pay-option"
+                    src="${URLUtils.staticURL('/images/Black-XL._TTD_.png')}"
+                    height="32"
+                    alt="${paymentOption.name}"
+                    title="${paymentOption.name}"
+                >
+            </label>
+            <a class="adyen-panel" data-toggle="collapse" aria-controls="adyen-content" href="${'#' + 'amazon-pay-content'}">
+            </a>
     </div>
 </div>
 <iscomment> Custom End </iscomment>
