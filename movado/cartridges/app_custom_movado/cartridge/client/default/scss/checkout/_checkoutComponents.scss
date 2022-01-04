@@ -410,8 +410,6 @@ $stored-payment-spacing: rem(16);
       margin-top: rem(8);
       + label {
         &:before {
-          width: rem(22)!important;
-          height: rem(22)!important;
           top: 50%;
           transform: translateY(-50%);
         }
