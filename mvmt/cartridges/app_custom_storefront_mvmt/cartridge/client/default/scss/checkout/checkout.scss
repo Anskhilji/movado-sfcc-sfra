@@ -234,14 +234,7 @@
     .payment-form {
         .payment-information {
             .accordion-link + label {
-                &:after {
-                    content: "\F107";
-                    position: absolute;
-                    font-family: "FontAwesome";
-                    font-size: rem(18);
-                    right: 0;
-                }
-
+                
                 &:before {
                     border-radius: 100%;
                 }
