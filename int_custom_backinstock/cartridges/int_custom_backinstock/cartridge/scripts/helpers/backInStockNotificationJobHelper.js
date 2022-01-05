@@ -20,6 +20,8 @@ var productFactory = require('*/cartridge/scripts/factories/product');
 var emailHeaderContent = ContentMgr.getContent('email-header');
 var emailFooterContent = ContentMgr.getContent('email-footer');
 var backInStockNotificationEmailContent = ContentMgr.getContent('ca-back-in-stock-notification-email');
+var ProductMgr = require('dw/catalog/ProductMgr');
+var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 
 /**
  * Appends current datetime stamp to provided string and prepends Site ID
@@ -41,9 +43,12 @@ function processBackInStockObject(backInStockNotificationObj) {
         success: false
     };
     try {
+        var productId = params.pid;
+        var apiProduct = ProductMgr.getProduct(productId);
+        var productType = productHelper.getProductType(apiProduct);
         var product = productFactory.get({ pid: backInStockNotificationObj.custom.productID });
         if (!empty(product)) {
-            if (product.available) {
+            if (apiProduct >= BackInStockNotification) {
                 result.success = sendBackInStockNotificationEmail(backInStockNotificationObj, product);
                 if (result.success) {
                     removeBackInStockObj(backInStockNotificationObj);
