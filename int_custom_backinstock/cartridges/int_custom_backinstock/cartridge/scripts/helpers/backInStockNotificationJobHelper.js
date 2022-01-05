@@ -12,7 +12,7 @@ var StringUtils = require('dw/util/StringUtils');
 var Resource = require('dw/web/Resource');
 var Transaction = require('dw/system/Transaction');
 var URLUtils = require('dw/web/URLUtils');
-
+var ProductMgr = require('dw/catalog/ProductMgr');
 var Constants = require('~/cartridge/scripts/utils/Constants');
 var emailHelpers = require('*/cartridge/scripts/helpers/emailHelpers');
 var productFactory = require('*/cartridge/scripts/factories/product');
@@ -20,8 +20,6 @@ var productFactory = require('*/cartridge/scripts/factories/product');
 var emailHeaderContent = ContentMgr.getContent('email-header');
 var emailFooterContent = ContentMgr.getContent('email-footer');
 var backInStockNotificationEmailContent = ContentMgr.getContent('ca-back-in-stock-notification-email');
-var ProductMgr = require('dw/catalog/ProductMgr');
-var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 
 /**
  * Appends current datetime stamp to provided string and prepends Site ID
@@ -43,13 +41,14 @@ function processBackInStockObject(backInStockNotificationObj) {
         success: false
     };
     try {
-        var productId = params.pid;
-        var apiProduct = ProductMgr.getProduct(productId);
-        var productType = productHelper.getProductType(apiProduct);
-        var product = productFactory.get({ pid: backInStockNotificationObj.custom.productID });
+        var product = ProductMgr.getProduct(backInStockNotificationObj.custom.productID);
         if (!empty(product)) {
-            if (apiProduct >= BackInStockNotification) {
-                result.success = sendBackInStockNotificationEmail(backInStockNotificationObj, product);
+            if (product.available) {
+                var productInventoryRecord = product.availabilityModel.inventoryRecord.ATS.value;
+                var minimumBackInStockNotification = Site.current.getCustomPreferenceValue('minimumBackInStockNotification');
+                if (productInventoryRecord >= minimumBackInStockNotification) {
+                    result.success = sendBackInStockNotificationEmail(backInStockNotificationObj, product);
+                }
                 if (result.success) {
                     removeBackInStockObj(backInStockNotificationObj);
                 }
