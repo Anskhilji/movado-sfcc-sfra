@@ -5,10 +5,10 @@
 <iselse/>
     <isset name="show" value="" scope="page"/>
 </isif>
-        <button id='pay-later-${paymentOption.ID}' data-bs-toggle='pill' data-bs-target='#klarna-slice-it-content' 
-        name='paymentOption' class='nav-link' type='button' 
-        role="tab" aria-controls="klarna-slice-it-content" aria-selected="false">
-            <label for='${paymentOption.ID}' class="form-check-label d-block">
-                <div class="klarna-panel-image"></div>
-            </label>
-        </button>
+<button id='pay-later-${paymentOption.ID}' data-bs-toggle='pill' data-bs-target='#klarna-slice-it-content' 
+    name='paymentOption' class='nav-link' type='button' 
+    role="tab" aria-controls="klarna-slice-it-content" aria-selected="false">
+        <label for='${paymentOption.ID}' class="form-check-label d-block">
+            <div class="klarna-panel-image"></div>
+        </label>
+</button>
