@@ -150,6 +150,9 @@ var getEswHelper = {
     getLocalizedPricingCountries: function () {
         return Site.getCustomPreferenceValue('eswLocalizedPricingCountries');
     },
+    isMultipleFxRatesEnabled: function () {
+        return Site.getCustomPreferenceValue('isMultipleFxRatesEnabled');
+    },
     /*
      * Function to get corresponding languages from countries.json
      */
