@@ -374,9 +374,10 @@ $stored-payment-spacing: rem(16);
           box-sizing: border-box;
           height: rem(45);
           width: rem(120);
-          border: rem(1) solid #D2D2D2;
+          border: rem(1) solid $grey16;
           border-radius: rem(3);
-          background-color: #FFFFFF;
+          background-color: $white;
+          position: relative;
 
           @include media-breakpoint-down(sm) {
             height: rem(35);
@@ -384,7 +385,7 @@ $stored-payment-spacing: rem(16);
           }
           
           &.active {
-            border: rem(2) solid #000000;
+            border: rem(2) solid $black;
           }
         }
 
@@ -406,14 +407,14 @@ $stored-payment-spacing: rem(16);
         }
 
         .credit-card-label {
-          height: 24px;
-          width: 85px;
-          color: #000000;
+          height: rem(24);
+          width: rem(85);
+          color: $black;
           font-family: "Futura PT";
-          font-size: 11px;
+          font-size: rem(11);
           font-weight: 500;
-          letter-spacing: 0.5px;
-          line-height: 24px;
+          letter-spacing: rem(0.5);
+          line-height: rem(24);
           text-align: center;
 
           @include media-breakpoint-down(sm) {
@@ -426,12 +427,12 @@ $stored-payment-spacing: rem(16);
         }
 
         .alternative-payment-methods-links {
-          border: 1px solid #FDCC4F!important;
-          background-color: #FDCC4F!important;
+          border: rem(1) solid $yellow2!important;
+          background-color: $yellow2!important;
         }
 
         .google-pay-link {
-          background-color: #000!important;
+          background-color: $black!important;
           img {
             @include media-breakpoint-down(sm) {
               height: rem(15);
@@ -439,42 +440,48 @@ $stored-payment-spacing: rem(16);
           }
         }
       }
+
+      .klarna-payment-button {
+        background-color: $klarna-pink!important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
    }
    
+  .amazonPayPanel {
+    display: none;
+  }
+  .panel {
+    padding-right: rem(10);
+    padding-left: rem(10);
+    margin-left: rem(-10);
+    margin-right: rem(-10);
+    border-top: rem(1) solid $border-color;
+  }
 
-
-
-
-    .panel {
-      padding-right: rem(10);
-      padding-left: rem(10);
-      margin-left: rem(-10);
-      margin-right: rem(-10);
-      border-top: rem(1) solid $border-color;
-    }
-
-    .accordion-link {
-      margin-top: rem(8);
-      + label {
-        &:before {
-          top: 50%;
-          transform: translateY(-50%);
-        }
+  .accordion-link {
+    margin-top: rem(8);
+    + label {
+      &:before {
+        top: 50%;
+        transform: translateY(-50%);
       }
     }
+  }
 
-    .affirm-payment-method {
-      padding: 0 rem(10) rem(10) rem(10);
-      margin: 0;
-      width: 100%;
-      .affirm-product-modal {
-        text-decoration: underline;
-      }
+  .affirm-payment-method {
+    padding: 0 rem(10) rem(10) rem(10);
+    margin: 0;
+    width: 100%;
+    .affirm-product-modal {
+      text-decoration: underline;
     }
+  }
 
-    .affirm-panel-image {
+  .affirm-panel-image {
       width: rem(75);
-    }
+  }
   }
 }
 

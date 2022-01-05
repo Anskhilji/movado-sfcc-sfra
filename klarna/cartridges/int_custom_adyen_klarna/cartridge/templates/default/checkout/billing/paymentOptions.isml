@@ -121,8 +121,9 @@
                      </isif>
                 <iselse/>
                     <isif condition="${paymentOption.ID === 'AMAZON_PAY'}">
-                        <div class="nav-item" role="presentation">
+                        <div class="panel amazonPayPanel panel-default">
                             <isinclude template="checkout/billing/paymentOptions/amazonPayTab" />
+                            <isinclude template="checkout/billing/paymentOptions/amazonPayContent" />
                         </div>
                     </isif>
                 </isif>
@@ -168,7 +169,8 @@
                      </isif>
                 <iselse/>
                     <isif condition="${paymentOption.ID === 'AMAZON_PAY'}">
-                        <div class="tab-pane fade amazon-pay-content" id="amazon-pay-content" role="tabpanel" aria-labelledby="${paymentOption.ID}">
+                        <div class="panel panel-default">
+                                <isinclude template="checkout/billing/paymentOptions/amazonPayTab" />
                                 <isinclude template="checkout/billing/paymentOptions/amazonPayContent" />
                         </div>
                     </isif>

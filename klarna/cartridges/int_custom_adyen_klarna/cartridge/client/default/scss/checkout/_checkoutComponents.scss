@@ -17,29 +17,3 @@
     }
   }
 }
-
-.payment-options{
-  .nav-link {
-    position: relative;
-  }
-
-  .klarna-payment-button {
-    background-color: #FFBBCE!important;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .form-check {
-    .panel-title {
-      .accordion-link {
-        + label {
-          &:before {
-            width: rem(22)!important;
-            height: rem(22)!important;
-          } 
-        }
-      }
-    }
-  } 
-}
