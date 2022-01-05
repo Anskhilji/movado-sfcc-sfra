@@ -410,9 +410,9 @@ $stored-payment-spacing: rem(16);
           height: rem(24);
           width: rem(85);
           color: $black;
-          font-family: "Futura PT";
+          font-family: $font-medium;
           font-size: rem(11);
-          font-weight: 500;
+          font-weight: 600;
           letter-spacing: rem(0.5);
           line-height: rem(24);
           text-align: center;
@@ -427,7 +427,6 @@ $stored-payment-spacing: rem(16);
         }
 
         .alternative-payment-methods-links {
-          border: rem(1) solid $yellow2!important;
           background-color: $yellow2!important;
         }
 
