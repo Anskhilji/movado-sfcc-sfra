@@ -113,7 +113,7 @@
                      </isif>
                 <iselse/>
                     <isif condition="${paymentOption.ID === 'AMAZON_PAY'}">
-                        <div class="panel panel-default">
+                        <div class="panel amazonPayPanel panel-default">
                             <isinclude template="checkout/billing/paymentOptions/amazonPayTab" />
                         </div>
                     </isif>
