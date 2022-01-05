@@ -99,7 +99,8 @@ function populatePaymentInstrument(order, paymentInstrument, paymentProcessor, p
     }
 
     paymentInstrument.paymentTransaction.paymentProcessor = paymentProcessor;
-    paymentInstrument.paymentTransaction.custom.Adyen_log = JSON.stringify(params);
+    // Custom Start: MSS-1663 Removed code which was saving the CC infomration in paymentTransaction custom attribute 'Adyen_log'
+    // Custom End
 }
 /**
  *  address Validation for PO box and Country
