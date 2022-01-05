@@ -893,29 +893,24 @@
             left: 19.50%;
             @include media-breakpoint-down(md) {
                 bottom: 1.1%;
-                transform: translate(50%, -50%);
                 left: 9.6%;
             }
             @include media-breakpoint-down(sm) {
                 bottom: -2vh;
-                transform: translate(50%, -50%);
                 left: 4.5vh;
                 background-size: contain;
             }
             @include media-breakpoint-down(sm-small) {
                 bottom: -2vw;
-                transform: translate(50%, -50%);
                 left: 5vw;
                 background-size: contain;
             }
             @include media-breakpoint-down(sm-custom) {
                 bottom: -0.5vw;
-                transform: translate(50%, -50%);
                 left: 7.6vw;
             }
             @include media-breakpoint-down(xsm-custom) {
                 bottom: -1.65vw;
-                transform: translate(50%, -50%);
                 left: 9.5vw;
             }
             
