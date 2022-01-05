@@ -138,6 +138,14 @@
       .fa-stack-1x {
         font-size: rem(18);
       }
+      .quickview {
+        background: url('../../images/quickview_eye.svg') no-repeat center center;
+        width: rem(20);
+        height: rem(20);
+        bottom: rem(10);
+        right: rem(10);
+        display: block;
+      }
     }
 
     .promo-msg.callout {

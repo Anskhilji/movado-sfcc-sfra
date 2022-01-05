@@ -16,6 +16,41 @@
 
 }
 
+.search-results-container {
+  margin-right: rem(-15);
+  margin-left: 0;
+
+  .product-counter-wrapper {
+    width: rem(1110);
+  
+    .searech-results-wrapper {
+      padding: 0;
+
+      .sorting-rules-filters{
+        box-sizing: border-box;
+        height: rem(46);
+        border: rem(1) solid $black2;
+        border-radius: rem(4);
+        background-color: $white1;
+        line-height: 1.4;
+      }
+
+      .secondary-bar {
+
+        .reset {
+          box-sizing: border-box;
+          height: rem(46);
+          border: rem(1) solid $border-color;
+          border-radius: rem(4);
+          padding: rem(12);
+          line-height: 1.4;
+        }
+      }
+
+    }
+  }
+}
+
 .refinements {
 
     .values {
@@ -53,24 +88,82 @@
     font-size: rem(20);
     font-family: $font-medium;
     font-weight: 500;
+    @include media-breakpoint-up(custom-md) {
+      max-width: rem(775);
+      flex: 0 0 rem(775);
+      padding: 0;
+    }
+}
+
+.sort-filters-button {
+  @include media-breakpoint-up(custom-md) {
+    max-width: rem(315);
+    flex: 0 0 rem(315);
+    padding: 0;
+  }
 }
 
 .refinement {
+  margin: 0;
+  padding: 0;
+  height: rem(60);
+  display: flex;
+  justify-content: center;
 
     &.card {
+      border-bottom: 0 none;
+      border-left: 0 none;
+      border-right: 0 none;
+      border-radius: 0;
+      box-shadow: none;
+      border-top: rem(1) solid #979797;
+
+      &:last-child {
+        border-bottom: rem(1) solid #979797;
+      }
 
         .card-header {
           font-family: $font-medium;
           font-weight:500;
           font-size: rem(16);
+          height: rem(25);
+          
 
           &::after {
-
+            content: "\f067";
+            top: rem(18);
+          }
+          &:focus{
+            outline: none;
           }
 	    }
+      &.active {
+        height: auto;
+
+          .card-header {
+             height: rem(25);
+             
+             &::after{
+                 content: "\f068";
+                 top: rem(2);
+             }
+          }
+
+          .card-body {
+            margin-top: rem(20);
+          }
+      }
+
 
     }
+}
 
+.product-tiles-wrapper {
+  @include media-breakpoint-up(custom-md) {
+    max-width: rem(775);
+    flex: 0 0 rem(775);
+    padding: 0;
+  }
 }
 
 .search-keywords {
@@ -138,6 +231,16 @@
     }
   }
 }
+
+.refinement-bar {
+
+  @include media-breakpoint-up(custom-md) {
+    max-width: rem(315);
+    flex: 0 0 rem(315);
+    padding: 0;
+  }
+}
+
 .result-count > span  {
   font-size: rem(20);
 
