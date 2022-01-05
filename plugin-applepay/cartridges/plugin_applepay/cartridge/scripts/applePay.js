@@ -229,6 +229,11 @@ exports.prepareBasket = function (basket, parameters) {
 		// updateOptionLineItem(basket, 'MovadoUS-3650057', 'MovadoUS-0607271', 'embossedMessage', 'engraved\nMessage');
     }
         var currentBasket = BasketMgr.getCurrentBasket();
+        // Custom Start: [MSS-1658]
+        var clydeContractProductList = basket.custom.clydeContractProductList;
+        delete session.custom.clydeContractProductList;
+        session.custom.clydeContractProductList = clydeContractProductList;
+        // Custom End: [MSS-1658]
         if (currentBasket && !empty(currentBasket.custom.smartGiftTrackingCode)) {
             session.custom.trackingCode = currentBasket.custom.smartGiftTrackingCode;
         }
