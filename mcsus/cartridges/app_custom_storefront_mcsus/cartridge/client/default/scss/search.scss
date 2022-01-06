@@ -88,7 +88,7 @@
     font-size: rem(20);
     font-family: $font-medium;
     font-weight: 500;
-    @include media-breakpoint-up(custom-md) {
+    @include media-breakpoint-up(xl) {
       max-width: rem(775);
       flex: 0 0 rem(775);
       padding: 0;
@@ -96,7 +96,7 @@
 }
 
 .sort-filters-button {
-  @include media-breakpoint-up(custom-md) {
+  @include media-breakpoint-up(xl) {
     max-width: rem(315);
     flex: 0 0 rem(315);
     padding: 0;
@@ -159,7 +159,7 @@
 }
 
 .product-tiles-wrapper {
-  @include media-breakpoint-up(custom-md) {
+  @include media-breakpoint-up(xl) {
     max-width: rem(775);
     flex: 0 0 rem(775);
     padding: 0;
@@ -234,7 +234,7 @@
 
 .refinement-bar {
 
-  @include media-breakpoint-up(custom-md) {
+  @include media-breakpoint-up(xl) {
     max-width: rem(315);
     flex: 0 0 rem(315);
     padding: 0;
