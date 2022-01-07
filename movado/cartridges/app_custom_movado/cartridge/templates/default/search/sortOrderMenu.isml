@@ -10,5 +10,5 @@
             </option>
         </isloop>
     </select>
-    <i class="fa fa-angle-down"></i>
+    <span class="triangle-icon"></span>
 </isif>
