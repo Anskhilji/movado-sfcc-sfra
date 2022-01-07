@@ -1037,6 +1037,7 @@
                 .eyewear {
                     &-product-name {
                         @include collection-title-font;
+                        display: block;
                     }
         
                     &-heading {

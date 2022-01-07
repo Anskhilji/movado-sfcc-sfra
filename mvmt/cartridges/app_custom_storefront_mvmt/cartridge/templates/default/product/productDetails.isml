@@ -76,7 +76,7 @@
                                     <isif condition="${!empty(product.collectionName)}">
                                         <span class="watches-collection-name" data-selected-variation-attr="collectionName">${product.collectionName}</span>
                                     </isif>
-                                    <span class="product-name watches-product-name product-title-for-gtm text-uppercase">${product.productName}</span>
+                                    <span class="product-name watches-product-name product-title-for-gtm">${product.productName}</span>
                                     <isif condition="${!empty(product.caseDiameter)}">
                                         <span class="watches-seprator">${Resource.msg('separator', 'product', null)}</span>
                                             <span class="watches-case-diameter" data-selected-variation-attr="caseDiameter">${product.caseDiameter}</span>
@@ -104,13 +104,14 @@
                                     <isif condition="${product.variationAttributes.length > 0}">
                                         <isloop items="${product.variationAttributes}" var="attr" status="attributeStatus">
                                             <isif condition="${attr.id.indexOf('polarization') !== -1}">
-                                                
-                                                    <span>${Resource.msg('separator', 'product', null)}</span>
                                                     <span class="selected-variation" data-selected-variation-attr="${attr.id}">
                                                         <isloop items="${attr.values}" var="attrValue">
                                                             <isif condition="${attrValue.selected}">
                                                                 <isset name="selectedAttributeValue" value="${attrValue.value}" scope="page" />
-                                                                ${attrValue.displayValue} 
+                                                                    <isif condition="${attrValue.displayValue === "Yes"}">
+                                                                        <span>${Resource.msg('separator', 'product', null)}</span>
+                                                                        ${Resource.msg('pdp.eyewaer.polarization.text', 'product', null)}                                                             
+                                                                    </isif>
                                                             </isif>
                                                         </isloop>
                                                     </span>
