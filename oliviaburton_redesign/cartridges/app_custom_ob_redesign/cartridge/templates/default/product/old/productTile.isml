@@ -27,18 +27,17 @@
             </div>
         </isif>
 
-        <div class="${outOfStock ? 'out-of-stock' : 'adjust-soldout-badge'}">
-            <isif condition="${outOfStock}">
+		<isif condition="${outOfStock}">
+			<div class="out-of-stock">
                 ${Resource.msg('label.soldout', 'common', null)}
-            </isif>
-        </div>
-
+            </div>
+        </isif>
         
-        <div class="${product.badges.textBadges.length > 0 ? 'exclusive-product' : 'adjust-exclusive-callout'}">
-            <isloop items="${product.badges.textBadges}" var="badge">
-                ${badge.text}
-            </isloop>
-        </div>
+			<isloop items="${product.badges.textBadges}" var="badge">
+		        <div class="exclusive-product">
+		        	${badge.text}
+		        </div>
+		    </isloop>
 
         <isset name="price" value="${product.price}" scope="page" />
         <isif condition="${product.productType === 'set'}">
@@ -49,21 +48,17 @@
         <isif condition="${!pdict.isCompareableDisabled}"> 
             <isinclude template="product/components/compare" />
         </isif>
-        
-        <div class="${product.promotions != null ? 'promotions' : 'adjust-promotion-allignmnet'}">
-            <isif condition="${product.promotions}">
-                <div class="promotions">
-                    <isloop items="${product.promotions}" var="promotion" status ="promoStatus">
-                        <isif condition="${promotion.calloutMsg !== ''}">
-                            <div class="callout promo-msg" title="${promotion.details}">
-                                <span><isprint value="${promotion.calloutMsg}" encoding="off"></span>
-                            </div>
-                        </isif>
-                    </isloop>
-                </div>
-            </isif>
-        </div>
-
+        <isif condition="${product.promotions}">
+		    <div class="promotions">
+			    <isloop items="${product.promotions}" var="promotion" status ="promoStatus">
+                    <isif condition="${promotion.calloutMsg !== ''}">
+                        <div class="callout promo-msg" title="${promotion.details}">
+                            <span><isprint value="${promotion.calloutMsg}" encoding="off"></span>
+                        </div>
+                    </isif>
+			    </isloop>
+		    </div>
+		</isif>
         <isif condition="${pdict.display.selectBonusProductsButton}">
             <button class="btn btn-block btn-outline-primary select-bonus-product" data-pid="${product.id}" ${outOfStock || !product.available ? "disabled" : "" }>
                 ${Resource.msg('button.choiceofbonus.select', 'product', null)}
