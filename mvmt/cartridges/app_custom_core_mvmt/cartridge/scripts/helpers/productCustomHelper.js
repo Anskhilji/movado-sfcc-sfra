@@ -423,6 +423,7 @@ function getProductCategory(apiProduct, product) {
             
                     if ((!empty(currentCategory) && currentCategory.ID == Constants.WATCHES_CATEGORY) || (!empty(currentCategory) && currentCategory.ID == Constants.EYEWEAR_CATEGORY) || (!empty(currentCategory) && currentCategory.ID == Constants.JEWELRY_CATEGORY)) {
                         isCategory = currentCategory.ID;
+                        break;
                     }
             
                     if(!empty(currentCategory)) {
