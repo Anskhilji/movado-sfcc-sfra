@@ -412,7 +412,7 @@ function getProductCategory(apiProduct, product) {
     var apiCategories;
     try {
         if (!empty(apiProduct)) {
-            if (!apiProduct.master || apiProduct.variant) {
+            if (apiProduct.variant) {
                 apiCategories = apiProduct.getVariationModel().getMaster().getOnlineCategories();
             } else {
                 apiCategories = apiProduct.getOnlineCategories();
