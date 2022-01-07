@@ -56,12 +56,12 @@
 				<div class="tab-content searech-results-wrapper col-12">
 					<div class="tab-pane active" id="product-search-results" role="tabpanel" aria-expanded="true">
 						<isif condition="${pdict.productSearch.productIds.length > 0}">
-							<div class="row grid-header ml-0 mr-0">
-							<div class="result-count text-center col-12 col-md-9 col-sm-6 order-sm-2">
-							<iselse>
-							<div class="row grid-header justify-content-center">
-							<div class="result-count col">
-						</isif>
+						    <div class="row grid-header ml-0 mr-0">
+						    <div class="result-count text-center col-12 col-md-9 col-sm-6 order-sm-2">
+						    <iselse>
+						    <div class="row grid-header justify-content-center">
+						    <div class="result-count col">
+					</isif>
 						<isinclude template="search/resultsCount" />
 					</div>
 					<isif condition="${pdict.productSearch.productIds.length > 0}">
