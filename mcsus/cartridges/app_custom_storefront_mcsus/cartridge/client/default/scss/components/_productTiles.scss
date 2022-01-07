@@ -48,11 +48,14 @@
 
         .pdp-link {
             font-size: rem(20);
+            margin-top: rem(10);
+
             a {
                 font-size: rem(20);
                 height: rem(40);
                 letter-spacing: rem(0);
                 font-size: rem(16);
+                font-weight: 500;
                 height: rem(40);
 
                 @include media-breakpoint-down(sm) {
@@ -103,6 +106,14 @@
       }
       .fa-stack-1x {
         font-size: rem(18);
+      }
+      .quickview {
+        background: url('../../images/quickview_eye.svg') no-repeat center center;
+        width: rem(20);
+        height: rem(20);
+        bottom: rem(10);
+        right: rem(10);
+        display: block;
       }
     }
 
