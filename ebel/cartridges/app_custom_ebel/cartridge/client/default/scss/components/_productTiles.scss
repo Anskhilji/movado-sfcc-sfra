@@ -42,7 +42,7 @@
     border: 0;
     margin-bottom: 0;
     .tile-body {
-        padding: rem(10) 0 rem(40);
+        padding: 0.625em 0 1.875em;
         text-align: center;
 
         .color-swatches {
@@ -86,17 +86,12 @@
 			margin-bottom: 0.5rem;
             a {
                 font-size: 1rem;
-                height: rem(40);
                 text-decoration: none;
                 text-transform: uppercase;
                 @include headline;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                display: -webkit-box;
-                -webkit-line-clamp: 2;
-
+                line-height: rem(22);
                 @include media-breakpoint-down(md) {
-                  font-size: rem(13);
+                  font-size: rem(15);
                   letter-spacing: 1.76px;
                   line-height: rem(20);
                   font-weight:300;
@@ -107,13 +102,10 @@
                     font-size: rem(14);
                     letter-spacing: 2px;
                     font-weight:300;
+                    line-height: rem(17);
                     font-family: $font-book;
                 }
             }
-            &.flex-wrapper-center{
-                display: flex;
-                justify-content: center;
-              }
         }
 
         .ratings {
@@ -126,9 +118,6 @@
             line-height:rem(17);
             color:$grey-transparent-1;
           }
-        }
-        .promotions {
-            height: rem(27);
         }
     }
 
@@ -244,16 +233,5 @@
             padding: 0 rem(60);
         }
     }
-}
-
-.adjust-promo-message {
-    height: rem(27);
-}
-.adjust-nostock-align {
-    height: rem(14);
-    margin-bottom: rem(10);
-}
-.align-plp-badges {
-    height: rem(24);
 }
 

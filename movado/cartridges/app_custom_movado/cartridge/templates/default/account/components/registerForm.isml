@@ -90,6 +90,7 @@
                 id="hpemail"
                 readonly="true"
                 autocomplete="autocomplete_off_fghsk_xfr4!k"
+                tabindex="-1"
                 <isprint value=${pdict.profileForm.customer.hpemail.attributes} encoding="off" />>
         </isif>
         <iscomment> Custom End </iscomment>
@@ -114,6 +115,7 @@
             id="hpemailconfirm"
             readonly="true"
             autocomplete="autocomplete_off_dfhgkl_xfr4!k"
+            tabindex="-1"
             <isprint value=${pdict.profileForm.customer.hpemailconfirm.attributes} encoding="off"/>>
         </isif>
         <iscomment> Custom End </iscomment>
