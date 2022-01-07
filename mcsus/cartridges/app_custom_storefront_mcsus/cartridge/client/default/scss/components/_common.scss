@@ -31,6 +31,13 @@ h1 {
   font-size: rem(14);
 }
 
+.promotions {
+
+  .promo-msg {
+    color: $light-red;
+  }
+}
+
 @include media-breakpoint-up(md) {
   .heading-one {
     font-family: $font-bold;
