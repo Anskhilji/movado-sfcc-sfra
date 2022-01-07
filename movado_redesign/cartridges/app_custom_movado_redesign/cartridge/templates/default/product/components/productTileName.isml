@@ -1,5 +1,0 @@
-<isif condition="${!('display' in pdict && 'showName' in pdict.display && pdict.display.showName == false)}">
-    <div class="pdp-link" itemprop="name">
-        <a class="link product-name text-truncate-wrapper" href="${pdict.urls.product}" itemprop="url">${product.productName}</a>
-    </div>
-</isif>

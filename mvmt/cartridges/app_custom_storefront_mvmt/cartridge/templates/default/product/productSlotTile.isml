@@ -31,7 +31,7 @@
         </isif>
 
         <div class="tile-body">
-            <div class="tile-badges adjust-badges-allignent">
+            <div class="tile-badges">
                 <isif condition="${pdict.display.swatches !== false && product.productType == 'master'}">
                     <div class="plp-swatches ${product.variationsAttributes && product.variationsAttributes[0] && product.variationsAttributes[0].values && product.variationsAttributes[0].values.length > 0 ? '':'0-opacity'}">
                         <isif condition="${pdict.display.isEyewearTile}">
@@ -44,7 +44,7 @@
             </div>
             <div class="tile-inner-content">
                 <isif condition="${pdict.display.showAddToCart}">
-                    <div class="product-brand-info text-truncate-wrapper adjust-product-name">
+                    <div class="product-brand-info">
                     <isif condition="${product.isWatchTile}">
                         <isif condition="${!empty(product.defaultVariantCollectionName) || !empty(product.collectionName)}">
                             <span class="collection-name">${!empty(product.defaultVariantCollectionName) ? product.defaultVariantCollectionName : product.collectionName}</span>

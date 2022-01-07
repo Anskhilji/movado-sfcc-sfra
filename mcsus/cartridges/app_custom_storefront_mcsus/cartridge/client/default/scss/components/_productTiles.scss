@@ -21,10 +21,6 @@
             }
         }
 
-        .swatches-wrapper-box {
-          height: rem(28);
-        }
-
         .price {
           margin-bottom: rem(10);
           width: 100%;
@@ -41,23 +37,11 @@
           @include media-breakpoint-down(sm) {
             font-size: rem(14);
           }
-          @include media-breakpoint-up(lg) {
-              padding-left: rem(0);
-          }
+
             .tiered {
                 font-size: 0.875em;
                 .value {
                     font-weight: bold;
-                }
-            }
-            del {
-                @include media-breakpoint-down(md) {
-                    display: block;
-                    .strike-through {
-                        @include media-breakpoint-down(md) {
-                        margin-right: rem(0);
-                        }
-                    }
                 }
             }
         }
@@ -70,14 +54,9 @@
                 letter-spacing: rem(0);
                 font-size: rem(16);
                 height: rem(40);
-                overflow: hidden;
-                text-overflow: ellipsis;
-                display: -webkit-box;
-                -webkit-line-clamp: 2;
 
                 @include media-breakpoint-down(sm) {
-                    height: rem(40);
-                    line-height: inherit;
+                    height: rem(25);
                 }
                 
                 @include media-breakpoint-down(md) {
@@ -92,10 +71,6 @@
                     font-weight:500;
                     font-family: $font-medium;
                 }
-            }
-            &.flex-wrapper-center {
-                display: flex;
-                justify-content: center;
             }
         }
 
@@ -118,15 +93,6 @@
             margin-bottom: rem(10);   
           }
         }
-        .promotions {
-          height: rem(43);
-        }
-        .adjust-rating-alignment {
-          height: rem(35);
-        }
-        .adjust-badges-alignment {
-          height:rem(34);
-       }
     }
 
     .image-container {
@@ -145,8 +111,6 @@
       font-weight: 500;
       font-family: $font-medium;
       letter-spacing: rem(0);
-      height: rem(44);
-      overflow: hidden;
       
       @include media-breakpoint-down(md){
         font-size: rem(14);
@@ -158,12 +122,8 @@
       }
       
     }
-    .promo-none-visible {
-      height: rem(27);
-    }
 
     .out-of-stock {
-      padding-top: rem(9);
       font-size: rem(12);
       font-family: $font-regular;
       font-weight: 400;
@@ -171,8 +131,4 @@
     .exclusive-product {
         font-size: rem(12);
     }
-}
-
-.align-plp-badges {
-  height: rem(26);
 }

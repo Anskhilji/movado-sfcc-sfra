@@ -40,12 +40,26 @@
         
         .slick-arrow {
             &.slick-prev {
-                left: rem(-25);
-                
+                left: rem(20);
+                border-radius: 50%;
+                border: 0.052rem solid $silver;
+                background-color: $white-smoke;
+                height: rem(50.83);
+                width: rem(50.83);
+                margin-top: rem(70);
+                background-image: url(../../images/icons/long-arrow-left.svg);
+                box-shadow: 0 rem(2) rem(8) 0 $silver2;left: rem(-25);
             }
             &.slick-next {
-                right: rem(-25);
-                
+                right: rem(20);
+                border-radius: 50%;
+                border: 0.052rem solid $silver;
+                background-color: $white-smoke;
+                height: rem(50.83);
+                width: rem(50.83);
+                margin-top: rem(70);
+                background-image: url(../../images/icons/long-arrow-right.svg);
+                box-shadow: 0 rem(2) rem(8) 0 $silver2;
             }
         }
     }
@@ -68,14 +82,9 @@
     .slick-dots {
         button {
             font-size: 0;
-            width: rem(12);
-            height: rem(12);
-            border-radius: 50%;
-        }
-        li {
-            @include media-breakpoint-down(xs) {
-                margin-right: rem(5);
-            }
+            width: 2.5rem;
+            height: 0.1125rem;
+            border-radius: 0rem;
         }
     }
     .slick-arrow {
