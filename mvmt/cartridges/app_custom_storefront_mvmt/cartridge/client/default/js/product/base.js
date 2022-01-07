@@ -361,7 +361,12 @@ function processNonSwatchValues(attr, $productContainer) {
 
         if (attrValue.selected) {
             $attrValue.addClass('active');
-            $selectedValueContainer.text(attrValue.displayValue);
+            if (attrValue.displayValue === "Yes") {
+                var $polarization =window.Resources.EYEWEAR_POLARIZATION_SEPRATOR + ' ' + window.Resources.EYEWEAR_POLARIZATION;
+                $selectedValueContainer.text($polarization);
+            } else {
+                $selectedValueContainer.empty();
+            }
         } else { 
             $attrValue.removeClass('active');
         }
