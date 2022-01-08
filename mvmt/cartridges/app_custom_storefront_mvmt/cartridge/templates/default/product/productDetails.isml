@@ -112,6 +112,7 @@
                                                             <isif condition="${attrValue.selected}">
                                                                 <isset name="selectedAttributeValue" value="${attrValue.value}" scope="page" />
                                                                     <isif condition="${attrValue.displayValue.equalsIgnoreCase('yes')}">
+                                                                        ${Resource.msg('separator', 'product', null)}                                                      
                                                                         ${Resource.msg('pdp.eyewaer.polarization.text', 'product', null)}                                                             
                                                                     </isif>
                                                             </isif>
