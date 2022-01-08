@@ -14,7 +14,7 @@
 <!--- Results count and Reset button --->
 <isif condition="${pdict.productSearch.productIds.length > 0}">
     <div class="reset-container">
-        <div class="secondary-bar secondary-bar">
+        <div class="secondary-bar">
             <a class="reset btn btn-outline-primary" href="${pdict.productSearch.resetLink}">
                 ${Resource.msg('link.reset', 'search', null)}
             </a>
