@@ -361,11 +361,13 @@ function processNonSwatchValues(attr, $productContainer) {
 
         if (attrValue.selected) {
             $attrValue.addClass('active');
-            if (attrValue.displayValue === "Yes") {
-                var $polarization =window.Resources.EYEWEAR_POLARIZATION_SEPRATOR + ' ' + window.Resources.EYEWEAR_POLARIZATION;
-                $selectedValueContainer.text($polarization);
+            $selectedValueContainer.text(attrValue.displayValue);
+            var $selectedPolarizedContainer = $('.selected-variation-polarization');
+            if (attrValue.value.toString().toLowerCase() == 'yes') {
+                var $polarization = window.Resources.EYEWEAR_POLARIZATION_SEPRATOR + ' ' + window.Resources.EYEWEAR_POLARIZATION;
+                $selectedPolarizedContainer.text($polarization);
             } else {
-                $selectedValueContainer.empty();
+                $selectedPolarizedContainer.empty();
             }
         } else { 
             $attrValue.removeClass('active');

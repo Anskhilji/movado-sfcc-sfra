@@ -339,11 +339,16 @@ function getGtmPromotionObject (promotions) {
  * @param {Product} apiProduct
  * @returns {String }Diameter name
  */
-function getCaseDiameter(apiProduct, isRedesigned) {
+function getCaseDiameter(apiProduct, isRedesigned, caseDiametterUnitPdp) {
     var caseDiameterWatches = '';
+    var caseDiameterUnit;
     var caseDiameterHyphen = isRedesigned ? Constants.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR_REDESIGN
         : Constants.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR;
-    var caseDiameterUnit = Constants.MM_UNIT;
+    if (!empty(caseDiametterUnitPdp)) {
+        caseDiameterUnit = caseDiametterUnitPdp;
+    } else {
+        caseDiameterUnit = Constants.MM_UNIT;
+    }
     var caseDiameter = !empty(apiProduct.custom.caseDiameter) ? apiProduct.custom.caseDiameter : '';
     var collectionName = !empty(apiProduct.custom.familyName) ? apiProduct.custom.familyName[0] : '';
     var productName = !empty(apiProduct.name) ? apiProduct.name : '';
