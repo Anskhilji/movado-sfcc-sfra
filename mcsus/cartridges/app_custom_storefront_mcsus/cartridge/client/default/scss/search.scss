@@ -14,6 +14,9 @@
         font-size: 1.25em;
     }
 
+    @include media-breakpoint-only(custom-md) {
+      padding: 0.938em 2.813em;
+    }
 }
 
 .search-results-container {
@@ -83,7 +86,7 @@
             background-color: transparent;
           }
 
-          @include media-breakpoint-down(custom-md) {
+          @include media-breakpoint-down(sm) {
             margin-top: rem(-23)
           }
         }
@@ -342,6 +345,17 @@
 
   @include media-breakpoint-down(xl) {
     padding-left: 0;
+  }
+
+  @include media-breakpoint-down(custom-md) {
+    background-color: $white;
+    box-shadow: 0 0.313em 0.938em rgba(0, 0, 0, 0.5);
+    display: none;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1019;
   }
 
   @include media-breakpoint-up(xl) {
