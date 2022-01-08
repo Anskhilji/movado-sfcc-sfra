@@ -1019,6 +1019,12 @@
                     &-product-name {
                         @include collection-subtitle-font;
                     }
+                    &-turncate-name {
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        display: -webkit-box;
+                        -webkit-line-clamp: 3;
+                    }
                     &-collection-name {
                         @include collection-title-font;
                         display: block;
@@ -1037,7 +1043,10 @@
                 .eyewear {
                     &-product-name {
                         @include collection-title-font;
-                        display: block;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        display: -webkit-box;
+                        -webkit-line-clamp: 3;
                     }
         
                     &-heading {
@@ -1050,7 +1059,10 @@
                 .jewlery {
                     &-product-name {
                         @include collection-title-font;
-                        display: block;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        display: -webkit-box;
+                        -webkit-line-clamp: 3;
                     } 
 
                     &-heading {
@@ -1062,7 +1074,10 @@
 
             .product-name-strapguide {
                 @include collection-title-font;
-                display: block;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
             }
 
             .product-colors {
@@ -1070,7 +1085,10 @@
             }
 
             .uncategotized-product-name {
-                display: block;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
             }
         }
 

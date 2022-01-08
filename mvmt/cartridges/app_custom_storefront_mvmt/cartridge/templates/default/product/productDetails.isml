@@ -7,6 +7,7 @@
         var assets = require('*/cartridge/scripts/assets');
         assets.addJs('/js/productDetail.js');
         assets.addCss('/css/product/detail.css');
+        assets.addCss('/css/lib/product-tile-name.css');
     </isscript>
     <isset name="isListrakEnable" value="${!empty(dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) ? dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled : false}" scope="page" />
     <isif condition="${isListrakEnable}">
@@ -76,18 +77,20 @@
                                     <isif condition="${!empty(product.collectionName)}">
                                         <span class="watches-collection-name" data-selected-variation-attr="collectionName">${product.collectionName}</span>
                                     </isif>
-                                    <span class="product-name watches-product-name product-title-for-gtm">${product.productName}</span>
-                                    <isif condition="${!empty(product.caseDiameter)}">
-                                        <span class="watches-seprator">${Resource.msg('separator', 'product', null)}</span>
-                                            <span class="watches-case-diameter" data-selected-variation-attr="caseDiameter">${product.caseDiameter}</span>
-                                    
+                                    <isif condition="${product.productName.length > 40}">
+                                        <span class="product-name watches-product-name text-truncate-wrapper watches-turncate-name product-title-for-gtm">${product.productName}<isif condition="${!empty(pdict.caseDiameter)}">${Resource.msg('separator', 'product', null)}</isif></span>
+                                    <iselse>
+                                        <span class="product-name watches-product-name product-title-for-gtm">${product.productName}<isif condition="${!empty(pdict.caseDiameter)}">${Resource.msg('separator', 'product', null)}</isif></span>
+                                    </isif>
+                                    <isif condition="${!empty(pdict.caseDiameter)}">
+                                            <span class="watches-case-diameter" data-selected-variation-attr="caseDiameter">${pdict.caseDiameter}</span>
                                     </isif>
                                 </h1>
                             </div>
                         <iselseif condition="${(product.isCategory) == "jewelry"}">
                         <div class="category-jewlery">
                             <h1>
-                                <span class="product-name jewlery-product-name product-title-for-gtm text-uppercase">${product.productName}</span>
+                                <span class="product-name jewlery-product-name text-truncate-wrapper product-title-for-gtm text-uppercase">${product.productName}</span>
                                 <isif condition="${!empty(product.color)}">
                                     <span class="jewlery-heading"><span class="color" data-selected-variation-attr="color">${product.color}</span></span>
                                 </isif>
@@ -96,7 +99,7 @@
                         <iselseif condition="${(product.isCategory) == "eyewear"}">
                         <div class="category-eyewear">
                             <h1>
-                                <span class="product-name eyewear-product-name product-title-for-gtm text-uppercase">${product.productName}</span>
+                                <span class="product-name eyewear-product-name text-truncate-wrapper product-title-for-gtm text-uppercase">${product.productName}</span>
                                 <span class="eyewear-heading">
                                     <isif condition="${!empty(product.color)}">
                                         <span class="color" data-selected-variation-attr="color">${product.color}</span>
@@ -104,12 +107,11 @@
                                     <isif condition="${product.variationAttributes.length > 0}">
                                         <isloop items="${product.variationAttributes}" var="attr" status="attributeStatus">
                                             <isif condition="${attr.id.indexOf('polarization') !== -1}">
-                                                    <span class="selected-variation" data-selected-variation-attr="${attr.id}">
+                                                    <span class="selected-variation-polarization" data-selected-variation-attr="${attr.id}">
                                                         <isloop items="${attr.values}" var="attrValue">
                                                             <isif condition="${attrValue.selected}">
                                                                 <isset name="selectedAttributeValue" value="${attrValue.value}" scope="page" />
-                                                                    <isif condition="${attrValue.displayValue === "Yes"}">
-                                                                        <span>${Resource.msg('separator', 'product', null)}</span>
+                                                                    <isif condition="${attrValue.displayValue.equalsIgnoreCase('yes')}">
                                                                         ${Resource.msg('pdp.eyewaer.polarization.text', 'product', null)}                                                             
                                                                     </isif>
                                                             </isif>
@@ -123,10 +125,10 @@
                             </h1>
                         </div>
                         <iselseif condition="${(product.isCategory) == "strapguide"}">
-                            <h1 class="product-name product-name-strapguide product-title-for-gtm text-uppercase">${product.productName}</h1>
+                            <h1 class="product-name product-name-strapguide text-truncate-wrapper product-title-for-gtm text-uppercase">${product.productName}</h1>
                         <iselseif condition="${(product.isCategory) !== "watches" && (product.isCategory) !== "jewelry" && (product.isCategory) !== "eyewear" && (product.isCategory) !== "strapguide"}">
                             <h1>
-                                <span class="product-name uncategotized-product-name product-title-for-gtm text-uppercase">${product.productName}</span>
+                                <span class="product-name uncategotized-product-name text-truncate-wrapper product-title-for-gtm text-uppercase">${product.productName}</span>
                                 <isif condition="${!empty(product.color)}">
                                     <span class="color product-colors" data-selected-variation-attr="color">${product.color}</span>
                                 </isif>
