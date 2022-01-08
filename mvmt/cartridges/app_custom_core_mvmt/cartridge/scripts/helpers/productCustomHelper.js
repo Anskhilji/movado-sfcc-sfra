@@ -346,6 +346,7 @@ function getCaseDiameter(apiProduct, isRedesigned, caseDiametterUnitPdp) {
         : Constants.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR;
     if (!empty(caseDiametterUnitPdp)) {
         caseDiameterUnit = caseDiametterUnitPdp;
+        caseDiameterHyphen = '';
     } else {
         caseDiameterUnit = Constants.MM_UNIT;
     }

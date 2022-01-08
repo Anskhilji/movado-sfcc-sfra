@@ -364,7 +364,13 @@ function processNonSwatchValues(attr, $productContainer) {
             $selectedValueContainer.text(attrValue.displayValue);
             var $selectedPolarizedContainer = $('.selected-variation-polarization');
             if (attrValue.value.toString().toLowerCase() == 'yes') {
-                var $polarization = window.Resources.EYEWEAR_POLARIZATION_SEPRATOR + ' ' + window.Resources.EYEWEAR_POLARIZATION;
+                var $eyewearColor = $('.eyewear-colors').text();
+                var $polarization;
+                if ($eyewearColor !== "" && $eyewearColor !== undefined) {
+                    $polarization = window.Resources.EYEWEAR_POLARIZATION_SEPRATOR + ' ' + window.Resources.EYEWEAR_POLARIZATION;
+                } else {
+                    $polarization = window.Resources.EYEWEAR_POLARIZATION;
+                }
                 $selectedPolarizedContainer.text($polarization);
             } else {
                 $selectedPolarizedContainer.empty();

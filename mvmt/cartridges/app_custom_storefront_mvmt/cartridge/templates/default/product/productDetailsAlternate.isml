@@ -99,7 +99,7 @@
                                 <span class="product-name eyewear-product-name text-truncate-wrapper product-title-for-gtm text-uppercase">${product.productName}</span>
                                 <span class="eyewear-heading">
                                     <isif condition="${!empty(product.color)}">
-                                        <span class="color" data-selected-variation-attr="color">${product.color}</span>
+                                        <span class="color eyewear-colors" data-selected-variation-attr="color">${product.color}</span>
                                     </isif>
                                     <isif condition="${product.variationAttributes.length > 0}">
                                         <isloop items="${product.variationAttributes}" var="attr" status="attributeStatus">
@@ -109,7 +109,9 @@
                                                             <isif condition="${attrValue.selected}">
                                                                 <isset name="selectedAttributeValue" value="${attrValue.value}" scope="page" />
                                                                     <isif condition="${attrValue.displayValue.equalsIgnoreCase('yes')}">
-                                                                        ${Resource.msg('separator', 'product', null)}                                                      
+                                                                        <isif condition="${!empty(product.color)}">
+                                                                            ${Resource.msg('separator', 'product', null)}     
+                                                                        </isif>                                                 
                                                                         ${Resource.msg('pdp.eyewaer.polarization.text', 'product', null)}                                                             
                                                                     </isif>
                                                             </isif>
