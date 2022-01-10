@@ -206,7 +206,11 @@
           padding: rem(0);
           
           &::after {
-            content: "\f067";
+            content: "";
+            background: url('../../images/plus-icon.svg');
+            background-repeat: no-repeat;
+            width: rem(20);
+            height: rem(20);
             top: rem(18);
             right: rem(8);
           }
@@ -225,7 +229,9 @@
             padding: rem(0);
             
             &::after{
-                content: "\f068";
+                content: "";
+                background: url('../../images/minus-icon.svg');
+                background-repeat: no-repeat;
                 top: rem(16.5);
                 right: rem(8);
             }
@@ -261,7 +267,7 @@
       li {
           margin-left: 0;
       }
-  }
+    }
 }
 
 .product-tiles-wrapper {
