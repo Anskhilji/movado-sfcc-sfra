@@ -169,6 +169,14 @@ h1 {
       font-family: $font-regular;
       font-weight: 400;
       font-size: rem(20);
+      height: rem(45);
+      width: rem(300);
+      border-radius: rem(5);
+      background-color: $dark-gray1;
+      color: $white1;
+      letter-spacing: 0;
+      line-height: rem(30);
+      text-align: center;
     }
   }
 }
