@@ -208,6 +208,7 @@
           text-transform: capitalize;
           height: rem(25);
           padding: rem(0);
+          color: $black;
           
           &::after {
             content: "";
