@@ -25,10 +25,10 @@
             .slick-arrow {
             
                 &.slick-prev {
-                    left: rem(0);
+                    left: rem(-5);
                 }
                 &.slick-next {
-                    right: rem(0);
+                    right: rem(-5);
                 }
             }
         }
@@ -60,7 +60,6 @@
         font-family: $font-bold;
         font-size: rem(30);
         font-weight: bold;
-        letter-spacing: rem(0);
       }
 
     .slick-dots {

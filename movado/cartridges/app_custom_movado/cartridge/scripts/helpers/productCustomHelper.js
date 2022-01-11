@@ -1,6 +1,5 @@
 'use strict';
 
-var ContentMgr = require('dw/content/ContentMgr');
 var ProductMgr = require('dw/catalog/ProductMgr');
 var Logger = require('dw/system/Logger');
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
@@ -85,33 +84,9 @@ function getPdpVideoConfigs(apiProduct) {
     return pdpVideoConfigs;
 }
 
-/**
- * Method use to get content asset HTML to render on PDP
- * @param {Product} apiProduct
- * @returns {String} content asset HTML
- */
- function getPDPContentAssetHTML (apiProduct) {
-    try {
-        var contentAssetID = !empty(apiProduct.custom.pdpContentAssetID) ? apiProduct.custom.pdpContentAssetID : '';
-        if (empty(contentAssetID) && apiProduct.variant) {
-            contentAssetID = !empty(apiProduct.masterProduct.custom.pdpContentAssetID) ? apiProduct.masterProduct.custom.pdpContentAssetID : '';
-        }
-        var pdpContentAsset = ContentMgr.getContent(contentAssetID);
-        var pdpContentAssetHTML;
-        if (pdpContentAsset  && pdpContentAsset.online && !empty(pdpContentAsset.custom.body) ) {
-            pdpContentAssetHTML = pdpContentAsset.custom.body.markup.toString();
-        }
-        return pdpContentAssetHTML;
-    } catch (e) {
-        Logger.error('(productCustomHepler.js -> getPDPContentAssetHTML) Error occured while getting pdp content asset html: ' + e.stack, e.message);
-        return '';
-    }
-}
-
 module.exports = {
     getExplicitRecommendations: getExplicitRecommendations,
     getCollectionName: getCollectionName,
     getSaveMessage: getSaveMessage,
-    getPdpVideoConfigs: getPdpVideoConfigs,
-    getPDPContentAssetHTML: getPDPContentAssetHTML
+    getPdpVideoConfigs: getPdpVideoConfigs
 };
