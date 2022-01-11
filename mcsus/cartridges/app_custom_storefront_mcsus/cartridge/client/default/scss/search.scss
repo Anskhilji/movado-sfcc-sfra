@@ -23,8 +23,12 @@
   margin-right: rem(-15);
   margin-left: 0;
 
-  .product-counter-wrapper {
+  .product-counter-wrapper {  
     width: rem(1110);
+
+    @include media-breakpoint-down(xs) {
+      width: 100%;
+    }
   
     .searech-results-wrapper {
       padding: 0;

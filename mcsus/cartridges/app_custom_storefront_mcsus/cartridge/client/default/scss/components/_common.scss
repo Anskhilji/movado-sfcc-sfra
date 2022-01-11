@@ -163,21 +163,35 @@ h1 {
   }
 }
 
-.show-more {
-  .text-center {
-    button {
-      font-family: $font-regular;
-      font-weight: 400;
-      font-size: rem(20);
-      height: rem(45);
-      width: rem(300);
-      border-radius: rem(5);
-      background-color: $dark-gray1;
-      color: $white1;
-      letter-spacing: 0;
-      line-height: rem(30);
-      text-align: center;
-      margin-top: rem(25);
+.grid-footer {
+
+  @include media-breakpoint-down(xs) {
+    padding-left: 0!important;
+  }
+
+  .show-more {
+    .text-center {
+      button {
+        font-family: $font-regular;
+        font-weight: 400;
+        font-size: rem(20);
+        height: rem(45);
+        width: rem(300);
+        border-radius: rem(5);
+        background-color: $dark-gray1;
+        color: $white1;
+        letter-spacing: 0;
+        line-height: rem(30);
+        text-align: center;
+        margin-top: rem(25);
+        text-transform: capitalize;
+  
+        @include media-breakpoint-down(xs) {
+          width: rem(264);
+        }
+  
+      }
+  
     }
   }
 }
