@@ -92,6 +92,10 @@
     .add-to-cart {
         font-family: $font-medium;
         font-weight: 500;
+        @include media-breakpoint-down(xs) {
+            width: rem(216);
+            margin: rem(0) auto rem(10);
+        }
     }
 }
 

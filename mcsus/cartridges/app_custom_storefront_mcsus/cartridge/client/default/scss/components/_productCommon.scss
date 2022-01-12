@@ -124,6 +124,23 @@
         @import "../product/imageCarousel";
             font-weight: 500;
             font-size: rem(16);
+
+        .primary-images {
+            .cs-carousel-wrapper {
+                .slick-arrow {
+                    transform: translate(0, 0%);
+                }
+                .slick-dots {
+                    li {
+                        width: auto;
+                        height: auto;
+                        margin: rem(0);
+                        margin-right: rem(4);  
+                    }
+                }  
+            }
+        }
+
     }
 }
 
