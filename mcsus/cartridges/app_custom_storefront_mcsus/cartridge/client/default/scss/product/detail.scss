@@ -93,13 +93,8 @@
         font-family: $font-medium;
         font-weight: 500;
         @include media-breakpoint-down(xs) {
-            width: 100%;
-            margin-bottom: rem(16);
-        }
-    }
-    .btn {
-        @include media-breakpoint-down(xs) {
-            width: 100%;
+            width: rem(216);
+            margin: rem(0) auto rem(10);
         }
     }
 }
