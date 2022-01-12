@@ -192,3 +192,21 @@ select {
         text-align: center;
     }
 }
+
+.product-quickview  {
+    .primary-images {
+        .cs-carousel-wrapper {
+            .slick-arrow {
+                transform: translate(0, 0%);
+            }
+            .slick-dots {
+                li {
+                  width: auto;
+                  height: auto;
+                  margin: rem(0);
+                  margin-right: rem(4);  
+                }
+            }  
+        }
+    }
+}
