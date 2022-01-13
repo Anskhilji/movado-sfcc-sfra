@@ -186,6 +186,7 @@ server.append('GetEswLandingPage', function (req, res, next) {
 });
 
 server.append('NotifyV2', function(req, res, next) {
+    var isFacebookConversionAPIEnabled = !empty(Site.current.getCustomPreferenceValue('isFacebookConversionAPIEnabled')) ? Site.current.getCustomPreferenceValue('isFacebookConversionAPIEnabled') : false;
     var obj = JSON.parse(req.body);
     Transaction.wrap(function () {
         var order = OrderMgr.getOrder(res.viewData.OrderNumber);
@@ -243,6 +244,34 @@ server.append('NotifyV2', function(req, res, next) {
             } else {
                 var SFMCApi = require('*/cartridge/scripts/api/SFMCApi');
                 SFMCApi.sendSubscriberToSFMC(requestParams);
+            }
+        }
+    }
+
+    if (isFacebookConversionAPIEnabled) {
+        var ConversionLog = require('dw/system/Logger').getLogger('OrderConversion');
+        var fbConversionAPI  = require('*/cartridge/scripts/api/fbConversionAPI');
+        var fbConversionESWAllowedCountries = !empty(Site.current.getCustomPreferenceValue('fbConversionESWAllowedCountries')) ? Site.current.getCustomPreferenceValue('fbConversionESWAllowedCountries') : '';
+        var countryCode = obj.deliveryCountryIso;
+        var currentCountry;
+        var order = OrderMgr.getOrder(res.viewData.OrderNumber);
+
+        if (fbConversionESWAllowedCountries.length > 0) {
+            for (var i = 0; i < fbConversionESWAllowedCountries.length; i++) {
+
+                if (countryCode == fbConversionESWAllowedCountries[i]) {
+                    try {
+                        var result = fbConversionAPI.fbConversionAPI(order);
+                    } catch (error) {
+                        ConversionLog.error('(EShopWorld.js -> NotifyV2) Error is occurred in FBConversionAPI.fbConversionAPI', error.toString());
+                    }
+                }
+            }
+        } else {
+            try {
+                var result = fbConversionAPI.fbConversionAPI(order);
+            } catch (error) {
+                ConversionLog.error('(EShopWorld.js -> NotifyV2) Error is occurred in FBConversionAPI.fbConversionAPI', error.toString());
             }
         }
     }
