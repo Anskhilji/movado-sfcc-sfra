@@ -82,6 +82,7 @@ server.replace(
                 order.custom.abTestParticipationSegment = abTestParticipationSegments;
             }
             order.custom.userIPAddress = userIPAddress;
+            order.custom.customerCurrentCountry = req.geolocation.countryCode;
             order.custom.isOrderCompleted = true;
         });
 

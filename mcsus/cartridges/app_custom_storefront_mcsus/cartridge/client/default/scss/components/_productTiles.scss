@@ -1,8 +1,6 @@
 @import "~movado/components/_productTiles";
 @import "../variables";
 
-
-
 .product-tile {
 
     .tile-body {
@@ -14,11 +12,11 @@
                 font-size: 1em;
 
                 @include media-breakpoint-down(md) {
-                    font-size: 0.9375em;
+                  font-size: 0.9375em;
                 }
 
                 @include media-breakpoint-down(sm) {
-                    font-size: 0.8125em;
+                  font-size: 0.8125em;
                 }
             }
         }
@@ -26,33 +24,39 @@
         .price {
           margin-bottom: rem(10);
           width: 100%;
+          font-size: rem(16);
+          font-weight: 500;
+          font-family: $font-medium;
+
           @include media-breakpoint-down(sm) {
             font-size: rem(14);
           }
-            font-size: rem(16);
-            font-weight: 500;
-            font-family: $font-medium;
 
             .tiered {
                 font-size: 0.875em;
-
                 .value {
                     font-weight: bold;
                 }
             }
         }
 
-
         .pdp-link {
-
             font-size: rem(20);
+            margin-top: rem(10);
+
             a {
                 font-size: rem(16);
+                font-weight: 500;
+                height: rem(40);
 
+                @include media-breakpoint-down(sm) {
+                    height: rem(25);
+                }
+                
                 @include media-breakpoint-down(md) {
-                  font-size: rem(15);
-                  font-weight: 500;
-                  font-family: $font-medium;
+                    font-size: rem(16);
+                    font-weight: 500;
+                    font-family: $font-medium;
                 }
 
                 @include media-breakpoint-down(sm) {
@@ -70,7 +74,10 @@
           label{
             font-weight: 500;
             font-family: $font-medium;
-
+            font-size: rem(16);
+            @include media-breakpoint-down(md) {
+                font-size: rem(14);
+            }
           }
         }
 
@@ -79,31 +86,43 @@
             margin-bottom: rem(10);   
           }
         }
-        
     }
 
     .image-container {
+      border: none;
 
-        .fa-stack-2x {
-          font-size: rem(36);
-        }
-        .fa-stack-1x {
-          font-size: rem(18);
-        }
+      .fa-stack-2x {
+        font-size: rem(36);
+      }
+      .fa-stack-1x {
+        font-size: rem(18);
+      }
+      .quickview {
+        background: url('../../images/quickview_eye.svg') no-repeat center center;
+        width: rem(20);
+        height: rem(20);
+        bottom: rem(10);
+        right: rem(10);
+        display: block;
+      }
     }
 
     .promo-msg.callout {
       font-size: rem(16);
       font-weight: 500;
-      font-family: $font-medium;
+      font-family: $font-medium;letter-spacing: rem(0);
       
+      @include media-breakpoint-down(md){
+        font-size: rem(14);
+      }
       @include media-breakpoint-down(xs){
         font-size: rem(14);
         font-family: $font-medium;
         font-weight: 500;
       }
-
+      
     }
+
     .out-of-stock {
       font-size: rem(12);
       font-family: $font-regular;
@@ -113,4 +132,3 @@
         font-size: rem(12);
     }
 }
-

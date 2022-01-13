@@ -684,10 +684,10 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
     }
 
     if (!empty(feedColumns['decimalPriceMCSUS'])) {
-        if (product.salePrice) {
+        if (product.salePrice != "") {
             productDetails.push(product.salePrice)
         } else {
-            productDetails.push("");
+            productDetails.push(product.decimalPrice || "");
         }
     }
 
@@ -1208,7 +1208,7 @@ function getProductAttributes(product, feedParameters, feedColumns) {
         decimalPrice: productDecimalPrice + " " + productCurrencyCode,
         label: product.custom.label ? product.custom.label : "",
         price: productPrice + " " + productCurrencyCode,
-        salePrice: getProductPromoAndSalePrice(product).salePrice + " " + productSalePriceCurrencyCode,
+        salePrice: getProductPromoAndSalePrice(product).salePrice ? getProductPromoAndSalePrice(product).salePrice + " " + productSalePriceCurrencyCode : "",
         salePriceEffectiveDate: saleEffectiveDate,
         instock: product.onlineFlag,
         brand: product.brand ? product.brand : "",

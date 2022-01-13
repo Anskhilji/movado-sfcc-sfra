@@ -159,7 +159,6 @@ function populateByOrder(order) {
         if (order.couponLineItems && order.couponLineItems.length > 0) {
             order.custom.SOMCouponCode = order.couponLineItems[0].couponCode;
         }
-
         // Add all billing address fields to an object to send to SOM
         addressJSON.billingAddress = getAddressObject(order.billingAddress);
 
