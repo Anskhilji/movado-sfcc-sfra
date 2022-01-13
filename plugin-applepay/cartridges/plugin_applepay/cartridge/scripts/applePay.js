@@ -230,10 +230,13 @@ exports.prepareBasket = function (basket, parameters) {
     }
         var currentBasket = BasketMgr.getCurrentBasket();
         // Custom Start: [MSS-1658]
-        var clydeContractProductList = basket.custom.clydeContractProductList;
-        delete session.custom.clydeContractProductList;
-        session.custom.clydeContractProductList = clydeContractProductList;
+        if (!empty(currentBasket)) {
+            var clydeContractProductList = basket.custom.clydeContractProductList ? basket.custom.clydeContractProductList : '';
+            delete session.custom.clydeContractProductList;
+            session.custom.clydeContractProductList = clydeContractProductList;
+        }
         // Custom End: [MSS-1658]
+
         if (currentBasket && !empty(currentBasket.custom.smartGiftTrackingCode)) {
             session.custom.trackingCode = currentBasket.custom.smartGiftTrackingCode;
         }
