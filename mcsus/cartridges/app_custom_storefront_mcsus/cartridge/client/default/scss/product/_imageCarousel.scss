@@ -1,1 +1,38 @@
 @import "~movado/product/_imageCarousel";
+
+.product-detail {
+
+    .cs-carousel-wrapper {
+      position: relative;
+    }
+} 
+
+.primary-images {
+
+    .quickview {
+      position: relative;
+      bottom: rem(84);
+      left: rem(16);
+      &.btn{
+        box-shadow: none;
+      }
+      &.btn:focus{
+        box-shadow: none;
+      }
+      i {
+        &.fa-circle {
+          height: rem(35);
+          width: rem(35);
+          border-radius: rem(17.5);
+          background-color: $white1;
+          box-shadow: 0 rem(2) rem(7) 0 $light-gray1;
+        }
+      }
+
+      @include media-breakpoint-down(xs) {
+        bottom: rem(79);
+        left: rem(11);
+      }
+
+    }
+  }

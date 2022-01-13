@@ -347,5 +347,15 @@ module.exports = {
         });
     },
 
+    // Custom Start:
+    updateCaseDiameter: function () {
+        $( document ).ready(function() {
+            var diameter = $('.watches-case-diameter').text();
+            var index =  diameter.replace("-", "");
+            $('.watches-case-diameter').text(index);
+        });
+    },
+    // Custom End
+
     base: base
 };

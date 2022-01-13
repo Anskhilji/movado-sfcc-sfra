@@ -13,8 +13,8 @@
               <h3 class="carousel-title ${slotcontent.custom.isCarouselTitleLeftAligned ? 'carousel-title-left-align' : 'text-center'}">${slotcontent.custom.carouselTitle}</h3>
             </isif>
             <ul>
-              <li class="prev slick-arrow"><i class="fa fa-chevron-left" aria-hidden="true"></i></li>
-              <li class="next slick-arrow"><i class="fa fa-chevron-right" aria-hidden="true"></i></li>
+              <li class="prev-home slick-arrow"><i class="fa fa-chevron-left" aria-hidden="true"></i></li>
+              <li class="next-home slick-arrow"><i class="fa fa-chevron-right" aria-hidden="true"></i></li>
             </ul>
           </div>
           <div class="js-carousel cs-carousel" data-carousel-config="${slotcontent.custom.carouselConfig ? slotcontent.custom.carouselConfig.replace(/[\n\s]/gi, '') : ''}">
