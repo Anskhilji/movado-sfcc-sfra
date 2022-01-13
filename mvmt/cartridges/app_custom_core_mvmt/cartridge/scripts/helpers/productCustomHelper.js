@@ -339,11 +339,17 @@ function getGtmPromotionObject (promotions) {
  * @param {Product} apiProduct
  * @returns {String }Diameter name
  */
-function getCaseDiameter(apiProduct, isRedesigned) {
+function getCaseDiameter(apiProduct, isRedesigned, caseDiametterUnitPdp) {
     var caseDiameterWatches = '';
+    var caseDiameterUnit;
     var caseDiameterHyphen = isRedesigned ? Constants.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR_REDESIGN
         : Constants.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR;
-    var caseDiameterUnit = Constants.MM_UNIT;
+    if (!empty(caseDiametterUnitPdp)) {
+        caseDiameterUnit = caseDiametterUnitPdp;
+        caseDiameterHyphen = '';
+    } else {
+        caseDiameterUnit = Constants.MM_UNIT;
+    }
     var caseDiameter = !empty(apiProduct.custom.caseDiameter) ? apiProduct.custom.caseDiameter : '';
     var collectionName = !empty(apiProduct.custom.familyName) ? apiProduct.custom.familyName[0] : '';
     var productName = !empty(apiProduct.name) ? apiProduct.name : '';
@@ -405,6 +411,59 @@ function getColor(apiProduct, product) {
     return color || '';
 }
 
+//Custom Start: Get Category of Product
+function getProductCategory(apiProduct, product) {
+    var isCategory;
+    var currentCategory = null;
+    var apiCategories;
+    try {
+        if (!empty(apiProduct)) {
+            if (apiProduct.variant) {
+                apiCategories = apiProduct.getVariationModel().getMaster().getOnlineCategories();
+            } else {
+                apiCategories = apiProduct.getOnlineCategories();
+            }
+            if (!empty(apiCategories)) {
+                for (i = 0 ; apiCategories.length > 0 ; i++) {
+                    currentCategory = apiCategories[i];
+            
+                    if ((!empty(currentCategory) && currentCategory.ID == Constants.WATCHES_CATEGORY) || (!empty(currentCategory) && currentCategory.ID == Constants.EYEWEAR_CATEGORY) || (!empty(currentCategory) && currentCategory.ID == Constants.JEWELRY_CATEGORY)) {
+                        isCategory = currentCategory.ID;
+                        break;
+                    }
+            
+                    if(!empty(currentCategory)) {
+                        var category;
+                        var index;
+                        category = currentCategory.ID;
+                        index = category.indexOf("strapguide");
+            
+                        if (index == 0) {
+                            isCategory = Constants.STRAPS_CATEGORY;
+                            break; // break outer loop
+                        }
+                    }
+            
+                    if (!empty(currentCategory)) {
+                            if (currentCategory.parent != null) {
+                                currentCategory = currentCategory.parent;
+                                if ((!empty(currentCategory) && currentCategory.ID == Constants.WATCHES_CATEGORY) || (!empty(currentCategory) && currentCategory.ID == Constants.EYEWEAR_CATEGORY) || (!empty(currentCategory) && currentCategory.ID == Constants.JEWELRY_CATEGORY)) {
+                                    isCategory = currentCategory.ID;
+                                    break; // break outer loop
+                                }
+                            }
+                    }
+                }
+            }
+        }
+    } catch (error) {
+        Logger.error('(productCustomHepler.js -> getProductCategory) Error occured while getting category from apiProduct : ' + error.message);
+        return;
+    }
+    return isCategory;
+}
+//Custom End: Get Category of Product
+
 movadoProductCustomHelper.getProductAttributes = getProductAttributes;
 movadoProductCustomHelper.getRefinementSwatches = getRefinementSwatches;
 movadoProductCustomHelper.getPdpDetailAndSpecsAttributes = getPdpDetailAndSpecsAttributes;
@@ -415,5 +474,7 @@ movadoProductCustomHelper.getPDPContentAssetHTML = getPDPContentAssetHTML;
 movadoProductCustomHelper.getCaseDiameter = getCaseDiameter;
 movadoProductCustomHelper.getColor = getColor;
 movadoProductCustomHelper.getIsWatchTile = getIsWatchTile;
+movadoProductCustomHelper.getProductCategory = getProductCategory;
 
 module.exports = movadoProductCustomHelper;
+

@@ -20,16 +20,16 @@
         </isif>
 
         <isif condition="${product.promotions}">
-		    <div class="promotions">
-			    <isloop items="${product.promotions}" var="promotion" status ="promoStatus">
+            <div class="promotions">
+                <isloop items="${product.promotions}" var="promotion" status ="promoStatus">
                     <isif condition="${promotion.plpCalloutMsg !== ''}">
                         <div class="callout promo-msg">
                             <isprint value="${promotion.plpCalloutMsg}" encoding="off">
                         </div>
                     </isif>
-			    </isloop>
-		    </div>
-		</isif>
+                </isloop>
+            </div>
+        </isif>
 
         <isinclude template="product/components/productTileName" />
         
@@ -39,12 +39,12 @@
             </div>
         </isif>
 
-		<isif condition="${outOfStock}">
-			<div class="out-of-stock">
+        <isif condition="${outOfStock}">
+            <div class="out-of-stock">
                 ${Resource.msg('label.soldout', 'common', null)}
             </div>
         </isif>
-        
+
         <isloop items="${product.badges.textBadges}" var="badge">
             <div class="exclusive-product">
                 ${badge.text}
