@@ -21,7 +21,6 @@ h1 {
 .heading-three {
   font-family: $font-medium;
   font-size: rem(18);
-
 }
 .heading-four {
   font-family: $font-medium;
@@ -32,7 +31,12 @@ h1 {
   font-size: rem(14);
 }
 
+.promotions {
 
+  .promo-msg {
+    color: $light-red;
+  }
+}
 
 @include media-breakpoint-up(md) {
   .heading-one {
@@ -63,13 +67,9 @@ h1 {
   }
 }
 
-
 // Styles for promo code form on cart and checkout page
 .collapsible-promo-wrapper {
-
-
   [class*="collapsible-"] {
-
     .title {
       font-family: $font-medium;
       font-weight: 500;
@@ -86,12 +86,10 @@ h1 {
       }
     }
   }
-
 }
 
 // Styles for coupons on cart and checkout page
 .coupons-wrapper {
-
   .coupon-promotion-relationship {
     font-size: rem(14);
   }
@@ -100,7 +98,6 @@ h1 {
     font-family: $font-medium;
     font-size: rem(16);
   }
-
 
   .coupon-applied,
   .coupon-not-applied {
@@ -113,14 +110,12 @@ h1 {
   }
 }
 
-
 .form-group {
-	.form-control-field-label {
-		font-family: $font-medium;
-		font-size: rem(14);
-	}
+  .form-control-field-label {
+    font-family: $font-medium;
+    font-size: rem(14);
+  }
 }
-
 
 .password-description {
   font-size: rem(14);
@@ -144,8 +139,8 @@ h1 {
 
 .btn-outline-primary {
   font-family: $font-regular;
-    font-weight: 400;
-    font-size: rem(16);
+  font-weight: 400;
+  font-size: rem(16);
 }
 
 .yotpo .text-m {
@@ -162,17 +157,40 @@ h1 {
 
 .yotpo-label {
   .yotpo-default-button span {
-      font-family: $font-medium;
-      font-weight: 500;
+    font-family: $font-medium;
+    font-weight: 500;
   }
 }
 
-.show-more {
-  .text-center {
-    button {
-      font-family: $font-regular;
-      font-weight: 400;
-      font-size: rem(20);
+.grid-footer {
+
+  @include media-breakpoint-down(xs) {
+    padding-left: 0!important;
+  }
+
+  .show-more {
+    .text-center {
+      button {
+        font-family: $font-regular;
+        font-weight: 400;
+        font-size: rem(20);
+        height: rem(45);
+        width: rem(300);
+        border-radius: rem(5);
+        background-color: $dark-gray1;
+        color: $white1;
+        letter-spacing: 0;
+        line-height: rem(30);
+        text-align: center;
+        margin-top: rem(25);
+        text-transform: capitalize;
+  
+        @include media-breakpoint-down(xs) {
+          width: rem(264);
+        }
+  
+      }
+  
     }
   }
 }
@@ -199,7 +217,7 @@ h1 {
 }
 
 .yotpo-review.yotpo-regular-box {
-  .yotpo-header-element  {
+  .yotpo-header-element {
     font-family: $font-medium;
     font-weight: 500;
   }
@@ -210,13 +228,6 @@ h1 {
 
   .footer-actions {
     font-family: $font-medium;
-
-  .yotpo-action {
-
-      .y-label {
-        font-family: $font-medium;
-      }
-    }
   }
 }
 
@@ -238,27 +249,27 @@ h1 {
 }
 
 .yotpo.yotpo-main-widget {
-    .yotpo-review {
-      .yotpo-review-date {
-        font-family: $font-medium;
-        font-weight: 500;
-      }
+  .yotpo-review {
+    .yotpo-review-date {
+      font-family: $font-medium;
+      font-weight: 500;
     }
+  }
 }
 
 .yotpo-label.yotpo-small-box {
   font-family: $font-medium;
   .yotpo-logo-title {
     font-family: $font-medium;
- }
+  }
 }
 
 .yotpo-small-box {
   .yotpo-nav.yotpo-nav-primary ul {
     font-family: $font-medium;
     .yotpo-nav-tab {
-    .yotpo-nav-wrapper span {
-      font-family: $font-medium;
+      .yotpo-nav-wrapper span {
+        font-family: $font-medium;
       }
     }
   }
@@ -277,9 +288,7 @@ h1 {
 }
 
 .yotpo-nav-content {
-
   .yotpo-first-review {
-    
     .yotpo-default-button {
       font-family: $font-regular;
       font-weight: 400;
