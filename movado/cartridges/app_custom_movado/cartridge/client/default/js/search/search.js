@@ -272,6 +272,11 @@ module.exports = {
         // Display refinements bar when Menu icon clicked
         $('.container').on('click', 'button.filter-results', function () {
             $('.refinement-bar, .movado-modal').show();
+            var refinementBarPl = $('.search-results-container').find('.refinement-bar-find, .secondary-bar');
+            if (refinementBarPl) {
+              refinementBarPl.addClass('refinement-bar-pl');
+              $('.secondary-bar').addClass('secondary-bar-mt');
+            }
         });
     },
 
@@ -279,6 +284,11 @@ module.exports = {
         // Refinements close button
         $('.container').on('click', '.refinement-bar button.close, .modal-background', function () {
             $('.refinement-bar, .movado-modal').hide();
+            var refinementBarPl = $('.search-results-container').find('.refinement-bar-find, .secondary-bar');
+            if (refinementBarPl) {
+              refinementBarPl.removeClass('refinement-bar-pl');
+              $('.secondary-bar').removeClass('secondary-bar-mt');
+            }
         });
     },
 

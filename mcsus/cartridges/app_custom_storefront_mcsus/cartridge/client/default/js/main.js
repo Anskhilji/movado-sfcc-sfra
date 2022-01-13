@@ -7,4 +7,3 @@ $(document).ready(function () {
     processInclude(require('./pickupStoreModal'));
     processInclude(require('./header/header'));
 });
-

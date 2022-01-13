@@ -117,6 +117,20 @@ server.replace(
 );
 
 
+server.append(
+    'Login',
+    function (req, res, next) {
+        var viewData = res.getViewData();
+        var authenticatedCustomer = viewData.authenticatedCustomer;
+        if (!empty(authenticatedCustomer)) {
+            var newProfile = authenticatedCustomer.getProfile();
+            Transaction.wrap(function () {
+                newProfile.custom.customerCurrentCountry = req.geolocation.countryCode;
+            });
+        }
+        return next();
+    });
+
 // Function will be called when a new customer is being created
 server.replace('SubmitRegistration', server.middleware.https, csrfProtection.validateAjaxRequest, function (req, res, next) {
     var CustomerMgr = require('dw/customer/CustomerMgr');
@@ -130,6 +144,7 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
     var redirectUrl = null;
     var accountHelpers = require('*/cartridge/scripts/helpers/accountHelpers');
     var isYotpoSwellLoyaltyEnabled = !empty(Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) ? Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled : false;
+    var isAccountSignupVerificationEnabled = !empty(Site.current.preferences.custom.isAccountSignupVerificationEnabled) ? Site.current.preferences.custom.isAccountSignupVerificationEnabled : false;
 
     // setting variables for the BeforeComplete function
     registrationForm = server.forms.getForm('profile');
@@ -141,6 +156,17 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
             Resource.msg('error.message.mismatch.email', 'forms', null);
         registrationForm.valid = false;
     }
+
+        // Custom Start: [Added Honeypot Logic]
+        if (isAccountSignupVerificationEnabled) {
+            if ((!empty(registrationForm.customer.hpemail.htmlValue)) ||
+                (!empty(registrationForm.customer.hpemailconfirm.htmlValue))) {
+                    registrationForm.valid = false;
+            } else {
+                registrationForm.valid = true;
+            }
+        }
+        // Custom End
 
     if (registrationForm.login.password.value !== registrationForm.login.passwordconfirm.value) {
         registrationForm.login.password.valid = false;
@@ -246,6 +272,7 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
                             newCustomerProfile.phoneHome = registrationForm.phone;
                             newCustomerProfile.custom.birthdate = registrationForm.birthdate;
                             newCustomerProfile.custom.birthmonth = registrationForm.birthmonth;
+                            newCustomerProfile.custom.customerCurrentCountry = req.geolocation.countryCode;
                             if (newsletterSignupProssesed.success) {
                                 newCustomerProfile.custom.addtoemaillist = newsletterSignupProssesed.optOutFlag || registrationForm.addToEmailList;
                             }
