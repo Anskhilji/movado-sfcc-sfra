@@ -37,12 +37,16 @@ var onWishlistClickEvent = function () {
 };
 
 var onPromoClickEvent = function () {
-    $('body').on('click', '.gtm-promotion-view, .gtm-event', function (evt) {
+    $('body').on('click', '.gtm-event', function (evt) {
         var $currentTarget = $(evt.currentTarget);
         updateDataLayer('promoClick');
         var dataLayerObj = [];
-        dataLayerObj.push($currentTarget.data('gtm-tracking'));
-
+        $.each($currentTarget, function (key, val) {
+            $gtmTrackingData = $(this).data('gtm-tracking');
+            if ($gtmTrackingData !==undefined && $gtmTrackingData !==''){
+                dataLayerObj.push($gtmTrackingData);
+            }
+        });
         dataLayer.push({ event: 'promoClick',
             ecommerce: {
                 promoClick: {
@@ -232,20 +236,23 @@ var onLoadProductTile = function () {
 
 var onPromoImpressionsLoad = function (e) {
     updateDataLayer('promoImpressions');
-    var $currentTarget = $('.gtm-promotion-view');
+    var $currentTarget = $('.gtm-event');
     var dataLayerObj = [];
-    var gtmTrackingData = $currentTarget.attr('data-gtm-tracking');
-    if (gtmTrackingData !== undefined && gtmTrackingData !='') {
-        dataLayerObj.push(JSON.parse(gtmTrackingData));
-    }
-    updateDataLayer('productImpressions');
-    dataLayer.push({
-        event: 'promoImpressions',
-        ecommerce: {
-            promoView: {
-                promotions: dataLayerObj
-            }
+    $.each($currentTarget, function (key, val) {
+        debugger;
+        var gtmTrackingData = $(this).data('gtm-tracking');
+        if (gtmTrackingData !== undefined && gtmTrackingData !='') {
+            dataLayerObj.push(gtmTrackingData);
         }
+        updateDataLayer('productImpressions');
+        dataLayer.push({
+            event: 'promoImpressions',
+            ecommerce: {
+                promoView: {
+                    promotions: dataLayerObj
+                }
+            }
+        });
     });
 };
 
