@@ -45,14 +45,14 @@ function processBackInStockObject(backInStockNotificationObj) {
         if (!empty(product)) {
             if (product.available) {
                 var backInStockProduct = ProductMgr.getProduct(backInStockNotificationObj.custom.productID);
-                var productInventoryRecord = backInStockProduct.availabilityModel.inventoryRecord.ATS.value;
+                var productInventoryRecord = backInStockProduct.availabilityModel.inventoryRecord? backInStockProduct.availabilityModel.inventoryRecord.ATS.value : '';
                 var perpetual = backInStockProduct.availabilityModel.inventoryRecord.perpetual;
-                var minimumBackInStockNotification = Site.current.getCustomPreferenceValue('minimumBackInStockNotification');
+                var minimumBackInStockNotification = !empty(Site.current.getCustomPreferenceValue('minimumBackInStockNotification')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
                 if(!empty(minimumBackInStockNotification) && minimumBackInStockNotification > 0) {
-                    if (perpetual || productInventoryRecord >= minimumBackInStockNotification) {
+                    if (productInventoryRecord >= minimumBackInStockNotification || perpetual) {
                         result.success = sendBackInStockNotificationEmail(backInStockNotificationObj, product);
                     } else {
-                        Logger.info('Minimum stock level not meet, therefore not sending emails again product:{0} and minimum stock level is:{1} ', productID, minimumBackInStockNotification)
+                        Logger.info('Minimum stock level not meet, therefore not sending emails again product:{0} and minimum stock level is:{1} ', backInStockNotificationObj, minimumBackInStockNotification)
                     }
                 }
                 if (result.success) {
