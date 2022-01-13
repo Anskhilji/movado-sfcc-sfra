@@ -5,6 +5,7 @@ var cache = require('*/cartridge/scripts/middleware/cache');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var ContentMgr = require('dw/content/ContentMgr');
 var pageMetaData = require('*/cartridge/scripts/middleware/pageMetaData');
+var Constants = require('*/cartridge/scripts/util/Constants');
 
 var page = module.superModule;
 
@@ -49,8 +50,8 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     if (product) {
         relativeURL= URLUtils.url('Product-Show','pid', product.id);
     }
-
-    var caseDiameter = productCustomHelper.getCaseDiameter(apiProduct); 
+    var caseDiametterUnitPdp = Constants.MM_UNIT_SMALL;
+    var caseDiameter = productCustomHelper.getCaseDiameter(apiProduct, false, caseDiametterUnitPdp); 
     viewData = {
         relativeURL: relativeURL,
         caseDiameter: caseDiameter

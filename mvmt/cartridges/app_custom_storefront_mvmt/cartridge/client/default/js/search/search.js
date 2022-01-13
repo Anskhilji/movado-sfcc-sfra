@@ -287,12 +287,11 @@ function updatePageURLForShowMore(showMoreUrl) {
 function bulidLifeStyleCarousel() {
 
     $('.product-grid .plp-image-carousel:not(.slick-initialized)').slick({
-        lazyLoad: 'ondemand',
         slidesToShow: 1,
         slidesToScroll: 1,
         infinite: false,
         dots: true,
-        arrows: false,
+        arrows: false
     });
 
     $(document).on('beforeChange', '.product-grid .plp-image-carousel', function (event, slick, currentSlide, nextSlide) {
