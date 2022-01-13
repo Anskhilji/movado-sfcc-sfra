@@ -48,8 +48,8 @@ function processBackInStockObject(backInStockNotificationObj) {
                 var productInventoryRecord = backInStockProduct.availabilityModel.inventoryRecord? backInStockProduct.availabilityModel.inventoryRecord.ATS.value : '';
                 var perpetual = backInStockProduct.availabilityModel.inventoryRecord.perpetual;
                 var minimumBackInStockNotification = !empty(Site.current.preferences.custom.minimumBackInStockNotification) ? Site.current.preferences.custom.minimumBackInStockNotification : false;
-                if(true) {
-                    if (false) {
+                if(!empty(minimumBackInStockNotification) && minimumBackInStockNotification > 0) {
+                    if (productInventoryRecord >= minimumBackInStockNotification || perpetual) {
                         result.success = sendBackInStockNotificationEmail(backInStockNotificationObj, product);
                     } else {
                         Logger.info('Minimum stock level not meet, therefore not sending emails again product:{0} and minimum stock level is:{1} ', backInStockNotificationObj.custom.productID, minimumBackInStockNotification)
