@@ -128,7 +128,9 @@
          * @returns {boolean} inline checkout messaging status
          */
         this.getInlineCheckoutMessagingStatus = function () {
-            return !!currentSite.getCustomPreferenceValue('AffirmInlineCheckoutMessaging');
+            return !empty(currentSite.getCustomPreferenceValue('AffirmInlineCheckoutMessaging')) 
+                ? currentSite.getCustomPreferenceValue('AffirmInlineCheckoutMessaging') 
+                : false;
         };
         /**
          * Return in-stock items only preference

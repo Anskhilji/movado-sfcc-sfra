@@ -107,7 +107,7 @@ var formHelpers = require('base/checkout/formErrors');
                             affirm.checkout(inlineCheckoutObject);
                             affirm.checkout.inline({
                                 merchant: {
-                                    inline_container: "affirm-inline-container"
+                                    inline_container: 'affirm-inline-container'
                                 }
                             });
                         });
@@ -233,7 +233,7 @@ var formHelpers = require('base/checkout/formErrors');
                             affirm.checkout(inlineCheckoutObject);
                             affirm.checkout.inline({
                                 merchant: {
-                                    inline_container: "affirm-inline-container"
+                                    inline_container: 'affirm-inline-container'
                                 }
                             });
                         });

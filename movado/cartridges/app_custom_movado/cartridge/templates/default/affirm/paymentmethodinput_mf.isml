@@ -6,7 +6,7 @@
 <isset name="affirmData" value="${require('*/cartridge/scripts/data/affirmData')}" scope="page" />
 <isset name="inStockLabel" value="${require('dw/web/Resource').msg('label.instock', 'common', null)}" scope="page" />
 <isscript>
-    var plis = pdict.order.items.items;
+    var plis = !empty(pdict.order.items) ? pdict.order.items.items : '';
     var inStockCheckout = true;
     for (var i = 0; i < plis.length; i++) {
         var pli = plis[i]
@@ -29,13 +29,16 @@
 						<isif condition="${showInlineCheckoutMsg}">
 							<div id="affirm-inline-container"></div>
 						<iselse/>
-							<label for="affirmPayment" class="field-label">
-								<span style="display: inline-block; padding: .5rem; height: auto;" class="affirm-as-low-as" data-page-type="payment" data-amount="${require('dw/order/BasketMgr').currentBasket.totalGrossPrice.multiply(100).getValue().toFixed()}"></span>
-							</label>
-							<p style="padding: .5rem; border-radius: .1875rem">${Resource.msg('payment.info', 'affirm', null)}</p>
+                            <label for="affirmPayment" class="field-label">
+	                            <img alt="${Resource.msg('paymentMethodType.label','forms',null)}" src="https://cdn-assets.affirm.com/images/blue_logo-transparent_bg.png"
+		                        title="${Resource.msg('paymentMethodType.label','forms',null)}" />
+	                            <span>${Resource.msg('payment.monthlypayments', 'affirm', null)}</span>
+	                            <a class="affirm-product-modal" style="" data-amount="${require('dw/order/BasketMgr').currentBasket.totalGrossPrice.multiply(100).getValue().toFixed()}">${Resource.msg('payment.learnmore',
+		                        'affirm', null)}</a>
+                            </label>
 						</isif>
 					<iselse/>
-						<p style="padding: .5rem; border-radius: .1875rem" class="affirm-not-available">${Resource.msg('payment.info.oos', 'affirm', null)}</p>
+						<p class="affirm-not-available">${Resource.msg('payment.info.oos', 'affirm', null)}</p>
 					</isif>
 				</div>
 				${Resource.msg('payment.info', 'affirm', null)}
