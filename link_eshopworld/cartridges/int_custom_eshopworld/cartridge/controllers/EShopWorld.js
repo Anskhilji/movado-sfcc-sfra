@@ -188,7 +188,6 @@ server.append('GetEswLandingPage', function (req, res, next) {
 server.append('NotifyV2', function(req, res, next) {
     // Custom Start: [MSS-1642]
     var isFacebookConversionAPIEnabled = !empty(Site.current.getCustomPreferenceValue('isFacebookConversionAPIEnabled')) ? Site.current.getCustomPreferenceValue('isFacebookConversionAPIEnabled') : false;
-    var isCrossBorderFacebookConversionAPIEnabled = !empty(Site.current.getCustomPreferenceValue('isCrossBorderFacebookConversionAPIEnabled')) ? Site.current.getCustomPreferenceValue('isCrossBorderFacebookConversionAPIEnabled') : false;
     // Custom End
     var obj = JSON.parse(req.body);
     Transaction.wrap(function () {
@@ -252,7 +251,7 @@ server.append('NotifyV2', function(req, res, next) {
     }
 
     // Custom Start: [MSS-1642 Call Facebook Api after ESW Conversion]
-    if (isFacebookConversionAPIEnabled && isCrossBorderFacebookConversionAPIEnabled) {
+    if (isFacebookConversionAPIEnabled) {
         var ConversionLog = require('dw/system/Logger').getLogger('OrderConversion');
         var fbConversionAPI  = require('*/cartridge/scripts/api/fbConversionAPI');
         var fbConversionESWAllowedCountries = !empty(Site.current.getCustomPreferenceValue('fbConversionESWAllowedCountries')) ? Site.current.getCustomPreferenceValue('fbConversionESWAllowedCountries') : '';
@@ -264,7 +263,7 @@ server.append('NotifyV2', function(req, res, next) {
                 for (var i = 0; i < fbConversionESWAllowedCountries.length; i++) {
                     if (currentCountry == fbConversionESWAllowedCountries[i]) {
                         try {
-                            var result = fbConversionAPI.fbConversionAPI(order);
+                            fbConversionAPI.fbConversionAPI(order);
                             break; // breaks Loop
                         } catch (error) {
                             ConversionLog.error('(EShopWorld.js -> NotifyV2) Error is occurred in FBConversionAPI.fbConversionAPI', error.toString());
@@ -274,7 +273,7 @@ server.append('NotifyV2', function(req, res, next) {
             }
         } else {
             try {
-                var result = fbConversionAPI.fbConversionAPI(order);
+                fbConversionAPI.fbConversionAPI(order);
             } catch (error) {
                 ConversionLog.error('(EShopWorld.js -> NotifyV2) Error is occurred in FBConversionAPI.fbConversionAPI', error.toString());
             }
