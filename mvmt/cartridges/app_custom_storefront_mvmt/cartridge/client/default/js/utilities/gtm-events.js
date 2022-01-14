@@ -311,7 +311,7 @@ var onPromoImpressionsLoad = function (e) {
     $currentPromoProductTarget = $('.gtm-promotion-view');
     $.each($currentPromoProductTarget, function (key, val) { 
         var gtmTrackingData = $(this).data('gtm-product-promo');
-        if (gtmTrackingData !== undefined && gtmTrackingData !='') {
+        if (gtmTrackingData !== undefined && gtmTrackingData != '') {
             dataLayerObj.push(gtmTrackingData);
             updateDataLayer('promoImpressions');
             dataLayer.push({
@@ -327,7 +327,7 @@ var onPromoImpressionsLoad = function (e) {
 
     $.each($currentPromoTarget, function (key, val) { 
         var gtmTrackingPromo = $(this).data('gtm-tracking');
-        if (gtmTrackingPromo !== undefined && gtmTrackingPromo !='') {
+        if (gtmTrackingPromo !== undefined && gtmTrackingPromo != '') {
             dataLayerObj.push(gtmTrackingPromo);
             updateDataLayer('promoImpressions');
             dataLayer.push({
