@@ -42,7 +42,7 @@ var onPromoClickEvent = function () {
         updateDataLayer('promoClick');
         var dataLayerObj = [];
         $gtmTrackingData = $(this).data('gtm-tracking');
-        if ($gtmTrackingData !==undefined && $gtmTrackingData !==''){
+        if ($gtmTrackingData !== undefined && $gtmTrackingData !== ''){
             dataLayerObj.push($gtmTrackingData);
         }
         dataLayer.push({ event: 'promoClick',
