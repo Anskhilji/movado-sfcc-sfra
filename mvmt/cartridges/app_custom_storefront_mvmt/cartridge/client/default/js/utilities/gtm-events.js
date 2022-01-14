@@ -58,7 +58,7 @@ var onPromoClickEvent = function () {
         var pageType = $currentTarget.data('page-type');
         var productPromoTracking = $currentTarget.data('gtm-product-promo');
         var campaginPromoTracking = $currentTarget.data('gtm-tracking');
-        if (productPromoTracking !== undefined && productPromoTracking !=='') {
+        if (productPromoTracking !== undefined && productPromoTracking !== '') {
             dataLayer.push({
                 event: 'promoClick',
                 pageType: pageType,
@@ -307,14 +307,12 @@ var onLoadProductTile = function () {
 var onPromoImpressionsLoad = function (e) {
     updateDataLayer('promoImpressions');
     var dataLayerObj = [];
-    var dataLayerPromoProductObj = [];
     $currentPromoTarget = $('.gtm-event');
     $currentPromoProductTarget = $('.gtm-promotion-view');
     $.each($currentPromoProductTarget, function (key, val) { 
         var gtmTrackingData = $(this).data('gtm-product-promo');
         if (gtmTrackingData !== undefined && gtmTrackingData !='') {
             dataLayerObj.push(gtmTrackingData);
-    
             updateDataLayer('promoImpressions');
             dataLayer.push({
                 event: 'promoImpressions',
