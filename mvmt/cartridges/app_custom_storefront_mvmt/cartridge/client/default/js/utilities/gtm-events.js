@@ -307,38 +307,41 @@ var onLoadProductTile = function () {
 var onPromoImpressionsLoad = function (e) {
     updateDataLayer('promoImpressions');
     var dataLayerObj = [];
-    var gtmTrackingData = $('.gtm-promotion-view').data('gtm-product-promo');
-    var gtmTrackingPromo = $('.gtm-promotion-view').data('gtm-tracking');
-
-    if (gtmTrackingData !== undefined && gtmTrackingData !='') {
-        dataLayerObj = gtmTrackingData;
-
-        updateDataLayer('promoImpressions');
-        dataLayer.push({
-            event: 'promoImpressions',
-            ecommerce: {
-                promoView: {
-                    promotions: dataLayerObj
-                }
-            }
-        });
-    }
+    var dataLayerPromoProductObj = [];
+    $currentPromoTarget = $('.gtm-event');
+    $currentPromoProductTarget = $('.gtm-promotion-view');
+    $.each($currentPromoProductTarget, function (key, val) { 
+        var gtmTrackingData = $(this).data('gtm-product-promo');
+        if (gtmTrackingData !== undefined && gtmTrackingData !='') {
+            dataLayerObj.push(gtmTrackingData);
     
-    if (gtmTrackingPromo !== undefined && gtmTrackingPromo !='') {
-        dataLayerObj = gtmTrackingPromo;
-
-        updateDataLayer('promoImpressions');
-        dataLayer.push({
-            event: 'promoImpressions',
-            ecommerce: {
-                promoView: {
-                    promotions: dataLayerObj
+            updateDataLayer('promoImpressions');
+            dataLayer.push({
+                event: 'promoImpressions',
+                ecommerce: {
+                    promoView: {
+                        promotions: dataLayerObj
+                    }
                 }
-            }
-        });
-    }
+            });
+        }
+    });
 
-
+    $.each($currentPromoTarget, function (key, val) { 
+        var gtmTrackingPromo = $(this).data('gtm-tracking');
+        if (gtmTrackingPromo !== undefined && gtmTrackingPromo !='') {
+            dataLayerObj.push(gtmTrackingPromo);
+            updateDataLayer('promoImpressions');
+            dataLayer.push({
+                event: 'promoImpressions',
+                ecommerce: {
+                    promoView: {
+                        promotions: dataLayerObj
+                    }
+                }
+            });
+        }
+    });
 };
 
 /**
