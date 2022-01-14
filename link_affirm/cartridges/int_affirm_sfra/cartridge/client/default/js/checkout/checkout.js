@@ -66,7 +66,7 @@ var formHelpers = require('base/checkout/formErrors');
             if (checkoutStages[currentStage] == 'payment') {
             	if ($('#affirm-config').data('affirmenabled')) {
                 	$('.affirm-payment-tab').trigger('click');
-                }
+            }
             } else if (checkoutStages[currentStage] == 'placeOrder') {
             	if ($('.payment-information').data('payment-method-id') == 'Affirm') {
             		var url = $('#affirm-config').data('affirupdateurl');
