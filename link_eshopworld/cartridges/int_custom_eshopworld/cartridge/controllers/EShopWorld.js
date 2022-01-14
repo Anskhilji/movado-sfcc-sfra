@@ -186,8 +186,10 @@ server.append('GetEswLandingPage', function (req, res, next) {
 });
 
 server.append('NotifyV2', function(req, res, next) {
+    // Custom Start: [MSS-1642]
     var isFacebookConversionAPIEnabled = !empty(Site.current.getCustomPreferenceValue('isFacebookConversionAPIEnabled')) ? Site.current.getCustomPreferenceValue('isFacebookConversionAPIEnabled') : false;
     var isCrossBorderFacebookConversionAPIEnabled = !empty(Site.current.getCustomPreferenceValue('isCrossBorderFacebookConversionAPIEnabled')) ? Site.current.getCustomPreferenceValue('isCrossBorderFacebookConversionAPIEnabled') : false;
+    // Custom End
     var obj = JSON.parse(req.body);
     Transaction.wrap(function () {
         var order = OrderMgr.getOrder(res.viewData.OrderNumber);
@@ -208,7 +210,7 @@ server.append('NotifyV2', function(req, res, next) {
             var order = OrderMgr.getOrder(res.viewData.OrderNumber);
             Transaction.wrap(function () {
                 populateOrderJSON.populateByOrder(order);
-            }); 
+            });
         } catch (exSOM) {
             somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
         }
@@ -249,6 +251,7 @@ server.append('NotifyV2', function(req, res, next) {
         }
     }
 
+    // Custom Start: [MSS-1642 Call Facebook Api after ESW Conversion]
     if (isFacebookConversionAPIEnabled && isCrossBorderFacebookConversionAPIEnabled) {
         var ConversionLog = require('dw/system/Logger').getLogger('OrderConversion');
         var fbConversionAPI  = require('*/cartridge/scripts/api/fbConversionAPI');
@@ -257,12 +260,15 @@ server.append('NotifyV2', function(req, res, next) {
         var currentCountry = obj.deliveryCountryIso;
 
         if (fbConversionESWAllowedCountries.length > 0) {
-            for (var i = 0; i < fbConversionESWAllowedCountries.length; i++) {
-                if (currentCountry == fbConversionESWAllowedCountries[i]) {
-                    try {
-                        var result = fbConversionAPI.fbConversionAPI(order);
-                    } catch (error) {
-                        ConversionLog.error('(EShopWorld.js -> NotifyV2) Error is occurred in FBConversionAPI.fbConversionAPI', error.toString());
+            if (!empty(currentCountry)) {
+                for (var i = 0; i < fbConversionESWAllowedCountries.length; i++) {
+                    if (currentCountry == fbConversionESWAllowedCountries[i]) {
+                        try {
+                            var result = fbConversionAPI.fbConversionAPI(order);
+                            break; // breaks Loop
+                        } catch (error) {
+                            ConversionLog.error('(EShopWorld.js -> NotifyV2) Error is occurred in FBConversionAPI.fbConversionAPI', error.toString());
+                        }
                     }
                 }
             }
@@ -274,6 +280,7 @@ server.append('NotifyV2', function(req, res, next) {
             }
         }
     }
+    // Custom End
     return next();
 });
 
