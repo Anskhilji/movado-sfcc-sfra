@@ -68,14 +68,16 @@ var formHelpers = require('base/checkout/formErrors');
                 	$('.affirm-payment-tab').trigger('click');
                     if ($('#affirm-inline-container').length > 0) {
                         var inlineCheckoutObject = $('#vcn-data').data('vcndata');
-                        affirm.ui.ready(function() {
-                            affirm.checkout(inlineCheckoutObject);
-                            affirm.checkout.inline({
-                                merchant: {
-                                    inline_container: 'affirm-inline-container'
-                                }
+                        if (inlineCheckoutObject !== undefined && inlineCheckoutObject !== '') {
+                            affirm.ui.ready(function() {
+                                affirm.checkout(inlineCheckoutObject);
+                                affirm.checkout.inline({
+                                    merchant: {
+                                        inline_container: 'affirm-inline-container'
+                                    }
+                                });
                             });
-                        });
+                        }
                     }
             }
             } else if (checkoutStages[currentStage] == 'placeOrder') {
