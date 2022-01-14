@@ -41,12 +41,10 @@ var onPromoClickEvent = function () {
         var $currentTarget = $(evt.currentTarget);
         updateDataLayer('promoClick');
         var dataLayerObj = [];
-        $.each($currentTarget, function (key, val) {
-            $gtmTrackingData = $(this).data('gtm-tracking');
-            if ($gtmTrackingData !==undefined && $gtmTrackingData !==''){
-                dataLayerObj.push($gtmTrackingData);
-            }
-        });
+        $gtmTrackingData = $(this).data('gtm-tracking');
+        if ($gtmTrackingData !==undefined && $gtmTrackingData !==''){
+            dataLayerObj.push($gtmTrackingData);
+        }
         dataLayer.push({ event: 'promoClick',
             ecommerce: {
                 promoClick: {
@@ -239,9 +237,8 @@ var onPromoImpressionsLoad = function (e) {
     var $currentTarget = $('.gtm-event');
     var dataLayerObj = [];
     $.each($currentTarget, function (key, val) {
-        debugger;
         var gtmTrackingData = $(this).data('gtm-tracking');
-        if (gtmTrackingData !== undefined && gtmTrackingData !='') {
+        if (gtmTrackingData !== undefined && gtmTrackingData != '') {
             dataLayerObj.push(gtmTrackingData);
         }
         updateDataLayer('productImpressions');
