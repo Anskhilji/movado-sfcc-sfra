@@ -186,7 +186,7 @@ server.append('GetEswLandingPage', function (req, res, next) {
 });
 
 server.append('NotifyV2', function(req, res, next) {
-    // Custom Start: [MSS-1642]
+    // Custom Start: [MSS-1642 Call Facebook Api after ESW Conversion]
     var isFacebookConversionAPIEnabled = !empty(Site.current.getCustomPreferenceValue('isFacebookConversionAPIEnabled')) ? Site.current.getCustomPreferenceValue('isFacebookConversionAPIEnabled') : false;
     // Custom End
     var obj = JSON.parse(req.body);
@@ -252,22 +252,20 @@ server.append('NotifyV2', function(req, res, next) {
 
     // Custom Start: [MSS-1642 Call Facebook Api after ESW Conversion]
     if (isFacebookConversionAPIEnabled) {
-        var ConversionLog = require('dw/system/Logger').getLogger('OrderConversion');
+        var Logger = require('dw/system/Logger');
         var fbConversionAPI  = require('*/cartridge/scripts/api/fbConversionAPI');
-        var fbConversionESWAllowedCountries = !empty(Site.current.getCustomPreferenceValue('fbConversionESWAllowedCountries')) ? Site.current.getCustomPreferenceValue('fbConversionESWAllowedCountries') : '';
+        var fbConversionESWAllowedCountries = Site.current.preferences.custom.fbConversionESWAllowedCountries ? Site.current.preferences.custom.fbConversionESWAllowedCountries : '';
         var order = OrderMgr.getOrder(res.viewData.OrderNumber);
         var currentCountry = obj.deliveryCountryIso;
 
         if (fbConversionESWAllowedCountries.length > 0) {
             if (!empty(currentCountry)) {
-                for (var i = 0; i < fbConversionESWAllowedCountries.length; i++) {
-                    if (currentCountry == fbConversionESWAllowedCountries[i]) {
-                        try {
-                            fbConversionAPI.fbConversionAPI(order);
-                            break; // breaks Loop
-                        } catch (error) {
-                            ConversionLog.error('(EShopWorld.js -> NotifyV2) Error is occurred in FBConversionAPI.fbConversionAPI', error.toString());
-                        }
+                var allowedCountry = fbConversionESWAllowedCountries.indexOf(currentCountry);
+                if ( allowedCountry == true) {
+                    try {
+                        fbConversionAPI.fbConversionAPI(order);
+                    } catch (error) {
+                        Logger.error('(EShopWorld.js -> NotifyV2) Error occured while try to make FB conversion, against order No:{0} the error is:{1} in file:{2} at line:{3} ',order.getOrderNo(), error.toString(), error.fileName, error.lineNumber);
                     }
                 }
             }
@@ -275,8 +273,7 @@ server.append('NotifyV2', function(req, res, next) {
             try {
                 fbConversionAPI.fbConversionAPI(order);
             } catch (error) {
-                ConversionLog.error('(EShopWorld.js -> NotifyV2) Error is occurred in FBConversionAPI.fbConversionAPI', error.toString());
-            }
+                Logger.error('(EShopWorld.js -> NotifyV2) Error occured while try to make FB conversion, against order No:{0} the error is:{1} in file:{2} at line:{3} ',order.getOrderNo(), error.toString(), error.fileName, error.lineNumber);            }
         }
     }
     // Custom End
