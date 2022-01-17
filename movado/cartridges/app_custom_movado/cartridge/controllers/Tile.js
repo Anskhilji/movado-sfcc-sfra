@@ -86,12 +86,13 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
     };
     
     var viewData = res.getViewData();
-    var readyToOrder = showProductPageHelperResult.product.readyToOrder ;
-    viewData.addToCartUrl = showProductPageHelperResult.addToCartUrl;
-    viewData.product = showProductPageHelperResult.product;
+    var readyToOrder = showProductPageHelperResult.product.readyToOrder ? showProductPageHelperResult.product.readyToOrder : '';
+    viewData.addToCartUrl = showProductPageHelperResult.addToCartUrl ? showProductPageHelperResult.addToCartUrl : '';
+    viewData.product = showProductPageHelperResult.product ? showProductPageHelperResult.product : '';
     viewData.isPLPProduct = true;
     viewData.readyToOrder = readyToOrder;
-    viewData.ecommerceFunctionalityEnabled = Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled;
+    viewData.ecommerceFunctionalityEnabled = Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled ? Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled : '';
+
     res.setViewData(viewData);
     Object.keys(req.querystring).forEach(function (key) {
         if (req.querystring[key] === 'true') {

@@ -9,7 +9,7 @@
     <isset name="addToCartUrl" value="${URLUtils.url('Cart-AddProduct')}" scope="page" />
         <input type="hidden" class="add-to-cart-url" value="${addToCartUrl}">
         <iscomment> Custom Start: Adding Esw updated cartridge code ({product.isProductRestricted}>d-none) </iscomment>
-        <button test="${product.available}" class='add-to-cart btn btn-primary pdpToCart gtm-addtocart <isif condition="${product.isProductRestricted}">d-none</isif>'
+        <button class='add-to-cart btn btn-primary pdpToCart gtm-addtocart <isif condition="${product.isProductRestricted}">d-none</isif>'
             data-pid="${product.id}"
             ${!pdict.readyToOrder ? "disabled" : ""}  >
                 <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>
