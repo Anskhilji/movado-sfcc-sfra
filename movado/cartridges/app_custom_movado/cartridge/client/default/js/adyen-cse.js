@@ -22,7 +22,7 @@ $('button[value="submit-payment"]').on('click', function (e) {
             scrollUtil.scrollInvalidFields('.payment-form .payment-options', -80, 300);
             return false;
         }
-        $('#creditBin').val($('#cardNumber').val().split(' ').join('').substring(0, 6));
+        $('#creditBin').val($('#cardNumber').val().split('-').join('').substring(0, 6));
         $('#cardNumber').val(masked);
     }
 });
