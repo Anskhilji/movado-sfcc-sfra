@@ -91,7 +91,7 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
     viewData.product = showProductPageHelperResult.product ? showProductPageHelperResult.product : '';
     viewData.isPLPProduct = true;
     viewData.readyToOrder = readyToOrder;
-    viewData.ecommerceFunctionalityEnabled = Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled ? Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled : '';
+    viewData.ecommerceFunctionalityEnabled = !empty(Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled) ? Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled : false;
 
     res.setViewData(viewData);
     Object.keys(req.querystring).forEach(function (key) {
