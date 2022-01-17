@@ -417,7 +417,7 @@ $stored-payment-spacing: rem(16);
           line-height: rem(24);
           text-align: center;
 
-          @include media-breakpoint-down(sm) {
+          @include media-breakpoint-down(sm) { 
             font-size: rem(10.89);
             text-transform: capitalize;
             position: absolute;
@@ -427,24 +427,24 @@ $stored-payment-spacing: rem(16);
         }
 
         .alternative-payment-methods-links {
-          background-color: $yellow2!important;
+          background-color: $yellow2;
+        }
+
+        .klarna-payment-button {
+          background-color: $klarna-pink;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
 
         .google-pay-link {
-          background-color: $black!important;
+          background-color: $black;
           img {
             @include media-breakpoint-down(sm) {
               height: rem(15);
             }
           }
         }
-      }
-
-      .klarna-payment-button {
-        background-color: $klarna-pink!important;
-        display: flex;
-        justify-content: center;
-        align-items: center;
       }
    }
    

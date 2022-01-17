@@ -373,27 +373,22 @@ module.exports = {
 
     paymentOptions: function () {
         $('.payment-options .nav-link').on('click', function () {
-        $('.payment-options .nav-link').removeClass('active');
-        $('.payment-options .nav-link').attr('aria-selected','false');
-        $('.tab-content-payment-options .tab-pane').removeClass('active');
-        $('.tab-content-payment-options .tab-pane').removeClass('show');
-        $(this).addClass('active');
-        var  $activeTab = $(this).attr('aria-controls');
-        $('.tab-content-payment-options .tab-pane').each(function() {
- 
-            var tabContentId = $(this).attr('id');
-            if (tabContentId === $activeTab) {
-                $(this).addClass('active');
-                $(this).addClass('show');
-            }
-        });
+            $('.payment-options .nav-link').removeClass('active');
+            $('.payment-options .nav-link').attr('aria-selected','false');
+            $('.tab-content-payment-options .tab-pane').removeClass('active');
+            $('.tab-content-payment-options .tab-pane').removeClass('show');
+            $(this).addClass('active');
+            var  $activeTab = $(this).attr('aria-controls');
+            $('.tab-content-payment-options .tab-pane').each(function() {
+                var tabContentId = $(this).attr('id');
+                if (tabContentId === $activeTab) {
+                    $(this).addClass('active');
+                    $(this).addClass('show');
+                }
+            });
                      
         });
     },
-
-
-
-
 
     restrictNumbers: function() {
         $('#holderName').keyup(function () {
