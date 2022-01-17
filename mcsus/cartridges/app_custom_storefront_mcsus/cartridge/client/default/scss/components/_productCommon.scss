@@ -1,7 +1,6 @@
 @import "~movado/components/_productCommon";
 @import "../variables";
 
-
 .description-and-detail .attribute {
 
     &-name {
@@ -21,16 +20,20 @@
             font-size: rem(16);
         }
     }
-
 }
 
 .product-detail {
+
+    #zoomProduct {
+        overflow: auto !important;
+    }
     @import "../product/imageCarousel";
 
     .product-name {
         font-size: rem(40);
         font-family: $font-bold;
         font-weight: bold;
+
         @include media-breakpoint-down(xs) {
             font-size: rem(30);
         }
@@ -44,6 +47,7 @@
         @include media-breakpoint-down(md) {
             font-size: rem(14);
         }
+
     }
 
     .exclusive-badges {
@@ -111,25 +115,33 @@
                   }
                 }
             }
-        } 
+        }
     }
 }
 
 .product-detail {
     &.product-quickview {
-        @import "../product/imageCarousel";  
-    .availability-msg {
-        font-family:$font-medium;
-        font-weight: 500;
-        font-size: rem(16);
-
-        li {
-            font-family: $font-medium;
+        @import "../product/imageCarousel";
             font-weight: 500;
             font-size: rem(16);
+
+        .primary-images {
+            .cs-carousel-wrapper {
+                .slick-arrow {
+                    transform: translate(0, 0%);
+                }
+                .slick-dots {
+                    li {
+                        width: auto;
+                        height: auto;
+                        margin: rem(0);
+                        margin-right: rem(4);  
+                    }
+                }  
+            }
         }
-    }    
-  }
+
+    }
 }
 
 .more-styles-wrapper {
@@ -181,7 +193,7 @@ select {
 .affirm-as-low-as {
     font-family: $font-medium;
     font-weight: 500;
-    font-size:rem(16) ;
+    font-size:rem(16);
 
     .__affirm-logo.__affirm-logo-black {
         color: $black;

@@ -163,6 +163,7 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
 								newCustomerProfile.email = registrationForm.email;
 								newCustomerProfile.custom.birthdate = registrationForm.birthdate;
 								newCustomerProfile.custom.birthmonth = registrationForm.birthmonth;
+								newCustomerProfile.custom.customerCurrentCountry = req.geolocation.countryCode;
 								if (newsletterSignupProssesed.success) {
 									newCustomerProfile.custom.addtoemaillist = newsletterSignupProssesed.optOutFlag || registrationForm.addToEmailList;
 								}

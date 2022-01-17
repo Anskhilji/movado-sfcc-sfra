@@ -51,38 +51,41 @@
 				</div>
 			</div>
 		</isif>
-		<div class="row">
-			<div class="tab-content col-12">
-				<div class="tab-pane active" id="product-search-results" role="tabpanel" aria-expanded="true">
-					<isif condition="${pdict.productSearch.productIds.length > 0}">
-						<div class="row grid-header">
-						<div class="result-count text-center col-12 col-md-9 col-sm-6 order-sm-2">
-						<iselse>
-						<div class="row grid-header justify-content-center">
-						<div class="result-count col">
+		<div class="row search-results-container">
+			<div class="product-counter-wrapper">
+				<div class="tab-content searech-results-wrapper col-12">
+					<div class="tab-pane active" id="product-search-results" role="tabpanel" aria-expanded="true">
+						<isif condition="${pdict.productSearch.productIds.length > 0}">
+						    <div class="row grid-header ml-0 mr-0">
+						    <div class="result-count text-center col-12 col-md-9 col-sm-6 order-sm-2">
+						    <iselse>
+						    <div class="row grid-header justify-content-center">
+						    <div class="result-count col">
 					</isif>
-					<isinclude template="search/resultsCount" />
+						<isinclude template="search/resultsCount" />
+					</div>
+					<isif condition="${pdict.productSearch.productIds.length > 0}">
+						<div class="col-6 col-sm-3 order-sm-1 sort-filters-button sort-col">
+							<isinclude template="search/sortOrderMenu" />
+						</div>
+						<div class="col-6 col-sm-3 text-right d-md-none order-sm-3 filter-col">
+							<button type="button" class="btn btn-primary filter-results col-12">
+								${Resource.msg('button.filter', 'search', null)}
+							</button>
+						</div>
+					</isif>
 				</div>
-				<isif condition="${pdict.productSearch.productIds.length > 0}">
-					<div class="col-6 col-sm-3 order-sm-1 sort-col">
-						<isinclude template="search/sortOrderMenu" />
-					</div>
-					<div class="col-6 col-sm-3 text-right d-md-none order-sm-3 filter-col">
-						<button type="button" class="btn btn-primary filter-results col-12">
-							${Resource.msg('button.filter', 'search', null)}
-						</button>
-					</div>
-				</isif>
 			</div>
+
 
 			<isif condition="${pdict.productSearch.productIds.length > 0}">
 				<!--- Refinement bar --->
-				<div class="row">
-					<div class="refinement-bar movado-refinebar col-md-3">
+				<div class="row ml-0 mr-0">
+					<div class="refinement-bar movado-refinebar refinement-bar-find col-md-3">
 						<isinclude url="${pdict.refineurl}" />
 					</div>
 
-					<div class="col-sm-12 col-md-9">
+					<div class="col-sm-12 col-md-9 product-tiles-wrapper">
 						<div class="container">
 							<!--- Selected filters bar --->
 							<div class="row filter-bar d-md-none">

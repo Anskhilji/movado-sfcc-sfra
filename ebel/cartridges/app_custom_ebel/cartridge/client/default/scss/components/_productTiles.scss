@@ -89,10 +89,9 @@
                 text-decoration: none;
                 text-transform: uppercase;
                 @include headline;
-                height: rem(30);
-
+                line-height: rem(22);
                 @include media-breakpoint-down(md) {
-                  font-size: rem(13);
+                  font-size: rem(15);
                   letter-spacing: 1.76px;
                   line-height: rem(20);
                   font-weight:300;
@@ -107,81 +106,6 @@
                     font-family: $font-book;
                 }
             }
-            @include media-breakpoint-up(xs) {
-                .truncate-text-sm {
-                  display: block;
-                }
-                .truncate-text-md {
-                  display: none;
-                }
-                .truncate-text-lg {
-                  display: none;
-                }
-                .truncate-text-xl {
-                  display: none;
-                }
-              }
-              @include media-breakpoint-up(sm) {
-                .truncate-text-sm {
-                  display: block;
-                }
-                .truncate-text-md {
-                  display: none;
-                }
-                .truncate-text-lg {
-                  display: none;
-                }
-                .truncate-text-xl {
-                  display: none;
-                }
-              }
-              @include media-breakpoint-up(custom-md) {
-                .truncate-text-lg {
-                  display: none;
-                }
-                .truncate-text-xl {
-                  display: none;
-                }
-                .truncate-text-md {
-                  display: block;
-                }
-                .truncate-text-sm {
-                  display: none;
-                }
-              }
-              @include media-breakpoint-up(lg) {
-                .truncate-text-lg {
-                  display: block;
-                }
-                .truncate-text-md {
-                  display: none;
-                }
-                .truncate-text-sm {
-                  display: none;
-                }
-                .truncate-text-xl {
-                  display: none;
-                }
-              }
-              @include media-breakpoint-up(xl) {
-                .truncate-text-xl {
-                  display: block;
-                }
-                .truncate-text-md {
-                  display: none;
-                }
-                .truncate-text-sm {
-                  display: none;
-                }
-                .truncate-text-lg {
-                  display: none;
-                }
-              }
-            
-            &.flex-wrapper-center{
-                display: flex;
-                justify-content: center;
-              }
         }
 
         .ratings {
@@ -194,9 +118,6 @@
             line-height:rem(17);
             color:$grey-transparent-1;
           }
-        }
-        .promotions {
-            height: rem(27);
         }
     }
 
@@ -312,15 +233,5 @@
             padding: 0 rem(60);
         }
     }
-}
-
-.adjust-promo-message {
-    height: rem(27);
-}
-.adjust-nostock-align {
-    height: rem(18);
-}
-.align-plp-badges {
-    height: rem(30);
 }
 

@@ -19,15 +19,17 @@
             <isinclude template="product/components/productTileSwatch" />
         </isif>
 
-        <div class="${product.promotions.length > 0 ? 'promotions' : 'promo-none-visible'}">
-            <isloop items="${product.promotions}" var="promotion" status="promoStatus">
-                <isif condition="${promotion.plpCalloutMsg !== ''}">
-                    <div class="callout promo-msg">
-                        <isprint value="${promotion.plpCalloutMsg}" encoding="off">
-                    </div>
-                </isif>
-            </isloop>
-        </div>
+        <isif condition="${product.promotions}">
+            <div class="promotions">
+                <isloop items="${product.promotions}" var="promotion" status ="promoStatus">
+                    <isif condition="${promotion.plpCalloutMsg !== ''}">
+                        <div class="callout promo-msg">
+                            <isprint value="${promotion.plpCalloutMsg}" encoding="off">
+                        </div>
+                    </isif>
+                </isloop>
+            </div>
+        </isif>
 
         <isinclude template="product/components/productTileName" />
         
@@ -37,19 +39,19 @@
             </div>
         </isif>
 
-        <div class="${outOfStock ? 'out-of-stock' : 'adjust-badges-alignment'}">
-            <isif condition="${outOfStock}">
-                ${Resource.msg('label.soldout', 'common', null)}.
-            </isif>
-        </div>
+        <isif condition="${outOfStock}">
+            <div class="out-of-stock">
+                ${Resource.msg('label.soldout', 'common', null)}
+            </div>
+        </isif>
 
-        <div class="${product.badges.textBadges.length > 0 ? 'exclusive-product' : 'align-plp-badges'}">
-            <isloop items="${product.badges.textBadges}" var="badge">
+        <isloop items="${product.badges.textBadges}" var="badge">
+            <div class="exclusive-product">
                 ${badge.text}
-            </isloop>
-        </div>
+            </div>
+        </isloop>
 
-        <div class="row m-0 adjust-rating-alignment">
+        <div class="row m-0">
             <div class="col d-flex align-items-center justify-content-around w-100">
                 <isinclude template="product/components/ratings" />
             </div>

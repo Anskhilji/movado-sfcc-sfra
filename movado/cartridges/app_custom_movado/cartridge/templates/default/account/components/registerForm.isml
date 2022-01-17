@@ -88,7 +88,9 @@
                 type="text"
                 class="form-control signup-verification"
                 id="hpemail"
-                autocomplete="disabled"
+                readonly="true"
+                autocomplete="autocomplete_off_fghsk_xfr4!k"
+                tabindex="-1"
                 <isprint value=${pdict.profileForm.customer.hpemail.attributes} encoding="off" />>
         </isif>
         <iscomment> Custom End </iscomment>
@@ -111,7 +113,9 @@
             type="text"
             class="form-control signup-verification"
             id="hpemailconfirm"
-            autocomplete="disabled"
+            readonly="true"
+            autocomplete="autocomplete_off_dfhgkl_xfr4!k"
+            tabindex="-1"
             <isprint value=${pdict.profileForm.customer.hpemailconfirm.attributes} encoding="off"/>>
         </isif>
         <iscomment> Custom End </iscomment>

@@ -27,17 +27,17 @@
             </div>
         </isif>
 
-        <div class="${outOfStock ? 'out-of-stock' : 'adjust-nostock-align'}">
-            <isif condition="${outOfStock}">
-                ${Resource.msg('label.soldout', 'common', null)}.
-            </isif>
-        </div>
-        
-        <div class="${product.badges.textBadges.length > 0 ? 'exclusive-product' : 'align-plp-badges'}">
-            <isloop items="${product.badges.textBadges}" var="badge">
+        <isif condition="${outOfStock}">
+            <div class="out-of-stock">
+               ${Resource.msg('label.soldout', 'common', null)}
+            </div>
+        </isif>
+                
+        <isloop items="${product.badges.textBadges}" var="badge">
+            <div class="exclusive-product">
                 ${badge.text}
-            </isloop>
-        </div>
+            </div>
+        </isloop>
 
         <isset name="price" value="${product.price}" scope="page" />
         <isif condition="${product.productType === 'set'}">
@@ -49,17 +49,17 @@
             <isinclude template="product/components/compare" />
         </isif>
 
-        <div class="${product.promotions ? 'promotions' : 'adjust-promo-message'}">
-            <isif condition="${product.promotions}">
-                <isloop items="${product.promotions}" var="promotion" status ="promoStatus">
+        <isif condition="${product.promotions}">
+		    <div class="promotions">
+			    <isloop items="${product.promotions}" var="promotion" status ="promoStatus">
                     <isif condition="${promotion.plpCalloutMsg !== ''}">
                         <div class="callout promo-msg">
                             <isprint value="${promotion.plpCalloutMsg}" encoding="off">
                         </div>
                     </isif>
-                </isloop>
-            </isif>
-        </div>
+			    </isloop>
+		    </div>
+		</isif>
 
         <isif condition="${pdict.display.selectBonusProductsButton}">
             <button class="btn btn-block btn-outline-primary select-bonus-product" data-pid="${product.id}" ${outOfStock || !product.available ? "disabled" : "" }>

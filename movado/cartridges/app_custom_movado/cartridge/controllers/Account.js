@@ -117,6 +117,20 @@ server.replace(
 );
 
 
+server.append(
+    'Login',
+    function (req, res, next) {
+        var viewData = res.getViewData();
+        var authenticatedCustomer = viewData.authenticatedCustomer;
+        if (!empty(authenticatedCustomer)) {
+            var newProfile = authenticatedCustomer.getProfile();
+            Transaction.wrap(function () {
+                newProfile.custom.customerCurrentCountry = req.geolocation.countryCode;
+            });
+        }
+        return next();
+    });
+
 // Function will be called when a new customer is being created
 server.replace('SubmitRegistration', server.middleware.https, csrfProtection.validateAjaxRequest, function (req, res, next) {
     var CustomerMgr = require('dw/customer/CustomerMgr');
@@ -258,6 +272,7 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
                             newCustomerProfile.phoneHome = registrationForm.phone;
                             newCustomerProfile.custom.birthdate = registrationForm.birthdate;
                             newCustomerProfile.custom.birthmonth = registrationForm.birthmonth;
+                            newCustomerProfile.custom.customerCurrentCountry = req.geolocation.countryCode;
                             if (newsletterSignupProssesed.success) {
                                 newCustomerProfile.custom.addtoemaillist = newsletterSignupProssesed.optOutFlag || registrationForm.addToEmailList;
                             }

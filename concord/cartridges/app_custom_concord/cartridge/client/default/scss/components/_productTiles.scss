@@ -24,9 +24,8 @@
     @include media-breakpoint-up(sm) {
       .tile-body{
         .price{
+          float: left;
           padding-left: rem(10);
-          display: flex;
-          justify-content: center;
         }
         .compare{
           float:right;
@@ -90,9 +89,9 @@
                 @include headline;
                 letter-spacing: rem(.4);
                 font-size: rem(15);
-                height: rem(36);
+                line-height: rem(22);
                 @include media-breakpoint-down(md) {
-                  font-size: rem(13);
+                  font-size: rem(15);
                   line-height: rem(20);
                   font-family: $font-book;
                 }
@@ -104,80 +103,6 @@
                     font-family: $font-book;
                 }
             }
-            &.flex-wrapper-center{
-                display: flex;
-                justify-content: center;
-            }
-            @include media-breakpoint-up(xs) {
-                .truncate-text-sm {
-                  display: block;
-                }
-                .truncate-text-md {
-                  display: none;
-                }
-                .truncate-text-lg {
-                  display: none;
-                }
-                .truncate-text-xl {
-                  display: none;
-                }
-              }
-              @include media-breakpoint-up(sm) {
-                .truncate-text-sm {
-                  display: block;
-                }
-                .truncate-text-md {
-                  display: none;
-                }
-                .truncate-text-lg {
-                  display: none;
-                }
-                .truncate-text-xl {
-                  display: none;
-                }
-              }
-              @include media-breakpoint-up(custom-md) {
-                .truncate-text-lg {
-                  display: none;
-                }
-                .truncate-text-xl {
-                  display: none;
-                }
-                .truncate-text-md {
-                  display: block;
-                }
-                .truncate-text-sm {
-                  display: none;
-                }
-              }
-              @include media-breakpoint-up(lg) {
-                .truncate-text-lg {
-                  display: block;
-                }
-                .truncate-text-md {
-                  display: none;
-                }
-                .truncate-text-sm {
-                  display: none;
-                }
-                .truncate-text-xl {
-                  display: none;
-                }
-              }
-              @include media-breakpoint-up(xl) {
-                .truncate-text-xl {
-                  display: block;
-                }
-                .truncate-text-md {
-                  display: none;
-                }
-                .truncate-text-sm {
-                  display: none;
-                }
-                .truncate-text-lg {
-                  display: none;
-                }
-              }
         }
 
         .ratings {
@@ -303,18 +228,5 @@
             padding: 0 rem(60);
         }
     }
-    .promotions {
-        height: rem(27);
-    }
-}
-
-.adjust-promo-message {
-    height: rem(27);
-}
-.adjust-nostock-align {
-    height: rem(24);
-}
-.align-plp-badges {
-    height: rem(24);
 }
 
