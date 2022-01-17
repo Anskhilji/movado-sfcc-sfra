@@ -261,7 +261,7 @@ server.append('NotifyV2', function(req, res, next) {
         if (fbConversionESWAllowedCountries.length > 0) {
             if (!empty(currentCountry)) {
                 var allowedCountry = fbConversionESWAllowedCountries.indexOf(currentCountry);
-                if ( allowedCountry == true) {
+                if ( allowedCountry != -1) {
                     try {
                         fbConversionAPI.fbConversionAPI(order);
                     } catch (error) {
