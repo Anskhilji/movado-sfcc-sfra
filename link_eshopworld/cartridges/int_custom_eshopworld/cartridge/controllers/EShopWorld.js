@@ -252,7 +252,6 @@ server.append('NotifyV2', function(req, res, next) {
 
     // Custom Start: [MSS-1642 Call Facebook Api after ESW Conversion]
     if (isFacebookConversionAPIEnabled) {
-        var Logger = require('dw/system/Logger');
         var fbConversionAPI  = require('*/cartridge/scripts/api/fbConversionAPI');
         var fbConversionESWAllowedCountries = Site.current.preferences.custom.fbConversionESWAllowedCountries ? Site.current.preferences.custom.fbConversionESWAllowedCountries : '';
         var order = OrderMgr.getOrder(res.viewData.OrderNumber);
@@ -261,7 +260,7 @@ server.append('NotifyV2', function(req, res, next) {
         if (fbConversionESWAllowedCountries.length > 0) {
             if (!empty(currentCountry)) {
                 var allowedCountry = fbConversionESWAllowedCountries.indexOf(currentCountry);
-                if ( allowedCountry != -1) {
+                if (allowedCountry != -1) {
                     try {
                         fbConversionAPI.fbConversionAPI(order);
                     } catch (error) {
@@ -273,7 +272,8 @@ server.append('NotifyV2', function(req, res, next) {
             try {
                 fbConversionAPI.fbConversionAPI(order);
             } catch (error) {
-                Logger.error('(EShopWorld.js -> NotifyV2) Error occured while try to make FB conversion, against order No:{0} the error is:{1} in file:{2} at line:{3} ',order.getOrderNo(), error.toString(), error.fileName, error.lineNumber);            }
+                Logger.error('(EShopWorld.js -> NotifyV2) Error occured while try to make FB conversion, against order No:{0} the error is:{1} in file:{2} at line:{3} ',order.getOrderNo(), error.toString(), error.fileName, error.lineNumber);            
+            }
         }
     }
     // Custom End
