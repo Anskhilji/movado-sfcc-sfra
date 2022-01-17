@@ -24,8 +24,12 @@
                 ${Resource.msg('cart.label.estimatedtotal', 'cart', null)} <span class="cart-total ml-1">${pdict.totals.grandTotal}</span>
             </div>
             <isset name="Basket" value="${require('dw/order/BasketMgr').getCurrentBasket()}" scope="page" />
-            <isinclude template="util/affirmmodule_mf" />
-            <isaffirmpromo context="cart" fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameByBasket(Basket)}">
+            <iscomment> <isinclude template="util/affirmmodule_mf" /> </iscomment>
+            <iscomment> <isaffirmpromo context="cart" fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameByBasket(Basket)}"> </iscomment>
+            <isset name="context" value="cart" scope="page" />
+            <isset name="fpname" value="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameByBasket(Basket)}" scope="page" />
+            <isinclude url="${URLUtils.https('Affirm-AffirmBanner', 'context', context, 'fpname', fpname)}"/>
+            
             <isif condition="${dw.system.Site.getCurrent().preferences.custom.klarnaCartPromoMsg}"> 
                     <isinclude template="klarna/klarnaPromotionMessage" />
             </isif>

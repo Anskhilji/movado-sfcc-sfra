@@ -2,15 +2,15 @@
 <isif condition="${pdict.restrictAnonymousUsersOnSalesSites == true}">
     <isif condition="${pdict.loggedIn == true}">
         <div>
-            <isinclude template="util/affirmmodule_mf" />
-            <isaffirmpromo context="pdp"
-                fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
+            <isset name="fpname" value="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" scope="page" />
+            <isset name="context" value="pdp" scope="page" />
+            <isinclude url="${URLUtils.https('Affirm-AffirmBanner', 'pid', product.id, 'context', context, 'fpname', fpname)}"/>
         </div>
     </isif>
 <iselse>  
     <div>
-        <isinclude template="util/affirmmodule_mf" />
-        <isaffirmpromo context="pdp"
-            fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
+        <isset name="fpname" value="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" scope="page" />
+        <isset name="context" value="pdp" scope="page" />
+        <isinclude url="${URLUtils.https('Affirm-AffirmBanner', 'pid', product.id, 'context', context, 'fpname', fpname)}"/>
     </div>
 </isif> 

@@ -100,16 +100,16 @@
                             <iscomment> Custom Start: Product price shows when following requirements meet </iscomment>
                                 <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
                                     <isset name="fpname" value="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" scope="page" />
-                                    <isset name="pdp" value="pdp" scope="page" />
-                                    <isinclude url="${URLUtils.https('Affirm-AffirmBanner', 'pid', product.id, 'context', pdp, 'fpname', fpname)}"/>
+                                    <isset name="context" value="pdp" scope="page" />
+                                    <isinclude url="${URLUtils.https('Affirm-AffirmBanner', 'pid', product.id, 'context', context, 'fpname', fpname)}"/>
                                 </isif>    
                             </div>
                             <div class = "d-none d-md-block">
                             <iscomment> Custom Start: Affirm text shows when following requirements meet </iscomment>
                                 <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
                                     <isset name="fpname" value="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" scope="page" />
-                                    <isset name="pdp" value="pdp" scope="page" />
-                                    <isinclude url="${URLUtils.https('Affirm-AffirmBanner', 'pid', product.id, 'context', pdp, 'fpname', fpname)}"/>
+                                    <isset name="context" value="pdp" scope="page" />
+                                    <isinclude url="${URLUtils.https('Affirm-AffirmBanner', 'pid', product.id, 'context', context, 'fpname', fpname)}"/>
                                 </isif>
                             </div>
                             <!-- Applicable Promotions -->
