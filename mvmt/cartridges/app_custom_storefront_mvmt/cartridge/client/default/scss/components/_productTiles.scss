@@ -55,8 +55,9 @@
           display: flex;
           flex-flow: column;
           justify-content: space-between;
-        }
+        }        
       }
+
     }
   
     .image-container {
@@ -77,11 +78,8 @@
       @include media-breakpoint-up(lg) {
         padding: rem(20) 0;
       }
-  
+
       .plp-swatches {
-        min-height: rem(27);
-        margin: auto auto rem(10);
-  
         .swatches {
           max-width: 100%;
           overflow: hidden;
@@ -231,12 +229,12 @@
           text-overflow: ellipsis;
           overflow: hidden;
           padding: 0 rem(10);
-  
+
           @include media-breakpoint-up(sm) {
             font-size: rem(14);
             margin: 0;
           }
-  
+
           @include media-breakpoint-up(lg) {
             font-size: rem(16);
           }
@@ -321,7 +319,7 @@
     .product-tag-content {
       height: rem(18);
       margin-bottom: rem(15);
-  
+
       @include media-breakpoint-up(md-down) {
         height: rem(26);
       }

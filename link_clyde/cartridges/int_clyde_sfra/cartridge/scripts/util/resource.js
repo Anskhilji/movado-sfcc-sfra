@@ -15,7 +15,8 @@ ResourceHelper.getClydePreferences = function () {
     return {
         CLYDE_API_KEY: Site.getCurrent().getCustomPreferenceValue('clydeAPIKey') || '',
         CLYDE_WIDGET_ENVIRONMENT: Site.getCurrent().getCustomPreferenceValue('clydeWidgetEnviroment') || '',
-        CLYDE_WIDGET_TYPE: Site.getCurrent().getCustomPreferenceValue('clydeWidgetType') || ''
+        CLYDE_WIDGET_TYPE: Site.getCurrent().getCustomPreferenceValue('clydeWidgetType') || '',
+        CLYDE_WIDGET_SKIP_GEO_LOCATION: Site.getCurrent().getCustomPreferenceValue('clydeGeofencing')
     };
 };
 

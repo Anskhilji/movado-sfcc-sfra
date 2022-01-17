@@ -51,6 +51,10 @@ function getTaxService(basket) {
 		parseResponse: function(svc,responseObject){
 			return responseObject;
 		},
+		// use this method to print request / response on Productin environment.
+		filterLogMessage: function (msg) {
+			return msg;
+		},
 		mockCall: function(svc,params){
 			return {
 				statusCode: 200,
