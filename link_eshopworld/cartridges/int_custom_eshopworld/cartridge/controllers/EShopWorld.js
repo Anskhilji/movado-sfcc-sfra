@@ -186,6 +186,9 @@ server.append('GetEswLandingPage', function (req, res, next) {
 });
 
 server.append('NotifyV2', function(req, res, next) {
+    // Custom Start: [MSS-1642 Call Facebook Api after ESW Conversion]
+    var isFacebookConversionAPIEnabled = !empty(Site.current.getCustomPreferenceValue('isFacebookConversionAPIEnabled')) ? Site.current.getCustomPreferenceValue('isFacebookConversionAPIEnabled') : false;
+    // Custom End
     var obj = JSON.parse(req.body);
     Transaction.wrap(function () {
         var order = OrderMgr.getOrder(res.viewData.OrderNumber);
@@ -206,7 +209,7 @@ server.append('NotifyV2', function(req, res, next) {
             var order = OrderMgr.getOrder(res.viewData.OrderNumber);
             Transaction.wrap(function () {
                 populateOrderJSON.populateByOrder(order);
-            }); 
+            });
         } catch (exSOM) {
             somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
         }
@@ -246,6 +249,34 @@ server.append('NotifyV2', function(req, res, next) {
             }
         }
     }
+
+    // Custom Start: [MSS-1642 Call Facebook Api after ESW Conversion]
+    if (isFacebookConversionAPIEnabled) {
+        var fbConversionAPI  = require('*/cartridge/scripts/api/fbConversionAPI');
+        var fbConversionESWAllowedCountries = Site.current.preferences.custom.fbConversionESWAllowedCountries ? Site.current.preferences.custom.fbConversionESWAllowedCountries : '';
+        var order = OrderMgr.getOrder(res.viewData.OrderNumber);
+        var currentCountry = obj.deliveryCountryIso;
+
+        if (fbConversionESWAllowedCountries.length > 0) {
+            if (!empty(currentCountry)) {
+                var allowedCountry = fbConversionESWAllowedCountries.indexOf(currentCountry);
+                if (allowedCountry != -1) {
+                    try {
+                        fbConversionAPI.fbConversionAPI(order);
+                    } catch (error) {
+                        Logger.error('(EShopWorld.js -> NotifyV2) Error occured while try to make FB conversion, against order No:{0} the error is:{1} in file:{2} at line:{3} ',order.getOrderNo(), error.toString(), error.fileName, error.lineNumber);
+                    }
+                }
+            }
+        } else {
+            try {
+                fbConversionAPI.fbConversionAPI(order);
+            } catch (error) {
+                Logger.error('(EShopWorld.js -> NotifyV2) Error occured while try to make FB conversion, against order No:{0} the error is:{1} in file:{2} at line:{3} ',order.getOrderNo(), error.toString(), error.fileName, error.lineNumber);            
+            }
+        }
+    }
+    // Custom End
     return next();
 });
 
