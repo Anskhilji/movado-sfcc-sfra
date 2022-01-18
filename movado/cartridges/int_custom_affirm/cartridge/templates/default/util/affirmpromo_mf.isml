@@ -17,7 +17,6 @@
 <isset name="affirmData" value="${require('int_affirm/cartridge/scripts/data/affirmData.ds')}" scope="page" />
 <isset name="affirmUtils" value="${require('int_affirm/cartridge/scripts/utils/affirmUtils')}" scope="page" />
 <isset name="promoModal" value="${''}" scope="page"/>
-<isset name="Basket" value="${require('dw/order/BasketMgr').getCurrentBasket()}" scope="page" />
 
 
 <isif condition="${pdict.fpname}">
