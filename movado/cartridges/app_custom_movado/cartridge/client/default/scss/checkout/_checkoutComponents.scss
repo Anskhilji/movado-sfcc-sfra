@@ -364,7 +364,7 @@ $stored-payment-spacing: rem(16);
    .payment-options {
       .nav-item {
         margin-right: rem(25);
-        margin-bottom: rem(15);
+        margin-bottom: rem(25);
 
         @include media-breakpoint-down(sm) {
           margin-right: rem(10);
@@ -373,7 +373,7 @@ $stored-payment-spacing: rem(16);
         .nav-link{
           box-sizing: border-box;
           height: rem(45);
-          width: rem(120);
+          width: rem(115);
           border: rem(1) solid $grey16;
           border-radius: rem(3);
           background-color: $white;
