@@ -84,61 +84,94 @@
         <div class="invalid-feedback mb-2"></div>
 
         <iscomment> Custom Start: Add Amazon Pay Integeration </iscomment>
-        <div class="panel-group payment-options" id="accordion">
+        <ul class="payment-options nav nav-pills" id="pills-tab" role="tablist">
             <isloop items="${pdict.order.billing.payment.applicablePaymentMethods}" var="paymentOption" status="loopstate">
                 <isif condition="${!pdict.order.amzPayRedirectURL}">
                     <isif condition="${paymentOption.ID === 'CREDIT_CARD'}">
-                        <div class="panel panel-default">
+                        <li class="nav-item" role="presentation">
                             <isinclude template="checkout/billing/paymentOptions/creditCardTab" />
-                            <isslot id="available-payment-methods" description="Available Payment Methods" context="global" />
-                            <isinclude template="checkout/billing/paymentOptions/creditCardContent" />
-                        </div>
+                        </li>
                     </isif>
                     <isif condition="${paymentOption.ID ==='Adyen'}">
-	                    <div class="panel panel-default">
-	                        <isinclude template="checkout/billing/paymentOptions/alternativePaymentMethodTab" />
-	                        <isinclude template="checkout/billing/paymentOptions/alternativePaymentMethodsContent" />
-	                    </div>
-	                    <iscomment>Custom Start: Add klarna payment methods </iscomment>
+                        <li class="nav-item" role="presentation">
+                            <isinclude template="checkout/billing/paymentOptions/alternativePaymentMethodTab" />
+                        </li>
+                        <iscomment>Custom Start: Add klarna payment methods </iscomment>
 	                    <isif condition="${!empty(openInvoiceWhiteListMethods)}">
-	                        <isif condition="${openInvoiceWhiteListMethods.search('klarna_pay_later') > -1}">
-		                        <div class="panel panel-default">
+                            <li class="nav-item" role="presentation">
 		                            <isinclude template="checkout/billing/paymentOptions/klarnaPayLaterPaymentMethodTab"/>
-		                            <isinclude template="checkout/billing/paymentOptions/klarnaPayLaterPaymentMethodContent"/>
-		                        </div>
-	                        </isif>
-	                        <isif condition="${openInvoiceWhiteListMethods.search('klarna_slice_it') > -1}">
-	                            <div class="panel panel-default">
-	                                <isinclude template="checkout/billing/paymentOptions/klarnaSliceItPaymentMethodTab"/>
-	                                <isinclude template="checkout/billing/paymentOptions/klarnaSliceItPaymentMethodContent"/>
-                                </div>
-                            </isif>
+                            </li>       
 	                    </isif>
 	                    <iscomment>Custom End: Add klarna payment methods </iscomment>
                     </isif>
                     <isif condition="${paymentOption.ID === 'Affirm' && require('int_affirm/cartridge/scripts/utils/affirmHelper').IsAffirmApplicable()}">
-	                    <div class="panel panel-default">
-	                        <isinclude template="affirm/affirmpaymethodli" />
-	                        <isinclude template="affirm/paymentmethodinput_mf" />
-	                    </div>
-	                </isif>
-	                <isif condition="${paymentOption.ID === 'DW_APPLE_PAY'}">
-	                    <div class="panel panel-default applepay-tab-wrapper">
-	                        <isinclude template="checkout/billing/paymentOptions/applePayTab" />
-	                        <isinclude template="checkout/billing/paymentOptions/applePayContent" />
-	                    </div>
+                        <li class="nav-item" role="presentation">
+                            <isinclude template="affirm/affirmpaymethodli" />
+                        </li>
                     </isif>
-                      <isif condition="${paymentOption.ID === 'GOOGLE_PAY'}">
-                        <div class="panel panel-default google-pay-options">
+                    <isif condition="${paymentOption.ID === 'DW_APPLE_PAY'}">
+                        <li class="nav-item applepay-tab-wrapper" role="presentation">
+                            <isinclude template="checkout/billing/paymentOptions/applePayTab" />
+                        </li>
+                    </isif>
+                     <isif condition="${paymentOption.ID === 'GOOGLE_PAY'}">
+                        <li class="nav-item google-pay-options" role="presentation">
                             <isinclude template="checkout/billing/paymentOptions/googlePayTab" />
-                            <isinclude template="checkout/billing/paymentOptions/googlePayContent" />
+                        </li>
+                     </isif>
+                <iselse/>
+                    <isif condition="${paymentOption.ID === 'AMAZON_PAY'}">
+                        <div class="panel amazonPayPanel panel-default">
+                            <isinclude template="checkout/billing/paymentOptions/amazonPayTab" />
+                            <isinclude template="checkout/billing/paymentOptions/amazonPayContent" />
                         </div>
+                    </isif>
+                </isif>
+            </isloop>
+            <iscomment> Custom End </iscomment>
+        </ul>
+
+        <div class="tab-content tab-content-payment-options" id="pills-tabContent">
+            <isloop items="${pdict.order.billing.payment.applicablePaymentMethods}" var="paymentOption" status="loopstate">
+                <isif condition="${!pdict.order.amzPayRedirectURL}">
+                    <isif condition="${paymentOption.ID === 'CREDIT_CARD'}">
+                    <div class="tab-pane fade show active" id="credit-card-content" role="tabpanel" aria-labelledby="${paymentOption.ID}">
+                            <isslot id="available-payment-methods" description="Available Payment Methods" context="global" />
+                            <isinclude template="checkout/billing/paymentOptions/creditCardContent" />
+                    </div>
+                    </isif>
+                    <isif condition="${paymentOption.ID ==='Adyen'}">
+                    <div class="tab-pane fade" id="adyen-content" role="tabpanel" aria-labelledby="${paymentOption.ID}">
+                            <isinclude template="checkout/billing/paymentOptions/alternativePaymentMethodsContent" />
+                    </div>
+                    <iscomment>Custom Start: Add klarna payment methods </iscomment>
+                    <isif condition="${!empty(openInvoiceWhiteListMethods)}">
+                            <div class="tab-pane fade" id="klarna-pay-later-content" role="tabpanel" aria-labelledby="pay-later-${paymentOption.ID}">
+                                <isinclude template="checkout/billing/paymentOptions/klarnaPayLaterPaymentMethodContent"/>
+                            </div>
+                    </isif>
+                    <iscomment>Custom End: Add klarna payment methods </iscomment>
+                    </isif>
+                    <isif condition="${paymentOption.ID === 'Affirm' && require('int_affirm/cartridge/scripts/utils/affirmHelper').IsAffirmApplicable()}">
+                    <div class="tab-pane fade" id="affirm-content" role="tabpanel" aria-labelledby="${paymentOption.ID}">
+                            <isinclude template="affirm/paymentmethodinput_mf" />
+                    </div>
+                    </isif>
+                    <isif condition="${paymentOption.ID === 'DW_APPLE_PAY'}">
+                    <div class="tab-pane fade" id="applepay-content" role="tabpanel" aria-labelledby="${paymentOption.ID}">
+                            <isinclude template="checkout/billing/paymentOptions/applePayContent" />
+                    </div>
+                    </isif>
+                     <isif condition="${paymentOption.ID === 'GOOGLE_PAY'}">
+                    <div class="tab-pane fade" id="googlepay-content" role="tabpanel" aria-labelledby="${paymentOption.ID}">
+                            <isinclude template="checkout/billing/paymentOptions/googlePayContent" />
+                    </div>
                      </isif>
                 <iselse/>
                     <isif condition="${paymentOption.ID === 'AMAZON_PAY'}">
                         <div class="panel panel-default">
-                            <isinclude template="checkout/billing/paymentOptions/amazonPayTab" />
-                            <isinclude template="checkout/billing/paymentOptions/amazonPayContent" />
+                                <isinclude template="checkout/billing/paymentOptions/amazonPayTab" />
+                                <isinclude template="checkout/billing/paymentOptions/amazonPayContent" />
                         </div>
                     </isif>
                 </isif>

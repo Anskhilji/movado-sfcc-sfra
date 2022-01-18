@@ -43,19 +43,18 @@
 				</div>
 				${Resource.msg('payment.info', 'affirm', null)}
 			</div>
-		</fieldset>
-		<isset name="affirm" value="${require('int_affirm/cartridge/scripts/affirm.ds')}" scope="page" />
-		<isset name="affirmTotal" value="${pdict.order.totals.grandTotal}" scope="session" />
+			${Resource.msg('payment.info', 'affirm', null)}
+		</div>
+	</fieldset>
+	<isset name="affirm" value="${require('int_affirm/cartridge/scripts/affirm.ds')}" scope="page" />
+	<isset name="affirmTotal" value="${pdict.order.totals.grandTotal}" scope="session" />
 		<!--TODO:FIX: affirmselected and  session.forms.billing.paymentMethod.value == 'Affirm'  -->
-		<div id="affirm-config" data-vcnenabled='<isprint value="${affirm.data.getAffirmVCNStatus() == ' on'}" encoding="on" />'
-		data-affirmenabled='
-		<isprint value="${affirm.data.getAffirmOnlineStatus()}" encoding="on" />'
-		data-affirupdateurl='
-		<isprint value="${URLUtils.url('Affirm-CheckoutObject')}" encoding="on" />'
-		data-mode='
-		<isprint value="${dw.system.Site.getCurrent().getCustomPreferenceValue('AffirmModalEnable').value}" encoding="on" />'
-		>
-	</div>
-
-</div>
+	<div id="affirm-config" data-vcnenabled='<isprint value="${affirm.data.getAffirmVCNStatus() == ' on'}" encoding="on" />'
+	data-affirmenabled='
+	<isprint value="${affirm.data.getAffirmOnlineStatus()}" encoding="on" />'
+	data-affirupdateurl='
+	<isprint value="${URLUtils.url('Affirm-CheckoutObject')}" encoding="on" />'
+	data-mode='
+	<isprint value="${dw.system.Site.getCurrent().getCustomPreferenceValue('AffirmModalEnable').value}" encoding="on" />'
+	>
 </div>

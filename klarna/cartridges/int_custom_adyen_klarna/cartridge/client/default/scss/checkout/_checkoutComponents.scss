@@ -3,9 +3,17 @@
 .klarna {
   &-panel {
     &-image {
-      width: rem(77);
-      border-radius: rem(8);
-      height: rem(39);
+      width: rem(68);
+      background: url("../../../images/klarna.svg") center center no-repeat;
+      height: rem(15);
+      position: absolute;
+      left: rem(23);
+      top: rem(13);
+      @include media-breakpoint-down(sm) {
+        background: url("../../../images/klarna-mobile.svg") center center no-repeat;
+        left: 11px;
+        top: 10px; 
+      }
     }
   }
 }
