@@ -18,6 +18,7 @@
 <isset name="affirmUtils" value="${require('int_affirm/cartridge/scripts/utils/affirmUtils')}" scope="page" />
 <isset name="promoModal" value="${''}" scope="page"/>
 
+
 <isif condition="${pdict.fpname}">
     <isset name="promoModal" value="${affirmUtils.getPromoModalByFinProgramName(pdict.fpname)}" scope="page"/>
 </isif>
@@ -38,7 +39,7 @@
 <iscomment> Custom Start: Add condition to show affirm promo banner.</iscomment>
 <iselseif condition="${pdict.context == 'pdp' && affirmData.getProductPromoMessageStatus() && affirmData.isPromoBannerAllowed() && isAffirmAllowed}">
 
-    <isset name="Product" value="${require('dw/catalog/ProductMgr').getProduct(product.id)}" scope="page"/>
+    <isset name="Product" value="${require('dw/catalog/ProductMgr').getProduct(pdict.pid)}" scope="page"/>
     <isset name="psTop" value="${!empty(Product) && (Product.productSet || Product.bundle || Product.product)}" scope="page"/>
     <isif condition="${psTop}">
         <isset name="productValue" value="${Product}" scope="page"/>
