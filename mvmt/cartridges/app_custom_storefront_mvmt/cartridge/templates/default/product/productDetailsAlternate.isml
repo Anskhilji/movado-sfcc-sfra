@@ -146,7 +146,12 @@
                     </div>
                     </iscomment>
                     <iscomment>Custom End</iscomment>
-              
+
+                    <div class="prices price-mobile">
+                        <isset name="price" value="${product.price}" scope="page" />
+                        <isinclude template="product/components/pricing/main" />
+                    </div>
+
                     <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
                     <isif condition="${isEswEnabled}" >
                         <isset name="klarnaAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
@@ -166,11 +171,6 @@
                             </div>
                         </isif>
                     </isif>
-
-                    <div class="prices price-mobile">
-                        <isset name="price" value="${product.price}" scope="page" />
-                        <isinclude template="product/components/pricing/main" />
-                    </div>
 
                     <div class="hidden-sm-down">
                         <isinclude template="product/components/pidRating" />
