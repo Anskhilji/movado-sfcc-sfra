@@ -122,7 +122,8 @@ $large-screen-width: 1400px;
   @media (min-width:#{$large-screen-width}) {
       @content;
   }
-} 
+}
+
 // For screen 320px to 543px
 $small-screen-width: 371px;
 $small-screen-width4: 543px;
