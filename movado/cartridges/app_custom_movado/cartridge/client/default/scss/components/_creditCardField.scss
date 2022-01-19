@@ -6,9 +6,9 @@
         position: absolute;
         right: 3px;
         background-repeat: no-repeat;
-        background-image: url('../../images/credit.png');
+        background-image: url('../../images/Visa-master.svg');
         background-size: contain;
-        width: 48px;
+        width: 127px;
         height: 30px;
         top: 5px;
     }
@@ -16,24 +16,28 @@
     &[data-type="visa"]::after {
         background-image: url('../../images/payment-types.png');
         background-size: auto;
-        background-position: -162px -110px;
+        background-position: -230px -110px;
+        width: 48px;
     }
 
     &[data-type="mastercard"]::after {
         background-image: url('../../images/payment-types.png');
         background-size: auto;
-        background-position: -295px -110px;
+        background-position: -28px -157px;
+        width: 48px;
     }
 
     &[data-type="amex"]::after {
         background-image: url('../../images/payment-types.png');
         background-size: auto;
-        background-position: -230px -15px;
+        background-position: -297px -15px;
+        width: 48px;
     }
 
     &[data-type="discover"]::after {
         background-image: url('../../images/payment-types.png');
         background-size: auto;
         background-position: -95px -110px;
+        width: 48px;
     }
 }
