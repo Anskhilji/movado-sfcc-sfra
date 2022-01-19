@@ -366,8 +366,14 @@ $stored-payment-spacing: rem(16);
         margin-right: rem(25);
         margin-bottom: rem(25);
 
+        @include media-breakpoint-down(md) {
+          margin:rem(0) rem(20) rem(20) rem(0);
+        }
         @include media-breakpoint-down(sm) {
-          margin-right: rem(10);
+          margin:rem(0) rem(10) rem(10) rem(0);
+        }
+        @include custom-media-query1($small-screen-width , $small-screen-width4) {
+          margin:rem(0) rem(8) rem(8) rem(0);
         }
 
         .nav-link{
@@ -378,6 +384,7 @@ $stored-payment-spacing: rem(16);
           border-radius: rem(3);
           background-color: $white;
           position: relative;
+          padding: rem(8);
 
           @include media-breakpoint-down(sm) {
             height: rem(35);
@@ -385,6 +392,15 @@ $stored-payment-spacing: rem(16);
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: rem(5);
+          }
+          @include custom-media-query1($small-screen-width , $small-screen-width4) {
+            height: rem(35);
+            width: rem(73);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: rem(0);
           }
           
           &.active {
@@ -403,11 +419,7 @@ $stored-payment-spacing: rem(16);
           border: none;
 
           img {
-            // height: rem(40);
-            // position: relative;
-            // left: rem(1);
-            // bottom: rem(5);
-
+            
             @include media-breakpoint-down(sm) {
               height: rem(30); 
             }
@@ -419,13 +431,11 @@ $stored-payment-spacing: rem(16);
         }
 
         .credit-card-label {
-          height: rem(24);
-          width: rem(85);
           color: $black;
           font-family: $font-medium;
-          font-size: rem(11);
-          font-weight: 600;
-          letter-spacing: rem(0.5);
+          font-size: rem(14);
+          font-weight: 500;
+          letter-spacing: 0.5px;
           line-height: rem(24);
           text-align: center;
           text-transform: capitalize;
@@ -434,10 +444,20 @@ $stored-payment-spacing: rem(16);
             font-size: rem(10.89);
             text-transform: capitalize;
           }
+          @include custom-media-query1($small-screen-width , $small-screen-width4) { 
+            font-size: rem(9);
+          }
+          
         }
 
         .alternative-payment-methods-links {
           background-color: $white;
+          
+          label {
+            @include custom-media-query1($small-screen-width , $small-screen-width4) { 
+              width: rem(55);
+            }
+          }
         }
 
         .klarna-payment-button {
@@ -490,7 +510,10 @@ $stored-payment-spacing: rem(16);
 
   .affirm-panel-image {
       width: rem(75);
-  }
+      @include custom-media-query1($small-screen-width , $small-screen-width4) {
+        width: rem(55);
+      }
+    }
   }
 }
 

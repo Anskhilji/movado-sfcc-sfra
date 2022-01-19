@@ -5,7 +5,7 @@
     <isset name="checked" value="" scope="page"/>
 </isif>
 <div class="form-check panel-heading" data-method-id="${paymentOption.ID}">
-    <button id="${paymentOption.ID}" data-bs-toggle="pill" data-bs-target="#credit-card-content" name='paymentOption' class="nav-link active" type="button" role="tab" aria-controls="credit-card-content" aria-selected="true">
+    <button id="${paymentOption.ID}" data-bs-toggle="pill" data-bs-target="#credit-card-content" name='paymentOption' class="nav-link credit-btn-tab1 active" type="button" role="tab" aria-controls="credit-card-content" aria-selected="true">
       <label for="${paymentOption.ID}" class="form-check-label credit-card-label d-block">
           ${Resource.msg('checkout.card.description', 'checkout', null)}
       </label>

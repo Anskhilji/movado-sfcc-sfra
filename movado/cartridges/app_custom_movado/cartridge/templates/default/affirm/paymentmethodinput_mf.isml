@@ -13,7 +13,7 @@
 <isset name="showInStockCheckout" value="${affirmData.getShowInStockOnly() ? inStockCheckout : true}" scope="page"/>
 <div class="panel-collapse" id="affirm-content" data-parent="#accordion">
 	<div class="panel-body">
-		<fieldset class="affirm-form">
+		<fieldset class="affirm-form pb-3">
 			<div class="form-row label-inline affirm-payment-method">
 				<div class="field-wrapper">
 					<input type="hidden" class="form-control"
