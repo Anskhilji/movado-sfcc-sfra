@@ -1,8 +1,3 @@
-<isif condition="${paymentmethod === 'Affirm'}" >
-    <isset name="show" value="show" scope="page"/>      
-<iselse/>
-    <isset name="show" value="" scope="page"/>
-</isif>
 <isset name="affirmData" value="${require('*/cartridge/scripts/data/affirmData')}" scope="page" />
 <isset name="inStockLabel" value="${require('dw/web/Resource').msg('label.instock', 'common', null)}" scope="page" />
 <isscript>
@@ -16,7 +11,7 @@
 </isscript>
 <isset name="showInlineCheckoutMsg" value="${affirmData.getInlineCheckoutMessagingStatus()}" scope="page"/>
 <isset name="showInStockCheckout" value="${affirmData.getShowInStockOnly() ? inStockCheckout : true}" scope="page"/>
-<div class="panel-collapse collapse ${show}" id="affirm-content" data-parent="#accordion">
+<div class="panel-collapse" id="affirm-content" data-parent="#accordion">
 	<div class="panel-body">
 		<fieldset class="affirm-form">
 			<div class="form-row label-inline affirm-payment-method">
@@ -41,10 +36,8 @@
 						<p class="affirm-not-available">${Resource.msg('payment.info.oos', 'affirm', null)}</p>
 					</isif>
 				</div>
-				${Resource.msg('payment.info', 'affirm', null)}
 			</div>
 			${Resource.msg('payment.info', 'affirm', null)}
-		</div>
 	</fieldset>
 	<isset name="affirm" value="${require('int_affirm/cartridge/scripts/affirm.ds')}" scope="page" />
 	<isset name="affirmTotal" value="${pdict.order.totals.grandTotal}" scope="session" />
@@ -56,5 +49,6 @@
 	<isprint value="${URLUtils.url('Affirm-CheckoutObject')}" encoding="on" />'
 	data-mode='
 	<isprint value="${dw.system.Site.getCurrent().getCustomPreferenceValue('AffirmModalEnable').value}" encoding="on" />'
-	>
+	></div>
+</div>
 </div>
