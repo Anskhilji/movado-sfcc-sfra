@@ -152,6 +152,10 @@
                         <isinclude template="product/components/pricing/main" />
                     </div>
 
+                    <div class="hidden-sm-down">
+                        <isinclude template="product/components/pidRating" />
+                    </div>
+
                     <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
                     <isif condition="${isEswEnabled}" >
                         <isset name="klarnaAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
@@ -171,10 +175,6 @@
                             </div>
                         </isif>
                     </isif>
-
-                    <div class="hidden-sm-down">
-                        <isinclude template="product/components/pidRating" />
-                    </div>
 
                     <div class="row m-0 product-variations d-none">
                         <!-- Attributes and Quantity -->
