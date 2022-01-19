@@ -337,7 +337,7 @@ module.exports = {
     },
 
     paymentTabs: function () {
-        $('.payment-options .nav-link, .klarna-split-it').on('click', function () {
+        $('.payment-options .nav-link, .klarna-split-it, .klarna-pay-later').on('click', function () {
             var methodID = $(this).closest('.form-check').data('method-id');
             var brandCode = $(this).closest('.form-check').data('brand-code');
 

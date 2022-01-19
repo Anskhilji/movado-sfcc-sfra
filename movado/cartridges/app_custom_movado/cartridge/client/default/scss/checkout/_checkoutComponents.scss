@@ -390,14 +390,23 @@ $stored-payment-spacing: rem(16);
           &.active {
             border: rem(2) solid $black;
           }
+          &.apple-pay-link {
+            padding: rem(0);
+            &.active {
+              border: rem(0) solid $black;
+            }
+          }
+
         }
 
         .apple-pay-link {
+          border: none;
+
           img {
-            height: rem(40);
-            position: relative;
-            left: rem(1);
-            bottom: rem(5);
+            // height: rem(40);
+            // position: relative;
+            // left: rem(1);
+            // bottom: rem(5);
 
             @include media-breakpoint-down(sm) {
               height: rem(30); 
@@ -428,7 +437,7 @@ $stored-payment-spacing: rem(16);
         }
 
         .alternative-payment-methods-links {
-          background-color: $yellow2;
+          background-color: $white;
         }
 
         .klarna-payment-button {
