@@ -89,7 +89,7 @@
                         <isif condition="${klarnaAllowedCountry}">
                             <isif condition="${dw.system.Site.getCurrent().preferences.custom.klarnaPdpPromoMsg}"> 
                                 <div class="col-md-10 col-12 text-center text-sm-left p-0 mt-4">
-                                    <isinclude template="klarna/klarnaPromotionMessage" />
+                                    <isinclude url="${URLUtils.https('Adyen-KlarnaBanner', 'klarnaProductPrice', pdict.klarnaProductPrice)}"/>
                                 </div>
                             </isif>
                         </isif>
@@ -98,7 +98,7 @@
                         <isif condition="${klarnaAllowedCountry}">
                             <isif condition="${dw.system.Site.getCurrent().preferences.custom.klarnaPdpPromoMsg}"> 
                                 <div class="col-md-10 col-12 text-center text-sm-left p-0 mt-4">
-                                    <isinclude template="klarna/klarnaPromotionMessage" />
+                                    <isinclude url="${URLUtils.https('Adyen-KlarnaBanner', 'klarnaProductPrice', pdict.klarnaProductPrice)}"/>
                                 </div>
                             </isif>
                         </isif>

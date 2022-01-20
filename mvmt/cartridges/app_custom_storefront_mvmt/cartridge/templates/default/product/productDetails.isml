@@ -192,7 +192,7 @@
                             <isset name="enableklarnaPdpPromoMsg" value="${!empty(dw.system.Site.current.preferences.custom.klarnaPdpPromoMsg) ? dw.system.Site.current.preferences.custom.klarnaPdpPromoMsg : false}" scope="page" />
                             <isif condition="${enableklarnaPdpPromoMsg}"> 
                                 <div class="col-md-12 col-12 text-center p-0 text-sm-left">
-                                    <isinclude template="klarna/klarnaPromotionMessage" />
+                                    <isinclude url="${URLUtils.https('Adyen-KlarnaBanner', 'klarnaProductPrice', pdict.klarnaProductPrice)}"/>
                                 </div>
                             </isif>
                         </isif>
@@ -200,7 +200,7 @@
                         <isset name="enableklarnaPdpPromoMsg" value="${!empty(dw.system.Site.current.preferences.custom.klarnaPdpPromoMsg) ? dw.system.Site.current.preferences.custom.klarnaPdpPromoMsg : false}" scope="page" />
                         <isif condition="${enableklarnaPdpPromoMsg}"> 
                             <div class="col-md-12 col-12 text-center p-0 text-sm-left">
-                                <isinclude template="klarna/klarnaPromotionMessage" />
+                                <isinclude url="${URLUtils.https('Adyen-KlarnaBanner', 'klarnaProductPrice', pdict.klarnaProductPrice)}"/>
                             </div>
                         </isif>
                     </isif>
