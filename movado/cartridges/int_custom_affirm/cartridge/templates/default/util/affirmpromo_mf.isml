@@ -41,8 +41,11 @@
     </isif>
 <iscomment> Custom Start: Add condition to show affirm promo banner.</iscomment>
 <iselseif condition="${pdict.context == 'pdp' && affirmData.getProductPromoMessageStatus() && affirmData.isPromoBannerAllowed() && isAffirmAllowed}">
-
-    <isset name="Product" value="${require('dw/catalog/ProductMgr').getProduct(pdict.pid)}" scope="page"/>
+    <isif condition="${!empty(pdict.pid)}">
+        <isset name="Product" value="${require('dw/catalog/ProductMgr').getProduct(pdict.pid)}" scope="page"/>
+    <iselse/>
+        <isset name="Product" value="${require('dw/catalog/ProductMgr').getProduct(product.id)}" scope="page"/>
+    </isif>
     <isset name="psTop" value="${!empty(Product) && (Product.productSet || Product.bundle || Product.product)}" scope="page"/>
     <isif condition="${psTop}">
         <isset name="productValue" value="${Product}" scope="page"/>
