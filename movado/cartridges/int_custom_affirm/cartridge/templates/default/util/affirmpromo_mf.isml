@@ -5,6 +5,10 @@
 <isif condition="${isEswEnabled}">
     <isif condition="${!empty(request.httpCookies['esw.location'])  &&  !empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US')}" >
         <isset name="isAffirmAllowed" value="true" scope="page" />
+    <iselseif condition="${!empty(pdict.country) && pdict.country.equalsIgnoreCase('US')}" />
+        <isset name="isAffirmAllowed" value="true" scope="page" />
+    <iselseif condition="${!empty(request.geolocation.countryCode) && request.geolocation.countryCode.equalsIgnoreCase('US')}" />
+        <isset name="isAffirmAllowed" value="true" scope="page" />
     <iselse>
         <isset name="isAffirmAllowed" value=${false} scope="page" />
     </isif>
@@ -17,7 +21,6 @@
 <isset name="affirmData" value="${require('int_affirm/cartridge/scripts/data/affirmData.ds')}" scope="page" />
 <isset name="affirmUtils" value="${require('int_affirm/cartridge/scripts/utils/affirmUtils')}" scope="page" />
 <isset name="promoModal" value="${''}" scope="page"/>
-
 
 <isif condition="${pdict.fpname}">
     <isset name="promoModal" value="${affirmUtils.getPromoModalByFinProgramName(pdict.fpname)}" scope="page"/>

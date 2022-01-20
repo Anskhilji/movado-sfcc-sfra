@@ -109,7 +109,8 @@
                             <div>
                                 <isset name="fpname" value="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" scope="page" />
                                 <isset name="context" value="pdp" scope="page" />
-                                <isinclude url="${URLUtils.https('Affirm-AffirmBanner', 'pid', product.id, 'context', context, 'fpname', fpname)}"/>
+                                <isset name="country" value="${request.httpParameterMap.get('country').value}" scope="page" />
+                                <isinclude url="${URLUtils.https('Affirm-AffirmBanner', 'pid', product.id, 'context', context, 'fpname', fpname, 'country', country)}"/>
                             </div>
                             <div class="d-block d-md-flex">
                                <!-- Cart and [Optionally] Apple Pay -->
