@@ -67,6 +67,33 @@ var Status = require('dw/system/Status');
     return defaultBaseCurrency;
 }
 
+function getEswCurrency(localizeCountry) {
+    var Site = require('dw/system/Site').getCurrent();
+    var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
+    var defaultBaseCurrency = Site.getCustomPreferenceValue('eswBaseCurrency').value;
+    var eswAllowedBaseCurrencies = Site.getCustomPreferenceValue('eswAllowedBaseCurrencies');
+    var customCountriesESW = eswCustomHelper.getCustomCountriesJson();
+
+    if (eswHelper.isMultipleFxRatesEnabled()) {
+        for (var i = 0; i < eswAllowedBaseCurrencies.length; i++) {
+            var currency = eswAllowedBaseCurrencies[i];
+                var filterCurrency = customCountriesESW.filter(function (currentobj) {
+                    if (currentobj.countryCode === localizeCountry && currentobj.currencyCode === currency) {
+                        return currentobj;
+                    }
+                });
+
+                if (!empty(filterCurrency)) {
+                    break;
+                }
+        }
+        if (!empty(filterCurrency)) {
+            return filterCurrency[0].currencyCode;
+        }
+        return defaultBaseCurrency;
+    }
+}
+
 /**
  * Get Fx Rate of shopper currency
  * @param {string} shopperCurrencyIso - getting from site preference
@@ -75,7 +102,7 @@ var Status = require('dw/system/Status');
  */
  function getESWCurrencyFXRate(shopperCurrencyIso, localizeCountry) {
     var fxRates = JSON.parse(eswHelper.getFxRates()),
-        baseCurrency = getBaseCurrency(localizeCountry),
+        baseCurrency = getEswCurrency(localizeCountry),
         selectedFxRate = [];
     if (!empty(fxRates)) {
         selectedFxRate = fxRates.filter(function (rates) {
