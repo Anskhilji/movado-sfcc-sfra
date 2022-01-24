@@ -11,7 +11,7 @@ var Status = require('dw/system/Status');
  * @param {Object} localizeObj configured in site preference
  * @returns {array} returns price books detail in array
  */
- function getLocalPriceBooksDetails(localizeObj) {
+function getLocalPriceBooksDetails(localizeObj) {
     var currencyCode = localizeObj.localizeCountryObj.currencyCode,
         localListPriceBook = localizeObj.localizeCountryObj.localListPriceBook,
         localSalePriceBook = localizeObj.localizeCountryObj.localSalePriceBook,
@@ -45,7 +45,7 @@ var Status = require('dw/system/Status');
  * @param {string} localizeCountry - getting from site preference
  * @returns {string} returns base currency
  */
- function getBaseCurrency(localizeCountry) {
+function getBaseCurrency(localizeCountry) {
     var Site = require('dw/system/Site').getCurrent();
     var defaultBaseCurrency = Site.getCustomPreferenceValue('eswBaseCurrency').value;
     if (eswHelper.isMultipleFxRatesEnabled()) {
@@ -71,24 +71,17 @@ function getEswCurrency(localizeCountry) {
     var Site = require('dw/system/Site').getCurrent();
     var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
     var defaultBaseCurrency = Site.getCustomPreferenceValue('eswBaseCurrency').value;
-    var eswAllowedBaseCurrencies = Site.getCustomPreferenceValue('eswAllowedBaseCurrencies');
     var customCountriesESW = eswCustomHelper.getCustomCountriesJson();
 
     if (eswHelper.isMultipleFxRatesEnabled()) {
-        for (var i = 0; i < eswAllowedBaseCurrencies.length; i++) {
-            var currency = eswAllowedBaseCurrencies[i];
-                var filterCurrency = customCountriesESW.filter(function (currentobj) {
-                    if (currentobj.countryCode === localizeCountry && currentobj.currencyCode === currency) {
-                        return currentobj;
-                    }
-                });
+        var filterCurrency = customCountriesESW.filter(function (currentobj) {
+            if (currentobj.countryCode === localizeCountry && currentobj.hasOwnProperty('baseCurrency')) {
+                return currentobj;
+            }
+        });
 
-                if (!empty(filterCurrency)) {
-                    break;
-                }
-        }
         if (!empty(filterCurrency)) {
-            return filterCurrency[0].currencyCode;
+            return filterCurrency[0].baseCurrency;
         }
         return defaultBaseCurrency;
     }
@@ -100,10 +93,11 @@ function getEswCurrency(localizeCountry) {
  * @param {string} localizeCountry - shopper local country getting from site preference
  * @returns {array} returns selected fx rate
  */
- function getESWCurrencyFXRate(shopperCurrencyIso, localizeCountry) {
+function getESWCurrencyFXRate(shopperCurrencyIso, localizeCountry) {
     var fxRates = JSON.parse(eswHelper.getFxRates()),
         baseCurrency = getEswCurrency(localizeCountry),
         selectedFxRate = [];
+
     if (!empty(fxRates)) {
         selectedFxRate = fxRates.filter(function (rates) {
             return rates.toShopperCurrencyIso === shopperCurrencyIso && rates.fromRetailerCurrencyIso === baseCurrency;
@@ -118,7 +112,7 @@ function getEswCurrency(localizeCountry) {
  * @param {array} selectedCountryAdjustment - getting from site preference for specific local country
  * @returns {number} returns calculated localized price
  */
- function applyESWCountryAdjustments(localizePrice, selectedCountryAdjustment) {
+function applyESWCountryAdjustments(localizePrice, selectedCountryAdjustment) {
     /* eslint-disable no-mixed-operators */
     /* eslint-disable no-new-wrappers */
     /* eslint-disable no-param-reassign */
@@ -155,7 +149,7 @@ function getESWCountryAdjustments(deliveryCountryIso) {
  * @param {array} selectedRoundingRule - selected rounding rule
  * @returns {number} returns calculated localized price
  */
- function applyESWRoundingRule(localizePrice, selectedRoundingRule) {
+function applyESWRoundingRule(localizePrice, selectedRoundingRule) {
     if (!empty(selectedRoundingRule)) {
         localizePrice = eswHelper.applyRoundingModel(localizePrice, selectedRoundingRule[0]);
     }
@@ -189,7 +183,7 @@ function getESWRoundingModel(localizeObj) {
  * @param {string} localizeCountry - Localize country ISO
  * @returns {boolean} returns price calculation allowed or not
  */
- function noPriceCalculationAllowed(product, localizeCountry) {
+function noPriceCalculationAllowed(product, localizeCountry) {
     var priceFreezeCountries = ('eswProductPriceFreezeCountries' in product.custom) ? product.custom.eswProductPriceFreezeCountries : null,
         returnFlag = false;
     if (!empty(priceFreezeCountries)) {
@@ -213,7 +207,7 @@ function getESWRoundingModel(localizeObj) {
  * @param {array} selectedRoundingRule - selected rounding model
  * @returns {number} returns calculated localized price
  */
- function localizePricingConversion(product, basePriceBook, localizeObj, selectedFxRate, selectedCountryAdjustments, selectedRoundingRule) {
+function localizePricingConversion(product, basePriceBook, localizeObj, selectedFxRate, selectedCountryAdjustments, selectedRoundingRule) {
     var productPriceModel = product.getPriceModel(),
         localizePrice = null;
     if (!productPriceModel.priceInfo || noPriceCalculationAllowed(product, localizeObj.localizeCountryObj.countryCode)) {
@@ -238,7 +232,7 @@ function getESWRoundingModel(localizeObj) {
  * @param {Object} localizeObj configured in site preference
  * @returns {boolean} returns boolean after schema build
  */
- function buildPriceBookSchema(writeDirPath, priceBook, localizeObj) {
+function buildPriceBookSchema(writeDirPath, priceBook, localizeObj) {
     var File = require('dw/io/File');
     var FileWriter = require('dw/io/FileWriter');
     var XMLStreamWriter = require('dw/io/XMLStreamWriter');
@@ -340,7 +334,7 @@ function getESWRoundingModel(localizeObj) {
  * @param {Object} args The argument object
  * @returns {boolean} - returns execute result
  */
- function execute(args) {
+function execute(args) {
     try {
         var localizedPricingCountries = JSON.parse(eswHelper.getLocalizedPricingCountries());
         var writeDirPath = args.impexDirPath;
