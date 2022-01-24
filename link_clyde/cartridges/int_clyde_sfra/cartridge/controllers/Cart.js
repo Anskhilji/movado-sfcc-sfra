@@ -132,35 +132,37 @@ server.replace('AddProduct', function (req, res, next) {
         newBonusDiscountLineItem: newBonusDiscountLineItem || {},
         error: result.error,
         pliUUID: result.uuid
-    })
-
-    next();
-});
-
-
-server.append('RemoveProductLineItem', function (req, res, next) {
-    var query = req.querystring;
-    var deletedProductId = query.pid;
-    var productUUID = query.uuid;
-    var addClydeContract = require('*/cartridge/scripts/clydeAddContracts');
-    var BasketMgr = require('dw/order/BasketMgr');
-    var Transaction = require('dw/system/Transaction');
-    var currentBasket = BasketMgr.getCurrentBasket();
-    var CartModel = require('*/cartridge/models/cart');
-    var deletedContractUUIDs = [];
-    Transaction.wrap(function () {
-        deletedContractUUIDs = addClydeContract.updateContracts(currentBasket,deletedProductId,productUUID);
     });
 
-    var basketModel = new CartModel(currentBasket);
-    var basketModelPlus = {
-        basket: basketModel,
-        toBeDeletedUUIDs: deletedContractUUIDs ? deletedContractUUIDs : []
-    };
-    res.json(basketModelPlus);
-
     next();
 });
+
+    /**
+     * Need to be removed after unit testing
+     */
+// server.append('RemoveProductLineItem', function (req, res, next) {
+//     var query = req.querystring;
+//     var deletedProductId = query.pid;
+//     var productUUID = query.uuid;
+//     var addClydeContract = require('*/cartridge/scripts/clydeAddContracts');
+//     var BasketMgr = require('dw/order/BasketMgr');
+//     var Transaction = require('dw/system/Transaction');
+//     var currentBasket = BasketMgr.getCurrentBasket();
+//     var CartModel = require('*/cartridge/models/cart');
+//     var deletedContractUUIDs = [];
+//     Transaction.wrap(function () {
+//         deletedContractUUIDs = addClydeContract.updateContracts(currentBasket,deletedProductId,productUUID);
+//     });
+
+//     var basketModel = new CartModel(currentBasket);
+//     var basketModelPlus = {
+//         basket: basketModel,
+//         toBeDeletedUUIDs: deletedContractUUIDs ? deletedContractUUIDs : []
+//     };
+//     res.json(basketModelPlus);
+
+//     next();
+// });
 
 server.append('UpdateQuantity', function (req, res, next) {
     var addClydeContract = require('*/cartridge/scripts/clydeAddContracts');
@@ -169,8 +171,9 @@ server.append('UpdateQuantity', function (req, res, next) {
     var currentBasket = BasketMgr.getCurrentBasket();
     var CartModel = require('*/cartridge/models/cart');
 
+    var productId = req.querystring.pid;
     Transaction.wrap(function () {
-        addClydeContract.updateContracts(currentBasket);
+        addClydeContract.updateClydeProductOption(productId, currentBasket);
     });
 
     var basketModel = new CartModel(currentBasket);

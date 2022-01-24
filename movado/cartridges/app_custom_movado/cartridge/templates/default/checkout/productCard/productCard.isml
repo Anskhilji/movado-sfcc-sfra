@@ -143,17 +143,6 @@
                 </span>
             </p>
             <div class="item-total-${lineItem.UUID} price">
-                <iscomment> Custom Start: Clyde Integration</iscomment>
-                    <isif condition="${dw.system.Site.current.preferences.custom.isClydeEnabled}">
-                        <isif condition="${(lineItem.productName).substring(0, 13) === 'clydeContract'}">
-                            <div class="pricing line-item-total-price-amount item-total-${lineItem.UUID}">${lineItem.formattedPrice}</div>
-                        <iselse>
-                            <isinclude template="checkout/productCard/productCardProductTotalPrice" />
-                        </isif>
-                    <iselse/>
-                        <isinclude template="checkout/productCard/productCardProductTotalPrice" />
-                    </isif>
-                <iscomment> Custom End: </iscomment>
             </div>
         </div>
     </div>
