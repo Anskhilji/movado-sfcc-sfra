@@ -41,9 +41,7 @@
         <div class="product-breadcrumb hidden-sm-down">
             <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
             <!-- Social Sharing Icons -->
-            <isif condition="${sitePref.addthis_enabled}">
                 <isinclude template="product/components/socialIcons" />
-            </isif>
         </div>
         <div class="container-fluid product-detail product-wrapper pdp-mvmt"  data-pid="${product.id}" data-gtm-fb-product="${JSON.stringify(product)}" itemscope
             itemtype="http://schema.org/Product">
