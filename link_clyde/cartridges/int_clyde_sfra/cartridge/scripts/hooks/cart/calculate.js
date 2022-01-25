@@ -1,6 +1,10 @@
 /* eslint-disable */
 'use strict';
 
+/**
+*Remove this file after unit testing
+*/
+
 /** @module calculate */
 /**
  * This javascript file implements methods (via Common.js exports) that are needed by

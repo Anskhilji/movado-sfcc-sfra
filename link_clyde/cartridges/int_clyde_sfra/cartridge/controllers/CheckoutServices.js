@@ -1,19 +1,21 @@
-'use strict';
+// 'use strict';
 
-var server = require('server');
-var CheckoutServices = module.superModule;
-server.extend(CheckoutServices);
+// Need to be removed after unit testing
 
-server.prepend('PlaceOrder', server.middleware.https, function (req, res, next) {
-    var BasketMgr = require('dw/order/BasketMgr');
-    var currentBasket = BasketMgr.getCurrentBasket();
-    var clydeContractProductList = currentBasket.custom.clydeContractProductList ? currentBasket.custom.clydeContractProductList : '';
+// var server = require('server');
+// var CheckoutServices = module.superModule;
+// server.extend(CheckoutServices);
 
-    res.json({
-        contractProductList: clydeContractProductList
-    });
+// server.prepend('PlaceOrder', server.middleware.https, function (req, res, next) {
+//     var BasketMgr = require('dw/order/BasketMgr');
+//     var currentBasket = BasketMgr.getCurrentBasket();
+//     var clydeContractProductList = currentBasket.custom.clydeContractProductList ? currentBasket.custom.clydeContractProductList : '';
 
-    return next();
-});
+//     res.json({
+//         contractProductList: clydeContractProductList
+//     });
 
-module.exports = server.exports();
+//     return next();
+// });
+
+// module.exports = server.exports();

@@ -98,7 +98,7 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
             defaultShipment
         );
         addClydeContract.addClydeContractAttributes(clydeSKU, currentBasket, productId);
-        
+
         /**
         * need to remove after unit testing
         */
