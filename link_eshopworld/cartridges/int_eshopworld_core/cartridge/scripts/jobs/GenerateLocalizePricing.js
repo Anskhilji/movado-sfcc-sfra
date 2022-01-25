@@ -48,43 +48,23 @@ function getLocalPriceBooksDetails(localizeObj) {
 function getBaseCurrency(localizeCountry) {
     var Site = require('dw/system/Site').getCurrent();
     var defaultBaseCurrency = Site.getCustomPreferenceValue('eswBaseCurrency').value;
-    if (eswHelper.isMultipleFxRatesEnabled()) {
-        var defaultCountryCurrencyMapping = eswHelper.getDefaultCountryCurrencyMapping();
-        if (defaultCountryCurrencyMapping.length > 0) {
-            var countriesJson = JSON.parse(defaultCountryCurrencyMapping);
-            var matchedCountryWithBaseCurrency = countriesJson.filter(function (item) {
-                if (item.countryCode === localizeCountry && 'baseCurrency' in item) {
-                    return true;
-                }
-                return null;
-            });
-            if (empty(matchedCountryWithBaseCurrency)) {
-                return defaultBaseCurrency;
-            }
-            return matchedCountryWithBaseCurrency[0].baseCurrency;
-        }
-    }
-    return defaultBaseCurrency;
-}
-
-function getEswCurrency(localizeCountry) {
-    var Site = require('dw/system/Site').getCurrent();
     var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
-    var defaultBaseCurrency = Site.getCustomPreferenceValue('eswBaseCurrency').value;
     var customCountriesESW = eswCustomHelper.getCustomCountriesJson();
-
     if (eswHelper.isMultipleFxRatesEnabled()) {
+
+        // Custom Start [MSS-1446] [ get base currency from localized country object from preference ]
         var filterCurrency = customCountriesESW.filter(function (currentobj) {
             if (currentobj.countryCode === localizeCountry && currentobj.hasOwnProperty('baseCurrency')) {
                 return currentobj;
             }
         });
-
         if (!empty(filterCurrency)) {
             return filterCurrency[0].baseCurrency;
         }
         return defaultBaseCurrency;
+        // Custom End
     }
+    return defaultBaseCurrency;
 }
 
 /**
@@ -95,7 +75,7 @@ function getEswCurrency(localizeCountry) {
  */
 function getESWCurrencyFXRate(shopperCurrencyIso, localizeCountry) {
     var fxRates = JSON.parse(eswHelper.getFxRates()),
-        baseCurrency = getEswCurrency(localizeCountry),
+        baseCurrency = getBaseCurrency(localizeCountry),
         selectedFxRate = [];
 
     if (!empty(fxRates)) {
