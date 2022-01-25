@@ -147,7 +147,7 @@
                                 </isif>
                                 <span class="product-id d-none" itemprop="productID" >${product.id}</span>
                                 <!-- Social Sharing Icons -->
-                                    <isinclude template="product/components/socialIcons" />
+                                <isinclude template="product/components/socialIcons" />
                             </div>
                             <div class="row description">
                                 <isinclude template="product/components/description" />
