@@ -105,11 +105,11 @@ var formHelpers = require('base/checkout/formErrors');
                         var inlineCheckoutObject = $('#vcn-data').data('vcndata');
                         if (inlineCheckoutObject !== undefined && inlineCheckoutObject !== '') {
                             affirm.ui.ready(function() {
-                                affirm.checkout(inlineCheckoutObject);
                                 affirm.checkout.inline({
                                     merchant: {
                                         inline_container: 'affirm-inline-container'
-                                    }
+                                    },
+                                    data: { total: inlineCheckoutObject.total } 
                                 });
                             });
                         }
@@ -226,24 +226,6 @@ var formHelpers = require('base/checkout/formErrors');
             //
             // Submit the Billing Address Form
             //
-                if ($('#affirm-config').data('affirmenabled')) {
-
-                    $('.affirm-payment-tab').trigger('click');
-                    if ($('#affirm-inline-container').length > 0) {
-                        var inlineCheckoutObject = $('#vcn-data').data('vcndata');
-                        if (inlineCheckoutObject !== undefined && inlineCheckoutObject !== '') {
-                            affirm.ui.ready(function() {
-                                affirm.checkout(inlineCheckoutObject);
-                                affirm.checkout.inline({
-                                    merchant: {
-                                        inline_container: 'affirm-inline-container'
-                                    }
-                                });
-                            });
-                        }
-                    }
-                }
-
                   formHelpers.clearPreviousErrors('.payment-form');
 
                   var paymentForm = $('#dwfrm_billing').serialize();
