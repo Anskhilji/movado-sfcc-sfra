@@ -75,12 +75,13 @@
                             <div class="category-watches">
                                 <h1>
                                     <isif condition="${!empty(product.collectionName)}">
-                                        <span class="watches-collection-name" data-selected-variation-attr="collectionName">${product.collectionName}</span>
+                                        <span class="watches-collection-name text-uppercase" data-selected-variation-attr="collectionName">${product.collectionName}</span>
                                     </isif>
                                     <isif condition="${product.productName.length > 40}">
-                                        <span class="product-name watches-product-name text-truncate-wrapper watches-turncate-name product-title-for-gtm">${product.productName}<isif condition="${!empty(pdict.caseDiameter)}">${Resource.msg('separator', 'product', null)}</isif></span>
+                                        <span class="product-name watches-product-name text-truncate-wrapper watches-turncate-name product-title-for-gtm text-uppercase">${product.productName}<isif condition="${!empty(pdict.caseDiameter)}">${Resource.msg('separator', 'product', null)}</isif></span>
                                     <iselse>
-                                        <span class="product-name watches-product-name product-title-for-gtm">${product.productName}<isif condition="${!empty(pdict.caseDiameter)}">${Resource.msg('separator', 'product', null)}</isif></span>
+                                        <span class="product-name watches-product-name product-title-for-gtm text-uppercase">${product.productName}
+                                        <isif condition="${!empty(pdict.caseDiameter)}">${Resource.msg('separator', 'product', null)}</isif></span>
                                     </isif>
                                     <isif condition="${!empty(pdict.caseDiameter)}">
                                             <span class="watches-case-diameter" data-selected-variation-attr="caseDiameter">${pdict.caseDiameter}</span>
@@ -92,7 +93,7 @@
                             <h1>
                                 <span class="product-name jewlery-product-name text-truncate-wrapper product-title-for-gtm text-uppercase">${product.productName}</span>
                                 <isif condition="${!empty(product.color)}">
-                                    <span class="jewlery-heading"><span class="color" data-selected-variation-attr="color">${product.color}</span></span>
+                                    <span class="jewlery-heading text-uppercase"><span class="color" data-selected-variation-attr="color">${product.color}</span></span>
                                 </isif>
                             </h1>
                         </div>
@@ -100,27 +101,26 @@
                         <div class="category-eyewear">
                             <h1>
                                 <span class="product-name eyewear-product-name text-truncate-wrapper product-title-for-gtm text-uppercase">${product.productName}</span>
-                                <span class="eyewear-heading">
+                                <span class="eyewear-heading text-uppercase">
                                     <isif condition="${!empty(product.color)}">
-                                        <span class="color eyewear-colors" data-selected-variation-attr="color">${product.color}</span>
+                                        <span class="color eyewear-colors text-uppercase" data-selected-variation-attr="color">${product.color}</span>
                                     </isif>
                                     <isif condition="${product.variationAttributes.length > 0}">
                                         <isloop items="${product.variationAttributes}" var="attr" status="attributeStatus">
                                             <isif condition="${attr.id.indexOf('polarization') !== -1}">
-                                                    <span class="selected-variation-polarization" data-selected-variation-attr="${attr.id}">
-                                                        <isloop items="${attr.values}" var="attrValue">
-                                                            <isif condition="${attrValue.selected}">
-                                                                <isset name="selectedAttributeValue" value="${attrValue.value}" scope="page" />
-                                                                    <isif condition="${attrValue.displayValue.equalsIgnoreCase('yes')}">
-                                                                        <isif condition="${!empty(product.color)}">
-                                                                            ${Resource.msg('separator', 'product', null)}     
-                                                                        </isif>                                                 
-                                                                        ${Resource.msg('pdp.eyewaer.polarization.text', 'product', null)}                                                             
+                                                <span class="selected-variation-polarization" data-selected-variation-attr="${attr.id}">
+                                                    <isloop items="${attr.values}" var="attrValue">
+                                                        <isif condition="${attrValue.selected}">
+                                                            <isset name="selectedAttributeValue" value="${attrValue.value}" scope="page" />
+                                                                <isif condition="${attrValue.displayValue.equalsIgnoreCase('yes')}">
+                                                                    <isif condition="${!empty(product.color)}">
+                                                                        ${Resource.msg('separator', 'product', null)}
                                                                     </isif>
-                                                            </isif>
-                                                        </isloop>
-                                                    </span>
-                                                
+                                                                    ${Resource.msg('pdp.eyewaer.polarization.text', 'product', null)}
+                                                                </isif>
+                                                        </isif>
+                                                    </isloop>
+                                                </span>
                                             </isif>
                                         </isloop>
                                     </isif>
@@ -133,7 +133,7 @@
                             <h1>
                                 <span class="product-name uncategotized-product-name text-truncate-wrapper product-title-for-gtm text-uppercase">${product.productName}</span>
                                 <isif condition="${!empty(product.color)}">
-                                    <span class="color product-colors" data-selected-variation-attr="color">${product.color}</span>
+                                    <span class="color product-colors text-uppercase" data-selected-variation-attr="color">${product.color}</span>
                                 </isif>
                             </h1>
                         </isif>
