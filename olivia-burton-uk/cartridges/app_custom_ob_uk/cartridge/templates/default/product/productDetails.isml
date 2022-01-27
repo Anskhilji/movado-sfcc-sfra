@@ -218,8 +218,6 @@
                             </div>
                            <div class="wishlist-row row">
                                 <isinclude url="${URLUtils.https('Wishlist-ShowIcon','gtmObj',JSON.stringify(pdict.wishlistGtmObj))}"/>
-                                <!-- Social Sharing Icons -->
-                                <isinclude template="product/components/socialIcons" />
                             </div>
                         </div>
                         <span class="product-id d-none" itemprop="productID" >${product.id}</span>

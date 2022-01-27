@@ -38,8 +38,6 @@
 
         <div class="product-breadcrumb hidden-sm-down">
             <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
-            <!-- Social Sharing Icons -->
-            <isinclude template="product/components/socialIcons" />
         </div>
         <div class="container-fluid product-detail product-wrapper pdp-mvmt" data-pid="${product.id}" itemscope
             itemtype="http://schema.org/Product">
