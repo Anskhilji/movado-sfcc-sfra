@@ -26,13 +26,13 @@
         <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
         <isif condition="${isEswEnabled}">
             <isif condition="${!empty(request.httpCookies['esw.location'])  &&  !empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US') && !product.isProductRestricted}" >
-                <isif condition="${product.available && product.readyToOrder}">
+                <isif condition="${product.available && pdict.readyToOrder}">
                     <isapplepay class="apple-pay-pdp btn" sku="${product.id}"></isapplepay>
                 </isif>
             </isif>
              <div class="product-not-available-msg <isif condition="${!product.isProductRestricted}">d-none</isif>">${Resource.msg('esw.product.notavailable','esw',null)}</div>
         <iselse/>
-            <isif condition="${product.available && product.readyToOrder}">
+            <isif condition="${product.available && pdict.readyToOrder}">
                 <isapplepay class="apple-pay-pdp btn" sku="${product.id}"></isapplepay>
             </isif>
         </isif>
