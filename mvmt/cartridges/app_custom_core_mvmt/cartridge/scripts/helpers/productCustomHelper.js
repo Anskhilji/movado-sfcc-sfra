@@ -464,6 +464,42 @@ function getProductCategory(apiProduct, product) {
 }
 //Custom End: Get Category of Product
 
+/**
++ * Method use to check if gift box is allowed for product
++ * @param {Product} apiProduct
++ * @returns {Boolean} isGiftBoxAllowed
++ */
+function isGiftBoxAllowed(apiProduct) {
+    try {
+        var isGiftBoxAllowed = !empty(apiProduct.custom.isGiftBoxAllowed) ? apiProduct.custom.isGiftBoxAllowed : '';
+        if (empty(isGiftBoxAllowed) && apiProduct.variant) {
+            isGiftBoxAllowed = !empty(apiProduct.masterProduct.custom.isGiftBoxAllowed) ? apiProduct.masterProduct.custom.isGiftBoxAllowed : '';
+        }
+        return isGiftBoxAllowed;
+    } catch (e) {
+        Logger.error('(productCustomHepler.js -> isGiftBoxAllowed) Error occured while checking if gift box allowed: ' + e.stack, e.message);
+        return '';
+    }
+}
+
+function getGiftBoxSKU(apiProduct) {
+    var ArrayList = require('dw/util/ArrayList');
+    try {
+        var currentCategory = getProductCategory(apiProduct);
+        var giftBoxCategorySKUPairArray = !empty(Site.current.preferences.custom.giftBoxCategorySKUPair) ? new ArrayList(Site.current.preferences.custom.giftBoxCategorySKUPair).toArray() : '';
+        var currentGiftBoxCategorySKUPair;
+
+        for (var giftBoxCategorySKUPair = 0; giftBoxCategorySKUPair < giftBoxCategorySKUPairArray.length; giftBoxCategorySKUPair++) {
+            currentGiftBoxCategorySKUPair = giftBoxCategorySKUPairArray[giftBoxCategorySKUPair].split("|");
+            if (currentCategory == currentGiftBoxCategorySKUPair[0]) {
+                return currentGiftBoxCategorySKUPair[1];
+            }
+        }
+    } catch (e) {
+        Logger.error('(productCustomHepler.js -> getGiftBoxSKU) Error occured while getting gift box SKU: ' + e.stack, e.message);
+    }
+}
+
 movadoProductCustomHelper.getProductAttributes = getProductAttributes;
 movadoProductCustomHelper.getRefinementSwatches = getRefinementSwatches;
 movadoProductCustomHelper.getPdpDetailAndSpecsAttributes = getPdpDetailAndSpecsAttributes;
@@ -475,6 +511,8 @@ movadoProductCustomHelper.getCaseDiameter = getCaseDiameter;
 movadoProductCustomHelper.getColor = getColor;
 movadoProductCustomHelper.getIsWatchTile = getIsWatchTile;
 movadoProductCustomHelper.getProductCategory = getProductCategory;
+movadoProductCustomHelper.isGiftBoxAllowed = isGiftBoxAllowed;
+movadoProductCustomHelper.getGiftBoxSKU = getGiftBoxSKU;
 
 module.exports = movadoProductCustomHelper;
 
