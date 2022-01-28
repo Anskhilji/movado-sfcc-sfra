@@ -287,6 +287,17 @@ function moveFocusToTop() {
     }, 500);
 }
 
+function refreshYotpoWidgets() {
+    if((document.readyState === 'complete' || document.readyState === 'interactive') && (isYotpoJsLoaded)) {
+        var api = new Yotpo.API(yotpo);
+        api.refreshWidgets();
+    } else {
+        setTimeout(function() {
+            refreshYotpoWidgets();
+        }, 500);
+    }
+}
+
 module.exports = {
     filter: function () {
         // Display refinements bar when Menu icon clicked
@@ -352,6 +363,9 @@ module.exports = {
                     $('.product-grid').empty().html(response);
                     // edit
                     updatePageURLForSortRule(url);
+                    if (window.Resources.IS_YOTPO_ENABLED) {
+                        refreshYotpoWidgets();
+                    }
                     // edit
                     $.spinner().stop();
                 },
@@ -398,6 +412,9 @@ module.exports = {
                     updateSortOptions(response);
                     // edit
                     updatePageURLForShowMore(showMoreUrl);
+                    if (window.Resources.IS_YOTPO_ENABLED) {
+                        refreshYotpoWidgets();
+                    }
                     // edit end
                     $.spinner().stop();
                 },
@@ -454,6 +471,9 @@ module.exports = {
             	// edit
             	updatePageURLForPagination(showMoreUrl);
             	// edit
+                if (window.Resources.IS_YOTPO_ENABLED) {
+                    refreshYotpoWidgets();
+                }
                 $.spinner().stop();
                 moveFocusToTop();
             },
@@ -510,6 +530,9 @@ module.exports = {
                         // edit start
                         updatePageURLForFacets(filtersURL);
                         // edit end
+                        if (window.Resources.IS_YOTPO_ENABLED) {
+                            refreshYotpoWidgets();
+                        }
                         $.spinner().stop();
                         moveFocusToTop();
                         swatches.showSwatchImages();
