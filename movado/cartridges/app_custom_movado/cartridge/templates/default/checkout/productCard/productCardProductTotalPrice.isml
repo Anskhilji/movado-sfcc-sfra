@@ -20,7 +20,7 @@
     <div class="<isif condition=${!lineItem.priceTotal.nonAdjustedPrice}>non-adjusted-price</isif> mb-2 original-price"> 
         ${Resource.msg('cart.label.price','cart',null)} 
         <isif condition=${lineItem.priceTotal.nonAdjustedPrice}>
-                ${isEswEnabled ? formatMoney(lineItem.priceTotal.nonAdjustedPrice) : lineItem.priceTotal.price}
+                ${isEswEnabled ? formatMoney(lineItem.priceTotal.nonAdjustedPrice) : lineItem.priceTotal.nonAdjustedPrice}
         </isif>
     </div>
     <div class="savings mb-2">${Resource.msg('cart.label.savings','cart',null)} ${lineItem.priceTotal.formattedSavingPrice}</div>
