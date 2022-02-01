@@ -96,6 +96,24 @@
                                     <isinclude template="product/components/pricing/main" />
                                 </isif>
                             </div>
+                            <div class = "d-block d-md-none">
+                            <iscomment> Custom Start: Product price shows when following requirements meet </iscomment>
+                                <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
+                                    <isset name="fpname" value="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" scope="page" />
+                                    <isset name="context" value="pdp" scope="page" />
+                                    <isset name="country" value="${request.httpParameterMap.get('country').value}" scope="page" />
+                                    <isinclude url="${URLUtils.https('Affirm-AffirmBanner', 'pid', product.id, 'context', context, 'fpname', fpname, 'country', country)}"/>
+                                </isif>    
+                            </div>
+                            <div class = "d-none d-md-block">
+                            <iscomment> Custom Start: Affirm text shows when following requirements meet </iscomment>
+                                <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
+                                    <isset name="fpname" value="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" scope="page" />
+                                    <isset name="context" value="pdp" scope="page" />
+                                    <isset name="country" value="${request.httpParameterMap.get('country').value}" scope="page" />
+                                    <isinclude url="${URLUtils.https('Affirm-AffirmBanner', 'pid', product.id, 'context', context, 'fpname', fpname, 'country', country)}"/>
+                                </isif>
+                            </div>
                             <!-- Applicable Promotions -->
                             <iscomment> Custom Start: Promotions shows when following requirements meet </iscomment>
                             <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
@@ -109,25 +127,9 @@
                                     </div>
                                 </isif>
                             <iscomment> Custom End: </iscomment>
-                            <div class = "d-block d-md-none">
-                            <iscomment> Custom Start: Product price shows when following requirements meet </iscomment>
-                                <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
-                                    <isinclude template="util/affirmmodule_mf" />
-                                    <isaffirmpromo context="pdp"
-                                        fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
-                                </isif>
-                            </div>
 	                        <isif condition="${product.options && product.options.length > 0}">
 	                            <isinclude template="product/components/options" />
 	                        </isif>
-                            <div class = "d-none d-md-block">
-                            <iscomment> Custom Start: Affirm text shows when following requirements meet </iscomment>
-                                <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
-                                    <isinclude template="util/affirmmodule_mf" />
-                                    <isaffirmpromo context="pdp"
-                                        fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
-                                </isif>
-                            </div>
 
                             <!-- Product Availability -->
                             <iscomment> Custom Start: Affirm text shows when following requirements meet </iscomment>

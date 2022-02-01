@@ -156,6 +156,21 @@ function loadAmazonButton() {
         }
     }, 200)
 }
+
+function renderSwellRedemptionOptions() {
+    if (typeof swellAPI !== 'undefined') {
+        $("#swell-redemption-dropdown").empty();
+        $("#swell-redemption-dropdown").append('<option>Please select an option</option>');
+        swellAPI.getActiveRedemptionOptions().forEach(option => {
+            if (option.discountType === "price_adjustment_fixed_amount") {
+                $("#swell-redemption-dropdown").append(
+                    $("<option>").val(option.id).text(`${option.name} = ${option.costText}`)
+                )
+            }
+        });
+    }
+}
+
 function openMiniCart() {
     //Custom Start: Open the mini cart
     var url = $('.minicart').data('action-url');
@@ -168,6 +183,7 @@ function openMiniCart() {
             setMiniCartProductSummaryHeight();
             giftMessageTooltip();
             checkGiftBoxItem();
+            renderSwellRedemptionOptions();
             $('.mini-cart-data .popover').addClass('show');
             $('body').trigger('miniCart:recommendations');
             updateMiniCart = false;
