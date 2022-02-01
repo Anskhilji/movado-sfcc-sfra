@@ -6,11 +6,12 @@
         </div>
      </isif>
     <div class="cta-add-to-cart">
-        <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}">
+    <isset name="addToCartUrl" value="${URLUtils.url('Cart-AddProduct')}" scope="page" />
+        <input type="hidden" class="add-to-cart-url" value="${addToCartUrl}">
         <iscomment> Custom Start: Adding Esw updated cartridge code ({product.isProductRestricted}>d-none) </iscomment>
-         <button class='add-to-cart btn btn-primary pdpToCart gtm-addtocart <isif condition="${product.isProductRestricted}">d-none</isif>'
+        <button class='add-to-cart btn btn-primary pdpToCart gtm-addtocart <isif condition="${product.isProductRestricted}">d-none</isif>'
             data-pid="${product.id}"
-            ${!product.readyToOrder ? "disabled" : ""}  >
+            ${!pdict.readyToOrder ? "disabled" : ""}  >
                 <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>
                 <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
                      ${Resource.msg('button.preorder.now', 'common', null)} </br>
@@ -18,20 +19,20 @@
                      ${Resource.msg('button.addtocart', 'common', null)}
                 </isif>
         </button>
-        <button  class='add-to-cart tile-quick-view-btn plpToCart <isif condition="${product.isProductRestricted}">d-none</isif>' aria-label="Add to Cart" data-pid="${product.id}" ${!product.readyToOrder ? "disabled" : ""} >
+        <button  class='add-to-cart tile-quick-view-btn plpToCart <isif condition="${product.isProductRestricted}">d-none</isif>' aria-label="Add to Cart" data-pid="${product.id}" ${!pdict.readyToOrder ? "disabled" : ""} >
 
         </button>
         <iscomment> Custom Start: Adding check for applepay button to show only when country US is selected</iscomment>
         <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
         <isif condition="${isEswEnabled}">
             <isif condition="${!empty(request.httpCookies['esw.location'])  &&  !empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US') && !product.isProductRestricted}" >
-                <isif condition="${product.available && product.readyToOrder}">
+                <isif condition="${product.available && pdict.readyToOrder}">
                     <isapplepay class="apple-pay-pdp btn" sku="${product.id}"></isapplepay>
                 </isif>
             </isif>
              <div class="product-not-available-msg <isif condition="${!product.isProductRestricted}">d-none</isif>">${Resource.msg('esw.product.notavailable','esw',null)}</div>
         <iselse/>
-            <isif condition="${product.available && product.readyToOrder}">
+            <isif condition="${product.available && pdict.readyToOrder}">
                 <isapplepay class="apple-pay-pdp btn" sku="${product.id}"></isapplepay>
             </isif>
         </isif>

@@ -59,7 +59,8 @@ function getResources(pageContext) {
         GOOGLE_PAY_MERCHANT_NAME: Site.current.preferences.custom.Adyen_merchantCode,
         GOOGLE_PAY_AUTOCOMPLETE: autoComplete,
         GOOGLE_PAY_ALLOWED_COUNTRY_CODES: allowedCountryCodes,
-        COUPONCODE_URL: URLUtils.url('CouponCode-Apply').toString()
+        COUPONCODE_URL: URLUtils.url('CouponCode-Apply').toString(),
+        IS_YOTPO_ENABLED: !empty(Site.current.preferences.custom.yotpoCartridgeEnabled) ? Site.current.preferences.custom.yotpoCartridgeEnabled : false
     };
     return resources;
 }
