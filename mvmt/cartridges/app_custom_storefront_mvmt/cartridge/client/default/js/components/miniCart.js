@@ -62,6 +62,20 @@ function checkGiftBoxItem() {
     });
 }
 
+function renderSwellRedemptionOptions() {
+    if (typeof swellAPI !== 'undefined') {
+        $("#swell-redemption-dropdown").empty();
+        $("#swell-redemption-dropdown").append('<option>Please select an option</option>');
+        swellAPI.getActiveRedemptionOptions().forEach(option => {
+            if (option.discountType === "price_adjustment_fixed_amount") {
+                $("#swell-redemption-dropdown").append(
+                    $("<option>").val(option.id).text(`${option.name} = ${option.costText}`)
+                )
+            }
+        });
+    }
+}
+
 module.exports = function () {
     $cart();
 
@@ -227,6 +241,7 @@ module.exports = function () {
                 setMiniCartProductSummaryHeight();
                 giftMessageTooltip();
                 checkGiftBoxItem();
+                renderSwellRedemptionOptions();
                 $('.mini-cart-data .popover').addClass('show');
                 $('body').trigger('miniCart:recommendations');
                 $('.mobile-cart-icon').hide();
