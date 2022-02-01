@@ -74,14 +74,14 @@
                                     <isif condition="${!empty(product.collectionName)}">
                                         <span class="watches-collection-name text-uppercase" data-selected-variation-attr="collectionName">${product.collectionName}</span>
                                     </isif>
-                                    <isif condition="${product.productName.length > 40}">
-                                        <span class="product-name watches-product-name text-truncate-wrapper watches-turncate-name product-title-for-gtm text-uppercase">${product.productName}<isif condition="${!empty(pdict.caseDiameter)}">${Resource.msg('separator', 'product', null)}</isif></span>
+                                    <isif condition="${product.productName.length > 35}">
+                                        <span class="product-name watches-product-name text-truncate-wrapper watches-turncate-name product-title-for-gtm text-uppercase">${product.productName}<isif condition="${!empty(pdict.caseDiameter)}"></isif></span>
                                     <iselse>
                                         <span class="product-name watches-product-name product-title-for-gtm text-uppercase">${product.productName}
-                                        <isif condition="${!empty(pdict.caseDiameter)}">${Resource.msg('separator', 'product', null)}</isif></span>
+                                        <isif condition="${!empty(pdict.caseDiameter)}"></isif></span>
                                     </isif>
                                     <isif condition="${!empty(pdict.caseDiameter)}">
-                                            <span class="watches-case-diameter" data-selected-variation-attr="caseDiameter">${pdict.caseDiameter}</span>
+                                            <span class="watches-case-diameter" data-selected-variation-attr="caseDiameter"> ${Resource.msg('separator', 'product', null)}  ${pdict.caseDiameter}</span> 
                                     </isif>
                                 </h1>
                             </div>
