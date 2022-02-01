@@ -1108,6 +1108,7 @@ movadoBase.addToCart = function () {
         var pid;
         var pidsObj;
         var setPids;
+        var giftPid;
         $.spinner().start();
         $('body').trigger('product:beforeAddToCart', this);
 
@@ -1128,10 +1129,13 @@ movadoBase.addToCart = function () {
 
         if ($(this).closest('.product-detail') && $(this).closest('.product-detail').data('isplp') == true) {
             pid = $(this).data('pid');
+            giftPid = $(this).closest('.gift-allowed-checkbox').val();
         } else if ($(this).closest('.linked-products') && $(this).closest('.linked-products').data('recomendation') == true) {
             pid = $(this).data('pid');
+            giftPid = $(this).closest('.gift-allowed-checkbox').val();
         } else {
             pid = movadoBase.getPidValue($(this));
+            giftPid = $(this).closest('.gift-allowed-checkbox').val();
         }
 
         var $productContainer = $(this).closest('.product-detail');
@@ -1146,6 +1150,7 @@ movadoBase.addToCart = function () {
             pidsObj: pidsObj,
             childProducts: getChildProducts(),
             quantity: movadoBase.getQuantitySelected($(this)),
+            giftPid: giftPid
         };
         /**
          * Custom Start: Add to cart form for MVMT
@@ -1156,6 +1161,7 @@ movadoBase.addToCart = function () {
                 pidsObj: pidsObj,
                 childProducts: getChildProducts(),
                 quantity: 1,
+                giftPid: giftPid
             };
         }
         /**

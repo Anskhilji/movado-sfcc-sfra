@@ -253,6 +253,11 @@
                         </div>
                     </div>
 
+                    <isif condition="${!empty(product.isGiftBoxAllowed) && product.isGiftBoxAllowed}">
+                        <input type="checkbox" name="gift-allowed-checkout" class="gift-allowed-checkbox" value="${product.giftBoxSKU}">
+                        <label for="gift-allowed-checkout">Gift Box Checkbox</label>
+                    </isif>
+
                     <isif condition="${product.shortDescription}">
                       <div class="row">
                             <div class="col-12">
