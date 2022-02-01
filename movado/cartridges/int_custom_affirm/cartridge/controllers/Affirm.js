@@ -121,4 +121,19 @@ server.replace(
         return next();
     });
 
+    server.get('AffirmBanner', server.middleware.https, function (req, res, next) {
+        var context = req.querystring.context;
+        var fpname = req.querystring.fpname;
+        var pid = req.querystring.pid ? req.querystring.pid : '';
+        var country = req.querystring.country ? req.querystring.country : '';
+
+        res.render('util/affirmpromo_mf', {
+            pid: pid,
+            context : context,
+            fpname: fpname,
+            country: country
+        });
+        return next();
+    });
+
 module.exports = server.exports();
