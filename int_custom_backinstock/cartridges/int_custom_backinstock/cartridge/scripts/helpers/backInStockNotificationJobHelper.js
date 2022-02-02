@@ -7,6 +7,7 @@ var CustomObjectMgr = require('dw/object/CustomObjectMgr');
 var File = require('dw/io/File');
 var FileWriter = require('dw/io/FileWriter');
 var Logger = require('dw/system/Logger');
+var ProductMgr = require('dw/catalog/ProductMgr');
 var Site = require('dw/system/Site');
 var StringUtils = require('dw/util/StringUtils');
 var Resource = require('dw/web/Resource');
