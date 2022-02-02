@@ -127,13 +127,6 @@
                         max-width: 100%;
                         border-radius: rem(4);
                     }
-                    .google-pay-container {
-                        .gpay-button {
-                            @include media-breakpoint-down(xs) {
-                                min-height: rem(38);
-                            }
-                        }
-                    }
                 }
             }
         }
