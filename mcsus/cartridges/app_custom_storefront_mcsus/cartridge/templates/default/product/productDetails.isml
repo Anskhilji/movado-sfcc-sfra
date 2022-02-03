@@ -104,7 +104,12 @@
                         <isif condition="${product.variationAttributes && product.variationAttributes.length > 0}">
                             <isinclude template="product/components/variationAttributes" />
                         </isif>
-
+                        <iscomment> Custom Start: Clyde Integration </iscomment>
+                            <isif condition = "${dw.system.Site.current.preferences.custom.clydeWidgetDisplay}">
+                                <div id="clyde-cta" >
+                                </div>
+                            </isif>
+                        <iscomment> Custom End: </iscomment>
                         <div class="col-12 prices-add-to-cart-actions">
                             <!-- Prices -->
                             <div class="prices">
@@ -113,16 +118,10 @@
                                     <isinclude url="${URLUtils.https('Product-ShowMcsProdutPrice', 'pid', product.id)}"/>
                                 <iscomment> Custom: End </iscomment>
                             </div>
-                            <!-- Affirm Text -->
-                            <div class="col-md-10 col-12">
+                              <!-- Affirm Text -->
+                            <div>
                                 <isinclude url="${URLUtils.https('Product-ShowMcsAffirmText', 'pid', product.id)}"/>
                             </div>
-                            <iscomment> Custom Start: Clyde Integration </iscomment>
-                            <isif condition = "${dw.system.Site.current.preferences.custom.clydeWidgetDisplay}">
-                                <div id="clyde-cta" >
-                                </div>
-                            </isif>
-                            <iscomment> Custom End: </iscomment>
                             <div class="d-block d-md-flex">
                                 <!-- Cart and [Optionally] Apple Pay -->
                                 <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
