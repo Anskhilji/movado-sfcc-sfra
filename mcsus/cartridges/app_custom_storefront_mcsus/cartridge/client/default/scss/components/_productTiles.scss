@@ -7,6 +7,7 @@
 
         .color-swatches {
         		min-height: 1rem;
+            text-align: left;
             .product-tile-color-label {
                 cursor: pointer;
                 font-size: 1em;
@@ -20,13 +21,15 @@
                 }
             }
         }
-
+        
         .price {
           margin-bottom: rem(10);
           width: 100%;
           font-size: rem(16);
           font-weight: 500;
           font-family: $font-medium;
+          text-align: left;
+          padding-left: rem(0);
 
           @include media-breakpoint-down(sm) {
             font-size: rem(14);
@@ -41,11 +44,11 @@
         }
 
         .pdp-link {
-            font-size: rem(20);
             margin-top: rem(10);
+            text-align: left;
 
             a {
-                font-size: rem(16);
+                font-size: rem(12.8);
                 font-weight: 500;
                 height: rem(40);
 
@@ -54,13 +57,13 @@
                 }
                 
                 @include media-breakpoint-down(md) {
-                    font-size: rem(16);
+                    font-size: rem(12.8);
                     font-weight: 500;
                     font-family: $font-medium;
                 }
 
                 @include media-breakpoint-down(sm) {
-                    font-size: rem(16);
+                    font-size: rem(12.8);
                     font-weight:500;
                     font-family: $font-medium;
                 }
@@ -71,6 +74,8 @@
             font-size: 0.9em;
         }
         .compare{
+          float: none;
+          text-align: left;
           label{
             font-weight: 500;
             font-family: $font-medium;
@@ -86,7 +91,7 @@
             margin-bottom: rem(10);   
           }
         }
-    }
+      }
 
     .image-container {
       border: none;
@@ -111,6 +116,7 @@
       font-size: rem(16);
       font-weight: 500;
       font-family: $font-medium;letter-spacing: rem(0);
+      text-align: left;
       
       @include media-breakpoint-down(md){
         font-size: rem(14);
@@ -127,8 +133,25 @@
       font-size: rem(12);
       font-family: $font-regular;
       font-weight: 400;
+      text-align: left;
     }
     .exclusive-product {
         font-size: rem(12);
     }
+}
+.container {
+  &.plp-tiles-wrapper {
+    .breadcrumbs-wrapper-main {
+      margin: rem(0) rem(-8);
+      
+    }
+    .col-space-inner {
+      padding: rem(0) rem(8);
+    }
+    .breadcrumb {
+      border-bottom: none;
+      margin: rem(12.8) 0 rem(12.8);
+      padding: rem(9.6) 0 rem(8);
+    }
+  }
 }
