@@ -10,9 +10,8 @@ const Site = require('dw/system/Site');
 const Status = require('dw/system/Status');
 const Order = require('dw/order/Order');
 const OrderMgr = require('dw/order/OrderMgr');
-const Transaction = require('dw/system/Transaction');
-const ProductMgr = require('dw/catalog/ProductMgr');
 const clydeHelper = require('~/cartridge/scripts/clydeHelper');
+var jobStartDateAndTime;
 
 let isThisDryRun = true;
 let totalOrderCount = 0;
@@ -22,9 +21,10 @@ let totalOrderCount = 0;
  */
 var run = function (args) {
     Logger.info('Start orders sending to Clyde for siteID: {0}', Site.current.ID);
+    jobStartDateAndTime = Site.getCurrent().getCalendar().getTime();
 
     // If true, then job will run without sending the orders to Clyde.
-    isThisDryRun = args['Is dry run'];
+    isThisDryRun = args.isDryRun;
 
     // If provided then the job will start with the given order (qualify orders are sorted in ascending order)
     let startingOrderNo = args['Starting Order Number'];
@@ -35,14 +35,13 @@ var run = function (args) {
 
         while (orderIterator.hasNext()) {
             var order = orderIterator.next();
-            callback(order);
+            sendRequest(order);
         }
 
         Logger.info('Sent ' + totalOrderCount + ' orders to sync with Clyde');
-
         // Record this runtime in custom preference.
         if (totalOrderCount > 0) {
-            setLastOrderSyncTime('ClydeCreateLastOrderRunTime');
+            setLastOrderSyncTime(jobStartDateAndTime);
         }
     } catch (e) {
         Logger.error('Error occurred while searching for orders {0}', e.message);
@@ -58,11 +57,13 @@ var run = function (args) {
 function orderQuery(startingOrderNo) {
     let days = Site.getCurrent().getCustomPreferenceValue('clydeDateForDays');
     let fromDate = getLastOrderSyncTime() || clydeHelper.getDateForDays(Number(days));// or yesterday's date
-    let query = 'exportStatus={0} AND creationDate>={1}';
+    let query = 'exportStatus={0} AND creationDate>={1} AND (status != {2} AND status != {3})';
 
     var queryParams = [];
     queryParams.push(Order.EXPORT_STATUS_READY);
     queryParams.push(fromDate);
+    queryParams.push(Order.ORDER_STATUS_FAILED);
+    queryParams.push(Order.ORDER_STATUS_CANCELLED);
     queryParams.push('orderNo ASC');
 
     // If provided then the job will start with the given order (qualify orders are sorted in ascending order)
@@ -87,7 +88,7 @@ function orderQuery(startingOrderNo) {
  * call back function after API call
  * @param {Order} order - Order object to be sent to API.
  */
-function callback(order) {
+function sendRequest(order) {
     totalOrderCount++;
     if (!isThisDryRun) {
         var orderRequest = getOrderRequest(order);
@@ -106,31 +107,21 @@ function callback(order) {
  * @returns {lastRunTime} return the last run time of the job.
  */
 function getLastOrderSyncTime() {
-    var storedLastRunTime = clydeHelper.getClydeCustomObject('ClydeCreateLastOrderRunTime', 'ClydeCreateLastOrderRunTime');
-    if (storedLastRunTime && storedLastRunTime.custom.lastRunTime) {
-        return storedLastRunTime.custom.lastRunTime;
-    }
-    return '';
+    let clydeSitePreference = require('~/cartridge/scripts/utils/clydeSitePreferences');
+    let sitePreferenceID = clydeHelper.CONSTANTS.LAST_SYNC_SEND_ORDER;
+    let storedLastJobRunTime = clydeSitePreference.getSitePreferenceValue(sitePreferenceID);
+    return storedLastJobRunTime;
 }
 
 /**
  * setLastOrderSyncTime to set the run time after the successful job execution
- * @param {string} clydeCustomObject - CustomObject name.
+ * @param {string} jobStartingDateAndTime - CustomObject name.
  */
-function setLastOrderSyncTime(clydeCustomObject) {
-    if (!clydeCustomObject) {
-        Logger.info('clydeCustomObject is empty');
-        return;
-    }
-
+function setLastOrderSyncTime(jobStartingDateAndTime) {
     try {
-        let storedLastRunTime = clydeHelper.getClydeCustomObject(clydeCustomObject, clydeCustomObject);
-        if (storedLastRunTime) {
-            let currentFinishTime = clydeHelper.getFormattedDate(Site.getCurrent().getCalendar().getTime());
-            Transaction.begin();
-            storedLastRunTime.custom.lastRunTime = currentFinishTime;
-            Transaction.commit();
-        }
+        let clydeSitePreference = require('~/cartridge/scripts/utils/clydeSitePreferences');
+        let sitePreferenceID = clydeHelper.CONSTANTS.LAST_SYNC_SEND_ORDER;
+        clydeSitePreference.setSitePreferenceValue(sitePreferenceID, jobStartingDateAndTime);
     } catch (e) {
         Logger.error('Error on setting  last run time: ' + e.message);
     }
@@ -143,57 +134,72 @@ function setLastOrderSyncTime(clydeCustomObject) {
 function getOrderRequest(order) {
     var request;
     if (order) {
-        let productlineitems = order.getAllProductLineItems();
-        let lineItems = [];
-        let contractSales = [];
-        let lineItemIDs = [];
-        for (var i = 0; i < productlineitems.length; i++) {
-            var pli = productlineitems[i];
-            let product = pli.product;
-            if (product && product.name.substring(0, 13) !== 'clydeContract') {
+        var plis = order.allProductLineItems;
+        var lineItems = [];
+        var contractSales = [];
+        var lineItemIDs = [];
+
+        for (var i = 0; i < plis.length; i++) {
+            var pli = plis[i];
+
+            if (pli && pli.optionProductLineItem && /clydewarranty/i.test(pli.optionID)) {
+                continue; // eslint-disable-line no-continue
+            }
+
+            if (pli) {
                 lineItems.push({
                     id: pli.getUUID(),
                     productSku: pli.productID,
-                    price: pli.getBasePrice() ? pli.getBasePrice().value : 0,
+                    price: pli.adjustedPrice ? pli.adjustedPrice.value : 0,
                     quantity: pli.quantityValue,
                     serialNumber: ''
                 });
+
                 lineItemIDs.push({
                     lineItemId: pli.getUUID(),
-                    productSku: pli.productID
+                    productSku: pli.productID,
+                    price: pli.adjustedPrice ? pli.adjustedPrice.value : 0
                 });
             }
         }
+
         var clydeProdMap = order.custom.clydeContractProductMapping;
-        try {
-            var parsedValue = JSON.parse(clydeProdMap);
-            var lineItemId;
-            for (var j = 0; j < parsedValue.length; j++) {
-                var productSku = parsedValue[j].productId;
-                for (var x = 0; x < lineItemIDs.length; x++) {
-                    if (productSku === lineItemIDs[x].productSku) {
-                        lineItemId = lineItemIDs[x].lineItemId;
+        if (!empty(clydeProdMap)) {
+            try {
+                if (!empty(clydeProdMap)) {
+                    var parsedValue = JSON.parse(clydeProdMap);
+                    var lineItemId = null;
+                    var quantity = null;
+                    var productPrice = 0;
+
+                    for (var j = 0; j < parsedValue.length; j++) {
+                        var productSku = parsedValue[j].productId;
+
+                        for (var x = 0; x < lineItemIDs.length; x++) {
+                            if (productSku === lineItemIDs[x].productSku) {
+                                lineItemId = lineItemIDs[x].lineItemId;
+                                productPrice = lineItemIDs[x].price;
+                                break;
+                            }
+                        }
+
+                        quantity = parsedValue[j].quantity;
+
+                        for (var count = 0; count < quantity; count++) {
+                            contractSales.push({
+                                lineItemId: lineItemId,
+                                productSku: productSku,
+                                contractSku: parsedValue[j].contractSku,
+                                productPrice: productPrice,
+                                contractPrice: parsedValue[j].contractPrice
+                            });
+                        }
                     }
                 }
-                let contractSku = parsedValue[j].contractSku;
-                let contractPrice = parsedValue[j].contractPrice;
-                let quantity = parsedValue[j].quantity;
-                let product = ProductMgr.getProduct(productSku);
-                for (var count = 0; count < quantity; count++) {
-                    contractSales.push({
-                        lineItemId: lineItemId,
-                        productSku: productSku,
-                        contractSku: contractSku,
-                        productPrice: product.getPriceModel().getPrice().value,
-                        contractPrice: contractPrice,
-                        serialNumber: ''
-                    });
-                }
+            } catch (e) {
+                Logger.error('Error occurred while parsing JSON on getOrderRequest()' + e);
             }
-        } catch (e) {
-            Logger.error('Error occurred while parsing JSON on getOrderRequest()' + e);
         }
-
         request = {
             data: {
                 type: 'order',

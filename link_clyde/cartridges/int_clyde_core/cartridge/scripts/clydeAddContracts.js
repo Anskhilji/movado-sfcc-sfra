@@ -1,454 +1,207 @@
-'use strict';
+// all file change difference with MSS-1671 v2Cartridge
 
-/* eslint no-param-reassign: ["error", { "props": false }] */
-/* eslint operator-assignment: ["error", "never"] */
-/* eslint no-use-before-define: ["error", {"functions": false}]*/
+'use strict';
 
 var ProductMgr = require('dw/catalog/ProductMgr');
 var Transaction = require('dw/system/Transaction');
+var Resource = require('dw/web/Resource');
 var Logger = require('dw/system/Logger');
+var URLUtils = require('dw/web/URLUtils');
+
+var clydeConstants = require('*/cartridge/scripts/utils/clydeConstants');
+
 
 /**
- * adds clyde contract to cart.
+ * get selected option id for clyde warranty items.
  *
- *@param {number} quantity - quantity of the product.
- * @param {Object} params - form data as params.
- * @param {Object} shipment - shipment.
- * @param {Object} cart - this cart object to add clyde.
- * @param {Object} productLineItems - all the product line items of the cart.
+ * @param {Object} params - The params which contains product id.
+ * @param {string} productId - product sku
+ * @return {Object} result - The resilt holding information
+ */
+function getClydeSelectedOptionProduct(params, productId) {
+    var result = {
+        optionProduct: '',
+        clydeSKUID: ''
+    };
+    try {
+        var clydeSku;
+        if (typeof params.clydeContractSku === 'object') {
+            clydeSku = params.clydeContractSku.stringValue ? params.clydeContractSku.stringValue : '';
+        } else {
+            clydeSku = params.clydeContractSku ? params.clydeContractSku : '';
+        }
+
+        if (!empty(clydeSku)) {
+            var product = ProductMgr.getProduct(productId);
+            if (!empty(product)) {
+                var optionModel = product.optionModel;
+                var clydeWarrantyOption = optionModel.getOption(clydeConstants.CLYDE_OPTION_PRODUCT_ID);
+                var optionValue = optionModel.getOptionValue(clydeWarrantyOption, clydeSku);
+                if (!empty(optionValue)) {
+                    optionModel.setSelectedOptionValue(clydeWarrantyOption, optionValue);
+                    result.optionProduct = optionModel;
+                    result.clydeSKUID = clydeSku;
+                    return result;
+                }
+            }
+        }
+    } catch (ex) {
+        Logger.error('(clydeaddContracts~getClydeSelectedOptionProduct) -> Error occured while trying to get option product and error is : {0} at line number {1}', ex, ex.lineNumber);
+    }
+
+    return result;
+}
+
+/**
+ * adds clyde contract custom attributes.
+ *
+ *@param {string} clydeSKU - The SKU of selected Clyde contract.
+ * @param {Object} basket - The current customer basket.
  * @param {string} productId - product sku
  */
-function addContractsToCart(quantity, params, shipment, cart, productLineItems, productId) {
-    var clydeSku;
-    var clydePrice;
-    if (typeof params.clydeContractSku === 'object') {
-        clydeSku = params.clydeContractSku.stringValue ? params.clydeContractSku.stringValue : '';
-        clydePrice = params.clydeContractPrice.stringValue ? params.clydeContractPrice.stringValue : '';
-    } else {
-        clydeSku = params.clydeContractSku ? params.clydeContractSku : '';
-        clydePrice = params.clydeContractPrice ? params.clydeContractPrice : '';
-    }
-    addContracts(clydeSku, clydePrice, cart, productId, productLineItems, quantity, shipment);
-}
-/**
- * get product contract ID.
- *
- *@param {string} productId - ID of the product.
- * @param {string} clydeSku - SKU of clyde contract.
- * @param {string} clydePrice - price of clyde contract.
- * @returns {string} Returns productContractID.
- */
-function getProductContractID(productId, clydeSku, clydePrice) {
-    var delimiter = '_';
-    return productId + delimiter + clydeSku + delimiter + clydePrice;
-}
-/**
- * add contracts.
- *
- * @param {string} clydeSku - SKU of clyde contract.
- * @param {string} clydePrice - price of clyde contract.
- * @param {Object} cart - cart objectt.
- * @param {string} productId - SKU of product.
- * @param {Object} productLineItems - productLineItems of cart.
- * @param {number} quantity - quantity of the product.
- * @param {Object} shipment - shipment object.
- */
-function addContracts(clydeSku, clydePrice, cart, productId, productLineItems, quantity, shipment) {
-    if (clydeSku) {
-        var contractProductListObj = [];
-        var parsedValue;
-        var contractProductList = cart.custom.clydeContractProductList ? cart.custom.clydeContractProductList : '';
-        var clydeWarrantyMessage = !empty(dw.system.Site.current.preferences.custom.clydeWarrantyMessage) ? dw.system.Site.current.preferences.custom.clydeWarrantyMessage : '';
-        var clydeQuantity = 1;
-        var clydeTotalPrice = 0;
-        var isExistingContract = false;
-        var currentClydeProductID;
-        var currentContractID = getProductContractID(productId, clydeSku, clydePrice);
-        if (contractProductList) {
-            try {
-                parsedValue = JSON.parse(contractProductList);
-                for (var i = 0; i < parsedValue.length; i++) {
-                    contractProductListObj.push(parsedValue[i]);
-                    if (parsedValue[i].clydeContactID === currentContractID) {
-                        isExistingContract = true;
-                        currentClydeProductID = parsedValue[i].clydeProductID;
-                        clydeQuantity = clydeQuantity + parsedValue[i].quantity;
-                        clydeTotalPrice = clydeTotalPrice + (parsedValue[i].totalPrice * clydeQuantity);
-                    }
-                }
-            } catch (e) {
-                Logger.error('Error occurred while parsing contract products list ', e);
+function addClydeContractAttributes(clydeSKU, basket, productId) {
+    var productLineItemItr = basket.getAllProductLineItems().iterator();
+    while (productLineItemItr.hasNext()) {
+        var productLineItem = productLineItemItr.next();
+        if (!empty(productLineItem.optionID)) {
+            if (productLineItem.optionID === clydeConstants.CLYDE_OPTION_PRODUCT_ID && productLineItem.optionValueID === clydeConstants.CLYDE_OPTION_NONE) {
+                basket.removeProductLineItem(productLineItem);
             }
         }
-
-        var priceNumber = Number(clydePrice);
-        var totalPrice = priceNumber * quantity;
-        var contractDisplayName = clydeWarrantyMessage + " " + ProductMgr.getProduct(productId).name;
-        var currentClydeProduct;
-        var totalQuantity;
-
-        if (isExistingContract) {
-            existingContract(productLineItems, clydeTotalPrice, clydeQuantity, currentClydeProductID, contractDisplayName);
-            totalQuantity = clydeQuantity;
-        } else {
-            currentClydeProduct = addNewContractProduct(parsedValue, contractDisplayName, quantity, priceNumber, cart, shipment, productId);
-            totalQuantity = quantity;
-        }
-
-        var itemObject = {
-            clydeContactID: currentContractID,
-            clydeProductID: currentClydeProduct || '',
-            clydeAssociatedProductSku: productId,
-            clydeSku: clydeSku,
-            eachPrice: priceNumber,
-            productSku: productId,
-            quantity: quantity,
-            totalPrice: totalPrice,
-            totalQuantity: totalQuantity
-        };
-
-        clydeContractProductList(contractProductListObj, itemObject, cart, currentContractID, quantity);
-    }
-}
-/**
- * save clyde Contract Product List in cart custom attribute
- *
- *@param {Object} contractProductListObj - object of contracts and products.
- * @param {Object} itemObject - object of all the necessary items.
- * @param {Object} cart - this cart object to add clyde.
- * @param {number} currentContractID - current contract ID.
- * @param {number} quantity - quantity of the product.
- */
-function clydeContractProductList(contractProductListObj, itemObject, cart, currentContractID, quantity) {
-    var contractExists = false;
-
-    if (contractProductListObj.length > 0) {
-        for (var i = 0; i < contractProductListObj.length; i++) {
-            if (contractProductListObj[i].clydeContactID === currentContractID) {
-                contractProductListObj[i].quantity = contractProductListObj[i].quantity + quantity;
-                contractExists = true;
-            }
-        }
-
-        if (!contractExists) {
-            contractProductListObj.push(itemObject);
-        }
-    } else {
-        contractProductListObj.push(itemObject);
-    }
-
-    Transaction.wrap(function () {
-        cart.custom.clydeContractProductList = JSON.stringify(contractProductListObj);
-        /**
-         * Custom Start: Clyde Integration. Logic to handle apple pay scenario
-         */
-        session.custom.clydeContractProductList = JSON.stringify(contractProductListObj);
-        /**
-         * Custom End:
-         */
-    });
-}
-/**
- * updates existing contracts quantity and price to cart.
- *
- *@param {Object} productLineItems - all the product line items of the cart.
- *@param {number} clydeTotalPrice - contract total price multiply of quantity
- *@param {number} clydeQuantity - quantity of the clyde contract.
- * @param {number} currentClydeProductID - current clyde product ID.
- * @param {string} contractDisplayName - Name of the product to be displayed on the cart page.
- */
-function existingContract(productLineItems, clydeTotalPrice, clydeQuantity, currentClydeProductID, contractDisplayName) {
-    for (var x = 0; x < productLineItems.length; x++) {
-        var existingProductID = productLineItems[x].productID;
-        if (existingProductID === currentClydeProductID) {
-            productLineItems[x].setQuantityValue(clydeQuantity);
-            productLineItems[x].setProductName(contractDisplayName);
-            productLineItems[x].setLineItemText(contractDisplayName);
-            productLineItems[x].setPriceValue(clydeTotalPrice);
-            break;
-        }
-    }
-}
-/**
- * adds new clyde contract product to cart.
- *
- *@param {Object} parsedValue - parsed contract product list json object.
- * @param {string} contractDisplayName - Name of the product to be displayed on the cart page.
- * @param {number} quantity - quantity of the contract.
- * @param {number} priceNumber - price of the clyde contract.
- * @param {Object} cart - cart object
- * @param {Object} shipment - shipment object.
- * @param {string} productId - product id of associated product.
- * @returns {string} Returns current clyde product.
- * 
- */
-function addNewContractProduct(parsedValue, contractDisplayName, quantity, priceNumber, cart, shipment, productId) {
-    var productLineItem;
-    var addThisClydeProduct = parsedValue && parsedValue.length > 0 ? parsedValue.length : 0;
-    var productList = clydeProductList();
-    var productNo = productList[addThisClydeProduct];
-    var currentClydeProduct = 'clydeproduct' + productNo;
-    var clydeproductToAdd = ProductMgr.getProduct(currentClydeProduct);
-    productLineItem = cart.createProductLineItem(clydeproductToAdd, null, shipment);
-    productLineItem.setLineItemText(contractDisplayName);
-    productLineItem.setPriceValue(priceNumber);
-    productLineItem.setProductName(contractDisplayName);
-    productLineItem.setQuantityValue(quantity);
-    productLineItem.custom.clydeAssociatedProductSku = productId;
-
-    return currentClydeProduct;
-}
-/**
- * dummy clyde product lists numbers.
- * @returns {Object} Returns array object of numbers for clyde dummy products list.
- */
-function clydeProductList() {
-    var productList = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'];
-    return productList;
-}
-/**
- * updates clyde contract quantity and prices to cart.
- *
- * @param {Object} cart - this cart object to add clyde.
- */
-function updateContracts(cart,deletedProductId,productUUID) {
-    var contractProductList = cart.custom.clydeContractProductList ? cart.custom.clydeContractProductList : '';
-    var productSku;
-    var deletedContractUUIDs = [];
-    var updateProductLineItemObject;
-    if (contractProductList) {
-        try {
-            var parsedValue = JSON.parse(contractProductList);
-            var productLineItems = cart.getAllProductLineItems().iterator();
-            while (productLineItems.hasNext()) {
-                var productLineItem = productLineItems.next();                            
-                if (!empty(productLineItem.custom.clydeAssociatedProductSku)) {
-                    if (productLineItem.custom.clydeAssociatedProductSku === deletedProductId) {
-                        deletedContractUUIDs.push(productLineItem.getUUID());
-                        break;
-                    }
+        if (productLineItem.productID === productId && !empty(clydeSKU)) {
+            var optionLineItemsItr = productLineItem.getOptionProductLineItems().iterator();
+            while (optionLineItemsItr.hasNext()) {
+                var optionLineItem = optionLineItemsItr.next();
+                if (optionLineItem.optionValueID === clydeSKU) {
+                    optionLineItem.setTaxClassID(clydeConstants.CLYDE_OPTION_PRODUCT_TAX_ID);
+                    optionLineItem.setLineItemText(clydeSKU + clydeConstants.CLYDE_OPTION_TEXT + productLineItem.productName);
+                    optionLineItem.custom.clydeAssociatedProductSku = productId;
+                    optionLineItem.custom.ClydeContractSku = clydeSKU;
+                    productLineItem.custom.clydeAssociatedContractSku = clydeSKU;
                 }
             }
-            for (var i = 0; i < parsedValue.length; i++) {
-                var items = parsedValue[i];
-                if ((deletedProductId ==  items.clydeProductID || deletedProductId == items.productSku) && items.clydeAssociatedProductSku == deletedProductId) {
-                    productSku = items.productSku;
-                    var price = items.eachPrice;
-                    var productQuantities = cart.getProductQuantities();
-                    var productQuantitiesIt = productQuantities.keySet().iterator();
-                    var productQuantity = 0;
-                    var contractQuantity = 0;
-                    var contractPrice = 0;
-                    var contractPriceByProduct = 0;
-                    var productPriceByContract = 0;
-    
-                    if (parsedValue.length > 1) {
-                        while (productQuantitiesIt.hasNext()) {
-                            var prod = productQuantitiesIt.next();
-                            if (prod.ID === productSku) {
-                                productQuantity = productQuantities.get(prod).value;
-                            } else if (prod.ID === items.clydeProductID) {
-                                contractQuantity = productQuantities.get(prod).value;
-                            }
-                        
-                            if (contractQuantity < productQuantity) {
-                                contractPrice = price * contractQuantity;
-                                contractPriceByProduct = price * productQuantity;
-                                updateProductLineItem(cart, contractQuantity, contractPrice, items.clydeProductID, contractPriceByProduct, productSku);
-  
-                            } else {
-                                contractPrice = price * productQuantity;
-                                productPriceByContract = price * contractQuantity;
-                                updateProductLineItem(cart, productQuantity, contractPrice, items.clydeProductID, productPriceByContract, productSku);
-                                
-                            }
-                        }
-                     } 
-                    else {
-                        while (productQuantitiesIt.hasNext()) {
-                            var prod = productQuantitiesIt.next();
-                            if (prod.ID === productSku) {
-                                productQuantity = productQuantities.get(prod).value;
-                            } else if (prod.ID === items.clydeProductID) {
-                                contractQuantity = productQuantities.get(prod).value;
-                            }
-                        }
-        
-                        if (contractQuantity <= productQuantity) {
-                            contractPrice = price * contractQuantity;
-                            contractPriceByProduct = price * productQuantity;
-                            updateProductLineItem(cart, contractQuantity, contractPrice, items.clydeProductID, contractPriceByProduct, productSku);
-                        } else {
-                            contractPrice = price * productQuantity;
-                            productPriceByContract = price * contractQuantity;
-                            updateProductLineItem(cart, productQuantity, contractPrice, items.clydeProductID, productPriceByContract, productSku);
-                        }
-                    }
-                }
-            }
-        } catch (e) {
-            Logger.error('Error occurred while parsing contract products list ' + e);
-        }
-
-        emptyCartCustomAttribute(cart);
-        return deletedContractUUIDs;
-    }
-}
-/**
- * updates ProductLine Item.
- * @param {Object} cart - this cart object to add clyde.
- * @param {number} contractQuantity - quantity of the contract.
- * @param {Object} contractPrice - price value of contract.
- * @param {string} contractProductID - contract product ID.
- * @return {string} deletedContractUUID - contract id which deleted
- */
-function updateProductLineItem(cart, contractQuantity, contractPrice, contractProductID, contractTotalPrice, productSku, deletedProductId) {
-    var productLineItems = cart.getAllProductLineItems().iterator();
-    while (productLineItems.hasNext()) {
-        var productLineItem = productLineItems.next();
-        var product = productLineItem.product;
-
-        if (product != null && product.ID === contractProductID) {
-            if (contractQuantity === 0) {
-                cart.removeProductLineItem(productLineItem);
-                updateCartCustomAttr(cart, contractProductID, 0);
-                break;
-            } else {
-                productLineItem.setQuantityValue(Number(contractQuantity));
-                productLineItem.setPriceValue(contractPrice);
-                updateCartCustomAttr(cart, contractProductID, contractQuantity);
-                break;
-            }
         }
     }
 }
+
 /**
- * updates Cart Custom Attribute.
- * @param {Object} cart - this cart object to add clyde.
- * @param {string} contractProductID - contract Product ID.
- * @param {number} quantity - quantity of the contract.
+ * Function used to update clyde product options
+ * @param {string} productId - The id of product which need's to be updated
+ * @param {dw.order.Basket} basket - The current basket of customer
  */
-function updateCartCustomAttr(cart, contractProductID, quantity) {
-    var contractProductList = cart.custom.clydeContractProductList ? cart.custom.clydeContractProductList : '';
-    var newContractProductList = [];
-    var parsedValue;
+function updateClydeProductOption(productId, basket) {
+    var productLineItemItr = basket.getAllProductLineItems().iterator();
     try {
-        parsedValue = JSON.parse(contractProductList);
-        for (var i = 0; i < parsedValue.length; i++) {
-            if (parsedValue[i].clydeProductID !== contractProductID) {
-                newContractProductList.push(parsedValue[i]);
-            } else if (parsedValue[i].clydeProductID === contractProductID && quantity !== 0) {
-                parsedValue[i].totalQuantity = quantity;
-                newContractProductList.push(parsedValue[i]);
-            }
-        }
-        Transaction.wrap(function () {
-            cart.custom.clydeContractProductList = JSON.stringify(newContractProductList);
-            /**
-             * Custom Start: Clyde Integration. Logic to handle apple pay scenario
-             */
-            session.custom.clydeContractProductList = JSON.stringify(newContractProductList);
-            /**
-             * Custom End:
-             */
-        });
-    } catch (e) {
-        Logger.error('Error occurred while parsing contract products list ' + e);
-    }
-}
-/**
- * empty Cart CustomAttribute when the line items are removed from the cart.
- *
- * @param {Object} cart - this cart object to add clyde.
- */
-function emptyCartCustomAttribute(cart) {
-    var productLineItems = cart.getAllProductLineItems().iterator();
+        while (productLineItemItr.hasNext()) {
+            var productLineItem = productLineItemItr.next();
 
-    if (!productLineItems.hasNext()) {
-        cart.custom.clydeContractProductList = JSON.stringify('');
-    }
-}
-
-/**
- * creates order custom attribue.
- * @param {Object} productLineItem - object with product line item.
- * @param {Object} order - Order object.
- */
-function addClydeContractSkuToLineItem(productLineItem, clydeSku) {
-    Transaction.wrap(function () {
-        productLineItem.custom.ClydeContractSku = clydeSku;
-    });
-}
-
-function contractMappingAssociation(contractProductList, order) {
-    if (!empty(contractProductList)) {
-        var parsedContractProductList = JSON.parse(contractProductList);
-        var productLineItemsIterator = order.getAllProductLineItems().iterator();
-        var currentProductLineItem;
-        while (productLineItemsIterator.hasNext()) {
-            currentProductLineItem = productLineItemsIterator.next();
-            for (var i = 0; i < parsedContractProductList.length; i++) {
-                if (currentProductLineItem.productID === parsedContractProductList[i].clydeProductID) {
-                    addClydeContractSkuToLineItem(currentProductLineItem, parsedContractProductList[i].clydeSku);
-                    break;
+            if (productLineItem.productID === productId && !empty(productLineItem.optionID)) {
+                if (productLineItem.optionID === clydeConstants.CLYDE_OPTION_PRODUCT_ID) {
+                    var clydeSKU = productLineItem.optionValueID;
+                    addClydeContractAttributes(clydeSKU, basket, productId);
                 }
             }
         }
+    } catch (ex) {
+        Logger.error('(clydeaddContracts~updateClydeProductOption) -> Error occured while updating option product and error is : {0} at line number {1}', ex, ex.lineNumber);
     }
 }
 
+/**
+ * Function used to set clyde contracts into cart
+ * @param {string} productId - The product id
+ * @param {string} clydeSKU - clyde sku contract
+ * @param {dw.order.Basket} basket - The basket of current customer
+ * @returns {Object} result - The result containg information
+ */
+function setClydeCartContracts(productId, clydeSKU, basket) {
+    var params = {
+        clydeContractSku: clydeSKU
+    };
+    var result = {
+        error: false
+    };
+    try {
+        var productLineItemItr = basket.getAllProductLineItems().iterator();
+        while (productLineItemItr.hasNext()) {
+            var productLineItem = productLineItemItr.next();
+            if (productLineItem.productID === productId && !empty(clydeSKU)) {
+                var clydeOptionProduct = getClydeSelectedOptionProduct(params, productId);
+                if (!empty(clydeOptionProduct.optionProduct)) {
+                    Transaction.wrap(function () { // eslint-disable-line no-loop-func
+                        var clydeWarrantyOption = clydeOptionProduct.optionProduct;
+                        var quantity = productLineItem.quantityValue;
+                        var position = productLineItem.position;
+                        basket.removeProductLineItem(productLineItem);
+                        // Creating new line item
+                        var product = ProductMgr.getProduct(productId);
+                        var newLineItem = basket.createProductLineItem(product, clydeWarrantyOption, basket.getDefaultShipment());
+                        newLineItem.setQuantityValue(quantity);
+                        newLineItem.setPosition(position);
+                    });
+                } else {
+                    result.error = true;
+                    result.message = Resource.msg('error.cannot.update.product', 'cart', null);
+                }
+                break;
+            }
+        }
 
+        if (!result.error) {
+            Transaction.wrap(function () {
+                addClydeContractAttributes(clydeSKU, basket, productId);
+            });
+            result.redirectURL = URLUtils.https('Cart-Show');
+        }
+    } catch (ex) {
+        Logger.error('(clydeaddContracts~setClydeCartContracts) -> Error occured while trying to set option product and error is : {0} at line number {1}', ex, ex.lineNumber);
+        result.error = true;
+        result.message = Resource.msg('error.cannot.update.product', 'cart', null);
+    }
+
+    return result;
+}
 
 /**
  * creates order custom attribue.
- * @param {Object} contractProductList - object with contract Product Lists.
  * @param {Object} order - Order object.
  */
-function createOrderCustomAttr(contractProductList, order) {
-    var productLineItems = order.getAllProductLineItems().iterator();
-    var isClydeProduct = false;
-    while (productLineItems.hasNext()) {
-        var productLineItem = productLineItems.next();                            
-        if (!empty(productLineItem.custom.clydeAssociatedProductSku)) {
-            isClydeProduct = true;
-        } 
-    }
-    if (contractProductList) {
+function createOrderCustomAttr(order) {
+    var contractjsonObj = [];
+    var currentOrder = order;
+    if (currentOrder) {
+        var productLineItemsItr = currentOrder.getAllProductLineItems().iterator();
         try {
-            var parsedValue = JSON.parse(contractProductList);
-            var contractjsonObj = [];
-
-            for (var i = 0; i < parsedValue.length; i++) {
-                var productId = parsedValue[i].productSku;
-                var contractSku = parsedValue[i].clydeSku;
-                var contractPrice = parsedValue[i].eachPrice;
-                var quantity = parsedValue[i].totalQuantity;
-
-                var items = {
-                    productId: productId,
-                    contractSku: contractSku,
-                    contractPrice: contractPrice,
-                    quantity: quantity
-                };
-                contractjsonObj.push(items);
+            while (productLineItemsItr.hasNext()) {
+                var productLineItem = productLineItemsItr.next();
+                if (!empty(productLineItem.optionID)) {
+                    if (productLineItem.optionID === clydeConstants.CLYDE_OPTION_PRODUCT_ID) {
+                        var clydeItem = {
+                            productId: productLineItem.custom.clydeAssociatedProductSku,
+                            contractSku: productLineItem.custom.ClydeContractSku,
+                            contractPrice: productLineItem.getPriceValue(),
+                            quantity: productLineItem.quantityValue
+                        };
+                        contractjsonObj.push(clydeItem);
+                    }
+                }
             }
-
-            Transaction.wrap(function () {
-                order.custom.isContainClydeContract = isClydeProduct;
-                order.custom.clydeContractProductMapping = isClydeProduct ? JSON.stringify(contractjsonObj) : '';
-            });
-            contractMappingAssociation(contractProductList, order);
+            if (contractjsonObj.length > 0) {
+                Transaction.wrap(function () {
+                    currentOrder.custom.isContainClydeContract = true;
+                    currentOrder.custom.clydeContractProductMapping = JSON.stringify(contractjsonObj);
+                });
+            }
         } catch (e) {
-            Logger.error('Error occurred while parsing contract products list' + e);
+            Logger.error('Error occurred while trying to save contract products list into order' + e);
         }
     }
 }
 
 module.exports = {
-    addContractsToCart: addContractsToCart,
-    updateContracts: updateContracts,
     createOrderCustomAttr: createOrderCustomAttr,
-    addClydeContractSkuToLineItem: addClydeContractSkuToLineItem,
-    contractMappingAssociation: contractMappingAssociation
+    getClydeSelectedOptionProduct: getClydeSelectedOptionProduct,
+    addClydeContractAttributes: addClydeContractAttributes,
+    setClydeCartContracts: setClydeCartContracts,
+    updateClydeProductOption: updateClydeProductOption
 };
-

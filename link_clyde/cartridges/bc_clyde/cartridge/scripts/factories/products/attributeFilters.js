@@ -40,7 +40,7 @@ let productPropertyFunctions = {
      */
     description: function (product, variationModel, masterProduct) {
         let master = masterProduct || product;
-        let shortDescription = master.getShortDescription().toString().replace(/<[^>]*>/g, '');
+        let shortDescription = master.shortDescription ? master.shortDescription.markup.replace(/<[^>]*>/g, '') : '';
         return shortDescription;
     },
     /**
@@ -74,7 +74,7 @@ let productPropertyFunctions = {
      */
     image: function (product) {
         let img = product.getImage('large');
-        let imgURL = img.getHttpsURL().toString();
+        let imgURL = img && img.httpsURL ? img.httpsURL.toString() : '';
         return imgURL;
     },
     /**
@@ -84,17 +84,13 @@ let productPropertyFunctions = {
      * @returns {Object} variation values
      */
     variationAttributes: function (product, variationModel) {
-        let variations = [];
+        let variations = {};
         let pvm = variationModel;
         let attrIter = pvm.productVariationAttributes.iterator();
         while (attrIter.hasNext()) {
             let attr = attrIter.next();
             let variantAttrValue = pvm.getVariationValue(product, attr);
-            let pva = {
-                id: attr.attributeID,
-                value: variantAttrValue.displayValue
-            };
-            variations.push(pva);
+            variations[attr.attributeID] = variantAttrValue.displayValue;
         }
         return variations;
     },

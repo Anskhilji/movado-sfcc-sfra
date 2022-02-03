@@ -1,3 +1,4 @@
+<isset name="product" value="${typeof product === 'undefined' || empty(product) ? pdict.product : product}" scope="page" />
 <div class="p-0 custom-options
     <isif condition="${!isQuickView}">col-md-12</isif>
     col-12 product-options">
@@ -24,8 +25,8 @@
                         <isinclude template="product/components/option" />
                     </isif> 
                 </div>
-                <iselse>
-                   <isinclude template="product/components/option" />
+                <iselseif condition="${!(option.id == "clydeWarranty")}">
+                        <isinclude template="product/components/option" />
                 </isif>
             </div>
 

@@ -10,7 +10,7 @@ const StringUtils = require('dw/util/StringUtils');
 const DATE_FORMAT = 'yyyy-MM-dd\'T\'HH:mm:ss';
 /*
  * helper library for Clyde cartridge
- * use as require('bc_clyde/cartridge/scripts/clydeHelper');
+ * use as require('bm_clyde/cartridge/scripts/clydeHelper');
  */
 
 const clydeHelper = {
@@ -18,6 +18,7 @@ const clydeHelper = {
     METHOD: {
         PRODUCTS: 'products',
         BULKPRODUCTS: 'products/bulk',
+        UPDATEPORDUCT: 'products/sku',
         ORDERS: 'orders',
         CONTRACTS: 'contracts'
     },
@@ -26,6 +27,21 @@ const clydeHelper = {
         POST: 'POST',
         DELETE: 'DELETE',
         PUT: 'PUT'
+    },
+    CONSTANTS: {
+        LAST_SYNC_NEW_PRODUCT: 'clydeSendNewProductLastSyncTime',
+        LAST_SYNC_FULL_PRODUCT: 'clydeSendFullProductLastSyncTime',
+        LAST_SYNC_DELTA_PRODUCT: 'clydeSendDeltaProductLastSyncTime',
+        LAST_SYNC_CANCEL_ORDER: 'clydeCancelOrderLastSyncTime',
+        LAST_SYNC_SEND_ORDER: 'clydeSendOrderLastSyncTime',
+        DATETIME_FORMAT: 'yyyy-MM-dd_HH-mm-ss',
+        CONTRACT_BASE_PATH: '/src/clydeContract/',
+        DATETIME_FEED_FORMAT: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+        HYPHEN: '_',
+        OPTION_PRODUCT_VALUE_ID: 'NONE',
+        OPTION_PRODUCT_DEFAULT_VALUE: 'true',
+        OPTION_PRODUCT_DEFAULT_CURRENCY: 'USD',
+        OPTION_PRODUCT_ID: 'clydeWarranty'
     },
     /*
      * Service Interface for Clyde APIs
@@ -46,7 +62,36 @@ const clydeHelper = {
             });
 
             if (serviceResult !== null && serviceResult.ok) {
-                return serviceResult.object ? serviceResult.object.statusCode : serviceResult.msg;
+                return serviceResult;
+            }
+        } catch (e) {
+            log.error('Exception occurred for service {0}, Error: {1} ', serviceMethod, e);
+            return e;
+        }
+        log.error('Error on {0} method; Error {1} ', serviceMethod, serviceResult);
+        return serviceResult;
+    },
+
+    /*
+     * Service Interface for Clyde Contract APIs
+     * @param {string} httpMethod - http method  used to make API calls.
+     * @param {string} serviceMethod - service method used to make API calls.
+     * @param {string} serviceMethod - service method  used to make API calls.
+     * @param {object} request -  request object used to send to API.
+     * @returns {serviceResult} service result from API..
+     */
+    clydeContractServiceCall: function (httpMethod, serviceMethod, request) {
+        var service = require('~/cartridge/scripts/services/serviceInit');
+        var serviceResult;
+        try {
+            serviceResult = service.call({
+                httpMethod: httpMethod,
+                method: serviceMethod,
+                request: request ? JSON.stringify(request) : null
+            });
+
+            if (serviceResult !== null && serviceResult.ok) {
+                return serviceResult.object.text;
             }
         } catch (e) {
             log.error('Exception occurred for service {0}, Error: {1} ', serviceMethod, e);
@@ -106,6 +151,7 @@ const clydeHelper = {
 
         return StringUtils.formatCalendar(cal, queryDateFormat);
     }
+
 };
 
 module.exports = clydeHelper;

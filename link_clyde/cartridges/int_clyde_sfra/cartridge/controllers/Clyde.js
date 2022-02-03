@@ -1,5 +1,7 @@
 'use strict';
 
+// Add this file from MSS-1671 v2Cartridge
+
 var server = require('server');
 
 server.get('AddContract', function (req, res, next) {

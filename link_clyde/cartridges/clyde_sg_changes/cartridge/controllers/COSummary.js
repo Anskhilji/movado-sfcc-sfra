@@ -70,8 +70,7 @@ function submit() {
         });
     } else if (placeOrderResult.order_created) {
         // Clyde Integration
-    	var clydeContractProductList = cart.object.custom.clydeContractProductList ? cart.object.custom.clydeContractProductList : '';
-        addClydeContract.createOrderCustomAttr(clydeContractProductList, placeOrderResult.Order);
+        addClydeContract.createOrderCustomAttr(placeOrderResult.Order);
 
         showConfirmation(placeOrderResult.Order);
     }

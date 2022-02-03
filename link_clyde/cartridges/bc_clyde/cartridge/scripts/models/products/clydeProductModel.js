@@ -3,9 +3,6 @@
  * @module
  */
 'use strict';
-let TYPE = 'ClydeJobConfigs';
-let NAME = 'ProductExportFull';
-let CustomObjectModel = require('~/cartridge/scripts/utils/clydeCustomObject');
 let BaseModel = require('~/cartridge/scripts/models/products/clydeBaseModel');
 let productProperty = require('~/cartridge/scripts/factories/products/attributeFilters');
 
@@ -16,7 +13,6 @@ let productProperty = require('~/cartridge/scripts/factories/products/attributeF
  * @param {Object} jobStepExecution - jobID
  */
 let ProductModel = function (params, jobStepExecution) {
-    this.jobCustomObjectWrapper = new CustomObjectModel(TYPE, NAME);
     this.productPropertyFunctions = productProperty.productPropertyFunctions;
     BaseModel.prototype.initialize.call(this, params, jobStepExecution);
 };

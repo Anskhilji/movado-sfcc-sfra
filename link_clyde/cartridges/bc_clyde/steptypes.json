@@ -2,12 +2,12 @@
     "step-types": {
         "chunk-script-module-step":[
             { 
-                "@type-id":"custom.ClydeProductsExports",
+                "@type-id":"custom.ClydeFullProductsExports",
                 "@supports-parallel-execution":"false",
                 "@supports-site-context":"true",
                 "@supports-organization-context":"false",
                 "description":"Send products to Clyde API",
-                "module":"bc_clyde/cartridge/scripts/jobs/products/sendProducts.js",
+                "module":"bc_clyde/cartridge/scripts/jobs/products/sendFullProducts.js",
                 "before-step-function":"beforeStep",
                 "read-function":"read",
                 "process-function":"process",
@@ -52,7 +52,46 @@
                 "process-function":"process",
                 "write-function":"write",
                 "after-step-function":"afterStep",
-                "chunk-size":10,
+                "chunk-size":500,
+                "transactional":"false",
+                "parameters":{ 
+                    "parameter":[ 
+                        { 
+                            "@name":"isDryRun",
+                            "description":"If true, then it will run but will not send the products to Clyde",
+                            "@type":"boolean",
+                            "@required":"true",
+                            "@trim":"true",
+                            "default-value":"true"
+                        }
+                    ]
+                },
+                "status-codes":{ 
+                    "status":[ 
+                        { 
+                            "@code":"ERROR",
+                            "description":"Used when the step failed with an error."
+                        },
+                        { 
+                            "@code":"OK",
+                            "description":"Used when the step finished successfully."
+                        }
+                    ]
+                }
+            },
+            { 
+                "@type-id":"custom.ClydeExportNewProducts",
+                "@supports-parallel-execution":"false",
+                "@supports-site-context":"true",
+                "@supports-organization-context":"false",
+                "description":"Send products to Clyde API",
+                "module":"bc_clyde/cartridge/scripts/jobs/products/sendNewProducts.js",
+                "before-step-function":"beforeStep",
+                "read-function":"read",
+                "process-function":"process",
+                "write-function":"write",
+                "after-step-function":"afterStep",
+                "chunk-size":500,
                 "transactional":"false",
                 "parameters":{ 
                     "parameter":[ 
@@ -80,6 +119,7 @@
                 }
             }
         ],
+        
         "script-module-step": [
             {
                 "@type-id":"custom.SendOrders",
@@ -89,7 +129,7 @@
                 "parameters": {
                     "parameter": [
                         {
-                            "@name":"Is dry run",
+                            "@name":"isDryRun",
                             "description":"If true, then it will run but will not send the orders to Clyde",
                             "@type":"boolean",
                             "@required":"true",
@@ -127,7 +167,7 @@
                 "parameters": {
                     "parameter": [
                         {
-                            "@name":"Is dry run",
+                            "@name":"isDryRun",
                             "description":"If true, then it will run but will not send the orders to Clyde",
                             "@type":"boolean",
                             "@required":"true",
@@ -153,6 +193,25 @@
                         {
                             "@code":"FINISHED",
                             "description":"Step execution finished successfully."
+                        }
+                    ]
+                }
+            },
+            { 
+                "@type-id":"custom.clydeImportContracts",
+                "description":"Import Clyde Contracts to SFCC using Option Product",
+                "module":"bc_clyde/cartridge/scripts/jobs/products/importClydeContract.js",
+                "function":"execute",
+                "@supports-site-context":"true",
+                "status-codes":{ 
+                    "status":[ 
+                        { 
+                            "@code":"ERROR",
+                            "description":"Used when the step failed with an error."
+                        },
+                        { 
+                            "@code":"OK",
+                            "description":"Used when the step finished successfully."
                         }
                     ]
                 }

@@ -1,5 +1,10 @@
 'use strict';
-
+var Site = require('dw/system/Site');
+var ExportModel = require('~/cartridge/scripts/models/products/productExportModel');
+const clydeHelper = require('~/cartridge/scripts/clydeHelper');
+const logger = require('dw/system/Logger').getLogger('CLYDE', 'sendProducts');
+let exportModel = null;
+let result = null;
 /* eslint-disable no-undef */
 
 /**
@@ -7,22 +12,23 @@
  * Products are exported in bulk.
  * @module products/sendProducts
 */
-const logger = require('dw/system/Logger').getLogger('CLYDE', 'sendProducts');
 
-let exportModel = null;
-let result = null;
-
-const clydeHelper = require('~/cartridge/scripts/clydeHelper');
 
 /**
  * BeforeStep callback implementation
  * @param {Object} parameters - job parameter with configuration
  * @param {Object} jobStepExecution - job execution step
+ * @param {Object} jobStartDateAndTime - job Starting Date And Time
  * @returns {void}
  */
-function beforeStep(parameters, jobStepExecution) {
-    let ExportModel = require('~/cartridge/scripts/models/products/productExportModel');
-    exportModel = new ExportModel(parameters, jobStepExecution);
+function beforeStep(parameters, jobStepExecution, jobStartDateAndTime) {
+    var jobsParameters = parameters;
+    var jobStartingDateAndTime = jobStartDateAndTime;
+    jobStartingDateAndTime = Site.getCurrent().getCalendar().getTime();
+    jobsParameters.sitePreferenceID = clydeHelper.CONSTANTS.LAST_SYNC_FULL_PRODUCT;
+    jobsParameters.deltaImport = false;
+    jobsParameters.newExport = false;
+    exportModel = new ExportModel(jobsParameters, jobStepExecution, jobStartingDateAndTime);
 }
 
 /**
@@ -58,10 +64,10 @@ function write(lines, parameters) {
         let isThisDryRun = parameters.isDryRun;
         if (!isThisDryRun) {
             result = clydeHelper.clydeServiceCall(clydeHelper.HTTP_METHOD.POST, clydeHelper.METHOD.BULKPRODUCTS, request);
-            if (result) {
-                logger.info('Job has exported {0} items to Clyde', lines.size());
+            if (result.ok) {
+                logger.info('Job has exported {0} items chunk to Clyde', lines.size());
             } else {
-                throw new Error("Job can't upload data to Clyde. Please review log files");
+                logger.error('Error occured while try to upload the products to Clyde error is: {0}', result);
             }
         }
     }
@@ -74,7 +80,8 @@ function write(lines, parameters) {
  */
 function afterStep(success) {
     if (success) {
-        exportModel.saveCustomObject();
+        exportModel.setSitePreference();
+        logger.info('Job has exported {0} items Clyde', exportModel.getCounter());
     } else if (result == null) {
         throw new Error('Failed to send products to Clyde and the job has finished with errors. Please review log files');
     }

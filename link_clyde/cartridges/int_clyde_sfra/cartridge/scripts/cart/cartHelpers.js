@@ -73,11 +73,6 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
         quantityToSet = quantity ? quantity + productQuantityInCart : productQuantityInCart + 1;
         availableToSell = productInCart.product.availabilityModel.inventoryRecord.ATS.value;
 
-        /**
-        * need to remove after unit testing
-        */
-        // addClydeContract.addContractsToCart(quantity, form, defaultShipment, currentBasket, productLineItems, productId);
-
         if (availableToSell >= quantityToSet || perpetual) {
             productInCart.setQuantityValue(quantityToSet);
             result.uuid = productInCart.UUID;
@@ -98,12 +93,6 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
             defaultShipment
         );
         addClydeContract.addClydeContractAttributes(clydeSKU, currentBasket, productId);
-
-        /**
-        * need to remove after unit testing
-        */
-        // addClydeContract.addContractsToCart(quantity, form, defaultShipment, currentBasket, productLineItems, productId);
-
         result.uuid = productLineItem.UUID;
     }
 
@@ -112,18 +101,5 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
 
 
 module.exports = {
-    addLineItem: base.addLineItem,
-    addProductToCart: addProductToCart,
-    checkBundledProductCanBeAdded: base.checkBundledProductCanBeAdded,
-    ensureAllShipmentsHaveMethods: base.ensureAllShipmentsHaveMethods,
-    getQtyAlreadyInCart: base.getQtyAlreadyInCart,
-    getNewBonusDiscountLineItem: base.getNewBonusDiscountLineItem,
-    getExistingProductLineItemInCart: base.getExistingProductLineItemInCart,
-    getExistingProductLineItemsInCart: base.getExistingProductLineItemsInCart,
-    getMatchingProducts: base.getMatchingProducts,
-    allBundleItemsSame: base.allBundleItemsSame,
-    hasSameOptions: base.hasSameOptions,
-    BONUS_PRODUCTS_PAGE_SIZE: base.BONUS_PRODUCTS_PAGE_SIZE,
-    updateBundleProducts: base.updateBundleProducts,
-    getReportingUrlAddToCart: base.getReportingUrlAddToCart
+    addProductToCart: addProductToCart
 };

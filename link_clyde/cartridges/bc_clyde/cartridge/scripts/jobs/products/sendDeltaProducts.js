@@ -1,5 +1,11 @@
 'use strict';
-
+var clydeHelper = require('~/cartridge/scripts/clydeHelper');
+var ExportModel = require('~/cartridge/scripts/models/products/productExportModel');
+var Site = require('dw/system/Site');
+var exportModel = null;
+var result = null;
+var productCounter = 0;
+var logger = require('dw/system/Logger').getLogger('CLYDE', 'sendDeltaProducts');
 /* eslint-disable no-undef */
 
 /**
@@ -7,22 +13,22 @@
  * Products are exported in delta.
  * @module products/sendDeltaProducts
 */
-const logger = require('dw/system/Logger').getLogger('CLYDE', 'sendDeltaProducts');
-
-let exportModel = null;
-let result = null;
-
-const clydeHelper = require('~/cartridge/scripts/clydeHelper');
 
 /**
  * BeforeStep callback implementation
  * @param {Object} parameters - job parameter with configuration
  * @param {Object} jobStepExecution - job execution step
+ * @param {Object} jobStartDateAndTime - job starting date and Time
  * @returns {void}
  */
-function beforeStep(parameters, jobStepExecution) {
-    let ExportModel = require('~/cartridge/scripts/models/products/productExportModel');
-    exportModel = new ExportModel(parameters, jobStepExecution);
+function beforeStep(parameters, jobStepExecution, jobStartDateAndTime) {
+    var jobsParameters = parameters;
+    var jobStartingDateAndTime = jobStartDateAndTime;
+    jobStartingDateAndTime = Site.getCurrent().getCalendar().getTime();
+    jobsParameters.sitePreferenceID = clydeHelper.CONSTANTS.LAST_SYNC_DELTA_PRODUCT;
+    jobsParameters.deltaImport = true;
+    jobsParameters.newExport = false;
+    exportModel = new ExportModel(jobsParameters, jobStepExecution, jobStartingDateAndTime);
 }
 
 /**
@@ -50,15 +56,16 @@ function process(record) {
  */
 function write(lines, parameters) {
     if (!empty(lines)) {
-        for (let i = 0; i < lines.size(); i++) {
-            let request = exportModel.getRequest(lines[i]);
-            let isThisDryRun = parameters.isDryRun;
+        for (var i = 0; i < lines.size(); i++) {
+            var request = exportModel.getRequest(lines[i]);
+            productCounter++;
+            var isThisDryRun = parameters.isDryRun;
             if (!isThisDryRun) {
-                result = clydeHelper.clydeServiceCall(request.httpMethod, request.serviceMethod, request.request);
-                if (result) {
-                    logger.info('Job has exported {0} item to Clyde', lines.size());
+                result = clydeHelper.clydeServiceCall(clydeHelper.HTTP_METHOD.PUT, request.serviceMethod, request.request);
+                if (result.ok) {
+                    logger.info('Job has updated poductId:{0} to Clyde', lines[i].id);
                 } else {
-                    throw new Error("Job can't upload data to Clyde. Please review log files");
+                    logger.error('Error occured while try to upload product id:{0} to Clyde serive error is:{1}', lines[i].id, result.msg);
                 }
             }
         }
@@ -72,7 +79,8 @@ function write(lines, parameters) {
  */
 function afterStep(success) {
     if (success) {
-        exportModel.saveCustomObject();
+        logger.info('Job has updated items:{0} to Clyde', productCounter);
+        exportModel.setSitePreference();
     } else if (result == null) {
         throw new Error('Failed to send products to Clyde and the job has finished with errors. Please review log files');
     }

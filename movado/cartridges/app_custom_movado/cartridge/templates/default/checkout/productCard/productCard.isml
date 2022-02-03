@@ -52,6 +52,9 @@
                         		<div class="line-item-option">${option.displayName}</div>
                         	</isif>
                         </isif>
+                        <isif condition="${!empty(option.displayName) && !(option.optionId === 'clydeWarranty')}">
+                             <div class="line-item-option">${option.displayName}</div>
+                        </isif>
                     </isloop>
                 </div>
 
@@ -114,6 +117,20 @@
         </div>
     </isif>
 
+    <isloop items="${lineItem.options}" var="option">
+        <isif condition="${!empty(option.displayName) && option.optionId === 'clydeWarranty'}">
+            <div class="product-line-item-details d-flex flex-row">
+                <div class="item-image">
+                    <img class="product-image" src="${option.imageURL}" alt="${option.displayName}" title="${option.displayName}">
+                </div>
+                 <div class="item-attributes">
+                     <p class="line-item-attributes">${option.lineItemText}</p>
+                     <p class="line-item-attributes clyde-option-price" data-option-id="${option.optionId}" data-value-id="${option.selectedValueId}" data-uuid="${lineItem.UUID}">${option.price}</p>
+                 </div>
+            </div>
+        </isif>
+    </isloop>
+
     <isif condition="${lineItem.productType === 'bundle' && ((pdict.order && !pdict.order.orderStatus) || miniCart)}">
         <isinclude template="cart/productCard/cartProductCardAvailability" />
     </isif>
@@ -143,6 +160,7 @@
                 </span>
             </p>
             <div class="item-total-${lineItem.UUID} price">
+                <isinclude template="checkout/productCard/productCardProductTotalPrice" />
             </div>
         </div>
     </div>

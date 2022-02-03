@@ -10,10 +10,8 @@ const Site = require('dw/system/Site');
 const Status = require('dw/system/Status');
 const Order = require('dw/order/Order');
 const OrderMgr = require('dw/order/OrderMgr');
-const Transaction = require('dw/system/Transaction');
-
 const clydeHelper = require('~/cartridge/scripts/clydeHelper');
-
+var jobStartDateAndTime;
 let isThisDryRun = true;
 let totalOrderCount = 0;
 /**
@@ -22,9 +20,10 @@ let totalOrderCount = 0;
  */
 var run = function (args) {
     Logger.info('Start cancel orders sending to Clyde for siteID: {0}', Site.current.ID);
+    jobStartDateAndTime = Site.getCurrent().getCalendar().getTime();
 
     // If true, then job will run without sending the orders to Clyde.
-    isThisDryRun = args['Is dry run'];
+    isThisDryRun = args.isDryRun;
 
     // If provided then the job will start with the given order (qualify orders are sorted in ascending order)
     let startingOrderNo = args['Starting Order Number'];
@@ -35,14 +34,14 @@ var run = function (args) {
 
         while (orderIterator.hasNext()) {
             var order = orderIterator.next();
-            callback(order);
+            sendRequest(order);
         }
 
         Logger.info('Sent ' + totalOrderCount + ' orders to sync with Clyde');
 
         // Record this runtime in custom preference.
         if (totalOrderCount > 0) {
-            setLastCancelOrderSyncTime('ClydeCancelLastOrderRunTime');
+            setLastCancelOrderSyncTime(jobStartDateAndTime);
         }
     } catch (e) {
         Logger.error('Error occurred while searching for cancel orders {0}', e.message);
@@ -81,7 +80,7 @@ function ordersCancelQuery(startingOrderNo) {
  * call back function after API call
  * @param {Order} order - Order object to be sent to API.
  */
-function callback(order) {
+function sendRequest(order) {
     totalOrderCount++;
     let orderNo = clydeHelper.METHOD.ORDERS + '/' + order.getOrderNo();
     if (!isThisDryRun) {
@@ -100,32 +99,21 @@ function callback(order) {
  * @returns {lastRunTime} return the last run time of the job.
  */
 function getLastCancelOrderSyncTime() {
-    var storedLastRunTime = clydeHelper.getClydeCustomObject('ClydeCancelLastOrderRunTime', 'ClydeCancelLastOrderRunTime');
-    if (storedLastRunTime && storedLastRunTime.custom.lastRunTime) {
-        return storedLastRunTime.custom.lastRunTime;
-    }
-
-    return '';
+    let clydeSitePreference = require('~/cartridge/scripts/utils/clydeSitePreferences');
+    let sitePreferenceID = clydeHelper.CONSTANTS.LAST_SYNC_CANCEL_ORDER;
+    let storedLastJobRunTime = clydeSitePreference.getSitePreferenceValue(sitePreferenceID);
+    return storedLastJobRunTime;
 }
 
 /**
  * To set the run time after the successful job execution
- * @param {string} clydeCustomObject - CustomObject name.
+ * @param {string} jobDateAndTime - jobstart date and Time.
  */
-function setLastCancelOrderSyncTime(clydeCustomObject) {
-    if (!clydeCustomObject) {
-        Logger.info('clydeCustomObject is empty');
-        return;
-    }
-
+function setLastCancelOrderSyncTime(jobDateAndTime) {
     try {
-        let storedLastRunTime = clydeHelper.getClydeCustomObject(clydeCustomObject, clydeCustomObject);
-        if (storedLastRunTime) {
-            let currentFinishTime = clydeHelper.getFormattedDate(Site.getCurrent().getCalendar().getTime());
-            Transaction.begin();
-            storedLastRunTime.custom.lastRunTime = currentFinishTime;
-            Transaction.commit();
-        }
+        let clydeSitePreference = require('~/cartridge/scripts/utils/clydeSitePreferences');
+        let sitePreferenceID = clydeHelper.CONSTANTS.LAST_SYNC_CANCEL_ORDER;
+        clydeSitePreference.setSitePreferenceValue(sitePreferenceID, jobDateAndTime);
     } catch (e) {
         Logger.error('Error on setting  last run time: ' + e.message);
     }

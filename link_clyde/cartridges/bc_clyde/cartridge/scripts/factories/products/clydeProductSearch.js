@@ -1,54 +1,38 @@
 'use strict';
 
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
-
-const ProductSearchModel = require('dw/catalog/ProductSearchModel');
-const CatalogMgr = require('dw/catalog/CatalogMgr');
-const log = require('dw/system/Logger').getLogger('CLYDE', 'clydeProductExport');
-
-
 /**
- * Object implements default searchModel interface
- * @param {Object} parameters - params for searchModel
- * @param {Object} jobStepExecution - jobID
- * @return {Object} public api methods
+ * Implements product search for export jobs
  */
-let searchModel = function (parameters, jobStepExecution) {
-    log.info('Starting product Search....');
-    let productSearchModel = new ProductSearchModel();
+let searchModel = function () {
+    var ProductMgr = require('dw/catalog/ProductMgr');
+    var Logger = require('dw/system/Logger').getLogger('CLYDE', 'clydeProductExport');
 
-    try {
-        let siteRootCategory = CatalogMgr.getSiteCatalog().getRoot();
-        productSearchModel.setCategoryID(siteRootCategory.ID);
-        productSearchModel.setRecursiveCategorySearch(true);
-        productSearchModel.setOrderableProductsOnly(true);
-        productSearchModel.setPriceMin(0.01);
-        productSearchModel.excludeHitType(require('dw/catalog/ProductSearchHit').HIT_TYPE_PRODUCT_SET);
-        productSearchModel.search();
-    } catch (e) {
-        log.error('Clyde searchModel() -> failed: ' + e.toString() + ' in ' + e.fileName + ':' + e.lineNumber);
-        return false;
-    }
+    Logger.info('Starting product search...');
 
-    log.info('Found {0} products.', productSearchModel.getCount());
+    // Properties
+    let productIter = ProductMgr.queryAllSiteProducts();
+    let count = 0;
 
-    let productHits = productSearchModel.getProductSearchHits();
-    let representedProducts = [];
-    let productHit = null;
+    Logger.info('Found {0} products', productIter.count);
 
-    return {
-        getNext: function () {
-            let result = null;
-            if (empty(representedProducts) && productHits.hasNext()) {
-                productHit = productHits.next();
-                representedProducts = productHit.getRepresentedProducts().toArray();
+    // Member Functions
+    this.getNext = function () {
+        let next = null;
+
+        while (productIter.hasNext()) {
+            next = productIter.next();
+
+            if (!next.master && !next.productSet && next.priceModel.price.valueOrNull) {
+                count++;
+                break;
             }
-            if (!empty(representedProducts)) {
-                result = representedProducts.pop();
-            }
-            return result;
         }
+
+        return next;
+    };
+
+    this.getCounter = function () {
+        return count;
     };
 };
 

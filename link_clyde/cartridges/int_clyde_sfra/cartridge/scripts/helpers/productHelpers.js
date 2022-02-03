@@ -1,4 +1,6 @@
 'use strict';
+
+    // Add this file from MSS-1671 v2Cartridge
 var formatMoney = require('dw/util/StringUtils').formatMoney;
 var collections = require('*/cartridge/scripts/util/collections');
 var clydeConstants = require('*/cartridge/scripts/utils/clydeConstants');

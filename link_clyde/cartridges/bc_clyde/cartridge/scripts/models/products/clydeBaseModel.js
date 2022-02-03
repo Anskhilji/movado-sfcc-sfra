@@ -29,8 +29,9 @@ BaseModel.prototype = {
     initialize: function (params, jobStepExecution) {
         try {
             let jobID = 'jobID' in jobStepExecution.jobExecution ? jobStepExecution.jobExecution.jobID : '';
-            this.isFullExport = jobID.toLowerCase().indexOf('delta') === -1;
-            this.jobCustomObjectWrapper.getCO();
+            this.isFullExport = /productfull/i.test(jobID);
+            this.sitePreferenceID = params.get('sitePreferenceID').valueOf();
+            this.newExport = params.get('newExport').valueOf();
         } catch (e) {
             logger.error(e.toString());
         }
@@ -74,15 +75,23 @@ BaseModel.prototype = {
      * @returns {boolean} true if passed object is ready for export either result will be false
      */
     isReadyToExport: function (record) {
-        let productPriceInfo = record.getPriceModel().getPriceInfo();
-        let priceBookLastModified;
+        var productPriceInfo = record.getPriceModel().getPriceInfo();
+        var priceBookLastModified = null;
+        var lastJobSyceTime = require('*/cartridge/scripts/utils/clydeSitePreferences').getSitePreferenceValue(this.sitePreferenceID);
+
         if (!empty(productPriceInfo)) {
             priceBookLastModified = productPriceInfo.priceBook.lastModified.getTime();
         }
-        if (record.lastModified.getTime() > this.jobCustomObjectWrapper.getTime().getTime()) {
-            this.newProduct = record.creationDate.getTime() > this.jobCustomObjectWrapper.getTime().getTime();
+
+        if (this.newExport) {
+            this.newProduct = true;
+            var productCreationDate = record.getCreationDate();
+            return lastJobSyceTime <= productCreationDate;
+        } else { // eslint-disable-line
+            this.newProduct = false;
         }
-        return record.lastModified.getTime() > this.jobCustomObjectWrapper.getTime().getTime() || priceBookLastModified > this.jobCustomObjectWrapper.getTime().getTime();
+
+        return record.lastModified.getTime() > lastJobSyceTime || priceBookLastModified > lastJobSyceTime;
     },
     /**
      * Function that generates payload based on module parameters
@@ -97,12 +106,6 @@ BaseModel.prototype = {
             returnValue = this.deltaExport(product);
         }
         return returnValue;
-    },
-    /**
-     * Function that save custom object
-     */
-    saveCO: function () {
-        this.jobCustomObjectWrapper.saveCO();
     },
     /**
      * Function to prepare product request
@@ -165,19 +168,24 @@ BaseModel.prototype = {
      * @returns {Object} JSON body for attributes
      */
     getAttributeValue: function (returnValue) {
-        return {
+        let obj = {
             name: returnValue.title,
             type: returnValue.category,
             sku: returnValue.id,
             description: returnValue.description,
             manufacturer: returnValue.manufacturer,
             price: returnValue.price,
-            imageLink: returnValue.image,
-            attributes: {
-                size: !empty(returnValue.variationAttributes[1]) ? returnValue.variationAttributes[1].value : '',
-                color: !empty(returnValue.variationAttributes[0]) ? returnValue.variationAttributes[0].value : ''
-            }
+            imageLink: returnValue.image
         };
+
+        if (returnValue.hasOwnProperty('variationAttributes')) {  // eslint-disable-line no-prototype-builtins
+            obj.attributes = {
+                size: returnValue.variationAttributes.hasOwnProperty('size') ? returnValue.variationAttributes.size : '', // eslint-disable-line no-prototype-builtins
+                color: returnValue.variationAttributes.hasOwnProperty('color') ? returnValue.variationAttributes.color : '' // eslint-disable-line no-prototype-builtins
+            };
+        }
+
+        return obj;
     }
 };
 

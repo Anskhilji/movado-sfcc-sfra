@@ -17,7 +17,7 @@ ResourceHelper.getClydePreferences = function () {
         CLYDE_API_KEY: Site.getCurrent().getCustomPreferenceValue('clydeAPIKey') || '',
         CLYDE_WIDGET_ENVIRONMENT: Site.getCurrent().getCustomPreferenceValue('clydeWidgetEnviroment') ? Site.current.preferences.custom.clydeWidgetEnviroment.value : '',
         CLYDE_WIDGET_TYPE: Site.getCurrent().getCustomPreferenceValue('clydeWidgetType') || '',
-        CLYDE_WIDGET_SKIP_GEO_LOCATION: Site.getCurrent().getCustomPreferenceValue('clydeGeofencing') ? true : false  // eslint-disable-line no-unneeded-ternary
+        CLYDE_SKIP_GEO_IP: Site.getCurrent().getCustomPreferenceValue('clydeGeofencing') ? true : false  // eslint-disable-line no-unneeded-ternary
     };
 };
 
