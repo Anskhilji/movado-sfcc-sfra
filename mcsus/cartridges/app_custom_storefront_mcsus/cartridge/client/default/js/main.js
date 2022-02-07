@@ -6,4 +6,3 @@ $(document).ready(function () {
     processInclude(require('./accountLogout'));
     processInclude(require('./header/header'));
 });
-

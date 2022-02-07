@@ -182,6 +182,26 @@ function getUrlParamObj(url) {
     return params;
 }
 
+// Custom Start: [MSS-1348 Fix for not applying price filters]
+function removeParam(key, sourceURL) {
+    var rtn = sourceURL.split("?")[0],
+        param,
+        params_arr = [],
+        queryString = (sourceURL.indexOf("?") !== -1) ? sourceURL.split("?")[1] : "";
+    if (queryString !== "") {
+        params_arr = queryString.split("&");
+        for (var i = params_arr.length - 1; i >= 0; i -= 1) {
+            param = params_arr[i].split("=")[0];
+            if (param === key) {
+                params_arr.splice(i, 1);
+            }
+        }
+        if (params_arr.length) rtn = rtn + "?" + params_arr.join("&");
+    }
+    return rtn;
+}
+// Custom End
+
 /**
  * Adds selected facets to page URL
  *
@@ -287,12 +307,11 @@ function updatePageURLForShowMore(showMoreUrl) {
 function bulidLifeStyleCarousel() {
 
     $('.product-grid .plp-image-carousel:not(.slick-initialized)').slick({
-        lazyLoad: 'ondemand',
         slidesToShow: 1,
         slidesToScroll: 1,
         infinite: false,
         dots: true,
-        arrows: false,
+        arrows: false
     });
 
     $(document).on('beforeChange', '.product-grid .plp-image-carousel', function (event, slick, currentSlide, nextSlide) {
@@ -574,6 +593,7 @@ module.exports = {
                 if (urlparams.hasOwnProperty('srule') == true) {
                     if (urlparams.srule) {
                         currentSelectedSortId = urlparams.srule;
+                        filtersURL = removeParam('srule', filtersURL);  // Custom: [MSS-1348 Fix for not applying price filters]
                         filtersURL = replaceUrlParam(filtersURL, 'srule', currentSelectedSortId);
                     }
                 }
@@ -633,6 +653,7 @@ module.exports = {
                 if (urlparams.hasOwnProperty('srule') == true) {
                     if (urlparams.srule) {
                         currentSelectedSortId = urlparams.srule;
+                        filtersURL = removeParam('srule', filtersURL);  // Custom: [MSS-1348 Fix for not applying price filters]
                         filtersURL = replaceUrlParam(filtersURL, 'srule', currentSelectedSortId);
                     }
                 }
