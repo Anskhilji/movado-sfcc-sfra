@@ -63,6 +63,22 @@ server.append('AddProduct', function (req, res, next) {
                 });
             }
         }
+        if (!empty(req.form.giftPid)) {
+            Transaction.wrap(function () {
+                quantity = 1;
+                result = cartHelper.addProductToCart(
+                        currentBasket,
+                        req.form.giftPid,
+                        1,
+                        [],
+                        []
+                    );
+                if (!result.error) {
+                    cartHelper.ensureAllShipmentsHaveMethods(currentBasket);
+                    basketCalculationHelpers.calculateTotals(currentBasket);
+                }
+            });
+        }
         var productLineItems = currentBasket.productLineItems.iterator();
         var productLineItem;
         var quantity;

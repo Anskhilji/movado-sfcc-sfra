@@ -105,6 +105,13 @@
                 <isinclude template="checkout/productCard/miniCartProductCardQuantitySelector" />
             </div>
         </div>
+        <isset name="product" value="${dw.catalog.ProductMgr.getProduct(lineItem.id)}" scope="page" />
+        <isset name="isGiftBoxAllowed" value="${require('*/cartridge/scripts/helpers/productCustomHelper').isGiftBoxAllowed(product)}" scope="page" />
+        <isset name="giftBoxSKUData" value="${require('*/cartridge/scripts/helpers/productCustomHelper').getGiftBoxSKU(product)}" scope="page" />
+        <isif condition="${!empty(isGiftBoxAllowed) && isGiftBoxAllowed && giftBoxSKUData.giftBoxSKUAvailability}">
+            <input type="checkbox" data-add-to-cart-url="${URLUtils.url('Cart-AddProduct')}" name="gift-allowed-checkout" class="gift-allowed-checkbox" value="${giftBoxSKUData.giftBoxSKU}">
+            <label for="gift-allowed-checkout">Add A Gift Box x ${giftBoxSKUData.giftBoxSKUPrice} </label>
+        </isif>
         <isif condition="${dw.system.Site.current.preferences.custom.enableCartRecommendations}">
             <div class="cart-recommendations" data-url="${URLUtils.url('Cart-Recommendations', 'pid', lineItem.id)}"></div>
         </isif>

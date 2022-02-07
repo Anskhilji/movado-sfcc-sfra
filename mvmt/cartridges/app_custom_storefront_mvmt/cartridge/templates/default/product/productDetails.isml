@@ -152,7 +152,7 @@
                     <iscomment>Custom End</iscomment>
                     <!-- Product Name -->
 
-                    <div class="prices price-mobile">
+                    <div class="prices price-mobile" data-price="${JSON.stringify(product.price)}">
                         <isset name="price" value="${product.price}" scope="page" />
                         <isinclude template="product/components/pricing/main" />
                     </div>
@@ -252,10 +252,9 @@
                             </div>
                         </div>
                     </div>
-
-                    <isif condition="${!empty(product.isGiftBoxAllowed) && product.isGiftBoxAllowed}">
-                        <input type="checkbox" name="gift-allowed-checkout" class="gift-allowed-checkbox" value="${product.giftBoxSKU}">
-                        <label for="gift-allowed-checkout">Gift Box Checkbox</label>
+                    <isif condition="${!empty(product.isGiftBoxAllowed) && product.isGiftBoxAllowed && product.giftBoxSKUData.giftBoxSKUAvailability}">
+                        <input type="checkbox" name="gift-allowed-checkout" class="gift-allowed-checkbox" value="${product.giftBoxSKUData.giftBoxSKU}">
+                        <label for="gift-allowed-checkout">Add A Gift Box x ${product.giftBoxSKUData.giftBoxSKUPrice} </label>
                     </isif>
 
                     <isif condition="${product.shortDescription}">

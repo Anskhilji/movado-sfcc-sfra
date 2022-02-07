@@ -1,5 +1,7 @@
 'use strict';
 
+var decorators = require('*/cartridge/models/product/decorators/index');
+
 var baseFullProduct = module.superModule;
 
 /**
@@ -30,7 +32,7 @@ module.exports = function fullProduct(product, apiProduct, options) {
     var pdpContentAssetHTML = productCustomHelper.getPDPContentAssetHTML(apiProduct);
     var isCategory = productCustomHelper.getProductCategory(apiProduct, product);
     var isGiftBoxAllowed = productCustomHelper.isGiftBoxAllowed(apiProduct);
-    var giftBoxSKU = productCustomHelper.getGiftBoxSKU(apiProduct);
+    var giftBoxSKUData = productCustomHelper.getGiftBoxSKU(apiProduct);
 
     if (!empty(currentCountry)) {
         Object.defineProperty(product, 'currentCountry', {
@@ -159,10 +161,10 @@ module.exports = function fullProduct(product, apiProduct, options) {
         });
     }
 
-    if (!empty(giftBoxSKU)) {
-        Object.defineProperty(product, 'giftBoxSKU', {
+    if (!empty(giftBoxSKUData)) {
+        Object.defineProperty(product, 'giftBoxSKUData', {
             enumerable: true,
-            value: giftBoxSKU
+            value: giftBoxSKUData
         });
     }
 

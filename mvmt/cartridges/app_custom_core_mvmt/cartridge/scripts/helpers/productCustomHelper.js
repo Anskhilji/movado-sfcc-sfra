@@ -1,7 +1,9 @@
 'use strict';
 
 var movadoProductCustomHelper = module.superModule;
+
 var ContentMgr = require('dw/content/ContentMgr');
+var formatMoney = require('dw/util/StringUtils').formatMoney;
 var ProductMgr = require('dw/catalog/ProductMgr');
 var Logger = require('dw/system/Logger');
 var Site = require('dw/system/Site').getCurrent();
@@ -484,6 +486,10 @@ function isGiftBoxAllowed(apiProduct) {
 
 function getGiftBoxSKU(apiProduct) {
     var ArrayList = require('dw/util/ArrayList');
+    var giftBoxSKU;
+    var giftBoxSKUAvailability;
+    var giftBoxSKUData;
+    var giftBoxSKUPrice;
     try {
         var currentCategory = getProductCategory(apiProduct);
         var giftBoxCategorySKUPairArray = !empty(Site.current.preferences.custom.giftBoxCategorySKUPair) ? new ArrayList(Site.current.preferences.custom.giftBoxCategorySKUPair).toArray() : '';
@@ -492,11 +498,61 @@ function getGiftBoxSKU(apiProduct) {
         for (var giftBoxCategorySKUPair = 0; giftBoxCategorySKUPair < giftBoxCategorySKUPairArray.length; giftBoxCategorySKUPair++) {
             currentGiftBoxCategorySKUPair = giftBoxCategorySKUPairArray[giftBoxCategorySKUPair].split("|");
             if (currentCategory == currentGiftBoxCategorySKUPair[0]) {
-                return currentGiftBoxCategorySKUPair[1];
+                giftBoxSKU = currentGiftBoxCategorySKUPair[1];
+                break;
             }
         }
+        giftBoxSKUAvailability = ProductMgr.getProduct(giftBoxSKU).getAvailabilityModel().inStock;
+        giftBoxSKUPrice = getProductPromoAndSalePrice(ProductMgr.getProduct(giftBoxSKU)) ? getProductPromoAndSalePrice(ProductMgr.getProduct(giftBoxSKU)) : formatMoney(ProductMgr.getProduct(giftBoxSKU).getPriceModel().price);
+        giftBoxSKUData = {
+            giftBoxSKU: giftBoxSKU,
+            giftBoxSKUAvailability: giftBoxSKUAvailability,
+            giftBoxSKUPrice: giftBoxSKUPrice
+        }
+        return giftBoxSKUData;
+        
     } catch (e) {
         Logger.error('(productCustomHepler.js -> getGiftBoxSKU) Error occured while getting gift box SKU: ' + e.stack, e.message);
+    }
+}
+
+function getProductPromoAndSalePrice(product) {
+    try {
+        var Currency = require('dw/util/Currency');
+        var Money = require('dw/value/Money');
+        var Promotion = require('dw/campaign/Promotion');
+        var PromotionMgr = require('dw/campaign/PromotionMgr');
+
+        var salePrice = '';
+        var PromotionIt = PromotionMgr.activePromotions.getProductPromotions(product).iterator();
+        var promotionalPrice = Money.NOT_AVAILABLE;
+        var currentPromotionalPrice = Money.NOT_AVAILABLE;
+        var salePriceEffectiveDate;
+    
+        while (PromotionIt.hasNext()) {
+            var promo = PromotionIt.next();
+            if (promo.getPromotionClass() != null && promo.getPromotionClass().equals(Promotion.PROMOTION_CLASS_PRODUCT) && !promo.basedOnCoupons) {
+                if (product.optionProduct) {
+                    currentPromotionalPrice = promo.getPromotionalPrice(product, product.getOptionModel());
+                } else {
+                    currentPromotionalPrice = promo.getPromotionalPrice(product);
+                }
+                if (promotionalPrice.value > currentPromotionalPrice.value && currentPromotionalPrice.value !== 0) {
+                    promotionalPrice = currentPromotionalPrice;
+                } else if (promotionalPrice.value == 0) {
+                    if ((currentPromotionalPrice.value !== 0 && currentPromotionalPrice.value !== null)) {
+                        promotionalPrice = currentPromotionalPrice;
+                    }
+                }
+            }
+        }
+
+        if (promotionalPrice.available) {
+            salePrice = formatMoney(promotionalPrice);
+        }
+        return salePrice;
+    } catch(e) {
+        Logger.error('(productCustomHepler.js -> getProductPromoAndSalePrice) Error occured while getting promo price: ' + e.stack, e.message);
     }
 }
 

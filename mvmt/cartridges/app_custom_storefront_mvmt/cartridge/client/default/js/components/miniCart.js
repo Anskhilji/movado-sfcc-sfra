@@ -76,6 +76,44 @@ function renderSwellRedemptionOptions() {
     }
 }
 
+var updateCartPage = function(data) {
+    $('.cart-section-wrapper').html(data.cartPageHtml);
+    $('.minicart').trigger('count:update', data);
+    if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
+        affirm.ui.refresh();
+    }
+};
+
+/**
+ * Updates the Mini-Cart quantity value after the customer has pressed the "Add to Cart" button
+ * @param {string} response - ajax response from clicking the add to cart button
+ */
+ function handlePostCartAdd(response) { 
+    $('.minicart').trigger('count:update', response);
+    if (typeof setMarketingProductsByAJAX !== 'undefined' && response.marketingProductData !== undefined) {
+        setMarketingProductsByAJAX.cartMarketingData = response.marketingProductData;
+        if (response.addToCartPerSession == true) {
+            setMarketingProductsByAJAX.addToCartPerSession = true;
+        } else {
+            setMarketingProductsByAJAX.addToCartPerSession = false;
+        }
+        window.dispatchEvent(setMarketingProductsByAJAX);
+    }
+    if (typeof setAnalyticsTrackingByAJAX !== 'undefined') {
+        if(response.cartAnalyticsTrackingData !== undefined) {
+            setAnalyticsTrackingByAJAX.cartAnalyticsTrackingData = response.cartAnalyticsTrackingData;
+            window.dispatchEvent(setAnalyticsTrackingByAJAX);
+        }
+        if(response.addCartGtmArray !== undefined){
+             $('body').trigger('addToCart:success', JSON.stringify(response.addCartGtmArray));
+        }   
+    }
+    if (response.newBonusDiscountLineItem
+        && Object.keys(response.newBonusDiscountLineItem).length !== 0) {
+        chooseBonusProducts(response.newBonusDiscountLineItem);
+    }
+}
+
 module.exports = function () {
     $cart();
 
@@ -220,6 +258,49 @@ module.exports = function () {
             }
         }, 100)
     }
+
+    $('body').off('click', 'gift-allowed-checkbox').on('click', '.gift-allowed-checkbox', function(e) {
+        e.preventDefault();
+        $.spinner().start();
+        var $this = $(this);
+        var url = $this.data('add-to-cart-url');
+        var pid = $this.val();
+        var form = {
+            pid: pid,
+            quantity: 1,
+            };
+
+            if (url) {
+
+                $.ajax({
+                    url: url,
+                    method: 'POST',
+                    data: form,
+                    success: function (data) {
+                        updateCartPage(data);
+                        handlePostCartAdd(data);
+                        $('body').trigger('product:afterAddToCart', data);
+                        $('.mini-cart-data .popover').empty();
+                        $('.mini-cart-data .popover').append(data);
+                        $('.mini-cart-data .popover').addClass('show');
+                        //Custom Start: [MSS-1451] Listrak SendSCA on AddToCart
+                        if (window.Resources.LISTRAK_ENABLED) {
+                            var ltkSendSCA = require('listrak_custom/ltkSendSCA');
+                            ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
+                        }
+                        $.spinner().stop();
+                        //Custom End
+                    },
+                    error: function () {
+                        $.spinner().stop();
+                    },
+                    complete: function () {
+                        $('body').trigger('miniCart:recommendations'); 
+                    }
+                });
+            }
+    });
+
      $('body').off('click', '.minicart').on('click', '.minicart', function (event) {
          var $url = $('.minicart').data('action-url');
          var $count = parseInt($('.minicart .minicart-quantity').text());
