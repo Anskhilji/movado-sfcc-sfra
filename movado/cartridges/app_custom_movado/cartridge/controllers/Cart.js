@@ -101,6 +101,11 @@ server.append('AddProduct', function (req, res, next) {
             recommendedProductCardHtml = renderTemplateHelper.getRenderedHtml(basketModel, 'cart/productCard/recommendationProductCard');
         }
 
+        if (req.form.isGiftItem && !empty(req.form.isGiftItem)) {
+            basketModel.removeProductLineItemUrl = basketModel.actionUrls.removeProductLineItemUrl;
+            giftProductCardHtml = renderTemplateHelper.getRenderedHtml(basketModel, 'cart/productCard/giftProductCard');
+        }
+
         var addCartGtmArray = customCartHelpers.createAddtoCartProdObj(currentBasket, viewData.pliUUID, embossedMessage, engravedMessage);
         viewData.addCartGtmArray = addCartGtmArray;
 
@@ -145,7 +150,8 @@ server.append('AddProduct', function (req, res, next) {
 
         res.setViewData({
             quantityTotal: quantityTotal,
-            recommendedProductCardHtml: recommendedProductCardHtml
+            recommendedProductCardHtml: recommendedProductCardHtml,
+            giftProductCardHtml: giftProductCardHtml
         });
     }
     return next();
