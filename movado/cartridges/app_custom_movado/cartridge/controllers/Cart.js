@@ -109,7 +109,8 @@ server.append('AddProduct', function (req, res, next) {
 
         if (req.form.isGiftItem && !empty(req.form.isGiftItem)) {
             basketModel.removeProductLineItemUrl = basketModel.actionUrls.removeProductLineItemUrl;
-            giftProductCardHtml = renderTemplateHelper.getRenderedHtml(attributeContext, 'cart/productCard/giftProductCard');
+            var template = isCartPage ? 'cart/productCard/cartGiftProductCard' : 'cart/productCard/miniCartGiftProductCard';
+            giftProductCardHtml = renderTemplateHelper.getRenderedHtml(basketModel, template);
         }
 
         var addCartGtmArray = customCartHelpers.createAddtoCartProdObj(currentBasket, viewData.pliUUID, embossedMessage, engravedMessage);
