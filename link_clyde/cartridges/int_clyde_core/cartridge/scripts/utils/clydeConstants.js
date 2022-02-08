@@ -9,7 +9,7 @@ var clydeConstant = {};
 
 clydeConstant.CLYDE_OPTION_PRODUCT_ID = 'clydeWarranty';
 clydeConstant.CLYDE_OPTION_NONE = 'NONE';
-clydeConstant.CLYDE_OPTION_TEXT = ' warranty for: ';
+clydeConstant.CLYDE_OPTION_TEXT = Site.current.preferences.custom.clydeWarrantyMessage;
 clydeConstant.CLYDE_OPTION_PRODUCT_TAX_ID = Site.current.preferences.custom.clydeContractTaxClassID;
 clydeConstant.CLYDE_IMAGE_URL = Site.current.preferences.custom.clydeContractImageUrl || URLUtils.staticURL('images/clyde.png');
 
