@@ -337,7 +337,7 @@ module.exports = function () {
         }, 100)
     }
 
-    $('body').off('click', '.gift-allowed-checkbox').on('click', '.gift-allowed-checkbox', function(e) {
+    $('body').off('click', '.product-card-wrapper .gift-allowed-checkbox').on('click', '.product-card-wrapper .gift-allowed-checkbox', function(e) {
         e.preventDefault();
         $.spinner().start();
         var $this = $(this);

@@ -102,11 +102,6 @@ server.append('AddProduct', function (req, res, next) {
             recommendedProductCardHtml = renderTemplateHelper.getRenderedHtml(basketModel, 'cart/productCard/recommendationProductCard');
         }
 
-        var attributeContext = {
-            basketModel: basketModel,
-            isCartPage: isCartPage
-        }
-
         if (req.form.isGiftItem && !empty(req.form.isGiftItem)) {
             basketModel.removeProductLineItemUrl = basketModel.actionUrls.removeProductLineItemUrl;
             var template = isCartPage ? 'cart/productCard/cartGiftProductCard' : 'cart/productCard/miniCartGiftProductCard';

@@ -1,0 +1,17 @@
+<isif condition="${product !== null}">
+    <isset name="isGiftBoxAllowed" value="${product.isGiftBoxAllowed}" scope="page" />
+    <isset name="giftBoxSKUData" value="${product.giftBoxSKUData}" scope="page" />
+    <isset name="isCartPage" value="${false}" scope="page" />
+<iselse/>
+    <isset name="isGiftBoxAllowed" value="${require('*/cartridge/scripts/helpers/productCustomHelper').isGiftBoxAllowed(dw.catalog.ProductMgr.getProduct(lineItem.id))}" scope="page" />
+    <isset name="giftBoxSKUData" value="${require('*/cartridge/scripts/helpers/productCustomHelper').getGiftBoxSKU(dw.catalog.ProductMgr.getProduct(lineItem.id))}" scope="page" />
+    <isset name="isCartPage" value="${true}" scope="page" />
+</isif>
+
+
+
+<isset name="giftBoxMessage" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxMessage) ? dw.system.Site.current.preferences.custom.giftBoxMessage : ''}" scope="page" />
+<isif condition="${!empty(isGiftBoxAllowed) && isGiftBoxAllowed && giftBoxSKUData.giftBoxSKUAvailability}">
+    <input type="checkbox" name="gift-allowed-checkout" data-add-to-cart-url="${isCartPage ? URLUtils.url('Cart-AddProduct') : ''}" data-requested-page="false" class="gift-allowed-checkbox" value="${giftBoxSKUData.giftBoxSKU}">
+    <label for="gift-allowed-checkout">${giftBoxMessage} ${giftBoxSKUData.giftBoxSKUPrice} </label>
+</isif>

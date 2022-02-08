@@ -239,6 +239,7 @@
                     </isif>
 
                     <isset name="isRecommendationsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.recommendationsEnabled) ? dw.system.Site.current.preferences.custom.recommendationsEnabled : false}" scope="page" />
+                    
                     <isif condition="${isRecommendationsEnabled}" >
                         <div class="linked-product-container">
                             <isinclude template="product/components/recommendedProducts" />
@@ -252,10 +253,13 @@
                             </div>
                         </div>
                     </div>
+                    <isset name="giftBoxMessage" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxMessage) ? dw.system.Site.current.preferences.custom.giftBoxMessage : ''}" scope="page" />
                     <isif condition="${!empty(product.isGiftBoxAllowed) && product.isGiftBoxAllowed && product.giftBoxSKUData.giftBoxSKUAvailability}">
                         <input type="checkbox" name="gift-allowed-checkout" class="gift-allowed-checkbox" value="${product.giftBoxSKUData.giftBoxSKU}">
-                        <label for="gift-allowed-checkout">Add A Gift Box x ${product.giftBoxSKUData.giftBoxSKUPrice} </label>
+                        <label for="gift-allowed-checkout">${giftBoxMessage} ${product.giftBoxSKUData.giftBoxSKUPrice} </label>
                     </isif>
+                    <iscomment> <isinclude template="common/giftBoxMessageDetails" /> </iscomment>
+                    
 
                     <isif condition="${product.shortDescription}">
                       <div class="row">

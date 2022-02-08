@@ -175,6 +175,7 @@ function openMiniCart() {
     //Custom Start: Open the mini cart
     var url = $('.minicart').data('action-url');
     var count = parseInt($('.minicart .minicart-quantity').text());
+
     if (count !== 0 && $('.mini-cart-data .popover.show').length === 0) {
         $.get(url, function (data) {
             $('.mini-cart-data .popover').empty();

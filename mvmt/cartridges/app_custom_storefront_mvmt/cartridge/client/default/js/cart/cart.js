@@ -866,48 +866,6 @@ module.exports = function () {
         });
     });
 
-    $('body').off('click', '.gift-allowed-checkbox').on('click', '.gift-allowed-checkbox', function(e) {
-        e.preventDefault();
-        $.spinner().start();
-        var $this = $(this);
-        var url = $this.data('add-to-cart-url');
-        var pid = $this.val();
-        var form = {
-            pid: pid,
-            quantity: 1,
-            isGiftItem: true
-        };
-
-        if (url) {
-            $.ajax({
-                url: url,
-                method: 'POST',
-                data: form,
-                success: function (data) {
-                    $('.main-cart-block .product-list-block').empty();
-                    $('.main-cart-block .product-list-block').append(data.giftProductCardHtml);
-                    updateCartTotals(data.basket);
-                    // handlePostCartAdd(data);
-                    //Custom Start: [MSS-1451] Listrak SendSCA on AddToCart
-                    if (window.Resources.LISTRAK_ENABLED) {
-                        var ltkSendSCA = require('listrak_custom/ltkSendSCA');
-                        ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
-                    }
-                    $('.gift-allowed-checkbox').hide();
-                    $('.gift-allowed-checkbox').next('label').hide();
-                    $.spinner().stop();
-                    //Custom End
-                },
-                error: function () {
-                    $.spinner().stop();
-                },
-                complete: function () {
-                    $('body').trigger('miniCart:recommendations'); 
-                }
-            });
-        }
-    });
-
     base.selectAttribute();
     base.colorAttribute();
     base.removeBonusProduct();
