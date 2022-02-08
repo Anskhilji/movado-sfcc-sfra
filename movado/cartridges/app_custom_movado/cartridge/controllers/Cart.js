@@ -25,6 +25,7 @@ server.append('AddProduct', function (req, res, next) {
     var cartHelper = require('*/cartridge/scripts/cart/cartHelpers');
     var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
     var recommendedProductCardHtml = '';
+    var isCartPage = req.form.isCartPage;
 
 
     if (!viewData.error) {
@@ -101,9 +102,14 @@ server.append('AddProduct', function (req, res, next) {
             recommendedProductCardHtml = renderTemplateHelper.getRenderedHtml(basketModel, 'cart/productCard/recommendationProductCard');
         }
 
+        var attributeContext = {
+            basketModel: basketModel,
+            isCartPage: isCartPage
+        }
+
         if (req.form.isGiftItem && !empty(req.form.isGiftItem)) {
             basketModel.removeProductLineItemUrl = basketModel.actionUrls.removeProductLineItemUrl;
-            giftProductCardHtml = renderTemplateHelper.getRenderedHtml(basketModel, 'cart/productCard/giftProductCard');
+            giftProductCardHtml = renderTemplateHelper.getRenderedHtml(attributeContext, 'cart/productCard/giftProductCard');
         }
 
         var addCartGtmArray = customCartHelpers.createAddtoCartProdObj(currentBasket, viewData.pliUUID, embossedMessage, engravedMessage);

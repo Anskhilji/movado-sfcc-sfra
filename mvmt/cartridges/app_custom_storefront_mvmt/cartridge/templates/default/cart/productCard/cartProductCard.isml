@@ -67,6 +67,15 @@
                                 <a href="${URLUtils.url('Cart-GetProduct', 'uuid', lineItem.UUID)}" class="edit" title="${Resource.msg('link.edit.item', 'cart',null)}">${Resource.msg('link.edit.item', 'cart', null)}</a>
                             </div>
                         </isif>
+                                <isset name="product" value="${dw.catalog.ProductMgr.getProduct(lineItem.id)}" scope="page" />
+        <isset name="isGiftBoxAllowed" value="${require('*/cartridge/scripts/helpers/productCustomHelper').isGiftBoxAllowed(product)}" scope="page" />
+        <isset name="giftBoxSKUData" value="${require('*/cartridge/scripts/helpers/productCustomHelper').getGiftBoxSKU(product)}" scope="page" />
+        <isset name="isCartPage" value="${true}" scope="page" />
+        
+        <isif condition="${!empty(isGiftBoxAllowed) && isGiftBoxAllowed && giftBoxSKUData.giftBoxSKUAvailability}">
+            <input type="checkbox" data-add-to-cart-url="${URLUtils.url('Cart-AddProduct')}" data-requested-page="${isCartPage}" name="gift-allowed-checkout" class="gift-allowed-checkbox" value="${giftBoxSKUData.giftBoxSKU}">
+            <label for="gift-allowed-checkout">Add A Gift Box x ${giftBoxSKUData.giftBoxSKUPrice} </label>
+        </isif>
                         <isif condition="${pdict.loggedIn}">
                              <div class="hidden-xs-down edit-add-to-wishlist">
                                   <isinclude template="cart/productCard/cartProductCardEdit" />

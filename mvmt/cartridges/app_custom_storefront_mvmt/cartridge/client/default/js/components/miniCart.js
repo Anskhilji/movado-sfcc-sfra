@@ -343,10 +343,12 @@ module.exports = function () {
         var $this = $(this);
         var url = $this.data('add-to-cart-url');
         var pid = $this.val();
+        var isCartPage = $(this).data('requested-page');
         var form = {
             pid: pid,
             quantity: 1,
-            isGiftItem: true
+            isGiftItem: true,
+            isCartPage: isCartPage
             };
 
             if (url) {
@@ -355,8 +357,13 @@ module.exports = function () {
                     method: 'POST',
                     data: form,
                     success: function (data) {
+                    if (isCartPage) {
+                        $('.main-cart-block .product-list-block').empty();
+                        $('.main-cart-block .product-list-block').append(data.giftProductCardHtml);
+                    } else {
                         $('.mini-cart-data .product-summary').empty();
                         $('.mini-cart-data .product-summary').append(data.giftProductCardHtml);
+                    }
                         updateCartTotals(data.cart);
                         handlePostCartAdd(data);
                         //Custom Start: [MSS-1451] Listrak SendSCA on AddToCart

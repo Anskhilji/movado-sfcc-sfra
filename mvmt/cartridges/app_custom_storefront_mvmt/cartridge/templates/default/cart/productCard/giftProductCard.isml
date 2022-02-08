@@ -1,4 +1,6 @@
-<isset name="items" value="${pdict.items}" scope="page"/>
+<isset name="items" value="${pdict.basketModel.items}" scope="page"/>
+<isset name="isCartPage" value="${pdict.isCartPage}" scope="page" />
+
 <isloop items="${items}" var="lineItem" status="loopStatus">
     <isif condition="${!empty(lineItem)} ">
         <div class="row">
@@ -9,11 +11,20 @@
                     </div>
                 </div>
             <iselse/>
-                <div class="card uuid-${lineItem.UUID}">
-                    <div class="card-body">
-                        <isinclude template="checkout/productCard/miniCartProductCard" />
+                <isif condition="${!empty(isCartPage) && isCartPage == true}">
+                    <div class="card uuid-${lineItem.UUID}">
+                        <div class="card-body">
+                            <isinclude template="cart/productCard/cartProductCard" />
+                        </div>
                     </div>
-                </div>
+                <iselse/>
+                    <div class="card uuid-${lineItem.UUID}">
+                        <div class="card-body">
+                            <isinclude template="checkout/productCard/miniCartProductCard" />
+                        </div>
+                    </div>
+                </isif>
+
             </isif>
         </div>
     </isif>
