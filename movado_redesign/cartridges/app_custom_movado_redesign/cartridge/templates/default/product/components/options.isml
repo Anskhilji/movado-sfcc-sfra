@@ -25,7 +25,7 @@
                         <isinclude template="product/components/option" />
                     </isif> 
                 </div>
-                <iselseif condition="${!(option.id == "clydeWarranty")}">
+                <iselseif condition="${!(option.id == "clydeWarranty") && dw.system.Site.current.preferences.custom.isClydeEnabled}">
                         <isinclude template="product/components/option" />
                 </isif>
             </div>
