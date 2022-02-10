@@ -251,11 +251,12 @@
             padding-top: rem(70);
 
             @include media-breakpoint-up(lg) {
-                padding-top: rem(140);
+                padding-top: rem(154);
             }
 
             .product-section-mobile {
                 @include media-breakpoint-down(md) {
+                    margin-top: rem(20);
                     padding-top: rem(30);
                     background-color: $white;
                     border-radius: rem(40) rem(40) 0 0;
@@ -270,6 +271,10 @@
                         background-color: $white;
                         bottom: rem(-5);
                     }
+                }
+
+                @include media-breakpoint-up(lg) { 
+                    padding-bottom: rem(114);
                 }
             }
 
@@ -299,7 +304,6 @@
 
                 @include media-breakpoint-up(lg) {
                     line-height: rem(30);
-                    margin-bottom: rem(5);
                     text-align: left;
                 }
             }
@@ -311,7 +315,7 @@
 
                 @include media-breakpoint-up(lg) {
                     margin-top: rem(20);
-                    justify-content: initial;
+                    justify-content: flex-start;
                 }
 
                 .estimated-text {
@@ -324,7 +328,7 @@
                 text-align: center;
 
                 @include media-breakpoint-up(lg) {
-                    text-align: initial;
+                    text-align: left;
                 }
             }
 
@@ -336,7 +340,10 @@
                 &-mobile {
                     margin: 0;
                     padding: 0;
-                    margin-bottom: rem(15);
+
+                    .yotpo-bottomline {
+                        margin-bottom: rem(15);
+                    }
                 }
 
                 .yotpo {
@@ -352,11 +359,11 @@
                     }
 
                     .yotpo-bottomline {
-                        float: initial;
+                        float: none;
                         justify-content: center;
 
                         @include media-breakpoint-up(lg) {
-                            justify-content: initial;
+                            justify-content: flex-start;
                             float: left;
                         }
                     }
@@ -403,30 +410,41 @@
             }
 
             .klarna-promo-parent-container {
-                margin-bottom: 0;
-                margin-top: rem(20);
+                margin: 0;
 
-                .container {
-                    border: none;
-                    max-width: initial;
-                    padding: 0;
-                    @include font-gill($font-size: 13);
-                    line-height: rem(18);
-                    color: $gray20;
+                .klarna-placement {
+                    margin-bottom: 0;
                     margin-top: rem(20);
-                    background: transparent;
-                    text-align: left;
-
-                    .link {
+                    display: flex;
+                    justify-content: center;
+                    
+                    @include media-breakpoint-up(lg) { 
+                        display: block;
+                    }
+    
+                    .container {
+                        border: none;
+                        max-width: none;
                         padding: 0;
                         @include font-gill($font-size: 13);
                         line-height: rem(18);
                         color: $gray20;
-                        display: inline-block;
-                        margin-left: rem(2);
+                        margin-top: rem(20);
+                        background: transparent;
+                        text-align: left;
+    
+                        .link {
+                            padding: 0;
+                            @include font-gill ($font-size: 13);
+                            line-height: rem(18);
+                            color: $gray20;
+                            display: inline-block;
+                            margin-left: rem(2);
+                        }
                     }
                 }
             }
+
 
             .description {
                 display: none;
@@ -450,7 +468,7 @@
                 @include media-breakpoint-up(lg) {
                     margin-top: rem(0);
                     flex: 0 0 43.4%;
-                    max-width: 45.4%;
+                    max-width: 43.4%;
                     padding-right: rem(15);
                     padding-left: rem(60);
                 }
@@ -460,6 +478,7 @@
                 }
 
                 .cart-and-ipay {
+
                     @include media-breakpoint-down(md) {
                         margin: 0;
                         padding: 0 rem(10);
@@ -507,9 +526,10 @@
             margin: 0;
             padding: rem(30) 0 rem(40) 0;
             text-align: center;
+            background-color: $white;
 
             @include media-breakpoint-up(lg) {
-                text-align: initial;
+                text-align: left;
                 padding: rem(60) 0 rem(100) 0;
             }
 
@@ -670,10 +690,14 @@
 
         .product-availability {
             margin: 0;
+
+            .col-12 {
+                flex: none;
+            }
         }
 
         .availability-msg {
-            @include font-gill($font-size: 12, $font-weight: 600);
+            @include font-gill ($font-size:12, $font-weight: 500);
             line-height: rem(20);
             color: $dark-gray;
             text-transform: capitalize !important;
@@ -693,7 +717,7 @@
 
         .shipping-callout {
             span {
-                @include font-gill($font-size: 12, $font-weight: 600);
+                @include font-gill ($font-size:12, $font-weight: 500);
                 line-height: rem(16);
                 color: $dark-gray;
                 text-transform: capitalize;
@@ -728,15 +752,25 @@
             top: rem(20);
             left: rem(20);
             display: none;
+
+            .col {
+                padding: 0;
+                -ms-flex-preferred-size: auto;
+            }
+
+            .row {
+                margin: 0;
+            }
             @include media-breakpoint-up(lg) {
                 display: block;
             }
 
             .breadcrumb {
+                padding: 0;
+    
                 &-item {
                     a {
-                        @include font-gill($font-size: 12, $font-weight: 600, $letter-spacing: 0.5);
-
+                        @include font-gill ($font-size: 12, $font-weight: 500, $letter-spacing: 0.5);
                         line-height: rem(16);
                         color: $black;
                         margin-left: rem(5);
@@ -779,14 +813,14 @@
 
             @include media-breakpoint-up(lg) {
                 margin-top: rem(20);
-                text-align: initial;
+                text-align: left;
             }
 
             .add-to-cart {
                 width: 100%;
                 height: rem(45);
                 background: $black;
-                @include font-gill($font-weight: 600);
+                @include font-gill ($font-weight: 500);
                 line-height: rem(20);
                 text-transform: uppercase;
                 color: $white;

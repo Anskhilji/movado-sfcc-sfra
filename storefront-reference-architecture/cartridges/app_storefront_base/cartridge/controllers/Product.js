@@ -17,6 +17,7 @@ var pageMetaData = require('*/cartridge/scripts/middleware/pageMetaData');
  */
 
 server.get('Show', cache.applyPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
+    var Site = require('dw/system/Site');
     var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
     var productType = showProductPageHelperResult.product.productType;
@@ -28,7 +29,8 @@ server.get('Show', cache.applyPromotionSensitiveCache, consentTracking.consent, 
             product: showProductPageHelperResult.product,
             addToCartUrl: showProductPageHelperResult.addToCartUrl,
             resources: showProductPageHelperResult.resources,
-            breadcrumbs: showProductPageHelperResult.breadcrumbs
+            breadcrumbs: showProductPageHelperResult.breadcrumbs,
+            plpProductFamilyName: Site.getCurrent().preferences.custom.plpProductFamilyName ? Site.getCurrent().preferences.custom.plpProductFamilyName : false
         });
     }
     next();
