@@ -34,7 +34,6 @@
                     <div class="product-breadcrumb">
                         <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
                     </div>
-                <div class="row">
                     <!-- Product Images Carousel -->
                     <isinclude template="product/components/imageCarousel" />
 
@@ -117,7 +116,6 @@
                             </isif>
                         </div>
                     </div>
-                </div>
         </div>
         
         <iscomment> Custom Comment:  "product-detail-redesign" class added</iscomment>
