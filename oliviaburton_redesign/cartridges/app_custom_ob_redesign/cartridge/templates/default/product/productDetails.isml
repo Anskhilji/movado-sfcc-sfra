@@ -41,9 +41,8 @@
                     <div class="col-12 col-sm-6 product-top-detail">
 
                         <!-- Family Name -->
-                        <isif condition="${pdict.plpProductFamilyName}">
                             <h1 class="family-name">${pdict.collectionName}</h1>
-                        </isif>
+
                         <!-- Product Name -->
                         <h2 class="product-name text-uppercase">${product.productName}</h2>
 
