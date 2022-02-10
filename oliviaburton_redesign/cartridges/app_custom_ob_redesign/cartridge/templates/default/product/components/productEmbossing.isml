@@ -1,0 +1,74 @@
+<form action="" name="embossing" class="debossing-form" id="embossingForm">
+    <div class="debossing-btn">
+        <a href="javascript:void(0);"class="btn  btn-primary" pd-popup-open="debossing-popup">
+            <span class="open-popup">${Resource.msg('label.product.edit.debossing', 'product', 'null')}</span>
+            <span class="edit-popup">${Resource.msg('label.product.edit.debossing', 'product', 'null')}:<b class="debossing-text"></b> <label>edit</label></span>
+        </a>
+        <input type="hidden" name="${option.id + 'FirstOptionID'}" value="${option.values[0].id}"/>
+        <isloop items="${option.values}" var="value" status="optionLoopStatus">
+            <isif condition="${optionLoopStatus.first}">
+                <input type="radio" class="d-none" name="${option.id + '_attrOption'}"data-value-id="${value.id}" name="${option.id + '_attrOption'}" data-value-url="${value.url}" <isif condition="${value.id == option.selectedValueId}"/>checked</isif>/>
+            <iscomment> NOTE: Uncomment for Horizontal & Verical Radios </iscomment>
+            <iscomment> <iselseif condition="${optionLoopStatus.length > 2}">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="${option.id + '_attrOption'}"data-value-id="${value.id}" name="${option.id + '_attrOption'}" data-value-url="${value.url}" <isif condition="${value.id === option.selectedValueId}"/>checked</isif>>  
+                    <label class="form-check-label">${value.displayValue}</label>
+                </div> </iscomment>
+            <iselse>
+                <input type="radio" class="d-none" name="${option.id + '_attrOption'}"data-value-id="${value.id}" name="${option.id + '_attrOption'}" data-value-url="${value.url}" <isif condition="${value.id === option.selectedValueId}"/>checked</isif>>
+            </isif>
+        </isloop>
+
+        <div class="popup" pd-popup="debossing-popup">
+            <div class="popup-inner pb-4">
+                <div class="scroll-div">
+                    <button type="button" class="popup-close-btn close" data-dismiss="modal"></button>
+                    <div class="popup-head">
+                        <isslot id="debossing-popup-title" description="Debossing Popup Title" context="global" />
+                        <isslot id="debossing-popup-para" description="Debossing Popup Para" context="global" />
+                    </div>
+                    <div class="popup-body">
+                        <div class="row m-0 orientation-row">
+                            <div class="col col-sm-auto mb-3 orientation-switch">
+                                <input type="radio" name="orientation" class="form-check-input orientation-horizontal default-checked-radio-button" value="isHorizontal" data-name="orientation" data-characterlimit="${product.embossingTextValidations['horizontalTextLimit']}" data-input="${'#input_' + option.id}" id="orientation-horizontal" required checked="checked" 
+                                data-placeholder="${product.resources.embossingHorizontalPlaceholder}" data-format-error="${product.resources.errorMaxlengthHorizontalEmbossText}">
+                                <label for="orientation-horizontal" class="form-check-label"><span class="display-name">Horizontal</span></label>
+                            </div>
+                            <div class="col col-sm-auto mb-3 orientation-switch">
+                                <input type="radio" name="orientation" class="form-check-input orientation-vertical" value="isVertical" data-name="orientation" data-characterlimit="${product.embossingTextValidations['verticalTextLimit']}" data-input="${'#input_' + option.id}" id="orientation-vertical" required 
+                                data-placeholder="${product.resources.embossingVerticalPlaceholder}" data-format-error="${product.resources.errorMaxlengthVerticalEmbossText}">
+                                <label for="orientation-vertical" class="form-check-label"><span class="display-name">Vertical</span></label>
+                            </div>
+                        </div>                        
+                        <ul class="nav popup-tabs">
+                            <li><a data-toggle="tab" class="debossing-tabs active" data-id="horizontal-text" href="#horizontal-text">${Resource.msg('button.text.horizontal', 'product', null)}</a></li>
+                            <li><a data-toggle="tab" class="debossing-tabs" data-id="vertical-text" href="#vertical-text">${Resource.msg('button.text.vertical', 'product', null)}</a></li>
+                        </ul>
+                        <div class="watch-image">
+                            <div class="image d-inline-block">
+                                <picture class="d-inline-block">
+                                    <source media="(min-width: 650px)" srcset="${!empty(product.images) && !empty(product.images['pdp533']) && !empty(product.images['pdp533'][2]) && !empty(product.images['pdp533'][2].url) ? product.images['pdp533'][2].url : ''}">
+                                    <source media="(min-width: 465px)" srcset="${!empty(product.images) && !empty(product.images['pdp533']) && !empty(product.images['pdp533'][2]) && !empty(product.images['pdp533'][2].url) ? product.images['pdp533'][2].url : ''}">
+                                    <img src="${!empty(product.images) && !empty(product.images['pdp533']) && !empty(product.images['pdp533'][2]) && !empty(product.images['pdp533'][2].url) ? product.images['pdp533'][2].url : ''}" alt="test" style="width:auto;">
+                                </picture>
+                            </div>
+                        </div>
+                        <div class="text-area">
+                            <div class="option-message">
+                                <input  id="horizontal-text" type="text" class="form-control debossing-input tab-pane fade in active" required maxlength="${product.embossingTextValidations['horizontalTextLimit']}" data-format-error="${product.resources.errorMaxlengthEmbossText}" data-required-error="${product.resources.errorEmptyEmbossText}" id="${'input_' + option.id}" placeholder="${product.resources.embossingHorizontalPlaceholder}" name="option-message" data-name="${option.id + 'Message'}"/>
+                                <input id="vertical-text" type="text" class="form-control debossing-input debossing-value tab-pane fade" required maxlength="${product.embossingTextValidations['verticalTextLimit']}" data-format-error="${product.resources.errorMaxlengthEmbossText}" data-required-error="${product.resources.errorEmptyEmbossText}" id="${'input_' + option.id}" placeholder="${product.resources.embossingVerticalPlaceholder}" name="option-message" data-name="${option.id + 'Message'}"/>
+                            </div>
+                            <div class="popup-action-btns">
+                                <button type="submit" class="btn btn-primary save" form="embossingForm">
+                                    <span class="apply">${Resource.msg('buttom.option.text.save', 'product', null)}</span>
+                                </button>
+                            </div>
+                            <a href="" class="dont-add .debossing-cancel togglePersonalizationOpt">${Resource.msg('button.dont.add', 'product', null)}</a>
+                        </div>
+                        <label for="${'input_' + option.id}" class="hidden-label">${product.resources.embossingPlaceholder}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
