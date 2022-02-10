@@ -29,6 +29,7 @@ function getLineItemOptionNames(optionProductLineItems) {
             selectedValueId: item.optionValueID,
             lineItemText: item.lineItemText,
             price: formatMoney(item.price),
+            adjustedPrice: formatMoney(item.adjustedPrice),
             imageURL: clydeConstants.CLYDE_IMAGE_URL
         };
     });
