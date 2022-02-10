@@ -123,9 +123,14 @@
                 .btn {
                     @include media-breakpoint-down(xs) {
                         width: 100%;
-                        margin: rem(0) auto rem(10);
+                        margin: rem(0) auto;
                         max-width: 100%;
                         border-radius: rem(4);
+                    }
+                    &.add-to-cart {
+                        @include media-breakpoint-down(xs) {
+                            margin-bottom: rem(10);
+                        }
                     }
                 }
             }
