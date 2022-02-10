@@ -28,11 +28,16 @@
                 <div class="product-breadcrumb">
                     <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
                 </div>
-                <div class="row">
+
+                <div class="row align-items-center-wrapper">
+                    <!---Breadcrumbs--->
+                    <div class="product-breadcrumb">
+                        <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
+                    </div>
                     <!-- Product Images Carousel -->
                     <isinclude template="product/components/imageCarousel" />
 
-                    <div class="col-12 col-lg-5 product-top-detail">
+                    <div class="col-12 col-sm-6 product-top-detail">
 
                         <!-- Family Name -->
                         <isif condition="${pdict.plpProductFamilyName}">
@@ -112,7 +117,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
         
         <iscomment> Custom Comment:  "product-detail-redesign" class added</iscomment>

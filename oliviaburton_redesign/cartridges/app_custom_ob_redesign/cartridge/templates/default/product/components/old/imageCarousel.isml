@@ -25,7 +25,6 @@
                     </picture>
                 </div>
             </isloop>
-        </div>
         <isif condition="${isImageExist}">
             <isif condition="${!isQuickView}">
                 <button class="quickview js-zoom-image btn p-0" data-toggle="modal" data-target="#zoomProduct" aria-label="${product.resources.Zoom}">
@@ -36,6 +35,7 @@
                 </button>
             </isif>
         </isif>
+        </div>
     </div>
 </div>
 
