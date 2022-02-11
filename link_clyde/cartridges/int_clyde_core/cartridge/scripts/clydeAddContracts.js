@@ -74,7 +74,7 @@ function addClydeContractAttributes(clydeSKU, basket, productId) {
                 var optionLineItem = optionLineItemsItr.next();
                 if (optionLineItem.optionValueID === clydeSKU) {
                     optionLineItem.setTaxClassID(clydeConstants.CLYDE_OPTION_PRODUCT_TAX_ID);
-                    optionLineItem.setLineItemText(clydeSKU + clydeConstants.CLYDE_OPTION_TEXT + productLineItem.productName);
+                    optionLineItem.setLineItemText(clydeConstants.CLYDE_OPTION_TEXT + productLineItem.productName);
                     optionLineItem.custom.clydeAssociatedProductSku = productId;
                     optionLineItem.custom.ClydeContractSku = clydeSKU;
                     productLineItem.custom.clydeAssociatedContractSku = clydeSKU;
