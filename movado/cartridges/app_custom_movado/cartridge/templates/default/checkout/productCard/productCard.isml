@@ -118,16 +118,24 @@
     </isif>
 
     <isloop items="${lineItem.options}" var="option">
-        <isif condition="${!empty(option.displayName) && option.optionId === 'clydeWarranty'}">
-            <div class="product-line-item-details d-flex flex-row">
-                <div class="item-image">
-                    <img class="product-image" src="${option.imageURL}" alt="${option.displayName}" title="${option.displayName}">
+        <isif condition="${dw.system.Site.current.preferences.custom.isClydeEnabled}">
+            <isif condition="${!empty(option.displayName) && option.optionId === 'clydeWarranty'}">
+                <div class="product-line-item-details d-flex flex-row">
+                    <div class="item-image">
+                        <img class="product-image" src="${option.imageURL}" alt="${option.displayName}" title="${option.displayName}">
+                    </div>
+                    <div class="item-attributes">
+                        <p class="line-item-attributes">${option.lineItemText}</p>
+                        <isif condition="${!empty(option.price) && !empty(option.adjustedPrice) && option.price == option.adjustedPrice}">
+                                <p class="line-item-attributes clyde-option-price" data-option-id="${option.optionId}" data-value-id="${option.selectedValueId}" data-uuid="${lineItem.UUID}">${(option.price)}</p>
+                            <iselse>
+                                <isif condition="${!empty(option.adjustedPrice)}">
+                                    <p>${option.adjustedPrice}</p>
+                                </isif>
+                        </isif>
+                    </div>
                 </div>
-                 <div class="item-attributes">
-                     <p class="line-item-attributes">${option.lineItemText}</p>
-                     <p class="line-item-attributes clyde-option-price" data-option-id="${option.optionId}" data-value-id="${option.selectedValueId}" data-uuid="${lineItem.UUID}">${option.price}</p>
-                 </div>
-            </div>
+            </isif>
         </isif>
     </isloop>
 
