@@ -9,7 +9,9 @@ var clydeConstant = {};
 
 clydeConstant.CLYDE_OPTION_PRODUCT_ID = 'clydeWarranty';
 clydeConstant.CLYDE_OPTION_NONE = 'NONE';
+// Start add custom code for display clydeWarranty message from site preference
 clydeConstant.CLYDE_OPTION_TEXT = Site.current.preferences.custom.clydeWarrantyMessage;
+// End
 clydeConstant.CLYDE_OPTION_PRODUCT_TAX_ID = Site.current.preferences.custom.clydeContractTaxClassID;
 clydeConstant.CLYDE_IMAGE_URL = Site.current.preferences.custom.clydeContractImageUrl || URLUtils.staticURL('images/clyde.png');
 
