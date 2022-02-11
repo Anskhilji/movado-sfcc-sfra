@@ -275,9 +275,38 @@
                         bottom: rem(-5);
                     }
                 }
+                @include media-breakpoint-down(sm-custom) {
+                    margin-top: rem(0);
+                }
 
                 @include media-breakpoint-up(lg) { 
                     padding-bottom: rem(114);
+                }
+                .ratings {
+                    @include media-breakpoint-down(sm-custom) {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin: rem(0);
+                    width: auto;
+                    }
+                    .standalone-bottomline {
+                        .yotpo-stars {
+                            .yotpo-icon-star {
+                                @include media-breakpoint-down(sm-custom) {
+                                    font-size: rem(20);
+                                }
+                            }
+                        }
+                        a {
+                            @include media-breakpoint-down(sm-custom) {
+                                @include font-gill($font-size: 12, $font-weight: 100);
+                                color: $gray20;
+                                line-height: rem(20);
+                                font-family: $font-gill-std-normal;
+                            }
+                        }
+                    }
                 }
             }
 
@@ -304,6 +333,7 @@
                 text-transform: capitalize;
                 width: auto;
                 text-align: center;
+                font-family: $font-gills-light;
 
                 @include media-breakpoint-up(lg) {
                     line-height: rem(30);
@@ -321,11 +351,26 @@
                     justify-content: flex-start;
                 }
                 @include media-breakpoint-down(sm-custom) {
-                    margin-top: rem(0);
+                    margin: rem(0) auto rem(17);
                 }
 
                 .estimated-text {
                     display: none;
+                }
+                .prices {
+                    @include media-breakpoint-down(sm-custom) {
+                        padding: rem(0);
+                    }
+                    .price-to-center {
+                        span {
+                            @include media-breakpoint-down(sm-custom) {
+                                @include font-gill($font-size: 28, $font-weight: 100);
+                                line-height: rem(45);
+                                color: $gray20;
+                                font-family: $font-gills-light;
+                            }
+                        }
+                    }
                 }
             }
 
@@ -503,6 +548,7 @@
                         }
                     }
                 }
+
             }
 
             .primary-images {
@@ -1175,7 +1221,7 @@
     
                 &-item {
                     a {
-                        @include font-gill ($font-size: 12, $font-weight: 500, $letter-spacing: 0.5);
+                        @include font-gill($font-size: 12, $font-weight: 500, $letter-spacing: 0.5);
                         @include font-gill($font-size: 12, $font-weight: 600, $letter-spacing: 0.5);
                         line-height: rem(16);
                         color: $black;
