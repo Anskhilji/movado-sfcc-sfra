@@ -29,9 +29,9 @@ function getLineItemOptionNames(optionProductLineItems) {
             selectedValueId: item.optionValueID,
             lineItemText: item.lineItemText,
             price: formatMoney(item.price),
-            // Start add custom code for product line item option
+            // Custom Start: Add custom code for product line item option
             adjustedPrice: formatMoney(item.adjustedPrice),
-            // End
+            // Custom End
             imageURL: clydeConstants.CLYDE_IMAGE_URL
         };
     });
