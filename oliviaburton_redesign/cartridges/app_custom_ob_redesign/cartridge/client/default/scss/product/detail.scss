@@ -973,6 +973,49 @@
                     }
                 }
             }
+            .add-to-cart-actions {
+                margin-top: rem(15);
+                text-align: center;
+    
+                @include media-breakpoint-up(lg) {
+                    margin-top: rem(20);
+                    text-align: left;
+                }
+    
+                .add-to-cart {
+                    width: 100%;
+                    height: rem(45);
+                    background: $black;
+                    @include font-gill ($font-weight: 500);
+                    line-height: rem(20);
+                    text-transform: uppercase;
+                    color: $white;
+                    border-color: $black;
+                    border-radius: rem(3);
+                    margin: 0;
+                    max-width: rem(355);
+                    margin: 0 auto;
+    
+                    @include media-breakpoint-up(lg) {
+                        width: rem(330);
+                    }
+    
+                    &:hover,
+                    &:focus {
+                        background-color: transparent;
+                        box-shadow: none;
+                        color: $black;
+                    }
+                }
+                .cart-and-ipay {
+                    .btn {
+                        @include media-breakpoint-down(sm-custom) {
+                            width: 100%;
+                        }
+                    }
+                        
+                }
+            }
         }
 
         .description-and-detail {
@@ -1261,41 +1304,7 @@
             }
         }
 
-        .add-to-cart-actions {
-            margin-top: rem(15);
-            text-align: center;
 
-            @include media-breakpoint-up(lg) {
-                margin-top: rem(20);
-                text-align: left;
-            }
-
-            .add-to-cart {
-                width: 100%;
-                height: rem(45);
-                background: $black;
-                @include font-gill ($font-weight: 500);
-                line-height: rem(20);
-                text-transform: uppercase;
-                color: $white;
-                border-color: $black;
-                border-radius: rem(3);
-                margin: 0;
-                max-width: rem(355);
-                margin: 0 auto;
-
-                @include media-breakpoint-up(lg) {
-                    width: rem(330);
-                }
-
-                &:hover,
-                &:focus {
-                    background-color: transparent;
-                    box-shadow: none;
-                    color: $black;
-                }
-            }
-        }
     }
 }
 
