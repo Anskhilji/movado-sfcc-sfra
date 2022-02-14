@@ -381,13 +381,14 @@
 
                 @include media-breakpoint-up(lg) {
                     text-align: left;
-                &-option {
-                    margin: 0;
-                    margin-bottom: rem(20);
-                    text-align: center;
+                    &-option {
+                        margin: 0;
+                        margin-bottom: rem(20);
+                        text-align: center;
 
-                    @include media-breakpoint-up(lg) {
-                        text-align: initial;
+                        @include media-breakpoint-up(lg) {
+                            text-align: initial;
+                        }
                     }
                 }
             }
@@ -535,6 +536,7 @@
 
                 @include media-breakpoint-down(sm-custom) {
                     margin-top: rem(8);
+                    padding: rem(0);
                 }
 
                 .cart-and-ipay {
@@ -1296,7 +1298,7 @@
         }
     }
 }
-}
+
 .primary-images {
     .product-badges {
         .badge-right {
