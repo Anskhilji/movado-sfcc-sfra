@@ -107,7 +107,7 @@
                                     <iscontentasset aid="ca-shipping-callout" />
                                 </div>
                             </div>
-                            <div class="${product.available ? "add-to-cart-actions" : ""}">
+                            <div class="${product.available ? "add-to-cart-actions " : ""}">
                                 <!-- Cart and [Optionally] Apple Pay -->
                                 <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
                             </div>

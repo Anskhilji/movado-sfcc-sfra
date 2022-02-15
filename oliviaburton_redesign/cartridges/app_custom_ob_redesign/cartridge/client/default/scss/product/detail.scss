@@ -256,6 +256,9 @@
             @include media-breakpoint-up(lg) {
                 padding-top: rem(154);
             }
+            @include media-breakpoint-down(sm-custom) {
+                padding-top: rem(20);
+            }
 
             .product-section-mobile {
                 @include media-breakpoint-down(md) {
@@ -300,10 +303,10 @@
                         }
                         a {
                             @include media-breakpoint-down(sm-custom) {
-                                @include font-gill($font-size: 12, $font-weight: 100);
+                                @include font-gill($font-size: 12, $font-weight: 300);
                                 color: $gray20;
                                 line-height: rem(20);
-                                font-family: $font-gill-std-normal;
+                                font-family: $font-gill-std-normal !important;
                             }
                         }
                     }
@@ -351,7 +354,7 @@
                     justify-content: flex-start;
                 }
                 @include media-breakpoint-down(sm-custom) {
-                    margin: rem(0) auto rem(17);
+                    margin: rem(8) auto rem(17);
                 }
 
                 .estimated-text {
@@ -1011,9 +1014,22 @@
                     .btn {
                         @include media-breakpoint-down(sm-custom) {
                             width: 100%;
+                            max-width: 100%;
                         }
                     }
                         
+                }
+                .btn-cart-googlepay {
+                    @include media-breakpoint-down(sm-custom) {
+                        border: none;
+                    }
+                    .google-pay-container {
+                        .gpay-button {
+                            @include media-breakpoint-down(sm-custom) {
+                                border-radius: rem(3);
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -1032,6 +1048,10 @@
             @include media-breakpoint-down(md) {
                 &.description-and-detail-pad {
                     padding-top: rem(40);
+                    @include media-breakpoint-down(sm-custom) {
+                        padding-top: rem(21);
+                    }
+
                 }
             }
 
