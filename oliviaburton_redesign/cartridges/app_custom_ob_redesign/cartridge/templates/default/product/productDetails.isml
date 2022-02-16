@@ -117,8 +117,62 @@
                         </div>
                     </div>
                 
-        </div>
-        </div>
+                </div>
+            <iscomment> Sticky-add to cart button PDP </iscomment>
+            <isif condition="${dw.campaign.ABTestMgr.isParticipant('MobileStickyCTATEST','notStickyCTA')}" > 
+                <div class="col-12 prices-add-to-cart-text-center">
+                    <!-- Prices -->
+                    <div class="prices">
+                        <isset name="price" value="${product.price}" scope="page" />
+                        <isinclude template="product/components/pricing/main" />
+                    </div>
+                    <!-- Cart and [Optionally] Apple Pay -->
+                    <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
+                </div>
+                    <iselseif condition="${dw.campaign.ABTestMgr.isParticipant('MobileStickyCTATEST','Control')}"> 
+                    <div class="col-12 prices-add-to-cart-actions cart-sticky-wrapper-btn">
+                        <!-- Prices -->
+                        <div class="prices">
+                            <isset name="price" value="${product.price}" scope="page" />
+                            <isinclude template="product/components/pricing/main" />
+                        </div>
+
+                            <!-- Cart and [Optionally] Apple Pay -->
+                        <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
+                    </div>
+                    <iselseif condition="${dw.campaign.ABTestMgr.isParticipant('MobileStickyCTATEST','StickyCTAWithNormalCTA')}"> 
+                    <div class="col-12 prices-add-to-cart-text-center 
+                                d-xss-block d-xs-block d-sm-none d-md-none d-lg-none d-xl-none d-xxl-none">
+                        <!-- Prices -->
+                        <div class="prices">
+                            <isset name="price" value="${product.price}" scope="page" />
+                            <isinclude template="product/components/pricing/main" />
+                        </div>
+                        <!-- Cart and [Optionally] Apple Pay -->
+                        <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
+                    </div>
+                    <div class="col-12 prices-add-to-cart-actions cart-sticky-wrapper-btn">
+                        <!-- Prices -->
+                        <div class="prices">
+                            <isset name="price" value="${product.price}" scope="page" />
+                            <isinclude template="product/components/pricing/main" />
+                        </div>
+
+                            <!-- Cart and [Optionally] Apple Pay -->
+                        <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
+                    </div>
+                    <iselse>
+                    <div class="col-12 prices-add-to-cart-actions cart-sticky-wrapper-btn">
+                        <!-- Prices -->
+                        <div class="prices d-lg-none">
+                            <isset name="price" value="${product.price}" scope="page" />
+                            <isinclude template="product/components/pricing/main" />
+                        </div>
+                        <!-- Cart and [Optionally] Apple Pay -->
+                        <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
+                    </div>
+            </isif>
+            </div>
         </div>
         
         <iscomment> Custom Comment:  "product-detail-redesign" class added</iscomment>
