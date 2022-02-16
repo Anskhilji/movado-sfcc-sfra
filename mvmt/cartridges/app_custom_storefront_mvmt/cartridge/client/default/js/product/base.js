@@ -171,6 +171,16 @@ function renderSwellRedemptionOptions() {
     }
 }
 
+function hideMiniCartCheckbox() {
+    if ($('.product-side-details .gift-allowed-checkbox').is(":checked")) {
+        alert($('.product-card-wrapper .gift-allowed-checkbox').length);
+        $('.product-card-wrapper .gift-allowed-checkbox').hide();
+        $('.product-card-wrapper .gift-allowed-checkbox').next('label').hide();
+        $('.line-item-attributes').append('testing');
+        // alert('Checked');
+    }
+}
+
 function openMiniCart() {
     //Custom Start: Open the mini cart
     var url = $('.minicart').data('action-url');
@@ -190,6 +200,7 @@ function openMiniCart() {
             updateMiniCart = false;
             $.spinner().stop();
             loadAmazonButton();
+            hideMiniCartCheckbox();
         });
     } else if (count === 0 && $('.mini-cart-data .popover.show').length === 0) {
         $.get(url, function (data) {
@@ -205,6 +216,7 @@ function openMiniCart() {
 
     $('.mobile-cart-icon').hide();
     $('.mobile-cart-close-icon').show();
+    
     //Custom End
 }
 
@@ -1225,6 +1237,7 @@ movadoBase.addToCart = function () {
                     handlePostCartAdd(data);
                     openMiniCart();
                     updateCartIcons();
+                    
                     $('body').trigger('product:afterAddToCart', data);
                     updateMiniCart = false;
                     $(window).resize(); // This is used to fix zoom feature after add to cart

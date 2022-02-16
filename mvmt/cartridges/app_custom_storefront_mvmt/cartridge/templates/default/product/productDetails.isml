@@ -255,8 +255,10 @@
                     </div>
                     <isset name="giftBoxMessage" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxMessage) ? dw.system.Site.current.preferences.custom.giftBoxMessage : ''}" scope="page" />
                     <isif condition="${!empty(product.isGiftBoxAllowed) && product.isGiftBoxAllowed && product.giftBoxSKUData.giftBoxSKUAvailability}">
-                        <input type="checkbox" name="gift-allowed-checkout" class="gift-allowed-checkbox" value="${product.giftBoxSKUData.giftBoxSKU}">
-                        <label for="gift-allowed-checkout">${giftBoxMessage} ${product.giftBoxSKUData.giftBoxSKUPrice} </label>
+                        <div class="gift-box-wrapper">
+                            <input type="checkbox" name="gift-allowed-checkout" class="gift-box-wrapper-checkbox" value="${product.giftBoxSKUData.giftBoxSKU}">
+                            <label for="gift-allowed-checkout" class="gift-box-wrapper-label">${giftBoxMessage} ${product.giftBoxSKUData.giftBoxSKUPrice} </label>
+                        </div>
                     </isif>
                     <iscomment> <isinclude template="common/giftBoxMessageDetails" /> </iscomment>
                     
