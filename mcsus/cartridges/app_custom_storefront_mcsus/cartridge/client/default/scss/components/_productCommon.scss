@@ -125,7 +125,7 @@
                         width: 100%;
                         margin: rem(0) auto;
                         max-width: 100%;
-                        border-radius: rem(4);
+                        border-radius: rem(0);
                     }
                     
                     &.add-to-cart {
@@ -137,6 +137,11 @@
                     &.btn-border-none {
                         @include media-breakpoint-down(xs) {
                             border: none;
+                        }
+                        .gpay-button {
+                            @include media-breakpoint-down(xs) {
+                                border-radius: rem(0);
+                            }
                         }
                     }
                 }
