@@ -145,5 +145,6 @@
             <isslot id="cs_plp_bottom_slot-head" context="category" description="Content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
             <isslot id="cs_plp_bottom_slot" context="category" description="Content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
         </isif>
+            <isslot id="cs_header_top_trending_recommendations" context="category" description="Recommendation content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
     </div>
 </isdecorate>
