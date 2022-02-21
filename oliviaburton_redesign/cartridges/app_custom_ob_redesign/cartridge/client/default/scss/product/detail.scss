@@ -441,6 +441,34 @@
                     line-height: rem(25);
                     color: $gray20;
                 }
+
+                .short-description {
+                    max-width: rem(550);
+                    margin: 0 auto;
+                    margin-bottom: rem(40);
+                    padding: 0 rem(15);
+                    position: relative;
+
+                    p {
+                        @include font-gill($font-weight: 300);
+                        line-height: rem(25);
+                        text-align: left;
+                    }
+
+                    a {
+                        text-decoration: underline;
+                        margin-left: rem(5);
+                    }
+
+                    @include media-breakpoint-up(lg) {
+                        padding: 0;
+                        height: auto;
+                    }
+
+                    .morelink {
+                        text-decoration: underline;
+                    }
+                }
             }
 
             .product-top-detail {
@@ -450,7 +478,7 @@
                 @include media-breakpoint-up(lg) {
                     margin-top: rem(0);
                     flex: 0 0 43.4%;
-                    max-width: 45.4%;
+                    max-width: 43.4%;
                     padding-right: rem(15);
                     padding-left: rem(60);
                 }
@@ -467,6 +495,37 @@
                         > div {
                             padding: 0;
                         }
+                    }
+                }
+
+                .recomended-products {
+                    .slick-slide {
+                        padding: 0 10px;
+                        width: 160px !important;
+                        height: 275px;
+                        margin-right: 20px;
+
+                        img {
+                            width: 160px;
+                            height: 160px;
+                        }
+                    }
+                    .upsell-wrapper {
+                        text-align: center;
+                        position: relative;
+                        width: 160px !important;
+                        height: 251px !important;
+                        margin-right: 20px;
+                    }
+                    .upsell-wrapper-inner {
+                        border: 1px solid #EBEBEB;
+                        width: 160px;
+                        height: 251px;
+                    }
+                    .upsell-text {
+                        position: relative;
+                        background-color: #EBEBEB;
+                        height: 25px;
                     }
                 }
             }
@@ -501,6 +560,10 @@
                     }
                 }
             }
+        }
+
+        .col-md-10 {
+            margin-left: rem(-15);
         }
 
         .description-and-detail {
