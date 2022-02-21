@@ -1039,6 +1039,7 @@
                     border-radius: rem(40) rem(40) 0 0;
                     box-shadow: 0 0 rem(6) 0 rgba(196, 196, 196, 0.5);
                     display: block;
+                    z-index: 100;
                 }
                 .cart-and-ipay {
                     @include media-breakpoint-down(sm-custom) {
