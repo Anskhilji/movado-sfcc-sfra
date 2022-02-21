@@ -61,42 +61,4 @@ module.exports = {
         });
 
     },
-
-    // Custom Start: [MSS-1341 To Show/Hide short Description on PDP]
-    showMoreDescription: function () {
-
-        var showChar = 150;  // Characters that are shown by default
-        var moretext = "show more";
-        var lesstext = "show less";
-
-        $('.short-description p').each(function() {
-            var content = $(this).html();
-
-            if(content.length > showChar) {
-
-                var c = content.substr(0, showChar);
-                var h = content.substr(showChar, content.length - showChar);
-
-                var html = c + '<span style="display:none" class="morecontent"><span>' + h + '</span></span><a href="" class="morelink">' + moretext + '</a>';
-
-                $(this).html(html);
-            }
-        });
-
-        $(".morelink").on('click',function(){
-            if($(this).hasClass("less")) {
-                $(this).removeClass("less");
-                $(this).html(moretext);
-                $('.morecontent').css('display','none');
-
-            } else {
-                $(this).addClass("less");
-                $(this).html(lesstext);
-                $('.morecontent').removeAttr("style");
-                $('.morecontent').css('display','inline');
-            }
-            return false;
-        });
-    },
-    // Custom End
 }
