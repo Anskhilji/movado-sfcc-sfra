@@ -82,6 +82,9 @@
                             <div class="ratings ratings-mobile d-lg-none">
                                 <isinclude template="product/components/productRating" />
                             </div>
+                            <div class="description">
+                                <isinclude template="product/components/description" />
+                            </div>
                             <isif condition="${product.options && product.options.length > 0}">
                                 <isinclude template="product/components/options" />
                             </isif>
@@ -99,7 +102,6 @@
                                 <!-- Cart and [Optionally] Apple Pay -->
                                 <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
                             </div>
-
                             <isif condition="${sitePref.enableBackInStock}">
                                 <isinclude template="product/backInStockNotification" sf-toolkit="on" />
                             </isif>
