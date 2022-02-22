@@ -278,6 +278,24 @@
                         bottom: rem(-5);
                     }
                 }
+                @include media-breakpoint-up(sm-small) {
+                    margin-top: rem(0);
+                    padding-top: rem(0);
+                    background: none;
+                    border-radius: rem(0) rem(0) 0 0;
+                    box-shadow:none;
+                    position: relative;
+
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        width: 100%;
+                        height: rem(5);
+                        background: none;
+                        bottom: rem(0);
+                    }
+                }
+
                 @include media-breakpoint-down(sm-custom) {
                     margin-top: rem(0);
                 }
@@ -347,14 +365,13 @@
             .price-rating {
                 margin-top: rem(10);
                 align-items: center;
-                justify-content: center;
 
                 @include media-breakpoint-up(lg) {
-                    margin-top: rem(20);
+                    margin-top: rem(15);
                     justify-content: flex-start;
                 }
                 @include media-breakpoint-down(sm-custom) {
-                    margin: rem(8) auto rem(17);
+                    margin: rem(0) auto;
                 }
 
                 .estimated-text {
@@ -372,6 +389,13 @@
                                 color: $gray20;
                                 font-family: $font-gills-light;
                             }
+                        }
+                    }
+                }
+                .ratings {
+                    &.d-none-mobile-rating {
+                        @include media-breakpoint-down(sm-custom) {
+                            display: none;
                         }
                     }
                 }
@@ -397,7 +421,7 @@
             }
 
             .ratings {
-                margin-left: rem(30);
+                margin-left: rem(0);
                 margin-top: 0;
                 background: transparent;
 
@@ -422,20 +446,36 @@
                         }
                     }
 
-                    .yotpo-bottomline {
-                        float: none;
-                        justify-content: center;
+                    // .yotpo-bottomline {
+                    //     float: none;
+                    //     justify-content: center;
 
-                        @include media-breakpoint-up(lg) {
-                            justify-content: flex-start;
-                            float: left;
-                        }
-                    }
+                    //     @include media-breakpoint-up(lg) {
+                    //         justify-content: flex-start;
+                    //         float: left;
+                    //     }
+                    // }
                 }
             }
 
             .prices {
                 padding: 0;
+                @include media-breakpoint-down(sm-custom) {
+                    padding: rem(0);
+                    display: flex;
+                    justify-content: center;
+                }
+                .total-price-text {
+                    @include media-breakpoint-down(sm-custom) {
+                        display: none;
+                    }
+                }
+                &.prices-bottom-wrapper {
+                    margin-bottom: rem(20);
+                    @include media-breakpoint-down(sm-custom) {
+                        margin-bottom: rem(20);
+                    }
+                }
 
                 span {
                     @include font-gill($font-size: 28, $font-weight: 300);
@@ -511,23 +551,23 @@
 
 
             .description {
-                display: none;
-
-                @include media-breakpoint-up(lg) {
-                    margin-top: rem(40);
-                    display: block;
-                }
+                margin: rem(30) rem(0) rem(40);
 
                 .value {
                     @include font-gill($font-weight: 300);
                     line-height: rem(25);
                     color: $gray20;
                 }
+                &.d-none-mobile {
+                    @include media-breakpoint-down(sm-custom) {
+                       display: none;
+                    }  
+                }
             }
+
 
             .product-top-detail {
                 margin-top: rem(80);
-                padding: 0;
 
                 @include media-breakpoint-up(lg) {
                     margin-top: rem(0);
@@ -535,6 +575,9 @@
                     max-width: 43.4%;
                     padding-right: rem(15);
                     padding-left: rem(60);
+                }
+                @include media-breakpoint-up(sm-small) {
+                    margin-top: rem(0);
                 }
 
                 @include media-breakpoint-down(sm-custom) {
@@ -544,13 +587,23 @@
 
                 .cart-and-ipay {
 
-                    @include media-breakpoint-down(md) {
+                    @include media-breakpoint-down(sm-custom) {
                         margin: 0;
                         padding: 0 rem(10);
 
                         > div {
                             padding: 0;
                         }
+                    }
+                }
+                .family-name{
+                    @include media-breakpoint-up(sm-small) {
+                        text-align: left;
+                    }
+                }
+                .product-name  {
+                    @include media-breakpoint-up(sm-small) {
+                        text-align: left;
                     }
                 }
 
@@ -572,6 +625,10 @@
                             @include media-breakpoint-up(lg) {
                                 height: rem(450);
                                 width: rem(450);
+                            }
+                            @include media-breakpoint-down(md) {
+                                height: 100%;
+                                width: 100%;
                             }
                             @include media-breakpoint-down(sm-custom) {
                                 height: rem(300);
