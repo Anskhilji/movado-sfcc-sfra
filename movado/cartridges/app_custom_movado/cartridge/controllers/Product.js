@@ -52,7 +52,6 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
 
 
     var collectionContentList;
-    var socialShareEnable = Site.getCurrent().preferences.custom.addthis_enabled;
     var moreStyleGtmArray = [];
     var klarnaProductPrice = '0';
     var isEmbossEnabled;
@@ -122,7 +121,6 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         collectionContentList: collectionContentList,
         hideMoreCollectionsHeader: product.custom.hideMoreCollectionsHeader,
         loggedIn: req.currentCustomer.raw.authenticated,
-        socialShareEnable: socialShareEnable,
         moreStyleGtmArray: moreStyleGtmArray,
         wishlistGtmObj: wishlistGtmObj,
         klarnaProductPrice: klarnaProductPrice,
