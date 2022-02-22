@@ -29,7 +29,7 @@
                     <!-- Product Images Carousel -->
                     <isinclude template="product/components/imageCarousel" />
 
-                    <div class="col-12 col-lg-5 product-top-detail">
+                    <div class="col-12 col-sm-6 product-top-detail">
 
                         <!-- Family Name -->
                         <h1 class="family-name">${pdict.collectionName}</h1>
@@ -49,7 +49,6 @@
                             </div>
                         </div>
                         <!-- Affirm Text -->
-                        
                         <div>
                             <isinclude template="util/affirmmodule_mf" />
                             <isaffirmpromo context="pdp"
@@ -119,7 +118,7 @@
                         <iscomment> Custom Start: [MSS-1341 Added Cross Sell Recommendation]</iscomment>
                         <isset name="isRecommendationsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.recommendationsEnabled) ? dw.system.Site.current.preferences.custom.recommendationsEnabled : false}" scope="page" />
                         <isif condition="${isRecommendationsEnabled}" >
-                            <div class="col-md-10 col-12">
+                            <div class="col-12 recommendation-main-container">
                                 <div class="linked-product-container">
                                     <isinclude template="product/components/recommendedProducts" />
                                 </div>
@@ -135,7 +134,7 @@
                 </div>
             </div>
         </div>
-        
+
         <iscomment> Custom Comment:  "product-detail-redesign" class added</iscomment>
         <div class="container-fluid detail-specs product-detail-redesign">
             <isinclude template="product/components/descriptionAndDetails" />
@@ -148,12 +147,11 @@
         <isif condition="${isStyleYouMayLikeEnabled}">
             <isslot id="cs_pdp_you_may_like" context="global" description="style you may like pdp slot" />
         </isif>
-        
+
         <isif condition="${isCollectionYouMayLikeEnabled}">
             <isslot id="cs_pdp_collection_you_may_like" context="global" description="Collection you may like slot" />
         </isif>
-        
-        
+
         <isif condition="${!dw.system.Site.getCurrent().getCustomPreferenceValue('disableRecommendationsTypesOnPDP')}">
             <isinclude template="product/components/youMayLikeRecommendation" />
         </isif>
