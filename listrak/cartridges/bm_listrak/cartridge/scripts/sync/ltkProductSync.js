@@ -86,6 +86,10 @@ function productSync() {
             productFile.AddRowItem('CategoryValue');
             // Custom End
 
+            // Custom Start: [MSS-1690 Add Sale Price Information]
+            productFile.AddRowItem('SalePrice');
+            // Custom End
+
             productFile.WriteRow();
 
 			// //////// Write product rows //////////
@@ -150,7 +154,7 @@ function productSync() {
                 var tree = '';
                 var index = 0;
 				// for each(category in prd.categories) {
-                for (i = 0; i < prd.categories.length; i++)				{
+                for (i = 0; i < prd.categories.length; i++) {
                     var category = prd.categories[i];
                     if (index === 0) {
                         tree = category;
@@ -205,6 +209,11 @@ function productSync() {
                 // Custom Start: Adding Category Value [MSS-1473]
                 productFile.AddRowItem(prd.categoryValue, true);
                 // Custom End:
+
+                // Custom Start: [MSS-1690 Add Sale Price Information]
+                productFile.AddRowItem(prd.onSale == true ? prd.salePrice : '' , true);
+                // Custom End
+
                 productFile.WriteRow();
             }
         } catch (e) {

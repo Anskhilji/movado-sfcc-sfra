@@ -102,17 +102,42 @@
           .breadcrumb {
               margin-bottom: rem(16);
               .breadcrumb-item {
-                  &:last-child {
-                      a {
-                         color: $light-grey4;
+                    a {
+                        font-size: rem(16);
+                        letter-spacing: rem(0);
+                        color: $light-grey4;
+                    }
+                }
+            }
+        }
+    }
+    .prices-add-to-cart-actions {
+        .cart-and-ipay {
+            .cta-add-to-cart {
+                .btn {
+                    @include media-breakpoint-down(xs) {
+                        width: 100%;
+                        margin: rem(0) auto;
+                        max-width: 100%;
+                        border-radius: rem(0);
+                    }
+                    
+                    &.add-to-cart {
+                        @include media-breakpoint-down(xs) {
+                            margin-bottom: rem(10);
                         }
                     }
 
-                  a {
-                    font-size: rem(16);
-                    letter-spacing: rem(0);
-                    color: $blue2;
-                  }
+                    &.btn-border-none {
+                        @include media-breakpoint-down(xs) {
+                            border: none;
+                        }
+                        .gpay-button {
+                            @include media-breakpoint-down(xs) {
+                                border-radius: rem(0);
+                            }
+                        }
+                    }
                 }
             }
         }
