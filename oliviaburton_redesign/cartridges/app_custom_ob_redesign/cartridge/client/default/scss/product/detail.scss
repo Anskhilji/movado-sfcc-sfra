@@ -204,18 +204,6 @@
                                     border: rem(1) solid $pink-rose;
                                 }
                             }
-                            button {
-                                width: inherit;
-                                height: inherit;
-                                img {
-                                    width: inherit;
-                                    height: inherit;
-                                }
-                            }
-                            &:active {
-                                width: rem(81);
-                                height: rem(81);
-                            }
                         }
                     }
 
@@ -895,27 +883,28 @@
             bottom: 0%;
             transform: translate(50%, -50%);
             left: 20.1%;
+            border-radius: 100%;
             @include media-breakpoint-down(md) {
-                bottom: 1.1%;
-                left: 9.6%;
+                bottom: -0.1vh;
+                left: rem(35);
             }
             @include media-breakpoint-down(sm) {
-                bottom: -2vh;
-                left: 4.5vh;
+                bottom: -0.1vh;
+                left: rem(35);
                 background-size: contain;
             }
             @include media-breakpoint-down(sm-small) {
-                bottom: -2vw;
-                left: 5vw;
+                bottom: -0.1vh;
+                left: rem(35);
                 background-size: contain;
             }
             @include media-breakpoint-down(sm-custom) {
-                bottom: -0.5vw;
-                left: 7.6vw;
+                bottom: -0.1vh;
+                left: rem(35);
             }
             @include media-breakpoint-down(xsm-custom) {
-                bottom: -0.20vw;
-                left: 9.5vw;
+                bottom: -0.1vh;
+                left: rem(35);
             }
             
             &:focus {
