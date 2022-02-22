@@ -445,16 +445,6 @@
                             font-size: rem(15);
                         }
                     }
-
-                    // .yotpo-bottomline {
-                    //     float: none;
-                    //     justify-content: center;
-
-                    //     @include media-breakpoint-up(lg) {
-                    //         justify-content: flex-start;
-                    //         float: left;
-                    //     }
-                    // }
                 }
             }
 
@@ -1043,7 +1033,7 @@
                 }
     
                 .add-to-cart {
-                    width: 100%;
+                    width: 100%;                    
                     height: rem(45);
                     background: $black;
                     @include font-gill ($font-weight: 500);
@@ -1053,7 +1043,7 @@
                     border-color: $black;
                     border-radius: rem(3);
                     margin: 0;
-                    max-width: rem(355);
+                    max-width: 100%;
                     margin: 0 auto;
     
                     @include media-breakpoint-up(lg) {
@@ -1458,11 +1448,11 @@
             }
 
             @include media-breakpoint-down(md) {
-                transform: translate(-434%, 328%);
+                transform: translate(-304%, 328%);
                 left: 0%;
             }
             @include media-breakpoint-down(sm) {
-                transform: translate(-434%, 328%);
+                transform: translate(-264%, 328%);
                 left: 0%;
             }
             @include media-breakpoint-down(sm-custom) {
