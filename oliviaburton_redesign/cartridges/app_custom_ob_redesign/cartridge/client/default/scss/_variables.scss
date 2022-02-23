@@ -74,3 +74,25 @@ $large-screen-width: 1400px;
       @content;
   }
 }
+
+// new mixin
+$m-425:425px;
+$m-375:375px;
+$m-325:325px;
+
+@mixin m-425 {
+  @media (max-width:$m-425) {
+    @content;
+  }
+}
+
+@mixin m-375 {
+  @media (max-width:$m-375) {
+    @content;
+  }
+}
+@mixin m-325 {
+  @media (max-width:$m-325) {
+    @content;
+  }
+}

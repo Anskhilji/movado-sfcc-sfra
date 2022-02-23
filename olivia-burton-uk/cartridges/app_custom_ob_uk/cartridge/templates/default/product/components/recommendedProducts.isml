@@ -14,8 +14,9 @@
                             name="additionalProducts" value="${recommendation.id}">
                         </button>
                         <div class="upsell-wrapper-inner">
-                            <img class="upsell-image" alt="" src="${recommendation.images.tile150[0].url}" />
-
+                           <div class="upsell-image-box">
+                                <img class="img-fluid upsell-image" alt="${recommendation.productName}" src="${recommendation.images.tile150[0].url}" />
+                           </div>
                             <p class="upsell-description">${recommendation.productName}</p>
                             <div class="upsell-meta">
                                 <div class="upsell-price">
