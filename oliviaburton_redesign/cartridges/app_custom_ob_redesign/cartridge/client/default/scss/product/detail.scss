@@ -36,6 +36,11 @@
                 }
 
                 .slick {
+                    &-list {
+                        @include media-breakpoint-up(xxl) {
+                            margin-left: rem(46);
+                        }
+                    }
                     
                     &-slide {
                         text-align: center;
@@ -571,7 +576,7 @@
                 }
 
                 @include media-breakpoint-down(sm-custom) {
-                    margin-top: rem(8);
+                    margin-top: rem(40);
                     padding: rem(0);
                 }
 
@@ -609,26 +614,8 @@
                     &-slide {
                         img {
                             margin: 0 auto;
-                            height: rem(375);
-                            width: rem(375);
-
-                            @include media-breakpoint-up(lg) {
-                                height: rem(450);
-                                width: rem(450);
-                            }
-                            @include media-breakpoint-down(md) {
-                                height: 100%;
-                                width: 100%;
-                            }
-                            @include media-breakpoint-down(sm-custom) {
-                                height: rem(300);
-                                width: rem(300);
-                            }
-                            @include media-breakpoint-down(xsm-custom) {
-                                height: rem(241);
-                                width: rem(241);
-                            }
-
+                            height: 100%;
+                            width: 100%;
                         }
                     }
                 }
@@ -1087,6 +1074,7 @@
                     box-shadow: 0 0 rem(6) 0 rgba(196, 196, 196, 0.5);
                     display: block;
                     z-index: 100;
+                    padding-top: rem(8);
                 }
                 .cart-and-ipay {
                     @include media-breakpoint-down(sm-custom) {
@@ -1435,10 +1423,10 @@
     .ob-carousel-quickview {
         
         .quickview {
-            position: relative;
-            transform: translate(50%, 328%);
-            top: 47%;
-            left: -34%;
+            position: absolute;
+            top: unset;
+            left: rem(116);
+            bottom: rem(20);
             margin-left: 0;
             border-radius: rem(20);
             box-shadow: 0 rem(3) rem(5) 0 $light-grey-3;
@@ -1446,26 +1434,15 @@
             &:focus {
                 box-shadow: none;
             }
-
+            @include media-breakpoint-up(xxl) {
+                left: rem(164);
+            }
             @include media-breakpoint-down(md) {
-                transform: translate(-304%, 328%);
-                left: 0%;
+                left: rem(56);
             }
             @include media-breakpoint-down(sm) {
-                transform: translate(-264%, 328%);
-                left: 0%;
+                left: rem(56);
             }
-            @include media-breakpoint-down(sm-custom) {
-                transform: translate(-299%, 73%);
-                left: 0%;
-                bottom: rem(84);
-            }
-            @include media-breakpoint-down(xsm-custom) {
-                transform: translate(-225%, 73%);
-                left: 0%;
-                bottom: rem(84);
-            }
-
         }
     }
 }
