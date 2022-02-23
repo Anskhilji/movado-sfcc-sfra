@@ -13,16 +13,23 @@
     </isscript>
     <div class="cs-carousel-wrapper">
         <div class="js-carousel cs-carousel" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
-            <isloop items="${product.images['pdp533']}" var="image" status="loopStatus">
+            <isset name="pdpVideoConfigs" value="${product.pdpVideoConfigs}" scope="page" />
+            <isloop items="${product.images['tile640']}" var="image" status="loopStatus">
                 <div class="carousel-tile">
                     <picture>
-                        <source media="(min-width: 992px)" srcset="${product.images.pdp533[loopStatus.count - 1].url}" />
-                        <source media="(max-width: 991px)" srcset="${product.images.pdp533[loopStatus.count - 1].url}" />
+                         <source media="(min-width: 992px)" srcset="${product.images.tile640[loopStatus.count - 1].url}" />
+                         <source media="(max-width: 544px)" srcset="${product.images.tile520[loopStatus.count - 1].url}" />
+                         <source media="(max-width: 320px)" srcset="${product.images.tile300[loopStatus.count - 1].url}" />
                         <img src="${image.url}" alt="${image.alt}" itemprop="image"
                         data-zoom-mobile-url="${product.images.zoom830[loopStatus.count - 1].url}"
                         data-zoom-desktop-url="${product.images.zoom1660[loopStatus.count - 1].url}" />
                         <isset name="isImageExist" value="true" scope="page" />
                     </picture>
+                    <isif condition="${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL) }">
+                        <video class="slide-video d-none " loop muted autoplay playsinline>
+                            <source src="${pdpVideoConfigs.videoURL}" type="video/mp4" />
+                        </video>
+                    </isif>
                 </div>
             </isloop>
         </div>

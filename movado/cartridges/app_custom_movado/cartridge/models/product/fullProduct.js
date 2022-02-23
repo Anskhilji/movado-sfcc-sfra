@@ -19,6 +19,8 @@ var Site = require('dw/system/Site');
  */
 module.exports = function fullProduct(product, apiProduct, options) {
     var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
+    var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
+    var collectionName = productCustomHelper.getCollectionName(apiProduct);
 
     decorators.base(product, apiProduct, options.productType);
     decorators.price(product, apiProduct, options.promotions, false, options.optionModel);
@@ -26,10 +28,10 @@ module.exports = function fullProduct(product, apiProduct, options) {
 
     if (options.variationModel) {
         // Custom Start: Define view type 'gallery' for DIS
-        decorators.images(product, options.variationModel, { types: ['pdp533','tile150', 'zoom830', 'zoom1660', 'gallery'], quantity: 'all' });
+        decorators.images(product, options.variationModel, { types: ['pdp533','tile532X300','tile640','tile520','tile300','tile150', 'zoom830', 'zoom1660', 'gallery','tile300X375','tile512X640', 'tile256', 'tile300X300','pdp600', 'tile100', 'pdp700'], quantity: 'all' });
     } else {
      // Custom Start: Define view type for 'gallery' for DIS
-        decorators.images(product, apiProduct, { types: ['pdp533','tile150', 'zoom830', 'zoom1660', 'gallery'], quantity: 'all' });
+        decorators.images(product, apiProduct, { types: ['pdp533','tile532X300','tile640','tile520','tile300','tile150', 'zoom830', 'zoom1660', 'gallery','tile300X375','tile512X640', 'tile256', 'tile300X300','pdp600', 'tile100', 'pdp700'], quantity: 'all' });
     }
     decorators.emailImage(product, apiProduct, { types: ['tile150'], quantity: 'single' });
     decorators.quantity(product, apiProduct, options.quantity);
@@ -65,6 +67,10 @@ module.exports = function fullProduct(product, apiProduct, options) {
         });
     }
     // Custom end
+    Object.defineProperty(product, 'pdpVideoConfigs', {
+        enumerable: true,
+        value: productCustomHelper.getPdpVideoConfigs(apiProduct)
+    });
 
     decorators.currentUrl(product, options.variationModel, options.optionModel, 'Product-Show', apiProduct.ID, options.quantity);
     decorators.readyToOrder(product, options.variationModel);
@@ -72,6 +78,12 @@ module.exports = function fullProduct(product, apiProduct, options) {
     decorators.raw(product, apiProduct);
     decorators.pageMetaData(product, apiProduct);
     decorators.template(product, apiProduct);
+
+
+    Object.defineProperty(product, 'collectionName', {
+        enumerable: true,
+        value: collectionName
+    });
 
     return product;
 };

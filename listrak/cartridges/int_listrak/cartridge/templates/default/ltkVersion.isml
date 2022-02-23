@@ -1,0 +1,2 @@
+<!--- TEMPLATENAME: ltkVersion.isml --->
+		Listrak Cartridge Version: ${dw.system.Site.current.preferences.custom.Listrak_Cartridge_Version} - Controller Integration

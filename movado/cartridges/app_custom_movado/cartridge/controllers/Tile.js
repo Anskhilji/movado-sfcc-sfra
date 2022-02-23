@@ -56,6 +56,7 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
     }
 
     var showProductPageHelperResult = productHelper.showProductPage(requestQuerystring, req.pageMetaData);
+
     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
     var categoryName = productTileParams.categoryName != null ? productTileParams.categoryName : null;
     var wishlistGtmObj = productCustomHelpers.getWishlistGtmObj(product);
@@ -78,9 +79,21 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
         loggedIn: req.currentCustomer.raw.authenticated,
         isTopSearch: req.querystring.isTopSearch,
         restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites,
-        ecommerceFunctionalityEnabled: Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled
+        ecommerceFunctionalityEnabled: Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled,
+        tileImageBackground: Site.getCurrent().preferences.custom.tileImageBackgroundColor ? Site.getCurrent().preferences.custom.tileImageBackgroundColor : '',
+        tileBodyBackground: Site.getCurrent().preferences.custom.tileBodyBackgroundColor ? Site.getCurrent().preferences.custom.tileBodyBackgroundColor : '',
+        plpProductFamilyName: Site.getCurrent().preferences.custom.plpProductFamilyName ? Site.getCurrent().preferences.custom.plpProductFamilyName : false
     };
+    
+    var viewData = res.getViewData();
+    var readyToOrder = showProductPageHelperResult.product.readyToOrder ? showProductPageHelperResult.product.readyToOrder : '';
+    viewData.addToCartUrl = showProductPageHelperResult.addToCartUrl ? showProductPageHelperResult.addToCartUrl : '';
+    viewData.product = showProductPageHelperResult.product ? showProductPageHelperResult.product : '';
+    viewData.isPLPProduct = true;
+    viewData.readyToOrder = readyToOrder;
+    viewData.ecommerceFunctionalityEnabled = !empty(Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled) ? Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled : false;
 
+    res.setViewData(viewData);
     Object.keys(req.querystring).forEach(function (key) {
         if (req.querystring[key] === 'true') {
             context.display[key] = true;
@@ -95,6 +108,16 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
             var YotpoIntegrationHelper = require('/int_yotpo_sfra/cartridge/scripts/common/integrationHelper.js');
             viewData.yotpoWidgetData = YotpoIntegrationHelper.getRatingsOrReviewsData(session.custom.yotpoConfig, req.querystring.pid);
             res.setViewData(viewData);
+        }
+        else {
+                var viewData = res.getViewData();
+                var YotpoIntegrationHelper = require('/int_yotpo_sfra/cartridge/scripts/common/integrationHelper.js');
+                var yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
+        
+                if (yotpoConfig.isCartridgeEnabled) {
+                    viewData.yotpoWidgetData = YotpoIntegrationHelper.getRatingsOrReviewsData(yotpoConfig, req.querystring.pid);
+                    res.setViewData(viewData);
+                }
         }
     } catch (ex) {
         var YotpoLogger = require('/int_yotpo/cartridge/scripts/yotpo/utils/YotpoLogger');

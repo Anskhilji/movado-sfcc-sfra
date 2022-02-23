@@ -1,6 +1,6 @@
 <!--- TEMPLATENAME: riskifiedorderanalysisresponse.isml --->
 
-<isif condition="${pdict.ResponseStatus.equals('ok')}" >
+<isif condition="${pdict.ResponseStatus && pdict.ResponseStatus.equals('ok')}" >
 	Order Analysis Updated Successfully.
 <iselseif condition = "${pdict.AuthError}"> 
 	Authentication Error

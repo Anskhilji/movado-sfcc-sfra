@@ -25,6 +25,7 @@ $font-futura-pt-demi: "futura-pt-demi", Arial, sans-serif;
 $font-GaramondMTPro-italic: "GaramondMTPro-Italic", Arial, sans-serif;
 $font-GaramondPro: "Adobe Garamond Pro", Arial, sans-serif;
 $font-primary: "gill-sans-nova", Arial, sans-serif;
+$font-gill-sans-std: "Gill-Sans-MT-Medium", Arial, sans-serif;
 $font-awesome: "FontAwesome";
 $font-futura: "futura-pt", "gill-sans-nova", Arial, sans-serif;
 $font-futura-book: "futura-pt", "gill-sans-nova", Arial, sans-serif;
@@ -54,6 +55,8 @@ $tutu: #F6E5E4;
 $gray36: #5C5C5C;
 
 $grey-transparent-7: rgba(0,0,0,0.24) !default;
+$light-grey-3: rgba(200,200,200,0.5);
+$light-border-black: #272727;
 $black-russian: #00091B;
 $gainsboro: #D8D8D8;
 $pale-rose: #E9D7D5;
@@ -61,10 +64,16 @@ $eclipse: #3A3A3A;
 $grey: #868686;
 $gray90: #E5E5E5;
 $white-smoke: #F0F0F0;
+$grid-breakpoint-one: 415px;
+$grid-breakpoint-two: 544px;
 
 
 $grid-breakpoints: (
   xs: 0,
+  xs-custom:320px,
+  xsm-custom:350px,
+  sm-custom:400px,
+  sm-small:544px,
   sm: 576px,
   md: 768px,
   lg: 992px,
@@ -79,4 +88,12 @@ $grid-breakpoints: (
     font-size: rem($font-size);
     font-weight: $font-weight;
     letter-spacing: rem($letter-spacing);
+}
+// Large Screen
+$large-screen-width: 1400px;
+
+@mixin custom-media-query($large-screen-width) {
+  @media (min-width:#{$large-screen-width}) {
+      @content;
+  }
 }

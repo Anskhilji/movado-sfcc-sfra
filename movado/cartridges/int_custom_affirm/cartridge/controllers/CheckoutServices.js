@@ -86,8 +86,8 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	  var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
 	  var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 	  var orderCustomHelpers = require('*/cartridge/scripts/helpers/orderCustomHelper');
-	  var Site = require('dw/system/Site');
-
+	var Site = require('dw/system/Site');
+	
 	  var currentBasket = BasketMgr.getCurrentBasket();
 	  checkoutLogger.debug('(CheckoutServices) -> PlaceOrder: Inside PlaceOrder to validate the payment and order');
 
@@ -181,6 +181,16 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	    });
 	    return next();
 	  }
+
+	//Custom Start: [MSS-1429] Add this piece of Code from int_listrak_sfra to here beacuse this method is replace
+	if (dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
+		var ltkSendOrder = require('*/cartridge/controllers/ltkSendOrder.js');
+		session.privacy.SendOrder = true;
+		session.privacy.OrderNumber = order.orderNo;
+		ltkSendOrder.SendPost();
+	}
+	//Custom End
+
       checkoutLogger.debug('(CheckoutServices) -> PlaceOrder: Order is created with order number: ' + order.orderNo);
 	  //Set order custom attribute if there is any pre-order item exists in order
 	  if (isPreOrder) {
@@ -227,7 +237,7 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
     if (fraudDetectionStatus.status === 'fail') {
         checkoutLogger.error('(CheckoutServices) -> PlaceOrder: Fraud detected and order is failed and going to the error page and order number is: ' + order.orderNo);
         // MSS-1169 Passed true as param to fix deprecated method usage
-        Transaction.wrap(function () { OrderMgr.failOrder(order); });
+        Transaction.wrap(function () { OrderMgr.failOrder(order, true); });
 
 				// fraud detection failed
         req.session.privacyCache.set('fraudDetectionStatus', true);
@@ -256,7 +266,22 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	    return next();
 	  }
 	  // If payment is redirected, order is created first
-	  if (placeOrderResult.order.paymentInstrument.paymentMethod == 'Adyen' && placeOrderResult.order_created) {
+	if (placeOrderResult.order.paymentInstrument.paymentMethod == 'Adyen' && placeOrderResult.order_created) {
+		/**~    
+         * Custom Start: Clyde Integration
+         */
+		if (Site.current.preferences.custom.isClydeEnabled) {
+            var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
+            Transaction.wrap(function () {
+                order.custom.isContainClydeContract = false;
+                order.custom.clydeContractProductMapping = '';
+            });
+            var contractProductList = currentBasket.custom.clydeContractProductList || false;
+            addClydeContract.createOrderCustomAttr(contractProductList, order);
+        }
+		/**
+		 * Custom: End
+		 */
         checkoutLogger.debug('(CheckoutServices) -> PlaceOrder: Going to set order value in the session and going to the (Adyen-Redirect) and order number: ' + order.orderNo);
 	    session.custom.orderNo = placeOrderResult.order.orderNo;
 	    res.json({

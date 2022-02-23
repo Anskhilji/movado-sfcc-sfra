@@ -9,7 +9,7 @@
       <div class="sticky-header-placeholder"></div>
       <div class="header-menu-wrapper">
         <div class="header-wrapper">
-        <div class="d-none d-md-block ob-redesign-overlay"></div>
+        <div class="d-none d-lg-block ob-redesign-overlay"></div>
           <div class="col">
             <div class="row">
               <iscomment>

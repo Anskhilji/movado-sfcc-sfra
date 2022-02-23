@@ -1,0 +1,25 @@
+<div class="col-12 grid-footer"
+     data-sort-options="${JSON.stringify(pdict.productSearch.productSort)}"
+     data-page-size="${pdict.productSearch.pageSize}"
+     data-page-number="${pdict.productSearch.pageNumber}"
+>
+    <!--- More button --->
+    <isif condition="${pdict.productSearch.showMoreUrl !== ''}">
+    <iscomment> Custom Start: Remove the bootstrap columns classes </iscomment>
+        <div class="show-more">
+            <div class="text-center">
+                <button class="btn btn-outline-primary"
+                        data-url="${pdict.productSearch.showMoreUrl}"
+                >
+                    ${Resource.msg('button.more', 'search', null)}
+                </button>
+            </div>
+        </div>
+    <iscomment> Custom End</iscomment>
+    </isif>
+
+    <input type="hidden" class="permalink" value="${pdict.productSearch.permalink}" />
+    <isif condition="${pdict.productSearch.category != null}">
+        <input type="hidden" class="category-id" value="${pdict.productSearch.category.id}" />
+    </isif>
+</div>

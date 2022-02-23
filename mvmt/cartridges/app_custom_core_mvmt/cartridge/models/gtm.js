@@ -1,5 +1,6 @@
 'use strict';
 
+var ArrayList = require('dw/util/ArrayList');
 var Bytes = require('dw/util/Bytes');
 var CatalogMgr = require('dw/catalog/CatalogMgr');
 var Encoding = require('dw/crypto/Encoding');
@@ -52,6 +53,8 @@ function gtmModel(req) {
     this.tertiarySiteSection = '';
     this.searchTerm = '';
     this.googleAnalyticsParameters = '';
+    this.customerIPAddressLocation = '';
+    this.rakutenAllowedCountries =  [];
 
 
         if (!empty(req.querystring)) {
@@ -63,7 +66,7 @@ function gtmModel(req) {
             searchkeyword = searchQuery.q ? searchQuery.q : '';
             cgid = searchQuery.cgid;
             pid = searchQuery.pid;
-        }            
+        }
         if (cgid != null || searchkeyword != null) {
             departmentCategoryName = getPLPDepartmentCategory(req, cgid, searchkeyword);
         }
@@ -219,6 +222,11 @@ function gtmModel(req) {
     this.userHashedEmail = userShippingDetails && !empty (userShippingDetails.userShippingEmail) ? Encoding.toHex(new Bytes(userShippingDetails.userShippingEmail, 'UTF-8')) : (!empty(userHashedEmail) ? userHashedEmail : '');
     this.googleAnalyticsParameters = googleAnalyticsParameters != null ? googleAnalyticsParameters : '';
     this.departmentCategoryName = (departmentCategoryName != null && departmentCategoryName != undefined && !empty(departmentCategoryName)) ? departmentCategoryName : '';
+    var customerIPAddressLocation = !empty(request.geolocation.countryCode) ? request.geolocation.countryCode : '';
+    var isRakutenEnabled = !empty(Site.current.preferences.custom.isRakutenEnable) ? Site.current.preferences.custom.isRakutenEnable : false;
+    this.rakutenAllowedCountries = new ArrayList(!empty(Site.current.preferences.custom.rakutenAllowedCountries) ? Site.current.preferences.custom.rakutenAllowedCountries : '').toArray();
+    this.rakutenAllowedCountries = isRakutenEnabled ? this.rakutenAllowedCountries.toString() : '';
+    this.customerIPAddressLocation = customerIPAddressLocation || '';
 }
 
 
@@ -341,18 +349,28 @@ function getSearchQuery(queryStringVal) {
         var searchArray = [];
         var searchQuery = '';
         var queryString = queryStringVal ? Encoding.fromURI(queryStringVal) : '';
+        var searchArrayQuery = [];
         if (queryString.indexOf('&') >= 0) {
             searchArray = queryString.split('&');
             searchArray = searchArray[1].split('=');
             if ((searchArray[0].indexOf('q')) > -1) {
                 searchQuery = { q: searchArray[1] };
             }
-    
             if ((queryString.indexOf('dwvar_')) > -1 && (queryString.indexOf('pid')) > -1) {
                 searchArray = queryString.split('=');
                 searchQuery = { pid: searchArray[searchArray.length - 1] };
+            } else if ((queryString.indexOf('pid')) > -1) {
+                searchArray = queryString.split('&');
+                var productID;
+                for (var index = 0; index < searchArray.length; index++) {
+                    if (searchArray[index].indexOf('pid=') > -1) {
+                        productID = searchArray[index];
+                        break;
+                    }
+                }
+                searchArrayQuery = productID ? productID.split('=') : '';
+                searchQuery = { pid: searchArrayQuery[1] };
             }
-    
         } else if ((queryString.indexOf('pid')) > -1) {
                 searchArray = queryString.split('=');
                 searchQuery = { pid: searchArray[1] };
@@ -366,7 +384,6 @@ function getSearchQuery(queryStringVal) {
         return searchQuery;
     } catch(ex) {
         Logger.error('Error occured while getting search query for gtm. Error: {0} \n Stack: {1} \n', ex.message, ex.stack);
-        
         return '';
     }
 }
@@ -913,6 +930,9 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
                 produtObj.category = stringUtils.removeSingleQuotes(customCategory),
                 produtObj.variant = variants;
                 produtObj.price = (productLineItem.getAdjustedNetPrice().getDecimalValue() - averageOrderLevelDiscount) / productLineItem.quantityValue;
+                produtObj.unitBasePrice = productLineItem.basePrice.decimalValue.toString();
+                produtObj.taxOnBasePrice = (productLineItem.basePrice.decimalValue * productLineItem.taxRate).toString();
+                produtObj.unitPriceLessTax = (productLineItem.basePrice.decimalValue + productLineItem.tax.decimalValue).toString();
                 produtObj.currency = (productLineItem.product.priceModel.price.available ? (productLineItem.product.priceModel.price.currencyCode) : (productLineItem.product.priceModel.minPrice.currencyCode));
                 produtObj.description = '';
                 // Custom Start : Added subtotal

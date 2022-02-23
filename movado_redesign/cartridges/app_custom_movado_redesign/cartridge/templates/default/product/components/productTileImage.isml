@@ -27,8 +27,5 @@
                 </picture>
             </isif>
         </a>
-        <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
-            <isinclude url="${URLUtils.https('Wishlist-ShowIcon','gtmObj',JSON.stringify(pdict.wishlistGtmObj), 'page', 'tile')}"/>
-        </isif>
     </div>
 <iscomment> Custom End: quick view button removed</iscomment>

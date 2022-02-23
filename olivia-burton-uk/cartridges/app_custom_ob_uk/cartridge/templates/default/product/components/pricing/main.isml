@@ -10,7 +10,7 @@
         <iselseif condition="${dw.campaign.ABTestMgr.isParticipant('MobileStickyCTATEST','StickyCTAWithNormalCTA')}" >
             <span class="d-none estimated-text">${Resource.msg('label.product.detail.estimated.total', 'product', null)}&nbsp;</span>
         <iselse>
-            <span class="d-sm-none estimated-text">${Resource.msg('label.product.detail.estimated.total', 'product', null)}&nbsp;</span>
+            <span class="d-sm-none estimated-text total-price-text">${Resource.msg('label.product.detail.estimated.total', 'product', null)}&nbsp;</span>
         </isif>
         <isinclude template="/product/components/pricing/tiered" />
     </div>
@@ -21,7 +21,7 @@
         <iselseif condition="${dw.campaign.ABTestMgr.isParticipant('MobileStickyCTATEST','StickyCTAWithNormalCTA')}" >
             <span class="d-none estimated-text">${Resource.msg('label.product.detail.estimated.total', 'product', null)}&nbsp;</span>
         <iselse>
-            <span class="d-sm-none estimated-text">${Resource.msg('label.product.detail.estimated.total', 'product', null)}&nbsp;</span>
+            <span class="d-sm-none estimated-text total-price-text">${Resource.msg('label.product.detail.estimated.total', 'product', null)}&nbsp;</span>
         </isif>
         <isinclude template="/product/components/pricing/range" />
     </div>
@@ -33,7 +33,7 @@
         <iselseif condition="${dw.campaign.ABTestMgr.isParticipant('MobileStickyCTATEST','StickyCTAWithNormalCTA')}" >
             <span class="d-none estimated-text">${Resource.msg('label.product.detail.estimated.total', 'product', null)}&nbsp;</span>
         <iselse>
-            <span class="d-sm-none estimated-text">${Resource.msg('label.product.detail.estimated.total', 'product', null)}&nbsp;</span>
+            <span class="d-sm-none estimated-text total-price-text">${Resource.msg('label.product.detail.estimated.total', 'product', null)}&nbsp;</span>
         </isif>
         <isinclude template="/product/components/pricing/default" />
     </div>

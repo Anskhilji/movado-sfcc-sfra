@@ -14,7 +14,7 @@
             </tr>
             <tr>
                 <td class="p" style="line-height:18px;font-size:12px;color:#000001;vertical-align:top;">
-                    ${address.firstName} ${address.lastName}
+                    ${address.firstName} ${address.lastName ? address.lastName : ''}
                 </td>
             </tr>
             <isif condition="${address.companyName}">

@@ -106,8 +106,7 @@
 }
 
 $(document).ready(function (params) {
-        
-    
+    var $pairsBestWith;
     $('body').on('miniCart:recommendations', function () {
         $('.cart-recommendations').each(function (event) {
             var $this = $(this);
@@ -117,12 +116,16 @@ $(document).ready(function (params) {
             var url = $this.data('url');
             $.get(url, function (response) {
                 $this.html(response.recommendedProductTemplate);
+                if($pairsBestWith !== undefined && $pairsBestWith !== '') {
+                    $($pairsBestWith).trigger('click');
+                };
             });
         });
     });
 
     $('body').on('click', '.mini-cart-show-recommendations', function() {
         var $this = $(this);
+        $pairsBestWith = "#" + $(this).attr('id');
         $this.addClass('d-none');
         $this.siblings('.mini-cart-hide-recommendations').removeClass('d-none');
         var $recommendationContainer = $this.siblings('.mini-cart-recommendations')
@@ -172,18 +175,30 @@ $(document).ready(function (params) {
                     $quantitySelector.siblings('.quantity-btn-group').children('.quantity-btn-down').prop('disabled', false);
                     $quantitySelector.val($quantity);
                 } else {
+                    $('.mini-cart-data .product-summary').empty();
                     $('.mini-cart-data .product-summary').append(response.recommendedProductCardHtml);
                 }
                 updateCartTotals(response.cart); 
                 handlePostCartAdd(response); 
+                //Custom Start: [MSS-1451] Listrak SendSCA on AddToCart
+                if (window.Resources.LISTRAK_ENABLED) {
+                    var ltkSendSCA = require('listrak_custom/ltkSendSCA');
+                    ltkSendSCA.renderSCA(response.SCACart, response.listrakCountryCode);
+                }
+                //Custom End
                 $.spinner().stop();
             },
             error: function() {
-                $.spinner().stop();   
+                $.spinner().stop(); 
             },
             complete: function () {
                 $('body').trigger('miniCart:recommendations');
             }
         });
+    });
+
+    $('body').on('click', '#close-mini-cart, #footer-overlay', function() {
+        $pairsBestWith = undefined;
+        $('.mini-cart-hide-recommendations').trigger('click');
     });
 });

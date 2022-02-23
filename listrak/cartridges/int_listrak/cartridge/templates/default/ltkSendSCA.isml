@@ -1,0 +1,2 @@
+<isset name="SCA" value="${pdict.SCACart}" scope="page" />
+<script src="${URLUtils.staticURL('/js/ltkSendSCA.js')}"  ltk-data-sca='<isprint value="${SCA}"/>' ltk-data-url='<isprint value="${URLUtils.url("ltkSendSca-ClearFlag")}"/>'></script>

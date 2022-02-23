@@ -20,10 +20,10 @@ function createToken() {
  * Verifies that entered credit card information is a valid card. If the information is valid a
  * credit card payment instrument is created
  * @param {dw.order.Basket} basket Current users's basket
- * @param {Object} paymentInformation - the payment information
+ * @param {Object} checkoutSession - the Checkout session
  * @return {Object} returns an error object
  */
-function Handle(basket, paymentInformation) {
+function Handle(basket, checkoutSession) {
     var currentBasket = basket;
     var cardErrors = {};
     var serverErrors = [];
@@ -34,42 +34,16 @@ function Handle(basket, paymentInformation) {
         collections.forEach(paymentInstruments, function (item) { 
             currentBasket.removePaymentInstrument(item);
         });
-
+        //Update call to amazon pay [MSS-1345] Code moved to AmazonPay.js (UpdateAmazonPayCheckout Method)
         var paymentInstrument = currentBasket.createPaymentInstrument(
             'AMAZON_PAY', currentBasket.totalGrossPrice
         );
-
-        var Logger = require('dw/system/Logger');
-        var amazonPayRequest = new AmazonPayRequest(currentBasket, 'PATCH', '', ':checkoutSessionId', currentBasket.custom.amzPayCheckoutSessionId);
-        var result = CheckoutSessionService.update(amazonPayRequest);
-        var checkoutSession;
-
-        if (!result.ok) {
-            Logger.getLogger('AmazonPay', 'AmazonPay-CheckoutSession').error(result.toString());
-            serverErrors.push(result.errorMessage);
-
-            return { fieldErrors: [cardErrors], serverErrors: serverErrors, error: true };
-        }
-
-        try {
-            checkoutSession = JSON.parse(result.object);
-        } catch (e) {
-            var error = e;
-            Logger.getLogger('AmazonPay', 'AmazonPay-CheckoutSession').error(error.toString());
-            serverErrors.push(error.toString());
-
-            return { fieldErrors: [cardErrors], serverErrors: serverErrors, error: true };
-        }
-
         paymentInstrument.custom.amzPayPaymentDescriptor = !empty(checkoutSession.paymentPreferences[0])
-            ? checkoutSession.paymentPreferences[0].paymentDescriptor
-            : '';
+        ? checkoutSession.paymentPreferences[0].paymentDescriptor
+        : '';
         paymentInstrument.setCreditCardHolder(currentBasket.billingAddress.fullName);
-        paymentInstrument.setCreditCardToken(
-            paymentInformation.creditCardToken
-                ? paymentInformation.creditCardToken
-                : createToken()
-        );
+        paymentInstrument.setCreditCardToken(createToken());
+
     });
 
     return { fieldErrors: cardErrors, serverErrors: serverErrors, error: false };

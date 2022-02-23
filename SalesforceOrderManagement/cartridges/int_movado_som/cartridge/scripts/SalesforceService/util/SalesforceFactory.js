@@ -6,9 +6,10 @@
 
 /* API Modules */
 var Logger = require('dw/system/Logger');
-const APIROOT = '/services/data/v49.0';
+const APIROOT = '/services/data/v52.0';
 
 // Public
+
 var SalesforceFactory = {
     // Service Actions
     ACTIONS: {
@@ -23,6 +24,7 @@ var SalesforceFactory = {
         composite: 'salesforce.composite',
         rest: 'salesforce.rest'
     },
+
     ENDPOINTS: {
         COMMERCE: APIROOT + '/commerce',
         ORDERSUMMARY: APIROOT + '/sobjects/OrderSummary',
@@ -34,6 +36,7 @@ var SalesforceFactory = {
         SHIPMENT: APIROOT + '/sobjects/Shipment',
         CANCELLATIONEMAIL: '/services/apexrest/ordercancellationemail',
         SAPORDERREFUND: '/services/apexrest/saporderrefund',
+        WARRANTYCANCELLATION: '/services/apexrest/warrantycancellation',
         CUSTOMERORDERHISTORY: '/services/apexrest/orderhistory',
         OPERATIONLOG: APIROOT + '/sobjects/Operation_Log__c'
     },
@@ -47,7 +50,6 @@ var SalesforceFactory = {
     getLogger: function (method) {
         var categoryName = method !== null ? method : 'Salesforce_General';
         var fileName = 'Salesforce';
-
         return Logger.getLogger(fileName, categoryName);
     },
 
@@ -70,7 +72,9 @@ var SalesforceFactory = {
 
         return requestDataContainer;
     },
+
     buildCreateSalesforceCompositeRequestContainer: function (allOrNone, compositeRequestData) {
+
         var requestDataContainer = {
             action: this.ACTIONS.COMPOSITE,
             requestMethod: 'POST',
@@ -85,6 +89,7 @@ var SalesforceFactory = {
 
         return requestDataContainer;
     },
+
     buildCreateSalesforceRestRequestContainer: function (restRequestData) {
         var requestDataContainer = {
             action: this.ACTIONS.REST,
@@ -97,7 +102,9 @@ var SalesforceFactory = {
         };
 
         return requestDataContainer;
+
     },
+
     buildFulfillmentOrderCompositeRequestData: function (order) {
         var requestData = [{
             method: 'PATCH',
@@ -107,6 +114,7 @@ var SalesforceFactory = {
 
         return requestData;
     }
+
 };
 
 module.exports = SalesforceFactory;

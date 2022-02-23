@@ -1,4 +1,6 @@
 'use strict';
+var Constants = require('*/cartridge/scripts/util/Constants');
+var rakutenCookiesHelper = require('*/cartridge/scripts/helpers/rakutenHelpers');
 
 /**
  * Resource helper
@@ -13,6 +15,10 @@
 function getResources(pageContext) {
     var Resource = require('dw/web/Resource');
     var Site = require('dw/system/Site');
+    var URLUtils = require('dw/web/URLUtils');
+    var ArrayList = require('dw/util/ArrayList');
+    var autoComplete = new ArrayList(Site.current.preferences.custom.autoCompleteAllowedCountries).toArray();
+    var allowedCountryCodes = new ArrayList(Site.current.preferences.custom.googlePayShippingAllowedCountryCodes).toArray();
 
     var resources = {
         MINI_CART_HEADER_MESSAGE: Resource.msg('title.your.shopping.cart','cart',null),
@@ -46,7 +52,23 @@ function getResources(pageContext) {
         US_COUNTRY_CODE: Resource.msg('label.us.country.code', 'common', null),
         CREDIT_CARD_PAYMENT_METHOD_ID: Resource.msg('checkout.payment.method.credit.card.id', 'checkout', null),
         LABEL_SWELL_POINTS_APPLIED: Resource.msg('label.swell.points.applied', 'cart', null),
-        KLARNA_PDP_MESSAGES_ENABLED:!empty(Site.current.preferences.custom.klarnaPdpPromoMsg) ? Site.current.preferences.custom.klarnaPdpPromoMsg : false
+        KLARNA_PDP_MESSAGES_ENABLED: !empty(Site.current.preferences.custom.klarnaPdpPromoMsg) ? Site.current.preferences.custom.klarnaPdpPromoMsg : false,
+        IS_CLYDE_ENABLED: Site.current.preferences.custom.isClydeEnabled || false,
+        IS_RAKUTEN_ENABLED:  Site.current.preferences.custom.isRakutenEnable || false,
+        ONE_TRUST_COOKIE_ENABLED: Site.current.preferences.custom.oneTrustCookieEnabled || false,
+        OPTANON_ALLOWED_COOKIE: Constants.ONE_TRUST_COOKIE_ENABLED,
+        LISTRAK_ENABLED: Site.current.preferences.custom.Listrak_Cartridge_Enabled,
+        RAKUTEN_REQUEST: rakutenCookiesHelper.getRakutenRequestObject(),
+        GOOGLE_AUTO_COMPLETE_ENABLED: !empty(Site.current.preferences.custom.enableAutoComplete) ? Site.current.preferences.custom.enableAutoComplete : false,
+        GOOGLE_PAY_ENABLED: Site.current.preferences.custom.isGooglePayEnabled || false,
+        GOOGLE_PAY_MERCHANT_ACCOUNT: Site.current.preferences.custom.googlePayMerchantID,
+        GOOGLE_PAY_MERCHANT_NAME: Site.current.preferences.custom.Adyen_merchantCode,
+        GOOGLE_PAY_AUTOCOMPLETE: autoComplete,
+        CART_GIFT_MESSAGE_LIMIT: !empty(Site.current.preferences.custom.cartGiftMessageLimit) ? Site.current.preferences.custom.cartGiftMessageLimit : 0,
+        GOOGLE_PAY_ALLOWED_COUNTRY_CODES: allowedCountryCodes,
+        COUPONCODE_URL: URLUtils.url('CouponCode-Apply').toString(),
+        EYEWEAR_POLARIZATION: Resource.msg('pdp.eyewaer.polarization.text','product',null),
+        EYEWEAR_POLARIZATION_SEPRATOR: Resource.msg('separator','product',null)
     };
     return resources;
 }

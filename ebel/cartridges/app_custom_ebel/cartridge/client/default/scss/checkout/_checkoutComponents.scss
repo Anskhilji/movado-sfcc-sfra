@@ -57,6 +57,7 @@ $stored-payment-spacing: rem(16);
 .data-checkout-stage {
   padding-top: rem(10);
   margin-bottom: rem(50);
+  
   .top-grandtotal-label {
     text-transform: uppercase;
   }
@@ -72,7 +73,7 @@ $stored-payment-spacing: rem(16);
   .form-group {
     .form-control-label {
       margin-bottom: 0;
-      font-family: $font-book;
+      font-family: inherit;
       font-size: rem(14);
       line-height: rem(17);
       letter-spacing: rem(0.4);
@@ -88,6 +89,11 @@ $stored-payment-spacing: rem(16);
       border: rem(1) solid $grey14;
       color: $grey14;
     }
+
+    .expirationDate {
+      margin-top: rem(2);
+    }
+    
     .add-address,
     .edit-address {
       margin-top: rem(10);
@@ -182,6 +188,10 @@ $stored-payment-spacing: rem(16);
     .checkout-promo-code-form .form-group {
       padding: 0;
     }
+  }
+ 
+  @include media-breakpoint-up(lg) {
+    padding-top: rem(0);
   }
 }
 

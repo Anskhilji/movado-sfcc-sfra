@@ -2,7 +2,7 @@
 
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1.0, user-scalable=no">
 <isinclude template="common/oneTrustCookiesScript" sf-toolkit="off" />
 <isinclude template="/common/googleOptimize" sf-toolkit="off" />
 <iscomment> Custom Start: Adding Google Antiflicker Optimise Script </iscomment>
