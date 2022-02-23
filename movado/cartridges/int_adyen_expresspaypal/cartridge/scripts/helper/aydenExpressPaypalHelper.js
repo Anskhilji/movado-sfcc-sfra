@@ -1,5 +1,7 @@
 'use strict';
 
+var server = require('server');
+
 var adyenLogger = require('dw/system/Logger').getLogger('Adyen', 'adyen');
 var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 var Transaction = require('dw/system/Transaction');
@@ -7,13 +9,14 @@ var ShippingMgr = require('dw/order/ShippingMgr');
 var Site = require('dw/system/Site');
 var checkoutFieldsRegex = require('*/cartridge/utils/ExpressCheckoutRegexUtils');
 var Constants = require('*/cartridge/utils/Constants');
+var checkoutAddressHelper = require('*/cartridge/scripts/helpers/checkoutAddressHelper');
 
 /**
-* Splits the string into multiple based on the passed limit.
-* @param {string} message String to be splitted.
-* @param {number} limit limit.
-* @return {array} Array of splitted string.
-*/
+ * Splits the string into multiple based on the passed limit.
+ * @param {string} message String to be splitted.
+ * @param {number} limit limit.
+ * @return {array} Array of splitted string.
+ */
 function splitAndSetAddress(message, limit) {
     var splittedArray = [];
     var tempArray = [];
@@ -42,9 +45,9 @@ function splitAndSetAddress(message, limit) {
 }
 
 /**
-* Sets the default shipping method on the paypal returned order and calculate taxes.
-* @param {Order} currentBasket Order
-*/
+ * Sets the default shipping method on the paypal returned order and calculate taxes.
+ * @param {Order} currentBasket Order
+ */
 function preValidations(currentBasket) {
     if (currentBasket && currentBasket.defaultShipment.shippingAddress === null) {
         Transaction.wrap(function () {
@@ -63,20 +66,20 @@ function preValidations(currentBasket) {
         var defaultShipment = currentBasket.getDefaultShipment();
         defaultShipment.setShippingMethod(defaultShippngMethod);
         hooksHelper(
-      'dw.ocapi.shop.basket.calculate',
-      'calculate',
-      currentBasket,
-      require('*/cartridge/scripts/hooks/cart/calculate').calculate);
+            'dw.ocapi.shop.basket.calculate',
+            'calculate',
+            currentBasket,
+            require('*/cartridge/scripts/hooks/cart/calculate').calculate);
     }
 }
 
 /**
-* Sets the PAYPAL related information on the Payment Instrument.
-* @param {Order} order Order
-* @param {PaymentInstrument} paymentInstrument PaymentInstrument
-* @param {PaymentProcessor} paymentProcessor PaymentProcessor
-* @param {JSON} params input parameters
-*/
+ * Sets the PAYPAL related information on the Payment Instrument.
+ * @param {Order} order Order
+ * @param {PaymentInstrument} paymentInstrument PaymentInstrument
+ * @param {PaymentProcessor} paymentProcessor PaymentProcessor
+ * @param {JSON} params input parameters
+ */
 function populatePaymentInstrument(order, paymentInstrument, paymentProcessor, params) {
     order.custom.Adyen_eventCode = 'CAPTURE';
 
@@ -96,7 +99,8 @@ function populatePaymentInstrument(order, paymentInstrument, paymentProcessor, p
     }
 
     paymentInstrument.paymentTransaction.paymentProcessor = paymentProcessor;
-    paymentInstrument.paymentTransaction.custom.Adyen_log = JSON.stringify(params);
+    // Custom Start: MSS-1663 Removed code which was saving the CC infomration in paymentTransaction custom attribute 'Adyen_log'
+    // Custom End
 }
 /**
  *  address Validation for PO box and Country
@@ -135,7 +139,7 @@ function formsValidation(currentBasket, formData) {
     var deliveryCountry = '';
     var billingAddressCity = '';
     var billingAddressCountry = '';
-    var billingAddressState  = '';
+    var billingAddressState = '';
     var billingAddressStateOrProvince = '';
     var validatedFields = {};
 
@@ -163,7 +167,21 @@ function formsValidation(currentBasket, formData) {
 
     // MSS-1263 Improve check in case of state code
     if (!empty(stateCode) || (empty(stateCode) && fetchFromMap(formData, 'deliveryAddress.country') == Constants.COUNTRY_GB)) {
-        stateCode = false;
+        var shippingForms = session.forms.shipping;
+        var shippingFormServer = server.forms.getForm('shipping');
+        var shippingFormServerStateCode = shippingFormServer.shippingAddress.addressFields.states.stateCode.options;
+        var isValidStateCode = checkoutAddressHelper.isStateCodeAllowed(shippingFormServerStateCode, stateCode);
+
+        Transaction.wrap(function () {
+            shippingForms.shippingAddress.addressFields.states.stateCode.value = stateCode;
+        });
+
+        if ((!empty(isValidStateCode) && isValidStateCode) || (empty(isValidStateCode) && fetchFromMap(formData, 'deliveryAddress.country') == Constants.COUNTRY_GB)) {
+            stateCode = false
+        } else {
+            stateCode = true;
+            adyenLogger.error('(adyenExpressPaypalHelper) -> formsValidation: Shipping address state is restricted and value is: ' + fetchFromMap(formData, 'deliveryAddress.stateOrProvince'));
+        }
     } else {
         stateCode = true;
         adyenLogger.error('(adyenExpressPaypalHelper) -> formsValidation: Shipping address state is not valid and value is: ' + fetchFromMap(formData, 'deliveryAddress.stateOrProvince'));
@@ -171,7 +189,21 @@ function formsValidation(currentBasket, formData) {
 
     // MSS-1263 Improve check in case of state code
     if (!empty(billingAddressState) || (empty(billingAddressState) && fetchFromMap(formData, 'billingAddress.country') == Constants.COUNTRY_GB)) {
-        billingAddressState = false;
+        var billingForms = session.forms.billing;
+        var billingFormServer = server.forms.getForm('billing');
+        var billingFormServerStateCode = billingFormServer.addressFields.states.stateCode.options;
+        var isValidStateCode = checkoutAddressHelper.isStateCodeAllowed(billingFormServerStateCode, billingAddressState)
+
+        Transaction.wrap(function () {
+            billingForms.addressFields.states.stateCode.value = billingAddressState;
+        });
+
+        if ((!empty(isValidStateCode) && isValidStateCode) || (empty(isValidStateCode) && fetchFromMap(formData, 'billingAddress.country') == Constants.COUNTRY_GB)) {
+            billingAddressState = false
+        } else {
+            billingAddressState = true;
+            adyenLogger.error('(adyenExpressPaypalHelper) -> formsValidation: Billing address state is restricted and value is: ' + fetchFromMap(formData, 'billingAddress.state'));
+        }
     } else {
         billingAddressState = true;
         adyenLogger.error('(adyenExpressPaypalHelper) -> formsValidation: Billing address state is not valid and value is: ' + fetchFromMap(formData, 'billingAddress.state'));
@@ -186,7 +218,7 @@ function formsValidation(currentBasket, formData) {
     }
 
     var isAnonymous = currentBasket.getCustomer().isAnonymous();
-    
+
     if (isAnonymous) {
         emailValue = (formData.shopperEmail) ? formData.shopperEmail : '';
         email = fetchValidatedFields(emailValue, checkoutFieldsRegex.email);
@@ -198,12 +230,12 @@ function formsValidation(currentBasket, formData) {
         adyenLogger.error('(adyenExpressPaypalHelper) -> formsValidation: Email address is not valid and value is: ' + emailValue);
     }
     validatedFields = {
-        firstName: firstName, 
-        lastName: lastName, 
-        address1: address1, 
-        city: city, 
-        postalCode: postalCode, 
-        phoneNumber: phoneNumber, 
+        firstName: firstName,
+        lastName: lastName,
+        address1: address1,
+        city: city,
+        postalCode: postalCode,
+        phoneNumber: phoneNumber,
         email: email,
         billingAddressCity: billingAddressCity,
         deliveryCountry: deliveryCountry,
@@ -211,7 +243,7 @@ function formsValidation(currentBasket, formData) {
         billingAddressState: billingAddressState,
         billingAddressCountry: billingAddressCountry,
         billingAddressStateOrProvince: billingAddressStateOrProvince,
-        paypalerror: false 
+        paypalerror: false
     };
     for (var prop in validatedFields) {
         if (validatedFields[prop] == true) {
@@ -223,11 +255,11 @@ function formsValidation(currentBasket, formData) {
 }
 
 /**
-* Sets the default shipping method on the paypal returned order and calculate taxes.
-* @param {JSON} formData Form Map
-* @param {string} field string
-* @returns {string} Request HTTP Parameter value.
-*/
+ * Sets the default shipping method on the paypal returned order and calculate taxes.
+ * @param {JSON} formData Form Map
+ * @param {string} field string
+ * @returns {string} Request HTTP Parameter value.
+ */
 function fetchFromMap(formData, field) {
     if (field in formData) {
         return replaceSpecialChars(formData[field.toString()]);
@@ -235,11 +267,11 @@ function fetchFromMap(formData, field) {
     return '';
 }
 /**
-* matches the given regex with given field data
-* @param {JSON} formData Form Map
-* @param {string} field string
-* @returns {boolean} bool
-*/
+ * matches the given regex with given field data
+ * @param {JSON} formData Form Map
+ * @param {string} field string
+ * @returns {boolean} bool
+ */
 function fetchValidatedFields(fieldData, fieldRequiredRegexExpression) {
     var results = fieldRequiredRegexExpression.test(fieldData);
     results = !results;
@@ -259,10 +291,10 @@ function comparePoBox(address) {
 }
 
 /**
-* Sets the default shipping method on the paypal returned order and calculate taxes.
-* @param {string} text String
-* @returns {string} formatted string.
-*/
+ * Sets the default shipping method on the paypal returned order and calculate taxes.
+ * @param {string} text String
+ * @returns {string} formatted string.
+ */
 function replaceSpecialChars(text) {
     var str = text.replace('\r\n', ' ', 'g');
     return str;
@@ -293,15 +325,15 @@ function getPaypalErrors(queryString) {
     var Resource = require('dw/web/Resource');
     var paypalerrors = [];
     if (!empty(queryString)) {
-        if (queryString.firstName &&  queryString.firstName == 'true') {
+        if (queryString.firstName && queryString.firstName == 'true') {
             paypalerrors.push(Resource.msg('cart.paypal.firstname.error', 'cart', null));
         }
         if (queryString.lastName && queryString.lastName == 'true') {
             paypalerrors.push(Resource.msg('cart.paypal.lastname.error', 'cart', null));
         }
-        if(queryString.city && queryString.city == 'true') {
+        if (queryString.city && queryString.city == 'true') {
             paypalerrors.push(Resource.msg('cart.paypal.city.error', 'cart', null));
-        } 
+        }
         if (queryString.email && queryString.email == 'true') {
             paypalerrors.push(Resource.msg('cart.paypal.email.error', 'cart', null))
         }
@@ -311,7 +343,7 @@ function getPaypalErrors(queryString) {
         if (queryString.billingAddressCity && queryString.billingAddressCity == 'true') {
             paypalerrors.push(Resource.msg('cart.paypal.billing.city.error', 'cart', 'null'));
         }
-        if(queryString.billingAddressCountry && queryString.billingAddressCountry == 'true') {
+        if (queryString.billingAddressCountry && queryString.billingAddressCountry == 'true') {
             paypalerrors.push(Resource.msg('cart.paypal.billing.country.error', 'cart', null));
         }
         if (queryString.billingAddressState && queryString.billingAddressState == 'true') {
@@ -325,6 +357,9 @@ function getPaypalErrors(queryString) {
         }
         if (queryString.phoneNumber && queryString.phoneNumber == 'true') {
             paypalerrors.push(Resource.msg('cart.paypal.billing.phone.error', 'cart', null));
+        }
+        if (queryString.stateCode && queryString.stateCode == 'true') {
+            paypalerrors.push(Resource.msg('cart.paypal.shipping.address.state.not.valid.error', 'cart', null));
         }
     } else {
         if (!empty(queryString.paypalerror)) {

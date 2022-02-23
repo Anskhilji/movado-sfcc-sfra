@@ -117,13 +117,26 @@ server.replace(
 );
 
 
+server.append(
+    'Login',
+    function (req, res, next) {
+        var viewData = res.getViewData();
+        var authenticatedCustomer = viewData.authenticatedCustomer;
+        if (!empty(authenticatedCustomer)) {
+            var newProfile = authenticatedCustomer.getProfile();
+            Transaction.wrap(function () {
+                newProfile.custom.customerCurrentCountry = req.geolocation.countryCode;
+            });
+        }
+        return next();
+    });
+
 // Function will be called when a new customer is being created
 server.replace('SubmitRegistration', server.middleware.https, csrfProtection.validateAjaxRequest, function (req, res, next) {
     var CustomerMgr = require('dw/customer/CustomerMgr');
     var Resource = require('dw/web/Resource');
     var URLUtils = require('dw/web/URLUtils');
 
-    var SFMCApi = require('int_custom_marketing_cloud/cartridge/scripts/api/SFMCApi');
     var EmailSubscriptionHelper = require('int_custom_marketing_cloud/cartridge/scripts/helper/EmailSubscriptionHelper');
     var formErrors = require('*/cartridge/scripts/formErrors');
     var registrationForm = null;
@@ -131,6 +144,7 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
     var redirectUrl = null;
     var accountHelpers = require('*/cartridge/scripts/helpers/accountHelpers');
     var isYotpoSwellLoyaltyEnabled = !empty(Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) ? Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled : false;
+    var isAccountSignupVerificationEnabled = !empty(Site.current.preferences.custom.isAccountSignupVerificationEnabled) ? Site.current.preferences.custom.isAccountSignupVerificationEnabled : false;
 
     // setting variables for the BeforeComplete function
     registrationForm = server.forms.getForm('profile');
@@ -142,6 +156,17 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
             Resource.msg('error.message.mismatch.email', 'forms', null);
         registrationForm.valid = false;
     }
+
+        // Custom Start: [Added Honeypot Logic]
+        if (isAccountSignupVerificationEnabled) {
+            if ((!empty(registrationForm.customer.hpemail.htmlValue)) ||
+                (!empty(registrationForm.customer.hpemailconfirm.htmlValue))) {
+                    registrationForm.valid = false;
+            } else {
+                registrationForm.valid = true;
+            }
+        }
+        // Custom End
 
     if (registrationForm.login.password.value !== registrationForm.login.passwordconfirm.value) {
         registrationForm.login.password.valid = false;
@@ -169,6 +194,7 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
         lastName: registrationForm.customer.lastname.value,
         birthdate: registrationForm.customer.birthdate.value,
         birthmonth: registrationForm.customer.birthmonth.value,
+        birthmonthNumber: registrationForm.customer.birthmonth.selectedOption,
         phone: registrationForm.customer.phone.value,
         email: registrationForm.customer.email.value,
         emailConfirm: registrationForm.customer.emailconfirm.value,
@@ -220,7 +246,21 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
                                 var requestParams = {
                                     email: registrationForm.email
                                 }
-                                SFMCApi.sendSubscriberToSFMC(requestParams);
+                                if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
+                                    var ltkApi = require('*/cartridge/scripts/api/ListrakAPI');
+                                    var ltkConstants = require('*/cartridge/scripts/utils/ListrakConstants');
+                                    requestParams.source = ltkConstants.Source.Create_Account;
+                                    requestParams.event = ltkConstants.Event.Create_Account;
+                                    requestParams.subscribe = ltkConstants.Subscribe.Create_Account;
+                                    requestParams.firstName= registrationForm.firstName;
+                                    requestParams.lastName= registrationForm.lastName;
+                                    requestParams.birthDate= registrationForm.birthdate;
+                                    requestParams.birthMonth= registrationForm.birthmonthNumber;
+                                    ltkApi.sendSubscriberToListrak(requestParams);
+                                } else {
+                                    var SFMCApi = require('int_custom_marketing_cloud/cartridge/scripts/api/SFMCApi');
+                                    SFMCApi.sendSubscriberToSFMC(requestParams);
+                                }
                                 newsletterSignupProssesed = EmailSubscriptionHelper.emailSubscriptionResponse(true);
                             } else {
                                 newsletterSignupProssesed = EmailSubscriptionHelper.emailSubscriptionResponse(false);
@@ -232,6 +272,7 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
                             newCustomerProfile.phoneHome = registrationForm.phone;
                             newCustomerProfile.custom.birthdate = registrationForm.birthdate;
                             newCustomerProfile.custom.birthmonth = registrationForm.birthmonth;
+                            newCustomerProfile.custom.customerCurrentCountry = req.geolocation.countryCode;
                             if (newsletterSignupProssesed.success) {
                                 newCustomerProfile.custom.addtoemaillist = newsletterSignupProssesed.optOutFlag || registrationForm.addToEmailList;
                             }

@@ -1,9 +1,9 @@
 <iscomment> Custom Start: Creating the new template for newsletter popup.</iscomment> 
 <form role="form" name="newsletterSubscribe" id="newsletterSubscribe" action="${URLUtils.url('Newsletter-Subscribe', 'pageType', 'footer')}" method="POST">
     <div class="input-group">
-        <input type="text" class="form-control" id="hpEmailSignUp" name="hpEmailSignUp" placeholder="${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}" />
+        <input type="email" class="form-control" id="hpEmailSignUp" name="hpEmailSignUp" placeholder="${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}" />
         <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('isEmailVerificationEnabled') === true}">
-            <input type="text" class="form-control email-verification" id="hpEmailSignUp" name="hpEmailSignUp" placeholder="${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}" />
+            <input type="email" class="form-control email-verification" id="hpEmailSignUp" name="hpEmailSignUp" placeholder="${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}" />
         </isif>
         <div class="invalid-feedback"></div>
         <iscomment> Custom Start: Removing id and type of button then it will not display the footer popup form. </iscomment>

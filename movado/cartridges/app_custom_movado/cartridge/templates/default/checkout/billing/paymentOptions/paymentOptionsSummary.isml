@@ -20,5 +20,8 @@
                 </isif>
             </div>
         </isif>
+        <isif condition="${payment.paymentMethod === 'GOOGLE_PAY'}">
+            ${Resource.msg('payment.name', 'googlePay', null)}
+        </isif>
     </isloop>
 </div>

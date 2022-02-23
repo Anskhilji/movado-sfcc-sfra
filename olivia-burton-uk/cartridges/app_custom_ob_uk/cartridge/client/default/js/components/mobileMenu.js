@@ -15,4 +15,13 @@ module.exports = function () {
         $('.ob-mobile-esw-dropdown').hide();
     });
 
+    $(window).on('resize load',function () {
+        var screenSize = $(window).width();
+        var mobileScreenSize = 991;
+
+        if (screenSize <= mobileScreenSize) {
+            $('.submenu-recommendations').remove();
+        }
+    });
+
 };

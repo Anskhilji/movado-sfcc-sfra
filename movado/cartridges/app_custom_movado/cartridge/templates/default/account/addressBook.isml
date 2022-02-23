@@ -39,7 +39,16 @@
                             <isif condition="${address.address.address2 !== null}">
                                 <div>${address.address.address2}</div>
                             </isif>
-                            <div>${address.address.city}, ${address.address.stateCode} ${address.address.postalCode}</div>
+                            <div>${address.address.city}
+                            <isif condition="${address.address.stateCode !== null || address.address.postalCode !== null}">
+                                , 
+                            </isif>
+                            <isif condition="${address.address.stateCode !== null}">
+                                ${address.address.stateCode}
+                            </isif>
+                            <isif condition="${address.address.postalCode !== null}">
+                                ${address.address.postalCode}</div>
+                            </isif>
                             <div>${address.address.phone}</div>
                             <isif condition="${address.address.ID !== pdict.addressBook[0].address.ID}">
                                 <div class="card-make-default-link">

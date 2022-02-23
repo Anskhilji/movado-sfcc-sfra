@@ -4,8 +4,12 @@
         assets.addCss('/css/checkout/checkout.css');
           assets.addCss('/css/checkout/orderConfirmation.css');
         assets.addJs('/js/checkoutRegistration.js');
+        assets.addJs('/js/fbConversion.js');
     </isscript>
 
+     <isif condition="${!empty(dw.system.Site.current.preferences.custom.isFacebookConversionAPIEnabled) ? dw.system.Site.current.preferences.custom.isFacebookConversionAPIEnabled : false}">
+        <div id="fb-conversion" data-url="${URLUtils.url('Order-FBConversion')}" data-order-number="${pdict.order.orderNumber}"></div>
+    </isif>
     <isif condition="${dw.system.Site.current.preferences.custom.EUMEnabled}">
         <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.order.confirmation', 'eum', null))}"/>
     </isif>    
@@ -15,25 +19,22 @@
 
     <isslot id="cs-account-orderconfirmation-banner" description="orderconfirmation banner Image" context="global" />
 
-    <div class="container receipt mt-3 <isif condition="${pdict.order.shipping.length > 1}">multi-ship</isif>">
-
+      <div class="container receipt mt-3 <isif condition="${pdict.order.shipping.length > 1}">multi-ship</isif>">
         <div class="row flex-md-row-reverse">
 
-                <div class="col-md-6 px-md-0">
+            <div class="col-md-6 px-md-0">
+                <h2 class="order-thank-you-msg heading-two">${Resource.msg('msg.placed.order.thank.you','confirmation',null)}</h2>
+                <p class="order-thank-you-email-msg"><isprint value="${Resource.msgf('info.receive.email.confirmation', 'confirmation', null, pdict.order.orderEmail)}" encoding="htmlcontent" /></p>
 
-                        <h2 class="order-thank-you-msg heading-two">${Resource.msg('msg.placed.order.thank.you','confirmation',null)}</h2>
-                        <p class="order-thank-you-email-msg"><isprint value="${Resource.msgf('info.receive.email.confirmation', 'confirmation', null, pdict.order.orderEmail)}" encoding="htmlcontent" /></p>
-
-                        <iscomment> Custom: Change [put just following div element into limit registration check] </iscomment>
-                        <isif condition="${!dw.system.Site.current.preferences.custom.blockRegistrationOnSalesSites}">
-	                        <isif condition="${pdict.returningCustomer === false}">
-	                        <div class="col-md-8  px-0">
-	                            <isinclude template="checkout/confirmation/confirmationCreateAccount" />
-	                        </div>
-	                        </isif>
-                        </isif>
-
-                </div>
+                <iscomment> Custom: Change [put just following div element into limit registration check] </iscomment>
+                <isif condition="${!dw.system.Site.current.preferences.custom.blockRegistrationOnSalesSites}">
+                    <isif condition="${pdict.returningCustomer === false}">
+                    <div class="col-md-8  px-0">
+                        <isinclude template="checkout/confirmation/confirmationCreateAccount" />
+                    </div>
+                    </isif>
+                </isif>
+            </div>
 
             <div class="col-md-6">
                 <isinclude template="checkout/confirmation/confirmationDetails" />

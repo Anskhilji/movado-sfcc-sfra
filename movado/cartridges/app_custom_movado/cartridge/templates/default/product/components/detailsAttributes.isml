@@ -1,5 +1,5 @@
 <isif condition="${product.pdpAttributesList && product.pdpAttributesList.length}">
-    <h2 class="col-sm-12 col-md-4 col-lg-3">
+    <h2 class="col-sm-12 col-md-4 col-lg-3 detail-heading">
       <button class="title text-uppercase btn p-0 text-left shadow-none">${product.resources.Details}</button>
     </h2>
     <div class="col-sm-12 col-md-8 col-lg-9 value content">

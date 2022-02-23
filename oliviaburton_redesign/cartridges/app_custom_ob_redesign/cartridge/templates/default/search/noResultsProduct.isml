@@ -1,0 +1,10 @@
+<isinclude template="search/noResults" />
+<isif condition="${isAjaxSearchPage && pdict.productSearch.count == 0}">
+    <div class="reset-container">
+        <div class="secondary-bar">
+            <a class="reset plp-filter-reset btn btn-outline-primary" href="${pdict.productSearch.resetLink}">
+                ${Resource.msg('link.reset', 'search', null)}
+            </a>
+        </div>
+    </div>
+</isif>

@@ -1,0 +1,39 @@
+<iscomment> Custom: Start new template added for recommendation products </iscomment>
+<isinclude template="components/modules" sf-toolkit="off" />
+<div class="linked-product-list">
+    <isif condition="${!empty(pdict.explicitRecommendations) && pdict.explicitRecommendations.length > 0}">
+        <div class="linked-head">
+            <iscontentasset aid="style-with-text-configs" />
+        </div>
+        <div class="recomended-products" data-recomendation="true">
+            <isloop items="${pdict.explicitRecommendations}" var="recommendation">
+                <isif condition="${recommendation != null}">
+                    <div class="upsell-wrapper">
+                        <input type="hidden" class="add-to-cart-url" value="${URLUtils.url('Cart-AddProduct')}">
+                        <button  class="upsell-input add-to-cart-recomendations" data-pid="${recommendation.id}" name="additionalProducts" value="${recommendation.id}">
+                        </button>
+                        <div class="upsell-wrapper-inner">
+                            <img class="upsell-image" alt="" src="${recommendation.images.tile150[0].url}"/>
+                            
+                            <p class="upsell-description">${recommendation.productName}</p>
+                            <div class="upsell-meta">
+                                <div class="upsell-price">
+                                    <isset name="price" value="${recommendation.price}" scope="page" />
+                                    <isif condition="${recommendation.productType === 'set'}">
+                                        <isinclude template="product/components/pricing/setPrice" />
+                                    <iselse>
+                                        <isinclude template="product/components/pricing/main" />
+                                    </isif>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="upsell-text">
+                            <p class="upsell-text-add"><span class="upsell-text-add-icon"></span> ${Resource.msg('label.add.text', 'product', null)}</p>
+                        </div>
+                    </div>
+                </isif>
+            </isloop>
+        </div>
+    </isif>
+</div>
+<iscomment> Custom: End </iscomment>

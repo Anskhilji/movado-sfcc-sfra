@@ -1,6 +1,7 @@
 <isset name="hasEmbeddedBonusProducts" value="${lineItem.bonusProductLineItemUUID === 'bonus'}"  scope="page"/>
 <isset name="bonusproductlineitem" value="${hasEmbeddedBonusProducts ? 'bonus-product-line-item' : ''}" scope="page"/>
 <isset name="bonuslineitemrow" value="${hasEmbeddedBonusProducts ? 'bonus-line-item-row' : ''}" scope="page"/>
+<isset name="enableGiftMessage" value="${dw.system.Site.getCurrent().preferences.custom.enableGiftMessage}" scope="page"/>
 
 <div class="card product-info pb-0 ${bonusproductlineitem} uuid-${lineItem.UUID} product-card-wrapper">
     <!--- name and remove buttons --->
@@ -18,13 +19,29 @@
                         <isinclude template="/product/components/pricing/main" />
                     </div>
                     <div class="item-attributes">
-                        <isloop items="${lineItem.variationAttributes}" var="attribute">
-                            <isif condition="${typeof option != 'undefined' && option.optionId === Resource.msg('emboss.displayValue', 'cart', null) && lineItem.customAttributes.emboss}"> 
-                                <p class="line-item-attributes">${Resource.msg('emboss.displayValue.change', 'cart', null)}: ${attribute.displayValue}</p>
-                            <iselse>
-                                <p class="line-item-attributes">${attribute.displayName}: ${attribute.displayValue}</p>
+                        <iscomment> Custom Start: Clyde Integration </iscomment>
+                            <isif condition="${dw.system.Site.current.preferences.custom.isClydeEnabled}">
+                                <isif condition="${(lineItem.productName).substring(0, 13) === 'clydeContract'}">
+                                    <p class="line-item-attributes">${(lineItem.lineItemText)}</p>
+                                <iselse/>
+                                    <isloop items="${lineItem.variationAttributes}" var="attribute">
+                                        <isif condition="${typeof option != 'undefined' && option.optionId === Resource.msg('emboss.displayValue', 'cart', null) && lineItem.customAttributes.emboss}"> 
+                                            <p class="line-item-attributes">${Resource.msg('emboss.displayValue.change', 'cart', null)}: ${attribute.displayValue}</p>
+                                        <iselse>
+                                            <p class="line-item-attributes">${attribute.displayName}: ${attribute.displayValue}</p>
+                                        </isif>
+                                    </isloop>
+                                </isif>
+                            <iselse/>
+                                <isloop items="${lineItem.variationAttributes}" var="attribute">
+                                    <isif condition="${typeof option != 'undefined' && option.optionId === Resource.msg('emboss.displayValue', 'cart', null) && lineItem.customAttributes.emboss}"> 
+                                        <p class="line-item-attributes">${Resource.msg('emboss.displayValue.change', 'cart', null)}: ${attribute.displayValue}</p>
+                                    <iselse>
+                                        <p class="line-item-attributes">${attribute.displayName}: ${attribute.displayValue}</p>
+                                    </isif>
+                                </isloop>
                             </isif>
-                        </isloop>
+                        <iscomment> Custom End: </iscomment>
                         <iscomment> added class d-none </iscomment>
                         <p class="line-item-attributes d-none model-name">${lineItem.resources.Model} ${lineItem.id}</p>
                         <isloop items="${lineItem.options}" var="option">
@@ -111,5 +128,9 @@
     <isif condition="${lineItem.bonusProductLineItemUUID === 'bonus'}">
         <isinclude template="cart/productCard/cartEmbeddedBonusProducts" />
     </isif>
-    <isinclude template="cart/productCard/cartGiftMessaging" />
+    <isif condition="${enableGiftMessage}">
+        <isif condition="${!lineItem.isBonusProductLineItem}"> 
+            <isinclude template="cart/productCard/cartGiftMessaging" />
+        </isif>
+    </isif>
 </div>

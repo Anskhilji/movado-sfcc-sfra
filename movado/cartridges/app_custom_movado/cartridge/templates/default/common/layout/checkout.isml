@@ -5,6 +5,10 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <isset name="isAutoCompleteEnabled" value="${!empty(dw.system.Site.current.preferences.custom.enableAutoComplete) ? dw.system.Site.current.preferences.custom.enableAutoComplete : false}" scope="page" />
+        <isif condition="${isAutoCompleteEnabled}">
+            <isinclude template="/common/googleMapsApi" sf-toolkit="off" />
+        </isif>
         <!--[if gt IE 9]><!-->
             <isinclude sf-toolkit="off" template="/common/scripts" />
         <!--<![endif]-->
@@ -24,6 +28,7 @@
       <div id="skip-to-content"><a href="#mainContent">${Resource.msg('global.skiptomaincontent', 'common', null)}</a></div>
         <div class="page">
             <isinclude template="/components/header/pageHeaderNomenu" />
+            <isset name="enableAutoComplete" value="${!empty(dw.system.Site.current.preferences.custom.enableAutoComplete) ? dw.system.Site.current.preferences.custom.enableAutoComplete : false}" scope="page" />
             <div id="mainContent">
               <isreplace/>
             </div>
@@ -34,6 +39,12 @@
         <isinclude template="analyticsTracking/analyticsTrackingFooter.isml"/>
         <iscomment>CUSTOM: Include resources template to avail backend resource messages on all pages.</iscomment>
         <isinclude template="resources/appresources"/>
+        <iscomment> Listrak Activity Track Call </iscomment>
+        <isset name="isListrakEnable" value="${!empty(dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) ? dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled : false}" scope="page" />
+        <isif condition="${isListrakEnable}">
+            <isinclude url="${URLUtils.url('ltkInclude-Start')}" />
+        </isif>
+        <isinclude template="common/oneTrustCookiesHTML" sf-toolkit="off" />
 
     </body>
 </html>

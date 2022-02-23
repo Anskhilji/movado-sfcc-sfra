@@ -102,7 +102,7 @@ module.exports.getSalesforceCompositeService = function () {
     var salesforceCompositeService = LocalServiceRegistry.createService(SalesforceFactory.SERVICES.composite, {
         createRequest: function (service, requestDataContainer) {
             this.serviceAction = requestDataContainer.action;
-            service.URL = service.configuration.credential.URL + '/services/data/v49.0/composite/';
+            service.URL = service.configuration.credential.URL + '/services/data/v52.0/composite/';
             service.setRequestMethod(requestDataContainer.requestMethod);
             setAuthHeader(service);
 

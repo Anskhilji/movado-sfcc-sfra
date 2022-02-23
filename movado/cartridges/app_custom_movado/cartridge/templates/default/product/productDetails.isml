@@ -1,3 +1,4 @@
+
 <isdecorate template="common/layout/page">
 
     <isscript>
@@ -5,7 +6,11 @@
         assets.addJs('/lib/pinchzoom/pinch-zoom.umd.js');
         assets.addJs('/js/productDetail.js');
         assets.addCss('/css/product/detail.css');
-    </isscript>
+    </isscript> 
+    <isset name="isListrakEnable" value="${!empty(dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) ? dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled : false}" scope="page" />
+    <isif condition="${isListrakEnable}">
+        <isinclude url="${URLUtils.https('ltkActivityTracking-TrackRequest', 'pid', pdict.product.id)}"/>  
+    </isif>
     <isif condition="${dw.system.Site.current.preferences.custom.EUMEnabled}">
         <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.pdp', 'eum', null))}"/>
     </isif>
@@ -52,7 +57,7 @@
                     </div>
 
                     <!-- Product Name -->
-                    <h1 class="product-name d-sm-none d-md-block text-uppercase">${product.productName}</h1>
+                    <h2 class="product-name d-sm-none d-md-block text-uppercase">${product.productName}</h2>
 
                     <div class="d-block d-md-block d-sm-none">
                         <isinclude template="product/components/pidRating" />
@@ -94,19 +99,18 @@
                             <isinclude template="product/components/variationAttributes" />
                         </isif>
 
-                        <!-- Affirm Text -->
-                        <div class="col-md-10 col-12">
-                            <div>
-                                <isinclude template="util/affirmmodule_mf" />
-                                <isaffirmpromo context="pdp"
-                                    fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
-                            </div>
-                        </div>
                         <div class="col-12 prices-add-to-cart-actions">
                             <!-- Prices -->
                             <div class="prices">
                                 <isset name="price" value="${product.price}" scope="page" />
                                 <isinclude template="product/components/pricing/main" />
+                            </div>
+                        <!-- Affirm Text -->
+                            <div>
+                                <isset name="fpname" value="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" scope="page" />
+                                <isset name="context" value="pdp" scope="page" />
+                                <isset name="country" value="${request.httpParameterMap.get('country').value}" scope="page" />
+                                <isinclude url="${URLUtils.https('Affirm-AffirmBanner', 'pid', product.id, 'context', context, 'fpname', fpname, 'country', country)}"/>
                             </div>
                             <div class="d-block d-md-flex">
                                <!-- Cart and [Optionally] Apple Pay -->
@@ -128,10 +132,6 @@
                                     </isif>
                                 </isif>
                                 <span class="product-id d-none" itemprop="productID" >${product.id}</span>
-                                <!-- Social Sharing Icons -->
-                                <isif condition="${dw.system.Site.getCurrent().preferences.custom.addthis_enabled}">
-                                    <isinclude template="product/components/socialIcons" />
-                                </isif>
                             </div>
                             <div class="row description">
                                 <isinclude template="product/components/description" />
@@ -149,7 +149,12 @@
                 </div>
             </div>
         </div>
-
+        <iscomment> Custom Start: Clyde Integration </iscomment>
+            <isif condition = "${dw.system.Site.current.preferences.custom.clydeWidgetDisplay}">
+                <div id="clyde-cta" >
+                </div>
+            </isif>
+        <iscomment> Custom End: </iscomment>
 
         <div class="container">
             <isinclude template="product/components/descriptionAndDetails" />
