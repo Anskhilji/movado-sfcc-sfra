@@ -1022,7 +1022,7 @@
                     &-turncate-name {
                         overflow: hidden;
                         text-overflow: ellipsis;
-                        // display: -webkit-box;
+                        display: -webkit-box;
                         -webkit-line-clamp: 3;
                     }
                     &-collection-name {
