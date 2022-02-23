@@ -259,7 +259,7 @@
 
             &.btn:not(:disabled):not(.disabled):active,
             &.btn:not(:disabled):not(.disabled).active {
-                background: url("../../images/zoom_in.svg") center center no-repeat !important;
+                background: url("../../images/zoom_in.svg") center center no-repeat;
             }
             &::after {
                 background-color: $light-grey-4;
@@ -839,8 +839,6 @@
 
 .primary-images {
 
-
-
     .product-badges {
         .badge-right {
             left: auto;
@@ -880,9 +878,9 @@
         
         .quickview {
             position: absolute;
-            bottom: 0%;
+            bottom: 0;
             transform: translate(50%, -50%);
-            left: 20.1%;
+            left: rem(153);
             border-radius: 100%;
             @include media-breakpoint-down(md) {
                 bottom: -0.1vh;
