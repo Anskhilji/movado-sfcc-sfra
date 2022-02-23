@@ -24,7 +24,10 @@
         <div class="custom-bg" style="background-color: ${topLevelBackground};">
             <div class="container-fluid product-detail product-detail-redesign pdp-obuk product-wrapper" data-pid="${product.id}" itemscope
                 itemtype="http://schema.org/Product">
-
+                <!---Breadcrumbs--->
+                <div class="product-breadcrumb">
+                    <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
+                </div>
                 <div class="row">
                     <!-- Product Images Carousel -->
                     <isinclude template="product/components/imageCarousel" />
@@ -32,8 +35,9 @@
                     <div class="col-12 col-lg-5 product-top-detail">
 
                         <!-- Family Name -->
-                        <h1 class="family-name">${pdict.collectionName}</h1>
-
+                        <isif condition="${pdict.plpProductFamilyName}">
+                            <h1 class="family-name">${pdict.collectionName}</h1>
+                        </isif>
                         <!-- Product Name -->
                         <h2 class="product-name text-uppercase">${product.productName}</h2>
 
