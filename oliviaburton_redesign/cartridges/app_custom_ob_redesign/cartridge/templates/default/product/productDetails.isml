@@ -36,8 +36,9 @@
                     <div class="col-12 col-sm-6 product-top-detail">
 
                         <!-- Family Name -->
-                        <h1 class="family-name">${pdict.collectionName}</h1>
-
+                        <isif condition="${pdict.plpProductFamilyName}">
+                            <h1 class="family-name">${pdict.collectionName}</h1>
+                        </isif>
                         <!-- Product Name -->
                         <h2 class="product-name text-uppercase">${product.productName}</h2>
 
@@ -81,7 +82,6 @@
                             </isif>
                         </isif>
                         <div class="product-section-mobile">
-
                             <!-- Product Rating -->
                             <div class="ratings ratings-mobile d-lg-none">
                                 <isinclude template="product/components/productRating" />
