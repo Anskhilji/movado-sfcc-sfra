@@ -24,19 +24,21 @@
         <div class="custom-bg" style="background-color: ${topLevelBackground};">
             <div class="container-fluid product-detail product-detail-redesign pdp-obuk pdp-v-one product-wrapper" data-pid="${product.id}" itemscope
                 itemtype="http://schema.org/Product">
-                <!---Breadcrumbs--->
-                <div class="product-breadcrumb">
-                    <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
-                </div>
-                <div class="row">
+
+                <div class="row align-items-center-wrapper">
+                    <!---Breadcrumbs--->
+                    <div class="product-breadcrumb">
+                        <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
+                    </div>
                     <!-- Product Images Carousel -->
                     <isinclude template="product/components/imageCarousel" />
 
-                    <div class="col-12 col-lg-5 product-top-detail">
+                    <div class="col-12 col-sm-6 product-top-detail">
 
                         <!-- Family Name -->
-                        <h1 class="family-name">${pdict.collectionName}</h1>
-
+                        <isif condition="${pdict.plpProductFamilyName}">
+                            <h1 class="family-name">${pdict.collectionName}</h1>
+                        </isif>
                         <!-- Product Name -->
                         <h2 class="product-name text-uppercase">${product.productName}</h2>
 
@@ -80,7 +82,6 @@
                             </isif>
                         </isif>
                         <div class="product-section-mobile">
-
                             <!-- Product Rating -->
                             <div class="ratings ratings-mobile d-lg-none">
                                 <isinclude template="product/components/productRating" />
