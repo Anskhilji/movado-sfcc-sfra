@@ -17,7 +17,7 @@
                     <span class="attribute-name">${attr.name}</span>
                     <h3 class="attribute-value">${attr.value}</h3>
                 </div>
-                <isif condition="${(loopStatus.count % maxCloumnItems) == 0}">
+                <isif condition="${(loopStatus.count % maxCloumnItems) == 0 || loopStatus.last}">
                     </div>
                     <isif condition="${!loopStatus.last}">
                         <div class="details-list">

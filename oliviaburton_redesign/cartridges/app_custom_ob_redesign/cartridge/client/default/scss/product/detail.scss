@@ -5,7 +5,6 @@
 @import "../components/productCommon";
 
 .product-detail {
-
     &-redesign {
         max-width: rem(1440);
         margin: 0 auto;
@@ -14,11 +13,15 @@
             height: auto;
         }
 
+        .align-items-center-wrapper {
+            align-items: center;
+        }
+
         .primary-images {
             position: relative;
             width: 100%;
             text-align: center;
-            margin-bottom: rem(100);
+            margin-bottom: rem(40);
 
             .cs-carousel-wrapper {
                 position: relative;
@@ -43,6 +46,7 @@
 
                         .carousel-tile {
                             overflow: visible;
+                            right: rem(0);      
 
                             &.active {
                                 min-height: 80vh;
@@ -52,6 +56,24 @@
                                 @include media-breakpoint-down(md) {
                                     pointer-events: none;
                                 }
+                            }
+                            &.carousel-tile-two-wrapper {
+                                @include media-breakpoint-up(lg) {
+                                    margin-left: rem(0);
+                                    max-width: rem(650);
+                                    height: rem(650);
+                                    display: flex !important;
+                                    justify-content: center !important;
+                                    align-items: center !important;
+                                }
+                                @include media-breakpoint-up(xl) {
+                                    margin-left: rem(53);                                
+                                    min-width: 100%;
+                                }
+                                
+                                @include media-breakpoint-down(md) {
+                                    margin-left: rem(0);
+                                }   
                             }
                         }
 
@@ -86,17 +108,18 @@
                         bottom: rem(-18);
 
                         @include media-breakpoint-up(lg) {
-                            width: rem(88);
-                            margin-top: 0;
+                            width: rem(87);
+                            margin-top: rem(135);
                             position: absolute;
-                            top: 7%;
-                            left: rem(43);
+                            top: rem(0);
+                            left: rem(49);
                             display: block;
                             background: transparent;
-                            height: rem(400);
+                            height: rem(390);
                             overflow-y: scroll;
                             -ms-overflow-style: none;
                             scrollbar-width: none;
+                            margin-right: 0;
 
                             &::-webkit-scrollbar {
                                 display: none;
@@ -140,7 +163,10 @@
 
                             &.slick-active {
                                 border: rem(1) solid $pink-rose;
-
+                                @include media-breakpoint-up(lg) {
+                                    width: rem(81);
+                                    height: rem(81);
+                                }
                                 @include media-breakpoint-down(md) {
                                     border: rem(1) solid $light-border-black;
                                 }
@@ -161,17 +187,18 @@
                             }
 
                             @include media-breakpoint-up(lg) {
-                                height: rem(83);
-                                width: rem(83);
+                                height: rem(80);
+                                width: rem(80);
                                 border-radius: 100%;
                                 overflow: hidden;
                                 margin: 0 rem(5);
-                                margin-bottom: rem(14);
+                                margin-bottom: rem(16);
                                 cursor: pointer;
                                 transition: all 0.4s;
                                 border: rem(1) solid transparent;
                                 display: inline-block;
-
+                                border: rem(1) solid $white;
+                                letter-spacing: rem(0);
                                 &:hover {
                                     border: rem(1) solid $pink-rose;
                                 }
@@ -206,10 +233,11 @@
 
                             @include media-breakpoint-up(lg) {
                                 background: url("../../images/RightArrowPDP.svg") center center no-repeat;
-                                right: rem(-15);
+                                right: rem(-6);
                             }
                         }
                     }
+                    
                 }
 
                 .pointer-none {
@@ -227,13 +255,14 @@
             width: rem(40);
             height: rem(40);
             position: absolute;
-            margin-left: rem(20);
-            top: rem(400);
 
-            @include media-breakpoint-up(lg) {
-                position: absolute;
-                margin-left: rem(150);
-                top: rem(475);
+            &.btn:not(:disabled):not(.disabled):active,
+            &.btn:not(:disabled):not(.disabled).active {
+                background: url("../../images/zoom_in.svg") center center no-repeat;
+            }
+            &::after {
+                background-color: $light-grey-4;
+                box-shadow: rem(0) rem(3) rem(5) rem(0) $light-grey-3;
             }
         }
 
@@ -251,11 +280,11 @@
             padding-top: rem(70);
 
             @include media-breakpoint-up(lg) {
-                padding-top: rem(140);
+                padding-top: rem(50);
             }
 
             .product-section-mobile {
-                @include media-breakpoint-down(md) {
+                @include media-breakpoint-down(sm-custom) {
                     padding-top: rem(30);
                     background-color: $white;
                     border-radius: rem(40) rem(40) 0 0;
@@ -270,6 +299,10 @@
                         background-color: $white;
                         bottom: rem(-5);
                     }
+                }
+
+                @include media-breakpoint-up(lg) { 
+                    padding-bottom: rem(114);
                 }
             }
 
@@ -299,7 +332,6 @@
 
                 @include media-breakpoint-up(lg) {
                     line-height: rem(30);
-                    margin-bottom: rem(5);
                     text-align: left;
                 }
             }
@@ -311,7 +343,7 @@
 
                 @include media-breakpoint-up(lg) {
                     margin-top: rem(20);
-                    justify-content: initial;
+                    justify-content: flex-start;
                 }
 
                 .estimated-text {
@@ -324,7 +356,7 @@
                 text-align: center;
 
                 @include media-breakpoint-up(lg) {
-                    text-align: initial;
+                    text-align: left;
                 }
             }
 
@@ -336,7 +368,10 @@
                 &-mobile {
                     margin: 0;
                     padding: 0;
-                    margin-bottom: rem(15);
+
+                    .yotpo-bottomline {
+                        margin-bottom: rem(15);
+                    }
                 }
 
                 .yotpo {
@@ -352,11 +387,11 @@
                     }
 
                     .yotpo-bottomline {
-                        float: initial;
+                        float: none;
                         justify-content: center;
 
                         @include media-breakpoint-up(lg) {
-                            justify-content: initial;
+                            justify-content: flex-start;
                             float: left;
                         }
                     }
@@ -403,30 +438,41 @@
             }
 
             .klarna-promo-parent-container {
-                margin-bottom: 0;
-                margin-top: rem(20);
+                margin: 0;
 
-                .container {
-                    border: none;
-                    max-width: initial;
-                    padding: 0;
-                    @include font-gill($font-size: 13);
-                    line-height: rem(18);
-                    color: $gray20;
+                .klarna-placement {
+                    margin-bottom: 0;
                     margin-top: rem(20);
-                    background: transparent;
-                    text-align: left;
-
-                    .link {
+                    display: flex;
+                    justify-content: center;
+                    
+                    @include media-breakpoint-up(lg) { 
+                        display: block;
+                    }
+    
+                    .container {
+                        border: none;
+                        max-width: none;
                         padding: 0;
                         @include font-gill($font-size: 13);
                         line-height: rem(18);
                         color: $gray20;
-                        display: inline-block;
-                        margin-left: rem(2);
+                        margin-top: rem(20);
+                        background: transparent;
+                        text-align: left;
+    
+                        .link {
+                            padding: 0;
+                            @include font-gill ($font-size: 13);
+                            line-height: rem(18);
+                            color: $gray20;
+                            display: inline-block;
+                            margin-left: rem(2);
+                        }
                     }
                 }
             }
+
 
             .description {
                 display: none;
@@ -450,9 +496,9 @@
                 @include media-breakpoint-up(lg) {
                     margin-top: rem(0);
                     flex: 0 0 43.4%;
-                    max-width: 45.4%;
+                    max-width: 43.4%;
                     padding-right: rem(15);
-                    padding-left: rem(60);
+                    padding-left: rem(51);
                 }
 
                 @include media-breakpoint-down(sm-custom) {
@@ -460,6 +506,7 @@
                 }
 
                 .cart-and-ipay {
+
                     @include media-breakpoint-down(md) {
                         margin: 0;
                         padding: 0 rem(10);
@@ -479,24 +526,19 @@
 
                 .slick {
                     &-slide {
+
                         img {
                             margin: 0 auto;
-                            height: rem(375);
-                            width: rem(375);
-
-                            @include media-breakpoint-up(lg) {
-                                height: rem(450);
-                                width: rem(450);
+                            height: rem(391);
+                            width: rem(391);
+                            @include media-breakpoint-down(sm) {
+                                height: 100%;
+                                width: 100%;
                             }
-                            @include media-breakpoint-down(sm-custom) {
-                                height: rem(300);
-                                width: rem(300);
+                            @include media-breakpoint-down(md) {
+                                height: 100%;
+                                width: 100%;
                             }
-                            @include media-breakpoint-down(xsm-custom) {
-                                height: rem(241);
-                                width: rem(241);
-                            }
-
                         }
                     }
                 }
@@ -507,9 +549,10 @@
             margin: 0;
             padding: rem(30) 0 rem(40) 0;
             text-align: center;
+            background-color: $white;
 
             @include media-breakpoint-up(lg) {
-                text-align: initial;
+                text-align: left;
                 padding: rem(60) 0 rem(100) 0;
             }
 
@@ -530,7 +573,7 @@
 
             .why-buy-me-details {
                 color: $gray20;
-                font-family: $font-GaramondMTPro-italic;
+                font-family: $font-Garamond-Pro-italic;
                 font-size: rem(20);
                 line-height: rem(25);
                 text-align: center;
@@ -615,6 +658,7 @@
                 }
 
                 &-list {
+                    
                     @include media-breakpoint-up(lg) {
                         display: flex;
                         flex-direction: column;
@@ -670,10 +714,14 @@
 
         .product-availability {
             margin: 0;
+
+            .col-12 {
+                flex: none;
+            }
         }
 
         .availability-msg {
-            @include font-gill($font-size: 12, $font-weight: 600);
+            @include font-gill ($font-size:12, $font-weight: 500);
             line-height: rem(20);
             color: $dark-gray;
             text-transform: capitalize !important;
@@ -693,7 +741,7 @@
 
         .shipping-callout {
             span {
-                @include font-gill($font-size: 12, $font-weight: 600);
+                @include font-gill ($font-size:12, $font-weight: 500);
                 line-height: rem(16);
                 color: $dark-gray;
                 text-transform: capitalize;
@@ -728,15 +776,25 @@
             top: rem(20);
             left: rem(20);
             display: none;
+
+            .col {
+                padding: 0;
+                -ms-flex-preferred-size: auto;
+            }
+
+            .row {
+                margin: 0;
+            }
             @include media-breakpoint-up(lg) {
                 display: block;
             }
 
             .breadcrumb {
+                padding: 0;
+    
                 &-item {
                     a {
                         @include font-gill($font-size: 12, $font-weight: 600, $letter-spacing: 0.5);
-
                         line-height: rem(16);
                         color: $black;
                         margin-left: rem(5);
@@ -779,7 +837,7 @@
 
             @include media-breakpoint-up(lg) {
                 margin-top: rem(20);
-                text-align: initial;
+                text-align: left;
             }
 
             .add-to-cart {
@@ -813,6 +871,7 @@
 }
 
 .primary-images {
+
     .product-badges {
         .badge-right {
             left: auto;
@@ -836,11 +895,11 @@
     .cs-carousel-wrapper {
   
       .slick-prev {
-        left: rem(17);
+        left: rem(10);
       }
   
       .slick-next {
-        right: rem(17);
+        right: rem(10);
       }
     }
 }
@@ -851,38 +910,43 @@
     .ob-carousel-quickview {
         
         .quickview {
-            position: relative;
-            transform: translate(50%, 328%);
-            top: 47%;
-            left: -34%;
-            margin-left: 0;
-            border-radius: rem(20);
-            box-shadow: 0 rem(3) rem(5) 0 $light-grey-3;
-
+            position: absolute;
+            bottom: 0;
+            transform: translate(50%, -50%);
+            left: rem(153);
+            border-radius: 100%;
+            @include media-breakpoint-down(md) {
+                bottom: -0.1vh;
+                left: rem(35);
+            }
+            @include media-breakpoint-down(sm) {
+                bottom: -0.1vh;
+                left: rem(35);
+                background-size: contain;
+            }
+            @include media-breakpoint-down(sm-small) {
+                bottom: -0.1vh;
+                left: rem(35);
+                background-size: contain;
+            }
+            @include media-breakpoint-down(sm-custom) {
+                bottom: -0.1vh;
+                left: rem(35);
+            }
+            @include media-breakpoint-down(xsm-custom) {
+                bottom: -0.1vh;
+                left: rem(35);
+            }
+            
             &:focus {
                 box-shadow: none;
             }
 
-            @include media-breakpoint-down(md) {
-                transform: translate(-434%, 328%);
-                left: 0%;
+            &.btn:not(:disabled):not(.disabled).active{
+                background-image: inherit !important;
             }
-            @include media-breakpoint-down(sm) {
-                transform: translate(-434%, 328%);
-                left: 0%;
-            }
-            @include media-breakpoint-down(sm-custom) {
-                transform: translate(-299%, 73%);
-                left: 0%;
-                bottom: rem(84);
-            }
-            @include media-breakpoint-down(xsm-custom) {
-                transform: translate(-225%, 73%);
-                left: 0%;
-                bottom: rem(84);
-            }
-
         }
+
     }
 }
 .primary-images {
