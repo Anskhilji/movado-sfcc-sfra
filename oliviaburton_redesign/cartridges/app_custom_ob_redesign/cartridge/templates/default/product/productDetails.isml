@@ -137,9 +137,11 @@
             <isinclude template="product/components/youMayLikeRecommendation" />
         </isif>
         <isset name="apiProduct" value="${dw.catalog.ProductMgr.getProduct(pdict.product.id)}" scope="page" />
+        <div class="container-fluid pdp-bottom-carousel">
         <div class="pdp-carousel">
             <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"
             context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}"/>
+        </div>
         </div>
         <isinclude template="product/components/contentAssets" />
 

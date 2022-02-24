@@ -313,54 +313,103 @@
     }
 }
 
-.cs-carousel-wrapper.pdp-carousel {
-
-    max-width: rem(750);
-    margin: 0 auto;
+.cs-carousel-wrapper {
+    &.pdp-carousel {
+        max-width: rem(750);
+        margin: 0 auto;
     
-    .slick-dots  {
-        button {
-            box-sizing: border-box;
-            height: 1px;
-            width: rem(85);
-            background-color: $dark-grey2;
-            cursor: pointer;
-            margin-right: rem(-5);
-        }
-
-        .slick-active {
+        .slick-dots  {
             button {
                 box-sizing: border-box;
-                height: rem(1);
-                border: rem(1) solid $black;
-                width: rem(133.33);
-                
-                &:focus {
-                    background-color: $black;
-                    outline: none;
+                height: 1px;
+                width: rem(85);
+                background-color: $dark-grey2;
+                cursor: pointer;
+                margin-right: rem(-5);
+            }
+
+            .slick-active {
+                button {
+                    box-sizing: border-box;
+                    height: rem(1);
+                    border: rem(1) solid $black;
+                    width: rem(133.33);
+                    
+                    &:focus {
+                        background-color: $black;
+                        outline: none;
+                    }
                 }
             }
         }
-    }
-    .slick-list {
-        margin: 0 rem(-25);
-        .slick-slide {
-            @include media-breakpoint-up(lg) {
-                margin: 0 rem(25);
-                transform: translateX(-20px);
+        .slick-list {
+            margin: 0 rem(-25);
+            .slick-slide {
+                @include media-breakpoint-up(lg) {
+                    margin: 0 rem(25);
+                    transform: translateX(-20px);
+                }
             }
         }
+        .carousel-title {
+            margin-right: rem(25);
+            color: $black;
+            font-family: $gill-sans-font-stack;
+            font-size: rem(28);
+            font-weight: 600;
+            letter-spacing: 0;
+            line-height: rem(40);
+            text-align: center;
+            text-transform: capitalize;
+        }
     }
-    .carousel-title {
-        margin-right: rem(25);
-        color: $black;
-        font-family: $gill-sans-font-stack;
-        font-size: rem(28);
-        font-weight: 600;
-        letter-spacing: 0;
-        line-height: rem(40);
-        text-align: center;
-        text-transform: capitalize;
+
+    &.recommendation-carousel-pdp {
+        .product {
+            &-tile{
+                .image-container{
+                    width: rem(260);
+                    height: rem(340);
+                    min-width: rem(260);
+                    background-color: $pink-smoke;
+                    border: none;
+                    .tile-picture-hidden {
+                        display: none;
+                    }
+                }
+            }
+            .tile-body {
+                padding: rem(15) rem(20);
+                background-color: $snow;
+                .pdp-link {
+                    text-align: left;
+                    
+                    a {
+                        font-size: rem(15);
+                        font-family: $font-gills-light;
+                        text-transform: capitalize;
+                        color: $gray20;
+                    }
+                    
+                }
+                .pricing-save {
+                    text-align: left;
+                    .price {
+                        padding-left: rem(0);
+                        .value {
+                            font-size: rem(13);
+                            font-family: $font-gill-std-normal;
+                            color: $gray20;
+                        }
+                    }
+                }
+            }
+            
+        }
     }
-  }
+}
+.pdp-bottom-carousel {
+    overflow: hidden;
+}
+
   
