@@ -1,14 +1,17 @@
-@font-face {font-family: 'GaramondMTPro-Italic';src: url('../webfonts/39E093_7_0.eot');src: url('../webfonts/39E093_7_0.eot?#iefix') format('embedded-opentype'),url('../webfonts/39E093_7_0.woff2') format('woff2'),url('../webfonts/39E093_7_0.woff') format('woff'),url('../webfonts/39E093_7_0.ttf') format('truetype');}
+@font-face {font-family: 'Adobe-Garamond-Pro-Italic';src: url('../webfonts/AdobeGaramondProItalic.ttf') format('truetype');}
 .tk-gill-sans-nova { font-family: "gill-sans-nova",sans-serif; }
-
+ 
 $font-gill-std-bold: "gill-sans-nova", Arial, sans-serif;
 $font-gill-std-semibold: "gill-sans-nova", Arial, sans-serif;
 $font-gills-light: "gill-sans-nova", Arial, sans-serif;;
 $font-gill-std-normal: "gill-sans-nova", Arial, sans-serif;
 $font-futura-pt-demi: "futura-pt-demi", Arial, sans-serif;
 $font-GaramondMTPro-italic: "GaramondMTPro-Italic", Arial, sans-serif;
+$font-Garamond-Pro-italic: "Adobe-Garamond-Pro-Italic", Arial, sans-serif;
+$font-GaramondPro: "Adobe Garamond Pro", Arial, sans-serif;
 $font-primary: "gill-sans-nova", Arial, sans-serif;
 $font-gill-sans-std: "Gill-Sans-MT-Medium", Arial, sans-serif;
+$Adobe-Gramond-Pro-Italic: 'Adobe-Garamond-Pro-Italic';
 $font-awesome: "FontAwesome";
 
 $pink-snow: #FBF7F7;

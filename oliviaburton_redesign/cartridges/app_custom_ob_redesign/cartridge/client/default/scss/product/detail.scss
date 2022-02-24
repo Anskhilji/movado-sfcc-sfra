@@ -6,7 +6,6 @@
 @import "../components/productCommon";
 
 .product-detail {
-
     &-redesign {
         max-width: rem(1440);
         margin: 0 auto;
@@ -575,7 +574,7 @@
 
             .why-buy-me-details {
                 color: $gray20;
-                font-family: $font-GaramondMTPro-italic;
+                font-family: $font-Garamond-Pro-italic;
                 font-size: rem(20);
                 line-height: rem(25);
                 text-align: center;
@@ -796,7 +795,7 @@
     
                 &-item {
                     a {
-                        @include font-gill ($font-size: 12, $font-weight: 500, $letter-spacing: 0.5);
+                        @include font-gill($font-size: 12, $font-weight: 600, $letter-spacing: 0.5);
                         line-height: rem(16);
                         color: $black;
                         margin-left: rem(5);
@@ -845,12 +844,13 @@
             .add-to-cart {
                 width: 100%;
                 height: rem(45);
-                background: $black;
-                @include font-gill ($font-weight: 500);
+                background: $pink-hot;
+                @include font-gill($font-weight: 600);
                 line-height: rem(20);
                 text-transform: uppercase;
-                color: $white;
-                border-color: $black;
+                color: $black;
+                font-family: $font-gill-std-semibold;
+                border-color: $pink-hot;
                 border-radius: rem(3);
                 margin: 0;
                 max-width: rem(355);
@@ -862,7 +862,7 @@
 
                 &:hover,
                 &:focus {
-                    background-color: transparent;
+                    background-color: $pink-hot;
                     box-shadow: none;
                     color: $black;
                 }
