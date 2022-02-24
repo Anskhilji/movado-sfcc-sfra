@@ -365,12 +365,43 @@
     }
 
     &.recommendation-carousel-pdp {
+        .carousel-title {
+            color: $black;
+            font-size: rem(28);
+            font-weight: 600;
+            line-height: rem(40);
+            font-family: $font-gill-std-semibold;
+            margin-bottom: rem(30);
+            @include media-breakpoint-down(sm-custom) {
+                font-size: rem(20);
+            }
+        }
+        .slick-slide {
+            margin: 0 rem(25) 0 0;
+        }
+        .slick-dots {
+            margin-top: rem(30);
+            li {
+                width: rem(40);
+                margin-right: rem(0);
+                @include media-breakpoint-down(sm-custom) {
+                    width: rem(20);
+                    margin-right: rem(5);
+                }
+            }
+            button {
+                border-radius: rem(0);
+                width: rem(40);
+                height: rem(2);
+                outline: none;
+                @include media-breakpoint-down(sm-custom) {
+                    width: rem(20);
+                }
+            }
+        }
         .product {
             &-tile{
                 .image-container{
-                    width: rem(260);
-                    height: rem(340);
-                    min-width: rem(260);
                     background-color: $pink-smoke;
                     border: none;
                     .tile-picture-hidden {
@@ -381,16 +412,17 @@
             .tile-body {
                 padding: rem(15) rem(20);
                 background-color: $snow;
+                @include media-breakpoint-down(sm-custom) {
+                    padding: rem(10);
+                }
                 .pdp-link {
                     text-align: left;
-                    
                     a {
                         font-size: rem(15);
                         font-family: $font-gills-light;
                         text-transform: capitalize;
                         color: $gray20;
                     }
-                    
                 }
                 .pricing-save {
                     text-align: left;
@@ -403,13 +435,13 @@
                         }
                     }
                 }
+                .add-to-cart-plp-redesign {
+                    display: none;
+                }
             }
-            
         }
     }
 }
 .pdp-bottom-carousel {
     overflow: hidden;
 }
-
-  
