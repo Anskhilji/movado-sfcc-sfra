@@ -172,16 +172,66 @@ function createSAPOrderFile(args, impexFilePath, record) {
         if (Object.hasOwnProperty.call(record.poHeader, 'vatInclusive')) {
             writeXmlElement(streamWriter, 'VATInclusive', record.poHeader.vatInclusive);
         }
-        if (Object.hasOwnProperty.call(record.poHeader, 'paymentMethod')) {
-            writeXmlElement(streamWriter, 'PaymentMethod', record.poHeader.paymentMethod);
+
+        // MVMT-366
+        if (record.poHeader.payment) {
+            record.poHeader.payment.forEach(function (p) {
+                /* Payment Type and Amount */
+                streamWriter.writeStartElement('Payment');
+                streamWriter.writeCharacters('');
+                streamWriter.writeRaw('\r\n');
+
+                writeXmlElement(streamWriter, 'PaymentMethod', p.paymentMethod);
+                writeXmlElement(streamWriter, 'PaymentAmount', p.paymentAmount.toFixed(2), true);
+
+                // MVMT-419
+                if (Object.hasOwnProperty.call(p, 'giftCardNumber')) {
+                    writeXmlElement(streamWriter, 'GiftCardNumber', p.giftCardNumber);
+                }
+
+                streamWriter.writeEndElement(); 
+            });
         }
-        if (Object.hasOwnProperty.call(record.poHeader, 'paymentID')) {
-            writeXmlElement(streamWriter, 'PaymentID', record.poHeader.paymentID);
-        }
+
         if (Object.hasOwnProperty.call(record.poHeader, 'authExpirationDate')) {
             writeXmlElement(streamWriter, 'AuthExpirationDate', record.poHeader.authExpirationDate);
         } else {
             writeXmlElement(streamWriter, 'AuthExpirationDate', moment().add(10, 'days').format('YYYYMMDD'));
+        }
+
+        // POS
+        if (Object.hasOwnProperty.call(record.poHeader, 'fulfilledStatus')) {
+            writeXmlElement(streamWriter, 'FulfilledStatus', record.poHeader.fulfilledStatus);
+        }
+        if (Object.hasOwnProperty.call(record.poHeader, 'fulfilledDate')) {
+            writeXmlElement(streamWriter, 'FulfilledDate', record.poHeader.fulfilledDate);
+        }
+        if (Object.hasOwnProperty.call(record.poHeader, 'multiOrderStatus')) {
+            writeXmlElement(streamWriter, 'MultiOrderStatus', record.poHeader.multiOrderStatus);
+        }
+        if (Object.hasOwnProperty.call(record.poHeader, 'storeID')) {
+            writeXmlElement(streamWriter, 'StoreID', record.poHeader.storeID);
+        }
+        if (Object.hasOwnProperty.call(record.poHeader, 'registerID')) {
+            writeXmlElement(streamWriter, 'RegisterID', record.poHeader.registerID);
+        }
+        if (Object.hasOwnProperty.call(record.poHeader, 'returnWOReceipt')) {
+            writeXmlElement(streamWriter, 'ReturnWOReceipt', record.poHeader.returnWOReceipt);
+        }
+        if (Object.hasOwnProperty.call(record.poHeader, 'returnTrackingNumber')) {
+            writeXmlElement(streamWriter, 'ReturnTrackingNumber', record.poHeader.returnTrackingNumber);
+        }
+        if (Object.hasOwnProperty.call(record.poHeader, 'registerAssociateId')) {
+            writeXmlElement(streamWriter, 'RegisterAssociateId', record.poHeader.registerAssociateId);
+        }
+        if (Object.hasOwnProperty.call(record.poHeader, 'originLocation')) {
+            writeXmlElement(streamWriter, 'OriginLocation', record.poHeader.originLocation);
+        }
+        if (Object.hasOwnProperty.call(record.poHeader, 'taxExemptionCode')) {
+            writeXmlElement(streamWriter, 'TaxExemptionCode', record.poHeader.taxExemptionCode);
+        }
+        if (Object.hasOwnProperty.call(record.poHeader, 'taxExemption')) {
+            writeXmlElement(streamWriter, 'TaxExemption', record.poHeader.taxExemption);
         }
 
         // ESW
@@ -288,6 +338,18 @@ function createSAPOrderFile(args, impexFilePath, record) {
                 writeXmlElement(streamWriter, 'NetAmount', poItem.netAmount.toFixed(2), true);
             }
 
+            // POS
+            if (poItem.storeAssociates) {
+                poItem.storeAssociates.forEach(function (assocID) {
+                    /* Each Store Associate involved in the sale */
+                    streamWriter.writeStartElement('StoreAssociates');
+                    streamWriter.writeCharacters('');
+                    streamWriter.writeRaw('\r\n');
+                    writeXmlElement(streamWriter, 'Id', assocID);
+                    streamWriter.writeEndElement(); 
+                });
+            }
+
             // ESW
             if (Object.hasOwnProperty.call(record.poHeader, 'crossBorderSystemReference') && record.poHeader.crossBorderSystemReference != '') {
 
@@ -364,6 +426,51 @@ function createSAPOrderFile(args, impexFilePath, record) {
                             streamWriter.writeEndElement();
                             streamWriter.writeRaw('\r\n');
                         });
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'contractSku')) {
+                        writeXmlElement(streamWriter, 'ContractSku', personalization.contractSku);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'grossValue')) {
+                        writeXmlElement(streamWriter, 'GrossValue', personalization.grossValue.toFixed(2), true);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'markDownAmount')) {
+                        writeXmlElement(streamWriter, 'MarkDownAmount', personalization.markDownAmount.toFixed(2), true);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'promoCode')) {
+                        writeXmlElement(streamWriter, 'PromoCode', personalization.promoCode);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'promoAmount')) {
+                        writeXmlElement(streamWriter, 'PromoAmount', personalization.promoAmount.toFixed(2), true);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'loyaltyAmount')) {
+                        writeXmlElement(streamWriter, 'LoyaltyAmount', personalization.loyaltyAmount.toFixed(2), true);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'subTotal')) {
+                        writeXmlElement(streamWriter, 'SubTotal', personalization.subTotal.toFixed(2), true);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'taxAmount')) {
+                        writeXmlElement(streamWriter, 'TaxAmount', personalization.taxAmount.toFixed(2), true);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'tax1')) {
+                        writeXmlElement(streamWriter, 'Tax1', personalization.tax1.toFixed(2), true);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'tax2')) {
+                        writeXmlElement(streamWriter, 'Tax2', personalization.tax2.toFixed(2), true);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'tax3')) {
+                        writeXmlElement(streamWriter, 'Tax3', personalization.tax3.toFixed(2), true);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'tax4')) {
+                        writeXmlElement(streamWriter, 'Tax4', personalization.tax4.toFixed(2), true);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'tax5')) {
+                        writeXmlElement(streamWriter, 'Tax5', personalization.tax5.toFixed(2), true);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'tax6')) {
+                        writeXmlElement(streamWriter, 'Tax6', personalization.tax6.toFixed(2), true);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'netAmount')) {
+                        writeXmlElement(streamWriter, 'NetAmount', personalization.netAmount.toFixed(2), true);
                     }
 
                     /* Create EcommercePOItemPersonalization Elements : end */

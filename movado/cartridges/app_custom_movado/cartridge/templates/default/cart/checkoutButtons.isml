@@ -40,6 +40,11 @@
             <isif condition="${!empty(request.httpCookies['esw.location'])  &&  !empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US')}" >
                 <isapplepay class="apple-pay-cart col btn btn-block mx-3 mt-sm-3"></isapplepay>
             </isif>
+            <isif condition="${dw.system.Site.current.preferences.custom.isGooglePayEnabled}">
+                <div class="col col-sm-12 mt-sm-2 google-pay-column">
+                    <isinclude url="${URLUtils.https('GooglePay-RenderButton', 'googlePayEntryPoint', 'Cart-Show')}" sf-toolkit="on"/>
+                </div>
+            </isif>
         </div>
     </isif>
 <iselse>
@@ -52,6 +57,11 @@
                 </a>
             </div>
         <isapplepay class="apple-pay-cart col btn btn-block mx-3 mt-sm-3"></isapplepay>
+        <isif condition="${dw.system.Site.current.preferences.custom.isGooglePayEnabled}">
+            <div class="col col-sm-12 mt-sm-2 google-pay-column">
+                <isinclude url="${URLUtils.https('GooglePay-RenderButton', 'googlePayEntryPoint', 'Cart-Show')}" sf-toolkit="on"/>
+            </div>
+        </isif>
     </div>
 </isif>
 <iscomment> Custom End </iscomment>

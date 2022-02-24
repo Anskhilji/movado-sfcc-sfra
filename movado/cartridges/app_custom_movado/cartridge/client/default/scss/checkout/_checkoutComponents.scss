@@ -69,6 +69,58 @@ $stored-payment-spacing: rem(16);
     padding-right: rem(10);
     padding-bottom: rem(7);
   }
+
+  .form-group {
+    .form-control-label {
+      margin-bottom: 0;
+      font-family: $font-book;
+      font-size: rem(14);
+      line-height: rem(17);
+      letter-spacing: rem(1);
+      color: $grey14;
+      padding-bottom: rem(4);
+    }
+  }
+}
+
+#mainContent {
+  .data-checkout-stage {
+    padding-top: rem(10);
+    margin-bottom: rem(50);
+
+    .checkout-content {
+      @include media-breakpoint-up(md) {
+        max-width: rem(940);
+      }
+      @include media-breakpoint-up(lg) {
+        max-width: rem(940);
+      }
+      @include media-breakpoint-up(xl) {
+        max-width: rem(940);
+      }
+    }
+  }
+}
+
+.data-checkout-stage {
+  padding-top: rem(10);
+  margin-bottom: rem(50);
+
+  .top-grandtotal-label {
+    text-transform: uppercase;
+  }
+
+  .card-body {
+    padding: rem(15) rem(10);
+  }
+
+  .card-header {
+    @extend %card-header;
+    padding-left: rem(10);
+    padding-right: rem(10);
+    padding-bottom: rem(7);
+  }
+
   .form-group {
     .form-control-label {
       margin-bottom: 0;
@@ -81,13 +133,22 @@ $stored-payment-spacing: rem(16);
     }
 
     > .info-icon {
-        padding-bottom: rem(4);
+      padding-bottom: rem(4);
     }
 
     .form-control {
       border: rem(1) solid $grey14;
       color: $grey14;
     }
+
+    #expirationDate {
+      margin-top: rem(4);
+    }
+
+    #securityCode {
+      margin-top: rem(1);
+    }
+
     .add-address,
     .edit-address {
       margin-top: rem(10);

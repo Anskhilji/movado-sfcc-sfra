@@ -23,7 +23,7 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
     var fulfillmentOrderLineItems = fulfillmentOrder.object.records[0].FulfillmentOrderLineItems.records;
     var orderSummaryId = fulfillmentOrder.object.records[0].OrderSummary.Id;
 
-    var trackingGroups = [];    
+    var trackingGroups = [];
 
     if (SAPOrderStatus.EcommerceOrderStatusHeader.EventType !== 'BILLING' &&
         SAPOrderStatus.EcommerceOrderStatusHeader.EventType !== 'FREE') {
@@ -38,8 +38,7 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
     // Process each item update
     SAPOrderStatus.EcommerceOrderStatusItem.forEach(function (orderStatusItem) {
         var poItemNumber = parseInt(orderStatusItem.POItemNumber);
-        var foLineItem;
-        foLineItem = _.find(fulfillmentOrderLineItems, function (foLine) {
+        var foLineItem = _.find(fulfillmentOrderLineItems, function (foLine) {
             if (foLine.OrderItemSummary.LineNumber === 1000 && poItemNumber === 9999) {
                 return true;
             } else {
@@ -73,12 +72,37 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
             })
         );
 
+        // Warranties
+        if (foLineItem.OrderItemSummary.WarrantyChildOrderItemSummary__r != null) {
+            var warrantyShippedQuantity = Math.min(orderQuantity, foLineItem.OrderItemSummary.WarrantyChildOrderItemSummary__r.Quantity);
+            var warrantyFulfillmentLineItem = _.find(fulfillmentOrderLineItems, function (foMatch) {
+                return (foMatch.OrderItemSummary.Id === foLineItem.OrderItemSummary.WarrantyChildOrderItemSummary__r.Id);
+            });
+
+            pendingFOLineItems.push(
+                SalesforceModel.buildCompositeFulfillmentOrderLineItemUpdateRequest({
+                    Id: warrantyFulfillmentLineItem.Id,
+                    ShippedQuantity: warrantyShippedQuantity
+                })
+            );
+        }
+
+
         // Short Ship - Move additional quantity out of FO allocation and back to OrderSummary
         if (shippedQuantity < foLineItem.Quantity) {
             pendingFOCancelChangeItems.push({
                 fulfillmentOrderLineItemId: foLineItem.Id,
                 quantity: foLineItem.Quantity - shippedQuantity
             });
+
+            // Attached Warranty
+            if (foLineItem.OrderItemSummary.WarrantyChildOrderItemSummary__r.Id != null) {
+                var warrantyShortShipQuantity = Math.min(shippedQuantity, foLineItem.OrderItemSummary.WarrantyChildOrderItemSummary__r.Quantity);
+                pendingFOCancelChangeItems.push({
+                    fulfillmentOrderLineItemId: foLineItem.OrderItemSummary.WarrantyChildOrderItemSummary__r.Id,
+                    quantity: warrantyShortShipQuantity
+                });
+            }
         }
 
         // Add to Tracking group if a tracking number exists
@@ -90,10 +114,11 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
                 return r.TrackingNumber === orderStatusItem.TrackingNumber;
             });
             if (!trackingGroup) {
+                var deliveryNumber = (typeof orderStatusItem.DeliveryNumber === 'string' || orderStatusItem.DeliveryNumber instanceof String) ? orderStatusItem.DeliveryNumber : '';
                 trackingGroups.push({
                     TrackingNumber: orderStatusItem.TrackingNumber,
                     CarrierCode: orderStatusItem.CarrierCode,
-                    DeliveryNumber: orderStatusItem.DeliveryNumber,
+                    DeliveryNumber: deliveryNumber,
                     FulfillmentOrderLineItems: [foLineItem.Id]
                 });
                 trackingGroup = trackingGroups[0];
@@ -114,6 +139,15 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
                 quantity: rejectedQuantity
             });
 
+             // Attached Warranties
+             if (foLineItem.OrderItemSummary.WarrantyChildOrderItemSummary__r.Id != null) {
+                var warrantyRejectedQuantity = Math.min(rejectedQuantity, foLineItem.OrderItemSummary.WarrantyChildOrderItemSummary__r.Quantity);
+                pendingFOCancelChangeItems.push({
+                    fulfillmentOrderLineItemId: foLineItem.OrderItemSummary.WarrantyChildOrderItemSummary__r.Id,
+                    quantity: warrantyRejectedQuantity
+                });
+            }
+
             // Cancel the original order line summary.  Note: Shipping charges are never cancelled from the OrderSummary.
             // Cancellation calculation assumes refunding shipping for the items cancelled
             if (foLineItem.Type.toUpperCase() !== 'DELIVERY CHARGE') {
@@ -125,6 +159,7 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
                 );
             }
         }
+
         if (shippedQuantity > 0) {
             isFullyRejected = false;
         }
@@ -135,20 +170,23 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
     //
 
     // Find fulfillment order items missing from SAP XML.  Cancel them to move them back to the OrderSummary
-    for (var i = 0; i < fulfillmentOrderLineItems.length; i++) {
-        var found = false;
-        for (var j = 0; j < SAPOrderStatus.EcommerceOrderStatusItem.length; j++) {
-            var foLineNumber = parseInt(fulfillmentOrderLineItems[i].OrderItemSummary.LineNumber);
-            var sapLineNumber = parseInt(SAPOrderStatus.EcommerceOrderStatusItem[j].POItemNumber);
-            if (foLineNumber === sapLineNumber || foLineNumber === 1000) { // Do not cancel shipping line item
-                found = true;
+    for (let i = 0; i < fulfillmentOrderLineItems.length; i++) {
+        var isWarranty = (fulfillmentOrderLineItems[i].OrderItemSummary.WarrantyParentOrderItemSummary__r != null);
+        if (!isWarranty) {
+            var found = false;
+            for (let j = 0; j < SAPOrderStatus.EcommerceOrderStatusItem.length; j++) {
+                var foLineNumber = parseInt(fulfillmentOrderLineItems[i].OrderItemSummary.LineNumber);
+                var sapLineNumber = parseInt(SAPOrderStatus.EcommerceOrderStatusItem[j].POItemNumber);
+                if (foLineNumber === sapLineNumber || foLineNumber === 1000) { // Do not cancel shipping line item
+                    found = true;
+                }
             }
-        }
-        if (!found && fulfillmentOrderLineItems[i].Quantity > 0) {
-            pendingFOCancelChangeItems.push({
-                fulfillmentOrderLineItemId: fulfillmentOrderLineItems[i].Id,
-                quantity: fulfillmentOrderLineItems[i].Quantity
-            });
+            if (!found && fulfillmentOrderLineItems[i].Quantity > 0) {
+                pendingFOCancelChangeItems.push({
+                    fulfillmentOrderLineItemId: fulfillmentOrderLineItems[i].Id,
+                    quantity: fulfillmentOrderLineItems[i].Quantity
+                });
+            }
         }
     }
 
@@ -224,7 +262,7 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
 
     var foLineItemArray = [];
     var chunk = 25;
-    for (var i = 0; i < pendingFOLineItems.length; i += chunk) {
+    for (let i = 0; i < pendingFOLineItems.length; i += chunk) {
         foLineItemArray = pendingFOLineItems.slice(i, i + chunk);
 
         var foItemsAPIResponse = SalesforceModel.createSalesforceCompositeRequest(true, foLineItemArray);

@@ -10,11 +10,18 @@ var SFMCAPIHelper = require('~/cartridge/scripts/helper/SFMCAPIHelper');
 var SFMCCOHelper = require('~/cartridge/scripts/helper/SFMCCOHelper');
 
 function sendSubscriberToSFMC(requestParams) {
-    var authServiceID = Constants.SERVICE_ID.INSTANT_AUTH;
-    var dataServiceID = Constants.SERVICE_ID.INSTANT_DATA;
     var result = {
         success: true
     }
+    //Custom Start: [MSS-1429] Disable SMFC if Listrak is Enabled
+    if (dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
+        result.success = false;
+        return result;
+    }
+    //Custom End
+    var authServiceID = Constants.SERVICE_ID.INSTANT_AUTH;
+    var dataServiceID = Constants.SERVICE_ID.INSTANT_DATA;
+
     if (!empty(requestParams.requestLocation) && requestParams.requestLocation === 'CHECKOUT_SERVICE') {
         authServiceID = Constants.SERVICE_ID.INSTANT_CHECKOUT_AUTH;
         dataServiceID = Constants.SERVICE_ID.INSTANT_CHECKOUT_DATA;
@@ -57,6 +64,9 @@ function sendSubscriberToSFMC(requestParams) {
         } else {
             var service = null;
             service = SFMCAPIHelper.getDataAPIService(dataServiceID, Constants.SFMC_DATA_API_ENDPOINT.CONTACT, accessToken, Constants.SFMC_SERVICE_API_TYPE.CONTACT);
+            if (Site.current.ID == 'MovadoUS') {
+                params.country = !empty(requestParams.country) ? requestParams.country : SFMCAPIHelper.getCurrentCountry(requestParams.country);
+            }
             result = SFMCAPIHelper.addContactToMC(params, service);
             if (result.success) {
                 if (Site.current.ID === 'MovadoUS' || Site.current.ID === 'OliviaBurtonUS' || Site.current.ID === 'OliviaBurtonUK' || Site.current.ID === 'MCSUS') {

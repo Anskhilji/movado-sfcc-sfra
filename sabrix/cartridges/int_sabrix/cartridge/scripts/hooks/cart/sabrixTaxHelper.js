@@ -409,6 +409,7 @@ function clearSabrixLineTaxAttributes(taxService){
         lineItem.custom.sabrixDistrictTotal = 0;
         lineItem.custom.sabrixAdditionalDistrictTotal = 0;
       });
+      lineItem.updateTax(0); //This is added; due to fail of sabrix service discount was not applied to orderTotal
     }
   }
 }

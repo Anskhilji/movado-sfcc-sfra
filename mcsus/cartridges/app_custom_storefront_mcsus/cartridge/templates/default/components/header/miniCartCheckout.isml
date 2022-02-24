@@ -1,0 +1,47 @@
+<iscomment>Custom Start: Removing the cart page url address because it is not in the mvmt design </iscomment>
+<isif condition="${pdict.isMobile.equalsIgnoreCase('true')}">
+    <button class="js-trigger-cart-mobile mobile-cart-btn">
+        <div class="header-nav-cart-icon header-icon mobile-cart-icon">
+            <span class="cart-quantity-items" aria-hidden="true" data-quantity-id="${pdict.quantityTotal}">
+                <div class="cart-icon"></div>
+                <div class="minicart main-level-item" data-action-url="${URLUtils.url('Cart-MiniCartShow')}">
+                    <span data-item-count="" data-cart-render="item_count"
+                        class="minicart-quantity header-nav-cart-count" aria-label="cart count">
+                        <isprint value="${pdict.quantityTotal !== 0 ? pdict.quantityTotal : '0'}" formatter="##" />
+                    </span>
+                </div>
+            </span>
+        </div>
+
+        <div class="header-nav-cart-icon mobile-cart-close-icon">
+            <svg width="16px" height="14px" viewBox="0 0 16 14" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g id="MVMT-Designs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g id="UI-Kit" transform="translate(-523.000000, -919.000000)" stroke-width="0.5" stroke="#2B2B2B"
+                        fill="#2B2B2B">
+                        <g id="Iconography" transform="translate(27.000000, 827.000000)">
+                            <g id="eCommerce---Black" transform="translate(349.000000, 92.000000)">
+                                <polygon id="close-black"
+                                    points="162 1.4 160.6 0 155 5.6 149.4 0 148 1.4 153.6 7 148 12.6 149.4 14 155 8.4 160.6 14 162 12.6 156.4 7">
+                                </polygon>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </div>
+    </button>
+    <iselse>
+        <div class="minicart-total hide-link-med">
+            <a class="minicart-link header-icon m-0" href="${URLUtils.https('Cart-Show')}">
+                <span class="header-nav-cart-icon cart-quantity-items" aria-hidden="true" data-quantity-id="${pdict.quantityTotal}">
+                    <div class="cart-icon"></div>
+                    <span data-item-count="" data-cart-render="item_count"
+                        class="minicart-quantity header-nav-cart-count" aria-label="cart count">
+                        <isprint value="${pdict.quantityTotal !== 0 ? pdict.quantityTotal : '0'}" formatter="##" />
+                    </span>
+                </span>
+            </a>
+        </div>
+</isif>
+<iscomment> Custom End </iscomment>

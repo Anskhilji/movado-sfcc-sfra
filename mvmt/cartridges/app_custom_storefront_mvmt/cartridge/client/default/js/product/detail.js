@@ -10,6 +10,10 @@ module.exports = {
             $(t).addClass("disabled");
             $(".zoom-icon.zoom-out").removeClass("is-active");
             var n = $(".main-mvmt-carousel .slick-current").find("img").attr("src");
+            var $primaryImagesContainer = $('.primary-images');
+            var $videoSlide = $primaryImagesContainer.find('.slick-slide.slick-current .slide-video');
+            var $zoomButtons = $primaryImagesContainer.find('.quickview.js-zoom-image, .zoom-icon');
+            var $imageSlide = $primaryImagesContainer.find('.slick-slide.slick-current .carousel-tile, .slick-slide.slick-current .normal-zoom');
             $(window).width() > 767 ? (
                 $(t).trigger("zoom.destroy"), 
                 $(t).zoom({
@@ -29,27 +33,43 @@ module.exports = {
                     }
                 })
             ) : (
-                $('.main-mvmt-carousel .carousel-tile').zoom({
+                $(t).zoom({
                     url: $(this).find('img').attr('src'),
                     magnify: 1.1,
                     on: "click",
                     target: $(".zoom-box"),
                     onZoomIn: function() {
                         $(".zoom-box").addClass("zoom-active");
+                        $(".zoom-out").addClass("active");
                     },
                     onZoomOut: function() {
-                        $(".zoom-box").removeClass("zoom-active")
+                        $(".zoom-box").removeClass("zoom-active");
+                        $(".zoom-out").removeClass("active");
                     }
                 }),
 
-                $(document).off("click", ".zoom-icon.zoom-in").on("click", ".zoom-icon.zoom-in", (function(a) {
+                $(document).off("click", ".zoom-icon.zoom-in").on("click", ".zoom-icon.zoom-in", (function (a) {
+                    $(t).trigger('onZoomIn');
+                    $('.primary-images').addClass('zoomed-images');
+                    if ($videoSlide.length > 0) {
+                        $zoomButtons.removeClass('d-none');
+                        $imageSlide.css('pointer-events', '');
+                        $primaryImagesContainer.find('.slick-slide.slick-current').css('cursor', '');
+                    }
                     if ($(t).hasClass("disabled")) {
                         $(".zoom-icon.zoom-out").addClass("is-active");
                         $(t).removeClass("disabled");
                     }
                 })),
 
-                $(document).off("click", ".zoom-icon.zoom-out").on("click", ".zoom-icon.zoom-out", (function(a) {
+                $(document).off("click", ".zoom-icon.zoom-out").on("click", ".zoom-icon.zoom-out", (function (a) {
+                    $('.primary-images').removeClass('zoomed-images');
+                    if ($videoSlide.length > 0) {
+                        $zoomButtons.addClass('d-none');
+                        $imageSlide.css('pointer-events', 'none');
+                        $primaryImagesContainer.find('.slick-slide.slick-current').css('cursor', 'default');
+                    }
+                    $(t).trigger('onZoomOut');
                     $(".zoom-icon.zoom-out").hasClass("is-active") && ( $(t).addClass("disabled"),
                     $(".zoom-icon.zoom-out").removeClass("is-active"))
                 }))
@@ -172,13 +192,19 @@ module.exports = {
         function mobileCartButton () {
             var windowWidth = $(window).width();
 
-            if (windowWidth < 768) {
+                if (windowWidth < 768) {
 
-                $(window).on('scroll', function(e) {
-                    if ($(window).scrollTop() > 300) {
-                        $('.add-to-cart').addClass('mobileBtn');
-                    }
-                });
+                    $(window).on('scroll', function (e) {
+                        if ($(window).scrollTop() > 300) {
+                            $('.add-to-cart').addClass('mobileBtn');
+                        }
+                        var bottomNavigationHeader = $('.bottom-navigation-header').outerHeight() || 0;
+                        if (!$('.bottom-navigation-header').is(':visible')) {
+                            bottomNavigationHeader = 0;
+                            $('.prices-add-to-cart-actions').css('margin-bottom', bottomNavigationHeader + 'px');
+                        }
+                        $('.add-cart-bottom-navigation').css('margin-bottom', bottomNavigationHeader + 'px');
+                    });
             } else {
                 $('.add-to-cart').removeClass('mobileBtn');
             }
@@ -321,25 +347,15 @@ module.exports = {
         });
     },
 
-    updatePrice: function () {
-        $(document).on('click', '.upsell_input', function() {
-            var upselprice = $(this).siblings('.upsell_wrapper-inner').find('.sales .value').attr('content');
-            var currentPrice = $('.product-price-mobile .sales .value').attr('content');
-            var updatedPrice;
-            var updatedText;
-            if ($(this).is(':checked')) {
-                updatedPrice = parseFloat(currentPrice) + parseFloat(upselprice);
-            } else {
-                updatedPrice  = parseFloat(currentPrice) - parseFloat(upselprice);
-            }
-
-            if (updatedPrice && !isNaN(updatedPrice)) {
-                $('.product-price-mobile .sales .value').each(function() {
-                    updatedText = $(this).text().replace(/(\d+.+|\d+)|(\d+[.,]\d+|\d+)/g, updatedPrice.toFixed(2));
-                    $(this).text(updatedText).attr('content', updatedPrice);
-                });
-            }
+    // Custom Start:
+    updateCaseDiameter: function () {
+        $( document ).ready(function() {
+            var diameter = $('.watches-case-diameter').text();
+            var index =  diameter.replace("-", "");
+            $('.watches-case-diameter').text(index);
         });
     },
+    // Custom End
+
     base: base
 };

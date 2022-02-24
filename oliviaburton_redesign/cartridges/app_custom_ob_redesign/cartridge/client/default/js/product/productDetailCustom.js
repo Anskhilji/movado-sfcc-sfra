@@ -34,5 +34,30 @@ module.exports = {
             $(this).prev().toggle();
             return false;
         });
-    }
+    },
+    
+    primarySlider: function () {
+
+        
+        $('.primary-images .main-ob-carousel').slick({
+            lazyLoad: 'ondemand',
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            dots: true,
+            arrows:true,
+            customPaging: function (slick, index) {
+                var thumb = $(slick.$slides[index]).find('.carousel-tile').attr('data-thumb');
+                return '<button class="tab"> <img  src="'+ thumb +'" /> </button>';
+            },
+        });
+
+        $(document).on('beforeChange', '.primary-images .main-ob-carousel', function (event, slick, currentSlide, nextSlide) {
+            var nextSlide = slick.$slides.get(nextSlide);
+            var $slideSourceSets = $(nextSlide).find('source');
+            $($slideSourceSets).each(function () {
+                $(this).attr('srcset', $(this).data('lazy'));
+            });
+        });
+
+    },
 }

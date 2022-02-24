@@ -1,4 +1,7 @@
 'use strict';
+if(Resources.IS_CLYDE_ENABLED) {
+    var clydeWidget = require('link_clyde/getClydeWidget.js');
+}
 
 /**
  * Retrieves the relevant pid value
@@ -12,6 +15,8 @@ function getPidValue($el) {
         pid = $($el).closest('.modal-content').find('.product-quickview').data('pid');
     } else if ($('.product-set-detail').length || $('.product-set').length) {
         pid = $($el).closest('.product-detail').find('.product-id').text();
+    } else if ($($el).closest('.recomended-products') && $($el).closest('.recomended-products').data('recomendation') == true) {
+        pid = $($el).data('pid');
     } else {
         pid = $('.product-detail:not(".bundle-item")').data('pid');
     }
@@ -620,23 +625,6 @@ function validateOptions($el) {
         });
     }
 }
-/**
- * Custom Start: Retrieve recommended products
- *
- */
-function getRecommendationProducts() {
-    var $recommendedProductSelector = $('.upsell-input:checked');
-    var productArray = [];
-    for (var i = 0; i < $recommendedProductSelector.length; i++) {
-        var $currentRecommendedProduct = $recommendedProductSelector[i];
-            var form = {
-                pid: $currentRecommendedProduct.value,
-                quantity: 1
-            };
-        productArray.push(form);
-    }
-    return productArray.length ? JSON.stringify(productArray) : [] ;
-}
 
 var updateCartPage = function(data) {
   $('.cart-section-wrapper').html(data.cartPageHtml);
@@ -737,7 +725,7 @@ module.exports = {
     },
 
     addToCart: function () {
-        $(document).off('click.addToCart').on('click.addToCart', 'button.add-to-cart, button.add-to-cart-global', function (e) {
+        $(document).off('click.addToCart').on('click.addToCart', 'button.add-to-cart, button.add-to-cart-global, button.add-to-cart-recomendations', function (e) {
             var addToCartUrl;
             var pid;
             var pidsObj;
@@ -762,6 +750,7 @@ module.exports = {
 
             pid = getPidValue($(this));
 
+
             var $productContainer = $(this).closest('.product-detail');
             if (!$productContainer.length) {
                 $productContainer = $(this).closest('.quick-view-dialog').find('.product-detail');
@@ -773,8 +762,7 @@ module.exports = {
                 pid: pid,
                 pidsObj: pidsObj,
                 childProducts: getChildProducts(),
-                quantity: getQuantitySelected($(this)),
-                recommendationArray: getRecommendationProducts()
+                quantity: getQuantitySelected($(this))            
             };
             /**
             * Custom Start: Add to cart form for Oliva Burton
@@ -784,13 +772,22 @@ module.exports = {
                     pid: pid,
                     pidsObj: pidsObj,
                     childProducts: getChildProducts(),
-                    quantity: 1,
-                    recommendationArray: getRecommendationProducts()
+                    quantity: 1                
                 };
             }
             /**
             *  Custom End
             */
+            
+            /**
+             * Custom Start: Clyde Integration
+             */
+            if (window.Resources && window.Resources.IS_CLYDE_ENABLED) {
+                form = clydeWidget.getSelectedClydeContract(form);
+            }
+            /**
+             * Custom end:
+             */
             $productContainer.find('input[type="text"], textarea, input[type="radio"]:checked').filter('[required]')
             .each(function() {
                 if($(this).val() && $(this).closest("form.submitted").length) {

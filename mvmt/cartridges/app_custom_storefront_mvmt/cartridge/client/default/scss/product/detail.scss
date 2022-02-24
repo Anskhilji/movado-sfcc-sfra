@@ -1,4 +1,5 @@
 @import '../variables';
+@import '../_mixins';
 @import '~movado/product/detail';
 @import '../components/backInStockNotification';
 
@@ -699,10 +700,13 @@
 }
 
 .product-detail {
-    padding: rem(16) 0 0;
     max-width: $container-max-width;
+    padding: rem(16) 0 0;
     margin: 0 auto;
-
+    
+    .product-brand-info {
+        width: 100%;
+    }
     @include media-breakpoint-up(md-down) {
         padding: rem(45) rem(32);
 
@@ -723,6 +727,8 @@
         position: relative;
         width: 100%;
         text-align: center;
+        min-height: 45vh;
+        height: auto;
 
         @include media-breakpoint-up(md-down) {
             flex-basis: 100%;
@@ -820,6 +826,7 @@
 
                     .carousel-tile {
                         overflow: visible !important;
+                 
 
                         &.active {
                             min-height: 80vh;
@@ -834,11 +841,16 @@
 
                     .normal-zoom, .slide-video {
                         max-width: rem(320);
+                        max-height: rem(320);
                         margin: 0 auto;
                         width: 100%;
+                        height: 100%;
 
                         @include media-breakpoint-up(md-down) {
                             max-width: rem(600);
+                            max-height: rem(600);
+                            width: 100%;
+                            height: 100%;
                         }
                     }
 
@@ -938,6 +950,33 @@
                 cursor: zoom-out;
             }
         }
+
+        &.zoomed-images {
+            .cs-carousel-wrapper {
+                @include media-breakpoint-down(md-down) {
+                    overflow: hidden;
+                    position: fixed;
+                    padding: 0;
+                    margin: 0;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 999999;
+
+                    .slick-slider {
+                        top: 23%;
+                    }
+                }
+
+                .slick-slider {
+                    .slide-video {
+                        display: none;
+                    }
+                }
+            }
+
+        }
     }
 
     .zoom-box {
@@ -975,21 +1014,81 @@
         }
 
         .product-brand-info {
-
-            span {
-                text-align: center;
-                color: $light-gray2;
-                text-transform: uppercase;
-                font-size: rem(11);
-                margin: 0 0 rem(6);
-                letter-spacing: rem(1.5);
-                line-height: rem(11);
-
-                @include media-breakpoint-up(md-down) {
-                    text-align: left;
-                    margin: 0;
-                    margin: rem(10) 0 rem(15);
+            .category-watches {
+                .watches {
+                    &-product-name {
+                        @include collection-subtitle-font;
+                    }
+                    &-turncate-name {
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        display: -webkit-box;
+                        -webkit-line-clamp: 3;
+                    }
+                    &-collection-name {
+                        @include collection-title-font;
+                        display: block;
+                    }
+                    &-seprator {
+                        @include collection-subtitle-font;
+                    }
+    
+                    &-case-diameter {
+                        @include collection-subtitle-font;
+                    }
                 }
+            }
+
+            .category-eyewear {
+                .eyewear {
+                    &-product-name {
+                        @include collection-title-font;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        display: -webkit-box;
+                        -webkit-line-clamp: 3;
+                    }
+        
+                    &-heading {
+                        @include collection-subtitle-font;
+                    }
+                }
+            }
+
+            .category-jewlery {
+                .jewlery {
+                    &-product-name {
+                        @include collection-title-font;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        display: -webkit-box;
+                        -webkit-line-clamp: 3;
+                    } 
+
+                    &-heading {
+                        @include collection-subtitle-font;
+                    }
+
+                }
+            } 
+
+            .product-name-strapguide {
+                @include collection-title-font;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+            }
+
+            .product-colors {
+                @include collection-subtitle-font;
+            }
+
+            .uncategotized-product-name {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
             }
         }
 
@@ -1077,11 +1176,16 @@
             letter-spacing: rem(5);
             line-height: rem(28);
             margin-bottom: rem(6);
+            width: 100%;
+            height: auto;
 
             @include media-breakpoint-up(md-down) {
                 text-align: left;
                 font-size: rem(28);
                 letter-spacing: rem(3);
+            }
+            @include media-breakpoint-up(md-down){
+                font-family: $font-futura-pt;
             }
         }
 
@@ -1132,20 +1236,96 @@
 
             .ratings {
                 margin: 0;
+                width: 100%;
+                height: 24px;
+            }
+
+        }
+    }
+    .show-cart-button-below-price {
+        .prices-add-to-cart-actions-top {
+            position: relative;
+            background-color: transparent;
+
+            @include media-breakpoint-up(md-down) {
+                display: none;
+            }
+
+            button.add-to-cart {
+                
+                    width: 94.64%;
+                    height: rem(45);
+                    line-height: 0.75;
+                    border-radius: rem(3);
+                    margin-top: rem(4);
+                    margin-bottom: rem(4);
+                    justify-content: center;
+            }
+
+            &.mobileBtn.btn-primary {
+                @include media-breakpoint-down(xss) {
+                    display: block;
+                    width: 94.64%;
+                    height: rem(45);
+                    line-height: 0.75;
+                    border-radius: rem(3);
+                    margin-top: rem(4);
+                    margin-bottom: rem(4);
+                    justify-content: center;
+                }
+            }
+
+            .cart-and-ipay {
+                @include media-breakpoint-down(sm) {
+                   margin-bottom: 0;
+               }
+           }
+
+            .sales {
+                display: none;
             }
         }
     }
 
     .prices-add-to-cart-actions {
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+        z-index: 2;
+        padding-right: rem(0);
+        padding-left: rem(0);
+        left: rem(0);
+
+        .cta-add-to-cart {
+            @include media-breakpoint-down(lg) {
+                width: 100%;
+                height: rem(60);
+            }
+        }
+
+        .cart-and-ipay {
+             @include media-breakpoint-down(sm) {
+                margin-bottom: 0;
+            }
+        }
+        
+        @include media-breakpoint-down(sm) {
+            position: fixed;
+            bottom: 0;
+        }
 
         @include media-breakpoint-up(sm) {
-            position: fixed;
-            padding: 0;
+            margin-bottom: rem(-20);
         }
 
         @include media-breakpoint-up(md-down) {
-            position: static;
+            position: relative;
             padding: 0 rem(15);
+            margin-bottom: rem(35);
+        }
+
+        @include media-breakpoint-up(xl) {
+            margin-bottom: rem(-5);
         }
     
         .content {
@@ -1153,17 +1333,15 @@
             margin-top: 0;
             margin-bottom: rem(15);
             padding-left: 0;
+            width: 100%;
         }
     }
 
     .cart-and-ipay {
         display: block !important;
 
-        @include media-breakpoint-down(md-down) {
-            margin-bottom: 0;
-        }
-
         .add-to-cart, .add-to-cart-mvmt {
+           
             display: inline-block;
             text-align: center;
             text-transform: uppercase;
@@ -1178,13 +1356,20 @@
             margin: 0 auto;
             letter-spacing: rem(1.25);
             transition: all .4s;
+            height: rem(60);
+
+            .btn-primary {
+                @include media-breakpoint-down(sm) {
+                    width: 100%;
+                }
+            }
 
             @include media-breakpoint-up(md-down) {
                 position: relative;
                 font-size: rem(15);
-                padding: rem(22) 1.75rem;
+                padding: rem(22) rem(28);
             }
-
+                       
             &:hover {
                 background: $gossamer;
                 border-color: $gossamer;
@@ -1197,14 +1382,19 @@
             &.mobileBtn {
                 background-color: $light-green2;
                 border-color: $light-green2;
+                width: 100%;
+                height: rem(60);
             }
         }
 
         .add-to-cart {
             display: flex;
             justify-content: space-between;
+            width: 100%;
+            height: rem(60);
 
             @include media-breakpoint-up(md-down) {
+              
                 border-radius: rem(5);
             }
         }
@@ -1220,6 +1410,31 @@
                 border-radius: rem(5);
                 height: rem(56);
             }
+
+            @include media-breakpoint-down(sm) {
+                display: none;
+            }
+
+        }
+    }
+
+    @include media-breakpoint-up(xss) {
+        .show-cart-button-desktop {
+            display: none;
+        }
+
+        .show-cart-button-mobile {
+            display: block;
+        }
+    }
+
+    @include media-breakpoint-up(md-down) {
+        .show-cart-button-desktop {
+            display: block;
+        }
+
+        .show-cart-button-mobile {
+            display: none;
         }
     }
 
@@ -1268,6 +1483,7 @@
         }
 
         &-products {
+
             .slick-slide {
                 padding: 0 rem(10);
             }
@@ -1376,26 +1592,6 @@
                     opacity: 0;
                     z-index: 1;
                     cursor: pointer;
-
-                    &:checked ~ {
-
-                        .upsell_text {
-
-                            .upsell_text-add {
-                                display: none;
-                            }
-        
-                            .upsell_text-added {
-                                display: block;
-                                padding-left: rem(20);
-                                color: $white;
-                            }
-                        }
-
-                        .upsell_wrapper-inner {
-                            border-color: $light-green;
-                        }
-                    }
                 }
             }
 
@@ -1724,7 +1920,7 @@
                         height: rem(36);
                         transform: rotate(45deg);
                     }
-    
+
                     &:after {
                         content: "";
                         position: absolute;
@@ -1760,7 +1956,7 @@
     on top on bottom-navigation-header on PDP page
 */ 
         .add-cart-bottom-navigation {
-            bottom: rem(70);
+            bottom: rem(0);
         }
 
         .cart-and-ipay  {
@@ -2077,6 +2273,7 @@
     float: right;
     font-size: rem(11);
     letter-spacing: rem(3);
+  
 
     .price {
         color: $white;
@@ -2802,7 +2999,7 @@
             del {
 
                 .strike-through {
-    
+
                     span {
                         color: $light-gray2;
                         font-weight: 600;
@@ -2841,5 +3038,11 @@
             padding-top: rem(20);
             padding-bottom: rem(16);
         }
+    }
+}
+
+.google-pay-container {
+    .gpay-button {
+        padding: rem(8) 15% !important;
     }
 }

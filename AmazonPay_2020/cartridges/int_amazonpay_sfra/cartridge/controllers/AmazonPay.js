@@ -12,6 +12,7 @@ var AmazonPayRequest = require('*/cartridge/scripts/lib/AmazonPayRequest');
 var ChargePermissionService = require('*/cartridge/scripts/services/chargePermission/amazonChargePermissionService');
 var ChargeService = require('*/cartridge/scripts/services/charge/amazonChargeService');
 var CheckoutSessionService = require('*/cartridge/scripts/services/checkoutSession/amazonCheckoutSessionService');
+var orderCustomHelpers = require('*/cartridge/scripts/helpers/orderCustomHelper');
 
 var sitePreferences = require('dw/system/Site').getCurrent().getPreferences().getCustom();
 
@@ -676,6 +677,21 @@ server.get('Result', server.middleware.https, function (req, res, next) {
             return next();
         }
 
+        /**
+         * Custom Start: Adding preOrder Logic for Amazon
+         */
+        //Check if order includes Pre-Order item
+        var isPreOrder = orderCustomHelpers.isPreOrder(order);
+        //Set order custom attribute if there is any pre-order item exists in order
+        if (isPreOrder) {
+            Transaction.wrap(function (){
+                order.custom.isPreorder = isPreOrder;
+            });
+        }
+        /**
+         * Custom End:
+         */
+
         // Handles payment authorization
         var handlePaymentResult = COHelpers.handlePayments(order, order.orderNo);
         if (handlePaymentResult.error) {
@@ -938,6 +954,21 @@ server.get('Result', server.middleware.https, function (req, res, next) {
 
                 return next();
             }
+
+            /**
+             * Custom Start: Adding preOrder Logic for Amazon
+             */
+            //Check if order includes Pre-Order item
+            var isPreOrder = orderCustomHelpers.isPreOrder(order);
+            //Set order custom attribute if there is any pre-order item exists in order
+            if (isPreOrder) {
+                Transaction.wrap(function (){
+                    order.custom.isPreorder = isPreOrder;
+                });
+            }
+            /**
+             * Custom End:
+             */
 
             // Handles payment authorization
             var handlePaymentResult = COHelpers.handlePayments(order, order.orderNo);
@@ -1304,10 +1335,22 @@ server.post(
         return next();
     }
 );
+
 server.get('UpdateAmazonPayCheckout', function (req, res, next) {
+    var HookMgr = require('dw/system/HookMgr');
+
     try {
         var currentBasket = BasketMgr.getCurrentBasket();
+
         Transaction.wrap(function () {
+            
+            if (currentBasket) {
+                if (session.privacy.taxError) { //if sabrix call fails
+                    HookMgr.callHook('dw.order.calculateTax', 'calculateTax', currentBasket);
+                    delete session.privacy.taxError;
+                }
+            }
+
             //Update call to amazon pay [MSS-1345] Code shifted from amazon_pay.js (Handle Method)
             var amazonPayRequest = new AmazonPayRequest(currentBasket, 'PATCH', '', ':checkoutSessionId', currentBasket.custom.amzPayCheckoutSessionId);
             var result = CheckoutSessionService.update(amazonPayRequest);

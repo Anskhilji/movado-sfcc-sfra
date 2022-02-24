@@ -114,43 +114,52 @@ function removeFromCartGTMObj(productLineItems){
     var cartItemObj = [];
     var variant = '';
     var displayValue = '';
-    
-    collections.forEach(productLineItems, function (pli) {
-        variant = getProductOptions(pli.custom.embossMessageLine1,pli.custom.engraveMessageLine1);
-        var price = pli.price.decimalValue ? pli.price.decimalValue.toString() : '0.0';
-        var productObj = ProductMgr.getProduct(pli.product.ID);
-        var jewelryType = '';
-        var watchGender = '';
-        if (productObj.custom.watchGender && productObj.custom.watchGender.length) {
-            watchGender = productObj.custom.watchGender[0];
-        }
-        if (!empty(productObj.custom.jewelryType)) {
-            jewelryType = productObj.custom.jewelryType;
-        }
-        var customCategory = watchGender + " " + jewelryType;
-        collections.forEach(pli.product.variationModel.productVariationAttributes, function(variationAttributes) {
-            if (variationAttributes.displayName.equalsIgnoreCase('Size')) {
-                displayValue = pli.product.variationModel.getSelectedValue(variationAttributes) ? pli.product.variationModel.getSelectedValue(variationAttributes).displayValue : '';
-            } else {
+    try {
+        collections.forEach(productLineItems, function (pli) {
+            if (!empty(pli)){
+                variant = getProductOptions(pli.custom.embossMessageLine1,pli.custom.engraveMessageLine1);
+                var price = pli.price.decimalValue ? pli.price.decimalValue.toString() : '0.0';
+                var productObj = !empty(ProductMgr.getProduct(pli.product.ID)) ? ProductMgr.getProduct(pli.product.ID) : '';
+                var jewelryType = '';
+                var watchGender = '';
+                if (productObj.custom.watchGender && productObj.custom.watchGender.length) {
+                    watchGender = productObj.custom.watchGender[0];
+                }
+                if (!empty(productObj.custom.jewelryType)) {
+                    jewelryType = productObj.custom.jewelryType;
+                }
+                var customCategory = watchGender + " " + jewelryType;
+                collections.forEach(pli.product.variationModel.productVariationAttributes, function(variationAttributes) {
+                    if (variationAttributes.displayName.equalsIgnoreCase('Size')) {
+                        displayValue = pli.product.variationModel.getSelectedValue(variationAttributes) ? pli.product.variationModel.getSelectedValue(variationAttributes).displayValue : '';
+                    } else {
+                        displayValue = '';
+                    }
+                });
+        
+                cartItemObj.push({
+                    'name': stringUtils.removeSingleQuotes(pli.product.name),
+                    'id': pli.product.ID,
+                    'price': price,
+                    'category': customCategory,
+                    'sku' : pli.product.ID,
+                    'variantID' : pli.product.variant ? pli.product.ID : '',
+                    'brand': pli.product.brand,
+                    'currentCategory': !empty(pli.product.categories) ? stringUtils.removeSingleQuotes(pli.product.categories[0].displayName) : '',
+                    'productType': (pli.product.variant && pli.product.masterProduct.primaryCategory)? pli.product.masterProduct.primaryCategory.displayName : (pli.product.primaryCategory ? pli.product.primaryCategory.displayName : ''),
+                    'variant': displayValue,
+                    'quantity':pli.quantityValue
+                     });
                 displayValue = '';
             }
+            else{
+                return '';
+            }
         });
-
-        cartItemObj.push({
-            'name': stringUtils.removeSingleQuotes(pli.product.name),
-            'id': pli.product.ID,
-            'price': price,
-            'category': customCategory,
-            'sku' : pli.product.ID,
-            'variantID' : pli.product.variant ? pli.product.ID : '',
-            'brand': pli.product.brand,
-            'currentCategory': !empty(pli.product.categories) ? stringUtils.removeSingleQuotes(pli.product.categories[0].displayName) : '',
-            'productType': (pli.product.variant && pli.product.masterProduct.primaryCategory)? pli.product.masterProduct.primaryCategory.displayName : (pli.product.primaryCategory ? pli.product.primaryCategory.displayName : ''),
-            'variant': displayValue,
-            'quantity':pli.quantityValue
-             });
-        displayValue = '';
-    });
+    } catch (ex) {
+        Logger.error('(customCartHelper~removeFromCartGTMObj) -> Error occured while generting remove cart impression and error is:{0} at line {1} in file {2}', ex.toString(), ex.lineNumber, ex.fileName);
+    }
+   
     return cartItemObj;
 }
 

@@ -1,6 +1,4 @@
-
 @font-face {font-family: 'GaramondMTPro-Italic';src: url('../webfonts/39E093_7_0.eot');src: url('../webfonts/39E093_7_0.eot?#iefix') format('embedded-opentype'),url('../webfonts/39E093_7_0.woff2') format('woff2'),url('../webfonts/39E093_7_0.woff') format('woff'),url('../webfonts/39E093_7_0.ttf') format('truetype');}
-
 .tk-gill-sans-nova { font-family: "gill-sans-nova",sans-serif; }
 
 $font-gill-std-bold: "gill-sans-nova", Arial, sans-serif;
@@ -8,10 +6,9 @@ $font-gill-std-semibold: "gill-sans-nova", Arial, sans-serif;
 $font-gills-light: "gill-sans-nova", Arial, sans-serif;;
 $font-gill-std-normal: "gill-sans-nova", Arial, sans-serif;
 $font-futura-pt-demi: "futura-pt-demi", Arial, sans-serif;
-$font-gill-sans: "Gill Sans";
-
 $font-GaramondMTPro-italic: "GaramondMTPro-Italic", Arial, sans-serif;
 $font-primary: "gill-sans-nova", Arial, sans-serif;
+$font-gill-sans-std: "Gill-Sans-MT-Medium", Arial, sans-serif;
 $font-awesome: "FontAwesome";
 
 $pink-snow: #FBF7F7;
@@ -29,10 +26,15 @@ $pink: pink;
 $snow: #fcf9f9;
 $mercury:  #e4e4e4;
 $light-grey: #d2d2d2;
+$light-grey2: #d5d5d5;
 $pink-grey: #ead7d5;
 $cyan-blue: rgba(160,169,186,0.24) ;
+$gray36: #5C5C5C;
 
 $grey-transparent-7: rgba(0,0,0,0.24) !default;
+$light-grey-3: rgba(200,200,200,0.5);
+$light-grey-4:rgba(255,255,255,0.2);
+$light-border-black: #272727;
 $black-russian: #00091B;
 $gainsboro: #D8D8D8;
 $pale-rose: #E9D7D5;
@@ -43,9 +45,16 @@ $white-smoke: #F0F0F0;
 $bone: #ECD7D5;
 $black: #000000;
 $dark-grey2: #bbbdbf;
+$white: #FFFFFF;
+$grid-breakpoint-one: 415px;
+$grid-breakpoint-two: 544px;
 
 $grid-breakpoints: (
   xs: 0,
+  xs-custom:320px,
+  xsm-custom:350px,
+  sm-custom:400px,
+  sm-small:544px,
   sm: 576px,
   md: 768px,
   lg: 992px,
@@ -55,8 +64,17 @@ $grid-breakpoints: (
 );
 
 // Mixins //
-@mixin font-gill ($font-size:15, $font-weight:400) {
-    font-family: $font-primary;
-    font-size: rem($font-size);
-    font-weight: $font-weight;
-};
+@mixin font-gill ($font-size:15, $font-weight:400, $letter-spacing: 0.5) {
+  font-family: $font-primary;
+  font-size: rem($font-size);
+  font-weight: $font-weight;
+  letter-spacing: rem($letter-spacing);
+}
+// Large Screen
+$large-screen-width: 1400px;
+
+@mixin custom-media-query($large-screen-width) {
+  @media (min-width:#{$large-screen-width}) {
+      @content;
+  }
+}

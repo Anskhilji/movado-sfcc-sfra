@@ -1,0 +1,38 @@
+<iscomment>Custom Start: Adding swatchImageURL in the background image and adding new classes swatch-image and selected-swatch-image for changing the selection</iscomment>
+<isif condition="${dw.system.Site.current.getCustomPreferenceValue('enableSwatch')}">
+    <li title="${refinementValue.title}" class="color-attribute ${!refinementValue.selectable ? 'disabled' : ''}">
+        <a href="${refinementValue.url}">
+            <span class="${refinementValue.presentationId} swatch-circle color-value swatch-mark <isif condition="${refinementValue.selected && refinementValue.selectable}">selected</isif><isif condition="${!refinementValue.selectable}">disabled</isif>" ></span>
+        </a>
+        
+    </li>
+<iselse>
+    <li title="${refinementValue.title}" class="col-sm-auto color-swatch col-md-12 ${!refinementValue.selectable ? 'disabled' : ''}">
+    <isif condition="${empty(refinementValue.swatchImageURL) && !refinementValue.isSwatchImagesEnabled}" >
+            <label class="color-elements">
+                <a role="checkbox" aria-checked="<isif condition="${refinementValue.selected && refinementValue.selectable}">true<iselse/>false</isif>" tabindex="0" href="${refinementValue.url}" class="${!refinementValue.selectable ? 'disabled' : ''} color" <isif condition="${!refinementValue.selectable}">disabled</isif>>
+                    <iscomment>Checkbox</iscomment>
+                    <isif condition="${refinementValue.selected && refinementValue.selectable}">
+                        <i class="fa fa-check-square"></i>
+                    <iselse>
+                        <i class="fa fa-square-o"></i>
+                    </isif>
+                    <iscomment>Label</iscomment>
+                    <span class="<isif condition="${refinementValue.selected && refinementValue.selectable}">selected</isif>" >${refinementValue.displayValue}</span>
+                </a>
+            </label>
+        <iselse>
+            <label class="color-elements">
+                <a role="checkbox" aria-checked="<isif condition="${refinementValue.selected && refinementValue.selectable}">true<iselse/>false</isif>" tabindex="0" href="${refinementValue.url}" class="${!refinementValue.selectable ? 'disabled' : ''} color-swatch-image <isif condition="${refinementValue.selected && refinementValue.selectable}">selected-color-swatch-image</isif>" <isif condition="${!refinementValue.selectable}">disabled</isif>>
+                    <isif condition="${refinementValue.selected && refinementValue.selectable}">
+                        <div class="fa fa-check-square rounded-color" style="background-image: url('${refinementValue.swatchImageURL}')"></div>
+                    <iselse>
+                        <div class="fa fa-square-o rounded-color" style="background-image: url('${refinementValue.swatchImageURL}')"></div>
+                    </isif>
+                </a>
+                <span class="<isif condition="${refinementValue.selected && refinementValue.selectable}">selected</isif>" >${refinementValue.displayValue}</span>
+            </label>
+        </isif>
+    </li>
+</isif>
+<iscomment>Custom End</iscomment>
