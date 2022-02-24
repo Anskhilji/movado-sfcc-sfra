@@ -253,12 +253,6 @@
                   color: $black1;
                   height: rem(40);
 
-                  // @include media-breakpoint-up(xs) {
-                  //   font-size: rem(12.8);
-                  //   letter-spacing: rem(0.5);
-                  //   height: rem(43.2);
-                  // }
-
                   @include media-breakpoint-down(md) {
                     line-height: rem(20);
                   }
