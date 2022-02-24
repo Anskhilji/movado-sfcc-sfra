@@ -14,11 +14,15 @@
             height: auto;
         }
 
+        .align-items-center-wrapper {
+            align-items: center;
+        }
+
         .primary-images {
             position: relative;
             width: 100%;
             text-align: center;
-            margin-bottom: rem(100);
+            margin-bottom: rem(40);
 
             .cs-carousel-wrapper {
                 position: relative;
@@ -43,6 +47,7 @@
 
                         .carousel-tile {
                             overflow: visible;
+                            right: rem(0);      
 
                             &.active {
                                 min-height: 80vh;
@@ -52,6 +57,24 @@
                                 @include media-breakpoint-down(md) {
                                     pointer-events: none;
                                 }
+                            }
+                            &.carousel-tile-two-wrapper {
+                                @include media-breakpoint-up(lg) {
+                                    margin-left: rem(0);
+                                    max-width: rem(650);
+                                    height: rem(650);
+                                    display: flex !important;
+                                    justify-content: center !important;
+                                    align-items: center !important;
+                                }
+                                @include media-breakpoint-up(xl) {
+                                    margin-left: rem(53);                                
+                                    min-width: 100%;
+                                }
+                                
+                                @include media-breakpoint-down(md) {
+                                    margin-left: rem(0);
+                                }   
                             }
                         }
 
@@ -86,17 +109,18 @@
                         bottom: rem(-18);
 
                         @include media-breakpoint-up(lg) {
-                            width: rem(88);
-                            margin-top: 0;
+                            width: rem(87);
+                            margin-top: rem(135);
                             position: absolute;
-                            top: 7%;
-                            left: rem(43);
+                            top: rem(0);
+                            left: rem(49);
                             display: block;
                             background: transparent;
-                            height: rem(400);
+                            height: rem(390);
                             overflow-y: scroll;
                             -ms-overflow-style: none;
                             scrollbar-width: none;
+                            margin-right: 0;
 
                             &::-webkit-scrollbar {
                                 display: none;
@@ -140,7 +164,10 @@
 
                             &.slick-active {
                                 border: rem(1) solid $pink-rose;
-
+                                @include media-breakpoint-up(lg) {
+                                    width: rem(81);
+                                    height: rem(81);
+                                }
                                 @include media-breakpoint-down(md) {
                                     border: rem(1) solid $light-border-black;
                                 }
@@ -161,17 +188,18 @@
                             }
 
                             @include media-breakpoint-up(lg) {
-                                height: rem(83);
-                                width: rem(83);
+                                height: rem(80);
+                                width: rem(80);
                                 border-radius: 100%;
                                 overflow: hidden;
                                 margin: 0 rem(5);
-                                margin-bottom: rem(14);
+                                margin-bottom: rem(16);
                                 cursor: pointer;
                                 transition: all 0.4s;
                                 border: rem(1) solid transparent;
                                 display: inline-block;
-
+                                border: rem(1) solid $white;
+                                letter-spacing: rem(0);
                                 &:hover {
                                     border: rem(1) solid $pink-rose;
                                 }
@@ -206,10 +234,11 @@
 
                             @include media-breakpoint-up(lg) {
                                 background: url("../../images/RightArrowPDP.svg") center center no-repeat;
-                                right: rem(-15);
+                                right: rem(-6);
                             }
                         }
                     }
+                    
                 }
 
                 .pointer-none {
@@ -227,13 +256,14 @@
             width: rem(40);
             height: rem(40);
             position: absolute;
-            margin-left: rem(20);
-            top: rem(400);
 
-            @include media-breakpoint-up(lg) {
-                position: absolute;
-                margin-left: rem(150);
-                top: rem(475);
+            &.btn:not(:disabled):not(.disabled):active,
+            &.btn:not(:disabled):not(.disabled).active {
+                background: url("../../images/zoom_in.svg") center center no-repeat;
+            }
+            &::after {
+                background-color: $light-grey-4;
+                box-shadow: rem(0) rem(3) rem(5) rem(0) $light-grey-3;
             }
         }
 
@@ -251,12 +281,11 @@
             padding-top: rem(70);
 
             @include media-breakpoint-up(lg) {
-                padding-top: rem(154);
+                padding-top: rem(50);
             }
 
             .product-section-mobile {
-                @include media-breakpoint-down(md) {
-                    margin-top: rem(20);
+                @include media-breakpoint-down(sm-custom) {
                     padding-top: rem(30);
                     background-color: $white;
                     border-radius: rem(40) rem(40) 0 0;
@@ -470,7 +499,7 @@
                     flex: 0 0 43.4%;
                     max-width: 43.4%;
                     padding-right: rem(15);
-                    padding-left: rem(60);
+                    padding-left: rem(51);
                 }
 
                 @include media-breakpoint-down(sm-custom) {
@@ -498,24 +527,19 @@
 
                 .slick {
                     &-slide {
+
                         img {
                             margin: 0 auto;
-                            height: rem(375);
-                            width: rem(375);
-
-                            @include media-breakpoint-up(lg) {
-                                height: rem(450);
-                                width: rem(450);
+                            height: rem(391);
+                            width: rem(391);
+                            @include media-breakpoint-down(sm) {
+                                height: 100%;
+                                width: 100%;
                             }
-                            @include media-breakpoint-down(sm-custom) {
-                                height: rem(300);
-                                width: rem(300);
+                            @include media-breakpoint-down(md) {
+                                height: 100%;
+                                width: 100%;
                             }
-                            @include media-breakpoint-down(xsm-custom) {
-                                height: rem(241);
-                                width: rem(241);
-                            }
-
                         }
                     }
                 }
@@ -635,6 +659,7 @@
                 }
 
                 &-list {
+                    
                     @include media-breakpoint-up(lg) {
                         display: flex;
                         flex-direction: column;
@@ -846,6 +871,7 @@
 }
 
 .primary-images {
+
     .product-badges {
         .badge-right {
             left: auto;
@@ -869,11 +895,11 @@
     .cs-carousel-wrapper {
   
       .slick-prev {
-        left: rem(17);
+        left: rem(10);
       }
   
       .slick-next {
-        right: rem(17);
+        right: rem(10);
       }
     }
 }
@@ -884,38 +910,43 @@
     .ob-carousel-quickview {
         
         .quickview {
-            position: relative;
-            transform: translate(50%, 328%);
-            top: 47%;
-            left: -34%;
-            margin-left: 0;
-            border-radius: rem(20);
-            box-shadow: 0 rem(3) rem(5) 0 $light-grey-3;
-
+            position: absolute;
+            bottom: 0;
+            transform: translate(50%, -50%);
+            left: rem(153);
+            border-radius: 100%;
+            @include media-breakpoint-down(md) {
+                bottom: -0.1vh;
+                left: rem(35);
+            }
+            @include media-breakpoint-down(sm) {
+                bottom: -0.1vh;
+                left: rem(35);
+                background-size: contain;
+            }
+            @include media-breakpoint-down(sm-small) {
+                bottom: -0.1vh;
+                left: rem(35);
+                background-size: contain;
+            }
+            @include media-breakpoint-down(sm-custom) {
+                bottom: -0.1vh;
+                left: rem(35);
+            }
+            @include media-breakpoint-down(xsm-custom) {
+                bottom: -0.1vh;
+                left: rem(35);
+            }
+            
             &:focus {
                 box-shadow: none;
             }
 
-            @include media-breakpoint-down(md) {
-                transform: translate(-434%, 328%);
-                left: 0%;
+            &.btn:not(:disabled):not(.disabled).active{
+                background-image: inherit !important;
             }
-            @include media-breakpoint-down(sm) {
-                transform: translate(-434%, 328%);
-                left: 0%;
-            }
-            @include media-breakpoint-down(sm-custom) {
-                transform: translate(-299%, 73%);
-                left: 0%;
-                bottom: rem(84);
-            }
-            @include media-breakpoint-down(xsm-custom) {
-                transform: translate(-225%, 73%);
-                left: 0%;
-                bottom: rem(84);
-            }
-
         }
+
     }
 }
 .primary-images {
