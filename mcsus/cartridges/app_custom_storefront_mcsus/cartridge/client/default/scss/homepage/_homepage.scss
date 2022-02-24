@@ -199,11 +199,6 @@
             .tile-body {
               .promotions {
                 overflow: hidden;
-                height: rem(44);
-
-                @include media-breakpoint-down(sm) {
-                  height: rem(60);
-                }
               }
             }
 
@@ -218,6 +213,7 @@
 
               @include media-breakpoint-up(xs) {
                 font-size: rem(14);
+                line-height: 1.0625rem;
               }
 
               @include media-breakpoint-up(sm) {
@@ -229,7 +225,6 @@
                &.bottomLine {
                 .yotpo-display-wrapper {
                     .yotpo-bottomline {
-                        margin-top: rem(6);
                         margin-bottom: rem(10); 
                     }
                 }
@@ -253,23 +248,23 @@
                   font-family: $font-medium;
                   font-weight: 500;
                   font-size: rem(12.8);
-                  line-height: rem(24);
+                  line-height: rem(22);
                   letter-spacing: rem(0);
                   color: $black1;
                   height: rem(40);
 
-                  @include media-breakpoint-up(xs) {
-                    font-size: rem(12.8);
-                    line-height: rem(24);
-                    letter-spacing: rem(0.5);
-                    height: rem(43.2);
-                  }
+                  // @include media-breakpoint-up(xs) {
+                  //   font-size: rem(12.8);
+                  //   letter-spacing: rem(0.5);
+                  //   height: rem(43.2);
+                  // }
 
-                  @include media-breakpoint-up(sm) {
-                    font-size: rem(12.8);
-                    line-height: rem(26);
-                    letter-spacing: rem(0);
-                    height: rem(56);
+                  @include media-breakpoint-down(md) {
+                    line-height: rem(20);
+                  }
+                  @include media-breakpoint-down(sm) {
+                    height: rem(25);
+                    line-height: rem(17);
                   }
                 }
               }
