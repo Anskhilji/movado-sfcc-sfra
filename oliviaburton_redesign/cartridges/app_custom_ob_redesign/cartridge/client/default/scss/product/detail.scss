@@ -15,7 +15,7 @@
         }
 
         .align-items-center-wrapper {
-            align-items: center;
+            align-items: self-start;
         }
 
         .primary-images {
@@ -110,7 +110,7 @@
 
                         @include media-breakpoint-up(lg) {
                             width: rem(86);
-                            margin-top: rem(135);
+                            margin-top: rem(134);
                             position: absolute;
                             top: rem(0);
                             left: rem(50);
