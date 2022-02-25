@@ -106,14 +106,14 @@
                         left: 50%;
                         transform: translateX(-50%);
                         margin-right: rem(12);
-                        bottom: rem(-18);
+                        bottom: rem(-21);
 
                         @include media-breakpoint-up(lg) {
-                            width: rem(88);
+                            width: rem(86);
                             margin-top: rem(135);
                             position: absolute;
                             top: rem(0);
-                            left: rem(49);
+                            left: rem(50);
                             display: block;
                             background: transparent;
                             height: rem(390);
@@ -121,6 +121,7 @@
                             -ms-overflow-style: none;
                             scrollbar-width: none;
                             margin-right: 0;
+                            overflow-x: hidden;
 
                             &::-webkit-scrollbar {
                                 display: none;
@@ -134,9 +135,30 @@
                             flex: 1;
                             max-width: rem(130);
 
+                            @include media-breakpoint-up(lg) {
+                                height: rem(81);
+                                width: rem(81);
+                                border-radius: 100%;
+                                overflow: hidden;
+                                margin: 0 rem(5);
+                                margin-bottom: rem(15);
+                                cursor: pointer;
+                                transition: all 0.4s;
+                                border: rem(1) solid transparent;
+                                display: inline-block;
+                                border: rem(1) solid $white;
+                                letter-spacing: rem(0);
+                                &:hover {
+                                    border: rem(1) solid $pink-rose;
+                                }
+                            }
+                            @include media-breakpoint-down(lg) {
+                                border: none;
+                                transition: unset;
+                            }
                             button {
-                                height: 100%;
-                                width: 100%;
+                                height: rem(80);
+                                width: rem(80);
                                 border-radius: 0;
                                 background: $gainsboro;
                                 vertical-align: text-top;
@@ -145,6 +167,10 @@
                                     background: transparent;
                                     outline: none;
                                     vertical-align: initial;
+                                }
+                                @include media-breakpoint-down(md) {
+                                    height: 1px;
+                                    width: 100%;
                                 }
 
                                 &:focus {
@@ -165,16 +191,15 @@
                             &.slick-active {
                                 border: rem(1) solid $pink-rose;
                                 @include media-breakpoint-up(lg) {
-                                    width: rem(83);
-                                    height: rem(83);
+                                    width: rem(81);
+                                    height: rem(81);
                                 }
                                 @include media-breakpoint-down(md) {
-                                    border: rem(1) solid $light-border-black;
+                                    border: none;
                                 }
 
                                 button {
                                     background: $black;
-
                                     @include media-breakpoint-up(lg) {
                                         background: none;
                                     }
@@ -187,23 +212,6 @@
                                 }
                             }
 
-                            @include media-breakpoint-up(lg) {
-                                height: rem(82);
-                                width: rem(82);
-                                border-radius: 100%;
-                                overflow: hidden;
-                                margin: 0 rem(5);
-                                margin-bottom: rem(14);
-                                cursor: pointer;
-                                transition: all 0.4s;
-                                border: rem(1) solid transparent;
-                                display: inline-block;
-                                border: rem(1) solid $white;
-                                letter-spacing: rem(0);
-                                &:hover {
-                                    border: rem(1) solid $pink-rose;
-                                }
-                            }
                         }
                     }
 
@@ -503,7 +511,7 @@
                 }
 
                 @include media-breakpoint-down(sm-custom) {
-                    margin-top: rem(8);
+                    margin-top: rem(-3);
                 }
 
                 .cart-and-ipay {
