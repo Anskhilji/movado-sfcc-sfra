@@ -51,9 +51,9 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
    var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
    var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
    var productType = showProductPageHelperResult.product.productType;
-
    var ObRedesignPdp = null;
-   // A/B testing for OB Redesign PDP
+   
+   // Custom Comment Start: A/B testing for OB Redesign PDP
    if (ABTestMgr.isParticipant('OBRedesignPDPABTest','Control')) {
       ObRedesignPdp = '/product/old/productDetails';
    } else if (ABTestMgr.isParticipant('OBRedesignPDPABTest','render-new-design')) {
@@ -61,6 +61,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
    } else {
       ObRedesignPdp = '/product/old/productDetails';
    }
+   // Custom Comment End: A/B testing for OB Redesign PDP
 
     if (!showProductPageHelperResult.product.online && productType !== 'set' && productType !== 'bundle') {
         res.setStatusCode(404);
