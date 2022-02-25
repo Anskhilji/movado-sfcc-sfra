@@ -51,32 +51,20 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
    var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
    var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
    var productType = showProductPageHelperResult.product.productType;
-   var ObRedesignPdp = null;
-   
+   var template = null;
+
    // Custom Comment Start: A/B testing for OB Redesign PDP
    if (ABTestMgr.isParticipant('OBRedesignPDPABTest','Control')) {
-      ObRedesignPdp = '/product/old/productDetails';
+       template = '/product/old/productDetails';
    } else if (ABTestMgr.isParticipant('OBRedesignPDPABTest','render-new-design')) {
-      ObRedesignPdp =  showProductPageHelperResult.template;
+       template =  showProductPageHelperResult.template;
    } else {
-      ObRedesignPdp = '/product/old/productDetails';
+       template = '/product/old/productDetails';
    }
    // Custom Comment End: A/B testing for OB Redesign PDP
 
-    if (!showProductPageHelperResult.product.online && productType !== 'set' && productType !== 'bundle') {
-        res.setStatusCode(404);
-        res.render('error/notFound');
-    } else {
-        res.render(ObRedesignPdp, {
-            product: showProductPageHelperResult.product,
-            addToCartUrl: showProductPageHelperResult.addToCartUrl,
-            resources: showProductPageHelperResult.resources,
-            breadcrumbs: showProductPageHelperResult.breadcrumbs
-        });
-    }
-
     var viewData = res.getViewData();
-    var product = viewData.product;
+    var product = showProductPageHelperResult.product;
 
     yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
 
@@ -166,6 +154,17 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
    }
 
    res.setViewData(viewData);
+   if (!showProductPageHelperResult.product.online && productType !== 'set' && productType !== 'bundle') {
+    res.setStatusCode(404);
+    res.render('error/notFound');
+    } else {
+        res.render(template, {
+            product: showProductPageHelperResult.product,
+            addToCartUrl: showProductPageHelperResult.addToCartUrl,
+            resources: showProductPageHelperResult.resources,
+            breadcrumbs: showProductPageHelperResult.breadcrumbs
+        });
+    }
    next();
 }, pageMetaData.computedPageMetaData);
 
