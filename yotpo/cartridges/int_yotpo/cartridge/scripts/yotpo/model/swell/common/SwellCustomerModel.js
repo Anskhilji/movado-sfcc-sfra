@@ -34,7 +34,8 @@ function prepareCustomerJSON(profile) {
             email: customerEmail,
             first_name: YotpoUtils.escape(profile.firstName, Constants.REGEX_FOR_YOTPO_DATA, ''),
             last_name: YotpoUtils.escape(profile.lastName, Constants.REGEX_FOR_YOTPO_DATA, ''),
-            tags: customerGroups
+            tags: customerGroups,
+            sfcc_id: profile.getCustomer().ID
         };
     } catch (e) {
         YotpoLogger.logMessage('Some error occurred while preparing customer JSON for customer number: ' +
