@@ -109,7 +109,7 @@
                         bottom: rem(-18);
 
                         @include media-breakpoint-up(lg) {
-                            width: rem(87);
+                            width: rem(88);
                             margin-top: rem(135);
                             position: absolute;
                             top: rem(0);
@@ -165,8 +165,8 @@
                             &.slick-active {
                                 border: rem(1) solid $pink-rose;
                                 @include media-breakpoint-up(lg) {
-                                    width: rem(81);
-                                    height: rem(81);
+                                    width: rem(83);
+                                    height: rem(83);
                                 }
                                 @include media-breakpoint-down(md) {
                                     border: rem(1) solid $light-border-black;
@@ -188,12 +188,12 @@
                             }
 
                             @include media-breakpoint-up(lg) {
-                                height: rem(80);
-                                width: rem(80);
+                                height: rem(82);
+                                width: rem(82);
                                 border-radius: 100%;
                                 overflow: hidden;
                                 margin: 0 rem(5);
-                                margin-bottom: rem(16);
+                                margin-bottom: rem(14);
                                 cursor: pointer;
                                 transition: all 0.4s;
                                 border: rem(1) solid transparent;
@@ -915,6 +915,7 @@
             transform: translate(50%, -50%);
             left: rem(153);
             border-radius: 100%;
+            box-shadow: 0 rem(3) rem(5) 0 $light-grey-3;
             @include media-breakpoint-down(md) {
                 bottom: -0.1vh;
                 left: rem(35);
@@ -922,12 +923,10 @@
             @include media-breakpoint-down(sm) {
                 bottom: -0.1vh;
                 left: rem(35);
-                background-size: contain;
             }
             @include media-breakpoint-down(sm-small) {
                 bottom: -0.1vh;
                 left: rem(35);
-                background-size: contain;
             }
             @include media-breakpoint-down(sm-custom) {
                 bottom: -0.1vh;
