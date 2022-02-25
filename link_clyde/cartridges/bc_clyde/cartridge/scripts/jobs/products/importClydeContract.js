@@ -108,7 +108,7 @@ function writeCatalogFileContent(result, fileWriter, productSearchHitsItr) {
 
             fileWriter.writeStartElement('option-value-price');
             fileWriter.writeAttribute('currency', clydeHelper.CONSTANTS.OPTION_PRODUCT_DEFAULT_CURRENCY);
-            fileWriter.writeCharacters(result.data[i].attributes.premium);
+            fileWriter.writeCharacters(result.data[i].attributes.recommendedPrice);
             fileWriter.writeEndElement();
             fileWriter.writeCharacters('\n');
 
