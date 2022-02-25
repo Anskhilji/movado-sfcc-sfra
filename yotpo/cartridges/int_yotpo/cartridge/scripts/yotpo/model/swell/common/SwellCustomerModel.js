@@ -35,7 +35,7 @@ function prepareCustomerJSON(profile) {
             first_name: YotpoUtils.escape(profile.firstName, Constants.REGEX_FOR_YOTPO_DATA, ''),
             last_name: YotpoUtils.escape(profile.lastName, Constants.REGEX_FOR_YOTPO_DATA, ''),
             tags: customerGroups,
-            sfcc_id: profile.getCustomer().ID
+            sfcc_id: profile.getCustomer().ID // MSS-1592 Added parameter for Yotpo cartridge
         };
     } catch (e) {
         YotpoLogger.logMessage('Some error occurred while preparing customer JSON for customer number: ' +
