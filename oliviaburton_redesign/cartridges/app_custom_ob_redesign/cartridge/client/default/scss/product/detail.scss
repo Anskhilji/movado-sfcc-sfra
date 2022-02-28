@@ -548,7 +548,7 @@
                             max-width: rem(355);          
                         }
                         @include media-sm {
-                            transform: translateX(-0.5rem); 
+                            transform: translateX(-8px); 
                         }
                     }
                 }
@@ -906,8 +906,8 @@
                     box-shadow: none;
                     color: $black;
                 }
-            }           
-        }   
+            }
+        }
     }
 }
 
