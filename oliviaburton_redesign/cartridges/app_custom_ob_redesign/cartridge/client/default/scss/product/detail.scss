@@ -527,6 +527,7 @@
                         .gpay-button.black {
                             width: rem(330);
                             height: rem(45);
+                            border-radius: rem(3);
                             @include media-breakpoint-down(md) {
                                 transform: translateX(0px);
                                 width: 100%;
@@ -536,6 +537,20 @@
                         } 
                 
                       }
+
+                      button.apple-pay-pdp{
+                        width: 100%;
+                        min-width: auto;
+                        max-width: rem(330);
+                        height: rem(45);
+                        border-radius: rem(3);
+                        @include media-breakpoint-down(md) {
+                            max-width: rem(355);          
+                        }
+                        @include media-sm {
+                            transform: translateX(-0.5rem); 
+                        }
+                    }
                 }
             }
 
@@ -891,7 +906,7 @@
                     box-shadow: none;
                     color: $black;
                 }
-            }
+            }           
         }   
     }
 }
