@@ -54,10 +54,9 @@ module.exports = {
         $(document).on('beforeChange', '.primary-images .main-ob-carousel', function (event, slick, currentSlide, nextSlide) {
             var nextSlide = slick.$slides.get(nextSlide);
             var $slideSourceSets = $(nextSlide).find('source');
-            if ($slideSourceSets.length) {
-                var $slideImage = $(nextSlide).find('img');
-                $slideImage.attr('data-lazy', $($slideSourceSets[0]).data('lazy'));
-            }
+            $($slideSourceSets).each(function () {
+                $(this).attr('srcset', $(this).data('lazy'));
+            });
         });
 
     },
