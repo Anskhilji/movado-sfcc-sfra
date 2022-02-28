@@ -169,7 +169,7 @@
                                     vertical-align: initial;
                                 }
                                 @include media-breakpoint-down(md) {
-                                    height: 1px;
+                                    height: rem(1);
                                     width: 100%;
                                 }
 
