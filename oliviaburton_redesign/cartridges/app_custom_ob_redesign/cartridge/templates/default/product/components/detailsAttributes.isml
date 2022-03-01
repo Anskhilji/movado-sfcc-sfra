@@ -14,7 +14,11 @@
                     <div class="details-list">
                 </isif>
                 <div class="attribute-detail">
-                    <span class="attribute-name">${attr.name}</span>
+                    <isif condition="${attr.name.indexOf(Resource.msg('product.detail.attribute','product',null)) > -1}">
+                        <span class="attribute-name">${attr.name.split('(')[0]}</span>
+                    <iselse/>
+                        <span class="attribute-name">${attr.name}</span>
+                    </isif>
                     <h3 class="attribute-value">${attr.value}</h3>
                 </div>
                 <isif condition="${(loopStatus.count % maxCloumnItems) == 0 || loopStatus.last}">
