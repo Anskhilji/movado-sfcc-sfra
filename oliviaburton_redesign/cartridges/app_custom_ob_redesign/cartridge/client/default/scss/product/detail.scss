@@ -544,11 +544,10 @@
                         max-width: rem(330);
                         height: rem(45);
                         border-radius: rem(3);
+                        margin-left: 0;
                         @include media-breakpoint-down(md) {
-                            max-width: rem(355);          
-                        }
-                        @include media-sm {
-                            transform: translateX(-8px); 
+                            max-width: rem(355);   
+                            margin-left: auto;       
                         }
                     }
                 }
