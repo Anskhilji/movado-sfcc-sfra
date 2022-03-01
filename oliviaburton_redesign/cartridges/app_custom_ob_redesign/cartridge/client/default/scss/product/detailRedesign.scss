@@ -133,7 +133,7 @@
                             margin: 0;
                             flex: 1;
                             max-width: rem(130);
-                            padding: 0 !important;
+
                             @include media-breakpoint-up(lg) {
                                 height: rem(81);
                                 width: rem(81);
@@ -188,7 +188,6 @@
 
                             &.slick-active {
                                 border: rem(1) solid $pink-rose;
-
                                 @include media-breakpoint-up(lg) {
                                     width: rem(81);
                                     height: rem(81);
