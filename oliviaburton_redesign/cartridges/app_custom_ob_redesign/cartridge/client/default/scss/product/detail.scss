@@ -508,7 +508,6 @@
                 }
 
                 .cart-and-ipay {
-
                     @include media-breakpoint-down(md) {
                         margin: 0;
                         padding: 0 rem(10);
@@ -547,7 +546,7 @@
                         margin-left: 0;
                         @include media-breakpoint-down(md) {
                             max-width: rem(355);   
-                            margin-left: auto;       
+                            margin-left: auto;      
                         }
                     }
                 }
