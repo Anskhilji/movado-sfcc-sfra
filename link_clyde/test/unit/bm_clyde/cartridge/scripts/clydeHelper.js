@@ -45,7 +45,7 @@ var CustomObjectMgrMock = {
 	}
 };
 describe('#clydeHelper()', function () {
-	var clydeCreateService = proxyquire('../../../../../cartridges/bc_clyde/cartridge/scripts/clydeHelper.js', {
+	var clydeCreateService = proxyquire('../../../../../cartridges/bm_clyde/cartridge/scripts/clydeHelper.js', {
 				'dw/system/Logger': LoggerMock,
 				'dw/system/Site': SiteMock,
 				'dw/object/CustomObjectMgr': CustomObjectMgrMock,

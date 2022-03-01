@@ -17,7 +17,7 @@ if (document.querySelector('.product-number span')) {
                 defaultSelector: '#clyde-cta',
                 type: ClydeSitePreferences.CLYDE_WIDGET_TYPE,
                 environment: ClydeSitePreferences.CLYDE_WIDGET_ENVIRONMENT,
-                skipGeoIp: ClydeSitePreferences.CLYDE_WIDGET_SKIP_GEO_LOCATION,
+                skipGeoIp: ClydeSitePreferences.CLYDE_WIDGET_SKIP_GEO_LOCATION
             }, function () {
                 Clyde.setActiveProduct(productId);
             }

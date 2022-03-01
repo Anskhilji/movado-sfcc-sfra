@@ -101,5 +101,18 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
 
 
 module.exports = {
-    addProductToCart: addProductToCart
+    addLineItem: base.addLineItem,
+    addProductToCart: addProductToCart,
+    checkBundledProductCanBeAdded: base.checkBundledProductCanBeAdded,
+    ensureAllShipmentsHaveMethods: base.ensureAllShipmentsHaveMethods,
+    getQtyAlreadyInCart: base.getQtyAlreadyInCart,
+    getNewBonusDiscountLineItem: base.getNewBonusDiscountLineItem,
+    getExistingProductLineItemInCart: base.getExistingProductLineItemInCart,
+    getExistingProductLineItemsInCart: base.getExistingProductLineItemsInCart,
+    getMatchingProducts: base.getMatchingProducts,
+    allBundleItemsSame: base.allBundleItemsSame,
+    hasSameOptions: base.hasSameOptions,
+    BONUS_PRODUCTS_PAGE_SIZE: base.BONUS_PRODUCTS_PAGE_SIZE,
+    updateBundleProducts: base.updateBundleProducts,
+    getReportingUrlAddToCart: base.getReportingUrlAddToCart
 };

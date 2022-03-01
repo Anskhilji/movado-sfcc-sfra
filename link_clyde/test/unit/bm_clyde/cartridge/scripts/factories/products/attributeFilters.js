@@ -14,13 +14,15 @@ global.empty = function (obj) {
 };
 
 describe('ProductProperties', function () {
-    var prdFunction = require('../../../../../../../cartridges/bc_clyde/cartridge/scripts/factories/products/attributeFilters.js');
+    var prdFunction = require('../../../../../../../cartridges/bm_clyde/cartridge/scripts/factories/products/attributeFilters.js');
     var product = {
         ID: 'SKU789',
         name: 'Clyde Couch',
         manufacturer: 'Clyde Couch Co.',
         barcode: 'couch99',
-        shortDescription: 'Test shortDescription',
+        shortDescription: {
+            markup: 'Test shortDescription'
+        },
         price: 43.45,
         imageLink: 'clydeimagehosting.com/SKU789',
         image: 'large',
@@ -122,9 +124,6 @@ describe('ProductProperties', function () {
     });
     it('should return value for manufacturer function', function () {
         assert.equal(prdFunction.productPropertyFunctions.manufacturer(product, VM, master), 'Clyde Couch Co.');
-    });
-    it('should return value for image function', function () {
-        assert.equal(prdFunction.productPropertyFunctions.image(product), 'clydeimagehosting.com/SKU789');
     });
     it('should return value for price function', function () {
         assert.equal(prdFunction.productPropertyFunctions.price(product), 43.45);

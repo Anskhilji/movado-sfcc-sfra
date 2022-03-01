@@ -8,11 +8,11 @@ chai.use(chaiSubset);
 describe('Update quantity for product variant', function () {
     this.timeout(45000);
 
-    var variantPid1 = '793775370033';
+    var variantPid1 = '701644329402M';
     var qty1 = 2;
-    var variantPid2 = '793775362380';
+    var variantPid2 = '701644329396M';
     var qty2 = 1;
-    var variantPid3 = '029407331258M';
+    var variantPid3 = '701644329419M';
     var qty3 = 3;
 
     var prodIdUuidMap = {};
@@ -87,56 +87,6 @@ describe('Update quantity for product variant', function () {
         var variantUuid1 = prodIdUuidMap[variantPid1];
         var variantUuid2 = prodIdUuidMap[variantPid2];
 
-        var expectedUpdateRep = {
-            'action': 'Cart-UpdateQuantity',
-           'totals': {
-                'subTotal': '$276.50',
-                'totalShippingCost': '$9.99',
-                'totalTax': '$14.33'
-            },
-            'shipments': [
-                {
-                    'shippingMethods': [
-                        {
-                           'ID': '001',
-                            'displayName': 'Ground',
-                            'shippingCost': '$9.99',
-                            'selected': true
-                        }
-                    ],
-                    'selectedShippingMethod': '001'
-                }
-            ],
-            'items': [
-                {
-                    'id': variantPid1,
-                    'productName': 'Striped Silk Tie - Turquoise',
-                    'price': {
-                       "sales": {
-                           "currency": "USD",
-                           "decimalPrice": "39.50",
-                           "formatted": '$39.50',
-                           "value": 39.50
-                   }
-                    },
-                    'variationAttributes': [
-                        {
-                            'displayName': 'Color',
-                            'displayValue': 'Turquoise'
-                        }
-                    ],
-                    'UUID': variantUuid1,
-                    'quantity': expectQty1
-                }
-            ],
-            'numItems': newTotal,
-            'locale': 'en_US',
-            'resources': {
-                'numberOfItems': newTotal + ' Items',
-                'emptyCartMsg': 'Your Shopping Cart is Empty'
-            }
-        };
-
         updateQuantity.method = 'GET';
         updateQuantity.url = config.baseUrl + '/Cart-UpdateQuantity?pid=' + variantPid2 + '&uuid=' + variantUuid2 + '&quantity=' + newQty2;
 
@@ -145,8 +95,8 @@ describe('Update quantity for product variant', function () {
                 assert.equal(updateRsp.statusCode, 200, 'Expected statusCode to be 200.');
 
                 var bodyAsJson = JSON.parse(updateRsp.body);
-
-                assert.containSubset(bodyAsJson, expectedUpdateRep, 'Actual response does not contain expectedUpdateRep.');
+                assert.equal(bodyAsJson.valid.error, false);
+                assert.equal(bodyAsJson.message, null);
             });
     });
 });

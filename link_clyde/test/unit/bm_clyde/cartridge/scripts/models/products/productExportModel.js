@@ -12,9 +12,10 @@ global.empty = function (obj) {
 };
 
 describe('ClydeExportModel', function () {
-    var ExportModel = proxyrequire('../../../../../../../cartridges/bc_clyde/cartridge/scripts/models/products/productExportModel.js', {
+    var ExportModel = proxyrequire('../../../../../../../cartridges/bm_clyde/cartridge/scripts/models/products/productExportModel.js', {
         '~/cartridge/scripts/factories/products/clydeProductSearch': require('../../../../../../mocks/factories/clydeProductSearch.js'),
-        '~/cartridge/scripts/models/products/clydeProductModel': require('../../../../../../mocks/models/clydeProductModel.js')
+        '~/cartridge/scripts/models/products/clydeProductModel': require('../../../../../../mocks/models/clydeProductModel.js'),
+        '~/cartridge/scripts/utils/clydeSitePreferences': require('../../../../../../mocks/utils/clydeSitePreferences.js'),
     });
     it('Should give the product export model', function () {
         var params = {

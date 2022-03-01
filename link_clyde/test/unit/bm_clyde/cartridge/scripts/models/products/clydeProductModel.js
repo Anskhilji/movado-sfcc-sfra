@@ -5,19 +5,18 @@
 
 var assert = require('chai').assert;
 var proxyrequire = require('proxyquire').noCallThru().noPreserveCache();
-var CustomObjectMock = require('../../../../../../mocks/utils/clydeCustomObject.js');
 var baseModel = require('../../../../../../mocks/models/clydeBaseModel.js');
 var properties = require('../../../../../../mocks/factories/attributeFilters');
 
 describe('ClydeProductModel', function () {
-    var PrdModel = proxyrequire('../../../../../../../cartridges/bc_clyde/cartridge/scripts/models/products/clydeProductModel.js', {
+    var PrdModel = proxyrequire('../../../../../../../cartridges/bm_clyde/cartridge/scripts/models/products/clydeProductModel.js', {
         '~/cartridge/scripts/models/products/clydeBaseModel': baseModel,
-        '~/cartridge/scripts/utils/clydeCustomObject': CustomObjectMock,
         '~/cartridge/scripts/factories/products/attributeFilters': properties
     });
     it('should return payload for product export ', function () {
         var params = {
-            isDryRun: false
+            isDryRun: false,
+            deltaImport: true
         };
         var jobStepExecution = {
             jobExecution: {
@@ -37,6 +36,18 @@ describe('ClydeProductModel', function () {
                 size: 'loveseat',
                 color: 'purple'
             },
+            priceBook : {
+                lastModified: {
+                    getTime: function () {
+                        return '2021-08-1120T209920'
+                    }
+                }
+            },
+            lastModified: {
+                getTime: function () {
+                    return '2021-08-1120T209920'
+                }
+            },
             master: {
                 ID: 'MasterTestId',
                 name: 'Master Normal Product',
@@ -52,10 +63,17 @@ describe('ClydeProductModel', function () {
                         return this.master ? master : null;
                     }
                 };
+            },
+            getPriceModel: function () {
+                return {
+                    getPriceInfo: function () {
+                        return this.priceBook;
+                    }
+                }
             }
         };
         var productModel = new PrdModel(params, jobStepExecution);
         var payload = productModel.getPayload(product);
-        assert.isObject(payload);
+        assert.isNull(payload);
     });
 });

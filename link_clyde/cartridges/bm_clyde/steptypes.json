@@ -7,7 +7,7 @@
                 "@supports-site-context":"true",
                 "@supports-organization-context":"false",
                 "description":"Send products to Clyde API",
-                "module":"bc_clyde/cartridge/scripts/jobs/products/sendFullProducts.js",
+                "module":"bm_clyde/cartridge/scripts/jobs/products/sendFullProducts.js",
                 "before-step-function":"beforeStep",
                 "read-function":"read",
                 "process-function":"process",
@@ -46,7 +46,7 @@
                 "@supports-site-context":"true",
                 "@supports-organization-context":"false",
                 "description":"Send products to Clyde API",
-                "module":"bc_clyde/cartridge/scripts/jobs/products/sendDeltaProducts.js",
+                "module":"bm_clyde/cartridge/scripts/jobs/products/sendDeltaProducts.js",
                 "before-step-function":"beforeStep",
                 "read-function":"read",
                 "process-function":"process",
@@ -85,7 +85,7 @@
                 "@supports-site-context":"true",
                 "@supports-organization-context":"false",
                 "description":"Send products to Clyde API",
-                "module":"bc_clyde/cartridge/scripts/jobs/products/sendNewProducts.js",
+                "module":"bm_clyde/cartridge/scripts/jobs/products/sendNewProducts.js",
                 "before-step-function":"beforeStep",
                 "read-function":"read",
                 "process-function":"process",
@@ -123,7 +123,7 @@
         "script-module-step": [
             {
                 "@type-id":"custom.SendOrders",
-                "module":"bc_clyde/cartridge/scripts/jobs/orders/sendOrders.js",
+                "module":"bm_clyde/cartridge/scripts/jobs/orders/sendOrders.js",
                 "description":"Send orders to Clyde",
                 "function":"Run",
                 "parameters": {
@@ -161,7 +161,7 @@
             },
             {
                 "@type-id":"custom.SendCancelOrders",
-                "module":"bc_clyde/cartridge/scripts/jobs/orders/sendCancelOrders.js",
+                "module":"bm_clyde/cartridge/scripts/jobs/orders/sendCancelOrders.js",
                 "description":"Send Cancel orders to Clyde API",
                 "function":"Run",
                 "parameters": {
@@ -200,7 +200,7 @@
             { 
                 "@type-id":"custom.clydeImportContracts",
                 "description":"Import Clyde Contracts to SFCC using Option Product",
-                "module":"bc_clyde/cartridge/scripts/jobs/products/importClydeContract.js",
+                "module":"bm_clyde/cartridge/scripts/jobs/products/importClydeContract.js",
                 "function":"execute",
                 "@supports-site-context":"true",
                 "status-codes":{ 
