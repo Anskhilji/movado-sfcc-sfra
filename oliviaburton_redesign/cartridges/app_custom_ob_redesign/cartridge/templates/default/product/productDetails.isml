@@ -15,49 +15,43 @@
     <isset name="product" value="${pdict.product}" scope="page" />
     <isset name="isQuickView" value="${false}" scope="page" />
     <isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page">
-        <isset name="isProductSet" value="${pdict.product.productType === 'set'}" scope="page" />
-        <isset name="isCollectionHighlightEnabled" value="${!empty(dw.system.Site.current.preferences.custom.collectionHighLightsEnabled) ? dw.system.Site.current.preferences
-                                                          .custom.collectionHighLightsEnabled : false}" scope="page" />
-        <isset name="isCollectionYouMayLikeEnabled" value="${!empty(dw.system.Site.current.preferences.custom.collectionYouMayLikeEnabled) ? dw.system.Site.current.preferences
-                                                           .custom.collectionYouMayLikeEnabled : false}" scope="page" />
-        <isset name="isStyleYouMayLikeEnabled" value="${!empty(dw.system.Site.current.preferences.custom.styleYouMayLikeEnabled) ? dw.system.Site.current.preferences.custom
-                                                      .styleYouMayLikeEnabled : false}" scope="page" />
-        <isobject object="${product.raw}" view="detail">
-            <isset name="topLevelBackground"
-                value="${dw.system.Site.getCurrent().getCustomPreferenceValue('topLevelBackground')}" scope="page" />
-            <iscomment> ${topLevelBackground}; </iscomment>
-            <div class="custom-bg" style="background-color: ${topLevelBackground};">
-                <div class="container-fluid product-detail product-detail-redesign pdp-obuk product-wrapper"
-                    data-pid="${product.id}" itemscope itemtype="http://schema.org/Product">
+    <isset name="isProductSet" value="${pdict.product.productType === 'set'}" scope="page" />
+    <isset name="isCollectionHighlightEnabled" value="${!empty(dw.system.Site.current.preferences.custom.collectionHighLightsEnabled) ? dw.system.Site.current.preferences.custom.collectionHighLightsEnabled : false}" scope="page" />
+    <isset name="isCollectionYouMayLikeEnabled" value="${!empty(dw.system.Site.current.preferences.custom.collectionYouMayLikeEnabled) ? dw.system.Site.current.preferences.custom.collectionYouMayLikeEnabled : false}" scope="page" />
+    <isset name="isStyleYouMayLikeEnabled" value="${!empty(dw.system.Site.current.preferences.custom.styleYouMayLikeEnabled) ? dw.system.Site.current.preferences.custom.styleYouMayLikeEnabled : false}" scope="page" />
+    <isobject object="${product.raw}" view="detail">
+    <isset name="topLevelBackground" value="${dw.system.Site.getCurrent().getCustomPreferenceValue('topLevelBackground')}" scope="page" />
+        <iscomment> ${topLevelBackground}; </iscomment>
+        <div class="custom-bg" style="background-color: ${topLevelBackground};">
+            <div class="container-fluid product-detail product-detail-redesign pdp-obuk product-wrapper" data-pid="${product.id}" itemscope
+                itemtype="http://schema.org/Product">
 
-                    <div class="row">
-                        <!-- Product Images Carousel -->
-                        <isinclude template="product/components/imageCarousel" />
+                <div class="row align-items-center-wrapper">
+                    <!---Breadcrumbs--->
+                    <div class="product-breadcrumb">
+                        <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
+                    </div>
+                    <!-- Product Images Carousel -->
+                    <isinclude template="product/components/imageCarousel" />
 
-                        <div class="col-12 col-sm-6 product-top-detail">
+                    <div class="col-12 col-sm-6 product-top-detail">
 
-                            <!-- Family Name -->
+                        <!-- Family Name -->
+                        <isif condition="${pdict.plpProductFamilyName}">
                             <h1 class="family-name">${pdict.collectionName}</h1>
+                        </isif>
+                        <!-- Product Name -->
+                        <h2 class="product-name text-uppercase">${product.productName}</h2>
 
-                            <!-- Product Name -->
-                            <h2 class="product-name text-uppercase">${product.productName}</h2>
-
-                            <div class="d-flex price-rating">
-                                <!-- Prices -->
-                                <div class="prices">
-                                    <isset name="price" value="${product.price}" scope="page" />
-                                    <isinclude template="product/components/pricing/main" />
-                                </div>
-                                <!-- Product Rating -->
-                                <div class="ratings pull-right hidden-sm-down">
-                                    <isinclude template="product/components/productRating" />
-                                </div>
+                        <div class="d-flex price-rating">
+                            <!-- Prices -->
+                            <div class="prices">
+                                <isset name="price" value="${product.price}" scope="page" />
+                                <isinclude template="product/components/pricing/main" />
                             </div>
-                            <!-- Affirm Text -->
-                            <div>
-                                <isinclude template="util/affirmmodule_mf" />
-                                <isaffirmpromo context="pdp"
-                                    fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
+                            <!-- Product Rating -->
+                            <div class="ratings pull-right hidden-md-down">
+                                <isinclude template="product/components/productRating" />
                             </div>
 
                             <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom
@@ -110,22 +104,24 @@
                                         <isinclude template="product/components/description" />
                                     </div>
                                 </isif>
-                                <iscomment> Custom End </iscomment>
-
-                                <isif condition="${product.options && product.options.length > 0}">
-                                    <isinclude template="product/components/options" />
-                                </isif>
-                                <div class="d-flex align-items-center justify-content-center justify-content-lg-start">
-                                    <!-- Product Availability -->
-                                    <div class="availability product-availability text-uppercase"
-                                        data-ready-to-order="${product.readyToOrder}"
-                                        data-available="${product.available}">
-                                        <isinclude
-                                            url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}" />
-                                    </div>
-                                    <div class="shipping-callout">
-                                        <iscontentasset aid="ca-shipping-callout" />
-                                    </div>
+                            </isif>
+                        </isif>
+                        <div class="product-section-mobile">
+                            <!-- Product Rating -->
+                            <div class="ratings ratings-mobile d-lg-none">
+                                <isinclude template="product/components/productRating" />
+                            </div>
+                            <div class="description">
+                                <isinclude template="product/components/description" />
+                            </div>
+                            <isif condition="${product.options && product.options.length > 0}">
+                                <isinclude template="product/components/options" />
+                            </isif>
+                            <div class="d-flex align-items-center justify-content-center justify-content-lg-start">
+                                <!-- Product Availability -->
+                                <div class="availability product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
+                                    data-available="${product.available}">
+                                    <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
                                 </div>
                                 <div class="${product.available ? " add-to-cart-actions" : ""}">
                                     <!-- Cart and [Optionally] Apple Pay -->
