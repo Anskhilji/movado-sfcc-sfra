@@ -365,6 +365,7 @@
     }
 
     &.recommendation-carousel-pdp {
+
         .carousel-title {
             color: $black;
             font-size: rem(28);
@@ -417,6 +418,7 @@
                 }
                 .pdp-link {
                     text-align: left;
+                    margin-bottom: rem(5);
                     a {
                         font-size: rem(15);
                         font-family: $font-gills-light;
@@ -427,7 +429,7 @@
                 .pricing-save {
                     text-align: left;
                     .price {
-                        padding-left: rem(0);
+                        padding-left: rem(4);
                         .value {
                             font-size: rem(13);
                             font-family: $font-gill-std-normal;
@@ -437,6 +439,22 @@
                 }
                 .add-to-cart-plp-redesign {
                     display: none;
+                }
+                .product-family {
+                    cursor: unset;
+                        &:hover {
+                            text-decoration: none;
+                        }
+                    h3 {
+                        text-align: left;
+                        color: $gray20;
+                        font-family: $font-gill-std-bold;
+                        font-size: rem(15);
+                        font-weight: 600;
+                        letter-spacing: rem(0);
+                        line-height: rem(20);
+                        margin-bottom: rem(5);
+                    }
                 }
             }
         }
