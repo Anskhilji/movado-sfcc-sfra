@@ -77,3 +77,9 @@ $large-screen-width: 1400px;
       @content;
   }
 }
+$extra-small-width: 544px;
+@mixin media-sm {
+  @media (min-width:#{$extra-small-width}) {
+      @content;
+  }
+}
