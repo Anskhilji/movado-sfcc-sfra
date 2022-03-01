@@ -5,7 +5,6 @@
 @import "../components/productCommon";
 
 .product-detail {
-
     &-redesign {
         max-width: rem(1440);
         margin: 0 auto;
@@ -376,7 +375,9 @@
                 &-mobile {
                     margin: 0;
                     padding: 0;
-
+                    @include media-breakpoint-down(md){
+                        margin: 0 auto;
+                    }
                     .yotpo-bottomline {
                         margin-bottom: rem(15);
                     }
@@ -523,6 +524,40 @@
                             padding: 0;
                         }
                     }
+                    .btn.pt-0.mt-2{
+                        @include media-breakpoint-down(md) {
+                        padding: 0;
+                        width: 100%;
+                        }
+                    }
+                    .google-pay-container {
+                        .gpay-button.black {
+                            width: rem(330);
+                            height: rem(45);
+                            border-radius: rem(3);
+                            @include media-breakpoint-down(md) {
+                                transform: translateX(0px);
+                                width: 100%;
+                                min-width: auto;
+                                max-width: rem(355);
+                            }
+                        } 
+                
+                      }
+
+                      button.apple-pay-pdp{
+                        width: 100%;
+                        min-width: auto;
+                        max-width: rem(330);
+                        height: rem(45);
+                        border-radius: rem(3);
+                        @include media-breakpoint-down(md) {
+                            max-width: rem(355);          
+                        }
+                        @include media-sm {
+                            transform: translateX(-8px); 
+                        }
+                    }
                 }
             }
 
@@ -581,7 +616,7 @@
 
             .why-buy-me-details {
                 color: $gray20;
-                font-family: $font-GaramondMTPro-italic;
+                font-family: $font-Garamond-Pro-italic;
                 font-size: rem(20);
                 line-height: rem(25);
                 text-align: center;
@@ -802,7 +837,7 @@
     
                 &-item {
                     a {
-                        @include font-gill ($font-size: 12, $font-weight: 500, $letter-spacing: 0.5);
+                        @include font-gill($font-size: 12, $font-weight: 600, $letter-spacing: 0.5);
                         line-height: rem(16);
                         color: $black;
                         margin-left: rem(5);
@@ -848,27 +883,33 @@
                 text-align: left;
             }
 
-            .add-to-cart {
+            button.add-to-cart {
                 width: 100%;
                 height: rem(45);
-                background: $black;
-                @include font-gill ($font-weight: 500);
+                background: $pink-hot;
+                @include font-gill($font-weight: 600);
                 line-height: rem(20);
                 text-transform: uppercase;
-                color: $white;
-                border-color: $black;
+                color: $black;
+                font-family: $font-gill-std-semibold;
+                border-color: $pink-hot;
                 border-radius: rem(3);
                 margin: 0;
-                max-width: rem(355);
+                max-width: rem(330);
                 margin: 0 auto;
 
                 @include media-breakpoint-up(lg) {
                     width: rem(330);
+                    height: rem(45);
+                }
+                @include media-breakpoint-down(md) {
+                    width: 100%;
+                    max-width: rem(355);
                 }
 
                 &:hover,
                 &:focus {
-                    background-color: transparent;
+                    background-color: $pink-hot;
                     box-shadow: none;
                     color: $black;
                 }
