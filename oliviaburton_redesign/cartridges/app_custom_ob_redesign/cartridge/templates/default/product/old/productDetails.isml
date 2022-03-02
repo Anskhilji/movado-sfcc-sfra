@@ -201,10 +201,10 @@
                                 </isif>
                             </div>
                             <div class="row description">
-                                <isinclude template="product/components/productWhyBuyMe" />
+                                <isinclude template="product/components/old/productWhyBuyMe" />
                             </div>
                             <div class="row description">
-                                <isinclude template="product/components/description" />
+                                <isinclude template="product/components/old/description" />
                             </div>
                         </div>
                         <span class="product-id d-none" itemprop="productID" >${product.id}</span>
@@ -221,7 +221,7 @@
         </div>
 
         <div class="container">
-            <isinclude template="product/components/descriptionAndDetails" />
+            <isinclude template="product/components/old/descriptionAndDetails" />
         </div>
 
         <isif condition="${isCollectionHighlightEnabled}">

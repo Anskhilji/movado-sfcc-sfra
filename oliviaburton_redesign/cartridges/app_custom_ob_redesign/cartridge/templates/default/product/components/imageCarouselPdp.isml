@@ -1,5 +1,5 @@
 <iscomment> Add New Class For The Correct Replacment of Megnifier For OB</iscomment>
-<div class="primary-images ob-carousel-quickview col-12 col-sm-6">
+<div class="primary-images ob-carousel-quickview ob-carousel-new-quickview col-12 col-sm-6">
     <div class="product-badges">
         <!-- First two conditions are for PLP and the last is applicable on PDP -->
         <isif

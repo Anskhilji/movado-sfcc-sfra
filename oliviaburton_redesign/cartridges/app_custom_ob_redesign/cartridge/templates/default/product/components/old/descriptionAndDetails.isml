@@ -3,7 +3,7 @@
         <isif condition="${product.attributes && product.attributes.length}">
             <hr/>
             <div class="row product-attributes collapsible-sm">
-                <isinclude template="product/components/detailsAttributes" />
+                <isinclude template="product/components/old/detailsAttributes" />
             </div>
         </isif>
     </isif>
