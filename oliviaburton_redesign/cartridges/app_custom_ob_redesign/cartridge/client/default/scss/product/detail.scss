@@ -600,7 +600,7 @@
 
             @include media-breakpoint-down(md) {
                 &.description-and-detail-pad {
-                    padding-top: rem(40);
+                    padding-top: rem(26);
                 }
             }
 
@@ -620,6 +620,7 @@
                 line-height: rem(25);
                 text-align: center;
                 margin-bottom: rem(20);
+                letter-spacing: rem(0);
 
                 @include media-breakpoint-up(lg) {
                     font-size: rem(40);
@@ -639,6 +640,7 @@
                     @include font-gill($font-weight: 300);
                     line-height: rem(25);
                     text-align: center;
+                    color: $gray20;
                 }
 
                 @include media-breakpoint-up(lg) {
