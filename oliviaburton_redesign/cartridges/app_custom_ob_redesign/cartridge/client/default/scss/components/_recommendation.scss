@@ -148,14 +148,14 @@
                             height: rem(44);
                         }
                         a {
-                            height: 40px;
-                            width: 220px;
+                            height: re(40);
+                            width: rem(220);
                             color: $gray20;
                             font-family: $gill-sans-font-stack;
-                            font-size: 15px;
+                            font-size: rem(15);
                             font-weight: 300;
                             letter-spacing: 0;
-                            line-height: 20px;
+                            line-height: rem(20);
                             text-transform: capitalize;
     
                             @include media-breakpoint-up(sm) {
@@ -251,7 +251,7 @@
                 }
     
                 .pricing-save {
-                    font-size: 13px;
+                    font-size: rem(13);
                     letter-spacing: 0;
                     display: flex;
                     justify-content: space-between;
@@ -321,7 +321,7 @@
         .slick-dots  {
             button {
                 box-sizing: border-box;
-                height: 1px;
+                height: rem(1);
                 width: rem(85);
                 background-color: $dark-grey2;
                 cursor: pointer;
