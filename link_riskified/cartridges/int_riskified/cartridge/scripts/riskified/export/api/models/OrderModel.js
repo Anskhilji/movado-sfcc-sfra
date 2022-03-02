@@ -127,6 +127,9 @@ function create(order, orderParams, checkoutDeniedParams) {
     } else {
         while (ordPaymInstIt.hasNext()) {
             orderPaymInstrument = ordPaymInstIt.next();
+            // Custom Start: MSS:1635 - Fix Riskifed Gateway issue
+            paymentProcessor = PaymentMgr.getPaymentMethod(orderPaymInstrument.paymentMethod).paymentProcessor.ID;
+            // Custom End
             if (paymentParams.paymentMethod == 'GiftCert') {
                 paymentProcessor = PaymentMgr.getPaymentMethod(orderPaymInstrument.paymentMethod).paymentProcessor.ID;
             }

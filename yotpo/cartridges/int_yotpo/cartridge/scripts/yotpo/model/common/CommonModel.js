@@ -160,7 +160,7 @@ function getCurrentBasketDetails(currentLocaleID) {
 
     try {
         var swellCartTokken = yotpoConfiguration.custom.swellAPIKey + currentBasket.UUID;
-        var messageDigest = new MessageDigest(MessageDigest.DIGEST_SHA_1);
+        var messageDigest = new MessageDigest(MessageDigest.DIGEST_SHA_256);
         encryptedBasketToken = Encoding.toBase64(messageDigest.digestBytes(new Bytes(swellCartTokken, 'UTF-8')));
     } catch (ex) {
         YotpoLogger.logMessage('Exception occurred while encrypting cart tokken for Locale: ' + currentLocaleID + ' exception is:' + ex, 'error', logLocation);

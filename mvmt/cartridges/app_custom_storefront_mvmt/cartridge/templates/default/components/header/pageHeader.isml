@@ -3,8 +3,7 @@
     <isslot id="header-banner-m" description="Slot above the site header" context="global" />
 </div><iscomment> Custom: HTML Structure change</iscomment>
 <isinclude template="/components/modules" sf-toolkit="off" />
-
-<header class="new-header mvmt-header-design">
+<header class="new-header mvmt-header-design mvmt-header-redesign">
     <iscomment>Custom Start: Adding ESW cartridge integration </iscomment>
     <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page"/>
     <isif condition="${eswHelper.getEShopWorldModuleEnabled() && eswHelper.getEnableLandingPage()}" >

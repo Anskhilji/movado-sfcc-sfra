@@ -111,13 +111,15 @@ function processStatusOrder(SAPOrderStatus) {
 
     var fulfillmentOrder = SalesforceModel.createSalesforceRestRequest({
         method: 'GET',
-        url: '/services/data/v49.0/query/?q=' +
+        url: '/services/data/v52.0/query/?q=' +
             'SELECT+' +
             'Id,Status,OrderSummary.Id,OrderSummary.eswOrderNo__c,FulfilledToName,' +
             '(SELECT+' +
             'Id,Type,Quantity,' +
             'OrderItemSummary.Id,OrderItemSummary.LineNumber,' +
-            'OrderItemSummary.ProductCode+' +
+            'OrderItemSummary.ProductCode,' +
+            'OrderItemSummary.WarrantyParentOrderItemSummary__r.Id,' +
+            'OrderItemSummary.WarrantyChildOrderItemSummary__r.Id,OrderItemSummary.WarrantyChildOrderItemSummary__r.Quantity+' +
             'FROM+FulfillmentOrderLineItems)+' +
             'FROM+FulfillmentOrder+WHERE+FulfillmentOrderNumber=\'' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber + '\'',
         referenceId: 'SalesforceOrderStatus'

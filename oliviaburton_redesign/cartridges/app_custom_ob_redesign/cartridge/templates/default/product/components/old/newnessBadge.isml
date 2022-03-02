@@ -1,0 +1,11 @@
+<isloop items="${product.badges.imageBadges}" var="imageBadge" status="loopStatus">
+    <isif condition="${loopStatus.first}">
+        <div class="badge-left">
+            <img src="${imageBadge.imageUrl}" alt="${imageBadge.imageAlt}"/>
+        </div>
+    <iselseif condition="${loopStatus.last}">
+        <div class="badge-right">
+            <img src="${imageBadge.imageUrl}" alt="${imageBadge.imageAlt}"/>
+        </div>
+    </isif>
+</isloop>

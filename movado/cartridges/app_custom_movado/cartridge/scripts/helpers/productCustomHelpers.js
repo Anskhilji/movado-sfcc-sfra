@@ -29,6 +29,9 @@ var ATTR_WTR_RESISTANCE = 'waterResistance';
 var ATTR_FABRICATION = 'crystalFabrication';
 var ATTR_RING_SIZE = 'ringSize';
 var ATTR_LENGTH = 'length';
+var ATTR_POWER_RESERVE  = 'powerReserve';
+var ATTR_MOVEMENT_FUNCTIONS = 'movementFunctions';
+var ATTR_CALIBER = 'caliber';
 
 var STRAP = 'strap';
 var BRACELET = 'bracelet';
@@ -36,7 +39,6 @@ var BANGLE = 'bangle';
 var NEWLINE = '\n';
 var EMBOSSED = 'Embossed';
 var ENGRAVED = 'Engraved';
-
 
 function getBadges(apiProduct) {
 	// Contains what attributes needs to display image/text
@@ -46,6 +48,9 @@ function getBadges(apiProduct) {
 	// Contains image url / text to be displayed on storefront
     var badgeImage1 = Site.getCurrent().getCustomPreferenceValue('imageBadge1');
     var badgeImage2 = Site.getCurrent().getCustomPreferenceValue('imageBadge2');
+    var badgeEcoFriendly = Site.getCurrent().getCustomPreferenceValue('badgeEcoFriendly');
+    var badgeVeganFriendly = Site.getCurrent().getCustomPreferenceValue('badgeVeganFriendly');
+    var badgeStatus = Site.getCurrent().getCustomPreferenceValue('badgeStatus');
     var badgeText = JSON.parse(Site.getCurrent().getCustomPreferenceValue('textForBadges'));
 
     var attrDef = SystemObjectMgr.describe('Product');
@@ -90,6 +95,12 @@ function getBadges(apiProduct) {
                     // MSS-1169 Change url to URL fix deprecated method usage
                     var badgeImageUrl2 = badgeImage2.URL.toString();
                 }
+                if (badgeEcoFriendly && badgeStatus) {
+                    var badgeEcoFriendlyUrl = badgeEcoFriendly.URL.toString();
+                }
+                if (badgeVeganFriendly && badgeStatus) {
+                    var badgeVeganFriendlyUrl = badgeVeganFriendly.URL.toString();
+                }
 
 
                 if (badgeImageUrl1 && badgeImageUrl1.indexOf(imageBadge) > -1) {
@@ -110,6 +121,26 @@ function getBadges(apiProduct) {
                         // MSS-1169 Change url to URL fix deprecated method usage
                         imageUrl: badgeImage2.URL,
                         imageAlt: imageBadge
+                    };
+                    imageBadgesObj.add(badge);
+                }
+                if (badgeEcoFriendlyUrl && badgeStatus && badgeEcoFriendlyUrl.indexOf(imageBadge) > -1) {
+                    var badge = {
+                        attr: imageBadge,
+                        attrType: 'image',
+                        imageUrl: badgeEcoFriendly.URL,
+                        imageAlt: imageBadge,
+                        isRedesigned: true
+                    };
+                    imageBadgesObj.add(badge);
+                }
+                if (badgeVeganFriendlyUrl && badgeStatus && badgeVeganFriendlyUrl.indexOf(imageBadge) > -1) {
+                    var badge = {
+                        attr: imageBadge,
+                        attrType: 'image',
+                        imageUrl: badgeVeganFriendly.URL,
+                        imageAlt: imageBadge,
+                        isRedesigned: true
                     };
                     imageBadgesObj.add(badge);
                 }
@@ -260,6 +291,12 @@ function getPdpAttributes(apiProduct) {
     }				else if (attr == ATTR_GEM_CLARITY && apiProduct.custom.gemstoneClarity) {
         attributes = pushAttributeToList(attributes, attrNameMapping.gemstoneClarity, apiProduct.custom.gemstoneClarity, gemstoneClarityImage.URL);
     }
+    } else if (attr && attr == ATTR_CALIBER && apiProduct.custom.caliber) {
+        attributes = pushAttributeToList(attributes, attrNameMapping.caliber, apiProduct.custom.caliber, null);
+    } else if (attr && attr == ATTR_MOVEMENT_FUNCTIONS && apiProduct.custom.movementFunctions) {
+        attributes = pushAttributeToList(attributes, attrNameMapping.movementFunctions, apiProduct.custom.movementFunctions, null);
+    } else if (attr && attr == ATTR_POWER_RESERVE && apiProduct.custom.powerReserve) {
+        attributes = pushAttributeToList(attributes, attrNameMapping.powerReserve, apiProduct.custom.powerReserve, null);
     }
         }
     } catch (e) {
@@ -945,6 +982,21 @@ function getMarketingProducts(apiProduct, quantity) {
     }
 }
 
+/**
+ * Checks for redesigned 
+ * @param {Object} product - 
+ * @returns {boolean} isRedesignedBadge - Returns true if redesigned badge
+ */
+function isOnlyRedesignedBadge(product) {
+    var isRedesignedBadge = false;
+    if( product.badges && product.badges.imageBadges && product.badges.imageBadges.length == 1 
+        && ((product.badges.imageBadges[0].imageUrl.toString().indexOf('badgeVeganFriendly') > -1) 
+        ||  (product.badges.imageBadges[0].imageUrl.toString().indexOf('badgeEcoFriendly') > -1 ))) {
+            isRedesignedBadge = true
+    }
+    return isRedesignedBadge;
+}
+
 module.exports = {
     getBadges: getBadges,
     getPdpAttributes: getPdpAttributes,
@@ -968,5 +1020,6 @@ module.exports = {
     getMoreStyleGtmArray: getMoreStyleGtmArray,
     formatProductId: formatProductId,
     getWishlistGtmObjforPDP: getWishlistGtmObjforPDP,
-    getMarketingProducts : getMarketingProducts
+    getMarketingProducts : getMarketingProducts,
+    isOnlyRedesignedBadge: isOnlyRedesignedBadge
 };

@@ -19,6 +19,32 @@ function Response(response) {
     this.cachePeriodUnit = null;
     this.personalized = false;
     this.renderings = [];
+
+    var Constants = require('*/cartridge/scripts/util/Constants');
+    var rakutenHelpers = require('*/cartridge/scripts/helpers/rakutenHelpers');
+    var isRakutenEnable = !empty(dw.system.Site.current.preferences.custom.isRakutenEnable) ? dw.system.Site.current.preferences.custom.isRakutenEnable : false;
+    var isOneTrustEnabled = !empty(dw.system.Site.current.preferences.custom.oneTrustCookieEnabled) ? dw.system.Site.current.preferences.custom.oneTrustCookieEnabled : false;
+    var OptanonConsentCookieValue = request.getHttpCookies()[Constants.OPTANON_CONSENT_COOKIE_NAME] ? decodeURIComponent(request.getHttpCookies()[Constants.OPTANON_CONSENT_COOKIE_NAME].value) : '';
+    var isOptanonCookieEnabled = OptanonConsentCookieValue.indexOf(Constants.ONE_TRUST_COOKIE_ENABLED);
+    if (isRakutenEnable && rakutenHelpers.isRakutenAllowedCountry()) {
+        if (isOneTrustEnabled && isOptanonCookieEnabled != -1) {
+            renderRakutenCookies();
+        } else if (!isOneTrustEnabled) {
+            renderRakutenCookies();
+        }
+    }
+}
+
+/**
+ * This method is used to call care Rakuten Cookie method.
+ */
+function renderRakutenCookies() {
+    if (!empty(session.privacy.rakutenCookieValues)) {
+        var Constants = require('*/cartridge/scripts/util/Constants');
+        var rakutenCookiesHelper = require('*/cartridge/scripts/helpers/rakutenHelpers');
+        rakutenCookiesHelper.setCookiesResponse(Constants.RAKUTEN_COOKIE_NAME, session.privacy.rakutenCookieValues, '/');
+        delete session.privacy.rakutenCookieValues;
+    }
 }
 
 /**

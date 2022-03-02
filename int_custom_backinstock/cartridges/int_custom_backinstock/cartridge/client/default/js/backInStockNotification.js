@@ -3,7 +3,15 @@ var triggerEmail = true;
 var processResponse = function ($selector, data) {
     if (data.success) {
         $selector.find('.back-in-stock-notification-container-main, .back-in-stock-notification-marketing-container').addClass('d-none');
-        $('.back-in-stock-notification-container-success').removeClass('d-none');
+        var mediumWidth = 992;
+        var $windowWidth = $(window).width();
+        if ($windowWidth < mediumWidth) {
+            $('.description-and-detail').addClass('description-and-detail-pt');
+            $('.description-and-detail').removeClass('description-and-detail-pad');
+        } else {
+            $('.back-in-stock-notification-container-success').addClass('back-in-stock-notification-container-mb')
+        }
+        $('.back-in-stock-notification-container-success').removeClass('d-none').focus();
     } else {
         if (!data.success) {
             if (!data.isValidEmail) {

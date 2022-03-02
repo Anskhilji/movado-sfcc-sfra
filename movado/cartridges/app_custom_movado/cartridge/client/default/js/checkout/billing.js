@@ -1,7 +1,7 @@
 'use strict';
 
 var addressHelpers = require('./address');
-var cleave = require('base/components/cleave');
+var cleave = require('../components/cleave');
 
 /**
  * updates the billing address selector within billing forms
@@ -281,6 +281,12 @@ module.exports = {
         }
     },
 
+    creditCardExpiryDate: function() {
+        if($('#expirationDate').length) {
+            cleave.creditCardExpiryDate('#expirationDate');
+        }
+    },
+
     santitizeForm: function () {
         $('body').on('checkout:serializeBilling', function (e, data) {
             var serializedForm = cleave.serializeData(data.form);
@@ -350,5 +356,19 @@ module.exports = {
                 $('#brandCode').val(Resources.KLARNA_SLICE_IT_PAYMENT_METHOD_BRAND_CODE);
             }
         });
-    }
+    },
+
+    restrictNumbers: function() {
+        $('#holderName').keyup(function () {
+            this.value = this.value.replace(/[^a-z|A-Z ]+(?: [a-z|A-Z ]+)*$/g,'');
+        });
+    },
+
+    trimSpaces: function() {
+        $('#holderName').focusout(function() {
+            var $holderName = $(this).val();
+            $holderName = $.trim($holderName);
+            $(this).val($holderName);
+        });
+    },
 };

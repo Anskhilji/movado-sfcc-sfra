@@ -37,21 +37,27 @@ module.exports = {
     },
     
     primarySlider: function () {
+
+        
         $('.primary-images .main-ob-carousel').slick({
+            lazyLoad: 'ondemand',
             slidesToShow: 1,
             slidesToScroll: 1,
             dots: true,
             arrows:true,
-            focusOnSelect: true,
-            fade: true,
             customPaging: function (slick, index) {
                 var thumb = $(slick.$slides[index]).find('.carousel-tile').attr('data-thumb');
                 return '<button class="tab"> <img  src="'+ thumb +'" /> </button>';
             },
         });
 
-        $( "img" ).dblclick(function() {
-            $(".js-zoom-image").trigger( "click" );
+        $(document).on('beforeChange', '.primary-images .main-ob-carousel', function (event, slick, currentSlide, nextSlide) {
+            var nextSlide = slick.$slides.get(nextSlide);
+            var $slideSourceSets = $(nextSlide).find('source');
+            $($slideSourceSets).each(function () {
+                $(this).attr('srcset', $(this).data('lazy'));
+            });
         });
+
     },
 }

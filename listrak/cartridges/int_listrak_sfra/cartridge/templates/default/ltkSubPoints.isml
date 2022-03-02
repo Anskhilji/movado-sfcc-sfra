@@ -1,0 +1,6 @@
+<isset name="codes" value="${pdict.subpointcode}" scope="page" />
+<isscript>
+    var assets = require('*/cartridge/scripts/assets.js');    
+</isscript>
+
+<script src="${URLUtils.staticURL('/js/ltkSubPoints.js')}" ltk-data='<isprint value="${codes}"/>'></script>

@@ -152,6 +152,10 @@ module.exports = {
 
 $( document ).ready(function() {
     refreshAffirmUI();
+    
+    if (window.ApplePaySession) {
+        $('.google-pay-wrapper').removeClass('mt-2');
+    }
 });
 
 function refreshAffirmUI() {

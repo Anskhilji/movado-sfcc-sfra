@@ -1,6 +1,7 @@
 'use strict';
 
 var ProductLineItem = require('dw/order/ProductLineItem');
+var Logger = require('dw/system/Logger');
 var productFactory = require('*/cartridge/scripts/factories/product');
 var Transaction = require('dw/system/Transaction');
 var collections = require('*/cartridge/scripts/util/collections');
@@ -203,14 +204,19 @@ function getProductOptions(embossedMessage,engravedMessage){
  */
 function getWishlistGtmObj(productLineItems) {
 	var wishlistGtmObj = [];
-	collections.forEach(productLineItems, function (pli) {
-		wishlistGtmObj.push({
-			"event" : "dataTrack",
-			"eventCategory" : "Wishlist Add",
-			"eventAction" : request.httpURL,
-			"eventLabel" : pli.product.name + "|" + pli.product.ID
-			});
-	});
+    try {
+        collections.forEach(productLineItems, function (pli) {
+            wishlistGtmObj.push({
+                "event" : "dataTrack",
+                "eventCategory" : "Wishlist Add",
+                "eventAction" : request.httpURL,
+                "eventLabel" : pli.product.name + "|" + pli.product.ID
+                });
+        });
+    
+    } catch (ex) {
+        Logger.error('(customCartHelpers~getWishlistGtmObj) -> Error occurred while generating whishlist impress and errror is:{0} at line: {1} in file {2}', ex.toString(), ex.lineNumber, ex.fileName);
+    }
 
 	return wishlistGtmObj;
 }

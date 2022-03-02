@@ -13,6 +13,7 @@
         'userEmail': '${pdict.gtm.userEmail}',
         'hashedEmail': '${pdict.gtm.userHashedEmail}',
         'customerType': '${pdict.gtm.customerType}',
+        'customerID': '${pdict.customerID}',
         'userFirstName': '${pdict.gtm.userFirstName}',
         'userLastName': '${pdict.gtm.userLastName}',
         'userPhone': '${pdict.gtm.userPhone}',
@@ -25,7 +26,9 @@
         'pageUrl': '${pdict.gtm.pageUrl}',
         'country': '${pdict.gtm.country}',
         'googleAnalyticsParameters': '${pdict.gtm.googleAnalyticsParameters}',
-        'departmentCategoryName': ''
+        'departmentCategoryName': '',
+        'customerIPAddressLocation': '${pdict.gtm.customerIPAddressLocation}',
+        'rakutenAllowedCountries': '${pdict.gtm.rakutenAllowedCountries}'
     };
     
     if (pageDataGTM != undefined && pageDataGTM) {
@@ -211,6 +214,9 @@
                                 'imageURL': '${orderObj.productObj.imageURL}',
                                 'productURL': '${orderObj.productObj.productURL}',
                                 'coupon': '${orderObj.productObj.itemCoupon}',
+                                'unitBasePrice': '${orderObj.productObj.unitBasePrice}',
+                                'unitPriceLessTax': '${orderObj.productObj.unitPriceLessTax}',
+                                'taxOnBasePrice': '${orderObj.productObj.taxOnBasePrice}',
                                 'brand':  '${orderObj.productObj.brand}',
                                 'discountTaxShipping': '${orderObj.productObj.discountTaxShipping}',
                                 'cityStateZipCode': '${orderObj.productObj.cityStateZipCode}',

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<custom-objects xmlns="http://www.demandware.com/xml/impex/customobject/2006-10-31">
+    <custom-object type-id="ltk_info" object-id="lastCustomerExportDate">
+        <object-attribute attribute-id="value">2020-04-03T17:01:59.333Z</object-attribute>
+    </custom-object>
+
+    <custom-object type-id="ltk_info" object-id="lastOrderExportDate">
+        <object-attribute attribute-id="value">2020-04-03T17:02:21.703Z</object-attribute>
+    </custom-object>
+
+    <custom-object type-id="ltk_info" object-id="lastProductExportDate">
+        <object-attribute attribute-id="value">2020-03-26T15:10:22.450Z</object-attribute>
+    </custom-object>
+
+</custom-objects>

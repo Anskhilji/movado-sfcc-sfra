@@ -113,6 +113,36 @@ function getProductAttributes(apiProduct) {
 }
 
 /**
+ * It is used to get if current product belongs to watches category
+ * @param {Object} apiProduct - apiProduct is from ProductMgr
+ * @returns {Boolean} - true if product belongs to watches
+ */
+
+function getIsWatchTile(apiProduct) {
+    var isWatchTile = false;
+    var currentCategory = null;
+    var apiCategories = apiProduct.getOnlineCategories().iterator();
+    while (apiCategories.hasNext()) {
+        currentCategory = apiCategories.next();
+
+        if (!empty(currentCategory) && currentCategory.ID == Constants.WATCHES_CATEGORY) {
+            isWatchTile = true;
+            break; // break outer loop
+        }
+        
+        while (currentCategory.parent != null) {
+            currentCategory = currentCategory.parent;
+            if (!empty(currentCategory) && currentCategory.ID == Constants.WATCHES_CATEGORY) {
+                isWatchTile = true;
+                break; // break inner loop
+            }
+        }
+        break; // break outer loop
+    }
+    return isWatchTile;
+}
+
+/**
  * It is used to get category object of current product
  * @param {Object} apiProduct - apiProduct is from ProductMgr
  * @param {Object} categories - categories json configured in site preference
@@ -303,32 +333,30 @@ function getGtmPromotionObject (promotions) {
     }
 }
 
-/**
- * Method use to get collection name from product's custom attribute family name`
- * @param {Product} apiProduct
- * @returns {String }collection name
- */
-function getCollectionName(apiProduct) {
-    var collectionName = !empty(apiProduct.custom.familyName) ? apiProduct.custom.familyName[0] : '';
-    if (empty(collectionName) && apiProduct.variant) {
-        collectionName = !empty(apiProduct.masterProduct.custom.familyName) ? apiProduct.masterProduct.custom.familyName[0] : '';
-    }
-
-    return collectionName;
-}
 
 /**
  * Method use to get Diameter name from product's custom attribute`
  * @param {Product} apiProduct
  * @returns {String }Diameter name
  */
-function getCaseDiameter(apiProduct) {
+function getCaseDiameter(apiProduct, isRedesigned, caseDiametterUnitPdp) {
     var caseDiameterWatches = '';
-    var caseDiameterHyphen = Constants.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR;
-    var caseDiameterUnit = Constants.MM_UNIT;
+    var caseDiameterUnit;
+    var caseDiameterHyphen = isRedesigned ? Constants.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR_REDESIGN
+        : Constants.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR;
+    if (!empty(caseDiametterUnitPdp)) {
+        caseDiameterUnit = caseDiametterUnitPdp;
+        caseDiameterHyphen = '';
+    } else {
+        caseDiameterUnit = Constants.MM_UNIT;
+    }
     var caseDiameter = !empty(apiProduct.custom.caseDiameter) ? apiProduct.custom.caseDiameter : '';
     var collectionName = !empty(apiProduct.custom.familyName) ? apiProduct.custom.familyName[0] : '';
-    if (!empty(collectionName) && !empty(caseDiameter)) {
+    var productName = !empty(apiProduct.name) ? apiProduct.name : '';
+    var isWatchTile = getIsWatchTile(apiProduct);
+    if (isWatchTile && !empty(collectionName) && !empty(caseDiameter)) {
+        caseDiameterWatches = caseDiameterHyphen + caseDiameter + caseDiameterUnit;
+    } else if (!isWatchTile && !empty(productName) && !empty(caseDiameter)) {
         caseDiameterWatches = caseDiameterHyphen + caseDiameter + caseDiameterUnit;
     } else if (!empty(caseDiameter)) {
         caseDiameterWatches = caseDiameter + caseDiameterUnit;
@@ -358,15 +386,95 @@ function getPDPContentAssetHTML (apiProduct) {
         return '';
     }
 }
+/**
+ * Method use to get color name from product's custom attribute`
+ * @param {Product} apiProduct
+ * @returns {String }color name
+ */
+function getColor(apiProduct, product) {
+    var color = '';
+    color = apiProduct.custom.color || '';
+    if (apiProduct.master && product && product.variationAttributes.length > 0) {
+        try {
+            product.variationAttributes[0].values.forEach(function (attribute) {
+                if (attribute.selected) {
+                    color = attribute.value;
+                    return;
+                }
+            })
+        } catch (error) {
+            Logger.error('(productCustomHepler.js -> getColor) Error occured while getting color from product variationAttribute : ' + error.message);
+            return;
+        }
+    }
+
+    return color || '';
+}
+
+//Custom Start: Get Category of Product
+function getProductCategory(apiProduct, product) {
+    var isCategory;
+    var currentCategory = null;
+    var apiCategories;
+    try {
+        if (!empty(apiProduct)) {
+            if (apiProduct.variant) {
+                apiCategories = apiProduct.getVariationModel().getMaster().getOnlineCategories();
+            } else {
+                apiCategories = apiProduct.getOnlineCategories();
+            }
+            if (!empty(apiCategories)) {
+                for (i = 0 ; apiCategories.length > 0 ; i++) {
+                    currentCategory = apiCategories[i];
+            
+                    if ((!empty(currentCategory) && currentCategory.ID == Constants.WATCHES_CATEGORY) || (!empty(currentCategory) && currentCategory.ID == Constants.EYEWEAR_CATEGORY) || (!empty(currentCategory) && currentCategory.ID == Constants.JEWELRY_CATEGORY)) {
+                        isCategory = currentCategory.ID;
+                        break;
+                    }
+            
+                    if(!empty(currentCategory)) {
+                        var category;
+                        var index;
+                        category = currentCategory.ID;
+                        index = category.indexOf("strapguide");
+            
+                        if (index == 0) {
+                            isCategory = Constants.STRAPS_CATEGORY;
+                            break; // break outer loop
+                        }
+                    }
+            
+                    if (!empty(currentCategory)) {
+                            if (currentCategory.parent != null) {
+                                currentCategory = currentCategory.parent;
+                                if ((!empty(currentCategory) && currentCategory.ID == Constants.WATCHES_CATEGORY) || (!empty(currentCategory) && currentCategory.ID == Constants.EYEWEAR_CATEGORY) || (!empty(currentCategory) && currentCategory.ID == Constants.JEWELRY_CATEGORY)) {
+                                    isCategory = currentCategory.ID;
+                                    break; // break outer loop
+                                }
+                            }
+                    }
+                }
+            }
+        }
+    } catch (error) {
+        Logger.error('(productCustomHepler.js -> getProductCategory) Error occured while getting category from apiProduct : ' + error.message);
+        return;
+    }
+    return isCategory;
+}
+//Custom End: Get Category of Product
 
 movadoProductCustomHelper.getProductAttributes = getProductAttributes;
 movadoProductCustomHelper.getRefinementSwatches = getRefinementSwatches;
 movadoProductCustomHelper.getPdpDetailAndSpecsAttributes = getPdpDetailAndSpecsAttributes;
 movadoProductCustomHelper.getPdpCollectionContentAssetID = getPdpCollectionContentAssetID;
 movadoProductCustomHelper.getCurrentCountry = getCurrentCountry;
-movadoProductCustomHelper.getCollectionName = getCollectionName;
 movadoProductCustomHelper.getGtmPromotionObject = getGtmPromotionObject;
 movadoProductCustomHelper.getPDPContentAssetHTML = getPDPContentAssetHTML;
 movadoProductCustomHelper.getCaseDiameter = getCaseDiameter;
+movadoProductCustomHelper.getColor = getColor;
+movadoProductCustomHelper.getIsWatchTile = getIsWatchTile;
+movadoProductCustomHelper.getProductCategory = getProductCategory;
 
 module.exports = movadoProductCustomHelper;
+
