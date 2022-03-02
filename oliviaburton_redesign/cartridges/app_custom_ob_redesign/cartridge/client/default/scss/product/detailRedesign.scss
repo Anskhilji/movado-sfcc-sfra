@@ -1013,3 +1013,155 @@
 .description-and-detail-pt {
     padding-top: rem(30);
 }
+
+// Recommendation Carousel css
+.cs-carousel-wrapper {
+    &.pdp-carousel {
+        max-width: rem(750);
+        margin: 0 auto;
+
+        .slick-dots  {
+            button {
+                box-sizing: border-box;
+                height: rem(1);
+                width: rem(85);
+                background-color: $dark-grey2;
+                cursor: pointer;
+                margin-right: rem(-5);
+            }
+
+            .slick-active {
+                button {
+                    box-sizing: border-box;
+                    height: rem(1);
+                    border: rem(1) solid $black;
+                    width: rem(133.33);
+                    
+                    &:focus {
+                        background-color: $black;
+                        outline: none;
+                    }
+                }
+            }
+        }
+        .slick-list {
+            margin: 0 rem(-25);
+            .slick-slide {
+                @include media-breakpoint-up(lg) {
+                    margin: 0 rem(25);
+                    transform: translateX(-20px);
+                }
+            }
+        }
+        .carousel-title {
+            margin-right: rem(25);
+            color: $black;
+            font-family: $gill-sans-font-stack;
+            font-size: rem(28);
+            font-weight: 600;
+            letter-spacing: 0;
+            line-height: rem(40);
+            text-align: center;
+            text-transform: capitalize;
+        }
+    }
+
+    &.recommendation-carousel-pdp {
+
+        .carousel-title {
+            color: $black;
+            font-size: rem(28);
+            font-weight: 600;
+            line-height: rem(40);
+            font-family: $font-gill-std-semibold;
+            margin-bottom: rem(30);
+            @include media-breakpoint-down(sm-custom) {
+                font-size: rem(20);
+            }
+        }
+        .slick-slide {
+            margin: 0 rem(25) 0 0;
+        }
+        .slick-dots {
+            margin-top: rem(30);
+            li {
+                width: rem(40);
+                margin-right: rem(0);
+                @include media-breakpoint-down(sm-custom) {
+                    width: rem(20);
+                    margin-right: rem(5);
+                }
+            }
+            button {
+                border-radius: rem(0);
+                width: rem(40);
+                height: rem(2);
+                outline: none;
+                @include media-breakpoint-down(sm-custom) {
+                    width: rem(20);
+                }
+            }
+        }
+        .product {
+            &-tile{
+                .image-container{
+                    background-color: $pink-smoke;
+                    border: none;
+                    .tile-picture-hidden {
+                        display: none;
+                    }
+                }
+            }
+            .tile-body {
+                padding: rem(15) rem(20);
+                background-color: $snow;
+                @include media-breakpoint-down(sm-custom) {
+                    padding: rem(10);
+                }
+                .pdp-link {
+                    text-align: left;
+                    margin-bottom: rem(5);
+                    a {
+                        font-size: rem(15);
+                        font-family: $font-gills-light;
+                        text-transform: capitalize;
+                        color: $gray20;
+                    }
+                }
+                .pricing-save {
+                    text-align: left;
+                    .price {
+                        padding-left: rem(4);
+                        .value {
+                            font-size: rem(13);
+                            font-family: $font-gill-std-normal;
+                            color: $gray20;
+                        }
+                    }
+                }
+                .add-to-cart-plp-redesign {
+                    display: none;
+                }
+                .product-family {
+                    cursor: unset;
+                        &:hover {
+                            text-decoration: none;
+                        }
+                    h3 {
+                        text-align: left;
+                        color: $gray20;
+                        font-family: $font-gill-std-bold;
+                        font-size: rem(15);
+                        font-weight: 600;
+                        letter-spacing: rem(0);
+                        line-height: rem(20);
+                        margin-bottom: rem(5);
+                    }
+                }
+            }
+        }
+    }
+}
+.pdp-bottom-carousel {
+    overflow: hidden;
+}

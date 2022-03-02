@@ -137,8 +137,10 @@
             <isinclude template="product/components/youMayLikeRecommendation" />
         </isif>
         <isset name="apiProduct" value="${dw.catalog.ProductMgr.getProduct(pdict.product.id)}" scope="page" />
-        <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"
+        <div class="container-fluid pdp-bottom-carousel">
+            <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"
             context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}"/>
+        </div>
         <isinclude template="product/components/contentAssets" />
 
         <!-- The Modal: Starts | To be filled by the from rendered by the ShareByEmail controller-->
