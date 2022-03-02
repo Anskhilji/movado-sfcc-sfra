@@ -49,7 +49,7 @@
                                 <isinclude template="product/components/pricing/main" />
                             </div>
                             <!-- Product Rating -->
-                            <div class="ratings pull-right hidden-sm-down">
+                            <div class="ratings pull-right hidden-md-down">
                                 <isinclude template="product/components/productRating" />
                             </div>
                         </div>
