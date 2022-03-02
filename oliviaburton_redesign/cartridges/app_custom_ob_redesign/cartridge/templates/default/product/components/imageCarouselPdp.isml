@@ -1,7 +1,9 @@
 <iscomment> Add New Class For The Correct Replacment of Megnifier For OB</iscomment>
 <div class="primary-images ob-carousel-quickview ob-carousel-new-quickview col-12 col-sm-6">
-    <div class="product-badges">
-        <isinclude template="product/components/newnessBadge" />
+    <div class="product-badges"> 
+        <isif condition="${!empty(product.badges.imageBadges)}">
+            <isinclude template="product/components/newnessBadge" />
+        </isif>
     </div>
     <isscript>
             var primaryImageCarouselConfig = {
