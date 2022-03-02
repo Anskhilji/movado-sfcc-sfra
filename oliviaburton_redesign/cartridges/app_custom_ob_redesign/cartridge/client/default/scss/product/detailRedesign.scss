@@ -145,7 +145,6 @@
                                 transition: all 0.4s;
                                 border: rem(1) solid transparent;
                                 display: inline-block;
-                                border: rem(1) solid $white;
                                 letter-spacing: rem(0);
                                 &:hover {
                                     border: rem(1) solid $pink-rose;
@@ -168,7 +167,7 @@
                                     vertical-align: initial;
                                 }
                                 @include media-breakpoint-down(md) {
-                                    height: rem(1);
+                                    height: auto;
                                     width: 100%;
                                 }
 
@@ -195,6 +194,7 @@
                                 }
                                 @include media-breakpoint-down(md) {
                                     border: none;
+                                    background: $black;
                                 }
 
                                 button {
@@ -941,15 +941,17 @@
 
 // Start primaryImagesCarousel css
 .primary-images {
-    .cs-carousel-wrapper {
+    &.ob-carousel-new-quickview{
+        .cs-carousel-wrapper {
   
-      .slick-prev {
-        left: rem(10);
-      }
-  
-      .slick-next {
-        right: rem(10);
-      }
+            .slick-prev {
+              left: rem(10);
+            }
+        
+            .slick-next {
+              right: rem(10);
+            }
+        }
     }
 }
 // End primaryImagesCarousel css
