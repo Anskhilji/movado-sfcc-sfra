@@ -146,7 +146,6 @@
                                 transition: all 0.4s;
                                 border: rem(1) solid transparent;
                                 display: inline-block;
-                                border: rem(1) solid $white;
                                 letter-spacing: rem(0);
                                 &:hover {
                                     border: rem(1) solid $pink-rose;
@@ -169,7 +168,7 @@
                                     vertical-align: initial;
                                 }
                                 @include media-breakpoint-down(md) {
-                                    height: rem(1);
+                                    height: auto;
                                     width: 100%;
                                 }
 
@@ -196,6 +195,7 @@
                                 }
                                 @include media-breakpoint-down(md) {
                                     border: none;
+                                    background: $black;
                                 }
 
                                 button {
@@ -517,7 +517,6 @@
                 }
 
                 .cart-and-ipay {
-
                     @include media-breakpoint-down(md) {
                         margin: 0;
                         padding: 0 rem(10);
@@ -553,11 +552,10 @@
                         max-width: rem(330);
                         height: rem(45);
                         border-radius: rem(3);
+                        margin-left: 0;
                         @include media-breakpoint-down(md) {
-                            max-width: rem(355);          
-                        }
-                        @include media-sm {
-                            transform: translateX(-8px); 
+                            max-width: rem(355);   
+                            margin-left: auto;      
                         }
                     }
                 }
@@ -603,7 +601,7 @@
 
             @include media-breakpoint-down(md) {
                 &.description-and-detail-pad {
-                    padding-top: rem(40);
+                    padding-top: rem(26);
                 }
             }
 
@@ -623,6 +621,7 @@
                 line-height: rem(25);
                 text-align: center;
                 margin-bottom: rem(20);
+                letter-spacing: rem(0);
 
                 @include media-breakpoint-up(lg) {
                     font-size: rem(40);
@@ -642,6 +641,7 @@
                     @include font-gill($font-weight: 300);
                     line-height: rem(25);
                     text-align: center;
+                    color: $gray20;
                 }
 
                 @include media-breakpoint-up(lg) {
@@ -942,15 +942,17 @@
 
 // Start primaryImagesCarousel css
 .primary-images {
-    .cs-carousel-wrapper {
+    &.ob-carousel-new-quickview{
+        .cs-carousel-wrapper {
   
-      .slick-prev {
-        left: rem(10);
-      }
-  
-      .slick-next {
-        right: rem(10);
-      }
+            .slick-prev {
+              left: rem(10);
+            }
+        
+            .slick-next {
+              right: rem(10);
+            }
+        }
     }
 }
 // End primaryImagesCarousel css
