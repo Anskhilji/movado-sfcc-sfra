@@ -14,7 +14,7 @@
         }
 
         .align-items-center-wrapper {
-            align-items: center;
+            align-items: self-start;
         }
 
         .primary-images {
@@ -105,14 +105,14 @@
                         left: 50%;
                         transform: translateX(-50%);
                         margin-right: rem(12);
-                        bottom: rem(-18);
+                        bottom: rem(-21);
 
                         @include media-breakpoint-up(lg) {
-                            width: rem(87);
-                            margin-top: rem(135);
+                            width: rem(86);
+                            margin-top: rem(134);
                             position: absolute;
                             top: rem(0);
-                            left: rem(49);
+                            left: rem(50);
                             display: block;
                             background: transparent;
                             height: rem(390);
@@ -120,6 +120,7 @@
                             -ms-overflow-style: none;
                             scrollbar-width: none;
                             margin-right: 0;
+                            overflow-x: hidden;
 
                             &::-webkit-scrollbar {
                                 display: none;
@@ -133,9 +134,29 @@
                             flex: 1;
                             max-width: rem(130);
 
+                            @include media-breakpoint-up(lg) {
+                                height: rem(81);
+                                width: rem(81);
+                                border-radius: 100%;
+                                overflow: hidden;
+                                margin: 0 rem(5);
+                                margin-bottom: rem(15);
+                                cursor: pointer;
+                                transition: all 0.4s;
+                                border: rem(1) solid transparent;
+                                display: inline-block;
+                                letter-spacing: rem(0);
+                                &:hover {
+                                    border: rem(1) solid $pink-rose;
+                                }
+                            }
+                            @include media-breakpoint-down(lg) {
+                                border: none;
+                                transition: unset;
+                            }
                             button {
-                                height: 100%;
-                                width: 100%;
+                                height: rem(80);
+                                width: rem(80);
                                 border-radius: 0;
                                 background: $gainsboro;
                                 vertical-align: text-top;
@@ -144,6 +165,10 @@
                                     background: transparent;
                                     outline: none;
                                     vertical-align: initial;
+                                }
+                                @include media-breakpoint-down(md) {
+                                    height: auto;
+                                    width: 100%;
                                 }
 
                                 &:focus {
@@ -168,12 +193,12 @@
                                     height: rem(81);
                                 }
                                 @include media-breakpoint-down(md) {
-                                    border: rem(1) solid $light-border-black;
+                                    border: none;
+                                    background: $black;
                                 }
 
                                 button {
                                     background: $black;
-
                                     @include media-breakpoint-up(lg) {
                                         background: none;
                                     }
@@ -186,23 +211,6 @@
                                 }
                             }
 
-                            @include media-breakpoint-up(lg) {
-                                height: rem(80);
-                                width: rem(80);
-                                border-radius: 100%;
-                                overflow: hidden;
-                                margin: 0 rem(5);
-                                margin-bottom: rem(16);
-                                cursor: pointer;
-                                transition: all 0.4s;
-                                border: rem(1) solid transparent;
-                                display: inline-block;
-                                border: rem(1) solid $white;
-                                letter-spacing: rem(0);
-                                &:hover {
-                                    border: rem(1) solid $pink-rose;
-                                }
-                            }
                         }
                     }
 
@@ -509,17 +517,49 @@
                 }
 
                 @include media-breakpoint-down(sm-custom) {
-                    margin-top: rem(8);
+                    margin-top: rem(-3);
                 }
 
                 .cart-and-ipay {
-
                     @include media-breakpoint-down(md) {
                         margin: 0;
                         padding: 0 rem(10);
 
                         > div {
                             padding: 0;
+                        }
+                    }
+                    .btn.pt-0.mt-2{
+                        @include media-breakpoint-down(md) {
+                        padding: 0;
+                        width: 100%;
+                        }
+                    }
+                    .google-pay-container {
+                        .gpay-button.black {
+                            width: rem(330);
+                            height: rem(45);
+                            border-radius: rem(3);
+                            @include media-breakpoint-down(md) {
+                                transform: translateX(0px);
+                                width: 100%;
+                                min-width: auto;
+                                max-width: rem(355);
+                            }
+                        } 
+                
+                      }
+
+                      button.apple-pay-pdp{
+                        width: 100%;
+                        min-width: auto;
+                        max-width: rem(330);
+                        height: rem(45);
+                        border-radius: rem(3);
+                        margin-left: 0;
+                        @include media-breakpoint-down(md) {
+                            max-width: rem(355);   
+                            margin-left: auto;      
                         }
                     }
                 }
@@ -973,7 +1013,7 @@
 
             @include media-breakpoint-down(md) {
                 &.description-and-detail-pad {
-                    padding-top: rem(40);
+                    padding-top: rem(26);
                 }
             }
 
@@ -993,6 +1033,7 @@
                 line-height: rem(25);
                 text-align: center;
                 margin-bottom: rem(20);
+                letter-spacing: rem(0);
 
                 @include media-breakpoint-up(lg) {
                     font-size: rem(40);
@@ -1012,6 +1053,7 @@
                     @include font-gill($font-weight: 300);
                     line-height: rem(25);
                     text-align: center;
+                    color: $gray20;
                 }
 
                 @include media-breakpoint-up(lg) {
@@ -1255,7 +1297,7 @@
                 text-align: left;
             }
 
-            .add-to-cart {
+            button.add-to-cart {
                 width: 100%;
                 height: rem(45);
                 background: $pink-hot;
@@ -1267,11 +1309,16 @@
                 border-color: $pink-hot;
                 border-radius: rem(3);
                 margin: 0;
-                max-width: rem(355);
+                max-width: rem(330);
                 margin: 0 auto;
 
                 @include media-breakpoint-up(lg) {
                     width: rem(330);
+                    height: rem(45);
+                }
+                @include media-breakpoint-down(md) {
+                    width: 100%;
+                    max-width: rem(355);
                 }
 
                 &:hover,
@@ -1311,15 +1358,17 @@
 
 // Start primaryImagesCarousel css
 .primary-images {
-    .cs-carousel-wrapper {
+    &.ob-carousel-new-quickview{
+        .cs-carousel-wrapper {
   
-      .slick-prev {
-        left: rem(10);
-      }
-  
-      .slick-next {
-        right: rem(10);
-      }
+            .slick-prev {
+              left: rem(10);
+            }
+        
+            .slick-next {
+              right: rem(10);
+            }
+        }
     }
 }
 // End primaryImagesCarousel css
@@ -1334,6 +1383,7 @@
             transform: translate(50%, -50%);
             left: rem(153);
             border-radius: 100%;
+            box-shadow: 0 rem(3) rem(5) 0 $light-grey-3;
             @include media-breakpoint-down(md) {
                 bottom: -0.1vh;
                 left: rem(35);
@@ -1341,12 +1391,10 @@
             @include media-breakpoint-down(sm) {
                 bottom: -0.1vh;
                 left: rem(35);
-                background-size: contain;
             }
             @include media-breakpoint-down(sm-small) {
                 bottom: -0.1vh;
                 left: rem(35);
-                background-size: contain;
             }
             @include media-breakpoint-down(sm-custom) {
                 bottom: -0.1vh;
