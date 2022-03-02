@@ -48,6 +48,10 @@ function ltkProduct() {
 
     // Custom Start: Adding product catgory value
     this.categoryValue = '';
+
+    // Custom Start: [MSS-1690 Adding Product Sale Price Information]
+    this.salePrice = '';
+    // Custom End:
 }
 
 /* Method to load product URLs only. */
@@ -111,6 +115,10 @@ ltkProduct.prototype.LoadProduct = function (product) {
      // Custom Start: Adding Catagory value [MSS-1473]
      this.categoryValue = this.getCategoriesValue(product);
      // Custom End
+
+     // Custom Start: [MSS-1690 Adding Product Sale Price Information]
+    this.salePrice = this.getSalePriceInfo(product);
+    // Custom End:
 };
 // MOD 16.3 Extra Prod Attributes
 ltkProduct.prototype.getAttributes = function (product) {
@@ -267,5 +275,41 @@ ltkProduct.prototype.getCategoriesValue = function (product) {
         Logger.error('Listrak Product Processing Failed for Product: {0}, Error: {1}', product.ID, error);
         return categoryArray;
     }
+}
+// Custom End
+
+// Custom Start: [MSS-1690 Get Product Sale Price Information]
+ltkProduct.prototype.getSalePriceInfo = function (product) {
+    var Money = require('dw/value/Money');
+    var PromotionItr = PromotionMgr.activePromotions.getProductPromotions(product).iterator();
+    var promotionalPrice = Money.NOT_AVAILABLE;
+    var currentPromotionalPrice = Money.NOT_AVAILABLE;
+    var salePrice = '';
+
+    while (PromotionItr.hasNext()) {
+        var promo = PromotionItr.next();
+        if (promo.getPromotionClass() != null && promo.getPromotionClass().equals(Promotion.PROMOTION_CLASS_PRODUCT) && !promo.basedOnCoupons) {
+            if (product.optionProduct) {
+                currentPromotionalPrice = promo.getPromotionalPrice(product, product.getOptionModel());
+            } else {
+                currentPromotionalPrice = promo.getPromotionalPrice(product);
+            }
+            if (promotionalPrice.value > currentPromotionalPrice.value && currentPromotionalPrice.value !== 0) {
+                promotionalPrice = currentPromotionalPrice;
+                break; // breaks loop
+            } else if (promotionalPrice.value == 0) {
+                if ((currentPromotionalPrice.value !== 0 && currentPromotionalPrice.value !== null)) {
+                    promotionalPrice = currentPromotionalPrice;
+                    break; // breaks loop
+                }
+            }
+        }
+    }
+
+    if (promotionalPrice && promotionalPrice.available) {
+        salePrice = promotionalPrice.decimalValue.toString();
+    }
+
+    return salePrice;
 }
 // Custom End
