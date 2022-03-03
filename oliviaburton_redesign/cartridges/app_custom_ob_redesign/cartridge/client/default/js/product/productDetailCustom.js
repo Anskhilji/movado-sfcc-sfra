@@ -60,6 +60,7 @@ module.exports = {
         });
 
     },
+<<<<<<< HEAD
 
     // Custom Start: [MSS-1341 To Show/Hide More Short Description on PDP]
     showMoreDescription: function () {
@@ -118,4 +119,6 @@ module.exports = {
         });
     }
     // Custom End
+=======
+>>>>>>> feature/MSS-1322-ob-redesign-pdp
 }
