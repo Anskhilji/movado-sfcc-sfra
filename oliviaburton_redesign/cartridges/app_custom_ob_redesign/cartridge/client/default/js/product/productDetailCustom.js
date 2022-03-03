@@ -107,7 +107,7 @@ module.exports = {
             arrows: true,
             responsive: [
                 {
-                    breakpoint: 991,
+                    breakpoint: 1200,
                     settings: {
                         focusOnSelect: false,
                         slidesToShow: 2,
