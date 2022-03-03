@@ -2,7 +2,7 @@
 
 .primary-images {
 
-    @include media-breakpoint-down(sm-small) {
-        min-height: 45vh;
+    @include media-breakpoint-down(md) {
+        min-height: 45.4vh;
     }
 }
