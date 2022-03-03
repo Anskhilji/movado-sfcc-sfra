@@ -25,6 +25,7 @@ $font-gill-std-semibold: "gill-sans-nova", Arial, sans-serif;
 $font-gills-light: "gill-sans-nova", Arial, sans-serif;;
 $font-gill-std-normal: "gill-sans-nova", Arial, sans-serif;
 $font-futura-pt-demi: "futura-pt-demi", Arial, sans-serif;
+$font-GaramondMTPro-italic: "GaramondMTPro-Italic", Arial, sans-serif;
 $font-Garamond-Pro-italic: "Adobe-Garamond-Pro-Italic", Arial, sans-serif;
 $font-GaramondPro: "Adobe Garamond Pro", Arial, sans-serif;
 $font-primary: "gill-sans-nova", Arial, sans-serif;
@@ -39,20 +40,20 @@ $font-news-gothic-bold: 'NewsGothicStdBold', "gill-sans-nova", Arial, sans-serif
 $pink-snow: #FBF7F7;
 $pink-rose: #E9D7D5;
 $pink-smoke:  #FFF3F1;
-$pink-hot: #e9a9c6;
+$pink-hot: #E9A9C6;
 $gray20: #333333;
 $dark-gray: #7B7B7B;
 $custom-xl: rem(1440);
 $gill-sans-font-stack: "Gill Sans";
 $black-pearl: #010B19;
 $storm-gray: #787A8A;
-$seashell: #fdfbfa;
+$seashell: #FDFBFA;
 $pink: pink;
-$snow: #fcf9f9;
-$mercury:  #e4e4e4;
-$light-grey: #d2d2d2;
-$light-grey2: #d5d5d5;
-$pink-grey: #ead7d5;
+$snow: #FCF9F9;
+$mercury:  #E4E4E4;
+$light-grey: #D2D2D2;
+$light-grey2: #D5D5D5;
+$pink-grey: #EAD7D5;
 $cyan-blue: rgba(160,169,186,0.24);
 $cadet-blue: #a0a9ba;
 $tutu: #F6E5E4;
@@ -69,6 +70,9 @@ $eclipse: #3A3A3A;
 $grey: #868686;
 $gray90: #E5E5E5;
 $white-smoke: #F0F0F0;
+$bone: #ECD7D5;
+$black: #000000;
+$dark-grey2: #BBBDBF;
 $white: #FFFFFF;
 $grid-breakpoint-one: 415px;
 $grid-breakpoint-two: 544px;
@@ -89,11 +93,11 @@ $grid-breakpoints: (
 );
 
 // Mixins //
-@mixin font-gill ($font-size:15, $font-weight:400, $letter-spacing: 0) {
-    font-family: $font-primary;
-    font-size: rem($font-size);
-    font-weight: $font-weight;
-    letter-spacing: rem($letter-spacing);
+@mixin font-gill ($font-size:15, $font-weight:400, $letter-spacing: 0.5) {
+  font-family: $font-primary;
+  font-size: rem($font-size);
+  font-weight: $font-weight;
+  letter-spacing: rem($letter-spacing);
 }
 // Large Screen
 $large-screen-width: 1400px;
