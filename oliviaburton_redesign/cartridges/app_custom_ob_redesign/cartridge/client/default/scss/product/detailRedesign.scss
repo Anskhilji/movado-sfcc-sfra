@@ -641,6 +641,7 @@
                     line-height: rem(25);
                     text-align: center;
                     color: $gray20;
+                    letter-spacing: rem(0);
                 }
 
                 @include media-breakpoint-up(lg) {
@@ -736,6 +737,7 @@
                             color: $gray20;
                             line-height: rem(25);
                             margin-bottom: rem(5);
+                            letter-spacing: rem(0);
                         }
 
                         &-value {
@@ -744,6 +746,7 @@
                             line-height: rem(21);
                             text-transform: capitalize;
                             margin: 0;
+                            letter-spacing: rem(0);
                         }
                     }
 
@@ -1067,6 +1070,14 @@
     }
 
     &.recommendation-carousel-pdp {
+        width: 96%;
+        margin: auto;
+        .cs-carousel {
+            padding-bottom: rem(0);
+            .slick-track {
+                margin-bottom: rem(35);
+            }
+        }
 
         .carousel-title {
             color: $black;
@@ -1075,6 +1086,7 @@
             line-height: rem(40);
             font-family: $font-gill-std-semibold;
             margin-bottom: rem(30);
+            letter-spacing: 0;
             @include media-breakpoint-down(sm-custom) {
                 font-size: rem(20);
             }
@@ -1089,7 +1101,6 @@
                 margin-right: rem(0);
                 @include media-breakpoint-down(sm-custom) {
                     width: rem(20);
-                    margin-right: rem(5);
                 }
             }
             button {
@@ -1097,15 +1108,20 @@
                 width: rem(40);
                 height: rem(2);
                 outline: none;
+                background-color: $gainsboro;
                 @include media-breakpoint-down(sm-custom) {
                     width: rem(20);
+                }
+            }
+            .slick-active {
+                button {
+                    background-color: $black;
                 }
             }
         }
         .product {
             &-tile{
                 .image-container{
-                    background-color: $pink-smoke;
                     border: none;
                     .tile-picture-hidden {
                         display: none;
@@ -1114,18 +1130,22 @@
             }
             .tile-body {
                 padding: rem(15) rem(20);
-                background-color: $snow;
                 @include media-breakpoint-down(sm-custom) {
                     padding: rem(10);
                 }
                 .pdp-link {
                     text-align: left;
                     margin-bottom: rem(5);
+                    height: rem(40);
+                    overflow: hidden;
                     a {
                         font-size: rem(15);
                         font-family: $font-gills-light;
                         text-transform: capitalize;
                         color: $gray20;
+                        font-weight: 300;
+                        letter-spacing: rem(0);
+                        line-height: rem(20);
                     }
                 }
                 .pricing-save {
