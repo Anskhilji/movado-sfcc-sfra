@@ -377,21 +377,19 @@ function addGooglePayButton() {
     if (window.isEnabledGooglePayCustomSize) {
         buttonConfigs.buttonSizeMode = 'fill';
     }
-    const button =
-        paymentsClient.createButton(buttonConfigs);
 
     if (!isGlobalMiniCart) {
         var googlePayContainer = document.getElementsByClassName('google-pay-container');
-        for (var i = 0; i < googlePayContainer.length; i++) {
-            googlePayContainer[i].appendChild(button);
-        }
+        $.each (googlePayContainer,function(element, googlePayContainer) {
+            var button = paymentsClient.createButton(buttonConfigs);
+            googlePayContainer.append(button);
+        });
     } else {
         var $googlePayButton = $('#google-pay-container-mini-cart > .gpay-button-fill');
         if ($googlePayButton.length === 0) {
             document.getElementById('google-pay-container-mini-cart').appendChild(button);
         }
     }
-
 }
 
 /**
