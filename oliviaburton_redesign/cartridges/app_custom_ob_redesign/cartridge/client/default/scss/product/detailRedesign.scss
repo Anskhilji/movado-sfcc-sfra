@@ -98,31 +98,20 @@
                         bottom: rem(-21);
 
                         @include media-breakpoint-up(lg) {
-<<<<<<< HEAD:oliviaburton_redesign/cartridges/app_custom_ob_redesign/cartridge/client/default/scss/product/detail.scss
-                            width: rem(88);
-                            margin-top: 0;
-                            position: absolute;
-                            top: 7%;
-                            left: rem(43);
-=======
                             width: rem(86);
                             margin-top: rem(134);
                             position: absolute;
                             top: rem(0);
                             left: rem(50);
->>>>>>> feature/MSS-1322-ob-redesign-pdp:oliviaburton_redesign/cartridges/app_custom_ob_redesign/cartridge/client/default/scss/product/detailRedesign.scss
                             display: block;
                             background: transparent;
                             height: rem(400);
                             overflow-y: scroll;
                             -ms-overflow-style: none;
                             scrollbar-width: none;
-<<<<<<< HEAD:oliviaburton_redesign/cartridges/app_custom_ob_redesign/cartridge/client/default/scss/product/detail.scss
-=======
                             margin-right: 0;
                             overflow-x: hidden;
->>>>>>> feature/MSS-1322-ob-redesign-pdp:oliviaburton_redesign/cartridges/app_custom_ob_redesign/cartridge/client/default/scss/product/detailRedesign.scss
-
+                            
                             &::-webkit-scrollbar {
                                 display: none;
                                 width: 0;
@@ -189,6 +178,10 @@
 
                             &.slick-active {
                                 border: rem(1) solid $pink-rose;
+                                @include media-breakpoint-up(lg) {
+                                    width: rem(81);
+                                    height: rem(81);
+                                }
 
                                 @include media-breakpoint-down(md) {
                                     border: none;
@@ -209,25 +202,6 @@
                                 }
                             }
 
-<<<<<<< HEAD:oliviaburton_redesign/cartridges/app_custom_ob_redesign/cartridge/client/default/scss/product/detail.scss
-                            @include media-breakpoint-up(lg) {
-                                height: rem(83);
-                                width: rem(83);
-                                border-radius: 100%;
-                                overflow: hidden;
-                                margin: 0 rem(5);
-                                margin-bottom: rem(14);
-                                cursor: pointer;
-                                transition: all 0.4s;
-                                border: rem(1) solid transparent;
-                                display: inline-block;
-
-                                &:hover {
-                                    border: rem(1) solid $pink-rose;
-                                }
-                            }
-=======
->>>>>>> feature/MSS-1322-ob-redesign-pdp:oliviaburton_redesign/cartridges/app_custom_ob_redesign/cartridge/client/default/scss/product/detailRedesign.scss
                         }
                     }
 
@@ -258,11 +232,7 @@
 
                             @include media-breakpoint-up(lg) {
                                 background: url("../../images/RightArrowPDP.svg") center center no-repeat;
-<<<<<<< HEAD:oliviaburton_redesign/cartridges/app_custom_ob_redesign/cartridge/client/default/scss/product/detail.scss
                                 right: rem(-15);
-=======
-                                right: rem(-6);
->>>>>>> feature/MSS-1322-ob-redesign-pdp:oliviaburton_redesign/cartridges/app_custom_ob_redesign/cartridge/client/default/scss/product/detailRedesign.scss
                             }
                         }
                     }
@@ -284,15 +254,7 @@
             width: rem(40);
             height: rem(40);
             position: absolute;
-            margin-left: rem(20);
-            top: rem(400);
 
-<<<<<<< HEAD:oliviaburton_redesign/cartridges/app_custom_ob_redesign/cartridge/client/default/scss/product/detail.scss
-            @include media-breakpoint-up(lg) {
-                position: absolute;
-                margin-left: rem(150);
-                top: rem(475);
-=======
             &.btn:not(:disabled):not(.disabled):active,
             &.btn:not(:disabled):not(.disabled).active {
                 background: url("../../images/zoom_in.svg") center center no-repeat;
@@ -300,7 +262,6 @@
             &::after {
                 background-color: $light-grey-4;
                 box-shadow: rem(0) rem(3) rem(5) rem(0) $light-grey-3;
->>>>>>> feature/MSS-1322-ob-redesign-pdp:oliviaburton_redesign/cartridges/app_custom_ob_redesign/cartridge/client/default/scss/product/detailRedesign.scss
             }
         }
 
@@ -318,23 +279,11 @@
             padding-top: rem(70);
 
             @include media-breakpoint-up(lg) {
-<<<<<<< HEAD:oliviaburton_redesign/cartridges/app_custom_ob_redesign/cartridge/client/default/scss/product/detail.scss
-                padding-top: rem(154);
-            }
-            @include media-breakpoint-down(sm-custom) {
-                padding-top: rem(20);
-            }
-
-            .product-section-mobile {
-                @include media-breakpoint-down(md) {
-                    margin-top: rem(20);
-=======
                 padding-top: rem(50);
             }
 
             .product-section-mobile {
                 @include media-breakpoint-down(sm-custom) {
->>>>>>> feature/MSS-1322-ob-redesign-pdp:oliviaburton_redesign/cartridges/app_custom_ob_redesign/cartridge/client/default/scss/product/detailRedesign.scss
                     padding-top: rem(30);
                     background-color: $white;
                     border-radius: rem(40) rem(40) 0 0;
@@ -537,7 +486,7 @@
                 &.prices-bottom-wrapper {
                     margin-bottom: rem(20);
                     @include media-breakpoint-down(sm-custom) {
-                        margin-bottom: rem(20);
+                        margin:rem(8) auto rem(17);
                     }
                 }
 
@@ -625,13 +574,13 @@
                 &.d-none-mobile {
                     @include media-breakpoint-down(sm-custom) {
                        display: none;
-                    }  
+                    } 
                 }
             }
 
 
             .product-top-detail {
-                margin-top: rem(80);
+                margin-top: rem(0);
 
                 @include media-breakpoint-up(lg) {
                     margin-top: rem(0);
@@ -640,26 +589,14 @@
                     padding-right: rem(15);
                     padding-left: rem(60);
                 }
-                @include media-breakpoint-up(sm-small) {
-                    margin-top: rem(0);
-                }
 
                 @include media-breakpoint-down(sm-custom) {
-<<<<<<< HEAD:oliviaburton_redesign/cartridges/app_custom_ob_redesign/cartridge/client/default/scss/product/detail.scss
-                    margin-top: rem(40);
                     padding: rem(0);
-                }
-
-                .cart-and-ipay {
-
-                    @include media-breakpoint-down(sm-custom) {
-=======
-                    margin-top: rem(-3);
+                    margin-top: rem(43);
                 }
 
                 .cart-and-ipay {
                     @include media-breakpoint-down(md) {
->>>>>>> feature/MSS-1322-ob-redesign-pdp:oliviaburton_redesign/cartridges/app_custom_ob_redesign/cartridge/client/default/scss/product/detailRedesign.scss
                         margin: 0;
                         padding: 0 rem(10);
 
@@ -702,6 +639,7 @@
                     }
                 }
                 .family-name{
+                    color: $gray20;
                     @include media-breakpoint-up(sm-small) {
                         text-align: left;
                     }
@@ -1191,6 +1129,23 @@
                         margin-bottom: rem(0);
                         padding-bottom: rem(0);
                     }
+                    .btn {
+                        @include media-breakpoint-down(sm-custom) {
+                            border-radius: rem(3);
+                        }
+                        .google-pay-container {
+                            .gpay-button {
+                                @include media-breakpoint-down(sm-custom) {
+                                    border-radius: rem(3);
+                                }
+                            }
+                        }
+                    }
+                    .sticky-button-container {
+                        @include media-breakpoint-down(sm-custom) {
+                            padding: rem(0) rem(10);
+                        }
+                    }
                 }
             }
         }
@@ -1208,15 +1163,7 @@
 
             @include media-breakpoint-down(md) {
                 &.description-and-detail-pad {
-<<<<<<< HEAD:oliviaburton_redesign/cartridges/app_custom_ob_redesign/cartridge/client/default/scss/product/detail.scss
-                    padding-top: rem(40);
-                    @include media-breakpoint-down(sm-custom) {
-                        padding-top: rem(21);
-                    }
-
-=======
                     padding-top: rem(26);
->>>>>>> feature/MSS-1322-ob-redesign-pdp:oliviaburton_redesign/cartridges/app_custom_ob_redesign/cartridge/client/default/scss/product/detailRedesign.scss
                 }
             }
 
@@ -1453,10 +1400,6 @@
     
                 &-item {
                     a {
-<<<<<<< HEAD:oliviaburton_redesign/cartridges/app_custom_ob_redesign/cartridge/client/default/scss/product/detail.scss
-                        @include font-gill($font-size: 12, $font-weight: 500, $letter-spacing: 0.5);
-=======
->>>>>>> feature/MSS-1322-ob-redesign-pdp:oliviaburton_redesign/cartridges/app_custom_ob_redesign/cartridge/client/default/scss/product/detailRedesign.scss
                         @include font-gill($font-size: 12, $font-weight: 600, $letter-spacing: 0.5);
                         line-height: rem(16);
                         color: $black;
@@ -1494,9 +1437,6 @@
             }
         }
 
-<<<<<<< HEAD:oliviaburton_redesign/cartridges/app_custom_ob_redesign/cartridge/client/default/scss/product/detail.scss
-
-=======
         .add-to-cart-actions {
             margin-top: rem(15);
             text-align: center;
@@ -1538,7 +1478,6 @@
                 }
             }
         }
->>>>>>> feature/MSS-1322-ob-redesign-pdp:oliviaburton_redesign/cartridges/app_custom_ob_redesign/cartridge/client/default/scss/product/detailRedesign.scss
     }
 }
 
@@ -1564,35 +1503,33 @@
 
 // Start primaryImagesCarousel css
 .primary-images {
-<<<<<<< HEAD:oliviaburton_redesign/cartridges/app_custom_ob_redesign/cartridge/client/default/scss/product/detail.scss
     .cs-carousel-wrapper {
   
-      .slick-prev {
-        left: rem(17);
-        @include media-breakpoint-down(sm-custom) {
-            left: rem(10);
-        }
-      }
-  
-      .slick-next {
-        right: rem(17);
-        @include media-breakpoint-down(sm-custom) {
-            right: rem(10);
-        }
-      }
-=======
-    &.ob-carousel-new-quickview{
-        .cs-carousel-wrapper {
-  
-            .slick-prev {
-              left: rem(10);
-            }
-        
-            .slick-next {
-              right: rem(10);
+        .slick-prev {
+            left: rem(17);
+            @include media-breakpoint-down(sm-custom) {
+                left: rem(10);
             }
         }
->>>>>>> feature/MSS-1322-ob-redesign-pdp:oliviaburton_redesign/cartridges/app_custom_ob_redesign/cartridge/client/default/scss/product/detailRedesign.scss
+    
+        .slick-next {
+            right: rem(17);
+            @include media-breakpoint-down(sm-custom) {
+                right: rem(10);
+            }
+        }
+        &.ob-carousel-new-quickview{
+            .cs-carousel-wrapper {
+    
+                .slick-prev {
+                left: rem(10);
+                }
+            
+                .slick-next {
+                right: rem(10);
+                }
+            }
+        }
     }
 }
 // End primaryImagesCarousel css
@@ -1603,15 +1540,6 @@
         
         .quickview {
             position: absolute;
-<<<<<<< HEAD:oliviaburton_redesign/cartridges/app_custom_ob_redesign/cartridge/client/default/scss/product/detail.scss
-            top: unset;
-            left: rem(116);
-            bottom: rem(20);
-            margin-left: 0;
-            border-radius: rem(20);
-            box-shadow: 0 rem(3) rem(5) 0 $light-grey-3;
-
-=======
             bottom: 0;
             transform: translate(50%, -50%);
             left: rem(153);
@@ -1638,18 +1566,8 @@
                 left: rem(35);
             }
             
->>>>>>> feature/MSS-1322-ob-redesign-pdp:oliviaburton_redesign/cartridges/app_custom_ob_redesign/cartridge/client/default/scss/product/detailRedesign.scss
             &:focus {
                 box-shadow: none;
-            }
-            @include media-breakpoint-up(xxl) {
-                left: rem(164);
-            }
-            @include media-breakpoint-down(md) {
-                left: rem(56);
-            }
-            @include media-breakpoint-down(sm) {
-                left: rem(56);
             }
         }
     }
@@ -1668,9 +1586,6 @@
 .description-and-detail-pt {
     padding-top: rem(30);
 }
-<<<<<<< HEAD:oliviaburton_redesign/cartridges/app_custom_ob_redesign/cartridge/client/default/scss/product/detail.scss
 .veil {
     z-index: 999999;
 }
-=======
->>>>>>> feature/MSS-1322-ob-redesign-pdp:oliviaburton_redesign/cartridges/app_custom_ob_redesign/cartridge/client/default/scss/product/detailRedesign.scss
