@@ -86,7 +86,7 @@
                             <hr />
                         </div>
                         <isif condition="${product.options && product.options.length > 0}">
-                            <isinclude template="product/components/options" />
+                            <isinclude template="product/components/old/options" />
                         </isif>
                         <div class="col-md-10 col-12">
                             <isinclude template="product/components/mainAttributes" />
