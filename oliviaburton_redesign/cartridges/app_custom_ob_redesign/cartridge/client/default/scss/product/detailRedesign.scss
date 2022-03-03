@@ -596,7 +596,7 @@
                 }
 
                 .cart-and-ipay {
-                    @include media-breakpoint-down(md) {
+                    @include media-breakpoint-down(sm-custom) {
                         margin: 0;
                         padding: 0 rem(10);
 
@@ -1568,6 +1568,10 @@
             
             &:focus {
                 box-shadow: none;
+            }
+
+            &.btn:not(:disabled):not(.disabled).active{
+                background-image: inherit !important;
             }
         }
     }
