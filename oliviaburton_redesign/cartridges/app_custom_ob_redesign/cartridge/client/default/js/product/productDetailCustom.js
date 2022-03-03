@@ -97,5 +97,25 @@ module.exports = {
             return false;
         });
     },
+    linkedSlider: function () {
+        $('.recomended-products-redesign').slick({
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            focusOnSelect: true,
+            infinite: false,
+            dots: false,
+            arrows: true,
+            responsive: [
+                {
+                    breakpoint: 991,
+                    settings: {
+                        focusOnSelect: false,
+                        slidesToShow: 2,
+                        slidesToScroll: 1,
+                    }
+                },
+            ]
+        });
+    }
     // Custom End
 }

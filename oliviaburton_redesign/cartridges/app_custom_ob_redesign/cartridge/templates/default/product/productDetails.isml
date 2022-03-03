@@ -1,6 +1,6 @@
 <iscomment> Top level elements re-arranged according to design</iscomment>
 <isdecorate template="common/layout/page">
-    <isinclude template="/components/modules" sf-toolkit="off" />
+<isinclude template="/components/modules" sf-toolkit="off" />
     <isscript>
         var assets = require('*/cartridge/scripts/assets');
         assets.addJs('/lib/pinchzoom/pinch-zoom.umd.js');
@@ -8,8 +8,7 @@
         assets.addCss('/css/product/detailRedesign.css');
     </isscript>
     <isif condition="${dw.system.Site.current.preferences.custom.EUMEnabled}">
-        <isinclude
-            url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.pdp', 'eum', null))}" />
+        <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.pdp', 'eum', null))}"/>
     </isif>
 
     <isset name="product" value="${pdict.product}" scope="page" />
@@ -53,55 +52,31 @@
                             <div class="ratings pull-right hidden-md-down">
                                 <isinclude template="product/components/productRating" />
                             </div>
+                        </div>
+                        <!-- Affirm Text -->
+                        
+                        <div>
+                            <isinclude template="util/affirmmodule_mf" />
+                            <isaffirmpromo context="pdp"
+                                fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
+                        </div>
 
-                            <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom
-                                                              .eswEshopworldModuleEnabled : false}" scope="page" />
-                            <isif condition="${isEswEnabled}">
-                                <isset name="klarnaAllowedCountry"
-                                    value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}"
-                                    scope="page" />
-                                <isif condition="${klarnaAllowedCountry}">
-                                    <isif
-                                        condition="${dw.system.Site.getCurrent().preferences.custom.klarnaPdpPromoMsg}">
-                                        <div class="text-center text-sm-left">
-                                            <isinclude template="klarna/klarnaPromotionMessage" />
-                                        </div>
-                                    </isif>
-                                </isif>
-                                <iselse>
-                                    <isset name="klarnaAllowedCountry"
-                                        value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}"
-                                        scope="page" />
-                                    <isif condition="${klarnaAllowedCountry}">
-                                        <isif
-                                            condition="${dw.system.Site.getCurrent().preferences.custom.klarnaPdpPromoMsg}">
-                                            <div class="text-center text-sm-left">
-                                                <isinclude template="klarna/klarnaPromotionMessage" />
-                                            </div>
-                                        </isif>
-                                    </isif>
-                            </isif>
-                            <div class="product-section-mobile ddddd">
-
-                                <!-- Product Rating -->
-                                <div class="ratings ratings-mobile d-lg-none">
-                                    <isinclude template="product/components/productRating" />
-                                </div>
-
-                                <iscomment> Custom Start: [MSS-1341 Show/Hide More Short Description on PDP]</iscomment>
-                                <isset name="isRecommendationsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.recommendationsEnabled) ? dw.system.Site.current.preferences.custom
-                                                                              .recommendationsEnabled : false}" scope="page" />
-                                <isif condition="${isRecommendationsEnabled}">
-                                    <div class="description">
-                                        <div class="short-description" itemprop="description">
-                                            <p>
-                                                <isprint value="${product.shortDescription}" encoding="off" />
-                                            </p>
-                                        </div>
+                        <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
+                        <isif condition="${isEswEnabled}" >
+                            <isset name="klarnaAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
+                            <isif condition="${klarnaAllowedCountry}">
+                                <isif condition="${dw.system.Site.getCurrent().preferences.custom.klarnaPdpPromoMsg}"> 
+                                    <div class="text-center text-sm-left">
+                                        <isinclude template="klarna/klarnaPromotionMessage" />
                                     </div>
-                                <iselse/>
-                                    <div class="description">
-                                        <isinclude template="product/components/description" />
+                                </isif>
+                            </isif>
+                        <iselse>
+                            <isset name="klarnaAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
+                            <isif condition="${klarnaAllowedCountry}">
+                                <isif condition="${dw.system.Site.getCurrent().preferences.custom.klarnaPdpPromoMsg}"> 
+                                    <div class="text-center text-sm-left">
+                                        <isinclude template="klarna/klarnaPromotionMessage" />
                                     </div>
                                 </isif>
                             </isif>
@@ -123,11 +98,9 @@
                                     data-available="${product.available}">
                                     <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
                                 </div>
-                                <div class="${product.available ? " add-to-cart-actions" : ""}">
-                                    <!-- Cart and [Optionally] Apple Pay -->
-                                    <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}" />
+                                <div class="shipping-callout">
+                                    <iscontentasset aid="ca-shipping-callout" />
                                 </div>
-
                                 <iscomment> Custom Start: [MSS-1341 Added Cross Sell Recommendation]</iscomment>
                                 <isset name="isRecommendationsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.recommendationsEnabled) ? dw.system.Site.current.preferences.custom
                                                                               .recommendationsEnabled : false}" scope="page" />
@@ -144,49 +117,54 @@
                                     <isinclude template="product/backInStockNotification" sf-toolkit="on" />
                                 </isif>
                             </div>
+                            <div class="${product.available ? "add-to-cart-actions" : ""}">
+                                <!-- Cart and [Optionally] Apple Pay -->
+                                <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
+                            </div>
+                            <isif condition="${sitePref.enableBackInStock}">
+                                <isinclude template="product/backInStockNotification" sf-toolkit="on" />
+                            </isif>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+        
+        <iscomment> Custom Comment:  "product-detail-redesign" class added</iscomment>
+        <div class="container-fluid detail-specs product-detail-redesign">
+            <isinclude template="product/components/descriptionAndDetails" />
+        </div>
 
-            <iscomment> Custom Comment: "product-detail-redesign" class added</iscomment>
-            <div class="container-fluid detail-specs product-detail-redesign">
-                <isinclude template="product/components/descriptionAndDetails" />
-            </div>
+        <isif condition="${isCollectionHighlightEnabled}">
+            <isslot id="cs_pdp_collection_highlight" context="global" description="collection Highlights pdp slot" />
+        </isif>
 
-            <isif condition="${isCollectionHighlightEnabled}">
-                <isslot id="cs_pdp_collection_highlight" context="global"
-                    description="collection Highlights pdp slot" />
-            </isif>
+        <isif condition="${isStyleYouMayLikeEnabled}">
+            <isslot id="cs_pdp_you_may_like" context="global" description="style you may like pdp slot" />
+        </isif>
+        
+        <isif condition="${isCollectionYouMayLikeEnabled}">
+            <isslot id="cs_pdp_collection_you_may_like" context="global" description="Collection you may like slot" />
+        </isif>
+        
+        
+        <isif condition="${!dw.system.Site.getCurrent().getCustomPreferenceValue('disableRecommendationsTypesOnPDP')}">
+            <isinclude template="product/components/youMayLikeRecommendation" />
+        </isif>
+        <isset name="apiProduct" value="${dw.catalog.ProductMgr.getProduct(pdict.product.id)}" scope="page" />
+        <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"
+            context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}"/>
+        <isinclude template="product/components/contentAssets" />
 
-            <isif condition="${isStyleYouMayLikeEnabled}">
-                <isslot id="cs_pdp_you_may_like" context="global" description="style you may like pdp slot" />
-            </isif>
+        <!-- The Modal: Starts | To be filled by the from rendered by the ShareByEmail controller-->
+        <div class="modal fade share-via-email-overlay" id="sendtofriendform">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
 
-            <isif condition="${isCollectionYouMayLikeEnabled}">
-                <isslot id="cs_pdp_collection_you_may_like" context="global"
-                    description="Collection you may like slot" />
-            </isif>
-
-            <isif
-                condition="${!dw.system.Site.getCurrent().getCustomPreferenceValue('disableRecommendationsTypesOnPDP')}">
-                <isinclude template="product/components/youMayLikeRecommendation" />
-            </isif>
-            <isset name="apiProduct" value="${dw.catalog.ProductMgr.getProduct(pdict.product.id)}" scope="page" />
-            <isslot id="cs_pdp_recommendation_bottom_slot" context="global"
-                description="Recommendation slot at the bottom of the PDP"
-                context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}" />
-            <isinclude template="product/components/contentAssets" />
-
-            <!-- The Modal: Starts | To be filled by the from rendered by the ShareByEmail controller-->
-            <div class="modal fade share-via-email-overlay" id="sendtofriendform">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-
-                    </div>
                 </div>
             </div>
-            <!-- The Modal: Ends-->
+        </div>
+        <!-- The Modal: Ends-->
 
-        </isobject>
+    </isobject>
 </isdecorate>

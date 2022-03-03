@@ -5,7 +5,7 @@
         <div class="linked-head">
             <iscontentasset aid="style-with-text-configs" />
         </div>
-        <div class="recomended-products" data-recomendation="true">
+        <div class="${dw.campaign.ABTestMgr.isParticipant('OBRedesignPDPABTest','render-new-design') ? 'recomended-products-redesign' : 'recomended-products'}" data-recomendation="true">
             <isloop items="${pdict.explicitRecommendations}" var="recommendation">
                 <isif condition="${recommendation != null}">
                     <div class="upsell-wrapper">
