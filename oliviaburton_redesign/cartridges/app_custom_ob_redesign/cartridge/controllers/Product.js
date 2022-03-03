@@ -65,6 +65,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
 
     var viewData = res.getViewData();
     var product = showProductPageHelperResult.product;
+    var productPrice = !empty(product) ? product.price : '';
 
     yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
 
