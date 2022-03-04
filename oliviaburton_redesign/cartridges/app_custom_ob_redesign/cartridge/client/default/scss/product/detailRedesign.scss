@@ -1092,20 +1092,31 @@
             }
         }
         .slick-slide {
-            margin: 0 rem(25) 0 0;
+            margin: 0 rem(12.5);
+            @include media-breakpoint-down(sm-custom) {
+                margin: 0 rem(8);
+            }
         }
         .slick-dots {
+            width: 20%;
+            margin: auto;
+            justify-content: center;
+            align-items: center;
+            left: 0;
+            right: 0;
             margin-top: rem(30);
+
             li {
-                width: rem(40);
+                width: 100%;
                 margin-right: rem(0);
                 @include media-breakpoint-down(sm-custom) {
                     width: rem(20);
                 }
+
             }
             button {
                 border-radius: rem(0);
-                width: rem(40);
+                width: 100%;
                 height: rem(2);
                 outline: none;
                 background-color: $gainsboro;
@@ -1159,6 +1170,32 @@
                         }
                     }
                 }
+                .pricing-save {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    height: rem(24);
+                    text-align: left;
+                    .price {
+                        padding-left: rem(4);
+                        font-size: rem(13);
+                        font-family: $font-gill-std-normal;
+                        color: $gray20;
+                    }
+
+                    .save-value {
+                        font-family: $font-gill-sans-std;
+                        font-size: rem(12);
+                        color: $black;
+                        font-weight: 600;
+                        letter-spacing: 0.5px;
+                        padding: rem(3) rem(5);
+                        background-color: $pink-rose;
+                        border-radius: rem(5);
+                        min-width: rem(67);
+                        text-align: center;
+                    }
+                }
                 .add-to-cart-plp-redesign {
                     display: none;
                 }
@@ -1181,7 +1218,4 @@
             }
         }
     }
-}
-.pdp-bottom-carousel {
-    overflow: hidden;
 }
