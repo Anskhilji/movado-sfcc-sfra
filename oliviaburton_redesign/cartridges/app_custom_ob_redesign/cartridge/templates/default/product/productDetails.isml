@@ -36,7 +36,7 @@
                     <div class="col-12 col-sm-6 product-top-detail">
 
                         <!-- Family Name -->
-                        <isif condition="${!empty(dw.system.Site.current.preferences.custom.plpProductFamilyName) ? dw.system.Site.current.preferences.custom.plpProductFamilyName : false}">
+                        <isif condition="${pdict.plpProductFamilyName}">
                             <h1 class="family-name">${pdict.collectionName}</h1>
                         </isif>
                         <!-- Product Name -->

@@ -25,7 +25,6 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
    var explicitRecommendations = [];
    var youMayLikeRecommendationTypeIds = Site.getCurrent().getCustomPreferenceValue('youMayLikeRecomendationTypes');
    var moreStylesRecommendationTypeIds = Site.getCurrent().getCustomPreferenceValue('moreStylesRecomendationTypes');
-   var productPrice = !empty(product) ? product.price : '';
    var YotpoIntegrationHelper = require('*/cartridge/scripts/common/integrationHelper.js');
    var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
    var smartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
@@ -163,7 +162,8 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
             product: showProductPageHelperResult.product,
             addToCartUrl: showProductPageHelperResult.addToCartUrl,
             resources: showProductPageHelperResult.resources,
-            breadcrumbs: showProductPageHelperResult.breadcrumbs
+            breadcrumbs: showProductPageHelperResult.breadcrumbs,
+            plpProductFamilyName: Site.getCurrent().preferences.custom.plpProductFamilyName ? Site.getCurrent().preferences.custom.plpProductFamilyName : false
         });
     }
    next();
