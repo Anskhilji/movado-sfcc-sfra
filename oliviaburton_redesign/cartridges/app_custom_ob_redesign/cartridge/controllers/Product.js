@@ -25,7 +25,6 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
    var explicitRecommendations = [];
    var youMayLikeRecommendationTypeIds = Site.getCurrent().getCustomPreferenceValue('youMayLikeRecomendationTypes');
    var moreStylesRecommendationTypeIds = Site.getCurrent().getCustomPreferenceValue('moreStylesRecomendationTypes');
-   var productPrice = !empty(product) ? product.price : '';
    var YotpoIntegrationHelper = require('*/cartridge/scripts/common/integrationHelper.js');
    var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
    var smartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
@@ -65,6 +64,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
 
     var viewData = res.getViewData();
     var product = showProductPageHelperResult.product;
+    var productPrice = !empty(product) ? product.price : '';
 
     yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
 

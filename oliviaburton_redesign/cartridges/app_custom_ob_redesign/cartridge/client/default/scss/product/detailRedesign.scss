@@ -241,7 +241,7 @@
 
                             @include media-breakpoint-up(lg) {
                                 background: url("../../images/RightArrowPDP.svg") center center no-repeat;
-                                right: rem(-6);
+                                right: rem(-15);
                             }
                         }
                     }
@@ -351,7 +351,7 @@
 
                 @include media-breakpoint-up(lg) {
                     margin-top: rem(20);
-                    justify-content: flex-start;
+                    justify-content: space-between;
                 }
 
                 .estimated-text {
@@ -407,7 +407,7 @@
 
                         @include media-breakpoint-up(lg) {
                             justify-content: flex-start;
-                            float: left;
+                            float: right;
                         }
                     }
                 }
@@ -431,11 +431,12 @@
             .affirm {
                 &-as-low-as {
                     @include font-gill($font-size: 13);
-                    line-height: rem(18);
+                    line-height: rem(25);
                     color: $gray20;
                     margin-top: rem(20);
                     text-align: center;
-
+                    height: auto;
+                    display: inline-block;
                     @include media-breakpoint-up(lg) {
                         margin-bottom: 0;
                         text-align: left;
@@ -494,8 +495,10 @@
 
                 @include media-breakpoint-up(lg) {
                     margin-top: rem(40);
+                    margin-bottom: rem(40);
                     display: block;
                 }
+                
 
                 .value {
                     @include font-gill($font-weight: 300);
@@ -542,7 +545,7 @@
                     flex: 0 0 43.4%;
                     max-width: 43.4%;
                     padding-right: rem(15);
-                    padding-left: rem(51);
+                    padding-left: rem(60);
                 }
 
                 @include media-breakpoint-down(sm-custom) {
@@ -1450,7 +1453,7 @@
         }
 
         .availability-msg {
-            @include font-gill ($font-size:12, $font-weight: 500);
+            @include font-gill ($font-size:12, $font-weight: 600);
             line-height: rem(20);
             color: $dark-gray;
             text-transform: capitalize !important;
@@ -1470,7 +1473,7 @@
 
         .shipping-callout {
             span {
-                @include font-gill ($font-size:12, $font-weight: 500);
+                @include font-gill ($font-size:12, $font-weight: 600);
                 line-height: rem(16);
                 color: $dark-gray;
                 text-transform: capitalize;
