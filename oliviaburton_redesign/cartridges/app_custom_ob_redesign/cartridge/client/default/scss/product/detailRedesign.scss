@@ -619,7 +619,6 @@
                                 transform: translateX(0px);
                                 width: 100%;
                                 min-width: auto;
-                                max-width: rem(355);
                             }
                         } 
                 
@@ -1540,13 +1539,28 @@
         
         .quickview {
             position: absolute;
-            bottom: 0;
+            bottom: rem(4);
             transform: translate(50%, -50%);
             left: rem(153);
             border-radius: 100%;
-            box-shadow: 0 rem(3) rem(5) 0 $light-grey-3;
+            @include media-breakpoint-down(xxxl) {
+                bottom: 0.8vh;
+                left: rem(146.4);
+            }
+            @include media-breakpoint-down(xxl) {
+                bottom: 0.8vh;
+                left: rem(146.4);
+            }
+            @include media-breakpoint-down(xl) {
+                bottom: 0.71vh;
+                left: rem(100);
+            }
+            @include media-breakpoint-down(lg) {
+                bottom: 0.71vh;
+                left: rem(100);
+            }
             @include media-breakpoint-down(md) {
-                bottom: -0.1vh;
+                bottom: -0.01vh;
                 left: rem(35);
             }
             @include media-breakpoint-down(sm) {
