@@ -26,7 +26,7 @@
                 itemtype="http://schema.org/Product">
 
                 <div class="row align-items-center-wrapper">
-                    <!---Breadcrumbs--->
+                    <!-- Breadcrumbs -->
                     <div class="product-breadcrumb">
                         <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
                     </div>
@@ -92,6 +92,18 @@
                             <isif condition="${product.options && product.options.length > 0}">
                                 <isinclude template="product/components/options" />
                             </isif>
+                             <iscomment> Custom Start: [MSS-1341 Added Cross Sell Recommendation]</iscomment>
+                                <isset name="isRecommendationsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.recommendationsEnabled) ? dw.system.Site.current.preferences.custom
+                                                                              .recommendationsEnabled : false}" scope="page" />
+                                <isif condition="${isRecommendationsEnabled}">
+                                    <div class="col-12 recommendation-main-container">
+                                        <div class="linked-product-container">
+                                            <isinclude template="product/components/recommendedProducts" />
+                                        </div>
+                                    </div>
+                                </isif>
+                                <iscomment> Custom End </iscomment>
+                                
                             <div class="d-flex align-items-center justify-content-center justify-content-lg-start">
                                 <!-- Product Availability -->
                                 <div class="availability product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
@@ -101,6 +113,9 @@
                                 <div class="shipping-callout">
                                     <iscontentasset aid="ca-shipping-callout" />
                                 </div>
+                                <isif condition="${sitePref.enableBackInStock}">
+                                    <isinclude template="product/backInStockNotification" sf-toolkit="on" />
+                                </isif>
                             </div>
                             <div class="${product.available ? "add-to-cart-actions" : ""}">
                                 <!-- Cart and [Optionally] Apple Pay -->
