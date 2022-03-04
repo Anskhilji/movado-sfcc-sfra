@@ -674,7 +674,7 @@
                                 font-family: $font-book;
                                 font-size: rem(12);
                                 line-height: 1.1;
-                                color: #333333;
+                                color: $gray20;
                                 padding: 0;
                                 padding-bottom: rem(2);
                                 font-weight: 600;
@@ -690,7 +690,7 @@
                             padding-left: rem(10);
                             padding-right: rem(10);
                             overflow: hidden;
-                            color: #333333;
+                            color: $gray20;
                             font-family: $font-gill-sans-std;
                             font-size: rem(12);
                             font-weight: 300;
@@ -1628,11 +1628,15 @@
     width: 100%;
     height: 100%;
 
-    .linked-head .content-asset label {
-        color: #333333;
-        font-size: 26px;
-        letter-spacing: 0;
-        line-height: 21px;
+    .linked-head {
+        .content-asset {
+            label {
+                color: $gray20;
+                font-size: rem(26);
+                letter-spacing: 0;
+                line-height: rem(21);
+            }
+        }
     }
 }
 
