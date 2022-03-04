@@ -1,3 +1,22 @@
+@import url("https://p.typekit.net/p.css?s=1&k=pap8rpj&ht=tk&f=10879.10880.10884.10886.10887.15586.15705.32874.32875&a=68515858&app=typekit&e=css");
+@font-face {
+  font-family:"futura-pt";
+  src:url("https://use.typekit.net/af/c4c302/000000000000000000012192/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n6&v=3") format("woff2"),url("https://use.typekit.net/af/c4c302/000000000000000000012192/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n6&v=3") format("woff"),url("https://use.typekit.net/af/c4c302/000000000000000000012192/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n6&v=3") format("opentype");
+  font-display:auto;font-style:normal;font-weight:600;
+}
+@font-face {
+  font-family:"futura-pt";
+  src:url("https://use.typekit.net/af/9b05f3/000000000000000000013365/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff2"),url("https://use.typekit.net/af/9b05f3/000000000000000000013365/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff"),url("https://use.typekit.net/af/9b05f3/000000000000000000013365/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("opentype");
+  font-display:auto;font-style:normal;font-weight:400;
+}
+
+@font-face {font-family: 'GaramondMTPro-Italic';src: url('../webfonts/39E093_7_0.eot');src: url('../webfonts/39E093_7_0.eot?#iefix') format('embedded-opentype'),url('../webfonts/39E093_7_0.woff2') format('woff2'),url('../webfonts/39E093_7_0.woff') format('woff'),url('../webfonts/39E093_7_0.ttf') format('truetype');}
+
+@font-face {font-family: 'NewsGothicStdBold';src: url('../webfonts/NewsGothicStdBold.otf') format('opentype');}
+
+.tk-gill-sans-nova { font-family: "gill-sans-nova",sans-serif; }
+
+// Fonts Variables
 @font-face {font-family: 'Adobe-Garamond-Pro-Italic';src: url('../webfonts/AdobeGaramondProItalic.ttf') format('truetype');}
 .tk-gill-sans-nova { font-family: "gill-sans-nova",sans-serif; }
  
@@ -14,7 +33,11 @@ $font-gill-sans-std: "Gill-Sans-MT-Medium", Arial, sans-serif;
 $Adobe-Gramond-Pro-Italic: 'Adobe-Garamond-Pro-Italic';
 $font-awesome: "FontAwesome";
 $font-gill-std: "GillSansMTStd-Light", Arial, sans-serif;
+$font-futura: "futura-pt", "gill-sans-nova", Arial, sans-serif;
+$font-futura-book: "futura-pt", "gill-sans-nova", Arial, sans-serif;
+$font-news-gothic-bold: 'NewsGothicStdBold', "gill-sans-nova", Arial, sans-serif;
 
+// Colors Variables
 $pink-snow: #FBF7F7;
 $pink-rose: #E9D7D5;
 $pink-smoke:  #FFF3F1;
@@ -32,12 +55,14 @@ $mercury:  #E4E4E4;
 $light-grey: #D2D2D2;
 $light-grey2: #D5D5D5;
 $pink-grey: #EAD7D5;
-$cyan-blue: rgba(160,169,186,0.24) ;
+$cyan-blue: rgba(160,169,186,0.24);
+$cadet-blue: #A0A9BA;
+$tutu: #F6E5E4;
 $gray36: #5C5C5C;
-$white-gray: #f7f8f9 !default;
+$white-gray: #F7F8F9 !default;
 $gray92: #EBEBEB;
 $light-gray2: #929292 !default;
-$light-gray4: #e8e8e8 !default;
+$light-gray4: #E8E8E8 !default;
 
 $grey-transparent-7: rgba(0,0,0,0.24) !default;
 $light-grey-3: rgba(200,200,200,0.5);
@@ -56,6 +81,7 @@ $dark-grey2: #BBBDBF;
 $white: #FFFFFF;
 $grid-breakpoint-one: 415px;
 $grid-breakpoint-two: 544px;
+
 
 $grid-breakpoints: (
   xs: 0,

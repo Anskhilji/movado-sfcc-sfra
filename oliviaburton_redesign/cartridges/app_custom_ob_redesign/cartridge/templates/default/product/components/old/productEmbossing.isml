@@ -1,0 +1,56 @@
+<form action="" name="embossing" id="embossingForm">
+    <div class="embossing-attribute">
+        <a class="togglePersonalizationOpt" href="javascript:void(0);">
+            <span class="add">
+                <i class="fa fa-plus"></i>
+                <span>${Resource.msg('label.product.personalizaion.add', 'product', null)}</span>
+            </span>
+            <span class="remove">
+                <i class="fa fa-minus"></i>
+                <span>${Resource.msg('label.product.personalizaion.remove', 'product', null)}</span>
+            </span>
+        </a>&nbsp;${Resource.msg('emboss.option.name.display', 'product', null)} [<isif condition="${option.values[1].priceValue == 0}">${pdict.product.resources.Free}<iselse>${option.values[1].price}</isif>]
+        <input type="hidden" name="${option.id + 'FirstOptionID'}" value="${option.values[0].id}"/>
+        <isloop items="${option.values}" var="value" status="optionLoopStatus">
+            <isif condition="${optionLoopStatus.first}">
+                <input type="radio" class="d-none" name="${option.id + '_attrOption'}"data-value-id="${value.id}" name="${option.id + '_attrOption'}" data-value-url="${value.url}" <isif condition="${value.id == option.selectedValueId}"/>checked</isif>/>
+            <iscomment> NOTE: Uncomment for Horizontal & Verical Radios </iscomment>
+            <iscomment> <iselseif condition="${optionLoopStatus.length > 2}">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="${option.id + '_attrOption'}"data-value-id="${value.id}" name="${option.id + '_attrOption'}" data-value-url="${value.url}" <isif condition="${value.id === option.selectedValueId}"/>checked</isif>>  
+                    <label class="form-check-label">${value.displayValue}</label>
+                </div> </iscomment>
+            <iselse>
+                <input type="radio" class="d-none" name="${option.id + '_attrOption'}"data-value-id="${value.id}" name="${option.id + '_attrOption'}" data-value-url="${value.url}" <isif condition="${value.id === option.selectedValueId}"/>checked</isif>>
+            </isif>
+        </isloop>
+        <div class="attribute-text">
+            <p>${pdict.product.assets.embossingTop}</p>
+            <div class="row m-0">
+                <div class="col col-sm-auto mb-3">
+                    <input type="radio" name="orientation" class="form-check-input default-checked-radio-button" value="isHorizontal" data-name="orientation" data-characterlimit="${product.embossingTextValidations['horizontalTextLimit']}" data-input="${'#input_' + option.id}" id="orientation-horizontal" required checked="checked" 
+                    data-placeholder="${product.resources.embossingHorizontalPlaceholder}" data-format-error="${product.resources.errorMaxlengthHorizontalEmbossText}">
+                    <label for="orientation-horizontal" class="form-check-label"><span class="display-name">Horizontal</span></label>
+                </div>
+                <div class="col col-sm-auto mb-3">
+                    <input type="radio" name="orientation" class="form-check-input" value="isVertical" data-name="orientation" data-characterlimit="${product.embossingTextValidations['verticalTextLimit']}" data-input="${'#input_' + option.id}" id="orientation-vertical" required 
+                    data-placeholder="${product.resources.embossingVerticalPlaceholder}" data-format-error="${product.resources.errorMaxlengthVerticalEmbossText}">
+                    <label for="orientation-vertical" class="form-check-label"><span class="display-name">Vertical</span></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5 col-sm-auto mb-3 option-message">
+                    <input type="text" class="form-control alpha-numeric-input" required maxlength="${product.embossingTextValidations['horizontalTextLimit']}" data-format-error="${product.resources.errorMaxlengthEmbossText}" data-required-error="${product.resources.errorEmptyEmbossText}" id="${'input_' + option.id}" placeholder="${product.resources.embossingPlaceholder}" name="option-message" data-name="${option.id + 'Message'}"/>
+                </div>
+                <div class="col-5 mb-3 col-sm-auto">
+                    <button type="submit" class="btn btn-primary" form="embossingForm">
+                        <span class="apply">${Resource.msg('buttom.option.text.apply', 'product', null)}</span>
+                        <span class="edit">${Resource.msg('buttom.option.text.edit', 'product', null)}</span>
+                    </button>
+                </div>
+            </div>
+            <label for="${'input_' + option.id}" class="hidden-label">${product.resources.embossingPlaceholder}</label>
+            <p>${pdict.product.assets.embossingBottom}</p>
+        </div>
+    </div>
+</form>
