@@ -102,7 +102,7 @@
                                 </isif>
                                 <iscomment> Custom End </iscomment>
                                 
-                            <div class="d-flex align-items-center justify-content-center justify-content-lg-start">
+                            <div class="d-flex align-items-center justify-content-lg-start instock-center-mobile">
                                 <!-- Product Availability -->
                                 <div class="availability product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
                                     data-available="${product.available}">

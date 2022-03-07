@@ -350,6 +350,11 @@
                         }
                     }
                 }
+                .instock-center-mobile {
+                    @include media-breakpoint-down(sm-custom) {
+                        justify-content: center;
+                    }
+                }
             }
 
             .family-name {
@@ -572,7 +577,6 @@
 
             .description {
                 margin: rem(30) rem(0) rem(40);
-                display: none;
 
                 @include media-breakpoint-up(lg) {
                     margin-top: rem(40);
@@ -1256,12 +1260,14 @@
             }
 
             .debossing-btn {
+                margin-bottom: rem(20);
+
                 @include media-breakpoint-up(lg) {
                 width: rem(146);
                 height: rem(26);
-                margin-bottom: rem(20);
                 }
-                @include media-breakpoint-down(md){
+
+                @include media-breakpoint-down(sm-custom){
                     text-align: center;
                     margin-bottom: rem(15);
                 }
@@ -1434,18 +1440,27 @@
                     .btn {
                         @include media-breakpoint-down(sm-custom) {
                             border-radius: rem(3);
+                            width: 100%;
                         }
                         .google-pay-container {
                             .gpay-button {
                                 @include media-breakpoint-down(sm-custom) {
                                     border-radius: rem(3);
+                                    margin-bottom: rem(8);
                                 }
                             }
                         }
                     }
                     .sticky-button-container {
                         @include media-breakpoint-down(sm-custom) {
-                            padding: rem(0) rem(10);
+                            padding: rem(0);
+                        }
+                        .add-to-cart {
+                            @include media-breakpoint-down(sm-custom) {
+                                height: rem(45);
+                                @include font-gill($font-weight: 600);
+                                font-family: $font-gill-std-semibold;
+                            }
                         }
                     }
                 }
