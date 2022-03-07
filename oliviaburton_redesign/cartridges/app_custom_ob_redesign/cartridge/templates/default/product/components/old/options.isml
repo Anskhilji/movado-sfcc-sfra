@@ -6,11 +6,11 @@
             <div class="col-12">
                 <isif condition="${option.id.indexOf('Embossed') > -1}">
                     <isif condition="${pdict.isEmbossEnabled}">
-                        <isinclude template="product/components/productEmbossing" />
+                        <isinclude template="product/components/old/productEmbossing" />
                     </isif>
                 <iselseif condition="${option.id.indexOf('Engraved') > -1}">
                     <isif condition="${pdict.isEngraveEnabled}">
-                        <isinclude template="product/components/productEngraving" />
+                        <isinclude template="product/components/old/productEngraving" />
                     </isif>
                 <iselseif condition = "${option.id.indexOf('GiftWrapped') > -1}">
                 <div class="d-none">

@@ -1129,7 +1129,6 @@
                                     height: rem(45);
                                     width: rem(130);
                                     margin-right: rem(20);
-                                    text-transform: capitalize;
 
                                     @include media-breakpoint-up(lg) {
                                         width: rem(155);
@@ -1630,7 +1629,7 @@
         }
 
         .availability-msg {
-            @include font-gill ($font-size:12, $font-weight: 600);
+            @include font-gill ($font-size:12, $font-weight: 500, $letter-spacing: 0);
             line-height: rem(20);
             color: $dark-gray;
             text-transform: capitalize !important;
@@ -1650,7 +1649,7 @@
 
         .shipping-callout {
             span {
-                @include font-gill ($font-size:12, $font-weight: 600);
+                @include font-gill ($font-size:12, $font-weight: 500, $letter-spacing: 0);
                 line-height: rem(16);
                 color: $dark-gray;
                 text-transform: capitalize;
