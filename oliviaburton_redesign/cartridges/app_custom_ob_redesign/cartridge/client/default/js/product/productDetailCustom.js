@@ -157,4 +157,64 @@ module.exports = {
         });
 
     },
+
+    // Custom Start: [MSS-1341 To Show/Hide More Short Description on PDP]
+    showMoreDescription: function () {
+
+        var showChar = 176;  // Characters that are shown by default
+        var moretext = "show more";
+        var lesstext = "show less";
+
+        $('.short-description p').each(function() {
+            var content = $(this).html();
+
+            if(content.length > showChar) {
+
+                var c = content.substr(0, showChar);
+                var h = content.substr(showChar, content.length - showChar);
+
+                var html = c + '<span style="display:none" class="morecontent"><span>' + h + '</span></span><a href="" class="morelink">' + moretext + '</a>';
+
+                $(this).html(html);
+            }
+        });
+
+        $(".morelink").on('click',function(){
+            if($(this).hasClass("less")) {
+                $(this).removeClass("less");
+                $(this).html(moretext);
+                $('.morecontent').css('display','none');
+
+            } else {
+                $(this).addClass("less");
+                $(this).html(lesstext);
+                $('.morecontent').removeAttr("style");
+                $('.morecontent').css('display','inline');
+            }
+            return false;
+        });
+    },
+    linkedSlider: function () {
+        $('.recomended-products-redesign').slick({
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            focusOnSelect: true,
+            infinite: false,
+            dots: false,
+            arrows: true,
+            responsive: [
+                {
+                    breakpoint: 1200,
+                    settings: {
+                        focusOnSelect: false,
+                        slidesToShow: 2,
+                        slidesToScroll: 1,
+                    }
+                },
+            ]
+        });
+    }
+    // Custom End
 }
+
+

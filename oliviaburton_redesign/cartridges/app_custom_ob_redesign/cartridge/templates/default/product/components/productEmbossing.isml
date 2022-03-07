@@ -1,7 +1,7 @@
 <form action="" name="embossing" class="debossing-form" id="embossingForm">
     <div class="debossing-btn">
         <a href="javascript:void(0);"class="btn  btn-primary" pd-popup-open="debossing-popup">
-            <span class="open-popup">${Resource.msg('label.product.edit.debossing', 'product', 'null')}</span>
+            <span class="open-popup">${Resource.msg('label.product.add.debossing', 'product', 'null')}</span>
             <span class="edit-popup">${Resource.msg('label.product.edit.debossing', 'product', 'null')}:<b class="debossing-text"></b> <label>edit</label></span>
         </a>
         <input type="hidden" name="${option.id + 'FirstOptionID'}" value="${option.values[0].id}"/>
@@ -28,7 +28,7 @@
                         <isslot id="debossing-popup-para" description="Debossing Popup Para" context="global" />
                     </div>
                     <div class="popup-body">
-                        <div class="row m-0 orientation-row">
+                        <div class="row m-0 orientation-row d-none">
                             <div class="col col-sm-auto mb-3 orientation-switch">
                                 <input type="radio" name="orientation" class="form-check-input orientation-horizontal default-checked-radio-button" value="isHorizontal" data-name="orientation" data-characterlimit="${product.embossingTextValidations['horizontalTextLimit']}" data-input="${'#input_' + option.id}" id="orientation-horizontal" required checked="checked" 
                                 data-placeholder="${product.resources.embossingHorizontalPlaceholder}" data-format-error="${product.resources.errorMaxlengthHorizontalEmbossText}">
@@ -39,12 +39,12 @@
                                 data-placeholder="${product.resources.embossingVerticalPlaceholder}" data-format-error="${product.resources.errorMaxlengthVerticalEmbossText}">
                                 <label for="orientation-vertical" class="form-check-label"><span class="display-name">Vertical</span></label>
                             </div>
-                        </div>                        
+                        </div>
                         <ul class="nav popup-tabs">
                             <li><a data-toggle="tab" class="debossing-tabs active" data-id="horizontal-text" href="#horizontal-text">${Resource.msg('button.text.horizontal', 'product', null)}</a></li>
                             <li><a data-toggle="tab" class="debossing-tabs" data-id="vertical-text" href="#vertical-text">${Resource.msg('button.text.vertical', 'product', null)}</a></li>
                         </ul>
-                        <div class="watch-image">
+                        <div class="watch-image mx-auto">
                             <div class="image d-inline-block">
                                 <picture class="d-inline-block">
                                     <source media="(min-width: 650px)" srcset="${!empty(product.images) && !empty(product.images['pdp533']) && !empty(product.images['pdp533'][2]) && !empty(product.images['pdp533'][2].url) ? product.images['pdp533'][2].url : ''}">

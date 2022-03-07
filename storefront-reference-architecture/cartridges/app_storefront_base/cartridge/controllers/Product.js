@@ -29,8 +29,7 @@ server.get('Show', cache.applyPromotionSensitiveCache, consentTracking.consent, 
             product: showProductPageHelperResult.product,
             addToCartUrl: showProductPageHelperResult.addToCartUrl,
             resources: showProductPageHelperResult.resources,
-            breadcrumbs: showProductPageHelperResult.breadcrumbs,
-            plpProductFamilyName: Site.getCurrent().preferences.custom.plpProductFamilyName ? Site.getCurrent().preferences.custom.plpProductFamilyName : false
+            breadcrumbs: showProductPageHelperResult.breadcrumbs
         });
     }
     next();

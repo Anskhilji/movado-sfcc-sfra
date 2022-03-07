@@ -90,7 +90,19 @@
                             <isif condition="${product.options && product.options.length > 0}">
                                 <isinclude template="product/components/options" />
                             </isif>
-                            <div class="d-flex align-items-center justify-content-center justify-content-sm-start">
+                             <iscomment> Custom Start: [MSS-1341 Added Cross Sell Recommendation]</iscomment>
+                                <isset name="isRecommendationsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.recommendationsEnabled) ? dw.system.Site.current.preferences.custom
+                                                                              .recommendationsEnabled : false}" scope="page" />
+                                <isif condition="${isRecommendationsEnabled}">
+                                    <div class="col-12 recommendation-main-container">
+                                        <div class="linked-product-container">
+                                            <isinclude template="product/components/recommendedProducts" />
+                                        </div>
+                                    </div>
+                                </isif>
+                                <iscomment> Custom End </iscomment>
+                                
+                            <div class="d-flex align-items-center justify-content-center justify-content-lg-start">
                                 <!-- Product Availability -->
                                 <div class="availability product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
                                     data-available="${product.available}">
@@ -99,6 +111,9 @@
                                 <div class="shipping-callout">
                                     <iscontentasset aid="ca-shipping-callout" />
                                 </div>
+                                <isif condition="${sitePref.enableBackInStock}">
+                                    <isinclude template="product/backInStockNotification" sf-toolkit="on" />
+                                </isif>
                             </div>
                             <div class="${product.available ? "add-to-cart-actions " : ""}">
                                 <!-- Cart and [Optionally] Apple Pay -->
@@ -147,8 +162,10 @@
             <isinclude template="product/components/youMayLikeRecommendation" />
         </isif>
         <isset name="apiProduct" value="${dw.catalog.ProductMgr.getProduct(pdict.product.id)}" scope="page" />
-        <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"
+        <div class="container-fluid pdp-bottom-carousel">
+            <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"
             context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}"/>
+        </div>
         <isinclude template="product/components/contentAssets" />
 
         <!-- The Modal: Starts | To be filled by the from rendered by the ShareByEmail controller-->
