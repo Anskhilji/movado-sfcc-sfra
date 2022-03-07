@@ -21,8 +21,11 @@ module.exports = function (object, apiProduct) {
         	
         	embossingHorizontalPlaceholder: Resource.msg('pdict.product.resources.placeholdertext.text.horizontal.embossing', 'product', null),
         	embossingVerticalPlaceholder: Resource.msg('pdict.product.resources.placeholdertext.text.vertical.embossing', 'product', null),
+            embossingHorizontalPlaceholderRedesign: Resource.msg('pdict.product.resources.placeholdertext.text.horizontal.embossing.redesign', 'product', null),
+        	embossingVerticalPlaceholderRedesign: Resource.msg('pdict.product.resources.placeholdertext.text.vertical.embossing.redesign', 'product', null),
         	
         	engravingPlaceholder: Resource.msg('pdict.product.resources.placeholdertext.text.engraving', 'product', null),
+            engravingPlaceholderRedesign: Resource.msg('pdict.product.resources.placeholdertext.text.engraving.redesign', 'product', null),
         	Free: Resource.msg('label.product.option.personalization.Free', 'product', null),
             errorEmptyEmbossText: Resource.msg('label.product.personalization.mandatory.embossing.message', 'product', null),
             errorMaxlengthEmbossText: Resource.msg('label.product.personalization.maxlength.embossing.message', 'product', null),

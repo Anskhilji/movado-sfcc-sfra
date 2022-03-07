@@ -138,7 +138,8 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         collectionName: collectionName,
         addToCartUrl: showProductPageHelperResult.addToCartUrl,
         isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
-        smartGiftAddToCartURL : smartGiftAddToCartURL
+        smartGiftAddToCartURL : smartGiftAddToCartURL,
+        plpProductFamilyName: Site.getCurrent().preferences.custom.plpProductFamilyName ? Site.getCurrent().preferences.custom.plpProductFamilyName : false
     };
     var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
     res.setViewData(smartGift);

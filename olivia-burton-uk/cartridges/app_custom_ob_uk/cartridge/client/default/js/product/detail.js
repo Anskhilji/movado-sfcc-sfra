@@ -118,6 +118,16 @@ module.exports = {
             infinite: false,
             dots: false,
             arrows: true,
+            responsive: [
+                {
+                    breakpoint: 991,
+                    settings: {
+                        focusOnSelect: false,
+                        slidesToShow: 2,
+                        slidesToScroll: 1,
+                    }
+                },
+            ]
         });
     },
     sizeChart: function () {
@@ -145,7 +155,7 @@ module.exports = {
         });
     }
 };
-$( document ).ready(function() {
+$(document).ready(function () {
     refreshAffirmUI();
 });
 
@@ -154,7 +164,7 @@ function refreshAffirmUI() {
         if (document.readyState === "complete") {
             affirm.ui.refresh();
         } else {
-            setTimeout(function() {
+            setTimeout(function () {
                 refreshAffirmUI();
             }, 200);
         }

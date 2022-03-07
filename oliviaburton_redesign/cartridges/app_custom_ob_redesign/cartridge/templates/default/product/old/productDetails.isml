@@ -6,16 +6,18 @@
         assets.addJs('/js/productDetail.js');
         assets.addCss('/css/product/detail.css');
     </isscript>
+    <isset name="isListrakEnable" value="${!empty(dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) ? dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled : false}" scope="page" />
+    <isif condition="${isListrakEnable}">
+        <isinclude url="${URLUtils.https('ltkActivityTracking-TrackRequest', 'pid', pdict.product.id)}"/>  
+    </isif>
     <isif condition="${dw.system.Site.current.preferences.custom.EUMEnabled}">
         <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.pdp', 'eum', null))}"/>
     </isif>
 
     <isset name="product" value="${pdict.product}" scope="page" />
     <isset name="isQuickView" value="${false}" scope="page" />
+    <isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page">
     <isset name="isProductSet" value="${pdict.product.productType === 'set'}" scope="page" />
-    <isset name="isCollectionHighlightEnabled" value="${!empty(dw.system.Site.current.preferences.custom.collectionHighLightsEnabled) ? dw.system.Site.current.preferences.custom.collectionHighLightsEnabled : false}" scope="page" />
-    <isset name="isCollectionYouMayLikeEnabled" value="${!empty(dw.system.Site.current.preferences.custom.collectionYouMayLikeEnabled) ? dw.system.Site.current.preferences.custom.collectionYouMayLikeEnabled : false}" scope="page" />
-    <isset name="isStyleYouMayLikeEnabled" value="${!empty(dw.system.Site.current.preferences.custom.styleYouMayLikeEnabled) ? dw.system.Site.current.preferences.custom.styleYouMayLikeEnabled : false}" scope="page" />
     <isobject object="${product.raw}" view="detail">
         <div class="container product-detail pdp-obuk product-wrapper" data-pid="${product.id}" itemscope
             itemtype="http://schema.org/Product">
@@ -54,24 +56,58 @@
                     </div>
 
                     <!-- Product Name -->
-                    <h1 class="product-name d-sm-none d-md-block text-uppercase">${product.productName}</h1>
+                    <h2 class="product-name d-sm-none d-md-block text-uppercase">${product.productName}</h2>
 
                     <div class="d-block d-md-block d-sm-none">
                         <isinclude template="product/components/pidRating" />
                     </div>
+
+                    <div class="price-availability d-flex align-items-center">
+                        <!-- Prices -->
+                        <div class="prices">
+                            <isset name="price" value="${product.price}" scope="page" />
+                            <isinclude template="product/components/pricing/main" />
+                        </div>
+                        <!-- Product Availability -->
+                        <div class="availability product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
+                            data-available="${product.available}">
+                            <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
+                        </div>
+                    </div>
+
+                    <!-- Affirm Text -->
+                    <div class="mt-2">
+                        <isset name="fpname" value="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" scope="page" />
+                        <isset name="context" value="pdp" scope="page" />
+                        <isset name="country" value="${request.httpParameterMap.get('country').value}" scope="page" />
+                        <isinclude url="${URLUtils.https('Affirm-AffirmBanner', 'pid', product.id, 'context', context, 'fpname', fpname, 'country', country)}"/>
+                    </div>
+                    <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
+                    <isif condition="${isEswEnabled}" >
+                        <isset name="klarnaAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
+                        <isif condition="${klarnaAllowedCountry}">
+                            <isif condition="${dw.system.Site.getCurrent().preferences.custom.klarnaPdpPromoMsg}"> 
+                                <div class="col-md-10 col-12 text-center text-sm-left p-0 mt-4">
+                                    <isinclude url="${URLUtils.https('Adyen-KlarnaBanner', 'klarnaProductPrice', pdict.klarnaProductPrice)}"/>
+                                </div>
+                            </isif>
+                        </isif>
+                    <iselse>
+                        <isset name="klarnaAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
+                        <isif condition="${klarnaAllowedCountry}">
+                            <isif condition="${dw.system.Site.getCurrent().preferences.custom.klarnaPdpPromoMsg}"> 
+                                <div class="col-md-10 col-12 text-center text-sm-left p-0 mt-4">
+                                    <isinclude url="${URLUtils.https('Adyen-KlarnaBanner', 'klarnaProductPrice', pdict.klarnaProductPrice)}"/>
+                                </div>
+                            </isif>
+                        </isif>
+                    </isif>
 
                     <div class="row">
                         <!-- Attributes and Quantity -->
                         <div class="col-md-10 col-12">
 
                             <isinclude template="product/components/badges" />
-
-                            <!-- Product Availability -->
-                            <div class="availability product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
-                                data-available="${product.available}">
-                                <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
-                                
-                            </div>
 
                             <!-- Applicable Promotions -->
                             <div class="promotions">
@@ -86,7 +122,7 @@
                             <hr />
                         </div>
                         <isif condition="${product.options && product.options.length > 0}">
-                            <isinclude template="product/components/options" />
+                            <isinclude template="product/components/old/options" />
                         </isif>
                         <div class="col-md-10 col-12">
                             <isinclude template="product/components/mainAttributes" />
@@ -95,19 +131,13 @@
                         <isif condition="${product.variationAttributes && product.variationAttributes.length > 0}">
                             <isinclude template="product/components/variationAttributes" />
                         </isif>
-
-
-                        <!-- Affirm Text -->
-                        
-                        <div class="col-md-10 col-12">
-                            <div>
-                                <isinclude template="util/affirmmodule_mf" />
-                                <isaffirmpromo context="pdp"
-                                    fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
-                            </div>
-                        </div>
-
-                        <isset name="isRecommendationsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.recommendationsEnabled) ? dw.system.Site.current.preferences.custom.recommendationsEnabled : false}" scope="page" />
+                        <iscomment> Custom Start: Clyde Integration </iscomment>
+                            <isif condition = "${dw.system.Site.current.preferences.custom.clydeWidgetDisplay}">
+                                <div id="clyde-cta" >
+                                </div>
+                            </isif>
+                        <iscomment> Custom End: </iscomment>
+                        <isset name="isRecommendationsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.enableCartRecommendations) ? dw.system.Site.current.preferences.custom.enableCartRecommendations : false}" scope="page" />
                         <isif condition="${isRecommendationsEnabled}" >
                             <div class="col-md-10 col-12">
                                 <div class="linked-product-container">
@@ -115,27 +145,6 @@
                                 </div>
                             </div>
                         </isif>
-                        <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
-                        <isif condition="${isEswEnabled}" >
-                            <isset name="klarnaAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
-                            <isif condition="${klarnaAllowedCountry}">
-                                <isif condition="${dw.system.Site.getCurrent().preferences.custom.klarnaPdpPromoMsg}"> 
-                                    <div class="col-md-10 col-12 text-center text-sm-left">
-                                        <isinclude template="klarna/klarnaPromotionMessage" />
-                                    </div>
-                                </isif>
-                            </isif>
-                         <iselse>
-                            <isset name="klarnaAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
-                            <isif condition="${klarnaAllowedCountry}">
-                                <isif condition="${dw.system.Site.getCurrent().preferences.custom.klarnaPdpPromoMsg}"> 
-                                    <div class="col-md-10 col-12 text-center text-sm-left">
-                                        <isinclude template="klarna/klarnaPromotionMessage" />
-                                    </div>
-                                </isif>
-                            </isif>
-                        </isif>
-
                         <isif condition="${dw.campaign.ABTestMgr.isParticipant('MobileStickyCTATEST','notStickyCTA')}" > 
                             <div class="col-12 prices-add-to-cart-text-center">
                                 <!-- Prices -->
@@ -182,7 +191,7 @@
                         <iselse>
                             <div class="col-12 prices-add-to-cart-actions">
                                 <!-- Prices -->
-                                <div class="prices">
+                                <div class="prices d-lg-none">
                                     <isset name="price" value="${product.price}" scope="page" />
                                     <isinclude template="product/components/pricing/main" />
                                 </div>
@@ -193,18 +202,17 @@
                         </isif>
 
                         <div class="col-12">
-                            <div class="wishlist-row row">
-                                <isinclude url="${URLUtils.https('Wishlist-ShowIcon','gtmObj',JSON.stringify(pdict.wishlistGtmObj))}"/>
-                                <!-- Social Sharing Icons -->
-                                <isif condition="${dw.system.Site.getCurrent().preferences.custom.addthis_enabled}">
-                                    <isinclude template="product/components/socialIcons" />
-                                </isif>
-                            </div>
+                            <isif condition="${sitePref.enableBackInStock}">
+                                <isinclude template="product/backInStockNotification" sf-toolkit="on" />
+                            </isif>
                             <div class="row description">
                                 <isinclude template="product/components/old/productWhyBuyMe" />
                             </div>
-                            <div class="row description">
+                            <div class="row description description-text">
                                 <isinclude template="product/components/old/description" />
+                            </div>
+                           <div class="wishlist-row row">
+                                <isinclude url="${URLUtils.https('Wishlist-ShowIcon','gtmObj',JSON.stringify(pdict.wishlistGtmObj))}"/>
                             </div>
                         </div>
                         <span class="product-id d-none" itemprop="productID" >${product.id}</span>
@@ -223,19 +231,6 @@
         <div class="container">
             <isinclude template="product/components/old/descriptionAndDetails" />
         </div>
-
-        <isif condition="${isCollectionHighlightEnabled}">
-            <isslot id="cs_pdp_collection_highlight" context="global" description="collection Highlights pdp slot" />
-        </isif>
-
-        <isif condition="${isStyleYouMayLikeEnabled}">
-            <isslot id="cs_pdp_you_may_like" context="global" description="style you may like pdp slot" />
-        </isif>
-        
-        <isif condition="${isCollectionYouMayLikeEnabled}">
-            <isslot id="cs_pdp_collection_you_may_like" context="global" description="Collection you may like slot" />
-        </isif>
-        
         <isif condition="${!dw.system.Site.getCurrent().getCustomPreferenceValue('disableRecommendationsTypesOnPDP')}">
             <isinclude template="product/components/youMayLikeRecommendation" />
         </isif>
