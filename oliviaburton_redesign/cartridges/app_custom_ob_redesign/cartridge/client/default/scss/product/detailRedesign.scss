@@ -392,7 +392,8 @@
                     justify-content: space-between;
                 }
                 @include media-breakpoint-down(sm-custom) {
-                    margin: rem(0) auto;
+                    margin: rem(10) auto rem(20);
+                    justify-content: center;
                 }
 
                 .estimated-text {

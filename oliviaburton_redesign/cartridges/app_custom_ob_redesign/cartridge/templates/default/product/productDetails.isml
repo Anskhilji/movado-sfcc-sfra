@@ -42,6 +42,11 @@
                         <h2 class="product-name text-uppercase">${product.productName}</h2>
 
                         <div class="d-flex price-rating">
+                            <!-- Prices -->
+                            <div class="prices">
+                                <isset name="price" value="${product.price}" scope="page" />
+                                <isinclude template="product/components/pricing/main" />
+                            </div>
                             <!-- Product Rating -->
                             <div class="ratings d-none-mobile-rating">
                                 <isinclude template="product/components/productRating" />
@@ -49,11 +54,6 @@
                         </div>
                             <div class="description d-none-mobile">
                                 <isinclude template="product/components/description" />
-                            </div>
-                            <!-- Prices -->
-                            <div class="prices prices-bottom-wrapper">
-                                <isset name="price" value="${product.price}" scope="page" />
-                                <isinclude template="product/components/pricing/main" />
                             </div>
                         <!-- Affirm Text -->
                         <div>
@@ -123,20 +123,19 @@
                                 <isinclude template="product/backInStockNotification" sf-toolkit="on" />
                             </isif>
                         </div>
-                    </div>
-                
-                </div>
-            <iscomment> Sticky-add to cart button PDP </iscomment>
-                        <div class="col-12 prices-add-to-cart-actions cart-sticky-wrapper-btn">
-                        <!-- Prices -->
-                        <div class="prices d-lg-none">
-                            <isset name="price" value="${product.price}" scope="page" />
-                            <isinclude template="product/components/pricing/main" />
-                        </div>
-                        <!-- Cart and [Optionally] Apple Pay -->
-                        <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
-                    </div>
 
+                            <iscomment> Sticky-add to cart button PDP </iscomment>
+                            <div class="col-12 prices-add-to-cart-actions cart-sticky-wrapper-btn">
+                            <!-- Prices -->
+                            <div class="prices d-lg-none">
+                                <isset name="price" value="${product.price}" scope="page" />
+                                <isinclude template="product/components/pricing/main" />
+                            </div>
+                            <!-- Cart and [Optionally] Apple Pay -->
+                            <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         
