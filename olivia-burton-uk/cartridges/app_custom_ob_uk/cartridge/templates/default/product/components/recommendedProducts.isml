@@ -15,7 +15,7 @@
                         </button>
                         <div class="upsell-wrapper-inner">
                            <div class="upsell-image-box">
-                                <img class="img-fluid upsell-image" alt="${recommendation.productName}" src="${recommendation.images.tile150[0].url}" />
+                                <img class="img-fluid upsell-image" alt="${recommendation.productName}" src="${dw.campaign.ABTestMgr.isParticipant('OBRedesignPDPABTest','render-new-design') ? recommendation.images.tile217[0].url : recommendation.images.tile150[0].url}" />
                            </div>
                             <p class="upsell-description">${recommendation.productName}</p>
                             <div class="upsell-meta">
@@ -31,7 +31,11 @@
                         </div>
                         <div class="upsell-text">
                             <p class="upsell-text-add"><span class="upsell-text-add-icon"></span>
-                                ${Resource.msg('label.add.text', 'product', null)}</p>
+                                <isif condition="${dw.campaign.ABTestMgr.isParticipant('OBRedesignPDPABTest','render-new-design')}">
+                                    ${Resource.msg('label.add.text.redesign', 'product', null)}</p>
+                                <iselse/>
+                                    ${Resource.msg('label.add.text', 'product', null)}</p>
+                                </isif>
                         </div>
                     </div>
                 </isif>

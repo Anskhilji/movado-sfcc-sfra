@@ -494,7 +494,7 @@
                 &-mobile {
                     margin: 0;
                     padding: 0;
-                    @include media-breakpoint-down(md){
+                    @include media-breakpoint-down(md) {
                         margin:rem(13) auto;
                     }
                     .yotpo-bottomline {
@@ -626,6 +626,9 @@
                     margin-bottom: rem(40);
                     display: block;
                 }
+                @include media-breakpoint-down(sm-custom) {
+                    padding: rem(0) rem(10);
+                 } 
                 
 
                 .value {
@@ -687,8 +690,8 @@
                 }
 
                 .cart-and-ipay {
+                    margin-bottom:  rem(33);
                     @include media-breakpoint-down(sm-custom) {
-                        margin: 0;
                         padding: 0 rem(10);
 
                         > div {
@@ -753,6 +756,10 @@
                     }
 
                     &-products-redesign {
+                        @include media-breakpoint-down(md) {
+                            margin-left: rem(15);
+                            max-width: rem(321);
+                        }
                         display: none;
                         &.slick-initialized{
                             display: block;
@@ -816,11 +823,12 @@
                                 .price {
                                     font-family: $font-book;
                                     font-size: rem(12);
-                                    line-height: 1.1;
+                                    line-height: rem(20);
                                     color: $gray20;
                                     padding: 0;
                                     padding-bottom: rem(2);
-                                    font-weight: 600;
+                                    font-weight: 500;
+                                    letter-spacing: 0;
                                     span {
                                         display: block;
                                         margin: 0;
@@ -872,6 +880,8 @@
                                     color: $black;
                                     text-align: center;
                                     margin: 0;
+                                    font-weight: 500;
+                                    letter-spacing: 0;
                                     padding: rem(2);
                                 }
 
@@ -958,22 +968,16 @@
                         }
                 
                         .slick-next {
-                            right: rem(-10);
+                            right: rem(-0);
                             background: url("../../images/arrow-right.svg") center center no-repeat;
-                            @include media-breakpoint-down(xl) {
-                                right: rem(18);
+                            @include media-breakpoint-down(lg) {
+                                right: rem(-1);
                             }
                         }
                 
                         .slick-prev {
-                            left: rem(-15);
+                            left: rem(-19);
                             background: url("../../images/arrow-left.svg") center center no-repeat;
-                            @include media-breakpoint-up(xl) {
-                                left: rem(-26);
-                            }
-                            @include media-breakpoint-down(xl) {
-                                left: rem(-1);
-                            }
                         }
                     }
                 }
@@ -1397,6 +1401,9 @@
                         margin-top: rem(20);
                         text-align: left;
                     }
+                    @include media-breakpoint-down(sm-custom) {
+                        padding: rem(0) rem(16);
+                    }
 
                     .add-to-cart {
                         width: 100%;
@@ -1452,7 +1459,7 @@
                         box-shadow: 0 0 rem(6) 0 rgba(196, 196, 196, 0.5);
                         display: block;
                         z-index: 100;
-                        padding-top: rem(8);
+                        padding: rem(8) rem(16) rem(0);
                     }
                     .cart-and-ipay {
                         @include media-breakpoint-down(sm-custom) {
@@ -1518,7 +1525,9 @@
                     }
                 }
             }
+            
         }
+
         .description-and-detail {
             margin: 0;
             padding: rem(30) 0 rem(40) 0;
@@ -1852,6 +1861,7 @@
         }
     }
 }
+
 .veil {
     z-index: 999999;
 }

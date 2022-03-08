@@ -50,9 +50,6 @@
                                 <isinclude template="product/components/productRating" />
                             </div>
                         </div>
-                            <div class="description d-none-mobile">
-                                <isinclude template="product/components/description" />
-                            </div>
                         <!-- Affirm Text -->
                         <div>
                             <isinclude template="util/affirmmodule_mf" />
@@ -85,20 +82,23 @@
                             <div class="ratings ratings-mobile d-lg-none d-sm-none">
                                 <isinclude template="product/components/productRating" />
                             </div>
+                            <iscomment> Custom Start: [MSS-1341 Show/Hide Short Description on PDP]</iscomment>
+                            <isset name="isRecommendationsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.recommendationsEnabled) ? dw.system.Site.current.preferences.custom.recommendationsEnabled : false}" scope="page" />
+                            <isif condition="${isRecommendationsEnabled}">
+                                <div class="description">
+                                    <div class="short-description" itemprop="description">
+                                        <p><isprint value="${product.shortDescription}" encoding="off" /></p>
+                                    </div>
+                                </div>
+                            <iselse/>
+                                <div class="description">
+                                    <isinclude template="product/components/description" />
+                                </div>
+                            </isif>
+                            <iscomment> Custom End </iscomment>
                             <isif condition="${product.options && product.options.length > 0}">
                                 <isinclude template="product/components/options" />
                             </isif>
-                             <iscomment> Custom Start: [MSS-1341 Added Cross Sell Recommendation]</iscomment>
-                                <isset name="isRecommendationsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.recommendationsEnabled) ? dw.system.Site.current.preferences.custom
-                                                                              .recommendationsEnabled : false}" scope="page" />
-                                <isif condition="${isRecommendationsEnabled}">
-                                    <div class="col-12 recommendation-main-container">
-                                        <div class="linked-product-container">
-                                            <isinclude template="product/components/recommendedProducts" />
-                                        </div>
-                                    </div>
-                                </isif>
-                                <iscomment> Custom End </iscomment>
                                 
                             <div class="d-flex align-items-center justify-content-lg-start instock-center-mobile">
                                 <!-- Product Availability -->
@@ -109,9 +109,6 @@
                                 <div class="shipping-callout">
                                     <iscontentasset aid="ca-shipping-callout" />
                                 </div>
-                                <isif condition="${sitePref.enableBackInStock}">
-                                    <isinclude template="product/backInStockNotification" sf-toolkit="on" />
-                                </isif>
                             </div>
                             <div class="${product.available ? "add-to-cart-actions " : ""}">
                                 <!-- Cart and [Optionally] Apple Pay -->
@@ -120,6 +117,15 @@
                             <isif condition="${sitePref.enableBackInStock}">
                                 <isinclude template="product/backInStockNotification" sf-toolkit="on" />
                             </isif>
+                            <iscomment> Custom Start: [MSS-1341 Added Cross Sell Recommendation]</iscomment>
+                                <isif condition="${isRecommendationsEnabled}">
+                                    <div class="col-12 recommendation-main-container">
+                                        <div class="linked-product-container">
+                                            <isinclude template="product/components/recommendedProducts" />
+                                        </div>
+                                    </div>
+                                </isif>
+                                <iscomment> Custom End </iscomment>
                         </div>
 
                             <iscomment> Sticky-add to cart button PDP </iscomment>
