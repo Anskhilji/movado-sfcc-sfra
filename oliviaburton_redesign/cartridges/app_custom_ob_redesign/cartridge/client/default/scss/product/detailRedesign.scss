@@ -629,7 +629,7 @@
                         padding: rem(0);
                         margin-right: rem(20);
                         @include media-breakpoint-down(sm){
-                            margin-right: rem(10); 
+                            margin-right: rem(12); 
                         }
                         .upsell-image-box {
                             max-width: rem(159);
@@ -681,7 +681,7 @@
                             margin-bottom: rem(5);
 
                             .price {
-                                font-family: $font-gill-sans-std;
+                                font-family: $font-gill-std-bold;
                                 font-size: rem(12);
                                 line-height: rem(20);
                                 color: $gray20;
@@ -830,10 +830,13 @@
                     }
               
                     .slick-next {
-                        right: rem(2);
+                        right: rem(0);
                         background: url("../../images/arrow-right.svg") center center no-repeat;
-                        @include media-breakpoint-down(xl) {
-                            right: rem(-9);
+                        @include media-breakpoint-down(lg) {
+                            right: rem(2);
+                        }
+                        @include media-breakpoint-down(sm) {
+                            right: rem(-6);
                         }
                     }
               

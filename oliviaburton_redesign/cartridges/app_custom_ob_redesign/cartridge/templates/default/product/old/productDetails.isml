@@ -137,7 +137,7 @@
                                 </div>
                             </isif>
                         <iscomment> Custom End: </iscomment>
-                        <isset name="isRecommendationsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.enableCartRecommendations) ? dw.system.Site.current.preferences.custom.enableCartRecommendations : false}" scope="page" />
+                        <isset name="isRecommendationsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.recommendationsEnabled) ? dw.system.Site.current.preferences.custom.recommendationsEnabled : false}" scope="page" />
                         <isif condition="${isRecommendationsEnabled}" >
                             <div class="col-md-10 col-12">
                                 <div class="linked-product-container">

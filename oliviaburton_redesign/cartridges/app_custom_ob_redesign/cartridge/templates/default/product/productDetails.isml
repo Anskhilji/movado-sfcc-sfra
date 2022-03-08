@@ -86,9 +86,20 @@
                             <div class="ratings ratings-mobile d-lg-none">
                                 <isinclude template="product/components/productRating" />
                             </div>
-                            <div class="description">
-                                <isinclude template="product/components/description" />
-                            </div>
+                            <iscomment> Custom Start: [MSS-1341 Show/Hide Short Description on PDP]</iscomment>
+                            <isset name="isRecommendationsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.recommendationsEnabled) ? dw.system.Site.current.preferences.custom.recommendationsEnabled : false}" scope="page" />
+                            <isif condition="${isRecommendationsEnabled}">
+                                <div class="description">
+                                    <div class="short-description" itemprop="description">
+                                        <p><isprint value="${product.shortDescription}" encoding="off" /></p>
+                                    </div>
+                                </div>
+                            <iselse/>
+                                <div class="description">
+                                    <isinclude template="product/components/description" />
+                                </div>
+                            </isif>
+                            <iscomment> Custom End </iscomment>
                             <isif condition="${product.options && product.options.length > 0}">
                                 <isinclude template="product/components/options" />
                             </isif>
