@@ -69,7 +69,7 @@
 
                         .carousel-tile {
                             overflow: visible;
-                            right: rem(0);      
+                            right: rem(0);
 
                             &.active {
                                 min-height: 80vh;
@@ -170,6 +170,7 @@
                                 border: rem(1) solid transparent;
                                 display: inline-block;
                                 letter-spacing: rem(0);
+
                                 &:hover {
                                     border: rem(1) solid $pink-rose;
                                 }
@@ -646,21 +647,20 @@
 
                         .slick {
                             &-slide {
-                            padding: rem(0);
-                            margin-right: rem(20);
-                            .upsell-image-box {
-                                max-width: rem(159);
-                                max-height: rem(159);
-                                margin:0 auto;
-                                img{
-                                    display: inline-block;
-                                }
+                                padding: rem(0);
+                                margin-right: rem(20);
+                                .upsell-image-box {
+                                    max-width: rem(159);
+                                    max-height: rem(159);
+                                    margin:0 auto;
+                                    img {
+                                        display: inline-block;
+                                    }
                                 }
                             }
                         }
 
                         .upsell {
-
                             &-wrapper {
                                 text-align: center;
                                 position: relative;
@@ -673,24 +673,24 @@
                                             transition: 0.3s ease;
                                         }
 
-                                    &-add {
-                                        &-icon {
-                                        transition: 0.3s ease;
-                                        background-image: url("../../images/plus-white.svg");
+                                        &-add {
+                                            &-icon {
+                                                transition: 0.3s ease;
+                                                background-image: url("../../images/plus-white.svg");
+                                            }
                                         }
-                                    }
                                     }
                                 }
 
                                 &-inner {
                                     border: rem(1) solid $light-grey;
-                                        width: 100%;
-                                        @include media-breakpoint-down(lg) {
-                                            margin-right: rem(10);
-                                        }
-                                        @include media-breakpoint-down(md) {
-                                            margin-right: rem(10);
-                                        }
+                                    width: 100%;
+                                    @include media-breakpoint-down(lg) {
+                                        margin-right: rem(10);
+                                    }
+                                    @include media-breakpoint-down(md) {
+                                        margin-right: rem(10);
+                                    }
                                 }
                             }
 
@@ -764,11 +764,11 @@
                                     height: inherit;
 
                                     &-icon {
-                                    width: rem(15);
-                                    height: rem(10);
-                                    background: url("../../images/plus.svg") center center no-repeat;
-                                    background-size: rem(8.75) rem(8.75);
-                                    display: inline-block;
+                                        width: rem(15);
+                                        height: rem(10);
+                                        background: url("../../images/plus.svg") center center no-repeat;
+                                        background-size: rem(8.75) rem(8.75);
+                                        display: inline-block;
                                     }
                                 }
                 
@@ -777,13 +777,13 @@
                                     background: $pink-hot;
                 
                                     &-checkmark {
-                                    display: inline-block;
-                                    width: rem(11);
-                                    height: rem(10);
-                                    background: $pink-hot url("../../images/white-checkmark.svg") center center no-repeat;
-                                    vertical-align: middle;
-                                    position: relative;
-                                    top: rem(-1);
+                                        display: inline-block;
+                                        width: rem(11);
+                                        height: rem(10);
+                                        background: $pink-hot url("../../images/white-checkmark.svg") center center no-repeat;
+                                        vertical-align: middle;
+                                        position: relative;
+                                        top: rem(-1);
                                     }
                                 }
                             }
@@ -799,26 +799,22 @@
                                 cursor: pointer;
                 
                                 &:checked ~ {
-                
                                     .upsell-text {
-                
                                         .upsell-text-add {
                                             display: none;
                                         }
-                    
                                         .upsell-text-added {
                                             display: block;
                                             color: $white;
                                         }
                                     }
-                
                                     .upsell-wrapper-inner {
                                         border-color: $pink-hot;
                                     }
                                 }
                             }
                         }
-                
+
                         .slick-arrow {
                             position: absolute;
                             display: block;
@@ -842,7 +838,7 @@
                                 outline: none;
                             }
                         }
-                
+
                         .slick-next {
                             right: rem(-10);
                             background: url("../../images/arrow-right.svg") center center no-repeat;
@@ -850,7 +846,7 @@
                                 right: rem(18);
                             }
                         }
-                
+
                         .slick-prev {
                             left: rem(-15);
                             background: url("../../images/arrow-left.svg") center center no-repeat;
