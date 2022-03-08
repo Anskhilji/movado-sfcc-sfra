@@ -1,6 +1,6 @@
 <iscomment> Top level elements re-arranged according to design</iscomment>
 <isdecorate template="common/layout/page">
-    <isinclude template="/components/modules" sf-toolkit="off" />
+<isinclude template="/components/modules" sf-toolkit="off" />
     <isscript>
         var assets = require('*/cartridge/scripts/assets');
         assets.addJs('/lib/pinchzoom/pinch-zoom.umd.js');
@@ -19,7 +19,7 @@
     <isset name="isCollectionYouMayLikeEnabled" value="${!empty(dw.system.Site.current.preferences.custom.collectionYouMayLikeEnabled) ? dw.system.Site.current.preferences.custom.collectionYouMayLikeEnabled : false}" scope="page" />
     <isset name="isStyleYouMayLikeEnabled" value="${!empty(dw.system.Site.current.preferences.custom.styleYouMayLikeEnabled) ? dw.system.Site.current.preferences.custom.styleYouMayLikeEnabled : false}" scope="page" />
     <isobject object="${product.raw}" view="detail">
-        <isset name="topLevelBackground" value="${dw.system.Site.getCurrent().getCustomPreferenceValue('topLevelBackground')}" scope="page" />
+    <isset name="topLevelBackground" value="${dw.system.Site.getCurrent().getCustomPreferenceValue('topLevelBackground')}" scope="page" />
         <iscomment> ${topLevelBackground}; </iscomment>
         <div class="custom-bg" style="background-color: ${topLevelBackground};">
             <div class="container-fluid product-detail product-detail-redesign pdp-obuk pdp-v-one product-wrapper" data-pid="${product.id}" itemscope
@@ -36,8 +36,9 @@
                     <div class="col-12 col-sm-6 product-top-detail">
 
                         <!-- Family Name -->
+                        <isif condition="${pdict.plpProductFamilyName}">
                             <h1 class="family-name">${pdict.collectionName}</h1>
-
+                        </isif>
                         <!-- Product Name -->
                         <h2 class="product-name text-uppercase">${product.productName}</h2>
 

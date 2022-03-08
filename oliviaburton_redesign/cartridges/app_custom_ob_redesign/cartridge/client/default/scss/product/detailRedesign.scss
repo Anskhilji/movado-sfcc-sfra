@@ -684,7 +684,7 @@
                         }
                     }
                 }
-                .family-name{
+                .family-name {
                     color: $gray20;
                     @include media-breakpoint-up(sm-small) {
                         text-align: left;
@@ -1376,14 +1376,14 @@
                 }
     
                 .add-to-cart {
-                    width: 100%;                    
+                    width: 100%;
                     height: rem(45);
-                    background: $black;
+                    background: $pink-hot;
                     @include font-gill ($font-weight: 500);
                     line-height: rem(20);
                     text-transform: uppercase;
                     color: $white;
-                    border-color: $black;
+                    border-color: $pink-hot;
                     border-radius: rem(3);
                     margin: 0;
                     max-width: 100%;
@@ -1407,7 +1407,6 @@
                             max-width: 100%;
                         }
                     }
-                        
                 }
                 .btn-cart-googlepay {
                     @include media-breakpoint-down(sm-custom) {
@@ -1799,8 +1798,6 @@
     }
 }
 
-
-
 .primary-images {
 
     .product-badges {
@@ -1849,7 +1846,7 @@
                 right: rem(10);
             }
         }
-        &.ob-carousel-new-quickview{
+        &.ob-carousel-new-quickview {
             .cs-carousel-wrapper {
     
                 .slick-prev {
