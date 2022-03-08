@@ -36,7 +36,6 @@
                                 <iselse/>
                                     ${Resource.msg('label.add.text', 'product', null)}</p>
                                 </isif>
-                                
                         </div>
                     </div>
                 </isif>

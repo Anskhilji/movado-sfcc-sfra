@@ -843,12 +843,6 @@
                     .slick-prev {
                         left: rem(-17);
                         background: url("../../images/arrow-left.svg") center center no-repeat;
-                        // @include media-breakpoint-up(xl) {
-                        //     left: rem(-26);
-                        // }
-                        // @include media-breakpoint-down(xl) {
-                        //     left: rem(-1);
-                        // }
                     }
                 }
             }
