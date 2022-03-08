@@ -140,7 +140,7 @@ module.exports = {
                 var c = content.substr(0, showChar);
                 var h = content.substr(showChar, content.length - showChar);
 
-                var html = c + '<span style="display:none" class="morecontent"><span>' + h + '</span></span><a href="" class="morelink">' +  moretext + '</a>';
+                var html = c + '<span style="display:none" class="morecontent"><span>' + h + '</span></span><a href="" class="morelink">' + moretext + '</a>';
 
                 $(this).html(html);
             }
