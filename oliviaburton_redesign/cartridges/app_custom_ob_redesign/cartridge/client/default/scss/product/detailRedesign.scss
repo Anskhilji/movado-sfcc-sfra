@@ -1379,12 +1379,14 @@
                     width: 100%;
                     height: rem(45);
                     background: $pink-hot;
-                    @include font-gill ($font-weight: 500);
+                    @include font-gill ($font-weight: 600);
                     line-height: rem(20);
                     text-transform: uppercase;
-                    color: $white;
+                    color: $black;
+                    font-family: $font-gill-std-semibold;
                     border-color: $pink-hot;
                     border-radius: rem(3);
+                    
                     margin: 0;
                     max-width: 100%;
                     margin: 0 auto;
@@ -1395,7 +1397,7 @@
     
                     &:hover,
                     &:focus {
-                        background-color: transparent;
+                        background-color: $pink-hot;
                         box-shadow: none;
                         color: $black;
                     }
