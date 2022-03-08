@@ -628,7 +628,7 @@
                         &-slide {
                         padding: rem(0);
                         margin-right: rem(20);
-                        @include media-breakpoint-down(sm){
+                        @include media-breakpoint-down(sm) {
                             margin-right: rem(12); 
                         }
                         .upsell-image-box {
@@ -953,7 +953,7 @@
 
                     &-head {
                         margin-bottom: rem(36);
-                        @include media-breakpoint-down(sm){
+                        @include media-breakpoint-down(sm) {
                             margin-bottom: rem(39);
                         }
 

@@ -125,8 +125,6 @@
                                 <isinclude template="product/backInStockNotification" sf-toolkit="on" />
                             </isif>
                             <iscomment> Custom Start: [MSS-1341 Added Cross Sell Recommendation]</iscomment>
-                                <isset name="isRecommendationsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.recommendationsEnabled) ? dw.system.Site.current.preferences.custom
-                                                                              .recommendationsEnabled : false}" scope="page" />
                                 <isif condition="${isRecommendationsEnabled}">
                                     <div class="col-12 recommendation-main-container">
                                         <div class="linked-product-container">
