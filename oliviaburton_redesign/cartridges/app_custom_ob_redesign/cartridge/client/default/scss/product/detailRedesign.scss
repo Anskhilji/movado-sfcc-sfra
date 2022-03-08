@@ -170,7 +170,6 @@
                                 border: rem(1) solid transparent;
                                 display: inline-block;
                                 letter-spacing: rem(0);
-
                                 &:hover {
                                     border: rem(1) solid $pink-rose;
                                 }
@@ -621,14 +620,11 @@
                     }
                 }
                 .recommendation-main-container {
-
                     @include media-breakpoint-up(xl) {
                         padding: rem(0);
                         width: rem(538);
                     }
                 }
-
-
                 .recomended {
                     &-product-list {
                         margin-bottom: rem(20);
@@ -803,18 +799,20 @@
                                         .upsell-text-add {
                                             display: none;
                                         }
+                    
                                         .upsell-text-added {
                                             display: block;
                                             color: $white;
                                         }
                                     }
+                
                                     .upsell-wrapper-inner {
                                         border-color: $pink-hot;
                                     }
                                 }
                             }
                         }
-
+                
                         .slick-arrow {
                             position: absolute;
                             display: block;
@@ -838,7 +836,7 @@
                                 outline: none;
                             }
                         }
-
+                
                         .slick-next {
                             right: rem(-10);
                             background: url("../../images/arrow-right.svg") center center no-repeat;
@@ -846,7 +844,7 @@
                                 right: rem(18);
                             }
                         }
-
+                
                         .slick-prev {
                             left: rem(-15);
                             background: url("../../images/arrow-left.svg") center center no-repeat;
@@ -1023,6 +1021,7 @@
                                     position: relative;
                                     display: inline-block;
                                     vertical-align: middle;
+                                    
                                     .debossing-input {
                                         font-family: $font-news-gothic-bold;
                                         font-size: rem(15);
