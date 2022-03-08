@@ -44,7 +44,11 @@
             position: relative;
             width: 100%;
             text-align: center;
-            margin-bottom: rem(40);
+            margin-bottom: rem(100);
+
+            @include media-breakpoint-down(sm-custom) {
+                margin-bottom: rem(8);
+            }
 
             .cs-carousel-wrapper {
                 position: relative;
@@ -59,6 +63,11 @@
                 }
 
                 .slick {
+                    &-list {
+                        @include media-breakpoint-up(xxl) {
+                            margin-left: rem(46);
+                        }
+                    }
                     
                     &-slide {
                         text-align: center;
@@ -91,7 +100,6 @@
                                     align-items: center !important;
                                 }
                                 @include media-breakpoint-up(xl) {
-                                    margin-left: rem(53);
                                     min-width: 100%;
                                 }
                                 
@@ -139,7 +147,7 @@
                             left: rem(50);
                             display: block;
                             background: transparent;
-                            height: rem(390);
+                            height: rem(400);
                             overflow-y: scroll;
                             -ms-overflow-style: none;
                             scrollbar-width: none;
@@ -216,6 +224,7 @@
                                     width: rem(81);
                                     height: rem(81);
                                 }
+
                                 @include media-breakpoint-down(md) {
                                     border: none;
                                     background: $black;
@@ -246,6 +255,7 @@
                         top: 50%;
                         transform: translateY(-50%);
                         border-radius: rem(12.48);
+                        padding: rem(0);
 
                         @include media-breakpoint-up(lg) {
                             width: rem(76);
@@ -332,9 +342,62 @@
                         bottom: rem(-5);
                     }
                 }
+                @include media-breakpoint-up(sm-small) {
+                    margin-top: rem(0);
+                    padding-top: rem(0);
+                    background: none;
+                    border-radius: 0;
+                    box-shadow:none;
+                    position: relative;
+
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        width: 100%;
+                        height: rem(5);
+                        background: none;
+                        bottom: rem(0);
+                    }
+                }
+
+                @include media-breakpoint-down(sm-custom) {
+                    margin-top: rem(0);
+                }
 
                 @include media-breakpoint-up(lg) { 
                     padding-bottom: rem(114);
+                }
+
+                .ratings {
+                    @include media-breakpoint-down(sm-custom) {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        margin: rem(0);
+                        width: auto;
+                    }
+                    .standalone-bottomline {
+                        .yotpo-stars {
+                            .yotpo-icon-star {
+                                @include media-breakpoint-down(sm-custom) {
+                                    font-size: rem(20);
+                                }
+                            }
+                        }
+                        a {
+                            @include media-breakpoint-down(sm-custom) {
+                                @include font-gill($font-size: 12, $font-weight: 300);
+                                color: $gray20;
+                                line-height: rem(20);
+                                font-family: $font-gill-std-normal !important;
+                            }
+                        }
+                    }
+                }
+                .instock-center-mobile {
+                    @include media-breakpoint-down(sm-custom) {
+                        justify-content: center;
+                    }
                 }
             }
 
@@ -361,6 +424,7 @@
                 text-transform: capitalize;
                 width: auto;
                 text-align: center;
+                font-family: $font-gills-light;
 
                 @include media-breakpoint-up(lg) {
                     line-height: rem(30);
@@ -371,15 +435,40 @@
             .price-rating {
                 margin-top: rem(10);
                 align-items: center;
-                justify-content: center;
 
                 @include media-breakpoint-up(lg) {
                     margin-top: rem(20);
                     justify-content: space-between;
                 }
+                @include media-breakpoint-down(sm-custom) {
+                    margin: rem(10) auto rem(20);
+                    justify-content: center;
+                }
 
                 .estimated-text {
                     display: none;
+                }
+                .prices {
+                    @include media-breakpoint-down(sm-custom) {
+                        padding: rem(0);
+                    }
+                    .price-to-center {
+                        span {
+                            @include media-breakpoint-down(sm-custom) {
+                                @include font-gill($font-size: 28, $font-weight: 100);
+                                line-height: rem(45);
+                                color: $gray20;
+                                font-family: $font-gills-light;
+                            }
+                        }
+                    }
+                }
+                .ratings {
+                    &.d-none-mobile-rating {
+                        @include media-breakpoint-down(sm-custom) {
+                            display: none;
+                        }
+                    }
                 }
             }
 
@@ -398,7 +487,7 @@
             }
 
             .ratings {
-                margin-left: rem(30);
+                margin-left: rem(0);
                 margin-top: 0;
                 background: transparent;
 
@@ -439,6 +528,22 @@
 
             .prices {
                 padding: 0;
+                @include media-breakpoint-down(sm-custom) {
+                    padding: rem(0);
+                    display: flex;
+                    justify-content: center;
+                }
+                .total-price-text {
+                    @include media-breakpoint-down(sm-custom) {
+                        display: none;
+                    }
+                }
+                &.prices-bottom-wrapper {
+                    margin-bottom: rem(20);
+                    @include media-breakpoint-down(sm-custom) {
+                        margin:rem(8) auto rem(17);
+                    }
+                }
 
                 span {
                     @include font-gill($font-size: 28, $font-weight: 300);
@@ -513,9 +618,8 @@
                 }
             }
 
-
             .description {
-                display: none;
+                margin: rem(30) rem(0) rem(40);
 
                 @include media-breakpoint-up(lg) {
                     margin-top: rem(40);
@@ -530,6 +634,10 @@
                     color: $gray20;
                     letter-spacing: rem(0);
                 }
+                &.d-none-mobile {
+                    @include media-breakpoint-down(sm-custom) {
+                       display: none;
+                    } 
 
                 .short-description {
                     max-width: rem(550);
@@ -561,8 +669,9 @@
                 }
             }
 
+            }
             .product-top-detail {
-                padding: 0;
+                margin-top: rem(0);
 
                 @include media-breakpoint-up(lg) {
                     margin-top: rem(67);
@@ -573,11 +682,12 @@
                 }
 
                 @include media-breakpoint-down(sm-custom) {
-                    margin-top: rem(-3);
+                    padding: rem(0);
+                    margin-top: rem(43);
                 }
 
                 .cart-and-ipay {
-                    @include media-breakpoint-down(md) {
+                    @include media-breakpoint-down(sm-custom) {
                         margin: 0;
                         padding: 0 rem(10);
 
@@ -591,22 +701,19 @@
                         width: 100%;
                         }
                     }
-                    .google-pay-container {
-                        .gpay-button.black {
-                            width: rem(330);
-                            height: rem(45);
-                            border-radius: rem(3);
-                            @include media-breakpoint-down(md) {
-                                transform: translateX(0px);
-                                width: 100%;
-                                min-width: auto;
-                                max-width: rem(355);
-                            }
-                        } 
-                
-                      }
-
-                      button.apple-pay-pdp{
+                }
+                .google-pay-container {
+                    .gpay-button.black {
+                        width: rem(330);
+                        height: rem(45);
+                        border-radius: rem(3);
+                        @include media-breakpoint-down(md) {
+                            transform: translateX(0px);
+                            width: 100%;
+                            min-width: auto;
+                        }
+                    }
+                    button.apple-pay-pdp{
                         width: 100%;
                         min-width: auto;
                         max-width: rem(330);
@@ -619,6 +726,19 @@
                         }
                     }
                 }
+                .family-name {
+                    color: $gray20;
+                    letter-spacing: rem(0);
+                    @include media-breakpoint-up(sm-small) {
+                        text-align: left;
+                    }
+                }
+                .product-name  {
+                    @include media-breakpoint-up(sm-small) {
+                        text-align: left;
+                    }
+                }
+
                 .recommendation-main-container {
                     @include media-breakpoint-up(xl) {
                         padding: rem(0);
@@ -859,6 +979,10 @@
                 }
 
                 form.debossing-form {
+                    margin-bottom: rem(20);
+                    @include media-breakpoint-down(sm-custom){
+                        margin-bottom: rem(0);
+                    }
                     .popup {
                         width: 100%;
                         height: 100%;
@@ -1166,7 +1290,7 @@
                     height: rem(26);
                     margin-bottom: rem(20);
                     }
-                    @include media-breakpoint-down(md){
+                    @include media-breakpoint-down(sm-custom){
                         text-align: center;
                         margin-bottom: rem(15);
                     }
@@ -1265,35 +1389,162 @@
                         }
                     }
                 }
+                .add-to-cart-actions {
+                    margin-top: rem(15);
+                    text-align: center;
+
+                    @include media-breakpoint-up(lg) {
+                        margin-top: rem(20);
+                        text-align: left;
+                    }
+
+                    .add-to-cart {
+                        width: 100%;
+                        height: rem(45);
+                        background: $pink-hot;
+                        @include font-gill ($font-weight: 600);
+                        line-height: rem(20);
+                        text-transform: uppercase;
+                        color: $black;
+                        font-family: $font-gill-std-semibold;
+                        border-color: $pink-hot;
+                        border-radius: rem(3);
+                        max-width: 100%;
+                        margin: 0 auto;
+
+                        @include media-breakpoint-up(lg) {
+                            width: rem(330);
+                        }
+
+                        &:hover,
+                        &:focus {
+                            background-color: $pink-hot;
+                            box-shadow: none;
+                            color: $black;
+                        }
+                    }
+                    .cart-and-ipay {
+                        .btn {
+                            @include media-breakpoint-down(sm-custom) {
+                                width: 100%;
+                                max-width: 100%;
+                            }
+                        }
+                    }
+                    .btn-cart-googlepay {
+                        @include media-breakpoint-down(sm-custom) {
+                            border: none;
+                        }
+                        .google-pay-container {
+                            .gpay-button {
+                                @include media-breakpoint-down(sm-custom) {
+                                    border-radius: rem(3);
+                                }
+                            }
+                        }
+                    }
+                }
+                .cart-sticky-wrapper-btn {
+                    display: none;
+                    @include media-breakpoint-down(sm-custom) {
+                        background-color: $white;
+                        border-radius: rem(40) rem(40) 0 0;
+                        box-shadow: 0 0 rem(6) 0 rgba(196, 196, 196, 0.5);
+                        display: block;
+                        z-index: 100;
+                        padding-top: rem(8);
+                    }
+                    .cart-and-ipay {
+                        @include media-breakpoint-down(sm-custom) {
+                            margin-bottom: rem(0);
+                            padding-bottom: rem(0);
+                        }
+                        .btn {
+                            @include media-breakpoint-down(sm-custom) {
+                                border-radius: rem(3);
+                                width: 100%;
+                            }
+                            .google-pay-container {
+                                .gpay-button {
+                                    @include media-breakpoint-down(sm-custom) {
+                                        border-radius: rem(3);
+                                        margin-bottom: rem(8);
+                                    }
+                                }
+                            }
+                        }
+                        .sticky-button-container {
+                            @include media-breakpoint-down(sm-custom) {
+                                padding: rem(0);
+                            }
+                            .add-to-cart {
+                                @include media-breakpoint-down(sm-custom) {
+                                    height: rem(45);
+                                    @include font-gill($font-weight: 600);
+                                    font-family: $font-gill-std-semibold;
+                                }
+                            }
+                        }
+                    }
+
+                    &.submitted {
+                        > a {
+                            background-image: none;
+                            padding: rem(4) rem(20.5);
+
+                            &:hover {
+                                background-image: none;
+                            }
+
+                            .open-popup {
+                                display: none;
+                            }
+
+                            .edit-popup {
+                                display: inline-block;
+                            }
+
+                            &:hover {
+                                .edit-popup {
+                                    color: $white;
+
+                                    b,
+                                    label {
+                                        color: $white;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
-
         .description-and-detail {
             margin: 0;
             padding: rem(30) 0 rem(40) 0;
             text-align: center;
             background-color: $white;
-
+        
             @include media-breakpoint-up(lg) {
                 text-align: left;
                 padding: rem(60) 0 rem(100) 0;
             }
-
+        
             @include media-breakpoint-down(md) {
                 &.description-and-detail-pad {
                     padding-top: rem(26);
                 }
             }
-
+        
             .product-attributes {
                 margin: 0;
-
+        
                 @include media-breakpoint-up(lg) {
                     margin-right: rem(-15);
                     margin-left: rem(-15);
                 }
             }
-
+        
             .why-buy-me-details {
                 color: $gray20;
                 font-family: $font-Garamond-Pro-italic;
@@ -1302,21 +1553,21 @@
                 text-align: center;
                 margin-bottom: rem(20);
                 letter-spacing: rem(0);
-
+        
                 @include media-breakpoint-up(lg) {
                     font-size: rem(40);
                     line-height: rem(48);
                     margin-bottom: rem(30);
                 }
             }
-
+        
             .bottom-description {
                 max-width: rem(550);
                 margin: 0 auto;
                 margin-bottom: rem(40);
                 padding: 0 rem(15);
                 position: relative;
-
+        
                 p {
                     @include font-gill($font-weight: 300);
                     line-height: rem(25);
@@ -1324,12 +1575,12 @@
                     color: $gray20;
                     letter-spacing: rem(0);
                 }
-
+        
                 @include media-breakpoint-up(lg) {
                     padding: 0;
                     height: auto;
                 }
-
+        
                 .show-text {
                     position: absolute;
                     background-color: $white;
@@ -1340,41 +1591,41 @@
                     padding-left: rem(5);
                     text-transform: lowercase;
                 }
-
+        
                 .morecontent {
                     span {
                         display: none;
-
+        
                         @include media-breakpoint-up(lg) {
                             display: inline;
                         }
                     }
-
+        
                     .morelink {
                         text-transform: lowercase;
                         text-decoration: underline;
-
+        
                         @include media-breakpoint-up(lg) {
                             display: none;
                         }
                     }
                 }
             }
-
+        
             .details {
                 &-img-atrribute {
                     padding: 0;
-
+        
                     @include media-breakpoint-up(lg) {
                         padding-right: rem(15);
                         padding-left: rem(15);
                     }
                 }
-
+        
                 &-img {
                     img {
                         margin-bottom: rem(20);
-
+        
                         @include media-breakpoint-up(lg) {
                             height: rem(500);
                             width: rem(500);
@@ -1382,9 +1633,8 @@
                         }
                     }
                 }
-
+        
                 &-list {
-                    
                     @include media-breakpoint-up(lg) {
                         display: flex;
                         flex-direction: column;
@@ -1392,18 +1642,18 @@
                         position: relative;
                         margin-left: rem(50);
                     }
-
+        
                     .attribute {
                         &-detail {
                             margin-top: 0;
                             margin-left: rem(0);
                             padding: rem(10) 0;
                             border-bottom: rem(1) solid $cyan-blue;
-
+        
                             &:last-child {
                                 margin: rem(0);
                             }
-
+        
                             @include media-breakpoint-up(lg) {
                                 margin-top: 0;
                                 margin-left: rem(0);
@@ -1412,7 +1662,7 @@
                                 border: none;
                             }
                         }
-
+        
                         &-name {
                             @include font-gill($font-weight: 300);
                             color: $gray20;
@@ -1420,7 +1670,7 @@
                             margin-bottom: rem(5);
                             letter-spacing: rem(0);
                         }
-
+        
                         &-value {
                             @include font-gill($font-weight: 600);
                             color: $gray20;
@@ -1430,7 +1680,7 @@
                             letter-spacing: rem(0);
                         }
                     }
-
+        
                     &-height {
                         @include media-breakpoint-up(lg) {
                             display: flex;
@@ -1602,11 +1852,9 @@
         }
     }
 }
-
 .veil {
     z-index: 999999;
 }
-
 .primary-images {
 
     .product-badges {
@@ -1640,15 +1888,31 @@
 
 // Start primaryImagesCarousel css
 .primary-images {
-    &.ob-carousel-new-quickview{
-        .cs-carousel-wrapper {
+    .cs-carousel-wrapper {
   
-            .slick-prev {
-              left: rem(10);
+        .slick-prev {
+            left: rem(17);
+            @include media-breakpoint-down(sm-custom) {
+                left: rem(10);
             }
-        
-            .slick-next {
-              right: rem(10);
+        }
+    
+        .slick-next {
+            right: rem(17);
+            @include media-breakpoint-down(sm-custom) {
+                right: rem(10);
+            }
+        }
+        &.ob-carousel-new-quickview {
+            .cs-carousel-wrapper {
+
+                .slick-prev {
+                    left: rem(10);
+                }
+
+                .slick-next {
+                    right: rem(10);
+                }
             }
         }
     }
@@ -1661,13 +1925,28 @@
         
         .quickview {
             position: absolute;
-            bottom: 0;
+            bottom: rem(4);
             transform: translate(50%, -50%);
             left: rem(153);
             border-radius: 100%;
-            box-shadow: 0 rem(3) rem(5) 0 $light-grey-3;
+            @include media-breakpoint-down(xxxl) {
+                bottom: 0.8vh;
+                left: rem(146.4);
+            }
+            @include media-breakpoint-down(xxl) {
+                bottom: 0.8vh;
+                left: rem(146.4);
+            }
+            @include media-breakpoint-down(xl) {
+                bottom: 0.71vh;
+                left: rem(100);
+            }
+            @include media-breakpoint-down(lg) {
+                bottom: 0.71vh;
+                left: rem(100);
+            }
             @include media-breakpoint-down(md) {
-                bottom: -0.1vh;
+                bottom: -0.01vh;
                 left: rem(35);
             }
             @include media-breakpoint-down(sm) {
@@ -1695,7 +1974,6 @@
                 background-image: inherit !important;
             }
         }
-
     }
 }
 .primary-images {
@@ -1890,6 +2168,10 @@
                         font-weight: 300;
                         letter-spacing: rem(0);
                         line-height: rem(20);
+                        
+                        @include media-breakpoint-down(sm-custom) {
+                            font-size: rem(12);
+                        }
                     }
                 }
 
@@ -1943,6 +2225,9 @@
                         letter-spacing: rem(0);
                         line-height: rem(20);
                         margin-bottom: rem(5);
+                        @include media-breakpoint-down(sm-custom) {
+                            font-size: rem(12);
+                        }
                     }
                 }
             }
