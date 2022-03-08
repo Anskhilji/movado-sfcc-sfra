@@ -381,7 +381,7 @@
                 &-mobile {
                     margin: 0;
                     padding: 0;
-                    @include media-breakpoint-down(md){
+                    @include media-breakpoint-down(md) {
                         margin:rem(13) auto;
                     }
                     .yotpo-bottomline {
@@ -613,7 +613,7 @@
 
                 &-products-redesign {
                     margin-left: rem(15);
-                    @include media-breakpoint-down(md){
+                    @include media-breakpoint-down(md) {
                         max-width: rem(321);
                     }
                     display: none;
@@ -1180,7 +1180,7 @@
                 height: rem(26);
                 margin-bottom: rem(20);
                 }
-                @include media-breakpoint-down(md){
+                @include media-breakpoint-down(md) {
                     text-align: center;
                     margin-bottom: rem(15);
                 }
