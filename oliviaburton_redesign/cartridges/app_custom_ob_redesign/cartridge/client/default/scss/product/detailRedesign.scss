@@ -1522,7 +1522,7 @@
     
                 &-item {
                     a {
-                        @include font-gill($font-size: 12, $font-weight: 600, $letter-spacing: 0.5);
+                        @include font-gill($font-size: 12, $font-weight: 600, $letter-spacing: 0);
                         line-height: rem(16);
                         color: $black;
                         margin-left: rem(5);
@@ -1766,7 +1766,7 @@
     }
 
     &.recommendation-carousel-pdp {
-        width: 98%;
+        width: 100%;
         margin: auto;
         .cs-carousel {
             padding-bottom: rem(0);
@@ -1948,4 +1948,17 @@
             }
         }
     }
+}
+
+.pdp-bottom-carousel-redesign{
+    &.container-fluid{
+       .col-12{
+        padding: 0 rem(6.5);
+       }
+    }
+    .cs-carousel-wrapper {
+        .slick-list{
+            margin: 0;
+        }
+    }   
 }

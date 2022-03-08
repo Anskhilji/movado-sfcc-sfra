@@ -142,11 +142,15 @@
             <isinclude template="product/components/youMayLikeRecommendation" />
         </isif>
         <isset name="apiProduct" value="${dw.catalog.ProductMgr.getProduct(pdict.product.id)}" scope="page" />
-        <div class="container-fluid pdp-bottom-carousel">
-        <div class="col-12 px-1">
-            <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"
-            context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}"/>
-        </div>
+        <div class="container-fluid pdp-bottom-carousel pdp-bottom-carousel-redesign">
+            <div class="row">
+                <div class="col-12">
+                    <div class="pdp-redesing-most-view w-100">
+                         <isslot id="cs_pdp_recommendation_bottom_slot"  context="global" description="Recommendation slot at the bottom of the PDP"
+                    context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}"/>
+                    </div>
+                </div>
+            </div>
         </div>
         <isinclude template="product/components/contentAssets" />
 
