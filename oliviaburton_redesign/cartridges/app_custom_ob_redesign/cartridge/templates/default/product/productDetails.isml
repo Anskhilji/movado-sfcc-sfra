@@ -21,12 +21,12 @@
         <div class="custom-bg" style="background-color: ${topLevelBackground};">
             <div class="container-fluid product-detail product-detail-redesign pdp-obuk pdp-v-one product-wrapper" data-pid="${product.id}" itemscope
                 itemtype="http://schema.org/Product">
+                <!---Breadcrumbs--->
+                <div class="product-breadcrumb">
+                    <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
+                </div>
 
                 <div class="row align-items-center-wrapper">
-                    <!-- Breadcrumbs -->
-                    <div class="product-breadcrumb">
-                        <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
-                    </div>
                     <!-- Product Images Carousel -->
                     <isinclude template="product/components/imageCarouselPdp" />
 
@@ -46,12 +46,14 @@
                                 <isinclude template="product/components/pricing/main" />
                             </div>
                             <!-- Product Rating -->
-                            <div class="ratings pull-right hidden-md-down">
+                            <div class="ratings d-none-mobile-rating">
                                 <isinclude template="product/components/productRating" />
                             </div>
                         </div>
+                            <div class="description d-none-mobile">
+                                <isinclude template="product/components/description" />
+                            </div>
                         <!-- Affirm Text -->
-                        
                         <div>
                             <isinclude template="util/affirmmodule_mf" />
                             <isaffirmpromo context="pdp"
@@ -80,11 +82,8 @@
                         </isif>
                         <div class="product-section-mobile">
                             <!-- Product Rating -->
-                            <div class="ratings ratings-mobile d-lg-none">
+                            <div class="ratings ratings-mobile d-lg-none d-sm-none">
                                 <isinclude template="product/components/productRating" />
-                            </div>
-                            <div class="description">
-                                <isinclude template="product/components/description" />
                             </div>
                             <isif condition="${product.options && product.options.length > 0}">
                                 <isinclude template="product/components/options" />
@@ -101,7 +100,7 @@
                                 </isif>
                                 <iscomment> Custom End </iscomment>
                                 
-                            <div class="d-flex align-items-center justify-content-center justify-content-lg-start">
+                            <div class="d-flex align-items-center justify-content-lg-start instock-center-mobile">
                                 <!-- Product Availability -->
                                 <div class="availability product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
                                     data-available="${product.available}">
@@ -114,13 +113,24 @@
                                     <isinclude template="product/backInStockNotification" sf-toolkit="on" />
                                 </isif>
                             </div>
-                            <div class="${product.available ? "add-to-cart-actions" : ""}">
+                            <div class="${product.available ? "add-to-cart-actions " : ""}">
                                 <!-- Cart and [Optionally] Apple Pay -->
                                 <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
                             </div>
                             <isif condition="${sitePref.enableBackInStock}">
                                 <isinclude template="product/backInStockNotification" sf-toolkit="on" />
                             </isif>
+                        </div>
+
+                            <iscomment> Sticky-add to cart button PDP </iscomment>
+                            <div class="col-12 prices-add-to-cart-actions cart-sticky-wrapper-btn">
+                            <!-- Prices -->
+                            <div class="prices d-lg-none">
+                                <isset name="price" value="${product.price}" scope="page" />
+                                <isinclude template="product/components/pricing/main" />
+                            </div>
+                            <!-- Cart and [Optionally] Apple Pay -->
+                            <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
                         </div>
                     </div>
                 </div>
