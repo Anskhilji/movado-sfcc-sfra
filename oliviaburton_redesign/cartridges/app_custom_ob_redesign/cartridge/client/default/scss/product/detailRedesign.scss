@@ -1075,7 +1075,7 @@
                                 line-height: rem(40);
                                 color: $black;
                                 letter-spacing: 0;
-                                margin-bottom: rem(10);
+                                margin-bottom: rem(20);
 
                                 @include media-breakpoint-up(sm) {
                                     font-size: rem(34);
@@ -1103,6 +1103,7 @@
                                     line-height: rem(20);
                                     margin-bottom: rem(8);
                                     padding: 0;
+                                    letter-spacing: 0;
                                 }
 
                                 @include media-breakpoint-up(xxl) {
@@ -1245,6 +1246,7 @@
                                 display: block;
                                 margin-top: rem(17);
                                 text-decoration: underline;
+                                letter-spacing: 0;
                                 @include media-breakpoint-up(md) {
                                     margin-left: rem(40);
                                     margin-top: 0;

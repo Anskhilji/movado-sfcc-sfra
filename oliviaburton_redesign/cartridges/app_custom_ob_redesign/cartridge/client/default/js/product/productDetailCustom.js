@@ -21,6 +21,18 @@ module.exports = {
 
         $('.pdp-v-one .debossing-form .popup-action-btns .save').on('click', function() {
             $('.debossing-btn edit-popup').addClass('show-deboss-text');
+            var embossingForm = $('.pdp-v-one').find('form[name="embossing"]');
+            var engravedButton = $('.save');
+            if (engravedButton.hasClass('submitted')) {
+                $(this).removeClass('submitted');
+                $('.debossing-btn').removeClass('submitted');
+                $('.debossing-form').removeClass('submitted');
+            }
+
+            if (embossingForm !=='' && embossingForm !==undefined) {
+                $('.popup-opened').hide();
+            }
+
             setTimeout(function() {
                 var debossingtext=$.trim($('.pdp-v-one .debossing-form .text-area .debossing-input.valid').val());
                 var debossingtextEdit=$.trim($('.pdp-v-one .debossing-form .text-area .debossing-input').val());

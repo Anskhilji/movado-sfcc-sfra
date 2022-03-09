@@ -41,7 +41,8 @@
                             <li><a data-toggle="tab" class="debossing-tabs active" data-id="horizontal-text" href="#horizontal-text">${Resource.msg('button.text.standard', 'product', null)}</a></li>
                             <li><a data-toggle="tab" class="debossing-tabs" data-id="vertical-text" href="#vertical-text">${Resource.msg('button.text.script', 'product', null)}</a></li>
                         </ul>
-                        <div class="watch-image mx-auto">
+                        <isif condition="${!empty(product.images) && !empty(product.images['pdp533']) && !empty(product.images['pdp533'][2]) && !empty(product.images['pdp533'][2].url)}">
+                            <div class="watch-image mx-auto">
                             <div class="image d-inline-block">
                                 <picture class="d-inline-block">
                                     <source media="(min-width: 650px)" srcset="${!empty(product.images) && !empty(product.images['pdp533']) && !empty(product.images['pdp533'][2]) && !empty(product.images['pdp533'][2].url) ? product.images['pdp533'][2].url : ''}">
@@ -49,7 +50,8 @@
                                     <img src="${!empty(product.images) && !empty(product.images['pdp533']) && !empty(product.images['pdp533'][2]) && !empty(product.images['pdp533'][2].url) ? product.images['pdp533'][2].url : ''}" alt="${product.productName}" style="width:auto;">
                                 </picture>
                             </div>
-                        </div>
+                            </div>
+                        </isif>
                         <div class="text-area">
                             <div class="option-message">
                                 <input  id="standard-text" type="text" class="form-control debossing-input tab-pane fade in active" col="${product.engravingTextValidations['casebackCharLimit']}" required wrap="hard"  data-format-error="${product.resources.errorMaxlengthEngraveText}" data-required-error="${product.resources.errorEmptyEngraveText}" id="${'input_' + option.id}" placeholder="${product.resources.engravingPlaceholderRedesign}" name="option-message" data-name="${option.id + 'Message'}" data-row-max="${product.engravingTextValidations['casebackLineLimit']}" data-row-maxlength="${product.engravingTextValidations['casebackCharLimit']}" maxlength="${((product.engravingTextValidations['casebackLineLimit']) * (product.engravingTextValidations['casebackCharLimit'])) + (product.engravingTextValidations['casebackLineLimit'] - 1)}"/>
