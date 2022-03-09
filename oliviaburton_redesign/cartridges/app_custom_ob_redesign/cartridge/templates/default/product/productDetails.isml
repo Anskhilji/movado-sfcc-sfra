@@ -84,7 +84,7 @@
                             </div>
                             <iscomment> Custom Start: [MSS-1341 Show/Hide Short Description on PDP]</iscomment>
                             <isset name="isRecommendationsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.recommendationsEnabled) ? dw.system.Site.current.preferences.custom.recommendationsEnabled : false}" scope="page" />
-                            <isif condition="${isRecommendationsEnabled}">
+                            <isif condition="${isRecommendationsEnabled && !empty(pdict.explicitRecommendations) && pdict.explicitRecommendations.length > 0}">
                                 <div class="description">
                                     <div class="short-description" itemprop="description">
                                         <p><isprint value="${product.shortDescription}" encoding="off" /></p>

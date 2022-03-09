@@ -641,7 +641,7 @@
                     @include media-breakpoint-down(sm-custom) {
                        display: none;
                     } 
-
+                }
                 .short-description {
                     max-width: rem(550);
                     margin: 0 auto;
@@ -670,7 +670,6 @@
                         text-decoration: underline;
                     }
                 }
-            }
 
             }
             .product-top-detail {
@@ -704,16 +703,16 @@
                         width: 100%;
                         }
                     }
-                }
-                .google-pay-container {
-                    .gpay-button.black {
-                        width: rem(330);
-                        height: rem(45);
-                        border-radius: rem(3);
-                        @include media-breakpoint-down(md) {
-                            transform: translateX(0px);
-                            width: 100%;
-                            min-width: auto;
+                    .google-pay-container {
+                        .gpay-button.black {
+                            width: rem(330);
+                            height: rem(45);
+                            border-radius: rem(3);
+                            @include media-breakpoint-down(md) {
+                                transform: translateX(0px);
+                                width: 100%;
+                                min-width: auto;
+                            }
                         }
                     }
                     button.apple-pay-pdp{
@@ -728,7 +727,7 @@
                             margin-left: auto;      
                         }
                     }
-                }
+                }                
                 .family-name {
                     color: $gray20;
                     letter-spacing: rem(0);
@@ -743,6 +742,11 @@
                 }
 
                 .recommendation-main-container {
+                    .linked-product-list{
+                        @include media-breakpoint-down(sm) {
+                            margin-bottom: 0;
+                        }
+                    }
                     @include media-breakpoint-up(xl) {
                         padding: rem(0);
                         width: rem(538);
@@ -754,9 +758,14 @@
                         padding-top: rem(15);
                         border-top: rem(2) solid $light-grey2;
                     }
-
                     &-products-redesign {
-                        @include media-breakpoint-down(md) {
+                        @include media-breakpoint-down(lg) {
+                            max-width: rem(321);
+                        }
+                        @include media-breakpoint-down(sm-small) {
+                            max-width: rem(240);
+                        }
+                        @include media-breakpoint-down(sm-custom) {
                             margin-left: rem(15);
                             max-width: rem(321);
                         }
@@ -821,7 +830,7 @@
                                 margin-bottom: rem(5);
 
                                 .price {
-                                    font-family: $font-book;
+                                    font-family: $font-gill-std-normal;
                                     font-size: rem(12);
                                     line-height: rem(20);
                                     color: $gray20;
@@ -875,7 +884,7 @@
                                 background-color: $light-grey;
                                 height: rem(25);
                                 p {
-                                    font-family: $font-gills-light;
+                                    font-family: $font-futura;
                                     font-size: rem(12);
                                     color: $black;
                                     text-align: center;
@@ -883,6 +892,7 @@
                                     font-weight: 500;
                                     letter-spacing: 0;
                                     padding: rem(2);
+                                    line-height: rem(20);
                                 }
 
                                 &-add {
@@ -984,7 +994,7 @@
 
                 form.debossing-form {
                     margin-bottom: rem(20);
-                    @include media-breakpoint-down(sm-custom){
+                    @include media-breakpoint-down(sm-custom) {
                         margin-bottom: rem(0);
                     }
                     .popup {
@@ -1066,7 +1076,7 @@
 
                         &-head {
                             margin-bottom: rem(36);
-                            @include media-breakpoint-down(sm){
+                            @include media-breakpoint-down(sm) {
                                 margin-bottom: rem(39);
                             }
 
@@ -1296,7 +1306,7 @@
                     height: rem(26);
                     margin-bottom: rem(20);
                     }
-                    @include media-breakpoint-down(sm-custom){
+                    @include media-breakpoint-down(sm-custom) {
                         text-align: center;
                         margin-bottom: rem(15);
                     }
@@ -1492,6 +1502,11 @@
                                     @include font-gill($font-weight: 600);
                                     font-family: $font-gill-std-semibold;
                                 }
+                            }
+                        }
+                        button.apple-pay-pdp {
+                            @include media-breakpoint-down(md) {
+                                max-width: 100%;
                             }
                         }
                     }
@@ -1881,23 +1896,26 @@
         }
     }
 }
+.recommendation-main-container {
+    .linked-product-list {
+        width: 100%;
+        height: 100%;
 
-.linked-product-list {
-    width: 100%;
-    height: 100%;
-
-    .linked-head {
-        .content-asset {
-            label {
-                color: $gray20;
-                font-size: rem(26);
-                letter-spacing: 0;
-                line-height: rem(21);
+        .linked-head {
+            .content-asset {
+                label {
+                    font-family: $font-gill-std-normal;
+                    color: $gray20;
+                    font-size: rem(26);
+                    letter-spacing: 0;
+                    line-height: rem(21);
+                    padding-bottom: rem(0);
+                    margin-bottom: rem(20);
+                }
             }
         }
     }
 }
-
 // Start primaryImagesCarousel css
 .primary-images {
     .cs-carousel-wrapper {

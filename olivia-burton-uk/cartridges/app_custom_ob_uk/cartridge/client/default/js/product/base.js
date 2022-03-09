@@ -17,6 +17,8 @@ function getPidValue($el) {
         pid = $($el).closest('.product-detail').find('.product-id').text();
     } else if ($($el).closest('.recomended-products') && $($el).closest('.recomended-products').data('recomendation') == true) {
         pid = $($el).data('pid');
+    } else if ($($el).closest('.recomended-products-redesign ') && $($el).closest('.recomended-products-redesign ').data('recomendation') == true) {
+        pid = $($el).data('pid');
     } else {
         pid = $('.product-detail:not(".bundle-item")').data('pid');
     }
