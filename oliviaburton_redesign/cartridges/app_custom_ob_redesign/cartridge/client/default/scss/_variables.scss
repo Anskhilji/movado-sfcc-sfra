@@ -32,6 +32,7 @@ $font-primary: "gill-sans-nova", Arial, sans-serif;
 $font-gill-sans-std: "Gill-Sans-MT-Medium", Arial, sans-serif;
 $Adobe-Gramond-Pro-Italic: 'Adobe-Garamond-Pro-Italic';
 $font-awesome: "FontAwesome";
+$font-gill-std: "GillSansMTStd-Light", Arial, sans-serif;
 $font-futura: "futura-pt", "gill-sans-nova", Arial, sans-serif;
 $font-futura-book: "futura-pt", "gill-sans-nova", Arial, sans-serif;
 $font-news-gothic-bold: 'NewsGothicStdBold', "gill-sans-nova", Arial, sans-serif;
@@ -55,9 +56,13 @@ $light-grey: #D2D2D2;
 $light-grey2: #D5D5D5;
 $pink-grey: #EAD7D5;
 $cyan-blue: rgba(160,169,186,0.24);
-$cadet-blue: #a0a9ba;
+$cadet-blue: #A0A9BA;
 $tutu: #F6E5E4;
 $gray36: #5C5C5C;
+$white-gray: #F7F8F9 !default;
+$gray92: #EBEBEB;
+$light-gray2: #929292 !default;
+$light-gray4: #E8E8E8 !default;
 
 $grey-transparent-7: rgba(0,0,0,0.24) !default;
 $light-grey-3: rgba(200,200,200,0.5);
@@ -104,6 +109,34 @@ $large-screen-width: 1400px;
 
 @mixin custom-media-query($large-screen-width) {
   @media (min-width:#{$large-screen-width}) {
+      @content;
+  }
+}
+
+// new mixin
+$m-425:425px;
+$m-375:375px;
+$m-325:325px;
+
+@mixin m-425 {
+  @media (max-width:$m-425) {
+    @content;
+  }
+}
+
+@mixin m-375 {
+  @media (max-width:$m-375) {
+    @content;
+  }
+}
+@mixin m-325 {
+  @media (max-width:$m-325) {
+    @content;
+  }
+}
+$extra-small-width: 544px;
+@mixin media-sm {
+  @media (min-width:#{$extra-small-width}) {
       @content;
   }
 }
