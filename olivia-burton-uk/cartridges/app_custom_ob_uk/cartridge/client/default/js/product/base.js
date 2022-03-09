@@ -17,6 +17,8 @@ function getPidValue($el) {
         pid = $($el).closest('.product-detail').find('.product-id').text();
     } else if ($($el).closest('.recomended-products') && $($el).closest('.recomended-products').data('recomendation') == true) {
         pid = $($el).data('pid');
+    } else if ($($el).closest('.recomended-products-redesign ') && $($el).closest('.recomended-products-redesign ').data('recomendation') == true) {
+        pid = $($el).data('pid');
     } else {
         pid = $('.product-detail:not(".bundle-item")').data('pid');
     }
@@ -272,9 +274,7 @@ function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, 
         validateOptions(optionForm).showErrors({
             "option-message": embossedMessageError
         });
-    }
-
-    if (engravedMessageError) {
+    } else if (engravedMessageError) {
         optionForm = $productContainer.find('form[name="engraving"]');
         optionForm.removeClass('submitted');
         optionForm.find("button").removeClass('submitted');
@@ -283,6 +283,8 @@ function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, 
         validateOptions(optionForm).showErrors({
             "option-message": engravedMessageError
         });
+    } else {
+        $('.popup-opened').hide();
     }
 }
 
