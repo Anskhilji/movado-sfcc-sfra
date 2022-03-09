@@ -272,9 +272,7 @@ function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, 
         validateOptions(optionForm).showErrors({
             "option-message": embossedMessageError
         });
-    }
-
-    if (engravedMessageError) {
+    } else if (engravedMessageError) {
         optionForm = $productContainer.find('form[name="engraving"]');
         optionForm.removeClass('submitted');
         optionForm.find("button").removeClass('submitted');
@@ -283,6 +281,8 @@ function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, 
         validateOptions(optionForm).showErrors({
             "option-message": engravedMessageError
         });
+    } else {
+        $('.popup-opened').hide();
     }
 }
 
