@@ -654,6 +654,7 @@
                         font-family: $font-gills-light;
                         line-height: rem(25);
                         text-align: left;
+                        letter-spacing: 0;
                     }
 
                     a {
@@ -1904,7 +1905,7 @@
         .linked-head {
             .content-asset {
                 label {
-                    font-family: $font-gill-std-normal;
+                    font-family: $font-Garamond-Pro-italic;
                     color: $gray20;
                     font-size: rem(26);
                     letter-spacing: 0;

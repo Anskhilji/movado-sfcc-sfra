@@ -155,7 +155,7 @@ module.exports = {
             if($(this).hasClass("less")) {
                 $(this).removeClass("less");
                 $(this).html(moretext);
-                $('.morelink').css('margin-left','2px');
+                $('.morelink').css('margin-left','4px');
                 $('.morecontent').css('display','none');
             } else {
                 $(this).addClass("less");
