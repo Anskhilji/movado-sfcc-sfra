@@ -375,6 +375,7 @@
                         align-items: center;
                         margin: rem(0);
                         width: auto;
+                        height: auto;
                     }
                     .standalone-bottomline {
                         .yotpo-stars {
@@ -402,14 +403,6 @@
                     .list-unstyled {
                         div {
                             display: inline;
-                        }
-                    }
-                    .shipping-callout {
-                        position: absolute;
-                        left: rem(60);
-                        top: rem(0);
-                        @include media-breakpoint-down(sm-custom) {
-                            left: 57vw;
                         }
                     }
                 }
@@ -604,7 +597,9 @@
 
             .klarna-promo-parent-container {
                 margin: 0;
-
+                @include media-breakpoint-down(sm-custom) {
+                    margin-bottom: rem(20);
+                }
                 .klarna-placement {
                     margin-bottom: 0;
                     margin-top: rem(20);
@@ -1745,6 +1740,15 @@
             .col-12 {
                 flex: none;
             }
+            .flex-container-shipping {
+                display: flex;
+            }
+            .pre-order-shipping {
+                @include font-gill ($font-size:15, $font-weight: 500, $letter-spacing: 0);
+                line-height: rem(20);
+                color: $dark-gray;
+                text-transform: capitalize !important;
+            }
         }
 
         .availability-msg {
@@ -1934,6 +1938,10 @@
                     line-height: rem(21);
                     padding-bottom: rem(0);
                     margin-bottom: rem(20);
+
+                    @include media-breakpoint-down(sm-custom) {
+                        margin-top: rem(20);
+                    }
                 }
             }
         }
