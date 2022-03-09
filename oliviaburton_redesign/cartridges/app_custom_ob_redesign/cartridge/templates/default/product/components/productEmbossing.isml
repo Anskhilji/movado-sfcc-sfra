@@ -44,15 +44,17 @@
                             <li><a data-toggle="tab" class="debossing-tabs active" data-id="horizontal-text" href="#horizontal-text">${Resource.msg('button.text.horizontal', 'product', null)}</a></li>
                             <li><a data-toggle="tab" class="debossing-tabs" data-id="vertical-text" href="#vertical-text">${Resource.msg('button.text.vertical', 'product', null)}</a></li>
                         </ul>
-                        <div class="watch-image mx-auto">
+                        <isif condition="${!empty(product.images) && !empty(product.images['pdp533']) && !empty(product.images['pdp533'][2]) && !empty(product.images['pdp533'][2].url)}">
+                            <div class="watch-image mx-auto">
                             <div class="image d-inline-block">
                                 <picture class="d-inline-block">
                                     <source media="(min-width: 650px)" srcset="${!empty(product.images) && !empty(product.images['pdp533']) && !empty(product.images['pdp533'][2]) && !empty(product.images['pdp533'][2].url) ? product.images['pdp533'][2].url : ''}">
                                     <source media="(min-width: 465px)" srcset="${!empty(product.images) && !empty(product.images['pdp533']) && !empty(product.images['pdp533'][2]) && !empty(product.images['pdp533'][2].url) ? product.images['pdp533'][2].url : ''}">
-                                    <img src="${!empty(product.images) && !empty(product.images['pdp533']) && !empty(product.images['pdp533'][2]) && !empty(product.images['pdp533'][2].url) ? product.images['pdp533'][2].url : ''}" alt="test" style="width:auto;">
+                                    <img src="${!empty(product.images) && !empty(product.images['pdp533']) && !empty(product.images['pdp533'][2]) && !empty(product.images['pdp533'][2].url) ? product.images['pdp533'][2].url : ''}" alt="${product.productName}" style="width:auto;">
                                 </picture>
                             </div>
-                        </div>
+                            </div>
+                        </isif>
                         <div class="text-area">
                             <div class="option-message">
                                 <input  id="horizontal-text" type="text" class="form-control debossing-input alpha-numeric-input tab-pane fade in active" required maxlength="${product.embossingTextValidations['horizontalTextLimit']}" data-format-error="${product.resources.errorMaxlengthEmbossText}" data-required-error="${product.resources.errorEmptyEmbossText}" id="${'input_' + option.id}" placeholder="${product.resources.embossingHorizontalPlaceholderRedesign}" name="option-message" data-name="${option.id + 'Message'}"/>
