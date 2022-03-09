@@ -395,8 +395,22 @@
                     }
                 }
                 .instock-center-mobile {
+                    position: relative;
                     @include media-breakpoint-down(sm-custom) {
                         justify-content: center;
+                    }
+                    .list-unstyled {
+                        div {
+                            display: inline;
+                        }
+                    }
+                    .shipping-callout {
+                        position: absolute;
+                        left: rem(60);
+                        top: rem(0);
+                        @include media-breakpoint-down(sm-custom) {
+                            left: 57vw;
+                        }
                     }
                 }
             }
@@ -425,6 +439,7 @@
                 width: auto;
                 text-align: center;
                 font-family: $font-gills-light;
+                letter-spacing: rem(0);
 
                 @include media-breakpoint-up(lg) {
                     line-height: rem(30);
@@ -455,10 +470,11 @@
                     .price-to-center {
                         span {
                             @include media-breakpoint-down(sm-custom) {
-                                @include font-gill($font-size: 28, $font-weight: 100);
+                                @include font-gill($font-size: 28, $font-weight: 300);
                                 line-height: rem(45);
                                 color: $gray20;
                                 font-family: $font-gills-light;
+                                letter-spacing: rem(0);
                             }
                         }
                     }
@@ -498,7 +514,7 @@
                         margin:rem(13) auto;
                     }
                     .yotpo-bottomline {
-                        margin-bottom: rem(15);
+                        margin-bottom: rem(4);
                     }
                 }
 
@@ -549,6 +565,7 @@
                     @include font-gill($font-size: 28, $font-weight: 300);
                     line-height: rem(45);
                     color: $gray20;
+                    letter-spacing: rem(0);
 
                     @include media-breakpoint-up(lg) {
                         font-size: rem(34);
@@ -569,6 +586,9 @@
                     @include media-breakpoint-up(lg) {
                         margin-bottom: 0;
                         text-align: left;
+                    }
+                    @include media-breakpoint-down(sm-custom) {
+                        margin: rem(0) rem(0) rem(20) rem(0);
                     }
                 }
 
@@ -628,7 +648,8 @@
                 }
                 @include media-breakpoint-down(sm-custom) {
                     padding: rem(0) rem(10);
-                 } 
+                    display: none;
+                } 
                 
 
                 .value {
@@ -692,6 +713,7 @@
                 .cart-and-ipay {
                     margin-bottom:  rem(33);
                     @include media-breakpoint-down(sm-custom) {
+                        margin-bottom:  rem(0);
                         padding: 0 rem(10);
 
                         > div {
@@ -2073,6 +2095,7 @@
             letter-spacing: 0;
             @include media-breakpoint-down(sm-custom) {
                 font-size: rem(20);
+                margin-bottom: rem(20);
             }
         }
         .slick-slide {
