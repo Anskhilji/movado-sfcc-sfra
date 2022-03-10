@@ -1265,7 +1265,7 @@
                         &-tabs {
                             display: inline-flex;
                             justify-content: center;
-                            border: rem(1) solid $tutu;
+                            border: rem(1) solid $pink-rose;
                             border-radius: rem(3);
                             margin-bottom: rem(19);
                             a {
@@ -1281,7 +1281,7 @@
                                 text-decoration: none;
                                 &:hover,
                                 &.active {
-                                    background: $tutu;
+                                    background: $pink-rose;
                                 }
                                 &.active {
                                     font-weight: 600;
