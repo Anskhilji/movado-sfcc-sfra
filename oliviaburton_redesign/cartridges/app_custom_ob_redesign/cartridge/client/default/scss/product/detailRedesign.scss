@@ -324,6 +324,9 @@
             @include media-breakpoint-up(lg) {
                 padding-top: rem(50);
             }
+            @include media-breakpoint-down(sm-custom) {
+                padding-top: rem(20);
+            }
 
             .product-section-mobile {
                 @include media-breakpoint-down(sm-custom) {
@@ -1638,13 +1641,11 @@
         
                 .morecontent {
                     span {
-                        display: none;
-        
                         @include media-breakpoint-up(lg) {
                             display: inline;
                         }
                     }
-        
+
                     .morelink {
                         text-transform: lowercase;
                         text-decoration: underline;
