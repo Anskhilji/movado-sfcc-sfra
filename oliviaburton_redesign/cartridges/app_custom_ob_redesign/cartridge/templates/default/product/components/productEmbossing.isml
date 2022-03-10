@@ -28,18 +28,6 @@
                         <isslot id="debossing-popup-para" description="Debossing Popup Para" context="global" />
                     </div>
                     <div class="popup-body">
-                        <iscomment> <div class="row m-0 orientation-row d-none">
-                            <div class="col col-sm-auto mb-3 orientation-switch">
-                                <input type="radio" name="orientation" class="form-check-input orientation-horizontal default-checked-radio-button" value="isHorizontal" data-name="orientation" data-characterlimit="${product.embossingTextValidations['horizontalTextLimit']}" data-input="${'#input_' + option.id}" id="orientation-horizontal" required checked="checked" 
-                                data-placeholder="${product.resources.embossingHorizontalPlaceholder}" data-format-error="${product.resources.errorMaxlengthHorizontalEmbossText}">
-                                <label for="orientation-horizontal" class="form-check-label"><span class="display-name">Horizontal</span></label>
-                            </div>
-                            <div class="col col-sm-auto mb-3 orientation-switch">
-                                <input type="radio" name="orientation" class="form-check-input orientation-vertical" value="isVertical" data-name="orientation" data-characterlimit="${product.embossingTextValidations['verticalTextLimit']}" data-input="${'#input_' + option.id}" id="orientation-vertical" required 
-                                data-placeholder="${product.resources.embossingVerticalPlaceholder}" data-format-error="${product.resources.errorMaxlengthVerticalEmbossText}">
-                                <label for="orientation-vertical" class="form-check-label"><span class="display-name">Vertical</span></label>
-                            </div>
-                        </div> </iscomment>
                         <div class="row m-0 opacity-0">
                             <div class="col col-sm-auto mb-3 orientation-switch">
                                 <input type="radio" name="orientation" class="form-check-input default-checked-radio-button orientation-horizontal" value="isHorizontal" data-name="orientation" data-characterlimit="${product.embossingTextValidations['horizontalTextLimit']}" data-input="${'#input_' + option.id}" id="orientation-horizontal" required checked="checked" 
