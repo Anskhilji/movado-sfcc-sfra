@@ -1139,6 +1139,10 @@
                                 }
                             }
 
+                            .opacity-0 {
+                                opacity: 0;
+                            }
+
                             .text-area {
                                 margin: 0 auto;
                                 display: flex;
@@ -1352,7 +1356,7 @@
                         display: none;
 
                         label {
-                            font-family: $font-futura;
+                            font-family: $gill-sans-font-stack;
                             font-size: rem(12);
                             font-weight: 400;
                             letter-spacing: normal;

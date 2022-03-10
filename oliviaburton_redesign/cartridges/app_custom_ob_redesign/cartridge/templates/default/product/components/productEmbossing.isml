@@ -28,9 +28,21 @@
                         <isslot id="debossing-popup-para" description="Debossing Popup Para" context="global" />
                     </div>
                     <div class="popup-body">
-                        <div class="row m-0 orientation-row d-none">
+                        <iscomment> <div class="row m-0 orientation-row d-none">
                             <div class="col col-sm-auto mb-3 orientation-switch">
                                 <input type="radio" name="orientation" class="form-check-input orientation-horizontal default-checked-radio-button" value="isHorizontal" data-name="orientation" data-characterlimit="${product.embossingTextValidations['horizontalTextLimit']}" data-input="${'#input_' + option.id}" id="orientation-horizontal" required checked="checked" 
+                                data-placeholder="${product.resources.embossingHorizontalPlaceholder}" data-format-error="${product.resources.errorMaxlengthHorizontalEmbossText}">
+                                <label for="orientation-horizontal" class="form-check-label"><span class="display-name">Horizontal</span></label>
+                            </div>
+                            <div class="col col-sm-auto mb-3 orientation-switch">
+                                <input type="radio" name="orientation" class="form-check-input orientation-vertical" value="isVertical" data-name="orientation" data-characterlimit="${product.embossingTextValidations['verticalTextLimit']}" data-input="${'#input_' + option.id}" id="orientation-vertical" required 
+                                data-placeholder="${product.resources.embossingVerticalPlaceholder}" data-format-error="${product.resources.errorMaxlengthVerticalEmbossText}">
+                                <label for="orientation-vertical" class="form-check-label"><span class="display-name">Vertical</span></label>
+                            </div>
+                        </div> </iscomment>
+                        <div class="row m-0 opacity-0">
+                            <div class="col col-sm-auto mb-3 orientation-switch">
+                                <input type="radio" name="orientation" class="form-check-input default-checked-radio-button orientation-horizontal" value="isHorizontal" data-name="orientation" data-characterlimit="${product.embossingTextValidations['horizontalTextLimit']}" data-input="${'#input_' + option.id}" id="orientation-horizontal" required checked="checked" 
                                 data-placeholder="${product.resources.embossingHorizontalPlaceholder}" data-format-error="${product.resources.errorMaxlengthHorizontalEmbossText}">
                                 <label for="orientation-horizontal" class="form-check-label"><span class="display-name">Horizontal</span></label>
                             </div>
@@ -58,7 +70,7 @@
                         <div class="text-area">
                             <div class="option-message">
                                 <input  id="horizontal-text" type="text" class="form-control debossing-input alpha-numeric-input tab-pane fade in active" required maxlength="${product.embossingTextValidations['horizontalTextLimit']}" data-format-error="${product.resources.errorMaxlengthEmbossText}" data-required-error="${product.resources.errorEmptyEmbossText}" id="${'input_' + option.id}" placeholder="${product.resources.embossingHorizontalPlaceholderRedesign}" name="option-message" data-name="${option.id + 'Message'}"/>
-                                <input id="vertical-text" type="text" class="form-control debossing-input alpha-numeric-input debossing-value tab-pane fade" required maxlength="${product.embossingTextValidations['verticalTextLimit']}" data-format-error="${product.resources.errorMaxlengthEmbossText}" data-required-error="${product.resources.errorEmptyEmbossText}" id="${'input_' + option.id}" placeholder="${product.resources.embossingVerticalPlaceholderRedesign}" name="option-message" data-name="${option.id + 'Message'}"/>
+                                <input id="vertical-text" type="text" class="form-control debossing-input alpha-numeric-input debossing-value tab-pane fade" required maxlength="${product.embossingTextValidations['verticalTextLimit']}" data-format-error="${product.resources.errorMaxlengthVerticalEmbossText}" data-required-error="${product.resources.errorEmptyEmbossText}" id="${'input_' + option.id}" placeholder="${product.resources.embossingVerticalPlaceholderRedesign}" name="option-message" data-name="${option.id + 'Message'}"/>
                             </div>
                             <div class="popup-action-btns">
                                 <button type="submit" class="btn btn-primary save" form="embossingForm">

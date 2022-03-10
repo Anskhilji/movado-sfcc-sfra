@@ -213,12 +213,17 @@ server.replace('Variation', function (req, res, next) {
             textBadges: !empty(product.badges.textBadges) ? product.badges.textBadges.toArray() : null
         };
     }
+    var OptionsValidationError;
+    if (params.validationErrorEmbossed || params.validationErrorEngraved) {
+        OptionsValidationError = true
+    }
 
     res.json({
         product: product,
         resources: productHelper.getResources(),
         validationErrorEmbossed: params.validationErrorEmbossed,
         validationErrorEngraved: params.validationErrorEngraved,
+        OptionsValidationError: OptionsValidationError,
         badges: badges,
         eswModuleEnabled: eswModuleEnabled
     });

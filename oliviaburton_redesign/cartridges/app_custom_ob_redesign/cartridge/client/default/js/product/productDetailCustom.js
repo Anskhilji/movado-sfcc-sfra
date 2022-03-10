@@ -29,10 +29,6 @@ module.exports = {
                 $('.debossing-form').removeClass('submitted');
             }
 
-            if (embossingForm !=='' && embossingForm !==undefined) {
-                $('.popup-opened').hide();
-            }
-
             setTimeout(function() {
                 var debossingtext=$.trim($('.pdp-v-one .debossing-form .text-area .debossing-input.valid').val());
                 var debossingtextEdit=$.trim($('.pdp-v-one .debossing-form .text-area .debossing-input').val());
