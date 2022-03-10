@@ -224,25 +224,25 @@ module.exports = {
                 $windowHeight = $(window).height(),
                 $thisScroll = $(this).scrollTop();
                 if ($thisScroll > ($elementOffset+$elementOuter-$windowHeight)){
-                    $('.cart-sticky-wrapper-btn').addClass('d-block');
+                    $('.cart-sticky-wrapper-btn').addClass('visibilty-show-wrapper');
                 } else {
-                    $('.cart-sticky-wrapper-btn').removeClass('d-block');
+                    $('.cart-sticky-wrapper-btn').removeClass('visibilty-show-wrapper');
                 }
             }
         });
-    }, 
+    },
     loadCartButton: function () {
         $(window).scroll(function (event) {
-            var $description = $('.product-section-mobile');
+            var $description = $('.scroll-wrapper-inner');
             if ($description.length > 0) {
-                var $elementOffset = $description.offset().top - 50,
+                var $elementOffset = $description.offset().top - 30,
                 $elementOuter = $description.outerHeight(),
                 $windowHeight = $(window).height(),
                 $thisScroll = $(this).scrollTop();
                 if ($thisScroll > ($elementOffset+$elementOuter-$windowHeight)){
-                    $('.cart-sticky-wrapper-btn').addClass('d-none');
+                    $('.cart-sticky-wrapper-btn').addClass('visibilty-hidden-wrapper');
                 } else {
-                    $('.cart-sticky-wrapper-btn').removeClass('d-none');
+                    $('.cart-sticky-wrapper-btn').removeClass('visibilty-hidden-wrapper');
                 }
             }
         });

@@ -169,4 +169,24 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
    next();
 }, pageMetaData.computedPageMetaData);
 
+server.replace('ShowAvailability', function (req, res, next) {
+    var ABTestMgr = require('dw/campaign/ABTestMgr');
+
+    var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
+    var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
+       // Custom Comment Start: A/B testing for OB Redesign PDP
+    if (ABTestMgr.isParticipant('OBRedesignPDPABTest','Control')) {
+        template = 'product/components/old/availability';
+    } else if (ABTestMgr.isParticipant('OBRedesignPDPABTest','render-new-design')) {
+        template =  'product/components/availability';
+    } else {
+        template = 'product/components/old/availability';
+    }
+    // Custom Comment End: A/B testing for OB Redesign PDP
+    res.render(template, {
+        product: showProductPageHelperResult.product
+    });
+    next();
+});
+
 module.exports = server.exports();

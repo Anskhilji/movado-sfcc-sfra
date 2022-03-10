@@ -5,6 +5,8 @@
             ${Resource.msg('label.availability', 'common', null)}:
         </label>
     </div> </iscomment>
+    <isset name="product" value="${pdict.product}" scope="page" />
+    
     <div class="col-12 flex-container-shipping">
         <ul class="list-unstyled availability-msg">
             <li class="text-uppercase">

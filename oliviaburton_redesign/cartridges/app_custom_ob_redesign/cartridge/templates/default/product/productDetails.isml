@@ -77,7 +77,7 @@
                                 </isif>
                             </isif>
                         </isif>
-                        <div class="product-section-mobile">
+                        <div class="product-section-mobile scroll-wrapper-inner">
                             <!-- Product Rating -->
                             <div class="ratings ratings-mobile d-lg-none d-sm-none">
                                 <isinclude template="product/components/productRating" />
@@ -126,7 +126,7 @@
                         </div>
 
                             <iscomment> Sticky-add to cart button PDP </iscomment>
-                            <div class="col-12 prices-add-to-cart-actions cart-sticky-wrapper-btn">
+                            <div class="col-12 prices-add-to-cart-actions cart-sticky-wrapper-btn cart-sticky-block">
                             <!-- Prices -->
                             <div class="prices d-lg-none">
                                 <isset name="price" value="${product.price}" scope="page" />
@@ -139,7 +139,7 @@
                 </div>
             </div>
         </div>
-        
+        <div class="scroll-mobile-container"></div>
         <iscomment> Custom Comment:  "product-detail-redesign" class added</iscomment>
         <div class="container-fluid detail-specs product-detail-redesign">
             <isinclude template="product/components/descriptionAndDetails" />

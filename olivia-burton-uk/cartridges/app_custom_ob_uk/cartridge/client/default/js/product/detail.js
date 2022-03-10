@@ -118,16 +118,6 @@ module.exports = {
             infinite: false,
             dots: false,
             arrows: true,
-            responsive: [
-                {
-                    breakpoint: 991,
-                    settings: {
-                        focusOnSelect: false,
-                        slidesToShow: 2,
-                        slidesToScroll: 1,
-                    }
-                },
-            ]
         });
     },
     sizeChart: function () {
