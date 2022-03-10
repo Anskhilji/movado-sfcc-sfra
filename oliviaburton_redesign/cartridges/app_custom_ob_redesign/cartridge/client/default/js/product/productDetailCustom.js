@@ -151,14 +151,14 @@ module.exports = {
                 $(this).html(html);
             }
         });
-        $(".morelink-wrapper").on('click',function(){
-            if($(this).hasClass("less")) {
-                $(this).removeClass("less");
+        $('.morelink-wrapper').on('click',function(){
+            if($(this).hasClass('less')) {
+                $(this).removeClass('less');
                 $(this).html(moretext);
                 $('.morelink-wrapper').css('margin-left','4px');
                 $('.morecontent-wrapper').css('display','none');
             } else {
-                $(this).addClass("less");
+                $(this).addClass('less');
                 $(this).html(lesstext);
                 $('.morelink-wrapper').css('margin-left','4px');
                 $('.morecontent-wrapper').css('display','inline');
@@ -168,8 +168,8 @@ module.exports = {
     },
     showMoreBottomDescription: function () {
         var showChar = 176;  // Characters that are shown by default
-        var moretext = " show more";
-        var lesstext = " show less";
+        var moretext = ' show more';
+        var lesstext = ' show less';
         $('.bottom-description p').each(function() {
             var content = $(this).html();
             if(content.length > showChar) {
@@ -179,14 +179,14 @@ module.exports = {
                 $(this).html(html);
             }
         });
-        $(".morelink").on('click',function(){
-            if($(this).hasClass("less")) {
-                $(this).removeClass("less");
+        $('.morelink').on('click',function() {
+            if($(this).hasClass('less')) {
+                $(this).removeClass('less');
                 $(this).html(moretext);
                 $('.morelink').css('margin-left','4px');
                 $('.morecontent').css('display','none');
             } else {
-                $(this).addClass("less");
+                $(this).addClass('less');
                 $(this).html(lesstext);
                 $('.morelink').css('margin-left','4px');
                 $('.morecontent').css('display','inline');
