@@ -706,7 +706,7 @@
                 }
 
                 .cart-and-ipay {
-                    margin-bottom:  rem(33);
+                    margin-bottom:  rem(13);
                     @include media-breakpoint-down(sm-custom) {
                         margin-bottom:  rem(0);
                         padding: 0 rem(10);
@@ -1937,11 +1937,7 @@
                     letter-spacing: 0;
                     line-height: rem(21);
                     padding-bottom: rem(0);
-                    margin-bottom: rem(20);
-
-                    @include media-breakpoint-down(sm-custom) {
-                        margin-top: rem(20);
-                    }
+                    margin: rem(20) rem(0);
                 }
             }
         }
@@ -2125,6 +2121,8 @@
             @include media-breakpoint-down(sm-custom) {
                 font-size: rem(20);
                 margin-bottom: rem(20);
+                line-height: rem(35);
+                color: $gray20;
             }
         }
         .slick-slide {

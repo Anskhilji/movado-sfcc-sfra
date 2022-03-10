@@ -189,9 +189,9 @@ module.exports = {
     },
     loadCartButtonOnScroll: function () {
         $(window).scroll(function (event) {
-            var $description = $('.details-img');
+            var $description = $('.scroll-sticky');
             if ($description.length > 0) {
-                var $elementOffset = $description.offset().top - 20,
+                var $elementOffset = $description.offset().top - 40,
                 $elementOuter = $description.outerHeight(),
                 $windowHeight = $(window).height(),
                 $thisScroll = $(this).scrollTop();
