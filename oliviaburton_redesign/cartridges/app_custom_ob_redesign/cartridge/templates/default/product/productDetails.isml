@@ -106,7 +106,6 @@
                                     data-available="${product.available}">
                                     <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
                                 </div>
-
                             </div>
                             <div class="${product.available ? "add-to-cart-actions " : ""}">
                                 <!-- Cart and [Optionally] Apple Pay -->
