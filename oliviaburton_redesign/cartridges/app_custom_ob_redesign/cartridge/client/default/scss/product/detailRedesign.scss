@@ -1767,7 +1767,7 @@
                 @include font-gill ($font-size:15, $font-weight: 500, $letter-spacing: 0);
                 line-height: rem(20);
                 color: $dark-gray;
-                text-transform: capitalize !important;
+                text-transform: capitalize;
             }
         }
 
