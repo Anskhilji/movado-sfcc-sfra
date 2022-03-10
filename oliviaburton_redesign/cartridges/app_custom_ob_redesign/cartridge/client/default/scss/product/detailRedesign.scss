@@ -324,6 +324,7 @@
             @include media-breakpoint-up(lg) {
                 padding-top: rem(50);
             }
+            
             @include media-breakpoint-down(sm-custom) {
                 padding-top: rem(20);
             }
