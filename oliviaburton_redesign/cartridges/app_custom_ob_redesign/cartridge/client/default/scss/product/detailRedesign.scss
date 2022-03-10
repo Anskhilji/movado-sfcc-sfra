@@ -415,6 +415,11 @@
                         }
                     }
                 }
+                .sticky-button-container {
+                    @include media-breakpoint-down(sm-custom) {
+                        padding: rem(0);
+                    }
+                }
             }
 
             .family-name {
@@ -719,10 +724,6 @@
                     @include media-breakpoint-down(sm-custom) {
                         margin-bottom:  rem(0);
                         padding: 0 rem(10);
-
-                        > div {
-                            padding: 0;
-                        }
                     }
                     .btn.pt-0.mt-2{
                         @include media-breakpoint-down(md) {
@@ -1491,26 +1492,14 @@
                     }
                 }
                 .cart-sticky-wrapper-btn {
-                    opacity: 0;
-                    visibility: hidden;
-                    transition: .3s ease-in-out;
+                    display: none;
                     
                     @include media-breakpoint-down(sm-custom) {
                         background-color: $white;
                         border-radius: rem(40) rem(40) 0 0;
                         box-shadow: 0 0 rem(6) 0 rgba(196, 196, 196, 0.5);
                         z-index: 100;
-                        opacity: 1;
-                        visibility: visible;
-                        padding: rem(8) rem(16) rem(0);
-                        &.visibilty-hidden-wrapper {
-                            opacity: 0;
-                            visibility: hidden;
-                        }
-                        &.visibilty-show-wrapper{
-                            opacity: 1;
-                            visibility: visible;
-                        }
+                        display: block;
                     }
                     .cart-and-ipay {
                         @include media-breakpoint-down(sm-custom) {
@@ -1532,9 +1521,7 @@
                             }
                         }
                         .sticky-button-container {
-                            @include media-breakpoint-down(sm-custom) {
-                                padding: rem(0);
-                            }
+
                             .add-to-cart {
                                 @include media-breakpoint-down(sm-custom) {
                                     height: rem(45);
@@ -1768,6 +1755,9 @@
                 line-height: rem(20);
                 color: $dark-gray;
                 text-transform: capitalize;
+                @include media-breakpoint-down(sm-custom) {
+                    font-size: rem(12);
+                }
             }
         }
 
@@ -1784,6 +1774,9 @@
 
             li {
                 text-transform: capitalize !important;
+                @include media-breakpoint-down(sm-custom) {
+                    line-height: rem(18);
+                }
             }
         }
 
@@ -1800,6 +1793,9 @@
                 @include media-breakpoint-up(lg) {
                     font-size: rem(15);
                     line-height: rem(20);
+                }
+                @include media-breakpoint-down(sm-custom) {
+                    line-height: rem(18);
                 }
 
                 &::before {

@@ -1,5 +1,5 @@
 <isinclude template="/components/modules" sf-toolkit="off" />
-<div class="row">
+<div class="row align-items-center">
     <iscomment> <div class="col-12 col-sm-4">
         <label class="availability">
             ${Resource.msg('label.availability', 'common', null)}:
