@@ -1262,6 +1262,10 @@
                             }
                         }
 
+                        &-wrapper {
+                            margin-top: rem(-35);
+                        }
+
                         &-tabs {
                             display: inline-flex;
                             justify-content: center;

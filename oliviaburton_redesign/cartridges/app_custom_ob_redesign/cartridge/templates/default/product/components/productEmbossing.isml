@@ -27,7 +27,7 @@
                         <isslot id="debossing-popup-title" description="Debossing Popup Title" context="global" />
                         <isslot id="debossing-popup-para" description="Debossing Popup Para" context="global" />
                     </div>
-                    <div class="popup-body">
+                    <div class="popup-body popup-wrapper">
                         <div class="row m-0 opacity-0">
                             <div class="col col-sm-auto mb-3 orientation-switch">
                                 <input type="radio" name="orientation" class="form-check-input default-checked-radio-button orientation-horizontal" value="isHorizontal" data-name="orientation" data-characterlimit="${product.embossingTextValidations['horizontalTextLimit']}" data-input="${'#input_' + option.id}" id="orientation-horizontal" required checked="checked" 
