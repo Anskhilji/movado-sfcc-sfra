@@ -1172,6 +1172,10 @@
                                 }
                             }
 
+                            .opacity-0 {
+                                opacity: 0;
+                            }
+
                             .text-area {
                                 margin: 0 auto;
                                 display: flex;
@@ -1294,7 +1298,7 @@
                         &-tabs {
                             display: inline-flex;
                             justify-content: center;
-                            border: rem(1) solid $tutu;
+                            border: rem(1) solid $pink-rose;
                             border-radius: rem(3);
                             margin-bottom: rem(19);
                             a {
@@ -1310,7 +1314,7 @@
                                 text-decoration: none;
                                 &:hover,
                                 &.active {
-                                    background: $tutu;
+                                    background: $pink-rose;
                                 }
                                 &.active {
                                     font-weight: 600;
@@ -1385,7 +1389,7 @@
                         display: none;
 
                         label {
-                            font-family: $font-futura;
+                            font-family: $gill-sans-font-stack;
                             font-size: rem(12);
                             font-weight: 400;
                             letter-spacing: normal;

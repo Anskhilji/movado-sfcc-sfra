@@ -262,7 +262,7 @@ function removeOption($productOptionContainer) {
     $productOptionContainer.closest('form').validate().resetForm();
 }
 
-function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, $productContainer) {
+function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, $productContainer, OptionsValidationError) {
     var optionForm;
     if (embossedMessageError) {
         optionForm = $productContainer.find('form[name="embossing"]');
@@ -274,7 +274,8 @@ function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, 
         validateOptions(optionForm).showErrors({
             "option-message": embossedMessageError
         });
-    } else if (engravedMessageError) {
+    }
+    if (engravedMessageError) {
         optionForm = $productContainer.find('form[name="engraving"]');
         optionForm.removeClass('submitted');
         optionForm.find("button").removeClass('submitted');
@@ -283,7 +284,8 @@ function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, 
         validateOptions(optionForm).showErrors({
             "option-message": engravedMessageError
         });
-    } else {
+    }
+    if (!OptionsValidationError) {
         $('.popup-opened').hide();
     }
 }
@@ -409,8 +411,7 @@ function attributeSelect(selectedValueUrl, $productContainer) {
                 handleVariantResponse(data, $productContainer);
                 updateOptions(data.product.options, $productContainer);
                 updateQuantities(data.product.quantities, $productContainer);
-                handleOptionsMessageErrors(data.validationErrorEmbossed, data.validationErrorEngraved, $productContainer);
-
+                handleOptionsMessageErrors(data.validationErrorEmbossed, data.validationErrorEngraved, $productContainer, data.OptionsValidationError);
                 $('body').trigger('product:afterAttributeSelect',
                     { data: data, container: $productContainer });
                 $.spinner().stop();
