@@ -143,20 +143,48 @@ module.exports = {
             if(content.length > showChar) {
                 var c = content.substr(0, showChar);
                 var h = content.substr(showChar, content.length - showChar);
+                var html = c + '<span style="display:none" class="morecontent-wrapper"><span>' + h + '</span></span><a href="" class="morelink-wrapper" style="text-decoration: underline; display: inline-block">' + moretext + '</a>';
+                $(this).html(html);
+            }
+        });
+        $('.morelink-wrapper').on('click',function(){
+            if($(this).hasClass('less')) {
+                $(this).removeClass('less');
+                $(this).html(moretext);
+                $('.morelink-wrapper').css('margin-left','4px');
+                $('.morecontent-wrapper').css('display','none');
+            } else {
+                $(this).addClass('less');
+                $(this).html(lesstext);
+                $('.morelink-wrapper').css('margin-left','4px');
+                $('.morecontent-wrapper').css('display','inline');
+            }
+            return false;
+        });
+    },
+    showMoreBottomDescription: function () {
+        var showChar = 176;  // Characters that are shown by default
+        var moretext = ' show more';
+        var lesstext = ' show less';
+        $('.bottom-description p').each(function() {
+            var content = $(this).html();
+            if(content.length > showChar) {
+                var c = content.substr(0, showChar);
+                var h = content.substr(showChar, content.length - showChar);
                 var html = c + '<span style="display:none" class="morecontent"><span>' + h + '</span></span><a href="" class="morelink" style="text-decoration: underline; display: inline-block">' + moretext + '</a>';
                 $(this).html(html);
             }
         });
-        $(".morelink").on('click',function(){
-            if($(this).hasClass("less")) {
-                $(this).removeClass("less");
+        $('.morelink').on('click',function() {
+            if($(this).hasClass('less')) {
+                $(this).removeClass('less');
                 $(this).html(moretext);
                 $('.morelink').css('margin-left','4px');
                 $('.morecontent').css('display','none');
             } else {
-                $(this).addClass("less");
+                $(this).addClass('less');
                 $(this).html(lesstext);
-                $('.morelink').css('margin-left','2px');
+                $('.morelink').css('margin-left','4px');
                 $('.morecontent').css('display','inline');
             }
             return false;
@@ -185,38 +213,37 @@ module.exports = {
     },
     loadCartButtonOnScroll: function () {
         $(window).scroll(function (event) {
-            var $description = $('.details-img');
+            var $description = $('.scroll-sticky');
             if ($description.length > 0) {
                 var $elementOffset = $description.offset().top - 20,
                 $elementOuter = $description.outerHeight(),
                 $windowHeight = $(window).height(),
                 $thisScroll = $(this).scrollTop();
                 if ($thisScroll > ($elementOffset+$elementOuter-$windowHeight)){
-                    $('.cart-sticky-wrapper-btn').addClass('d-block');
+                    $('.cart-sticky-wrapper-btn').addClass('visibilty-show-wrapper');
                 } else {
-                    $('.cart-sticky-wrapper-btn').removeClass('d-block');
+                    $('.cart-sticky-wrapper-btn').removeClass('visibilty-show-wrapper');
                 }
             }
         });
     },
-
     loadCartButton: function () {
         $(window).scroll(function (event) {
-            var $description = $('.product-section-mobile');
+            var $description = $('.scroll-wrapper-inner');
             if ($description.length > 0) {
-                var $elementOffset = $description.offset().top - 50,
+                var $elementOffset = $description.offset().top - 30,
                 $elementOuter = $description.outerHeight(),
                 $windowHeight = $(window).height(),
                 $thisScroll = $(this).scrollTop();
                 if ($thisScroll > ($elementOffset+$elementOuter-$windowHeight)){
-                    $('.cart-sticky-wrapper-btn').addClass('d-none');
+                    $('.cart-sticky-wrapper-btn').addClass('visibilty-hidden-wrapper');
                 } else {
-                    $('.cart-sticky-wrapper-btn').removeClass('d-none');
+                    $('.cart-sticky-wrapper-btn').removeClass('visibilty-hidden-wrapper');
                 }
             }
         });
     }
-
     // Custom End
 }
+
 

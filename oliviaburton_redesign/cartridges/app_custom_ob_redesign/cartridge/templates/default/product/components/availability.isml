@@ -1,0 +1,37 @@
+<isinclude template="/components/modules" sf-toolkit="off" />
+<div class="row">
+    <iscomment> <div class="col-12 col-sm-4">
+        <label class="availability">
+            ${Resource.msg('label.availability', 'common', null)}:
+        </label>
+    </div> </iscomment>
+    <isset name="product" value="${pdict.product}" scope="page" />
+    
+    <div class="col-12 flex-container-shipping">
+        <ul class="list-unstyled availability-msg">
+            <li class="text-uppercase">
+                <isif condition="${!product.readyToOrder}">
+                    ${Resource.msg('info.selectforstock', 'product', 'Select Styles for Availability')}
+                <iselse>
+                    <isloop items="${product.availability.messages}" var="message">
+                        <div>${message}</div>
+                    </isloop>
+                </isif>
+            </li>
+        </ul>
+        <isif condition="${product.available}">
+            <div class="shipping-callout">
+                <iscontentasset aid="ca-shipping-callout" />
+            </div>
+        </isif>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 pre-order-shipping">
+        <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
+            <isset name="availabilityDate" value="${dw.util.StringUtils.formatCalendar(new dw.util.Calendar(product.availability.inStockDate), 'MM/dd/yyyy')}" scope="page" />
+            ${Resource.msgf('info.presale.order.shipment.by.date', 'common', null, availabilityDate)}
+        </isif>
+    </div>
+</div>
