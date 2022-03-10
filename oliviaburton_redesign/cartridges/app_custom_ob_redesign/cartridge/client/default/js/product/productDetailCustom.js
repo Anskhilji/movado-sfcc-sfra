@@ -136,8 +136,8 @@ module.exports = {
     // Custom Start: [MSS-1341 To Show/Hide More Short Description on PDP]
     showMoreDescription: function () {
         var showChar = 176;  // Characters that are shown by default
-        var moretext = " show more";
-        var lesstext = " show less";
+        var moretext = ' show more';
+        var lesstext = ' show less';
         $('.short-description p').each(function() {
             var content = $(this).html();
             if(content.length > showChar) {
@@ -215,14 +215,14 @@ module.exports = {
         $(window).scroll(function (event) {
             var $description = $('.scroll-sticky');
             if ($description.length > 0) {
-                var $elementOffset = $description.offset().top - 20,
+                var $elementOffset = $description.offset().top - 30,
                 $elementOuter = $description.outerHeight(),
                 $windowHeight = $(window).height(),
                 $thisScroll = $(this).scrollTop();
                 if ($thisScroll > ($elementOffset+$elementOuter-$windowHeight)){
-                    $('.cart-sticky-wrapper-btn').addClass('visibilty-show-wrapper');
+                    $('.cart-sticky-wrapper-btn').addClass('d-block');
                 } else {
-                    $('.cart-sticky-wrapper-btn').removeClass('visibilty-show-wrapper');
+                    $('.cart-sticky-wrapper-btn').removeClass('d-block');
                 }
             }
         });
@@ -231,14 +231,14 @@ module.exports = {
         $(window).scroll(function (event) {
             var $description = $('.scroll-wrapper-inner');
             if ($description.length > 0) {
-                var $elementOffset = $description.offset().top - 30,
+                var $elementOffset = $description.offset().top - 10,
                 $elementOuter = $description.outerHeight(),
                 $windowHeight = $(window).height(),
                 $thisScroll = $(this).scrollTop();
                 if ($thisScroll > ($elementOffset+$elementOuter-$windowHeight)){
-                    $('.cart-sticky-wrapper-btn').addClass('visibilty-hidden-wrapper');
+                    $('.cart-sticky-wrapper-btn').addClass('d-none');
                 } else {
-                    $('.cart-sticky-wrapper-btn').removeClass('visibilty-hidden-wrapper');
+                    $('.cart-sticky-wrapper-btn').removeClass('d-none');
                 }
             }
         });
