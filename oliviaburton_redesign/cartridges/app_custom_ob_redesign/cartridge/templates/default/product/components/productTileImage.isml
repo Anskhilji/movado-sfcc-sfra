@@ -2,12 +2,24 @@
         <isloop items="${product.badges.imageBadges}" var="imageBadge">
             <div class="product-badge left ${imageBadge.isRedesigned ? 'redesigned' : ''}"><span class="badge-text"><img src="${imageBadge.imageUrl}" alt="${imageBadge.imageAlt}" /></span></div>
         </isloop>
-        <a href="${pdict.urls.product}">
-            <picture class="tile-picture tile-picture-primary">
-                <isif condition="${pdict.apiProduct.images.tile260xtile340[0]}"><img class="tile-image gtm-product" src="${!empty(pdict.apiProduct) && !empty(pdict.apiProduct.images) && !empty(pdict.apiProduct.images.tile260xtile340[0]) && !empty(pdict.apiProduct.images.tile260xtile340[0].url) ? pdict.apiProduct.images.tile260xtile340[0].url : ''}" alt="${pdict.apiProduct.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
-            </picture>
+        <isif condition="${pdict.display.redesignPDPCarousel}">
+            <a href="${pdict.urls.product}">
+                <picture class="tile-picture tile-picture-primary">
+                    <isif condition="${pdict.apiProduct.images.tile260xtile340[0]}"><img class="tile-image gtm-product" src="${!empty(pdict.apiProduct) && !empty(pdict.apiProduct.images) && !empty(pdict.apiProduct.images.tile260xtile340[0]) && !empty(pdict.apiProduct.images.tile260xtile340[0].url) ? pdict.apiProduct.images.tile260xtile340[0].url : ''}" alt="${pdict.apiProduct.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
+                </picture>
         
-            <picture class="tile-picture tile-picture-hidden">
-                <isif condition="${pdict.apiProduct.images.tile260xtile340[3] || pdict.apiProduct.images.tile260xtile340[0]}"><img class="tile-image gtm-product" src="${!empty(pdict.apiProduct) && !empty(pdict.apiProduct.images) && !empty(pdict.apiProduct.images.tile260xtile340[3]) && !empty(pdict.apiProduct.images.tile260xtile340[3].url) ? pdict.apiProduct.images.tile260xtile340[3].url : pdict.apiProduct.images.tile260xtile340[0].url}" alt="${pdict.apiProduct.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
-            </picture>
-        </a>
+                <picture class="tile-picture tile-picture-hidden">
+                    <isif condition="${pdict.apiProduct.images.tile260xtile340[3] || pdict.apiProduct.images.tile260xtile340[0]}"><img class="tile-image gtm-product" src="${!empty(pdict.apiProduct) && !empty(pdict.apiProduct.images) && !empty(pdict.apiProduct.images.tile260xtile340[3]) && !empty(pdict.apiProduct.images.tile260xtile340[3].url) ? pdict.apiProduct.images.tile260xtile340[3].url : pdict.apiProduct.images.tile260xtile340[0].url}" alt="${pdict.apiProduct.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
+                </picture>
+            </a>
+        <iselse/>
+            <a href="${pdict.urls.product}">
+                <picture class="tile-picture tile-picture-primary">
+                    <isif condition="${pdict.apiProduct.images.pdp533[0]}"><img class="tile-image gtm-product" src="${!empty(pdict.apiProduct) && !empty(pdict.apiProduct.images) && !empty(pdict.apiProduct.images.pdp533[0]) && !empty(pdict.apiProduct.images.pdp533[0].url) ? pdict.apiProduct.images.pdp533[0].url : ''}" alt="${pdict.apiProduct.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
+                </picture>
+        
+                <picture class="tile-picture tile-picture-hidden">
+                    <isif condition="${pdict.apiProduct.images.pdp533[3] || pdict.apiProduct.images.pdp533[0]}"><img class="tile-image gtm-product" src="${!empty(pdict.apiProduct) && !empty(pdict.apiProduct.images) && !empty(pdict.apiProduct.images.pdp533[3]) && !empty(pdict.apiProduct.images.pdp533[3].url) ? pdict.apiProduct.images.pdp533[3].url : pdict.apiProduct.images.pdp533[0].url}" alt="${pdict.apiProduct.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
+                </picture>
+            </a>
+        </isif>
