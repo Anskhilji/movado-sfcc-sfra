@@ -420,6 +420,10 @@
                         padding: rem(0);
                     }
                 }
+                
+                .yotpo-icon-empty-star {
+                    display: none;
+                }
             }
 
             .family-name {
@@ -487,6 +491,11 @@
                     }
                 }
                 .ratings {
+
+                    .yotpo-icon-empty-star {
+                        display: none;
+                    }
+
                     &.d-none-mobile-rating {
                         @include media-breakpoint-down(sm-custom) {
                             display: none;
@@ -1742,6 +1751,14 @@
                         }
                     }
                 }
+            }
+            
+            .yotpo-no-reviews {
+                display: none;
+            }
+
+            .yotpo-label-container {
+                border-top: none;
             }
         }
 
