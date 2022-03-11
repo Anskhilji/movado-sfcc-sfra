@@ -1,4 +1,4 @@
-<div class="panel-collapse collapse" id="applepay-content" data-parent="#accordion">
+<div class="panel-collapse" id="applepay-content">
 <div class="panel-body">
     <isapplepay class="apple-pay-cart mb-3 btn btn-block"></isapplepay>
 </div>
