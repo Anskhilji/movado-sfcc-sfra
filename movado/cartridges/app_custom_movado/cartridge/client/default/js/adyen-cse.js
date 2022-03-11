@@ -18,8 +18,11 @@ $('button[value="submit-payment"]').on('click', function (e) {
 
         var validCard = encryptData(cardData, options);
         if (!validCard) {
-            var scrollUtil = require('./utilities/scrollUtil');
-            scrollUtil.scrollInvalidFields('.payment-form .payment-options', -80, 300);
+            //MSS-1649 Payment Methods Selection Redesign we don't need scrool
+            // on Eroor and payment method because Of Payment Methods tabs wrapped
+            // in a container and not scrool too much.
+            // var scrollUtil = require('./utilities/scrollUtil');
+            // scrollUtil.scrollInvalidFields('.payment-options', -80, 300);
             return false;
         }
         $('#creditBin').val($('#cardNumber').val().split('-').join('').substring(0, 6));

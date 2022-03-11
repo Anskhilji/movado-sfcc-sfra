@@ -340,16 +340,19 @@ $stored-payment-spacing: rem(16);
     }
 
     .affirm-payment-method {
-      padding: 0 rem(10) rem(10) rem(10);
-      margin: 0;
-      width: 100%;
-      .affirm-product-modal {
-        text-decoration: underline;
+      @include media-breakpoint-up(md) {
+        padding: 0 rem(10) rem(10) rem(10);
+        margin: 0;
+        width: 100%;
+        .affirm-product-modal {
+          text-decoration: underline;
+        }
       }
     }
 
     .affirm-panel-image {
       width: rem(75);
+      vertical-align: inherit;
     }
   }
 }
