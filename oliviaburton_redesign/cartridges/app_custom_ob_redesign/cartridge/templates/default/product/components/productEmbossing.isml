@@ -46,8 +46,8 @@
                         </ul>
                         <isif condition="${!empty(product.images) && !empty(product.images['pdp533']) && !empty(product.images['pdp533'][2]) && !empty(product.images['pdp533'][2].url)}">
                             <div class="watch-image mx-auto">
-                            <div class="image d-inline-block">
-                                <picture class="d-inline-block">
+                            <div class="image">
+                                <picture>
                                     <source media="(min-width: 650px)" srcset="${!empty(product.images) && !empty(product.images['pdp533']) && !empty(product.images['pdp533'][2]) && !empty(product.images['pdp533'][2].url) ? product.images['pdp533'][2].url : ''}">
                                     <source media="(min-width: 465px)" srcset="${!empty(product.images) && !empty(product.images['pdp533']) && !empty(product.images['pdp533'][2]) && !empty(product.images['pdp533'][2].url) ? product.images['pdp533'][2].url : ''}">
                                     <img src="${!empty(product.images) && !empty(product.images['pdp533']) && !empty(product.images['pdp533'][2]) && !empty(product.images['pdp533'][2].url) ? product.images['pdp533'][2].url : ''}" alt="${product.productName}" style="width:auto;">
@@ -65,7 +65,7 @@
                                     <span class="apply">${Resource.msg('buttom.option.text.save', 'product', null)}</span>
                                 </button>
                             </div>
-                            <a href="" class="dont-add .debossing-cancel togglePersonalizationOpt">${Resource.msg('button.dont.add', 'product', null)}</a>
+                            <a href="${pdict.productUrl}" class="dont-add .debossing-cancel togglePersonalizationOpt">${Resource.msg('button.dont.add', 'product', null)}</a>
                         </div>
                         <label for="${'input_' + option.id}" class="hidden-label">${product.resources.embossingPlaceholder}</label>
                     </div>

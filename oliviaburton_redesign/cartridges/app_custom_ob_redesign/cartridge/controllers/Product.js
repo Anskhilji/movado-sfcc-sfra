@@ -65,6 +65,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var viewData = res.getViewData();
     var product = showProductPageHelperResult.product;
     var productPrice = !empty(product) ? product.price : '';
+    var productUrl = URLUtils.url('Product-Show', 'pid', !empty(product) ? product.id : '').relative().toString();
 
     yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
 
@@ -161,6 +162,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
         res.render(template, {
             product: showProductPageHelperResult.product,
             addToCartUrl: showProductPageHelperResult.addToCartUrl,
+            productUrl: productUrl, 
             resources: showProductPageHelperResult.resources,
             breadcrumbs: showProductPageHelperResult.breadcrumbs,
             plpProductFamilyName: Site.getCurrent().preferences.custom.plpProductFamilyName ? Site.getCurrent().preferences.custom.plpProductFamilyName : false
