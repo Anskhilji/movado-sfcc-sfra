@@ -72,12 +72,6 @@
                 }
 
                 .slick {
-                    &-list {
-                        @include media-breakpoint-up(xxl) {
-                            margin-left: rem(53);
-                        }
-                    }
-                    
                     &-slide {
                         text-align: center;
 
@@ -153,7 +147,7 @@
                             margin-top: rem(134);
                             position: absolute;
                             top: rem(0);
-                            left: rem(50);
+                            left: rem(34);
                             display: block;
                             background: transparent;
                             height: rem(400);
@@ -2022,7 +2016,7 @@
             position: absolute;
             bottom: rem(4);
             transform: translate(50%, -50%);
-            left: rem(153);
+            left: rem(100.2);
             border-radius: 100%;
             @include media-breakpoint-down(xxxl) {
                 bottom: 0.1vh;
