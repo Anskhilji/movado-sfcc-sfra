@@ -35,6 +35,10 @@
                                 height: 100%;
                                 width: 100%;
                             }
+                            @include media-breakpoint-up(xxl) {
+                                height: rem(650);
+                                width: rem(650);
+                            }
                         }
                     }
                 }
