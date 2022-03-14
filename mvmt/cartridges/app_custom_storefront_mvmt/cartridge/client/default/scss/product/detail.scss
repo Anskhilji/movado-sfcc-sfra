@@ -1113,10 +1113,9 @@
                 border: 0.0625rem solid #E0E0E0;
                 margin-left: 10px;
 
-                @include media-breakpoint-up(sm) {
-                    font-size: rem(12);
-                    letter-spacing: rem(1.5);
-                }
+                // @include media-breakpoint-up(sm) {
+                //     letter-spacing: rem(1.5);
+                // }
             }
         }
     }
