@@ -580,10 +580,15 @@
                     line-height: rem(45);
                     color: $gray20;
                     letter-spacing: rem(0);
-
+                    display: inline-block;
                     @include media-breakpoint-up(lg) {
                         font-size: rem(34);
                         line-height: rem(41);
+                    }
+                    .strike-through {
+                        span {
+                            text-decoration: inherit;
+                        }
                     }
                 }
             }
