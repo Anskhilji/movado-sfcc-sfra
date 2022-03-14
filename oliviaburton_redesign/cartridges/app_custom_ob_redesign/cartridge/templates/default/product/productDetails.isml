@@ -114,6 +114,17 @@
                             <isif condition="${sitePref.enableBackInStock}">
                                 <isinclude template="product/backInStockNotification" sf-toolkit="on" />
                             </isif>
+                            <isif condition="${isRecommendationsEnabled && !empty(pdict.explicitRecommendations) && pdict.explicitRecommendations.length > 0}">
+                                <div class="description hide-desktop-wrapper">
+                                    <div class="short-description" itemprop="description">
+                                        <p><isprint value="${product.shortDescription}" encoding="off" /></p>
+                                    </div>
+                                </div>
+                            <iselse/>
+                                <div class="description hide-desktop-wrapper">
+                                    <isinclude template="product/components/description" />
+                                </div>
+                            </isif>
                             <iscomment> Custom Start: [MSS-1341 Added Cross Sell Recommendation]</iscomment>
                                 <isif condition="${isRecommendationsEnabled}">
                                     <div class="col-12 recommendation-main-container">
