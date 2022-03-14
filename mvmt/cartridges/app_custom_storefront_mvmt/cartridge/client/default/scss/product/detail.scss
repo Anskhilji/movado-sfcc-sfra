@@ -1110,22 +1110,13 @@
                 vertical-align: top;
                 padding: rem(5) rem(10);
                 height: rem(18);
-                background-color: $black;
-                color: $white;
-                border-radius: 0;
+                border: 0.0625rem solid #E0E0E0;
+                margin-left: 10px;
 
                 @include media-breakpoint-up(sm) {
                     font-size: rem(12);
                     letter-spacing: rem(1.5);
-                    padding: rem(7) rem(17);
-                    height: rem(26);
                 }
-            }
-
-            @include media-breakpoint-down(xs) {
-                text-align: center;
-                margin: rem(16) 0;
-                justify-content: center;
             }
         }
     }
