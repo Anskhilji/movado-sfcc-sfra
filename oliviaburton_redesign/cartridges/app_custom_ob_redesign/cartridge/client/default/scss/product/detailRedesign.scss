@@ -580,10 +580,10 @@
                     line-height: rem(45);
                     color: $gray20;
                     letter-spacing: rem(0);
-                    @include media-breakpoint-down(lg){
+                    @include media-breakpoint-down(lg) {
                         display: inline-block;
                     }
-                    @include media-breakpoint-down(sm-custom){
+                    @include media-breakpoint-down(sm-custom) {
                         display: unset;
                     }
                     @include media-breakpoint-up(lg) {
@@ -592,7 +592,7 @@
                     }
                     .strike-through {
                         span {
-                           @include media-breakpoint-down(lg){
+                           @include media-breakpoint-down(lg) {
                             text-decoration: inherit;
                            }
                         }
