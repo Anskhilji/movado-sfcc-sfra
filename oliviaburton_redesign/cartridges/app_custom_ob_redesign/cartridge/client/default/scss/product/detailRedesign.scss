@@ -593,7 +593,7 @@
                     .strike-through {
                         span {
                            @include media-breakpoint-down(lg) {
-                            text-decoration: inherit;
+                                text-decoration: inherit;
                            }
                         }
                     }
