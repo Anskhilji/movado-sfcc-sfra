@@ -414,10 +414,10 @@
                         display: block;
                         margin: rem(10) rem(0) rem(0);
                     }
-                        .short-description {
-                            margin-bottom: rem(0);
-                            padding: rem(0) rem(5);
-                        }
+                    .short-description {
+                        margin-bottom: rem(0);
+                        padding: rem(0) rem(5);
+                    }
                 }
             }
 
@@ -701,6 +701,7 @@
                         line-height: rem(25);
                         text-align: left;
                         letter-spacing: 0;
+                        color: $gray20;
                     }
 
                     a {
