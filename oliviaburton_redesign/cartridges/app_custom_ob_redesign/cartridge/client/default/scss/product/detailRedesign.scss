@@ -581,7 +581,7 @@
                     color: $gray20;
                     letter-spacing: rem(0);
                     @include media-breakpoint-down(lg) {
-                        display: inline-block;
+                        display: block;
                     }
                     @include media-breakpoint-down(sm-custom) {
                         display: unset;
