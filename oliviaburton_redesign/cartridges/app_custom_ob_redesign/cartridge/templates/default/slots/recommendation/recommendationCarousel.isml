@@ -1,4 +1,9 @@
 <isif condition="${!empty(slotcontent) && !!slotcontent.content.length}">
+    <script>
+        $(document).ready(function() {
+            window.slickSlider.initCarousel($('.pdp-product-recommendation'));
+        });
+    </script>
     <div class="cs-carousel-wrapper recommendation-carousel-pdp">
         <isif condition="${!empty(slotcontent.custom.carouselTitle)}">
         <h3 class="carousel-title ${slotcontent.custom.isCarouselTitleLeftAligned ? 'carousel-title-left-align' : 'text-center'}">${slotcontent.custom.carouselTitle}</h3>
