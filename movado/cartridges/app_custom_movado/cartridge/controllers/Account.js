@@ -136,7 +136,6 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
     var CustomerMgr = require('dw/customer/CustomerMgr');
     var Resource = require('dw/web/Resource');
     var URLUtils = require('dw/web/URLUtils');
-
     var EmailSubscriptionHelper = require('int_custom_marketing_cloud/cartridge/scripts/helper/EmailSubscriptionHelper');
     var formErrors = require('*/cartridge/scripts/formErrors');
     var registrationForm = null;
@@ -321,21 +320,23 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
                     fields: formErrors.getFormErrors(registrationForm)
                 });
             }
-            // Custom Start: Yotpo Swell Integration 
-            if (isYotpoSwellLoyaltyEnabled) {
-                var viewData = res.getViewData();
-                if (viewData.success) {
-                    var email = registrationForm.email;
-                    var customerAPI = CustomerMgr.getCustomerByLogin(email);
-                    if (customerAPI) {
-                        var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
-                        SwellExporter.exportCustomer({
-                            customerNo: customerAPI.profile.customerNo
-                        });
+            if (!empty(authenticatedCustomer.profile.custom.customerCurrentCountry)) {
+                // Custom Start: Yotpo Swell Integration 
+                if (isYotpoSwellLoyaltyEnabled && authenticatedCustomer.profile.custom.customerCurrentCountry.equalsIgnoreCase('US')) {
+                    var viewData = res.getViewData();
+                    if (viewData.success) {
+                        var email = registrationForm.email;
+                        var customerAPI = CustomerMgr.getCustomerByLogin(email);
+                        if (customerAPI) {
+                            var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
+                            SwellExporter.exportCustomer({
+                                customerNo: customerAPI.profile.customerNo
+                            });
+                        }
                     }
                 }
+                // Custom End: Yotpo Swell Integration 
             }
-            // Custom End: Yotpo Swell Integration 
         });
     } else {
         res.json({
