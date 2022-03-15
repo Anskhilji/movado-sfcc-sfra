@@ -5,16 +5,10 @@
 <iselse/>
     <isset name="show" value="" scope="page"/>
 </isif>
-
-<div class="form-check panel-heading py-3" data-method-id="${paymentOption.ID}" data-brand-code="klarna">
-    <div class="panel-title">
-        <input type='radio' id="pay-later-${paymentOption.ID}" name='paymentOption' class="form-check-input accordion-link"
-                value='adyen' required ${checked}/>
-        <label for='pay-later-${paymentOption.ID}' class="form-check-label d-block">
-            <img src="${URLUtils.staticURL('/images/klarna.png')}" class="klarna-panel-image" alt="Klarna logo"/>
-            <span>${Resource.msg('hpp.klaran.pay.later.label', 'hpp', null)}</span>
+<div class="form-check panel-heading" data-method-id="${paymentOption.ID}" data-brand-code="klarna">
+    <button id='${paymentOption.ID}' data-bs-toggle='pill' data-bs-target='#klarna-pay-later-content' name='paymentOption' class='nav-link klarna-payment-button' type='button'  role="tab" aria-controls="klarna-pay-later-content" aria-selected="false">
+        <label for='pay-later-${paymentOption.ID}' class="form-check-label d-block label-klarna-icon">
+           <img src="${URLUtils.staticURL('/images/klarna.svg')}"  alt="klarna-logo"/>
         </label>
-        <a class="klarna-pay-later-panel" data-toggle="collapse" aria-controls="klarna-pay-later-content" href="${'#' + 'klarna-pay-later-content'}">
-        </a>
-    </div>
+    </button>
 </div>
