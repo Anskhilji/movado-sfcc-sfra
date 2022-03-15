@@ -1,7 +1,7 @@
 <isif condition="${!empty(slotcontent) && !!slotcontent.content.length}">
     <script>
         $(document).ready(function() {
-            window.slickSlider.initCarousel($('.pdp-product-recommendation'));
+            window.slickSlider.initCarousel($('.recommendation-carousel-pdp'));
         });
     </script>
     <div class="cs-carousel-wrapper recommendation-carousel-pdp">
