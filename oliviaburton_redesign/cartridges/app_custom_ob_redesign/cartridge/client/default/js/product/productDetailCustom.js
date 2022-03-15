@@ -60,6 +60,9 @@ module.exports = {
             $(".prices-add-to-cart-actions").removeClass('extra-z-index');
             $('body, html').removeClass('no-overflow');
             $('.popup-opened').hide();
+            $('#standard-text').focusout();
+            $('#horizontal-text').focusout();
+            $('#vertical-text').focusout();
             e.preventDefault();
         });
 

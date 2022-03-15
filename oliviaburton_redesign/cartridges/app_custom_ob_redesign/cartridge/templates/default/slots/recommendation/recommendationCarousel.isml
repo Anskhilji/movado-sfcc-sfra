@@ -1,4 +1,9 @@
 <isif condition="${!empty(slotcontent) && !!slotcontent.content.length}">
+    <script>
+        $(document).ready(function() {
+            window.slickSlider.initCarousel($('.pdp-product-recommendation'));
+        });
+    </script>
     <div class="cs-carousel-wrapper recommendation-carousel-pdp">
         <isif condition="${!empty(slotcontent.custom.carouselTitle)}">
         <h3 class="carousel-title ${slotcontent.custom.isCarouselTitleLeftAligned ? 'carousel-title-left-align' : 'text-center'}">${slotcontent.custom.carouselTitle}</h3>
@@ -6,7 +11,9 @@
         <div class="js-carousel cs-carousel" data-carousel-config="${slotcontent.custom.carouselConfig ? slotcontent.custom.carouselConfig.replace(/[\n\s]/gi, '') : ''}">
         <isloop items="${slotcontent.content}" var="product">
             <div class="carousel-tile">
-                <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true, 'isHighResolutionImage', true, 'plpTile', true, 'redesignPDPCarousel', true)}"/>
+                <isobject object="${product}" view="recommendation">
+                    <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true, 'isHighResolutionImage', true, 'plpTile', true, 'redesignPDPCarousel', true)}"/>
+                </isobject>
             </div>
         </isloop>
         </div>

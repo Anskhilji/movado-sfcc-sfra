@@ -408,6 +408,17 @@
                 .yotpo-icon-empty-star {
                     display: none;
                 }
+                .hide-desktop-wrapper {
+                    display: none;
+                    @include media-breakpoint-down(sm-custom) {
+                        display: block;
+                        margin: rem(10) rem(0) rem(0);
+                    }
+                        .short-description {
+                            margin-bottom: rem(0);
+                            padding: rem(0) rem(5);
+                        }
+                }
             }
 
             .family-name {
@@ -566,10 +577,22 @@
                     line-height: rem(45);
                     color: $gray20;
                     letter-spacing: rem(0);
-
+                    @include media-breakpoint-down(lg) {
+                        display: block;
+                    }
+                    @include media-breakpoint-down(sm-custom) {
+                        display: unset;
+                    }
                     @include media-breakpoint-up(lg) {
                         font-size: rem(34);
                         line-height: rem(41);
+                    }
+                    .strike-through {
+                        span {
+                           @include media-breakpoint-down(lg) {
+                                text-decoration: inherit;
+                           }
+                        }
                     }
                 }
             }
@@ -1291,6 +1314,10 @@
                                     min-width: 100%;
                                 }
                             }
+                        }
+
+                        &-wrapper {
+                            margin-top: rem(-35);
                         }
 
                         &-tabs {
@@ -2203,8 +2230,8 @@
 
                                 @include media-breakpoint-up(xs) {
                                     width: rem(32);
-                                    height: rem(32);                               
-                                    position: relative;                               
+                                    height: rem(32);
+                                    position: relative;
                                     left: rem(8);
                                     top: rem(-8);
                                 }
