@@ -57,7 +57,7 @@ function parseRiskifiedResponse(order, reqBody) {
         }
 
         /* Reject in OMS - Do not process to fulfillment status */
-        if ('SOMIntegrationEnabled' in Site.getCurrent().preferences && Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {
+        if (Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {
             checkoutLogger.info('(RiskifiedParseResponseResult) -> Riskified status is declined.  Sending to SOM queue and order number is: ' + order.orderNo);
             var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
             try {

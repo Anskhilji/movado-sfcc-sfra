@@ -1,16 +1,12 @@
-<isif condition="${!!pymtMethod && (pymtMethod.paymentMethod === 'Adyen')}" >
-    <isset name="checked" value="checked" scope="page"/>      
+<isif condition="${!!pymtMethod && (pymtMethod.paymentMethod === 'Adyen')}">
+    <isset name="checked" value="checked" scope="page" />
 <iselse/>
-    <isset name="checked" value="" scope="page"/>
+    <isset name="checked" value="" scope="page" />
 </isif>
-<div class="form-check panel-heading py-3" data-method-id="${paymentOption.ID}">
-        <div class="panel-title" tabindex="0">
-                <input type='radio' id="${paymentOption.ID}" name='paymentOption' class="form-check-input accordion-link"
-                        value='adyen' required ${checked}/>
-                <label for='${paymentOption.ID}' class="form-check-label d-block">
-                       <img src="${URLUtils.staticURL('/images/paypal-logo.png')}" alt="Paypal logo"/>
-                </label>
-                <a class="adyen-panel" data-toggle="collapse" aria-controls="adyen-content" href="${'#' + 'adyen-content'}">
-                </a>
-        </div>
+<div class="form-check panel-heading" data-method-id="${paymentOption.ID}">
+    <button id="${paymentOption.ID}" data-bs-toggle="pill" data-bs-target="#adyen-content" name='paymentOption' class="nav-link alternative-payment-methods-links" type="button" role="tab" aria-controls="adyen-content" aria-selected="false">
+        <label for='${paymentOption.ID}' class="form-check-label d-block">
+            <img src="${URLUtils.staticURL('/images/paypal-logo.png')}" alt="Paypal logo" />
+        </label>
+    </button>
 </div>
