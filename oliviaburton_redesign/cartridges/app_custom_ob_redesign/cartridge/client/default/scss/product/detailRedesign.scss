@@ -89,16 +89,10 @@
                                 }
                             }
                             &.carousel-tile-two-wrapper {
-                                @include media-breakpoint-up(xxl) {
-                                    margin-left: rem(0);
-                                    display: flex !important;
-                                    justify-content: center !important;
-                                    align-items: center !important;
-                                }
                                 @include media-breakpoint-up(xl) {
                                     min-width: 100%;
                                 }
-                                
+
                                 @include media-breakpoint-down(md) {
                                     margin-left: rem(0);
                                 }   
