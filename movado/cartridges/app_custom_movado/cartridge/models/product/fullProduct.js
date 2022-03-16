@@ -21,7 +21,7 @@ module.exports = function fullProduct(product, apiProduct, options) {
     var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
     var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
     var collectionName = productCustomHelper.getCollectionName(apiProduct);
-    var pdpContentAssetHTML = productCustomHelper.getPDPContentAssetHTML(apiProduct);
+    var pdpMarketingContentAssetHTML = productCustomHelper.getPDPMarketingContentAssetHTML(apiProduct);
 
     decorators.base(product, apiProduct, options.productType);
     decorators.price(product, apiProduct, options.promotions, false, options.optionModel);
@@ -86,10 +86,10 @@ module.exports = function fullProduct(product, apiProduct, options) {
         value: collectionName
     });
 
-    if (pdpContentAssetHTML) {
-        Object.defineProperty(product, 'pdpContentAssetHTML', {
+    if (pdpMarketingContentAssetHTML) {
+        Object.defineProperty(product, 'pdpMarketingContentAssetHTML', {
             enumerable: true,
-            value: pdpContentAssetHTML
+            value: pdpMarketingContentAssetHTML
         });
     }
 

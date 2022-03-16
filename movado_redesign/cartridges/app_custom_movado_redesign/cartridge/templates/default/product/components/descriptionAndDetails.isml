@@ -19,8 +19,8 @@
     </div>
     <isslot id="cs_pdp_marketing-section-1" description="content section" context="global" />
     <div class="pdp-content-asset-wrapper">
-        <isif condition="${!empty(product.pdpContentAssetHTML)}">
-            <isprint value="${product.pdpContentAssetHTML}" encoding="off" />
+        <isif condition="${!empty(product.pdpMarketingContentAssetHTML)}">
+            <isprint value="${product.pdpMarketingContentAssetHTML}" encoding="off" />
         </isif>
     </div>
     <isslot id="cs_pdp_marketing-section-2" description="content section" context="global" />

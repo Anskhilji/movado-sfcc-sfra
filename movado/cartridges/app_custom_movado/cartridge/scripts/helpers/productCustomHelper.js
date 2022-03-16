@@ -85,9 +85,17 @@ function getPdpVideoConfigs(apiProduct) {
     return pdpVideoConfigs;
 }
 
-function getPDPContentAssetHTML(apiProduct) {
+/**
+ * Method use to get marketing content asset HTML to render on PDP
+ * @param {Product} apiProduct
+ * @returns {String} content asset HTML
+ */
+ function getPDPMarketingContentAssetHTML(apiProduct) {
     try {
-        var contentAssetID = !empty(apiProduct.custom.pdpContentAssetID) ? apiProduct.custom.pdpContentAssetID : '';
+        var contentAssetID = !empty(apiProduct.custom.pdpMarketingContentAssetID) ? apiProduct.custom.pdpMarketingContentAssetID : '';
+        if (empty(contentAssetID) && apiProduct.variant) {
+            contentAssetID = !empty(apiProduct.masterProduct.custom.pdpMarketingContentAssetID) ? apiProduct.masterProduct.custom.pdpMarketingContentAssetID : '';
+        }
         var pdpContentAsset = ContentMgr.getContent(contentAssetID);
         var pdpContentAssetHTML;
         if (pdpContentAsset  && pdpContentAsset.online && !empty(pdpContentAsset.custom.body) ) {
@@ -95,7 +103,7 @@ function getPDPContentAssetHTML(apiProduct) {
         }
         return pdpContentAssetHTML;
     } catch (e) {
-        Logger.error('(productCustomHepler.js -> getPDPContentAssetHTML) Error occured while getting pdp content asset html: ' + e.stack, e.message);
+        Logger.error('(productCustomHepler.js -> getPDPMarketingContentAssetHTML) Error occured while getting pdp content asset html: ' + e.stack, e.message);
         return '';
     }
 }
@@ -106,5 +114,5 @@ module.exports = {
     getCollectionName: getCollectionName,
     getSaveMessage: getSaveMessage,
     getPdpVideoConfigs: getPdpVideoConfigs,
-    getPDPContentAssetHTML: getPDPContentAssetHTML
+    getPDPMarketingContentAssetHTML: getPDPMarketingContentAssetHTML
 };
