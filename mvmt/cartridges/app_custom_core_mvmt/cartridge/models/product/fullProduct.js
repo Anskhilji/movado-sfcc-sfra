@@ -29,6 +29,7 @@ module.exports = function fullProduct(product, apiProduct, options) {
     var isWatchTile = productCustomHelper.getIsWatchTile(apiProduct);
     var pdpContentAssetHTML = productCustomHelper.getPDPContentAssetHTML(apiProduct);
     var isCategory = productCustomHelper.getProductCategory(apiProduct, product);
+    var pdpMarketingContentAssetHTML = productCustomHelper.getPDPMarketingContentAssetHTML(apiProduct);
 
     if (!empty(currentCountry)) {
         Object.defineProperty(product, 'currentCountry', {
@@ -147,6 +148,13 @@ module.exports = function fullProduct(product, apiProduct, options) {
         Object.defineProperty(product, 'isCategory', {
             enumerable: true,
             value: isCategory
+        });
+    }
+
+    if (pdpMarketingContentAssetHTML) {
+        Object.defineProperty(product, 'pdpMarketingContentAssetHTML', {
+            enumerable: true,
+            value: pdpMarketingContentAssetHTML
         });
     }
 

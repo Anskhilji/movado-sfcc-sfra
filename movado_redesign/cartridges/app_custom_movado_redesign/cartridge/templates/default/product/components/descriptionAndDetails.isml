@@ -17,6 +17,13 @@
             </isif>
         </isif>
     </div>
+    <isslot id="cs_pdp_marketing-section-1" description="content section" context="global" />
+    <div class="pdp-content-asset-wrapper">
+        <isif condition="${!empty(product.pdpContentAssetHTML)}">
+            <isprint value="${product.pdpContentAssetHTML}" encoding="off" />
+        </isif>
+    </div>
+    <isslot id="cs_pdp_marketing-section-2" description="content section" context="global" />
     <iscomment>Yotpo reviews widget will appear here, if these needs to be relocated
      then appropriate template should be overridden. </iscomment>
     <isinclude template="widget/yotporeviewswidget" />

@@ -464,6 +464,29 @@ function getProductCategory(apiProduct, product) {
 }
 //Custom End: Get Category of Product
 
+/**
+ * Method use to get marketing content asset HTML to render on PDP
+ * @param {Product} apiProduct
+ * @returns {String} content asset HTML
+ */
+ function getPDPMarketingContentAssetHTML(apiProduct) {
+    try {
+        var contentAssetID = !empty(apiProduct.custom.pdpMarketingContentAssetID) ? apiProduct.custom.pdpMarketingContentAssetID : '';
+        if (empty(contentAssetID) && apiProduct.variant) {
+            contentAssetID = !empty(apiProduct.masterProduct.custom.pdpMarketingContentAssetID) ? apiProduct.masterProduct.custom.pdpMarketingContentAssetID : '';
+        }
+        var pdpContentAsset = ContentMgr.getContent(contentAssetID);
+        var pdpContentAssetHTML;
+        if (pdpContentAsset  && pdpContentAsset.online && !empty(pdpContentAsset.custom.body) ) {
+            pdpContentAssetHTML = pdpContentAsset.custom.body.markup.toString();
+        }
+        return pdpContentAssetHTML;
+    } catch (e) {
+        Logger.error('(productCustomHepler.js -> getPDPMarketingContentAssetHTML) Error occured while getting pdp content asset html: ' + e.stack, e.message);
+        return '';
+    }
+}
+
 movadoProductCustomHelper.getProductAttributes = getProductAttributes;
 movadoProductCustomHelper.getRefinementSwatches = getRefinementSwatches;
 movadoProductCustomHelper.getPdpDetailAndSpecsAttributes = getPdpDetailAndSpecsAttributes;
@@ -475,6 +498,7 @@ movadoProductCustomHelper.getCaseDiameter = getCaseDiameter;
 movadoProductCustomHelper.getColor = getColor;
 movadoProductCustomHelper.getIsWatchTile = getIsWatchTile;
 movadoProductCustomHelper.getProductCategory = getProductCategory;
+movadoProductCustomHelper.getPDPMarketingContentAssetHTML = getPDPMarketingContentAssetHTML;
 
 module.exports = movadoProductCustomHelper;
 

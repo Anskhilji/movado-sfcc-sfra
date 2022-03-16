@@ -5,6 +5,7 @@ var Logger = require('dw/system/Logger');
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 var productTile = require('*/cartridge/models/product/productTile');
 var Constants = require('*/cartridge/scripts/util/Constants');
+var ContentMgr = require('dw/content/ContentMgr');
 
 
 
@@ -84,9 +85,26 @@ function getPdpVideoConfigs(apiProduct) {
     return pdpVideoConfigs;
 }
 
+function getPDPContentAssetHTML(apiProduct) {
+    try {
+        var contentAssetID = !empty(apiProduct.custom.pdpContentAssetID) ? apiProduct.custom.pdpContentAssetID : '';
+        var pdpContentAsset = ContentMgr.getContent(contentAssetID);
+        var pdpContentAssetHTML;
+        if (pdpContentAsset  && pdpContentAsset.online && !empty(pdpContentAsset.custom.body) ) {
+            pdpContentAssetHTML = pdpContentAsset.custom.body.markup.toString();
+        }
+        return pdpContentAssetHTML;
+    } catch (e) {
+        Logger.error('(productCustomHepler.js -> getPDPContentAssetHTML) Error occured while getting pdp content asset html: ' + e.stack, e.message);
+        return '';
+    }
+}
+
+
 module.exports = {
     getExplicitRecommendations: getExplicitRecommendations,
     getCollectionName: getCollectionName,
     getSaveMessage: getSaveMessage,
-    getPdpVideoConfigs: getPdpVideoConfigs
+    getPdpVideoConfigs: getPdpVideoConfigs,
+    getPDPContentAssetHTML: getPDPContentAssetHTML
 };
