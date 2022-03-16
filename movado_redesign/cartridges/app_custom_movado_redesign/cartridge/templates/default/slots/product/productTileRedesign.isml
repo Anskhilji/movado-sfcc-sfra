@@ -1,0 +1,29 @@
+<isif condition="${slotcontent && !!slotcontent.content.length}">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6">
+                    <isif condition="${slotcontent.custom.bottomSectionCarousel}">
+                        <div class="bottom-section">
+                            <isprint value="${slotcontent.custom.bottomSectionCarousel}" encoding="off" />
+                        </div>
+                    </isif>
+            </div>
+            <div class="col-6">
+                <div class="row">
+                <isset name="counter" value="${0}">
+                    <isloop items="${slotcontent.content}" var="product" status="status">
+                        
+                            <div class="col-lg-6">
+                                <div class="carousel-tile">
+                                    <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true, 'recommendattionTile', true, 'lazyload', true)}"/>
+                                </div>
+                            </div>
+                            <isif condition="${status.counter = 3 }">
+                            <isbreak/>
+                        </isif>
+                    </isloop>
+                </div>
+            </div>
+        </div>
+    </div>
+</isif>
