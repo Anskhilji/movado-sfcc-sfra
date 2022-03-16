@@ -17,7 +17,6 @@ var pageMetaData = require('*/cartridge/scripts/middleware/pageMetaData');
  */
 
 server.get('Show', cache.applyPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
-    var Site = require('dw/system/Site');
     var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
     var productType = showProductPageHelperResult.product.productType;
