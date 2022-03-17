@@ -371,17 +371,7 @@ var formHelpers = require('base/checkout/formErrors');
                                   ID: data.orderID,
                                   token: data.orderToken
                               };
-                              /***
-                               * Custom Start: Clyde Integration in v2 we don't need this code
-                               */
-                            //   if (window.Resources && window.Resources.IS_CLYDE_ENABLED) {
-                            //     urlParams.clydeContractProductList = data.contractProductList
-                            //   }
-
-                              /**
-                               * Custom End:
-                               */
-
+                              
                               continueUrl += (continueUrl.indexOf('?') !== -1 ? '&' : '?') +
                   Object.keys(urlParams).map(function (key) {
                       return key + '=' + encodeURIComponent(urlParams[key]);

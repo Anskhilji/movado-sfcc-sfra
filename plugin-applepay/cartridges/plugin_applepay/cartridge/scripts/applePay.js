@@ -266,13 +266,6 @@ exports.prepareBasket = function (basket, parameters) {
     if (currentBasket && !empty(currentBasket.custom.smartGiftTrackingCode)) {
         session.custom.trackingCode = currentBasket.custom.smartGiftTrackingCode;
     }
-    // Custom Start: [MSS-1658] [MSS-1671] Clyde v2 integration we dont need this code
-    // if (!empty(currentBasket)) {
-    //     var clydeContractProductList = basket.custom.clydeContractProductList ? basket.custom.clydeContractProductList : '';
-    //     delete session.custom.clydeContractProductList;
-    //     session.custom.clydeContractProductList = clydeContractProductList;
-    // }
-    // Custom End: [MSS-1658]
     var status = new Status(Status.OK);
     var result = new ApplePayHookResult(status, null);
     return result;
