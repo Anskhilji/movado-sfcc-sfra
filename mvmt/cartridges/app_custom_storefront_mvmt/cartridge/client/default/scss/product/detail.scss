@@ -1100,32 +1100,19 @@
                 text-align: center;
                 text-transform: uppercase;
                 font-family: $font-medium;
-                font-size: rem(8);
+                font-size: rem(10);
                 font-weight: 500;
                 letter-spacing: rem(1);
                 display: inline-block;
                 margin-bottom: rem(10);
                 margin-right: rem(4);
-                line-height: 1;
+                line-height: rem(8);
                 vertical-align: top;
                 padding: rem(5) rem(10);
                 height: rem(18);
-                background-color: $black;
-                color: $white;
-                border-radius: 0;
+                border: rem(1) solid #E0E0E0;
+                margin-left: rem(10);
 
-                @include media-breakpoint-up(sm) {
-                    font-size: rem(12);
-                    letter-spacing: rem(1.5);
-                    padding: rem(7) rem(17);
-                    height: rem(26);
-                }
-            }
-
-            @include media-breakpoint-down(xs) {
-                text-align: center;
-                margin: rem(16) 0;
-                justify-content: center;
             }
         }
     }
