@@ -4,7 +4,7 @@
     &::after {
         content: '';
         position: absolute;
-        right: 3px;
+        right: 8px;
         background-repeat: no-repeat;
         background-image: url('../../images/Visa-master.svg');
         background-size: contain;
@@ -16,28 +16,28 @@
     &[data-type="visa"]::after {
         background-image: url('../../images/payment-types.png');
         background-size: auto;
-        background-position: -230px -110px;
+        background-position: -226px -110px;
         width: 48px;
     }
 
     &[data-type="mastercard"]::after {
         background-image: url('../../images/payment-types.png');
         background-size: auto;
-        background-position: -28px -157px;
+        background-position: -26px -157px;
         width: 48px;
     }
 
     &[data-type="amex"]::after {
         background-image: url('../../images/payment-types.png');
         background-size: auto;
-        background-position: -297px -15px;
+        background-position: -294px -16px;
         width: 48px;
     }
 
     &[data-type="discover"]::after {
         background-image: url('../../images/payment-types.png');
         background-size: auto;
-        background-position: -95px -110px;
+        background-position: -93px -110px;
         width: 48px;
     }
 }

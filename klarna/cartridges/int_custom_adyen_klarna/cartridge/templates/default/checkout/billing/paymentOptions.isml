@@ -98,9 +98,15 @@
                         </li>
                         <iscomment>Custom Start: Add klarna payment methods </iscomment>
 	                    <isif condition="${!empty(openInvoiceWhiteListMethods)}">
-                            <li class="nav-item" role="presentation">
-		                            <isinclude template="checkout/billing/paymentOptions/klarnaPayLaterPaymentMethodTab"/>
-                            </li>       
+                            <isif condition="${openInvoiceWhiteListMethods.search('klarna_pay_later') > -1 && openInvoiceWhiteListMethods.search('klarna_slice_it') > -1}">
+                                <li class="nav-item" role="presentation">
+                                        <isinclude template="checkout/billing/paymentOptions/klarnaPayLaterPaymentMethodTab"/>
+                                </li>
+                            <iselse/>
+                                <li class="nav-item" role="presentation">
+                                        <isinclude template="checkout/billing/paymentOptions/klarnaSliceItPaymentMethodTab"/>
+                                </li>
+                            </isif>
 	                    </isif>
 	                    <iscomment>Custom End: Add klarna payment methods </iscomment>
                     </isif>

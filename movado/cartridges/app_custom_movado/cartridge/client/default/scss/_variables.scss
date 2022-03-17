@@ -127,6 +127,8 @@ $font-primary: $font-book;
 $font-awesome: "FontAwesome";
 
 // Larger Screen
+$small-screen-width: 320px;
+$small-screen-width375: 375px;
 $large-screen-width: 1400px;
 
 @mixin custom-media-query($large-screen-width) {
@@ -135,12 +137,9 @@ $large-screen-width: 1400px;
   }
 }
 
-
-// For screen 320px to 543px
-$small-screen-width: 320px;
-$small-screen-width4: 370px;
-@mixin custom-media-query1($small-screen-width, $small-screen-width4) {
-    @media (min-width:#{$small-screen-width}) and (max-width:#{$small-screen-width4}) {
+// For screen 320px to 375px
+@mixin custom-media-query2($small-screen-width, $small-screen-width375) {
+    @media (min-width:#{$small-screen-width}) and (max-width:#{$small-screen-width375}) {
         @content;
     }
 }

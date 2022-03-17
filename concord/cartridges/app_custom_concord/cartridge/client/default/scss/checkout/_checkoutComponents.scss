@@ -309,6 +309,22 @@ $stored-payment-spacing: rem(16);
     padding-bottom: 0;
   }
   .payment-information {
+    .payment-options {
+      .nav-item {
+        .form-check-label {
+          &.credit-card-label {
+            font-size: rem(13);
+  
+            @include media-breakpoint-down(sm) { 
+              font-size: rem(10);
+            }
+            @include media-breakpoint-down(xs) { 
+              font-size: rem(14);
+            }
+          }
+        }
+      }
+    }
     .panel {
       padding-right: rem(10);
       padding-left: rem(10);
@@ -341,16 +357,19 @@ $stored-payment-spacing: rem(16);
     }
 
     .affirm-payment-method {
-      padding: 0 rem(10) rem(10) rem(10);
-      margin: 0;
-      width: 100%;
-      .affirm-product-modal {
-        text-decoration: underline;
+      @include media-breakpoint-up(md) {
+        padding: 0 rem(10) rem(10) rem(10);
+        margin: 0;
+        width: 100%;
+        .affirm-product-modal {
+          text-decoration: underline;
+        }
       }
     }
 
     .affirm-panel-image {
       width: rem(75);
+      vertical-align: inherit;
     }
   }
 }
@@ -408,24 +427,6 @@ $stored-payment-spacing: rem(16);
   .billingZipCode {
     margin-top: rem(-2);
   }
-  .payment-information {
-    .payment-options {
-      .nav-item {
-        .nav-link {
-          &.credit-btn-tab1 {
-            @include media-breakpoint-up(sm) {
-              width: auto;
-            }
-            @include custom-media-query1($small-screen-width , $small-screen-width4) { 
-              width: auto;
-            }
-          
-          }
-        }
-      } 
-    }
-  }    
-
 }
 
 .multi-ship .shipping-summary .single-shipping {

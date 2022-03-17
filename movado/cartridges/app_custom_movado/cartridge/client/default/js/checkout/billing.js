@@ -337,7 +337,7 @@ module.exports = {
     },
 
     paymentTabs: function () {
-        $('.payment-options .nav-link, .klarna-split-it, .klarna-pay-later').on('click', function () {
+        $('.payment-options .nav-link, .klarna-split-it').on('click', function () {
             var methodID = $(this).closest('.form-check').data('method-id');
             var brandCode = $(this).closest('.form-check').data('brand-code');
 
@@ -361,7 +361,7 @@ module.exports = {
     
     defualtPaymentMethodSelection: function () {
         $(document).ready( function () {
-            var methodID = $('.payment-options .nav-link').closest('.form-check').data('method-id');
+            var methodID = $('.credit-card-selection').data('method-id');
             $('#selectedPaymentOption').val(methodID);
             $('.payment-information').data('payment-method-id', methodID);
             

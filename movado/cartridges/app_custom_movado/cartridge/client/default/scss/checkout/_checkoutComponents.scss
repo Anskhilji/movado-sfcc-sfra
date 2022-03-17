@@ -187,6 +187,11 @@ $stored-payment-spacing: rem(16);
       margin-bottom: rem(10);
       text-transform: uppercase;
     }
+    .display-name {
+      &::after {
+        content: "";
+      }
+    }
   }
 
   .order-total-summary {
@@ -372,7 +377,7 @@ $stored-payment-spacing: rem(16);
         @include media-breakpoint-down(sm) {
           margin:rem(0) rem(10) rem(10) rem(0);
         }
-        @include custom-media-query1($small-screen-width , $small-screen-width4) {
+        @include media-breakpoint-down(xs) { 
           margin:rem(0) rem(8) rem(8) rem(0);
         }
 
@@ -394,20 +399,22 @@ $stored-payment-spacing: rem(16);
             align-items: center;
             padding: rem(5);
           }
-          @include custom-media-query1($small-screen-width , $small-screen-width4) {
-            height: rem(35);
-            width: rem(73);
+          @include media-breakpoint-down(xs) {
+            height: rem(55);
+            width: rem(135);
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: rem(0);
+            padding: rem(5);
           }
           
           &.active {
             border: rem(2) solid $black;
           }
           &.apple-pay-link {
-            padding: rem(0);
+             padding: rem(0);
+             background-color: $black;
+             
             &.active {
               border: rem(0) solid $black;
             }
@@ -417,12 +424,8 @@ $stored-payment-spacing: rem(16);
 
         .apple-pay-link {
           border: none;
-
-          img {
-            
-            @include media-breakpoint-down(sm) {
-              height: rem(30); 
-            }
+          .apple-pay-logo-btn {
+            width: rem(48);
           }
         }
 
@@ -442,20 +445,18 @@ $stored-payment-spacing: rem(16);
 
           @include media-breakpoint-down(sm) { 
             font-size: rem(10.89);
-            text-transform: capitalize;
           }
-          @include custom-media-query1($small-screen-width , $small-screen-width4) { 
-            font-size: rem(9);
+          @include media-breakpoint-down(xs) { 
+            font-size: rem(14);
           }
-          
         }
 
         .alternative-payment-methods-links {
           background-color: $white;
           
           label {
-            @include custom-media-query1($small-screen-width , $small-screen-width4) { 
-              width: rem(55);
+            @include media-breakpoint-down(xs) { 
+              width: rem(72);
             }
           }
         }
@@ -472,6 +473,9 @@ $stored-payment-spacing: rem(16);
           img {
             @include media-breakpoint-down(sm) {
               height: rem(15);
+            }
+            @include media-breakpoint-down(xs) {
+              height: rem(20);
             }
           }
         }
@@ -500,18 +504,21 @@ $stored-payment-spacing: rem(16);
   }
 
   .affirm-payment-method {
-    padding: 0 rem(10) rem(10) rem(10);
-    margin: 0;
-    width: 100%;
-    .affirm-product-modal {
-      text-decoration: underline;
+    @include media-breakpoint-up(md) {
+      padding: 0 rem(10) rem(10) rem(10);
+      margin: 0;
+      width: 100%;
+      .affirm-product-modal {
+        text-decoration: underline;
+      }
     }
   }
 
   .affirm-panel-image {
       width: rem(75);
-      @include custom-media-query1($small-screen-width , $small-screen-width4) {
-        width: rem(55);
+      vertical-align: inherit;
+      @include media-breakpoint-down(xs) { 
+        width: rem(72);
       }
     }
   }

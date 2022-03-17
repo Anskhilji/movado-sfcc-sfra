@@ -723,8 +723,12 @@ header {
         top: rem(13);
         @include media-breakpoint-down(sm) {
           background: url("../../../images/klarna-mobile.svg") center center no-repeat;
-          left: 11px;
-          top: 10px; 
+          top: rem(0);
+          position: relative;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          left: rem(0);
         }
       }
     }
