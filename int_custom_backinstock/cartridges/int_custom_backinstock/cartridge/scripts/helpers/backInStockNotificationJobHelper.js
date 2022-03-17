@@ -13,7 +13,7 @@ var StringUtils = require('dw/util/StringUtils');
 var Resource = require('dw/web/Resource');
 var Transaction = require('dw/system/Transaction');
 var URLUtils = require('dw/web/URLUtils');
-var ProductMgr = require('dw/catalog/ProductMgr');
+
 var Constants = require('~/cartridge/scripts/utils/Constants');
 var emailHelpers = require('*/cartridge/scripts/helpers/emailHelpers');
 var productFactory = require('*/cartridge/scripts/factories/product');
@@ -109,7 +109,7 @@ function sendBackInStockNotificationEmail(backInStockNotificationObj, product) {
             emailFooter: (emailFooterContent && emailFooterContent.custom && emailFooterContent.custom.body ? emailFooterContent.custom.body : ''),
             emailContent: getEmailContent(product)
         }
-            emailHelpers.send(emailObj, 'mail/backInStockNotifiactionEmail', contextObj);
+        emailHelpers.send(emailObj, 'mail/backInStockNotifiactionEmail', contextObj);
     } catch (error) {
         success = false;
         Logger.error('Error occured while sending back in stock notifiaction email. BackInStockNotification Obj: {0} \n Error: {1} \n Stack Trace: {2}',
