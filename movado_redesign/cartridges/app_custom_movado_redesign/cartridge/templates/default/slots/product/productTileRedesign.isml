@@ -1,27 +1,38 @@
+
 <isif condition="${slotcontent && !!slotcontent.content.length}">
-    <div class="container-fluid">
+    <div class="container-fluid full-bleed-image-product">
         <div class="row">
-            <div class="col-6">
+            <div class="col-md-6">
                     <isif condition="${slotcontent.custom.bottomSectionCarousel}">
                         <div class="bottom-section">
                             <isprint value="${slotcontent.custom.bottomSectionCarousel}" encoding="off" />
                         </div>
                     </isif>
             </div>
-            <div class="col-6">
+            <div class="col-md-6">
                 <div class="row">
-                <isset name="counter" value="${0}">
-                    <isloop items="${slotcontent.content}" var="product" status="status">
-                        
-                            <div class="col-lg-6">
-                                <div class="carousel-tile">
-                                    <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true, 'recommendattionTile', true, 'lazyload', true)}"/>
+                    <div class="full-bleed-image-product">
+                        <div class="search-results plp-new-design row">
+                            <isloop items="${slotcontent.content}" var="product">
+                                <div class="col-6">
+                                    <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true, 'isHighResolutionImage', true, 'isPLP', true, 'isTopSearch', true)}" />
                                 </div>
-                            </div>
-                            <isif condition="${status.counter = 3 }">
-                            <isbreak/>
-                        </isif>
-                    </isloop>
+                            </isloop>
+                        </div>
+                    </div>
+
+                    <iscomment> <isset name="counter" value="${0}">
+                        <isloop items="${slotcontent.content}" var="product" status="status">
+                            
+                                <div class="col-lg-6">
+                                    <div class="carousel-tile">
+                                        <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true, 'recommendattionTile', true, 'lazyload', true)}"/>
+                                    </div>
+                                </div>
+                                <isif condition="${status.counter = 3 }">
+                                <isbreak/>
+                            </isif>
+                        </isloop> </iscomment>
                 </div>
             </div>
         </div>
