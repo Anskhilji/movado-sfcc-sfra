@@ -178,7 +178,7 @@
           background: $black;
 
           @include media-breakpoint-down(lg) {
-           top: auto;
+              top: auto;
           }
         }
       }
