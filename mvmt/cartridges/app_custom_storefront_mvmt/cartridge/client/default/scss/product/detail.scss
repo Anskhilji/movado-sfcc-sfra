@@ -111,7 +111,6 @@
 }
 
 .product-breadcrumb {
-    background: $white-gray;
     display: flex;
     justify-content: space-between;
     padding: rem(9) rem(16) rem(8);
@@ -128,9 +127,14 @@
             border-top: none;
         }
     }
-    .breadcrumb-item + .breadcrumb-item::before{
-        @include media-breakpoint-down(xs) {
-            padding: rem(0);
+    .breadcrumb-item {
+        padding-left: rem(5);
+        + .breadcrumb-item {
+            &::before {
+                @include media-breakpoint-down(xs) {
+                    padding-right: rem(5);
+                }
+            }
         }
     }
     .social-container {
@@ -185,12 +189,15 @@
                 a {
                     font-family: $font-bold;
                 }
+                @include media-breakpoint-down(xs) {
+                    a {
+                        font-family: $font-book !important;
+                    }
+                }
             }
         }
     }
 }
-
-
 .sticky-bar {
     display: none;
     position: fixed;
