@@ -166,9 +166,11 @@
 
     .breadcrumb {
         padding-bottom: 0;
+
         @include media-breakpoint-down(xs) {
             padding : rem(0);
         }
+
         &-item {
             a {
                 font-family: $font-book;
@@ -185,19 +187,22 @@
                     font-family: $font-book;
                 }
             }
+
             &:last-child {
+
                 a {
                     font-family: $font-bold;
                 }
                 @include media-breakpoint-down(xs) {
                     a {
-                        font-family: $font-book !important;
+                        font-family: $font-book;
                     }
                 }
             }
         }
     }
 }
+
 .sticky-bar {
     display: none;
     position: fixed;
