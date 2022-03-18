@@ -131,7 +131,8 @@ module.exports = {
                 $('html').removeClass('no-overflow');
             }
         });
-            
+        
+        // added active class & scroll down on reviews widget for mobile screen
         $('.rating-mlr > .ratings').on('click', function(e) {
             var $pdpMobileAccordian = $('.accordian-mobile');
             var $pdpContentBody = $('.accordian-mobile-body');
