@@ -131,6 +131,23 @@ module.exports = {
                 $('html').removeClass('no-overflow');
             }
         });
+            
+        $('.rating-mlr > .ratings').on('click', function(e) {
+            var $pdpMobileAccordian = $('.accordian-mobile');
+            var $pdpContentBody = $('.accordian-mobile-body');
+            var $isAccordianAcive = $('.accordian-mobile').hasClass('active');
+            var $isAccordianBodyActive = $('.accordian-mobile-body').hasClass('active');
+            
+            if($pdpMobileAccordian && $pdpContentBody) {
+                if(!$isAccordianAcive && !$isAccordianBodyActive) {
+                    $pdpMobileAccordian.addClass('active');
+                    $pdpContentBody.addClass('active');
+                    $('html, body').animate({
+                        scrollTop: $($pdpMobileAccordian).offset().top
+                    }, 10);
+                }
+            }
+        });
     },
 
     gallerySlider: function () {
