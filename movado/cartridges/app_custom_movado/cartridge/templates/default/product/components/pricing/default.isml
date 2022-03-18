@@ -41,15 +41,15 @@
     </isif>
 
     <isif condition="${isEswEnabled}">
-        <span class="sales sale-price-mvmt fggg">
+        <span class="sales sale-price-mvmt">
             <isif condition="${isLowPrice == 'range-low'}">
-                <span class="value value1" itemprop="lowprice" content="${finalOrigPrice ? finalOrigPrice.sales.value : ''}">
+                <span class="value" itemprop="lowprice" content="${finalOrigPrice ? finalOrigPrice.sales.value : ''}">
             </isif>
             <isif condition="${isLowPrice == 'range-high'}">
-                <span class="value value2" itemprop="highprice" content="${finalOrigPrice ? finalOrigPrice.sales.value : ''}">
+                <span class="value" itemprop="highprice" content="${finalOrigPrice ? finalOrigPrice.sales.value : ''}">
             </isif>
             <isif condition="${isLowPrice == null}">
-                <span class="value value3" itemprop="price" content="${finalOrigPrice ? finalOrigPrice.sales.value : ''}">
+                <span class="value" itemprop="price" content="${finalOrigPrice ? finalOrigPrice.sales.value : ''}">
             </isif>
             <isinclude template="/product/components/pricing/formatted" />
         </span>
