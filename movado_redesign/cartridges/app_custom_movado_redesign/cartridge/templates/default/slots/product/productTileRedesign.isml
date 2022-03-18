@@ -1,7 +1,7 @@
 
 <isif condition="${slotcontent && !!slotcontent.content.length}">
-    <div class="container-fluid full-bleed-image-product">
-        <div class="row">
+    <div class="container-fluid full-bleed-image-product quad-main-container">
+        <div class="row no-gutters row-mobile-wrapper">
             <div class="col-md-6">
                     <isif condition="${slotcontent.custom.bottomSectionCarousel}">
                         <div class="bottom-section">
@@ -9,30 +9,17 @@
                         </div>
                     </isif>
             </div>
-            <div class="col-md-6">
-                <div class="row">
+            <div class="col-md-6 col-space-mobile">
+                <div class="row homepagetile-wrapper-box">
                     <div class="full-bleed-image-product">
-                        <div class="search-results plp-new-design row">
+                        <div class="search-results plp-new-design row no-gutters-wrapper">
                             <isloop items="${slotcontent.content}" var="product">
-                                <div class="col-6">
+                                <div class="col-6 col-wrapper-inner">
                                     <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true, 'isHighResolutionImage', true, 'isPLP', true, 'isTopSearch', true)}" />
                                 </div>
                             </isloop>
                         </div>
                     </div>
-
-                    <iscomment> <isset name="counter" value="${0}">
-                        <isloop items="${slotcontent.content}" var="product" status="status">
-                            
-                                <div class="col-lg-6">
-                                    <div class="carousel-tile">
-                                        <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true, 'recommendattionTile', true, 'lazyload', true)}"/>
-                                    </div>
-                                </div>
-                                <isif condition="${status.counter = 3 }">
-                                <isbreak/>
-                            </isif>
-                        </isloop> </iscomment>
                 </div>
             </div>
         </div>
