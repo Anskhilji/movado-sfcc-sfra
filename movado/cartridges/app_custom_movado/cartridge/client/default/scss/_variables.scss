@@ -130,7 +130,7 @@ $font-awesome: "FontAwesome";
 $small-screen-width: 320px;
 $small-screen-width375: 375px;
 $large-screen-width: 1400px;
-
+ 
 @mixin custom-media-query($large-screen-width) {
   @media (min-width:#{$large-screen-width}) {
       @content;

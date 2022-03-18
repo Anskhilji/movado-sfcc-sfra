@@ -34,7 +34,7 @@ function getQuantitySelector($el) {
         ? $($el).closest('.product-detail').find('.quantity-select')
         : $('.quantity-select');
 }
-
+ 
 $(window).on("load resize scroll", function(e) {
     var width= $(window).width();
     var tileHeight=$('.search-results.plp-new-design .product-tile').height();
