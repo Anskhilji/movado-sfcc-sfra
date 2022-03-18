@@ -706,6 +706,9 @@
     
     .product-brand-info {
         width: 100%;
+        @include media-breakpoint-down(sm) {
+            padding: 0 rem(10);
+        }
     }
     @include media-breakpoint-up(md-down) {
         padding: rem(45) rem(32);
@@ -1009,12 +1012,9 @@
             margin-left: rem(70);
         }
 
-        @include media-breakpoint-down(sm) {
-            text-align: center;
-        }
-
         .product-brand-info {
             .category-watches {
+                padding-right: rem(20);
                 .watches {
                     &-product-name {
                         @include collection-subtitle-font;
@@ -1024,6 +1024,7 @@
                         text-overflow: ellipsis;
                         display: -webkit-box;
                         -webkit-line-clamp: 3;
+                        text-align: left;   
                     }
                     &-collection-name {
                         @include collection-title-font;
@@ -1035,6 +1036,50 @@
     
                     &-case-diameter {
                         @include collection-subtitle-font;
+                    }
+                }
+            }
+            .price{
+                font-family: "futura-pt", Arial, sans-serif;
+                color: $dark-gray;
+                font-size: rem(24);
+                @include font-medium;
+                letter-spacing: 0;
+                line-height: rem(31); 
+                @include media-breakpoint-down(sm) {
+                    font-size: rem(20);
+                    line-height: rem(26); 
+                }
+                // .value1,
+                // .value2,
+                // .value3{
+                //     color: $dark-gray;
+                // }
+                .proce-pdp-mvmt{
+                    display: flex;
+                    flex-direction: column-reverse;
+                    align-items: flex-end;
+                }
+                del{
+                    text-align: right;
+                    line-height: rem(20);
+                    margin-top: rem(4);
+                    @include media-breakpoint-down(sm) {
+                        margin-top: rem(5);  
+                    }
+                    span{
+                        opacity: 0.5;
+                        color: $dark-gray;
+                        font-size: rem(12);
+                        @include font-medium;
+                        letter-spacing: 0;
+                        line-height: rem(20);
+                        &.strike-through{
+                            margin-right: 0;
+                        }
+                    }
+                    & + .sale-price-mvmt{
+                        color: $dark-red;
                     }
                 }
             }
@@ -1184,7 +1229,7 @@
                 font-size: rem(28);
                 letter-spacing: rem(3);
             }
-            @include media-breakpoint-up(md-down){
+            @include media-breakpoint-up(md-down) {
                 font-family: $font-futura-pt;
             }
         }

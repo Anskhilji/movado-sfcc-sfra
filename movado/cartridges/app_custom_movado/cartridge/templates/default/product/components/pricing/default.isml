@@ -1,4 +1,4 @@
-<span>
+<span class="proce-pdp-mvmt">
     <isset name="finalOrigPrice" value="${price}" scope="page" />
     <isset name="formatMoney" value="${require('dw/util/StringUtils').formatMoney}" scope="page" />
     <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
@@ -39,21 +39,22 @@
     <iselse>
         <isset name="price" value="${!empty(finalOrigPrice) ? finalOrigPrice.sales : ''}" scope="page" />
     </isif>
+
     <isif condition="${isEswEnabled}">
-        <span class="sales">
+        <span class="sales sale-price-mvmt fggg">
             <isif condition="${isLowPrice == 'range-low'}">
-                <span class="value" itemprop="lowprice" content="${finalOrigPrice ? finalOrigPrice.sales.value : ''}">
+                <span class="value value1" itemprop="lowprice" content="${finalOrigPrice ? finalOrigPrice.sales.value : ''}">
             </isif>
             <isif condition="${isLowPrice == 'range-high'}">
-                <span class="value" itemprop="highprice" content="${finalOrigPrice ? finalOrigPrice.sales.value : ''}">
+                <span class="value value2" itemprop="highprice" content="${finalOrigPrice ? finalOrigPrice.sales.value : ''}">
             </isif>
             <isif condition="${isLowPrice == null}">
-                <span class="value" itemprop="price" content="${finalOrigPrice ? finalOrigPrice.sales.value : ''}">
+                <span class="value value3" itemprop="price" content="${finalOrigPrice ? finalOrigPrice.sales.value : ''}">
             </isif>
             <isinclude template="/product/components/pricing/formatted" />
         </span>
     <iselse>
-        <span class="sales">
+        <span class="sales sale-price-mvmt">
             <isif condition="${isLowPrice == 'range-low'}">
                 <span class="value" itemprop="lowprice" content="${price instanceof dw.value.Money ? price.decimalValue : price.decimalPrice}">
             </isif>
