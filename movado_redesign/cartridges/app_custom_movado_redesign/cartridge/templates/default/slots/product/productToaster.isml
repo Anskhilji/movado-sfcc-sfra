@@ -1,0 +1,40 @@
+<div class="full-bleed-Toaster-box full-bleed-image-product">
+    <isif condition="${slotcontent.custom.bottomSectionCarousel}">
+        <div class="bottom-section">
+            <isprint value="${slotcontent.custom.bottomSectionCarousel}" encoding="off" />
+        </div>
+    </isif>
+
+    <isif condition="${!empty(slotcontent.custom.categoryID)}">
+        <div class="product-popup-box d-flex align-items-end " id="product-tile-popup">
+            <div class="product-collection-box w-100">
+                <button class="close-product-popup-box p-0" id="close-popup">
+                    <img src="${URLUtils.staticURL('./images/close-popup.png')}" class="img-fluid" alt="">
+                </button>
+
+                <div class="product-collection-title text-center">${slotcontent.custom.categoryText} 47 Collection</div>
+
+                <div class="full-bleed-products-box">
+                    <div class="search-results plp-new-design d-flex">
+                        <isloop items="${slotcontent.content}" var="product">
+                            <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true,
+                                            'isHighResolutionImage', true, 'plpTile', true, 'isTopSearch', true)}" />
+                        </isloop>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </isif>
+
+    <div class="product-count-box">
+        <div class="total-count">
+            <isset name="productCount" value="${dw.catalog.CatalogMgr.getCategory(slotcontent.custom.categoryID).onlineProducts.length.toFixed()}" scope="page"/>
+            <p>${productCount}</p> 
+        </div>
+        <div class="product-custom-title">
+            ${slotcontent.custom.categoryText}
+        </div>
+        <a href="${URLUtils.url('Search-Show', cgid, 'categoryID')}">View All</a>
+    </div>  
+      
+</div>
