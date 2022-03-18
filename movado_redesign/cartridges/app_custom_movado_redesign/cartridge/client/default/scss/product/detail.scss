@@ -1454,6 +1454,9 @@ $arrow-height: 1.25em;
 
         .bottom-detail-mobile {
             margin-top: rem(-50);
+            @include media-breakpoint-down(xs) {
+                margin-top: rem(-34);
+            }
         }
 
         .promotions {
@@ -1467,6 +1470,9 @@ $arrow-height: 1.25em;
             margin-bottom: rem(20);
             min-height: 70vh;
             height: auto;
+            @include media-breakpoint-down(xs) {
+                min-height: 50vh;
+            }
         }
     }
 
