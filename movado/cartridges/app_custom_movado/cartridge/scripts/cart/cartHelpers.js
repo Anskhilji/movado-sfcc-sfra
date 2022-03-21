@@ -13,6 +13,8 @@ var BONUS_PRODUCTS_PAGE_SIZE = 6;
 var PRODUCTLINEEXCEPTION = 'NumberOfProductLineItemsExceededException';
 var Site = require('dw/system/Site');
 
+
+
 /**
  * Replaces Bundle master product items with their selected variants
  *
@@ -346,9 +348,18 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
     var productQuantityInCart;
     var quantityToSet;
     var optionModel = productHelper.getCurrentOptionModel(product.optionModel, options);
-    var addSeprateLineItemEnabled = Site.getCurrent().preferences.custom.enableSeprateLineItemInCart;
     var isClydeEnabled = Site.getCurrent().preferences.custom.isClydeEnabled;
 
+    if (isClydeEnabled) {
+        var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
+        var clydeOptions = addClydeContract.getClydeSelectedOptionProduct(form, productId);
+        var addSeprateLineItemEnabled = Site.getCurrent().preferences.custom.enableSeprateLineItemInCart;
+        var clydeSKU = '';
+        if (!empty(clydeOptions.optionProduct)) {
+            optionModel = clydeOptions.optionProduct;
+            clydeSKU = clydeOptions.clydeSKUID;
+        }
+    }
 
     var result = {
         error: false,
@@ -387,7 +398,7 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
     			product, productId, productLineItems, childProducts, options);
     }
 
-    if (productInCart) {
+    if (productInCart && empty(optionModel)) {
         productQuantityInCart = productInCart.quantity.value;
         quantityToSet = quantity ? quantity + productQuantityInCart : productQuantityInCart + 1;
         availableToSell = productInCart.product.availabilityModel.inventoryRecord.ATS.value;
@@ -421,11 +432,11 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
                 optionModel,
                 defaultShipment
             );
-            result.uuid = productLineItem.UUID;
             if (isClydeEnabled) {
                 var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
-                addClydeContract.addContractsToCart(quantity, form, defaultShipment, currentBasket, productLineItems, productId);
+                addClydeContract.addClydeContractAttributes(clydeSKU, currentBasket, productId);
             }
+            result.uuid = productLineItem.UUID;
         } catch (e) {
             var msg = e;
             result.error = true;
