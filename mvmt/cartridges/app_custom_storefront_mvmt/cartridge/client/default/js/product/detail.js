@@ -133,7 +133,7 @@ module.exports = {
         });
         
         // added active class & scroll down on reviews widget for mobile screen
-        $('.rating-mlr > .ratings').on('click', function(e) {
+        $('.rating-margin > .ratings').on('click', function(e) {
             var $pdpMobileAccordian = $('.accordian-mobile');
             var $pdpContentBody = $('.accordian-mobile-body');
             var $isAccordianAcive = $('.accordian-mobile').hasClass('active');
