@@ -1,4 +1,4 @@
-<span class="proce-pdp-mvmt">
+<span class="price-pdp-mvmt">
     <isset name="finalOrigPrice" value="${price}" scope="page" />
     <isset name="formatMoney" value="${require('dw/util/StringUtils').formatMoney}" scope="page" />
     <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
