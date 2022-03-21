@@ -16,7 +16,7 @@
                     ${Resource.msg('choose.country.dropdown','storeLocator',null)}
                 </option>
                 <isloop items="${pdict.countries}" var="country">
-                    <option  class="form-control" value="${country.code}">${country.name}</option>
+                    <option  class="form-control" value="${country.code}" ${pdict.countryCode === country.code ? 'selected' : '' }> ${country.name} </option>
                 </isloop>
             </select>
             <i class="fa fa-angle-down"></i>
