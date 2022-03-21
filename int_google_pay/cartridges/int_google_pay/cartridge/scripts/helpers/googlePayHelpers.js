@@ -114,8 +114,6 @@ function removeAllProductLineItemsFromBasket(currentBasket) {
                 currentBasket.removeShipment(shipmentToRemove);
             }
         });
-        currentBasket.custom.clydeContractProductList = JSON.stringify('');
-        delete session.custom.clydeContractProductList;
     });
 
 }
