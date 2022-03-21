@@ -122,4 +122,4 @@ $large-screen-width: 1400px;
   @media (min-width:#{$large-screen-width}) {
       @content;
   }
-} 
+}

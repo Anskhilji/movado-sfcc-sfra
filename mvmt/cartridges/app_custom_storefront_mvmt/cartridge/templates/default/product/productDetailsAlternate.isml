@@ -244,6 +244,14 @@
             <iscontentasset aid="${product.pdpCollectionContentAssetID}" />
         </isif>
 
+        <isslot id="cs_pdp_marketing-section-1" description="content section" context="global" />
+        <div class="pdp-marketing-content-asset-wrapper">
+            <isif condition="${!empty(product.pdpMarketingContentAssetHTML)}">
+                <isprint value="${product.pdpMarketingContentAssetHTML}" encoding="off" />
+            </isif>
+        </div>
+        <isslot id="cs_pdp_marketing-section-2" description="content section" context="global" />
+
 
 
         <isslot id="cs_pdp_related_details" description="CS PDP Related details" context="global" />

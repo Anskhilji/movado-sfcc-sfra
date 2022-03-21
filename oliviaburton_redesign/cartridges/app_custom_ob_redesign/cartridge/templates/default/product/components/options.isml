@@ -1,0 +1,35 @@
+<div class="
+    <isif condition="${!isQuickView}">col-md-10</isif>
+    col-12 product-options">
+    <isloop items="${product.options}" var="option" status="loopStatus">
+        <div class="product-option" data-option-id="${option.id}">
+            <iscomment> added class p-0 </iscomment>
+            <div class="p-0">
+                <isif condition="${option.id.indexOf('Embossed') > -1}">
+                    <isif condition="${pdict.isEmbossEnabled}">
+                        <isinclude template="product/components/productEmbossing" />
+                    </isif>
+                <iselseif condition="${option.id.indexOf('Engraved') > -1}">
+                    <isif condition="${pdict.isEngraveEnabled}">
+                        <isinclude template="product/components/productEngraving" />
+                    </isif>
+                <iselseif condition = "${option.id.indexOf('GiftWrapped') > -1}">
+                <div class="d-none">
+                    <isif condition="${pdict.isGiftWrapEnabled}">
+                        <isinclude template="product/components/option" />
+                    </isif>
+                </div>
+                <iselse>
+                   <isinclude template="product/components/option" />
+                </isif>
+            </div>
+
+            <!-- Quantity Drop Down Menu -->
+            <isif condition="${loopStatus.last && (!isQuickView || isProductSet)}">
+                <div class="col-4 quantity">
+                    <isinclude template="product/components/quantity" />
+                </div>
+            </isif>
+        </div>
+    </isloop>
+</div>
