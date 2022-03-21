@@ -1,0 +1,221 @@
+{
+    "step-types": {
+        "chunk-script-module-step":[
+            { 
+                "@type-id":"custom.ClydeFullProductsExports",
+                "@supports-parallel-execution":"false",
+                "@supports-site-context":"true",
+                "@supports-organization-context":"false",
+                "description":"Send products to Clyde API",
+                "module":"bm_clyde/cartridge/scripts/jobs/products/sendFullProducts.js",
+                "before-step-function":"beforeStep",
+                "read-function":"read",
+                "process-function":"process",
+                "write-function":"write",
+                "after-step-function":"afterStep",
+                "chunk-size":500,
+                "transactional":"false",
+                "parameters":{ 
+                    "parameter":[ 
+                        { 
+                            "@name":"isDryRun",
+                            "description":"If true, then it will run but will not send the products to Clyde",
+                            "@type":"boolean",
+                            "@required":"true",
+                            "@trim":"true",
+                            "default-value":"true"
+                        }
+                    ]
+                },
+                "status-codes":{ 
+                    "status":[ 
+                        { 
+                            "@code":"ERROR",
+                            "description":"Used when the step failed with an error."
+                        },
+                        { 
+                            "@code":"OK",
+                            "description":"Used when the step finished successfully."
+                        }
+                    ]
+                }
+            },
+            { 
+                "@type-id":"custom.ClydeDeltaProductsExports",
+                "@supports-parallel-execution":"false",
+                "@supports-site-context":"true",
+                "@supports-organization-context":"false",
+                "description":"Send products to Clyde API",
+                "module":"bm_clyde/cartridge/scripts/jobs/products/sendDeltaProducts.js",
+                "before-step-function":"beforeStep",
+                "read-function":"read",
+                "process-function":"process",
+                "write-function":"write",
+                "after-step-function":"afterStep",
+                "chunk-size":500,
+                "transactional":"false",
+                "parameters":{ 
+                    "parameter":[ 
+                        { 
+                            "@name":"isDryRun",
+                            "description":"If true, then it will run but will not send the products to Clyde",
+                            "@type":"boolean",
+                            "@required":"true",
+                            "@trim":"true",
+                            "default-value":"true"
+                        }
+                    ]
+                },
+                "status-codes":{ 
+                    "status":[ 
+                        { 
+                            "@code":"ERROR",
+                            "description":"Used when the step failed with an error."
+                        },
+                        { 
+                            "@code":"OK",
+                            "description":"Used when the step finished successfully."
+                        }
+                    ]
+                }
+            },
+            { 
+                "@type-id":"custom.ClydeExportNewProducts",
+                "@supports-parallel-execution":"false",
+                "@supports-site-context":"true",
+                "@supports-organization-context":"false",
+                "description":"Send products to Clyde API",
+                "module":"bm_clyde/cartridge/scripts/jobs/products/sendNewProducts.js",
+                "before-step-function":"beforeStep",
+                "read-function":"read",
+                "process-function":"process",
+                "write-function":"write",
+                "after-step-function":"afterStep",
+                "chunk-size":500,
+                "transactional":"false",
+                "parameters":{ 
+                    "parameter":[ 
+                        { 
+                            "@name":"isDryRun",
+                            "description":"If true, then it will run but will not send the products to Clyde",
+                            "@type":"boolean",
+                            "@required":"true",
+                            "@trim":"true",
+                            "default-value":"true"
+                        }
+                    ]
+                },
+                "status-codes":{ 
+                    "status":[ 
+                        { 
+                            "@code":"ERROR",
+                            "description":"Used when the step failed with an error."
+                        },
+                        { 
+                            "@code":"OK",
+                            "description":"Used when the step finished successfully."
+                        }
+                    ]
+                }
+            }
+        ],
+        
+        "script-module-step": [
+            {
+                "@type-id":"custom.SendOrders",
+                "module":"bm_clyde/cartridge/scripts/jobs/orders/sendOrders.js",
+                "description":"Send orders to Clyde",
+                "function":"Run",
+                "parameters": {
+                    "parameter": [
+                        {
+                            "@name":"isDryRun",
+                            "description":"If true, then it will run but will not send the orders to Clyde",
+                            "@type":"boolean",
+                            "@required":"true",
+                            "@trim":"true",
+                            "default-value":"true"
+                        },
+                        {
+                            "@name":"Starting Order Number",
+                            "description":"If provided then the job will start sending the orders starting from this order number.",
+                            "@type":"string",
+                            "@required":"false",
+                            "@trim":"true",
+                            "default-value":""
+                        }
+                    ]
+                },
+                "status-codes": {
+                    "status": [
+                        {
+                            "@code":"ERROR",
+                            "description": "Step execution failed."
+                        },
+                        {
+                            "@code":"FINISHED",
+                            "description":"Step execution finished successfully."
+                        }
+                    ]
+                }
+            },
+            {
+                "@type-id":"custom.SendCancelOrders",
+                "module":"bm_clyde/cartridge/scripts/jobs/orders/sendCancelOrders.js",
+                "description":"Send Cancel orders to Clyde API",
+                "function":"Run",
+                "parameters": {
+                    "parameter": [
+                        {
+                            "@name":"isDryRun",
+                            "description":"If true, then it will run but will not send the orders to Clyde",
+                            "@type":"boolean",
+                            "@required":"true",
+                            "@trim":"true",
+                            "default-value":"true"
+                        },
+                        {
+                            "@name":"Starting Order Number",
+                            "description":"If provided then the job will start sending the orders starting from this order number.",
+                            "@type":"string",
+                            "@required":"false",
+                            "@trim":"true",
+                            "default-value":""
+                        }
+                    ]
+                },
+                "status-codes": {
+                    "status": [
+                        {
+                            "@code":"ERROR",
+                            "description": "Step execution failed."
+                        },
+                        {
+                            "@code":"FINISHED",
+                            "description":"Step execution finished successfully."
+                        }
+                    ]
+                }
+            },
+            { 
+                "@type-id":"custom.clydeImportContracts",
+                "description":"Import Clyde Contracts to SFCC using Option Product",
+                "module":"bm_clyde/cartridge/scripts/jobs/products/importClydeContract.js",
+                "function":"execute",
+                "@supports-site-context":"true",
+                "status-codes":{ 
+                    "status":[ 
+                        { 
+                            "@code":"ERROR",
+                            "description":"Used when the step failed with an error."
+                        },
+                        { 
+                            "@code":"OK",
+                            "description":"Used when the step finished successfully."
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

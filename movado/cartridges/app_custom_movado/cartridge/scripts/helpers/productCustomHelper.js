@@ -5,6 +5,7 @@ var Logger = require('dw/system/Logger');
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 var productTile = require('*/cartridge/models/product/productTile');
 var Constants = require('*/cartridge/scripts/util/Constants');
+var ContentMgr = require('dw/content/ContentMgr');
 
 
 
@@ -84,9 +85,34 @@ function getPdpVideoConfigs(apiProduct) {
     return pdpVideoConfigs;
 }
 
+/**
+ * Method use to get marketing content asset HTML to render on PDP
+ * @param {Product} apiProduct
+ * @returns {String} content asset HTML
+ */
+ function getPDPMarketingContentAssetHTML(apiProduct) {
+    try {
+        var contentAssetID = !empty(apiProduct.custom.pdpMarketingContentAssetID) ? apiProduct.custom.pdpMarketingContentAssetID : '';
+        if (empty(contentAssetID) && apiProduct.variant) {
+            contentAssetID = !empty(apiProduct.masterProduct.custom.pdpMarketingContentAssetID) ? apiProduct.masterProduct.custom.pdpMarketingContentAssetID : '';
+        }
+        var pdpContentAsset = ContentMgr.getContent(contentAssetID);
+        var pdpContentAssetHTML;
+        if (pdpContentAsset  && pdpContentAsset.online && !empty(pdpContentAsset.custom.body) ) {
+            pdpContentAssetHTML = pdpContentAsset.custom.body.markup.toString();
+        }
+        return pdpContentAssetHTML;
+    } catch (e) {
+        Logger.error('(productCustomHepler.js -> getPDPMarketingContentAssetHTML) Error occured while getting pdp content asset html: ' + e.stack, e.message);
+        return '';
+    }
+}
+
+
 module.exports = {
     getExplicitRecommendations: getExplicitRecommendations,
     getCollectionName: getCollectionName,
     getSaveMessage: getSaveMessage,
-    getPdpVideoConfigs: getPdpVideoConfigs
+    getPdpVideoConfigs: getPdpVideoConfigs,
+    getPDPMarketingContentAssetHTML: getPDPMarketingContentAssetHTML
 };

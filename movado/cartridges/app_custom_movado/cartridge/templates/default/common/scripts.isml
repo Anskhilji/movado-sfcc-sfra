@@ -33,3 +33,7 @@
 <isif condition="${enableUsablenetAccessibility}">
     <script type="text/javascript" src="${dw.system.Site.getCurrent().preferences.custom.usablenetAccessibilityStaticURL}"></script>
 </isif>
+
+<isif condition="${dw.system.Site.current.preferences.custom.clydeWidgetsEnabled}">
+    <script src="${URLUtils.staticURL('/js/customClydeWidget.js')}"></script>
+</isif>
