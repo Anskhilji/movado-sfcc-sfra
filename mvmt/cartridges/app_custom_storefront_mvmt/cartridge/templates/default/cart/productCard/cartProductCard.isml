@@ -71,10 +71,9 @@
                         <isset name="isGiftBoxAllowed" value="${require('*/cartridge/scripts/helpers/productCustomHelper').isGiftBoxAllowed(product)}" scope="page" />
                         <isset name="giftBoxSKUData" value="${require('*/cartridge/scripts/helpers/productCustomHelper').getGiftBoxSKU(product)}" scope="page" />
                         <isset name="isCartPage" value="${true}" scope="page" />
-        
-                        <isif condition="${!empty(isGiftBoxAllowed) && isGiftBoxAllowed && giftBoxSKUData.giftBoxSKUAvailability}">
-                            <input type="checkbox" data-add-to-cart-url="${URLUtils.url('Cart-AddProduct')}" data-requested-page="${isCartPage}" name="gift-allowed-checkout" class="gift-allowed-checkbox" value="${giftBoxSKUData.giftBoxSKU}">
-                            <label for="gift-allowed-checkout">Add A Gift Box x ${giftBoxSKUData.giftBoxSKUPrice} </label>
+                        <isif condition="${!empty(isGiftBoxAllowed) && isGiftBoxAllowed && giftBoxSKUData.giftBoxSKUAvailability && !pdict.giftProduct}">
+                            <input type="checkbox" data-add-to-cart-url="${URLUtils.url('Cart-AddProduct')}" data-requested-page="${isCartPage}" name="gift-allowed-checkout" class="gift-allowed-checkbox gift-allowed-checkbox-mini" value="${giftBoxSKUData.giftBoxSKU}">
+                            <label for="gift-allowed-checkout">Add A Gift Box ${giftBoxSKUData.giftBoxSKUPrice} </label>
                         </isif>
                         <iscomment> <isinclude template="common/giftBoxMessageDetails" /> </iscomment>
                         <isif condition="${pdict.loggedIn}">

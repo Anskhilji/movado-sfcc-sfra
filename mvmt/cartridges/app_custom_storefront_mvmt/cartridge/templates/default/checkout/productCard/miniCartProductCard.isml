@@ -108,10 +108,10 @@
         <isset name="product" value="${dw.catalog.ProductMgr.getProduct(lineItem.id)}" scope="page" />
         <isset name="isGiftBoxAllowed" value="${require('*/cartridge/scripts/helpers/productCustomHelper').isGiftBoxAllowed(product)}" scope="page" />
         <isset name="giftBoxSKUData" value="${require('*/cartridge/scripts/helpers/productCustomHelper').getGiftBoxSKU(product)}" scope="page" />
-        <isif condition="${!empty(isGiftBoxAllowed) && isGiftBoxAllowed && giftBoxSKUData.giftBoxSKUAvailability}">
+        <isif condition="${!empty(isGiftBoxAllowed) && isGiftBoxAllowed && giftBoxSKUData.giftBoxSKUAvailability && !pdict.giftProduct}">
             <div class="gift-box-wrapper">
-                <input type="checkbox" data-add-to-cart-url="${URLUtils.url('Cart-AddProduct')}" name="gift-allowed-checkout" class="gift-box-wrapper-checkbox" value="${giftBoxSKUData.giftBoxSKU}">
-                <label for="gift-allowed-checkout" class="gift-box-wrapper-label">Add A Gift Box x ${giftBoxSKUData.giftBoxSKUPrice} </label>
+                <input type="checkbox" data-add-to-cart-url="${URLUtils.url('Cart-AddProduct')}" name="gift-allowed-checkout" class="gift-box-wrapper-checkbox gift-allowed-checkbox gift-allowed-checkbox-mini" value="${giftBoxSKUData.giftBoxSKU}">
+                <label for="gift-allowed-checkout" class="gift-box-wrapper-label">Add A Gift Box ${giftBoxSKUData.giftBoxSKUPrice} </label>
             </div>
         </isif>
         <iscomment> <isinclude template="common/giftBoxMessageDetails" /> </iscomment>

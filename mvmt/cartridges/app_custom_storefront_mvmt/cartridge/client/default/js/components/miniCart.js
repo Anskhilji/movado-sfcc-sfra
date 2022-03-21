@@ -40,7 +40,7 @@ function giftMessageTooltip() {
     $('body').on('click','.gift-messages-tooltip', function() {
         $('.custom-tooltipsmart').show();
     });
-    
+
     $('body').on('click','.gift-messages-model-close', function() {
         $('.custom-tooltipsmart').hide();
     });
@@ -88,7 +88,7 @@ var updateCartPage = function(data) {
  * re-renders the order totals and the number of items in the cart
  * @param {Object} data - AJAX response from the server
  */
- function updateCartTotals(data) { 
+ function updateCartTotals(data) {
     if (data.numItems) {
         $('.minicart .item_count').text(data.numItems);
     }
@@ -166,7 +166,7 @@ var updateCartPage = function(data) {
  * Updates the Mini-Cart quantity value after the customer has pressed the "Add to Cart" button
  * @param {string} response - ajax response from clicking the add to cart button
  */
- function handlePostCartAdd(response) { 
+ function handlePostCartAdd(response) {
     $('.minicart').trigger('count:update', response);
     if (typeof setMarketingProductsByAJAX !== 'undefined' && response.marketingProductData !== undefined) {
         setMarketingProductsByAJAX.cartMarketingData = response.marketingProductData;
@@ -184,7 +184,7 @@ var updateCartPage = function(data) {
         }
         if(response.addCartGtmArray !== undefined){
              $('body').trigger('addToCart:success', JSON.stringify(response.addCartGtmArray));
-        }   
+        }
     }
     if (response.newBonusDiscountLineItem
         && Object.keys(response.newBonusDiscountLineItem).length !== 0) {
@@ -371,8 +371,8 @@ module.exports = function () {
                             var ltkSendSCA = require('listrak_custom/ltkSendSCA');
                             ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
                         }
-                        $('.gift-allowed-checkbox').hide();
-                        $('.gift-allowed-checkbox').next('label').hide();
+                        $('.gift-allowed-checkbox-mini').hide();
+                        $('.gift-allowed-checkbox-mini').next('label').hide();
                         $.spinner().stop();
                         //Custom End
                     },
