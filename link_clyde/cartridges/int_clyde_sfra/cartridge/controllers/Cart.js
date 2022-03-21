@@ -101,7 +101,7 @@ server.replace('AddProduct', function (req, res, next) {
     /**
      * Custom Start: Removing reportingURL as it is not supported in our code base
      */
-    //var reportingURL = cartHelper.getReportingUrlAddToCart(currentBasket, result.error);
+    // var reportingURL = cartHelper.getReportingUrlAddToCart(currentBasket, result.error);
     // res.json({
     //     reportingURL: reportingURL,
     //     quantityTotal: quantityTotal,
@@ -132,32 +132,7 @@ server.replace('AddProduct', function (req, res, next) {
         newBonusDiscountLineItem: newBonusDiscountLineItem || {},
         error: result.error,
         pliUUID: result.uuid
-    })
-
-    next();
-});
-
-
-server.append('RemoveProductLineItem', function (req, res, next) {
-    var query = req.querystring;
-    var deletedProductId = query.pid;
-    var productUUID = query.uuid;
-    var addClydeContract = require('*/cartridge/scripts/clydeAddContracts');
-    var BasketMgr = require('dw/order/BasketMgr');
-    var Transaction = require('dw/system/Transaction');
-    var currentBasket = BasketMgr.getCurrentBasket();
-    var CartModel = require('*/cartridge/models/cart');
-    var deletedContractUUIDs = [];
-    Transaction.wrap(function () {
-        deletedContractUUIDs = addClydeContract.updateContracts(currentBasket,deletedProductId,productUUID);
     });
-
-    var basketModel = new CartModel(currentBasket);
-    var basketModelPlus = {
-        basket: basketModel,
-        toBeDeletedUUIDs: deletedContractUUIDs ? deletedContractUUIDs : []
-    };
-    res.json(basketModelPlus);
 
     next();
 });
@@ -169,8 +144,10 @@ server.append('UpdateQuantity', function (req, res, next) {
     var currentBasket = BasketMgr.getCurrentBasket();
     var CartModel = require('*/cartridge/models/cart');
 
+    var productId = req.querystring.pid;
     Transaction.wrap(function () {
-        addClydeContract.updateContracts(currentBasket);
+        // add new code for MSS-1671 v2Cartridge
+        addClydeContract.updateClydeProductOption(productId, currentBasket);
     });
 
     var basketModel = new CartModel(currentBasket);
