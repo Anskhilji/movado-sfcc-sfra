@@ -11,7 +11,7 @@ describe('Add product to cart', function () {
     it('should verify that product is added to the cart', function () {
     this.timeout(10000);
         var qty1 = 1;
-        var variantPid = '793775370033';
+        var variantPid = '701644329402M';
         var addToCartRequest = {
             url: '',
             method: 'POST',
@@ -35,7 +35,7 @@ describe('Add product to cart', function () {
                 assert.property(bodyAsJson, 'cart');
                 assert.property(bodyAsJson.cart, 'items');
                 assert.equal(bodyAsJson.cart.items.length, 1);
-                assert.equal(bodyAsJson.cart.items[0].id, '793775370033');
+                assert.equal(bodyAsJson.cart.items[0].id, '701644329402M');
             });
     });
 });

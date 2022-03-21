@@ -276,8 +276,7 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
                 order.custom.isContainClydeContract = false;
                 order.custom.clydeContractProductMapping = '';
             });
-            var contractProductList = currentBasket.custom.clydeContractProductList || false;
-            addClydeContract.createOrderCustomAttr(contractProductList, order);
+            addClydeContract.createOrderCustomAttr(order);
         }
 		/**
 		 * Custom: End
