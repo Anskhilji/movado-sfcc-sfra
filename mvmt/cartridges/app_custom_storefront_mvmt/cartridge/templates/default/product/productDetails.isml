@@ -44,13 +44,6 @@
         <div class="container-fluid product-detail product-wrapper pdp-mvmt"  data-pid="${product.id}" data-gtm-fb-product="${JSON.stringify(product)}" itemscope
             itemtype="http://schema.org/Product">
             <!---Breadcrumbs--->
-            <div class="row ratings-mobile pb-2">
-                <div class="col-12">
-                    <div class="ratings">
-                        <isinclude template="product/components/productRating" />
-                    </div>
-                </div>
-            </div>
             <hr class="hidden-xs-down d-none"/>
             <div class="row pdp-desktop m-0">
                 <!-- Product Images Carousel -->
@@ -152,7 +145,13 @@
                         <isset name="price" value="${product.price}" scope="page" />
                         <isinclude template="product/components/pricing/main" />
                     </div>
-
+                    <div class="ratings-mobile pb-2">
+                        <div class="col-12 rating-margin">
+                            <div class="ratings p-0">
+                                <isinclude template="product/components/productRating" />
+                            </div>
+                        </div>
+                    </div>
                     <div class="show-cart-button-below-price">
                         <div class="row">
                             <div class="col-12 prices-add-to-cart-actions-top">
