@@ -723,9 +723,9 @@
         padding: rem(65) rem(32);
     }
     .ratings-mobile {
-        @include media-breakpoint-down(xs) {
 
-            .rating-mlr {
+        @include media-breakpoint-down(xs) {
+            .rating-margin {
                 padding: 0 rem(10);
             }
         }
@@ -1141,7 +1141,7 @@
             height: rem(24);
             
             @include media-breakpoint-down(sm) {
-                #yotpo-bottomline-top-div{
+                #yotpo-bottomline-top-div {
                     width: 100%;
                 }
             }
@@ -1156,7 +1156,8 @@
                     letter-spacing: 0 !important;
                     line-height: rem(20);
                 }
-                .yotpo-bottomline{
+
+                .yotpo-bottomline {
                     width: 100%;
 
                     .yotpo-stars {

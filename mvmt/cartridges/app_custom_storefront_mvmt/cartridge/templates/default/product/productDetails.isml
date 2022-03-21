@@ -146,7 +146,7 @@
                         <isinclude template="product/components/pricing/main" />
                     </div>
                     <div class="ratings-mobile pb-2">
-                        <div class="col-12 rating-mlr">
+                        <div class="col-12 rating-margin">
                             <div class="ratings p-0">
                                 <isinclude template="product/components/productRating" />
                             </div>
