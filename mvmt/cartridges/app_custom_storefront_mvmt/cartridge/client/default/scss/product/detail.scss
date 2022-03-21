@@ -111,6 +111,7 @@
 }
 
 .product-breadcrumb {
+    background: $white-gray;
     display: flex;
     justify-content: space-between;
     padding: rem(9) rem(16) rem(8);
@@ -122,6 +123,8 @@
         }
     }
     @include media-breakpoint-down(xs) {
+        background: none;
+        opacity: 0.69;
         padding: rem(10);
         .row {
             border-top: none;
