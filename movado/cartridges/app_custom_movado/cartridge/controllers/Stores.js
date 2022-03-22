@@ -17,7 +17,6 @@ server.extend(page);
  * It renders the storelocator.
  */
 server.replace('Find', server.middleware.https, cache.applyDefaultCache, consentTracking.consent, function (req, res, next) {
-    var customerCurrentCountry = require('*/cartridge/scripts/helper/SFMCAPIHelper');
     var radius = req.querystring.radius;
     var countryCode = req.querystring.countryCode;
     var lat = req.querystring.lat;
@@ -35,8 +34,7 @@ server.replace('Find', server.middleware.https, cache.applyDefaultCache, consent
 
     var storeResult = storeHelpers.getStores(radius, lat, lng, req.geolocation, countryCode, showMap, null, null);
     if(!countryCode){
-        countryCode = customerCurrentCountry.getCurrentCountry();
-        countryCode.toUpperCase();
+        countryCode = request.geolocation.countryCode.toUpperCase();
     }
     viewData = {
         countries: countries,
