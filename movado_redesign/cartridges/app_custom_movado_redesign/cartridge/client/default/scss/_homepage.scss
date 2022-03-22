@@ -1,17 +1,17 @@
 @import "variables";
 @import "bootstrap/scss/variables";
 @import "bootstrap/scss/mixins/breakpoints";
-// @import "components/categoryTiles";
 
 .available-style-watches {
     position: relative;
+
     .watches-content {
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
         right: 6.5%;
         &-style-text {
-            font-family: 'futura-pt';
+            @include font-light;
             color: $white;
             font-size: rem(15);
             font-weight: 300;
@@ -21,16 +21,15 @@
                 font-size: rem(14);
                 line-height: rem(19);
             }
-            @include media-breakpoint-down(sm){
+            @include media-breakpoint-down(sm) {
                 font-size: rem(11);
                 line-height: rem(13);
             }
         }
         &-title {
             color: $white;
-            font-family: 'futura-pt';
+            @include font-medium;
             font-size: rem(34);
-            font-weight: 500;
             letter-spacing: 0;
             line-height: rem(41);
             margin-bottom: rem(8);
@@ -38,14 +37,14 @@
                 font-size: rem(24);
                 line-height: rem(34);
             }
-            @include media-breakpoint-down(sm){
+            @include media-breakpoint-down(sm) {
                 font-size: rem(15);
                 line-height: rem(20);
             }
         }
         &-explore-btn {
             color: $white;
-            font-family: 'futura-pt';
+            @include font-medium;
             font-size: rem(16);
             font-weight: 500;
             letter-spacing: 0;
@@ -55,13 +54,11 @@
             border: 1px solid $white;
             display: inline-block;
             @include media-breakpoint-down(lg) {
-            // @include large-1200{
                 padding: rem(5.9) rem(30);
                 font-size: rem(14);
                 line-height: rem(19);
             }
             @include media-breakpoint-down(sm) {
-            // @include small-767{
                 padding: rem(4) rem(20);
                 font-size: rem(11);
                 line-height: rem(18);
