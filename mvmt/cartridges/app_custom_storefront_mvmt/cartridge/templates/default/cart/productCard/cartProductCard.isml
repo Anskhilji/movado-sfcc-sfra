@@ -73,7 +73,7 @@
                         <isset name="isCartPage" value="${true}" scope="page" />
                         <isif condition="${!empty(isGiftBoxAllowed) && isGiftBoxAllowed && giftBoxSKUData.giftBoxSKUAvailability && !pdict.giftProduct}">
                             <input type="checkbox" data-add-to-cart-url="${URLUtils.url('Cart-AddProduct')}" data-requested-page="${isCartPage}" name="gift-allowed-checkout" class="gift-allowed-checkbox gift-allowed-checkbox-mini" value="${giftBoxSKUData.giftBoxSKU}">
-                            <label for="gift-allowed-checkout">Add A Gift Box ${giftBoxSKUData.giftBoxSKUPrice} </label>
+                            <label for="gift-allowed-checkout">${Resource.msg('label.minicart.gift.message','cart',null)} ${giftBoxSKUData.giftBoxSKUPrice}</label>
                         </isif>
                         <iscomment> <isinclude template="common/giftBoxMessageDetails" /> </iscomment>
                         <isif condition="${pdict.loggedIn}">

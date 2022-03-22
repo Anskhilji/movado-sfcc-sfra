@@ -111,7 +111,7 @@
         <isif condition="${!empty(isGiftBoxAllowed) && isGiftBoxAllowed && giftBoxSKUData.giftBoxSKUAvailability && !pdict.giftProduct}">
             <div class="gift-box-wrapper">
                 <input type="checkbox" data-add-to-cart-url="${URLUtils.url('Cart-AddProduct')}" name="gift-allowed-checkout" class="gift-box-wrapper-checkbox gift-allowed-checkbox gift-allowed-checkbox-mini" value="${giftBoxSKUData.giftBoxSKU}">
-                <label for="gift-allowed-checkout" class="gift-box-wrapper-label">Add A Gift Box ${giftBoxSKUData.giftBoxSKUPrice} </label>
+                <label for="gift-allowed-checkout" class="gift-box-wrapper-label">${Resource.msg('label.minicart.gift.message','cart',null)} ${giftBoxSKUData.giftBoxSKUPrice}</label>
             </div>
         </isif>
         <iscomment> <isinclude template="common/giftBoxMessageDetails" /> </iscomment>
