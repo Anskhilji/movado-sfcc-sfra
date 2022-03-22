@@ -50,11 +50,6 @@
                 <isinclude template="product/components/imageCarouselPDP" />
 
                 <div class="product-side-details">
-                    <div class="product-tag-wrapper mvmt-avilability ${!product.available ? '' : 'opacity-0'}">
-                        <isif condition="${!product.available}">
-                            <span class="product-tag tag-red">${Resource.msg('label.soldout', 'product', null)}</span>
-                        </isif>
-                    </div>
 
                     <isinclude template="product/components/badges" />
 
