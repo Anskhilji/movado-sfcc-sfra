@@ -59,7 +59,7 @@
                     <isinclude template="product/components/badges" />
 
                     <iscomment> Custom Start: Change Naming Conventions for PDP </iscomment>
-                    <div class="product-brand-info">
+                    <div class="product-brand-info d-flex align-items-start justify-content-between">
                         <isif condition="${(product.isCategory) == "watches"}">
                             <div class="category-watches">
                                 <h1>
@@ -126,6 +126,14 @@
                                 </isif>
                             </h1>
                         </isif>
+
+                        <!-- Product Price -->
+                        <iscomment> Custom: Product id removed, product price added </iscomment>
+                        <div class="prices pt-1">
+                            <isset name="price" value="${product.price}" scope="page" />
+                            <isinclude template="product/components/pricing/main" />
+                        </div>
+                        <iscomment> Custom: End </iscomment>
                     </div>
                     <iscomment> Custom End: Change Naming Conventions for PDP </iscomment>
 
@@ -141,10 +149,12 @@
                     <iscomment>Custom End</iscomment>
                     <!-- Product Name -->
 
-                    <div class="prices price-mobile">
+                    <iscomment> <div class="prices price-mobile">
                         <isset name="price" value="${product.price}" scope="page" />
                         <isinclude template="product/components/pricing/main" />
-                    </div>
+
+                    </div> </iscomment>
+
                     <div class="ratings-mobile pb-2">
                         <div class="col-12 rating-margin">
                             <div class="ratings p-0">
