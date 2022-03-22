@@ -95,21 +95,40 @@ var formHelpers = require('base/checkout/formErrors');
         }
 
       $('.checkout-promo-section').removeClass('d-none');
-         if (checkoutStages[currentStage] == 'placeOrder') {
+ 
         	 $('.checkout-promo-section').addClass('d-none');
-              if ($('.payment-information').data('payment-method-id') == 'Affirm') {
-                  var url = $('#affirm-config').data('affirupdateurl');
-                  $.spinner().start();
-                  $.ajax({
-                      url: url,
-                      method: 'GET',
-                      success: function (data) {
-                          $('#vcn-data').data('vcndata', JSON.parse(data.vcndata));
-                          $.spinner().stop();
-                      }
-                  });
-              }
-          }
+             if (checkoutStages[currentStage] == 'payment') {
+            	if ($('#affirm-config').data('affirmenabled')) {
+
+                	$('.affirm-payment-tab').trigger('click');
+                    if ($('#affirm-inline-container').length > 0) {
+                        var inlineCheckoutObject = $('#vcn-data').data('vcndata');
+                        if (inlineCheckoutObject !== undefined && inlineCheckoutObject !== '') {
+                            affirm.ui.ready(function() {
+                                affirm.checkout.inline({
+                                    merchant: {
+                                        inline_container: 'affirm-inline-container'
+                                    },
+                                    data: { total: inlineCheckoutObject.total } 
+                                });
+                            });
+                        }
+                    }
+                }
+            } else if (checkoutStages[currentStage] == 'placeOrder') {
+            	if ($('.payment-information').data('payment-method-id') == 'Affirm') {
+            		var url = $('#affirm-config').data('affirupdateurl');
+            		$.spinner().start();
+                	$.ajax({
+                		url: url,
+                		method: 'GET',
+                		success: function (data) {
+                			$('#vcn-data').data('vcndata', JSON.parse(data.vcndata));
+                			$.spinner().stop();
+                		}
+                	});
+            	}
+            }
          $('body').trigger('checkOutStage:success', checkoutStages[currentStage]);
       }
 
@@ -207,7 +226,6 @@ var formHelpers = require('base/checkout/formErrors');
             //
             // Submit the Billing Address Form
             //
-
                   formHelpers.clearPreviousErrors('.payment-form');
 
                   var paymentForm = $('#dwfrm_billing').serialize();
@@ -353,17 +371,7 @@ var formHelpers = require('base/checkout/formErrors');
                                   ID: data.orderID,
                                   token: data.orderToken
                               };
-                              /***
-                               * Custom Start: Clyde Integration
-                               */
-                              if (window.Resources && window.Resources.IS_CLYDE_ENABLED) {
-                                urlParams.clydeContractProductList = data.contractProductList
-                              }
-
-                              /**
-                               * Custom End:
-                               */
-
+                              
                               continueUrl += (continueUrl.indexOf('?') !== -1 ? '&' : '?') +
                   Object.keys(urlParams).map(function (key) {
                       return key + '=' + encodeURIComponent(urlParams[key]);

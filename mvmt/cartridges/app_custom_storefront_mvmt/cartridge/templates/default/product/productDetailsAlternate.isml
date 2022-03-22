@@ -38,10 +38,6 @@
 
         <div class="product-breadcrumb hidden-sm-down">
             <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
-            <!-- Social Sharing Icons -->
-            <isif condition="${dw.system.Site.getCurrent().preferences.custom.addthis_enabled}">
-                <isinclude template="product/components/socialIcons" />
-            </isif>
         </div>
         <div class="container-fluid product-detail product-wrapper pdp-mvmt" data-pid="${product.id}" itemscope
             itemtype="http://schema.org/Product">
@@ -247,6 +243,14 @@
         <isif condition="${!empty(product.pdpCollectionContentAssetID)}">
             <iscontentasset aid="${product.pdpCollectionContentAssetID}" />
         </isif>
+
+        <isslot id="cs_pdp_marketing-section-1" description="content section" context="global" />
+        <div class="pdp-marketing-content-asset-wrapper">
+            <isif condition="${!empty(product.pdpMarketingContentAssetHTML)}">
+                <isprint value="${product.pdpMarketingContentAssetHTML}" encoding="off" />
+            </isif>
+        </div>
+        <isslot id="cs_pdp_marketing-section-2" description="content section" context="global" />
 
 
 

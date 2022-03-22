@@ -49,7 +49,7 @@
                 <!-- Product Images Carousel -->
                 <isinclude template="product/components/imageCarousel" />
 
-                <div class="col-12 col-lg-5 detail-sec mt-sm-5 pt-sm-5">
+                <div class="col-12 col-lg-5 detail-sec pt-sm-5">
 	               <div class="row">
 	                   <!-- Attributes and Quantity -->
 	                   <div class="col-md-10 col-12">
@@ -121,13 +121,15 @@
                                     <isinclude template="product/components/promotions" />
                                 </div>
                             </isif>
+
                             <iscomment> Custom Start: Clyde Integration </iscomment>
-                                <isif condition = "${dw.system.Site.current.preferences.custom.clydeWidgetDisplay}">
-                                    <div id="clyde-cta" >
-                                    </div>
-                                </isif>
+                            <isif condition = "${dw.system.Site.current.preferences.custom.clydeWidgetDisplay}">
+                                <div id="clyde-cta" >
+                                </div>
+                            </isif>
                             <iscomment> Custom End: </iscomment>
-	                        <isif condition="${product.options && product.options.length > 0}">
+
+	                        <isif condition="${product.options && product.options.length > 0 && !(option.id == "clydeWarranty") && dw.system.Site.current.preferences.custom.isClydeEnabled}">
 	                            <isinclude template="product/components/options" />
 	                        </isif>
 
@@ -163,7 +165,7 @@
                                                 <isif condition="${!empty(request.httpCookies['esw.location'])  &&  !empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US') && !product.isProductRestricted}" >
                                                     <isapplepay class="apple-pay-pdp btn mt-2" sku="${product.id}"></isapplepay>
                                                     <isif condition="${dw.system.Site.current.preferences.custom.isGooglePayEnabled}">
-                                                        <div class="mt-2">
+                                                        <div class="google-pay-wrapper mt-2">
                                                             <isinclude url="${URLUtils.https('GooglePay-RenderButton', 'googlePayEntryPoint', 'Product-Show', 'pid', product.id)}" sf-toolkit="on"/>
                                                         </div>
                                                     </isif>
@@ -178,7 +180,7 @@
                                                     <isinclude template="product/components/smartGift" />
                                                 </isif>
                                                 <isif condition="${dw.system.Site.current.preferences.custom.isGooglePayEnabled}">
-                                                     <div class="mt-2">
+                                                     <div class="google-pay-wrapper mt-2">
                                                         <isinclude url="${URLUtils.https('GooglePay-RenderButton', 'googlePayEntryPoint', 'Product-Show', 'pid', product.id)}" sf-toolkit="on"/>
                                                     </div>
                                                 </isif>

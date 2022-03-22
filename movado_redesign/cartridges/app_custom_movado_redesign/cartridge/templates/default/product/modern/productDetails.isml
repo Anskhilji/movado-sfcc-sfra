@@ -90,7 +90,7 @@
                                 <isinclude url="${URLUtils.https('Affirm-AffirmBanner', 'pid', product.id, 'context', context, 'fpname', fpname, 'country', country)}"/>
                             </div>
                             <isinclude url="${URLUtils.https('GooglePay-RenderButton', 'googlePayEntryPoint', 'Product-Show', 'pid', product.id)}" sf-toolkit="on"/>
-	                        <isif condition="${product.options && product.options.length > 0}">
+	                        <isif condition="${product.options && product.options.length > 0 && !(option.id == "clydeWarranty") && dw.system.Site.current.preferences.custom.isClydeEnabled}">
 	                            <isinclude template="product/components/options" />
 	                        </isif>
                             <div class = "d-none d-md-block">

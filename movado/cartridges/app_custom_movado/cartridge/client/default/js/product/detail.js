@@ -1,5 +1,15 @@
 'use strict';
 var base = require('./base');
+var clydeWidget = require('link_clyde/getClydeWidget.js');
+
+
+/**
+* @description Get clyde widget on variant change
+* @param {Object} response - response object
+*/
+function getClydeVariantChange(response) {
+    clydeWidget.getClydeVariantChange(response.data.product.id);
+}
 
 module.exports = {
     availability: base.availability,
@@ -64,6 +74,9 @@ module.exports = {
             } else if ($('.product-set-detail').eq(0)) {
                 response.container.data('pid', response.data.product.id);
                 response.container.find('.product-id').text(response.data.product.id);
+                if(window.Resources.IS_CLYDE_ENABLED) {
+                    getClydeVariantChange(response);
+                }
             } else {
                 $('.product-id').text(response.data.product.id);
                 $('.product-detail:not(".bundle-item")').data('pid', response.data.product.id);
@@ -152,6 +165,10 @@ module.exports = {
 
 $( document ).ready(function() {
     refreshAffirmUI();
+    
+    if (window.ApplePaySession) {
+        $('.google-pay-wrapper').removeClass('mt-2');
+    }
 });
 
 function refreshAffirmUI() {

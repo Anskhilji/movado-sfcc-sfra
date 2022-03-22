@@ -38,23 +38,12 @@
             </div>
         </section>
 
-        <div class="product-breadcrumb hidden-sm-down">
+        <div class="product-breadcrumb">
             <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
-            <!-- Social Sharing Icons -->
-            <isif condition="${sitePref.addthis_enabled}">
-                <isinclude template="product/components/socialIcons" />
-            </isif>
         </div>
         <div class="container-fluid product-detail product-wrapper pdp-mvmt"  data-pid="${product.id}" data-gtm-fb-product="${JSON.stringify(product)}" itemscope
             itemtype="http://schema.org/Product">
             <!---Breadcrumbs--->
-            <div class="row ratings-mobile pb-2">
-                <div class="col-12">
-                    <div class="ratings">
-                        <isinclude template="product/components/productRating" />
-                    </div>
-                </div>
-            </div>
             <hr class="hidden-xs-down d-none"/>
             <div class="row pdp-desktop m-0">
                 <!-- Product Images Carousel -->
@@ -70,7 +59,7 @@
                     <isinclude template="product/components/badges" />
 
                     <iscomment> Custom Start: Change Naming Conventions for PDP </iscomment>
-                    <div class="product-brand-info">
+                    <div class="product-brand-info d-flex align-items-start justify-content-between">
                         <isif condition="${(product.isCategory) == "watches"}">
                             <div class="category-watches">
                                 <h1>
@@ -137,6 +126,14 @@
                                 </isif>
                             </h1>
                         </isif>
+
+                        <!-- Product Price -->
+                        <iscomment> Custom: Product id removed, product price added </iscomment>
+                        <div class="prices pt-1">
+                            <isset name="price" value="${product.price}" scope="page" />
+                            <isinclude template="product/components/pricing/main" />
+                        </div>
+                        <iscomment> Custom: End </iscomment>
                     </div>
                     <iscomment> Custom End: Change Naming Conventions for PDP </iscomment>
 
@@ -152,11 +149,20 @@
                     <iscomment>Custom End</iscomment>
                     <!-- Product Name -->
 
-                    <div class="prices price-mobile" data-price="${JSON.stringify(product.price)}">
+                    <iscomment> <div class="prices price-mobile" data-price="${JSON.stringify(product.price)}"> </iscomment>
+                    <iscomment> <div class="prices price-mobile">
                         <isset name="price" value="${product.price}" scope="page" />
                         <isinclude template="product/components/pricing/main" />
-                    </div>
 
+                    </div> </iscomment>
+
+                    <div class="ratings-mobile pb-2">
+                        <div class="col-12 rating-margin">
+                            <div class="ratings p-0">
+                                <isinclude template="product/components/productRating" />
+                            </div>
+                        </div>
+                    </div>
                     <div class="show-cart-button-below-price">
                         <div class="row">
                             <div class="col-12 prices-add-to-cart-actions-top">
@@ -229,7 +235,6 @@
                             </div>
                         </isif>
                     <iscomment> Custom End: </iscomment>
-
                     <isif condition="${sitePref.enableSeeTheFitPopUp && !empty(product.seeTheFitPrimaryImg)}"> 
                         <div class="seefit-text-label">
                             <button class="seefit-text-label-select-size-head call-see-fit-popup">
@@ -277,7 +282,7 @@
                         <isinclude template="product/backInStockNotification" sf-toolkit="on" />
                     </isif>
 
-                    <isif condition="${product.options && product.options.length > 0}">
+                    <isif condition="${product.options && product.options.length > 0 && !(option.id == "clydeWarranty") && dw.system.Site.current.preferences.custom.isClydeEnabled}">
                         <isinclude template="product/components/options" />
                     </isif>
                     <div class="col-md-10 col-12">
@@ -303,6 +308,14 @@
         <isif condition="${!empty(product.pdpCollectionContentAssetID)}">
             <iscontentasset aid="${product.pdpCollectionContentAssetID}" />
         </isif>
+
+        <isslot id="cs_pdp_marketing-section-1" description="content section" context="global" />
+        <div class="pdp-marketing-content-asset-wrapper">
+            <isif condition="${!empty(product.pdpMarketingContentAssetHTML)}">
+                <isprint value="${product.pdpMarketingContentAssetHTML}" encoding="off" />
+            </isif>
+        </div>
+        <isslot id="cs_pdp_marketing-section-2" description="content section" context="global" />
 
         <div class="description-container p-0">
             <isinclude template="product/components/descriptionAndDetails" />

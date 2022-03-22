@@ -16,7 +16,7 @@
 
     <isset name="product" value="${pdict.product}" scope="page" />
     <isset name="isQuickView" value="${false}" scope="page" />
-    <isset name="sitePref" value="${dw.system.Site.getCurrent().preferences.custom}" scope="page">
+    <isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page">
     <isset name="isProductSet" value="${pdict.product.productType === 'set'}" scope="page" />
     <isobject object="${product.raw}" view="detail">
         <div class="container product-detail pdp-obuk product-wrapper" data-pid="${product.id}" itemscope
@@ -122,7 +122,7 @@
                             </isif>
                             <hr />
                         </div>
-                        <isif condition="${product.options && product.options.length > 0}">
+                        <isif condition="${product.options && product.options.length > 0 && !(option.id == "clydeWarranty") && dw.system.Site.current.preferences.custom.isClydeEnabled}">
                             <isinclude template="product/components/options" />
                         </isif>
                         <div class="col-md-10 col-12">
@@ -214,10 +214,6 @@
                             </div>
                            <div class="wishlist-row row">
                                 <isinclude url="${URLUtils.https('Wishlist-ShowIcon','gtmObj',JSON.stringify(pdict.wishlistGtmObj))}"/>
-                                <!-- Social Sharing Icons -->
-                                <isif condition="${dw.system.Site.getCurrent().preferences.custom.addthis_enabled}">
-                                    <isinclude template="product/components/socialIcons" />
-                                </isif>
                             </div>
                         </div>
                         <span class="product-id d-none" itemprop="productID" >${product.id}</span>
