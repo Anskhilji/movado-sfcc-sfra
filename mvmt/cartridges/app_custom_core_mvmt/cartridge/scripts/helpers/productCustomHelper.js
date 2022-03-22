@@ -40,7 +40,7 @@ function getProductCustomAttribute(apiProduct) {
             }
         }
     } catch (e) {
-        Logger.error('(productCustomHepler.js -> getProductCustomAttribute) Error occured while reading json from site preferences: ' + e);
+        Logger.error('(productCustomHelper.js -> getProductCustomAttribute) Error occured while reading json from site preferences: ' + e);
     }
     return category;
 }
@@ -96,7 +96,7 @@ function getProductAttributes(apiProduct) {
                             seeTheFitSpecs.push(attribute);
                         }
                     } catch (e) {
-                        Logger.error('(productCustomHepler.js -> getProductAttributes) Error occured while setting the attributes values in the object : ' + e);
+                        Logger.error('(productCustomHelper.js -> getProductAttributes) Error occured while setting the attributes values in the object : ' + e);
                     }
                 }
             }
@@ -242,7 +242,7 @@ function getCategoryConfig(apiProduct, categoriesConfig) {
             }
         }
     } catch (e) {
-        Logger.error('(productCustomHepler.js -> getPdpDetailAndSpecsAttributes) Error occured while reading json from site preferences: ' + e);
+        Logger.error('(productCustomHelper.js -> getPdpDetailAndSpecsAttributes) Error occured while reading json from site preferences: ' + e);
     }
     return detailAndSpecAttributes = {
         pdpDetailAttributes: pdpDetailAttributes,
@@ -268,7 +268,7 @@ function getRefinementSwatches(presentationID) {
             swatchImages.swatchImageURL = imageUrl.toString();
         }
     } catch (e) {
-        Logger.error('(productCustomHepler.js -> getRefinementSwatches) Error occured while generating the swatch image url : ' + e);
+        Logger.error('(productCustomHelper.js -> getRefinementSwatches) Error occured while generating the swatch image url : ' + e);
     }
     return swatchImages;
 }
@@ -327,7 +327,7 @@ function getGtmPromotionObject (promotions) {
             }
             return JSON.stringify(promotionObj);
         } catch (e) {
-            Logger.error('(productCustomHepler.js -> getGtmPromotionObject) Error occured while getiing promoObj for GTM : ' + e + e.stack);
+            Logger.error('(productCustomHelper.js -> getGtmPromotionObject) Error occured while getiing promoObj for GTM : ' + e + e.stack);
             return null;
         }
     } else {
@@ -384,7 +384,7 @@ function getPDPContentAssetHTML (apiProduct) {
         }
         return pdpContentAssetHTML;
     } catch (e) {
-        Logger.error('(productCustomHepler.js -> getPDPContentAssetHTML) Error occured while getting pdp content asset html: ' + e.stack, e.message);
+        Logger.error('(productCustomHelper.js -> getPDPContentAssetHTML) Error occured while getting pdp content asset html: ' + e.stack, e.message);
         return '';
     }
 }
@@ -405,7 +405,7 @@ function getColor(apiProduct, product) {
                 }
             })
         } catch (error) {
-            Logger.error('(productCustomHepler.js -> getColor) Error occured while getting color from product variationAttribute : ' + error.message);
+            Logger.error('(productCustomHelper.js -> getColor) Error occured while getting color from product variationAttribute : ' + error.message);
             return;
         }
     }
@@ -459,7 +459,7 @@ function getProductCategory(apiProduct, product) {
             }
         }
     } catch (error) {
-        Logger.error('(productCustomHepler.js -> getProductCategory) Error occured while getting category from apiProduct : ' + error.message);
+        Logger.error('(productCustomHelper.js -> getProductCategory) Error occured while getting category from apiProduct : ' + error.message);
         return;
     }
     return isCategory;
@@ -479,7 +479,7 @@ function isGiftBoxAllowed(apiProduct) {
         }
         return isGiftBoxAllowed;
     } catch (e) {
-        Logger.error('(productCustomHepler.js -> isGiftBoxAllowed) Error occured while checking if gift box allowed: ' + e.stack, e.message);
+        Logger.error('(productCustomHelper.js -> isGiftBoxAllowed) Error occured while checking if gift box allowed: ' + e.stack, e.message, apiProduct.ID);
         return '';
     }
 }
@@ -512,7 +512,7 @@ function getGiftBoxSKU(apiProduct) {
         return giftBoxSKUData;
         
     } catch (e) {
-        Logger.error('(productCustomHepler.js -> getGiftBoxSKU) Error occured while getting gift box SKU: ' + e.stack, e.message);
+        Logger.error('(productCustomHelper.js -> getGiftBoxSKU) Error occured while getting gift box SKU: ' + e.stack, e.message, apiProduct.ID);
     }
 }
 
@@ -552,7 +552,7 @@ function getProductPromoAndSalePrice(product) {
         }
         return salePrice;
     } catch(e) {
-        Logger.error('(productCustomHepler.js -> getProductPromoAndSalePrice) Error occured while getting promo price: ' + e.stack, e.message);
+        Logger.error('(productCustomHelper.js -> getProductPromoAndSalePrice) Error occured while getting promo price: ' + e.stack, e.message, product.ID);
     }
 }
 

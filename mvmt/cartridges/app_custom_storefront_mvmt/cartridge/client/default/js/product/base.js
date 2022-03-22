@@ -175,7 +175,6 @@ function hideMiniCartCheckbox() {
     if ($('.product-side-details .gift-allowed-checkbox').is(":checked")) {
         $('.product-card-wrapper .gift-allowed-checkbox-mini').hide();
         $('.product-card-wrapper .gift-allowed-checkbox-mini').next('label').hide();
-        $('.line-item-attributes').append('testing');
     }
 }
 

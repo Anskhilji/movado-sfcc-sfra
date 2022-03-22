@@ -1,7 +1,5 @@
 'use strict';
 
-var decorators = require('*/cartridge/models/product/decorators/index');
-
 var baseFullProduct = module.superModule;
 
 /**

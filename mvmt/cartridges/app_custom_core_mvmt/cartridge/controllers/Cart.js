@@ -52,30 +52,15 @@ server.append('MiniCartShow', server.middleware.https, csrfProtection.generateTo
     var removeProductLineItemUrl = URLUtils.url('Cart-RemoveProductLineItem', 'isMiniCart', true).toString();
     var cartItems = customCartHelpers.removeFromCartGTMObj(currentBasket.productLineItems);
     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
-    var sitePreferences = require('dw/system/Site').getCurrent().getPreferences().getCustom();
     var productLineItems = currentBasket.productLineItems.iterator();
     var marketingProductsData = [];
-    var giftProductSku;
-    var giftProduct = false;
 
     while (productLineItems.hasNext()) {
         var productLineItem = productLineItems.next();
         var apiProduct = productLineItem.getProduct();
         var quantity = productLineItem.getQuantity().value;
-        var giftBoxCategorySKUPair = sitePreferences.giftBoxCategorySKUPair;
+        var giftProduct = productCustomHelpers.giftBoxCategory();
 
-        if (!empty(giftBoxCategorySKUPair)) {
-            for (var i = 0; i < giftBoxCategorySKUPair.length; i++) {
-                giftProductSku = giftBoxCategorySKUPair[i].split("|");
-                var filter = currentBasket.allProductLineItems.toArray().filter(function(data) {
-                    return data.productID == giftProductSku[1];
-                });
-                if (filter.length) {
-                    giftProduct = true;
-                    break;
-                }
-            }
-        }
         marketingProductsData.push(productCustomHelpers.getMarketingProducts(apiProduct, quantity));
     }
 
@@ -105,31 +90,15 @@ server.prepend(
         res.setViewData({ loggedIn: req.currentCustomer.raw.authenticated });
         var BasketMgr = require('dw/order/BasketMgr');
         var CartModel = require('*/cartridge/models/cart');
+        var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
         var currentBasket = BasketMgr.getCurrentOrNewBasket();
         var basketModel = new CartModel(currentBasket);
         var productLineItems = currentBasket.productLineItems.iterator();
-        var sitePreferences = require('dw/system/Site').getCurrent().getPreferences().getCustom();
-        var giftProductSku;
-        var giftProduct = false;
 
         while (productLineItems.hasNext()) {
             var productLineItem = productLineItems.next();
-            var giftBoxCategorySKUPair = sitePreferences.giftBoxCategorySKUPair;
-
-            if (!empty(giftBoxCategorySKUPair)) {
-                for (var i = 0; i < giftBoxCategorySKUPair.length; i++) {
-                    giftProductSku = giftBoxCategorySKUPair[i].split("|");
-                    var filter = currentBasket.allProductLineItems.toArray().filter(function(data) {
-                        return data.productID == giftProductSku[1];
-                    });
-                    if (filter.length) {
-                        giftProduct = true;
-                        break;
-                    }
-                }
-            }
+            var giftProduct = productCustomHelpers.giftBoxCategory();
         }
-
         res.viewData.giftProduct = giftProduct;
 
     next();
