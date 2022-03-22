@@ -273,7 +273,7 @@
                                     <isprint value="${product.shortDescription}" encoding="off" />
                                 </div>
                             </div>
-                      </div> 
+                      </div>
                     </isif>
 
                     <isif condition="${sitePref.enableBackInStock}">

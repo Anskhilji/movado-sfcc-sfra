@@ -75,7 +75,6 @@
                             <input type="checkbox" data-add-to-cart-url="${URLUtils.url('Cart-AddProduct')}" data-requested-page="${isCartPage}" name="gift-allowed-checkout" class="gift-allowed-checkbox gift-allowed-checkbox-mini" value="${giftBoxSKUData.giftBoxSKU}">
                             <label for="gift-allowed-checkout">${Resource.msg('label.minicart.gift.message','cart',null)} ${giftBoxSKUData.giftBoxSKUPrice}</label>
                         </isif>
-                        <iscomment> <isinclude template="common/giftBoxMessageDetails" /> </iscomment>
                         <isif condition="${pdict.loggedIn}">
                              <div class="hidden-xs-down edit-add-to-wishlist">
                                   <isinclude template="cart/productCard/cartProductCardEdit" />
