@@ -140,51 +140,29 @@
 
             &-wrapper {
 
-                // .custom-checkbox {
-
-                //     .custom-control-label {
-                //         position: relative;
-                //         left: rem(0);
-
-                //         &::before {
-                //             position: absolute;
-                //             top: rem(3);
-                //             left: rem(-18);
-                //         }
-
-                //         &::after {
-                //             left: rem(-18);
-                //         }
-                //     }
-                // }
-
-                // .custom-control {
-                //     padding: rem(0);
-                // }
-    
                 input[type="checkbox"] {
-    
+
                     &:focus {
                         box-shadow: none;
                         border: none;
                         outline: none;
                     }
-    
+
                     &:checked {
-    
+
                         &:focus {
                             box-shadow: none;
                             border: none;
                             outline: none;
                         }
-    
+
                         + label {
-    
+
                             &:focus {
                                 box-shadow: none;
                                 outline: 0;
                             }
-    
+
                             &:before {
                                 background-color: $light-green4;
                                 border-color: transparent;

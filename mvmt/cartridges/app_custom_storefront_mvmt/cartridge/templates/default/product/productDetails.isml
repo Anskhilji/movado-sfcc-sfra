@@ -244,7 +244,7 @@
                     </isif>
 
                     <isset name="isRecommendationsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.recommendationsEnabled) ? dw.system.Site.current.preferences.custom.recommendationsEnabled : false}" scope="page" />
-                    
+
                     <isif condition="${isRecommendationsEnabled}" >
                         <div class="linked-product-container">
                             <isinclude template="product/components/recommendedProducts" />
@@ -265,8 +265,6 @@
                             <label for="gift-allowed-checkout" class="gift-box-wrapper-label">${giftBoxMessage} ${product.giftBoxSKUData.giftBoxSKUPrice} </label>
                         </div>
                     </isif>
-                    <iscomment> <isinclude template="common/giftBoxMessageDetails" /> </iscomment>
-                    
 
                     <isif condition="${product.shortDescription}">
                       <div class="row">
@@ -275,9 +273,9 @@
                                     <isprint value="${product.shortDescription}" encoding="off" />
                                 </div>
                             </div>
-                      </div>  
+                      </div> 
                     </isif>
-                    
+
                     <isif condition="${sitePref.enableBackInStock}">
                         <isinclude template="product/backInStockNotification" sf-toolkit="on" />
                     </isif>
