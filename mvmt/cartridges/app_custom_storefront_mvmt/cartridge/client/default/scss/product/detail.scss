@@ -758,8 +758,8 @@
     }
     .ratings-mobile {
 
-        @include media-breakpoint-down(xs) {
-            .rating-margin {
+        .rating-margin {
+            @include media-breakpoint-down(sm) {
                 padding: 0 rem(10);
             }
         }
@@ -1053,6 +1053,10 @@
         .product-brand-info {
             .category-watches {
                 padding-right: rem(20);
+                
+                h1 {
+                    margin-bottom: rem(5);
+                }
                 .watches {
                     &-product-name {
                         @include collection-subtitle-font;
@@ -1298,7 +1302,7 @@
 
         &-price-rating {
             display: flex;
-            margin-top: rem(15);
+            margin-top: rem(0);
             padding-bottom: rem(15);
 
             .prices {
