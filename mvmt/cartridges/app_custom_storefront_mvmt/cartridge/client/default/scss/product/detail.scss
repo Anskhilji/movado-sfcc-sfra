@@ -1063,7 +1063,7 @@
                         text-overflow: ellipsis;
                         display: -webkit-box;
                         -webkit-line-clamp: 3;
-                        text-align: left;   
+                        text-align: left;
                     }
                     &-collection-name {
                         @include collection-title-font;
@@ -1111,6 +1111,9 @@
                     }
                     & + .sale-price-mvmt {
                         color: $dark-red;
+                    }
+                    .strike-through {
+                        text-decoration: none;
                     }
                 }
             }
@@ -1165,6 +1168,8 @@
                 text-overflow: ellipsis;
                 display: -webkit-box;
                 -webkit-line-clamp: 3;
+                @include collection-title-font;
+                margin-bottom: rem(4);
             }
         }
 
@@ -1235,7 +1240,7 @@
         }
 
         .klarnaAllowedCountry-label{
-            height: rem(63);
+            margin-top: rem(5);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1250,6 +1255,29 @@
                     }
                 }
             }
+        }
+        .product-description {
+            @include media-breakpoint-down(sm) {
+                text-align: center;
+            }
+        }
+        .description-top-space {
+            margin-top: rem(0);
+
+            @include media-breakpoint-down(lg) {
+                margin-top: rem(34);
+            }
+            @include media-breakpoint-down(md) {
+                margin-top: rem(36);
+            }
+            @include media-breakpoint-down(sm) {
+            margin-top: rem(0);
+            }
+        }
+        .sub-message-wrapper {
+            line-height: 0;
+            position: absolute;
+            width: calc(100% - 125px);
         }
     }
 
@@ -1562,6 +1590,9 @@
             margin-bottom: rem(20);
             padding-top: rem(15);
             border-top: rem(2) solid $white-gray;
+            @include media-breakpoint-up(sm) {
+                padding-top: rem(0);
+            }
         }
 
         &-head {
@@ -3139,6 +3170,7 @@
 
     @include media-breakpoint-down(sm) {
         border-bottom: rem(1) solid $gray91;
+        text-align: center;
     }
 
     &-select-size-head {
