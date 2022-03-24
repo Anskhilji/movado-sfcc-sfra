@@ -982,7 +982,7 @@ function getMarketingProducts(apiProduct, quantity) {
     }
 }
 
-function giftBoxCategory(giftBoxCategorySKUPair) {
+function giftBoxCategory() {
     var BasketMgr = require('dw/order/BasketMgr');
     var currentBasket = BasketMgr.getCurrentOrNewBasket();
     var giftProductSku;
