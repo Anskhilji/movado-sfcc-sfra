@@ -16,25 +16,31 @@
 
                 <div class="full-bleed-products-box">
                     <div class="search-results plp-new-design d-flex">
-                        <isloop items="${slotcontent.content}" var="product">
+                        <isset name="counter" value="${0}" scope="page">
+                            <isloop items="${slotcontent.content}" var="product" status="status">
+                            <span class="d-none">${counter++}</span>
                             <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true,
-                                            'isHighResolutionImage', true, 'plpTile', true, 'isTopSearch', true)}" />
-                        </isloop>
+                                                'isHighResolutionImage', true, 'plpTile', true, 'isTopSearch', true)}" />
+                                <isif condition="${counter >= 3}">
+                                <isbreak/>
+                                </isif>
+                            </isloop>
+                            <div class="product-count-box">
+                                <div class="total-count">
+                                    <isset name="productCount" value="${dw.catalog.CatalogMgr.getCategory(slotcontent.custom.categoryID).onlineProducts.length.toFixed()}" scope="page"/>
+                                    <p>${productCount}</p> 
+                                </div>
+                                <div class="product-custom-title">
+                                    ${slotcontent.custom.categoryText}
+                                </div>
+                                <a href="${URLUtils.url('Search-Show', cgid, 'categoryID')}">View All</a>
+                            </div>
                     </div>
                 </div>
             </div>
         </div>
     </isif>
 
-    <div class="product-count-box">
-        <div class="total-count">
-            <isset name="productCount" value="${dw.catalog.CatalogMgr.getCategory(slotcontent.custom.categoryID).onlineProducts.length.toFixed()}" scope="page"/>
-            <p>${productCount}</p> 
-        </div>
-        <div class="product-custom-title">
-            ${slotcontent.custom.categoryText}
-        </div>
-        <a href="${URLUtils.url('Search-Show', cgid, 'categoryID')}">View All</a>
-    </div>  
+    
       
 </div>
