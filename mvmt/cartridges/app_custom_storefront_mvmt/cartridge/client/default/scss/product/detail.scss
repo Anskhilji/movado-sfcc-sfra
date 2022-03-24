@@ -1060,7 +1060,7 @@
                 h1 {
                     margin-bottom: rem(5);
                 }
-                
+
                 .watches {
                     &-product-name {
                         @include collection-subtitle-font;
@@ -1125,6 +1125,11 @@
             }
 
             .category-eyewear {
+                
+                h1 {
+                    margin-bottom: rem(5);
+                }
+                
                 .eyewear {
                     &-product-name {
                         @include collection-title-font;
@@ -1141,6 +1146,11 @@
             }
 
             .category-jewlery {
+                
+                h1 {
+                    margin-bottom: rem(5);
+                }
+                
                 .jewlery {
                     &-product-name {
                         @include collection-title-font;
