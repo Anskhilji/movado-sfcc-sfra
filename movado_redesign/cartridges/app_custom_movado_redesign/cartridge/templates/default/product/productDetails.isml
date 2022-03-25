@@ -198,7 +198,7 @@
                            </div>
 
                             <isif condition="${sitePref.enableBackInStock}">
-                                <isinclude template="product/backInStockNotification" sf-toolkit="on" />
+                                <iscomment> <isinclude template="product/backInStockNotification" sf-toolkit="on" /> </iscomment>
                             </isif>
                         </div>
                     </div>
