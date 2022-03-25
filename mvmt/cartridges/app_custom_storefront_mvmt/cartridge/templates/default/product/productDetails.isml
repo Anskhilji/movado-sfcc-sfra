@@ -261,7 +261,7 @@
                     </div>
 
                     <isif condition="${product.shortDescription}">
-                      <div class="row description-top-space">
+                      <div class="row">
                             <div class="col-12">
                                 <div class="d-flex justify-content-center mb-2 product-description" itemprop="description">
                                     <isprint value="${product.shortDescription}" encoding="off" />
