@@ -1239,7 +1239,7 @@
             }
         }
 
-        .klarnaAllowedCountry-label {
+        .klarna-Allowed-Country-label {
             margin-top: rem(5);
             display: flex;
             align-items: center;
@@ -1253,9 +1253,7 @@
         }
         
         .sub-message-wrapper {
-            line-height: 0;
-            position: absolute;
-            width: calc(100% - 125px);
+            display: grid;
         }
     }
 
@@ -1445,10 +1443,14 @@
         @include media-breakpoint-up(md-down) {
             position: static;
             padding: 0 rem(15);
-            margin-bottom: rem(51);
+            margin-bottom: rem(35);
         }
-
-        @include media-breakpoint-up(xl) {
+        @include media-breakpoint-up(lg) {
+            position: static;
+            padding: 0 rem(15);
+            margin-bottom: rem(48);
+        }
+        @include media-breakpoint-up(lg-custom) {
             margin-bottom: rem(-5);
         }
     
