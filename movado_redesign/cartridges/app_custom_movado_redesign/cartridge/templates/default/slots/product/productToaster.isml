@@ -1,3 +1,8 @@
+<script>
+    $(document).ready(function() {
+        window.slickSlider.initCarousel($('.plp-new-design-list'));
+    });
+</script>
 <div class="full-bleed-Toaster-box full-bleed-image-product">
     <isif condition="${slotcontent.custom.bottomSectionCarousel}">
         <div class="bottom-section">
@@ -12,28 +17,29 @@
                     <img src="${URLUtils.staticURL('./images/close-popup.png')}" class="img-fluid" alt="">
                 </button>
 
-                <div class="product-collection-title text-center">${slotcontent.custom.categoryText} 47 Collection</div>
+                <div class="product-collection-title text-center">Modern 47 Collection</div>
 
                 <div class="full-bleed-products-box">
-                    <div class="search-results plp-new-design d-flex">
+                    <div class="search-results plp-new-design plp-new-design-list js-carousel cs-carousel" data-carousel-config="${slotcontent.custom.carouselConfig ? slotcontent.custom.carouselConfig.replace(/[\n\s]/gi, '') : ''}">
                         <isset name="counter" value="${0}" scope="page">
                             <isloop items="${slotcontent.content}" var="product" status="status">
-                            <span class="d-none">${counter++}</span>
-                            <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true,
-                                                'isHighResolutionImage', true, 'plpTile', true, 'isTopSearch', true)}" />
+                               <div>
+                                    <span class="d-none">${counter++}</span>
+                                <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true, 'isHighResolutionImage', true, 'plpTile', true, 'isTopSearch', true)}" />
+                               </div>
                                 <isif condition="${counter >= 3}">
-                                <isbreak/>
+                                    <isbreak/>
                                 </isif>
                             </isloop>
                             <div class="product-count-box">
                                 <div class="total-count">
-                                    <isset name="productCount" value="${dw.catalog.CatalogMgr.getCategory(slotcontent.custom.categoryID).onlineProducts.length.toFixed()}" scope="page"/>
-                                    <p>${productCount}</p> 
+                                    <isset name="productCount" value="${dw.catalog.CatalogMgr.getCategory(slotcontent.custom.categoryID).onlineProducts.length.toFixed()}" scope="page" />
+                                    <p class="product-custom-title mb-0">${productCount}</p>
                                 </div>
                                 <div class="product-custom-title">
                                     ${slotcontent.custom.categoryText}
                                 </div>
-                                <a href="${URLUtils.url('Search-Show', cgid, 'categoryID')}">View All</a>
+                                <a class="view-all-category-btn" href="${URLUtils.url('Search-Show', cgid, 'categoryID')}">View All</a>
                             </div>
                     </div>
                 </div>
@@ -41,6 +47,6 @@
         </div>
     </isif>
 
-    
-      
+
+
 </div>

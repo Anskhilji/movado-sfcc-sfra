@@ -317,14 +317,7 @@
                 }
             }
         }
-        .plp-new-design {
-    
-            @include media-breakpoint-down(xs) {
-              padding: 0;
-              overflow: hidden;
-            }
-          
-        
+        .plp-new-design {        
           
             .pdpToCart {
               display: none;
@@ -341,10 +334,7 @@
             .product {
               position: relative;
               height: 100%;
-              padding: 0 rem(5);
-              @include media-breakpoint-down(sm) {
-                  padding: 0 rem(3);
-              }
+              padding: 0;
             }
           
             .tile-discription, .tile-btns {
@@ -353,7 +343,7 @@
           
             .product-tile {
               background: $white-smoke;
-              margin-bottom: rem(15);
+              margin-bottom: rem(0);
               height: 100%;
               position: relative;
           
@@ -710,7 +700,7 @@
                 margin-bottom: 0.3125rem;
                 padding: rem(1) 0;
           
-                .product-detail {
+                .top-search-product-detail {
                   .cart-and-ipay {
                     > div {
                       position: relative;
@@ -744,7 +734,7 @@
             right: 0;
             left: 0;
             bottom: 0;
-            z-index: 5;
+            z-index: 105;
             visibility: hidden;
             opacity: 0;
             transition:  ease-in-out 0.4s;
@@ -757,7 +747,7 @@
                 }
             }
             .product-collection-box {
-                padding: rem(40) rem(17) rem(30);
+                padding: rem(40) rem(18) rem(30);
                 background: #fff;
                 position: relative;
                 transform: translateY(100%);
@@ -781,12 +771,72 @@
                     letter-spacing: 0;
                     line-height: rem(41);
                     margin-bottom: rem(50);
+                    @include media-breakpoint-down(sm) {
+                      font-size: rem(17);
+                      line-height: rem(22);
+                    }
                 }
+            }
+            .slick-track {
+              display: flex;
+
+              .slick-slide {
+                background-color: #F2F2F2;
+                height: auto;
+                margin-left: rem(5);
+                margin-right: rem(5);
+                display: flex;
+                align-items: center;
+                justify-content: center ;
+              }
+
+            }
+            .slick-dots {
+              bottom: -21px;
+              width: rem(150); 
+              height: rem(1);
+              display: flex;
+              margin: 0 auto;
+              left: 0;
+              right: 0;
+
+              li {
+                margin: 0;
+                width: 100%;
+
+                &.slick-active{
+
+                  button {
+                    height: auto;
+                    width: auto;
+                    padding: 0;
+
+                    &:before{
+                      background-color: #000;
+                    }
+
+                  }
+
+                }
+                button {
+
+                  &:before{
+                    width: 100%;
+                    height: rem(1);
+                    background-color: #BCBEC0;
+                    opacity: 1;
+                    font-size: 0;
+                  }
+
+                }
+
+              }
             }
         }
         .product-count-box{
             background-color: #F2F2F2;
-    
+          height: 100%;
+          text-align: center;
             .product-custom-title{
                 color: #333333;
                 font-family: "futura-pt";
@@ -795,6 +845,30 @@
                 letter-spacing: 0;
                 line-height: 50px;
                 text-align: center;
+                @include media-breakpoint-down(sm) {
+                  font-size: rem(17);
+                  line-height: rem(22);
+                }
+            }
+            .view-all-category-btn{
+              box-sizing: border-box;
+              height: rem(40);
+              width: rem(149.03);
+              border: rem(1) solid #000000;
+              font-size: rem(16);
+              font-weight: 500;
+              letter-spacing: 0;
+              line-height: rem(40);
+              text-align: center;
+              display: inline-block;
+              text-decoration: none;
+              margin-top: rem(18);
+              @include media-breakpoint-down(sm) {
+                font-size: rem(14);
+                height: rem(30);
+                width: rem(129.03);
+                line-height: rem(30);
+              }
             }
         }
     }
