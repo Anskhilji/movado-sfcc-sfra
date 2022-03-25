@@ -111,6 +111,7 @@
 }
 
 .product-breadcrumb {
+    background: $white-gray;
     display: flex;
     justify-content: space-between;
     padding: rem(9) rem(16) rem(8);
@@ -121,7 +122,8 @@
             flex-basis: auto;
         }
     }
-    @include media-breakpoint-down(xs) {
+    @include media-breakpoint-down(sm) {
+        background: none;
         padding: rem(10);
         .row {
             border-top: none;
@@ -131,7 +133,7 @@
         padding-left: rem(5);
         + .breadcrumb-item {
             &::before {
-                @include media-breakpoint-down(xs) {
+                @include media-breakpoint-down(sm) {
                     padding-right: rem(5);
                 }
             }
@@ -167,7 +169,8 @@
     .breadcrumb {
         padding-bottom: 0;
 
-        @include media-breakpoint-down(xs) {
+        @include media-breakpoint-down(sm) {
+            opacity: 0.69;
             padding : rem(0);
         }
 
@@ -177,7 +180,7 @@
                 font-size: rem(11);
                 letter-spacing: 1.5;
                 text-transform: uppercase;
-                @include media-breakpoint-down(xs) {
+                @include media-breakpoint-down(sm) {
                     font-size: rem(10);
                     letter-spacing: 0;
                     color: $light-black;
@@ -193,7 +196,7 @@
                 a {
                     font-family: $font-bold;
                 }
-                @include media-breakpoint-down(xs) {
+                @include media-breakpoint-down(sm) {
                     a {
                         font-family: $font-book;
                     }
@@ -732,9 +735,9 @@
 
 .product-detail {
     max-width: $container-max-width;
-    padding: rem(16) 0 0;
+    padding: rem(10) 0 0;
     margin: 0 auto;
-    
+
     .product-brand-info {
         width: 100%;
         @include media-breakpoint-down(sm) {
@@ -758,8 +761,8 @@
     }
     .ratings-mobile {
 
-        @include media-breakpoint-down(xs) {
-            .rating-margin {
+        .rating-margin {
+            @include media-breakpoint-down(sm) {
                 padding: 0 rem(10);
             }
         }
@@ -1053,6 +1056,11 @@
         .product-brand-info {
             .category-watches {
                 padding-right: rem(20);
+                
+                h1 {
+                    margin-bottom: rem(5);
+                }
+
                 .watches {
                     &-product-name {
                         @include collection-subtitle-font;
@@ -1119,6 +1127,11 @@
             }
 
             .category-eyewear {
+                
+                h1 {
+                    margin-bottom: rem(5);
+                }
+                
                 .eyewear {
                     &-product-name {
                         @include collection-title-font;
@@ -1135,6 +1148,11 @@
             }
 
             .category-jewlery {
+                
+                h1 {
+                    margin-bottom: rem(5);
+                }
+                
                 .jewlery {
                     &-product-name {
                         @include collection-title-font;
@@ -1190,10 +1208,13 @@
                 line-height: rem(8);
                 vertical-align: top;
                 padding: rem(5) rem(10);
-                height: rem(18);
+                height: auto;
+                width: auto;
                 border: rem(1) solid #E0E0E0;
-                margin-left: rem(10);
 
+                @include media-breakpoint-down(sm) {
+                    margin-left: rem(10);
+                }
             }
         }
         .ratings {
@@ -1318,7 +1339,7 @@
 
         &-price-rating {
             display: flex;
-            margin-top: rem(15);
+            margin-top: rem(0);
             padding-bottom: rem(15);
 
             .prices {

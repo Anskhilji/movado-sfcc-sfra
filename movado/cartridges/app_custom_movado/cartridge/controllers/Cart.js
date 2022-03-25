@@ -25,6 +25,7 @@ server.append('AddProduct', function (req, res, next) {
     var cartHelper = require('*/cartridge/scripts/cart/cartHelpers');
     var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
     var recommendedProductCardHtml = '';
+    var isCartPage = req.form.isCartPage;
 
 
     if (!viewData.error) {
@@ -63,6 +64,22 @@ server.append('AddProduct', function (req, res, next) {
                 });
             }
         }
+        if (!empty(req.form.giftPid)) {
+            Transaction.wrap(function () {
+                quantity = 1;
+                result = cartHelper.addProductToCart(
+                        currentBasket,
+                        req.form.giftPid,
+                        1,
+                        [],
+                        []
+                    );
+                if (!result.error) {
+                    cartHelper.ensureAllShipmentsHaveMethods(currentBasket);
+                    basketCalculationHelpers.calculateTotals(currentBasket);
+                }
+            });
+        }
         var productLineItems = currentBasket.productLineItems.iterator();
         var productLineItem;
         var quantity;
@@ -79,10 +96,16 @@ server.append('AddProduct', function (req, res, next) {
         if (!!req.form.currentPage && req.form.currentPage.match('Cart-Show')) {
             viewData.cartPageHtml = customCartHelpers.getcartPageHtml(req);
         }
-        
+
         if (req.form.isCartRecommendation && !empty(req.form.isCartRecommendation)) {
             basketModel.removeProductLineItemUrl = basketModel.actionUrls.removeProductLineItemUrl;
             recommendedProductCardHtml = renderTemplateHelper.getRenderedHtml(basketModel, 'cart/productCard/recommendationProductCard');
+        }
+
+        if (req.form.isGiftItem && !empty(req.form.isGiftItem)) {
+            basketModel.removeProductLineItemUrl = basketModel.actionUrls.removeProductLineItemUrl;
+            var template = isCartPage ? 'cart/productCard/cartGiftProductCard' : 'cart/productCard/miniCartGiftProductCard';
+            giftProductCardHtml = renderTemplateHelper.getRenderedHtml(basketModel, template);
         }
 
         var addCartGtmArray = customCartHelpers.createAddtoCartProdObj(currentBasket, viewData.pliUUID, embossedMessage, engravedMessage);
@@ -129,7 +152,8 @@ server.append('AddProduct', function (req, res, next) {
 
         res.setViewData({
             quantityTotal: quantityTotal,
-            recommendedProductCardHtml: recommendedProductCardHtml
+            recommendedProductCardHtml: recommendedProductCardHtml,
+            giftProductCardHtml: giftProductCardHtml
         });
     }
     return next();
@@ -234,7 +258,7 @@ server.append(
 
         if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
             var cartAnalyticsTrackingData;
-        	
+
         	if (basketModel.items.length == 0) {
                cartAnalyticsTrackingData = {clear_cart: true};
                cartAnalyticsTrackingData.customerEmailOrUniqueNo = customer.isAuthenticated() && customer.getProfile() ? customer.getProfile().getEmail() : '';
