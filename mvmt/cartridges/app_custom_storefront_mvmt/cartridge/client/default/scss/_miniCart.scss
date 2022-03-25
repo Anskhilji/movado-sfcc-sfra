@@ -132,6 +132,65 @@
             }
         }
 
+        .gift-box-wrapper {
+
+            .gift-box-wrapper-checkbox {
+                border-bottom: rem(1) solid $alice-blue;
+            }
+
+            &-wrapper {
+
+                input[type="checkbox"] {
+
+                    &:focus {
+                        box-shadow: none;
+                        border: none;
+                        outline: none;
+                    }
+
+                    &:checked {
+
+                        &:focus {
+                            box-shadow: none;
+                            border: none;
+                            outline: none;
+                        }
+
+                        + label {
+
+                            &:focus {
+                                box-shadow: none;
+                                outline: 0;
+                            }
+
+                            &:before {
+                                background-color: $light-green4;
+                                border-color: transparent;
+                            }
+                        }
+                    }
+    
+                    + {
+    
+                        label {
+    
+                            &:focus {
+                                box-shadow: none;
+                                outline: 0;
+                            }
+    
+                            &:before {
+                                color: $white;
+                                border: rem(2) solid $black;
+                                background-color: transparent;
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+
         .gift-messages {
 
             &-wrapper {
