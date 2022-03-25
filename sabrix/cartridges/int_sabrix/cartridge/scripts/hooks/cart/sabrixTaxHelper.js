@@ -511,7 +511,7 @@ function updateLineItemSabrixTax(responseObject, svc){
       var line = invoice.LINE[k];
       var itemMap = svc.itemMap;
       var lineItem = itemMap.get(new Number(line.LINENUMBER).toFixed());
-      var rate = line.TAXSUMMARY.TAX_RATE;
+      var rate = line.TAXSUMMARY.TAXRATE;
 
 			/* var basis = line.TAXSUMMARY.TAXABLEBASIS;
 			var taxAmount =  new money(Number(line.TOTALTAXAMOUNT),invoice.CURRENCYCODE.toString());
