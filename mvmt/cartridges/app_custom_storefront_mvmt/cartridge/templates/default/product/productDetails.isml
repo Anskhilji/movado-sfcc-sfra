@@ -63,12 +63,12 @@
                                     </isif>
                                     <span class="sub-message-wrapper">
                                         <isif condition="${product.productName.length > 96}">
-                                            <span class="product-name watches-product-name text-truncate-wrapper watches-turncate-name product-title-for-gtm">${product.productName}<isif condition="${!empty(pdict.caseDiameter)}">${Resource.msg('separator', 'product', null)}</isif></span>
+                                            <span class="product-name ${!empty(product.collectionName) ? 'watches-product-name' : 'watches-collection-name d-inline'} text-truncate-wrapper watches-turncate-name product-title-for-gtm">${product.productName}<isif condition="${!empty(pdict.caseDiameter)}">${Resource.msg('separator', 'product', null)}</isif></span>
                                         <iselse>
-                                            <span class="product-name watches-product-name product-title-for-gtm">${product.productName}<isif condition="${!empty(pdict.caseDiameter)}">${Resource.msg('separator', 'product', null)}</isif></span>
+                                            <span class="product-name ${!empty(product.collectionName) ? 'watches-product-name' : 'watches-collection-name d-inline'} product-title-for-gtm">${product.productName}<isif condition="${!empty(pdict.caseDiameter)}">${Resource.msg('separator', 'product', null)}</isif></span>
                                         </isif>
                                         <isif condition="${!empty(pdict.caseDiameter)}">
-                                                <span class="watches-case-diameter w-100" data-selected-variation-attr="caseDiameter">${pdict.caseDiameter}</span>
+                                                <span class="${!empty(product.collectionName) ? 'watches-case-diameter' : 'watches-collection-name d-inline'} w-100" data-selected-variation-attr="caseDiameter">${pdict.caseDiameter}</span>
                                         </isif>
                                     </span>
                                 </h1>

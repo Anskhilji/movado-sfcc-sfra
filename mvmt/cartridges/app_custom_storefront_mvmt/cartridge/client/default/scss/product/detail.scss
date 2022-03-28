@@ -1090,41 +1090,43 @@
                     }
                 }
             }
-            .price {
-                color: $light-black;
-                font-size: rem(24);
-                @include font-medium;
-                letter-spacing: 0;
-                line-height: rem(31); 
-                @include media-breakpoint-down(sm) {
-                    font-size: rem(20);
-                    line-height: rem(26); 
-                }
-                .price-pdp-mvmt {
-                    display: flex;
-                    flex-direction: column-reverse;
-                    align-items: flex-end;
-                }
-                del {
-                    text-align: right;
-                    line-height: rem(20);
-                    margin-top: rem(10);
+            .prices {
+                .price {
+                    color: $light-black;
+                    font-size: rem(24);
+                    @include font-medium;
+                    letter-spacing: 0;
+                    line-height: rem(31); 
                     @include media-breakpoint-down(sm) {
-                        margin-top: rem(5);  
+                        font-size: rem(20);
+                        line-height: rem(26); 
                     }
-                    span {
-                        opacity: 0.5;
-                        @include collection-subtitle-font;
-                        display: block;
-                        &.strike-through {
-                            margin-right: 0;
+                    .price-pdp-mvmt {
+                        display: flex;
+                        flex-direction: column-reverse;
+                        align-items: flex-end;
+                    }
+                    del {
+                        text-align: right;
+                        line-height: rem(20);
+                        margin-top: rem(10);
+                        @include media-breakpoint-down(sm) {
+                            margin-top: rem(10);
                         }
-                    }
-                    & + .sale-price-mvmt {
-                        color: $dark-red;
-                    }
-                    .strike-through {
-                        text-decoration: none;
+                        span {
+                            opacity: 0.5;
+                            @include collection-subtitle-font;
+                            display: block;
+                            &.strike-through {
+                                margin-right: 0;
+                            }
+                        }
+                        & + .sale-price-mvmt {
+                            color: $dark-red;
+                        }
+                        .strike-through {
+                            text-decoration: none;
+                        }
                     }
                 }
             }
@@ -1144,6 +1146,9 @@
                         display: -webkit-box;
                         -webkit-line-clamp: 3;
                         margin-bottom: rem(10);
+                        @include media-breakpoint-down(sm) {
+                            font-size: rem(20);
+                        }
                     }
         
                     &-heading {
@@ -1151,7 +1156,6 @@
                         display: block;
                         .eyewear-colors-wrapper {
                             @include collection-subtitle-font;
-                            display: block;
                         }
                     }
                 }
@@ -1171,6 +1175,9 @@
                         display: -webkit-box;
                         -webkit-line-clamp: 3;
                         margin-bottom: rem(10);
+                        @include media-breakpoint-down(sm) {
+                            font-size: rem(20);
+                        }
                     } 
 
                     &-heading {
