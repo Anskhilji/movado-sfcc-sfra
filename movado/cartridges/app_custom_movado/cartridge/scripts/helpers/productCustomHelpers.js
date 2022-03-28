@@ -13,25 +13,6 @@ var Calendar = require('dw/util/Calendar');
 var URLUtils = require('dw/web/URLUtils');
 
 
-/* static constants */
-var DELIMITER_COMMA = ',';
-var ATTR_DIAL = 'dial';
-var ATTR_CASE_MAT = 'caseMaterial';
-var ATTR_CASE_DIA = 'caseDiameter';
-var ATTR_GEM_TYPE = 'gemstoneType';
-var ATTR_GEM_NUMBER = 'gemstoneNumber';
-var ATTR_GEM_CLARITY = 'gemstoneClarity';
-var ATTR_CARAT = 'caratWeight';
-var ATTR_ATTACH_TYPE = 'attachmentType';
-var ATTR_MOVEMENT_TYPE = 'movementType';
-var ATTR_GENDER = 'watchGender';
-var ATTR_WTR_RESISTANCE = 'waterResistance';
-var ATTR_FABRICATION = 'crystalFabrication';
-var ATTR_RING_SIZE = 'ringSize';
-var ATTR_LENGTH = 'length';
-var ATTR_POWER_RESERVE  = 'powerReserve';
-var ATTR_MOVEMENT_FUNCTIONS = 'movementFunctions';
-var ATTR_CALIBER = 'caliber';
 
 var STRAP = 'strap';
 var BRACELET = 'bracelet';
@@ -246,8 +227,6 @@ function getPdpAttributes(apiProduct) {
     var ringSizeImage = Site.getCurrent().getCustomPreferenceValue('ringSizeAttributeImage');
     var lengthImage = Site.getCurrent().getCustomPreferenceValue('lengthAttributeImage');
 
-	/* split the list of attributes*/
-    pdpAttributes = pdpAttributes.split(DELIMITER_COMMA);
 
     try {
         for (var i = 0; i < pdpAttributes.length; i++) {
