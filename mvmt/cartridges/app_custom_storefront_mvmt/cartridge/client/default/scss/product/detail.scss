@@ -1091,6 +1091,9 @@
                 }
             }
             .prices {
+                @include media-breakpoint-down(sm) {
+                    padding: rem(0);
+                }
                 .price {
                     color: $light-black;
                     font-size: rem(24);
