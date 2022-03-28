@@ -26,6 +26,7 @@ server.append('AddProduct', function (req, res, next) {
     var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
     var recommendedProductCardHtml = '';
     var isCartPage = req.form.isCartPage;
+    var giftProductCardHtml = '';
 
 
     if (!viewData.error) {
