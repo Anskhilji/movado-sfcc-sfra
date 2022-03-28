@@ -1077,6 +1077,9 @@
                         @include collection-title-font;
                         display: block;
                         margin-bottom: rem(10);
+                        @include media-breakpoint-down(sm) {
+                            font-size: rem(20);
+                        }
                     }
                     &-seprator {
                         @include collection-subtitle-font;
@@ -1285,6 +1288,7 @@
             &.d-show-mobile {
                 display: none;
                 @include media-breakpoint-down(sm) {
+                    margin-top: rem(20);
                     display: block;
                 }
             }

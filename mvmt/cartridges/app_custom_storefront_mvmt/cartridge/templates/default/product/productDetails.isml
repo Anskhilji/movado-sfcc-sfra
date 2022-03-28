@@ -62,7 +62,7 @@
                                         <span class="watches-collection-name" data-selected-variation-attr="collectionName">${product.collectionName}</span>
                                     </isif>
                                     <span class="sub-message-wrapper">
-                                        <isif condition="${product.productName.length > 40}">
+                                        <isif condition="${product.productName.length > 96}">
                                             <span class="product-name watches-product-name text-truncate-wrapper watches-turncate-name product-title-for-gtm">${product.productName}<isif condition="${!empty(pdict.caseDiameter)}">${Resource.msg('separator', 'product', null)}</isif></span>
                                         <iselse>
                                             <span class="product-name watches-product-name product-title-for-gtm">${product.productName}<isif condition="${!empty(pdict.caseDiameter)}">${Resource.msg('separator', 'product', null)}</isif></span>
