@@ -241,29 +241,30 @@
 
 // full bleed image toaster product
 .full-bleed-image-product{
+  
         .full-bleed-img-box {
             position: relative;
+
             .bleed-text-box {
                 position: absolute;
                 top: rem(272);
-                // transform: translateY(-34.8%);
                 right: rem(75);
-                @include large-1200 {
+                @include media-breakpoint-down(lg) {
                     top: 24.8%;
                     transform: translateY(-24.8%);
                 }
-                @include medium-991 {
+                @include media-breakpoint-down(md) {
                     top: 14.8%;
                     transform: translateY(-14.8%);
                     right: rem(40);
                 }
-                @include small-767 {
+                @include media-breakpoint-down(sm) {
                     top: 8.8%;
                     transform: translateY(-8.8%);
                     right: rem(30.14);
                 }
                 &-title {
-                    color: #333333;
+                    color: $grey8;
                     font-family: "futura-pt";
                     font-size: rem(34);
                     font-weight: 500;
@@ -271,12 +272,12 @@
                     line-height: rem(41);
                     text-align: center;
                     margin-bottom: rem(20);
-                    @include medium-991 {
+                    @include media-breakpoint-down(md) {
                         font-size: rem(30);
                         line-height: rem(37);
                         margin-bottom: rem(5);
                     }
-                    @include small-767 {
+                    @include media-breakpoint-down(sm) {
                         font-size: rem(28);
                         line-height: rem(35);
                         margin-bottom: rem(13);
@@ -286,14 +287,14 @@
                     cursor: pointer;
                     height: rem(45);
                     width: rem(268);
-                    background-color: #000000;
+                    background-color: $black;
                     color: #ffffff;
                     font-family: "futura-pt";
                     font-size: rem(16);
                     font-weight: 500;
                     letter-spacing: 0;
                     line-height: rem(21);
-                    @include medium-991 {
+                    @include media-breakpoint-down(md) {
                         height: rem(40);
                         width: rem(258);
                         font-size: rem(15);
@@ -303,13 +304,13 @@
                         margin-right: rem(12);
                         height: rem(13);
                         width: rem(14.88);
-                        @include small-767 {
+                        @include media-breakpoint-down(sm) {
                             height: rem(11.14);
                             width: rem(12.75);
                             margin-right: rem(9.25);
                         }
                     }
-                    @include small-767 {
+                    @include media-breakpoint-down(sm) {
                         height: rem(30);
                         width: rem(174.86);
                         font-size: rem(10.29);
@@ -741,6 +742,7 @@
             &.show-popup-tile {
                 visibility: visible;
                 opacity: 1;
+
                 .product-collection-box {
                     transform: translateY(0);
                     transition:  ease-in-out 0.4s;
@@ -752,6 +754,10 @@
                 position: relative;
                 transform: translateY(100%);
                 transition:  ease-in-out 0.4s;
+                @include media-breakpoint-down(sm) {
+                  padding: rem(38) rem(7.5) rem(30);
+                }
+
                 .close-product-popup-box {
                     position: absolute;
                     top: rem(27);
@@ -762,9 +768,15 @@
                     height: rem(16.8);
                     width: rem(16.8);
                     cursor: pointer;
+                    z-index: 5;
+                    @include media-breakpoint-down(sm) {
+                      top: rem(7);
+                      right: rem(10);
+                    }
                 }
+
                 .product-collection-title {
-                    color: #333333;
+                    color: $grey8;
                     font-family: "futura-pt";
                     font-size: rem(34);
                     font-weight: 500;
@@ -774,6 +786,7 @@
                     @include media-breakpoint-down(sm) {
                       font-size: rem(17);
                       line-height: rem(22);
+                      margin-bottom: rem(25);
                     }
                 }
             }
@@ -781,16 +794,21 @@
               display: flex;
 
               .slick-slide {
-                background-color: #F2F2F2;
+                background-color: $white-smoke;
                 height: auto;
-                margin-left: rem(5);
-                margin-right: rem(5);
+                margin-left: rem(7.5);
+                margin-right: rem(7.5);
                 display: flex;
                 align-items: center;
                 justify-content: center ;
+                @include media-breakpoint-down(sm) {
+                  margin-left: rem(2.5);
+                margin-right: rem(2.5);
+                }
               }
 
             }
+
             .slick-dots {
               bottom: -21px;
               width: rem(150); 
@@ -818,12 +836,13 @@
                   }
 
                 }
+
                 button {
 
                   &:before{
                     width: 100%;
                     height: rem(1);
-                    background-color: #BCBEC0;
+                    background-color: $grey9;
                     opacity: 1;
                     font-size: 0;
                   }
@@ -834,11 +853,12 @@
             }
         }
         .product-count-box{
-            background-color: #F2F2F2;
-          height: 100%;
-          text-align: center;
+            background-color: $white-smoke;
+            height: 100%;
+            text-align: center;
+
             .product-custom-title{
-                color: #333333;
+                color: $grey8;
                 font-family: "futura-pt";
                 font-size: rem(34);
                 font-weight: 300;
@@ -850,11 +870,12 @@
                   line-height: rem(22);
                 }
             }
+
             .view-all-category-btn{
               box-sizing: border-box;
               height: rem(40);
               width: rem(149.03);
-              border: rem(1) solid #000000;
+              border: rem(1) solid $black;
               font-size: rem(16);
               font-weight: 500;
               letter-spacing: 0;

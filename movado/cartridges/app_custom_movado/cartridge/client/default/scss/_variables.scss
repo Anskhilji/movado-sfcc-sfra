@@ -227,35 +227,3 @@ $custom-md2: 810px;
 $custom-lg1: 990px;
 $custom-lg2: 1120px;
 $custom-sm13: 351px;
-
-
-@mixin large-1200 {
-    @media (max-width:1200px) {
-        @content;
-    }
-}
-@mixin medium-991 {
-    @media (max-width:991px) {
-        @content;
-    }
-}
-@mixin small-767 {
-    @media (max-width:767px) {
-        @content;
-    }
-}
-@mixin m-425 {
-    @media (max-width:425px) {
-        @content;
-    }
-}
-@mixin m-375 {
-    @media (max-width:375px) {
-        @content;
-    }
-}
-@mixin m-325 {
-    @media (max-width:325px) {
-        @content;
-    }
- }
