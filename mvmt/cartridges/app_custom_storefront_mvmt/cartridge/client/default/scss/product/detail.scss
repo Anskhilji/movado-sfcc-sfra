@@ -1127,9 +1127,10 @@
             }
 
             .category-eyewear {
-                
+                padding-right: rem(20);
                 h1 {
                     margin-bottom: rem(5);
+                    line-height: 0;
                 }
                 
                 .eyewear {
@@ -1139,16 +1140,22 @@
                         text-overflow: ellipsis;
                         display: -webkit-box;
                         -webkit-line-clamp: 3;
+                        margin-bottom: rem(10);
                     }
         
                     &-heading {
                         @include collection-subtitle-font;
+                        display: block;
+                        .eyewear-colors-wrapper {
+                            @include collection-subtitle-font;
+                            display: block;
+                        }
                     }
                 }
             }
 
             .category-jewlery {
-                
+                padding-right: rem(20);
                 h1 {
                     margin-bottom: rem(5);
                 }
@@ -1160,9 +1167,11 @@
                         text-overflow: ellipsis;
                         display: -webkit-box;
                         -webkit-line-clamp: 3;
+                        margin-bottom: rem(10);
                     } 
 
                     &-heading {
+                        display: block;
                         @include collection-subtitle-font;
                     }
 
@@ -1261,10 +1270,24 @@
         }
 
         .klarna-Allowed-Country-label {
+            height: rem(45);
             margin-top: rem(5);
             display: flex;
             align-items: center;
             justify-content: center;
+
+            &.d-show-desktop {
+                display: block;
+                @include media-breakpoint-down(sm) {
+                    display: none;
+                }
+            }
+            &.d-show-mobile {
+                display: none;
+                @include media-breakpoint-down(sm) {
+                    display: block;
+                }
+            }
         }
 
         .product-description {
@@ -1274,7 +1297,8 @@
         }
         
         .sub-message-wrapper {
-            display: grid;
+            display: block;
+            line-height: 0;
         }
     }
 
