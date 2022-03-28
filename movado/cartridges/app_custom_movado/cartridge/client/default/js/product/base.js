@@ -99,11 +99,10 @@ $(window).on("load resize scroll", function(e) {
         });
     }
 });
-    
-$("#product-tile-open-btn").click(function () {
+$(document).on('click','#product-tile-open-btn', function() {
     $("#product-tile-popup").addClass("show-popup-tile");
 });
-$("#close-popup").click(function () {
+$(document).on('click','#close-popup', function() {
     $("#product-tile-popup").removeClass("show-popup-tile");
 });
 

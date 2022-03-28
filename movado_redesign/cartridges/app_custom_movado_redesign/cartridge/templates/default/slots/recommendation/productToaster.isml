@@ -1,10 +1,10 @@
 <isif condition="${slotcontent && !!slotcontent.content.length}">
 <script>
     $(document).ready(function() {
-        window.slickSlider.initCarousel($('.plp-new-design-list'));
+        window.slickSlider.initCarousel($('.plp-new-design-list-recommendation'));
     });
 </script>
-<div class="full-bleed-Toaster-box full-bleed-image-product plp-new-design-list">
+<div class="full-bleed-Toaster-box full-bleed-image-product plp-new-design-list-recommendation">
     <isif condition="${slotcontent.custom.bottomSectionCarousel}">
         <div class="bottom-section">
             <isprint value="${slotcontent.custom.bottomSectionCarousel}" encoding="off" />
@@ -37,7 +37,9 @@
                                         <a class="view-all-category-btn" href="${URLUtils.url('Search-Show', 'cgid', slotcontent.custom.categoryID)}">View All</a>
                                     </div>
                                 <iselse/>
+                                <isobject object="${product}" view="recommendation">
                                     <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true, 'isHighResolutionImage', true, 'plpTile', true, 'isTopSearch', true)}" />
+                                </isobject>
                                 </isif>
                             </div>
                                 <isif condition="${counter >= 3}">
@@ -46,7 +48,9 @@
                                 <isset name="counter" value="${counter + 1}" scope="page">
                         </isloop>
                         <isif condition="${isTileShow}">
+                        <isobject object="${product}" view="recommendation">
                             <isinclude url="${URLUtils.url('Tile-Show', 'pid', slotcontent.content[slotcontent.content.length > 2 ? 2 : slotcontent.content.length - 1].ID, 'pview', 'tile', 'ratings', true, 'swatches', true, 'isHighResolutionImage', true, 'plpTile', true, 'isTopSearch', true)}" />
+                        </isobject>
                         <iselseif condition="${slotcontent.custom.categoryPosition > slotcontent.content.length - 1 || slotcontent.custom.categoryPosition <= 0}" />
                             <div class="product-count-box">
                                 <div class="total-count">
