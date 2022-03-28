@@ -99,9 +99,11 @@ $(window).on("load resize scroll", function(e) {
         });
     }
 });
+
 $(document).on('click','#product-tile-open-btn', function() {
     $("#product-tile-popup").addClass("show-popup-tile");
 });
+
 $(document).on('click','#close-popup', function() {
     $("#product-tile-popup").removeClass("show-popup-tile");
 });
