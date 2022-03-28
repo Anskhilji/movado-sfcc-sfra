@@ -249,6 +249,9 @@
 .full-bleed-image-product {
   &.quad-main-container {
     padding: rem(0) rem(15) rem(0) rem(20);
+    @include media-breakpoint-down(lg){
+      padding: rem(0) rem(20);
+    }
     @include media-breakpoint-down(sm){
       padding: rem(10);
     }
@@ -256,12 +259,15 @@
       margin: 0;
     }
     .bottom-section {
-      padding-right: rem(15);
-      @include media-breakpoint-down(sm) {
-        padding: rem(0) rem(0) rem(10) rem(0);
-      }
-      @include media-breakpoint-down(xs) {
-        padding: rem(0) rem(0) rem(5) rem(0);
+      &.left-section-wrapper {
+        padding-right: rem(15);
+        
+        @include media-breakpoint-down(custom-md) {
+          padding: rem(0) rem(0) rem(10) rem(0);
+        }
+        @include media-breakpoint-down(xs) {
+          padding: rem(0) rem(0) rem(5) rem(0);
+        }
       }
     }
     .no-gutters-wrapper {
