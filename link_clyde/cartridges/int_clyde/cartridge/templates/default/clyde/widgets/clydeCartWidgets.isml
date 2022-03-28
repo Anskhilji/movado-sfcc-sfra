@@ -1,0 +1,6 @@
+ <iscomment> New File added from MSS-1671 v2Cartridge </iscomment>
+<div class="${clydeProductLineItemUUID}">
+    <script type="text/javascript"><isinclude template="resources/appresources"/></script>
+    <div class="clyde-cart-widget" id="${'clyde-'+ clydeProductLineItemUUID}" data-product-id="${clydeProductId}"></div>
+    <div class="clyde-cart-widget-action" data-action-url="${URLUtils.https('Clyde-AddContract')}"></div> 
+</div>

@@ -266,13 +266,6 @@ exports.prepareBasket = function (basket, parameters) {
     if (currentBasket && !empty(currentBasket.custom.smartGiftTrackingCode)) {
         session.custom.trackingCode = currentBasket.custom.smartGiftTrackingCode;
     }
-    // Custom Start: [MSS-1658]
-    if (!empty(currentBasket)) {
-        var clydeContractProductList = basket.custom.clydeContractProductList ? basket.custom.clydeContractProductList : '';
-        delete session.custom.clydeContractProductList;
-        session.custom.clydeContractProductList = clydeContractProductList;
-    }
-    // Custom End: [MSS-1658]
     var status = new Status(Status.OK);
     var result = new ApplePayHookResult(status, null);
     return result;
@@ -339,9 +332,7 @@ exports.beforeAuthorization = function (order, payment, custom) {
             order.custom.isContainClydeContract = false;
             order.custom.clydeContractProductMapping = '';
         });
-        var contractProductList = session.custom.clydeContractProductList || false;
-        addClydeContract.createOrderCustomAttr(contractProductList, order);
-        delete session.custom.clydeContractProductList;
+        addClydeContract.createOrderCustomAttr(order);
     }
     /**
      * Custom: End

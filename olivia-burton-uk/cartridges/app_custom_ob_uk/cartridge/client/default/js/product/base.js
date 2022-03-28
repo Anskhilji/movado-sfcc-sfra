@@ -17,6 +17,8 @@ function getPidValue($el) {
         pid = $($el).closest('.product-detail').find('.product-id').text();
     } else if ($($el).closest('.recomended-products') && $($el).closest('.recomended-products').data('recomendation') == true) {
         pid = $($el).data('pid');
+    } else if ($($el).closest('.recomended-products-redesign ') && $($el).closest('.recomended-products-redesign ').data('recomendation') == true) {
+        pid = $($el).data('pid');
     } else {
         pid = $('.product-detail:not(".bundle-item")').data('pid');
     }
@@ -260,7 +262,7 @@ function removeOption($productOptionContainer) {
     $productOptionContainer.closest('form').validate().resetForm();
 }
 
-function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, $productContainer) {
+function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, $productContainer, OptionsValidationError) {
     var optionForm;
     if (embossedMessageError) {
         optionForm = $productContainer.find('form[name="embossing"]');
@@ -273,7 +275,6 @@ function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, 
             "option-message": embossedMessageError
         });
     }
-
     if (engravedMessageError) {
         optionForm = $productContainer.find('form[name="engraving"]');
         optionForm.removeClass('submitted');
@@ -283,6 +284,9 @@ function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, 
         validateOptions(optionForm).showErrors({
             "option-message": engravedMessageError
         });
+    }
+    if (!OptionsValidationError) {
+        $('.popup-opened').hide();
     }
 }
 
@@ -407,8 +411,7 @@ function attributeSelect(selectedValueUrl, $productContainer) {
                 handleVariantResponse(data, $productContainer);
                 updateOptions(data.product.options, $productContainer);
                 updateQuantities(data.product.quantities, $productContainer);
-                handleOptionsMessageErrors(data.validationErrorEmbossed, data.validationErrorEngraved, $productContainer);
-
+                handleOptionsMessageErrors(data.validationErrorEmbossed, data.validationErrorEngraved, $productContainer, data.OptionsValidationError);
                 $('body').trigger('product:afterAttributeSelect',
                     { data: data, container: $productContainer });
                 $.spinner().stop();

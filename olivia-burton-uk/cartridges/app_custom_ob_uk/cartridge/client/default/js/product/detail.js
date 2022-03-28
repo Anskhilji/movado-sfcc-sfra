@@ -145,7 +145,7 @@ module.exports = {
         });
     }
 };
-$( document ).ready(function() {
+$(document).ready(function () {
     refreshAffirmUI();
 });
 
@@ -154,7 +154,7 @@ function refreshAffirmUI() {
         if (document.readyState === "complete") {
             affirm.ui.refresh();
         } else {
-            setTimeout(function() {
+            setTimeout(function () {
                 refreshAffirmUI();
             }, 200);
         }

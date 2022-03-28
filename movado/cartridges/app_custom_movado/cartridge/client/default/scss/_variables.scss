@@ -17,8 +17,9 @@ $dark-blue: #2A326D !default;
 $dark-blue2: #118feb !default;
 $dark-red: #981608 !default;
 $yellow: #FFC517 !default;
+$yellow2: #FDCC4F !default;
 $border-color: #979797 !default;
-
+$klarna-pink: #FFBBCE;
 
 // Consolidated values
   
@@ -126,6 +127,8 @@ $font-primary: $font-book;
 $font-awesome: "FontAwesome";
 
 // Larger Screen
+$small-screen-width: 320px;
+$small-screen-width375: 375px;
 $large-screen-width: 1400px;
 
 @mixin custom-media-query($large-screen-width) {
@@ -133,7 +136,12 @@ $large-screen-width: 1400px;
       @content;
   }
 }
-
+// For screen 320px to 375px
+@mixin custom-media-query2($small-screen-width, $small-screen-width375) {
+    @media (min-width:#{$small-screen-width}) and (max-width:#{$small-screen-width375}) {
+        @content;
+    }
+}
 
 $storm-gray:#787a8a !default;
 $gray94:#f0f0f0 !default;

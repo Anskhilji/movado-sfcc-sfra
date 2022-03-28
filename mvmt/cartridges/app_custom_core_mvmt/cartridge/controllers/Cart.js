@@ -52,7 +52,6 @@ server.append('MiniCartShow', server.middleware.https, csrfProtection.generateTo
     var removeProductLineItemUrl = URLUtils.url('Cart-RemoveProductLineItem', 'isMiniCart', true).toString();
     var cartItems = customCartHelpers.removeFromCartGTMObj(currentBasket.productLineItems);
     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
-
     var productLineItems = currentBasket.productLineItems.iterator();
     var marketingProductsData = [];
 
@@ -60,6 +59,8 @@ server.append('MiniCartShow', server.middleware.https, csrfProtection.generateTo
         var productLineItem = productLineItems.next();
         var apiProduct = productLineItem.getProduct();
         var quantity = productLineItem.getQuantity().value;
+        var giftProduct = productCustomHelpers.giftBoxCategory();
+
         marketingProductsData.push(productCustomHelpers.getMarketingProducts(apiProduct, quantity));
     }
 
@@ -75,6 +76,30 @@ server.append('MiniCartShow', server.middleware.https, csrfProtection.generateTo
     res.viewData.removeProductLineItemUrl = removeProductLineItemUrl;
     res.viewData.cartItemObj = cartItems;
     res.viewData.quantityTotal = quantityTotal;
+    res.viewData.giftProduct = giftProduct;
+
+    next();
+});
+
+server.prepend(
+        'Show',
+        server.middleware.https,
+	    consentTracking.consent,
+	    csrfProtection.generateToken,
+	    function (req, res, next) {
+        res.setViewData({ loggedIn: req.currentCustomer.raw.authenticated });
+        var BasketMgr = require('dw/order/BasketMgr');
+        var CartModel = require('*/cartridge/models/cart');
+        var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
+        var currentBasket = BasketMgr.getCurrentOrNewBasket();
+        var basketModel = new CartModel(currentBasket);
+        var productLineItems = currentBasket.productLineItems.iterator();
+
+        while (productLineItems.hasNext()) {
+            var productLineItem = productLineItems.next();
+            var giftProduct = productCustomHelpers.giftBoxCategory();
+        }
+        res.viewData.giftProduct = giftProduct;
 
     next();
 });
