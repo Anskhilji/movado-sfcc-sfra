@@ -71,9 +71,12 @@
                         <isset name="isGiftBoxAllowed" value="${require('*/cartridge/scripts/helpers/productCustomHelper').isGiftBoxAllowed(product)}" scope="page" />
                         <isset name="giftBoxSKUData" value="${require('*/cartridge/scripts/helpers/productCustomHelper').getGiftBoxSKU(product)}" scope="page" />
                         <isset name="isCartPage" value="${true}" scope="page" />
+                        <isset name="giftBoxMessage" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxMessage) ? dw.system.Site.current.preferences.custom.giftBoxMessage : ''}" scope="page" />
                         <isif condition="${!empty(isGiftBoxAllowed) && isGiftBoxAllowed && giftBoxSKUData.giftBoxSKUAvailability && !pdict.giftProduct}">
-                            <input type="checkbox" data-add-to-cart-url="${URLUtils.url('Cart-AddProduct')}" data-requested-page="${isCartPage}" name="gift-allowed-checkout" class="gift-allowed-checkbox gift-allowed-checkbox-mini" value="${giftBoxSKUData.giftBoxSKU}">
-                            <label for="gift-allowed-checkout">${Resource.msg('label.minicart.gift.message','cart',null)} ${giftBoxSKUData.giftBoxSKUPrice}</label>
+                           <div class="gift-box-wrapper  gift-box-wrapper-cart">
+                                <input type="checkbox" data-add-to-cart-url="${URLUtils.url('Cart-AddProduct')}" data-requested-page="${isCartPage}" name="gift-allowed-checkout" class="gift-allowed-checkbox gift-allowed-checkbox-mini" value="${giftBoxSKUData.giftBoxSKU}">
+                            <label class="gift-box-wrapper-label" for="gift-allowed-checkout">${giftBoxMessage} ${giftBoxSKUData.giftBoxSKUPrice}</label>
+                           </div>
                         </isif>
                         <isif condition="${pdict.loggedIn}">
                              <div class="hidden-xs-down edit-add-to-wishlist">
