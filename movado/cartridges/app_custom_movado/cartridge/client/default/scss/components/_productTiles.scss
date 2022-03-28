@@ -123,7 +123,6 @@
     }
 
     .image-container {
-      
         position: relative;
         overflow: auto;
         border:1px solid $grey-dark;
@@ -320,7 +319,7 @@
                       font-size: rem(10.29);
                   }
               }
-            }
+          }
     }
 
     .plp-new-design {        
@@ -400,29 +399,29 @@
                 margin-left: rem(5);
                 overflow: hidden;
 
-              .callout.promo-msg {
-                  width: inherit;
-                  font-size: rem(15);
-                  text-align: left;
+                .callout.promo-msg {
+                    width: inherit;
+                    font-size: rem(15);
+                    text-align: left;
 
-                  @include media-breakpoint-up(md) {
-                      font-size: rem(15);
-                      margin-left: rem(12);
-                      overflow: hidden;
-                      text-overflow: ellipsis;
-                      white-space: nowrap;
-                  }
+                    @include media-breakpoint-up(md) {
+                        font-size: rem(15);
+                        margin-left: rem(12);
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
 
-                  @include media-breakpoint-down(sm) {
-                      font-size: rem(12);
-                      margin-left: rem(12);
-                  }
+                    @include media-breakpoint-down(sm) {
+                        font-size: rem(12);
+                        margin-left: rem(12);
+                    }
 
-                  @include media-breakpoint-down(xs) {
-                      font-size: rem(10); 
-                  }
+                    @include media-breakpoint-down(xs) {
+                        font-size: rem(10); 
+                    }
 
-              }
+                }
             } 
 
             .out-of-stock, .pre-order {
@@ -563,7 +562,7 @@
                     margin-bottom: rem(5);
                 }
 
-                  .price {
+                .price {
                     padding: 0;
                     display: block;
                     font-size: rem(15);
@@ -652,7 +651,7 @@
                     cursor: pointer;
 
                     &:focus {
-                        outline: -webkit-focus-ring-color auto 1px;
+                        outline: -webkit-focus-ring-color auto rem(1);
                     }
                 }
 
@@ -815,7 +814,7 @@
                     margin-left: rem(2.5);
                     margin-right: rem(2.5);
                 }
-          }
+            }
 
         }
 
@@ -874,7 +873,7 @@
             font-size: rem(34);
             font-weight: 300;
             letter-spacing: 0;
-            line-height: 50px;
+            line-height: rem(50);
             text-align: center;
             @include media-breakpoint-down(sm) {
                 font-size: rem(17);
