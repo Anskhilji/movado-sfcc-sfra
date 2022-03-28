@@ -1,5 +1,5 @@
 
 [{
     "id": "X_FRAME_OPTIONS",
-    "value": "X_FRAME_OPTIONS_SAMEORIGIN_VALUE"
+    "value": "SAMEORIGIN"
 }]
