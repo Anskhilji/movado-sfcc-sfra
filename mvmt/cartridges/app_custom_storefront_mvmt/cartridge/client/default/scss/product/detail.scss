@@ -124,13 +124,16 @@
                 flex-basis: auto;
             }
         }
+
         @include media-breakpoint-down(sm) {
             background: none;
             padding: rem(10);
+
             .row {
                 border-top: none;
             }
         }
+
         .breadcrumb-item {
             padding-left: rem(5);
             + .breadcrumb-item {
@@ -141,6 +144,7 @@
                 }
             }
         }
+        
         .social-container {
             display: flex;
             align-items: center;
