@@ -310,9 +310,9 @@
                   right: rem(40);
               }
               @include media-breakpoint-down(sm) {
-                  top: 8.8%;
-                  transform: translateY(-8.8%);
-                  right: rem(30.14);
+                top:rem(30);
+                transform: translateY(0);
+                right: rem(30.14);
               }
               &-title {
                   color: $grey8;
