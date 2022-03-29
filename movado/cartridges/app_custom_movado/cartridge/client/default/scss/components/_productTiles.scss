@@ -275,8 +275,8 @@
                   margin-bottom: rem(20);
 
                   @include media-breakpoint-down(sm) {
-                    font-size: rem(28);
-                    line-height: rem(35);
+                      font-size: rem(28);
+                      line-height: rem(35);
                       margin-bottom: rem(5);
                   }
               }
