@@ -15,7 +15,7 @@
         <div class="product-popup-box d-flex align-items-end" id="product-tile-popup">
             <div class="product-collection-box w-100">
                 <button class="close-product-popup-box p-0" id="close-popup">
-                    <img src="${URLUtils.staticURL('images/close-popup.png?$staticlink$')}" class="img-fluid" alt="">
+                    <img src="${URLUtils.staticURL('images/close-popup.png')}" class="img-fluid" alt="">
                 </button>
                 <isif condition="${slotcontent.custom.carouselTitle}">
                     <div class="product-collection-title text-center">${slotcontent.custom.carouselTitle}</div>
