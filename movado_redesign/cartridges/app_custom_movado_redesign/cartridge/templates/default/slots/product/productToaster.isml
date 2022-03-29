@@ -15,9 +15,11 @@
         <div class="product-popup-box d-flex align-items-end" id="product-tile-popup">
             <div class="product-collection-box w-100">
                 <button class="close-product-popup-box p-0" id="close-popup">
-                    <img src="${URLUtils.staticURL('./images/close-popup.png')}" class="img-fluid" alt="">
+                    <img src="${URLUtils.staticURL('images/close-popup.png?$staticlink$')}" class="img-fluid" alt="">
                 </button>
-                <div class="product-collection-title text-center">${slotcontent.custom.carouselTitle}</div>
+                <isif condition="${slotcontent.custom.carouselTitle}">
+                    <div class="product-collection-title text-center">${slotcontent.custom.carouselTitle}</div>
+                </isif>
                 <div class="full-bleed-products-box">
                     <div class="search-results plp-new-design js-carousel cs-carousel" data-carousel-config="${slotcontent.custom.carouselConfig ? slotcontent.custom.carouselConfig.replace(/[\n\s]/gi, '') : ''}">
                         <isset name="counter" value="${1}" scope="page">
@@ -37,7 +39,7 @@
                                         <a class="view-all-category-btn" href="${URLUtils.url('Search-Show', 'cgid', slotcontent.custom.categoryID)}">View All</a>
                                     </div>
                                 <iselse/>
-                                    <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true, 'isHighResolutionImage', true, 'plpTile', true, 'isTopSearch', true)}" />
+                                    <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true, 'isHighResolutionImage', true, 'isTopSearch', true, 'isPLP', true)}" />
                                 </isif>
                             </div>
                                 <isif condition="${counter >= 3}">
@@ -46,7 +48,7 @@
                                 <isset name="counter" value="${counter + 1}" scope="page">
                         </isloop>
                         <isif condition="${isTileShow}">
-                            <isinclude url="${URLUtils.url('Tile-Show', 'pid', slotcontent.content[slotcontent.content.length > 2 ? 2 : slotcontent.content.length - 1].ID, 'pview', 'tile', 'ratings', true, 'swatches', true, 'isHighResolutionImage', true, 'plpTile', true, 'isTopSearch', true)}" />
+                            <isinclude url="${URLUtils.url('Tile-Show', 'pid', slotcontent.content[slotcontent.content.length > 2 ? 2 : slotcontent.content.length - 1].ID, 'pview', 'tile', 'ratings', true, 'swatches', true, 'isHighResolutionImage', true, 'isPLP', true, 'isTopSearch', true)}" />
                         <iselseif condition="${slotcontent.custom.categoryPosition > slotcontent.content.length - 1 || slotcontent.custom.categoryPosition <= 0}" />
                             <div class="product-count-box">
                                 <div class="total-count">

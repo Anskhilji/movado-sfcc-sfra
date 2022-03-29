@@ -766,18 +766,17 @@
 
             .close-product-popup-box {
                 position: absolute;
-                top: rem(24);
+                top: rem(23);
                 right: rem(26);
                 border: none;
                 outline: none;
                 background: none;
-                height: rem(16.8);
                 width: rem(16.8);
                 cursor: pointer;
                 z-index: 5;
 
                 @include media-breakpoint-down(sm) {
-                    top: rem(7);
+                    top: rem(6);
                     right: rem(10);
                 }
             }
