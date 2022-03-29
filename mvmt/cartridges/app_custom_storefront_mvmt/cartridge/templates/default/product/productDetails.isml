@@ -126,9 +126,11 @@
 
                         <!-- Product Price -->
                         <iscomment> Custom: Product id removed, product price added </iscomment>
-                        <div class="prices">
-                            <isset name="price" value="${product.price}" scope="page" />
-                            <isinclude template="product/components/pricing/main" />
+                        <div class="product-price-rating">
+                            <div class="prices">
+                                <isset name="price" value="${product.price}" scope="page" />
+                                <isinclude template="product/components/pricing/main" />
+                            </div>
                         </div>
                         <iscomment> Custom: End </iscomment>
                     </div>

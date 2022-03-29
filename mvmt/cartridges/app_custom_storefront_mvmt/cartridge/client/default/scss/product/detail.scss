@@ -1115,26 +1115,6 @@
                         display: flex;
                         flex-direction: column-reverse;
                         align-items: flex-end;
-                        line-height: 0;
-
-                        .sales  {
-                            &.sale-price-mvmt {
-                                @include media-breakpoint-up(md-down) {
-                                    margin: rem(0);
-                                }
-                                .value {
-                                    color: $light-black;
-                                    font-size: rem(24);
-                                    @include font-medium;
-                                    letter-spacing: 0;
-                                    line-height: rem(31);
-                                    @include media-breakpoint-down(sm) {
-                                        font-size: rem(20);
-                                        line-height: rem(26); 
-                                    }
-                                }
-                            }
-                        }
                     }
                     del {
                         text-align: right;
@@ -1165,7 +1145,6 @@
                 padding-right: rem(20);
                 h1 {
                     margin-bottom: rem(5);
-                    line-height: 0;
                 }
                 
                 .eyewear {
@@ -3263,3 +3242,4 @@
         padding: rem(8) 15% !important;
     }
 }
+
