@@ -1161,6 +1161,7 @@
                         text-overflow: ellipsis;
                         display: -webkit-box;
                         -webkit-line-clamp: 3;
+                        margin: rem(0);
                         @include media-breakpoint-down(sm) {
                             font-size: rem(20);
                         }
