@@ -110,95 +110,102 @@
     }
 }
 
-.product-breadcrumb {
-    background: $white-gray;
-    display: flex;
-    justify-content: space-between;
-    padding: rem(9) rem(16) rem(8);
+#mainContent {
 
-    .row {
-
-        > div {
-            flex-basis: auto;
-        }
-    }
-    @include media-breakpoint-down(sm) {
-        background: none;
-        padding: rem(10);
-        .row {
-            border-top: none;
-        }
-    }
-    .breadcrumb-item {
-        padding-left: rem(5);
-        + .breadcrumb-item {
-            &::before {
-                @include media-breakpoint-down(sm) {
-                    padding-right: rem(5);
-                }
-            }
-        }
-    }
-    .social-container {
+    .product-breadcrumb {
+        background: $white-gray;
         display: flex;
-        align-items: center;
+        justify-content: space-between;
+        padding: rem(9) rem(16) rem(8);
 
-        > span {
-            font-family: $font-book;
-            color: $black;
-            font-size: rem(11);
-            text-transform: uppercase;
-        }
+        .row {
 
-        .social-icons {
-            display: flex;
-        }
-
-        a {
-            font-size: rem(16);
-            margin: 0;
-            padding-left: rem(25);
-
-            &:hover {
-                color: $dark-red;
-                text-decoration: none;
+            > div {
+                flex-basis: auto;
             }
         }
-    }
-
-    .breadcrumb {
-        padding-bottom: 0;
 
         @include media-breakpoint-down(sm) {
-            opacity: 0.69;
-            padding : rem(0);
+            background: none;
+            padding: rem(10);
+
+            .row {
+                border-top: none;
+            }
         }
 
-        &-item {
-            a {
-                font-family: $font-book;
-                font-size: rem(11);
-                letter-spacing: 1.5;
-                text-transform: uppercase;
-                @include media-breakpoint-down(sm) {
-                    font-size: rem(10);
-                    letter-spacing: 0;
-                    color: $light-black;
-                    font-weight: 300;
-                    line-height: rem(20);
-                    text-transform: capitalize;
-                    font-family: $font-book;
+        .breadcrumb-item {
+            padding-left: rem(5);
+            + .breadcrumb-item {
+                &::before {
+                    @include media-breakpoint-down(sm) {
+                        padding-right: rem(5);
+                    }
                 }
             }
+        }
+        
+        .social-container {
+            display: flex;
+            align-items: center;
 
-            &:last-child {
+            > span {
+                font-family: $font-book;
+                color: $black;
+                font-size: rem(11);
+                text-transform: uppercase;
+            }
 
-                a {
-                    font-family: $font-bold;
+            .social-icons {
+                display: flex;
+            }
+
+            a {
+                font-size: rem(16);
+                margin: 0;
+                padding-left: rem(25);
+
+                &:hover {
+                    color: $dark-red;
+                    text-decoration: none;
                 }
-                @include media-breakpoint-down(sm) {
-                    a {
+            }
+        }
+
+        .breadcrumb {
+            padding-bottom: 0;
+
+            @include media-breakpoint-down(sm) {
+                opacity: 0.69;
+                padding : rem(0);
+            }
+
+            &-item {
+                a {
+                    font-family: $font-book;
+                    font-size: rem(11);
+                    letter-spacing: 1.5;
+                    text-transform: uppercase;
+                    @include media-breakpoint-down(sm) {
+                        font-size: rem(10);
+                        letter-spacing: 0;
+                        color: $light-black;
+                        font-weight: 300;
+                        line-height: rem(20);
+                        text-transform: capitalize;
                         font-family: $font-book;
+                    }
+                }
+
+                &:last-child {
+
+                    a {
+                        font-family: $font-bold;
+                    }
+                    @include media-breakpoint-down(sm) {
+                        a {
+                            font-family: $font-book;
+                        }
                     }
                 }
             }
