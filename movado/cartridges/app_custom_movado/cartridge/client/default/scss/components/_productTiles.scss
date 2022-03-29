@@ -846,7 +846,7 @@
                         padding: 0;
 
                         &:before{
-                            background-color: #000;
+                            background-color: $black;
                         }
 
                     }
@@ -905,7 +905,7 @@
             @include media-breakpoint-down(sm) {
                 font-size: rem(14);
                 height: rem(30);
-                width: rem(129.03);
+                width: rem(98);
                 line-height: rem(30);
             }
         }
