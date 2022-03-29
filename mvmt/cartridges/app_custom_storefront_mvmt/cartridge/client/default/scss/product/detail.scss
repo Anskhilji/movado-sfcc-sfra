@@ -1083,7 +1083,7 @@
                     &-collection-name {
                         @include collection-title-font;
                         display: block;
-                        margin-bottom: rem(10);
+                        margin: rem(0) rem(0) rem(10) rem(0);
                         @include media-breakpoint-down(sm) {
                             font-size: rem(20);
                         }
@@ -1151,6 +1151,7 @@
                 padding-right: rem(20);
                 h1 {
                     margin-bottom: rem(5);
+                    line-height: 0;
                 }
                 
                 .eyewear {
@@ -1160,7 +1161,6 @@
                         text-overflow: ellipsis;
                         display: -webkit-box;
                         -webkit-line-clamp: 3;
-                        margin-bottom: rem(10);
                         @include media-breakpoint-down(sm) {
                             font-size: rem(20);
                         }
@@ -1169,6 +1169,7 @@
                     &-heading {
                         @include collection-subtitle-font;
                         display: block;
+                        margin-top: rem(10);
                         .eyewear-colors-wrapper {
                             @include collection-subtitle-font;
                         }
@@ -1190,7 +1191,6 @@
                         text-overflow: ellipsis;
                         display: -webkit-box;
                         -webkit-line-clamp: 3;
-                        margin-bottom: rem(10);
                         @include media-breakpoint-down(sm) {
                             font-size: rem(20);
                         }
@@ -1199,6 +1199,7 @@
                     &-heading {
                         display: block;
                         @include collection-subtitle-font;
+                        margin-top: rem(10);
                     }
 
                 }
