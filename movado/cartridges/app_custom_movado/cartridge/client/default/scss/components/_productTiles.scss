@@ -66,7 +66,7 @@
             font-weight: 500;
             line-height: rem(17);
             font-family: $font-medium;
-            color:$grey-transparent-1;
+            color: $grey-transparent-1;
             margin-bottom: 0;
             .tiered {
                 font-size: 0.875em;
@@ -83,7 +83,7 @@
 
         .pdp-link {
             line-height: 1.2;
-			      margin-bottom: 0.5rem;
+			margin-bottom: rem(8);
 
             a {
                 font-size: 1rem;
@@ -116,8 +116,8 @@
           label{
             font-weight: 500;
             font-family: $font-medium;
-            line-height:rem(17);
-            color:$grey-transparent-1;
+            line-height: rem(17);
+            color: $grey-transparent-1;
           }
         }
     }
@@ -267,18 +267,19 @@
               }
               &-title {
                   color: $grey8;
-                  font-family: "futura-pt";
+                  @include font-medium;
                   font-size: rem(34);
-                  font-weight: 500;
                   letter-spacing: 0;
                   line-height: rem(41);
                   text-align: center;
                   margin-bottom: rem(20);
+
                   @include media-breakpoint-down(md) {
                       font-size: rem(30);
                       line-height: rem(37);
                       margin-bottom: rem(5);
                   }
+
                   @include media-breakpoint-down(sm) {
                       font-size: rem(28);
                       line-height: rem(35);
@@ -290,12 +291,12 @@
                   height: rem(45);
                   width: rem(268);
                   background-color: $black;
-                  color: #ffffff;
-                  font-family: "futura-pt";
+                  color: $white;
+                  @include font-medium;
                   font-size: rem(16);
-                  font-weight: 500;
                   letter-spacing: 0;
                   line-height: rem(21);
+
                   @include media-breakpoint-down(md) {
                       height: rem(40);
                       width: rem(258);
@@ -307,12 +308,14 @@
                       margin-right: rem(12);
                       height: rem(13);
                       width: rem(14.88);
+
                       @include media-breakpoint-down(sm) {
                           height: rem(11.14);
                           width: rem(12.75);
                           margin-right: rem(9.25);
                       }
                   }
+
                   @include media-breakpoint-down(sm) {
                       height: rem(30);
                       width: rem(174.86);
@@ -758,10 +761,11 @@
 
         .product-collection-box {
             padding: rem(40) rem(18) rem(30);
-            background: #fff;
+            background: $white;
             position: relative;
             transform: translateY(100%);
             transition:  ease-in-out 0.4s;
+
             @include media-breakpoint-down(sm) {
                 padding: rem(38) rem(7.5) rem(30);
             }
@@ -777,6 +781,7 @@
                 width: rem(16.8);
                 cursor: pointer;
                 z-index: 5;
+
                 @include media-breakpoint-down(sm) {
                     top: rem(7);
                     right: rem(10);
@@ -791,6 +796,7 @@
                 letter-spacing: 0;
                 line-height: rem(41);
                 margin-bottom: rem(50);
+
                 @include media-breakpoint-down(sm) {
                     font-size: rem(17);
                     line-height: rem(22);
@@ -809,7 +815,8 @@
                 margin-right: rem(7.5);
                 display: flex;
                 align-items: center;
-                justify-content: center ;
+                justify-content: center;
+
                 @include media-breakpoint-down(sm) {
                     margin-left: rem(2.5);
                     margin-right: rem(2.5);
@@ -869,12 +876,12 @@
 
         .product-custom-title{
             color: $grey8;
-            font-family: "futura-pt";
+            @include font-light;
             font-size: rem(34);
-            font-weight: 300;
             letter-spacing: 0;
             line-height: rem(50);
             text-align: center;
+
             @include media-breakpoint-down(sm) {
                 font-size: rem(17);
                 line-height: rem(22);
@@ -894,6 +901,7 @@
             display: inline-block;
             text-decoration: none;
             margin-top: rem(18);
+            
             @include media-breakpoint-down(sm) {
                 font-size: rem(14);
                 height: rem(30);
