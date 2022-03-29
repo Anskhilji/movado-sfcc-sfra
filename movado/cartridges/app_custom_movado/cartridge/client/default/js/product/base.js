@@ -34,63 +34,75 @@ function getQuantitySelector($el) {
         ? $($el).closest('.product-detail').find('.quantity-select')
         : $('.quantity-select');
 }
-$(window).on("load resize scroll", function(e) {
-    var width= $(window).width();
-    var tileHeight=$('.search-results.plp-new-design .product-tile').height();
+ 
+$(window).on('load resize scroll', function(e) {
+    
     if ($(window).width() > 800) {
-        var myTimeout;
+
+        var myTimeout; 
         $('.search-results.plp-new-design .product .product-tile').mouseenter(function () {
-            var that=this
-            var thatHeight=$(this).height();
+            var that = this;
+
             myTimeout = setTimeout(function () {
             $(that).addClass('hovered-tile');
-            $(that).find(".tile-btns").addClass("delay-point-five fadeIn fast animated");
-            $(that).find(".tile-discription").addClass(" delay-point-five fadeIn fast animated");
+            $(that).find('.tile-btns').addClass('delay-point-five fadeIn fast animated');
+            $(that).find('.tile-discription').addClass(' delay-point-five fadeIn fast animated');
                 }, 200);
             }).mouseleave(function () {
                 clearTimeout(myTimeout);
                 $('.search-results.plp-new-design .product-tile').removeClass('hovered-tile');
-                $(".tile-btns").removeClass("fadeIn delay-point-five fadeIn fast animated");
-                $(".tile-discription").removeClass("delay-point-five fadeIn fast animated");
-                $(".product-tile").css("min-height", "auto");
+                $('.tile-btns').removeClass('fadeIn delay-point-five fadeIn fast animated');
+                $('.tile-discription').removeClass('delay-point-five fadeIn fast animated');
+                $('.product-tile').css('min-height', 'auto');
             });
+        
         $('.search-results.plp-new-design .product .product-tile .tile-body').focusin(function (event) {
             if (event.target == event.currentTarget) {
                 var productTile=this.closest('.search-results.plp-new-design .product .product-tile');
-                var thatHeight=$(productTile).height();
+                var thatHeight = $(productTile).height();
+    
                 myTimeout = setTimeout(function () {
                 $(productTile).addClass('hovered-tile');
-                $(productTile).find(".tile-btns").addClass("delay-point-five fadeIn fast animated");
-                $(productTile).find(".tile-discription").addClass(" delay-point-five fadeIn fast animated");
+                $(productTile).find('.tile-btns').addClass('delay-point-five fadeIn fast animated');
+                $(productTile).find('.tile-discription').addClass(' delay-point-five fadeIn fast animated');
                     }, 200);
             }
             }).focusout(function () {
                 if (event.target == event.currentTarget || $(event.target).hasClass('add-to-cart')) {
                     clearTimeout(myTimeout);
                     $('.search-results.plp-new-design .product-tile').removeClass('hovered-tile');
-                    $(".tile-btns").removeClass("fadeIn delay-point-five fadeIn fast animated");
-                    $(".tile-discription").removeClass("delay-point-five fadeIn fast animated");
-                    $(".product-tile").css("min-height", "auto");
+                    $('.tile-btns').removeClass('fadeIn delay-point-five fadeIn fast animated');
+                    $('.tile-discription').removeClass('delay-point-five fadeIn fast animated');
+                    $('.product-tile').css('min-height', 'auto');
                 }
             });
     } else {
         $('.search-results.plp-new-design .product .product-tile').mouseenter(function () {
             var that=this
             var thatHeight=$(this).height();
+
         myTimeout = setTimeout(function () {
             $('.search-results.plp-new-design .product-tile').removeClass('hovered-tile');
-            $(".tile-btns").removeClass("fadeIn delay-point-five fadeIn fast animated");
-            $(".tile-discription").removeClass("delay-point-five fadeIn fast animated");
-            $(".product-tile").css("min-height", "auto");
+            $('.tile-btns').removeClass('fadeIn delay-point-five fadeIn fast animated');
+            $('.tile-discription').removeClass('delay-point-five fadeIn fast animated');
+            $('.product-tile').css('min-height', 'auto');
             }, 200);
         }).mouseleave(function () {
             clearTimeout(myTimeout);
             $('.search-results.plp-new-design .product-tile').removeClass('hovered-tile');
-            $(".tile-btns").removeClass("fadeIn delay-point-five fadeIn fast animated");
-            $(".tile-discription").removeClass("delay-point-five fadeIn fast animated");
-            $(".product-tile").css("min-height", "auto");
+            $('.tile-btns').removeClass('fadeIn delay-point-five fadeIn fast animated');
+            $('.tile-discription').removeClass('delay-point-five fadeIn fast animated');
+            $('.product-tile').css('min-height', 'auto');
         });
-     }
+    }
+});
+
+$(document).on('click','#product-tile-open-btn', function() {
+    $("#product-tile-popup").addClass("show-popup-tile");
+});
+
+$(document).on('click','#close-popup', function() {
+    $("#product-tile-popup").removeClass("show-popup-tile");
 });
 
 /**
