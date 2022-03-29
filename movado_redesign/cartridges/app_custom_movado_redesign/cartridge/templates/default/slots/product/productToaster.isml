@@ -24,41 +24,53 @@
                     <div class="search-results plp-new-design js-carousel cs-carousel" data-carousel-config="${slotcontent.custom.carouselConfig ? slotcontent.custom.carouselConfig.replace(/[\n\s]/gi, '') : ''}">
                         <isset name="counter" value="${1}" scope="page">
                         <isset name="isTileShow" value="${false}" scope="page">
-                        <isloop items="${slotcontent.content}" var="product" status="status">
+                         <isif condition="${slotcontent.custom.categoryPosition <= 0}">
                             <div>
-                                <isif condition="${counter == slotcontent.custom.categoryPosition}">
-                                    <isset name="isTileShow" value="${true}" scope="page">
-                                    <div class="product-count-box">
-                                        <div class="total-count">
-                                            <isset name="productCount" value="${dw.catalog.CatalogMgr.getCategory(slotcontent.custom.categoryID).onlineProducts.length.toFixed()}" scope="page" />
-                                            <p class="product-custom-title mb-0">${productCount}</p>
-                                        </div>
-                                        <div class="product-custom-title">
-                                            ${slotcontent.custom.categoryText}
-                                        </div>
-                                        <a class="view-all-category-btn" href="${URLUtils.url('Search-Show', 'cgid', slotcontent.custom.categoryID)}">View All</a>
+                                <div class="product-count-box">
+                                    <div class="total-count">
+                                        <isset name="productCount" value="${dw.catalog.CatalogMgr.getCategory(slotcontent.custom.categoryID).onlineProducts.length.toFixed()}" scope="page" />
+                                        <p class="product-custom-title mb-0">${productCount}</p>
                                     </div>
-                                <iselse/>
-                                    <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true, 'isHighResolutionImage', true, 'isTopSearch', true, 'isPLP', true)}" />
-                                </isif>
+                                    <div class="product-custom-title">
+                                        ${slotcontent.custom.categoryText}
+                                    </div>
+                                    <a class="view-all-category-btn" href="${URLUtils.url('Search-Show', 'cgid', slotcontent.custom.categoryID)}">View All</a>
+                                </div>
                             </div>
-                                <isif condition="${counter >= 3}">
-                                    <isbreak/>
-                                </isif>
+                        </isif>
+                        <isloop items="${slotcontent.content}" var="product" status="status">
+                            <isif condition="${counter == slotcontent.custom.categoryPosition}">
+                            <div>
+                                <div class="product-count-box">
+                                    <div class="total-count">
+                                        <isset name="productCount" value="${dw.catalog.CatalogMgr.getCategory(slotcontent.custom.categoryID).onlineProducts.length.toFixed()}" scope="page" />
+                                        <p class="product-custom-title mb-0">${productCount}</p>
+                                    </div>
+                                    <div class="product-custom-title">
+                                        ${slotcontent.custom.categoryText}
+                                    </div>
+                                    <a class="view-all-category-btn" href="${URLUtils.url('Search-Show', 'cgid', slotcontent.custom.categoryID)}">View All</a>
+                                </div>
+                            </div>
+                            </isif>
+                                <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true, 'isHighResolutionImage', true, 'isPLP', true, 'isTopSearch', true)}" />
+                            <isif condition="${counter >= 3}">
+                                <isbreak/>
+                            </isif>
                                 <isset name="counter" value="${counter + 1}" scope="page">
                         </isloop>
-                        <isif condition="${isTileShow}">
-                            <isinclude url="${URLUtils.url('Tile-Show', 'pid', slotcontent.content[slotcontent.content.length > 2 ? 2 : slotcontent.content.length - 1].ID, 'pview', 'tile', 'ratings', true, 'swatches', true, 'isHighResolutionImage', true, 'isPLP', true, 'isTopSearch', true)}" />
-                        <iselseif condition="${slotcontent.custom.categoryPosition > slotcontent.content.length - 1 || slotcontent.custom.categoryPosition <= 0}" />
-                            <div class="product-count-box">
-                                <div class="total-count">
-                                    <isset name="productCount" value="${dw.catalog.CatalogMgr.getCategory(slotcontent.custom.categoryID).onlineProducts.length.toFixed()}" scope="page" />
-                                    <p class="product-custom-title mb-0">${productCount}</p>
-                                </div>
-                                <div class="product-custom-title">
-                                    ${slotcontent.custom.categoryText}
-                                </div>
+                        <isif condition="${slotcontent.custom.categoryPosition >= 4 }">
+                            <div>
+                                <div class="product-count-box">
+                                    <div class="total-count">
+                                        <isset name="productCount" value="${dw.catalog.CatalogMgr.getCategory(slotcontent.custom.categoryID).onlineProducts.length.toFixed()}" scope="page" />
+                                        <p class="product-custom-title mb-0">${productCount}</p>
+                                    </div>
+                                    <div class="product-custom-title">
+                                        ${slotcontent.custom.categoryText}
+                                    </div>
                                     <a class="view-all-category-btn" href="${URLUtils.url('Search-Show', 'cgid', slotcontent.custom.categoryID)}">View All</a>
+                                </div>
                             </div>
                         </isif>
                     </div>
