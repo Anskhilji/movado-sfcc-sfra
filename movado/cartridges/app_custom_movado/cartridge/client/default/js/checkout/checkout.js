@@ -96,7 +96,6 @@ var formHelpers = require('base/checkout/formErrors');
 
       $('.checkout-promo-section').removeClass('d-none');
  
-        	 $('.checkout-promo-section').addClass('d-none');
              if (checkoutStages[currentStage] == 'payment') {
             	if ($('#affirm-config').data('affirmenabled')) {
 
