@@ -726,6 +726,13 @@ function handleVariantResponse(response, $productContainer) {
         }
     }
 
+    if (!(response.product.isGiftBoxAllowed)) {
+        $('.gift-box-wrapper').hide();
+    }
+    else {
+        $('.gift-box-wrapper').show();
+    }
+
     if (response.product.productType == 'variant') {
         $('body').trigger('pdpChangedVariation', response.product);
     }

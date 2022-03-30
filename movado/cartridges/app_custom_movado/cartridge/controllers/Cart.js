@@ -10,6 +10,28 @@ var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers')
 var page = module.superModule;
 server.extend(page);
 
+server.prepend('AddProduct', function (req, res, next) {
+    var Transaction = require('dw/system/Transaction');
+    var BasketMgr = require('dw/order/BasketMgr');
+    var currentBasket = BasketMgr.getCurrentBasket();
+
+    var a = req.form;
+    if (!empty(req.form.isGiftItem)) {
+        var lineItemsIterator = currentBasket.allProductLineItems.iterator();
+        var currentLineItemsIterator;
+        var parentPid = req.form.parentPid;
+        while (lineItemsIterator.hasNext()) {
+            currentLineItemsIterator = lineItemsIterator.next();
+            if (currentLineItemsIterator.productID == parentPid) {
+                Transaction.wrap(function () {
+                    currentLineItemsIterator.custom.giftPid = req.form.pid;
+                });
+                break;
+            }
+        }
+    }
+    next();
+});
 // Added custom code for personalization text for Engraving and Embossing
 server.append('AddProduct', function (req, res, next) {
     var BasketMgr = require('dw/order/BasketMgr');
@@ -65,6 +87,8 @@ server.append('AddProduct', function (req, res, next) {
                 });
             }
         }
+        var v = req.form;
+        var q = req.form.giftPid;
         if (!empty(req.form.giftPid)) {
             Transaction.wrap(function () {
                 quantity = 1;
@@ -76,6 +100,19 @@ server.append('AddProduct', function (req, res, next) {
                         []
                     );
                 if (!result.error) {
+
+                    var lineItemsIterator = currentBasket.allProductLineItems.iterator();
+                    var currentLineItemsIterator;
+                    var parentPid = req.form.pid;
+
+                    while (lineItemsIterator.hasNext()) {
+                        currentLineItemsIterator = lineItemsIterator.next();
+                        if (currentLineItemsIterator.productID == parentPid) {
+                            currentLineItemsIterator.custom.giftPid = req.form.giftPid;
+                            break;
+                        }
+                    }
+
                     cartHelper.ensureAllShipmentsHaveMethods(currentBasket);
                     basketCalculationHelpers.calculateTotals(currentBasket);
                 }
@@ -424,6 +461,7 @@ server.append('RemoveProductLineItem', function (req, res, next) {
         }
         res.setViewData({emptyCartDom: emptyCartDom});
     }
+
     res.setViewData({isKlarnaCartPromoEnabled: isKlarnaCartPromoEnabled});
 	 next();
 });
