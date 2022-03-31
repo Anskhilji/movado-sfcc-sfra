@@ -1124,7 +1124,7 @@
                             @include collection-subtitle-font;
                             display: block;
                             @include media-breakpoint-down(sm) {
-                                display: inline-block;
+                                display: inline;
                             }
                             &.strike-through {
                                 margin-right: 0;
