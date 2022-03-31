@@ -473,14 +473,14 @@ function getProductCategory(apiProduct, product) {
 + */
 function isGiftBoxAllowed(apiProduct) {
     try {
-        var isGiftBoxAllowed = !empty(apiProduct.custom.isGiftBoxAllowed) ? apiProduct.custom.isGiftBoxAllowed : '';
+        var isGiftBoxAllowed = !empty(apiProduct.custom.isGiftBoxAllowed) ? apiProduct.custom.isGiftBoxAllowed : false;
         if (empty(isGiftBoxAllowed) && apiProduct.variant) {
-            isGiftBoxAllowed = !empty(apiProduct.masterProduct.custom.isGiftBoxAllowed) ? apiProduct.masterProduct.custom.isGiftBoxAllowed : '';
+            isGiftBoxAllowed = !empty(apiProduct.masterProduct.custom.isGiftBoxAllowed) ? apiProduct.masterProduct.custom.isGiftBoxAllowed : false;
         }
         return isGiftBoxAllowed;
     } catch (e) {
         Logger.error('(productCustomHelper.js -> isGiftBoxAllowed) Error occured while checking if gift box allowed: ' + e.stack, e.message, apiProduct.ID);
-        return '';
+        return false;
     }
 }
 

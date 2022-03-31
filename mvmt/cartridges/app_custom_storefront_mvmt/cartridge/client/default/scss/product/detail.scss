@@ -3259,3 +3259,22 @@
     }
 }
 
+.gift-box-wrapper-pdp {
+    display: flex;
+    align-items: center;
+    margin-bottom: rem(8);
+    @include media-breakpoint-down(sm) {
+        padding: 0 rem(10);
+    }
+
+    .gift-box-wrapper-label {
+        margin-left: rem(8);
+        margin-bottom: 0;
+    }
+}
+
+.pd-desc-mvmt {
+    @include media-breakpoint-down(sm) {
+        padding: 0 rem(10);
+    }
+}

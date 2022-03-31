@@ -857,3 +857,15 @@
         }
     }
 }
+
+.gift-box-wrapper-cart {
+    display: flex;
+    align-items: center;
+    margin-bottom: rem(8);
+    margin-top: rem(7);
+
+    .gift-box-wrapper-label {
+        margin-left: rem(8);
+        margin-bottom: 0;
+    }
+}

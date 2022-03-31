@@ -99,14 +99,13 @@
                                                                 <isset name="selectedAttributeValue" value="${attrValue.value}" scope="page" />
                                                                     <isif condition="${attrValue.displayValue.equalsIgnoreCase('yes')}">
                                                                         <isif condition="${!empty(product.color)}">
-                                                                            ${Resource.msg('separator', 'product', null)}     
-                                                                        </isif>                                                 
-                                                                        ${Resource.msg('pdp.eyewaer.polarization.text', 'product', null)}                                                             
+                                                                            ${Resource.msg('separator', 'product', null)}
+                                                                        </isif>
+                                                                        ${Resource.msg('pdp.eyewaer.polarization.text', 'product', null)}
                                                                     </isif>
                                                             </isif>
                                                         </isloop>
                                                     </span>
-                                                
                                             </isif>
                                         </isloop>
                                     </isif>
@@ -278,7 +277,7 @@
                     </div>
                     <isset name="giftBoxMessage" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxMessage) ? dw.system.Site.current.preferences.custom.giftBoxMessage : ''}" scope="page" />
                     <isif condition="${!empty(product.isGiftBoxAllowed) && product.isGiftBoxAllowed && product.giftBoxSKUData.giftBoxSKUAvailability}">
-                        <div class="gift-box-wrapper">
+                        <div class="gift-box-wrapper gift-box-wrapper-pdp">
                             <input type="checkbox" name="gift-allowed-checkout" class="gift-box-wrapper-checkbox gift-allowed-checkbox" value="${product.giftBoxSKUData.giftBoxSKU}">
                             <label for="gift-allowed-checkout" class="gift-box-wrapper-label">${giftBoxMessage} ${product.giftBoxSKUData.giftBoxSKUPrice} </label>
                         </div>
@@ -287,7 +286,7 @@
                     <isif condition="${product.shortDescription}">
                       <div class="row">
                             <div class="col-12">
-                                <div class="d-flex justify-content-center mb-2 product-description" itemprop="description">
+                                <div class="d-flex justify-content-center mb-2 pd-desc-mvmt product-description" itemprop="description">
                                     <isprint value="${product.shortDescription}" encoding="off" />
                                 </div>
                             </div>
