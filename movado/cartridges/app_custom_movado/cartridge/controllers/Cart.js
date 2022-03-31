@@ -110,7 +110,6 @@ server.append('AddProduct', function (req, res, next) {
                             break;
                         }
                     }
-
                     cartHelper.ensureAllShipmentsHaveMethods(currentBasket);
                     basketCalculationHelpers.calculateTotals(currentBasket);
                 }
@@ -459,7 +458,6 @@ server.append('RemoveProductLineItem', function (req, res, next) {
         }
         res.setViewData({emptyCartDom: emptyCartDom});
     }
-
     res.setViewData({isKlarnaCartPromoEnabled: isKlarnaCartPromoEnabled});
 	 next();
 });
