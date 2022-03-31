@@ -36,7 +36,7 @@
             </div>
         </section>
 
-        <div class="product-breadcrumb hidden-sm-down">
+        <div class="product-breadcrumb">
             <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
         </div>
         <div class="container-fluid product-detail product-wrapper pdp-mvmt" data-pid="${product.id}" itemscope
