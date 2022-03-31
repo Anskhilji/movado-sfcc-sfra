@@ -982,31 +982,6 @@ function getMarketingProducts(apiProduct, quantity) {
     }
 }
 
-function giftBoxCategory() {
-    var BasketMgr = require('dw/order/BasketMgr');
-    var currentBasket = BasketMgr.getCurrentOrNewBasket();
-    var giftProductSku;
-    var giftProduct = false;
-    try {
-        var giftBoxCategorySKUPairArray = !empty(Site.current.preferences.custom.giftBoxCategorySKUPair) ? new ArrayList(Site.current.preferences.custom.giftBoxCategorySKUPair).toArray() : '';
-        if(!empty(giftBoxCategorySKUPairArray)) {
-            for (var i = 0; i < giftBoxCategorySKUPairArray.length; i++) {
-                giftProductSku = giftBoxCategorySKUPairArray[i].split("|");
-                var filter = currentBasket.allProductLineItems.toArray().filter(function(data) {
-                    return data.productID == giftProductSku[1];
-                });
-                if (filter.length) {
-                    giftProduct = true;
-                    break;
-                }
-            }
-        }
-        return giftProduct;
-    } catch (e) {
-        Logger.error('(productCustomHepler.js -> giftBoxCategory) Error occured while checking checkbox of gift box: ' + e.stack, e.message);
-    }
-}
-
 /**
  * Checks for redesigned 
  * @param {Object} product - 
@@ -1047,5 +1022,4 @@ module.exports = {
     getWishlistGtmObjforPDP: getWishlistGtmObjforPDP,
     getMarketingProducts : getMarketingProducts,
     isOnlyRedesignedBadge: isOnlyRedesignedBadge,
-    giftBoxCategory: giftBoxCategory
 };

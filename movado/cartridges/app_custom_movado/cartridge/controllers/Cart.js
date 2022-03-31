@@ -10,12 +10,12 @@ var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers')
 var page = module.superModule;
 server.extend(page);
 
+// preprend AddProduct for giftBox Check functionality for MVMT
 server.prepend('AddProduct', function (req, res, next) {
     var Transaction = require('dw/system/Transaction');
     var BasketMgr = require('dw/order/BasketMgr');
     var currentBasket = BasketMgr.getCurrentBasket();
 
-    var a = req.form;
     if (!empty(req.form.isGiftItem)) {
         var lineItemsIterator = currentBasket.allProductLineItems.iterator();
         var currentLineItemsIterator;
@@ -87,8 +87,6 @@ server.append('AddProduct', function (req, res, next) {
                 });
             }
         }
-        var v = req.form;
-        var q = req.form.giftPid;
         if (!empty(req.form.giftPid)) {
             Transaction.wrap(function () {
                 quantity = 1;

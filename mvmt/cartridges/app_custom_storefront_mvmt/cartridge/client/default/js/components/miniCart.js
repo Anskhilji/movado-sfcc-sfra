@@ -351,7 +351,6 @@ module.exports = function () {
             quantity: 1,
             isGiftItem: true,
             isCartPage: isCartPage,
-
             parentPid: parentPid
             };
 
@@ -386,7 +385,7 @@ module.exports = function () {
                         $.spinner().stop();
                     },
                     complete: function () {
-                        $('body').trigger('miniCart:recommendations'); 
+                        $('body').trigger('miniCart:recommendations');
                     }
                 });
             }
