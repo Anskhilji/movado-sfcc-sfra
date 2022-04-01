@@ -34,7 +34,8 @@ server.replace('Find', server.middleware.https, cache.applyDefaultCache, consent
 
     var storeResult = storeHelpers.getStores(radius, lat, lng, req.geolocation, countryCode, showMap, null, null);
     if(!countryCode){
-        countryCode = request.geolocation.countryCode.toUpperCase();
+        
+        countryCode = request.geolocation.countryCode;
     }
     viewData = {
         countries: countries,
