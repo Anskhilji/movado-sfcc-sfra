@@ -152,7 +152,7 @@ server.append('RemoveProductLineItem', function (req, res, next) {
                 });
                 for (var i = 0; i < lineItems.length; i++) {
                     Transaction.wrap(function () {
-                        lineItems[i].custom.giftPid = " ";
+                        lineItems[i].custom.giftPid = "";
                     });
                 }
             }

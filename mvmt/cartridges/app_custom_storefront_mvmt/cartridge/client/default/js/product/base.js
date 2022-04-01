@@ -728,9 +728,15 @@ function handleVariantResponse(response, $productContainer) {
 
     if (!(response.product.isGiftBoxAllowed)) {
         $('.gift-box-wrapper').hide();
+        if($('.product-side-details .gift-allowed-checkbox').is(":checked")) {
+            $('.product-side-details .gift-allowed-checkbox').prop("checked", false);
+        }
     }
     else {
         $('.gift-box-wrapper').show();
+        if($('.product-side-details .gift-allowed-checkbox').is(":checked")) {
+            $('.product-side-details .gift-allowed-checkbox').prop("checked", false);
+        }
     }
 
     if (response.product.productType == 'variant') {
