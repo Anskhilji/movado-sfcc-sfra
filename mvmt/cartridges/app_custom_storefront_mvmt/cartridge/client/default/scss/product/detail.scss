@@ -1077,9 +1077,6 @@
                         @include collection-title-font;
                         display: block;
                         margin: rem(0) rem(0) rem(10) rem(0);
-                        @include media-breakpoint-down(sm) {
-                            font-size: rem(20);
-                        }
                     }
                     &-seprator {
                         @include collection-subtitle-font;
@@ -1097,15 +1094,11 @@
                 .price {
                    span {
                         color: $light-black;
-                        font-size: rem(24);
+                        font-size: rem(16);
                         @include font-medium;
                         letter-spacing: 0;
                         line-height: rem(31); 
                         margin: rem(0);
-                        @include media-breakpoint-down(sm) {
-                            font-size: rem(20);
-                            line-height: rem(26); 
-                        }
                     }
                     .price-pdp-mvmt {
                         display: flex;
@@ -1123,7 +1116,7 @@
                             opacity: 0.5;
                             @include collection-subtitle-font;
                             display: block;
-                            font-size: rem(12);
+                            font-size: rem(14);
                             @include media-breakpoint-down(sm) {
                                 display: inline;
                             }
@@ -1313,11 +1306,6 @@
             @include media-breakpoint-down(sm) {
                 text-align: center;
             }
-        }
-        
-        .sub-message-wrapper {
-            display: block;
-            line-height: 0;
         }
     }
 
