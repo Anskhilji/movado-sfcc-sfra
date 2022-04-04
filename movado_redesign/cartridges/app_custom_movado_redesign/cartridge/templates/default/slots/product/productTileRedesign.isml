@@ -3,11 +3,11 @@
     <div class="container-fluid full-bleed-image-product quad-main-container">
         <div class="row no-gutters row-mobile-wrapper">
             <div class="col-md-6">
-                    <isif condition="${slotcontent.custom.bottomSectionCarousel}">
-                        <div class="bottom-section left-section-wrapper">
-                            <isprint value="${slotcontent.custom.bottomSectionCarousel}" encoding="off" />
-                        </div>
-                    </isif>
+                <isif condition="${slotcontent.custom.bottomSectionCarousel}">
+                    <div class="bottom-section left-section-wrapper">
+                        <isprint value="${slotcontent.custom.bottomSectionCarousel}" encoding="off" />
+                    </div>
+                </isif>
             </div>
             <div class="col-md-6 col-space-mobile">
                 <div class="row homepagetile-wrapper-box">
