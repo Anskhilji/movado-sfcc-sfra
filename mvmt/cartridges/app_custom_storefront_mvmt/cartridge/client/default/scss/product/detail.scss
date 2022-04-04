@@ -1120,9 +1120,11 @@
                             color: $light-gray2;
                             font-weight: 300;
                             line-height: normal;
+
                             @include media-breakpoint-down(sm) {
                                 display: inline;
                             }
+                            
                             &.strike-through {
                                 margin-right: 0;
                             }
@@ -1189,9 +1191,8 @@
                         @include collection-subtitle-font;
                         margin-top: rem(10);
                     }
-
                 }
-            } 
+            }
 
             .product-name-strapguide {
                 @include collection-title-font;
