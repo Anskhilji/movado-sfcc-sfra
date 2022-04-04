@@ -10,4 +10,4 @@
     <div class="ratings">
         <isinclude template="product/components/productRating" />
     </div>
- </div>
+</div>
