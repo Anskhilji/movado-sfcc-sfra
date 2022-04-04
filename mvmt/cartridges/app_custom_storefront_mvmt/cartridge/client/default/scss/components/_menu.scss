@@ -117,7 +117,7 @@
   }
 
   .menu-group {
-    margin-left: rem(150);
+    margin-left: rem(0);
 
     @include media-breakpoint-down(lg) {
       margin-left: rem(70);
