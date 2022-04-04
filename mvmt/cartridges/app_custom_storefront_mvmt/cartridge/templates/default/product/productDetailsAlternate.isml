@@ -56,24 +56,28 @@
 
                 <div class="product-side-details">
 
+                    <div class="product-tag-wrapper mvmt-avilability ${!product.available ? '' : 'opacity-0'}">
+                        <span class="product-tag tag-red">${Resource.msg('label.soldout', 'product', null)}</span>
+                    </div>
+
                     <isinclude template="product/components/badges" />
 
                     <iscomment> Custom Start: Change Naming Conventions for PDP </iscomment>
-                    <div class="product-brand-info d-flex align-items-start justify-content-between">
+                    <div class="product-brand-info">
                         <isif condition="${(product.isCategory) == "watches"}">
                             <div class="category-watches">
                                 <h1>
                                     <isif condition="${!empty(product.collectionName)}">
                                         <span class="watches-collection-name" data-selected-variation-attr="collectionName">${product.collectionName}</span>
                                     </isif>
-                                        <isif condition="${product.productName.length > 96}">
-                                            <span class="product-name ${!empty(product.collectionName) ? 'watches-product-name' : 'watches-collection-name d-inline'} text-truncate-wrapper watches-turncate-name product-title-for-gtm">${product.productName}<isif condition="${!empty(pdict.caseDiameter)}">${Resource.msg('separator', 'product', null)}</isif></span>
-                                        <iselse>
-                                            <span class="product-name ${!empty(product.collectionName) ? 'watches-product-name' : 'watches-collection-name d-inline'} product-title-for-gtm">${product.productName}<isif condition="${!empty(pdict.caseDiameter)}">${Resource.msg('separator', 'product', null)}</isif></span>
-                                        </isif>
-                                        <isif condition="${!empty(pdict.caseDiameter)}">
-                                                <span class="${!empty(product.collectionName) ? 'watches-case-diameter' : 'watches-collection-name d-inline'} w-100" data-selected-variation-attr="caseDiameter">${pdict.caseDiameter}</span>
-                                        </isif>
+                                    <isif condition="${product.productName.length > 40}">
+                                        <span class="product-name watches-product-name text-truncate-wrapper watches-turncate-name product-title-for-gtm">${product.productName}<isif condition="${!empty(pdict.caseDiameter)}">${Resource.msg('separator', 'product', null)}</isif></span>
+                                    <iselse>
+                                        <span class="product-name watches-product-name product-title-for-gtm">${product.productName}<isif condition="${!empty(pdict.caseDiameter)}">${Resource.msg('separator', 'product', null)}</isif></span>
+                                    </isif>
+                                    <isif condition="${!empty(pdict.caseDiameter)}">
+                                            <span class="watches-case-diameter" data-selected-variation-attr="caseDiameter">${pdict.caseDiameter}</span>
+                                    </isif>
                                 </h1>
                             </div>
                         <iselseif condition="${(product.isCategory) == "jewelry"}">
@@ -91,7 +95,7 @@
                                 <span class="product-name eyewear-product-name text-truncate-wrapper product-title-for-gtm text-uppercase">${product.productName}</span>
                                 <span class="eyewear-heading">
                                     <isif condition="${!empty(product.color)}">
-                                        <span class="color eyewear-colors eyewear-colors-wrapper" data-selected-variation-attr="color">${product.color}</span>
+                                        <span class="color eyewear-colors" data-selected-variation-attr="color">${product.color}</span>
                                     </isif>
                                     <isif condition="${product.variationAttributes.length > 0}">
                                         <isloop items="${product.variationAttributes}" var="attr" status="attributeStatus">
@@ -122,70 +126,36 @@
                             <h1>
                                 <span class="product-name uncategotized-product-name text-truncate-wrapper product-title-for-gtm text-uppercase">${product.productName}</span>
                                 <isif condition="${!empty(product.color)}">
-                                    <span class="color product-colors d-flex" data-selected-variation-attr="color">${product.color}</span>
+                                    <span class="color product-colors" data-selected-variation-attr="color">${product.color}</span>
                                 </isif>
                             </h1>
                         </isif>
-
-                        <!-- Product Price -->
-                        <iscomment> Custom: Product id removed, product price added </iscomment>
-                            <div class="prices">
-                                <isset name="price" value="${product.price}" scope="page" />
-                                <isinclude template="product/components/pricing/main" />
-                            </div>
-                        <iscomment> Custom: End </iscomment>
                     </div>
                     <iscomment> Custom End: Change Naming Conventions for PDP </iscomment>
 
                     <!-- Product Availability -->
                     <iscomment>Custom Start: Remove Porduct availabilty label</iscomment>
                     <iscomment> 
-                        <isif condition="${product.available}"> </isif>
-                        <div class="availability product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
-                            data-available="${product.available}">
-                            <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
-                        </div>
+                    <div class="availability product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
+                        data-available="${product.available}">
+                        <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
+                    </div>
                     </iscomment>
                     <iscomment>Custom End</iscomment>
-                    <!-- Product Name -->
 
-                    <iscomment> <div class="prices price-mobile" data-price="${JSON.stringify(product.price)}"> </iscomment>
-                    <iscomment> <div class="prices price-mobile">
+                    <div class="prices price-mobile">
                         <isset name="price" value="${product.price}" scope="page" />
                         <isinclude template="product/components/pricing/main" />
-
-                    </div> </iscomment>
-
-                    <div class="ratings-mobile pb-2">
-                        <div class="col-12 rating-margin">
-                            <div class="ratings p-0">
-                                <isinclude template="product/components/productRating" />
-                            </div>
-                        </div>
                     </div>
-                    <div class="show-cart-button-below-price">
-                        <div class="row">
-                            <div class="col-12 prices-add-to-cart-actions-top">
-                                <div class="d-block">
-                                    <!-- Cart and [Optionally] Apple Pay -->
-                                    <isinclude template="product/components/showCartButtonProduct" />
-                                </div>
-                            </div>
-                        </div>
+
+                    <div class="hidden-sm-down">
+                        <isinclude template="product/components/pidRatingAlternate" />
                     </div>
-                    <div class="klarna-Allowed-Country-label d-show-mobile">
-                        <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
-                        <isif condition="${isEswEnabled}" >
-                            <isset name="klarnaAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
-                            <isif condition="${klarnaAllowedCountry}">
-                                <isset name="enableklarnaPdpPromoMsg" value="${!empty(dw.system.Site.current.preferences.custom.klarnaPdpPromoMsg) ? dw.system.Site.current.preferences.custom.klarnaPdpPromoMsg : false}" scope="page" />
-                                <isif condition="${enableklarnaPdpPromoMsg}"> 
-                                    <div class="col-md-12 col-12 text-center p-0 text-sm-left">
-                                        <isinclude url="${URLUtils.https('Adyen-KlarnaBanner', 'klarnaProductPrice', pdict.klarnaProductPrice)}"/>
-                                    </div>
-                                </isif>
-                            </isif>
-                        <iselse/>
+
+                    <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
+                    <isif condition="${isEswEnabled}" >
+                        <isset name="klarnaAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
+                        <isif condition="${klarnaAllowedCountry}">
                             <isset name="enableklarnaPdpPromoMsg" value="${!empty(dw.system.Site.current.preferences.custom.klarnaPdpPromoMsg) ? dw.system.Site.current.preferences.custom.klarnaPdpPromoMsg : false}" scope="page" />
                             <isif condition="${enableklarnaPdpPromoMsg}"> 
                                 <div class="col-md-12 col-12 text-center p-0 text-sm-left">
@@ -193,32 +163,17 @@
                                 </div>
                             </isif>
                         </isif>
-                    </div>
-                    <div class="show-cart-button-mobile">
-                        <div class="row">
-                            <div class="col-12 prices-add-to-cart-actions">
-                                <div class="d-block">
-                                    <!-- Cart and [Optionally] Apple Pay -->
-                                    <isinclude template="product/components/showCartButtonProduct" />
-                                    <isapplepay class="apple-pay-pdp btn apple-pay" sku="${product.id}"></isapplepay>
-
-                                </div>
+                    <iselse/>
+                        <isset name="enableklarnaPdpPromoMsg" value="${!empty(dw.system.Site.current.preferences.custom.klarnaPdpPromoMsg) ? dw.system.Site.current.preferences.custom.klarnaPdpPromoMsg : false}" scope="page" />
+                        <isif condition="${enableklarnaPdpPromoMsg}"> 
+                            <div class="col-md-12 col-12 text-center p-0 text-sm-left">
+                                <isinclude url="${URLUtils.https('Adyen-KlarnaBanner', 'klarnaProductPrice', pdict.klarnaProductPrice)}"/>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="hidden-sm-down">
-                        <isinclude template="product/components/pidRating" />
-                    </div>
-
-                    <!-- Applicable Promotions -->
-                    <div class="promotions">
-                        <isinclude template="product/components/promotions" />
-                    </div>
+                        </isif>
+                    </isif>
 
                     <div class="row m-0 product-variations d-none">
                         <!-- Attributes and Quantity -->
-
                         <isif condition="${!product.variationAttributes && product.options.length === 0}">
                             <div class="simple-quantity">
                                 <isinclude template="product/components/quantity" />
@@ -226,88 +181,43 @@
                         </isif>
                     </div>
 
+                    <isif condition="${product.options && product.options.length > 0}">
+                        <isinclude template="product/components/options" />
+                    </isif>
+                    <div class="col-md-10 col-12">
+                        <isinclude template="product/components/mainAttributes" />
+                    </div>
+
                     <isif condition="${product.variationAttributes && product.variationAttributes.length > 0}">
                         <isinclude template="product/components/variationAttributes" />
-                    </isif>
-                    <iscomment> Custom Start: Clyde Integration </iscomment>
-                        <isif condition = "${dw.system.Site.current.preferences.custom.clydeWidgetDisplay}">
-                            <div id="clyde-cta" >
-                            </div>
-                        </isif>
-                    <iscomment> Custom End: </iscomment>
-                    <isif condition="${sitePref.enableSeeTheFitPopUp && !empty(product.seeTheFitPrimaryImg)}"> 
-                        <div class="seefit-text-label">
-                            <button class="seefit-text-label-select-size-head call-see-fit-popup">
-                                ${Resource.msg('label.seefit', 'product', null)}
-                            </button>
-                        </div>
-                    </isif>
-
-                    <isset name="isRecommendationsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.recommendationsEnabled) ? dw.system.Site.current.preferences.custom.recommendationsEnabled : false}" scope="page" />
-
-                    <isif condition="${isRecommendationsEnabled}" >
-                        <div class="linked-product-container">
-                            <isinclude template="product/components/recommendedProducts" />
-                        </div>
-                    </isif>
-
-                    <div class="show-cart-button-desktop">
-                        <div class="row">
-                            <div class="col-12 prices-add-to-cart-actions">
-                                <isinclude template="product/components/showCartButtonProduct" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="klarna-Allowed-Country-label d-show-desktop">
-                        <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
-                        <isif condition="${isEswEnabled}" >
-                            <isset name="klarnaAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
-                            <isif condition="${klarnaAllowedCountry}">
-                                <isset name="enableklarnaPdpPromoMsg" value="${!empty(dw.system.Site.current.preferences.custom.klarnaPdpPromoMsg) ? dw.system.Site.current.preferences.custom.klarnaPdpPromoMsg : false}" scope="page" />
-                                <isif condition="${enableklarnaPdpPromoMsg}"> 
-                                    <div class="col-md-12 col-12 text-center p-0 text-sm-left">
-                                        <isinclude url="${URLUtils.https('Adyen-KlarnaBanner', 'klarnaProductPrice', pdict.klarnaProductPrice)}"/>
-                                    </div>
-                                </isif>
-                            </isif>
-                        <iselse/>
-                            <isset name="enableklarnaPdpPromoMsg" value="${!empty(dw.system.Site.current.preferences.custom.klarnaPdpPromoMsg) ? dw.system.Site.current.preferences.custom.klarnaPdpPromoMsg : false}" scope="page" />
-                            <isif condition="${enableklarnaPdpPromoMsg}"> 
-                                <div class="col-md-12 col-12 text-center p-0 text-sm-left">
-                                    <isinclude url="${URLUtils.https('Adyen-KlarnaBanner', 'klarnaProductPrice', pdict.klarnaProductPrice)}"/>
-                                </div>
-                            </isif>
-                        </isif>
-                    </div>
-                    <isset name="giftBoxMessage" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxMessage) ? dw.system.Site.current.preferences.custom.giftBoxMessage : ''}" scope="page" />
-                    <isif condition="${!empty(product.isGiftBoxAllowed) && product.isGiftBoxAllowed && product.giftBoxSKUData.giftBoxSKUAvailability}">
-                        <div class="gift-box-wrapper">
-                            <input type="checkbox" name="gift-allowed-checkout" class="gift-box-wrapper-checkbox gift-allowed-checkbox" value="${product.giftBoxSKUData.giftBoxSKU}">
-                            <label for="gift-allowed-checkout" class="gift-box-wrapper-label">${giftBoxMessage} ${product.giftBoxSKUData.giftBoxSKUPrice} </label>
-                        </div>
-                    </isif>
-
-                    <isif condition="${product.shortDescription}">
-                      <div class="row">
-                            <div class="col-12">
-                                <div class="d-flex justify-content-center mb-2 product-description" itemprop="description">
-                                    <isprint value="${product.shortDescription}" encoding="off" />
-                                </div>
-                            </div>
-                      </div>
                     </isif>
 
                     <isif condition="${sitePref.enableBackInStock}">
                         <isinclude template="product/backInStockNotification" sf-toolkit="on" />
                     </isif>
 
-                    <isif condition="${product.options && product.options.length > 0 && !(option.id == "clydeWarranty") && dw.system.Site.current.preferences.custom.isClydeEnabled}">
-                        <isinclude template="product/components/options" />
-                    </isif>
-                    <div class="col-md-10 col-12">
-                        <isinclude template="product/components/mainAttributes" />
+                    <div class="row">
+                        <div class="col-12 prices-add-to-cart-actions">
+                            <div class="d-block">
+                                <!-- Cart and [Optionally] Apple Pay -->
+                                <isinclude template="product/components/showCartButtonProduct" />
+                                <isapplepay class="apple-pay-pdp btn apple-pay" sku="${product.id}"></isapplepay>
+
+                                <isif condition="${product.shortDescription}">
+                                    <div class="d-none d-md-flex justify-content-center content mb-2" itemprop="description">
+                                        <isprint value="${product.shortDescription}" encoding="off" />
+                                    </div>
+                                </isif>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Applicable Promotions -->
+                    <div class="promotions">
+                        <isinclude template="product/components/promotions" />
                     </div>
                 </div>
+
                 <!-- Size Chart -->
                 <isif condition="${product.variationAttributes && product.sizeChartId}">
                     <div class="size-chart col-md-10 col-12">

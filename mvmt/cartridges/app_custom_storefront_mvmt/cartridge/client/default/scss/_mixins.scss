@@ -13,7 +13,7 @@
 @mixin collection-subtitle-font {
     color: $light-black;
     @include font-light;
-    font-weight: 300;
+    font-weight: 400;
     letter-spacing: rem(0);
     font-size: rem(24);
 }

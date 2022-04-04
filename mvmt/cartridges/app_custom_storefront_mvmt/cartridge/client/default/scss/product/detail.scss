@@ -1065,6 +1065,7 @@
                     &-product-name {
                         @include collection-subtitle-font;
                         margin-bottom: 0;
+                        line-height: rem(41);
                     }
                     &-turncate-name {
                         overflow: hidden;
@@ -1151,6 +1152,8 @@
                         display: -webkit-box;
                         -webkit-line-clamp: 3;
                         margin: rem(0);
+                        line-height: rem(41);
+                        
                     }
         
                     &-heading {
@@ -1158,6 +1161,7 @@
                         display: block;
                         margin-top: rem(10);
                         text-align: left;
+                        line-height: rem(41);
                         .eyewear-colors-wrapper {
                             @include collection-subtitle-font;
                         }
@@ -1178,6 +1182,7 @@
                         text-overflow: ellipsis;
                         display: -webkit-box;
                         -webkit-line-clamp: 3;
+                        line-height: rem(41);
                     } 
 
                     &-heading {
