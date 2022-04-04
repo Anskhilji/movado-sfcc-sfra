@@ -55,7 +55,6 @@
                 <isinclude template="product/components/imageCarouselPDP" />
 
                 <div class="product-side-details">
-                
                     <isinclude template="product/components/badges" />
 
                     <iscomment> Custom Start: Change Naming Conventions for PDP </iscomment>
