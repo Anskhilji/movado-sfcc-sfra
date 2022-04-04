@@ -150,9 +150,9 @@ server.append('RemoveProductLineItem', function (req, res, next) {
                 var lineItems = currentBasket.allProductLineItems.toArray().filter(function(product) {
                     return product.custom.giftPid == pid;
                 });
-                for (var i = 0; i < lineItems.length; i++) {
+                for (var j = 0; j < lineItems.length; j++) {
                     Transaction.wrap(function () {
-                        lineItems[i].custom.giftPid = "";
+                        lineItems[j].custom.giftPid = "";
                     });
                 }
             }
