@@ -1072,6 +1072,12 @@
                     &-product-name {
                         @include collection-subtitle-font;
                         line-height: rem(41);
+
+                        &.product-center-text {
+                            @include media-breakpoint-down(sm) {
+                                text-align: center;
+                            }
+                        }
                     }
                     &-turncate-name {
                         overflow: hidden;
@@ -1160,7 +1166,12 @@
                         text-overflow: ellipsis;
                         display: -webkit-box;
                         -webkit-line-clamp: 3;
-                        
+
+                        &.product-center-text {
+                            @include media-breakpoint-down(sm) {
+                                text-align: center;
+                            }
+                        }
                     }
         
                     &-heading {
@@ -1189,6 +1200,12 @@
                         text-overflow: ellipsis;
                         display: -webkit-box;
                         -webkit-line-clamp: 3;
+
+                        &.product-center-text {
+                            @include media-breakpoint-down(sm) {
+                                text-align: center;
+                            }
+                        }
                     } 
 
                     &-heading {
@@ -1217,6 +1234,11 @@
                 display: -webkit-box;
                 -webkit-line-clamp: 3;
                 @include collection-title-font;
+            }
+            .product-center-text {
+                @include media-breakpoint-down(sm) {
+                    text-align: center;
+                }
             }
         }
 
