@@ -1198,6 +1198,10 @@
                 text-overflow: ellipsis;
                 display: -webkit-box;
                 -webkit-line-clamp: 3;
+
+                @include media-breakpoint-down(md-down) {
+                    text-align: center;
+                }
             }
 
             .product-colors {
