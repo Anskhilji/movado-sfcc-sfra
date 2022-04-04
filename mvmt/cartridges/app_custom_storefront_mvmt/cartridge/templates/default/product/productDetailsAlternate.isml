@@ -55,7 +55,6 @@
                 <isinclude template="product/components/imageCarouselPDP" />
 
                 <div class="product-side-details">
-
                     <isinclude template="product/components/badges" />
 
                     <iscomment> Custom Start: Change Naming Conventions for PDP </iscomment>
@@ -145,7 +144,7 @@
                     </div>
 
                     <div class="hidden-sm-down">
-                        <isinclude template="product/components/pidRating" />
+                        <isinclude template="product/components/pidRatingAlternate" />
                     </div>
 
                     <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
