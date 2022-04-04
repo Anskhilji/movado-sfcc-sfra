@@ -1071,7 +1071,6 @@
                 .watches {
                     &-product-name {
                         @include collection-subtitle-font;
-                        margin-bottom: 0;
                         line-height: rem(41);
                     }
                     &-turncate-name {
@@ -1084,7 +1083,6 @@
                     &-collection-name {
                         @include collection-title-font;
                         display: block;
-                        margin: rem(0) rem(0) rem(10) rem(0);
                     }
                     &-seprator {
                         @include collection-subtitle-font;
@@ -1101,12 +1099,13 @@
                 }
                 .price {
                    span {
-                        color: $light-black;
+                        color: $black;
                         font-size: rem(16);
                         @include font-medium;
-                        letter-spacing: 0;
-                        line-height: rem(31); 
+                        letter-spacing: rem(1.5);
+                        line-height: normal; 
                         margin: rem(0);
+                        font-weight: 300;
                     }
                     .price-pdp-mvmt {
                         display: flex;
@@ -1121,10 +1120,13 @@
                             margin-top: rem(10);
                         }
                         span {
-                            opacity: 0.5;
                             @include collection-subtitle-font;
                             display: block;
                             font-size: rem(14);
+                            letter-spacing: rem(1.5);
+                            color: $light-gray2;
+                            font-weight: 300;
+                            line-height: normal;
                             @include media-breakpoint-down(sm) {
                                 display: inline;
                             }
@@ -1158,8 +1160,6 @@
                         text-overflow: ellipsis;
                         display: -webkit-box;
                         -webkit-line-clamp: 3;
-                        margin: rem(0);
-                        line-height: rem(41);
                         
                     }
         
@@ -1189,7 +1189,6 @@
                         text-overflow: ellipsis;
                         display: -webkit-box;
                         -webkit-line-clamp: 3;
-                        line-height: rem(41);
                     } 
 
                     &-heading {
@@ -1197,9 +1196,8 @@
                         @include collection-subtitle-font;
                         margin-top: rem(10);
                     }
-
                 }
-            } 
+            }
 
             .product-name-strapguide {
                 @include collection-title-font;
@@ -1219,7 +1217,6 @@
                 display: -webkit-box;
                 -webkit-line-clamp: 3;
                 @include collection-title-font;
-                margin-bottom: rem(10);
             }
         }
 
