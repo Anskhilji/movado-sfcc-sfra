@@ -498,7 +498,7 @@
                 float: right;
 
                 @include media-breakpoint-down(sm) {
-                right: rem(5);
+                    right: rem(5);
                 }
                 @include media-breakpoint-down(xs) {
                     font-size: rem(8);
@@ -972,7 +972,6 @@
             @include media-breakpoint-down(xs) {
                 margin: rem(0) rem(7);
             }
-
         }
     }
 }
