@@ -1105,13 +1105,14 @@
                 }
                 .price {
                    span {
-                        color: $black;
-                        font-size: rem(16);
+                        color: $light-black;
+                        font-size: rem(34);
                         @include font-medium;
-                        letter-spacing: rem(1.5);
-                        line-height: normal; 
+                        letter-spacing: rem(0.7);
+                        line-height: rem(41); 
                         margin: rem(0);
-                        font-weight: 300;
+                        font-weight: 400;
+                        display: block;
                     }
                     .price-pdp-mvmt {
                         display: flex;
