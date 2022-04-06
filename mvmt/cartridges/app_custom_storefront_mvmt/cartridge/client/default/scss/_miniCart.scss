@@ -143,7 +143,6 @@
                 font-size: rem(16);
                 text-transform: none;
 
-                
                 &.custom-control-label-pdp {
                     display: block;
                     position: relative;
@@ -163,7 +162,6 @@
                             width: 0;
                         }
 
-                        
                         .checkmark {
                             position: absolute;
                             top: rem(1);
@@ -192,7 +190,6 @@
                                 }
                             }
                         }
-                        
                         
                         .checkmark {
                             &:after {

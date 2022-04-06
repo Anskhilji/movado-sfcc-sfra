@@ -3273,7 +3273,7 @@
             display: none;
         }
     }
-    
+
     &.d-show-mobile {
         display: none;
         @include media-breakpoint-down(sm) {
@@ -3331,7 +3331,6 @@
                     }
                 }
 
-                
                 input {
                     &:checked ~ .checkmark {
                         background-color: $gossamer;
@@ -3339,7 +3338,6 @@
                     }
                 }
 
-                
                 input {
                     &:checked ~ .checkmark {
                         &:after {
@@ -3347,7 +3345,6 @@
                         }
                     }
                 }
-                
                 
                 .checkmark {
                     &:after {
@@ -3365,9 +3362,7 @@
                         transform: rotate(45deg);
                     }
                 }
-        }
-          
-         
+        }  
     }
 }
 
