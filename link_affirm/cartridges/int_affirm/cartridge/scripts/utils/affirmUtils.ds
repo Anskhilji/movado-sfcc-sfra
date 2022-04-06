@@ -645,20 +645,20 @@
 				return false;
 			}
 			return true;
-		};
+        };
 
-		self.getSalePrice = function(productID) {
-		var Money = require('dw/value/Money');
-		var ProductMgr = require('dw/catalog/ProductMgr');
-		var product = ProductMgr.getProduct(productID);
-		var priceModel = product.priceModel;
-		var PromotionItr = PromotionMgr.activePromotions.getProductPromotions(product).iterator();
-		var promotionalPrice = Money.NOT_AVAILABLE;
-		var currentPromotionalPrice = Money.NOT_AVAILABLE;
-		var basket = BasketMgr.getCurrentOrNewBasket();
-		var currencyCode = new Money(0, basket.currencyCode);
-		var salePrice = '';
-		var origPrice = '';
+        self.getSalePrice = function(productID) {
+        var Money = require('dw/value/Money');
+        var ProductMgr = require('dw/catalog/ProductMgr');
+        var product = ProductMgr.getProduct(productID);
+        var priceModel = product.priceModel;
+        var PromotionItr = PromotionMgr.activePromotions.getProductPromotions(product).iterator();
+        var promotionalPrice = Money.NOT_AVAILABLE;
+        var currentPromotionalPrice = Money.NOT_AVAILABLE;
+        var basket = BasketMgr.getCurrentOrNewBasket();
+        var currencyCode = new Money(0, basket.currencyCode);
+        var salePrice = '';
+        var origPrice = '';
 
         if (!empty(PromotionItr)) {
             while (PromotionItr.hasNext()) {
