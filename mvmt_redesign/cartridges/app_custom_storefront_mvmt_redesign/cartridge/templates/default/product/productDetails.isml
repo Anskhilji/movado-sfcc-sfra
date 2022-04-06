@@ -41,7 +41,7 @@
         <div class="product-breadcrumb hidden-sm-down">
             <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
         </div>
-        <div class="container-fluid product-detail product-wrapper pdp-mvmt"  data-pid="${product.id}" data-gtm-fb-product="${JSON.stringify(product)}" itemscope
+        <div class="container-fluid product-detail product-wrapper pdp-mvmt pdp-mvmt-redesign"  data-pid="${product.id}" data-gtm-fb-product="${JSON.stringify(product)}" itemscope
             itemtype="http://schema.org/Product">
             <!---Breadcrumbs--->
             <div class="row ratings-mobile pb-2">
@@ -127,7 +127,7 @@
                             <h1 class="product-name product-name-strapguide text-truncate-wrapper product-title-for-gtm text-uppercase">${product.productName}</h1>
                         <iselseif condition="${(product.isCategory) !== "watches" && (product.isCategory) !== "jewelry" && (product.isCategory) !== "eyewear" && (product.isCategory) !== "strapguide"}">
                             <h1>
-                                <span class="pdp-redesign product-name uncategotized-product-name text-truncate-wrapper product-title-for-gtm text-uppercase">${product.productName}</span>
+                                <span class="product-name uncategotized-product-name text-truncate-wrapper product-title-for-gtm text-uppercase">${product.productName}</span>
                                 <isif condition="${!empty(product.color)}">
                                     <span class="color product-colors" data-selected-variation-attr="color">${product.color}</span>
                                 </isif>
