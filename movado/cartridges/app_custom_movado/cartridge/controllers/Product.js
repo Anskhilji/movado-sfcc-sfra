@@ -52,12 +52,12 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
 
 
     var collectionContentList;
-    var socialShareEnable = Site.getCurrent().preferences.custom.addthis_enabled;
     var moreStyleGtmArray = [];
     var klarnaProductPrice = '0';
     var isEmbossEnabled;
     var isEngraveEnabled;
     var isGiftWrapEnabled;
+    var collectionName;
     yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
 
     var productDecimalPrice = 0.0;
@@ -65,9 +65,13 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var strapGuideContent = ContentMgr.getContent('strap-guide-text-configs');
     var strapGuideText = strapGuideContent && strapGuideContent.custom.body ? strapGuideContent.custom.body : '';
 
+
+   
+
     /* get recommendations for product*/
     if (product) {
         product = productMgr.getProduct(product.id);
+        collectionName = !empty(product.custom.familyName) ? product.custom.familyName[0] : '';
         explicitRecommendations = productCustomHelper.getExplicitRecommendations(product.ID);
 
         // Custom Start: Add pricing logic for Klarna promo banners
@@ -121,7 +125,6 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         collectionContentList: collectionContentList,
         hideMoreCollectionsHeader: product.custom.hideMoreCollectionsHeader,
         loggedIn: req.currentCustomer.raw.authenticated,
-        socialShareEnable: socialShareEnable,
         moreStyleGtmArray: moreStyleGtmArray,
         wishlistGtmObj: wishlistGtmObj,
         klarnaProductPrice: klarnaProductPrice,
@@ -132,9 +135,11 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         relativeURL: URLUtils.url('Product-Show','pid', product.ID),
         explicitRecommendations: explicitRecommendations,
         strapGuideText: strapGuideText,
+        collectionName: collectionName,
         addToCartUrl: showProductPageHelperResult.addToCartUrl,
         isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
-        smartGiftAddToCartURL : smartGiftAddToCartURL
+        smartGiftAddToCartURL : smartGiftAddToCartURL,
+        plpProductFamilyName: Site.getCurrent().preferences.custom.plpProductFamilyName ? Site.getCurrent().preferences.custom.plpProductFamilyName : false
     };
     var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
     res.setViewData(smartGift);
@@ -208,12 +213,17 @@ server.replace('Variation', function (req, res, next) {
             textBadges: !empty(product.badges.textBadges) ? product.badges.textBadges.toArray() : null
         };
     }
+    var OptionsValidationError;
+    if (params.validationErrorEmbossed || params.validationErrorEngraved) {
+        OptionsValidationError = true
+    }
 
     res.json({
         product: product,
         resources: productHelper.getResources(),
         validationErrorEmbossed: params.validationErrorEmbossed,
         validationErrorEngraved: params.validationErrorEngraved,
+        OptionsValidationError: OptionsValidationError,
         badges: badges,
         eswModuleEnabled: eswModuleEnabled
     });

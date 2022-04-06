@@ -27,6 +27,14 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
     var productQuantityInCart;
     var quantityToSet;
     var optionModel = productHelper.getCurrentOptionModel(product.optionModel, options);
+    var clydeOptions = addClydeContract.getClydeSelectedOptionProduct(form, productId);
+    var clydeSKU = '';
+
+    if (!empty(clydeOptions.optionProduct)) {
+        optionModel = clydeOptions.optionProduct;
+        clydeSKU = clydeOptions.clydeSKUID;
+    }
+
     var result = {
         error: false,
         message: Resource.msg('text.alert.addedtobasket', 'product', null)
@@ -60,11 +68,10 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
     productInCart = base.getExistingProductLineItemInCart(
         product, productId, productLineItems, childProducts, options);
 
-    if (productInCart) {
+    if (productInCart && empty(optionModel)) {
         productQuantityInCart = productInCart.quantity.value;
         quantityToSet = quantity ? quantity + productQuantityInCart : productQuantityInCart + 1;
         availableToSell = productInCart.product.availabilityModel.inventoryRecord.ATS.value;
-        addClydeContract.addContractsToCart(quantity, form, defaultShipment, currentBasket, productLineItems, productId);
 
         if (availableToSell >= quantityToSet || perpetual) {
             productInCart.setQuantityValue(quantityToSet);
@@ -85,8 +92,7 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
             optionModel,
             defaultShipment
         );
-        addClydeContract.addContractsToCart(quantity, form, defaultShipment, currentBasket, productLineItems, productId);
-
+        addClydeContract.addClydeContractAttributes(clydeSKU, currentBasket, productId);
         result.uuid = productLineItem.UUID;
     }
 

@@ -332,9 +332,7 @@ exports.beforeAuthorization = function (order, payment, custom) {
             order.custom.isContainClydeContract = false;
             order.custom.clydeContractProductMapping = '';
         });
-        var contractProductList = session.custom.clydeContractProductList || false;
-        addClydeContract.createOrderCustomAttr(contractProductList, order);
-        delete session.custom.clydeContractProductList;
+        addClydeContract.createOrderCustomAttr(order);
     }
     /**
      * Custom: End

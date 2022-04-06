@@ -101,8 +101,7 @@ server.replace(
                 order.custom.isContainClydeContract = false;
                 order.custom.clydeContractProductMapping = '';
             });
-            var contractProductList = currentBasket.custom.clydeContractProductList || false;
-            addClydeContract.createOrderCustomAttr(contractProductList, order);
+            addClydeContract.createOrderCustomAttr(order);
         }
 		/**
 		 * Custom: End
@@ -118,6 +117,21 @@ server.replace(
         var URLUtils = require('dw/web/URLUtils');
         res.redirect(URLUtils.url('Order-Confirm', 'ID', order.orderNo, 'token', order.orderToken));
 
+        return next();
+    });
+
+    server.get('AffirmBanner', server.middleware.https, function (req, res, next) {
+        var context = req.querystring.context;
+        var fpname = req.querystring.fpname;
+        var pid = req.querystring.pid ? req.querystring.pid : '';
+        var country = req.querystring.country ? req.querystring.country : '';
+
+        res.render('util/affirmpromo_mf', {
+            pid: pid,
+            context : context,
+            fpname: fpname,
+            country: country
+        });
         return next();
     });
 

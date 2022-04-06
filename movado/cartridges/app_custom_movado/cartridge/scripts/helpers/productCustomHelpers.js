@@ -1021,5 +1021,5 @@ module.exports = {
     formatProductId: formatProductId,
     getWishlistGtmObjforPDP: getWishlistGtmObjforPDP,
     getMarketingProducts : getMarketingProducts,
-    isOnlyRedesignedBadge: isOnlyRedesignedBadge
+    isOnlyRedesignedBadge: isOnlyRedesignedBadge,
 };

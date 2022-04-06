@@ -84,18 +84,20 @@
                                 <isinclude template="product/components/promotions" />
                             </div>
                             <div class = "d-block d-md-none">
-                                <isinclude template="util/affirmmodule_mf" />
-                                <isaffirmpromo context="pdp"
-                                    fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
+                                <isset name="fpname" value="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" scope="page" />
+                                <isset name="context" value="pdp" scope="page" />
+                                <isset name="country" value="${request.httpParameterMap.get('country').value}" scope="page" />
+                                <isinclude url="${URLUtils.https('Affirm-AffirmBanner', 'pid', product.id, 'context', context, 'fpname', fpname, 'country', country)}"/>
                             </div>
                             <isinclude url="${URLUtils.https('GooglePay-RenderButton', 'googlePayEntryPoint', 'Product-Show', 'pid', product.id)}" sf-toolkit="on"/>
-	                        <isif condition="${product.options && product.options.length > 0}">
+	                        <isif condition="${product.options && product.options.length > 0 && !(option.id == "clydeWarranty") && dw.system.Site.current.preferences.custom.isClydeEnabled}">
 	                            <isinclude template="product/components/options" />
 	                        </isif>
                             <div class = "d-none d-md-block">
-                                <isinclude template="util/affirmmodule_mf" />
-                                <isaffirmpromo context="pdp"
-                                    fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
+                                <isset name="fpname" value="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" scope="page" />
+                                <isset name="context" value="pdp" scope="page" />
+                                <isset name="country" value="${request.httpParameterMap.get('country').value}" scope="page" />
+                                <isinclude url="${URLUtils.https('Affirm-AffirmBanner', 'pid', product.id, 'context', context, 'fpname', fpname, 'country', country)}"/>
                             </div>
 
                             <!-- Product Availability -->

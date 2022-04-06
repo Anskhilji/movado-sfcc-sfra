@@ -67,6 +67,17 @@
                                 <a href="${URLUtils.url('Cart-GetProduct', 'uuid', lineItem.UUID)}" class="edit" title="${Resource.msg('link.edit.item', 'cart',null)}">${Resource.msg('link.edit.item', 'cart', null)}</a>
                             </div>
                         </isif>
+                        <isset name="product" value="${dw.catalog.ProductMgr.getProduct(lineItem.id)}" scope="page" />
+                        <isset name="isGiftBoxAllowed" value="${require('*/cartridge/scripts/helpers/productCustomHelper').isGiftBoxAllowed(product)}" scope="page" />
+                        <isset name="giftBoxSKUData" value="${require('*/cartridge/scripts/helpers/productCustomHelper').getGiftBoxSKU(product)}" scope="page" />
+                        <isset name="isCartPage" value="${true}" scope="page" />
+                        <isset name="giftBoxMessage" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxMessage) ? dw.system.Site.current.preferences.custom.giftBoxMessage : ''}" scope="page" />
+                        <isif condition="${isGiftBoxAllowed && giftBoxSKUData.giftBoxSKUAvailability && !(pdict.giftOptions.indexOf(lineItem.id) > -1)}">
+                           <div class="gift-box-wrapper  gift-box-wrapper-cart">
+                                <input type="checkbox" data-add-to-cart-url="${URLUtils.url('Cart-AddProduct')}" data-requested-page="${isCartPage}" name="gift-allowed-checkout" class="gift-allowed-checkbox gift-allowed-checkbox-mini giftbox-mini-${lineItem.id}" data-parent-pid="${lineItem.id}" data-pid="${lineItem.id}" value="${giftBoxSKUData.giftBoxSKU}">
+                                <label class="gift-box-wrapper-label" for="gift-allowed-checkout">${giftBoxMessage} ${giftBoxSKUData.giftBoxSKUPrice}</label>
+                           </div>
+                        </isif>
                         <isif condition="${pdict.loggedIn}">
                              <div class="hidden-xs-down edit-add-to-wishlist">
                                   <isinclude template="cart/productCard/cartProductCardEdit" />

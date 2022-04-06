@@ -49,7 +49,7 @@
                 <!-- Product Images Carousel -->
                 <isinclude template="product/components/imageCarousel" />
 
-                <div class="col-12 col-lg-5 detail-sec mt-sm-5 pt-sm-5">
+                <div class="col-12 col-lg-5 detail-sec pt-sm-5">
 	               <div class="row">
 	                   <!-- Attributes and Quantity -->
 	                   <div class="col-md-10 col-12">
@@ -96,6 +96,24 @@
                                     <isinclude template="product/components/pricing/main" />
                                 </isif>
                             </div>
+                            <div class = "d-block d-md-none">
+                            <iscomment> Custom Start: Product price shows when following requirements meet </iscomment>
+                                <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
+                                    <isset name="fpname" value="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" scope="page" />
+                                    <isset name="context" value="pdp" scope="page" />
+                                    <isset name="country" value="${request.httpParameterMap.get('country').value}" scope="page" />
+                                    <isinclude url="${URLUtils.https('Affirm-AffirmBanner', 'pid', product.id, 'context', context, 'fpname', fpname, 'country', country)}"/>
+                                </isif>    
+                            </div>
+                            <div class = "d-none d-md-block">
+                            <iscomment> Custom Start: Affirm text shows when following requirements meet </iscomment>
+                                <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
+                                    <isset name="fpname" value="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" scope="page" />
+                                    <isset name="context" value="pdp" scope="page" />
+                                    <isset name="country" value="${request.httpParameterMap.get('country').value}" scope="page" />
+                                    <isinclude url="${URLUtils.https('Affirm-AffirmBanner', 'pid', product.id, 'context', context, 'fpname', fpname, 'country', country)}"/>
+                                </isif>
+                            </div>
                             <!-- Applicable Promotions -->
                             <iscomment> Custom Start: Promotions shows when following requirements meet </iscomment>
                             <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
@@ -103,31 +121,17 @@
                                     <isinclude template="product/components/promotions" />
                                 </div>
                             </isif>
+
                             <iscomment> Custom Start: Clyde Integration </iscomment>
-                                <isif condition = "${dw.system.Site.current.preferences.custom.clydeWidgetDisplay}">
-                                    <div id="clyde-cta" >
-                                    </div>
-                                </isif>
+                            <isif condition = "${dw.system.Site.current.preferences.custom.clydeWidgetDisplay}">
+                                <div id="clyde-cta" >
+                                </div>
+                            </isif>
                             <iscomment> Custom End: </iscomment>
-                            <div class = "d-block d-md-none">
-                            <iscomment> Custom Start: Product price shows when following requirements meet </iscomment>
-                                <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
-                                    <isinclude template="util/affirmmodule_mf" />
-                                    <isaffirmpromo context="pdp"
-                                        fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
-                                </isif>
-                            </div>
-	                        <isif condition="${product.options && product.options.length > 0}">
+
+	                        <isif condition="${product.options && product.options.length > 0 && !(option.id == "clydeWarranty") && dw.system.Site.current.preferences.custom.isClydeEnabled}">
 	                            <isinclude template="product/components/options" />
 	                        </isif>
-                            <div class = "d-none d-md-block">
-                            <iscomment> Custom Start: Affirm text shows when following requirements meet </iscomment>
-                                <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
-                                    <isinclude template="util/affirmmodule_mf" />
-                                    <isaffirmpromo context="pdp"
-                                        fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
-                                </isif>
-                            </div>
 
                             <!-- Product Availability -->
                             <iscomment> Custom Start: Affirm text shows when following requirements meet </iscomment>
@@ -161,7 +165,7 @@
                                                 <isif condition="${!empty(request.httpCookies['esw.location'])  &&  !empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US') && !product.isProductRestricted}" >
                                                     <isapplepay class="apple-pay-pdp btn mt-2" sku="${product.id}"></isapplepay>
                                                     <isif condition="${dw.system.Site.current.preferences.custom.isGooglePayEnabled}">
-                                                        <div class="mt-2">
+                                                        <div class="google-pay-wrapper mt-2">
                                                             <isinclude url="${URLUtils.https('GooglePay-RenderButton', 'googlePayEntryPoint', 'Product-Show', 'pid', product.id)}" sf-toolkit="on"/>
                                                         </div>
                                                     </isif>
@@ -176,7 +180,7 @@
                                                     <isinclude template="product/components/smartGift" />
                                                 </isif>
                                                 <isif condition="${dw.system.Site.current.preferences.custom.isGooglePayEnabled}">
-                                                     <div class="mt-2">
+                                                     <div class="google-pay-wrapper mt-2">
                                                         <isinclude url="${URLUtils.https('GooglePay-RenderButton', 'googlePayEntryPoint', 'Product-Show', 'pid', product.id)}" sf-toolkit="on"/>
                                                     </div>
                                                 </isif>

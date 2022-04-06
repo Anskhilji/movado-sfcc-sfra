@@ -669,6 +669,77 @@ header {
     }
 }
 
+.billing-address,
+.shipping-form{
+    .form-group {
+        .form-control {
+            &.is-invalid {
+                border: rem(1) solid $invalid-red;
+                background: url("../../images/invalid.svg") center right no-repeat;
+                background-position-x: 97%;
+            }
+            
+            &#shippingState,
+            &#shippingCountrydefault,
+            &#shippingCountry,
+            &#billingState,
+            &#billingCountry {
+                &.form-control {
+                    &.is-invalid {
+                        background-position-x: 90%;
+                    }
+                }
+            }
+            
+            &#shippingZipCode,
+            &#shippingLastName,
+            &#shippingFirstName,
+            &#shippingAddressCity,
+            &#billingZipCode,
+            &#billingAddressCity,
+            &#billingFirstName,
+            &#billingLastName {
+                &.form-control {
+                    &.is-invalid {
+                        background-position-x: 93.5%;
+                        @include media-breakpoint-down(sm) {
+                            background-position-x: 97%;
+                        }
+                    }
+                }
+            }
+        }
+
+        .invalid-feedback {
+            height: rem(16);
+            font-size: rem(11);
+            font-weight: 500;
+            letter-spacing: rem(0.33);
+            line-height: rem(24);
+            color: $invalid-red;
+        }
+    }
+}
+
+.checkout-form-error {
+    margin-left: rem(16);
+    margin-bottom: rem(30);
+    height: rem(24);
+    width: rem(600);
+    color: $invalid-red;
+    font-size: rem(14);
+    font-weight: 500;
+    letter-spacing: rem(0.75);
+    line-height: rem(24);
+
+    @include media-breakpoint-down(sm) {
+        width: rem(303);
+        font-size: rem(13);
+        margin-bottom: rem(20);
+        letter-spacing: rem(0.7);
+    }
+}
+
 .shipping-method-option {
     .arrival-time {
         white-space: pre-wrap;

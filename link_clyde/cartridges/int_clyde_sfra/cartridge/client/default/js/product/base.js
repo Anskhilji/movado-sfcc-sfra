@@ -1,5 +1,6 @@
 'use strict';
 
+ /* eslint-disable */
 /* global $, document, Clyde, ClydeSitePreferences */
 
 var focusHelper = require('base/components/focus');
@@ -516,6 +517,79 @@ function getOptions($productContainer) {
     return JSON.stringify(options);
 }
 
+// add new code for MSS-1671 v2Cartridge
+/**
+ * function used to add clyde product into cart
+ */
+ function clydeAddProductToCart() {
+    var addToCartUrl;
+    var pid;
+    var pidsObj;
+    var setPids;
+    $('body').trigger('product:beforeAddToCart', this);
+
+    if ($('.set-items').length && $(this).hasClass('add-to-cart-global')) {
+        setPids = [];
+
+        $('.product-detail').each(function () {
+            if (!$(this).hasClass('product-set-detail')) {
+                setPids.push({
+                    pid: $(this).find('.product-id').text(),
+                    qty: $(this).find('.quantity-select').val(),
+                    options: getOptions($(this))
+                });
+            }
+        });
+        pidsObj = JSON.stringify(setPids);
+    }
+
+    pid = getPidValue($(this));
+
+    var $productContainer = $(this).closest('.product-detail');
+    if (!$productContainer.length) {
+        $productContainer = $(this).closest('.quick-view-dialog').find('.product-detail');
+    }
+
+    addToCartUrl = getAddToCartUrl();
+
+    var form = {
+        pid: pid,
+        pidsObj: pidsObj,
+        childProducts: getChildProducts(),
+        quantity: getQuantitySelected($(this))
+    };
+
+    var clydeWidgets = ClydeSitePreferences.CLYDE_WIDGET_ENABLED;
+
+    if (clydeWidgets) {
+        var selectedContract = Clyde.getSelectedContract();
+        if (selectedContract) {
+            form = clydeWidget.getSelectedClydeContract(form);
+        }
+    }
+
+    if (!$('.bundle-item').length) {
+        form.options = getOptions($productContainer);
+    }
+    $(this).trigger('updateAddToCartFormData', form);
+    if (addToCartUrl) {
+        $.ajax({
+            url: addToCartUrl,
+            method: 'POST',
+            data: form,
+            success: function (data) {
+                handlePostCartAdd(data);
+                $('body').trigger('product:afterAddToCart', data);
+                $.spinner().stop();
+                miniCartReportingUrl(data.reportingURL);
+            },
+            error: function () {
+                $.spinner().stop();
+            }
+        });
+    }
+}
+
 /**
  * Makes a call to the server to report the event of adding an item to the cart
  *
@@ -613,68 +687,61 @@ module.exports = {
         });
     },
 
+    // add new code for MSS-1671 v2Cartridge
     addToCart: function () {
         $(document).on('click', 'button.add-to-cart, button.add-to-cart-global', function () {
-            var addToCartUrl;
-            var pid;
-            var pidsObj;
-            var setPids;
-
-            $('body').trigger('product:beforeAddToCart', this);
-
-            if ($('.set-items').length && $(this).hasClass('add-to-cart-global')) {
-                setPids = [];
-
-                $('.product-detail').each(function () {
-                    if (!$(this).hasClass('product-set-detail')) {
-                        setPids.push({
-                            pid: $(this).find('.product-id').text(),
-                            qty: $(this).find('.quantity-select').val(),
-                            options: getOptions($(this))
-                        });
+           var clydeWidgets = ClydeSitePreferences.CLYDE_WIDGET_ENABLED;
+           if (clydeWidgets) {
+               var selectedContract = Clyde.getSelectedContract();
+               var clydeSettings = Clyde.getSettings();
+               if (clydeSettings.productPage == true) {
+                    if (selectedContract) {
+                        clydeAddProductToCart();
+                    } else {
+                        var product = Clyde.getActiveProduct();
+                        var hasContracts = product && product.contracts ? product.contracts.length > 0 : false;
+                        if (hasContracts && clydeSettings.modal == true) {
+                            Clyde.showModal(null, clydeAddProductToCart);
+                        } else {
+                            clydeAddProductToCart();
+                        }
                     }
-                });
-                pidsObj = JSON.stringify(setPids);
-            }
-
-            pid = getPidValue($(this));
-
-            var $productContainer = $(this).closest('.product-detail');
-            if (!$productContainer.length) {
-                $productContainer = $(this).closest('.quick-view-dialog').find('.product-detail');
-            }
-
-            addToCartUrl = getAddToCartUrl();
-
-            var form = {
-                pid: pid,
-                pidsObj: pidsObj,
-                childProducts: getChildProducts(),
-                quantity: getQuantitySelected($(this))
-            };
-
-            form = clydeWidget.getSelectedClydeContract(form);
-
-            if (!$('.bundle-item').length) {
-                form.options = getOptions($productContainer);
-            }
-
-            $(this).trigger('updateAddToCartFormData', form);
-            if (addToCartUrl) {
-                $.ajax({
-                    url: addToCartUrl,
-                    method: 'POST',
-                    data: form,
-                    success: function (data) {
-                        handlePostCartAdd(data);
-                        $('body').trigger('product:afterAddToCart', data);
-                        $.spinner().stop();
-                        miniCartReportingUrl(data.reportingURL);
-                    },
-                    error: function () {
-                        $.spinner().stop();
-                    }
-                });
+               } else if (clydeSettings.modal == true) {
+                    Clyde.showModal(null, clydeAddProductToCart);
+               } else {
+                    clydeAddProductToCart()
+               }
+           } else {
+                clydeAddProductToCart();
+           }
+        });
+    },
+    // add new code for MSS-1671 v2Cartridge
+    addProductToCart: function () {
+        $(document).on('click', 'button.add-To-Cart, button.add-to-cart-global', function () {
+            var clydeWidgets = ClydeSitePreferences.CLYDE_WIDGET_ENABLED;
+            if (clydeWidgets) {
+                var selectedContract = Clyde.getSelectedContract();
+                var clydeSettings = Clyde.getSettings();
+                if (clydeSettings.productPage == true) {
+                        if (selectedContract) {
+                            clydeAddProductToCart();
+                        } else {
+                            var product = Clyde.getActiveProduct();
+                            var hasContracts = product && product.contracts ? product.contracts.length > 0 : false;
+                            if (hasContracts && clydeSettings.modal == true) {
+                                Clyde.showModal(null, clydeAddProductToCart);
+                            } else {
+                                clydeAddProductToCart();
+                            }
+                        }
+                } else if (clydeSettings.modal == true) {
+                    Clyde.showModal(null, clydeAddProductToCart);
+                } else {
+                    clydeAddProductToCart();
+                }
+            } else {
+                clydeAddProductToCart();
             }
         });
     },
