@@ -6,9 +6,8 @@
         <isinclude template="product/components/pricing/main" />
     </div>
     <iscomment> Custom: End </iscomment>
-
-    <!-- Product Rating -->
-    <div class="ratings">
-        <isinclude template="product/components/productRating" />
-    </div>
 </div>
+    <!-- Product Rating -->
+ <div class="ratings">
+        <isinclude template="product/components/productRating" />
+ </div>
