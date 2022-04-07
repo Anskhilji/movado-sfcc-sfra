@@ -712,7 +712,7 @@ function formatProductId(pid) {
 
 /**
  * function to get total order level discount
- * @param {dw.order.Order} order 
+ * @param {dw.order.Order} order
  * returns {Number} orderPriceAdjustment
  */
 
@@ -755,7 +755,6 @@ function getGoogleAnalyticsParameters(queryStringVal, googleAnalyticsRequiredPar
                         } else {
                             googleAnalyticsParameters = googleAnalyticsParameters + '&' + searchArray[i];
                         }
-                        
                     }
                 }
             }

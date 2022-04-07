@@ -747,6 +747,9 @@
 
     .product-brand-info {
         width: 100%;
+        @include media-breakpoint-down(sm) {
+            padding: 0 rem(10);
+        }
     }
     @include media-breakpoint-up(md-down) {
         padding: rem(45) rem(32);
@@ -772,7 +775,6 @@
             }
         }
     }
-
     .primary-images {
         position: relative;
         width: 100%;
@@ -1059,15 +1061,10 @@
             margin-left: rem(70);
         }
 
-        @include media-breakpoint-down(sm) {
-            text-align: center;
-        }
-
         .product-brand-info {
 
             .category-watches {
                 padding-right: rem(20);
-
                 h1 {
                     margin-bottom: rem(5);
                 }
@@ -1075,16 +1072,22 @@
                 .watches {
                     &-product-name {
                         @include collection-subtitle-font;
+                        margin-bottom: 0;
                     }
                     &-turncate-name {
                         overflow: hidden;
                         text-overflow: ellipsis;
                         display: -webkit-box;
                         -webkit-line-clamp: 3;
+                        text-align: left;
                     }
                     &-collection-name {
                         @include collection-title-font;
                         display: block;
+                        margin: rem(0) rem(0) rem(10) rem(0);
+                        @include media-breakpoint-down(sm) {
+                            font-size: rem(20);
+                        }
                     }
                     &-seprator {
                         @include collection-subtitle-font;
@@ -1095,13 +1098,66 @@
                     }
                 }
             }
+            .prices {
+                @include media-breakpoint-down(sm) {
+                    padding: rem(0);
+                }
+                .price {
+                   span {
+                        color: $light-black;
+                        font-size: rem(24);
+                        @include font-medium;
+                        letter-spacing: 0;
+                        line-height: rem(31); 
+                        margin: rem(0);
+                        @include media-breakpoint-down(sm) {
+                            font-size: rem(20);
+                            line-height: rem(26); 
+                        }
+                    }
+                    .price-pdp-mvmt {
+                        display: flex;
+                        flex-direction: column-reverse;
+                        align-items: flex-end;
+                    }
+                    del {
+                        text-align: right;
+                        line-height: rem(20);
+                        margin-top: rem(10);
+                        @include media-breakpoint-down(sm) {
+                            margin-top: rem(10);
+                        }
+                        span {
+                            opacity: 0.5;
+                            @include collection-subtitle-font;
+                            display: block;
+                            @include media-breakpoint-down(sm) {
+                                display: inline-block;
+                            }
+                            &.strike-through {
+                                margin-right: 0;
+                            }
+                        }
+                        & + .sale-price-mvmt {
+                            color: $dark-red;
+                            span {
+                                color: $dark-red;
+                            }
+                        }
+                        .strike-through {
+                            text-decoration: none;
+                        }
+                    }
+                }
+            }
 
             .category-eyewear {
-    
+                padding-right: rem(20);
                 h1 {
                     margin-bottom: rem(5);
+                    line-height: 0;
                 }
-
+                
                 .eyewear {
                     &-product-name {
                         @include collection-title-font;
@@ -1109,18 +1165,29 @@
                         text-overflow: ellipsis;
                         display: -webkit-box;
                         -webkit-line-clamp: 3;
+                        margin: rem(0);
+                        @include media-breakpoint-down(sm) {
+                            font-size: rem(20);
+                        }
                     }
         
                     &-heading {
                         @include collection-subtitle-font;
+                        display: block;
+                        margin-top: rem(10);
+                        text-align: left;
+                        .eyewear-colors-wrapper {
+                            @include collection-subtitle-font;
+                        }
                     }
                 }
             }
 
             .category-jewlery {
-
+                padding-right: rem(20);
                 h1 {
                     margin-bottom: rem(5);
+                    line-height: 0;
                 }
                 
                 .jewlery {
@@ -1130,10 +1197,15 @@
                         text-overflow: ellipsis;
                         display: -webkit-box;
                         -webkit-line-clamp: 3;
+                        @include media-breakpoint-down(sm) {
+                            font-size: rem(20);
+                        }
                     } 
 
                     &-heading {
+                        display: block;
                         @include collection-subtitle-font;
+                        margin-top: rem(10);
                     }
 
                 }
@@ -1156,6 +1228,12 @@
                 text-overflow: ellipsis;
                 display: -webkit-box;
                 -webkit-line-clamp: 3;
+                @include collection-title-font;
+                margin-bottom: rem(10);
+                
+                @include media-breakpoint-down(sm) {
+                    font-size: rem(20);
+                }
             }
         }
 
@@ -1185,12 +1263,10 @@
                 }
             }
         }
-
         .ratings {
             margin: 0;
             width: 100%;
             height: rem(24);
-
             @include media-breakpoint-down(sm) {
                 #yotpo-bottomline-top-div {
                     width: 100%;
@@ -1215,7 +1291,6 @@
                         margin-right: auto;
 
                         .yotpo-icon {
-
                             &.rating-star {
                                 height: rem(20) !important;
                                 width: rem(20) !important;
@@ -1228,6 +1303,39 @@
                     }
                 }
             }
+        }
+
+        .klarna-Allowed-Country-label {
+            height: rem(45);
+            margin-top: rem(5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &.d-show-desktop {
+                display: block;
+                @include media-breakpoint-down(sm) {
+                    display: none;
+                }
+            }
+            &.d-show-mobile {
+                display: none;
+                @include media-breakpoint-down(sm) {
+                    margin-top: rem(20);
+                    display: block;
+                }
+            }
+        }
+
+        .product-description {
+            @include media-breakpoint-down(sm) {
+                text-align: center;
+            }
+        }
+        
+        .sub-message-wrapper {
+            display: block;
+            line-height: 0;
         }
     }
 
@@ -1279,13 +1387,13 @@
             margin-bottom: rem(6);
             width: 100%;
             height: auto;
-
+            text-align: left;
             @include media-breakpoint-up(md-down) {
                 text-align: left;
                 font-size: rem(28);
                 letter-spacing: rem(3);
             }
-            @include media-breakpoint-up(md-down){
+            @include media-breakpoint-up(md-down) {
                 font-family: $font-futura-pt;
             }
         }
@@ -1336,6 +1444,7 @@
             }
         }
     }
+   
     .show-cart-button-below-price {
         .prices-add-to-cart-actions-top {
             position: relative;
@@ -1413,12 +1522,16 @@
         }
 
         @include media-breakpoint-up(md-down) {
-            position: relative;
+            position: static;
             padding: 0 rem(15);
             margin-bottom: rem(35);
         }
-
-        @include media-breakpoint-up(xl) {
+        @include media-breakpoint-up(lg) {
+            position: static;
+            padding: 0 rem(15);
+            margin-bottom: rem(48);
+        }
+        @include media-breakpoint-up(lg-custom) {
             margin-bottom: rem(-5);
         }
     
@@ -1538,6 +1651,9 @@
             margin-bottom: rem(20);
             padding-top: rem(15);
             border-top: rem(2) solid $white-gray;
+            @include media-breakpoint-up(sm) {
+                padding-top: rem(0);
+            }
         }
 
         &-head {
@@ -3115,6 +3231,7 @@
 
     @include media-breakpoint-down(sm) {
         border-bottom: rem(1) solid $gray91;
+        text-align: center;
     }
 
     &-select-size-head {
@@ -3138,5 +3255,118 @@
 .google-pay-container {
     .gpay-button {
         padding: rem(8) 15% !important;
+    }
+}
+
+.gift-box-wrapper-pdp {
+    display: flex;
+    align-items: center;
+    margin-bottom: rem(20);
+    @include media-breakpoint-down(sm) {
+        padding: 0 rem(10);
+    }
+
+    &.d-show-desktop {
+        display: block;
+        @include media-breakpoint-down(sm) {
+            display: none;
+        }
+    }
+
+    &.d-show-mobile {
+        display: none;
+        @include media-breakpoint-down(sm) {
+            margin-top: rem(20);
+            display: block;
+        }
+    }
+
+    .gift-box-wrapper-checkbox {
+        border-bottom: rem(1) solid $alice-blue;
+        -ms-transform: scale(1.5); /* IE */
+        -moz-transform: scale(1.5); /* FF */
+        -webkit-transform: scale(1.5); /* Safari and Chrome */
+        -o-transform: scale(1.5); /* Opera */
+        transform: scale(1.5);
+    }
+
+    .gift-box-wrapper-label {
+        margin-left: rem(0);
+        margin-bottom: 0;
+        font-size: rem(16);
+        text-transform: none;
+        font-weight: 400;
+
+        &.custom-control-label-pdp {
+            display: block;
+            position: relative;
+            padding-left: rem(35);
+            margin-bottom: rem(12);
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            
+                input {
+                    position: absolute;
+                    opacity: 0;
+                    cursor: pointer;
+                    height: 0;
+                    width: 0;
+                }
+
+                .checkmark {
+                    position: absolute;
+                    top: rem(1);
+                    left: 0;
+                    height: rem(20);
+                    width: rem(20);
+                    background-color: transparent;
+                    border: rem(1) solid $black;
+                    border-radius: rem(4);
+                    @include media-breakpoint-down(sm) {
+                        top: rem(0);
+                    }
+                }
+
+                input {
+                    &:checked ~ .checkmark {
+                        background-color: $gossamer;
+                        border-color: $gossamer;
+                    }
+                }
+
+                input {
+                    &:checked ~ .checkmark {
+                        &:after {
+                            display: block;
+                        }
+                    }
+                }
+                
+                .checkmark {
+                    &:after {
+                        content: "";
+                        position: absolute;
+                        display: none;
+                        left: rem(7);
+                        top: rem(3);
+                        width: rem(5);
+                        height: rem(10);
+                        border: solid white;
+                        border-width: 0 rem(3) rem(3) 0;
+                        -webkit-transform: rotate(45deg);
+                        -ms-transform: rotate(45deg);
+                        transform: rotate(45deg);
+                    }
+                }
+        }  
+    }
+}
+
+.pd-desc-mvmt {
+    @include media-breakpoint-down(sm) {
+        padding: 0 rem(10);
     }
 }
