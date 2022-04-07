@@ -1072,7 +1072,13 @@
                 .watches {
                     &-product-name {
                         @include collection-subtitle-font;
-                        margin-bottom: 0;
+                        line-height: rem(41);
+
+                        &.product-center-text {
+                            @include media-breakpoint-down(sm) {
+                                text-align: center;
+                            }
+                        }
                     }
                     &-turncate-name {
                         overflow: hidden;
@@ -1084,10 +1090,6 @@
                     &-collection-name {
                         @include collection-title-font;
                         display: block;
-                        margin: rem(0) rem(0) rem(10) rem(0);
-                        @include media-breakpoint-down(sm) {
-                            font-size: rem(20);
-                        }
                     }
                     &-seprator {
                         @include collection-subtitle-font;
@@ -1105,15 +1107,13 @@
                 .price {
                    span {
                         color: $light-black;
-                        font-size: rem(24);
+                        font-size: rem(34);
                         @include font-medium;
-                        letter-spacing: 0;
-                        line-height: rem(31); 
+                        letter-spacing: rem(0.7);
+                        line-height: rem(41); 
                         margin: rem(0);
-                        @include media-breakpoint-down(sm) {
-                            font-size: rem(20);
-                            line-height: rem(26); 
-                        }
+                        font-weight: 400;
+                        display: block;
                     }
                     .price-pdp-mvmt {
                         display: flex;
@@ -1128,11 +1128,15 @@
                             margin-top: rem(10);
                         }
                         span {
-                            opacity: 0.5;
                             @include collection-subtitle-font;
                             display: block;
+                            font-size: rem(14);
+                            letter-spacing: rem(1.5);
+                            color: $light-gray2;
+                            font-weight: 300;
+                            line-height: normal;
                             @include media-breakpoint-down(sm) {
-                                display: inline-block;
+                                display: inline;
                             }
                             &.strike-through {
                                 margin-right: 0;
@@ -1155,7 +1159,6 @@
                 padding-right: rem(20);
                 h1 {
                     margin-bottom: rem(5);
-                    line-height: 0;
                 }
                 
                 .eyewear {
@@ -1165,9 +1168,11 @@
                         text-overflow: ellipsis;
                         display: -webkit-box;
                         -webkit-line-clamp: 3;
-                        margin: rem(0);
-                        @include media-breakpoint-down(sm) {
-                            font-size: rem(20);
+
+                        &.product-center-text {
+                            @include media-breakpoint-down(sm) {
+                                text-align: center;
+                            }
                         }
                     }
         
@@ -1176,6 +1181,7 @@
                         display: block;
                         margin-top: rem(10);
                         text-align: left;
+                        line-height: rem(41);
                         .eyewear-colors-wrapper {
                             @include collection-subtitle-font;
                         }
@@ -1187,7 +1193,6 @@
                 padding-right: rem(20);
                 h1 {
                     margin-bottom: rem(5);
-                    line-height: 0;
                 }
                 
                 .jewlery {
@@ -1197,8 +1202,11 @@
                         text-overflow: ellipsis;
                         display: -webkit-box;
                         -webkit-line-clamp: 3;
-                        @include media-breakpoint-down(sm) {
-                            font-size: rem(20);
+
+                        &.product-center-text {
+                            @include media-breakpoint-down(sm) {
+                                text-align: center;
+                            }
                         }
                     } 
 
@@ -1207,9 +1215,8 @@
                         @include collection-subtitle-font;
                         margin-top: rem(10);
                     }
-
                 }
-            } 
+            }
 
             .product-name-strapguide {
                 @include collection-title-font;
@@ -1229,10 +1236,10 @@
                 display: -webkit-box;
                 -webkit-line-clamp: 3;
                 @include collection-title-font;
-                margin-bottom: rem(10);
-                
+            }
+            .product-center-text {
                 @include media-breakpoint-down(sm) {
-                    font-size: rem(20);
+                    text-align: center;
                 }
             }
         }
@@ -1331,11 +1338,6 @@
             @include media-breakpoint-down(sm) {
                 text-align: center;
             }
-        }
-        
-        .sub-message-wrapper {
-            display: block;
-            line-height: 0;
         }
     }
 
