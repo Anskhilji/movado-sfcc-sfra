@@ -38,25 +38,23 @@
             </div>
         </section>
 
-        <div class="product-breadcrumb">
+        <div class="product-breadcrumb hidden-sm-down">
             <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
         </div>
         <div class="container-fluid product-detail product-wrapper pdp-mvmt"  data-pid="${product.id}" data-gtm-fb-product="${JSON.stringify(product)}" itemscope
             itemtype="http://schema.org/Product">
             <!---Breadcrumbs--->
-            <div class="row ratings-mobile pb-2">
-                <div class="col-12">
-                    <div class="ratings">
-                        <isinclude template="product/components/productRating" />
-                    </div>
-                </div>
-            </div>
             <hr class="hidden-xs-down d-none"/>
             <div class="row pdp-desktop m-0">
                 <!-- Product Images Carousel -->
                 <isinclude template="product/components/imageCarouselPDP" />
- 
+
                 <div class="product-side-details">
+                    <div class="product-tag-wrapper mvmt-avilability ${!product.available ? '' : 'opacity-0'}">
+                        <isif condition="${!product.available}">
+                            <span class="product-tag tag-red">${Resource.msg('label.soldout', 'product', null)}</span>
+                        </isif>
+                    </div>
 
                     <isinclude template="product/components/badges" />
 
@@ -147,7 +145,13 @@
                         <isset name="price" value="${product.price}" scope="page" />
                         <isinclude template="product/components/pricing/main" />
                     </div>
-
+                    <div class="ratings-mobile pb-2">
+                        <div class="col-12 rating-margin">
+                            <div class="ratings p-0">
+                                <isinclude template="product/components/productRating" />
+                            </div>
+                        </div>
+                    </div>
                     <div class="show-cart-button-below-price">
                         <div class="row">
                             <div class="col-12 prices-add-to-cart-actions-top">
@@ -220,6 +224,7 @@
                             </div>
                         </isif>
                     <iscomment> Custom End: </iscomment>
+
                     <isif condition="${sitePref.enableSeeTheFitPopUp && !empty(product.seeTheFitPrimaryImg)}"> 
                         <div class="seefit-text-label">
                             <button class="seefit-text-label-select-size-head call-see-fit-popup">
@@ -257,7 +262,7 @@
                         <isinclude template="product/backInStockNotification" sf-toolkit="on" />
                     </isif>
 
-                    <isif condition="${product.options && product.options.length > 0 && !(option.id == "clydeWarranty") && dw.system.Site.current.preferences.custom.isClydeEnabled}">
+                    <isif condition="${product.options && product.options.length > 0}">
                         <isinclude template="product/components/options" />
                     </isif>
                     <div class="col-md-10 col-12">

@@ -764,6 +764,15 @@
         padding: rem(65) rem(32);
     }
 
+    .ratings-mobile {
+
+        .rating-margin {
+            @include media-breakpoint-down(sm) {
+                padding: 0 rem(10);
+            }
+        }
+    }
+
     .primary-images {
         position: relative;
         width: 100%;
@@ -1055,7 +1064,14 @@
         }
 
         .product-brand-info {
+
             .category-watches {
+                padding-right: rem(20);
+
+                h1 {
+                    margin-bottom: rem(5);
+                }
+
                 .watches {
                     &-product-name {
                         @include collection-subtitle-font;
@@ -1081,6 +1097,11 @@
             }
 
             .category-eyewear {
+    
+                h1 {
+                    margin-bottom: rem(5);
+                }
+
                 .eyewear {
                     &-product-name {
                         @include collection-title-font;
@@ -1097,6 +1118,11 @@
             }
 
             .category-jewlery {
+
+                h1 {
+                    margin-bottom: rem(5);
+                }
+                
                 .jewlery {
                     &-product-name {
                         @include collection-title-font;
@@ -1156,6 +1182,50 @@
 
                 @include media-breakpoint-down(sm) {
                     margin-left: rem(10);
+                }
+            }
+        }
+
+        .ratings {
+            margin: 0;
+            width: 100%;
+            height: rem(24);
+
+            @include media-breakpoint-down(sm) {
+                #yotpo-bottomline-top-div {
+                    width: 100%;
+                }
+            }
+
+            .standalone-bottomline {
+
+                .text-m {
+                    color: $light-black !important;
+                    font-size: rem(12) !important;
+                    text-decoration: underline !important;
+                    font-weight: 300;
+                    letter-spacing: 0 !important;
+                    line-height: rem(20);
+                }
+
+                .yotpo-bottomline {
+                    width: 100%;
+
+                    .yotpo-stars {
+                        margin-right: auto;
+
+                        .yotpo-icon {
+
+                            &.rating-star {
+                                height: rem(20) !important;
+                                width: rem(20) !important;
+                                font-size: rem(19) !important;
+                                box-sizing: border-box;
+                                color: $star-light !important;
+                                margin-bottom: 0;
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -1222,7 +1292,7 @@
 
         &-price-rating {
             display: flex;
-            margin-top: rem(15);
+            margin-top: rem(0);
             padding-bottom: rem(15);
 
             .prices {
@@ -1264,13 +1334,6 @@
                 }
 
             }
-
-            .ratings {
-                margin: 0;
-                width: 100%;
-                height: 24px;
-            }
-
         }
     }
     .show-cart-button-below-price {
