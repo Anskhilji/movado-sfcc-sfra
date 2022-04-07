@@ -1,0 +1,20 @@
+@import 'variables';
+@import '~movado/mixins';
+
+@mixin collection-title-font {
+    color: $light-black;
+    font-family: $font-medium;
+    font-weight: 400;
+    letter-spacing: rem(0.7);
+    font-size: rem(34);
+    line-height: rem(41);
+}
+
+@mixin collection-subtitle-font {
+    color: $light-black;
+    font-family: $font-medium;
+    font-weight: 400;
+    letter-spacing: rem(0.7);
+    font-size: rem(24);
+    line-height: rem(41);
+}

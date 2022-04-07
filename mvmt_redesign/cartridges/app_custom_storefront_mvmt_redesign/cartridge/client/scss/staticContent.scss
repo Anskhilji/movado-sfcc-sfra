@@ -1,0 +1,120 @@
+@import 'variables';
+@import '~movado/staticContent';
+
+.contact-us-right-container {
+    padding: 0 rem(120) 0 0;
+
+    @include media-breakpoint-down(md) {
+        padding: 0;
+        margin-bottom: rem(16);
+    }
+}
+
+.contact-us-form-wrapper {
+    padding: rem(64) rem(152) rem(120);
+
+    @include media-breakpoint-down(lg) {
+        padding: 0;
+        margin-bottom: rem(28);
+    }
+
+    .contactus-page {
+        width: 90%;
+        margin: 0 auto;
+
+        @include media-breakpoint-up(lg) {
+            margin-left: auto;
+            max-width: rem(420);
+        }
+
+        .form-control-label {
+            font-family: $font-medium;
+        }
+    }
+
+    @media only screen and (max-width: $custom-md-width) {
+        flex-basis: 100%;
+        max-width: 100%;
+    }
+
+    h2 {
+        font-size: rem(18);
+        letter-spacing: rem(2.5);
+        margin-bottom: rem(20);
+    }
+
+    p {
+        margin: rem(9.44) 0;
+        line-height: 2em;
+        font-family: $font-primary;
+        color: $dark-orange1;
+        font-size: rem(12);
+        font-weight: 500;
+        letter-spacing: rem(1);
+    }
+}
+
+.account-heading {
+    text-align: center;
+    margin: 0 auto;
+    max-width: rem(800);
+    padding: rem(40) 0;
+    width: 100%;
+    font-family: $font-medium;
+
+    @include media-breakpoint-up(lg) {
+        padding: rem(16) 0;
+    }
+
+    &-title {
+        text-transform: uppercase;
+        font-family: $font-medium;
+        font-size: rem(36);
+        font-weight: 500;
+        letter-spacing: rem(3.38);
+        line-height: rem(42);
+        margin-bottom: rem(15);
+
+        @include media-breakpoint-up(lg) {
+            font-size: rem(50);
+            letter-spacing: rem(4.69);
+            line-height: 1.5;
+        }
+    }
+
+    &-copy {
+        color: $black;
+        font-size: rem(16);
+        font-weight: 500;
+        line-height: rem(23);
+        letter-spacing: rem(0.5);
+    }
+
+    &-divider {
+        border-color: $gray91;
+        border-style: inset;
+        border-bottom: 0;
+        margin-top: rem(1);
+        width: 80%;
+
+        @include media-breakpoint-up(lg) {
+            width: 45%
+        }
+    }
+}
+
+.form-control-label {
+    font-size: rem(11);
+}
+
+.comment-textarea {
+    height: rem(180);
+    resize: none;
+
+    &:focus {
+
+        &::placeholder {
+            display: none;
+        }
+    }
+}

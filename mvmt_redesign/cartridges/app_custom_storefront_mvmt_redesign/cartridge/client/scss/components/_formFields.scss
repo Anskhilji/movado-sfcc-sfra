@@ -1,0 +1,20 @@
+@import "~movado/components/formFields";
+
+.form-group {
+
+    &.required {
+    
+         .form-control-label {
+    
+            &::after {
+                content: "";
+                color: $black;
+            }
+    
+            &::before {
+                content: "*";
+                color: $black;
+            }
+        }
+    }
+}
