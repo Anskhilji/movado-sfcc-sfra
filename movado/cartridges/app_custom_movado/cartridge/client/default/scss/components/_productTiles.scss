@@ -255,13 +255,15 @@
                 top: 24.8%;
                 transform: translateY(-24.8%);
             }
+
             @include media-breakpoint-down(md) {
                 top: 14.8%;
                 transform: translateY(-14.8%);
                 right: rem(40);
             }
+
             @include media-breakpoint-down(sm) {
-                top:rem(30);
+                top: rem(30);
                 transform: translateY(0);
                 right: rem(30.14);
             }
@@ -281,6 +283,7 @@
                     margin-bottom: rem(5);
                 }
             }
+            
             &-click-view {
                 cursor: pointer;
                 height: rem(45);
