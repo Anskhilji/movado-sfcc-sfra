@@ -79,7 +79,7 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
                 return (foMatch.OrderItemSummary.Id === foLineItem.OrderItemSummary.WarrantyChildOrderItemSummary__r.Id);
             });
 
-            if(warrantyFulfillmentLineItem != null){
+            if(warrantyFulfillmentLineItem != null) {
                 pendingFOLineItems.push(
                     SalesforceModel.buildCompositeFulfillmentOrderLineItemUpdateRequest({
                         Id: warrantyFulfillmentLineItem.Id,

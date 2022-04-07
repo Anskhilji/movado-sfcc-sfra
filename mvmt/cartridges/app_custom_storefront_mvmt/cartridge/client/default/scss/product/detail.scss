@@ -768,6 +768,8 @@
     }
     .ratings-mobile {
 
+    .ratings-mobile {
+
         .rating-margin {
             @include media-breakpoint-down(sm) {
                 padding: 0 rem(10);
@@ -1061,9 +1063,9 @@
         }
 
         .product-brand-info {
+
             .category-watches {
                 padding-right: rem(20);
-                
                 h1 {
                     margin-bottom: rem(5);
                 }
@@ -1266,7 +1268,6 @@
             margin: 0;
             width: 100%;
             height: rem(24);
-            
             @include media-breakpoint-down(sm) {
                 #yotpo-bottomline-top-div {
                     width: 100%;
@@ -1442,7 +1443,6 @@
                 }
 
             }
-
         }
     }
    
