@@ -658,7 +658,7 @@
         var basket = BasketMgr.getCurrentOrNewBasket();
         var currencyCode = new Money(0, basket.currencyCode);
         var salePrice = '';
-        var origPrice = '';
+        var originalPrice = '';
 
         if (!empty(PromotionItr)) {
             while (PromotionItr.hasNext()) {
@@ -689,9 +689,9 @@
 
         } else {
             if (priceModel.price.available) {
-                origPrice = priceModel.price;
+                originalPrice = priceModel.price;
             }
-            return origPrice;
+            return originalPrice;
 
             }
         }
