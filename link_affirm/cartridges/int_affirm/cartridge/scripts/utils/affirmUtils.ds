@@ -648,51 +648,51 @@
         };
 
         self.getProductPrice = function(productID) {
-        var Money = require('dw/value/Money');
-        var ProductMgr = require('dw/catalog/ProductMgr');
-        var product = ProductMgr.getProduct(productID);
-        var priceModel = product.priceModel;
-        var PromotionItr = PromotionMgr.activePromotions.getProductPromotions(product).iterator();
-        var promotionalPrice = Money.NOT_AVAILABLE;
-        var currentPromotionalPrice = Money.NOT_AVAILABLE;
-        var basket = BasketMgr.getCurrentOrNewBasket();
-        var currencyCode = new Money(0, basket.currencyCode);
-        var salePrice = '';
-        var originalPrice = '';
+            var Money = require('dw/value/Money');
+            var ProductMgr = require('dw/catalog/ProductMgr');
+            var product = ProductMgr.getProduct(productID);
+            var priceModel = product.priceModel;
+            var PromotionItr = PromotionMgr.activePromotions.getProductPromotions(product).iterator();
+            var promotionalPrice = Money.NOT_AVAILABLE;
+            var currentPromotionalPrice = Money.NOT_AVAILABLE;
+            var basket = BasketMgr.getCurrentOrNewBasket();
+            var currencyCode = new Money(0, basket.currencyCode);
+            var salePrice = '';
+            var originalPrice = '';
 
-        if (!empty(PromotionItr)) {
-            while (PromotionItr.hasNext()) {
-                var promo = PromotionItr.next();
-                if (promo.getPromotionClass() != null && promo.getPromotionClass().equals(Promotion.PROMOTION_CLASS_PRODUCT)) {
-                    if (product.optionProduct) {
-                        currentPromotionalPrice = promo.getPromotionalPrice(product, product.getOptionModel());
-                    } else {
-                        currentPromotionalPrice = promo.getPromotionalPrice(product);
-                    }
-                    if (promotionalPrice.value > currentPromotionalPrice.value && currentPromotionalPrice.value !== 0) {
-                        promotionalPrice = currentPromotionalPrice;
-                        break; // breaks loop
-                    } else if (promotionalPrice.value == 0) {
-                        if ((currentPromotionalPrice.value !== 0 && currentPromotionalPrice.value !== null)) {
+            if (!empty(PromotionItr)) {
+                while (PromotionItr.hasNext()) {
+                    var promo = PromotionItr.next();
+                    if (promo.getPromotionClass() != null && promo.getPromotionClass().equals(Promotion.PROMOTION_CLASS_PRODUCT)) {
+                        if (product.optionProduct) {
+                            currentPromotionalPrice = promo.getPromotionalPrice(product, product.getOptionModel());
+                        } else {
+                            currentPromotionalPrice = promo.getPromotionalPrice(product);
+                        }
+                        if (promotionalPrice.value > currentPromotionalPrice.value && currentPromotionalPrice.value !== 0) {
                             promotionalPrice = currentPromotionalPrice;
                             break; // breaks loop
+                        } else if (promotionalPrice.value == 0) {
+                            if ((currentPromotionalPrice.value !== 0 && currentPromotionalPrice.value !== null)) {
+                                promotionalPrice = currentPromotionalPrice;
+                                break; // breaks loop
+                            }
                         }
                     }
                 }
-            }
 
-            if (promotionalPrice && promotionalPrice.available) {
-                salePrice = currencyCode.add(promotionalPrice);
-            }
+                if (promotionalPrice && promotionalPrice.available) {
+                    salePrice = currencyCode.add(promotionalPrice);
+                }
 
-            return salePrice;
+                return salePrice;
 
-        } else {
-            if (priceModel.price.available) {
-                originalPrice = priceModel.price;
-            }
+            } else {
+                if (priceModel.price.available) {
+                    originalPrice = priceModel.price;
+                }
 
-            return originalPrice;
+                return originalPrice;
 
             }
         }
