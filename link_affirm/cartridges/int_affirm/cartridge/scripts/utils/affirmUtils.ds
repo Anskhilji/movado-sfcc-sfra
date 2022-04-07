@@ -647,7 +647,7 @@
 			return true;
         };
 
-        self.getSalePrice = function(productID) {
+        self.getProductPrice = function(productID) {
         var Money = require('dw/value/Money');
         var ProductMgr = require('dw/catalog/ProductMgr');
         var product = ProductMgr.getProduct(productID);
@@ -691,6 +691,7 @@
             if (priceModel.price.available) {
                 originalPrice = priceModel.price;
             }
+
             return originalPrice;
 
             }
