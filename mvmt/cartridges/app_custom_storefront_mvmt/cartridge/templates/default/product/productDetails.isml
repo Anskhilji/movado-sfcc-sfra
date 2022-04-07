@@ -55,7 +55,7 @@
             <div class="row pdp-desktop m-0">
                 <!-- Product Images Carousel -->
                 <isinclude template="product/components/imageCarouselPDP" />
-
+ 
                 <div class="product-side-details">
 
                     <isinclude template="product/components/badges" />
