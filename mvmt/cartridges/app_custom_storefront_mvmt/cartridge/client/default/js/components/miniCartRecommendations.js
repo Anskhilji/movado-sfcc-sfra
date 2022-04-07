@@ -156,6 +156,7 @@ $(document).ready(function (params) {
         var form = {
             pid: pid,
             quantity: 1,
+            isGiftItem: false,
             isCartRecommendation: true
             };
 

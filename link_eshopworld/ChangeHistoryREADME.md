@@ -42,7 +42,3 @@
 
 ## serviceHelper.js
 - Line No: Start from 241 to 261
-
-## GenerateLocalizePricing.js
-- Line No: Start from 51 to 65
-

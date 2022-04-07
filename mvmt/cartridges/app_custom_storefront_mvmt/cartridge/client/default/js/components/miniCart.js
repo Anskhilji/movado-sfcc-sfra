@@ -342,13 +342,15 @@ module.exports = function () {
         $.spinner().start();
         var $this = $(this);
         var url = $this.data('add-to-cart-url');
+        var parentPid = $this.data('parent-pid');
         var pid = $this.val();
         var isCartPage = $(this).data('requested-page');
         var form = {
             pid: pid,
             quantity: 1,
             isGiftItem: true,
-            isCartPage: isCartPage
+            isCartPage: isCartPage,
+            parentPid: parentPid
             };
 
             if (url) {
@@ -371,8 +373,10 @@ module.exports = function () {
                             var ltkSendSCA = require('listrak_custom/ltkSendSCA');
                             ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
                         }
-                        $('.gift-allowed-checkbox-mini').hide();
-                        $('.gift-allowed-checkbox-mini').next('label').hide();
+
+                        var pid = $this.data('pid');
+                        $('.giftbox-mini-' + pid ).hide();
+                        $('.giftbox-mini-' + pid).next('label').hide();
                         $.spinner().stop();
                         //Custom End
                     },
@@ -380,7 +384,7 @@ module.exports = function () {
                         $.spinner().stop();
                     },
                     complete: function () {
-                        $('body').trigger('miniCart:recommendations'); 
+                        $('body').trigger('miniCart:recommendations');
                     }
                 });
             }
