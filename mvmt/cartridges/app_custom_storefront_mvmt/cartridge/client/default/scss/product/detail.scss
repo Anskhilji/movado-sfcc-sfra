@@ -729,6 +729,10 @@
         text-align: center;
         min-height: 45vh;
         height: auto;
+        align-self: flex-start;
+        top: 0;
+        position: -webkit-sticky;
+        position: sticky;
 
         @include media-breakpoint-up(md-down) {
             flex-basis: 100%;
@@ -3045,4 +3049,13 @@
     .gpay-button {
         padding: rem(8) 15% !important;
     }
+}
+.pdp-desktop{   
+.sticky-section{
+    align-self: flex-start;
+       top: 0;
+       position: -webkit-sticky;
+       position: sticky;
+     
+   }
 }
