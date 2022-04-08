@@ -3046,3 +3046,32 @@
         padding: rem(8) 15% !important;
     }
 }
+
+.product {
+    &-detail {
+        &.pdp-mvmt-redesign {
+            padding: rem(20);
+
+            .sticky-section {
+                align-self: flex-start;
+                top: 0;
+                position: -webkit-sticky;
+                position: sticky;
+            }
+
+            .primary-images {
+                .d-hide-desktop-wrapper {
+                    display: none;
+                    @include media-breakpoint-down(sm) {
+                        display: block;
+                    }
+                }
+                .d-show-mobile-wrapper {
+                    @include media-breakpoint-down(sm) {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}

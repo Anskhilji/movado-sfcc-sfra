@@ -41,7 +41,7 @@
         <div class="product-breadcrumb hidden-sm-down">
             <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
         </div>
-        <div class="container-fluid product-detail product-wrapper pdp-mvmt"  data-pid="${product.id}" data-gtm-fb-product="${JSON.stringify(product)}" itemscope
+        <div class="container-fluid product-detail product-wrapper pdp-mvmt pdp-mvmt-redesign"  data-pid="${product.id}" data-gtm-fb-product="${JSON.stringify(product)}" itemscope
             itemtype="http://schema.org/Product">
             <!---Breadcrumbs--->
             <div class="row ratings-mobile pb-2">
@@ -54,9 +54,9 @@
             <hr class="hidden-xs-down d-none"/>
             <div class="row pdp-desktop m-0">
                 <!-- Product Images Carousel -->
-                <isinclude template="product/components/imageCarouselPDP" />
+                <isinclude template="product/components/quadrantPDP" />
 
-                <div class="product-side-details">
+                <div class="product-side-details product-side-details-wrapper">
                     <div class="product-tag-wrapper mvmt-avilability ${!product.available ? '' : 'opacity-0'}">
                         <isif condition="${!product.available}">
                             <span class="product-tag tag-red">${Resource.msg('label.soldout', 'product', null)}</span>
