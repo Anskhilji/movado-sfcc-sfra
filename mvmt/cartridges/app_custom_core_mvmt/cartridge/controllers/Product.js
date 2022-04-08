@@ -23,11 +23,26 @@ server.extend(page);
  * appends the base product route for PDP
  */
 server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
+    var ABTestMgr = require('dw/campaign/ABTestMgr');
     var viewData = res.getViewData();
     var product = viewData.product;
     var apiProduct = ProductMgr.getProduct(product.id);
     var params = req.querystring;
     var relativeURL;
+
+    // Custom Comment Start: A/B testing for MVMT PDP
+    if (ABTestMgr.isParticipant('MVMTRedesignPDPABTest','Control')) {
+        res.view = 'product/old/productDetails';
+        res.renderings[0].view = 'product/old/productDetails';
+    } else if (ABTestMgr.isParticipant('MVMTRedesignPDPABTest','render-new-design')) {
+        res.view = 'product/productDetails';
+        res.renderings[0].view = 'product/productDetails';
+    } else {
+        res.view = 'product/old/productDetails';
+        res.renderings[0].view = 'product/old/productDetails';
+    }
+    // Custom Comment End: A/B testing for MVMT PDP
+
     if (!apiProduct.variant && apiProduct.master) {
         var defaultVariant = apiProduct.variationModel.defaultVariant;
 
@@ -36,9 +51,9 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
             params.pid = pid;
             apiProduct = ProductMgr.getProduct(pid);
         }
-    
+
         var showProductPageHelperResult = productHelper.showProductPage(params, req.pageMetaData);
-        
+
         viewData.product =  showProductPageHelperResult.product,
         viewData.addToCartUrl = showProductPageHelperResult.addToCartUrl,
         viewData.resources = showProductPageHelperResult.resources,
