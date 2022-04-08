@@ -359,11 +359,3 @@ module.exports = {
 
     base: base
 };
-
-var imageBox = $(".primary-images").height();
-var detailBox = 200;
- if(detailBox > imageBox){
-     $(".primary-images").addClass("sticky-section");
- }else{
-    $(".product-side-details").addClass("sticky-section");
- }
