@@ -115,6 +115,7 @@
     "olivia-burton-uk": "./olivia-burton-uk",
     "custom_oliviaburton_uk": "./olivia-burton-uk",
     "mvmt": "./mvmt",
+    "mvmt_redesign": "./mvmt_redesign",
     "yotpo_swell_custom": "./yotpo",
     "productCompare": "./plugin_productcompare",
     "wishlist": "./plugin_wishlists",
@@ -130,11 +131,12 @@
     "base": "./storefront-reference-architecture/cartridges/app_storefront_base/cartridge/client/default/js",
     "mcsus": "./mcsus/cartridges/app_custom_storefront_mcsus/cartridge/client/default/js",
     "googlePay": "./int_google_pay/cartridges/int_google_pay/cartridge/client/default/js",
-  	"custom_backinstock": "./int_custom_backinstock/cartridges/int_custom_backinstock/cartridge/client/default/js",
+    "custom_backinstock": "./int_custom_backinstock/cartridges/int_custom_backinstock/cartridge/client/default/js",
     "movado": "./movado/cartridges/app_custom_movado/cartridge/client/default/js",
     "listrak_custom": "./listrak/cartridges/int_custom_listrak/cartridge/client/default/js",
     "movado_china": "./movado_china/cartridges/app_custom_storefront_movado_china/cartridge/client/default/js",
     "mvmt": "./mvmt/cartridges/app_custom_storefront_mvmt/cartridge/client/default/js",
+    "mvmt_redesign": "./mvmt_redesign/cartridges/app_custom_storefront_mvmt_redesign/cartridge/client/default/js",
     "app_custom_page_designer_mvmt": "./mvmt/cartridges/app_custom_page_designer_mvmt/cartridge/client/default/js",
     "yotpo_swell_custom": "./yotpo/cartridges/int_yotpo_swell_custom/cartridge/client/default/js",
     "custom_esw": "./link_eshopworld/cartridges/int_custom_eshopworld/cartridge/client/default/js",
@@ -154,7 +156,6 @@
     "bootstrap": "./node_modules/bootstrap",
     "lodash": "./node_modules/lodash",
     "jquery": "./node_modules/jquery"
-	
   },
   "scssAliases": {
     "base": "./storefront-reference-architecture/cartridges/app_storefront_base/cartridge/client/default/scss",
@@ -162,6 +163,7 @@
     "movado": "./movado/cartridges/app_custom_movado/cartridge/client/default/scss",
     "movado_china": "./movado_china/cartridges/app_custom_storefront_movado_china/cartridge/client/default/scss",
     "mvmt": "./mvmt/cartridges/app_custom_storefront_mvmt/cartridge/client/default/scss",
+    "mvmt_redesign": "./mvmt_redesign/cartridges/app_custom_storefront_mvmt_redesign/cartridge/client/default/scss",
     "app_custom_page_designer_mvmt": "./mvmt/cartridges/app_custom_page_designer_mvmt/cartridge/client/default/scss",
     "yotpo_swell_custom": "./yotpo/cartridges/int_yotpo_swell_custom/cartridge/client/default/scss",
     "custom_esw": "./link_eshopworld/cartridges/int_custom_eshopworld/cartridge/client/default/scss",
