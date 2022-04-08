@@ -3060,6 +3060,19 @@
             }
 
             .primary-images {
+
+                @include media-breakpoint-up(md-down) {
+                    max-width: 50%;
+                    width: 50%;
+                    flex-basis: 50%;
+                }
+                @include media-breakpoint-up(lg) {
+                    max-width: rem(926);
+                }
+                @include media-breakpoint-up(lg-custom) {
+                    max-width: rem(926);
+                }
+
                 .d-hide-desktop-wrapper {
                     display: none;
                     @include media-breakpoint-down(sm) {
@@ -3070,6 +3083,20 @@
                     @include media-breakpoint-down(sm) {
                         display: none;
                     }
+                }
+            }
+            .product-side-details {
+                @include media-breakpoint-up(md-down) {
+                    max-width: 40%;
+                    flex-basis: 40%;
+                    width: 40%;
+                    min-width: 40%;
+                }
+                @include media-breakpoint-up(lg) {
+                    max-width: rem(414);
+                }
+                @include media-breakpoint-up(lg-custom) {
+                    max-width: rem(414);
                 }
             }
         }
