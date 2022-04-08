@@ -137,11 +137,16 @@
 .shipping-form {
     .form-group {
         .form-control {
+            transition: none;
+
             &.is-invalid {
                 border: rem(1) solid $invalid-red;
                 border-width: rem(1);
                 background: url("../../images/invalid.svg") center right no-repeat;
                 background-position-x: 97%;
+                @include media-breakpoint-down(sm) {
+                    background: none;
+                }
             }
 
             &#shippingState,
@@ -172,7 +177,6 @@
         }
 
         .invalid-feedback {
-            height: rem(16);
             font-size: rem(11);
             font-weight: 500;
             letter-spacing: rem(0.33);

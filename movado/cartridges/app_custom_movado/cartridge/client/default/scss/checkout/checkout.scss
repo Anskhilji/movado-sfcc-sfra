@@ -677,8 +677,11 @@ header {
                 border: rem(1) solid $invalid-red;
                 background: url("../../images/invalid.svg") center right no-repeat;
                 background-position-x: 97%;
+                @include media-breakpoint-down(sm) {
+                    background: none;
+                }
             }
-            
+
             &#shippingState,
             &#shippingCountrydefault,
             &#shippingCountry,
@@ -690,7 +693,7 @@ header {
                     }
                 }
             }
-            
+
             &#shippingZipCode,
             &#shippingLastName,
             &#shippingFirstName,
@@ -702,16 +705,12 @@ header {
                 &.form-control {
                     &.is-invalid {
                         background-position-x: 93.5%;
-                        @include media-breakpoint-down(sm) {
-                            background-position-x: 97%;
-                        }
                     }
                 }
             }
         }
 
         .invalid-feedback {
-            height: rem(16);
             font-size: rem(11);
             font-weight: 500;
             letter-spacing: rem(0.33);
@@ -733,10 +732,12 @@ header {
     line-height: rem(24);
 
     @include media-breakpoint-down(sm) {
-        width: rem(303);
         font-size: rem(13);
         margin-bottom: rem(20);
         letter-spacing: rem(0.7);
+        background: url("../../images/invalid-mobile.svg") center left no-repeat;
+        padding-left: rem(32);
+        margin-top: rem(30);
     }
 }
 
