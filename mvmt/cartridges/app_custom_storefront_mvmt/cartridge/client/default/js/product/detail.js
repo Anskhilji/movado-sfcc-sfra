@@ -380,13 +380,14 @@ module.exports = {
 
 var imageBox = $(".quadrant-pdp-wrapper").height();
 var detailBox = $(".product-side-details-wrapper").height();
- if(detailBox > imageBox){
-     $(".quadrant-pdp-wrapper").addClass("sticky-section");
-     $('.page').css({'overflow':'visible'});
-
- }else{
-    $(".product-side-details-wrapper").addClass("sticky-section");
-    $('.page').css({'overflow':'visible'});
-
- }
+if ($(window).width() > 768) {
+    if(detailBox > imageBox){
+        $(".quadrant-pdp-wrapper").addClass("sticky-section");
+        $('.page').css({'overflow':'visible'});
+    }
+    else{
+        $(".product-side-details-wrapper").addClass("sticky-section");
+        $('.page').css({'overflow':'visible'});
+    }
+}
  
