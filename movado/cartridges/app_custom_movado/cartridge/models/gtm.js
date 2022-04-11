@@ -644,7 +644,13 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
                 : '')
                 : ((productLineItem.product.primaryCategory != null) ? productLineItem.product.primaryCategory.ID : ''));
             produtObj.variant = variants;
-            produtObj.price = productLineItem.getAdjustedNetPrice().getDecimalValue().toString();
+            if (orderLevelPromotionPrice) {
+                var discountedPrice = orderLevelPromotionPrice / order.productLineItems.length;
+                var actualPrice = productLineItem.getAdjustedNetPrice().getDecimalValue() - discountedPrice;
+                produtObj.price = actualPrice.toString();
+            } else {
+                produtObj.price = productLineItem.getAdjustedNetPrice().getDecimalValue().toString();
+            }
             produtObj.unitBasePrice = productLineItem.basePrice.decimalValue.toString();
             produtObj.unitPriceLessTax = (productLineItem.basePrice.decimalValue + productLineItem.tax.decimalValue).toString();
             // Custom Start : Added subtotal
@@ -706,7 +712,7 @@ function formatProductId(pid) {
 
 /**
  * function to get total order level discount
- * @param {dw.order.Order} order 
+ * @param {dw.order.Order} order
  * returns {Number} orderPriceAdjustment
  */
 
@@ -749,7 +755,6 @@ function getGoogleAnalyticsParameters(queryStringVal, googleAnalyticsRequiredPar
                         } else {
                             googleAnalyticsParameters = googleAnalyticsParameters + '&' + searchArray[i];
                         }
-                        
                     }
                 }
             }
