@@ -64,7 +64,7 @@
         </isif>
 
         <div class="pdp-tab-content <isif condition= ${!product.attributes && product.attributes.length}>active fadeIn</isif> ${Resource.msg('label.tab.review', 'product', null)}">
-            <div class="pdp-mobile-accordian">
+            <div class="pdp-mobile-accordian accordian-mobile">
                 <div class="pdp-mobile-accordian-label">${Resource.msg('label.tab.review', 'product', null)} <span class="d-md-none"><isinclude template="product/components/productRating" /></span></div>
                 <div class="pdp-mobile-accordian-switch pdp-mobile-accordian-plus">
                     <svg width="21px" height="21px" viewBox="0 0 21 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -89,7 +89,7 @@
                     </svg>
                 </div>
             </div>
-            <div class="pdp-content-body">
+            <div class="pdp-content-body accordian-mobile-body">
                 <div id="yotpoReviews" class="w-100">
                     <h3 class="details-heading text-center">${Resource.msg('label.tab.review', 'product', null)}</h3>
                     <iscomment>Yotpo reviews widget will appear here, if these needs to be relocated
