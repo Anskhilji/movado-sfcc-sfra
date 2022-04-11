@@ -8,7 +8,7 @@
 	<isif condition="${pdict.reportingURLs && pdict.reportingURLs.length}">
 		<isinclude template="reporting/reportingUrls" />
 	</isif>
-	<div class="container search-results" >
+	<div class="container search-results plp-tiles-wrapper">
 		<iscomment>changes the placement of breadcrumbs to top from content slot banner.</iscomment>
 		<isinclude template="components/breadcrumbs/pageBreadcrumbs" />
 		
