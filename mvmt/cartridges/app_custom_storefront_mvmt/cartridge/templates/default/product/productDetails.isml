@@ -59,7 +59,7 @@
                             <div class="category-watches">
                                 <h1>
                                     <isif condition="${!empty(product.collectionName)}">
-                                        <span class="watches-collection-name" data-selected-variation-attr="collectionName">${product.collectionName}</span>
+                                        <span class="watches-collection-name text-uppercase" data-selected-variation-attr="collectionName">${product.collectionName}</span>
                                     </isif>
                                         <isif condition="${product.productName.length > 96}">
                                             <span class="product-name ${!empty(product.collectionName) ? 'watches-product-name' : 'watches-collection-name d-inline'} text-truncate-wrapper watches-turncate-name product-title-for-gtm">${product.productName}<isif condition="${!empty(pdict.caseDiameter)}">${Resource.msg('separator', 'product', null)}</isif></span>
@@ -76,7 +76,7 @@
                             <h1>
                                 <span class="product-name jewlery-product-name text-truncate-wrapper product-title-for-gtm text-uppercase">${product.productName}</span>
                                 <isif condition="${!empty(product.color)}">
-                                    <span class="jewlery-heading"><span class="color" data-selected-variation-attr="color">${product.color}</span></span>
+                                    <span class="jewlery-heading text-uppercase"><span class="color" data-selected-variation-attr="color">${product.color}</span></span>
                                 </isif>
                             </h1>
                         </div>
@@ -84,7 +84,7 @@
                         <div class="category-eyewear">
                             <h1>
                                 <span class="product-name eyewear-product-name text-truncate-wrapper product-title-for-gtm text-uppercase">${product.productName}</span>
-                                <span class="eyewear-heading">
+                                <span class="eyewear-heading text-uppercase">
                                     <isif condition="${!empty(product.color)}">
                                         <span class="color eyewear-colors eyewear-colors-wrapper" data-selected-variation-attr="color">${product.color}</span>
                                     </isif>
