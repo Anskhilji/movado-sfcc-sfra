@@ -248,6 +248,10 @@
                         </div>
                     </div>
 
+                     <div class="description-container p-0">
+                        <isinclude template="product/components/descriptionAndDetails" />
+                    </div>
+
                     <isif condition="${product.shortDescription}">
                       <div class="row">
                             <div class="col-12">
