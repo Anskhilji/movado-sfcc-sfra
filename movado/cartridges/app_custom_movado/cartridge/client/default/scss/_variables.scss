@@ -132,7 +132,7 @@ $font-awesome: "FontAwesome";
 $small-screen-width: 320px;
 $small-screen-width375: 375px;
 $large-screen-width: 1400px;
-
+ 
 @mixin custom-media-query($large-screen-width) {
   @media (min-width:#{$large-screen-width}) {
       @content;
@@ -144,4 +144,40 @@ $large-screen-width: 1400px;
     @media (min-width:#{$small-screen-width}) and (max-width:#{$small-screen-width375}) {
         @content;
     }
+}
+
+$gray-x11: #BCBEC0 !default;
+$gray-overlay: rgba(242,242,242,0.89) !default;
+$dark-pink: #EAD7DC !default;
+$grey9-light: #D6D7D8 !default;
+$storm-gray: #787A8A;
+
+@mixin font-bold {
+    font-family: "futura-pt-bold", "FuturaStd-Bold", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+@mixin font-medium {
+    font-family: "futura-pt", "FuturaStd-Medium", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
+@mixin font-light {
+    font-family: "futura-pt", "FuturaStd-Book", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+@mixin font-book {
+    font-family: "futura-pt", "FuturaStd-Book", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+@mixin font-demi {
+    font-family: "futura-pt", sans-serif, Arial;
+    font-weight: 600;
+    font-style: normal;
 }
