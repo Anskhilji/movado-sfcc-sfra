@@ -62,7 +62,7 @@
                                         <span class="watches-collection-name text-uppercase" data-selected-variation-attr="collectionName">${product.collectionName}</span>
                                     </isif>
                                         <isif condition="${product.productName.length > 96}">
-                                            <span class="product-name ${!empty(product.collectionName) ? 'watches-product-name' : 'watches-collection-name d-inline'} text-truncate-wrapper watches-turncate-name product-title-for-gtm">${product.productName}<isif condition="${!empty(pdict.caseDiameter)}">${Resource.msg('separator', 'product', null)}</isif></span>
+                                            <span class="product-name ${!empty(product.collectionName) ? 'watches-product-name' : 'watches-collection-name d-inline'} text-truncate-wrapper watches-turncate-name product-title-for-gtm">${product.productName}<isif condition="${!empty(pdict.caseDiameter)}">${Resource.msg('pdp.product.specs.separator', 'product', null)}</isif></span>
                                         <iselse>
                                             <span class="product-name ${!empty(product.collectionName) ? 'watches-product-name' : 'watches-collection-name d-inline'} product-title-for-gtm">${product.productName}<isif condition="${!empty(pdict.caseDiameter)}">${Resource.msg('separator', 'product', null)}</isif></span>
                                         </isif>
