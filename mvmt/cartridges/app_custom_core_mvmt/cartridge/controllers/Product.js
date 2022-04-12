@@ -32,13 +32,10 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
 
     // Custom Comment Start: A/B testing for MVMT PDP
     if (ABTestMgr.isParticipant('MVMTRedesignPDPABTest','Control')) {
-        res.view = 'product/old/productDetails';
         res.renderings[0].view = 'product/old/productDetails';
     } else if (ABTestMgr.isParticipant('MVMTRedesignPDPABTest','render-new-design')) {
-        res.view = 'product/productDetails';
         res.renderings[0].view = 'product/productDetails';
     } else {
-        res.view = 'product/old/productDetails';
         res.renderings[0].view = 'product/old/productDetails';
     }
     // Custom Comment End: A/B testing for MVMT PDP
