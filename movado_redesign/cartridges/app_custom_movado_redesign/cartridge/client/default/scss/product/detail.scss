@@ -1622,6 +1622,7 @@ $arrow-height: 1.25em;
 
         &.cart-sticky-wrapper-btn {
             display: none;
+
             @include media-breakpoint-down(xs) {
                 position: fixed;
                 bottom: 0;
@@ -1631,15 +1632,18 @@ $arrow-height: 1.25em;
     
                 .prices {
                     padding: rem(0);
-                    .price{
+
+                    .price {
                         font-size: rem(16);
                         margin: rem(0);
                         font-weight: 400;
                     }
                 }
+
                 .smart-gift-btn {
                     display: none;
                 }
+                
                 @include media-breakpoint-down(xs) {
                     display: block;
                 }

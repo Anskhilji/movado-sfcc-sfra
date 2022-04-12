@@ -317,10 +317,10 @@ module.exports = {
     loadCartButtonOnScroll: function () {
         if ($(window).width() < 544) {
             $(window).scroll(function (event) {
-                var $description = $('.scroll-sticky');
-                if ($description.length > 0) {
-                    var $elementOffset = $description.offset().top - 30,
-                    $elementOuter = $description.outerHeight(),
+                var $cartDetailDescription = $('.scroll-sticky');
+                if ($cartDetailDescription.length > 0) {
+                    var $elementOffset = $cartDetailDescription.offset().top - 30,
+                    $elementOuter = $cartDetailDescription.outerHeight(),
                     $windowHeight = $(window).height(),
                     $thisScroll = $(this).scrollTop();
                     if ($thisScroll > ($elementOffset+$elementOuter-$windowHeight)){
@@ -336,10 +336,10 @@ module.exports = {
     loadCartButton: function () {
         if ($(window).width() < 544) {
             $(window).scroll(function (event) {
-                var $description = $('.scroll-wrapper-inner');
-                if ($description.length > 0) {
-                    var $elementOffset = $description.offset().top - 10,
-                    $elementOuter = $description.outerHeight(),
+                var $cartDetailDescription = $('.scroll-wrapper-inner');
+                if ($cartDetailDescription.length > 0) {
+                    var $elementOffset = $cartDetailDescription.offset().top - 10,
+                    $elementOuter = $cartDetailDescription.outerHeight(),
                     $windowHeight = $(window).height(),
                     $thisScroll = $(this).scrollTop();
                     if ($thisScroll > ($elementOffset+$elementOuter-$windowHeight)){

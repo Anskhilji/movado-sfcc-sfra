@@ -211,19 +211,19 @@
                     </isif>
                 </div>
                 <iscomment> Sticky-add to cart button PDP </iscomment>
-                            <div class="col-12 prices-add-to-cart-actions cart-sticky-wrapper-btn">
-                            <!-- Prices -->
-                            <div class="prices">
-                                <iscomment> Custom Start: Product price shows when following requirements meet </iscomment>
-                                <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
-                                    <isset name="price" value="${product.price}" scope="page" />
-                                    <isinclude template="product/components/pricing/main" />
-                                </isif>
-                            </div>
-                            
-                            <!-- Cart and [Optionally] Apple Pay -->
-                            <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
-                        </div>
+                <div class="col-12 prices-add-to-cart-actions cart-sticky-wrapper-btn">
+                    <!-- Prices -->
+                    <div class="prices">
+                        <iscomment> Custom Start: Product price shows when following requirements meet </iscomment>
+                        <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
+                            <isset name="price" value="${product.price}" scope="page" />
+                            <isinclude template="product/components/pricing/main" />
+                        </isif>
+                    </div>
+
+                        <!-- Cart and [Optionally] Apple Pay -->
+                        <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
+                </div>
             </div>
         </div>
 
