@@ -239,21 +239,15 @@
                         </isif>
                     <iscomment> Custom End: </iscomment>
 
-                    <isif condition="${sitePref.enableSeeTheFitPopUp && !empty(product.seeTheFitPrimaryImg)}"> 
+                    <iscomment> <isif condition="${sitePref.enableSeeTheFitPopUp && !empty(product.seeTheFitPrimaryImg)}"> 
                         <div class="seefit-text-label">
                             <button class="seefit-text-label-select-size-head call-see-fit-popup">
                                 ${Resource.msg('label.seefit', 'product', null)}
                             </button>
                         </div>
-                    </isif>
+                    </isif> </iscomment>
 
                     <isset name="isRecommendationsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.recommendationsEnabled) ? dw.system.Site.current.preferences.custom.recommendationsEnabled : false}" scope="page" />
-
-                    <isif condition="${isRecommendationsEnabled}" >
-                        <div class="linked-product-container">
-                            <isinclude template="product/components/recommendedProducts" />
-                        </div>
-                    </isif>
 
                     <div class="show-cart-button-desktop">
                         <div class="row">
@@ -297,14 +291,14 @@
                         <isinclude template="product/components/descriptionAndDetails" />
                     </div>
 
-                    <isif condition="${product.shortDescription}">
-                      <div class="row">
-                            <div class="col-12">
-                                <div class="d-flex justify-content-center mb-2 pd-desc-mvmt product-description" itemprop="description">
-                                    <isprint value="${product.shortDescription}" encoding="off" />
-                                </div>
-                            </div>
-                      </div>
+                    <div class="mvmt-slot-loyalty-information">
+                        <isslot id="cs-pdp-loyalty-information" context="global" description="Loyalty Information" />
+                    </div>
+
+                     <isif condition="${isRecommendationsEnabled}" >
+                        <div class="linked-product-container">
+                            <isinclude template="product/components/recommendedProducts" />
+                        </div>
                     </isif>
 
                     <isif condition="${sitePref.enableBackInStock}">
@@ -346,8 +340,24 @@
         </div>
         <isslot id="cs_pdp_marketing-section-2" description="content section" context="global" />
 
-        <div class="description-container p-0">
+        <iscomment> <div class="description-container p-0">
             <isinclude template="product/components/descriptionAndDetails" />
+        </div> </iscomment>
+        <div class="description-container p-0">
+           <div class="description-and-detail">
+                <div class="pdp-tabs-body">
+                    <div class="pdp-tab-content <isif condition= ${!product.attributes && product.attributes.length}>active fadeIn</isif> ${Resource.msg('label.tab.review', 'product', null)}">
+                        <div class="pdp-content-body accordian-mobile-body">
+                            <div id="yotpoReviews" class="w-100">
+                                <h3 class="details-heading text-center">${Resource.msg('label.tab.review', 'product', null)}</h3>
+                                <iscomment>Yotpo reviews widget will appear here, if these needs to be relocated
+                                then appropriate template should be overridden. </iscomment>
+                                <isinclude template="widget/yotporeviewswidget" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="pdp-content-asset-wrapper">
