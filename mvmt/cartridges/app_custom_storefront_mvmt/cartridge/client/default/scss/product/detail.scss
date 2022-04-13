@@ -3472,6 +3472,44 @@
                     margin-left: rem(40);
                 }
             }
+            .zoom-modal {
+                .close {
+                    background: url("../../images/cross.svg") center center no-repeat;
+                    background-size: rem(18);
+                    right: rem(20);
+                    position: relative;
+                    top: rem(15);
+                }
+            
+                background: $white;
+            }
+            .zoom-modal-inner {
+                max-width: rem(1065);
+                margin: auto;
+
+                .primary-images {
+                    max-width: 100%;
+                    margin: auto;
+                    flex-basis: 100%;
+
+                    .cs-carousel-wrapper {
+                        .main-mvmt-carousel  {
+                            padding: rem(0);
+                            .slick-dots {
+                                display: flex;
+                                position: relative;
+                                width: 100%;
+                            }
+                        }
+                    }
+                }
+                &#zoomProduct {
+                    img {
+                        max-width: rem(590);
+                        max-height: rem(590);
+                    }
+                }
+            }
         }
     }
 }
