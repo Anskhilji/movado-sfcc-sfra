@@ -3404,8 +3404,8 @@
             .sticky-section {
                 align-self: flex-start;
                 top: 0;
-                position: -webkit-sticky;
                 position: sticky;
+                position: -webkit-sticky;
             }
 
             .primary-images {
@@ -3416,9 +3416,9 @@
                     flex-basis: 65%;
                 }
                 @include media-breakpoint-up(lg) {
-                    max-width: rem(650);
-                    width: rem(650);
-                    flex-basis: rem(650);
+                    max-width: rem(634);
+                    width: rem(634);
+                    flex-basis: rem(634);
                 }
                 @include media-breakpoint-up(lg-custom) {
                     max-width: rem(810);
@@ -3453,10 +3453,10 @@
                     min-width: 30%;
                 }
                 @include media-breakpoint-up(lg) {
-                    max-width: rem(300);
-                    flex-basis: rem(300);
-                    width: rem(300);
-                    min-width: rem(300);
+                    max-width: rem(284);
+                    flex-basis: rem(284);
+                    width: rem(284);
+                    min-width: rem(284);
                 }
                 @include media-breakpoint-up(lg-custom) {
                     max-width: rem(340);
