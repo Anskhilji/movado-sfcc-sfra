@@ -54,7 +54,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var productType = showProductPageHelperResult.product.productType;
     var template = null;
 
-     // Custom Comment Start: A/B testing for MVMT PDP
+    // Custom Comment Start: A/B testing for MVMT PDP
     if (ABTestMgr.isParticipant('MVMTRedesignPDPABTest','Control')) {
         template = 'product/old/productDetails';
     } else if (ABTestMgr.isParticipant('MVMTRedesignPDPABTest','render-new-design')) {
@@ -222,7 +222,6 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     }
     viewData.display = display;
     res.setViewData(viewData);
-    var a = 0;
     next();
 }, pageMetaData.computedPageMetaData);
 
