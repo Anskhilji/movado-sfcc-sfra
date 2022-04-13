@@ -278,7 +278,7 @@ module.exports = {
                 {
                     breakpoint: 768,
                     settings: {
-                        arrows: true,
+                        arrows: false,
                         dots:true
                     }
                 },
@@ -296,10 +296,12 @@ module.exports = {
             dots: false,
             arrows:false,
 
-          });
+        });
 
-          var a = $('.video').parent().attr('id');
-          $('#'+ a).parent().addClass('slick-active');
+        var a = $('.video').parent().parent().attr('aria-describedby');
+        if (a) {
+            $('#'+a).parent().addClass('video-icon');
+        }
     },
 
     updateAddToCart: function () {

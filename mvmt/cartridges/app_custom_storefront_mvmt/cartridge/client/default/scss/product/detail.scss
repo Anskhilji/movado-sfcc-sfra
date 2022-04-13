@@ -995,7 +995,7 @@
                                 @include media-breakpoint-down(sm) {
                                     box-shadow: 0 rem(0) rem(0) 0 transparent;
                                     border-color: transparent;
-                                    background-color: #0092DB;
+                                    background-color: $cerulean;
                                 }
                             }
     
@@ -1006,6 +1006,18 @@
                                     height: 100%;
                                     @include media-breakpoint-down(sm) {
                                         display: none;
+                                    }
+                                }
+                            }
+
+                            &.video-icon {
+                                background: url("../../images/videoicon.svg") center no-repeat;
+
+                                &:hover,&.slick-active {
+                                    @include media-breakpoint-down(sm) {
+                                        box-shadow: 0 rem(0) rem(0) 0 transparent;
+                                        border-color: transparent;
+                                        background-color: $cerulean;
                                     }
                                 }
                             }
@@ -1171,7 +1183,7 @@
                             .carousel-tile {
                                 box-shadow: 0 rem(0) rem(0) 0 transparent;
                                 border-color: transparent;
-                                background-color: #0092DB;
+                                background-color: $cerulean;
                             }
                         }
                     }
@@ -1195,7 +1207,7 @@
                             
                                     box-shadow: 0 rem(0) rem(0) 0 transparent;
                                     border-color: transparent;
-                                    background-color: #0092DB;
+                                    background-color: $cerulean;
                             
                             }
                             
