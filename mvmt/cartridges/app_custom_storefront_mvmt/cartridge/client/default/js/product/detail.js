@@ -380,7 +380,7 @@ module.exports = {
 
 var imageBox = $(".quadrant-pdp-wrapper").height();
 var detailBox = $(".product-side-details-wrapper").height();
-if ($(window).width() > 768) {
+if ($(window).width() > 767) {
     if(detailBox > imageBox){
         $(".quadrant-pdp-wrapper").addClass("sticky-section");
         $('.page').css({'overflow':'visible'});

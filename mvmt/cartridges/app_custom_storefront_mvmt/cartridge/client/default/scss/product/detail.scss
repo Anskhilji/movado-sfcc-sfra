@@ -3411,6 +3411,10 @@
                 top: 0;
                 position: sticky;
                 position: -webkit-sticky;
+
+                @include media-breakpoint-down(sm) {
+                    position: static;
+                }
             }
 
             .primary-images {
