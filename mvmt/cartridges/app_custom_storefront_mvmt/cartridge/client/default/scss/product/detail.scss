@@ -766,6 +766,7 @@
     @include media-breakpoint-up(lg) {
         padding: rem(65) rem(32);
     }
+
     .ratings-mobile {
 
         .rating-margin {
@@ -1061,9 +1062,9 @@
         }
 
         .product-brand-info {
+
             .category-watches {
                 padding-right: rem(20);
-                
                 h1 {
                     margin-bottom: rem(5);
                 }
@@ -1273,7 +1274,6 @@
             margin: 0;
             width: 100%;
             height: rem(24);
-            
             @include media-breakpoint-down(sm) {
                 #yotpo-bottomline-top-div {
                     width: 100%;
@@ -1444,7 +1444,6 @@
                 }
 
             }
-
         }
     }
    
@@ -3264,14 +3263,107 @@
 .gift-box-wrapper-pdp {
     display: flex;
     align-items: center;
-    margin-bottom: rem(8);
+    margin-bottom: rem(20);
     @include media-breakpoint-down(sm) {
         padding: 0 rem(10);
     }
 
+    &.d-show-desktop {
+        display: block;
+        @include media-breakpoint-down(sm) {
+            display: none;
+        }
+    }
+
+    &.d-show-mobile {
+        display: none;
+        @include media-breakpoint-down(sm) {
+            margin-top: rem(20);
+            display: block;
+        }
+    }
+
+    .gift-box-wrapper-checkbox {
+        border-bottom: rem(1) solid $alice-blue;
+        -ms-transform: scale(1.5); /* IE */
+        -moz-transform: scale(1.5); /* FF */
+        -webkit-transform: scale(1.5); /* Safari and Chrome */
+        -o-transform: scale(1.5); /* Opera */
+        transform: scale(1.5);
+    }
+
     .gift-box-wrapper-label {
-        margin-left: rem(8);
+        margin-left: rem(0);
         margin-bottom: 0;
+        font-size: rem(16);
+        text-transform: none;
+        font-weight: 400;
+
+        &.custom-control-label-pdp {
+            display: block;
+            position: relative;
+            padding-left: rem(35);
+            margin-bottom: rem(12);
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            
+                input {
+                    position: absolute;
+                    opacity: 0;
+                    cursor: pointer;
+                    height: 0;
+                    width: 0;
+                }
+
+                .checkmark {
+                    position: absolute;
+                    top: rem(1);
+                    left: 0;
+                    height: rem(20);
+                    width: rem(20);
+                    background-color: transparent;
+                    border: rem(1) solid $black;
+                    border-radius: rem(4);
+                    @include media-breakpoint-down(sm) {
+                        top: rem(0);
+                    }
+                }
+
+                input {
+                    &:checked ~ .checkmark {
+                        background-color: $gossamer;
+                        border-color: $gossamer;
+                    }
+                }
+
+                input {
+                    &:checked ~ .checkmark {
+                        &:after {
+                            display: block;
+                        }
+                    }
+                }
+                
+                .checkmark {
+                    &:after {
+                        content: "";
+                        position: absolute;
+                        display: none;
+                        left: rem(7);
+                        top: rem(3);
+                        width: rem(5);
+                        height: rem(10);
+                        border: solid white;
+                        border-width: 0 rem(3) rem(3) 0;
+                        -webkit-transform: rotate(45deg);
+                        -ms-transform: rotate(45deg);
+                        transform: rotate(45deg);
+                    }
+                }
+        }  
     }
 }
 
