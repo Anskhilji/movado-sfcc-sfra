@@ -1,27 +1,25 @@
 'use strict';
 
 var server = require('server');
+var page = module.superModule;
+server.extend(page);
+
 var cache = require('*/cartridge/scripts/middleware/cache');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var ContentMgr = require('dw/content/ContentMgr');
-var pageMetaData = require('*/cartridge/scripts/middleware/pageMetaData');
 var Constants = require('*/cartridge/scripts/util/Constants');
-
-var page = module.superModule;
-
+var Logger = require('dw/system/Logger');
+var Money = require('dw/value/Money');
+var pageMetaData = require('*/cartridge/scripts/middleware/pageMetaData');
 var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
 var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
 var ProductFactory = require('*/cartridge/scripts/factories/product');
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
-var productMgr = require('dw/catalog/ProductMgr');
-var Site = require('dw/system/Site');
+var ProductMgr = require('dw/catalog/ProductMgr');
 var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
+var Site = require('dw/system/Site');
 var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 var URLUtils = require('dw/web/URLUtils');
-var Money = require('dw/value/Money');
-var Logger = require('dw/system/Logger');
-
-server.extend(page);
 
 server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
     var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
@@ -73,7 +71,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
 
     /* get recommendations for product*/
     if (product) {
-        product = productMgr.getProduct(product.id);
+        product = ProductMgr.getProduct(product.id);
         collectionName = !empty(product.custom.familyName) ? product.custom.familyName[0] : '';
         explicitRecommendations = productCustomHelper.getExplicitRecommendations(product.ID);
 
@@ -180,7 +178,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
 server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
     var viewData = res.getViewData();
     var product = viewData.product;
-    var apiProduct = productMgr.getProduct(product.id);
+    var apiProduct = ProductMgr.getProduct(product.id);
     var params = req.querystring;
     var relativeURL;
 
@@ -190,7 +188,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         if (defaultVariant && !empty(apiProduct) && !empty(apiProduct.master) && defaultVariant.getAvailabilityModel().inStock) {
             var pid = apiProduct.variationModel.defaultVariant.getID();
             params.pid = pid;
-            apiProduct = productMgr.getProduct(pid);
+            apiProduct = ProductMgr.getProduct(pid);
         }
 
         var showProductPageHelperResult = productHelper.showProductPage(params, req.pageMetaData);
