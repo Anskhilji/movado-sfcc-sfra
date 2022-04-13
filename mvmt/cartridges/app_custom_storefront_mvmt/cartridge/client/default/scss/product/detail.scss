@@ -3387,14 +3387,30 @@
             .col-mx-50-wrapper {
                 @include media-breakpoint-up(md-down) {
                     max-width: 50%;
+                    padding: rem(0) rem(10) rem(10) rem(0);
+                }
+
+                @include media-breakpoint-up(lg-custom) {
+                    padding: rem(0) rem(20) rem(20) rem(0);
+                    max-width: rem(453);
+                }
+
+                &:nth-child(even) {
+                    @include media-breakpoint-up(md-down) {
+                        padding: rem(0) rem(10) rem(10) rem(0);
+                    }
+
+                    @include media-breakpoint-up(lg-custom) {
+                        padding: rem(0) rem(0) rem(20) rem(0);
+                    }
                 }
             }
 
             .sticky-section {
                 align-self: flex-start;
                 top: 0;
-                position: -webkit-sticky;
                 position: sticky;
+                position: -webkit-sticky;
             }
 
             .primary-images {
@@ -3405,9 +3421,9 @@
                     flex-basis: 65%;
                 }
                 @include media-breakpoint-up(lg) {
-                    max-width: rem(650);
-                    width: rem(650);
-                    flex-basis: rem(650);
+                    max-width: rem(634);
+                    width: rem(634);
+                    flex-basis: rem(634);
                 }
                 @include media-breakpoint-up(lg-custom) {
                     max-width: rem(810);
@@ -3442,10 +3458,10 @@
                     min-width: 30%;
                 }
                 @include media-breakpoint-up(lg) {
-                    max-width: rem(300);
-                    flex-basis: rem(300);
-                    width: rem(300);
-                    min-width: rem(300);
+                    max-width: rem(284);
+                    flex-basis: rem(284);
+                    width: rem(284);
+                    min-width: rem(284);
                 }
                 @include media-breakpoint-up(lg-custom) {
                     max-width: rem(340);
