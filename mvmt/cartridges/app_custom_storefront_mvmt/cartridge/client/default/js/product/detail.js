@@ -390,4 +390,11 @@ if ($(window).width() > 768) {
         $('.page').css({'overflow':'visible'});
     }
 }
- 
+
+$('.zoom-product-modal').click(function() {
+    var a = parseFloat($(this).attr('data-image-index'));
+    $('.slick-active').removeClass('slick-current slick-active');
+    var b = $(`[data-slick-index='${a}']`).attr('id');
+    $(`[aria-controls='${b}']`).parent().addClass('slick-active').trigger('click');
+    $(`[data-slick-index='${a}']`).addClass('slick-current slick-active').css({'width': '1065px'});
+})
