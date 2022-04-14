@@ -61,7 +61,10 @@ const createOrderJob = function () {
 
         log.sendLog('info', 'createOrders:createOrderJob, Narvar custom field called lastAPICall value is:: ' + lastJobApiCall);
 
-        const ordersIterator = SystemObjectMgr.querySystemObjects('Order', 'lastModified > {0} OR (custom.narvarApiCallFailedCount > 0 AND custom.narvarApiCallFailedCount < {1})', 'orderNo asc', lastJobApiCall, failedAttemptsBeforeBatch);
+        // start custom code: for avoid sending the ESW orders to Narvar
+        var orderApi = require('dw/order/Order');
+        const ordersIterator = SystemObjectMgr.querySystemObjects('Order', 'lastModified > {0} AND (exportStatus = {1} OR exportStatus = {2}) AND (custom.eswOrderNo = NULL) OR (custom.narvarApiCallFailedCount > 0 AND custom.narvarApiCallFailedCount < {3})', 'orderNo asc', lastJobApiCall, orderApi.EXPORT_STATUS_READY, orderApi.EXPORT_STATUS_EXPORTED, failedAttemptsBeforeBatch);
+        // start custom code: for avoid sending the ESW orders to Narvar
         const ordersCount = ordersIterator.count;
 
         log.sendLog('info', 'createOrders:createOrderJob, Calling Narvar with orders count = ' + ordersCount);
