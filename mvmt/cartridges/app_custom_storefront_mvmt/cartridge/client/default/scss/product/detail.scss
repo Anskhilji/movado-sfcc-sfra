@@ -3488,10 +3488,13 @@
                 max-width: rem(1065);
                 max-height: rem(740);
                 margin: auto;
+                width: 100%;
 
-                .modal-body {
-                    margin-top: rem(0)!important;
-                }
+               &#zoomProduct {
+                    .modal-body {
+                        margin-top: rem(0);
+                    }
+               }
 
                 .modal-header {
                     padding: rem(0);
@@ -3508,6 +3511,10 @@
                         
                         .main-mvmt-carousel  {
                             padding: rem(0);
+
+                            .slick-list {
+                                border-bottom: rem(1) solid $light-zircon;
+                            }
                             .slick-dots {
                                 display: flex;
                                 position: relative;
@@ -3516,7 +3523,7 @@
                                 margin-bottom: rem(15);
 
                                 .slick-active{
-                                    border: 1px solid;
+                                    border: rem(1) solid $light-black2; 
                                 }
 
                                 li {
@@ -3526,8 +3533,16 @@
                                     box-shadow: none;
                                     border: none;
                                     background-color: $white-grey;
-                                    margin-right: 14px;
+                                    margin: rem(0) rem(14) rem(0) rem(0);
                                 }
+                            }
+                            
+                            .slick-prev {
+                                left: rem(40);
+                            }
+
+                            .slick-next {
+                                right: rem(40);
                             }
                         }
                     }

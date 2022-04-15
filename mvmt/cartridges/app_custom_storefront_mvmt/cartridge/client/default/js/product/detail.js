@@ -257,6 +257,32 @@ module.exports = {
         });
     },
 
+    customeSlider: function () {
+        $('.mvmt-pdp-carousel').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            dots: true,
+            arrows:true,
+            focusOnSelect: true,
+            fade: true,
+            prevArrow:"<button class='slick-prev slick-arrow' aria-label='Previous' type='button'><svg class='slick-arrow__icon' width='9' height='14' viewBox='0 0 9 14' xmlns='http://www.w3.org/2000/svg'><path d='M7.22359 0l1.6855 1.63333L3.37101 7l5.53808 5.36667L7.22359 14l-7.2236-7z' fill='#2B2B2B' fill-rule='evenodd'></path></svg></button>",
+            nextArrow:"<button class='slick-next slick-arrow' aria-label='Next' type='button'><svg class='slick-arrow__icon' width='9' height='14' viewBox='0 0 9 14' xmlns='http://www.w3.org/2000/svg'><path d='M1.6855 0L0 1.63333 5.53808 7 0 12.36667 1.6855 14l7.22359-7z' fill='#2B2B2B' fill-rule='evenodd'></path></svg></button>",
+            responsive: [
+                {
+                    breakpoint: 768,
+                    settings: {
+                        arrows: true,
+                        dots:false
+                    }
+                },
+            ],
+            customPaging: function (slick, index) {
+                var thumb = $(slick.$slides[index]).find('.carousel-tile').attr('data-thumb');
+                return '<button class="tab"> <img  src="'+ thumb +'" /> </button>';
+            },
+        });
+    },
+
     primarySlider: function () {
         $('.primary-images .main-mvmt-carousel').slick({
             slidesToShow: 1,

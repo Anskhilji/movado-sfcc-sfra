@@ -43,31 +43,8 @@
                                 <isinclude template="product/components/newnessBadge"/>
                             </isif>
                         </div>
-                        <isscript>
-                            var primaryImageCarouselConfig = {
-                            "slidesToShow": 1,
-                            "slidesToScroll": 1,
-                            "dots": true,
-                            "asNavFor": ".carousel-pagination",
-                            "centerMode": true,
-                            "arrows":true,
-                            "fade": true,
-                            responsive: [
-                                {
-                                breakpoint: 768,
-                                settings: {
-                                    slidesToShow: 1,
-                                    slidesToScroll: 1,
-                                    arrows: true,
-                                    dots:false
-                                }
-                                },
-                            ],
-                            }
-                            <!-- primaryImageCarouselConfig = primaryImageCarouselConfig.replace(/[\n\s]/gi, ''); -->
-                        </isscript>
                         <div class="cs-carousel-wrapper">
-                            <div class="main-mvmt-carousel">
+                            <div class=" mvmt-pdp-carousel main-mvmt-carousel">
                                 <isset name="pdpVideoConfigs" value="${product.pdpVideoConfigs}" scope="page" />
                                 <isloop items="${product.images['zoom1660']}" var="image" status="loopStatus">
                                 <div class="carousel-tile" data-thumb="${!empty(product.images) && !empty(product.images.tile150[loopStatus.count-1]) ? product.images.tile150[loopStatus.count-1].url : ''}">
