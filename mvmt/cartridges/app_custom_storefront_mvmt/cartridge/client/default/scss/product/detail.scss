@@ -781,10 +781,6 @@
         text-align: center;
         min-height: 45vh;
         height: auto;
-        align-self: flex-start;
-        top: 0;
-        position: -webkit-sticky;
-        position: sticky;
 
         @include media-breakpoint-up(md-down) {
             flex-basis: 100%;
@@ -3408,24 +3404,31 @@
                 top: 0;
                 position: sticky;
                 position: -webkit-sticky;
+
+                @include media-breakpoint-down(sm) {
+                    position: static;
+                }
             }
 
             .primary-images {
+                align-self: flex-start;
+                top: 0;
+                position: sticky;
+                position: -webkit-sticky;
+
+                @include media-breakpoint-down(sm) {
+                    position: static;
+                }
 
                 @include media-breakpoint-up(md-down) {
+                    max-width: 60%;
+                    width: 60%;
+                    flex-basis: 60%;
+                }
+                @include media-breakpoint-up(lg-custom) {
                     max-width: 65%;
                     width: 65%;
                     flex-basis: 65%;
-                }
-                @include media-breakpoint-up(lg) {
-                    max-width: rem(634);
-                    width: rem(634);
-                    flex-basis: rem(634);
-                }
-                @include media-breakpoint-up(lg-custom) {
-                    max-width: rem(810);
-                    width: rem(810);
-                    flex-basis: rem(810);
                 }
 
                 @include media-breakpoint-up(xl-custom) {
@@ -3449,22 +3452,16 @@
             .product-side-details {
                 
                 @include media-breakpoint-up(md-down) {
-                    max-width: 30%;
-                    flex-basis: 30%;
-                    width: 30%;
-                    min-width: 30%;
-                }
-                @include media-breakpoint-up(lg) {
-                    max-width: rem(284);
-                    flex-basis: rem(284);
-                    width: rem(284);
-                    min-width: rem(284);
+                    max-width: 35%;
+                    flex-basis: 35%;
+                    width: 35%;
+                    min-width: 35%;
                 }
                 @include media-breakpoint-up(lg-custom) {
-                    max-width: rem(340);
-                    flex-basis: rem(340);
-                    width: rem(340);
-                    min-width: rem(340);
+                    max-width: 25%;
+                    flex-basis: 25%;
+                    width: 25%;
+                    min-width: 25%;
                 }
                 @include media-breakpoint-up(xl-custom) {
                     max-width: rem(414);
@@ -3970,6 +3967,15 @@
             &:nth-child(2) {
                 @include media-breakpoint-down(sm) {
                     display: none;
+                }
+            }
+
+            .justify-content-between-container {
+                @include media-breakpoint-down(lg-custom) {
+                    justify-content: space-between;
+                }
+                @include media-breakpoint-down(md) {
+                    justify-content: unset;
                 }
             }
         }

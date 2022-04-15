@@ -45,7 +45,7 @@
             itemtype="http://schema.org/Product">
             <!---Breadcrumbs--->
             <hr class="hidden-xs-down d-none"/>
-            <div class="row">
+            <div class="row no-gutters justify-content-between-container">
                 <!-- Product Images Carousel -->
                 <isinclude template="product/components/quadrantPDP" />
 
