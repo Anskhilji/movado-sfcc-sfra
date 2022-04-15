@@ -283,7 +283,7 @@
                         <isinclude template="product/components/descriptionAndDetails" />
                     </div>
                     
-                     <div class="mvmt-slot-loyalty-information">
+                    <div class="mvmt-slot-loyalty-information">
                         <isslot id="cs-pdp-loyalty-information" context="global" description="Loyalty Information" />
                     </div>
 

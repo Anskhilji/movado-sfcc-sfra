@@ -3702,6 +3702,10 @@
                     @include media-breakpoint-up(sm) {
                         padding-top: rem(30);
                     }
+
+                    @include media-breakpoint-down(sm) {
+                        padding: rem(0) rem(5);
+                    }
                 }
         
                 &-head {
@@ -3755,28 +3759,34 @@
                             &:hover {
                                 .upsell_text {
                                     p {
-                                        background-color: $light-green;
-                                        color: $white;
+                                        background-color: transparent;
+                                        color: $black;
                                         transition: 0.3s ease;
                                     }
                                 }
                             }
         
                             &-inner {
-                                border: rem(1) solid $white-gray;
+                                border: rem(0) solid $white-gray;
+
+                                .upsell_image {
+                                    margin: rem(0) auto;
+                                }
                             }
                         }
         
                         &_price {
                             margin-bottom: rem(5);
-        
+                            margin-top: rem(10);
                             .price {
                                 font-family: $font-book;
-                                font-size: rem(10);
-                                line-height: 1.1;
+                                font-size: rem(12);
+                                font-weight: 500;
                                 color: $black;
+                                line-height: rem(20);
+                                letter-spacing: rem(0);
                                 padding: 0;
-                                padding-bottom: rem(2);
+                                margin-bottom: rem(10);
         
                                 span {
                                     display: block;
@@ -3785,20 +3795,34 @@
                             }
                         }
         
+                        &_family {
+
+                            &_name {
+                                color: $black;
+                                font-family: $font-medium;
+                                font-size: rem(14);
+                                font-weight: 500;
+                                letter-spacing: rem(0);
+                                line-height: rem(20);
+                                text-align: center;  
+                                margin-bottom: rem(0);
+                            }
+                        }
+        
                         &_description {
                             width: 100%;
-                            color: $light-gray2;
-                            font-size: rem(14);
-                            margin-bottom: auto;
+                            color: $black;
+                            font-size: rem(12);
                             text-transform: capitalize;
-                            line-height: 1.2;
+                            line-height: rem(20);
                             font-family: $font-medium;
                             font-weight: 500;
-                            letter-spacing: rem(.2);
-                            margin-bottom: rem(5);
+                            letter-spacing: rem(0);
+                            opacity: 0.7;
+                            margin-bottom: rem(10);
         
                             @include media-breakpoint-up(sm) {
-                                font-size: rem(11);
+                                font-size: rem(12);
                             }
                         }
         
@@ -3819,15 +3843,25 @@
         
                         &_text {
                             position: relative;
-                            background-color: $white-gray;
+                            background-color: transparent;
         
                             p {
                                 font-family: $font-book;
-                                font-size: rem(11);
+                                font-size: rem(14);
+                                font-weight: 500;
                                 color: $black;
                                 text-align: center;
                                 margin: 0;
-                                padding: rem(5);
+                                letter-spacing: 0;
+                                padding: rem(0);
+                                border: rem(1) solid $black;
+                                border-radius: rem(5);
+                                height: rem(25);
+                                line-height: rem(25);
+                                width: rem(78);
+                                box-sizing: border-box;
+                                margin: rem(0) auto;
+                                text-transform: uppercase;
                             }
         
                             &-add {
@@ -3852,12 +3886,22 @@
                             cursor: pointer;
                         }
                     }
-        
+                    .pdp-recommendtion-stars {
+                        .yotpo {
+                            &.bottomLine {
+                                .star-clickable {
+                                    justify-content: center;
+                                    float: none;
+                                }
+                            }
+                        }
+                    }
+
                     .slick-arrow {
                         position: absolute;
                         display: block;
-                        height: rem(15);
-                        width: rem(15);
+                        height: rem(24);
+                        width: rem(24);
                         line-height: 0;
                         font-size: 0;
                         z-index: 9;
@@ -3879,12 +3923,36 @@
         
                     .slick-next {
                         right: rem(-10);
-                        background: url("../../images/arrow-right.svg") center center no-repeat;
+                        background: url("../../images/arrow_right_black.svg") center center no-repeat;
                     }
         
                     .slick-prev {
                         left: rem(-10);
-                        background: url("../../images/arrow-left.svg") center center no-repeat;
+                        background: url("../../images/arrow_left_black.svg") center center no-repeat;
+                    }
+
+                    .slick-dots {
+                        max-width: 250px;
+                        width: 100%;
+                        display: flex;
+                        justify-content: center;
+                        margin: rem(30) auto rem(0) auto;
+                        padding: rem(0);
+
+                        li {
+                            height: rem(2);
+                            width: 100%;
+                            background-color: $border-gray;
+                            cursor: pointer;
+
+                            &.slick-active{
+                                background-color: $black;
+                            }
+
+                            button {
+                                display: none;
+                            }
+                        }
                     }
                 }
             }

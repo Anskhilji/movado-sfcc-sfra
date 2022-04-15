@@ -194,8 +194,16 @@ module.exports = {
             slidesToScroll: 1,
             focusOnSelect: true,
             infinite: false,
-            dots: false,
+            dots: true,
             arrows: true,
+            responsive: [
+                {
+                    breakpoint: 768,
+                    settings: {
+                        arrows: false,
+                    }
+                }
+            ]
         });
     },
 
