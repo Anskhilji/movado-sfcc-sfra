@@ -12,13 +12,13 @@
                     <isif condition="${!pdict.isCompareableDisabled}">
                         <isif condition="${product.attributes && product.attributes.length}">
                             <div class="pdp-tab-content active fadeIn ${product.resources.Details}">
-                                <div class="pdp-mobile-accordian mvmv-pdp-accordian">
+                                <div class="pdp-mobile-accordian mvmv-pdp-accordian active">
                                     <div class="pdp-mobile-accordian-label">${Resource.msg("label.product.redesign.description", 'product', null)}</div>
                                     <div class="pdp-mobile-accordian-switch accordian-angle-down">
                                     <img src="${URLUtils.staticURL('./images/angle-down.png')}" alt="">
                                     </div>
                                 </div>
-                                <div class="pdp-content-body">
+                                <div class="pdp-content-body active">
                                     <isif condition="${product.shortDescription}">
                                         <div class="row">
                                                 <div class="col-12">

@@ -2865,17 +2865,14 @@
                     .attribute-content {
                         width: 50%;
                         font-family: $font-medium;
-                        color: $light-black;
-                        font-size: rem(15);
-                        font-weight: 300;
-                        letter-spacing: rem(0);
-                        line-height: rem(22);
+                        color: $black;
+                        font-size: rem(12);
+                        font-weight: 500;
+                        letter-spacing: rem(1.6);
+                        line-height: rem(12);
                         text-transform: capitalize;
                         &.attribute-name {
-                            text-transform: capitalize;
-                        }
-                        &.attribute-value {
-                            font-weight: 500;
+                            text-transform: uppercase;
                         }
                     }
                 }
@@ -3496,6 +3493,10 @@
                 @include media-breakpoint-up(xl) {
                     padding: rem(0) rem(0) rem(0);
                 }
+
+                @include media-breakpoint-down(sm) {
+                    padding: rem(0) rem(5) rem(0);
+                }
             }
 
             .pdp-tabs-body {
@@ -3525,8 +3526,7 @@
                         flex-direction: column;
                         max-width: 100%;
                         margin: 0 auto rem(29) auto;
-                        padding: rem(20) rem(30);
-                        display: none;
+                        padding: rem(0);
                         transition: all .5s ease-in-out;
                     
                         &.active {
@@ -3535,9 +3535,10 @@
             
                         @include media-breakpoint-up(md-down) {
                             padding: rem(0) rem(0);
-                            padding-bottom: rem(0);
-                            display: none;
-                            flex-direction: unset;
+                        }
+
+                        @include media-breakpoint-down(sm) {
+                            margin: 0 auto rem(19) 
                         }
             
                         .details-heading {
@@ -3569,14 +3570,17 @@
                                     width: 50%;
                                     font-family: $font-medium;
                                     color: $light-black;
-                                    font-size: rem(12);
-                                    font-weight: 500;
-                                    letter-spacing: rem(1.6);
+                                    font-size: rem(15);
+                                    font-weight: 300;
+                                    letter-spacing: rem(0);
                                     line-height: rem(22);
                                     text-transform: capitalize;
             
                                     &.attribute-name {
                                     text-transform: capitalize;
+                                    }
+                                    &.attribute-value {
+                                        font-weight: 500;
                                     }
                                 }
                             }
@@ -3594,25 +3598,9 @@
                             font-weight: 300;
                             letter-spacing: rem(0);
                             line-height: rem(25);
-                            margin-bottom: rem(0);
-                        }
-                    }
-                }
-            
-                .Reviews {
-            
-                    &.pdp-tab-content {
-            
-                        .pdp-content-body {
-
-                            .detals-heading {
-                                font-family: $font-medium;
-                                font-size: rem(40);
-                                font-weight: 500;
-                                line-height: rem(42);
-                                letter-spacing: rem(4.29);
-                                margin-bottom: rem(30);
-                            }
+                            margin-bottom: rem(0);  
+                            text-align: left;
+                            padding: rem(0);
                         }
                     }
                 }
@@ -3702,7 +3690,219 @@
 
             .mvmt-slot-loyalty-information {
                 padding: rem(30) rem(0) rem(23);
-                border-bottom: rem(1) solid $transparent-gray-light;
+                border-bottom: rem(0) solid $transparent-gray-light;
+            }
+            // Upsell carousel 
+            .linked {
+
+                &-product-list {
+                    margin-bottom: rem(20);
+                    padding-top: rem(30);
+                    border-top: rem(1) solid  $transparent-gray-light;
+                    @include media-breakpoint-up(sm) {
+                        padding-top: rem(30);
+                    }
+                }
+        
+                &-head {
+                    margin-bottom: rem(15);
+                    display: flex;
+                    justify-content: space-between;
+        
+                    .content-asset {
+                        margin-bottom: rem(0);
+                        display: inline-block;
+                        justify-content: space-between;
+        
+                        label {
+                            color: $transparent-gray;
+                            font-family: $font-medium;
+                            font-size: rem(12);
+                            font-weight: 500;
+                            letter-spacing: rem(0.5);
+                            text-transform: uppercase;
+                            margin-right: rem(4);
+                            margin-bottom: 0;
+                        }
+                    }
+                    .strap-guid {
+                        display: inline-block;
+                        color: $transparent-gray;
+                        font-size: rem(11);
+                        font-family: $font-medium;
+                        font-weight: 500;
+                        text-transform: uppercase;
+                        letter-spacing: rem(1);
+                        border: none;
+                        background: none;
+                        cursor: pointer;
+                    }
+                    
+                }
+        
+                &-products-redesign {
+        
+                    .slick-slide {
+                        padding: 0 rem(10);
+                    }
+        
+                    .upsell {
+        
+                        &_wrapper {
+                            text-align: center;
+                            position: relative;
+        
+                            &:hover {
+                                .upsell_text {
+                                    p {
+                                        background-color: $light-green;
+                                        color: $white;
+                                        transition: 0.3s ease;
+                                    }
+                                }
+                            }
+        
+                            &-inner {
+                                border: rem(1) solid $white-gray;
+                            }
+                        }
+        
+                        &_price {
+                            margin-bottom: rem(5);
+        
+                            .price {
+                                font-family: $font-book;
+                                font-size: rem(10);
+                                line-height: 1.1;
+                                color: $black;
+                                padding: 0;
+                                padding-bottom: rem(2);
+        
+                                span {
+                                    display: block;
+                                    margin: 0;
+                                }
+                            }
+                        }
+        
+                        &_description {
+                            width: 100%;
+                            color: $light-gray2;
+                            font-size: rem(14);
+                            margin-bottom: auto;
+                            text-transform: capitalize;
+                            line-height: 1.2;
+                            font-family: $font-medium;
+                            font-weight: 500;
+                            letter-spacing: rem(.2);
+                            margin-bottom: rem(5);
+        
+                            @include media-breakpoint-up(sm) {
+                                font-size: rem(11);
+                            }
+                        }
+        
+                        &_checkbox {
+                            display: block;
+                            width: rem(18);
+                            height: rem(18);
+                            margin: 0 auto;
+                            border-radius: 50%;
+                            border: rem(2) solid $black;
+                            background-color: $white;
+                            background-repeat: no-repeat;
+                            background-position: 50%;
+                            background-size: rem(12) auto;
+                            margin-top: rem(8);
+                            transition: all .3s;
+                        }
+        
+                        &_text {
+                            position: relative;
+                            background-color: $white-gray;
+        
+                            p {
+                                font-family: $font-book;
+                                font-size: rem(11);
+                                color: $black;
+                                text-align: center;
+                                margin: 0;
+                                padding: rem(5);
+                            }
+        
+                            &-add {
+                                display: block;
+                            }
+        
+                            &-added {
+                                display: none;
+                                padding-left: rem(10);
+                                background: $light-green url("../../images/white-checkmark.svg") left rem(20) center no-repeat;
+                            }
+                        }
+        
+                        &_input {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            opacity: 0;
+                            z-index: 1;
+                            cursor: pointer;
+                        }
+                    }
+        
+                    .slick-arrow {
+                        position: absolute;
+                        display: block;
+                        height: rem(15);
+                        width: rem(15);
+                        line-height: 0;
+                        font-size: 0;
+                        z-index: 9;
+                        cursor: pointer;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        padding: 0;
+                        border: none;
+        
+                        &.slick-disabled {
+                            background: none;
+                            pointer-events: none;
+                        }
+        
+                        &:focus {
+                            outline: none;
+                        }
+                    }
+        
+                    .slick-next {
+                        right: rem(-10);
+                        background: url("../../images/arrow-right.svg") center center no-repeat;
+                    }
+        
+                    .slick-prev {
+                        left: rem(-10);
+                        background: url("../../images/arrow-left.svg") center center no-repeat;
+                    }
+                }
+            }
+            
+        }
+    }
+}
+
+.pdp-mvmt-redeisn{
+
+    .pdp-vp {
+    
+        &-item {
+    
+            &:nth-child(2) {
+                @include media-breakpoint-down(sm) {
+                    display: none;
+                }
             }
         }
     }

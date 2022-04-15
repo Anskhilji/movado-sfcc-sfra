@@ -189,6 +189,14 @@ module.exports = {
             dots: false,
             arrows: true,
         });
+        $('.linked-products-redesign').slick({
+            slidesToShow: 2,
+            slidesToScroll: 1,
+            focusOnSelect: true,
+            infinite: false,
+            dots: false,
+            arrows: true,
+        });
     },
 
     stickybar: function () {

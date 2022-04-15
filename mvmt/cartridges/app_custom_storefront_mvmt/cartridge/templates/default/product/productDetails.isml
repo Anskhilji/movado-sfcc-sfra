@@ -45,7 +45,7 @@
             itemtype="http://schema.org/Product">
             <!---Breadcrumbs--->
             <hr class="hidden-xs-down d-none"/>
-            <div class="row no-gutters">
+            <div class="row">
                 <!-- Product Images Carousel -->
                 <isinclude template="product/components/quadrantPDP" />
 
@@ -239,14 +239,6 @@
                         </isif>
                     <iscomment> Custom End: </iscomment>
 
-                    <iscomment> <isif condition="${sitePref.enableSeeTheFitPopUp && !empty(product.seeTheFitPrimaryImg)}"> 
-                        <div class="seefit-text-label">
-                            <button class="seefit-text-label-select-size-head call-see-fit-popup">
-                                ${Resource.msg('label.seefit', 'product', null)}
-                            </button>
-                        </div>
-                    </isif> </iscomment>
-
                     <isset name="isRecommendationsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.recommendationsEnabled) ? dw.system.Site.current.preferences.custom.recommendationsEnabled : false}" scope="page" />
 
                     <div class="show-cart-button-desktop">
@@ -290,8 +282,8 @@
                      <div class="description-container p-0">
                         <isinclude template="product/components/descriptionAndDetails" />
                     </div>
-
-                    <div class="mvmt-slot-loyalty-information">
+                    
+                     <div class="mvmt-slot-loyalty-information">
                         <isslot id="cs-pdp-loyalty-information" context="global" description="Loyalty Information" />
                     </div>
 
@@ -324,7 +316,7 @@
 
         <iscontentasset aid="pdp-why-polarization-content" />
 
-        <div class="container p-0 product-gallery">
+        <div class="container p-0 product-gallery pdp-mvmt-redeisn">
             <isinclude template="product/components/productGallery" />
         </div>
 
