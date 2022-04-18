@@ -332,9 +332,6 @@
         </div>
         <isslot id="cs_pdp_marketing-section-2" description="content section" context="global" />
 
-        <iscomment> <div class="description-container p-0">
-            <isinclude template="product/components/descriptionAndDetails" />
-        </div> </iscomment>
         <div class="description-container p-0">
            <div class="description-and-detail">
                 <div class="pdp-tabs-body">
