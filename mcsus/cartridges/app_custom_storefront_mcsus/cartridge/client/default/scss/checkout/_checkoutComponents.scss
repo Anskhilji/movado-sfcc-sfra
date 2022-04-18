@@ -189,22 +189,15 @@ $receipt-font-size: rem(14);
             }
 
             &#shippingState,
-            &#shippingCountry{
+            &#shippingCountry,
+            &#billingState,
+            &#billingCountry {
               &.is-invalid {
                 background: url("../../images/invalid.svg") center right no-repeat !important;
                 background-position-x: 90% !important;
                 @include media-breakpoint-down(sm) {
                   background: none !important;
                 }
-              }
-            }
-
-            &#shippingState,
-            &#shippingCountry,
-            &#billingState,
-            &#billingCountry {
-              &.is-invalid {
-                  background-position-x: 90%;
               }
             }
             
