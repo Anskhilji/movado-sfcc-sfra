@@ -193,6 +193,9 @@ $receipt-font-size: rem(14);
               &.is-invalid {
                 background: url("../../images/invalid.svg") center right no-repeat !important;
                 background-position-x: 90% !important;
+                @include media-breakpoint-down(sm) {
+                  background: none !important;
+                }
               }
             }
 
