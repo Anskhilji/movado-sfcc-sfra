@@ -131,6 +131,24 @@ module.exports = {
                 $('html').removeClass('no-overflow');
             }
         });
+
+        // added active class & scroll down on reviews widget for mobile screen
+
+        $('.rating-margin > .ratings').on('click', function(e) {
+            var $pdpMobileAccordian = $('.accordian-mobile');
+            var $pdpContentBody = $('.accordian-mobile-body');
+            var $isAccordianAcive = $('.accordian-mobile').hasClass('active');
+            var $isAccordianBodyActive = $('.accordian-mobile-body').hasClass('active');
+            if($pdpMobileAccordian && $pdpContentBody) {
+                if(!$isAccordianAcive && !$isAccordianBodyActive) {
+                    $pdpMobileAccordian.addClass('active');
+                    $pdpContentBody.addClass('active');
+                    $('html, body').animate({
+                        scrollTop: $($pdpMobileAccordian).offset().top
+                    }, 10);
+                }
+            }
+        });
     },
 
     gallerySlider: function () {
@@ -170,6 +188,22 @@ module.exports = {
             infinite: false,
             dots: false,
             arrows: true,
+        });
+        $('.linked-products-redesign').slick({
+            slidesToShow: 2,
+            slidesToScroll: 1,
+            focusOnSelect: true,
+            infinite: false,
+            dots: true,
+            arrows: true,
+            responsive: [
+                {
+                    breakpoint: 768,
+                    settings: {
+                        arrows: false,
+                    }
+                }
+            ]
         });
     },
 
@@ -398,3 +432,17 @@ module.exports = {
 
     base: base
 };
+
+var imageBox = $(".quadrant-pdp-wrapper").height();
+var detailBox = $(".product-side-details-wrapper").height();
+if ($(window).width() > 767) {
+    if(detailBox > imageBox){
+        $(".quadrant-pdp-wrapper").addClass("sticky-section");
+        $('.page').css({'overflow':'visible'});
+    }
+    else{
+        $(".product-side-details-wrapper").addClass("sticky-section");
+        $('.page').css({'overflow':'visible'});
+    }
+}
+ 

@@ -1,5 +1,5 @@
-<div class="row hidden-xs-down">
-    <div class="col">
+<div class="row hidden-xs-down breadcrumbs-wrapper-main">
+    <div class="col col-space-inner">
         <ol class="breadcrumb">
             <isloop items="${pdict.breadcrumbs}" var="breadcrumbValue">
                 <li class="breadcrumb-item">
