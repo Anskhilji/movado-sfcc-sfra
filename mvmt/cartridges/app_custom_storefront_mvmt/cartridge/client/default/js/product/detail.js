@@ -189,6 +189,22 @@ module.exports = {
             dots: false,
             arrows: true,
         });
+        $('.linked-products-redesign').slick({
+            slidesToShow: 2,
+            slidesToScroll: 1,
+            focusOnSelect: true,
+            infinite: false,
+            dots: true,
+            arrows: true,
+            responsive: [
+                {
+                    breakpoint: 768,
+                    settings: {
+                        arrows: false,
+                    }
+                }
+            ]
+        });
     },
 
     stickybar: function () {
@@ -377,3 +393,17 @@ module.exports = {
 
     base: base
 };
+
+var imageBox = $(".quadrant-pdp-wrapper").height();
+var detailBox = $(".product-side-details-wrapper").height();
+if ($(window).width() > 767) {
+    if(detailBox > imageBox){
+        $(".quadrant-pdp-wrapper").addClass("sticky-section");
+        $('.page').css({'overflow':'visible'});
+    }
+    else{
+        $(".product-side-details-wrapper").addClass("sticky-section");
+        $('.page').css({'overflow':'visible'});
+    }
+}
+ 
