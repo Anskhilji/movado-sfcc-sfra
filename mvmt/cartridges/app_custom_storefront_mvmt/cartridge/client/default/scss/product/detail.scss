@@ -3496,7 +3496,9 @@
                 }
 
                 > div {
+
                     &:last-child {
+                        
                         @include media-breakpoint-down(sm) {
                             margin: 0;
                         }
