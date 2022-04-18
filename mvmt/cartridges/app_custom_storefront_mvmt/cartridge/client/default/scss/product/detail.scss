@@ -3498,7 +3498,6 @@
                 > div {
 
                     &:last-child {
-
                         @include media-breakpoint-down(sm) {
                             margin: 0;
                         }
@@ -3668,6 +3667,10 @@
                     top: rem(19);
                     right: rem(0);
                     transition: opacity .2s ease;
+
+                    @include media-breakpoint-down(sm) {
+                        right: rem(10);
+                    }
                 }
             
                 &-plus {
