@@ -982,7 +982,7 @@
                             @include media-breakpoint-down(sm) {
                                 height: rem(10);
                                 width: rem(10);
-                                background-color: #DADADA;
+                                background-color: $dots-gray;
                                 box-shadow: 0 rem(0) rem(0) 0 transparent;
                                 margin: rem(0) rem(2.5);
 
@@ -995,7 +995,7 @@
                                 @include media-breakpoint-down(sm) {
                                     box-shadow: 0 rem(0) rem(0) 0 transparent;
                                     border-color: transparent;
-                                    background-color: $cerulean;
+                                    background-color: $curious-light-blue;
                                 }
                             }
     
@@ -1160,63 +1160,6 @@
 
             .zoom-img.zoomed-img {
                 cursor: zoom-out;
-            }
-        }
-        .custom-dots-mvmt {
-            @include media-breakpoint-down(sm) {
-                position: absolute;
-                bottom: rem(5);
-                right: rem(10);
-                left: auto;
-                text-align: right;
-                margin: rem(0);
-                background-color: transparent;
-                width: 100%;
-                padding: 0;
-                z-index: 10;
-
-                .pdp-mvmt-pagination {
-                    .slick-current {
-
-                        .item-dots {
-
-                            .carousel-tile {
-                                box-shadow: 0 rem(0) rem(0) 0 transparent;
-                                border-color: transparent;
-                                background-color: $cerulean;
-                            }
-                        }
-                    }
-                    .item-dots {
-
-                        .carousel-tile {
-                            height: rem(10);
-                            width: rem(10);
-                            background-color: #DADADA;
-                            box-shadow: 0 rem(0) rem(0) 0 transparent;
-                            margin: rem(0) rem(2.5);
-                            border-radius: 50%;
-                            cursor: pointer;
-                            
-                            &:last-child {
-                                margin-right: rem(0);
-                            }
-                        
-
-                            &:hover {
-                            
-                                    box-shadow: 0 rem(0) rem(0) 0 transparent;
-                                    border-color: transparent;
-                                    background-color: $cerulean;
-                            
-                            }
-                            
-                                img,video{
-                                    display: none;
-                                }
-                            }
-                    }
-                }
             }
         }
 

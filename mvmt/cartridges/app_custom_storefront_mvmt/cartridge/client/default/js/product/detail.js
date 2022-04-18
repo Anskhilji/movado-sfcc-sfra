@@ -260,7 +260,7 @@ module.exports = {
             ],
             customPaging: function (slick, index) {
                 var thumb = $(slick.$slides[index]).find('.carousel-tile').attr('data-thumb');
-                return '<button class="tab 2"> <img  src="'+ thumb +'" /> </button>';
+                return '<button class="tab"> <img  src="'+ thumb +'" /> </button>';
             },
         });
       
