@@ -52,6 +52,9 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var productType = showProductPageHelperResult.product.productType;
     var template = null;
 
+    var upsellCarouselContent = ContentMgr.getContent('upsell-carousel-text-configs');
+    var upsellHeadingText = upsellCarouselContent && upsellCarouselContent.custom.body ? upsellCarouselContent.custom.body : '';
+
     // Custom Comment Start: A/B testing for MVMT PDP
     if (ABTestMgr.isParticipant('MVMTRedesignPDPABTest','Control')) {
         template = 'product/old/productDetails';
@@ -136,6 +139,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
         relativeURL: URLUtils.url('Product-Show','pid', product.ID),
         explicitRecommendations: explicitRecommendations,
         strapGuideText: strapGuideText,
+        upsellHeadingText: upsellHeadingText,
         collectionName: collectionName,
         addToCartUrl: showProductPageHelperResult.addToCartUrl,
         isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
