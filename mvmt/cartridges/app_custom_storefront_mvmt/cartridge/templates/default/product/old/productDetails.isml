@@ -66,7 +66,7 @@
                     <isinclude template="product/components/badges" />
 
                     <iscomment> Custom Start: Change Naming Conventions for PDP </iscomment>
-                    <div class="product-brand-info">
+                    <div class="product-brand-info d-flex align-items-start justify-content-between">
                         <isif condition="${(product.isCategory) == "watches"}">
                             <div class="category-watches">
                                 <h1>
@@ -133,6 +133,12 @@
                                 </isif>
                             </h1>
                         </isif>
+                        <!-- Product Price -->
+                        <iscomment> Custom: Product id removed, product price added </iscomment>
+                        <div class="prices">
+                            <isset name="price" value="${product.price}" scope="page" />
+                            <isinclude template="product/components/pricing/main" />
+                        </div>
                     </div>
                     <iscomment> Custom End: Change Naming Conventions for PDP </iscomment>
 
@@ -236,7 +242,7 @@
                     <isset name="isRecommendationsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.recommendationsEnabled) ? dw.system.Site.current.preferences.custom.recommendationsEnabled : false}" scope="page" />
                     <isif condition="${isRecommendationsEnabled}" >
                         <div class="linked-product-container">
-                            <isinclude template="product/components/recommendedProducts" />
+                            <isinclude template="product/components/old/recommendedProducts" />
                         </div>
                     </isif>
 
@@ -298,7 +304,7 @@
         <isslot id="cs_pdp_marketing-section-2" description="content section" context="global" />
 
         <div class="description-container p-0">
-            <isinclude template="product/components/descriptionAndDetails" />
+            <isinclude template="product/components/old/descriptionAndDetails" />
         </div>
 
         <div class="pdp-content-asset-wrapper">

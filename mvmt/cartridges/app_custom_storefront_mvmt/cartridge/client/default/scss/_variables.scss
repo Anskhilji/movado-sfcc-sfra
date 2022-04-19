@@ -80,10 +80,12 @@ $white-smoke3: #F8F8F8;
 
 $transparent-green: #f1faf3;
 $transparent-gray: rgba(0, 0, 0, 0.8);
+$transparent-gray-light: rgba(0, 0, 0, 0.09);
 $transparent-black: rgba(0, 0, 0, 0.4);
 $light-black-shadow:  rgba(0, 0, 0, 0.24);
 $white-shadow: rgba(214,214,214,0.5);
 $gift-message-border: rgba(170, 174, 181, 0.45);
+$border-gray: #DBDBDB;
 
 $white: #ffffff;
 $dark-gray: #222222;
@@ -189,7 +191,7 @@ $grid-breakpoints: (
     md: 769px,
     lg: 992px,
     lg-custom: 1200px,
-    custom-lg: 1024px, 
+    custom-lg: 1024px,
     xl: 1280px,
     lg-media: 1400px,
     xl-custom: 1440px,
