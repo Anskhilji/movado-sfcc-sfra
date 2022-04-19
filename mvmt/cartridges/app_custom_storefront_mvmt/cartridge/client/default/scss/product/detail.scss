@@ -3760,7 +3760,7 @@
             
                 &-switch {
                     position: absolute;
-                    top: rem(19);
+                    top: rem(27);
                     right: rem(0);
                     transition: opacity .2s ease;
 
@@ -3778,6 +3778,9 @@
                 }
                 .accordian-angle-down{
                     transition: transform .2s ease;
+                    background: url('../../images/angle-down.png') no-repeat center;
+                    height: rem(9);
+                    width: rem(16);
                 }
             
                 &.active {
