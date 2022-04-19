@@ -15,6 +15,15 @@
     font-family: $font-medium;
     font-weight: 400;
     letter-spacing: rem(0.7);
+    font-size: rem(20);
+    line-height: rem(41);
+}
+
+@mixin collection-subtitle-font-2 {
+    color: $light-black;
+    font-family: $font-medium;
+    font-weight: 400;
+    letter-spacing: rem(0.7);
     font-size: rem(16);
     line-height: rem(41);
 }

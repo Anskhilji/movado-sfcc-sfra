@@ -58,7 +58,7 @@
                     <isinclude template="product/components/badges" />
 
                     <iscomment> Custom Start: Change Naming Conventions for PDP </iscomment>
-                    <div class="product-brand-info">
+                    <div class="product-brand-info fff">
                         <isif condition="${(product.isCategory) == "watches"}">
                             <div class="category-watches">
                                 <h1 class="product-center-text">
