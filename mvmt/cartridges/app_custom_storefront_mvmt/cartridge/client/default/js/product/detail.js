@@ -418,9 +418,13 @@ if ($(window).width() > 768) {
 }
 
 $('.zoom-product-modal').click(function() {
-    var a = parseFloat($(this).attr('data-image-index'));
+    var imageIndex = parseFloat($(this).attr('data-image-index'));
     $('.slick-active').removeClass('slick-current slick-active');
-    var b = $(`[data-slick-index='${a}']`).attr('id');
-    $(`[aria-controls='${b}']`).parent().addClass('slick-active').trigger('click');
-    $(`[data-slick-index='${a}']`).addClass('slick-current slick-active').css({'width': '1065px'});
+    var activeImageId = $(`[data-slick-index='${imageIndex}']`).attr('id');
+    $(`[aria-controls='${activeImageId}']`).parent().addClass('slick-active').trigger('click');
+    if($(window).width() < 1024){
+        $(`[data-slick-index='${imageIndex}']`).addClass('slick-current slick-active').css({'width': `${$(window).width()}`+'px'});
+    }else{
+        $(`[data-slick-index='${imageIndex}']`).addClass('slick-current slick-active').css({'width': '1065px'});
+    }
 })
