@@ -438,9 +438,9 @@ $('.zoom-product-modal').click(function() {
     $('.slick-active').removeClass('slick-current slick-active');
     var activeImageId = $(`[data-slick-index='${imageIndex}']`).attr('id');
     $(`[aria-controls='${activeImageId}']`).parent().addClass('slick-active').trigger('click');
-    if($(window).width() < 1024){
+    if ($(window).width() < 1024) {
         $(`[data-slick-index='${imageIndex}']`).addClass('slick-current slick-active').css({'width': `${$(window).width()}`+'px'});
-    }else{
+    } else {
         $(`[data-slick-index='${imageIndex}']`).addClass('slick-current slick-active').css({'width': '1065px'});
     }
 })
