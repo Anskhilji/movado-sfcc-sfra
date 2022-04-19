@@ -1252,7 +1252,7 @@
 
                 .watches {
                     &-product-name {
-                        @include collection-subtitle-font;
+                        @include collection-subtitle-font-2;
                         line-height: rem(41);
 
                         &.product-center-text {
@@ -1364,7 +1364,7 @@
                         text-align: left;
                         line-height: rem(41);
                         .eyewear-colors-wrapper {
-                            @include collection-subtitle-font;
+                            @include collection-subtitle-font-2;
                         }
                     }
                 }
