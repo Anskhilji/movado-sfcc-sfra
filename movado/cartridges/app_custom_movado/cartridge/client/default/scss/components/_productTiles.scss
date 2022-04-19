@@ -923,6 +923,7 @@
     }
 
     &.quad-main-container {
+        margin: rem(30) rem(0);
         padding: rem(0) rem(15) rem(0) rem(20);
 
         @include media-breakpoint-down(lg) {
@@ -938,7 +939,7 @@
 
         .bottom-section {
             &.left-section-wrapper {
-                padding-right: rem(15);
+                padding-right: rem(20);
 
                 @include media-breakpoint-down(sm) {
                     padding: rem(0) rem(0) rem(10) rem(0);
