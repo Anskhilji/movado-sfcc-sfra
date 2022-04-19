@@ -3495,6 +3495,14 @@
                     padding: rem(0) rem(0) rem(0);
                 }
 
+                > div {
+
+                    &:last-child {
+                        @include media-breakpoint-down(sm) {
+                            margin: 0;
+                        }
+                    }
+                }
             }
 
             .pdp-tabs-body {
@@ -3659,6 +3667,10 @@
                     top: rem(19);
                     right: rem(0);
                     transition: opacity .2s ease;
+
+                    @include media-breakpoint-down(sm) {
+                        right: rem(10);
+                    }
                 }
             
                 &-plus {
@@ -3689,6 +3701,10 @@
             .mvmt-slot-loyalty-information {
                 padding: rem(30) rem(0) rem(23);
                 border-bottom: rem(0) solid $transparent-gray-light;
+
+                @include media-breakpoint-down(sm) {
+                    padding: rem(20) rem(0) rem(20);
+                }
             }
 
             // Upsell carousel 
@@ -3698,59 +3714,33 @@
                     margin-bottom: rem(20);
                     padding-top: rem(30);
                     border-top: rem(1) solid  $transparent-gray-light;
-                    @include media-breakpoint-up(sm) {
-                        padding-top: rem(18);
-                    }
                 }
         
-                &-head {
-                    margin-bottom: rem(15);
+                &-head-uppsell {
+                    margin-bottom: rem(20);
                     display: flex;
-                    justify-content: space-between;
-
-                    @include media-breakpoint-down(sm) {
-                        flex-direction: column;
-                    }
+                    justify-content: center;
         
-                    .content-asset {
-                        margin-bottom: rem(0);
-                        display: inline-block;
-                        justify-content: space-between;
-        
-                        label {
-                            color: $transparent-gray;
-                            font-family: $font-medium;
-                            font-size: rem(12);
-                            font-weight: 500;
-                            letter-spacing: rem(0.5);
-                            text-transform: uppercase;
-                            margin-right: rem(4);
-                            margin-bottom: 0;
-                        }
-                    }
-                    .strap-guid {
-                        display: inline-block;
-                        color: $transparent-gray;
-                        font-size: rem(11);
+                    label {
+                        color: $light-black;
                         font-family: $font-medium;
+                        font-size: rem(18);
                         font-weight: 500;
+                        line-height: rem(22);
+                        letter-spacing: rem(0);
                         text-transform: uppercase;
-                        letter-spacing: rem(1);
-                        border: none;
-                        background: none;
-                        cursor: pointer;
-
-                        @include media-breakpoint-down(sm) {
-                            padding: rem(12);
-                            width: 100%;
-                            background-color: $white;
-                            border-top: rem(1) solid $light-gray4;
-                        }
+                        margin-right: rem(4);
+                        margin-bottom: 0;
                     }
                     
                 }
         
                 &-products-redesign {
+                    display: none;
+
+                    &.slick-initialized {
+                        display: block;
+                    }
         
                     .slick-slide {
                         padding: 0 rem(10);
