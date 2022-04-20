@@ -1298,6 +1298,7 @@
                     padding: rem(0);
                 }
                 .price {
+
                    span {
                         color: $light-black;
                         font-size: rem(34);
@@ -1308,11 +1309,13 @@
                         font-weight: 400;
                         display: block;
                     }
+
                     .price-pdp-mvmt {
                         display: flex;
                         flex-direction: column-reverse;
                         align-items: flex-end;
                     }
+
                     del {
                         text-align: right;
                         line-height: rem(20);
@@ -1320,6 +1323,7 @@
                         @include media-breakpoint-down(sm) {
                             margin-top: rem(10);
                         }
+
                         span {
                             @include collection-subtitle-font;
                             display: block;
@@ -1335,8 +1339,10 @@
                                 margin-right: 0;
                             }
                         }
+
                         & + .sale-price-mvmt {
                             color: $dark-red;
+
                             span {
                                 color: $dark-red;
                             }
