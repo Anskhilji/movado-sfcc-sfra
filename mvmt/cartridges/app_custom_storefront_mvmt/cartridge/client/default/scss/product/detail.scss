@@ -1083,6 +1083,7 @@
                 &-slide {
                     text-align: center;
                     cursor: zoom-in;
+                    width: 100%;
                     img {
                         display: inline-block;
 
@@ -3688,6 +3689,101 @@
                 }
             }
 
+            //  Zoom modal ab test
+            .zoom-modal {
+                .close {
+                    background: url("../../images/cross.svg") center center no-repeat;
+                    background-size: rem(18);
+                    right: rem(36);
+                    position: relative;
+                    top: rem(31);
+                }
+            
+                background: $white;
+            }
+            .zoom-modal-inner {
+                max-width: rem(1065);
+                max-height: rem(733);
+                margin: auto;
+                width: 100%;
+            
+                @include media-breakpoint-down(lg-media) {
+                    max-height: rem(590.4);
+                }
+                
+                @include media-breakpoint-down(custom-lg) {
+                    max-height: rem(569.6);
+                }
+            
+               &#zoomProduct {
+                    .modal-body {
+                        margin-top: rem(0);
+                    }
+               }
+            
+                .modal-header {
+                    padding: rem(0);
+                }
+            
+                .primary-images {
+                    max-width: 100%;
+                    margin: auto;
+                    flex-basis: 100%;
+                    width: 100%;
+            
+                    .cs-carousel-wrapper {
+                        margin-top: rem(60);
+                        
+                        .main-mvmt-carousel  {
+                            padding: rem(0);
+            
+                            .slick-list {
+                                border-bottom: rem(1) solid $light-zircon;
+                            }
+                            .slick-dots {
+                                display: flex;
+                                position: relative;
+                                width: 100%;
+                                margin-top: rem(15);
+                                margin-bottom: rem(15);
+            
+                                .slick-active{
+                                    border: rem(1) solid $light-black2; 
+                                }
+            
+                                li {
+                                    width: rem(50);
+                                    height: rem(50);
+                                    border-radius: rem(0);
+                                    box-shadow: none;
+                                    border: none;
+                                    background-color: $white-grey;
+                                    margin: rem(0) rem(20) rem(0) rem(0);
+                                }
+                            }
+                            
+                            .slick-prev {
+                                left: rem(40);
+                            }
+            
+                            .slick-next {
+                                right: rem(40);
+                            }
+                        }
+                    }
+                }
+                &#zoomProduct {
+                    img {
+                        max-width: rem(590);
+                        max-height: rem(590);
+                        @include media-breakpoint-down(lg-media) {
+                            max-width: rem(430);
+                            max-height: rem(430);
+                        }
+                    }
+                }
+            }
+
             //  accordian styleing stsrt here
             .klarna-promo-parent-container {
                 margin-bottom: rem(4);
@@ -3876,7 +3972,7 @@
             
                 &-switch {
                     position: absolute;
-                    top: rem(19);
+                    top: rem(27);
                     right: rem(0);
                     transition: opacity .2s ease;
 
@@ -3894,6 +3990,9 @@
                 }
                 .accordian-angle-down{
                     transition: transform .2s ease;
+                    background: url('../../images/angle-down.png') no-repeat center;
+                    height: rem(9);
+                    width: rem(16);
                 }
             
                 &.active {
