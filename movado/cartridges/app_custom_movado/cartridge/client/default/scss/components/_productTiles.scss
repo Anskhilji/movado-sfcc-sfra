@@ -243,6 +243,8 @@
 
 // full bleed image toaster product
 .full-bleed-image-product {
+    width: 100%;
+    
     .full-bleed-img-box {
         position: relative;
 
@@ -940,6 +942,7 @@
         .bottom-section {
             &.left-section-wrapper {
                 padding-right: rem(20);
+                height: 100%;
 
                 @include media-breakpoint-down(sm) {
                     padding: rem(0) rem(0) rem(10) rem(0);
