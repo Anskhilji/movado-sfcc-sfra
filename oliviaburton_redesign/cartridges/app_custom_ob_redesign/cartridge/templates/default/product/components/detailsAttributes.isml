@@ -1,4 +1,4 @@
-<isif condition="${product.pdpAttributesList && product.pdpAttributesList.length}">
+<isif condition="${product.pdpDetailAttributes && product.pdpDetailAttributes.length}">
     <div class="details-img-atrribute col-12 d-lg-flex justify-content-center align-items-center">
         <iscomment> Custom Comment: Product 3rd image added </iscomment>
         <div class="details-img">
@@ -7,19 +7,23 @@
             </isif>
         </div>
         <iscomment> Custom Comment: Logic implemented to render new column 6 attribute according to design requirment </iscomment>
-        <div class="details-list-height ${product.pdpAttributesList.length > 6 ? (product.pdpAttributesList.length > 7 ? 'six-height': 'five-height') : '' }">
-            <isset name="maxCloumnItems" value="${product.pdpAttributesList.length > 6 ? (product.pdpAttributesList.length > 7 ? 6 : 5 ) : 6 }" scope="page" />
-            <isloop items="${product.pdpAttributesList}" var="attr" status="loopStatus">
+        <div data-id="${JSON.stringify(product.pdpDetailAttributes)}" class="details-list-height ${product.pdpDetailAttributes.length > 6 ? (product.pdpDetailAttributes.length > 7 ? 'six-height': 'five-height') : '' }">
+            <isset name="maxCloumnItems" value="${product.pdpDetailAttributes.length > 6 ? (product.pdpDetailAttributes.length > 7 ? 6 : 5 ) : 6 }" scope="page" />
+            <isloop items="${product.pdpDetailAttributes}" var="attr" status="loopStatus">
                 <isif condition="${loopStatus.first}">
-                    <div class="details-list">
+                <div class="details-list">
                 </isif>
                 <div class="attribute-detail">
-                    <isif condition="${attr.name.indexOf(Resource.msg('product.detail.attribute.case.diameter','product',null)) > -1}">
-                        <span class="attribute-name">${attr.name.split('(')[0]}</span>
+                    <isif condition="${attr.displayName.indexOf(Resource.msg('product.detail.attribute.case.diameter','product',null)) > -1}">
+                        <span class="attribute-name">${attr.displayName.split('(')[0]}</span>
                     <iselse/>
-                        <span class="attribute-name">${attr.name}</span>
+                        <span class="attribute-name">${attr.displayName}</span>
                     </isif>
-                    <h3 class="attribute-value">${attr.value}</h3>
+                    <isif condition="${attr.displayName == 'ringSize'}">
+                        <h3 class="attribute-value">${attr.value}</h3>
+                    <iselse/>
+                        <h3 class="attribute-value">${attr.value}</h3>
+                    </isif>
                 </div>
                 <isif condition="${(loopStatus.count % maxCloumnItems) == 0 || loopStatus.last}">
                     </div>
