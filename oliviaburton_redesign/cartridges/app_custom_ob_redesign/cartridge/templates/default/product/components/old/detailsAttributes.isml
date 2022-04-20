@@ -1,10 +1,10 @@
-<isif condition="${product.pdpDetailAttributes && product.pdpDetailAttributes.length}">
+<isif condition="${product.pdpDetailedAttributes && product.pdpDetailedAttributes.length}">
     <h2 class="col-sm-12 col-md-4 col-lg-3">
       <button class="title text-uppercase btn p-0 text-left shadow-none">${product.resources.Details}</button>
     </h2>
     <div class="col-sm-12 col-md-8 col-lg-9 value content">
         <div class="row">
-            <isloop items="${product.pdpDetailAttributes}" var="attr">
+            <isloop items="${product.pdpDetailedAttributes}" var="attr">
             <div class="col-12 col-sm-4 attribute">
                 <div class="attribute-badge">
                     <img src="${attr.image}" alt="${attr.displayName}" />

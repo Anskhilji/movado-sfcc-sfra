@@ -96,14 +96,14 @@ module.exports = function fullProduct(product, apiProduct, options) {
     }
 
     if (!empty(detailAndSpecAttributes)) {
-        Object.defineProperty(product, 'pdpDetailAttributes', {
+        Object.defineProperty(product, 'pdpDetailedAttributes', {
             enumerable: true,
             value: detailAndSpecAttributes.pdpDetailAttributes
         });
     }
 
     if (!empty(detailAndSpecAttributes)) {
-        Object.defineProperty(product, 'pdpSpecAttributes', {
+        Object.defineProperty(product, 'pdpSpecsAttributes', {
             enumerable: true,
             value: detailAndSpecAttributes.pdpSpecAttributes
         });
