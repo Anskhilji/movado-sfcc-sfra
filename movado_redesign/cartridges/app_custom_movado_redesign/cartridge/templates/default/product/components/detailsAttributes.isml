@@ -1,4 +1,5 @@
 <iscomment>Updated the bootstrap columns classes</iscomment>
+<div class="scroll-sticky"></div>
 <isif condition="${product.pdpDetailedAttributes && product.pdpDetailedAttributes.length}">
     <h2 class="col-sm-12 mb-4">
       <div class="title text-capitalize p-0 shadow-none s">${Resource.msg('label.product.detail.details2', 'product', null)}</div>
@@ -16,4 +17,3 @@
 	    </isloop>
     </div>
 </isif>
-<div class="scroll-sticky"></div>
