@@ -1,4 +1,4 @@
-<isif condition="${product.pdpDetailAttributes && product.pdpDetailAttributes.length}">
+<isif condition="${product.pdpDetailedAttributes && product.pdpDetailedAttributes.length}">
     <div class="details-img-atrribute col-12 d-lg-flex justify-content-center align-items-center">
         <iscomment> Custom Comment: Product 3rd image added </iscomment>
         <div class="details-img">
@@ -7,9 +7,9 @@
             </isif>
         </div>
         <iscomment> Custom Comment: Logic implemented to render new column 6 attribute according to design requirment </iscomment>
-        <div data-id="${JSON.stringify(product.pdpDetailAttributes)}" class="details-list-height ${product.pdpDetailAttributes.length > 6 ? (product.pdpDetailAttributes.length > 7 ? 'six-height': 'five-height') : '' }">
-            <isset name="maxCloumnItems" value="${product.pdpDetailAttributes.length > 6 ? (product.pdpDetailAttributes.length > 7 ? 6 : 5 ) : 6 }" scope="page" />
-            <isloop items="${product.pdpDetailAttributes}" var="attr" status="loopStatus">
+        <div data-id="${JSON.stringify(product.pdpDetailedAttributes)}" class="details-list-height ${product.pdpDetailedAttributes.length > 6 ? (product.pdpDetailedAttributes.length > 7 ? 'six-height': 'five-height') : '' }">
+            <isset name="maxCloumnItems" value="${product.pdpDetailedAttributes.length > 6 ? (product.pdpDetailedAttributes.length > 7 ? 6 : 5 ) : 6 }" scope="page" />
+            <isloop items="${product.pdpDetailedAttributes}" var="attr" status="loopStatus">
                 <isif condition="${loopStatus.first}">
                 <div class="details-list">
                 </isif>
