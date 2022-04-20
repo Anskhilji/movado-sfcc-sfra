@@ -171,10 +171,18 @@ function renderSwellRedemptionOptions() {
     }
 }
 
+function hideMiniCartCheckbox() {
+    if ($('.product-side-details .gift-allowed-checkbox').is(":checked")) {
+        $('.product-card-wrapper .gift-allowed-checkbox-mini').hide();
+        $('.product-card-wrapper .gift-allowed-checkbox-mini').next('label').hide();
+    }
+}
+
 function openMiniCart() {
     //Custom Start: Open the mini cart
     var url = $('.minicart').data('action-url');
     var count = parseInt($('.minicart .minicart-quantity').text());
+
     if (count !== 0 && $('.mini-cart-data .popover.show').length === 0) {
         $.get(url, function (data) {
             $('.mini-cart-data .popover').empty();
@@ -189,6 +197,7 @@ function openMiniCart() {
             updateMiniCart = false;
             $.spinner().stop();
             loadAmazonButton();
+            hideMiniCartCheckbox();
         });
     } else if (count === 0 && $('.mini-cart-data .popover.show').length === 0) {
         $.get(url, function (data) {
@@ -204,6 +213,7 @@ function openMiniCart() {
 
     $('.mobile-cart-icon').hide();
     $('.mobile-cart-close-icon').show();
+    
     //Custom End
 }
 
@@ -716,6 +726,29 @@ function handleVariantResponse(response, $productContainer) {
         }
     }
 
+    if (!(response.product.isGiftBoxAllowed)) {
+        $('.gift-box-wrapper').css('visibility', 'hidden');
+        if($('.product-side-details .gift-allowed-checkbox').is(":checked")) {
+            $('.product-side-details .gift-allowed-checkbox').prop("checked", false);
+        }
+    }
+    else {
+        if ($(window).width() >= 768) {
+            if($('.gift-box-wrapper').attr('style')) {
+                $('.gift-box-wrapper').removeAttr('style');
+            }
+            $('.gift-box-wrapper.d-desktop-show').show();
+        } else {
+            if($('.gift-box-wrapper').attr('style')) {
+                $('.gift-box-wrapper').removeAttr('style');
+            }
+            $('.gift-box-wrapper.d-mobile-show').show();
+        }
+        if($('.product-side-details .gift-allowed-checkbox').is(":checked")) {
+            $('.product-side-details .gift-allowed-checkbox').prop("checked", false);
+        }
+    }
+
     if (response.product.productType == 'variant') {
         $('body').trigger('pdpChangedVariation', response.product);
     }
@@ -1124,6 +1157,7 @@ movadoBase.addToCart = function () {
         var pid;
         var pidsObj;
         var setPids;
+        var giftPid;
         $.spinner().start();
         $('body').trigger('product:beforeAddToCart', this);
 
@@ -1144,10 +1178,20 @@ movadoBase.addToCart = function () {
 
         if ($(this).closest('.product-detail') && $(this).closest('.product-detail').data('isplp') == true) {
             pid = $(this).data('pid');
+            if ($('.gift-allowed-checkbox').is(":checked")) {
+                giftPid = $('.gift-allowed-checkbox').val();
+            }
         } else if ($(this).closest('.linked-products') && $(this).closest('.linked-products').data('recomendation') == true) {
             pid = $(this).data('pid');
+            if ($('.gift-allowed-checkbox').is(":checked")) {
+                giftPid = $('.gift-allowed-checkbox').val();
+            }
         } else {
             pid = movadoBase.getPidValue($(this));
+            if ($('.gift-allowed-checkbox').is(":checked")) {
+                giftPid = $('.gift-allowed-checkbox').val();
+            }
+            
         }
 
         var $productContainer = $(this).closest('.product-detail');
@@ -1162,6 +1206,7 @@ movadoBase.addToCart = function () {
             pidsObj: pidsObj,
             childProducts: getChildProducts(),
             quantity: movadoBase.getQuantitySelected($(this)),
+            giftPid: giftPid ? giftPid : ''
         };
         /**
          * Custom Start: Add to cart form for MVMT
@@ -1172,6 +1217,7 @@ movadoBase.addToCart = function () {
                 pidsObj: pidsObj,
                 childProducts: getChildProducts(),
                 quantity: 1,
+                giftPid: giftPid ? giftPid : ''
             };
         }
         /**
@@ -1211,6 +1257,7 @@ movadoBase.addToCart = function () {
                     handlePostCartAdd(data);
                     openMiniCart();
                     updateCartIcons();
+                    
                     $('body').trigger('product:afterAddToCart', data);
                     updateMiniCart = false;
                     $(window).resize(); // This is used to fix zoom feature after add to cart

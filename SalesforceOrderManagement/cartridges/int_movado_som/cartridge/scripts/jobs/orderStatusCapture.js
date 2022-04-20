@@ -79,12 +79,14 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
                 return (foMatch.OrderItemSummary.Id === foLineItem.OrderItemSummary.WarrantyChildOrderItemSummary__r.Id);
             });
 
-            pendingFOLineItems.push(
-                SalesforceModel.buildCompositeFulfillmentOrderLineItemUpdateRequest({
-                    Id: warrantyFulfillmentLineItem.Id,
-                    ShippedQuantity: warrantyShippedQuantity
-                })
-            );
+            if(warrantyFulfillmentLineItem != null) {
+                pendingFOLineItems.push(
+                    SalesforceModel.buildCompositeFulfillmentOrderLineItemUpdateRequest({
+                        Id: warrantyFulfillmentLineItem.Id,
+                        ShippedQuantity: warrantyShippedQuantity
+                    })
+                );
+            }
         }
 
 
@@ -96,7 +98,7 @@ function processStatusCapture(SAPOrderStatus, fulfillmentOrder) {
             });
 
             // Attached Warranty
-            if (foLineItem.OrderItemSummary.WarrantyChildOrderItemSummary__r.Id != null) {
+            if (foLineItem.OrderItemSummary.WarrantyChildOrderItemSummary__r != null && foLineItem.OrderItemSummary.WarrantyChildOrderItemSummary__r.Id != null) {
                 var warrantyShortShipQuantity = Math.min(shippedQuantity, foLineItem.OrderItemSummary.WarrantyChildOrderItemSummary__r.Quantity);
                 pendingFOCancelChangeItems.push({
                     fulfillmentOrderLineItemId: foLineItem.OrderItemSummary.WarrantyChildOrderItemSummary__r.Id,

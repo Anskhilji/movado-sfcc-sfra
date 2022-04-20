@@ -1,14 +1,14 @@
 <iscomment>Updated the bootstrap columns classes</iscomment>
 <div class="scroll-sticky"></div>
-<isif condition="${product.pdpAttributesList && product.pdpAttributesList.length}">
+<isif condition="${product.pdpDetailedAttributes && product.pdpDetailedAttributes.length}">
     <h2 class="col-sm-12 mb-4">
       <div class="title text-capitalize p-0 shadow-none s">${Resource.msg('label.product.detail.details2', 'product', null)}</div>
     </h2>
     <div class="col-sm-12 value content">
-	    <isloop items="${product.pdpAttributesList}" var="attr">
+	    <isloop items="${product.pdpDetailedAttributes}" var="attr">
 	        <div class="row mb-3">
 	            <div class="col-4">
-	                <span class="attribute-name">${attr.name}</span>
+	                <span class="attribute-name">${attr.displayName}</span>
 	            </div>
 	            <div class="col-8">
 	                <span class="attribute-value">${attr.value}</span>

@@ -68,10 +68,10 @@
             </g>
           </svg>
         </div>
-        <div class="main-mvmt-carousel">
+        <div class="main-mvmt-carousel main-mvmt-carousel-pdp-redesign">
           <isset name="pdpVideoConfigs" value="${product.pdpVideoConfigs}" scope="page" />
           <isloop items="${product.images['zoom1660']}" var="image" status="loopStatus">
-            <div class="carousel-tile" data-thumb="${!empty(product.images) && !empty(product.images.tile150[loopStatus.count-1]) ? product.images.tile150[loopStatus.count-1].url : ''}">
+            <div class="carousel-tile ${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL) ? 'video' : ''}" data-thumb="${!empty(product.images) && !empty(product.images.tile150[loopStatus.count-1]) ? product.images.tile150[loopStatus.count-1].url : ''}">
                 <picture>
                       <source media="(min-width: 992px)"  srcset="${product.images.pdp600[loopStatus.count-1].url}" />
                       <source media="(max-width: 991px)"  srcset="${product.images.pdp600[loopStatus.count-1].url}" />
@@ -86,6 +86,7 @@
             </div>
           </isloop>
         </div>
+
         <iscomment>Added zomm box</iscomment>
         <div class="zoom-box">
 

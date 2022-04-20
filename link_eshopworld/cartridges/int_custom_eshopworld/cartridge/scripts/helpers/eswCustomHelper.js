@@ -246,6 +246,7 @@ function isCurrentDomesticAllowedCountry() {
 
 module.exports = {
     getCustomCountries: getCustomCountries,
+    getCustomCountriesJson: getCustomCountriesJson,
     getCustomLanguages: getCustomLanguages,
     getSelectedLanguage: getSelectedLanguage,
     getSelectedCountry: getSelectedCountry,
