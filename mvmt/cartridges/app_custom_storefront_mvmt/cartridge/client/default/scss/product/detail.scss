@@ -3392,16 +3392,16 @@
                     max-width: 50%;
                 }
 
-                @include media-breakpoint-up(xl-custom) {
-                    padding: rem(0) rem(20) rem(20) rem(0);
-                }
-                
                 &:nth-child(odd) {
                     @include media-breakpoint-up(md-down) {
                         padding: rem(0) rem(5) rem(10) rem(0);
                     }
 
                     @include media-breakpoint-up(lg-custom) {
+                        padding: rem(0) rem(10) rem(20) rem(0);
+                    }
+
+                    @include media-breakpoint-up(xl-custom) {
                         padding: rem(0) rem(10) rem(20) rem(0);
                     }
                 }
@@ -3412,6 +3412,10 @@
                     }
 
                     @include media-breakpoint-up(lg-custom) {
+                        padding: rem(0) rem(0) rem(20) rem(10);
+                    }
+
+                    @include media-breakpoint-up(xl-custom) {
                         padding: rem(0) rem(0) rem(20) rem(10);
                     }
                 }
