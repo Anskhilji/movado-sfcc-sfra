@@ -3605,22 +3605,40 @@
 
             .col-mx-50-wrapper {
                 @include media-breakpoint-up(md-down) {
-                    max-width: 50%;
+                    max-width: 47%;
                     padding: rem(0) rem(10) rem(10) rem(0);
                 }
 
-                @include media-breakpoint-up(lg-custom) {
-                    padding: rem(0) rem(20) rem(20) rem(0);
-                    max-width: rem(453);
+                @include media-breakpoint-up(md) {
+                    flex: 0 0 50%;
+                    max-width: 50%;
+                }
+
+                &:nth-child(odd) {
+                    @include media-breakpoint-up(md-down) {
+                        padding: rem(0) rem(5) rem(10) rem(0);
+                    }
+
+                    @include media-breakpoint-up(lg-custom) {
+                        padding: rem(0) rem(10) rem(20) rem(0);
+                    }
+
+                    @include media-breakpoint-up(xl-custom) {
+                        padding: rem(0) rem(10) rem(20) rem(0);
+                    }
                 }
 
                 &:nth-child(even) {
                     @include media-breakpoint-up(md-down) {
-                        padding: rem(0) rem(10) rem(10) rem(0);
+                        padding: rem(0) rem(0) rem(10) rem(5);
                     }
 
                     @include media-breakpoint-up(lg-custom) {
-                        padding: rem(0) rem(0) rem(20) rem(0);
+                        padding: rem(0) rem(0) rem(20) rem(10);
+                    }
+
+                    @include media-breakpoint-up(xl-custom) {
+                        padding: rem(0) rem(0) rem(20) rem(10);
                     }
                 }
             }
@@ -3652,9 +3670,10 @@
                     flex-basis: 60%;
                 }
                 @include media-breakpoint-up(lg-custom) {
-                    max-width: 65%;
-                    width: 65%;
-                    flex-basis: 65%;
+                    max-width: calc(100% - 414px);
+                    width: calc(100% - 414px);
+                    flex-basis: calc(100% - 414px);
+                    
                 }
 
                 @include media-breakpoint-up(xl-custom) {
@@ -3688,6 +3707,7 @@
                     flex-basis: 25%;
                     width: 25%;
                     min-width: 25%;
+                    margin-left: rem(40);
                 }
                 @include media-breakpoint-up(xl-custom) {
                     max-width: rem(414);
