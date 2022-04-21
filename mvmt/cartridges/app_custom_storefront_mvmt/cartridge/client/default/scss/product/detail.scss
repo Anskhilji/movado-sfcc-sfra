@@ -1283,6 +1283,7 @@
                 }
 
                 .watches {
+
                     &-product-name {
                         @include collection-subtitle-font;
                         line-height: rem(41);
@@ -1293,6 +1294,7 @@
                             }
                         }
                     }
+
                     &-turncate-name {
                         overflow: hidden;
                         text-overflow: ellipsis;
@@ -1300,10 +1302,12 @@
                         -webkit-line-clamp: 3;
                         text-align: left;
                     }
+
                     &-collection-name {
                         @include collection-title-font;
                         display: block;
                     }
+
                     &-seprator {
                         @include collection-subtitle-font;
                     }
@@ -1317,6 +1321,7 @@
                 @include media-breakpoint-down(sm) {
                     padding: rem(0);
                 }
+
                 .price {
                    span {
                         color: $light-black;
@@ -1328,6 +1333,7 @@
                         font-weight: 400;
                         display: block;
                     }
+
                     .price-pdp-mvmt {
                         display: flex;
                         flex-direction: column-reverse;
@@ -1343,7 +1349,6 @@
                         span {
                             @include collection-subtitle-font;
                             display: block;
-                            font-size: rem(14);
                             letter-spacing: rem(1.5);
                             color: $light-gray2;
                             font-weight: 300;
@@ -1351,16 +1356,19 @@
                             @include media-breakpoint-down(sm) {
                                 display: inline;
                             }
+
                             &.strike-through {
                                 margin-right: 0;
                             }
                         }
+
                         & + .sale-price-mvmt {
                             color: $dark-red;
                             span {
                                 color: $dark-red;
                             }
                         }
+
                         .strike-through {
                             text-decoration: none;
                         }
@@ -1421,7 +1429,7 @@
                                 text-align: center;
                             }
                         }
-                    } 
+                    }
 
                     &-heading {
                         display: block;
@@ -1511,6 +1519,7 @@
                         margin-right: auto;
 
                         .yotpo-icon {
+
                             &.rating-star {
                                 height: rem(20) !important;
                                 width: rem(20) !important;
@@ -1640,7 +1649,7 @@
                                 font-size: rem(14);
                             }
                         }
-        
+
                         & + span {
                             span {
                                 color: $dark-red;
