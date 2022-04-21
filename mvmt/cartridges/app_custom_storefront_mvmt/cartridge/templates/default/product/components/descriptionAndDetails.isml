@@ -60,7 +60,7 @@
                         </div>
                         <div class="pdp-content-body accordian-mobile-body">
                             <div class="w-100 accordian-review-box">
-                                <iscomment> <h3 class="details-heading text-center">${Resource.msg('label.tab.review.redesign', 'product', null)}</h3> </iscomment>
+                                <h3 class="details-heading text-center">${Resource.msg('label.tab.review.redesign', 'product', null)}</h3>
                                 <iscomment>Yotpo reviews widget will appear here, if these needs to be relocated
                                 then appropriate template should be overridden. </iscomment>
                                 <iscomment> <isinclude template="widget/yotporeviewswidget" /> </iscomment>

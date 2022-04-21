@@ -3549,13 +3549,13 @@
             
                         .details-heading {
                             font-family: $font-medium;
-                            font-size: rem(24);
+                            font-size: rem(18);
                             font-weight: 500;
-                            line-height: rem(24);
-                            letter-spacing: rem(1.5);
-                            color: $black;
-                            margin-bottom: rem(30);
-                            text-transform: uppercase;
+                            line-height: rem(22);
+                            letter-spacing: rem(0);
+                            color: $light-black;
+                            margin-bottom: rem(15);
+                            text-transform: capitalize;
                         }
             
                         .attribute-list {
