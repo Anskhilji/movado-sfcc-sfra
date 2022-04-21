@@ -948,7 +948,7 @@
                 @include media-breakpoint-down(md) {
                     padding: rem(0) rem(10) rem(10) rem(0);
                 }
-                @include media-breakpoint-down(custom-md) {
+                @include custom-media-query-max($medium-screen-width) {
                     padding: rem(0) rem(0) rem(5) rem(0);
                 }
             }
