@@ -3565,7 +3565,7 @@
                                 border-bottom: none;
                                 padding: rem(0) 0;
                                 display: flex;
-                                align-items: center;
+                                align-items: flex-start;
                                 margin: 0;
                                 
                                 &:not(:last-of-type) {
@@ -3583,7 +3583,12 @@
                                     text-transform: capitalize;
             
                                     &.attribute-name {
-                                    text-transform: capitalize;
+                                        text-transform: capitalize;
+                                        max-width: rem(140);
+                                        margin-right: rem(40);
+                                        @include media-breakpoint-down(sm) {
+                                            max-width: rem(130);  
+                                        }
                                     }
                                     &.attribute-value {
                                         font-weight: 500;
@@ -3643,8 +3648,9 @@
                             font-family: $font-medium;
                             font-size: rem(12);
                             font-weight: 300;
-                            letter-spacing: 0;
+                            letter-spacing: 0 !important;
                             line-height: rem(20); 
+                            text-decoration: underline !important;
                         }
                         .yotpo-stars {
                             .yotpo-icon {
@@ -3809,7 +3815,7 @@
                             width: 100%;
                             color: $black;
                             font-size: rem(12);
-                            text-transform: capitalize;
+                            text-transform: uppercase;
                             line-height: rem(20);
                             font-family: $font-medium;
                             font-weight: 500;
@@ -3960,7 +3966,8 @@
 .pdp-mvmt-redeisn{
 
     .pdp-vp {
-    
+        display: none;
+
         &-item {
     
             &:nth-child(2) {
