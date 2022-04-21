@@ -1072,7 +1072,7 @@
                 .watches {
 
                     &-product-name {
-                        @include Collection-subtitle-font;
+                        @include collection-subtitle-font;
                         line-height: rem(41);
 
                         &.product-center-text {
