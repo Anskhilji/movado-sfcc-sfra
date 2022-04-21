@@ -59,7 +59,11 @@
         <iselseif condition="${Product.master || Product.variationGroup}" >
             <isset name="price" value="${productPriceModel.minPrice}" scope="page"/>
         <iselse/>
-            <isset name="price" value="${productPriceModel.price}" scope="page"/>
+            <isif condition="${!empty(pdict.pid)}">
+                <isset name="price" value="${affirmUtils.getProductPrice(pdict.pid)}" scope="page"/>
+            <iselse/>
+                <isset name="price" value="${affirmUtils.getProductPrice(product.id)}" scope="page"/>
+            </isif>
         </isif>
         <isif condition="${(!Product.productSet || psTop) && affirmData.getAffirmMinTotal() <= price.getValue()}">
             <p class="affirm-as-low-as"

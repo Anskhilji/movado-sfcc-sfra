@@ -33,7 +33,7 @@
                         ${Resource.msg('button.sold.out', 'product', null)}
                     </isif>
                     <isif condition="${!pdict.isPLPProduct}"> 
-                        <span class="product-price-mobile"> 
+                        <span class="product-price-mobile" data-price="${JSON.stringify(product.price)}"> 
                             <isset name="price" value="${product.price}" scope="page" />
                             <div class="add-to-cart-price-holder specific">
                                 <isinclude template="product/components/pricing/main" />

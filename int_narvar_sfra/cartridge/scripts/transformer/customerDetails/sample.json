@@ -1,0 +1,15 @@
+{
+  "customer_id": "00003501",
+  "address": {
+      "city": "San Francisco",
+      "country": "US",
+      "state": "CA",
+      "street_1": "Submit at the reception area of Narvar",
+      "street_2": "BEML layout, Thubarahalli",
+      "zip": "94105"
+  },
+  "email": "test@gmail.com",
+  "first_name": "Sebashish",
+  "last_name": "Meher",
+  "phone": "5697798936"
+}
