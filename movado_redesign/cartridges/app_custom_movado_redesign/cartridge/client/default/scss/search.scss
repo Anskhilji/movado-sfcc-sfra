@@ -1019,3 +1019,21 @@
     }
   }
 }
+
+.no-results-carousel {
+
+  .product-tile {
+    .tile-body {
+      height: auto;
+    }
+
+    .promotions {
+      margin-left: rem(0);
+
+      .callout.promo-msg {
+        width: 100%;
+        text-align: left;
+      }
+    }
+  }
+}
