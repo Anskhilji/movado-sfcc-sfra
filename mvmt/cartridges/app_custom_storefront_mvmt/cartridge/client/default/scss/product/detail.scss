@@ -3963,6 +3963,38 @@
     }
 }
 
+.product-detail {
+    .prices-add-to-cart-actions{
+        @include media-breakpoint-down(sm) {
+            z-index: 100;
+        }
+    }
+}
+// yotpo review widget
+.accordian-review-box{
+    background-color: $light-gray5;
+    padding:rem(20) rem(30);
+
+    .yotpo-shoppers-say {
+
+        &.accordian-review {
+
+            .yotpo-regular-box{
+                padding: 0;
+                margin: 0;
+                
+                @include media-breakpoint-up(xs-custom) {
+                    padding: 0 !important;
+                }
+
+                .full-review-background {
+                    background-color: $light-gray5 !important;
+                }
+            }
+        } 
+    }
+}
+
 .pdp-mvmt-redeisn{
 
     .pdp-vp {

@@ -59,11 +59,12 @@
                             </div>
                         </div>
                         <div class="pdp-content-body accordian-mobile-body">
-                            <div id="yotpoReviews" class="w-100">
-                                <h3 class="details-heading text-center">${Resource.msg('label.tab.review', 'product', null)}</h3>
+                            <div class="w-100 accordian-review-box">
+                                <iscomment> <h3 class="details-heading text-center">${Resource.msg('label.tab.review.redesign', 'product', null)}</h3> </iscomment>
                                 <iscomment>Yotpo reviews widget will appear here, if these needs to be relocated
                                 then appropriate template should be overridden. </iscomment>
-                                <isinclude template="widget/yotporeviewswidget" />
+                                <iscomment> <isinclude template="widget/yotporeviewswidget" /> </iscomment>
+                                 <div class="yotpo yotpo-shoppers-say accordian-review" data-product-id="${pdict.product.id}"> </div>
                             </div>
                         </div>
                     </div>
