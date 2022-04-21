@@ -462,6 +462,7 @@
     @include media-breakpoint-down(lg) {
       min-height: unset;
     }
+
     .promotions, .plp-promotions {
         margin-left: rem(15);
 
@@ -488,7 +489,7 @@
             }
 
             @include media-breakpoint-down(md) {
-              font-size: rem(8);             
+              font-size: rem(12);
             }
 
             @include media-breakpoint-down(sm) {
@@ -500,7 +501,7 @@
                 text-align: left;
             }
         }
-    }
+      }
 
     .plp-promotions {
       margin-left: rem(5);
