@@ -206,7 +206,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     if (product) {
         relativeURL= URLUtils.url('Product-Show','pid', product.id);
     }
-    var caseDiametterUnitPdp = Constants.MM_UNIT_SMALL;
+    var caseDiametterUnitPdp = Constants.MM_UNIT;
     var caseDiameter = productCustomHelper.getCaseDiameter(apiProduct, false, caseDiametterUnitPdp); 
     viewData = {
         relativeURL: relativeURL,

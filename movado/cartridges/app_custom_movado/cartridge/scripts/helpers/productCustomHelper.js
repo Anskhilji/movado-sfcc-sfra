@@ -108,7 +108,6 @@ function getPdpVideoConfigs(apiProduct) {
     }
 }
 
-
 module.exports = {
     getExplicitRecommendations: getExplicitRecommendations,
     getCollectionName: getCollectionName,
