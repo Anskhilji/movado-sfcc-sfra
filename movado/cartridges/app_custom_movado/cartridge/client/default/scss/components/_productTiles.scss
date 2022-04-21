@@ -933,6 +933,7 @@
         }
         @include media-breakpoint-down(sm) {
             padding: rem(10);
+            margin: rem(10) rem(0);
         }
 
         .homepagetile-wrapper-box {
@@ -973,7 +974,7 @@
 
             &:nth-child(even) {
                 padding-left: rem(6.5);
-                
+
                 @include media-breakpoint-down(sm) {
                     padding-left: rem(2.5);
                 }
