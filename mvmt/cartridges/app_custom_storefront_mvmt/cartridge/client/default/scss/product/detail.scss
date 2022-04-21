@@ -1072,7 +1072,7 @@
                 .watches {
 
                     &-product-name {
-                        @include cCollection-subtitle-font;
+                        @include Collection-subtitle-font;
                         line-height: rem(41);
 
                         &.product-center-text {
@@ -1096,11 +1096,11 @@
                     }
 
                     &-seprator {
-                        @include cCollection-subtitle-font;
+                        @include Collection-subtitle-font;
                     }
     
                     &-case-diameter {
-                        @include cCollection-subtitle-font;
+                        @include Collection-subtitle-font;
                     }
                 }
             }
@@ -1192,7 +1192,7 @@
                         text-align: left;
                         line-height: rem(41);
                         .eyewear-colors-wrapper {
-                            @include cCollection-subtitle-font;
+                            @include Collection-subtitle-font;
                         }
                     }
                 }
@@ -1221,7 +1221,7 @@
 
                     &-heading {
                         display: block;
-                        @include cCollection-subtitle-font;
+                        @include Collection-subtitle-font;
                         margin-top: rem(10);
                     }
                 }
@@ -1236,7 +1236,7 @@
             }
 
             .product-colors {
-                @include cCollection-subtitle-font;
+                @include Collection-subtitle-font;
             }
 
             .uncategotized-product-name {
