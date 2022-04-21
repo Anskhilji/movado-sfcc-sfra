@@ -243,6 +243,8 @@
 
 // full bleed image toaster product
 .full-bleed-image-product {
+    width: 100%;
+    
     .full-bleed-img-box {
         position: relative;
 
@@ -924,6 +926,7 @@
     }
 
     &.quad-main-container {
+        margin: rem(30) rem(0);
         padding: rem(0) rem(15) rem(0) rem(20);
 
         @include media-breakpoint-down(lg) {
@@ -931,6 +934,7 @@
         }
         @include media-breakpoint-down(sm) {
             padding: rem(10);
+            margin: rem(10) rem(0);
         }
 
         .homepagetile-wrapper-box {
@@ -939,12 +943,13 @@
 
         .bottom-section {
             &.left-section-wrapper {
-                padding-right: rem(15);
+                padding-right: rem(20);
+                height: 100%;
 
-                @include media-breakpoint-down(sm) {
-                    padding: rem(0) rem(0) rem(10) rem(0);
+                @include media-breakpoint-down(md) {
+                    padding: rem(0) rem(10) rem(10) rem(0);
                 }
-                @include media-breakpoint-down(xs) {
+                @include media-breakpoint-down(custom-md) {
                     padding: rem(0) rem(0) rem(5) rem(0);
                 }
             }
@@ -955,14 +960,25 @@
         }
 
         .col-wrapper-inner {
-            padding: rem(0)  rem(13) rem(10) rem(0);
+            padding: rem(0) rem(0) rem(10);
 
             @include media-breakpoint-down(sm) {
-                padding: rem(0) rem(5) rem(5) rem(0);
+                padding-bottom: rem(5);
+            }
+            &:nth-child(odd) {
+                padding-right: rem(6.5);
+
+                @include media-breakpoint-down(sm) {
+                    padding-right: rem(2.5);
+                }
             }
 
             &:nth-child(even) {
-                padding-right: rem(0);
+                padding-left: rem(6.5);
+
+                @include media-breakpoint-down(sm) {
+                    padding-left: rem(2.5);
+                }
             }
 
         }
