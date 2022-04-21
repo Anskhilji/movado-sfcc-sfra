@@ -1096,11 +1096,11 @@
                     }
 
                     &-seprator {
-                        @include Collection-subtitle-font;
+                        @include collection-subtitle-font;
                     }
     
                     &-case-diameter {
-                        @include Collection-subtitle-font;
+                        @include collection-subtitle-font;
                     }
                 }
             }
@@ -1192,7 +1192,7 @@
                         text-align: left;
                         line-height: rem(41);
                         .eyewear-colors-wrapper {
-                            @include Collection-subtitle-font;
+                            @include collection-subtitle-font;
                         }
                     }
                 }
@@ -1221,7 +1221,7 @@
 
                     &-heading {
                         display: block;
-                        @include Collection-subtitle-font;
+                        @include collection-subtitle-font;
                         margin-top: rem(10);
                     }
                 }
@@ -1236,7 +1236,7 @@
             }
 
             .product-colors {
-                @include Collection-subtitle-font;
+                @include collection-subtitle-font;
             }
 
             .uncategotized-product-name {
