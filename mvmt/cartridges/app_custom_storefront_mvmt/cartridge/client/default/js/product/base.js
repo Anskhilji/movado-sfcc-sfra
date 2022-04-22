@@ -948,6 +948,23 @@ function handleVariantResponse(response, $productContainer) {
                     dots: false,
                     arrows: true,
                 });
+                
+                $('.linked-products-redesign').slick({
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                    focusOnSelect: true,
+                    infinite: false,
+                    dots: true,
+                    arrows: true,
+                    responsive: [
+                        {
+                            breakpoint: 768,
+                            settings: {
+                                arrows: false,
+                            }
+                        }
+                    ]
+                });
                 $('#strapguide').click(function() {
                     $('#strapguid').modal('toggle');
                 });
@@ -1122,6 +1139,12 @@ var updateCartPage = function(data) {
    }
 };
 
+$('.mobile-click-review').click(function() {
+    setTimeout(() => {
+        $('.accordian-mobile-body').removeClass('active');
+    }, 2000);
+});
+
 movadoBase.selectAttribute = function () {
     var selector = '.set-item select[class*="select-"], .product-detail select[class*="select-"], .options-select, .product-option input[type="radio"], .select-variation-product';
     $(document).off('change', selector);
@@ -1291,4 +1314,5 @@ movadoBase.addToCart = function () {
     });
 }
 module.exports = movadoBase; 
+
 

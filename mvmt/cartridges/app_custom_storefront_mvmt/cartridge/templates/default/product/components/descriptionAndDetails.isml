@@ -48,8 +48,8 @@
                             </div>
                         </div>
                     </isif>
-
-                    <div class="pdp-tab-content <isif condition= ${!product.attributes && product.attributes.length}>active fadeIn</isif> ${Resource.msg('label.tab.review', 'product', null)}">
+                    
+                    <div class="pdp-tab-content">
                         <div class="pdp-mobile-accordian mvmv-pdp-accordian">
                             <div class="pdp-mobile-accordian-label">${Resource.msg('label.tab.review', 'product', null)} <span class="pdp-stras"><isinclude template="product/components/productRating" /></span></div>
                             <div class="pdp-mobile-accordian-switch accordian-angle-down">
@@ -61,7 +61,7 @@
                                 <iscomment>Yotpo reviews widget will appear here, if these needs to be relocated
                                 then appropriate template should be overridden. </iscomment>
                                 <iscomment> <isinclude template="widget/yotporeviewswidget" /> </iscomment>
-                                 <div class="yotpo yotpo-shoppers-say accordian-review" data-product-id="${pdict.product.id}"> </div>
+                                 <div class="yotpo yotpo-shoppers-say accordian-review" data-product-id="${pdict.product.id}"></div>
                             </div>
                         </div>
                     </div>
