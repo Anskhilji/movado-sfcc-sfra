@@ -4329,6 +4329,19 @@
 
                 .full-review-background {
                     background-color: $light-gray5 !important;
+
+                    .review-title {
+                        font-size: rem(18) !important;
+                        font-weight: 500 !important;
+                        line-height: rem(30) !important;
+                        margin-bottom: rem(0) !important;
+                    }
+                    
+                    .full-review {
+                        font-size: rem(18) !important;
+                        font-weight: 300 !important;
+                        line-height: rem(30) !important;
+                    }
                 }
             }
         } 
