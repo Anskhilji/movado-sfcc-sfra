@@ -3480,11 +3480,13 @@
             //  Zoom modal ab test
             .zoom-modal {
                 .close {
-                    background: url("../../images/cross.svg") center center no-repeat;
+                    background: url("../../images/clear_black_24dp.svg") center center no-repeat;
                     background-size: rem(18);
                     right: rem(36);
                     position: relative;
                     top: rem(31);
+                    padding: rem(10);
+                    opacity: 1;
                 }
             
                 background: $white;
@@ -3496,11 +3498,12 @@
                 width: 100%;
             
                 @include media-breakpoint-down(lg-media) {
-                    max-height: rem(590.4);
+                    max-height: rem(590.6);
                 }
                 
                 @include media-breakpoint-down(custom-lg) {
                     max-height: rem(569.6);
+                    width: 90%;
                 }
             
                &#zoomProduct {
@@ -3534,11 +3537,17 @@
                                 width: 100%;
                                 margin-top: rem(15);
                                 margin-bottom: rem(15);
+                                overflow: hidden;
             
                                 .slick-active{
                                     border: rem(1) solid $light-black2; 
                                 }
-            
+
+                                .tab {
+                                     width: rem(50);
+                                     height: rem(50);
+                                    }
+
                                 li {
                                     width: rem(50);
                                     height: rem(50);
@@ -3549,13 +3558,31 @@
                                     margin: rem(0) rem(20) rem(0) rem(0);
                                 }
                             }
+
+                            .slick-arrow {
+                                width: rem(10);
+                                height: rem(18);
+
+                                svg {
+                                    width: rem(10);
+                                    height: rem(18);
+                                }
+                            }
                             
                             .slick-prev {
                                 left: rem(40);
+                                background: url("../../images/chevron_left_black_24dp.svg") center center no-repeat;
+                                padding: rem(0);
+                                width: rem(40);
+                                height: rem(40);
                             }
             
                             .slick-next {
                                 right: rem(40);
+                                background: url("../../images/chevron_right_black_24dp.svg") center center no-repeat;
+                                padding: rem(0);
+                                width: rem(40);
+                                height: rem(40);
                             }
                         }
                     }
@@ -3564,6 +3591,7 @@
                     img {
                         max-width: rem(590);
                         max-height: rem(590);
+                        margin-bottom: rem(10);
                         @include media-breakpoint-down(lg-media) {
                             max-width: rem(430);
                             max-height: rem(430);
