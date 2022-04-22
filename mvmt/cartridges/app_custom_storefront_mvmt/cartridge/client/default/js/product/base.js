@@ -1186,6 +1186,11 @@ movadoBase.addToCart = function () {
             if ($('.gift-allowed-checkbox').is(":checked")) {
                 giftPid = $('.gift-allowed-checkbox').val();
             }
+        } else if ($(this).closest('.linked-products-redesign') && $(this).closest('.linked-products-redesign').data('recomendation') == true) {
+            pid = $(this).data('pid');
+            if ($('.gift-allowed-checkbox').is(":checked")) {
+                giftPid = $('.gift-allowed-checkbox').val();
+            }
         } else {
             pid = movadoBase.getPidValue($(this));
             if ($('.gift-allowed-checkbox').is(":checked")) {
