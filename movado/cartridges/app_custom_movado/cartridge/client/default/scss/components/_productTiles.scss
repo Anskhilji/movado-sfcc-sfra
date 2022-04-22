@@ -359,6 +359,11 @@
                 min-height: unset;
             }
 
+            @include media-breakpoint-down(custom-md) {
+                height: auto;
+                padding-bottom: rem(15);
+            }
+
             .promotions, .plp-promotions {
                 margin-left: rem(15);
 
@@ -545,6 +550,10 @@
                         }
                     }
                 }
+
+                @include media-breakpoint-down(custom-md) {
+                    padding-bottom: rem(0);
+                }
             }
 
             .tile-body {
@@ -561,6 +570,11 @@
 
                 @include media-breakpoint-down(xs) {
                     padding: rem(10);
+                }
+
+                @include media-breakpoint-down(custom-md) {
+                    height: auto;
+                    position: relative;
                 }
                 
                 .pdp-link {
@@ -679,6 +693,10 @@
                     -webkit-box-orient: vertical;
                     max-height: rem(40);
                     display: block;
+
+                    @include media-breakpoint-down(custom-md) {
+                        display: none;
+                    }
                 }
 
                 .product-not-available-msg {
@@ -688,7 +706,7 @@
 
                 .tile-btns, .tile-discription {
                     opacity: 0;
-                }
+                }              
             }
 
             &:hover {
@@ -931,13 +949,22 @@
         @include media-breakpoint-down(lg) {
             padding: rem(0) rem(20);
         }
-        @include media-breakpoint-down(sm) {
-            padding: rem(10);
+        @include media-breakpoint-down(md) {
+            padding: rem(0) rem(20);
+        }
+        @include media-breakpoint-down(custom-md) {
+            padding: rem(10) rem(0);
             margin: rem(10) rem(0);
         }
 
         .homepagetile-wrapper-box {
             margin: 0;
+
+            .full-bleed-image-product {
+                @include media-breakpoint-down(custom-md) {
+                    padding: 0 rem(10);
+                }
+            }
         }
 
         .bottom-section {
