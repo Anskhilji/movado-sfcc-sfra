@@ -76,6 +76,7 @@ var formHelpers = require('base/checkout/formErrors');
                 $('.checkout-progressbar li:nth-child(2)').addClass('active');
                 $('.checkout-progressbar li:nth-child(2)').find('.step-no').html('2');
                 $('.checkout-progressbar li:nth-child(1)').addClass('completed'); 
+                $('.checkout-form-error').addClass('d-none')
             }
 
             else if (checkoutStages[currentStage] === 'placeOrder' && $('.payment-information').data('payment-method-id') !== 'Affirm') {
@@ -96,7 +97,6 @@ var formHelpers = require('base/checkout/formErrors');
 
       $('.checkout-promo-section').removeClass('d-none');
  
-        	 $('.checkout-promo-section').addClass('d-none');
              if (checkoutStages[currentStage] == 'payment') {
             	if ($('#affirm-config').data('affirmenabled')) {
 

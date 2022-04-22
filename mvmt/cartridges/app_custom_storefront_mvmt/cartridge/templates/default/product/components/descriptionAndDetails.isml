@@ -15,7 +15,6 @@
                                 <div class="pdp-mobile-accordian mvmv-pdp-accordian active">
                                     <div class="pdp-mobile-accordian-label">${Resource.msg("label.product.redesign.description", 'product', null)}</div>
                                     <div class="pdp-mobile-accordian-switch accordian-angle-down">
-                                    <img src="${URLUtils.staticURL('./images/angle-down.png')}" alt="">
                                     </div>
                                 </div>
                                 <div class="pdp-content-body active">
@@ -38,7 +37,6 @@
                             <div class="pdp-mobile-accordian mvmv-pdp-accordian">
                                 <div class="pdp-mobile-accordian-label">${Resource.msg("label.product.redesign.specifications", 'product', null)}</div>
                                 <div class="pdp-mobile-accordian-switch accordian-angle-down">
-                                    <img src="${URLUtils.staticURL('./images/angle-down.png')}" alt="">
                                 </div>
                             </div>
                             <div class="pdp-content-body">
@@ -55,7 +53,6 @@
                         <div class="pdp-mobile-accordian mvmv-pdp-accordian">
                             <div class="pdp-mobile-accordian-label">${Resource.msg('label.tab.review', 'product', null)} <span class="pdp-stras"><isinclude template="product/components/productRating" /></span></div>
                             <div class="pdp-mobile-accordian-switch accordian-angle-down">
-                                <img src="${URLUtils.staticURL('./images/angle-down.png')}" alt="">
                             </div>
                         </div>
                         <div class="pdp-content-body accordian-mobile-body">
@@ -73,7 +70,6 @@
                         <div class="pdp-mobile-accordian mvmv-pdp-accordian">
                             <div class="pdp-mobile-accordian-label">${Resource.msg("label.product.shipping.and.returns", 'product', null)}</div>
                             <div class="pdp-mobile-accordian-switch accordian-angle-down">
-                                <img src="${URLUtils.staticURL('./images/angle-down.png')}" alt="">
                             </div>
                         </div>
                         <div class="pdp-content-body">

@@ -796,9 +796,16 @@ function handleVariantResponse(response, $productContainer) {
     var $galleryImageContainer = $('.gallery-slider');
     $galleryImageContainer.empty();
     
+    var $galleryImageContainerQuadrant = $('.gallery-slider-quadrant');
+    $galleryImageContainerQuadrant.empty();
+    
     // Update gallery images
     primaryImageUrls.gallery.forEach(function (imageUrl) {
         $galleryImageContainer.append('<div class="carousel-tile"><picture><source media="(min-width: 992px)" srcset="' + imageUrl.url + '"><source media="(max-width: 991px)" srcset="' + imageUrl.url + '"><img src="' + imageUrl.url + '" alt="' + imageUrl.alt + '" itemprop="image" data-zoom-mobile-url="' + imageUrl.url + '" data-zoom-desktop-url="' + imageUrl.url + '"></picture></div>');
+    });
+    // Update gallery images Quadrant
+    primaryImageUrls.pdp453.forEach(function (imageUrl) {
+        $galleryImageContainerQuadrant.append('<div class="col-lg-6 col-md-6 col-mx-50-wrapper"><div class="carousel-tile"><picture><source media="(min-width: 992px)" srcset="' + imageUrl.url + '"><source media="(max-width: 991px)" srcset="' + imageUrl.url + '"><img src="' + imageUrl.url + '" alt="' + imageUrl.alt + '" itemprop="image" data-zoom-mobile-url="' + imageUrl.url + '" data-zoom-desktop-url="' + imageUrl.url + '"></picture></div></div>');
     });
     
 
