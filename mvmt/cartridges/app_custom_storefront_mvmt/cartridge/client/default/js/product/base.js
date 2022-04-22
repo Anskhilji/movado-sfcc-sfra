@@ -686,8 +686,8 @@ function initializePDPMainSlider() {
             {
                 breakpoint: 768,
                 settings: {
-                    arrows: true,
-                    dots:false
+                    arrows: false,
+                    dots:true
                 }
             },
         ],

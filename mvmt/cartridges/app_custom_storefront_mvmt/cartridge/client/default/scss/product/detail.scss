@@ -1000,9 +1000,10 @@
         }
        
         .main-mvmt-carousel {
+            padding: rem(10) rem(40) 0;
 
 
-            @include media-breakpoint-up(md-down) {
+            @include media-breakpoint-down(md-down) {
                 padding: 0;
             }
 
