@@ -3604,8 +3604,7 @@
             }
 
             .col-mx-50-wrapper {
-                @include media-breakpoint-up(md-down) {
-                    
+                @include media-breakpoint-up(md-down) {                    
                     flex: 0 0 100%;
                     max-width: 100%;
                 }
