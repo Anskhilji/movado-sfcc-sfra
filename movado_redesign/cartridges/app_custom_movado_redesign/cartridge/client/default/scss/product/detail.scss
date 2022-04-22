@@ -1617,6 +1617,39 @@ $arrow-height: 1.25em;
         }
 
     }
+    
+    .prices-add-to-cart-actions {
+
+        &.cart-sticky-wrapper-btn {
+            display: none;
+
+            @include media-breakpoint-down(xs) {
+                position: fixed;
+                bottom: 0;
+                background-color: $white;
+                padding: rem(10);
+                box-shadow: rem(10) rem(10) rem(6) rem(6) $grey-dark-2;
+    
+                .prices {
+                    padding: rem(0);
+
+                    .price {
+                        font-size: rem(16);
+                        margin: rem(0);
+                        font-weight: 400;
+                    }
+                }
+
+                .smart-gift-btn {
+                    display: none;
+                }
+                
+                @include media-breakpoint-down(xs) {
+                    display: block;
+                }
+            }
+        }
+    }
 
 }
 
