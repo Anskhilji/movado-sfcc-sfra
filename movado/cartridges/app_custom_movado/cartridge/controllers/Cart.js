@@ -185,6 +185,21 @@ server.append('AddProduct', function (req, res, next) {
             quantityTotal = 0;
         }
 
+        if (!Site.getCurrent().preferences.custom.isClydeEnabled || Site.getCurrent().preferences.custom.isClydeEnabled) {
+            var Constants = require('*/cartridge/utils/Constants');
+            var orderLineItems = currentBasket.allProductLineItems;
+            var orderLineItemsIterator = orderLineItems.iterator();
+            var productLineItem;
+            Transaction.wrap(function () {
+                while (orderLineItemsIterator.hasNext()) {
+                    productLineItem = orderLineItemsIterator.next();
+                    if (productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == Constants.CLYDE_WARRANTY && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
+                        currentBasket.removeProductLineItem(productLineItem);
+                    }
+                }
+            });
+        }
+
         res.setViewData({
             quantityTotal: quantityTotal,
             recommendedProductCardHtml: recommendedProductCardHtml,
