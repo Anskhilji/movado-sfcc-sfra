@@ -779,7 +779,7 @@
         position: relative;
         width: 100%;
         text-align: center;
-        min-height: 45vh;
+        min-height: rem(23.438);
         height: auto;
 
         @include media-breakpoint-up(md-down) {
@@ -856,8 +856,6 @@
 
         .main-mvmt-carousel {
 
-            padding: rem(10) rem(40) 0;
-
             @include media-breakpoint-up(md-down) {
                 padding: 0;
             }
@@ -892,8 +890,6 @@
                     }
 
                     .normal-zoom, .slide-video {
-                        max-width: rem(320);
-                        max-height: rem(320);
                         margin: 0 auto;
                         width: 100%;
                         height: 100%;
