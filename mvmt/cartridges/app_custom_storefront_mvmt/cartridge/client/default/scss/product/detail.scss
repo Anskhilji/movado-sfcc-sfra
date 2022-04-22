@@ -3605,17 +3605,19 @@
 
             .col-mx-50-wrapper {
                 @include media-breakpoint-up(md-down) {
-                    max-width: 47%;
-                    padding: rem(0) rem(10) rem(10) rem(0);
+                    
+                    flex: 0 0 100%;
+                    max-width: 100%;
                 }
 
-                @include media-breakpoint-up(md) {
+                @include media-breakpoint-up(lg) {
+                    padding: rem(0) rem(10) rem(10) rem(0);
                     flex: 0 0 50%;
                     max-width: 50%;
                 }
 
                 &:nth-child(odd) {
-                    @include media-breakpoint-up(md-down) {
+                    @include media-breakpoint-up(lg) {
                         padding: rem(0) rem(5) rem(10) rem(0);
                     }
 
@@ -3629,7 +3631,7 @@
                 }
 
                 &:nth-child(even) {
-                    @include media-breakpoint-up(md-down) {
+                    @include media-breakpoint-up(lg) {
                         padding: rem(0) rem(0) rem(10) rem(5);
                     }
 
@@ -3665,6 +3667,11 @@
                 }
 
                 @include media-breakpoint-up(md-down) {
+                    max-width: 50%;
+                    width: 50%;
+                    flex-basis: 50%;
+                }
+                @include media-breakpoint-up(lg) {
                     max-width: 60%;
                     width: 60%;
                     flex-basis: 60%;
@@ -3694,9 +3701,14 @@
                     }
                 }
             }
-            .product-side-details {
-                
+            .product-side-details {                
                 @include media-breakpoint-up(md-down) {
+                    max-width: 45%;
+                    flex-basis: 45%;
+                    width: 45%;
+                    min-width: 45%;
+                }
+                @include media-breakpoint-up(lg) {
                     max-width: 35%;
                     flex-basis: 35%;
                     width: 35%;
