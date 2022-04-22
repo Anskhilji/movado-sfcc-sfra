@@ -3670,11 +3670,13 @@
                     width: 50%;
                     flex-basis: 50%;
                 }
+
                 @include media-breakpoint-up(lg) {
                     max-width: 60%;
                     width: 60%;
                     flex-basis: 60%;
                 }
+
                 @include media-breakpoint-up(lg-custom) {
                     max-width: calc(100% - 414px);
                     width: calc(100% - 414px);
@@ -3694,6 +3696,7 @@
                         display: block;
                     }
                 }
+                
                 .d-show-mobile-wrapper {
                     @include media-breakpoint-down(sm) {
                         display: none;
@@ -3707,12 +3710,14 @@
                     width: 45%;
                     min-width: 45%;
                 }
+
                 @include media-breakpoint-up(lg) {
                     max-width: 35%;
                     flex-basis: 35%;
                     width: 35%;
                     min-width: 35%;
                 }
+
                 @include media-breakpoint-up(lg-custom) {
                     max-width: 25%;
                     flex-basis: 25%;
@@ -3720,6 +3725,7 @@
                     min-width: 25%;
                     margin-left: rem(40);
                 }
+
                 @include media-breakpoint-up(xl-custom) {
                     max-width: rem(414);
                     flex-basis: rem(414);
