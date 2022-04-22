@@ -669,14 +669,14 @@ function zoomfeature () {
 }
 
 /**
- *  Swatch Items Slider
+ *  CovertsPDP Primary Images to Slider
  */
- function pdpSwatchCarousel() {
-    $('.mvmt-pdp-carousel').slick({
+function initializePDPMainSlider() {
+    $('.primary-images .main-mvmt-carousel').slick({
         slidesToShow: 1,
         slidesToScroll: 1,
         dots: true,
-        arrows:true,
+        arrows:false,
         focusOnSelect: true,
         fade: true,
         prevArrow:"<button class='slick-prev slick-arrow' aria-label='Previous' type='button'><svg class='slick-arrow__icon' width='9' height='14' viewBox='0 0 9 14' xmlns='http://www.w3.org/2000/svg'><path d='M7.22359 0l1.6855 1.63333L3.37101 7l5.53808 5.36667L7.22359 14l-7.2236-7z' fill='#2B2B2B' fill-rule='evenodd'></path></svg></button>",
@@ -697,15 +697,17 @@ function zoomfeature () {
     });
 }
 
+
 /**
- *  CovertsPDP Primary Images to Slider
+ *  Swatch Items Slider
  */
-function initializePDPMainSlider() {
-    $('.primary-images .main-mvmt-carousel').slick({
+ function pdpSwatchCarousel() {
+    $('.veil').addClass('d-none');
+    $('.primary-images .mvmt-pdp-carousel').slick({
         slidesToShow: 1,
         slidesToScroll: 1,
         dots: true,
-        arrows:false,
+        arrows:true,
         focusOnSelect: true,
         fade: true,
         prevArrow:"<button class='slick-prev slick-arrow' aria-label='Previous' type='button'><svg class='slick-arrow__icon' width='9' height='14' viewBox='0 0 9 14' xmlns='http://www.w3.org/2000/svg'><path d='M7.22359 0l1.6855 1.63333L3.37101 7l5.53808 5.36667L7.22359 14l-7.2236-7z' fill='#2B2B2B' fill-rule='evenodd'></path></svg></button>",
@@ -826,16 +828,38 @@ function handleVariantResponse(response, $productContainer) {
     
     var $galleryImageContainerQuadrant = $('.gallery-slider-quadrant');
     $galleryImageContainerQuadrant.empty();
+
     
+    var $mvmtPdpCarousel = $('.mvmt-pdp-carousel');
+    $mvmtPdpCarousel.empty();
     // Update gallery images
     primaryImageUrls.gallery.forEach(function (imageUrl) {
         $galleryImageContainer.append('<div class="carousel-tile"><picture><source media="(min-width: 992px)" srcset="' + imageUrl.url + '"><source media="(max-width: 991px)" srcset="' + imageUrl.url + '"><img src="' + imageUrl.url + '" alt="' + imageUrl.alt + '" itemprop="image" data-zoom-mobile-url="' + imageUrl.url + '" data-zoom-desktop-url="' + imageUrl.url + '"></picture></div>');
     });
     // Update gallery images Quadrant
-    primaryImageUrls.pdp453.forEach(function (imageUrl) {
-        $galleryImageContainerQuadrant.append('<div class="col-lg-6 col-md-6 col-mx-50-wrapper"><div class="carousel-tile"><picture><source media="(min-width: 992px)" srcset="' + imageUrl.url + '"><source media="(max-width: 991px)" srcset="' + imageUrl.url + '"><img src="' + imageUrl.url + '" alt="' + imageUrl.alt + '" itemprop="image" data-zoom-mobile-url="' + imageUrl.url + '" data-zoom-desktop-url="' + imageUrl.url + '"></picture></div></div>');
+    primaryImageUrls.pdp453.forEach(function (imageUrl,index) {
+        $galleryImageContainerQuadrant.append('<div class="col-lg-6 col-md-6 col-mx-50-wrapper"><div class="carousel-tile"><picture><source media="(min-width: 992px)" srcset="' + imageUrl.url + '"><source media="(max-width: 991px)" srcset="' + imageUrl.url + '"><img class="normal-zoom zoom-product-modal" data-toggle="modal" data-target="#zoomProduct" data-image-index='+ index +' src="' + imageUrl.url + '" alt="' + imageUrl.alt + '" itemprop="image" data-zoom-mobile-url="' + imageUrl.url + '" data-zoom-desktop-url="' + imageUrl.url + '"></picture></div></div>');
     });
-    
+
+    primaryImageUrls.pdp600.forEach(function (imageUrl) {
+        $mvmtPdpCarousel.append('<div class="carousel-tile" data-thumb="' + imageUrl.url + '"><picture><source media="(min-width: 992px)" srcset="' + imageUrl.url + '"><source media="(max-width: 991px)" srcset="' + imageUrl.url + '"><img class="normal-zoom" src="' + imageUrl.url + '" alt="Coronada Ceramic" itemprop="image" data-zoom-mobile-url="' + imageUrl.url + '" data-zoom-desktop-url="' + imageUrl.url + '"></picture></div>');
+    });
+
+    // Mss-1485 MVMT - PDP Redesign - Desktop Zoom Modal  click to open image + variation modals
+    var firstIndex = true;
+    $('.zoom-product-modal').click(function() {
+        var imageIndex = parseFloat($(this).attr('data-image-index'));
+        var activeImageId = $(`[data-slick-index='${imageIndex}']`).attr('id');
+        $(`[aria-controls='${activeImageId}']`).trigger('click');
+        if ($(window).width() < 1064 && firstIndex == true) {
+            firstIndex = false;
+            $(`.mvmt-pdp-carousel [data-slick-index='${imageIndex}']`).css({'width': `${$(window).width()}`+'px'});
+        } else if($(window).width() > 1064 && firstIndex == true) {
+            firstIndex = false;
+            $(`.mvmt-pdp-carousel [data-slick-index='${imageIndex}']`).css({'width': '1065px'});
+        }
+        zoomfeature();
+    })
 
     var $exclusiveBadges = $('.product-side-details .exclusive-badges');
     $exclusiveBadges.empty();
@@ -891,9 +915,9 @@ function handleVariantResponse(response, $productContainer) {
     }
 
     // Attach Slider and Zoom
+    pdpSwatchCarousel();
     initializePDPMainSlider();
     gallerySlider();
-    pdpSwatchCarousel();
 
     // Updating primary image in spec & detail section
 

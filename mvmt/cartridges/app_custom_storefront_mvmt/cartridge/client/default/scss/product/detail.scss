@@ -3739,15 +3739,10 @@
                 width: 100%;
             
                 @include media-breakpoint-down(lg-media) {
-                    max-height: rem(590.6);
-                }
-                
-                @include media-breakpoint-down(custom-lg) {
-                    max-height: rem(569.6);
-                    width: 90%;
+                    max-height: rem(576);
                 }
             
-               &#zoomProduct {
+                &#zoomProduct {
                     .modal-body {
                         margin-top: rem(0);
                     }
@@ -3772,6 +3767,7 @@
                             .slick-list {
                                 border-bottom: rem(1) solid $light-zircon;
                             }
+                            
                             .slick-dots {
                                 display: flex;
                                 position: relative;
@@ -3785,10 +3781,10 @@
                                 }
 
                                 .tab {
-                                     width: rem(50);
-                                     height: rem(50);
-                                    }
-
+                                    width: rem(50);
+                                    height: rem(50);
+                                }
+            
                                 li {
                                     width: rem(50);
                                     height: rem(50);
