@@ -140,11 +140,6 @@ $large-screen-width: 1400px;
       @content;
   }
 }
-@mixin custom-media-query-max($medium-screen-width) {
-    @media (max-width:#{$medium-screen-width}) {
-        @content;
-    }
-  }
 
 @mixin custom-media-query-max($medium-screen-width) {
     @media (max-width:#{$medium-screen-width}) {
