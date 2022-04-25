@@ -340,7 +340,7 @@
                 <div class="pdp-tabs-body">
                     <div class="pdp-tab-content <isif condition= ${!product.attributes && product.attributes.length}>active fadeIn</isif> ${Resource.msg('label.tab.review', 'product', null)}">
                         <div class="pdp-content-body accordian-mobile-body d-block">
-                            <div id="yotpoReviews" class="w-100">
+                            <div id="yotpoReviews" class="w-100 bottom-yotpo-review">
                                 <h3 class="details-heading text-center">${Resource.msg('label.tab.review', 'product', null)}</h3>
                                 <iscomment>Yotpo reviews widget will appear here, if these needs to be relocated
                                 then appropriate template should be overridden. </iscomment>

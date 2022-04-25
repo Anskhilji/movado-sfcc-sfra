@@ -3593,6 +3593,28 @@
     }
 }
 
+.bottom-yotpo-review {
+    .main-widget {
+        .rating-stars-container {
+            .rating-star {
+                font-size: rem(26) !important;
+
+                @include media-breakpoint-down(sm) {
+                    font-size: rem(15) !important;
+                }
+            }
+        }
+
+        .yotpo-regular-box {
+            padding-top: rem(25) !important;
+
+            @include media-breakpoint-down(sm) {
+                padding-bottom: rem(0) !important;
+            }
+        }
+    }
+}
+
 // PDP-Redesign-MVMT
 .product {
     &-detail {
@@ -3642,6 +3664,12 @@
                         padding: rem(0) rem(0) rem(20) rem(10);
                     }
                 }
+                img {
+                    &:hover {
+                        cursor: zoom-in;
+                    }
+                }
+
             }
 
             .sticky-section {
@@ -3758,6 +3786,16 @@
                 @include media-breakpoint-down(lg-media) {
                     max-height: rem(576);
                 }
+                @include media-breakpoint-down(xl) {
+                    max-width: rem(920);
+                    max-height: rem(576);
+                    margin: auto;
+                }
+                @include media-breakpoint-down(md) {
+                    max-width: rem(720);
+                    max-height: rem(576);
+                    margin: auto;
+                }
             
                 &#zoomProduct {
                     .modal-body {
@@ -3800,6 +3838,7 @@
                                 .tab {
                                     width: rem(50);
                                     height: rem(50);
+                                    border-radius: rem(0);
                                 }
             
                                 li {
@@ -3810,6 +3849,7 @@
                                     border: none;
                                     background-color: $white-grey;
                                     margin: rem(0) rem(20) rem(0) rem(0);
+                                    transition: none;
                                 }
                             }
 
@@ -4025,7 +4065,8 @@
                         .text-m {
                             font-family: $font-medium;
                             font-size: rem(12);
-                            font-weight: 300;
+                            font-weight: 400;
+                            color: $light-black !important;
                             letter-spacing: 0 !important;
                             line-height: rem(20); 
                             text-decoration: underline !important;
