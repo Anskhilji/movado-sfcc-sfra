@@ -230,6 +230,8 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
  * appends the base product route to save the personalization data in session variables
  */
 server.prepend('Variation', function (req, res, next) {
+    var ABTestMgr = require('dw/campaign/ABTestMgr');
+
     var attributeContext;
     var attributeTemplateLinked;
     var explicitRecommendations = [];
@@ -251,7 +253,14 @@ server.prepend('Variation', function (req, res, next) {
         strapGuideText: strapGuideText
     };
 
-    attributeTemplateLinked = 'product/components/recommendedProducts';
+    if (ABTestMgr.isParticipant('MVMTRedesignPDPABTest','Control')) {
+        attributeTemplateLinked = 'product/components/old/recommendedProducts';
+    } else if (ABTestMgr.isParticipant('MVMTRedesignPDPABTest','render-new-design')) {
+        attributeTemplateLinked = 'product/components/recommendedProducts';
+    } else {
+        attributeTemplateLinked = 'product/components/old/recommendedProducts';
+    }
+    
 
     recommendedProductTemplate = renderTemplateHelper.getRenderedHtml(
             attributeContext,
