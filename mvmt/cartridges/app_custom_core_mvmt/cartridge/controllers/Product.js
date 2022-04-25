@@ -55,16 +55,6 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var upsellCarouselContent = ContentMgr.getContent('upsell-carousel-text-configs');
     var upsellHeadingText = upsellCarouselContent && upsellCarouselContent.custom.body ? upsellCarouselContent.custom.body : '';
 
-    // Custom Comment Start: A/B testing for MVMT PDP
-    if (ABTestMgr.isParticipant('MVMTRedesignPDPABTest','Control')) {
-        template = 'product/old/productDetails';
-    } else if (ABTestMgr.isParticipant('MVMTRedesignPDPABTest','render-new-design')) {
-        template = showProductPageHelperResult.template;
-    } else {
-        template = 'product/old/productDetails';
-    }
-    // Custom Comment End: A/B testing for MVMT PDP
-
     var viewData = res.getViewData();
     var product = showProductPageHelperResult.product;
     var productPrice = !empty(product) ? product.price : '';
@@ -149,6 +139,20 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
 
     var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
     res.setViewData(smartGift);
+
+        // Custom Comment Start: A/B testing for MVMT PDP
+        if (product.custom.renderingTemplate) {
+            template = showProductPageHelperResult.template;
+        } else {
+        if (ABTestMgr.isParticipant('MVMTRedesignPDPABTest','Control')) {
+            template = 'product/old/productDetails';
+        } else if (ABTestMgr.isParticipant('MVMTRedesignPDPABTest','render-new-design')) {
+            template = showProductPageHelperResult.template;
+        } else {
+            template = 'product/old/productDetails';
+        }
+    }
+        // Custom Comment End: A/B testing for MVMT PDP
 
     if (Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
     	var pdpAnalyticsTrackingData;
