@@ -323,12 +323,21 @@ function updateOptionLineItem(lineItemCtnr, embossOptionID, engraveOptionID, emb
 exports.beforeAuthorization = function (order, payment, custom) {
 
     var Status = require('dw/system/Status');
+    var orderLineItems = order.getAllProductLineItems();
+    var orderLineItemsIterator = orderLineItems.iterator();
+    var productLineItem;
     /**~    
      * Custom Start: Clyde Integration
      */
     if (Site.current.preferences.custom.isClydeEnabled) {
         var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
         Transaction.wrap(function () {
+            while (orderLineItemsIterator.hasNext()) {
+                productLineItem = orderLineItemsIterator.next();
+                if (productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == Constants.CLYDE_WARRANTY && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
+                    order.removeProductLineItem(productLineItem);
+                }
+            }
             order.custom.isContainClydeContract = false;
             order.custom.clydeContractProductMapping = '';
         });
@@ -337,6 +346,20 @@ exports.beforeAuthorization = function (order, payment, custom) {
     /**
      * Custom: End
      */
+
+     if (!Site.getCurrent().preferences.custom.isClydeEnabled) {
+        var orderLineItems = order.getAllProductLineItems();
+        var orderLineItemsIterator = orderLineItems.iterator();
+        var productLineItem;
+        Transaction.wrap(function () {
+            while (orderLineItemsIterator.hasNext()) {
+                productLineItem = orderLineItemsIterator.next();
+                if (productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == Constants.CLYDE_WARRANTY && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
+                    order.removeProductLineItem(productLineItem);
+                }
+            }
+        });
+    }
 
     var riskifiedCheckoutCreateResponse = RiskifiedService.sendCheckoutCreate(order);
     RiskifiedService.storePaymentDetails({

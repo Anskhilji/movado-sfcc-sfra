@@ -10,6 +10,28 @@ var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers')
 var page = module.superModule;
 server.extend(page);
 
+// preprend AddProduct for giftBox Check functionality for MVMT
+server.prepend('AddProduct', function (req, res, next) {
+    var Transaction = require('dw/system/Transaction');
+    var BasketMgr = require('dw/order/BasketMgr');
+    var currentBasket = BasketMgr.getCurrentBasket();
+
+    if (!empty(req.form.isGiftItem)) {
+        var lineItemsIterator = currentBasket.allProductLineItems.iterator();
+        var currentLineItemsIterator;
+        var parentPid = req.form.parentPid;
+        while (lineItemsIterator.hasNext()) {
+            currentLineItemsIterator = lineItemsIterator.next();
+            if (currentLineItemsIterator.productID == parentPid) {
+                Transaction.wrap(function () {
+                    currentLineItemsIterator.custom.giftPid = req.form.pid;
+                });
+                break;
+            }
+        }
+    }
+    next();
+});
 // Added custom code for personalization text for Engraving and Embossing
 server.append('AddProduct', function (req, res, next) {
     var BasketMgr = require('dw/order/BasketMgr');
@@ -76,6 +98,18 @@ server.append('AddProduct', function (req, res, next) {
                         []
                     );
                 if (!result.error) {
+
+                    var lineItemsIterator = currentBasket.allProductLineItems.iterator();
+                    var currentLineItemsIterator;
+                    var parentPid = req.form.pid;
+
+                    while (lineItemsIterator.hasNext()) {
+                        currentLineItemsIterator = lineItemsIterator.next();
+                        if (currentLineItemsIterator.productID == parentPid) {
+                            currentLineItemsIterator.custom.giftPid = req.form.giftPid;
+                            break;
+                        }
+                    }
                     cartHelper.ensureAllShipmentsHaveMethods(currentBasket);
                     basketCalculationHelpers.calculateTotals(currentBasket);
                 }
@@ -149,6 +183,21 @@ server.append('AddProduct', function (req, res, next) {
             quantityTotal = currentBasket.productQuantityTotal;
         } else {
             quantityTotal = 0;
+        }
+
+        if (!Site.getCurrent().preferences.custom.isClydeEnabled || Site.getCurrent().preferences.custom.isClydeEnabled) {
+            var Constants = require('*/cartridge/utils/Constants');
+            var orderLineItems = currentBasket.allProductLineItems;
+            var orderLineItemsIterator = orderLineItems.iterator();
+            var productLineItem;
+            Transaction.wrap(function () {
+                while (orderLineItemsIterator.hasNext()) {
+                    productLineItem = orderLineItemsIterator.next();
+                    if (productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == Constants.CLYDE_WARRANTY && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
+                        currentBasket.removeProductLineItem(productLineItem);
+                    }
+                }
+            });
         }
 
         res.setViewData({

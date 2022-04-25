@@ -1,0 +1,75 @@
+<div class="primary-images quadrant-pdp-wrapper">
+    <div class="product-badges">
+        <!-- First two conditions are for PLP and the last is applicable on PDP -->
+        <isif condition="${(product.defaultVariantAvailabilityStatus === 'IN_STOCK' && pdict.display.plpTile === true) || (product.available && pdict.display.plpTile === true && product.productType !== 'master') || (product.available && pdict.display.plpTile === false)}">
+            <isinclude template="product/components/newnessBadge"/>
+        </isif>
+    </div>
+        <div class="row d-show-mobile-wrapper no-gutters gallery-slider-quadrant">
+        <isloop items="${product.images['zoom1660']}" var="image" status="loopStatus">
+            <div class="col-lg-6 col-md-12  col-mx-50-wrapper">
+                <div class="carousel-tile" data-thumb="${!empty(product.images) && !empty(product.images.tile150[loopStatus.count-1]) ? product.images.tile150[loopStatus.count-1].url : ''}">
+                    <picture>
+                        <source media="(min-width: 992px)"  srcset="${product.images.pdp453[loopStatus.count-1].url}" />
+                        <source media="(max-width: 991px)"  srcset="${product.images.pdp453[loopStatus.count-1].url}" />
+                        <img class="normal-zoom zoom-product-modal" data-toggle="modal" data-target="#zoomProduct" data-image-index='${loopStatus.count - 1}'  src="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count-1]) && !empty(product.images.zoom1660[loopStatus.count-1].url) ? product.images.zoom1660[loopStatus.count-1].url : ''}" alt="${image.alt}" itemprop="image" data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom830[loopStatus.count-1]) && !empty(product.images.zoom830[loopStatus.count-1].url) ? product.images.zoom830[loopStatus.count-1].url : ''}" data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count-1]) && !empty(product.images.zoom1660[loopStatus.count-1].url) ? product.images.zoom1660[loopStatus.count-1].url : ''}" />
+                        <isset name="isImageExist" value="true" scope="page" />
+                    </picture>
+                    <isif condition="${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL) }">
+                    <video id="slide-video" class="slide-video d-none" loop muted autoplay playsinline>
+                        <source src="${pdpVideoConfigs.videoURL}" type="video/mp4" />
+                    </video>
+                    </isif>
+                </div>
+            </div>
+        </isloop>
+    </div>
+</div>
+
+
+<iscomment> Zoom Modal </iscomment>
+<div class="modal fade zoom-modal zoom-modal-inner" id="zoomProduct" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"></button>
+            </div>
+                <div class="modal-body">
+                <div class="pinchZoom zoomedImage d-none"><img alt="${product.resources.Zoom}" src="${!empty(product.images['pdp533'][0]) && !empty(product.images['pdp533'][0].url) ? product.images['pdp533'][0].url : ''}"/></div>
+                    <div class="primary-images">
+                        <div class="product-badges">
+                            <!-- First two conditions are for PLP and the last is applicable on PDP -->
+                            <isif condition="${(product.defaultVariantAvailabilityStatus === 'IN_STOCK' && pdict.display.plpTile === true) || (product.available && pdict.display.plpTile === true && product.productType !== 'master') || (product.available && pdict.display.plpTile === false)}">
+                                <isinclude template="product/components/newnessBadge"/>
+                            </isif>
+                        </div>
+                        <div class="cs-carousel-wrapper">
+                            <div class=" mvmt-pdp-carousel main-mvmt-carousel">
+                                <isset name="pdpVideoConfigs" value="${product.pdpVideoConfigs}" scope="page" />
+                                <isloop items="${product.images['zoom1660']}" var="image" status="loopStatus">
+                                <div class="carousel-tile" data-thumb="${!empty(product.images) && !empty(product.images.tile150[loopStatus.count-1]) ? product.images.tile150[loopStatus.count-1].url : ''}">
+                                    <picture>
+                                            <source media="(min-width: 992px)"  srcset="${product.images.pdp600[loopStatus.count-1].url}" />
+                                            <source media="(max-width: 991px)"  srcset="${product.images.pdp600[loopStatus.count-1].url}" />
+                                            <img class="normal-zoom" src="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count-1]) && !empty(product.images.zoom1660[loopStatus.count-1].url) ? product.images.zoom1660[loopStatus.count-1].url : ''}" alt="${image.alt}" itemprop="image" data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom830[loopStatus.count-1]) && !empty(product.images.zoom830[loopStatus.count-1].url) ? product.images.zoom830[loopStatus.count-1].url : ''}" data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count-1]) && !empty(product.images.zoom1660[loopStatus.count-1].url) ? product.images.zoom1660[loopStatus.count-1].url : ''}" />
+                                            <isset name="isImageExist" value="true" scope="page" />
+                                    </picture>
+                                    <isif condition="${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL) }">
+                                    <video id="slide-video" class="slide-video d-none" loop muted autoplay playsinline>
+                                        <source src="${pdpVideoConfigs.videoURL}" type="video/mp4" />
+                                    </video>
+                                    </isif>
+                                </div>
+                                </isloop>
+                            </div>
+                            <iscomment>Added zomm box</iscomment>
+                            <div class="zoom-box">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+

@@ -1,6 +1,6 @@
 <div class="product-price-rating clearfix">
-    <!-- Product Rating -->
- <div class="ratings">
-        <isinclude template="product/components/productRating" />
- </div>
+  <!-- Product Rating -->
+    <div class="ratings">
+       <isinclude template="product/components/productRating" />
+    </div>
  </div>

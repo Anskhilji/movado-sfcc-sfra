@@ -41,16 +41,15 @@
         <div class="product-breadcrumb">
             <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
         </div>
-        <div class="container-fluid product-detail product-wrapper pdp-mvmt"  data-pid="${product.id}" data-gtm-fb-product="${JSON.stringify(product)}" itemscope
+        <div class="container-fluid product-detail product-wrapper pdp-mvmt pdp-mvmt-redesign"  data-pid="${product.id}" data-gtm-fb-product="${JSON.stringify(product)}" itemscope
             itemtype="http://schema.org/Product">
             <!---Breadcrumbs--->
             <hr class="hidden-xs-down d-none"/>
-            <div class="row pdp-desktop m-0">
+            <div class="row no-gutters justify-content-between-container">
                 <!-- Product Images Carousel -->
-                <isinclude template="product/components/imageCarouselPDP" />
- 
-                <div class="product-side-details">
+                <isinclude template="product/components/quadrantPDP" />
 
+                <div class="product-side-details product-side-details-wrapper">
                     <isinclude template="product/components/badges" />
 
                     <iscomment> Custom Start: Change Naming Conventions for PDP </iscomment>
@@ -59,18 +58,19 @@
                             <div class="category-watches">
                                 <h1>
                                     <isif condition="${!empty(product.collectionName)}">
-                                        <span class="watches-collection-name" data-selected-variation-attr="collectionName">${product.collectionName}</span>
+                                        <span class="watches-collection-name text-uppercase" data-selected-variation-attr="collectionName">${product.collectionName}</span>
                                     </isif>
-                                    <span class="sub-message-wrapper">
                                         <isif condition="${product.productName.length > 96}">
-                                            <span class="product-name ${!empty(product.collectionName) ? 'watches-product-name' : 'watches-collection-name d-inline'} text-truncate-wrapper watches-turncate-name product-title-for-gtm">${product.productName}<isif condition="${!empty(pdict.caseDiameter)}">${Resource.msg('separator', 'product', null)}</isif></span>
+                                            <span class="product-name text-uppercase ${!empty(product.collectionName) ? 'watches-product-name' : 'watches-collection-name d-inline'} text-truncate-wrapper watches-turncate-name product-title-for-gtm">${product.productName}
+                                                <isif condition="${!empty(pdict.caseDiameter)}">${Resource.msg('pdp.product.specs.separator', 'product', null)}</isif> 
+                                                <isif condition="${!empty(pdict.caseDiameter)}"><span class="${!empty(product.collectionName) ? 'watches-case-diameter' : 'watches-collection-name d-inline'} w-100" data-selected-variation-attr="caseDiameter">${pdict.caseDiameter}</span></isif>
+                                            </span> 
                                         <iselse>
-                                            <span class="product-name ${!empty(product.collectionName) ? 'watches-product-name' : 'watches-collection-name d-inline'} product-title-for-gtm">${product.productName}<isif condition="${!empty(pdict.caseDiameter)}">${Resource.msg('separator', 'product', null)}</isif></span>
+                                            <span class="product-name text-uppercase ${!empty(product.collectionName) ? 'watches-product-name' : 'watches-collection-name d-inline'} product-title-for-gtm">${product.productName}
+                                                <isif condition="${!empty(pdict.caseDiameter)}">${Resource.msg('pdp.product.specs.separator', 'product', null)}</isif>
+                                                <isif condition="${!empty(pdict.caseDiameter)}"><span class="${!empty(product.collectionName) ? 'watches-case-diameter' : 'watches-collection-name d-inline'} w-100" data-selected-variation-attr="caseDiameter">${pdict.caseDiameter}</span></isif>
+                                            </span>
                                         </isif>
-                                        <isif condition="${!empty(pdict.caseDiameter)}">
-                                                <span class="${!empty(product.collectionName) ? 'watches-case-diameter' : 'watches-collection-name d-inline'} w-100" data-selected-variation-attr="caseDiameter">${pdict.caseDiameter}</span>
-                                        </isif>
-                                    </span>
                                 </h1>
                             </div>
                         <iselseif condition="${(product.isCategory) == "jewelry"}">
@@ -78,7 +78,7 @@
                             <h1>
                                 <span class="product-name jewlery-product-name text-truncate-wrapper product-title-for-gtm text-uppercase">${product.productName}</span>
                                 <isif condition="${!empty(product.color)}">
-                                    <span class="jewlery-heading"><span class="color" data-selected-variation-attr="color">${product.color}</span></span>
+                                    <span class="jewlery-heading text-uppercase"><span class="color" data-selected-variation-attr="color">${product.color}</span></span>
                                 </isif>
                             </h1>
                         </div>
@@ -86,7 +86,7 @@
                         <div class="category-eyewear">
                             <h1>
                                 <span class="product-name eyewear-product-name text-truncate-wrapper product-title-for-gtm text-uppercase">${product.productName}</span>
-                                <span class="eyewear-heading">
+                                <span class="eyewear-heading text-uppercase">
                                     <isif condition="${!empty(product.color)}">
                                         <span class="color eyewear-colors eyewear-colors-wrapper" data-selected-variation-attr="color">${product.color}</span>
                                     </isif>
@@ -99,14 +99,13 @@
                                                                 <isset name="selectedAttributeValue" value="${attrValue.value}" scope="page" />
                                                                     <isif condition="${attrValue.displayValue.equalsIgnoreCase('yes')}">
                                                                         <isif condition="${!empty(product.color)}">
-                                                                            ${Resource.msg('separator', 'product', null)}     
-                                                                        </isif>                                                 
-                                                                        ${Resource.msg('pdp.eyewaer.polarization.text', 'product', null)}                                                             
+                                                                            ${Resource.msg('pdp.product.specs.separator', 'product', null)}
+                                                                        </isif>
+                                                                        ${Resource.msg('pdp.eyewaer.polarization.text', 'product', null)}
                                                                     </isif>
                                                             </isif>
                                                         </isloop>
                                                     </span>
-                                                
                                             </isif>
                                         </isloop>
                                     </isif>
@@ -119,7 +118,7 @@
                             <h1>
                                 <span class="product-name uncategotized-product-name text-truncate-wrapper product-title-for-gtm text-uppercase">${product.productName}</span>
                                 <isif condition="${!empty(product.color)}">
-                                    <span class="color product-colors d-flex" data-selected-variation-attr="color">${product.color}</span>
+                                    <span class="color product-colors text-uppercase d-flex" data-selected-variation-attr="color">${product.color}</span>
                                 </isif>
                             </h1>
                         </isif>
@@ -154,7 +153,7 @@
                     </div> </iscomment>
 
                     <div class="ratings-mobile pb-2">
-                        <div class="col-12 rating-margin">
+                        <div class="col-12 rating-margin mobile-click-review">
                             <div class="ratings p-0">
                                 <isinclude template="product/components/productRating" />
                             </div>
@@ -170,6 +169,16 @@
                             </div>
                         </div>
                     </div>
+                    <isset name="giftBoxMessage" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxMessage) ? dw.system.Site.current.preferences.custom.giftBoxMessage : ''}" scope="page" />
+                    <isif condition="${!empty(product.isGiftBoxAllowed) && product.isGiftBoxAllowed && product.giftBoxSKUData.giftBoxSKUAvailability}">
+                        <div class="gift-box-wrapper gift-box-wrapper-pdp d-show-mobile custom-checkbox-pdp">
+                              <label for="gift-allowed-checkout-mob" class="gift-box-wrapper-label custom-control-label-pdp">
+                                <input id="gift-allowed-checkout-mob" type="checkbox" name="gift-allowed-checkout" class="gift-box-wrapper-checkbox gift-allowed-checkbox" value="${product.giftBoxSKUData.giftBoxSKU}">
+                                ${giftBoxMessage} ${product.giftBoxSKUData.giftBoxSKUPrice} 
+                                  <span class="checkmark"></span>
+                              </label>
+                        </div>
+                    </isif>
                     <div class="klarna-Allowed-Country-label d-show-mobile">
                         <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
                         <isif condition="${isEswEnabled}" >
@@ -232,21 +241,8 @@
                             </div>
                         </isif>
                     <iscomment> Custom End: </iscomment>
-                    <isif condition="${sitePref.enableSeeTheFitPopUp && !empty(product.seeTheFitPrimaryImg)}"> 
-                        <div class="seefit-text-label">
-                            <button class="seefit-text-label-select-size-head call-see-fit-popup">
-                                ${Resource.msg('label.seefit', 'product', null)}
-                            </button>
-                        </div>
-                    </isif>
 
                     <isset name="isRecommendationsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.recommendationsEnabled) ? dw.system.Site.current.preferences.custom.recommendationsEnabled : false}" scope="page" />
-
-                    <isif condition="${isRecommendationsEnabled}" >
-                        <div class="linked-product-container">
-                            <isinclude template="product/components/recommendedProducts" />
-                        </div>
-                    </isif>
 
                     <div class="show-cart-button-desktop">
                         <div class="row">
@@ -255,6 +251,15 @@
                             </div>
                         </div>
                     </div>
+                    <isif condition="${!empty(product.isGiftBoxAllowed) && product.isGiftBoxAllowed && product.giftBoxSKUData.giftBoxSKUAvailability}">
+                        <div class="gift-box-wrapper gift-box-wrapper-pdp d-show-desktop custom-checkbox-pdp">
+                              <label for="gift-allowed-checkout" class="gift-box-wrapper-label custom-control-label-pdp">
+                                <input id="gift-allowed-checkout" type="checkbox" name="gift-allowed-checkout" class="gift-box-wrapper-checkbox gift-allowed-checkbox" value="${product.giftBoxSKUData.giftBoxSKU}">
+                                ${giftBoxMessage} ${product.giftBoxSKUData.giftBoxSKUPrice} 
+                                  <span class="checkmark"></span>
+                              </label>
+                        </div>
+                    </isif>
                     <div class="klarna-Allowed-Country-label d-show-desktop">
                         <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
                         <isif condition="${isEswEnabled}" >
@@ -276,29 +281,26 @@
                             </isif>
                         </isif>
                     </div>
-                    <isset name="giftBoxMessage" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxMessage) ? dw.system.Site.current.preferences.custom.giftBoxMessage : ''}" scope="page" />
-                    <isif condition="${!empty(product.isGiftBoxAllowed) && product.isGiftBoxAllowed && product.giftBoxSKUData.giftBoxSKUAvailability}">
-                        <div class="gift-box-wrapper">
-                            <input type="checkbox" name="gift-allowed-checkout" class="gift-box-wrapper-checkbox gift-allowed-checkbox" value="${product.giftBoxSKUData.giftBoxSKU}">
-                            <label for="gift-allowed-checkout" class="gift-box-wrapper-label">${giftBoxMessage} ${product.giftBoxSKUData.giftBoxSKUPrice} </label>
-                        </div>
-                    </isif>
 
-                    <isif condition="${product.shortDescription}">
-                      <div class="row">
-                            <div class="col-12">
-                                <div class="d-flex justify-content-center mb-2 product-description" itemprop="description">
-                                    <isprint value="${product.shortDescription}" encoding="off" />
-                                </div>
-                            </div>
-                      </div>
+                     <div class="description-container p-0">
+                        <isinclude template="product/components/descriptionAndDetails" />
+                    </div>
+                    
+                    <div class="mvmt-slot-loyalty-information">
+                        <isslot id="cs-pdp-loyalty-information" context="global" description="Loyalty Information" />
+                    </div>
+
+                     <isif condition="${isRecommendationsEnabled}" >
+                        <div class="linked-product-container">
+                            <isinclude template="product/components/recommendedProducts" />
+                        </div>
                     </isif>
 
                     <isif condition="${sitePref.enableBackInStock}">
                         <isinclude template="product/backInStockNotification" sf-toolkit="on" />
                     </isif>
 
-                    <isif condition="${product.options && product.options.length > 0 && !(option.id == "clydeWarranty") && dw.system.Site.current.preferences.custom.isClydeEnabled}">
+                    <isif condition="${product.options && product.options.length > 0}">
                         <isinclude template="product/components/options" />
                     </isif>
                     <div class="col-md-10 col-12">
@@ -317,7 +319,7 @@
 
         <iscontentasset aid="pdp-why-polarization-content" />
 
-        <div class="container p-0 product-gallery">
+        <div class="container p-0 product-gallery pdp-mvmt-redeisn">
             <isinclude template="product/components/productGallery" />
         </div>
 
@@ -334,7 +336,20 @@
         <isslot id="cs_pdp_marketing-section-2" description="content section" context="global" />
 
         <div class="description-container p-0">
-            <isinclude template="product/components/descriptionAndDetails" />
+           <div class="description-and-detail">
+                <div class="pdp-tabs-body">
+                    <div class="pdp-tab-content <isif condition= ${!product.attributes && product.attributes.length}>active fadeIn</isif> ${Resource.msg('label.tab.review', 'product', null)}">
+                        <div class="pdp-content-body accordian-mobile-body d-block">
+                            <div id="yotpoReviews" class="w-100">
+                                <h3 class="details-heading text-center">${Resource.msg('label.tab.review', 'product', null)}</h3>
+                                <iscomment>Yotpo reviews widget will appear here, if these needs to be relocated
+                                then appropriate template should be overridden. </iscomment>
+                                <isinclude template="widget/yotporeviewswidget" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="pdp-content-asset-wrapper">

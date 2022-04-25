@@ -58,7 +58,7 @@ var onPromoClickEvent = function () {
         var pageType = $currentTarget.data('page-type');
         var productPromoTracking = $currentTarget.data('gtm-product-promo');
         var campaginPromoTracking = $currentTarget.data('gtm-tracking');
-        if (productPromoTracking !== undefined && productPromoTracking !== '') {
+        if (productPromoTracking !== undefined && productPromoTracking !=='') {
             dataLayer.push({
                 event: 'promoClick',
                 pageType: pageType,
@@ -307,39 +307,38 @@ var onLoadProductTile = function () {
 var onPromoImpressionsLoad = function (e) {
     updateDataLayer('promoImpressions');
     var dataLayerObj = [];
-    $currentPromoTarget = $('.gtm-event');
-    $currentPromoProductTarget = $('.gtm-promotion-view');
-    $.each($currentPromoProductTarget, function (key, val) { 
-        var gtmTrackingData = $(this).data('gtm-product-promo');
-        if (gtmTrackingData !== undefined && gtmTrackingData != '') {
-            dataLayerObj.push(gtmTrackingData);
-            updateDataLayer('promoImpressions');
-            dataLayer.push({
-                event: 'promoImpressions',
-                ecommerce: {
-                    promoView: {
-                        promotions: dataLayerObj
-                    }
-                }
-            });
-        }
-    });
+    var gtmTrackingData = $('.gtm-promotion-view').data('gtm-product-promo');
+    var gtmTrackingPromo = $('.gtm-promotion-view').data('gtm-tracking');
 
-    $.each($currentPromoTarget, function (key, val) { 
-        var gtmTrackingPromo = $(this).data('gtm-tracking');
-        if (gtmTrackingPromo !== undefined && gtmTrackingPromo != '') {
-            dataLayerObj.push(gtmTrackingPromo);
-            updateDataLayer('promoImpressions');
-            dataLayer.push({
-                event: 'promoImpressions',
-                ecommerce: {
-                    promoView: {
-                        promotions: dataLayerObj
-                    }
+    if (gtmTrackingData !== undefined && gtmTrackingData !='') {
+        dataLayerObj = gtmTrackingData;
+
+        updateDataLayer('promoImpressions');
+        dataLayer.push({
+            event: 'promoImpressions',
+            ecommerce: {
+                promoView: {
+                    promotions: dataLayerObj
                 }
-            });
-        }
-    });
+            }
+        });
+    }
+    
+    if (gtmTrackingPromo !== undefined && gtmTrackingPromo !='') {
+        dataLayerObj = gtmTrackingPromo;
+
+        updateDataLayer('promoImpressions');
+        dataLayer.push({
+            event: 'promoImpressions',
+            ecommerce: {
+                promoView: {
+                    promotions: dataLayerObj
+                }
+            }
+        });
+    }
+
+
 };
 
 /**

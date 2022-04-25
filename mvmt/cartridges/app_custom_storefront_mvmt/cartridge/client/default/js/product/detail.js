@@ -131,14 +131,14 @@ module.exports = {
                 $('html').removeClass('no-overflow');
             }
         });
-        
+
         // added active class & scroll down on reviews widget for mobile screen
+
         $('.rating-margin > .ratings').on('click', function(e) {
             var $pdpMobileAccordian = $('.accordian-mobile');
             var $pdpContentBody = $('.accordian-mobile-body');
             var $isAccordianAcive = $('.accordian-mobile').hasClass('active');
             var $isAccordianBodyActive = $('.accordian-mobile-body').hasClass('active');
-            
             if($pdpMobileAccordian && $pdpContentBody) {
                 if(!$isAccordianAcive && !$isAccordianBodyActive) {
                     $pdpMobileAccordian.addClass('active');
@@ -188,6 +188,22 @@ module.exports = {
             infinite: false,
             dots: false,
             arrows: true,
+        });
+        $('.linked-products-redesign').slick({
+            slidesToShow: 2,
+            slidesToScroll: 1,
+            focusOnSelect: true,
+            infinite: false,
+            dots: true,
+            arrows: true,
+            responsive: [
+                {
+                    breakpoint: 768,
+                    settings: {
+                        arrows: false,
+                    }
+                }
+            ]
         });
     },
 
@@ -257,8 +273,34 @@ module.exports = {
         });
     },
 
+    customeSlider: function () {
+        $('.mvmt-pdp-carousel').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            dots: true,
+            arrows:true,
+            focusOnSelect: true,
+            fade: true,
+            prevArrow:"<button class='slick-prev slick-arrow' aria-label='Previous' type='button'><svg class='slick-arrow__icon' width='9' height='14' viewBox='0 0 9 14' xmlns='http://www.w3.org/2000/svg'><path d='M7.22359 0l1.6855 1.63333L3.37101 7l5.53808 5.36667L7.22359 14l-7.2236-7z' fill='#2B2B2B' fill-rule='evenodd'></path></svg></button>",
+            nextArrow:"<button class='slick-next slick-arrow' aria-label='Next' type='button'><svg class='slick-arrow__icon' width='9' height='14' viewBox='0 0 9 14' xmlns='http://www.w3.org/2000/svg'><path d='M1.6855 0L0 1.63333 5.53808 7 0 12.36667 1.6855 14l7.22359-7z' fill='#2B2B2B' fill-rule='evenodd'></path></svg></button>",
+            responsive: [
+                {
+                    breakpoint: 768,
+                    settings: {
+                        arrows: true,
+                        dots:false
+                    }
+                },
+            ],
+            customPaging: function (slick, index) {
+                var thumb = $(slick.$slides[index]).find('.carousel-tile').attr('data-thumb');
+                return '<button class="tab"> <img  src="'+ thumb +'" /> </button>';
+            },
+        });
+    },
+
     primarySlider: function () {
-        $('.primary-images .main-mvmt-carousel').slick({
+        $('.primary-images .main-mvmt-carousel-alternate').slick({
             slidesToShow: 1,
             slidesToScroll: 1,
             dots: true,
@@ -281,6 +323,45 @@ module.exports = {
                 return '<button class="tab"> <img  src="'+ thumb +'" /> </button>';
             },
         });
+      
+       
+        $('.primary-images .main-mvmt-carousel').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            dots: true,
+            arrows:false,
+            focusOnSelect: true,
+            fade: true,
+            prevArrow:"<button class='slick-prev slick-arrow' aria-label='Previous' type='button'><svg class='slick-arrow__icon' width='9' height='14' viewBox='0 0 9 14' xmlns='http://www.w3.org/2000/svg'><path d='M7.22359 0l1.6855 1.63333L3.37101 7l5.53808 5.36667L7.22359 14l-7.2236-7z' fill='#2B2B2B' fill-rule='evenodd'></path></svg></button>",
+            nextArrow:"<button class='slick-next slick-arrow' aria-label='Next' type='button'><svg class='slick-arrow__icon' width='9' height='14' viewBox='0 0 9 14' xmlns='http://www.w3.org/2000/svg'><path d='M1.6855 0L0 1.63333 5.53808 7 0 12.36667 1.6855 14l7.22359-7z' fill='#2B2B2B' fill-rule='evenodd'></path></svg></button>",
+            responsive: [
+                {
+                    breakpoint: 768,
+                    settings: {
+                        arrows: false,
+                        dots:true
+                    }
+                },
+            ],
+            customPaging: function (slick, index) {
+                var thumb = $(slick.$slides[index]).find('.carousel-tile').attr('data-thumb');
+                return '<button class="tab video-box"> <img  src="'+ thumb +'" /> </button>';
+            },
+        });
+
+        $('.pdp-mvmt-pagination').slick({
+            slidesToShow: 20,
+            slidesToScroll: 1,
+            asNavFor: '.primary-images .main-mvmt-carousel',
+            dots: false,
+            arrows:false,
+
+        });
+
+        var a = $('.video').parent().parent().attr('aria-describedby');
+        if (a) {
+            $('#'+a).parent().addClass('video-icon');
+        }
     },
 
     updateAddToCart: function () {
@@ -377,3 +458,31 @@ module.exports = {
 
     base: base
 };
+
+var imageBox = $(".quadrant-pdp-wrapper").height();
+var detailBox = $(".product-side-details-wrapper").height();
+if ($(window).width() > 767) {
+    if(detailBox > imageBox){
+        $(".quadrant-pdp-wrapper").addClass("sticky-section");
+        $('.page').css({'overflow':'visible'});
+    }
+    else{
+        $(".product-side-details-wrapper").addClass("sticky-section");
+        $('.page').css({'overflow':'visible'});
+    }
+}
+
+// Mss-1485 MVMT - PDP Redesign - Desktop Zoom Modal  click to open image
+var firstIndex = true;
+$('.zoom-product-modal').click(function() {
+    var imageIndex = parseFloat($(this).attr('data-image-index'));
+    var activeImageId = $(`[data-slick-index='${imageIndex}']`).attr('id');
+    $(`[aria-controls='${activeImageId}']`).trigger('click');
+    if ($(window).width() < 1064 && firstIndex == true) {
+        firstIndex = false;
+        $(`.mvmt-pdp-carousel [data-slick-index='${imageIndex}']`).css({'width': `${$(window).width()}`+'px'});
+    } else if($(window).width() > 1064 && firstIndex == true) {
+        firstIndex = false;
+        $(`.mvmt-pdp-carousel [data-slick-index='${imageIndex}']`).css({'width': '1065px'});
+    }
+})

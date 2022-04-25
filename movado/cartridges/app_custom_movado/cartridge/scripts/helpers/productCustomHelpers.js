@@ -32,7 +32,6 @@ var ATTR_LENGTH = 'length';
 var ATTR_POWER_RESERVE  = 'powerReserve';
 var ATTR_MOVEMENT_FUNCTIONS = 'movementFunctions';
 var ATTR_CALIBER = 'caliber';
-
 var STRAP = 'strap';
 var BRACELET = 'bracelet';
 var BANGLE = 'bangle';
@@ -246,7 +245,7 @@ function getPdpAttributes(apiProduct) {
     var ringSizeImage = Site.getCurrent().getCustomPreferenceValue('ringSizeAttributeImage');
     var lengthImage = Site.getCurrent().getCustomPreferenceValue('lengthAttributeImage');
 
-	/* split the list of attributes*/
+    /* split the list of attributes*/
     pdpAttributes = pdpAttributes.split(DELIMITER_COMMA);
 
     try {
@@ -982,31 +981,6 @@ function getMarketingProducts(apiProduct, quantity) {
     }
 }
 
-function giftBoxCategory() {
-    var BasketMgr = require('dw/order/BasketMgr');
-    var currentBasket = BasketMgr.getCurrentOrNewBasket();
-    var giftProductSku;
-    var giftProduct = false;
-    try {
-        var giftBoxCategorySKUPairArray = !empty(Site.current.preferences.custom.giftBoxCategorySKUPair) ? new ArrayList(Site.current.preferences.custom.giftBoxCategorySKUPair).toArray() : '';
-        if(!empty(giftBoxCategorySKUPairArray)) {
-            for (var i = 0; i < giftBoxCategorySKUPairArray.length; i++) {
-                giftProductSku = giftBoxCategorySKUPairArray[i].split("|");
-                var filter = currentBasket.allProductLineItems.toArray().filter(function(data) {
-                    return data.productID == giftProductSku[1];
-                });
-                if (filter.length) {
-                    giftProduct = true;
-                    break;
-                }
-            }
-        }
-        return giftProduct;
-    } catch (e) {
-        Logger.error('(productCustomHepler.js -> giftBoxCategory) Error occured while checking checkbox of gift box: ' + e.stack, e.message);
-    }
-}
-
 /**
  * Checks for redesigned 
  * @param {Object} product - 
@@ -1022,9 +996,132 @@ function isOnlyRedesignedBadge(product) {
     return isRedesignedBadge;
 }
 
+/**
+ * It is used to get productCustomAttribute for Details and Specs Sections on PDP
+ * @param {Object} apiProduct - apiProduct is from ProductMgr
+ * @returns {Object} - detailAndSpecAttributes object
+ */
+
+ function getPdpDetailAndSpecsAttributes(apiProduct) {
+    var category = null;
+    var pdpDetailAttributes = [];
+    var pdpSpecAttributes = [];
+    try {
+        var categoriesConfig = !empty(Site.getCurrent().getCustomPreferenceValue('specDetailsAttributesConfigJSON')) ? JSON.parse(Site.getCurrent().getCustomPreferenceValue("specDetailsAttributesConfigJSON")) : '';
+
+        if (!empty(categoriesConfig) && !empty(apiProduct)) {
+            category = getCategoryConfig(apiProduct, categoriesConfig);
+        }
+
+        if (empty(category) && apiProduct.variant) {
+            category = getCategoryConfig(apiProduct.variationModel.master, categoriesConfig);
+        }
+
+        if (!empty(category)) {
+            var attributes = category.attributes;
+            if (!empty(attributes)) {
+                for (var attributesIndex = 0; attributesIndex < attributes.length; attributesIndex++) {
+                    try {
+                        var id = attributes[attributesIndex].ID;
+                        var displayName = attributes[attributesIndex].displayName;
+                        var isCustom =  attributes[attributesIndex].custom;
+                        var section = attributes[attributesIndex].section;
+                        var image = attributes[attributesIndex].image;
+                        var value = null;
+                        if (id == 'ringSize') {
+                            var ringSizes = !empty(Site.getCurrent().getCustomPreferenceValue('ringSize')) ? Site.getCurrent().getCustomPreferenceValue("ringSize") : '';
+                            value = ringSizes.filter(function(ringSize){ return ringSize.split(',')[0] === apiProduct.custom[id] });
+                            value = value.length > 0 ? value[0] : null;
+                        } else {
+                            if (isCustom) {
+                                value = (!empty(id) || !empty(apiProduct.custom[id])) ? apiProduct.custom[id] : '';
+                            } else {
+                                value = (!empty(id) || !empty(apiProduct[id])) ? apiProduct[id] : '';
+                            }
+                        }
+                        if (!empty(value)) {
+                            var attribute = {
+                                displayName: displayName,
+                                value: value,
+                                section: section,
+                                image: image
+                            };
+
+                            for (var sectionIndex = 0; sectionIndex < section.length; sectionIndex++) {
+                                var currentSection = section[sectionIndex];
+                                if (currentSection == 'details') {
+                                    pdpDetailAttributes.push(attribute);
+                                }
+                                if (currentSection == 'specs') {
+                                    pdpSpecAttributes.push(attribute);
+                                }
+                            }
+                        }
+                    } catch (e) {
+                        Logger.error('(productCustomHepler.js -> getPdpDetailAndSpecsAttributes) Error occured while setting the attributes values in the object : ' + e);
+                    }
+                }
+            }
+        }
+    } catch (e) {
+        Logger.error('(productCustomHelper.js -> getPdpDetailAndSpecsAttributes) Error occured while reading json from site preferences: ' + e);
+    }
+    return detailAndSpecAttributes = {
+        pdpDetailAttributes: pdpDetailAttributes,
+        pdpSpecAttributes: pdpSpecAttributes
+    };
+
+}
+
+/**
+ * It is used to get category object of current product
+ * @param {Object} apiProduct - apiProduct is from ProductMgr
+ * @param {Object} categoriesConfig - categories json configured in site preference
+ * @returns {Object} - category object
+ */
+
+ function getCategoryConfig(apiProduct, categoriesConfig) {
+    var categoryConfigFound = false;
+    var category = null;
+    var currentCategory;
+    var locale;
+    var currentLocale;
+    var apiCategories = apiProduct.getOnlineCategories().iterator();
+    while (apiCategories.hasNext()) {
+        currentCategory = apiCategories.next();
+        locale = request.locale;
+        currentLocale = categoriesConfig[locale];
+        category = currentLocale[currentCategory.ID];
+        
+        if (!empty(category)) {
+            break;
+        }
+
+        while (currentCategory.parent != null) {
+            currentCategory = currentCategory.parent;
+            if (!empty(currentCategory)) {
+                locale = request.locale;
+                currentLocale = categoriesConfig[locale];
+                category = currentLocale[currentCategory.ID];
+                if (!empty(category)) {
+                    categoryConfigFound = true;
+                    break;
+                }
+            }
+        } //End inner while
+
+        if (categoryConfigFound) {
+            break;
+        }
+    } //End outer while
+    return category;
+}
+
 module.exports = {
     getBadges: getBadges,
     getPdpAttributes: getPdpAttributes,
+    getPdpDetailAndSpecsAttributes: getPdpDetailAndSpecsAttributes,
+    getCategoryConfig: getCategoryConfig,
     getPersonalizationAssets: getPersonalizationAssets,
     getEmbossingTextValidation: getEmbossingTextValidation,
     getEngravingTextValidation: getEngravingTextValidation,
@@ -1046,6 +1143,5 @@ module.exports = {
     formatProductId: formatProductId,
     getWishlistGtmObjforPDP: getWishlistGtmObjforPDP,
     getMarketingProducts : getMarketingProducts,
-    isOnlyRedesignedBadge: isOnlyRedesignedBadge,
-    giftBoxCategory: giftBoxCategory
+    isOnlyRedesignedBadge: isOnlyRedesignedBadge
 };
