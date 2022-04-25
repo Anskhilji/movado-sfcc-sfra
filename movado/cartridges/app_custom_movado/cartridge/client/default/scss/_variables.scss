@@ -146,6 +146,12 @@ $large-screen-width: 1400px;
     }
   }
 
+@mixin custom-media-query-max($medium-screen-width) {
+    @media (max-width:#{$medium-screen-width}) {
+        @content;
+    }
+}
+
 // For screen 320px to 375px
 @mixin custom-media-query2($small-screen-width, $small-screen-width375) {
     @media (min-width:#{$small-screen-width}) and (max-width:#{$small-screen-width375}) {
