@@ -1141,8 +1141,8 @@ var updateCartPage = function(data) {
 
 $('.mobile-click-review').click(function() {
     setTimeout(() => {
-        $('.accordian-mobile-body').removeClass('active');
-    }, 2000);
+        $('.review-box-mvmt').removeClass('active');
+    }, 1000);
 });
 
 movadoBase.selectAttribute = function () {

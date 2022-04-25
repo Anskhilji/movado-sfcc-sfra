@@ -3593,6 +3593,28 @@
     }
 }
 
+.bottom-yotpo-review {
+    .main-widget {
+        .rating-stars-container {
+            .rating-star {
+                font-size: rem(26) !important;
+
+                @include media-breakpoint-down(sm) {
+                    font-size: rem(15) !important;
+                }
+            }
+        }
+
+        .yotpo-regular-box {
+            padding-top: rem(25) !important;
+
+            @include media-breakpoint-down(sm) {
+                padding-bottom: rem(0) !important;
+            }
+        }
+    }
+}
+
 // PDP-Redesign-MVMT
 .product {
     &-detail {
@@ -3984,7 +4006,8 @@
                         .text-m {
                             font-family: $font-medium;
                             font-size: rem(12);
-                            font-weight: 300;
+                            font-weight: 400;
+                            color: $light-black !important;
                             letter-spacing: 0 !important;
                             line-height: rem(20); 
                             text-decoration: underline !important;
