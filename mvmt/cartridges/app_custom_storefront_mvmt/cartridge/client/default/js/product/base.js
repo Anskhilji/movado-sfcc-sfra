@@ -1001,6 +1001,23 @@ function handleVariantResponse(response, $productContainer) {
                     dots: false,
                     arrows: true,
                 });
+                
+                $('.linked-products-redesign').slick({
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                    focusOnSelect: true,
+                    infinite: false,
+                    dots: true,
+                    arrows: true,
+                    responsive: [
+                        {
+                            breakpoint: 768,
+                            settings: {
+                                arrows: false,
+                            }
+                        }
+                    ]
+                });
                 $('#strapguide').click(function() {
                     $('#strapguid').modal('toggle');
                 });
@@ -1175,6 +1192,12 @@ var updateCartPage = function(data) {
    }
 };
 
+$('.mobile-click-review').click(function() {
+    setTimeout(() => {
+        $('.accordian-mobile-body').removeClass('active');
+    }, 2000);
+});
+
 movadoBase.selectAttribute = function () {
     var selector = '.set-item select[class*="select-"], .product-detail select[class*="select-"], .options-select, .product-option input[type="radio"], .select-variation-product';
     $(document).off('change', selector);
@@ -1242,6 +1265,11 @@ movadoBase.addToCart = function () {
                 giftPid = $('.gift-allowed-checkbox').val();
             }
         } else if ($(this).closest('.linked-products') && $(this).closest('.linked-products').data('recomendation') == true) {
+            pid = $(this).data('pid');
+            if ($('.gift-allowed-checkbox').is(":checked")) {
+                giftPid = $('.gift-allowed-checkbox').val();
+            }
+        } else if ($(this).closest('.linked-products-redesign') && $(this).closest('.linked-products-redesign').data('recomendation') == true) {
             pid = $(this).data('pid');
             if ($('.gift-allowed-checkbox').is(":checked")) {
                 giftPid = $('.gift-allowed-checkbox').val();
@@ -1339,4 +1367,5 @@ movadoBase.addToCart = function () {
     });
 }
 module.exports = movadoBase; 
+
 

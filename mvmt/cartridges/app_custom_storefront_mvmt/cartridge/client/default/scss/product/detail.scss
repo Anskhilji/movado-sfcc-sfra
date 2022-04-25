@@ -3927,13 +3927,13 @@
             
                         .details-heading {
                             font-family: $font-medium;
-                            font-size: rem(24);
+                            font-size: rem(18);
                             font-weight: 500;
-                            line-height: rem(24);
-                            letter-spacing: rem(1.5);
-                            color: $black;
-                            margin-bottom: rem(30);
-                            text-transform: uppercase;
+                            line-height: rem(22);
+                            letter-spacing: rem(0);
+                            color: $light-black;
+                            margin-bottom: rem(15);
+                            text-transform: capitalize;
                         }
             
                         .attribute-list {
@@ -3943,7 +3943,7 @@
                                 border-bottom: none;
                                 padding: rem(0) 0;
                                 display: flex;
-                                align-items: center;
+                                align-items: flex-start;
                                 margin: 0;
                                 
                                 &:not(:last-of-type) {
@@ -3961,7 +3961,12 @@
                                     text-transform: capitalize;
             
                                     &.attribute-name {
-                                    text-transform: capitalize;
+                                        text-transform: capitalize;
+                                        max-width: rem(140);
+                                        margin-right: rem(40);
+                                        @include media-breakpoint-down(sm) {
+                                            max-width: rem(130);  
+                                        }
                                     }
                                     &.attribute-value {
                                         font-weight: 500;
@@ -4021,8 +4026,9 @@
                             font-family: $font-medium;
                             font-size: rem(12);
                             font-weight: 300;
-                            letter-spacing: 0;
+                            letter-spacing: 0 !important;
                             line-height: rem(20); 
+                            text-decoration: underline !important;
                         }
                         .yotpo-stars {
                             .yotpo-icon {
@@ -4190,7 +4196,7 @@
                             width: 100%;
                             color: $black;
                             font-size: rem(12);
-                            text-transform: capitalize;
+                            text-transform: uppercase;
                             line-height: rem(20);
                             font-family: $font-medium;
                             font-weight: 500;
@@ -4338,10 +4344,56 @@
     }
 }
 
-.pdp-mvmt-redeisn{
+.product-detail {
+    .prices-add-to-cart-actions {
+        @include media-breakpoint-down(sm) {
+            z-index: 100;
+        }
+    }
+}
+// yotpo review widget
+.accordian-review-box {
+    background-color: $light-gray5;
+    padding: rem(20) rem(30);
+
+    .yotpo-shoppers-say {
+
+        &.accordian-review {
+
+            .yotpo-regular-box {
+                padding: 0;
+                margin: 0;
+                
+                @include media-breakpoint-up(xs-custom) {
+                    padding: 0 !important;
+                }
+
+                .full-review-background {
+                    background-color: $light-gray5 !important;
+
+                    .review-title {
+                        font-size: rem(18) !important;
+                        font-weight: 500 !important;
+                        line-height: rem(30) !important;
+                        margin-bottom: rem(0) !important;
+                    }
+                    
+                    .full-review {
+                        font-size: rem(18) !important;
+                        font-weight: 300 !important;
+                        line-height: rem(30) !important;
+                    }
+                }
+            }
+        } 
+    }
+}
+
+.pdp-mvmt-redeisn {
 
     .pdp-vp {
-    
+        display: none;
+
         &-item {
     
             &:nth-child(2) {
