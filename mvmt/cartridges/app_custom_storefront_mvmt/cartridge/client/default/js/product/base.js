@@ -916,9 +916,8 @@ function handleVariantResponse(response, $productContainer) {
 
     // Attach Slider and Zoom
     pdpSwatchCarousel();
-    initializePDPMainSlider();
     gallerySlider();
-
+    initializePDPMainSlider();
     // Updating primary image in spec & detail section
 
     $('.description-and-detail .pdp-tab-content source').attr('srcset', primaryImageUrls.pdp533[0].url);

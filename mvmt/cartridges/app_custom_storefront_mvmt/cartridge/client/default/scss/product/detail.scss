@@ -3664,6 +3664,12 @@
                         padding: rem(0) rem(0) rem(20) rem(10);
                     }
                 }
+                img {
+                    &:hover {
+                        cursor: zoom-in;
+                    }
+                }
+
             }
 
             .sticky-section {
@@ -3780,6 +3786,16 @@
                 @include media-breakpoint-down(lg-media) {
                     max-height: rem(576);
                 }
+                @include media-breakpoint-down(xl) {
+                    max-width: rem(920);
+                    max-height: rem(576);
+                    margin: auto;
+                }
+                @include media-breakpoint-down(md) {
+                    max-width: rem(720);
+                    max-height: rem(576);
+                    margin: auto;
+                }
             
                 &#zoomProduct {
                     .modal-body {
@@ -3822,6 +3838,7 @@
                                 .tab {
                                     width: rem(50);
                                     height: rem(50);
+                                    border-radius: rem(0);
                                 }
             
                                 li {
@@ -3832,6 +3849,7 @@
                                     border: none;
                                     background-color: $white-grey;
                                     margin: rem(0) rem(20) rem(0) rem(0);
+                                    transition: none;
                                 }
                             }
 
