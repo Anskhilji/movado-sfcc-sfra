@@ -4304,22 +4304,22 @@
 }
 
 .product-detail {
-    .prices-add-to-cart-actions{
+    .prices-add-to-cart-actions {
         @include media-breakpoint-down(sm) {
             z-index: 100;
         }
     }
 }
 // yotpo review widget
-.accordian-review-box{
+.accordian-review-box {
     background-color: $light-gray5;
-    padding:rem(20) rem(30);
+    padding: rem(20) rem(30);
 
     .yotpo-shoppers-say {
 
         &.accordian-review {
 
-            .yotpo-regular-box{
+            .yotpo-regular-box {
                 padding: 0;
                 margin: 0;
                 
@@ -4348,7 +4348,7 @@
     }
 }
 
-.pdp-mvmt-redeisn{
+.pdp-mvmt-redeisn {
 
     .pdp-vp {
         display: none;
