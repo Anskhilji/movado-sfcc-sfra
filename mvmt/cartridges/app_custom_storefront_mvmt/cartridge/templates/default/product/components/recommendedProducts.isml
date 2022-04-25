@@ -1,14 +1,8 @@
 <iscomment> Custom: Start new template added for recommendation products </iscomment>
 <div class="linked-product-list">
     <isif condition="${!empty(pdict.explicitRecommendations) && pdict.explicitRecommendations.length > 0}">
-        <div class="linked-head">
-            <isprint value="${pdict.strapGuideText}" encoding="off" />
-            <isset name="isStrapGuideEnabled" value="${!empty(dw.system.Site.current.preferences.custom.strapGuideEnabled) ? dw.system.Site.current.preferences.custom.strapGuideEnabled : false}" scope="page" />
-            <isif condition="${isStrapGuideEnabled}">
-                <button class="strap-guid" data-toggle="modal" data-target="#strapguid" id="strapguide">
-                    <i class="fa fa-question-circle"></i> ${Resource.msg('label.guid.strap', 'product', null)}
-                </button>
-            </isif>
+        <div class="linked-head-uppsell">
+            <isprint value="${pdict.upsellHeadingText}" encoding="off" />
         </div>
         <div class="linked-products-redesign" data-recomendation="true">
             <isloop items="${pdict.explicitRecommendations}" var="recommendation">
@@ -44,7 +38,7 @@
 
                         </div>
                         <div class="upsell_text">
-                            <p class="upsell_text-add">${Resource.msg('label.add', 'product', null)}</p>
+                            <p class="upsell_text-add">${Resource.msg('label.add.redesign', 'product', null)}</p>
                         </div>
                     </div>
                 </isif>

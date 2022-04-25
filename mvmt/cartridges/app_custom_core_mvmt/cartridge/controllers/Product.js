@@ -52,6 +52,9 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var productType = showProductPageHelperResult.product.productType;
     var template = null;
 
+    var upsellCarouselContent = ContentMgr.getContent('upsell-carousel-text-configs');
+    var upsellHeadingText = upsellCarouselContent && upsellCarouselContent.custom.body ? upsellCarouselContent.custom.body : '';
+
     // Custom Comment Start: A/B testing for MVMT PDP
     if (ABTestMgr.isParticipant('MVMTRedesignPDPABTest','Control')) {
         template = 'product/old/productDetails';
@@ -136,6 +139,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
         relativeURL: URLUtils.url('Product-Show','pid', product.ID),
         explicitRecommendations: explicitRecommendations,
         strapGuideText: strapGuideText,
+        upsellHeadingText: upsellHeadingText,
         collectionName: collectionName,
         addToCartUrl: showProductPageHelperResult.addToCartUrl,
         isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
@@ -226,6 +230,8 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
  * appends the base product route to save the personalization data in session variables
  */
 server.prepend('Variation', function (req, res, next) {
+    var ABTestMgr = require('dw/campaign/ABTestMgr');
+
     var attributeContext;
     var attributeTemplateLinked;
     var explicitRecommendations = [];
@@ -247,7 +253,14 @@ server.prepend('Variation', function (req, res, next) {
         strapGuideText: strapGuideText
     };
 
-    attributeTemplateLinked = 'product/components/recommendedProducts';
+    if (ABTestMgr.isParticipant('MVMTRedesignPDPABTest','Control')) {
+        attributeTemplateLinked = 'product/components/old/recommendedProducts';
+    } else if (ABTestMgr.isParticipant('MVMTRedesignPDPABTest','render-new-design')) {
+        attributeTemplateLinked = 'product/components/recommendedProducts';
+    } else {
+        attributeTemplateLinked = 'product/components/old/recommendedProducts';
+    }
+    
 
     recommendedProductTemplate = renderTemplateHelper.getRenderedHtml(
             attributeContext,

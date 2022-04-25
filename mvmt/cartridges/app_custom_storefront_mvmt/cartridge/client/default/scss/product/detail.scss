@@ -1079,6 +1079,7 @@
                 &-slide {
                     text-align: center;
                     cursor: zoom-in;
+                    width: 100%;
                     img {
                         display: inline-block;
 
@@ -1276,6 +1277,7 @@
                 }
 
                 .watches {
+
                     &-product-name {
                         @include collection-subtitle-font;
                         line-height: rem(41);
@@ -1286,6 +1288,7 @@
                             }
                         }
                     }
+
                     &-turncate-name {
                         overflow: hidden;
                         text-overflow: ellipsis;
@@ -1293,10 +1296,12 @@
                         -webkit-line-clamp: 3;
                         text-align: left;
                     }
+
                     &-collection-name {
                         @include collection-title-font;
                         display: block;
                     }
+
                     &-seprator {
                         @include collection-subtitle-font;
                     }
@@ -1310,6 +1315,7 @@
                 @include media-breakpoint-down(sm) {
                     padding: rem(0);
                 }
+
                 .price {
                    span {
                         color: $light-black;
@@ -1321,6 +1327,7 @@
                         font-weight: 400;
                         display: block;
                     }
+
                     .price-pdp-mvmt {
                         display: flex;
                         flex-direction: column-reverse;
@@ -1336,7 +1343,6 @@
                         span {
                             @include collection-subtitle-font;
                             display: block;
-                            font-size: rem(14);
                             letter-spacing: rem(1.5);
                             color: $light-gray2;
                             font-weight: 300;
@@ -1344,16 +1350,19 @@
                             @include media-breakpoint-down(sm) {
                                 display: inline;
                             }
+
                             &.strike-through {
                                 margin-right: 0;
                             }
                         }
+
                         & + .sale-price-mvmt {
                             color: $dark-red;
                             span {
                                 color: $dark-red;
                             }
                         }
+
                         .strike-through {
                             text-decoration: none;
                         }
@@ -1414,7 +1423,7 @@
                                 text-align: center;
                             }
                         }
-                    } 
+                    }
 
                     &-heading {
                         display: block;
@@ -1504,6 +1513,7 @@
                         margin-right: auto;
 
                         .yotpo-icon {
+
                             &.rating-star {
                                 height: rem(20) !important;
                                 width: rem(20) !important;
@@ -1633,7 +1643,7 @@
                                 font-size: rem(14);
                             }
                         }
-        
+
                         & + span {
                             span {
                                 color: $dark-red;
@@ -3588,23 +3598,42 @@
             }
 
             .col-mx-50-wrapper {
-                @include media-breakpoint-up(md-down) {
-                    max-width: 50%;
+                @include media-breakpoint-up(md-down) {                    
+                    flex: 0 0 100%;
+                    max-width: 100%;
+                }
+
+                @include media-breakpoint-up(lg) {
                     padding: rem(0) rem(10) rem(10) rem(0);
+                    flex: 0 0 50%;
+                    max-width: 50%;
                 }
 
-                @include media-breakpoint-up(lg-custom) {
-                    padding: rem(0) rem(20) rem(20) rem(0);
-                    max-width: rem(453);
-                }
-
-                &:nth-child(even) {
-                    @include media-breakpoint-up(md-down) {
-                        padding: rem(0) rem(10) rem(10) rem(0);
+                &:nth-child(odd) {
+                    @include media-breakpoint-up(lg) {
+                        padding: rem(0) rem(5) rem(10) rem(0);
                     }
 
                     @include media-breakpoint-up(lg-custom) {
-                        padding: rem(0) rem(0) rem(20) rem(0);
+                        padding: rem(0) rem(10) rem(20) rem(0);
+                    }
+
+                    @include media-breakpoint-up(xl-custom) {
+                        padding: rem(0) rem(10) rem(20) rem(0);
+                    }
+                }
+
+                &:nth-child(even) {
+                    @include media-breakpoint-up(lg) {
+                        padding: rem(0) rem(0) rem(10) rem(5);
+                    }
+
+                    @include media-breakpoint-up(lg-custom) {
+                        padding: rem(0) rem(0) rem(20) rem(10);
+                    }
+
+                    @include media-breakpoint-up(xl-custom) {
+                        padding: rem(0) rem(0) rem(20) rem(10);
                     }
                 }
             }
@@ -3631,14 +3660,22 @@
                 }
 
                 @include media-breakpoint-up(md-down) {
+                    max-width: 50%;
+                    width: 50%;
+                    flex-basis: 50%;
+                }
+
+                @include media-breakpoint-up(lg) {
                     max-width: 60%;
                     width: 60%;
                     flex-basis: 60%;
                 }
+
                 @include media-breakpoint-up(lg-custom) {
-                    max-width: 65%;
-                    width: 65%;
-                    flex-basis: 65%;
+                    max-width: calc(100% - 414px);
+                    width: calc(100% - 414px);
+                    flex-basis: calc(100% - 414px);
+                    
                 }
 
                 @include media-breakpoint-up(xl-custom) {
@@ -3653,6 +3690,7 @@
                         display: block;
                     }
                 }
+                
                 .d-show-mobile-wrapper {
                     @include media-breakpoint-down(sm) {
                         display: none;
@@ -3660,25 +3698,153 @@
                 }
             }
             .product-side-details {
-                
                 @include media-breakpoint-up(md-down) {
+                    max-width: 45%;
+                    flex-basis: 45%;
+                    width: 45%;
+                    min-width: 45%;
+                }
+
+                @include media-breakpoint-up(lg) {
                     max-width: 35%;
                     flex-basis: 35%;
                     width: 35%;
                     min-width: 35%;
                 }
+
                 @include media-breakpoint-up(lg-custom) {
                     max-width: 25%;
                     flex-basis: 25%;
                     width: 25%;
                     min-width: 25%;
+                    margin-left: rem(40);
                 }
+
                 @include media-breakpoint-up(xl-custom) {
                     max-width: rem(414);
                     flex-basis: rem(414);
                     width: rem(414);
                     min-width: rem(414);
                     margin-left: rem(40);
+                }
+            }
+
+            //  Zoom modal ab test
+            .zoom-modal {
+                .close {
+                    background: url("../../images/clear_black_24dp.svg") center center no-repeat;
+                    background-size: rem(18);
+                    right: rem(36);
+                    position: relative;
+                    top: rem(31);
+                    padding: rem(10);
+                    opacity: 1;
+                }
+            
+                background: $white;
+            }
+            .zoom-modal-inner {
+                max-width: rem(1065);
+                max-height: rem(740);
+                margin: auto;
+                width: 100%;
+            
+                @include media-breakpoint-down(lg-media) {
+                    max-height: rem(576);
+                }
+            
+                &#zoomProduct {
+                    .modal-body {
+                        margin-top: rem(0);
+                    }
+               }
+            
+                .modal-header {
+                    padding: rem(0);
+                }
+            
+                .primary-images {
+                    max-width: 100%;
+                    margin: auto;
+                    flex-basis: 100%;
+                    width: 100%;
+            
+                    .cs-carousel-wrapper {
+                        margin-top: rem(60);
+                        
+                        .main-mvmt-carousel  {
+                            padding: rem(0);
+            
+                            .slick-list {
+                                border-bottom: rem(1) solid $light-zircon;
+                            }
+
+                            .slick-dots {
+                                display: flex;
+                                position: relative;
+                                width: 100%;
+                                margin-top: rem(15);
+                                margin-bottom: rem(15);
+                                overflow: hidden;
+            
+                                .slick-active{
+                                    border: rem(1) solid $light-black2; 
+                                }
+
+                                .tab {
+                                    width: rem(50);
+                                    height: rem(50);
+                                }
+            
+                                li {
+                                    width: rem(50);
+                                    height: rem(50);
+                                    border-radius: rem(0);
+                                    box-shadow: none;
+                                    border: none;
+                                    background-color: $white-grey;
+                                    margin: rem(0) rem(20) rem(0) rem(0);
+                                }
+                            }
+
+                            .slick-arrow {
+                                width: rem(10);
+                                height: rem(18);
+
+                                svg {
+                                    width: rem(10);
+                                    height: rem(18);
+                                }
+                            }
+                            
+                            .slick-prev {
+                                left: rem(40);
+                                background: url("../../images/chevron_left_black_24dp.svg") center center no-repeat;
+                                padding: rem(0);
+                                width: rem(40);
+                                height: rem(40);
+                            }
+            
+                            .slick-next {
+                                right: rem(40);
+                                background: url("../../images/chevron_right_black_24dp.svg") center center no-repeat;
+                                padding: rem(0);
+                                width: rem(40);
+                                height: rem(40);
+                            }
+                        }
+                    }
+                }
+                &#zoomProduct {
+                    img {
+                        max-width: rem(590);
+                        max-height: rem(590);
+                        margin-bottom: rem(10);
+                        @include media-breakpoint-down(lg-media) {
+                            max-width: rem(430);
+                            max-height: rem(430);
+                        }
+                    }
                 }
             }
 
@@ -3701,6 +3867,14 @@
                     padding: rem(0) rem(0) rem(0);
                 }
 
+                > div {
+
+                    &:last-child {
+                        @include media-breakpoint-down(sm) {
+                            margin: 0;
+                        }
+                    }
+                }
             }
 
             .pdp-tabs-body {
@@ -3747,13 +3921,13 @@
             
                         .details-heading {
                             font-family: $font-medium;
-                            font-size: rem(24);
+                            font-size: rem(18);
                             font-weight: 500;
-                            line-height: rem(24);
-                            letter-spacing: rem(1.5);
-                            color: $black;
-                            margin-bottom: rem(30);
-                            text-transform: uppercase;
+                            line-height: rem(22);
+                            letter-spacing: rem(0);
+                            color: $light-black;
+                            margin-bottom: rem(15);
+                            text-transform: capitalize;
                         }
             
                         .attribute-list {
@@ -3763,7 +3937,7 @@
                                 border-bottom: none;
                                 padding: rem(0) 0;
                                 display: flex;
-                                align-items: center;
+                                align-items: flex-start;
                                 margin: 0;
                                 
                                 &:not(:last-of-type) {
@@ -3781,7 +3955,12 @@
                                     text-transform: capitalize;
             
                                     &.attribute-name {
-                                    text-transform: capitalize;
+                                        text-transform: capitalize;
+                                        max-width: rem(140);
+                                        margin-right: rem(40);
+                                        @include media-breakpoint-down(sm) {
+                                            max-width: rem(130);  
+                                        }
                                     }
                                     &.attribute-value {
                                         font-weight: 500;
@@ -3841,8 +4020,9 @@
                             font-family: $font-medium;
                             font-size: rem(12);
                             font-weight: 300;
-                            letter-spacing: 0;
+                            letter-spacing: 0 !important;
                             line-height: rem(20); 
+                            text-decoration: underline !important;
                         }
                         .yotpo-stars {
                             .yotpo-icon {
@@ -3862,9 +4042,13 @@
             
                 &-switch {
                     position: absolute;
-                    top: rem(19);
+                    top: rem(27);
                     right: rem(0);
                     transition: opacity .2s ease;
+
+                    @include media-breakpoint-down(sm) {
+                        right: rem(10);
+                    }
                 }
             
                 &-plus {
@@ -3876,6 +4060,9 @@
                 }
                 .accordian-angle-down{
                     transition: transform .2s ease;
+                    background: url('../../images/angle-down.png') no-repeat center;
+                    height: rem(9);
+                    width: rem(16);
                 }
             
                 &.active {
@@ -3895,6 +4082,10 @@
             .mvmt-slot-loyalty-information {
                 padding: rem(30) rem(0) rem(23);
                 border-bottom: rem(0) solid $transparent-gray-light;
+
+                @include media-breakpoint-down(sm) {
+                    padding: rem(20) rem(0) rem(20);
+                }
             }
 
             // Upsell carousel 
@@ -3904,59 +4095,33 @@
                     margin-bottom: rem(20);
                     padding-top: rem(30);
                     border-top: rem(1) solid  $transparent-gray-light;
-                    @include media-breakpoint-up(sm) {
-                        padding-top: rem(18);
-                    }
                 }
         
-                &-head {
-                    margin-bottom: rem(15);
+                &-head-uppsell {
+                    margin-bottom: rem(20);
                     display: flex;
-                    justify-content: space-between;
-
-                    @include media-breakpoint-down(sm) {
-                        flex-direction: column;
-                    }
+                    justify-content: center;
         
-                    .content-asset {
-                        margin-bottom: rem(0);
-                        display: inline-block;
-                        justify-content: space-between;
-        
-                        label {
-                            color: $transparent-gray;
-                            font-family: $font-medium;
-                            font-size: rem(12);
-                            font-weight: 500;
-                            letter-spacing: rem(0.5);
-                            text-transform: uppercase;
-                            margin-right: rem(4);
-                            margin-bottom: 0;
-                        }
-                    }
-                    .strap-guid {
-                        display: inline-block;
-                        color: $transparent-gray;
-                        font-size: rem(11);
+                    label {
+                        color: $light-black;
                         font-family: $font-medium;
+                        font-size: rem(18);
                         font-weight: 500;
+                        line-height: rem(22);
+                        letter-spacing: rem(0);
                         text-transform: uppercase;
-                        letter-spacing: rem(1);
-                        border: none;
-                        background: none;
-                        cursor: pointer;
-
-                        @include media-breakpoint-down(sm) {
-                            padding: rem(12);
-                            width: 100%;
-                            background-color: $white;
-                            border-top: rem(1) solid $light-gray4;
-                        }
+                        margin-right: rem(4);
+                        margin-bottom: 0;
                     }
                     
                 }
         
                 &-products-redesign {
+                    display: none;
+
+                    &.slick-initialized {
+                        display: block;
+                    }
         
                     .slick-slide {
                         padding: 0 rem(10);
@@ -4025,7 +4190,7 @@
                             width: 100%;
                             color: $black;
                             font-size: rem(12);
-                            text-transform: capitalize;
+                            text-transform: uppercase;
                             line-height: rem(20);
                             font-family: $font-medium;
                             font-weight: 500;
@@ -4173,10 +4338,56 @@
     }
 }
 
-.pdp-mvmt-redeisn{
+.product-detail {
+    .prices-add-to-cart-actions {
+        @include media-breakpoint-down(sm) {
+            z-index: 100;
+        }
+    }
+}
+// yotpo review widget
+.accordian-review-box {
+    background-color: $light-gray5;
+    padding: rem(20) rem(30);
+
+    .yotpo-shoppers-say {
+
+        &.accordian-review {
+
+            .yotpo-regular-box {
+                padding: 0;
+                margin: 0;
+                
+                @include media-breakpoint-up(xs-custom) {
+                    padding: 0 !important;
+                }
+
+                .full-review-background {
+                    background-color: $light-gray5 !important;
+
+                    .review-title {
+                        font-size: rem(18) !important;
+                        font-weight: 500 !important;
+                        line-height: rem(30) !important;
+                        margin-bottom: rem(0) !important;
+                    }
+                    
+                    .full-review {
+                        font-size: rem(18) !important;
+                        font-weight: 300 !important;
+                        line-height: rem(30) !important;
+                    }
+                }
+            }
+        } 
+    }
+}
+
+.pdp-mvmt-redeisn {
 
     .pdp-vp {
-    
+        display: none;
+
         &-item {
     
             &:nth-child(2) {

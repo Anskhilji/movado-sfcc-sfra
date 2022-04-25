@@ -153,7 +153,7 @@
                     </div> </iscomment>
 
                     <div class="ratings-mobile pb-2">
-                        <div class="col-12 rating-margin">
+                        <div class="col-12 rating-margin mobile-click-review">
                             <div class="ratings p-0">
                                 <isinclude template="product/components/productRating" />
                             </div>
@@ -339,7 +339,7 @@
            <div class="description-and-detail">
                 <div class="pdp-tabs-body">
                     <div class="pdp-tab-content <isif condition= ${!product.attributes && product.attributes.length}>active fadeIn</isif> ${Resource.msg('label.tab.review', 'product', null)}">
-                        <div class="pdp-content-body accordian-mobile-body">
+                        <div class="pdp-content-body accordian-mobile-body d-block">
                             <div id="yotpoReviews" class="w-100">
                                 <h3 class="details-heading text-center">${Resource.msg('label.tab.review', 'product', null)}</h3>
                                 <iscomment>Yotpo reviews widget will appear here, if these needs to be relocated
