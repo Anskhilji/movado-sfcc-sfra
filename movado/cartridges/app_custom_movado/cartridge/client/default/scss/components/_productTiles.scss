@@ -358,8 +358,7 @@
             @include media-breakpoint-down(lg) {
                 min-height: unset;
             }
-
-            @include media-breakpoint-down(custom-md) {
+            @include custom-media-query-max-medium($medium-screen-width800) {
                 height: auto;
                 padding-bottom: rem(15);
             }
@@ -551,7 +550,7 @@
                     }
                 }
 
-                @include media-breakpoint-down(custom-md) {
+                @include custom-media-query-max-medium($medium-screen-width800) {
                     padding-bottom: rem(0);
                 }
             }
@@ -572,7 +571,7 @@
                     padding: rem(10);
                 }
 
-                @include media-breakpoint-down(custom-md) {
+                @include custom-media-query-max-medium($medium-screen-width800) {
                     height: auto;
                     position: relative;
                 }
@@ -694,7 +693,7 @@
                     max-height: rem(40);
                     display: block;
 
-                    @include media-breakpoint-down(custom-md) {
+                    @include custom-media-query-max-medium($medium-screen-width800) {
                         display: none;
                     }
                 }
@@ -953,7 +952,8 @@
         @include media-breakpoint-down(md) {
             padding: rem(0) rem(20);
         }
-        @include media-breakpoint-down(custom-md) {
+
+        @include custom-media-query-max($medium-screen-width) {
             padding: rem(10) rem(0);
             margin: rem(10) rem(0);
         }
@@ -962,7 +962,7 @@
             margin: 0;
 
             .full-bleed-image-product {
-                @include media-breakpoint-down(custom-md) {
+                @include custom-media-query-max($medium-screen-width) {
                     padding: 0 rem(10);
                 }
             }
