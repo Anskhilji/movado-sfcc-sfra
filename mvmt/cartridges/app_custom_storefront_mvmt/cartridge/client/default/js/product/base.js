@@ -668,7 +668,6 @@ function zoomfeature () {
 
 }
 
-
 /**
  *  CovertsPDP Primary Images to Slider
  */
@@ -678,6 +677,37 @@ function initializePDPMainSlider() {
         slidesToScroll: 1,
         dots: true,
         arrows:false,
+        focusOnSelect: true,
+        fade: true,
+        prevArrow:"<button class='slick-prev slick-arrow' aria-label='Previous' type='button'><svg class='slick-arrow__icon' width='9' height='14' viewBox='0 0 9 14' xmlns='http://www.w3.org/2000/svg'><path d='M7.22359 0l1.6855 1.63333L3.37101 7l5.53808 5.36667L7.22359 14l-7.2236-7z' fill='#2B2B2B' fill-rule='evenodd'></path></svg></button>",
+        nextArrow:"<button class='slick-next slick-arrow' aria-label='Next' type='button'><svg class='slick-arrow__icon' width='9' height='14' viewBox='0 0 9 14' xmlns='http://www.w3.org/2000/svg'><path d='M1.6855 0L0 1.63333 5.53808 7 0 12.36667 1.6855 14l7.22359-7z' fill='#2B2B2B' fill-rule='evenodd'></path></svg></button>",
+        responsive: [
+            {
+                breakpoint: 768,
+                settings: {
+                    arrows: true,
+                    dots:false
+                }
+            },
+        ],
+        customPaging: function (slick, index) {
+            var thumb = $(slick.$slides[index]).find('.carousel-tile').data('thumb');
+            return '<button class="tab"> <img  src="'+ thumb +'" /> </button>';
+        },
+    });
+}
+
+
+/**
+ *  Swatch Items Slider
+ */
+ function pdpSwatchCarousel() {
+    $('.veil').addClass('d-none');
+    $('.primary-images .mvmt-pdp-carousel').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        dots: true,
+        arrows:true,
         focusOnSelect: true,
         fade: true,
         prevArrow:"<button class='slick-prev slick-arrow' aria-label='Previous' type='button'><svg class='slick-arrow__icon' width='9' height='14' viewBox='0 0 9 14' xmlns='http://www.w3.org/2000/svg'><path d='M7.22359 0l1.6855 1.63333L3.37101 7l5.53808 5.36667L7.22359 14l-7.2236-7z' fill='#2B2B2B' fill-rule='evenodd'></path></svg></button>",
@@ -796,11 +826,40 @@ function handleVariantResponse(response, $productContainer) {
     var $galleryImageContainer = $('.gallery-slider');
     $galleryImageContainer.empty();
     
+    var $galleryImageContainerQuadrant = $('.gallery-slider-quadrant');
+    $galleryImageContainerQuadrant.empty();
+
+    
+    var $mvmtPdpCarousel = $('.mvmt-pdp-carousel');
+    $mvmtPdpCarousel.empty();
     // Update gallery images
     primaryImageUrls.gallery.forEach(function (imageUrl) {
         $galleryImageContainer.append('<div class="carousel-tile"><picture><source media="(min-width: 992px)" srcset="' + imageUrl.url + '"><source media="(max-width: 991px)" srcset="' + imageUrl.url + '"><img src="' + imageUrl.url + '" alt="' + imageUrl.alt + '" itemprop="image" data-zoom-mobile-url="' + imageUrl.url + '" data-zoom-desktop-url="' + imageUrl.url + '"></picture></div>');
     });
-    
+    // Update gallery images Quadrant
+    primaryImageUrls.pdp453.forEach(function (imageUrl,index) {
+        $galleryImageContainerQuadrant.append('<div class="col-lg-6 col-md-6 col-mx-50-wrapper"><div class="carousel-tile"><picture><source media="(min-width: 992px)" srcset="' + imageUrl.url + '"><source media="(max-width: 991px)" srcset="' + imageUrl.url + '"><img class="normal-zoom zoom-product-modal" data-toggle="modal" data-target="#zoomProduct" data-image-index='+ index +' src="' + imageUrl.url + '" alt="' + imageUrl.alt + '" itemprop="image" data-zoom-mobile-url="' + imageUrl.url + '" data-zoom-desktop-url="' + imageUrl.url + '"></picture></div></div>');
+    });
+
+    primaryImageUrls.pdp600.forEach(function (imageUrl) {
+        $mvmtPdpCarousel.append('<div class="carousel-tile" data-thumb="' + imageUrl.url + '"><picture><source media="(min-width: 992px)" srcset="' + imageUrl.url + '"><source media="(max-width: 991px)" srcset="' + imageUrl.url + '"><img class="normal-zoom" src="' + imageUrl.url + '" alt="Coronada Ceramic" itemprop="image" data-zoom-mobile-url="' + imageUrl.url + '" data-zoom-desktop-url="' + imageUrl.url + '"></picture></div>');
+    });
+
+    // Mss-1485 MVMT - PDP Redesign - Desktop Zoom Modal  click to open image + variation modals
+    var firstIndex = true;
+    $('.zoom-product-modal').click(function() {
+        var imageIndex = parseFloat($(this).attr('data-image-index'));
+        var activeImageId = $(`[data-slick-index='${imageIndex}']`).attr('id');
+        $(`[aria-controls='${activeImageId}']`).trigger('click');
+        if ($(window).width() < 1064 && firstIndex == true) {
+            firstIndex = false;
+            $(`.mvmt-pdp-carousel [data-slick-index='${imageIndex}']`).css({'width': `${$(window).width()}`+'px'});
+        } else if($(window).width() > 1064 && firstIndex == true) {
+            firstIndex = false;
+            $(`.mvmt-pdp-carousel [data-slick-index='${imageIndex}']`).css({'width': '1065px'});
+        }
+        zoomfeature();
+    })
 
     var $exclusiveBadges = $('.product-side-details .exclusive-badges');
     $exclusiveBadges.empty();
@@ -856,9 +915,9 @@ function handleVariantResponse(response, $productContainer) {
     }
 
     // Attach Slider and Zoom
-    initializePDPMainSlider();
+    pdpSwatchCarousel();
     gallerySlider();
-
+    initializePDPMainSlider();
     // Updating primary image in spec & detail section
 
     $('.description-and-detail .pdp-tab-content source').attr('srcset', primaryImageUrls.pdp533[0].url);
@@ -940,6 +999,23 @@ function handleVariantResponse(response, $productContainer) {
                     infinite: false,
                     dots: false,
                     arrows: true,
+                });
+                
+                $('.linked-products-redesign').slick({
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                    focusOnSelect: true,
+                    infinite: false,
+                    dots: true,
+                    arrows: true,
+                    responsive: [
+                        {
+                            breakpoint: 768,
+                            settings: {
+                                arrows: false,
+                            }
+                        }
+                    ]
                 });
                 $('#strapguide').click(function() {
                     $('#strapguid').modal('toggle');
@@ -1115,6 +1191,12 @@ var updateCartPage = function(data) {
    }
 };
 
+$('.mobile-click-review').click(function() {
+    setTimeout(() => {
+        $('.review-box-mvmt').removeClass('active');
+    }, 1000);
+});
+
 movadoBase.selectAttribute = function () {
     var selector = '.set-item select[class*="select-"], .product-detail select[class*="select-"], .options-select, .product-option input[type="radio"], .select-variation-product';
     $(document).off('change', selector);
@@ -1182,6 +1264,11 @@ movadoBase.addToCart = function () {
                 giftPid = $('.gift-allowed-checkbox').val();
             }
         } else if ($(this).closest('.linked-products') && $(this).closest('.linked-products').data('recomendation') == true) {
+            pid = $(this).data('pid');
+            if ($('.gift-allowed-checkbox').is(":checked")) {
+                giftPid = $('.gift-allowed-checkbox').val();
+            }
+        } else if ($(this).closest('.linked-products-redesign') && $(this).closest('.linked-products-redesign').data('recomendation') == true) {
             pid = $(this).data('pid');
             if ($('.gift-allowed-checkbox').is(":checked")) {
                 giftPid = $('.gift-allowed-checkbox').val();
@@ -1279,4 +1366,5 @@ movadoBase.addToCart = function () {
     });
 }
 module.exports = movadoBase; 
+
 

@@ -55,6 +55,7 @@ $grey-transparent-7: rgba(0,0,0,0.24) !default;
 $grey-light: rgba(187, 189, 191, 0.3) !default;
 $grey-dark: rgba(187, 189, 191, 0.5) !default;
 $grey-dark-1: rgba(6,5,6,0.6) !default;
+$grey-dark-2: rgba(0,0,0,0.75);
 
 
 $light-gray: $grey1 !default;
@@ -131,12 +132,26 @@ $font-awesome: "FontAwesome";
 // Larger Screen
 $small-screen-width: 320px;
 $small-screen-width375: 375px;
+$medium-screen-width: 768px;
+$medium-screen-width800: 800px;
 $large-screen-width: 1400px;
  
 @mixin custom-media-query($large-screen-width) {
   @media (min-width:#{$large-screen-width}) {
       @content;
   }
+}
+
+@mixin custom-media-query-max($medium-screen-width) {
+    @media (max-width:#{$medium-screen-width}) {
+        @content;
+    }
+}
+
+@mixin custom-media-query-max-medium($medium-screen-width800) {
+    @media (max-width:#{$medium-screen-width800}) {
+        @content;
+    }
 }
 
 // For screen 320px to 375px

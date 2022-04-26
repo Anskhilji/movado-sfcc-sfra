@@ -243,6 +243,8 @@
 
 // full bleed image toaster product
 .full-bleed-image-product {
+    width: 100%;
+    
     .full-bleed-img-box {
         position: relative;
 
@@ -355,6 +357,10 @@
 
             @include media-breakpoint-down(lg) {
                 min-height: unset;
+            }
+            @include custom-media-query-max-medium($medium-screen-width800) {
+                min-height: auto;
+                padding-bottom: rem(15);
             }
 
             .promotions, .plp-promotions {
@@ -543,6 +549,10 @@
                         }
                     }
                 }
+
+                @include custom-media-query-max-medium($medium-screen-width800) {
+                    padding-bottom: rem(0);
+                }
             }
 
             .tile-body {
@@ -559,6 +569,11 @@
 
                 @include media-breakpoint-down(xs) {
                     padding: rem(10);
+                }
+
+                @include custom-media-query-max-medium($medium-screen-width800) {
+                    height: auto;
+                    position: relative;
                 }
                 
                 .pdp-link {
@@ -677,6 +692,10 @@
                     -webkit-box-orient: vertical;
                     max-height: rem(40);
                     display: block;
+
+                    @include custom-media-query-max-medium($medium-screen-width800) {
+                        display: none;
+                    }
                 }
 
                 .product-not-available-msg {
@@ -686,7 +705,7 @@
 
                 .tile-btns, .tile-discription {
                     opacity: 0;
-                }
+                }              
             }
 
             &:hover {
@@ -924,27 +943,40 @@
     }
 
     &.quad-main-container {
+        margin: rem(30) rem(0);
         padding: rem(0) rem(15) rem(0) rem(20);
 
         @include media-breakpoint-down(lg) {
             padding: rem(0) rem(20);
         }
-        @include media-breakpoint-down(sm) {
-            padding: rem(10);
+        @include media-breakpoint-down(md) {
+            padding: rem(0) rem(20);
+        }
+
+        @include custom-media-query-max($medium-screen-width) {
+            padding: rem(10) rem(0);
+            margin: rem(10) rem(0);
         }
 
         .homepagetile-wrapper-box {
             margin: 0;
+
+            .full-bleed-image-product {
+                @include custom-media-query-max($medium-screen-width) {
+                    padding: 0 rem(10);
+                }
+            }
         }
 
         .bottom-section {
             &.left-section-wrapper {
-                padding-right: rem(15);
+                padding-right: rem(20);
+                height: 100%;
 
-                @include media-breakpoint-down(sm) {
-                    padding: rem(0) rem(0) rem(10) rem(0);
+                @include media-breakpoint-down(md) {
+                    padding: rem(0) rem(10) rem(10) rem(0);
                 }
-                @include media-breakpoint-down(xs) {
+                @include custom-media-query-max($medium-screen-width) {
                     padding: rem(0) rem(0) rem(5) rem(0);
                 }
             }
@@ -955,14 +987,25 @@
         }
 
         .col-wrapper-inner {
-            padding: rem(0)  rem(13) rem(10) rem(0);
+            padding: rem(0) rem(0) rem(10);
 
             @include media-breakpoint-down(sm) {
-                padding: rem(0) rem(5) rem(5) rem(0);
+                padding-bottom: rem(5);
+            }
+            &:nth-child(odd) {
+                padding-right: rem(6.5);
+
+                @include media-breakpoint-down(sm) {
+                    padding-right: rem(2.5);
+                }
             }
 
             &:nth-child(even) {
-                padding-right: rem(0);
+                padding-left: rem(6.5);
+
+                @include media-breakpoint-down(sm) {
+                    padding-left: rem(2.5);
+                }
             }
 
         }

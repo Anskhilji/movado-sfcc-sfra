@@ -6,7 +6,7 @@ var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 var productTile = require('*/cartridge/models/product/productTile');
 var Constants = require('*/cartridge/scripts/util/Constants');
 var ContentMgr = require('dw/content/ContentMgr');
-
+var Site = require('dw/system/Site').getCurrent();
 
 
 /**
@@ -116,11 +116,28 @@ function getYotpoReviewsCustomAttribute(apiProduct) {
     return yotpoReviews;
 }
 
+function getCurrentCountry() {
+    var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
+    var availableCountry = 'US';
+    if (isEswEnabled) { 
+        var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
+        availableCountry = eswHelper.getAvailableCountry();
+        if (availableCountry == null || empty(availableCountry)) {
+            availableCountry = 'US';
+        }
+    } else {
+        availableCountry = 'US';
+    }
+
+    return availableCountry;
+}
+
 module.exports = {
     getExplicitRecommendations: getExplicitRecommendations,
     getCollectionName: getCollectionName,
     getSaveMessage: getSaveMessage,
     getPdpVideoConfigs: getPdpVideoConfigs,
     getPDPMarketingContentAssetHTML: getPDPMarketingContentAssetHTML,
-    getYotpoReviewsCustomAttribute: getYotpoReviewsCustomAttribute
+    getYotpoReviewsCustomAttribute: getYotpoReviewsCustomAttribute,
+    getCurrentCountry: getCurrentCountry
 };

@@ -312,3 +312,43 @@ function ratingRedesign() {
         }
     }
 }
+module.exports = {
+
+    loadCartButtonOnScroll: function () {
+        if ($(window).width() < 544) {
+            $(window).scroll(function (event) {
+                var $cartDetailDescription = $('.scroll-sticky');
+                if ($cartDetailDescription.length > 0) {
+                    var $elementOffset = $cartDetailDescription.offset().top - 30,
+                    $elementOuter = $cartDetailDescription.outerHeight(),
+                    $windowHeight = $(window).height(),
+                    $thisScroll = $(this).scrollTop();
+                    if ($thisScroll > ($elementOffset+$elementOuter-$windowHeight)){
+                        $('.cart-sticky-wrapper-btn').addClass('d-block');
+                    } else {
+                        $('.cart-sticky-wrapper-btn').removeClass('d-block');
+                    }
+                }
+            });
+        }
+    },
+    
+    loadCartButton: function () {
+        if ($(window).width() < 544) {
+            $(window).scroll(function (event) {
+                var $cartDetailDescription = $('.scroll-wrapper-inner');
+                if ($cartDetailDescription.length > 0) {
+                    var $elementOffset = $cartDetailDescription.offset().top - 10,
+                    $elementOuter = $cartDetailDescription.outerHeight(),
+                    $windowHeight = $(window).height(),
+                    $thisScroll = $(this).scrollTop();
+                    if ($thisScroll > ($elementOffset+$elementOuter-$windowHeight)){
+                        $('.cart-sticky-wrapper-btn').addClass('d-none');
+                    } else {
+                        $('.cart-sticky-wrapper-btn').removeClass('d-none');
+                    }
+                }
+            });
+        }
+    }
+};
