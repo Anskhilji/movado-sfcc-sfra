@@ -477,10 +477,10 @@ $( document ).ready(function() {
 
     if (reviewsAccordion.length > 0) {
         $(".review-empty-box").hide(); 
-        $(".reviews-hare").show();
+        $(".reviews-here").show();
     } else {
         $(".review-empty-box").show();
-        $(".reviews-hare").hide();
+        $(".reviews-here").hide();
     }
 
 });
