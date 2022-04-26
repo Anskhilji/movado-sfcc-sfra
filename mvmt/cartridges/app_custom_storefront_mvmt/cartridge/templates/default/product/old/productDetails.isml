@@ -62,9 +62,9 @@
                                         <span class="watches-collection-name" data-selected-variation-attr="collectionName">${product.collectionName}</span>
                                     </isif>
                                         <isif condition="${product.productName.length > 96}">
-                                            <span class="product-name ${!empty(product.collectionName) ? 'watches-product-name' : 'watches-collection-name d-inline'} text-truncate-wrapper watches-turncate-name product-title-for-gtm">${product.productName}<isif condition="${!empty(pdict.caseDiameter)}">${Resource.msg(pdp.product.specs.separator, 'product', null)}</isif></span>
+                                            <span class="product-name ${!empty(product.collectionName) ? 'watches-product-name' : 'watches-collection-name d-inline'} text-truncate-wrapper watches-turncate-name product-title-for-gtm">${product.productName}<isif condition="${!empty(pdict.caseDiameter)}">${Resource.msg('pdp.product.specs.separator', 'product', null)}</isif></span>
                                         <iselse>
-                                            <span class="product-name ${!empty(product.collectionName) ? 'watches-product-name' : 'watches-collection-name d-inline'} product-title-for-gtm">${product.productName}<isif condition="${!empty(pdict.caseDiameter)}">${Resource.msg(pdp.product.specs.separator, 'product', null)}</isif></span>
+                                            <span class="product-name ${!empty(product.collectionName) ? 'watches-product-name' : 'watches-collection-name d-inline'} product-title-for-gtm">${product.productName}<isif condition="${!empty(pdict.caseDiameter)}">${Resource.msg('pdp.product.specs.separator', 'product', null)}</isif></span>
                                         </isif>
                                         <isif condition="${!empty(pdict.caseDiameter)}">
                                                 <span class="${!empty(product.collectionName) ? 'watches-case-diameter' : 'watches-collection-name d-inline'} w-100" data-selected-variation-attr="caseDiameter">${pdict.caseDiameter}</span>
@@ -97,7 +97,7 @@
                                                                 <isset name="selectedAttributeValue" value="${attrValue.value}" scope="page" />
                                                                     <isif condition="${attrValue.displayValue.equalsIgnoreCase('yes')}">
                                                                         <isif condition="${!empty(product.color)}">
-                                                                            ${Resource.msg(pdp.product.specs.separator, 'product', null)}
+                                                                            ${Resource.msg('pdp.product.specs.separator', 'product', null)}
                                                                         </isif>
                                                                         ${Resource.msg('pdp.eyewaer.polarization.text', 'product', null)}
                                                                     </isif>

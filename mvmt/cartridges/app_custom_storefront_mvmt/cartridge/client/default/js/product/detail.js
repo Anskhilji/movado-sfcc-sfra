@@ -486,14 +486,17 @@ $( document ).ready(function() {
 
 });
 
+// Mss-1485 MVMT - PDP Redesign - Desktop Zoom Modal  click to open image
+var firstIndex = true;
 $('.zoom-product-modal').click(function() {
     var imageIndex = parseFloat($(this).attr('data-image-index'));
-    $('.slick-active').removeClass('slick-current slick-active');
     var activeImageId = $(`[data-slick-index='${imageIndex}']`).attr('id');
-    $(`[aria-controls='${activeImageId}']`).parent().addClass('slick-active').trigger('click');
-    if ($(window).width() < 1024) {
-        $(`[data-slick-index='${imageIndex}']`).addClass('slick-current slick-active').css({'width': `${$(window).width()}`+'px'});
-    } else {
-        $(`[data-slick-index='${imageIndex}']`).addClass('slick-current slick-active').css({'width': '1065px'});
+    $(`[aria-controls='${activeImageId}']`).trigger('click');
+    if ($(window).width() < 1064 && firstIndex == true) {
+        firstIndex = false;
+        $(`.mvmt-pdp-carousel [data-slick-index='${imageIndex}']`).css({'width': `${$(window).width()}`+'px'});
+    } else if($(window).width() > 1064 && firstIndex == true) {
+        firstIndex = false;
+        $(`.mvmt-pdp-carousel [data-slick-index='${imageIndex}']`).css({'width': '1065px'});
     }
 })

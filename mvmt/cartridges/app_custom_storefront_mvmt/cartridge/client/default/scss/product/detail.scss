@@ -3626,18 +3626,19 @@
             }
 
             .col-mx-50-wrapper {
-                @include media-breakpoint-up(md-down) {
-                    max-width: 47%;
-                    padding: rem(0) rem(10) rem(10) rem(0);
+                @include media-breakpoint-up(md-down) {                    
+                    flex: 0 0 100%;
+                    max-width: 100%;
                 }
 
-                @include media-breakpoint-up(md) {
+                @include media-breakpoint-up(lg) {
+                    padding: rem(0) rem(10) rem(10) rem(0);
                     flex: 0 0 50%;
                     max-width: 50%;
                 }
 
                 &:nth-child(odd) {
-                    @include media-breakpoint-up(md-down) {
+                    @include media-breakpoint-up(lg) {
                         padding: rem(0) rem(5) rem(10) rem(0);
                     }
 
@@ -3651,7 +3652,7 @@
                 }
 
                 &:nth-child(even) {
-                    @include media-breakpoint-up(md-down) {
+                    @include media-breakpoint-up(lg) {
                         padding: rem(0) rem(0) rem(10) rem(5);
                     }
 
@@ -3663,6 +3664,12 @@
                         padding: rem(0) rem(0) rem(20) rem(10);
                     }
                 }
+                img {
+                    &:hover {
+                        cursor: zoom-in;
+                    }
+                }
+
             }
 
             .sticky-section {
@@ -3687,10 +3694,17 @@
                 }
 
                 @include media-breakpoint-up(md-down) {
+                    max-width: 50%;
+                    width: 50%;
+                    flex-basis: 50%;
+                }
+
+                @include media-breakpoint-up(lg) {
                     max-width: 60%;
                     width: 60%;
                     flex-basis: 60%;
                 }
+
                 @include media-breakpoint-up(lg-custom) {
                     max-width: calc(100% - 414px);
                     width: calc(100% - 414px);
@@ -3710,6 +3724,7 @@
                         display: block;
                     }
                 }
+                
                 .d-show-mobile-wrapper {
                     @include media-breakpoint-down(sm) {
                         display: none;
@@ -3717,13 +3732,20 @@
                 }
             }
             .product-side-details {
-                
                 @include media-breakpoint-up(md-down) {
+                    max-width: 45%;
+                    flex-basis: 45%;
+                    width: 45%;
+                    min-width: 45%;
+                }
+
+                @include media-breakpoint-up(lg) {
                     max-width: 35%;
                     flex-basis: 35%;
                     width: 35%;
                     min-width: 35%;
                 }
+
                 @include media-breakpoint-up(lg-custom) {
                     max-width: 25%;
                     flex-basis: 25%;
@@ -3731,6 +3753,7 @@
                     min-width: 25%;
                     margin-left: rem(40);
                 }
+
                 @include media-breakpoint-up(xl-custom) {
                     max-width: rem(414);
                     flex-basis: rem(414);
@@ -3743,30 +3766,38 @@
             //  Zoom modal ab test
             .zoom-modal {
                 .close {
-                    background: url("../../images/cross.svg") center center no-repeat;
+                    background: url("../../images/clear_black_24dp.svg") center center no-repeat;
                     background-size: rem(18);
                     right: rem(36);
                     position: relative;
                     top: rem(31);
+                    padding: rem(10);
+                    opacity: 1;
                 }
             
                 background: $white;
             }
             .zoom-modal-inner {
                 max-width: rem(1065);
-                max-height: rem(733);
+                max-height: rem(740);
                 margin: auto;
                 width: 100%;
             
                 @include media-breakpoint-down(lg-media) {
-                    max-height: rem(590.4);
+                    max-height: rem(576);
                 }
-                
-                @include media-breakpoint-down(custom-lg) {
-                    max-height: rem(569.6);
+                @include media-breakpoint-down(xl) {
+                    max-width: rem(920);
+                    max-height: rem(576);
+                    margin: auto;
+                }
+                @include media-breakpoint-down(md) {
+                    max-width: rem(720);
+                    max-height: rem(576);
+                    margin: auto;
                 }
             
-               &#zoomProduct {
+                &#zoomProduct {
                     .modal-body {
                         margin-top: rem(0);
                     }
@@ -3791,15 +3822,23 @@
                             .slick-list {
                                 border-bottom: rem(1) solid $light-zircon;
                             }
+
                             .slick-dots {
                                 display: flex;
                                 position: relative;
                                 width: 100%;
                                 margin-top: rem(15);
                                 margin-bottom: rem(15);
+                                overflow: hidden;
             
                                 .slick-active{
                                     border: rem(1) solid $light-black2; 
+                                }
+
+                                .tab {
+                                    width: rem(50);
+                                    height: rem(50);
+                                    border-radius: rem(0);
                                 }
             
                                 li {
@@ -3810,15 +3849,34 @@
                                     border: none;
                                     background-color: $white-grey;
                                     margin: rem(0) rem(20) rem(0) rem(0);
+                                    transition: none;
+                                }
+                            }
+
+                            .slick-arrow {
+                                width: rem(10);
+                                height: rem(18);
+
+                                svg {
+                                    width: rem(10);
+                                    height: rem(18);
                                 }
                             }
                             
                             .slick-prev {
                                 left: rem(40);
+                                background: url("../../images/chevron_left_black_24dp.svg") center center no-repeat;
+                                padding: rem(0);
+                                width: rem(40);
+                                height: rem(40);
                             }
             
                             .slick-next {
                                 right: rem(40);
+                                background: url("../../images/chevron_right_black_24dp.svg") center center no-repeat;
+                                padding: rem(0);
+                                width: rem(40);
+                                height: rem(40);
                             }
                         }
                     }
@@ -3827,6 +3885,7 @@
                     img {
                         max-width: rem(590);
                         max-height: rem(590);
+                        margin-bottom: rem(10);
                         @include media-breakpoint-down(lg-media) {
                             max-width: rem(430);
                             max-height: rem(430);
@@ -4358,12 +4417,14 @@
                         font-weight: 500 !important;
                         line-height: rem(30) !important;
                         margin-bottom: rem(0) !important;
+                        letter-spacing: 0;
                     }
                     
                     .full-review {
                         font-size: rem(18) !important;
                         font-weight: 300 !important;
                         line-height: rem(30) !important;
+                        letter-spacing: 0;
                     }
                 }
             }
@@ -4376,6 +4437,7 @@
         line-height: rem(30);
         margin-bottom: rem(0);
         text-align: center;
+        letter-spacing: 0;
     }
 }
 
