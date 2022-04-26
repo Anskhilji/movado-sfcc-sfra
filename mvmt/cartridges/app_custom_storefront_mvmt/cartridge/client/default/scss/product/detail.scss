@@ -4411,16 +4411,27 @@
                         font-weight: 500 !important;
                         line-height: rem(30) !important;
                         margin-bottom: rem(0) !important;
+                        letter-spacing: 0;
                     }
                     
                     .full-review {
                         font-size: rem(18) !important;
                         font-weight: 300 !important;
                         line-height: rem(30) !important;
+                        letter-spacing: 0;
                     }
                 }
             }
         } 
+    }
+
+    .no-review-sec {
+        font-size: rem(18);
+        font-weight: 300;
+        line-height: rem(30);
+        margin-bottom: rem(0);
+        text-align: center;
+        letter-spacing: 0;
     }
 }
 

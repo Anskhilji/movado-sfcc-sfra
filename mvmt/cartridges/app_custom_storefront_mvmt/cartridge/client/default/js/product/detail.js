@@ -1,4 +1,5 @@
 'use strict';
+const { load } = require('cheerio');
 var movadoDetail = require('movado/product/detail');
 var base = require('./base');
 module.exports = {
@@ -586,6 +587,20 @@ if ($(window).width() > 767) {
         $('.page').css({'overflow':'visible'});
     }
 }
+
+if (document.readyState == "interactive") {
+    setTimeout(() => {
+        var $reviewsAccordion = $('.review-box-mvmt').find('.text-m');
+        if ($reviewsAccordion.length > 0) {
+            $('.review-empty-box').hide(); 
+            $('.reviews-here').show();
+        } else {
+            $('.review-empty-box').show();
+            $('.reviews-here').hide();
+        }
+    }, 1000);
+}
+
 
 // Mss-1485 MVMT - PDP Redesign - Desktop Zoom Modal  click to open image
 var firstIndex = true;
