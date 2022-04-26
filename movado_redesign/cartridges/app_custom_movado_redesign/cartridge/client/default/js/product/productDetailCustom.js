@@ -314,21 +314,21 @@ function ratingRedesign() {
 }
 
 $.fn.isInViewport = function() {
-    var elementTop = $(this).offset().top;
-    var elementBottom = elementTop + $(this).outerHeight();
+    var $elementTop = $(this).offset().top;
+    var $elementBottom = $elementTop + $(this).outerHeight();
   
-    var viewportTop = $(window).scrollTop();
-    var viewportBottom = viewportTop + $(window).height();
+    var $viewportTop = $(window).scrollTop();
+    var $viewportBottom = $viewportTop + $(window).height();
   
-    return elementBottom > viewportTop && elementTop < viewportBottom;
+    return $elementBottom > $viewportTop && $elementTop < $viewportBottom;
   };
 
 if ($(window).width() < 544) {
     $(window).scroll(function (event) {
-        var addToCartBtn = $('.cta-add-to-cart').isInViewport();
-        var primaryImages =  $('.primary-images').isInViewport();
+        var $addToCartBtn = $('.cta-add-to-cart').isInViewport();
+        var $primaryImages =  $('.primary-images').isInViewport();
 
-            if (addToCartBtn == true) {
+            if ($addToCartBtn == true) {
                 $('.cart-sticky-wrapper-btn').addClass('d-none');
                 $('.cart-sticky-wrapper-btn').removeClass('d-block');
 
@@ -345,7 +345,7 @@ if ($(window).width() < 544) {
                 }, 500);
             }
 
-            if( primaryImages == true) {
+            if( $primaryImages == true) {
                 $('.cart-sticky-wrapper-btn').removeClass('d-block');
                 $('.cart-sticky-wrapper-btn').addClass('d-none');
 
