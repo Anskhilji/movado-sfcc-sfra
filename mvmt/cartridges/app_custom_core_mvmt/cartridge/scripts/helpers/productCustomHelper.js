@@ -502,15 +502,17 @@ function getGiftBoxSKU(apiProduct) {
                 break;
             }
         }
-        giftBoxSKUAvailability = ProductMgr.getProduct(giftBoxSKU).getAvailabilityModel().inStock;
-        giftBoxSKUPrice = getProductPromoAndSalePrice(ProductMgr.getProduct(giftBoxSKU)) ? getProductPromoAndSalePrice(ProductMgr.getProduct(giftBoxSKU)) : formatMoney(ProductMgr.getProduct(giftBoxSKU).getPriceModel().price);
-        giftBoxSKUData = {
-            giftBoxSKU: giftBoxSKU,
-            giftBoxSKUAvailability: giftBoxSKUAvailability,
-            giftBoxSKUPrice: giftBoxSKUPrice
+        if (!empty(giftBoxSKU)) {
+            giftBoxSKUAvailability = ProductMgr.getProduct(giftBoxSKU).getAvailabilityModel().inStock;
+            giftBoxSKUPrice = getProductPromoAndSalePrice(ProductMgr.getProduct(giftBoxSKU)) ? getProductPromoAndSalePrice(ProductMgr.getProduct(giftBoxSKU)) : formatMoney(ProductMgr.getProduct(giftBoxSKU).getPriceModel().price);
+            giftBoxSKUData = {
+                giftBoxSKU: giftBoxSKU,
+                giftBoxSKUAvailability: giftBoxSKUAvailability,
+                giftBoxSKUPrice: giftBoxSKUPrice
+            }
         }
         return giftBoxSKUData;
-        
+
     } catch (e) {
         Logger.error('(productCustomHelper.js -> getGiftBoxSKU) Error occured while getting gift box SKU: ' + e.stack, e.message, apiProduct.ID);
     }
