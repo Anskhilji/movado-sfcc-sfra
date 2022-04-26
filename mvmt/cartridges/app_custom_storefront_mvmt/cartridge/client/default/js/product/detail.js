@@ -473,14 +473,14 @@ if ($(window).width() > 767) {
 }
 
 $( document ).ready(function() {
-    var reviewsAccordion = $(".review-box-mvmt").find('.text-m');
+    var $reviewsAccordion = $('.review-box-mvmt').find('.text-m');
 
-    if (reviewsAccordion.length > 0) {
-        $(".review-empty-box").hide(); 
-        $(".reviews-here").show();
+    if ($reviewsAccordion.length > 0) {
+        $('.review-empty-box').hide(); 
+        $('.reviews-here').show();
     } else {
-        $(".review-empty-box").show();
-        $(".reviews-here").hide();
+        $('.review-empty-box').show();
+        $('.reviews-here').hide();
     }
 
 });
