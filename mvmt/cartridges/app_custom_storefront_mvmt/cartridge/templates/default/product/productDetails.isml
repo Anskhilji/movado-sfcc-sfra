@@ -153,7 +153,13 @@
                     <div class="ratings-mobile pb-2">
                         <div class="col-12 rating-margin">
                             <div class="ratings p-0">
-                                <isinclude template="product/components/productRating" />
+                                <isif condition="${product.yotpoReviewsCustomAttribute}">
+                                    <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                                        <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
+	                                </div>
+                                <iselse>
+                                    <isinclude template="product/components/productRating" />
+                                </isif>
                             </div>
                         </div>
                     </div>
@@ -212,7 +218,17 @@
                     </div>
 
                     <div class="hidden-sm-down">
-                        <isinclude template="product/components/pidRating" />
+                        <isif condition="${product.yotpoReviewsCustomAttribute}">
+                            <div class="product-price-rating clearfix">
+                                <div class="ratings">
+                                    <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                                        <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
+	                                </div>
+                                </div>
+                            </div>
+                        <iselse>
+                            <isinclude template="product/components/pidRating" />
+                        </isif>
                     </div>
 
                     <!-- Applicable Promotions -->

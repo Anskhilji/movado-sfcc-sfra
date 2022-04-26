@@ -67,9 +67,15 @@
     </div>
     <div class="row m-10">
         <div class="col d-flex align-items-center justify-content-center">
-            <isinclude template="product/components/ratings" />
+            <isif condition="${product.yotpoReviewsCustomAttribute}">
+                <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                    <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
+	            </div>
+            <iselse>
+                <isinclude template="product/components/ratings" />
+            </isif>
         </div>
     </div>
-    
+
     <!-- END_dwmarker -->
 </div>

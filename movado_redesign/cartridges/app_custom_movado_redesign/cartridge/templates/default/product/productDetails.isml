@@ -38,7 +38,18 @@
 
                     <div class="row">
                         <div class="col-sm-12">
-                            <isinclude template="product/components/pidRating" />
+                            <isif condition="${product.yotpoReviewsCustomAttribute}">
+                                <div class="product-number-rating clearfix">
+                                    <div class="ratings">
+                                        <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                                            <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
+	                                    </div>
+                                    </div>
+                                    <a href="${URLUtils.https('ShareByEmail-ShowModal')}?pid=${product.id}" data-toggle="modal" data-target="#sendtofriendform" class="email-share drop-hint">${Resource.msg('label.product.drop.hint', 'product', 'null')}</a>
+                                </div>
+                            <iselse>
+                                <isinclude template="product/components/pidRating" />
+                            </isif>
                         </div>
                     </div>
 
@@ -58,9 +69,19 @@
 	                </div>
                     <!-- Product Name -->
                     <h2 class="product-name product-title-for-gtm d-sm-none d-md-block text-capitalize">${product.productName}</h2>
-
                     <div class="hidden-sm-down">
-                        <isinclude template="product/components/pidRating" />
+                        <isif condition="${product.yotpoReviewsCustomAttribute}">
+                            <div class="product-number-rating clearfix">
+                                <div class="ratings">
+                                    <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                                        <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
+	                                </div>
+                                </div>
+                                <a href="${URLUtils.https('ShareByEmail-ShowModal')}?pid=${product.id}" data-toggle="modal" data-target="#sendtofriendform" class="email-share drop-hint">${Resource.msg('label.product.drop.hint', 'product', 'null')}</a>
+                            </div>
+                        <iselse>
+                            <isinclude template="product/components/pidRating" />
+                        </isif>
                     </div>
                     <div class="row mt-4 description">
                         <isinclude template="product/components/description" />
