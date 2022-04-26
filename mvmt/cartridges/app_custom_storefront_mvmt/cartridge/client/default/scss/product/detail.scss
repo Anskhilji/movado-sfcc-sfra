@@ -3749,18 +3749,28 @@
                 }
                 @include media-breakpoint-down(xl) {
                     max-width: rem(920);
-                    max-height: rem(576);
+                    max-height: rem(560);
                     margin: auto;
                 }
                 @include media-breakpoint-down(md) {
                     max-width: rem(720);
-                    max-height: rem(576);
+                    max-height: rem(550.04);
                     margin: auto;
                 }
             
                 &#zoomProduct {
                     .modal-body {
                         margin-top: rem(0);
+
+                        @include media-breakpoint-down(lg-media) {
+                            height: rem(576);
+                        }
+                        @include media-breakpoint-down(xl) {
+                            height: rem(560);
+                        }
+                        @include media-breakpoint-down(md) {
+                            height: rem(550.04);
+                        }
                     }
                }
             
@@ -3788,10 +3798,8 @@
                                 display: flex;
                                 position: relative;
                                 width: 100%;
-                                margin-top: rem(15);
-                                margin-bottom: rem(15);
-                                overflow: hidden;
-            
+                                padding-top: rem(15);
+                                
                                 .slick-active{
                                     border: rem(1) solid $light-black2; 
                                 }
@@ -3848,8 +3856,9 @@
                         max-height: rem(590);
                         margin-bottom: rem(10);
                         @include media-breakpoint-down(lg-media) {
-                            max-width: rem(430);
-                            max-height: rem(430);
+                            max-width: rem(410);
+                            max-height: rem(410);
+                            margin-bottom: rem(0);
                         }
                     }
                 }

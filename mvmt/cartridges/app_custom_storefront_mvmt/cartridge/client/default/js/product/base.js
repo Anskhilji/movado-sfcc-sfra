@@ -709,6 +709,7 @@ function initializePDPMainSlider() {
         dots: true,
         arrows:true,
         focusOnSelect: true,
+        initialSlide: 0,
         fade: true,
         prevArrow:"<button class='slick-prev slick-arrow' aria-label='Previous' type='button'><svg class='slick-arrow__icon' width='9' height='14' viewBox='0 0 9 14' xmlns='http://www.w3.org/2000/svg'><path d='M7.22359 0l1.6855 1.63333L3.37101 7l5.53808 5.36667L7.22359 14l-7.2236-7z' fill='#2B2B2B' fill-rule='evenodd'></path></svg></button>",
         nextArrow:"<button class='slick-next slick-arrow' aria-label='Next' type='button'><svg class='slick-arrow__icon' width='9' height='14' viewBox='0 0 9 14' xmlns='http://www.w3.org/2000/svg'><path d='M1.6855 0L0 1.63333 5.53808 7 0 12.36667 1.6855 14l7.22359-7z' fill='#2B2B2B' fill-rule='evenodd'></path></svg></button>",
@@ -850,11 +851,15 @@ function handleVariantResponse(response, $productContainer) {
     $('.zoom-product-modal').click(function() {
         var imageIndex = parseFloat($(this).attr('data-image-index'));
         var activeImageId = $(`[data-slick-index='${imageIndex}']`).attr('id');
-        $(`[aria-controls='${activeImageId}']`).trigger('click');
-        if ($(window).width() < 1064 && firstIndex == true) {
+        $(`.slick-dots [aria-controls='${activeImageId}']`).trigger('click');
+       
+        if ($(window).width() < 992 && firstIndex == true && imageIndex == 0) {
             firstIndex = false;
-            $(`.mvmt-pdp-carousel [data-slick-index='${imageIndex}']`).css({'width': `${$(window).width()}`+'px'});
-        } else if($(window).width() > 1064 && firstIndex == true) {
+            $(`.mvmt-pdp-carousel [data-slick-index='${imageIndex}']`).css({'width': `720px`});
+        }  else if( $(window).width() > 991 && $(window).width() < 1400 && firstIndex == true && imageIndex == 0 ) {
+            firstIndex = false;
+            $(`.mvmt-pdp-carousel [data-slick-index='${imageIndex}']`).css({'width': '920px',});
+        }  else if($(window).width() > 1400 && firstIndex == true && imageIndex == 0 ) {
             firstIndex = false;
             $(`.mvmt-pdp-carousel [data-slick-index='${imageIndex}']`).css({'width': '1065px'});
         }
@@ -999,6 +1004,23 @@ function handleVariantResponse(response, $productContainer) {
                     infinite: false,
                     dots: false,
                     arrows: true,
+                });
+                
+                $('.linked-products-redesign').slick({
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                    focusOnSelect: true,
+                    infinite: false,
+                    dots: true,
+                    arrows: true,
+                    responsive: [
+                        {
+                            breakpoint: 768,
+                            settings: {
+                                arrows: false,
+                            }
+                        }
+                    ]
                 });
                 $('#strapguide').click(function() {
                     $('#strapguid').modal('toggle');
@@ -1174,6 +1196,12 @@ var updateCartPage = function(data) {
    }
 };
 
+$('.mobile-click-review').click(function() {
+    setTimeout(() => {
+        $('.review-box-mvmt').removeClass('active');
+    }, 1000);
+});
+
 movadoBase.selectAttribute = function () {
     var selector = '.set-item select[class*="select-"], .product-detail select[class*="select-"], .options-select, .product-option input[type="radio"], .select-variation-product';
     $(document).off('change', selector);
@@ -1241,6 +1269,11 @@ movadoBase.addToCart = function () {
                 giftPid = $('.gift-allowed-checkbox').val();
             }
         } else if ($(this).closest('.linked-products') && $(this).closest('.linked-products').data('recomendation') == true) {
+            pid = $(this).data('pid');
+            if ($('.gift-allowed-checkbox').is(":checked")) {
+                giftPid = $('.gift-allowed-checkbox').val();
+            }
+        } else if ($(this).closest('.linked-products-redesign') && $(this).closest('.linked-products-redesign').data('recomendation') == true) {
             pid = $(this).data('pid');
             if ($('.gift-allowed-checkbox').is(":checked")) {
                 giftPid = $('.gift-allowed-checkbox').val();
@@ -1338,4 +1371,5 @@ movadoBase.addToCart = function () {
     });
 }
 module.exports = movadoBase; 
+
 

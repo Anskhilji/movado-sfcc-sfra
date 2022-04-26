@@ -478,10 +478,13 @@ $('.zoom-product-modal').click(function() {
     var imageIndex = parseFloat($(this).attr('data-image-index'));
     var activeImageId = $(`[data-slick-index='${imageIndex}']`).attr('id');
     $(`[aria-controls='${activeImageId}']`).trigger('click');
-    if ($(window).width() < 1064 && firstIndex == true) {
+    if ($(window).width() < 992 && firstIndex == true && imageIndex == 0) {
         firstIndex = false;
-        $(`.mvmt-pdp-carousel [data-slick-index='${imageIndex}']`).css({'width': `${$(window).width()}`+'px'});
-    } else if($(window).width() > 1064 && firstIndex == true) {
+        $(`.mvmt-pdp-carousel [data-slick-index='${imageIndex}']`).css({'width': `720px`});
+    }  else if( $(window).width() > 991 && $(window).width() < 1400 && firstIndex == true && imageIndex == 0 ) {
+        firstIndex = false;
+        $(`.mvmt-pdp-carousel [data-slick-index='${imageIndex}']`).css({'width': '920px',});
+    }  else if($(window).width() > 1400 && firstIndex == true && imageIndex == 0 ) {
         firstIndex = false;
         $(`.mvmt-pdp-carousel [data-slick-index='${imageIndex}']`).css({'width': '1065px'});
     }
