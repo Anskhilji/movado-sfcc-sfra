@@ -38,6 +38,7 @@ var BANGLE = 'bangle';
 var NEWLINE = '\n';
 var EMBOSSED = 'Embossed';
 var ENGRAVED = 'Engraved';
+var ARRAY_LIST = "ArrayList";
 
 function getBadges(apiProduct) {
 	// Contains what attributes needs to display image/text
@@ -1027,14 +1028,23 @@ function isOnlyRedesignedBadge(product) {
                         var isCustom =  attributes[attributesIndex].custom;
                         var section = attributes[attributesIndex].section;
                         var image = attributes[attributesIndex].image;
-                        var value = null;
+                        var type = attributes[attributesIndex].type;
+                        var value = '';
                         if (id == 'ringSize') {
                             var ringSizes = !empty(Site.getCurrent().getCustomPreferenceValue('ringSize')) ? Site.getCurrent().getCustomPreferenceValue("ringSize") : '';
                             value = ringSizes.filter(function(ringSize){ return ringSize.split(',')[0] === apiProduct.custom[id] });
                             value = value.length > 0 ? value[0] : null;
                         } else {
                             if (isCustom) {
-                                value = (!empty(id) || !empty(apiProduct.custom[id])) ? apiProduct.custom[id] : '';
+                                if (type == ARRAY_LIST) {
+                                    var arrayList = apiProduct.custom[id];
+                                    for (var index = 0; index < arrayList.length; index++) {
+                                        value += ', '+  arrayList[index];
+                                    }
+                                    value = value.replace(',','');
+                                } else {
+                                    value = (!empty(id) || !empty(apiProduct.custom[id])) ? apiProduct.custom[id] : '';
+                                }
                             } else {
                                 value = (!empty(id) || !empty(apiProduct[id])) ? apiProduct[id] : '';
                             }
