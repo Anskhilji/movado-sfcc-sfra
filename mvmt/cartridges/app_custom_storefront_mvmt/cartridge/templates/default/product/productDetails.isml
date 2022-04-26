@@ -221,7 +221,7 @@
 
                     <div class="hidden-sm-down">
                         <isif condition="${product.yotpoReviewsCustomAttribute}">
-                            <div class="product-price-rating clearfix">
+                            <div class="product-number-rating clearfix">
                                 <div class="ratings">
                                     <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
                                         <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
