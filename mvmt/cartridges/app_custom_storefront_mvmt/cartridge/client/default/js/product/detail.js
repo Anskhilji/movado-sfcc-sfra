@@ -472,6 +472,20 @@ if ($(window).width() > 767) {
     }
 }
 
+
+$( document ).ready(function() {
+    var reviewsAccordion = $(".review-box-mvmt").find('.text-m');
+
+    if (reviewsAccordion.length > 0) {
+        $(".review-empty-box").hide(); 
+        $(".reviews-hare").show();
+    } else {
+        $(".review-empty-box").show();
+        $(".reviews-hare").hide();
+    }
+
+});
+
 $('.zoom-product-modal').click(function() {
     var imageIndex = parseFloat($(this).attr('data-image-index'));
     $('.slick-active').removeClass('slick-current slick-active');
