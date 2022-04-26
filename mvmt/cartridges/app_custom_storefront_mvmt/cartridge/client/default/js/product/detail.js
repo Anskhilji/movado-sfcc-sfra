@@ -472,7 +472,6 @@ if ($(window).width() > 767) {
     }
 }
 
-
 $( document ).ready(function() {
     var reviewsAccordion = $(".review-box-mvmt").find('.text-m');
 
