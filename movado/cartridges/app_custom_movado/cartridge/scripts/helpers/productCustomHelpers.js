@@ -1034,7 +1034,11 @@ function isOnlyRedesignedBadge(product) {
                             value = value.length > 0 ? value[0] : null;
                         } else {
                             if (isCustom) {
-                                value = (!empty(id) || !empty(apiProduct.custom[id])) ? apiProduct.custom[id] : '';
+                                if (id == 'watchGender') {
+                                    value = (!empty(id) || !empty(apiProduct.custom[id])) ? apiProduct.custom[id][0] : '';
+                                } else {
+                                    value = (!empty(id) || !empty(apiProduct.custom[id])) ? apiProduct.custom[id] : '';
+                                }
                             } else {
                                 value = (!empty(id) || !empty(apiProduct[id])) ? apiProduct[id] : '';
                             }
