@@ -472,6 +472,19 @@ if ($(window).width() > 767) {
     }
 }
 
+$( document ).ready(function() {
+    var $reviewsAccordion = $('.review-box-mvmt').find('.text-m');
+
+    if ($reviewsAccordion.length > 0) {
+        $('.review-empty-box').hide(); 
+        $('.reviews-here').show();
+    } else {
+        $('.review-empty-box').show();
+        $('.reviews-here').hide();
+    }
+
+});
+
 // Mss-1485 MVMT - PDP Redesign - Desktop Zoom Modal  click to open image
 var firstIndex = true;
 $('.zoom-product-modal').click(function() {
