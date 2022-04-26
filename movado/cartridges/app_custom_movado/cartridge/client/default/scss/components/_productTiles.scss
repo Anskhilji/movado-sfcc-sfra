@@ -359,7 +359,7 @@
                 min-height: unset;
             }
             @include custom-media-query-max-medium($medium-screen-width800) {
-                height: auto;
+                min-height: auto;
                 padding-bottom: rem(15);
             }
 
