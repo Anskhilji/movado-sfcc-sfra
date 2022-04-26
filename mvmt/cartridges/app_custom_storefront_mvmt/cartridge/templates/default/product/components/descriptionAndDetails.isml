@@ -56,9 +56,16 @@
                             </div>
                         </div>
                         <div class="pdp-content-body accordian-mobile-body review-box-mvmt">
-                            <div class="w-100 accordian-review-box">
+                            <div class="w-100 accordian-review-box reviews-here">
                                 <h3 class="details-heading text-center">${Resource.msg('label.tab.review.redesign', 'product', null)}</h3>
                                  <div class="yotpo yotpo-shoppers-say accordian-review" data-product-id="${pdict.product.id}"></div>
+                            </div>
+
+                            <div class="w-100 accordian-review-box review-empty-box">
+                                <h3 class="details-heading text-center">${Resource.msg('label.tab.no-review-redesign', 'product', null)}</h3>
+                                <p class="no-review-sec">
+                                    ${dw.system.Site.current.preferences.custom.noReviewMessage}
+                                </p>
                             </div>
                         </div>
                     </div>
