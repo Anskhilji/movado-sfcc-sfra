@@ -50,12 +50,12 @@
                     </isif>
                     
                     <div class="pdp-tab-content <isif condition= ${!product.attributes && product.attributes.length}>active fadeIn</isif> ${Resource.msg('label.tab.review', 'product', null)}">
-                        <div class="pdp-mobile-accordian mvmv-pdp-accordian">
+                        <div class="pdp-mobile-accordian mvmv-pdp-accordian review-box-mvmt">
                             <div class="pdp-mobile-accordian-label">${Resource.msg('label.tab.review', 'product', null)} <span class="pdp-stras"><isinclude template="product/components/productRating" /></span></div>
                             <div class="pdp-mobile-accordian-switch accordian-angle-down">
                             </div>
                         </div>
-                        <div class="pdp-content-body accordian-mobile-body">
+                        <div class="pdp-content-body accordian-mobile-body review-box-mvmt">
                             <div class="w-100 accordian-review-box">
                                 <h3 class="details-heading text-center">${Resource.msg('label.tab.review.redesign', 'product', null)}</h3>
                                  <div class="yotpo yotpo-shoppers-say accordian-review" data-product-id="${pdict.product.id}"></div>
