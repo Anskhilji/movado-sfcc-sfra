@@ -84,6 +84,87 @@ module.exports = {
             zoomfeature();
         })
     },
+    zooomMobile : function() {
+        function zoomMobilefeature () {
+            var t = ".main-mvmt-carousel-mobile .carousel-tile";
+            $(t).trigger("zoom.destroy");
+            $(t).addClass("disabled");
+            $(".zoom-icon.zoom-out").removeClass("is-active");
+            var n = $(".main-mvmt-carousel-mobile .slick-current").find("img").attr("src");
+            var $primaryImagesContainer = $('.primary-images-wrapper-1');
+            var $videoSlide = $primaryImagesContainer.find('.slick-slide.slick-current .slide-video');
+            var $zoomButtons = $primaryImagesContainer.find('.quickview.js-zoom-image, .zoom-icon');
+            var $imageSlide = $primaryImagesContainer.find('.slick-slide.slick-current .carousel-tile, .slick-slide.slick-current .normal-zoom');
+            $(window).width() > 767 ? (
+                $(t).trigger("zoom.destroy"), 
+                $(t).zoom({
+                    url: $(this).find('img').attr('src'),
+                    magnify: 1.1,
+                    on: "click",
+                    target: $(".zoom-box"),
+                    
+                    onZoomIn: function() {
+                        $(".zoom-box").addClass("zoom-active");
+                        $(".zoom-out").addClass("active");
+                    },
+                    
+                    onZoomOut: function() {
+                        $(".zoom-box").removeClass("zoom-active");
+                        $(".zoom-out").removeClass("active");
+                    }
+                })
+            ) : (
+                $(t).zoom({
+                    url: $(this).find('img').attr('src'),
+                    magnify: 1.1,
+                    on: "click",
+                    target: $(".zoom-box"),
+                    onZoomIn: function() {
+                        $(".zoom-box").addClass("zoom-active");
+                        $(".zoom-out").addClass("active");
+                    },
+                    onZoomOut: function() {
+                        $(".zoom-box").removeClass("zoom-active");
+                        $(".zoom-out").removeClass("active");
+                    }
+                }),
+
+                $(document).off("click", ".zoom-icon.zoom-in").on("click", ".zoom-icon.zoom-in", (function (a) {
+                    $(".slick-dots").css("z-index", "-1");
+                    $(t).trigger('onZoomIn');
+                    $('.primary-images-wrapper-1').addClass('zoomed-images');
+                    if ($videoSlide.length > 0) {
+                        $zoomButtons.removeClass('d-none');
+                        $imageSlide.css('pointer-events', '');
+                        $primaryImagesContainer.find('.slick-slide.slick-current').css('cursor', '');
+                    }
+                    if ($(t).hasClass("disabled")) {
+                        $(".zoom-icon.zoom-out").addClass("is-active");
+                        $(t).removeClass("disabled");
+                    }
+                })),
+
+                $(document).off("click", ".zoom-icon.zoom-out").on("click", ".zoom-icon.zoom-out", (function (a) {
+                    $('.primary-images-wrapper-1').removeClass('zoomed-images');
+                    $(".slick-dots").css("z-index", "0");
+                    if ($videoSlide.length > 0) {
+                        $zoomButtons.addClass('d-none');
+                        $imageSlide.css('pointer-events', 'none');
+                        $primaryImagesContainer.find('.slick-slide.slick-current').css('cursor', 'default');
+                    }
+                    $(t).trigger('onZoomOut');
+                    $(".zoom-icon.zoom-out").hasClass("is-active") && ( $(t).addClass("disabled"),
+                    $(".zoom-icon.zoom-out").removeClass("is-active"))
+                }))
+            );
+        };
+
+        zoomMobilefeature();
+
+        $(window).on('resize', function(){
+            zoomMobilefeature();
+        })
+    },
 
     clickEvents: function () {
 
@@ -325,8 +406,7 @@ module.exports = {
                 return '<button class="tab"> <img  src="'+ thumb +'" /> </button>';
             },
         });
-      
-       
+
         $('.primary-images .main-mvmt-carousel').slick({
             slidesToShow: 1,
             slidesToScroll: 1,
@@ -355,6 +435,39 @@ module.exports = {
             slidesToShow: 20,
             slidesToScroll: 1,
             asNavFor: '.primary-images .main-mvmt-carousel',
+            dots: false,
+            arrows:false,
+
+        });
+
+        $('.primary-images-wrapper-1 .main-mvmt-carousel-mobile').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            dots: true,
+            arrows:false,
+            focusOnSelect: true,
+            fade: true,
+            prevArrow:"<button class='slick-prev slick-arrow' aria-label='Previous' type='button'><svg class='slick-arrow__icon' width='9' height='14' viewBox='0 0 9 14' xmlns='http://www.w3.org/2000/svg'><path d='M7.22359 0l1.6855 1.63333L3.37101 7l5.53808 5.36667L7.22359 14l-7.2236-7z' fill='#2B2B2B' fill-rule='evenodd'></path></svg></button>",
+            nextArrow:"<button class='slick-next slick-arrow' aria-label='Next' type='button'><svg class='slick-arrow__icon' width='9' height='14' viewBox='0 0 9 14' xmlns='http://www.w3.org/2000/svg'><path d='M1.6855 0L0 1.63333 5.53808 7 0 12.36667 1.6855 14l7.22359-7z' fill='#2B2B2B' fill-rule='evenodd'></path></svg></button>",
+            responsive: [
+                {
+                    breakpoint: 768,
+                    settings: {
+                        arrows: false,
+                        dots:true
+                    }
+                },
+            ],
+            customPaging: function (slick, index) {
+                var thumb = $(slick.$slides[index]).find('.carousel-tile').attr('data-thumb');
+                return '<button class="tab video-box"> <img  src="'+ thumb +'" /> </button>';
+            },
+        });
+
+        $('.pdp-mvmt-pagination').slick({
+            slidesToShow: 20,
+            slidesToScroll: 1,
+            asNavFor: '.main-mvmt-carousel-mobile',
             dots: false,
             arrows:false,
 
@@ -488,3 +601,35 @@ $('.zoom-product-modal').click(function() {
         $(`.mvmt-pdp-carousel [data-slick-index='${imageIndex}']`).css({'width': '1065px'});
     }
 })
+
+function pdpMobileCarousel() {
+    
+    $('.main-mvmt-carousel-mobile').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        dots: true,
+        arrows:false,
+        focusOnSelect: true,
+        fade: true,
+        initialSlide: 1,
+        prevArrow:"<button class='slick-prev slick-arrow' aria-label='Previous' type='button'><svg class='slick-arrow__icon' width='9' height='14' viewBox='0 0 9 14' xmlns='http://www.w3.org/2000/svg'><path d='M7.22359 0l1.6855 1.63333L3.37101 7l5.53808 5.36667L7.22359 14l-7.2236-7z' fill='#2B2B2B' fill-rule='evenodd'></path></svg></button>",
+        nextArrow:"<button class='slick-next slick-arrow' aria-label='Next' type='button'><svg class='slick-arrow__icon' width='9' height='14' viewBox='0 0 9 14' xmlns='http://www.w3.org/2000/svg'><path d='M1.6855 0L0 1.63333 5.53808 7 0 12.36667 1.6855 14l7.22359-7z' fill='#2B2B2B' fill-rule='evenodd'></path></svg></button>",
+        responsive: [
+            {
+                breakpoint: 768,
+                settings: {
+                    arrows: false,
+                    dots: true
+                }
+            },
+        ],
+        customPaging: function (slick, index) {
+            var thumb = $(slick.$slides[index]).find('.carousel-tile').attr('data-thumb');
+            return '<button class="tab"> <img  src="'+ thumb +'" /> </button>';
+        },
+    });
+}
+
+if ($(window).width() < 768){
+    pdpMobileCarousel();
+}
