@@ -1002,6 +1002,15 @@
         .main-mvmt-carousel {
             padding: rem(10) rem(40) 0;
 
+        &.show-arrow-box-mvmt {
+            @include media-breakpoint-down(sm) {
+                @include media-breakpoint-down(sm) {
+                    .slick-arrow {
+                        display: none !important;
+                    }
+                }
+            }
+        }
 
             @include media-breakpoint-down(md-down) {
                 padding: 0;

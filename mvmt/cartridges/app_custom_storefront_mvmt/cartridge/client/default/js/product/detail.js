@@ -341,7 +341,7 @@ module.exports = {
                 {
                     breakpoint: 768,
                     settings: {
-                        arrows: false,
+                        arrows: true,
                         dots:true
                     }
                 },
@@ -360,11 +360,6 @@ module.exports = {
             arrows:false,
 
         });
-
-        var a = $('.video').parent().parent().attr('aria-describedby');
-        if (a) {
-            $('#'+a).parent().addClass('video-icon');
-        }
     },
 
     updateAddToCart: function () {
@@ -462,6 +457,15 @@ module.exports = {
     base: base
 };
 
+if (document.readyState == "interactive") {
+    setTimeout(function () {
+        var slickVideoIcon = $('.video').parent().parent().attr('aria-describedby');
+        if (slickVideoIcon !== undefined) {
+            $('#'+slickVideoIcon).parent().addClass('video-icon');
+        }
+    }, 1000);
+}
+
 var imageBox = $(".quadrant-pdp-wrapper").height();
 var detailBox = $(".product-side-details-wrapper").height();
 if ($(window).width() > 767) {
@@ -487,29 +491,12 @@ if (document.readyState == "interactive") {
         }
     }, 1000);
 }
-
-// Mss-1740 MVMT - PDP Redesign - Desktop Zoom Modal  show arrows
-if ($(window).width() < 768) {
-    var arrowShow = {
-        arrows: true,
-        prevArrow:"<button class='slick-prev slick-arrow' aria-label='Previous' type='button'><svg class='slick-arrow__icon' width='9' height='14' viewBox='0 0 9 14' xmlns='http://www.w3.org/2000/svg'><path d='M7.22359 0l1.6855 1.63333L3.37101 7l5.53808 5.36667L7.22359 14l-7.2236-7z' fill='#2B2B2B' fill-rule='evenodd'></path></svg></button>",
-        nextArrow:"<button class='slick-next slick-arrow' aria-label='Next' type='button'><svg class='slick-arrow__icon' width='9' height='14' viewBox='0 0 9 14' xmlns='http://www.w3.org/2000/svg'><path d='M1.6855 0L0 1.63333 5.53808 7 0 12.36667 1.6855 14l7.22359-7z' fill='#2B2B2B' fill-rule='evenodd'></path></svg></button>",
-    }
-    $('.zoom-in').on('click', function() {
-        $('.main-mvmt-carousel').slick('unslick');
-        $('.main-mvmt-carousel').slick(arrowShow);
-    });
-
-    // Mss-1740 MVMT - PDP Redesign - Desktop Zoom Modal  show dots
-    var arrowHide = {
-        arrows: false,
-        dots: true,
-    }
-    $('.zoom-out').on('click', function() {
-        $('.main-mvmt-carousel').slick('unslick');
-        $('.main-mvmt-carousel').slick(arrowHide);
-    });
- }
+$(".zoom-in").click(function(){
+    $(".main-mvmt-carousel-pdp-redesign").removeClass("show-arrow-box-mvmt");
+});
+$(".zoom-out").click(function(){
+    $(".main-mvmt-carousel-pdp-redesign").addClass("show-arrow-box-mvmt");
+});
 
 // Mss-1485 MVMT - PDP Redesign - Desktop Zoom Modal  click to open image
 var firstIndex = true;
