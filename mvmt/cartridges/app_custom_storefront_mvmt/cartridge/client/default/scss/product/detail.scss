@@ -3646,6 +3646,12 @@
                         cursor: zoom-in;
                     }
                 }
+                .slide-video {
+                    padding-bottom: rem(20);
+                    @include media-breakpoint-up(md-down) {
+                        padding: rem(0) rem(10) rem(10) rem(0);
+                    }
+                }
 
             }
 

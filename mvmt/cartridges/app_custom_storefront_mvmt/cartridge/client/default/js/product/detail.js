@@ -475,9 +475,13 @@ if ($(window).width() > 767) {
 // Mss-1485 MVMT - PDP Redesign - Desktop Zoom Modal  click to open image
 var firstIndex = true;
 $('.zoom-product-modal').click(function() {
+    var browserName = fnBrowserDetect();
     var imageIndex = parseFloat($(this).attr('data-image-index'));
     var activeImageId = $(`[data-slick-index='${imageIndex}']`).attr('id');
     $(`[aria-controls='${activeImageId}']`).trigger('click');
+    if(firstIndex == true && browserName == 'safari'){
+        $(`.zoom-modal-inner`).css({'height': `590px`});
+    }
     if ($(window).width() < 992 && firstIndex == true && imageIndex == 0) {
         firstIndex = false;
         $(`.mvmt-pdp-carousel [data-slick-index='${imageIndex}']`).css({'width': `720px`});
@@ -489,3 +493,24 @@ $('.zoom-product-modal').click(function() {
         $(`.mvmt-pdp-carousel [data-slick-index='${imageIndex}']`).css({'width': '1065px'});
     }
 })
+
+function fnBrowserDetect(){
+                 
+    let userAgent = navigator.userAgent;
+    let browserName;
+    
+    if(userAgent.match(/chrome|chromium|crios/i)){
+        browserName = "chrome";
+      }else if(userAgent.match(/firefox|fxios/i)){
+        browserName = "firefox";
+      }  else if(userAgent.match(/safari/i)){
+        browserName = "safari";
+      }else if(userAgent.match(/opr\//i)){
+        browserName = "opera";
+      } else if(userAgent.match(/edg/i)){
+        browserName = "edge";
+      }else{
+        browserName="No browser detection";
+      }
+      return browserName;        
+}
