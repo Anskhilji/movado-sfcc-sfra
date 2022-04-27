@@ -1100,9 +1100,12 @@ function isOnlyRedesignedBadge(product) {
     while (apiCategories.hasNext()) {
         currentCategory = apiCategories.next();
         locale = request.locale;
-        currentLocale = categoriesConfig[locale];
-        category = currentLocale[currentCategory.ID];
-        
+        if (!empty(locale)) {
+            currentLocale = categoriesConfig[locale];
+        }
+        if (!empty(currentLocale)) {
+            category = currentLocale[currentCategory.ID];
+        }
         if (!empty(category)) {
             break;
         }
@@ -1111,8 +1114,12 @@ function isOnlyRedesignedBadge(product) {
             currentCategory = currentCategory.parent;
             if (!empty(currentCategory)) {
                 locale = request.locale;
-                currentLocale = categoriesConfig[locale];
-                category = currentLocale[currentCategory.ID];
+                if (!empty(locale)) {
+                    currentLocale = categoriesConfig[locale];
+                }
+                if (!empty(currentLocale)) {
+                    category = currentLocale[currentCategory.ID];
+                }
                 if (!empty(category)) {
                     categoryConfigFound = true;
                     break;

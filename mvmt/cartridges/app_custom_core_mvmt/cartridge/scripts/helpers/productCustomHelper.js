@@ -157,8 +157,9 @@ function getCategoryConfig(apiProduct, categoriesConfig) {
     var apiCategories = apiProduct.getOnlineCategories().iterator();
     while (apiCategories.hasNext()) {
         currentCategory = apiCategories.next();
-        category = categoriesConfig[currentCategory.ID];
-        
+        if (!empty(currentCategory)) {
+            category = categoriesConfig[currentCategory.ID];
+        }        
         if (!empty(category)) {
             break;
         }
@@ -166,7 +167,9 @@ function getCategoryConfig(apiProduct, categoriesConfig) {
         while (currentCategory.parent != null) {
             currentCategory = currentCategory.parent;
             if (!empty(currentCategory)) {
-                category = categoriesConfig[currentCategory.ID];
+                if (!empty(currentCategory)) {
+                    category = categoriesConfig[currentCategory.ID];
+                } 
                 if (!empty(category)) {
                     categoryConfigFound = true;
                     break;
