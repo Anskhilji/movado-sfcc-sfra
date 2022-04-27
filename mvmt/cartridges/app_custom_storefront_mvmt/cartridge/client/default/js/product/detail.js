@@ -488,6 +488,7 @@ if (document.readyState == "interactive") {
     }, 1000);
 }
 
+// Mss-1740 MVMT - PDP Redesign - Desktop Zoom Modal  show arrows
 if ($(window).width() < 768) {
     var arrowShow = {
         arrows: true,
@@ -498,7 +499,8 @@ if ($(window).width() < 768) {
         $('.main-mvmt-carousel').slick('unslick');
         $('.main-mvmt-carousel').slick(arrowShow);
     });
-    
+
+    // Mss-1740 MVMT - PDP Redesign - Desktop Zoom Modal  show dots
     var arrowHide = {
         arrows: false,
         dots: true,
