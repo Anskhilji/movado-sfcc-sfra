@@ -1017,7 +1017,7 @@
                     &-dots {
                        @include media-breakpoint-down(sm) {
                            position: absolute;
-                           bottom: rem(5);
+                           bottom: rem(10);
                            right: rem(10);
                            left: auto;
                            text-align: right;
