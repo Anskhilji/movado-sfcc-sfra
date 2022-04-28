@@ -479,9 +479,18 @@ $('.zoom-product-modal').click(function() {
     var imageIndex = parseFloat($(this).attr('data-image-index'));
     var activeImageId = $(`[data-slick-index='${imageIndex}']`).attr('id');
     $(`[aria-controls='${activeImageId}']`).trigger('click');
-    if(firstIndex == true && browserName == 'safari'){
-        $(`.zoom-modal-inner`).css({'height': `590px`});
+    if(firstIndex == true && browserName == 'safari' && imageIndex == 0){
+        $(`.zoom-modal-inner .cs-carousel-wrapper`).addClass('m-top-space-52');
+    } else if(firstIndex == false && browserName == 'safari' && imageIndex != 0){
+        $(`.zoom-modal-inner .cs-carousel-wrapper`).removeClass('m-top-space-52');
+        $(`.zoom-modal-inner .cs-carousel-wrapper`).addClass('m-top-space-72');
     }
+    $('.tab').click( function(){
+        if(firstIndex == false && browserName == 'safari' && imageIndex == 0){
+            $(`.zoom-modal-inner .cs-carousel-wrapper`).removeClass('m-top-space-52');
+            $(`.zoom-modal-inner .cs-carousel-wrapper`).addClass('m-top-space-72');
+        }
+    });
     if ($(window).width() < 992 && firstIndex == true && imageIndex == 0) {
         firstIndex = false;
         $(`.mvmt-pdp-carousel [data-slick-index='${imageIndex}']`).css({'width': `720px`});
