@@ -1,4 +1,4 @@
-<div class="primary-images d-md-none">
+<div class="primary-images">
     <div class="product-badges">
         <!-- First two conditions are for PLP and the last is applicable on PDP -->
         <isif condition="${(product.defaultVariantAvailabilityStatus === 'IN_STOCK' && pdict.display.plpTile === true) || (product.available && pdict.display.plpTile === true && product.productType !== 'master') || (product.available && pdict.display.plpTile === false)}">
@@ -68,7 +68,7 @@
             </g>
           </svg>
         </div>
-        <div class="main-mvmt-carousel main-mvmt-carousel-pdp-redesign show-arrow-box-mvmt">
+        <div class="main-mvmt-carousel main-mvmt-carousel-pdp-redesign">
           <isset name="pdpVideoConfigs" value="${product.pdpVideoConfigs}" scope="page" />
           <isloop items="${product.images['zoom1660']}" var="image" status="loopStatus">
             <div class="carousel-tile ${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL) ? 'video' : ''}" data-thumb="${!empty(product.images) && !empty(product.images.tile150[loopStatus.count-1]) ? product.images.tile150[loopStatus.count-1].url : ''}">
@@ -79,7 +79,7 @@
                       <isset name="isImageExist" value="true" scope="page" />
                 </picture>
               <isif condition="${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL) }">
-                <video id="slide-video" class="slide-video d-block" loop muted autoplay playsinline>
+                <video id="slide-video" class="slide-video d-none" loop muted autoplay playsinline>
                   <source src="${pdpVideoConfigs.videoURL}" type="video/mp4" />
                 </video>
               </isif>

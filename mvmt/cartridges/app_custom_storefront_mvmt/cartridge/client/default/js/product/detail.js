@@ -50,6 +50,8 @@ module.exports = {
                 }),
 
                 $(document).off("click", ".zoom-icon.zoom-in").on("click", ".zoom-icon.zoom-in", (function (a) {
+                    $(".slick-dots").addClass('index-zoom-wrapper1');
+                    $(".slick-dots").removeClass('index-wrapper-inner');
                     $(t).trigger('onZoomIn');
                     $('.primary-images').addClass('zoomed-images');
                     if ($videoSlide.length > 0) {
@@ -65,6 +67,8 @@ module.exports = {
 
                 $(document).off("click", ".zoom-icon.zoom-out").on("click", ".zoom-icon.zoom-out", (function (a) {
                     $('.primary-images').removeClass('zoomed-images');
+                    $(".slick-dots").addClass('index-wrapper-inner');
+                    $(".slick-dots").removeClass('index-zoom-wrapper1');
                     if ($videoSlide.length > 0) {
                         $zoomButtons.addClass('d-none');
                         $imageSlide.css('pointer-events', 'none');
@@ -339,8 +343,8 @@ module.exports = {
                 {
                     breakpoint: 768,
                     settings: {
-                        arrows: false,
-                        dots:true
+                        arrows: true,
+                        dots: true
                     }
                 },
             ],
@@ -355,14 +359,9 @@ module.exports = {
             slidesToScroll: 1,
             asNavFor: '.primary-images .main-mvmt-carousel',
             dots: false,
-            arrows:false,
+            arrows: false,
 
         });
-
-        var a = $('.video').parent().parent().attr('aria-describedby');
-        if (a) {
-            $('#'+a).parent().addClass('video-icon');
-        }
     },
 
     updateAddToCart: function () {
@@ -460,6 +459,15 @@ module.exports = {
     base: base
 };
 
+if (document.readyState == "interactive") {
+    setTimeout(function () {
+        var slickVideoIcon = $('.video').parent().parent().attr('aria-describedby');
+        if (slickVideoIcon !== undefined) {
+            $('#'+slickVideoIcon).parent().addClass('video-icon');
+        }
+    }, 1000);
+}
+
 var imageBox = $(".quadrant-pdp-wrapper").height();
 var detailBox = $(".product-side-details-wrapper").height();
 if ($(window).width() > 767) {
@@ -485,7 +493,12 @@ if (document.readyState == "interactive") {
         }
     }, 1000);
 }
-
+$(".zoom-in").click(function(){
+    $(".main-mvmt-carousel-pdp-redesign").removeClass("show-arrow-box-mvmt");
+});
+$(".zoom-out").click(function(){
+    $(".main-mvmt-carousel-pdp-redesign").addClass("show-arrow-box-mvmt");
+});
 
 // Mss-1485 MVMT - PDP Redesign - Desktop Zoom Modal  click to open image
 var firstIndex = true;
