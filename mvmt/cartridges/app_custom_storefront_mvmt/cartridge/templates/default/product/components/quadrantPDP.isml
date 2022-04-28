@@ -26,7 +26,7 @@
     </div>
 </div>
 
-    <isinclude template="product/components/imageCarouselPDP" />
+<isinclude template="product/components/imageCarouselPDP" />
 
 <iscomment> Zoom Modal </iscomment>
 <div class="modal fade zoom-modal zoom-modal-inner" id="zoomProduct" role="dialog">

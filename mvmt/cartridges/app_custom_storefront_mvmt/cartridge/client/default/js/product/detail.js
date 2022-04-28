@@ -50,7 +50,8 @@ module.exports = {
                 }),
 
                 $(document).off("click", ".zoom-icon.zoom-in").on("click", ".zoom-icon.zoom-in", (function (a) {
-                    $(".slick-dots").css("z-index", "-1");
+                    $(".slick-dots").addClass('index-zoom-wrapper1');
+                    $(".slick-dots").removeClass('index-wrapper-inner');
                     $(t).trigger('onZoomIn');
                     $('.primary-images').addClass('zoomed-images');
                     if ($videoSlide.length > 0) {
@@ -66,7 +67,8 @@ module.exports = {
 
                 $(document).off("click", ".zoom-icon.zoom-out").on("click", ".zoom-icon.zoom-out", (function (a) {
                     $('.primary-images').removeClass('zoomed-images');
-                    $(".slick-dots").css("z-index", "0");
+                    $(".slick-dots").addClass('index-wrapper-inner');
+                    $(".slick-dots").removeClass('index-zoom-wrapper1');
                     if ($videoSlide.length > 0) {
                         $zoomButtons.addClass('d-none');
                         $imageSlide.css('pointer-events', 'none');
