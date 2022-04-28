@@ -344,7 +344,7 @@ module.exports = {
                     breakpoint: 768,
                     settings: {
                         arrows: true,
-                        dots:true
+                        dots: true
                     }
                 },
             ],
@@ -359,7 +359,7 @@ module.exports = {
             slidesToScroll: 1,
             asNavFor: '.primary-images .main-mvmt-carousel',
             dots: false,
-            arrows:false,
+            arrows: false,
 
         });
     },
