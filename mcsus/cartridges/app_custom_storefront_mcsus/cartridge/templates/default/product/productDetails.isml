@@ -41,7 +41,8 @@
 
                     <div class="row">
                         <div class="col-sm-12">
-                            <isif condition="${product.yotpoReviewsCustomAttribute}">
+                            <isset name="isYotpoProductAttributeEnabled" value="${!empty(dw.system.Site.current.preferences.custom.yotpoStarRatingsInProductAttributeEnabled) ? dw.system.Site.current.preferences.custom.yotpoStarRatingsInProductAttributeEnabled : false}" scope="page" />
+                            <isif condition="${product.yotpoReviewsCustomAttribute && isYotpoProductAttributeEnabled}">
                                 <div class="product-number-rating clearfix">
                                     <div class="product-number hidden-xs-down pull-left">
                                         <isinclude template="product/components/productNumber" />
@@ -80,7 +81,7 @@
 
                     <iscomment> <p> <span>Model:</span> <span><isprint value="${product.id}" encoding="on" /></span> </p> </iscomment>
                     <div class="d-block d-md-block hidden-sm-down">
-                        <isif condition="${product.yotpoReviewsCustomAttribute}">
+                        <isif condition="${product.yotpoReviewsCustomAttribute && isYotpoProductAttributeEnabled}">
                             <div class="product-number-rating clearfix">
                                 <div class="product-number hidden-xs-down pull-left">
                                     <isinclude template="product/components/productNumber" />

@@ -47,7 +47,8 @@
                             </div>
                             <!-- Product Rating -->
                             <div class="ratings d-none-mobile-rating">
-                                <isif condition="${product.yotpoReviewsCustomAttribute}">
+                                <isset name="isYotpoProductAttributeEnabled" value="${!empty(dw.system.Site.current.preferences.custom.yotpoStarRatingsInProductAttributeEnabled) ? dw.system.Site.current.preferences.custom.yotpoStarRatingsInProductAttributeEnabled : false}" scope="page" />
+                                <isif condition="${product.yotpoReviewsCustomAttribute && isYotpoProductAttributeEnabled}">
                                     <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine"
                                         <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
                                     </div>
@@ -86,7 +87,7 @@
                         <div class="product-section-mobile scroll-wrapper-inner">
                             <!-- Product Rating -->
                             <div class="ratings ratings-mobile d-lg-none d-sm-none hidden-sm-down">
-                                <isif condition="${product.yotpoReviewsCustomAttribute}">
+                                <isif condition="${product.yotpoReviewsCustomAttribute && isYotpoProductAttributeEnabled}">
                                     <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine"
                                         <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
                                     </div>

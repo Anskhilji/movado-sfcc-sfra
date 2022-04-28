@@ -53,7 +53,8 @@
 
         <div class="row m-0">
             <div class="col d-flex w-100 p-0">
-                <isif condition="${product.yotpoReviewsCustomAttribute}">
+                <isset name="isYotpoProductAttributeEnabled" value="${!empty(dw.system.Site.current.preferences.custom.yotpoStarRatingsInProductAttributeEnabled) ? dw.system.Site.current.preferences.custom.yotpoStarRatingsInProductAttributeEnabled : false}" scope="page" />
+                <isif condition="${product.yotpoReviewsCustomAttribute && isYotpoProductAttributeEnabled}">
                     <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
                         <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
 	                </div>

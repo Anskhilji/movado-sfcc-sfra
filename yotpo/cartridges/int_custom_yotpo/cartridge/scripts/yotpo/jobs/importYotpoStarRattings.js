@@ -38,7 +38,6 @@ function execute() {
     var Status = require('dw/system/Status');
     var Transaction = require('dw/system/Transaction');
     var YotpoUtils = require('*/cartridge/scripts/yotpo/utils/YotpoUtils');
-    var yotpoStarRatingsInProductAttributeEnab = Site.getCurrent().preferences.custom.yotpoStarRatingsInProductAttributeEnabled;
 
     var isreview = 'true';
     var locale = 'default';
@@ -50,7 +49,7 @@ function execute() {
 
     var logLocation = 'importYotpoStarRattings~execute';
 
-    if (!YotpoUtils.isCartridgeEnabled() || !yotpoStarRatingsInProductAttributeEnab) {
+    if (!YotpoUtils.isCartridgeEnabled()) {
         return new Status(Status.ERROR);
     }
 

@@ -36,9 +36,10 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <iscomment> <div class="row">
                         <div class="col-sm-12">
-                            <isif condition="${product.yotpoReviewsCustomAttribute}">
+                            <isset name="isYotpoProductAttributeEnabled" value="${!empty(dw.system.Site.current.preferences.custom.yotpoStarRatingsInProductAttributeEnabled) ? dw.system.Site.current.preferences.custom.yotpoStarRatingsInProductAttributeEnabled : false}" scope="page" />
+                            <isif condition="${product.yotpoReviewsCustomAttribute && isYotpoProductAttributeEnabled}">
                                 <div class="product-number-rating clearfix">
                                     <div class="product-number hidden-xs-down pull-left">
                                         <isinclude template="product/components/productNumber" />
@@ -53,7 +54,7 @@
                                 <isinclude template="product/components/pidRating" />
                             </isif>
                         </div>
-                    </div>
+                    </div> </iscomment>
                 </div>
             </div>
             <hr class="hidden-xs-down d-md-none"/>
@@ -71,8 +72,8 @@
                     <!-- Product Name -->
                     <h2 class="product-name d-sm-none d-md-block text-uppercase">${product.productName}</h2>
 
-                    <div class="d-block d-md-block d-sm-none hidden-sm-down">
-                        <isif condition="${product.yotpoReviewsCustomAttribute}">
+                    <iscomment> <div class="d-block d-md-block d-sm-none hidden-sm-down">
+                        <isif condition="${product.yotpoReviewsCustomAttribute && isYotpoProductAttributeEnabled}">
                             <div class="product-number-rating clearfix">
                                 <div class="product-number hidden-xs-down pull-left">
                                     <isinclude template="product/components/productNumber" />
@@ -80,13 +81,14 @@
                                 <div class="ratings pull-right">
                                     <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
                                         <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
+                                        Hamza
 	                                </div>
                                 </div>
                             </div>
                         <iselse>
                             <isinclude template="product/components/pidRating" />
                         </isif>
-                    </div>
+                    </div> </iscomment>
 
                     <div class="row">
                         <!-- Attributes and Quantity -->
