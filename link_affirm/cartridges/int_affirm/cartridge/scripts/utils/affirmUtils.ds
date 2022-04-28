@@ -663,7 +663,7 @@
             if (!empty(PromotionItr)) {
                 while (PromotionItr.hasNext()) {
                     var promo = PromotionItr.next();
-                    if (promo.getPromotionClass() != null && promo.getPromotionClass().equals(Promotion.PROMOTION_CLASS_PRODUCT)) {
+                    if (promo.getPromotionClass() != null && promo.getPromotionClass().equals(Promotion.PROMOTION_CLASS_PRODUCT) && !promo.basedOnCoupons) {
                         if (product.optionProduct) {
                             currentPromotionalPrice = promo.getPromotionalPrice(product, product.getOptionModel());
                         } else {
