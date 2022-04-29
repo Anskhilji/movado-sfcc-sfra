@@ -1003,11 +1003,11 @@
             padding: 0;
 
             &.show-arrow-box-mvmt {
+
                 @include media-breakpoint-down(sm) {
-                    @include media-breakpoint-down(sm) {
-                        .slick-arrow {
-                            display: none !important;
-                        }
+                    
+                    .slick-arrow {
+                        display: none !important;
                     }
                 }
             }
@@ -1229,7 +1229,7 @@
             .main-mvmt-carousel {
 
                 .slick-slide {
-                    
+
                     .slide-video{
                         display: none;
                     }
