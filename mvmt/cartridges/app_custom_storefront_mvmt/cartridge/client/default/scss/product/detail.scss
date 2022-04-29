@@ -1231,7 +1231,7 @@
                 .slick-slide {
 
                     .slide-video{
-                        display: none;
+                        display: none !important;
                     }
                 }
             }
@@ -3640,7 +3640,7 @@
 .product {
     &-detail {
         &.pdp-mvmt-redesign {
-            padding: rem(20) rem(0);
+            padding: rem(20);
 
             @include media-breakpoint-down(sm) {
                 padding: rem(10) rem(0);
