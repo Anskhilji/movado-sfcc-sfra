@@ -55,16 +55,6 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var upsellCarouselContent = ContentMgr.getContent('upsell-carousel-text-configs');
     var upsellHeadingText = upsellCarouselContent && upsellCarouselContent.custom.body ? upsellCarouselContent.custom.body : '';
 
-    // Custom Comment Start: A/B testing for MVMT PDP
-    if (ABTestMgr.isParticipant('MVMTRedesignPDPABTest','Control')) {
-        template = 'product/old/productDetails';
-    } else if (ABTestMgr.isParticipant('MVMTRedesignPDPABTest','render-new-design')) {
-        template = showProductPageHelperResult.template;
-    } else {
-        template = 'product/old/productDetails';
-    }
-    // Custom Comment End: A/B testing for MVMT PDP
-
     var viewData = res.getViewData();
     var product = showProductPageHelperResult.product;
     var productPrice = !empty(product) ? product.price : '';
@@ -150,6 +140,20 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
     res.setViewData(smartGift);
 
+        // Custom Comment Start: A/B testing for MVMT PDP
+        if (product.custom.renderingTemplate) {
+            template = showProductPageHelperResult.template;
+        } else {
+        if (ABTestMgr.isParticipant('MVMTRedesignPDPABTest','Control')) {
+            template = 'product/old/productDetails';
+        } else if (ABTestMgr.isParticipant('MVMTRedesignPDPABTest','render-new-design')) {
+            template = showProductPageHelperResult.template;
+        } else {
+            template = 'product/old/productDetails';
+        }
+    }
+        // Custom Comment End: A/B testing for MVMT PDP
+
     if (Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
     	var pdpAnalyticsTrackingData;
     	pdpAnalyticsTrackingData = {
@@ -230,6 +234,8 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
  * appends the base product route to save the personalization data in session variables
  */
 server.prepend('Variation', function (req, res, next) {
+    var ABTestMgr = require('dw/campaign/ABTestMgr');
+
     var attributeContext;
     var attributeTemplateLinked;
     var explicitRecommendations = [];
@@ -251,7 +257,14 @@ server.prepend('Variation', function (req, res, next) {
         strapGuideText: strapGuideText
     };
 
-    attributeTemplateLinked = 'product/components/recommendedProducts';
+    if (ABTestMgr.isParticipant('MVMTRedesignPDPABTest','Control')) {
+        attributeTemplateLinked = 'product/components/old/recommendedProducts';
+    } else if (ABTestMgr.isParticipant('MVMTRedesignPDPABTest','render-new-design')) {
+        attributeTemplateLinked = 'product/components/recommendedProducts';
+    } else {
+        attributeTemplateLinked = 'product/components/old/recommendedProducts';
+    }
+    
 
     recommendedProductTemplate = renderTemplateHelper.getRenderedHtml(
             attributeContext,

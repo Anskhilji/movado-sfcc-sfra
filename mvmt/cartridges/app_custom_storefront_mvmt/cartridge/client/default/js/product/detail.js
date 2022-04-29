@@ -1,4 +1,5 @@
 'use strict';
+const { load } = require('cheerio');
 var movadoDetail = require('movado/product/detail');
 var base = require('./base');
 module.exports = {
@@ -474,11 +475,28 @@ if ($(window).width() > 767) {
 
 
 // Mss-1485 MVMT - PDP Redesign - Desktop Zoom Modal  click to open image + variation modals
+if (document.readyState == "interactive") {
+    setTimeout(() => {
+        var $reviewsAccordion = $('.review-box-mvmt').find('.text-m');
+        if ($reviewsAccordion.length > 0) {
+            $('.review-empty-box').hide(); 
+            $('.reviews-here').show();
+        } else {
+            $('.review-empty-box').show();
+            $('.reviews-here').hide();
+        }
+    }, 1000);
+}
+
+
+// Mss-1485 MVMT - PDP Redesign - Desktop Zoom Modal  click to open image
 var firstIndex = true;
 $('.zoom-product-modal').click(function() {
     var imageIndex = parseFloat($(this).attr('data-image-index'));
+    var primaryImageLenght = parseFloat($('.mvmt-pdp-carousel').find('.normal-zoom').data('img-length'));
 
-    if(imageIndex < primaryImageUrls.pdp600.length && primaryImageUrls.pdp600.length > 1 && firstIndex == true && imageIndex == 0) {
+
+    if(imageIndex < primaryImageLenght && primaryImageLenght > 1 && firstIndex == true && imageIndex == 0) {
 
         firstIndex == false;
         $(`[data-slick-index='${imageIndex + 1}']`).addClass('d-none');
@@ -503,27 +521,4 @@ $('.zoom-product-modal').click(function() {
         $('.mvmt-pdp-carousel .slick-slide').removeClass('d-none');
 
     }
-
-    zoomfeature();
 })
-
-function fnBrowserDetect(){
-                 
-    let userAgent = navigator.userAgent;
-    let browserName;
-    
-    if(userAgent.match(/chrome|chromium|crios/i)){
-        browserName = "chrome";
-      }else if(userAgent.match(/firefox|fxios/i)){
-        browserName = "firefox";
-      }  else if(userAgent.match(/safari/i)){
-        browserName = "safari";
-      }else if(userAgent.match(/opr\//i)){
-        browserName = "opera";
-      } else if(userAgent.match(/edg/i)){
-        browserName = "edge";
-      }else{
-        browserName="No browser detection";
-      }
-      return browserName;        
-}
