@@ -650,6 +650,7 @@
         self.getProductPrice = function(productID) {
             var Money = require('dw/value/Money');
             var ProductMgr = require('dw/catalog/ProductMgr');
+            var Promotion = require('dw/campaign/Promotion');
             var product = ProductMgr.getProduct(productID);
             var priceModel = product.priceModel;
             var PromotionItr = PromotionMgr.activePromotions.getProductPromotions(product).iterator();
@@ -657,8 +658,7 @@
             var currentPromotionalPrice = Money.NOT_AVAILABLE;
             var basket = BasketMgr.getCurrentOrNewBasket();
             var currencyCode = new Money(0, basket.currencyCode);
-            var salePrice = '';
-            var originalPrice = '';
+            var productPrice;
 
             if (!empty(PromotionItr)) {
                 while (PromotionItr.hasNext()) {
@@ -682,19 +682,18 @@
                 }
 
                 if (promotionalPrice && promotionalPrice.available) {
-                    salePrice = currencyCode.add(promotionalPrice);
+                    productPrice = currencyCode.add(promotionalPrice);
+                } else {
+                    if (priceModel.price.available) {
+                        productPrice = priceModel.price;
+                    }
                 }
-
-                return salePrice;
-
             } else {
                 if (priceModel.price.available) {
-                    originalPrice = priceModel.price;
+                    productPrice = priceModel.price;
                 }
-
-                return originalPrice;
-
             }
+            return productPrice;
         }
 	};
 
