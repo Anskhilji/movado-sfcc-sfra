@@ -493,10 +493,10 @@ if (document.readyState == "interactive") {
 var firstIndex = true;
 $('.zoom-product-modal').click(function() {
     var imageIndex = parseFloat($(this).attr('data-image-index'));
-    var primaryImageLenght = parseFloat($('.mvmt-pdp-carousel').find('.normal-zoom').data('img-length'));
+    var primaryImageLength = parseFloat($('.mvmt-pdp-carousel').find('.normal-zoom').data('img-length'));
 
 
-    if(imageIndex < primaryImageLenght && primaryImageLenght > 1 && firstIndex == true && imageIndex == 0) {
+    if(imageIndex < primaryImageLength && primaryImageLength > 1 && firstIndex == true && imageIndex == 0) {
 
         firstIndex == false;
         $(`[data-slick-index='${imageIndex + 1}']`).addClass('d-none');
