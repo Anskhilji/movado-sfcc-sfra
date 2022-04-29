@@ -1,4 +1,4 @@
-<div class="primary-images quadrant-pdp-wrapper d-none d-md-block">
+<div class="primary-images quadrant-pdp-wrapper show-desktop-pdp">
     <div class="product-badges">
         <!-- First two conditions are for PLP and the last is applicable on PDP -->
         <isif condition="${(product.defaultVariantAvailabilityStatus === 'IN_STOCK' && pdict.display.plpTile === true) || (product.available && pdict.display.plpTile === true && product.productType !== 'master') || (product.available && pdict.display.plpTile === false)}">
