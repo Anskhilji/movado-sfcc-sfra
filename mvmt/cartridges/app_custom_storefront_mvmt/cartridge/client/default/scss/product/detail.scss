@@ -1002,15 +1002,15 @@
         .main-mvmt-carousel {
             padding: 0;
 
-        &.show-arrow-box-mvmt {
-            @include media-breakpoint-down(sm) {
+            &.show-arrow-box-mvmt {
                 @include media-breakpoint-down(sm) {
-                    .slick-arrow {
-                        display: none !important;
+                    @include media-breakpoint-down(sm) {
+                        .slick-arrow {
+                            display: none !important;
+                        }
                     }
                 }
             }
-        }
 
             @include media-breakpoint-down(md-down) {
                 padding: 0;
@@ -1221,6 +1221,19 @@
 
             .zoom-img.zoomed-img {
                 cursor: zoom-out;
+            }
+        }
+
+        &.zoomed-images {
+
+            .main-mvmt-carousel {
+
+                .slick-slide {
+                    
+                    .slide-video{
+                        display: none;
+                    }
+                }
             }
         }
 

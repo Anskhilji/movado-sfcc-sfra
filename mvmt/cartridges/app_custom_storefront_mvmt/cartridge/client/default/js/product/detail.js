@@ -527,20 +527,24 @@ $(document).ready(function () {
     }
 });
 
-var imageBox = $(".quadrant-pdp-wrapper").height();
-var detailBox = $(".product-side-details-wrapper").height();
+var imageBox = $('.quadrant-pdp-wrapper').height();
+var detailBox = $('.product-side-details-wrapper').height();
 if ($(window).width() > 767) {
     if(detailBox > imageBox){
-        $(".quadrant-pdp-wrapper").addClass("sticky-section");
+        $('.quadrant-pdp-wrapper').addClass('sticky-section');
         $('.page').css({'overflow':'visible'});
     }
     else{
-        $(".product-side-details-wrapper").addClass("sticky-section");
+        $('.product-side-details-wrapper').addClass('sticky-section');
         $('.page').css({'overflow':'visible'});
     }
 }
 
-if (document.readyState == "interactive") {
+if ($(window).width() > 768) {
+    $('.show-mobile-pdp').remove();
+}
+
+if (document.readyState == 'interactive') {
     setTimeout(() => {
         var $reviewsAccordion = $('.review-box-mvmt').find('.text-m');
         if ($reviewsAccordion.length > 0) {
@@ -552,11 +556,11 @@ if (document.readyState == "interactive") {
         }
     }, 1000);
 }
-$(".zoom-in").click(function(){
-    $(".main-mvmt-carousel-pdp-redesign").removeClass("show-arrow-box-mvmt");
+$('.zoom-in').click(function(){
+    $('.main-mvmt-carousel-pdp-redesign').removeClass('show-arrow-box-mvmt');
 });
-$(".zoom-out").click(function(){
-    $(".main-mvmt-carousel-pdp-redesign").addClass("show-arrow-box-mvmt");
+$('.zoom-out').click(function(){
+    $('.main-mvmt-carousel-pdp-redesign').addClass('show-arrow-box-mvmt');
 });
 
 // Mss-1485 MVMT - PDP Redesign - Desktop Zoom Modal  click to open image
