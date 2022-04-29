@@ -658,7 +658,7 @@
             var currentPromotionalPrice = Money.NOT_AVAILABLE;
             var basket = BasketMgr.getCurrentOrNewBasket();
             var currencyCode = new Money(0, basket.currencyCode);
-			var productPrice;
+            var productPrice;
 
             if (!empty(PromotionItr)) {
                 while (PromotionItr.hasNext()) {
@@ -684,16 +684,16 @@
                 if (promotionalPrice && promotionalPrice.available) {
                     productPrice = currencyCode.add(promotionalPrice);
                 } else {
-					if (priceModel.price.available) {
-						productPrice = priceModel.price;
-					}
-				}
+                    if (priceModel.price.available) {
+                        productPrice = priceModel.price;
+                    }
+                }
             } else {
                 if (priceModel.price.available) {
                     productPrice = priceModel.price;
                 }
             }
-			return productPrice;
+            return productPrice;
         }
 	};
 
