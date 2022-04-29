@@ -650,7 +650,7 @@
         self.getProductPrice = function(productID) {
             var Money = require('dw/value/Money');
             var ProductMgr = require('dw/catalog/ProductMgr');
-			var Promotion = require('dw/campaign/Promotion')
+            var Promotion = require('dw/campaign/Promotion')
             var product = ProductMgr.getProduct(productID);
             var priceModel = product.priceModel;
             var PromotionItr = PromotionMgr.activePromotions.getProductPromotions(product).iterator();
