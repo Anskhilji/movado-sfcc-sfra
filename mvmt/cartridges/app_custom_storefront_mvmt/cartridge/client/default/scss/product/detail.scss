@@ -3847,6 +3847,7 @@
                                 position: relative;
                                 width: 100%;
                                 padding-top: rem(15);
+                                overflow: hidden;
                                 
                                 .slick-active{
                                     border: rem(1) solid $light-black2; 
