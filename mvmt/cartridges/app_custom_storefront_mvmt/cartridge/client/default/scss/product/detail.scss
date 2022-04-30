@@ -4218,6 +4218,13 @@
                     &.slick-initialized {
                         display: block;
                     }
+
+                    .slick-list {
+                        
+                        &.draggable {
+                            padding-bottom: rem(30);
+                        }
+                    }
         
                     .slick-slide {
                         padding: 0 rem(10);
@@ -4409,7 +4416,7 @@
                         width: 100%;
                         display: flex;
                         justify-content: center;
-                        margin: rem(30) auto rem(0) auto;
+                        margin: rem(0) auto rem(0) auto;
                         padding: rem(0);
 
                         li {
