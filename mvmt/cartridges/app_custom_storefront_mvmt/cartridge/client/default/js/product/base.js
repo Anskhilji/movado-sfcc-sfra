@@ -822,7 +822,6 @@ function handleVariantResponse(response, $productContainer) {
     $('.main-mvmt-carousel .carousel-tile').trigger('zoom.destroy'); 
     $('.primary-images .main-mvmt-carousel').slick('unslick');
     $('.gallery-slider').slick('unslick');
-    $('.primary-images .mvmt-pdp-carousel').slick('unslick');
 
     // Update primary images
     var primaryImageUrls = response.product.images;
@@ -855,7 +854,7 @@ function handleVariantResponse(response, $productContainer) {
             if (slickVideoIcon !== undefined) {
                 $('#'+slickVideoIcon).parent().addClass('video-icon');
             }
-        }, 500);
+        }, 1000);
     }
 
     // Update Family Name and Case Diameter
@@ -868,11 +867,11 @@ function handleVariantResponse(response, $productContainer) {
 
     var $galleryImageContainer = $('.gallery-slider');
     $galleryImageContainer.empty();
-    
+
     var $galleryImageContainerQuadrant = $('.gallery-slider-quadrant');
     $galleryImageContainerQuadrant.empty();
 
-    
+
     var $mvmtPdpCarousel = $('.mvmt-pdp-carousel');
     $mvmtPdpCarousel.empty();
     // Update gallery images
@@ -884,7 +883,7 @@ function handleVariantResponse(response, $productContainer) {
         $galleryImageContainerQuadrant.append('<div class="col-lg-6 col-md-6 col-mx-50-wrapper"><div class="carousel-tile"><picture><source media="(min-width: 992px)" srcset="' + imageUrl.url + '"><source media="(max-width: 991px)" srcset="' + imageUrl.url + '"><img class="normal-zoom zoom-product-modal" data-toggle="modal" data-target="#zoomProduct" data-image-index='+ index +' src="' + imageUrl.url + '" alt="' + imageUrl.alt + '" itemprop="image" data-zoom-mobile-url="' + imageUrl.url + '" data-zoom-desktop-url="' + imageUrl.url + '"></picture></div></div>');
     });
 
-    primaryImageUrls.pdp600.forEach(function (imageUrl) {
+    primaryImageUrls.zoom1660.forEach(function (imageUrl) {
         $mvmtPdpCarousel.append('<div class="carousel-tile" data-thumb="' + imageUrl.url + '"><picture><source media="(min-width: 992px)" srcset="' + imageUrl.url + '"><source media="(max-width: 991px)" srcset="' + imageUrl.url + '"><img class="normal-zoom" src="' + imageUrl.url + '" alt="Coronada Ceramic" itemprop="image" data-zoom-mobile-url="' + imageUrl.url + '" data-zoom-desktop-url="' + imageUrl.url + '"></picture></div>');
     });
 
