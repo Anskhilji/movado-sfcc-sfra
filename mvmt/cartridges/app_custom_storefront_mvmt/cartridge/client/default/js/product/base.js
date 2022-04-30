@@ -787,6 +787,7 @@ function handleVariantResponse(response, $productContainer) {
     $('.main-mvmt-carousel .carousel-tile').trigger('zoom.destroy'); 
     $('.primary-images .main-mvmt-carousel').slick('unslick');
     $('.gallery-slider').slick('unslick');
+    $('.primary-images .mvmt-pdp-carousel').slick('unslick');
 
     // Update primary images
     var primaryImageUrls = response.product.images;
@@ -915,9 +916,14 @@ function handleVariantResponse(response, $productContainer) {
     }
 
     // Attach Slider and Zoom
-    pdpSwatchCarousel();
+    setTimeout(function () {
+        pdpSwatchCarousel();
+    }, 500);
     gallerySlider();
-    initializePDPMainSlider();
+    setTimeout(function () {
+        initializePDPMainSlider();
+    }, 500);
+    
     // Updating primary image in spec & detail section
 
     $('.description-and-detail .pdp-tab-content source').attr('srcset', primaryImageUrls.pdp533[0].url);
