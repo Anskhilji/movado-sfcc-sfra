@@ -855,7 +855,7 @@ function handleVariantResponse(response, $productContainer) {
             if (slickVideoIcon !== undefined) {
                 $('#'+slickVideoIcon).parent().addClass('video-icon');
             }
-        }, 500);
+        }, 1000);
     }
 
     // Update Family Name and Case Diameter

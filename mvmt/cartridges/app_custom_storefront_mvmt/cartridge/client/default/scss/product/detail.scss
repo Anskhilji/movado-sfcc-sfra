@@ -1050,8 +1050,10 @@
                             }
     
                             &:hover {
+                              @include media-breakpoint-down(sm) {
                                 box-shadow: 0 rem(0) rem(0) 0 transparent;
                                 border-color: transparent;
+                              }
                             }
                             &.slick-active {
                                 @include media-breakpoint-down(sm) {
