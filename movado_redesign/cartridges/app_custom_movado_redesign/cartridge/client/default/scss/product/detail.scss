@@ -1622,6 +1622,7 @@ $arrow-height: 1.25em;
 
         &.cart-sticky-wrapper-btn {
             display: none;
+            transition: all 0.4s;
 
             @include media-breakpoint-down(xs) {
                 position: fixed;
