@@ -855,7 +855,7 @@ function handleVariantResponse(response, $productContainer) {
             if (slickVideoIcon !== undefined) {
                 $('#'+slickVideoIcon).parent().addClass('video-icon');
             }
-        }, 500);
+        }, 1000);
     }
 
     // Update Family Name and Case Diameter
@@ -868,11 +868,11 @@ function handleVariantResponse(response, $productContainer) {
 
     var $galleryImageContainer = $('.gallery-slider');
     $galleryImageContainer.empty();
-    
+
     var $galleryImageContainerQuadrant = $('.gallery-slider-quadrant');
     $galleryImageContainerQuadrant.empty();
 
-    
+
     var $mvmtPdpCarousel = $('.mvmt-pdp-carousel');
     $mvmtPdpCarousel.empty();
     // Update gallery images

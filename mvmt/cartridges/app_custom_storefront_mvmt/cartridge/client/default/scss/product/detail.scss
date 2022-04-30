@@ -1050,8 +1050,10 @@
                             }
     
                             &:hover {
+                              @include media-breakpoint-down(sm) {
                                 box-shadow: 0 rem(0) rem(0) 0 transparent;
                                 border-color: transparent;
+                              }
                             }
                             &.slick-active {
                                 @include media-breakpoint-down(sm) {
@@ -3823,7 +3825,7 @@
                 width: 100%;
             
                 @include media-breakpoint-down(lg-media) {
-                    max-height: rem(576);
+                    max-height: rem(560);
                 }
                 @include media-breakpoint-down(xl) {
                     max-width: rem(920);
@@ -3832,7 +3834,7 @@
                 }
                 @include media-breakpoint-down(md) {
                     max-width: rem(720);
-                    max-height: rem(550.04);
+                    max-height: rem(560);
                     margin: auto;
                 }
             
@@ -3938,7 +3940,6 @@
                         @include media-breakpoint-down(lg-media) {
                             max-width: rem(410);
                             max-height: rem(410);
-                            margin-bottom: rem(0);
                         }
                     }
                 }
