@@ -589,6 +589,40 @@ function checkVideoStatus() {
     }
 }
 
+
+var videoStatusChecker = setInterval(function () {
+    checkVideoStatus();
+}, 3000);
+
+$(document).ready(function () {
+    var $slideVideo = $('.slide-video');
+    if ($slideVideo.length > 0) {
+        if (document.documentMode && document.documentMode != 'undefined') {
+            $slideVideo.addClass('slide-video-ie');
+        }
+
+        $('.primary-images .slick-arrow, .primary-images .slick-dots, .show-mobile-pdp .slick-dots').on('click', function (event) {
+            var $primaryImagesContainer = $('.primary-images');
+            var $videoSlide = $primaryImagesContainer.find('.slick-slide.slick-current .slide-video');
+            var $zoomButtons = $primaryImagesContainer.find('.quickview.js-zoom-image, .zoom-icon');
+            var $imageSlide = $primaryImagesContainer.find('.slick-slide.slick-current .carousel-tile, .slick-slide.slick-current .normal-zoom');
+            if ($primaryImagesContainer.hasClass('zoomed-images')) {
+                $zoomButtons.removeClass('d-none');
+                $imageSlide.css('pointer-events', '');
+                $primaryImagesContainer.find('.slick-slide.slick-current').css('cursor', '');
+                return;
+            } else if ($videoSlide.length > 0 && pdpVideoLoaded) {
+                $zoomButtons.addClass('d-none');
+                $imageSlide.css('pointer-events', 'none');
+                $primaryImagesContainer.find('.slick-slide.slick-current').css('cursor', 'default');
+            } else {
+                $zoomButtons.removeClass('d-none');
+                $imageSlide.css('pointer-events', '');
+                $primaryImagesContainer.find('.slick-slide.slick-current').css('cursor', '');
+            }
+        });
+    }
+});
 /**
  * Add gallery slider in functionality in PDP Primary images
  */
@@ -686,7 +720,7 @@ function initializePDPMainSlider() {
                 breakpoint: 768,
                 settings: {
                     arrows: true,
-                    dots:false
+                    dots: true
                 }
             },
         ],
@@ -779,7 +813,7 @@ function handleVariantResponse(response, $productContainer) {
             $('.product-side-details .gift-allowed-checkbox').prop("checked", false);
         }
     }
-
+    
     if (response.product.productType == 'variant') {
         $('body').trigger('pdpChangedVariation', response.product);
     }
@@ -788,6 +822,7 @@ function handleVariantResponse(response, $productContainer) {
     $('.main-mvmt-carousel .carousel-tile').trigger('zoom.destroy'); 
     $('.primary-images .main-mvmt-carousel').slick('unslick');
     $('.gallery-slider').slick('unslick');
+    $('.primary-images .mvmt-pdp-carousel').slick('unslick');
 
     // Update primary images
     var primaryImageUrls = response.product.images;
@@ -814,6 +849,13 @@ function handleVariantResponse(response, $productContainer) {
                 checkVideoStatus();
             }, 1000);
         }
+
+        setTimeout(function () {
+            var slickVideoIcon = $('.video').parent().parent().attr('aria-describedby');
+            if (slickVideoIcon !== undefined) {
+                $('#'+slickVideoIcon).parent().addClass('video-icon');
+            }
+        }, 500);
     }
 
     // Update Family Name and Case Diameter
@@ -934,9 +976,14 @@ function handleVariantResponse(response, $productContainer) {
     }
 
     // Attach Slider and Zoom
-    pdpSwatchCarousel();
+    setTimeout(function () {
+        pdpSwatchCarousel();
+    }, 500);
     gallerySlider();
-    initializePDPMainSlider();
+    setTimeout(function () {
+        initializePDPMainSlider();
+    }, 500);
+    
     // Updating primary image in spec & detail section
 
     $('.description-and-detail .pdp-tab-content source').attr('srcset', primaryImageUrls.pdp533[0].url);
@@ -1384,6 +1431,7 @@ movadoBase.addToCart = function () {
         }
     });
 }
+
+
+
 module.exports = movadoBase; 
-
-
