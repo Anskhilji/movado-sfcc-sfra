@@ -311,15 +311,13 @@ $(document).ready(function() {
             var initialCoords = cartWishListObserver.getBoundingClientRect();
             
             window.addEventListener('scroll', function () {
-                
                 if (this.window.scrollY < initialCoords.top) {
-                    
                     $('.cart-sticky-wrapper-btn').addClass('d-none');
                     $('.cart-sticky-wrapper-btn').removeClass('d-block');
                     setTimeout(() => {
                         $('.cart-sticky-wrapper-btn').css('transform','translateY(150px)');
                     }, 500);
-                }else {
+                } else {
                     $('.cart-sticky-wrapper-btn').addClass('d-block');
                     $('.cart-sticky-wrapper-btn').removeClass('d-none');
                     setTimeout(() => {
@@ -334,17 +332,14 @@ $(document).ready(function() {
         if ($(window).width() < 544) {
             var cartWishListObserver = document.querySelector('.cart-wishlist-observer');
             var initialCoords = cartWishListObserver.getBoundingClientRect();
-            
             window.addEventListener('touchmove', function () {
-                
                 if (this.window.scrollY < initialCoords.top) {
-                    
                     $('.cart-sticky-wrapper-btn').addClass('d-none');
                     $('.cart-sticky-wrapper-btn').removeClass('d-block');
                     setTimeout(() => {
                         $('.cart-sticky-wrapper-btn').css('transform','translateY(150px)');
                     }, 500);
-                }else {
+                } else {
                     $('.cart-sticky-wrapper-btn').addClass('d-block');
                     $('.cart-sticky-wrapper-btn').removeClass('d-none');
                     setTimeout(() => {
