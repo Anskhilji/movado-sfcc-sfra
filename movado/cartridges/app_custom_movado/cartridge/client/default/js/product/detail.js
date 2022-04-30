@@ -165,10 +165,12 @@ module.exports = {
 
 $( document ).ready(function() {
     refreshAffirmUI();
-    
+
     if (window.ApplePaySession) {
         $('.google-pay-wrapper').removeClass('mt-2');
     }
+
+    $('.cart-sticky-wrapper-btn .apple-pay-pdp').addClass('d-none');
 });
 
 function refreshAffirmUI() {
