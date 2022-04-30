@@ -303,6 +303,62 @@ $(document).ready(function() {
         
     });
     ratingRedesign();
+    
+    function loadCartButtonOnScroll() {
+        if ($(window).width() < 544) {
+            var cartWishListObserver = document.querySelector('.cart-wishlist-observer');
+            var initialCoords = cartWishListObserver.getBoundingClientRect();
+            console.log(initialCoords);
+            
+            window.addEventListener('scroll', function () {
+                console.log(this.window.scrollY + ">" + initialCoords.top);
+                
+                if (this.window.scrollY < initialCoords.top) {
+                    
+                    $('.cart-sticky-wrapper-btn').addClass('d-none');
+                    $('.cart-sticky-wrapper-btn').removeClass('d-block');
+                    setTimeout(() => {
+                        $('.cart-sticky-wrapper-btn').css('transform','translateY(150px)');
+                    }, 500);
+                }else {
+                    $('.cart-sticky-wrapper-btn').addClass('d-block');
+                    $('.cart-sticky-wrapper-btn').removeClass('d-none');
+                    setTimeout(() => {
+                        $('.cart-sticky-wrapper-btn').css('transform','translateY(0px)');
+                    }, 500);
+                }
+            });
+        }
+    }
+
+    function loadCartButtonTouchMove() {
+        if ($(window).width() < 544) {
+            var cartWishListObserver = document.querySelector('.cart-wishlist-observer');
+            var initialCoords = cartWishListObserver.getBoundingClientRect();
+            console.log(initialCoords);
+            
+            window.addEventListener('touchmove', function () {
+                console.log(this.window.scrollY + ">" + initialCoords.top);
+                
+                if (this.window.scrollY < initialCoords.top) {
+                    
+                    $('.cart-sticky-wrapper-btn').addClass('d-none');
+                    $('.cart-sticky-wrapper-btn').removeClass('d-block');
+                    setTimeout(() => {
+                        $('.cart-sticky-wrapper-btn').css('transform','translateY(150px)');
+                    }, 500);
+                }else {
+                    $('.cart-sticky-wrapper-btn').addClass('d-block');
+                    $('.cart-sticky-wrapper-btn').removeClass('d-none');
+                    setTimeout(() => {
+                        $('.cart-sticky-wrapper-btn').css('transform','translateY(0px)');
+                    }, 500);
+                }
+            });
+        }
+    }
+    loadCartButtonOnScroll();
+    loadCartButtonTouchMove();
 });
 
 function ratingRedesign() {
@@ -312,47 +368,3 @@ function ratingRedesign() {
         }
     }
 }
-
-$.fn.isInViewport = function() {
-    var $elementTop = $(this).offset().top;
-    var $elementBottom = $elementTop + $(this).outerHeight();
-  
-    var $viewportTop = $(window).scrollTop();
-    var $viewportBottom = $viewportTop + $(window).height();
-  
-    return $elementBottom > $viewportTop && $elementTop < $viewportBottom;
-  };
-
-if ($(window).width() < 544) {
-    $(window).scroll(function (event) {
-        var $addToCartBtn = $('.cta-add-to-cart').isInViewport();
-        var $primaryImages =  $('.primary-images').isInViewport();
-
-            if ($addToCartBtn == true) {
-                $('.cart-sticky-wrapper-btn').addClass('d-none');
-                $('.cart-sticky-wrapper-btn').removeClass('d-block');
-
-                setTimeout(() => {
-                    $('.cart-sticky-wrapper-btn').css('transform','translateY(150px)');
-                }, 500);
-                
-            } else {
-                $('.cart-sticky-wrapper-btn').addClass('d-block');
-                $('.cart-sticky-wrapper-btn').removeClass('d-none');
-
-                setTimeout(() => {
-                    $('.cart-sticky-wrapper-btn').css('transform','translateY(0px)');
-                }, 500);
-            }
-
-            if( $primaryImages == true) {
-                $('.cart-sticky-wrapper-btn').removeClass('d-block');
-                $('.cart-sticky-wrapper-btn').addClass('d-none');
-
-                setTimeout(() => {
-                    $('.cart-sticky-wrapper-btn').css('transform','translateY(150px)');
-                }, 500);
-            }
-    });
-}
-
