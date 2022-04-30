@@ -826,11 +826,11 @@ function handleVariantResponse(response, $productContainer) {
 
     var $galleryImageContainer = $('.gallery-slider');
     $galleryImageContainer.empty();
-    
+
     var $galleryImageContainerQuadrant = $('.gallery-slider-quadrant');
     $galleryImageContainerQuadrant.empty();
 
-    
+
     var $mvmtPdpCarousel = $('.mvmt-pdp-carousel');
     $mvmtPdpCarousel.empty();
     // Update gallery images
