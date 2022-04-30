@@ -3730,6 +3730,9 @@
                 @include media-breakpoint-down(sm) {
                     position: static;
                 }
+                // @include media-breakpoint-down(lg-media) {
+                //     top: rem(-528);
+                //  }
 
                 @include media-breakpoint-up(md-down) {
                     max-width: 50%;

@@ -527,18 +527,44 @@ $(document).ready(function () {
     }
 });
 
-var imageBox = $('.quadrant-pdp-wrapper').height();
-var detailBox = $('.product-side-details-wrapper').height();
-if ($(window).width() > 767) {
-    if(detailBox > imageBox){
-        $('.quadrant-pdp-wrapper').addClass('sticky-section');
-        $('.page').css({'overflow':'visible'});
-    }
-    else{
-        $('.product-side-details-wrapper').addClass('sticky-section');
-        $('.page').css({'overflow':'visible'});
-    }
+function stickySectionCheck() {
+    $(window).resize(function(){
+        var imageBox = $('.quadrant-pdp-wrapper').height();
+        var detailBox = $('.product-side-details-wrapper').height();
+
+        var $quadrantpdpImage = $('.carousel-tile').height() / 2 + 60;        
+
+        if ($(window).width() > 767) {
+            if(detailBox > imageBox){
+                $('.quadrant-pdp-wrapper').addClass('sticky-section');
+                $('.page').css({'overflow':'visible'});
+                $('.quadrant-pdp-wrapper').css('top','-' + $quadrantpdpImage +'px')
+            } else{
+                $('.product-side-details-wrapper').addClass('sticky-section');
+                $('.page').css({'overflow':'visible'});
+            }
+        }
+    
+        $(window).scroll(function() {    
+            var $scroll = $(window).scrollTop();
+            var $recommendationHeight = $('.linked-product-container').height() + $quadrantpdpImage - 50;
+            if ($scroll) {
+                $('.product-side-details-wrapper').addClass('darkHeader');
+                $('.product-side-details-wrapper.sticky-section').css('top','-' + $recommendationHeight+'px');
+            } else {
+                $('.product-side-details-wrapper').removeClass('darkHeader');
+                $('.product-side-details-wrapper.sticky-section').attr('style', '');
+            }
+        });
+    });
+    
+    
 }
+stickySectionCheck();
+
+$('.mvmv-pdp-accordian').click(function() {
+    stickySectionCheck();
+});
 
 if ($(window).width() > 768) {
     $('.show-mobile-pdp').remove();
@@ -593,4 +619,4 @@ $('.zoom-product-modal').click(function() {
         $('.mvmt-pdp-carousel .slick-slide').removeClass('d-none');
 
     }
-})
+});
