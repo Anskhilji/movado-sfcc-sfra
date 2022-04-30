@@ -220,11 +220,11 @@
                             <isinclude template="product/components/pricing/main" />
                         </isif>
                     </div>
-
-                        <!-- Cart and [Optionally] Apple Pay -->
-                        <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
+                    <!-- Cart and [Optionally] Apple Pay -->
+                    <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
                 </div>
             </div>
+            <div class="cart-wishlist-observer"></div>
         </div>
         <div class="container-fluid pdp-mobile detail-bg pdp-v-one">
             <isinclude template="product/components/descriptionAndDetails" />
