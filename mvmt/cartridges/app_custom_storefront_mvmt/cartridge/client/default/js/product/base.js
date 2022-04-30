@@ -884,7 +884,7 @@ function handleVariantResponse(response, $productContainer) {
         $galleryImageContainerQuadrant.append('<div class="col-lg-6 col-md-6 col-mx-50-wrapper"><div class="carousel-tile"><picture><source media="(min-width: 992px)" srcset="' + imageUrl.url + '"><source media="(max-width: 991px)" srcset="' + imageUrl.url + '"><img class="normal-zoom zoom-product-modal" data-toggle="modal" data-target="#zoomProduct" data-image-index='+ index +' src="' + imageUrl.url + '" alt="' + imageUrl.alt + '" itemprop="image" data-zoom-mobile-url="' + imageUrl.url + '" data-zoom-desktop-url="' + imageUrl.url + '"></picture></div></div>');
     });
 
-    primaryImageUrls.pdp600.forEach(function (imageUrl) {
+    primaryImageUrls.zoom1660.forEach(function (imageUrl) {
         $mvmtPdpCarousel.append('<div class="carousel-tile" data-thumb="' + imageUrl.url + '"><picture><source media="(min-width: 992px)" srcset="' + imageUrl.url + '"><source media="(max-width: 991px)" srcset="' + imageUrl.url + '"><img class="normal-zoom" src="' + imageUrl.url + '" alt="Coronada Ceramic" itemprop="image" data-zoom-mobile-url="' + imageUrl.url + '" data-zoom-desktop-url="' + imageUrl.url + '"></picture></div>');
     });
 
