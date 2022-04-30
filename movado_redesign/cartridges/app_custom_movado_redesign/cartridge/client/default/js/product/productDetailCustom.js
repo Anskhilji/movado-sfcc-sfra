@@ -309,10 +309,8 @@ $(document).ready(function() {
         if ($(window).width() < 544) {
             var cartWishListObserver = document.querySelector('.cart-wishlist-observer');
             var initialCoords = cartWishListObserver.getBoundingClientRect();
-            console.log(initialCoords);
             
             window.addEventListener('scroll', function () {
-                console.log(this.window.scrollY + ">" + initialCoords.top);
                 
                 if (this.window.scrollY < initialCoords.top) {
                     
@@ -336,10 +334,8 @@ $(document).ready(function() {
         if ($(window).width() < 544) {
             var cartWishListObserver = document.querySelector('.cart-wishlist-observer');
             var initialCoords = cartWishListObserver.getBoundingClientRect();
-            console.log(initialCoords);
             
             window.addEventListener('touchmove', function () {
-                console.log(this.window.scrollY + ">" + initialCoords.top);
                 
                 if (this.window.scrollY < initialCoords.top) {
                     
