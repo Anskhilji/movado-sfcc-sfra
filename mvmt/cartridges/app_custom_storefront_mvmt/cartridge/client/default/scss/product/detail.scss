@@ -3658,6 +3658,7 @@
                 @include media-breakpoint-up(md-down) {                    
                     flex: 0 0 100%;
                     max-width: 100%;
+                    padding: rem(0) rem(0) rem(10) rem(0);
                 }
 
                 @include media-breakpoint-up(lg) {
