@@ -304,6 +304,7 @@ $(document).ready(function() {
     });
     ratingRedesign();
     
+    // custom end: MSS-1772 pdp sticky ATC
     function loadCartButtonOnScroll() {
         if ($(window).width() < 544) {
             var cartWishListObserver = document.querySelector('.cart-wishlist-observer');
@@ -359,6 +360,7 @@ $(document).ready(function() {
     }
     loadCartButtonOnScroll();
     loadCartButtonTouchMove();
+    // custom end: MSS-1772 pdp sticky ATC
 });
 
 function ratingRedesign() {
