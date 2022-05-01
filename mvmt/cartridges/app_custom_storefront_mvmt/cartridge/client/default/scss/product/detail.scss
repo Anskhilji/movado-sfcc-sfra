@@ -3695,13 +3695,17 @@
                     }
                 }
                 img {
+                    @include media-breakpoint-up(md-down) {
+                       width: 100%;
+                    }
+                    
                     &:hover {
                         cursor: zoom-in;
                     }
                 }
                 .slide-video {
                     @include media-breakpoint-up(md-down) {
-                        padding: rem(0) rem(10) rem(10) rem(0);
+                        padding: rem(0) rem(0) rem(10) rem(0);
                     }
                     
                     @include media-breakpoint-up(lg-custom) {

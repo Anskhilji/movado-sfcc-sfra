@@ -9,14 +9,12 @@
         <isloop items="${product.images['zoom1660']}" var="image" status="loopStatus">
             <div class="col-lg-6 col-md-12  col-mx-50-wrapper">
                 <div class="carousel-tile" data-thumb="${!empty(product.images) && !empty(product.images.tile150[loopStatus.count-1]) ? product.images.tile150[loopStatus.count-1].url : ''}">
-                     <isif condition="${loopStatus.count != product.pdpVideoConfigs.imageIndex && !empty(product.pdpVideoConfigs.videoURL) }">
                     <picture>
                         <source media="(min-width: 992px)"  srcset="${product.images.pdp453[loopStatus.count-1].url}" />
                         <source media="(max-width: 991px)"  srcset="${product.images.pdp453[loopStatus.count-1].url}" />
                         <img class="normal-zoom zoom-product-modal" data-toggle="modal" data-target="#zoomProduct" data-image-index='${loopStatus.count - 1}'  src="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count-1]) && !empty(product.images.zoom1660[loopStatus.count-1].url) ? product.images.zoom1660[loopStatus.count-1].url : ''}" alt="${image.alt}" itemprop="image" data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom830[loopStatus.count-1]) && !empty(product.images.zoom830[loopStatus.count-1].url) ? product.images.zoom830[loopStatus.count-1].url : ''}" data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count-1]) && !empty(product.images.zoom1660[loopStatus.count-1].url) ? product.images.zoom1660[loopStatus.count-1].url : ''}" />
                         <isset name="isImageExist" value="true" scope="page" />
                     </picture>
-                    </isif>
                     <isif condition="${!empty(product.pdpVideoConfigs) && loopStatus.count == product.pdpVideoConfigs.imageIndex && !empty(product.pdpVideoConfigs.videoURL) }">
                     <video id="slide-video" class="slide-video" loop muted autoplay playsinline>
                         <source src="${product.pdpVideoConfigs.videoURL}" type="video/mp4" />
