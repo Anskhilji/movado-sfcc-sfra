@@ -594,20 +594,19 @@ var firstIndex = true;
 $('.zoom-product-modal').click(function() {
     var imageIndex = parseFloat($(this).attr('data-image-index'));
     var primaryImageLength = parseFloat($('.mvmt-pdp-carousel').find('.normal-zoom').data('img-length'));
-
     if(imageIndex < primaryImageLength && primaryImageLength > 1 && firstIndex == true && imageIndex == 0) {
 
-        firstIndex == false;
-        $(`[data-slick-index='${imageIndex + 1}']`).addClass('d-none');
+        $(`.mvmt-pdp-carousel [data-slick-index='${imageIndex + 1}']`).addClass('d-none');
         $('.mvmt-pdp-carousel .slick-dots').addClass('d-none');
         $('.mvmt-pdp-carousel .slick-list.draggable').addClass('border-bottom-0');
-        $(`.slick-dots [aria-controls='${$(`[data-slick-index='${imageIndex + 1}']`).attr('id')}']`).trigger('click');
+        $(`.mvmt-pdp-carousel .slick-dots [aria-controls='${$(`.mvmt-pdp-carousel [data-slick-index='${imageIndex + 1}']`).attr('id')}']`).trigger('click');
 
         setTimeout(() => {
+
             firstIndex == false;
             $(`.mvmt-pdp-carousel .slick-dots`).removeClass('d-none');
             $('.mvmt-pdp-carousel .slick-list.draggable').removeClass('border-bottom-0');
-            $(`.slick-dots [aria-controls='${$(`[data-slick-index='${parseFloat($(this).attr('data-image-index'))}']`).attr('id')}']`).trigger('click');
+            $(`.mvmt-pdp-carousel .slick-dots [aria-controls='${$(`.mvmt-pdp-carousel [data-slick-index='${parseFloat($(this).attr('data-image-index'))}']`).attr('id')}']`).trigger('click');
             $('.mvmt-pdp-carousel .slick-slide').removeClass('d-none');
 
         }, 500);
@@ -615,7 +614,7 @@ $('.zoom-product-modal').click(function() {
         firstIndex == false;
         $(`.mvmt-pdp-carousel .slick-dots`).removeClass('d-none');
         $('.mvmt-pdp-carousel .slick-list.draggable').removeClass('border-bottom-0');
-        $(`.slick-dots [aria-controls='${$(`[data-slick-index='${parseFloat($(this).attr('data-image-index'))}']`).attr('id')}']`).trigger('click');
+        $(`.mvmt-pdp-carousel .slick-dots [aria-controls='${$(`.mvmt-pdp-carousel [data-slick-index='${parseFloat($(this).attr('data-image-index'))}']`).attr('id')}']`).trigger('click');
         $('.mvmt-pdp-carousel .slick-slide').removeClass('d-none');
 
     }

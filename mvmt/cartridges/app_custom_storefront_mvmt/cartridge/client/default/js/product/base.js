@@ -894,26 +894,27 @@ function handleVariantResponse(response, $productContainer) {
 
         if(imageIndex < primaryImageUrls.pdp600.length && primaryImageUrls.pdp600.length > 1 && firstIndex == true && imageIndex == 0) {
 
-           firstIndex == false;
-           $(`[data-slick-index='${imageIndex + 1}']`).addClass('d-none');
-           $(`.mvmt-pdp-carousel .slick-dots`).addClass('d-none');
-           $('.mvmt-pdp-carousel .slick-list.draggable').addClass('border-bottom-0');
-           $(`.slick-dots [aria-controls='${$(`[data-slick-index='${imageIndex + 1}']`).attr('id')}']`).trigger('click');
+            $(`.mvmt-pdp-carousel [data-slick-index='${imageIndex + 1}']`).addClass('d-none');
+            $(`.mvmt-pdp-carousel .slick-dots`).addClass('d-none');
+            $('.mvmt-pdp-carousel .slick-list.draggable').addClass('border-bottom-0');
+            $(`.mvmt-pdp-carousel .slick-dots [aria-controls='${$(`.mvmt-pdp-carousel [data-slick-index='${imageIndex + 1}']`).attr('id')}']`).trigger('click');
 
-           setTimeout(() => {
+            setTimeout(() => {
+
                 firstIndex == false;
                 $(`.mvmt-pdp-carousel .slick-dots`).removeClass('d-none');
                 $('.mvmt-pdp-carousel .slick-list.draggable').removeClass('border-bottom-0');
-                $(`.slick-dots [aria-controls='${$(`[data-slick-index='${parseFloat($(this).attr('data-image-index'))}']`).attr('id')}']`).trigger('click');
+                $(`.mvmt-pdp-carousel .slick-dots [aria-controls='${$(`.mvmt-pdp-carousel [data-slick-index='${parseFloat($(this).attr('data-image-index'))}']`).attr('id')}']`).trigger('click');
                 $('.mvmt-pdp-carousel .slick-slide').removeClass('d-none');
 
             }, 500);
 
         } else {
+
             firstIndex == false;
             $(`.mvmt-pdp-carousel .slick-dots`).removeClass('d-none');
             $('.mvmt-pdp-carousel .slick-list.draggable').removeClass('border-bottom-0');
-            $(`.slick-dots [aria-controls='${$(`[data-slick-index='${parseFloat($(this).attr('data-image-index'))}']`).attr('id')}']`).trigger('click');
+            $(`.mvmt-pdp-carousel .slick-dots [aria-controls='${$(`.mvmt-pdp-carousel [data-slick-index='${parseFloat($(this).attr('data-image-index'))}']`).attr('id')}']`).trigger('click');
             $('.mvmt-pdp-carousel .slick-slide').removeClass('d-none');
 
         }
