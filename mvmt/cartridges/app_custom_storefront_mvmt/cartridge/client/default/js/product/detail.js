@@ -540,7 +540,6 @@ function stickySectionCheck() {
             if(detailBox > imageBox){
                 $('.quadrant-pdp-wrapper').addClass('sticky-section');
                 $('.page').css({'overflow':'visible'});
-                $('.quadrant-pdp-wrapper').css('top','-' + $quadrantpdpImage + SpecsBox + reviewBox + fadeIn + 'px')
             } else{
                 $('.product-side-details-wrapper').addClass('sticky-section');
                 $('.page').css({'overflow':'visible'});
@@ -553,11 +552,9 @@ function stickySectionCheck() {
             if ($scroll) {
                 $('.product-side-details-wrapper').addClass('darkHeader');
                 $('.product-side-details-wrapper.sticky-section').css('top','-' + $recommendationHeight+'px');
-                $('.quadrant-pdp-wrapper').css('top','-' + $quadrantpdpImage + 'px');
             } else {
                 $('.product-side-details-wrapper').removeClass('darkHeader');
                 $('.product-side-details-wrapper.sticky-section').attr('style', '');
-                $('.quadrant-pdp-wrapper').attr('style', '');
             }
         });
     });
