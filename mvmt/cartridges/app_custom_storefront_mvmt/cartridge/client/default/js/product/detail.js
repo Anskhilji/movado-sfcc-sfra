@@ -528,17 +528,19 @@ $(document).ready(function () {
 });
 
 function stickySectionCheck() {
-    $(window).resize(function(){
+    $(document).ready(function(){
         var imageBox = $('.quadrant-pdp-wrapper').height();
         var detailBox = $('.product-side-details-wrapper').height();
-
+        var SpecsBox = $('.Specs .mvmv-pdp-accordian.active').height();
+        var reviewBox = $('.Reviews .mvmv-pdp-accordian.active').height();
+        var fadeIn = $('.fadeIn .mvmv-pdp-accordian.active').height();
         var $quadrantpdpImage = $('.carousel-tile').height() / 2 + 60;        
 
         if ($(window).width() > 767) {
             if(detailBox > imageBox){
                 $('.quadrant-pdp-wrapper').addClass('sticky-section');
                 $('.page').css({'overflow':'visible'});
-                $('.quadrant-pdp-wrapper').css('top','-' + $quadrantpdpImage +'px')
+                $('.quadrant-pdp-wrapper').css('top','-' + $quadrantpdpImage + SpecsBox + reviewBox + fadeIn + 'px')
             } else{
                 $('.product-side-details-wrapper').addClass('sticky-section');
                 $('.page').css({'overflow':'visible'});
