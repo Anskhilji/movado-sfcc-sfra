@@ -582,3 +582,101 @@
         }
     }
 }
+
+.smart-main {
+    @include media-breakpoint-down(xs) {
+        width: 100%;
+        margin-bottom: rem(15);
+        margin-top: rem(-10);
+    }
+
+    .smart-gift-btn {
+        width: 100%;
+    
+        @include media-breakpoint-down(sm) {
+            display: flex;
+        }
+    
+        .content-asset {display: inline-block;}
+    
+        .smartgift {
+            &-btn-redesign {
+                width: 88%;
+                font-family: $font-futura-demi;
+                font-weight: 600;
+                font-style: normal;
+                font-size: 1rem;
+                letter-spacing: normal;
+                border-color: $black;
+                border-radius: 0;
+        
+                @include media-breakpoint-down(xs) {
+                    margin: 0 rem(30) 0 rem(30);
+                }
+            }
+    
+            &-btn-popup {
+                width: rem(39);
+                font-family: $font-medium;
+                font-weight: 500;
+                font-style: normal;
+                font-size: 1rem;
+                letter-spacing: normal;
+                border-color: $black;
+                margin-left: rem(-7);
+                border-radius: 0;
+                
+                &::after, &::before {
+                    border-left: solid transparent 0.425em;
+                    border-right: solid transparent 0.425em;
+                    content: " ";
+                    height: 0;
+                    right: rem(14);
+                    transform: rotate(180deg);
+                    position: absolute;
+                    width: 0;
+                    bottom: rem(33);
+                    z-index: 999;
+                    border-bottom: solid $white 0.625em;;
+                    display: none;
+                    @include media-breakpoint-down(sm) {
+                        right: rem(13);
+                        bottom: rem(37);
+                    }
+                }
+        
+                &::before {
+                    border-bottom: solid $gull-gray-light rem(10);
+                    right: rem(13);
+                    top: rem(4);
+                    border-left: solid transparent 0.525em;
+                    border-right: solid transparent 0.525em;
+                    @include media-breakpoint-down(sm) {
+                        right: rem(11);
+                        top: rem(1);
+                    }
+                    @include media-breakpoint-down(xs) {
+                        top: rem(3);
+                        right: rem(13);
+                    }
+                }
+                
+        
+                &.active {
+                    &::after, &::before {
+                        display: block;
+                    }
+                }
+                @include media-breakpoint-down(sm) {
+                    min-width: rem(44);
+                    margin-left: rem(-1);
+                }
+                @include media-breakpoint-down(xs) {
+                    min-width: rem(44);
+                    margin-left: rem(-4);
+                }
+            }
+        }
+        
+    }
+}
