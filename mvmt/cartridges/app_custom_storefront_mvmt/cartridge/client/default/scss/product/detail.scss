@@ -3695,15 +3695,35 @@
                     @include media-breakpoint-up(xl-custom) {
                         padding: rem(0) rem(0) rem(20) rem(10);
                     }
+
+                    .slide-video {
+                        left: auto;
+                        right: 0;
+                    }
+                    
                 }
                 img {
+                    @include media-breakpoint-up(md-down) {
+                       width: 100%;
+                    }
+                    
                     &:hover {
                         cursor: zoom-in;
                     }
                 }
                 .slide-video {
-                    @include media-breakpoint-up(md-down) {
-                        padding: rem(0) rem(10) rem(10) rem(0);
+                    max-width: calc(100% - 10px);
+                    min-width: calc(100% - 10px);
+                    left: 0;
+                    right: auto;
+                    padding: rem(0) rem(0) rem(10) rem(0);
+
+                    @include media-breakpoint-down(md-down) {
+                        padding: rem(0) rem(0) rem(0) rem(0);
+                        max-width: calc(100% - 0px);
+                        min-width: calc(100% - 0px);
+                        max-height: calc(100% - 10px);
+                        height: calc(100% - 10px);
                     }
                     
                     @include media-breakpoint-up(lg-custom) {
@@ -3726,9 +3746,7 @@
 
             .primary-images {
                 align-self: flex-start;
-                top: 0;
-                position: sticky;
-                position: -webkit-sticky;
+
 
                 @include media-breakpoint-down(sm) {
                     position: static;
