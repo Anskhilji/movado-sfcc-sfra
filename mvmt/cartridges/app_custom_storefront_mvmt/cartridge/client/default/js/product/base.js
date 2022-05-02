@@ -836,6 +836,18 @@ function handleVariantResponse(response, $productContainer) {
             .attr('srcset', imageUrl.url);
     });
 
+    // Update gallery images Quadrant
+    primaryImageUrls.pdp453.forEach(function (imageUrl, idx) {
+        $productContainer.find('.primary-images .gallery-slider-quadrant').find('img').eq(idx)
+            .attr('src', imageUrl.url);
+        $productContainer.find('.primary-images .gallery-slider-quadrant').find('.carousel-tile').eq(idx)
+            .attr('data-thumb', imageUrl.url);
+        $productContainer.find('.primary-images .gallery-slider-quadrant').find('picture source:nth-child(1)').eq(idx)
+            .attr('srcset', imageUrl.url);
+        $productContainer.find('.primary-images .gallery-slider-quadrant').find('picture source:nth-child(2)').eq(idx)
+            .attr('srcset', imageUrl.url);
+    });
+
     // pdp Video for variations
     var pdpVideoConfigs = response.product.pdpVideoConfigs;
     if (pdpVideoConfigs && pdpVideoConfigs != 'undefined' && pdpVideoConfigs != '') {
@@ -868,9 +880,6 @@ function handleVariantResponse(response, $productContainer) {
     var $galleryImageContainer = $('.gallery-slider');
     $galleryImageContainer.empty();
 
-    var $galleryImageContainerQuadrant = $('.gallery-slider-quadrant');
-    $galleryImageContainerQuadrant.empty();
-
 
     var $mvmtPdpCarousel = $('.mvmt-pdp-carousel');
     $mvmtPdpCarousel.empty();
@@ -878,10 +887,7 @@ function handleVariantResponse(response, $productContainer) {
     primaryImageUrls.gallery.forEach(function (imageUrl) {
         $galleryImageContainer.append('<div class="carousel-tile"><picture><source media="(min-width: 992px)" srcset="' + imageUrl.url + '"><source media="(max-width: 991px)" srcset="' + imageUrl.url + '"><img src="' + imageUrl.url + '" alt="' + imageUrl.alt + '" itemprop="image" data-zoom-mobile-url="' + imageUrl.url + '" data-zoom-desktop-url="' + imageUrl.url + '"></picture></div>');
     });
-    // Update gallery images Quadrant
-    primaryImageUrls.pdp453.forEach(function (imageUrl,index) {
-        $galleryImageContainerQuadrant.append('<div class="col-lg-6 col-md-6 col-mx-50-wrapper"><div class="carousel-tile"><picture><source media="(min-width: 992px)" srcset="' + imageUrl.url + '"><source media="(max-width: 991px)" srcset="' + imageUrl.url + '"><img class="normal-zoom zoom-product-modal" data-toggle="modal" data-target="#zoomProduct" data-image-index='+ index +' src="' + imageUrl.url + '" alt="' + imageUrl.alt + '" itemprop="image" data-zoom-mobile-url="' + imageUrl.url + '" data-zoom-desktop-url="' + imageUrl.url + '"></picture></div></div>');
-    });
+ 
 
     primaryImageUrls.zoom1660.forEach(function (imageUrl) {
         $mvmtPdpCarousel.append('<div class="carousel-tile" data-thumb="' + imageUrl.url + '"><picture><source media="(min-width: 992px)" srcset="' + imageUrl.url + '"><source media="(max-width: 991px)" srcset="' + imageUrl.url + '"><img class="normal-zoom" src="' + imageUrl.url + '" alt="Coronada Ceramic" itemprop="image" data-zoom-mobile-url="' + imageUrl.url + '" data-zoom-desktop-url="' + imageUrl.url + '"></picture></div>');
