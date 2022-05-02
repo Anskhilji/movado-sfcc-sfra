@@ -7,17 +7,17 @@
     	   parse-error="error.message.invalid"
     	   />
     <field formid="firstName" label="label.input.firstname.profile" type="string" mandatory="true" binding="firstName"
-           max-length="35" missing-error="error.message.required" range-error="error.message.lessthan35"
+           max-length="35" missing-error="error.message.parse.firstname" range-error="error.message.lessthan35"
            regexp="(^[^(\\'\\&lt;\\>\\\)]+$)"
-    	   parse-error="error.message.invalid"
+    	   parse-error="error.message.parse.firstname.invalid"
            />
     <field formid="lastName" label="label.input.lastname.profile" type="string" mandatory="true" binding="lastName" max-length="35"
-           missing-error="error.message.required" range-error="error.message.lessthan35"
+           missing-error="error.message.parse.lastname" range-error="error.message.lessthan35"
            regexp="(^[^(\\'\\&lt;\\>\\\)]+$)"
-    	   parse-error="error.message.invalid"
+    	   parse-error="error.message.parse.lastname.invalid"
            />
     <field formid="email" label="profile.email" type="string" mandatory="true" binding="email"
-           max-length="254" missing-error="error.card.info.missing.email"
+           max-length="254" missing-error="error.message.parse.email"
            regexp="(^(?=[\w]{1,64}(?!.*?\.\.)+(?!\@)+[\w!.#$%&amp;&apos;*+-=?^_`{|}~\S]{1,64})+[^\()\[\]\\@,;:&quot;&lt;\s]{1,64}[^\/()\[\]\\@.,;:&quot;&lt;\s-]+@[^\/()\[\]\\@!.,;:#$%*+=?^_`{|}~&quot;&amp;&apos;&lt;+\s\-][\w\.\-][^\/()\[\]\\@,;:!#$%*+=?^_`{|}~&quot;&amp;&apos;&lt;\s]+[\.]+(?!.*web|.*'')[\w\.]{2,6}[^0-9\-()\[\]\\@\/.,;:!#$%*+=?^_`{|}~&quot;&amp;&apos;&lt;\.\s]+$)"
            parse-error="error.message.email.invalid"
            /> 
@@ -32,33 +32,33 @@
     <field formid="companyName" label="label.input.companyName" type="string" mandatory="false" binding="companyName"
            max-length="35" range-error="error.message.lessthan35"
     	   regexp="(^[^(\\'\\&lt;\\>\\\)]+$)"
-    	   parse-error="error.message.invalid"
+    	   parse-error="error.message.parse.companyName.invalid"
            />
     <field formid="address1" label="label.input.address1" type="string" mandatory="true" binding="address1" max-length="35"
            regexp="(^((?!(([\\'\\\\\\>\\&lt;])|(\b(?:[pP](?:[oO][sS][tT](?:[aA][lL])?)?[\.\-\s]*(?:(?:[oO](?:[fF][fF][iI][cC][eE])?[\.\-\s]*)?[bB](?:[oO][xX]|[iI][nN]|\b|\d)|[oO](?:[fF][fF][iI][cC][eE])(?:[-\s]*)|[cC][oO][dD][eE]))))).)*$)" 
-           missing-error="error.message.required"
+           missing-error="error.message.parse.address1"
            range-error="error.message.lessthan35"
-           parse-error="error.message.parse.addressPObox"/>
+           parse-error="error.message.parse.address1PObox"/>
     <field formid="address2" label="label.input.address2" type="string" mandatory="false" binding="address2" max-length="35"
            regexp="(^((?!(([\\'\\\\\\>\\&lt;])|(\b(?:[pP](?:[oO][sS][tT](?:[aA][lL])?)?[\.\-\s]*(?:(?:[oO](?:[fF][fF][iI][cC][eE])?[\.\-\s]*)?[bB](?:[oO][xX]|[iI][nN]|\b|\d)|[oO](?:[fF][fF][iI][cC][eE])(?:[-\s]*)|[cC][oO][dD][eE]))))).)*$)" 
-           missing-error="error.message.required"
+           missing-error="error.message.parse.address2"
            range-error="error.message.lessthan35"
-           parse-error="error.message.parse.addressPObox"/>
+           parse-error="error.message.parse.address2PObox"/>
     <field formid="city" label="label.input.city" type="string" mandatory="true" binding="city" min-length="2"
-            max-length="25" missing-error="error.message.required" range-error="error.message.lessthan25"
+            max-length="25" missing-error="error.message.parse.city" range-error="error.message.lessthan25"
     	   regexp="(^[^(\\'\\&lt;\\>\\\)]+$)"
-    	   parse-error="error.message.invalid"/>
+    	   parse-error="error.message.parse.city.invalid"/>
     <!--  postal code -->
     <field formid="postalCode" label="label.input.zipcode" type="string" mandatory="true" min-length="5" max-length="10"
            regexp="(GIR 0AA)|((([A-Za-z-[QVX]][0-9][0-9]?)|(([A-Za-z-[QVX]][A-Za-z-[IJZ]][0-9][0-9]?)|(([A-Za-z-[QVX‌​]][0-9][A-HJKSTUWa-hjkstuw])|([A-Za-z-[QVX]][A-Za-z-[IJZ]][0-9][ABEHMNPRVWXYabehmnprvwxy]))))\s?[0-9][A-Za-z-[C‌​IKMOV]]{2})"
            binding="postalCode"
            range-error="error.message.between5and10"
-           missing-error="error.message.required"
+           missing-error="error.message.parse.postalCode"
            parse-error="error.message.parse.zip"/>
 
     <!-- use set of supported countries -->
     <field formid="country" label="label.input.country" type="string" mandatory="true" binding="countryCode"
-           missing-error="error.message.required">
+           missing-error="error.message.parse.country">
         <options>
             <option optionid="GB" label="select.option.country.unitedkingdom" value="GB"/>
         </options>
@@ -70,7 +70,7 @@
     <!-- phone is mandatory for addresses -->
     <field formid="phone" label="label.input.phonenumber" description="address.phone.example" type="string" mandatory="true"
            binding="phone" min-length="10" max-length="20"
-           missing-error="error.message.required"
+           missing-error="error.message.parse.phone.required"
            range-error="error.message.between10and20"
            parse-error="error.message.parse.phone"
            regexp="(^(\s*(?:\+?44(?:\s*\(\s*0\s*\))?|0)\s*(7(?:\s*\d){9}|(?=\d)[^7](?:\s*\d){8,9})\s*)$)" />

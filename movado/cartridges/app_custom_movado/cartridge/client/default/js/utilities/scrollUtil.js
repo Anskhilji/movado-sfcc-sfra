@@ -7,6 +7,12 @@ function scrollInvalidFields(elemetSelector, positionAdjustment, time) {
        }, time);
 }
 
+function scrollToTopError(positionAdjustment, time) {
+  $('html, body').animate({
+     scrollTop: $('.checkout-form-error').offset().top + positionAdjustment
+       }, time);
+}
+
 function scrollPaymentSection(container, positionAdjustment) {
   $('html, body').animate({
     scrollTop:  $(container).offset().top - positionAdjustment
@@ -15,5 +21,6 @@ function scrollPaymentSection(container, positionAdjustment) {
 
 module.exports = {
     scrollInvalidFields: scrollInvalidFields,
-    scrollPaymentSection: scrollPaymentSection
+    scrollPaymentSection: scrollPaymentSection,
+    scrollToTopError: scrollToTopError
 };
