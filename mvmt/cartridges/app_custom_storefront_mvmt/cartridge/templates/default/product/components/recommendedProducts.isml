@@ -32,10 +32,6 @@
 
                             <p class="upsell_description">${recommendation.productName}</p>
 
-                            <div class="pdp-recommendtion-stars">
-                                <isinclude template="product/components/productRating" />
-                            </div>
-
                         </div>
                         <div class="upsell_text">
                             <p class="upsell_text-add">${Resource.msg('label.add.redesign', 'product', null)}</p>

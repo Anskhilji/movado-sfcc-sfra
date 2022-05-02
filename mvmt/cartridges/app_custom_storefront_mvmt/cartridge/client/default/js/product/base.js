@@ -854,7 +854,7 @@ function handleVariantResponse(response, $productContainer) {
             if (slickVideoIcon !== undefined) {
                 $('#'+slickVideoIcon).parent().addClass('video-icon');
             }
-        }, 500);
+        }, 1000);
     }
 
     // Update Family Name and Case Diameter
@@ -867,11 +867,11 @@ function handleVariantResponse(response, $productContainer) {
 
     var $galleryImageContainer = $('.gallery-slider');
     $galleryImageContainer.empty();
-    
+
     var $galleryImageContainerQuadrant = $('.gallery-slider-quadrant');
     $galleryImageContainerQuadrant.empty();
 
-    
+
     var $mvmtPdpCarousel = $('.mvmt-pdp-carousel');
     $mvmtPdpCarousel.empty();
     // Update gallery images
@@ -975,9 +975,14 @@ function handleVariantResponse(response, $productContainer) {
     }
 
     // Attach Slider and Zoom
-    pdpSwatchCarousel();
+    setTimeout(function () {
+        pdpSwatchCarousel();
+    }, 500);
     gallerySlider();
-    initializePDPMainSlider();
+    setTimeout(function () {
+        initializePDPMainSlider();
+    }, 500);
+    
     // Updating primary image in spec & detail section
 
     $('.description-and-detail .pdp-tab-content source').attr('srcset', primaryImageUrls.pdp533[0].url);

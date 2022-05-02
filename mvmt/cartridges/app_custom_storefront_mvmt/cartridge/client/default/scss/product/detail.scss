@@ -1050,8 +1050,10 @@
                             }
     
                             &:hover {
+                              @include media-breakpoint-down(sm) {
                                 box-shadow: 0 rem(0) rem(0) 0 transparent;
                                 border-color: transparent;
+                              }
                             }
                             &.slick-active {
                                 @include media-breakpoint-down(sm) {
@@ -3827,7 +3829,7 @@
                 width: 100%;
             
                 @include media-breakpoint-down(lg-media) {
-                    max-height: rem(576);
+                    max-height: rem(560);
                 }
                 @include media-breakpoint-down(xl) {
                     max-width: rem(920);
@@ -3836,7 +3838,7 @@
                 }
                 @include media-breakpoint-down(md) {
                     max-width: rem(720);
-                    max-height: rem(550.04);
+                    max-height: rem(560);
                     margin: auto;
                 }
             
@@ -3942,7 +3944,6 @@
                         @include media-breakpoint-down(lg-media) {
                             max-width: rem(410);
                             max-height: rem(410);
-                            margin-bottom: rem(0);
                         }
                     }
                 }
@@ -4223,6 +4224,13 @@
                     &.slick-initialized {
                         display: block;
                     }
+
+                    .slick-list {
+                        
+                        &.draggable {
+                            padding-bottom: rem(30);
+                        }
+                    }
         
                     .slick-slide {
                         padding: 0 rem(10);
@@ -4414,7 +4422,7 @@
                         width: 100%;
                         display: flex;
                         justify-content: center;
-                        margin: rem(30) auto rem(0) auto;
+                        margin: rem(0) auto rem(0) auto;
                         padding: rem(0);
 
                         li {
