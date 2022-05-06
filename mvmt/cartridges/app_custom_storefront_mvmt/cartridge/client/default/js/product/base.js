@@ -822,7 +822,6 @@ function handleVariantResponse(response, $productContainer) {
     $('.main-mvmt-carousel .carousel-tile').trigger('zoom.destroy'); 
     $('.primary-images .main-mvmt-carousel').slick('unslick');
     $('.gallery-slider').slick('unslick');
-    // $('.primary-images .mvmt-pdp-carousel').slick('unslick');
 
     // Update primary images
     var primaryImageUrls = response.product.images;
