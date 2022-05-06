@@ -49,7 +49,7 @@
                         </div>
                     </isif>
                     
-                    <div class="pdp-tab-content <isif condition= ${!product.attributes && product.attributes.length}>active fadeIn</isif> ${Resource.msg('label.tab.review', 'product', null)}">
+                    <div class="pdp-tab-content <isif condition= ${!product.attributes && product.attributes.length}>active fadeIn</isif>">
                         <div class="pdp-mobile-accordian mvmv-pdp-accordian review-box-mvmt">
                             <div class="pdp-mobile-accordian-label">${Resource.msg('label.tab.review', 'product', null)} <span class="pdp-stras"><isinclude template="product/components/productRating" /></span></div>
                             <div class="pdp-mobile-accordian-switch accordian-angle-down">
