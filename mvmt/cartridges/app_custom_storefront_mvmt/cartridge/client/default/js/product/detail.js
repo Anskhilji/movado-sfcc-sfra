@@ -2,6 +2,7 @@
 const { load } = require('cheerio');
 var movadoDetail = require('movado/product/detail');
 var base = require('./base');
+var pdpVideoLoaded = false; 
 module.exports = {
 
     zooom : function() {
@@ -50,6 +51,8 @@ module.exports = {
                 }),
 
                 $(document).off("click", ".zoom-icon.zoom-in").on("click", ".zoom-icon.zoom-in", (function (a) {
+                    $(".slick-dots").addClass('index-zoom-wrapper1');
+                    $(".slick-dots").removeClass('index-wrapper-inner');
                     $(t).trigger('onZoomIn');
                     $('.primary-images').addClass('zoomed-images');
                     if ($videoSlide.length > 0) {
@@ -65,6 +68,8 @@ module.exports = {
 
                 $(document).off("click", ".zoom-icon.zoom-out").on("click", ".zoom-icon.zoom-out", (function (a) {
                     $('.primary-images').removeClass('zoomed-images');
+                    $(".slick-dots").addClass('index-wrapper-inner');
+                    $(".slick-dots").removeClass('index-zoom-wrapper1');
                     if ($videoSlide.length > 0) {
                         $zoomButtons.addClass('d-none');
                         $imageSlide.css('pointer-events', 'none');
@@ -282,8 +287,8 @@ module.exports = {
             arrows:true,
             focusOnSelect: true,
             fade: true,
-            prevArrow:"<button class='slick-prev slick-arrow' aria-label='Previous' type='button'><svg class='slick-arrow__icon' width='9' height='14' viewBox='0 0 9 14' xmlns='http://www.w3.org/2000/svg'><path d='M7.22359 0l1.6855 1.63333L3.37101 7l5.53808 5.36667L7.22359 14l-7.2236-7z' fill='#2B2B2B' fill-rule='evenodd'></path></svg></button>",
-            nextArrow:"<button class='slick-next slick-arrow' aria-label='Next' type='button'><svg class='slick-arrow__icon' width='9' height='14' viewBox='0 0 9 14' xmlns='http://www.w3.org/2000/svg'><path d='M1.6855 0L0 1.63333 5.53808 7 0 12.36667 1.6855 14l7.22359-7z' fill='#2B2B2B' fill-rule='evenodd'></path></svg></button>",
+            prevArrow:"<button class='slick-prev slick-arrow' aria-label='Previous' type='button'></button>",
+            nextArrow:"<button class='slick-next slick-arrow' aria-label='Next' type='button'></button>",
             responsive: [
                 {
                     breakpoint: 768,
@@ -339,8 +344,8 @@ module.exports = {
                 {
                     breakpoint: 768,
                     settings: {
-                        arrows: false,
-                        dots:true
+                        arrows: true,
+                        dots: true
                     }
                 },
             ],
@@ -355,14 +360,9 @@ module.exports = {
             slidesToScroll: 1,
             asNavFor: '.primary-images .main-mvmt-carousel',
             dots: false,
-            arrows:false,
+            arrows: false,
 
         });
-
-        var a = $('.video').parent().parent().attr('aria-describedby');
-        if (a) {
-            $('#'+a).parent().addClass('video-icon');
-        }
     },
 
     updateAddToCart: function () {
@@ -460,20 +460,118 @@ module.exports = {
     base: base
 };
 
-var imageBox = $(".quadrant-pdp-wrapper").height();
-var detailBox = $(".product-side-details-wrapper").height();
-if ($(window).width() > 767) {
-    if(detailBox > imageBox){
-        $(".quadrant-pdp-wrapper").addClass("sticky-section");
-        $('.page').css({'overflow':'visible'});
-    }
-    else{
-        $(".product-side-details-wrapper").addClass("sticky-section");
-        $('.page').css({'overflow':'visible'});
+if (document.readyState == "interactive") {
+    setTimeout(function () {
+        var slickVideoIcon = $('.video').parent().parent().attr('aria-describedby');
+        if (slickVideoIcon !== undefined) {
+            $('#'+slickVideoIcon).parent().addClass('video-icon');
+        }
+    }, 1000);
+}
+
+function checkVideoStatus() {
+    var $slideVideo = $('.slide-video');
+    var firstVideoSlide = $slideVideo[0];
+    if (firstVideoSlide && firstVideoSlide.readyState == '4') {
+        $slideVideo.get(0).play();
+        pdpVideoLoaded = true;
+        var $primaryImagesContainer = $('.primary-images');
+        var $videoSlide = $primaryImagesContainer.find('.slick-slide.slick-current .slide-video');
+        var $zoomButtons = $primaryImagesContainer.find('.quickview.js-zoom-image, .zoom-icon');
+        var $imageSlide = $primaryImagesContainer.find('.slick-slide.slick-current .carousel-tile, .slick-slide.slick-current .normal-zoom');
+
+        if ($videoSlide.length > 0 && pdpVideoLoaded) {
+            $zoomButtons.addClass('d-none');
+            $imageSlide.css('pointer-events', 'none');
+            $primaryImagesContainer.find('.slick-slide.slick-current').css('cursor', 'default');
+        }
+        $slideVideo.removeClass('d-none');
+
+        clearInterval(videoStatusChecker);
+    } else if (document.readyState == 'complete') {
+        clearInterval(videoStatusChecker);
     }
 }
 
-if (document.readyState == "interactive") {
+var videoStatusChecker = setInterval(function () {
+    checkVideoStatus();
+}, 3000);
+
+$(document).ready(function () {
+    var $slideVideo = $('.slide-video');
+    if ($slideVideo.length > 0) {
+        if (document.documentMode && document.documentMode != 'undefined') {
+            $slideVideo.addClass('slide-video-ie');
+        }
+
+        $('.primary-images .slick-arrow, .primary-images .slick-dots, .show-mobile-pdp .slick-dots').on('click', function (event) {
+            var $primaryImagesContainer = $('.primary-images');
+            var $videoSlide = $primaryImagesContainer.find('.slick-slide.slick-current .slide-video');
+            var $zoomButtons = $primaryImagesContainer.find('.quickview.js-zoom-image, .zoom-icon');
+            var $imageSlide = $primaryImagesContainer.find('.slick-slide.slick-current .carousel-tile, .slick-slide.slick-current .normal-zoom');
+            if ($primaryImagesContainer.hasClass('zoomed-images')) {
+                $zoomButtons.removeClass('d-none');
+                $imageSlide.css('pointer-events', '');
+                $primaryImagesContainer.find('.slick-slide.slick-current').css('cursor', '');
+                return;
+            } else if ($videoSlide.length > 0 && pdpVideoLoaded) {
+                $zoomButtons.addClass('d-none');
+                $imageSlide.css('pointer-events', 'none');
+                $primaryImagesContainer.find('.slick-slide.slick-current').css('cursor', 'default');
+            } else {
+                $zoomButtons.removeClass('d-none');
+                $imageSlide.css('pointer-events', '');
+                $primaryImagesContainer.find('.slick-slide.slick-current').css('cursor', '');
+            }
+        });
+    }
+});
+
+function stickySectionCheck() {
+    $(document).ready(function(){
+        var imageBox = $('.quadrant-pdp-wrapper').height();
+        var detailBox = $('.product-side-details-wrapper').height();
+        var SpecsBox = $('.Specs .mvmv-pdp-accordian.active').height();
+        var reviewBox = $('.Reviews .mvmv-pdp-accordian.active').height();
+        var fadeIn = $('.fadeIn .mvmv-pdp-accordian.active').height();
+        var $quadrantpdpImage = $('.carousel-tile').height() / 2 + 60;        
+
+        if ($(window).width() > 767) {
+            if(detailBox > imageBox){
+                $('.quadrant-pdp-wrapper').addClass('sticky-section');
+                $('.page').css({'overflow':'visible'});
+            } else{
+                $('.product-side-details-wrapper').addClass('sticky-section');
+                $('.page').css({'overflow':'visible'});
+            }
+        }
+    
+        $(window).scroll(function() {    
+            var $scroll = $(window).scrollTop();
+            var $recommendationHeight = $('.linked-product-container').height() + $quadrantpdpImage - 50;
+            if ($scroll) {
+                $('.product-side-details-wrapper').addClass('darkHeader');
+                $('.product-side-details-wrapper.sticky-section').css('top','-' + $recommendationHeight+'px');
+            } else {
+                $('.product-side-details-wrapper').removeClass('darkHeader');
+                $('.product-side-details-wrapper.sticky-section').attr('style', '');
+            }
+        });
+    });
+    
+    
+}
+stickySectionCheck();
+
+$('.mvmv-pdp-accordian').click(function() {
+    stickySectionCheck();
+});
+
+if ($(window).width() > 768) {
+    $('.show-mobile-pdp').remove();
+}
+
+if (document.readyState == 'interactive') {
     setTimeout(() => {
         var $reviewsAccordion = $('.review-box-mvmt').find('.text-m');
         if ($reviewsAccordion.length > 0) {
@@ -485,19 +583,40 @@ if (document.readyState == "interactive") {
         }
     }, 1000);
 }
-
+$('.zoom-in').click(function(){
+    $('.main-mvmt-carousel-pdp-redesign').removeClass('show-arrow-box-mvmt');
+});
+$('.zoom-out').click(function(){
+    $('.main-mvmt-carousel-pdp-redesign').addClass('show-arrow-box-mvmt');
+});
 
 // Mss-1485 MVMT - PDP Redesign - Desktop Zoom Modal  click to open image
 var firstIndex = true;
 $('.zoom-product-modal').click(function() {
     var imageIndex = parseFloat($(this).attr('data-image-index'));
-    var activeImageId = $(`[data-slick-index='${imageIndex}']`).attr('id');
-    $(`[aria-controls='${activeImageId}']`).trigger('click');
-    if ($(window).width() < 1064 && firstIndex == true) {
-        firstIndex = false;
-        $(`.mvmt-pdp-carousel [data-slick-index='${imageIndex}']`).css({'width': `${$(window).width()}`+'px'});
-    } else if($(window).width() > 1064 && firstIndex == true) {
-        firstIndex = false;
-        $(`.mvmt-pdp-carousel [data-slick-index='${imageIndex}']`).css({'width': '1065px'});
+    var primaryImageLength = parseFloat($('.mvmt-pdp-carousel').find('.normal-zoom').data('img-length'));
+    if(imageIndex < primaryImageLength && primaryImageLength > 1 && firstIndex == true && imageIndex == 0) {
+
+        $(`.mvmt-pdp-carousel [data-slick-index='${imageIndex + 1}']`).addClass('d-none');
+        $('.mvmt-pdp-carousel .slick-dots').addClass('d-none');
+        $('.mvmt-pdp-carousel .slick-list.draggable').addClass('border-bottom-0');
+        $(`.mvmt-pdp-carousel .slick-dots [aria-controls='${$(`.mvmt-pdp-carousel [data-slick-index='${imageIndex + 1}']`).attr('id')}']`).trigger('click');
+
+        setTimeout(() => {
+
+            firstIndex == false;
+            $(`.mvmt-pdp-carousel .slick-dots`).removeClass('d-none');
+            $('.mvmt-pdp-carousel .slick-list.draggable').removeClass('border-bottom-0');
+            $(`.mvmt-pdp-carousel .slick-dots [aria-controls='${$(`.mvmt-pdp-carousel [data-slick-index='${parseFloat($(this).attr('data-image-index'))}']`).attr('id')}']`).trigger('click');
+            $('.mvmt-pdp-carousel .slick-slide').removeClass('d-none');
+
+        }, 500);
+    } else {
+        firstIndex == false;
+        $(`.mvmt-pdp-carousel .slick-dots`).removeClass('d-none');
+        $('.mvmt-pdp-carousel .slick-list.draggable').removeClass('border-bottom-0');
+        $(`.mvmt-pdp-carousel .slick-dots [aria-controls='${$(`.mvmt-pdp-carousel [data-slick-index='${parseFloat($(this).attr('data-image-index'))}']`).attr('id')}']`).trigger('click');
+        $('.mvmt-pdp-carousel .slick-slide').removeClass('d-none');
+
     }
-})
+});
