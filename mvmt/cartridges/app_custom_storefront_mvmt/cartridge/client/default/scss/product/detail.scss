@@ -3770,10 +3770,13 @@
             }
 
             .primary-images {
-                align-self: flex-start;
-                position: sticky;
-                position: -webkit-sticky;
-                top: rem(-278);
+                
+                &.quadrant-pdp-wrapper {
+                    align-self: flex-start;
+                    position: sticky;
+                    position: -webkit-sticky;
+                    top: rem(-278);
+                }
 
                 @include media-breakpoint-down(sm) {
                     position: static;
