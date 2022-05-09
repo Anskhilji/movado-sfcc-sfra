@@ -144,6 +144,7 @@
         <isif condition="${pdict.productSearch.category}">
             <isslot id="cs_plp_bottom_slot-head" context="category" description="Content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
             <isslot id="cs_plp_bottom_slot" context="category" description="Content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
+            <isslot id="cs_plp_seo_bottom_slot" context="category" description="SEO content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
         </isif>
     </div>
 </isdecorate>
