@@ -96,7 +96,8 @@ $stored-payment-spacing: rem(16);
         max-width: rem(940);
       }
       @include media-breakpoint-up(xl) {
-        max-width: rem(940);
+        max-width: rem(1440);
+        padding: rem(0);
       }
     }
   }
@@ -569,4 +570,19 @@ $stored-payment-spacing: rem(16);
 
 .multi-shipping {
   display: none;
+}
+.data-checkout-stage {
+  .card-border-none {
+    border: none;
+    box-shadow: none;
+    padding: rem(0);
+
+    .card-body {
+    padding: rem(0);
+
+    }
+    &.mb-bottom-20 {
+      margin-bottom: rem(20);
+    }
+  }
 }
