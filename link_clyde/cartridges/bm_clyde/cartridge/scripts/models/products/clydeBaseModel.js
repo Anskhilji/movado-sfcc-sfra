@@ -77,7 +77,7 @@ BaseModel.prototype = {
     isReadyToExport: function (record) {
         var productPriceInfo = record.getPriceModel().getPriceInfo();
         var priceBookLastModified = null;
-        var lastJobSyceTime = require('*/cartridge/scripts/utils/clydeSitePreferences').getSitePreferenceValue(this.sitePreferenceID);
+        var lastJobSyceTime = require('bm_clyde/cartridge/scripts/utils/clydeSitePreferences').getSitePreferenceValue(this.sitePreferenceID);
 
         if (!empty(productPriceInfo)) {
             priceBookLastModified = productPriceInfo.priceBook.lastModified.getTime();

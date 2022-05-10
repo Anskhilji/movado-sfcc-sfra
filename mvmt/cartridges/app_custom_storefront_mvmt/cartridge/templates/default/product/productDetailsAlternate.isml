@@ -52,7 +52,7 @@
             <hr class="hidden-xs-down d-md-none"/>
             <div class="row pdp-desktop m-0">
                 <!-- Product Images Carousel -->
-                <isinclude template="product/components/imageCarouselPDP" />
+                <isinclude template="product/components/imageCarouselPDPAlternate" />
 
                 <div class="product-side-details">
                     <isinclude template="product/components/badges" />
