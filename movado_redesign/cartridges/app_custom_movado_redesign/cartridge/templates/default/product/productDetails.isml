@@ -49,7 +49,7 @@
                 <!-- Product Images Carousel -->
                 <isinclude template="product/components/imageCarousel" />
 
-                <div class="col-12 col-lg-5 detail-sec pt-sm-5 scroll-wrapper-inner">
+                <div class="col-12 col-lg-5 detail-sec pt-sm-5">
 	               <div class="row">
 	                   <!-- Attributes and Quantity -->
 	                   <div class="col-md-10 col-12">
@@ -209,20 +209,6 @@
                             <isinclude template="product/components/sizeChart" />
                         </div>
                     </isif>
-                </div>
-                <iscomment> Sticky-add to cart button PDP </iscomment>
-                <div class="col-12 prices-add-to-cart-actions cart-sticky-wrapper-btn d-none">
-                    <!-- Prices -->
-                    <div class="prices">
-                        <iscomment> Custom Start: Product price shows when following requirements meet </iscomment>
-                        <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
-                            <isset name="price" value="${product.price}" scope="page" />
-                            <isinclude template="product/components/pricing/main" />
-                        </isif>
-                    </div>
-
-                        <!-- Cart and [Optionally] Apple Pay -->
-                        <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
                 </div>
             </div>
         </div>
