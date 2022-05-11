@@ -174,7 +174,9 @@ function gtmModel(req) {
                     currency: productImpressionTags && productImpressionTags.currency ? productImpressionTags.currency : '',
                     // Custom start: Added secoundary category if exist and quantity on product on pdp
                     deparmentIncludedCategoryName: departmentCategoryName,
-                    quantity: '1'
+                    quantity: '1',
+                    familyName: productImpressionTags && productImpressionTags.familyName ? productImpressionTags.familyName : '',
+                    color: productImpressionTags && productImpressionTags.productColor ? productImpressionTags.productColor : '',
                     // Custom End
                 };
             } else {
@@ -600,9 +602,11 @@ function getPDPProductImpressionsTags(productObj, queryString) {
         var productType = productModel.productType;
         var prodOptionArray = getProductOptions(productObj.optionModel.options);
         var variant = !empty(variantSize) ? variantSize.displayValue : '';
+        var familyName = productObj.custom.familyName[0];
+        var productColor = productObj.custom.color;
 
         productPersonalization = prodOptionArray != null ? prodOptionArray : '';
-        return { productID: productID, variantID:variantID, productType:productType, customCategory:customCategory, Sku:sku, productName: productName, brand: brand, productPersonalization: productPersonalization, variant: variant, productPrice: productPrice, list: 'PDP', currency: currency };
+        return { productID: productID, variantID:variantID, productType:productType, customCategory:customCategory, Sku:sku, productName: productName, brand: brand, productPersonalization: productPersonalization, variant: variant, familyName: familyName, productColor: productColor, productPrice: productPrice, list: 'PDP', currency: currency };
     } catch (ex) {
         Logger.error('Error Occured while getting product impressions tags for gtm against lineitem. Error: {0} \n Stack: {1} \n', ex.message, ex.stack);
         return '';

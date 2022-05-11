@@ -56,6 +56,8 @@ function getProductGtmObj(product, categoryName, position) {
                 variantID: variantID,
                 list: 'PLP',
                 position: position,
+                familyName: product.collectionName,
+                productColor: product.colorVariationsValues.values,
                 currentCategory: stringUtils.removeSingleQuotes(escapeQuotes(categoryName))    
             });
         } else {
