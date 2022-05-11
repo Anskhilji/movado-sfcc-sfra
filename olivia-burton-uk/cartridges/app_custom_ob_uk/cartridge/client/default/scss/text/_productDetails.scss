@@ -693,3 +693,49 @@
 }
 
 
+.product-detail-set-item {
+    .product-name {
+        letter-spacing: 0;
+        font-size: rem(30);
+        line-height: rem(41);
+        color: $black;
+    }
+
+    .prices {
+
+      .price-pdp-mvmt {
+        display: flex;
+        align-items: center;
+      }
+
+        del {
+          order: 1;
+          margin-left: rem(20);
+          line-height: rem(22);
+          margin-bottom: rem(5);
+
+          .strike-through {
+            font-size: $font-gills-light;
+            font-size: rem(18);
+            font-weight: 300;
+          }
+        }
+        .price-pdp-mvmt {
+          color: $black33;
+          font-family: $font-gills-light;
+          font-size: rem(34);
+          font-weight: 300;
+          letter-spacing: 0;
+          line-height: rem(41);
+        }
+    }
+
+    .bundle-offer-box {
+      height: rem(44);
+      width: rem(218);
+      border-radius: rem(3);
+      background-color: $pink-grey;
+      line-height: rem(41);
+    }
+
+}
