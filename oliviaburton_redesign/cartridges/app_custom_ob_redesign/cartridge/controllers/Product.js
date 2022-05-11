@@ -50,15 +50,20 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
    var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
    var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
    var productType = showProductPageHelperResult.product.productType;
-   var template = null;
+   var template =  showProductPageHelperResult.template;
 
-   // Custom Comment Start: A/B testing for OB Redesign PDP
-   if (ABTestMgr.isParticipant('OBRedesignPDPABTest','Control')) {
-       template = '/product/old/productDetails';
-   } else if (ABTestMgr.isParticipant('OBRedesignPDPABTest','render-new-design')) {
-       template =  showProductPageHelperResult.template;
-   } else {
-       template = '/product/old/productDetails';
+   //MSS_1753 OB Product Sets Page Design Desktop
+   if(productType !== 'set'){
+
+    // Custom Comment Start: A/B testing for OB Redesign PDP
+    if (ABTestMgr.isParticipant('OBRedesignPDPABTest','Control')) {
+        template = '/product/old/productDetails';
+    } else if (ABTestMgr.isParticipant('OBRedesignPDPABTest','render-new-design')) {
+        template =  showProductPageHelperResult.template;
+    } else {
+        template = '/product/old/productDetails';
+    }
+
    }
    // Custom Comment End: A/B testing for OB Redesign PDP
 
