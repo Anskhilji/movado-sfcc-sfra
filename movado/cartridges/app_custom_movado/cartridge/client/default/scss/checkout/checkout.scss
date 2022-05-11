@@ -374,6 +374,10 @@ header {
             margin-top: rem(30);
         }
         @include media-breakpoint-up(xl) {
+            padding: 0 rem(91.5) 0 rem(15);
+            margin-top: rem(30);
+        }
+        @include custom-media-query1440($large-screen-width1440) {
             padding: 0 rem(91.5) 0 rem(100);
             margin-top: rem(30);
         }
@@ -527,6 +531,12 @@ header {
     }
 
     @include media-breakpoint-up(xl) {
+        padding: 0 rem(15) 0 rem(15);
+        margin: rem(71) auto rem(51);
+        max-width: 100%;
+    }
+
+    @include custom-media-query1440($large-screen-width1440) {
         padding: 0 rem(15) 0 rem(100);
         margin: rem(71) auto rem(51);
         max-width: rem(1440);
@@ -759,20 +769,18 @@ header {
     max-width: 1440px;
 }
 .checkout-content-container-inner {
-    @include media-breakpoint-up(xl) {
-        margin: rem(0);
-    }
+    
     .left-section {
-        @include media-breakpoint-up(xl) {
+        @include custom-media-query1440($large-screen-width1440) {
             padding: rem(0) rem(0) rem(0) rem(100);
-            max-width: rem(940);
-            flex: 0 0 67%;
+            max-width: 66.1%;
+            flex: 0 0 66.1%;
         }
     }
     .right-section {
-        @include media-breakpoint-up(xl) {
-            max-width: rem(500);
-            flex: 0 0 33%;
+        @include custom-media-query1440($large-screen-width1440) {
+            max-width: 33.9%;
+            flex: 0 0 33.9%;
         }
     }
 }

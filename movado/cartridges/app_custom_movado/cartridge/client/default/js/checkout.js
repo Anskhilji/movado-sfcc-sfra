@@ -50,4 +50,20 @@ $(document).ready(function() { // eslint-disable-line
             e.stopPropagation();
         }
     });
+
+    function checkForInput(element) {        
+        const $label = $(element).siblings('.field__label');      
+        if ($(element).val().length > 0) {
+          $label.addClass('input-has-value');
+        } else {
+          $label.removeClass('input-has-value');
+        }
+      }
+      $('input.input-wrapper-checkout').each(function() {
+        checkForInput(this);
+      });
+      
+      $('input.input-wrapper-checkout').on('change keyup', function() {
+        checkForInput(this);  
+    });
 });
