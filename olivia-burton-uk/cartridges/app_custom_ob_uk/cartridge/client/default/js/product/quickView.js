@@ -75,7 +75,7 @@ function fillModalElement(selectedValueUrl, gtmProdObj) {
                 slickCarousel.initCarousel($('#quickViewModal .product-quickview'));
             }, 1000);
             if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
-                if (document.readyState === "complete") {
+                if (document.readyState === 'complete') {
                     affirm.ui.refresh();
                 }
             }

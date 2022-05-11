@@ -561,7 +561,7 @@ var updateCartPage = function(data) {
     $('.cart-section-wrapper').html(data.cartPageHtml);
     $('.minicart').trigger('count:update', data);
     if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
-        if (document.readyState === "complete") {
+        if (document.readyState === 'complete') {
             affirm.ui.refresh();
         }
     }
@@ -1113,7 +1113,7 @@ function validateOptions($el) {
 var updateCartPage = function(data) {
   $('.cart-section-wrapper').html(data.cartPageHtml);
   if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
-        if (document.readyState === "complete") {
+        if (document.readyState === 'complete') {
             affirm.ui.refresh();
         }
    }

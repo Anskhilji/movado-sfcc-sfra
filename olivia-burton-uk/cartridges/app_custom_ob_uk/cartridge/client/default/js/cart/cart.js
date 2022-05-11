@@ -112,7 +112,7 @@ function updateCartTotals(data) {
     var totalCalculated = data.totals.grandTotal.substr(1).toString().replace(/\,/g, '');
     $('.affirm-as-low-as').attr('data-amount', (totalCalculated * 100).toFixed());
     if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
-        if (document.readyState === "complete") {
+        if (document.readyState === 'complete') {
             affirm.ui.refresh();
         }
     }
