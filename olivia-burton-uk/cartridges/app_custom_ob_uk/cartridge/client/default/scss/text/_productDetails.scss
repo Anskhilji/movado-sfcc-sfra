@@ -692,50 +692,110 @@
   }
 }
 
+// set product detail PDP new design
 
+.set-detail-product-box-ob{
+   @include media-breakpoint-up(xl) {
+       max-width: rem(1400);
+   }
+}
 .product-detail-set-item {
     .product-name {
         letter-spacing: 0;
         font-size: rem(30);
         line-height: rem(41);
         color: $black;
+        font-family: $Adobe-Gramond-Pro-Italic;
     }
 
     .prices {
 
       .price-pdp-mvmt {
-        display: flex;
-        align-items: center;
+          display: flex;
+          align-items: center;
       }
 
         del {
-          order: 1;
-          margin-left: rem(20);
-          line-height: rem(22);
-          margin-bottom: rem(5);
+            order: 1;
+            margin-left: rem(20);
+            line-height: rem(22);
+            margin-bottom: rem(5);
 
           .strike-through {
-            font-size: $font-gills-light;
-            font-size: rem(18);
-            font-weight: 300;
+              font-size: $font-gills-light;
+              font-size: rem(18);
+              font-weight: 300;
           }
         }
         .price-pdp-mvmt {
-          color: $black33;
-          font-family: $font-gills-light;
-          font-size: rem(34);
-          font-weight: 300;
-          letter-spacing: 0;
-          line-height: rem(41);
+            color: $black33;
+            font-family: $font-gills-light;
+            font-size: rem(34);
+            font-weight: 300;
+            letter-spacing: 0;
+            line-height: rem(41);
         }
     }
 
     .bundle-offer-box {
-      height: rem(44);
-      width: rem(218);
-      border-radius: rem(3);
-      background-color: $pink-grey;
-      line-height: rem(41);
+        height: rem(44);
+        width: rem(218);
+        border-radius: rem(3);
+        background-color: $pink-grey;
+        line-height: rem(41);
+        padding: rem(0) rem(20);
+
+        .bundle-text {
+            font-family: $font-gill-std-medium;
+            color: $black;
+            font-size: rem(14);
+            font-weight: 600;
+            letter-spacing: 0;
+            line-height: rem(24);
+        }
+
+      .tag-iocn {
+          margin-right: rem(12);
+      }
+    }
+
+    .pdp-short-detail {
+        color: $black33;
+        font-family: $font-gills-light;
+        font-size: rem(15);
+        font-weight: 300;
+        letter-spacing: 0;
+        line-height: rem(25);
+    }
+
+    .add-to-cart {
+        height: rem(45);
+        width: rem(330);
+        color: $black11;
+        font-family: $font-gill-std-medium;
+        font-size: rem(15);
+        font-weight: 600;
+        letter-spacing: 0;
+        line-height: rem(45);
+        padding: 0;
+        border-radius: rem(3);
+    }
+
+    .setproduct-item-thumb {
+        &-img {
+            height: rem(72);
+            width: rem(68);
+            background-color: $greyFA;
+            margin-right: rem(30);
+        }
+        &-title {
+            color: $grey57;
+            font-family: $font-gill-std-medium;
+            font-size: rem(16);
+            font-weight: 600;
+            letter-spacing: 0;
+            line-height: rem(19);
+        }
     }
 
 }

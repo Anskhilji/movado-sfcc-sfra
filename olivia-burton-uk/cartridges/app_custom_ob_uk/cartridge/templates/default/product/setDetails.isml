@@ -17,7 +17,7 @@
     <isset name="isQuickView" value="${false}" scope="page" />
     <isobject object="${product.raw}" view="detail" />
 
-    <div class="container product-detail product-set-detail" data-pid="${product.id}">
+    <div class="container product-detail product-set-detail set-detail-product-box-ob" data-pid="${product.id}">
         <div class="row">
             <div class="col-12">
                 <!---Breadcrumbs--->

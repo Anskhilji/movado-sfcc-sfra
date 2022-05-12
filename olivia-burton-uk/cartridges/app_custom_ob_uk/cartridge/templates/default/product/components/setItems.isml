@@ -38,11 +38,40 @@
 
                       <!-- Bundle Save 25% Offer -->
                       
-                      <div class="bundle-offer-box">
-                          <span>Bundle Save 25% Offer </span>
+                      <div class="bundle-offer-box d-flex align-items-center justify-content-center">
+                            <span class="tag-iocn d-inline-flex">
+                                <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+                                width="20px" height="20px" viewBox="0 0 778.000000 778.000000"
+                                preserveAspectRatio="xMidYMid meet">
+
+                                <g transform="translate(0.000000,778.000000) scale(0.100000,-0.100000)"
+                                fill="#000000" stroke="none">
+                                <path d="M288 7761 c-31 -10 -72 -28 -91 -40 -59 -36 -143 -135 -169 -198
+                                l-23 -58 -3 -1415 c-3 -1545 -4 -1488 55 -1653 31 -88 91 -210 140 -286 49
+                                -76 3956 -3989 4035 -4041 121 -80 275 -91 406 -30 64 29 142 106 1569 1533
+                                1444 1444 1503 1505 1535 1572 31 65 33 77 33 175 0 94 -3 112 -29 170 -28 62
+                                -121 157 -1990 2029 -1079 1080 -1993 1989 -2032 2020 -78 63 -228 144 -341
+                                184 -164 59 -109 57 -1637 56 -1324 0 -1404 -1 -1458 -18z m985 -741 c184 -71
+                                291 -272 243 -460 -31 -122 -104 -213 -211 -266 -240 -117 -519 28 -566 294
+                                -36 202 107 409 311 452 61 12 160 3 223 -20z"/>
+                                </g>
+                                </svg>
+                            </span>
+                          <span class="bundle-text">Bundle Save 25% Offer </span>
                       </div>
 
-                        <isinclude template="product/components/pidRating" />
+                      <div class="setproduct-item-thumb d-flex align-items-center">
+                          <div class="setproduct-item-thumb-img d-flex align-items-center justify-content-center">
+                              <img src="${URLUtils.staticURL('/images/klarna.svg')}" alt="">
+                          </div>
+                          <div class="setproduct-item-thumb-title">
+                             Demi Black & Rose Gold Watch
+                          </div>
+                      </div>
+
+                        <div class="d-none">
+                            <isinclude template="product/components/pidRating" />
+                        </div>
 
                         <div class="row justify-content-center d-none">
                             <div class="col-md-10 col-12">
@@ -110,7 +139,9 @@
                                 <isinclude template="/product/components/description" />
                             </div>
                             <!-- Social Sharing Icons -->
-                            <isinclude template="product/components/socialIcons" />
+                            <div class="d-none">
+                                   <isinclude template="product/components/socialIcons" />
+                            </div>
 
                     </div>
                 </div>

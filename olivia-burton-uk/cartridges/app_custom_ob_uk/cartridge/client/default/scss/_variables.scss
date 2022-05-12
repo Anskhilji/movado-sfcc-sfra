@@ -31,6 +31,8 @@
 @font-face {font-family: 'GaramondMTStd-Italic';font-display: block;src: url('../webfonts/39E094_2_0.eot');src: url('../webfonts/39E094_2_0.eot?#iefix') format('embedded-opentype'),url('../webfonts/39E094_2_0.woff2') format('woff2'),url('../webfonts/39E094_2_0.woff') format('woff'),url('../webfonts/39E094_2_0.ttf') format('truetype');}
  
 @font-face {font-family: 'Gill-Sans-MT-Medium';font-display: block;src: url('../webfonts/Gill-Sans-MT-Medium.woff') format('woff');}
+
+@font-face {font-family: 'Adobe-Garamond-Pro-Italic';src: url('../webfonts/AdobeGaramondProItalic.ttf') format('truetype');}
  
 //font family
 $font-museo-std: "MuseoSlab-500", "Courier New", monospace;
@@ -40,6 +42,7 @@ $font-gill-std-medium: "Gill-Sans-MT-Medium", Arial, sans-serif;
 $font-gills-light: "GillSansMTStd-Light", Arial, sans-serif;
 $font-family-adobe: "GaramondMTPro-Italic", Times, serif;
 $font-adobe: "GaramondMTPro-Italic", Times, serif;
+$Adobe-Gramond-Pro-Italic: 'Adobe-Garamond-Pro-Italic';
 
 //font size
 $font-size-title-heading1: rem(60);
@@ -72,6 +75,7 @@ $font-semi-bolder: 600;
 
 //color
 $black: #000;
+$black11: #111111;
 $black33: #333333;
 $black-opacity-5: rgba(0, 0, 0, 0.5);
 $black-opacity-8: rgba(0, 0, 0, 0.8);
@@ -96,6 +100,8 @@ $cod-gray: #121212;
 $gray92: #EBEBEB;
 $sinbad: #9CD1C8;
 $light-black: #191919;
+$grey57: #575555;
+$greyFA: #FAFAFA;
 
 $white-gray: #f7f8f9 !default;
 $light-green: #53c563 !default;
