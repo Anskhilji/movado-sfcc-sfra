@@ -30,6 +30,33 @@ function sendSubscriberToListrak(requestParams) {
     }
     return result;
 }
+
+function sendTransectionalEmailToListrak(requestParams) {
+    var authServiceID = Constants.SERVICE_ID.LTK_AUTH;
+    var serviceID = Constants.SERVICE_ID.LTK_TRANSACTIONAL;
+    try {
+        var params = {
+            isExpired: false,
+            authServiceID: authServiceID
+        }
+        var accessToken = LTKAPIHelper.getAuthToken(params);
+        var service = null;
+        params.source = requestParams.source;
+        params.email = requestParams.email;
+        params.firstName = requestParams.firstName;
+        params.lastName = requestParams.lastName;
+        params.birthday = requestParams.birthDate;
+        params.birthMonth = requestParams.birthMonth;
+        params.countryCode = requestParams.country;
+
+        service = LTKAPIHelper.getTransectionalAPIService(serviceID, Constants.LTK_TRANSACTIONAL_API_ENDPOINT, accessToken, requestParams.messageId);
+        var result = LTKAPIHelper.addTransectionalEmailToLTK(params, service);
+    } catch (e) {
+        Logger.error('Listrak sendTransectionalEmailToListrak: some exception occured while exporting subscriber - {0}', e.toString());
+    }
+    return result;
+}
+
 module.exports = {
     sendSubscriberToListrak: sendSubscriberToListrak
 }   

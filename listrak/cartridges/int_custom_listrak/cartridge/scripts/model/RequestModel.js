@@ -49,7 +49,51 @@ function generateAddContactToLTKPayload(params) {
     };
     return payload;
 }
+
+function generateTransectionalEmailToLTKPayload(params) {
+    var payload = {
+        "emailAddress": params.email,
+        "subscriptionState": Constants.Subscription_State,
+        "segmentationFieldValues": [
+            {
+                "segmentationFieldId": Site.current.preferences.custom.Listrak_FirstName || '',
+                "value": params.firstName || ''
+            },
+            {
+                "segmentationFieldId": Site.current.preferences.custom.Listrak_LastName || '',
+                "value": params.lastName || ''
+            },
+            {
+                "segmentationFieldId": Site.current.preferences.custom.Listrak_Birthday || '',
+                "value": params.birthday || ''
+            },
+            {
+                "segmentationFieldId": Site.current.preferences.custom.Listrak_BirthMonth || '',
+                "value": params.birthMonth || ''
+            },
+            {
+                "segmentationFieldId": Site.current.preferences.custom.Listrak_BirthDate || '',
+                "value": params.birthMonth && params.birthday ? (params.birthMonth || '')  + Constants.DATE_SEPRATOR + (params.birthday || '') + Constants.DATE_SEPRATOR + Constants.BIRTH_YEAR : ''
+            },
+            {
+                "segmentationFieldId": Site.getCurrent().getCustomPreferenceValue(params.source),
+                "value": true
+            },
+            {
+                "segmentationFieldId": Site.current.preferences.custom.Listrak_CountryCode || '',
+                "value": params.countryCode || require('*/cartridge/scripts/helpers/productCustomHelper').getCurrentCountry()
+            },
+            {
+                "segmentationFieldId": Site.current.preferences.custom.Listrak_Campaign || '',
+                "value": ""
+            }
+        ]
+    };
+    return payload;
+}
+
 module.exports = {
     generateAuthenticationPayLoad: generateAuthenticationPayLoad,
-    generateAddContactToLTKPayload: generateAddContactToLTKPayload
+    generateAddContactToLTKPayload: generateAddContactToLTKPayload,
+    generateTransectionalEmailToLTKPayload:generateTransectionalEmailToLTKPayload
 }

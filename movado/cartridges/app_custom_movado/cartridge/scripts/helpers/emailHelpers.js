@@ -13,6 +13,60 @@
 function send(emailObj, template, context) {
     var Mail = require('dw/net/Mail');
     var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
+    var Site = require('dw/system/Site');
+    var messageType = '';
+    var messageContext = '';
+    var messageId = '';
+    var requestParams = {
+        email: registrationForm.email
+    }
+    if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
+        switch (emailObj.type) {
+            case 1:
+                requestParams.messageType = 'accountCreation';
+                requestParams.messageContext = 'Account';
+                requestParams.messageId = '';
+                requestParams.firstName = context.firstName;
+                requestParams.lastName = context.lastName;
+                break;
+            case 2:
+                requestParams.messageType = 'passwordReset';
+                requestParams.messageContext = 'Account';
+                requestParams.messageId = '';
+                requestParams.passwordReset = dw.web.URLUtils.http('Account-Show');
+                break;
+            case 3:
+                requestParams.messageType = 'accountEdit';
+                requestParams.messageContext = 'Account';
+                requestParams.messageId = '';
+                requestParams.firstName = context.firstName;
+                requestParams.lastName = context.lastName;
+                break;
+            case 4:
+                requestParams.messageType = 'orderConfirmation';
+                requestParams.messageContext = 'Order';
+                requestParams.messageId = '';
+                break;
+            case 5:
+                requestParams.messageType = 'accountLocked';
+                requestParams.messageContext = 'Account';
+                requestParams.messageId = '';
+                break;
+            case 6:
+                requestParams.messageType = 'accountEdit';
+                requestParams.messageContext = 'Account';
+                requestParams.messageId = '';
+                break;
+            case 7:
+                // Needs to be hanlde speically in terms of phone number
+                requestParams.messageType = 'orderCancellation';
+                requestParams.messageContext = 'Order';
+                requestParams.messageId = '';
+                break;
+        }
+        var ltkApi = require('*/cartridge/scripts/api/ListrakAPI');
+        ltkApi.sendTransectionalEmailToListrak(requestParams);
+    }
 
     var email = new Mail();
     email.addTo(emailObj.to);

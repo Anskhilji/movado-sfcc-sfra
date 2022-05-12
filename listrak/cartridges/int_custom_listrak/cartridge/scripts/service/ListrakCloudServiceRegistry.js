@@ -57,6 +57,21 @@ function getAPIService(serviceID, endpoint, eventId, subscribe, countryCode) {
     return dataService;
 }
 
+function getTransectionalAPIService(serviceID, endpoint, messageId) {
+    var serviceConfig = null;
+    serviceConfig = getDataAPIServiceConfigs();
+    var dataService = LocalServiceRegistry.createService(serviceID, serviceConfig);
+    var baseUrl = dataService.getConfiguration().getCredential().URL;
+    var listID = Site.current.preferences.custom.Listrak_Transactional_listID || '';
+    var url = baseUrl.toString();
+    if (!empty(endpoint)) {
+        endpoint = endpoint.replace('{listId}', listID).replace('{transactionalMessageId}', messageId);
+        url = baseUrl.toString() + endpoint;
+    }
+    dataService.setURL(url);
+    return dataService;
+}
+
 function getAuthorizationService(serviceID) {
     var auhtorizationService = LocalServiceRegistry.createService(serviceID, getAuthorizationServiceConfigs());
     return auhtorizationService;
@@ -64,5 +79,6 @@ function getAuthorizationService(serviceID) {
 
 module.exports = {
     getAuthorizationService: getAuthorizationService,
-    getAPIService: getAPIService
+    getAPIService: getAPIService,
+    getTransectionalAPIService: getTransectionalAPIService
 }
