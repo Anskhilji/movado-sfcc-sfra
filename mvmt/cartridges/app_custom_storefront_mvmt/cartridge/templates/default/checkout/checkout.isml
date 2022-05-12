@@ -40,6 +40,9 @@
 
         <div class="checkout-content container">
             <div class="row">
+                 <div class="checkout-form-error d-none">
+                    <p>${Resource.msg('error.top.checkout', 'forms', null)}</p>
+                </div>
                 <div class="col-md-7 left-section">
 
                     <!----------------------------------------------------------------------------------->

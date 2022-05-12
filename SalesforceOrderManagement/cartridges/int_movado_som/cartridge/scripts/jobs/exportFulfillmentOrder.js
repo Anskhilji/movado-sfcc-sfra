@@ -527,8 +527,8 @@ function exportFulfillmentOrder(args) {
         url: endpoint
     });
     if (!exportData || !exportData.ok || exportData.error) {
-        Logger.error('exportError=' + exportData.error + ' exportMsg=' + exportData.msg);
-        return new Status(Status.ERROR, 'ERROR', 'exportError=' + exportData.error + ' exportMsg=' + exportData.msg);
+        Logger.error('exportError=' + exportData.error + ' exportMsg=' + exportData.errorMessage);
+        return new Status(Status.ERROR, 'ERROR', 'exportError=' + exportData.error + ' exportMsg=' + exportData.errorMessage);
     }
     if ('errorCode' in exportData.object[0] && exportData.object[0].errorCode === 'NO CONTENT') {
         return new Status(Status.OK, 'OK', 'exportFulfillmentOrder finished - no new records found');
@@ -566,11 +566,11 @@ function exportAppeasementOrder(args) {
         url: endpoint
     });
     if (!exportData || exportData.error || exportData.msg !== 'OK') {
-        Logger.error('No data.  exportError=' + exportData.error + ' exportMsg=' + exportData.msg);
+        Logger.error('No data.  exportError=' + exportData.error + ' exportMsg=' + exportData.errorMessage);
     }
 
     if (exportData.error && exportData.error === 500) {
-        Logger.error('ERROR 500. exportError=' + exportData.error + ' exportMsg=' + exportData.msg);
+        Logger.error('ERROR 500. exportError=' + exportData.error + ' exportMsg=' + exportData.errorMessage);
         return new Status(Status.ERROR, 'ERROR', 'exportReturnOrder encountered error 500 from OMS API');
     }
 
@@ -606,11 +606,11 @@ function exportReturnOrder(args) {
         url: endpoint
     });
     if (!exportData || exportData.error || exportData.msg !== 'OK') {
-        Logger.error('No data.  exportError=' + exportData.error + ' exportMsg=' + exportData.msg);
+        Logger.error('No data.  exportError=' + exportData.error + ' exportMsg=' + exportData.errorMessage);
     }
 
     if (exportData.error && exportData.error === 500) {
-        Logger.error('ERROR 500. exportError=' + exportData.error + ' exportMsg=' + exportData.msg);
+        Logger.error('ERROR 500. exportError=' + exportData.error + ' exportMsg=' + exportData.errorMessage);
         return new Status(Status.ERROR, 'ERROR', 'exportReturnOrder encountered error 500 from OMS API');
     }
 

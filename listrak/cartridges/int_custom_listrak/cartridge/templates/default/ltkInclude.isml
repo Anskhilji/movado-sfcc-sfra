@@ -8,6 +8,10 @@
 <isinclude template="includes/ltkClickTracking.isml"/>
 <isinclude template="includes/ltkActivityTracking.isml"/>
 
+<isif condition="${pdict.CurrentSession.privacy.SendSCA == true}" >
+	<isinclude url="${URLUtils.url('ltkSendSca-RenderSca')}"/>
+</isif>
+
 <isif condition="${pdict.CurrentSession.privacy.SendActivity == true}" >
 	<isinclude url="${URLUtils.url("ltkActivityTracking-ClearTracker")}"/>
 </isif>
