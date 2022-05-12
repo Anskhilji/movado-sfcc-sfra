@@ -1,8 +1,4 @@
 <div class="set-items" itemtype="http://schema.org/SomeProducts" itemid="#product">
-    <isloop items="${product.individualProducts}" var="productItem" status="loopState">
-        <isset name="product" value="${productItem}" scope="page" />
- 
- 
             <div class="product-detail product-detail-set-item set-item" data-pid="${product.id}" itemscope itemtype="http://schema.org/Product">
                 <div class="row">
                     <div class="col-12">
@@ -21,7 +17,7 @@
 
                 <div class="row">
                     <!-- Product Images Carousel -->
-                    <isinclude template="product/components/imageCarousel" />
+                    <isinclude template="product/components/setProductImageCarousel" />
 
                     <div class="col-12 col-sm-6">
                         <!-- Product Name -->
@@ -61,15 +57,45 @@
                           <span class="bundle-text">Bundle Save 25% Offer </span>
                       </div>
 
-                      <div class="setproduct-item-thumb d-flex align-items-center">
-                          <div class="setproduct-item-thumb-img d-flex align-items-center justify-content-center">
-                              <img src="${URLUtils.staticURL('/images/klarna.svg')}" alt="">
-                          </div>
-                          <div class="setproduct-item-thumb-title">
-                             Demi Black & Rose Gold Watch
-                          </div>
-                      </div>
+                    <div class="mt-2">
+                        <isset name="fpname" value="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" scope="page" />
+                        <isset name="context" value="pdp" scope="page" />
+                        <isset name="country" value="${request.httpParameterMap.get('country').value}" scope="page" />
+                        <isinclude url="${URLUtils.https('Affirm-AffirmBanner', 'pid', product.id, 'context', context, 'fpname', fpname, 'country', country)}"/>
+                    </div>
 
+                    <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
+                    <isif condition="${isEswEnabled}" >
+                        <isset name="klarnaAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
+                        <isif condition="${klarnaAllowedCountry}">
+                            <isif condition="${dw.system.Site.getCurrent().preferences.custom.klarnaPdpPromoMsg}"> 
+                                <div class="col-md-10 col-12 text-center text-sm-left p-0 mt-4">
+                                    <isinclude url="${URLUtils.https('Adyen-KlarnaBanner', 'klarnaProductPrice', pdict.klarnaProductPrice)}"/>
+                                </div>
+                            </isif>
+                        </isif>
+                    <iselse>
+                        <isset name="klarnaAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
+                        <isif condition="${klarnaAllowedCountry}">
+                            <isif condition="${dw.system.Site.getCurrent().preferences.custom.klarnaPdpPromoMsg}"> 
+                                <div class="col-md-10 col-12 text-center text-sm-left p-0 mt-4">
+                                    <isinclude url="${URLUtils.https('Adyen-KlarnaBanner', 'klarnaProductPrice', pdict.klarnaProductPrice)}"/>
+                                </div>
+                            </isif>
+                        </isif>
+                    </isif>
+
+                      <div class="setproduct-item-thumb d-flex align-items-center">
+                        <isloop items="${product.individualProducts}" var="productItem" status="loopState">
+                         <isset name="individualProducts" value="${productItem}" scope="page" />
+                            <div class="setproduct-item-thumb-img d-flex align-items-center justify-content-center">
+                                <img src="${individualProducts.images.tile150[0].url}" alt="${individualProducts.images.tile150[0].alt}">
+                            </div>
+                            <div class="setproduct-item-thumb-title">
+                               ${individualProducts.productName}
+                            </div>
+                        </isloop>
+                      </div>
                         <div class="d-none">
                             <isinclude template="product/components/pidRating" />
                         </div>
@@ -149,14 +175,6 @@
             </div>
 
             <div class="description-and-detail">
-                <div class="row product-attributes collapsible-xs">
-                    <isinclude template="/product/components/attributes" />
-                </div>
-
-                <isif condition="${product.attributes && product.attributes.length}">
-                    <hr class="d-sm-none">
-                </isif>
-
                 <div class="row description collapsible-xs <isif condition="${!product.shortDescription}">hidden-xl-down</isif>">
                     <h2 class="col-sm-12 col-md-4 col-lg-3">
                     <a class="title" href="${'#'}">${Resource.msg('label.description', 'product', null)}</a>
@@ -180,5 +198,4 @@
                 <hr>
             </isif>
         </isobject>
-    </isloop>
 </div>
