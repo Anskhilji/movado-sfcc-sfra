@@ -147,4 +147,9 @@
             <isslot id="cs_plp_seo_bottom_slot" context="category" description="SEO content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
         </isif>
     </div>
+    <div class="no-results-carousel plp-new-design">
+       <isif condition="${pdict.contentSearch && pdict.contentSearch.contentCount == 0}">
+            <isslot id="cs-noresult-recommendations" description="Recommendations for no result search" context="global" />
+       </isif>
+    </div>
 </isdecorate>
