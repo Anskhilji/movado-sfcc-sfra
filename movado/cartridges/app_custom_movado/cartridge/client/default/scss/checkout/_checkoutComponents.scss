@@ -96,7 +96,8 @@ $stored-payment-spacing: rem(16);
         max-width: rem(940);
       }
       @include media-breakpoint-up(xl) {
-        max-width: 100%;
+        max-width: 90%;
+        margin: auto;
       }
       @include custom-media-query1440($large-screen-width1440) {
         max-width: rem(1440);
@@ -190,6 +191,13 @@ $stored-payment-spacing: rem(16);
       margin-bottom: rem(10);
       text-transform: uppercase;
     }
+    
+    &.mx-shipping-box {
+      @include custom-media-query1440($large-screen-width1440) {
+        max-width: rem(700);
+      }
+    }
+
     .display-name {
       &::after {
         content: "";
@@ -574,38 +582,51 @@ $stored-payment-spacing: rem(16);
   display: none;
 }
 .data-checkout-stage {
+
   .card-border-none {
     border: none;
     box-shadow: none;
     padding: rem(0);
 
     .card-body {
-    padding: rem(0);
+      padding: rem(0);
+
       .shipping-address-block {
         @include custom-media-query1440($large-screen-width1440) {
-          max-width: rem(690);
+          max-width: rem(700);
         }
-      }
-    }
-    &.mb-bottom-20 {
-      margin-bottom: rem(20);
-    }
-  }
-  .field-left {
-    &.mx-field-wrapper {
-      @include custom-media-query1440($large-screen-width1440) {
-        padding: rem(0) rem(10);
-      }
-    }
-  }
-  .field-right {
-    &.mx-field-wrapper {
-      @include custom-media-query1440($large-screen-width1440) {
-        padding: rem(0) rem(10);
       }
 
     }
+
+    &.mb-bottom-20 {
+      margin-bottom: rem(20);
+    }
+
   }
+
+  .field-left {
+    &.mx-field-wrapper {
+      @include custom-media-query1440($large-screen-width1440) {
+        padding: rem(0) rem(10) rem(0) rem(15);
+      }
+    }
+  }
+
+  .mx-field-wrapper {
+    @include custom-media-query1440($large-screen-width1440) {
+      padding: rem(0) rem(15);
+    }
+  }
+
+  .field-right {
+    &.mx-field-wrapper {
+      @include custom-media-query1440($large-screen-width1440) {
+        padding: rem(0) rem(15) rem(0) rem(10);
+      }
+    }
+  }
+
   .form-group {
     .form-control {
       &.input-wrapper-checkout {
@@ -624,16 +645,18 @@ $stored-payment-spacing: rem(16);
           + .field__label {
             transition: 0.2s ease-in-out;
             top: 0;
-            left: rem(25);
+            left: 2em;
             height: rem(24);
             color: $grey17;
             font-size: rem(10);
             font-weight: 500;
             letter-spacing: rem(0.7);
             line-height: rem(24);
+            width: auto;
           }
         }
       }
+
       &.custom-select-box {
         height: rem(45);
         border: rem(1) solid $grey16;
@@ -647,7 +670,9 @@ $stored-payment-spacing: rem(16);
           top: rem(14);
         }
       }
+
     }
+
     .field__label {
       position: absolute;
       top: 1em;
@@ -673,6 +698,7 @@ $stored-payment-spacing: rem(16);
 
 
     }
+
     &.required {
       .field__label {
         &::before {
@@ -681,5 +707,11 @@ $stored-payment-spacing: rem(16);
       }
     }
   }
+
+  .card-header-inner-wrapper {
+    max-width: rem(350);
+    margin-bottom: rem(20);
+  }
+
 }
 

@@ -59,11 +59,11 @@ $(document).ready(function() { // eslint-disable-line
           $label.removeClass('input-has-value');
         }
       }
-      $('input.input-wrapper-checkout').each(function() {
+      $('input.input-wrapper-checkout,select.custom-select-box').each(function() {
         checkForInput(this);
       });
       
-      $('input.input-wrapper-checkout').on('change keyup', function() {
+      $('input.input-wrapper-checkout,select.custom-select-box').on('change keyup', function() {
         checkForInput(this);  
     });
 });

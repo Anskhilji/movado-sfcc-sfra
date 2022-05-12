@@ -5,7 +5,7 @@
     <isset name="action" value="${URLUtils.url('AmazonPay-SubmitPayment')}" scope="page" />
     <isset name="addressMode" value="${'new'}" scope="page" />
 </isif>
-<div class="card ghost payment">
+<div class="card ghost payment mx-shipping-box">
     <div class="card-header">
         <span class="checkout-card-header">${Resource.msg('heading.payment', 'checkout', null)}</span>
     </div>
