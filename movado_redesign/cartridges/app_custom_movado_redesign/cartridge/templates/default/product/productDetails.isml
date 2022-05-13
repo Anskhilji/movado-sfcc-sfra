@@ -233,7 +233,7 @@
                     </isif>
                 </div>
                 <iscomment> Sticky-add to cart button PDP </iscomment>
-                <div class="col-12 prices-add-to-cart-actions cart-sticky-wrapper-btn">
+                <div class="col-12 prices-add-to-cart-actions cart-sticky-wrapper-btn d-none">
                     <!-- Prices -->
                     <div class="prices">
                         <iscomment> Custom Start: Product price shows when following requirements meet </iscomment>
@@ -242,13 +242,12 @@
                             <isinclude template="product/components/pricing/main" />
                         </isif>
                     </div>
-
-                        <!-- Cart and [Optionally] Apple Pay -->
-                        <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
+                    <!-- Cart and [Optionally] Apple Pay -->
+                    <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
                 </div>
             </div>
+            <div class="cart-wishlist-observer"></div>
         </div>
-
         <div class="container-fluid pdp-mobile detail-bg pdp-v-one">
             <isinclude template="product/components/descriptionAndDetails" />
         </div>

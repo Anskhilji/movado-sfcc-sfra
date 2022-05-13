@@ -303,6 +303,55 @@ $(document).ready(function() {
         
     });
     ratingRedesign();
+    
+    // custom end: MSS-1772 pdp sticky ATC
+    function loadCartButtonOnScroll() {
+        if ($(window).width() < 544) {
+            var cartWishListObserver = document.querySelector('.cart-wishlist-observer');
+            var initialCoords = cartWishListObserver.getBoundingClientRect();
+            
+            window.addEventListener('scroll', function () {
+                if (this.window.scrollY < initialCoords.top) {
+                    $('.cart-sticky-wrapper-btn').addClass('d-none');
+                    $('.cart-sticky-wrapper-btn').removeClass('d-block');
+                    setTimeout(() => {
+                        $('.cart-sticky-wrapper-btn').css('transform','translateY(150px)');
+                    }, 500);
+                } else {
+                    $('.cart-sticky-wrapper-btn').addClass('d-block');
+                    $('.cart-sticky-wrapper-btn').removeClass('d-none');
+                    setTimeout(() => {
+                        $('.cart-sticky-wrapper-btn').css('transform','translateY(0px)');
+                    }, 500);
+                }
+            });
+        }
+    }
+
+    function loadCartButtonTouchMove() {
+        if ($(window).width() < 544) {
+            var cartWishListObserver = document.querySelector('.cart-wishlist-observer');
+            var initialCoords = cartWishListObserver.getBoundingClientRect();
+            window.addEventListener('touchmove', function () {
+                if (this.window.scrollY < initialCoords.top) {
+                    $('.cart-sticky-wrapper-btn').addClass('d-none');
+                    $('.cart-sticky-wrapper-btn').removeClass('d-block');
+                    setTimeout(() => {
+                        $('.cart-sticky-wrapper-btn').css('transform','translateY(150px)');
+                    }, 500);
+                } else {
+                    $('.cart-sticky-wrapper-btn').addClass('d-block');
+                    $('.cart-sticky-wrapper-btn').removeClass('d-none');
+                    setTimeout(() => {
+                        $('.cart-sticky-wrapper-btn').css('transform','translateY(0px)');
+                    }, 500);
+                }
+            });
+        }
+    }
+    loadCartButtonOnScroll();
+    loadCartButtonTouchMove();
+    // custom end: MSS-1772 pdp sticky ATC
 });
 
 function ratingRedesign() {
@@ -312,43 +361,3 @@ function ratingRedesign() {
         }
     }
 }
-module.exports = {
-
-    loadCartButtonOnScroll: function () {
-        if ($(window).width() < 544) {
-            $(window).scroll(function (event) {
-                var $cartDetailDescription = $('.scroll-sticky');
-                if ($cartDetailDescription.length > 0) {
-                    var $elementOffset = $cartDetailDescription.offset().top - 30,
-                    $elementOuter = $cartDetailDescription.outerHeight(),
-                    $windowHeight = $(window).height(),
-                    $thisScroll = $(this).scrollTop();
-                    if ($thisScroll > ($elementOffset+$elementOuter-$windowHeight)){
-                        $('.cart-sticky-wrapper-btn').addClass('d-block');
-                    } else {
-                        $('.cart-sticky-wrapper-btn').removeClass('d-block');
-                    }
-                }
-            });
-        }
-    },
-    
-    loadCartButton: function () {
-        if ($(window).width() < 544) {
-            $(window).scroll(function (event) {
-                var $cartDetailDescription = $('.scroll-wrapper-inner');
-                if ($cartDetailDescription.length > 0) {
-                    var $elementOffset = $cartDetailDescription.offset().top - 10,
-                    $elementOuter = $cartDetailDescription.outerHeight(),
-                    $windowHeight = $(window).height(),
-                    $thisScroll = $(this).scrollTop();
-                    if ($thisScroll > ($elementOffset+$elementOuter-$windowHeight)){
-                        $('.cart-sticky-wrapper-btn').addClass('d-none');
-                    } else {
-                        $('.cart-sticky-wrapper-btn').removeClass('d-none');
-                    }
-                }
-            });
-        }
-    }
-};

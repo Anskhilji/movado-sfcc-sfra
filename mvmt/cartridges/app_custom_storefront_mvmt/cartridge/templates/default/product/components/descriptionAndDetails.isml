@@ -49,16 +49,23 @@
                         </div>
                     </isif>
                     
-                    <div class="pdp-tab-content <isif condition= ${!product.attributes && product.attributes.length}>active fadeIn</isif> ${Resource.msg('label.tab.review', 'product', null)}">
+                    <div class="pdp-tab-content <isif condition= ${!product.attributes && product.attributes.length}>active fadeIn</isif>">
                         <div class="pdp-mobile-accordian mvmv-pdp-accordian review-box-mvmt">
                             <div class="pdp-mobile-accordian-label">${Resource.msg('label.tab.review', 'product', null)} <span class="pdp-stras"><isinclude template="product/components/productRating" /></span></div>
                             <div class="pdp-mobile-accordian-switch accordian-angle-down">
                             </div>
                         </div>
                         <div class="pdp-content-body accordian-mobile-body review-box-mvmt">
-                            <div class="w-100 accordian-review-box">
+                            <div class="w-100 accordian-review-box reviews-here">
                                 <h3 class="details-heading text-center">${Resource.msg('label.tab.review.redesign', 'product', null)}</h3>
                                  <div class="yotpo yotpo-shoppers-say accordian-review" data-product-id="${pdict.product.id}"></div>
+                            </div>
+
+                            <div class="w-100 accordian-review-box review-empty-box">
+                                <h3 class="details-heading text-center">${Resource.msg('label.tab.no-review-redesign', 'product', null)}</h3>
+                                <p class="no-review-sec">
+                                    ${dw.system.Site.current.preferences.custom.noReviewMessage}
+                                </p>
                             </div>
                         </div>
                     </div>
