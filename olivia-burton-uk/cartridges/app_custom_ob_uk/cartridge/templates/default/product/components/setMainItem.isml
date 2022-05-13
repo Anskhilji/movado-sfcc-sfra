@@ -160,6 +160,23 @@
                             <div class="setitem-description pdp-short-detail">
                                 <isinclude template="/product/components/description" />
                             </div>
+                            <iscomment> attributes </iscomment>
+                            <iscomment> <div class="accordion-attributes d-none" id="accordionExample2">
+                                <div class="card-attributes">
+                                    <div class="card-header-attributes" id="attributes-list">
+                                        <button class="attributes-bar d-flex align-items-center justify-content-between" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            Attributes <span class="plus-minus-icon"></span>
+                                        </button>
+                                    </div>
+
+                                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                        <div class="card-body-attributes">
+                                              <isinclude template="/product/components/attributes" />
+                                        </div>
+                                    </div>
+                                </div>
+                                </div> </iscomment>
+                                <iscomment> attributes </iscomment>
                             <!-- Social Sharing Icons -->
                             <div class="d-none">
                                    <isinclude template="product/components/socialIcons" />

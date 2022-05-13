@@ -1,5 +1,5 @@
 <iscomment> Add New Class For The Correct Replacment of Megnifier For OB</iscomment>
-<div class="primary-images ob-carousel-quickview">
+<div class="primary-images ob-carousel-quickview w-100">
     <div class="product-badges">
         <isinclude template="product/components/newnessBadge" />
     </div>
