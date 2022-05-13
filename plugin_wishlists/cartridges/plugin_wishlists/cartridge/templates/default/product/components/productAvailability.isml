@@ -1,10 +1,5 @@
 <!-- Availability -->
 <div class="availability col-md-10 col-12 product-availability" data-ready-to-order="${product.readyToOrder}" data-available="${product.available}">
     <isinclude template="product/components/availability" />
-    <isif condition="${product.available}">
-        <div class="shipping-callout">
-            <iscontentasset aid="ca-shipping-callout" />
-        </div>
-    </isif>
     <isinclude template="wishlist/components/addToWishListButton" />
 </div>

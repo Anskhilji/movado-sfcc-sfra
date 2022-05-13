@@ -154,7 +154,7 @@
                             </div>
 
                             <!-- Product Availability -->
-                           <div>
+                           <div class="">
                                 <isinclude template="product/components/productAvailability" />
                            </div>
 

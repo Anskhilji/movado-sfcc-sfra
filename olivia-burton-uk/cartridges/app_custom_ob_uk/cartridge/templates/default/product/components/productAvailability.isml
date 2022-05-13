@@ -1,0 +1,9 @@
+<!-- Availability -->
+<div class="availability product-availability" data-ready-to-order="${product.readyToOrder}" data-available="${product.available}">
+    <isinclude template="product/components/availability" />
+    <isif condition="${product.available}">
+        <div class="shipping-callout">
+            <iscontentasset aid="ca-shipping-callout" />
+        </div>
+    </isif>
+</div>
