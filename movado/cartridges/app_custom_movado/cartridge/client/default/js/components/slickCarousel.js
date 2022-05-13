@@ -22,6 +22,9 @@ var initCarousel = function ($container) {
     });
 };
 
+$('.pdp-accordion-ob .pdp-accordion-ob-header').one('click', function(){
+$('.pdp-accordion-ob .js-carousel').slick('refresh');
+});
 module.exports = {
     initCarousel: initCarousel
 };
