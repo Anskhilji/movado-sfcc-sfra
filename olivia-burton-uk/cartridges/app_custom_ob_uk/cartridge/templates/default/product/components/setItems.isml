@@ -4,23 +4,29 @@
             <isset name="product" value="${productItem}" scope="page" />
             <div class="accordion-ob-box">
                 <div class="pdp-accordion-ob-header d-flex align-items-center" id="${product.id}">
-                    <div class="pdp-accordion-ob-heading d-flex align-items-center justify-content-between w-100 collapsed" type="button" data-toggle="collapse" data-target="${'#collapseOne'+product.id}" aria-expanded="true" aria-controls="${'#collapseOne'+product.id}">
+                    <div class="pdp-accordion-ob-heading d-flex align-items-center justify-content-between w-100  ${ loopState.count == 1 ? '' : 'collapsed' }" type="button" data-toggle="collapse" data-target="${'#collapseOne'+product.id}" aria-expanded="true" aria-controls="${'#collapseOne'+product.id}">
                         ${product.productName} <span class="plus-minus-icon"></span>
                     </div>
                 </div>
 
-                <div id="collapseOne${product.id}" class="collapse" aria-labelledby="${product.id}">
+                <div id="collapseOne${product.id}" class="collapse ${ loopState.count == 1 ? 'show' : '' }" aria-labelledby="${product.id}">
                     <div class="product-detail product-detail-set-item set-item" data-pid="${product.id}" itemscope itemtype="http://schema.org/Product">
                         <div class="row">
-                            <div class="col-12 d-flex justify-content-end">
+                            <div class="col-12 d-flex align-items-center justify-content-between">
                                     <!-- Product Images Carousel -->
                                 <isinclude template="product/components/imageCarousel" />
 
                                 <div class="pdp-right-side-ob">
                                     <!-- Product Name -->
                                     <h3 class="product-name hidden-sm-down" itemprop="name">
-                                         ${product.productName}
+                                        <a href="${URLUtils.url('Product-Show', 'pid', product.id)}">
+                                            ${product.productName}
+                                        </a>
                                     </h3>
+
+                                     <div class="d-block">
+                                        <isinclude template="product/components/pidRating" />
+                                    </div>
 
                                     <!-- Prices -->
                                     <div class="prices">
@@ -28,79 +34,7 @@
                                         <isinclude template="product/components/pricing/main" />
                                     </div>
 
-                                <!-- Bundle Save 25% Offer -->
-                                
-                                <div class="bundle-offer-box d-none align-items-center justify-content-center">
-                                        <span class="tag-iocn d-inline-flex">
-                                            <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
-                                            width="20px" height="20px" viewBox="0 0 778.000000 778.000000"
-                                            preserveAspectRatio="xMidYMid meet">
-
-                                            <g transform="translate(0.000000,778.000000) scale(0.100000,-0.100000)"
-                                            fill="#000000" stroke="none">
-                                            <path d="M288 7761 c-31 -10 -72 -28 -91 -40 -59 -36 -143 -135 -169 -198
-                                            l-23 -58 -3 -1415 c-3 -1545 -4 -1488 55 -1653 31 -88 91 -210 140 -286 49
-                                            -76 3956 -3989 4035 -4041 121 -80 275 -91 406 -30 64 29 142 106 1569 1533
-                                            1444 1444 1503 1505 1535 1572 31 65 33 77 33 175 0 94 -3 112 -29 170 -28 62
-                                            -121 157 -1990 2029 -1079 1080 -1993 1989 -2032 2020 -78 63 -228 144 -341
-                                            184 -164 59 -109 57 -1637 56 -1324 0 -1404 -1 -1458 -18z m985 -741 c184 -71
-                                            291 -272 243 -460 -31 -122 -104 -213 -211 -266 -240 -117 -519 28 -566 294
-                                            -36 202 107 409 311 452 61 12 160 3 223 -20z"/>
-                                            </g>
-                                            </svg>
-                                        </span>
-                                    <span class="bundle-text">Bundle Save 25% Offer </span>
-                                </div>
-
-                                <div class="setproduct-item-thumb d-none align-items-center">
-                                    <div class="setproduct-item-thumb-img d-flex align-items-center justify-content-center">
-                                        <img src="${URLUtils.staticURL('/images/klarna.svg')}" alt="">
-                                    </div>
-                                    <div class="setproduct-item-thumb-title">
-                                        Demi Black & Rose Gold Watch
-                                    </div>
-                                </div>
-
-                                    <div class="d-block">
-                                        <isinclude template="product/components/pidRating" />
-                                    </div>
-
-                                    <div class="row justify-content-center d-none">
-                                        <div class="col-md-10 col-12">
-                                            <isinclude template="product/components/mainAttributes" />
-
-                                            <isif condition="${product.variationAttributes}">
-                                                <isloop items="${product.variationAttributes}" var="attr" status="attributeStatus">
-                                                    <div data-attr="${attr.id}" class="swatch">
-                                                        <isif condition="${attributeStatus.last && !isBundle && product.options.length === 0}">
-                                                            <!-- Quantity Drop Down Menu -->
-                                                            <div class="quantity col-sm-6">
-                                                                <isinclude template="product/components/quantity" />
-                                                            </div>
-                                                        </isif>
-                                                        <isinclude template="product/components/variationAttribute" />
-                                                    </div>
-                                                </isloop>
-                                            </isif>
-                                            <isif condition="${product.options && product.options.length}">
-                                                <div class="row">
-                                                    <isinclude template="product/components/options" />
-                                                </div>
-                                            </isif>
-                                            <isif condition="${(product.options && !product.options.length && !product.variationAttributes)}">
-                                                <div class="simple-quantity">
-                                                    <isinclude template="/product/components/quantity" />
-                                                </div>
-                                            </isif>
-                                        </div>
-
-                                        <!-- Size Chart -->
-                                        <isif condition="${product.variationAttributes && product.sizeChartId}">
-                                            <span class="col-12 col-md-10 size-chart">
-                                                <isinclude template="product/components/sizeChart" />
-                                            </span>
-                                        </isif>
-                                    </div>
+                                  
 
                                     <!-- Product Availability -->
                                     <div class="row d-none">

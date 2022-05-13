@@ -1,6 +1,6 @@
 <div class="set-items" itemtype="http://schema.org/SomeProducts" itemid="#product">
             <div class="product-detail product-detail-set-item set-item" data-pid="${product.id}" itemscope itemtype="http://schema.org/Product">
-                <div class="row">
+                <iscomment> <div class="row">
                     <div class="col-12">
                         <!-- Product Name -->
                         <div class="row">
@@ -13,13 +13,14 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> </iscomment>
 
                 <div class="row">
-                    <!-- Product Images Carousel -->
+                   <div class="col-12 d-flex justify-content-between">
+                        <!-- Product Images Carousel -->
                     <isinclude template="product/components/setProductImageCarousel" />
 
-                    <div class="col-12 col-sm-6">
+                    <div class="pdp-main-product-right-box">
                         <!-- Product Name -->
                         <h3 class="product-name hidden-sm-down" itemprop="name">
                             <a href="${URLUtils.url('Product-Show', 'pid', product.id)}">
@@ -171,6 +172,7 @@
                             </div>
 
                     </div>
+                   </div>
                 </div>
             </div>
 
