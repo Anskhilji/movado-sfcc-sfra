@@ -93,14 +93,17 @@ $stored-payment-spacing: rem(16);
         max-width: rem(940);
       }
       @include media-breakpoint-up(lg) {
-        max-width: rem(940);
+        max-width: 100%;
+        padding-left: rem(60);
       }
       @include media-breakpoint-up(xl) {
         max-width: 90%;
         margin: auto;
+        padding-left: rem(0);
       }
       @include custom-media-query1440($large-screen-width1440) {
         max-width: rem(1440);
+        padding: rem(0) rem(15);
       }
     }
   }
@@ -594,6 +597,7 @@ $stored-payment-spacing: rem(16);
       .shipping-address-block {
         @include custom-media-query1440($large-screen-width1440) {
           max-width: rem(700);
+          padding-left: rem(5);
         }
       }
 
@@ -608,21 +612,21 @@ $stored-payment-spacing: rem(16);
   .field-left {
     &.mx-field-wrapper {
       @include custom-media-query1440($large-screen-width1440) {
-        padding: rem(0) rem(10) rem(0) rem(15);
+        padding: rem(0) rem(10);
       }
     }
   }
 
   .mx-field-wrapper {
     @include custom-media-query1440($large-screen-width1440) {
-      padding: rem(0) rem(15);
+      padding: rem(0) rem(10);
     }
   }
 
   .field-right {
     &.mx-field-wrapper {
       @include custom-media-query1440($large-screen-width1440) {
-        padding: rem(0) rem(15) rem(0) rem(10);
+        padding: rem(0) rem(10);
       }
     }
   }
@@ -715,3 +719,6 @@ $stored-payment-spacing: rem(16);
 
 }
 
+.shiping-view-container {
+  justify-content: space-between;
+}

@@ -374,7 +374,7 @@ header {
             margin-top: rem(30);
         }
         @include media-breakpoint-up(xl) {
-            padding: 0 rem(91.5) 0 rem(20);
+            padding: 0 rem(91.5) 0 rem(4);
             margin-top: rem(30);
         }
         @include custom-media-query1440($large-screen-width1440) {
@@ -529,13 +529,13 @@ header {
     }
 
     @include media-breakpoint-up(lg) {
-        padding: 0 rem(15);
+        padding: 0 rem(15) 0 rem(60);
         margin: rem(64) auto rem(32);
-        max-width: rem(940);       
+        max-width: 100%;       
     }
 
     @include media-breakpoint-up(xl) {
-        padding: 0 rem(15) 0 rem(15);
+        padding: 0;
         margin: rem(71) auto rem(51);
         max-width: 90%;
     }

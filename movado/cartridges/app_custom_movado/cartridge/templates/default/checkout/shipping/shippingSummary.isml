@@ -1,4 +1,5 @@
 <!--- Shipping Address --->
+<div>
 <isloop var="shippingModel" items="${pdict.order.shipping}" status="shippingLoop">
     <isif condition="${shippingLoop.first}">
         <div class="single-shipping" data-shipment-summary="${shippingModel.UUID}">
@@ -8,34 +9,42 @@
             <iselse>
                 <isset name="address" value="{}" scope="page"/>
             </isif>
-            <div class="summary-details shipping">
-                <isinclude template="checkout/addressSummary" />
+            <div class="d-flex shiping-view-container">
+            <div>
+            <p>Contact Details</p>
                 <span class="order-summary-email">${pdict.order.orderEmail}</span>
                 <div class="shipping-phone">
                     ${shippingModel.shippingAddress && shippingModel.shippingAddress.phone ? shippingModel.shippingAddress.phone : ''}
                 </div>
             </div>
+            <div class="summary-details shipping">
+            <p>Shipping Address </p>
+                <isinclude template="checkout/addressSummary" />
+            </div>           
 
             <!--- Shipping information --->
-            <p class="summary-section-label shipping-method-label">${Resource.msg('label.order.shipping.method', 'confirmation', null)}</p>
-            <div class="row summary-details leading-lines justify-content-between">
-                <div class="start-lines">
-                    <p class="shipping-method">
-                        <span class="shipping-method-title">${!empty(shippingModel.selectedShippingMethod) && !empty(shippingModel.selectedShippingMethod.displayName) ? shippingModel.selectedShippingMethod.displayName : ''}</span>
-                        <span class="shipping-method-arrival-time">
-                            <isif condition="${shippingModel.selectedShippingMethod && shippingModel.selectedShippingMethod.estimatedArrivalTime}">
-                                ( ${!empty(shippingModel.selectedShippingMethod) && !empty(shippingModel.selectedShippingMethod.estimatedArrivalTime) ? shippingModel.selectedShippingMethod.estimatedArrivalTime : ''} )
-                            </isif>
-                        </span>
-                    </p>
+            <div>
+                <p class="summary-section-label shipping-method-label">${Resource.msg('label.order.shipping.method', 'confirmation', null)}</p>
+                <div class="row summary-details leading-lines justify-content-between">
+                    <div class="start-lines">
+                        <p class="shipping-method">
+                            <span class="shipping-method-title">${!empty(shippingModel.selectedShippingMethod) && !empty(shippingModel.selectedShippingMethod.displayName) ? shippingModel.selectedShippingMethod.displayName : ''}</span>
+                            <span class="shipping-method-arrival-time">
+                                <isif condition="${shippingModel.selectedShippingMethod && shippingModel.selectedShippingMethod.estimatedArrivalTime}">
+                                    ( ${!empty(shippingModel.selectedShippingMethod) && !empty(shippingModel.selectedShippingMethod.estimatedArrivalTime) ? shippingModel.selectedShippingMethod.estimatedArrivalTime : ''} )
+                                </isif>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="end-lines">
+                        <p class="text-right pricing shipping-method-price">
+                            <iscomment> Custom Start: Adding ESW Cartridge Code Logic </iscomment>
+                            ${pdict.order.totals.totalShippingCost}
+                            <iscomment> Custom End </iscomment>
+                        </p>
+                    </div>
                 </div>
-                <div class="end-lines">
-                    <p class="text-right pricing shipping-method-price">
-                        <iscomment> Custom Start: Adding ESW Cartridge Code Logic </iscomment>
-                        ${pdict.order.totals.totalShippingCost}
-                        <iscomment> Custom End </iscomment>
-                    </p>
-                </div>
+            </div>
             </div>
             <isinclude template="checkout/shipping/giftMessageSummary" />
         </div>
@@ -44,3 +53,4 @@
 <p class="summary-section-label shipping-addr-label multi-shipping">
     ${Resource.msg('order.summery.section.text', 'order', null)}
 </p>
+</div>
