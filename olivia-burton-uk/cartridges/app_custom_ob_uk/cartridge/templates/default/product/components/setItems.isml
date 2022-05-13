@@ -25,7 +25,7 @@
                                     </h3>
 
                                      <div class="d-block">
-                                        <isinclude template="product/components/pidRating" />
+                                        <isinclude template="product/components/pidIndividualRating" />
                                     </div>
 
                                     <!-- Prices -->

@@ -148,11 +148,21 @@ function getConversionTrackingData(request, order, currentLocale) {
         isCartridgeEnabled: isCartridgeEnabled,
         conversionTrackingURL: conversionTrkURL
     };
-}
+};
 
+function getIndividualRatingOrReviewsData(yotpoConfig, product){
+    if(product.individualProducts.length > 0){
+        var yotpoIndividualProductData = {};
+        for(var i = 0; i < product.individualProducts.length; i++){
+            yotpoIndividualProductData = getRatingsOrReviewsData(yotpoConfig, product.individualProducts[i].id);
+            product.individualProducts[i].yotpoIndividualProductData = yotpoIndividualProductData;
+            }
+        }
+}
 
 module.exports = {
     getRatingsOrReviewsData: getRatingsOrReviewsData,
     getConversionTrackingData: getConversionTrackingData,
-    getYotpoConfig: getYotpoConfig
+    getYotpoConfig: getYotpoConfig,
+    getIndividualRatingOrReviewsData: getIndividualRatingOrReviewsData
 };
