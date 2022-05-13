@@ -22,9 +22,10 @@ var initCarousel = function ($container) {
     });
 };
 
-$('.pdp-accordion-ob .pdp-accordion-ob-header').one('click', function(){
-$('.pdp-accordion-ob .js-carousel').slick('refresh');
+$('.accordion-ob-box .pdp-accordion-ob-header').on('click', function(){
+    $('.accordion-ob-box .js-carousel.cs-carousel').slick('refresh');
 });
+
 module.exports = {
     initCarousel: initCarousel
 };
