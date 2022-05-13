@@ -22,8 +22,8 @@
     </isif>
 
     <isloop items="${product.badges.textBadges}" var="badge">
-        <div class="product-tag-content-badge">
-            <div class="exclusive-badge-search">
+        <div class="product-tag-content">
+            <div class="exclusive-badge exclusive-badge-search">
                 <span class="badge text-uppercase">${badge.text}</span>
             </div>
         </div>

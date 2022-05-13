@@ -1,4 +1,4 @@
-<div class="exclusive-badges">
+<div class="exclusive-badges exclusive-badge-search">
     <!-- First two conditions are for PLP and the last is applicable on PDP -->
     <isif condition="${(product.defaultVariantAvailabilityStatus === 'IN_STOCK' && pdict.display.plpTile === true)}">
         <isloop items="${product.defaultVariantBadges.textBadges}" var="badge">
