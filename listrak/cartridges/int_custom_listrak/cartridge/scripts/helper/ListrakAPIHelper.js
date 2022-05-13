@@ -28,10 +28,10 @@ function getAuthTokenFromAPI(requestParams) {
 }
 
 function getTransectionalAuthTokenFromAPI(requestParams) {
-    var service = ListrakCloudServiceRegistry.getAuthorizationService(requestParams.authServiceID);
+    var service = ListrakCloudServiceRegistry.getTransectionalAuthorizationService(requestParams.authServiceID);
     var params = {
-        clientID: Site.current.preferences.custom.Listrak_Transactional_ClientID || '',
-        clientSecret: Site.current.preferences.custom.Listrak_Transactional_ClientSecret || ''
+        clientID: Site.current.preferences.custom.Listrak_ClientID || '',
+        clientSecret: Site.current.preferences.custom.Listrak_ClientSecret || ''
     }
     var payload = RequestModel.generateAuthenticationPayLoad(params);
     try {
@@ -53,7 +53,7 @@ function getAPIService(serviceID, endpoint, accessToken, eventId, subscribe, cou
 }
 
 function getTransectionalAPIService(serviceID, endpoint, accessToken, messageId) {
-    var service = ListrakCloudServiceRegistry.getAPIService(serviceID, endpoint, messageId);
+    var service = ListrakCloudServiceRegistry.getTransectionalAPIService(serviceID, endpoint, messageId);
     service.addHeader('Authorization', 'Bearer ' + accessToken);
     return service;
 }
@@ -128,7 +128,7 @@ function addTransectionalEmailToLTK(params, service) {
     try {
         responsePayload = service.call(transectionalEmailPayload);
     } catch (e) {
-        Logger.error('Listrak addContactToLTK: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
+        Logger.error('Listrak addTransectionalEmailToLTK: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
     }
 
     if (responsePayload.error == 401) {
@@ -139,14 +139,14 @@ function addTransectionalEmailToLTK(params, service) {
         try {
             responsePayload = service.call(transectionalEmailPayload);
         } catch (e) {
-            Logger.error('Listrak addContactToLTK: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
+            Logger.error('Listrak addTransectionalEmailToLTK: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
         }
 
     }
 
     if (!responsePayload.object && responsePayload.error) {
         result.message = Resource.msg('listrak.error.msg', 'listrak', null);
-        Logger.error('Listrak addContactToLTK: {0}', responsePayload.errorMessage.tostring());
+        Logger.error('Listrak addTransectionalEmailToLTK: {0}', responsePayload.errorMessage.tostring());
         result.success = false;
     }
     return result;
@@ -155,5 +155,8 @@ function addTransectionalEmailToLTK(params, service) {
 module.exports = {
     getAuthToken: getAuthToken,
     getAPIService: getAPIService,
-    addContactToLTK: addContactToLTK
+    addContactToLTK: addContactToLTK,
+    addTransectionalEmailToLTK: addTransectionalEmailToLTK,
+    getTransectionalAuthToken: getTransectionalAuthToken,
+    getTransectionalAPIService: getTransectionalAPIService
 }

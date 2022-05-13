@@ -20,7 +20,36 @@ function getDataAPIServiceConfigs() {
     return serviceConfig;
 }
 
+function getTransactionalAPIServiceConfigs() {
+    var serviceConfig = {
+        createRequest: function (svc, args) {
+            var requestJSONString = JSON.stringify(args);
+            svc.addHeader('Content-Type', 'application/json');
+            svc.setRequestMethod('POST');
+            return requestJSONString;
+        },
+        parseResponse: function (svc, client) {
+            return JSON.parse(client.text);
+        }
+    };
+    return serviceConfig;
+}
+
 function getAuthorizationServiceConfigs() {
+    var serviceConfig = {
+        createRequest: function (svc, args) {
+            svc.addHeader('Content-Type', 'application/x-www-form-urlencoded');
+            svc.setRequestMethod('POST');
+            return args;
+        },
+        parseResponse: function (svc, client) {
+            return JSON.parse(client.text);
+        }
+    };
+    return serviceConfig;
+}
+
+function getTransectionalAuthorizationServiceConfigs() {
     var serviceConfig = {
         createRequest: function (svc, args) {
             svc.addHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -59,7 +88,7 @@ function getAPIService(serviceID, endpoint, eventId, subscribe, countryCode) {
 
 function getTransectionalAPIService(serviceID, endpoint, messageId) {
     var serviceConfig = null;
-    serviceConfig = getDataAPIServiceConfigs();
+    serviceConfig = getTransactionalAPIServiceConfigs();
     var dataService = LocalServiceRegistry.createService(serviceID, serviceConfig);
     var baseUrl = dataService.getConfiguration().getCredential().URL;
     var listID = Site.current.preferences.custom.Listrak_Transactional_listID || '';
@@ -77,8 +106,14 @@ function getAuthorizationService(serviceID) {
     return auhtorizationService;
 }
 
+function getTransectionalAuthorizationService(serviceID) {
+    var auhtorizationService = LocalServiceRegistry.createService(serviceID, getTransectionalAuthorizationServiceConfigs());
+    return auhtorizationService;
+}
+
 module.exports = {
     getAuthorizationService: getAuthorizationService,
     getAPIService: getAPIService,
-    getTransectionalAPIService: getTransectionalAPIService
+    getTransectionalAPIService: getTransectionalAPIService,
+    getTransectionalAuthorizationService: getTransectionalAuthorizationService
 }

@@ -10,11 +10,11 @@ exports.Subscription_State = 'Subscribed';
 exports.LTK_API_ENDPOINT = {
     CONTACT: '/List/{listId}/Contact/',
 }
-exports.LTK_TRANSECTIONAL_API_ENDPOINT = '/v1/List/{listId}/TransactionalMessage/{transactionalMessageId}/Message';
+exports.LTK_TRANSACTIONAL_API_ENDPOINT = 'List/{listId}/TransactionalMessage/{transactionalMessageId}/Message';
 exports.SERVICE_ID = {
     LTK_AUTH: 'listrak.auth.api',
     LTK_EVENT: 'listrak.event.api',
-    LTK_TRANSACTIONAL: 'listrak.transactional.email ',
+    LTK_TRANSACTIONAL: 'listrak.transactional.email',
 }
 exports.Source = {
     Footer: 'Listrak_FooterSourceID',
