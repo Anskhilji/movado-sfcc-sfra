@@ -632,7 +632,9 @@ function validateOptions($el) {
 var updateCartPage = function(data) {
   $('.cart-section-wrapper').html(data.cartPageHtml);
   if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
-        affirm.ui.refresh();
+        if (document.readyState === 'complete') {
+            affirm.ui.refresh();
+        }
    }
 };
 
@@ -814,6 +816,10 @@ module.exports = {
                         updateCartPage(data);
                         handlePostCartAdd(data);
                         $('body').trigger('product:afterAddToCart', data);
+                        if (window.Resources.LISTRAK_ENABLED) {
+                            var ltkSendSCA = require('listrak_custom/ltkSendSCA');
+                            ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
+                        }
                         $.spinner().stop();
                     },
                     error: function () {
@@ -1030,6 +1036,10 @@ module.exports = {
                         updateCartPage(data);
                         handlePostCartAdd(data);
                         $('body').trigger('product:afterAddToCart', data);
+                        if (window.Resources.LISTRAK_ENABLED) {
+                            var ltkSendSCA = require('listrak_custom/ltkSendSCA');
+                            ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
+                        }
                         $.spinner().stop();
                     },
                     error: function () {

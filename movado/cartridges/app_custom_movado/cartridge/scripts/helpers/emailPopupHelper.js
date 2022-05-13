@@ -140,9 +140,12 @@ function isDoubleOptInPopupCountry(doubleOptInPopupCountries) {
  * @returns {boolean} - Return current country code
  */
 function eswCountryCode() {
-    var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
-    var currentCountry = eswHelper.getAvailableCountry();
-    currentCountry = request.httpParameterMap.get('countryCode').value || currentCountry;
+    var eswEshopworldModuleEnabled = currentSite.getCustomPreferenceValue('eswEshopworldModuleEnabled');
+    if (eswEshopworldModuleEnabled) {
+        var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
+        var currentCountry = eswHelper.getAvailableCountry();
+        currentCountry = request.httpParameterMap.get('countryCode').value || currentCountry;
+    }
     return currentCountry;
 }
 
