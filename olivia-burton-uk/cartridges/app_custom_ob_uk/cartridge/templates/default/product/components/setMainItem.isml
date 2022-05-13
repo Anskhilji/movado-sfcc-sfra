@@ -18,8 +18,8 @@
                 <div class="row">
                    <div class="col-12 pdp-ob-detail-box">
                         <!-- Product Images Carousel -->
-                    <iscomment> <isinclude template="product/components/setProductImageCarousel" /> </iscomment>
-                    <isinclude template="product/components/imageCarouselPdp" />
+                    <isinclude template="product/components/setProductImageCarousel" />
+                    <iscomment> <isinclude template="product/components/imageCarouselPdp" /> </iscomment>
 
                     <div class="pdp-main-product-right-box pdp-right-side-ob">
                         <!-- Product Name -->
