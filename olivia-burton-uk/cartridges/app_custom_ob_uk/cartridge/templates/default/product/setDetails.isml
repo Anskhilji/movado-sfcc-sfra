@@ -39,6 +39,7 @@
              </div>
         </div>
         <isinclude template="/product/components/setMainItem" />
+
         <isinclude template="/product/components/setItems" />
         <hr>
         <div class="col-12 col-sm-6 offset-sm-6 bundle-footer">
@@ -51,5 +52,5 @@
                 <isinclude template="product/components/addToCartGlobal" />
             </div>
         </div>
-    </div>
+    </div>    
 </isdecorate>

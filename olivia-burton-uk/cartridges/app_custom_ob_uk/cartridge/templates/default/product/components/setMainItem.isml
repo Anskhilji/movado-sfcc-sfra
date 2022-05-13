@@ -85,17 +85,17 @@
                         </isif>
                     </isif>
 
-                      <div class="setproduct-item-thumb d-flex align-items-center">
                         <isloop items="${product.individualProducts}" var="productItem" status="loopState">
-                         <isset name="individualProducts" value="${productItem}" scope="page" />
-                            <div class="setproduct-item-thumb-img d-flex align-items-center justify-content-center">
-                                <img src="${individualProducts.images.tile150[0].url}" alt="${individualProducts.images.tile150[0].alt}">
-                            </div>
-                            <div class="setproduct-item-thumb-title">
-                               ${individualProducts.productName}
+                            <div class="setproduct-item-thumb d-flex align-items-center">
+                                <isset name="individualProducts" value="${productItem}" scope="page" />
+                                    <div class="setproduct-item-thumb-img d-flex align-items-center justify-content-center">
+                                        <img src="${individualProducts.images.tile150[0].url}" alt="${individualProducts.images.tile150[0].alt}">
+                                    </div>
+                                    <div class="setproduct-item-thumb-title">
+                                    ${individualProducts.productName}
+                                    </div>
                             </div>
                         </isloop>
-                      </div>
                         <div class="d-none">
                             <isinclude template="product/components/pidRating" />
                         </div>
