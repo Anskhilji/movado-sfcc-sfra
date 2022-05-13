@@ -8,7 +8,13 @@
         }
     }
 }
- 
+
+.product-tile-redesign {
+    .swatches-div {
+        height: rem(29);
+    }
+}
+
 .product-tile {
     @include media-breakpoint-down(md) {
         min-height: 23.4375em;
@@ -105,6 +111,26 @@
                     font-weight:300;
                     line-height: rem(17);
                     font-family: $font-book;
+                }
+            }
+        }
+
+        .product-brand-props {
+            .collection-name, .case-diameter {
+                font-size: rem(14);
+                color: $black;
+                // text-overflow: ellipsis;
+            }
+            .watches-turncate-name {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 1;
+            }
+            &.pdp-link{
+                a {
+                    font-size: rem(14);
+                    color: $off-white;
                 }
             }
         }
@@ -237,6 +263,48 @@
         margin-bottom: rem(10);
         @include media-breakpoint-up(sm){
             padding: 0 rem(60);
+        }
+    }
+    .product-tag-content-badge{
+        position: relative;
+
+        .exclusive-badge-search{
+            margin: 0;
+            display: flex;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            margin: 0;
+            height: auto;
+
+            .badge {
+                background-color: $badge-bg;
+                border: rem(1) solid $gray88-solid;
+                font-size: rem(10);
+                font-weight: 500;
+                border-radius: rem(13);
+                margin: 0;
+                padding: rem(3) rem(15);
+                line-height: normal;
+                letter-spacing: rem(0.83);
+                color: $black;
+                height: auto;
+
+                @include media-breakpoint-up(lg) {
+                    letter-spacing: rem(0.5);
+                    padding: rem(3) rem(15);
+                }
+
+                &.red-tag {
+                    background-color: $speech-red-light;
+                    color: $white;
+                }
+            }
+
+            .text-uppercase {
+                text-transform: uppercase;
+            }
         }
     }
 }

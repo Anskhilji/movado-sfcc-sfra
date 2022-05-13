@@ -50,12 +50,17 @@
       }
   
       .tile-body {
+
+        .swatches-div {
+          height: rem(26);
+        }
+
         @include media-breakpoint-down(md) {
           flex: 1;
           display: flex;
           flex-flow: column;
           justify-content: space-between;
-        }        
+        }
       }
 
     }
@@ -79,7 +84,7 @@
         padding: rem(20) 0;
       }
 
-      .plp-swatches {
+      .plp-swatches, .color-swatches-search {
         .swatches {
           max-width: 100%;
           overflow: hidden;
