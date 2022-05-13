@@ -191,7 +191,12 @@
                                 'shipping': '${orderObj.orderObj.shipping}',
                                 'coupon': '${orderObj.orderObj.orderCoupon}',
                                 'country': '${orderObj.orderObj.country}',
-                                'paymentMethod': '${orderObj.orderObj.paymentMethod}'}
+                                'paymentMethod': '${orderObj.orderObj.paymentMethod}',
+                                'shippingVatAmount': '${orderObj.orderObj.shippingVatAmount}',
+                                'shippingMerchValue': '${orderObj.orderObj.shippingMerchValue}',
+                                'orderVatAmount': '${orderObj.orderObj.orderVatAmount}',
+                                'orderMerchValue': '${orderObj.orderObj.orderMerchValue}'
+                                }
                             </isif>
                         </isloop>
                             
@@ -214,7 +219,9 @@
                     'currency': '${orderObj.productObj.currency}',
                     'productQuantityTotal': '${orderObj.productObj.productQuantityTotal}',
                     'subtotal': '${orderObj.productObj.subtotal}',
-                    'orderLevelDiscount': '${orderObj.productObj.orderLevelPromotionPrice}'
+                    'orderLevelDiscount': '${orderObj.productObj.orderLevelPromotionPrice}',
+                    'productVatAmount': '${orderObj.productObj.productVatAmount}',
+                    'productMerchValue': '${orderObj.productObj.productMerchValue}'
                     }
                     <isif condition= "${status.index < orderProdutsArray.length-2}">,</isif>
                 </isif>
