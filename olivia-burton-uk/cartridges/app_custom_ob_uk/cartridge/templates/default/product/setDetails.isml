@@ -11,35 +11,17 @@
     </iscomment>
 
     <isset name="product" value="${pdict.product}" scope="page" />
-    <iscomment> <isset name="productCopy" value="${pdict.product}" scope="page" /> </iscomment>
+    <isset name="productCopy" value="${pdict.product}" scope="page" />
     <isset name="isBundle" value="${false}" scope="page" />
     <isset name="isProductSet" value="${true}" scope="page" />
     <isset name="isQuickView" value="${false}" scope="page" />
     <isobject object="${product.raw}" view="detail" />
 
-    <div class="container product-detail product-set-detail set-detail-product-box-ob" data-pid="${product.id}">
-        <div class="row">
-            <div class="col-12">
-                <!---Breadcrumbs--->
-                <div class="product-breadcrumb">
-                    <isinclude template="components/breadcrumbs/pageBreadcrumbs"/>
-                </div>
-                <!-- Product Name -->
-                <div class="row">
-                    <div class="col-sm-12">
-                        <h1 class="product-name">${product.productName}</h1>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <hr>
-        <div class="row">
-             <div class="col-12">
-                 <h4>${Resource.msg('label.set.contains', 'product', null)}</h4>
-             </div>
-        </div>
-        <isinclude template="/product/components/setMainItem" />
-
+    <div class="container product-detail product-set-detail set-detail-product-main-box-ob" data-pid="${product.id}">
+         <isinclude template="/product/components/setMainItem" />
+    </div>
+    <div class="container-fluid product-detail product-set-detail set-detail-product-box-ob" data-pid="${product.id}">
+       
         <isinclude template="/product/components/setItems" />
         <hr>
         <div class="col-12 col-sm-6 offset-sm-6 bundle-footer">

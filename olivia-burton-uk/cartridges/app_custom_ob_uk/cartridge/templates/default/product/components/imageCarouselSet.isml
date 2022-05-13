@@ -1,0 +1,63 @@
+<iscomment> Add New Class For The Correct Replacment of Megnifier For OB</iscomment>
+<div class="primary-images ob-carousel-quickview">
+    <div class="product-badges">
+        <isinclude template="product/components/newnessBadge" />
+    </div>
+    <isscript>
+        var primaryImageCarouselConfig = {
+        "slidesToShow": 1,
+        "slidesToScroll": 1,
+        "dots": true,
+        "centerMode": true
+      }
+    </isscript>
+    <div class="cs-carousel-wrapper">
+        <div class="js-carousel cs-carousel" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
+            <isset name="pdpVideoConfigs" value="${product.pdpVideoConfigs}" scope="page" />
+            <isloop items="${product.images['tile640']}" var="image" status="loopStatus">
+                <div class="carousel-tile">
+                    <picture>
+                         <source media="(min-width: 992px)" srcset="${product.images.tile640[loopStatus.count - 1].url}" />
+                         <source media="(max-width: 544px)" srcset="${product.images.tile520[loopStatus.count - 1].url}" />
+                         <source media="(max-width: 320px)" srcset="${product.images.tile300[loopStatus.count - 1].url}" />
+                        <img src="${image.url}" alt="${image.alt}" itemprop="image"
+                        data-zoom-mobile-url="${product.images.zoom830[loopStatus.count - 1].url}"
+                        data-zoom-desktop-url="${product.images.zoom1660[loopStatus.count - 1].url}" />
+                        <isset name="isImageExist" value="true" scope="page" />
+                    </picture>
+                    <isif condition="${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL) }">
+                        <video class="slide-video d-none " loop muted autoplay playsinline>
+                            <source src="${pdpVideoConfigs.videoURL}" type="video/mp4" />
+                        </video>
+                    </isif>
+                </div>
+            </isloop>
+        </div>
+        <isif condition="${isImageExist}">
+            <isif condition="${!isQuickView}">
+                <button class="quickview js-zoom-image btn p-0" data-toggle="modal" data-target="#zoomProduct" aria-label="${product.resources.Zoom}">
+                    <span class="fa-stack fa-lg">
+                        <i class="fa fa-circle fa-inverse fa-stack-2x"></i>
+                        <i class="fa fa-expand fa-stack-1x"></i>
+                    </span>
+                </button>
+            </isif>
+        </isif>
+    </div>
+</div>
+
+<iscomment> Zoom Modal </iscomment>
+<div class="modal fade" id="zoomProduct" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="pinchZoom zoomedImage">
+                    <img alt="${product.resources.Zoom}" src="${product.images['pdp533'][0].url}" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
