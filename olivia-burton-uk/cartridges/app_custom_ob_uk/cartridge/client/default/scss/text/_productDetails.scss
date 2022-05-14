@@ -698,10 +698,204 @@
 		padding: rem(0);
 	}
 }
+
+.product-detail-setmain-item {
+	margin-bottom: rem(62);
+	@include media-breakpoint-down(sm) {
+		margin-bottom: rem(35);
+	}
+}
+
 .set-detail-product-main-box-ob {
 	// main product box
-		@include media-breakpoint-up(xl) {
-				max-width: rem(1430);
+	margin-bottom: rem(0);
+	@include media-breakpoint-up(xl) {
+		max-width: rem(1430);
+	}
+
+		// main product image carousel
+
+		.primary-mainpdp-images {
+			margin-top: rem(95);
+			width: 100%;
+			@include media-breakpoint-down(md) {
+				max-width: rem(50%);
+			}
+			
+			@include media-breakpoint-down(sm) {
+				max-width: rem(100%);
+				min-height: auto;
+				margin-top: rem(0);
+				margin-bottom: rem(109);
+			}
+			
+			.cs-carousel-wrapper {
+				margin-left: auto;
+				max-width: rem(656);
+				width: 100%;
+				max-height: rem(464);
+				height: 100%;
+				margin-bottom: 0;
+				@include media-breakpoint-down(lg) {
+					max-width: rem(485);
+					max-height: rem(299);
+				}
+
+				.main-ob-carousel {
+					padding-bottom: 0;
+					height: 100%;
+
+					.carousel-tile {
+						overflow: hidden;
+						max-width: rem(556);
+						max-height: rem(364);
+						width: 100%;
+						height: 100%;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						@include media-breakpoint-down(lg) {
+							max-width: rem(485);
+							max-height: rem(299);
+						}
+	
+						img {
+							max-width: 100%;
+							height: rem(464);
+							margin: 0 auto;
+							@include media-breakpoint-down(lg) {
+								max-height: rem(299);
+							}
+						}
+					}
+	
+					// slick dots syyling
+					.slick-dots {
+						flex-direction: column;
+						max-width: rem(80);
+						left: rem(-134);
+						top:0;
+						@include media-breakpoint-down(lg) {
+							max-width: rem(60);
+							left: rem(-72);
+						}
+						@include media-breakpoint-down(md) {
+							flex-direction: row;
+							left: rem(0);
+							top: auto;
+    						bottom: rem(-100);
+							max-width: 100%;
+						}
+						@include media-breakpoint-down(sm) {
+							bottom: rem(-74);
+							overflow-x: auto;
+    						justify-content: flex-start;
+						}
+	
+						li {
+							margin: rem(0);
+							@include media-breakpoint-down(md) {
+								margin: rem(0) rem(10);
+							}
+							&:not(:last-of-type) {
+								margin-bottom: rem(20);
+								@include media-breakpoint-down(md) {
+									margin-bottom: rem(0);
+								}
+							}
+							
+	
+							button {
+								background-color: transparent;
+								max-width: rem(81);
+								max-height: rem(81);
+								width: 100%;
+								height: 100%;
+								border: rem(1) solid transparent;
+								outline: none;
+								border-radius: 50%;
+								overflow: hidden;
+								display: flex;
+								align-items: center;
+								justify-content: center;
+								@include media-breakpoint-down(lg) {
+									max-width: rem(61);
+									min-width: rem(61);
+									max-height: rem(61);	
+								}
+	
+								img {
+									max-width: 100%;
+									height: rem(80);
+									@include media-breakpoint-down(lg) {
+										height: rem(60);	
+									}
+								}
+							}
+	
+							&.slick-active {
+								
+								button {
+									border-color: $pink-grey-light;
+								}
+							}
+						}
+					}
+	
+					.slick-arrow {
+						height: rem(75);
+						width: rem(75);
+						background-size: rem(22) rem(43);
+						@include media-breakpoint-down(md) {
+							height: rem(55);
+							width: rem(55);
+							background-size: rem(12) rem(33);
+						}
+
+						@include media-breakpoint-down(sm) {
+							height: rem(39);
+							width: rem(39);
+							background-size: rem(12) rem(23);
+						}
+	
+						&.slick-prev {
+							background-image: url(../../images/RightArrow-left.png);
+							left: rem(36);
+							@include media-breakpoint-down(sm) {
+								left: rem(20);
+							}
+						}
+						&.slick-next {
+								background-image: url(../../images/RightArrow-right.png);
+								right: rem(36);
+								@include media-breakpoint-down(sm) {
+									right: rem(20);
+								}
+						}
+					}
+				}
+	
+				.js-zoom-image {
+					background: url("../../images/zoom_in.svg") center center no-repeat;
+					width: rem(40);
+					height: rem(40);
+					position: absolute;
+					bottom: rem(-71);
+					left: rem(0);
+					@include media-breakpoint-down(md) {
+						bottom: rem(33);
+					}
+	
+					&.btn:not(:disabled):not(.disabled):active,
+					&.btn:not(:disabled):not(.disabled).active {
+						background: url("../../images/zoom_in.svg") center center no-repeat;
+					}
+					&::after {
+						background-color: $light-grey-4;
+						box-shadow: rem(0) rem(3) rem(5) rem(0) $light-grey-3;
+					}
+				}
+			}
 		}
 }
 
@@ -718,8 +912,10 @@
 
 .pdp-right-side-ob {
 	max-width: rem(550);
-	@include media-breakpoint-down(lg) {
-		margin-left: rem(60);
+	margin-left: rem(60);
+	@include media-breakpoint-down(lg) { 
+		max-width: rem(355);
+		margin-left: rem(40);
 	}
 	@include media-breakpoint-down(md) {
 		margin-left: rem(30);
@@ -728,7 +924,7 @@
 		margin-left: rem(0);
 		max-width: 100%;
 		margin-top: rem(41);
-		padding: rem(0) rem(20);
+		padding: rem(0) rem(5);
 	}
 
 		.product-name {
@@ -740,6 +936,10 @@
 				margin-right: 0;
 				&.product-main-name {
 					margin-bottom: rem(28);
+					@include media-breakpoint-down(sm) {
+						margin-top: rem(31);
+						width: 100%;
+					}
 				}
 				@include media-breakpoint-down(sm) {
 					text-align: left;
@@ -750,8 +950,18 @@
 
 		.prices {
 				padding-bottom: rem(30);
-				&.prices-maine {
+				&.prices-main {
 					padding-bottom: rem(20);
+					@include media-breakpoint-down(sm) {
+						padding: rem(0) rem(0) rem(20) rem(0);
+					}
+					
+				}
+
+				.total-price-text {
+					@include media-breakpoint-down(sm) {
+						display: none;
+					}
 				}
 
 				.price-pdp-mvmt {
@@ -814,17 +1024,51 @@
 			margin-bottom: rem(30);
 		}
 
-		.add-to-cart {
-			height: rem(45);
-			width: rem(330);
-			color: $black11;
-			font-family: $font-gill-std-medium;
-			font-size: rem(15);
-			font-weight: 600;
-			letter-spacing: 0;
-			line-height: rem(45);
-			padding: 0;
-			border-radius: rem(3);
+		.cart-and-ipay {
+			@include media-breakpoint-down(sm) {
+				padding: rem(0);
+			}
+			.add-to-cart {
+				height: rem(45);
+				width: rem(330);
+				color: $black11;
+				font-family: $font-gill-std-medium;
+				font-size: rem(15);
+				font-weight: 600;
+				letter-spacing: 0;
+				line-height: rem(45);
+				padding: 0;
+				border-radius: rem(3);
+				margin: 0;
+			}
+		}
+
+		.product-availability {
+			margin-bottom: rem(20);
+			.flex-container-shipping {
+				display: flex;
+				align-items: center;
+				font-family: $font-gill-std-medium;
+				font-size: rem(15);
+				color: $grey7B;
+				font-weight: 600;
+				letter-spacing: 0;
+				line-height: rem(20);
+				text-transform: capitalize;
+
+				.availability-msg {
+					border-right: rem(2) solid $grey7B;
+					padding-right: rem(10);
+
+					li {
+						text-transform: capitalize !important;
+					}
+				}
+
+				.content-asset {
+					padding-left: rem(10);
+				}
+			}
 		}
 
 		.add-to-wish-list {
@@ -883,14 +1127,16 @@
 					max-width: rem(650);
 					width: 100%;
 					@include media-breakpoint-down(lg) {
-							max-width: rem(550);
+						max-width: rem(550);
 					}
 					@include media-breakpoint-down(md) {
-							max-width: 50%;
+						max-width: 50%;
 					}
 					@include media-breakpoint-down(sm) {
-							max-width: 100%;
-							min-height: auto;
+						max-width: 100%;
+						min-height: auto;
+						padding-left: rem(5);
+						padding-right: rem(5);
 					}
 
 					.cs-carousel-wrapper {
@@ -942,15 +1188,17 @@
 	 .pdp-accordion-ob {
 		
 		 .accordion-ob-box {
-			 &:not(:last-of-type) {
-					 margin-bottom: rem(40);
-					 @include media-breakpoint-down(sm) {
-							margin-bottom: rem(30);
-					 }
-			 }
+			margin-bottom: rem(40);
+			@include media-breakpoint-down(sm) {
+				margin-bottom: rem(30);
+			}
 
 			 .product-detail-set-item {
-						padding-top: rem(43);
+					padding-top: rem(43);
+					@include media-breakpoint-down(sm) {
+						padding-left: rem(15);
+						padding-right: rem(15);
+					}
 			 }
 		 }
 		
@@ -985,6 +1233,8 @@
 				}
 
 				.plus-minus-icon {
+					margin-left: rem(10);
+
 						&::before {
 							content: '';
 							display: block;

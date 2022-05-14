@@ -15,7 +15,7 @@
                         </h3>
 
                          <!-- Prices -->
-                        <div class="prices prices-maine">
+                        <div class="prices prices-main">
                             <isset name="price" value="${product.price}" scope="page" />
                             <isinclude template="product/components/pricing/main" />
                         </div>
