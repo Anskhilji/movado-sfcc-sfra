@@ -76,6 +76,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
 
     if(product.individualProducts){
             YotpoIntegrationHelper.getIndividualRatingOrReviewsData(yotpoConfig, product);
+            productCustomHelpers.setProductAvailability(product)
     }
 
    /* get recommendations for product*/
