@@ -19,10 +19,10 @@
 
     
 
-    <div class="container product-detail product-set-detail set-detail-product-main-box-ob" data-pid="${product.id}">
+    <div class="container set-detail-product-main-box-ob" data-pid="${product.id}">
          <isinclude template="/product/components/productSet/setMainItem" />
     </div>
-    <div class="container-fluid product-detail product-set-detail set-detail-product-box-ob" data-pid="${product.id}">
+    <div class="container-fluid product-set-detail set-detail-product-box-ob" data-pid="${product.id}">
        
         <isinclude template="/product/components/productSet/setItems" />
         <hr>
