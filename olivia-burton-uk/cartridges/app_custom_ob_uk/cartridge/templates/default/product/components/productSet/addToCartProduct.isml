@@ -12,7 +12,7 @@
         </button>
         <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}" />
         
-        <isif condition="${product.available && product.readyToOrder}">
+        <iscomment> <isif condition="${product.available && product.readyToOrder}">
             <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
             <isif condition="${isEswEnabled}">
                 <isset name="isexpressCheckoutEnable" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
@@ -34,5 +34,5 @@
                   </isif>
             </isif>
         </isif>
-    </div>
+    </div> </iscomment>
 </div>

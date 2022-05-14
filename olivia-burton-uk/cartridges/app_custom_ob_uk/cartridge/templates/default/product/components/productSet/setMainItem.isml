@@ -140,7 +140,7 @@
 
                             <!-- Product Availability -->
                            <div class="">
-                                <isinclude template="product/components/productAvailability" />
+                                <isinclude template="product/components/productSet/productAvailability" />
                            </div>
 
                             <div>

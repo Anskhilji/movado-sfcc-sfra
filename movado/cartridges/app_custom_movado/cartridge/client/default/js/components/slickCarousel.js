@@ -22,8 +22,9 @@ var initCarousel = function ($container) {
     });
 };
 
-$('.accordion-ob-box .pdp-accordion-ob-header').on('click', function(){
-    $('.accordion-ob-box .js-carousel.cs-carousel').slick('refresh');
+$('.accordion-ob-box .pdp-accordion-ob-header .collapsed').on('resize', function(){
+    $('.accordion-ob-box .js-carousel.cs-carousel').slick('unslick');
+    initCarousel();
 });
 
 module.exports = {
