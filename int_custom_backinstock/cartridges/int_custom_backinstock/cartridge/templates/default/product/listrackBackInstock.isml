@@ -2,42 +2,39 @@
     var assets = require('*/cartridge/scripts/assets');
     assets.addJs('/js/listrakBackInStock.js');
 </isscript>
-  <isif condition="${isListrakEnable}">
-    <isif condition="${sitePrefListrakSms.Listrak_EnableBackInStockSms || sitePrefListrakEmail.Listrak_EnableBackInStockEmail}">
-        <div class="back-in-stock-notification-container-main">
-        <p class="back-in-stock-notification-email-notification-copy">
-            Product Alert Signup
-        </p>
-        <form class="back-in-stock-notification-form" id="form" data-pid="${product.id}" data-url="${URLUtils.url('BackInStockNotification-Subscribe')}">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12 p-0">
-                        <input class="" id="txtProductSKU" type="hidden" name="txtProductSKU" placeholder="Product SKU" value="${product.id}">                    
+<isinclude template="/components/modules" sf-toolkit="off" />
+<div class="back-in-stock-notification-container-main">
+    <p class="back-in-stock-notification-email-notification-copy">
+        ${Resource.msg('listrak.form.title', 'product', null)}
+    </p>
+    <form class="back-in-stock-notification-form form" data-pid="${product.id}" data-url="${URLUtils.url('BackInStockNotification-listrakSubscriber')}">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 p-0">
+                    <input id="aroductSKU" type="hidden" name="lProductSKU" placeholder="Product SKU" value="${product.id}">
+                    <input id="alertCode" type="hidden" name="lAlertCode" placeholder="Alert Code" value="${sitePref.alertCode}">               
+                </div>
+                <isif condition="${sitePref.Listrak_EnableBackInStockEmail}">
+                    <div class="col-12 mb-2 p-0 email-chek">
+                        <input class="back-in-stock-notification-email" id="lbisEmail" type="text" name="lbisEmail" placeholder="${Resource.msg('listrak.form.email.placeholder', 'product', null)}">
+                        <p class="back-in-stock-notification-invalid-email error-msg back-in-stock-notification-error-invalid"></p>
+                        <p class="back-in-stock-notification-invalid-email error-msg back-in-stock-notification-error-required"></p>
                     </div>
-                    <div class="col-12 mb-2 p-0 email-chek ${sitePrefListrakEmail.Listrak_EnableBackInStockEmail ? '' : 'd-none'}">
-                        <input class="back-in-stock-notification-email" id="lbisEmail" type="email" name="lbisEmail" placeholder="Email" value="" >
-                        <p class="back-in-stock-notification-invalid-email error-msg back-in-stock-notification-error">
-                            Please enter a valid email address
-                        </p>
+                </isif>
+                <isif condition="${sitePref.Listrak_EnableBackInStockSms}">
+                    <div class="col-12 mb-2 p-0 phone-check">
+                        <input class="back-in-stock-notification-phone" id="lbisEmail" type="text" name="lbisPhone" placeholder="${Resource.msg('listrak.form.phone.placeholder', 'product', null)}">
+                        <p class="back-in-stock-notification-invalid-phone error-msg back-in-stock-notification-error"></p>
                     </div>
-                    <div class="col-12 mb-2 p-0 phone-check ${sitePrefListrakSms.Listrak_EnableBackInStockSms ? '' : 'd-none'}">
-                        <input class="back-in-stock-notification-phone" id="lbisEmail" type="text" name="lbisPhone" placeholder="Phone">
-                        <p class="back-in-stock-notification-invalid-phone error-msg back-in-stock-notification-error">
-                            Please enter a valid phone number
-                        </p>
-                    </div>
-                    <div class="col-12 mb-2 p-0">
-                        <iscontentasset aid="listrak-back-in-stock-terms" />
-                    </div>
-                    <p class="back-in-stock-notification-technical-error back-in-stock-notification-error">
-		                Opps! Something went wrong. Please try again later.
-	                </p>
-                    <div class="col p-0">
-                        <button class="btn btn-primary text-capitalize" type="submit" name="SubmitAlert">Notify Me</button>
-                    </div>
+                </isif>
+                <div class="col-12 mb-2 p-0">
+                    <iscontentasset aid="listrak-back-in-stock-terms" />
+                </div>
+                <div class="col p-0">
+                    <button class="btn btn-primary text-capitalize" type="submit" name="SubmitAlert">${Resource.msg('listrak.button.text', 'product', null)}</button>
                 </div>
             </div>
-        </form>
-    </div>
-    </isif>
-</isif>
+        </div>
+    </form>
+</div>
+<p class="listrak-success-msg"></p>

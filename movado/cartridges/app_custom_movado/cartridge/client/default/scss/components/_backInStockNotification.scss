@@ -46,7 +46,7 @@ Font family and minor adjustments have been made in _backInStockNotification SCS
         text-align: left;
     }
 
-    &-email {
+    &-email, &-phone {
         width: 100%;
         border-radius: 0;
         border: rem(1) solid $black;
@@ -78,6 +78,13 @@ Font family and minor adjustments have been made in _backInStockNotification SCS
     &-form {
         display: flex;
         position: relative;
+        
+        .error-msg {
+            text-align: left;
+            color: $red;
+            margin: rem(5) 0;
+
+        }
     }
 
     &-marketing-container {

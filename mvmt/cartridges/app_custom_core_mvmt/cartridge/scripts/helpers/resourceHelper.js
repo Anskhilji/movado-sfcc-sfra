@@ -68,7 +68,12 @@ function getResources(pageContext) {
         GOOGLE_PAY_ALLOWED_COUNTRY_CODES: allowedCountryCodes,
         COUPONCODE_URL: URLUtils.url('CouponCode-Apply').toString(),
         EYEWEAR_POLARIZATION: Resource.msg('pdp.eyewaer.polarization.text','product',null),
-        EYEWEAR_POLARIZATION_SEPRATOR: Resource.msg('separator','product',null)
+        EYEWEAR_POLARIZATION_SEPRATOR: Resource.msg('separator','product',null),
+        EMIAL_ADDRESS_INVALID: Resource.msg('listrak.invalid.email', 'product', null),
+        EMIAL_ADDRESS_REQUIRED: Resource.msg('listrak.required.email', 'product', null),
+        PHONE_NUMBER_INVALID: Resource.msg('listrak.invalid.phone', 'product', null),
+        PHONE_NUMBER_REQUIRED: Resource.msg('listrak.required.phone', 'product', null),
+        LISTRAK_SUCCESS_MESSAGE: Resource.msg('listrak.success.message', 'product', null),
     };
     return resources;
 }

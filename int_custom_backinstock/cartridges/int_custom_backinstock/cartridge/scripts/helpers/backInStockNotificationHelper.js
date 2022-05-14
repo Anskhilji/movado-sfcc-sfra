@@ -118,5 +118,5 @@ module.exports = {
     isProductBackInStockEnabled: isProductBackInStockEnabled,
     saveBackInStockNotificationObj: saveBackInStockNotificationObj,
     isValidEmail: isValidEmail,
-    isAlreadySubscribed: isAlreadySubscribed
+    isAlreadySubscribed: isAlreadySubscribed,
 }
