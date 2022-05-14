@@ -1,32 +1,43 @@
 <iscomment> Add New Class For The Correct Replacment of Megnifier For OB</iscomment>
-<div class="primary-images ob-carousel-quickview col-12 col-sm-6">
-    <div class="product-badges">
-        <isinclude template="product/components/newnessBadge" />
-    </div>
+<div class="primary-images ob-carousel-quickview ob-carousel-new-quickview col-12 col-sm-6">
     <isscript>
-        var primaryImageCarouselConfig = {
-        "slidesToShow": 1,
-        "slidesToScroll": 1,
-        "dots": true,
-        "centerMode": true
-      }
+            var primaryImageCarouselConfig = {
+            "slidesToShow": 1,
+            "slidesToScroll": 1,
+            "dots": true,
+            "centerMode": true,
+            "arrows": true,
+            "fade": true,
+            responsive: [
+            {
+                breakpoint: 992,
+                settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                arrows: true,
+                dots:true
+                }
+            },
+            ],
+        }
+        
     </isscript>
     <div class="cs-carousel-wrapper">
-        <div class="js-carousel cs-carousel" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
+        <div class="js-carousel cs-carousel main-ob-carousel">
             <isset name="pdpVideoConfigs" value="${product.pdpVideoConfigs}" scope="page" />
             <isloop items="${product.images['large']}" var="image" status="loopStatus">
-                <div class="carousel-tile">
+                <div class="carousel-tile carousel-tile-two-wrapper" data-thumb="${!empty(product.images) && !empty(product.images.small[loopStatus.count - 1]) && product.images.small[loopStatus.count - 1].url ? product.images.small[loopStatus.count - 1].url : ''}">
                     <picture>
-                         <source media="(min-width: 992px)" srcset="${product.images.large[loopStatus.count - 1].url}" />
-                         <source media="(max-width: 544px)" srcset="${product.images.large[loopStatus.count - 1].url}" />
-                         <source media="(max-width: 320px)" srcset="${product.images.large[loopStatus.count - 1].url}" />
-                        <img src="${image.url}" alt="${image.alt}" itemprop="image"
-                        data-zoom-mobile-url="${product.images.large[loopStatus.count - 1].url}"
-                        data-zoom-desktop-url="${product.images.large[loopStatus.count - 1].url}" />
-                        <isset name="isImageExist" value="true" scope="page" />
+                        <source media="(min-width: 992px)" data-lazy="${product.images.large[loopStatus.count - 1].url}" />
+                        <source media="(min-width: 544px)" data-lazy="${product.images.large[loopStatus.count - 1].url}" />
+                        <source media="(min-width: 320px)" data-lazy="${product.images.large[loopStatus.count - 1].url}" />
+                        <img class="normal-zoom" src="${!empty(product.images) && !empty(product.images.large[loopStatus.count - 1]) && !empty(product.images.large[loopStatus.count - 1].url) ? product.images.large[loopStatus.count - 1].url : ''}"  alt="${!empty(image.alt) ? image.alt : ''}" itemprop="image"
+                            data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.large[loopStatus.count - 1]) && !empty(product.images.large[loopStatus.count - 1].url) ? product.images.large[loopStatus.count - 1].url : ''}"
+                            data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.large[loopStatus.count - 1]) && !empty(product.images.large[loopStatus.count - 1].url) ? product.images.large[loopStatus.count - 1].url : ''}" />
                     </picture>
-                    <isif condition="${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL) }">
-                        <video class="slide-video d-none " loop muted autoplay playsinline>
+                    <isset name="isImageExist" value="true" scope="page" />
+                    <isif condition="${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL)}">
+                        <video class="slide-video d-none" loop muted autoplay playsinline>
                             <source src="${pdpVideoConfigs.videoURL}" type="video/mp4" />
                         </video>
                     </isif>
@@ -36,10 +47,6 @@
         <isif condition="${isImageExist}">
             <isif condition="${!isQuickView}">
                 <button class="quickview js-zoom-image btn p-0" data-toggle="modal" data-target="#zoomProduct" aria-label="${product.resources.Zoom}">
-                    <span class="fa-stack fa-lg">
-                        <i class="fa fa-circle fa-inverse fa-stack-2x"></i>
-                        <i class="fa fa-expand fa-stack-1x"></i>
-                    </span>
                 </button>
             </isif>
         </isif>

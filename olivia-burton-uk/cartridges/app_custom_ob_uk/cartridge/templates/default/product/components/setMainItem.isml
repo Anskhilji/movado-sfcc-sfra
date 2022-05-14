@@ -1,25 +1,10 @@
 <div class="set-items" itemtype="http://schema.org/SomeProducts" itemid="#product">
             <div class="product-detail product-detail-set-item  product-detail-setmain-item set-item" data-pid="${product.id}" itemscope itemtype="http://schema.org/Product">
-                <iscomment> <div class="row">
-                    <div class="col-12">
-                        <!-- Product Name -->
-                        <div class="row">
-                            <div class="d-md-none col-sm-12">
-                                <h3 class="product-name" itemprop="name">
-                                    <a href="${URLUtils.url('Product-Show', 'pid', product.id)}">
-                                        ${product.productName}
-                                    </a>
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
-                </div> </iscomment>
-
                 <div class="row">
                    <div class="col-12 pdp-ob-detail-box">
                         <!-- Product Images Carousel -->
                     <isinclude template="product/components/setProductImageCarousel" />
-                    <iscomment> <isinclude template="product/components/imageCarouselPdp" /> </iscomment>
+                    
 
                     <div class="pdp-main-product-right-box pdp-right-side-ob">
                         <!-- Product Name -->
@@ -165,55 +150,11 @@
                                                          <!--addToWishListButton -->
                             <isinclude template="wishlist/components/addToWishListButton" />
 
-                            <iscomment> attributes </iscomment>
-                            <iscomment> <div class="accordion-attributes d-none" id="accordionExample2">
-                                <div class="card-attributes">
-                                    <div class="card-header-attributes" id="attributes-list">
-                                        <button class="attributes-bar d-flex align-items-center justify-content-between" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                            Attributes <span class="plus-minus-icon"></span>
-                                        </button>
-                                    </div>
-
-                                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                        <div class="card-body-attributes">
-                                              <isinclude template="/product/components/attributes" />
-                                        </div>
-                                    </div>
-                                </div>
-                                </div> </iscomment>
-                                <iscomment> attributes </iscomment>
-                            <!-- Social Sharing Icons -->
-                            <div class="d-none">
-                                   <isinclude template="product/components/socialIcons" />
-                            </div>
+                           
+                         
 
                     </div>
                    </div>
                 </div>
             </div>
-
-            <iscomment> <div class="description-and-detail">
-                <div class="row description collapsible-xs <isif condition="${!product.shortDescription}">hidden-xl-down</isif>">
-                    <h2 class="col-sm-12 col-md-4 col-lg-3">
-                    <a class="title" href="${'#'}">${Resource.msg('label.description', 'product', null)}</a>
-                    </h2>
-                    <isinclude template="/product/components/description" />
-                </div>
-
-                <isif condition="${product.longDescription}">
-                    <hr class="d-sm-none">
-                </isif>
-
-                <div class="row details collapsible-xs <isif condition="${!product.longDescription}">hidden-xl-down</isif>">
-                    <h2 class="col-sm-12 col-md-4 col-lg-3">
-                    <a class="title" href="${'#'}">${Resource.msg('label.details', 'product', null)}</a>
-                    </h2>
-                    <isinclude template="/product/components/details" />
-                </div>
-            </div> </iscomment>
-
-            <iscomment> <isif condition="${loopState.last === false}">
-                <hr>
-            </isif> </iscomment>
-        </isobject>
 </div>
