@@ -738,7 +738,10 @@
 				margin-bottom: 0;
 				@include media-breakpoint-down(lg) {
 					max-width: rem(485);
-					max-height: rem(299);
+					// max-height: rem(299);
+				}
+				@include media-breakpoint-down(md) {
+					max-height: rem(369);
 				}
 
 				.main-ob-carousel {
@@ -747,8 +750,7 @@
 
 					.carousel-tile {
 						overflow: hidden;
-						max-width: rem(556);
-						max-height: rem(364);
+						max-width: rem(656);
 						width: 100%;
 						height: 100%;
 						display: flex;
@@ -756,15 +758,18 @@
 						justify-content: center;
 						@include media-breakpoint-down(lg) {
 							max-width: rem(485);
-							max-height: rem(299);
 						}
 	
 						img {
 							max-width: 100%;
 							height: rem(464);
 							margin: 0 auto;
-							@include media-breakpoint-down(lg) {
-								max-height: rem(299);
+							@include media-breakpoint-down(md) {
+								max-height: rem(369);
+							}
+							@include media-breakpoint-down(sm) {
+								max-height: rem(395);
+								height: auto;
 							}
 						}
 					}
@@ -785,11 +790,11 @@
 							top: auto;
     						bottom: rem(-100);
 							max-width: 100%;
+							overflow-x: auto;
+    						justify-content: flex-start;
 						}
 						@include media-breakpoint-down(sm) {
 							bottom: rem(-74);
-							overflow-x: auto;
-    						justify-content: flex-start;
 						}
 	
 						li {
@@ -1059,6 +1064,7 @@
 				.availability-msg {
 					border-right: rem(2) solid $grey7B;
 					padding-right: rem(10);
+					margin-bottom: rem(0);
 
 					li {
 						text-transform: capitalize !important;

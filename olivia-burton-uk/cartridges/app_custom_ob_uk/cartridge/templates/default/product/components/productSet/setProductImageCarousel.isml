@@ -25,15 +25,15 @@
     <div class="cs-carousel-wrapper">
         <div class="js-carousel cs-carousel main-ob-carousel">
             <isset name="pdpVideoConfigs" value="${product.pdpVideoConfigs}" scope="page" />
-            <isloop items="${product.images['large']}" var="image" status="loopStatus">
-                <div class="carousel-tile carousel-tile-two-wrapper" data-thumb="${!empty(product.images) && !empty(product.images.small[loopStatus.count - 1]) && product.images.small[loopStatus.count - 1].url ? product.images.small[loopStatus.count - 1].url : ''}">
+            <isloop items="${product.images['zoom1660']}" var="image" status="loopStatus">
+                <div class="carousel-tile carousel-tile-two-wrapper" data-thumb="${!empty(product.images) && !empty(product.images.tile150[loopStatus.count - 1]) && product.images.tile150[loopStatus.count - 1].url ? product.images.tile150[loopStatus.count - 1].url : ''}">
                     <picture>
-                        <source media="(min-width: 992px)" data-lazy="${product.images.large[loopStatus.count - 1].url}" />
-                        <source media="(min-width: 544px)" data-lazy="${product.images.large[loopStatus.count - 1].url}" />
-                        <source media="(min-width: 320px)" data-lazy="${product.images.large[loopStatus.count - 1].url}" />
-                        <img class="normal-zoom" src="${!empty(product.images) && !empty(product.images.large[loopStatus.count - 1]) && !empty(product.images.large[loopStatus.count - 1].url) ? product.images.large[loopStatus.count - 1].url : ''}"  alt="${!empty(image.alt) ? image.alt : ''}" itemprop="image"
-                            data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.large[loopStatus.count - 1]) && !empty(product.images.large[loopStatus.count - 1].url) ? product.images.large[loopStatus.count - 1].url : ''}"
-                            data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.large[loopStatus.count - 1]) && !empty(product.images.large[loopStatus.count - 1].url) ? product.images.large[loopStatus.count - 1].url : ''}" />
+                        <source media="(min-width: 992px)" data-lazy="${product.images.zoom1660[loopStatus.count - 1].url}" />
+                        <source media="(min-width: 544px)" data-lazy="${product.images.zoom1660[loopStatus.count - 1].url}" />
+                        <source media="(min-width: 320px)" data-lazy="${product.images.zoom1660[loopStatus.count - 1].url}" />
+                        <img class="normal-zoom" src="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count - 1]) && !empty(product.images.zoom1660[loopStatus.count - 1].url) ? product.images.zoom1660[loopStatus.count - 1].url : ''}"  alt="${!empty(image.alt) ? image.alt : ''}" itemprop="image"
+                            data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom830[loopStatus.count - 1]) && !empty(product.images.zoom830[loopStatus.count - 1].url) ? product.images.zoom830[loopStatus.count - 1].url : ''}"
+                            data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count - 1]) && !empty(product.images.zoom1660[loopStatus.count - 1].url) ? product.images.zoom1660[loopStatus.count - 1].url : ''}" />
                     </picture>
                     <isset name="isImageExist" value="true" scope="page" />
                     <isif condition="${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL)}">
@@ -62,7 +62,7 @@
             </div>
             <div class="modal-body">
                 <div class="pinchZoom zoomedImage">
-                    <img alt="${product.resources.Zoom}" src="${product.images['large'][0].url}" />
+                    <img alt="${product.resources.Zoom}" src="${product.images['pdp533'][0].url}" />
                 </div>
             </div>
         </div>
