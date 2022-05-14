@@ -5,6 +5,6 @@
     </div>
     <!-- Product Rating -->
     <div class="ratings pull-left">
-        <isinclude template="product/components/individualProductSetRating" />
+        <isinclude template="product/components/productSet/individualProductSetRating" />
     </div>
 </div>

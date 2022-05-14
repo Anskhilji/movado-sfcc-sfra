@@ -16,7 +16,7 @@
                                 <div class="row">
                                     <div class="col-12 pdp-ob-detail-box align-items-center">
                                             <!-- Product Images Carousel -->
-                                        <isinclude template="product/components/imageCarouselSet" />
+                                        <isinclude template="product/components/productSet/imageCarouselSet" />
 
                                         <div class="pdp-right-side-ob">
                                             <!-- Product Name -->
@@ -27,7 +27,7 @@
                                             </h3>
 
                                             <div class="setproduct-rating">
-                                                <isinclude template="product/components/pidIndividualRating" />
+                                                <isinclude template="product/components/productSet/pidIndividualRating" />
                                             </div>
 
                                             <!-- Prices -->

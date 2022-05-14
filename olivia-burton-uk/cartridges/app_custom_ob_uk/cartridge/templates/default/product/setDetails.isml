@@ -20,11 +20,11 @@
     
 
     <div class="container product-detail product-set-detail set-detail-product-main-box-ob" data-pid="${product.id}">
-         <isinclude template="/product/components/setMainItem" />
+         <isinclude template="/product/components/productSet/setMainItem" />
     </div>
     <div class="container-fluid product-detail product-set-detail set-detail-product-box-ob" data-pid="${product.id}">
        
-        <isinclude template="/product/components/setItems" />
+        <isinclude template="/product/components/productSet/setItems" />
         <hr>
         <div class="col-12 col-sm-6 offset-sm-6 bundle-footer">
             <!-- Quantity -->
