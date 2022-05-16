@@ -50,12 +50,14 @@
       }
   
       .tile-body {
+        height: rem(27);
+
         @include media-breakpoint-down(md) {
           flex: 1;
           display: flex;
           flex-flow: column;
           justify-content: space-between;
-        }        
+        }
       }
 
     }
@@ -79,7 +81,7 @@
         padding: rem(20) 0;
       }
 
-      .plp-swatches {
+      .plp-swatches, .color-swatches-search {
         .swatches {
           max-width: 100%;
           overflow: hidden;
@@ -536,6 +538,80 @@
               background: $light-grey10;
               border-color: $light-grey10;
             }
+          }
+        }
+      }
+    }
+  }
+
+  .suggestions-wrapper {
+    .suggestions {
+      .product-tile {
+        .tile-body {
+          padding: rem(10) 0;
+      
+          @include media-breakpoint-up(lg) {
+            padding: rem(15) 0;
+          }
+        }
+        .image-container {
+          .plp-image-carousel {
+            height: rem(213);
+            img {
+              width: rem(170);
+              object-fit: contain;
+              height: rem(213);
+            }
+          }
+          .product-tag-content  {
+            position: relative;
+            height: rem(8);
+            margin-bottom: rem(5);
+      
+            @include media-breakpoint-up(md-down) {
+              height: rem(6);
+            }
+
+            .exclusive-badge-search {
+              margin: 0;
+              display: flex;
+              position: absolute;
+              bottom: 0;
+              left: 50%;
+              transform: translateX(-50%);
+              margin: 0;
+              height: auto;
+
+              .badge {
+                background-color: $badge-bg;
+                border: rem(1) solid $gray88-solid;
+                font-size: rem(10);
+                font-weight: 500;
+                border-radius: rem(13);
+                margin: 0;
+                padding: rem(3) rem(15);
+                line-height: normal;
+                letter-spacing: rem(0.83);
+                color: $black;
+                height: auto;
+
+                @include media-breakpoint-up(lg) {
+                    letter-spacing: rem(0.5);
+                    padding: rem(3) rem(15);
+                }
+
+                &.red-tag {
+                    background-color: $speech-red-light;
+                    color: $white;
+                }
+              }
+
+              .text-uppercase {
+                  text-transform: uppercase;
+              }
+
+            }
+
           }
         }
       }

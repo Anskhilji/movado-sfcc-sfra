@@ -20,11 +20,12 @@ $yellow: #FFC517 !default;
 $yellow2: #FDCC4F !default;
 $border-color: #979797 !default;
 $klarna-pink: #FFBBCE;
+$off-white: #929292;
 $invalid-red: #C82727;
 
 
 // Consolidated values
-  
+
 $grey1: #f9f9f9 !default;
 $grey2: #eee !default;
 $grey3: #ccc !default;
@@ -115,6 +116,11 @@ $nav-tabs-active-link-hover-bg: transparent !default;
 
 // breadcrumb
 $breadcrumb-bg: transparent !default;
+
+//badge
+$badge-bg: rgba(238,238,238,0.69);
+$gray88-solid: #E0E0E0;
+$speech-red-light: rgba(203,7,7,0.89);
 
 // table border
 $table-border-color: $grey3 !default;

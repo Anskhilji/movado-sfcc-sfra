@@ -1,4 +1,8 @@
-<div class="product-tile" itemscope itemtype="http://schema.org/Product">
+<isscript>
+    var assets = require('*/cartridge/scripts/assets');
+    assets.addCss('/css/lib/product-tile-name.css');
+</isscript>
+<div class="product-tile-redesign product-tile" itemscope itemtype="http://schema.org/Product">
     <!-- dwMarker="product" dwContentID="${product.uuid}" -->
 
     <isloop items="${product.availability.messages}" var="message">
@@ -16,18 +20,63 @@
     <iselse>
         <isinclude template="product/components/productTileImage" />
     </isif>
+
+    <isloop items="${product.badges.textBadges}" var="badge">
+        <div class="product-tag-content">
+            <div class="exclusive-badge exclusive-badge-search">
+                <span class="badge text-uppercase">${badge.text}</span>
+            </div>
+        </div>
+    </isloop>
+
     <div class="tile-body">
-        <isif condition="${pdict.display.swatches !== false &&  product.productType == 'master'}">
+        <div class="swatches-div">
+            <isif condition="${pdict.display.swatches !== false &&  product.productType == 'master'}">
                 <isif condition="${pdict.display.isEyewearTile}">
                     <isinclude template="product/components/productTileEyewearSwatch" />
                 <iselse>
                     <isinclude template="product/components/productTileSwatch" />
                 </isif>
-            
+            </isif>
+        </div>
+
+        <isif condition="${pdict.display.showAddToCart}">
+            <div class="product-brand-info product-brand-props">
+                <isif condition="${product.isWatchTile}">
+                    <isif condition="${!empty(product.defaultVariantCollectionName) || !empty(product.collectionName)}">
+                        <isif condition="${!empty(product.defaultVariantCollectionName)}">
+                            <isif condition="${product.defaultVariantCollectionName.length > 20}">
+                                <span class="collection-name text-truncate-wrapper watches-turncate-name">${product.defaultVariantCollectionName}</span>
+                            <iselse>
+                                <span class="collection-name">${product.defaultVariantCollectionName}</span>
+                            </isif>
+                        <iselse>
+                            <isif condition="${product.collectionName.length > 20}">
+                                <span class="collection-name text-truncate-wrapper watches-turncate-name">${product.collectionName}</span>
+                            <iselse>
+                                <span class="collection-name">${product.collectionName}</span>
+                            </isif>
+                        </isif>
+                    </isif>
+                <iselse>
+                    <isif condition="${!empty(product.productName)}">
+                        <isif condition="${product.productName > 20}">
+                            <span class="collection-name text-truncate-wrapper watches-turncate-name">${product.productName}</span>
+                        <iselse>
+                            <span class="collection-name">${product.productName}</span>
+                        </isif>
+                    <iselse>
+                        <span class="collection-name"></span>
+                    </isif>
+                </isif>
+                <isif condition="${!empty(product.caseDiameterRedesigned) || !empty(product.defaultVariantcaseDiameterRedesigned)}">
+                    <span class="case-diameter">${!empty(product.defaultVariantcaseDiameterRedesigned) ? product.defaultVariantcaseDiameterRedesigned : product.caseDiameterRedesigned}</span>
+                </isif>
+            </div>
         </isif>
 
         <isinclude template="product/components/old/productTileName" />
-        
+
         <isif condition="${preOrder}">
             <div class="out-of-stock">
                 ${Resource.msg('info.product.availability.preorder', 'common', null)}
@@ -39,14 +88,13 @@
                 ${Resource.msg('label.soldout', 'common', null)}
             </div>
         </isif>
-        
-			<isloop items="${product.badges.textBadges}" var="badge">
-		        <div class="exclusive-product">
-		        	${badge.text}
-		        </div>
-		    </isloop>
 
-        <isset name="price" value="${product.price}" scope="page" />
+
+        <isif condition="${product.productType == 'master' && !empty(product.defaultVariantPrice)}">
+            <isset name="price" value="${product.defaultVariantPrice}" scope="page" />
+        <iselse>
+            <isset name="price" value="${product.price}" scope="page" />
+        </isif>
         <isif condition="${product.productType === 'set'}">
             <isinclude template="product/components/pricing/setPrice" />
         <iselse>
@@ -80,11 +128,6 @@
             </button>
         </isif>
     </div>
-    <div class="row m-10">
-        <div class="col d-flex align-items-center justify-content-center">
-            <isinclude template="product/components/ratings" />
-        </div>
-    </div>
-    
+
     <!-- END_dwmarker -->
 </div>

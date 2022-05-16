@@ -8,7 +8,13 @@
         }
     }
 }
- 
+
+.product-tile-redesign {
+    .swatches-div {
+        height: rem(30);
+    }
+}
+
 .product-tile {
     @include media-breakpoint-down(md) {
         min-height: 23.4375em;
@@ -105,6 +111,25 @@
                     font-weight:300;
                     line-height: rem(17);
                     font-family: $font-book;
+                }
+            }
+        }
+
+        .product-brand-props {
+            .collection-name, .case-diameter {
+                font-size: rem(14);
+                color: $black;
+            }
+            .watches-turncate-name {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 1;
+            }
+            &.pdp-link{
+                a {
+                    font-size: rem(14);
+                    color: $off-white;
                 }
             }
         }
