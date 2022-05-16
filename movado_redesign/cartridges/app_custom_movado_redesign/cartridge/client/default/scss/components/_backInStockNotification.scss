@@ -1,5 +1,9 @@
 .back-in-stock-notification {
 
+    &-button {
+        font-family: $font-medium;
+    }
+
     &-confirmation-copy {
         font-family: $font-medium;
     }

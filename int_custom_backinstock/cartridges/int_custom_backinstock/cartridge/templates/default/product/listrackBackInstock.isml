@@ -11,7 +11,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12 p-0">
-                    <input id="aroductSKU" type="hidden" name="lProductSKU" placeholder="Product SKU" value="${product.id}">
+                    <input id="ProductSKU" type="hidden" name="lProductSKU" placeholder="Product SKU" value="${product.id}">
                     <input id="alertCode" type="hidden" name="lAlertCode" placeholder="Alert Code" value="${sitePref.alertCode}">               
                 </div>
                 <isif condition="${sitePref.Listrak_EnableBackInStockEmail}">
