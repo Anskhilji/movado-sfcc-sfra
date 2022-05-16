@@ -1,696 +1,696 @@
 .product-detail {
 	.product-name {
-	  font-family: $font-adobe;
-	  font-size: $font-size-main-heading3;
-	  font-style: normal;
-	  letter-spacing: rem(1);
-	  text-transform: capitalize !important;
-	  width: 96%;
+		font-family: $font-adobe;
+		font-size: $font-size-main-heading3;
+		font-style: normal;
+		letter-spacing: rem(1);
+		text-transform: capitalize !important;
+		width: 96%;
 	}
-  
+
 	.product-availability {
-	  font-family: $font-gills-light;
-	  font-size: $font-size-heading2;
-	  letter-spacing: rem(0.4);
-	  font-weight: normal;
+		font-family: $font-gills-light;
+		font-size: $font-size-heading2;
+		letter-spacing: rem(0.4);
+		font-weight: normal;
 	}
-  
+
 	p.affirm-as-low-as {
-	  font-family: $font-gills-light;
-	  font-size: $font-size-heading2;
-	  letter-spacing: rem(0.4);
-	  font-weight: normal;
-	  width: 100%;
-	  height: rem(45);
-  
-	  a {
-		font-family: $font-museo-light;
-		font-size: $font-size-text-heading1;
-		letter-spacing: rem(0.9);
-		font-weight: $font-light;
-	  }
+		font-family: $font-gills-light;
+		font-size: $font-size-heading2;
+		letter-spacing: rem(0.4);
+		font-weight: normal;
+		width: 100%;
+		height: rem(45);
+
+		a {
+			font-family: $font-museo-light;
+			font-size: $font-size-text-heading1;
+			letter-spacing: rem(0.9);
+			font-weight: $font-light;
+		}
 	}
-  
+
 	.price {
-	  font-family: $font-gills-light;
-	  font-size: $font-size-heading2;
-	  letter-spacing: rem(0.4);
-	  font-weight: $font-semi-bold;
+		font-family: $font-gills-light;
+		font-size: $font-size-heading2;
+		letter-spacing: rem(0.4);
+		font-weight: $font-semi-bold;
 	}
 	
 	 &.pdp-obuk {
-  
-	  .cart-and-ipay {
-  
-		@include media-breakpoint-only(xs) {
-		  .btn {
-			  width: 99%;
-			  margin: 1% auto;
-			  display: block;
-		  }
-		}
-	  }
-  
-		button.add-to-cart {
-		  color: $black;
-		  background: $pink-hot;
-		  border: rem(1) solid $pink-hot;
-	  
-		  @include media-breakpoint-up(custom-md) {
-			width: rem(296);
-			height: rem(42.44);
-			padding: rem(10) rem(12) rem(10) rem(12);
-		  }
-		  
-		}
-  
-		.google-pay-container {
-		   $gpay-padding : rem(24);
-  
-		  .gpay-button.black {
-			 width: 100%;
-			 min-width: 100%;
-			 margin: 0 auto;
-			 border-radius: rem(0);
-			
-			 @include media-breakpoint-down(xs) {
-			  width: calc(100% + #{$gpay-padding});
-			  margin: 1% rem(-24);
-			  margin-bottom: 0;
-			 }
-  
-			 @include media-breakpoint-up(sm) {
-			  width: 100%;
-			  min-width: 45vw;
-			  height: rem(42.44);
-			  transform: translateX(-12px);
-			}
-  
-			@include media-breakpoint-up(custom-md) {
-			  width: rem(296);
-			  min-width: rem(296);
-			  height: rem(42.44);
-			  padding: rem(10) rem(12) rem(10) rem(12);
-			  transform: translateX(-12px);
-			  border-radius: rem(0);
-			}
-  
-		  } 
-  
-		}
-		
+
 		.cart-and-ipay {
-  
-		  &.btn {
-			width: 98.5%;
-			margin: 0 auto;
-		  }
-	  
-		  .apple-pay-pdp {
-			
-			@include media-breakpoint-up(custom-md) {
-			  width: rem(296);
-			  min-width: rem(296);
-			  height: rem(42.44);
-			  margin-top: rem(15);
-			  margin-left: rem(15);
-			  padding: rem(10) rem(12) rem(10) rem(12);
+
+			@include media-breakpoint-only(xs) {
+				.btn {
+						width: 99%;
+						margin: 1% auto;
+						display: block;
+				}
 			}
-  
-			@include media-breakpoint-down(sm) {
-			  margin:2% auto;
-			  min-width: 100%;
-			}
-  
-		  }
 		}
-	 }
-  
-	.description {
-	  font-family: $font-gills-light;
-	  font-size: $font-size-text-heading1;
-	  letter-spacing: rem(0.35);
-	  font-weight: normal;
-	  width: 100%;
-	}
-  
-	.product-options {
-	  font-family: $font-gills-light;
-	  font-size: $font-size-heading2;
-	  letter-spacing: rem(0.4);
-	  font-weight: normal;
-	  width: 100%;
-  
-	  a {
-		font-family: $font-museo-light;
-		font-size: $font-size-text-heading1;
-		letter-spacing: rem(0.9);
-		font-weight: $font-light;
-	  }
-  
-	  p {
-		font-family: $font-gills-light;
-		font-size: $font-size-text1;
-		letter-spacing: rem(0.4);
-		color: $black-opacity-8;
-		font-weight: normal;
-	  }
-  
-	  .embossing {
-  
-		&-attribute {
-		  color: $light-black;
-		}
+
+			button.add-to-cart {
+				color: $black;
+				background: $pink-hot;
+				border: rem(1) solid $pink-hot;
 		
-		&-color {
-		  color: $light-black;
+				@include media-breakpoint-up(custom-md) {
+					width: rem(296);
+					height: rem(42.44);
+					padding: rem(10) rem(12) rem(10) rem(12);
+				}
+				
+			}
+
+			.google-pay-container {
+				 $gpay-padding : rem(24);
+
+				.gpay-button.black {
+					 width: 100%;
+					 min-width: 100%;
+					 margin: 0 auto;
+					 border-radius: rem(0);
+					
+					 @include media-breakpoint-down(xs) {
+						width: calc(100% + #{$gpay-padding});
+						margin: 1% rem(-24);
+						margin-bottom: 0;
+					 }
+
+					 @include media-breakpoint-up(sm) {
+						width: 100%;
+						min-width: 45vw;
+						height: rem(42.44);
+						transform: translateX(-12px);
+					}
+
+					@include media-breakpoint-up(custom-md) {
+						width: rem(296);
+						min-width: rem(296);
+						height: rem(42.44);
+						padding: rem(10) rem(12) rem(10) rem(12);
+						transform: translateX(-12px);
+						border-radius: rem(0);
+					}
+
+				} 
+
+			}
+			
+			.cart-and-ipay {
+
+				&.btn {
+					width: 98.5%;
+					margin: 0 auto;
+				}
+		
+				.apple-pay-pdp {
+					
+					@include media-breakpoint-up(custom-md) {
+						width: rem(296);
+						min-width: rem(296);
+						height: rem(42.44);
+						margin-top: rem(15);
+						margin-left: rem(15);
+						padding: rem(10) rem(12) rem(10) rem(12);
+					}
+
+					@include media-breakpoint-down(sm) {
+						margin:2% auto;
+						min-width: 100%;
+					}
+
+				}
+			}
+	 }
+
+	.description {
+		font-family: $font-gills-light;
+		font-size: $font-size-text-heading1;
+		letter-spacing: rem(0.35);
+		font-weight: normal;
+		width: 100%;
+	}
+
+	.product-options {
+		font-family: $font-gills-light;
+		font-size: $font-size-heading2;
+		letter-spacing: rem(0.4);
+		font-weight: normal;
+		width: 100%;
+
+		a {
+			font-family: $font-museo-light;
+			font-size: $font-size-text-heading1;
+			letter-spacing: rem(0.9);
+			font-weight: $font-light;
 		}
-	  }  
-	  .option-message {
-		.form-control {
-		  font-family: $font-gills-light;
-		  font-weight: normal;
-		  border-radius: rem(2);
+
+		p {
+			font-family: $font-gills-light;
+			font-size: $font-size-text1;
+			letter-spacing: rem(0.4);
+			color: $black-opacity-8;
+			font-weight: normal;
 		}
-	  }
-  
-	  button {
+
+		.embossing {
+
+			&-attribute {
+				color: $light-black;
+			}
+			
+			&-color {
+				color: $light-black;
+			}
+		}  
+		.option-message {
+			.form-control {
+				font-family: $font-gills-light;
+				font-weight: normal;
+				border-radius: rem(2);
+			}
+		}
+
+		button {
+			font-family: $font-museo-std;
+			font-size: $font-size-text-heading1;
+			letter-spacing: rem(2);
+			font-weight: $font-semi-bold;
+		}
+	}
+
+	.more-styles-wrapper {
+		h3 {
+			font-family: $font-adobe;
+			font-size: $font-size-main-heading6;
+			font-style: normal;
+			letter-spacing: rem(1);
+			text-transform: lowercase;
+
+			&::first-line {
+				text-transform: capitalize;
+			}
+		}
+	}
+
+	.product-number {
+		font-family: $font-gills-light;
+		color: $dim-grey;
+		font-size: $font-size-text-heading1;
+		letter-spacing: rem(1);
+		font-weight: normal;
+	}
+
+	.description.description-text {
+		@include media-breakpoint-up(sm) {
+			margin-bottom: rem(25);
+		}
+	}
+
+	.recomended-products {
+		margin: 0 rem(-10);
+	}
+}
+
+.description-and-detail {
+	button.title {
+		font-family: $font-adobe;
+		font-size: $font-size-main-heading6;
+		font-style: normal;
+		letter-spacing: rem(2);
+		text-transform: capitalize !important;
+
+		&::after {
+			font-style: normal;
+		}
+	}
+
+	.attribute {
+		font-family: $font-gills-light;
+		font-size: $font-size-text-heading1;
+		letter-spacing: rem(0.4);
+		font-weight: normal;
+
+		&-name {
+			color: $grey;
+			margin-bottom: rem(8);
+		}
+	}
+
+	.description {
+		font-family: $font-gills-light;
+		font-size: $font-size-text-heading1;
+		letter-spacing: rem(0.35);
+		font-weight: normal;
+	}
+}
+
+.cs-carousel-wrapper {
+	.carousel-title {
+		font-family: $font-adobe;
+		font-size: $font-size-main-heading6;
+		font-style: normal;
+		letter-spacing: rem(2);
+		text-transform: lowercase;
+
+		&::first-letter {
+			text-transform: capitalize;
+		}
+	}
+}
+
+.addToCartModal {
+	p {
+		font-family: $font-gill-std;
+		font-size: $font-size-text-heading1;
+		letter-spacing: rem(0.4);
+		font-weight: $font-semi-bolder;
+	}
+
+	a.btn-primary {
 		font-family: $font-museo-std;
 		font-size: $font-size-text-heading1;
 		letter-spacing: rem(2);
 		font-weight: $font-semi-bold;
-	  }
+		background: $pink-hot;
+		color: $black;
+		border: none;
 	}
-  
-	.more-styles-wrapper {
-	  h3 {
-		font-family: $font-adobe;
-		font-size: $font-size-main-heading6;
-		font-style: normal;
-		letter-spacing: rem(1);
-		text-transform: lowercase;
-  
-		&::first-line {
-		  text-transform: capitalize;
-		}
-	  }
-	}
-  
-	.product-number {
-	  font-family: $font-gills-light;
-	  color: $dim-grey;
-	  font-size: $font-size-text-heading1;
-	  letter-spacing: rem(1);
-	  font-weight: normal;
-	}
-  
-	.description.description-text {
-	  @include media-breakpoint-up(sm) {
-		margin-bottom: rem(25);
-	  }
-	}
-  
-	.recomended-products {
-	  margin: 0 rem(-10);
-	}
-  }
-  
-  .description-and-detail {
-	button.title {
-	  font-family: $font-adobe;
-	  font-size: $font-size-main-heading6;
-	  font-style: normal;
-	  letter-spacing: rem(2);
-	  text-transform: capitalize !important;
-  
-	  &::after {
-		font-style: normal;
-	  }
-	}
-  
-	.attribute {
-	  font-family: $font-gills-light;
-	  font-size: $font-size-text-heading1;
-	  letter-spacing: rem(0.4);
-	  font-weight: normal;
-  
-	  &-name {
-		color: $grey;
-		margin-bottom: rem(8);
-	  }
-	}
-  
-	.description {
-	  font-family: $font-gills-light;
-	  font-size: $font-size-text-heading1;
-	  letter-spacing: rem(0.35);
-	  font-weight: normal;
-	}
-  }
-  
-  .cs-carousel-wrapper {
-	.carousel-title {
-	  font-family: $font-adobe;
-	  font-size: $font-size-main-heading6;
-	  font-style: normal;
-	  letter-spacing: rem(2);
-	  text-transform: lowercase;
-  
-	  &::first-letter {
-		text-transform: capitalize;
-	  }
-	}
-  }
-  
-  .addToCartModal {
-	p {
-	  font-family: $font-gill-std;
-	  font-size: $font-size-text-heading1;
-	  letter-spacing: rem(0.4);
-	  font-weight: $font-semi-bolder;
-	}
-  
-	a.btn-primary {
-	  font-family: $font-museo-std;
-	  font-size: $font-size-text-heading1;
-	  letter-spacing: rem(2);
-	  font-weight: $font-semi-bold;
-	  background: $pink-hot;
-	  color: $black;
-	  border: none;
-	}
-  
+
 	a.btn-link {
-	  font-family: $font-gills-light;
-	  font-size: $font-size-heading2;
-	  letter-spacing: rem(0.4);
-	  font-weight: normal;
-	  color: $black;
-	}
-  }
-  
-  .product-quickview {
-	.heading-two {
-	  font-family: $font-adobe;
-	  font-size: $font-size-main-heading3;
-	  font-style: normal;
-	  letter-spacing: rem(1);
-	  text-transform: unset !important;
-	}
-  
-	.product-options {
-	  font-family: $font-gills-light;
-	}
-  
-	.availability {
-	  font-family: $font-gills-light;
-	  font-size: $font-size-heading2;
-	  letter-spacing: rem(0.4);
-	  font-weight: normal;
-	}
-  
-	.promotions {
-	  letter-spacing: rem(1.4);
-	  width: 100%;
-	}
-  
-	.prices {
-	  .sales {
-		font-size: $font-size-main-heading6;
-	  }
-	}
-  }
-  
-  .quick-view-dialog {
-	.modal-header {
-	  background-color: $white-smoke;
-  
-	  .close {
-		opacity: unset;
-  
-		&-icon {
-		  font-family: $font-museo-std;
-		  color: $black;
-		  font-size: $font-size-text-heading1;
-		  letter-spacing: rem(1.4);
-		  font-weight: $font-semi-bold;
-		}
-	  }
-  
-	  .full-pdp-link {
-		color: $extra-dark-grey;
-		font-family: $font-museo-light;
-		font-size: $font-size-text-heading1;
-		letter-spacing: rem(0.9);
-	  }
-	}
-  }
-  
-  @include media-breakpoint-up(sm) {
-	.product-detail {
-	  .price {
-		font-size: $font-size-main-heading6;
-		letter-spacing: rem(2);
-		font-weight: normal;
-	  }
-  
-	  .description {
-		font-size: $font-size-heading3;
-		letter-spacing: rem(0.4);
-	  }
-	}
-  
-	.description-and-detail {
-	  button.title {
-		font-size: $font-size-main-heading4;
-	  }
-  
-	  .description {
-		font-size: $font-size-heading3;
-	  }
-	}
-  
-	.cs-carousel-wrapper {
-	  .carousel-title {
-		font-size: $font-size-main-heading4;
-	  }
-	}
-  }
-  
-  @include media-breakpoint-up(md) {
-	.product-detail {
-  
-	  .product-name {
-		font-size: $font-size-main-heading1;
-		letter-spacing: rem(1.5);
-		color: #060506;
-	  }
-  
-	  .description {
+		font-family: $font-gills-light;
 		font-size: $font-size-heading2;
 		letter-spacing: rem(0.4);
-	  }
+		font-weight: normal;
+		color: $black;
 	}
-  
-	.description-and-detail {
-	  button.title {
-		font-size: $font-size-main-heading1;
-		letter-spacing: rem(1.5);
-	  }
-  
-	  .description {
-		font-size: $font-size-text-heading1;
-	  }
+}
+
+.product-quickview {
+	.heading-two {
+		font-family: $font-adobe;
+		font-size: $font-size-main-heading3;
+		font-style: normal;
+		letter-spacing: rem(1);
+		text-transform: unset !important;
 	}
-  
-	.cs-carousel-wrapper {
-	  .carousel-title {
-		font-size: $font-size-main-heading1;
-		letter-spacing: rem(1.5);
-	  }
-  
-	  .product-tile {
-		.tile-body {
-		  .price {
-			font-size: $font-size-text-heading1;
-			letter-spacing: rem(0.4);
-		  }
+
+	.product-options {
+		font-family: $font-gills-light;
+	}
+
+	.availability {
+		font-family: $font-gills-light;
+		font-size: $font-size-heading2;
+		letter-spacing: rem(0.4);
+		font-weight: normal;
+	}
+
+	.promotions {
+		letter-spacing: rem(1.4);
+		width: 100%;
+	}
+
+	.prices {
+		.sales {
+			font-size: $font-size-main-heading6;
 		}
-	  }
 	}
-  
+}
+
+.quick-view-dialog {
+	.modal-header {
+		background-color: $white-smoke;
+
+		.close {
+			opacity: unset;
+
+			&-icon {
+				font-family: $font-museo-std;
+				color: $black;
+				font-size: $font-size-text-heading1;
+				letter-spacing: rem(1.4);
+				font-weight: $font-semi-bold;
+			}
+		}
+
+		.full-pdp-link {
+			color: $extra-dark-grey;
+			font-family: $font-museo-light;
+			font-size: $font-size-text-heading1;
+			letter-spacing: rem(0.9);
+		}
+	}
+}
+
+@include media-breakpoint-up(sm) {
+	.product-detail {
+		.price {
+			font-size: $font-size-main-heading6;
+			letter-spacing: rem(2);
+			font-weight: normal;
+		}
+
+		.description {
+			font-size: $font-size-heading3;
+			letter-spacing: rem(0.4);
+		}
+	}
+
+	.description-and-detail {
+		button.title {
+			font-size: $font-size-main-heading4;
+		}
+
+		.description {
+			font-size: $font-size-heading3;
+		}
+	}
+
+	.cs-carousel-wrapper {
+		.carousel-title {
+			font-size: $font-size-main-heading4;
+		}
+	}
+}
+
+@include media-breakpoint-up(md) {
+	.product-detail {
+
+		.product-name {
+			font-size: $font-size-main-heading1;
+			letter-spacing: rem(1.5);
+			color: #060506;
+		}
+
+		.description {
+			font-size: $font-size-heading2;
+			letter-spacing: rem(0.4);
+		}
+	}
+
+	.description-and-detail {
+		button.title {
+			font-size: $font-size-main-heading1;
+			letter-spacing: rem(1.5);
+		}
+
+		.description {
+			font-size: $font-size-text-heading1;
+		}
+	}
+
+	.cs-carousel-wrapper {
+		.carousel-title {
+			font-size: $font-size-main-heading1;
+			letter-spacing: rem(1.5);
+		}
+
+		.product-tile {
+			.tile-body {
+				.price {
+					font-size: $font-size-text-heading1;
+					letter-spacing: rem(0.4);
+				}
+			}
+		}
+	}
+
 	.product-quickview {
-	  .heading-two {
-		font-size: $font-size-main-heading1;
-	  }
+		.heading-two {
+			font-size: $font-size-main-heading1;
+		}
 	}
-  }
-  
-  .linked-product-list {
+}
+
+.linked-product-list {
 	border-top: 0;
 	margin-bottom: rem(15);
-  
+
 	.linked-head {
-	  display: block;
-  
-	  .content-asset {
-		display: inline-block;
-  
-		label {
-		  font-family: $font-adobe;
-		  font-size: rem(20);
-		  line-height: rem(25);
-		  letter-spacing: rem(1.71);
-		  color: $black;
-		  display: block;
-		  text-align: center;
-		  padding-bottom: rem(10);
-		  text-transform: capitalize;
+		display: block;
+
+		.content-asset {
+			display: inline-block;
+
+			label {
+				font-family: $font-adobe;
+				font-size: rem(20);
+				line-height: rem(25);
+				letter-spacing: rem(1.71);
+				color: $black;
+				display: block;
+				text-align: center;
+				padding-bottom: rem(10);
+				text-transform: capitalize;
+			}
 		}
-	  }
 	}
-  }
-  
-  .recomended {
-  
+}
+
+.recomended {
+
 	&-product-list {
-		margin-bottom: rem(20);
-		padding-top: rem(15);
-		border-top: rem(2) solid $white-gray;
+			margin-bottom: rem(20);
+			padding-top: rem(15);
+			border-top: rem(2) solid $white-gray;
 	}
 	
 	&-products {
-  
-		.slick-slide {
-			padding: 0 rem(10);
-		}
-  
-		.upsell {
-  
-			&-wrapper {
-				text-align: center;
-				position: relative;
-  
-				&:hover {
-					.upsell-text {
-						p {
-							background-color: $pink-hot;
-							color: $white;
-							transition: 0.3s ease;
-						}
-  
-						
-					  &-add {
-						&-icon {
-						  transition: 0.3s ease;
-						  background-image: url("../../images/plus-white.svg");
-						}
-					  }
+
+			.slick-slide {
+					padding: 0 rem(10);
+			}
+
+			.upsell {
+
+					&-wrapper {
+							text-align: center;
+							position: relative;
+
+							&:hover {
+									.upsell-text {
+											p {
+													background-color: $pink-hot;
+													color: $white;
+													transition: 0.3s ease;
+											}
+
+											
+										&-add {
+											&-icon {
+												transition: 0.3s ease;
+												background-image: url("../../images/plus-white.svg");
+											}
+										}
+									}
+							}
+
+							&-inner {
+									border: rem(1) solid $gray92;
+							}
 					}
-				}
-  
-				&-inner {
-					border: rem(1) solid $gray92;
-				}
-			}
-  
-			&-price {
-				margin-bottom: rem(5);
-  
-				.price {
-					font-family: $font-book;
-					font-size: rem(10);
-					line-height: 1.1;
-					color: $black;
-					padding: 0;
-					padding-bottom: rem(2);
-  
-					span {
-						display: block;
-						margin: 0;
+
+					&-price {
+							margin-bottom: rem(5);
+
+							.price {
+									font-family: $font-book;
+									font-size: rem(10);
+									line-height: 1.1;
+									color: $black;
+									padding: 0;
+									padding-bottom: rem(2);
+
+									span {
+											display: block;
+											margin: 0;
+									}
+							}
 					}
-				}
-			}
-  
-			&-description {
-				width: 100%;
-				color: $light-gray2;
-				font-size: rem(11);
-				margin-bottom: auto;
-				text-transform: capitalize;
-				line-height: 1.2;
-				font-family: $font-gill-std;
-				font-weight: 500;
-				letter-spacing: rem(.2);
-				margin-bottom: rem(5);
-			}
-  
-			&-checkbox {
-				display: block;
-				width: rem(18);
-				height: rem(18);
-				margin: 0 auto;
-				border-radius: 50%;
-				border: rem(2) solid $black;
-				background-color: $white;
-				background-repeat: no-repeat;
-				background-position: 50%;
-				background-size: rem(12) auto;
-				margin-top: rem(8);
-				transition: all .3s;
-			}
-  
-			&-text {
-				position: relative;
-				background-color: $gray92;
-  
-				p {
-					font-family: $font-gills-light;
-					font-size: rem(12);
-					color: $black;
-					text-align: center;
-					margin: 0;
-					padding: rem(5);
-				}
-  
-				&-add {
-					display: block;
-  
-					&-icon {
-					  width: rem(15);
-					  height: rem(10);
-					  background: url("../../images/plus.svg") center center no-repeat;
-					  background-size: rem(8.75) rem(8.75);
-					  display: inline-block;
+
+					&-description {
+							width: 100%;
+							color: $light-gray2;
+							font-size: rem(11);
+							margin-bottom: auto;
+							text-transform: capitalize;
+							line-height: 1.2;
+							font-family: $font-gill-std;
+							font-weight: 500;
+							letter-spacing: rem(.2);
+							margin-bottom: rem(5);
 					}
-				}
-  
-				&-added {
-					display: none;
-					background: $pink-hot;
-  
-					&-checkmark {
-					  display: inline-block;
-					  width: rem(11);
-					  height: rem(10);
-					  background: $pink-hot url("../../images/white-checkmark.svg") center center no-repeat;
-					  vertical-align: middle;
-					  position: relative;
-					  top: rem(-1);
-					}
-				}
-			}
-  
-			&-input {
-				position: absolute;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 100%;
-				opacity: 0;
-				z-index: 1;
-				cursor: pointer;
-  
-				&:checked ~ {
-  
-					.upsell-text {
-  
-						.upsell-text-add {
-							display: none;
-						}
-	
-						.upsell-text-added {
+
+					&-checkbox {
 							display: block;
-							color: $white;
-						}
+							width: rem(18);
+							height: rem(18);
+							margin: 0 auto;
+							border-radius: 50%;
+							border: rem(2) solid $black;
+							background-color: $white;
+							background-repeat: no-repeat;
+							background-position: 50%;
+							background-size: rem(12) auto;
+							margin-top: rem(8);
+							transition: all .3s;
 					}
-  
-					.upsell-wrapper-inner {
-						border-color: $pink-hot;
+
+					&-text {
+							position: relative;
+							background-color: $gray92;
+
+							p {
+									font-family: $font-gills-light;
+									font-size: rem(12);
+									color: $black;
+									text-align: center;
+									margin: 0;
+									padding: rem(5);
+							}
+
+							&-add {
+									display: block;
+
+									&-icon {
+										width: rem(15);
+										height: rem(10);
+										background: url("../../images/plus.svg") center center no-repeat;
+										background-size: rem(8.75) rem(8.75);
+										display: inline-block;
+									}
+							}
+
+							&-added {
+									display: none;
+									background: $pink-hot;
+
+									&-checkmark {
+										display: inline-block;
+										width: rem(11);
+										height: rem(10);
+										background: $pink-hot url("../../images/white-checkmark.svg") center center no-repeat;
+										vertical-align: middle;
+										position: relative;
+										top: rem(-1);
+									}
+							}
 					}
-				}
+
+					&-input {
+							position: absolute;
+							top: 0;
+							left: 0;
+							width: 100%;
+							height: 100%;
+							opacity: 0;
+							z-index: 1;
+							cursor: pointer;
+
+							&:checked ~ {
+
+									.upsell-text {
+
+											.upsell-text-add {
+													display: none;
+											}
+	
+											.upsell-text-added {
+													display: block;
+													color: $white;
+											}
+									}
+
+									.upsell-wrapper-inner {
+											border-color: $pink-hot;
+									}
+							}
+					}
 			}
-		}
-  
-		.slick-arrow {
-			position: absolute;
-			display: block;
-			height: rem(15);
-			width: rem(15);
-			line-height: 0;
-			font-size: 0;
-			z-index: 9;
-			cursor: pointer;
-			top: 50%;
-			transform: translateY(-50%);
-			padding: 0;
-			border: none;
-  
-			&.slick-disabled {
-				background: none;
-				pointer-events: none;
+
+			.slick-arrow {
+					position: absolute;
+					display: block;
+					height: rem(15);
+					width: rem(15);
+					line-height: 0;
+					font-size: 0;
+					z-index: 9;
+					cursor: pointer;
+					top: 50%;
+					transform: translateY(-50%);
+					padding: 0;
+					border: none;
+
+					&.slick-disabled {
+							background: none;
+							pointer-events: none;
+					}
+
+					&:focus {
+							outline: none;
+					}
 			}
-  
-			&:focus {
-				outline: none;
+
+			.slick-next {
+					right: rem(-10);
+					background: url("../../images/arrow-right.svg") center center no-repeat;
 			}
-		}
-  
-		.slick-next {
-			right: rem(-10);
-			background: url("../../images/arrow-right.svg") center center no-repeat;
-		}
-  
-		.slick-prev {
-			left: rem(-10);
-			background: url("../../images/arrow-left.svg") center center no-repeat;
-		}
+
+			.slick-prev {
+					left: rem(-10);
+					background: url("../../images/arrow-left.svg") center center no-repeat;
+			}
 	}
-  }
-  
-  .price-availability {
+}
+
+.price-availability {
 	margin-top: rem(14);
 	width: 100%;
 	height: rem(25);
-  
+
 	.prices {
-	  margin-right: rem(10);
-	  padding: 0;
-  
-	  .price {
-		.sales {
-		  span {
-			color: $black;
-			font-family: $font-gill-std-medium;
-			font-size: rem(20);
-			font-weight: 500;
-			letter-spacing: rem(3.86);
-			line-height: rem(24);
-		  }
+		margin-right: rem(10);
+		padding: 0;
+
+		.price {
+			.sales {
+				span {
+					color: $black;
+					font-family: $font-gill-std-medium;
+					font-size: rem(20);
+					font-weight: 500;
+					letter-spacing: rem(3.86);
+					line-height: rem(24);
+				}
+			}
 		}
-	  }
-	  .total-price-text {
-		display: none;
-	  }
+		.total-price-text {
+			display: none;
+		}
 	}
 	.product-availability {
-	  font-family: $font-gills-light;
-	  color: $cod-gray;
-	  font-size: rem(16);
-	  letter-spacing: rem(1.23);
-	  line-height: rem(18);
-	  margin-top: 0;
-  
-	  .col-12 {
-		flex: none;
-	  }
+		font-family: $font-gills-light;
+		color: $cod-gray;
+		font-size: rem(16);
+		letter-spacing: rem(1.23);
+		line-height: rem(18);
+		margin-top: 0;
+
+		.col-12 {
+			flex: none;
+		}
 	}
-  }
-  @include media-breakpoint-down(md) {
+}
+@include media-breakpoint-down(md) {
 	.price-availability {
-	  justify-content: center;
+		justify-content: center;
 	}
-  }  
+}
 
 // set product detail PDP new design
 .padd-0 {
