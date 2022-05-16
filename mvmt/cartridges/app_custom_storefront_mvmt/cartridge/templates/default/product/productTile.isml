@@ -20,15 +20,7 @@
     <iselse>
         <isinclude template="product/components/productTileImage" />
     </isif>
-
-    <isloop items="${product.badges.textBadges}" var="badge">
-        <div class="product-tag-content">
-            <div class="exclusive-badge exclusive-badge-search">
-                <span class="badge text-uppercase">${badge.text}</span>
-            </div>
-        </div>
-    </isloop>
-
+    
     <div class="tile-body">
         <div class="swatches-div">
             <isif condition="${pdict.display.swatches !== false &&  product.productType == 'master'}">

@@ -50,7 +50,6 @@
       }
   
       .tile-body {
-        height: rem(27);
 
         @include media-breakpoint-down(md) {
           flex: 1;
