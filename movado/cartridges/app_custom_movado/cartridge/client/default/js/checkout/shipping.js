@@ -515,8 +515,10 @@ function shippingFormResponse(defer, data) {
                         $('.btn-show-details').click();
                     }
                 }
+
+                $('.checkout-form-error').removeClass('d-none')
                 var scrollUtil = require('../utilities/scrollUtil');
-                scrollUtil.scrollInvalidFields(formSelector, -80, 300);
+                scrollUtil.scrollToTopError(formSelector, -80, 300);
             });
             defer.reject(data);
         }

@@ -330,7 +330,19 @@ server.post('ProcessPayments',
         */
         if (Site.current.preferences.custom.isClydeEnabled) {
             var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
+            var Constants = require('*/cartridge/utils/Constants');
+
+            var orderLineItems = order.getAllProductLineItems();
+            var orderLineItemsIterator = orderLineItems.iterator();
+            var productLineItem;
+
             Transaction.wrap(function () {
+                while (orderLineItemsIterator.hasNext()) {
+                    productLineItem = orderLineItemsIterator.next();
+                    if (productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == Constants.CLYDE_WARRANTY && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
+                        order.removeProductLineItem(productLineItem);
+                    }
+                }
                 order.custom.isContainClydeContract = false;
                 order.custom.clydeContractProductMapping = '';
             });
@@ -339,6 +351,22 @@ server.post('ProcessPayments',
 		/**
 		 * Custom: End
 		*/
+
+        if (!Site.getCurrent().preferences.custom.isClydeEnabled) {
+            var Constants = require('*/cartridge/utils/Constants');
+            
+            var orderLineItems = order.getAllProductLineItems();
+            var orderLineItemsIterator = orderLineItems.iterator();
+            var productLineItem;
+            Transaction.wrap(function () {
+                while (orderLineItemsIterator.hasNext()) {
+                    productLineItem = orderLineItemsIterator.next();
+                    if (productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == Constants.CLYDE_WARRANTY && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
+                        order.removeProductLineItem(productLineItem);
+                    }
+                }
+            });
+        }
 
         // SOM API call
         if ('SOMIntegrationEnabled' in Site.getCurrent().preferences.custom && Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {

@@ -17,8 +17,6 @@
     <isset name="isQuickView" value="${false}" scope="page" />
     <isobject object="${product.raw}" view="detail" />
 
-    
-
     <div class="container-fluid set-detail-product-main-box-ob" data-pid="${product.id}">
          <isinclude template="/product/components/productSet/setMainItem" />
     </div>
