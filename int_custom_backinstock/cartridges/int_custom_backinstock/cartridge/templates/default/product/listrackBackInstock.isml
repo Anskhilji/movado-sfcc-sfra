@@ -3,7 +3,7 @@
     assets.addJs('/js/listrakBackInStock.js');
 </isscript>
 <isinclude template="/components/modules" sf-toolkit="off" />
-<div class="back-in-stock-notification-container-main">
+<div class="listrak-back-in-stock-notification-container-main ${product.isBackInStockEnabled ? '' : 'd-none'}">
     <p class="back-in-stock-notification-email-notification-copy">
         ${Resource.msg('listrak.form.title', 'product', null)}
     </p>

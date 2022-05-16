@@ -4,7 +4,7 @@
 
 $('.form').submit(function(e) {
     e.preventDefault();
-    var bisContainerMain = $('.back-in-stock-notification-container-main');
+    var bisContainerMain = $('.listrak-back-in-stock-notification-container-main');
     var $form = $('.back-in-stock-notification-form');
     var pid = $('#ProductSKU').val();
     var email = '';

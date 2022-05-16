@@ -220,7 +220,6 @@
                 </div>
             </div>
         </div>
-
         <div class="container-fluid pdp-mobile detail-bg pdp-v-one">
             <isinclude template="product/components/descriptionAndDetails" />
         </div>
