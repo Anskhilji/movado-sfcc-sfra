@@ -122,3 +122,16 @@ $transparent-gray: rgba(0, 0, 0, 0.8) !default;
 
 //box shadows
 $form-box-shadow: 0 rem(2) rem(2) 0 rgba(0, 0, 0, 0.24);
+
+$grid-breakpoints: (
+  xs: 0,
+  xs-custom:320px,
+  xsm-custom:350px,
+  sm-custom:400px,
+  sm-small:544px,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px
+);

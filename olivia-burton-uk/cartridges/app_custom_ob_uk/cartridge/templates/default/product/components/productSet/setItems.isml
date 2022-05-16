@@ -6,7 +6,7 @@
                     <isset name="product" value="${productItem}" scope="page" />
                     <div class="accordion-ob-box">
                         <div class="pdp-accordion-ob-header d-flex align-items-center" id="${product.id}">
-                            <div class="pdp-accordion-ob-heading d-flex align-items-center justify-content-between w-100  ${ loopState.count == 1 ? '' : 'collapsed' }" type="button" data-toggle="collapse" data-target="${'#collapseOne'+product.id}" aria-expanded="true" aria-controls="${'#collapseOne'+product.id}">
+                            <div class="pdp-accordion-ob-heading d-flex align-items-center justify-content-between w-100  ${ loopState.count == 1 ? '' : 'collapsed' }" data-toggle="collapse" data-target="${'#collapseOne'+product.id}" aria-expanded="true" aria-controls="${'#collapseOne'+product.id}">
                                 ${product.productName} <span class="plus-minus-icon"></span>
                             </div>
                         </div>
