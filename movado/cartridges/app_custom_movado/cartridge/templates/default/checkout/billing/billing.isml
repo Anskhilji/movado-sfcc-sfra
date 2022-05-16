@@ -11,8 +11,8 @@
     </div>
 </div>
 
-<div class="card payment-form">
-    <div class="card-header">
+<div class="card payment-form card-border-none">
+    <div class="card-header card-border-none mb-bottom-20">
         <h4>${Resource.msg('heading.payment', 'checkout', null)}</h4>
     </div>
     <div class="card-body">
@@ -25,7 +25,7 @@
             <!-------------------------------------------------------------------------->
             <fieldset class="address-selector-block">
                 <div class="form-group relative">
-                    <label class="form-control-label" for="shipmentSelector">
+                    <label class="form-control-label field__label" for="shipmentSelector">
                         ${Resource.msg('heading.billing.address', 'checkout', null)}
                     </label>
 

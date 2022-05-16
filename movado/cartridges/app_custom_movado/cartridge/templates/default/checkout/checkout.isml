@@ -50,8 +50,8 @@
                     <!-- Step 1: Shipping -->
                     <isinclude template="checkout/shipping/shipping" />
 
-                    <div class="card shipping-summary card-border-none">
-                        <div class="card-header flex justify-content-between align-items-center card-border-none">
+                    <div class="card shipping-summary">
+                        <div class="card-header flex justify-content-between align-items-center">
                             <h4 class="pull-left">${Resource.msg('heading.checkout.shipping', 'checkout', null)}</h4>
                             <span class="edit-button pull-right" tabindex="0">${Resource.msg('action.edit.step', 'checkout', null)}</span>
                         </div>
