@@ -1225,6 +1225,12 @@
 			.cs-carousel-wrapper {
 				margin-bottom: rem(0);
 
+				.cs-carousel {
+					@include media-breakpoint-down(sm) {
+						padding-bottom: rem(0);
+					}
+				}
+
 				.quickview {
 					display: none;
 				}
@@ -1268,6 +1274,9 @@
 
 				.slick-dots {
 					bottom: rem(-12);
+					@include media-breakpoint-down(sm) {
+						bottom: rem(-15);
+					}
 
 					li {
 						margin: 0 rem(5);
