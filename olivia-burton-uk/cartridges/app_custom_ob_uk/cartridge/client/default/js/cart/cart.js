@@ -499,6 +499,11 @@ module.exports = function () {
                     setAnalyticsTrackingByAJAX.cartAnalyticsTrackingData = data.cartAnalyticsTrackingData;
                     window.dispatchEvent(setAnalyticsTrackingByAJAX);
                 }
+                
+                if (window.Resources.LISTRAK_ENABLED) {
+                    var ltkSendSCA = require('listrak_custom/ltkSendSCA');
+                    ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
+                }
 
                 $.spinner().stop();
             },

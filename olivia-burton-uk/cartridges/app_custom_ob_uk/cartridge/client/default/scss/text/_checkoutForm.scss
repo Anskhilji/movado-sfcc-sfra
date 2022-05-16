@@ -82,6 +82,56 @@
     }
   }
 
+.billing-address,
+.shipping-form{
+    .form-group {
+        .form-control {
+            &.is-invalid {
+                border: rem(1) solid $invalid-red;
+                background: url("../../images/invalid.svg") center right no-repeat;
+                background-position-x: 97%;
+                @include media-breakpoint-down(sm) {
+                  background: none;
+                }
+            }
+
+            &#shippingState,
+            &#shippingCountrydefault,
+            &#billingState,
+            &#billingCountry {
+                &.form-control {
+                    &.is-invalid {
+                        background-position-x: 90%;
+                    }
+                }
+            }
+
+            &#shippingZipCode,
+            &#shippingLastName,
+            &#shippingFirstName,
+            &#shippingAddressCity,
+            &#billingZipCode,
+            &#billingAddressCity,
+            &#billingFirstName,
+            &#billingLastName {
+                &.form-control {
+                    &.is-invalid {
+                        background-position-x: 93.5%;
+                    }
+                }
+            }
+        }
+
+        .invalid-feedback {
+          font-size: rem(11);
+          font-weight: 500;
+          letter-spacing: rem(0.33);
+          line-height: rem(24);
+          color: $invalid-red;
+        }
+    }
+}
+
   select.custom-select + i {
     top: rem(28.48);
   }
