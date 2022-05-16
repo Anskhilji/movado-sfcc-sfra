@@ -193,10 +193,10 @@
                                 'country': '${orderObj.orderObj.country}',
                                 'paymentMethod': '${orderObj.orderObj.paymentMethod}',
                                 <isif condition= "${Site.current.ID === 'OliviaBurtonUK'}">
-                                'shippingVatAmount': '${orderObj.orderObj.shippingVatAmount}',
-                                'shippingMerchValue': '${orderObj.orderObj.shippingMerchValue}',
-                                'orderVatAmount': '${orderObj.orderObj.orderVatAmount}',
-                                'orderMerchValue': '${orderObj.orderObj.orderMerchValue}'
+                                    'shippingVatAmount': '${orderObj.orderObj.shippingVatAmount}',
+                                    'shippingMerchValue': '${orderObj.orderObj.shippingMerchValue}',
+                                    'orderVatAmount': '${orderObj.orderObj.orderVatAmount}',
+                                    'orderMerchValue': '${orderObj.orderObj.orderMerchValue}'
                                 </isif>
                                 }
                             </isif>
@@ -222,9 +222,9 @@
                     'productQuantityTotal': '${orderObj.productObj.productQuantityTotal}',
                     'subtotal': '${orderObj.productObj.subtotal}',
                     'orderLevelDiscount': '${orderObj.productObj.orderLevelPromotionPrice}',
-                     <isif condition= "${Site.current.ID === 'OliviaBurtonUK'}">
-                    'productVatAmount': '${orderObj.productObj.productVatAmount}',
-                    'productMerchValue': '${orderObj.productObj.productMerchValue}'
+                    <isif condition= "${Site.current.ID === 'OliviaBurtonUK'}">
+                        'productVatAmount': '${orderObj.productObj.productVatAmount}',
+                        'productMerchValue': '${orderObj.productObj.productMerchValue}'
                     </isif>
                     }
                     <isif condition= "${status.index < orderProdutsArray.length-2}">,</isif>
