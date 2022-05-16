@@ -790,8 +790,7 @@
 			margin-left: auto;
 			max-width: calc(100% - 134px);
 			width: 100%;
-			max-height: rem(464);
-			height: 100%;
+			height: rem(464);
 			margin-bottom: 0;
 			// @include media-breakpoint-down(xl) {
 			// 	max-width: rem(690);
@@ -803,25 +802,29 @@
 			// 	// max-height: rem(299);
 			// }
 			@include media-breakpoint-down(md) {
-				max-height: rem(336);
+				height: rem(336);
 				max-width: calc(100% - 0px);
 			}
 
 			.main-ob-carousel {
 				padding-bottom: 0;
 				height: 100%;
+				display: none;
+				&.slick-initialized {
+					display: block;
+				}
 
 				.carousel-tile {
-				overflow: hidden;
-				// max-width: rem(656);
-				width: 100%;
-				height: 100%;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				@include media-breakpoint-down(md) {
-					max-height: rem(336);
-				}
+					overflow: hidden;
+					// max-width: rem(656);
+					width: 100%;
+					height: 100%;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					@include media-breakpoint-down(md) {
+						max-height: rem(336);
+					}
 
 					img {
 						max-width: 100%;
@@ -981,16 +984,7 @@
 	max-width: rem(468);
 	margin-left: rem(60);
 	width: 100%;
-	// @include media-breakpoint-up(xxl) {
-	// 	max-width: rem(550);
-	// }
-	// @include media-breakpoint-down(lg) {
-	// 	max-width: rem(355);
-	// 	margin-left: rem(40);
-	// }
-	// @include media-breakpoint-down(md) {
-	// 	margin-left: rem(30);
-	// }
+
 	@include media-breakpoint-down(sm) {
 		margin-left: rem(0);
 		max-width: 100%;
@@ -1005,12 +999,15 @@
 		color: $black;
 		font-family: $Adobe-Gramond-Pro-Italic;
 		margin-right: 0;
+		width: 100%;
+		margin-bottom: rem(20);
+
 		&.product-main-name {
-		margin-bottom: rem(30);
-		@include media-breakpoint-down(sm) {
-			margin-top: rem(31);
-			width: 100%;
-		}
+			margin-bottom: rem(30);
+			@include media-breakpoint-down(sm) {
+				margin-top: rem(31);
+				width: 100%;
+			}
 		}
 		@include media-breakpoint-down(sm) {
 			text-align: left;
@@ -1071,7 +1068,7 @@
 		border-radius: rem(3);
 		background-color: $pink-grey;
 		line-height: rem(41);
-		padding: rem(0) rem(20);
+		padding: rem(0) rem(17);
 		margin-bottom: rem(30);
 
 		.bundle-text {
@@ -1095,11 +1092,13 @@
 		font-weight: 300;
 		letter-spacing: 0;
 		line-height: rem(25);
-		margin-bottom: rem(30);
+
+		&.pdp-short-detail-main  {
+			margin-bottom: rem(30);
+		}
 	}
 
 	.cart-and-ipay {
-		margin-bottom: rem(20);
 		@include media-breakpoint-down(sm) {
 			padding: rem(0);
 		}
@@ -1160,6 +1159,10 @@
 
 	.setproduct-rating {
 		margin-bottom: rem(30);
+
+		.ratings {
+			margin-top: rem(0);
+		}
 	}
 
 	.setproduct-item-thumb {
@@ -1199,7 +1202,7 @@
 	.product-detail-set-item {
 		padding-bottom: rem(20);
 		@include media-breakpoint-down(sm) {
-			padding-bottom: rem(8);
+			padding-bottom: rem(0);
 		}
 
 		// primary image style
@@ -1225,7 +1228,12 @@
 				.quickview {
 					display: none;
 				}
+
 				.carousel-tile {
+					height: rem(650);
+					@include media-breakpoint-down(sm) {
+						height: rem(336);
+					}
 
 					img {
 						margin: 0 auto;
@@ -1260,6 +1268,20 @@
 
 				.slick-dots {
 					bottom: rem(-12);
+
+					li {
+						margin: 0 rem(5);
+						button {
+							width: rem(15);
+							height: rem(15);
+							outline: none;
+							box-shadow: none;
+							&:focus {
+								outline: none;
+								box-shadow: none;
+							}
+						}
+					}
 				}
 			}
 		}

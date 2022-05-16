@@ -134,7 +134,7 @@
                                 </div>
 
                                 
-                                <div class="setitem-description pdp-short-detail">
+                                <div class="setitem-description  pdp-short-detail pdp-short-detail-main">
                                     <isinclude template="/product/components/description" />
                                 </div>
 
