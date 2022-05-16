@@ -4,8 +4,6 @@
                    <div class="col-12 pdp-ob-detail-box">
                         <!-- Product Images Carousel -->
                     <isinclude template="product/components/productSet/setProductImageCarousel" />
-                    
-
                         <div class="pdp-main-product-right-box pdp-right-side-ob">
                             <!-- Product Name -->
                             <h3 class="product-name product-main-name" itemprop="name">
@@ -19,7 +17,7 @@
                                 <isset name="price" value="${product.price}" scope="page" />
                                 <isinclude template="product/components/pricing/main" />
                             </div>
-                            
+                            <!-- Affirm / Klarna  -->
                             <div class="mt-0">
                                 <isset name="fpname" value="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" scope="page" />
                                 <isset name="context" value="pdp" scope="page" />
@@ -48,7 +46,6 @@
                             </isif>
 
                         <!-- Bundle Save 25% Offer -->
-                        
                         <div class="bundle-offer-box d-flex align-items-center justify-content-center">
                                 <span class="tag-iocn d-inline-flex">
                                     <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
@@ -70,8 +67,6 @@
                                 </span>
                             <span class="bundle-text">Bundle Save 25% Offer </span>
                         </div>
-
-                        
 
                             <isloop items="${product.individualProducts}" var="productItem" status="loopState">
                                 <div class="setproduct-item-thumb d-flex align-items-center">
@@ -125,36 +120,30 @@
                                 </isif>
                             </div>
 
-
-                                <!-- Applicable Promotions -->
-                                <div class="row">
-                                    <div class="col-md-10 col-12 promotions">
-                                        <isinclude template="product/components/promotions" />
-                                    </div>
+                            <!-- Applicable Promotions -->
+                            <div class="row">
+                                <div class="col-md-10 col-12 promotions">
+                                    <isinclude template="product/components/promotions" />
                                 </div>
-
-                                
-                                <div class="setitem-description  pdp-short-detail pdp-short-detail-main">
-                                    <isinclude template="/product/components/description" />
-                                </div>
-
-                                <!-- Product Availability -->
-                            <div class="">
-                                    <isinclude template="product/components/productSet/productAvailability" />
                             </div>
 
-                                <div>
-                                    <!-- Cart and [Optionally] Apple Pay -->
-                                    <isinclude template="product/components/productSet/addToCartProduct" />
-                                </div>
-                                                            <!--addToWishListButton -->
-                              <div class="d-none">
-                                    <isinclude template="wishlist/components/addToWishListButton" />
-                              </div>
+                            <div class="setitem-description  pdp-short-detail pdp-short-detail-main">
+                                <isinclude template="/product/components/description" />
+                            </div>
 
-                            
-                            
+                            <!-- Product Availability -->
+                            <div class="">
+                                <isinclude template="product/components/productSet/productAvailability" />
+                            </div>
 
+                            <div>
+                                <!-- Cart and [Optionally] Apple Pay -->
+                                <isinclude template="product/components/productSet/addToCartProduct" />
+                            </div>
+                            <!--addToWishListButton -->
+                            <div class="d-none">
+                                <isinclude template="wishlist/components/addToWishListButton" />
+                            </div>
                         </div>
                    </div>
                 </div>

@@ -1,4 +1,4 @@
-<div class="row cart-and-ipay ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "" : ""}">
+<div class="row cart-and-ipay ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "d-none" : ""}">
     <div class="col-sm-12">
         <button class='add-to-cart btn btn-primary-cta  <isif condition="${product.isProductRestricted}">d-none</isif>'
             data-pid="${product.id}"
@@ -11,7 +11,7 @@
                 </isif>
         </button>
         <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}" />
-        
+
         <isif condition="${product.available && product.readyToOrder}">
             <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
             <isif condition="${isEswEnabled}">

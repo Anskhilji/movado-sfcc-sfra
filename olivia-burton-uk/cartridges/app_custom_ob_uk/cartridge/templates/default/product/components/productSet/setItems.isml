@@ -36,8 +36,6 @@
                                                 <isinclude template="product/components/pricing/main" />
                                             </div>
 
-                                        
-
                                             <!-- Product Availability -->
                                             <iscomment> <div class="row d-none">
                                                     <isinclude template="product/components/productAvailability" />
@@ -50,15 +48,13 @@
                                                     </div>
                                                 </div> </iscomment>
 
-                                            
-
                                                 <iscomment> <div class="row d-none">
                                                     <div class="col-12">
                                                         <!-- Cart and [Optionally] Apple Pay -->
                                                         <isinclude template="product/components/addToCartProduct" />
                                                     </div>
                                                 </div> </iscomment>
-                                                
+
                                                 <div class="setitem-description pdp-short-detail">
                                                     <isinclude template="/product/components/description" />
                                                 </div>
@@ -66,7 +62,6 @@
                                                 <div class="d-none">
                                                     <isinclude template="product/components/socialIcons" />
                                                 </div>
-
                                         </div>
                                     </div>
                                 </div>
