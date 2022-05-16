@@ -178,7 +178,7 @@ module.exports = {
                 $(this).html(html);
             }
         });
-        $('.morelink-wrapper').on('click',function(){
+        $('.morelink-wrapper').on('click',function() {
             if($(this).hasClass('less')) {
                 $(this).removeClass('less');
                 $(this).html(moretext);

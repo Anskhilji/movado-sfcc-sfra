@@ -53,7 +53,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
    var template =  showProductPageHelperResult.template;
 
     //MSS_1753 OB Product Sets Page Design Desktop
-    if(productType !== 'set'){
+    if(productType !== 'set') {
 
         // Custom Comment Start: A/B testing for OB Redesign PDP
         if (ABTestMgr.isParticipant('OBRedesignPDPABTest','Control')) {
@@ -74,7 +74,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
 
     yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
 
-    if(product.individualProducts){
+    if(product.individualProducts) {
             YotpoIntegrationHelper.getIndividualRatingOrReviewsData(yotpoConfig, product);
             productCustomHelpers.setProductAvailability(product)
     }

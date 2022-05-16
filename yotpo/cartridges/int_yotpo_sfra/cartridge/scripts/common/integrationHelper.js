@@ -150,10 +150,10 @@ function getConversionTrackingData(request, order, currentLocale) {
     };
 };
 
-function getIndividualRatingOrReviewsData(yotpoConfig, product){
-    if(product.individualProducts.length > 0){
+function getIndividualRatingOrReviewsData(yotpoConfig, product) {
+    if(product.individualProducts.length > 0) {
         var yotpoIndividualProductData = {};
-        for(var i = 0; i < product.individualProducts.length; i++){
+        for(var i = 0; i < product.individualProducts.length; i++) {
             yotpoIndividualProductData = getRatingsOrReviewsData(yotpoConfig, product.individualProducts[i].id);
             product.individualProducts[i].yotpoIndividualProductData = yotpoIndividualProductData;
             }
