@@ -124,17 +124,14 @@ function send(emailObj, template, context) {
             var ltkApi = require('*/cartridge/scripts/api/ListrakAPI');
             ltkApi.sendTransectionalEmailToListrak(requestParams);
         }
+    } else {
+        var email = new Mail();
+        email.addTo(emailObj.to);
+        email.setSubject(emailObj.subject);
+        email.setFrom(emailObj.from);
+        email.setContent(renderTemplateHelper.getRenderedHtml(context, template), 'text/html', 'UTF-8');
+        email.send();
     }
-
-
-
-
-    var email = new Mail();
-    email.addTo(emailObj.to);
-    email.setSubject(emailObj.subject);
-    email.setFrom(emailObj.from);
-    email.setContent(renderTemplateHelper.getRenderedHtml(context, template), 'text/html', 'UTF-8');
-    email.send();
 }
 
 module.exports = {
