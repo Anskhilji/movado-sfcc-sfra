@@ -60,7 +60,7 @@ function isProductBackInStockEnabled(product, apiProduct) {
 /**
  * Checks if Listrak back in stock Email or SMS functionality is enabled for provided product
  * @param {Product} apiProduct - API product 
- * @returns {Boolean}  isBackInStockEnabled
+ * @returns {Boolean}  isProductListrakBackInStockEnabled
  */
  function isProductListrakBackInStockEnabled(product, apiProduct) {
     var isProductListrakBackInStockEnabled = false;
