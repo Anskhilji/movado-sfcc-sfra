@@ -175,6 +175,7 @@
         </isloop>
         );
     </isif>
+    <isset name="Site" value="${require('dw/system/Site')}" scope="page" />
     <isif condition="${pdict.gtm.action === 'order-confirm' && session.custom.orderJustPlaced === true}">
     dataLayer.push (
         <isloop items="${pdict.gtm.orderConfirmation}" var="orderProdutsArray" status="loopStatus">
