@@ -11,7 +11,8 @@
                 </isif>
         </button>
         <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}" />
-        
+
+        <iscomment>Custom Start: Google Pay And Apple Pay</iscomment>
         <iscomment> <isif condition="${product.available && product.readyToOrder}">
             <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
             <isif condition="${isEswEnabled}">
@@ -35,5 +36,6 @@
             </isif>
         </isif>
     </div> </iscomment>
-</div>
+    <iscomment>Custom End: Google Pay And Apple Pay</iscomment>
+    </div>
 </div>

@@ -17,6 +17,7 @@ var Money = require('dw/value/Money');
 var Logger = require('dw/system/Logger');
 
 server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
+   var Constants = require('*/cartridge/scripts/utils/Constants');
    var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
    var customCategoryHelpers = require('app_custom_movado/cartridge/scripts/helpers/customCategoryHelpers');
    var SmartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
@@ -26,6 +27,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
    var youMayLikeRecommendationTypeIds = Site.getCurrent().getCustomPreferenceValue('youMayLikeRecomendationTypes');
    var moreStylesRecommendationTypeIds = Site.getCurrent().getCustomPreferenceValue('moreStylesRecomendationTypes');
    var YotpoIntegrationHelper = require('*/cartridge/scripts/common/integrationHelper.js');
+   var yotpoCustomHelper = require('*/cartridge/scripts/yotpo/helper/YotpoHelper');
    var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
    var smartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
    var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
@@ -53,7 +55,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
    var template =  showProductPageHelperResult.template;
 
     //MSS_1753 OB Product Sets Page Design Desktop
-    if(productType !== 'set') {
+    if(productType !== Constants.PRODUCT_TYPE) {
 
         // Custom Comment Start: A/B testing for OB Redesign PDP
         if (ABTestMgr.isParticipant('OBRedesignPDPABTest','Control')) {
@@ -75,8 +77,8 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
 
     if(product.individualProducts) {
-            YotpoIntegrationHelper.getIndividualRatingOrReviewsData(yotpoConfig, product);
-            productCustomHelpers.setProductAvailability(product)
+        yotpoCustomHelper.getIndividualRatingOrReviewsData(yotpoConfig, product);
+        productCustomHelpers.setProductAvailability(product)
     }
 
    /* get recommendations for product*/

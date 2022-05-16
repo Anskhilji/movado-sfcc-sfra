@@ -1,4 +1,4 @@
-<iscomment> Add New Class For The Correct Replacment of Megnifier For OB</iscomment>
+<iscomment>Custom Start:  Add New Class For The Correct Replacment of Megnifier For OB :: ob-carousel-quickview </iscomment>
 <div class="primary-images ob-carousel-quickview w-100">
     <div class="product-badges">
         <isinclude template="product/components/newnessBadge" />
@@ -45,7 +45,7 @@
         </isif>
     </div>
 </div>
-
+<iscomment>Custom End:  Add New Class For The Correct Replacment of Megnifier For OB</iscomment>
 <iscomment> Zoom Modal </iscomment>
 <div class="modal fade" id="zoomProduct" role="dialog">
     <div class="modal-dialog">
