@@ -545,12 +545,12 @@
 				background-color: $gray92;
 
 				p {
-						font-family: $font-gills-light;
-						font-size: rem(12);
-						color: $black;
-						text-align: center;
-						margin: 0;
-						padding: rem(5);
+					font-family: $font-gills-light;
+					font-size: rem(12);
+					color: $black;
+					text-align: center;
+					margin: 0;
+					padding: rem(5);
 				}
 
 				&-add {
@@ -593,21 +593,21 @@
 
 				&:checked ~ {
 
-						.upsell-text {
+					.upsell-text {
 
-								.upsell-text-add {
-										display: none;
-								}
-
-								.upsell-text-added {
-										display: block;
-										color: $white;
-								}
+						.upsell-text-add {
+							display: none;
 						}
 
-						.upsell-wrapper-inner {
-								border-color: $pink-hot;
+						.upsell-text-added {
+							display: block;
+							color: $white;
 						}
+					}
+
+					.upsell-wrapper-inner {
+						border-color: $pink-hot;
+					}
 				}
 			}
 		}
@@ -627,12 +627,12 @@
 			border: none;
 
 			&.slick-disabled {
-					background: none;
-					pointer-events: none;
+				background: none;
+				pointer-events: none;
 			}
 
 			&:focus {
-					outline: none;
+				outline: none;
 			}
 		}
 
