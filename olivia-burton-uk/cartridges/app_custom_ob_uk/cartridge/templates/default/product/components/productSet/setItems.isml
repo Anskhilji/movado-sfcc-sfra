@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-12 padd-0">
         <div class="set-items" itemtype="http://schema.org/SomeProducts" itemid="#product">
-            <div class="pdp-accordion-ob" id="accordionExample">
+            <div class="pdp-accordion-ob" id="accordion-product-sets">
                 <isloop items="${product.individualProducts}" var="productItem" status="loopState">
                     <isset name="product" value="${productItem}" scope="page" />
                     <div class="accordion-ob-box">
@@ -26,7 +26,7 @@
                                                 </a>
                                             </h3>
 
-                                            <div class="setproduct-rating">
+                                            <div class="set-product-rating">
                                                 <isinclude template="product/components/productSet/pidIndividualRating" />
                                             </div>
 

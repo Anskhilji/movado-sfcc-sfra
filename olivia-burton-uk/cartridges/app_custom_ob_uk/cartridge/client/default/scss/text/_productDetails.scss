@@ -695,7 +695,7 @@
 // set product detail PDP new design
 .padd-0 {
 	@include media-breakpoint-down(sm) {
-	  padding: rem(0);
+		padding: rem(0);
 	}
 }
   
@@ -830,7 +830,7 @@
 					}
 				}
 
-				// slick dots syyling
+				// slick dots styling
 				.slick-dots {
 					flex-direction: column;
 					max-width: rem(81);
@@ -1041,7 +1041,7 @@
 		}
 
 		.price-pdp-mvmt {
-			color: $black33;
+			color: $black3;
 			font-family: $font-gills-light;
 			font-size: rem(34);
 			font-weight: 300;
@@ -1078,7 +1078,7 @@
 	}
 
 	.pdp-short-detail {
-		color: $black33;
+		color: $black3;
 		font-family: $font-gills-light;
 		font-size: rem(15);
 		font-weight: 300;
@@ -1098,7 +1098,7 @@
 		.add-to-cart {
 			height: rem(45);
 			width: rem(330);
-			color: $black11;
+			color: $black1;
 			font-family: $font-gill-std-medium;
 			font-size: rem(15);
 			font-weight: 600;
@@ -1118,14 +1118,14 @@
 			align-items: center;
 			font-family: $font-gill-std-medium;
 			font-size: rem(15);
-			color: $grey7B;
+			color: $grey8;
 			font-weight: 600;
 			letter-spacing: 0;
 			line-height: rem(20);
 			text-transform: capitalize;
 
 			.availability-msg {
-				border-right: rem(2) solid $grey7B;
+				border-right: rem(2) solid $grey8;
 				padding-right: rem(10);
 				margin-bottom: rem(0);
 
@@ -1141,7 +1141,7 @@
 	}
 
 	.add-to-wish-list {
-		color: #2e2e2e;
+		color: $black2;
 		font-family: $font-gills-light;
 		font-size: rem(15);
 		font-weight: 400;
@@ -1150,7 +1150,7 @@
 		padding: 0;
 	}
 
-	.setproduct-rating {
+	.set-product-rating {
 		margin-bottom: rem(30);
 
 		.ratings {
@@ -1158,14 +1158,14 @@
 		}
 	}
 
-	.setproduct-item-thumb {
+	.set-product-item-thumb {
 		margin-bottom: rem(30);
 
 		&-img {
 			height: rem(72);
 			width: rem(68);
 			min-width: rem(68);
-			background-color: $greyFA;
+			background-color: $grey2;
 			margin-right: rem(30);
 			@include media-breakpoint-down(sm) {
 				margin-right: rem(20);
@@ -1173,7 +1173,7 @@
 		}
 
 		&-title {
-			color: $grey57;
+			color: $grey1;
 			font-family: $font-gill-std-medium;
 			font-size: rem(16);
 			font-weight: 600;
@@ -1308,7 +1308,7 @@
 
 		&-header {
 			min-height: rem(50);
-			background-color: $grey134;
+			background-color: $grey3;
 			padding: rem(4) rem(25) rem(4) rem(27);
 			cursor: pointer;
 			@include media-breakpoint-down(sm) {
@@ -1336,29 +1336,29 @@
 				}
 			}
 
-		.plus-minus-icon {
-			margin-left: rem(10);
+			.plus-minus-icon {
+				margin-left: rem(10);
 
-			&::before {
-				content: "";
-				display: block;
-				height: rem(2);
-				width: rem(12);
-				border-radius: rem(1);
-				background-color: $grey75;
+				&::before {
+					content: "";
+					display: block;
+					height: rem(2);
+					width: rem(12);
+					border-radius: rem(1);
+					background-color: $grey4;
+				}
+				&::after {
+					content: "";
+					display: block;
+					height: rem(2);
+					width: rem(12);
+					border-radius: rem(1);
+					background-color: $grey4;
+					transition: all 0.4s;
+					transform: rotate(0deg) translateX(0);
+					opacity: 0;
+				}
 			}
-			&::after {
-				content: "";
-				display: block;
-				height: rem(2);
-				width: rem(12);
-				border-radius: rem(1);
-				background-color: $grey75;
-				transition: all 0.4s;
-				transform: rotate(0deg) translateX(0);
-				opacity: 0;
-			}
-		}
 		}
 	}
 }
@@ -1368,7 +1368,7 @@
 	.card-attributes {
 
 		.attributes-bar {
-			color: $grey3c;
+			color: $grey5;
 			font-family: $font-gill-std-medium;
 			font-size: rem(18);
 			font-weight: 600;
@@ -1377,7 +1377,7 @@
 			background: none;
 			outline: none;
 			border: none;
-			border-top: $greybd solid rem(1);
+			border-top: $grey6 solid rem(1);
 			padding: rem(20) rem(0);
 			width: 100%;
 		}
@@ -1398,7 +1398,7 @@
 				height: rem(2);
 				width: rem(12);
 				border-radius: rem(1);
-				background-color: $grey75;
+				background-color: $grey4;
 			}
 			&::after {
 				content: "";
@@ -1406,7 +1406,7 @@
 				height: rem(2);
 				width: rem(12);
 				border-radius: rem(1);
-				background-color: $grey75;
+				background-color: $grey4;
 				transition: all 0.4s;
 				transform: rotate(0deg) translateX(0);
 				opacity: 0;
