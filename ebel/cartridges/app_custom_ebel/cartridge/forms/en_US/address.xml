@@ -18,7 +18,7 @@
            />
     <field formid="email" label="profile.email" type="string" mandatory="true" binding="email"
            max-length="254" missing-error="error.card.info.missing.email"
-           regexp="(^(?=[\w]{1,64}(?!.*?\.\.)+(?!\@)+[\w!.#$%&amp;&apos;*+-=?^_`{|}~\S]{1,64})+[^\()\[\]\\@,;:&quot;&lt;\s]{1,64}[^\/()\[\]\\@.,;:&quot;&lt;\s-]+@[^\/()\[\]\\@!.,;:#$%*+=?^_`{|}~&quot;&amp;&apos;&lt;+\s\-][\w\.\-]{0}[^\/()\[\]\\@,;:!#$%*+=?^_`{|}~&quot;&amp;&apos;&lt;\s]+[\.]+(?!.*web|.*'')[\w\.]{1,6}[^0-9\-()\[\]\\@\/.,;:!#$%*+=?^_`{|}~&quot;&amp;&apos;&lt;\.\s]+$)"
+           regexp="(^(?=[\w]{1,64}(?!.*?\.\.)+(?!\@)+[\w!.#$%&amp;&apos;*+-=?^_`{|}~\S]{1,64})+[^\()\[\]\\@,;:&quot;&lt;\s]{1,64}[^\/()\[\]\\@.,;:&quot;&lt;\s-]+@[^\/()\[\]\\@!.,;:#$%*+=?^_`{|}~&quot;&amp;&apos;&lt;+\s\-][\w\.\-]*[^\/()\[\]\\@,;:!#$%*+=?^_`{|}~&quot;&amp;&apos;&lt;\s]*[\.]+(?!.*web|.*'')[A-Za-z]{2,15}$)
            parse-error="error.message.email.invalid"
            />
     <field formid="subscribetomovado"
