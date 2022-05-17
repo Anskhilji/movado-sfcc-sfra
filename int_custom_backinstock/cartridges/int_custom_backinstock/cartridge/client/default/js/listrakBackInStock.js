@@ -6,7 +6,7 @@ $('.form').submit(function(e) {
     e.preventDefault();
     var $bisContainerMain = $('.listrak-back-in-stock-notification-container-main');
     var $form = $('.back-in-stock-notification-form');
-    var $pid = $('#ProductSKU').val();
+    var $pid = $('#productSKU').val();
     var $email = '';
     var $phone = ''
     var $alertCode = $('#alertCode').val();
