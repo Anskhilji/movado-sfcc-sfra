@@ -23,7 +23,10 @@
         <a href="${pdict.urls.product}">
             <isif condition="${product && product.images}"> 
                 <picture>
-                    <isif condition="${pdict.apiProduct.images.pdp533[0]}"><img class="tile-image gtm-product" src="${pdict.apiProduct.images.pdp533[0].url}" alt="${pdict.apiProduct.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
+                    <isif condition="${product.images.tile512[0]}"><img class="tile-image gtm-product" src="${product.images.tile512[0].url}" alt="${pdict.apiProduct.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
+                    <isif condition="${product.images.tile512[0]}"><source media="(min-width: 992px)" srcset="${product.images.tile512[0].url}" /></isif>
+                    <isif condition="${product.images.tile512[0]}"><source media="(min-width: 544px)" srcset="${product.images.tile512[0].url}" /></isif>
+                    <isif condition="${product.images.tile256[0]}"><source media="(min-width: 320px)" srcset="${product.images.tile256[0].url}" /></isif>
                 </picture>
             </isif>
         </a>
