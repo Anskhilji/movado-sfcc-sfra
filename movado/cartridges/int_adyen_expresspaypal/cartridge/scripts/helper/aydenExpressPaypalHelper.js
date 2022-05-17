@@ -220,7 +220,7 @@ function formsValidation(currentBasket, formData) {
     var isAnonymous = currentBasket.getCustomer().isAnonymous();
 
     if (isAnonymous) {
-        emailValue = (formData.shopperEmail) ? formData.shopperEmail : '';
+        emailValue = 'ahsan@y.de';
         email = fetchValidatedFields(emailValue, checkoutFieldsRegex.email);
     } else {
         emailValue = currentBasket.getCustomer().getProfile().getEmail();
