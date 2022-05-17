@@ -1,10 +1,8 @@
 'use strict';
 
-// window.Resources && window.Resources.EMIAL_ADDRESS_INVALID
-
 $('.form').submit(function(e) {
     e.preventDefault();
-    var $bisContainerMain = $('.listrak-back-in-stock-notification-container-main');
+    var $backInStockContainerMain = $('.listrak-back-in-stock-notification-container-main');
     var $form = $('.back-in-stock-notification-form');
     var $pid = $('#productSKU').val();
     var $email = '';
@@ -113,7 +111,7 @@ $('.form').submit(function(e) {
         var $alertCode = alertCode;
         _ltk.Alerts.AddAlertWithIdentifiers({Identifiers:{Email:$emailAddress, PhoneNumber:$phoneNumber}, Sku:$productSKU, AlertCode:$alertCode});
         _ltk.Alerts.Submit();
-        $bisContainerMain.addClass('d-none');
+        $backInStockContainerMain.addClass('d-none');
         $listrakSuccessMsg.text(window.Resources.LISTRAK_SUCCESS_MESSAGE);
         return;
     }
