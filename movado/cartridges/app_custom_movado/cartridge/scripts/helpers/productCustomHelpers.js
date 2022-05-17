@@ -999,6 +999,30 @@ function isOnlyRedesignedBadge(product) {
 
 /**
  * It is used to get productCustomAttribute for Details and Specs Sections on PDP
+ * @param {Object} product - product object
+ * @returns {Object} - availability object
+ */
+function setProductAvailability(product) {
+    var availableProduct = false;
+    if(product.individualProducts.length > 0) {
+        for(var i = 0; i < product.individualProducts.length; i++ ) {
+            if(product.individualProducts[i].available == true) {
+                availableProduct = product.individualProducts[i].available;
+            }else{
+                availableProduct = false;
+                break;
+            }
+        }
+
+        if(availableProduct == true) {
+            product.availability = product.individualProducts[0].availability;
+            product.available = availableProduct;
+        }
+    }
+}
+
+/**
+ * It is used to get productCustomAttribute for Details and Specs Sections on PDP
  * @param {Object} apiProduct - apiProduct is from ProductMgr
  * @returns {Object} - detailAndSpecAttributes object
  */
@@ -1160,5 +1184,6 @@ module.exports = {
     formatProductId: formatProductId,
     getWishlistGtmObjforPDP: getWishlistGtmObjforPDP,
     getMarketingProducts : getMarketingProducts,
-    isOnlyRedesignedBadge: isOnlyRedesignedBadge
+    isOnlyRedesignedBadge: isOnlyRedesignedBadge,
+    setProductAvailability: setProductAvailability
 };

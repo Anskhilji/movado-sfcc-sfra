@@ -17,6 +17,7 @@ var Money = require('dw/value/Money');
 var Logger = require('dw/system/Logger');
 
 server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
+   var Constants = require('*/cartridge/scripts/utils/Constants');
    var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
    var customCategoryHelpers = require('app_custom_movado/cartridge/scripts/helpers/customCategoryHelpers');
    var SmartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
@@ -26,6 +27,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
    var youMayLikeRecommendationTypeIds = Site.getCurrent().getCustomPreferenceValue('youMayLikeRecomendationTypes');
    var moreStylesRecommendationTypeIds = Site.getCurrent().getCustomPreferenceValue('moreStylesRecomendationTypes');
    var YotpoIntegrationHelper = require('*/cartridge/scripts/common/integrationHelper.js');
+   var yotpoCustomHelper = require('*/cartridge/scripts/yotpo/helper/YotpoHelper');
    var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
    var smartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
    var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
@@ -50,16 +52,21 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
    var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
    var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
    var productType = showProductPageHelperResult.product.productType;
-   var template = null;
+   var template =  showProductPageHelperResult.template;
 
-   // Custom Comment Start: A/B testing for OB Redesign PDP
-   if (ABTestMgr.isParticipant('OBRedesignPDPABTest','Control')) {
-       template = '/product/old/productDetails';
-   } else if (ABTestMgr.isParticipant('OBRedesignPDPABTest','render-new-design')) {
-       template =  showProductPageHelperResult.template;
-   } else {
-       template = '/product/old/productDetails';
-   }
+    //MSS_1753 OB Product Sets Page Design Desktop
+    if(productType !== Constants.PRODUCT_TYPE) {
+
+        // Custom Comment Start: A/B testing for OB Redesign PDP
+        if (ABTestMgr.isParticipant('OBRedesignPDPABTest','Control')) {
+            template = '/product/old/productDetails';
+        } else if (ABTestMgr.isParticipant('OBRedesignPDPABTest','render-new-design')) {
+            template =  showProductPageHelperResult.template;
+        } else {
+            template = '/product/old/productDetails';
+        }
+
+    }
    // Custom Comment End: A/B testing for OB Redesign PDP
 
     var viewData = res.getViewData();
@@ -68,6 +75,11 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var productUrl = URLUtils.url('Product-Show', 'pid', !empty(product) ? product.id : '').relative().toString();
 
     yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
+
+    if(product.individualProducts) {
+        yotpoCustomHelper.getIndividualRatingOrReviewsData(yotpoConfig, product);
+        productCustomHelpers.setProductAvailability(product)
+    }
 
    /* get recommendations for product*/
    if (product) {

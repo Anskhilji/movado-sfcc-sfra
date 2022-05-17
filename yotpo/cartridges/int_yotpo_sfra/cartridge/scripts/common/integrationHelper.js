@@ -148,8 +148,7 @@ function getConversionTrackingData(request, order, currentLocale) {
         isCartridgeEnabled: isCartridgeEnabled,
         conversionTrackingURL: conversionTrkURL
     };
-}
-
+};
 
 module.exports = {
     getRatingsOrReviewsData: getRatingsOrReviewsData,

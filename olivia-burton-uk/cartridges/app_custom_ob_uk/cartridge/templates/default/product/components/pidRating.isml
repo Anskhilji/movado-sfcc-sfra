@@ -1,0 +1,11 @@
+<iscomment>added d-none class and drop a hint link </iscomment>
+<div class="product-number-rating clearfix">
+    <iscomment> <div class="product-number d-none hidden-xs-down pull-left">
+        <isinclude template="product/components/productNumber" />
+    </div> </iscomment>
+    <!-- Product Rating -->
+    <div class="ratings pull-left">
+        <isinclude template="product/components/productRating" />
+    </div>
+    <a href="${URLUtils.https('ShareByEmail-ShowModal')}?pid=${product.id}" data-toggle="modal" data-target="#sendtofriendform" class="email-share drop-hint">${Resource.msg('label.product.drop.hint', 'product', 'null')}</a>
+</div>

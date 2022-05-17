@@ -1,0 +1,151 @@
+<div class="set-items" itemtype="http://schema.org/SomeProducts" itemid="#product">
+            <div class="product-detail-setmain-item set-item" data-pid="${product.id}" itemscope itemtype="http://schema.org/Product">
+                <div class="row">
+                   <div class="col-12 pdp-ob-detail-box">
+                        <!-- Product Images Carousel -->
+                    <isinclude template="product/components/productSet/setProductImageCarousel" />
+                        <div class="pdp-main-product-right-box pdp-right-side-ob">
+                            <!-- Product Name -->
+                            <h3 class="product-name product-main-name" itemprop="name">
+                                <a href="${URLUtils.url('Product-Show', 'pid', product.id)}">
+                                    ${product.productName}
+                                </a>
+                            </h3>
+
+                            <!-- Prices -->
+                            <div class="prices prices-main">
+                                <isset name="price" value="${product.price}" scope="page" />
+                                <isinclude template="product/components/pricing/main" />
+                            </div>
+                            <!-- Affirm / Klarna  -->
+                            <div class="mt-0">
+                                <isset name="fpname" value="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" scope="page" />
+                                <isset name="context" value="pdp" scope="page" />
+                                <isset name="country" value="${request.httpParameterMap.get('country').value}" scope="page" />
+                                <isinclude url="${URLUtils.https('Affirm-AffirmBanner', 'pid', product.id, 'context', context, 'fpname', fpname, 'country', country)}"/>
+                            </div>
+                            <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
+                            <isif condition="${isEswEnabled}" >
+                                <isset name="klarnaAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
+                                <isif condition="${klarnaAllowedCountry}">
+                                    <isif condition="${dw.system.Site.getCurrent().preferences.custom.klarnaPdpPromoMsg}"> 
+                                        <div class="col-12 text-center px-0 text-sm-left">
+                                            <isinclude url="${URLUtils.https('Adyen-KlarnaBanner', 'klarnaProductPrice', pdict.klarnaProductPrice)}"/>
+                                        </div>
+                                    </isif>
+                                </isif>
+                            <iselse>
+                                <isset name="klarnaAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
+                                <isif condition="${klarnaAllowedCountry}">
+                                    <isif condition="${dw.system.Site.getCurrent().preferences.custom.klarnaPdpPromoMsg}"> 
+                                        <div class="col-12 text-center px-0 text-sm-left">
+                                            <isinclude url="${URLUtils.https('Adyen-KlarnaBanner', 'klarnaProductPrice', pdict.klarnaProductPrice)}"/>
+                                        </div>
+                                    </isif>
+                                </isif>
+                            </isif>
+
+                        <!-- Bundle Save 25% Offer -->
+                        <div class="bundle-offer-box d-flex align-items-center justify-content-center">
+                                <span class="tag-iocn d-inline-flex">
+                                    <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+                                    width="20px" height="20px" viewBox="0 0 778.000000 778.000000"
+                                    preserveAspectRatio="xMidYMid meet">
+
+                                    <g transform="translate(0.000000,778.000000) scale(0.100000,-0.100000)"
+                                    fill="#000000" stroke="none">
+                                    <path d="M288 7761 c-31 -10 -72 -28 -91 -40 -59 -36 -143 -135 -169 -198
+                                    l-23 -58 -3 -1415 c-3 -1545 -4 -1488 55 -1653 31 -88 91 -210 140 -286 49
+                                    -76 3956 -3989 4035 -4041 121 -80 275 -91 406 -30 64 29 142 106 1569 1533
+                                    1444 1444 1503 1505 1535 1572 31 65 33 77 33 175 0 94 -3 112 -29 170 -28 62
+                                    -121 157 -1990 2029 -1079 1080 -1993 1989 -2032 2020 -78 63 -228 144 -341
+                                    184 -164 59 -109 57 -1637 56 -1324 0 -1404 -1 -1458 -18z m985 -741 c184 -71
+                                    291 -272 243 -460 -31 -122 -104 -213 -211 -266 -240 -117 -519 28 -566 294
+                                    -36 202 107 409 311 452 61 12 160 3 223 -20z"/>
+                                    </g>
+                                    </svg>
+                                </span>
+                            <span class="bundle-text">Bundle Save 25% Offer </span>
+                        </div>
+
+                            <isloop items="${product.individualProducts}" var="productItem" status="loopState">
+                                <div class="set-product-item-thumb d-flex align-items-center">
+                                    <isset name="individualProducts" value="${productItem}" scope="page" />
+                                    <div class="set-product-item-thumb-img d-flex align-items-center justify-content-center">
+                                        <img src="${individualProducts.images.tile150[0].url}" alt="${individualProducts.images.tile150[0].alt}">
+                                    </div>
+                                    <div class="set-product-item-thumb-title">
+                                        ${individualProducts.productName}
+                                    </div>
+                                </div>
+                            </isloop>
+                            <div class="d-none">
+                                <isinclude template="product/components/pidRating" />
+                            </div>
+
+                            <div class="row justify-content-center d-none">
+                                <div class="col-md-10 col-12">
+                                    <isinclude template="product/components/mainAttributes" />
+
+                                    <isif condition="${product.variationAttributes}">
+                                        <isloop items="${product.variationAttributes}" var="attr" status="attributeStatus">
+                                            <div data-attr="${attr.id}" class="swatch">
+                                                <isif condition="${attributeStatus.last && !isBundle && product.options.length === 0}">
+                                                    <!-- Quantity Drop Down Menu -->
+                                                    <div class="quantity col-sm-6">
+                                                        <isinclude template="product/components/quantity" />
+                                                    </div>
+                                                </isif>
+                                                <isinclude template="product/components/variationAttribute" />
+                                            </div>
+                                        </isloop>
+                                    </isif>
+                                    <isif condition="${product.options && product.options.length}">
+                                        <div class="row">
+                                            <isinclude template="product/components/options" />
+                                        </div>
+                                    </isif>
+                                    <isif condition="${(product.options && !product.options.length && !product.variationAttributes)}">
+                                        <div class="simple-quantity">
+                                            <isinclude template="/product/components/quantity" />
+                                        </div>
+                                    </isif>
+                                </div>
+
+                                <!-- Size Chart -->
+                                <isif condition="${product.variationAttributes && product.sizeChartId}">
+                                    <span class="col-12 col-md-10 size-chart">
+                                        <isinclude template="product/components/sizeChart" />
+                                    </span>
+                                </isif>
+                            </div>
+
+                            <!-- Applicable Promotions -->
+                            <div class="row">
+                                <div class="col-md-10 col-12 promotions">
+                                    <isinclude template="product/components/promotions" />
+                                </div>
+                            </div>
+
+                            <div class="setitem-description  pdp-short-detail pdp-short-detail-main">
+                                <isinclude template="/product/components/description" />
+                            </div>
+
+                            <!-- Product Availability -->
+                            <div class="">
+                                <isinclude template="product/components/productSet/productAvailability" />
+                            </div>
+
+                            <div>
+                                <!-- Cart and [Optionally] Apple Pay -->
+                                <isinclude template="product/components/productSet/addToCartProduct" />
+                            </div>
+                            <!--addToWishListButton -->
+                            <div class="d-none">
+                                <isinclude template="wishlist/components/addToWishListButton" />
+                            </div>
+                        </div>
+                   </div>
+                </div>
+            </div>
+</div>
