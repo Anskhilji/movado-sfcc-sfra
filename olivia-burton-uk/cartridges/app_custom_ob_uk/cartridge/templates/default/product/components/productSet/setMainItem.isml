@@ -7,9 +7,7 @@
                         <div class="pdp-main-product-right-box pdp-right-side-ob">
                             <!-- Product Name -->
                             <h3 class="product-name product-main-name" itemprop="name">
-                                <a href="${URLUtils.url('Product-Show', 'pid', product.id)}">
-                                    ${product.productName}
-                                </a>
+                                ${product.productName}
                             </h3>
 
                             <!-- Prices -->
