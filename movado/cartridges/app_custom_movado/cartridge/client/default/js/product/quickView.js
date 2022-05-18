@@ -116,9 +116,9 @@ function fillModalElement(selectedValueUrl, gtmProdObj) {
                 //Custom End
             }, 1000);
             if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
-                if (document.readyState === 'complete') {
+                affirm.ui.ready(function(){
                     affirm.ui.refresh();
-                }
+                });
             }
             $.spinner().stop();
             if(data.isanalyticsTrackingEnabled && data.pdpAnalyticsTrackingData && typeof setAnalyticsTrackingByAJAX != 'undefined') {

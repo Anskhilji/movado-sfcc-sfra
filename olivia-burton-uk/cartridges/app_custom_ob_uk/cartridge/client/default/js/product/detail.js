@@ -152,7 +152,9 @@ $(document).ready(function () {
 function refreshAffirmUI() {
     if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
         if (document.readyState === "complete") {
-            affirm.ui.refresh();
+            affirm.ui.ready(function(){
+                affirm.ui.refresh();
+            });
         } else {
             setTimeout(function () {
                 refreshAffirmUI();
