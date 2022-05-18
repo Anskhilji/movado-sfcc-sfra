@@ -4,38 +4,44 @@
         </isloop>
         <isif condition="${pdict.display.redesignPDPCarousel}">
             <a href="${pdict.urls.product}">
-                <picture class="tile-picture tile-picture-primary">
-                    <isif condition="${product.images.tile512[0]}"><img class="tile-image gtm-product" src="${product.images.tile512[0].url}" alt="${pdict.apiProduct.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
-                    <isif condition="${product.images.tile512[0]}"><source media="(min-width: 992px)" srcset="${product.images.tile512[0].url}" /></isif>
-                    <isif condition="${product.images.tile512[0]}"><source media="(min-width: 544px)" srcset="${product.images.tile512[0].url}" /></isif>
-                    <isif condition="${product.images.tile256[0]}"><source media="(min-width: 320px)" srcset="${product.images.tile256[0].url}" /></isif>
-                </picture>
-
-                <picture class="tile-picture tile-picture-hidden">
-                    <isif condition="${pdict.apiProduct.images.pdp533[3] || pdict.apiProduct.images.pdp533[0]}">
-                        <isif condition="${product.images.tile512[0]}"><img class="tile-image gtm-product" src="${product.images.tile512[0].url}" alt="${pdict.apiProduct.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
-                        <isif condition="${product.images.tile512[0]}"><source media="(min-width: 992px)" srcset="${product.images.tile512[0].url}" /></isif>
-                        <isif condition="${product.images.tile512[0]}"><source media="(min-width: 544px)" srcset="${product.images.tile512[0].url}" /></isif>
-                        <isif condition="${product.images.tile256[0]}"><source media="(min-width: 320px)" srcset="${product.images.tile256[0].url}" /></isif>
+                <isif condition="${!empty(pdict.apiProduct) && !empty(pdict.apiProduct.images)}">
+                    <isif condition="${(!empty(pdict.apiProduct.images.tile512[0]) && !empty(pdict.apiProduct.images.tile512[0].url)) && !empty(pdict.apiProduct.images.tile256[0]) && !empty(pdict.apiProduct.images.tile256[0].url))}">
+                        <picture class="tile-picture tile-picture-primary">
+                            <img class="tile-image gtm-product" src="${pdict.apiProduct.images.tile512[0].url}" alt="${pdict.apiProduct.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/>
+                            <source media="(min-width: 992px)" srcset="${pdict.apiProduct.images.tile512[0].url}" />
+                            <source media="(min-width: 544px)" srcset="${pdict.apiProduct.images.tile512[0].url}" />
+                            <source media="(min-width: 320px)" srcset="${pdict.apiProduct.images.tile256[0].url}" />
+                        </picture>
                     </isif>
-                </picture>
+                    <isif condition="${(!empty(pdict.apiProduct.images.tile512[3]) || !empty(pdict.apiProduct.images.tile512[0])) && (!empty(pdict.apiProduct.images.tile256[3]) || !empty(pdict.apiProduct.images.tile256[0]))}">
+                        <picture class="tile-picture tile-picture-hidden">
+                            <img class="tile-image gtm-product" src="${!empty(pdict.apiProduct.images.tile512[3].url) ? pdict.apiProduct.images.tile512[3].url: pdict.apiProduct.images.tile512[0].url}" alt="${pdict.apiProduct.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/>
+                            <source media="(min-width: 992px)" srcset="${!empty(pdict.apiProduct.images.tile512[3].url) ? pdict.apiProduct.images.tile512[3].url: pdict.apiProduct.images.tile512[0].url}" />
+                            <source media="(min-width: 544px)" srcset="${!empty(pdict.apiProduct.images.tile512[3].url) ? pdict.apiProduct.images.tile512[3].url: pdict.apiProduct.images.tile512[0].url}" />
+                            <source media="(min-width: 320px)" srcset="${!empty(pdict.apiProduct.images.tile256[3].url) ? pdict.apiProduct.images.tile256[3].url : pdict.apiProduct.images.tile256[0].url}" />
+                        </picture>
+                    </isif>
+                </isif>
             </a>
         <iselse/>
             <a href="${pdict.urls.product}">
-                <picture class="tile-picture tile-picture-primary">
-                    <isif condition="${product.images.tile512[0]}"><img class="tile-image gtm-product" src="${product.images.tile512[0].url}" alt="${pdict.apiProduct.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
-                    <isif condition="${product.images.tile512[0]}"><source media="(min-width: 992px)" srcset="${product.images.tile512[0].url}" /></isif>
-                    <isif condition="${product.images.tile512[0]}"><source media="(min-width: 544px)" srcset="${product.images.tile512[0].url}" /></isif>
-                    <isif condition="${product.images.tile256[0]}"><source media="(min-width: 320px)" srcset="${product.images.tile256[0].url}" /></isif>
-                </picture>
-
-                <picture class="tile-picture tile-picture-hidden">
-                    <isif condition="${pdict.apiProduct.images.pdp533[3] || pdict.apiProduct.images.pdp533[0]}">
-                        <isif condition="${product.images.tile512[0]}"><img class="tile-image gtm-product" src="${product.images.tile512[0].url}" alt="${pdict.apiProduct.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
-                        <isif condition="${product.images.tile512[0]}"><source media="(min-width: 992px)" srcset="${product.images.tile512[0].url}" /></isif>
-                        <isif condition="${product.images.tile512[0]}"><source media="(min-width: 544px)" srcset="${product.images.tile512[0].url}" /></isif>
-                        <isif condition="${product.images.tile256[0]}"><source media="(min-width: 320px)" srcset="${product.images.tile256[0].url}" /></isif>
+                <isif condition="${!empty(pdict.apiProduct) && !empty(pdict.apiProduct.images)}">
+                    <isif condition="${(!empty(pdict.apiProduct.images.tile512[0]) && !empty(pdict.apiProduct.images.tile512[0].url)) && !empty(pdict.apiProduct.images.tile256[0]) && !empty(pdict.apiProduct.images.tile256[0].url)}">
+                        <picture class="tile-picture tile-picture-primary">
+                            <img class="tile-image gtm-product" src="${pdict.apiProduct.images.tile512[0].url}" alt="${pdict.apiProduct.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/>
+                            <source media="(min-width: 992px)" srcset="${pdict.apiProduct.images.tile512[0].url}" />
+                            <source media="(min-width: 544px)" srcset="${pdict.apiProduct.images.tile512[0].url}" />
+                            <source media="(min-width: 320px)" srcset="${pdict.apiProduct.images.tile256[0].url}" />
+                        </picture>
                     </isif>
-                </picture>
+                    <isif condition="${(!empty(pdict.apiProduct.images.tile512[3]) || !empty(pdict.apiProduct.images.tile512[0])) && (!empty(pdict.apiProduct.images.tile256[3]) || !empty(pdict.apiProduct.images.tile256[0]))}">
+                        <picture class="tile-picture tile-picture-hidden">
+                            <img class="tile-image gtm-product" src="${!empty(pdict.apiProduct.images.tile512[3].url) ? pdict.apiProduct.images.tile512[3].url: pdict.apiProduct.images.tile512[0].url}" alt="${pdict.apiProduct.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/>
+                            <source media="(min-width: 992px)" srcset="${!empty(pdict.apiProduct.images.tile512[3].url) ? pdict.apiProduct.images.tile512[3].url: pdict.apiProduct.images.tile512[0].url}" />
+                            <source media="(min-width: 544px)" srcset="${!empty(pdict.apiProduct.images.tile512[3].url) ? pdict.apiProduct.images.tile512[3].url: pdict.apiProduct.images.tile512[0].url}" />
+                            <source media="(min-width: 320px)" srcset="${!empty(pdict.apiProduct.images.tile256[3].url) ? pdict.apiProduct.images.tile256[3].url : pdict.apiProduct.images.tile256[0].url}" />
+                        </picture>
+                    </isif>
+                </isif>
             </a>
         </isif>
