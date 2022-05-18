@@ -403,3 +403,144 @@ $stored-payment-spacing: rem(16);
 .multi-shipping {
   display: none;
 }
+
+.data-checkout-stage {
+
+  .card-border-none {
+    border: none;
+    box-shadow: none;
+    padding: rem(0);
+
+    .card-body {
+      padding: rem(0);
+
+      .shipping-address-block {
+        @include custom-media-query1440($large-screen-width1440) {
+          max-width: rem(700);
+          padding-left: rem(5);
+        }
+      }
+
+    }
+
+    &.mb-bottom-20 {
+      margin-bottom: rem(20);
+    }
+
+  }
+  .mb-bottom-20 {
+    margin-bottom: rem(20);
+  }
+
+  .field-left {
+    &.mx-field-wrapper {
+      @include custom-media-query1440($large-screen-width1440) {
+        padding: rem(0) rem(10);
+      }
+    }
+  }
+
+  .mx-field-wrapper {
+    @include custom-media-query1440($large-screen-width1440) {
+      padding: rem(0) rem(10);
+    }
+    .form-group {
+      margin-bottom: rem(20);
+    }
+  }
+
+  .field-right {
+    &.mx-field-wrapper {
+      @include custom-media-query1440($large-screen-width1440) {
+        padding: rem(0) rem(10);
+      }
+    }
+  }
+
+  .form-group {
+    .form-control {
+      &.input-wrapper-checkout {
+        height: rem(45);
+        border: rem(1) solid $grey16;
+        border-radius: rem(3);
+        color: $grey6;
+        font-size: rem(13);
+        font-weight: 500;
+        letter-spacing: rem(0.7);
+        line-height: rem(24);
+
+        &:focus {
+          border-color: $black;
+          box-shadow: none;
+          + .field__label {
+            transition: 0.2s ease-in-out;
+            top: 0;
+            left: 2em;
+            height: rem(24);
+            color: $grey15;
+            font-size: rem(10);
+            font-weight: 500;
+            letter-spacing: rem(0.7);
+            line-height: rem(24);
+            width: auto;
+          }
+        }
+      }
+
+      &.custom-select-box {
+        height: rem(45);
+        border: rem(1) solid $grey16;
+        border-radius: rem(3);
+        background-color: $grey-dark-2;
+        &:focus {
+          border-color: $black;
+          box-shadow: none;
+        }
+        + i {
+          top: rem(14);
+        }
+      }
+
+    }
+
+    .field__label {
+      position: absolute;
+      top: 1em;
+      left: 2em;
+      color: $grey15;
+      transition: 0.2s ease-in-out;
+
+      &.input-has-value {
+        transition: 0.2s ease-in-out;
+        top: 0;
+        left: 2em;
+        height: rem(24);
+        color: $grey15;
+        font-size: rem(10);
+        font-weight: 500;
+        letter-spacing: rem(0.7);
+        line-height: rem(24);
+      }
+      &::after {
+        content: "*";
+        color: $grey15;
+      }
+
+
+    }
+
+    &.required {
+      .field__label {
+        &::before {
+          content: "";
+        }
+      }
+    }
+  }
+
+  .card-header-inner-wrapper {
+    max-width: rem(350);
+    margin-bottom: rem(20);
+  }
+
+}

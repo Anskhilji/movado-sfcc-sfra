@@ -584,6 +584,7 @@ $stored-payment-spacing: rem(16);
 .multi-shipping {
   display: none;
 }
+
 .data-checkout-stage {
 
   .card-border-none {
@@ -600,7 +601,13 @@ $stored-payment-spacing: rem(16);
           padding-left: rem(5);
         }
       }
-
+      .info-icon {
+        &.info-icon-email {
+          position: absolute;
+          right: rem(20);
+          top: rem(10);
+        }
+      }
     }
 
     &.mb-bottom-20 {
@@ -623,6 +630,9 @@ $stored-payment-spacing: rem(16);
   .mx-field-wrapper {
     @include custom-media-query1440($large-screen-width1440) {
       padding: rem(0) rem(10);
+    }
+    .form-group {
+      margin-bottom: rem(20);
     }
   }
 
@@ -720,8 +730,4 @@ $stored-payment-spacing: rem(16);
     margin-bottom: rem(20);
   }
 
-}
-
-.shiping-view-container {
-  justify-content: space-between;
 }

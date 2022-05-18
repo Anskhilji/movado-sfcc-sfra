@@ -51,7 +51,7 @@ $(document).ready(function() { // eslint-disable-line
         }
     });
 
-    function checkForInput(element) {        
+    function checkForInput(element) {      
         const $label = $(element).siblings('.field__label');      
         if ($(element).val().length > 0) {
           $label.addClass('input-has-value');
@@ -66,4 +66,9 @@ $(document).ready(function() { // eslint-disable-line
       $('input.input-wrapper-checkout,select.custom-select-box').on('change keyup', function() {
         checkForInput(this);  
     });
+    $('.btn-add-new,.btn-show-details').click(function(){
+        $('.billing-address input,select').each(function() {
+            checkForInput(this);
+        });
+     });
 });

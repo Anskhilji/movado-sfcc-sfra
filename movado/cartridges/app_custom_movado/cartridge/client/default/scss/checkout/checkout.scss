@@ -503,6 +503,7 @@ header {
                 max-width: 90%;
                 margin: auto;
             }
+            
             @include custom-media-query1440($large-screen-width1440) {
                 max-width: 100%;
             }
@@ -531,7 +532,7 @@ header {
     @include media-breakpoint-up(lg) {
         padding: 0 rem(15) 0 rem(60);
         margin: rem(64) auto rem(32);
-        max-width: 100%;       
+        max-width: 100%;
     }
 
     @include media-breakpoint-up(xl) {
