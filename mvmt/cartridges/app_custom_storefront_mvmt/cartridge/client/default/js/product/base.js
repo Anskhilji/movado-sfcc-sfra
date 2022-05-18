@@ -978,6 +978,25 @@ function handleVariantResponse(response, $productContainer) {
     * Custom End:
     */
 
+      /**
+    * Custom Start: Add logic to handle listrak back in stock notifiaction content for variations
+    */
+    var $listrakBackInStockContainer = $('.listrak-back-in-stock-notification-container-main');
+    if ($listrakBackInStockContainer.length > 0) {
+        var $ctaAddToCart = $('.cta-add-to-cart');
+        $listrakBackInStockContainer.data('pid', response.product.id);
+        if (response.product.isListrakBackInStockEnabled) {
+            $listrakBackInStockContainer.removeClass('d-none');
+            $ctaAddToCart.addClass('d-none');
+        } else {
+            $listrakBackInStockContainer.addClass('d-none');
+            $ctaAddToCart.addClass('d-none');
+        }
+    }
+    /**
+    * Custom End:
+    */
+
     // Update variation id to google pay
     if (window.Resources.GOOGLE_PAY_ENABLED) {
         $('.google-pay-container').data('pid', response.product.id);
@@ -1135,6 +1154,12 @@ function handleVariantResponse(response, $productContainer) {
     var $backInStockContanier = $('.back-in-stock-notification-container');
     if ($backInStockContanier.length > 0 && response.product.productType == "master") {
         $backInStockContanier.addClass('d-none');
+    }
+
+    // Add check for master product in case of listrakbackinstcok
+    var $listrakBackInStockContainer = $('.listrak-back-in-stock-notification-container-main');
+    if ($listrakBackInStockContainer.length > 0 && response.product.productType == "master") {
+        $listrakBackInStockContainer.addClass('d-none');
     }
 
     // Handle out of stock button scenario for new varition secnarios

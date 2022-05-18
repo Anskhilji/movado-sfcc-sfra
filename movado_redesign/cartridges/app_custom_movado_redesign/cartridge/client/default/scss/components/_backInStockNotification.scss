@@ -17,6 +17,24 @@
         line-height: rem(22);
     }
 
+    &-phone {
+        width: 100%;
+        border-radius: 0;
+        border: rem(1) solid $black;
+        height: rem(45);
+        padding-left: rem(15);
+        padding-right: rem(97);
+        background: transparent;
+
+        &:focus {
+            outline: $black;
+        }
+
+        &:-ms-clear {
+            display: none;
+        }
+    }
+
     &-container-success {
         p {
             color: $black;
@@ -28,6 +46,13 @@
 
         @include media-breakpoint-down(lg) {
             max-width: 100%;
+        }
+
+        .error-msg {
+            text-align: left;
+            color: $red;
+            margin: rem(5) 0;
+
         }
     }
 }
