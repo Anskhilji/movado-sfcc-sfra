@@ -764,19 +764,23 @@
 	// main product box
 	margin-bottom: rem(0);
 	@include media-breakpoint-up(xl) {
-		max-width: rem(1430);
+		max-width: rem(1440);
 	}
 
 // main product image carousel
 
 	.primary-mainpdp-images {
 		margin-top: rem(95);
-		width: calc(100% - 38%);
+		max-width: calc(100% - 610px);
+		width: 100%;
+		@include media-breakpoint-down(lg) {
+			max-width: calc(100% - 40%);
+		}
 		@include media-breakpoint-down(md) {
-			width: calc(100% - 50%);
+			max-width: calc(100% - 50%);
 		}
 		@include media-breakpoint-down(sm) {
-			width: calc(100% - 0%);
+			max-width: calc(100% - 0%);
 		}
 
 		@include media-breakpoint-down(sm) {
@@ -794,8 +798,11 @@
 			height: rem(464);
 			margin-bottom: 0;
 			
+			@include media-breakpoint-up(md) {
+				margin-bottom: rem(71);
+			}
 			@include media-breakpoint-down(md) {
-				height: rem(336);
+				height: rem(364);
 				max-width: calc(100% - 0px);
 			}
 
@@ -814,16 +821,20 @@
 					display: flex;
 					align-items: center;
 					justify-content: center;
-					@include media-breakpoint-down(md) {
-						max-height: rem(336);
-					}
+					// // max-height: rem(464);
+					// @include media-breakpoint-down(md) {
+					// 	max-height: rem(453);
+					// }
+					// @include media-breakpoint-down(sm) {
+					// 	max-height: rem(453);
+					// }
 
 					img {
 						max-width: 100%;
-						height: rem(464);
+						max-height: rem(464);
 						margin: 0 auto;
 						@include media-breakpoint-down(md) {
-							height: rem(336);
+							height: rem(364);
 						}
 						@include media-breakpoint-down(sm) {
 							height: rem(336);
@@ -838,6 +849,14 @@
 					min-width: rem(81);
 					left: rem(-134);
 					top: 0;
+					max-height: rem(400);
+					overflow-y: auto;
+					overflow-x: hidden;
+					justify-content: flex-start;
+					&::-webkit-scrollbar {
+						display: none;
+						width: 0;
+					}
 					@include media-breakpoint-down(md) {
 						flex-direction: row;
 						left: rem(0);
@@ -878,10 +897,11 @@
 							display: flex;
 							align-items: center;
 							justify-content: center;
+							transition: all .4s;
 							@include media-breakpoint-down(md) {
-								max-width: rem(71);
-								min-width: rem(71);
-								max-height: rem(71);
+								max-width: rem(68);
+								min-width: rem(68);
+								max-height: rem(68);
 							}
 
 							img {
@@ -889,13 +909,13 @@
 								width: rem(80);
 								height: rem(80);
 								@include media-breakpoint-down(md) {
-									height: rem(71);
-									width: rem(71);
+									height: rem(68);
+									width: rem(68);
 								}
 							}
 						}
 
-						&.slick-active {
+						&.slick-active,&:hover {
 							button {
 								border-color: $pink-grey-light;
 							}
@@ -910,7 +930,7 @@
 					@include media-breakpoint-down(md) {
 						height: rem(55);
 						width: rem(55);
-						background-size: rem(12) rem(33);
+						background-size: rem(18) rem(33);
 					}
 
 					@include media-breakpoint-down(sm) {
@@ -922,6 +942,7 @@
 					&.slick-prev {
 						background-image: url(../../images/RightArrow-left.png);
 						left: rem(36);
+						background-color: transparent;
 						@include media-breakpoint-down(sm) {
 						left: rem(20);
 						}
@@ -929,6 +950,7 @@
 					&.slick-next {
 						background-image: url(../../images/RightArrow-right.png);
 						right: rem(36);
+						background-color: transparent;
 						@include media-breakpoint-down(sm) {
 							right: rem(20);
 						}
@@ -942,11 +964,12 @@
 				height: rem(40);
 				position: absolute;
 				bottom: rem(-71);
-				left: rem(0);
+				left: rem(5);
 				outline: none;
 				box-shadow: none;
 				@include media-breakpoint-down(md) {
 					bottom: rem(33);
+					left: rem(0);
 				}
 
 				&.btn:not(:disabled):not(.disabled):active,
@@ -964,8 +987,8 @@
   
 .pdp-ob-detail-box {
 	display: flex;
-	justify-content: space-between;
 	flex-direction: row;
+	padding: rem(0) rem(20);
 	@include media-breakpoint-down(sm) {
 		flex-direction: column;
 		display: unset;
@@ -973,7 +996,7 @@
 }
   
 .pdp-right-side-ob {
-	max-width: rem(468);
+	max-width: rem(550);
 	margin-left: rem(60);
 	width: 100%;
 
@@ -981,7 +1004,6 @@
 		margin-left: rem(0);
 		max-width: 100%;
 		margin-top: rem(41);
-		padding: rem(0) rem(5);
 	}
 
 	.product-name {
@@ -1038,6 +1060,8 @@
 				font-family: $font-gills-light;
 				font-size: rem(18);
 				font-weight: 300;
+				color: $black3;
+				text-decoration:none;
 			}
 		}
 
@@ -1051,15 +1075,31 @@
 		}
 	}
 
-	.klarna-promo-parent-container {
+	.klarna-promo-parent-container, .affirm-as-low-as {
 		margin-bottom: rem(20);
 	}
+
+	.affirm-as-low-as {
+		color: $black3;
+		font-family: $font-gills-light;
+		font-size: rem(14);
+		font-style: italic;
+		letter-spacing: 0;
+		line-height: rem(24);
+		height: rem(20);
+
+		.affirm-modal-trigger {
+			padding: rem(0);
+			display: inline-block
+		}
+	}
+	
 
 	.bundle-offer-box {
 		height: rem(44);
 		width: rem(218);
 		border-radius: rem(3);
-		background-color: $pink-grey;
+		background-color: $pink-grey1;
 		line-height: rem(41);
 		padding: rem(0) rem(17);
 		margin-bottom: rem(30);
@@ -1092,6 +1132,7 @@
 	}
 
 	.cart-and-ipay {
+		margin-bottom: rem(0);
 		@include media-breakpoint-down(sm) {
 			padding: rem(0);
 		}
@@ -1156,6 +1197,27 @@
 
 		.ratings {
 			margin-top: rem(0);
+			height: rem(25);
+			
+			.standalone-bottomline {
+
+				.star-clickable {
+					align-items: center;
+		
+					.text-m {
+						color: $black3;
+						font-family: "Gill Sans";
+						font-size: rem(15);
+						font-weight: 300;
+						letter-spacing: 0;
+						line-height: rem(25);
+						margin-left: rem(15);
+						&:hover {
+							color: $black3;
+						}
+					}
+				}
+			}			
 		}
 	}
 
@@ -1253,6 +1315,7 @@
 					&.slick-prev {
 						background-image: url(../../images/RightArrow-left.png);
 						left: rem(36);
+						background-color: transparent;
 						@include media-breakpoint-down(sm) {
 							left: rem(20);
 						}
@@ -1260,6 +1323,7 @@
 					&.slick-next {
 						background-image: url(../../images/RightArrow-right.png);
 						right: rem(36);
+						background-color: transparent;
 						@include media-breakpoint-down(sm) {
 							right: rem(20);
 						}
@@ -1323,6 +1387,7 @@
 			font-size: rem(18);
 			letter-spacing: 0;
 			line-height: rem(41);
+			-webkit-text-stroke: rem(0.3) #000000;
 			@include media-breakpoint-down(sm) {
 				line-height: rem(30);
 			}
