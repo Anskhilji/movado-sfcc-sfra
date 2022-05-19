@@ -26,6 +26,7 @@ module.exports = {
         var product = Object.create(null);
         var options = null;
         var promotions;
+        // productHelper.setStockAvailability(productType, apiProduct);
 
         switch (params.pview) {
             case 'tile':

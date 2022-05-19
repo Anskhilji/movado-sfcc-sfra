@@ -368,6 +368,20 @@ function showProductPage(querystring, reqPageMetaData) {
     };
 }
 
+//custom Start : check if any product is out of stock or not in product 'SET' 
+function setStockAvailability(productType, apiProduct){
+    if(productType == 'set' && apiProduct.productSetProducts.length > 0){
+        for(var i = 0; i < apiProduct.productSetProducts.length; i++){
+            if(apiProduct.productSetProducts[i].availabilityModel.inStock == false){
+                apiProduct.availabilityModel = apiProduct.productSetProducts[i].availabilityModel;
+            }
+        }
+        // return apiProduct;
+    }
+    apiProduct;
+}
+//custom end
+
 module.exports = {
     getOptionValues: getOptionValues,
     getOptions: getOptions,
@@ -381,5 +395,6 @@ module.exports = {
     getLineItemOptionNames: getLineItemOptionNames,
     showProductPage: showProductPage,
     getAllBreadcrumbs: getAllBreadcrumbs,
-    getResources: getResources
+    getResources: getResources,
+    setStockAvailability: setStockAvailability
 };
