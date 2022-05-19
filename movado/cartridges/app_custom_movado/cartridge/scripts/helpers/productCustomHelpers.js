@@ -1003,20 +1003,14 @@ function isOnlyRedesignedBadge(product) {
  * @returns {Object} - availability object
  */
 function setProductAvailability(product) {
-    var availableProduct = false;
-    if(product.individualProducts.length > 0) {
-        for(var i = 0; i < product.individualProducts.length; i++ ) {
-            if(product.individualProducts[i].available == true) {
-                availableProduct = product.individualProducts[i].available;
-            }else{
-                availableProduct = false;
-                break;
-            }
-        }
-
-        if(availableProduct == true) {
+    for(var i = 0; i < product.individualProducts.length; i++ ) {
+        if(product.individualProducts[i].available == true) {
             product.availability = product.individualProducts[0].availability;
-            product.available = availableProduct;
+            product.available = product.individualProducts[0].available;
+        }else{
+            product.availability = product.individualProducts[i].availability;
+            product.available = product.individualProducts[i].available;
+            break;
         }
     }
 }
