@@ -6,7 +6,7 @@ $('.form').submit(function(e) {
     var $form = $('.back-in-stock-notification-form');
     var $pid = $('#productSKU').val();
     var $email = '';
-    var $phone = ''
+    var $phone = '';
     var $alertCode = $('#alertCode').val();
     var $listrakSuccessMsg= $('.listrak-success-msg');
     var $emailRequired = $('.back-in-stock-notification-error-required');
