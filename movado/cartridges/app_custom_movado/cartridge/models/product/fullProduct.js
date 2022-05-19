@@ -24,6 +24,9 @@ module.exports = function fullProduct(product, apiProduct, options) {
     var collectionName = productCustomHelper.getCollectionName(apiProduct);
     var detailAndSpecAttributes = productCustomHelpers.getPdpDetailAndSpecsAttributes(apiProduct);
     var pdpMarketingContentAssetHTML = productCustomHelper.getPDPMarketingContentAssetHTML(apiProduct);
+    // var productSetCustomHelper = require('*/cartridge/scripts/helpers/productSetCustomHelper');
+    // var productSetBasePrice = productSetCustomHelper.getProductSetBasePrice(apiProduct);
+    // var productSetSalePrice = productSetCustomHelper.getProductSetSalePrice(apiProduct);
 
     decorators.base(product, apiProduct, options.productType);
     decorators.price(product, apiProduct, options.promotions, false, options.optionModel);
@@ -108,6 +111,20 @@ module.exports = function fullProduct(product, apiProduct, options) {
             value: detailAndSpecAttributes.pdpSpecAttributes
         });
     }
+
+    // if (!empty(productSetBasePrice)) {
+    //     Object.defineProperty(product, 'productSetBasePrice', {
+    //         enumerable: true,
+    //         value: productSetBasePrice
+    //     });
+    // }
+
+    // if (!empty(productSetSalePrice)) {
+    //     Object.defineProperty(product, 'productSetSalePrice', {
+    //         enumerable: true,
+    //         value: productSetSalePrice
+    //     });
+    // }
 
     return product;
 };

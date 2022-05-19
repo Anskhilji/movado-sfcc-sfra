@@ -87,6 +87,9 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
        collectionName = !empty(product.custom.familyName) ? product.custom.familyName[0] : '';
        explicitRecommendations = productCustomHelper.getExplicitRecommendations(product.ID);
 
+       var productSetCustomHelper = require('*/cartridge/scripts/helpers/productSetCustomHelper');
+       var productSetBasePrice = productSetCustomHelper.getProductSetBasePrice(product.ID);
+
        // Custom Start: Add pricing logic for Klarna promo banners
        try {
            if (productPrice.type === 'range') {
@@ -121,12 +124,12 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
        var productDetailAttribute3 = !empty(product.custom.productDetailAttribute3) ? product.custom.productDetailAttribute3 : null;
    }
 
-   if (Site.getCurrent().getCustomPreferenceValue('Listrak_ActivityTracker_Enabled') &&
-   dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
-       var ltkHelper = require('*/cartridge/scripts/helper/ltkHelper.js');
-       var ltkProductPrice = ltkHelper.getProductPrice(product);
-       session.privacy.ltkProductPrice = ltkProductPrice;
-   }
+//    if (Site.getCurrent().getCustomPreferenceValue('Listrak_ActivityTracker_Enabled') &&
+//    dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
+//        var ltkHelper = require('*/cartridge/scripts/helper/ltkHelper.js');
+//        var ltkProductPrice = ltkHelper.getProductPrice(product);
+//        session.privacy.ltkProductPrice = ltkProductPrice;
+//    }
 
    //Custom Start: Adding ESW variable to check eswModule enabled or disabled
    var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
