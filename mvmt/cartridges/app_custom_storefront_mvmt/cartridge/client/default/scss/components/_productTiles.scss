@@ -611,14 +611,6 @@
           .swatches-div {
             height: rem(30);
             margin-bottom: rem(5);
-            display: flex;
-            .slick-list {
-              height: rem(27);
-              display: block;
-              .slick-track {
-                display: flex;
-              }
-            }
           }
         }
 
