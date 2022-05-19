@@ -795,7 +795,7 @@
 			margin-left: auto;
 			max-width: calc(100% - 134px);
 			width: 100%;
-			height: rem(464);
+			height: rem(594);
 			margin-bottom: 0;
 			
 			@include media-breakpoint-up(md) {
@@ -824,7 +824,7 @@
 
 					img {
 						max-width: 100%;
-						max-height: rem(464);
+						max-height: rem(594);
 						margin: 0 auto;
 						@include media-breakpoint-down(md) {
 							max-height: rem(364);
