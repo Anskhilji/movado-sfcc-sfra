@@ -821,13 +821,6 @@
 					display: flex;
 					align-items: center;
 					justify-content: center;
-					// // max-height: rem(464);
-					// @include media-breakpoint-down(md) {
-					// 	max-height: rem(453);
-					// }
-					// @include media-breakpoint-down(sm) {
-					// 	max-height: rem(453);
-					// }
 
 					img {
 						max-width: 100%;
@@ -952,19 +945,13 @@
 
 					&.slick-prev {
 						background-image: url(../../images/RightArrow-left.png);
-						left: rem(36);
-						background-color: transparent;
-						@include media-breakpoint-down(sm) {
 						left: rem(0);
-						}
+						background-color: transparent;
 					}
 					&.slick-next {
 						background-image: url(../../images/RightArrow-right.png);
-						right: rem(36);
+						right: rem(0);
 						background-color: transparent;
-						@include media-breakpoint-down(sm) {
-							right: rem(0);
-						}
 					}
 				}
 			}
@@ -1232,6 +1219,10 @@
 		.ratings {
 			margin-top: rem(0);
 			height: rem(25);
+
+			@include media-breakpoint-down(sm) {
+				height: auto;
+			}
 			
 			.standalone-bottomline {
 
