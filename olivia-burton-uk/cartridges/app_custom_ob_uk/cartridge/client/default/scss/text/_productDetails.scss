@@ -856,9 +856,14 @@
 					overflow-y: auto;
 					overflow-x: hidden;
 					justify-content: flex-start;
+					-ms-overflow-style: none;
+					scrollbar-width: none; /* Firefox */
 					&::-webkit-scrollbar {
 						display: none;
 						width: 0;
+					}
+					&::-webkit-scrollbar {
+						display: none;
 					}
 					@include media-breakpoint-down(md) {
 						flex-direction: row;
