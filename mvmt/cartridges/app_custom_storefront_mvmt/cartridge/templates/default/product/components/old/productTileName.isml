@@ -1,5 +1,5 @@
 <isif condition="${!('display' in pdict && 'showName' in pdict.display && pdict.display.showName == false)}">
-    <div class="pdp-link product-brand-props" itemprop="name">
+    <div class="pdp-link" itemprop="name">
         <iscomment> Custom: [added just a plp check here] </iscomment>
         <isif condition="${!pdict.display.plpTile}">
             <isif condition="${product.productName}">
