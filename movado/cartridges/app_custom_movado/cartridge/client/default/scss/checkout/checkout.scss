@@ -786,6 +786,12 @@ header {
               max-width: rem(700);
             }
         }
+        .shipping-summary {
+            max-width: rem(700);
+        }
+        .payment-form {
+            max-width: rem(700);
+        }
     }
     .right-section {
         @include custom-media-query1440($large-screen-width1440) {
