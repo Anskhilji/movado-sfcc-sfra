@@ -4,7 +4,7 @@
         <isloop items="${product.defaultVariantBadges.textBadges}" var="badge">
             <span class="badge text-uppercase">${badge.text}</span>
         </isloop>
-     <iselseif condition="${(product.available && pdict.display.plpTile === true && product.productType !== 'master') || (product.available && pdict.display.searchSuggestion === true) || (product.available && pdict.display.plpTile === false)}">
+    <iselseif condition="${(product.available && pdict.display.plpTile === true && product.productType !== 'master') || (product.available && pdict.display.searchSuggestion === true) || (product.available && pdict.display.plpTile === false)}">
         <isloop items="${product.badges.textBadges}" var="badge">
             <span class="badge text-uppercase">${badge.text}</span>
         </isloop>
