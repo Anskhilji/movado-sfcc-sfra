@@ -787,7 +787,7 @@
 			max-width: rem(100%);
 			min-height: auto;
 			margin-top: rem(0);
-			margin-bottom: rem(122);
+			margin-bottom: rem(115);
 		}
 
 		.cs-carousel-wrapper {
@@ -802,11 +802,8 @@
 				margin-bottom: rem(71);
 			}
 			@include media-breakpoint-down(md) {
-				height: rem(364);
-				max-width: calc(100% - 0px);
-			}
-			@include media-breakpoint-down(md) {
 				height: rem(336);
+				max-width: calc(100% - 0px);
 			}
 
 			.main-ob-carousel {
@@ -881,6 +878,9 @@
 					li {
 						margin: rem(0);
 						@include media-breakpoint-down(md) {
+							&:first-child {
+								margin-left: rem(0);
+							}
 							margin: rem(0) rem(10);
 						}
 
@@ -931,9 +931,12 @@
 					}
 				}
 
+				// slick arrow styling
 				.slick-arrow {
 					height: rem(75);
 					width: rem(75);
+					top: 50%;
+					transform: translateY(-50%);
 					background-size: rem(22) rem(43);
 					@include media-breakpoint-down(md) {
 						height: rem(55);
@@ -952,7 +955,7 @@
 						left: rem(36);
 						background-color: transparent;
 						@include media-breakpoint-down(sm) {
-						left: rem(20);
+						left: rem(0);
 						}
 					}
 					&.slick-next {
@@ -960,14 +963,14 @@
 						right: rem(36);
 						background-color: transparent;
 						@include media-breakpoint-down(sm) {
-							right: rem(20);
+							right: rem(0);
 						}
 					}
 				}
 			}
 
 			.js-zoom-image {
-				background: url("../../images/zoom_in.svg") center center no-repeat;
+				background: url("../../images/zoomin.svg") center center no-repeat;
 				width: rem(40);
 				height: rem(40);
 				position: absolute;
@@ -975,6 +978,7 @@
 				left: rem(5);
 				outline: none;
 				box-shadow: none;
+				border-radius: 50%;
 				@include media-breakpoint-down(md) {
 					bottom: rem(33);
 					left: rem(0);
@@ -1007,6 +1011,7 @@
 	max-width: rem(550);
 	margin-left: rem(60);
 	width: 100%;
+	margin-top: rem(80);
 
 	@include media-breakpoint-down(md) {
 		max-width: rem(330);
@@ -1037,12 +1042,15 @@
 		@include media-breakpoint-down(sm) {
 			text-align: left;
 			line-height: rem(30);
-			font-size: rem(30);
+			font-size: rem(24);
 		}
 	}
 
 	.prices {
 		padding-bottom: rem(30);
+		@include media-breakpoint-down(sm) {
+			padding: rem(0) rem(0) rem(20) rem(0);
+		}
 		&.prices-main {
 			padding-bottom: rem(20);
 			@include media-breakpoint-down(sm) {
@@ -1073,6 +1081,9 @@
 				font-weight: 300;
 				color: $black3;
 				text-decoration:none;
+				@include media-breakpoint-down(sm) { 
+					font-size: rem(14);
+				}
 			}
 		}
 
@@ -1083,6 +1094,10 @@
 			font-weight: 300;
 			letter-spacing: 0;
 			line-height: rem(41);
+
+			@include media-breakpoint-down(sm) { 
+				font-size: rem(26);
+			}
 		}
 	}
 
@@ -1117,6 +1132,10 @@
 		line-height: rem(41);
 		padding: rem(0) rem(17);
 		margin-bottom: rem(30);
+		@include media-breakpoint-down(sm) {
+			width: 100%;
+			padding: rem(0) rem(20);
+		}
 
 		.bundle-text {
 			font-family: $font-gill-std-medium;
@@ -1128,7 +1147,7 @@
 		}
 
 		.tag-iocn {
-			margin-right: rem(12);
+			margin-right: rem(10);
 		}
 	}
 
@@ -1292,8 +1311,6 @@
 			@include media-breakpoint-down(sm) {
 				max-width: 100%;
 				min-height: auto;
-				padding-left: rem(5);
-				padding-right: rem(5);
 			}
 
 			.cs-carousel-wrapper {
@@ -1312,11 +1329,12 @@
 				.carousel-tile {
 					height: rem(650);
 					@include media-breakpoint-down(sm) {
-						height: rem(336);
+						height: rem(267);
 					}
 
 					img {
 						margin: 0 auto;
+						max-height: rem(267);
 					}
 				}
 
@@ -1335,7 +1353,7 @@
 						left: rem(36);
 						background-color: transparent;
 						@include media-breakpoint-down(sm) {
-							left: rem(20);
+							left: rem(0);
 						}
 					}
 					&.slick-next {
@@ -1343,7 +1361,7 @@
 						right: rem(36);
 						background-color: transparent;
 						@include media-breakpoint-down(sm) {
-							right: rem(20);
+							right: rem(0);
 						}
 					}
 				}
@@ -1385,6 +1403,7 @@
 				@include media-breakpoint-down(sm) {
 					padding-left: rem(15);
 					padding-right: rem(15);
+					padding-top: rem(35);
 				}
 			}
 		}
@@ -1407,7 +1426,7 @@
 			line-height: rem(41);
 			-webkit-text-stroke: rem(0.3) #000000;
 			@include media-breakpoint-down(sm) {
-				line-height: rem(30);
+				font-size: rem(15);
 			}
 
 			&.collapsed {

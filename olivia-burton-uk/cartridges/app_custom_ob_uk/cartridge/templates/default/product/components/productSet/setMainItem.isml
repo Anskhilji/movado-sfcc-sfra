@@ -44,7 +44,7 @@
                             </isif>
 
                         <!-- Bundle Save 25% Offer -->
-                        <div class="bundle-offer-box d-flex align-items-center justify-content-center">
+                        <div class="bundle-offer-box d-flex align-items-center justify-content-md-center">
                                 <span class="tag-iocn d-inline-flex">
                                     <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
                                     width="20px" height="20px" viewBox="0 0 778.000000 778.000000"

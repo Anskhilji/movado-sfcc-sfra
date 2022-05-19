@@ -14,7 +14,7 @@
                         <div id="collapseOne${product.id}" class="collapse">
                             <div class="product-detail product-detail-set-item set-item" data-pid="${product.id}" itemscope itemtype="http://schema.org/Product">
                                 <div class="row">
-                                    <div class="col-12 pdp-ob-detail-box align-items-center">
+                                    <div class="col-12 pdp-ob-detail-box">
                                             <!-- Product Images Carousel -->
                                         <isinclude template="product/components/productSet/imageCarouselSet" />
 
