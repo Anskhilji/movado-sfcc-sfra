@@ -33,11 +33,7 @@
 }
 .back-in-stock-notification-container {
     margin-top: rem(30);
-
-    @include media-breakpoint-up(lg) {
-        margin-bottom: rem(103);
-    }
-
+    
     .back-in-stock-notification {
 
         &-button {
