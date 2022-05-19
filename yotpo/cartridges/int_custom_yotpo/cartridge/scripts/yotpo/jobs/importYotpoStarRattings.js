@@ -61,13 +61,15 @@ function execute() {
             productID = product.ID;
             yotpoResponseHTML = ImportReviewModel.importReviewsAndRatings(productID, yotporeviewspage, isreview, locale);
 
-            for (let i = 0; i < yotpoResponseHTML.length; i++) {
-                if (yotpoResponseHTML[i].method == 'bottomline') {
-                    productRatting = yotpoResponseHTML[i].result;
-                    Transaction.wrap(function () {
-                        product.custom.yotpoStarRattings = productRatting;
-                    });
-                    break;
+            if (!empty(yotpoResponseHTML)) {
+                for (let i = 0; i < yotpoResponseHTML.length; i++) {
+                    if (yotpoResponseHTML[i].method == 'bottomline') {
+                        productRatting = yotpoResponseHTML[i].result;
+                        Transaction.wrap(function () {
+                            product.custom.yotpoStarRattings = productRatting;
+                        });
+                        break;
+                    }
                 }
             }
         }

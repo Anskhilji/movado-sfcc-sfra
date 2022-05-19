@@ -110,7 +110,7 @@ function getPdpVideoConfigs(apiProduct) {
 
 function getYotpoReviewsCustomAttribute(apiProduct) {
     var yotpoReviews = '';
-    if (apiProduct && !empty(apiProduct.custom.yotpoStarRattings)) {
+    if (!empty(apiProduct) && !empty(apiProduct.custom.yotpoStarRattings)) {
         yotpoReviews = apiProduct.custom.yotpoStarRattings;
     }
     return yotpoReviews;

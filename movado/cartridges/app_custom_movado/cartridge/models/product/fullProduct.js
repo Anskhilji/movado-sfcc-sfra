@@ -96,7 +96,7 @@ module.exports = function fullProduct(product, apiProduct, options) {
         });
     }
 
-    if (yotpoReviewsCustomAttribute) {
+    if (!empty(yotpoReviewsCustomAttribute)) {
         Object.defineProperty(product, 'yotpoReviewsCustomAttribute', {
             enumerable: true,
             value: yotpoReviewsCustomAttribute
