@@ -802,8 +802,11 @@
 				margin-bottom: rem(71);
 			}
 			@include media-breakpoint-down(md) {
-				height: rem(336);
+				height: rem(364);
 				max-width: calc(100% - 0px);
+			}
+			@include media-breakpoint-down(sm) {
+				max-height: rem(336);
 			}
 
 			.main-ob-carousel {
@@ -821,6 +824,10 @@
 					display: flex;
 					align-items: center;
 					justify-content: center;
+					@include media-breakpoint-down(sm) {
+						height: rem(336);
+						display: flex !important;
+					}
 
 					img {
 						max-width: 100%;
@@ -1170,6 +1177,29 @@
 			padding: 0;
 			border-radius: rem(3);
 			margin: 0;
+		}
+	}
+
+	.prices-add-to-cart-actions {
+		padding: rem(0) rem(15) rem(20) rem(15);
+
+		.prices.prices-main {
+			padding-bottom: rem(0);
+
+			.price-pdp-mvmt {
+				justify-content: center;
+				font-size: rem(16);
+				line-height: normal;
+				padding: rem(10) rem(0);
+			}
+	
+		}
+		
+		.cart-and-ipay {
+
+			.add-to-cart {
+				max-width: 100%;
+			}
 		}
 	}
 

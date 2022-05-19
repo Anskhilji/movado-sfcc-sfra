@@ -135,9 +135,21 @@
                             </div>
 
                             <div>
-                                <!-- Cart and [Optionally] Apple Pay -->
+                                <!-- Cart  -->
                                 <isinclude template="product/components/productSet/addToCartProduct" />
                             </div>
+                            
+                            <div class="prices-add-to-cart-actions">
+                                <!-- Prices -->
+                                <div class="prices prices-main">
+                                    <isset name="price" value="${product.price}" scope="page" />
+                                    <isinclude template="product/components/pricing/main" />
+                                </div>
+
+                                <!-- Cart Mobile -->
+                               <isinclude template="product/components/productSet/addToCartProduct" />
+                            </div>
+
                             <!--addToWishListButton -->
                             <div class="d-none">
                                 <isinclude template="wishlist/components/addToWishListButton" />
