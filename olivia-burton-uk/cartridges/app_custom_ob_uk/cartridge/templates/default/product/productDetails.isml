@@ -46,7 +46,7 @@
                                     <div class="ratings pull-right">
                                         <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
                                             <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
-	                                    </div>
+                                        </div>
                                     </div>
                                 </div>
                             <iselse>
