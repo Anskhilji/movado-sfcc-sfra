@@ -353,31 +353,7 @@ header {
                             height: rem(30);
                         }
                     }
-                }      
-                @include media-breakpoint-up(lg-custom) {
-                    .checkout-logo {
-                        position: absolute;
-                        left: rem(24);
-                        width: rem(155);
-                        top: rem(19);
-                        svg {
-                            width: rem(96);
-                            height: rem(30);
-                        }
-                    }
-                }  
-                @include media-breakpoint-up(lg-media) {
-                  .checkout-logo {
-                    position: absolute;
-                    left: rem(50);
-                    width: rem(155);
-                    top: rem(14);
-                        svg {
-                            width: rem(125);
-                            height: rem(30);
-                        }
-                    }
-                }  
+                }
              
                 @include media-breakpoint-up(md-down) {
                     margin-top: rem(0);
@@ -451,6 +427,11 @@ header {
         @include media-breakpoint-up(lg-custom) {
             padding: 0 rem(16);
             margin: rem(70) auto rem(24);          
+        }
+        @include custom-media-query1440($large-screen-width1440) {
+            padding: 0 rem(15) 0 rem(100);
+            margin: rem(71) auto rem(51);
+            max-width: rem(1440);
         }
 
         li {
@@ -746,10 +727,10 @@ header {
 
 .checkout-label-custom {
     @include media-breakpoint-up(lg-custom) {
-        max-width: rem(908);
+        max-width: rem(428);
         margin: 0 auto;
-        width: rem(908);
-        padding-left: rem(24);
+        width: rem(428);
+        padding-left: rem(6);
     }
 }
 
@@ -758,8 +739,43 @@ header {
         .align-start-box {
             @include media-breakpoint-up(lg-custom) {
                 justify-content: flex-start;
+                max-width: 90%;
+            }
+            
+            @include custom-media-query1440($large-screen-width1440) {
                 max-width: 100%;
             }
+        }
+    }
+}
+
+.container-custom-inner-box {
+    max-width: 1440px;
+}
+.checkout-content-container-inner {
+    
+    .left-section {
+        @include custom-media-query1440($large-screen-width1440) {
+            padding: rem(0) rem(0) rem(0) rem(100);
+            max-width: 66.1%;
+            flex: 0 0 66.1%;
+        }
+        .mx-shipping-box {
+            @include custom-media-query1440($large-screen-width1440) {
+              max-width: rem(700);
+            }
+        }
+        .shipping-summary {
+            max-width: rem(700);
+        }
+        .payment-form {
+            max-width: rem(700);
+        }
+    }
+    .right-section {
+        @include custom-media-query1440($large-screen-width1440) {
+            max-width: 33.9%;
+            flex: 0 0 33.9%;
         }
     }
 }
