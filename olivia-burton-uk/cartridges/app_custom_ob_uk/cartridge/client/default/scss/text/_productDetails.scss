@@ -1048,6 +1048,7 @@
 		@include media-breakpoint-down(sm) {
 			padding: rem(0) rem(0) rem(20) rem(0);
 		}
+		
 		&.prices-main {
 			padding-bottom: rem(20);
 			@include media-breakpoint-down(sm) {
