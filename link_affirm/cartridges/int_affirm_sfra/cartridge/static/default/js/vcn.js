@@ -83,13 +83,13 @@ $(function () {
     	} else if (product.price.startingFromPrice) {
     		newPrice = product.price.startingFromPrice.sales.value;
     	}
-    	$('.affirm-as-low-as').attr('data-amount', (newPrice * 100).toFixed());
+        $('.affirm-as-low-as').attr('data-amount', (newPrice * 100).toFixed());
         affirm.ui.ready(function() {
             affirm.ui.refresh();
         });
     });
     $(document).on('checkout:updateCheckoutView', function (e, data) {
-    	$('.affirm-product-modal').attr('data-amount', (data.order.totals.grandTotal.substr(1) * 100).toFixed());
+        $('.affirm-product-modal').attr('data-amount', (data.order.totals.grandTotal.substr(1) * 100).toFixed());
         affirm.ui.ready(function () {
             affirm.ui.refresh();
         });
