@@ -90,9 +90,9 @@ $(function () {
     });
     $(document).on('checkout:updateCheckoutView', function (e, data) {
     	$('.affirm-product-modal').attr('data-amount', (data.order.totals.grandTotal.substr(1) * 100).toFixed());
-    	affirm.ui.ready(function () {
+        affirm.ui.ready(function () {
             affirm.ui.refresh();
-          });
+        });
     });
     affirm.ui.ready(
         function () {
