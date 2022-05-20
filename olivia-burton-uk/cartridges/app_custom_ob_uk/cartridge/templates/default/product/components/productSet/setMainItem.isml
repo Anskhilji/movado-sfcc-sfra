@@ -70,7 +70,14 @@
                                 <div class="set-product-item-thumb d-flex align-items-center">
                                     <isset name="individualProducts" value="${productItem}" scope="page" />
                                     <div class="set-product-item-thumb-img d-flex align-items-center justify-content-center">
-                                        <img src="${individualProducts.images.tile150[0].url}" alt="${individualProducts.images.tile150[0].alt}">
+                                        <isif condition="${!empty(individualProducts) && !empty(individualProducts.images) && !empty(individualProducts.images.tile150[0]) && !empty(individualProducts.images.tile150[0].url)}">
+                                            <picture>
+                                                <img class="tile-image gtm-product" src="${individualProducts.images.tile150[0].url}" alt="${individualProducts.images.tile150[0].alt}"/>
+                                                <source media="(min-width: 992px)" srcset="${individualProducts.images.tile150[0].url}" />
+                                                <source media="(min-width: 544px)" srcset="${individualProducts.images.tile150[0].url}" />
+                                                <source media="(min-width: 320px)" srcset="${individualProducts.images.tile150[0].url}" />
+                                            </picture>
+                                        </isif>
                                     </div>
                                     <div class="set-product-item-thumb-title">
                                         ${individualProducts.productName}
