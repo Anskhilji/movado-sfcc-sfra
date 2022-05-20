@@ -2,6 +2,7 @@
 
 var collections = require('*/cartridge/scripts/util/collections');
 var urlHelper = require('*/cartridge/scripts/helpers/urlHelpers');
+var Constants = require('*/cartridge/utils/Constants');
 
 /**
  * @typedef {Object} ProductOptionValues
@@ -369,19 +370,20 @@ function showProductPage(querystring, reqPageMetaData) {
 }
 
 //custom Start : check if any product is out of stock or not in product 'SET' 
-function setStockAvailability(productType, apiProduct){
-    if(productType == 'set' && apiProduct.productSetProducts.length > 0){
+function productSetStockAvailability(productType, apiProduct){
+    var productAvilibiltyModel;
+    if(productType == Constants.PRODUCT_TYPE && apiProduct.productSetProducts.length > 0){
+        productAvilibiltyModel = apiProduct.availabilityModel;
         for(var i = 0; i < apiProduct.productSetProducts.length; i++){
             if(apiProduct.productSetProducts[i].availabilityModel.inStock == false){
-                apiProduct.availabilityModel = apiProduct.productSetProducts[i].availabilityModel;
+                productAvilibiltyModel = apiProduct.productSetProducts[i].availabilityModel;
+                break;
             }
         }
-        // return apiProduct;
+        return productAvilibiltyModel;
     }
-    apiProduct;
 }
 //custom end
-
 module.exports = {
     getOptionValues: getOptionValues,
     getOptions: getOptions,
@@ -396,5 +398,5 @@ module.exports = {
     showProductPage: showProductPage,
     getAllBreadcrumbs: getAllBreadcrumbs,
     getResources: getResources,
-    setStockAvailability: setStockAvailability
+    productSetStockAvailability: productSetStockAvailability
 };

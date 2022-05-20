@@ -26,11 +26,11 @@ module.exports = {
         var product = Object.create(null);
         var options = null;
         var promotions;
-        // productHelper.setStockAvailability(productType, apiProduct);
+        var productSetStockAvailabilityModel = productHelper.productSetStockAvailability(productType, apiProduct);
 
         switch (params.pview) {
             case 'tile':
-                product = productTile(product, apiProduct, productType, params);
+                product = productTile(product, apiProduct, productType, params, productSetStockAvailabilityModel);
                 break;
             case 'bonusProductLineItem':
                 promotions = PromotionMgr.activeCustomerPromotions.getProductPromotions(apiProduct);

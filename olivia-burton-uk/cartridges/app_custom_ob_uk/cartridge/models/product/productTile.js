@@ -46,7 +46,7 @@ function getProductSearchHit(apiProduct) {
  *
  * @returns {Object} - Decorated product model
  */
-module.exports = function productTile(product, apiProduct, productType, params) {
+module.exports = function productTile(product, apiProduct, productType, params, productSetStockAvailabilityModel) {
     var productSearchHit = getProductSearchHit(apiProduct);
     if (!productSearchHit) {
         return null;
@@ -74,7 +74,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
         decorators.promotions(product, options.promotions);
     }
     if (!params.availability || params.availability == true) {
-        decorators.availability(product, options.quantity, apiProduct.minOrderQuantity.value, apiProduct.availabilityModel);
+        decorators.availability(product, options.quantity, apiProduct.minOrderQuantity.value, apiProduct.availabilityModel, productSetStockAvailabilityModel);
     }
 
     var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');

@@ -2,12 +2,17 @@
 
 var Resource = require('dw/web/Resource');
 
-module.exports = function (object, quantity, minOrderQuantity, availabilityModel) {
+module.exports = function (object, quantity, minOrderQuantity, availabilityModel, productSetStockAvailabilityModel) {
     Object.defineProperty(object, 'availability', {
         enumerable: true,
         value: (function () {
             var availability = {};
             availability.messages = [];
+
+            if(!empty(productSetStockAvailabilityModel)) {
+                availabilityModel = productSetStockAvailabilityModel;
+            }
+
             var productQuantity = quantity ? parseInt(quantity, 10) : minOrderQuantity;
             var availabilityModelLevels = availabilityModel.getAvailabilityLevels(productQuantity);
             var inventoryRecord = availabilityModel.inventoryRecord;
