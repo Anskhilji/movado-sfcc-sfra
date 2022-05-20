@@ -446,6 +446,10 @@ $stored-payment-spacing: rem(16);
     }
     .form-group {
       margin-bottom: rem(20);
+      
+      @include media-breakpoint-down(xs) {
+        margin-bottom: rem(15);
+      }
     }
   }
 

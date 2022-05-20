@@ -624,6 +624,14 @@ $stored-payment-spacing: rem(16);
       @include custom-media-query1440($large-screen-width1440) {
         padding: rem(0) rem(10);
       }
+      
+      @include media-breakpoint-up(sm) {
+        padding: rem(0) rem(10);
+      }
+
+      @include media-breakpoint-down(xs) {
+        padding: rem(0) rem(10);
+      }
     }
   }
 
@@ -631,8 +639,18 @@ $stored-payment-spacing: rem(16);
     @include custom-media-query1440($large-screen-width1440) {
       padding: rem(0) rem(10);
     }
+    @include media-breakpoint-up(sm) {
+      padding: rem(0) rem(10);
+    }
+    @include media-breakpoint-down(xs) {
+      padding: rem(0) rem(10);
+    }
     .form-group {
       margin-bottom: rem(20);
+
+      @include media-breakpoint-down(xs) {
+        margin-bottom: rem(15);
+      }
     }
   }
 
@@ -641,6 +659,15 @@ $stored-payment-spacing: rem(16);
       @include custom-media-query1440($large-screen-width1440) {
         padding: rem(0) rem(10);
       }
+
+      @include media-breakpoint-up(sm) {
+        padding: rem(0) rem(10);
+      }
+
+      @include media-breakpoint-down(xs) {
+        padding: rem(0) rem(10);
+      }
+
     }
   }
 
