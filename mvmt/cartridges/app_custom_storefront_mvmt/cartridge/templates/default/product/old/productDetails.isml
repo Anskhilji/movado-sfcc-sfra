@@ -161,7 +161,7 @@
                                 <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoProductAttributeEnabled}">
                                     <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
                                         <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
-	                                </div>
+                                    </div>
                                 <iselse>
                                     <isinclude template="product/components/productRating" />
                                 </isif>
@@ -228,7 +228,7 @@
                                 <div class="ratings">
                                     <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
                                         <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
-	                                </div>
+                                    </div>
                                 </div>
                             </div>
                         <iselse>

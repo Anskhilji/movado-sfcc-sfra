@@ -44,7 +44,7 @@
                                     <div class="ratings">
                                         <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
                                             <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
-	                                    </div>
+                                        </div>
                                     </div>
                                     <a href="${URLUtils.https('ShareByEmail-ShowModal')}?pid=${product.id}" data-toggle="modal" data-target="#sendtofriendform" class="email-share drop-hint">${Resource.msg('label.product.drop.hint', 'product', 'null')}</a>
                                 </div>
@@ -76,7 +76,7 @@
                                 <div class="ratings">
                                     <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
                                         <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
-	                                </div>
+                                    </div>
                                 </div>
                                 <a href="${URLUtils.https('ShareByEmail-ShowModal')}?pid=${product.id}" data-toggle="modal" data-target="#sendtofriendform" class="email-share drop-hint">${Resource.msg('label.product.drop.hint', 'product', 'null')}</a>
                             </div>
