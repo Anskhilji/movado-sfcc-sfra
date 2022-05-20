@@ -116,7 +116,7 @@ function fillModalElement(selectedValueUrl, gtmProdObj) {
                 //Custom End
             }, 1000);
             if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
-                affirm.ui.ready(function(){
+                affirm.ui.ready(function() {
                     affirm.ui.refresh();
                 });
             }

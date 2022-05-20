@@ -80,7 +80,7 @@ var updateCartPage = function(data) {
     $('.cart-section-wrapper').html(data.cartPageHtml);
     $('.minicart').trigger('count:update', data);
     if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
-        affirm.ui.ready(function(){
+        affirm.ui.ready(function() {
             affirm.ui.refresh();
         });
     }
@@ -128,7 +128,7 @@ var updateCartPage = function(data) {
         $affirmPriceSelector.attr('data-amount', (totalCalculated * 100).toFixed());
 
         if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
-            affirm.ui.ready(function(){
+            affirm.ui.ready(function() {
                 affirm.ui.refresh();
             });
         }

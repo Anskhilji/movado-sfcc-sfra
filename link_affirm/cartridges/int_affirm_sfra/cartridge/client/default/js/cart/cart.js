@@ -66,7 +66,7 @@ function updateCartTotals(data) {
 
     $('.affirm-as-low-as').attr('data-amount', (totalCalculated * 100).toFixed());
     if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
-        affirm.ui.ready(function(){
+        affirm.ui.ready(function() {
             affirm.ui.refresh();
         });
     }

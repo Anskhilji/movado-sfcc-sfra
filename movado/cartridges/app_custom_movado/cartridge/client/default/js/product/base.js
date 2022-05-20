@@ -700,7 +700,7 @@ function validateOptions($el) {
 var updateCartPage = function(data) {
   $('.cart-section-wrapper').html(data.cartPageHtml);
   if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
-        affirm.ui.ready(function(){
+        affirm.ui.ready(function() {
             affirm.ui.refresh();
         });
    } 

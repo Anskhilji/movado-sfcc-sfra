@@ -84,7 +84,7 @@ $(function () {
     		newPrice = product.price.startingFromPrice.sales.value;
     	}
     	$('.affirm-as-low-as').attr('data-amount', (newPrice * 100).toFixed());
-        affirm.ui.ready(function(){
+        affirm.ui.ready(function() {
             affirm.ui.refresh();
         });
     });
