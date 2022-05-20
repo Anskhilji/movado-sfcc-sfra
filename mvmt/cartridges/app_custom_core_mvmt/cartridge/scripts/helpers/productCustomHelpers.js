@@ -76,15 +76,6 @@ function getProductGtmObj(product, categoryName, position) {
             });
         } else {
             var productObj = ProductMgr.getProduct(product.id);
-            // var familyName = '';
-            // var productColor = '';
-
-            // if (!empty(productObj.custom.familyName)) {
-            //     familyName = productObj.custom.familyName[0];
-            // }
-            // if (!empty(productObj.custom.color)) {
-            //     productColor = productObj.custom.color;
-            // }
             var category = escapeQuotes(productObj != null ? (productObj.variant ? ((productObj.masterProduct != null && productObj.masterProduct.primaryCategory != null) ? productObj.masterProduct.primaryCategory.ID
             : '')
             : ((productObj.primaryCategory != null) ? productObj.primaryCategory.ID
@@ -160,7 +151,6 @@ function getGtmProductClickObj(product, categoryName, position) {
     if (!empty(productObj.custom.familyName)) {
         familyName = productObj.custom.familyName[0];
     }
-    
     if (!empty(productObj.custom.color)) {
         productColor = productObj.custom.color;
     }

@@ -943,15 +943,12 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
                 if (productObj.custom.watchGender && productObj.custom.watchGender.length) {
                     watchGender = productObj.custom.watchGender[0];
                 }
-
                 if (!empty(productObj.custom.jewelryType)) {
                     jewelryType = productObj.custom.jewelryType;
                 }
-
                 if (!empty(productObj.custom.familyName)) {
                     familyName = productObj.custom.familyName[0];
                 }
-
                 if (!empty(productObj.custom.color)) {
                     productColor = productObj.custom.color;
                 }
