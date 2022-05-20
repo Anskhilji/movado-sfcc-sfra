@@ -855,6 +855,10 @@
 					justify-content: flex-start;
 					-ms-overflow-style: none;
 					scrollbar-width: none; /* Firefox */
+					margin-top: rem(107);
+					@include media-breakpoint-down(lg) { 
+						margin-top: rem(70);
+					}
 					&::-webkit-scrollbar {
 						display: none;
 						width: 0;
@@ -868,6 +872,7 @@
 						max-width: 100%;
 						overflow-x: auto;
 						justify-content: flex-start;
+						margin-top: rem(0);
 					}
 					@include media-breakpoint-down(sm) {
 						bottom: rem(-84);
