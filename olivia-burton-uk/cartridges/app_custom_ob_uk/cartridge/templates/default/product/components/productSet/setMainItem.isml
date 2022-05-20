@@ -14,9 +14,7 @@
 
                             <!-- Prices -->
                             <div class="prices prices-main">
-                                <isset name="price" value="${product.price}" scope="page" />
-                                <p>${product.id}</p>
-                                <isinclude template="product/components/pricing/main" />
+                                <isinclude template="product/components/productSet/setPrice" />
                             </div>
                             <!-- Affirm / Klarna  -->
                             <div class="mt-0">
