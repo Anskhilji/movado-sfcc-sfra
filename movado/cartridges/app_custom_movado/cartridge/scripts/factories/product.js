@@ -30,7 +30,7 @@ module.exports = {
 
         switch (params.pview) {
             case 'tile':
-                product = productTile(product, apiProduct, productType, params, productSetStockAvailabilityModel);
+                product = productTile(product, apiProduct, productType, params, productSetStockAvailabilityModel, this);
                 break;
             case 'bonusProductLineItem':
                 promotions = PromotionMgr.activeCustomerPromotions.getProductPromotions(apiProduct);
