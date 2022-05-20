@@ -55,7 +55,7 @@
                     'quantity': '${pdict.gtm.product.quantity}',
                     'currency': '${pdict.gtm.product.currency}',
                     'familyName':'${pdict.gtm.product.familyName}',
-                    'color':'${pdict.gtm.product.color}'
+                    'productColor':'${pdict.gtm.product.color}'
                 }]
             }
         },
@@ -91,7 +91,9 @@
                             'cityStateZipCode': '${produtArray.cartObj.cityStateZipCode}',
                             'subTotal': '${produtArray.cartObj.subTotal}',
                             'discount': '${produtArray.cartObj.discount}',
-                            'orderlevelDiscount': '${produtArray.cartObj.orderlevelDiscount}'}
+                            'orderlevelDiscount': '${produtArray.cartObj.orderlevelDiscount}',
+                            'familyName': '${produtArray.cartObj.familyName}',
+                            'productColor': '${produtArray.cartObj.productColor}'}
                             <isif condition= "${status.index < checkoutObj.length-1}">,</isif>
                         </isloop>
                     ]
@@ -120,7 +122,9 @@
                         'description': unescape('${produtArray.cartObj.description}'),
                         'imageURL': '${produtArray.cartObj.imageURL}',
                         'productURL': '${produtArray.cartObj.prouctUrl}',
-                        'barnd': '${produtArray.cartObj.brand}'}
+                        'barnd': '${produtArray.cartObj.brand}',
+                        'familyName': '${produtArray.cartObj.familyName}',
+                        'productColor': '${produtArray.cartObj.productColor}'}
                         <isif condition= "${status.index < checkoutObj.length-1}">,</isif>
                     </isloop>
                     ]
@@ -163,7 +167,9 @@
                     'cityStateZipCode': '${produtArray.cartObj.cityStateZipCode}',
                     'subTotal': '${produtArray.cartObj.subTotal}',
                     'paymentMethod': '${produtArray.cartObj.paymentMethod}',
-                    'orderlevelDiscount': '${produtArray.cartObj.orderlevelDiscount}'}
+                    'orderlevelDiscount': '${produtArray.cartObj.orderlevelDiscount}',
+                    'familyName': '${produtArray.cartObj.familyName}',
+                    'productColor': '${produtArray.cartObj.productColor}'}
                     <isif condition= "${status.index < checkoutObj.length-1}">,</isif>
                 </isloop>
                 ]
@@ -225,7 +231,9 @@
                                 'currency': '${orderObj.productObj.currency}',
                                 'productQuantityTotal': '${orderObj.productObj.productQuantityTotal}',
                                 'subtotal': '${orderObj.productObj.subtotal}',
-                                'orderLevelDiscount': '${orderObj.productObj.orderLevelPromotionPrice}'}
+                                'orderLevelDiscount': '${orderObj.productObj.orderLevelPromotionPrice}',
+                                'familyName': '${orderObj.productObj.familyName}',
+                                'productColor': '${orderObj.productObj.productColor}'}
                                 <isif condition= "${status.index < orderProdutsArray.length-2}">,</isif>
                             </isif>
                         </isloop>

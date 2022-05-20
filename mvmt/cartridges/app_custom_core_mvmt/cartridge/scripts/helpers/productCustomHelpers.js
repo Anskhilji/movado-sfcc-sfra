@@ -22,6 +22,8 @@ function getProductGtmObj(product, categoryName, position) {
         var productGtmObj = []; 
         var jewelryType = '';
         var watchGender = '';
+        var familyName: '';
+        var productColor = '';
         var productObj = ProductMgr.getProduct(product.id);
         var productObjDefaultVariant = productObj.variationModel ? productObj.variationModel.defaultVariant : null;
         if (productObjDefaultVariant) {
@@ -31,12 +33,24 @@ function getProductGtmObj(product, categoryName, position) {
             if (!empty(productObjDefaultVariant.custom.jewelryType)) {
                 jewelryType = productObjDefaultVariant.custom.jewelryType;
             }
+            if (!empty(productObjDefaultVariant.custom.familyName)) {
+                familyName = productObjDefaultVariant.custom.familyName[0];
+            }
+            if (!empty(productObjDefaultVariant.custom.color)) {
+                productColor = productObjDefaultVariant.custom.color;
+            }
         } else {
             if (productObj.custom.watchGender && productObj.custom.watchGender.length) {
                 watchGender = productObj.custom.watchGender[0];
             }
             if (!empty(productObj.custom.jewelryType)) {
                 jewelryType = productObj.custom.jewelryType;
+            }
+            if (!empty(productObj.custom.familyName)) {
+                familyName = productObj.custom.familyName[0];
+            }
+            if (!empty(productObj.custom.color)) {
+                productColor = productObj.custom.color;
             }
         }
         var customCategory = watchGender + " " + jewelryType;
@@ -56,13 +70,21 @@ function getProductGtmObj(product, categoryName, position) {
                 variantID: variantID,
                 list: 'PLP',
                 position: position,
-                familyName: product.collectionName,
-                productColor: product.colorVariationsValues.values,
+                familyName: familyName,
+                productColor: productColor,
                 currentCategory: stringUtils.removeSingleQuotes(escapeQuotes(categoryName))    
             });
         } else {
             var productObj = ProductMgr.getProduct(product.id);
+            // var familyName = '';
+            // var productColor = '';
 
+            // if (!empty(productObj.custom.familyName)) {
+            //     familyName = productObj.custom.familyName[0];
+            // }
+            // if (!empty(productObj.custom.color)) {
+            //     productColor = productObj.custom.color;
+            // }
             var category = escapeQuotes(productObj != null ? (productObj.variant ? ((productObj.masterProduct != null && productObj.masterProduct.primaryCategory != null) ? productObj.masterProduct.primaryCategory.ID
             : '')
             : ((productObj.primaryCategory != null) ? productObj.primaryCategory.ID
@@ -80,6 +102,8 @@ function getProductGtmObj(product, categoryName, position) {
                 variantID: variantID,
                 list: 'Search Results',
                 position: position,
+                familyName: familyName,
+                productColor: productColor,
                 currentCategory: stringUtils.removeSingleQuotes(escapeQuotes(categoryName)) 
             });
         }
@@ -128,8 +152,19 @@ function getVariantSize(apiProduct) {
  */
 
 function getGtmProductClickObj(product, categoryName, position) {
+    var familyName = '';
+    var productColor = '';
     var productClickGtmObj = [];
     var productObj = ProductMgr.getProduct(product.id);
+
+    if (!empty(productObj.custom.familyName)) {
+        familyName = productObj.custom.familyName[0];
+    }
+    
+    if (!empty(productObj.custom.color)) {
+        productColor = productObj.custom.color;
+    }
+
     if (categoryName != null) {
         // Custom Start: Push product object in Array.
         productClickGtmObj.push({
@@ -141,6 +176,8 @@ function getGtmProductClickObj(product, categoryName, position) {
             currency: product.price && product.price.list ? product.price.list.currency : (product.price && product.price.sales ? product.price.sales.currency : ''),
             category: stringUtils.removeSingleQuotes(escapeQuotes(categoryName)),
             position: position,
+            familyName: familyName,
+            productColor: productColor,
             variant: productObj.master || productObj.variant ? getVariantSize(productObj) : '',
             list: 'PLP'
         });
@@ -160,6 +197,8 @@ function getGtmProductClickObj(product, categoryName, position) {
             category: stringUtils.removeSingleQuotes(category),
             position: position,
             variant: productObj.master || productObj.variant ? getVariantSize(productObj) : '',
+            familyName: familyName,
+            productColor: productColor,
             list: 'Search Results'
         });
     }
