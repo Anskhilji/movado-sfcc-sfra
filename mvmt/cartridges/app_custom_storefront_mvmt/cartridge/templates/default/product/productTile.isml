@@ -1,6 +1,7 @@
 <isscript>
     var assets = require('*/cartridge/scripts/assets');
     assets.addCss('/css/lib/product-tile-name.css');
+    assets.addJs('/js/slickSearch.js');
 </isscript>
 <div class="product-tile-redesign product-tile" itemscope itemtype="http://schema.org/Product">
     <!-- dwMarker="product" dwContentID="${product.uuid}" -->
@@ -21,14 +22,6 @@
         <isinclude template="product/components/productTileImage" />
     </isif>
 
-    <isloop items="${product.badges.textBadges}" var="badge">
-        <div class="product-tag-content">
-            <div class="exclusive-badge exclusive-badge-search">
-                <span class="badge text-uppercase">${badge.text}</span>
-            </div>
-        </div>
-    </isloop>
-
     <div class="tile-body">
         <div class="swatches-div">
             <isif condition="${pdict.display.swatches !== false &&  product.productType == 'master'}">
@@ -41,54 +34,24 @@
         </div>
 
         <isif condition="${pdict.display.showAddToCart}">
-            <div class="product-brand-info product-brand-props">
+            <div class="product-brand-info">
                 <isif condition="${product.isWatchTile}">
-                    <isif condition="${!empty(product.defaultVariantCollectionName) || !empty(product.collectionName)}">
-                        <isif condition="${!empty(product.defaultVariantCollectionName)}">
-                            <isif condition="${product.defaultVariantCollectionName.length > 20}">
-                                <span class="collection-name text-truncate-wrapper watches-turncate-name">${product.defaultVariantCollectionName}</span>
-                            <iselse>
-                                <span class="collection-name">${product.defaultVariantCollectionName}</span>
-                            </isif>
-                        <iselse>
-                            <isif condition="${product.collectionName.length > 20}">
-                                <span class="collection-name text-truncate-wrapper watches-turncate-name">${product.collectionName}</span>
-                            <iselse>
-                                <span class="collection-name">${product.collectionName}</span>
-                            </isif>
+                    <div class="ellipsis-format">
+                        <isif condition="${!empty(product.defaultVariantCollectionName) || !empty(product.collectionName)}">
+                            <span class="collection-name text-family-truncate-wrapper">${!empty(product.defaultVariantCollectionName) ? product.defaultVariantCollectionName : product.collectionName}</span>
                         </isif>
-                    </isif>
+                        <isif condition="${!empty(product.caseDiameterRedesigned) || !empty(product.defaultVariantcaseDiameterRedesigned)}">
+                            <span class="case-diameter">${!empty(product.defaultVariantcaseDiameterRedesigned) ? product.defaultVariantcaseDiameterRedesigned : product.caseDiameterRedesigned}</span>
+                        </isif>
+                    </div>
+                    <isinclude template="product/components/old/productTileName" />
                 <iselse>
-                    <isif condition="${!empty(product.productName)}">
-                        <isif condition="${product.productName > 20}">
-                            <span class="collection-name text-truncate-wrapper watches-turncate-name">${product.productName}</span>
-                        <iselse>
-                            <span class="collection-name">${product.productName}</span>
-                        </isif>
-                    <iselse>
-                        <span class="collection-name"></span>
-                    </isif>
+                    <span class="collection-name">${!empty(product.collectionName) ? product.collectionName : ''}</span>
+                    <isinclude template="product/components/productTileName" />
                 </isif>
-                <isif condition="${!empty(product.caseDiameterRedesigned) || !empty(product.defaultVariantcaseDiameterRedesigned)}">
-                    <span class="case-diameter">${!empty(product.defaultVariantcaseDiameterRedesigned) ? product.defaultVariantcaseDiameterRedesigned : product.caseDiameterRedesigned}</span>
-                </isif>
+
             </div>
         </isif>
-
-        <isinclude template="product/components/old/productTileName" />
-
-        <isif condition="${preOrder}">
-            <div class="out-of-stock">
-                ${Resource.msg('info.product.availability.preorder', 'common', null)}
-            </div>
-        </isif>
-
-		<isif condition="${outOfStock}">
-			<div class="out-of-stock">
-                ${Resource.msg('label.soldout', 'common', null)}
-            </div>
-        </isif>
-
 
         <isif condition="${product.productType == 'master' && !empty(product.defaultVariantPrice)}">
             <isset name="price" value="${product.defaultVariantPrice}" scope="page" />

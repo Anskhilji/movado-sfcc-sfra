@@ -140,12 +140,12 @@ function getSuggestions(scope) {
             url: endpoint + encodeURIComponent($(scope).val()),
             method: 'GET',
             success: function (data) {
+                slickSearchSwatch();
                 var resposeCount = $('#searchCount', $(data).context).val();
                 processResponse;
                 if (resposeCount == currentCount) {
                     $('body').trigger('siteSearch:success', $(scope).val());
                 }
-                slickSearchSwatch();
             },
 
             error: function () { $.spinner().stop();}
@@ -162,7 +162,7 @@ function getSuggestionsSlots() {
     }
 }
 
-function slickSearchSwatch () {
+function slickSearchSwatch() {
     $('.product-tile-redesign .swatches').slick({
         infinite: true,
         speed: 300,
