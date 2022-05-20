@@ -859,9 +859,7 @@
 						display: none;
 						width: 0;
 					}
-					&::-webkit-scrollbar {
-						display: none;
-					}
+
 					@include media-breakpoint-down(md) {
 						flex-direction: row;
 						left: rem(0);
@@ -1199,11 +1197,13 @@
 
 		.prices.prices-main {
 			padding-bottom: rem(0);
+
 			.price {
 				display: flex;
 				align-items: center;
 				justify-content: center;
 			}
+
 			.price-pdp-mvmt {
 				justify-content: center;
 				font-size: rem(16);
@@ -1258,6 +1258,7 @@
 			.shipping-callout {
 				border-left: rem(2) solid $grey8;
 			}
+
 			.content-asset {
 				padding-left: rem(10);
 			}
@@ -1292,7 +1293,7 @@
 		
 					.text-m {
 						color: $black3;
-						font-family: "Gill Sans";
+						font-family: $font-gills-light;
 						font-size: rem(15);
 						font-weight: 300;
 						letter-spacing: 0;
@@ -1590,3 +1591,4 @@
 	}
 }
   
+ 
