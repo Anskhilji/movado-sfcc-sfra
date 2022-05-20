@@ -779,11 +779,8 @@
 		@include media-breakpoint-down(md) {
 			max-width: calc(100% - 50%);
 		}
-		@include media-breakpoint-down(sm) {
-			max-width: calc(100% - 0%);
-		}
 
-		@include media-breakpoint-down(sm) {
+		@include media-breakpoint-down(xs) {
 			max-width: rem(100%);
 			min-height: auto;
 			margin-top: rem(0);
@@ -800,6 +797,9 @@
 			
 			@include media-breakpoint-up(md) {
 				margin-bottom: rem(71);
+			}
+			@include media-breakpoint-down(lg) {
+				height: auto;
 			}
 			@include media-breakpoint-down(md) {
 				height: rem(364);
@@ -994,11 +994,15 @@
 .pdp-ob-detail-box {
 	display: flex;
 	flex-direction: row;
-	padding: rem(0) rem(20);
-	@include media-breakpoint-down(sm) {
+	&.pdp-ob-detail-main-box {
+		padding: rem(0) rem(20);
+	}
+	@include media-breakpoint-down(xs) {
 		flex-direction: column;
 		display: unset;
+		padding: rem(0) rem(20);
 	}
+	
 }
   
 .pdp-right-side-ob {
@@ -1008,9 +1012,10 @@
 	margin-top: rem(80);
 
 	@include media-breakpoint-down(md) {
-		max-width: rem(330);
+		max-width: rem(430);
+		margin-left: rem(30);
 	}
-	@include media-breakpoint-down(sm) {
+	@include media-breakpoint-down(xs) {
 		margin-left: rem(0);
 		max-width: 100%;
 		margin-top: rem(41);
@@ -1109,11 +1114,19 @@
 		height: rem(20);
 		@include media-breakpoint-down(sm) {
 			height: rem(46);
+			text-align: left;
+		}
+		@include media-breakpoint-down(xs) { 
+			height: auto;
 		}
 
 		.affirm-modal-trigger {
 			padding: rem(0);
 			display: inline-block
+		}
+		
+		.__affirm-logo {
+			font-size: rem(14);
 		}
 	}
 	
@@ -1181,16 +1194,32 @@
 	}
 
 	.prices-add-to-cart-actions {
-		padding: rem(0) rem(15) rem(20) rem(15);
+		padding: rem(0) rem(15) rem(29) rem(15);
+		z-index: 200;
 
 		.prices.prices-main {
 			padding-bottom: rem(0);
-
+			.price {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
 			.price-pdp-mvmt {
 				justify-content: center;
 				font-size: rem(16);
 				line-height: normal;
 				padding: rem(10) rem(0);
+
+				del {
+					margin-bottom: rem(0);
+					color: $white;
+				}
+			}
+
+			.total-price-text {
+				display: inline-block;
+				font-size: rem(16);
+				letter-spacing: rem(0.4);
 			}
 	
 		}
@@ -1218,7 +1247,6 @@
 			text-transform: capitalize;
 
 			.availability-msg {
-				border-right: rem(2) solid $grey8;
 				padding-right: rem(10);
 				margin-bottom: rem(0);
 
@@ -1227,6 +1255,9 @@
 				}
 			}
 
+			.shipping-callout {
+				border-left: rem(2) solid $grey8;
+			}
 			.content-asset {
 				padding-left: rem(10);
 			}
@@ -1329,7 +1360,7 @@
 			@include media-breakpoint-down(md) {
 				max-width: 50%;
 			}
-			@include media-breakpoint-down(sm) {
+			@include media-breakpoint-down(xs) {
 				max-width: 100%;
 				min-height: auto;
 			}
@@ -1349,13 +1380,27 @@
 
 				.carousel-tile {
 					height: rem(650);
+					@include media-breakpoint-down(lg) {
+						height: rem(550);
+					}
+					@include media-breakpoint-down(md) {
+						height: rem(364);
+					}
 					@include media-breakpoint-down(sm) {
 						height: rem(267);
 					}
 
 					img {
 						margin: 0 auto;
-						max-height: rem(267);
+						@include media-breakpoint-down(lg) {
+							height: rem(550);
+						}
+						@include media-breakpoint-down(md) {
+							height: rem(364);
+						}
+						@include media-breakpoint-down(sm) {
+							max-height: rem(267);
+						}
 					}
 				}
 
@@ -1373,6 +1418,9 @@
 						background-image: url(../../images/RightArrow-left.png);
 						left: rem(36);
 						background-color: transparent;
+						@include media-breakpoint-down(md) {
+							left: rem(20);
+						}
 						@include media-breakpoint-down(sm) {
 							left: rem(0);
 						}
@@ -1381,6 +1429,9 @@
 						background-image: url(../../images/RightArrow-right.png);
 						right: rem(36);
 						background-color: transparent;
+						@include media-breakpoint-down(md) {
+							right: rem(20);
+						}
 						@include media-breakpoint-down(sm) {
 							right: rem(0);
 						}
