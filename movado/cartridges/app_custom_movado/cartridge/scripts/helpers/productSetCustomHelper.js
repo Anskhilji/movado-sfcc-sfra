@@ -43,6 +43,7 @@ function getProductSetSalePrice(productID) {
     var currentProdcutSetProductPriceModel;
     var promotionalPrice = 0;
     var storefrontPromo;
+    var promoCalloutMsg;
 
 	while (productSetProducts.hasNext()) {
         currentProductSetProduct = productSetProducts.next();
@@ -53,16 +54,20 @@ function getProductSetSalePrice(productID) {
                 if (promo.getPromotionClass() != null && promo.getPromotionClass().equals(Promotion.PROMOTION_CLASS_PRODUCT) && !promo.basedOnCoupons) {
                     if (currentProductSetProduct.optionProduct) {
                         currentPromotionalPrice = promo.getPromotionalPrice(currentProductSetProduct, currentProductSetProduct.getOptionModel());
+                        promoCalloutMsg = promo.calloutMsg.markup
                     } else {
                         currentPromotionalPrice = promo.getPromotionalPrice(currentProductSetProduct);
+                        promoCalloutMsg = promo.calloutMsg.markup
                     }
                     if (promotionalPrice.value > currentPromotionalPrice.value && currentPromotionalPrice.value !== 0) {
                         promotionalPrice = currentPromotionalPrice;
                         storefrontPromo = promo;
+                        // promoCalloutMsg = promo.calloutMsg.markup;
                     } else if (promotionalPrice.value == 0) {
                         if ((currentPromotionalPrice.value !== 0 && currentPromotionalPrice.value !== null)) {
                             promotionalPrice = currentPromotionalPrice;
                             storefrontPromo = promo;
+                            // promoCalloutMsg = promo.calloutMsg.markup;
                         }
                     }
                 }
@@ -75,10 +80,10 @@ function getProductSetSalePrice(productID) {
 	}
 
     formattedSalePrice = new Money(salePrice, currencyCode).toFormattedString();
-    var test = "";
     return {
         salePrice: salePrice,
-        formattedSalePrice: formattedSalePrice
+        formattedSalePrice: formattedSalePrice,
+        promoCalloutMsg: promoCalloutMsg
     }
 }
 
