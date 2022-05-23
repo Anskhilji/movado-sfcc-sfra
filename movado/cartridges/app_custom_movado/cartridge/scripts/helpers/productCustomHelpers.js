@@ -1005,14 +1005,16 @@ function isOnlyRedesignedBadge(product) {
  * @returns {Object} - availability object
  */
 function setProductAvailability(product) {
-    for(var i = 0; i < product.individualProducts.length; i++ ) {
-        if(product.individualProducts[i].available == true) {
-            product.availability = product.individualProducts[0].availability;
-            product.available = product.individualProducts[0].available;
-        } else {
-            product.availability = product.individualProducts[i].availability;
-            product.available = product.individualProducts[i].available;
-            break;
+    if( !empty(product) && !empty(product.individualProducts)) {
+        for(var i = 0; i < product.individualProducts.length; i++ ) {
+            if(product.individualProducts[i].available == true) {
+                product.availability = product.individualProducts[0].availability;
+                product.available = product.individualProducts[0].available;
+            } else {
+                product.availability = product.individualProducts[i].availability;
+                product.available = product.individualProducts[i].available;
+                break;
+            }
         }
     }
 }
@@ -1163,7 +1165,7 @@ function setProductAvailability(product) {
 
 function productSetStockAvailability(productType, apiProduct){
     var productAvilibiltyModel;
-    if(productType == Constants.PRODUCT_TYPE && apiProduct.productSetProducts.length > 0){
+    if(!empty(productType) && !empty(apiProduct) && productType == Constants.PRODUCT_TYPE && apiProduct.productSetProducts.length > 0){
         productAvilibiltyModel = apiProduct.availabilityModel;
         for(var i = 0; i < apiProduct.productSetProducts.length; i++){
             if(apiProduct.productSetProducts[i].availabilityModel.inStock == false){
