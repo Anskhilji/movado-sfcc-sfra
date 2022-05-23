@@ -14,7 +14,7 @@
 <input type="hidden" class="form-control selectedCardID" value=""
 	id="selectedCardID"${creditFields.selectedCardID.attributes} >
 
-<div class="row">
+<div class="row credit-card-form-container">
 	<div class="col-12 mx-field-wrapper">
 		<div class="form-group required ${creditFields.cardNumber.htmlName}">            
 			<div class="card-number-wrapper">
@@ -32,7 +32,7 @@
 	</div>
 </div>
 
-<div class="row">
+<div class="row credit-card-form-container">
 	<div class="col-12 mx-field-wrapper">
 		<div class="form-group required ${creditFields.cardOwner.htmlName}">            
 			<input type="text" pattern="^[a-z|A-Z]+(?: [a-z|A-Z]+)*$" class="form-control holderName creditcard-holdername input-wrapper-checkout" id="holderName" data-encrypted-name="holderName" ${creditFields.cardOwner.attributes}   />
@@ -42,7 +42,7 @@
 	</div>
 </div>
 
-<div class="row">
+<div class="row credit-card-form-container">
 	<div class="col-md-6 col-sm-12 field-left mx-field-wrapper">
 		<div class="form-group required relative">			
 			<input inputmode="numeric" type="text" class="form-control expirationDate input-wrapper-checkout"

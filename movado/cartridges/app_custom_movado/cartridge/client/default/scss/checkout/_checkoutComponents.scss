@@ -681,7 +681,7 @@ $stored-payment-spacing: rem(16);
         font-size: rem(13);
         font-weight: 500;
         letter-spacing: rem(0.7);
-        line-height: rem(24);
+        line-height: rem(20);
 
         &:focus {
           border-color: $black;
@@ -695,8 +695,8 @@ $stored-payment-spacing: rem(16);
             font-size: rem(10);
             font-weight: 500;
             letter-spacing: rem(0.7);
-            line-height: rem(24);
-            width: auto;
+            line-height: rem(20);
+            width: 100%;
           }
         }
       }
@@ -723,6 +723,7 @@ $stored-payment-spacing: rem(16);
       left: 2em;
       color: $grey17;
       transition: 0.2s ease-in-out;
+      width: 100%;
 
       &.input-has-value {
         transition: 0.2s ease-in-out;
@@ -733,7 +734,8 @@ $stored-payment-spacing: rem(16);
         font-size: rem(10);
         font-weight: 500;
         letter-spacing: rem(0.7);
-        line-height: rem(24);
+        line-height: rem(20);
+        width: 100%;
       }
       &::after {
         content: "*";
@@ -747,6 +749,7 @@ $stored-payment-spacing: rem(16);
       .field__label {
         &::before {
           content: "";
+          color: transparent;
         }
       }
     }

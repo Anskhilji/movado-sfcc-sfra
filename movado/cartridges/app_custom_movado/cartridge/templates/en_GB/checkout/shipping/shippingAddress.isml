@@ -88,7 +88,7 @@
         <div class="form-group
             ${addressFields.address1.mandatory === true ? 'required' : ''}
             ${addressFields.address1.htmlName}">
-            <input type="text" class="form-control input-wrapper-checkout shippingAddressOne" id="shippingAddressOne" <isif condition="${enableAutoComplete}">placeholder="${Resource.msg('input.autocomplete.address.placeholder','forms',null)}"</isif>
+            <input type="text" class="form-control input-wrapper-checkout shippingAddressOne" id="shippingAddressOne" <isif condition="${enableAutoComplete}">placeholder=""</isif>
                 value="${shippingAddress.address1||''}" <isprint value=${addressFields.address1.attributes} encoding="off"/>
                 autocomplete="shipping address-line1">
             <label class="form-control-label field__label" for="shippingAddressOne">

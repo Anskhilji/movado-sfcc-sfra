@@ -210,7 +210,12 @@ var formHelpers = require('base/checkout/formErrors');
                               if (!data.error) {
                                 var scrollUtil = require('../utilities/scrollUtil');
                                 scrollUtil.scrollPaymentSection('.payment-form', 65);
+
                               }
+                              
+                              $('.mx-field-wrapper input.is-invalid').each(function() {
+                                $('.mx-field-wrapper .info-icon.info-icon-email').addClass('d-none');
+                              });
                           },
                           error: function (err) {
                               if (err.responseJSON.redirectUrl) {

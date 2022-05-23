@@ -55,6 +55,7 @@ $(document).ready(function() { // eslint-disable-line
         const $label = $(element).siblings('.field__label');      
         if ($(element).val().length > 0) {
           $label.addClass('input-has-value');
+            ('.info-icon.info-icon-email').removeClass('d-none');
         } else {
           $label.removeClass('input-has-value');
         }

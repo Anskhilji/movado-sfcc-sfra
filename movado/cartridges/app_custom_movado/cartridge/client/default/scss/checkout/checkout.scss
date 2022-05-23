@@ -789,6 +789,9 @@ header {
         .shipping-summary {
             max-width: rem(700);
         }
+        .payment-summary {
+            max-width: rem(700);
+        }
         .payment-form {
             max-width: rem(700);
         }
@@ -797,6 +800,11 @@ header {
         @include custom-media-query1440($large-screen-width1440) {
             max-width: 33.9%;
             flex: 0 0 33.9%;
+        }
+    }
+    .credit-card-form-container {
+        @include custom-media-query1440($large-screen-width1440) {
+            margin: rem(0) rem(-10);
         }
     }
 }

@@ -56,7 +56,7 @@
         <div class="form-group
             ${billingFields.address1.mandatory === true ? 'required' : ''}
             ${billingFields.address1.htmlName}">
-            <input type="text" class="form-control input-wrapper-checkout billingAddressOne" id="billingAddressOne" <isif condition="${enableAutoComplete}">placeholder="${Resource.msg('input.autocomplete.address.placeholder','forms',null)}"</isif>
+            <input type="text" class="form-control input-wrapper-checkout billingAddressOne" id="billingAddressOne" <isif condition="${enableAutoComplete}">placeholder=""</isif>
                 value="${pdict.order.billing.billingAddress.address
                     && pdict.order.billing.billingAddress.address.address1
                     ? pdict.order.billing.billingAddress.address.address1

@@ -44,7 +44,7 @@
         <div class="form-group
         <isif condition=${addressFields.email.mandatory === true}>required</isif>
         ${addressFields.email.htmlName}">
-            <span class="info-icon">
+            <span class="info-icon info-icon-email">
                 <span class="icon">i</span>
                 <div class="tooltip">
                     ${Resource.msg('tooltip.email','creditCard',null)}
@@ -91,7 +91,7 @@
         <div class="form-group
             ${addressFields.address1.mandatory === true ? 'required' : ''}
             ${addressFields.address1.htmlName}">
-            <span><input <isif condition="${isAmazonPay}">readonly</isif> type="text" class="form-control input-wrapper-checkout shippingAddressOne" id="shippingAddressOne" <isif condition="${enableAutoComplete}">placeholder="${Resource.msg('input.autocomplete.address.placeholder','forms',null)}"</isif>
+            <span><input <isif condition="${isAmazonPay}">readonly</isif> type="text" class="form-control input-wrapper-checkout shippingAddressOne" id="shippingAddressOne" <isif condition="${enableAutoComplete}">placeholder=""</isif>
                 value="${shippingAddress.address1||''}" <isprint value="${addressFields.address1.attributes}" encoding="off"/>
                 autocomplete="shipping address-line1">
             <label class="form-control-label field__label" for="shippingAddressOne">
