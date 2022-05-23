@@ -87,10 +87,11 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
        collectionName = !empty(product.custom.familyName) ? product.custom.familyName[0] : '';
        explicitRecommendations = productCustomHelper.getExplicitRecommendations(product.ID);
 
-       var productSetCustomHelper = require('*/cartridge/scripts/helpers/productSetCustomHelper');
-       var productSetBasePrice = productSetCustomHelper.getProductSetBasePrice(product.ID);
-       var productSetSalePrice = productSetCustomHelper.getProductSetSalePrice(product.ID);
-
+       if (!empty(product.ID)) {
+            var productSetCustomHelper = require('*/cartridge/scripts/helpers/productSetCustomHelper');
+            var productSetBasePrice = productSetCustomHelper.getProductSetBasePrice(product.ID);
+            var productSetSalePrice = productSetCustomHelper.getProductSetSalePrice(product.ID);
+        }
        // Custom Start: Add pricing logic for Klarna promo banners
        try {
            if (productPrice.type === 'range') {
@@ -109,7 +110,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
            klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(new Money(parseInt(productDecimalPrice), session.getCurrency())).toString();
 
         // Custom Start: Add price logic for product sets
-           if (productType === 'set') {
+           if (productType == Constants.PRODUCT_TYPE) {
             if (productSetSalePrice.salePrice !== 0) {
                 klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(new Money(parseInt(productSetSalePrice.salePrice), session.getCurrency())).toString();
             } else {

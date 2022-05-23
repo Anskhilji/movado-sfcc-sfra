@@ -38,7 +38,6 @@ function getProductSetSalePrice(productID) {
     var salePrice = 0;
     var currentProductSetProduct;
     var formattedSalePrice;
-    var currentProductSetProduct;
     var currencyCode;
     var currentProdcutSetProductPriceModel;
     var promoCalloutMsg;
