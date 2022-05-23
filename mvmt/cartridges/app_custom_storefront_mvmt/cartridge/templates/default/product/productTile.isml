@@ -46,7 +46,7 @@
                     </div>
                     <isinclude template="product/components/old/productTileName" />
                 <iselse>
-                    <span class="collection-name">${!empty(product.collectionName) ? product.collectionName : ''}</span>
+                    <span class="collection-name text-family-truncate-wrapper">${!empty(product.collectionName) ? product.collectionName : ''}</span>
                     <isinclude template="product/components/productTileName" />
                 </isif>
 

@@ -12,6 +12,19 @@ $(document).ready(function() {
     });
 });
 
+function showShortText() {
+    $('.text-family-truncate-wrapper').each(function() {
+        var showChar = 13;  // Characters that are shown by default
+        var moretext = ' ...';
+        var content = $(this).html();
+        if(content.length > showChar) {
+            var c = content.substr(0, showChar);
+            var html = c + moretext + '</a>';
+            $(this).html(html);
+        }
+    });
+}
+
 $('.desktop-search-icon').click(function() {
     var $stickyHeader = $('.sticky-header-wrapper');
     $('.desktop-side-search').addClass('desktop-search-active');
@@ -25,6 +38,7 @@ $('.desktop-search-icon').click(function() {
     } else {
         $(".search-input-field").addClass('search-input-field-add');
         $('.desktop-side-search,.mobile-side-search').removeClass('search-bar-header-padding');
+        showShortText();
     }
     $('.desktop-side-search .header-search-field').focus();
 });
