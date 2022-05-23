@@ -12,8 +12,7 @@
 
                             <!-- Prices -->
                             <div class="prices prices-main">
-                                <isset name="price" value="${product.price}" scope="page" />
-                                <isinclude template="product/components/pricing/main" />
+                                <isinclude template="product/components/productSet/setPrice" />
                             </div>
                             <!-- Affirm / Klarna  -->
                             <div class="mt-0">
@@ -44,7 +43,9 @@
                             </isif>
 
                         <!-- Bundle Save 25% Offer -->
-                        <div class="bundle-offer-box d-flex align-items-center justify-content-md-center">
+                        <isset name="PromoCalloutMsg" value="${require('*/cartridge/scripts/helpers/productSetCustomHelper').getProductSetSalePrice(product.id).promoCalloutMsg}" scope="page" />
+                        <isif condition="${!empty(PromoCalloutMsg)}">
+                        <div class="bundle-offer-box d-flex align-items-center justify-content-center">
                                 <span class="tag-iocn d-inline-flex">
                                     <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
                                     width="20px" height="20px" viewBox="0 0 778.000000 778.000000"
@@ -63,8 +64,9 @@
                                     </g>
                                     </svg>
                                 </span>
-                            <span class="bundle-text">Bundle Save 25% Offer </span>
+                            <span class="bundle-text">${PromoCalloutMsg}</span>
                         </div>
+                        </isif>
 
                             <isloop items="${product.individualProducts}" var="productItem" status="loopState">
                                 <div class="set-product-item-thumb d-flex align-items-center">
