@@ -54,8 +54,8 @@
                     'variant': '${pdict.gtm.product.variant}',
                     'quantity': '${pdict.gtm.product.quantity}',
                     'currency': '${pdict.gtm.product.currency}',
-                    'familyName':'${pdict.gtm.product.familyName}',
-                    'productColor':'${pdict.gtm.product.productColor}'
+                    'familyName': '${pdict.gtm.product.familyName}',
+                    'productColor': '${pdict.gtm.product.productColor}'
                 }]
             }
         },
