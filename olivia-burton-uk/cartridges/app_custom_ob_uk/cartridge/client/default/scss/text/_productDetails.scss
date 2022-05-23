@@ -760,29 +760,31 @@
 }
   
 .set-detail-product-main-box-ob {
+	margin-top: rem(49);
 	// main product box
 	margin-bottom: rem(0);
 	@include media-breakpoint-up(xl) {
-		max-width: rem(1430);
+		max-width: rem(1440);
 	}
 
 // main product image carousel
 
 	.primary-mainpdp-images {
 		margin-top: rem(95);
-		width: calc(100% - 38%);
-		@include media-breakpoint-down(md) {
-			width: calc(100% - 50%);
+		max-width: calc(100% - 610px);
+		width: 100%;
+		@include media-breakpoint-down(lg) {
+			max-width: calc(100% - 40%);
 		}
-		@include media-breakpoint-down(sm) {
-			width: calc(100% - 0%);
+		@include media-breakpoint-down(md) {
+			max-width: calc(100% - 50%);
 		}
 
-		@include media-breakpoint-down(sm) {
+		@include media-breakpoint-down(xs) {
 			max-width: rem(100%);
 			min-height: auto;
 			margin-top: rem(0);
-			margin-bottom: rem(122);
+			margin-bottom: rem(115);
 		}
 
 		.cs-carousel-wrapper {
@@ -793,9 +795,18 @@
 			height: rem(594);
 			margin-bottom: 0;
 			
+			@include media-breakpoint-up(md) {
+				margin-bottom: rem(71);
+			}
+			@include media-breakpoint-down(lg) {
+				height: auto;
+			}
 			@include media-breakpoint-down(md) {
-				height: rem(336);
+				height: rem(364);
 				max-width: calc(100% - 0px);
+			}
+			@include media-breakpoint-down(sm) {
+				max-height: rem(336);
 			}
 
 			.main-ob-carousel {
@@ -813,19 +824,20 @@
 					display: flex;
 					align-items: center;
 					justify-content: center;
-					@include media-breakpoint-down(md) {
-						max-height: rem(336);
+					@include media-breakpoint-down(sm) {
+						height: rem(336);
+						display: flex !important;
 					}
 
 					img {
 						max-width: 100%;
-						height: rem(594);
+						max-height: rem(594);
 						margin: 0 auto;
 						@include media-breakpoint-down(md) {
-							height: rem(336);
+							max-height: rem(364);
 						}
 						@include media-breakpoint-down(sm) {
-							height: rem(336);
+							max-height: rem(336);
 						}
 					}
 				}
@@ -837,6 +849,21 @@
 					min-width: rem(81);
 					left: rem(-134);
 					top: 0;
+					max-height: rem(400);
+					overflow-y: auto;
+					overflow-x: hidden;
+					justify-content: flex-start;
+					-ms-overflow-style: none;
+					scrollbar-width: none; /* Firefox */
+					margin-top: rem(107);
+					@include media-breakpoint-down(lg) { 
+						margin-top: rem(70);
+					}
+					&::-webkit-scrollbar {
+						display: none;
+						width: 0;
+					}
+
 					@include media-breakpoint-down(md) {
 						flex-direction: row;
 						left: rem(0);
@@ -845,6 +872,7 @@
 						max-width: 100%;
 						overflow-x: auto;
 						justify-content: flex-start;
+						margin-top: rem(0);
 					}
 					@include media-breakpoint-down(sm) {
 						bottom: rem(-84);
@@ -853,6 +881,9 @@
 					li {
 						margin: rem(0);
 						@include media-breakpoint-down(md) {
+							&:first-child {
+								margin-left: rem(0);
+							}
 							margin: rem(0) rem(10);
 						}
 
@@ -877,10 +908,11 @@
 							display: flex;
 							align-items: center;
 							justify-content: center;
+							transition: all .4s;
 							@include media-breakpoint-down(md) {
-								max-width: rem(71);
-								min-width: rem(71);
-								max-height: rem(71);
+								max-width: rem(68);
+								min-width: rem(68);
+								max-height: rem(68);
 							}
 
 							img {
@@ -888,13 +920,13 @@
 								width: rem(80);
 								height: rem(80);
 								@include media-breakpoint-down(md) {
-									height: rem(71);
-									width: rem(71);
+									height: rem(68);
+									width: rem(68);
 								}
 							}
 						}
 
-						&.slick-active {
+						&.slick-active,&:hover {
 							button {
 								border-color: $pink-grey-light;
 							}
@@ -902,14 +934,17 @@
 					}
 				}
 
+				// slick arrow styling
 				.slick-arrow {
 					height: rem(75);
 					width: rem(75);
+					top: 50%;
+					transform: translateY(-50%);
 					background-size: rem(22) rem(43);
 					@include media-breakpoint-down(md) {
 						height: rem(55);
 						width: rem(55);
-						background-size: rem(12) rem(33);
+						background-size: rem(18) rem(33);
 					}
 
 					@include media-breakpoint-down(sm) {
@@ -920,32 +955,30 @@
 
 					&.slick-prev {
 						background-image: url(../../images/RightArrow-left.png);
-						left: rem(36);
-						@include media-breakpoint-down(sm) {
-						left: rem(20);
-						}
+						left: rem(0);
+						background-color: transparent;
 					}
 					&.slick-next {
 						background-image: url(../../images/RightArrow-right.png);
-						right: rem(36);
-						@include media-breakpoint-down(sm) {
-							right: rem(20);
-						}
+						right: rem(0);
+						background-color: transparent;
 					}
 				}
 			}
 
 			.js-zoom-image {
-				background: url("../../images/zoom_in.svg") center center no-repeat;
+				background: url("../../images/zoomin.svg") center center no-repeat;
 				width: rem(40);
 				height: rem(40);
 				position: absolute;
 				bottom: rem(-71);
-				left: rem(0);
+				left: rem(5);
 				outline: none;
 				box-shadow: none;
+				border-radius: 50%;
 				@include media-breakpoint-down(md) {
 					bottom: rem(33);
+					left: rem(0);
 				}
 
 				&.btn:not(:disabled):not(.disabled):active,
@@ -963,24 +996,32 @@
   
 .pdp-ob-detail-box {
 	display: flex;
-	justify-content: space-between;
 	flex-direction: row;
-	@include media-breakpoint-down(sm) {
+	&.pdp-ob-detail-main-box {
+		padding: rem(0) rem(20);
+	}
+	@include media-breakpoint-down(xs) {
 		flex-direction: column;
 		display: unset;
+		padding: rem(0) rem(20);
 	}
+	
 }
   
 .pdp-right-side-ob {
-	max-width: rem(468);
+	max-width: rem(550);
 	margin-left: rem(60);
 	width: 100%;
+	margin-top: rem(80);
 
-	@include media-breakpoint-down(sm) {
+	@include media-breakpoint-down(md) {
+		max-width: rem(430);
+		margin-left: rem(30);
+	}
+	@include media-breakpoint-down(xs) {
 		margin-left: rem(0);
 		max-width: 100%;
 		margin-top: rem(41);
-		padding: rem(0) rem(5);
 	}
 
 	.product-name {
@@ -1003,12 +1044,16 @@
 		@include media-breakpoint-down(sm) {
 			text-align: left;
 			line-height: rem(30);
-			font-size: rem(30);
+			font-size: rem(24);
 		}
 	}
 
 	.prices {
 		padding-bottom: rem(30);
+		@include media-breakpoint-down(sm) {
+			padding: rem(0) rem(0) rem(20) rem(0);
+		}
+
 		&.prices-main {
 			padding-bottom: rem(20);
 			@include media-breakpoint-down(sm) {
@@ -1037,6 +1082,11 @@
 				font-family: $font-gills-light;
 				font-size: rem(18);
 				font-weight: 300;
+				color: $black3;
+				text-decoration:none;
+				@include media-breakpoint-down(sm) { 
+					font-size: rem(14);
+				}
 			}
 		}
 
@@ -1047,21 +1097,56 @@
 			font-weight: 300;
 			letter-spacing: 0;
 			line-height: rem(41);
+
+			@include media-breakpoint-down(sm) { 
+				font-size: rem(26);
+			}
 		}
 	}
 
-	.klarna-promo-parent-container {
+	.klarna-promo-parent-container, .affirm-as-low-as {
 		margin-bottom: rem(20);
 	}
+
+	.affirm-as-low-as {
+		color: $black3;
+		font-family: $font-gills-light;
+		font-size: rem(14);
+		font-style: italic;
+		letter-spacing: 0;
+		line-height: rem(24);
+		height: rem(20);
+		@include media-breakpoint-down(sm) {
+			height: rem(46);
+			text-align: left;
+		}
+		@include media-breakpoint-down(xs) { 
+			height: auto;
+		}
+
+		.affirm-modal-trigger {
+			padding: rem(0);
+			display: inline-block
+		}
+		
+		.__affirm-logo {
+			font-size: rem(14);
+		}
+	}
+	
 
 	.bundle-offer-box {
 		height: rem(44);
 		width: rem(218);
 		border-radius: rem(3);
-		background-color: $pink-grey;
+		background-color: $pink-grey1;
 		line-height: rem(41);
 		padding: rem(0) rem(17);
 		margin-bottom: rem(30);
+		@include media-breakpoint-down(sm) {
+			width: 100%;
+			padding: rem(0) rem(20);
+		}
 
 		.bundle-text {
 			font-family: $font-gill-std-medium;
@@ -1073,7 +1158,7 @@
 		}
 
 		.tag-iocn {
-			margin-right: rem(12);
+			margin-right: rem(10);
 		}
 	}
 
@@ -1091,13 +1176,15 @@
 	}
 
 	.cart-and-ipay {
+		margin-bottom: rem(0);
 		@include media-breakpoint-down(sm) {
 			padding: rem(0);
 		}
 
 		.add-to-cart {
 			height: rem(45);
-			width: rem(330);
+			max-width: rem(330);
+			width: 100%;
 			color: $black1;
 			font-family: $font-gill-std-medium;
 			font-size: rem(15);
@@ -1107,6 +1194,47 @@
 			padding: 0;
 			border-radius: rem(3);
 			margin: 0;
+		}
+	}
+
+	.prices-add-to-cart-actions {
+		padding: rem(0) rem(15) rem(29) rem(15);
+		z-index: 200;
+
+		.prices.prices-main {
+			padding-bottom: rem(0);
+
+			.price {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			.price-pdp-mvmt {
+				justify-content: center;
+				font-size: rem(16);
+				line-height: normal;
+				padding: rem(10) rem(0);
+
+				del {
+					margin-bottom: rem(0);
+					color: $white;
+				}
+			}
+
+			.total-price-text {
+				display: inline-block;
+				font-size: rem(16);
+				letter-spacing: rem(0.4);
+			}
+	
+		}
+		
+		.cart-and-ipay {
+
+			.add-to-cart {
+				max-width: 100%;
+			}
 		}
 	}
 
@@ -1125,13 +1253,16 @@
 			text-transform: capitalize;
 
 			.availability-msg {
-				border-right: rem(2) solid $grey8;
 				padding-right: rem(10);
 				margin-bottom: rem(0);
 
 				li {
 					text-transform: capitalize !important;
 				}
+			}
+
+			.shipping-callout {
+				border-left: rem(2) solid $grey8;
 			}
 
 			.content-asset {
@@ -1155,6 +1286,31 @@
 
 		.ratings {
 			margin-top: rem(0);
+			height: rem(25);
+
+			@include media-breakpoint-down(sm) {
+				height: auto;
+			}
+			
+			.standalone-bottomline {
+
+				.star-clickable {
+					align-items: center;
+		
+					.text-m {
+						color: $black3;
+						font-family: $font-gills-light;
+						font-size: rem(15);
+						font-weight: 300;
+						letter-spacing: 0;
+						line-height: rem(25);
+						margin-left: rem(15);
+						&:hover {
+							color: $black3;
+						}
+					}
+				}
+			}			
 		}
 	}
 
@@ -1169,6 +1325,9 @@
 			margin-right: rem(30);
 			@include media-breakpoint-down(sm) {
 				margin-right: rem(20);
+			}
+			img {
+				max-height: rem(65);
 			}
 		}
 
@@ -1208,11 +1367,9 @@
 			@include media-breakpoint-down(md) {
 				max-width: 50%;
 			}
-			@include media-breakpoint-down(sm) {
+			@include media-breakpoint-down(xs) {
 				max-width: 100%;
 				min-height: auto;
-				padding-left: rem(5);
-				padding-right: rem(5);
 			}
 
 			.cs-carousel-wrapper {
@@ -1230,12 +1387,27 @@
 
 				.carousel-tile {
 					height: rem(650);
+					@include media-breakpoint-down(lg) {
+						height: rem(550);
+					}
+					@include media-breakpoint-down(md) {
+						height: rem(364);
+					}
 					@include media-breakpoint-down(sm) {
-						height: rem(336);
+						height: rem(267);
 					}
 
 					img {
 						margin: 0 auto;
+						@include media-breakpoint-down(lg) {
+							height: rem(550);
+						}
+						@include media-breakpoint-down(md) {
+							height: rem(364);
+						}
+						@include media-breakpoint-down(sm) {
+							max-height: rem(267);
+						}
 					}
 				}
 
@@ -1252,15 +1424,23 @@
 					&.slick-prev {
 						background-image: url(../../images/RightArrow-left.png);
 						left: rem(36);
-						@include media-breakpoint-down(sm) {
+						background-color: transparent;
+						@include media-breakpoint-down(md) {
 							left: rem(20);
+						}
+						@include media-breakpoint-down(sm) {
+							left: rem(0);
 						}
 					}
 					&.slick-next {
 						background-image: url(../../images/RightArrow-right.png);
 						right: rem(36);
-						@include media-breakpoint-down(sm) {
+						background-color: transparent;
+						@include media-breakpoint-down(md) {
 							right: rem(20);
+						}
+						@include media-breakpoint-down(sm) {
+							right: rem(0);
 						}
 					}
 				}
@@ -1302,6 +1482,7 @@
 				@include media-breakpoint-down(sm) {
 					padding-left: rem(15);
 					padding-right: rem(15);
+					padding-top: rem(35);
 				}
 			}
 		}
@@ -1322,8 +1503,9 @@
 			font-size: rem(18);
 			letter-spacing: 0;
 			line-height: rem(41);
+			-webkit-text-stroke: rem(0.3) $black;
 			@include media-breakpoint-down(sm) {
-				line-height: rem(30);
+				font-size: rem(15);
 			}
 
 			&.collapsed {
@@ -1415,3 +1597,4 @@
 	}
 }
   
+ 

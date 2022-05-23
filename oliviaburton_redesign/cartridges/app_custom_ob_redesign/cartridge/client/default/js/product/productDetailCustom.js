@@ -150,25 +150,6 @@ module.exports = {
                 $(this).html(html);
             }
         });
-        $('.morelink-wrapper').on('click',function(){
-            if($(this).hasClass('less')) {
-                $(this).removeClass('less');
-                $(this).html(moretext);
-                $('.morelink-wrapper').css('margin-left','4px');
-                $('.morecontent-wrapper').css('display','none');
-            } else {
-                $(this).addClass('less');
-                $(this).html(lesstext);
-                $('.morelink-wrapper').css('margin-left','4px');
-                $('.morecontent-wrapper').css('display','inline');
-            }
-            return false;
-        });
-    },
-    showMoredetailOb: function () {
-        var showChar = 264;  // Characters that are shown by default
-        var moretext = ' show more';
-        var lesstext = ' show less';
         $('.setitem-description .content').each(function() {
             var content = $(this).html();
             if(content.length > showChar) {

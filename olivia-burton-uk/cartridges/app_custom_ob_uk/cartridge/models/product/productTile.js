@@ -46,7 +46,7 @@ function getProductSearchHit(apiProduct) {
  *
  * @returns {Object} - Decorated product model
  */
-module.exports = function productTile(product, apiProduct, productType, params) {
+module.exports = function productTile(product, apiProduct, productType, params, productSetStockAvailabilityModel, factory) {
     var productSearchHit = getProductSearchHit(apiProduct);
     if (!productSearchHit) {
         return null;
@@ -54,6 +54,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var options = productHelper.getConfig(apiProduct, { pid: product.id });
     
     decorators.price(product, apiProduct, options.promotions, false, options.optionModel);
+    decorators.setIndividualProducts(product, apiProduct, factory);
 
     if (!params.base || params.base == true) {
         decorators.base(product, apiProduct, productType);
@@ -74,7 +75,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
         decorators.promotions(product, options.promotions);
     }
     if (!params.availability || params.availability == true) {
-        decorators.availability(product, options.quantity, apiProduct.minOrderQuantity.value, apiProduct.availabilityModel);
+        decorators.availability(product, options.quantity, apiProduct.minOrderQuantity.value, apiProduct.availabilityModel, productSetStockAvailabilityModel);
     }
 
     var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
