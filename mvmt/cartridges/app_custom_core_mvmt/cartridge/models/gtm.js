@@ -176,7 +176,7 @@ function gtmModel(req) {
                     deparmentIncludedCategoryName: departmentCategoryName,
                     quantity: '1',
                     familyName: productImpressionTags && productImpressionTags.familyName ? productImpressionTags.familyName : '',
-                    color: productImpressionTags && productImpressionTags.productColor ? productImpressionTags.productColor : '',
+                    productColor: productImpressionTags && productImpressionTags.productColor ? productImpressionTags.productColor : '',
                     // Custom End
                 };
             } else {
