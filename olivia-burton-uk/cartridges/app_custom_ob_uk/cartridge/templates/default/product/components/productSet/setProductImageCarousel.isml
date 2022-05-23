@@ -26,7 +26,7 @@
         <div class="js-carousel cs-carousel main-ob-carousel">
             <isset name="pdpVideoConfigs" value="${product.pdpVideoConfigs}" scope="page" />
             <isloop items="${product.images['zoom1660']}" var="image" status="loopStatus">
-                <div class="carousel-tile carousel-tile-two-wrapper" data-thumb="${!empty(product.images) && !empty(product.images.tile150[loopStatus.count - 1]) && product.images.tile150[loopStatus.count - 1].url ? product.images.tile150[loopStatus.count - 1].url : ''}">
+                <div class="carousel-tile carousel-tile-two-wrapper" data-thumb="${!empty(product.images) && !empty(product.images.tile156[loopStatus.count - 1]) && product.images.tile156[loopStatus.count - 1].url ? product.images.tile156[loopStatus.count - 1].url : ''}">
                     <picture>
                         <source media="(min-width: 992px)" data-lazy="${product.images.zoom1660[loopStatus.count - 1].url}" />
                         <source media="(min-width: 544px)" data-lazy="${product.images.zoom1660[loopStatus.count - 1].url}" />

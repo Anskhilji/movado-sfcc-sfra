@@ -87,6 +87,7 @@ $white-smoke-light: #f7f7f7;
 $grey: #868686;
 $grey49: #7d7d7d;
 $pink-grey: #ead7d5;
+$pink-grey1: #FFF3F1;
 $pink-hot: #e9a9c6;
 $pink-grey-light: #E9D7D5;
 $dim-grey: #666;
@@ -123,16 +124,3 @@ $transparent-gray: rgba(0, 0, 0, 0.8) !default;
 
 //box shadows
 $form-box-shadow: 0 rem(2) rem(2) 0 rgba(0, 0, 0, 0.24);
-
-$grid-breakpoints: (
-  xs: 0,
-  xs-custom:320px,
-  xsm-custom:350px,
-  sm-custom:400px,
-  sm-small:544px,
-  sm: 576px,
-  md: 768px,
-  lg: 992px,
-  xl: 1200px,
-  xxl: 1400px
-);
