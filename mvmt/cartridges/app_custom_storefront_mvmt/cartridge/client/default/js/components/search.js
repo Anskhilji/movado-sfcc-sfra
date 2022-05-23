@@ -130,6 +130,7 @@ function processResponse(response) {
  */
 
 function getSuggestions(scope) {
+    $('.suggestions-wrapper').addClass('d-none');
     if ($(scope).val().length >= minChars) {
         currentCount = $(scope).val().length;
         $suggestionsSlots.hide();
@@ -140,6 +141,7 @@ function getSuggestions(scope) {
             url: endpoint + encodeURIComponent($(scope).val()),
             method: 'GET',
             success: function (data) {
+                showShortText();
                 slickSearchSwatch();
                 var resposeCount = $('#searchCount', $(data).context).val();
                 processResponse;
@@ -147,7 +149,6 @@ function getSuggestions(scope) {
                     $('body').trigger('siteSearch:success', $(scope).val());
                 }
             },
-
             error: function () { $.spinner().stop();}
         });
     } else {
@@ -162,7 +163,21 @@ function getSuggestionsSlots() {
     }
 }
 
+function showShortText() {
+    $('.text-family-truncate-wrapper').each(function() {
+        var showChar = 12;  // Characters that are shown by default
+        var moretext = '...';
+        var content = $(this).html();
+        if (content.length > showChar) {
+            var c = content.substr(0, showChar);
+            var html = c + moretext + '</a>';
+            $(this).html(html);
+        }
+    });
+}
+
 function slickSearchSwatch() {
+    $('.suggestions-wrapper').removeClass('d-none');
     $('.product-tile-redesign .swatches').slick({
         infinite: true,
         speed: 300,
