@@ -176,7 +176,7 @@ function gtmModel(req) {
                     deparmentIncludedCategoryName: departmentCategoryName,
                     quantity: '1',
                     familyName: productImpressionTags && productImpressionTags.familyName ? productImpressionTags.familyName : '',
-                    productColor: productImpressionTags && productImpressionTags.productColor ? productImpressionTags.productColor : '',
+                    productColor: productImpressionTags && productImpressionTags.productColor ? productImpressionTags.productColor : ''
                     // Custom End
                 };
             } else {
@@ -711,7 +711,7 @@ function getBasketParameters() {
                     // Custom Start : Added payment method
                     paymentMethod: paymentMethod,
                     familyName: familyName,
-                    productColor: productColor,
+                    productColor: productColor
                 });
             }
         });
