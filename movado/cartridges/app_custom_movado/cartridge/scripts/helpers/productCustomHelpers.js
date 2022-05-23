@@ -1165,10 +1165,10 @@ function setProductAvailability(product) {
 
 function productSetStockAvailability(productType, apiProduct) {
     var productAvilibiltyModel;
-    if(!empty(productType) && !empty(apiProduct) && productType == Constants.PRODUCT_TYPE && apiProduct.productSetProducts.length > 0) {
+    if (!empty(productType) && !empty(apiProduct) && productType == Constants.PRODUCT_TYPE && apiProduct.productSetProducts.length > 0) {
         productAvilibiltyModel = apiProduct.availabilityModel;
-        for(var i = 0; i < apiProduct.productSetProducts.length; i++) {
-            if(apiProduct.productSetProducts[i].availabilityModel.inStock == false) {
+        for (var i = 0; i < apiProduct.productSetProducts.length; i++) {
+            if (apiProduct.productSetProducts[i].availabilityModel.inStock == false) {
                 productAvilibiltyModel = apiProduct.productSetProducts[i].availabilityModel;
                 break;
             }
