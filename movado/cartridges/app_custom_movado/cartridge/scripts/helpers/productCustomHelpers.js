@@ -11,6 +11,8 @@ var SystemObjectMgr = require('dw/object/SystemObjectMgr');
 var collections = require('*/cartridge/scripts/util/collections');
 var Calendar = require('dw/util/Calendar');
 var URLUtils = require('dw/web/URLUtils');
+var Constants = require('*/cartridge/utils/Constants');
+
 
 
 /* static constants */
@@ -1003,20 +1005,16 @@ function isOnlyRedesignedBadge(product) {
  * @returns {Object} - availability object
  */
 function setProductAvailability(product) {
-    var availableProduct = false;
-    if(product.individualProducts.length > 0) {
-        for(var i = 0; i < product.individualProducts.length; i++ ) {
-            if(product.individualProducts[i].available == true) {
-                availableProduct = product.individualProducts[i].available;
-            }else{
-                availableProduct = false;
+    if (!empty(product) && !empty(product.individualProducts)) {
+        for (var i = 0; i < product.individualProducts.length; i++) {
+            if (product.individualProducts[i].available == true) {
+                product.availability = product.individualProducts[0].availability;
+                product.available = product.individualProducts[0].available;
+            } else {
+                product.availability = product.individualProducts[i].availability;
+                product.available = product.individualProducts[i].available;
                 break;
             }
-        }
-
-        if(availableProduct == true) {
-            product.availability = product.individualProducts[0].availability;
-            product.available = availableProduct;
         }
     }
 }
@@ -1158,6 +1156,27 @@ function setProductAvailability(product) {
     return category;
 }
 
+/**
+ * It is used to get product Availability in product set for PLP
+ * @param {Object} apiProduct - product object
+ * @param {Object} productType - product type
+ * @returns {Object} - availability object
+ */
+
+function productSetStockAvailability(productType, apiProduct) {
+    var productAvilibiltyModel;
+    if (!empty(productType) && !empty(apiProduct) && productType == Constants.PRODUCT_TYPE && apiProduct.productSetProducts.length > 0) {
+        productAvilibiltyModel = apiProduct.availabilityModel;
+        for (var i = 0; i < apiProduct.productSetProducts.length; i++) {
+            if (apiProduct.productSetProducts[i].availabilityModel.inStock == false) {
+                productAvilibiltyModel = apiProduct.productSetProducts[i].availabilityModel;
+                break;
+            }
+        }
+        return productAvilibiltyModel;
+    }
+}
+
 module.exports = {
     getBadges: getBadges,
     getPdpAttributes: getPdpAttributes,
@@ -1185,5 +1204,7 @@ module.exports = {
     getWishlistGtmObjforPDP: getWishlistGtmObjforPDP,
     getMarketingProducts : getMarketingProducts,
     isOnlyRedesignedBadge: isOnlyRedesignedBadge,
-    setProductAvailability: setProductAvailability
+    setProductAvailability: setProductAvailability,
+    productSetStockAvailability: productSetStockAvailability
+
 };
