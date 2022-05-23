@@ -1053,10 +1053,10 @@ module.exports = {
                         updateCartPage(data);
                         handlePostCartAdd(data);
                         $('body').trigger('product:afterAddToCart', data);
-                        // if (window.Resources.LISTRAK_ENABLED) {
-                        //     var ltkSendSCA = require('listrak_custom/ltkSendSCA');
-                        //     ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
-                        // }
+                        if (window.Resources.LISTRAK_ENABLED) {
+                            var ltkSendSCA = require('listrak_custom/ltkSendSCA');
+                            ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
+                        }
                         $.spinner().stop();
                     },
                     error: function () {

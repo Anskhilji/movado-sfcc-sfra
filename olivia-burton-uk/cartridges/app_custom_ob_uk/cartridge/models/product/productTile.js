@@ -101,6 +101,5 @@ module.exports = function productTile(product, apiProduct, productType, params, 
     /**
      * Custom End:
      */
-     product
     return product;
 };
