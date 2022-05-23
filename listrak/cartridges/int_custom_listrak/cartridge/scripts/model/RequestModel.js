@@ -59,7 +59,7 @@ function generateTransectionalEmailToLTKPayload(params) {
             "segmentationFieldValues": [
                 {
                     "segmentationFieldId": Site.current.preferences.custom.Listrak_Transactional_FirstName || '',
-                    "value": params.firstName || ''
+                    "value": params.firstName || params.name || ''
                 },
                 {
                     "segmentationFieldId": Site.current.preferences.custom.Listrak_Transactional_LastName || '',
@@ -67,7 +67,7 @@ function generateTransectionalEmailToLTKPayload(params) {
                 },
                 {
                     "segmentationFieldId": Site.current.preferences.custom.Listrak_Transactional_Email || '',
-                    "value": params.email || ''
+                    "value": params.email || params.friendEmail || ''
                 },
                 {
                     "segmentationFieldId": Site.current.preferences.custom.Listrak_Transactional_Password || '',

@@ -74,12 +74,24 @@ function send(emailObj, template, context) {
                 requestParams.paymentMethod = context.order.billing.payment.selectedPaymentInstruments[0].paymentMethod;
                 requestParams.email = context.order.orderEmail;
                 break;
+            case 5:
+                requestParams.messageType = 'accountLocked';
+                requestParams.messageContext = 'Account';
+                requestParams.messageId = Site.current.preferences.custom.Listrak_AccountLockedMessageID;
+                break;
             case 6:
                 requestParams.messageType = 'accountEdit';
                 requestParams.messageContext = 'Account';
                 requestParams.messageId = Site.current.preferences.custom.Listrak_AccountUpdateMessageID;
                 requestParams.firstName = context.firstName;
                 requestParams.lastName = context.lastName;
+                break;
+            case 7:
+                requestParams.messageType = 'productShareEmail';
+                requestParams.messageContext = 'Account';
+                requestParams.messageId = Site.current.preferences.custom.Listrak_ProductShareEmailMessageID;
+                requestParams.name = context.name;
+                requestParams.email = context.friendsEmail;
                 break;
 
             case 13:
