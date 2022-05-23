@@ -1005,7 +1005,7 @@ function isOnlyRedesignedBadge(product) {
  * @returns {Object} - availability object
  */
 function setProductAvailability(product) {
-    if( !empty(product) && !empty(product.individualProducts)) {
+    if(!empty(product) && !empty(product.individualProducts)) {
         for(var i = 0; i < product.individualProducts.length; i++ ) {
             if(product.individualProducts[i].available == true) {
                 product.availability = product.individualProducts[0].availability;
