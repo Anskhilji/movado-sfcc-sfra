@@ -108,6 +108,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
            }
            klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(new Money(parseInt(productDecimalPrice), session.getCurrency())).toString();
 
+        // Custom Start: Add price logic for product sets
            if (productType === 'set') {
             if (productSetSalePrice.salePrice !== 0) {
                 klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(new Money(parseInt(productSetSalePrice.salePrice), session.getCurrency())).toString();
@@ -115,6 +116,8 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
                 klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(new Money(parseInt(productSetBasePrice.basePrice), session.getCurrency())).toString();
                 }
             }
+        // Custom End
+
        } catch (e) {
            Logger.error('Product.js: Error occured while getting product price for Klarna and error is: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
        }

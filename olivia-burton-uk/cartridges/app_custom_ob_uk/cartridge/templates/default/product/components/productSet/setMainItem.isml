@@ -46,7 +46,7 @@
 
                         <!-- Bundle Save 25% Offer -->
                         <isset name="PromoCalloutMsg" value="${require('*/cartridge/scripts/helpers/productSetCustomHelper').getProductSetSalePrice(product.id).promoCalloutMsg}" scope="page" />
-                        <isif condition="${PromoCalloutMsg !== undefined && PromoCalloutMsg !== null}">
+                        <isif condition="${!empty(PromoCalloutMsg)}">
                         <div class="bundle-offer-box d-flex align-items-center justify-content-center">
                                 <span class="tag-iocn d-inline-flex">
                                     <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
