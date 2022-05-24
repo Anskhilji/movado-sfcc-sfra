@@ -1,0 +1,22 @@
+<div class="price price-pdp-mvmt">
+    <isset name="salePrice" value="${require('*/cartridge/scripts/helpers/productSetCustomHelper').getProductSetSalePrice(product.id).formattedSalePrice}" scope="page" />
+    <isset name="basePrice" value="${require('*/cartridge/scripts/helpers/productSetCustomHelper').getProductSetBasePrice(product.id).formattedBasePrice}" scope="page" />
+    <isif condition="${salePrice !== 'N/A' && salePrice !== 0}">
+        <span class="sales sale-price-mvmt">
+            ${salePrice}
+        </span>
+        <del>
+            <span class="strike-through list">
+                <span class="value">
+                    ${basePrice}             
+                </span>
+            </span>
+        </del>
+    <iselse>
+    <isif condition="${!empty(basePrice)}">
+        <span class="sales sale-price-mvmt">
+            ${basePrice}
+        </span>  
+    </isif>
+    </isif>
+</div>
