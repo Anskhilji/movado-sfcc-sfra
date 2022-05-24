@@ -92,14 +92,14 @@
         <div class="form-group
             ${addressFields.address1.mandatory === true ? 'required' : ''}
             ${addressFields.address1.htmlName}">
+            <isif condition="${sitePref.custom.enableCalloutMsgAddress1 === true}">
+                <iscontentasset aid="calloutMsgAddress1"/>
+            </isif>
             <span><input <isif condition="${isAmazonPay}">readonly</isif> type="text" class="form-control input-wrapper-checkout shippingAddressOne" id="shippingAddressOne" <isif condition="${enableAutoComplete}">placeholder=""</isif>
                 value="${shippingAddress.address1||''}" <isprint value="${addressFields.address1.attributes}" encoding="off"/>
                 autocomplete="shipping address-line1">
             <label class="form-control-label field__label" for="shippingAddressOne">
                 <isprint value="${addressFields.address1.label}" encoding="htmlcontent" />
-                <isif condition="${sitePref.custom.enableCalloutMsgAddress1 === true}">
-                    <iscontentasset aid="calloutMsgAddress1"/>
-                </isif>
             </label>
                 <div class="invalid-feedback"><isprint value="${addressFields.address1.error}" ></div>
             </span>
@@ -112,14 +112,14 @@
         <div class="form-group
             ${addressFields.address2.mandatory === true ? 'required' : ''}
             ${addressFields.address2.htmlName}">
+            <isif condition="${sitePref.custom.enableCalloutMsgAddress2 === true}">
+                <iscontentasset aid="calloutMsgAddress2"/>
+            </isif>
             <input <isif condition="${isAmazonPay}">readonly</isif> type="text" class="form-control input-wrapper-checkout shippingAddressTwo" id="shippingAddressTwo"
                 value="${shippingAddress.address2||''}" <isprint value="${addressFields.address2.attributes}" encoding="off"/>
                 autocomplete="shipping address-line2">
             <label class="form-control-label field__label" for="shippingAddressTwo">
                 <isprint value="${addressFields.address2.label}" encoding="htmlcontent" />
-                <isif condition="${sitePref.custom.enableCalloutMsgAddress2 === true}">
-                    <iscontentasset aid="calloutMsgAddress2"/>
-                </isif>
             </label>
             <div class="invalid-feedback"><isprint value="${addressFields.address2.error}" ></div>
         </div>
@@ -184,14 +184,14 @@
         <div class="form-group
             ${addressFields.postalCode.mandatory === true ? 'required' : ''}
             ${addressFields.postalCode.htmlName}">
+            <isif condition="${sitePref.custom.enableCalloutMsgPostalCode === true}">
+                <iscontentasset aid="calloutMsgPostalCode"/>
+            </isif>
             <input <isif condition="${isAmazonPay}">readonly</isif> type="text" class="form-control input-wrapper-checkout shippingZipCode" id="shippingZipCode"
                 value="${shippingAddress.postalCode||''}" <isprint value="${addressFields.postalCode.attributes}" encoding="off"/>
                 autocomplete="shipping postal-code">
             <label class="form-control-label field__label" for="shippingZipCode">
                 <isprint value="${addressFields.postalCode.label}" encoding="htmlcontent" />
-                <isif condition="${sitePref.custom.enableCalloutMsgPostalCode === true}">
-                    <iscontentasset aid="calloutMsgPostalCode"/>
-                </isif>
             </label>
             <div class="invalid-feedback"><isprint value="${addressFields.postalCode.error}" ></div>
         </div>
@@ -203,14 +203,14 @@
         <div class="form-group
             ${addressFields.phone.mandatory === true ? 'required' : ''}
             ${addressFields.phone.htmlName}">
+            <isif condition="${sitePref.custom.enableCalloutMsgMobileNumber === true}">
+                <iscontentasset aid="calloutMsgMobileNumber"/>
+            </isif>
             <input <isif condition="${isAmazonPay}">readonly</isif> type="tel" class="form-control input-wrapper-checkout shippingPhoneNumber" id="shippingPhoneNumber"
                 value="${shippingAddress.phone||''}" <isprint value="${addressFields.phone.attributes}" encoding="off"/>
                    autocomplete="tel">
             <label class="form-control-label field__label" for="shippingPhoneNumber">
                 <isprint value="${addressFields.phone.label}" encoding="htmlcontent" />
-                <isif condition="${sitePref.custom.enableCalloutMsgMobileNumber === true}">
-                    <iscontentasset aid="calloutMsgMobileNumber"/>
-                </isif>
             </label>
             <div class="invalid-feedback"><isprint value="${addressFields.phone.error}" ></div>
         </div>
