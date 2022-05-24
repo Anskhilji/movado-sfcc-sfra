@@ -1294,7 +1294,6 @@
 
 		.ratings {
 			margin-top: rem(0);
-			// height: rem(25);
 
 			@include media-breakpoint-down(sm) {
 				height: auto;
