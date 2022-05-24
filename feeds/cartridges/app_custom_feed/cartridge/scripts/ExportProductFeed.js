@@ -249,7 +249,6 @@ function exportFeed(feedColumns, fileArgs, feedParameters) {
         while (productSearchHitsItr.hasNext()) {
             try {
                 var product = productSearchHitsItr.next().product;
-
                 if (product.variant) {
                     continue;
                 }
@@ -267,6 +266,7 @@ function exportFeed(feedColumns, fileArgs, feedParameters) {
                         writeCSVLine(product.product, categoriesPath, feedColumns, fileArgs);
                     });
                 }
+
             } catch (e) {
                 Logger.error('Error occurred while adding product into feed. Product {0}: \n Error: {1} \n Message: {2} \n', product, e.stack, e.message);
             }

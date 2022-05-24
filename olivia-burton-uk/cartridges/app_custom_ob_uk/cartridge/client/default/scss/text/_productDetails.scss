@@ -766,6 +766,9 @@
 	@include media-breakpoint-up(xl) {
 		max-width: rem(1440);
 	}
+	@include media-breakpoint-down(xs) {
+		margin-top: rem(0);
+	}
 
 // main product image carousel
 
@@ -792,7 +795,7 @@
 			margin-left: auto;
 			max-width: calc(100% - 134px);
 			width: 100%;
-			height: rem(594);
+			height: auto;
 			margin-bottom: 0;
 			
 			@include media-breakpoint-up(md) {
@@ -1021,7 +1024,11 @@
 	@include media-breakpoint-down(xs) {
 		margin-left: rem(0);
 		max-width: 100%;
-		margin-top: rem(41);
+		margin-top: rem(70);
+	}
+
+	&.pdp-main-product-right-box {
+		margin-top: rem(0);
 	}
 
 	.product-name {
@@ -1116,11 +1123,9 @@
 		letter-spacing: 0;
 		line-height: rem(24);
 		height: rem(20);
-		@include media-breakpoint-down(sm) {
-			height: rem(46);
-			text-align: left;
-		}
-		@include media-breakpoint-down(xs) { 
+		font-weight: 600;
+		text-align: left;
+		@include media-breakpoint-down(lg) {
 			height: auto;
 		}
 
@@ -1194,6 +1199,9 @@
 			padding: 0;
 			border-radius: rem(3);
 			margin: 0;
+			@include media-breakpoint-down(xs) {
+				max-width: 100%;
+			}
 		}
 	}
 
@@ -1286,7 +1294,6 @@
 
 		.ratings {
 			margin-top: rem(0);
-			height: rem(25);
 
 			@include media-breakpoint-down(sm) {
 				height: auto;
@@ -1298,7 +1305,7 @@
 					align-items: center;
 		
 					.text-m {
-						color: $black3;
+						color: $black3 !important;
 						font-family: $font-gills-light;
 						font-size: rem(15);
 						font-weight: 300;
@@ -1306,7 +1313,7 @@
 						line-height: rem(25);
 						margin-left: rem(15);
 						&:hover {
-							color: $black3;
+							color: $black3 !important;
 						}
 					}
 				}
