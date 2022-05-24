@@ -51,11 +51,11 @@ $(document).ready(function() { // eslint-disable-line
         }
     });
 
-    function checkForInput(element) {      
+    function checkForInput(element) {
         const $label = $(element).siblings('.field__label');      
         if ($(element).val().length > 0) {
           $label.addClass('input-has-value');
-            $('.info-icon.info-icon-email').removeClass('d-none');
+          $('.info-icon.info-icon-email').removeClass('d-none');
         } else {
           $label.removeClass('input-has-value');
         }
@@ -72,4 +72,13 @@ $(document).ready(function() { // eslint-disable-line
             checkForInput(this);
         });
      });
+     $('.submit-shipping').click(function(){
+       setTimeout(() => {
+            $('.mx-field-wrapper .input-wrapper-checkout.is-invalid').each(function() {
+                $('.info-icon.info-icon-email').addClass('d-none');
+                // alert("afasf");
+            });
+       }, 500);
+     });
+
 });
