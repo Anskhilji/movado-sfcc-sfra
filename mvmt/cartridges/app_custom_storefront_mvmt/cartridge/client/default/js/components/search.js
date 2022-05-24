@@ -131,6 +131,11 @@ function processResponse(response) {
 
 function getSuggestions(scope) {
     $('.suggestions-wrapper').addClass('d-none');
+    $('.suggestions-case-diameter').removeClass('case-diameter');
+    var $screenWidth = 1314;
+    var $currentWidth = $(window).width();
+    var $charLengthMax = 11;
+    var $charLengthMin = 8;
     if ($(scope).val().length >= minChars) {
         currentCount = $(scope).val().length;
         $suggestionsSlots.hide();
@@ -141,7 +146,11 @@ function getSuggestions(scope) {
             url: endpoint + encodeURIComponent($(scope).val()),
             method: 'GET',
             success: function (data) {
-                showShortText();
+                if ($currentWidth > $screenWidth) {
+                    showShortText($charLengthMax);
+                } else {
+                    showShortText($charLengthMin);
+                }
                 slickSearchSwatch();
                 var resposeCount = $('#searchCount', $(data).context).val();
                 processResponse;
@@ -163,21 +172,22 @@ function getSuggestionsSlots() {
     }
 }
 
-function showShortText() {
+function showShortText(charLength) {
     $('.text-family-truncate-wrapper').each(function() {
-        var showChar = 12;  // Characters that are shown by default
-        var moretext = '...';
-        var content = $(this).html();
-        if (content.length > showChar) {
-            var c = content.substr(0, showChar);
-            var html = c + moretext + '</a>';
-            $(this).html(html);
+        var $showChar = charLength;  // Characters that are shown by default
+        var $moretext = '...';
+        var $content = $(this).html();
+        if($content.length > $showChar) {
+            var $c = $content.substr(0, $showChar);
+            var $html = $c + $moretext + '</a>';
+            $(this).html($html);
         }
     });
 }
 
 function slickSearchSwatch() {
     $('.suggestions-wrapper').removeClass('d-none');
+    $('.suggestions-case-diameter').addClass('suggestions-family-name');
     $('.product-tile-redesign .swatches').slick({
         infinite: true,
         speed: 300,
