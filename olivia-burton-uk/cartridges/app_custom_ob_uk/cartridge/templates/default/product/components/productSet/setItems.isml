@@ -25,10 +25,11 @@
                                                     ${product.productName}
                                                 </a>
                                             </h3>
-
-                                            <div class="set-product-rating">
-                                                <isinclude template="product/components/productSet/pidIndividualRating" />
-                                            </div>
+                                            <isif condition="${product.yotpoIndividualProductData && product.yotpoIndividualProductData.isRatingEnabled}">
+                                                <div class="set-product-rating">
+                                                    <isinclude template="product/components/productSet/pidIndividualRating" />
+                                                </div>
+                                            </isif>
 
                                             <!-- Prices -->
                                             <div class="prices">
