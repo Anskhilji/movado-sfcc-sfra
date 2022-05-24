@@ -218,8 +218,8 @@ module.exports = function () {
     function updateColorVariation() {
         var $screenWidth = 1314;
         var $currentWidth = $(window).width();
-        var $charLengthMax = 11;
-        var $charLengthMin = 8;
+        var $charLengthMax = 9;
+        var $charLengthMin = 7;
 
         if (document.readyState === "complete") {
             $(document).on('click', '[data-attr="colorVar"] a', function (e) {
