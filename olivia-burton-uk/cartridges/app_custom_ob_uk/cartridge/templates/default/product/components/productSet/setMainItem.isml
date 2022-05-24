@@ -43,8 +43,8 @@
                             </isif>
 
                         <!-- Bundle Save 25% Offer -->
-                        <isset name="PromoCalloutMsg" value="${require('*/cartridge/scripts/helpers/productSetCustomHelper').getProductSetSalePrice(product.id).promoCalloutMsg}" scope="page" />
-                        <isif condition="${!empty(PromoCalloutMsg)}">
+                        <isset name="promoCalloutMsg" value="${require('*/cartridge/scripts/helpers/productSetCustomHelper').getProductSetSalePrice(product.id).promoCalloutMsg}" scope="page" />
+                        <isif condition="${!empty(promoCalloutMsg)}">
                         <div class="bundle-offer-box d-flex align-items-center">
                                 <span class="tag-iocn d-inline-flex">
                                     <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
@@ -64,7 +64,7 @@
                                     </g>
                                     </svg>
                                 </span>
-                            <span class="bundle-text">${PromoCalloutMsg}</span>
+                            <span class="bundle-text">${promoCalloutMsg}</span>
                         </div>
                         </isif>
 
