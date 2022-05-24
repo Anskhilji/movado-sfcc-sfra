@@ -29,7 +29,7 @@ $('.desktop-search-icon').click(function() {
     var $stickyHeader = $('.sticky-header-wrapper');
     var $screenWidth = 1175;
     var $currentWidth = $(window).width();
-    var $charLengthMax = 10;
+    var $charLengthMax = 9;
     var $charLengthMin = 7;
 
     $('.desktop-side-search').addClass('desktop-search-active');
