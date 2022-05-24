@@ -51,11 +51,6 @@ function getProductSetSalePrice(productID) {
         currentProdcutSetProductPriceModel = currentProductSetProduct.priceModel;
         var PromotionItr = PromotionMgr.activePromotions.getProductPromotions(currentProductSetProduct).iterator();
         if (!empty(PromotionItr)) {
-            for each(var promotion in PromotionItr) {
-                var getPromotionalDates = getPromoDate(promotion, startDate, endDate, firstDateValidator);
-                startDate = getPromotionalDates.startDate;
-                endDate = getPromotionalDates.endDate;
-            }
             for each(var promo in PromotionItr) {
                 if (promo.getPromotionClass() != null && promo.getPromotionClass().equals(Promotion.PROMOTION_CLASS_PRODUCT) && !promo.basedOnCoupons) {
                     if (currentProductSetProduct.optionProduct) {
@@ -75,10 +70,16 @@ function getProductSetSalePrice(productID) {
             currencyCode = currentProdcutSetProductPriceModel.price.currencyCode;
             salePrice += currentPromotionalPrice.decimalValue;
         }
+
+        for each(var promotion in PromotionItr) {
+            var getPromotionalDates = getPromoDate(promotion, startDate, endDate, firstDateValidator);
+            startDate = getPromotionalDates.startDate;
+            endDate = getPromotionalDates.endDate;
+        }
     }
 
-    startDate = new Date(startDate*1000.0);
-    endDate = new Date(endDate*1000.0);
+    startDate = new Date(startDate * 1000.0);
+    endDate = new Date(endDate * 1000.0);
     var salePriceEffectiveDate = getSalePriceEffectiveDate(startDate, endDate);
     formattedSalePrice = new Money(salePrice, currencyCode).toFormattedString();
 
