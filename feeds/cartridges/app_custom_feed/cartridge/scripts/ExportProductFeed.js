@@ -258,20 +258,6 @@ function exportFeed(feedColumns, fileArgs, feedParameters) {
                     var categoriesPath = buildCategoryPath(product.getOnlineCategories(), feedParameters);
                 }
 
-                if (product.productSet == true) {
-                    var productSetCustomHelper = require('*/cartridge/scripts/helpers/productSetCustomHelper');
-                    var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
-                    var productSetBasePrice = productSetCustomHelper.getProductSetBasePrice(product.ID);
-                    var productSetSalePrice = productSetCustomHelper.getProductSetSalePrice(product.ID);
-                    productAttributes.price = productSetBasePrice.basePrice + ' ' + product.priceModel.maxPrice.currencyCode;
-                    productAttributes.decimalPrice = productSetBasePrice.basePrice + ' ' + product.priceModel.maxPrice.currencyCode;
-                    productAttributes.salePrice = productSetSalePrice.salePrice + ' ' + product.priceModel.maxPrice.currencyCode;
-                    var productAvilibiltyModel = productCustomHelpers.productSetStockAvailability(Constants.PRODUCT_TYPE, product);
-                    productAttributes.availability = productAvilibiltyModel.availabilityStatus;
-                    productAttributes.inStock = productAvilibiltyModel.inStock;
-
-                }
-
                 writeCSVLine(productAttributes, categoriesPath, feedColumns, fileArgs);
                 if (product.master) {
                     var isVariant = true;
