@@ -38,13 +38,12 @@ function getProductSetSalePrice(productID) {
     var salePrice = 0;
     var currentProductSetProduct;
     var formattedSalePrice;
-    var currentProductSetProduct;
     var currencyCode;
     var currentProdcutSetProductPriceModel;
     var promoCalloutMsg;
     var startDate;
     var endDate;
-    var flag = true;
+    var firstDateValidator = true;
 
 
     while (productSetProducts.hasNext()) {
@@ -53,12 +52,12 @@ function getProductSetSalePrice(productID) {
         var PromotionItr = PromotionMgr.activePromotions.getProductPromotions(currentProductSetProduct).iterator();
         if (!empty(PromotionItr)) {
             for each(var promotion in PromotionItr) {
-                var getPromotionalDates = getPromoDate(promotion, startDate, endDate, flag);
+                var getPromotionalDates = getPromoDate(promotion, startDate, endDate, firstDateValidator);
                 startDate = getPromotionalDates.startDate;
                 endDate = getPromotionalDates.endDate;
             }
             for each(var promo in PromotionItr) {
-                if (promo.getPromotionClass() != null && promo.getPromotionClass().equals(Promotion.PROMOTION_CLASS_PRODUCT)) {
+                if (promo.getPromotionClass() != null && promo.getPromotionClass().equals(Promotion.PROMOTION_CLASS_PRODUCT) && !promo.basedOnCoupons) {
                     if (currentProductSetProduct.optionProduct) {
                         currentPromotionalPrice = promo.getPromotionalPrice(currentProductSetProduct, currentProductSetProduct.getOptionModel());
                         promoCalloutMsg = promo.calloutMsg ? promo.calloutMsg.markup : '';
@@ -91,14 +90,14 @@ function getProductSetSalePrice(productID) {
     }
 }
 
-function getPromoDate(promotion, startDate, endDate, flag) {
+function getPromoDate(promotion, startDate, endDate, firstDateValidator) {
     if (promotion.startDate && promotion.endDate) {
-        if (flag == true) {
+        if (firstDateValidator == true) {
             var formatedStartDate = new Date(promotion.startDate);
             startDate = formatedStartDate.getTime() / 1000.0;
             var formatedEndDate = new Date(promotion.endDate);
             endDate = formatedEndDate.getTime() / 1000.0;
-            flag = false;
+            firstDateValidator = false;
         }
         var promoFormatedStartDate = new Date(promotion.startDate);
         var promoStartDate = promoFormatedStartDate.getTime() / 1000.0;

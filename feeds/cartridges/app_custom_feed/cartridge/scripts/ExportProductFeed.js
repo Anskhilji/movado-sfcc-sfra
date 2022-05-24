@@ -258,7 +258,7 @@ function exportFeed(feedColumns, fileArgs, feedParameters) {
                     var categoriesPath = buildCategoryPath(product.getOnlineCategories(), feedParameters);
                 }
 
-                if (product.productSet == true) {
+                if (product.productSet) {
                     var productSetCustomHelper = require('*/cartridge/scripts/helpers/productSetCustomHelper');
                     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
                     var productSetBasePrice = productSetCustomHelper.getProductSetBasePrice(product.ID);
