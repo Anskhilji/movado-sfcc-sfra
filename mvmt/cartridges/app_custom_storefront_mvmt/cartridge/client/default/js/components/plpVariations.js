@@ -218,8 +218,8 @@ module.exports = function () {
     function updateColorVariation() {
         var $screenWidth = 1314;
         var $currentWidth = $(window).width();
-        var $screenWithGreater = 11;
-        var $screenWithLess = 8;
+        var $charLengthMax = 11;
+        var $charLengthMin = 8;
 
         if (document.readyState === "complete") {
             $(document).on('click', '[data-attr="colorVar"] a', function (e) {
@@ -250,9 +250,9 @@ module.exports = function () {
                             $.spinner().stop();
                         }, 1500);
                         if ($currentWidth > $screenWidth) {
-                            showShortText($screenWithGreater);
+                            showShortText($charLengthMax);
                         } else {
-                            showShortText($screenWithLess);
+                            showShortText($charLengthMin);
                         }
 
                     },

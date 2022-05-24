@@ -29,8 +29,8 @@ $('.desktop-search-icon').click(function() {
     var $stickyHeader = $('.sticky-header-wrapper');
     var $screenWidth = 1175;
     var $currentWidth = $(window).width();
-    var $screenWithGreater = 11;
-    var $screenWithLess = 8;
+    var $charLengthMax = 11;
+    var $charLengthMin = 8;
 
     $('.desktop-side-search').addClass('desktop-search-active');
     $('.mobile-side-search').addClass('active');
@@ -45,9 +45,9 @@ $('.desktop-search-icon').click(function() {
         $('.desktop-side-search,.mobile-side-search').removeClass('search-bar-header-padding');
 
         if ($currentWidth > $screenWidth) {
-            showShortText($screenWithGreater);
+            showShortText($charLengthMax);
         } else {
-            showShortText($screenWithLess);
+            showShortText($charLengthMin);
         }
     }
     $('.desktop-side-search .header-search-field').focus();

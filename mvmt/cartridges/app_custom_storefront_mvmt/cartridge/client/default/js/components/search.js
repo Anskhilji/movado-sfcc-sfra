@@ -134,8 +134,8 @@ function getSuggestions(scope) {
     $('.suggestions-case-diameter').removeClass('case-diameter');
     var $screenWidth = 1314;
     var $currentWidth = $(window).width();
-    var $screenWithGreater = 11;
-    var $screenWithLess = 8;
+    var $charLengthMax = 11;
+    var $charLengthMin = 8;
     if ($(scope).val().length >= minChars) {
         currentCount = $(scope).val().length;
         $suggestionsSlots.hide();
@@ -147,9 +147,9 @@ function getSuggestions(scope) {
             method: 'GET',
             success: function (data) {
                 if ($currentWidth > $screenWidth) {
-                    showShortText($screenWithGreater);
+                    showShortText($charLengthMax);
                 } else {
-                    showShortText($screenWithLess);
+                    showShortText($charLengthMin);
                 }
                 slickSearchSwatch();
                 var resposeCount = $('#searchCount', $(data).context).val();

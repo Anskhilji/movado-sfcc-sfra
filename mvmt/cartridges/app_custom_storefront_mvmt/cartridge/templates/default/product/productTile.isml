@@ -1,7 +1,6 @@
 <isscript>
     var assets = require('*/cartridge/scripts/assets');
     assets.addCss('/css/lib/product-tile-name.css');
-    assets.addJs('/js/slickSearch.js');
 </isscript>
 <div class="product-tile-redesign product-tile" itemscope itemtype="http://schema.org/Product">
     <!-- dwMarker="product" dwContentID="${product.uuid}" -->
