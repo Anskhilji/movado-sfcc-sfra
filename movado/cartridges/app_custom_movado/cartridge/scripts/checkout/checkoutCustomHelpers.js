@@ -25,7 +25,7 @@ function sendConfirmationEmail(order, locale) {
       riskifiedEnabled = isRiskified(paymentInstruments[i]);
 		  }
         }
-        if (riskifiedEnabled) {
+        if (!riskifiedEnabled) {
             sendOrderConfirmationEmail(order, locale);
             checkoutLogger.debug('(checkoutCustomHelpers) -> sendConfirmationEmail: Sent confirmation mail to the current user, riskified not enabled, for order: ' + order.orderNo);
         }
