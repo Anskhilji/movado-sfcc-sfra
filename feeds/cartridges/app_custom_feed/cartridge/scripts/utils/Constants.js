@@ -25,4 +25,3 @@ exports.COUNTRY_FR = 'FR';
 exports.HOUR_MINUTE_SECOND_PATTERN = 'HH:mm-ss';
 exports.DATE_TIME_SEPERATOR = 'T';
 exports.PROMOTION_START_END_DATE_SEPARATOR = '/';
-exports.PRODUCT_TYPE = 'set';
