@@ -545,14 +545,6 @@
 
   .suggestions-wrapper {
     .suggestions {
-      .suggested-products-tiles {
-        .items {
-          .item {
-            max-width: rem(242);
-            width: 33%;
-          }
-        }
-      }
 
       .product-tile {
 
@@ -627,11 +619,11 @@
 
           .plp-image-carousel {
             position: relative;
-            width: rem(210);
-            height: rem(210);
+            width: rem(170);
+            height: rem(176);
             img {
-              width: rem(210);
-              height: rem(210);
+              width: rem(170);
+              height: rem(170);
               object-fit: cover;
             }
           }
