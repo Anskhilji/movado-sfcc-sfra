@@ -240,7 +240,8 @@ module.exports = function () {
                 $(this).find('img.swatch-circle').addClass('is-active');
                 var selectedValueUrl = $(this).data('swatch-url');
                 var pdpURL = $(this).data('pdp-url');
-
+                $('.suggestions-case-diameter').removeClass('case-diameter');
+            
                 $.ajax({
                     url: selectedValueUrl,
                     method: 'GET',
@@ -249,6 +250,7 @@ module.exports = function () {
                         setTimeout(function () {
                             $.spinner().stop();
                         }, 1500);
+                        $('.suggestions-case-diameter').addClass('suggestions-family-name');
                         if ($currentWidth > $screenWidth) {
                             showShortText($charLengthMax);
                         } else {
