@@ -258,6 +258,23 @@ function exportFeed(feedColumns, fileArgs, feedParameters) {
                     var categoriesPath = buildCategoryPath(product.getOnlineCategories(), feedParameters);
                 }
 
+                if (product.productSet) {
+                    var productSetCustomHelper = require('*/cartridge/scripts/helpers/productSetCustomHelper');
+                    var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
+                    var productSetBasePrice = productSetCustomHelper.getProductSetBasePrice(product.ID);
+                    var productSetSalePrice = productSetCustomHelper.getProductSetSalePrice(product.ID);
+                    productAttributes.price = productSetBasePrice.basePrice.toFixed(2) + ' ' + product.priceModel.maxPrice.currencyCode;
+                    productAttributes.decimalPrice = productSetBasePrice.basePrice.toFixed(2) + ' ' + product.priceModel.maxPrice.currencyCode;
+                    if (productSetSalePrice.salePrice > 0) {
+                        productAttributes.salePrice = productSetSalePrice.salePrice.toFixed(2) + ' ' + product.priceModel.maxPrice.currencyCode;
+                    }
+                    productAttributes.salePriceEffectiveDate = productSetSalePrice.salePriceEffectiveDate;
+                    var productAvilibiltyModel = productCustomHelpers.productSetStockAvailability(Constants.PRODUCT_TYPE, product);
+                    productAttributes.availability = productAvilibiltyModel.availabilityStatus;
+                    productAttributes.inStock = productAvilibiltyModel.inStock;
+
+                }
+
                 writeCSVLine(productAttributes, categoriesPath, feedColumns, fileArgs);
                 if (product.master) {
                     var isVariant = true;
