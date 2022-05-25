@@ -64,11 +64,21 @@ function getProductSetSalePrice(productID) {
                     break;
                 }
             }
-        }
 
-        if (currentPromotionalPrice && currentPromotionalPrice.available && currentProdcutSetProductPriceModel.price.available) {
-            currencyCode = currentProdcutSetProductPriceModel.price.currencyCode;
-            salePrice += currentPromotionalPrice.decimalValue;
+            if (currentPromotionalPrice && currentPromotionalPrice.available && currentProdcutSetProductPriceModel.price.available) {
+                currencyCode = currentProdcutSetProductPriceModel.price.currencyCode;
+                salePrice += currentPromotionalPrice.decimalValue;
+
+            } else {
+                if (currentProdcutSetProductPriceModel.price) {
+                    salePrice += currentProdcutSetProductPriceModel.price;
+                }
+            }
+    
+        } else {
+            if (currentProdcutSetProductPriceModel.price) {
+                salePrice += currentProdcutSetProductPriceModel.price;
+            }
         }
 
         for each(var promotion in PromotionItr) {
