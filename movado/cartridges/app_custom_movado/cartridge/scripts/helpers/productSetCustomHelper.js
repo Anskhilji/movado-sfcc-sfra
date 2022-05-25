@@ -81,7 +81,6 @@ function getProductSetSalePrice(productID, currency, isJob) {
         currentProductSetProduct = productSetProducts.next();
         currentProdcutSetProductPriceModel = currentProductSetProduct.priceModel;
         var PromotionItr = PromotionMgr.activePromotions.getProductPromotions(currentProductSetProduct).iterator();
-        var promoDateItr = PromotionItr;
         if (!empty(PromotionItr)) {
             for each(var promo in PromotionItr) {
                 if (promo.getPromotionClass() != null && promo.getPromotionClass().equals(Promotion.PROMOTION_CLASS_PRODUCT) && !promo.basedOnCoupons) {

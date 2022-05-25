@@ -1362,9 +1362,9 @@ function getProductAvailability(product, country) {
             return 'NOT_AVAILABLE';
         }
     }
-        if (product.availabilityModel.inStock) {
-            result = 'IN_STOCK';
-        }
+    if (product.availabilityModel.inStock) {
+        result = 'IN_STOCK';
+    }
 
     return result;
 }
@@ -1380,9 +1380,9 @@ function getProductSetAvailability(product, country, productAvilibiltyModel) {
             return 'NOT_AVAILABLE';
         }
     }
-        if (productAvilibiltyModel.inStock) {
-            result = 'IN_STOCK';
-        }
+    if (productAvilibiltyModel.inStock) {
+        result = 'IN_STOCK';
+    }
 
     return result;
 }
