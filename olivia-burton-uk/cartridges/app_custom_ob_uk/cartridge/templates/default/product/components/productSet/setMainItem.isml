@@ -151,8 +151,7 @@
                             <div class="prices-add-to-cart-actions d-block d-sm-none">
                                 <!-- Prices -->
                                 <div class="prices prices-main">
-                                    <isset name="price" value="${product.price}" scope="page" />
-                                    <isinclude template="product/components/pricing/main" />
+                                    <isinclude template="product/components/productSet/setPrice" />
                                 </div>
 
                                 <!-- Cart Mobile -->

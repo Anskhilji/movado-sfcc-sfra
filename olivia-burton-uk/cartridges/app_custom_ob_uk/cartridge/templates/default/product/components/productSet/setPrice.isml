@@ -2,6 +2,13 @@
     <isset name="salePrice" value="${require('*/cartridge/scripts/helpers/productSetCustomHelper').getProductSetSalePrice(product.id).formattedSalePrice}" scope="page" />
     <isset name="basePrice" value="${require('*/cartridge/scripts/helpers/productSetCustomHelper').getProductSetBasePrice(product.id).formattedBasePrice}" scope="page" />
     <isif condition="${salePrice !== 'N/A' && salePrice !== 0}">
+        <isif condition="${dw.campaign.ABTestMgr.isParticipant('MobileStickyCTATEST','notStickyCTA')}" >
+            <span class="d-none estimated-text">${Resource.msg('label.product.detail.estimated.total', 'product', null)}&nbsp;</span>
+        <iselseif condition="${dw.campaign.ABTestMgr.isParticipant('MobileStickyCTATEST','StickyCTAWithNormalCTA')}" >
+            <span class="d-none estimated-text">${Resource.msg('label.product.detail.estimated.total', 'product', null)}&nbsp;</span>
+        <iselse>
+            <span class="d-sm-none estimated-text total-price-text">${Resource.msg('label.product.detail.estimated.total', 'product', null)}&nbsp;</span>
+        </isif>
         <span class="sales sale-price-mvmt">
             ${salePrice}
         </span>
@@ -14,6 +21,13 @@
         </del>
     <iselse>
     <isif condition="${!empty(basePrice)}">
+        <isif condition="${dw.campaign.ABTestMgr.isParticipant('MobileStickyCTATEST','notStickyCTA')}" >
+            <span class="d-none estimated-text">${Resource.msg('label.product.detail.estimated.total', 'product', null)}&nbsp;</span>
+        <iselseif condition="${dw.campaign.ABTestMgr.isParticipant('MobileStickyCTATEST','StickyCTAWithNormalCTA')}" >
+            <span class="d-none estimated-text">${Resource.msg('label.product.detail.estimated.total', 'product', null)}&nbsp;</span>
+        <iselse>
+            <span class="d-sm-none estimated-text total-price-text">${Resource.msg('label.product.detail.estimated.total', 'product', null)}&nbsp;</span>
+        </isif>
         <span class="sales sale-price-mvmt">
             ${basePrice}
         </span>  

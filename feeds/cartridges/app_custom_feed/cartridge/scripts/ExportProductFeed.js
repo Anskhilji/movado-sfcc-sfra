@@ -252,6 +252,7 @@ function exportFeed(feedColumns, fileArgs, feedParameters) {
                 if (product.variant) {
                     continue;
                 }
+
                 var productAttributes = getProductAttributes(product, feedParameters, feedColumns);
 
                 if (feedParameters.categories) {
@@ -261,7 +262,7 @@ function exportFeed(feedColumns, fileArgs, feedParameters) {
                 if (product.productSet) {
                     var productSetCustomHelper = require('*/cartridge/scripts/helpers/productSetCustomHelper');
                     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
-                    var productSetBasePrice = productSetCustomHelper.getProductSetBasePrice(product.ID);
+                    var productSetBasePrice = productSetCustomHelper.getProductSetBasePrice(product.ID, Constants.CURRENCY_USD, true);
                     var productSetSalePrice = productSetCustomHelper.getProductSetSalePrice(product.ID);
                     productAttributes.price = productSetBasePrice.basePrice.toFixed(2) + ' ' + product.priceModel.maxPrice.currencyCode;
                     productAttributes.decimalPrice = productSetBasePrice.basePrice.toFixed(2) + ' ' + product.priceModel.maxPrice.currencyCode;
@@ -269,10 +270,16 @@ function exportFeed(feedColumns, fileArgs, feedParameters) {
                         productAttributes.salePrice = productSetSalePrice.salePrice.toFixed(2) + ' ' + product.priceModel.maxPrice.currencyCode;
                     }
                     productAttributes.salePriceEffectiveDate = productSetSalePrice.salePriceEffectiveDate;
+                    var productSetBasePrice_FR = productSetCustomHelper.getProductSetBasePrice(product.ID, Constants.CURRENCY_EUR, true);
+                    productAttributes.price_FR = productSetBasePrice_FR.basePrice.toFixed(2) + ' ' + productSetBasePrice_FR.currencyCode;
+                    var productSetSalePrice_FR = productSetCustomHelper.getProductSetSalePrice(product.ID, Constants.CURRENCY_EUR, true);
+                    if (productSetSalePrice_FR.salePrice > 0) {
+                        productAttributes.salePrice_FR = productSetSalePrice_FR.salePrice.toFixed(2) + ' ' + productSetSalePrice_FR.currencyCode;
+                    }
                     var productAvilibiltyModel = productCustomHelpers.productSetStockAvailability(Constants.PRODUCT_TYPE, product);
                     productAttributes.availability = productAvilibiltyModel.availabilityStatus;
-                    productAttributes.inStock = productAvilibiltyModel.inStock;
-
+                    productAttributes.availability_FR = getProductSetAvailability(product, Constants.COUNTRY_FR, productAvilibiltyModel);
+                    productAttributes.sale_price_effective_date_FR = productSetSalePrice.salePriceEffectiveDate;
                 }
 
                 writeCSVLine(productAttributes, categoriesPath, feedColumns, fileArgs);
@@ -1350,16 +1357,36 @@ function getProductAvailability(product, country) {
        var value = product.custom.eswProductRestrictedCountries.filter(function (restrictedCountry) {
             return restrictedCountry == country
         });
+        
         if (!empty(value)) {
             return 'NOT_AVAILABLE';
         }
     }
-
     if (product.availabilityModel.inStock) {
         result = 'IN_STOCK';
     }
+
     return result;
 }
+
+function getProductSetAvailability(product, country, productAvilibiltyModel) {
+    var result = 'NOT_AVAILABLE';
+    if (product.custom.eswProductRestrictedCountries) {
+       var value = product.custom.eswProductRestrictedCountries.filter(function (restrictedCountry) {
+            return restrictedCountry == country
+        });
+        
+        if (!empty(value)) {
+            return 'NOT_AVAILABLE';
+        }
+    }
+    if (productAvilibiltyModel.inStock) {
+        result = 'IN_STOCK';
+    }
+
+    return result;
+}
+
 
 function getProductVariants(products, masterProductAttributes, isVariant, feedParameters, feedColumns) {
     var variants = new Array();
