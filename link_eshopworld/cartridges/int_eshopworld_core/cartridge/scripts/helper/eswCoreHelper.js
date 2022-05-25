@@ -405,52 +405,58 @@
      },
  
      applyRoundingMethod: function (price, model, roundingModel, isFractionalPart) {
-         var roundingMethod = model.split(/(\d+)/)[0];
-         var roundedPrice;
-         if (roundingMethod.equalsIgnoreCase('none')) {
-             if (isFractionalPart) {
-                 return (price / 100) % 1;
-             }
-             return price;
-         }
-         var roundingTarget = model.split(/(\d+)/)[1];
-         var rTLength = roundingTarget.length;
-         if (isFractionalPart) {
-             roundingTarget = rTLength == 1 ? roundingTarget + '0' : roundingTarget.substring(0, 2);
-             rTLength = roundingTarget.length;
-         }
-         if (roundingMethod.equalsIgnoreCase('fixed')) {
-             var otherPart = price % Math.pow(10, rTLength);
-             var priceWithoutOtherPart = price - otherPart;
-             // Logic for fixed rounding method.
-             if (roundingModel.direction.equalsIgnoreCase('up')) {
-                 roundedPrice = (roundingTarget < otherPart ? priceWithoutOtherPart + 1 * Math.pow(10, rTLength) : priceWithoutOtherPart) + new Number(roundingTarget);
-             } else if (roundingModel.direction.equalsIgnoreCase('down')) {
-                 roundedPrice = (roundingTarget > otherPart ? priceWithoutOtherPart - 1 * Math.pow(10, rTLength) : priceWithoutOtherPart) + new Number(roundingTarget);
-                 roundedPrice = roundedPrice < 0 && !isFractionalPart ? price : roundedPrice;
-             } else if (roundingModel.direction.equalsIgnoreCase('nearest')) {
-                 var roundedUp = (roundingTarget < otherPart ? priceWithoutOtherPart + 1 * Math.pow(10, rTLength) : priceWithoutOtherPart) + new Number(roundingTarget);
-                 var roundedDown = (roundingTarget > otherPart ? priceWithoutOtherPart - 1 * Math.pow(10, rTLength) : priceWithoutOtherPart) + new Number(roundingTarget);
-                 roundedDown = roundedDown < 0 && !isFractionalPart ? price : roundedDown;
-                 roundedPrice = Math.abs(roundedUp - price) >= Math.abs(price - roundedDown) ? roundedDown : roundedUp;
-             }
-         } else {
-             // Logic for multiple rounding method.
-             if (roundingModel.direction.equalsIgnoreCase('up')) {
-                 roundedPrice = Math.ceil(price / roundingTarget) * roundingTarget;
-             } else if (roundingModel.direction.equalsIgnoreCase('down')) {
-                 roundedPrice = Math.floor(price / roundingTarget) * roundingTarget;
-             } else if (roundingModel.direction.equalsIgnoreCase('nearest')) {
-                 var roundedUp = Math.ceil(price / roundingTarget) * roundingTarget,
-                     roundedDown = Math.floor(price / roundingTarget) * roundingTarget,
-                 roundedPrice = Math.abs(roundedUp - price) >= Math.abs(price - roundedDown) ? roundedDown : roundedUp;
-             }
-         }
-         if (isFractionalPart) {
-             return roundedPrice / Math.pow(10, rTLength);
-         }
-         return roundedPrice;
-     },
+        try {
+            if (!empty(model)) {
+                var roundingMethod = model.split(/(\d+)/)[0];
+                var roundedPrice;
+                if (roundingMethod.equalsIgnoreCase('none')) {
+                    if (isFractionalPart) {
+                        return (price / 100) % 1;
+                    }
+                    return price;
+                }
+                var roundingTarget = model.split(/(\d+)/)[1];
+                var rTLength = roundingTarget.length;
+                if (isFractionalPart) {
+                    roundingTarget = rTLength == 1 ? roundingTarget + '0' : roundingTarget.substring(0, 2);
+                    rTLength = roundingTarget.length;
+                }
+                if (roundingMethod.equalsIgnoreCase('fixed')) {
+                    var otherPart = price % Math.pow(10, rTLength);
+                    var priceWithoutOtherPart = price - otherPart;
+                    // Logic for fixed rounding method.
+                    if (roundingModel.direction.equalsIgnoreCase('up')) {
+                        roundedPrice = (roundingTarget < otherPart ? priceWithoutOtherPart + 1 * Math.pow(10, rTLength) : priceWithoutOtherPart) + new Number(roundingTarget);
+                    } else if (roundingModel.direction.equalsIgnoreCase('down')) {
+                        roundedPrice = (roundingTarget > otherPart ? priceWithoutOtherPart - 1 * Math.pow(10, rTLength) : priceWithoutOtherPart) + new Number(roundingTarget);
+                        roundedPrice = roundedPrice < 0 && !isFractionalPart ? price : roundedPrice;
+                    } else if (roundingModel.direction.equalsIgnoreCase('nearest')) {
+                        var roundedUp = (roundingTarget < otherPart ? priceWithoutOtherPart + 1 * Math.pow(10, rTLength) : priceWithoutOtherPart) + new Number(roundingTarget);
+                        var roundedDown = (roundingTarget > otherPart ? priceWithoutOtherPart - 1 * Math.pow(10, rTLength) : priceWithoutOtherPart) + new Number(roundingTarget);
+                        roundedDown = roundedDown < 0 && !isFractionalPart ? price : roundedDown;
+                        roundedPrice = Math.abs(roundedUp - price) >= Math.abs(price - roundedDown) ? roundedDown : roundedUp;
+                    }
+                } else {
+                    // Logic for multiple rounding method.
+                    if (roundingModel.direction.equalsIgnoreCase('up')) {
+                        roundedPrice = Math.ceil(price / roundingTarget) * roundingTarget;
+                    } else if (roundingModel.direction.equalsIgnoreCase('down')) {
+                        roundedPrice = Math.floor(price / roundingTarget) * roundingTarget;
+                    } else if (roundingModel.direction.equalsIgnoreCase('nearest')) {
+                        var roundedUp = Math.ceil(price / roundingTarget) * roundingTarget,
+                            roundedDown = Math.floor(price / roundingTarget) * roundingTarget,
+                        roundedPrice = Math.abs(roundedUp - price) >= Math.abs(price - roundedDown) ? roundedDown : roundedUp;
+                    }
+                }
+                if (isFractionalPart) {
+                    return roundedPrice / Math.pow(10, rTLength);
+                }
+            }
+        } catch (e) {
+            logger.error('Error while getting Rounding model {0} {1}', e.message, e.stack);
+        }
+        return roundedPrice; 
+    },
      /*
      * applies rounding model received from V3 price feed.
      */
