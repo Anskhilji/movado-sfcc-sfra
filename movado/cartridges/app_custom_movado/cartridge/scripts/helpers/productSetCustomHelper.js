@@ -41,15 +41,12 @@ function getProductSetSalePrice(productID) {
     var currencyCode;
     var currentProdcutSetProductPriceModel;
     var promoCalloutMsg;
-    var startDate;
-    var endDate;
-    var firstDateValidator = true;
-
 
     while (productSetProducts.hasNext()) {
         currentProductSetProduct = productSetProducts.next();
         currentProdcutSetProductPriceModel = currentProductSetProduct.priceModel;
         var PromotionItr = PromotionMgr.activePromotions.getProductPromotions(currentProductSetProduct).iterator();
+        var promoDateItr = PromotionItr;
         if (!empty(PromotionItr)) {
             for each(var promo in PromotionItr) {
                 if (promo.getPromotionClass() != null && promo.getPromotionClass().equals(Promotion.PROMOTION_CLASS_PRODUCT) && !promo.basedOnCoupons) {
@@ -70,17 +67,8 @@ function getProductSetSalePrice(productID) {
             currencyCode = currentProdcutSetProductPriceModel.price.currencyCode;
             salePrice += currentPromotionalPrice.decimalValue;
         }
-
-        for each(var promotion in PromotionItr) {
-            var getPromotionalDates = getPromoDate(promotion, startDate, endDate, firstDateValidator);
-            startDate = getPromotionalDates.startDate;
-            endDate = getPromotionalDates.endDate;
-        }
     }
-
-    startDate = new Date(startDate * 1000.0);
-    endDate = new Date(endDate * 1000.0);
-    var salePriceEffectiveDate = getSalePriceEffectiveDate(startDate, endDate);
+    var salePriceEffectiveDate = getProductSetEfectiveDate(productID);
     formattedSalePrice = new Money(salePrice, currencyCode).toFormattedString();
 
     return {
@@ -89,6 +77,34 @@ function getProductSetSalePrice(productID) {
         promoCalloutMsg: promoCalloutMsg,
         salePriceEffectiveDate: salePriceEffectiveDate
     }
+}
+
+function getProductSetEfectiveDate(productID) {
+    var ProductMgr = require('dw/catalog/ProductMgr');
+    var productSet = ProductMgr.getProduct(productID);
+    var PromotionMgr = require('dw/campaign/PromotionMgr');
+    var productSetProducts = productSet.productSetProducts.iterator();
+    var startDate;
+    var endDate;
+    var firstDateValidator = true;
+
+    while (productSetProducts.hasNext()) {
+        var currentProductSet = productSetProducts.next();
+        var promoDateItr = PromotionMgr.activePromotions.getProductPromotions(currentProductSet).iterator();
+        if (!empty(promoDateItr)) {
+            for each(var promotion in promoDateItr) {
+                var getPromotionalDates = getPromoDate(promotion, startDate, endDate, firstDateValidator);
+                startDate = getPromotionalDates.startDate;
+                endDate = getPromotionalDates.endDate;
+            }
+        }
+    }
+
+    startDate = new Date(startDate * 1000.0);
+    endDate = new Date(endDate * 1000.0);
+    var salePriceEffectiveDate = getSalePriceEffectiveDate(startDate, endDate);
+
+    return salePriceEffectiveDate;
 }
 
 function getPromoDate(promotion, startDate, endDate, firstDateValidator) {

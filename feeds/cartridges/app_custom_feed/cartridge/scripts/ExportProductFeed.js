@@ -252,6 +252,7 @@ function exportFeed(feedColumns, fileArgs, feedParameters) {
                 if (product.variant) {
                     continue;
                 }
+
                 var productAttributes = getProductAttributes(product, feedParameters, feedColumns);
 
                 if (feedParameters.categories) {
@@ -272,7 +273,8 @@ function exportFeed(feedColumns, fileArgs, feedParameters) {
                     var productAvilibiltyModel = productCustomHelpers.productSetStockAvailability(Constants.PRODUCT_TYPE, product);
                     productAttributes.availability = productAvilibiltyModel.availabilityStatus;
                     productAttributes.inStock = productAvilibiltyModel.inStock;
-
+                    productAttributes.availability_FR = getProductAvailability(product, Constants.COUNTRY_FR, productAvilibiltyModel);
+                    productAttributes.sale_price_effective_date_FR = productSetSalePrice.salePriceEffectiveDate;
                 }
 
                 writeCSVLine(productAttributes, categoriesPath, feedColumns, fileArgs);
@@ -1303,10 +1305,10 @@ function getProductAttributes(product, feedParameters, feedColumns) {
         productAttributes.salePrice_FR = getPromotionalPricePerPriceBook(Constants.CURRENCY_EUR, product, true).productDecimalPrice;
     }
     if (!empty(feedColumns['sale_price_effective_date_FR'])) {
-        productAttributes.sale_price_effective_date_FR = getPromotionalPricePerPriceBook(Constants.CURRENCY_EUR, product, true).salePriceEffectiveDate;
+        productAttributes.sale_price_effective_date_FR = !empty(productAttributes.sale_price_effective_date_FR) ? productAttributes.sale_price_effective_date_FR : getPromotionalPricePerPriceBook(Constants.CURRENCY_EUR, product, true).salePriceEffectiveDate;
     }
     if (!empty(feedColumns['availability_FR'])) {
-        productAttributes.availability_FR = getProductAvailability(product, Constants.COUNTRY_FR);
+        productAttributes.availability_FR = !empty(productAttributes.availability_FR) ? productAttributes.availability_FR : getProductAvailability(product, Constants.COUNTRY_FR);
     }
     //End Custom Columns for MovadoUS and OBUK
     
@@ -1344,7 +1346,7 @@ function getProductPriceByCurrencyCode(product, currencyCode) {
     return productPrice;
 }
 
-function getProductAvailability(product, country) {
+function getProductAvailability(product, country, productAvilibiltyModel) {
     var result = 'NOT_AVAILABLE';
     if (product.custom.eswProductRestrictedCountries) {
        var value = product.custom.eswProductRestrictedCountries.filter(function (restrictedCountry) {
@@ -1355,9 +1357,16 @@ function getProductAvailability(product, country) {
         }
     }
 
-    if (product.availabilityModel.inStock) {
-        result = 'IN_STOCK';
+    if (product.productSet) {
+        if (productAvilibiltyModel.inStock) {
+            result = 'IN_STOCK';
+        }
+    } else {
+        if (product.availabilityModel.inStock) {
+            result = 'IN_STOCK';
+        }
     }
+
     return result;
 }
 
