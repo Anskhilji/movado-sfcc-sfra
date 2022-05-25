@@ -625,9 +625,9 @@
                         psPrice = psPrice.add(psProductPriceModel.minPrice);
                     }
                 } else {
-					if (psProductPriceModel.price.available) {
+                    if (psProductPriceModel.price.available) {
                       psPrice = psPrice.add(psProductPriceModel.price);
-					}
+                    }
                 }
 			}
 			return psPrice;
