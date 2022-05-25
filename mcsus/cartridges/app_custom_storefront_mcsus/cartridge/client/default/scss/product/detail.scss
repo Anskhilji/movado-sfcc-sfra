@@ -585,7 +585,6 @@
 
 .smart-main {
 
-
     @include media-breakpoint-up(xs) {
         margin-top: rem(-20);
     }
@@ -709,7 +708,6 @@
                     }
                 }
                 
-        
                 &.active {
                     &::after, &::before {
                         display: block;
@@ -724,7 +722,6 @@
                 }
             }
         }
-        
     }
 }
 
@@ -732,7 +729,6 @@
     display: none;
     position: absolute;
     padding: rem(22);
-
     background-color: $white;
     color:$dark-black;
     font-size: 0.75rem;
@@ -760,11 +756,13 @@
     @include media-breakpoint-down(sm) {
         bottom: rem(47);
     }
+
     .smartgift-num-one {
         font-family: $font-book;
         font-size: rem(14);
         text-transform: uppercase;
     }
+
     .close-promo {
         display: block;
         background: url("../../images/pop-cross.png") center center no-repeat;
@@ -810,6 +808,7 @@
         margin-top: rem(-21);
         font-family: $font-medium1;
     }
+    
     &-smartgift-heading{
         p {
             font-family: $font-book-std;

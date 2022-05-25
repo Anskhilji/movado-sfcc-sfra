@@ -8,7 +8,6 @@ $(function() {
         $('.showtooltipSmart').removeClass('active');
     });
 
-
     $('.smartgiftpopup .smartgift-btn-popup').on('click', function(e) {
         var $windowWidth = $(window).width();
 
@@ -18,9 +17,7 @@ $(function() {
         }
     });
 
-
     $('.smartgiftpopup .smartgift-btn-popup').hover(
-
         function () {
             var $windowWidth = $(window).width();
 
