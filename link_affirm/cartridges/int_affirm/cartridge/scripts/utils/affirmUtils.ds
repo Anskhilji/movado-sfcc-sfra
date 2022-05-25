@@ -598,7 +598,7 @@
 		
 		self.calculateProductSetPrice = function(productSet){
 			var psProductsIterator = productSet.productSetProducts.iterator();
-			var basket = BasketMgr.getCurrentOrNewBasket();
+			var basket = BasketMgr.getCurrentOrNewBasket(); 
 			var psPrice = new Money(0, basket.currencyCode);
 			
 			while(psProductsIterator.hasNext()){
@@ -617,14 +617,18 @@
 							break;
 						}
 					}
-				}
-				if (promotionalPrice && promotionalPrice.available){
-					psPrice = psPrice.add(promotionalPrice);
-				} else if (psProductPriceModel.price.available){
-					psPrice = psPrice.add(psProductPriceModel.price);
-				} else if (psProductPriceModel.minPrice.available){
-					psPrice = psPrice.add(psProductPriceModel.minPrice);
-				}
+                    if (promotionalPrice && promotionalPrice.available){
+                        psPrice = psPrice.add(promotionalPrice);
+                    } else if (psProductPriceModel.price.available){
+                        psPrice = psPrice.add(psProductPriceModel.price);
+                    } else if (psProductPriceModel.minPrice.available){
+                        psPrice = psPrice.add(psProductPriceModel.minPrice);
+                    }
+                } else {
+					if (psProductPriceModel.price.available) {
+                      psPrice = psPrice.add(psProductPriceModel.price);
+					}
+                }
 			}
 			return psPrice;
 		};
