@@ -17,7 +17,7 @@
             <input autofocus type="text" class="form-control input-wrapper-checkout shippingFirstName" id="shippingFirstName"
                 value="${shippingAddress.firstName||''}" <isprint value="${addressFields.firstName.attributes}" encoding="off"/>
                 autocomplete="shipping given-name" >
-            <label class="form-control-label field__label" for="shippingFirstName"  >
+            <label class="form-control-label field-label-wrapper" for="shippingFirstName"  >
                 <isprint value="${addressFields.firstName.label}" encoding="htmlcontent" />
             </label>
             <div class="invalid-feedback"><isprint value="${addressFields.firstName.error}" ></div>
@@ -30,7 +30,7 @@
             <input type="text" class="form-control input-wrapper-checkout shippingLastName" id="shippingLastName"
                 value="${shippingAddress.lastName||''}" <isprint value="${addressFields.lastName.attributes}" encoding="off"/>
                 autocomplete="shipping family-name">
-            <label class="form-control-label field__label" for="shippingLastName">
+            <label class="form-control-label field-label-wrapper" for="shippingLastName">
                 <isprint value="${addressFields.lastName.label}" encoding="htmlcontent" />
             </label>
             <div class="invalid-feedback"><isprint value="${addressFields.lastName.error}" ></div>
@@ -52,7 +52,7 @@
             </span>
             <input type="text" class="form-control input-wrapper-checkout email shipping-email" id="email" value="${(pdict.customer && pdict.customer.profile && pdict.customer.profile.email) || ''}"
                 <isprint value="${addressFields.email.attributes}" encoding="off" />> 
-            <label class="form-control-label field__label" for="email">${Resource.msg('field.customer.email', 'checkout', null)}</label>
+            <label class="form-control-label field-label-wrapper" for="email">${Resource.msg('field.customer.email', 'checkout', null)}</label>
             <div class="invalid-feedback"></div>
         </div>
     </div>
@@ -78,7 +78,7 @@
             <input type="text" class="form-control input-wrapper-checkout shippingCompanyName" id="shippingCompanyName"
                 value="${shippingAddress.companyName||''}" <isprint value="${addressFields.companyName.attributes}" encoding="off" />
                 autocomplete="shipping company-name">
-            <label class="form-control-label field__label" for="shippingCompanyName">
+            <label class="form-control-label field-label-wrapper" for="shippingCompanyName">
                 <isprint value="${addressFields.companyName.label}" encoding="htmlcontent" />
             </label>
             <div class="invalid-feedback"><isprint value="${addressFields.companyName.error}" ></div>
@@ -97,7 +97,7 @@
             <span><input type="text" class="form-control input-wrapper-checkout shippingAddressOne" id="shippingAddressOne"
                 value="${shippingAddress.address1||''}" <isprint value="${addressFields.address1.attributes}" encoding="off"/>
                 autocomplete="shipping address-line1">
-            <label class="form-control-label field__label" for="shippingAddressOne">
+            <label class="form-control-label field-label-wrapper" for="shippingAddressOne">
                 <isprint value="${addressFields.address1.label}" encoding="htmlcontent" />
             </label>
                 <div class="invalid-feedback"><isprint value="${addressFields.address1.error}" ></div>
@@ -117,7 +117,7 @@
             <input type="text" class="form-control input-wrapper-checkout shippingAddressTwo" id="shippingAddressTwo"
                 value="${shippingAddress.address2||''}" <isprint value="${addressFields.address2.attributes}" encoding="off"/>
                 autocomplete="shipping address-line2">
-            <label class="form-control-label field__label" for="shippingAddressTwo">
+            <label class="form-control-label field-label-wrapper" for="shippingAddressTwo">
                 <isprint value="${addressFields.address2.label}" encoding="htmlcontent" />
             </label>
             <div class="invalid-feedback"><isprint value="${addressFields.address2.error}" ></div>
@@ -131,7 +131,7 @@
         <div class="form-group
             ${addressFields.country.mandatory === true ? 'required' : ''}
             ${addressFields.country.htmlName} relative">
-            <label class="form-control-label field__label" for="shippingCountry">
+            <label class="form-control-label field-label-wrapper" for="shippingCountry">
                 <isprint value="${addressFields.country.label}" encoding="htmlcontent" />
             </label>
             <select class="form-control shippingCountry custom-select custom-select-box" id="shippingCountry${isEswEnabled ? (lineItem ? lineItem.UUID : 'default') : ''}"
@@ -155,7 +155,7 @@
                 <isprint value="${addressFields.states.stateCode.attributes}" encoding="off" />
                 autocomplete="shipping address-level1">
             </input>
-            <label class="form-control-label field__label" for="shippingState">
+            <label class="form-control-label field-label-wrapper" for="shippingState">
                 <isprint value="${addressFields.states.stateCode.label}" encoding="htmlcontent" />
             </label>
             <div class="invalid-feedback"><isprint value="${addressFields.states.stateCode.error}" ></div>
@@ -171,7 +171,7 @@
             <input type="text" class="form-control input-wrapper-checkout shippingAddressCity" id="shippingAddressCity"
                 value="${shippingAddress.city||''}" <isprint value="${addressFields.city.attributes}" encoding="off"/>
                 autocomplete="shipping address-level2">
-            <label class="form-control-label field__label" for="shippingAddressCity">
+            <label class="form-control-label field-label-wrapper" for="shippingAddressCity">
                 <isprint value="${addressFields.city.label}" encoding="htmlcontent" />
             </label>
             <div class="invalid-feedback"><isprint value="${addressFields.city.error}" ></div>
@@ -187,7 +187,7 @@
             <input type="text" class="form-control input-wrapper-checkout shippingZipCode" id="shippingZipCode"
                 value="${shippingAddress.postalCode||''}" <isprint value="${addressFields.postalCode.attributes}" encoding="off"/>
                 autocomplete="shipping postal-code">
-            <label class="form-control-label field__label" for="shippingZipCode">
+            <label class="form-control-label field-label-wrapper" for="shippingZipCode">
                 <isprint value="${addressFields.postalCode.label}" encoding="htmlcontent" />
             </label>
             <div class="invalid-feedback"><isprint value="${addressFields.postalCode.error}" ></div>
@@ -206,7 +206,7 @@
             <input type="tel" class="form-control input-wrapper-checkout shippingPhoneNumber" id="shippingPhoneNumber"
                 value="${shippingAddress.phone||''}" <isprint value="${addressFields.phone.attributes}" encoding="off"/>
                    autocomplete="tel">
-            <label class="form-control-label field__label" for="shippingPhoneNumber">
+            <label class="form-control-label field-label-wrapper" for="shippingPhoneNumber">
                 <isprint value="${addressFields.phone.label}" encoding="htmlcontent" />
             </label>
             <div class="invalid-feedback"><isprint value="${addressFields.phone.error}" ></div>

@@ -11,7 +11,7 @@
                     : ''}"
                 <isprint value=${billingFields.firstName.attributes} encoding="off"/>
                 autocomplete="billing given-name" >
-            <label class="form-control-label field__label" for="billingFirstName">${Resource.msg('field.billing.address.first.name','address',null)}</label>
+            <label class="form-control-label field-label-wrapper" for="billingFirstName">${Resource.msg('field.billing.address.first.name','address',null)}</label>
             <div class="invalid-feedback"></div>
         </div>
     </div>
@@ -26,7 +26,7 @@
                     : ''}"
                 <isprint value=${billingFields.lastName.attributes} encoding="off"/>
                 autocomplete="billing family-name">
-            <label class="form-control-label field__label" for="billingLastName">${Resource.msg('field.billing.address.last.name','address',null)}</label>
+            <label class="form-control-label field-label-wrapper" for="billingLastName">${Resource.msg('field.billing.address.last.name','address',null)}</label>
             <div class="invalid-feedback"></div>
         </div>
     </div>
@@ -43,7 +43,7 @@
                     && pdict.order.billing.billingAddress.address.companyName ?
                     pdict.order.billing.billingAddress.address.companyName : ''}" <isprint value="${billingFields.companyName.attributes}" encoding="off" />
                 autocomplete="billing company-name">
-            <label class="form-control-label field__label" for="billingCompanyName">
+            <label class="form-control-label field-label-wrapper" for="billingCompanyName">
                 <isprint value="${billingFields.companyName.label}" encoding="htmlcontent" />
             </label>
             <div class="invalid-feedback"><isprint value="${billingFields.companyName.error}" ></div>
@@ -63,7 +63,7 @@
                     : ''}"
                 <isprint value=${billingFields.address1.attributes} encoding="off"/>
                 autocomplete="billing address-line1">
-            <label class="form-control-label field__label" for="billingAddressOne">${Resource.msg('field.billing.address.one','address',null)}</label>
+            <label class="form-control-label field-label-wrapper" for="billingAddressOne">${Resource.msg('field.billing.address.one','address',null)}</label>
             <div class="invalid-feedback"></div>
         </div>
     </div>
@@ -81,7 +81,7 @@
                     : ''}"
                 <isprint value=${billingFields.address2.attributes} encoding="off"/>
                 autocomplete="billing address-line2">
-            <label class="form-control-label field__label" for="billingAddressTwo">${Resource.msg('field.billing.address.two','address',null)}</label>
+            <label class="form-control-label field-label-wrapper" for="billingAddressTwo">${Resource.msg('field.billing.address.two','address',null)}</label>
             <div class="invalid-feedback"></div>
         </div>
     </div>
@@ -93,7 +93,7 @@
         <div class="form-group
             ${billingFields.country.mandatory === true ? 'required' : ''}
             ${billingFields.country.htmlName} relative">
-            <label class="form-control-label field__label" for="billingCountry">${Resource.msg('field.billing.address.country','address',null)}</label>
+            <label class="form-control-label field-label-wrapper" for="billingCountry">${Resource.msg('field.billing.address.country','address',null)}</label>
             <select class="form-control custom-select-box billingCountry custom-select" id="billingCountry"
                 <isprint value=${billingFields.country.attributes} encoding="off"/>
                 autocomplete="billing country">
@@ -118,7 +118,7 @@
         <div class="form-group
             ${billingFields.states.stateCode.mandatory === true ? 'required' : ''}
             ${billingFields.states.stateCode.htmlName} relative">
-            <label class="form-control-label field__label" for="billingState">${Resource.msg('field.billing.address.state','address',null)}</label>
+            <label class="form-control-label field-label-wrapper" for="billingState">${Resource.msg('field.billing.address.state','address',null)}</label>
             <select class="form-control custom-select-box billingState custom-select" id="billingState"
                 <isprint value=${billingFields.states.stateCode.attributes} encoding="off"/>
                 autocomplete="billing address-level1">
@@ -151,7 +151,7 @@
                     : ''}"
                 <isprint value=${billingFields.city.attributes} encoding="off"/>
                 autocomplete="billing address-level2">
-            <label class="form-control-label field__label" for="billingAddressCity">${Resource.msg('field.billing.address.city','address',null)}</label>
+            <label class="form-control-label field-label-wrapper" for="billingAddressCity">${Resource.msg('field.billing.address.city','address',null)}</label>
             <div class="invalid-feedback"></div>
         </div>
     </div>
@@ -166,7 +166,7 @@
                     : ''}"
                 <isprint value=${billingFields.postalCode.attributes} encoding="off"/>
                 autocomplete="billing postal-code">
-            <label class="form-control-label field__label" for="billingZipCode">${Resource.msg('field.billing.address.zip.code','address',null)}</label>
+            <label class="form-control-label field-label-wrapper" for="billingZipCode">${Resource.msg('field.billing.address.zip.code','address',null)}</label>
             <div class="invalid-feedback"></div>
         </div>
     </div>

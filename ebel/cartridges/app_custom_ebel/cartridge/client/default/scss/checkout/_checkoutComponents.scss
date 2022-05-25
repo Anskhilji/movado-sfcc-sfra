@@ -476,7 +476,7 @@ $stored-payment-spacing: rem(16);
         &:focus {
           border-color: $black;
           box-shadow: none;
-          + .field__label {
+          + .field-label-wrapper {
             transition: 0.2s ease-in-out;
             top: 0;
             left: 2em;
@@ -488,6 +488,22 @@ $stored-payment-spacing: rem(16);
             line-height: rem(20);
             width: 100%;
             pointer-events: none;
+          }
+
+          + .field-label-wrapper-card {
+            left: 1.2em;
+          }
+    
+          + .field-label-wrapper-card1 {
+            left: 2em;
+          }
+    
+          + .field-label-wrapper-card2 {
+            left: 1em;
+          }
+          
+          + .field-label-wrapper-card3 {
+            left: 2em;
           }
         }
       }
@@ -508,7 +524,7 @@ $stored-payment-spacing: rem(16);
 
     }
 
-    .field__label {
+    .field-label-wrapper {
       position: absolute;
       top: 1em;
       left: 2em;
@@ -530,6 +546,32 @@ $stored-payment-spacing: rem(16);
         width: 100%;
         pointer-events: none;
       }
+
+      &.field-label-wrapper-card {
+        left: 0.8750em;
+        &.input-has-value {
+          left: 1.2em;
+        }
+      }
+
+      &.field-label-wrapper-card1 {
+        left: 1.5375em;
+        &.input-has-value {
+          left: 2em;
+        }
+      }
+
+      &.field-label-wrapper-card2 {
+        left: 1em;
+      }
+      
+      &.field-label-wrapper-card3 {
+        left: 1.375em;
+        &.input-has-value {
+          left: 2em;
+        }
+      }
+
       &::after {
         content: "*";
         color: $grey15;
@@ -539,7 +581,7 @@ $stored-payment-spacing: rem(16);
     }
 
     &.required {
-      .field__label {
+      .field-label-wrapper {
         &::before {
           content: "";
           color: transparent;

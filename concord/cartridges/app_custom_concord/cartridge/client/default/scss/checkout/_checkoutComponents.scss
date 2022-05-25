@@ -516,85 +516,129 @@ $stored-payment-spacing: rem(16);
   .form-group {
     .form-control {
       &.input-wrapper-checkout {
-        height: rem(45);
-        border: rem(1) solid $grey16;
-        border-radius: rem(3);
-        color: $grey6;
-        font-size: rem(13);
-        font-weight: 500;
-        letter-spacing: rem(0.7);
-        line-height: rem(20);
+          height: rem(45);
+          border: rem(1) solid $grey16;
+          border-radius: rem(3);
+          color: $grey6;
+          font-size: rem(13);
+          font-weight: 500;
+          letter-spacing: rem(0.7);
+          line-height: rem(20);
 
         &:focus {
-          border-color: $black;
-          box-shadow: none;
-          + .field__label {
-            transition: 0.2s ease-in-out;
-            top: 0;
-            left: 2em;
-            height: rem(24);
-            color: $grey15;
-            font-size: rem(10);
-            font-weight: 500;
-            letter-spacing: rem(0.7);
-            line-height: rem(20);
-            width: 100%;
-            pointer-events: none;
+            border-color: $black;
+            box-shadow: none;
+          + .field-label-wrapper {
+              transition: 0.2s ease-in-out;
+              top: 0;
+              left: 2em;
+              height: rem(24);
+              color: $grey15;
+              font-size: rem(10);
+              font-weight: 500;
+              letter-spacing: rem(0.7);
+              line-height: rem(20);
+              width: 100%;
+              pointer-events: none;
           }
+
+          + .field-label-wrapper-card {
+              left: 1.2em;
+            }
+    
+          + .field-label-wrapper-card1 {
+              left: 2em;
+            }
+    
+          + .field-label-wrapper-card2 {
+              left: 1em;
+            }
+          
+          + .field-label-wrapper-card3 {
+              left: 2em;
+            }
+
         }
       }
 
       &.custom-select-box {
-        height: rem(45);
-        border: rem(1) solid $grey16;
-        border-radius: rem(3);
-        background-color: $grey-dark-2;
-        &:focus {
-          border-color: $black;
-          box-shadow: none;
-        }
-        + i {
-          top: rem(14);
-        }
+          height: rem(45);
+          border: rem(1) solid $grey16;
+          border-radius: rem(3);
+          background-color: $grey-dark-2;
+          
+          &:focus {
+              border-color: $black;
+              box-shadow: none;
+            }
+            + i {
+                top: rem(14);
+              }
       }
 
     }
 
-    .field__label {
-      position: absolute;
-      top: 1em;
-      left: 2em;
-      color: $grey15;
-      transition: 0.2s ease-in-out;
-      width: 100%;
-      pointer-events: none;
-
-      &.input-has-value {
-        transition: 0.2s ease-in-out;
-        top: 0;
+    .field-label-wrapper {
+        position: absolute;
+        top: 1em;
         left: 2em;
-        height: rem(24);
         color: $grey15;
-        font-size: rem(10);
-        font-weight: 500;
-        letter-spacing: rem(0.7);
-        line-height: rem(20);
+        transition: 0.2s ease-in-out;
         width: 100%;
         pointer-events: none;
+
+      &.input-has-value {
+          transition: 0.2s ease-in-out;
+          top: 0;
+          left: 2em;
+          height: rem(24);
+          color: $grey15;
+          font-size: rem(10);
+          font-weight: 500;
+          letter-spacing: rem(0.7);
+          line-height: rem(20);
+          width: 100%;
+          pointer-events: none;
       }
+      
+      &.field-label-wrapper-card {
+          left: 0.8750em;
+        &.input-has-value {
+          left: 1.2em;
+        }
+      }
+
+      &.field-label-wrapper-card1 {
+          left: 1.5375em;
+        &.input-has-value {
+          left: 2em;
+        }
+      }
+
+      &.field-label-wrapper-card2 {
+          left: 1em;
+      }
+      
+      &.field-label-wrapper-card3 {
+          left: 1.375em;
+        &.input-has-value {
+          left: 2em;
+        }
+      }
+
       &::after {
         content: "*";
-        color: $grey15;
+          color: $grey15;
       }
 
 
     }
 
     &.required {
-      .field__label {
+      .field-label-wrapper {
         &::before {
           content: "";
-          color: transparent;
+            color: transparent;
         }
       }
     }
