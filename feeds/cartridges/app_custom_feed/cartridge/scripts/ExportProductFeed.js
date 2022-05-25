@@ -262,7 +262,7 @@ function exportFeed(feedColumns, fileArgs, feedParameters) {
                 if (product.productSet) {
                     var productSetCustomHelper = require('*/cartridge/scripts/helpers/productSetCustomHelper');
                     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
-                    var productSetBasePrice = productSetCustomHelper.getProductSetBasePrice(product.ID);
+                    var productSetBasePrice = productSetCustomHelper.getProductSetBasePrice(product.ID, Constants.CURRENCY_USD, true);
                     var productSetSalePrice = productSetCustomHelper.getProductSetSalePrice(product.ID);
                     productAttributes.price = productSetBasePrice.basePrice.toFixed(2) + ' ' + product.priceModel.maxPrice.currencyCode;
                     productAttributes.decimalPrice = productSetBasePrice.basePrice.toFixed(2) + ' ' + product.priceModel.maxPrice.currencyCode;
@@ -270,10 +270,15 @@ function exportFeed(feedColumns, fileArgs, feedParameters) {
                         productAttributes.salePrice = productSetSalePrice.salePrice.toFixed(2) + ' ' + product.priceModel.maxPrice.currencyCode;
                     }
                     productAttributes.salePriceEffectiveDate = productSetSalePrice.salePriceEffectiveDate;
+                    var productSetBasePrice_FR = productSetCustomHelper.getProductSetBasePrice(product.ID, Constants.CURRENCY_EUR, true);
+                    productAttributes.price_FR = productSetBasePrice_FR.basePrice.toFixed(2) + ' ' + productSetBasePrice_FR.currencyCode;
+                    var productSetSalePrice_FR = productSetCustomHelper.getProductSetSalePrice(product.ID, Constants.CURRENCY_EUR, true);
+                    if (productSetSalePrice_FR.salePrice > 0) {
+                        productAttributes.salePrice_FR = productSetSalePrice_FR.salePrice.toFixed(2) + ' ' + productSetSalePrice_FR.currencyCode;
+                    }
                     var productAvilibiltyModel = productCustomHelpers.productSetStockAvailability(Constants.PRODUCT_TYPE, product);
                     productAttributes.availability = productAvilibiltyModel.availabilityStatus;
-                    productAttributes.inStock = productAvilibiltyModel.inStock;
-                    productAttributes.availability_FR = getProductAvailability(product, Constants.COUNTRY_FR, productAvilibiltyModel);
+                    productAttributes.availability_FR = getProductSetAvailability(product, Constants.COUNTRY_FR, productAvilibiltyModel);
                     productAttributes.sale_price_effective_date_FR = productSetSalePrice.salePriceEffectiveDate;
                 }
 
@@ -1305,10 +1310,10 @@ function getProductAttributes(product, feedParameters, feedColumns) {
         productAttributes.salePrice_FR = getPromotionalPricePerPriceBook(Constants.CURRENCY_EUR, product, true).productDecimalPrice;
     }
     if (!empty(feedColumns['sale_price_effective_date_FR'])) {
-        productAttributes.sale_price_effective_date_FR = !empty(productAttributes.sale_price_effective_date_FR) ? productAttributes.sale_price_effective_date_FR : getPromotionalPricePerPriceBook(Constants.CURRENCY_EUR, product, true).salePriceEffectiveDate;
+        productAttributes.sale_price_effective_date_FR = getPromotionalPricePerPriceBook(Constants.CURRENCY_EUR, product, true).salePriceEffectiveDate;
     }
     if (!empty(feedColumns['availability_FR'])) {
-        productAttributes.availability_FR = !empty(productAttributes.availability_FR) ? productAttributes.availability_FR : getProductAvailability(product, Constants.COUNTRY_FR);
+        productAttributes.availability_FR = getProductAvailability(product, Constants.COUNTRY_FR);
     }
     //End Custom Columns for MovadoUS and OBUK
     
@@ -1346,29 +1351,42 @@ function getProductPriceByCurrencyCode(product, currencyCode) {
     return productPrice;
 }
 
-function getProductAvailability(product, country, productAvilibiltyModel) {
+function getProductAvailability(product, country) {
     var result = 'NOT_AVAILABLE';
     if (product.custom.eswProductRestrictedCountries) {
        var value = product.custom.eswProductRestrictedCountries.filter(function (restrictedCountry) {
             return restrictedCountry == country
         });
+        
         if (!empty(value)) {
             return 'NOT_AVAILABLE';
         }
     }
-
-    if (product.productSet) {
-        if (productAvilibiltyModel.inStock) {
-            result = 'IN_STOCK';
-        }
-    } else {
         if (product.availabilityModel.inStock) {
             result = 'IN_STOCK';
         }
-    }
 
     return result;
 }
+
+function getProductSetAvailability(product, country, productAvilibiltyModel) {
+    var result = 'NOT_AVAILABLE';
+    if (product.custom.eswProductRestrictedCountries) {
+       var value = product.custom.eswProductRestrictedCountries.filter(function (restrictedCountry) {
+            return restrictedCountry == country
+        });
+        
+        if (!empty(value)) {
+            return 'NOT_AVAILABLE';
+        }
+    }
+        if (productAvilibiltyModel.inStock) {
+            result = 'IN_STOCK';
+        }
+
+    return result;
+}
+
 
 function getProductVariants(products, masterProductAttributes, isVariant, feedParameters, feedColumns) {
     var variants = new Array();

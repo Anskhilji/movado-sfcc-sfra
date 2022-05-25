@@ -1,8 +1,11 @@
 'use strict';
 
-function getProductSetBasePrice(productID) {
+function getProductSetBasePrice(productID, currency, isJob) {
+    var Currency = require('dw/util/Currency');
     var Money = require('dw/value/Money');
     var ProductMgr = require('dw/catalog/ProductMgr');
+    var Transaction = require('dw/system/Transaction');
+
     var productSet = ProductMgr.getProduct(productID);
     var productSetProducts = productSet.productSetProducts.iterator();
     var currentProductSetProduct;
@@ -10,6 +13,16 @@ function getProductSetBasePrice(productID) {
     var basePrice = 0;
     var currencyCode;
     var formattedBasePrice;
+    var defaultCurrency;
+    if (isJob) {
+        Transaction.wrap(function () {
+            if (currency) {
+                defaultCurrency = session.getCurrency();
+                var sessionCurrency = Currency.getCurrency(currency);
+                session.setCurrency(sessionCurrency);
+            }
+        });
+    }
 
     while (productSetProducts.hasNext()) {
         currentProductSetProduct = productSetProducts.next();
@@ -21,15 +34,26 @@ function getProductSetBasePrice(productID) {
     }
 
     formattedBasePrice = new Money(basePrice, currencyCode).toFormattedString();
+
+    if (isJob) {
+        if (currency && defaultCurrency) {
+            session.setCurrency(defaultCurrency);
+        }
+    }
+
     return {
         basePrice: basePrice,
-        formattedBasePrice: formattedBasePrice
+        formattedBasePrice: formattedBasePrice,
+        currencyCode: currencyCode
     }
 }
 
-function getProductSetSalePrice(productID) {
+function getProductSetSalePrice(productID, currency, isJob) {
+    var Currency = require('dw/util/Currency');
     var Money = require('dw/value/Money');
     var ProductMgr = require('dw/catalog/ProductMgr');
+    var Transaction = require('dw/system/Transaction');
+
     var productSet = ProductMgr.getProduct(productID);
     var Promotion = require('dw/campaign/Promotion');
     var PromotionMgr = require('dw/campaign/PromotionMgr');
@@ -41,6 +65,17 @@ function getProductSetSalePrice(productID) {
     var currencyCode;
     var currentProdcutSetProductPriceModel;
     var promoCalloutMsg;
+    var defaultCurrency;
+
+    if (isJob) {
+        Transaction.wrap(function () {
+            if (currency) {
+                defaultCurrency = session.getCurrency();
+                var sessionCurrency = Currency.getCurrency(currency);
+                session.setCurrency(sessionCurrency);
+            }
+        });
+    }
 
     while (productSetProducts.hasNext()) {
         currentProductSetProduct = productSetProducts.next();
@@ -71,11 +106,18 @@ function getProductSetSalePrice(productID) {
     var salePriceEffectiveDate = getProductSetEfectiveDate(productID);
     formattedSalePrice = new Money(salePrice, currencyCode).toFormattedString();
 
+    if (isJob) {
+        if (currency && defaultCurrency) {
+            session.setCurrency(defaultCurrency);
+        }
+    }
+
     return {
         salePrice: salePrice,
         formattedSalePrice: formattedSalePrice,
         promoCalloutMsg: promoCalloutMsg,
-        salePriceEffectiveDate: salePriceEffectiveDate
+        salePriceEffectiveDate: salePriceEffectiveDate,
+        currencyCode: currencyCode
     }
 }
 
@@ -100,8 +142,12 @@ function getProductSetEfectiveDate(productID) {
         }
     }
 
-    startDate = new Date(startDate * 1000.0);
-    endDate = new Date(endDate * 1000.0);
+    if (!empty(startDate)) {
+        startDate = new Date(startDate * 1000.0);
+    }
+    if (!empty(endDate)) {
+        endDate = new Date(endDate * 1000.0);
+    }
     var salePriceEffectiveDate = getSalePriceEffectiveDate(startDate, endDate);
 
     return salePriceEffectiveDate;
