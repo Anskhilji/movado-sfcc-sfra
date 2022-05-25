@@ -95,11 +95,21 @@ function getProductSetSalePrice(productID, currency, isJob) {
                     break;
                 }
             }
-        }
 
-        if (currentPromotionalPrice && currentPromotionalPrice.available && currentProdcutSetProductPriceModel.price.available) {
-            currencyCode = currentProdcutSetProductPriceModel.price.currencyCode;
-            salePrice += currentPromotionalPrice.decimalValue;
+            if (currentPromotionalPrice && currentPromotionalPrice.available && currentProdcutSetProductPriceModel.price.available) {
+                currencyCode = currentProdcutSetProductPriceModel.price.currencyCode;
+                salePrice += currentPromotionalPrice.decimalValue;
+
+            } else {
+                if (currentProdcutSetProductPriceModel.price) {
+                    salePrice += currentProdcutSetProductPriceModel.price;
+                }
+            }
+    
+        } else {
+            if (currentProdcutSetProductPriceModel.price) {
+                salePrice += currentProdcutSetProductPriceModel.price;
+            }
         }
     }
     var salePriceEffectiveDate = getProductSetEfectiveDate(productID);
