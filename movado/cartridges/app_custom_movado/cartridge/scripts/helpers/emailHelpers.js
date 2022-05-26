@@ -19,8 +19,9 @@ function send(emailObj, template, context) {
     var messageId = '';
     var requestParams = {
     };
-
-    if (Site.current.getCustomPreferenceValue('Listrak_Cartridge_Enabled')) {
+    var listrakTransactionalSwitch = Site.current.getCustomPreferenceValue('transactionalSwitch').valueOf.toString();
+    var listrakEnabled = Site.current.getCustomPreferenceValue('Listrak_Cartridge_Enabled')
+    if (listrakEnabled && listrakTransactionalSwitch == 'Listrak') {
         switch (emailObj.type) {
             case 1:
                 requestParams.messageType = 'accountCreation';
@@ -92,38 +93,6 @@ function send(emailObj, template, context) {
                 requestParams.messageId = Site.current.preferences.custom.Listrak_ProductShareEmailMessageID;
                 requestParams.name = context.name;
                 requestParams.email = context.friendsEmail;
-                break;
-
-            case 13:
-                requestParams.messageType = 'orderConfirmation';
-                requestParams.messageContext = 'Order';
-                requestParams.messageId = Site.current.preferences.custom.Listrak_OrderConfirmationMessageID;
-                requestParams.orderNumber = context.order.orderNumber;
-                requestParams.totalTax = context.order.totals.totalTax;
-                requestParams.subTotal = context.order.totals.subTotal;
-                requestParams.grandTotal = context.order.priceTotal;
-                requestParams.creationDate = context.order.creationDate;
-                requestParams.billingFirstName = context.order.billing.billingAddress.address.firstName;
-                requestParams.billingLastName = context.order.billing.billingAddress.address.lastName;
-                requestParams.billingAddress1 = context.order.billing.billingAddress.address.address1;
-                requestParams.billingAddress2 = context.order.billing.billingAddress.address.address2;
-                requestParams.billingCity = context.order.billing.billingAddress.address.city;
-                requestParams.billingStateCode = context.order.billing.billingAddress.address.stateCode;
-                requestParams.billingPostalCode = context.order.billing.billingAddress.address.postalCode;
-                requestParams.billingCountryCode = context.order.billing.billingAddress.address.countryCode;
-                requestParams.billingPhone = context.order.billing.billingAddress.address.phone;
-                requestParams.shippingFirstName = context.order.shipping[0].shippingAddress.firstName;
-                requestParams.shippingLastName = context.order.shipping[0].shippingAddress.lastName;
-                requestParams.shippingAddress1 = context.order.shipping[0].shippingAddress.address1;
-                requestParams.shippingAddress2 = context.order.shipping[0].shippingAddress.address2;
-                requestParams.shippingCity = context.order.shipping[0].shippingAddress.city;
-                requestParams.shippingStateCode = context.order.shipping[0].shippingAddress.stateCode;
-                requestParams.shippingPostalCode = context.order.shipping[0].shippingAddress.postalCode;
-                requestParams.shippingCountry = context.order.shipping[0].shippingAddress.countryCode;
-                requestParams.shippingPhone = context.order.shipping[0].shippingAddress.phone;
-                requestParams.shippingMethod = context.order.shipping[0].selectedShippingMethod.displayName;
-                requestParams.paymentMethod = context.order.billing.payment.selectedPaymentInstruments[0].paymentMethod;
-                requestParams.email = context.order.orderEmail;
                 break;
             default:
                 requestParams.messageType = 'orderConfirmation';
