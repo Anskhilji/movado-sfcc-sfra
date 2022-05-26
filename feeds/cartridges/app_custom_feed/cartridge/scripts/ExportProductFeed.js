@@ -266,15 +266,15 @@ function exportFeed(feedColumns, fileArgs, feedParameters) {
                     var productSetSalePrice = productSetCustomHelper.getProductSetSalePrice(product.ID);
                     productAttributes.price = productSetBasePrice.basePrice.toFixed(2) + ' ' + product.priceModel.maxPrice.currencyCode;
                     productAttributes.decimalPrice = productSetBasePrice.basePrice.toFixed(2) + ' ' + product.priceModel.maxPrice.currencyCode;
-                    if (productSetSalePrice.productPromoPrice > 0) {
-                        productAttributes.salePrice = productSetSalePrice.productPromoPrice.toFixed(2) + ' ' + product.priceModel.maxPrice.currencyCode;
+                    if (productSetSalePrice.salePrice > 0 && productSetBasePrice.basePrice != productSetSalePrice.salePrice) {
+                        productAttributes.salePrice = productSetSalePrice.salePrice.toFixed(2) + ' ' + product.priceModel.maxPrice.currencyCode;
                         productAttributes.salePriceEffectiveDate = productSetSalePrice.salePriceEffectiveDate;
                     }
                     var productSetBasePrice_FR = productSetCustomHelper.getProductSetBasePrice(product.ID, Constants.CURRENCY_EUR, true);
                     productAttributes.price_FR = productSetBasePrice_FR.basePrice.toFixed(2) + ' ' + productSetBasePrice_FR.currencyCode;
                     var productSetSalePrice_FR = productSetCustomHelper.getProductSetSalePrice(product.ID, Constants.CURRENCY_EUR, true);
-                    if (productSetSalePrice_FR.productPromoPrice > 0) {
-                        productAttributes.salePrice_FR = productSetSalePrice_FR.productPromoPrice.toFixed(2) + ' ' + productSetSalePrice_FR.currencyCode;
+                    if (productSetSalePrice_FR.salePrice > 0 && productSetBasePrice.basePrice != productSetSalePrice.salePrice) {
+                        productAttributes.salePrice_FR = productSetSalePrice_FR.salePrice.toFixed(2) + ' ' + productSetSalePrice_FR.currencyCode;
                         productAttributes.sale_price_effective_date_FR = productSetSalePrice.salePriceEffectiveDate;
                     }
                     var productAvilibiltyModel = productCustomHelpers.productSetStockAvailability(Constants.PRODUCT_TYPE, product);
