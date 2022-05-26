@@ -148,7 +148,7 @@
                                 <isinclude template="product/components/productSet/addToCartProduct" />
                             </div>
                             
-                            <div class="prices-add-to-cart-actions d-block d-sm-none">
+                            <div class="prices-add-to-cart-actions d-none">
                                 <!-- Prices -->
                                 <div class="prices prices-main">
                                     <isset name="price" value="${product.price}" scope="page" />
