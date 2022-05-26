@@ -262,7 +262,7 @@ function exportFeed(feedColumns, fileArgs, feedParameters) {
                 if (product.productSet) {
                     var productSetCustomHelper = require('*/cartridge/scripts/helpers/productSetCustomHelper');
                     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
-                    var productSetBasePrice = productSetCustomHelper.getProductSetBasePrice(product.ID, Constants.CURRENCY_USD, true);
+                    var productSetBasePrice = productSetCustomHelper.getProductSetBasePrice(product.ID);
                     var productSetSalePrice = productSetCustomHelper.getProductSetSalePrice(product.ID);
                     productAttributes.price = productSetBasePrice.basePrice.toFixed(2) + ' ' + product.priceModel.maxPrice.currencyCode;
                     productAttributes.decimalPrice = productSetBasePrice.basePrice.toFixed(2) + ' ' + product.priceModel.maxPrice.currencyCode;
