@@ -678,11 +678,11 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
             if (Site.current.ID === 'OliviaBurtonUK') {
                 produtObj.productVatAmount = ((!empty(productLineItem.basePrice.decimalValue)) && (!empty(productLineItem.adjustedPrice.decimalValue)) && (productLineItem.bonusProductLineItem === false)) 
                     ? (productLineItem.basePrice.decimalValue !== productLineItem.adjustedPrice.decimalValue) 
-                    ? Math.round(productLineItem.adjustedPrice.decimalValue * 20 / 100) : Math.round(productLineItem.basePrice.decimalValue * 20 / 100) 
+                    ? (productLineItem.adjustedPrice.decimalValue * 20 / 100) : (productLineItem.basePrice.decimalValue * 20 / 100) 
                     : '';
                 produtObj.productMerchValue = ((!empty(productLineItem.basePrice.decimalValue)) && (!empty(productLineItem.adjustedPrice.decimalValue)) && (productLineItem.bonusProductLineItem === false))
                     ? (productLineItem.basePrice.decimalValue !== productLineItem.adjustedPrice.decimalValue)
-                    ? Math.abs(productLineItem.adjustedPrice.decimalValue) - Math.abs(produtObj.productVatAmount) : Math.abs(productLineItem.basePrice.decimalValue) - Math.abs(produtObj.productVatAmount)
+                    ? (productLineItem.adjustedPrice.decimalValue - produtObj.productVatAmount) : (productLineItem.basePrice.decimalValue - produtObj.productVatAmount)
                     : '';
             }
             // Custom End
@@ -706,8 +706,8 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
 
         // Custom Start : Added VAT for OBUK
         if (Site.current.ID === 'OliviaBurtonUK') {
-            orderObj.shippingVatAmount = Math.round(order.shippingTotalPrice.decimalValue * 20 / 100);
-            orderObj.shippingMerchValue = Math.abs(order.shippingTotalPrice.decimalValue) - Math.abs(orderObj.shippingVatAmount);
+            orderObj.shippingVatAmount = order.shippingTotalPrice.decimalValue * 20 / 100;
+            orderObj.shippingMerchValue = order.shippingTotalPrice.decimalValue - orderObj.shippingVatAmount;
         }
         // Custom End
 
@@ -717,8 +717,8 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
 
         // Custom Start : Added VAT for OBUK
         if (Site.current.ID === 'OliviaBurtonUK') {
-            orderObj.orderVatAmount = Math.round(order.totalGrossPrice.decimalValue * 20 / 100);
-            orderObj.orderMerchValue = Math.abs(order.totalGrossPrice.decimalValue) - Math.abs(orderObj.orderVatAmount);
+            orderObj.orderVatAmount = order.totalGrossPrice.decimalValue * 20 / 100;
+            orderObj.orderMerchValue = order.totalGrossPrice.decimalValue - orderObj.orderVatAmount;
         }
         // Custom End
 
