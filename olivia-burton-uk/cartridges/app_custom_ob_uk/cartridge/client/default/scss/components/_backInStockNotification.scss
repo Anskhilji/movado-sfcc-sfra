@@ -6,7 +6,8 @@
         font-family: $font-gill-std-semibold;
     }
     .back-in-stock-notification-email-notification-copy {
-        height: rem(21);
+        height: auto;
+        margin-bottom: rem(10);
         font-family: $font-adobe;
         font-size: rem(20);
         letter-spacing: rem(1.71);
