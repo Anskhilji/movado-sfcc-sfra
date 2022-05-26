@@ -60,6 +60,7 @@ function getProductSetSalePrice(productID, currency, isJob) {
     var productSetProducts = productSet.productSetProducts.iterator();
     var currentPromotionalPrice = Money.NOT_AVAILABLE;
     var salePrice = 0;
+    var productPromoPrice = 0;
     var currentProductSetProduct;
     var formattedSalePrice;
     var currencyCode;
@@ -105,7 +106,7 @@ function getProductSetSalePrice(productID, currency, isJob) {
                     salePrice += currentProdcutSetProductPriceModel.price;
                 }
             }
-    
+            productPromoPrice = salePrice;
         } else {
             if (currentProdcutSetProductPriceModel.price) {
                 salePrice += currentProdcutSetProductPriceModel.price;
@@ -115,6 +116,11 @@ function getProductSetSalePrice(productID, currency, isJob) {
     var salePriceEffectiveDate = getProductSetEfectiveDate(productID);
     formattedSalePrice = new Money(salePrice, currencyCode).toFormattedString();
 
+    // this is use to set promotional price in google feed /export feeds
+    if (productPromoPrice > 0) {
+        var productBasePrice = getProductSetBasePrice(productID);
+        productPromoPrice = productBasePrice.basePrice - productPromoPrice;
+    }
     if (isJob) {
         if (currency && defaultCurrency) {
             session.setCurrency(defaultCurrency);
@@ -126,7 +132,8 @@ function getProductSetSalePrice(productID, currency, isJob) {
         formattedSalePrice: formattedSalePrice,
         promoCalloutMsg: promoCalloutMsg,
         salePriceEffectiveDate: salePriceEffectiveDate,
-        currencyCode: currencyCode
+        currencyCode: currencyCode,
+        productPromoPrice: productPromoPrice
     }
 }
 
