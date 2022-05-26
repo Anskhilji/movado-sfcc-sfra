@@ -105,7 +105,6 @@ function getProductSetSalePrice(productID, currency, isJob) {
                     salePrice += currentProdcutSetProductPriceModel.price;
                 }
             }
-    
         } else {
             if (currentProdcutSetProductPriceModel.price) {
                 salePrice += currentProdcutSetProductPriceModel.price;
@@ -114,7 +113,6 @@ function getProductSetSalePrice(productID, currency, isJob) {
     }
     var salePriceEffectiveDate = getProductSetEfectiveDate(productID);
     formattedSalePrice = new Money(salePrice, currencyCode).toFormattedString();
-
     if (isJob) {
         if (currency && defaultCurrency) {
             session.setCurrency(defaultCurrency);
