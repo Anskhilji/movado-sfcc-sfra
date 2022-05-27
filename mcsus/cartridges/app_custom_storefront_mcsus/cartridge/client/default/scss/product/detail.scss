@@ -649,8 +649,8 @@
                 border-radius: 0;
                 
                 &::after, &::before {
-                    border-left: solid transparent 0.425em;
-                    border-right: solid transparent 0.425em;
+                    border-left: solid transparent rem(6.8);
+                    border-right: solid transparent rem(6.8);
                     content: " ";
                     height: 0;
                     right: rem(14);
@@ -659,18 +659,18 @@
                     width: 0;
                     bottom: rem(33);
                     z-index: 999;
-                    border-bottom: solid $white 0.625em;;
+                    border-bottom: solid $white rem(10);
                     display: none;
 
                     @include media-breakpoint-up(sm) {
-                        top: rem(-1);
+                        top: rem(-6);
                     }
                     @include media-breakpoint-up(lg) {
                         right: rem(84);
                     }
                     @include media-breakpoint-up(xl) {
                         right: rem(185);
-                        top: rem(-1);
+                        top: rem(-6);
                     }
                     @include media-breakpoint-down(sm) {
                         right: rem(13);
@@ -685,22 +685,22 @@
                     border-bottom: solid $gull-gray-light rem(10);
                     right: rem(13);
                     top: rem(4);
-                    border-left: solid transparent 0.525em;
-                    border-right: solid transparent 0.525em;
+                    border-left: solid transparent rem(8.4);
+                    border-right: solid transparent rem(8.4);
 
                     @include media-breakpoint-up(sm) {
-                        top: rem(-1);
+                        top: rem(-6);
                     }
                     @include media-breakpoint-up(lg) {
                         right: rem(84);
                     }
                     @include media-breakpoint-up(xl) {
                         right: rem(185);
-                        top: rem(-1);
+                        top: rem(-6);
                     }
                     @include media-breakpoint-down(sm) {
                         right: rem(11);
-                        top: rem(1);
+                        top: rem(-6);
                     }
                     @include media-breakpoint-down(xs) {
                         top: rem(3);
@@ -731,17 +731,17 @@
     padding: rem(22);
     background-color: $white;
     color:$dark-black;
-    font-size: 0.75rem;
+    font-size: rem(12);
     width: 100%;
     animation: fade-in 0.01s linear forwards;
     z-index: 100;
-    box-shadow: 0 0 0.4375rem 0 $slate-grey;
+    box-shadow: 0 0 rem(7) 0 $slate-grey;
     word-wrap: break-word;
     opacity: 0;
     bottom: rem(43);
     right: 0;
     left: 0;
-    bottom: rem(47);
+    bottom: rem(44);
 
     @include media-breakpoint-up(lg) {
         max-width: 84%;
@@ -753,12 +753,9 @@
         max-width: 93%;
         margin: 0 auto;
     }
-    @include media-breakpoint-down(sm) {
-        bottom: rem(47);
-    }
 
     .smartgift-num-one {
-        font-family: $font-book;
+        font-family: $font-book-std;
         font-size: rem(14);
         text-transform: uppercase;
     }
