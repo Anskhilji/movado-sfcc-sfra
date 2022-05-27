@@ -578,7 +578,6 @@
                     }
                 }
             }
-           
         }
     }
 }
@@ -782,31 +781,31 @@
         background-size: rem(10);
     }
 
-    &-line-one{
+    &-line-one {
         padding: 0 rem(26);
         letter-spacing: rem(0.5);
         line-height: 1.5;
         margin-top: rem(-21);
-        font-family: $font-medium1;
+        font-family: $font-std-medium;
     }
 
-    &-line-two{
+    &-line-two {
         padding: 0 rem(17);
         letter-spacing: rem(0.5);
         line-height: 1.5;
         margin-top: rem(-21);
-        font-family: $font-medium1;
+        font-family: $font-std-medium;
     }
 
-    &-line-three{
+    &-line-three {
         padding: 0 rem(17);
         letter-spacing: rem(0.5);
         line-height: 1.5;
         margin-top: rem(-21);
-        font-family: $font-medium1;
+        font-family: $font-std-medium;
     }
     
-    &-smartgift-heading{
+    &-smartgift-heading {
         p {
             font-family: $font-book-std;
             font-size: rem(14);
