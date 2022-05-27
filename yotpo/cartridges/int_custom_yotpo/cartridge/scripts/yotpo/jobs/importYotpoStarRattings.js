@@ -8,11 +8,9 @@
  */
 
 var CatalogMgr = require('dw/catalog/CatalogMgr');
-var Constants = require('*/cartridge/scripts/yotpo/utils/Constants');
 var ProductSearchModel = require('dw/catalog/ProductSearchModel');
 var Site = require('dw/system/Site');
-var YotpoLogger = require('*/cartridge/scripts/yotpo/utils/YotpoLogger');
-
+var YotpoLogger = require('int_yotpo/cartridge/scripts/yotpo/utils/YotpoLogger');
 
 /**
  * Function used to get product search hits
@@ -39,12 +37,12 @@ function execute() {
     var Transaction = require('dw/system/Transaction');
     var YotpoUtils = require('*/cartridge/scripts/yotpo/utils/YotpoUtils');
 
-    var isreview = 'true';
+    var isReview = 'true';
     var locale = 'default';
     var product;
     var productID;
-    var productRatting;
-    var yotporeviewspage = '1';
+    var productRating;
+    var yotpoReviewsPage = '1';
     var yotpoResponseHTML = '';
 
     var logLocation = 'importYotpoStarRattings~execute';
@@ -59,14 +57,15 @@ function execute() {
         while (productSearchHitsItr.hasNext()) {
             product = productSearchHitsItr.next().product;
             productID = product.ID;
-            yotpoResponseHTML = ImportReviewModel.importReviewsAndRatings(productID, yotporeviewspage, isreview, locale);
+
+            yotpoResponseHTML = ImportReviewModel.importReviewsAndRatings(productID, yotpoReviewsPage, isReview, locale);
 
             if (!empty(yotpoResponseHTML)) {
                 for (let i = 0; i < yotpoResponseHTML.length; i++) {
                     if (yotpoResponseHTML[i].method == 'bottomline') {
-                        productRatting = yotpoResponseHTML[i].result;
+                        productRating = yotpoResponseHTML[i].result;
                         Transaction.wrap(function () {
-                            product.custom.yotpoStarRattings = productRatting;
+                            product.custom.yotpoStarRattings = productRating;
                         });
                         break;
                     }
