@@ -123,9 +123,9 @@ $large-screen-width: 1400px;
 $large-screen-width1440: 1440px;
 
 @mixin custom-media-query($large-screen-width) {
-  @media (min-width:#{$large-screen-width}) {
-      @content;
-  }
+    @media (min-width:#{$large-screen-width}) {
+        @content;
+    }
 }
 
 @mixin custom-media-query1440($large-screen-width1440) {
