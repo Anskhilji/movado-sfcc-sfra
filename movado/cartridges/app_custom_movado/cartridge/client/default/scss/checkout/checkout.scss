@@ -836,3 +836,8 @@ header {
         height: rem(45) !important;
     }
 }
+
+.card-border-none-wrapper {
+    border: none;
+    box-shadow: none;
+}

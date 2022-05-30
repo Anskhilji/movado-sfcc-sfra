@@ -114,8 +114,8 @@
                                 <isinclude template="cart/cartRemoveCouponModal"/>
                             </div>
                         </div>
-                        <div class="card order-summary-card">
-                            <div class="card-header">
+                        <div class="card order-summary-card card-border-none-wrapper">
+                            <div class="card-header card-border-none-wrapper">
                                 <h4>${Resource.msg('heading.order.summary', 'checkout', null)}</h4>
                             </div>
                             <div class="card-body order-total-summary">
