@@ -599,22 +599,25 @@
         display: flex;
         justify-content: flex-start;
 
-        @include media-breakpoint-up(sm) {
+        .smartgift {
+            
+            @include media-breakpoint-up(sm) {
     
-            .smartgift-btn-redesign {
-                width: 100%;
+                &-btn-redesign {
+                    width: 100%;
+                }
             }
-        }
-        @include media-breakpoint-up(lg) {
-    
-            .smartgift-btn-redesign {
-                max-width: 75%;
+            @include media-breakpoint-up(lg) {
+        
+                &-btn-redesign {
+                    max-width: 75%;
+                }
             }
-        }
-        @include media-breakpoint-up(xl) {
-    
-            .smartgift-btn-redesign {
-                max-width: 61%;
+            @include media-breakpoint-up(xl) {
+        
+                &-btn-redesign {
+                    max-width: 61%;
+                }
             }
         }
         
