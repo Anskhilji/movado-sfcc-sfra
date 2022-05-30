@@ -795,16 +795,16 @@ $stored-payment-spacing: rem(16);
 
           &.required {
               .field-label-wrapper {
-                &::before {
-                  content: "";
-                    color: transparent;
-                }
+                  &::before {
+                      content: "";
+                      color: transparent;
+                  }
               }
           }
       }
 
-      .card-header-inner-wrapper {
-          max-width: rem(350);
-          margin-bottom: rem(20);
-      }
+    .card-header-inner-wrapper {
+        max-width: rem(350);
+        margin-bottom: rem(20);
+    }
 }

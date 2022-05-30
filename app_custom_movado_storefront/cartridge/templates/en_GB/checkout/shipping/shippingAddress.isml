@@ -51,7 +51,6 @@
             <input type="text" class="form-control email shipping-email" id="email" value="${(pdict.customer && pdict.customer.profile &&pdict.customer.profile.email) || ''}"
                 <isprint value="${addressFields.email.attributes}" encoding="off" />> 
             <label class="form-control-label field-label-wrapper" for="email">${Resource.msg('field.customer.email', 'checkout', null)}</label>
-
             <div class="invalid-feedback"></div>
         </div>
     </div>
@@ -179,7 +178,7 @@
     <div class="col-sm-6 mx-field-wrapper field-right">
         <div class="form-group
             ${addressFields.postalCode.mandatory === true ? 'required' : ''}
-            ${addressFields.postalCode.htmlName}">            
+            ${addressFields.postalCode.htmlName}">
             <isif condition="${sitePref.custom.enableCalloutMsgPostalCode === true}">
                 <iscontentasset aid="calloutMsgPostalCode"/>
             </isif>

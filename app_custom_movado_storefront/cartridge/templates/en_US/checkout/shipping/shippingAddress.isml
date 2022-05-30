@@ -13,7 +13,6 @@
         <div class="form-group
             ${addressFields.firstName.mandatory === true ? 'required' : ''}
             ${addressFields.firstName.htmlName}">
-
             <input autofocus type="text" class="form-control input-wrapper-checkout shippingFirstName" id="shippingFirstName"
                 value="${shippingAddress.firstName||''}" <isprint value="${addressFields.firstName.attributes}" encoding="off"/>
                 autocomplete="shipping given-name" >

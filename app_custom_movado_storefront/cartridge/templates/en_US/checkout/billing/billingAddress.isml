@@ -3,7 +3,7 @@
     <div class="col-sm-6 field-left mx-field-wrapper">
         <div class="form-group
             ${billingFields.firstName.mandatory === true ? 'required' : ''}
-            ${billingFields.firstName.htmlName}">            
+            ${billingFields.firstName.htmlName}">
             <input autofocus type="text" class="form-control billingFirstName input-wrapper-checkout email" id="billingFirstName"
                 value="${pdict.order.billing.billingAddress.address
                     && pdict.order.billing.billingAddress.address.firstName

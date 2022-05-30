@@ -881,4 +881,10 @@ header {
                 margin: rem(0) rem(-10);
             }
         }
+        
+        .mx-container-box1 {
+            @include custom-media-query1440($large-screen-width1440) {
+                max-width: rem(700);
+            }
+        }
     }
