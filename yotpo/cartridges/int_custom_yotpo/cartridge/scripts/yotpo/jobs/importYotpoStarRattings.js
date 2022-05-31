@@ -56,7 +56,6 @@ function execute() {
 
         while (productSearchHitsItr.hasNext()) {
             product = productSearchHitsItr.next().product;
-
             if (!empty(product)) {
                 productID = product.ID;
                 yotpoResponseHTML = ImportReviewModel.importReviewsAndRatings(productID, yotpoReviewsPage, isReview, locale);
