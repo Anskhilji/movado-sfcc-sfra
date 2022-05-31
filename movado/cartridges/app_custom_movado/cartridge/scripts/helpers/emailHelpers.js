@@ -19,12 +19,11 @@ function send(emailObj, template, context) {
     var messageId = '';
     var requestParams = {
     };
-    var listrakTransactionalSwitch = Site.current.getCustomPreferenceValue('transactionalSwitch').valueOf.toString();
+    var listrakTransactionalSwitch = Site.current.getCustomPreferenceValue('transactionalSwitch').value.toString();
     var listrakEnabled = Site.current.getCustomPreferenceValue('Listrak_Cartridge_Enabled')
     if (listrakEnabled && listrakTransactionalSwitch == 'Listrak') {
         switch (emailObj.type) {
             case 1:
-                requestParams.messageType = 'accountCreation';
                 requestParams.messageContext = 'Account';
                 requestParams.messageId = Site.current.preferences.custom.Listrak_AccountCreateMessageID;
                 requestParams.firstName = context.firstName;
@@ -33,19 +32,16 @@ function send(emailObj, template, context) {
                 requestParams.passwordText = context.passwordText;
                 break;
             case 2:
-                requestParams.messageType = 'passwordReset';
                 requestParams.messageContext = 'Account';
                 requestParams.messageId = Site.current.preferences.custom.Listrak_PasswordResetMessageID;
                 requestParams.passwordReset = dw.web.URLUtils.http('Account-Show');
                 break;
             case 3:
-                    requestParams.messageType = 'passwordUpdate';
                     requestParams.messageContext = 'Account';
                     requestParams.messageId = Site.current.preferences.custom.Listrak_PasswordUpdateMessageID;
                     requestParams.passwordText = context.passwordText;
                 break;
             case 4:
-                requestParams.messageType = 'orderConfirmation';
                 requestParams.messageContext = 'Order';
                 requestParams.messageId = Site.current.preferences.custom.Listrak_OrderConfirmationMessageID;
                 requestParams.orderNumber = context.order.orderNumber;
@@ -76,26 +72,34 @@ function send(emailObj, template, context) {
                 requestParams.email = context.order.orderEmail;
                 break;
             case 5:
-                requestParams.messageType = 'accountLocked';
                 requestParams.messageContext = 'Account';
                 requestParams.messageId = Site.current.preferences.custom.Listrak_AccountLockedMessageID;
                 break;
             case 6:
-                requestParams.messageType = 'accountEdit';
                 requestParams.messageContext = 'Account';
                 requestParams.messageId = Site.current.preferences.custom.Listrak_AccountUpdateMessageID;
                 requestParams.firstName = context.firstName;
                 requestParams.lastName = context.lastName;
                 break;
             case 7:
-                requestParams.messageType = 'productShareEmail';
                 requestParams.messageContext = 'Account';
                 requestParams.messageId = Site.current.preferences.custom.Listrak_ProductShareEmailMessageID;
                 requestParams.name = context.name;
                 requestParams.email = context.friendsEmail;
                 break;
+            case 11:
+                requestParams.messageContext = 'Account';
+                requestParams.messageId = Site.current.preferences.custom.Listrak_WishlistShareEmailMessageID;
+                requestParams.email = context.friendsEmail;
+                break;
+            case 12:
+                requestParams.messageContext = 'Account';
+                requestParams.messageId = Site.current.preferences.custom.Listrak_ContactUsEmailMessageID;
+                requestParams.firstName = context.firstName;
+                requestParams.lastName = context.lastName;
+                requestParams.email = context.email;
+                break;
             default:
-                requestParams.messageType = 'orderConfirmation';
                 requestParams.messageContext = 'Order';
                 requestParams.messageId = Site.current.preferences.custom.Listrak_OrderConfirmationMessageID;
                 requestParams.orderNumber = context.order.orderNumber;

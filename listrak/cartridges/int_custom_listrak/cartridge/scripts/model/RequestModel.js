@@ -67,7 +67,7 @@ function generateTransectionalEmailToLTKPayload(params) {
                 },
                 {
                     "segmentationFieldId": Site.current.preferences.custom.Listrak_Transactional_Email || '',
-                    "value": params.email || params.friendEmail || ''
+                    "value": params.email || ''
                 },
                 {
                     "segmentationFieldId": Site.current.preferences.custom.Listrak_Transactional_Password || '',
