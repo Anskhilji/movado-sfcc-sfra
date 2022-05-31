@@ -37,7 +37,7 @@ function execute() {
     var Transaction = require('dw/system/Transaction');
     var YotpoUtils = require('*/cartridge/scripts/yotpo/utils/YotpoUtils');
 
-    var isReview = 'true';
+    var isReview = '';
     var locale = 'default';
     var product;
     var productID;
@@ -56,20 +56,18 @@ function execute() {
 
         while (productSearchHitsItr.hasNext()) {
             product = productSearchHitsItr.next().product;
-            productID = product.ID;
 
-            yotpoResponseHTML = ImportReviewModel.importReviewsAndRatings(productID, yotpoReviewsPage, isReview, locale);
+            if (!empty(product)) {
+                productID = product.ID;
+                yotpoResponseHTML = ImportReviewModel.importReviewsAndRatings(productID, yotpoReviewsPage, isReview, locale);
 
-            if (!empty(yotpoResponseHTML)) {
-                for (let i = 0; i < yotpoResponseHTML.length; i++) {
-                    if (yotpoResponseHTML[i].method == 'bottomline') {
-                        productRating = yotpoResponseHTML[i].result;
-                        Transaction.wrap(function () {
-                            product.custom.yotpoStarRattings = productRating;
-                        });
-                        break;
-                    }
+                if (!empty(yotpoResponseHTML)) {
+                    Transaction.wrap(function () {
+                        product.custom.yotpoStarRattings = yotpoResponseHTML;
+                    });
                 }
+            } else {
+                continue;
             }
         }
     } catch (ex) {
