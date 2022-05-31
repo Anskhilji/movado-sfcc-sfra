@@ -554,7 +554,6 @@ $stored-payment-spacing: rem(16);
                 + .field-label-wrapper-card3 {
                     left: 2em;
                   }
-
               }
             }
 
@@ -568,9 +567,9 @@ $stored-payment-spacing: rem(16);
                     border-color: $black;
                     box-shadow: none;
                 }
-                    + i {
-                        top: rem(14);
-                    }
+                + i {
+                    top: rem(14);
+                }
             }
         }
 
@@ -629,8 +628,6 @@ $stored-payment-spacing: rem(16);
               content: "*";
               color: $grey15;
           }
-
-
         }
 
         &.required {
