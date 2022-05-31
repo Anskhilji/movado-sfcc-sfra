@@ -840,4 +840,8 @@ header {
 .card-border-none-wrapper {
     border: none;
     box-shadow: none;
+    width: 100%;
+    .order-total-summary {
+        padding: rem(0);
+    }
 }
