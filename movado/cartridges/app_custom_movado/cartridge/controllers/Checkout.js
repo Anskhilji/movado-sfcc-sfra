@@ -59,7 +59,8 @@ server.append(
         var Locale = require('dw/util/Locale');
         var OrderModel = require('*/cartridge/models/order');
         var Site = require('dw/system/Site');
-        
+        var ltkHelper = require('*/cartridge/scripts/helper/ltkHelper.js');
+
         var viewData = res.getViewData();
         var actionUrls = viewData.order.checkoutCouponUrls;
         var currentCustomer = req.currentCustomer.raw;
@@ -68,6 +69,8 @@ server.append(
         var usingMultiShipping = req.session.privacyCache.get('usingMultiShipping');
 
         var currentBasket = BasketMgr.getCurrentBasket();
+        var countryCode = ltkHelper.getCountryCode(req);
+
         if (!currentBasket) {
             res.redirect(URLUtils.url('Cart-Show'));
             return next();
@@ -131,7 +134,8 @@ server.append(
             actionUrls: actionUrls,
             totals: totals,
             customerEmail: viewData.order.orderEmail ? viewData.order.orderEmail : null,
-            expirationYears: creditCardExpirationYears
+            expirationYears: creditCardExpirationYears,
+            countryCode: countryCode
         });
 
         next();

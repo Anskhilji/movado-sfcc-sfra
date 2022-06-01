@@ -104,7 +104,6 @@ server.replace(
 
         var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
         var checkoutAddrHelper = require('*/cartridge/scripts/helpers/checkoutAddressHelper');
-
         var emailObj = [];
 
         var currentBasket = BasketMgr.getCurrentBasket();
@@ -159,12 +158,32 @@ server.replace(
             req.session.privacyCache.set(currentBasket.defaultShipment.UUID, 'valid');
             
             // Subscribe to the movado email list: Starts.
+            var requestParams = {
+                email: form.shippingAddress.addressFields.email.htmlValue,
+                requestLocation: 'CHECKOUT_SERVICE'
+            }
+            if (!Site.current.preferences.custom.auto_optin_checkout) {
             var subscribeToMovado = form.shippingAddress.addressFields.subscribetomovado.value;
-            if (subscribeToMovado) {
-                var requestParams = {
-                    email: form.shippingAddress.addressFields.email.htmlValue,
-                    requestLocation: 'CHECKOUT_SERVICE'
+
+                if (subscribeToMovado) {
+                    if (!empty(requestParams) && !empty(requestParams.email)) {
+                        if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
+                            var ltkApi = require('*/cartridge/scripts/api/ListrakAPI');
+                            var ltkConstants = require('*/cartridge/scripts/utils/ListrakConstants');
+                            requestParams.source = ltkConstants.Source.Checkout;
+                            requestParams.event = ltkConstants.Event.Checkout;
+                            requestParams.subscribe = ltkConstants.Subscribe.Checkout;
+                            requestParams.firstName= form.shippingAddress.addressFields.firstName.value;
+                            requestParams.lastName= form.shippingAddress.addressFields.lastName.value;
+                            
+                            ltkApi.sendSubscriberToListrak(requestParams);
+                        } else {
+                            var sfmcApi = require('*/cartridge/scripts/api/SFMCApi');
+                            sfmcApi.sendSubscriberToSFMC(requestParams);
+                        }
+                    }
                 }
+            } else {
                 if (!empty(requestParams) && !empty(requestParams.email)) {
                     if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
                         var ltkApi = require('*/cartridge/scripts/api/ListrakAPI');
@@ -180,18 +199,19 @@ server.replace(
                         var sfmcApi = require('*/cartridge/scripts/api/SFMCApi');
                         sfmcApi.sendSubscriberToSFMC(requestParams);
                     }
-                    var isGtmEnabled = Site.current.getCustomPreferenceValue('gtmEnabled');
-                    if (isGtmEnabled) {
-                        var userEmail = !empty(form.shippingAddress.addressFields.email.htmlValue) ? form.shippingAddress.addressFields.email.htmlValue : '';
-                        var userHashedEmail = Encoding.toHex(new Bytes(userEmail, 'UTF-8'));
-                        emailObj.push({
-                            userEmail: userEmail,
-                            userHashedEmail: userHashedEmail,
-                            submitLocation: 'checkout'
-                        });
-                        result.emailObj = JSON.stringify(emailObj);
-                    }
                 }
+            }
+
+            var isGtmEnabled = Site.current.getCustomPreferenceValue('gtmEnabled');
+            if (isGtmEnabled) {
+                var userEmail = !empty(form.shippingAddress.addressFields.email.htmlValue) ? form.shippingAddress.addressFields.email.htmlValue : '';
+                var userHashedEmail = Encoding.toHex(new Bytes(userEmail, 'UTF-8'));
+                emailObj.push({
+                    userEmail: userEmail,
+                    userHashedEmail: userHashedEmail,
+                    submitLocation: 'checkout'
+                });
+                result.emailObj = JSON.stringify(emailObj);
             }
             
             result.address = {
