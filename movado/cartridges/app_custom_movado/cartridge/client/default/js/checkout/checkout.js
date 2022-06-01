@@ -210,6 +210,7 @@ var formHelpers = require('base/checkout/formErrors');
                               if (!data.error) {
                                 var scrollUtil = require('../utilities/scrollUtil');
                                 scrollUtil.scrollPaymentSection('.payment-form', 65);
+
                               }
                           },
                           error: function (err) {
