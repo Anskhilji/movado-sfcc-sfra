@@ -8,7 +8,6 @@ var Constants = require('*/cartridge/scripts/util/Constants');
 var ContentMgr = require('dw/content/ContentMgr');
 var Site = require('dw/system/Site').getCurrent();
 
-
 /**
  * Get explicit recommendations for product
  * @param {string} pid : The ID of Product
@@ -108,6 +107,28 @@ function getPdpVideoConfigs(apiProduct) {
     }
 }
 
+/**
+ * Method use to get Custome URL to render on PDP
+ * @param {Product} product
+ * @returns {String} Custome URL
+ */
+function getPlpCustomUrl(product) {
+    var Site = require('dw/system/Site').getCurrent();
+    var URLUtils = require('dw/web/URLUtils');
+    var customUrl;
+    var customUrlObj = JSON.parse(Site.preferences.custom.plpCustomUrl);
+    if (customUrlObj) {
+        var brandID = Site.ID;
+        if (customUrlObj[brandID] && customUrlObj[brandID].settings.enabledFullQualityURL) {
+            customUrl = URLUtils.url(customUrlObj[brandID].settings.pipelineURL, customUrlObj[brandID].settings.params, customUrlObj[brandID].URL).toString();
+
+        } else {
+            customUrl = customUrlObj[product.brand].URL;
+        }
+    }
+    return customUrl;
+}
+
 function getCurrentCountry() {
     var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
     var availableCountry = 'US';
@@ -130,5 +151,6 @@ module.exports = {
     getSaveMessage: getSaveMessage,
     getPdpVideoConfigs: getPdpVideoConfigs,
     getPDPMarketingContentAssetHTML: getPDPMarketingContentAssetHTML,
-    getCurrentCountry: getCurrentCountry
+    getCurrentCountry: getCurrentCountry,
+    getPlpCustomUrl: getPlpCustomUrl
 };
