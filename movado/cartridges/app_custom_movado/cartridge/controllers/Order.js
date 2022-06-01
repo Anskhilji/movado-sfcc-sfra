@@ -29,7 +29,6 @@ server.replace(
         var OrderModel = require('*/cartridge/models/order');
         var reportingUrlsHelper = require('*/cartridge/scripts/reportingUrls');
         var ltkHelper = require('*/cartridge/scripts/helper/ltkHelper.js');
-        var countryCode = ltkHelper.getCountryCode(req);
         var abTestSegment;
         var order = OrderMgr.getOrder(req.querystring.ID);
         var token = req.querystring.token ? req.querystring.token : null;
@@ -137,7 +136,9 @@ server.replace(
         }
         req.session.raw.custom.orderID = req.querystring.ID; // eslint-disable-line no-param-reassign
         // MSS-1867 - start when auto_optin_checkout enabled then
+        var countryCode = ltkHelper.getCountryCode(req);
         var Constants = require('*/cartridge/scripts/util/Constants');
+
         if (Site.current.preferences.custom.auto_optin_checkout && countryCode == Constants.DEFAULT_COUNTRYCODE) {
             var requestParams = {
                 email : order.getCustomerEmail() ? order.getCustomerEmail() : '',
