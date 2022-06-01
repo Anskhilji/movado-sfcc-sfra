@@ -105,6 +105,7 @@ function fillInAddress(){
   var $address1Value = address1;
   address1Field.value = $address1Value.replace(/'/g, ' ');
   postalField.value = postcode;
+  autoCompleteFields();
 }
 
 function fillInAddressBilling(){
@@ -180,6 +181,21 @@ function fillInAddressBilling(){
   var $address1BillingValue = address1Billing;
   address1FieldBilling.value = $address1BillingValue.replace(/'/g, ' ');;
   postalFieldBilling.value = postcodeBilling;
+  autoCompleteFields();
 }
 
+function checkForInput(element) {
+  const $label = $(element).siblings('.field-label-wrapper');
+  if ($(element).val().length > 0) {
+    $label.addClass('input-has-value');
+  } else {
+    $label.removeClass('input-has-value');
+  }
+}
+
+function autoCompleteFields() {
+  $('input.input-wrapper-checkout,select.custom-select-box').each(function () {
+    checkForInput(this);
+  });
+};
 window.initAutocomplete()

@@ -399,6 +399,20 @@ header {
             height: rem(60);
             padding: 0 rem(20);
 
+            @include media-breakpoint-up(lg) {
+                padding: 0 rem(91.5) 0 rem(60);
+                margin-top: rem(30);
+            }
+
+            @include media-breakpoint-up(xl) {
+                padding: 0 rem(91.5) 0 rem(4);
+                margin-top: rem(30);
+            }
+            @include custom-media-query1440($large-screen-width1440) {
+                padding: 0 rem(91.5) 0 rem(100);
+                margin-top: rem(30);
+            }
+
             @include media-breakpoint-down(xs) {
                 margin-top: rem(13);
             }
@@ -474,17 +488,6 @@ header {
                 }
             }
 
-            @include media-breakpoint-up(xl) {           
-                position: absolute;
-                left: rem(30);
-                width: rem(104);        
-            }
-            
-            @include custom-media-query($large-screen-width) {
-                position: absolute;
-                left: rem(80);          
-            }
-
         }
 
         .logo-link {
@@ -498,13 +501,6 @@ header {
                 .logo-checkout-text {
                     font-size: rem(19);
                 }
-            }
-        }
-
-        @include media-breakpoint-up(lg) {
-            .checkout-header-wrapper {
-                padding: 0 rem(91.5) rem(10) rem(60);
-                margin-top: rem(16);
             }
         }
     }
@@ -568,14 +564,21 @@ header {
         }
 
         @include media-breakpoint-up(lg) {
-            padding: 0 rem(15);
-            margin: rem(0) auto rem(16);            
-            max-width: rem(940);            
+            padding: 0 rem(15) 0 rem(60);
+            margin: rem(64) auto rem(32);
+            max-width: 100%;
         }
 
         @include media-breakpoint-up(xl) {
-            padding: 0 rem(16);
-            margin: rem(16) auto;
+            padding: 0;
+            margin: rem(71) auto rem(51);
+            max-width: 90%;
+        }
+
+        @include custom-media-query1440($large-screen-width1440) {
+            padding: 0 rem(15) 0 rem(100);
+            margin: rem(71) auto rem(51);
+            max-width: rem(1440);
         }
 
         li {
@@ -704,10 +707,10 @@ header {
 
 .checkout-label-custom {
     @include media-breakpoint-up(xl) {
-        max-width: rem(908);
+        max-width: rem(428);
         margin: 0 auto;
-        width: rem(908);
-        padding-left: rem(15);
+        width: rem(428);
+        padding-left: rem(6);
     }
     
     h5 {
@@ -722,6 +725,11 @@ header {
         .align-start-box {
             @include media-breakpoint-up(xl) {
                 justify-content: flex-start;
+                max-width: 90%;
+                margin: auto;
+            }
+
+            @include custom-media-query1440($large-screen-width1440) {
                 max-width: 100%;
             }
         }

@@ -50,4 +50,33 @@ $(document).ready(function() { // eslint-disable-line
             e.stopPropagation();
         }
     });
+
+    function checkForInput(element) {
+        const $label = $(element).siblings('.field-label-wrapper');      
+        if ($(element).val().length > 0) {
+          $label.addClass('input-has-value');
+        } else {
+          $label.removeClass('input-has-value');
+        }
+      }
+      $('input.input-wrapper-checkout,select.custom-select-box').each(function() {
+        checkForInput(this);
+      });
+      
+      $('input.input-wrapper-checkout,select.custom-select-box').on('change keyup', function() {
+        checkForInput(this);  
+    });
+    $('.btn-add-new,.btn-show-details').click(function(){
+        $('.billing-address input,select').each(function() {
+            checkForInput(this);
+        });
+     });
+     $('.submit-shipping').click(function(){
+       setTimeout(() => {
+            $('.mx-field-wrapper .input-wrapper-checkout.is-invalid').each(function() {
+                $('.info-icon.info-icon-email').addClass('d-none');
+            });
+       }, 500);
+     });
+
 });

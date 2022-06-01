@@ -27,8 +27,8 @@
         <isset name="shippingModel" value="${pdict.order.shipping[0]}" scope="page" />
         <isset name="shipmentLoopState" value="${null}" scope="page" />
         <isset name="lineItem" value="${null}" scope="page" />
-        <div class="card" data-shipment-uuid="${shippingModel.UUID}">
-            <div class="card-header">
+        <div class="card card-border-none" data-shipment-uuid="${shippingModel.UUID}">
+            <div class="card-header card-border-none">
                  <iscomment> Custom Start: Add Amazon Pay Integeration</iscomment>
                 <isif condition="${pdict.order.amzPayRedirectURL}">
                     <h4 class="pull-left">${Resource.msg('heading.checkout.shipping', 'checkout', null)}</h4>
