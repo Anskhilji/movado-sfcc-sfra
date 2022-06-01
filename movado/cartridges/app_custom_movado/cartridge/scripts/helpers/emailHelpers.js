@@ -105,7 +105,7 @@ function send(emailObj, template, context) {
                 requestParams.orderNumber = context.order.orderNumber;
                break; 
         }
-        if (!empty(requestParams.messageType && requestParams.messageContext && requestParams.messageId)) {
+        if (!empty(requestParams.messageContext && requestParams.messageId)) {
             var ltkApi = require('*/cartridge/scripts/api/ListrakAPI');
             ltkApi.sendTransectionalEmailToListrak(requestParams);
         }
