@@ -104,7 +104,7 @@
             <!----------------------------------------------------------------------------------->
                 <div class="col-md-5 right-section">
                 <div class="right-content">
-                            <div class="card-header card-border-none-wrapper">
+                            <div class="card-header card-border-none-wrapper card-heading-wrapper">
                                 <h4>${Resource.msg('heading.order.summary', 'checkout', null)}</h4>
                             </div>
                     <!-- Promos -->
@@ -117,7 +117,7 @@
                                 <isinclude template="cart/cartRemoveCouponModal"/>
                             </div>
                         </div>
-                        <div class="card order-summary-card card-border-none-wrapper">
+                        <div class="card order-summary-card card-border-none-wrapper card-summary-wrapper-container">
 
                             <div class="card-body order-total-summary">
                                 <isinclude template="checkout/orderTotalSummary" />

@@ -816,3 +816,42 @@ header {
         }
     }
 }
+.leading-lines {
+    &.leading-lines-wrapper {
+        .start-lines {
+            .order-receipt-label {
+                margin-bottom: rem(0);
+                color: $black;
+                font-size: rem(13);
+                font-weight: 300;
+                letter-spacing: rem(0.7);
+                line-height: rem(20);
+                span {
+                    font-size: rem(13);
+                    font-weight: 300;
+                    letter-spacing: rem(0.7);
+                    line-height: rem(20);
+                }
+            }
+        }
+        .end-lines {
+            .text-right {
+                &.tax-total {
+                    color: $black;
+                    font-size: rem(13);
+                    font-weight: 300;
+                    letter-spacing: rem(0.7);
+                    line-height: rem(20);
+                }
+                span {
+                    color: $black;
+                    font-size: rem(13);
+                    font-weight: 300;
+                    letter-spacing: rem(0.7);
+                    line-height: rem(20);
+                }
+            }
+        }
+    }
+}
+

@@ -844,4 +844,11 @@ header {
     .order-total-summary {
         padding: rem(0);
     }
+    &.card-heading-wrapper {
+        margin-bottom: rem(35);
+        padding: rem(0);
+    }
+    &.card-summary-wrapper-container {
+        margin-bottom: rem(40);
+    }
 }
