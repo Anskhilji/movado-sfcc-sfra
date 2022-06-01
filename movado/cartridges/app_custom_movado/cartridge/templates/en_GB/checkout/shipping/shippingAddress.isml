@@ -56,7 +56,7 @@
         </div>
     </div>
     <isif condition="${sitePref.custom.auto_optin_checkout}">
-    <isif condition="${countryCode !== Resource.msg('checkout.country.code.gb','checkout',null)}">
+    <isif condition="${countryCode !== Resource.msg('checkout.country.code.us','checkout',null)}">
         <div class="form-group col-12 d-flex ${pdict.forms.billingForm.subscribetomovado.htmlName}">
             <input autofocus type="checkbox" class="subscribeToMovado mr-2" id="subscribeToMovado"
             <isprint value="${addressFields.subscribetomovado.attributes}" encoding="off" />> 
