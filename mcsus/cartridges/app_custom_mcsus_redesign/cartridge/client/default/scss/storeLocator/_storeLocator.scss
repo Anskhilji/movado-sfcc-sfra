@@ -1,0 +1,46 @@
+@import "~movado/storeLocator/_storeLocator";
+@import "../variables";
+@import "../mixins";
+
+.store-locator-container {
+    .card-button {
+        font-family: $font-medium;
+        font-size: rem(16);
+    }
+
+    .find-store-form {
+        @extend %card-box;
+
+        .form-control-label {
+            font-family: $font-book;
+            font-size: rem(14);
+        }
+    }
+
+    .results-card {
+
+        .store-name {
+            font-family: $font-bold;
+        }
+    }
+
+    .find-store-select {
+        position: relative;
+        select {
+            font-family: $font-medium;
+        }
+    }
+}
+
+.get-direction {
+    a {
+        font-family: $font-book;
+        font-size: rem(14);
+        @include media-breakpoint-up(md) {
+            font-size: rem(15);
+        }
+        @include media-breakpoint-up(lg) {
+            font-size: rem(16);
+        }
+    }
+}

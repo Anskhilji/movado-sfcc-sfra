@@ -1,0 +1,15 @@
+<isif condition="${product.pdpAttributesList && product.pdpAttributesList.length}">
+    <div class="value content">
+        <isloop items="${product.pdpAttributesList}" var="attr">
+            <div class="attribute">
+                <div class="attribute-badge">
+                    <img src="${attr.image}" alt="${attr.name}" />
+                </div>
+                <div class="attribute-detail">
+                    <span class="attribute-name">${attr.name}</span>
+                    <span class="attribute-value">${attr.value}</span>
+                </div>
+            </div>
+        </isloop>
+    </div>
+</isif>
