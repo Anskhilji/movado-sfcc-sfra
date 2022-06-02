@@ -59,7 +59,7 @@ server.append(
         var Locale = require('dw/util/Locale');
         var OrderModel = require('*/cartridge/models/order');
         var Site = require('dw/system/Site');
-        var ltkHelper = require('*/cartridge/scripts/helper/ltkHelper.js');
+        var orderCustomHelper = require('*/cartridge/scripts/helpers/orderCustomHelper');
 
         var viewData = res.getViewData();
         var actionUrls = viewData.order.checkoutCouponUrls;
@@ -69,7 +69,7 @@ server.append(
         var usingMultiShipping = req.session.privacyCache.get('usingMultiShipping');
 
         var currentBasket = BasketMgr.getCurrentBasket();
-        var countryCode = ltkHelper.getCountryCode(req);
+        var countryCode = orderCustomHelper.getCountryCode(req);
 
         if (!currentBasket) {
             res.redirect(URLUtils.url('Cart-Show'));

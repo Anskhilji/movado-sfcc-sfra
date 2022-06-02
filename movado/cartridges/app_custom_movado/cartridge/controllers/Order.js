@@ -28,7 +28,6 @@ server.replace(
 
         var OrderModel = require('*/cartridge/models/order');
         var reportingUrlsHelper = require('*/cartridge/scripts/reportingUrls');
-        var ltkHelper = require('*/cartridge/scripts/helper/ltkHelper.js');
         var abTestSegment;
         var order = OrderMgr.getOrder(req.querystring.ID);
         var token = req.querystring.token ? req.querystring.token : null;
@@ -135,11 +134,13 @@ server.replace(
             });
         }
         req.session.raw.custom.orderID = req.querystring.ID; // eslint-disable-line no-param-reassign
-        // MSS-1867 - start when auto_optin_checkout enabled then
-        var countryCode = ltkHelper.getCountryCode(req);
+        
+        // MSS-1867 - start when Auto_Optin_Checkout enabled then
+        var orderCustomHelper = require('*/cartridge/scripts/helpers/orderCustomHelper');
+        var countryCode = orderCustomHelper.getCountryCode(req);
         var Constants = require('*/cartridge/scripts/util/Constants');
-
-        if (Site.current.preferences.custom.auto_optin_checkout && countryCode == Constants.DEFAULT_COUNTRYCODE) {
+        
+        if (Site.current.preferences.custom.Auto_Optin_Checkout && countryCode == Constants.DEFAULT_COUNTRYCODE) {
             var requestParams = {
                 email : order.getCustomerEmail() ? order.getCustomerEmail() : '',
                 requestLocation: 'CHECKOUT_SERVICE',
@@ -162,7 +163,7 @@ server.replace(
                 }
             }
         }
-        // MSS-1867 - end when auto_optin_checkout enabled then
+        // MSS-1867 - end when Auto_Optin_Checkout enabled then
         return next();
     }
 );
