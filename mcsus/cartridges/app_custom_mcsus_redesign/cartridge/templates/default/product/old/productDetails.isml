@@ -41,7 +41,7 @@
 
                     <div class="row">
                         <div class="col-sm-12">
-                            <isinclude template="product/components/pidRating" />
+                            <isinclude template="product/components/old/pidRating" />
                         </div>
                     </div>
 
@@ -67,14 +67,14 @@
 
                     <iscomment> <p> <span>Model:</span> <span><isprint value="${product.id}" encoding="on" /></span> </p> </iscomment>
                     <div class="d-block d-md-block d-sm-none">
-                        <isinclude template="product/components/pidRating" />
+                        <isinclude template="product/components/old/pidRating" />
                     </div>
 
                     <div class="row">
                         <!-- Attributes and Quantity -->
                         <div class="col-md-10 col-12">
 
-                            <isinclude template="product/components/badges" />
+                            <isinclude template="product/components/old/badges" />
 
                             <!-- Product Availability -->
                             <div class="availability product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
