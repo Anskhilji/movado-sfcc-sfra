@@ -1,0 +1,26 @@
+<isdecorate template="common/layout/page">
+
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets');
+        assets.addJs('/js/productDetail.js');
+        assets.addCss('/css/product/detail.css');
+    </isscript>
+
+    <iscomment>
+        It is necessary to set both "set" and "product" to pdict.product here as the downstream.
+    </iscomment>
+
+    <isset name="product" value="${pdict.product}" scope="page" />
+    <isset name="productCopy" value="${pdict.product}" scope="page" />
+    <isset name="isBundle" value="${false}" scope="page" />
+    <isset name="isProductSet" value="${true}" scope="page" />
+    <isset name="isQuickView" value="${false}" scope="page" />
+    <isobject object="${product.raw}" view="detail" />
+
+    <div class="container-fluid set-detail-product-main-box-ob" data-pid="${product.id}">
+         <isinclude template="/product/components/productSet/setMainItem" />
+    </div>
+    <div class="container-fluid product-set-detail set-detail-product-box-ob" data-pid="${product.id}">
+        <isinclude template="/product/components/productSet/setItems" />
+    </div>    
+</isdecorate>

@@ -14,7 +14,7 @@ function getPidValue($el) {
     if ($('#quickViewModal').hasClass('show') && !$('.product-set').length) {
         pid = $($el).closest('.modal-content').find('.product-quickview').data('pid');
     } else if ($('.product-set-detail').length || $('.product-set').length) {
-        pid = $($el).closest('.product-detail').find('.product-id').text();
+        pid = $($el).closest('.product-detail').data('pid');
     } else if ($($el).closest('.recomended-products') && $($el).closest('.recomended-products').data('recomendation') == true) {
         pid = $($el).data('pid');
     } else if ($($el).closest('.recomended-products-redesign ') && $($el).closest('.recomended-products-redesign ').data('recomendation') == true) {
@@ -745,7 +745,7 @@ module.exports = {
                     if (!$(this).hasClass('product-set-detail')) {
                         setPids.push({
                             pid: $(this).find('.product-id').text(),
-                            qty: $(this).find('.quantity-select').val(),
+                            qty: 1,
                             options: getOptions($(this))
                         });
                     }
@@ -1016,14 +1016,33 @@ module.exports = {
         $(document).on('click', '.add-to-cart-plp-redesign', function (e) {
             $.spinner().start();
             var addToCartUrl;
+            var pid;
+            var pidsObj;
+            var setPids;
             var $this = $(this);
 
             $('body').trigger('product:beforeAddToCart', this);
 
             addToCartUrl = getAddToCartUrl();
+            if ($this.data('product-set') == true) {
+                setPids = [];
+                $this.find('.product-sets').each(function () {
+                    setPids.push({
+                        pid: $(this).text(),
+                        qty: 1,
+                        options: getOptions($(this))
+                    });
+                });
+                pidsObj = JSON.stringify(setPids);
+                pid = getPidValue($(this));
+            } else {
+                pid = $(this).data('pid');
+            }
 
             var form = {
-                pid: $this.data('pid'),
+                pid: pid,
+                pidsObj: pidsObj,
+                childProducts: getChildProducts(),
                 quantity: 1
             };
 

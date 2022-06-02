@@ -21,7 +21,6 @@ function isBackInStockEnabled() {
     return isBackInStockEnabled;
 }
 
-
 /**
  * Checks if back in stock functionality is enabled for provided product
  * @param {Product} apiProduct - API product 
