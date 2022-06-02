@@ -218,7 +218,7 @@ module.exports = function () {
                 $(this).find('img.swatch-circle').addClass('is-active');
                 var selectedValueUrl = $(this).data('swatch-url');
                 var pdpURL = $(this).data('pdp-url');
-            
+
                 $.ajax({
                     url: selectedValueUrl,
                     method: 'GET',
