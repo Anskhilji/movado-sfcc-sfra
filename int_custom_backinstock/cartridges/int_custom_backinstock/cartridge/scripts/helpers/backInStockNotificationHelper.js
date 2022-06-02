@@ -22,6 +22,30 @@ function isBackInStockEnabled() {
 }
 
 /**
+ * Checks if Listrak back in stock functionality Email is enabled
+ * @returns {Boolean} - isListrakBackInStockEmailEnabled
+ */
+
+ function isListrakBackInStockEmailEnabled() {
+    var isListrakBackInStockEmailEnabled = !empty(currentSite.preferences.custom.Listrak_EnableBackInStockEmail)
+        ? currentSite.preferences.custom.Listrak_EnableBackInStockEmail : false;
+    return isListrakBackInStockEmailEnabled;
+}
+
+
+/**
+ * Checks if Listrak back in stock functionality SMS is enabled
+ * @returns {Boolean} - isListrakBackInStockSmsEnabled
+ */
+
+function isListrakBackInStockSmsEnabled() {
+    var isListrakBackInStockSmsEnabled = !empty(currentSite.preferences.custom.Listrak_EnableBackInStockSms)
+        ? currentSite.preferences.custom.Listrak_EnableBackInStockSms : false;
+    return isListrakBackInStockSmsEnabled;
+
+}
+
+/**
  * Checks if back in stock functionality is enabled for provided product
  * @param {Product} apiProduct - API product 
  * @returns {Boolean}  isBackInStockEnabled
@@ -35,6 +59,22 @@ function isProductBackInStockEnabled(product, apiProduct) {
         }
     }
     return isProductBackInStockEnabled;
+}
+
+/**
+ * Checks if Listrak back in stock Email or SMS functionality is enabled for provided product
+ * @param {Product} apiProduct - API product 
+ * @returns {Boolean}  isProductListrakBackInStockEnabled
+ */
+ function isProductListrakBackInStockEnabled(product, apiProduct) {
+    var isProductListrakBackInStockEnabled = false;
+    if ((isListrakBackInStockEmailEnabled() || isListrakBackInStockSmsEnabled()) && !empty(apiProduct) && !empty(product) && !product.available) {
+        isProductListrakBackInStockEnabled = !empty(apiProduct.custom.enableBackInStock) ? apiProduct.custom.enableBackInStock : false;
+        if (checkBackInStockProductCapitalLimit(apiProduct)) {
+            isProductListrakBackInStockEnabled = false;
+        }
+    }
+    return isProductListrakBackInStockEnabled;
 }
 
 /**
@@ -117,5 +157,6 @@ module.exports = {
     isProductBackInStockEnabled: isProductBackInStockEnabled,
     saveBackInStockNotificationObj: saveBackInStockNotificationObj,
     isValidEmail: isValidEmail,
-    isAlreadySubscribed: isAlreadySubscribed
+    isAlreadySubscribed: isAlreadySubscribed,
+    isProductListrakBackInStockEnabled: isProductListrakBackInStockEnabled
 }
