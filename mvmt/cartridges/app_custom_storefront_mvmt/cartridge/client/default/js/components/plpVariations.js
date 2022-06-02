@@ -92,10 +92,6 @@ module.exports = function () {
             $productContainer.find('.product-brand-info .case-diameter').text(response.product.caseDiameterRedesigned);
         }
 
-        if (typeof response.product.caseDiameterRedesigned !== 'undefined' && response.product.caseDiameterRedesigned !== '' && response.product.caseDiameterRedesigned !== null) {
-            $productContainer.find('.suggestions-family-name').text(response.product.caseDiameterRedesigned);
-        }
-
         //update product gtm data
         var $gtmClikObject = $imageContainer.data('gtm-product');
         if ($gtmClikObject) {
@@ -202,25 +198,7 @@ module.exports = function () {
         updateColorVariation();
     });
 
-    function showShortText(charLength) {
-        $('.text-family-truncate-wrapper').each(function() {
-            var $showChar = charLength;  // Characters that are shown by default
-            var $moretext = '...';
-            var $content = $(this).html();
-            if($content.length > $showChar) {
-                var $c = $content.substr(0, $showChar);
-                var $html = $c + $moretext + '</a>';
-                $(this).html($html);
-            }
-        });
-    }
-
     function updateColorVariation() {
-        var $screenWidth = 1314;
-        var $currentWidth = $(window).width();
-        var $charLengthMax = 9;
-        var $charLengthMin = 7;
-
         if (document.readyState === "complete") {
             $(document).on('click', '[data-attr="colorVar"] a', function (e) {
                 e.preventDefault();
@@ -240,7 +218,6 @@ module.exports = function () {
                 $(this).find('img.swatch-circle').addClass('is-active');
                 var selectedValueUrl = $(this).data('swatch-url');
                 var pdpURL = $(this).data('pdp-url');
-                $('.suggestions-case-diameter').removeClass('case-diameter');
             
                 $.ajax({
                     url: selectedValueUrl,
@@ -250,12 +227,6 @@ module.exports = function () {
                         setTimeout(function () {
                             $.spinner().stop();
                         }, 1500);
-                        $('.suggestions-case-diameter').addClass('suggestions-family-name');
-                        if ($currentWidth > $screenWidth) {
-                            showShortText($charLengthMax);
-                        } else {
-                            showShortText($charLengthMin);
-                        }
 
                     },
                     error: function () {

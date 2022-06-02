@@ -1,6 +1,6 @@
 <isif condition="${product.variationsAttributes && product.variationsAttributes.length > 0}">
 <isif condition="${product.variationsAttributes[0].values.length > 0}">
-    <div class="color-swatches color-swatches-search color-Attribute" data-attr="colorVar">
+    <div class="color-swatches color-Attribute" data-attr="colorVar">
         <div class="swatches">
             <isloop items="${product.colorVariationsValues.values}" var="swatch" status="loopState">
                 <isif condition="${swatch.images != null

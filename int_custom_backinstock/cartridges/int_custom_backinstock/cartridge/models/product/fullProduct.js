@@ -20,15 +20,9 @@ module.exports = function fullProduct(product, apiProduct, options) {
     baseFullProduct.call(this, product, apiProduct, options);
     var backInStockNotificationHelper = require('*/cartridge/scripts/helpers/backInStockNotificationHelper');
     var isBackInStockEnabled = backInStockNotificationHelper.isProductBackInStockEnabled(product, apiProduct);
-    var isListrakBackInStockEnabled = backInStockNotificationHelper.isProductListrakBackInStockEnabled(product, apiProduct);
     Object.defineProperty(product, 'isBackInStockEnabled', {
         enumerable: true,
         value: isBackInStockEnabled
-    });
-
-    Object.defineProperty(product, 'isListrakBackInStockEnabled', {
-        enumerable: true,
-        value: isListrakBackInStockEnabled
     });
 
     return product;

@@ -256,6 +256,5 @@ module.exports = {
     isEshopworldModuleEnabled: isEshopworldModuleEnabled,
     isEswEnableLandingPage: isEswEnableLandingPage,
     isEswEnableLandingpageBar: isEswEnableLandingpageBar,
-    isCurrentDomesticAllowedCountry: isCurrentDomesticAllowedCountry,
-    getCustomCountriesJson: getCustomCountriesJson
+    isCurrentDomesticAllowedCountry: isCurrentDomesticAllowedCountry
 };

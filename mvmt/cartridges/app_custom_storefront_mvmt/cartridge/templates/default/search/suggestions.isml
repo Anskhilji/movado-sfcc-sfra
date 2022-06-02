@@ -1,7 +1,3 @@
-<isscript>
-    var assets = require('*/cartridge/scripts/assets');
-    assets.addJs('/js/slickSearch.js');
-</isscript>
 <div class="suggestions">
     <input class="d-none" type="text" id="searchCount" name="searchCount" value="${pdict.suggestions.searchCount}">
     <div class="row">
@@ -41,7 +37,7 @@
                         <iscomment>
                             Custom Start: Added new parameter isSuggestionTile to detect suggestion tiles in template
                         </iscomment>
-                        <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.id, 'pview', 'tile', 'ratings', true, 'swatches', true, 'isSuggestionTile', true, 'lazyload', true, 'isRedesigned', true, 'showAddToCart', true, 'searchSuggestion', true)}"/>
+                        <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.id, 'pview', 'tile', 'ratings', true, 'swatches', true, 'isSuggestionTile', true, 'lazyload', true, 'isRedesigned', true)}"/>
                         <iscomment>
                             Custom End:
                         </iscomment>
