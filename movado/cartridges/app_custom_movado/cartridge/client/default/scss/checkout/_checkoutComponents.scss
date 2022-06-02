@@ -656,6 +656,7 @@ $stored-payment-spacing: rem(16);
          .item-image {
            width: rem(100);
            height: rem(100);
+           margin-right: rem(21);
            .product-image {
             width: rem(100);
             height: rem(100);
@@ -665,8 +666,24 @@ $stored-payment-spacing: rem(16);
          .item-attributes {
            position: relative;
            overflow: hidden;
+           width: 100%;
           .item-options {
             display: none;
+          }
+          .line-item-header {
+            margin-bottom: rem(10);
+            font-size: rem(16);
+            font-weight: 500;
+            letter-spacing: rem(0.7);
+            line-height: rem(22);
+            color: $light-black2;
+            .line-item-name {
+              font-size: rem(16);
+              font-weight: 500;
+              letter-spacing: rem(0.7);
+              line-height: rem(22);
+              color: $light-black2;
+            }
           }
         }
       }

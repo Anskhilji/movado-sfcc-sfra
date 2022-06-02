@@ -21,7 +21,7 @@
 
 
                     <iselse/>
-                            <isinclude template="checkout/productCard/productCard" />
+                            <isinclude template="checkout/productCard/productCardCheckOut" />
                     </isif>
                 </isloop>
 

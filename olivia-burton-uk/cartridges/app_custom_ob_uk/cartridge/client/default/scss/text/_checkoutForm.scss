@@ -355,3 +355,31 @@
     }
   }
 }
+.product-card-container {
+  .product-line-item-details {
+    .item-attributes {
+      .item-quantity-container-box {
+        .total-amount {
+          font-size: rem(12);
+          font-weight: 500;
+          letter-spacing: rem(0.86);
+          line-height: rem(18);
+          color: $grey8;
+        }
+        .original-price {
+          font-size: rem(12);
+          font-weight: 500;
+          letter-spacing: rem(0.86);
+          line-height: rem(18);
+          color: $grey8;
+        }
+        .savings {
+          font-size: rem(12);
+          font-weight: 500;
+          letter-spacing: rem(0.86);
+          line-height: rem(18);
+        }
+      }
+    }
+  }
+}
