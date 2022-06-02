@@ -115,33 +115,21 @@ function getProductAttributes(apiProduct) {
 }
 
 /**
- * It is used to get if current product belongs to watches category
+ * Method used to check if current product belongs to watches category
  * @param {Object} apiProduct - apiProduct is from ProductMgr
- * @returns {Boolean} - true if product belongs to watches
+ * @returns {Boolean} isWatchTile - true if product belongs to watches
  */
-
 function getIsWatchTile(apiProduct) {
-    var isWatchTile = false;
-    var currentCategory = null;
-    var apiCategories = apiProduct.getOnlineCategories().iterator();
-    while (apiCategories.hasNext()) {
-        currentCategory = apiCategories.next();
-
-        if (!empty(currentCategory) && currentCategory.ID == Constants.WATCHES_CATEGORY) {
-            isWatchTile = true;
-            break; // break outer loop
+    try {
+        if (!empty(apiProduct)) {
+        var isWatchTile = !empty(apiProduct.custom.isWatchTile) ? apiProduct.custom.isWatchTile : false;
         }
+        return isWatchTile;
         
-        while (currentCategory.parent != null) {
-            currentCategory = currentCategory.parent;
-            if (!empty(currentCategory) && currentCategory.ID == Constants.WATCHES_CATEGORY) {
-                isWatchTile = true;
-                break; // break inner loop
-            }
-        }
-        break; // break outer loop
+    } catch (e) {
+        Logger.error('(productCustomHelper.js -> getIsWatchTile) Error occured while checking is it watch tile: ' + e.stack, e.message, apiProduct.ID);
+        return false;
     }
-    return isWatchTile;
 }
 
 /**
