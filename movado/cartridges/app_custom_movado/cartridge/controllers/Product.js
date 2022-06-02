@@ -64,7 +64,6 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
 
     var strapGuideContent = ContentMgr.getContent('strap-guide-text-configs');
     var strapGuideText = strapGuideContent && strapGuideContent.custom.body ? strapGuideContent.custom.body : '';
-    var customUrl = productCustomHelper.getPlpCustomUrl(product);
 
     /* get recommendations for product*/
     if (product) {
@@ -137,8 +136,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         addToCartUrl: showProductPageHelperResult.addToCartUrl,
         isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
         smartGiftAddToCartURL : smartGiftAddToCartURL,
-        plpProductFamilyName: Site.getCurrent().preferences.custom.plpProductFamilyName ? Site.getCurrent().preferences.custom.plpProductFamilyName : false,
-        customUrl: customUrl
+        plpProductFamilyName: Site.getCurrent().preferences.custom.plpProductFamilyName ? Site.getCurrent().preferences.custom.plpProductFamilyName : false
     };
     var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
     res.setViewData(smartGift);
