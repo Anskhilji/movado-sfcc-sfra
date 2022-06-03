@@ -123,7 +123,11 @@ module.exports = function () {
         var $productNameSelector = $productContainer.find('.product-name');
         //Custom Start  [MSS-1375] response.product.productName changed to response.product.color
         if (isPLPRedesign) {
-            $productNameSelector.text(response.product.collectionName);
+            if ($product.isWatchTile) {
+                $productNameSelector.text(response.product.productName);
+            } else {
+                $productNameSelector.text(response.product.color);
+            }
         } else {
             $productNameSelector.text(response.product.productName);
         }

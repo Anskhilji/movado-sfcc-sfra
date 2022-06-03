@@ -7,13 +7,13 @@
     <iscomment> Custom: Start [added this code for plp either it is master product or not] </iscomment>
     <iselseif condition="${product.productType != 'master' || !product.defaultVariant}">
         <isif condition="${product.isWatchTile}">
-            <a class="link product-name" href="${pdict.urls.product}" itemprop="url">${product.collectionName || ''}</a>
+            <a class="link product-name" href="${pdict.urls.product}" itemprop="url">${product.productName || ''}</a>
         <iselse/>
             <a class="link product-name" href="${pdict.urls.product}" itemprop="url">${product.color || ''}</a>
         </isif>
     <iselse>
         <isif condition="${product.isWatchTile}">
-            <a class="link product-name" href="${pdict.urls.product}" itemprop="url">${!empty(product.defaultVariantCollectionName) ? product.defaultVariantCollectionName : product.collectionName}</a>
+            <a class="link product-name" href="${pdict.urls.product}" itemprop="url">${!empty(apiProduct.variationModel.defaultVariant.name) ? apiProduct.variationModel.defaultVariant.name : product.productName}</a>
         <iselse/>
             <a class="link product-name" href="${pdict.urls.product}" itemprop="url">${!empty(product.defaultVariantColor) ? product.defaultVariantColor : product.color}</a>
         </isif>
