@@ -1,4 +1,4 @@
-<div class="product-number-rating clearfix">
+<div class="product-number-rating">
     <!-- Product Number -->
     <isif condition="${dw.system.Site.getCurrent().preferences.custom.enableProductSKU}">
         <div class="product-number sku-text-alignment">
@@ -7,7 +7,7 @@
     </isif>
 
     <!-- Product Rating -->
-    <div class="ratings pull-left hidden-sm-down">
+    <div class="ratings">
         <isinclude template="product/components/productRating" />
     </div>
 </div>

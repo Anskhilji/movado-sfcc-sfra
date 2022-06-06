@@ -178,7 +178,11 @@
                             </div>
                             <div class="accordion-redesign">
                                  <div class="accordion-redesign-heading d-flex align-items-center justify-content-between collapsed" data-toggle="collapse" data-target="#Reviews" aria-expanded="true" aria-controls="Reviews">
-                                    <span>Reviews</span><span class="plus-minus"></span>
+                                    <div class="d-flex align-items-center">
+                                        <span>Reviews</span>
+                                         <isinclude template="product/components/pidRating" />
+                                    </div>
+                                    <span class="plus-minus"></span>
                                 </div>
 
                                 <div id="Reviews" class="collapse" aria-labelledby="headingOne">

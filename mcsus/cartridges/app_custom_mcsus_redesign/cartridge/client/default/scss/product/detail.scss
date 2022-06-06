@@ -870,6 +870,14 @@
                                 padding: rem(19) rem(0);
                                 cursor: pointer;
 
+                                // product-number-rating 
+                                .product-number-rating {
+                                    margin-left: rem(12);
+                                    display: inline-block;
+                                    .ratings {
+                                        margin-bottom: rem(0);
+                                    }   
+                                }
                                 .plus-minus {
                                     position: relative;
 
@@ -956,12 +964,31 @@
                                             }
                                         }
                                     }
+                                    .yotpo {
+
+                                        .yotpo-label {
+
+                                            &.yotpo-small-box {
+                                                padding-top: rem(0);
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
+        }
+    }
+}
+
+.yotpo {
+                                        
+    .yotpo-label {
+
+        &.yotpo-small-box {
+            padding-top: rem(0);
         }
     }
 }
