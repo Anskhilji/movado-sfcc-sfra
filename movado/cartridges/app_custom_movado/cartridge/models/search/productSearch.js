@@ -198,7 +198,8 @@ function getPhrases(suggestedPhrases) {
 }
 
 /**
- *  @param {dw.catalog.ProductSearchModel} productSearch - Product search object
+ * Sort the products on basis of their sales price
+ * @param {dw.catalog.ProductSearchModel} productSearch - Product search object
  * @return {Object[]} - List of sorted products
  */
 function customSortOnBasisOfSalesPrice(productSearch) {
