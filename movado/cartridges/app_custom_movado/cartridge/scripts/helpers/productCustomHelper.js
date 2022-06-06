@@ -112,21 +112,43 @@ function getPdpVideoConfigs(apiProduct) {
  * @param {Product} product
  * @returns {String} Custome URL
  */
-function getPlpCustomUrl(product) {
-    var Site = require('dw/system/Site').getCurrent();
+function getPlpCustomURL(product) {
+    var Site = require('dw/system/Site');
     var URLUtils = require('dw/web/URLUtils');
-    var customUrl;
-    var customUrlObj = JSON.parse(Site.preferences.custom.plpCustomUrl);
-    if (customUrlObj) {
-        var brandID = Site.ID;
-        if (customUrlObj[brandID] && customUrlObj[brandID].settings.enabledFullQualityURL) {
-            customUrl = URLUtils.url(customUrlObj[brandID].settings.pipelineURL, customUrlObj[brandID].settings.params, customUrlObj[brandID].URL).toString();
+    var customURL;
+    var customURLObj = !empty(Site.current.preferences.custom.plpCustomURL) ? JSON.parse(Site.current.preferences.custom.plpCustomUrl) : '';
+    if (customURLObj) {
+        var brandID = Site.current.ID;
+        if (customURLObj[brandID] && customURLObj[brandID].settings.enabledFullQualifiedURL) {
+            customURL = customURLObj[product.brand].URL;
 
         } else {
-            customUrl = customUrlObj[product.brand].URL;
+            customUrl = URLUtils.url(customURLObj[brandID].settings.pipelineURL, customURLObj[brandID].settings.params, customURLObj[brandID].URL).toString();
         }
     }
-    return customUrl;
+    return customURL;
+}
+/**
+ * Method use to get content asset HTML to render on PDP
+ * @param {Product} apiProduct
+ * @returns {String} content asset HTML
+ */
+function getPDPContentAssetHTML(apiProduct) {
+    try {
+        var contentAssetID = !empty(apiProduct.custom.pdpContentAssetID) ? apiProduct.custom.pdpContentAssetID : '';
+        if (empty(contentAssetID) && apiProduct.variant) {
+            contentAssetID = !empty(apiProduct.masterProduct.custom.pdpContentAssetID) ? apiProduct.masterProduct.custom.pdpContentAssetID : '';
+        }
+        var pdpContentAsset = ContentMgr.getContent(contentAssetID);
+        var pdpContentAssetHTML;
+        if (pdpContentAsset && pdpContentAsset.online && !empty(pdpContentAsset.custom.body)) {
+            pdpContentAssetHTML = pdpContentAsset.custom.body.markup.toString();
+        }
+        return pdpContentAssetHTML;
+    } catch (e) {
+        Logger.error('(productCustomHelper.js -> getPDPContentAssetHTML) Error occured while getting pdp content asset html: ' + e.stack, e.message);
+        return '';
+    }
 }
 
 function getCurrentCountry() {
@@ -152,5 +174,10 @@ module.exports = {
     getPdpVideoConfigs: getPdpVideoConfigs,
     getPDPMarketingContentAssetHTML: getPDPMarketingContentAssetHTML,
     getCurrentCountry: getCurrentCountry,
-    getPlpCustomUrl: getPlpCustomUrl
+<<<<<<< Updated upstream
+    getPlpCustomUrl: getPlpCustomUrl,
+    getPDPContentAssetHTML: getPDPContentAssetHTML
+=======
+    getPlpCustomURL: getPlpCustomURL
+>>>>>>> Stashed changes
 };

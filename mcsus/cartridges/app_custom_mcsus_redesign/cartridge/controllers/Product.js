@@ -66,7 +66,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var product = showProductPageHelperResult.product;
     var productPrice = !empty(product) ? product.price : '';
     var productUrl = URLUtils.url('Product-Show', 'pid', !empty(product) ? product.id : '').relative().toString();
-    var customUrl = productCustomHelper.getPlpCustomUrl(product);
+    var customURL = productCustomHelper.getPlpCustomURL(product);
     yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
 
    /* get recommendations for product*/
@@ -147,7 +147,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
        addToCartUrl: showProductPageHelperResult.addToCartUrl,
        isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
        smartGiftAddToCartURL : smartGiftAddToCartURL,
-       customUrl: customUrl
+       customURL: customURL
    };
    var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
    res.setViewData(smartGift);
