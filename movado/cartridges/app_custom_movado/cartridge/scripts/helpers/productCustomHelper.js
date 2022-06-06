@@ -161,11 +161,7 @@ module.exports = {
     getSaveMessage: getSaveMessage,
     getPdpVideoConfigs: getPdpVideoConfigs,
     getPDPMarketingContentAssetHTML: getPDPMarketingContentAssetHTML,
-<<<<<<< HEAD
     getYotpoReviewsCustomAttribute: getYotpoReviewsCustomAttribute,
-    getCurrentCountry: getCurrentCountry
-=======
     getCurrentCountry: getCurrentCountry,
     getPDPContentAssetHTML: getPDPContentAssetHTML
->>>>>>> release-43-develop
 };
