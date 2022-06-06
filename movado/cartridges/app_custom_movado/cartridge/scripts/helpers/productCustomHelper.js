@@ -123,7 +123,7 @@ function getPlpCustomURL(product) {
             customURL = customURLObj[product.brand].URL;
 
         } else {
-            customUrl = URLUtils.url(customURLObj[brandID].settings.pipelineURL, customURLObj[brandID].settings.params, customURLObj[brandID].URL).toString();
+            customURL = URLUtils.url(customURLObj[brandID].settings.pipelineURL, customURLObj[brandID].settings.params, customURLObj[brandID].URL).toString();
         }
     }
     return customURL;
@@ -174,10 +174,6 @@ module.exports = {
     getPdpVideoConfigs: getPdpVideoConfigs,
     getPDPMarketingContentAssetHTML: getPDPMarketingContentAssetHTML,
     getCurrentCountry: getCurrentCountry,
-<<<<<<< Updated upstream
-    getPlpCustomUrl: getPlpCustomUrl,
-    getPDPContentAssetHTML: getPDPContentAssetHTML
-=======
+    getPDPContentAssetHTML: getPDPContentAssetHTML,
     getPlpCustomURL: getPlpCustomURL
->>>>>>> Stashed changes
 };
