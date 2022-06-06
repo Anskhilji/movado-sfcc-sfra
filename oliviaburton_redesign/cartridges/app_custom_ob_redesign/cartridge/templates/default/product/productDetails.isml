@@ -7,6 +7,7 @@
         assets.addJs('/js/productDetail.js');
         assets.addCss('/css/product/detailRedesign.css');
     </isscript>
+    <isset name="isListrakEnable" value="${!empty(dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) ? dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled : false}" scope="page" />
     <isif condition="${dw.system.Site.current.preferences.custom.EUMEnabled}">
         <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.pdp', 'eum', null))}"/>
     </isif>
@@ -124,7 +125,16 @@
                                 <!-- Cart and [Optionally] Apple Pay -->
                                 <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
                             </div>
-                            <isif condition="${sitePref.enableBackInStock}">
+                            <isif condition="${sitePref.enableBackInStock && !sitePref.Listrak_EnableBackInStockSms && !sitePref.Listrak_EnableBackInStockEmail}">
+                                <isinclude template="product/backInStockNotification" sf-toolkit="on" />                                
+                            <iselseif condition="${isListrakEnable}">
+                                <isif condition="${sitePref.Listrak_EnableBackInStockSms || sitePref.Listrak_EnableBackInStockEmail}">
+                                    <isinclude template="product/listrackBackInstock" sf-toolkit="on" />
+                                <iselse>
+                                    <isinclude template="product/backInStockNotification" sf-toolkit="on" />
+                                </isif>
+                            </iselseif> 
+                            <iselse>
                                 <isinclude template="product/backInStockNotification" sf-toolkit="on" />
                             </isif>
                             <isif condition="${isRecommendationsEnabled && !empty(pdict.explicitRecommendations) && pdict.explicitRecommendations.length > 0}">

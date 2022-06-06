@@ -228,7 +228,16 @@
                         </isif>
 
                         <div class="col-12">
-                            <isif condition="${sitePref.enableBackInStock}">
+                            <isif condition="${sitePref.enableBackInStock && !sitePref.Listrak_EnableBackInStockSms && !sitePref.Listrak_EnableBackInStockEmail}">
+                                <isinclude template="product/backInStockNotification" sf-toolkit="on" />                                
+                            <iselseif condition="${isListrakEnable}">
+                                <isif condition="${sitePref.Listrak_EnableBackInStockSms || sitePref.Listrak_EnableBackInStockEmail}">
+                                    <isinclude template="product/listrackBackInstock" sf-toolkit="on" />
+                                <iselse>
+                                    <isinclude template="product/backInStockNotification" sf-toolkit="on" />
+                                </isif>
+                            </iselseif> 
+                            <iselse>
                                 <isinclude template="product/backInStockNotification" sf-toolkit="on" />
                             </isif>
                             <div class="row description">
