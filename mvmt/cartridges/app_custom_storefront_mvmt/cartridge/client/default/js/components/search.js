@@ -142,11 +142,10 @@ function getSuggestions(scope) {
             success: function (data) {
                 var resposeCount = $('#searchCount', $(data).context).val();
                 processResponse;
-                if (resposeCount == currentCount) { 
+                if (resposeCount == currentCount) {
                     $('body').trigger('siteSearch:success', $(scope).val());
                 }
             },
-
             error: function () { $.spinner().stop();}
         });
     } else {
