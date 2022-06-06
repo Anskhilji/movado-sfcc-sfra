@@ -66,7 +66,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var product = showProductPageHelperResult.product;
     var productPrice = !empty(product) ? product.price : '';
     var productUrl = URLUtils.url('Product-Show', 'pid', !empty(product) ? product.id : '').relative().toString();
-    var customURL = productCustomHelper.getPlpCustomURL(product);
+    var customURL = productCustomHelper.getPLPCustomURL(product);
     yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
 
    /* get recommendations for product*/

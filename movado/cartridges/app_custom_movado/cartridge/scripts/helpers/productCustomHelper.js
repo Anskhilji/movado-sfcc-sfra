@@ -112,11 +112,11 @@ function getPdpVideoConfigs(apiProduct) {
  * @param {Product} product
  * @returns {String} Custome URL
  */
-function getPlpCustomURL(product) {
+function getPLPCustomURL(product) {
     var Site = require('dw/system/Site');
     var URLUtils = require('dw/web/URLUtils');
     var customURL;
-    var customURLObj = !empty(Site.current.preferences.custom.plpCustomURL) ? JSON.parse(Site.current.preferences.custom.plpCustomUrl) : '';
+    var customURLObj = !empty(Site.current.preferences.custom.plpCustomUrl) ? JSON.parse(Site.current.preferences.custom.plpCustomUrl) : '';
     if (customURLObj) {
         var brandID = Site.current.ID;
         if (customURLObj[brandID] && customURLObj[brandID].settings.enabledFullQualifiedURL) {
@@ -175,5 +175,5 @@ module.exports = {
     getPDPMarketingContentAssetHTML: getPDPMarketingContentAssetHTML,
     getCurrentCountry: getCurrentCountry,
     getPDPContentAssetHTML: getPDPContentAssetHTML,
-    getPlpCustomURL: getPlpCustomURL
+    getPLPCustomURL: getPLPCustomURL
 };
