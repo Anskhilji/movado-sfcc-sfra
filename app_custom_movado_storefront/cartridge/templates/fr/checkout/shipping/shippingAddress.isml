@@ -131,7 +131,7 @@
         <div class="form-group
             ${addressFields.country.mandatory === true ? 'required' : ''}
             ${addressFields.country.htmlName} relative">
-            <label class="form-control-label field-label-wrapper" for="shippingCountry">
+            <label class="form-control-label field-label-wrapper field-select-wrapper-box" for="shippingCountry">
                 <isprint value="${addressFields.country.label}" encoding="htmlcontent" />
             </label>
             <select class="form-control shippingCountry custom-select custom-select-box" id="shippingCountry${isEswEnabled ? (lineItem ? lineItem.UUID : 'default') : ''}"

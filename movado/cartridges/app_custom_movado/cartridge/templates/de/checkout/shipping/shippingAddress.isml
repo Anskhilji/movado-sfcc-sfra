@@ -44,12 +44,12 @@
         <div class="form-group
         <isif condition=${addressFields.email.mandatory === true}>required</isif>
         ${addressFields.email.htmlName}">
-            <iscomment> <span class="info-icon">
+            <span class="info-icon info-icon-email">
                 <span class="icon">i</span>
                 <div class="tooltip">
                     ${Resource.msg('tooltip.email','creditCard',null)}
                 </div>
-            </span> </iscomment>
+            </span>
             <input type="text" class="form-control input-wrapper-checkout email shipping-email" id="email" value="${(pdict.customer && pdict.customer.profile && pdict.customer.profile.email) || ''}"
                 <isprint value="${addressFields.email.attributes}" encoding="off" />> 
             <label class="form-control-label field-label-wrapper" for="email">${Resource.msg('field.customer.email', 'checkout', null)}</label>
@@ -132,10 +132,10 @@
         <div class="form-group
             ${addressFields.country.mandatory === true ? 'required' : ''}
             ${addressFields.country.htmlName} relative">
-            <label class="form-control-label field-label-wrapper" for="shippingCountry">
+            <label class="form-control-label field-label-wrapper field-select-wrapper-box" for="shippingCountry">
                 <isprint value="${addressFields.country.label}" encoding="htmlcontent" />
             </label>
-            <select class="form-control input-wrapper-checkout shippingCountry custom-select" id="shippingCountry${isEswEnabled ? (lineItem ? lineItem.UUID : 'default') : ''}"
+            <select class="form-control input-wrapper-checkout shippingCountry custom-select custom-select-box" id="shippingCountry${isEswEnabled ? (lineItem ? lineItem.UUID : 'default') : ''}"
                 <isif condition="${isEswEnabled}" >data-url="${URLUtils.https('Checkout-GetAllowedCountry')}" aria-describedby="${lineItem ? lineItem.UUID : 'default'}Country"</isif>
                 <isprint value=${addressFields.country.attributes} encoding="off"/>
                 autocomplete="shipping country">

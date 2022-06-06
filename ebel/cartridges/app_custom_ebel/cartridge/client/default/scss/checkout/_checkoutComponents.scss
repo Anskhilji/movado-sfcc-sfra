@@ -409,7 +409,14 @@ $stored-payment-spacing: rem(16);
         border: none;
         box-shadow: none;
         padding: rem(0);
-
+        
+        .heading-content-label {
+            color: $grey8;
+            font-size: rem(15);
+            font-weight: 500;
+            letter-spacing: rem(0.7);
+            line-height: rem(21);
+        }
         .card-body {
             padding: rem(0);
 
@@ -459,6 +466,15 @@ $stored-payment-spacing: rem(16);
     }
 
     .form-group {
+      .form-control-label {
+        &.field-label-wrapper {
+          color: $grey8;
+          font-size: rem(13);
+          font-weight: 500;
+          letter-spacing: rem(0.7);
+          line-height: rem(20);
+        }
+      }
         .form-control {
             &.input-wrapper-checkout {
                 height: rem(45);
@@ -529,6 +545,7 @@ $stored-payment-spacing: rem(16);
             transition: 0.2s ease-in-out;
             width: 100%;
             pointer-events: none;
+            text-transform: capitalize;
 
             &.input-has-value {
                 transition: 0.2s ease-in-out;
