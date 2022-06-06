@@ -174,7 +174,9 @@ function gtmModel(req) {
                     currency: productImpressionTags && productImpressionTags.currency ? productImpressionTags.currency : '',
                     // Custom start: Added secoundary category if exist and quantity on product on pdp
                     deparmentIncludedCategoryName: departmentCategoryName,
-                    quantity: '1'
+                    quantity: '1',
+                    familyName: productImpressionTags && productImpressionTags.familyName ? productImpressionTags.familyName : '',
+                    productColor: productImpressionTags && productImpressionTags.productColor ? productImpressionTags.productColor : ''
                     // Custom End
                 };
             } else {
@@ -600,9 +602,11 @@ function getPDPProductImpressionsTags(productObj, queryString) {
         var productType = productModel.productType;
         var prodOptionArray = getProductOptions(productObj.optionModel.options);
         var variant = !empty(variantSize) ? variantSize.displayValue : '';
+        var familyName = productObj.custom.familyName[0];
+        var productColor = productObj.custom.color;
 
         productPersonalization = prodOptionArray != null ? prodOptionArray : '';
-        return { productID: productID, variantID:variantID, productType:productType, customCategory:customCategory, Sku:sku, productName: productName, brand: brand, productPersonalization: productPersonalization, variant: variant, productPrice: productPrice, list: 'PDP', currency: currency };
+        return { productID: productID, variantID:variantID, productType:productType, customCategory:customCategory, Sku:sku, productName: productName, brand: brand, productPersonalization: productPersonalization, variant: variant, familyName: familyName, productColor: productColor, productPrice: productPrice, list: 'PDP', currency: currency };
     } catch (ex) {
         Logger.error('Error Occured while getting product impressions tags for gtm against lineitem. Error: {0} \n Stack: {1} \n', ex.message, ex.stack);
         return '';
@@ -656,6 +660,9 @@ function getBasketParameters() {
         // Custom End
         var jewelryType = '';
         var watchGender = '';
+        var familyName = '';
+        var productColor = '';
+
         collections.forEach(cartItems, function (cartItem) {
             if (cartItem.product != null && cartItem.product.optionModel != null) {
                 var variants = getVariants(cartItem);
@@ -666,6 +673,13 @@ function getBasketParameters() {
                 if (!empty(productObj.custom.jewelryType)) {
                     jewelryType = productObj.custom.jewelryType;
                 }
+                if (!empty(productObj.custom.familyName)) {
+                    familyName = productObj.custom.familyName[0];
+                }
+                if (!empty(productObj.custom.color)) {
+                    productColor = productObj.custom.color;
+                }
+
                 var customCategory = watchGender + " " + jewelryType;
                 var productModel = productFactory.get({pid: cartItem.productID});
                 var productPrice = productModel.price && productModel.price.sales ? productModel.price.sales.decimalPrice : (productModel.price && productModel.price.list ? productModel.price.list.decimalPrice : '');
@@ -695,7 +709,10 @@ function getBasketParameters() {
                     orderlevelDiscount: totalsModel.orderLevelDiscountTotal.value,
                     // Custom End
                     // Custom Start : Added payment method
-                    paymentMethod: paymentMethod });
+                    paymentMethod: paymentMethod,
+                    familyName: familyName,
+                    productColor: productColor
+                });
             }
         });
     }
@@ -747,7 +764,9 @@ function getCartJSONArray(checkoutObject) {
             cartObj.discount = cartJSON[i].discount;
             // Custom End
             cartObj.paymentMethod = cartJSON[i].paymentMethod;
-    
+            cartObj.familyName = cartJSON[i].familyName;
+            cartObj.productColor = cartJSON[i].productColor;
+
             if (cartArray.length < 10) {
                 cartArray.push({
                     cartObj: cartObj
@@ -914,14 +933,24 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
                 var produtObj = {};
                 var watchGender = "";
                 var jewelryType = "";
+                var familyName = "";
+                var productColor = "";
 
                 var productObj = ProductMgr.getProduct(productLineItem.product.ID);
+
                 if (productObj.custom.watchGender && productObj.custom.watchGender.length) {
                     watchGender = productObj.custom.watchGender[0];
                 }
                 if (!empty(productObj.custom.jewelryType)) {
                     jewelryType = productObj.custom.jewelryType;
                 }
+                if (!empty(productObj.custom.familyName)) {
+                    familyName = productObj.custom.familyName[0];
+                }
+                if (!empty(productObj.custom.color)) {
+                    productColor = productObj.custom.color;
+                }
+                
                 var customCategory = watchGender + " " + jewelryType;
 
                 produtObj.id = productLineItem.product.ID;
@@ -935,6 +964,8 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
                 produtObj.unitPriceLessTax = (productLineItem.basePrice.decimalValue + productLineItem.tax.decimalValue).toString();
                 produtObj.currency = (productLineItem.product.priceModel.price.available ? (productLineItem.product.priceModel.price.currencyCode) : (productLineItem.product.priceModel.minPrice.currencyCode));
                 produtObj.description = '';
+                produtObj.familyName = familyName;
+                produtObj.productColor = productColor;
                 // Custom Start : Added subtotal
                 produtObj.subtotal = orderSubTotal;
                 // Custom End

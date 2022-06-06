@@ -14,6 +14,7 @@ $(document).ready(function() {
 
 $('.desktop-search-icon').click(function() {
     var $stickyHeader = $('.sticky-header-wrapper');
+
     $('.desktop-side-search').addClass('desktop-search-active');
     $('.mobile-side-search').addClass('active');
     $('.mobile-side-search .header-search-field').focus();

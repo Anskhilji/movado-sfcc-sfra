@@ -561,7 +561,9 @@ var updateCartPage = function(data) {
     $('.cart-section-wrapper').html(data.cartPageHtml);
     $('.minicart').trigger('count:update', data);
     if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
-        affirm.ui.refresh();
+        affirm.ui.ready(function() {
+            affirm.ui.refresh();
+        });
     }
 };
 
@@ -1135,6 +1137,37 @@ function handleVariantResponse(response, $productContainer) {
         $backInStockContanier.addClass('d-none');
     }
 
+    
+      /**
+    * Custom Start: Add logic to handle listrak back in stock notifiaction content for variations
+    */
+
+       var $listrakBackInStockContainer = $('.listrak-back-in-stock-notification-container-main');
+       if ($listrakBackInStockContainer.length > 0) {
+           var $ctaAddToCart = $('.cta-add-to-cart');
+           $listrakBackInStockContainer.data('pid', response.product.id);
+           if (response.product.isListrakBackInStockEnabled) {
+               $listrakBackInStockContainer.removeClass('d-none');
+               $ctaAddToCart.addClass('d-none');
+           } else {
+               $listrakBackInStockContainer.addClass('d-none');
+               $ctaAddToCart.addClass('d-none');
+           }
+       }
+   
+       /**
+   
+       * Custom End:
+   
+       */
+
+           // Add check for master product in case of listrakbackinstcok
+
+    var $listrakBackInStockContainer = $('.listrak-back-in-stock-notification-container-main');
+    if ($listrakBackInStockContainer.length > 0 && response.product.productType == "master") {
+        $listrakBackInStockContainer.addClass('d-none');
+    }
+
     // Handle out of stock button scenario for new varition secnarios
     var $addToCartSelector = $('button.add-to-cart');
     if (response.product.available && response.product.readyToOrder) {
@@ -1259,7 +1292,9 @@ function validateOptions($el) {
 var updateCartPage = function(data) {
   $('.cart-section-wrapper').html(data.cartPageHtml);
   if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
-        affirm.ui.refresh();
+        affirm.ui.ready(function() {
+            affirm.ui.refresh();
+        });
    }
 };
 
