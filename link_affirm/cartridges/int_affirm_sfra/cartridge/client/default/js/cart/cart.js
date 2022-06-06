@@ -66,7 +66,9 @@ function updateCartTotals(data) {
 
     $('.affirm-as-low-as').attr('data-amount', (totalCalculated * 100).toFixed());
     if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
-        affirm.ui.refresh();
+        affirm.ui.ready(function() {
+            affirm.ui.refresh();
+        });
     }
     $('.minicart-quantity').empty().append(data.numItems);
 
