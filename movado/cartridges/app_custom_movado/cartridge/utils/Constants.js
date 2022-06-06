@@ -10,3 +10,4 @@ exports.ONE_TRUST_COOKIE_ENABLED = 'C0004:1';
 exports.OPTANON_CONSENT_COOKIE_NAME = 'OptanonConsent';
 exports.CLYDE_WARRANTY = 'clydeWarranty';
 exports.CLYDE_WARRANTY_OPTION_ID_NONE = 'NONE';
+exports.PRODUCT_TYPE = 'set';

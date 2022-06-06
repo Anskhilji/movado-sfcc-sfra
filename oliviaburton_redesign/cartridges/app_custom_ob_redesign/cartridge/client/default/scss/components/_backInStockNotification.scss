@@ -1,6 +1,39 @@
-.back-in-stock-notification-container {
+.listrak-success-msg {
+    font-size: rem(16);
+    font-weight: 400;
+    letter-spacing: rem(0.3);
+    line-height: rem(24);
+    font-family: $font-gill-sans-std;
+    margin-top: rem(29);
+
+    @include media-breakpoint-down(sm-small) { 
+        padding: 0 rem(10) 0 rem(10);
+        text-align: center;
+        margin-top: rem(14);
+    }
+}
+.listrak-back-in-stock-notification-container-main {
     margin-top: rem(30);
     
+    @include media-breakpoint-down(md) { 
+        overflow: hidden;
+        display: block;
+        text-align: center;
+        margin-top: rem(15);
+        padding: 0 rem(10) 0 rem(10);
+    }
+
+    .back-in-stock-notification-email-notification-copy {
+        
+        @include media-breakpoint-down(md) { 
+           text-align: center;
+        }
+    }
+    
+}
+.back-in-stock-notification-container {
+    margin-top: rem(30);
+
     @include media-breakpoint-up(lg) {
         margin-bottom: rem(103);
     }
