@@ -50,12 +50,13 @@
       }
   
       .tile-body {
+
         @include media-breakpoint-down(md) {
           flex: 1;
           display: flex;
           flex-flow: column;
           justify-content: space-between;
-        }        
+        }
       }
 
     }

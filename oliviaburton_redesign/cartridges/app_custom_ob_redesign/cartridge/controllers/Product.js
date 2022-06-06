@@ -17,6 +17,7 @@ var Money = require('dw/value/Money');
 var Logger = require('dw/system/Logger');
 
 server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
+   var Constants = require('*/cartridge/utils/Constants');
    var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
    var customCategoryHelpers = require('app_custom_movado/cartridge/scripts/helpers/customCategoryHelpers');
    var SmartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
@@ -26,6 +27,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
    var youMayLikeRecommendationTypeIds = Site.getCurrent().getCustomPreferenceValue('youMayLikeRecomendationTypes');
    var moreStylesRecommendationTypeIds = Site.getCurrent().getCustomPreferenceValue('moreStylesRecomendationTypes');
    var YotpoIntegrationHelper = require('*/cartridge/scripts/common/integrationHelper.js');
+   var yotpoCustomHelper = require('*/cartridge/scripts/yotpo/helper/YotpoHelper');
    var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
    var smartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
    var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
@@ -50,16 +52,21 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
    var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
    var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
    var productType = showProductPageHelperResult.product.productType;
-   var template = null;
+   var template =  showProductPageHelperResult.template;
 
-   // Custom Comment Start: A/B testing for OB Redesign PDP
-   if (ABTestMgr.isParticipant('OBRedesignPDPABTest','Control')) {
-       template = '/product/old/productDetails';
-   } else if (ABTestMgr.isParticipant('OBRedesignPDPABTest','render-new-design')) {
-       template =  showProductPageHelperResult.template;
-   } else {
-       template = '/product/old/productDetails';
-   }
+    //MSS_1753 OB Product Sets Page Design Desktop
+    if(productType !== Constants.PRODUCT_TYPE) {
+
+        // Custom Comment Start: A/B testing for OB Redesign PDP
+        if (ABTestMgr.isParticipant('OBRedesignPDPABTest','Control')) {
+            template = '/product/old/productDetails';
+        } else if (ABTestMgr.isParticipant('OBRedesignPDPABTest','render-new-design')) {
+            template =  showProductPageHelperResult.template;
+        } else {
+            template = '/product/old/productDetails';
+        }
+
+    }
    // Custom Comment End: A/B testing for OB Redesign PDP
 
     var viewData = res.getViewData();
@@ -69,12 +76,22 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
 
     yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
 
+    if(product.individualProducts) {
+        yotpoCustomHelper.getIndividualRatingOrReviewsData(yotpoConfig, product);
+        productCustomHelpers.setProductAvailability(product)
+    }
+
    /* get recommendations for product*/
    if (product) {
        product = productMgr.getProduct(product.id);
        collectionName = !empty(product.custom.familyName) ? product.custom.familyName[0] : '';
        explicitRecommendations = productCustomHelper.getExplicitRecommendations(product.ID);
 
+       if (!empty(product.ID)) {
+            var productSetCustomHelper = require('*/cartridge/scripts/helpers/productSetCustomHelper');
+            var productSetBasePrice = productSetCustomHelper.getProductSetBasePrice(product.ID);
+            var productSetSalePrice = productSetCustomHelper.getProductSetSalePrice(product.ID);
+        }
        // Custom Start: Add pricing logic for Klarna promo banners
        try {
            if (productPrice.type === 'range') {
@@ -91,6 +108,17 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
                }
            }
            klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(new Money(parseInt(productDecimalPrice), session.getCurrency())).toString();
+
+        // Custom Start: Add price logic for product sets
+           if (productType == Constants.PRODUCT_TYPE) {
+            if (productSetSalePrice.salePrice !== 0) {
+                klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(new Money(parseInt(productSetSalePrice.salePrice), session.getCurrency())).toString();
+            } else {
+                klarnaProductPrice = AdyenHelpers.getCurrencyValueForApi(new Money(parseInt(productSetBasePrice.basePrice), session.getCurrency())).toString();
+                }
+            }
+        // Custom End
+
        } catch (e) {
            Logger.error('Product.js: Error occured while getting product price for Klarna and error is: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
        }
