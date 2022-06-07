@@ -101,7 +101,7 @@ server.replace(
         var Site = require('dw/system/Site');
         var Transaction = require('dw/system/Transaction');
         var URLUtils = require('dw/web/URLUtils');
-
+        var Constants = require('*/cartridge/scripts/util/Constants');
         var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
         var checkoutAddrHelper = require('*/cartridge/scripts/helpers/checkoutAddressHelper');
         var emailObj = [];
@@ -162,7 +162,8 @@ server.replace(
             if (subscribeToMovado) {
                 var requestParams = {
                     email: form.shippingAddress.addressFields.email.htmlValue,
-                    requestLocation: 'CHECKOUT_SERVICE'
+                    requestLocation: 'CHECKOUT_SERVICE',
+                    campaignName: Constants.MVMT_CHECKOUT_CAMPAIGN_NAME
                 }
                 if (!empty(requestParams) && !empty(requestParams.email)) {
                     if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {

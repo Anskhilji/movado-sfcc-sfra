@@ -140,7 +140,7 @@ server.replace(
         var countryCode = orderCustomHelper.getCountryCode(req);
         var Constants = require('*/cartridge/scripts/util/Constants');
         
-        if (Site.current.preferences.custom.Auto_Optin_Checkout && countryCode == Constants.DEFAULT_COUNTRYCODE) {
+        if (Site.current.preferences.custom.Auto_Optin_Checkout && countryCode == Constants.US_COUNTRY_CODE) {
             var requestParams = {
                 email : order.getCustomerEmail() ? order.getCustomerEmail() : '',
                 requestLocation: 'CHECKOUT_SERVICE',
