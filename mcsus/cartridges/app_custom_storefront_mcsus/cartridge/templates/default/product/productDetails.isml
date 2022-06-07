@@ -60,8 +60,6 @@
                 <isinclude template="product/components/imageCarouselPdp" />
 
                 <div class="col-12 col-sm-6">
-
-
                     <!-- Product Name -->
                     <h2 class="product-name prdouct-name-gtm d-sm-none d-md-block text-uppercase">${product.productName}</h2>
 

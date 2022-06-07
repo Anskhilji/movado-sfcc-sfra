@@ -8,7 +8,6 @@ var Constants = require('*/cartridge/scripts/util/Constants');
 var ContentMgr = require('dw/content/ContentMgr');
 var Site = require('dw/system/Site').getCurrent();
 
-
 /**
  * Get explicit recommendations for product
  * @param {string} pid : The ID of Product
@@ -109,11 +108,32 @@ function getPdpVideoConfigs(apiProduct) {
 }
 
 /**
+ * Method use to get Custome URL to render on PDP
+ * @param {Product} product
+ * @returns {String} Custome URL
+ */
+function getPLPCustomURL(product) {
+    var Site = require('dw/system/Site');
+    var URLUtils = require('dw/web/URLUtils');
+    var customURL;
+    var customURLObj = !empty(Site.current.preferences.custom.plpCustomUrl) ? JSON.parse(Site.current.preferences.custom.plpCustomUrl) : '';
+    if (customURLObj) {
+        var brandID = Site.current.ID;
+        if (customURLObj[brandID] && customURLObj[brandID].settings.enabledFullQualifiedURL) {
+            customURL = customURLObj[product.brand].URL;
+
+        } else {
+            customURL = URLUtils.url(customURLObj[brandID].settings.pipelineURL, customURLObj[brandID].settings.params, customURLObj[brandID].URL).toString();
+        }
+    }
+    return customURL;
+}
+/**
  * Method use to get content asset HTML to render on PDP
  * @param {Product} apiProduct
  * @returns {String} content asset HTML
  */
- function getPDPContentAssetHTML (apiProduct) {
+function getPDPContentAssetHTML(apiProduct) {
     try {
         var contentAssetID = !empty(apiProduct.custom.pdpContentAssetID) ? apiProduct.custom.pdpContentAssetID : '';
         if (empty(contentAssetID) && apiProduct.variant) {
@@ -121,7 +141,7 @@ function getPdpVideoConfigs(apiProduct) {
         }
         var pdpContentAsset = ContentMgr.getContent(contentAssetID);
         var pdpContentAssetHTML;
-        if (pdpContentAsset  && pdpContentAsset.online && !empty(pdpContentAsset.custom.body) ) {
+        if (pdpContentAsset && pdpContentAsset.online && !empty(pdpContentAsset.custom.body)) {
             pdpContentAssetHTML = pdpContentAsset.custom.body.markup.toString();
         }
         return pdpContentAssetHTML;
@@ -154,5 +174,6 @@ module.exports = {
     getPdpVideoConfigs: getPdpVideoConfigs,
     getPDPMarketingContentAssetHTML: getPDPMarketingContentAssetHTML,
     getCurrentCountry: getCurrentCountry,
-    getPDPContentAssetHTML: getPDPContentAssetHTML
+    getPDPContentAssetHTML: getPDPContentAssetHTML,
+    getPLPCustomURL: getPLPCustomURL
 };

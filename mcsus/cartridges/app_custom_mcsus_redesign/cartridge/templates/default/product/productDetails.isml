@@ -61,7 +61,8 @@
 
                 <div class="col-12 col-sm-6">
 
-
+                    <!-- Product Brand Name -->
+                    <h2><a href="${!empty(pdict.customURL) ? pdict.customURL : ''}">${product.brand}</a></h2>
                     <!-- Product Name -->
                     <h2 class="product-name prdouct-name-gtm d-sm-none d-md-block text-uppercase">${product.productName}</h2>
 
