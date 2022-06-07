@@ -484,7 +484,9 @@ $stored-payment-spacing: rem(16);
                 font-size: rem(13);
                 font-weight: 500;
                 letter-spacing: rem(0.7);
-                line-height: rem(20);
+                line-height: rem(24);
+                color: $grey6 !important;
+                padding-top: rem(16);
 
                 &:focus {
                     border-color: $black;
@@ -502,6 +504,10 @@ $stored-payment-spacing: rem(16);
                         line-height: rem(20);
                         width: 100%;
                         pointer-events: none;
+                        
+                        &.field-select-wrapper-box {
+                            left: rem(13);
+                        }
                     }
 
                     + .field-label-wrapper-card {
@@ -559,6 +565,12 @@ $stored-payment-spacing: rem(16);
                 line-height: rem(20);
                 width: 100%;
                 pointer-events: none;
+            }
+            &.field-select-wrapper-box {
+              left: rem(16);
+              &.input-has-value {
+                left: rem(13);
+              }
             }
 
             &.field-label-wrapper-card {
