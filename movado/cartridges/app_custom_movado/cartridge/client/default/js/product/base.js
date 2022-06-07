@@ -365,44 +365,44 @@ function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, 
     }
 }
 
-$(document).ready(function(){
+/**
+ * MCS redesign sticky functionality on pdp
+ */
+$(document).ready(function () {
     var lastScrollTop = 0;
     if (!$('.cta-add-to-cart').isOnScreen()) {
         $('.sticky-container-redesign').removeClass('scrollTop').addClass('scrollBottom');
     }
-    $(window).scroll(function(){
+    $(window).scroll(function () {
         if ($('.cta-add-to-cart').isOnScreen()) { // check if  button is on screen
             var scrollPixel = window.pageYOffset || document.documentElement.scrollTop; // get off sets
             $('.sticky-container-redesign').addClass('d-none');
-               if (scrollPixel > lastScrollTop){
-                  // downscroll code
-                  $('.sticky-container-redesign').removeClass('scrollBottom').addClass('scrollTop');
-                } else {
-                    // upscroll code
-                    $('.sticky-container-redesign').removeClass('scrollTop').addClass('scrollBottom');
-               }
-               lastScrollTop = scrollPixel <= 0 ? 0 : scrollPixel;
-        }else{
+            if (scrollPixel > lastScrollTop) {
+                // downscroll code
+                $('.sticky-container-redesign').removeClass('scrollBottom').addClass('scrollTop');
+            } else {
+                // upscroll code
+                $('.sticky-container-redesign').removeClass('scrollTop').addClass('scrollBottom');
+            }
+            lastScrollTop = scrollPixel <= 0 ? 0 : scrollPixel;
+        } else {
             $('.sticky-container-redesign').removeClass('d-none');
         }
     });
 });
 
-$.fn.isOnScreen = function(){
-var win = $(window);
-var viewport = {
-    top : win.scrollTop(),
-    left : win.scrollLeft()
-};
-viewport.right = viewport.left + win.width();
-viewport.bottom = viewport.top + win.height();
-
-var bounds = this.offset();
-bounds.right = bounds.left + this.outerWidth();
-bounds.bottom = bounds.top + this.outerHeight();
-
-return (!(viewport.right < bounds.left || viewport.left > bounds.right || viewport.bottom < bounds.top || viewport.top > bounds.bottom));
-
+$.fn.isOnScreen = function () {
+    var win = $(window);
+    var viewport = {
+        top: win.scrollTop(),
+        left: win.scrollLeft()
+    };
+    viewport.right = viewport.left + win.width();
+    viewport.bottom = viewport.top + win.height();
+    var bounds = this.offset();
+    bounds.right = bounds.left + this.outerWidth();
+    bounds.bottom = bounds.top + this.outerHeight();
+    return (!(viewport.right < bounds.left || viewport.left > bounds.right || viewport.bottom < bounds.top || viewport.top > bounds.bottom));
 };
 /**
  * Parses JSON from Ajax call made whenever an attribute value is [de]selected
