@@ -33,7 +33,7 @@
 </div>
 
 <div class="row">
-	<div class="col-sm-12">
+	<div class="col-sm-12 mx-field-wrapper">
 		<!-- companyName -->
 	    <div class="form-group
 	        ${billingFields.companyName.mandatory === true ? 'required' : ''}
@@ -52,7 +52,7 @@
 </div>
 
 <div class="row">
-    <div class="col-sm-12">
+    <div class="col-sm-12 mx-field-wrapper">
         <div class="form-group
             ${billingFields.address1.mandatory === true ? 'required' : ''}
             ${billingFields.address1.htmlName}">
@@ -70,7 +70,7 @@
 </div>
 
 <div class="row">
-    <div class="col-sm-12">
+    <div class="col-sm-12 mx-field-wrapper">
         <div class="form-group
             ${billingFields.address2.mandatory === true ? 'required' : ''}
             ${billingFields.address2.htmlName}">

@@ -337,9 +337,9 @@ header {
     .align-start-box {
         .checkout-label-custom {
             @include media-breakpoint-up(xl) {
-                max-width: rem(428);
+                max-width: rem(316);
                 margin: 0 auto;
-                width: rem(428);
+                width: rem(316);
                 padding-left: rem(6);
             }
         }

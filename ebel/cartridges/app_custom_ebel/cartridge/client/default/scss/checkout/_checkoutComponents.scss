@@ -510,20 +510,20 @@ $stored-payment-spacing: rem(16);
                         }
                     }
 
-                    + .field-label-wrapper-card {
-                        left: 1.2em;
+                  + .field-label-wrapper-card {
+                    left: rem(15);
+                  }
+            
+                  + .field-label-wrapper-card1 {
+                      left: rem(24);
                     }
-              
-                    + .field-label-wrapper-card1 {
-                        left: 2em;
+            
+                  + .field-label-wrapper-card2 {
+                      left: rem(15);
                     }
-              
-                    + .field-label-wrapper-card2 {
-                        left: 1em;
-                    }
-                    
-                    + .field-label-wrapper-card3 {
-                        left: 2em;
+                  
+                  + .field-label-wrapper-card3 {
+                      left: rem(24);
                     }
                 }
             }
@@ -574,32 +574,35 @@ $stored-payment-spacing: rem(16);
             }
 
             &.field-label-wrapper-card {
-                left: 0.8750em;
+              left: rem(15);
 
-                &.input-has-value {
-                    left: 1.2em;
-                }
+              &.input-has-value {
+                  left: rem(15);
+              }
+          }
+
+          &.field-label-wrapper-card1 {
+              left: rem(24);
+
+              &.input-has-value {
+                  left: rem(24);
+              }
+          }
+
+          &.field-label-wrapper-card2 {
+              left: rem(15);
+              &.input-has-value {
+                left: rem(15);
             }
-
-            &.field-label-wrapper-card1 {
-                left: 1.5375em;
-
-                &.input-has-value {
-                    left: 2em;
-                }
-            }
-
-            &.field-label-wrapper-card2 {
-                left: 1em;
-            }
-            
-            &.field-label-wrapper-card3 {
-                left: 1.375em;
-
-                &.input-has-value {
-                    left: 2em;
-                }
-            }
+          }
+        
+          &.field-label-wrapper-card3 {
+              left: rem(24);
+              
+              &.input-has-value {
+                  left: rem(24);
+              }
+          }
 
             &::after {
                 content: "*";

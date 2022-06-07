@@ -374,7 +374,7 @@ header {
             margin-top: rem(30);
         }
         @include media-breakpoint-up(xl) {
-            padding: 0 rem(91.5) 0 rem(4);
+            padding: 0 rem(91.5) 0 rem(2);
             margin-top: rem(30);
         }
         @include custom-media-query1440($large-screen-width1440) {
@@ -776,9 +776,9 @@ header {
 
 .checkout-label-custom {
     @include media-breakpoint-up(xl) {
-        max-width: rem(428);
+        max-width: rem(316);
         margin: 0 auto;
-        width: rem(428);
+        width: rem(316);
         padding-left: rem(6);
     } 
     h5{
@@ -860,12 +860,24 @@ header {
             }
             .shipping-summary {
                 max-width: rem(700);
+
+                @include media-breakpoint-down(md) {
+                    max-width: 100%;
+                }
             }
             .payment-summary {
                 max-width: rem(700);
+
+                @include media-breakpoint-down(md) {
+                    max-width: 100%;
+                }
             }
             .payment-form {
                 max-width: rem(700);
+                
+                @include media-breakpoint-down(sm) {
+                    max-width: 100%;
+                }
             }
         }
         .right-section {
@@ -881,11 +893,26 @@ header {
             @include media-breakpoint-up(md) {
                 margin: rem(0) rem(-10);
             }
+
+            .mx-field-wrapper {
+                @include media-breakpoint-down(xs) {
+                    padding: rem(0) rem(5);
+                }
+            }
         }
         
         .mx-container-box1 {
             @include custom-media-query1440($large-screen-width1440) {
                 max-width: rem(700);
+            }
+            .btn {
+                height: rem(45);
+                font-size: rem(15);
+                font-weight: 500;
+                letter-spacing: rem(0.75);
+                line-height: rem(24);
+                border: rem(2) solid $black;
+                border-radius: rem(2);
             }
         }
     }

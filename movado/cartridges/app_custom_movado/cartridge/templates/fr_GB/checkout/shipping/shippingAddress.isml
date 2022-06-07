@@ -39,11 +39,11 @@
 </div>
 
 <div class="row">
-    <div class="col-12">
+    <div class="col-12 mx-field-wrapper">
         <div class="form-group
         <isif condition=${addressFields.email.mandatory === true}>required</isif>
         ${addressFields.email.htmlName}">
-            <span class="info-icon">
+            <span class="info-icon info-icon-email">
                 <span class="icon">i</span>
                 <div class="tooltip">
                     ${Resource.msg('tooltip.email','creditCard',null)}
@@ -68,7 +68,7 @@
 </div>
 
 <div class="row">
-	<div class="col-sm-12">
+	<div class="col-sm-12 mx-field-wrapper">
 		<!-- companyName -->
 	    <div class="form-group
 	        ${addressFields.companyName.mandatory === true ? 'required' : ''}
@@ -85,7 +85,7 @@
 </div>
 
 <div class="row">
-    <div class="col-sm-12">
+    <div class="col-sm-12 mx-field-wrapper">
         <div class="form-group
             ${addressFields.address1.mandatory === true ? 'required' : ''}
             ${addressFields.address1.htmlName}">
@@ -105,7 +105,7 @@
 
 
 <div class="row">
-    <div class="col-sm-12">
+    <div class="col-sm-12 mx-field-wrapper">
         <div class="form-group
             ${addressFields.address2.mandatory === true ? 'required' : ''}
             ${addressFields.address2.htmlName}">
@@ -195,7 +195,7 @@
 </div>
 
 <div class="row">
-    <div class="col-sm-12">
+    <div class="col-sm-12 mx-field-wrapper">
         <div class="form-group
             ${addressFields.phone.mandatory === true ? 'required' : ''}
             ${addressFields.phone.htmlName}">

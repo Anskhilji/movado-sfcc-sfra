@@ -1,6 +1,6 @@
 <isset name="billingFields" value="${pdict.forms.billingForm.addressFields}" scope="page"/>
 <div class="row">
-    <div class="col-sm-6  mx-field-wrapperfield-left">
+    <div class="col-sm-6 mx-field-wrapper field-left">
         <div class="form-group
             ${billingFields.firstName.mandatory === true ? 'required' : ''}
             ${billingFields.firstName.htmlName}">
@@ -15,7 +15,7 @@
             <div class="invalid-feedback"></div>
         </div>
     </div>
-    <div class="col-sm-6  mx-field-wrapperfield-right">
+    <div class="col-sm-6 mx-field-wrapper field-right">
         <div class="form-group
             ${billingFields.lastName.mandatory === true ? 'required' : ''}
             ${billingFields.lastName.htmlName}">
@@ -89,7 +89,7 @@
 
 <!--- make drop down--->
 <div class="row">
-    <div class="col-sm-6  mx-field-wrapperfield-left">
+    <div class="col-sm-6 mx-field-wrapper field-left">
         <div class="form-group
             ${billingFields.country.mandatory === true ? 'required' : ''}
             ${billingFields.country.htmlName} relative">
@@ -113,7 +113,7 @@
             <div class="invalid-feedback"></div>
         </div>
     </div>
-    <div class="col-sm-6  mx-field-wrapperfield-right">
+    <div class="col-sm-6 mx-field-wrapper field-right">
         <div class="form-group
             ${billingFields.postalCode.mandatory === true ? 'required' : ''}
             ${billingFields.postalCode.htmlName}">
@@ -131,7 +131,7 @@
 </div>
 
 <div class="row">
-    <div class="col-sm-6  mx-field-wrapperfield-left">
+    <div class="col-sm-6 mx-field-wrapper field-left">
         <div class="form-group
             ${billingFields.city.mandatory === true ? 'required' : ''}
             ${billingFields.city.htmlName}">
