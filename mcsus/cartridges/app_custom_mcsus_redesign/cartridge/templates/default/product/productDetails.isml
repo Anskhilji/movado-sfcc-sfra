@@ -183,6 +183,8 @@
             </div>
         </div>
         <!-- The Modal: Ends-->
+        <!-- sticky ATC -->
+        <isinclude template="product/components/stickyAddToCart" />
 
     </isobject>
 </isdecorate>

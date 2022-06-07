@@ -1,0 +1,194 @@
+//font Families:
+@import "bootstrap/scss/functions";
+// font-awesome font file locations in relation to target location of the css file.
+$fa-font-path: "../fonts" !default;
+
+// flag icons location in relation to target location of the css file.
+$flag-icon-css-path: "../fonts/flags/" !default;
+
+$white: #fff !default;
+$black: #000 !default;
+$light-black: $black !default;
+$blue: #0070d2 !default;
+$blue2: #007BFF !default;
+$green: #008827 !default;
+$red: #c00 !default;
+$light-red: #DC3545 !default;
+$light-blue: #7ed0ee !default;
+$orange: #EA4138 !default;
+$dark-blue: #2A326D !default;
+$dark-red: #981608 !default;
+$yellow: #FFC517 !default;
+$amber: #FFC107 !default;
+$border-color: #979797 !default;
+// Consolidated values
+$black1: #212529 !default;
+$silver: #C6C4C4 !default;
+
+$light-grey: #d8d8d8 !default;
+$light-grey2: #f8f8f8 !default;
+$light-grey3: rgba(237,236,236,1) !default;
+$grey1: #f9f9f9 !default;
+$grey2: #eee !default;
+$grey3: #ccc !default;
+$grey4: #999 !default;
+$grey5: #666 !default;
+$grey6: #444 !default;
+$grey7: #222 !default;
+$grey8: #333 !default;
+$grey9: #BCBEC0 !default;
+$grey10:#BBBDBF !default;
+$grey11: #6a6969 !default;
+$grey12: #eaebeb !default;
+$grey13: #E1E2E3 !default;
+$grey14: #060506 !default;
+$grey16: #D2D2D2 !default;
+$grey15: #070707 !default;
+$grey17: #787777 !default;
+$grayish-blue: #212529;
+$light-silver: #D8D8D8;
+$Grey: #242526;
+$silver: #B0B0B0;
+$light-grey4: #6C757D;
+$black3: #1E1E1E;
+$gray2: #A5A5A5;
+$gray3: #F3F3F3;
+$gray4: #E7E7E7;
+
+$white-transparent: rgba(255,255,255,0.5) !default;
+$grey-transparent-1: rgba(0, 0, 0, 0.65) !default;
+$grey-transparent-2: rgba(0, 0, 0, 0.25) !default;
+$grey-transparent-3: rgba(0,0,0, 0.05) !default;
+$grey-transparent-4: rgba(0, 0, 0, 0.1) !default;
+$grey-transparent-5: rgba(0, 0, 0, 0.3) !default;
+$grey-transparent-6: rgba(0,0,0,0.5) !default;
+$grey-transparent-7: rgba(0,0,0,0.24) !default;
+$grey-light: rgba(187, 189, 191, 0.3) !default;
+$grey-light2: rgba(195,195,195,0.5) !default;
+$grey-light3: #aaa !default;
+$grey-light4: rgba(207,207,207,0.3) !default;
+$grey-dark: rgba(187, 189, 191, 0.5) !default;
+$grey-dark-1: rgba(6,5,6,0.6) !default;
+
+$light-gray: $grey1 !default;
+$slightly-darker-gray: $grey4 !default;
+$dark-gray: $grey6 !default;
+$darker-gray: $grey7 !default;
+$horizontal-rule-grey: $grey3 !default;
+$product-number-grey: $grey3 !default;
+$horizontal-border-grey: $grey4 !default;
+$menu-link: $grey6 !default;
+$close-menu-bg: $grey2 !default;
+$link-color: $dark-gray !default;
+$hr-border-color: $grey3 !default;
+
+$primary: $black !default;
+$success: $green !default;
+$danger: $red !default;
+$placeholder: $grey4 !default;
+$white-smoke:#F2F2F2 !default;
+$white-smoke2: rgba(245,245,245,0.9) !default;
+$white-smoke3: #F6F6F6 !default;
+$granite-gray:  #5C5C5C;
+$granite-gray1:  #3c4043;
+$apple: #59AF2C;
+$cerulean: #0092DB;
+$parrot-green: #3AAB4A;
+$white-smoke4: #F9F9F9;
+$light-gray1: rgba(205,205,205,0.5);
+$light-gray2: #797979;
+$light-gray3: #C4C1C1;
+$light-gray4: #E2E2E2;
+$white1: #FFFFFF;
+$black2: #060606;
+$black3: rgba(0,0,0,0.89);
+$dark-gray1: #343A40;
+$light-pink: #FFAAAA;
+$light-pink2: rgba(255,91,91,0.2);
+$dark-pink: #CF1818;
+
+$grid-breakpoints: (
+    xs: 0,
+    sm: 544px,
+    custom-md: 768px,
+    md: 769px,
+    lg: 992px,
+    xl: 1200px
+) !default;
+
+$container-max-widths: (
+    md: 720px,
+    lg: 940px,
+    xl: 1140px
+) !default;
+
+$border-radius: 0.1875rem !default;
+$border-radius-lg: $border-radius !default;
+$border-radius-sm: $border-radius !default;
+
+$state-danger-text: #fff !default;
+$alert-success-text: #fff !default;
+
+// Font sizes
+$base16-14px: 0.875em !default;
+
+// Bootstrap overrides
+$body-bg: $grey1 !default;
+$card-cap-bg: $white !default;
+
+// Tabs
+$nav-tabs-border-width: 0 !default;
+$nav-tabs-border-radius: 0 !default;
+$nav-tabs-active-link-hover-bg: transparent !default;
+
+// breadcrumb
+$breadcrumb-bg: transparent !default;
+
+// table border
+$table-border-color: $grey3 !default;
+
+$svg-check: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3E%3C/svg%3E") !default;
+
+@mixin equal-padding-container($custom-padding) {
+    padding-left: #{ $custom-padding };
+    padding-right: #{ $custom-padding };
+}
+// Large Screen
+$large-screen-width: 1400px;
+
+@mixin custom-media-query($large-screen-width) {
+  @media (min-width:#{$large-screen-width}) {
+      @content;
+  }
+}
+
+// For screen 320px to 543px
+$small-screen-width: 320px;
+$small-screen-width4: 543px;
+
+@mixin custom-media-query1($small-screen-width, $small-screen-width4) {
+    @media (min-width:#{$small-screen-width}) and (max-width:#{$small-screen-width4}) {
+        @content;
+    }
+}
+
+//font Families:
+
+$font-medium: "proxima-nova";
+$font-thin: "proxima-nova";
+$font-book: "proxima-nova";
+$font-bold:  "baskerville-display-pt";
+$font-primary: $font-book;
+$font-regular: "proxima-nova";
+$font-awesome: "FontAwesome";
+$font-proxima-nova: "proxima-nova-bold";
+$font-book-std : "FuturaStd-Book", Arial, sans-serif !default;
+
+//font Families:
+$futura-medium : "FuturaStd-Medium", Arial, sans-serif !default;
+$futura-book : "FuturaStd-Book", Arial, sans-serif !default;
+$futura-bold : "FuturaStd-Bold", Arial, sans-serif !default;
+
+$width: 100%;
+$spaceLeft: rem(20);
+$marginLeftlg : 60%;
