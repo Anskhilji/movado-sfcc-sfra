@@ -154,7 +154,7 @@
                 value="${shippingAddress.stateCode||''}"
                 <isprint value="${addressFields.states.stateCode.attributes}" encoding="off" />
                 autocomplete="shipping address-level1">
-            <label class="form-control-label field-label-wrapper" for="shippingState">
+            <label class="form-control-label field-label-wrapper field-select-wrapper-box" for="shippingState">
                 <isprint value="${addressFields.states.stateCode.label}" encoding="htmlcontent" />
             </label>
             </input>

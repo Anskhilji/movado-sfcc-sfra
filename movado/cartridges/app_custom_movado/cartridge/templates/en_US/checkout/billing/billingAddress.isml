@@ -94,7 +94,7 @@
         <div class="form-group
             ${billingFields.country.mandatory === true ? 'required' : ''}
             ${billingFields.country.htmlName} relative">
-            <label class="form-control-label field-label-wrapper" for="billingCountry">${Resource.msg('field.billing.address.country','address',null)}</label>
+            <label class="form-control-label field-label-wrapper field-select-wrapper-box" for="billingCountry">${Resource.msg('field.billing.address.country','address',null)}</label>
             <select class="form-control billingCountry custom-select custom-select-box" id="billingCountry"
                 <isprint value=${billingFields.country.attributes} encoding="off"/>
                 autocomplete="billing country">
@@ -119,7 +119,7 @@
         <div class="form-group
             ${billingFields.states.stateCode.mandatory === true ? 'required' : ''}
             ${billingFields.states.stateCode.htmlName} relative">
-            <label class="form-control-label field-label-wrapper" for="billingState">${Resource.msg('field.billing.address.state','address',null)}</label>
+            <label class="form-control-label field-label-wrapper field-select-wrapper-box" for="billingState">${Resource.msg('field.billing.address.state','address',null)}</label>
             <select class="form-control billingState custom-select custom-select-box" id="billingState"
                 <isprint value=${billingFields.states.stateCode.attributes} encoding="off"/>
                 autocomplete="billing address-level1">

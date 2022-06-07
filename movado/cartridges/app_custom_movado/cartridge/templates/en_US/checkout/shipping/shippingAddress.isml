@@ -131,7 +131,7 @@
         <div class="form-group
             ${addressFields.country.mandatory === true ? 'required' : ''}
             ${addressFields.country.htmlName} relative">
-            <label class="form-control-label field-label-wrapper" for="shippingCountry">
+            <label class="form-control-label field-label-wrapper field-select-wrapper-box" for="shippingCountry">
                 <isprint value="${addressFields.country.label}" encoding="htmlcontent" />
             </label>
             <select <isif condition="${isAmazonPay}">readonly</isif> class="form-control shippingCountry custom-select custom-select-box" id="shippingCountry"
@@ -149,7 +149,7 @@
         <div class="form-group
             ${addressFields.states.stateCode.mandatory === true ? 'required' : ''}
             ${addressFields.states.stateCode.htmlName} relative">
-            <label class="form-control-label field-label-wrapper" for="shippingState">
+            <label class="form-control-label field-label-wrapper field-select-wrapper-box" for="shippingState">
                 <isprint value="${addressFields.states.stateCode.label}" encoding="htmlcontent" />
             </label>
             <select <isif condition="${isAmazonPay}">readonly</isif> class="form-control shippingState custom-select custom-select-box" id="shippingState"

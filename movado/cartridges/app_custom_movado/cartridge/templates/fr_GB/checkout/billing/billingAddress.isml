@@ -93,7 +93,7 @@
         <div class="form-group
             ${billingFields.country.mandatory === true ? 'required' : ''}
             ${billingFields.country.htmlName}">
-            <label class="form-control-label field-label-wrapper" for="billingCountry">${Resource.msg('field.billing.address.country','address',null)}</label>
+            <label class="form-control-label field-label-wrapper field-select-wrapper-box" for="billingCountry">${Resource.msg('field.billing.address.country','address',null)}</label>
             <select class="form-control billingCountry custom-select custom-select-box" id="billingCountry"
                 <isprint value=${billingFields.country.attributes} encoding="off"/>
                 autocomplete="billing country">
