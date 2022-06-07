@@ -22,8 +22,10 @@ module.exports = function fullProduct(product, apiProduct, options) {
     var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
     var collectionName = productCustomHelper.getCollectionName(apiProduct);
+    var pdpContentAssetHTML = productCustomHelper.getPDPContentAssetHTML(apiProduct);
     var detailAndSpecAttributes = productCustomHelpers.getPdpDetailAndSpecsAttributes(apiProduct);
     var pdpMarketingContentAssetHTML = productCustomHelper.getPDPMarketingContentAssetHTML(apiProduct);
+    var yotpoReviewsCustomAttribute = productCustomHelper.getYotpoReviewsCustomAttribute(apiProduct);
 
     decorators.base(product, apiProduct, options.productType);
     decorators.price(product, apiProduct, options.promotions, false, options.optionModel);
@@ -95,6 +97,13 @@ module.exports = function fullProduct(product, apiProduct, options) {
         });
     }
 
+    if (!empty(yotpoReviewsCustomAttribute)) {
+        Object.defineProperty(product, 'yotpoReviewsCustomAttribute', {
+            enumerable: true,
+            value: yotpoReviewsCustomAttribute
+        });
+    }
+
     if (!empty(detailAndSpecAttributes)) {
         Object.defineProperty(product, 'pdpDetailedAttributes', {
             enumerable: true,
@@ -106,6 +115,13 @@ module.exports = function fullProduct(product, apiProduct, options) {
         Object.defineProperty(product, 'pdpSpecsAttributes', {
             enumerable: true,
             value: detailAndSpecAttributes.pdpSpecAttributes
+        });
+    }
+
+    if (pdpContentAssetHTML) {
+        Object.defineProperty(product, 'pdpContentAssetHTML', {
+            enumerable: true,
+            value: pdpContentAssetHTML
         });
     }
 

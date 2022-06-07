@@ -92,7 +92,6 @@ module.exports = function () {
             $productContainer.find('.product-brand-info .case-diameter').text(response.product.caseDiameterRedesigned);
         }
 
-
         //update product gtm data
         var $gtmClikObject = $imageContainer.data('gtm-product');
         if ($gtmClikObject) {
@@ -123,7 +122,11 @@ module.exports = function () {
         var $productNameSelector = $productContainer.find('.product-name');
         //Custom Start  [MSS-1375] response.product.productName changed to response.product.color
         if (isPLPRedesign) {
-            $productNameSelector.text(response.product.color);
+            if ($product.isWatchTile) {
+                $productNameSelector.text(response.product.productName);
+            } else {
+                $productNameSelector.text(response.product.color);
+            }
         } else {
             $productNameSelector.text(response.product.productName);
         }

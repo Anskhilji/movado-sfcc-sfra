@@ -358,28 +358,6 @@ function getCaseDiameter(apiProduct, isRedesigned, caseDiametterUnitPdp) {
 }
 
 /**
- * Method use to get content asset HTML to render on PDP
- * @param {Product} apiProduct
- * @returns {String} content asset HTML
- */
-function getPDPContentAssetHTML (apiProduct) {
-    try {
-        var contentAssetID = !empty(apiProduct.custom.pdpContentAssetID) ? apiProduct.custom.pdpContentAssetID : '';
-        if (empty(contentAssetID) && apiProduct.variant) {
-            contentAssetID = !empty(apiProduct.masterProduct.custom.pdpContentAssetID) ? apiProduct.masterProduct.custom.pdpContentAssetID : '';
-        }
-        var pdpContentAsset = ContentMgr.getContent(contentAssetID);
-        var pdpContentAssetHTML;
-        if (pdpContentAsset  && pdpContentAsset.online && !empty(pdpContentAsset.custom.body) ) {
-            pdpContentAssetHTML = pdpContentAsset.custom.body.markup.toString();
-        }
-        return pdpContentAssetHTML;
-    } catch (e) {
-        Logger.error('(productCustomHelper.js -> getPDPContentAssetHTML) Error occured while getting pdp content asset html: ' + e.stack, e.message);
-        return '';
-    }
-}
-/**
  * Method use to get color name from product's custom attribute`
  * @param {Product} apiProduct
  * @returns {String }color name
@@ -555,7 +533,6 @@ movadoProductCustomHelper.getPdpDetailAndSpecsAttributes = getPdpDetailAndSpecsA
 movadoProductCustomHelper.getPdpCollectionContentAssetID = getPdpCollectionContentAssetID;
 movadoProductCustomHelper.getCurrentCountry = getCurrentCountry;
 movadoProductCustomHelper.getGtmPromotionObject = getGtmPromotionObject;
-movadoProductCustomHelper.getPDPContentAssetHTML = getPDPContentAssetHTML;
 movadoProductCustomHelper.getCaseDiameter = getCaseDiameter;
 movadoProductCustomHelper.getColor = getColor;
 movadoProductCustomHelper.getIsWatchTile = getIsWatchTile;

@@ -165,16 +165,28 @@ module.exports = {
 
 $( document ).ready(function() {
     refreshAffirmUI();
-    
+
     if (window.ApplePaySession) {
         $('.google-pay-wrapper').removeClass('mt-2');
     }
+
+    $('.cart-sticky-wrapper-btn .apple-pay-pdp').addClass('d-none');
+});
+
+// added active class & scroll down on reviews widget
+$('.ratings > .yotpoBottomLine').on('click',function () {
+    var $mainWidget = $('.main-widget > .yotpo-display-wrapper');
+    $('html, body').animate({
+        scrollTop: $($mainWidget).offset().top
+    }, 10);
 });
 
 function refreshAffirmUI() {
     if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
         if (document.readyState === "complete") {
-            affirm.ui.refresh();
+            affirm.ui.ready(function() {
+                affirm.ui.refresh();
+            });
         } else {
             setTimeout(function() {
                 refreshAffirmUI();
