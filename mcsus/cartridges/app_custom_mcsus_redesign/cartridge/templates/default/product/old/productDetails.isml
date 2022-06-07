@@ -127,7 +127,7 @@
                                 <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
                                 <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
                                     <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
-                                        <div class="d-none d-md-flex"><isinclude template="product/components/smartGift" /></div>
+                                        <div class="d-none d-md-flex"><isinclude template="product/components/old/smartGift" /></div>
                                     </isif>    
                                 </isif>
                             </div>

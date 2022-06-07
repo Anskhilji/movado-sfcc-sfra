@@ -27,6 +27,16 @@ $(document).ready(function() {
         centerMode: true,
         focusOnSelect: true,
     });
+    $('.carousel-nav-redesign').slick({
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        asNavFor: '.primary-images .main-carousel',
+        dots: true,
+        centerMode: true,
+        focusOnSelect: true,
+        arrows:false,
+        centerPadding:'0',
+    });
 
     $('.zoom-carousel').slick({
         slidesToShow: 1,

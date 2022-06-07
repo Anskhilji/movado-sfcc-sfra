@@ -23,7 +23,7 @@
     <isset name="isQuickView" value="${false}" scope="page" />
     <isset name="isProductSet" value="${pdict.product.productType === 'set'}" scope="page" />
     <isobject object="${product.raw}" view="detail">
-        <div class="container product-detail product-wrapper product-detail1-wrapper mcs-product-detail-section-redesign" data-pid="${product.id}" itemscope
+        <div class="container-fluid product-detail product-wrapper product-detail1-wrapper mcs-product-detail-section-redesign" data-pid="${product.id}" itemscope
             itemtype="http://schema.org/Product">
             <div class="row hidden-xs-down d-md-none">
                 <div class="col-12">
@@ -56,10 +56,11 @@
                     </div>
                 </div>
             <iscomment> product detail redesign section start here </iscomment>
-                <!-- Product Images Carousel -->
+            <div class="col-12 d-flex justify-content-between flex-column flex-sm-row">
+                    <!-- Product Images Carousel -->
                 <isinclude template="product/components/imageCarouselPdp" />
 
-                <div class="col-12 col-sm-6">
+                <div class="product-detail-right-box">
 
                     <iscomment> product badges </iscomment>
                     <div class="product-badges-redesign">
@@ -67,7 +68,7 @@
                     </div>
                     <iscomment> product family name </iscomment>
                     <h2 class="product-family-name-redesign">
-                        <a href="#">COACH</a>
+                        <a href="#">${product.brand}</a>
                     </h2>
                     <!-- Product Name -->
                     <h2 class="product-name prdouct-name-gtm d-sm-none d-md-block text-uppercase">${product.productName}</h2>
@@ -137,75 +138,18 @@
                                 <!-- Cart and [Optionally] Apple Pay -->
                                 <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
                             </div>
+                            <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
+                                <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
+                                    <div class="d-none d-md-flex"><isinclude template="product/components/smartGift" /></div>
+                                </isif>    
+                            </isif>
                         </div>
-<iscomment> accordion start here </iscomment>
-                        <div class="col-12">
-                            <div class="accordion-pdp-redesign" id="accordionPdpMcs">
-                            <div class="accordion-redesign">
-                                <div class="accordion-redesign-heading d-flex align-items-center justify-content-between" data-toggle="collapse" data-target="#Description" aria-expanded="true" aria-controls="Description">
-                                    <span>Description</span><span class="plus-minus"></span>
-                                </div>
 
-                                <div id="Description" class="collapse show" aria-labelledby="headingOne">
-                                    <div class="accordion-redesign-detail">
-                                        <div class="description-redesign">
-                                            <isinclude template="product/components/description" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-redesign">
-                                 <div class="accordion-redesign-heading d-flex align-items-center justify-content-between collapsed" data-toggle="collapse" data-target="#Specification" aria-expanded="true" aria-controls="Specification">
-                                    <span>Specification</span><span class="plus-minus"></span>
-                                </div>
+                        <iscomment> accordion start here </iscomment>
+                            <isinclude template="product/components/accordion" />
+                        <iscomment> accordion end here </iscomment>
 
-                                <div id="Specification" class="collapse" aria-labelledby="headingOne">
-                                    <div class="accordion-redesign-detail">
-                                       <isinclude template="product/components/descriptionAndDetails" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-redesign">
-                                 <div class="accordion-redesign-heading d-flex align-items-center justify-content-between collapsed" data-toggle="collapse" data-target="#ShippingReturns" aria-expanded="true" aria-controls="ShippingReturns">
-                                    <span>Shipping and Returns</span><span class="plus-minus"></span>
-                                </div>
-
-                                <div id="ShippingReturns" class="collapse" aria-labelledby="headingOne">
-                                    <div class="accordion-redesign-detail">
-                                        Some placeholder content for the first accordion panel. This panel is shown by default, thanks to the <code>.show</code> class.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-redesign">
-                                 <div class="accordion-redesign-heading d-flex align-items-center justify-content-between collapsed" data-toggle="collapse" data-target="#Reviews" aria-expanded="true" aria-controls="Reviews">
-                                    <div class="d-flex align-items-center">
-                                        <span>Reviews</span>
-                                         <isinclude template="product/components/pidRating" />
-                                    </div>
-                                    <span class="plus-minus"></span>
-                                </div>
-
-                                <div id="Reviews" class="collapse" aria-labelledby="headingOne">
-                                    <div class="accordion-redesign-detail">
-                                            <iscomment>Yotpo reviews widget will appear here, if these needs to be relocated
-                                            then appropriate template should be overridden. </iscomment>
-                                            <isinclude template="widget/yotporeviewswidget" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        </div>
-<iscomment> accordion end here </iscomment>
-
-                        <div class="col-12 prices-add-to-cart-actions prices-add-to-cart-redesign">
-                            <div class="d-block">
-                                <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
-                                    <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
-                                        <div class="d-none d-md-flex"><isinclude template="product/components/smartGift" /></div>
-                                    </isif>    
-                                </isif>
-                            </div>
-                        </div>
+                        
 
                         <div class="col-12">
                             <div class="wishlist-row row">
@@ -231,6 +175,7 @@
                         </div>
                     </isif>
                 </div>
+            </div>
             </div>
         </div>
         <iscomment> product detail redesign section end here </iscomment>

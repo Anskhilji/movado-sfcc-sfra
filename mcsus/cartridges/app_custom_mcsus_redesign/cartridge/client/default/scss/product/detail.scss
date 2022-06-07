@@ -590,7 +590,101 @@
         &-detail {
             &-section {
                 &-redesign {
+                    max-width: rem(1440);
+                    padding: rem(0) rem(32);
 
+                    // product image 
+                    .primary-images {
+                        max-width: 57.56%;
+                        width: 100%;
+
+                        .cs-carousel-wrapper {
+
+                            .cs-carousel {
+                                margin-bottom: rem(53);
+
+                                .slick-arrow.slick-next {
+                                    background-image: url("../../images/chevron-angle-right.svg");
+                                }
+                        
+                                .slick-arrow.slick-prev {
+                                    background-image: url("../../images/chevron-angle-left.svg");
+                                }
+                                
+                                .slick-arrow {
+                                    background-size: contain;
+                                    width: rem(10);
+                                    height: rem(17);
+
+                                    &.slick-prev {
+                                        left: rem(0);
+                                    }
+
+                                    &.slick-next {
+                                        right: rem(0);
+                                    }
+
+                                }
+
+                                .carousel-tile {
+                                    max-width: rem(615);
+                                    margin: 0 auto;
+                                }
+                            }
+                        }
+                    }
+
+                    // .carousel-nav-redesign
+                    .carousel-nav-redesign {
+                        max-width: rem(505);
+                        margin: 0 auto;
+                        
+                        .slick-slide {
+                            width: rem(129) !important;
+                            height: rem(129);
+                            margin: rem(0) rem(20);
+                            border: rem(1.5) solid transparent;  
+                            .carousel-tile {
+                                background-color: $gray3;   
+                            }
+
+                            &.slick-center {
+                                border-color: $black;
+                            }
+                        }
+
+                        .slick-dots {
+                            max-width: rem(300);
+                            width: 100%;
+                            background-color: $gray4;
+                            margin: 0 auto;
+                            bottom: rem(-32);
+                            left: 0;
+                            right: 0;
+
+                            li {
+                                width: 100%;
+                                height: rem(4);
+                                margin: rem(0);
+
+                                button {
+                                    width: 100%;
+                                    height: rem(4);
+                                    border-radius: rem(0);
+                                    &::before{
+                                        display: none;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    // product-detail-right-box
+                    .product-detail-right-box {
+                        margin-left: rem(24);
+                        max-width: 42.44%;
+                        width: 100%;
+                    }
                     // badges
                     .product-badges-redesign {
 
@@ -778,6 +872,7 @@
                     .prices-add-to-cart-redesign {
 
                         .cart-and-ipay {
+                            margin-bottom: rem(0);
 
                             .cta-add-to-cart {
                                 width: 100%;
@@ -796,7 +891,7 @@
                                     letter-spacing: rem(1.14);
                                     line-height: rem(19);
                                     padding: rem(6) rem(18);
-                                    margin-bottom: rem(20);
+                                    margin-bottom: rem(30);
 
                                     .addtocart-innter-price {
 
@@ -823,7 +918,7 @@
                                     height: rem(50);
                                     border-radius: rem(3);
                                     background-color: $black;
-                                    margin-bottom: rem(20);
+                                    margin-bottom: rem(30);
                                     display: flex;
                                     align-items: center;
                                     justify-content: center;
@@ -846,6 +941,27 @@
                                 }
                             }
                         }
+                    }
+
+                    // gift-box-redesign
+                    .gift-box-redesign {
+                        margin-bottom: rem(30);
+
+                        .smartgift-btn-redesign {
+                            height: rem(50);
+                            line-height: rem(50);
+                            border-radius: rem(3);
+                            padding-top: rem(0);
+                            padding-bottom: rem(0);
+                        }
+
+                        .smartgift-bottom-text {
+                            margin-bottom: rem(0);
+                        }
+
+                         p {
+                           margin-bottom: rem(0);
+                         }
                     }
 
                     // accordion
@@ -979,16 +1095,6 @@
                     }
                 }
             }
-        }
-    }
-}
-
-.yotpo {
-                                        
-    .yotpo-label {
-
-        &.yotpo-small-box {
-            padding-top: rem(0);
         }
     }
 }
