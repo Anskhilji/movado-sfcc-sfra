@@ -130,6 +130,7 @@ function getPdpVideoConfigs(apiProduct) {
          }
          return customURL;
      } catch (e) {
+        Logger.error('(productCustomHelper.js -> getPLPCustomURL) Error occured while getting plp URL from custom preferences: ' + e.stack, e.message);
          return '';
      }
  }
