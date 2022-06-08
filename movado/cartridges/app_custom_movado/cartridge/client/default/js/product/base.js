@@ -370,23 +370,27 @@ function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, 
  */
 $(document).ready(function () {
     var lastScrollTop = 0;
-    if (!$('.cta-add-to-cart').isOnScreen()) {
-        $('.sticky-container-redesign').removeClass('scrollTop').addClass('scrollBottom');
+    if (!$('.prices-add-to-cart-actions .cta-add-to-cart').isOnScreen()) {
+        $('.sticky-container-redesign').addClass('scrollBottom');
     }
     $(window).scroll(function () {
-        if ($('.cta-add-to-cart').isOnScreen()) { // check if  button is on screen
-            var scrollPixel = window.pageYOffset || document.documentElement.scrollTop; // get off sets
-            $('.sticky-container-redesign').addClass('d-none');
-            if (scrollPixel > lastScrollTop) {
-                // downscroll code
-                $('.sticky-container-redesign').removeClass('scrollBottom').addClass('scrollTop');
+        if ($(window).width() > 534) {
+            if ($('.prices-add-to-cart-actions .cta-add-to-cart').isOnScreen()) { // check if  button is on screen
+                var scrollPixel = window.pageYOffset || document.documentElement.scrollTop; // get off sets
+                $('.sticky-container-redesign').addClass('d-none');
+                if (scrollPixel > lastScrollTop) {
+                    // downscroll code
+                    $('.sticky-container-redesign').removeClass('scrollBottom').addClass('scrollTop');
+                } else {
+                    // upscroll code
+                    $('.sticky-container-redesign').removeClass('scrollTop').addClass('scrollBottom');
+                }
+                lastScrollTop = scrollPixel <= 0 ? 0 : scrollPixel;
             } else {
-                // upscroll code
-                $('.sticky-container-redesign').removeClass('scrollTop').addClass('scrollBottom');
+                $('.sticky-container-redesign').removeClass('d-none');
             }
-            lastScrollTop = scrollPixel <= 0 ? 0 : scrollPixel;
         } else {
-            $('.sticky-container-redesign').removeClass('d-none');
+            $('.prices-add-to-cart-actions .cta-add-to-cart').isOnScreen() ? $('.sticky-container-redesign').addClass('d-none').removeClass('d-block') : $('.sticky-container-redesign').removeClass('d-none').addClass('d-block scrollBottom');
         }
     });
 });
