@@ -592,16 +592,75 @@
                 &-redesign {
                     max-width: rem(1440);
                     padding: rem(0) rem(32);
+                    @include media-breakpoint-down(xs) {
+                        padding: rem(0) rem(14);
+                    }
+
+                    &.product-detail {
+                        margin-top: rem(23);
+
+                        // .product-breadcrumb-redesign
+                        .product-breadcrumb-redesign {
+
+                            .breadcrumb {
+                                    margin-bottom: rem(18);
+                                    padding-bottom: rem(0);
+                                    @include media-breakpoint-down(xs) {
+                                        padding: rem(0) rem(5); 
+                                    }
+                                .breadcrumb-item {
+                                
+                                    a {
+                                        color: $light-grey4;
+                                        font-family: $font-regular;
+                                        font-size: rem(16);
+                                        letter-spacing: rem(0);
+                                        line-height: rem(30);
+                                        @include media-breakpoint-down(xs) {
+                                            font-size: rem(9);
+                                            line-height: rem(15);
+                                        }
+                                    }
+
+                                    & + .breadcrumb-item {
+                                        padding-left: rem(10);
+                                        @include media-breakpoint-down(xs) {
+                                            padding-left: rem(5); 
+                                        }
+                                        &::before {
+                                            padding-right: rem(3);
+                                            @include media-breakpoint-down(xs) {
+                                                font-size: rem(9);
+                                                line-height: rem(15);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
 
                     // product image 
                     .primary-images {
                         max-width: 57.56%;
                         width: 100%;
+                        @include media-breakpoint-down(xs) {
+                            max-width: 100%;
+                            min-height: unset;
+                        }
 
                         .cs-carousel-wrapper {
+                            @include media-breakpoint-down(xs) { 
+                                margin-bottom: rem(0);
+                            }
 
                             .cs-carousel {
                                 margin-bottom: rem(53);
+
+                                @include media-breakpoint-down(xs) { 
+                                    margin-bottom: rem(9);
+                                }
 
                                 .slick-arrow.slick-next {
                                     background-image: url("../../images/chevron-angle-right.svg");
@@ -629,6 +688,14 @@
                                 .carousel-tile {
                                     max-width: rem(615);
                                     margin: 0 auto;
+
+                                    img {
+                                        cursor: zoom-in;
+                                    }
+
+                                    @include media-breakpoint-down(md) {
+                                        max-width: 100%;
+                                    }
                                 }
                             }
                         }
@@ -638,12 +705,28 @@
                     .carousel-nav-redesign {
                         max-width: rem(505);
                         margin: 0 auto;
+                        @include media-breakpoint-down(md) {
+                            max-width: rem(405);
+                        }
+                        @include media-breakpoint-down(sm) {
+                            max-width: rem(216);
+                        }
                         
                         .slick-slide {
                             width: rem(129) !important;
                             height: rem(129);
                             margin: rem(0) rem(20);
                             border: rem(1.5) solid transparent;  
+                            @include media-breakpoint-down(md) {
+                                width: rem(95) !important;
+                                height: rem(95);
+                            }
+                            @include media-breakpoint-down(sm) {
+                                width: rem(52) !important;
+                                height: rem(52);
+                                margin: rem(0) rem(10);
+                            }
+                            
                             .carousel-tile {
                                 background-color: $gray3;   
                             }
@@ -661,15 +744,25 @@
                             bottom: rem(-32);
                             left: 0;
                             right: 0;
+                            @include media-breakpoint-down(xs) {
+                                bottom: rem(-10);
+                                max-width: rem(200);
+                            }
 
                             li {
                                 width: 100%;
                                 height: rem(4);
                                 margin: rem(0);
+                                @include media-breakpoint-down(xs) {
+                                    height: rem(2);
+                                }
 
                                 button {
                                     width: 100%;
                                     height: rem(4);
+                                    @include media-breakpoint-down(xs) {
+                                        height: rem(2);
+                                    }
                                     border-radius: rem(0);
                                     &::before{
                                         display: none;
@@ -684,12 +777,90 @@
                         margin-left: rem(24);
                         max-width: 42.44%;
                         width: 100%;
+                        @include media-breakpoint-down(xs) {
+                            max-width: 100%;
+                            margin-left: rem(0);
+                            margin-top: rem(49);
+                            padding: rem(0) rem(3);
+                        }
+
+                        // mobile design
+                        &.mobile-detail-redsign {
+                            margin-top: rem(0);
+
+                            @include media-breakpoint-down(xs) {
+
+                                .product-family-name-redesign {
+                                    margin-bottom: rem(5);
+                                    a {
+                                        font-size: rem(18);
+                                        letter-spacing: rem(0.9);
+                                        line-height: rem(23);
+
+                                        &::before {
+                                            left: rem(0);
+                                            right: rem(0);
+                                        }
+                                    }
+                                }
+
+                                // product name
+                                .product-name {
+                                    font-size: rem(14);
+                                    letter-spacing: rem(0);
+                                    line-height: rem(30);
+                                    margin-bottom: rem(5);
+                                }
+
+                                // rating mobile 
+                                .ratings {
+                                    margin-left: auto;
+                                    margin-right: auto;
+
+                                  .yotpo {
+
+                                    .standalone-bottomline {
+
+                                        .star-clickable {
+                                            text-align: center;
+                                            float: none;
+                                            justify-content: center;
+
+                                            .text-m {
+                                                text-align: center;
+                                                float: none;
+                                                margin-right: rem(0);
+                                                font-size: rem(12);
+                                                letter-spacing: rem(0);
+                                                line-height: rem(8);
+                                            }
+                                        }
+                                    }
+                                  }
+                                }
+
+                               
+                            }
+                        }
+                        .line-mobile {
+                            margin-bottom: rem(25);
+                            border-color: $light-gray4;
+                        }
                     }
                     // badges
                     .product-badges-redesign {
 
+                        @include media-breakpoint-down(xs) {
+                            position: absolute;
+                            right: rem(6);
+                            top: rem(13);
+                        }
+
                         .exclusive-badges {
                             margin-bottom: rem(0);
+                            @include media-breakpoint-down(xs) {
+                                margin-top: rem(0);
+                            }
 
                             .badge {
                                 background-color: $grey-light4;
@@ -706,6 +877,9 @@
                                 padding: 0rem rem(22);
                                 border-radius: rem(3);
                                 margin-bottom: rem(25);
+                                @include media-breakpoint-down(xs) {
+                                    margin-bottom: rem(0);
+                                }
                             }
                         }
                     }
@@ -780,10 +954,17 @@
                     // price 
                     .price-promotions-box {
                         margin-bottom: rem(20);
+
+                        @include media-breakpoint-down(xs) {
+                            margin-bottom: rem(25);      
+                        }
                     }
 
                     .prices-redesign {
                         padding-bottom: rem(0);
+                        @include media-breakpoint-down(xs) {
+                            padding-top: rem(0);
+                        }
 
                         .price {
 
@@ -817,6 +998,7 @@
                                     line-height: rem(32);
                                     margin-right: rem(10);
                                     display: inline-block;
+                                   
                                 }
                             }
                         }
@@ -825,6 +1007,10 @@
                     // promotions
                     .promotions-redesign {
                         text-align: left;
+                        @include media-breakpoint-down(xs) {
+                            width: auto;
+                        }
+
 
                         .callout {
                             padding: rem(0) rem(14);
@@ -871,8 +1057,16 @@
                     // add to cart
                     .prices-add-to-cart-redesign {
 
+                        @include media-breakpoint-down(xs) {
+                            position: static;
+                            background-color: transparent;
+                        }
+
                         .cart-and-ipay {
                             margin-bottom: rem(0);
+                            @include media-breakpoint-down(xs) {
+                                padding-bottom: rem(0);
+                            }
 
                             .cta-add-to-cart {
                                 width: 100%;
@@ -891,7 +1085,7 @@
                                     letter-spacing: rem(1.14);
                                     line-height: rem(19);
                                     padding: rem(6) rem(18);
-                                    margin-bottom: rem(30);
+                                    margin-bottom: rem(10);
 
                                     .addtocart-innter-price {
 
@@ -918,7 +1112,7 @@
                                     height: rem(50);
                                     border-radius: rem(3);
                                     background-color: $black;
-                                    margin-bottom: rem(30);
+                                    margin-bottom: rem(10);
                                     display: flex;
                                     align-items: center;
                                     justify-content: center;
@@ -946,6 +1140,10 @@
                     // gift-box-redesign
                     .gift-box-redesign {
                         margin-bottom: rem(30);
+                        @include media-breakpoint-down(xs) {
+                            padding: rem(0) rem(15);
+                            margin-bottom: rem(25);
+                        }
 
                         .smartgift-btn-redesign {
                             height: rem(50);
@@ -1036,7 +1234,7 @@
                             &-detail {
                                 margin-bottom: rem(25);
     
-                                P{
+                                .content,p{
                                     color: $grey-transparent-6;
                                     font-family: $font-regular;
                                     font-weight: 400;
@@ -1077,6 +1275,8 @@
 
                                             .attribute-value {
                                                 color: $black;
+                                                margin-top: rem(4);
+                                                display: block;
                                             }
                                         }
                                     }

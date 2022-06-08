@@ -5,7 +5,7 @@
                 <span>Description</span><span class="plus-minus"></span>
             </div>
 
-            <div id="Description" class="collapse show" aria-labelledby="headingOne">
+            <div id="Description" class="collapse" aria-labelledby="headingOne">
                 <div class="accordion-redesign-detail">
                     <div class="description-redesign">
                         <isinclude template="product/components/description" />

@@ -1,11 +1,4 @@
 <div class="product-number-rating">
-    <!-- Product Number -->
-    <isif condition="${dw.system.Site.getCurrent().preferences.custom.enableProductSKU}">
-        <div class="product-number sku-text-alignment">
-            <isinclude template="product/components/productNumber" />
-        </div>
-    </isif>
-
     <!-- Product Rating -->
     <div class="ratings">
         <isinclude template="product/components/productRating" />
