@@ -296,3 +296,15 @@
     }
   }
 }
+.data-checkout-stage {
+  .card-header {
+    &.card-border-none {
+      .heading-content-label {
+        font-size: rem(15);
+        font-weight: 500;
+        letter-spacing: rem(0.7);
+        line-height: rem(21);
+      }
+    }
+  }
+}

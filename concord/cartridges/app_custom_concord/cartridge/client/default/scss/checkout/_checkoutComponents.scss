@@ -650,19 +650,22 @@ $stored-payment-spacing: rem(16);
             }
         }
 
-          &::after {
-              content: "*";
-              color: $grey15;
-          }
+
         }
 
         &.required {
-            .field-label-wrapper {
-                &::before {
-                    content: "";
-                    color: transparent;
-                }
+          .form-control-label {
+            &.field-label-wrapper {
+              &::before {
+                content: "";
+                color: transparent;
+              }
+              &::after {
+                content: "*";
+                color: $grey15;
+              }
             }
+          }
         }
     }
 

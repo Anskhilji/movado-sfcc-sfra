@@ -620,6 +620,12 @@ $stored-payment-spacing: rem(16);
           padding: rem(0) rem(5);
         }
         .credit-card-form-container {
+          @include custom-media-query-max($medium-screen-width) {
+            padding: rem(0) rem(5);
+          }
+          @include media-breakpoint-down(sm) {
+            padding: rem(0);
+          }
           .mx-field-wrapper {
             @include media-breakpoint-down(xs) {
               padding: rem(0) rem(10);
@@ -747,10 +753,12 @@ $stored-payment-spacing: rem(16);
                 line-height: rem(24);
                 color: $google-grey1 !important;
                 padding-top: rem(16);
+                margin-top: rem(0);
 
               &:focus {
                   border-color: $black;
                   box-shadow: none;
+                  border-width: rem(1);
 
                   + .field-label-wrapper {
                       transition: 0.2s ease-in-out;
@@ -764,6 +772,7 @@ $stored-payment-spacing: rem(16);
                       line-height: rem(24);
                       width: 100%;
                       pointer-events: none;
+                      margin-bottom: rem(0);
 
                       @include media-breakpoint-down(xs) {
                         left: rem(18.4);
@@ -795,8 +804,8 @@ $stored-payment-spacing: rem(16);
               height: rem(45);
               border: rem(1) solid $grey16;
               border-radius: rem(3);
-              background-color: $grey-dark-2;
-              padding-top: rem(20);
+              background-color: $grey-dark-2 !important;
+              padding-top: rem(16);
               font-size: rem(13);
               font-weight: 500;
               letter-spacing: rem(0.7);
@@ -824,6 +833,7 @@ $stored-payment-spacing: rem(16);
           width: 100%;
           pointer-events: none;
           text-transform: capitalize;
+          margin-bottom: rem(0);
 
           &.input-has-value {
               transition: 0.2s ease-in-out;
@@ -837,6 +847,7 @@ $stored-payment-spacing: rem(16);
               line-height: rem(24);
               width: 100%;
               pointer-events: none;
+              margin-bottom: rem(0);
 
               @include media-breakpoint-down(xs) {
                 left: rem(18.4);
@@ -884,16 +895,18 @@ $stored-payment-spacing: rem(16);
       }
 
       &.required {
-          .field-label-wrapper {
-              &::before {
-                content: "";
-                color: transparent;
-              }
-              &::after {
-                  content: "*";
-                  color: $grey17;
-              }
+        .form-control-label {
+          &.field-label-wrapper {
+            &::before {
+              content: "";
+              color: transparent;
+            }
+            &::after {
+                content: "*";
+                color: $grey17;
+            }
           }
+        }
       }
   }
 

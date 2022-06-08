@@ -846,7 +846,6 @@ header {
         max-width: 1440px;
     }
     .checkout-content-container-inner {
-        overflow: hidden;
         .left-section {
             @include custom-media-query1440($large-screen-width1440) {
                 padding: rem(0) rem(0) rem(0) rem(100);
@@ -874,7 +873,10 @@ header {
             }
             .payment-form {
                 max-width: rem(700);
-                
+
+                @include custom-media-query-max($medium-screen-width) {
+                    max-width: 100%;
+                }
                 @include media-breakpoint-down(sm) {
                     max-width: 100%;
                 }
@@ -913,6 +915,8 @@ header {
                 line-height: rem(24);
                 border: rem(2) solid $black;
                 border-radius: rem(2);
+                background-color: $black;
+                color: $white;
             }
         }
     }

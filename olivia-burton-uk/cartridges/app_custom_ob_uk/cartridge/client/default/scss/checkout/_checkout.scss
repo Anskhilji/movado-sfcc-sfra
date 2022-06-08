@@ -345,3 +345,20 @@ header {
         }
     }
 }
+.data-checkout-stage {
+    .checkout-content-container-inner {
+        .mx-container-box1 {
+            .btn {
+                border: rem(2) solid $pink-hot;
+                background-color: $pink-hot;
+                color: $black;
+                &:focus {
+                    border-color: $pink-hot;
+                }
+                &:active {
+                    border-color: $black;
+                }
+            }
+        }
+    }
+}
