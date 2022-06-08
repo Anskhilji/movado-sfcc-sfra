@@ -209,7 +209,10 @@ function customSortOnBasisOfSalesPrice(productSearch) {
     var allFactoryProducts = [];
     var allSortedProductsIds = [];
     var allSearchHitsProducts = [];
-    var searchHitsProductsList = productSearch.productSearchHits.asList();
+    var searchHitsProductsList;
+    if (!empty(productSearch)){
+        searchHitsProductsList = productSearch.productSearchHits.asList();
+    }
     for (var i = 0; i < searchHitsProductsList.size(); i++) {
         var searchHitProduct = searchHitsProductsList[i]; 
         allSearchHitsProducts.push({
@@ -293,8 +296,10 @@ function ProductSearch(productSearch, httpParams, sortingRule, sortingOptions, r
     if (sortProductsOnBasisOfSalesPrice) {
         var sortedProductSearchHits = customSortOnBasisOfSalesPrice(productSearch);
         var sortedPagingElements = [];
-        for (var i = paging.start; i <= paging.end; i++) {
-            sortedPagingElements.push(sortedProductSearchHits[i]);
+        if (!empty(sortedProductSearchHits)) {
+            for (var i = paging.start; i <= paging.end; i++) {
+                sortedPagingElements.push(sortedProductSearchHits[i]);
+            }
         }
         this.productIds = sortedPagingElements;
     } else {
