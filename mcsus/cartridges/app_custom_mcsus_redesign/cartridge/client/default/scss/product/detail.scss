@@ -645,6 +645,7 @@
                     .primary-images {
                         max-width: 57.56%;
                         width: 100%;
+
                         @include media-breakpoint-down(xs) {
                             max-width: 100%;
                             min-height: unset;
@@ -689,6 +690,10 @@
                                     max-width: rem(615);
                                     margin: 0 auto;
 
+                                    @include media-breakpoint-down(md) {
+                                        padding: rem(0) rem(1);
+                                    }
+
                                     img {
                                         cursor: zoom-in;
                                     }
@@ -725,10 +730,6 @@
                                 width: rem(52) !important;
                                 height: rem(52);
                                 margin: rem(0) rem(10);
-                            }
-                            
-                            .carousel-tile {
-                                background-color: $gray3;   
                             }
 
                             &.slick-center {
@@ -944,7 +945,7 @@
                                         font-size: rem(13);
                                         letter-spacing: 0;
                                         line-height: rem(25);
-                                        margin-left: rem(7);
+                                        margin-left: rem(5);
                                     }
                                 }
                             }
@@ -1109,6 +1110,45 @@
                                 // google pay`
                                 .googlepay-btn {
                                     width: 100%;
+
+                                    .google-pay-container {
+                                        width: 100%;
+                                        height: rem(50);
+                                        border-radius: rem(3);
+                                        background-color: $black;
+                                        margin-bottom: rem(10);
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                        transition: all 0s;
+                                        &:hover {
+                                            background-color: $granite-gray1;
+
+                                            .gpay-button {
+                                                background-color: $granite-gray1;
+                                            }
+                                        }
+
+                                        .gpay-button-fill {
+                                            padding: rem(5px) rem(0);
+                                            button {
+                                                height: rem(40);
+                                            }
+                                        }
+                                        
+                                        .gpay-button {
+                                            &:focus {
+                                                outline: none;
+                                                border: none;
+                                                box-shadow: none;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                // apple-pay-pdp
+                                .apple-pay-pdp {
+                                    width: 100%;
                                     height: rem(50);
                                     border-radius: rem(3);
                                     background-color: $black;
@@ -1117,21 +1157,6 @@
                                     align-items: center;
                                     justify-content: center;
                                     transition: all 0s;
-                                    &:hover {
-                                        background-color: $granite-gray1;
-
-                                        .gpay-button {
-                                            background-color: $granite-gray1;
-                                        }
-                                    }
-                                    
-                                    .gpay-button {
-                                        &:focus {
-                                            outline: none;
-                                            border: none;
-                                            box-shadow: none;
-                                        }
-                                    }
                                 }
                             }
                         }

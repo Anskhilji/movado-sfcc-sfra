@@ -1,7 +1,7 @@
 <div class="col-12">
     <div class="accordion-pdp-redesign" id="accordionPdpMcs">
         <div class="accordion-redesign">
-            <div class="accordion-redesign-heading d-flex align-items-center justify-content-between" data-toggle="collapse" data-target="#Description" aria-expanded="true" aria-controls="Description">
+            <div class="accordion-redesign-heading d-flex align-items-center justify-content-between collapsed" data-toggle="collapse" data-target="#Description" aria-expanded="true" aria-controls="Description">
                 <span>Description</span><span class="plus-minus"></span>
             </div>
 
