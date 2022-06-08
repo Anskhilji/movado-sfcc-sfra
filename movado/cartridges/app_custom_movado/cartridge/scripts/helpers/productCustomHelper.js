@@ -120,22 +120,28 @@ function getYotpoReviewsCustomAttribute(apiProduct) {
  * @param {Product} product
  * @returns {String} Custome URL
  */
-function getPLPCustomURL(product) {
-    var Site = require('dw/system/Site');
-    var URLUtils = require('dw/web/URLUtils');
-    var customURL;
-    var customURLObj = !empty(Site.current.preferences.custom.plpCustomUrl) ? JSON.parse(Site.current.preferences.custom.plpCustomUrl) : '';
-    if (customURLObj) {
-        var brandID = Site.current.ID;
-        if (customURLObj[brandID] && customURLObj[brandID].settings.enabledFullQualifiedURL) {
-            customURL = customURLObj[product.brand].URL;
 
-        } else {
-            customURL = URLUtils.url(customURLObj[brandID].settings.pipelineURL, customURLObj[brandID].settings.params, customURLObj[brandID].URL).toString();
-        }
-    }
-    return customURL;
-}
+ function getPLPCustomURL(product) {
+     var Site = require('dw/system/Site');
+     var URLUtils = require('dw/web/URLUtils');
+     var customURL;
+     var customURLObj = !empty(Site.current.preferences.custom.plpCustomUrl) ? JSON.parse(Site.current.preferences.custom.plpCustomUrl) : '';
+     var brandID = Site.current.ID;
+     try {
+         if (customURLObj && customURLObj[brandID]) {
+             if (customURLObj[brandID] && customURLObj[brandID].settings.enabledFullQualifiedURL) {
+                 customURL = !empty(customURLObj[product.brand] && customURLObj[product.brand].URL) ? customURLObj[product.brand].URL : null;
+
+             } else {
+                 customURL = URLUtils.url(customURLObj[brandID].settings.pipelineURL, customURLObj[brandID].settings.params, customURLObj[brandID].URL).toString();
+             }
+         }
+         return customURL;
+     } catch (e) {
+        Logger.error('(productCustomHelper.js -> getPLPCustomURL) Error occured while getting plp URL from custom preferences: ' + e.stack, e.message);
+         return '';
+     }
+ }
 /**
  * Method use to get content asset HTML to render on PDP
  * @param {Product} apiProduct
