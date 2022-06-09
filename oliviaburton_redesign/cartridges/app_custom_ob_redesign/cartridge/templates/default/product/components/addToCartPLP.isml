@@ -3,6 +3,7 @@
         <input type="hidden" class="add-to-cart-url" value="${URLUtils.url('Cart-AddProduct')}">
         <button class='btn btn-primary add-to-cart-plp-redesign ${!product.available ? "out-of-stock-btn" : ""} '
             data-pid="${product.id}"
+            data-product-set="${!empty(product.individualProducts) ? true : false}"
             data-add-to-cart-text="${Resource.msg('button.addtocart', 'common', null)}" 
             ${!product.available ? "disabled" : ""} >
                 <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>
@@ -13,5 +14,8 @@
                 <iselse>
                     ${Resource.msg('label.not.available', 'common', null)} 
                 </isif>
+                <isloop items="${product.individualProducts}" var="productItem" status="loopState">
+                    <div class="product-sets product-id d-none">${productItem.id}</div>
+                </isloop>
         </button>
     </div>

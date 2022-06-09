@@ -22,6 +22,7 @@ module.exports = function fullProduct(product, apiProduct, options) {
     var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
     var collectionName = productCustomHelper.getCollectionName(apiProduct);
+    var pdpContentAssetHTML = productCustomHelper.getPDPContentAssetHTML(apiProduct);
     var detailAndSpecAttributes = productCustomHelpers.getPdpDetailAndSpecsAttributes(apiProduct);
     var pdpMarketingContentAssetHTML = productCustomHelper.getPDPMarketingContentAssetHTML(apiProduct);
 
@@ -106,6 +107,13 @@ module.exports = function fullProduct(product, apiProduct, options) {
         Object.defineProperty(product, 'pdpSpecsAttributes', {
             enumerable: true,
             value: detailAndSpecAttributes.pdpSpecAttributes
+        });
+    }
+
+    if (pdpContentAssetHTML) {
+        Object.defineProperty(product, 'pdpContentAssetHTML', {
+            enumerable: true,
+            value: pdpContentAssetHTML
         });
     }
 

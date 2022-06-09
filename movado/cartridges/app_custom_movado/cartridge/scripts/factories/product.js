@@ -3,6 +3,7 @@
 var ProductMgr = require('dw/catalog/ProductMgr');
 var PromotionMgr = require('dw/campaign/PromotionMgr');
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
+var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
 var productTile = require('*/cartridge/models/product/productTile');
 var bonusProduct = require('*/cartridge/models/product/bonusProduct');
 var fullProduct = require('*/cartridge/models/product/fullProduct');
@@ -26,10 +27,11 @@ module.exports = {
         var product = Object.create(null);
         var options = null;
         var promotions;
+        var productSetStockAvailabilityModel = productCustomHelpers.productSetStockAvailability(productType, apiProduct);
 
         switch (params.pview) {
             case 'tile':
-                product = productTile(product, apiProduct, productType, params);
+                product = productTile(product, apiProduct, productType, params, productSetStockAvailabilityModel, this);
                 break;
             case 'bonusProductLineItem':
                 promotions = PromotionMgr.activeCustomerPromotions.getProductPromotions(apiProduct);

@@ -77,7 +77,7 @@
                         
                         <iscomment> product rating </iscomment>
                         <iscomment> <p> <span>Model:</span> <span><isprint value="${product.id}" encoding="on" /></span> </p> </iscomment>
-                        <div class="d-block d-md-block d-sm-none">
+                        <div class="d-block d-md-block d-sm-none rating-box-redisgn">
                             <isinclude template="product/components/pidRating" />
                         </div>
                     </div>
@@ -187,7 +187,7 @@
             </div>
         </div>
         <iscomment> product detail redesign section end here </iscomment>
-         <div class="container">
+         <div class="container pdp-bottom-rating">
             <isinclude template="widget/yotporeviewswidget" />
         </div>
         
