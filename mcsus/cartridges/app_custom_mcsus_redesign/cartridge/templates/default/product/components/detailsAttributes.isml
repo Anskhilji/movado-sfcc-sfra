@@ -1,5 +1,6 @@
 <isif condition="${product.pdpAttributesList && product.pdpAttributesList.length}">
     <div class="value content">
+    <iscomment> remove detail heading  </iscomment>
         <isloop items="${product.pdpAttributesList}" var="attr">
             <div class="attribute">
                 <div class="attribute-badge">

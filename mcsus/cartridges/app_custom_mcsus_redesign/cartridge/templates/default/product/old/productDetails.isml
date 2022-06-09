@@ -74,7 +74,7 @@
                         <!-- Attributes and Quantity -->
                         <div class="col-md-10 col-12">
 
-                            <isinclude template="product/components/old/badges" />
+                            <isinclude template="product/components/badges" />
 
                             <!-- Product Availability -->
                             <div class="availability product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"

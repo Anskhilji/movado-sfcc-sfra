@@ -41,6 +41,7 @@
       </div>
       <isif condition="${typeof isImageExist != 'undefined'}">
             <isif condition="${!isQuickView}">
+            <iscomment> hidden zoom icon  </iscomment>
                 <button class="quickview js-zoom-image btn p-0 carousel-zoom-icon d-none" data-toggle="modal" data-target="#zoomProduct" aria-label="${product.resources.Zoom}">
                     <span class="fa-stack fa-lg">
                         <i class="fa fa-circle fa-inverse"></i>
@@ -50,6 +51,10 @@
             </isif>
         </isif>
       <iscomment>Added pagination slider</iscomment>
+      <iscomment> 
+      1 chnage clasee for nav slider 
+      2 chnage image tile size
+      </iscomment>
       <div class="carousel-nav-redesign" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
       <iscomment> Custom Start: MSS-1564 Add thumbnails to PDP </iscomment>
           <isloop items="${product.images['tile126']}" var="image" status="loopStatus">
