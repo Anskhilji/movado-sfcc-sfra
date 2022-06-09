@@ -603,11 +603,12 @@
                         .product-breadcrumb-redesign {
 
                             .breadcrumb {
-                                    margin-bottom: rem(18);
-                                    padding-bottom: rem(0);
-                                    @include media-breakpoint-down(xs) {
-                                        padding: rem(0) rem(5); 
-                                    }
+                                margin-bottom: rem(18);
+                                padding-bottom: rem(0);
+                                @include media-breakpoint-down(xs) {
+                                    padding: rem(0) rem(5); 
+                                }
+
                                 .breadcrumb-item {
                                 
                                     a {
@@ -627,6 +628,7 @@
                                         @include media-breakpoint-down(xs) {
                                             padding-left: rem(5); 
                                         }
+
                                         &::before {
                                             padding-right: rem(3);
                                             @include media-breakpoint-down(xs) {
@@ -843,11 +845,13 @@
                                
                             }
                         }
+
                         .line-mobile {
                             margin-bottom: rem(25);
                             border-color: $light-gray4;
                         }
                     }
+
                     // badges
                     .product-badges-redesign {
 
@@ -889,6 +893,7 @@
                     .product-family-name-redesign {
                         margin-bottom: rem(25);
                         line-height: rem(20);
+
                         a {
                             color: $black;
                             font-family: $font-regular;
@@ -908,6 +913,7 @@
                                 background-color: $black;
                                 bottom: rem(3);
                             }
+                            
                             &:hover {
                                 text-decoration: none;
                             }
