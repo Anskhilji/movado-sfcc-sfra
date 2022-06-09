@@ -846,7 +846,6 @@ header {
         max-width: 1440px;
     }
     .checkout-content-container-inner {
-        overflow: hidden;
         .error-space-left {
             @include custom-media-query1440($large-screen-width1440) {
                 padding-left: rem(84);
