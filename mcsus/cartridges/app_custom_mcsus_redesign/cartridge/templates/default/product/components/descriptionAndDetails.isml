@@ -1,7 +1,8 @@
 <div class="description-and-detail  description-and-detail-redesign">
     <isif condition="${!pdict.isCompareableDisabled}">
         <isif condition="${product.attributes && product.attributes.length}">
-            <div class="product-attributes">  <iscomment> remove class collapsible-sm and HR tag" </iscomment>
+        <iscomment>custom start: remove class collapsible-sm and HR tag" </iscomment>
+            <div class="product-attributes">  
                 <isinclude template="product/components/detailsAttributes" />
             </div>
         </isif>

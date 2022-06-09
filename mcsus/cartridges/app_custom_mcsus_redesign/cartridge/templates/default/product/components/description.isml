@@ -1,5 +1,6 @@
 <isif condition="${product.shortDescription}">
-    <div class="value content" itemprop="description"><iscomment> class remove col-12 </iscomment>
+    <iscomment> custom start: class remove col-12 </iscomment>
+    <div class="value content" itemprop="description">
         <isprint value="${product.shortDescription}" encoding="off" />
     </div>
 </isif>
