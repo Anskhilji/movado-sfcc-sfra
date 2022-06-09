@@ -54,11 +54,15 @@ $(document).ready(function() { // eslint-disable-line
     function checkForInput(element) {
         const $label = $(element).siblings('.field-label-wrapper');      
         if ($(element).val().length > 0) {
-          $label.addClass('input-has-value');
+            $label.addClass('input-has-value');
+            // $('.mx-field-wrapper .input-wrapper-checkout').each(function() {
+            //     $('.info-icon.info-icon-email').removeClass('icon-right-wrapper');
+            // });
         } else {
           $label.removeClass('input-has-value');
         }
       }
+    
       $('input.input-wrapper-checkout,select.custom-select-box').each(function() {
         checkForInput(this);
       });
@@ -74,7 +78,7 @@ $(document).ready(function() { // eslint-disable-line
      $('.submit-shipping').click(function(){
        setTimeout(() => {
             $('.mx-field-wrapper .input-wrapper-checkout.is-invalid').each(function() {
-                $('.info-icon.info-icon-email').addClass('d-none');
+                $('.info-icon.info-icon-email').addClass('icon-right-wrapper');
             });
        }, 500);
      });

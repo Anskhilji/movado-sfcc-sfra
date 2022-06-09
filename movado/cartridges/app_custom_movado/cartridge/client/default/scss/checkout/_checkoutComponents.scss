@@ -648,6 +648,7 @@ $stored-payment-spacing: rem(16);
           }
 
           .shipping-address-block {
+            position: relative;
               @include media-breakpoint-up(lg) {
                   padding-left: rem(4);
               }
@@ -663,9 +664,23 @@ $stored-payment-spacing: rem(16);
           .info-icon {
               &.info-icon-email {
                   position: absolute;
-                  right: rem(20);
-                  top: rem(10);
+                  right: rem(25);
+                  top: rem(11);
+                  .icon {
+                    background-image: url("../../images/info-icon.svg");
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    width: rem(15);
+                    height: rem(15);
+                    background-color: transparent;
+                  }
+
+                  &.icon-right-wrapper {
+                    right: rem(60);
+                    top: rem(11);
+                  }
               }
+
           }
       }
 

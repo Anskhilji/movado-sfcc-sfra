@@ -846,6 +846,12 @@ header {
         max-width: 1440px;
     }
     .checkout-content-container-inner {
+        overflow: hidden;
+        .error-space-left {
+            @include custom-media-query1440($large-screen-width1440) {
+                padding-left: rem(84);
+            }
+        }
         .left-section {
             @include custom-media-query1440($large-screen-width1440) {
                 padding: rem(0) rem(0) rem(0) rem(100);
@@ -886,6 +892,7 @@ header {
             @include custom-media-query1440($large-screen-width1440) {
                 max-width: 33.9%;
                 flex: 0 0 33.9%;
+                 padding: rem(0) rem(86);
             }
         }
         .credit-card-form-container {

@@ -45,7 +45,7 @@
         <isif condition=${addressFields.email.mandatory === true}>required</isif>
         ${addressFields.email.htmlName}">
             <span class="info-icon info-icon-email">
-                <span class="icon">i</span>
+                <span class="icon"></span>
                 <div class="tooltip">
                     ${Resource.msg('tooltip.email','creditCard',null)}
                 </div>
