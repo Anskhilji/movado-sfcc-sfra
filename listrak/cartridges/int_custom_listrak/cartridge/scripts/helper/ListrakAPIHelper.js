@@ -27,24 +27,6 @@ function getAuthTokenFromAPI(requestParams) {
     }
 }
 
-function getTransectionalAuthTokenFromAPI(requestParams) {
-    var service = ListrakCloudServiceRegistry.getTransectionalAuthorizationService(requestParams.authServiceID);
-    var params = {
-        clientID: Site.current.preferences.custom.Listrak_ClientID || '',
-        clientSecret: Site.current.preferences.custom.Listrak_ClientSecret || ''
-    }
-    var payload = RequestModel.generateAuthenticationPayLoad(params);
-    try {
-        var responsePayload = service.call(payload);
-        if (responsePayload.object) {
-            return responsePayload.object.access_token;
-        } else {
-            Logger.error('Listrak: Get Auth Token Call. Error code : {0} Error => ResponseStatus: {1} ', responsePayload.getError().toString(), responsePayload.getStatus());
-        }
-    } catch (e) {
-        Logger.error('Listrak: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
-    }
-}
 
 function getAPIService(serviceID, endpoint, accessToken, eventId, subscribe, countryCode) {
     var service = ListrakCloudServiceRegistry.getAPIService(serviceID, endpoint, eventId, subscribe, countryCode);
@@ -52,8 +34,8 @@ function getAPIService(serviceID, endpoint, accessToken, eventId, subscribe, cou
     return service;
 }
 
-function getTransectionalAPIService(serviceID, endpoint, accessToken, messageId) {
-    var service = ListrakCloudServiceRegistry.getTransectionalAPIService(serviceID, endpoint, messageId);
+function getTransactionalAPIService(serviceID, endpoint, accessToken, messageId) {
+    var service = ListrakCloudServiceRegistry.getTransactionalAPIService(serviceID, endpoint, messageId);
     service.addHeader('Authorization', 'Bearer ' + accessToken);
     return service;
 }
@@ -66,19 +48,6 @@ function getAuthToken(params) {
     }
     if (!accessToken) {
         accessToken = getAuthTokenFromAPI(params);
-        ltkHelper.saveNewAuthToken(accessToken);
-        return accessToken;
-    }
-}
-
-function getTransectionalAuthToken(params) {
-    var accessToken = null;
-    if (!params.isExpired) {
-        accessToken = ltkHelper.getSavedAuthToken();
-        return accessToken ? accessToken.custom.token : '';
-    }
-    if (!accessToken) {
-        accessToken = getTransectionalAuthTokenFromAPI(params);
         ltkHelper.saveNewAuthToken(accessToken);
         return accessToken;
     }
@@ -119,7 +88,7 @@ function addContactToLTK(params, service) {
 }
 
 function addTransectionalEmailToLTK(params, service) {
-    var transectionalEmailPayload = RequestModel.generateTransectionalEmailToLTKPayload(params);
+    var transectionalEmailPayload = RequestModel.generateTransactionalEmailToLTKPayload(params);
     var result = {
         message: Resource.msg('newsletter.signup.success', 'listrak', null),
         success: true
@@ -133,7 +102,7 @@ function addTransectionalEmailToLTK(params, service) {
 
     if (responsePayload.error == 401) {
         params.isExpired = true;
-        var accessToken = getTransectionalAuthToken(params);
+        var accessToken = getAuthToken(params);
         params.isExpired = false;
         service.addHeader('Authorization', 'Bearer ' + accessToken);
         try {
@@ -157,6 +126,5 @@ module.exports = {
     getAPIService: getAPIService,
     addContactToLTK: addContactToLTK,
     addTransectionalEmailToLTK: addTransectionalEmailToLTK,
-    getTransectionalAuthToken: getTransectionalAuthToken,
-    getTransectionalAPIService: getTransectionalAPIService
+    getTransactionalAPIService: getTransactionalAPIService
 }

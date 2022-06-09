@@ -14,14 +14,16 @@ function send(emailObj, template, context) {
     var Mail = require('dw/net/Mail');
     var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
     var Site = require('dw/system/Site');
+    var URLUtils = require('dw/web/URLUtils');
     var messageType = '';
     var messageContext = '';
     var messageId = '';
     var requestParams = {
     };
     var listrakTransactionalSwitch = Site.current.getCustomPreferenceValue('transactionalSwitch').value.toString();
-    var listrakEnabled = Site.current.getCustomPreferenceValue('Listrak_Cartridge_Enabled')
-    if (listrakEnabled && listrakTransactionalSwitch == 'Listrak') {
+    var listrakEnabled = Site.current.getCustomPreferenceValue('Listrak_Cartridge_Enabled');
+    var Constants = require('*/cartridge/scripts/utils/ListrakConstants');
+    if (listrakEnabled && listrakTransactionalSwitch == Constants.LTK_TRANSACTIONALSWITCH) {
         switch (emailObj.type) {
             case 1:
                 requestParams.messageContext = 'Account';
@@ -34,12 +36,13 @@ function send(emailObj, template, context) {
             case 2:
                 requestParams.messageContext = 'Account';
                 requestParams.messageId = Site.current.preferences.custom.Listrak_PasswordResetMessageID;
-                requestParams.passwordReset = dw.web.URLUtils.http('Account-Show');
+                requestParams.passwordReset = URLUtils.url('Account-LegacyCustomerPasswordReset').toString();
+                requestParams.email = context.email;
                 break;
             case 3:
-                    requestParams.messageContext = 'Account';
-                    requestParams.messageId = Site.current.preferences.custom.Listrak_PasswordUpdateMessageID;
-                    requestParams.passwordText = context.passwordText;
+                requestParams.messageContext = 'Account';
+                requestParams.messageId = Site.current.preferences.custom.Listrak_PasswordUpdateMessageID;
+                requestParams.passwordText = context.passwordText;
                 break;
             case 4:
                 requestParams.messageContext = 'Order';
@@ -80,6 +83,7 @@ function send(emailObj, template, context) {
                 requestParams.messageId = Site.current.preferences.custom.Listrak_AccountUpdateMessageID;
                 requestParams.firstName = context.firstName;
                 requestParams.lastName = context.lastName;
+                requestParams.email = context.email;
                 break;
             case 7:
                 requestParams.messageContext = 'Account';
@@ -107,7 +111,7 @@ function send(emailObj, template, context) {
         }
         if (!empty(requestParams.messageContext && requestParams.messageId)) {
             var ltkApi = require('*/cartridge/scripts/api/ListrakAPI');
-            ltkApi.sendTransectionalEmailToListrak(requestParams);
+            ltkApi.sendTransactionalEmailToListrak(requestParams);
         }
     } else {
         var email = new Mail();

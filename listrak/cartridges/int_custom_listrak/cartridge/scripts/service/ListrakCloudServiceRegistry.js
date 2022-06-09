@@ -49,20 +49,6 @@ function getAuthorizationServiceConfigs() {
     return serviceConfig;
 }
 
-function getTransectionalAuthorizationServiceConfigs() {
-    var serviceConfig = {
-        createRequest: function (svc, args) {
-            svc.addHeader('Content-Type', 'application/x-www-form-urlencoded');
-            svc.setRequestMethod('POST');
-            return args;
-        },
-        parseResponse: function (svc, client) {
-            return JSON.parse(client.text);
-        }
-    };
-    return serviceConfig;
-}
-
 function getAPIService(serviceID, endpoint, eventId, subscribe, countryCode) {
     var serviceConfig = null;
     serviceConfig = getDataAPIServiceConfigs();
@@ -86,7 +72,7 @@ function getAPIService(serviceID, endpoint, eventId, subscribe, countryCode) {
     return dataService;
 }
 
-function getTransectionalAPIService(serviceID, endpoint, messageId) {
+function getTransactionalAPIService(serviceID, endpoint, messageId) {
     var serviceConfig = null;
     serviceConfig = getTransactionalAPIServiceConfigs();
     var dataService = LocalServiceRegistry.createService(serviceID, serviceConfig);
@@ -106,14 +92,8 @@ function getAuthorizationService(serviceID) {
     return auhtorizationService;
 }
 
-function getTransectionalAuthorizationService(serviceID) {
-    var auhtorizationService = LocalServiceRegistry.createService(serviceID, getTransectionalAuthorizationServiceConfigs());
-    return auhtorizationService;
-}
-
 module.exports = {
     getAuthorizationService: getAuthorizationService,
     getAPIService: getAPIService,
-    getTransectionalAPIService: getTransectionalAPIService,
-    getTransectionalAuthorizationService: getTransectionalAuthorizationService
+    getTransactionalAPIService: getTransactionalAPIService
 }

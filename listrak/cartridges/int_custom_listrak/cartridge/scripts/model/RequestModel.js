@@ -50,12 +50,12 @@ function generateAddContactToLTKPayload(params) {
     return payload;
 }
 
-function generateTransectionalEmailToLTKPayload(params) {
+function generateTransactionalEmailToLTKPayload(params) {
     var payload = {
     };
     if (params.messageContext == 'Account') {
         payload = {
-            "emailAddress": params.email,
+            "emailAddress": !empty(params.email) ? params.email : '' ,
             "segmentationFieldValues": [
                 {
                     "segmentationFieldId": Site.current.preferences.custom.Listrak_Transactional_FirstName || '',
@@ -230,5 +230,5 @@ function generateTransectionalEmailToLTKPayload(params) {
 module.exports = {
     generateAuthenticationPayLoad: generateAuthenticationPayLoad,
     generateAddContactToLTKPayload: generateAddContactToLTKPayload,
-    generateTransectionalEmailToLTKPayload:generateTransectionalEmailToLTKPayload
+    generateTransactionalEmailToLTKPayload:generateTransactionalEmailToLTKPayload
 }

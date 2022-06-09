@@ -31,7 +31,7 @@ function sendSubscriberToListrak(requestParams) {
     return result;
 }
 
-function sendTransectionalEmailToListrak(requestParams) {
+function sendTransactionalEmailToListrak(requestParams) {
     var authServiceID = Constants.SERVICE_ID.LTK_AUTH;
     var serviceID = Constants.SERVICE_ID.LTK_TRANSACTIONAL;
     try {
@@ -39,7 +39,7 @@ function sendTransectionalEmailToListrak(requestParams) {
             isExpired: false,
             authServiceID: authServiceID
         }
-        var accessToken = LTKAPIHelper.getTransectionalAuthToken(params);
+        var accessToken = LTKAPIHelper.getAuthToken(params);
         var service = null;
 
         params.email = requestParams.email;
@@ -75,15 +75,15 @@ function sendTransectionalEmailToListrak(requestParams) {
         params.paymentMethod = requestParams.paymentMethod;
         params.email = requestParams.email;
         params.name = requestParams.name;
-        service = LTKAPIHelper.getTransectionalAPIService(serviceID, Constants.LTK_TRANSACTIONAL_API_ENDPOINT, accessToken, requestParams.messageId);
+        service = LTKAPIHelper.getTransactionalAPIService(serviceID, Constants.LTK_TRANSACTIONAL_API_ENDPOINT, accessToken, requestParams.messageId);
         var result = LTKAPIHelper.addTransectionalEmailToLTK(params, service);
     } catch (e) {
-        Logger.error('Listrak sendTransectionalEmailToListrak: some exception occured while sending Transectional email - {0}', e.toString());
+        Logger.error('Listrak sendTransactionalEmailToListrak: some exception occured while sending Transectional email - {0}', e.toString());
     }
     return result;
 }
 
 module.exports = {
     sendSubscriberToListrak: sendSubscriberToListrak,
-    sendTransectionalEmailToListrak: sendTransectionalEmailToListrak
+    sendTransactionalEmailToListrak: sendTransactionalEmailToListrak
 }   
