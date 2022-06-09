@@ -105,3 +105,11 @@ $(document).ready(function() {
         });
     // Custom End: MSS-1564 zoom carousel popup active on click after zoom icon on pdp
 });
+
+// added active class & scroll down on reviews widget
+$('.rating-box-redisgn .ratings').on('click', function () {
+    $('html, body').animate({
+        scrollTop: $('.pdp-bottom-rating').offset().top
+    }, 10);
+    $('html').css({'scroll-behavior':'smooth'});
+});
