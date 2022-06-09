@@ -76,9 +76,9 @@ function sendTransactionalEmailToListrak(requestParams) {
         params.email = requestParams.email;
         params.name = requestParams.name;
         service = LTKAPIHelper.getTransactionalAPIService(serviceID, Constants.LTK_TRANSACTIONAL_API_ENDPOINT, accessToken, requestParams.messageId);
-        var result = LTKAPIHelper.addTransectionalEmailToLTK(params, service);
+        var result = LTKAPIHelper.addTransactionalEmailToLTK(params, service);
     } catch (e) {
-        Logger.error('Listrak sendTransactionalEmailToListrak: some exception occured while sending Transectional email - {0}', e.toString());
+        Logger.error('Listrak sendTransactionalEmailToListrak: some exception occured while sending Transactional email - {0}', e.toString());
     }
     return result;
 }
