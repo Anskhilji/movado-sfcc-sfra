@@ -53,7 +53,7 @@ function generateAddContactToLTKPayload(params) {
 function generateTransactionalEmailToLTKPayload(params) {
     var payload = {
     };
-    if (params.messageContext == 'Account') {
+    if (params.messageContext ==  Constants.LTK_ACCOUNT_CONTEXT) {
         payload = {
             "emailAddress": !empty(params.email) ? params.email : '' ,
             "segmentationFieldValues": [
@@ -81,7 +81,7 @@ function generateTransactionalEmailToLTKPayload(params) {
         };
     }
 
-    if (params.messageContext == 'Order') {
+    if (params.messageContext == Constants.LTK_ORDER_CONTEXT) {
         payload = {
             "emailAddress": params.email,
             "segmentationFieldValues": [

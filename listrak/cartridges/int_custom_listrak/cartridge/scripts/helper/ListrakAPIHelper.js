@@ -27,7 +27,6 @@ function getAuthTokenFromAPI(requestParams) {
     }
 }
 
-
 function getAPIService(serviceID, endpoint, accessToken, eventId, subscribe, countryCode) {
     var service = ListrakCloudServiceRegistry.getAPIService(serviceID, endpoint, eventId, subscribe, countryCode);
     service.addHeader('Authorization', 'Bearer ' + accessToken);
