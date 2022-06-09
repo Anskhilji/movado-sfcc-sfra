@@ -2,9 +2,9 @@
 <isif condition="${pdict.restrictAnonymousUsersOnSalesSites == true}">
     <isif condition="${pdict.loggedIn == true}">
         <isset name="product" value="${pdict.product}" scope="page"/>
-        <isinclude template="product/components/addToCartProduct" />
+        <isinclude template="product/components/old/addToCartProduct" />
     </isif>
 <iselse>
     <isset name="product" value="${pdict.product}" scope="page"/>
-    <isinclude template="product/components/addToCartProduct" />
+    <isinclude template="product/components/old/addToCartProduct" />
 </isif>
