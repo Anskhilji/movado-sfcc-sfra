@@ -26,7 +26,7 @@ function send(emailObj, template, context) {
     if (listrakEnabled && listrakTransactionalSwitch == Constants.LTK_TRANSACTIONALSWITCH) {
         switch (emailObj.type) {
             case 1:
-                requestParams.messageContext = 'Account';
+                requestParams.messageContext = Constants.LTK_ACCOUNT_CONTEXT;
                 requestParams.messageId = Site.current.preferences.custom.Listrak_AccountCreateMessageID;
                 requestParams.firstName = context.firstName;
                 requestParams.lastName = context.lastName;
@@ -34,18 +34,18 @@ function send(emailObj, template, context) {
                 requestParams.passwordText = context.passwordText;
                 break;
             case 2:
-                requestParams.messageContext = 'Account';
+                requestParams.messageContext = Constants.LTK_ACCOUNT_CONTEXT;
                 requestParams.messageId = Site.current.preferences.custom.Listrak_PasswordResetMessageID;
                 requestParams.passwordReset = URLUtils.url('Account-LegacyCustomerPasswordReset').toString();
                 requestParams.email = context.email;
                 break;
             case 3:
-                requestParams.messageContext = 'Account';
+                requestParams.messageContext = Constants.LTK_ACCOUNT_CONTEXT;
                 requestParams.messageId = Site.current.preferences.custom.Listrak_PasswordUpdateMessageID;
                 requestParams.passwordText = context.passwordText;
                 break;
             case 4:
-                requestParams.messageContext = 'Order';
+                requestParams.messageContext = Constants.LTK_ORDER_CONTEXT;
                 requestParams.messageId = Site.current.preferences.custom.Listrak_OrderConfirmationMessageID;
                 requestParams.orderNumber = context.order.orderNumber;
                 requestParams.totalTax = context.order.totals.totalTax;
@@ -75,36 +75,36 @@ function send(emailObj, template, context) {
                 requestParams.email = context.order.orderEmail;
                 break;
             case 5:
-                requestParams.messageContext = 'Account';
+                requestParams.messageContext = Constants.LTK_ACCOUNT_CONTEXT;
                 requestParams.messageId = Site.current.preferences.custom.Listrak_AccountLockedMessageID;
                 break;
             case 6:
-                requestParams.messageContext = 'Account';
+                requestParams.messageContext = Constants.LTK_ACCOUNT_CONTEXT;
                 requestParams.messageId = Site.current.preferences.custom.Listrak_AccountUpdateMessageID;
                 requestParams.firstName = context.firstName;
                 requestParams.lastName = context.lastName;
                 requestParams.email = context.email;
                 break;
             case 7:
-                requestParams.messageContext = 'Account';
+                requestParams.messageContext = Constants.LTK_ACCOUNT_CONTEXT;
                 requestParams.messageId = Site.current.preferences.custom.Listrak_ProductShareEmailMessageID;
                 requestParams.name = context.name;
                 requestParams.email = context.friendsEmail;
                 break;
             case 11:
-                requestParams.messageContext = 'Account';
+                requestParams.messageContext = Constants.LTK_ACCOUNT_CONTEXT;
                 requestParams.messageId = Site.current.preferences.custom.Listrak_WishlistShareEmailMessageID;
                 requestParams.email = context.friendsEmail;
                 break;
             case 12:
-                requestParams.messageContext = 'Account';
+                requestParams.messageContext = Constants.LTK_ACCOUNT_CONTEXT;
                 requestParams.messageId = Site.current.preferences.custom.Listrak_ContactUsEmailMessageID;
                 requestParams.firstName = context.firstName;
                 requestParams.lastName = context.lastName;
                 requestParams.email = context.email;
                 break;
             default:
-                requestParams.messageContext = 'Order';
+                requestParams.messageContext = Constants.LTK_ORDER_CONTEXT;
                 requestParams.messageId = Site.current.preferences.custom.Listrak_OrderConfirmationMessageID;
                 requestParams.orderNumber = context.order.orderNumber;
                break; 
