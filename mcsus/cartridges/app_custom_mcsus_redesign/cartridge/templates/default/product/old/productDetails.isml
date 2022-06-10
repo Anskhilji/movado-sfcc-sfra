@@ -41,7 +41,7 @@
 
                     <div class="row">
                         <div class="col-sm-12">
-                            <isinclude template="product/components/pidRating" />
+                            <isinclude template="product/components/old/pidRating" />
                         </div>
                     </div>
 
@@ -67,7 +67,7 @@
 
                     <iscomment> <p> <span>Model:</span> <span><isprint value="${product.id}" encoding="on" /></span> </p> </iscomment>
                     <div class="d-block d-md-block d-sm-none">
-                        <isinclude template="product/components/pidRating" />
+                        <isinclude template="product/components/old/pidRating" />
                     </div>
 
                     <div class="row">
@@ -127,7 +127,7 @@
                                 <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
                                 <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
                                     <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
-                                        <div class="d-none d-md-flex"><isinclude template="product/components/smartGift" /></div>
+                                        <div class="d-none d-md-flex"><isinclude template="product/components/old/smartGift" /></div>
                                     </isif>    
                                 </isif>
                             </div>
@@ -138,13 +138,13 @@
                                 <isinclude url="${URLUtils.https('Wishlist-ShowIcon','gtmObj',JSON.stringify(pdict.wishlistGtmObj))}"/>
                                 <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
                                     <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
-                                        <div class="d-block d-md-none smartgift-medium-scr"><isinclude template="product/components/smartGift" /></div>
+                                        <div class="d-block d-md-none smartgift-medium-scr"><isinclude template="product/components/old/smartGift" /></div>
                                     </isif>
                                 </isif>
                                 <span class="product-id d-none" itemprop="productID" >${product.id}</span>
                             </div>
                             <div class="row description">
-                                <isinclude template="product/components/description" />
+                                <isinclude template="product/components/old/description" />
                             </div>
                         </div>
                         <isinclude template="product/components/moreStyles" />
@@ -161,7 +161,7 @@
         </div>
 
         <div class="container">
-            <isinclude template="product/components/descriptionAndDetails" />
+            <isinclude template="product/components/old/descriptionAndDetails" />
         </div>
 
         <isif condition="${!dw.system.Site.getCurrent().getCustomPreferenceValue('disableRecommendationsTypesOnPDP')}">

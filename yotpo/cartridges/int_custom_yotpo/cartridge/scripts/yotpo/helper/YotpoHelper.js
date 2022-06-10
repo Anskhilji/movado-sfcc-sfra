@@ -4,6 +4,8 @@ var Constants = require('int_yotpo/cartridge/scripts/yotpo/utils/Constants');
 var DeleteOrderServiceRegistry = require('~/cartridge/scripts/yotpo/serviceregistry/DeleteOrderServiceRegistry');
 var Result = require('dw/svc/Result');
 var YotpoLogger = require('int_yotpo/cartridge/scripts/yotpo/utils/YotpoLogger');
+var yotpoIntegrationHelper = require('*/cartridge/scripts/common/integrationHelper.js');
+
 
 /**
  * This function delete the order from Yotpo. It makes HTTP request and reads the response and logs it.
@@ -182,6 +184,25 @@ function updateUTokenInOrderJSON(utokenAuthCode, orderJSON) {
     return updatedOrderJSON;
 }
 
+/**
+ * this function is use to push each child yotpo review in individual child.
+ *
+ * @param {Object} yotpoConfig - JSON object of yotpo configurations
+ * @param {string} product - object
+ *
+ * @returns {Object}  individual Product Rating review
+ */
+function getIndividualRatingOrReviewsData(yotpoConfig, product) {
+    if(product.individualProducts.length > 0) {
+        var yotpoIndividualProductData = {};
+        for(var i = 0; i < product.individualProducts.length; i++) {
+            yotpoIndividualProductData = yotpoIntegrationHelper.getRatingsOrReviewsData(yotpoConfig, product.individualProducts[i].id);
+            product.individualProducts[i].yotpoIndividualProductData = yotpoIndividualProductData;
+            }
+        }
+}
+
 module.exports = {
-    deleteOrder: deleteOrder
+    deleteOrder: deleteOrder,
+    getIndividualRatingOrReviewsData: getIndividualRatingOrReviewsData
 };

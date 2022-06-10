@@ -1,0 +1,56 @@
+<div class="col-12">
+    <div class="accordion-pdp-redesign" id="accordionPdpMcs">
+        <div class="accordion-redesign">
+            <div class="accordion-redesign-heading d-flex align-items-center justify-content-between collapsed" data-toggle="collapse" data-target="#description" aria-expanded="true" aria-controls="Description">
+                <span>${Resource.msg('accordion.heading.description','products',null)}</span><span class="plus-minus"></span>
+            </div>
+
+            <div id="description" class="collapse" aria-labelledby="headingOne">
+                <div class="accordion-redesign-detail">
+                    <div class="description-redesign">
+                        <isinclude template="product/components/description" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-redesign">
+            <div class="accordion-redesign-heading d-flex align-items-center justify-content-between collapsed" data-toggle="collapse" data-target="#specification" aria-expanded="true" aria-controls="Specification">
+                <span>${Resource.msg('accordion.heading.specification','products',null)}</span><span class="plus-minus"></span>
+            </div>
+
+            <div id="specification" class="collapse" aria-labelledby="headingOne">
+                <div class="accordion-redesign-detail">
+                <isinclude template="product/components/descriptionAndDetails" />
+                </div>
+            </div>
+        </div>
+        <div class="accordion-redesign">
+            <div class="accordion-redesign-heading d-flex align-items-center justify-content-between collapsed" data-toggle="collapse" data-target="#shippingReturns" aria-expanded="true" aria-controls="ShippingReturns">
+                <span>${Resource.msg('accordion.heading.shipping.and.returns','products',null)}</span><span class="plus-minus"></span>
+            </div>
+
+            <div id="shippingReturns" class="collapse" aria-labelledby="headingOne">
+                <div class="accordion-redesign-detail">
+                <isslot id="cs-pdp-shipping-and-returns" context="global" description="Shipping & Returns" />
+                </div>
+            </div>
+        </div>
+        <div class="accordion-redesign">
+            <div class="accordion-redesign-heading d-flex align-items-center justify-content-between collapsed" data-toggle="collapse" data-target="#reviews" aria-expanded="true" aria-controls="Reviews">
+                <div class="d-flex align-items-center">
+                    <span>${Resource.msg('accordion.heading.reviews','products',null)}</span>
+                    <isinclude template="product/components/pidRating" />
+                </div>
+                <span class="plus-minus"></span>
+            </div>
+
+            <div id="reviews" class="collapse" aria-labelledby="headingOne">
+                <div class="accordion-redesign-detail">
+                        <iscomment>Yotpo reviews widget will appear here, if these needs to be relocated
+                        then appropriate template should be overridden. </iscomment>
+                        <isinclude template="widget/yotporeviewswidget" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

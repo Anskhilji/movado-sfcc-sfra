@@ -369,6 +369,7 @@ function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, 
  * MCS redesign sticky functionality on pdp
  */
  $(document).ready(function () {
+    $('.bottom-sticky-card, .top-sticky-card').addClass('scrollHidden');// both bottom and top will hidde
      var divOffsetTop = $('.prices-add-to-cart-actions .cta-add-to-cart').offset().top;
      if (!$('.prices-add-to-cart-actions .cta-add-to-cart').isOnScreen()) { // if on load ATC button is not in viewPort show ATC at bottom
          if ($(window).scrollTop() > divOffsetTop) {
@@ -759,7 +760,9 @@ function validateOptions($el) {
 var updateCartPage = function(data) {
   $('.cart-section-wrapper').html(data.cartPageHtml);
   if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
-          affirm.ui.refresh();
+        affirm.ui.ready(function() {
+            affirm.ui.refresh();
+        });
    } 
 };
 

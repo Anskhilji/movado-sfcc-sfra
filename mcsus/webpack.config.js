@@ -70,6 +70,7 @@ if (fs.existsSync(path.join(__dirname, './cartridges/app_custom_mcsus_redesign/c
         var basename = location.substr(0, location.length - (location.length - location.indexOf('.scss')));
         cssEntries[basename] = path.resolve(filename);
     });
+    
     configs.push({
         mode: 'none',
         name: 'scss',
