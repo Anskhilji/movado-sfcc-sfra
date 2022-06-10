@@ -674,13 +674,11 @@ $stored-payment-spacing: rem(16);
                     height: rem(15);
                     background-color: transparent;
                   }
-
                   &.icon-right-wrapper {
                     right: rem(60);
                     top: rem(11);
                   }
               }
-
           }
       }
 
@@ -791,6 +789,7 @@ $stored-payment-spacing: rem(16);
 
                       @include media-breakpoint-down(xs) {
                         left: rem(18.4);
+                        width: 90%;
                       }
                       &.field-select-wrapper-box {
                         left: rem(13);

@@ -94,7 +94,7 @@
             <isif condition="${sitePref.custom.enableCalloutMsgAddress1 === true}">
                 <iscontentasset aid="calloutMsgAddress1"/>
             </isif>
-            <span><input type="text" class="form-control  input-wrapper-checkout shippingAddressOne" id="shippingAddressOne" 
+            <span><input type="text" class="form-control  input-wrapper-checkout shippingAddressOne" id="shippingAddressOne" <isif condition="${enableAutoComplete}">placeholder=""</isif>
                 value="${shippingAddress.address1||''}" <isprint value="${addressFields.address1.attributes}" encoding="off"/>
                 autocomplete="shipping address-line1">
             <label class="form-control-label field-label-wrapper" for="shippingAddressOne">

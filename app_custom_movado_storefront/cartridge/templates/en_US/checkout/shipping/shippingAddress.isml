@@ -56,7 +56,7 @@
         </div>
     </div>
     <div class="form-group col-12 d-flex ${pdict.forms.billingForm.subscribetomovado.htmlName}">
-        <input autofocus type="checkbox" class="subscribeToMovado mr-2 input-wrapper-checkout" id="subscribeToMovado"
+        <input autofocus type="checkbox" class="subscribeToMovado mr-2" id="subscribeToMovado"
         <isprint value="${addressFields.subscribetomovado.attributes}" encoding="off" />> 
         <label class="form-control-label text-transform-reset" for="subscribeToMovado">
             ${Resource.msg('field.customer.subscribeTo', 'checkout', null)}

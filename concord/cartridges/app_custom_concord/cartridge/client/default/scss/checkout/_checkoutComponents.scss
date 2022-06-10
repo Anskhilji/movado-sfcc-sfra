@@ -461,20 +461,44 @@ $stored-payment-spacing: rem(16);
         box-shadow: none;
         padding: rem(0);
 
-      .card-body {
-          padding: rem(0);
+        .card-body {
+            padding: rem(0);
 
-          .shipping-address-block {
-              @include custom-media-query1440($large-screen-width1440) {
-                  max-width: rem(700);
-                  padding-left: rem(5);
-              }
-          }
-      }
+            .info-icon {
 
-      &.mb-bottom-20 {
-          margin-bottom: rem(20);
-      }
+              &.info-icon-email {
+                  position: absolute;
+                  right: rem(25);
+                  top: rem(11);
+
+                  .icon {
+                    background-image: url("../../images/info-icon.svg");
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    width: rem(15);
+                    height: rem(15);
+                    background-color: transparent;
+                  }
+
+                  &.icon-right-wrapper {
+                    right: rem(60);
+                    top: rem(11);
+                  }
+                  
+                }
+            }
+            
+            .shipping-address-block {
+                @include custom-media-query1440($large-screen-width1440) {
+                    max-width: rem(700);
+                    padding-left: rem(5);
+                }
+            }
+        }
+
+        &.mb-bottom-20 {
+            margin-bottom: rem(20);
+        }
     }
     
     .mb-bottom-20 {
