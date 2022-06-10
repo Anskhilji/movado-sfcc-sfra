@@ -39,13 +39,13 @@
                         </h2>
                         <!-- Product Name -->
                         <h2 class="product-name prdouct-name-gtm d-sm-none d-md-block text-uppercase text-center">${product.productName}</h2>
-                        
+
                         <iscomment> product rating </iscomment>
                         <div class="d-block">
                             <isinclude template="product/components/pidRating" />
                         </div>
                     </div>
-                      <iscomment> mobile family namd , name and badges end </iscomment> 
+                      <iscomment> mobile family namd , name and badges end </iscomment>
 
                 </div>
             </div>
@@ -70,13 +70,13 @@
                         </div>
                         <iscomment> product family name </iscomment>
                         <h2 class="product-family-name-redesign">
-                        <isif condition="${product.brand}">
-                            <a href="${!empty(pdict.customURL) ? pdict.customURL : ''}">${product.brand}</a>
-                        </isif>
+                            <isif condition="${product.brand}">
+                                <a href="${!empty(pdict.customURL) ? pdict.customURL : ''}">${product.brand}</a>
+                            </isif>
                         </h2>
                         <!-- Product Name -->
                         <h2 class="product-name prdouct-name-gtm d-sm-none d-md-block text-uppercase">${product.productName}</h2>
-                        
+
                         <iscomment> product rating </iscomment>
                         <iscomment> <p> <span>Model:</span> <span><isprint value="${product.id}" encoding="on" /></span> </p> </iscomment>
                         <div class="d-block d-md-block d-sm-none rating-box-redisgn">
@@ -98,13 +98,18 @@
                             <isinclude template="product/components/promotions" />
                         </div>
                     </div>
-                    
+
                      <!-- Affirm Text -->
                     <div class="affirm-redesign">
                         <isinclude url="${URLUtils.https('Product-ShowMcsAffirmText', 'pid', product.id)}"/>
                     </div>
+                     <!-- content asset promo text -->
+                    <div class="pdp-content-asset-wrapper">
+                        <isif condition="${!empty(product.pdpContentAssetHTML)}">
+                            <isprint value="${product.pdpContentAssetHTML}" encoding="off" />
+                        </isif>
+                    </div>
                     <hr class="d-block d-sm-none line-mobile mt-0">
-                    
                     <div class="row">
                         <!-- Attributes and Quantity -->
                         <div class="col-md-10 col-12 d-none">
@@ -132,7 +137,7 @@
                         <isif condition="${product.variationAttributes && product.variationAttributes.length > 0}">
                             <isinclude template="product/components/variationAttributes" />
                         </isif>
-                      
+
                         <iscomment> Custom Start: Clyde Integration </iscomment>
                             <isif condition = "${dw.system.Site.current.preferences.custom.clydeWidgetDisplay}">
                                 <div id="clyde-cta" >
@@ -148,7 +153,7 @@
                             <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
                                 <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
                                     <div class="d-flex"><isinclude template="product/components/smartGift" /></div>
-                                </isif>    
+                                </isif>
                             </isif>
                         </div>
 
@@ -160,7 +165,7 @@
                             <isinclude template="product/components/accordion" />
                         <iscomment> accordion end here </iscomment>
 
-                        
+
 
                         <div class="col-12">
                             <div class="wishlist-row row">
@@ -192,7 +197,7 @@
          <div class="container pdp-bottom-rating">
             <isinclude template="widget/yotporeviewswidget" />
         </div>
-        
+
 
         <isif condition="${!dw.system.Site.getCurrent().getCustomPreferenceValue('disableRecommendationsTypesOnPDP')}">
             <isinclude template="product/components/youMayLikeRecommendation" />
@@ -200,7 +205,7 @@
 
        <isset name="apiProduct" value="${dw.catalog.ProductMgr.getProduct(pdict.product.id)}" scope="page" />
        <isinclude template="product/components/contentAssets" />
-       
+
        <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"
                 context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}" />
 
