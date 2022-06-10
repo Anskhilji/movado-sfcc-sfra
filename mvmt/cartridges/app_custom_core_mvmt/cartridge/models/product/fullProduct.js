@@ -27,7 +27,6 @@ module.exports = function fullProduct(product, apiProduct, options) {
     var caseDiameter = productCustomHelper.getCaseDiameter(apiProduct);
     var caseDiameterRedesigned = productCustomHelper.getCaseDiameter(apiProduct, true);
     var isWatchTile = productCustomHelper.getIsWatchTile(apiProduct);
-    var pdpContentAssetHTML = productCustomHelper.getPDPContentAssetHTML(apiProduct);
     var isCategory = productCustomHelper.getProductCategory(apiProduct, product);
     var isGiftBoxAllowed = productCustomHelper.isGiftBoxAllowed(apiProduct);
     var giftBoxSKUData = productCustomHelper.getGiftBoxSKU(apiProduct);
@@ -99,14 +98,6 @@ module.exports = function fullProduct(product, apiProduct, options) {
         Object.defineProperty(product, 'seeTheFitSpecs', {
             enumerable: true,
             value: seeTheFitPopup.seeTheFitSpecs
-        });
-    }
-
-
-    if (pdpContentAssetHTML) {
-        Object.defineProperty(product, 'pdpContentAssetHTML', {
-            enumerable: true,
-            value: pdpContentAssetHTML
         });
     }
 
