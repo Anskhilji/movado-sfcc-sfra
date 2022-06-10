@@ -111,6 +111,7 @@ function sendPasswordResetEmail(email, resettingCustomer) {
         passwordResetToken: passwordResetToken,
         firstName: resettingCustomer.profile.firstName,
         lastName: resettingCustomer.profile.lastName,
+        email: email,
         url: url,
         siteURL: siteURL,
         emailHeader: (emailHeaderContent && emailHeaderContent.custom && emailHeaderContent.custom.body ? emailHeaderContent.custom.body : ''),
@@ -147,6 +148,7 @@ function sendAccountEditedEmail(profile) {
     var userObject = {
         firstName: profile.firstName,
         lastName: profile.lastName,
+        email: profile.email,
         url: URLUtils.https('Login-Show'),
         emailHeader: (emailHeaderContent && emailHeaderContent.custom && emailHeaderContent.custom.body ? emailHeaderContent.custom.body : ''),
         emailFooter: (emailFooterContent && emailFooterContent.custom && emailFooterContent.custom.body ? emailFooterContent.custom.body : '')
