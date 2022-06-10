@@ -70,7 +70,9 @@
                         </div>
                         <iscomment> product family name </iscomment>
                         <h2 class="product-family-name-redesign">
-                            <a href="#">${product.brand}</a>
+                        <isif condition="${product.brand}">
+                            <a href="${!empty(pdict.customURL) ? pdict.customURL : ''}">${product.brand}</a>
+                        </isif>
                         </h2>
                         <!-- Product Name -->
                         <h2 class="product-name prdouct-name-gtm d-sm-none d-md-block text-uppercase">${product.productName}</h2>
@@ -212,10 +214,10 @@
         </div>
         <!-- The Modal: Ends-->
         <!-- sticky ATC -->
-        <div class="top-sticky-card">
+        <div class="top-sticky-card scrollHidden">
             <isinclude template="product/components/stickyAddToCart" />
         </div>
-        <div class="bottom-sticky-card">
+        <div class="bottom-sticky-card scrollHidden">
             <isinclude template="product/components/stickyAddToCart" />
         </div>
     </isobject>

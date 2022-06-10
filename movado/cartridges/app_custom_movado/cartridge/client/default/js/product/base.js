@@ -369,15 +369,14 @@ function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, 
  * MCS redesign sticky functionality on pdp
  */
  $(document).ready(function () {
-    $('.bottom-sticky-card, .top-sticky-card').addClass('scrollHidden');// both bottom and top will hidde
      var divOffsetTop = $('.prices-add-to-cart-actions .cta-add-to-cart').offset().top;
      if (!$('.prices-add-to-cart-actions .cta-add-to-cart').isOnScreen()) { // if on load ATC button is not in viewPort show ATC at bottom
          if ($(window).scrollTop() > divOffsetTop) {
-             $('.top-sticky-card').addClass('scrollTop');
+             $('.top-sticky-card').removeClass('scrollHidden').addClass('scrollTop');
              $('.bottom-sticky-card').addClass('scrollHidden');
          } else {
              $('.top-sticky-card').addClass('scrollHidden');
-             $('.bottom-sticky-card').addClass('scrollBottom');
+             $('.bottom-sticky-card').removeClass('scrollHidden').addClass('scrollBottom');
          }
      }
      $(window).scroll(function () {
