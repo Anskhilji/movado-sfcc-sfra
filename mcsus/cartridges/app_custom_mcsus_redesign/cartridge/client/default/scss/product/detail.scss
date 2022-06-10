@@ -584,20 +584,44 @@
 }
 
 // check-scroll sticky-prodct-cart-redesign start
-.sticky-container-redesign {
-    padding: rem(0) rem(32);
+.top-sticky-card {
     position: fixed;
     left: rem(0);
     right: rem(0);
     background-color: $white;
     z-index: 1020;
+    transition: all 0.4s;
+    transform: translateY(-100px);
+    top: rem(125);
     &.scrollTop{
-        top: rem(0);
+        top: rem(125);
+        transform: translateY(0);
+        transition: all 0.4s;
     }
+}
+.scrollHidden{
+        visibility: hidden;
+        transition: all 0.4s;
+        opacity: 0;
+    }
+.bottom-sticky-card {
+    position: fixed;
+    left: rem(0);
+    right: rem(0);
+    background-color: $white;
+    z-index: 1020;
+    transition: all 0.4s;
+    transform: translateY(100px);
+    bottom: 0;
     &.scrollBottom{
         bottom: rem(0);
+        transform: translateY(0);
+        transition: all 0.4s;
     }
-
+    
+}
+.sticky-container-redesign {
+    padding: rem(0) rem(32);
     @include media-breakpoint-down(sm) {
         padding: rem(0) rem(20);
     }

@@ -114,7 +114,7 @@
                                 </div>
                             </isif>
                         <iscomment> Custom End: </iscomment>
-                        <div class="col-12 prices-add-to-cart-actions">
+                        <div class="col-12 prices-add-to-cart-actions position-static">
                             <!-- Prices -->
                             <div class="prices">
                                 <isset name="price" value="${product.price}" scope="page" />
@@ -184,7 +184,11 @@
         </div>
         <!-- The Modal: Ends-->
         <!-- sticky ATC -->
-        <isinclude template="product/components/stickyAddToCart" />
-
+        <div class="top-sticky-card">
+            <isinclude template="product/components/stickyAddToCart" />
+        </div>
+        <div class="bottom-sticky-card">
+            <isinclude template="product/components/stickyAddToCart" />
+        </div>
     </isobject>
 </isdecorate>
