@@ -1,9 +1,11 @@
 <isif condition="${product.shortDescription}">
-    <div class="col-12">
+    <div class="col-12 d-none">
         <h3 class="description-heading">${Resource.msg('product.attribute.description.heading','product',null)}</h3>
     </div>
     <div class="col-12 value content" itemprop="description">
-        <isprint value="${product.shortDescription}" encoding="off" />
+       <div class="pdp-short-detail">
+            <isprint value="${product.shortDescription}" encoding="off" />
+       </div>
     </div>
 </isif>
 

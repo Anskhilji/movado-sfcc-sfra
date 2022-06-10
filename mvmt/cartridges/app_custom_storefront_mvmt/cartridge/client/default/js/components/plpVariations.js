@@ -92,7 +92,6 @@ module.exports = function () {
             $productContainer.find('.product-brand-info .case-diameter').text(response.product.caseDiameterRedesigned);
         }
 
-
         //update product gtm data
         var $gtmClikObject = $imageContainer.data('gtm-product');
         if ($gtmClikObject) {
