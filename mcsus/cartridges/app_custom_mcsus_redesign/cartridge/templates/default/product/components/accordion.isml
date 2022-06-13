@@ -35,22 +35,24 @@
                 </div>
             </div>
         </div>
-        <div class="accordion-redesign">
-            <div class="accordion-redesign-heading d-flex align-items-center justify-content-between collapsed" data-toggle="collapse" data-target="#reviews" aria-expanded="true" aria-controls="Reviews">
-                <div class="d-flex align-items-center">
-                    <span>${Resource.msg('accordion.heading.reviews','products',null)}</span>
-                    <isinclude template="product/components/pidRating" />
+        <isif condition="${pdict.yotpoWidgetData.isReviewEnabled}">
+            <div class="accordion-redesign">
+                <div class="accordion-redesign-heading d-flex align-items-center justify-content-between collapsed" data-toggle="collapse" data-target="#reviews" aria-expanded="true" aria-controls="Reviews">
+                    <div class="d-flex align-items-center">
+                        <span>${Resource.msg('accordion.heading.reviews','products',null)}</span>
+                        <isinclude template="product/components/pidRating" />
+                    </div>
+                    <span class="plus-minus"></span>
                 </div>
-                <span class="plus-minus"></span>
-            </div>
 
-            <div id="reviews" class="collapse" aria-labelledby="headingOne">
-                <div class="accordion-redesign-detail">
-                        <iscomment>Yotpo reviews widget will appear here, if these needs to be relocated
-                        then appropriate template should be overridden. </iscomment>
-                        <isinclude template="widget/yotporeviewswidget" />
+                <div id="reviews" class="collapse" aria-labelledby="headingOne">
+                    <div class="accordion-redesign-detail">
+                            <iscomment>Yotpo reviews widget will appear here, if these needs to be relocated
+                            then appropriate template should be overridden. </iscomment>
+                            <isinclude template="widget/yotporeviewswidget" />
+                    </div>
                 </div>
             </div>
-        </div>
+            </isif>
     </div>
 </div>

@@ -100,7 +100,6 @@
                             <isinclude template="product/components/promotions" />
                         </div>
                     </div>
-
                      <!-- Affirm Text -->
                     <div class="affirm-redesign">
                         <isinclude url="${URLUtils.https('Product-ShowMcsAffirmText', 'pid', product.id)}"/>
@@ -139,7 +138,6 @@
                         <isif condition="${product.variationAttributes && product.variationAttributes.length > 0}">
                             <isinclude template="product/components/variationAttributes" />
                         </isif>
-
                         <iscomment> Custom Start: Clyde Integration </iscomment>
                             <isif condition = "${dw.system.Site.current.preferences.custom.clydeWidgetDisplay}">
                                 <div id="clyde-cta" >
@@ -152,11 +150,11 @@
                                 <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id, 'isRedesign', true)}"/>
                             </div>
 
-                            <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
+                            <iscomment> <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
                                 <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
                                     <div class="d-flex"><isinclude template="product/components/smartGift" /></div>
-                                </isif>
-                            </isif>
+                                </isif>    
+                            </isif> </iscomment>
                         </div>
 
                         <div class="wishlist-row">
@@ -166,7 +164,6 @@
                         <iscomment> accordion start here </iscomment>
                             <isinclude template="product/components/accordion" />
                         <iscomment> accordion end here </iscomment>
-
 
 
                         <div class="col-12">
@@ -198,8 +195,9 @@
         <iscomment> product detail redesign section end here </iscomment>
          <div class="container pdp-bottom-rating">
             <isinclude template="widget/yotporeviewswidget" />
+            <hr>
         </div>
-
+        
 
         <isif condition="${!dw.system.Site.getCurrent().getCustomPreferenceValue('disableRecommendationsTypesOnPDP')}">
             <isinclude template="product/components/youMayLikeRecommendation" />

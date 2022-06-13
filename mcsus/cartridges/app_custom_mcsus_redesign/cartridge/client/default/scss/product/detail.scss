@@ -871,6 +871,8 @@
                             height: rem(129);
                             margin: rem(0) rem(20);
                             border: rem(1.5) solid transparent;  
+                            cursor: pointer;
+                            background-color: $light-grey6;
                             @include media-breakpoint-down(md) {
                                 width: rem(95) !important;
                                 height: rem(95);
@@ -878,10 +880,10 @@
                             @include media-breakpoint-down(sm) {
                                 width: rem(52) !important;
                                 height: rem(52);
-                                margin: rem(0) rem(10);
+                                margin: rem(0) rem(5);
                             }
 
-                            &.slick-center {
+                            &.slick-center,&.slick-current {
                                 border-color: $black;
                             }
                         }
@@ -1094,7 +1096,7 @@
                                         font-size: rem(13);
                                         letter-spacing: 0;
                                         line-height: rem(25);
-                                        margin-left: rem(5);
+                                        margin-left: rem(7);
                                     }
                                 }
                             }
@@ -1136,11 +1138,12 @@
                                         line-height: rem(16);
                                         display: inline-block;
                                         margin-right: rem(10);
+                                        font-weight: 400;
                                     }
                                 }
 
                                 .sale-price-mvmt {
-                                    color: $black3;
+                                    color: $light-black1;
                                     font-family: $font-medium;
                                     font-size: rem(36);
                                     font-weight: 600;
@@ -1200,6 +1203,7 @@
                                 display: inline-block;
                                 text-transform: capitalize;
                                 padding: rem(0);
+                                color: $black;
                             }
                         }
                     }
