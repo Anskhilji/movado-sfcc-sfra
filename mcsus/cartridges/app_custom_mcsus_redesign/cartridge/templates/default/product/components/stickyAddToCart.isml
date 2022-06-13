@@ -5,7 +5,7 @@
                      <picture>
                         <source media="(min-width: 992px)" srcset="${!empty(product.images) && !empty(product.images['pdp700']) && !empty(product.images['pdp700'][0]) && !empty(product.images['pdp700'][0].url ) ? product.images.pdp700[0].url : ''}" />
                         <source media="(max-width: 991px)" srcset="${!empty(product.images) && !empty(product.images['pdp700']) && !empty(product.images['pdp700'][0]) && !empty(product.images['pdp700'][0].url ) ? product.images.pdp700[0].url : ''}" />
-                        <img src="${product.images.pdp700[0].url}" itemprop="image" data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom830) && !empty(product.images.zoom830[0]) && !empty(product.images.zoom830[0].url) ? product.images.zoom830[0].url : ''}" data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1660) && !empty(product.images.zoom1660[0]) && !empty(product.images.zoom1660[0].url) ? product.images.zoom1660[0].url : ''}" />
+                        <img src="${!empty(product.images) && !empty(product.images['pdp700']) && !empty(product.images['pdp700'][0]) && !empty(product.images['pdp700'][0].url ) ? product.images.pdp700[0].url : ''}" itemprop="image" data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom830) && !empty(product.images.zoom830[0]) && !empty(product.images.zoom830[0].url) ? product.images.zoom830[0].url : ''}" data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1660) && !empty(product.images.zoom1660[0]) && !empty(product.images.zoom1660[0].url) ? product.images.zoom1660[0].url : ''}" />
                         <isset name="isImageExist" value="true" scope="page" />
                     </picture>
                 </div>
@@ -22,7 +22,6 @@
                 <div class="cta-add-to-cart">
                     <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}">
                     <button class='add-to-cart btn btn-primary mr-0 d-flex align-items-center justify-content-between <isif condition="${product.isProductRestricted}">d-none</isif>' data-pid="${product.id}" ${!product.readyToOrder ? "disabled" : ""}>
-                        <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>
                         <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
                             ${Resource.msg('button.preorder.now', 'common', null)} </br>
                         <iselse/>
