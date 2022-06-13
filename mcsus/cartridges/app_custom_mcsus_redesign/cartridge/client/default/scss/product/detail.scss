@@ -700,6 +700,8 @@
                 font-size: rem(16);
                 font-weight: 400;
                 letter-spacing: rem(1.14);
+                padding-left: rem(20);
+                padding-right: rem(20);
                 @include media-breakpoint-down(sm) {
                     width: rem(250);
                     margin-bottom: rem(0);
@@ -707,6 +709,8 @@
 
                 @include media-breakpoint-down(xs) {
                     width: 100%;
+                    padding-left: rem(23);
+                    padding-right: rem(16);
                 }
                 .price-pdp-mvmt {
 
