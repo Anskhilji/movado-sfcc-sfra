@@ -369,35 +369,35 @@ function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, 
  * MCS redesign sticky functionality on pdp
  */
  $(document).ready(function () {
-     var $divOffsetTop = $('.prices-add-to-cart-actions .cta-add-to-cart').offset().top;
-     if (!$('.prices-add-to-cart-actions .cta-add-to-cart').isOnScreen()) { // if on load ATC button is not in viewPort show ATC at bottom
+     var $divOffsetTop = $('.prices-add-to-cart-redesign .cta-add-to-cart').offset().top;
+     if (!$('.prices-add-to-cart-redesign .cta-add-to-cart').isOnScreen()) { // if on load ATC button is not in viewPort show ATC at bottom
          if ($(window).scrollTop() > $divOffsetTop) {
-             $('.top-sticky-card').removeClass('scrollHidden').addClass('scrollTop');
-             $('.bottom-sticky-card').addClass('scrollHidden');
+             $('.top-sticky-card').removeClass('scroll-hidden').addClass('scroll-top');
+             $('.bottom-sticky-card').addClass('scroll-hidden');
          } else {
-             $('.top-sticky-card').addClass('scrollHidden');
-             $('.bottom-sticky-card').removeClass('scrollHidden').addClass('scrollBottom');
+             $('.top-sticky-card').addClass('scroll-hidden');
+             $('.bottom-sticky-card').removeClass('scroll-hidden').addClass('scroll-bottom');
          }
      }
      $(window).scroll(function () {
          if ($(window).width() > 543) {
              var $scrollDistance = $(window).scrollTop();
-             var $addToCatViewPort = $('.prices-add-to-cart-actions .cta-add-to-cart').isOnScreen();
+             var $addToCatViewPort = $('.prices-add-to-cart-redesign .cta-add-to-cart').isOnScreen();
 
              if ($addToCatViewPort) { // check if  button is on screen
-                 $('.bottom-sticky-card, .top-sticky-card').addClass('scrollHidden');// both bottom and top will hidde
+                 $('.bottom-sticky-card, .top-sticky-card').addClass('scroll-hidden');// both bottom and top will hidde
              } else {
                  if ($scrollDistance > $divOffsetTop) { // top sticky will be active
-                     $('.top-sticky-card').removeClass('scrollHidden').addClass('scrollTop');
-                     $('.bottom-sticky-card').addClass('scrollHidden');
+                     $('.top-sticky-card').removeClass('scroll-hidden').addClass('scroll-top');
+                     $('.bottom-sticky-card').addClass('scroll-hidden');
                  } else { // bottom sticky will be active
-                     $('.bottom-sticky-card').removeClass('scrollHidden').addClass('scrollBottom');
-                     $('.top-sticky-card').addClass('scrollHidden');
+                     $('.bottom-sticky-card').removeClass('scroll-hidden').addClass('scroll-bottom');
+                     $('.top-sticky-card').addClass('scroll-hidden');
                  }
              }
          } else { // mobile case
-            $('.top-sticky-card').addClass('scrollHidden')//top scroll button  will forever hide in mobile case
-             $('.prices-add-to-cart-actions .cta-add-to-cart').isOnScreen() ? $('.bottom-sticky-card').addClass('scrollHidden') : $('.bottom-sticky-card').removeClass('scrollHidden').addClass('scrollBottom');
+            $('.top-sticky-card').addClass('scroll-hidden')//top scroll button  will forever hide in mobile case
+             $('.prices-add-to-cart-redesign .cta-add-to-cart').isOnScreen() ? $('.bottom-sticky-card').addClass('scroll-hidden') : $('.bottom-sticky-card').removeClass('scroll-hidden').addClass('scroll-bottom');
          }
      });
  });

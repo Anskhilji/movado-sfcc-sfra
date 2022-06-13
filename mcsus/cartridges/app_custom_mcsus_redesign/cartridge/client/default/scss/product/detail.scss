@@ -595,7 +595,7 @@
     transform: translateY(-100px);
     top: rem(125);
 
-    &.scrollTop {
+    &.scroll-top {
         top: rem(125);
         transform: translateY(0);
         transition: all 0.4s;
@@ -605,7 +605,7 @@
     }
 }
 
-.scrollHidden {
+.scroll-hidden {
     visibility: hidden;
     transition: all 0.4s;
     opacity: 0;
@@ -621,7 +621,7 @@
     transform: translateY(100px);
     bottom: 0;
 
-    &.scrollBottom {
+    &.scroll-bottom {
         bottom: rem(0);
         transform: translateY(0);
         transition: all 0.4s;

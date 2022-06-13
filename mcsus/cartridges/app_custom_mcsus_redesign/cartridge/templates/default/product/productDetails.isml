@@ -209,10 +209,10 @@
         </div>
         <!-- The Modal: Ends-->
         <!-- sticky ATC -->
-        <div class="top-sticky-card scrollHidden">
+        <div class="top-sticky-card scroll-hidden">
             <isinclude template="product/components/stickyAddToCart" />
         </div>
-        <div class="bottom-sticky-card scrollHidden">
+        <div class="bottom-sticky-card scroll-hidden">
             <isinclude template="product/components/stickyAddToCart" />
         </div>
     </isobject>
