@@ -73,7 +73,7 @@
                             <a href="#">${product.brand}</a>
                         </h2>
                         <!-- Product Name -->
-                        <h2 class="product-name prdouct-name-gtm d-sm-none d-md-block text-uppercase">${product.productName}</h2>
+                        <h2 class="product-name prdouct-name-gtm d-sm-none d-md-block">${product.productName}</h2>
                         
                         <iscomment> product rating </iscomment>
                         <iscomment> <p> <span>Model:</span> <span><isprint value="${product.id}" encoding="on" /></span> </p> </iscomment>
@@ -143,11 +143,11 @@
                                 <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id, 'isRedesign', true)}"/>
                             </div>
 
-                            <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
+                            <iscomment> <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
                                 <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
                                     <div class="d-flex"><isinclude template="product/components/smartGift" /></div>
                                 </isif>    
-                            </isif>
+                            </isif> </iscomment>
                         </div>
 
                         <div class="wishlist-row">
@@ -189,6 +189,7 @@
         <iscomment> product detail redesign section end here </iscomment>
          <div class="container pdp-bottom-rating">
             <isinclude template="widget/yotporeviewswidget" />
+            <hr>
         </div>
         
 

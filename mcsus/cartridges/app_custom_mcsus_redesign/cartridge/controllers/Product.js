@@ -179,4 +179,32 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
    next();
 }, pageMetaData.computedPageMetaData);
 
+server.replace('ShowCartButton', function (req, res, next) {
+    var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
+    var smartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
+    var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
+    var smartGift = smartGiftHelper.getSmartGiftCardBasket(showProductPageHelperResult.product.id);
+    var smartGiftAddToCartURL = Site.current.preferences.custom.smartGiftURL + showProductPageHelperResult.product.id;
+    var isRedesign = req.querystring.isRedesign;
+    var template;
+    res.setViewData(smartGift);
+
+    if (isRedesign) {
+        template = 'product/components/showCartButtonProduct'
+    } else {
+        template = 'product/components/old/showCartButtonProduct'
+    }
+
+    res.render(template, {
+        product: showProductPageHelperResult.product,
+        addToCartUrl: showProductPageHelperResult.addToCartUrl,
+        isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
+        loggedIn: req.currentCustomer.raw.authenticated,
+        restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites,
+        ecommerceFunctionalityEnabled : Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled,
+        smartGiftAddToCartURL : smartGiftAddToCartURL
+    });
+    next();
+});
+
 module.exports = server.exports();
