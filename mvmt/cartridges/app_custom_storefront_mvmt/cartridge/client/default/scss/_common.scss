@@ -538,7 +538,7 @@ div {
     
     &.yotpo {
     
-        &.bottomLine {
+        &.bottomLine, &.yotpoBottomLine {
     
             .star-clickable {
                 animation-duration: 0.01s;

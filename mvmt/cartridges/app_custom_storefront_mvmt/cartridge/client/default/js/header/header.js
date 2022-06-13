@@ -157,6 +157,7 @@ document.addEventListener('animationstart', function (event) {
         var $reviews = $('.total-reviews-search').attr('total-reviews-search');
         if ($reviews < Resources.YOTPO_REVIEW_COUNT) {
             $(".yotpo.bottomLine").remove();
+            $(".yotpo.yotpoBottomLine").remove();
             $(".yotpo-main-widget").remove();
             $('.pdp-tab-button[data-tab="Reviews"]').remove();
             $(".pdp-tab-content.Reviews").remove();

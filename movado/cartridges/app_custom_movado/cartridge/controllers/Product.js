@@ -65,9 +65,6 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var strapGuideContent = ContentMgr.getContent('strap-guide-text-configs');
     var strapGuideText = strapGuideContent && strapGuideContent.custom.body ? strapGuideContent.custom.body : '';
 
-
-   
-
     /* get recommendations for product*/
     if (product) {
         product = productMgr.getProduct(product.id);

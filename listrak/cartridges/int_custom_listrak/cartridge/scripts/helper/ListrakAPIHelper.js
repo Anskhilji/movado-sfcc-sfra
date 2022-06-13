@@ -33,6 +33,12 @@ function getAPIService(serviceID, endpoint, accessToken, eventId, subscribe, cou
     return service;
 }
 
+function getTransactionalAPIService(serviceID, endpoint, accessToken, messageId) {
+    var service = ListrakCloudServiceRegistry.getTransactionalAPIService(serviceID, endpoint, messageId);
+    service.addHeader('Authorization', 'Bearer ' + accessToken);
+    return service;
+}
+
 function getAuthToken(params) {
     var accessToken = null;
     if (!params.isExpired) {
@@ -45,6 +51,7 @@ function getAuthToken(params) {
         return accessToken;
     }
 }
+
 function addContactToLTK(params, service) {
     var allSubscriberPayload = RequestModel.generateAddContactToLTKPayload(params);
     var result = {
@@ -79,8 +86,44 @@ function addContactToLTK(params, service) {
     return result;
 }
 
+function addTransactionalEmailToLTK(params, service) {
+    var transactionalEmailPayload = RequestModel.generateTransactionalEmailToLTKPayload(params);
+    var result = {
+        message: Resource.msg('newsletter.signup.success', 'listrak', null),
+        success: true
+    }
+    var responsePayload = null;
+    try {
+        responsePayload = service.call(transactionalEmailPayload);
+    } catch (e) {
+        Logger.error('Listrak addTransactionalEmailToLTK: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
+    }
+
+    if (responsePayload.error == 401) {
+        params.isExpired = true;
+        var accessToken = getAuthToken(params);
+        params.isExpired = false;
+        service.addHeader('Authorization', 'Bearer ' + accessToken);
+        try {
+            responsePayload = service.call(transactionalEmailPayload);
+        } catch (e) {
+            Logger.error('Listrak addTransactionalEmailToLTK: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
+        }
+
+    }
+
+    if (!responsePayload.object && responsePayload.error) {
+        result.message = Resource.msg('listrak.error.msg', 'listrak', null);
+        Logger.error('Listrak addTransactionalEmailToLTK: {0}', responsePayload.errorMessage.tostring());
+        result.success = false;
+    }
+    return result;
+}
+
 module.exports = {
     getAuthToken: getAuthToken,
     getAPIService: getAPIService,
-    addContactToLTK: addContactToLTK
+    addContactToLTK: addContactToLTK,
+    addTransactionalEmailToLTK: addTransactionalEmailToLTK,
+    getTransactionalAPIService: getTransactionalAPIService
 }

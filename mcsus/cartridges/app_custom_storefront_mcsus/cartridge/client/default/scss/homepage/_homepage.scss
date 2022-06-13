@@ -222,7 +222,7 @@
             }
 
             .yotpo {
-               &.bottomLine {
+               &.bottomLine, &.yotpoBottomLine {
                 .yotpo-display-wrapper {
                     .yotpo-bottomline {
                         margin-bottom: rem(10); 
