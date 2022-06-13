@@ -708,9 +708,13 @@ header {
 }
 
 header {
+
     .checkout-header {
+
         .header-menu-wrapper {
+
             .checkout-header-wrapper {
+                
                 .align-start-box {
                     @include media-breakpoint-up(xl) {
                         justify-content: flex-start;

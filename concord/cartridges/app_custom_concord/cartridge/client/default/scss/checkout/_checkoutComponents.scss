@@ -456,6 +456,7 @@ $stored-payment-spacing: rem(16);
 }
 
 .data-checkout-stage {
+
     .card-border-none {
         border: none;
         box-shadow: none;
@@ -499,16 +500,17 @@ $stored-payment-spacing: rem(16);
             }
         }
 
-        &.mb-bottom-20 {
+        &.card-bottom-space {
             margin-bottom: rem(20);
         }
     }
     
-    .mb-bottom-20 {
+    .card-bottom-space {
         margin-bottom: rem(20);
     }
 
     .field-left {
+
         &.mx-field-wrapper {
             @include custom-media-query1440($large-screen-width1440) {
                 padding: rem(0) rem(10);
@@ -520,16 +522,18 @@ $stored-payment-spacing: rem(16);
         @include custom-media-query1440($large-screen-width1440) {
             padding: rem(0) rem(10);
         }
+
         .form-group {
             margin-bottom: rem(20);
 
             @include media-breakpoint-down(xs) {
                 margin-bottom: rem(15);
-            }          
+            }        
         }
     }
 
     .field-right {
+
         &.mx-field-wrapper {
             @include custom-media-query1440($large-screen-width1440) {
                 padding: rem(0) rem(10);
@@ -537,8 +541,10 @@ $stored-payment-spacing: rem(16);
         }
     }
 
-    .form-group {     
+    .form-group {
+
       .form-control-label {
+
         &.field-label-wrapper {
           color: $grey8;
           font-size: rem(13);
@@ -547,12 +553,13 @@ $stored-payment-spacing: rem(16);
           line-height: rem(20);
         }
       }
+
         .form-control {
+
             &.input-wrapper-checkout {
                 height: rem(45);
                 border: rem(1) solid $grey16;
                 border-radius: rem(3);
-                color: $grey6;
                 font-size: rem(13);
                 font-weight: 500;
                 letter-spacing: rem(0.7);
@@ -563,6 +570,7 @@ $stored-payment-spacing: rem(16);
               &:focus {
                   border-color: $black;
                   box-shadow: none;
+
                 + .field-label-wrapper {
                     transition: 0.2s ease-in-out;
                     top: 0;
@@ -585,15 +593,15 @@ $stored-payment-spacing: rem(16);
                     left: rem(15);
                   }
             
-                  + .field-label-wrapper-card1 {
+                  + .field-label-wrapper-card-1 {
                       left: rem(24);
                     }
             
-                  + .field-label-wrapper-card2 {
+                  + .field-label-wrapper-card-2 {
                       left: rem(15);
                     }
                   
-                  + .field-label-wrapper-card3 {
+                  + .field-label-wrapper-card-3 {
                       left: rem(24);
                     }
               }
@@ -609,6 +617,7 @@ $stored-payment-spacing: rem(16);
                     border-color: $black;
                     box-shadow: none;
                 }
+
                 + i {
                     top: rem(14);
                 }
@@ -625,7 +634,6 @@ $stored-payment-spacing: rem(16);
             pointer-events: none;
             text-transform: capitalize;
 
-
           &.input-has-value {
               transition: 0.2s ease-in-out;
               top: 0;
@@ -639,60 +647,64 @@ $stored-payment-spacing: rem(16);
               width: 100%;
               pointer-events: none;
           }
+
           &.field-select-wrapper-box {
-            left: rem(16);
+              left: rem(16);
+            
             &.input-has-value {
-              left: rem(13);
+                left: rem(13);
             }
           }
           
           &.field-label-wrapper-card {
-            left: rem(15);
+              left: rem(15);
 
             &.input-has-value {
                 left: rem(15);
             }
-        }
-
-        &.field-label-wrapper-card1 {
-            left: rem(24);
-
-            &.input-has-value {
-                left: rem(24);
-            }
-        }
-
-        &.field-label-wrapper-card2 {
-            left: rem(15);
-            &.input-has-value {
-              left: rem(15);
           }
-        }
-      
-        &.field-label-wrapper-card3 {
-            left: rem(24);
-            
-            &.input-has-value {
-                left: rem(24);
+
+          &.field-label-wrapper-card-1 {
+              left: rem(24);
+
+              &.input-has-value {
+                  left: rem(24);
+              }
+          }
+
+          &.field-label-wrapper-card-2 {
+              left: rem(15);
+
+              &.input-has-value {
+                  left: rem(15);
             }
-        }
-
-
+          }
+      
+          &.field-label-wrapper-card-3 {
+              left: rem(24);
+              
+              &.input-has-value {
+                  left: rem(24);
+              }
+          }
         }
 
         &.required {
-          .form-control-label {
-            &.field-label-wrapper {
-              &::before {
-                content: "";
-                color: transparent;
-              }
-              &::after {
-                content: "*";
-                color: $grey15;
-              }
+
+            .form-control-label {
+
+                &.field-label-wrapper {
+                    &::before {
+                      content: "";
+                      color: transparent;
+                    }
+                  
+                    &::after {
+                      content: "*";
+                      color: $grey15;
+                    }
+                }
             }
-          }
         }
     }
 

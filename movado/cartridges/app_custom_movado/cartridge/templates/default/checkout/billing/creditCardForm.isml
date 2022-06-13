@@ -36,7 +36,7 @@
 	<div class="col-12 mx-field-wrapper">
 		<div class="form-group required ${creditFields.cardOwner.htmlName}">            
 			<input type="text" pattern="^[a-z|A-Z]+(?: [a-z|A-Z]+)*$" class="form-control holderName creditcard-holdername input-wrapper-checkout" id="holderName" data-encrypted-name="holderName" ${creditFields.cardOwner.attributes}   />
-			<label class="form-control-label field-label-wrapper field-label-wrapper-card1" for="holderName">${Resource.msg('field.credit.card.holderName','creditCard',null)}</label>
+			<label class="form-control-label field-label-wrapper field-label-wrapper-card-1" for="holderName">${Resource.msg('field.credit.card.holderName','creditCard',null)}</label>
 			<div class="invalid-feedback">${Resource.msg('error.card.holderName','creditCard',null)}</div>
 		</div>
 	</div>
@@ -48,7 +48,7 @@
 			<input inputmode="numeric" type="text" class="form-control expirationDate input-wrapper-checkout"
 				id="expirationDate">				
 			</input>
-			<label class="form-control-label field-label-wrapper field-label-wrapper-card2" for="expirationMonth">${Resource.msg('field.credit.card.expiration.month','creditCard',null)}</label>
+			<label class="form-control-label field-label-wrapper field-label-wrapper-card-2" for="expirationMonth">${Resource.msg('field.credit.card.expiration.month','creditCard',null)}</label>
 			<div class="invalid-feedback">${Resource.msg('error.credit.card.expiry','creditCard',null)}</div>
 		</div>
 	</div>
@@ -58,7 +58,7 @@
 				<div class="tooltip"> ${Resource.msg('tooltip.security.code','creditCard',null)}</div>
 			</span> </iscomment>
 			 <input inputmode="numeric" type="password" class="form-control securityCode creditcard-securitycode input-wrapper-checkout" id="securityCode" data-encrypted-name="cvc" maxlength="3">
-			 <label class="form-control-label field-label-wrapper field-label-wrapper-card3" for="securityCode">${Resource.msg('field.credit.card.security.code','creditCard',null)}</label>
+			 <label class="form-control-label field-label-wrapper field-label-wrapper-card-3" for="securityCode">${Resource.msg('field.credit.card.security.code','creditCard',null)}</label>
 			<div class="invalid-feedback security-code">${Resource.msg('error.credit.card.security.code.validate','creditCard',null)}</div>
 		</div>
 	</div>

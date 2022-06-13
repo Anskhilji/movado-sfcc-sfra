@@ -12,7 +12,7 @@
 </div>
 
 <div class="card payment-form card-border-none">
-    <div class="card-header card-border-none mb-bottom-20">
+    <div class="card-header card-border-none card-bottom-space">
         <h4 class="heading-content-label">${Resource.msg('heading.payment', 'checkout', null)}</h4>
     </div>
     <div class="card-body">

@@ -815,6 +815,7 @@ header {
 .container-custom-inner-box {
     max-width: 1440px;
 }
+
 .checkout-content-container-inner {
     
     .left-section {
@@ -823,18 +824,23 @@ header {
             max-width: 66.1%;
             flex: 0 0 66.1%;
         }
+
         .mx-shipping-box {
             @include custom-media-query1440($large-screen-width1440) {
                 max-width: rem(700);
             }
         }
+
         .shipping-summary {
             max-width: rem(700);
         }
+
         .payment-form {
             max-width: rem(700);
         }
+
     }
+
     .right-section {
         @include custom-media-query1440($large-screen-width1440) {
             max-width: 33.9%;
@@ -849,34 +855,44 @@ header {
     }
 }
 #mainContent {
+
     .data-checkout-stage {
+
         &.mvmt-checkout {
+
             .checkout-content {
                 @include media-breakpoint-up(md) {
                     max-width: rem(972);
                 }
+
                 @include media-breakpoint-up(lg) {
                     max-width: 100%;
                     padding-left: rem(60);
-                  }
-                  @include media-breakpoint-up(xl) {
-                    max-width: 89.5%;
-                    margin: auto;
-                    padding-left: rem(0);
-                  }
-                  @include custom-media-query1440($large-screen-width1440) {
-                    max-width: rem(1440);
-                    padding: rem(0) rem(15);
-                  }
+                }
+
+                @include media-breakpoint-up(xl) {
+                max-width: 89.5%;
+                margin: auto;
+                padding-left: rem(0);
+                }
+                
+                @include custom-media-query1440($large-screen-width1440) {
+                max-width: rem(1440);
+                padding: rem(0) rem(15);
+                }
             }
-            .form-group { 
+
+            .form-group {
+
                 .input-wrapper-checkout {
                     padding: rem(16) rem(12) rem(6) rem(12);
+
                     &:focus {
                         padding: rem(16) rem(12) rem(6) rem(12);
                     }
                 }    
                 .custom-select {
+
                     &.custom-select-box {
                         padding: rem(14) rem(38) rem(9) rem(10);
     
@@ -886,6 +902,7 @@ header {
                             border-width: rem(1);
                             padding: rem(14) rem(38) rem(9) rem(10);
                         }
+
                         &:not([size]):not([multiple]) {
                             height: rem(45);
                             color: $gray1;
@@ -904,7 +921,9 @@ header {
             }
         }
         .card-border-none {
+
             .card-body {
+                
                 .billing-address {
                     @include media-breakpoint-up(md) {
                         padding: rem(0) rem(5);

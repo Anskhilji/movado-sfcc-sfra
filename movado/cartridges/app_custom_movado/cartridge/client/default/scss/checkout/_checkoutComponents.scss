@@ -586,17 +586,21 @@ $stored-payment-spacing: rem(16);
 }
 
 .data-checkout-stage {
+
   .checkout-content-container-inner {
+
     .left-section {
       @include media-breakpoint-up(md) {
         padding-right: rem(15);
       }
-      .shipping-section{
+
+      .shipping-section {
         @include media-breakpoint-down(md) {
           padding: rem(0) rem(5);
         }
       }
     }
+
     .right-section {
       @include media-breakpoint-up(md) {
         padding-left: rem(15);
@@ -615,6 +619,7 @@ $stored-payment-spacing: rem(16);
       letter-spacing: rem(0.7);
       line-height: rem(21);
     }
+
     .credit-card-form {
       @include media-breakpoint-down(sm) {
         padding: rem(0) rem(5);
@@ -643,6 +648,7 @@ $stored-payment-spacing: rem(16);
         @include media-breakpoint-down(xl) {
           padding: rem(0) rem(5);
         }
+        
         .mx-field-wrapper {
           @include media-breakpoint-down(xs) {
             padding: rem(0) rem(10);
@@ -655,9 +661,11 @@ $stored-payment-spacing: rem(16);
         @include media-breakpoint-up(lg) {
           padding-left: rem(4);
         }
+
         @include media-breakpoint-up(xl) {
           padding-left: rem(0);
         }
+
         @include custom-media-query1440($large-screen-width1440) {
           max-width: rem(695);
           padding-left: rem(5);
@@ -665,11 +673,13 @@ $stored-payment-spacing: rem(16);
       }
 
       .info-icon {
+
         &.info-icon-email {
           position: absolute;
           right: rem(25);
           top: rem(11);
           padding-bottom: rem(0);
+
           .icon {
             background-image: url("../../images/info-icon.svg");
             background-repeat: no-repeat;
@@ -688,15 +698,18 @@ $stored-payment-spacing: rem(16);
       }
     }
 
-    &.mb-bottom-20 {
+    &.card-bottom-space {
       margin-bottom: rem(20);
     }
+    
   }
-  .mb-bottom-20 {
+
+  .card-bottom-space {
     margin-bottom: rem(20);
   }
 
   .field-left {
+
     &.mx-field-wrapper {
       @include custom-media-query1440($large-screen-width1440) {
         padding: rem(0) rem(10);
@@ -735,6 +748,7 @@ $stored-payment-spacing: rem(16);
   }
 
   .field-right {
+
     &.mx-field-wrapper {
       @include custom-media-query1440($large-screen-width1440) {
         padding: rem(0) rem(10);
@@ -751,7 +765,9 @@ $stored-payment-spacing: rem(16);
   }
 
   .form-group {
+
     .form-control-label {
+
       &.field-label-wrapper {
         color: $grey17;
         font-size: rem(13);
@@ -762,6 +778,7 @@ $stored-payment-spacing: rem(16);
     }
     
       .form-control {
+
         &.input-wrapper-checkout {
           height: rem(45);
           border: rem(1) solid $grey16;
@@ -797,6 +814,7 @@ $stored-payment-spacing: rem(16);
                 left: rem(18.4);
                 width: 90%;
               }
+
               &.field-select-wrapper-box {
                 left: rem(13);
               }
@@ -806,15 +824,15 @@ $stored-payment-spacing: rem(16);
                 left: rem(15);
               }
       
-            + .field-label-wrapper-card1 {
+            + .field-label-wrapper-card-1 {
                 left: rem(24);
               }
       
-            + .field-label-wrapper-card2 {
+            + .field-label-wrapper-card-2 {
                 left: rem(15);
               }
             
-            + .field-label-wrapper-card3 {
+            + .field-label-wrapper-card-3 {
                 left: rem(24);
               }
           }
@@ -873,8 +891,10 @@ $stored-payment-spacing: rem(16);
             left: rem(18.4);
           }
         }
+
         &.field-select-wrapper-box {
           left: rem(16);
+
           &.input-has-value {
             left: rem(13);
           }
@@ -888,7 +908,7 @@ $stored-payment-spacing: rem(16);
           }
         }
 
-        &.field-label-wrapper-card1 {
+        &.field-label-wrapper-card-1 {
           left: rem(24);
 
           &.input-has-value {
@@ -896,29 +916,34 @@ $stored-payment-spacing: rem(16);
           }
         }
 
-        &.field-label-wrapper-card2 {
+        &.field-label-wrapper-card-2 {
           left: rem(15);
+
           &.input-has-value {
             left: rem(15);
           }
         }
       
-        &.field-label-wrapper-card3 {
+        &.field-label-wrapper-card-3 {
           left: rem(24);
             
           &.input-has-value {
-              left: rem(24);
+            left: rem(24);
           }
         }
       }
 
       &.required {
+
         .form-control-label {
+
           &.field-label-wrapper {
+
             &::before {
               content: "";
               color: transparent;
             }
+            
             &::after {
               content: "*";
               color: $grey17;
