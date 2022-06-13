@@ -567,7 +567,9 @@ server.append(
 			  apiContentBody: (apiContent && apiContent.custom && apiContent.custom.body ? apiContent.custom.body : ''),
 			  emailMarketingContent: (emailMarketingContent && emailMarketingContent.custom && emailMarketingContent.custom.body ? emailMarketingContent.custom.body : ''),
 			  shopNow: Resource.msg('email.shop.now', 'account', null),
-                        resettingCustomer: customer
+                        resettingCustomer: customer,
+                        passwordText: Resource.msg('createaccount.password', 'account', null),
+                        email: email
                     };
 
                     var emailObj = {

@@ -43,6 +43,7 @@ function send(emailObj, template, context) {
                 requestParams.messageContext = Constants.LTK_ACCOUNT_CONTEXT;
                 requestParams.messageId = Site.current.preferences.custom.Listrak_PasswordUpdateMessageID;
                 requestParams.passwordText = context.passwordText;
+                requestParams.email = context.email;
                 break;
             case 4:
                 requestParams.messageContext = Constants.LTK_ORDER_CONTEXT;
