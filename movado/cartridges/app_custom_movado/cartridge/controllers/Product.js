@@ -346,17 +346,8 @@ server.get('ShowCartButton', function (req, res, next) {
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
     var smartGift = smartGiftHelper.getSmartGiftCardBasket(showProductPageHelperResult.product.id);
     var smartGiftAddToCartURL = Site.current.preferences.custom.smartGiftURL + showProductPageHelperResult.product.id;
-    var isRedesign = req.querystring.isRedesign;
-    var template;
     res.setViewData(smartGift);
-
-    if (isRedesign) {
-        template = 'product/components/showCartButtonProduct'
-    } else {
-        template = 'product/components/old/showCartButtonProduct'
-    }
-
-    res.render(template, {
+    res.render('product/components/showCartButtonProduct', {
         product: showProductPageHelperResult.product,
         addToCartUrl: showProductPageHelperResult.addToCartUrl,
         isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
