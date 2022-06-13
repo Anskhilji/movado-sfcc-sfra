@@ -29,11 +29,13 @@ $(document).ready(function() {
     });
     $('.carousel-nav-redesign').slick({
         slidesToShow: 3,
-        slidesToScroll: 3,
+        slidesToScroll: 1,
         asNavFor: '.primary-images .main-carousel',
         dots: true,
-        arrows:false,
+        centerMode: true,
         focusOnSelect: true,
+        arrows:false,
+        centerPadding:'0',
     });
 
     $('.zoom-carousel').slick({
