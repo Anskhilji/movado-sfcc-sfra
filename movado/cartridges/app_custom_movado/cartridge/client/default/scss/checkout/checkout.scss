@@ -891,7 +891,7 @@ header {
             @include custom-media-query1440($large-screen-width1440) {
                 max-width: 33.9%;
                 flex: 0 0 33.9%;
-                 padding: rem(0) rem(86);
+                padding: rem(0) rem(86);
             }
         }
         .credit-card-form-container {

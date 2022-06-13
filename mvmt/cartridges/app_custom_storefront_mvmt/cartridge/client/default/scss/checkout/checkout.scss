@@ -853,7 +853,7 @@ header {
         &.mvmt-checkout {
             .checkout-content {
                 @include media-breakpoint-up(md) {
-                  max-width: rem(972);
+                    max-width: rem(972);
                 }
                 @include media-breakpoint-up(lg) {
                     max-width: 100%;
