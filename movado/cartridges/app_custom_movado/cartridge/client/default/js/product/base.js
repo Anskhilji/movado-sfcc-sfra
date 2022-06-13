@@ -380,7 +380,7 @@ function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, 
          }
      }
      $(window).scroll(function () {
-         if ($(window).width() > 534) {
+         if ($(window).width() > 543) {
              var scrollDistance = $(window).scrollTop();
              var addToCatViewPort = $('.prices-add-to-cart-actions .cta-add-to-cart').isOnScreen();
 
