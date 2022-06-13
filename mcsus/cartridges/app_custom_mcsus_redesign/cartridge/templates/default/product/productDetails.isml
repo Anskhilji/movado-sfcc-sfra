@@ -35,9 +35,7 @@
                     <iscomment> mobile family namd , name and badges start </iscomment>
                     <div class="product-detail-right-box mobile-detail-redsign d-block d-sm-none">
                         <h2 class="product-family-name-redesign text-center">
-                            <isif condition="${product.brand}">
-                                <a href="${!empty(pdict.customURL) ? pdict.customURL : ''}">${product.brand}</a>
-                            </isif>
+                           <a href="#">${product.brand}</a>
                         </h2>
                         <!-- Product Name -->
                         <h2 class="product-name prdouct-name-gtm d-sm-none d-md-block text-uppercase text-center">${product.productName}</h2>
@@ -72,9 +70,7 @@
                         </div>
                         <iscomment> product family name </iscomment>
                         <h2 class="product-family-name-redesign">
-                            <isif condition="${product.brand}">
-                                <a href="${!empty(pdict.customURL) ? pdict.customURL : ''}">${product.brand}</a>
-                            </isif>
+                           <a href="#">${product.brand}</a>
                         </h2>
                         <!-- Product Name -->
                         <h2 class="product-name prdouct-name-gtm d-sm-none d-md-block text-uppercase">${product.productName}</h2>
@@ -103,12 +99,6 @@
                      <!-- Affirm Text -->
                     <div class="affirm-redesign">
                         <isinclude url="${URLUtils.https('Product-ShowMcsAffirmText', 'pid', product.id)}"/>
-                    </div>
-                     <!-- content asset promo text -->
-                    <div class="pdp-content-asset-wrapper">
-                        <isif condition="${!empty(product.pdpContentAssetHTML)}">
-                            <isprint value="${product.pdpContentAssetHTML}" encoding="off" />
-                        </isif>
                     </div>
                     <hr class="d-block d-sm-none line-mobile mt-0">
                     <div class="row">
