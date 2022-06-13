@@ -58,7 +58,7 @@ $(document).ready(function() { // eslint-disable-line
         } else {
           $label.removeClass('input-has-value');
         }
-      }    
+      }
       $('input.input-wrapper-checkout,select.custom-select-box').each(function () {
         checkForInput(this);
       });
@@ -68,11 +68,6 @@ $(document).ready(function() { // eslint-disable-line
       $('.btn-add-new,.btn-show-details').click(function () {
         $('.billing-address input,select').each(function () {
           checkForInput(this);
-        });
-      });
-      $('.submit-shipping').click(function () {
-        $('.mx-field-wrapper .input-wrapper-checkout.is-invalid').each(function () {
-          $('.info-icon.info-icon-email').addClass('icon-right-wrapper');
         });
       });
 });

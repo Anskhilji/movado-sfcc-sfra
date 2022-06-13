@@ -469,7 +469,8 @@ $stored-payment-spacing: rem(16);
               &.info-icon-email {
                   position: absolute;
                   right: rem(25);
-                  top: rem(11);
+                  top: rem(12);
+                  padding-bottom: rem(0);
 
                   .icon {
                     background-image: url("../../images/info-icon.svg");
@@ -482,7 +483,9 @@ $stored-payment-spacing: rem(16);
 
                   &.icon-right-wrapper {
                     right: rem(60);
-                    top: rem(11);
+                    top: rem(12);
+                    padding-bottom: rem(0);
+
                   }
                   
                 }

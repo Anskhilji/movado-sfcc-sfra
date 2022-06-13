@@ -1,7 +1,7 @@
 'use strict';
 
 var addressHelpers = require('./address');
-var formHelpers = require('base/checkout/formErrors');
+var formHelpers = require('./formErrors');
 
 /**
  * updates the shipping address selector within shipping forms
@@ -458,6 +458,7 @@ function updateMultiShipInformation(order) {
     var $checkbox = $('[name=usingMultiShipping]');
     var $submitShippingBtn = $('button.submit-shipping');
     $('.shipping-error .alert-danger').remove();
+    $('.info-icon.info-icon-email').removeClass('icon-right-wrapper');
 
     if (order.usingMultiShipping) {
         $checkoutMain.addClass('multi-ship');
