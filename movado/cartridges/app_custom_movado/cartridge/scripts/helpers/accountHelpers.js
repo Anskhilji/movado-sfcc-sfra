@@ -47,6 +47,16 @@ function sendCreateAccountEmail(registeredUser) {
     var emailFooterContent = ContentMgr.getContent('email-footer');
     var emailMarketingContent = ContentMgr.getContent('email-create-account-marketing');
     var emailCreateAccountNotes = ContentMgr.getContent('email-content-createaccount-notes');
+    var passwordText;
+
+    var listrakTransactionalSwitch = Site.current.getCustomPreferenceValue('transactionalSwitch').value.toString();
+    var listrakEnabled = Site.current.getCustomPreferenceValue('Listrak_Cartridge_Enabled');
+    var Constants = require('*/cartridge/scripts/utils/ListrakConstants');
+    if (listrakEnabled && listrakTransactionalSwitch == Constants.LTK_TRANSACTIONALSWITCH) {
+        passwordText = Resource.msg('createaccount.listrak.password', 'account', null);
+    } else {
+        passwordText = Resource.msg('createaccount.password', 'account', null);
+    }
 
     var userObject = {
         email: registeredUser.email,
@@ -60,7 +70,7 @@ function sendCreateAccountEmail(registeredUser) {
         emailCreateAccountNotes: (emailCreateAccountNotes && emailCreateAccountNotes.custom && emailCreateAccountNotes.custom.body ? emailCreateAccountNotes.custom.body : ''),
         apiContentBodyTop: (apiContent && apiContent.custom && apiContent.custom.body ? apiContent.custom.body : ''),
         emailText: Resource.msg('createaccount.email', 'account', null),
-        passwordText: Resource.msg('createaccount.password', 'account', null),
+        passwordText: passwordText,
         resettingCustomer: registeredUser
     };
 
