@@ -1201,9 +1201,11 @@
 
 
                         .callout {
-                            margin-left:auto;
-                            margin-right:auto;
                             font-family: $futura-medium;
+                            @include media-breakpoint-down(xs) {
+                                margin-left:auto;
+                                margin-right:auto;
+                            }
 
                             &:nth-child(2) {
                                     padding: rem(0) rem(14);
