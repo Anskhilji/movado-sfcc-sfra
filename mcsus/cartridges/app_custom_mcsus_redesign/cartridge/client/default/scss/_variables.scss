@@ -21,3 +21,11 @@ $grey-light4: rgba(207,207,207,0.3) !default;
 $light-pink: #FFAAAA;
 $light-pink2: rgba(255,91,91,0.2);
 $dark-pink: #CF1818;
+
+// For screen 347px to 320px 
+$small-screen-width2: 347px;
+@mixin custom-media-query-down($small-screen-width2) {
+    @media (max-width:#{$small-screen-width2}) {
+        @content;
+    }
+}

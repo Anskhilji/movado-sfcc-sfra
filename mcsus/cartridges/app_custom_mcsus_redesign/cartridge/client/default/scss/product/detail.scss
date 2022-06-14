@@ -753,11 +753,17 @@
                         margin-top: rem(23);
 
                         // .product-breadcrumb-redesign
+                        .padd-sm-0 {
+                            @include media-breakpoint-down(sm) {
+                                padding-left: rem(0);
+                                padding-right: rem(0);
+                            }
+                        }
                         .product-breadcrumb-redesign {
 
                             .breadcrumb {
                                 margin-bottom: rem(18);
-                                padding-bottom: rem(0);
+                                padding: rem(0);
                                 @include media-breakpoint-down(xs) {
                                     padding: rem(0) rem(5); 
                                 }
@@ -868,7 +874,7 @@
                             max-width: rem(405);
                         }
                         @include media-breakpoint-down(sm) {
-                            max-width: rem(216);
+                            max-width: rem(186);
                         }
                         
                         .slick-slide {
@@ -1186,6 +1192,9 @@
                             letter-spacing: 0;
                             text-align: center;
                             display: inline-block;
+                            @include custom-media-query-down($small-screen-width2){
+                                margin-top: rem(10);
+                            }
                         }
                     }
 
@@ -1245,6 +1254,9 @@
                                     line-height: rem(19);
                                     padding: rem(6) rem(18);
                                     margin-bottom: rem(10);
+                                    @include media-breakpoint-up(sm) {
+                                        margin-bottom: rem(10); 
+                                    }
 
                                     .addtocart-innter-price {
 
@@ -1274,7 +1286,7 @@
                                         height: rem(50);
                                         border-radius: rem(3);
                                         background-color: $black;
-                                        margin-bottom: rem(10);
+                                        margin-bottom: rem(30);
                                         display: flex;
                                         align-items: center;
                                         justify-content: center;
@@ -1415,7 +1427,7 @@
                             }
                             
                             &-detail {
-                                margin-bottom: rem(25);
+                                margin-bottom: rem(19);
     
                                 .content,p{
                                     color: $grey-transparent-6;
@@ -1427,12 +1439,15 @@
                                 }
 
                                 .description-and-detail-redesign {
-                                    margin-top: 0;
+                                    margin-top: rem(0);
+                                    margin-bottom: rem(0);
                                     
                                     .attribute {
-                                        margin-bottom: rem(30);
                                         align-items: center;
-
+                                        margin-bottom: 0;
+                                        &:not(:last-of-type) {
+                                            margin-bottom: rem(30);
+                                        }
                                         &-badge {
                                             width: rem(40);
                                             height: rem(40);

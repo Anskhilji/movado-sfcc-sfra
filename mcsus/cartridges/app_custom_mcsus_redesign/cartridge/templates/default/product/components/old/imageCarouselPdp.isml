@@ -1,5 +1,8 @@
 <iscomment>Updated carousel configuration</iscomment>
 <div class="primary-images col-12 col-sm-6">
+  <div class="product-badges">
+    <isinclude template="product/components/newnessBadge"/>
+  </div>
   <isscript>
     var primaryImageCarouselConfig = {
       "slidesToShow": 1,
@@ -16,9 +19,6 @@
             <iscomment> Custom Start: MSS-1564 Add thumbnails to PDP </iscomment>
           <isloop items="${product.images['pdp700']}" var="image" status="loopStatus">
               <div class="carousel-tile">
-              <div class="product-badges">
-                <isinclude template="product/components/newnessBadge"/>
-            </div>
                   <picture>
                       <source media="(min-width: 992px)" srcset="${!empty(product.images) && !empty(product.images['pdp700']) && !empty(product.images['pdp700'][loopStatus.count-1]) && !empty(product.images['pdp700'][loopStatus.count-1].url) ? product.images.pdp700[loopStatus.count-1].url : ''}" />
                       <source media="(max-width: 991px)" srcset="${!empty(product.images) && !empty(product.images['pdp700']) && !empty(product.images['pdp700'][loopStatus.count-1]) && !empty(product.images['pdp700'][loopStatus.count-1].url) ? product.images.pdp700[loopStatus.count-1].url : ''}" />

@@ -1,8 +1,9 @@
 <iscomment>Updated carousel configuration</iscomment>
 <div class="primary-images">
-  <div class="product-badges">
+<iscomment> custom style:MSS-1829 chnage postion fir image badges </iscomment>
+<div class="product-badges">
     <isinclude template="product/components/newnessBadge"/>
-  </div>
+</div>
   <isscript>
     var primaryImageCarouselConfig = {
       "slidesToShow": 1,
@@ -19,6 +20,7 @@
             <iscomment> Custom Start: MSS-1564 Add thumbnails to PDP </iscomment>
           <isloop items="${product.images['pdp700']}" var="image" status="loopStatus">
               <div class="carousel-tile">
+              
                <iscomment> product badges </iscomment>
                 <div class="product-badges-redesign d-block d-sm-none">
                     <isinclude template="product/components/badges" />
