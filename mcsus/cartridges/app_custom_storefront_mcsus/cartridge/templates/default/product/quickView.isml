@@ -13,7 +13,7 @@
             <!-- Product Name -->
             <h1 class="heading-two text-uppercase">${product.productName}</h1>
             <iscomment> custom shange:MSS-1829 add old path </iscomment>
-            <isinclude template="product/components/pidRating" />
+            <isinclude template="product/components/old/pidRating" />
 
             <div class="row">
                 <!-- Attributes and Quantity -->
