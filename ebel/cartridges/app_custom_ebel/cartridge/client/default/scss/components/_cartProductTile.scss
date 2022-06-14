@@ -54,9 +54,14 @@
           }
       }
   }
+
     &.product-card-container {
+        margin-bottom: rem(30);
+
         .product-line-item-details {
+
             .item-attributes {
+
                 .item-model {
                     font-size: rem(12);
                     font-weight: 500;
@@ -78,6 +83,7 @@
                 }
 
                 .price-box-container {
+                    
                     .line-item-total-price-amount {
                         font-size: rem(12);
                         font-weight: 500;
@@ -89,6 +95,10 @@
                 
                 .item-quantity-container-box {
                     margin-top: rem(30);
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    align-self: center;
                 }
             }
         }

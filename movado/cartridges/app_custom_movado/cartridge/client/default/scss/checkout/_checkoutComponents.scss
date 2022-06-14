@@ -642,34 +642,42 @@ $stored-payment-spacing: rem(16);
 }
 
 .order-product-summary {
+  
   .product-summary-block {
+
     .product-card-wrapper {
       padding: rem(0);
       box-shadow: none;
       border-radius: rem(0);
       border: none;
       border-bottom: rem(1) solid $grey-dark-3;
+
       .product-line-item-details {
          overflow: hidden;
          align-items: center;
          margin-bottom: rem(30);
+
          .item-image {
            width: rem(100);
            height: rem(100);
            margin-right: rem(21);
+
            .product-image {
             width: rem(100);
             height: rem(100);
             max-height: rem(100);
            }
          }
+
          .item-attributes {
            position: relative;
            overflow: hidden;
            width: 100%;
+
           .item-options {
             display: none;
           }
+
           .line-item-header {
             margin-bottom: rem(10);
             font-size: rem(16);
@@ -677,6 +685,7 @@ $stored-payment-spacing: rem(16);
             letter-spacing: rem(0.7);
             line-height: rem(22);
             color: $light-black2;
+
             .line-item-name {
               font-size: rem(16);
               font-weight: 500;

@@ -298,88 +298,169 @@
   }
 }
 
-.leading-lines {
-  &.leading-lines-wrapper {
-      .start-lines {
-          .order-receipt-label {
-              margin-bottom: rem(0);
-              color: $black;
-              font-size: rem(13);
-              font-weight: 300;
-              letter-spacing: rem(0.7);
-              line-height: rem(20);
-              span {
-                  font-size: rem(13);
-                  font-weight: 300;
-                  letter-spacing: rem(0.7);
-                  line-height: rem(20);
-              }
-          }
-      }
-      .end-lines {
-          .text-right {
-              &.tax-total {
-                  color: $black;
-                  font-size: rem(13);
-                  font-weight: 300;
-                  letter-spacing: rem(0.7);
-                  line-height: rem(20);
-              }
-              span {
-                  color: $black;
-                  font-size: rem(13);
-                  font-weight: 300;
-                  letter-spacing: rem(0.7);
-                  line-height: rem(20);
-              }
-          }
-      }
-  }
-}
-.grand-total {
-  &.grand-total-wrapper{
-    .start-lines {
-      .order-receipt-label {
-        span {
-          color: $grey8;
-          font-size: rem(14);
-          font-weight: 500;
-          letter-spacing: rem(0.65);
-          line-height: rem(21);
-        }
-        &.grand-total-label{
-          font-family: inherit;
-        }
-      }
+.data-checkout-stage {
 
+    .product-summary-block {
+
+        .line-item-name {
+
+            span {
+              color: $light-black2;
+              font-size: rem(14);
+              letter-spacing: rem(1.4);
+              line-height: rem(22);
+            }
+        }
     }
-  }
-}
-.product-card-container {
-  .product-line-item-details {
-    .item-attributes {
-      .item-quantity-container-box {
-        .total-amount {
-          font-size: rem(12);
-          font-weight: 500;
-          letter-spacing: rem(0.86);
-          line-height: rem(18);
-          color: $grey8;
+
+    .leading-lines {
+
+      &.leading-lines-wrapper {
+
+          .start-lines {
+
+              .order-receipt-label {
+                  margin-bottom: rem(0);
+                  color: $black3;
+                  font-size: rem(14);
+                  font-weight: 300;
+                  letter-spacing: rem(1);
+                  line-height: rem(20);
+
+                  span {
+                      font-size: rem(14);
+                      font-weight: 300;
+                      letter-spacing: rem(1);
+                      line-height: rem(20);
+                  }
+              }
+          }
+
+          .end-lines {
+
+              .text-right {
+
+                  &.tax-total {
+                      color: $black3;
+                      font-size: rem(14);
+                      font-weight: 300;
+                      letter-spacing: rem(1);
+                      line-height: rem(20);
+                  }
+
+                  span {
+                      color: $black3;
+                      font-size: rem(14);
+                      font-weight: 300;
+                      letter-spacing: rem(1);
+                      line-height: rem(20);
+                  }
+              }
+          }
+      }
+    }
+    .grand-total {
+
+      &.grand-total-wrapper {
+
+        .start-lines {
+
+          .order-receipt-label {
+
+            span {
+              color: $black;
+              font-size: rem(14);
+              font-weight: 600;
+              letter-spacing: rem(0.88);
+              line-height: rem(24);
+            }
+
+            &.grand-total-label{
+              font-family: inherit;
+              color: $black;
+              font-size: rem(14);
+              font-weight: 600;
+              letter-spacing: rem(0.88);
+              line-height: rem(24);
+            }
+          }
+
         }
-        .original-price {
-          font-size: rem(12);
-          font-weight: 500;
-          letter-spacing: rem(0.86);
-          line-height: rem(18);
-          color: $grey8;
-        }
-        .savings {
-          font-size: rem(12);
-          font-weight: 500;
-          letter-spacing: rem(0.86);
-          line-height: rem(18);
+
+        .end-lines {
+          
+          .text-right {
+
+            .grand-total-sum {
+              color: $black;
+              font-size: rem(14);
+              font-weight: 600;
+              letter-spacing: rem(0.88);
+              line-height: rem(24);
+            }
+          }
         }
       }
     }
-  }
+    .product-card-container {
+
+      .product-line-item-details {
+
+        .item-attributes {
+
+          .item-model {
+
+            &.model-name {
+              color: $grey18;
+              font-size: rem(12);
+              letter-spacing: rem(1.5);
+              line-height: rem(10);
+            }
+          }
+          
+
+          .item-quantity-container-box {
+            
+            .item-quantity-wrapper {
+              font-size: rem(14);
+              font-weight: 500;
+              letter-spacing: rem(1);
+              line-height: rem(18);
+              color: $grey8;
+            }
+
+            .line-item-total-price-amount {
+              font-size: rem(14);
+              font-weight: 500;
+              letter-spacing: rem(1);
+              line-height: rem(18);
+              color: $grey8;
+            }
+            
+            .total-amount {
+              font-size: rem(14);
+              font-weight: 500;
+              letter-spacing: rem(1);
+              line-height: rem(18);
+              color: $grey8;
+            }
+
+            .original-price {
+              font-size: rem(14);
+              font-weight: 500;
+              letter-spacing: rem(1);
+              line-height: rem(18);
+              color: $grey8;
+            }
+
+            .savings {
+              font-size: rem(12);
+              font-weight: 500;
+              letter-spacing: rem(0.86);
+              line-height: rem(18);
+            }
+          }
+        }
+      }
+    }
 }
