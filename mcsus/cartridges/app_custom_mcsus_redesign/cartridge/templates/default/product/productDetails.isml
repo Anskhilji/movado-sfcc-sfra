@@ -34,13 +34,13 @@
 
                     <iscomment> mobile family namd , name and badges start </iscomment>
                     <div class="product-detail-right-box mobile-detail-redsign d-block d-sm-none">
-                        <h2 class="product-family-name-redesign text-center">
-                            <isif condition="${product.brand}">
-                                <a href="${!empty(pdict.customURL) ? pdict.customURL : ''}">${product.brand}</a>
-                            </isif>
-                        </h2>
+                        <isif condition="${product.brand}">
+                            <h2 class="product-family-name-redesign text-center">
+                                    <a href="${!empty(pdict.customURL) ? pdict.customURL : ''}">${product.brand}</a>
+                            </h2>
+                        </isif>
                         <!-- Product Name -->
-                        <h2 class="product-name prdouct-name-gtm d-sm-none d-md-block text-uppercase text-center">${product.productName}</h2>
+                        <h2 class="product-name prdouct-name-gtm d-sm-none d-md-block text-center">${product.productName}</h2>
 
                         <iscomment> product rating </iscomment>
                         <div class="d-block rating-box-redisgn">
@@ -92,10 +92,10 @@
                         <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
                     </div>
 
-                    <div class="d-flex align-items-center justify-content-center justify-content-sm-start w-100 price-promotions-box">
+                    <div class="d-flex align-items-center  w-100 price-promotions-box">
 
                         <!-- Applicable Promotions -->
-                        <div class="promotions promotions-redesign mt-sm-3 mt-lg-0 d-flex align-align-items-center flex-wrap">
+                        <div class="promotions promotions-redesign mt-sm-3 mt-lg-0 d-flex align-align-items-center justify-content-center justify-content-sm-start flex-wrap">
                             <!-- Prices -->
                             <div class="prices prices-redesign">
                                 <isset name="price" value="${product.price}" scope="page" />

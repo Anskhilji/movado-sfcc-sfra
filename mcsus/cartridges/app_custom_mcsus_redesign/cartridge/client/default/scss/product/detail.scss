@@ -1196,7 +1196,9 @@
 
 
                         .callout {
-                            display: inline-block;
+                            margin-left:auto;
+                            margin-right:auto
+                            ;
                            &:nth-child(2) {
                                 padding: rem(0) rem(14);
                                 box-sizing: border-box;
@@ -1215,9 +1217,8 @@
                                 text-align: center;
                                 display: inline-block;
                                 margin-bottom: rem(10);
-                                @include custom-media-query-down($small-screen-width2){
-                                    margin-top: rem(10);
-                                }
+                                margin-right: rem(0);
+                                margin-left: rem(0);
                            }
                         }
                     }
