@@ -104,7 +104,7 @@
                     <isinclude template="cart/productCard/cartProductCardAvailability" />
                 </isif>
                 <div class="item-quantity-container-box">
-                    <div class="item-model mb-2 line-item-attributes item-quantity-wrapper">
+                    <div class="item-model line-item-attributes item-quantity-wrapper">
                     ${Resource.msg('field.selectquantity','cart',null)}:  <span class="line-item-value"> <isprint value="${lineItem.quantity}" formatter="##" /></span>
                     </div>
 
