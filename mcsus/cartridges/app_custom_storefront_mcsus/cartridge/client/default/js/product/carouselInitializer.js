@@ -32,10 +32,17 @@ $(document).ready(function() {
         slidesToScroll: 1,
         asNavFor: '.primary-images .main-carousel',
         dots: true,
-        centerMode: true,
-        focusOnSelect: true,
         arrows:false,
-        centerPadding:'0',
+        focusOnSelect: true,
+        infinite: true,
+        responsive: [
+            {
+                breakpoint: 544,
+                settings: {
+                    dots: false,
+                }
+            },
+        ]
     });
 
     $('.zoom-carousel').slick({

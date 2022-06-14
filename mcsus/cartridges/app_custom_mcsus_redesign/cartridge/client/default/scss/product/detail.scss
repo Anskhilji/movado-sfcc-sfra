@@ -751,6 +751,7 @@
         &-detail {
             &-section {
                 &-redesign {
+                    margin-bottom: rem(70);
                     max-width: rem(1440);
                     padding: rem(0) rem(32);
                     @include media-breakpoint-down(xs) {
@@ -761,11 +762,18 @@
                         margin-top: rem(23);
 
                         // .product-breadcrumb-redesign
+                        .paddind-sm-0 {
+                            @include media-breakpoint-down(sm) {
+                                padding-left: rem(0);
+                                padding-right: rem(0);
+                            }
+                        }
+
                         .product-breadcrumb-redesign {
 
                             .breadcrumb {
                                 margin-bottom: rem(18);
-                                padding-bottom: rem(0);
+                                padding: rem(0);
                                 @include media-breakpoint-down(xs) {
                                     padding: rem(0) rem(5); 
                                 }
@@ -778,6 +786,7 @@
                                         font-size: rem(16);
                                         letter-spacing: rem(0);
                                         line-height: rem(30);
+                                        font-weight: 400;
                                         @include media-breakpoint-down(xs) {
                                             font-size: rem(9);
                                             line-height: rem(15);
@@ -813,6 +822,11 @@
                             min-height: unset;
                         }
 
+                        .carousel-tile-inner-box {
+                            max-width: rem(615);
+                            margin: 0 auto;
+                        }
+
                         .cs-carousel-wrapper {
                             @include media-breakpoint-down(xs) { 
                                 margin-bottom: rem(0);
@@ -838,12 +852,23 @@
                                     width: rem(10);
                                     height: rem(17);
 
+                                    @include media-breakpoint-down(xs) {
+                                        top: 50%;
+                                        transform: translateY(-50%);
+                                    }
+
                                     &.slick-prev {
                                         left: rem(0);
+                                        @include media-breakpoint-down(xs) {
+                                              left: rem(15);
+                                          }
                                     }
 
                                     &.slick-next {
                                         right: rem(0);
+                                        @include media-breakpoint-down(xs) {
+                                              right: rem(15);
+                                          }
                                     }
 
                                 }
@@ -876,7 +901,7 @@
                             max-width: rem(405);
                         }
                         @include media-breakpoint-down(sm) {
-                            max-width: rem(216);
+                            max-width: rem(186);
                         }
                         
                         .slick-slide {
@@ -945,7 +970,7 @@
                         @include media-breakpoint-down(xs) {
                             max-width: 100%;
                             margin-left: rem(0);
-                            margin-top: rem(49);
+                            margin-top: rem(39);
                             padding: rem(0) rem(3);
                         }
 
@@ -964,6 +989,8 @@
                                         &::before {
                                             left: rem(0);
                                             right: rem(0);
+                                            height: rem(1);
+                                            background-color: $grey-light6;
                                         }
                                     }
                                 }
@@ -1110,6 +1137,9 @@
                                         letter-spacing: 0;
                                         line-height: rem(25);
                                         margin-left: rem(7);
+                                        @include media-breakpoint-down(xs) {
+                                            margin-left: rem(10);
+                                        }
                                     }
                                 }
                             }
@@ -1118,7 +1148,7 @@
 
                     // price 
                     .price-promotions-box {
-                        margin-bottom: rem(20);
+                        margin-bottom: rem(10);
 
                         @include media-breakpoint-down(xs) {
                             margin-bottom: rem(25);      
@@ -1127,6 +1157,7 @@
 
                     .prices-redesign {
                         padding-bottom: rem(0);
+                        margin-bottom: rem(10);
                         @include media-breakpoint-down(xs) {
                             padding-top: rem(0);
                         }
@@ -1178,22 +1209,33 @@
 
 
                         .callout {
-                            padding: rem(0) rem(14);
-                            box-sizing: border-box;
-                            width: auto;
-                            height: rem(27);
-                            line-height: rem(27);
-                            border: rem(1) solid $light-pink;
-                            border-radius: rem(3);
-                            background-color: $light-pink2;
-                            color: $dark-pink;
                             font-family: $futura-medium;
-                            font-style: italic;
-                            font-weight: 600;
-                            font-size: rem(13);
-                            letter-spacing: 0;
-                            text-align: center;
-                            display: inline-block;
+                            @include media-breakpoint-down(xs) {
+                                margin-left:auto;
+                                margin-right:auto;
+                            }
+
+                            &:nth-child(2) {
+                                    padding: rem(0) rem(14);
+                                    box-sizing: border-box;
+                                    width: auto;
+                                    height: rem(27);
+                                    line-height: rem(27);
+                                    border: rem(1) solid $light-pink;
+                                    border-radius: rem(3);
+                                    background-color: $light-pink2;
+                                    color: $dark-pink;
+                                    font-family: $futura-medium;
+                                    font-style: italic;
+                                    font-weight: 600;
+                                    font-size: rem(13);
+                                    letter-spacing: 0;
+                                    text-align: center;
+                                    display: inline-block;
+                                    margin-bottom: rem(10);
+                                    margin-right: rem(0);
+                                    margin-left: rem(0);
+                            }
                         }
                     }
 
@@ -1207,7 +1249,7 @@
                             font-size: rem(13);
                             letter-spacing: 0;
                             line-height: rem(24);
-                            height: rem(24);
+                            height: auto;
                             margin-bottom: rem(25);
                             margin-right: rem(0);
                             width: 100%;
@@ -1237,6 +1279,10 @@
 
                             .cta-add-to-cart {
                                 width: 100%;
+                                margin-bottom: rem(30);
+                                @include media-breakpoint-down(xs) {
+                                    margin-bottom: rem(25);
+                                }
 
                                 .add-to-cart {
                                     width: 100%;
@@ -1253,6 +1299,9 @@
                                     line-height: rem(19);
                                     padding: rem(6) rem(18);
                                     margin-bottom: rem(10);
+                                    @include media-breakpoint-up(sm) {
+                                        margin-bottom: rem(10); 
+                                    }
 
                                     .addtocart-innter-price {
 
@@ -1276,13 +1325,15 @@
                                 // google pay`
                                 .googlepay-btn {
                                     width: 100%;
+                                    @include media-breakpoint-up(sm) {
+                                        margin-bottom: rem(0); 
+                                    }
 
                                     .google-pay-container {
                                         width: 100%;
                                         height: rem(50);
                                         border-radius: rem(3);
                                         background-color: $black;
-                                        margin-bottom: rem(10);
                                         display: flex;
                                         align-items: center;
                                         justify-content: center;
@@ -1319,7 +1370,6 @@
                                     height: rem(50);
                                     border-radius: rem(3);
                                     background-color: $black;
-                                    margin-bottom: rem(10);
                                     display: flex;
                                     align-items: center;
                                     justify-content: center;
@@ -1423,7 +1473,7 @@
                             }
                             
                             &-detail {
-                                margin-bottom: rem(25);
+                                margin-bottom: rem(19);
     
                                 .content,p{
                                     color: $grey-transparent-6;
@@ -1435,12 +1485,15 @@
                                 }
 
                                 .description-and-detail-redesign {
-                                    margin-top: 0;
+                                    margin-top: rem(0);
+                                    margin-bottom: rem(0);
                                     
                                     .attribute {
-                                        margin-bottom: rem(30);
                                         align-items: center;
-
+                                        margin-bottom: 0;
+                                        &:not(:last-of-type) {
+                                            margin-bottom: rem(30);
+                                        }
                                         &-badge {
                                             width: rem(40);
                                             height: rem(40);
