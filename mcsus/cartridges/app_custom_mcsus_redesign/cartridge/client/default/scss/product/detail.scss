@@ -778,6 +778,7 @@
                                         font-size: rem(16);
                                         letter-spacing: rem(0);
                                         line-height: rem(30);
+                                        font-weight: 400;
                                         @include media-breakpoint-down(xs) {
                                             font-size: rem(9);
                                             line-height: rem(15);
@@ -847,7 +848,7 @@
                                         top: 50%;
                                         transform: translateY(-50%);
                                     }
-                                    
+
                                     &.slick-prev {
                                         left: rem(0);
                                         @include media-breakpoint-down(xs) {
