@@ -1,8 +1,8 @@
 <iscomment>Updated carousel configuration</iscomment>
 <div class="primary-images">
-<div class="product-badges">
+  <div class="product-badges">
     <isinclude template="product/components/newnessBadge"/>
-</div>
+  </div>
   <isscript>
     var primaryImageCarouselConfig = {
       "slidesToShow": 1,
