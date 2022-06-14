@@ -49,9 +49,9 @@ function send(emailObj, template, context) {
                 requestParams.messageContext = Constants.LTK_ORDER_CONTEXT;
                 requestParams.messageId = Site.current.preferences.custom.Listrak_OrderConfirmationMessageID;
                 requestParams.orderNumber = context.order.orderNumber;
-                requestParams.totalTax = context.order.totals.totalTax;
-                requestParams.subTotal = context.order.totals.subTotal;
-                requestParams.grandTotal = context.order.priceTotal;
+                requestParams.totalTax = context.cuurentOrder.totalTax.value;
+                requestParams.subTotal = context.cuurentOrder.adjustedMerchandizeTotalGrossPrice.value;
+                requestParams.grandTotal = context.cuurentOrder.adjustedShippingTotalGrossPrice.value;
                 requestParams.creationDate = context.order.creationDate;
                 requestParams.billingFirstName = context.order.billing.billingAddress.address.firstName;
                 requestParams.billingLastName = context.order.billing.billingAddress.address.lastName;
