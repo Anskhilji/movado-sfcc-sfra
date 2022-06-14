@@ -49,8 +49,8 @@ function sendCreateAccountEmail(registeredUser) {
     var emailCreateAccountNotes = ContentMgr.getContent('email-content-createaccount-notes');
     var passwordText;
 
-    var listrakTransactionalSwitch = Site.current.getCustomPreferenceValue('transactionalSwitch').value.toString();
-    var listrakEnabled = Site.current.getCustomPreferenceValue('Listrak_Cartridge_Enabled');
+    var listrakTransactionalSwitch = !empty(Site.current.preferences.custom.transactionalSwitch.value) ? Site.current.preferences.custom.transactionalSwitch.value.toString() : '';
+    var listrakEnabled = !empty(Site.current.preferences.custom.Listrak_Cartridge_Enabled) ? Site.current.preferences.custom.Listrak_Cartridge_Enabled : false;
     var Constants = require('*/cartridge/scripts/utils/ListrakConstants');
     if (listrakEnabled && listrakTransactionalSwitch == Constants.LTK_TRANSACTIONALSWITCH) {
         passwordText = Resource.msg('createaccount.listrak.password', 'account', null);
