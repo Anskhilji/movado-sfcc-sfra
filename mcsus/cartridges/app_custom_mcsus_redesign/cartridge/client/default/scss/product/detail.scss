@@ -754,7 +754,7 @@
                         margin-top: rem(23);
 
                         // .product-breadcrumb-redesign
-                        .padd-sm-0 {
+                        .paddind-sm-0 {
                             @include media-breakpoint-down(sm) {
                                 padding-left: rem(0);
                                 padding-right: rem(0);
@@ -852,7 +852,7 @@
                                     &.slick-prev {
                                         left: rem(0);
                                         @include media-breakpoint-down(xs) {
-                                              left: rem(14);
+                                              left: rem(15);
                                           }
                                     }
 
@@ -1203,28 +1203,29 @@
                         .callout {
                             margin-left:auto;
                             margin-right:auto;
+                            font-family: $futura-medium;
 
-                           &:nth-child(2) {
-                                padding: rem(0) rem(14);
-                                box-sizing: border-box;
-                                width: auto;
-                                height: rem(27);
-                                line-height: rem(27);
-                                border: rem(1) solid $light-pink;
-                                border-radius: rem(3);
-                                background-color: $light-pink2;
-                                color: $dark-pink;
-                                font-family: $futura-medium;
-                                font-style: italic;
-                                font-weight: 600;
-                                font-size: rem(13);
-                                letter-spacing: 0;
-                                text-align: center;
-                                display: inline-block;
-                                margin-bottom: rem(10);
-                                margin-right: rem(0);
-                                margin-left: rem(0);
-                           }
+                            &:nth-child(2) {
+                                    padding: rem(0) rem(14);
+                                    box-sizing: border-box;
+                                    width: auto;
+                                    height: rem(27);
+                                    line-height: rem(27);
+                                    border: rem(1) solid $light-pink;
+                                    border-radius: rem(3);
+                                    background-color: $light-pink2;
+                                    color: $dark-pink;
+                                    font-family: $futura-medium;
+                                    font-style: italic;
+                                    font-weight: 600;
+                                    font-size: rem(13);
+                                    letter-spacing: 0;
+                                    text-align: center;
+                                    display: inline-block;
+                                    margin-bottom: rem(10);
+                                    margin-right: rem(0);
+                                    margin-left: rem(0);
+                            }
                         }
                     }
 

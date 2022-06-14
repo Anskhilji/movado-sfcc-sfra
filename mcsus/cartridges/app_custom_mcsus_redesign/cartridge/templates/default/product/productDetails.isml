@@ -53,7 +53,7 @@
             </div>
 
             <div class="row">
-                <div class="col-12 d-none d-sm-block padd-sm-0">
+                <div class="col-12 d-none d-sm-block paddind-sm-0">
                     <!---Breadcrumbs--->
                     <div class="product-breadcrumb product-breadcrumb-redesign">
                         <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
