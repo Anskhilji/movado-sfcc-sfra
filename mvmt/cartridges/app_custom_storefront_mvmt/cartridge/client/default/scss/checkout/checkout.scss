@@ -484,7 +484,7 @@ header {
             max-width: 90%;         
         }
     
-        @include custom-media-query1440($large-screen-width1440) {
+        @include custom-media-query-1440($large-screen-width-1440) {
             padding: 0 rem(15) 0 rem(100);
             margin: rem(71) auto rem(51);
             max-width: rem(1440);
@@ -795,7 +795,7 @@ header {
         @include media-breakpoint-up(xl) {
             padding: 0 rem(91.5) 0 rem(32);
         }
-        @include custom-media-query1440($large-screen-width1440) {
+        @include custom-media-query-1440($large-screen-width-1440) {
             padding: 0 rem(91.5) 0 rem(100);
         }
         
@@ -805,7 +805,7 @@ header {
                 max-width: 90%;
             }
             
-            @include custom-media-query1440($large-screen-width1440) {
+            @include custom-media-query-1440($large-screen-width-1440) {
                 max-width: 100%;
             }
         }
@@ -819,14 +819,14 @@ header {
 .checkout-content-container-inner {
     
     .left-section {
-        @include custom-media-query1440($large-screen-width1440) {
+        @include custom-media-query-1440($large-screen-width-1440) {
             padding: rem(0) rem(0) rem(0) rem(100);
             max-width: 66.1%;
             flex: 0 0 66.1%;
         }
 
         .mx-shipping-box {
-            @include custom-media-query1440($large-screen-width1440) {
+            @include custom-media-query-1440($large-screen-width-1440) {
                 max-width: rem(700);
             }
         }
@@ -842,14 +842,14 @@ header {
     }
 
     .right-section {
-        @include custom-media-query1440($large-screen-width1440) {
+        @include custom-media-query-1440($large-screen-width-1440) {
             max-width: 33.9%;
             flex: 0 0 33.9%;
         }
     }
        
     .mx-container-box1 {
-        @include custom-media-query1440($large-screen-width1440) {
+        @include custom-media-query-1440($large-screen-width-1440) {
             max-width: rem(700);
         }
     }
@@ -876,7 +876,7 @@ header {
                 padding-left: rem(0);
                 }
                 
-                @include custom-media-query1440($large-screen-width1440) {
+                @include custom-media-query-1440($large-screen-width-1440) {
                 max-width: rem(1440);
                 padding: rem(0) rem(15);
                 }

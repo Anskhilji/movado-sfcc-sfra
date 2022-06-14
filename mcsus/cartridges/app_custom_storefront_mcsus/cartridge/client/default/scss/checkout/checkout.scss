@@ -95,7 +95,7 @@ header {
             margin-top: rem(30);
         }
 
-        @include custom-media-query1440($large-screen-width1440) {
+        @include custom-media-query-1440($large-screen-width-1440) {
             padding: 0 rem(91.5) 0 rem(100);
             margin-top: rem(30);
         }
@@ -143,7 +143,7 @@ header {
         max-width: 90%;
     }
 
-    @include custom-media-query1440($large-screen-width1440) {
+    @include custom-media-query-1440($large-screen-width-1440) {
         padding: 0 rem(15) 0 rem(100);
         margin: rem(71) auto rem(51);
         max-width: rem(1440);

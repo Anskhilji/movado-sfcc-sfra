@@ -377,7 +377,7 @@ header {
             padding: 0 rem(91.5) 0 rem(2);
             margin-top: rem(30);
         }
-        @include custom-media-query1440($large-screen-width1440) {
+        @include custom-media-query-1440($large-screen-width-1440) {
             padding: 0 rem(91.5) 0 rem(100);
             margin-top: rem(30);
         }
@@ -504,7 +504,7 @@ header {
                 margin: auto;
             }
             
-            @include custom-media-query1440($large-screen-width1440) {
+            @include custom-media-query-1440($large-screen-width-1440) {
                 max-width: 100%;
             }
         }
@@ -541,7 +541,7 @@ header {
         max-width: 90%;
     }
 
-    @include custom-media-query1440($large-screen-width1440) {
+    @include custom-media-query-1440($large-screen-width-1440) {
         padding: 0 rem(15) 0 rem(100);
         margin: rem(71) auto rem(51);
         max-width: rem(1440);
@@ -849,20 +849,20 @@ header {
     .checkout-content-container-inner {
         
         .error-space-left {
-            @include custom-media-query1440($large-screen-width1440) {
+            @include custom-media-query-1440($large-screen-width-1440) {
                 padding-left: rem(84);
             }
         }
 
         .left-section {
-            @include custom-media-query1440($large-screen-width1440) {
+            @include custom-media-query-1440($large-screen-width-1440) {
                 padding: rem(0) rem(0) rem(0) rem(100);
                 max-width: 66.1%;
                 flex: 0 0 66.1%;
             }
 
             .mx-shipping-box {
-                @include custom-media-query1440($large-screen-width1440) {
+                @include custom-media-query-1440($large-screen-width-1440) {
                     max-width: rem(700);
                 }
             }
@@ -897,7 +897,7 @@ header {
         }
 
         .right-section {
-            @include custom-media-query1440($large-screen-width1440) {
+            @include custom-media-query-1440($large-screen-width-1440) {
                 max-width: 33.9%;
                 flex: 0 0 33.9%;
                 padding: rem(0) rem(86);
@@ -905,7 +905,7 @@ header {
         }
 
         .credit-card-form-container {
-            @include custom-media-query1440($large-screen-width1440) {
+            @include custom-media-query-1440($large-screen-width-1440) {
                 margin: rem(0) rem(-10);
             }
 
@@ -921,7 +921,7 @@ header {
         }
         
         .mx-container-box1 {
-            @include custom-media-query1440($large-screen-width1440) {
+            @include custom-media-query-1440($large-screen-width-1440) {
                 max-width: rem(700);
             }
             

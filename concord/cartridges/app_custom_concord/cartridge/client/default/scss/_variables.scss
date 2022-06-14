@@ -118,15 +118,15 @@ $font-primary: $font-book;
 
 // Larger Screen
 $large-screen-width: 1400px;
-$large-screen-width1440: 1440px;
+$large-screen-width-1440: 1440px;
 
 @mixin custom-media-query($large-screen-width) {
   @media (min-width:#{$large-screen-width}) {
       @content;
   }
 }
-@mixin custom-media-query1440($large-screen-width1440) {
-    @media (min-width:#{$large-screen-width1440}) {
+@mixin custom-media-query-1440($large-screen-width-1440) {
+    @media (min-width:#{$large-screen-width-1440}) {
         @content;
     }
 }

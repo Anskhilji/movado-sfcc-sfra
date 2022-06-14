@@ -125,10 +125,10 @@ $transparent-gray: rgba(0, 0, 0, 0.8) !default;
 //box shadows
 $form-box-shadow: 0 rem(2) rem(2) 0 rgba(0, 0, 0, 0.24);
 
-$large-screen-width1440: 1440px;
+$large-screen-width-1440: 1440px;
 
-@mixin custom-media-query1440($large-screen-width1440) {
-    @media (min-width:#{$large-screen-width1440}) {
+@mixin custom-media-query-1440($large-screen-width-1440) {
+    @media (min-width:#{$large-screen-width-1440}) {
         @content;
     }
 }
