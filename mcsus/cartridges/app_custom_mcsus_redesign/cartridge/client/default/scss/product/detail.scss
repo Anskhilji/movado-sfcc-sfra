@@ -590,10 +590,11 @@
     left: rem(0);
     right: rem(0);
     background-color: $white;
-    z-index: 1020;
+    z-index: 1;
     transition: all 0.4s;
     transform: translateY(-100px);
     top: rem(125);
+    box-shadow: rem(0) rem(2) rem(10) rem(0) $grey-light5;
 
     &.scroll-top {
         top: rem(125);
@@ -620,11 +621,18 @@
     transition: all 0.4s;
     transform: translateY(100px);
     bottom: 0;
+    box-shadow: rem(0) rem(2) rem(10) rem(0) $grey-light5;
 
     &.scroll-bottom {
         bottom: rem(0);
         transform: translateY(0);
         transition: all 0.4s;
+    }
+
+    button{
+        @include media-breakpoint-down(xs) {
+            font-size: rem(14);
+        }
     }
 }
 
@@ -706,8 +714,7 @@
                 font-size: rem(16);
                 font-weight: 400;
                 letter-spacing: rem(1.14);
-                padding-left: rem(20);
-                padding-right: rem(20);
+                padding: rem(0) rem(20);
 
                 @include media-breakpoint-down(sm) {
                     width: rem(250);
@@ -718,6 +725,7 @@
                     width: 100%;
                     padding-left: rem(23);
                     padding-right: rem(16);
+                    font-size: rem(14);
                 }
                 .price-pdp-mvmt {
 
@@ -982,7 +990,7 @@
                                             left: rem(0);
                                             right: rem(0);
                                             height: rem(1);
-                                            background-color: $grey-light5;
+                                            background-color: $grey-light6;
                                         }
                                     }
                                 }
