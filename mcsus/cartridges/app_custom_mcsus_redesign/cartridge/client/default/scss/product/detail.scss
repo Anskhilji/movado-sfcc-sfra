@@ -760,6 +760,7 @@
                                 padding-right: rem(0);
                             }
                         }
+
                         .product-breadcrumb-redesign {
 
                             .breadcrumb {
@@ -811,10 +812,12 @@
                             max-width: 100%;
                             min-height: unset;
                         }
+
                         .carousel-tile-inner-box {
                             max-width: rem(615);
                             margin: 0 auto;
                         }
+
                         .cs-carousel-wrapper {
                             @include media-breakpoint-down(xs) { 
                                 margin-bottom: rem(0);
@@ -844,6 +847,7 @@
                                         top: 50%;
                                         transform: translateY(-50%);
                                     }
+                                    
                                     &.slick-prev {
                                         left: rem(0);
                                         @include media-breakpoint-down(xs) {
@@ -1197,8 +1201,8 @@
 
                         .callout {
                             margin-left:auto;
-                            margin-right:auto
-                            ;
+                            margin-right:auto;
+
                            &:nth-child(2) {
                                 padding: rem(0) rem(14);
                                 box-sizing: border-box;

@@ -37,10 +37,10 @@ $(document).ready(function() {
         infinite: true,
         responsive: [
             {
-            breakpoint: 544,
-            settings: {
-                dots: false,
-            }
+                breakpoint: 544,
+                settings: {
+                    dots: false,
+                }
             },
         ]
     });
