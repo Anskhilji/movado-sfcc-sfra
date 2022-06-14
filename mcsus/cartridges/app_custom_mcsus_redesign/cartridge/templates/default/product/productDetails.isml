@@ -43,7 +43,7 @@
                         <h2 class="product-name prdouct-name-gtm d-sm-none d-md-block text-uppercase text-center">${product.productName}</h2>
 
                         <iscomment> product rating </iscomment>
-                        <div class="d-block">
+                        <div class="d-block rating-box-redisgn">
                             <isinclude template="product/components/pidRating" />
                         </div>
                     </div>
@@ -92,17 +92,18 @@
                         <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
                     </div>
 
-                    <div class="d-flex align-items-center justify-content-center justify-content-sm-start w-100 price-promotions-box flex-wrap flex-lg-nowrap">
-                        <!-- Prices -->
-                        <div class="prices prices-redesign">
-                            <isset name="price" value="${product.price}" scope="page" />
-                            <iscomment> Custom: Start [pricing shows only when following requirements meet] </iscomment>
-                                <isinclude url="${URLUtils.https('Product-ShowMcsProdutPrice', 'pid', product.id)}"/>
-                            <iscomment> Custom: End </iscomment>
-                        </div>
+                    <div class="d-flex align-items-center justify-content-center justify-content-sm-start w-100 price-promotions-box">
 
                         <!-- Applicable Promotions -->
-                        <div class="promotions promotions-redesign mt-sm-3 mt-lg-0">
+                        <div class="promotions promotions-redesign mt-sm-3 mt-lg-0 d-flex align-align-items-center flex-wrap">
+                            <!-- Prices -->
+                            <div class="prices prices-redesign">
+                                <isset name="price" value="${product.price}" scope="page" />
+                                <iscomment> Custom: Start [pricing shows only when following requirements meet] </iscomment>
+                                    <isinclude url="${URLUtils.https('Product-ShowMcsProdutPrice', 'pid', product.id)}"/>
+                                <iscomment> Custom: End </iscomment>
+                            </div>
+
                             <isinclude template="product/components/promotions" />
                         </div>
                     </div>

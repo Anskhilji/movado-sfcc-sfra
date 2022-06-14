@@ -35,6 +35,14 @@ $(document).ready(function() {
         arrows:false,
         focusOnSelect: true,
         infinite: true,
+        responsive: [
+            {
+            breakpoint: 544,
+            settings: {
+                dots: false,
+            }
+            },
+        ]
     });
 
     $('.zoom-carousel').slick({
