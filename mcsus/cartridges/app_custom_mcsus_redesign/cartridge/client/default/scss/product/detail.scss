@@ -819,8 +819,11 @@
                         .primary-images {
                             max-width: 59.30%;
                             width: 100%;
-                            @include media-breakpoint-down(sm) {
-                                max-width: 50%;
+                            @include media-breakpoint-down(lg) {
+                                max-width: 50.30%;
+                            }
+                            @include media-breakpoint-down(md) {
+                                max-width: 47%;
                             }
                             @include media-breakpoint-down(xs) {
                                 max-width: 100%;
@@ -859,6 +862,8 @@
                                         background-size: contain;
                                         width: rem(10);
                                         height: rem(17);
+                                        top: 50%;
+                                        transform: translateY(-50%);
 
                                         @include media-breakpoint-down(xs) {
                                             top: 50%;
@@ -866,14 +871,32 @@
                                         }
 
                                         &.slick-prev {
-                                            left: rem(0);
+                                            left: -14.5%;
+
+                                            @include custom-media-query-down($large-screen-width-down) {
+                                                left: -3vw;
+                                            }
+
+                                            @include media-breakpoint-down(lg) {
+                                                left: 0%;
+                                            }
+
                                             @include media-breakpoint-down(xs) {
                                                 left: rem(15);
                                             }
                                         }
 
                                         &.slick-next {
-                                            right: rem(0);
+                                            right: -14.5%;
+
+                                            @include custom-media-query-down($large-screen-width-down) {
+                                                right: -3vw;
+                                            }
+
+                                            @include media-breakpoint-down(lg) {
+                                                right: 0%;
+                                            }
+
                                             @include media-breakpoint-down(xs) {
                                                 right: rem(15);
                                             }
@@ -906,7 +929,7 @@
                             max-width: rem(505);
                             margin: 0 auto;
                             @include media-breakpoint-down(md) {
-                                max-width: rem(405);
+                                max-width: rem(330);
                             }
                             @include media-breakpoint-down(sm) {
                                 max-width: rem(186);
@@ -920,8 +943,8 @@
                                 cursor: pointer;
                                 background-color: $light-grey6;
                                 @include media-breakpoint-down(md) {
-                                    width: rem(95) !important;
-                                    height: rem(95);
+                                    width: rem(70) !important;
+                                    height: rem(70);
                                 }
                                 @include media-breakpoint-down(sm) {
                                     width: rem(52) !important;
@@ -975,9 +998,15 @@
                             margin-left: rem(24);
                             max-width: 40.70%;
                             width: 100%;
-                            @include media-breakpoint-down(sm) {
-                                max-width: 50%;
+
+                            @include media-breakpoint-down(lg) {
+                                max-width: 43.70%;
                             }
+
+                            @include media-breakpoint-down(md) {
+                                max-width: 53%;
+                            }
+                            
                             @include media-breakpoint-down(xs) {
                                 max-width: 100%;
                                 margin-left: rem(0);
