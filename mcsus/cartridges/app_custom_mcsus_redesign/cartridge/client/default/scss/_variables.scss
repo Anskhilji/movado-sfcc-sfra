@@ -24,3 +24,11 @@ $light-pink: #FFAAAA;
 $light-pink2: rgba(255,91,91,0.2);
 $dark-pink: #CF1818;
 
+// Large Screen Down
+$large-screen-width-down: 1400px;
+
+@mixin custom-media-query-down($large-screen-width-down) {
+  @media (max-width:#{$large-screen-width-down}) {
+      @content;
+  }
+}
