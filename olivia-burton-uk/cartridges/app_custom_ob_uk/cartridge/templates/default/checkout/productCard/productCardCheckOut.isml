@@ -25,6 +25,9 @@
                 <iscomment> Custom End: </iscomment>
             </div>
             <div class="item-attributes flex-column">
+                <div class="item-model model-name mb-2">
+                	${lineItem.resources.Model} ${lineItem.id}
+                </div>
                 <div class="line-item-header">
                     <isif condition=${miniCart}>
                         <isinclude template="checkout/productCard/productCardProductNameAndRemove" />
@@ -54,10 +57,6 @@
                              <div class="line-item-option">${option.displayName}</div>
                         </isif>
                     </isloop>
-                </div>
-
-                <div class="item-model model-name mb-2">
-                	${lineItem.resources.Model} ${lineItem.id}
                 </div>
 
                 <div class="item-personalization">

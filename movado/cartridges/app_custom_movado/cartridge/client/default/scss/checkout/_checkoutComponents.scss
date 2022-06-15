@@ -313,15 +313,18 @@ $stored-payment-spacing: rem(16);
       background: $white;
     }
   }
+
   &.leading-lines-wrapper {
     padding: rem(8) 0;
     border-bottom: rem(1) dashed $grey-dark-3;
 
     .start-lines {
+
       &::before {
         content: "";
       }
     }
+
     .order-label-wrapper {
       margin-bottom: rem(0);
       color: $black;
@@ -342,7 +345,30 @@ $stored-payment-spacing: rem(16);
         color: $parrot-green;
       }
     }
+
+    .product-label-wrapper {
+      margin-bottom: rem(0);
+      color: $black;
+      font-size: rem(13);
+      font-weight: 300;
+      letter-spacing: rem(0.7);
+      line-height: rem(20);
+
+      span {
+        color: $black;
+        font-size: rem(13);
+        font-weight: 300;
+        letter-spacing: rem(0.7);
+        line-height: rem(20);
+      }
+      
+      &.product-discount-total {
+        color: $parrot-green;
+      }
+    }
+
     .end-lines {
+
       .text-right {
         margin-bottom: rem(0);
         
@@ -609,13 +635,18 @@ $stored-payment-spacing: rem(16);
 .multi-shipping {
   display: none;
 }
+
 .grand-total {
+
   &.grand-total-wrapper{
     padding: rem(8) 0;
+
     .start-lines {
+
       &::before {
         content: '';
       }
+
       .order-receipt-label {
         margin-bottom: rem(0);
         color: $grey8;
@@ -627,8 +658,10 @@ $stored-payment-spacing: rem(16);
     }
 
     .end-lines {
+
       .text-right {
         margin-bottom: rem(0);
+
         .grand-total-sum {
           font-size: rem(14);
           color: $grey8;
@@ -673,10 +706,6 @@ $stored-payment-spacing: rem(16);
            position: relative;
            overflow: hidden;
            width: 100%;
-
-          .item-options {
-            display: none;
-          }
 
           .line-item-header {
             margin-bottom: rem(10);

@@ -608,3 +608,47 @@ header~.container .promotions .callout a{
         }
     }
 }
+
+.checkout-promo-section {
+
+    &.checkout-promo-redesign {
+
+        .checkout-coupons-and-promos {
+
+            .coupon-price-adjustment {
+                border: rem(1) solid $parrot-green;
+                border-radius: rem(22.5);
+                padding: rem(5) rem(10);
+
+                .flex-box-promo-code {
+                    display: flex;
+                    align-items: center;
+                    align-self: center;
+                }
+                .coupon-applied {
+                    font-size: rem(10);
+                    letter-spacing: rem(0.77);
+                    line-height: rem(24);
+                    color: $parrot-green;
+                    text-transform: capitalize;
+                    margin-right: rem(10);
+                }
+
+                .coupon-code {
+                    font-size: rem(10);
+                    letter-spacing: rem(0.77);
+                    line-height: rem(24);
+                    color: $parrot-green;
+                    display: flex;
+                    align-items: center;
+
+                    .clear-icon-btn {
+                        background-image: url("../images/clear_black_icon.svg");
+                        width: rem(16);
+                        height: rem(16);
+                    }
+                }
+            }
+        }
+    }
+}

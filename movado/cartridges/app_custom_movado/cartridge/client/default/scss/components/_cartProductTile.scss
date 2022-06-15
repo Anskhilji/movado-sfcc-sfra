@@ -70,6 +70,13 @@
                     color: $grey18;
                 }
 
+                .item-options {
+
+                    .line-item-option {
+                        margin-bottom: rem(10);
+                    }
+                }
+
                 .line-item-availability {
                     display: none;
                 }

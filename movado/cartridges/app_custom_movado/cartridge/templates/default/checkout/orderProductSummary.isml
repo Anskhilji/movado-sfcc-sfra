@@ -2,7 +2,6 @@
 <div class="order-product-summary ">
         <iscomment> <div class="row leading-lines justify-content-between">
             <div class="start-lines">
-                
             </div>
             <div class="end-lines">
                 <span class="grand-total-price">${pdict.order.totals.subTotal}</span>

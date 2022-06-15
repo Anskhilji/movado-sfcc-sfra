@@ -69,6 +69,13 @@
                     line-height: rem(10);
                     color: $grey18;
                 }
+                
+                .item-options {
+
+                    .line-item-option {
+                        margin-bottom: rem(10);
+                    }
+                }
 
                 .line-item-availability {
                     display: none;
@@ -83,6 +90,7 @@
                 }
 
                 .price-box-container {
+                    color: $grey8;
                     
                     .line-item-total-price-amount {
                         font-size: rem(12);

@@ -6,6 +6,7 @@ var URLUtils = require('dw/web/URLUtils');
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
+var checkoutCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
 
 var page = module.superModule;
 server.extend(page);
@@ -59,6 +60,7 @@ server.append(
         var Locale = require('dw/util/Locale');
         var OrderModel = require('*/cartridge/models/order');
         var Site = require('dw/system/Site');
+        var Money = require('dw/value/Money')
         
         var viewData = res.getViewData();
         var actionUrls = viewData.order.checkoutCouponUrls;
@@ -124,7 +126,8 @@ server.append(
                 defaultShipment: true
             }
         );
-
+        var currentDiscount = checkoutCustomHelpers.calculateSavingMoneyAndFormate(orderModel);
+        orderModel.totals.currentDiscount = currentDiscount ? currentDiscount : '';
         // Custom Start: Add email for Amazon Pay
         res.setViewData({
             order: orderModel,
