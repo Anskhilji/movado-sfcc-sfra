@@ -1,6 +1,5 @@
 <iscomment>Updated carousel configuration</iscomment>
 <div class="primary-images">
-<iscomment> Custom style:MSS-1829 badges remove  </iscomment>
   <isscript>
     var primaryImageCarouselConfig = {
       "slidesToShow": 1,
