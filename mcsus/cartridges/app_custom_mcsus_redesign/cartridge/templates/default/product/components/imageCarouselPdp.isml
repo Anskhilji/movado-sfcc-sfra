@@ -1,8 +1,6 @@
 <iscomment>Updated carousel configuration</iscomment>
 <div class="primary-images">
-  <div class="product-badges">
-    <isinclude template="product/components/newnessBadge"/>
-  </div>
+<iscomment> Custom style:MSS-1829 badges remove  </iscomment>
   <isscript>
     var primaryImageCarouselConfig = {
       "slidesToShow": 1,
@@ -14,6 +12,10 @@
     <!-- primaryImageCarouselConfig = primaryImageCarouselConfig.replace(/[\n\s]/gi, ''); -->
   </isscript>
   <div class="cs-carousel-wrapper">
+  <iscomment> Custom style:MSS-1829 badges added  </iscomment>
+    <div class="product-badges">
+        <isinclude template="product/components/newnessBadge"/>
+    </div>
       <div class="js-carousel main-carousel traditional-main-carousel pdp-carousel cs-carousel" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
           <isset name="pdpVideoConfigs" value="${product.pdpVideoConfigs}" scope="page" />
             <iscomment> Custom Start: MSS-1564 Add thumbnails to PDP </iscomment>
@@ -28,7 +30,7 @@
                       <source media="(min-width: 992px)" srcset="${!empty(product.images) && !empty(product.images['pdp700']) && !empty(product.images['pdp700'][loopStatus.count-1]) && !empty(product.images['pdp700'][loopStatus.count-1].url) ? product.images.pdp700[loopStatus.count-1].url : ''}" />
                       <source media="(max-width: 991px)" srcset="${!empty(product.images) && !empty(product.images['pdp700']) && !empty(product.images['pdp700'][loopStatus.count-1]) && !empty(product.images['pdp700'][loopStatus.count-1].url) ? product.images.pdp700[loopStatus.count-1].url : ''}" />
             <iscomment> Custom End: MSS-1564 Add thumbnails to PDP </iscomment>
-                      <img src="${image.url}" alt="${image.alt}" itemprop="image" data-toggle="modal" data-target="#zoomProduct" class="carousel-zoom-icon" data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom830) && !empty(product.images.zoom830[loopStatus.count-1]) && !empty(product.images.zoom830[loopStatus.count-1].url) ? product.images.zoom830[loopStatus.count-1].url : ''}" data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1660) && !empty(product.images.zoom1660[loopStatus.count-1]) && !empty(product.images.zoom1660[loopStatus.count-1].url) ? product.images.zoom1660[loopStatus.count-1].url : ''}" />
+                      <img src="${image.url}" alt="${image.alt}" itemprop="image" class="js-zoom-image  carousel-zoom-icon" aria-label="${product.resources.Zoom}" data-toggle="modal" data-target="#zoomProduct" data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom830) && !empty(product.images.zoom830[loopStatus.count-1]) && !empty(product.images.zoom830[loopStatus.count-1].url) ? product.images.zoom830[loopStatus.count-1].url : ''}" data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1660) && !empty(product.images.zoom1660[loopStatus.count-1]) && !empty(product.images.zoom1660[loopStatus.count-1].url) ? product.images.zoom1660[loopStatus.count-1].url : ''}" />
                       <isset name="isImageExist" value="true" scope="page" />
                   </picture>
                   <isif condition="${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL) }">
@@ -81,7 +83,7 @@
             </div>
             <div class="modal-body">
                 <div class="pinchZoom zoomedImage d-none"><img alt="${product.resources.Zoom}" src="${!empty(product.images['pdp533'][0]) && !empty(product.images['pdp533'][0].url) ? product.images['pdp533'][0].url : ''}"/></div>
-                <div class="zoom-carousel">
+                <div class="zoom-carousel w-100">
                     <isloop items="${product.images['zoom1660']}" var="image" status="loopStatus">
                       <div class="carousel-tile zoomit" data-src="${product.images.zoom1660}.url">
                           <img class="normal-zoom" src="${!empty(product.images) && !empty(product.images.zoom1660) && !empty(product.images.zoom1660[loopStatus.count-1]) && !empty(product.images.zoom1660[loopStatus.count-1].url) ? product.images.zoom1660[loopStatus.count-1].url : ''}" alt="${image.alt}" itemprop="image" data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom830) && !empty(product.images.zoom830[loopStatus.count-1]) && !empty(product.images.zoom830[loopStatus.count-1].url) ? product.images.zoom830[loopStatus.count-1].url : ''}" data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1660) && !empty(product.images.zoom1660[loopStatus.count-1]) && !empty(product.images.zoom1660[loopStatus.count-1].url) ? product.images.zoom1660[loopStatus.count-1].url : ''}" />

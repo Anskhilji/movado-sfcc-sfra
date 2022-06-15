@@ -745,8 +745,8 @@
 // check-scroll sticky-prodct-cart-redesign end
 
 // mcs new design styling here
-
-.mcs {
+.product-detail {
+&.mcs {
     &-product {
         &-detail {
             &-section {
@@ -774,6 +774,9 @@
                             .breadcrumb {
                                 margin-bottom: rem(18);
                                 padding: rem(0);
+                                @include media-breakpoint-down(sm) {
+                                    padding: rem(0) rem(15); 
+                                }
                                 @include media-breakpoint-down(xs) {
                                     padding: rem(0) rem(5); 
                                 }
@@ -814,9 +817,11 @@
 
                     // product image 
                     .primary-images {
-                        max-width: 57.56%;
+                        max-width: 59.30%;
                         width: 100%;
-
+                        @include media-breakpoint-down(sm) {
+                            max-width: 50%;
+                        }
                         @include media-breakpoint-down(xs) {
                             max-width: 100%;
                             min-height: unset;
@@ -828,6 +833,9 @@
                         }
 
                         .cs-carousel-wrapper {
+                            max-width: rem(615);
+                            margin: 0 auto;
+
                             @include media-breakpoint-down(xs) { 
                                 margin-bottom: rem(0);
                             }
@@ -965,8 +973,11 @@
                     // product-detail-right-box
                     .product-detail-right-box {
                         margin-left: rem(24);
-                        max-width: 42.44%;
+                        max-width: 40.70%;
                         width: 100%;
+                        @include media-breakpoint-down(sm) {
+                            max-width: 50%;
+                        }
                         @include media-breakpoint-down(xs) {
                             max-width: 100%;
                             margin-left: rem(0);
@@ -1121,6 +1132,9 @@
                         margin-top: rem(0);
                         height: rem(25);
                         margin-bottom: rem(25);
+                        @include media-breakpoint-down(sm) {
+                            width: auto;
+                        }
 
                         .yotpo {
 
@@ -1542,4 +1556,5 @@
             }
         }
     }
+}
 }
