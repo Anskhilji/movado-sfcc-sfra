@@ -89,7 +89,6 @@ function addContactToLTK(params, service) {
 function addTransactionalEmailToLTK(params, service) {
     var transactionalEmailPayload = RequestModel.generateTransactionalEmailToLTKPayload(params);
     var result = {
-        message: Resource.msg('newsletter.signup.success', 'listrak', null),
         success: true
     }
     var responsePayload = null;
@@ -113,7 +112,6 @@ function addTransactionalEmailToLTK(params, service) {
     }
 
     if (!responsePayload.object && responsePayload.error) {
-        result.message = Resource.msg('listrak.error.msg', 'listrak', null);
         Logger.error('Listrak addTransactionalEmailToLTK: {0}', responsePayload.errorMessage.tostring());
         result.success = false;
     }
