@@ -892,7 +892,7 @@
                                             @include custom-media-query-down($large-screen-width-down) {
                                                 right: -3vw;
                                             }
-                                            
+
                                             @include media-breakpoint-down(lg) {
                                                 right: 0%;
                                             }
@@ -998,12 +998,15 @@
                             margin-left: rem(24);
                             max-width: 40.70%;
                             width: 100%;
+
                             @include media-breakpoint-down(lg) {
                                 max-width: 43.70%;
                             }
+
                             @include media-breakpoint-down(md) {
                                 max-width: 53%;
                             }
+                            
                             @include media-breakpoint-down(xs) {
                                 max-width: 100%;
                                 margin-left: rem(0);
