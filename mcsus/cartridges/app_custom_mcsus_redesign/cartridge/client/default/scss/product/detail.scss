@@ -872,12 +872,15 @@
 
                                         &.slick-prev {
                                             left: -14.5%;
+
                                             @include custom-media-query-down($large-screen-width-down) {
                                                 left: -3vw;
                                             }
+
                                             @include media-breakpoint-down(lg) {
                                                 left: 0%;
                                             }
+
                                             @include media-breakpoint-down(xs) {
                                                 left: rem(15);
                                             }
@@ -885,12 +888,15 @@
 
                                         &.slick-next {
                                             right: -14.5%;
+
                                             @include custom-media-query-down($large-screen-width-down) {
                                                 right: -3vw;
                                             }
+                                            
                                             @include media-breakpoint-down(lg) {
                                                 right: 0%;
                                             }
+
                                             @include media-breakpoint-down(xs) {
                                                 right: rem(15);
                                             }
