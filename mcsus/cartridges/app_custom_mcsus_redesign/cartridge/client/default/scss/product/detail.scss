@@ -874,7 +874,6 @@
                                             left: -14.5%;
                                             @include custom-media-query-down($large-screen-width-down) {
                                                 left: -3vw;
-                                                // left: -11.5%;
                                             }
                                             @include media-breakpoint-down(lg) {
                                                 left: 0%;
