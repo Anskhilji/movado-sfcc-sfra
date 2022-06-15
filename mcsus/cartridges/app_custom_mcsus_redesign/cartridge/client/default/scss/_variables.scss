@@ -28,7 +28,7 @@ $dark-pink: #CF1818;
 $large-screen-width-down: 1400px;
 
 @mixin custom-media-query-down($large-screen-width-down) {
-  @media (max-width:#{$large-screen-width-down}) {
-      @content;
-  }
+    @media (max-width:#{$large-screen-width-down}) {
+        @content;
+    }
 }
