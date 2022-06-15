@@ -112,7 +112,7 @@ function parseRiskifiedResponse(order, reqBody) {
         	};
         	COCustomHelpers.sendCancellationEmail(orderObj);
         }
-        
+        // response.redirect(URLUtils.url('Checkout-Deciine'));
     } else {
         if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) {
             var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');

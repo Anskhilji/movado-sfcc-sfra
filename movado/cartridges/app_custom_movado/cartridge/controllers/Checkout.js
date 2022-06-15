@@ -137,4 +137,9 @@ server.append(
         next();
 });
 
+server.get('Decline', function (req, res, next) {
+    res.render('checkout/declinedOrder');
+    next();
+});
+
 module.exports = server.exports();
