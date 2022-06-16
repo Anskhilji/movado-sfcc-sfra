@@ -627,6 +627,7 @@
         bottom: rem(0);
         transform: translateY(0);
         transition: all 0.4s;
+        z-index: 1;
     }
 
     button{
