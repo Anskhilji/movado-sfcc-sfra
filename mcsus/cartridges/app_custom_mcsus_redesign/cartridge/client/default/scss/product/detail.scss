@@ -931,6 +931,7 @@
                             @include media-breakpoint-down(lg) {
                                 max-width: rem(482);
                             }
+
                             @include media-breakpoint-down(md) {
                                 max-width: rem(330);
                             }
@@ -949,6 +950,7 @@
                                     width: rem(120) !important;
                                     height: rem(120);
                                 }
+                                
                                 @include media-breakpoint-down(md) {
                                     width: rem(70) !important;
                                     height: rem(70);
