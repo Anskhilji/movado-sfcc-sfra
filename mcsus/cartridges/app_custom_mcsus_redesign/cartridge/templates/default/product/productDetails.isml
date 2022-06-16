@@ -92,7 +92,7 @@
                         <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
                     </div>
 
-                    <div class="d-flex align-items-center  w-100 price-promotions-box">
+                    <div class="w-100 price-promotions-box">
 
                         <!-- Applicable Promotions -->
                         <div class="promotions promotions-redesign mt-sm-3 mt-lg-0 d-flex align-align-items-center justify-content-center justify-content-sm-start flex-wrap">
