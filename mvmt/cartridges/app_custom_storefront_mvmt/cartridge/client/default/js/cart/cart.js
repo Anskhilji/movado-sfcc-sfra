@@ -573,6 +573,13 @@ module.exports = function () {
                     if (typeof $cartIcon !== 'undefined' && ($cartIcon !== '' || $cartIcon.length > 0)) {
                         $cartIcon.removeClass('fill-cart-icon');
                     }
+                    // Custom Start: To Update Product Quantity on MiniCart
+                    var $cartItems = $('.cart-quantity-items').data('quantity-id');
+                    if ($cartItems == 0) {
+                        var $cartCount = $('.header-nav-cart-count');
+                        $cartCount.empty().append('0');
+                    }
+                    // Custom End
                 } else {
                     if (data.toBeDeletedUUIDs && data.toBeDeletedUUIDs.length > 0) {
                         for (var i = 0; i < data.toBeDeletedUUIDs.length; i++) {
@@ -679,6 +686,13 @@ module.exports = function () {
                     if (typeof $cartIcon !== 'undefined' && ($cartIcon !== '' || $cartIcon.length > 0)) {
                         $cartIcon.removeClass('fill-cart-icon');
                     }
+                    // Custom Start: To Update Product Quantity on MiniCart
+                    var $cartItems = $('.cart-quantity-items').data('quantity-id');
+                    if ($cartItems == 0) {
+                        var $cartCount = $('.header-nav-cart-count');
+                        $cartCount.empty().append('0');
+                    }
+                    // Custom End
                     if(data.cartAnalyticsTrackingData && typeof setAnalyticsTrackingByAJAX != 'undefined') {
                         setAnalyticsTrackingByAJAX.cartAnalyticsTrackingData = data.cartAnalyticsTrackingData;
                         window.dispatchEvent(setAnalyticsTrackingByAJAX);
