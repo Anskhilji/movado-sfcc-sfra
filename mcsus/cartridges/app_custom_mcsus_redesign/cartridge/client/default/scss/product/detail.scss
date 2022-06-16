@@ -928,6 +928,9 @@
                         .carousel-nav-redesign {
                             max-width: rem(505);
                             margin: 0 auto;
+                            @include media-breakpoint-down(lg) {
+                                max-width: rem(482);
+                            }
                             @include media-breakpoint-down(md) {
                                 max-width: rem(330);
                             }
@@ -942,6 +945,10 @@
                                 border: rem(1.5) solid transparent;  
                                 cursor: pointer;
                                 background-color: $light-grey6;
+                                @include media-breakpoint-down(lg) {
+                                    width: rem(120) !important;
+                                    height: rem(120);
+                                }
                                 @include media-breakpoint-down(md) {
                                     width: rem(70) !important;
                                     height: rem(70);
@@ -1006,7 +1013,7 @@
                             @include media-breakpoint-down(md) {
                                 max-width: 53%;
                             }
-                            
+
                             @include media-breakpoint-down(xs) {
                                 max-width: 100%;
                                 margin-left: rem(0);
