@@ -8,9 +8,9 @@
         var $body = $('body');
         var $addToCartButton = $('.prices-add-to-cart-actions');
         var $checkoutButton = $('.checkout-button-wrapper');
-        var $redesignCehckoutButton = $('.sticky-container-redesign').height();
+        var $redesignCheckoutButton = $('.sticky-container-redesign').height();
         var fixedButtonHeight = $addToCartButton.length ? $addToCartButton.height() : $checkoutButton.height();
-        fixedButtonHeight = $redesignCehckoutButton ? $redesignCehckoutButton : fixedButtonHeight; 
+        fixedButtonHeight = $redesignCheckoutButton ? $redesignCheckoutButton : fixedButtonHeight; 
         if (isXS && fixedButtonHeight) {
             $body.css('margin-bottom', fixedButtonHeight);
         } else {
