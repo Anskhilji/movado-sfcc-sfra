@@ -1,0 +1,37 @@
+
+<div class="" tabindex="0">
+    <form action="${pdict.actionUrls.submitCouponCodeUrl}" class="checkout-promo-code-form" method="GET" name="checkout-promo-code-form">
+        <div class="form-group p-0">
+            <label class="title show-details-wrapper label-show-title" for="couponCode">${Resource.msg('label.order.summary','cart',null)}
+            <img src="${URLUtils.staticURL('/images/icon-down-arrow.svg')}" alt=""/>
+            </label>
+
+                <div class="row  position-relative" id="orderSummary">
+                    <div class="col-12 order-summary-container hidden-menu">
+                       <!-- Promos -->
+<div class="checkout-promo-section checkout-promo-redesign">
+    <isinclude template="checkout/checkoutPromoCode" />
+        <div class="checkout-coupons-and-promos coupons-wrapper mb-3">
+            <isinclude template="cart/cartCouponDisplay" />
+        </div>
+        <div class="checkout-coupons-remove">
+            <isinclude template="cart/cartRemoveCouponModal"/>
+        </div>
+</div>
+                            <div class="card order-summary-card card-border-none-wrapper card-summary-wrapper-container">
+                                <div class="card-body order-total-summary">
+                                    <isinclude template="checkout/orderTotalSummary" />
+                                </div>
+                            </div>
+                            <isinclude template="checkout/orderProductSummary" />
+
+                            <div>
+                                <a href="#" class="hide-details-wrapper label-show-title">${Resource.msg('label.order.summary.hide.details','cart',null)} 
+                                    <img src="${URLUtils.staticURL('/images/icon-up-arrow.svg')}" alt=""/>
+                                </a>
+                            </div>
+                    </div>
+                </div>
+        </div>
+    </form>
+</div>

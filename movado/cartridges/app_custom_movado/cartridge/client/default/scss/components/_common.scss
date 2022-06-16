@@ -619,6 +619,7 @@ header~.container .promotions .callout a{
                 border: rem(1) solid $parrot-green;
                 border-radius: rem(22.5);
                 padding: rem(5) rem(10);
+                box-shadow: none;
 
                 .flex-box-promo-code {
                     display: flex;
@@ -634,6 +635,14 @@ header~.container .promotions .callout a{
                     margin-right: rem(10);
                 }
 
+                .coupon-not-applied {
+                    font-size: rem(10);
+                    letter-spacing: rem(0.77);
+                    line-height: rem(24);
+                    text-transform: capitalize;
+                    margin-right: rem(10);
+                }
+
                 .coupon-code {
                     font-size: rem(10);
                     letter-spacing: rem(0.77);
@@ -641,6 +650,8 @@ header~.container .promotions .callout a{
                     color: $parrot-green;
                     display: flex;
                     align-items: center;
+                    display: flex;
+                    justify-content: space-between;
 
                     .clear-icon-btn {
                         background-image: url("../images/clear_black_icon.svg");
@@ -648,6 +659,103 @@ header~.container .promotions .callout a{
                         height: rem(16);
                     }
                 }
+            }
+        }
+
+        .collapsible-promo-redesign-wrapper {
+
+            .promo-label-wrapper {
+                color: $cerulean;
+                font-size: rem(13);
+                font-weight: 500;
+                letter-spacing: rem(0.7);
+                line-height: rem(24);
+                text-transform: capitalize;
+
+                &::after {
+                  content: "";
+                }
+            }
+
+            .promo-input-wrapper {
+                position: relative;
+
+                .checkout-promo-code-submit {
+                    position: absolute;
+                    top: rem(1);
+                    right: rem(1);
+
+                    .checkout-promo-code-btn {
+                        border: transparent;
+                        height: rem(43);
+                        display: none;
+                        color: $cerulean;
+                        font-size: rem(14);
+                        letter-spacing: rem(1);
+                        line-height: rem(20);
+                        text-transform: capitalize;
+
+                        &:hover {
+                            background-color: $light-blue3;
+                        }
+
+                        &:focus {
+                            box-shadow: none;
+                            background-color: transparent;
+                            color: $cerulean;
+                        }
+                    }
+                }
+
+                .checkout-coupon-code-field {
+                    border: rem(1) solid $grey19;
+                    border-radius: rem(3);
+                    height: rem(45);
+                    font-size: rem(12);
+                    letter-spacing: rem(1.25);
+
+                    &:focus {
+                      
+                        &::placeholder {
+                            color: transparent;
+                            opacity: 0;
+                        }
+                    }
+                }
+            }
+
+            .promo-box-space {
+                @include media-breakpoint-down(xs) {
+                    padding: rem(0);
+                }
+
+                .coupon-error {
+                  margin: rem(10) 0;
+                }
+            }
+        }
+
+        .order-summary-container {
+            position: absolute;
+            width: 100%;
+            z-index: 9999;
+            height: rem(660);
+            background-color: $white;
+            overflow: auto;
+            display: none;
+            padding-bottom: rem(15);
+        }
+        
+        .label-show-title {
+            font-size: rem(12);
+            font-weight: 500;
+            letter-spacing: rem(0.65);
+            line-height: rem(24);
+            text-transform: capitalize;
+            color: $cerulean;
+
+            &:hover {
+              text-decoration: none;
             }
         }
     }

@@ -50,4 +50,25 @@ $(document).ready(function() { // eslint-disable-line
             e.stopPropagation();
         }
     });
+
+    function checkPromoInput(element) {
+        // const $labelPromo = $(element).siblings('.promo-input-wrapper');
+        if ($(element).val().length > 0) {
+            $('.checkout-promo-code-btn').addClass('d-block');
+        } else {
+            $('.checkout-promo-code-btn').removeClass('d-block');
+        }
+    }
+    $('input.checkout-coupon-code-field').each(function() {
+        checkPromoInput(this);
+    });
+    $('input.checkout-coupon-code-field').on('change keyup', function() {
+        checkPromoInput(this);
+    });
+    $('.show-details-wrapper').click(function() {
+        $('.hidden-menu').slideDown("slow");
+    });
+    $('.hide-details-wrapper').click(function() {
+        $('.hidden-menu').slideUp("slow");
+    });
 });

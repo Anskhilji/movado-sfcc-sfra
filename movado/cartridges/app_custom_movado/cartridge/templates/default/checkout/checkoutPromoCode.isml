@@ -4,13 +4,20 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-12 collapsible-promo-wrapper" tabindex="0">
+    <div class="col-12 collapsible-promo-wrapper collapsible-promo-redesign-wrapper" tabindex="0">
         <form action="${pdict.actionUrls.submitCouponCodeUrl}" class="checkout-promo-code-form" method="GET" name="checkout-promo-code-form">
-            <div class="form-group collapsible-xl">
-                <label class="title" data-toggle="collapse" data-target="#checkoutCoupon" aria-expanded="false" aria-controls="checkoutCoupon" for="couponCode">${Resource.msg('label.promo.code','cart',null)}</label>
+            <div class="form-group collapsible-xl promo-box-space">
+                <label class="title promo-label-wrapper" data-toggle="collapse" data-target="#checkoutCoupon" aria-expanded="false" aria-controls="checkoutCoupon" for="couponCode">${Resource.msg('label.promo.code','cart',null)}</label>
                 <div class="row collapse content value" id="checkoutCoupon">
-                    <div class="col-7 pr-0">
-                        <input type="text" class="form-control checkout-coupon-code-field" id="couponCode" name="couponCode" placeholder="${Resource.msg('placholder.text.promo.code.input','cart',null)}">
+                    <div class="col-12 pr-0">
+                        <div class="promo-input-wrapper">
+                            <input type="text" class="form-control checkout-coupon-code-field" id="couponCode" name="couponCode" placeholder="${Resource.msg('placholder.text.promo.code.input','cart',null)}">
+                            <div class="checkout-promo-code-submit">
+                                <button type="submit" class="btn btn-outline-primary btn-block checkout-promo-code-btn">
+                                    ${Resource.msg('button.submit.promo.code','cart',null)}
+                                </button>
+                            </div>
+                        </div>
                         <div class="coupon-error checkout-coupon-error">
                             <span class="checkout-coupon-missing-error coupon-required">${Resource.msg('error.missing.coupon.code', 'cart', null)}</span>
                             <span class="checkout-coupon-error-message"></span>
@@ -18,12 +25,6 @@
                     </div>
 
                     <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
-
-                    <div class="col-5 checkout-promo-code-submit pl-0">
-                        <button type="submit" class="btn btn-outline-primary btn-block checkout-promo-code-btn">
-                            ${Resource.msg('button.submit.promo.code','cart',null)}
-                        </button>
-                    </div>
                 </div>
             </div>
         </form>

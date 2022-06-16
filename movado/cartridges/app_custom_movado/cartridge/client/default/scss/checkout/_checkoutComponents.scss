@@ -59,6 +59,12 @@ $stored-payment-spacing: rem(16);
   margin-bottom: rem(50);
   .top-grandtotal-label {
     text-transform: uppercase;
+    color: $grey8;
+    font-size: rem(12);
+    font-weight: 500;
+    letter-spacing: rem(0.56);
+    line-height: rem(21);
+  
   }
   .card-body {
     padding: rem(15) rem(10);
@@ -248,6 +254,20 @@ $stored-payment-spacing: rem(16);
     }
     .checkout-promo-code-form .form-group {
       padding: 0;
+    }
+  }
+  
+  .top-grand-total-price-wrapper {
+    color: $grey8;
+    font-size: rem(12);
+    font-weight: 500;
+    letter-spacing: rem(0.56);
+    line-height: rem(21);
+  }
+  
+  &.data-checkout-stage-redesign {
+    @include media-breakpoint-down(xs) {
+      padding: rem(10) rem(20) rem(0);
     }
   }
 }

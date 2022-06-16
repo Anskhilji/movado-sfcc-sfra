@@ -852,3 +852,8 @@ header {
         margin-bottom: rem(40);
     }
 }
+.d-hide-mobile {
+    @include media-breakpoint-down(xs) {
+        display: none;
+    }
+}
