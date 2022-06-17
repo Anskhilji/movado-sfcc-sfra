@@ -80,12 +80,12 @@ server.get('AddToCart', server.middleware.https, function (req, res, next) {
                         var Constants = require('*/cartridge/utils/Constants');
                         var orderLineItems = currentBasket.allProductLineItems;
                         var orderLineItemsIterator = orderLineItems.iterator();
-                        var productLineItemW;
+                        var productLineItemWarranty;
                         Transaction.wrap(function () {
                             while (orderLineItemsIterator.hasNext()) {
-                                productLineItemW = orderLineItemsIterator.next();
-                                if (productLineItemW instanceof dw.order.ProductLineItem && productLineItemW.optionID == Constants.CLYDE_WARRANTY && productLineItemW.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
-                                    currentBasket.removeProductLineItem(productLineItemW);
+                                productLineItemWarranty = orderLineItemsIterator.next();
+                                if (productLineItemWarranty instanceof dw.order.ProductLineItem && productLineItemWarranty.optionID == Constants.CLYDE_WARRANTY && productLineItemWarranty.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
+                                    currentBasket.removeProductLineItem(productLineItemWarranty);
                                 }
                             }
                         });
