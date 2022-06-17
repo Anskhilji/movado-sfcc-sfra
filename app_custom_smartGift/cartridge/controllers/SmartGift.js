@@ -20,6 +20,8 @@ function addLineItem(currentBasket, product, quantity, defaultShipment) {
 server.get('AddToCart', server.middleware.https, function (req, res, next) {
     var BasketMgr = require('dw/order/BasketMgr');
     var smartGiftService = require('*/cartridge/scripts/smartGiftService/smartGiftService');
+
+    var Site = require('dw/system/Site');
     var URLUtils = require('dw/web/URLUtils');
     
     var product;
@@ -73,6 +75,21 @@ server.get('AddToCart', server.middleware.https, function (req, res, next) {
                                 productLineItem = addLineItem(currentBasket, product.ID, item.quantity, defaultShipment);
                             }
                     });
+
+                    if (!Site.getCurrent().preferences.custom.isClydeEnabled || Site.getCurrent().preferences.custom.isClydeEnabled) {
+                        var Constants = require('*/cartridge/utils/Constants');
+                        var orderLineItems = currentBasket.allProductLineItems;
+                        var orderLineItemsIterator = orderLineItems.iterator();
+                        var productLineItemW;
+                        Transaction.wrap(function () {
+                            while (orderLineItemsIterator.hasNext()) {
+                                productLineItemW = orderLineItemsIterator.next();
+                                if (productLineItemW instanceof dw.order.ProductLineItem && productLineItemW.optionID == Constants.CLYDE_WARRANTY && productLineItemW.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
+                                    currentBasket.removeProductLineItem(productLineItemW);
+                                }
+                            }
+                        });
+                    }
                 } else {
                     Logger.error("Items do not exist in the response, and items length is: " + requestPayload.responseObject.data.items);
                     res.redirect('Home-ErrorNotFound');
