@@ -9,15 +9,15 @@
                 <div class="row  position-relative" id="orderSummary">
                     <div class="col-12 order-summary-container hidden-menu">
                        <!-- Promos -->
-<div class="checkout-promo-section checkout-promo-redesign">
-    <isinclude template="checkout/checkoutPromoCode" />
-        <div class="checkout-coupons-and-promos coupons-wrapper mb-3">
-            <isinclude template="cart/cartCouponDisplay" />
-        </div>
-        <div class="checkout-coupons-remove">
-            <isinclude template="cart/cartRemoveCouponModal"/>
-        </div>
-</div>
+                       <div class="checkout-promo-section checkout-promo-redesign">
+                           <isinclude template="checkout/checkoutPromoCode" />
+                               <div class="checkout-coupons-and-promos coupons-wrapper mb-3">
+                                   <isinclude template="cart/cartCouponDisplay" />
+                                </div>
+                                <div class="checkout-coupons-remove">
+                                    <isinclude template="cart/cartRemoveCouponModal"/>
+                                </div>
+                        </div>
                             <div class="card order-summary-card card-border-none-wrapper card-summary-wrapper-container">
                                 <div class="card-body order-total-summary">
                                     <isinclude template="checkout/orderTotalSummary" />

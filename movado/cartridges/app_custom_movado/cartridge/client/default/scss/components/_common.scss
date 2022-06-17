@@ -625,6 +625,7 @@ header~.container .promotions .callout a{
                     display: flex;
                     align-items: center;
                     align-self: center;
+                    justify-content: space-around;
                 }
                 .coupon-applied {
                     font-size: rem(10);
@@ -650,7 +651,6 @@ header~.container .promotions .callout a{
                     color: $parrot-green;
                     display: flex;
                     align-items: center;
-                    display: flex;
                     justify-content: space-between;
 
                     .clear-icon-btn {

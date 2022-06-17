@@ -11,7 +11,8 @@
                 <div class="row collapse content value" id="checkoutCoupon">
                     <div class="col-12 pr-0">
                         <div class="promo-input-wrapper">
-                            <input type="text" class="form-control checkout-coupon-code-field" id="couponCode" name="couponCode" placeholder="${Resource.msg('placholder.text.promo.code.input','cart',null)}">
+                            <input type="text" class="form-control checkout-coupon-code-field" id="couponCode" name="couponCode" placeholder="">
+                            <label class="promo-code-coupon-label" for="">${Resource.msg('placholder.text.promo.code.input','cart',null)}</label>
                             <div class="checkout-promo-code-submit">
                                 <button type="submit" class="btn btn-outline-primary btn-block checkout-promo-code-btn">
                                     ${Resource.msg('button.submit.promo.code','cart',null)}
