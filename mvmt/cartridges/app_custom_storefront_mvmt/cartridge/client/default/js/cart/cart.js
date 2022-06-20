@@ -575,7 +575,7 @@ module.exports = function () {
                     }
                     // Custom Start: To Update Product Quantity on MiniCart
                     var $cartItems = $('.cart-quantity-items').data('quantity-id');
-                    if ($cartItems == 0) {
+                    if ($cartItems !== '' && $cartItems !== undefined && $cartItems == 0) {
                         var $cartCount = $('.header-nav-cart-count');
                         $cartCount.empty().append('0');
                     }
@@ -688,7 +688,7 @@ module.exports = function () {
                     }
                     // Custom Start: To Update Product Quantity on MiniCart
                     var $cartItems = $('.cart-quantity-items').data('quantity-id');
-                    if ($cartItems == 0) {
+                    if ($cartItems !== '' && $cartItems !== undefined && $cartItems == 0) {
                         var $cartCount = $('.header-nav-cart-count');
                         $cartCount.empty().append('0');
                     }
