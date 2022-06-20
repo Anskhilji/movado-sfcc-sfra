@@ -86,12 +86,6 @@
                         </div>
                     </div>
 
-                    <!-- Product Availability -->
-                    <div class="availability product-availability text-uppercase mb-4" data-ready-to-order="${product.readyToOrder}"
-                        data-available="${product.available}">
-                        <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
-                    </div>
-
                     <div class="w-100 price-promotions-box">
 
                         <!-- Applicable Promotions -->
