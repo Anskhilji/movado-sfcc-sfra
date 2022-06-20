@@ -713,6 +713,7 @@ header~.container .promotions .callout a{
                     height: rem(45);
                     font-size: rem(12);
                     letter-spacing: rem(1.25);
+                    padding-top: rem(16);
 
                     &:focus {
                       
@@ -720,6 +721,47 @@ header~.container .promotions .callout a{
                             color: transparent;
                             opacity: 0;
                         }
+
+                        + .promo-code-coupon-label {
+                            transition: 0.2s ease-in-out;
+                            top: 0;
+                            left: rem(13.616);
+                            height: rem(24);
+                            color: $grey17;
+                            font-size: rem(10);
+                            font-weight: 500;
+                            letter-spacing: rem(0.77);
+                            line-height: rem(24);
+                            width: 100%;
+                            pointer-events: none;
+                        }
+                    }
+                }
+
+                .promo-code-coupon-label {
+                    position: absolute;
+                    top: rem(16);
+                    left: rem(13.616);
+                    color: $grey17;
+                    transition: 0.2s ease-in-out;
+                    width: 100%;
+                    pointer-events: none;
+                    text-transform: capitalize;
+                    font-size: rem(12);
+                    letter-spacing: rem(0.92);
+        
+                    &.input-has-value {
+                          transition: 0.2s ease-in-out;
+                          top: 0;
+                          left: rem(13.616);
+                          height: rem(24);
+                          color: $grey17;
+                          font-size: rem(10);
+                          font-weight: 500;
+                          letter-spacing: rem(0.77);
+                          line-height: rem(24);
+                          width: 100%;
+                          pointer-events: none;
                     }
                 }
             }
