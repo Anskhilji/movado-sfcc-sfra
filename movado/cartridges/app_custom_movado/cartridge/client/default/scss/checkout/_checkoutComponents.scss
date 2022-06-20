@@ -59,6 +59,12 @@ $stored-payment-spacing: rem(16);
   margin-bottom: rem(50);
   .top-grandtotal-label {
     text-transform: uppercase;
+    color: $grey8;
+    font-size: rem(12);
+    font-weight: 500;
+    letter-spacing: rem(0.56);
+    line-height: rem(21);
+  
   }
   .card-body {
     padding: rem(15) rem(10);
@@ -264,6 +270,20 @@ $stored-payment-spacing: rem(16);
       padding: 0;
     }
   }
+  
+  .top-grand-total-price-wrapper {
+    color: $grey8;
+    font-size: rem(12);
+    font-weight: 500;
+    letter-spacing: rem(0.56);
+    line-height: rem(21);
+  }
+  
+  &.data-checkout-stage-redesign {
+    @include media-breakpoint-down(xs) {
+      padding: rem(10) rem(20) rem(0);
+    }
+  }
 }
 
 .shipping-method {
@@ -325,6 +345,71 @@ $stored-payment-spacing: rem(16);
   &.justify-content-between {
     .end-lines {
       background: $white;
+    }
+  }
+
+  &.leading-lines-wrapper {
+    padding: rem(8) 0;
+    border-bottom: rem(1) dashed $grey-dark-3;
+
+    .start-lines {
+
+      &::before {
+        content: "";
+      }
+    }
+
+    .order-label-wrapper {
+      margin-bottom: rem(0);
+      color: $black;
+      font-size: rem(13);
+      font-weight: 300;
+      letter-spacing: rem(0.7);
+      line-height: rem(20);
+
+      span {
+        color: $black;
+        font-size: rem(13);
+        font-weight: 300;
+        letter-spacing: rem(0.7);
+        line-height: rem(20);
+      }
+      
+      &.order-discount-total {
+        color: $parrot-green;
+      }
+    }
+
+    .product-label-wrapper {
+      margin-bottom: rem(0);
+      color: $black;
+      font-size: rem(13);
+      font-weight: 300;
+      letter-spacing: rem(0.7);
+      line-height: rem(20);
+
+      span {
+        color: $black;
+        font-size: rem(13);
+        font-weight: 300;
+        letter-spacing: rem(0.7);
+        line-height: rem(20);
+      }
+      
+      &.product-discount-total {
+        color: $parrot-green;
+      }
+    }
+
+    .end-lines {
+
+      .text-right {
+        margin-bottom: rem(0);
+        
+        .shipping-total-cost {
+          color: $parrot-green;
+        }
+      }
     }
   }
 }
@@ -957,5 +1042,98 @@ $stored-payment-spacing: rem(16);
   .card-header-inner-wrapper {
     max-width: rem(350);
     margin-bottom: rem(20);
+  }
+}
+
+.grand-total {
+
+  &.grand-total-wrapper{
+    padding: rem(8) 0;
+
+    .start-lines {
+
+      &::before {
+        content: '';
+      }
+
+      .order-receipt-label {
+        margin-bottom: rem(0);
+        color: $grey8;
+        font-size: rem(14);
+        font-weight: 500;
+        letter-spacing: rem(0.65);
+        line-height: rem(21);
+      }
+    }
+
+    .end-lines {
+
+      .text-right {
+        margin-bottom: rem(0);
+
+        .grand-total-sum {
+          font-size: rem(14);
+          color: $grey8;
+          font-weight: 500;
+          letter-spacing: rem(0.65);
+          line-height: rem(21);
+        }
+      }
+    }
+  }
+}
+
+.order-product-summary {
+  
+  .product-summary-block {
+
+    .product-card-wrapper {
+      padding: rem(0);
+      box-shadow: none;
+      border-radius: rem(0);
+      border: none;
+      border-bottom: rem(1) solid $grey-dark-3;
+
+      .product-line-item-details {
+         overflow: hidden;
+         align-items: center;
+         margin-bottom: rem(30);
+
+         .item-image {
+           width: rem(100);
+           height: rem(100);
+           margin-right: rem(21);
+
+           .product-image {
+            width: rem(100);
+            height: rem(100);
+            max-height: rem(100);
+           }
+         }
+
+         .item-attributes {
+           position: relative;
+           overflow: hidden;
+           width: 100%;
+
+          .line-item-header {
+            margin-bottom: rem(10);
+            font-size: rem(16);
+            font-weight: 500;
+            letter-spacing: rem(0.7);
+            line-height: rem(22);
+            color: $light-black2;
+
+            .line-item-name {
+              font-size: rem(16);
+              font-weight: 500;
+              letter-spacing: rem(0.7);
+              line-height: rem(22);
+              color: $light-black2;
+            }
+          }
+        }
+      }
+    }
   }
 }

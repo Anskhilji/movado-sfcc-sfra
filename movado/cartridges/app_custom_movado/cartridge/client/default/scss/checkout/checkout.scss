@@ -938,3 +938,19 @@ header {
             }
         }
     }
+
+.card-border-none-wrapper {
+    border: none;
+    box-shadow: none;
+    width: 100%;
+    .order-total-summary {
+        padding: rem(0);
+    }
+    &.card-heading-wrapper {
+        margin-bottom: rem(35);
+        padding: rem(0);
+    }
+    &.card-summary-wrapper-container {
+        margin-bottom: rem(40);
+    }
+}

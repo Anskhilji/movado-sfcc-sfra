@@ -920,6 +920,42 @@ header {
                 }
             }
         }
+        
+.order-product-summary {
+
+    .product-summary-block {
+
+        .product-card-container {
+
+            .product-line-item-details {
+
+                .item-attributes {
+
+                    .item-quantity-container-box {
+
+                        .item-model {
+                            color: $light-black;
+                            font-size: rem(12);
+                            font-weight: 500;
+                            letter-spacing: rem(0.86);
+                            line-height: rem(18);
+                        }
+
+                        .item-options {
+                            margin-bottom: rem(5);
+                        }
+
+                        .original-price {
+                            color: $light-black;
+                            font-size: rem(12);
+                            font-weight: 500;
+                            letter-spacing: rem(0.86);
+                            line-height: rem(18);
+                        }
+                    }
+                }
+            }
+        }
         .card-border-none {
 
             .card-body {
@@ -934,3 +970,61 @@ header {
     }
     
 }
+    }
+}
+
+.leading-lines {
+
+    &.leading-lines-wrapper {
+
+        .start-lines {
+
+            .order-receipt-label {
+                margin-bottom: rem(0);
+                color: $black;
+                font-size: rem(13);
+                font-weight: 300;
+                letter-spacing: rem(0.7);
+                line-height: rem(20);
+
+                span {
+                    font-size: rem(13);
+                    font-weight: 300;
+                    letter-spacing: rem(0.7);
+                    line-height: rem(20);
+                }
+            }
+        }
+
+        .end-lines {
+
+            .text-right {
+                
+                &.tax-total {
+                    color: $black;
+                    font-size: rem(13);
+                    font-weight: 300;
+                    letter-spacing: rem(0.7);
+                    line-height: rem(20);
+                }
+
+                span {
+                    color: $black;
+                    font-size: rem(13);
+                    font-weight: 300;
+                    letter-spacing: rem(0.7);
+                    line-height: rem(20);
+
+                    &.product-discount-total {
+                        color: $gossamer;
+                    }
+
+                    &.order-discount-total {
+                        color: $gossamer;
+                    }
+                }
+            }
+        }
+    }
+}
+

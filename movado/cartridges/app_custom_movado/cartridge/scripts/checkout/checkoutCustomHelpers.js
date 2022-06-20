@@ -8,6 +8,8 @@ var Transaction = require('dw/system/Transaction');
 var PaymentMgr = require('dw/order/PaymentMgr');
 var OrderMgr = require('dw/order/OrderMgr');
 var Order = require('dw/order/Order');
+var StringUtils = require('dw/util/StringUtils');
+var Money = require('dw/value/Money');
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 
 /**
@@ -304,6 +306,25 @@ function declineOrder(order) {
 
 }
 
+/**
+ * sets the gift message on a shipment
+ * @param {order} orderModel - Any shipment for the current basket
+ * @return {savingMoney} - Any shipment for the current basket
+ */
+ function calculateSavingMoneyAndFormate(orderModel) {
+    var savingMoney = 0;
+    var currencyCode;
+    if (orderModel.items.items.length > 0) {
+        for (var i = 0; i < orderModel.items.items.length; i++) {
+            savingMoney = savingMoney + orderModel.items.items[i].priceTotal.savingPrice.value;
+            currencyCode = orderModel.items.items[i].priceTotal.savingPrice.currencyCode;
+        }
+        savingMoney = Money(savingMoney, currencyCode);
+        savingMoney = StringUtils.formatMoney(savingMoney);
+    }
+    return savingMoney;
+}
+
 module.exports = {
     sendConfirmationEmail: sendConfirmationEmail,
     sendOrderConfirmationEmail: sendOrderConfirmationEmail,
@@ -312,5 +333,6 @@ module.exports = {
     sendShippingEmail: sendShippingEmail,
     failOrderRisifiedCall: failOrderRisifiedCall,
     isRiskified: isRiskified,
-    declineOrder: declineOrder
+    declineOrder: declineOrder,
+    calculateSavingMoneyAndFormate: calculateSavingMoneyAndFormate
 };

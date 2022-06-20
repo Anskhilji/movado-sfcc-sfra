@@ -22,13 +22,16 @@
         <isinclude template="reporting/reportingUrls" />
     </isif>
     
-    <div id="checkout-main" class="data-checkout-stage <isif condition="${pdict.order.usingMultiShipping && pdict.order.shipping.length > 1}">multi-ship</isif>" data-customer-type="${pdict.customer.registeredUser ? 'registered' : 'guest'}" data-checkout-stage="${pdict.currentStage}" data-checkout-get-url="${URLUtils.https('CheckoutServices-Get')}">
+    <div id="checkout-main" class="data-checkout-stage data-checkout-stage-redesign <isif condition="${pdict.order.usingMultiShipping && pdict.order.shipping.length > 1}">multi-ship</isif>" data-customer-type="${pdict.customer.registeredUser ? 'registered' : 'guest'}" data-checkout-stage="${pdict.currentStage}" data-checkout-get-url="${URLUtils.https('CheckoutServices-Get')}">
         
         <div class="row d-sm-none">
             <div class="col-12">
-                <span class="grand-total-label top-grandtotal-label">${Resource.msgf('label.number.items.in.cart','cart', null, pdict.order.items.totalQuantity)}</span>
-                <span class="grand-total-price">${pdict.order.totals.subTotal}</span>
+                <span class="grand-total-label top-grandtotal-label">${Resource.msg('order.confirmation.email.label.orderTotal','order',null)} (${Resource.msgf('label.number.items.in.cart','cart', null, pdict.order.items.totalQuantity)})</span>
+                <span class="grand-total-price top-grand-total-price-wrapper">${pdict.order.totals.subTotal}</span>
             </div>
+            <iscomment> <div class="col-12 checkout-promo-section checkout-promo-redesign d-none-promo-box">
+                 <isinclude template="checkout/orderSummaryPopUp.isml" />
+            </div> </iscomment>
         </div>
         <div class="alert card alert-dismissible error-message mt-2" role="alert">
             <p class="error-message-text checkout-global-error mt-2"></p>
@@ -102,10 +105,13 @@
             <!----------------------------------------------------------------------------------->
             <!-- Order Totals, Details and Summary -->
             <!----------------------------------------------------------------------------------->
-                <div class="col-md-5 right-section">
+                <div class="col-md-5 right-section d-hide-mobile">
                 <div class="right-content">
+                            <div class="card-header card-border-none-wrapper card-heading-wrapper">
+                                <h4>${Resource.msg('heading.order.summary', 'checkout', null)}</h4>
+                            </div>
                     <!-- Promos -->
-                        <div class="checkout-promo-section">
+                        <div class="checkout-promo-section checkout-promo-redesign">
                             <isinclude template="checkout/checkoutPromoCode" />
                             <div class="checkout-coupons-and-promos coupons-wrapper mb-3">
                                 <isinclude template="cart/cartCouponDisplay" />
@@ -114,15 +120,12 @@
                                 <isinclude template="cart/cartRemoveCouponModal"/>
                             </div>
                         </div>
-                        <div class="card order-summary-card">
-                            <div class="card-header">
-                                <h4>${Resource.msg('heading.order.summary', 'checkout', null)}</h4>
-                            </div>
+                        <div class="card order-summary-card card-border-none-wrapper card-summary-wrapper-container">
+
                             <div class="card-body order-total-summary">
                                 <isinclude template="checkout/orderTotalSummary" />
                             </div>
                         </div>
-
                         <isinclude template="checkout/orderProductSummary" />
 
                         <!----------------------------------------------------------------------------------->

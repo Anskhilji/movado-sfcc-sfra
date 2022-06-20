@@ -1,5 +1,5 @@
 <!--- Subtotal --->
-<div class="row leading-lines justify-content-between subtotal-item">
+<div class="row leading-lines leading-lines-wrapper justify-content-between subtotal-item">
     <div class="start-lines">
         <p class="order-receipt-label"><span>${Resource.msg('label.order.subtotal','confirmation', null)}</span></p>
     </div>
@@ -9,7 +9,7 @@
 </div>
 
 <!--- Order Discount --->
-<div class="row leading-lines justify-content-between order-discount <isif condition="${pdict.order.totals.orderLevelDiscountTotal.value === 0}">hide-order-discount</isif>">
+<div class="row leading-lines leading-lines-wrapper justify-content-between order-discount <isif condition="${pdict.order.totals.orderLevelDiscountTotal.value === 0}">hide-order-discount</isif>">
     <div class="start-lines">
         <p class="order-receipt-label"><span>${Resource.msg('label.order.discount', 'common', null)}</span></p>
     </div>
@@ -18,8 +18,18 @@
     </div>
 </div>
 
+<!--- Product Discount --->
+<div class="row leading-lines leading-lines-wrapper justify-content-between product-discount <isif condition="${pdict.order.totals.productLevelDiscountTotal.value === 0}">hide-order-discount</isif>">
+    <div class="start-lines">
+        <p class="product-receipt-label product-label-wrapper"><span>${Resource.msg('label.product.discount', 'common', null)}</span></p>
+    </div>
+    <div class="end-lines">
+        <p class="text-right"><span class="product-discount-total product-label-wrapper">- ${pdict.order.totals.currentDiscount}</span></p>
+    </div>
+</div>
+
 <!--- Shipping Cost --->
-<div class="row leading-lines justify-content-between shipping-item">
+<div class="row leading-lines leading-lines-wrapper justify-content-between shipping-item">
     <div class="start-lines">
         <p class="order-receipt-label"><span>${Resource.msg('label.order.shipping.cost','confirmation', null)}</span></p>
     </div>
@@ -37,7 +47,7 @@
 </div>
 
 <!--- Shipping Discount --->
-<div class="row leading-lines justify-content-between shipping-discount <isif condition="${pdict.order.totals.shippingLevelDiscountTotal.value === 0 || pdict.order.totals.isFree == true}">hide-shipping-discount</isif>">
+<div class="row leading-lines leading-lines-wrapper justify-content-between shipping-discount <isif condition="${pdict.order.totals.shippingLevelDiscountTotal.value === 0 || pdict.order.totals.isFree == true}">hide-shipping-discount</isif>">
     <div class="start-lines">
         <p class="order-receipt-label"><span>${Resource.msg('label.shipping.discount', 'common', null)}</span></p>
     </div>
@@ -48,7 +58,7 @@
 
 <!--- Sales Tax --->
 <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('disableSalesTaxLine') !== true}">
-    <div class="row leading-lines justify-content-between sales-tax-item">
+    <div class="row leading-lines leading-lines-wrapper justify-content-between sales-tax-item">
         <div class="start-lines">
             <p class="order-receipt-label"><span>${Resource.msg('label.order.sales.tax','confirmation', null)}</span></p>
         </div>
@@ -62,9 +72,10 @@
     </div>
 </isif>
 <!--- Grand Total --->
-<div class="row grand-total justify-content-between leading-lines">
-    <div class="start-lines">
-        <p class="order-receipt-label"><span>${Resource.msg('label.order.grand.total','confirmation', null)}</span></p>
+<div class="row grand-total grand-total-wrapper justify-content-between leading-lines">
+    <div class="start-lines d-flex">
+        <p class="order-receipt-label mr-1"><span>${Resource.msg('label.order.grand.total','confirmation', null)}</span></p>
+        <span class="order-receipt-label grand-total-label">(${Resource.msgf('label.number.items.in.cart','cart', null, pdict.order.items.totalQuantity)})</span>
     </div>
     <div class="end-lines">
         <p class="text-right"><span class="grand-total-sum">${pdict.order.totals.grandTotal}</span></p>
