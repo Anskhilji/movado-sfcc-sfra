@@ -11,8 +11,8 @@
     <!-- primaryImageCarouselConfig = primaryImageCarouselConfig.replace(/[\n\s]/gi, ''); -->
   </isscript>
   <div class="cs-carousel-wrapper">
-  <iscomment> Custom style:MSS-1829 badges added  </iscomment>
-    <div class="product-badges">
+  <iscomment> Custom style:MSS-1829 badges d-none  </iscomment>
+    <div class="product-badges d-none">
         <isinclude template="product/components/newnessBadge"/>
     </div>
       <div class="js-carousel main-carousel traditional-main-carousel pdp-carousel cs-carousel" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
