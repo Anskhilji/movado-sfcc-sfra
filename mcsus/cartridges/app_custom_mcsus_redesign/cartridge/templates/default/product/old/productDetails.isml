@@ -73,8 +73,8 @@
                     <div class="row">
                         <!-- Attributes and Quantity -->
                         <div class="col-md-10 col-12">
-
-                            <isinclude template="product/components/old/badges" />
+                            <iscomment> hidden text badge old design  </iscomment>
+                            <iscomment> <isinclude template="product/components/old/badges" /> </iscomment>
 
                             <!-- Product Availability -->
                             <div class="availability product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
