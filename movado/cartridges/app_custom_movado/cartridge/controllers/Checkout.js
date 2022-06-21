@@ -137,7 +137,7 @@ server.append(
         next();
 });
 
-server.get('Decline', function (req, res, next) {
+server.get('Decline', server.middleware.https, function (req, res, next) {
     res.render('checkout/declinedOrder');
     next();
 });
