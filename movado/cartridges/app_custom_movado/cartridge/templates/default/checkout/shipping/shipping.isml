@@ -14,6 +14,8 @@
         <isset name="shipmentLoopState" value="${null}" scope="page" />
         <isset name="lineItem" value="${null}" scope="page" />
         <div class="card card-border-none" data-shipment-uuid="${shippingModel.UUID}">
+        <div class="row">
+        <div class="col-12 col-space-wrapper">
             <div class="card-header card-border-none card-bottom-space">
                  <iscomment> Custom Start: Add Amazon Pay Integeration</iscomment>
                 <isif condition="${pdict.order.amzPayRedirectURL}">
@@ -23,6 +25,8 @@
                     <h4 class="heading-content-label">${Resource.msg('heading.checkout.shipping', 'checkout', null)}</h4>
                 </isif>
                  <iscomment> Custom End </iscomment>
+            </div>
+            </div>
             </div>
 
             <div class="shipping-error"></div>

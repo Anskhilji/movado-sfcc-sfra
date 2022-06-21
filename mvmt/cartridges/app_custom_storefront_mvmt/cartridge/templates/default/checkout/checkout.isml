@@ -105,7 +105,7 @@
                         <h4>${Resource.msg('heading.order.summary', 'checkout', null)}</h4>
                     </div>
                 <!-- Promos -->
-                <div class="checkout-promo-section">
+                <div class="checkout-promo-section checkout-promo-redesign">
                     <isinclude template="checkout/checkoutPromoCode" />
                     <div class="checkout-coupons-and-promos coupons-and-promos coupons-wrapper mb-3">
                         <isinclude template="cart/cartCouponDisplay" />

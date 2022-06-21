@@ -366,5 +366,30 @@ header {
                 }
             }
         }
+
+        .right-section {
+            @include media-breakpoint-up(xl) {
+                padding: rem(0) rem(59.2);
+            }
+
+            @include custom-media-query-1440($large-screen-width-1440) {
+                max-width: 34.7%;
+                flex: 0 0 34.7%;
+                padding: rem(0) rem(83) rem(0) rem(82);
+            }
+
+            @include media-breakpoint-down(lg) {
+                padding: rem(0) rem(30);
+            }
+
+            @include media-breakpoint-down(md) {
+                padding: rem(0) rem(20);
+            }
+            
+            @include custom-media-query-max($medium-screen-width) {
+                padding: rem(0) rem(15);
+            }
+        }
+
     }
 }

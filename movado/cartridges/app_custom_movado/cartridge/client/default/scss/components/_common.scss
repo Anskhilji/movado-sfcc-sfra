@@ -718,6 +718,7 @@ header~.container .promotions .callout a{
                     padding-top: rem(16);
 
                     &:focus {
+                      box-shadow: none;
                       
                         &::placeholder {
                             color: transparent;
@@ -725,7 +726,7 @@ header~.container .promotions .callout a{
                         }
 
                         + .promo-code-coupon-label {
-                            transition: 0.2s ease-in-out;
+                            transition: 0.25s ease-in-out;
                             top: 0;
                             left: rem(13.616);
                             height: rem(24);
@@ -745,7 +746,7 @@ header~.container .promotions .callout a{
                     top: rem(16);
                     left: rem(13.616);
                     color: $grey17;
-                    transition: 0.2s ease-in-out;
+                    transition: 0.25s ease-in-out;
                     width: 100%;
                     pointer-events: none;
                     text-transform: capitalize;
@@ -753,7 +754,7 @@ header~.container .promotions .callout a{
                     letter-spacing: rem(0.92);
         
                     &.input-has-value {
-                          transition: 0.2s ease-in-out;
+                          transition: 0.25s ease-in-out;
                           top: 0;
                           left: rem(13.616);
                           height: rem(24);

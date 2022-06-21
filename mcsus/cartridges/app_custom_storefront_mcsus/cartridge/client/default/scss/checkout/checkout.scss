@@ -384,3 +384,58 @@ header {
         top: rem(15);
     } 
 }
+.right-section {
+    @include media-breakpoint-up(xl) {
+        padding: rem(0) rem(59.2);
+    }
+
+    @include custom-media-query-1440($large-screen-width-1440) {
+        max-width: 34.7%;
+        flex: 0 0 34.7%;
+        padding: rem(0) rem(83) rem(0) rem(82);
+    }
+
+    @include media-breakpoint-down(lg) {
+        padding: rem(0) rem(30);
+    }
+
+    @include media-breakpoint-down(md) {
+        padding: rem(0) rem(20);
+    }
+
+    @include custom-media-query-max($medium-screen-width) {
+        padding: rem(0) rem(15);
+    }
+
+    .card-border-none-wrapper {
+        border: none;
+        box-shadow: none;
+        width: 100%;
+    
+        .order-total-summary {
+            padding: rem(0);
+        }
+    
+        &.card-heading-wrapper {
+            margin-bottom: rem(30);
+            padding: rem(0);
+            color: $grey8;
+            font-size: rem(15);
+            font-weight: 500;
+            letter-spacing: rem(0.7);
+            line-height: rem(21);
+    
+            h4 {
+                color: $grey8;
+                font-size: rem(15);
+                font-weight: 500;
+                letter-spacing: rem(0.7);
+                line-height: rem(21);
+            }
+        }
+    
+        &.card-summary-wrapper-container {
+            margin-bottom: rem(40);
+        }
+    }
+}

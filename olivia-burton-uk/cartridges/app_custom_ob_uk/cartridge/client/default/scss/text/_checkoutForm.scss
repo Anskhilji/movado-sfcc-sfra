@@ -300,19 +300,37 @@
 
 .data-checkout-stage {
 
-  .card-header {
+    .card-header {
 
-    &.card-border-none {
+      &.card-border-none {
 
-      .heading-content-label {
-        font-size: rem(15);
-        font-weight: 500;
-        letter-spacing: rem(0.7);
-        line-height: rem(21);
+        .heading-content-label {
+          font-size: rem(15);
+          font-weight: 500;
+          letter-spacing: rem(0.7);
+          line-height: rem(21);
+        }
       }
+
+        &.card-heading-wrapper {
+          margin-bottom: rem(30);
+          padding: rem(0);
+          color: $black3;
+          font-size: rem(15);
+          font-weight: 600;
+          letter-spacing: rem(1);
+          line-height: rem(21);
+
+          h4 {
+              color: $black3;
+              font-size: rem(15);
+              font-weight: 600;
+              letter-spacing: rem(1);
+              line-height: rem(21);
+          }
+        }
     }
-  }
-}
+
     .product-summary-block {
 
         .line-item-name {
@@ -330,121 +348,6 @@
         }
     }
 
-    .leading-lines {
-
-      &.leading-lines-wrapper {
-
-          .start-lines {
-
-              .order-receipt-label {
-                  margin-bottom: rem(0);
-                  color: $black3;
-                  font-size: rem(14);
-                  font-weight: 300;
-                  letter-spacing: rem(1);
-                  line-height: rem(20);
-
-                  span {
-                      font-size: rem(14);
-                      font-weight: 300;
-                      letter-spacing: rem(1);
-                      line-height: rem(20);
-                  }
-              }
-              
-              .product-label-wrapper {
-                margin-bottom: rem(0);
-                color: $black;
-                font-size: rem(13);
-                font-weight: 300;
-                letter-spacing: rem(0.7);
-                line-height: rem(20);
-          
-                span {
-                  color: $black;
-                  font-size: rem(13);
-                  font-weight: 300;
-                  letter-spacing: rem(0.7);
-                  line-height: rem(20);
-                }               
-              }
-          }
-
-          .end-lines {
-
-              .text-right {
-
-                  &.tax-total {
-                      color: $black3;
-                      font-size: rem(14);
-                      font-weight: 300;
-                      letter-spacing: rem(1);
-                      line-height: rem(20);
-                  }
-
-                  span {
-                      color: $black3;
-                      font-size: rem(14);
-                      font-weight: 300;
-                      letter-spacing: rem(1);
-                      line-height: rem(20);
-
-                      &.product-discount-total {
-                        color: $parrot-green;
-                      }
-
-                      &.order-discount-total {
-                        color: $parrot-green;
-                      }
-                  }
-
-              }
-          }
-      }
-    }
-    .grand-total {
-
-      &.grand-total-wrapper {
-
-        .start-lines {
-
-          .order-receipt-label {
-
-            span {
-              color: $black;
-              font-size: rem(14);
-              font-weight: 600;
-              letter-spacing: rem(0.88);
-              line-height: rem(24);
-            }
-
-            &.grand-total-label{
-              font-family: inherit;
-              color: $black;
-              font-size: rem(14);
-              font-weight: 600;
-              letter-spacing: rem(0.88);
-              line-height: rem(24);
-            }
-          }
-
-        }
-
-        .end-lines {
-          
-          .text-right {
-
-            .grand-total-sum {
-              color: $black;
-              font-size: rem(14);
-              font-weight: 600;
-              letter-spacing: rem(0.88);
-              line-height: rem(24);
-            }
-          }
-        }
-      }
-    }
     .product-card-container {
 
       .product-line-item-details {
@@ -476,7 +379,7 @@
               font-weight: 500;
               letter-spacing: rem(1);
               line-height: rem(18);
-              color: $grey8;
+              color: $black3;
             }
 
             .line-item-total-price-amount {
@@ -500,7 +403,7 @@
               font-weight: 500;
               letter-spacing: rem(1);
               line-height: rem(18);
-              color: $grey8;
+              color: $black3;
             }
 
             .savings {
@@ -514,3 +417,128 @@
       }
     }
 
+    .card-summary-wrapper-container {
+
+      .order-total-summary {
+
+        .leading-lines {
+
+          &.leading-lines-wrapper {
+    
+              .start-lines {
+    
+                  .order-receipt-label {
+                      margin-bottom: rem(0);
+                      color: $black4;
+                      font-size: rem(14);
+                      font-weight: 300;
+                      letter-spacing: rem(1);
+                      line-height: rem(20);
+    
+                      span {
+                          font-size: rem(14);
+                          font-weight: 300;
+                          letter-spacing: rem(1);
+                          line-height: rem(20);
+                          color: $black4;
+                      }
+                  }
+                  
+                  .product-label-wrapper {
+                    margin-bottom: rem(0);
+                     color: $black4;
+                    font-size: rem(14);
+                    font-weight: 300;
+                    letter-spacing: rem(0.7);
+                    line-height: rem(20);
+              
+                    span {
+                       color: $black4;
+                      font-size: rem(14);
+                      font-weight: 300;
+                      letter-spacing: rem(0.7);
+                      line-height: rem(20);
+                    }               
+                  }
+              }
+    
+              .end-lines {
+    
+                  .text-right {
+    
+                      &.tax-total {
+                          color: $black4;
+                          font-size: rem(14);
+                          font-weight: 300;
+                          letter-spacing: rem(1);
+                          line-height: rem(20);
+                      }
+    
+                      span {
+                          color: $black4;
+                          font-size: rem(14);
+                          font-weight: 300;
+                          letter-spacing: rem(1);
+                          line-height: rem(20);
+    
+                          &.product-discount-total {
+                            color: $parrot-green;
+                          }
+    
+                          &.order-discount-total {
+                            color: $parrot-green;
+                          }
+                      }
+    
+                  }
+              }
+          }
+        }
+    
+        .grand-total {
+    
+          &.grand-total-wrapper {
+    
+            .start-lines {
+    
+              .order-receipt-label {
+    
+                span {
+                  color: $black;
+                  font-size: rem(14);
+                  font-weight: 600;
+                  letter-spacing: rem(0.88);
+                  line-height: rem(24);
+                }
+    
+                &.grand-total-label{
+                  font-family: inherit;
+                  color: $black;
+                  font-size: rem(14);
+                  font-weight: 600;
+                  letter-spacing: rem(0.88);
+                  line-height: rem(24);
+                }
+              }
+    
+            }
+    
+            .end-lines {
+              
+              .text-right {
+    
+                .grand-total-sum {
+                  color: $black;
+                  font-size: rem(14);
+                  font-weight: 600;
+                  letter-spacing: rem(0.88);
+                  line-height: rem(24);
+                }
+              }
+            }
+          }
+        }
+    
+      }
+    }
+}

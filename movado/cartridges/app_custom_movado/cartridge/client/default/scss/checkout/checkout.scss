@@ -394,11 +394,11 @@ header {
             width: 100%;
 
             @include media-breakpoint-up(sm) {
-                max-width: 70%;
+                max-width: 76%;
             }
 
             @include media-breakpoint-up(md) {
-                max-width: 58.33333%;
+                max-width: 63.33333%;
             }
 
             .checkout-logo {
@@ -847,6 +847,9 @@ header {
     }
     
     .checkout-content-container-inner {
+        @include custom-media-query-max($medium-screen-width) {
+            overflow: hidden;
+        }
         
         .error-space-left {
             @include custom-media-query-1440($large-screen-width-1440) {
@@ -857,8 +860,8 @@ header {
         .left-section {
             @include custom-media-query-1440($large-screen-width-1440) {
                 padding: rem(0) rem(0) rem(0) rem(100);
-                max-width: 66.1%;
-                flex: 0 0 66.1%;
+                max-width: 65.30%;
+                flex: 0 0 65.30%;
             }
 
             .mx-shipping-box {
@@ -897,10 +900,23 @@ header {
         }
 
         .right-section {
+            @include media-breakpoint-up(xl) {
+                padding: rem(0) rem(59.2);
+            }
+
             @include custom-media-query-1440($large-screen-width-1440) {
-                max-width: 33.9%;
-                flex: 0 0 33.9%;
-                padding: rem(0) rem(86);
+                max-width: 34.7%;
+                flex: 0 0 34.7%;
+                padding: rem(0) rem(83) rem(0) rem(82);
+            }
+            @include media-breakpoint-down(lg) {
+                padding: rem(0) rem(30);
+            }
+            @include media-breakpoint-down(md) {
+                padding: rem(0) rem(20);
+            }
+            @include custom-media-query-max($medium-screen-width) {
+                padding: rem(0) rem(15);
             }
         }
 
@@ -915,7 +931,7 @@ header {
 
             .mx-field-wrapper {
                 @include media-breakpoint-down(xs) {
-                    padding: rem(0) rem(5);
+                    padding: rem(0);
                 }
             }
         }
@@ -943,13 +959,29 @@ header {
     border: none;
     box-shadow: none;
     width: 100%;
+
     .order-total-summary {
         padding: rem(0);
     }
+
     &.card-heading-wrapper {
-        margin-bottom: rem(35);
+        margin-bottom: rem(30);
         padding: rem(0);
+        color: $grey8;
+        font-size: rem(15);
+        font-weight: 500;
+        letter-spacing: rem(0.7);
+        line-height: rem(21);
+
+        h4 {
+            color: $grey8;
+            font-size: rem(15);
+            font-weight: 500;
+            letter-spacing: rem(0.7);
+            line-height: rem(21);
+        }
     }
+
     &.card-summary-wrapper-container {
         margin-bottom: rem(40);
     }
