@@ -852,9 +852,8 @@ header {
         }
         
         .error-space-left {
-            @include custom-media-query-1440($large-screen-width-1440) {
-                padding-left: rem(84);
-            }
+            margin-left: 0;
+            padding: 0;
         }
 
         .left-section {

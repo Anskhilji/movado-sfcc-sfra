@@ -39,13 +39,14 @@
 
         <div class="checkout-content container">
             <div class="row checkout-content-container-inner">
-                <div class="checkout-form-error d-none error-space-left">
-                    <p>${Resource.msg('error.top.checkout', 'forms', null)}</p>
-                </div>
+
                 <div class="col-md-7 left-section">
                     <!-- Progressbar Template for desktop -->
                     <div class="d-none d-sm-block progressbar-container">
                         <isinclude template="checkout/checkoutProgressbar.isml" />
+                    </div>
+                    <div class="checkout-form-error col-12 d-none error-space-left">
+                        <p>${Resource.msg('error.top.checkout', 'forms', null)}</p>
                     </div>
                     <!----------------------------------------------------------------------------------->
                     <!-- Checkout Forms: Shipping, Payment, Coupons, Billing, etc -->
