@@ -91,7 +91,7 @@ $stored-payment-spacing: rem(16);
 
 #mainContent {
   .data-checkout-stage {
-    padding-top: rem(10);
+    padding-top: rem(0);
     margin-bottom: rem(50);
 
     .checkout-content {
@@ -110,6 +110,11 @@ $stored-payment-spacing: rem(16);
         max-width: 100%;
         padding: rem(0) rem(15);
       }
+    }
+
+    &.data-checkout-stage-redesign {
+      margin-bottom: rem(0);
+      padding-top: rem(16);
     }
   }
 }
@@ -279,10 +284,14 @@ $stored-payment-spacing: rem(16);
   }
   
   &.data-checkout-stage-redesign {
+    margin-bottom: rem(0);
+    padding-top: rem(16);
+
     @include media-breakpoint-down(xs) {
       padding: rem(10) rem(20) rem(0);
     }
   }
+  
 }
 
 .shipping-method {
@@ -698,25 +707,27 @@ $stored-payment-spacing: rem(16);
     .right-section {
       @include media-breakpoint-up(xl) {
           padding: rem(0) rem(59.2);
-          background-color: $gery20;
+          background-color: $grey20;
       }
 
       @include custom-media-query-1440($large-screen-width-1440) {
           max-width: 34%;
           flex: 0 0 34%;
           padding: rem(0) rem(83) rem(0) rem(82);
-          background-color: $gery20;
+          background-color: $grey20;
       }
       @include media-breakpoint-down(lg) {
           padding: rem(0) rem(30);
-          background-color: $gery20;
+          background-color: $grey20;
       }
       @include media-breakpoint-down(md) {
           padding: rem(0) rem(20);
-          background-color: $gery20;
+          background-color: $grey20;
       }
+
       @include custom-media-query-max($medium-screen-width) {
           padding: rem(0) rem(15);
+          background-color: transparent;
       }
     }
 
@@ -1164,6 +1175,15 @@ $stored-payment-spacing: rem(16);
              position: relative;
              overflow: hidden;
              width: 100%;
+
+             .line-item-attributes {
+              font-size: rem(12);
+              font-weight: 500;
+              letter-spacing: rem(0.7);
+              line-height: rem(10);
+              color: $grey18;
+              margin-bottom: rem(10);
+            }
   
             .line-item-header {
               margin-bottom: rem(10);
@@ -1179,6 +1199,51 @@ $stored-payment-spacing: rem(16);
                 letter-spacing: rem(0.7);
                 line-height: rem(22);
                 color: $light-black2;
+              }
+              
+              .item-options {
+
+                .line-item-option {
+                  font-size: rem(12);
+                  font-weight: 500;
+                  letter-spacing: rem(0.7);
+                  line-height: rem(10);
+                  color: $grey18;
+                  margin-bottom: rem(10);
+
+                }
+              }
+
+              .item-personalization {
+
+                .line-item-option {
+                  font-size: rem(12);
+                  font-weight: 500;
+                  letter-spacing: rem(0.7);
+                  line-height: rem(10);
+                  color: $grey18;
+                  margin-bottom: rem(10);
+
+                  .personalize-price {
+                    font-size: rem(12);
+                    font-weight: 500;
+                    letter-spacing: rem(0.7);
+                    line-height: rem(10);
+                    color: $grey18;
+                    margin-bottom: rem(10);
+  
+                  }
+
+                  .personalize-msg {
+                    font-size: rem(12);
+                    font-weight: 500;
+                    letter-spacing: rem(0.7);
+                    line-height: rem(10);
+                    color: $grey18;
+                    margin-bottom: rem(10);
+  
+                  }
+                }
               }
             }
           }

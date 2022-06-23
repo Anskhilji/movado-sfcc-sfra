@@ -463,31 +463,29 @@ header {
         @include media-breakpoint-up(sm) {
             display: block;
             margin: rem(32) auto rem(24);
-            padding: 0 rem(15);
+            padding: 0;
         }
         @include media-breakpoint-up(md-down) {
             display: block;
-            margin: rem(32) auto;
-            padding: 0 rem(15);
+            margin: rem(70) auto rem(32);
+            padding: 0;
             max-width: 100%;
         }
 
         @include media-breakpoint-up(lg) {
-            padding: 0 rem(15) 0 rem(60);
+            padding: 0;
             margin: rem(61) auto rem(16);          
             max-width: 100%;           
         }
 
         @include media-breakpoint-up(lg-custom) {
             padding: 0;
-            margin: rem(71) auto rem(51);
-            max-width: 90%;         
+            margin: rem(71) auto rem(51);        
         }
     
         @include custom-media-query-1440($large-screen-width-1440) {
-            padding: 0 rem(15) 0 rem(100);
+            padding: 0;
             margin: rem(71) auto rem(51);
-            max-width: rem(1440);
         }
 
         li {
@@ -781,14 +779,6 @@ header {
     display: none;
   }
 
-.checkout-label-custom {
-    @include media-breakpoint-up(lg-custom) {
-        max-width: rem(316);
-        margin: 0 auto;
-        width: rem(316);
-        padding-left: rem(6);
-    }
-}
 
 header {
     .checkout-header-wrapper {
@@ -800,10 +790,6 @@ header {
         }
         
         .align-start-box {
-            @include media-breakpoint-up(lg-custom) {
-                justify-content: flex-start;
-                max-width: 90%;
-            }
             
             @include custom-media-query-1440($large-screen-width-1440) {
                 max-width: 100%;
@@ -821,8 +807,8 @@ header {
     .left-section {
         @include custom-media-query-1440($large-screen-width-1440) {
             padding: rem(0) rem(0) rem(0) rem(100);
-            max-width: 65.30%;
-            flex: 0 0 65.30%;
+            max-width: 66%;
+            flex: 0 0 66%;
         }
 
         .mx-shipping-box {
@@ -848,12 +834,15 @@ header {
     }
 
     .right-section {
+
         @include custom-media-query-1440($large-screen-width-1440) {
-            max-width: 34.7%;
-            flex: 0 0 34.7%;
+            max-width: 34%;
+            flex: 0 0 34%;
         }
+
         @include media-breakpoint-down(lg-media) {
             padding: rem(0) rem(30);
+            background-color: $grey20;
         }
 
         .card-border-none-wrapper {
@@ -880,6 +869,10 @@ header {
                 }
             }
         }
+
+        .right-content-box {
+            padding-top: rem(71);
+        }
     }
        
     .mx-container-box1 {
@@ -901,18 +894,14 @@ header {
 
                 @include media-breakpoint-up(lg) {
                     max-width: 100%;
-                    padding-left: rem(60);
                 }
 
                 @include media-breakpoint-up(xl) {
-                max-width: 89.5%;
-                margin: auto;
-                padding-left: rem(0);
+                    padding: rem(0) rem(15);
                 }
                 
                 @include custom-media-query-1440($large-screen-width-1440) {
-                max-width: rem(1440);
-                padding: rem(0) rem(15);
+                    padding: rem(0) rem(15);
                 }
             }
 
@@ -1027,6 +1016,7 @@ header {
                     letter-spacing: rem(0.7);
                     line-height: rem(20);
                     text-transform: capitalize;
+                    background-color: transparent;
                 }
             }
         }
@@ -1041,6 +1031,7 @@ header {
                     font-weight: 300;
                     letter-spacing: rem(0.7);
                     line-height: rem(20);
+                    background-color: transparent;
                 }
 
                 span {
@@ -1049,13 +1040,16 @@ header {
                     font-weight: 300;
                     letter-spacing: rem(0.7);
                     line-height: rem(20);
+                    background-color: transparent;
 
                     &.product-discount-total {
                         color: $gossamer;
+                        background-color: transparent;
                     }
 
                     &.order-discount-total {
                         color: $gossamer;
+                        background-color: transparent;
                     }
                 }
             }
@@ -1063,3 +1057,146 @@ header {
     }
 }
 
+
+
+.checkout-header {
+
+    .header-redesign-wrapper {
+
+        @include custom-media-query-1440($large-screen-width-1440) {
+            max-width: 66%;
+            flex: 0 0 66%;
+        }
+
+        .checkout-header-wrapper {
+            @include media-breakpoint-down(md) {
+                justify-content: space-between;
+                padding: rem(0) rem(20) rem(0) rem(20);
+            }
+
+            @include media-breakpoint-up(xl) {
+                padding: rem(0) rem(30) rem(0) rem(40);
+            }
+
+            @include custom-media-query-1440($large-screen-width-1440) {
+                padding: rem(0) rem(60) rem(0) rem(100);
+            }
+        }
+
+        .header-left {
+
+            &.align-start-box {
+                @include media-breakpoint-down(md) {
+                    max-width: 100%;
+                }
+            }
+        }
+
+    }
+
+    .header-redesign-wrapper2 {
+        background: $grey20;
+
+        @include custom-media-query-1440($large-screen-width-1440) {
+            flex: 0 0 34%;
+            max-width: 34%;
+            padding: 0;
+        }
+
+        .checkout-header-wrapper {
+            @include media-breakpoint-down(md) {
+                background: $grey20;
+            }
+
+            .right {
+                justify-content: flex-end;
+
+                @include media-breakpoint-up(md) {
+                    padding-right: rem(10);
+                }
+
+                @include media-breakpoint-up(lg) {
+                    padding-right: rem(0);
+                }
+                
+            }
+        }
+    }
+
+    .d-hide-mobile-wrapper {
+        @include custom-media-query-max($medium-screen-width) {
+            display: none;
+        }
+    }
+
+    .d-show-desktop-wrapper {
+        @include media-breakpoint-up(md) {
+            display: none;
+        } 
+    }
+}
+
+header {
+
+    &.checkout-header {
+
+        .sticky-header-wrapper {
+
+            &.fixed-header {
+
+                .header-redesign-wrapper {
+
+                    .checkout-header-wrapper {
+
+                        .align-start-box {
+
+                            @include media-breakpoint-up(md) {
+                                max-width: 58.33%;
+                            }
+
+                            @include media-breakpoint-up(lg) {
+                                max-width: 100%;
+                            }
+
+                            .checkout-label-custom {
+                                @include media-breakpoint-up(md) {
+                                    padding-right: rem(15);
+                                }
+
+                                @include media-breakpoint-up(lg) {
+                                    padding-right: rem(0);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .header-redesign-wrapper2 {
+
+                    .checkout-header-wrapper {
+                        background: $grey20;
+
+                        .right {
+
+                            &.mini-cart-wrapper {
+                                @include media-breakpoint-up(md) {
+                                    justify-content: flex-end;
+                                    width: 38%;
+                                    margin-left: rem(0);
+                                    padding-right: rem(0);
+                                }
+
+                                @include media-breakpoint-up(lg) {
+                                    justify-content: flex-end;
+                                    width: auto;
+                                    margin-left: auto;
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+}

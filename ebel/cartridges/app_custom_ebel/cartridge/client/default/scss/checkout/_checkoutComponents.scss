@@ -735,4 +735,9 @@ $stored-payment-spacing: rem(16);
         }
       }
     }
+    
+    &.data-checkout-stage-redesign {
+      margin-bottom: rem(0);
+      padding-top: rem(16);
+    }
 }

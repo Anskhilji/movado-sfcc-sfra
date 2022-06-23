@@ -373,14 +373,20 @@ header {
             padding-top: rem(20);
         }
 
+        @include media-breakpoint-up(md) {
+            border-bottom: none;
+        }
+
         @include media-breakpoint-up(lg) {
             padding: 0 rem(20) 0 rem(20);
             margin-top: rem(30);
         }
+        
         @include media-breakpoint-up(xl) {
-            padding: 0 rem(20) 0 rem(2);
+            padding: 0 rem(20) 0 rem(20);
             margin-top: rem(30);
         }
+
         @include custom-media-query-1440($large-screen-width-1440) {
             padding: 0 rem(91.5) 0 rem(100);
             margin-top: rem(30);
@@ -775,12 +781,7 @@ header {
 }
 
 .checkout-label-custom {
-    // @include media-breakpoint-up(xl) {
-    //     max-width: rem(316);
-    //     margin: 0 auto;
-    //     width: rem(316);
-    //     padding-left: rem(6);
-    // } 
+
     h5{
         @include media-breakpoint-up(xl) {
             margin-bottom: 0;
@@ -1025,7 +1026,7 @@ header {
             }
 
             @include media-breakpoint-up(xl) {
-                padding: rem(0) rem(30) rem(0) rem(40);
+                padding: rem(0) rem(30) rem(0) rem(36);
             }
 
             @include custom-media-query-1440($large-screen-width-1440) {
@@ -1045,7 +1046,7 @@ header {
     }
 
     .header-redesign-wrapper2 {
-        background: $gery20;
+        background: $grey20;
 
         @include custom-media-query-1440($large-screen-width-1440) {
             flex: 0 0 34%;
@@ -1055,7 +1056,7 @@ header {
 
         .checkout-header-wrapper {
             @include media-breakpoint-down(md) {
-                background: $gery20;
+                background: $grey20;
             }
 
             .right {
@@ -1124,7 +1125,7 @@ header {
                 .header-redesign-wrapper2 {
 
                     .checkout-header-wrapper {
-                        background: $gery20;
+                        background: $grey20;
 
                         .right {
 

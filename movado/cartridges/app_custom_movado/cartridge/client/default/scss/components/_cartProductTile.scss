@@ -74,6 +74,11 @@
 
                     .line-item-option {
                         margin-bottom: rem(10);
+                        font-size: rem(12);
+                        font-weight: 500;
+                        letter-spacing: rem(0.7);
+                        line-height: rem(10);
+                        color: $grey18;
                     }
                 }
 

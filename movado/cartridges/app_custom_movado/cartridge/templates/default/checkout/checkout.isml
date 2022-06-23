@@ -29,7 +29,7 @@
                 <span class="grand-total-label top-grandtotal-label">${Resource.msg('order.confirmation.email.label.orderTotal','order',null)} (${Resource.msgf('label.number.items.in.cart','cart', null, pdict.order.items.totalQuantity)})</span>
                 <span class="grand-total-price top-grand-total-price-wrapper">${pdict.order.totals.subTotal}</span>
             </div>
-            <iscomment> <div class="col-12 checkout-promo-section checkout-promo-redesign d-none-promo-box">
+           <iscomment> <div class="col-12 checkout-promo-section checkout-promo-redesign d-none-promo-box">
                  <isinclude template="checkout/orderSummaryPopUp.isml" />
             </div> </iscomment>
         </div>
@@ -111,39 +111,39 @@
             <!-- Order Totals, Details and Summary -->
             <!----------------------------------------------------------------------------------->
                 <div class="col-md-5 right-section d-hide-mobile">
-                <div class="right-content">
-                            <div class="card-header card-border-none-wrapper card-heading-wrapper">
-                                <h4>${Resource.msg('heading.order.summary', 'checkout', null)}</h4>
-                            </div>
-                    <!-- Promos -->
-                        <div class="checkout-promo-section checkout-promo-redesign">
-                            <isinclude template="checkout/checkoutPromoCode" />
-                            <div class="checkout-coupons-and-promos coupons-wrapper mb-3">
-                                <isinclude template="cart/cartCouponDisplay" />
-                            </div>
-                            <div class="checkout-coupons-remove">
-                                <isinclude template="cart/cartRemoveCouponModal"/>
-                            </div>
+                    <div class="right-content">
+                        <div class="card-header card-border-none-wrapper card-heading-wrapper">
+                            <h4>${Resource.msg('heading.order.summary', 'checkout', null)}</h4>
                         </div>
-                        <div class="card order-summary-card card-border-none-wrapper card-summary-wrapper-container">
-
-                            <div class="card-body order-total-summary">
-                                <isinclude template="checkout/orderTotalSummary" />
-                            </div>
-                        </div>
-                        <isinclude template="checkout/orderProductSummary" />
-
-                        <!----------------------------------------------------------------------------------->
-                        <!-- Help and Phone -->
-                        <!----------------------------------------------------------------------------------->
-
-                        <div class="row hidden-xs-down">
-                            <div class="col-12">
-                                <div class="text-center">
-                                    <div><isslot id="checkout-help-contact-info" description="Checkout Help Contact Info" context="global" /></div>
+                            <!-- Promos -->
+                            <div class="checkout-promo-section checkout-promo-redesign">
+                                <isinclude template="checkout/checkoutPromoCode" />
+                                <div class="checkout-coupons-and-promos coupons-wrapper mb-3">
+                                    <isinclude template="cart/cartCouponDisplay" />
+                                </div>
+                                <div class="checkout-coupons-remove">
+                                    <isinclude template="cart/cartRemoveCouponModal"/>
                                 </div>
                             </div>
-                        </div>
+                            <div class="card order-summary-card card-border-none-wrapper card-summary-wrapper-container">
+
+                                <div class="card-body order-total-summary">
+                                    <isinclude template="checkout/orderTotalSummary" />
+                                </div>
+                            </div>
+                            <isinclude template="checkout/orderProductSummary" />
+
+                            <!----------------------------------------------------------------------------------->
+                            <!-- Help and Phone -->
+                            <!----------------------------------------------------------------------------------->
+
+                            <div class="row hidden-xs-down">
+                                <div class="col-12">
+                                    <div class="text-center">
+                                        <div><isslot id="checkout-help-contact-info" description="Checkout Help Contact Info" context="global" /></div>
+                                    </div>
+                                </div>
+                            </div>
                     </div>
                 </div>
             </div>

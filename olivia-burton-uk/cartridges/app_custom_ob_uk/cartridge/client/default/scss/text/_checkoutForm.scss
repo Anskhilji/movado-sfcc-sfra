@@ -441,6 +441,7 @@
                           letter-spacing: rem(1);
                           line-height: rem(20);
                           color: $black4;
+                          background-color: transparent;
                       }
                   }
                   
@@ -458,6 +459,8 @@
                       font-weight: 300;
                       letter-spacing: rem(0.7);
                       line-height: rem(20);
+                      background-color: transparent;
+
                     }               
                   }
               }
@@ -472,6 +475,8 @@
                           font-weight: 300;
                           letter-spacing: rem(1);
                           line-height: rem(20);
+                          background-color: transparent;
+
                       }
     
                       span {
@@ -480,9 +485,11 @@
                           font-weight: 300;
                           letter-spacing: rem(1);
                           line-height: rem(20);
-    
+                          background-color: transparent;
+
                           &.product-discount-total {
                             color: $parrot-green;
+                            
                           }
     
                           &.order-discount-total {
@@ -509,6 +516,8 @@
                   font-weight: 600;
                   letter-spacing: rem(0.88);
                   line-height: rem(24);
+                  background-color: transparent;
+
                 }
     
                 &.grand-total-label{

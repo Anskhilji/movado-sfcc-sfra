@@ -56,7 +56,7 @@
                     </isloop>
                 </div>
 
-                <div class="item-model model-name mb-2">
+                <div class="item-model model-name">
                 	${lineItem.resources.Model} ${lineItem.id}
                 </div>
 
