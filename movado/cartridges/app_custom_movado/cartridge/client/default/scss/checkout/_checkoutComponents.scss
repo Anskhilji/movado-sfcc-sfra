@@ -96,19 +96,18 @@ $stored-payment-spacing: rem(16);
 
     .checkout-content {
       @include media-breakpoint-up(md) {
-        max-width: rem(940);
+        max-width: 100%;
       }
       @include media-breakpoint-up(lg) {
         max-width: 100%;
-        padding-left: rem(60);
+        padding: rem(0) rem(15);
       }
       @include media-breakpoint-up(xl) {
-        max-width: 89.5%;
+        max-width: 100%;
         margin: auto;
-        padding-left: rem(0);
       }
       @include custom-media-query-1440($large-screen-width-1440) {
-        max-width: rem(1440);
+        max-width: 100%;
         padding: rem(0) rem(15);
       }
     }
@@ -344,7 +343,7 @@ $stored-payment-spacing: rem(16);
 
   &.justify-content-between {
     .end-lines {
-      background: $white;
+      background: transparent;
     }
   }
 
@@ -373,6 +372,7 @@ $stored-payment-spacing: rem(16);
         font-weight: 300;
         letter-spacing: rem(0.7);
         line-height: rem(20);
+        background-color: transparent;
       }
       
       &.order-discount-total {
@@ -394,6 +394,7 @@ $stored-payment-spacing: rem(16);
         font-weight: 300;
         letter-spacing: rem(0.7);
         line-height: rem(20);
+        background-color: transparent;
       }
       
       &.product-discount-total {
@@ -408,6 +409,10 @@ $stored-payment-spacing: rem(16);
         
         .shipping-total-cost {
           color: $parrot-green;
+        }
+
+        span {
+          background-color: transparent;
         }
       }
     }
@@ -675,9 +680,6 @@ $stored-payment-spacing: rem(16);
   .checkout-content-container-inner {
 
     .left-section {
-      @include media-breakpoint-up(md) {
-        padding-right: rem(15);
-      }
 
       .shipping-section {
         @include media-breakpoint-down(md) {
@@ -696,18 +698,22 @@ $stored-payment-spacing: rem(16);
     .right-section {
       @include media-breakpoint-up(xl) {
           padding: rem(0) rem(59.2);
+          background-color: $gery20;
       }
 
       @include custom-media-query-1440($large-screen-width-1440) {
-          max-width: 34.7%;
-          flex: 0 0 34.7%;
+          max-width: 34%;
+          flex: 0 0 34%;
           padding: rem(0) rem(83) rem(0) rem(82);
+          background-color: $gery20;
       }
       @include media-breakpoint-down(lg) {
           padding: rem(0) rem(30);
+          background-color: $gery20;
       }
       @include media-breakpoint-down(md) {
           padding: rem(0) rem(20);
+          background-color: $gery20;
       }
       @include custom-media-query-max($medium-screen-width) {
           padding: rem(0) rem(15);
@@ -1095,6 +1101,11 @@ $stored-payment-spacing: rem(16);
           font-weight: 500;
           letter-spacing: rem(0.65);
           line-height: rem(21);
+          background-color: transparent;
+
+          span {
+            background: transparent;
+          }
         }
       }
   
@@ -1109,6 +1120,7 @@ $stored-payment-spacing: rem(16);
             font-weight: 500;
             letter-spacing: rem(0.65);
             line-height: rem(21);
+            background-color: transparent;
           }
         }
       }
@@ -1125,6 +1137,7 @@ $stored-payment-spacing: rem(16);
         border-radius: rem(0);
         border: none;
         border-bottom: rem(1) solid $grey-dark-3;
+        background-color: transparent;
   
         .product-line-item-details {
            overflow: hidden;
