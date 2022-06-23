@@ -2,6 +2,7 @@
 <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
 <isinclude template="/components/modules" sf-toolkit="off" />
 <isset name="addressFields" value="${pdict.forms.shippingForm.shippingAddress.addressFields}" scope="page"/>
+<isset name="sitePref" value="${dw.system.Site.current.preferences}" scope="page"/>
 <isset name="countryCode" value="${pdict.countryCode}" scope="page"/>
 <isset name="usCountryCode" value="${Resource.msg('checkout.country.code.us','checkout',null)}" scope="page"/>
 <isif condition="${shippingModel.shippingAddress}">
