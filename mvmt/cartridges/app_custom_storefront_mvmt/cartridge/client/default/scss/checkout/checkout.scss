@@ -833,10 +833,16 @@ header {
 
         .shipping-summary {
             max-width: rem(700);
+            @include media-breakpoint-down(sm) {
+                max-width: 100%;
+            }
         }
 
         .payment-form {
             max-width: rem(700);
+            @include media-breakpoint-down(sm) {
+                max-width: 100%;
+            }
         }
 
     }

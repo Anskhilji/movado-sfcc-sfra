@@ -814,6 +814,10 @@ $stored-payment-spacing: rem(16);
             right: rem(60);
             top: rem(11);
             padding-bottom: rem(0);
+
+            @include media-breakpoint-down(sm) {
+              right: rem(25);
+            }
           }
         }
       }
@@ -1002,7 +1006,7 @@ $stored-payment-spacing: rem(16);
           transition: 0.2s ease-in-out;
           top: 0;
           left: rem(24);
-          height: rem(24);
+          height: rem(23);
           color: $grey17;
           font-size: rem(10);
           font-weight: 500;
