@@ -12,6 +12,8 @@ var ArrayList = require('dw/util/ArrayList');
 var Promotion = require('dw/campaign/Promotion');
 var PromotionMgr = require('dw/campaign/PromotionMgr');
 var Logger = require('dw/system/Logger').getLogger('Listrak');
+var Site = require('dw/system/Site');
+
 /**
  * Object that holds inflated product information.
  * */
@@ -51,6 +53,10 @@ function ltkProduct() {
 
     // Custom Start: [MSS-1690 Adding Product Sale Price Information]
     this.salePrice = '';
+    // Custom End:
+
+    // Custom Start: [MSS-1696 Listrak - Create New Product Feed for MVMT - Add Gender]
+    this.getWatchGender = '';
     // Custom End:
 }
 
@@ -118,6 +124,12 @@ ltkProduct.prototype.LoadProduct = function (product) {
 
      // Custom Start: [MSS-1690 Adding Product Sale Price Information]
     this.salePrice = this.getSalePriceInfo(product);
+    // Custom End:
+
+    // Custom Start: [MSS-1696 Listrak - Create New Product Feed for MVMT - Add Gender]
+    if (Site.getCurrent().ID == 'MVMTUS' || Site.getCurrent().ID == 'MVMTEU') {
+        this.getWatchGender = this.getGender(product);
+    }
     // Custom End:
 };
 // MOD 16.3 Extra Prod Attributes
@@ -312,4 +324,21 @@ ltkProduct.prototype.getSalePriceInfo = function (product) {
 
     return salePrice;
 }
+// Custom End:
+
+// Custom Start: [MSS-1696 Listrak - Create New Product Feed for MVMT - Add Gender]
+ltkProduct.prototype.getGender = function (product) {
+    var gender = '';
+    var getWatchGender = product.custom.watchGender[0];
+    var watchGenderArr = getWatchGender.split(',');
+    if (watchGenderArr[0] === 'Ladies' || watchGenderArr[0] === "Ladie's" || watchGenderArr[0] === "Women's" || watchGenderArr[0] === 'Womens' || watchGenderArr[0] === 'Female' || watchGenderArr[0] === 'Hers') {
+        gender = 'Womens';
+        return gender;
+    } else if (watchGenderArr[0] === "Men's" || watchGenderArr[0] === 'Mens' || watchGenderArr[0] === "Gentleman's" || watchGenderArr[0] === 'Gentlemans' || watchGenderArr[0] === 'His') {
+        gender = 'Mens';
+        return gender;
+    }
+
+    return gender;
+};
 // Custom End

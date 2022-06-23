@@ -13,6 +13,7 @@ require('dw/net');
 require('dw/object');
 
 var Calendar = require('dw/util/Calendar');
+var Site = require('dw/system/Site');
 
 var ErrorHandling = require('~/cartridge/scripts/util/ltkErrorHandling.js');
 importScript('sync/ltkExportUtils.js');
@@ -88,6 +89,12 @@ function productSync() {
 
             // Custom Start: [MSS-1690 Add Sale Price Information]
             productFile.AddRowItem('SalePrice');
+            // Custom End
+
+            // Custom Start: [MSS-1696 Listrak - Create New Product Feed for MVMT - Add Gender]
+            if (Site.getCurrent().ID == 'MVMTUS' || Site.getCurrent().ID == 'MVMTEU') {
+                productFile.AddRowItem('Gender');
+            }
             // Custom End
 
             productFile.WriteRow();
@@ -212,6 +219,12 @@ function productSync() {
 
                 // Custom Start: [MSS-1690 Add Sale Price Information]
                 productFile.AddRowItem(prd.onSale == true ? prd.salePrice : '' , true);
+                // Custom End
+
+                // Custom Start: [MSS-1696 Listrak - Create New Product Feed for MVMT - Add Gender]
+                if (Site.getCurrent().ID == 'MVMTUS' || Site.getCurrent().ID == 'MVMTEU') {
+                    productFile.AddRowItem(prd.getWatchGender, true);
+                }
                 // Custom End
 
                 productFile.WriteRow();
