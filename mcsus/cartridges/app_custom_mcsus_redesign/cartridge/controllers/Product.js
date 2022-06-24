@@ -54,11 +54,11 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
 
    // Custom Comment Start: A/B testing for OB Redesign PDP
    if (ABTestMgr.isParticipant('MCSRedesignPDPABTest','Control')) {
-       template = '/product/old/productDetails';
+       template = 'product/old/productDetails';
    } else if (ABTestMgr.isParticipant('MCSRedesignPDPABTest','render-new-design')) {
-       template =  showProductPageHelperResult.template;
+       template =  'product/productDetails';
    } else {
-       template = '/product/old/productDetails';
+       template = 'product/old/productDetails';
    }
    // Custom Comment End: A/B testing for OB Redesign PDP
 
