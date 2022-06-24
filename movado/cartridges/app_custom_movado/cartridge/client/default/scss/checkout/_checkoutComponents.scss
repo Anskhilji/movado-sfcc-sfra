@@ -771,6 +771,11 @@ $stored-payment-spacing: rem(16);
             padding: rem(0) rem(10);
           }
         }
+        .dwfrm_billing_subscribetomovado {
+          @include media-breakpoint-down(xs) {
+            padding: rem(0) rem(10);
+          }
+        }
       }
     }
     .card-body {
@@ -998,6 +1003,10 @@ $stored-payment-spacing: rem(16);
           + i {
             top: rem(14);
             right: rem(4);
+            height: rem(20);
+            width: rem(36);
+            border-left: 0.0625rem solid #bfbfbf;
+            text-align: center;
           }
         }
       }
