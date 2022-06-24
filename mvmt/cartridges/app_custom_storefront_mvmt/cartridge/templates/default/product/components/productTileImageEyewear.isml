@@ -72,7 +72,9 @@
     </div>    
     <isif condition="${!empty(product.saveMessage)}">
         <div class="product-tag-content">
-            <span class="badge">${product.saveMessage}</span>
+            <div class="exclusive-badges exclusive-badge-search">
+                <span class="badge text-uppercase">${product.saveMessage}</span>
+            </div>
         </div>
     <iselse/>
         <div class="product-tag-content ${pdict.display.recommendattionTile ? 'd-none' : ''} ${!empty(outOfStock) || !empty(product.badges.textBadges && product.badges.textBadges.length > 0) || !empty(product.defaultVariantBadges.textBadges && product.defaultVariantBadges.textBadges.length > 0) ? '' : 'd-none'}">

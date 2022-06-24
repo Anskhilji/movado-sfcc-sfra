@@ -35,6 +35,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
     var customCategoryHelpers = require('app_custom_movado/cartridge/scripts/helpers/customCategoryHelpers');
     var SmartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
+    var ProductMgr = require('dw/catalog/ProductMgr');
     var youMayLikeRecommendations = [];
     var moreStyleRecommendations = [];
     var explicitRecommendations = [];
@@ -64,6 +65,24 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
 
     var strapGuideContent = ContentMgr.getContent('strap-guide-text-configs');
     var strapGuideText = strapGuideContent && strapGuideContent.custom.body ? strapGuideContent.custom.body : '';
+    var apiProduct = ProductMgr.getProduct(product.id);
+    var params = req.querystring;
+    if (!apiProduct.variant && apiProduct.master) {
+        var defaultVariant = apiProduct.variationModel.defaultVariant;
+
+        if (defaultVariant && !empty(apiProduct) && !empty(apiProduct.master) && defaultVariant.getAvailabilityModel().inStock) {
+            var pid = apiProduct.variationModel.defaultVariant.getID();
+            params.pid = pid;
+            apiProduct = ProductMgr.getProduct(pid);
+        }
+
+        var showProductPageHelperResult = productHelper.showProductPage(params, req.pageMetaData);
+        
+        viewData.product =  showProductPageHelperResult.product,
+        viewData.addToCartUrl = showProductPageHelperResult.addToCartUrl,
+        viewData.resources = showProductPageHelperResult.resources,
+        viewData.breadcrumbs = showProductPageHelperResult.breadcrumbs
+    }
 
     /* get recommendations for product*/
     if (product) {
