@@ -87,7 +87,7 @@
 
 
                         <!-- Affirm Text -->
-                        <div class="col-12 prices-add-to-cart-actions">
+                        <div class="col-12 pdp-movado prices-add-to-cart-actions cart-sticky-wrapper-btn scroll-hidden">
                             <!-- Prices -->
                             <div class="prices">
                                 <iscomment> Custom Start: Product price shows when following requirements meet </iscomment>
