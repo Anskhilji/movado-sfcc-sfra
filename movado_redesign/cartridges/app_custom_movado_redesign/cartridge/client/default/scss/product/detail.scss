@@ -1618,53 +1618,6 @@ $arrow-height: 1.25em;
         }
 
     }
-
-    .pdp-movado {
-        &.prices-add-to-cart-actions {
-
-            &.cart-sticky-wrapper-btn {
-                display: none;
-
-                @include media-breakpoint-down(xs) {
-                    position: fixed;
-                    bottom: 0;
-                    background-color: $white;
-                    padding: rem(10);
-                    box-shadow: rem(10) rem(10) rem(6) rem(6) $grey-dark-2;
-
-                    .prices {
-                        padding: rem(0);
-
-                        .price {
-                            font-size: rem(16);
-                            margin: rem(0);
-                            font-weight: 400;
-                        }
-                    }
-
-                    .smart-gift-btn {
-                        display: none;
-                    }
-
-                    @include media-breakpoint-down(xs) {
-                        display: block;
-                    }
-                }
-
-                &.scroll-hidden {
-                    visibility: hidden;
-                    transition: all 0.6s;
-                    opacity: 0;
-                }
-
-                &.scroll-bottom {
-                    bottom: rem(0);
-                    transform: translateY(0);
-                    transition: all 0.6s;
-                }
-            }
-        }
-    }
 }
 
 @media only screen and (min-width: $custom-xll) {
@@ -2066,5 +2019,4 @@ body {
             position: relative;
         }
     }
-
 }
