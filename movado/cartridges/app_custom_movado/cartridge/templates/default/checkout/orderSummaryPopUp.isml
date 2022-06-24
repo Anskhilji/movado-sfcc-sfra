@@ -23,7 +23,7 @@
                                     <isinclude template="checkout/orderTotalSummary" />
                                 </div>
                             </div>
-                            <isinclude template="checkout/orderProductSummary" />
+                            <isinclude template="checkout/orderProductSummaryPopup" />
 
                             <div>
                                 <a href="#" class="hide-details-wrapper label-show-title">${Resource.msg('label.order.summary.hide.details','cart',null)} 

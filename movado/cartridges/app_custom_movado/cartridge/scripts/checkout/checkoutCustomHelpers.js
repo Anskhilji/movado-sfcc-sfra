@@ -307,22 +307,35 @@ function declineOrder(order) {
 }
 
 /**
- * sets the gift message on a shipment
- * @param {order} orderModel - Any shipment for the current basket
- * @return {savingMoney} - Any shipment for the current basket
+ * sets the product total price and total discount
+ * @param {order} orderModel - order Model
+ * @return {savingMoney} - current discount on products
+ *  @return {currentTotal} - all products total without discount
  */
  function calculateSavingMoneyAndFormate(orderModel) {
     var savingMoney = 0;
+    var currentTotal = 0;
     var currencyCode;
     if (orderModel.items.items.length > 0) {
         for (var i = 0; i < orderModel.items.items.length; i++) {
             savingMoney = savingMoney + orderModel.items.items[i].priceTotal.savingPrice.value;
+            currentTotal = currentTotal + orderModel.items.items[i].basePrice.value;
             currencyCode = orderModel.items.items[i].priceTotal.savingPrice.currencyCode;
         }
+
+        //GET TOATAL DISCOUNT
+        savingMoney = orderModel.totals.orderLevelDiscountTotal.value + savingMoney;
         savingMoney = Money(savingMoney, currencyCode);
         savingMoney = StringUtils.formatMoney(savingMoney);
-    }
-    return savingMoney;
+
+        //GET GRAND TOTAL WITHOUT DISCOUNT
+        currentTotal = Money(currentTotal, currencyCode);
+        currentTotal = StringUtils.formatMoney(currentTotal);
+        }
+        return {
+            savingMoney: savingMoney,
+            currentTotal: currentTotal
+        };
 }
 
 module.exports = {
