@@ -632,6 +632,7 @@ header~.container .promotions .callout a{
               box-shadow: none;
               width: auto;
               max-width: fit-content;
+              background-color: transparent;
 
               .flex-box-promo-code {
                   display: flex;
@@ -677,7 +678,7 @@ header~.container .promotions .callout a{
       .collapsible-promo-redesign-wrapper {
 
           .promo-label-wrapper {
-              // color: $cerulean;
+              color: $cerulean;
               font-size: rem(13);
               font-weight: 500;
               letter-spacing: rem(0.7);
@@ -701,31 +702,32 @@ header~.container .promotions .callout a{
                       border: transparent;
                       height: rem(43);
                       display: none;
-                      // color: $cerulean;
+                      color: $cerulean;
                       font-size: rem(14);
                       letter-spacing: rem(1);
                       line-height: rem(20);
                       text-transform: capitalize;
 
                       &:hover {
-                          // background-color: $light-blue3;
+                          background-color: transparent;
                       }
 
                       &:focus {
                           box-shadow: none;
                           background-color: transparent;
-                          // color: $cerulean;
+                          color: $cerulean;
                       }
                   }
               }
 
               .checkout-coupon-code-field {
-                  // border: rem(1) solid $grey19;
+                  border: rem(1) solid $grey19;
                   border-radius: rem(3);
                   height: rem(45);
                   font-size: rem(12);
                   letter-spacing: rem(1.25);
                   padding-top: rem(16);
+                  background-color: transparent;
 
                   &:focus {
                     box-shadow: none;
@@ -740,7 +742,7 @@ header~.container .promotions .callout a{
                           top: 0;
                           left: rem(13.616);
                           height: rem(24);
-                          // color: $grey17;
+                          color: $grey15;
                           font-size: rem(10);
                           font-weight: 500;
                           letter-spacing: rem(0.77);
@@ -755,7 +757,7 @@ header~.container .promotions .callout a{
                   position: absolute;
                   top: rem(16);
                   left: rem(13.616);
-                  // color: $grey17;
+                  color: $grey15;
                   transition: 0.25s ease-in-out;
                   width: 100%;
                   pointer-events: none;
@@ -768,7 +770,7 @@ header~.container .promotions .callout a{
                         top: 0;
                         left: rem(13.616);
                         height: rem(24);
-                        // color: $grey17;
+                        color: $grey15;
                         font-size: rem(10);
                         font-weight: 500;
                         letter-spacing: rem(0.77);
@@ -807,7 +809,7 @@ header~.container .promotions .callout a{
           letter-spacing: rem(0.65);
           line-height: rem(24);
           text-transform: capitalize;
-          // color: $cerulean;
+          color: $cerulean;
 
           &:hover {
             text-decoration: none;

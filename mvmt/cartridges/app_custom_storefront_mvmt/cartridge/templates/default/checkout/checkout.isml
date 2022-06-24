@@ -22,7 +22,7 @@
         <isinclude template="reporting/reportingUrls" />
     </isif>
     <iscomment>mvmt-checkout Class added to container </iscomment>
-    <div id="checkout-main" class="mvmt-checkout data-checkout-stage <isif condition="${pdict.order.usingMultiShipping && pdict.order.shipping.length > 1}">multi-ship</isif>" data-customer-type="${pdict.customer.registeredUser ? 'registered' : 'guest'}" data-checkout-stage="${pdict.currentStage}" data-checkout-get-url="${URLUtils.https('CheckoutServices-Get')}">
+    <div id="checkout-main" class="mvmt-checkout data-checkout-stage data-checkout-stage-redesign <isif condition="${pdict.order.usingMultiShipping && pdict.order.shipping.length > 1}">multi-ship</isif>" data-customer-type="${pdict.customer.registeredUser ? 'registered' : 'guest'}" data-checkout-stage="${pdict.currentStage}" data-checkout-get-url="${URLUtils.https('CheckoutServices-Get')}">
         <div class="row d-sm-none">
             <div class="col-12">
                 <span class="grand-total-label top-grandtotal-label">${Resource.msgf('label.number.items.in.cart','cart', null, pdict.order.items.totalQuantity)}</span>
@@ -128,9 +128,9 @@
                         <!-- Help and Phone -->
                         <!----------------------------------------------------------------------------------->
 
-                        <div class="row hidden-xs-down">
-                            <div class="col-12">
-                                <div class="text-center">
+                        <div class="hidden-xs-down checkout-help-contact-info-box">
+                            <div class="checkout-help-contact-info-container">
+                                <div class="text-center checkout-help-wrapper">
                                     <div><isslot id="checkout-help-contact-info" description="Checkout Help Contact Info" context="global" /></div>
                                 </div>
                             </div>

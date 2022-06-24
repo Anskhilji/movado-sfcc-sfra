@@ -873,6 +873,39 @@ header {
         .right-content-box {
             padding-top: rem(71);
         }
+
+        .checkout-help-contact-info-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: 100%;
+        
+            .checkout-help-contact-info-container {
+                position: absolute;
+                bottom: 0;
+                display: flex;
+                justify-content: center;
+                padding-top: rem(27);
+                border-top: rem(1) solid $border-color;
+                opacity: 0.36;
+                width: rem(313);
+
+                @include custom-media-query-max($medium-screen-width) {
+                    position: relative;
+                }
+                .checkout-help-wrapper {
+                    
+                    div {
+                        display: inline-block;
+                        color: $grey21;
+                        font-size: rem(10);
+                        font-weight: 500;
+                        letter-spacing: rem(0.7);
+                        line-height: rem(30);
+                    }
+                }
+            }
+        }
     }
        
     .mx-container-box1 {

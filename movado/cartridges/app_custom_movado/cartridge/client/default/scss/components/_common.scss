@@ -622,6 +622,7 @@ header~.container .promotions .callout a{
                 box-shadow: none;
                 width: auto;
                 max-width: fit-content;
+                background-color: transparent;
 
                 .flex-box-promo-code {
                     display: flex;
@@ -698,7 +699,7 @@ header~.container .promotions .callout a{
                         text-transform: capitalize;
 
                         &:hover {
-                            background-color: $light-blue3;
+                            background-color: transparent;
                         }
 
                         &:focus {

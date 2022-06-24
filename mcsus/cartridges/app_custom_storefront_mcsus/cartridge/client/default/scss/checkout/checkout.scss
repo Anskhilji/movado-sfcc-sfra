@@ -446,7 +446,7 @@ header {
             }
 
             @include media-breakpoint-up(xl) {
-                padding: rem(0) rem(30) rem(0) rem(40);
+                padding: rem(0) rem(30) rem(0) rem(34.6);
             }
 
             @include custom-media-query-1440($large-screen-width-1440) {

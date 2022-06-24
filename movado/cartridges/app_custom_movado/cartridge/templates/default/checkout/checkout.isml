@@ -107,9 +107,9 @@
 
                 </div>
 
-            <!----------------------------------------------------------------------------------->
-            <!-- Order Totals, Details and Summary -->
-            <!----------------------------------------------------------------------------------->
+                <!----------------------------------------------------------------------------------->
+                <!-- Order Totals, Details and Summary -->
+                <!----------------------------------------------------------------------------------->
                 <div class="col-md-5 right-section d-hide-mobile">
                     <div class="right-content">
                         <div class="card-header card-border-none-wrapper card-heading-wrapper">
@@ -137,9 +137,9 @@
                             <!-- Help and Phone -->
                             <!----------------------------------------------------------------------------------->
 
-                            <div class="row hidden-xs-down">
-                                <div class="col-12">
-                                    <div class="text-center">
+                            <div class="hidden-xs-down checkout-help-contact-info-box">
+                                <div class="checkout-help-contact-info-container">
+                                    <div class="text-center checkout-help-wrapper">
                                         <div><isslot id="checkout-help-contact-info" description="Checkout Help Contact Info" context="global" /></div>
                                     </div>
                                 </div>

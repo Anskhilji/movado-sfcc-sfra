@@ -643,6 +643,7 @@ div {
                 box-shadow: none;
                 width: auto;
                 max-width: fit-content;
+                background-color: transparent;
 
                 .flex-box-promo-code {
                     display: flex;
@@ -720,7 +721,7 @@ div {
                         text-transform: capitalize;
 
                         &:hover {
-                            background-color: $light-blue3;
+                            background-color: transparent;
                         }
 
                         &:focus {
@@ -738,6 +739,7 @@ div {
                     font-size: rem(12);
                     letter-spacing: rem(1.25);
                     padding-top: rem(16);
+                    background-color: transparent;
 
                     &:focus {
                       box-shadow: none;
