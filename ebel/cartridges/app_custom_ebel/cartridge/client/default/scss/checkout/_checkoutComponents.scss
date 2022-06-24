@@ -111,6 +111,9 @@ $stored-payment-spacing: rem(16);
     + i {
       top: rem(30);
       right: rem(8);
+      height: rem(20);
+      width: rem(36);
+      border-left: 0.0625rem solid #bfbfbf;
     }
   }
   .single-shipping {

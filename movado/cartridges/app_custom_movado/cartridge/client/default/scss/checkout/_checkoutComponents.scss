@@ -951,7 +951,7 @@ $stored-payment-spacing: rem(16);
               margin-bottom: rem(0);
 
               @include media-breakpoint-down(xs) {
-                left: rem(18.4);
+                left: rem(12);
               }
 
               &.field-select-wrapper-box {
@@ -997,7 +997,7 @@ $stored-payment-spacing: rem(16);
 
           + i {
             top: rem(14);
-            right: rem(20);
+            right: rem(4);
           }
         }
       }
@@ -1028,7 +1028,7 @@ $stored-payment-spacing: rem(16);
           margin-bottom: rem(0);
 
           @include media-breakpoint-down(xs) {
-            left: rem(18.4);
+            left: rem(12);
           }
         }
 

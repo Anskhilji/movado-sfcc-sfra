@@ -137,11 +137,12 @@
   }
 
   .fa-angle-down {
-    background: url(../images/icons/arrow_down.png) center no-repeat;
-    height: rem(15);
-    width: rem(15);
-    background-size: contain;
-
+    background: url(../images/icons/arrow_down.png) 50% no-repeat;
+    height: rem(20);
+    width: rem(36);
+    background-size: rem(12);
+    border-left: 0.0625rem solid #bfbfbf;
+    right: rem(4);
     &::before {
       content: '';
     }
