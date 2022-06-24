@@ -500,57 +500,6 @@ function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, 
 }
 
 /**
- * MCS redesign sticky functionality on pdp
- */
- $(document).ready(function () {
-     var $divOffsetTop = $('.prices-add-to-cart-redesign .cta-add-to-cart').offset().top;
-     if (!$('.prices-add-to-cart-redesign .cta-add-to-cart').isOnScreen()) { // if on load ATC button is not in viewPort show ATC at bottom
-         if ($(window).scrollTop() > $divOffsetTop) {
-             $('.top-sticky-card').removeClass('scroll-hidden').addClass('scroll-top');
-             $('.bottom-sticky-card').addClass('scroll-hidden');
-         } else {
-             $('.top-sticky-card').addClass('scroll-hidden');
-             $('.bottom-sticky-card').removeClass('scroll-hidden').addClass('scroll-bottom');
-         }
-     }
-     $(window).scroll(function () {
-         if ($(window).width() > 543) {
-             var $scrollDistance = $(window).scrollTop();
-             var $addToCatViewPort = $('.prices-add-to-cart-redesign .cta-add-to-cart').isOnScreen();
-
-             if ($addToCatViewPort) { // check if  button is on screen
-                 $('.bottom-sticky-card, .top-sticky-card').addClass('scroll-hidden');// both bottom and top will hidde
-             } else {
-                 if ($scrollDistance > $divOffsetTop) { // top sticky will be active
-                     $('.top-sticky-card').removeClass('scroll-hidden').addClass('scroll-top');
-                     $('.bottom-sticky-card').addClass('scroll-hidden');
-                 } else { // bottom sticky will be active
-                     $('.bottom-sticky-card').removeClass('scroll-hidden').addClass('scroll-bottom');
-                     $('.top-sticky-card').addClass('scroll-hidden');
-                 }
-             }
-         } else { // mobile case
-            $('.top-sticky-card').addClass('scroll-hidden')//top scroll button  will forever hide in mobile case
-             $('.prices-add-to-cart-redesign .cta-add-to-cart').isOnScreen() ? $('.bottom-sticky-card').addClass('scroll-hidden') : $('.bottom-sticky-card').removeClass('scroll-hidden').addClass('scroll-bottom');
-         }
-     });
- });
-
-$.fn.isOnScreen = function () {
-    var $win = $(window);
-    var $viewport = {
-        top: $win.scrollTop(),
-        left: $win.scrollLeft()
-    };
-    $viewport.right = $viewport.left + $win.width();
-    $viewport.bottom = $viewport.top + $win.height();
-    var $bounds = this.offset();
-    $bounds.right = $bounds.left + this.outerWidth();
-    $bounds.bottom = $bounds.top + this.outerHeight();
-    return (!($viewport.right < $bounds.left || $viewport.left > $bounds.right || $viewport.bottom < $bounds.top || $viewport.top > $bounds.bottom));
-};
-
-/**
  * Parses JSON from Ajax call made whenever an attribute value is [de]selected
  * @param {Object} response - response from Ajax call
  * @param {Object} response.product - Product object
