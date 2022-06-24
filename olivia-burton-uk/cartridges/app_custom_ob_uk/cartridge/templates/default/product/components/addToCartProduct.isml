@@ -1,5 +1,11 @@
 <div class="row cart-and-ipay ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "d-none" : ""}">
     <div class="col-sm-12">
+        <isset name="siteID" value="${dw.system.Site.current.ID}" scope="page" />
+        <isif condition="${siteID == 'OliviaBurtonUS'}">
+            <isset name="addtoCart" value="${Resource.msg('button.addtocart', 'common', null)}" scope="page" />
+        <iselse/>
+            <isset name="addtoCart" value="${Resource.msg('button.addtobag', 'common', null)}" scope="page" /> 
+        </isif>
         <button class='add-to-cart btn btn-primary-cta  <isif condition="${product.isProductRestricted}">d-none</isif>'
             data-pid="${product.id}"
             ${!product.readyToOrder ? "disabled" : ""}  >
