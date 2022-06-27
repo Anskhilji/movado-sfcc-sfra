@@ -20,13 +20,13 @@
                     </div>
 
                     <div class="col-lg-5 col-md-5 header-redesign-wrapper2">
-                    <div class="header-wrapper checkout-header-wrapper checkout-box-container">
-                        <div class="right obright-menu mini-cart-wrapper">
-                                <div class="minicart" data-action-url="${URLUtils.url('Cart-MiniCartShow')}">
-                                    <isinclude url="${URLUtils.url('Cart-MiniCart')}"/>
+                        <div class="header-wrapper checkout-header-wrapper checkout-box-container">
+                            <div class="right obright-menu mini-cart-wrapper">
+                                    <div class="minicart" data-action-url="${URLUtils.url('Cart-MiniCartShow')}">
+                                        <isinclude url="${URLUtils.url('Cart-MiniCart')}"/>
+                                    </div>
                                 </div>
-                            </div>
-                    </div>
+                        </div>
                     </div>
                 </div>
                 <div class="header-wrapper checkout-header-wrapper checkout-box-container d-show-desktop-wrapper">
@@ -64,8 +64,6 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
     </nav>
 </header>

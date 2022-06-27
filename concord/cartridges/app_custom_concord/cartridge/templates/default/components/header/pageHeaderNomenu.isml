@@ -31,29 +31,28 @@
               </div>
           </div>
 
-      <iscomment> 768 </iscomment>
-        <div class="header-wrapper checkout-header-wrapper d-show-desktop-wrapper">
+            <iscomment> 768 </iscomment>
+            <div class="header-wrapper checkout-header-wrapper d-show-desktop-wrapper">
 
-          <div class="header-left align-start-box">
-              <div class="flex checkout-logo">
-                <isslot id="brand-logo" description="Brand Logo" context="global" />
+              <div class="header-left align-start-box">
+                  <div class="flex checkout-logo">
+                    <isslot id="brand-logo" description="Brand Logo" context="global" />
+                  </div>
+                  <div class="checkout-text checkout-label-custom">
+                    <h5> 
+                        <div class="secure-text">${Resource.msg('checkout.secure.text', 'checkout', null)} </div>
+                      </h5>
+                  </div>
               </div>
-              <div class="checkout-text checkout-label-custom">
-                 <h5> 
-                    <div class="secure-text">${Resource.msg('checkout.secure.text', 'checkout', null)} </div>
-                  </h5>
-              </div>
-          </div>
 
-          <div class="right mini-cart-wrapper">
-            <div class="minicart" data-action-url="${URLUtils.url('Cart-MiniCartShow')}">
-              <isinclude url="${URLUtils.url('Cart-MiniCart')}"/>
+              <div class="right mini-cart-wrapper">
+                <div class="minicart" data-action-url="${URLUtils.url('Cart-MiniCartShow')}">
+                  <isinclude url="${URLUtils.url('Cart-MiniCart')}"/>
+                </div>
+              </div>
+              
             </div>
-          </div>
-          
-        </div>
       </div>
-
     </div>
   </nav>
 </header>

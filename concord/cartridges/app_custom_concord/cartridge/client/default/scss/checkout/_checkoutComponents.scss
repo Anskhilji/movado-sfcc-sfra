@@ -851,23 +851,23 @@ header {
 
         .header-menu-wrapper {
 
-          .header-wrapper {
+            .header-wrapper {
 
-            &.checkout-header-wrapper {
+                &.checkout-header-wrapper {
 
-              &.d-show-desktop-wrapper {
-                  @include media-breakpoint-up(md) {
-                      display: none;
-                  } 
-              }
-              
-              &.d-hide-mobile-wrapper {
-                  @include media-breakpoint-down(custom-md) {
-                      display: none;
-                  }
-              }
+                    &.d-show-desktop-wrapper {
+                        @include media-breakpoint-up(md) {
+                            display: none;
+                        } 
+                    }
+                    
+                    &.d-hide-mobile-wrapper {
+                        @include media-breakpoint-down(custom-md) {
+                            display: none;
+                        }
+                    }
+                }
             }
-          }
         }
 
         .sticky-header-wrapper {
@@ -923,7 +923,6 @@ header {
                                 }
                             }
                         }
-
                     }
                 }
             }
