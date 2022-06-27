@@ -332,14 +332,19 @@ $receipt-font-size: rem(14);
         }
       }
     }
-  }
+}
+
 .grand-total {
+
   &.grand-total-wrapper{
     padding: rem(8) 0;
+
     .start-lines {
+
       &::before {
         content: '';
       }
+
       .order-receipt-label {
         margin-bottom: rem(0);
         color: $grey8;
@@ -359,8 +364,10 @@ $receipt-font-size: rem(14);
     }
 
     .end-lines {
+
       .text-right {
         margin-bottom: rem(0);
+
         .grand-total-sum {
           font-size: rem(14);
           color: $grey8;

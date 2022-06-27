@@ -727,11 +727,14 @@ header {
 }
 
 .checkout-content-container-inner {
+
     .right-section {
+
         .right-content {
             @include media-breakpoint-down(md) {
                 padding-top: rem(121.6);
             }
+            
             @include media-breakpoint-down(sm) {
                 padding-top: rem(0);
             }

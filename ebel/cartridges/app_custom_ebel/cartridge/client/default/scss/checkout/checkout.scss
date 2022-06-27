@@ -712,7 +712,6 @@ header {
 
 .checkout-label-custom {
 
-    
     h5 {
         @include media-breakpoint-up(xl) {
             margin-bottom: rem(-10);
@@ -760,6 +759,7 @@ header {
         }
 
         .checkout-header-wrapper {
+
             @include media-breakpoint-down(md) {
                 justify-content: space-between;
                 padding: rem(0) rem(20) rem(0) rem(20);
@@ -819,7 +819,9 @@ header {
             display: none;
         }
     }
+
     .checkout-header-wrapper {
+
         &.d-show-desktop-wrapper {
             @include media-breakpoint-up(md) {
                 display: none;
@@ -886,7 +888,6 @@ header {
                                 }
                             }
                         }
-
                     }
                 }
             }

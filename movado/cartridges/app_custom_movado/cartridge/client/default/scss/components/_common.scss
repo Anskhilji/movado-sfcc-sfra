@@ -625,7 +625,7 @@ header~.container .promotions .callout a{
                 background-color: transparent;
 
                 @include media-breakpoint-down(xs) {
-                  background-color: $grey-dark-5;
+                    background-color: $grey-dark-5;
                 }
                 
 
@@ -635,6 +635,7 @@ header~.container .promotions .callout a{
                     align-self: center;
                     justify-content: space-around;
                 }
+
                 .coupon-applied {
                     font-size: rem(10);
                     letter-spacing: rem(0.77);
@@ -681,7 +682,7 @@ header~.container .promotions .callout a{
                 text-transform: capitalize;
 
                 &::after {
-                  content: "";
+                    content: "";
                 }
             }
 
