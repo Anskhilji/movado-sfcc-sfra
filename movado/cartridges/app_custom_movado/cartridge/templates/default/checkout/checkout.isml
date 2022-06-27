@@ -38,7 +38,7 @@
         </div>
 
         <div class="checkout-content container position-relative">
-        <div class="overlayer-box"></div>
+            <div class="overlayer-box"></div>
             <div class="row checkout-content-container-inner">
 
                 <div class="col-md-7 left-section">
