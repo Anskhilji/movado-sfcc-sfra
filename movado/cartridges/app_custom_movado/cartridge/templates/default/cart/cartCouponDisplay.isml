@@ -24,10 +24,11 @@
                 </isloop>
             </div> </iscomment>
         </div>
-    <iselseif condition="${discount.lineItemText !== 'null' && discount.price !== 'null'}" >
-        <iscomment> <div class="promotion-information">
+        <iscomment> MSS-1466 Remove Promotion Callout Msg </iscomment>
+    <iscomment> <iselseif condition="${discount.lineItemText !== 'null' && discount.price !== 'null'}" >
+         <div class="promotion-information">
             <span class="promotion-name">${discount.lineItemText}</span>
             <span class="applied-promotion-discount">${discount.price}</span>
-        </div> </iscomment>
-    </isif>
+        </div>
+    </isif> </iscomment>
 </isloop>

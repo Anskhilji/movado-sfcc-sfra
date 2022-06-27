@@ -257,54 +257,62 @@ $stored-payment-spacing: rem(16);
       background: $white;
     }
   }
+
   &.leading-lines-wrapper {
-    padding: rem(8) 0;
-    border-bottom: rem(1) dashed $grey-dark-3;
+      padding: rem(8) 0;
+      border-bottom: rem(1) dashed $grey-dark-3;
 
     .start-lines {
-      &::before {
-        content: "";
-      }
-    }
-    .order-label-wrapper {
-      margin-bottom: rem(0);
-      color: $black;
-      font-size: rem(13);
-      font-weight: 300;
-      letter-spacing: rem(0.7);
-      line-height: rem(20);
 
-      span {
+        &::before {
+            content: "";
+        }
+    }
+
+    .order-label-wrapper {
+        margin-bottom: rem(0);
         color: $black;
         font-size: rem(13);
         font-weight: 300;
         letter-spacing: rem(0.7);
         line-height: rem(20);
+
+      span {
+          color: $black;
+          font-size: rem(13);
+          font-weight: 300;
+          letter-spacing: rem(0.7);
+          line-height: rem(20);
       }
       
       &.order-discount-total {
-        color: $parrot-green;
+          color: $parrot-green;
       }
     }
+
     .end-lines {
+
       .text-right {
-        margin-bottom: rem(0);
+          margin-bottom: rem(0);
+
         .sub-total {
-          color: $black;
-          font-size: rem(13);
-          font-weight: 300;
-          letter-spacing: rem(0.7);
-          line-height: rem(20);
+            color: $black;
+            font-size: rem(13);
+            font-weight: 300;
+            letter-spacing: rem(0.7);
+            line-height: rem(20);
         }
+
         .shipping-total-cost {
-          color: $parrot-green;
+            color: $parrot-green;
         }
+
         &.tax-total {
-          color: $black;
-          font-size: rem(13);
-          font-weight: 300;
-          letter-spacing: rem(0.7);
-          line-height: rem(20);
+            color: $black;
+            font-size: rem(13);
+            font-weight: 300;
+            letter-spacing: rem(0.7);
+            line-height: rem(20);
         }
       }
     }

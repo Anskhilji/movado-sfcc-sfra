@@ -686,7 +686,7 @@ header~.container .promotions .callout a{
               text-transform: capitalize;
 
               &::after {
-                content: "";
+                  content: "";
               }
           }
 
@@ -730,7 +730,7 @@ header~.container .promotions .callout a{
                   background-color: transparent;
 
                   &:focus {
-                    box-shadow: none;
+                      box-shadow: none;
                     
                       &::placeholder {
                           color: transparent;
@@ -766,17 +766,17 @@ header~.container .promotions .callout a{
                   letter-spacing: rem(0.92);
       
                   &.input-has-value {
-                        transition: 0.25s ease-in-out;
-                        top: 0;
-                        left: rem(13.616);
-                        height: rem(24);
-                        color: $grey15;
-                        font-size: rem(10);
-                        font-weight: 500;
-                        letter-spacing: rem(0.77);
-                        line-height: rem(24);
-                        width: 100%;
-                        pointer-events: none;
+                      transition: 0.25s ease-in-out;
+                      top: 0;
+                      left: rem(13.616);
+                      height: rem(24);
+                      color: $grey15;
+                      font-size: rem(10);
+                      font-weight: 500;
+                      letter-spacing: rem(0.77);
+                      line-height: rem(24);
+                      width: 100%;
+                      pointer-events: none;
                   }
               }
           }
@@ -812,7 +812,7 @@ header~.container .promotions .callout a{
           color: $cerulean;
 
           &:hover {
-            text-decoration: none;
+              text-decoration: none;
           }
       }
   }
