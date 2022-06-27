@@ -10,6 +10,7 @@
             </div> </iscomment>
             <iscomment> Custom End </iscomment>
         <iscomment> </div> </iscomment>
+        
         <div class="product-summary-block">
             <isloop items="${pdict.order.shipping}" var="shippingModel">
                 <isif condition="${pdict.order.shipping.length > 1}">

@@ -458,6 +458,7 @@ header {
                                 @include media-breakpoint-up(md) {
                                     height: rem(32);
                                 }
+                                
                                 img {
                                     @include media-breakpoint-up(md) {
                                         transform: translateY(0px);

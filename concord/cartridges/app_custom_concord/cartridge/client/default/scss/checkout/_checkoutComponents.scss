@@ -784,35 +784,34 @@ header {
                 flex: 0 0 66%;
             }
 
-          .checkout-header-wrapper {
-              @include media-breakpoint-down(md) {
-                  justify-content: space-between;
-                  padding: rem(0) rem(20) rem(0) rem(20);
-                  margin-top: rem(30);
-              }
+            .checkout-header-wrapper {
+                @include media-breakpoint-down(md) {
+                    justify-content: space-between;
+                    padding: rem(0) rem(20) rem(0) rem(20);
+                    margin-top: rem(30);
+                }
 
-              @include media-breakpoint-up(xl) {
-                  padding: rem(0) rem(30) rem(0) rem(40);
-                  margin-top: rem(30);
-              }
+                @include media-breakpoint-up(xl) {
+                    padding: rem(0) rem(30) rem(0) rem(40);
+                    margin-top: rem(30);
+                }
 
-              @include custom-media-query-1440($large-screen-width-1440) {
-                  padding: rem(0) rem(60) rem(0) rem(100);
-                  margin-top: rem(30);
-              }
-          }
+                @include custom-media-query-1440($large-screen-width-1440) {
+                    padding: rem(0) rem(60) rem(0) rem(100);
+                    margin-top: rem(30);
+                }
+            }
 
-          .header-left {
+            .header-left {
 
-              &.align-start-box {
-                  max-width: 100%;
+                &.align-start-box {
+                    max-width: 100%;
 
-                  @include media-breakpoint-down(md) {
-                      max-width: 100%;
-                  }
-              }
-          }
-
+                    @include media-breakpoint-down(md) {
+                        max-width: 100%;
+                    }
+                }
+            }
         }
 
         .header-redesign-wrapper2 {

@@ -156,7 +156,7 @@ header {
             margin: rem(55) auto rem(30);
             padding: 0;
         }
-        
+
         @include media-breakpoint-up(md) {
             padding: 0;
             margin: rem(71) auto rem(30);
@@ -378,7 +378,6 @@ header {
                 padding: rem(0) rem(15);
             }
         }
-
     }
 }
 
@@ -459,8 +458,7 @@ header {
     
                     @include media-breakpoint-up(lg) {
                         padding-right: rem(0);
-                    }
-                    
+                    }                    
                 }
             }
         }
@@ -530,7 +528,6 @@ header {
                                 }
                             }
                         }
-
                     }
                 }
             }
