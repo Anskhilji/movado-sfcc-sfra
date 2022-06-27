@@ -54,35 +54,6 @@ server.append(
     }
 );
 
-/**
- * Replacing controller from base as need to remove cache and apply A/B test
- */
-server.replace('Refinebar', cache.applyShortPromotionSensitiveCache, function (req, res, next) {
-    var CatalogMgr = require('dw/catalog/CatalogMgr');
-    var ProductSearchModel = require('dw/catalog/ProductSearchModel');
-    var ProductSearch = require('*/cartridge/models/search/productSearch');
-    var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
-    var refineBarTemplate = '/search/searchRefineBar';
-
-    var apiProductSearch = new ProductSearchModel();
-    apiProductSearch = searchHelper.setupSearch(apiProductSearch, req.querystring);
-    apiProductSearch.search();
-    var productSearch = new ProductSearch(
-        apiProductSearch,
-        req.querystring,
-        req.querystring.srule,
-        CatalogMgr.getSortingOptions(),
-        CatalogMgr.getSiteCatalog().getRoot()
-    );
-
-    res.render(refineBarTemplate, {
-        productSearch: productSearch,
-        querystring: req.querystring
-    });
-
-    next();
-});
-
 server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
     var ProductSearchModel = require('dw/catalog/ProductSearchModel');
     var URLUtils = require('dw/web/URLUtils');
