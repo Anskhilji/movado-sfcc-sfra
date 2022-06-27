@@ -4,7 +4,6 @@ var server = require('server');
 var page = module.superModule;
 server.extend(page);
 
-var ABTestMgr = require('dw/campaign/ABTestMgr');
 var CatalogMgr = require('dw/catalog/CatalogMgr');
 var ProductMgr = require('dw/catalog/ProductMgr');
 var URLUtils = require('dw/web/URLUtils');
