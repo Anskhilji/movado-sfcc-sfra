@@ -43,6 +43,10 @@ $checkout-font-weight: 600;
 
 .next-step-button {
     padding-bottom: rem(30);
+
+    @include media-breakpoint-down(xs) {
+        padding: rem(0) rem(0) rem(30) rem(0);
+    }
 }
 
 .shipping-methods {
@@ -851,6 +855,10 @@ header {
         @include custom-media-query-max($medium-screen-width) {
             overflow: hidden;
         }
+
+        @include media-breakpoint-down(xs) {
+            padding: rem(0) rem(20);
+        }
         
         .error-space-left {
             margin-left: 0;
@@ -937,6 +945,10 @@ header {
 
             .right-content {
                 padding-top: rem(71);
+
+                @include custom-media-query-max($medium-screen-width) {
+                    padding-top: rem(0);
+                }
             }
 
             .checkout-help-contact-info-box {
@@ -1004,6 +1016,11 @@ header {
                 border-radius: rem(2);
                 background-color: $black;
                 color: $white;
+            }
+        }
+        .d-hide-mobile {
+            @include media-breakpoint-down(xs) {
+                display: none;
             }
         }
     }
@@ -1185,3 +1202,15 @@ header {
         }
     }
 
+    .overlayer-box {
+        background-color: $grey-transparent-8;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        display: none;
+        z-index: 5;
+    }

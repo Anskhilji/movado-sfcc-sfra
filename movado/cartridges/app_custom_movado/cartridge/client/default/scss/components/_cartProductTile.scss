@@ -95,6 +95,7 @@
                 }
 
                 .price-box-container {
+                    margin-top: rem(0);
                     
                     .line-item-total-price-amount {
                         font-size: rem(12);
@@ -110,6 +111,7 @@
                         letter-spacing: rem(0.86);
                         line-height: rem(18);
                         color: $grey8;
+                        margin-bottom: rem(10);
                     }
                 }
                 

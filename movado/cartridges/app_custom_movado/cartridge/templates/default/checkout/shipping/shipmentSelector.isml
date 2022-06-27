@@ -1,9 +1,9 @@
 <div class="form-group relative">
-    <label class="form-control-label" for="shipmentSelector">
+    <label class="form-control-label field-label-wrapper field-select-wrapper-box" for="shipmentSelector">
         ${Resource.msg('heading.ship.to.address', 'checkout', null)}
     </label>
 
-    <select name="shipmentSelector" class="addressSelector form-control custom-select"
+    <select name="shipmentSelector" class="addressSelector form-control custom-select custom-select-box"
             data-create-shipment-url="${URLUtils.https('CheckoutAddressServices-CreateNewAddress')}"
     >
         <isinclude template="checkout/shipping/shipmentSelectorOptions" />

@@ -807,12 +807,24 @@ div {
         .order-summary-container {
             position: absolute;
             width: 100%;
-            z-index: 9999;
-            height: rem(660);
+            z-index: 10;
+            height: 70vh;
             background-color: $white;
             overflow: auto;
             display: none;
-            padding-bottom: rem(15);
+            top: rem(10);
+            padding: rem(24) rem(34) rem(0) rem(34);
+
+            &.pop-up-top-container {
+                top: -4.375rem;
+            }
+  
+            .sticky-hide-wrapper {
+                position: sticky;
+                bottom: 0;
+                background: $white;
+                padding: rem(20) rem(0) rem(20) rem(0);
+            }
         }
         
         .label-show-title {

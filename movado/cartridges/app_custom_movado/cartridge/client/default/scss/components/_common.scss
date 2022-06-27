@@ -618,11 +618,16 @@ header~.container .promotions .callout a{
             .coupon-price-adjustment {
                 border: rem(1) solid $parrot-green;
                 border-radius: rem(22.5);
-                padding: rem(5) rem(10);
+                padding: rem(4) rem(10);
                 box-shadow: none;
                 width: auto;
                 max-width: fit-content;
                 background-color: transparent;
+
+                @include media-breakpoint-down(xs) {
+                  background-color: $grey-dark-5;
+                }
+                
 
                 .flex-box-promo-code {
                     display: flex;
@@ -720,7 +725,7 @@ header~.container .promotions .callout a{
                     background: transparent;
 
                     &:focus {
-                      box-shadow: none;
+                        box-shadow: none;
                       
                         &::placeholder {
                             color: transparent;
@@ -756,28 +761,28 @@ header~.container .promotions .callout a{
                     letter-spacing: rem(0.92);
         
                     &.input-has-value {
-                          transition: 0.25s ease-in-out;
-                          top: 0;
-                          left: rem(13.616);
-                          height: rem(24);
-                          color: $grey17;
-                          font-size: rem(10);
-                          font-weight: 500;
-                          letter-spacing: rem(0.77);
-                          line-height: rem(24);
-                          width: 100%;
-                          pointer-events: none;
+                        transition: 0.25s ease-in-out;
+                        top: 0;
+                        left: rem(13.616);
+                        height: rem(24);
+                        color: $grey17;
+                        font-size: rem(10);
+                        font-weight: 500;
+                        letter-spacing: rem(0.77);
+                        line-height: rem(24);
+                        width: 100%;
+                        pointer-events: none;
                     }
                 }
             }
 
             .promo-box-space {
-                @include media-breakpoint-down(xs) {
+                @include custom-media-query-max($medium-screen-width) {
                     padding: rem(0);
                 }
 
                 .coupon-error {
-                  margin: rem(10) 0;
+                    margin: rem(10) 0;
                 }
             }
         }
@@ -785,12 +790,25 @@ header~.container .promotions .callout a{
         .order-summary-container {
             position: absolute;
             width: 100%;
-            z-index: 9999;
-            height: rem(660);
+            z-index: 10;
+            height: 70vh;
             background-color: $white;
             overflow: auto;
             display: none;
-            padding-bottom: rem(15);
+            top: rem(10);
+            padding: rem(24) rem(34) rem(0) rem(34);
+
+            &.pop-up-top-container {
+              top: -4.375rem;
+            }
+
+            .sticky-hide-wrapper {
+                position: sticky;
+                bottom: 0;
+                background: $white;
+                padding: rem(20) rem(0) rem(20) rem(0);
+                z-index: 15;
+            }
         }
         
         .label-show-title {
@@ -800,9 +818,11 @@ header~.container .promotions .callout a{
             line-height: rem(24);
             text-transform: capitalize;
             color: $cerulean;
+            margin-bottom: rem(0);
+            padding-left: rem(20);
 
             &:hover {
-              text-decoration: none;
+                text-decoration: none;
             }
         }
     }

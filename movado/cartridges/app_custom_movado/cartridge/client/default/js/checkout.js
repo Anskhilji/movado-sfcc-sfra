@@ -89,10 +89,13 @@ $(document).ready(function() { // eslint-disable-line
     });
     $('.show-details-wrapper').click(function() {
         $('.hidden-menu').slideDown("slow");
-        // $('.d-sm-none').spinner().start();
+        $('.hidden-menu').addClass('pop-up-top-container');
+        $('body').css('overflow','hidden');
+        $('.overlayer-box').addClass('d-block');
     });
     $('.hide-details-wrapper').click(function() {
         $('.hidden-menu').slideUp("slow");
-        // $('.d-sm-none').spinner().stop();
+        $('body').removeAttr('style');
+        $('.overlayer-box').removeClass('d-block');
     });
 });

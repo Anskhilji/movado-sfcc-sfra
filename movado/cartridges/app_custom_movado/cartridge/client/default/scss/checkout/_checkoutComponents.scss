@@ -113,8 +113,52 @@ $stored-payment-spacing: rem(16);
     }
 
     &.data-checkout-stage-redesign {
-      margin-bottom: rem(0);
-      padding-top: rem(16);
+        margin-bottom: rem(0);
+        padding-top: rem(16);
+
+        @include media-breakpoint-down(xs) {
+          padding: rem(0);
+        }
+
+        .pop-up-container-box {
+            border: rem(1) solid $grey22;
+            background-color: $grey23;
+            box-shadow: rem(0) rem(2) rem(6) rem(1) $grey-dark-4;
+
+            @include media-breakpoint-down(xs) {
+                max-width: 100%;
+                margin-bottom: rem(30);
+            }
+        }
+
+        .pop-up-box-space {
+            @include media-breakpoint-down(xs) {
+              padding: rem(0) rem(20);
+            }
+
+            .top-grandtotal-label {
+                padding-top: rem(10);
+                margin-bottom: rem(6);
+            }
+            .top-grand-total-price-wrapper {
+              padding-top: rem(10);
+              margin-bottom: rem(6);
+            }
+        }
+    }
+  }
+  .card-shipping-container-wrapper {
+    @include media-breakpoint-up(lg) {
+      padding-left: rem(4);
+    }
+
+    @include media-breakpoint-up(xl) {
+      padding-left: rem(0);
+    }
+
+    @include custom-media-query-1440($large-screen-width-1440) {
+      max-width: rem(700);
+      padding-left: rem(0);
     }
   }
 }
@@ -360,6 +404,10 @@ $stored-payment-spacing: rem(16);
     padding: rem(8) 0;
     border-bottom: rem(1) dashed $grey-dark-3;
 
+    &.sales-tax-item {
+      border-bottom: rem(1) solid $grey-dark-3;
+    }
+    
     .start-lines {
 
       &::before {
@@ -1162,6 +1210,11 @@ $stored-payment-spacing: rem(16);
         border: none;
         border-bottom: rem(1) solid $grey-dark-3;
         background-color: transparent;
+
+          &:last-child {
+            border-bottom: none;
+            margin-bottom: rem(0);
+          }
   
         .product-line-item-details {
            overflow: hidden;
@@ -1262,3 +1315,6 @@ $stored-payment-spacing: rem(16);
   }
 }
 
+.checkbox-email-wrapper {
+  padding: rem(0) rem(10);
+}
