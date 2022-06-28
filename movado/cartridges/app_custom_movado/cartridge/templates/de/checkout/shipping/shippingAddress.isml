@@ -221,7 +221,7 @@
 
 <isif condition="${pdict.customer.registeredUser}">
     <div class="row">
-        <div class="col">
+        <div class="col checkbox-email-wrapper">
             <div class="form-group
                 ${addressFields.saveShippingAddress.mandatory === true ? 'required' : ''}
                 ${addressFields.saveShippingAddress.htmlName}">

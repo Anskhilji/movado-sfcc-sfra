@@ -1,7 +1,8 @@
 <!--- Subtotal --->
 <div class="row leading-lines leading-lines-wrapper justify-content-between subtotal-item">
     <div class="start-lines">
-        <p class="order-receipt-label order-label-wrapper"><span>${Resource.msg('label.order.subtotal','confirmation', null)}</span></p>
+        <p class="order-receipt-label order-label-wrapper"><span>${Resource.msg('label.order.subtotal','confirmation', null)}</span>
+        <span>(${Resource.msgf('label.number.items.in.cart','cart', null, pdict.order.items.totalQuantity)})</span></p>
     </div>
     <div class="end-lines">
         <p class="text-right"><span class="sub-total sub-total-redesign order-label-wrapper" data-sub-total="${pdict.order.totals.currentTotal}">${pdict.order.totals.currentTotal}</span></p>
@@ -57,7 +58,7 @@
 <div class="row grand-total grand-total-wrapper justify-content-between leading-lines">
     <div class="start-lines d-flex">
         <p class="order-receipt-label mr-1"><span class="text-uppercase">${Resource.msg('label.order.grand.total','confirmation', null)}</span></p>
-        <span class="order-receipt-label grand-total-label text-uppercase">(${Resource.msgf('label.number.items.in.cart','cart', null, pdict.order.items.totalQuantity)})</span>
+        <iscomment> <span class="order-receipt-label grand-total-label text-uppercase">(${Resource.msgf('label.number.items.in.cart','cart', null, pdict.order.items.totalQuantity)})</span> </iscomment>
     </div>
     <div class="end-lines">
         <p class="text-right"><span class="grand-total-sum">${pdict.order.totals.grandTotal}</span></p>
