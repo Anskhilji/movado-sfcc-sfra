@@ -39,6 +39,8 @@
                                     <div class="lineItem-options-values" data-option-id="${option.optionId}" data-value-id="${option.selectedValueId}">
                                         <p class="line-item-attributes">${option.displayName}</p>
                                     </div>
+                                <iselseif condition="${empty(option.displayName) && option.indexOf('GiftWrapped') > -1}" />
+                                    <div class="line-item-option">${option}</div>
                                 </isif>
                             </isloop>
                         </isif>
