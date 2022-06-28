@@ -1,0 +1,12 @@
+<iscomment> [AddToCart shows only when following requirements meet] </iscomment>
+<isif condition="${pdict.restrictAnonymousUsersOnSalesSites == true}">
+    <isif condition="${pdict.loggedIn == true}">
+        <isset name="product" value="${pdict.product}" scope="page"/>
+        <iscomment>custom start: change inner template  </iscomment>
+        <isinclude template="product/components/addToCartProduct" /> 
+    </isif>
+<iselse>
+    <isset name="product" value="${pdict.product}" scope="page"/>
+    <iscomment>custom start: change inner template  </iscomment>
+    <isinclude template="product/components/addToCartProduct" /> 
+</isif>

@@ -1,0 +1,54 @@
+<iscomment> Custom Start: Adding Esw updated cartridge code for add to cart button and applepay </iscomment>
+<div class="cart-and-ipay ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "d-none" : ""}">
+    <div class="cta-add-to-cart">
+        <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}">
+        <iscomment> Custom Start: Adding Esw updated cartridge code ({product.isProductRestricted}>d-none) </iscomment>
+        <button class='add-to-cart btn btn-primary <isif condition="${product.isProductRestricted}">d-none</isif>'
+            data-pid="${product.id}"
+            ${!product.readyToOrder ? "disabled" : ""}  >
+                <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>
+                <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
+                     ${Resource.msg('button.preorder.now', 'common', null)} </br>
+                <iselse/>
+                     ${Resource.msg('button.addtocart', 'common', null)}
+                </isif>
+                <iscomment> price  </iscomment>
+                <isif condition="${!pdict.isPLPProduct}"> 
+                    <isset name="price" value="${product.price}" scope="page" />
+                    <div class="add-to-cart-price-holder addtocart-innter-price">
+                        <isinclude template="product/components/pricing/main" />
+                    </div>
+                </isif>
+        </button>
+        <iscomment> Custom Start: Adding check for applepay button to show only when country US is selected</iscomment>
+        <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
+        <isif condition="${isEswEnabled}">
+            <isif condition="${!empty(request.httpCookies['esw.location'])  &&  !empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US') && !product.isProductRestricted}" >
+                <isif condition="${product.available && product.readyToOrder}">
+                    <isapplepay class="apple-pay-pdp btn" sku="${product.id}"></isapplepay>
+                </isif>
+            </isif>
+            <div class="product-not-available-msg <isif condition="${!product.isProductRestricted}">d-none</isif>">${Resource.msg('esw.product.notavailable','esw',null)}</div>
+            <isset name="isDomesticAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
+            <isif condition="${isDomesticAllowedCountry}" >
+                <isif condition="${dw.system.Site.current.preferences.custom.isGooglePayEnabled}">
+                    <iscomment>custom start: add class for custom styling  </iscomment>
+                    <div class="btn btn-border-none p-0 googlepay-btn">
+                        <isinclude url="${URLUtils.https('GooglePay-RenderButton', 'googlePayEntryPoint', 'Product-Show', 'pid', product.id)}" sf-toolkit="on"/>
+                    </div>
+                </isif>
+            </isif>
+        <iselse/>
+             <isif condition="${product.available && product.readyToOrder}">
+                <isapplepay class="apple-pay-pdp btn" sku="${product.id}"></isapplepay>
+                <isif condition="${dw.system.Site.current.preferences.custom.isGooglePayEnabled}">
+                    <iscomment> custom start: add class for custom styling  </iscomment>
+                    <div class="btn btn-border-none p-0 googlepay-btn">
+                        <isinclude url="${URLUtils.https('GooglePay-RenderButton', 'googlePayEntryPoint', 'Product-Show', 'pid', product.id)}" sf-toolkit="on"/>
+                    </div>
+                </isif>
+            </isif>   
+        </isif>
+    </div>
+</div>
+<iscomment> Custom End </iscomment>

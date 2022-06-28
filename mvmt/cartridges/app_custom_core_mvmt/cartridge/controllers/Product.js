@@ -147,7 +147,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
         if (ABTestMgr.isParticipant('MVMTRedesignPDPABTest','Control')) {
             template = 'product/old/productDetails';
         } else if (ABTestMgr.isParticipant('MVMTRedesignPDPABTest','render-new-design')) {
-            template = showProductPageHelperResult.template;
+            template = 'product/productDetails';
         } else {
             template = 'product/old/productDetails';
         }
