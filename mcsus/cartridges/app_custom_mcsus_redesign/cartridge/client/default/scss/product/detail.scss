@@ -849,15 +849,32 @@
                         .primary-images {
                             max-width: 59.30%;
                             width: 100%;
+                            position: sticky !important;
+                            position: -webkit-sticky !important; // for safari
+                            align-self: flex-start;
+                            height: auto;
+                            top: rem(0);
+
+                            @include custom-media-query($large-screen-width)  {
+                                top: rem(0);
+                            }
+                            @include custom-media-query-down($large-screen-width-down)  {
+                                top: rem(-185);
+                            }
                             @include media-breakpoint-down(lg) {
                                 max-width: 50.30%;
+                                top: rem(0);
                             }
                             @include media-breakpoint-down(md) {
                                 max-width: 47%;
                             }
+                            // @include media-breakpoint-down(sm) {
+                            //     top: rem(75);
+                            // }
                             @include media-breakpoint-down(xs) {
                                 max-width: 100%;
                                 min-height: unset;
+                                position: static !important;
                             }
 
                             .carousel-tile-inner-box {
