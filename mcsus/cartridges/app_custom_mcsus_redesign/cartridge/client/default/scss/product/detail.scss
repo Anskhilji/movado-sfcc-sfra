@@ -849,8 +849,8 @@
                         .primary-images {
                             max-width: 59.30%;
                             width: 100%;
-                            position: sticky !important;
-                            position: -webkit-sticky !important; // for safari
+                            position: sticky;
+                            position: -webkit-sticky; // for safari
                             align-self: flex-start;
                             height: auto;
                             top: rem(0);
