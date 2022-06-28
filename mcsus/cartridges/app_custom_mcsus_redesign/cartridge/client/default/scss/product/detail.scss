@@ -855,10 +855,10 @@
                             height: auto;
                             top: rem(0);
 
-                            @include custom-media-query($large-screen-width)  {
+                            @include custom-media-query($large-screen-width) {
                                 top: rem(0);
                             }
-                            @include custom-media-query-down($large-screen-width-down)  {
+                            @include custom-media-query-down($large-screen-width-down) {
                                 top: rem(-185);
                             }
                             @include media-breakpoint-down(lg) {
