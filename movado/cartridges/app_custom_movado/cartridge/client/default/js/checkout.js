@@ -87,15 +87,16 @@ $(document).ready(function() { // eslint-disable-line
     $('input.checkout-coupon-code-field').on('change keyup', function() {
         checkPromoInput(this);
     });
+    
     $('.show-details-wrapper').click(function() {
-        $('.hidden-menu').slideDown("slow");
+        $('.hidden-menu').slideDown('slow');
         $('.hidden-menu').addClass('pop-up-top-container');
-        $('body').css('overflow','hidden');
+        $('body').addClass('overflow-hidden');
         $('.overlayer-box').addClass('d-block');
     });
     $('.hide-details-wrapper').click(function() {
-        $('.hidden-menu').slideUp("slow");
-        $('body').removeAttr('style');
+        $('.hidden-menu').slideUp('slow');
+        $('body').removeClass('overflow-hidden');
         $('.overlayer-box').removeClass('d-block');
     });
 });

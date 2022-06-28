@@ -17,7 +17,7 @@
                     <isif condition="${lineItem.bonusProductLineItemUUID === 'bonus'}">
                         <isinclude template="checkout/productCard/bonusProductCard" />
                     <iselse/>
-                    <isinclude template="checkout/productCard/productCardCheckOut" />
+                    <isinclude template="checkout/productCard/productCardCheckout" />
                     </isif>
                 </isloop>
 

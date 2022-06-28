@@ -1073,7 +1073,7 @@ $stored-payment-spacing: rem(16);
                 right: rem(4);
                 height: rem(20);
                 width: rem(36);
-                border-left: 0.0625rem solid #bfbfbf;
+                border-left: rem(1) solid $grey24;
                 text-align: center;
             }
           }

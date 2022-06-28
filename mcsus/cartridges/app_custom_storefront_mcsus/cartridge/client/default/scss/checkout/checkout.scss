@@ -438,11 +438,11 @@ header {
         .checkout-header-wrapper {
             @include media-breakpoint-down(md) {
                 justify-content: space-between;
-                padding: rem(0) rem(20) rem(0) rem(20);
+                padding: rem(0) rem(20);
             }
 
             @include media-breakpoint-up(lg) {
-                padding: rem(0) rem(20) rem(0) rem(20);
+                padding: rem(0) rem(20);
             }
 
             @include media-breakpoint-up(xl) {
@@ -480,7 +480,7 @@ header {
             }
 
             @include media-breakpoint-up(lg) {
-                padding: rem(0) rem(20) rem(0) rem(20);
+                padding: rem(0) rem(20);
             }
 
             .right {

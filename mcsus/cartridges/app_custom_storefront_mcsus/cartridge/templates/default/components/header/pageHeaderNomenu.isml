@@ -26,7 +26,7 @@
                     </div>              
               </div>
           </div>
-          <iscomment> responsive 768 design </iscomment>
+            <iscomment> Medium Screen Resolution Design for Checkout Header Menu </iscomment>
             <div class="header-wrapper checkout-header-wrapper d-show-desktop-wrapper">
                 <div class="header-left align-start-box">
                     <div class="flex align-items-center checkout-logo">
