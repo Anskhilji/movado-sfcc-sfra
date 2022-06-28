@@ -1,0 +1,34 @@
+//font Families:
+@import "bootstrap/scss/functions";
+@import "~mcsus/variables";
+
+/**************************/
+
+//font Families:
+$futura-medium : "FuturaStd-Medium", Arial, sans-serif !default;
+$futura-book : "FuturaStd-Book", Arial, sans-serif !default;
+$futura-bold : "FuturaStd-Bold", Arial, sans-serif !default;
+
+$light-black1: rgba(0,0,0,0.89);
+$granite-gray1:  #3c4043;
+$light-gray2: #797979;
+$light-gray3: #C4C1C1;
+$light-gray4: #E2E2E2;
+$light-grey5: #6C757D;
+$light-grey6: #F8f8f8;
+$gray4: #E7E7E7;
+$grey-light4: rgba(207,207,207,0.3) !default;
+$grey-light5: rgba(198, 198, 198, 0.5) !default;
+$grey-light6: rgba(0,0,0,0.5) !default;
+$light-pink: #FFAAAA;
+$light-pink2: rgba(255,91,91,0.2);
+$dark-pink: #CF1818;
+
+// Large Screen Down
+$large-screen-width-down: 1400px;
+
+@mixin custom-media-query-down($large-screen-width-down) {
+    @media (max-width:#{$large-screen-width-down}) {
+        @content;
+    }
+}

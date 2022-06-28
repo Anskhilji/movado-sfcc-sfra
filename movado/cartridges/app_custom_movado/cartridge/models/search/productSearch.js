@@ -197,6 +197,58 @@ function getPhrases(suggestedPhrases) {
     return phrases;
 }
 
+/**
+ * Sort the products on basis of their sales price
+ * @param {dw.catalog.ProductSearchModel} productSearch - Product search object
+ * @return {Object[]} - List of sorted products
+ */
+function getSortedProductsOnBasisOfSalesPrice(productSearch) {
+    var ProductFactory = require('*/cartridge/scripts/factories/product');
+    var paramContainer;
+    var factoryProduct;
+    var currentProduct;
+    var searchHitProduct;
+    var allFactoryProducts = [];
+    var allSortedProductsIds = [];
+    var allSearchHitsProducts = [];
+    var searchHitsProductsList;
+    var xSalesPrice;
+    var ySalesPrice
+    if (!empty(productSearch)){
+        searchHitsProductsList = productSearch.productSearchHits.asList();
+    }
+    for (var i = 0; i < searchHitsProductsList.size(); i++) {
+        searchHitProduct = searchHitsProductsList[i]; 
+        allSearchHitsProducts.push({
+            productID: searchHitProduct.productID,
+            productSearchHit: searchHitProduct
+        });
+    }
+    allSearchHitsProducts.forEach(function (searchHitResultProduct) {
+        paramContainer = {
+            pid: searchHitResultProduct.productID
+        };
+        factoryProduct = ProductFactory.get(paramContainer);
+        allFactoryProducts.push(factoryProduct);
+    });
+    allFactoryProducts.sort(function (x, y) {
+        xSalesPrice = x.price.sales.value;
+        ySalesPrice = y.price.sales.value;
+        return ySalesPrice - xSalesPrice;
+    });
+    allFactoryProducts.forEach(function (sortedProductID) {
+        for (var j = 0; j < allSearchHitsProducts.length; j++) {
+            currentProduct = allSearchHitsProducts[j];
+            if (sortedProductID.id === currentProduct.productID) {
+                allSortedProductsIds.push({
+                    productID: currentProduct.productID,
+                    productSearchHit: currentProduct
+                });
+            }
+        }
+    });
+    return allSortedProductsIds;
+}
 
 /**
  * @constructor
@@ -210,6 +262,7 @@ function getPhrases(suggestedPhrases) {
  * @param {dw.catalog.Category} rootCategory - Search result's root category if applicable
  */
 function ProductSearch(productSearch, httpParams, sortingRule, sortingOptions, rootCategory) {
+    var sortProductsOnBasisOfSalesPrice = Site.getCurrent().getCustomPreferenceValue('sortProductsOnBasisOfSalesPrice');
     this.pageSize = parseInt(httpParams.sz, 10) || DEFAULT_PAGE_SIZE;
     this.productSearch = productSearch;
     var category = catalogMgr.getCategory(productSearch.categoryID);
@@ -244,12 +297,23 @@ function ProductSearch(productSearch, httpParams, sortingRule, sortingOptions, r
 
     this.resetLink = getResetLink(productSearch, httpParams);
     this.bannerImageUrl = productSearch.category ? getBannerImageUrl(productSearch.category) : null;
-    this.productIds = collections.map(paging.pageElements, function (item) {
-        return {
-            productID: item.productID,
-            productSearchHit: item
-        };
-    });
+    if (sortProductsOnBasisOfSalesPrice) {
+        var sortedProductSearchHits = getSortedProductsOnBasisOfSalesPrice(productSearch);
+        var sortedPagingElements = [];
+        if (!empty(sortedProductSearchHits)) {
+            for (var i = paging.start; i <= paging.end; i++) {
+                sortedPagingElements.push(sortedProductSearchHits[i]);
+            }
+        }
+        this.productIds = sortedPagingElements;
+    } else {
+        this.productIds = collections.map(paging.pageElements, function (item) {
+            return {
+                productID: item.productID,
+                productSearchHit: item
+            };
+        });
+    }
     this.productSort = new ProductSortOptions(
         productSearch,
         sortingRule,

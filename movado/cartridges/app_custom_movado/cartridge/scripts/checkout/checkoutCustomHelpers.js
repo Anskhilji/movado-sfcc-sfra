@@ -83,7 +83,8 @@ function sendOrderConfirmationEmail(order, locale) {
         phoneLabel: Resource.msg('order.confirmation.email.label.phone', 'order', null),
         shippingMethodLabel: Resource.msg('order.confirmation.email.label.shippingmethod', 'order', null),
         shippingStatusLabel: Resource.msg('order.confirmation.email.label.shippingstatus', 'order', null),
-        billingLabel: Resource.msg('order.confirmation.email.label.billingaddress', 'order', null)
+        billingLabel: Resource.msg('order.confirmation.email.label.billingaddress', 'order', null),
+        cuurentOrder: order
     };
 
     var emailObj = {

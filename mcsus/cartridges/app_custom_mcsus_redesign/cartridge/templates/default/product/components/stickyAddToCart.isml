@@ -1,0 +1,41 @@
+<div class="sticky-container-redesign w-100 ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "d-none " : ""}">
+    <div class="d-flex justify-content-between align-items-center check-scroll sticky-prodct-cart-redesign">
+            <div class="d-none d-sm-flex align-items-center">
+                <div class="sticky-prod-img">
+                     <picture>
+                        <source media="(min-width: 992px)" srcset="${!empty(product.images) && !empty(product.images['tile150']) && !empty(product.images['tile150'][0]) && !empty(product.images['tile150'][0].url ) ? product.images.tile150[0].url : ''}" />
+                        <source media="(max-width: 991px)" srcset="${!empty(product.images) && !empty(product.images['tile150']) && !empty(product.images['tile150'][0]) && !empty(product.images['tile150'][0].url ) ? product.images.tile150[0].url : ''}" />
+                        <img src="${!empty(product.images) && !empty(product.images['tile150']) && !empty(product.images['tile150'][0]) && !empty(product.images['tile150'][0].url ) ? product.images.tile150[0].url : ''}" itemprop="image" />
+                        <isset name="isImageExist" value="true" scope="page" />
+                    </picture>
+                </div>
+                <div class="sticky-prod-brand">
+                <isif condition="${product.brand}">
+                    <a href="${!empty(pdict.customURL) ? pdict.customURL : ''}" class="product-brand prdouct-name-gtm text-uppercase">${product.brand}</a>
+                </isif>
+                    <h6 class="product-name prdouct-name-gtm text-truncate">${product.productName}</h6>
+                </div>
+            </div>
+
+             <!-- Cart and [Optionally] Apple Pay -->
+            <div class="cart-and-ipay mb-0 ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "d-none " : ""}">
+                <div class="cta-add-to-cart">
+                    <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}">
+                    <button class='add-to-cart btn btn-primary mr-0 d-flex align-items-center justify-content-between <isif condition="${product.isProductRestricted}">d-none</isif>' data-pid="${product.id}" ${!product.readyToOrder ? "disabled" : ""}>
+                        <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
+                            ${Resource.msg('button.preorder.now', 'common', null)} </br>
+                        <iselse/>
+                            ${Resource.msg('button.addtocart', 'common', null)}
+                        </isif>
+                        <iscomment> price </iscomment>
+                        <isif condition="${!pdict.isPLPProduct}">
+                            <isset name="price" value="${product.price}" scope="page" />
+                            <div class="add-to-cart-price-holder addtocart-innter-price">
+                                <isinclude template="product/components/pricing/main" />
+                            </div>
+                        </isif>
+                    </button>
+                </div>
+            </div>
+        </div>
+</div>
