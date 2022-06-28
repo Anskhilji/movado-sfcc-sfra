@@ -23,10 +23,13 @@
     </isif>
     <iscomment>mvmt-checkout Class added to container </iscomment>
     <div id="checkout-main" class="mvmt-checkout data-checkout-stage data-checkout-stage-redesign <isif condition="${pdict.order.usingMultiShipping && pdict.order.shipping.length > 1}">multi-ship</isif>" data-customer-type="${pdict.customer.registeredUser ? 'registered' : 'guest'}" data-checkout-stage="${pdict.currentStage}" data-checkout-get-url="${URLUtils.https('CheckoutServices-Get')}">
-        <div class="row d-sm-none">
-            <div class="col-12">
+        <div class="row d-sm-none no-gutters pop-up-container-box">
+            <div class="col-12 pop-up-box-space d-flex justify-content-between">
                 <span class="grand-total-label top-grandtotal-label">${Resource.msgf('label.number.items.in.cart','cart', null, pdict.order.items.totalQuantity)}</span>
                 <span class="grand-total-price">${pdict.order.totals.subTotal}</span>
+            </div>
+            <div class="col-12 checkout-promo-section checkout-promo-redesign d-none-promo-box">
+                 <isinclude template="checkout/orderSummaryPopUp.isml" />
             </div>
         </div>
         <div class="alert card alert-dismissible error-message" role="alert">
@@ -36,7 +39,7 @@
 
 
         <div class="checkout-content container position-relative">
-            <div class="overlayer-box"></div>
+            <iscomment> <div class="overlayer-box"></div> </iscomment>
             <div class="row checkout-content-container-inner">
 
                 <div class="col-md-7 left-section">
@@ -102,7 +105,7 @@
                 <!----------------------------------------------------------------------------------->
                 <!-- Order Totals, Details and Summary -->
                 <!----------------------------------------------------------------------------------->
-                <div class="col-md-5 right-section">
+                <div class="col-md-5 right-section d-hide-mobile">
                     <div class="right-content-box">
                         <div class="card-header card-border-none-wrapper card-heading-wrapper">
                             <h4>${Resource.msg('heading.order.summary', 'checkout', null)}</h4>

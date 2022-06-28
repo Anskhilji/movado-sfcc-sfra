@@ -130,9 +130,9 @@ server.append(
             }
         );
         // {calculateSavingMoneyAndFormate} this method return all product total price and total discount
-        var orderTotalAndDiscountPrice = checkoutCustomHelpers.calculateSavingMoneyAndFormate(orderModel);
-        orderModel.totals.currentDiscount = orderTotalAndDiscountPrice.savingMoney ? orderTotalAndDiscountPrice.savingMoney : '';
-        orderModel.totals.currentTotal = orderTotalAndDiscountPrice.currentTotal ? orderTotalAndDiscountPrice.currentTotal : '';
+        // var orderTotalAndDiscountPrice = checkoutCustomHelpers.calculateSavingMoneyAndFormate(orderModel);
+        // orderModel.totals.currentDiscount = orderTotalAndDiscountPrice.savingMoney ? orderTotalAndDiscountPrice.savingMoney : '';
+        // orderModel.totals.currentTotal = orderTotalAndDiscountPrice.currentTotal ? orderTotalAndDiscountPrice.currentTotal : '';
         // Custom Start: Add email for Amazon Pay
         res.setViewData({
             order: orderModel,

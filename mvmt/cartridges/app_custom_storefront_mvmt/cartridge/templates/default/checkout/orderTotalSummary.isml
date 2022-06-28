@@ -11,20 +11,10 @@
 <!--- Order Discount --->
 <div class="row leading-lines leading-lines-wrapper justify-content-between order-discount <isif condition="${pdict.order.totals.orderLevelDiscountTotal.value === 0}">hide-order-discount</isif>">
     <div class="start-lines">
-        <p class="order-receipt-label"><span>${Resource.msg('label.order.discount', 'common', null)}</span></p>
+        <p class="order-receipt-label"><span>${Resource.msg('label.order.discount.savings', 'common', null)}</span></p>
     </div>
     <div class="end-lines">
         <p class="text-right"><span class="order-discount-total">- ${pdict.order.totals.orderLevelDiscountTotal.formatted}</span></p>
-    </div>
-</div>
-
-<!--- Product Discount --->
-<div class="row leading-lines leading-lines-wrapper justify-content-between product-discount <isif condition="${pdict.order.totals.productLevelDiscountTotal.value === 0}">hide-order-discount</isif>">
-    <div class="start-lines">
-        <p class="product-receipt-label product-label-wrapper"><span>${Resource.msg('label.product.discount', 'common', null)}</span></p>
-    </div>
-    <div class="end-lines">
-        <p class="text-right"><span class="product-discount-total product-label-wrapper">- ${pdict.order.totals.currentDiscount}</span></p>
     </div>
 </div>
 

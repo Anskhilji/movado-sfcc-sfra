@@ -141,6 +141,17 @@ $stored-payment-spacing: rem(16);
                 padding-top: rem(10);
                 margin-bottom: rem(6);
             }
+
+            .grand-total-price {
+                padding-top: rem(10);
+                margin-bottom: rem(6);
+                color: $grey8;
+                font-size: rem(12);
+                font-weight: 500;
+                letter-spacing: rem(0.56);
+                line-height: rem(21);
+            }
+
             .top-grand-total-price-wrapper {
                 padding-top: rem(10);
                 margin-bottom: rem(6);
