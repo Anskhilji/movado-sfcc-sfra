@@ -60,7 +60,7 @@
         </div>
     </div>
     <div class="${sitePref.custom.Auto_Optin_Checkout && countryCode === usCountryCode ? 'd-none' : ''}">
-        <div class="form-group col-12 d-flex ${pdict.forms.billingForm.subscribetomovado.htmlName}">
+        <div class="form-group col-12 checkbox-email-wrapper d-flex ${pdict.forms.billingForm.subscribetomovado.htmlName}">
             <input autofocus type="checkbox" class="subscribeToMovado mr-2 " id="subscribeToMovado"
             <isprint value="${addressFields.subscribetomovado.attributes}" encoding="off" />> 
             <label class="form-control-label text-transform-reset" for="subscribeToMovado">
@@ -223,7 +223,7 @@
 
 <isif condition="${pdict.customer.registeredUser}">
     <div class="row">
-        <div class="col">
+        <div class="col checkbox-email-wrapper">
             <div class="form-group
                 ${addressFields.saveShippingAddress.mandatory === true ? 'required' : ''}
                 ${addressFields.saveShippingAddress.htmlName}">

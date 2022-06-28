@@ -59,6 +59,12 @@ $stored-payment-spacing: rem(16);
   margin-bottom: rem(50);
   .top-grandtotal-label {
     text-transform: uppercase;
+    color: $grey8;
+    font-size: rem(12);
+    font-weight: 500;
+    letter-spacing: rem(0.56);
+    line-height: rem(21);
+  
   }
   .card-body {
     padding: rem(15) rem(10);
@@ -85,27 +91,88 @@ $stored-payment-spacing: rem(16);
 
 #mainContent {
   .data-checkout-stage {
-    padding-top: rem(10);
+    padding-top: rem(0);
     margin-bottom: rem(50);
 
     .checkout-content {
       @include media-breakpoint-up(md) {
-        max-width: rem(940);
+        max-width: 100%;
       }
       @include media-breakpoint-up(lg) {
         max-width: 100%;
-        padding-left: rem(60);
-      }
-      @include media-breakpoint-up(xl) {
-        max-width: 89.5%;
-        margin: auto;
-        padding-left: rem(0);
-      }
-      @include custom-media-query-1440($large-screen-width-1440) {
-        max-width: rem(1440);
         padding: rem(0) rem(15);
       }
+      @include media-breakpoint-up(xl) {
+        max-width: 100%;
+        margin: auto;
+      }
+
+      @include custom-media-query-1440($large-screen-width-1440) {
+          max-width: 100%;
+          padding: rem(0) rem(15);
+      }
     }
+
+    &.data-checkout-stage-redesign {
+        margin-bottom: rem(0);
+        padding-top: rem(16);
+
+        @include media-breakpoint-down(xs) {
+            padding: rem(0);
+        }
+
+        .pop-up-container-box {
+            border: rem(1) solid $grey22;
+            background-color: $grey23;
+            box-shadow: rem(0) rem(2) rem(6) rem(1) $grey-dark-4;
+
+            @include media-breakpoint-down(xs) {
+                max-width: 100%;
+                margin-bottom: rem(30);
+            }
+        }
+
+        .pop-up-box-space {
+            @include media-breakpoint-down(xs) {
+                padding: rem(0) rem(20);
+            }
+
+            .top-grandtotal-label {
+                padding-top: rem(10);
+                margin-bottom: rem(6);
+            }
+
+            .grand-total-price {
+                padding-top: rem(10);
+                margin-bottom: rem(6);
+                color: $grey8;
+                font-size: rem(12);
+                font-weight: 500;
+                letter-spacing: rem(0.56);
+                line-height: rem(21);
+            }
+
+            .top-grand-total-price-wrapper {
+                padding-top: rem(10);
+                margin-bottom: rem(6);
+            }
+        }
+    }
+  }
+
+  .card-shipping-container-wrapper {
+      @include media-breakpoint-up(lg) {
+          padding-left: rem(4);
+      }
+
+      @include media-breakpoint-up(xl) {
+          padding-left: rem(0);
+      }
+
+      @include custom-media-query-1440($large-screen-width-1440) {
+          max-width: rem(700);
+          padding-left: rem(0);
+      }
   }
 }
 
@@ -264,6 +331,24 @@ $stored-payment-spacing: rem(16);
       padding: 0;
     }
   }
+  
+  .top-grand-total-price-wrapper {
+    color: $grey8;
+    font-size: rem(12);
+    font-weight: 500;
+    letter-spacing: rem(0.56);
+    line-height: rem(21);
+  }
+  
+  &.data-checkout-stage-redesign {
+      margin-bottom: rem(0);
+      padding-top: rem(16);
+
+      @include media-breakpoint-down(xs) {
+          padding: rem(10) rem(20) rem(0);
+      }
+  }
+  
 }
 
 .shipping-method {
@@ -324,9 +409,84 @@ $stored-payment-spacing: rem(16);
 
   &.justify-content-between {
     .end-lines {
-      background: $white;
+        background: transparent;
     }
   }
+
+    &.leading-lines-wrapper {
+        padding: rem(8) 0;
+        border-bottom: rem(1) dashed $grey-dark-3;
+
+        &.sales-tax-item {
+            border-bottom: rem(1) solid $grey-dark-3;
+        }
+      
+        .start-lines {
+
+            &::before {
+                content: "";
+            }
+        }
+
+        .order-label-wrapper {
+            margin-bottom: rem(0);
+            color: $black;
+            font-size: rem(13);
+            font-weight: 300;
+            letter-spacing: rem(0.7);
+            line-height: rem(20);
+
+            span {
+                color: $black;
+                font-size: rem(13);
+                font-weight: 300;
+                letter-spacing: rem(0.7);
+                line-height: rem(20);
+                background-color: transparent;
+            }
+          
+            &.order-discount-total {
+                color: $parrot-green;
+            }
+        }
+
+        .product-label-wrapper {
+            margin-bottom: rem(0);
+            color: $black;
+            font-size: rem(13);
+            font-weight: 300;
+            letter-spacing: rem(0.7);
+            line-height: rem(20);
+
+            span {
+                color: $black;
+                font-size: rem(13);
+                font-weight: 300;
+                letter-spacing: rem(0.7);
+                line-height: rem(20);
+                background-color: transparent;
+            }
+          
+            &.product-discount-total {
+                color: $parrot-green;
+            }
+        }
+
+        .end-lines {
+
+            .text-right {
+                margin-bottom: rem(0);
+              
+              .shipping-total-cost {
+                  color: $parrot-green;
+              }
+
+              span {
+                  background-color: transparent;
+              }
+            }
+        }
+    }
 }
 
 .summary-details {
@@ -587,220 +747,354 @@ $stored-payment-spacing: rem(16);
 
 .data-checkout-stage {
 
-  .checkout-content-container-inner {
+    .checkout-content-container-inner {
 
-    .left-section {
-      @include media-breakpoint-up(md) {
-        padding-right: rem(15);
-      }
+        .left-section {
 
-      .shipping-section {
-        @include media-breakpoint-down(md) {
-          padding: rem(0) rem(5);
-        }
-      }
-    }
-
-    .right-section {
-      @include media-breakpoint-up(md) {
-        padding-left: rem(15);
-      }
-    }
-  }
-  .card-border-none {
-    border: none;
-    box-shadow: none;
-    padding: rem(0);
-
-    .heading-content-label {
-      color: $grey8;
-      font-size: rem(15);
-      font-weight: 500;
-      letter-spacing: rem(0.7);
-      line-height: rem(21);
-    }
-
-    .credit-card-form {
-      @include media-breakpoint-down(sm) {
-        padding: rem(0) rem(5);
-      }
-
-      .credit-card-form-container {
-        @include custom-media-query-max($medium-screen-width) {
-          padding: rem(0) rem(5);
-        }
-
-        @include media-breakpoint-down(sm) {
-          padding: rem(0);
-        }
-
-        .mx-field-wrapper {
-          @include media-breakpoint-down(xs) {
-            padding: rem(0) rem(10);
+          .shipping-section {
+              @include media-breakpoint-down(md) {
+                  padding: rem(0) rem(5);
+              }
+              @include media-breakpoint-down(xs) {
+                  padding: rem(0);
+              }
           }
+
+            .shipping-method-box-wrapper {
+                margin-top: rem(5);
+            }
         }
-      }
+
+        .right-section {
+            @include media-breakpoint-up(xl) {
+                padding: rem(0) rem(59.2);
+                background-color: $grey20;
+            }
+
+            @include custom-media-query-1440($large-screen-width-1440) {
+                max-width: 34%;
+                flex: 0 0 34%;
+                padding: rem(0) rem(83) rem(0) rem(82);
+                background-color: $grey20;
+            }
+
+            @include media-breakpoint-down(lg) {
+                padding: rem(0) rem(30);
+                background-color: $grey20;
+            }
+
+            @include media-breakpoint-down(md) {
+                padding: rem(0) rem(20);
+                background-color: $grey20;
+            }
+
+            @include custom-media-query-max($medium-screen-width) {
+                padding: rem(0) rem(15);
+                background-color: transparent;
+            }
+        }
+
+        .col-space-wrapper {
+            @include media-breakpoint-down(xs) {
+                padding: rem(0);
+            }
+        }
+
+        .checkbox-email-wrapper {
+            padding: rem(0) rem(10);
+        }
     }
-    .card-body {
+
+    .card-border-none {
+        border: none;
+        box-shadow: none;
         padding: rem(0);
 
-      .billing-address {
-        @include media-breakpoint-down(xl) {
-          padding: rem(0) rem(5);
+        .heading-content-label {
+            color: $grey8;
+            font-size: rem(15);
+            font-weight: 500;
+            letter-spacing: rem(0.7);
+            line-height: rem(21);
         }
+
+        .credit-card-form {
+            @include media-breakpoint-down(sm) {
+                padding: rem(0) rem(5);
+            }
+
+          .credit-card-form-container {
+              @include custom-media-query-max($medium-screen-width) {
+                  padding: rem(0) rem(5);
+              }
+
+              @include media-breakpoint-down(sm) {
+                  margin-top: rem(8);
+                  padding: rem(0);
+              }
+
+              .mx-field-wrapper {
+                  @include media-breakpoint-down(xs) {
+                      padding: rem(0) rem(10);
+                  }
+              }
+              .dwfrm_billing_subscribetomovado {
+                  @include media-breakpoint-down(xs) {
+                      padding: rem(0) rem(10);
+                  }
+              }
+          }
+        }
+
+        .card-body {
+            padding: rem(0);
+
+            .billing-address {
+                @include media-breakpoint-down(xl) {
+                    padding: rem(0) rem(5);
+                }
+              
+                .mx-field-wrapper {
+                    @include media-breakpoint-down(xs) {
+                        padding: rem(0) rem(10);
+                    }
+                }
+            }
+
+            .shipping-address-block {
+                position: relative;
+
+                @include media-breakpoint-up(lg) {
+                    padding-left: rem(4);
+                }
+
+                @include media-breakpoint-up(xl) {
+                    padding-left: rem(0);
+                }
+
+                @include custom-media-query-1440($large-screen-width-1440) {
+                    max-width: rem(695);
+                    padding-left: rem(5);
+                }
+            }
+
+            .info-icon {
+
+              &.info-icon-email {
+                  position: absolute;
+                  right: rem(25);
+                  top: rem(11);
+                  padding-bottom: rem(0);
+
+                  .icon {
+                      background-image: url("../../images/info-icon.svg");
+                      background-repeat: no-repeat;
+                      background-size: cover;
+                      width: rem(15);
+                      height: rem(15);
+                      background-color: transparent;
+                  }
+
+                  &.icon-right-wrapper {
+                      right: rem(60);
+                      top: rem(11);
+                      padding-bottom: rem(0);
+
+                      @include media-breakpoint-down(sm) {
+                          right: rem(25);
+                      }
+                  }
+              }
+            }
+        }
+
+        &.card-bottom-space {
+            margin-bottom: rem(20);
+
+            @include media-breakpoint-down(sm) {
+                margin-bottom: rem(15);
+            }
+        }      
+    }
+
+    .card-bottom-space {
+        margin-bottom: rem(20);
+    }
+
+    .field-left {
+
+        &.mx-field-wrapper {
+            @include custom-media-query-1440($large-screen-width-1440) {
+                padding: rem(0) rem(10);
+            }
         
-        .mx-field-wrapper {
-          @include media-breakpoint-down(xs) {
-            padding: rem(0) rem(10);
-          }
-        }
-      }
+            @include media-breakpoint-up(sm) {
+                padding: rem(0) rem(10);
+            }
 
-      .shipping-address-block {
-        position: relative;
-        @include media-breakpoint-up(lg) {
-          padding-left: rem(4);
+            @include media-breakpoint-down(xs) {
+                padding: rem(0);
+            }
         }
+    }
 
-        @include media-breakpoint-up(xl) {
-          padding-left: rem(0);
-        }
-
+    .mx-field-wrapper {
         @include custom-media-query-1440($large-screen-width-1440) {
-          max-width: rem(695);
-          padding-left: rem(5);
+            padding: rem(0) rem(10);
         }
-      }
 
-      .info-icon {
+        @include media-breakpoint-up(sm) {
+            padding: rem(0) rem(10);
+        }
 
-        &.info-icon-email {
-          position: absolute;
-          right: rem(25);
-          top: rem(11);
-          padding-bottom: rem(0);
+        @include media-breakpoint-down(xs) {
+            padding: rem(0);
+        }
 
-          .icon {
-            background-image: url("../../images/info-icon.svg");
-            background-repeat: no-repeat;
-            background-size: cover;
-            width: rem(15);
-            height: rem(15);
-            background-color: transparent;
-          }
+        .form-group {
+            margin-bottom: rem(20);
 
-          &.icon-right-wrapper {
-            right: rem(60);
-            top: rem(11);
-            padding-bottom: rem(0);
+          @include media-breakpoint-down(xs) {
+              margin-bottom: rem(15);
           }
         }
-      }
     }
 
-    &.card-bottom-space {
-      margin-bottom: rem(20);
-    }
-    
-  }
+    .field-right {
 
-  .card-bottom-space {
-    margin-bottom: rem(20);
-  }
+        &.mx-field-wrapper {
+            @include custom-media-query-1440($large-screen-width-1440) {
+                padding: rem(0) rem(10);
+            }
 
-  .field-left {
+            @include media-breakpoint-up(sm) {
+                padding: rem(0) rem(10);
+            }
 
-    &.mx-field-wrapper {
-      @include custom-media-query-1440($large-screen-width-1440) {
-        padding: rem(0) rem(10);
-      }
-    
-      @include media-breakpoint-up(sm) {
-        padding: rem(0) rem(10);
-      }
-
-      @include media-breakpoint-down(xs) {
-        padding: rem(0) rem(5);
-      }
-    }
-  }
-
-  .mx-field-wrapper {
-    @include custom-media-query-1440($large-screen-width-1440) {
-      padding: rem(0) rem(10);
-    }
-
-    @include media-breakpoint-up(sm) {
-      padding: rem(0) rem(10);
-    }
-
-    @include media-breakpoint-down(xs) {
-      padding: rem(0) rem(5);
+            @include media-breakpoint-down(xs) {
+                padding: rem(0);
+            }
+        }
     }
 
     .form-group {
-      margin-bottom: rem(20);
 
-      @include media-breakpoint-down(xs) {
-        margin-bottom: rem(15);
-      }
-    }
-  }
+        .form-control-label {
 
-  .field-right {
+            &.field-label-wrapper {
+                color: $grey17;
+                font-size: rem(13);
+                font-weight: 500;
+                letter-spacing: rem(0.7);
+                line-height: rem(20);
+            }
+        }
+      
+        .form-control {
 
-    &.mx-field-wrapper {
-      @include custom-media-query-1440($large-screen-width-1440) {
-        padding: rem(0) rem(10);
-      }
+          &.input-wrapper-checkout {
+              height: rem(45);
+              border: rem(1) solid $grey16;
+              border-radius: rem(3);
+              font-size: rem(13);
+              font-weight: 500;
+              letter-spacing: rem(0.7);
+              line-height: rem(24);
+              color: $google-grey1 !important;
+              padding-top: rem(16);
+              margin-top: rem(0);
 
-      @include media-breakpoint-up(sm) {
-        padding: rem(0) rem(10);
-      }
+              &:focus {
+                  border-color: $black;
+                  box-shadow: none;
+                  border-width: rem(1);
 
-      @include media-breakpoint-down(xs) {
-        padding: rem(0) rem(5);
-      }
-    }
-  }
+                  + .field-label-wrapper {
+                      transition: 0.2s ease-in-out;
+                      top: 0;
+                      left: rem(24);
+                      height: rem(24);
+                      color: $grey17;
+                      font-size: rem(10);
+                      font-weight: 500;
+                      letter-spacing: rem(0.7);
+                      line-height: rem(24);
+                      width: 100%;
+                      pointer-events: none;
+                      margin-bottom: rem(0);
 
-  .form-group {
+                          @include media-breakpoint-down(xs) {
+                              left: rem(12);
+                          }
 
-    .form-control-label {
+                        &.field-select-wrapper-box {
+                            left: rem(13);
+                        }
+                  }
 
-      &.field-label-wrapper {
-        color: $grey17;
-        font-size: rem(13);
-        font-weight: 500;
-        letter-spacing: rem(0.7);
-        line-height: rem(20);
-      }
-    }
-    
-      .form-control {
+                  + .field-label-wrapper-card {
+                      left: rem(15);
+                  }
+          
+                  + .field-label-wrapper-card-1 {
+                      left: rem(24);
+                  }
+          
+                  + .field-label-wrapper-card-2 {
+                      left: rem(15);
+                  }
+                
+                  + .field-label-wrapper-card-3 {
+                      left: rem(24);
+                  }
+              }
+          }
 
-        &.input-wrapper-checkout {
-          height: rem(45);
-          border: rem(1) solid $grey16;
-          border-radius: rem(3);
-          font-size: rem(13);
-          font-weight: 500;
-          letter-spacing: rem(0.7);
-          line-height: rem(24);
-          color: $google-grey1 !important;
-          padding-top: rem(16);
-          margin-top: rem(0);
+          &.custom-select-box {
+              height: rem(45);
+              border: rem(1) solid $grey16;
+              border-radius: rem(3);
+              background-color: $grey-dark-2 !important;
+              padding-top: rem(16);
+              font-size: rem(13);
+              font-weight: 500;
+              letter-spacing: rem(0.7);
+              line-height: rem(24);
+              color: $google-grey1 !important;
+              text-transform: capitalize;
 
-          &:focus {
-            border-color: $black;
-            box-shadow: none;
-            border-width: rem(1);
+            &:focus {
+                border-color: $black;
+                box-shadow: none;
+            }
 
-            + .field-label-wrapper {
+            + i {
+                top: rem(14);
+                right: rem(4);
+                height: rem(20);
+                width: rem(36);
+                border-left: rem(1) solid $grey24;
+                text-align: center;
+            }
+          }
+        }
+
+        .field-label-wrapper {
+            position: absolute;
+            top: 1em;
+            left: 2em;
+            color: $grey17;
+            transition: 0.2s ease-in-out;
+            width: 100%;
+            pointer-events: none;
+            text-transform: capitalize;
+            margin-bottom: rem(0);
+
+          &.input-has-value {
               transition: 0.2s ease-in-out;
               top: 0;
               left: rem(24);
-              height: rem(24);
+              height: rem(23);
               color: $grey17;
               font-size: rem(10);
               font-weight: 500;
@@ -811,151 +1105,230 @@ $stored-payment-spacing: rem(16);
               margin-bottom: rem(0);
 
               @include media-breakpoint-down(xs) {
-                left: rem(18.4);
-                width: 90%;
+                  left: rem(12);
               }
+          }
 
               &.field-select-wrapper-box {
-                left: rem(13);
-              }
-            }
+                  left: rem(16);
 
-            + .field-label-wrapper-card {
-                left: rem(15);
+                  &.input-has-value {
+                      left: rem(13);
+                  }
               }
-      
-            + .field-label-wrapper-card-1 {
+
+              &.field-label-wrapper-card {
+                  left: rem(15);
+
+                  &.input-has-value {
+                      left: rem(15);
+                  }
+              }
+
+              &.field-label-wrapper-card-1 {
+                  left: rem(24);
+
+                  &.input-has-value {
+                      left: rem(24);
+                  }
+              }
+
+              &.field-label-wrapper-card-2 {
+                  left: rem(15);
+
+                  &.input-has-value {
+                      left: rem(15);
+                  }
+              }
+            
+              &.field-label-wrapper-card-3 {
                 left: rem(24);
+                  
+                  &.input-has-value {
+                      left: rem(24);
+                  }
+              }
+        }
+
+        &.required {
+
+            .form-control-label {
+
+                &.field-label-wrapper {
+
+                    &::before {
+                        content: "";
+                        color: transparent;
+                    }
+                  
+                    &::after {
+                        content: "*";
+                        color: $grey17;
+                    }
+                }
+            }
+        }
+    }
+
+    .card-header-inner-wrapper {
+        max-width: rem(350);
+        margin-bottom: rem(20);
+    }
+
+    .grand-total {
+
+        &.grand-total-wrapper{
+            padding: rem(8) 0;
+      
+          .start-lines {
+      
+              &::before {
+                  content: '';
               }
       
-            + .field-label-wrapper-card-2 {
-                left: rem(15);
-              }
-            
-            + .field-label-wrapper-card-3 {
-                left: rem(24);
-              }
+            .order-receipt-label {
+                margin-bottom: rem(0);
+                color: $grey8;
+                font-size: rem(14);
+                font-weight: 500;
+                letter-spacing: rem(0.65);
+                line-height: rem(21);
+                background-color: transparent;
+
+                span {
+                    background: transparent;
+                }
+            }
           }
-        }
-
-        &.custom-select-box {
-          height: rem(45);
-          border: rem(1) solid $grey16;
-          border-radius: rem(3);
-          background-color: $grey-dark-2 !important;
-          padding-top: rem(16);
-          font-size: rem(13);
-          font-weight: 500;
-          letter-spacing: rem(0.7);
-          line-height: rem(24);
-          color: $google-grey1 !important;
-          text-transform: capitalize;
-
-          &:focus {
-            border-color: $black;
-            box-shadow: none;
-          }
-
-          + i {
-            top: rem(14);
-            right: rem(20);
-          }
-        }
-      }
-
-      .field-label-wrapper {
-        position: absolute;
-        top: 1em;
-        left: 2em;
-        color: $grey17;
-        transition: 0.2s ease-in-out;
-        width: 100%;
-        pointer-events: none;
-        text-transform: capitalize;
-        margin-bottom: rem(0);
-
-        &.input-has-value {
-          transition: 0.2s ease-in-out;
-          top: 0;
-          left: rem(24);
-          height: rem(24);
-          color: $grey17;
-          font-size: rem(10);
-          font-weight: 500;
-          letter-spacing: rem(0.7);
-          line-height: rem(24);
-          width: 100%;
-          pointer-events: none;
-          margin-bottom: rem(0);
-
-          @include media-breakpoint-down(xs) {
-            left: rem(18.4);
-          }
-        }
-
-        &.field-select-wrapper-box {
-          left: rem(16);
-
-          &.input-has-value {
-            left: rem(13);
-          }
-        }
-
-        &.field-label-wrapper-card {
-          left: rem(15);
-
-          &.input-has-value {
-            left: rem(15);
-          }
-        }
-
-        &.field-label-wrapper-card-1 {
-          left: rem(24);
-
-          &.input-has-value {
-            left: rem(24);
-          }
-        }
-
-        &.field-label-wrapper-card-2 {
-          left: rem(15);
-
-          &.input-has-value {
-            left: rem(15);
-          }
-        }
       
-        &.field-label-wrapper-card-3 {
-          left: rem(24);
-            
-          &.input-has-value {
-            left: rem(24);
+          .end-lines {
+      
+              .text-right {
+                  margin-bottom: rem(0);
+        
+                  .grand-total-sum {
+                      font-size: rem(14);
+                      color: $grey8;
+                      font-weight: 500;
+                      letter-spacing: rem(0.65);
+                      line-height: rem(21);
+                      background-color: transparent;
+                  }
+              }
           }
         }
-      }
+    }
+    
+    .order-product-summary {
+      
+        .product-summary-block {
+      
+            .product-card-wrapper {
+                padding: rem(0);
+                box-shadow: none;
+                border-radius: rem(0);
+                border: none;
+                border-bottom: rem(1) solid $grey-dark-3;
+                background-color: transparent;
 
-      &.required {
+                &:last-child {
+                    border: none;
+                    border-bottom: none;
+                    margin-bottom: rem(0);
+                }
+        
+              .product-line-item-details {
+                  overflow: hidden;
+                  align-items: center;
+                  margin-bottom: rem(30);
+        
+                .item-image {
+                    width: rem(100);
+                    height: rem(100);
+                    margin-right: rem(21);
+        
+                    .product-image {
+                        width: rem(100);
+                        height: rem(100);
+                        max-height: rem(100);
+                    }
+                }
+        
+                .item-attributes {
+                    position: relative;
+                    overflow: hidden;
+                    width: 100%;
 
-        .form-control-label {
+                    .line-item-attributes {
+                        font-size: rem(12);
+                        font-weight: 500;
+                        letter-spacing: rem(0.7);
+                        line-height: rem(10);
+                        color: $grey18;
+                        margin-bottom: rem(10);
+                    }
+        
+                    .line-item-header {
+                        margin-bottom: rem(10);
+                        font-size: rem(16);
+                        font-weight: 500;
+                        letter-spacing: rem(0.7);
+                        line-height: rem(22);
+                        color: $light-black2;
+          
+                        .line-item-name {
+                            font-size: rem(16);
+                            font-weight: 500;
+                            letter-spacing: rem(0.7);
+                            line-height: rem(22);
+                            color: $light-black2;
+                        }
+                      
+                        .item-options {
 
-          &.field-label-wrapper {
+                            .line-item-option {
+                                font-size: rem(12);
+                                font-weight: 500;
+                                letter-spacing: rem(0.7);
+                                line-height: rem(10);
+                                color: $grey18;
+                                margin-bottom: rem(10);
+                            }
+                        }
 
-            &::before {
-              content: "";
-              color: transparent;
+                      .item-personalization {
+
+                          .line-item-option {
+                              font-size: rem(12);
+                              font-weight: 500;
+                              letter-spacing: rem(0.7);
+                              line-height: rem(10);
+                              color: $grey18;
+                              margin-bottom: rem(10);
+
+                              .personalize-price {
+                                  font-size: rem(12);
+                                  font-weight: 500;
+                                  letter-spacing: rem(0.7);
+                                  line-height: rem(10);
+                                  color: $grey18;
+                                  margin-bottom: rem(10);
+                              }
+
+                              .personalize-msg {
+                                  font-size: rem(12);
+                                  font-weight: 500;
+                                  letter-spacing: rem(0.7);
+                                  line-height: rem(10);
+                                  color: $grey18;
+                                  margin-bottom: rem(10);
+                              }
+                          }
+                      }
+                    }
+                }
+              }
             }
-            
-            &::after {
-              content: "*";
-              color: $grey17;
-            }
-          }
         }
-      }
-  }
-
-  .card-header-inner-wrapper {
-    max-width: rem(350);
-    margin-bottom: rem(20);
-  }
+    }
 }

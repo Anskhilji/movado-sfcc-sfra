@@ -399,15 +399,19 @@ header {
             height: rem(60);
             padding: 0 rem(20);
 
-            @include media-breakpoint-up(lg) {
-                padding: 0 rem(91.5) 0 rem(60);
-                margin-top: rem(30);
+            @include media-breakpoint-down(md) {
+                justify-content: space-between;
+                padding: rem(0) rem(20);
+            }
+            
+            @include media-breakpoint-up(md) {
+                border-bottom: none;
             }
 
             @include media-breakpoint-up(xl) {
-                padding: 0 rem(91.5) 0 rem(4);
-                margin-top: rem(30);
+                padding: rem(0) rem(30) rem(0) rem(40);
             }
+
             @include custom-media-query-1440($large-screen-width-1440) {
                 padding: 0 rem(91.5) 0 rem(100);
                 margin-top: rem(30);
@@ -539,7 +543,11 @@ header {
 @include media-breakpoint-up(md) {
     header.checkout-header {
         .sticky-header-placeholder {
-            height: rem(60);
+            height: rem(0);
+
+            @include media-breakpoint-up(lg) {
+                height: rem(60);
+            }
         }
     }
 }
@@ -559,26 +567,23 @@ header {
         }
 
         @include media-breakpoint-up(md) {
-            margin: rem(24) auto;
-            max-width: rem(940);
+            margin: rem(75) auto rem(32);
+            max-width: 100%;
+            padding: 0;
         }
 
         @include media-breakpoint-up(lg) {
-            padding: 0 rem(15) 0 rem(60);
             margin: rem(64) auto rem(32);
-            max-width: 100%;
         }
 
         @include media-breakpoint-up(xl) {
             padding: 0;
             margin: rem(71) auto rem(51);
-            max-width: 90%;
         }
-
+        
         @include custom-media-query-1440($large-screen-width-1440) {
-            padding: 0 rem(15) 0 rem(100);
+            padding: 0 rem(15) 0 rem(0);
             margin: rem(71) auto rem(51);
-            max-width: rem(1440);
         }
 
         li {
@@ -706,13 +711,7 @@ header {
 }
 
 .checkout-label-custom {
-    @include media-breakpoint-up(xl) {
-        max-width: rem(316);
-        margin: 0 auto;
-        width: rem(316);
-        padding-left: rem(6);
-    }
-    
+
     h5 {
         @include media-breakpoint-up(xl) {
             margin-bottom: rem(-10);
@@ -724,8 +723,8 @@ header {
     .checkout-header-wrapper {
         .align-start-box {
             @include media-breakpoint-up(xl) {
-                justify-content: flex-start;
-                max-width: 90%;
+                justify-content: space-between;
+                max-width: 100%;
                 margin: auto;
             }
 
@@ -748,4 +747,149 @@ header {
         top: rem(16);
        
     } 
+}
+
+.checkout-header {
+
+    .header-redesign-wrapper {
+
+        @include custom-media-query-1440($large-screen-width-1440) {
+            max-width: 66%;
+            flex: 0 0 66%;
+        }
+
+        .checkout-header-wrapper {
+
+            @include media-breakpoint-down(md) {
+                justify-content: space-between;
+                padding: rem(0) rem(20);
+            }
+
+            @include media-breakpoint-up(xl) {
+                padding: rem(0) rem(30) rem(0) rem(40);
+            }
+
+            @include custom-media-query-1440($large-screen-width-1440) {
+                padding: rem(0) rem(60) rem(0) rem(100);
+            }
+        }
+
+        .header-left {
+
+            &.align-start-box {
+                @include media-breakpoint-down(md) {
+                    max-width: 100%;
+                }
+            }
+        }
+
+    }
+
+    .header-redesign-wrapper2 {
+        background: $grey20;
+
+        @include custom-media-query-1440($large-screen-width-1440) {
+            flex: 0 0 34%;
+            max-width: 34%;
+            padding: 0;
+        }
+
+        .checkout-header-wrapper {
+            @include media-breakpoint-down(md) {
+                background: $grey20;
+            }
+
+            .right {
+                justify-content: flex-end;
+
+                @include media-breakpoint-up(md) {
+                    padding-right: rem(10);
+                }
+
+                @include media-breakpoint-up(lg) {
+                    padding-right: rem(0);
+                }                
+            }
+        }
+    }
+
+    .d-hide-mobile-wrapper {
+        @include custom-media-query-max($medium-screen-width) {
+            display: none;
+        }
+    }
+
+    .checkout-header-wrapper {
+
+        &.d-show-desktop-wrapper {
+            @include media-breakpoint-up(md) {
+                display: none;
+            }
+        }
+    }
+
+}
+
+header {
+
+    &.checkout-header {
+
+        .sticky-header-wrapper {
+
+            &.fixed-header {
+
+                .header-redesign-wrapper {
+
+                    .checkout-header-wrapper {
+
+                        .align-start-box {
+
+                            @include media-breakpoint-up(md) {
+                                max-width: 58.33%;
+                            }
+
+                            @include media-breakpoint-up(lg) {
+                                max-width: 100%;
+                            }
+
+                            .checkout-label-custom {
+                                @include media-breakpoint-up(md) {
+                                    padding-right: rem(15);
+                                }
+
+                                @include media-breakpoint-up(lg) {
+                                    padding-right: rem(0);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .header-redesign-wrapper2 {
+
+                    .checkout-header-wrapper {
+                        background: $grey20;
+
+                        .right {
+
+                            &.mini-cart-wrapper {
+                                @include media-breakpoint-up(md) {
+                                    justify-content: flex-end;
+                                    width: 38%;
+                                    margin-left: rem(0);
+                                    padding-right: rem(0);
+                                }
+
+                                @include media-breakpoint-up(lg) {
+                                    justify-content: flex-end;
+                                    width: auto;
+                                    margin-left: auto;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

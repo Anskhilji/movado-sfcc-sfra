@@ -8,6 +8,7 @@ $flag-icon-css-path: "../fonts/flags/" !default;
 $white: #fff !default;
 $black: #000 !default;
 $light-black: $black !default;
+$light-black2:#2C2C2C;
 $blue: #0070d2 !default;
 $green: #008827 !default;
 $red: #c00 !default;
@@ -21,6 +22,8 @@ $yellow2: #FDCC4F !default;
 $border-color: #979797 !default;
 $klarna-pink: #FFBBCE;
 $invalid-red: #C82727;
+$light-blue3: #e8f0fe;
+
 
 
 // Consolidated values
@@ -42,8 +45,16 @@ $grey14: #060506 !default;
 $grey16: #D2D2D2 !default;
 $grey15: #070707 !default;
 $grey17: #787777 !default;
+$grey18: #929292 !default;
+$grey19: #404040 !default;
+$grey20: #FAF8F8;
+$grey21: #676767;
+$grey22: #EFEFEF;
+$grey23: #F7F7F7;
+$grey24: #bfbfbf;
 $google-grey1: #444444 !default;
 $google-white1: #F6F6F6 !default;
+
 
 $grey-transparent-1: rgba(0, 0, 0, 0.65) !default;
 $grey-transparent-2: rgba(0, 0, 0, 0.25) !default;
@@ -52,10 +63,14 @@ $grey-transparent-4: rgba(0, 0, 0, 0.1) !default;
 $grey-transparent-5: rgba(0, 0, 0, 0.3) !default;
 $grey-transparent-6: rgba(0,0,0,0.5) !default;
 $grey-transparent-7: rgba(0,0,0,0.24) !default;
+$grey-transparent-8: rgba(0,0,0,0.23) !default;
 $grey-light: rgba(187, 189, 191, 0.3) !default;
 $grey-dark: rgba(187, 189, 191, 0.5) !default;
 $grey-dark-1: rgba(6,5,6,0.6) !default;
 $grey-dark-2: rgba(228,228,228,0.32) !default;
+$grey-dark-3: rgba(51,51,51,0.17) !default;
+$grey-dark-4: rgba(247,247,247,0.5);
+$grey-dark-5: rgba(58,171,74,0.03);
 
 
 $light-gray: $grey1 !default;

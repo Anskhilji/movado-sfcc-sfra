@@ -21,7 +21,7 @@
         <div class="<isif condition=${!lineItem.priceTotal.nonAdjustedPrice}>non-adjusted-price</isif> original-price">${Resource.msg('label.total.price','cart',null)} 
             ${isEswEnabled ? formatMoney(lineItem.priceTotal.nonAdjustedPrice) : lineItem.priceTotal.price}
     </div>
-    <div class="savings">${Resource.msg('cart.label.savings','cart',null)}  ${lineItem.priceTotal.formattedSavingPrice}</div>
+    <iscomment> <div class="savings">${Resource.msg('cart.label.savings','cart',null)}  ${lineItem.priceTotal.formattedSavingPrice}</div>
         <div class="total-amount">${Resource.msg('cart.label.itemTotal','cart',null)} 
             <span class="line-item-total-price-amount item-total-${lineItem.UUID}">
                 <isif condition="${isEswEnabled}" >
@@ -34,6 +34,6 @@
                     ${lineItem.priceTotal.price}
                 </isif>
             </span>
-        </div>
+        </div> </iscomment>
 </isif>
 <iscomment> Custom End </iscomment>

@@ -3,7 +3,7 @@
 <iselse/>
     <isset name="addressMode" value="${shippingModel.matchingAddressId ? 'edit' : 'new'}" scope="page" />
 </isif>
-<div class="card-body shipping-content">
+<div class="card-body shipping-content card-shipping-container-wrapper">
     <form class="shipping-form" autocomplete="on" novalidate
           action="${shipmentLoopState
           ? URLUtils.url('CheckoutAddressServices-AddNewAddress')
@@ -27,7 +27,7 @@
                 <isinclude template="checkout/shipping/shippingAddress" />
             </fieldset>
 
-            <fieldset class="shipping-method-block mx-shipping-box">
+            <fieldset class="shipping-method-block mx-shipping-box shipping-method-box-wrapper">
                 <h5 class="ship-method-header">${Resource.msg('heading.shipping.method', 'checkout', null)}</h5>
 
                 <isinclude template="checkout/shipping/shippingMethod" />

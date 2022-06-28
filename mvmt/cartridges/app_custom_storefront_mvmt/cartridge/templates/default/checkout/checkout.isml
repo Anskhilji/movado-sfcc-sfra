@@ -22,29 +22,34 @@
         <isinclude template="reporting/reportingUrls" />
     </isif>
     <iscomment>mvmt-checkout Class added to container </iscomment>
-    <div id="checkout-main" class="mvmt-checkout data-checkout-stage <isif condition="${pdict.order.usingMultiShipping && pdict.order.shipping.length > 1}">multi-ship</isif>" data-customer-type="${pdict.customer.registeredUser ? 'registered' : 'guest'}" data-checkout-stage="${pdict.currentStage}" data-checkout-get-url="${URLUtils.https('CheckoutServices-Get')}">
-        <div class="row d-sm-none">
-            <div class="col-12">
+    <div id="checkout-main" class="mvmt-checkout data-checkout-stage data-checkout-stage-redesign <isif condition="${pdict.order.usingMultiShipping && pdict.order.shipping.length > 1}">multi-ship</isif>" data-customer-type="${pdict.customer.registeredUser ? 'registered' : 'guest'}" data-checkout-stage="${pdict.currentStage}" data-checkout-get-url="${URLUtils.https('CheckoutServices-Get')}">
+        <div class="row d-sm-none no-gutters pop-up-container-box">
+            <div class="col-12 pop-up-box-space d-flex justify-content-between">
                 <span class="grand-total-label top-grandtotal-label">${Resource.msgf('label.number.items.in.cart','cart', null, pdict.order.items.totalQuantity)}</span>
                 <span class="grand-total-price">${pdict.order.totals.subTotal}</span>
+            </div>
+            <div class="col-12 checkout-promo-section checkout-promo-redesign d-none-promo-box">
+                 <isinclude template="checkout/orderSummaryPopUp.isml" />
             </div>
         </div>
         <div class="alert card alert-dismissible error-message" role="alert">
                 <p class="error-message-text checkout-global-error"></p>
         </div>
 
-        <!-- Progressbar Template for desktop -->
-        <div class="d-none d-sm-block progressbar-container">
-            <isinclude template="checkout/checkoutProgressbar.isml" />
-        </div>
 
-        <div class="checkout-content container">
+
+        <div class="checkout-content container position-relative">
+            <iscomment> <div class="overlayer-box"></div> </iscomment>
             <div class="row checkout-content-container-inner">
-                <div class="checkout-form-error d-none error-space-left">
-                    <p>${Resource.msg('error.top.checkout', 'forms', null)}</p>
-                </div>
-                <div class="col-md-7 left-section">
 
+                <div class="col-md-7 left-section">
+                    <!-- Progressbar Template for desktop -->
+                    <div class="d-none d-sm-block progressbar-container">
+                        <isinclude template="checkout/checkoutProgressbar.isml" />
+                    </div>
+                    <div class="checkout-form-error col-12 d-none error-space-left">
+                        <p>${Resource.msg('error.top.checkout', 'forms', null)}</p>
+                    </div>
                     <!----------------------------------------------------------------------------------->
                     <!-- Checkout Forms: Shipping, Payment, Coupons, Billing, etc -->
                     <!----------------------------------------------------------------------------------->
@@ -100,41 +105,42 @@
                 <!----------------------------------------------------------------------------------->
                 <!-- Order Totals, Details and Summary -->
                 <!----------------------------------------------------------------------------------->
-                <div class="col-md-5 right-section">
-
-                <!-- Promos -->
-                <div class="checkout-promo-section">
-                    <isinclude template="checkout/checkoutPromoCode" />
-                    <div class="checkout-coupons-and-promos coupons-and-promos coupons-wrapper mb-3">
-                        <isinclude template="cart/cartCouponDisplay" />
-                    </div>
-                    <div class="checkout-coupons-remove">
-                        <isinclude template="cart/cartRemoveCouponModal"/>
-                    </div>
-                </div>
-                    <div class="card order-summary-card">
-                        <div class="card-header">
+                <div class="col-md-5 right-section d-hide-mobile">
+                    <div class="right-content-box">
+                        <div class="card-header card-border-none-wrapper card-heading-wrapper">
                             <h4>${Resource.msg('heading.order.summary', 'checkout', null)}</h4>
                         </div>
-                        <div class="card-body order-total-summary">
-                            <isinclude template="checkout/orderTotalSummary" />
+                        <!-- Promos -->
+                        <div class="checkout-promo-section checkout-promo-redesign">
+                            <isinclude template="checkout/checkoutPromoCode" />
+                            <div class="checkout-coupons-and-promos coupons-and-promos coupons-wrapper mb-3">
+                                <isinclude template="cart/cartCouponDisplay" />
+                            </div>
+                            <div class="checkout-coupons-remove">
+                                <isinclude template="cart/cartRemoveCouponModal"/>
+                            </div>
                         </div>
-                    </div>
+                        <div class="card order-summary-card card-border-none-wrapper card-summary-wrapper-container">
+                            <div class="card-body order-total-summary">
+                                <isinclude template="checkout/orderTotalSummary" />
+                            </div>
+                        </div>
+                        <div class="flex-box-contianer-bottom">
+                            <isinclude template="checkout/orderProductSummary" />
 
-                    <isinclude template="checkout/orderProductSummary" />
+                            <!----------------------------------------------------------------------------------->
+                            <!-- Help and Phone -->
+                            <!----------------------------------------------------------------------------------->
 
-                    <!----------------------------------------------------------------------------------->
-                    <!-- Help and Phone -->
-                    <!----------------------------------------------------------------------------------->
-
-                    <div class="row hidden-xs-down">
-                        <div class="col-12">
-                            <div class="text-center">
-                                <div><isslot id="checkout-help-contact-info" description="Checkout Help Contact Info" context="global" /></div>
+                            <div class="hidden-xs-down checkout-help-contact-info-box">
+                                <div class="checkout-help-contact-info-container">
+                                    <div class="text-center checkout-help-wrapper">
+                                        <div><isslot id="checkout-help-contact-info" description="Checkout Help Contact Info" context="global" /></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

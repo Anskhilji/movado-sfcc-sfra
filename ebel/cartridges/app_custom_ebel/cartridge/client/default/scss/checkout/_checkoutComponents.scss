@@ -111,6 +111,9 @@ $stored-payment-spacing: rem(16);
     + i {
       top: rem(30);
       right: rem(8);
+      height: rem(20);
+      width: rem(36);
+      border-left: 0.0625rem solid #bfbfbf;
     }
   }
   .single-shipping {
@@ -255,6 +258,50 @@ $stored-payment-spacing: rem(16);
     .end-lines {
       background: $white;
     }
+  }
+
+  &.leading-lines-wrapper {
+      padding: rem(8) 0;
+      border-bottom: rem(1) dashed $grey-dark-3;
+
+      .start-lines {
+
+          &::before {
+              content: "";
+          }
+      }
+
+    .order-label-wrapper {
+        margin-bottom: rem(0);
+        color: $black;
+        font-size: rem(13);
+        font-weight: 300;
+        letter-spacing: rem(0.7);
+        line-height: rem(20);
+
+        span {
+            color: $black;
+            font-size: rem(13);
+            font-weight: 300;
+            letter-spacing: rem(0.7);
+            line-height: rem(20);
+        }
+      
+        &.order-discount-total {
+            color: $parrot-green;
+        }
+    }
+
+      .end-lines {
+        
+          .text-right {
+              margin-bottom: rem(0);
+            
+              .shipping-total-cost {
+                  color: $parrot-green;
+              }
+          }
+      }
   }
 }
 
@@ -497,16 +544,16 @@ $stored-payment-spacing: rem(16);
 
     .form-group {
 
-      .form-control-label {
+        .form-control-label {
 
-        &.field-label-wrapper {
-          color: $grey8;
-          font-size: rem(13);
-          font-weight: 500;
-          letter-spacing: rem(0.7);
-          line-height: rem(20);
+            &.field-label-wrapper {
+              color: $grey8;
+              font-size: rem(13);
+              font-weight: 500;
+              letter-spacing: rem(0.7);
+              line-height: rem(20);
+            }
         }
-      }
         .form-control {
 
             &.input-wrapper-checkout {
@@ -544,7 +591,7 @@ $stored-payment-spacing: rem(16);
                     }
 
                   + .field-label-wrapper-card {
-                    left: rem(15);
+                      left: rem(15);
                   }
             
                   + .field-label-wrapper-card-1 {
@@ -665,5 +712,48 @@ $stored-payment-spacing: rem(16);
     .card-header-inner-wrapper {
         max-width: rem(350);
         margin-bottom: rem(20);
+    }
+
+    .grand-total {
+
+        &.grand-total-wrapper{
+            padding: rem(8) 0;
+
+          .start-lines {
+
+              &::before {
+                  content: '';
+              }
+
+            .order-receipt-label {
+                margin-bottom: rem(0);
+                color: $grey8;
+                font-size: rem(14);
+                font-weight: 500;
+                letter-spacing: rem(0.65);
+                line-height: rem(21);
+            }
+          }
+
+          .end-lines {
+
+              .text-right {
+                  margin-bottom: rem(0);
+
+                  .grand-total-sum {
+                      font-size: rem(14);
+                      color: $grey8;
+                      font-weight: 500;
+                      letter-spacing: rem(0.65);
+                      line-height: rem(21);
+                  }
+              }
+          }
+        }
+    }
+    
+    &.data-checkout-stage-redesign {
+        margin-bottom: rem(0);
+        padding-top: rem(16);
     }
 }

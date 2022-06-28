@@ -54,4 +54,107 @@
           }
       }
   }
+
+    &.product-card-container {
+        margin-bottom: rem(30);
+
+        .product-line-item-details {
+
+            .item-attributes {
+
+                .item-model {
+                    font-size: rem(12);
+                    font-weight: 500;
+                    letter-spacing: rem(0.7);
+                    line-height: rem(10);
+                    color: $grey18;
+                    margin-bottom: rem(10);
+                }
+                
+                .item-options {
+
+                    .line-item-option {
+                        margin-bottom: rem(10);
+                    }
+                }
+
+                .line-item-availability {
+                    display: none;
+                }
+
+                .item-quantity-wrapper{
+                    font-size: rem(12);
+                    font-weight: 500;
+                    letter-spacing: rem(0.86);
+                    line-height: rem(18);
+                    color: $grey8;
+                }
+
+                .price-box-container {
+                    color: $grey8;
+                    
+                    .line-item-total-price-amount {
+                        font-size: rem(12);
+                        font-weight: 500;
+                        letter-spacing: rem(0.86);
+                        line-height: rem(18);
+                        color: $grey8;
+                    }
+                }
+                
+                .item-quantity-container-box {
+                    margin-top: rem(30);
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    align-self: center;
+                }
+
+                .item-options {
+
+                    .line-item-option {
+                      font-size: rem(12);
+                      font-weight: 500;
+                      letter-spacing: rem(0.7);
+                      line-height: rem(10);
+                      color: $grey18;
+                      margin-bottom: rem(10);
+
+                    }
+                }
+                
+                .item-personalization {
+
+                    .line-item-option {
+                        font-size: rem(12);
+                        font-weight: 500;
+                        letter-spacing: rem(0.7);
+                        line-height: rem(10);
+                        color: $grey18;
+                        margin-bottom: rem(10);
+
+                        .personalize-price {
+                            font-size: rem(12);
+                            font-weight: 500;
+                            letter-spacing: rem(0.7);
+                            line-height: rem(10);
+                            color: $grey18;
+                            margin-bottom: rem(10);
+        
+                        }
+
+                        .personalize-msg {
+                            font-size: rem(12);
+                            font-weight: 500;
+                            letter-spacing: rem(0.7);
+                            line-height: rem(10);
+                            color: $grey18;
+                            margin-bottom: rem(10);
+        
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

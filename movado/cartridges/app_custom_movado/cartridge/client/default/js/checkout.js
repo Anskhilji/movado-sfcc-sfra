@@ -70,4 +70,33 @@ $(document).ready(function() { // eslint-disable-line
             checkForInput(this);
         });
     });
+
+    function checkPromoInput(element) {
+        const $labelPromo = $(element).siblings('.promo-code-coupon-label');
+        if ($(element).val().length > 0) {
+            $('.checkout-promo-code-btn').addClass('d-block');
+            $labelPromo.addClass('input-has-value');
+        } else {
+            $('.checkout-promo-code-btn').removeClass('d-block');
+            $labelPromo.removeClass('input-has-value');
+        }
+    }
+    $('input.checkout-coupon-code-field').each(function() {
+        checkPromoInput(this);
+    });
+    $('input.checkout-coupon-code-field').on('change keyup', function() {
+        checkPromoInput(this);
+    });
+    
+    $('.show-details-wrapper').click(function() {
+        $('.hidden-menu').slideDown('slow');
+        $('.hidden-menu').addClass('pop-up-top-container');
+        $('body').addClass('overflow-hidden');
+        $('.overlayer-box').addClass('d-block');
+    });
+    $('.hide-details-wrapper').click(function() {
+        $('.hidden-menu').slideUp('slow');
+        $('body').removeClass('overflow-hidden');
+        $('.overlayer-box').removeClass('d-block');
+    });
 });

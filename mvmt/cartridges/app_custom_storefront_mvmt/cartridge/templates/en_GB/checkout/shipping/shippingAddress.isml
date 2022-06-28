@@ -57,7 +57,7 @@
         </div>
     </div>
     <div class="${sitePref.custom.Auto_Optin_Checkout && countryCode === usCountryCode ? 'd-none' : ''}">
-        <div class="form-group col-12 d-flex ${pdict.forms.billingForm.subscribetomovado.htmlName}">
+        <div class="form-group col-12 checkbox-email-wrapper d-flex ${pdict.forms.billingForm.subscribetomovado.htmlName}">
             <input autofocus type="checkbox" class="subscribeToMovado mr-2 " id="subscribeToMovado"
             <isprint value="${addressFields.subscribetomovado.attributes}" encoding="off" />> 
             <label class="form-control-label text-transform-reset" for="subscribeToMovado">
@@ -92,14 +92,14 @@
         <div class="form-group
             ${addressFields.address1.mandatory === true ? 'required' : ''}
             ${addressFields.address1.htmlName}">
-            <input type="text" class="form-control input-wrapper-checkout shippingAddressOne" id="shippingAddressOne" <isif condition="${enableAutoComplete}">placeholder="${Resource.msg('input.autocomplete.address.placeholder','forms',null)}"</isif>
+            <isif condition="${sitePref.custom.enableCalloutMsgAddress1 === true}">
+                <iscontentasset aid="calloutMsgAddress1"/>
+            </isif>
+            <input type="text" class="form-control input-wrapper-checkout shippingAddressOne" id="shippingAddressOne" <isif condition="${enableAutoComplete}">placeholder=""</isif>
                 value="${shippingAddress.address1||''}" <isprint value=${addressFields.address1.attributes} encoding="off"/>
                 autocomplete="shipping address-line1">
             <label class="form-control-label field-label-wrapper" for="shippingAddressOne">
                 <isprint value="${addressFields.address1.label}" encoding="htmlcontent" />
-                <isif condition="${sitePref.custom.enableCalloutMsgAddress1 === true}">
-                    <iscontentasset aid="calloutMsgAddress1"/>
-                </isif>
             </label>
             <div class="invalid-feedback"><isprint value="${addressFields.address1.error}" ></div>
         </div>
@@ -218,7 +218,7 @@
 
 <isif condition="${pdict.customer.registeredUser}">
 	<div class="row">
-		<div class="col">
+		<div class="col checkbox-email-wrapper">
 			<div class="form-group
 	            ${addressFields.saveShippingAddress.mandatory === true ? 'required' : ''}
 	            ${addressFields.saveShippingAddress.htmlName}">

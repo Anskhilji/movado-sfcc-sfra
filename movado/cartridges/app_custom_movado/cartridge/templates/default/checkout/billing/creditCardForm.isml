@@ -54,9 +54,9 @@
 	</div>
 	<div class="col-md-6 col-sm-12 field-right mx-field-wrapper">
 		<div class="form-group required security-code-group ${creditFields.securityCode.htmlName}">            
-			<iscomment> <span class="info-icon"> <span class="icon">i</span>
+			<span class="info-icon info-icon-email"> <span class="icon"></span>
 				<div class="tooltip"> ${Resource.msg('tooltip.security.code','creditCard',null)}</div>
-			</span> </iscomment>
+			</span>
 			 <input inputmode="numeric" type="password" class="form-control securityCode creditcard-securitycode input-wrapper-checkout" id="securityCode" data-encrypted-name="cvc" maxlength="3">
 			 <label class="form-control-label field-label-wrapper field-label-wrapper-card-3" for="securityCode">${Resource.msg('field.credit.card.security.code','creditCard',null)}</label>
 			<div class="invalid-feedback security-code">${Resource.msg('error.credit.card.security.code.validate','creditCard',null)}</div>
