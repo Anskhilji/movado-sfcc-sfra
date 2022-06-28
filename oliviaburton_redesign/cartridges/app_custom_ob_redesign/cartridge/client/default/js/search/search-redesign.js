@@ -699,3 +699,7 @@ module.exports = {
         });
     }
 };
+
+$(window).on('load', function(e) {
+    $('.filter-and-count').css('visibility','visible');
+});

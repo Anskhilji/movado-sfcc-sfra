@@ -371,6 +371,12 @@ function moveFocusToTop() {
 
 module.exports = {
 
+    load: function() {
+        $(window).load('load', function(e) {
+            $('.filter-and-count').css('visibility','visible');
+        }); 
+    },
+
     filter: function () {
         // Display refinements bar when Menu icon clicked
         $('.container, .container-fluid').on('click', 'button.filter-results', function () {

@@ -6,6 +6,9 @@
 @import "utilities/swatch";
 @import "components/categoryTiles";
 
+.filter-and-count {
+    visibility: hidden;
+}
 .refinement-bar {
     overflow: auto;
 

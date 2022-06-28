@@ -1,5 +1,5 @@
 <isset name="refinements" value="${pdict.productSearch.refinements}" scope="page" />
-<div class="mobile-filter">
+<div class="mobile-filter filter-and-count">
     <div class="mobile-filter-bar">
         <ul class="mobile-filter-btn-list filter-open">
             <li>
@@ -180,7 +180,7 @@
                 </div>
             </div>
         </div>
-        <div class="plp-active-filter sticky">
+        <div class="plp-active-filter sticky filter-and-count">
             <div class="plp-active-filter-list">
                 <div class="filter-result-count">
                     <div class="grid-header">

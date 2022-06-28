@@ -7,6 +7,10 @@
 @import "~movado/utilities/swatch";
 @import "~movado/components/categoryTiles";
 
+.filter-and-count-margin {
+    margin-top: rem(20);
+}
+
 .plp-old {
     .refinement {
         margin-bottom: rem(8);
@@ -1405,6 +1409,7 @@
                 min-height: auto;
                 height: 100%;
                 position: relative;
+                overflow: hidden;
 
                 @include media-breakpoint-up(xs-custom) {
                     min-height: rem(300);
@@ -1986,6 +1991,9 @@
     }
 }
 
+.filter-and-count {
+    visibility: hidden
+}
 
 .no-overflow {
     overflow: hidden;
