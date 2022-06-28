@@ -1151,7 +1151,7 @@ function handleVariantResponse(response, $productContainer) {
                $ctaAddToCart.addClass('d-none');
            } else {
                $listrakBackInStockContainer.addClass('d-none');
-               $ctaAddToCart.addClass('d-none');
+               $ctaAddToCart.removeClass('d-none');
            }
        }
    

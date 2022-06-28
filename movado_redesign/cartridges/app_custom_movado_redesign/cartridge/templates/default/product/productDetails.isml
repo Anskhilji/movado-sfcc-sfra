@@ -62,7 +62,7 @@
                     <div class="hidden-sm-down">
                         <isinclude template="product/components/pidRating" />
                     </div>
-                    <div class="row mt-4 description">
+                    <div class="row mt-4 product-description description">
                         <isinclude template="product/components/description" />
                     </div>
                     
