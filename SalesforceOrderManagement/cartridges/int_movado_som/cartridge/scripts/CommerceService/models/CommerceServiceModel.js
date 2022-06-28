@@ -210,12 +210,12 @@ var CommerceAPIModel = {
             };
         }
 
-        var BAD_REQUEST_ERROR = Resource.msg("oms.fenwick.jobs.status.failure.badrequest", "oms_fenwick_jobs", null);
+        var BAD_REQUEST_ERROR = Resource.msg("oms.movado.jobs.status.failure.badrequest", "oms_movado_jobs", null);
         if (result.error === 400 && result.msg === BAD_REQUEST_ERROR) {
             return {
                 status: Resource.msg(
-                    "oms.fenwick.jobs.status.Error",
-                    "oms_fenwick_jobs",
+                    "oms.movado.jobs.status.Error",
+                    "oms_movado_jobs",
                     null
                 ),
                 errorCode: 400,
