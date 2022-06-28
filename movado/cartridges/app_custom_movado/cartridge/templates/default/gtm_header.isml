@@ -181,6 +181,8 @@
         </isloop>
         );
     </isif>
+
+    <isset name="Site" value="${require('dw/system/Site')}" scope="page" />
     <isif condition="${pdict.gtm.action === 'order-confirm' && session.custom.orderJustPlaced === true}">
     dataLayer.push (
         <isloop items="${pdict.gtm.orderConfirmation}" var="orderProdutsArray" status="loopStatus">
@@ -197,7 +199,14 @@
                                 'shipping': '${orderObj.orderObj.shipping}',
                                 'coupon': '${orderObj.orderObj.orderCoupon}',
                                 'country': '${orderObj.orderObj.country}',
-                                'paymentMethod': '${orderObj.orderObj.paymentMethod}'}
+                                'paymentMethod': '${orderObj.orderObj.paymentMethod}',
+                                <isif condition= "${Site.current.ID === 'OliviaBurtonUK'}">
+                                    'shippingVatAmount': '${orderObj.orderObj.shippingVatAmount}',
+                                    'shippingMerchValue': '${orderObj.orderObj.shippingMerchValue}',
+                                    'orderVatAmount': '${orderObj.orderObj.orderVatAmount}',
+                                    'orderMerchValue': '${orderObj.orderObj.orderMerchValue}'
+                                </isif>
+                                }
                             </isif>
                         </isloop>
                             
@@ -224,6 +233,10 @@
                     <isif condition= "${isClydeEnabled && orderObj.productObj.optionId !== '' && orderObj.productObj.optionPrice !== ''}">
                         'optionId': '${orderObj.productObj.optionId}',
                         'optionPrice': '${orderObj.productObj.optionPrice}'
+                    </isif>
+                    <isif condition= "${Site.current.ID === 'OliviaBurtonUK'}">
+                        'productVatAmount': '${orderObj.productObj.productVatAmount}',
+                        'productMerchValue': '${orderObj.productObj.productMerchValue}'
                     </isif>
                     }
                     <isif condition= "${status.index < orderProdutsArray.length-2}">,</isif>

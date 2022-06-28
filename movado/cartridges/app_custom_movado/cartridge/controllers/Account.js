@@ -550,6 +550,16 @@ server.append(
                     var emailFooterContent = ContentMgr.getContent('email-footer');
                     var emailMarketingContent = ContentMgr.getContent('email-password-changed-marketing');
                     var url;
+                    var passwordText;
+
+                    var listrakTransactionalSwitch = !empty(Site.current.preferences.custom.transactionalSwitch.value) ? Site.current.preferences.custom.transactionalSwitch.value.toString() : '';
+                    var listrakEnabled = !empty(Site.current.preferences.custom.Listrak_Cartridge_Enabled) ? Site.current.preferences.custom.Listrak_Cartridge_Enabled : false;
+                    var Constants = require('*/cartridge/scripts/utils/ListrakConstants');
+                    if (listrakEnabled && listrakTransactionalSwitch == Constants.LTK_TRANSACTIONALSWITCH) {
+                        passwordText = Resource.msg('createaccount.listrak.password', 'account', null);
+                    } else {
+                        passwordText = Resource.msg('createaccount.password', 'account', null);
+                    }
                     // Custom Start: Adding Marketing Cloud cartridge integration
                     if (isMarketingCloudEnabled) {
                         url = URLUtils.https('Account-EditPassword');
@@ -567,7 +577,9 @@ server.append(
 			  apiContentBody: (apiContent && apiContent.custom && apiContent.custom.body ? apiContent.custom.body : ''),
 			  emailMarketingContent: (emailMarketingContent && emailMarketingContent.custom && emailMarketingContent.custom.body ? emailMarketingContent.custom.body : ''),
 			  shopNow: Resource.msg('email.shop.now', 'account', null),
-                        resettingCustomer: customer
+                        resettingCustomer: customer,
+                        passwordText: passwordText,
+                        email: email
                     };
 
                     var emailObj = {

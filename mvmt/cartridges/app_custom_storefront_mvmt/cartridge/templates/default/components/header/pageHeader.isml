@@ -196,7 +196,7 @@
                         placeholder="${Resource.msg('label.header.searchwatermark', 'common', null)}"
                         autocomplete="off"
                         data-query-threshold="${dw.system.Site.getCurrent().getCustomPreferenceValue('SearchMinChars')}" />
-                    <div class="suggestions-wrapper" data-url="${URLUtils.url('SearchServices-GetSuggestions', 'q')}"></div>
+                    <div class="suggestions-wrapper d-none" data-url="${URLUtils.url('SearchServices-GetSuggestions', 'q')}"></div>
                     <input type="hidden" value="${pdict.locale}" name="lang" />
                 </div>
             </div>
@@ -248,7 +248,7 @@
                     autocomplete="off"
                     data-query-threshold="${dw.system.Site.getCurrent().getCustomPreferenceValue('SearchMinChars')}" />
                 <img class="clear-text-img d-none" src="${URLUtils.staticURL('/images/clear-input-field.svg')}"/>
-            <div class="suggestions-wrapper" data-url="${URLUtils.url('SearchServices-GetSuggestions', 'q')}"></div>
+            <div class="suggestions-wrapper d-none" data-url="${URLUtils.url('SearchServices-GetSuggestions', 'q')}"></div>
             <input type="hidden" value="${pdict.locale}" name="lang" />
             <a href="javascript:void(0);" class="search-close search-close-mobile hidden-lg-up"></a>
         </form>
