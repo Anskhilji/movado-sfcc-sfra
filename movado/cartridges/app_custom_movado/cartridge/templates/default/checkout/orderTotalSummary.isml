@@ -11,7 +11,7 @@
 <!--- Order Discount --->
 <div class="row leading-lines leading-lines-wrapper justify-content-between order-discount <isif condition="${pdict.order.totals.orderLevelDiscountTotal.value === 0}">hide-order-discount</isif>">
     <div class="start-lines">
-        <p class="order-receipt-label order-label-wrapper"><span>${Resource.msg('label.order.discount', 'common', null)}</span></p>
+        <p class="order-receipt-label order-label-wrapper"><span>${Resource.msg('label.order.discount.savings', 'common', null)}</span></p>
     </div>
     <div class="end-lines">
         <p class="text-right"><span class="order-discount-total order-discount-total-redesign order-label-wrapper" data-discount="${pdict.order.totals.currentDiscount}">- ${pdict.order.totals.currentDiscount}</span></p>
@@ -66,8 +66,8 @@
 <!--- Grand Total --->
 <div class="row grand-total grand-total-wrapper justify-content-between leading-lines">
     <div class="start-lines d-flex">
-        <p class="order-receipt-label mr-1"><span>${Resource.msg('label.order.grand.total','confirmation', null)}</span></p>
-        <span class="order-receipt-label grand-total-label">(${Resource.msgf('label.number.items.in.cart','cart', null, pdict.order.items.totalQuantity)})</span>
+        <p class="order-receipt-label mr-1"><span class="text-uppercase">${Resource.msg('label.order.grand.total','confirmation', null)}</span></p>
+        <span class="order-receipt-label grand-total-label text-uppercase">(${Resource.msgf('label.number.items.in.cart','cart', null, pdict.order.items.totalQuantity)})</span>
     </div>
     <div class="end-lines">
         <p class="text-right"><span class="grand-total-sum">${pdict.order.totals.grandTotal}</span></p>
