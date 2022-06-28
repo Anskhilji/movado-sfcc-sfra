@@ -1221,6 +1221,7 @@ $stored-payment-spacing: rem(16);
                 background-color: transparent;
 
                 &:last-child {
+                    border: none;
                     border-bottom: none;
                     margin-bottom: rem(0);
                 }

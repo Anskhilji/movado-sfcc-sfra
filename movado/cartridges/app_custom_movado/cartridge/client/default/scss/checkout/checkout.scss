@@ -958,8 +958,6 @@ header {
                 max-width: 100%;
             
                 .checkout-help-contact-info-container {
-                    position: absolute;
-                    bottom: 0;
                     display: flex;
                     justify-content: center;
                     padding-top: rem(27);
@@ -1212,4 +1210,11 @@ header {
     left: 0;
     display: none;
     z-index: 5;
+}
+
+.flex-box-contianer-bottom {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    min-height: 100vh;
 }

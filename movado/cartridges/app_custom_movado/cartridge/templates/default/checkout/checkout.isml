@@ -132,16 +132,19 @@
                                     <isinclude template="checkout/orderTotalSummary" />
                                 </div>
                             </div>
-                            <isinclude template="checkout/orderProductSummary" />
+                            
+                            <div class="flex-box-contianer-bottom">
+                                <isinclude template="checkout/orderProductSummary" />
 
-                            <!----------------------------------------------------------------------------------->
-                            <!-- Help and Phone -->
-                            <!----------------------------------------------------------------------------------->
+                                <!----------------------------------------------------------------------------------->
+                                <!-- Help and Phone -->
+                                <!----------------------------------------------------------------------------------->
 
-                            <div class="hidden-xs-down checkout-help-contact-info-box">
-                                <div class="checkout-help-contact-info-container">
-                                    <div class="text-center checkout-help-wrapper">
-                                        <div><isslot id="checkout-help-contact-info" description="Checkout Help Contact Info" context="global" /></div>
+                                <div class="hidden-xs-down checkout-help-contact-info-box">
+                                    <div class="checkout-help-contact-info-container">
+                                        <div class="text-center checkout-help-wrapper">
+                                            <div><isslot id="checkout-help-contact-info" description="Checkout Help Contact Info" context="global" /></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
