@@ -819,15 +819,37 @@ header {
 
         .shipping-summary {
             max-width: rem(700);
+            
             @include media-breakpoint-down(sm) {
                 max-width: 100%;
+            }
+
+            @include media-breakpoint-up(xl) {
+                max-width: 100%;
+            }
+
+            @include custom-media-query-1440($large-screen-width-1440) {
+                max-width: rem(700);
             }
         }
 
         .payment-form {
             max-width: rem(700);
+
+            @include media-breakpoint-down(lg) {
+                max-width: 100%;
+            }
+
             @include media-breakpoint-down(sm) {
                 max-width: 100%;
+            }
+
+            @include media-breakpoint-up(xl) {
+                max-width: 100%;
+            }
+
+            @include custom-media-query-1440($large-screen-width-1440) {
+                max-width: rem(700);
             }
         }
 
@@ -872,6 +894,10 @@ header {
 
         .right-content-box {
             padding-top: rem(71);
+            
+            @include custom-media-query-max($medium-screen-width) {
+                padding-top: rem(0);
+            }
         }
 
         .checkout-help-contact-info-box {
@@ -950,6 +976,7 @@ header {
 
                     &.custom-select-box {
                         padding: rem(14) rem(38) rem(9) rem(10);
+                        margin-top: rem(0);
     
                         &:focus {
                             border-color: $black;
@@ -1107,6 +1134,10 @@ header {
                 padding: rem(0) rem(20);
             }
 
+            @include media-breakpoint-up(md) {
+                padding: rem(20) rem(20) rem(0);
+            }
+
             @include media-breakpoint-up(xl) {
                 padding: rem(0) rem(30) rem(0) rem(40);
             }
@@ -1119,8 +1150,13 @@ header {
         .header-left {
 
             &.align-start-box {
+
                 @include media-breakpoint-down(md) {
                     max-width: 100%;
+                }
+
+                @include media-breakpoint-down(md-down) {
+                    max-width: 65%;
                 }
             }
         }

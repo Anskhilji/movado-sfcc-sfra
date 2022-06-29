@@ -382,7 +382,7 @@ header {
         }
 
         @include media-breakpoint-up(lg) {
-            padding: 0 rem(20) 0 rem(20);
+            padding: rem(20) rem(20) 0;
             margin-top: rem(30);
         }
         
@@ -867,6 +867,18 @@ header {
             @include media-breakpoint-down(sm) {
                 padding-left: rem(32);
             }
+
+            @include media-breakpoint-down(xs) {
+                margin-left: rem(-14);
+            }
+
+            @include media-breakpoint-up(xl) {
+                margin-left: rem(-4);
+            }
+
+            @include custom-media-query-1440($large-screen-width-1440) {
+                margin-left: rem(0);
+            }
         }
 
         .left-section {
@@ -896,6 +908,14 @@ header {
                 @include media-breakpoint-down(md) {
                     max-width: 100%;
                 }
+
+                @include media-breakpoint-up(xl) {
+                    max-width: 100%;
+                }
+                
+                @include custom-media-query-1440($large-screen-width-1440) {
+                    max-width: rem(700);
+                }
             }
 
             .payment-summary {
@@ -903,6 +923,14 @@ header {
 
                 @include media-breakpoint-down(md) {
                     max-width: 100%;
+                }
+
+                @include media-breakpoint-up(xl) {
+                    max-width: 100%;
+                }
+
+                @include custom-media-query-1440($large-screen-width-1440) {
+                    max-width: rem(700);
                 }
             }
 
@@ -915,6 +943,14 @@ header {
                 
                 @include media-breakpoint-down(sm) {
                     max-width: 100%;
+                }
+
+                @include media-breakpoint-up(xl) {
+                    max-width: 100%;
+                }
+
+                @include custom-media-query-1440($large-screen-width-1440) {
+                    max-width: rem(700);
                 }
             }
 
@@ -1070,9 +1106,9 @@ header {
             .checkout-header-wrapper {
                 @include media-breakpoint-down(md) {
                     justify-content: space-between;
-                    padding: rem(0) rem(20);
+                    padding: rem(20) rem(20) rem(0);
                 }
-
+                
                 @include media-breakpoint-up(xl) {
                     padding: rem(0) rem(30) rem(0) rem(36);
                 }
@@ -1220,5 +1256,8 @@ header {
     
     @include media-breakpoint-up(md) {
         min-height: 168vh;
+    }
+    @include media-breakpoint-up(lg) {
+        min-height: 100vh;
     }
 }

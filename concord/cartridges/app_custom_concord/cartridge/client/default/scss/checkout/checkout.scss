@@ -461,11 +461,17 @@ header {
                                 
                                 img {
                                     @include media-breakpoint-up(md) {
-                                        transform: translateY(0px);
+                                        transform: translateY(1px);
+                                    }
+                                    @include media-breakpoint-up(lg) {
+                                        transform: translateY(3px);
+                                    }
+                                    @include media-breakpoint-up(xl) {
+                                        transform: translateY(4px);
                                     }
 
                                     @include custom-media-query-1440($large-screen-width-1440) {
-                                        transform: translateY(26px);
+                                        transform: translateY(8px);
                                     }
                                 }
                             }

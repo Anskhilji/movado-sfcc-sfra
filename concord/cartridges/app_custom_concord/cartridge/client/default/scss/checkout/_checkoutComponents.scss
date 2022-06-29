@@ -672,6 +672,7 @@ $stored-payment-spacing: rem(16);
                 border: rem(1) solid $grey16;
                 border-radius: rem(3);
                 background-color: $grey-dark-2;
+                margin-top: rem(0);
                 
                 &:focus {
                     border-color: $black;
