@@ -119,7 +119,8 @@ function getProductAttributes(apiProduct) {
  * @param {Object} apiProduct - apiProduct is from ProductMgr
  * @returns {Boolean} isWatchTile - true if product belongs to watches
  */
-function getIsWatchTile(apiProduct) {
+
+ function getIsWatchTile(apiProduct) {
     try {
         if (!empty(apiProduct)) {
         var isWatchTile = !empty(apiProduct.custom.isWatchTile) ? apiProduct.custom.isWatchTile : false;

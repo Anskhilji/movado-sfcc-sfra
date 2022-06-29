@@ -20,10 +20,10 @@ function send(emailObj, template, context) {
     var messageId = '';
     var requestParams = {
     };
-    var listrakTransactionalSwitch = Site.current.getCustomPreferenceValue('transactionalSwitch').value.toString();
-    var listrakEnabled = Site.current.getCustomPreferenceValue('Listrak_Cartridge_Enabled');
+    var listrakTransactionalSwitch = !empty(Site.current.preferences.custom.transactionalSwitch.value) ? Site.current.preferences.custom.transactionalSwitch.value.toString() : '';
+    var listrakEnabled = !empty(Site.current.preferences.custom.Listrak_Cartridge_Enabled) ? Site.current.preferences.custom.Listrak_Cartridge_Enabled : false;
     var Constants = require('*/cartridge/scripts/utils/ListrakConstants');
-    if (listrakEnabled && listrakTransactionalSwitch == Constants.LTK_TRANSACTIONALSWITCH) {
+    if (listrakEnabled && listrakTransactionalSwitch == Constants.LTK_TRANSACTIONAL_SWITCH) {
         switch (emailObj.type) {
             case 1:
                 requestParams.messageContext = Constants.LTK_ACCOUNT_CONTEXT;
@@ -43,14 +43,15 @@ function send(emailObj, template, context) {
                 requestParams.messageContext = Constants.LTK_ACCOUNT_CONTEXT;
                 requestParams.messageId = Site.current.preferences.custom.Listrak_PasswordUpdateMessageID;
                 requestParams.passwordText = context.passwordText;
+                requestParams.email = context.email;
                 break;
             case 4:
                 requestParams.messageContext = Constants.LTK_ORDER_CONTEXT;
                 requestParams.messageId = Site.current.preferences.custom.Listrak_OrderConfirmationMessageID;
                 requestParams.orderNumber = context.order.orderNumber;
-                requestParams.totalTax = context.order.totals.totalTax;
-                requestParams.subTotal = context.order.totals.subTotal;
-                requestParams.grandTotal = context.order.priceTotal;
+                requestParams.totalTax = context.cuurentOrder.totalTax.value;
+                requestParams.subTotal = context.cuurentOrder.adjustedMerchandizeTotalPrice.value;
+                requestParams.grandTotal = context.cuurentOrder.totalGrossPrice.value;
                 requestParams.creationDate = context.order.creationDate;
                 requestParams.billingFirstName = context.order.billing.billingAddress.address.firstName;
                 requestParams.billingLastName = context.order.billing.billingAddress.address.lastName;

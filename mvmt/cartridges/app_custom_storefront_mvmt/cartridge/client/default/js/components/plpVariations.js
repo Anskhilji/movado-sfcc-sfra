@@ -80,16 +80,150 @@ module.exports = function () {
 
         // Update Family Name and Case Diameter
         if ($product.isWatchTile) {
+            $('.collection-name-third').removeClass('collection-name');
             if (typeof response.product.collectionName !== 'undefined' && response.product.collectionName !== '' && response.product.collectionName !== null) {
                 $productContainer.find('.product-brand-info .collection-name').text(response.product.collectionName);
             }
+
+            if (typeof response.product.collectionName !== 'undefined' && response.product.collectionName !== '' && response.product.collectionName !== null) {
+                var $collectionArray = response.product.collectionName.split(' ');
+                if ($collectionArray.length == 2) {
+                    var $collectionName = '<span>' + $collectionArray[0] + ' ' + $collectionArray[1] + '</span>';
+                    $('.collection-name-third-dnone').addClass('d-none');
+                    $('.collection-name-third').addClass('collection-name');
+                    $productContainer.find('.ellipsis-format .collection-name').html($collectionName);
+
+                    if (typeof response.product.caseDiameterRedesigned !== 'undefined' && response.product.caseDiameterRedesigned !== '' && response.product.caseDiameterRedesigned !== null) {
+                        var $diameterArray = response.product.caseDiameterRedesigned.split(' ');
+                        var $caseDiameter = '<span class=' + response.product.id + '>' + $diameterArray[2] + '</span>';
+                        $('.suggestions-case-diameter').addClass('case-diameter');
+                        $productContainer.find('.suggestions-case-diameter').html($caseDiameter);
+                        $('.suggestions-case-diameter').removeClass('case-diameter');
+                        if ($collectionArray.length == 1) {
+                            $('.' + response.product.id).closest('.suggestions-case-diameter').removeClass('d-block');
+                        }
+                        if ($collectionArray.length == 2) {
+                            $('.' + response.product.id).closest('.suggestions-case-diameter').addClass('d-block');
+                        }
+                        if ($collectionArray.length == 3) {
+                            $('.' + response.product.id).closest('.suggestions-case-diameter').removeClass('d-block');
+                        }
+                        if ($collectionArray.length == 4 || $collectionArray.length > 4) {
+                            $('.' + response.product.id).closest('.suggestions-case-diameter').removeClass('d-block');
+                        }
+                    }
+                } else if ($collectionArray.length == 3) {
+                    $('.collection-name-third').removeClass('collection-name');
+                    var $collectionName = '<span>' + $collectionArray[0] + ' ' + $collectionArray[1] +'</span><br/>' + '<span>' + $collectionArray[2] + '</span>';
+                    $('.collection-name-third-dnone').addClass('d-none');
+                    $productContainer.find('.collection-name3,.ellipsis-format .collection-name').html($collectionName);
+                    $('.collection-name-third').addClass('collection-name');
+
+                    if (typeof response.product.caseDiameterRedesigned !== 'undefined' && response.product.caseDiameterRedesigned !== '' && response.product.caseDiameterRedesigned !== null) {
+                        var $caseDiameter = '<span class=' + response.product.id + '>' + response.product.caseDiameterRedesigned + '</span>';
+                        $productContainer.find('.suggestions-case-diameter').html($caseDiameter);
+
+                        if ($collectionArray.length == 1) {
+                            $('.' + response.product.id).closest('.suggestions-case-diameter').removeClass('d-block');
+                        }
+                        if ($collectionArray.length == 2) {
+                            $('.' + response.product.id).closest('.suggestions-case-diameter').addClass('d-block');
+                        }
+                        if ($collectionArray.length == 3) {
+                            $('.' + response.product.id).closest('.suggestions-case-diameter').removeClass('d-block');
+                        }
+                        if ($collectionArray.length == 4 || $collectionArray.length > 4) {
+                            $('.' + response.product.id).closest('.suggestions-case-diameter').removeClass('d-block');
+                        }
+
+                    }
+                } else if ($collectionArray.length > 3) {
+                    $('.collection-name-third-dnone').addClass('d-none');
+                    $('.collection-name-third').addClass('collection-name');
+                    $productContainer.find('.ellipsis-format .collection-name').text(response.product.collectionName);
+
+                    showShortText();
+                    if (typeof response.product.caseDiameterRedesigned !== 'undefined' && response.product.caseDiameterRedesigned !== '' && response.product.caseDiameterRedesigned !== null) {
+                        var $caseDiameter = '<span class=' + response.product.id + '>' + response.product.caseDiameterRedesigned + '</span>';
+                        $productContainer.find('.suggestions-case-diameter').html($caseDiameter);
+
+                        if ($collectionArray.length == 1) {
+                            $('.' + response.product.id).closest('.suggestions-case-diameter').removeClass('d-block');
+                        }
+                        if ($collectionArray.length == 2) {
+                            $('.' + response.product.id).closest('.suggestions-case-diameter').addClass('d-block');
+                        }
+                        if ($collectionArray.length == 3) {
+                            $('.' + response.product.id).closest('.suggestions-case-diameter').removeClass('d-block');
+                        }
+                        if ($collectionArray.length == 4 || $collectionArray.length > 4) {
+                            $('.' + response.product.id).closest('.suggestions-case-diameter').removeClass('d-block');
+                        }
+                    }
+                } else {
+                    if (typeof response.product.collectionName !== 'undefined' && response.product.collectionName !== '' && response.product.collectionName !== null) {
+                        var $collectionName = '<span>' + response.product.collectionName + '</span>';
+                        $('.collection-name-third-dnone').addClass('d-none');
+                        $('.collection-name-third').addClass('collection-name');
+                        $productContainer.find('.ellipsis-format .collection-name').html($collectionName);
+                    }
+                    if (typeof response.product.caseDiameterRedesigned !== 'undefined' && response.product.caseDiameterRedesigned !== '' && response.product.caseDiameterRedesigned !== null) {
+                        var $caseDiameter = '<span class=' + response.product.id + '>' + response.product.caseDiameterRedesigned + '</span>';
+                        $productContainer.find('.suggestions-case-diameter').html($caseDiameter);
+
+                        if ($collectionArray.length == 1) {
+                            $('.' + response.product.id).closest('.suggestions-case-diameter').removeClass('d-block');
+                        }
+                        if ($collectionArray.length == 2) {
+                            $('.' + response.product.id).closest('.suggestions-case-diameter').addClass('d-block');
+                        }
+                        if ($collectionArray.length == 3) {
+                            $('.' + response.product.id).closest('.suggestions-case-diameter').removeClass('d-block');
+                        }
+                        if ($collectionArray.length == 4 || $collectionArray.length > 4) {
+                            $('.' + response.product.id).closest('.suggestions-case-diameter').removeClass('d-block');
+                        }
+                    }
+                }
+            }
+
+            $('.desktop-search-icon').click(function() {
+                var $collectionArray = response.product.collectionName.split(' ');
+                if ($collectionArray.length == 1) {
+                    $('.' + response.product.id).closest('.suggestions-case-diameter').removeClass('d-block');
+                }
+                if ($collectionArray.length == 2) {
+                    $('.' + response.product.id).closest('.suggestions-case-diameter').addClass('d-block');
+                }
+                if ($collectionArray.length == 3) {
+                    $('.' + response.product.id).closest('.suggestions-case-diameter').removeClass('d-block');
+                }
+                if ($collectionArray.length == 4) {
+                    $('.' + response.product.id).closest('.suggestions-case-diameter').removeClass('d-block');
+                }
+            });
+
         } else {
-            $productContainer.find('.product-brand-info .collection-name').text(response.product.productName);
+            if ($('.search-modal-open').hasClass('color-or-family')) {
+                $productContainer.find('.product-brand-info .collection-name').text(response.product.collectionName);
+            } else {
+                $productContainer.find('.product-brand-info .collection-name').text(response.product.productName);
+            }
         }
         if (!isPLPRedesign && typeof response.product.caseDiameter !== 'undefined' && response.product.caseDiameter !== '' && response.product.caseDiameter !== null) {
             $productContainer.find('.product-brand-info .case-diameter').text(response.product.caseDiameter);
         } else if (typeof response.product.caseDiameterRedesigned !== 'undefined' && response.product.caseDiameterRedesigned !== '' && response.product.caseDiameterRedesigned !== null) {
             $productContainer.find('.product-brand-info .case-diameter').text(response.product.caseDiameterRedesigned);
+        }
+
+        if (typeof response.product.caseDiameterRedesigned !== 'undefined' && response.product.caseDiameterRedesigned !== '' && response.product.caseDiameterRedesigned !== null) {
+            var $collectionArrayS = response.product.collectionName.split(' ');
+            if ($collectionArrayS.length == 2) {
+                var $diameterArrayS = response.product.caseDiameterRedesigned.split(' ');
+                $productContainer.find('.suggestions-family-name').html('<span class=' + response.product.id + '>' + $diameterArrayS[2] + '</span>');
+            } else {
+                $productContainer.find('.suggestions-family-name').html('<span class=' + response.product.id + '>' + response.product.caseDiameterRedesigned + '</span>');
+            }
         }
 
         //update product gtm data
@@ -128,7 +262,15 @@ module.exports = function () {
                 $productNameSelector.text(response.product.color);
             }
         } else {
-            $productNameSelector.text(response.product.productName);
+            if ($('.search-modal-open').hasClass('color-or-family')) {
+                if ($product.isWatchTile) {
+                    $productNameSelector.text(response.product.productName);
+                } else {
+                    $productNameSelector.text(response.product.color);
+                }
+            } else {
+                $productNameSelector.text(response.product.productName);
+            }
         }
         //Custom End
         $productNameSelector.attr('href', $product.selectedProductUrl);
@@ -202,6 +344,30 @@ module.exports = function () {
         updateColorVariation();
     });
 
+    function showShortText() {
+        $('.text-family-truncate-wrapper').each(function () {
+            var $moretext = '...';
+            var $content = $(this).html();
+            var $collectionArray = $content.split(' ');
+
+            if ($collectionArray.length > 3) {
+                var $contentUpdated = '';
+                for (var i = 0; i <= 3; i++) {
+                    if (i == 3) {
+                        $contentUpdated += $moretext + '</a>';
+                    } else {
+                        $contentUpdated += $collectionArray[i] + ' ';
+                    }
+                }
+
+                var $updateContent = $contentUpdated.split(' ');
+                var $html = '<span>' + $updateContent[0] + ' ' + $updateContent[1] + '</span><br/>';
+                var $html2 = '<span>' + $updateContent[2] + $updateContent[3] + '</span>';
+                $(this).html($html).append($html2);
+            }
+        });
+    }
+
     function updateColorVariation() {
         if (document.readyState === "complete") {
             $(document).on('click', '[data-attr="colorVar"] a', function (e) {
@@ -222,6 +388,7 @@ module.exports = function () {
                 $(this).find('img.swatch-circle').addClass('is-active');
                 var selectedValueUrl = $(this).data('swatch-url');
                 var pdpURL = $(this).data('pdp-url');
+                $('.suggestions-case-diameter').removeClass('case-diameter');
 
                 $.ajax({
                     url: selectedValueUrl,
@@ -231,6 +398,8 @@ module.exports = function () {
                         setTimeout(function () {
                             $.spinner().stop();
                         }, 1500);
+                        $('.suggestions-case-diameter').addClass('suggestions-family-name');
+                        showShortText();
 
                     },
                     error: function () {

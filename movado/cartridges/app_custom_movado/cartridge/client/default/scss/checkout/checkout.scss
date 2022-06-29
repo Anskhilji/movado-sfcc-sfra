@@ -1217,4 +1217,8 @@ header {
     justify-content: space-between;
     flex-direction: column;
     min-height: 100vh;
+    
+    @include media-breakpoint-up(md) {
+        min-height: 168vh;
+    }
 }

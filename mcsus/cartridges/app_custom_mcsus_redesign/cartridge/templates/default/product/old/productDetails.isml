@@ -23,13 +23,13 @@
     <isset name="isQuickView" value="${false}" scope="page" />
     <isset name="isProductSet" value="${pdict.product.productType === 'set'}" scope="page" />
     <isobject object="${product.raw}" view="detail">
-        <div class="container product-detail product-wrapper product-detail1-wrapper" data-pid="${product.id}" itemscope
+        <div class="container product-detail product-wrapper product-detail1-wrapper product-detail1-old-wrapper" data-pid="${product.id}" itemscope
             itemtype="http://schema.org/Product">
             <div class="row hidden-xs-down d-md-none">
                 <div class="col-12">
                     <!---Breadcrumbs--->
                     <div class="product-breadcrumb">
-                        <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
+                        <isinclude template="components/breadcrumbs/old/pageBreadcrumbs" />
                     </div>
 
                     <!-- Product Name -->
@@ -53,7 +53,7 @@
             <div class="col-12">
                 <!---Breadcrumbs--->
                 <div class="product-breadcrumb hidden-sm-down">
-                    <isinclude template="components/breadcrumbs/pageBreadcrumbs" />
+                    <isinclude template="components/breadcrumbs/old/pageBreadcrumbs" />
                 </div>
             </div>
                 <!-- Product Images Carousel -->
@@ -73,8 +73,8 @@
                     <div class="row">
                         <!-- Attributes and Quantity -->
                         <div class="col-md-10 col-12">
-
-                            <isinclude template="product/components/old/badges" />
+                            <iscomment> hidden text badge old design  </iscomment>
+                            <iscomment> <isinclude template="product/components/old/badges" /> </iscomment>
 
                             <!-- Product Availability -->
                             <div class="availability product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"

@@ -35,24 +35,26 @@
                 </div>
             </div>
         </div>
-        <isif condition="${pdict.yotpoWidgetData.isReviewEnabled}">
+         <iscomment> custom style:MSS-1829 hidden reviews accordion </iscomment>
+        <iscomment> <isif condition="${pdict.yotpoWidgetData.isReviewEnabled}">
             <div class="accordion-redesign">
                 <div class="accordion-redesign-heading d-flex align-items-center justify-content-between collapsed" data-toggle="collapse" data-target="#reviews" aria-expanded="true" aria-controls="Reviews">
-                    <div class="d-flex align-items-center">
-                        <span>${Resource.msg('accordion.heading.reviews','products',null)}</span>
+                    <div class="d-flex">
+                        <div>${Resource.msg('accordion.heading.reviews','products',null)}</div>
                         <isinclude template="product/components/pidRating" />
                     </div>
-                    <span class="plus-minus"></span>
+                    <span class="plus-minus">
+                    </span>
                 </div>
 
                 <div id="reviews" class="collapse" aria-labelledby="headingOne">
                     <div class="accordion-redesign-detail">
-                            <iscomment>Yotpo reviews widget will appear here, if these needs to be relocated
-                            then appropriate template should be overridden. </iscomment>
+                            Yotpo reviews widget will appear here, if these needs to be relocated
+                            then appropriate template should be overridden. 
                             <isinclude template="widget/yotporeviewswidget" />
                     </div>
                 </div>
             </div>
-            </isif>
+            </isif> </iscomment>
     </div>
 </div>
