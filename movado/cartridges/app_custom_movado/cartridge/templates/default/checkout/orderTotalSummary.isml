@@ -5,7 +5,7 @@
         <span>(${Resource.msgf('label.number.items.in.cart','cart', null, pdict.order.items.totalQuantity)})</span></p>
     </div>
     <div class="end-lines">
-        <p class="text-right"><span class="sub-total sub-total-redesign order-label-wrapper" data-sub-total="${pdict.order.totals.currentTotal}">${pdict.order.totals.currentTotal}</span></p>
+        <p class="text-right"><span class="sub-total order-label-wrapper" >${pdict.order.totals.subTotal}</span></p>
     </div>
 </div>
 
@@ -15,7 +15,7 @@
         <p class="order-receipt-label order-label-wrapper"><span>${Resource.msg('label.order.discount.savings', 'common', null)}</span></p>
     </div>
     <div class="end-lines">
-        <p class="text-right"><span class="order-discount-total order-discount-total-redesign order-label-wrapper" data-discount="${pdict.order.totals.currentDiscount}">- ${pdict.order.totals.currentDiscount}</span></p>
+        <p class="text-right"><span class="order-discount-total order-label-wrapper">-  ${pdict.order.totals.orderLevelDiscountTotal.formatted}</span></p>
     </div>
 </div>
 

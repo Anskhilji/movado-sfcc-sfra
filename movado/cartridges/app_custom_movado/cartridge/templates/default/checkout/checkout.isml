@@ -24,7 +24,7 @@
     
     <div id="checkout-main" class="data-checkout-stage data-checkout-stage-redesign <isif condition="${pdict.order.usingMultiShipping && pdict.order.shipping.length > 1}">multi-ship</isif>" data-customer-type="${pdict.customer.registeredUser ? 'registered' : 'guest'}" data-checkout-stage="${pdict.currentStage}" data-checkout-get-url="${URLUtils.https('CheckoutServices-Get')}">
         
-        <div class="row d-sm-none no-gutters pop-up-container-box">
+        <div class="row d-sm-none no-gutters pop-up-container-box  cart-product-mobile-view">
             <div class="col-12 pop-up-box-space d-flex justify-content-between">
                 <p class="grand-total-label top-grandtotal-label">${Resource.msg('order.confirmation.email.label.orderTotal','order',null)} (${Resource.msgf('label.number.items.in.cart','cart', null, pdict.order.items.totalQuantity)})</p>
                 <p class="grand-total-price top-grand-total-price-wrapper">${pdict.order.totals.subTotal}</p>
@@ -111,7 +111,7 @@
                 <!----------------------------------------------------------------------------------->
                 <!-- Order Totals, Details and Summary -->
                 <!----------------------------------------------------------------------------------->
-                <div class="col-md-5 right-section d-hide-mobile">
+                <div class="col-md-5 right-section d-hide-mobile cart-product-desktop-view">
                     <div class="right-content">
                         <div class="card-header card-border-none-wrapper card-heading-wrapper">
                             <h4>${Resource.msg('heading.order.summary', 'checkout', null)}</h4>

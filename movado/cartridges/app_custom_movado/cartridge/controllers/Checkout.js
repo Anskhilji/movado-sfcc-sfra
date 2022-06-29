@@ -6,7 +6,6 @@ var URLUtils = require('dw/web/URLUtils');
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
-var checkoutCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
 
 var page = module.superModule;
 server.extend(page);
@@ -129,10 +128,7 @@ server.append(
                 defaultShipment: true
             }
         );
-        // {calculateSavingMoneyAndFormate} this method return all product total price and total discount
-        // var orderTotalAndDiscountPrice = checkoutCustomHelpers.calculateSavingMoneyAndFormate(orderModel);
-        // orderModel.totals.currentDiscount = orderTotalAndDiscountPrice.savingMoney ? orderTotalAndDiscountPrice.savingMoney : '';
-        // orderModel.totals.currentTotal = orderTotalAndDiscountPrice.currentTotal ? orderTotalAndDiscountPrice.currentTotal : '';
+        
         // Custom Start: Add email for Amazon Pay
         res.setViewData({
             order: orderModel,

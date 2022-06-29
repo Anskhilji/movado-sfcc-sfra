@@ -8,8 +8,6 @@ var Transaction = require('dw/system/Transaction');
 var PaymentMgr = require('dw/order/PaymentMgr');
 var OrderMgr = require('dw/order/OrderMgr');
 var Order = require('dw/order/Order');
-var StringUtils = require('dw/util/StringUtils');
-var Money = require('dw/value/Money');
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 
 /**
@@ -307,38 +305,6 @@ function declineOrder(order) {
 
 }
 
-/**
- * sets the product total price and total discount
- * @param {order} orderModel - order Model
- * @return {savingMoney} - current discount on products
- *  @return {currentTotal} - all products total without discount
- */
- function calculateSavingMoneyAndFormate(orderModel) {
-    var savingMoney = 0;
-    var currentTotal = 0;
-    var currencyCode;
-    if (orderModel.items.items.length > 0) {
-        for (var i = 0; i < orderModel.items.items.length; i++) {
-            savingMoney = savingMoney + orderModel.items.items[i].priceTotal.savingPrice.value;
-            currentTotal = currentTotal + orderModel.items.items[i].basePrice.value;
-            currencyCode = orderModel.items.items[i].priceTotal.savingPrice.currencyCode;
-        }
-
-        //GET TOATAL DISCOUNT
-        savingMoney = orderModel.totals.orderLevelDiscountTotal.value + savingMoney;
-        savingMoney = Money(savingMoney, currencyCode);
-        savingMoney = StringUtils.formatMoney(savingMoney);
-
-        //GET GRAND TOTAL WITHOUT DISCOUNT
-        currentTotal = Money(currentTotal, currencyCode);
-        currentTotal = StringUtils.formatMoney(currentTotal);
-        }
-        return {
-            savingMoney: savingMoney,
-            currentTotal: currentTotal
-        };
-}
-
 module.exports = {
     sendConfirmationEmail: sendConfirmationEmail,
     sendOrderConfirmationEmail: sendOrderConfirmationEmail,
@@ -347,6 +313,5 @@ module.exports = {
     sendShippingEmail: sendShippingEmail,
     failOrderRisifiedCall: failOrderRisifiedCall,
     isRiskified: isRiskified,
-    declineOrder: declineOrder,
-    calculateSavingMoneyAndFormate: calculateSavingMoneyAndFormate
+    declineOrder: declineOrder
 };

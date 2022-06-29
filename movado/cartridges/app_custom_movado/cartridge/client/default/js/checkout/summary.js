@@ -14,7 +14,6 @@ function updateTotals(totals) {
     $('.tax-total').text(totals.totalTax);
     $('.sub-total').text(totals.subTotal);
     $('.grand-total-sum').text(totals.grandTotal);
-    $('.sub-total-redesign').text($('.sub-total-redesign').data('subTotal'));
 
     if (totals.orderLevelDiscountTotal.value > 0) {
         $('.order-discount').removeClass('hide-order-discount');
@@ -30,8 +29,6 @@ function updateTotals(totals) {
     } else {
         $('.shipping-discount').addClass('hide-shipping-discount');
     }
-
-    $('.order-discount-total-redesign').text('- ' + $('.order-discount-total-redesign').data('discount'));
 }
 
 /**
