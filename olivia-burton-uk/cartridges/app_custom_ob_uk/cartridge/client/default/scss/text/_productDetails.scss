@@ -686,6 +686,15 @@
 		}
 	}
 }
+
+.tax-duties {
+	display: inline-block;
+	color: $dark-grey1;
+	margin-top: rem(15);
+	font-size: rem(14);
+	font-weight: 600;
+}
+
 @include media-breakpoint-down(md) {
 	.price-availability {
 		justify-content: center;

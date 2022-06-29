@@ -78,7 +78,16 @@
                                 <isset name="price" value="${product.price}" scope="page" />
                                 <isinclude template="product/components/pricing/main" />
                             </div>
-
+                            <div class="tax-duties">
+                                <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
+                                <isif condition="${isEswEnabled}" >
+                                    <isset name="klarnaAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
+                                    <isset name="isTaxDutiesAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isTaxDutiesAllowedCountry()}" scope="page" />
+                                    <isif condition="${!klarnaAllowedCountry && isTaxDutiesAllowedCountry}">
+                                        <isslot id="cs-tax-duties" description="Tax Duties" context="global" />
+                                    </isif>
+                                </isif>
+                            </div>
                             <!-- Applicable Promotions -->
                             <div class="promotions">
                                 <isinclude template="product/components/promotions" />

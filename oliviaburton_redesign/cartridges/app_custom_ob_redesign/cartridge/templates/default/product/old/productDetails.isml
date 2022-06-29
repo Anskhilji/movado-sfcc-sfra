@@ -74,7 +74,16 @@
                             <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
                         </div>
                     </div>
-
+                    <div class="tax-duties">
+                        <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
+                        <isif condition="${isEswEnabled}" >
+                            <isset name="klarnaAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
+                            <isset name="isTaxDutiesAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isTaxDutiesAllowedCountry()}" scope="page" />
+                            <isif condition="${!klarnaAllowedCountry && isTaxDutiesAllowedCountry}">
+                                <isslot id="cs-tax-duties" description="Tax Duties" context="global" />
+                            </isif>
+                        </isif>
+                    </div>
                     <!-- Affirm Text -->
                     <div class="mt-2">
                         <isset name="fpname" value="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" scope="page" />

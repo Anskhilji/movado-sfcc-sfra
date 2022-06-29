@@ -51,6 +51,16 @@
                                 <isinclude template="product/components/productRating" />
                             </div>
                         </div>
+                        <div class="tax-duties">
+                            <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
+                            <isif condition="${isEswEnabled}" >
+                                <isset name="klarnaAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
+                                <isset name="isTaxDutiesAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isTaxDutiesAllowedCountry()}" scope="page" />
+                                <isif condition="${!klarnaAllowedCountry && isTaxDutiesAllowedCountry}">
+                                    <isslot id="cs-tax-duties" description="Tax Duties" context="global" />
+                                </isif>
+                            </isif>
+                        </div>
                         <!-- Affirm Text -->
                         <div>
                             <isinclude template="util/affirmmodule_mf" />

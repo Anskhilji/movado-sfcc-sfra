@@ -74,6 +74,13 @@ $arrow-height: 1.25em;
         letter-spacing: normal;
     }
 
+    .tax-duties {
+        display: inline-block;
+        color: $grey8;
+        margin-bottom: rem(15);
+        font-size: rem(14);
+    }
+
     .prices {
         padding-bottom: rem(10);
     }

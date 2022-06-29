@@ -87,6 +87,14 @@
             font-size: rem(16);
         }
     }
+
+    .tax-duties {
+        display: inline-block;
+        color: $grey5;
+        margin-bottom: rem(15);
+        font-size: rem(14);
+        font-weight: 600;
+    }
 }
 
 .swatch a {
