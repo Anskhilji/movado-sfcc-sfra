@@ -25,6 +25,7 @@ module.exports = function fullProduct(product, apiProduct, options) {
     var pdpContentAssetHTML = productCustomHelper.getPDPContentAssetHTML(apiProduct);
     var detailAndSpecAttributes = productCustomHelpers.getPdpDetailAndSpecsAttributes(apiProduct);
     var pdpMarketingContentAssetHTML = productCustomHelper.getPDPMarketingContentAssetHTML(apiProduct);
+    var yotpoReviewsCustomAttribute = productCustomHelper.getYotpoReviewsCustomAttribute(apiProduct);
 
     decorators.base(product, apiProduct, options.productType);
     decorators.price(product, apiProduct, options.promotions, false, options.optionModel);
@@ -93,6 +94,13 @@ module.exports = function fullProduct(product, apiProduct, options) {
         Object.defineProperty(product, 'pdpMarketingContentAssetHTML', {
             enumerable: true,
             value: pdpMarketingContentAssetHTML
+        });
+    }
+
+    if (!empty(yotpoReviewsCustomAttribute)) {
+        Object.defineProperty(product, 'yotpoReviewsCustomAttribute', {
+            enumerable: true,
+            value: yotpoReviewsCustomAttribute
         });
     }
 

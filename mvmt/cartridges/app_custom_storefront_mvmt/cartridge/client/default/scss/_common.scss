@@ -533,13 +533,13 @@ body {
         outline-color: $black;
     }
 }
- 
+
 div {
-    
+
     &.yotpo {
-    
-        &.bottomLine {
-    
+
+        &.bottomLine, &.yotpoBottomLine {
+
             .star-clickable {
                 animation-duration: 0.01s;
                 animation-name: nodeInserted;
