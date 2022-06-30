@@ -566,8 +566,8 @@ header {
 
         @include media-breakpoint-up(sm) {
             display: block;
-            margin: rem(0) auto rem(12);
-            padding: 0 rem(15);            
+            margin: rem(16) auto rem(12);
+            padding: 0;            
         }
 
         @include media-breakpoint-up(md) {
@@ -583,12 +583,12 @@ header {
 
         @include media-breakpoint-up(xl) {
             padding: 0;
-            margin: rem(71) auto rem(51);
+            margin: rem(75) auto rem(51);
         }
         
         @include custom-media-query-1440($large-screen-width-1440) {
             padding: 0 rem(15) 0 rem(0);
-            margin: rem(71) auto rem(51);
+            margin: rem(75) auto rem(51);
         }
 
         li {
@@ -612,6 +612,18 @@ header {
 
                 @include media-breakpoint-down(sm) {
                     font-size: rem(10);
+                }
+
+                @include media-breakpoint-up(lg) {
+                    font-size: rem(10);
+                }
+    
+                @include media-breakpoint-up(xl) {
+                    font-size: rem(10);
+                }
+    
+                @include custom-media-query-1440($large-screen-width-1440) {
+                    font-size: rem(12);
                 }
 
                 &:after {
@@ -777,10 +789,13 @@ header {
 
             @include media-breakpoint-up(xl) {
                 padding: rem(0) rem(30) rem(0) rem(40);
+                margin-top: rem(35);
+
             }
 
             @include custom-media-query-1440($large-screen-width-1440) {
                 padding: rem(0) rem(60) rem(0) rem(100);
+                margin-top: rem(35);
             }
         }
 
@@ -809,6 +824,16 @@ header {
                 background: $grey20;
             }
 
+            @include media-breakpoint-up(xl) {
+                padding: 0 rem(60) 0 rem(60);
+                margin-top: rem(35);
+            }
+
+            @include custom-media-query-1440($large-screen-width-1440) {
+                padding: 0 rem(60) 0 rem(60);
+                margin-top: rem(35);
+            }
+
             .right {
                 justify-content: flex-end;
 
@@ -818,7 +843,20 @@ header {
 
                 @include media-breakpoint-up(lg) {
                     padding-right: rem(0);
-                }                
+                }
+
+                &.mini-cart-wrapper {
+
+                    .minicart {
+                        @include media-breakpoint-up(xl) {
+                            margin-right: rem(32);
+                        }
+
+                        @include custom-media-query-1440($large-screen-width-1440) {
+                            margin-right: rem(-20);
+                        }
+                    }
+                } 
             }
         }
     }

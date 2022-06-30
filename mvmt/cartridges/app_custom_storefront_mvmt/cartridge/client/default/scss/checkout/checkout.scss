@@ -467,25 +467,33 @@ header {
         }
         @include media-breakpoint-up(md-down) {
             display: block;
+            margin: rem(32) auto rem(32);
+            padding: 0;
+            max-width: 100%;
+        }
+
+        @include media-breakpoint-up(md) {
+            display: block;
             margin: rem(70) auto rem(32);
             padding: 0;
             max-width: 100%;
         }
 
+
         @include media-breakpoint-up(lg) {
             padding: 0;
-            margin: rem(61) auto rem(16);          
+            margin: rem(61) auto rem(16);
             max-width: 100%;           
         }
 
         @include media-breakpoint-up(lg-custom) {
             padding: 0;
-            margin: rem(71) auto rem(51);        
+            margin: rem(56) auto rem(51);        
         }
     
         @include custom-media-query-1440($large-screen-width-1440) {
             padding: 0;
-            margin: rem(71) auto rem(51);
+            margin: rem(58) auto rem(51);
         }
 
         li {
@@ -508,6 +516,18 @@ header {
 
                 @include media-breakpoint-down(sm) {
                     font-size: rem(10);
+                }
+
+                @include media-breakpoint-up(lg) {
+                    font-size: rem(10);
+                }
+    
+                @include media-breakpoint-up(xl) {
+                    font-size: rem(10);
+                }
+    
+                @include custom-media-query-1440($large-screen-width-1440) {
+                    font-size: rem(12);
                 }
 
                 &:after {
@@ -823,6 +843,10 @@ header {
             @include media-breakpoint-down(sm) {
                 max-width: 100%;
             }
+            
+            @include media-breakpoint-up(md-down) {
+                max-width: 100%;
+            }
 
             @include media-breakpoint-up(xl) {
                 max-width: 100%;
@@ -947,7 +971,7 @@ header {
 
             .checkout-content {
                 @include media-breakpoint-up(md) {
-                    max-width: rem(972);
+                    max-width: 100%;
                 }
 
                 @include media-breakpoint-up(lg) {
@@ -970,6 +994,14 @@ header {
 
                     &:focus {
                         padding: rem(16) rem(12) rem(6) rem(12);
+                    }
+
+                    
+                    &.is-invalid {
+
+                        &:focus {
+                            border: rem(1) solid $invalid-red;
+                        }
                     }
                 }    
                 .custom-select {
@@ -996,6 +1028,13 @@ header {
                                 box-shadow: none;
                                 border-width: rem(1);
                                 padding: rem(14) rem(38) rem(9) rem(10);
+                            }
+                        }
+
+                        &.is-invalid {
+
+                            &:focus {
+                                border: rem(1) solid $invalid-red;
                             }
                         }
                     }
@@ -1117,97 +1156,112 @@ header {
     }
 }
 
-
-
-.checkout-header {
-
-    .header-redesign-wrapper {
-
-        @include custom-media-query-1440($large-screen-width-1440) {
-            max-width: 66%;
-            flex: 0 0 66%;
-        }
-
-        .checkout-header-wrapper {
-            @include media-breakpoint-down(md) {
-                justify-content: space-between;
-                padding: rem(0) rem(20);
-            }
-
-            @include media-breakpoint-up(md) {
-                padding: rem(20) rem(20) rem(0);
-            }
-
-            @include media-breakpoint-up(xl) {
-                padding: rem(0) rem(30) rem(0) rem(40);
-            }
-
-            @include custom-media-query-1440($large-screen-width-1440) {
-                padding: rem(0) rem(60) rem(0) rem(100);
-            }
-        }
-
-        .header-left {
-
-            &.align-start-box {
-
-                @include media-breakpoint-down(md) {
-                    max-width: 100%;
-                }
-
-                @include media-breakpoint-down(md-down) {
-                    max-width: 65%;
-                }
-            }
-        }
-
-    }
-
-    .header-redesign-wrapper2 {
-        background: $grey20;
-
-        @include custom-media-query-1440($large-screen-width-1440) {
-            flex: 0 0 34%;
-            max-width: 34%;
-            padding: 0;
-        }
-
-        .checkout-header-wrapper {
-            @include media-breakpoint-down(md) {
-                background: $grey20;
-            }
-
-            .right {
-                justify-content: flex-end;
-
-                @include media-breakpoint-up(md) {
-                    padding-right: rem(10);
-                }
-
-                @include media-breakpoint-up(lg) {
-                    padding-right: rem(0);
-                }
-                
-            }
-        }
-    }
-
-    .d-hide-mobile-wrapper {
-        @include custom-media-query-max($medium-screen-width) {
-            display: none;
-        }
-    }
-
-    .d-show-desktop-wrapper {
-        @include media-breakpoint-up(md) {
-            display: none;
-        } 
-    }
-}
-
 header {
 
     &.checkout-header {
+
+        .header-redesign-wrapper {
+
+            @include custom-media-query-1440($large-screen-width-1440) {
+                max-width: 66%;
+                flex: 0 0 66%;
+            }
+    
+            .checkout-header-wrapper {
+                @include media-breakpoint-down(md) {
+                    justify-content: space-between;
+                    padding: rem(0) rem(20);
+                }
+    
+                @include media-breakpoint-up(md) {
+                    padding: rem(20) rem(20) rem(0);
+                }
+
+                @include media-breakpoint-up(lg-custom) {
+                    padding: rem(0) rem(30) rem(0) rem(23);
+                    margin-top: rem(36);
+                }
+
+                @include media-breakpoint-up(xl) {
+                    padding: rem(0) rem(30) rem(0) rem(35);
+                    margin-top: rem(25);
+                }
+    
+                @include custom-media-query-1440($large-screen-width-1440) {
+                    padding: rem(0) rem(60) rem(0) rem(100);
+                    margin-top: rem(28);
+                }
+            }
+    
+            .header-left {
+    
+                &.align-start-box {
+    
+                    @include media-breakpoint-down(md) {
+                        max-width: 100%;
+                    }
+    
+                    @include media-breakpoint-down(md-down) {
+                        max-width: 65%;
+                    }
+                }
+            }
+    
+        }
+    
+        .header-redesign-wrapper2 {
+            background: $grey20;
+    
+            @include custom-media-query-1440($large-screen-width-1440) {
+                flex: 0 0 34%;
+                max-width: 34%;
+                padding: 0;
+            }
+    
+            .checkout-header-wrapper {
+                @include media-breakpoint-down(md) {
+                    background: $grey20;
+                }
+                @include media-breakpoint-up(md) {
+                    padding: rem(27) rem(24) rem(0);
+                }
+
+                @include media-breakpoint-up(lg-custom) {
+                    padding: rem(20) rem(62) rem(0);
+                    margin-top: rem(23);
+                }
+
+                @include custom-media-query-1440($large-screen-width-1440) {
+                    padding: rem(0) rem(92);
+                    margin-top: rem(33);
+                }
+    
+                .right {
+                    justify-content: flex-end;
+    
+                    @include media-breakpoint-up(md) {
+                        padding-right: rem(10);
+                    }
+    
+                    @include media-breakpoint-up(lg) {
+                        padding-right: rem(0);
+                    }
+                    
+                }
+            }
+        }
+    
+        .d-hide-mobile-wrapper {
+            @include custom-media-query-max($medium-screen-width) {
+                display: none;
+            }
+        }
+    
+        .d-show-desktop-wrapper {
+            @include media-breakpoint-up(md) {
+                display: none;
+            } 
+        }
 
         .sticky-header-wrapper {
 

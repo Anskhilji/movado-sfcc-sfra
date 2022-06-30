@@ -1074,6 +1074,13 @@ $stored-payment-spacing: rem(16);
                       left: rem(24);
                   }
               }
+
+              &.is-invalid {
+
+                  &:focus {
+                      border: rem(1) solid $invalid-red;
+                  }
+              }
           }
 
           &.custom-select-box {
@@ -1100,9 +1107,15 @@ $stored-payment-spacing: rem(16);
                 right: rem(4);
                 height: rem(20);
                 width: rem(36);
-                border-left: rem(1) solid $grey24;
                 text-align: center;
             }
+
+              &.is-invalid {
+
+                &:focus {
+                    border: rem(1) solid $invalid-red;
+                }
+              }
           }
         }
 
@@ -1355,6 +1368,102 @@ $stored-payment-spacing: rem(16);
                     }
                 }
               }
+            }
+        }
+    }
+
+    .card-body {
+
+        form {
+
+            &.billing-form {
+
+                .form-group {
+                
+                    .form-control {
+            
+                        &.input-wrapper-checkout {
+              
+                            &:focus {
+              
+                                + .field-label-wrapper {
+                                    @include media-breakpoint-down(xs) {
+                                        left: rem(24);
+                                    }
+              
+                                    &.field-select-wrapper-box {
+                                        left: rem(13);
+                                    }
+                                }
+
+                                + .field-label-wrapper-card {
+                                    left: rem(13);
+                                }
+                      
+                                + .field-label-wrapper-card-1 {
+                                    left: rem(24);
+                                }
+                        
+                                + .field-label-wrapper-card-2 {
+                                    left: rem(13);
+                                }
+                              
+                                + .field-label-wrapper-card-3 {
+                                    left: rem(24);
+                                }
+                            }
+                        }            
+                    }
+          
+                    .field-label-wrapper {
+            
+                        &.input-has-value {   
+                            @include media-breakpoint-down(xs) {
+                                left: rem(24);
+                            }
+                        }
+
+                        &.field-label-wrapper-card {
+                            left: rem(13);
+        
+                            &.input-has-value {
+                                left: rem(13);
+                            }
+                        }
+      
+                        &.field-label-wrapper-card-1 {
+                            left: rem(24);
+          
+                            &.input-has-value {
+                                left: rem(24);
+                            }
+                        }
+      
+                        &.field-label-wrapper-card-2 {
+                            left: rem(13);
+          
+                            &.input-has-value {
+                                left: rem(13);
+                            }
+                        }
+                  
+                        &.field-label-wrapper-card-3 {
+                          left: rem(24);
+                            
+                            &.input-has-value {
+                                left: rem(24);
+                            }
+                        }
+            
+                        &.field-select-wrapper-box {
+                            left: rem(16);
+          
+                            &.input-has-value {
+                                left: rem(13);
+                            }
+                        }
+                    }
+                }
             }
         }
     }
