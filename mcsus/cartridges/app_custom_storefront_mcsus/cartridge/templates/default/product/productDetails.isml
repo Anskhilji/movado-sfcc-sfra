@@ -78,9 +78,6 @@
                     <h2 class="product-name prdouct-name-gtm d-sm-none d-md-block text-uppercase">${product.productName}</h2>
 
                     <iscomment> <p> <span>Model:</span> <span><isprint value="${product.id}" encoding="on" /></span> </p> </iscomment>
-                    <iscomment> <div class="d-block d-md-block d-sm-none">
-                        <isinclude template="product/components/pidRating" />
-                    </div> </iscomment>
                     <div class="d-block d-md-block hidden-sm-down">
                         <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
                             <div class="product-number-rating clearfix">
