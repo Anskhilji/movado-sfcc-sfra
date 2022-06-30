@@ -4,6 +4,7 @@
     dataLayer = window.dataLayer = window.dataLayer || [];
     pageDataGTM = {};
     checkoutDataLayer = [];
+    abTestDataLayer = [];
     var gtm_PageType = '${pdict.gtm.pageType}';
     pageDataGTM = {
         'tenant': '${pdict.gtm.tenant}',
@@ -42,7 +43,7 @@
     
     <isif condition="${(pdict.gtm.pageType === 'Product Details Page' || pdict.gtm.pageName === 'quickview') && pdict.gtm.product}">
         dataLayer.push ({
-            'ecommerce':{ 
+            'ecommerce':{
             'detail': { "actionField": {"list": "detail"},
                 'products':[ {
                     'id': '${pdict.gtm.product.productID}',
@@ -54,9 +55,17 @@
                     'variant': '${pdict.gtm.product.productPersonalization}',
                     'list': '${pdict.gtm.product.list}',
                     'currency': '${pdict.gtm.product.currency}',
-                    'quantity': '${pdict.gtm.product.quantity}'
-                }]
-            }
+                    'quantity': '${pdict.gtm.product.quantity}',
+                }],
+                'runningAbTests':[
+                    <isloop items="${pdict.gtm.product.runningAbTest}" var="abTestArray" status="status">
+                        {
+                            'runningAbTest': '${abTestArray.runningAbTest}',
+                        }
+                        <isif condition= "${status.index < pdict.gtm.product.runningAbTest.length-1}">,</isif>
+                    </isloop>
+                ]
+            },
         },
         "event": "productDetail"
         });
@@ -68,6 +77,7 @@
                 {'ecommerce':{
                     "products": [
                         <isloop items="${checkoutObj}" var="produtArray" status="status">
+                        <isif condition="${!produtArray.runningAbTest}">
                             {'name': '${produtArray.cartObj.name}',
                             'id':  '${produtArray.cartObj.id}',
                             'price': '${produtArray.cartObj.price}',
@@ -90,6 +100,17 @@
                             'subTotal': '${produtArray.cartObj.subTotal}',
                             'discount': '${produtArray.cartObj.discount}',
                             'orderlevelDiscount': '${produtArray.cartObj.orderlevelDiscount}'}
+                            </isif>
+                            <isif condition= "${status.index < checkoutObj.length-1}">,</isif>
+                        </isloop>
+                    ],
+                    'runningAbTests':[
+                        <isloop items="${checkoutObj}" var="abTestArray" status="status">
+                            <isif condition="${abTestArray.runningAbTest}">
+                                {
+                                    'runningAbTest': '${abTestArray.runningAbTest}',
+                                }
+                            </isif>
                             <isif condition= "${status.index < checkoutObj.length-1}">,</isif>
                         </isloop>
                     ]
@@ -107,6 +128,7 @@
                     'actionField':{'step': '<isprint value="${pdict.gtm.checkoutStage}" formatter="#" />', 'option':'${pdict.gtm.checkoutAction}'},
                     "products": [
                         <isloop items="${checkoutObj}" var="produtArray" status="status">
+                        <isif condition="${!produtArray.runningAbTest}">
                             {'id': '${produtArray.cartObj.id}',
                             'name':  '${produtArray.cartObj.name}',
                             'price': '${produtArray.cartObj.price}',
@@ -127,9 +149,20 @@
                             'subTotal': '${produtArray.cartObj.subTotal}',
                             'paymentMethod': '${produtArray.cartObj.paymentMethod}',
                             'orderlevelDiscount': '${produtArray.cartObj.orderlevelDiscount}'}
+                        </isif>
                             <isif condition= "${status.index < checkoutObj.length-1}">,</isif>
                         </isloop>
-                            ]
+                            ],
+                    'runningAbTests':[
+                        <isloop items="${checkoutObj}" var="abTestArray" status="status">
+                            <isif condition="${abTestArray.runningAbTest}">
+                                {
+                                    'runningAbTest': '${abTestArray.runningAbTest}',
+                                }
+                            </isif>
+                            <isif condition= "${status.index < checkoutObj.length-1}">,</isif>
+                        </isloop>
+                    ]
                         }
                     },
             "event": "checkout"}
@@ -145,6 +178,9 @@
                 'actionField':{'step': '<isprint value="${pdict.gtm.checkoutStage}" formatter="#" />', 'option':'${pdict.gtm.checkoutAction}'},
                 "products": [
                     <isloop items="${checkoutObj}" var="produtArray" status="status">
+                    <isif condition="${produtArray.runningAbTest}">
+                        <isbreak/>
+                    <iselse/>
                         {'id': '${produtArray.cartObj.id}',
                         'name':  '${produtArray.cartObj.name}',
                         'price': '${produtArray.cartObj.price}',
@@ -165,6 +201,7 @@
                         'subTotal': '${produtArray.cartObj.subTotal}',
                         'paymentMethod': '${produtArray.cartObj.paymentMethod}',
                         'orderlevelDiscount': '${produtArray.cartObj.orderlevelDiscount}'}
+                    </isif>
                         <isif condition= "${status.index < checkoutObj.length-1}">,</isif>
                     </isloop>
                 ]
@@ -174,6 +211,15 @@
             <isif condition= "${loopstatus.index < pdict.gtm.checkout.length-1}">,</isif>
         </isloop>
         );
+        <isloop items="${pdict.gtm.checkout}" var="checkoutObj" status="loopstatus">
+            <isloop items="${checkoutObj}" var="produtArray" status="status">
+                <isif condition="${produtArray.runningAbTest}">
+                    abTestDataLayer.push({
+                        'runningAbTest': '${produtArray.runningAbTest}'
+                    });
+                </isif>
+            </isloop>
+        </isloop>
     </isif>
     <isif condition="${pdict.gtm.action === 'order-confirm' && session.custom.orderJustPlaced === true}">
     dataLayer.push (
@@ -219,7 +265,21 @@
                     <isif condition= "${status.index < orderProdutsArray.length-2}">,</isif>
                 </isif>
             </isloop>
-               ]
+               ],
+               'runningAbTests':[
+                   <isloop items="${orderProdutsArray}" var="orderObj" status="loopStatus">
+                        <isif condition= "${orderObj.orderObj}">
+                            <isif condition= "${orderObj.orderObj.testSegment}">
+                                <isloop items="${orderObj.orderObj.testSegment}" var="testSegment" status="status">
+                                    {
+                                        'runningAbTest': '${testSegment.runningAbTest}',
+                                    }
+                                <isif condition= "${status.index < orderObj.orderObj.testSegment.length-1}">,</isif>
+                                </isloop>
+                            </isif>
+                        </isif>
+                    </isloop>
+                ]
             }
         }
   }

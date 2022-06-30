@@ -726,6 +726,7 @@ function getWishlistGtmObjforPDP(product) {
  */
 function getGtmProductClickObj(product, categoryName, position) {
     var productClickGtmObj = [];
+    var abTestParticipationSegments = getRunningAbTestSegments();
     if (categoryName != null) {
         productClickGtmObj.push({
             name: escapeQuotes(product.productName),
@@ -734,7 +735,8 @@ function getGtmProductClickObj(product, categoryName, position) {
             brand: product.brand,
             category: escapeQuotes(categoryName),
             position: position,
-            list: 'PLP'
+            list: 'PLP',
+            runningAbTest: abTestParticipationSegments
         });
     }	else {
         var productObj = ProductMgr.getProduct(product.id);
@@ -750,7 +752,8 @@ function getGtmProductClickObj(product, categoryName, position) {
             brand: product.brand,
             category: category,
             position: position,
-            list: 'Search Results'
+            list: 'Search Results',
+            runningAbTest: abTestParticipationSegments
         });
     }
 
@@ -766,6 +769,7 @@ function getGtmProductClickObj(product, categoryName, position) {
  */
 function getProductGtmObj(product, categoryName, position) {
     var productGtmObj = [];
+    var abTestParticipationSegments = getRunningAbTestSegments();
     if (categoryName != null) {
         productGtmObj.push({
 	          name: escapeQuotes(product.productName),
@@ -775,7 +779,8 @@ function getProductGtmObj(product, categoryName, position) {
 	          brand: product.brand,
 	          category: escapeQuotes(categoryName),
 	          list: 'PLP',
-	          position: position
+	          position: position,
+              runningAbTest: abTestParticipationSegments
 	         });
     }	else {
         var productObj = ProductMgr.getProduct(product.id);
@@ -791,11 +796,30 @@ function getProductGtmObj(product, categoryName, position) {
 	          brand: product.brand,
 	          category: category,
 	          list: 'Search Results',
-	          position: position
+	          position: position,
+              runningAbTest: abTestParticipationSegments
 	         });
     }
 
     return productGtmObj[0];
+}
+
+/**
+ * Function return running AB test segments
+ * @returns segmentsArray 
+ */
+ function getRunningAbTestSegments() {
+    var ABTestMgr = require('dw/campaign/ABTestMgr');
+    var assignedTestSegmentsIterator = ABTestMgr.getAssignedTestSegments().iterator();
+    var abTestParticipationSegments = [];
+
+    while (assignedTestSegmentsIterator.hasNext()) {
+        abTestSegment = assignedTestSegmentsIterator.next();
+        abTestParticipationSegments.push({
+            runningAbTest: abTestSegment.ABTest.ID + '+' + abTestSegment.ID
+        });
+    }
+    return abTestParticipationSegments;
 }
 
 /**
@@ -829,7 +853,8 @@ function getQVGtmObj(product, categoryName) {
 	          brand: product.brand,
 	          category: category,
 	          list: 'Quick View',
-	          variant: variant
+	          variant: variant,
+              runningAbTest: [{runningAbTest: 'Quick View'}]
 	         });
     return productGtmObj[0];
 }
