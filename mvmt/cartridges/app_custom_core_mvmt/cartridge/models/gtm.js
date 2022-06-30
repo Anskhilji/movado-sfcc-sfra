@@ -690,7 +690,7 @@ function getBasketParameters() {
                         var productOptions = cartItem.optionProductLineItems;
                         for (var i = 0; i < productOptions.length; i++) {
                             optionProducts = {
-                                id: productOptions[i].optionID == 'clydeWarranty' ? productOptions[i].optionID : '',
+                                id: productOptions[i].optionID == 'clydeWarranty' ? productOptions[i].optionValueID : '',
                                 price: productOptions[i].optionID == 'clydeWarranty' ? productOptions[i].adjustedPrice : ''
                             }
                         }
@@ -985,7 +985,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
                         var productOptions = productLineItem.optionProductLineItems;
                         for (var i = 0; i < productOptions.length; i++) {
                             var optionProducts = {
-                                id: productOptions[i].optionID == 'clydeWarranty' ? productOptions[i].optionID : '',
+                                id: productOptions[i].optionID == 'clydeWarranty' ? productOptions[i].optionValueID : '',
                                 price: productOptions[i].optionID == 'clydeWarranty' ? productOptions[i].adjustedPrice : ''
                             }
                         }
