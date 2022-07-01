@@ -147,6 +147,7 @@ $font-awesome: "FontAwesome";
 // Larger Screen
 $small-screen-width: 320px;
 $small-screen-width375: 375px;
+$medium-screen-width-xs: 600px;
 $medium-screen-width: 768px;
 $medium-screen-width800: 800px;
 $large-screen-width: 1400px;
@@ -179,6 +180,13 @@ $large-screen-width-1440: 1440px;
 // For screen 320px to 375px
 @mixin custom-media-query2($small-screen-width, $small-screen-width375) {
     @media (min-width:#{$small-screen-width}) and (max-width:#{$small-screen-width375}) {
+        @content;
+    }
+}
+
+// For screen 600px to 768px
+@mixin custom-media-query-xs-small($medium-screen-width-xs, $medium-screen-width) {
+    @media (min-width:#{$medium-screen-width-xs}) and (max-width:#{$medium-screen-width}) {
         @content;
     }
 }
