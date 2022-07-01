@@ -900,19 +900,23 @@ header {
             &.card-heading-wrapper {
                 margin-bottom: rem(30);
                 padding: rem(0);
-                color: $grey8;
+                color: $light-black4;
                 font-size: rem(15);
                 font-weight: 500;
                 letter-spacing: rem(0.7);
                 line-height: rem(21);
         
                 h4 {
-                    color: $grey8;
+                    color: $light-black4;
                     font-size: rem(15);
                     font-weight: 500;
                     letter-spacing: rem(0.7);
                     line-height: rem(21);
                 }
+            }
+            
+            &.card-summary-wrapper-container {
+                margin-bottom: rem(22);
             }
         }
 
@@ -1094,61 +1098,93 @@ header {
         }
     }
 }
+.data-checkout-stage {
+    
+    .leading-lines {
 
-.leading-lines {
-
-    &.leading-lines-wrapper {
-
-        .start-lines {
-
-            .order-receipt-label {
-                margin-bottom: rem(0);
-                color: $black;
-                font-size: rem(13);
-                font-weight: 300;
-                letter-spacing: rem(0.7);
-                line-height: rem(20);
-
-                span {
+        &.leading-lines-wrapper {
+    
+            .start-lines {
+    
+                .order-receipt-label {
+                    margin-bottom: rem(0);
+                    color: $light-black4;
                     font-size: rem(13);
                     font-weight: 300;
                     letter-spacing: rem(0.7);
                     line-height: rem(20);
-                    text-transform: capitalize;
-                    background-color: transparent;
+    
+                    span {
+                        font-size: rem(13);
+                        font-weight: 300;
+                        letter-spacing: rem(0.7);
+                        line-height: rem(20);
+                        text-transform: capitalize;
+                        background-color: transparent;
+                    }
+                }
+            }
+    
+            .end-lines {
+    
+                .text-right {
+                    
+                    &.tax-total {
+                        color: $light-black4;
+                        font-size: rem(13);
+                        font-weight: 300;
+                        letter-spacing: rem(0.7);
+                        line-height: rem(20);
+                        background-color: transparent;
+                    }
+    
+                    span {
+                        color: $light-black4;
+                        font-size: rem(13);
+                        font-weight: 300;
+                        letter-spacing: rem(0.7);
+                        line-height: rem(20);
+                        background-color: transparent;
+    
+                        &.product-discount-total {
+                            color: $gossamer;
+                            background-color: transparent;
+                        }
+    
+                        &.order-discount-total {
+                            color: $gossamer;
+                            background-color: transparent;
+                        }
+
+                        &.shipping-total-cost {
+                            color: $gossamer;
+                        }
+                    }
                 }
             }
         }
+    }
 
-        .end-lines {
+    .grand-total {
 
-            .text-right {
-                
-                &.tax-total {
-                    color: $black;
-                    font-size: rem(13);
-                    font-weight: 300;
-                    letter-spacing: rem(0.7);
-                    line-height: rem(20);
-                    background-color: transparent;
+        &.grand-total-wrapper {
+
+            .start-lines {
+
+                .order-receipt-label {
+                    color: $light-black4;
                 }
+            }
 
-                span {
-                    color: $black;
-                    font-size: rem(13);
-                    font-weight: 300;
-                    letter-spacing: rem(0.7);
-                    line-height: rem(20);
-                    background-color: transparent;
+            .end-lines {
 
-                    &.product-discount-total {
-                        color: $gossamer;
-                        background-color: transparent;
-                    }
+                .text-right {
 
-                    &.order-discount-total {
-                        color: $gossamer;
-                        background-color: transparent;
+                    .grand-total {
+
+                        &.grand-total-sum {
+                            color: $light-black4;
+                        }
                     }
                 }
             }

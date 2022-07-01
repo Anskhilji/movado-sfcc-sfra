@@ -753,7 +753,7 @@ div {
                         + .promo-code-coupon-label {
                             transition: 0.25s ease-in-out;
                             top: 0;
-                            left: rem(13.616);
+                            left: rem(12.8);
                             height: rem(24);
                             color: $grey17;
                             font-size: rem(10);
@@ -769,7 +769,7 @@ div {
                 .promo-code-coupon-label {
                     position: absolute;
                     top: rem(16);
-                    left: rem(13.616);
+                    left: rem(12.8);
                     color: $grey17;
                     transition: 0.25s ease-in-out;
                     width: 100%;
@@ -781,7 +781,7 @@ div {
                     &.input-has-value {
                         transition: 0.25s ease-in-out;
                         top: 0;
-                        left: rem(13.616);
+                        left: rem(12.8);
                         height: rem(24);
                         color: $grey17;
                         font-size: rem(10);

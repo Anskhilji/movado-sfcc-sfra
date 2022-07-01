@@ -1262,112 +1262,121 @@ $stored-payment-spacing: rem(16);
     .order-product-summary {
       
         .product-summary-block {
-      
-            .product-card-wrapper {
-                padding: rem(0);
-                box-shadow: none;
-                border-radius: rem(0);
-                border: none;
-                border-bottom: rem(1) solid $grey-dark-3;
-                background-color: transparent;
 
-                &:last-child {
-                    border: none;
-                    border-bottom: none;
-                    margin-bottom: rem(0);
-                }
-        
-              .product-line-item-details {
-                  overflow: hidden;
-                  align-items: center;
-                  margin-bottom: rem(30);
-        
-                .item-image {
-                    width: rem(100);
-                    height: rem(100);
-                    margin-right: rem(21);
-        
-                    .product-image {
-                        width: rem(100);
-                        height: rem(100);
-                        max-height: rem(100);
-                    }
-                }
-        
-                .item-attributes {
-                    position: relative;
-                    overflow: hidden;
-                    width: 100%;
+            .card {
 
-                    .line-item-attributes {
-                        font-size: rem(12);
-                        font-weight: 500;
-                        letter-spacing: rem(0.7);
-                        line-height: rem(10);
-                        color: $grey18;
-                        margin-bottom: rem(10);
-                    }
-        
-                    .line-item-header {
-                        margin-bottom: rem(10);
-                        font-size: rem(16);
-                        font-weight: 500;
-                        letter-spacing: rem(0.7);
-                        line-height: rem(22);
-                        color: $light-black2;
-          
-                        .line-item-name {
-                            font-size: rem(16);
-                            font-weight: 500;
-                            letter-spacing: rem(0.7);
-                            line-height: rem(22);
-                            color: $light-black2;
-                        }
+                &.product-line-item {
+
+                    &.product-card-wrapper {
                       
-                        .item-options {
-
-                            .line-item-option {
-                                font-size: rem(12);
-                                font-weight: 500;
-                                letter-spacing: rem(0.7);
-                                line-height: rem(10);
-                                color: $grey18;
-                                margin-bottom: rem(10);
+                        &.product-card-container {
+                            padding: rem(0);
+                            box-shadow: none;
+                            border-radius: rem(0);
+                            border: none;
+                            border-bottom: rem(1) solid $grey-dark-3;
+                            background-color: transparent;
+          
+                            &:last-child {
+                                border: none;
+                                border-bottom: none !important;
+                                margin-bottom: rem(0);
+                            }
+                  
+                            .product-line-item-details {
+                                overflow: hidden;
+                                margin-bottom: rem(30);
+                      
+                                .item-image {
+                                    width: rem(100);
+                                    height: rem(100);
+                                    margin-right: rem(21);
+                        
+                                    .product-image {
+                                        width: rem(100);
+                                        height: rem(100);
+                                        max-height: rem(100);
+                                    }
+                                }
+                      
+                                .item-attributes {
+                                    position: relative;
+                                    overflow: hidden;
+                                    width: 100%;
+                
+                                    .line-item-attributes {
+                                        font-size: rem(12);
+                                        font-weight: 500;
+                                        letter-spacing: rem(0.7);
+                                        line-height: rem(10);
+                                        color: $grey18;
+                                        margin-bottom: rem(10);
+                                    }
+                        
+                                    .line-item-header {
+                                        margin-bottom: rem(10);
+                                        font-size: rem(16);
+                                        font-weight: 500;
+                                        letter-spacing: rem(0.7);
+                                        line-height: rem(22);
+                                        color: $light-black2;
+                          
+                                        .line-item-name {
+                                            font-size: rem(16);
+                                            font-weight: 500;
+                                            letter-spacing: rem(0.7);
+                                            line-height: rem(22);
+                                            color: $light-black2;
+                                            text-transform: unset;
+                                        }
+                                      
+                                        .item-options {
+                
+                                            .line-item-option {
+                                                font-size: rem(12);
+                                                font-weight: 500;
+                                                letter-spacing: rem(0.7);
+                                                line-height: rem(10);
+                                                color: $grey18;
+                                                margin-bottom: rem(10);
+                                            }
+                                        }
+                
+                                        .item-personalization {
+                  
+                                            .line-item-option {
+                                                font-size: rem(12);
+                                                font-weight: 500;
+                                                letter-spacing: rem(0.7);
+                                                line-height: rem(10);
+                                                color: $grey18;
+                                                margin-bottom: rem(10);
+                  
+                                                .personalize-price {
+                                                    font-size: rem(12);
+                                                    font-weight: 500;
+                                                    letter-spacing: rem(0.7);
+                                                    line-height: rem(10);
+                                                    color: $grey18;
+                                                    margin-bottom: rem(10);
+                                                }
+                  
+                                                .personalize-msg {
+                                                    font-size: rem(12);
+                                                    font-weight: 500;
+                                                    letter-spacing: rem(0.7);
+                                                    line-height: rem(10);
+                                                    color: $grey18;
+                                                    margin-bottom: rem(10);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
-
-                      .item-personalization {
-
-                          .line-item-option {
-                              font-size: rem(12);
-                              font-weight: 500;
-                              letter-spacing: rem(0.7);
-                              line-height: rem(10);
-                              color: $grey18;
-                              margin-bottom: rem(10);
-
-                              .personalize-price {
-                                  font-size: rem(12);
-                                  font-weight: 500;
-                                  letter-spacing: rem(0.7);
-                                  line-height: rem(10);
-                                  color: $grey18;
-                                  margin-bottom: rem(10);
-                              }
-
-                              .personalize-msg {
-                                  font-size: rem(12);
-                                  font-weight: 500;
-                                  letter-spacing: rem(0.7);
-                                  line-height: rem(10);
-                                  color: $grey18;
-                                  margin-bottom: rem(10);
-                              }
-                          }
-                      }
                     }
                 }
-              }
             }
         }
     }

@@ -172,7 +172,7 @@
         </div>
     </div>
 
-    <div class="line-item-promo item-${lineItem.UUID}">
+    <iscomment> <div class="line-item-promo item-${lineItem.UUID}">
         <isinclude template="checkout/productCard/productCardProductPromotions" />
-    </div>
+    </div> </iscomment>
 </div>
