@@ -458,7 +458,12 @@ function updateMultiShipInformation(order) {
     var $checkbox = $('[name=usingMultiShipping]');
     var $submitShippingBtn = $('button.submit-shipping');
     $('.shipping-error .alert-danger').remove();
-    $('.info-icon.info-icon-email').removeClass('icon-right-wrapper');
+
+    if ($('.form-control.input-wrapper-checkout').hasClass('is-invalid')) {
+        $('.form-control.input-wrapper-checkout').closest('.mx-field-wrapper').find('.info-icon.info-icon-email').addClass('icon-right-wrapper');
+    } else {
+        $('.info-icon.info-icon-email').removeClass('icon-right-wrapper');
+    }
 
     if (order.usingMultiShipping) {
         $checkoutMain.addClass('multi-ship');

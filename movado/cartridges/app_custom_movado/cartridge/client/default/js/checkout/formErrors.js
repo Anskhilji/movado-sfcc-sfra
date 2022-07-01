@@ -14,7 +14,11 @@ function loadFormErrors(parentSelector, fieldErrors) { // eslint-disable-line
         .html(fieldErrors[attr]);
         if($('*[name=' + attr + ']').hasClass('is-invalid')) {
             $('*[name=' + attr + ']').closest('.mx-field-wrapper').find('.info-icon.info-icon-email').addClass('icon-right-wrapper');
-        }     
+        }
+        else {
+            $('.mx-field-wrapper').find('.info-icon.info-icon-email').removeClass('icon-right-wrapper');
+        }
+        $('.checkout-form-error').removeClass('d-none');
     });
 }
 module.exports = {
