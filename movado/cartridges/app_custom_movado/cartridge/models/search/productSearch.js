@@ -247,8 +247,11 @@ function getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams) {
             pid: searchHitResultProduct.productID
         };
         factoryProduct = ProductFactory.get(paramContainer);
-        factoryProductSalesPrice = factoryProduct.price.sales.value;
-        if (factoryProductSalesPrice >= pmin && factoryProductSalesPrice <= pmax) {
+        if (!empty(factoryProduct) && !empty(factoryProduct.price) && !empty(factoryProduct.price.sales) && !empty(factoryProduct.price.sales.value)) {
+            factoryProductSalesPrice = factoryProduct.price.sales.value;
+        }
+        
+        if (!empty(factoryProductSalesPrice) && factoryProductSalesPrice >= pmin && factoryProductSalesPrice <= pmax) {
             allFactoryProducts.push(factoryProduct);
         } else if (typeof pmin === 'undefined' || typeof pmax === 'undefined') {
             allFactoryProducts.push(factoryProduct);
