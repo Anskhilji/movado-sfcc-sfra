@@ -854,23 +854,23 @@ module.exports = {
         });
     },
 
-    swatchesSlider: function () {
-        $('.product-tile-redesign .swatches').slick({
-            slidesToShow: 5,
-            slidesToScroll: 1,
-            infinite: true,
-            dots: false,
-            arrows: true,
-            responsive: [
-                {
-                    breakpoint: 544,
-                    settings: {
-                        slidesToShow: 3,
-                    }
-                },
-            ]
-        });
-    },
+    // swatchesSlider: function () {
+    //     $('.product-tile-redesign .swatches').slick({
+    //         slidesToShow: 5,
+    //         slidesToScroll: 1,
+    //         infinite: true,
+    //         dots: false,
+    //         arrows: true,
+    //         responsive: [
+    //             {
+    //                 breakpoint: 544,
+    //                 settings: {
+    //                     slidesToShow: 3,
+    //                 }
+    //             },
+    //         ]
+    //     });
+    // },
 
     strapNavSlider: function () {
         $('.straps-guide-nav').resize();
