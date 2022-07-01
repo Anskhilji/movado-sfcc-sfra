@@ -223,8 +223,8 @@ function getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams) {
     var allSortedProductsIds = [];
     var allSearchHitsProducts = [];
     var searchHitsProductsList;
-    var xSalesPrice;
-    var ySalesPrice
+    var xSalesPrice = 0;
+    var ySalesPrice = 0;
     var sortingOrder = '';
     var factoryProductSalesPrice;
     var pmin = httpParams.pmin;
@@ -258,8 +258,13 @@ function getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams) {
         }
     });
     allFactoryProducts.sort(function (x, y) {
-        xSalesPrice = x.price.sales.value;
-        ySalesPrice = y.price.sales.value;
+        if (!empty(x) && !empty(x.price) && !empty(x.price.sales) && !empty(x.price.sales.value)) {
+            xSalesPrice = x.price.sales.value;
+        }
+        if (!empty(y) && !empty(y.price) && !empty(y.price.sales) && !empty(y.price.sales.value)) {
+            ySalesPrice = y.price.sales.value;
+        }
+        
         if (sortingOrder === Constants.PRICE_LOW_TO_HIGH) {
             return xSalesPrice - ySalesPrice;
         } else if (sortingOrder === Constants.PRICE_HIGH_TO_LOW) {
