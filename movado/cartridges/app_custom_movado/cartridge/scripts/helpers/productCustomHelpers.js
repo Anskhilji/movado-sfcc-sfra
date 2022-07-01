@@ -853,8 +853,7 @@ function getQVGtmObj(product, categoryName) {
 	          brand: product.brand,
 	          category: category,
 	          list: 'Quick View',
-	          variant: variant,
-              runningAbTest: [{runningAbTest: 'Quick View'}]
+	          variant: variant
 	         });
     return productGtmObj[0];
 }

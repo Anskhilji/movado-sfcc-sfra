@@ -714,7 +714,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
         orderObj.orderCoupon = orderLevelCouponString;
         orderObj.country = order.billingAddress.countryCode.displayValue;
         orderObj.paymentMethod = paymentMethod;
-        orderObj.testSegment = abTestParticipationSegments;
+        orderObj.runningAbTest = abTestParticipationSegments;
         orderJSONArray.push({ orderObj: orderObj });
         gtmorderConfObj.push(orderJSONArray);
     }

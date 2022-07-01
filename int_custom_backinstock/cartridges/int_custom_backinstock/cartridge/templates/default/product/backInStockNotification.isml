@@ -1,4 +1,4 @@
--<isscript>
+<isscript>
     var assets = require('*/cartridge/scripts/assets');
     assets.addJs('/js/backInStockNotification.js');
 </isscript>

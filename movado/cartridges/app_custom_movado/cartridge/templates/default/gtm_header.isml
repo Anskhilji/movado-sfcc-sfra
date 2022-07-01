@@ -100,7 +100,7 @@
                             'subTotal': '${produtArray.cartObj.subTotal}',
                             'discount': '${produtArray.cartObj.discount}',
                             'orderlevelDiscount': '${produtArray.cartObj.orderlevelDiscount}'}
-                            </isif>
+                        </isif>
                             <isif condition= "${status.index < checkoutObj.length-1}">,</isif>
                         </isloop>
                     ],
@@ -212,10 +212,10 @@
         </isloop>
         );
         <isloop items="${pdict.gtm.checkout}" var="checkoutObj" status="loopstatus">
-            <isloop items="${checkoutObj}" var="produtArray" status="status">
-                <isif condition="${produtArray.runningAbTest}">
+            <isloop items="${checkoutObj}" var="abTestArray" status="status">
+                <isif condition="${abTestArray.runningAbTest}">
                     abTestDataLayer.push({
-                        'runningAbTest': '${produtArray.runningAbTest}'
+                        'runningAbTest': '${abTestArray.runningAbTest}'
                     });
                 </isif>
             </isloop>
@@ -267,14 +267,14 @@
             </isloop>
                ],
                'runningAbTests':[
-                   <isloop items="${orderProdutsArray}" var="orderObj" status="loopStatus">
+                   <isloop items="${orderProdutsArray}" var="orderObj" status="loopstatus">
                         <isif condition= "${orderObj.orderObj}">
-                            <isif condition= "${orderObj.orderObj.testSegment}">
-                                <isloop items="${orderObj.orderObj.testSegment}" var="testSegment" status="status">
+                            <isif condition= "${orderObj.orderObj.runningAbTest}">
+                                <isloop items="${orderObj.orderObj.runningAbTest}" var="abTestArray" status="status">
                                     {
-                                        'runningAbTest': '${testSegment.runningAbTest}',
+                                        'runningAbTest': '${abTestArray.runningAbTest}',
                                     }
-                                <isif condition= "${status.index < orderObj.orderObj.testSegment.length-1}">,</isif>
+                                <isif condition= "${status.index < orderObj.orderObj.runningAbTest.length-1}">,</isif>
                                 </isloop>
                             </isif>
                         </isif>

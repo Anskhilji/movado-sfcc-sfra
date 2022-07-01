@@ -7,6 +7,7 @@
     dataLayer = window.dataLayer = window.dataLayer || [];
     pageDataGTM = {};
     checkoutDataLayer = [];
+    abTestDataLayer = [];
     var gtm_PageType = '${pdict.gtm.pageType}';
     pageDataGTM = {
         'pageType': '${pdict.gtm.pageType}',
@@ -56,7 +57,15 @@
                     'currency': '${pdict.gtm.product.currency}',
                     'familyName': '${pdict.gtm.product.familyName}',
                     'productColor': '${pdict.gtm.product.productColor}'
-                }]
+                }],
+                'runningAbTests':[
+                    <isloop items="${pdict.gtm.product.runningAbTest}" var="abTestArray" status="status">
+                        {
+                            'runningAbTest': '${abTestArray.runningAbTest}',
+                        }
+                        <isif condition= "${status.index < pdict.gtm.product.runningAbTest.length-1}">,</isif>
+                    </isloop>
+                ]
             }
         },
         "event": "productDetail"
@@ -70,6 +79,7 @@
                 {'ecommerce':{
                     "products": [
                         <isloop items="${checkoutObj}" var="produtArray" status="status">
+                        <isif condition="${!produtArray.runningAbTest}">
                             {'name': '${produtArray.cartObj.name}',
                             'id':  '${produtArray.cartObj.id}',
                             'price': '${produtArray.cartObj.price}',
@@ -93,7 +103,19 @@
                             'discount': '${produtArray.cartObj.discount}',
                             'orderlevelDiscount': '${produtArray.cartObj.orderlevelDiscount}',
                             'familyName': '${produtArray.cartObj.familyName}',
-                            'productColor': '${produtArray.cartObj.productColor}'}
+                            'productColor': '${produtArray.cartObj.productColor}',
+                            'runningAbTest': '${produtArray.cartObj.runningAbTest}'}
+                        </isif>
+                            <isif condition= "${status.index < checkoutObj.length-1}">,</isif>
+                        </isloop>
+                    ],
+                    'runningAbTests':[
+                        <isloop items="${checkoutObj}" var="abTestArray" status="status">
+                            <isif condition="${abTestArray.runningAbTest}">
+                                {
+                                    'runningAbTest': '${abTestArray.runningAbTest}',
+                                }
+                            </isif>
                             <isif condition= "${status.index < checkoutObj.length-1}">,</isif>
                         </isloop>
                     ]
@@ -112,6 +134,7 @@
                     'actionField':{'step': ['<isprint value="${pdict.gtm.checkoutStage}" formatter="#" />']},
                     "products": [
                     <isloop items="${checkoutObj}" var="produtArray" status="status">
+                    <isif condition="${!produtArray.runningAbTest}">
                         {'name': '${produtArray.cartObj.name}',
                         'id':  '${produtArray.cartObj.id}',
                         'price': '${produtArray.cartObj.price}',
@@ -125,8 +148,19 @@
                         'barnd': '${produtArray.cartObj.brand}',
                         'familyName': '${produtArray.cartObj.familyName}',
                         'productColor': '${produtArray.cartObj.productColor}'}
+                    </isif>
                         <isif condition= "${status.index < checkoutObj.length-1}">,</isif>
                     </isloop>
+                    ],
+                    'runningAbTests':[
+                        <isloop items="${checkoutObj}" var="abTestArray" status="status">
+                            <isif condition="${abTestArray.runningAbTest}">
+                                {
+                                    'runningAbTest': '${abTestArray.runningAbTest}',
+                                }
+                            </isif>
+                            <isif condition= "${status.index < checkoutObj.length-1}">,</isif>
+                        </isloop>
                     ]
                 }
             },
@@ -144,6 +178,9 @@
                 'actionField':{'step': ['<isprint value="${pdict.gtm.checkoutStage}" formatter="#" />']},
                 "products": [
                 <isloop items="${checkoutObj}" var="produtArray" status="status">
+                <isif condition="${produtArray.runningAbTest}">
+                    <isbreak/>
+                <iselse/>
                     {'name': '${produtArray.cartObj.name}',
                     'id':  '${produtArray.cartObj.id}',
                     'price': '${produtArray.cartObj.price}',
@@ -170,6 +207,7 @@
                     'orderlevelDiscount': '${produtArray.cartObj.orderlevelDiscount}',
                     'familyName': '${produtArray.cartObj.familyName}',
                     'productColor': '${produtArray.cartObj.productColor}'}
+                </isif>
                     <isif condition= "${status.index < checkoutObj.length-1}">,</isif>
                 </isloop>
                 ]
@@ -179,6 +217,15 @@
             <isif condition= "${loopstatus.index < pdict.gtm.checkout.length-1}">,</isif>
             </isloop>
         );
+         <isloop items="${pdict.gtm.checkout}" var="checkoutObj" status="loopstatus">
+            <isloop items="${checkoutObj}" var="abTestArray" status="status">
+                <isif condition="${abTestArray.runningAbTest}">
+                    abTestDataLayer.push({
+                        'runningAbTest': '${abTestArray.runningAbTest}'
+                    });
+                </isif>
+            </isloop>
+        </isloop>
     </isif>
 
 // Custom Start: Update Product order confirmation Page Data layer according to mvmt.
@@ -237,7 +284,21 @@
                                 <isif condition= "${status.index < orderProdutsArray.length-2}">,</isif>
                             </isif>
                         </isloop>
-                    ]
+                    ],
+                    'runningAbTests':[
+                   <isloop items="${orderProdutsArray}" var="orderObj" status="loopstatus">
+                        <isif condition= "${orderObj.orderObj}">
+                            <isif condition= "${orderObj.orderObj.runningAbTest}">
+                                <isloop items="${orderObj.orderObj.runningAbTest}" var="abTestArray" status="status">
+                                    {
+                                        'runningAbTest': '${abTestArray.runningAbTest}',
+                                    }
+                                <isif condition= "${status.index < orderObj.orderObj.runningAbTest.length-1}">,</isif>
+                                </isloop>
+                            </isif>
+                        </isif>
+                    </isloop>
+                ]
                 }
             }
         }

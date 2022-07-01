@@ -421,7 +421,7 @@ var updateCheckoutStage = function () {
              dataLayer.push({ ecommerce: { checkout: {
                  actionField: { step: checkoutStep, option: checkoutStage },
                  products: productObj,
-                runningAbTest: abTestDataLayer
+                 runningAbTest: abTestDataLayer
                 }
              },
                  event: 'checkout' });
@@ -526,7 +526,7 @@ var carouselAfterChangeEvent = function () {
             if (productData) {
                 currency = productData.currency;
                 productData.list = 'carousel';
-                productDataArray.push(            { 
+                productDataArray.push({ 
                     name: productData.name,
                     id: productData.id,
                     price: productData.price,
