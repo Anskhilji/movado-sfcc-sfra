@@ -56,7 +56,7 @@ function gtmModel(req) {
     }
     if (action.equals('cart-show') || reqQueryString.urlAction.indexOf('Checkout') > -1) {
         this.checkout = [];
-        var testin = getCartJSONArray(this.checkout);
+        getCartJSONArray(this.checkout);
         if (action.equals('checkout-login')) {
             this.checkoutAction = 'checkout';
             checkoutStage = 1;
