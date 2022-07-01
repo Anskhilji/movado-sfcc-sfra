@@ -62,7 +62,7 @@
                     <div class="hidden-sm-down">
                         <isinclude template="product/components/pidRating" />
                     </div>
-                    <div class="row mt-4 description">
+                    <div class="row mt-4 product-description description">
                         <isinclude template="product/components/description" />
                     </div>
                     
@@ -197,7 +197,16 @@
                                 </isif>
                            </div>
 
-                            <isif condition="${sitePref.enableBackInStock}">
+                            <isif condition="${sitePref.enableBackInStock && !sitePref.Listrak_EnableBackInStockSms && !sitePref.Listrak_EnableBackInStockEmail}">
+                                <isinclude template="product/backInStockNotification" sf-toolkit="on" />                                
+                            <iselseif condition="${isListrakEnable}">
+                                <isif condition="${sitePref.Listrak_EnableBackInStockSms || sitePref.Listrak_EnableBackInStockEmail}">
+                                    <isinclude template="product/listrackBackInstock" sf-toolkit="on" />
+                                <iselse>
+                                    <isinclude template="product/backInStockNotification" sf-toolkit="on" />
+                                </isif>
+                            </iselseif> 
+                            <iselse>
                                 <isinclude template="product/backInStockNotification" sf-toolkit="on" />
                             </isif>
                         </div>

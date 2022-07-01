@@ -115,33 +115,22 @@ function getProductAttributes(apiProduct) {
 }
 
 /**
- * It is used to get if current product belongs to watches category
+ * Method used to check if current product belongs to watches category
  * @param {Object} apiProduct - apiProduct is from ProductMgr
- * @returns {Boolean} - true if product belongs to watches
+ * @returns {Boolean} isWatchTile - true if product belongs to watches
  */
 
-function getIsWatchTile(apiProduct) {
-    var isWatchTile = false;
-    var currentCategory = null;
-    var apiCategories = apiProduct.getOnlineCategories().iterator();
-    while (apiCategories.hasNext()) {
-        currentCategory = apiCategories.next();
-
-        if (!empty(currentCategory) && currentCategory.ID == Constants.WATCHES_CATEGORY) {
-            isWatchTile = true;
-            break; // break outer loop
+ function getIsWatchTile(apiProduct) {
+    try {
+        if (!empty(apiProduct)) {
+        var isWatchTile = !empty(apiProduct.custom.isWatchTile) ? apiProduct.custom.isWatchTile : false;
         }
+        return isWatchTile;
         
-        while (currentCategory.parent != null) {
-            currentCategory = currentCategory.parent;
-            if (!empty(currentCategory) && currentCategory.ID == Constants.WATCHES_CATEGORY) {
-                isWatchTile = true;
-                break; // break inner loop
-            }
-        }
-        break; // break outer loop
+    } catch (e) {
+        Logger.error('(productCustomHelper.js -> getIsWatchTile) Error occured while checking is it watch tile: ' + e.stack, e.message, apiProduct.ID);
+        return false;
     }
-    return isWatchTile;
 }
 
 /**
@@ -370,28 +359,6 @@ function getCaseDiameter(apiProduct, isRedesigned, caseDiametterUnitPdp) {
 }
 
 /**
- * Method use to get content asset HTML to render on PDP
- * @param {Product} apiProduct
- * @returns {String} content asset HTML
- */
-function getPDPContentAssetHTML (apiProduct) {
-    try {
-        var contentAssetID = !empty(apiProduct.custom.pdpContentAssetID) ? apiProduct.custom.pdpContentAssetID : '';
-        if (empty(contentAssetID) && apiProduct.variant) {
-            contentAssetID = !empty(apiProduct.masterProduct.custom.pdpContentAssetID) ? apiProduct.masterProduct.custom.pdpContentAssetID : '';
-        }
-        var pdpContentAsset = ContentMgr.getContent(contentAssetID);
-        var pdpContentAssetHTML;
-        if (pdpContentAsset  && pdpContentAsset.online && !empty(pdpContentAsset.custom.body) ) {
-            pdpContentAssetHTML = pdpContentAsset.custom.body.markup.toString();
-        }
-        return pdpContentAssetHTML;
-    } catch (e) {
-        Logger.error('(productCustomHelper.js -> getPDPContentAssetHTML) Error occured while getting pdp content asset html: ' + e.stack, e.message);
-        return '';
-    }
-}
-/**
  * Method use to get color name from product's custom attribute`
  * @param {Product} apiProduct
  * @returns {String }color name
@@ -567,7 +534,6 @@ movadoProductCustomHelper.getPdpDetailAndSpecsAttributes = getPdpDetailAndSpecsA
 movadoProductCustomHelper.getPdpCollectionContentAssetID = getPdpCollectionContentAssetID;
 movadoProductCustomHelper.getCurrentCountry = getCurrentCountry;
 movadoProductCustomHelper.getGtmPromotionObject = getGtmPromotionObject;
-movadoProductCustomHelper.getPDPContentAssetHTML = getPDPContentAssetHTML;
 movadoProductCustomHelper.getCaseDiameter = getCaseDiameter;
 movadoProductCustomHelper.getColor = getColor;
 movadoProductCustomHelper.getIsWatchTile = getIsWatchTile;
