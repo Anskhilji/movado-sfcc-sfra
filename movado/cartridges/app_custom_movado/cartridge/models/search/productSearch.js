@@ -130,7 +130,7 @@ function getShowMoreUrl(productSearch, httpParams, enableGridSlot, sortedProduct
         pageSize = Site.getCurrent().preferences.custom.eyewearPageSize;
     }
     var hitsCount;
-    var sortProductsOnBasisOfSalesPrice = Site.getCurrent().getCustomPreferenceValue('sortProductsOnBasisOfSalesPrice');
+    var sortProductsOnBasisOfSalesPrice = !empty(Site.current.preferences.custom.sortProductsOnBasisOfSalesPrice) ? Site.current.preferences.custom.sortProductsOnBasisOfSalesPrice : false;
     if (sortProductsOnBasisOfSalesPrice) {
         hitsCount = sortedProductSearchHits.length;
     } else {
@@ -211,7 +211,10 @@ function getPhrases(suggestedPhrases) {
  * @return {Object[]} - List of sorted products
  */
 function getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams) {
+    var Constants = require('*/cartridge/scripts/util/Constants');
+
     var ProductFactory = require('*/cartridge/scripts/factories/product');
+
     var paramContainer;
     var factoryProduct;
     var currentProduct;
@@ -254,9 +257,9 @@ function getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams) {
     allFactoryProducts.sort(function (x, y) {
         xSalesPrice = x.price.sales.value;
         ySalesPrice = y.price.sales.value;
-        if (sortingOrder === 'price-low-to-high') {
+        if (sortingOrder === Constants.PRICE_LOW_TO_HIGH) {
             return xSalesPrice - ySalesPrice;
-        } else if (sortingOrder === 'price-high-to-low') {
+        } else if (sortingOrder === Constants.PRICE_HIGH_TO_LOW) {
             return ySalesPrice - xSalesPrice;
         }
     });
