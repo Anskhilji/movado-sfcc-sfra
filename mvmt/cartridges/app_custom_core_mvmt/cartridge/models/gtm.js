@@ -681,6 +681,7 @@ function getBasketParameters() {
         var watchGender = '';
         var familyName = '';
         var productColor = '';
+        var isClydeEnabled = !empty(Site.current.preferences.custom.isClydeEnabled) ? Site.current.preferences.custom.isClydeEnabled : false;
 
         collections.forEach(cartItems, function (cartItem) {
             if (cartItem.product != null && cartItem.product.optionModel != null) {
@@ -698,6 +699,23 @@ function getBasketParameters() {
                 if (!empty(productObj.custom.color)) {
                     productColor = productObj.custom.color;
                 }
+
+                // Custom Start: Check for Clyde Option
+                if (isClydeEnabled) {
+                    if (cartItem.optionProductLineItems) {
+                        var optionId;
+                        var optionPrice;
+                        var optionProducts;
+                        var productOptions = cartItem.optionProductLineItems;
+                        for (var i = 0; i < productOptions.length; i++) {
+                            optionProducts = {
+                                id: productOptions[i].optionID == 'clydeWarranty' ? productOptions[i].optionValueID : '',
+                                price: productOptions[i].optionID == 'clydeWarranty' ? productOptions[i].adjustedPrice : ''
+                            }
+                        }
+                    } 
+                } 
+                // Custom End
 
                 var customCategory = watchGender + " " + jewelryType;
                 var productModel = productFactory.get({pid: cartItem.productID});
@@ -730,7 +748,9 @@ function getBasketParameters() {
                     // Custom Start : Added payment method
                     paymentMethod: paymentMethod,
                     familyName: familyName,
-                    productColor: productColor
+                    productColor: productColor,
+                    optionId: optionProducts ? optionProducts.id : '',
+                    optionPrice: optionProducts ? optionProducts.price : '' 
                 });
             }
         });
@@ -785,6 +805,8 @@ function getCartJSONArray(checkoutObject) {
             cartObj.paymentMethod = cartJSON[i].paymentMethod;
             cartObj.familyName = cartJSON[i].familyName;
             cartObj.productColor = cartJSON[i].productColor;
+            cartObj.optionId = (!empty(cartJSON[i].optionId)) ? cartJSON[i].optionId : '';
+            cartObj.optionPrice = (!empty(cartJSON[i].optionPrice)) ? formatMoney(cartJSON[i].optionPrice) : '';
 
             if (cartArray.length < 10) {
                 cartArray.push({
@@ -947,6 +969,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
             });
         });
 
+        var isClydeEnabled = !empty(Site.current.preferences.custom.isClydeEnabled) ? Site.current.preferences.custom.isClydeEnabled : false;
         var orderJSONArray = [];
         collections.forEach(order.productLineItems, function (productLineItem) {
             try {
@@ -973,6 +996,25 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
                 }
                 
                 var customCategory = watchGender + " " + jewelryType;
+                
+                // Custom Start: Check for Clyde Option
+                if (isClydeEnabled) {
+                    if (productLineItem.optionProductLineItems) {
+                        var optionId;
+                        var optionPrice;
+                        var optionProducts;
+                        var productOptions = productLineItem.optionProductLineItems;
+                        for (var i = 0; i < productOptions.length; i++) {
+                            var optionProducts = {
+                                id: productOptions[i].optionID == 'clydeWarranty' ? productOptions[i].optionValueID : '',
+                                price: productOptions[i].optionID == 'clydeWarranty' ? productOptions[i].adjustedPrice : ''
+                            }
+                        }
+                    }
+                }
+                optionId = optionProducts ? optionProducts.id : '';
+                optionPrice = optionProducts ? optionProducts.price :'';
+                // Custom End
 
                 produtObj.id = productLineItem.product.ID;
                 produtObj.name = stringUtils.removeSingleQuotes(productLineItem.product.name);
@@ -1014,9 +1056,10 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
                 produtObj.imageURL = productLineItem.product.image.absURL;
                 produtObj.productURL = URLUtils.url('Product-Show', 'pid', productLineItem.productID).abs().toString();
                 produtObj.quantity = productLineItem.quantityValue;
-
                 produtObj.itemCoupon = itemLevelCouponString;
-
+                produtObj.optionId = optionId ? optionId : '';
+                produtObj.optionPrice = optionPrice ? formatMoney(optionPrice) : '';
+                
                 if (orderJSONArray.length < 10) {
                     orderJSONArray.push({ productObj: produtObj });
                 } else {
