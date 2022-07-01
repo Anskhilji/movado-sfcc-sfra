@@ -914,7 +914,7 @@ header {
                     line-height: rem(21);
                 }
             }
-            
+
             &.card-summary-wrapper-container {
                 margin-bottom: rem(22);
             }
@@ -1095,6 +1095,10 @@ header {
                 }
             }
             
+        }
+        
+        &.data-checkout-stage-redesign {
+            padding-top: rem(0);
         }
     }
 }
