@@ -1,17 +1,21 @@
-<div class="form-group relative">
-    <label class="form-control-label field-label-wrapper field-select-wrapper-box" for="shipmentSelector">
-        ${Resource.msg('heading.ship.to.address', 'checkout', null)}
-    </label>
+<div class="row">
+    <div class="col-12 col-wrapper-space-left">
+        <div class="form-group relative">
+            <label class="form-control-label field-label-wrapper field-select-wrapper-box" for="shipmentSelector">
+                ${Resource.msg('heading.ship.to.address', 'checkout', null)}
+            </label>
 
-    <select name="shipmentSelector" class="addressSelector form-control custom-select custom-select-box"
-            data-create-shipment-url="${URLUtils.https('CheckoutAddressServices-CreateNewAddress')}"
-    >
-        <isinclude template="checkout/shipping/shipmentSelectorOptions" />
-    </select>
-    <i class="fa fa-angle-down"></i>
-    <div class="invalid-feedback"></div>
-    <div class="row">
-        <a class="col-6 text-left edit-address btn-show-details">${Resource.msg('action.edit.step', 'checkout', null)}</a>
-        <a class="col-6 text-right add-address btn-add-new">${Resource.msg('action.add.new', 'checkout', null)}</a>
+            <select name="shipmentSelector" class="addressSelector form-control custom-select custom-select-box"
+                    data-create-shipment-url="${URLUtils.https('CheckoutAddressServices-CreateNewAddress')}"
+            >
+                <isinclude template="checkout/shipping/shipmentSelectorOptions" />
+            </select>
+            <i class="fa fa-angle-down"></i>
+            <div class="invalid-feedback"></div>
+            <div class="row">
+                <a class="col-6 text-left edit-address btn-show-details">${Resource.msg('action.edit.step', 'checkout', null)}</a>
+                <a class="col-6 text-right add-address btn-add-new">${Resource.msg('action.add.new', 'checkout', null)}</a>
+            </div>
+        </div>
     </div>
 </div>

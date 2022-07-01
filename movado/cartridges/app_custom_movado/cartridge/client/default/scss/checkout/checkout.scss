@@ -1008,6 +1008,9 @@ header {
                 justify-content: center;
                 align-items: center;
                 max-width: 100%;
+                position: sticky;
+                bottom: rem(0);
+                background-color: $grey20;
             
                 .checkout-help-contact-info-container {
                     display: flex;
@@ -1288,12 +1291,5 @@ header {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    min-height: 100vh;
-    
-    @include media-breakpoint-up(md) {
-        min-height: 168vh;
-    }
-    @include media-breakpoint-up(lg) {
-        min-height: 100vh;
-    }
+    min-height: 70vh;
 }
