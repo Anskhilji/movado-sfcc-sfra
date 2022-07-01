@@ -41,7 +41,6 @@ function execute() {
     var locale = 'default';
     var product;
     var productID;
-    var productRating;
     var yotpoReviewsPage = '1';
     var yotpoResponseHTML = '';
 
@@ -59,7 +58,6 @@ function execute() {
             if (!empty(product)) {
                 productID = product.ID;
                 yotpoResponseHTML = ImportReviewModel.importReviewsAndRatings(productID, yotpoReviewsPage, isReview, locale);
-
                 if (!empty(yotpoResponseHTML)) {
                     Transaction.wrap(function () {
                         product.custom.yotpoStarRattings = yotpoResponseHTML;
@@ -75,6 +73,5 @@ function execute() {
     }
     return new Status(Status.OK);
 }
-
 /* Module Exports */
 exports.execute = execute;
