@@ -256,7 +256,7 @@ function getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams) {
         ySalesPrice = y.price.sales.value;
         if (sortingOrder === 'price-low-to-high') {
             return xSalesPrice - ySalesPrice;
-        } else if (sortingOrder === 'price-high-to-low') {
+        } else {
             return ySalesPrice - xSalesPrice;
         }
     });
@@ -336,8 +336,12 @@ function ProductSearch(productSearch, httpParams, sortingRule, sortingOptions, r
         }
         this.productIds = sortedPagingElements;
         this.count = sortedProductSearchHits.length;
-        productSearch.setPriceMin(parseInt(httpParams.pmin, 10));
-        productSearch.setPriceMax(parseInt(httpParams.pmax, 10));
+        if (httpParams.pmin) {
+            productSearch.setPriceMin(parseInt(httpParams.pmin, 10));
+        }
+        if (httpParams.pmax) {
+            productSearch.setPriceMax(parseInt(httpParams.pmax, 10));
+        }
     } else {
         this.productIds = collections.map(paging.pageElements, function (item) {
             return {
