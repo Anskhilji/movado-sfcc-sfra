@@ -62,7 +62,7 @@
                     <div class="hidden-sm-down">
                         <isinclude template="product/components/pidRating" />
                     </div>
-                    <div class="row mt-4 description">
+                    <div class="row mt-4 product-description description">
                         <isinclude template="product/components/description" />
                     </div>
                     
@@ -173,7 +173,7 @@
                                                         <isinclude template="product/components/smartGift" />
                                                     </isif>
                                                 </isif>
-                                                <div class="product-not-available-msg <isif condition="${!product.isProductRestricted}">d-none</isif>">${Resource.msg('esw.product.notavailable','esw',null)}</div>
+                                            <div class="product-not-available-msg <isif condition="${!product.isProductRestricted}">d-none</isif>">${Resource.msg('esw.product.notavailable','esw',null)}</div>
                                             <iselse/>
                                                 <isapplepay class="apple-pay-pdp btn mt-2" sku="${product.id}"></isapplepay>
                                                 <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}"> 
@@ -197,7 +197,16 @@
                                 </isif>
                            </div>
 
-                            <isif condition="${sitePref.enableBackInStock}">
+                            <isif condition="${sitePref.enableBackInStock && !sitePref.Listrak_EnableBackInStockSms && !sitePref.Listrak_EnableBackInStockEmail}">
+                                <isinclude template="product/backInStockNotification" sf-toolkit="on" />                                
+                            <iselseif condition="${isListrakEnable}">
+                                <isif condition="${sitePref.Listrak_EnableBackInStockSms || sitePref.Listrak_EnableBackInStockEmail}">
+                                    <isinclude template="product/listrackBackInstock" sf-toolkit="on" />
+                                <iselse>
+                                    <isinclude template="product/backInStockNotification" sf-toolkit="on" />
+                                </isif>
+                            </iselseif> 
+                            <iselse>
                                 <isinclude template="product/backInStockNotification" sf-toolkit="on" />
                             </isif>
                         </div>
@@ -210,7 +219,20 @@
                         </div>
                     </isif>
                 </div>
+                <div class="col-12 pdp-movado prices-add-to-cart-actions cart-sticky-wrapper-btn scroll-hidden">
+                    <!-- Prices -->
+                    <div class="prices">
+                        <iscomment> Custom Start: Product price shows when following requirements meet </iscomment>
+                        <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
+                            <isset name="price" value="${product.price}" scope="page" />
+                            <isinclude template="product/components/pricing/main" />
+                        </isif>
+                    </div>
+                    <!-- Cart and [Optionally] Apple Pay -->
+                    <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
+                </div>
             </div>
+            <div class="cart-wishlist-observer"></div>
         </div>
         <div class="container-fluid pdp-mobile detail-bg pdp-v-one">
             <isinclude template="product/components/descriptionAndDetails" />

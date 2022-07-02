@@ -150,7 +150,16 @@ module.exports = {
                 $(this).html(html);
             }
         });
-        $('.morelink-wrapper').on('click',function(){
+        $('.setitem-description .content').each(function() {
+            var content = $(this).html();
+            if(content.length > showChar) {
+                var c = content.substr(0, showChar);
+                var h = content.substr(showChar, content.length - showChar);
+                var html = c + '<span style="display:none" class="morecontent-wrapper"><span>' + h + '</span></span><a href="" class="morelink-wrapper" style="text-decoration: underline; display: inline-block; margin-left: 4px;">' + moretext + '</a>';
+                $(this).html(html);
+            }
+        });
+        $('.morelink-wrapper').on('click',function() {
             if($(this).hasClass('less')) {
                 $(this).removeClass('less');
                 $(this).html(moretext);

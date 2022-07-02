@@ -37,7 +37,7 @@
                 <div class="pricing-save">
                     <isset name="price" value="${product.price}" scope="page" />
                     <isif condition="${product.productType === 'set'}">
-                        <isinclude template="product/components/pricing/setPrice" />
+                        <isinclude template="product/components/productSet/setPrice" />
                     <iselse>
                         <isinclude template="product/components/pricing/main" />
                     </isif>
@@ -47,9 +47,9 @@
                         </span>
                     </isif>
                 </div>
-
                 <iscomment> new add to card button template addded </iscomment>
                 <isinclude template="product/components/addToCartPLP.isml" sf-toolkit="on" />
+
                 
             </div>
         </isif>

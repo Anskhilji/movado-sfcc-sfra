@@ -2,15 +2,17 @@
     <div class="pdp-link" itemprop="name">
         <iscomment> Custom: [added just a plp check here] </iscomment>
         <isif condition="${!pdict.display.plpTile}">
-            <isif condition="${product.productName}">
-                <a class="link product-name text-truncate-wrapper" href="${pdict.urls.product}" itemprop="url">${product.productName}</a>
-            </isif>    
+            <isif condition="${!empty(apiProduct.variationModel.defaultVariant.name)}">
+                <a class="link product-name text-truncate-wrapper" href="${pdict.urls.product}" itemprop="url">${apiProduct.variationModel.defaultVariant.name || ''}</a>
+            <iselse/>
+                <a class="link product-name text-truncate-wrapper" href="${pdict.urls.product}" itemprop="url">${product.productName || ''}</a>
+            </isif>
         <iscomment> Custom: Start [added this code for plp either it is master product or not] </iscomment>
-        <iselseif condition="${product.productType != 'master' || !product.defaultVariant}">
+        <iselseif condition="${product.productType != 'master' || !product.defaultVariant}"/>
             <isif condition="${product.productName}">
                 <a class="link product-name text-truncate-wrapper" href="${pdict.urls.product}" itemprop="url">${product.productName}</a>
-            </isif>      
-        <iselse>
+            </isif>
+        <iselse/>
             <a class="link product-name text-truncate-wrapper" href="${pdict.urls.product}" itemprop="url">${apiProduct.variationModel.defaultVariant.name}</a>
         </isif>
     </div>

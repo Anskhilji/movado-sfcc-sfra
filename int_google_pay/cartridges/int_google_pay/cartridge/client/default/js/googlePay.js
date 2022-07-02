@@ -326,6 +326,7 @@ function onGooglePayLoaded(isMiniCart) {
         window.dw.applepay &&
         window.ApplePaySession &&
         window.ApplePaySession.canMakePayments()) {
+        $('.googlepay-btn').remove();
         $('.google-pay-container').remove();
         $('#google-pay-container-mini-cart').remove();
         $('.google-pay-options').remove();
@@ -334,6 +335,7 @@ function onGooglePayLoaded(isMiniCart) {
     }
 
     if (isIE() || window.ApplePaySession) {
+        $('.googlepay-btn').remove();
         $('.google-pay-container').remove();
         $('#google-pay-container-mini-cart').remove();
         $('.google-pay-options').remove();

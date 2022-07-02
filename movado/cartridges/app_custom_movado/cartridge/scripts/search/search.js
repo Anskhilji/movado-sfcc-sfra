@@ -1,4 +1,5 @@
 'use strict';
+var Logger = require('dw/system/Logger');
 var Site = require('dw/system/Site');
 
 /**
@@ -10,35 +11,39 @@ var Site = require('dw/system/Site');
  * @param {dw.catalog.SortingRule} sortingRule - Product grid sort rule
  */
 function setProductProperties(productSearch, httpParams, selectedCategory, sortingRule) {
-    var searchPhrase;
-    var sortProductsOnBasisOfSalesPrice = Site.getCurrent().getCustomPreferenceValue('sortProductsOnBasisOfSalesPrice');
+    try {
+        var searchPhrase;
+        var sortProductsOnBasisOfSalesPrice = !empty(Site.current.preferences.custom.sortProductsOnBasisOfSalesPrice) ? Site.current.preferences.custom.sortProductsOnBasisOfSalesPrice : false;
 
-    if (httpParams.q) {
-        searchPhrase = decodeURIComponent(httpParams.q.replace(/\+/g, '%20'));
-        productSearch.setSearchPhrase(searchPhrase);
-    }
-    if (selectedCategory) {
-        productSearch.setCategoryID(selectedCategory.ID);
-    }
-    if (httpParams.pid) {
-        productSearch.setProductID(httpParams.pid);
-    }
-    if (!sortProductsOnBasisOfSalesPrice) {
-        if (httpParams.pmin) {
-            var httpParamsPmin = httpParams.pmin.replace(',','');
-            productSearch.setPriceMin(parseInt(httpParamsPmin, 10));
+        if (httpParams.q) {
+            searchPhrase = decodeURIComponent(httpParams.q.replace(/\+/g, '%20'));
+            productSearch.setSearchPhrase(searchPhrase);
         }
-        if (httpParams.pmax) {
-            var httpParamsPmax = httpParams.pmax.replace(',','');
-            productSearch.setPriceMax(parseInt(httpParamsPmax, 10));
+        if (!empty(selectedCategory) && selectedCategory) {
+            productSearch.setCategoryID(selectedCategory.ID);
         }
-    }
+        if (httpParams.pid) {
+            productSearch.setProductID(httpParams.pid);
+        }
+        if (!sortProductsOnBasisOfSalesPrice) {
+            if (httpParams.pmin) {
+                var httpParamsPmin = httpParams.pmin.replace(',','');
+                productSearch.setPriceMin(parseInt(httpParamsPmin, 10));
+            }
+            if (httpParams.pmax) {
+                var httpParamsPmax = httpParams.pmax.replace(',','');
+                productSearch.setPriceMax(parseInt(httpParamsPmax, 10));
+            }
+        }
 
-    if (sortingRule) {
-        productSearch.setSortingRule(sortingRule);
-    }
+        if (!empty(sortingRule) && sortingRule) {
+            productSearch.setSortingRule(sortingRule);
+        }
 
-    productSearch.setRecursiveCategorySearch(true);
+        productSearch.setRecursiveCategorySearch(true);
+    } catch(e) {
+        Logger.error('search.js -> setProductProperties) Error occurred while setting product properties. Error: {0} \n Message: {1} \n', e.stack, e.message);
+    }
 }
 
 /**

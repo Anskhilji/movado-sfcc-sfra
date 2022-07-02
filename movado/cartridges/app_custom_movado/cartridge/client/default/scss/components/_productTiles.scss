@@ -8,7 +8,7 @@
         }
     }
 }
- 
+
 .product-tile {
     @include media-breakpoint-down(md) {
         min-height: 23.4375em;
@@ -128,6 +128,7 @@
         border:1px solid $grey-dark;
         min-width: rem(125);
         min-height: rem(125);
+        scrollbar-width: none; /* Firefox 64 */
 
         .quickview {
             position: absolute;

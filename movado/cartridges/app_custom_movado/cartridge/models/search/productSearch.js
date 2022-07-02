@@ -130,7 +130,7 @@ function getShowMoreUrl(productSearch, httpParams, enableGridSlot, sortedProduct
         pageSize = Site.getCurrent().preferences.custom.eyewearPageSize;
     }
     var hitsCount;
-    var sortProductsOnBasisOfSalesPrice = Site.getCurrent().getCustomPreferenceValue('sortProductsOnBasisOfSalesPrice');
+    var sortProductsOnBasisOfSalesPrice = !empty(Site.current.preferences.custom.sortProductsOnBasisOfSalesPrice) ? Site.current.preferences.custom.sortProductsOnBasisOfSalesPrice : false;
     if (sortProductsOnBasisOfSalesPrice) {
         hitsCount = sortedProductSearchHits.length;
     } else {
@@ -211,7 +211,10 @@ function getPhrases(suggestedPhrases) {
  * @return {Object[]} - List of sorted products
  */
 function getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams) {
+    var Constants = require('*/cartridge/scripts/util/Constants');
+
     var ProductFactory = require('*/cartridge/scripts/factories/product');
+
     var paramContainer;
     var factoryProduct;
     var currentProduct;
@@ -220,8 +223,8 @@ function getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams) {
     var allSortedProductsIds = [];
     var allSearchHitsProducts = [];
     var searchHitsProductsList;
-    var xSalesPrice;
-    var ySalesPrice
+    var xSalesPrice = 0;
+    var ySalesPrice = 0;
     var sortingOrder = '';
     var factoryProductSalesPrice;
     var pmin = httpParams.pmin;
@@ -244,18 +247,28 @@ function getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams) {
             pid: searchHitResultProduct.productID
         };
         factoryProduct = ProductFactory.get(paramContainer);
-        factoryProductSalesPrice = factoryProduct.price.sales.value;
-        if (factoryProductSalesPrice >= pmin && factoryProductSalesPrice <= pmax) {
+        if (!empty(factoryProduct) && !empty(factoryProduct.price) && !empty(factoryProduct.price.sales) && !empty(factoryProduct.price.sales.value)) {
+            factoryProductSalesPrice = factoryProduct.price.sales.value;
+        }
+        
+        if (!empty(factoryProductSalesPrice) && factoryProductSalesPrice >= pmin && factoryProductSalesPrice <= pmax) {
             allFactoryProducts.push(factoryProduct);
         } else if (typeof pmin === 'undefined' || typeof pmax === 'undefined') {
             allFactoryProducts.push(factoryProduct);
         }
     });
     allFactoryProducts.sort(function (x, y) {
-        xSalesPrice = x.price.sales.value;
-        ySalesPrice = y.price.sales.value;
-        if (sortingOrder === 'price-low-to-high') {
+        if (!empty(x) && !empty(x.price) && !empty(x.price.sales) && !empty(x.price.sales.value)) {
+            xSalesPrice = x.price.sales.value;
+        }
+        if (!empty(y) && !empty(y.price) && !empty(y.price.sales) && !empty(y.price.sales.value)) {
+            ySalesPrice = y.price.sales.value;
+        }
+        
+        if (sortingOrder === Constants.PRICE_LOW_TO_HIGH) {
             return xSalesPrice - ySalesPrice;
+        } else if (sortingOrder === Constants.PRICE_HIGH_TO_LOW) {
+            return ySalesPrice - xSalesPrice;
         } else {
             return ySalesPrice - xSalesPrice;
         }
