@@ -696,7 +696,7 @@ div {
                 letter-spacing: rem(0.7);
                 line-height: rem(24);
                 text-transform: capitalize;
-
+                width: auto;
                 &::after {
                     content: "";
                 }
@@ -764,6 +764,10 @@ div {
                             pointer-events: none;
                         }
                     }
+
+                    &.is-invalid {
+                        border-color: $red;
+                    }
                 }
 
                 .promo-code-coupon-label {
@@ -800,7 +804,7 @@ div {
                 }
 
                 .coupon-error {
-                    margin: rem(10) 0;
+                    margin: rem(5) 0;
                 }
             }
         }

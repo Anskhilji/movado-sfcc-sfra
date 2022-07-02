@@ -414,7 +414,7 @@ header {
         }
     
         &.card-heading-wrapper {
-            margin-bottom: rem(30);
+            margin-bottom: rem(35);
             padding: rem(0);
             color: $grey8;
             font-size: rem(15);
@@ -443,8 +443,8 @@ header {
     .header-redesign-wrapper {
 
         @include custom-media-query-1440($large-screen-width-1440) {
-            max-width: 66%;
-            flex: 0 0 66%;
+            max-width: 65.278%;
+            flex: 0 0 65.278%;
         }
 
         .checkout-header-wrapper {
@@ -484,8 +484,8 @@ header {
         background: $grey20;
 
         @include custom-media-query-1440($large-screen-width-1440) {
-            flex: 0 0 34%;
-            max-width: 34%;
+            flex: 0 0 34.722%;
+            max-width: 34.722%;
             padding: 0;
         }
 

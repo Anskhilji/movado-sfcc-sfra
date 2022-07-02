@@ -908,8 +908,8 @@ header {
 
             @include custom-media-query-1440($large-screen-width-1440) {
                 padding: rem(0) rem(0) rem(0) rem(100);
-                max-width: 66%;
-                flex: 0 0 66%;
+                max-width: 65.278%;
+                flex: 0 0 65.278%;
             }
 
             .mx-shipping-box {
@@ -978,8 +978,8 @@ header {
             }
 
             @include custom-media-query-1440($large-screen-width-1440) {
-                max-width: 34%;
-                flex: 0 0 34%;
+                max-width: 34.722%;
+                flex: 0 0 34.722%;
                 padding: rem(0) rem(83) rem(0) rem(82);
             }
 
@@ -1032,6 +1032,7 @@ header {
                             font-weight: 500;
                             letter-spacing: rem(0.7);
                             line-height: rem(30);
+                            opacity: 0.8;
                         }
                     }
                 }
@@ -1088,7 +1089,7 @@ header {
         }
 
         &.card-heading-wrapper {
-            margin-bottom: rem(30);
+            margin-bottom: rem(35);
             padding: rem(0);
             color: $grey8;
             font-size: rem(15);
@@ -1120,8 +1121,8 @@ header {
             .header-redesign-wrapper {
 
                 @include custom-media-query-1440($large-screen-width-1440) {
-                    max-width: 66%;
-                    flex: 0 0 66%;
+                    max-width: 65.278%;
+                    flex: 0 0 65.278%;
                 }
     
                 .checkout-header-wrapper {
@@ -1154,8 +1155,8 @@ header {
                 background: $grey20;
     
                 @include custom-media-query-1440($large-screen-width-1440) {
-                    flex: 0 0 34%;
-                    max-width: 34%;
+                    flex: 0 0 34.722%;
+                    max-width: 34.722%;
                     padding: 0;
                 }
     
@@ -1271,6 +1272,40 @@ header {
                     }
                 }
             }
+
+            .header-menu-wrapper {
+                
+                &.header-container-checkout-guest {
+
+                    .checkout-header-wrapper {
+                        border-bottom: rem(1) solid $grey2;
+                
+                        @include media-breakpoint-up(xs) {
+                            border-bottom: rem(1) solid $grey2;
+                        }
+                
+                        .header-left {
+                
+                            &.align-start-box {
+                                margin: rem(0);
+
+                                @include media-breakpoint-up(md) {
+                                    max-width: 62%;
+                                }
+
+                                @include media-breakpoint-up(lg) {
+                                    max-width: 58.33%;
+                                }
+
+                                @include media-breakpoint-up(xl) {
+                                    max-width: 58.33%;
+                                    padding-left: rem(30);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -1293,3 +1328,4 @@ header {
     flex-direction: column;
     min-height: 70vh;
 }
+

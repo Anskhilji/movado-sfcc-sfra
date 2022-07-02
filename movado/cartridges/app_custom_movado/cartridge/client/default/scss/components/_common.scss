@@ -680,6 +680,8 @@ header~.container .promotions .callout a{
                 letter-spacing: rem(0.7);
                 line-height: rem(24);
                 text-transform: capitalize;
+                width: auto;
+                margin-bottom: rem(0);
 
                 &::after {
                     content: "";
@@ -747,6 +749,10 @@ header~.container .promotions .callout a{
                             pointer-events: none;
                         }
                     }
+
+                    &.is-invalid {
+                        border-color: $red;
+                    }
                 }
 
                 .promo-code-coupon-label {
@@ -783,7 +789,7 @@ header~.container .promotions .callout a{
                 }
 
                 .coupon-error {
-                    margin: rem(10) 0;
+                    margin: rem(5) 0;
                 }
             }
         }

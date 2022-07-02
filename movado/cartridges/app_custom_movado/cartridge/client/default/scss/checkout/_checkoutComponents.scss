@@ -115,7 +115,7 @@ $stored-payment-spacing: rem(16);
 
     &.data-checkout-stage-redesign {
         margin-bottom: rem(0);
-        padding-top: rem(16);
+        padding-top: rem(0);
 
         @include media-breakpoint-down(xs) {
             padding: rem(0);
@@ -342,7 +342,7 @@ $stored-payment-spacing: rem(16);
   
   &.data-checkout-stage-redesign {
       margin-bottom: rem(0);
-      padding-top: rem(16);
+      padding-top: rem(0);
 
       @include media-breakpoint-down(xs) {
           padding: rem(10) rem(20) rem(0);
@@ -772,8 +772,8 @@ $stored-payment-spacing: rem(16);
             }
 
             @include custom-media-query-1440($large-screen-width-1440) {
-                max-width: 34%;
-                flex: 0 0 34%;
+                max-width: 34.722%;
+                flex: 0 0 34.722%;
                 padding: rem(0) rem(83) rem(0) rem(82);
                 background-color: $grey20;
             }

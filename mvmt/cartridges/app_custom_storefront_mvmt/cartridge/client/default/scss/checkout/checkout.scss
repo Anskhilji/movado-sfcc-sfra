@@ -827,8 +827,8 @@ header {
     .left-section {
         @include custom-media-query-1440($large-screen-width-1440) {
             padding: rem(0) rem(0) rem(0) rem(100);
-            max-width: 66%;
-            flex: 0 0 66%;
+            max-width: 65.278%;
+            flex: 0 0 65.278%;
         }
 
         .mx-shipping-box {
@@ -882,8 +882,8 @@ header {
     .right-section {
 
         @include custom-media-query-1440($large-screen-width-1440) {
-            max-width: 34%;
-            flex: 0 0 34%;
+            max-width: 34.722%;
+            flex: 0 0 34.722%;
         }
 
         @include media-breakpoint-down(lg-media) {
@@ -898,7 +898,7 @@ header {
             }
         
             &.card-heading-wrapper {
-                margin-bottom: rem(30);
+                margin-bottom: rem(35);
                 padding: rem(0);
                 color: $light-black4;
                 font-size: rem(15);
@@ -958,6 +958,7 @@ header {
                         font-weight: 500;
                         letter-spacing: rem(0.7);
                         line-height: rem(30);
+                        opacity: 0.8;
                     }
                 }
             }
@@ -1206,8 +1207,8 @@ header {
         .header-redesign-wrapper {
 
             @include custom-media-query-1440($large-screen-width-1440) {
-                max-width: 66%;
-                flex: 0 0 66%;
+                max-width: 65.278%;
+                flex: 0 0 65.278%;
             }
     
             .checkout-header-wrapper {
@@ -1256,8 +1257,8 @@ header {
             background: $grey20;
     
             @include custom-media-query-1440($large-screen-width-1440) {
-                flex: 0 0 34%;
-                max-width: 34%;
+                flex: 0 0 34.722%;
+                max-width: 34.722%;
                 padding: 0;
             }
     

@@ -71,6 +71,13 @@
                     text-transform: uppercase;
                 }
 
+                .item-personalization {
+                    font-size: rem(12);
+                    letter-spacing: rem(0.7);
+                    line-height: rem(10);
+                    color: $grey18;
+                }
+
                 .item-options {
 
                     .line-item-option {
@@ -111,7 +118,7 @@
                         font-size: rem(12);
                         font-weight: 500;
                         letter-spacing: rem(0.86);
-                        line-height: rem(18);
+                        line-height: rem(10);
                         color: $grey18;
                         margin-bottom: rem(10);
                     }
@@ -120,13 +127,13 @@
                         font-size: rem(12);
                         font-weight: 500;
                         letter-spacing: rem(0.86);
-                        line-height: rem(18);
+                        line-height: rem(10);
                         margin-bottom: rem(10);
                     }
                     .total-amount {
                         font-size: rem(14);
                         letter-spacing: rem(0.86);
-                        line-height: rem(18);
+                        line-height: rem(10);
                         margin-bottom: rem(10);
                         color: $grey8;
                     }
