@@ -41,7 +41,21 @@
 
                     <div class="row">
                         <div class="col-sm-12">
-                            <isinclude template="product/components/pidRating" />
+                            <isset name="isYotpoStoreProductRatingEnabled" value="${!empty(dw.system.Site.current.preferences.custom.yotpoStoreProductRatingEnabled) ? dw.system.Site.current.preferences.custom.yotpoStoreProductRatingEnabled : false}" scope="page" />
+                            <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
+                                <div class="product-number-rating clearfix">
+                                    <div class="product-number hidden-xs-down pull-left">
+                                        <isinclude template="product/components/productNumber" />
+                                    </div>
+                                    <div class="ratings pull-right">
+                                        <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                                            <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            <iselse/>
+                                <isinclude template="product/components/pidRating" />
+                            </isif>
                         </div>
                     </div>
 
@@ -64,8 +78,21 @@
                     <h2 class="product-name prdouct-name-gtm d-sm-none d-md-block text-uppercase">${product.productName}</h2>
 
                     <iscomment> <p> <span>Model:</span> <span><isprint value="${product.id}" encoding="on" /></span> </p> </iscomment>
-                    <div class="d-block d-md-block d-sm-none">
-                        <isinclude template="product/components/pidRating" />
+                    <div class="d-block d-md-block hidden-sm-down">
+                        <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
+                            <div class="product-number-rating clearfix">
+                                <div class="product-number hidden-xs-down pull-left">
+                                    <isinclude template="product/components/productNumber" />
+                                </div>
+                                <div class="ratings pull-right">
+                                    <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                                        <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
+                                    </div>
+                                </div>
+                            </div>
+                        <iselse/>
+                            <isinclude template="product/components/pidRating" />
+                        </isif>
                     </div>
 
                     <div class="row">
