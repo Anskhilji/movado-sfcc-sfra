@@ -815,9 +815,14 @@ header~.container .promotions .callout a{
           line-height: rem(24);
           text-transform: capitalize;
           color: $cerulean;
+          cursor: pointer;
 
           &:hover {
               text-decoration: none;
+          }
+          
+          img {
+              padding-left: rem(5);
           }
       }
   }

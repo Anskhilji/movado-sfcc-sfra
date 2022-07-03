@@ -799,6 +799,7 @@ header~.container .promotions .callout a{
           overflow: auto;
           display: none;
           padding-bottom: rem(15);
+          padding: rem(24) rem(20) rem(0) rem(20);
       }
       
       .label-show-title {
@@ -808,9 +809,15 @@ header~.container .promotions .callout a{
           line-height: rem(24);
           text-transform: capitalize;
           color: $cerulean;
+          padding-left: rem(20);
+          cursor: pointer;
 
           &:hover {
             text-decoration: none;
+          }
+          
+          img {
+              padding-left: rem(5);
           }
       }
   }

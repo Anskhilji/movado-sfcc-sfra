@@ -488,12 +488,12 @@ header {
 
         @include media-breakpoint-up(lg-custom) {
             padding: 0;
-            margin: rem(56) auto rem(51);        
+            margin: rem(69.44) auto rem(51);        
         }
     
         @include custom-media-query-1440($large-screen-width-1440) {
             padding: 0;
-            margin: rem(58) auto rem(51);
+            margin: rem(69.44) auto rem(51);
         }
 
         li {
@@ -875,8 +875,19 @@ header {
             @include custom-media-query-1440($large-screen-width-1440) {
                 max-width: rem(700);
             }
-        }
 
+            &.card-border-none {
+
+                .card-body {
+
+                    .billing-address {
+                        @include custom-media-query-1440($large-screen-width-1440) {
+                            padding: rem(0) rem(7);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     .right-section {
@@ -998,10 +1009,10 @@ header {
             .form-group {
 
                 .input-wrapper-checkout {
-                    padding: rem(16) rem(12) rem(6) rem(12);
+                    padding: rem(16) rem(15) rem(6) rem(15);
 
                     &:focus {
-                        padding: rem(16) rem(12) rem(6) rem(12);
+                        padding: rem(16) rem(15) rem(6) rem(15);
                     }
 
                     
@@ -1036,6 +1047,13 @@ header {
                                 box-shadow: none;
                                 border-width: rem(1);
                                 padding: rem(14) rem(38) rem(9) rem(10);
+                            }
+
+                            &.is-invalid {
+
+                                &:focus {
+                                    border: rem(1) solid $invalid-red;
+                                }
                             }
                         }
 

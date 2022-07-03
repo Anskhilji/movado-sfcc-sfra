@@ -171,11 +171,11 @@ header {
 
         @include media-breakpoint-up(xl) {
             padding: 0;
-            margin: rem(89) auto rem(51);
+            margin: rem(105) auto rem(51);
         }
     
         @include custom-media-query-1440($large-screen-width-1440) {
-            margin: rem(89) auto rem(51);
+            margin: rem(105) auto rem(51);
         }
 
         li {

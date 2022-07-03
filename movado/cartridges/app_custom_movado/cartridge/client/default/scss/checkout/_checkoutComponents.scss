@@ -922,7 +922,7 @@ $stored-payment-spacing: rem(16);
                   }
 
                   &.icon-right-wrapper {
-                      right: rem(60);
+                      right: rem(64);
                       top: rem(11);
                       padding-bottom: rem(0);
 
@@ -1027,7 +1027,7 @@ $stored-payment-spacing: rem(16);
               letter-spacing: rem(0.7);
               line-height: rem(24);
               color: $google-grey1 !important;
-              padding-top: rem(16);
+              padding: rem(16) rem(15) rem(6) rem(15);
               margin-top: rem(0);
 
               &:focus {
@@ -1050,7 +1050,7 @@ $stored-payment-spacing: rem(16);
                       margin-bottom: rem(0);
 
                           @include media-breakpoint-down(xs) {
-                              left: rem(12);
+                              left: rem(16);
                           }
 
                         &.field-select-wrapper-box {
@@ -1130,6 +1130,10 @@ $stored-payment-spacing: rem(16);
             text-transform: capitalize;
             margin-bottom: rem(0);
 
+            @include media-breakpoint-down(xs) {
+              left: 1em;
+            }
+
           &.input-has-value {
               transition: 0.2s ease-in-out;
               top: 0;
@@ -1145,7 +1149,7 @@ $stored-payment-spacing: rem(16);
               margin-bottom: rem(0);
 
               @include media-breakpoint-down(xs) {
-                  left: rem(12);
+                  left: rem(16);
               }
           }
 
@@ -1397,7 +1401,7 @@ $stored-payment-spacing: rem(16);
               
                                 + .field-label-wrapper {
                                     @include media-breakpoint-down(xs) {
-                                        left: rem(24);
+                                        left: rem(26.4);
                                     }
               
                                     &.field-select-wrapper-box {
@@ -1406,7 +1410,7 @@ $stored-payment-spacing: rem(16);
                                 }
 
                                 + .field-label-wrapper-card {
-                                    left: rem(13);
+                                    left: rem(15);
                                 }
                       
                                 + .field-label-wrapper-card-1 {
@@ -1425,18 +1429,21 @@ $stored-payment-spacing: rem(16);
                     }
           
                     .field-label-wrapper {
-            
+                        @include media-breakpoint-down(xs) {
+                          left: 1.75em;
+                        }
+
                         &.input-has-value {   
                             @include media-breakpoint-down(xs) {
-                                left: rem(24);
+                                left: rem(26.4);
                             }
                         }
 
                         &.field-label-wrapper-card {
-                            left: rem(13);
+                            left: rem(15);
         
                             &.input-has-value {
-                                left: rem(13);
+                                left: rem(15);
                             }
                         }
       

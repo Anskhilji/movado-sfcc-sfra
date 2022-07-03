@@ -553,12 +553,12 @@ header {
 
     @include media-breakpoint-up(xl) {
         padding: 0;
-        margin: rem(66) auto rem(51);
+        margin: rem(82) auto rem(51);
     }
 
     @include custom-media-query-1440($large-screen-width-1440) {
         padding: 0 rem(15) 0 rem(0);
-        margin: rem(66) auto rem(51);
+        margin: rem(82) auto rem(51);
     }
 
     li {
@@ -886,6 +886,8 @@ header {
 
             @include media-breakpoint-down(xs) {
                 margin-left: rem(-14);
+                width: 120%;
+                max-width: 120%;
             }
 
             @include media-breakpoint-up(xl) {

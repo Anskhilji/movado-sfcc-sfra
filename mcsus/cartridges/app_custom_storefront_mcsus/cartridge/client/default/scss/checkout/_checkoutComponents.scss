@@ -312,36 +312,36 @@ $receipt-font-size: rem(14);
             }
         }
       }
-  }
-}
 
-.card-border-none {
+      .card-border-none {
 
-  .card-body {
-
-    .info-icon {
-
-      &.info-icon-email {
-          position: absolute;
-          right: rem(25);
-          top: rem(11);
-          
-          .icon {
-              background-image: url("../../images/info-icon.svg");
-              background-repeat: no-repeat;
-              background-size: cover;
-              width: rem(15);
-              height: rem(15);
-              background-color: transparent;
+        .card-body {
+      
+          .info-icon {
+      
+            &.info-icon-email {
+                position: absolute;
+                right: rem(25);
+                top: rem(9);
+                
+                .icon {
+                    background-image: url("../../images/info-icon.svg");
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    width: rem(15);
+                    height: rem(15);
+                    background-color: transparent;
+                }
+      
+                &.icon-right-wrapper {
+                    right: rem(64);
+                    top: rem(9);
+                }
+              }
+            }
           }
-
-          &.icon-right-wrapper {
-              right: rem(60);
-              top: rem(11);
-          }
-        }
       }
-    }
+  }
 }
 
 .grand-total {
