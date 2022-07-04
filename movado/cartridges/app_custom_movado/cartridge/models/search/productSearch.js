@@ -223,12 +223,15 @@ function getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams) {
     var allSortedProductsIds = [];
     var allSearchHitsProducts = [];
     var searchHitsProductsList;
-    var xSalesPrice = 0;
-    var ySalesPrice = 0;
+    var firstProductSalesPrice = 0;
+    var secondProductSalesPrice = 0;
     var sortingOrder = Constants.PRICE_HIGH_TO_LOW;
     var factoryProductSalesPrice;
     var pmin = httpParams.pmin;
     var pmax = httpParams.pmax;
+    var searchHitProductID;
+    var defaultVariant;
+    var lastProductID = '';
     if (productSearch.sortingRule !== null && Object.hasOwnProperty.call(productSearch.sortingRule,'ID')) { 
         sortingOrder = productSearch.sortingRule.ID;
     }
@@ -243,8 +246,19 @@ function getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams) {
         });
     }
     allSearchHitsProducts.forEach(function (searchHitResultProduct) {
+        defaultVariant = null;
+        searchHitProductID = '';
+        if (!empty(searchHitResultProduct) && !empty(searchHitResultProduct.productSearchHit) && !empty(searchHitResultProduct.productSearchHit.product)
+        && !empty(searchHitResultProduct.productSearchHit.product.variationModel) && !empty(searchHitResultProduct.productSearchHit.product.variationModel.defaultVariant)) {
+            defaultVariant = searchHitResultProduct.productSearchHit.product.variationModel.defaultVariant;
+        }
+        if (defaultVariant !== null) {
+            searchHitProductID = defaultVariant.ID;
+        } else {
+            searchHitProductID = searchHitResultProduct.productID
+        }
         paramContainer = {
-            pid: searchHitResultProduct.productID
+            pid: searchHitProductID
         };
         factoryProduct = ProductFactory.get(paramContainer);
         if (!empty(factoryProduct) && !empty(factoryProduct.price) && !empty(factoryProduct.price.sales) && !empty(factoryProduct.price.sales.value)) {
@@ -257,28 +271,33 @@ function getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams) {
             allFactoryProducts.push(factoryProduct);
         }
     });
-    allFactoryProducts.sort(function (x, y) {
-        if (!empty(x) && !empty(x.price) && !empty(x.price.sales) && !empty(x.price.sales.value)) {
-            xSalesPrice = x.price.sales.value;
+    allFactoryProducts.sort(function (firstProduct, secondProduct) {
+        firstProductSalesPrice = 0;
+        secondProductSalesPrice = 0;
+        if (!empty(firstProduct) && !empty(firstProduct.price) && !empty(firstProduct.price.sales) && !empty(firstProduct.price.sales.value)) {
+            firstProductSalesPrice = firstProduct.price.sales.value;
         }
-        if (!empty(y) && !empty(y.price) && !empty(y.price.sales) && !empty(y.price.sales.value)) {
-            ySalesPrice = y.price.sales.value;
+        if (!empty(secondProduct) && !empty(secondProduct.price) && !empty(secondProduct.price.sales) && !empty(secondProduct.price.sales.value)) {
+            secondProductSalesPrice = secondProduct.price.sales.value;
         }
         
         if (sortingOrder === Constants.PRICE_LOW_TO_HIGH) {
-            return xSalesPrice - ySalesPrice;
+            return firstProductSalesPrice - secondProductSalesPrice;
         } else if (sortingOrder === Constants.PRICE_HIGH_TO_LOW) {
-            return ySalesPrice - xSalesPrice;
+            return secondProductSalesPrice - firstProductSalesPrice;
         }
     });
     allFactoryProducts.forEach(function (sortedProductID) {
         for (var j = 0; j < allSearchHitsProducts.length; j++) {
             currentProduct = allSearchHitsProducts[j];
             if (sortedProductID.id === currentProduct.productID) {
-                allSortedProductsIds.push({
-                    productID: currentProduct.productID,
-                    productSearchHit: currentProduct
-                });
+                if (lastProductID !== currentProduct.productID) {
+                    allSortedProductsIds.push({
+                        productID: currentProduct.productID,
+                        productSearchHit: currentProduct
+                    });
+                }
+                lastProductID = currentProduct.productID;
             }
         }
     });
