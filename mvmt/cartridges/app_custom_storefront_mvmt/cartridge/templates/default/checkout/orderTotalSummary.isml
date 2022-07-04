@@ -58,7 +58,8 @@
 <div class="row grand-total grand-total-wrapper justify-content-between leading-lines">
     <div class="start-lines d-flex">
         <p class="order-receipt-label mr-1"><span>${Resource.msg('label.order.grand.total','confirmation', null)}</span></p>
-        <span class="order-receipt-label grand-total-label">(${Resource.msgf('label.number.items.in.cart','cart', null, pdict.order.items.totalQuantity)})</span>
+        <iscomment> as per requirement this should not be here so that is the reason to comment code </iscomment>
+        <iscomment> <span class="order-receipt-label grand-total-label">(${Resource.msgf('label.number.items.in.cart','cart', null, pdict.order.items.totalQuantity)})</span> </iscomment>
     </div>
     <div class="end-lines">
         <p class="text-right"><span class="grand-total grand-total-sum">${pdict.order.totals.grandTotal}</span></p>

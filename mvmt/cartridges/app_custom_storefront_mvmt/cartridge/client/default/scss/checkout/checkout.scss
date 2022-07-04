@@ -927,7 +927,8 @@ header {
             }
 
             &.card-summary-wrapper-container {
-                margin-bottom: rem(22);
+                margin-bottom: rem(18);
+                margin-top: rem(0);
             }
         }
 
@@ -1173,17 +1174,17 @@ header {
                         background-color: transparent;
     
                         &.product-discount-total {
-                            color: $gossamer;
+                            color: $gossamer2;
                             background-color: transparent;
                         }
     
                         &.order-discount-total {
-                            color: $gossamer;
+                            color: $gossamer2;
                             background-color: transparent;
                         }
 
                         &.shipping-total-cost {
-                            color: $gossamer;
+                            color: $gossamer2;
                         }
                     }
                 }

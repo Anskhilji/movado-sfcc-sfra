@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col-12 d-none">
+        <p class="optional-promo">${Resource.msg('action.enter.promo.code','cart',null)}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 collapsible-promo-wrapper collapsible-promo-redesign-wrapper" tabindex="0">
+        <form action="${pdict.actionUrls.submitCouponCodeUrl}" class="checkout-promo-code-form" method="GET" name="checkout-promo-code-form">
+            <div class="form-group collapsible-xl promo-box-space mvmt">
+                <label class="title promo-label-wrapper" data-toggle="collapse" data-target="#checkoutCoupon" aria-expanded="false" aria-controls="checkoutCoupon" for="couponCode">${Resource.msg('label.promo.code','cart',null)}</label>
+                <div class="row collapse content value" id="checkoutCoupon">
+                    <div class="col-12">
+                        <div class="promo-input-wrapper">
+                            <input type="text" class="form-control checkout-coupon-code-field" id="couponCode" name="couponCode" placeholder="">
+                            <label class="promo-code-coupon-label" for="">${Resource.msg('placholder.text.promo.code.input','cart',null)}</label>
+                            <div class="checkout-promo-code-submit">
+                                <button type="submit" class="btn btn-outline-primary btn-block checkout-promo-code-btn">
+                                    ${Resource.msg('button.submit.promo.code','cart',null)}
+                                </button>
+                            </div>
+                        </div>
+                        <div class="coupon-error checkout-coupon-error">
+                            <span class="checkout-coupon-missing-error coupon-required">${Resource.msg('error.missing.coupon.code', 'cart', null)}</span>
+                            <span class="checkout-coupon-error-message"></span>
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

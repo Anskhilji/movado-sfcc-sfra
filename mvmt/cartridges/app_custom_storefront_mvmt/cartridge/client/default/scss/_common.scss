@@ -738,12 +738,16 @@ div {
                     border-radius: rem(3);
                     height: rem(45);
                     font-size: rem(12);
-                    letter-spacing: rem(1.25);
-                    padding-top: rem(16);
+                    letter-spacing: rem(0.92);
+                    padding-top: rem(13);
                     background-color: transparent;
+                    font-weight: 500;
+                    color: $black;
+                    line-height: rem(24);
 
                     &:focus {
                         box-shadow: none;
+                        padding-left: rem(10);
                       
                         &::placeholder {
                             color: transparent;
@@ -753,7 +757,7 @@ div {
                         + .promo-code-coupon-label {
                             transition: 0.25s ease-in-out;
                             top: 0;
-                            left: rem(12.8);
+                            left: rem(11.8);
                             height: rem(24);
                             color: $grey17;
                             font-size: rem(10);
@@ -772,7 +776,7 @@ div {
 
                 .promo-code-coupon-label {
                     position: absolute;
-                    top: rem(16);
+                    top: rem(15);
                     left: rem(12.8);
                     color: $grey17;
                     transition: 0.25s ease-in-out;
@@ -781,11 +785,12 @@ div {
                     text-transform: capitalize;
                     font-size: rem(12);
                     letter-spacing: rem(0.92);
+                    font-weight: 500;
         
                     &.input-has-value {
                         transition: 0.25s ease-in-out;
                         top: 0;
-                        left: rem(12.8);
+                        left: rem(11.8);
                         height: rem(24);
                         color: $grey17;
                         font-size: rem(10);

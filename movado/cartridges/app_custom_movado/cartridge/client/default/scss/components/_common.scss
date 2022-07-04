@@ -643,6 +643,7 @@ header~.container .promotions .callout a{
                     color: $parrot-green;
                     text-transform: capitalize;
                     margin-right: rem(10);
+                    margin-top: rem(0);
                 }
 
                 .coupon-not-applied {
@@ -672,6 +673,7 @@ header~.container .promotions .callout a{
         }
 
         .collapsible-promo-redesign-wrapper {
+          margin-bottom: rem(15);
 
             .promo-label-wrapper {
                 color: $cerulean;
@@ -723,9 +725,12 @@ header~.container .promotions .callout a{
                     border-radius: rem(3);
                     height: rem(45);
                     font-size: rem(12);
-                    letter-spacing: rem(1.25);
+                    letter-spacing: rem(0.92);
                     padding-top: rem(16);
                     background: transparent;
+                    font-weight: 500;
+                    color: $black;
+                    line-height: rem(24);
 
                     &:focus {
                         box-shadow: none;

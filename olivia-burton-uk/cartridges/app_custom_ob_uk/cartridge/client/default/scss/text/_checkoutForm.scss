@@ -320,6 +320,7 @@
             font-weight: 600;
             letter-spacing: rem(1);
             line-height: rem(21);
+            font-family: $font-gill-std;
 
             h4 {
                   color: $black3;
@@ -327,6 +328,7 @@
                   font-weight: 600;
                   letter-spacing: rem(1);
                   line-height: rem(21);
+                  font-family: $font-gill-std;
             }
         }
     }
@@ -338,12 +340,14 @@
             font-size: rem(14);
             letter-spacing: rem(1.4);
             line-height: rem(22);
+            text-transform: uppercase;
 
             span {
                 color: $light-black2;
                 font-size: rem(14);
                 letter-spacing: rem(1.4);
                 line-height: rem(22);
+                text-transform: uppercase;
             }
         }
     }
@@ -399,7 +403,7 @@
                   }
 
                   .original-price {
-                      font-size: rem(14);
+                      font-size: rem(12);
                       font-weight: 500;
                       letter-spacing: rem(1);
                       line-height: rem(18);
@@ -545,4 +549,35 @@
           }
         }
     }
+
+    .checkout-content-container-inner {
+      .right-section {
+          @include custom-media-query-1440($large-screen-width-1440) {
+            padding: rem(0) rem(93.5);
+          }
+
+          .checkout-promo-section {
+            &.checkout-promo-redesign {
+              
+              .collapsible-promo-redesign-wrapper {
+                
+                .promo-label-wrapper {
+                  letter-spacing: rem(0);
+                  line-height: rem(18);
+                }
+              }
+              
+              .checkout-coupons-and-promos {
+                .coupon-price-adjustment {
+                  .coupon-code,.coupon-applied {
+                    font-family: $font-gill-std;  
+                  }
+                }
+              }
+            }
+          }
+      }
+    } 
 }
+
+
