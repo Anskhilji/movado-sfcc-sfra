@@ -1114,6 +1114,10 @@ header {
             margin-bottom: rem(18);
             background: transparent;
             margin-top: rem(20);
+
+            @include media-breakpoint-down(xs) {
+                margin-bottom: rem(26.4);
+            }
         }
     }
 

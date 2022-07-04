@@ -644,6 +644,8 @@ div {
                 width: auto;
                 max-width: fit-content;
                 background-color: transparent;
+                display: flex;
+                margin-bottom: rem(20);
 
                 .flex-box-promo-code {
                     display: flex;
@@ -697,6 +699,8 @@ div {
                 line-height: rem(24);
                 text-transform: capitalize;
                 width: auto;
+                margin-bottom: rem(0);
+                
                 &::after {
                     content: "";
                 }
@@ -720,6 +724,11 @@ div {
                         letter-spacing: rem(1);
                         line-height: rem(20);
                         text-transform: capitalize;
+                      
+                        @include media-breakpoint-down(xs) {
+                            font-size: rem(12);
+                            letter-spacing: rem(1.07);
+                        }
 
                         &:hover {
                             background-color: transparent;
@@ -739,11 +748,12 @@ div {
                     height: rem(45);
                     font-size: rem(12);
                     letter-spacing: rem(0.92);
-                    padding-top: rem(13);
                     background-color: transparent;
                     font-weight: 500;
                     color: $black;
                     line-height: rem(24);
+                    padding: rem(16) rem(15) rem(6) rem(15);
+                    margin-bottom: rem(15);
 
                     &:focus {
                         box-shadow: none;
@@ -811,6 +821,16 @@ div {
                 .coupon-error {
                     margin: rem(5) 0;
                 }
+                .promo-label-wrapper {
+                    @include media-breakpoint-down(xs) {
+                        margin-bottom: rem(15);
+                    } 
+                }
+            }
+            .coupon-error {
+                &.checkout-coupon-error {
+                    font-size: rem(14);
+                }
             }
         }
 
@@ -819,20 +839,38 @@ div {
             width: 100%;
             z-index: 10;
             height: 70vh;
-            background-color: $white;
+            background-color: $gray8;
             overflow: auto;
             display: none;
             top: rem(10);
-            padding: rem(24) rem(34) rem(0) rem(34);
+            padding: rem(24) rem(32) rem(0) rem(32);
 
             &.pop-up-top-container {
                 top: -4.375rem;
+
+                .top-grandtotal-label {
+                    color: $light-black4;
+
+                    &.label-container-wrapper {
+                        margin-bottom: rem(21);
+                        color: $light-black4;
+                        font-weight: 500;
+                        letter-spacing: rem(1);
+                        line-height: rem(20);
+                    }
+                }
+                .top-grand-total-price-wrapper {
+                    color: $light-black4;
+                    font-weight: 500;
+                    letter-spacing: rem(1);
+                    line-height: rem(20);
+                }
             }
   
             .sticky-hide-wrapper {
                 position: sticky;
                 bottom: 0;
-                background: $white;
+                background: $gray8;
                 padding: rem(20) rem(0) rem(20) rem(0);
             }
         }

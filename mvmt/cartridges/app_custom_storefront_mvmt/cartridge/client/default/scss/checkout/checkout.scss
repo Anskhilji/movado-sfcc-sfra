@@ -1073,37 +1073,75 @@ header {
 
             .product-summary-block {
 
-                .product-card-container {
+                .product-card-wrapper {
 
-                    .product-line-item-details {
+                    &.product-card-container {
 
-                        .item-attributes {
-
-                            .item-quantity-container-box {
+                        .product-line-item-details {
+    
+                            .item-attributes {
+    
+                                .line-item-header {
+    
+                                    .line-item-name {
+                                        @include media-breakpoint-down(xs) {
+                                            word-break: break-word;
+                                            overflow: hidden;
+                                            text-overflow: ellipsis;
+                                            display: -webkit-box;
+                                            line-height: rem(22);
+                                            height: rem(44);
+                                            -webkit-line-clamp: 2;
+                                            -webkit-box-orient: vertical;
+                                            white-space: unset;
+                                            letter-spacing: rem(1.6);
+                                        }
+    
+                                    }
+                                }
 
                                 .item-model {
-                                    color: $light-black;
-                                    font-size: rem(12);
-                                    font-weight: 500;
-                                    letter-spacing: rem(0.86);
-                                    line-height: rem(18);
+                                    &.model-name {
+                                        color: $light-black;
+                                        font-size: rem(12);
+                                        font-weight: 500;
+                                        letter-spacing: rem(0.86);
+                                        line-height: rem(18);
+    
+                                        @include media-breakpoint-down(xs) {
+                                            letter-spacing: rem(1);
+                                            line-height: rem(10);
+                                        }
+                                    }
                                 }
+    
+                                .item-quantity-container-box {
+                                    
+                                    .item-model {
+                                        color: $light-black;
+                                        font-size: rem(14);
+                                        font-weight: 500;
+                                        letter-spacing: rem(1);
+                                        line-height: rem(18);
+                                    }
 
-                                .item-options {
-                                    margin-bottom: rem(5);
-                                }
-
-                                .original-price {
-                                    color: $light-black;
-                                    font-size: rem(12);
-                                    font-weight: 500;
-                                    letter-spacing: rem(0.86);
-                                    line-height: rem(18);
+                                    .item-options {
+                                        margin-bottom: rem(5);
+                                    }
+    
+                                    .original-price {
+                                        color: $light-black;
+                                        font-size: rem(12);
+                                        font-weight: 500;
+                                        letter-spacing: rem(0.86);
+                                        line-height: rem(18);
+                                    }
                                 }
                             }
                         }
                     }
                 }
+
 
                 .card-border-none {
 
@@ -1122,6 +1160,28 @@ header {
         
         &.data-checkout-stage-redesign {
             padding-top: rem(0);
+
+            .pop-up-container-box {
+
+                .pop-up-box-space {
+
+                    .grand-total-label {
+
+                        &.top-grandtotal-label {
+                            color: $light-black4;
+                            font-weight: 500;
+                            letter-spacing: rem(1);
+                            line-height: rem(20);
+                        }
+                    }
+                    .grand-total-price {
+                        color: $light-black4;
+                        font-weight: 500;
+                        letter-spacing: rem(1);
+                        line-height: rem(20);
+                    }
+                }
+            }
         }
     }
 }

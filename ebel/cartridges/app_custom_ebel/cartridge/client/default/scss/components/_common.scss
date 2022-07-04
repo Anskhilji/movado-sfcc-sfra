@@ -708,6 +708,11 @@ header~.container .promotions .callout a{
                       letter-spacing: rem(1);
                       line-height: rem(20);
                       text-transform: capitalize;
+                       
+                      @include media-breakpoint-down(xs) {
+                        font-size: rem(12);
+                        letter-spacing: rem(1.07);
+                      }
 
                       &:hover {
                           background-color: transparent;

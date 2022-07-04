@@ -702,6 +702,11 @@ header~.container .promotions .callout a{
                       line-height: rem(20);
                       text-transform: capitalize;
                       
+                      @include media-breakpoint-down(xs) {
+                        font-size: rem(12);
+                        letter-spacing: rem(1.07);
+                      }
+
                       &:hover {
                         background-color: transparent;
                       }
@@ -799,7 +804,7 @@ header~.container .promotions .callout a{
           overflow: auto;
           display: none;
           padding-bottom: rem(15);
-          padding: rem(24) rem(20) rem(0) rem(20);
+          padding: rem(24) rem(32) rem(0) rem(32);
       }
       
       .label-show-title {

@@ -23,8 +23,8 @@
                 ${isEswEnabled ? formatMoney(lineItem.priceTotal.nonAdjustedPrice) : lineItem.priceTotal.nonAdjustedPrice}
         </isif>
     </div>
-    <div class="savings mb-2">${Resource.msg('cart.label.savings','cart',null)} ${lineItem.priceTotal.formattedSavingPrice}</div>
-    <div class="mb-2 total-amount">${Resource.msg('cart.label.itemTotal','cart',null)} 
+    <div class="savings">${Resource.msg('cart.label.savings','cart',null)} ${lineItem.priceTotal.formattedSavingPrice}</div>
+    <div class="total-amount">${Resource.msg('cart.label.itemTotal','cart',null)} 
         <span class="line-item-total-price-amount item-total-${lineItem.UUID}">
             <isif condition="${isEswEnabled}" >
                 <isif condition="${!empty(matchingLineItem)}">

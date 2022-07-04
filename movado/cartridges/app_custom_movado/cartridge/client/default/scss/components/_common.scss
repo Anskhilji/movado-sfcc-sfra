@@ -707,6 +707,11 @@ header~.container .promotions .callout a{
                         letter-spacing: rem(1);
                         line-height: rem(20);
                         text-transform: capitalize;
+                      
+                        @include media-breakpoint-down(xs) {
+                          font-size: rem(12);
+                          letter-spacing: rem(1.07);
+                        }
 
                         &:hover {
                             background-color: transparent;
@@ -788,9 +793,13 @@ header~.container .promotions .callout a{
                 }
             }
 
-            .promo-box-space {
+            .promo-box-space {                
                 @include custom-media-query-max($medium-screen-width) {
                     padding: rem(0);
+                }
+
+                .promo-label-wrapper {
+                    margin-bottom: rem(15);
                 }
 
                 .coupon-error {
@@ -808,7 +817,7 @@ header~.container .promotions .callout a{
             overflow: auto;
             display: none;
             top: rem(10);
-            padding: rem(24) rem(20) rem(0) rem(20);
+            padding: rem(24) rem(32) rem(0) rem(32);
 
             &.pop-up-top-container {
               top: -4.375rem;
