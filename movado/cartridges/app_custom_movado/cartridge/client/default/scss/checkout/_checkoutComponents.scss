@@ -1038,7 +1038,7 @@ $stored-payment-spacing: rem(16);
                   + .field-label-wrapper {
                       transition: 0.2s ease-in-out;
                       top: 0;
-                      left: rem(24);
+                      left: rem(26.4);
                       height: rem(24);
                       color: $grey17;
                       font-size: rem(10);
@@ -1054,7 +1054,7 @@ $stored-payment-spacing: rem(16);
                           }
 
                         &.field-select-wrapper-box {
-                            left: rem(13);
+                            left: rem(16);
                         }
                   }
 
@@ -1088,7 +1088,7 @@ $stored-payment-spacing: rem(16);
               border: rem(1) solid $grey16;
               border-radius: rem(3);
               background-color: $grey-dark-2 !important;
-              padding: rem(16) rem(50) rem(6) rem(12);
+              padding: rem(16) rem(50) rem(6) rem(16);
               font-size: rem(13);
               font-weight: 500;
               letter-spacing: rem(0.7);
@@ -1137,7 +1137,7 @@ $stored-payment-spacing: rem(16);
           &.input-has-value {
               transition: 0.2s ease-in-out;
               top: 0;
-              left: rem(24);
+              left: rem(26.4);
               height: rem(23);
               color: $grey17;
               font-size: rem(10);
@@ -1157,7 +1157,7 @@ $stored-payment-spacing: rem(16);
                   left: rem(16);
 
                   &.input-has-value {
-                      left: rem(13);
+                      left: rem(16);
                   }
               }
 
@@ -1405,7 +1405,7 @@ $stored-payment-spacing: rem(16);
                                     }
               
                                     &.field-select-wrapper-box {
-                                        left: rem(13);
+                                        left: rem(26.4);
                                     }
                                 }
 
@@ -1475,7 +1475,7 @@ $stored-payment-spacing: rem(16);
                             left: rem(16);
           
                             &.input-has-value {
-                                left: rem(13);
+                                left: rem(16);
                             }
                         }
                     }

@@ -488,12 +488,12 @@ header {
 
         @include media-breakpoint-up(lg-custom) {
             padding: 0;
-            margin: rem(69.44) auto rem(51);        
+            margin: rem(72.44) auto rem(51);        
         }
     
         @include custom-media-query-1440($large-screen-width-1440) {
             padding: 0;
-            margin: rem(69.44) auto rem(51);
+            margin: rem(72.44) auto rem(51);
         }
 
         li {
@@ -1026,14 +1026,14 @@ header {
                 .custom-select {
 
                     &.custom-select-box {
-                        padding: rem(14) rem(38) rem(9) rem(10);
+                        padding: rem(14) rem(38) rem(9) rem(16);
                         margin-top: rem(0);
     
                         &:focus {
                             border-color: $black;
                             box-shadow: none;
                             border-width: rem(1);
-                            padding: rem(14) rem(38) rem(9) rem(10);
+                            padding: rem(14) rem(38) rem(9) rem(16);
                         }
 
                         &:not([size]):not([multiple]) {
@@ -1046,7 +1046,7 @@ header {
                                 border-color: $black;
                                 box-shadow: none;
                                 border-width: rem(1);
-                                padding: rem(14) rem(38) rem(9) rem(10);
+                                padding: rem(14) rem(38) rem(9) rem(16);
                             }
 
                             &.is-invalid {

@@ -1040,41 +1040,35 @@ header {
                 }
             }
         }
-    }
-}
-
-header {
-
-    &.checkout-header {
 
         .header-menu-wrapper {
 
-            .header-redesign-wrapper {
+          .header-redesign-wrapper {
 
-                .checkout-header-wrapper {
+              .checkout-header-wrapper {
 
-                    .header-left {
-                        max-width: 100%;
+                  .header-left {
+                      max-width: 100%;
 
-                        @include media-breakpoint-up(xl) {
-                            max-width: 100%;
-                        }
+                      @include media-breakpoint-up(xl) {
+                          max-width: 100%;
+                      }
 
-                        &.align-start-box {
-                            max-width: 100%;
+                      &.align-start-box {
+                          max-width: 100%;
 
-                            @include media-breakpoint-up(xl) {
-                                max-width: 100%;
-                                margin: auto;
-                            }
+                          @include media-breakpoint-up(xl) {
+                              max-width: 100%;
+                              margin: auto;
+                          }
 
-                            @include custom-media-query-1440($large-screen-width-1440) {
-                                max-width: 100%;
-                            }
-                        }
-                    }
-                }
-            }
-        }       
+                          @include custom-media-query-1440($large-screen-width-1440) {
+                              max-width: 100%;
+                          }
+                      }
+                  }
+              }
+          }
+        }
     }
 }
