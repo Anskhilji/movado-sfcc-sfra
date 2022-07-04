@@ -691,6 +691,7 @@ header~.container .promotions .callout a{
             }
 
             .promo-input-wrapper {
+              margin: rem(10) rem(0) rem(0);
                 position: relative;
 
                 .checkout-promo-code-submit {
@@ -799,7 +800,7 @@ header~.container .promotions .callout a{
                 }
 
                 .promo-label-wrapper {
-                    margin-bottom: rem(15);
+                    margin-bottom: rem(0);
                 }
 
                 .coupon-error {
