@@ -8,17 +8,20 @@ var formErrors = require('base/checkout/formErrors');
 function loadFormErrors(parentSelector, fieldErrors) { // eslint-disable-line
     // Display error messages and highlight form fields with errors.
     $.each(fieldErrors, function (attr) {
+        var $submitShippingBtn = $('button.submit-shipping');
         $('*[name=' + attr + ']', parentSelector)
         .addClass('is-invalid')
         .siblings('.invalid-feedback')
         .html(fieldErrors[attr]);
-        if($('*[name=' + attr + ']').hasClass('is-invalid')) {
+        if ($('*[name=' + attr + ']').hasClass('is-invalid')) {
             $('*[name=' + attr + ']').closest('.mx-field-wrapper').find('.info-icon.info-icon-email').addClass('icon-right-wrapper');
-        }
-        else {
+        } else {
             $('.mx-field-wrapper').find('.info-icon.info-icon-email').removeClass('icon-right-wrapper');
         }
         $('.checkout-form-error').removeClass('d-none');
+        if (parentSelector == '.single-shipping form') {
+            $submitShippingBtn.prop('disabled', null);
+        }
     });
 }
 module.exports = {
