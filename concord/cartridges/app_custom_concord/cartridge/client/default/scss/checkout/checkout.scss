@@ -577,12 +577,12 @@ header {
     
     @include media-breakpoint-up(xl) {
         padding: 0;
-        margin: rem(70) auto rem(51);
+        margin: rem(92) auto rem(51);
     }
     
     @include custom-media-query-1440($large-screen-width-1440) {
         padding: 0 rem(15) 0 rem(0);
-        margin: rem(70) auto rem(51);
+        margin: rem(92) auto rem(51);
     }
 
     li {
@@ -791,13 +791,13 @@ header {
 
                     @include media-breakpoint-up(xl) {
                         padding: rem(0) rem(30) rem(0) rem(40);
-                        margin-top: rem(42);
+                        margin-top: rem(48);
 
                     }
 
                     @include custom-media-query-1440($large-screen-width-1440) {
                         padding: rem(0) rem(60) rem(0) rem(100);
-                        margin-top: rem(42);
+                        margin-top: rem(48);
                     }
                 }
             }
@@ -815,12 +815,12 @@ header {
 
                     @include media-breakpoint-up(xl) {
                         padding: 0 rem(60) 0 rem(60);
-                        margin-top: rem(42);
+                        margin-top: rem(48);
                     }
 
                     @include custom-media-query-1440($large-screen-width-1440) {
                         padding: 0 rem(72) 0 rem(60);
-                        margin-top: rem(42);
+                        margin-top: rem(48);
                     }
                 }
             }
