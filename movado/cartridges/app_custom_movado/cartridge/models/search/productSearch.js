@@ -225,7 +225,7 @@ function getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams) {
     var searchHitsProductsList;
     var xSalesPrice = 0;
     var ySalesPrice = 0;
-    var sortingOrder = '';
+    var sortingOrder = Constants.PRICE_HIGH_TO_LOW;
     var factoryProductSalesPrice;
     var pmin = httpParams.pmin;
     var pmax = httpParams.pmax;
@@ -268,8 +268,6 @@ function getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams) {
         if (sortingOrder === Constants.PRICE_LOW_TO_HIGH) {
             return xSalesPrice - ySalesPrice;
         } else if (sortingOrder === Constants.PRICE_HIGH_TO_LOW) {
-            return ySalesPrice - xSalesPrice;
-        } else {
             return ySalesPrice - xSalesPrice;
         }
     });
