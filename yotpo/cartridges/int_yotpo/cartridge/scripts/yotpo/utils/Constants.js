@@ -59,3 +59,7 @@ exports.STATUS_500 = '500';
 
 // Order Volume by days
 exports.ORDER_VOLUME_DAYS = 30;
+
+// Sorting Order
+exports.PRICE_LOW_TO_HIGH = 'price-low-to-high';
+exports.PRICE_HIGH_TO_LOW = 'price-high-to-low';

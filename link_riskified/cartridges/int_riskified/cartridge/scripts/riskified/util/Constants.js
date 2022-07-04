@@ -33,4 +33,6 @@ exports.BAD_ACTION = 'BAD_ACTION';
 exports.BAD_PAYLOAD = 'BAD_PAYLOAD';
 exports.BAD_JSON = 'BAD_JSON';
 exports.BAD_CALL = 'BAD_CALL';
+exports.PRICE_LOW_TO_HIGH = 'price-low-to-high';
+exports.PRICE_HIGH_TO_LOW = 'price-high-to-low';
 
