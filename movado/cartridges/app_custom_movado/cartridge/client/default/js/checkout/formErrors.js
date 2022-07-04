@@ -18,7 +18,9 @@ function loadFormErrors(parentSelector, fieldErrors) { // eslint-disable-line
         } else {
             $('.mx-field-wrapper').find('.info-icon.info-icon-email').removeClass('icon-right-wrapper');
         }
-        $('.checkout-form-error').removeClass('d-none');
+        if ($('.shipping-form .input-wrapper-checkout').hasClass('is-invalid')) {
+            $('.checkout-form-error').removeClass('d-none');
+        }
         if (parentSelector == '.single-shipping form') {
             $submitShippingBtn.prop('disabled', null);
         }
