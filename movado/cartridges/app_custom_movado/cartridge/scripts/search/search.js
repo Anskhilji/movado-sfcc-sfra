@@ -25,24 +25,22 @@ function setProductProperties(productSearch, httpParams, selectedCategory, sorti
         if (httpParams.pid) {
             productSearch.setProductID(httpParams.pid);
         }
-
-        if (!empty(sortingRule) && sortingRule) {
-            productSearch.setSortingRule(sortingRule);
-
-            if (!sortProductsOnBasisOfSalesPrice) {
-                if (httpParams.pmin) {
-                    var httpParamsPmin = httpParams.pmin.replace(',','');
-                    productSearch.setPriceMin(parseInt(httpParamsPmin, 10));
-                }
-                if (httpParams.pmax) {
-                    var httpParamsPmax = httpParams.pmax.replace(',','');
-                    productSearch.setPriceMax(parseInt(httpParamsPmax, 10));
-                }
+        if (!sortProductsOnBasisOfSalesPrice) {
+            if (httpParams.pmin) {
+                var httpParamsPmin = httpParams.pmin.replace(',','');
+                productSearch.setPriceMin(parseInt(httpParamsPmin, 10));
+            }
+            if (httpParams.pmax) {
+                var httpParamsPmax = httpParams.pmax.replace(',','');
+                productSearch.setPriceMax(parseInt(httpParamsPmax, 10));
             }
         }
 
+        if (sortingRule) {
+            productSearch.setSortingRule(sortingRule);
+        }
         productSearch.setRecursiveCategorySearch(true);
-    } catch(e) {
+    } catch (e) {
         Logger.error('search.js -> setProductProperties) Error occurred while setting product properties. Error: {0} \n Message: {1} \n', e.stack, e.message);
     }
 }
