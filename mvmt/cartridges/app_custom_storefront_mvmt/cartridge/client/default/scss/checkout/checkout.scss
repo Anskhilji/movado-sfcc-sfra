@@ -934,6 +934,9 @@ header {
 
         .right-content-box {
             padding-top: rem(71);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
             
             @include custom-media-query-max($medium-screen-width) {
                 padding-top: rem(0);
@@ -943,11 +946,12 @@ header {
         .checkout-help-contact-info-box {
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-end;
             max-width: 100%;
             position: sticky;
             bottom: rem(0);
             background-color: $grey20;
+            flex-grow: 1;
         
             .checkout-help-contact-info-container {
                 display: flex;
@@ -956,6 +960,8 @@ header {
                 border-top: rem(1) solid $border-color;
                 opacity: 0.36;
                 width: rem(313);
+                flex-grow: 1;
+                max-width: rem(313);
 
                 @include custom-media-query-max($medium-screen-width) {
                     position: relative;
@@ -1102,14 +1108,14 @@ header {
 
                                 .item-model {
                                     &.model-name {
-                                        color: $light-black;
+                                        color: $off-white;
                                         font-size: rem(12);
                                         font-weight: 500;
                                         letter-spacing: rem(0.86);
                                         line-height: rem(18);
     
                                         @include media-breakpoint-down(xs) {
-                                            letter-spacing: rem(1);
+                                            letter-spacing: rem(1.5);
                                             line-height: rem(10);
                                         }
                                     }
@@ -1123,6 +1129,11 @@ header {
                                         font-weight: 500;
                                         letter-spacing: rem(1);
                                         line-height: rem(18);
+
+                                        @include media-breakpoint-down(xs) {
+                                            line-height: rem(10);
+                                            letter-spacing: rem(1);
+                                        }
                                     }
 
                                     .item-options {
@@ -1463,5 +1474,5 @@ header {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    min-height: 70vh;
+    height: 100%;
 }

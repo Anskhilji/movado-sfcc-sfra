@@ -975,6 +975,7 @@ header {
         }
 
         .right-section {
+
             @include media-breakpoint-up(xl) {
                 padding: rem(0) rem(59.2);
             }
@@ -999,6 +1000,9 @@ header {
 
             .right-content {
                 padding-top: rem(71);
+                display: flex;
+                flex-direction: column;
+                height: 100%;
 
                 @include custom-media-query-max($medium-screen-width) {
                     padding-top: rem(0);
@@ -1008,11 +1012,12 @@ header {
             .checkout-help-contact-info-box {
                 display: flex;
                 justify-content: center;
-                align-items: center;
+                align-items: flex-end;
                 max-width: 100%;
                 position: sticky;
                 bottom: rem(0);
                 background-color: $grey20;
+                flex-grow: 1;
             
                 .checkout-help-contact-info-container {
                     display: flex;
@@ -1021,6 +1026,8 @@ header {
                     border-top: rem(1) solid $border-color;
                     opacity: 0.36;
                     width: rem(313);
+                    max-width: rem(313);
+                    flex-grow: 1;
 
                     @include custom-media-query-max($medium-screen-width) {
                         position: relative;
@@ -1333,6 +1340,6 @@ header {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    min-height: 70vh;
+    height: 100%;
 }
 

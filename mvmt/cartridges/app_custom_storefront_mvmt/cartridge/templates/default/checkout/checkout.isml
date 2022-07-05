@@ -26,7 +26,7 @@
         <div class="row d-sm-none no-gutters pop-up-container-box cart-product-mobile-view">
             <div class="col-12 pop-up-box-space d-flex justify-content-between">
                 <span class="grand-total-label top-grandtotal-label">${Resource.msg('order.confirmation.email.label.orderTotal','order',null)} (${Resource.msgf('label.number.items.in.cart','cart', null, pdict.order.items.totalQuantity)})</span>
-                <span class="grand-total-price">${pdict.order.totals.subTotal}</span>
+                <span class="grand-total-price">${pdict.order.totals.grandTotal}</span>
             </div>
             <div class="col-12 checkout-promo-section checkout-promo-redesign d-none-promo-box">
                  <isinclude template="checkout/orderSummaryPopUp.isml" />

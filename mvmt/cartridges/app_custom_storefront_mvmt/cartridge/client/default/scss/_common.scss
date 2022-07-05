@@ -707,6 +707,7 @@ div {
             }
 
             .promo-input-wrapper {
+                margin: rem(0);
                 position: relative;
 
                 .checkout-promo-code-submit {
@@ -754,6 +755,10 @@ div {
                     line-height: rem(24);
                     padding: rem(16) rem(15) rem(6) rem(15);
                     margin-bottom: rem(15);
+
+                    @include media-breakpoint-down(xs) {
+                        margin-bottom: rem(10);
+                    }
 
                     &:focus {
                         box-shadow: none;
