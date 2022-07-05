@@ -25,19 +25,20 @@ function setProductProperties(productSearch, httpParams, selectedCategory, sorti
         if (httpParams.pid) {
             productSearch.setProductID(httpParams.pid);
         }
-        if (!sortProductsOnBasisOfSalesPrice) {
-            if (httpParams.pmin) {
-                var httpParamsPmin = httpParams.pmin.replace(',','');
-                productSearch.setPriceMin(parseInt(httpParamsPmin, 10));
-            }
-            if (httpParams.pmax) {
-                var httpParamsPmax = httpParams.pmax.replace(',','');
-                productSearch.setPriceMax(parseInt(httpParamsPmax, 10));
-            }
-        }
 
         if (!empty(sortingRule) && sortingRule) {
             productSearch.setSortingRule(sortingRule);
+
+            if (!sortProductsOnBasisOfSalesPrice) {
+                if (httpParams.pmin) {
+                    var httpParamsPmin = httpParams.pmin.replace(',','');
+                    productSearch.setPriceMin(parseInt(httpParamsPmin, 10));
+                }
+                if (httpParams.pmax) {
+                    var httpParamsPmax = httpParams.pmax.replace(',','');
+                    productSearch.setPriceMax(parseInt(httpParamsPmax, 10));
+                }
+            }
         }
 
         productSearch.setRecursiveCategorySearch(true);
