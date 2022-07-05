@@ -36,11 +36,11 @@ function setProductProperties(productSearch, httpParams, selectedCategory, sorti
             }
         }
 
-        if (sortingRule) {
+        if (!empty(sortingRule) && sortingRule) {
             productSearch.setSortingRule(sortingRule);
         }
         productSearch.setRecursiveCategorySearch(true);
-    } catch (e) {
+    } catch(e) {
         Logger.error('search.js -> setProductProperties) Error occurred while setting product properties. Error: {0} \n Message: {1} \n', e.stack, e.message);
     }
 }
