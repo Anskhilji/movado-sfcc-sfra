@@ -107,14 +107,6 @@ function getPdpVideoConfigs(apiProduct) {
     }
 }
 
-function getYotpoReviewsCustomAttribute(apiProduct) {
-    var yotpoReviews = '';
-    if (!empty(apiProduct) && !empty(apiProduct.custom.yotpoStarRattings)) {
-        yotpoReviews = apiProduct.custom.yotpoStarRattings;
-    }
-    return yotpoReviews;
-}
-
 /**
  * Method use to get Custome URL to render on PDP
  * @param {Product} product
@@ -198,6 +190,5 @@ module.exports = {
     getYotpoReviewsCustomAttribute: getYotpoReviewsCustomAttribute,
     getCurrentCountry: getCurrentCountry,
     getPDPContentAssetHTML: getPDPContentAssetHTML,
-    getPLPCustomURL: getPLPCustomURL,
-    getYotpoReviewsCustomAttribute: getYotpoReviewsCustomAttribute,
+    getPLPCustomURL: getPLPCustomURL
 };
