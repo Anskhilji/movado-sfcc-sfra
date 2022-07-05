@@ -49,9 +49,15 @@
                                         </div>
                                     </div>
                                 </div>
+<<<<<<< HEAD
                             <iselse>
                                 <isinclude template="product/components/pidRating" />
                             </isif> 
+=======
+                            <iselse/>
+                                <isinclude template="product/components/pidRating" />
+                            </isif>
+>>>>>>> release-44-develop
                         </div>
                     </div>
 
@@ -84,7 +90,11 @@
                                     </div>
                                 </div>
                             </div>
+<<<<<<< HEAD
                         <iselse>
+=======
+                        <iselse/>
+>>>>>>> release-44-develop
                             <isinclude template="product/components/pidRating" />
                         </isif>
                     </div>

@@ -63,6 +63,16 @@
   
     .image-container {
       border: none;
+
+      a {
+        display: block;
+
+        .tile-image {
+            width: auto; 
+            max-width: 100%; 
+            height: auto;
+        }
+      }
   
       .quickview {
         display: none;

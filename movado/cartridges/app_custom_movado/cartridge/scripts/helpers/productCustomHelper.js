@@ -181,6 +181,14 @@ function getCurrentCountry() {
     return availableCountry;
 }
 
+function getYotpoReviewsCustomAttribute(apiProduct) {
+    var yotpoReviews = '';
+    if (!empty(apiProduct) && !empty(apiProduct.custom.yotpoStarRattings)) {
+        yotpoReviews = apiProduct.custom.yotpoStarRattings;
+    }
+    return yotpoReviews;
+}
+
 module.exports = {
     getExplicitRecommendations: getExplicitRecommendations,
     getCollectionName: getCollectionName,
@@ -190,5 +198,6 @@ module.exports = {
     getYotpoReviewsCustomAttribute: getYotpoReviewsCustomAttribute,
     getCurrentCountry: getCurrentCountry,
     getPDPContentAssetHTML: getPDPContentAssetHTML,
-    getPLPCustomURL: getPLPCustomURL
+    getPLPCustomURL: getPLPCustomURL,
+    getYotpoReviewsCustomAttribute: getYotpoReviewsCustomAttribute,
 };

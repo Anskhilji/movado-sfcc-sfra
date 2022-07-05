@@ -181,6 +181,14 @@ $('.ratings > .yotpoBottomLine').on('click',function () {
     }, 10);
 });
 
+// added active class & scroll down on reviews widget
+$('.ratings > .yotpoBottomLine').on('click',function () {
+    var $mainWidget = $('.main-widget > .yotpo-display-wrapper');
+    $('html, body').animate({
+        scrollTop: $($mainWidget).offset().top
+    }, 10);
+});
+
 function refreshAffirmUI() {
     if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
         if (document.readyState === "complete") {

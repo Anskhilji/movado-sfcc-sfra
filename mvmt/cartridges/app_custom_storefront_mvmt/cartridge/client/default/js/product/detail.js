@@ -160,7 +160,7 @@ module.exports = {
         $('.ratings > .yotpoBottomLine').on('click',function () {
             var $mainWidget = $('.main-widget > .yotpo-display-wrapper');
             $('html, body').animate({
-              scrollTop: $($mainWidget).offset().top
+            scrollTop: $($mainWidget).offset().top
             }, 10);
         });
     },

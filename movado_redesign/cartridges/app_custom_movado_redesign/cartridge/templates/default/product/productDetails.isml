@@ -41,14 +41,17 @@
                             <isset name="isYotpoStoreProductRatingEnabled" value="${!empty(dw.system.Site.current.preferences.custom.yotpoStoreProductRatingEnabled) ? dw.system.Site.current.preferences.custom.yotpoStoreProductRatingEnabled : false}" scope="page" />
                             <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
                                 <div class="product-number-rating clearfix">
-                                    <div class="ratings">
+                                    <div class="product-number d-none hidden-xs-down pull-left">
+                                        <isinclude template="product/components/productNumber" />
+                                    </div>
+                                    <div class="ratings pull-left">
                                         <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
                                             <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
                                         </div>
                                     </div>
                                     <a href="${URLUtils.https('ShareByEmail-ShowModal')}?pid=${product.id}" data-toggle="modal" data-target="#sendtofriendform" class="email-share drop-hint">${Resource.msg('label.product.drop.hint', 'product', 'null')}</a>
                                 </div>
-                            <iselse>
+                            <iselse/>
                                 <isinclude template="product/components/pidRating" />
                             </isif>
                         </div>
@@ -73,14 +76,17 @@
                     <div class="hidden-sm-down">
                         <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
                             <div class="product-number-rating clearfix">
-                                <div class="ratings">
+                                <div class="product-number d-none hidden-xs-down pull-left">
+                                    <isinclude template="product/components/productNumber" />
+                                </div>
+                                <div class="ratings pull-left">
                                     <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
                                         <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
                                     </div>
                                 </div>
                                 <a href="${URLUtils.https('ShareByEmail-ShowModal')}?pid=${product.id}" data-toggle="modal" data-target="#sendtofriendform" class="email-share drop-hint">${Resource.msg('label.product.drop.hint', 'product', 'null')}</a>
                             </div>
-                        <iselse>
+                        <iselse/>
                             <isinclude template="product/components/pidRating" />
                         </isif>
                     </div>
@@ -195,7 +201,7 @@
                                                         <isinclude template="product/components/smartGift" />
                                                     </isif>
                                                 </isif>
-                                                <div class="product-not-available-msg <isif condition="${!product.isProductRestricted}">d-none</isif>">${Resource.msg('esw.product.notavailable','esw',null)}</div>
+                                            <div class="product-not-available-msg <isif condition="${!product.isProductRestricted}">d-none</isif>">${Resource.msg('esw.product.notavailable','esw',null)}</div>
                                             <iselse/>
                                                 <isapplepay class="apple-pay-pdp btn mt-2" sku="${product.id}"></isapplepay>
                                                 <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}"> 
@@ -241,8 +247,12 @@
                         </div>
                     </isif>
                 </div>
+<<<<<<< HEAD
                 <iscomment> Sticky-add to cart button PDP </iscomment>
                 <div class="col-12 prices-add-to-cart-actions cart-sticky-wrapper-btn d-none">
+=======
+                <div class="col-12 pdp-movado prices-add-to-cart-actions cart-sticky-wrapper-btn scroll-hidden">
+>>>>>>> release-44-develop
                     <!-- Prices -->
                     <div class="prices">
                         <iscomment> Custom Start: Product price shows when following requirements meet </iscomment>

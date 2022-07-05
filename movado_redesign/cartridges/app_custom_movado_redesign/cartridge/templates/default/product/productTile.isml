@@ -134,7 +134,7 @@
                     <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
                         <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
                     </div>
-                <iselse>
+                <iselse/>
                     <isinclude template="product/components/ratings" />
                 </isif>
             </div>
