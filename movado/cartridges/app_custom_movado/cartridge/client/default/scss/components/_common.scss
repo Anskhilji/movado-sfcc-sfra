@@ -667,6 +667,7 @@ header~.container .promotions .callout a{
                         background-image: url("../images/clear_black_icon.svg");
                         width: rem(16);
                         height: rem(16);
+                        margin-left: rem(10);
                     }
                 }
             }
@@ -797,10 +798,14 @@ header~.container .promotions .callout a{
             .promo-box-space {                
                 @include custom-media-query-max($medium-screen-width) {
                     padding: rem(0);
+                    margin-top: rem(22);
                 }
 
                 .promo-label-wrapper {
-                    margin-bottom: rem(0);
+                    margin-bottom: rem(15);
+                    @include custom-media-query-max($medium-screen-width) {
+                      margin-bottom: rem(0);
+                    }
                 }
 
                 .coupon-error {
@@ -818,7 +823,7 @@ header~.container .promotions .callout a{
             overflow: auto;
             display: none;
             top: rem(10);
-            padding: rem(24) rem(32) rem(0) rem(32);
+            padding: rem(16) rem(32) rem(0) rem(32);
 
             &.pop-up-top-container {
               top: -4.375rem;
@@ -843,6 +848,8 @@ header~.container .promotions .callout a{
             margin-bottom: rem(0);
             padding-left: rem(20);
             cursor: pointer;
+            display: block;
+            margin-bottom: rem(2);
 
             &:hover {
                 text-decoration: none;

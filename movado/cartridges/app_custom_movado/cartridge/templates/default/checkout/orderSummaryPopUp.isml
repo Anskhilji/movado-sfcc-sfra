@@ -15,9 +15,11 @@
                        <!-- Promos -->
                        <div class="checkout-promo-section checkout-promo-redesign">
                            <isinclude template="checkout/checkoutPromoCode" />
+                            <isif condition="${discount.type === 'coupon'}">
                                <div class="checkout-coupons-and-promos coupons-wrapper mb-3">
                                    <isinclude template="cart/cartCouponDisplay" />
                                 </div>
+                            </isif>
                                 <div class="checkout-coupons-remove">
                                     <isinclude template="cart/cartRemoveCouponModal"/>
                                 </div>
