@@ -87,10 +87,13 @@ $(document).ready(function() { // eslint-disable-line
     $('input.checkout-coupon-code-field').on('change keyup', function() {
         checkPromoInput(this);
     });
-    
+
     $('.show-details-wrapper').click(function() {
         $('.hidden-menu').slideDown('slow');
         $('.hidden-menu').addClass('pop-up-top-container');
+        if ($('.collapsible-xl .content.collapse').hasClass('show')) {
+            $('.collapsible-xl .content.collapse').removeClass('show');
+        }
         $('body').addClass('overflow-hidden');
         $('.overlayer-box').addClass('d-block');
     });
@@ -104,5 +107,5 @@ $(document).ready(function() { // eslint-disable-line
     // $('.promo-label-wrapper').click(function() {
     //     $(this).hide();
     // });
-    
+
 });

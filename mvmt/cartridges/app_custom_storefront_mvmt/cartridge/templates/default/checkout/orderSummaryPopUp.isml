@@ -15,7 +15,7 @@
                        <!-- Promos -->
                        <div class="checkout-promo-section checkout-promo-redesign">
                            <isinclude template="checkout/checkoutPromoCode" />
-                               <div class="checkout-coupons-and-promos coupons-wrapper">
+                               <div class="checkout-coupons-and-promos coupons-and-promos coupons-wrapper">
                                    <isinclude template="cart/cartCouponDisplay" />
                                 </div>
                         </div>
