@@ -32,7 +32,7 @@
                         </div>
                             <div class="card order-summary-card card-border-none-wrapper card-summary-wrapper-container">
                                 <div class="card-body order-total-summary">
-                                    <isinclude template="checkout/orderTotalSummary" />
+                                    <isinclude template="checkout/orderTotalSummaryRedesign" />
                                 </div>
                             </div>
                             <isinclude template="checkout/orderProductSummaryPopup" />

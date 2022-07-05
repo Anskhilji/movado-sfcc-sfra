@@ -58,6 +58,10 @@
     &.product-card-container {
         margin-bottom: rem(30);
 
+        &:last-child {
+            border-bottom: none !important;
+        }
+
         .product-line-item-details {
 
             .item-attributes {

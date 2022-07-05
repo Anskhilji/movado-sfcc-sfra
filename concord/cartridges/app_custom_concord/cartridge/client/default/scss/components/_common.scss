@@ -640,6 +640,7 @@ header~.container .promotions .callout a{
                   color: $parrot-green;
                   text-transform: capitalize;
                   margin-right: rem(10);
+                  display: none;
               }
 
               .coupon-not-applied {
@@ -648,6 +649,7 @@ header~.container .promotions .callout a{
                   line-height: rem(24);
                   text-transform: capitalize;
                   margin-right: rem(10);
+                  display: none;
               }
 
               .coupon-code {
@@ -728,6 +730,10 @@ header~.container .promotions .callout a{
                   padding-top: rem(16);
                   background-color: transparent;
 
+                  @include media-breakpoint-down(xs) {
+                      letter-spacing: rem(0.92);
+                  }
+
                   &:focus {
                     box-shadow: none;
                     
@@ -799,12 +805,23 @@ header~.container .promotions .callout a{
           position: absolute;
           width: 100%;
           z-index: 9999;
-          height: rem(660);
+          height: 70vh;
           background-color: $white;
           overflow: auto;
           display: none;
-          padding-bottom: rem(15);
           padding: rem(24) rem(32) rem(0) rem(32);
+
+          &.pop-up-top-container {
+              top: -4.375rem;
+          }
+
+          .sticky-hide-wrapper {
+              position: sticky;
+              bottom: 0;
+              background: $white;
+              padding: rem(20) rem(0) rem(20) rem(0);
+              z-index: 15;
+          }
       }
       
       .label-show-title {

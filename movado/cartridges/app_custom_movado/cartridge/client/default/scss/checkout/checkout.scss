@@ -1017,7 +1017,10 @@ header {
                 position: sticky;
                 bottom: rem(0);
                 background-color: $grey20;
-                flex-grow: 1;
+
+                @include custom-media-query-max($medium-screen-width) {
+                    background-color: transparent;
+                }
             
                 .checkout-help-contact-info-container {
                     display: flex;

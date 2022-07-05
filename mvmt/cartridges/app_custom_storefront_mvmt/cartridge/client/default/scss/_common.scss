@@ -661,6 +661,7 @@ div {
                     color: $parrot-green;
                     text-transform: capitalize;
                     margin-right: rem(10);
+                    display: none;
                 }
 
                 .coupon-not-applied {
@@ -669,6 +670,7 @@ div {
                     line-height: rem(24);
                     text-transform: capitalize;
                     margin-right: rem(10);
+                    display: none;
                 }
 
                 .coupon-code {
@@ -680,10 +682,9 @@ div {
                     align-items: center;
                     justify-content: space-between;
 
-                    .clear-icon-btn {
-                        background-image: url("../images/clear_black_icon.svg");
-                        width: rem(16);
-                        height: rem(16);
+                    .remove-coupon {
+                        margin-left: rem(5);
+                        color: $gossamer;
                     }
                 }
             }
@@ -694,11 +695,15 @@ div {
                 margin-bottom: rem(0);
             }
 
+            @include media-breakpoint-down(xs) {
+                margin-bottom: rem(10);
+            }
+
             .promo-label-wrapper {
                 color: $cerulean;
                 font-size: rem(13);
                 font-weight: 500;
-                letter-spacing: rem(0.7);
+                letter-spacing: rem(0.93);
                 line-height: rem(24);
                 text-transform: capitalize;
                 width: auto;
@@ -761,7 +766,11 @@ div {
                     margin-bottom: rem(15);
 
                     @include media-breakpoint-down(xs) {
-                        margin-bottom: rem(10);
+                        font-weight: 500;
+                        color: $black;
+                        font-size: rem(12);
+                        letter-spacing: rem(0.92);
+                        margin-bottom: rem(0);
                     }
 
                     &:focus {
@@ -833,7 +842,7 @@ div {
                 .promo-label-wrapper {
                     margin-bottom: rem(0);
                     @include media-breakpoint-down(xs) {
-                        margin-bottom: rem(15);
+                        margin-bottom: rem(0);
                     } 
                 }
             }

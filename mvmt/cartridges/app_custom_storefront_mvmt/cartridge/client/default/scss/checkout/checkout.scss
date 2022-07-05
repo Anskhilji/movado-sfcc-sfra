@@ -1073,6 +1073,11 @@ header {
                                 border: rem(1) solid $invalid-red;
                             }
                         }
+
+                        & +i {
+                            border-left: none;
+                            background: url("../../images/arrow-down-2.png") center center no-repeat;
+                        }
                     }
                 }
             }
@@ -1085,6 +1090,10 @@ header {
                 .product-card-wrapper {
 
                     &.product-card-container {
+
+                        &:last-child {
+                            border-bottom: none !important;
+                        }
 
                         .product-line-item-details {
     
@@ -1116,6 +1125,7 @@ header {
                                         font-weight: 500;
                                         letter-spacing: rem(0.86);
                                         line-height: rem(18);
+                                        text-transform: uppercase;
     
                                         @include media-breakpoint-down(xs) {
                                             letter-spacing: rem(1.5);

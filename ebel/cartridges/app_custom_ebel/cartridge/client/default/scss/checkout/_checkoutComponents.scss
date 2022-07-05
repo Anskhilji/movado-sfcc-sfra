@@ -766,11 +766,6 @@ $stored-payment-spacing: rem(16);
         }
     }
     
-    &.data-checkout-stage-redesign {
-        margin-bottom: rem(0);
-        padding-top: rem(16);
-    }
-
     .card-body {
 
         form {
@@ -867,6 +862,24 @@ $stored-payment-spacing: rem(16);
                     }
                 }
             }
+        }
+    }
+}
+
+#mainContent {
+  
+    .data-checkout-stage {
+
+        &.data-checkout-stage-redesign {
+          margin-bottom: rem(0);
+          padding-top: rem(16);
+
+          .pop-up-container-box {
+
+              .pop-up-box-space {
+                  padding-top: rem(10);
+              }
+          }
         }
     }
 }

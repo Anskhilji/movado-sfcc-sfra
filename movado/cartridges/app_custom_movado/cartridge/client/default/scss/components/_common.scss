@@ -646,6 +646,7 @@ header~.container .promotions .callout a{
                     text-transform: capitalize;
                     margin-right: rem(10);
                     margin-top: rem(0);
+                    display: none;
                 }
 
                 .coupon-not-applied {
@@ -654,6 +655,7 @@ header~.container .promotions .callout a{
                     line-height: rem(24);
                     text-transform: capitalize;
                     margin-right: rem(10);
+                    display: none;
                 }
 
                 .coupon-code {
@@ -805,8 +807,9 @@ header~.container .promotions .callout a{
 
                 .promo-label-wrapper {
                     margin-bottom: rem(0);
+
                     @include custom-media-query-max($medium-screen-width) {
-                      margin-bottom: rem(0);
+                        margin-bottom: rem(0);
                     }
                 }
 

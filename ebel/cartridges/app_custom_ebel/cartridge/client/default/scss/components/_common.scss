@@ -647,6 +647,7 @@ header~.container .promotions .callout a{
                   color: $parrot-green;
                   text-transform: capitalize;
                   margin-right: rem(10);
+                  display: none;
               }
 
               .coupon-not-applied {
@@ -655,6 +656,7 @@ header~.container .promotions .callout a{
                   line-height: rem(24);
                   text-transform: capitalize;
                   margin-right: rem(10);
+                  display: none;
               }
 
               .coupon-code {
@@ -693,6 +695,7 @@ header~.container .promotions .callout a{
 
           .promo-input-wrapper {
               position: relative;
+              margin: rem(0) rem(0) rem(10) rem(0);
 
               .checkout-promo-code-submit {
                   position: absolute;
@@ -792,6 +795,8 @@ header~.container .promotions .callout a{
           }
 
           .promo-box-space {
+              padding: rem(0);
+
               @include media-breakpoint-down(xs) {
                   padding: rem(0);
               }
@@ -806,11 +811,23 @@ header~.container .promotions .callout a{
           position: absolute;
           width: 100%;
           z-index: 9999;
-          height: rem(660);
+          height: 70vh;
           background-color: $white;
           overflow: auto;
           display: none;
-          padding-bottom: rem(15);
+          padding: rem(16) rem(32) rem(0) rem(32);
+
+          &.pop-up-top-container {
+             top: -4.375rem;
+          }
+
+            .sticky-hide-wrapper {
+                position: sticky;
+                bottom: 0;
+                background: $white;
+                padding: rem(20) rem(0) rem(20) rem(0);
+                z-index: 15;
+            }
       }
       
       .label-show-title {
@@ -820,6 +837,7 @@ header~.container .promotions .callout a{
           line-height: rem(24);
           text-transform: capitalize;
           color: $cerulean;
+          padding-left: rem(20);
           cursor: pointer;
 
           &:hover {
