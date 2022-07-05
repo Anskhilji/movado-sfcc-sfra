@@ -73,7 +73,6 @@
 	                </div>
                     <!-- Product Name -->
                     <h2 class="product-name product-title-for-gtm d-sm-none d-md-block text-capitalize">${product.productName}</h2>
-
                     <div class="hidden-sm-down">
                         <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
                             <div class="product-number-rating clearfix">

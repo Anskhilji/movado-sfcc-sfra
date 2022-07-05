@@ -628,3 +628,226 @@ div {
 
     }
 }
+
+
+.checkout-promo-section {
+
+    &.checkout-promo-redesign {
+
+        .checkout-coupons-and-promos {
+
+            .coupon-price-adjustment {
+                border: rem(1) solid $parrot-green;
+                border-radius: rem(22.5);
+                padding: rem(5) rem(10);
+                box-shadow: none;
+                width: auto;
+                max-width: fit-content;
+                background-color: transparent;
+
+                .flex-box-promo-code {
+                    display: flex;
+                    align-items: center;
+                    align-self: center;
+                    justify-content: space-around;
+                }
+
+                .coupon-applied {
+                    font-size: rem(10);
+                    letter-spacing: rem(0.77);
+                    line-height: rem(24);
+                    color: $parrot-green;
+                    text-transform: capitalize;
+                    margin-right: rem(10);
+                }
+
+                .coupon-not-applied {
+                    font-size: rem(10);
+                    letter-spacing: rem(0.77);
+                    line-height: rem(24);
+                    text-transform: capitalize;
+                    margin-right: rem(10);
+                }
+
+                .coupon-code {
+                    font-size: rem(10);
+                    letter-spacing: rem(0.77);
+                    line-height: rem(24);
+                    color: $parrot-green;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    .clear-icon-btn {
+                        background-image: url("../images/clear_black_icon.svg");
+                        width: rem(16);
+                        height: rem(16);
+                    }
+                }
+            }
+        }
+
+        .collapsible-promo-redesign-wrapper {
+
+            .promo-label-wrapper {
+                color: $cerulean;
+                font-size: rem(13);
+                font-weight: 500;
+                letter-spacing: rem(0.7);
+                line-height: rem(24);
+                text-transform: capitalize;
+                width: auto;
+                &::after {
+                    content: "";
+                }
+            }
+
+            .promo-input-wrapper {
+                position: relative;
+
+                .checkout-promo-code-submit {
+                    position: absolute;
+                    top: rem(1);
+                    right: rem(1);
+
+                    .checkout-promo-code-btn {
+                        border: transparent;
+                        background-color: transparent;
+                        height: rem(43);
+                        display: none;
+                        color: $cerulean;
+                        font-size: rem(14);
+                        letter-spacing: rem(1);
+                        line-height: rem(20);
+                        text-transform: capitalize;
+
+                        &:hover {
+                            background-color: transparent;
+                        }
+
+                        &:focus {
+                            box-shadow: none;
+                            background-color: transparent;
+                            color: $cerulean;
+                        }
+                    }
+                }
+
+                .checkout-coupon-code-field {
+                    border: rem(1) solid $grey19;
+                    border-radius: rem(3);
+                    height: rem(45);
+                    font-size: rem(12);
+                    letter-spacing: rem(1.25);
+                    padding-top: rem(16);
+                    background-color: transparent;
+
+                    &:focus {
+                        box-shadow: none;
+                      
+                        &::placeholder {
+                            color: transparent;
+                            opacity: 0;
+                        }
+
+                        + .promo-code-coupon-label {
+                            transition: 0.25s ease-in-out;
+                            top: 0;
+                            left: rem(12.8);
+                            height: rem(24);
+                            color: $grey17;
+                            font-size: rem(10);
+                            font-weight: 500;
+                            letter-spacing: rem(0.77);
+                            line-height: rem(24);
+                            width: 100%;
+                            pointer-events: none;
+                        }
+                    }
+
+                    &.is-invalid {
+                        border-color: $red;
+                    }
+                }
+
+                .promo-code-coupon-label {
+                    position: absolute;
+                    top: rem(16);
+                    left: rem(12.8);
+                    color: $grey17;
+                    transition: 0.25s ease-in-out;
+                    width: 100%;
+                    pointer-events: none;
+                    text-transform: capitalize;
+                    font-size: rem(12);
+                    letter-spacing: rem(0.92);
+        
+                    &.input-has-value {
+                        transition: 0.25s ease-in-out;
+                        top: 0;
+                        left: rem(12.8);
+                        height: rem(24);
+                        color: $grey17;
+                        font-size: rem(10);
+                        font-weight: 500;
+                        letter-spacing: rem(0.77);
+                        line-height: rem(24);
+                        width: 100%;
+                        pointer-events: none;
+                    }
+                }
+            }
+
+            .promo-box-space {
+                @include media-breakpoint-down(xs) {
+                    padding: rem(0);
+                }
+
+                .coupon-error {
+                    margin: rem(5) 0;
+                }
+            }
+        }
+
+        .order-summary-container {
+            position: absolute;
+            width: 100%;
+            z-index: 10;
+            height: 70vh;
+            background-color: $white;
+            overflow: auto;
+            display: none;
+            top: rem(10);
+            padding: rem(24) rem(34) rem(0) rem(34);
+
+            &.pop-up-top-container {
+                top: -4.375rem;
+            }
+  
+            .sticky-hide-wrapper {
+                position: sticky;
+                bottom: 0;
+                background: $white;
+                padding: rem(20) rem(0) rem(20) rem(0);
+            }
+        }
+        
+        .label-show-title {
+            font-size: rem(12);
+            font-weight: 500;
+            letter-spacing: rem(0.65);
+            line-height: rem(24);
+            text-transform: capitalize;
+            color: $cerulean;
+            cursor: pointer;
+
+            &:hover {
+                text-decoration: none;
+            }
+            
+            img {
+                padding-left: rem(5);
+            }
+        }
+    }
+}

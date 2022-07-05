@@ -39,10 +39,10 @@
                 </div>
             </div>
         <iselseif condition="${discount.lineItemText !== 'null' && discount.price !== 'null'}" >
-            <div class="promotion-information col-12">
+            <iscomment> <div class="promotion-information col-12">
                 <span class="promotion-name">${discount.lineItemText}</span>
                 <span class="applied-promotion-discount">${discount.price}</span>
-            </div>
+            </div> </iscomment>
         </isif>
     </isloop>
 </div>

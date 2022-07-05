@@ -50,4 +50,53 @@ $(document).ready(function() { // eslint-disable-line
             e.stopPropagation();
         }
     });
+
+    function checkForInput(element) {
+        const $label = $(element).siblings('.field-label-wrapper');
+        if ($(element).val().length > 0) {
+            $label.addClass('input-has-value');
+        } else {
+            $label.removeClass('input-has-value');
+        }
+    }
+    $('input.input-wrapper-checkout,select.custom-select-box').each(function() {
+        checkForInput(this);
+    });
+    $('input.input-wrapper-checkout,select.custom-select-box').on('change keyup', function() {
+        checkForInput(this);
+    });
+    $('.btn-add-new,.btn-show-details').click(function() {
+        $('.billing-address input,select').each(function () {
+            checkForInput(this);
+        });
+    });
+
+    function checkPromoInput(element) {
+        const $labelPromo = $(element).siblings('.promo-code-coupon-label');
+        if ($(element).val().length > 0) {
+            $('.checkout-promo-code-btn').addClass('d-block');
+            $labelPromo.addClass('input-has-value');
+        } else {
+            $('.checkout-promo-code-btn').removeClass('d-block');
+            $labelPromo.removeClass('input-has-value');
+        }
+    }
+    $('input.checkout-coupon-code-field').each(function() {
+        checkPromoInput(this);
+    });
+    $('input.checkout-coupon-code-field').on('change keyup', function() {
+        checkPromoInput(this);
+    });
+    
+    $('.show-details-wrapper').click(function() {
+        $('.hidden-menu').slideDown('slow');
+        $('.hidden-menu').addClass('pop-up-top-container');
+        $('body').addClass('overflow-hidden');
+        $('.overlayer-box').addClass('d-block');
+    });
+    $('.hide-details-wrapper').click(function() {
+        $('.hidden-menu').slideUp('slow');
+        $('body').removeClass('overflow-hidden');
+        $('.overlayer-box').removeClass('d-block');
+    });
 });
