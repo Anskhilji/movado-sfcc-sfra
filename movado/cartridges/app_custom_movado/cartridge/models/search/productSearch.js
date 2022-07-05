@@ -239,26 +239,29 @@ function getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams) {
         searchHitsProductsList = productSearch.productSearchHits.asList();
     }
     for (var i = 0; i < searchHitsProductsList.size(); i++) {
-        searchHitProduct = searchHitsProductsList[i]; 
-        allSearchHitsProducts.push({
-            productID: searchHitProduct.productID,
-            productSearchHit: searchHitProduct
-        });
-    }
-    allSearchHitsProducts.forEach(function (searchHitResultProduct) {
         defaultVariant = null;
         searchHitProductID = '';
-        if (!empty(searchHitResultProduct) && !empty(searchHitResultProduct.productSearchHit) && !empty(searchHitResultProduct.productSearchHit.product)
-        && !empty(searchHitResultProduct.productSearchHit.product.variationModel) && !empty(searchHitResultProduct.productSearchHit.product.variationModel.defaultVariant)) {
-            defaultVariant = searchHitResultProduct.productSearchHit.product.variationModel.defaultVariant;
+        searchHitProduct = searchHitsProductsList[i];
+
+        if (!empty(searchHitProduct)  && !empty(searchHitProduct.product)
+        && !empty(searchHitProduct.product.variationModel) && !empty(searchHitProduct.product.variationModel.defaultVariant)) {
+            defaultVariant = searchHitProduct.product.variationModel.defaultVariant;
         }
         if (defaultVariant !== null) {
             searchHitProductID = defaultVariant.ID;
         } else {
-            searchHitProductID = searchHitResultProduct.productID
+            searchHitProductID = searchHitProduct.productID
         }
+        if (searchHitProduct.product.online) {
+            allSearchHitsProducts.push({
+                productID: searchHitProductID,
+                productSearchHit: searchHitProduct
+            });
+        }
+    }
+    allSearchHitsProducts.forEach(function (searchHitResultProduct) {
         paramContainer = {
-            pid: searchHitProductID
+            pid: searchHitResultProduct.productID
         };
         factoryProduct = ProductFactory.get(paramContainer);
         if (!empty(factoryProduct) && !empty(factoryProduct.price) && !empty(factoryProduct.price.sales) && !empty(factoryProduct.price.sales.value)) {
@@ -290,7 +293,7 @@ function getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams) {
     allFactoryProducts.forEach(function (sortedProductID) {
         for (var j = 0; j < allSearchHitsProducts.length; j++) {
             currentProduct = allSearchHitsProducts[j];
-            if (sortedProductID.id === currentProduct.productID) {
+            if (sortedProductID.id === currentProduct.productID && sortedProductID.online) {
                 if (lastProductID !== currentProduct.productID) {
                     allSortedProductsIds.push({
                         productID: currentProduct.productID,
