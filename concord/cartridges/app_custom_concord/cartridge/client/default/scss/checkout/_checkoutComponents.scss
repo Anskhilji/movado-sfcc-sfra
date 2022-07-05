@@ -525,30 +525,36 @@ $stored-payment-spacing: rem(16);
         .card-body {
             padding: rem(0);
 
-            .info-icon {
+            .mx-field-wrapper {
 
-              &.info-icon-email {
-                  position: absolute;
-                  right: rem(25);
-                  top: rem(12);
-                  padding-bottom: rem(0);
+                .info-icon {
 
-                  .icon {
-                    background-image: url("../../images/info-icon.svg");
-                    background-repeat: no-repeat;
-                    background-size: cover;
-                    width: rem(15);
-                    height: rem(15);
-                    background-color: transparent;
-                  }
+                    &.info-icon-email {
+                        position: absolute;
+                        right: rem(25);
+                        top: rem(12);
+                        padding-bottom: rem(0);
+      
+                        .icon {
+                            background-image: url("../../images/info-icon.svg");
+                            background-repeat: no-repeat;
+                            background-size: cover;
+                            width: rem(15);
+                            height: rem(15);
+                            background-color: transparent;
+                        }
+      
+                        &.icon-right-wrapper {
+                            right: rem(64);
+                            top: rem(12);
+                            padding-bottom: rem(0);
 
-                  &.icon-right-wrapper {
-                    right: rem(64);
-                    top: rem(12);
-                    padding-bottom: rem(0);
-
-                  }
-                  
+                            @include media-breakpoint-down(sm) {
+                                right: rem(25);
+                            }
+      
+                        }                        
+                    }
                 }
             }
             

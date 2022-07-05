@@ -336,6 +336,10 @@ $receipt-font-size: rem(14);
                 &.icon-right-wrapper {
                     right: rem(64);
                     top: rem(9);
+
+                    @include media-breakpoint-down(sm) {
+                      right: rem(25);
+                    }
                 }
               }
             }
