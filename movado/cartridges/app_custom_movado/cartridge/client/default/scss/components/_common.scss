@@ -804,7 +804,7 @@ header~.container .promotions .callout a{
                 }
 
                 .promo-label-wrapper {
-                    margin-bottom: rem(15);
+                    margin-bottom: rem(0);
                     @include custom-media-query-max($medium-screen-width) {
                       margin-bottom: rem(0);
                     }
