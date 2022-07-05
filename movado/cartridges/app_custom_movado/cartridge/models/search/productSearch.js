@@ -290,25 +290,22 @@ function getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams, sorting
     allFactoryProducts.forEach(function (sortedProductID) {
         for (var j = 0; j < allSearchHitsProducts.length; j++) {
             currentProduct = allSearchHitsProducts[j];
-            if (sortedProductID.id === currentProduct.productID && sortedProductID.online) {
-                if (lastProductID !== currentProduct.productID) {
-                    var currentProductId = null;
-                    var apiProduct = currentProduct.productSearchHit.product;
-                    if (!apiProduct.master) {
-                        if (apiProduct.variant) {
-                            currentProductId = apiProduct.variationModel.master.ID;
-                        } else {
-                            currentProductId = apiProduct.ID;
-                        }
+            if (sortedProductID.id === currentProduct.productID) {
+                var currentProductId = null;
+                var apiProduct = currentProduct.productSearchHit.product;
+                if (!apiProduct.master) {
+                    if (apiProduct.variant) {
+                        currentProductId = apiProduct.variationModel.master.ID;
                     } else {
                         currentProductId = apiProduct.ID;
                     }
-                    allSortedProductsIds.push({
-                        productID: currentProductId,
-                        productSearchHit: currentProduct
-                    });
+                } else {
+                    currentProductId = apiProduct.ID;
                 }
-                lastProductID = currentProduct.productID;
+                allSortedProductsIds.push({
+                    productID: currentProductId,
+                    productSearchHit: currentProduct
+                });
             }
         }
     });
