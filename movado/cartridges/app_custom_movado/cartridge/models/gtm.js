@@ -396,7 +396,7 @@ function getPDPProductImpressionsTags(productObj) {
     var prodOptionArray = getProductOptions(productObj.optionModel.options);
 
     productPersonalization = prodOptionArray != null ? prodOptionArray : '';
-    return { productID: productID, productName: productName, brand: brand, productPersonalization: productPersonalization, productPrice: productPrice, list: 'PDP', currency: currency, runningAbTest: "Running ab test 3" };
+    return { productID: productID, productName: productName, brand: brand, productPersonalization: productPersonalization, productPrice: productPrice, list: 'PDP', currency: currency };
 }
 
 
