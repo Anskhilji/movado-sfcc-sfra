@@ -225,10 +225,6 @@ function getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams, sorting
     var pmax = httpParams.pmax;
     var searchHitProductID;
     var defaultVariant;
-    var lastProductID = '';
-    // if (productSearch.sortingRule !== null && Object.hasOwnProperty.call(productSearch.sortingRule,'ID')) { 
-    //     sortingOrder = productSearch.sortingRule.ID;
-    // }
     if (!empty(sortingRule)) {
         sortingOrder = sortingRule;
     }
