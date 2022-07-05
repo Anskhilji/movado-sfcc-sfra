@@ -1318,6 +1318,10 @@ $stored-payment-spacing: rem(16);
                                         line-height: rem(10);
                                         color: $grey8;
                                         margin-bottom: rem(10);
+
+                                        &.clyde-option-attributes {
+                                           line-height: normal;
+                                        }
                                     }
                         
                                     .line-item-header {
