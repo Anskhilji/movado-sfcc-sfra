@@ -116,9 +116,7 @@ function getProductGtmObj(product, categoryName, position) {
  function getRunningAbTestSegments() {
     var ABTestMgr = require('dw/campaign/ABTestMgr');
     var assignedTestSegmentsIterator = ABTestMgr.getAssignedTestSegments().iterator();
-    var abTestParticipationSegments = [{
-        'runningABTes': 'lafjsafl;dsjflsdjfask'
-    }];
+    var abTestParticipationSegments = [];
 
     while (assignedTestSegmentsIterator.hasNext()) {
         abTestSegment = assignedTestSegmentsIterator.next();
