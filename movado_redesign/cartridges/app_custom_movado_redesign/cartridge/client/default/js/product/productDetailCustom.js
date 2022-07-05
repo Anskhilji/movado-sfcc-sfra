@@ -303,57 +303,6 @@ $(document).ready(function() {
 
     });
     ratingRedesign();
-<<<<<<< HEAD
-    
-    // custom end: MSS-1772 pdp sticky ATC
-    function loadCartButtonOnScroll() {
-        if ($(window).width() < 544) {
-            var cartWishListObserver = document.querySelector('.cart-wishlist-observer');
-            var initialCoords = cartWishListObserver.getBoundingClientRect();
-            
-            window.addEventListener('scroll', function () {
-                if (this.window.scrollY < initialCoords.top) {
-                    $('.cart-sticky-wrapper-btn').addClass('d-none');
-                    $('.cart-sticky-wrapper-btn').removeClass('d-block');
-                    setTimeout(() => {
-                        $('.cart-sticky-wrapper-btn').css('transform','translateY(150px)');
-                    }, 500);
-                } else {
-                    $('.cart-sticky-wrapper-btn').addClass('d-block');
-                    $('.cart-sticky-wrapper-btn').removeClass('d-none');
-                    setTimeout(() => {
-                        $('.cart-sticky-wrapper-btn').css('transform','translateY(0px)');
-                    }, 500);
-                }
-            });
-        }
-    }
-
-    function loadCartButtonTouchMove() {
-        if ($(window).width() < 544) {
-            var cartWishListObserver = document.querySelector('.cart-wishlist-observer');
-            var initialCoords = cartWishListObserver.getBoundingClientRect();
-            window.addEventListener('touchmove', function () {
-                if (this.window.scrollY < initialCoords.top) {
-                    $('.cart-sticky-wrapper-btn').addClass('d-none');
-                    $('.cart-sticky-wrapper-btn').removeClass('d-block');
-                    setTimeout(() => {
-                        $('.cart-sticky-wrapper-btn').css('transform','translateY(150px)');
-                    }, 500);
-                } else {
-                    $('.cart-sticky-wrapper-btn').addClass('d-block');
-                    $('.cart-sticky-wrapper-btn').removeClass('d-none');
-                    setTimeout(() => {
-                        $('.cart-sticky-wrapper-btn').css('transform','translateY(0px)');
-                    }, 500);
-                }
-            });
-        }
-    }
-    loadCartButtonOnScroll();
-    loadCartButtonTouchMove();
-    // custom end: MSS-1772 pdp sticky ATC
-=======
 
     // custom end: MSS-1772 pdp sticky ATC
     if ($(window).width() < 544) {
@@ -388,7 +337,6 @@ $(document).ready(function() {
 
     // custom end: MSS-1772 pdp sticky ATC
 
->>>>>>> release-44-develop
 });
 
 function ratingRedesign() {
