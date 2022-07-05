@@ -62,7 +62,7 @@ $stored-payment-spacing: rem(16);
     color: $grey8;
     font-size: rem(12);
     font-weight: 500;
-    letter-spacing: rem(0.56);
+    letter-spacing: rem(1);
     line-height: rem(21);
   
   }
@@ -415,8 +415,10 @@ $stored-payment-spacing: rem(16);
   }
 
     &.leading-lines-wrapper {
-        padding: rem(8) 0;
         border-bottom: rem(1) dashed $grey-dark-3;
+        &:not(:first-of-type) {
+          padding: rem(8) 0;
+        }
 
         &.sales-tax-item {
             border-bottom: rem(1) solid $grey-dark-3;
@@ -1314,7 +1316,7 @@ $stored-payment-spacing: rem(16);
                                         font-weight: 500;
                                         letter-spacing: rem(0.7);
                                         line-height: rem(10);
-                                        color: $grey18;
+                                        color: $grey8;
                                         margin-bottom: rem(10);
                                     }
                         

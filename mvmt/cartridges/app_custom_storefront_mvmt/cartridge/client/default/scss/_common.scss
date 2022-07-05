@@ -690,6 +690,9 @@ div {
         }
 
         .collapsible-promo-redesign-wrapper {
+            @include media-breakpoint-down (sm) {
+                margin-bottom: rem(0);
+            }
 
             .promo-label-wrapper {
                 color: $cerulean;
@@ -709,6 +712,7 @@ div {
             .promo-input-wrapper {
                 margin: rem(0);
                 position: relative;
+                margin-top: rem(13);
 
                 .checkout-promo-code-submit {
                     position: absolute;
@@ -753,7 +757,7 @@ div {
                     font-weight: 500;
                     color: $black;
                     line-height: rem(24);
-                    padding: rem(16) rem(15) rem(6) rem(15);
+                    padding: rem(16) rem(10) rem(6) rem(10);
                     margin-bottom: rem(15);
 
                     @include media-breakpoint-down(xs) {
@@ -772,7 +776,7 @@ div {
                         + .promo-code-coupon-label {
                             transition: 0.25s ease-in-out;
                             top: 0;
-                            left: rem(11.8);
+                            left: rem(11);
                             height: rem(24);
                             color: $grey17;
                             font-size: rem(10);
@@ -792,7 +796,7 @@ div {
                 .promo-code-coupon-label {
                     position: absolute;
                     top: rem(15);
-                    left: rem(12.8);
+                    left: rem(11);
                     color: $grey17;
                     transition: 0.25s ease-in-out;
                     width: 100%;
@@ -805,7 +809,7 @@ div {
                     &.input-has-value {
                         transition: 0.25s ease-in-out;
                         top: 0;
-                        left: rem(11.8);
+                        left: rem(11);
                         height: rem(24);
                         color: $grey17;
                         font-size: rem(10);
@@ -827,6 +831,7 @@ div {
                     margin: rem(5) 0;
                 }
                 .promo-label-wrapper {
+                    margin-bottom: rem(0);
                     @include media-breakpoint-down(xs) {
                         margin-bottom: rem(15);
                     } 
@@ -848,7 +853,7 @@ div {
             overflow: auto;
             display: none;
             top: rem(10);
-            padding: rem(24) rem(32) rem(0) rem(32);
+            padding: rem(24) rem(34) rem(0) rem(34);
 
             &.pop-up-top-container {
                 top: -4.375rem;
@@ -870,6 +875,20 @@ div {
                     letter-spacing: rem(1);
                     line-height: rem(20);
                 }
+
+                .mob-order-total-m {
+                    margin-bottom: rem(3);
+                    .top-grandtotal-label {
+    
+                        &.label-container-wrapper {
+                            margin-bottom: 0;
+                        }
+                    }
+
+                    .top-grand-total-price-wrapper {
+                        margin-bottom: 0;
+                    }
+                }
             }
   
             .sticky-hide-wrapper {
@@ -877,6 +896,16 @@ div {
                 bottom: 0;
                 background: $gray8;
                 padding: rem(20) rem(0) rem(20) rem(0);
+            }
+
+            .card-border-none-wrapper {
+
+                &.card-summary-wrapper-container {
+                    
+                    @include media-breakpoint-down(sm) {
+                        margin-bottom: rem(30);
+                    }
+                }
             }
         }
         
@@ -899,3 +928,4 @@ div {
         }
     }
 }
+

@@ -8,7 +8,7 @@
 
                 <div class="row  position-relative" id="orderSummary">
                     <div class="col-12 order-summary-container hidden-menu">
-                        <div class="col-12 p-0 d-flex justify-content-between">
+                        <div class="col-12 p-0 d-flex justify-content-between mob-order-total-m">
                             <p class="grand-total-label top-grandtotal-label label-container-wrapper">${Resource.msg('order.confirmation.email.label.orderTotal','order',null)} (${Resource.msgf('label.number.items.in.cart','cart', null, pdict.order.items.totalQuantity)})</p>
                             <p class="grand-total-price top-grand-total-price-wrapper">${pdict.order.totals.grandTotal}</p>
                         </div>

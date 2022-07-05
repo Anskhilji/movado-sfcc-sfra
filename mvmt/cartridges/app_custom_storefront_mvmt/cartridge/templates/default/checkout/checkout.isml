@@ -121,9 +121,13 @@
                         <!-- Promos -->
                         <div class="checkout-promo-section checkout-promo-redesign">
                             <isinclude template="checkout/checkoutPromoCode" />
-                            <div class="checkout-coupons-and-promos coupons-and-promos coupons-wrapper mb-3">
-                                <isinclude template="cart/cartCouponDisplay" />
-                            </div>
+                            <isloop items="${pdict.totals.discounts}" var="discount">
+                                <isif condition="${discount.type === 'coupon'}">
+                                    <div class="checkout-coupons-and-promos coupons-and-promos coupons-wrapper mb-3">
+                                        <isinclude template="cart/cartCouponDisplay" />
+                                    </div>
+                                </isif>
+                            </isloop>
                             <div class="checkout-coupons-remove">
                                 <isinclude template="cart/cartRemoveCouponModal"/>
                             </div>

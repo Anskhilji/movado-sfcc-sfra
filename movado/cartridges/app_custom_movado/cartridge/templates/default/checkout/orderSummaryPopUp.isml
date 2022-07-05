@@ -2,9 +2,14 @@
 <div class="" tabindex="0">
     <form action="${pdict.actionUrls.submitCouponCodeUrl}" class="checkout-promo-code-form" method="GET" name="checkout-promo-code-form">
         <div class="form-group mb-2 p-0">
-            <label class="title show-details-wrapper label-show-title" for="couponCode">${Resource.msg('label.order.summary','cart',null)}
-                <img src="${URLUtils.staticURL('/images/icon-down-arrow.svg')}" alt=""/>
-            </label>
+            <div class="d-flex align-itmes-center justify-content-between">
+                <label class="title show-details-wrapper label-show-title" for="couponCode">${Resource.msg('label.order.summary','cart',null)}
+                    <img src="${URLUtils.staticURL('/images/icon-down-arrow.svg')}" alt=""/>
+                </label>
+                <div class="promo-code-applied">
+                    1 Coupon Applied
+                </div>
+            </div>
 
                 <div class="row  position-relative" id="orderSummary">
                     <div class="col-12 order-summary-container hidden-menu">
@@ -15,11 +20,14 @@
                        <!-- Promos -->
                        <div class="checkout-promo-section checkout-promo-redesign">
                            <isinclude template="checkout/checkoutPromoCode" />
-                            <isif condition="${discount.type === 'coupon'}">
-                               <div class="checkout-coupons-and-promos coupons-wrapper mb-3">
-                                   <isinclude template="cart/cartCouponDisplay" />
-                                </div>
-                            </isif>
+                                <isloop items="${pdict.totals.discounts}" var="discount">
+                                    <isif condition="${discount.type === 'coupon'}">
+                                    <div class="checkout-coupons-and-promos coupons-wrapper">
+                                        <isinclude template="cart/cartCouponDisplay" />
+                                        </div>
+                                    </isif>
+                                </isloop>
+
                                 <div class="checkout-coupons-remove">
                                     <isinclude template="cart/cartRemoveCouponModal"/>
                                 </div>
