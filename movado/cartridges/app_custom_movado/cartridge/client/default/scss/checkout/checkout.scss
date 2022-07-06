@@ -1026,8 +1026,9 @@ header {
                     display: flex;
                     justify-content: center;
                     padding-top: rem(27);
-                    border-top: rem(1) solid $border-color;
-                    opacity: 0.36;
+                    padding-bottom: rem(15);
+                    border-top: rem(1) solid $border-color-light;
+                    opacity: 1;
                     width: rem(313);
                     max-width: rem(313);
                     flex-grow: 1;
@@ -1121,7 +1122,7 @@ header {
         }
 
         &.card-summary-wrapper-container {
-            margin-bottom: rem(18);
+            margin-bottom: rem(24);
             background: transparent;
             margin-top: rem(0);
 

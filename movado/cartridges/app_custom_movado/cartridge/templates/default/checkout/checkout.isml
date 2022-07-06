@@ -124,9 +124,6 @@
                                 <div class="checkout-coupons-and-promos coupons-wrapper">
                                     <isinclude template="cart/cartCouponDisplay" />
                                 </div>
-                                <div class="checkout-coupons-remove">
-                                    <isinclude template="cart/cartRemoveCouponModal"/>
-                                </div>
                             </div>
                             <div class="card order-summary-card card-border-none-wrapper card-summary-wrapper-container">
 
@@ -156,5 +153,7 @@
         </div>
     </div>
     <isinclude template="checkout/shipping/shippingAddressTemplate" />
-
+ <div class="checkout-coupons-remove">
+    <isinclude template="cart/cartRemoveCouponModal"/>
+</div>
 </isdecorate>

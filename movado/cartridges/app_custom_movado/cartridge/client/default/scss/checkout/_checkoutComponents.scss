@@ -62,7 +62,7 @@ $stored-payment-spacing: rem(16);
     color: $grey8;
     font-size: rem(12);
     font-weight: 500;
-    letter-spacing: rem(1);
+    letter-spacing: rem(0.56);
     line-height: rem(21);
   
   }
@@ -365,6 +365,10 @@ $stored-payment-spacing: rem(16);
 
 .product-summary-block {
   margin: 1em 0;
+  @include media-breakpoint-down(xs) {
+    margin: rem(0);
+  }
+
   .line-item-name {
     @extend %card-header;
     text-transform: uppercase;
@@ -416,6 +420,9 @@ $stored-payment-spacing: rem(16);
 
     &.leading-lines-wrapper {
         border-bottom: rem(1) dashed $grey-dark-3;
+        &:first-child {
+          padding-bottom: rem(8);
+        }
         &:not(:first-of-type) {
           padding: rem(8) 0;
         }
@@ -1227,6 +1234,7 @@ $stored-payment-spacing: rem(16);
 
         &.grand-total-wrapper{
             padding: rem(8) 0;
+            padding-bottom: rem(0);
       
           .start-lines {
       
@@ -1294,6 +1302,11 @@ $stored-payment-spacing: rem(16);
                             .product-line-item-details {
                                 overflow: hidden;
                                 margin-bottom: rem(30);
+
+                                @include media-breakpoint-down(xs) {
+                                  margin-top: rem(16);
+                                  margin-bottom: rem(0);
+                                }
                       
                                 .item-image {
                                     width: rem(100);
@@ -1317,7 +1330,7 @@ $stored-payment-spacing: rem(16);
                                         font-weight: 500;
                                         letter-spacing: rem(0.7);
                                         line-height: rem(10);
-                                        color: $grey8;
+                                        color: $grey18;
                                         margin-bottom: rem(10);
 
                                         &.clyde-option-attributes {
