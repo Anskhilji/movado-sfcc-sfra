@@ -307,3 +307,14 @@ h1 {
     font-weight: 300 !important;
   }
 }
+
+.checkout-promo-section {
+
+    &.checkout-promo-redesign {
+
+        .collapsible-promo-redesign-wrapper {
+            margin-bottom: rem(7);
+        }      
+    }
+}
+

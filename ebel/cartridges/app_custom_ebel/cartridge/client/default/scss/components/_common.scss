@@ -847,6 +847,21 @@ header~.container .promotions .callout a{
           img {
               padding-left: rem(5);
           }
+
+          &.hide-details-wrapper {
+              padding-left: rem(0);
+              margin-bottom: rem(0);
+          }
+      }
+
+      .promo-code-applied {
+          color: $parrot-green;
+          font-size: rem(12);
+          font-weight: 500;
+          letter-spacing: rem(0.84);
+          line-height: rem(24);
+          margin-right: rem(20);
+          text-transform: uppercase;
       }
   }
 }

@@ -111,7 +111,7 @@
                         letter-spacing: rem(0.86);
                         line-height: rem(10);
                         color: $grey8;
-                        margin-bottom: rem(10);
+                        margin-bottom: rem(10) !important;
                     }
 
                     .savings {
@@ -119,14 +119,14 @@
                         font-weight: 500;
                         letter-spacing: rem(0.86);
                         line-height: rem(10);
-                        margin-bottom: rem(10);
+                        margin-bottom: rem(10) !important;
                     }
 
                     .total-amount {
                         font-size: rem(14);
                         letter-spacing: rem(0.86);
                         line-height: rem(10);
-                        margin-bottom: rem(10);
+                        margin-bottom: rem(10) !important;
                         color: $grey8;
                     }
                 }

@@ -375,6 +375,7 @@
                                               letter-spacing: rem(1.5);
                                               line-height: rem(10);
                                               text-transform: uppercase;
+                                              margin-bottom: rem(10) !important;
                                             }
                                         }
                           
@@ -386,6 +387,11 @@
                                                 letter-spacing: rem(1);
                                                 line-height: rem(10);
                                                 color: $black3;
+
+                                                @include media-breakpoint-down(xs) {
+                                                    letter-spacing: rem(1);
+                                                    line-height: rem(10);
+                                                }
                                             }
                           
                                             .line-item-total-price-amount {
@@ -394,6 +400,11 @@
                                                 letter-spacing: rem(1);
                                                 line-height: rem(10);
                                                 color: $grey8;
+
+                                                @include media-breakpoint-down(xs) {
+                                                    letter-spacing: rem(1);
+                                                    line-height: rem(10);
+                                                }
                                             }
                                           
                                             .total-amount {
@@ -402,6 +413,11 @@
                                                 letter-spacing: rem(1);
                                                 line-height: rem(10);
                                                 color: $black;
+
+                                                @include media-breakpoint-down(xs) {
+                                                    letter-spacing: rem(1);
+                                                    line-height: rem(10);
+                                                }
                                             }
                           
                                             .original-price {
@@ -410,6 +426,11 @@
                                                 letter-spacing: rem(1);
                                                 line-height: rem(10);
                                                 color: $black3;
+                                                
+                                                @include media-breakpoint-down(xs) {
+                                                    letter-spacing: rem(1);
+                                                    line-height: rem(10);
+                                                }
                                             }
                           
                                             .savings {
@@ -620,6 +641,10 @@
                       .checkout-coupons-and-promos {
 
                           .coupon-price-adjustment {
+
+                              @include media-breakpoint-down(xs) {
+                                  margin-bottom: rem(20);
+                              }
                             
                               .coupon-code,.coupon-applied {
                                   font-family: $font-gill-std;  
@@ -637,7 +662,7 @@
         .product-summary-block {
 
             @include media-breakpoint-down(xs) {
-                margin-top: rem(40);
+                margin-top: rem(26);
             }
 
             .card {
@@ -650,6 +675,135 @@
 
                             &:last-child {
                                 border-bottom: none !important;
+                            }
+
+                            .product-line-item-details {
+                          
+                              .item-attributes {  
+                                
+                                  .item-options {
+                                      font-size: rem(13);
+                                      font-weight: 500;
+                                      letter-spacing: rem(1);
+                                      line-height: rem(12);
+                                      color: $grey8;
+                                  }
+                    
+                                  .item-model {
+                    
+                                      &.model-name {
+                                        color: $grey18;
+                                        font-size: rem(12);
+                                        letter-spacing: rem(1.5);
+                                        line-height: rem(10);
+                                        text-transform: uppercase;
+                                        margin-bottom: rem(10) !important;
+                                      }
+                                  }
+                    
+                                  .item-quantity-container-box {
+                                    
+                                      .item-quantity-wrapper {
+                                          font-size: rem(14);
+                                          font-weight: 500;
+                                          letter-spacing: rem(1);
+                                          line-height: rem(10);
+                                          color: $black3;
+
+                                          @include media-breakpoint-down(xs) {
+                                              letter-spacing: rem(1);
+                                              line-height: rem(10);
+                                          }
+                                      }
+                    
+                                      .line-item-total-price-amount {
+                                          font-size: rem(14);
+                                          font-weight: 500;
+                                          letter-spacing: rem(1);
+                                          line-height: rem(10);
+                                          color: $grey8;
+
+                                          @include media-breakpoint-down(xs) {
+                                              letter-spacing: rem(1);
+                                              line-height: rem(10);
+                                          }
+                                      }
+                                    
+                                      .total-amount {
+                                          font-size: rem(14);
+                                          font-weight: 500;
+                                          letter-spacing: rem(1);
+                                          line-height: rem(10);
+                                          color: $black;
+
+                                          @include media-breakpoint-down(xs) {
+                                              letter-spacing: rem(1);
+                                              line-height: rem(10);
+                                          }
+                                      }
+                    
+                                      .original-price {
+                                          font-size: rem(14);
+                                          font-weight: 500;
+                                          letter-spacing: rem(1);
+                                          line-height: rem(10);
+                                          color: $black3;
+                                          
+                                          @include media-breakpoint-down(xs) {
+                                              letter-spacing: rem(1);
+                                              line-height: rem(10);
+                                          }
+                                      }
+                    
+                                      .savings {
+                                          font-size: rem(12);
+                                          font-weight: 500;
+                                          letter-spacing: rem(0.86);
+                                          line-height: rem(10);
+                                          color: $light-green3;
+                                      }
+                                  }
+                    
+                                  .line-item-header {
+                                      margin-bottom: rem(10);
+                    
+                                      .line-item-name {
+                                          word-break: break-word;
+                                          overflow: hidden;
+                                          text-overflow: ellipsis;
+                                          display: -webkit-box;
+                                          height: rem(44);
+                                          -webkit-line-clamp: 2;
+                                          -webkit-box-orient: vertical;
+                                          white-space: unset;
+                                          color: $light-black2;
+                                          font-size: rem(14);
+                                          letter-spacing: rem(1.4);
+                                          line-height: rem(22);
+                                          margin-bottom: rem(0);
+                                          text-transform: uppercase;
+                                          font-weight: 500;
+
+                                            @include media-breakpoint-down(xs) {
+                                                color: $light-black2;
+                                                font-size: rem(14);
+                                                letter-spacing: rem(1.4);
+                                            }
+
+                                          span {
+                                              color: $light-black2;
+                                              font-size: rem(14);
+                                              letter-spacing: rem(1.4);
+
+                                              @include media-breakpoint-down(xs) {
+                                                  color: $light-black2;
+                                                  font-size: rem(14);
+                                                  letter-spacing: rem(1.4);
+                                              }
+                                          }
+                                      }
+                                  }              
+                              }
                             }
                         }
                     }

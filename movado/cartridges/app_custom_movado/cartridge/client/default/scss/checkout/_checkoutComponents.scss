@@ -1354,6 +1354,10 @@ $stored-payment-spacing: rem(16);
                                             color: $light-black2;
                                             text-transform: unset;
                                             margin-bottom: rem(0);
+                                            
+                                            span {
+                                                line-height: rem(22);
+                                            }
                                         }
                                       
                                         .item-options {

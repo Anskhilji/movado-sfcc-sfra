@@ -820,6 +820,13 @@ header~.container .promotions .callout a{
                 .coupon-error {
                     margin: rem(5) 0;
                     margin-bottom: rem(0);
+                    font-size: rem(13);
+                    line-height: rem(20);
+                    letter-spacing: rem(0.7);
+
+                    @include media-breakpoint-down(xs) {
+                        font-size: rem(12);
+                    }
                 }
             }
         }
@@ -845,6 +852,15 @@ header~.container .promotions .callout a{
                 background: $white;
                 padding: rem(20) rem(0) rem(20) rem(0);
                 z-index: 15;
+            }
+
+            .top-grandtotal-label {
+
+                &.label-container-wrapper {
+                    @include media-breakpoint-down(xs) {
+                        margin-bottom: rem(16);
+                    }
+                }
             }
         }
         

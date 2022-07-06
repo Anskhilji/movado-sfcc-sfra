@@ -696,7 +696,7 @@ div {
             }
 
             @include media-breakpoint-down(xs) {
-                margin-bottom: rem(10);
+                margin-bottom: rem(15);
             }
 
             .promo-label-wrapper {
@@ -840,6 +840,7 @@ div {
                     margin: rem(5) 0;
                 }
                 .promo-label-wrapper {
+                    display: inline-block;
                     margin-bottom: rem(0);
                     @include media-breakpoint-down(xs) {
                         margin-bottom: rem(0);
