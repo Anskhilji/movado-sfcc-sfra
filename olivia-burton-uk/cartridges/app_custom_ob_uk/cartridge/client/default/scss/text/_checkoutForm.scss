@@ -338,7 +338,7 @@
 
             .order-product-summary {
                 padding: rem(0);
-                margin-top: rem(26);
+                margin-top: rem(34);
 
                 .product-summary-block {
                     margin: rem(0);
@@ -808,6 +808,26 @@
                         }
                     }
                 }
+            }
+        }
+    }
+
+    .pop-up-container-box {
+
+        .pop-up-box-space  {
+
+            .grand-total-label {
+              
+                &.top-grandtotal-label {
+                    color: $black4;
+                }
+            }
+
+            .grand-total-price {
+
+                &.top-grand-total-price-wrapper {
+                    color: $black4;
+                } 
             }
         }
     }

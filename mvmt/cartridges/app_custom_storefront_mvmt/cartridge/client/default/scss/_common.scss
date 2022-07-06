@@ -691,9 +691,7 @@ div {
         }
 
         .collapsible-promo-redesign-wrapper {
-            @include media-breakpoint-down (sm) {
-                margin-bottom: rem(0);
-            }
+            margin-bottom: rem(0);
 
             @include media-breakpoint-down(xs) {
                 margin-bottom: rem(15);
@@ -707,7 +705,7 @@ div {
                 line-height: rem(24);
                 text-transform: capitalize;
                 width: auto;
-                margin-bottom: rem(0);
+                margin-bottom: rem(15);
                 
                 &::after {
                     content: "";
@@ -763,7 +761,7 @@ div {
                     color: $black;
                     line-height: rem(24);
                     padding: rem(16) rem(10) rem(6) rem(10);
-                    margin-bottom: rem(15);
+                    margin-bottom: rem(18);
 
                     @include media-breakpoint-down(xs) {
                         font-weight: 500;
@@ -839,12 +837,13 @@ div {
                 .coupon-error {
                     margin: rem(5) 0;
                 }
-                .promo-label-wrapper {
+                .promo-label-wrapper { 
+                    margin-bottom: rem(13);
                     display: inline-block;
-                    margin-bottom: rem(0);
+
                     @include media-breakpoint-down(xs) {
                         margin-bottom: rem(0);
-                    } 
+                    }
                 }
             }
             .coupon-error {

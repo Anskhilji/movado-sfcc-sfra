@@ -314,7 +314,11 @@ h1 {
 
         .collapsible-promo-redesign-wrapper {
             margin-bottom: rem(7);
-        }      
+
+            .promo-input-wrapper {
+              margin-bottom: rem(5);
+            }
+        }    
     }
 }
 
