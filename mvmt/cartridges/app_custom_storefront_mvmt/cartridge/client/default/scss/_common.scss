@@ -865,7 +865,7 @@ div {
             padding: rem(24) rem(34) rem(0) rem(34);
 
             &.pop-up-top-container {
-                top: -4.375rem;
+                top: rem(-70);
 
                 .top-grandtotal-label {
                     color: $light-black4;

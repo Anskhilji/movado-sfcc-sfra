@@ -101,11 +101,5 @@ $(document).ready(function() { // eslint-disable-line
         $('.hidden-menu').slideUp('slow');
         $('body').removeClass('overflow-hidden');
         $('.overlayer-box').removeClass('d-block');
-        // $('.promo-label-wrapper').show();
     });
-
-    // $('.promo-label-wrapper').click(function() {
-    //     $(this).hide();
-    // });
-
 });

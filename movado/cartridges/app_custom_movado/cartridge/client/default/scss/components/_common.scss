@@ -832,7 +832,7 @@ header~.container .promotions .callout a{
             padding: rem(16) rem(32) rem(0) rem(32);
 
             &.pop-up-top-container {
-              top: -4.375rem;
+                top: rem(-70);
             }
 
             .sticky-hide-wrapper {

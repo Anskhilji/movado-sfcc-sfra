@@ -6,9 +6,7 @@
                 <label class="title show-details-wrapper label-show-title" for="couponCode">${Resource.msg('label.order.summary','cart',null)}
                     <img src="${URLUtils.staticURL('/images/icon-down-arrow.svg')}" alt=""/>
                 </label>
-                <div class="promo-code-applied">
-                    1 Coupon Applied
-                </div>
+                <div class="promo-code-applied">${Resource.msg('coupon.applied.counter','cart',null)}</div>
             </div>
 
                 <div class="row  position-relative" id="orderSummary">

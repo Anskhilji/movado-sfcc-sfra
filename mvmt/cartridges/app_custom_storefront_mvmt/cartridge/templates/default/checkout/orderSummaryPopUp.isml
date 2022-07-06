@@ -2,9 +2,12 @@
 <div class="" tabindex="0">
     <form action="${pdict.actionUrls.submitCouponCodeUrl}" class="checkout-promo-code-form" method="GET" name="checkout-promo-code-form">
         <div class="form-group mb-2 p-0">
-            <label class="title show-details-wrapper label-show-title" for="couponCode">${Resource.msg('label.order.summary.view','cart',null)}
-                <img src="${URLUtils.staticURL('/images/icon-down-arrow.svg')}" alt=""/>
-            </label>
+            <div class="d-flex align-itmes-center justify-content-between">
+                <label class="title show-details-wrapper label-show-title" for="couponCode">${Resource.msg('label.order.summary.view','cart',null)}
+                    <img src="${URLUtils.staticURL('/images/icon-down-arrow.svg')}" alt=""/>
+                </label>
+                <div class="promo-code-applied">${Resource.msg('coupon.applied.counter','cart',null)}</div>
+            </div>
 
                 <div class="row  position-relative" id="orderSummary">
                     <div class="col-12 order-summary-container hidden-menu">
