@@ -848,6 +848,8 @@ $stored-payment-spacing: rem(16);
         }
 
         .credit-card-form {
+            margin-top: rem(10);
+
             @include media-breakpoint-down(sm) {
                 padding: rem(0) rem(5);
             }
@@ -858,7 +860,6 @@ $stored-payment-spacing: rem(16);
               }
 
               @include media-breakpoint-down(sm) {
-                  margin-top: rem(8);
                   padding: rem(0);
               }
 

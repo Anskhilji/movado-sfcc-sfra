@@ -525,30 +525,36 @@ $stored-payment-spacing: rem(16);
         .card-body {
             padding: rem(0);
 
-            .info-icon {
+            .mx-field-wrapper {
 
-              &.info-icon-email {
-                  position: absolute;
-                  right: rem(25);
-                  top: rem(12) !important;
-                  padding-bottom: rem(0);
+                .info-icon {
 
-                  .icon {
-                    background-image: url("../../images/info-icon.svg");
-                    background-repeat: no-repeat;
-                    background-size: cover;
-                    width: rem(15);
-                    height: rem(15);
-                    background-color: transparent;
-                  }
+                    &.info-icon-email {
+                        position: absolute;
+                        right: rem(25);
+                        top: rem(12);
+                        padding-bottom: rem(0);
+      
+                        .icon {
+                            background-image: url("../../images/info-icon.svg");
+                            background-repeat: no-repeat;
+                            background-size: cover;
+                            width: rem(15);
+                            height: rem(15);
+                            background-color: transparent;
+                        }
+      
+                        &.icon-right-wrapper {
+                            right: rem(64);
+                            top: rem(12);
+                            padding-bottom: rem(0);
 
-                  &.icon-right-wrapper {
-                    right: rem(64);
-                    top: rem(12) !important;
-                    padding-bottom: rem(0);
-
-                  }
-                  
+                            @include media-breakpoint-down(sm) {
+                                right: rem(25);
+                            }
+      
+                        }                        
+                    }
                 }
             }
             
@@ -1040,41 +1046,35 @@ header {
                 }
             }
         }
-    }
-}
-
-header {
-
-    &.checkout-header {
 
         .header-menu-wrapper {
 
-            .header-redesign-wrapper {
+          .header-redesign-wrapper {
 
-                .checkout-header-wrapper {
+              .checkout-header-wrapper {
 
-                    .header-left {
-                        max-width: 100%;
+                  .header-left {
+                      max-width: 100%;
 
-                        @include media-breakpoint-up(xl) {
-                            max-width: 100%;
-                        }
+                      @include media-breakpoint-up(xl) {
+                          max-width: 100%;
+                      }
 
-                        &.align-start-box {
-                            max-width: 100%;
+                      &.align-start-box {
+                          max-width: 100%;
 
-                            @include media-breakpoint-up(xl) {
-                                max-width: 100%;
-                                margin: auto;
-                            }
+                          @include media-breakpoint-up(xl) {
+                              max-width: 100%;
+                              margin: auto;
+                          }
 
-                            @include custom-media-query-1440($large-screen-width-1440) {
-                                max-width: 100%;
-                            }
-                        }
-                    }
-                }
-            }
-        }       
+                          @include custom-media-query-1440($large-screen-width-1440) {
+                              max-width: 100%;
+                          }
+                      }
+                  }
+              }
+          }
+        }
     }
 }

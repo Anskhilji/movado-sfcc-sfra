@@ -300,58 +300,43 @@ $(document).ready(function() {
                 }
             }
         });
-        
+
     });
     ratingRedesign();
-    
+
     // custom end: MSS-1772 pdp sticky ATC
-    function loadCartButtonOnScroll() {
-        if ($(window).width() < 544) {
-            var cartWishListObserver = document.querySelector('.cart-wishlist-observer');
-            var initialCoords = cartWishListObserver.getBoundingClientRect();
-            
-            window.addEventListener('scroll', function () {
-                if (this.window.scrollY < initialCoords.top) {
-                    $('.cart-sticky-wrapper-btn').addClass('d-none');
-                    $('.cart-sticky-wrapper-btn').removeClass('d-block');
-                    setTimeout(() => {
-                        $('.cart-sticky-wrapper-btn').css('transform','translateY(150px)');
-                    }, 500);
-                } else {
-                    $('.cart-sticky-wrapper-btn').addClass('d-block');
-                    $('.cart-sticky-wrapper-btn').removeClass('d-none');
-                    setTimeout(() => {
-                        $('.cart-sticky-wrapper-btn').css('transform','translateY(0px)');
-                    }, 500);
+    if ($(window).width() < 544) {
+        $(window).scroll(function () { // on every scroll
+            var $cartWishListObserver = document.querySelector('.cart-wishlist-observer');
+            var $initialCoords = $cartWishListObserver.getBoundingClientRect(); //return all x,y,Top values
+            if (this.window.scrollY < $initialCoords.top) { //if we scroll up to button
+                $('.cart-sticky-wrapper-btn').removeClass('scroll-bottom').addClass('scroll-hidden');
+            } else {
+                if (!$('.prices-add-to-cart-actions .cta-add-to-cart').isOnScreen()) { // if button is not on viewport
+                    $('.cart-sticky-wrapper-btn').removeClass('scroll-hidden').addClass('scroll-bottom');
+                }else{
+                    $('.cart-sticky-wrapper-btn').addClass('scroll-hidden');
                 }
-            });
-        }
+            }
+        });
     }
 
-    function loadCartButtonTouchMove() {
-        if ($(window).width() < 544) {
-            var cartWishListObserver = document.querySelector('.cart-wishlist-observer');
-            var initialCoords = cartWishListObserver.getBoundingClientRect();
-            window.addEventListener('touchmove', function () {
-                if (this.window.scrollY < initialCoords.top) {
-                    $('.cart-sticky-wrapper-btn').addClass('d-none');
-                    $('.cart-sticky-wrapper-btn').removeClass('d-block');
-                    setTimeout(() => {
-                        $('.cart-sticky-wrapper-btn').css('transform','translateY(150px)');
-                    }, 500);
-                } else {
-                    $('.cart-sticky-wrapper-btn').addClass('d-block');
-                    $('.cart-sticky-wrapper-btn').removeClass('d-none');
-                    setTimeout(() => {
-                        $('.cart-sticky-wrapper-btn').css('transform','translateY(0px)');
-                    }, 500);
-                }
-            });
-        }
-    }
-    loadCartButtonOnScroll();
-    loadCartButtonTouchMove();
+    $.fn.isOnScreen = function () {
+        var $win = $(window);
+        var $viewport = {
+            top: $win.scrollTop(),
+            left: $win.scrollLeft()
+        };
+        $viewport.right = $viewport.left + $win.width();
+        $viewport.bottom = $viewport.top + $win.height();
+        var $bounds = this.offset();
+        $bounds.right = $bounds.left + this.outerWidth();
+        $bounds.bottom = $bounds.top + this.outerHeight();
+        return (!($viewport.right < $bounds.left || $viewport.left > $bounds.right || $viewport.bottom < $bounds.top || $viewport.top > $bounds.bottom));
+    };
+
     // custom end: MSS-1772 pdp sticky ATC
+
 });
 
 function ratingRedesign() {

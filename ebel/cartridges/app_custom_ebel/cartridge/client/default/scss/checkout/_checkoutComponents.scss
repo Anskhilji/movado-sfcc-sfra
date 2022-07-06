@@ -476,17 +476,21 @@ $stored-payment-spacing: rem(16);
                   top: rem(11);
 
                   .icon {
-                    background-image: url("../../images/info-icon.svg");
-                    background-repeat: no-repeat;
-                    background-size: cover;
-                    width: rem(15);
-                    height: rem(15);
-                    background-color: transparent;
+                      background-image: url("../../images/info-icon.svg");
+                      background-repeat: no-repeat;
+                      background-size: cover;
+                      width: rem(15);
+                      height: rem(15);
+                      background-color: transparent;
                   }
 
                   &.icon-right-wrapper {
-                    right: rem(64);
-                    top: rem(11);
+                      right: rem(64);
+                      top: rem(11);
+
+                      @include media-breakpoint-down(sm) {
+                          right: rem(25);
+                      }
                   }
               }
 
@@ -585,7 +589,7 @@ $stored-payment-spacing: rem(16);
                         pointer-events: none;
                         
                         &.field-select-wrapper-box {
-                            left: rem(13);
+                            left: rem(16);
                         }
                     }
 
@@ -667,7 +671,7 @@ $stored-payment-spacing: rem(16);
                 left: rem(16);
 
               &.input-has-value {
-                left: rem(13);
+                left: rem(16);
               }
             }
 

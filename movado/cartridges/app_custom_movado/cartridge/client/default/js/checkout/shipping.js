@@ -508,6 +508,8 @@ function shippingFormResponse(defer, data) {
     if (data.error) {
         if (data.fieldErrors.length) {
             data.fieldErrors.forEach(function (error) {
+                var scrollUtil = require('../utilities/scrollUtil');
+                scrollUtil.scrollToTopError(formSelector, -80, 300);
                 if (Object.keys(error).length) {
                     formHelpers.loadFormErrors(formSelector, error);
                     if ( $shippingFormMode !== 'details') {
@@ -523,8 +525,6 @@ function shippingFormResponse(defer, data) {
                 }
 
                 $('.checkout-form-error').removeClass('d-none')
-                var scrollUtil = require('../utilities/scrollUtil');
-                scrollUtil.scrollToTopError(formSelector, -80, 300);
             });
             defer.reject(data);
         }
@@ -550,6 +550,13 @@ function shippingFormResponse(defer, data) {
         });
         if (data.emailObj) {
             $('body').trigger('emailSubscribe:success', data.emailObj);
+        }
+
+        var BillingCardNumber = document.querySelector('.credit-card-form .form-control.cardNumber.input-wrapper-checkout').value;
+        if (BillingCardNumber) {
+            $('.credit-card-form .form-control-label.field-label-wrapper.field-label-wrapper-card').addClass('input-has-value');
+        } else {
+            $('.credit-card-form .form-control-label.field-label-wrapper.field-label-wrapper-card').removeClass('input-has-value');
         }
 
         if (data.customer && data.customer.profile && data.customer.profile.email) {
