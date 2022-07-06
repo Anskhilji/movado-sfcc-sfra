@@ -6,10 +6,18 @@
                 <label class="title show-details-wrapper label-show-title" for="couponCode">${Resource.msg('label.order.summary','cart',null)}
                     <img src="${URLUtils.staticURL('/images/icon-down-arrow.svg')}" alt=""/>
                 </label>
-                <div class="promo-code-applied">${Resource.msg('coupon.applied.counter','cart',null)}</div>
+                <iscomment> <h1>${JSON.stringify(pdict.totals.discounts)}</h1> </iscomment>
+
+                <isloop items="${pdict.totals.discounts}" var="discount">
+                    <isif condition="${discount.applied == true}">
+                        <div class="promo-code-applied">
+                            ${Resource.msg('coupon.applied.counter','cart',null)}
+                        </div>
+                    </isif>
+                </isloop>
             </div>
 
-                <div class="row  position-relative" id="orderSummary">
+                <div class="row position-relative" id="orderSummary">
                     <div class="col-12 order-summary-container hidden-menu">
                         <div class="col-12 p-0 d-flex justify-content-between ">
                             <p class="grand-total-label top-grandtotal-label label-container-wrapper">${Resource.msg('order.confirmation.email.label.orderTotal','order',null)} (${Resource.msgf('label.number.items.in.cart','cart', null, pdict.order.items.totalQuantity)})</p>
@@ -22,11 +30,9 @@
                                     <isif condition="${discount.type === 'coupon'}">
                                     <div class="checkout-coupons-and-promos coupons-wrapper">
                                         <isinclude template="cart/cartCouponDisplay" />
-                                        </div>
+                                    </div>
                                     </isif>
                                 </isloop>
-
-                                
                         </div>
                             <div class="card order-summary-card card-border-none-wrapper card-summary-wrapper-container">
                                 <div class="card-body order-total-summary">
