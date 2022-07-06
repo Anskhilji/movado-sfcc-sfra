@@ -102,7 +102,6 @@ function updateCartTotals(data) {
     $('.number-of-items').empty().append(data.resources.numberOfItems);
     $('.shipping-cost').empty().append(data.totals.totalShippingCost);
     $('.tax-total').empty().append(data.totals.totalTax);
-    $('.grand-total, .cart-total').empty().append(data.totals.grandTotal);
     $('.grand-total-sum, .cart-total').empty().append(data.totals.grandTotal);
     $('.sub-total').empty().append(data.totals.subTotal);
     /* Affirm block for refreshing promo message */
