@@ -1,4 +1,3 @@
-
 <div class="" tabindex="0">
     <form action="${pdict.actionUrls.submitCouponCodeUrl}" class="checkout-promo-code-form" method="GET" name="checkout-promo-code-form">
         <div class="form-group mb-2 p-0">
@@ -19,8 +18,8 @@
                 <div class="row position-relative" id="orderSummary">
                     <div class="col-12 order-summary-container hidden-menu">
                         <div class="col-12 p-0 d-flex justify-content-between ">
-                            <p class="grand-total-label top-grandtotal-label label-container-wrapper">${Resource.msg('order.confirmation.email.label.orderTotal','order',null)} (${Resource.msgf('label.number.items.in.cart','cart', null, pdict.order.items.totalQuantity)})</p>
-                            <p class="grand-total-price top-grand-total-price-wrapper">${pdict.order.totals.subTotal}</p>
+                            <p class="grand-total-label top-grandtotal-label label-container-wrapper">${Resource.msg('order.confirmation.email.label.orderTotal','order',null)} (${pdict.order.items.totalQuantity == 1 ? Resource.msgf('label.cart.signle.item','cart', null, pdict.order.items.totalQuantity) : Resource.msgf('label.number.items.in.cart','cart', null, pdict.order.items.totalQuantity)})</p>
+                            <p class="grand-total-price top-grand-total-price-wrapper">${pdict.order.totals.grandTotal}</p>
                         </div>
                        <!-- Promos -->
                        <div class="checkout-promo-section checkout-promo-redesign">
@@ -41,7 +40,7 @@
                             <isinclude template="checkout/orderProductSummaryPopup" />
 
                             <div class="sticky-hide-wrapper">
-                                <a href="#" class="hide-details-wrapper label-show-title">${Resource.msg('label.order.summary.hide.details','cart',null)} 
+                                <a href="" class="hide-details-wrapper label-show-title">${Resource.msg('label.order.summary.hide.details','cart',null)} 
                                     <img src="${URLUtils.staticURL('/images/icon-up-arrow.svg')}" alt=""/>
                                 </a>
                             </div>

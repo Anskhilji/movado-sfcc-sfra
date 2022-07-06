@@ -6,7 +6,7 @@
                 <div class="start-lines">
                 </div>
                 <div class="end-lines">
-                    <span class="grand-total-price">${pdict.order.totals.subTotal}</span>
+                    <span class="grand-total-price">${pdict.order.totals.grandTotal}</span>
                 </div>
             </div> 
         </iscomment>
