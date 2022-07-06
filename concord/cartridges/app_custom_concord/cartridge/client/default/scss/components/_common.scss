@@ -625,6 +625,7 @@ header~.container .promotions .callout a{
               width: auto;
               max-width: fit-content;
               background-color: transparent;
+              margin-bottom: rem(10);
 
               .flex-box-promo-code {
                   display: flex;
@@ -681,6 +682,7 @@ header~.container .promotions .callout a{
               line-height: rem(24);
               text-transform: capitalize;
               width: auto;
+              margin-bottom: rem(0);
 
               &::after {
                 content: "";
@@ -688,7 +690,7 @@ header~.container .promotions .callout a{
           }
 
           .promo-input-wrapper {
-            margin-bottom: rem(7);
+            margin: rem(10) rem(0) rem(0);
               position: relative;
 
               .checkout-promo-code-submit {

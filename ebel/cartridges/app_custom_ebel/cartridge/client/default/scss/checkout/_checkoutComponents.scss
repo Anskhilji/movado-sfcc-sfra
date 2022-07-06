@@ -260,9 +260,14 @@ $stored-payment-spacing: rem(16);
   }
 
   &.leading-lines-wrapper {
-      padding: rem(8) 0;
       border-bottom: rem(1) dashed $grey-dark-3;
-
+      &:first-child {
+        padding-bottom: rem(8);
+      }
+      &:not(:first-of-type) {
+        padding: rem(8) 0;
+      }
+      
       .start-lines {
 
           &::before {

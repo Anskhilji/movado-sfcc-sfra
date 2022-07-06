@@ -755,6 +755,7 @@ header {
     .right-section {
 
         .right-content {
+            padding-top: rem(88.8);
 
             @include custom-media-query-1440($large-screen-width-1440) {
                 padding-top: rem(88.8);

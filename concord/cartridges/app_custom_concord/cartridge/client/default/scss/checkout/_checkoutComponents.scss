@@ -164,7 +164,7 @@ $stored-payment-spacing: rem(16);
     display: none;
   }
   .checkout-promo-code-form .form-group {
-    padding: 0 rem(10);
+    padding: 0 rem(0);
   }
 
   @include media-breakpoint-down(xs) {
@@ -259,8 +259,13 @@ $stored-payment-spacing: rem(16);
   }
 
   &.leading-lines-wrapper {
-      padding: rem(8) 0;
       border-bottom: rem(1) dashed $grey-dark-3;
+      &:first-child {
+        padding-bottom: rem(8);
+      }
+      &:not(:first-of-type) {
+        padding: rem(8) 0;
+      }
 
     .start-lines {
 
@@ -1077,4 +1082,12 @@ header {
           }
         }
     }
+}
+
+.checkout-promo-section {
+  &.checkout-promo-redesign {
+    .collapsible-promo-redesign-wrapper {
+      margin-bottom: rem(15);
+    }
+  }
 }

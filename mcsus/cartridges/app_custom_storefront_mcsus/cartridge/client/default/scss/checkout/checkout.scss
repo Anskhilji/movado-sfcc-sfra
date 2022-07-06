@@ -453,7 +453,7 @@ header {
         }
     
         &.card-summary-wrapper-container {
-            margin-bottom: rem(13.6);
+            margin-bottom: rem(24);
 
             @include media-breakpoint-down(xs) {
                 margin-bottom: rem(26.4);
@@ -644,3 +644,10 @@ header {
     }
 }
 
+.checkout-content-container-inner {
+    .right-section {
+        .right-content {
+            padding-top: rem(75);
+        }
+    }
+}
