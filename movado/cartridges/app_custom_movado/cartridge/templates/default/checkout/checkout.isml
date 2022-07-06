@@ -39,7 +39,7 @@
             <div class="row checkout-content-container-inner">
 
                 <div class="col-md-7 left-section">
-                    <div class="col-12">
+                    <div class="col-12 mt-3">
                         <div class="alert card alert-dismissible error-message mt-4" role="alert">
                             <p class="error-message-text checkout-global-error mt-2"></p>
                         </div>
