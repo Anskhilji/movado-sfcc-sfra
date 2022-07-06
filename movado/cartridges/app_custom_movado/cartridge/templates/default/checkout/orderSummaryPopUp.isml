@@ -6,7 +6,6 @@
                 <label class="title show-details-wrapper label-show-title" for="couponCode">${Resource.msg('label.order.summary','cart',null)}
                     <img src="${URLUtils.staticURL('/images/icon-down-arrow.svg')}" alt=""/>
                 </label>
-                <iscomment> <h1>${JSON.stringify(pdict.totals.discounts)}</h1> </iscomment>
 
                 <isloop items="${pdict.totals.discounts}" var="discount">
                     <isif condition="${discount.applied == true}">
@@ -24,7 +23,7 @@
                             <p class="grand-total-price top-grand-total-price-wrapper">${pdict.order.totals.subTotal}</p>
                         </div>
                        <!-- Promos -->
-                       <div class="checkout-promo-section checkout-promo-redesign fsdfhkgsdj">
+                       <div class="checkout-promo-section checkout-promo-redesign">
                            <isinclude template="checkout/checkoutPromoCode" />
                                 <isloop items="${pdict.totals.discounts}" var="discount">
                                     <isif condition="${discount.type === 'coupon'}">
