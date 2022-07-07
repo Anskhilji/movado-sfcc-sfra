@@ -939,6 +939,10 @@ div {
                                         letter-spacing: rem(0.7);
                                         line-height: rem(20);
                                         background-color: transparent;
+
+                                        @include media-breakpoint-down(xs) {
+                                            letter-spacing: rem(0.93);
+                                        }
                         
                                         span {
                                             font-size: rem(13);
@@ -948,6 +952,10 @@ div {
                                             color: $light-black4;
                                             text-transform: capitalize;
                                             background-color: transparent;
+
+                                            @include media-breakpoint-down(xs) {
+                                                letter-spacing: rem(0.93);
+                                            }
                                         }
                                     }
                                 }
@@ -963,6 +971,10 @@ div {
                                             letter-spacing: rem(0.7);
                                             line-height: rem(20);
                                             background-color: transparent;
+
+                                            @include media-breakpoint-down(xs) {
+                                                letter-spacing: rem(0.93);
+                                            }
                                         }
                         
                                         span {
@@ -972,6 +984,10 @@ div {
                                             letter-spacing: rem(0.7);
                                             line-height: rem(20);
                                             background-color: transparent;
+
+                                            @include media-breakpoint-down(xs) {
+                                                letter-spacing: rem(0.93);
+                                            }
                         
                                             &.product-discount-total {
                                                 color: $gossamer2;
