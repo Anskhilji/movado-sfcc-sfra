@@ -713,7 +713,7 @@ var exports = {
 	                } else {
 	                    $('.checkout-coupons-and-promos').empty().append(data.totals.discountsHtml);
                         $('.promo-input-wrapper').addClass('d-none');
-	                    updateCheckoutTotals(data);
+                        updateCheckoutTotals(data);
 	                    updateApproachingDiscounts(data.approachingDiscounts);
 	                    checkPromoError(data);
 	                }
