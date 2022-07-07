@@ -900,6 +900,10 @@ $stored-payment-spacing: rem(16);
                                 &.product-card-wrapper {
                                   
                                       &.product-card-container {
+                                        
+                                          &:last-child {
+                                            border-bottom: rem(0);
+                                          }
 
                                           .product-line-item-details {
                                               @include media-breakpoint-down(xs) {
