@@ -8,8 +8,11 @@
 
                 <isloop items="${pdict.totals.discounts}" var="discount">
                     <isif condition="${discount.applied == true}">
-                        <div class="promo-code-applied">
-                            ${Resource.msg('coupon.applied.counter','cart',null)}
+                        <div class="promo-code-applied ${pdict.currentCouponLength}">
+                            <div class="counter"></div>
+                            <isset name="couponCounter" value="" scope="page" />
+                            <h1>${couponCounter}</h1>
+                            ${Resource.msg('coupon.applied.counter','cart', null, require('dw/order/BasketMgr').currentBasket.couponLineItems.length)}
                         </div>
                     </isif>
                 </isloop>

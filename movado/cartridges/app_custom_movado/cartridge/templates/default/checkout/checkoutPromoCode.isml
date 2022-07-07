@@ -7,7 +7,7 @@
     <div class="col-12 collapsible-promo-wrapper collapsible-promo-redesign-wrapper" tabindex="0">
         <form action="${pdict.actionUrls.submitCouponCodeUrl}" class="checkout-promo-code-form" method="GET" name="checkout-promo-code-form">
             <div class="form-group collapsible-xl promo-box-space">
-                <label class="title promo-label-wrapper" data-toggle="collapse" data-target="#checkoutCoupon" aria-expanded="false" aria-controls="checkoutCoupon" for="couponCode">${Resource.msg('label.promo.code.label','cart',null)}</label>
+                <label class="title promo-label-wrapper ${pdict.currentCouponLength}" data-toggle="collapse" data-target="#checkoutCoupon" aria-expanded="false" aria-controls="checkoutCoupon" for="couponCode">${Resource.msg('label.promo.code.label','cart',null)}</label>
                 <div class="row collapse content value" id="checkoutCoupon">
                     <div class="col-12">
                         <div class="promo-input-wrapper">
