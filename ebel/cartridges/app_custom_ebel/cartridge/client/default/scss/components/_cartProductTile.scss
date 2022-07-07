@@ -63,6 +63,9 @@
         }
         
         .product-line-item-details {
+            @include media-breakpoint-down(xs) {
+                margin-top: rem(8) !important;
+            }
 
             .item-attributes {
 

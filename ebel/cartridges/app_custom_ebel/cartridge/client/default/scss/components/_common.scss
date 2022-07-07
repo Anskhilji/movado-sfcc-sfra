@@ -696,7 +696,7 @@ header~.container .promotions .callout a{
 
           .promo-input-wrapper {
               position: relative;
-              margin: rem(0) rem(0) rem(10) rem(0);
+              margin: rem(0) rem(0) rem(20) rem(0);
 
               .checkout-promo-code-submit {
                   position: absolute;
@@ -821,7 +821,7 @@ header~.container .promotions .callout a{
           background-color: $white;
           overflow: auto;
           display: none;
-          padding: rem(16) rem(32) rem(0) rem(32);
+          padding: rem(16) rem(24) rem(0) rem(32);
 
           &.pop-up-top-container {
               top: rem(-70);
@@ -833,6 +833,12 @@ header~.container .promotions .callout a{
                 background: $white;
                 padding: rem(20) rem(0) rem(20) rem(0);
                 z-index: 15;
+            }
+            .top-grandtotal-label {
+
+                &.label-container-wrapper {
+                    margin-bottom: rem(33);
+                }
             }
       }
       
