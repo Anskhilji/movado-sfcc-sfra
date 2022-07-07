@@ -92,7 +92,7 @@ function productSync() {
             // Custom End
 
             // Custom Start: [MSS-1696 Listrak - Create New Product Feed for MVMT - Add Gender]
-            if (Site.getCurrent().ID == 'MVMTUS' || Site.getCurrent().ID == 'MVMTEU') {
+            if (Site.getCurrent().ID === 'MVMTUS' || Site.getCurrent().ID === 'MVMTEU') {
                 productFile.AddRowItem('Gender');
             }
             // Custom End
@@ -222,7 +222,7 @@ function productSync() {
                 // Custom End
 
                 // Custom Start: [MSS-1696 Listrak - Create New Product Feed for MVMT - Add Gender]
-                if (Site.getCurrent().ID == 'MVMTUS' || Site.getCurrent().ID == 'MVMTEU') {
+                if (Site.getCurrent().ID === 'MVMTUS' || Site.getCurrent().ID === 'MVMTEU') {
                     productFile.AddRowItem(prd.getWatchGender, true);
                 }
                 // Custom End
