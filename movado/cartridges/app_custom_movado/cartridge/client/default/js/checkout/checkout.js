@@ -711,7 +711,7 @@ var exports = {
 	                    $('.checkout-promo-code-form .form-control').addClass('is-invalid');
 	                    $couponGenericError.empty().append(data.errorMessage);
 	                } else {
-	                    $('.checkout-coupons-and-promos').empty().append(data.totals.discountsHtml);
+                        $('.checkout-coupons-and-promos').empty().append(data.totals.discountsHtml);
                         $('.promo-input-wrapper').addClass('d-none');
                         updateCheckoutTotals(data);
                         updateApproachingDiscounts(data.approachingDiscounts);
