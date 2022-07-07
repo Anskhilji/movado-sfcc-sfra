@@ -313,10 +313,10 @@ h1 {
     &.checkout-promo-redesign {
 
         .collapsible-promo-redesign-wrapper {
-            margin-bottom: rem(15);
+            margin-bottom: rem(7);
 
             @include media-breakpoint-down(xs) {
-                margin-bottom: rem(0);
+                margin-bottom: rem(7);
             }
             .promo-label-wrapper {
                 @include media-breakpoint-down(xs) {

@@ -633,6 +633,7 @@ header~.container .promotions .callout a{
               width: auto;
               max-width: fit-content;
               background-color: transparent;
+              margin-bottom: rem(10);
 
               .flex-box-promo-code {
                   display: flex;
@@ -678,6 +679,11 @@ header~.container .promotions .callout a{
       }
 
       .collapsible-promo-redesign-wrapper {
+        margin-bottom: rem(15);
+
+        @include media-breakpoint-down(xs) {
+            margin-bottom: rem(12);
+        }
 
           .promo-label-wrapper {
               color: $cerulean;
@@ -687,7 +693,7 @@ header~.container .promotions .callout a{
               line-height: rem(24);
               text-transform: capitalize;
               width: auto;
-              margin-bottom: rem(15);
+              margin-bottom: rem(0);
 
               &::after {
                   content: "";
@@ -696,7 +702,7 @@ header~.container .promotions .callout a{
 
           .promo-input-wrapper {
               position: relative;
-              margin: rem(0) rem(0) rem(20) rem(0);
+              margin-top: rem(10);
 
               .checkout-promo-code-submit {
                   position: absolute;
