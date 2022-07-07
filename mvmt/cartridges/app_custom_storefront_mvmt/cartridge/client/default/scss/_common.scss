@@ -691,24 +691,30 @@ div {
         }
 
         .collapsible-promo-redesign-wrapper {
-            margin-bottom: rem(0);
+            margin-bottom: rem(15);
 
             @include media-breakpoint-down(xs) {
                 margin-bottom: rem(15);
             }
 
-            .promo-label-wrapper {
-                color: $cerulean;
-                font-size: rem(13);
-                font-weight: 500;
-                letter-spacing: rem(0.93);
-                line-height: rem(24);
-                text-transform: capitalize;
-                width: auto;
-                margin-bottom: rem(15);
-                
-                &::after {
-                    content: "";
+            .promo-box-space {
+
+                .promo-label-wrapper {
+
+                    &.title {
+                        color: $cerulean;
+                        font-size: rem(13);
+                        font-weight: 500;
+                        letter-spacing: rem(0.93);
+                        line-height: rem(24);
+                        text-transform: capitalize;
+                        width: auto;
+                        margin-bottom: rem(0);
+                        
+                        &::after {
+                            content: "";
+                        }
+                    }
                 }
             }
 
@@ -761,7 +767,7 @@ div {
                     color: $black;
                     line-height: rem(24);
                     padding: rem(16) rem(10) rem(6) rem(10);
-                    margin-bottom: rem(18);
+                    margin-bottom: rem(0);
 
                     @include media-breakpoint-down(xs) {
                         font-weight: 500;

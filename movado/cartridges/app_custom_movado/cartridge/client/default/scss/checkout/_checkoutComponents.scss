@@ -1332,6 +1332,9 @@ $stored-payment-spacing: rem(16);
                                       line-height: rem(10);
                                       color: $black;
                                       margin-bottom: rem(10);
+                                      &.clyde-option-price {
+                                        color: $black;
+                                      }
                                     }
                 
                                     .line-item-attributes {
