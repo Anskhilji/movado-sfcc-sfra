@@ -889,6 +889,29 @@ $stored-payment-spacing: rem(16);
                   padding-top: rem(10);
               }
           }
+          .order-product-summary {
+      
+              .product-summary-block {
+      
+                    .card {
+        
+                          &.product-line-item {
+          
+                                &.product-card-wrapper {
+                                  
+                                      &.product-card-container {
+
+                                          .product-line-item-details {
+                                              @include media-breakpoint-down(xs) {
+                                                  margin-top: rem(16);
+                                              }
+                                          }
+                                      }
+                                }
+                          }
+                    }
+              }
+          }
         }
     }
 }

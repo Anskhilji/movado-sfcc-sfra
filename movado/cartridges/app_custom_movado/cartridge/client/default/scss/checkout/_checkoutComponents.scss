@@ -1301,11 +1301,10 @@ $stored-payment-spacing: rem(16);
                   
                             .product-line-item-details {
                                 overflow: hidden;
-                                margin-bottom: rem(30);
+                                margin-bottom: rem(4);
 
                                 @include media-breakpoint-down(xs) {
-                                  margin-top: rem(16);
-                                  margin-bottom: rem(0);
+                                  margin-top: rem(8);
                                 }
                       
                                 .item-image {

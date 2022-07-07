@@ -687,6 +687,7 @@ header~.container .promotions .callout a{
               line-height: rem(24);
               text-transform: capitalize;
               width: auto;
+              margin-bottom: rem(15);
 
               &::after {
                   content: "";
@@ -803,6 +804,11 @@ header~.container .promotions .callout a{
 
               .coupon-error {
                 margin: rem(5) 0;
+                font-size: rem(14);
+
+                @include media-breakpoint-down(xs) {
+                    font-size: rem(12);
+                }
               }
           }
       }

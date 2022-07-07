@@ -911,3 +911,39 @@ header {
         }
     }
 }
+
+.data-checkout-stage {
+
+    &.data-checkout-stage-redesign {
+
+        .order-summary-container {
+
+            .card-border-none-wrapper {
+
+                .card-summary-wrapper-container {
+                    @include media-breakpoint-down(xs) {
+                        margin-bottom: rem(18.4);
+                    }
+                }
+            }
+
+            .order-product-summary {
+
+                .product-summary-block {
+
+                    .product-card-wrapper {
+
+                        &.product-card-container {
+                            
+                            .product-line-item-details {
+                                @include media-breakpoint-down(xs) {
+                                    margin-top: rem(8);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

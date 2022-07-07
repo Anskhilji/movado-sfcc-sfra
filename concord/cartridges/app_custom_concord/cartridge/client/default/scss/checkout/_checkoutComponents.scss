@@ -1085,9 +1085,19 @@ header {
 }
 
 .checkout-promo-section {
+
   &.checkout-promo-redesign {
+
     .collapsible-promo-redesign-wrapper {
-      margin-bottom: rem(15);
+        margin-bottom: rem(15);
+
+        @include custom-media-query-max($medium-screen-width) {
+            padding: rem(0) rem(5);
+        }
+
+        @include media-breakpoint-down(xs) {
+            padding: rem(0) rem(15);
+        }
     }
   }
 }

@@ -172,7 +172,7 @@
         </div>
     </div>
 
-    <div class="line-item-promo item-${lineItem.UUID}">
+    <div class="line-item-promo py-2 item-${lineItem.UUID}">
         <isinclude template="checkout/productCard/productCardProductPromotions" />
     </div>
 </div>
