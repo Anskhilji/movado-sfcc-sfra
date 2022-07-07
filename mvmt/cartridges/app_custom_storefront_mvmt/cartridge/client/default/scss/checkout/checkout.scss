@@ -1218,92 +1218,96 @@ header {
         }
     }
 }
-.data-checkout-stage {
-    
-    .leading-lines {
 
-        &.leading-lines-wrapper {
+.data-checkout-stage {
+
+    &.data-checkout-stage-redesign {
     
-            .start-lines {
-    
-                .order-receipt-label {
-                    margin-bottom: rem(0);
-                    color: $light-black4;
-                    font-size: rem(13);
-                    font-weight: 300;
-                    letter-spacing: rem(0.7);
-                    line-height: rem(20);
-    
-                    span {
+        .leading-lines {
+
+            &.leading-lines-wrapper {
+        
+                .start-lines {
+        
+                    .order-receipt-label {
+                        margin-bottom: rem(0);
+                        color: $light-black4;
                         font-size: rem(13);
                         font-weight: 300;
                         letter-spacing: rem(0.7);
                         line-height: rem(20);
-                        text-transform: capitalize;
-                        background-color: transparent;
+        
+                        span {
+                            font-size: rem(13);
+                            font-weight: 300;
+                            letter-spacing: rem(0.7);
+                            line-height: rem(20);
+                            text-transform: capitalize;
+                            background-color: transparent;
+                        }
                     }
                 }
-            }
-    
-            .end-lines {
-    
-                .text-right {
-                    
-                    &.tax-total {
-                        color: $light-black4;
-                        font-size: rem(13);
-                        font-weight: 300;
-                        letter-spacing: rem(0.7);
-                        line-height: rem(20);
-                        background-color: transparent;
-                    }
-    
-                    span {
-                        color: $light-black4;
-                        font-size: rem(13);
-                        font-weight: 300;
-                        letter-spacing: rem(0.7);
-                        line-height: rem(20);
-                        background-color: transparent;
-    
-                        &.product-discount-total {
-                            color: $gossamer2;
+        
+                .end-lines {
+        
+                    .text-right {
+                        
+                        &.tax-total {
+                            color: $light-black4;
+                            font-size: rem(13);
+                            font-weight: 300;
+                            letter-spacing: rem(0.7);
+                            line-height: rem(20);
                             background-color: transparent;
                         }
-    
-                        &.order-discount-total {
-                            color: $gossamer2;
+        
+                        span {
+                            color: $light-black4;
+                            font-size: rem(13);
+                            font-weight: 300;
+                            letter-spacing: rem(0.7);
+                            line-height: rem(20);
                             background-color: transparent;
-                        }
+        
+                            &.product-discount-total {
+                                color: $gossamer2;
+                                background-color: transparent;
+                            }
+        
+                            &.order-discount-total {
+                                color: $gossamer2;
+                                background-color: transparent;
+                            }
 
-                        &.shipping-total-cost {
-                            color: $gossamer2;
+                            &.shipping-total-cost {
+                                color: $gossamer2;
+                            }
                         }
                     }
                 }
             }
         }
-    }
 
-    .grand-total {
+        .grand-total {
 
-        &.grand-total-wrapper {
+            &.grand-total-wrapper {
 
-            .start-lines {
+                .start-lines {
 
-                .order-receipt-label {
-                    color: $light-black4;
+                    .order-receipt-label {
+                        color: $light-black4;
+                    }
                 }
-            }
 
-            .end-lines {
+                .end-lines {
 
-                .text-right {
+                    .text-right {
 
-                    .grand-total {
+                        .grand-total {
 
-                        &.grand-total-sum {
-                            color: $light-black4;
+                            &.grand-total-sum {
+                                color: $light-black4;
+                            }
                         }
                     }
                 }
