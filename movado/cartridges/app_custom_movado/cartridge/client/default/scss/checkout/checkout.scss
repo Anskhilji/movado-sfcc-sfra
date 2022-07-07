@@ -1029,8 +1029,7 @@ header {
                 .checkout-help-contact-info-container {
                     display: flex;
                     justify-content: center;
-                    padding-top: rem(27);
-                    padding-bottom: rem(15);
+                    padding: rem(20) rem(0) rem(20) rem(0);
                     border-top: rem(1) solid $border-color-light;
                     opacity: 1;
                     width: rem(313);

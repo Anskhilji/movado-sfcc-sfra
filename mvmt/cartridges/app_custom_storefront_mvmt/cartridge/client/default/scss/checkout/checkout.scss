@@ -964,7 +964,7 @@ header {
             .checkout-help-contact-info-container {
                 display: flex;
                 justify-content: center;
-                padding-top: rem(27);
+                padding: rem(20) rem(0) rem(20) rem(0);
                 border-top: rem(1) solid $border-color;
                 opacity: 0.36;
                 width: rem(313);
