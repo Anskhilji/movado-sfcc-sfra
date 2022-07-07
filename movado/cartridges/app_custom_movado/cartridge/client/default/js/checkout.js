@@ -70,6 +70,9 @@ $(document).ready(function() { // eslint-disable-line
             checkForInput(this);
         });
     });
+    $('.promo-label-wrapper').click(function () {
+        $('.promo-input-wrapper').removeClass('d-none');
+    });
     // set info icon left to right if input has value
     $('input.input-wrapper-checkout,select.custom-select-box').on('change', function () {
         $('.is-invalid').each(function () {
