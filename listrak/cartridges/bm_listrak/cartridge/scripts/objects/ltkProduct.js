@@ -329,13 +329,13 @@ ltkProduct.prototype.getSalePriceInfo = function (product) {
 // Custom Start: [MSS-1696 Listrak - Create New Product Feed for MVMT - Add Gender]
 ltkProduct.prototype.getGender = function (product) {
     var gender = '';
+    var productFeedJson = dw.system.Site.current.preferences.custom.Listrak_ProductFeedGenderAttribute;
+    productFeedJson = JSON.parse(productFeedJson);
     var getWatchGender = product.custom.watchGender[0];
     var watchGenderArr = getWatchGender.split(',');
-    if (watchGenderArr[0] === 'Ladies' || watchGenderArr[0] === "Ladie's" || watchGenderArr[0] === "Women's" || watchGenderArr[0] === 'Womens' || watchGenderArr[0] === 'Female' || watchGenderArr[0] === 'Hers') {
-        gender = 'Womens';
-        return gender;
-    } else if (watchGenderArr[0] === "Men's" || watchGenderArr[0] === 'Mens' || watchGenderArr[0] === "Gentleman's" || watchGenderArr[0] === 'Gentlemans' || watchGenderArr[0] === 'His') {
-        gender = 'Mens';
+
+    if (!empty(productFeedJson) && !empty(watchGenderArr[0])) {
+        gender = productFeedJson[watchGenderArr[0]];
         return gender;
     }
 
