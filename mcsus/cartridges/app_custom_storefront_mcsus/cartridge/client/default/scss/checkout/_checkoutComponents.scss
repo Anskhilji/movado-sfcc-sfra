@@ -309,6 +309,11 @@ $receipt-font-size: rem(14);
                 @include custom-media-query-1440($large-screen-width-1440) {
                     padding: rem(0) rem(0) rem(0) rem(100);
                 }
+
+                .col-error-container {
+                    padding: rem(0) rem(10);
+                    margin-top: rem(32);
+                }
             }
             .right-section {
               

@@ -761,6 +761,11 @@ $stored-payment-spacing: rem(16);
 
         .left-section {
 
+          .col-error-container {
+              padding: rem(0) rem(10);
+              margin-top: rem(32);
+          }
+
           .shipping-section {
               @include media-breakpoint-down(md) {
                   padding: rem(0) rem(5);

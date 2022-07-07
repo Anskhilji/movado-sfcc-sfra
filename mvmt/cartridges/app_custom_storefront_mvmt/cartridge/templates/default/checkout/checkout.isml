@@ -42,7 +42,7 @@
 
                 <div class="col-md-7 left-section">
 
-                    <div class="col-12 mt-3 pl-0">
+                    <div class="col-12 col-error-container">
                         <div class="alert card alert-dismissible error-message" role="alert">
                             <p class="error-message-text checkout-global-error"></p>
                         </div>

@@ -364,6 +364,11 @@ header {
                 max-width: 65.278%;
                 flex: 0 0 65.278%;
             }
+
+            .col-error-container {
+                padding: rem(0) rem(10);
+                margin-top: rem(32);
+            }
         }
 
         .right-section {

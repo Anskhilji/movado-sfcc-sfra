@@ -654,6 +654,13 @@
                   }
               }
           }
+
+          .left-section {
+              .col-error-container {
+                  padding: rem(0) rem(10);
+                  margin-top: rem(32);
+              }
+          }
         }
     }
 
