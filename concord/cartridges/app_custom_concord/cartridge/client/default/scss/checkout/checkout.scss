@@ -768,6 +768,10 @@ header {
             @include media-breakpoint-down(sm) {
                 padding-top: rem(0);
             }
+            
+            @include custom-media-query-max($medium-screen-width) {
+                padding-top: rem(0);
+            }
         }
     }
 

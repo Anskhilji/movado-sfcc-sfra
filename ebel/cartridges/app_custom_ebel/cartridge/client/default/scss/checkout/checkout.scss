@@ -275,6 +275,10 @@ span.ship-to-city-st-zip {
                 display: flex;
                 flex-direction: column;
                 height: 100%;
+
+                @include custom-media-query-max($medium-screen-width) {
+                    padding-top: rem(0);
+                }
             }
         }
     }

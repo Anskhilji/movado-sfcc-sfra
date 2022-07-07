@@ -648,6 +648,10 @@ header {
     .right-section {
         .right-content {
             padding-top: rem(75);
+
+            @include custom-media-query-max($medium-screen-width) {
+                padding-top: rem(0);
+            }
         }
     }
 }

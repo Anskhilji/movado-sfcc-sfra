@@ -127,6 +127,7 @@ $maroon : rgb(75,40,9) !default;
 $footer-custom : rgb(254,253,252) !default;
 
 // Larger Screen
+$medium-screen-width: 768px;
 $large-screen-width: 1400px;
 $large-screen-width-1440: 1440px;
 
@@ -138,6 +139,12 @@ $large-screen-width-1440: 1440px;
 
 @mixin custom-media-query-1440($large-screen-width-1440) {
     @media (min-width:#{$large-screen-width-1440}) {
+        @content;
+    }
+}
+
+@mixin custom-media-query-max($medium-screen-width) {
+    @media (max-width:#{$medium-screen-width}) {
         @content;
     }
 }
