@@ -682,7 +682,9 @@ module.exports = function () {
             dataType: 'json',
             success: function (data) {
                 $('.coupon-uuid-' + uuid).remove();
-                data.couponLineItemsLength > 0 ? $('.promo-code-applied').text(data.couponLineItemsLength + " " + window.Resources.COUPON_LINE_ITEM_LENGTH) : $('.promo-code-applied').text('');
+                if (data.couponLineItemsLength !== undefined && data.couponLineItemsLength !== '') {
+                    data.couponLineItemsLength > 0 ? $('.promo-code-applied').text(data.couponLineItemsLength + " " + window.Resources.COUPON_LINE_ITEM_LENGTH) : $('.promo-code-applied').text('');
+                }
                 updateCartTotals(data);
                 updateApproachingDiscounts(data.approachingDiscounts);
                 $('.promotion-information').parent().empty().append(data.totals.discountsHtml);
