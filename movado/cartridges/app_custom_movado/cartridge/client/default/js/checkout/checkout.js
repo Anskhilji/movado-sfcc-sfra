@@ -770,8 +770,7 @@ var exports = {
                 dataType: 'json',
                 success: function (data) {
                     $('.coupon-uuid-' + uuid).remove();
-                    var coponLineItem = data.couponLineItemsLength + " " + window.Resources.COUPON_LINE_ITEM_LENGTH;
-                    $('.promo-code-applied').text(coponLineItem);
+                    data.couponLineItemsLength > 0 ? $('.promo-code-applied').text(data.couponLineItemsLength + " " + window.Resources.COUPON_LINE_ITEM_LENGTH) : $('.promo-code-applied').text('');
                     updateCheckoutTotals(data);
                     $.spinner().stop();
                 },
