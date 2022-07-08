@@ -5,17 +5,11 @@
                 <label class="title show-details-wrapper label-show-title" for="couponCode">${Resource.msg('label.order.summary','cart',null)}
                     <img src="${URLUtils.staticURL('/images/icon-down-arrow.svg')}" alt=""/>
                 </label>
-
-                <isloop items="${pdict.totals.discounts}" var="discount">
-                    <isif condition="${discount.applied == true}">
-                        <div class="promo-code-applied ${pdict.currentCouponLength}">
-                            <div class="counter"></div>
-                            <isset name="couponCounter" value="" scope="page" />
-                            <h1>${couponCounter}</h1>
-                            ${Resource.msg('coupon.applied.counter','cart', null, require('dw/order/BasketMgr').currentBasket.couponLineItems.length)}
-                        </div>
-                    </isif>
-                </isloop>
+                <div class="promo-code-applied">
+                 <isif condition="${pdict.couponLineItems.length > 0}">
+                    ${pdict.couponLineItems.length + ' ' + Resource.msg('coupon.applied.counter', 'cart', null)}
+                </isif>
+                </div>
             </div>
 
                 <div class="row position-relative" id="orderSummary">
@@ -27,13 +21,13 @@
                        <!-- Promos -->
                        <div class="checkout-promo-section checkout-promo-redesign">
                            <isinclude template="checkout/checkoutPromoCode" />
+                            <div class="checkout-coupons-and-promos coupons-wrapper">
                                 <isloop items="${pdict.totals.discounts}" var="discount">
                                     <isif condition="${discount.type === 'coupon'}">
-                                    <div class="checkout-coupons-and-promos coupons-wrapper">
                                         <isinclude template="cart/cartCouponDisplay" />
-                                    </div>
                                     </isif>
                                 </isloop>
+                            </div>
                         </div>
                             <div class="card order-summary-card card-border-none-wrapper card-summary-wrapper-container">
                                 <div class="card-body order-total-summary">
@@ -43,7 +37,7 @@
                             <isinclude template="checkout/orderProductSummaryPopup" />
 
                             <div class="sticky-hide-wrapper">
-                                <a href="" class="hide-details-wrapper label-show-title">${Resource.msg('label.order.summary.hide.details','cart',null)} 
+                                <a href="#" class="hide-details-wrapper label-show-title">${Resource.msg('label.order.summary.hide.details','cart',null)} 
                                     <img src="${URLUtils.staticURL('/images/icon-up-arrow.svg')}" alt=""/>
                                 </a>
                             </div>

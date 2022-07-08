@@ -711,6 +711,8 @@ var exports = {
 	                    $('.checkout-promo-code-form .form-control').addClass('is-invalid');
 	                    $couponGenericError.empty().append(data.errorMessage);
 	                } else {
+                        var coponLineItem = data.couponLineItemsLength + " " + window.Resources.COUPON_LINE_ITEM_LENGTH;
+                        $('.promo-code-applied').text(coponLineItem);
                         $('.checkout-coupons-and-promos').empty().append(data.totals.discountsHtml);
                         $('.promo-input-wrapper').addClass('d-none');
                         updateCheckoutTotals(data);
@@ -768,6 +770,8 @@ var exports = {
                 dataType: 'json',
                 success: function (data) {
                     $('.coupon-uuid-' + uuid).remove();
+                    var coponLineItem = data.couponLineItemsLength + " " + window.Resources.COUPON_LINE_ITEM_LENGTH;
+                    $('.promo-code-applied').text(coponLineItem);
                     updateCheckoutTotals(data);
                     $.spinner().stop();
                 },
