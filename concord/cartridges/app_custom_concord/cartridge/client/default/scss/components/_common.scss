@@ -625,7 +625,7 @@ header~.container .promotions .callout a{
               width: auto;
               max-width: fit-content;
               background-color: transparent;
-              margin-bottom: rem(10);
+              margin: rem(-10) rem(0) rem(20) rem(0);
 
               .flex-box-promo-code {
                   display: flex;
