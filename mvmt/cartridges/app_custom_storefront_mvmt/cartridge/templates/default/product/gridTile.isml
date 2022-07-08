@@ -3,11 +3,7 @@
 <isset name="apiProduct" value="${pdict.product.apiProduct}" scope="page" />
 <div class="product product-tile" data-pid="${product.id}">
     <isif condition="${pdict.display.plpTile === true || pdict.display.recommendattionTile === true}">
-        <isif condition="${!empty(pdict.display.isRedesigned)}">
-            <isinclude template="product/productSlotTile" />
-        <iselse/>
-            <isinclude template="product/old/productSlotTile" />
-        </isif>
+        <isinclude template="product/productSlotTile" />
     <iselse>
         <isinclude template="product/productTile" />
     </isif>
