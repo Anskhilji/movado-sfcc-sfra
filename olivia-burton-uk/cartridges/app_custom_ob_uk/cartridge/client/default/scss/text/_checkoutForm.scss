@@ -641,6 +641,7 @@
                           .checkout-coupons-and-promos {
 
                               .coupon-price-adjustment {
+                                  margin-bottom: rem(20);
 
                                   @include media-breakpoint-down(xs) {
                                       margin-bottom: rem(20);

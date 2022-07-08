@@ -37,7 +37,7 @@
                             <isinclude template="checkout/orderProductSummaryPopup" />
 
                             <div class="sticky-hide-wrapper">
-                                <a href="#" class="hide-details-wrapper label-show-title">${Resource.msg('label.order.summary.hide.details','cart',null)} 
+                                <a class="hide-details-wrapper label-show-title">${Resource.msg('label.order.summary.hide.details','cart',null)} 
                                     <img src="${URLUtils.staticURL('/images/icon-up-arrow.svg')}" alt=""/>
                                 </a>
                             </div>
