@@ -125,13 +125,13 @@
                         <!-- Promos -->
                         <div class="checkout-promo-section checkout-promo-redesign">
                             <isinclude template="checkout/checkoutPromoCode" />
+                            <div class="checkout-coupons-and-promos coupons-and-promos coupons-wrapper mb-3">
                             <isloop items="${pdict.totals.discounts}" var="discount">
                                 <isif condition="${discount.type === 'coupon'}">
-                                    <div class="checkout-coupons-and-promos coupons-and-promos coupons-wrapper mb-3">
-                                        <isinclude template="cart/cartCouponDisplay" />
-                                    </div>
+                                    <isinclude template="cart/cartCouponDisplay" />
                                 </isif>
                             </isloop>
+                             </div>
                         </div>
                         <div class="card order-summary-card card-border-none-wrapper card-summary-wrapper-container">
                             <div class="card-body order-total-summary">
