@@ -243,16 +243,7 @@ function getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams, sorting
         defaultVariant = null;
         searchHitProductID = '';
         searchHitProduct = searchHitsProductsList[i];
-
-        if (!empty(searchHitProduct)  && !empty(searchHitProduct.product)
-        && !empty(searchHitProduct.product.variationModel) && !empty(searchHitProduct.product.variationModel.defaultVariant)) {
-            defaultVariant = searchHitProduct.product.variationModel.defaultVariant;
-        }
-        if (defaultVariant !== null) {
-            searchHitProductID = defaultVariant.ID;
-        } else {
-            searchHitProductID = searchHitProduct.productID
-        }
+        searchHitProductID = searchHitProduct.productID
         if (searchHitProduct.product.online) {
             allSearchHitsProducts.push({
                 productID: searchHitProductID,
@@ -299,15 +290,7 @@ function getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams, sorting
             if (sortedProductID.id === currentProduct.productID) {
                 var currentProductId = null;
                 var apiProduct = currentProduct.productSearchHit.product;
-                if (apiProduct.isVariant()) {
-                    if (apiProduct.variationModel.master.isOnline()) {
-                        currentProductId = apiProduct.variationModel.master.ID;
-                    } else {
-                        currentProductId = apiProduct.ID;
-                    }
-                } else {
-                    currentProductId = apiProduct.ID;
-                }
+                currentProductId = apiProduct.ID;
                 allSortedProductsIds.push({
                     productID: currentProductId,
                     productSearchHit: currentProduct
