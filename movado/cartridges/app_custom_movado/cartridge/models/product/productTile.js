@@ -13,6 +13,9 @@ var Site = require('dw/system/Site');
  */
 function getProductSearchHit(apiProduct) {
     var searchModel = new ProductSearchModel();
+    var allVariantProducts;
+    var variantProduct;
+
     if(!empty(apiProduct)) {
         searchModel.setSearchPhrase(apiProduct.ID);
         searchModel.search();
@@ -30,6 +33,10 @@ function getProductSearchHit(apiProduct) {
             var tempHit = searchHits.next();
             if (tempHit.firstRepresentedProductID === apiProduct.ID) {
                 hit = tempHit;
+            }  else if (!empty(apiProduct) && !empty(apiProduct.variants) && apiProduct.variants.length > 0 && tempHit.hitType == 'slicing_group') {
+                allVariantProducts = apiProduct.variants.toArray();
+                variantProduct = allVariantProducts.filter(function (data) { return data.ID === tempHit.firstRepresentedProductID });
+                hit = variantProduct ? tempHit : null;
             }
         }
     }
