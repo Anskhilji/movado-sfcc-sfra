@@ -244,30 +244,18 @@ function getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams, sorting
         searchHitProductID = '';
         searchHitProduct = searchHitsProductsList[i];
         searchHitProductID = searchHitProduct.productID
+
         if (searchHitProduct.product.online) {
             allSearchHitsProducts.push({
                 productID: searchHitProductID,
                 productSearchHit: searchHitProduct
             });
         }
+
     }
     allSearchHitsProducts.forEach(function (searchHitResultProduct) {
-        var defaultVariant = null;
-        if (!empty(searchHitResultProduct.productID)) {
-            if (!empty(searchHitResultProduct.productSearchHit.product.variationModel) && !empty(searchHitResultProduct.productSearchHit.product.variationModel.defaultVariant)) {
-                defaultVariant = searchHitProduct.product.variationModel.defaultVariant;
-            }
-        }
-
-        var searchHitProductID;
-        if (defaultVariant !== null) {
-            searchHitProductID = defaultVariant.ID
-        } else {
-            searchHitProductID = searchHitResultProduct.productID
-        }
-
         paramContainer = {
-            pid: searchHitProductID
+            pid: searchHitResultProduct.productID
         };
 
         factoryProduct = ProductFactory.get(paramContainer);
