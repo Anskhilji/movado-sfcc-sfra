@@ -244,12 +244,14 @@ function getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams, sorting
         searchHitProductID = '';
         searchHitProduct = searchHitsProductsList[i];
         searchHitProductID = searchHitProduct.productID
+        
         if (searchHitProduct.product.online) {
             allSearchHitsProducts.push({
                 productID: searchHitProductID,
                 productSearchHit: searchHitProduct
             });
         }
+
     }
     allSearchHitsProducts.forEach(function (searchHitResultProduct) {
         paramContainer = {
