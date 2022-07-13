@@ -6,16 +6,12 @@
         assets.addJs('/js/productDetail.js');
         assets.addCss('/css/product/detail.css');
     </isscript>
-    <isset name="isListrakEnable"
-        value="${!empty(dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) ? dw.system.Site.current.preferences.custom
-               .Listrak_Cartridge_Enabled : false}"
-        scope="page" />
+    <isset name="isListrakEnable" value="${!empty(dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) ? dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled : false}" scope="page" />
     <isif condition="${isListrakEnable}">
-        <isinclude url="${URLUtils.https('ltkActivityTracking-TrackRequest', 'pid', pdict.product.id)}" />
+        <isinclude url="${URLUtils.https('ltkActivityTracking-TrackRequest', 'pid', pdict.product.id)}"/>
     </isif>
     <isif condition="${dw.system.Site.current.preferences.custom.EUMEnabled}">
-        <isinclude
-            url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.pdp', 'eum', null))}" />
+        <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.pdp', 'eum', null))}"/>
     </isif>
 
 
@@ -47,7 +43,7 @@
 
                 </div>
             </div>
-            <hr class="hidden-xs-down d-md-none" />
+            <hr class="hidden-xs-down d-md-none"/>
 
             <div class="row">
                 <!-- Product Images Carousel -->
@@ -73,9 +69,8 @@
                             <isinclude template="product/components/badges" />
 
                             <!-- Product Availability -->
-                            <div class="availability product-availability text-uppercase"
-                                data-ready-to-order="${product.readyToOrder}" data-available="${product.available}">
-                                <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}" />
+                            <div class="availability product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}" data-available="${product.available}">
+                                <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
                             </div>
 
                             <!-- Applicable Promotions -->
@@ -110,10 +105,16 @@
                             <div class="tax-duties">
                                 <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
                                 <isif condition="${isEswEnabled}" >
-                                    <isset name="klarnaAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
+                                    <isset name="domesticAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
                                     <isset name="isTaxDutiesAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isTaxDutiesAllowedCountry()}" scope="page" />
-                                    <isif condition="${!klarnaAllowedCountry && isTaxDutiesAllowedCountry}">
-                                        <isslot id="cs-tax-duties" description="Tax Duties" context="global" />
+                                    <isif condition="${!empty(isTaxDutiesAllowedCountry)}">
+                                        <isif condition="${!domesticAllowedCountry && isTaxDutiesAllowedCountry}">
+                                            <isslot id="cs-esw-tax-duties" description="Tax Duties" context="global" />
+                                        </isif>
+                                    <iselse/>
+                                        <isif condition="${!domesticAllowedCountry}">
+                                            <isslot id="cs-esw-tax-duties" description="Tax Duties" context="global" />
+                                        </isif>
                                     </isif>
                                 </isif>
                             </div>
@@ -126,12 +127,10 @@
                             </div>
                             <div class="d-block d-md-flex">
                                 <!-- Cart and [Optionally] Apple Pay -->
-                                <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}" />
+                                <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
                                 <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
                                     <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
-                                        <div class="d-none d-md-flex">
-                                            <isinclude template="product/components/smartGift" />
-                                        </div>
+                                        <div class="d-none d-md-flex"> <isinclude template="product/components/smartGift" /></div>
                                     </isif>
                                 </isif>
                             </div>
@@ -139,15 +138,13 @@
 
                         <div class="col-12">
                             <div class="wishlist-row row">
-                                <isinclude url="${URLUtils.https('Wishlist-ShowIcon', 'gtmObj', JSON.stringify(pdict.wishlistGtmObj))}" />
+                                <isinclude url="${URLUtils.https('Wishlist-ShowIcon','gtmObj',JSON.stringify(pdict.wishlistGtmObj))}"/>
                                 <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
                                     <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
-                                        <div class="d-block d-md-none smartgift-medium-scr">
-                                            <isinclude template="product/components/smartGift" />
-                                        </div>
+                                        <div class="d-block d-md-none smartgift-medium-scr"><isinclude template="product/components/smartGift" /></div>
                                     </isif>
                                 </isif>
-                                <span class="product-id d-none" itemprop="productID">${product.id}</span>
+                                <span class="product-id d-none" itemprop="productID" >${product.id}</span>
                             </div>
                             <div class="row description">
                                 <isinclude template="product/components/description" />
@@ -167,8 +164,9 @@
         </div>
 
         <iscomment> Custom Start: Clyde Integration </iscomment>
-        <isif condition="${dw.system.Site.current.preferences.custom.clydeWidgetDisplay}">
-            <div id="clyde-cta"></div>
+        <isif condition = "${dw.system.Site.current.preferences.custom.clydeWidgetDisplay}">
+            <div id="clyde-cta" >
+            </div>
         </isif>
         <iscomment> Custom End: </iscomment>
 
@@ -180,7 +178,8 @@
         </isif>
         <isset name="apiProduct" value="${dw.catalog.ProductMgr.getProduct(pdict.product.id)}" scope="page" />
         <isinclude template="product/components/contentAssets" />
-        <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP" context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}" />
+        <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"
+        context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}" />
 
         <!-- The Modal: Starts | To be filled by the from rendered by the ShareByEmail controller-->
         <div class="modal fade share-via-email-overlay" id="sendtofriendform">

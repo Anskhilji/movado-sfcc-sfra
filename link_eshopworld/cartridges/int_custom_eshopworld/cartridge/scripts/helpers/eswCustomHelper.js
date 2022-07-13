@@ -249,7 +249,7 @@ function isTaxDutiesAllowedCountry() {
     var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
     var disableTaxDuties = true;
     var availableCountry = eswHelper.getAvailableCountry();
-    if (disableTaxDutiesOnEswCountries) {
+    if (disableTaxDutiesOnEswCountries.length) {
         for (var countryIndex = 0; countryIndex < disableTaxDutiesOnEswCountries.length; countryIndex++) {
             country = disableTaxDutiesOnEswCountries[countryIndex];
             if (availableCountry.equalsIgnoreCase(country)) {
@@ -257,6 +257,8 @@ function isTaxDutiesAllowedCountry() {
                 break;
             }
         }
+    } else {
+        disableTaxDuties = '';
     }
     return disableTaxDuties;
 }
