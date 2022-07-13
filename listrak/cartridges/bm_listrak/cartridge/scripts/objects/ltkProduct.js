@@ -348,7 +348,6 @@ ltkProduct.prototype.getSalePriceInfo = function (product) {
 // Custom Start: [MSS-1697 Add Collection URL, Strap Width, Case Diameter, Family Name to Listrak MVMT Product Feed]
 ltkProduct.prototype.getCollectionURL = function (product) {
     var collectionUrl = '';
-
     if (!empty(product.ID) && !empty(product.primaryCategory))	{
         collectionUrl = dw.web.URLUtils.https('Search-Show', 'cid', product.primaryCategory.ID);
     }
