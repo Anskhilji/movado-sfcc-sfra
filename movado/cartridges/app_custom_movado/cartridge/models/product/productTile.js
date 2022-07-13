@@ -15,8 +15,7 @@ function getProductSearchHit(apiProduct) {
     var searchModel = new ProductSearchModel();
     var allVariantProducts;
     var variantProduct;
-
-    if(!empty(apiProduct)) {
+    if (!empty(apiProduct)) {
         searchModel.setSearchPhrase(apiProduct.ID);
         searchModel.search();
     }

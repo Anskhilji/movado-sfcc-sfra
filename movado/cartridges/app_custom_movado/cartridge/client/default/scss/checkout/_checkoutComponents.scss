@@ -59,6 +59,12 @@ $stored-payment-spacing: rem(16);
   margin-bottom: rem(50);
   .top-grandtotal-label {
     text-transform: uppercase;
+    color: $grey8;
+    font-size: rem(12);
+    font-weight: 500;
+    letter-spacing: rem(0.56);
+    line-height: rem(21);
+  
   }
   .card-body {
     padding: rem(15) rem(10);
@@ -85,20 +91,88 @@ $stored-payment-spacing: rem(16);
 
 #mainContent {
   .data-checkout-stage {
-    padding-top: rem(10);
+    padding-top: rem(0);
     margin-bottom: rem(50);
 
     .checkout-content {
       @include media-breakpoint-up(md) {
-        max-width: rem(940);
+        max-width: 100%;
       }
       @include media-breakpoint-up(lg) {
-        max-width: rem(940);
+        max-width: 100%;
+        padding: rem(0) rem(15);
       }
       @include media-breakpoint-up(xl) {
-        max-width: rem(940);
+        max-width: 100%;
+        margin: auto;
+      }
+
+      @include custom-media-query-1440($large-screen-width-1440) {
+          max-width: 100%;
+          padding: rem(0) rem(15);
       }
     }
+
+    &.data-checkout-stage-redesign {
+        margin-bottom: rem(0);
+        padding-top: rem(0);
+
+        @include media-breakpoint-down(xs) {
+            padding: rem(0);
+        }
+
+        .pop-up-container-box {
+            border: rem(1) solid $grey22;
+            background-color: $grey23;
+            box-shadow: rem(0) rem(2) rem(6) rem(1) $grey-dark-4;
+
+            @include media-breakpoint-down(xs) {
+                max-width: 100%;
+                margin-bottom: rem(30);
+            }
+        }
+
+        .pop-up-box-space {
+            @include media-breakpoint-down(xs) {
+                padding: rem(0) rem(20);
+            }
+
+            .top-grandtotal-label {
+                padding-top: rem(10);
+                margin-bottom: rem(6);
+            }
+
+            .grand-total-price {
+                padding-top: rem(10);
+                margin-bottom: rem(6);
+                color: $grey8;
+                font-size: rem(12);
+                font-weight: 500;
+                letter-spacing: rem(0.56);
+                line-height: rem(21);
+            }
+
+            .top-grand-total-price-wrapper {
+                padding-top: rem(10);
+                margin-bottom: rem(6);
+            }
+        }
+    }
+  }
+
+  .card-shipping-container-wrapper {
+      @include media-breakpoint-up(lg) {
+          padding-left: rem(4);
+      }
+
+      @include media-breakpoint-up(xl) {
+          padding-left: rem(0);
+      }
+
+      @include custom-media-query-1440($large-screen-width-1440) {
+          max-width: rem(700);
+          padding-left: rem(0);
+      }
   }
 }
 
@@ -141,13 +215,13 @@ $stored-payment-spacing: rem(16);
       color: $grey14;
     }
 
-    #expirationDate {
-      margin-top: rem(4);
-    }
+    // #expirationDate {
+    //   margin-top: rem(4);
+    // }
 
-    #securityCode {
-      margin-top: rem(1);
-    }
+    // #securityCode {
+    //   margin-top: rem(1);
+    // }
 
     .add-address,
     .edit-address {
@@ -187,6 +261,13 @@ $stored-payment-spacing: rem(16);
       margin-bottom: rem(10);
       text-transform: uppercase;
     }
+    
+    &.mx-shipping-box {
+      @include custom-media-query-1440($large-screen-width-1440) {
+        max-width: rem(700);
+      }
+    }
+
     .display-name {
       &::after {
         content: "";
@@ -250,6 +331,24 @@ $stored-payment-spacing: rem(16);
       padding: 0;
     }
   }
+  
+  .top-grand-total-price-wrapper {
+    color: $grey8;
+    font-size: rem(12);
+    font-weight: 500;
+    letter-spacing: rem(0.56);
+    line-height: rem(21);
+  }
+  
+  &.data-checkout-stage-redesign {
+      margin-bottom: rem(0);
+      padding-top: rem(0);
+
+      @include media-breakpoint-down(xs) {
+          padding: rem(10) rem(20) rem(0);
+      }
+  }
+  
 }
 
 .shipping-method {
@@ -310,9 +409,84 @@ $stored-payment-spacing: rem(16);
 
   &.justify-content-between {
     .end-lines {
-      background: $white;
+        background: transparent;
     }
   }
+
+    &.leading-lines-wrapper {
+        padding: rem(8) 0;
+        border-bottom: rem(1) dashed $grey-dark-3;
+
+        &.sales-tax-item {
+            border-bottom: rem(1) solid $grey-dark-3;
+        }
+      
+        .start-lines {
+
+            &::before {
+                content: "";
+            }
+        }
+
+        .order-label-wrapper {
+            margin-bottom: rem(0);
+            color: $black;
+            font-size: rem(13);
+            font-weight: 300;
+            letter-spacing: rem(0.7);
+            line-height: rem(20);
+
+            span {
+                color: $black;
+                font-size: rem(13);
+                font-weight: 300;
+                letter-spacing: rem(0.7);
+                line-height: rem(20);
+                background-color: transparent;
+            }
+          
+            &.order-discount-total {
+                color: $parrot-green;
+            }
+        }
+
+        .product-label-wrapper {
+            margin-bottom: rem(0);
+            color: $black;
+            font-size: rem(13);
+            font-weight: 300;
+            letter-spacing: rem(0.7);
+            line-height: rem(20);
+
+            span {
+                color: $black;
+                font-size: rem(13);
+                font-weight: 300;
+                letter-spacing: rem(0.7);
+                line-height: rem(20);
+                background-color: transparent;
+            }
+          
+            &.product-discount-total {
+                color: $parrot-green;
+            }
+        }
+
+        .end-lines {
+
+            .text-right {
+                margin-bottom: rem(0);
+              
+              .shipping-total-cost {
+                  color: $parrot-green;
+              }
+
+              span {
+                  background-color: transparent;
+              }
+            }
+        }
+    }
 }
 
 .summary-details {
@@ -569,4 +743,771 @@ $stored-payment-spacing: rem(16);
 
 .multi-shipping {
   display: none;
+}
+
+.data-checkout-stage {
+
+    .checkout-content-container-inner {
+
+        .left-section {
+
+          .shipping-section {
+              @include media-breakpoint-down(md) {
+                  padding: rem(0) rem(5);
+              }
+              @include media-breakpoint-down(xs) {
+                  padding: rem(0);
+              }
+          }
+
+            .shipping-method-box-wrapper {
+                margin-top: rem(0);
+            }
+        }
+
+        .right-section {
+            @include media-breakpoint-up(xl) {
+                padding: rem(0) rem(59.2);
+                background-color: $grey20;
+            }
+
+            @include custom-media-query-1440($large-screen-width-1440) {
+                max-width: 34.722%;
+                flex: 0 0 34.722%;
+                padding: rem(0) rem(83) rem(0) rem(82);
+                background-color: $grey20;
+            }
+
+            @include media-breakpoint-down(lg) {
+                padding: rem(0) rem(30);
+                background-color: $grey20;
+            }
+
+            @include media-breakpoint-down(md) {
+                padding: rem(0) rem(20);
+                background-color: $grey20;
+            }
+
+            @include custom-media-query-max($medium-screen-width) {
+                padding: rem(0) rem(15);
+                background-color: transparent;
+            }
+        }
+
+        .col-space-wrapper {
+            @include media-breakpoint-down(xs) {
+                padding: rem(0);
+            }
+
+            &.heading-wrapper-label-shipping {
+                @include media-breakpoint-down(xs) {
+                    padding: rem(0);
+                }
+
+                @include media-breakpoint-up(sm) {
+                  padding: rem(0) rem(10);
+                }
+
+                @include media-breakpoint-up(lg) {
+                    padding: rem(0) rem(18);
+                }
+
+                @include media-breakpoint-up(xl) {
+                    padding: rem(0) rem(10);
+                }
+                
+                @include custom-media-query-1440($large-screen-width-1440) {
+                    padding: rem(0) rem(15);
+                }
+            }
+        }
+
+        .checkbox-email-wrapper {
+            padding: rem(0) rem(10);
+
+            @include media-breakpoint-down(xs) {
+                padding: rem(0);
+            }
+        }
+    }
+
+    .card-border-none {
+        border: none;
+        box-shadow: none;
+        padding: rem(0);
+
+        .heading-content-label {
+            color: $grey8;
+            font-size: rem(15);
+            font-weight: 500;
+            letter-spacing: rem(0.7);
+            line-height: rem(21);
+        }
+
+        .credit-card-form {
+            margin-top: rem(10);
+
+            @include media-breakpoint-down(sm) {
+                padding: rem(0) rem(5);
+            }
+
+          .credit-card-form-container {
+              @include custom-media-query-max($medium-screen-width) {
+                  padding: rem(0) rem(5);
+              }
+
+              @include media-breakpoint-down(sm) {
+                  padding: rem(0);
+              }
+
+              .mx-field-wrapper {
+                  @include media-breakpoint-down(xs) {
+                      padding: rem(0) rem(10);
+                  }
+              }
+              .dwfrm_billing_subscribetomovado {
+                  @include media-breakpoint-down(xs) {
+                      padding: rem(0) rem(10);
+                  }
+              }
+          }
+        }
+
+        .card-body {
+            padding: rem(0);
+
+            .billing-address {
+                @include media-breakpoint-down(xl) {
+                    padding: rem(0) rem(5);
+                }
+              
+                .mx-field-wrapper {
+                    @include media-breakpoint-down(xs) {
+                        padding: rem(0) rem(10);
+                    }
+                }
+            }
+
+            .shipping-address-block {
+                position: relative;
+
+                @include media-breakpoint-up(lg) {
+                    padding-left: rem(4);
+                }
+
+                @include media-breakpoint-up(xl) {
+                    padding-left: rem(0);
+                }
+
+                @include custom-media-query-1440($large-screen-width-1440) {
+                    max-width: rem(695);
+                    padding-left: rem(5);
+                }
+            }
+
+            .info-icon {
+
+              &.info-icon-email {
+                  position: absolute;
+                  right: rem(25);
+                  top: rem(11);
+                  padding-bottom: rem(0);
+
+                  .icon {
+                      background-image: url("../../images/info-icon.svg");
+                      background-repeat: no-repeat;
+                      background-size: cover;
+                      width: rem(15);
+                      height: rem(15);
+                      background-color: transparent;
+                  }
+
+                  &.icon-right-wrapper {
+                      right: rem(64);
+                      top: rem(11);
+                      padding-bottom: rem(0);
+
+                      @include media-breakpoint-down(sm) {
+                          right: rem(25);
+                      }
+                  }
+              }
+            }
+        }
+
+        &.card-bottom-space {
+            margin-bottom: rem(20);
+
+            @include media-breakpoint-down(sm) {
+                margin-bottom: rem(15);
+            }
+        }
+    }
+
+    .card-bottom-space {
+        margin-bottom: rem(20);
+    }
+
+    .field-left {
+
+        &.mx-field-wrapper {
+            @include custom-media-query-1440($large-screen-width-1440) {
+                padding: rem(0) rem(10);
+            }
+        
+            @include media-breakpoint-up(sm) {
+                padding: rem(0) rem(10);
+            }
+
+            @include media-breakpoint-down(xs) {
+                padding: rem(0);
+            }
+        }
+    }
+
+    .mx-field-wrapper {
+        @include custom-media-query-1440($large-screen-width-1440) {
+            padding: rem(0) rem(10);
+        }
+
+        @include media-breakpoint-up(sm) {
+            padding: rem(0) rem(10);
+        }
+
+        @include media-breakpoint-down(xs) {
+            padding: rem(0);
+        }
+
+        .form-group {
+            margin-bottom: rem(20);
+
+          @include media-breakpoint-down(xs) {
+              margin-bottom: rem(15);
+          }
+        }
+    }
+
+    .field-right {
+
+        &.mx-field-wrapper {
+            @include custom-media-query-1440($large-screen-width-1440) {
+                padding: rem(0) rem(10);
+            }
+
+            @include media-breakpoint-up(sm) {
+                padding: rem(0) rem(10);
+            }
+
+            @include media-breakpoint-down(xs) {
+                padding: rem(0);
+            }
+        }
+    }
+
+    .form-group {
+
+        .form-control-label {
+
+            &.field-label-wrapper {
+                color: $grey17;
+                font-size: rem(13);
+                font-weight: 500;
+                letter-spacing: rem(0.7);
+                line-height: rem(20);
+            }
+        }
+      
+        .form-control {
+
+          &.input-wrapper-checkout {
+              height: rem(45);
+              border: rem(1) solid $grey16;
+              border-radius: rem(3);
+              font-size: rem(13);
+              font-weight: 500;
+              letter-spacing: rem(0.7);
+              line-height: rem(24);
+              color: $google-grey1 !important;
+              padding: rem(16) rem(15) rem(6) rem(15);
+              margin-top: rem(0);
+
+              &:focus {
+                  border-color: $black;
+                  box-shadow: none;
+                  border-width: rem(1);
+
+                  + .field-label-wrapper {
+                      transition: 0.2s ease-in-out;
+                      top: 0;
+                      left: rem(26.4);
+                      height: rem(24);
+                      color: $grey17;
+                      font-size: rem(10);
+                      font-weight: 500;
+                      letter-spacing: rem(0.7);
+                      line-height: rem(24);
+                      width: 100%;
+                      pointer-events: none;
+                      margin-bottom: rem(0);
+
+                          @include media-breakpoint-down(xs) {
+                              left: rem(16);
+                          }
+
+                        &.field-select-wrapper-box {
+                            left: rem(16);
+                        }
+                  }
+
+                  + .field-label-wrapper-card {
+                      left: rem(15);
+                  }
+          
+                  + .field-label-wrapper-card-1 {
+                      left: rem(24);
+                  }
+          
+                  + .field-label-wrapper-card-2 {
+                      left: rem(15);
+                  }
+                
+                  + .field-label-wrapper-card-3 {
+                      left: rem(24);
+                  }
+              }
+
+              &.is-invalid {
+
+                  &:focus {
+                      border: rem(1) solid $invalid-red;
+                  }
+              }
+          }
+
+          &.custom-select-box {
+              height: rem(45);
+              border: rem(1) solid $grey16;
+              border-radius: rem(3);
+              background-color: $grey-dark-2 !important;
+              padding: rem(16) rem(50) rem(6) rem(16);
+              font-size: rem(13);
+              font-weight: 500;
+              letter-spacing: rem(0.7);
+              line-height: rem(24);
+              color: $google-grey1 !important;
+              text-transform: capitalize;
+              margin-top: rem(0);
+
+            &:focus {
+                border-color: $black;
+                box-shadow: none;
+            }
+
+            + i {
+                top: rem(14);
+                right: rem(4);
+                height: rem(20);
+                width: rem(36);
+                text-align: center;
+            }
+
+              &.is-invalid {
+
+                &:focus {
+                    border: rem(1) solid $invalid-red;
+                }
+              }
+          }
+        }
+
+        .field-label-wrapper {
+            position: absolute;
+            top: 1em;
+            left: 2em;
+            color: $grey17;
+            transition: 0.2s ease-in-out;
+            width: 100%;
+            pointer-events: none;
+            text-transform: capitalize;
+            margin-bottom: rem(0);
+
+            @include media-breakpoint-down(xs) {
+              left: 1em;
+            }
+
+          &.input-has-value {
+              transition: 0.2s ease-in-out;
+              top: 0;
+              left: rem(26.4);
+              height: rem(23);
+              color: $grey17;
+              font-size: rem(10);
+              font-weight: 500;
+              letter-spacing: rem(0.7);
+              line-height: rem(24);
+              width: 100%;
+              pointer-events: none;
+              margin-bottom: rem(0);
+
+              @include media-breakpoint-down(xs) {
+                  left: rem(16);
+              }
+          }
+
+              &.field-select-wrapper-box {
+                  left: rem(16);
+
+                  &.input-has-value {
+                      left: rem(16);
+                  }
+              }
+
+              &.field-label-wrapper-card {
+                  left: rem(15);
+
+                  &.input-has-value {
+                      left: rem(15);
+                  }
+              }
+
+              &.field-label-wrapper-card-1 {
+                  left: rem(24);
+
+                  &.input-has-value {
+                      left: rem(24);
+                  }
+              }
+
+              &.field-label-wrapper-card-2 {
+                  left: rem(15);
+
+                  &.input-has-value {
+                      left: rem(15);
+                  }
+              }
+            
+              &.field-label-wrapper-card-3 {
+                left: rem(24);
+                  
+                  &.input-has-value {
+                      left: rem(24);
+                  }
+              }
+        }
+
+        &.required {
+
+            .form-control-label {
+
+                &.field-label-wrapper {
+
+                    &::before {
+                        content: "";
+                        color: transparent;
+                    }
+                  
+                    &::after {
+                        content: "*";
+                        color: $grey17;
+                    }
+                }
+            }
+        }
+    }
+
+    .card-header-inner-wrapper {
+        max-width: rem(350);
+        margin-bottom: rem(20);
+    }
+
+    .grand-total {
+
+        &.grand-total-wrapper{
+            padding: rem(8) 0;
+      
+          .start-lines {
+      
+              &::before {
+                  content: '';
+              }
+      
+            .order-receipt-label {
+                margin-bottom: rem(0);
+                color: $grey8;
+                font-size: rem(14);
+                font-weight: 500;
+                letter-spacing: rem(0.65);
+                line-height: rem(21);
+                background-color: transparent;
+
+                span {
+                    background: transparent;
+                }
+            }
+          }
+      
+          .end-lines {
+      
+              .text-right {
+                  margin-bottom: rem(0);
+        
+                  .grand-total-sum {
+                      font-size: rem(14);
+                      color: $grey8;
+                      font-weight: 500;
+                      letter-spacing: rem(0.65);
+                      line-height: rem(21);
+                      background-color: transparent;
+                  }
+              }
+          }
+        }
+    }
+    
+    .order-product-summary {
+      
+        .product-summary-block {
+
+            .card {
+
+                &.product-line-item {
+
+                    &.product-card-wrapper {
+                      
+                        &.product-card-container {
+                            padding: rem(0);
+                            box-shadow: none;
+                            border-radius: rem(0);
+                            border: none;
+                            border-bottom: rem(1) solid $grey-dark-3;
+                            background-color: transparent;
+          
+                            &:last-child {
+                                border: none;
+                                border-bottom: none !important;
+                                margin-bottom: rem(0);
+                            }
+                  
+                            .product-line-item-details {
+                                overflow: hidden;
+                                margin-bottom: rem(30);
+                      
+                                .item-image {
+                                    width: rem(100);
+                                    height: rem(100);
+                                    margin-right: rem(21);
+                        
+                                    .product-image {
+                                        width: rem(100);
+                                        height: rem(100);
+                                        max-height: rem(100);
+                                    }
+                                }
+                      
+                                .item-attributes {
+                                    position: relative;
+                                    overflow: hidden;
+                                    width: 100%;
+                
+                                    .line-item-attributes {
+                                        font-size: rem(12);
+                                        font-weight: 500;
+                                        letter-spacing: rem(0.7);
+                                        line-height: rem(10);
+                                        color: $grey18;
+                                        margin-bottom: rem(10);
+                                    }
+                        
+                                    .line-item-header {
+                                        margin-bottom: rem(10);
+                                        font-size: rem(16);
+                                        font-weight: 500;
+                                        letter-spacing: rem(0.7);
+                                        line-height: rem(22);
+                                        color: $light-black2;
+                          
+                                        .line-item-name {
+                                            font-size: rem(16);
+                                            font-weight: 500;
+                                            letter-spacing: rem(0.7);
+                                            line-height: rem(22);
+                                            color: $light-black2;
+                                            text-transform: unset;
+                                        }
+                                      
+                                        .item-options {
+                
+                                            .line-item-option {
+                                                font-size: rem(12);
+                                                font-weight: 500;
+                                                letter-spacing: rem(0.7);
+                                                line-height: rem(10);
+                                                color: $grey18;
+                                                margin-bottom: rem(10);
+                                            }
+                                        }
+                
+                                        .item-personalization {
+                  
+                                            .line-item-option {
+                                                font-size: rem(12);
+                                                font-weight: 500;
+                                                letter-spacing: rem(0.7);
+                                                line-height: rem(10);
+                                                color: $grey18;
+                                                margin-bottom: rem(10);
+                  
+                                                .personalize-price {
+                                                    font-size: rem(12);
+                                                    font-weight: 500;
+                                                    letter-spacing: rem(0.7);
+                                                    line-height: rem(10);
+                                                    color: $grey18;
+                                                    margin-bottom: rem(10);
+                                                }
+                  
+                                                .personalize-msg {
+                                                    font-size: rem(12);
+                                                    font-weight: 500;
+                                                    letter-spacing: rem(0.7);
+                                                    line-height: rem(10);
+                                                    color: $grey18;
+                                                    margin-bottom: rem(10);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .card-body {
+
+        form {
+
+            &.billing-form {
+
+                .form-group {
+                
+                    .form-control {
+            
+                        &.input-wrapper-checkout {
+              
+                            &:focus {
+              
+                                + .field-label-wrapper {
+                                    @include media-breakpoint-down(xs) {
+                                        left: rem(26.4);
+                                    }
+              
+                                    &.field-select-wrapper-box {
+                                        left: rem(26.4);
+                                    }
+                                }
+
+                                + .field-label-wrapper-card {
+                                    left: rem(15);
+                                }
+                      
+                                + .field-label-wrapper-card-1 {
+                                    left: rem(24);
+                                }
+                        
+                                + .field-label-wrapper-card-2 {
+                                    left: rem(13);
+                                }
+                              
+                                + .field-label-wrapper-card-3 {
+                                    left: rem(24);
+                                }
+                            }
+                        }            
+                    }
+          
+                    .field-label-wrapper {
+                        @include media-breakpoint-down(xs) {
+                          left: 1.75em;
+                        }
+
+                        &.input-has-value {   
+                            @include media-breakpoint-down(xs) {
+                                left: rem(26.4);
+                            }
+                        }
+
+                        &.field-label-wrapper-card {
+                            left: rem(15);
+        
+                            &.input-has-value {
+                                left: rem(15);
+                            }
+                        }
+      
+                        &.field-label-wrapper-card-1 {
+                            left: rem(24);
+          
+                            &.input-has-value {
+                                left: rem(24);
+                            }
+                        }
+      
+                        &.field-label-wrapper-card-2 {
+                            left: rem(13);
+          
+                            &.input-has-value {
+                                left: rem(13);
+                            }
+                        }
+                  
+                        &.field-label-wrapper-card-3 {
+                          left: rem(24);
+                            
+                            &.input-has-value {
+                                left: rem(24);
+                            }
+                        }
+            
+                        &.field-select-wrapper-box {
+                            left: rem(16);
+          
+                            &.input-has-value {
+                                left: rem(16);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.col-wrapper-space-left {
+    @include custom-media-query-max($medium-screen-width) {
+        padding: rem(0) rem(10);
+    }
+
+    @include media-breakpoint-down(xs) {
+        padding: rem(0);
+    }
+
+    @include media-breakpoint-up(md) {
+        padding: rem(0) rem(10);
+    }
+
+    @include media-breakpoint-up(lg) {
+        padding: rem(0) rem(10);
+    }
+
+    @include media-breakpoint-up(xl) {
+        padding: rem(0) rem(10);
+    }
+
+    @include custom-media-query-1440($large-screen-width-1440) {
+        padding: rem(0) rem(15);
+    }
 }

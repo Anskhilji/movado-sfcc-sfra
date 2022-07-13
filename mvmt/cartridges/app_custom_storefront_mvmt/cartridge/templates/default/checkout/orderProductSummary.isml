@@ -1,15 +1,17 @@
 <isset name="miniCart" value="${false}" scope="page" />
 <div class="order-product-summary">
-        <div class="row leading-lines justify-content-between">
+        <iscomment> This grand total reflects duplication in Checkout Summary. </iscomment>
+        <iscomment> <div class="row leading-lines justify-content-between"> </iscomment>
             <iscomment> Custom Start: Changed the resource property and subtotal to grand total </iscomment>
-            <div class="start-lines">
+            <iscomment> <div class="start-lines">
                 <span class="order-receipt-label grand-total-label">${Resource.msg('label.order.grand.total','confirmation', null)}</span>
             </div>
             <div class="end-lines">
                 <span class="grand-total grand-total-sum grand-total-price-value">${pdict.order.totals.grandTotal}</span>
-            </div>
+            </div> </iscomment>
             <iscomment> Custom End </iscomment>
-        </div>
+        <iscomment> </div> </iscomment>
+        
         <div class="product-summary-block">
             <isloop items="${pdict.order.shipping}" var="shippingModel">
                 <isif condition="${pdict.order.shipping.length > 1}">

@@ -60,7 +60,8 @@ server.append(
         var OrderModel = require('*/cartridge/models/order');
         var Site = require('dw/system/Site');
         var orderCustomHelper = require('*/cartridge/scripts/helpers/orderCustomHelper');
-
+        var Money = require('dw/value/Money');
+        
         var viewData = res.getViewData();
         var actionUrls = viewData.order.checkoutCouponUrls;
         var currentCustomer = req.currentCustomer.raw;
@@ -127,7 +128,7 @@ server.append(
                 defaultShipment: true
             }
         );
-
+        
         // Custom Start: Add email for Amazon Pay
         res.setViewData({
             order: orderModel,
