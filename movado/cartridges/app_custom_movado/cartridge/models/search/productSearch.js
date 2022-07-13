@@ -8,6 +8,7 @@ var urlHelper = require('*/cartridge/scripts/helpers/urlHelpers');
 var ProductPagination = require('*/cartridge/scripts/helpers/ProductPagination');
 var Site = require('dw/system/Site');
 var catalogMgr = require('dw/catalog/CatalogMgr');
+var Constants = require('*/cartridge/scripts/util/Constants');
 
 var ACTION_ENDPOINT = 'Search-Show';
 var DEFAULT_PAGE_SIZE = Site.getCurrent().getCustomPreferenceValue('pageSize');
@@ -130,8 +131,7 @@ function getShowMoreUrl(productSearch, httpParams, enableGridSlot, sortedProduct
         pageSize = Site.getCurrent().preferences.custom.eyewearPageSize;
     }
     var hitsCount;
-    var sortProductsOnBasisOfSalesPrice = !empty(Site.current.preferences.custom.sortProductsOnBasisOfSalesPrice) ? Site.current.preferences.custom.sortProductsOnBasisOfSalesPrice : false;
-    if (sortProductsOnBasisOfSalesPrice) {
+    if (false) {
         hitsCount = sortedProductSearchHits.length;
     } else {
         hitsCount = productSearch.count;
@@ -210,7 +210,7 @@ function getPhrases(suggestedPhrases) {
  * @param {Object} httpParams - http params
  * @return {Object[]} - List of sorted products
  */
-function getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams) {
+function getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams, sortingRule, pageElements) {
     var Constants = require('*/cartridge/scripts/util/Constants');
 
     var ProductFactory = require('*/cartridge/scripts/factories/product');
@@ -231,38 +231,33 @@ function getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams) {
     var pmax = httpParams.pmax;
     var searchHitProductID;
     var defaultVariant;
-    var lastProductID = '';
-    if (productSearch.sortingRule !== null && Object.hasOwnProperty.call(productSearch.sortingRule,'ID')) { 
-        sortingOrder = productSearch.sortingRule.ID;
+    if (!empty(sortingRule)) {
+        sortingOrder = sortingRule;
     }
+
     if (!empty(productSearch)){
         searchHitsProductsList = productSearch.productSearchHits.asList();
     }
+
     for (var i = 0; i < searchHitsProductsList.size(); i++) {
         defaultVariant = null;
         searchHitProductID = '';
         searchHitProduct = searchHitsProductsList[i];
+        searchHitProductID = searchHitProduct.productID
 
-        if (!empty(searchHitProduct)  && !empty(searchHitProduct.product)
-        && !empty(searchHitProduct.product.variationModel) && !empty(searchHitProduct.product.variationModel.defaultVariant)) {
-            defaultVariant = searchHitProduct.product.variationModel.defaultVariant;
-        }
-        if (defaultVariant !== null) {
-            searchHitProductID = defaultVariant.ID;
-        } else {
-            searchHitProductID = searchHitProduct.productID
-        }
         if (searchHitProduct.product.online) {
             allSearchHitsProducts.push({
                 productID: searchHitProductID,
                 productSearchHit: searchHitProduct
             });
         }
+        
     }
     allSearchHitsProducts.forEach(function (searchHitResultProduct) {
         paramContainer = {
             pid: searchHitResultProduct.productID
         };
+
         factoryProduct = ProductFactory.get(paramContainer);
         if (!empty(factoryProduct) && !empty(factoryProduct.price) && !empty(factoryProduct.price.sales) && !empty(factoryProduct.price.sales.value)) {
             factoryProductSalesPrice = factoryProduct.price.sales.value;
@@ -271,6 +266,8 @@ function getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams) {
         if (!empty(factoryProductSalesPrice) && factoryProductSalesPrice >= pmin && factoryProductSalesPrice <= pmax) {
             allFactoryProducts.push(factoryProduct);
         } else if (typeof pmin === 'undefined' || typeof pmax === 'undefined') {
+            allFactoryProducts.push(factoryProduct);
+        } else {
             allFactoryProducts.push(factoryProduct);
         }
     });
@@ -293,14 +290,14 @@ function getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams) {
     allFactoryProducts.forEach(function (sortedProductID) {
         for (var j = 0; j < allSearchHitsProducts.length; j++) {
             currentProduct = allSearchHitsProducts[j];
-            if (sortedProductID.id === currentProduct.productID && sortedProductID.online) {
-                if (lastProductID !== currentProduct.productID) {
-                    allSortedProductsIds.push({
-                        productID: currentProduct.productID,
-                        productSearchHit: currentProduct
-                    });
-                }
-                lastProductID = currentProduct.productID;
+            if (sortedProductID.id === currentProduct.productID) {
+                var currentProductId = null;
+                var apiProduct = currentProduct.productSearchHit.product;
+                currentProductId = apiProduct.ID;
+                allSortedProductsIds.push({
+                    productID: currentProductId,
+                    productSearchHit: currentProduct
+                });
             }
         }
     });
@@ -353,8 +350,8 @@ function ProductSearch(productSearch, httpParams, sortingRule, sortingOptions, r
 
     this.resetLink = getResetLink(productSearch, httpParams);
     this.bannerImageUrl = productSearch.category ? getBannerImageUrl(productSearch.category) : null;
-    if (sortProductsOnBasisOfSalesPrice) {
-        var sortedProductSearchHits = getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams);
+    if (sortProductsOnBasisOfSalesPrice && !empty(sortingRule) && (sortingRule == Constants.PRICE_LOW_TO_HIGH || sortingRule == Constants.PRICE_HIGH_TO_LOW)) {
+        var sortedProductSearchHits = getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams, sortingRule, paging.pageElements);
         var sortedPagingElements = [];
         if (!empty(sortedProductSearchHits)) {
             paging = getPagingModel(
@@ -368,13 +365,6 @@ function ProductSearch(productSearch, httpParams, sortingRule, sortingOptions, r
             }
         }
         this.productIds = sortedPagingElements;
-        this.count = sortedProductSearchHits.length;
-        if (httpParams.pmin) {
-            productSearch.setPriceMin(parseInt(httpParams.pmin, 10));
-        }
-        if (httpParams.pmax) {
-            productSearch.setPriceMax(parseInt(httpParams.pmax, 10));
-        }
     } else {
         this.productIds = collections.map(paging.pageElements, function (item) {
             return {
