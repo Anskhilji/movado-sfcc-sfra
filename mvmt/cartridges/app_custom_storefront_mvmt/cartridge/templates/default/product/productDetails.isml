@@ -132,6 +132,22 @@
                                 </div>
                             <iscomment> Custom: End </iscomment>
                         </div>
+                        <div class="tax-duties">
+                            <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
+                            <isif condition="${isEswEnabled}" >
+                                <isset name="domesticAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
+                                <isset name="isTaxDutiesAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isTaxDutiesAllowedCountry()}" scope="page" />
+                                <isif condition="${!empty(isTaxDutiesAllowedCountry)}">
+                                    <isif condition="${!domesticAllowedCountry && isTaxDutiesAllowedCountry}">
+                                        <isslot id="cs-esw-tax-duties" description="Tax Duties" context="global" />
+                                    </isif>
+                                <iselse/>
+                                    <isif condition="${!domesticAllowedCountry}">
+                                        <isslot id="cs-esw-tax-duties" description="Tax Duties" context="global" />
+                                    </isif>
+                                </isif>
+                            </isif>
+                        </div>
                         <iscomment> Custom End: Change Naming Conventions for PDP </iscomment>
 
                         <!-- Product Availability -->
