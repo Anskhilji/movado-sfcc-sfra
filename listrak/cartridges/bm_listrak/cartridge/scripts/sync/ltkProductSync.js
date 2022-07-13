@@ -13,6 +13,7 @@ require('dw/net');
 require('dw/object');
 
 var Calendar = require('dw/util/Calendar');
+var Site = require('dw/system/Site');
 
 var ErrorHandling = require('~/cartridge/scripts/util/ltkErrorHandling.js');
 importScript('sync/ltkExportUtils.js');
@@ -88,6 +89,17 @@ function productSync() {
 
             // Custom Start: [MSS-1690 Add Sale Price Information]
             productFile.AddRowItem('SalePrice');
+            // Custom End
+
+            // Custom Start: [MSS-1697 Add Collection URL, Strap Width, Case Diameter, Family Name to Listrak MVMT Product Feed]
+            if (Site.getCurrent().ID === 'MVMTUS' || Site.getCurrent().ID === 'MVMTEU') {
+                productFile.AddRowItem('Review URL');
+                productFile.AddRowItem('Meta4');
+                productFile.AddRowItem('Meta5');
+                productFile.AddRowItem('Style');
+                productFile.AddRowItem('Meta1');
+                productFile.AddRowItem('Size');
+            }
             // Custom End
 
             productFile.WriteRow();
@@ -212,6 +224,17 @@ function productSync() {
 
                 // Custom Start: [MSS-1690 Add Sale Price Information]
                 productFile.AddRowItem(prd.onSale == true ? prd.salePrice : '' , true);
+                // Custom End
+
+                // Custom Start: [MSS-1697 Add Collection URL, Strap Width, Case Diameter, Family Name to Listrak MVMT Product Feed]
+                if (Site.getCurrent().ID === 'MVMTUS' || Site.getCurrent().ID === 'MVMTEU') {
+                    productFile.AddRowItem(prd.reviewURL, true);
+                    productFile.AddRowItem(prd.meta4, true);
+                    productFile.AddRowItem(prd.meta5, true);
+                    productFile.AddRowItem(prd.style, true);
+                    productFile.AddRowItem(prd.meta1, true);
+                    productFile.AddRowItem(prd.size, true);
+                }
                 // Custom End
 
                 productFile.WriteRow();
