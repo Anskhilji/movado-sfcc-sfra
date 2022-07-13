@@ -850,6 +850,9 @@
                 .slick {
                   &-arrow {
                     height: rem(0);
+                    @include media-breakpoint-down(sm) {
+                      height: rem(20);
+                    }
                   }
                 }
 

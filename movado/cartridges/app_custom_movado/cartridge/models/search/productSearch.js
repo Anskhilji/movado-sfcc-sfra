@@ -8,6 +8,7 @@ var urlHelper = require('*/cartridge/scripts/helpers/urlHelpers');
 var ProductPagination = require('*/cartridge/scripts/helpers/ProductPagination');
 var Site = require('dw/system/Site');
 var catalogMgr = require('dw/catalog/CatalogMgr');
+var Constants = require('*/cartridge/scripts/util/Constants');
 
 var ACTION_ENDPOINT = 'Search-Show';
 var DEFAULT_PAGE_SIZE = Site.getCurrent().getCustomPreferenceValue('pageSize');
@@ -129,7 +130,12 @@ function getShowMoreUrl(productSearch, httpParams, enableGridSlot, sortedProduct
     if (category && category.template == categoryTemplateEyewear) {
         pageSize = Site.getCurrent().preferences.custom.eyewearPageSize;
     }
-    var hitsCount = productSearch.count;
+    var hitsCount;
+    if (false) {
+        hitsCount = sortedProductSearchHits.length;
+    } else {
+        hitsCount = productSearch.count;
+    }
     var nextStart;
 
     var paging = getPagingModel(
@@ -204,7 +210,7 @@ function getPhrases(suggestedPhrases) {
  * @param {Object} httpParams - http params
  * @return {Object[]} - List of sorted products
  */
-function getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams, sortingRule) {
+function getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams, sortingRule, pageElements) {
     var Constants = require('*/cartridge/scripts/util/Constants');
 
     var ProductFactory = require('*/cartridge/scripts/factories/product');
@@ -228,23 +234,17 @@ function getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams, sorting
     if (!empty(sortingRule)) {
         sortingOrder = sortingRule;
     }
+
     if (!empty(productSearch)){
-        searchHitsProductsList = productSearch.asList();
+        searchHitsProductsList = productSearch.productSearchHits.asList();
     }
+
     for (var i = 0; i < searchHitsProductsList.size(); i++) {
         defaultVariant = null;
         searchHitProductID = '';
         searchHitProduct = searchHitsProductsList[i];
+        searchHitProductID = searchHitProduct.productID
 
-        if (!empty(searchHitProduct)  && !empty(searchHitProduct.product)
-        && !empty(searchHitProduct.product.variationModel) && !empty(searchHitProduct.product.variationModel.defaultVariant)) {
-            defaultVariant = searchHitProduct.product.variationModel.defaultVariant;
-        }
-        if (defaultVariant !== null) {
-            searchHitProductID = defaultVariant.ID;
-        } else {
-            searchHitProductID = searchHitProduct.productID
-        }
         if (searchHitProduct.product.online) {
             allSearchHitsProducts.push({
                 productID: searchHitProductID,
@@ -252,10 +252,12 @@ function getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams, sorting
             });
         }
     }
+    
     allSearchHitsProducts.forEach(function (searchHitResultProduct) {
         paramContainer = {
             pid: searchHitResultProduct.productID
         };
+
         factoryProduct = ProductFactory.get(paramContainer);
         if (!empty(factoryProduct) && !empty(factoryProduct.price) && !empty(factoryProduct.price.sales) && !empty(factoryProduct.price.sales.value)) {
             factoryProductSalesPrice = factoryProduct.price.sales.value;
@@ -264,6 +266,8 @@ function getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams, sorting
         if (!empty(factoryProductSalesPrice) && factoryProductSalesPrice >= pmin && factoryProductSalesPrice <= pmax) {
             allFactoryProducts.push(factoryProduct);
         } else if (typeof pmin === 'undefined' || typeof pmax === 'undefined') {
+            allFactoryProducts.push(factoryProduct);
+        } else {
             allFactoryProducts.push(factoryProduct);
         }
     });
@@ -289,15 +293,7 @@ function getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams, sorting
             if (sortedProductID.id === currentProduct.productID) {
                 var currentProductId = null;
                 var apiProduct = currentProduct.productSearchHit.product;
-                if (!apiProduct.master) {
-                    if (apiProduct.variant) {
-                        currentProductId = apiProduct.variationModel.master.ID;
-                    } else {
-                        currentProductId = apiProduct.ID;
-                    }
-                } else {
-                    currentProductId = apiProduct.ID;
-                }
+                currentProductId = apiProduct.ID;
                 allSortedProductsIds.push({
                     productID: currentProductId,
                     productSearchHit: currentProduct
@@ -354,15 +350,21 @@ function ProductSearch(productSearch, httpParams, sortingRule, sortingOptions, r
 
     this.resetLink = getResetLink(productSearch, httpParams);
     this.bannerImageUrl = productSearch.category ? getBannerImageUrl(productSearch.category) : null;
-    if (sortProductsOnBasisOfSalesPrice && !empty(sortingRule)) {
-        var sortedProductSearchHits = getSortedProductsOnBasisOfSalesPrice(paging.pageElements, httpParams, sortingRule);
-        this.productIds = sortedProductSearchHits;
-        if (httpParams.pmin) {
-            productSearch.setPriceMin(parseInt(httpParams.pmin, 10));
+    if (sortProductsOnBasisOfSalesPrice && !empty(sortingRule) && (sortingRule == Constants.PRICE_LOW_TO_HIGH || sortingRule == Constants.PRICE_HIGH_TO_LOW)) {
+        var sortedProductSearchHits = getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams, sortingRule, paging.pageElements);
+        var sortedPagingElements = [];
+        if (!empty(sortedProductSearchHits)) {
+            paging = getPagingModel(
+                productSearch.productSearchHits,
+                sortedProductSearchHits.length,
+                this.pageSize,
+                startIdx
+            );
+            for (var i = paging.start; i <= paging.end; i++) {
+                sortedPagingElements.push(sortedProductSearchHits[i]);
+            }
         }
-        if (httpParams.pmax) {
-            productSearch.setPriceMax(parseInt(httpParams.pmax, 10));
-        }
+        this.productIds = sortedPagingElements;
     } else {
         this.productIds = collections.map(paging.pageElements, function (item) {
             return {
@@ -380,7 +382,7 @@ function ProductSearch(productSearch, httpParams, sortingRule, sortingOptions, r
         paging
     );
     if (!enablePagination) {
-    	this.showMoreUrl = getShowMoreUrl(productSearch, httpParams, enableGridSlot);
+    	this.showMoreUrl = getShowMoreUrl(productSearch, httpParams, enableGridSlot, sortedProductSearchHits);
     }
     this.permalink = getPermalink(
         productSearch,
