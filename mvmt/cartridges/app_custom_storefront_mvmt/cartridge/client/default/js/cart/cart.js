@@ -117,7 +117,9 @@ function validateBasket(data) {
         $affirmPriceSelector.attr('data-amount', (totalCalculated * 100).toFixed());
 
         if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
-            affirm.ui.refresh();
+            affirm.ui.ready(function() {
+                affirm.ui.refresh();
+            });
         }
     }
 
@@ -564,6 +566,9 @@ module.exports = function () {
                     </div>
                     </div>`;
                     var $cartContainer =  $header + $image + $description + $urls;
+                    // Custom Start: To Update Product Quantity on MiniCart
+                    $('.minicart-quantity').empty().append(data.basket.numItems);
+                    // Custom End
                     $('.mini-cart-data .popover').empty();
                     updateCartTotals(data.basket);
                     $('.mini-cart-data .popover').append($cartContainer);

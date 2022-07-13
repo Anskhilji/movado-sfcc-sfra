@@ -123,6 +123,54 @@ function processResponse(response) {
     }
 }
 
+function showShortText() {
+    $('.text-family-truncate-wrapper').each(function () {
+        var $moretext = '...';
+        var $content = $(this).html();
+        var $collectionArray = $content.split(' ');
+
+        if ($collectionArray.length > 3) {
+            var $contentUpdated = '';
+            for (var i = 0; i <= 3; i++) {
+                if (i == 3) {
+                    $contentUpdated += $moretext + '</a>';
+                } else {
+                    $contentUpdated += $collectionArray[i] + ' ';
+                }
+            }
+
+            var $updateContent = $contentUpdated.split(' ');
+            var $html = '<span>' + $updateContent[0] + ' ' + $updateContent[1]+'</span><br/>';
+            var $html2 = '<span>' + $updateContent[2] + $updateContent[3]+'</span>';
+            $(this).html($html).append($html2);
+        }
+    });
+}
+
+function slickSearchSwatch() {
+    $('.suggestions-wrapper').removeClass('d-none');
+    $('.suggestions-case-diameter').addClass('suggestions-family-name');
+    $('.product-tile-redesign .swatches').slick({
+        infinite: true,
+        speed: 300,
+        slidesToShow: 5,
+        slidesToScroll: 1,
+        dots: false,
+        arrows: true,
+        autoplay: false,
+        prevArrow: '<button type="button" data-role="none" class="slick-prev slick-arrow" aria-label="Previous" tabindex="0" role="button"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>',
+        nextArrow: '<button type="button" data-role="none" class="slick-next slick-arrow" aria-label="Next" tabindex="0" role="button"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>',
+        responsive: [
+            {
+                breakpoint: 544,
+                settings: {
+                    slidesToShow: 3,
+                }
+            },
+        ]
+    });
+}
+
 /**
  * Retrieve suggestions
  *
@@ -130,6 +178,8 @@ function processResponse(response) {
  */
 
 function getSuggestions(scope) {
+    $('.suggestions-wrapper').addClass('d-none');
+    $('.suggestions-case-diameter').removeClass('case-diameter');
     if ($(scope).val().length >= minChars) {
         currentCount = $(scope).val().length;
         $suggestionsSlots.hide();
@@ -140,13 +190,14 @@ function getSuggestions(scope) {
             url: endpoint + encodeURIComponent($(scope).val()),
             method: 'GET',
             success: function (data) {
+                showShortText();
+                slickSearchSwatch();
                 var resposeCount = $('#searchCount', $(data).context).val();
                 processResponse;
-                if (resposeCount == currentCount) { 
+                if (resposeCount == currentCount) {
                     $('body').trigger('siteSearch:success', $(scope).val());
                 }
             },
-
             error: function () { $.spinner().stop();}
         });
     } else {

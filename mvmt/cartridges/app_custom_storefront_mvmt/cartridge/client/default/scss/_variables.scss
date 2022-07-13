@@ -13,6 +13,7 @@ $gray11: #979797;
 $gray12: #696969;
 $gray13: #606263;
 $light-black: #333333;
+$light-black2: #1E1E1E;
 
 $light-gray: #5c5c5c;
 $light-gray2: #929292;
@@ -58,12 +59,14 @@ $gossamer: #3aab4a;
 
 $light-blue: #3b61b3;
 $curious-blue: #1d93d9;
+$curious-light-blue: #0092DB;
 $light-red: #f74e38;
 $speech-red: #cb0707;
 $corvette: #E7BF74;
 $speech-red-light: rgba(203,7,7,0.89);
 
 $white-gray: #f7f8f9;
+$off-white: #929292;
 $dark-blue: #3b5998;
 $dark-red: #a40000;
 $dark-red2: #dd4b39;
@@ -79,10 +82,13 @@ $white-smoke3: #F8F8F8;
 
 $transparent-green: #f1faf3;
 $transparent-gray: rgba(0, 0, 0, 0.8);
+$transparent-gray-light: rgba(0, 0, 0, 0.09);
 $transparent-black: rgba(0, 0, 0, 0.4);
 $light-black-shadow:  rgba(0, 0, 0, 0.24);
 $white-shadow: rgba(214,214,214,0.5);
 $gift-message-border: rgba(170, 174, 181, 0.45);
+$dots-gray: #DADADA;
+$border-gray: #DBDBDB;
 
 $white: #ffffff;
 $dark-gray: #222222;
@@ -108,6 +114,7 @@ $dark-pink: #ead7dc !default;
 $grey9-light:  #d6d7d8 !default;
 $gray98: #fafafa !default;
 $zircon: #eaebeb;
+$light-zircon: #ebebeb;
 $black: #000000;
 $apple-green: #53c563;
 $alice-blue: #F7F8F9;
@@ -187,7 +194,7 @@ $grid-breakpoints: (
     md: 769px,
     lg: 992px,
     lg-custom: 1200px,
-    custom-lg: 1024px, 
+    custom-lg: 1024px,
     xl: 1280px,
     lg-media: 1400px,
     xl-custom: 1440px,

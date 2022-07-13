@@ -347,6 +347,20 @@ exports.beforeAuthorization = function (order, payment, custom) {
      * Custom: End
      */
 
+     if (!Site.getCurrent().preferences.custom.isClydeEnabled) {
+        var orderLineItems = order.getAllProductLineItems();
+        var orderLineItemsIterator = orderLineItems.iterator();
+        var productLineItem;
+        Transaction.wrap(function () {
+            while (orderLineItemsIterator.hasNext()) {
+                productLineItem = orderLineItemsIterator.next();
+                if (productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == Constants.CLYDE_WARRANTY && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
+                    order.removeProductLineItem(productLineItem);
+                }
+            }
+        });
+    }
+
     var riskifiedCheckoutCreateResponse = RiskifiedService.sendCheckoutCreate(order);
     RiskifiedService.storePaymentDetails({
         avsResultCode: 'Y', // Street address and 5-digit ZIP code

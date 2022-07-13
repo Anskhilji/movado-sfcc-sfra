@@ -52,26 +52,29 @@
             <hr class="hidden-xs-down d-md-none"/>
             <div class="row pdp-desktop m-0">
                 <!-- Product Images Carousel -->
-                <isinclude template="product/components/imageCarouselPDP" />
+                <isinclude template="product/components/imageCarouselPDPAlternate" />
 
                 <div class="product-side-details">
                     <isinclude template="product/components/badges" />
 
                     <iscomment> Custom Start: Change Naming Conventions for PDP </iscomment>
-                    <div class="product-brand-info">
+                    <div class="product-brand-info side-details-pdp">
                         <isif condition="${(product.isCategory) == "watches"}">
                             <div class="category-watches">
                                 <h1 class="product-center-text">
                                     <isif condition="${!empty(product.collectionName)}">
-                                        <span class="watches-collection-name" data-selected-variation-attr="collectionName">${product.collectionName}</span>
+                                        <span class="watches-collection-name text-uppercase" data-selected-variation-attr="collectionName">${product.collectionName}</span>
                                     </isif>
                                     <isif condition="${product.productName.length > 40}">
-                                        <span class="product-name watches-product-name text-truncate-wrapper watches-turncate-name product-title-for-gtm product-center-text">${product.productName}<isif condition="${!empty(pdict.caseDiameter)}">${Resource.msg('separator', 'product', null)}</isif></span>
+                                        <span class="product-name text-uppercase watches-product-name text-truncate-wrapper watches-turncate-name product-title-for-gtm product-center-text">${product.productName}
+                                            <isif condition="${!empty(pdict.caseDiameter)}">${Resource.msg('pdp.product.specs.separator', 'product', null)}</isif>
+                                            <isif condition="${!empty(pdict.caseDiameter)}"><span class="watches-case-diameter" data-selected-variation-attr="caseDiameter">${pdict.caseDiameter}</span></isif>
+                                        </span>
                                     <iselse>
-                                        <span class="product-name watches-product-name product-title-for-gtm">${product.productName}<isif condition="${!empty(pdict.caseDiameter)}">${Resource.msg('separator', 'product', null)}</isif></span>
-                                    </isif>
-                                    <isif condition="${!empty(pdict.caseDiameter)}">
-                                            <span class="watches-case-diameter" data-selected-variation-attr="caseDiameter">${pdict.caseDiameter}</span>
+                                        <span class="product-name text-uppercase watches-product-name product-title-for-gtm">${product.productName}
+                                            <isif condition="${!empty(pdict.caseDiameter)}">${Resource.msg('pdp.product.specs.separator', 'product', null)}</isif>
+                                            <isif condition="${!empty(pdict.caseDiameter)}"><span class="watches-case-diameter" data-selected-variation-attr="caseDiameter">${pdict.caseDiameter}</span></isif>
+                                        </span>
                                     </isif>
                                 </h1>
                             </div>
@@ -80,7 +83,7 @@
                             <h1 class="product-center-text">
                                 <span class="product-name jewlery-product-name text-truncate-wrapper product-title-for-gtm text-uppercase product-center-text">${product.productName}</span>
                                 <isif condition="${!empty(product.color)}">
-                                    <span class="jewlery-heading"><span class="color" data-selected-variation-attr="color">${product.color}</span></span>
+                                    <span class="jewlery-heading text-uppercase"><span class="color" data-selected-variation-attr="color">${product.color}</span></span>
                                 </isif>
                             </h1>
                         </div>
@@ -88,9 +91,9 @@
                         <div class="category-eyewear">
                             <h1 class="product-center-text">
                                 <span class="product-name eyewear-product-name text-truncate-wrapper product-title-for-gtm text-uppercase product-center-text">${product.productName}</span>
-                                <span class="eyewear-heading">
+                                <span class="eyewear-heading text-uppercase">
                                     <isif condition="${!empty(product.color)}">
-                                        <span class="color eyewear-colors" data-selected-variation-attr="color">${product.color}</span>
+                                        <span class="color eyewear-colors text-uppercase" data-selected-variation-attr="color">${product.color}</span>
                                     </isif>
                                     <isif condition="${product.variationAttributes.length > 0}">
                                         <isloop items="${product.variationAttributes}" var="attr" status="attributeStatus">
@@ -101,7 +104,7 @@
                                                                 <isset name="selectedAttributeValue" value="${attrValue.value}" scope="page" />
                                                                     <isif condition="${attrValue.displayValue.equalsIgnoreCase('yes')}">
                                                                         <isif condition="${!empty(product.color)}">
-                                                                            ${Resource.msg('separator', 'product', null)}     
+                                                                            ${Resource.msg('pdp.product.specs.separator', 'product', null)}     
                                                                         </isif>                                                 
                                                                         ${Resource.msg('pdp.eyewaer.polarization.text', 'product', null)}                                                             
                                                                     </isif>
@@ -121,7 +124,7 @@
                             <h1>
                                 <span class="product-name uncategotized-product-name text-truncate-wrapper product-title-for-gtm text-uppercase">${product.productName}</span>
                                 <isif condition="${!empty(product.color)}">
-                                    <span class="color product-colors" data-selected-variation-attr="color">${product.color}</span>
+                                    <span class="color product-colors text-uppercase" data-selected-variation-attr="color">${product.color}</span>
                                 </isif>
                             </h1>
                         </isif>
@@ -187,7 +190,16 @@
                         <isinclude template="product/components/variationAttributes" />
                     </isif>
 
-                    <isif condition="${sitePref.enableBackInStock}">
+                    <isif condition="${sitePref.enableBackInStock && !sitePref.Listrak_EnableBackInStockSms && !sitePref.Listrak_EnableBackInStockEmail}">">
+                        <isinclude template="product/backInStockNotification" sf-toolkit="on" />
+                    <iselseif condition="${isListrakEnable}">
+                        <isif condition="${sitePref.Listrak_EnableBackInStockSms || sitePref.Listrak_EnableBackInStockEmail}">
+                            <isinclude template="product/listrackBackInstock" sf-toolkit="on" />
+                        <iselse>
+                            <isinclude template="product/backInStockNotification" sf-toolkit="on" />
+                        </isif>
+                    </iselseif> 
+                    <iselse>
                         <isinclude template="product/backInStockNotification" sf-toolkit="on" />
                     </isif>
 

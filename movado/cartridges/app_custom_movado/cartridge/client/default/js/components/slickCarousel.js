@@ -22,6 +22,13 @@ var initCarousel = function ($container) {
     });
 };
 
+$('.accordion-ob-box .pdp-accordion-ob-header .collapsed').one('click', function() {
+  setTimeout(() => {
+    $(`${$(this).data('target')} .js-carousel.cs-carousel`).slick('refresh');
+  }, 300);
+});
+
+
 module.exports = {
     initCarousel: initCarousel
 };

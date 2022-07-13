@@ -20,6 +20,21 @@ function getDataAPIServiceConfigs() {
     return serviceConfig;
 }
 
+function getTransactionalAPIServiceConfigs() {
+    var serviceConfig = {
+        createRequest: function (svc, args) {
+            var requestJSONString = JSON.stringify(args);
+            svc.addHeader('Content-Type', 'application/json');
+            svc.setRequestMethod('POST');
+            return requestJSONString;
+        },
+        parseResponse: function (svc, client) {
+            return JSON.parse(client.text);
+        }
+    };
+    return serviceConfig;
+}
+
 function getAuthorizationServiceConfigs() {
     var serviceConfig = {
         createRequest: function (svc, args) {
@@ -57,6 +72,21 @@ function getAPIService(serviceID, endpoint, eventId, subscribe, countryCode) {
     return dataService;
 }
 
+function getTransactionalAPIService(serviceID, endpoint, messageId) {
+    var serviceConfig = null;
+    serviceConfig = getTransactionalAPIServiceConfigs();
+    var dataService = LocalServiceRegistry.createService(serviceID, serviceConfig);
+    var baseUrl = dataService.getConfiguration().getCredential().URL;
+    var listID = Site.current.preferences.custom.Listrak_Transactional_listID || '';
+    var url = baseUrl.toString();
+    if (!empty(endpoint)) {
+        endpoint = endpoint.replace('{listId}', listID).replace('{transactionalMessageId}', messageId);
+        url = baseUrl.toString() + endpoint;
+    }
+    dataService.setURL(url);
+    return dataService;
+}
+
 function getAuthorizationService(serviceID) {
     var auhtorizationService = LocalServiceRegistry.createService(serviceID, getAuthorizationServiceConfigs());
     return auhtorizationService;
@@ -64,5 +94,6 @@ function getAuthorizationService(serviceID) {
 
 module.exports = {
     getAuthorizationService: getAuthorizationService,
-    getAPIService: getAPIService
+    getAPIService: getAPIService,
+    getTransactionalAPIService: getTransactionalAPIService
 }
