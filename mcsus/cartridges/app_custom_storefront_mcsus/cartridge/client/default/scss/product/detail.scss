@@ -610,13 +610,13 @@
             @include media-breakpoint-up(lg) {
         
                 &-btn-redesign {
-                    max-width: 75%;
+                    max-width: 100%;
                 }
             }
             @include media-breakpoint-up(xl) {
         
                 &-btn-redesign {
-                    max-width: 60.6%;
+                    max-width: 100%;
                 }
             }
         }
@@ -817,3 +817,75 @@
     }
 }
 
+
+
+.smart-gift-box-mcs {
+    max-width: 80%;
+    @include media-breakpoint-down(sm) {
+        max-width: 100%;  
+    }
+
+    .cart-and-ipay {
+        width: 100%;
+
+        .cta-add-to-cart {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            @include media-breakpoint-down(lg) {
+                display: block;
+            }
+            
+            .add-to-cart {
+                width: 100%;
+                max-width: 50%;
+                height: rem(40);
+                border-radius: rem(4);
+
+                @include media-breakpoint-up(lg) {
+                    width: 100%;
+                    max-width: 50%;
+                }
+                @include media-breakpoint-down(lg) {
+                    max-width: 100%;  
+                    margin-right: rem(0);
+                    width: 100%;
+                }
+            }
+
+            .btn.btn-border-none {
+                width: 100%;
+                max-width: 50%; 
+                @include media-breakpoint-down(lg) {
+                    max-width: 100%;  
+                }
+            }
+        }
+    }
+}
+
+.smart-gift-box-new-mcs {
+    max-width: 80%;
+    @include media-breakpoint-down(sm) {
+        max-width: 100%;  
+    }
+
+    .custom-tooltipsmart {
+        @include media-breakpoint-up(lg) {
+            max-width: 100%;
+            left: auto;
+        }
+    }
+    .smart-main {
+
+        .smart-gift-btn {
+
+            .smartgift-btn-popup{
+
+                &::after,&::before{
+                    right: rem(13);
+                }
+            }
+        }
+    }
+}

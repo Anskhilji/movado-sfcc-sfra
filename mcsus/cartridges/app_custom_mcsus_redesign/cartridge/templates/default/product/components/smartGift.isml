@@ -1,5 +1,9 @@
-<iscomment>custom start: remove some and add class for redesign </iscomment>
-<div class="text-center w-100 gift-box-redesign ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "d-none" : ""}">
-   <a href="${pdict.smartGiftAddToCartURL}" target="_blank" class="btn btn-outline-dark smartgift-btn-redesign mt-0 w-100" >${Resource.msg('button.smartgift.label', 'smartgift', null)}</a>
-        <p class="smartgift-bottom-text">${Resource.msg('button.smartgift.bottom.text', 'smartgift', null)}<p>
+<isinclude template="/components/modules" sf-toolkit="off" />
+<div class="text-center ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "d-none" : ""}">
+    <div class="col-sm-12 smartgiftpopup promo-icon-smartgift p-0">
+    <div class="smart-gift-btn">
+        <a href="${pdict.smartGiftAddToCartURL}" target="_blank" class="btn smartgift-btn-redesign mt-0" >${Resource.msg('button.smartgift.label', 'smartgift', null)}</a>
+        <iscontentasset aid="smart-gift-tool-tip" />
+    </div>  
+    </div>
 </div>

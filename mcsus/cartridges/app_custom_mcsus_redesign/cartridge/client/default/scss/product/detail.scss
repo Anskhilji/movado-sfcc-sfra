@@ -746,33 +746,33 @@
 // check-scroll sticky-prodct-cart-redesign end
 
 // old design add to cart margin bottom remove
-.product-detail {
+// .product-detail {
 
-    &.product-detail1-old-wrapper {
+//     &.product-detail1-old-wrapper {
 
-        .prices-add-to-cart-actions {
+//         .prices-add-to-cart-actions {
 
-            .cta-add-to-cart {
+//             .cta-add-to-cart {
 
-                .btn {
+//                 .btn {
 
-                    &.add-to-cart {
+//                     &.add-to-cart {
                         
-                        @include media-breakpoint-up(sm) {
-                            margin-bottom: rem(0);
-                        }
-                    }
+//                         @include media-breakpoint-up(sm) {
+//                             margin-bottom: rem(0);
+//                         }
+//                     }
                     
-                    &.btn-border-none {
-                        @include media-breakpoint-up(sm) {
-                            margin-bottom: rem(0);
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
+//                     &.btn-border-none {
+//                         @include media-breakpoint-up(sm) {
+//                             margin-bottom: rem(0);
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }
 
 // mcs new design styling here
 .product-detail {
@@ -1363,7 +1363,7 @@
                                     width: 100%;
                                     margin-bottom: rem(30);
                                     @include media-breakpoint-down(xs) {
-                                        margin-bottom: rem(25);
+                                        margin-bottom: rem(10);
                                     }
 
                                     .add-to-cart {
@@ -1621,6 +1621,316 @@
                             }
                         }
                     }
+                }
+            }
+        }
+    }
+}
+
+.custom-tooltipsmart {
+    display: none;
+    position: absolute;
+    padding: rem(22);
+    background-color: $white;
+    color:$dark-black;
+    font-size: rem(12);
+    width: 100%;
+    animation: fade-in 0.01s linear forwards;
+    z-index: 100;
+    box-shadow: 0 0 rem(7) 0 $slate-grey;
+    word-wrap: break-word;
+    opacity: 0;
+    bottom: rem(43);
+    right: 0;
+    left: 0;
+    bottom: rem(44);
+
+    @include media-breakpoint-up(lg) {
+        max-width: 84%;
+    }
+    @include media-breakpoint-up(xl) {
+       max-width: 68%;
+    }
+    @include media-breakpoint-down(xs) {
+        max-width: 93%;
+        margin: 0 auto;
+    }
+
+    .smartgift-num-one {
+        font-family: $font-book-std;
+        font-size: rem(14);
+        text-transform: uppercase;
+    }
+
+    .close-promo {
+        display: block;
+        background: url("../../images/pop-cross.png") center center no-repeat;
+        background-size: rem(10);
+        width: rem(15);
+        height: rem(15);
+        background-color: $white;
+        border: 0;
+        margin-bottom: rem(-10);
+        position: absolute;
+        right: rem(6);
+        top: rem(5);
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    .close-promo {
+        background-size: rem(10);
+    }
+
+    &-line-one {
+        padding: 0 rem(26);
+        letter-spacing: rem(0.5);
+        line-height: 1.5;
+        margin-top: rem(-21);
+        font-family: $font-std-medium;
+    }
+
+    &-line-two {
+        padding: 0 rem(17);
+        letter-spacing: rem(0.5);
+        line-height: 1.5;
+        margin-top: rem(-21);
+        font-family: $font-std-medium;
+    }
+
+    &-line-three {
+        padding: 0 rem(17);
+        letter-spacing: rem(0.5);
+        line-height: 1.5;
+        margin-top: rem(-21);
+        font-family: $font-std-medium;
+    }
+    
+    &-smartgift-heading {
+        p {
+            font-family: $font-book-std;
+            font-size: rem(14);
+            text-transform: uppercase;
+        }
+    }
+}
+
+.smart-main {
+
+    @include media-breakpoint-up(xs) {
+        margin-top: rem(-20);
+    }
+    @include media-breakpoint-down(xs) {
+        width: 100%;
+        margin-bottom: rem(15);
+        margin-top: rem(-8);
+        margin-left: rem(0);
+    }
+
+    .smart-gift-btn {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+
+        .smartgift {
+            
+            @include media-breakpoint-up(sm) {
+    
+                &-btn-redesign {
+                    width: 100%;
+                }
+            }
+            @include media-breakpoint-up(lg) {
+        
+                &-btn-redesign {
+                    max-width: 100%;
+                }
+            }
+            @include media-breakpoint-up(xl) {
+        
+                &-btn-redesign {
+                    max-width: 100%;
+                }
+            }
+        }
+        
+        .content-asset {display: inline-block;}
+    
+        .smartgift {
+            &-btn-redesign {
+                font-family: $font-futura-demi;
+                font-weight: 600;
+                font-style: normal;
+                font-size: 1rem;
+                letter-spacing: normal;
+                border-color: $black;
+                border-radius: 0;
+                display: inline-block;
+        
+                @include media-breakpoint-down(xs) {
+                    width: 100%;
+                    margin-left: rem(15);
+                }
+            }
+    
+            &-btn-popup {
+                width: rem(39);
+                font-family: $font-medium;
+                font-weight: 500;
+                font-style: normal;
+                font-size: 1rem;
+                letter-spacing: normal;
+                border-color: $black;
+                border-radius: 0;
+                
+                &::after, &::before {
+                    border-left: solid transparent rem(6.8);
+                    border-right: solid transparent rem(6.8);
+                    content: " ";
+                    height: 0;
+                    right: rem(14);
+                    transform: rotate(180deg);
+                    position: absolute;
+                    width: 0;
+                    bottom: rem(33);
+                    z-index: 999;
+                    border-bottom: solid $white rem(10);
+                    display: none;
+
+                    @include media-breakpoint-up(sm) {
+                        top: rem(-6);
+                    }
+                    @include media-breakpoint-up(lg) {
+                        right: rem(84);
+                    }
+                    @include media-breakpoint-up(xl) {
+                        right: rem(185);
+                        top: rem(-6);
+                    }
+                    @include media-breakpoint-down(sm) {
+                        right: rem(13);
+                        bottom: rem(37);
+                    }
+                    @include media-breakpoint-down(xs) {
+                        right: rem(30);
+                    }
+                }
+        
+                &::before {
+                    border-bottom: solid $gull-gray-light rem(10);
+                    right: rem(13);
+                    top: rem(4);
+                    border-left: solid transparent rem(8.4);
+                    border-right: solid transparent rem(8.4);
+
+                    @include media-breakpoint-up(sm) {
+                        top: rem(-6);
+                    }
+                    @include media-breakpoint-up(lg) {
+                        right: rem(84);
+                    }
+                    @include media-breakpoint-up(xl) {
+                        right: rem(185);
+                        top: rem(-6);
+                    }
+                    @include media-breakpoint-down(sm) {
+                        right: rem(11);
+                        top: rem(-6);
+                    }
+                    @include media-breakpoint-down(xs) {
+                        top: rem(3);
+                        right: rem(30);
+                    }
+                }
+                
+                &.active {
+                    &::after, &::before {
+                        display: block;
+                    }
+                }
+                @include media-breakpoint-down(sm) {
+                    min-width: rem(44);
+                }
+                @include media-breakpoint-down(xs) {
+                    min-width: rem(44);
+                    margin-right: rem(15);
+                }
+            }
+        }
+    }
+}
+
+.smart-gift-box-mcs {
+    max-width: 80%;
+    @include media-breakpoint-down(sm) {
+        max-width: 100%;  
+    }
+
+    .cart-and-ipay {
+        width: 100%;
+
+        .cta-add-to-cart {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            @include media-breakpoint-down(lg) {
+                display: block;
+            }
+            
+            .add-to-cart {
+                width: 100%;
+                max-width: 50%;
+                height: rem(40);
+                border-radius: rem(4);
+
+                @include media-breakpoint-up(lg) {
+                    width: 100%;
+                    max-width: 50%;
+                }
+                @include media-breakpoint-down(lg) {
+                    max-width: 100%;  
+                    margin-right: rem(0);
+                    width: 100%;
+                }
+            }
+
+            .btn.btn-border-none {
+                width: 100%;
+                max-width: 50%; 
+                @include media-breakpoint-down(lg) {
+                    max-width: 100%;  
+                }
+            }
+        }
+    }
+}
+
+.smart-gift-box-new-mcs {
+    max-width: 80%;
+    @include media-breakpoint-down(sm) {
+        max-width: 100%;  
+    }
+
+    &-new-design {
+        max-width: 100%;
+    }
+
+    .custom-tooltipsmart {
+        @include media-breakpoint-up(lg) {
+            max-width: 100%;
+            left: auto;
+        }
+    }
+    .smart-main {
+
+        .smart-gift-btn {
+
+            .smartgift-btn-popup{
+
+                &::after,&::before{
+                    right: rem(13);
                 }
             }
         }
