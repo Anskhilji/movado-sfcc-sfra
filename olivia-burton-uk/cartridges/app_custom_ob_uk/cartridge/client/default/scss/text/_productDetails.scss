@@ -689,10 +689,16 @@
 
 .tax-duties {
 	display: inline-block;
-	color: $dark-grey1;
+	color: $grey8;
 	margin-top: rem(15);
 	font-size: rem(14);
 	font-weight: 600;
+
+	@include media-breakpoint-down(sm) {
+		display: block;
+		text-align: center;
+		margin-bottom: rem(15);
+	}
 }
 
 @include media-breakpoint-down(md) {
@@ -1332,6 +1338,7 @@
 
 	.set-product-item-thumb {
 		margin-bottom: rem(30);
+		margin-top: rem(15);
 
 		&-img {
 			height: rem(72);
