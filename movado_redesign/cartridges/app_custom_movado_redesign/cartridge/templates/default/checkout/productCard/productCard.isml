@@ -38,16 +38,6 @@
                     <p class="line-item-attributes">${attribute.displayName}: ${attribute.displayValue}</p>
                 </isloop>
 
-               <div class="item-options">
-                    <isloop items="${lineItem.options}" var="option">
-                        <isif condition="${!empty(option.displayName) && !(option.optionId === 'clydeWarranty')}">
-                            <div class="line-item-option">${option.displayName}</div>
-                        <iselseif condition="${empty(option.displayName) && option.indexOf('GiftWrapped') > -1}" />
-                            <div class="line-item-option">${option}</div>
-                        </isif>  
-                    </isloop>
-                </div>
-
                 <div class="item-model model-name mb-2">
                 	${lineItem.resources.Model} ${lineItem.id}
                 </div>

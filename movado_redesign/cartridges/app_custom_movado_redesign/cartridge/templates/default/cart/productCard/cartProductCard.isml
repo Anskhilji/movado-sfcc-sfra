@@ -32,18 +32,7 @@
                                 <p class="line-item-attributes mb-2">${attribute.displayName}: ${attribute.displayValue}</p>
                             </isif>
                         </isloop>
-                        <iscomment> Custom Start: Clyde Integration </iscomment>
-                        <isif condition="${dw.system.Site.current.preferences.custom.isClydeEnabled}">
-                            <isloop items="${lineItem.options}" var="option">
-                                <isif condition="${!!option.optionId && !(option.optionId == 'clydeWarranty')}" />
-                                    <div class="lineItem-options-values" data-option-id="${option.optionId}" data-value-id="${option.selectedValueId}">
-                                        <p class="line-item-attributes">${option.displayName}</p>
-                                    </div>
-                                </isif>
-                            </isloop>
-                        </isif>
-                        <iscomment> Custom End: </iscomment>
-
+                        
                         <p class="line-item-attributes model-name mb-2">${lineItem.resources.Model} ${lineItem.id}</p>
                         <isloop items="${lineItem.options}" var="option">
                             <isif condition="${!!option && option.selectedValueId != 0}">
