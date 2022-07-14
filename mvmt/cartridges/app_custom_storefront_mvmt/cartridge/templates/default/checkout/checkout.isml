@@ -22,27 +22,31 @@
         <isinclude template="reporting/reportingUrls" />
     </isif>
     <iscomment>mvmt-checkout Class added to container </iscomment>
-    <div id="checkout-main" class="mvmt-checkout data-checkout-stage data-checkout-stage-redesign <isif condition="${pdict.order.usingMultiShipping && pdict.order.shipping.length > 1}">multi-ship</isif>" data-customer-type="${pdict.customer.registeredUser ? 'registered' : 'guest'}" data-checkout-stage="${pdict.currentStage}" data-checkout-get-url="${URLUtils.https('CheckoutServices-Get')}">
+    <div id="checkout-main" class="mvmt-checkout data-checkout-stage data-checkout-stage-redesign  <isif condition="${pdict.order.usingMultiShipping && pdict.order.shipping.length > 1}">multi-ship</isif>" data-customer-type="${pdict.customer.registeredUser ? 'registered' : 'guest'}" data-checkout-stage="${pdict.currentStage}" data-checkout-get-url="${URLUtils.https('CheckoutServices-Get')}">
         <div class="row d-sm-none no-gutters pop-up-container-box cart-product-mobile-view">
             <div class="col-12 pop-up-box-space d-flex justify-content-between">
-                <span class="grand-total-label top-grandtotal-label">${Resource.msgf('label.number.items.in.cart','cart', null, pdict.order.items.totalQuantity)}</span>
-                <span class="grand-total-price">${pdict.order.totals.subTotal}</span>
+                <span class="grand-total-label top-grandtotal-label">${Resource.msg('order.confirmation.email.label.orderTotal','order',null)} (${pdict.order.items.totalQuantity == 1 ? Resource.msgf('label.cart.signle.item','cart', null, pdict.order.items.totalQuantity) : Resource.msgf('label.number.items.in.cart','cart', null, pdict.order.items.totalQuantity)})</span>
+                <span class="grand-total-price">${pdict.order.totals.grandTotal}</span>
             </div>
             <div class="col-12 checkout-promo-section checkout-promo-redesign d-none-promo-box">
                  <isinclude template="checkout/orderSummaryPopUp.isml" />
             </div>
         </div>
-        <div class="alert card alert-dismissible error-message" role="alert">
-                <p class="error-message-text checkout-global-error"></p>
-        </div>
 
 
 
-        <div class="checkout-content container position-relative">
+
+        <div class="checkout-content container position-relative ">
             <div class="overlayer-box"></div>
             <div class="row checkout-content-container-inner">
 
                 <div class="col-md-7 left-section">
+
+                    <div class="col-12 col-error-container">
+                        <div class="alert card alert-dismissible error-message" role="alert">
+                            <p class="error-message-text checkout-global-error"></p>
+                        </div>
+                    </div>
                     <!-- Progressbar Template for desktop -->
                     <div class="d-none d-sm-block progressbar-container">
                         <isinclude template="checkout/checkoutProgressbar.isml" />
@@ -122,19 +126,20 @@
                         <div class="checkout-promo-section checkout-promo-redesign">
                             <isinclude template="checkout/checkoutPromoCode" />
                             <div class="checkout-coupons-and-promos coupons-and-promos coupons-wrapper mb-3">
-                                <isinclude template="cart/cartCouponDisplay" />
-                            </div>
-                            <div class="checkout-coupons-remove">
-                                <isinclude template="cart/cartRemoveCouponModal"/>
-                            </div>
+                            <isloop items="${pdict.totals.discounts}" var="discount">
+                                <isif condition="${discount.type === 'coupon'}">
+                                    <isinclude template="cart/cartCouponDisplay" />
+                                </isif>
+                            </isloop>
+                             </div>
                         </div>
                         <div class="card order-summary-card card-border-none-wrapper card-summary-wrapper-container">
                             <div class="card-body order-total-summary">
-                                <isinclude template="checkout/orderTotalSummary" />
+                                <isinclude template="checkout/orderTotalSummaryRedesign" />
                             </div>
                         </div>
                         <div class="flex-box-contianer-bottom">
-                            <isinclude template="checkout/orderProductSummary" />
+                            <isinclude template="checkout/orderProductSummaryRedesign" />
 
                             <!----------------------------------------------------------------------------------->
                             <!-- Help and Phone -->
@@ -154,5 +159,7 @@
         </div>
     </div>
     <isinclude template="checkout/shipping/shippingAddressTemplate" />
-
+ <div class="checkout-coupons-remove">
+    <isinclude template="cart/cartRemoveCouponModal"/>
+</div>
 </isdecorate>

@@ -310,6 +310,18 @@ $receipt-font-size: rem(14);
                     padding: rem(0) rem(0) rem(0) rem(100);
                 }
             }
+            .right-section {
+              
+                .right-content {
+                    @include custom-media-query-1440($large-screen-width-1440) {
+                      padding-top: rem(76);
+                    }
+                    
+                    @include custom-media-query-max($medium-screen-width) {
+                      padding-top: rem(0);
+                  }
+                }
+            }
         }
       }
 

@@ -105,7 +105,7 @@
                 </isif>
                 <div class="item-quantity-container-box">
                     <div class="item-model line-item-attributes item-quantity-wrapper">
-                        ${Resource.msg('field.selectquantity','cart',null)}:  <span class="line-item-value"> <isprint value="${lineItem.quantity}" formatter="##" /></span>
+                        ${Resource.msg('field.selectquantity.cart','cart',null)}.  <span class="line-item-value"> <isprint value="${lineItem.quantity}" formatter="##" /></span>
                     </div>
 
                     <div class="item-total-${lineItem.UUID} price price-box-container">
@@ -124,7 +124,7 @@
                         <img class="product-image" src="${option.imageURL}" alt="${option.displayName}" title="${option.displayName}">
                     </div>
                     <div class="item-attributes">
-                        <p class="line-item-attributes">${option.lineItemText}</p>
+                        <p class="line-item-attributes  clyde-option-attributes">${option.lineItemText}</p>
                         <isif condition="${!empty(option.price) && !empty(option.adjustedPrice) && option.price == option.adjustedPrice}">
                                 <p class="line-item-attributes clyde-option-price" data-option-id="${option.optionId}" data-value-id="${option.selectedValueId}" data-uuid="${lineItem.UUID}">${(option.price)}</p>
                             <iselse>
@@ -172,7 +172,7 @@
         </div>
     </div>
 
-    <iscomment> <div class="line-item-promo item-${lineItem.UUID}">
+    <div class="line-item-promo py-2 item-${lineItem.UUID}">
         <isinclude template="checkout/productCard/productCardProductPromotions" />
-    </div> </iscomment>
+    </div>
 </div>

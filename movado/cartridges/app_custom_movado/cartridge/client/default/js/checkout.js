@@ -59,15 +59,27 @@ $(document).ready(function() { // eslint-disable-line
             $label.removeClass('input-has-value');
         }
     }
-    $('input.input-wrapper-checkout,select.custom-select-box').each(function() {
+    $('input.input-wrapper-checkout,select.custom-select-box').each(function () {
         checkForInput(this);
     });
-    $('input.input-wrapper-checkout,select.custom-select-box').on('change keyup', function() {
+    $('input.input-wrapper-checkout,select.custom-select-box').on('change keyup', function () {
         checkForInput(this);
     });
-    $('.btn-add-new,.btn-show-details').click(function() {
+    $('.btn-add-new,.btn-show-details').click(function () {
         $('.billing-address input,select').each(function () {
             checkForInput(this);
+        });
+    });
+    $('.promo-label-wrapper').click(function () {
+        $('.promo-input-wrapper').removeClass('d-none');
+    });
+    // set info icon left to right if input has value
+    $('input.input-wrapper-checkout,select.custom-select-box').on('change', function () {
+        $('.is-invalid').each(function () {
+            if ($(this).val().length > 0 && !$(this).hasClass('.is-invalid')) {
+                $(this).removeClass('is-invalid');
+                $(this).closest('.mx-field-wrapper').find('.info-icon.info-icon-email').removeClass('icon-right-wrapper');
+            }
         });
     });
 
@@ -87,10 +99,13 @@ $(document).ready(function() { // eslint-disable-line
     $('input.checkout-coupon-code-field').on('change keyup', function() {
         checkPromoInput(this);
     });
-    
+
     $('.show-details-wrapper').click(function() {
         $('.hidden-menu').slideDown('slow');
         $('.hidden-menu').addClass('pop-up-top-container');
+        if ($('.collapsible-xl .content.collapse').hasClass('show')) {
+            $('.collapsible-xl .content.collapse').removeClass('show');
+        }
         $('body').addClass('overflow-hidden');
         $('.overlayer-box').addClass('d-block');
     });
@@ -99,4 +114,5 @@ $(document).ready(function() { // eslint-disable-line
         $('body').removeClass('overflow-hidden');
         $('.overlayer-box').removeClass('d-block');
     });
+
 });

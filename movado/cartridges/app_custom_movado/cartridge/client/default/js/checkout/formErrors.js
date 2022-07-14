@@ -16,7 +16,7 @@ function loadFormErrors(parentSelector, fieldErrors) { // eslint-disable-line
         if ($('*[name=' + attr + ']').hasClass('is-invalid')) {
             $('*[name=' + attr + ']').closest('.mx-field-wrapper').find('.info-icon.info-icon-email').addClass('icon-right-wrapper');
         } else {
-            $('.mx-field-wrapper').find('.info-icon.info-icon-email').removeClass('icon-right-wrapper');
+            $('*[name=' + attr + ']').closest('.mx-field-wrapper').find('.info-icon.info-icon-email').removeClass('icon-right-wrapper');
         }
         if ($('.shipping-form .input-wrapper-checkout').hasClass('is-invalid')) {
             $('.checkout-form-error').removeClass('d-none');

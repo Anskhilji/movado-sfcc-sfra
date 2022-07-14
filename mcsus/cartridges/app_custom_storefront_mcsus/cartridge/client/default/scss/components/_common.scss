@@ -307,3 +307,30 @@ h1 {
     font-weight: 300 !important;
   }
 }
+
+.checkout-promo-section {
+
+    &.checkout-promo-redesign {
+
+        .collapsible-promo-redesign-wrapper {
+            margin-bottom: rem(7);
+
+            @include media-breakpoint-down(xs) {
+                margin-bottom: rem(7);
+            }
+            .promo-label-wrapper {
+                @include media-breakpoint-down(xs) {
+                    margin-bottom: rem(10);
+                }
+            }
+        }
+
+        .checkout-coupons-and-promos {
+
+            .coupon-price-adjustment {
+                margin-bottom: rem(12);
+            }
+        }
+    }
+}
+

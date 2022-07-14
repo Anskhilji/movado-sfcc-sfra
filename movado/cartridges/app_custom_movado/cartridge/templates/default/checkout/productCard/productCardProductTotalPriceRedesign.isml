@@ -16,38 +16,36 @@
         }
     </isscript>
 </isif>
-<iscomment>Custom Start: Removed the mb-2 classes from the div's and removed the unnecessary resource messages that is not in the mvmt design.</iscomment>
 <isif condition="${lineItem.priceTotal.savingPrice > 0}">
-        <div class="<isif condition=${!lineItem.priceTotal.nonAdjustedPrice}>non-adjusted-price</isif> original-price">${Resource.msg('label.total.price','cart',null)} 
-            ${isEswEnabled ? formatMoney(lineItem.priceTotal.nonAdjustedPrice) : lineItem.priceTotal.price}
+    <div class="<isif condition=${!lineItem.priceTotal.nonAdjustedPrice}>non-adjusted-price</isif> original-price"> 
+        ${Resource.msg('cart.label.price','cart',null)} 
+        <isif condition=${lineItem.priceTotal.nonAdjustedPrice}>
+                ${isEswEnabled ? formatMoney(lineItem.priceTotal.nonAdjustedPrice) : lineItem.priceTotal.nonAdjustedPrice}
+        </isif>
     </div>
-    <div class="savings">${Resource.msg('cart.label.savings','cart',null)}  ${lineItem.priceTotal.formattedSavingPrice}</div>
-        <div class="total-amount">${Resource.msg('cart.label.itemTotal','cart',null)} 
-            <span class="line-item-total-price-amount item-total-${lineItem.UUID}">
-                <isif condition="${isEswEnabled}" >
-                    <isif condition="${!empty(matchingLineItem)}">
-                        ${formatMoney(eswHelper.getSubtotalObject(matchingLineItem, false))}
-                    <iselse/>
-                        ${lineItem.priceTotal.price}
-                    </isif>
-                <iselse/>
-                    ${lineItem.priceTotal.price}
-                </isif>
-            </span>
-        </div>
-<iselse/>
+    <div class="savings">${Resource.msg('cart.label.savings','cart',null)} ${lineItem.priceTotal.formattedSavingPrice}</div>
     <div class="total-amount">${Resource.msg('cart.label.itemTotal','cart',null)} 
         <span class="line-item-total-price-amount item-total-${lineItem.UUID}">
             <isif condition="${isEswEnabled}" >
                 <isif condition="${!empty(matchingLineItem)}">
                     ${formatMoney(eswHelper.getSubtotalObject(matchingLineItem, false))}
-                <iselse/>
+                <iselse>
                     ${lineItem.priceTotal.price}
                 </isif>
-            <iselse/>
+            <iselse>
                 ${lineItem.priceTotal.price}
             </isif>
         </span>
     </div>
+<iselse>
+    <isif condition="${isEswEnabled}" >
+        <isif condition="${!empty(matchingLineItem)}">
+            <div class="line-item-total-price-amount item-total-${lineItem.UUID} total-amount">${formatMoney(eswHelper.getSubtotalObject(matchingLineItem, false))}</div>
+        <iselse>
+            <div class="line-item-total-price-amount item-total-${lineItem.UUID} total-amount">${lineItem.priceTotal.price}</div>
+        </isif>
+    <iselse>
+        <div class="line-item-total-price-amount item-total-${lineItem.UUID} total-amount">${lineItem.priceTotal.price}</div>
+    </isif>
 </isif>
 <iscomment> Custom End </iscomment>

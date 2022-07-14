@@ -711,10 +711,13 @@ var exports = {
 	                    $('.checkout-promo-code-form .form-control').addClass('is-invalid');
 	                    $couponGenericError.empty().append(data.errorMessage);
 	                } else {
-	                    $('.checkout-coupons-and-promos').empty().append(data.totals.discountsHtml);
-	                    updateCheckoutTotals(data);
-	                    updateApproachingDiscounts(data.approachingDiscounts);
-	                    checkPromoError(data);
+                        var coponLineItem = data.couponLineItemsLength + " " + window.Resources.COUPON_LINE_ITEM_LENGTH;
+                        $('.promo-code-applied').text(coponLineItem);
+                        $('.checkout-coupons-and-promos').empty().append(data.totals.discountsHtml);
+                        $('.promo-input-wrapper').addClass('d-none');
+                        updateCheckoutTotals(data);
+                        updateApproachingDiscounts(data.approachingDiscounts);
+                        checkPromoError(data);
 	                }
 	                $('.checkout-coupon-code-field').val('');
 	                $.spinner().stop();
@@ -767,6 +770,9 @@ var exports = {
                 dataType: 'json',
                 success: function (data) {
                     $('.coupon-uuid-' + uuid).remove();
+                    if (data.couponLineItemsLength !== undefined && data.couponLineItemsLength !== '') {
+                        data.couponLineItemsLength > 0 ? $('.promo-code-applied').text(data.couponLineItemsLength + " " + window.Resources.COUPON_LINE_ITEM_LENGTH) : $('.promo-code-applied').text('');
+                    }
                     updateCheckoutTotals(data);
                     $.spinner().stop();
                 },

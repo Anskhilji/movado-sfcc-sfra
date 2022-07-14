@@ -125,7 +125,7 @@ server.append(
                 shippable: allValid,
                 countryCode: currentLocale.country,
                 containerView: 'basket',
-                defaultShipment: true
+                defaultShipment: true,
             }
         );
         
@@ -136,7 +136,8 @@ server.append(
             totals: totals,
             customerEmail: viewData.order.orderEmail ? viewData.order.orderEmail : null,
             expirationYears: creditCardExpirationYears,
-            countryCode: countryCode
+            countryCode: countryCode,
+            couponLineItems: currentBasket.couponLineItems
         });
 
         next();

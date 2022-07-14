@@ -7,12 +7,12 @@
     <div class="col-12 collapsible-promo-wrapper collapsible-promo-redesign-wrapper" tabindex="0">
         <form action="${pdict.actionUrls.submitCouponCodeUrl}" class="checkout-promo-code-form" method="GET" name="checkout-promo-code-form">
             <div class="form-group collapsible-xl promo-box-space">
-                <label class="title promo-label-wrapper" data-toggle="collapse" data-target="#checkoutCoupon" aria-expanded="false" aria-controls="checkoutCoupon" for="couponCode">${Resource.msg('label.promo.code','cart',null)}</label>
+                <label class="title promo-label-wrapper ${pdict.currentCouponLength}" data-toggle="collapse" data-target="#checkoutCoupon" aria-expanded="false" aria-controls="checkoutCoupon" for="couponCode">${Resource.msg('label.promo.code.label','cart',null)}</label>
                 <div class="row collapse content value" id="checkoutCoupon">
                     <div class="col-12">
                         <div class="promo-input-wrapper">
                             <input type="text" class="form-control checkout-coupon-code-field" id="couponCode" name="couponCode" placeholder="">
-                            <label class="promo-code-coupon-label" for="">${Resource.msg('placholder.text.promo.code.input','cart',null)}</label>
+                            <label class="promo-code-coupon-label" for="">${Resource.msg('placholder.text.promo.code.input.label','cart',null)}</label>
                             <div class="checkout-promo-code-submit">
                                 <button type="submit" class="btn btn-outline-primary btn-block checkout-promo-code-btn">
                                     ${Resource.msg('button.submit.promo.code','cart',null)}

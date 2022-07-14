@@ -58,17 +58,27 @@
     &.product-card-container {
         margin-bottom: rem(30);
 
+        &:last-child {
+            border-bottom: none !important;
+        }
+        
         .product-line-item-details {
+            @include media-breakpoint-down(xs) {
+                margin-top: rem(8) !important;
+            }
 
             .item-attributes {
 
                 .item-model {
-                    font-size: rem(12);
-                    font-weight: 500;
-                    letter-spacing: rem(0.7);
-                    line-height: rem(10);
-                    color: $grey18;
-                    margin-bottom: rem(10);
+
+                    &.model-name {
+                        font-size: rem(12);
+                        font-weight: 500;
+                        letter-spacing: rem(0.7);
+                        line-height: rem(10);
+                        color: $grey18;
+                        margin-bottom: rem(10);
+                    }
                 }
                 
                 .item-options {
@@ -82,7 +92,7 @@
                     display: none;
                 }
 
-                .item-quantity-wrapper{
+                .item-quantity-wrapper {
                     font-size: rem(12);
                     font-weight: 500;
                     letter-spacing: rem(0.86);
@@ -100,10 +110,34 @@
                         line-height: rem(18);
                         color: $grey8;
                     }
+
+                    .original-price {
+                        font-size: rem(12);
+                        font-weight: 500;
+                        letter-spacing: rem(0.86);
+                        line-height: rem(10);
+                        color: $grey8;
+                        margin-bottom: rem(10);
+                    }
+
+                    .savings {
+                        font-size: rem(12);
+                        font-weight: 500;
+                        letter-spacing: rem(0.86);
+                        line-height: rem(10);
+                        margin-bottom: rem(10);
+                    }
+                    .total-amount {
+                        font-size: rem(14);
+                        letter-spacing: rem(0.86);
+                        line-height: rem(10);
+                        margin-bottom: rem(10);
+                        color: $grey8;
+                    }
                 }
                 
                 .item-quantity-container-box {
-                    margin-top: rem(30);
+                    margin-top: rem(10);
                 }
 
                 .item-options {

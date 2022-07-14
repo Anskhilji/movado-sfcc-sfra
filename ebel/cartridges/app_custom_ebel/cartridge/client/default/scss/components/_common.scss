@@ -633,6 +633,7 @@ header~.container .promotions .callout a{
               width: auto;
               max-width: fit-content;
               background-color: transparent;
+              margin: rem(-10) rem(0) rem(20) rem(0);
 
               .flex-box-promo-code {
                   display: flex;
@@ -647,6 +648,7 @@ header~.container .promotions .callout a{
                   color: $parrot-green;
                   text-transform: capitalize;
                   margin-right: rem(10);
+                  display: none;
               }
 
               .coupon-not-applied {
@@ -655,6 +657,7 @@ header~.container .promotions .callout a{
                   line-height: rem(24);
                   text-transform: capitalize;
                   margin-right: rem(10);
+                  display: none;
               }
 
               .coupon-code {
@@ -676,6 +679,11 @@ header~.container .promotions .callout a{
       }
 
       .collapsible-promo-redesign-wrapper {
+        margin-bottom: rem(15);
+
+        @include media-breakpoint-down(xs) {
+            margin-bottom: rem(15.2);
+        }
 
           .promo-label-wrapper {
               color: $cerulean;
@@ -685,6 +693,7 @@ header~.container .promotions .callout a{
               line-height: rem(24);
               text-transform: capitalize;
               width: auto;
+              margin-bottom: rem(0);
 
               &::after {
                   content: "";
@@ -693,6 +702,7 @@ header~.container .promotions .callout a{
 
           .promo-input-wrapper {
               position: relative;
+              margin-top: rem(10);
 
               .checkout-promo-code-submit {
                   position: absolute;
@@ -708,6 +718,11 @@ header~.container .promotions .callout a{
                       letter-spacing: rem(1);
                       line-height: rem(20);
                       text-transform: capitalize;
+                       
+                      @include media-breakpoint-down(xs) {
+                        font-size: rem(12);
+                        letter-spacing: rem(1.07);
+                      }
 
                       &:hover {
                           background-color: transparent;
@@ -787,12 +802,19 @@ header~.container .promotions .callout a{
           }
 
           .promo-box-space {
+              padding: rem(0);
+
               @include media-breakpoint-down(xs) {
                   padding: rem(0);
               }
 
               .coupon-error {
                 margin: rem(5) 0;
+                font-size: rem(14);
+
+                @include media-breakpoint-down(xs) {
+                    font-size: rem(12);
+                }
               }
           }
       }
@@ -801,11 +823,29 @@ header~.container .promotions .callout a{
           position: absolute;
           width: 100%;
           z-index: 9999;
-          height: rem(660);
+          max-height: 70vh;
           background-color: $white;
           overflow: auto;
           display: none;
-          padding-bottom: rem(15);
+          padding: rem(16) rem(24) rem(0) rem(32);
+
+          &.pop-up-top-container {
+              top: rem(-70);
+          }
+
+            .sticky-hide-wrapper {
+                position: sticky;
+                bottom: 0;
+                background: $white;
+                padding: rem(20) rem(0) rem(20) rem(0);
+                z-index: 15;
+            }
+            .top-grandtotal-label {
+
+                &.label-container-wrapper {
+                    margin-bottom: rem(33);
+                }
+            }
       }
       
       .label-show-title {
@@ -815,6 +855,7 @@ header~.container .promotions .callout a{
           line-height: rem(24);
           text-transform: capitalize;
           color: $cerulean;
+          padding-left: rem(20);
           cursor: pointer;
 
           &:hover {
@@ -824,6 +865,21 @@ header~.container .promotions .callout a{
           img {
               padding-left: rem(5);
           }
+
+          &.hide-details-wrapper {
+              padding-left: rem(0);
+              margin-bottom: rem(0);
+          }
+      }
+
+      .promo-code-applied {
+          color: $parrot-green;
+          font-size: rem(12);
+          font-weight: 500;
+          letter-spacing: rem(0.84);
+          line-height: rem(24);
+          margin-right: rem(20);
+          text-transform: uppercase;
       }
   }
 }
