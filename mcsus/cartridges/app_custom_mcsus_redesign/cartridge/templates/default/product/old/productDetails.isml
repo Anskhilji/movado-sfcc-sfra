@@ -122,7 +122,7 @@
                                     <isinclude url="${URLUtils.https('Product-ShowMcsProdutPrice', 'pid', product.id)}"/>
                                 <iscomment> Custom: End </iscomment>
                             </div>
-                            <div class="d-block d-md-flex btn-margin smart-gift-box-mcs ali">
+                            <div class="d-block d-md-flex btn-margin smart-gift-box-mcs">
                                 <!-- Cart and [Optionally] Apple Pay -->
                                 <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
                             </div>
