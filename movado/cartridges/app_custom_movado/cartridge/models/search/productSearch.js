@@ -251,6 +251,7 @@ function getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams, sorting
                 productSearchHit: searchHitProduct
             });
         }
+
     }
     
     allSearchHitsProducts.forEach(function (searchHitResultProduct) {
