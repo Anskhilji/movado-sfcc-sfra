@@ -1620,9 +1620,11 @@
     @include media-breakpoint-up(lg) {
         max-width: 84%;
     }
+
     @include media-breakpoint-up(xl) {
        max-width: 68%;
     }
+
     @include media-breakpoint-down(xs) {
         max-width: 93%;
         margin: 0 auto;
@@ -1694,6 +1696,7 @@
     @include media-breakpoint-up(xs) {
         margin-top: rem(-20);
     }
+    
     @include media-breakpoint-down(xs) {
         width: 100%;
         margin-bottom: rem(15);
@@ -1714,12 +1717,14 @@
                     width: 100%;
                 }
             }
+
             @include media-breakpoint-up(lg) {
         
                 &-btn-redesign {
                     max-width: 100%;
                 }
             }
+
             @include media-breakpoint-up(xl) {
         
                 &-btn-redesign {
@@ -1731,6 +1736,7 @@
         .content-asset {display: inline-block;}
     
         .smartgift {
+
             &-btn-redesign {
                 font-family: $font-futura-demi;
                 font-weight: 600;
@@ -1774,17 +1780,21 @@
                     @include media-breakpoint-up(sm) {
                         top: rem(-6);
                     }
+
                     @include media-breakpoint-up(lg) {
                         right: rem(84);
                     }
+                    
                     @include media-breakpoint-up(xl) {
                         right: rem(185);
                         top: rem(-6);
                     }
+
                     @include media-breakpoint-down(sm) {
                         right: rem(13);
                         bottom: rem(37);
                     }
+
                     @include media-breakpoint-down(xs) {
                         right: rem(30);
                     }
@@ -1800,9 +1810,11 @@
                     @include media-breakpoint-up(sm) {
                         top: rem(-6);
                     }
+
                     @include media-breakpoint-up(lg) {
                         right: rem(84);
                     }
+
                     @include media-breakpoint-up(xl) {
                         right: rem(185);
                         top: rem(-6);
@@ -1811,6 +1823,7 @@
                         right: rem(11);
                         top: rem(-6);
                     }
+
                     @include media-breakpoint-down(xs) {
                         top: rem(3);
                         right: rem(30);
@@ -1822,9 +1835,11 @@
                         display: block;
                     }
                 }
+
                 @include media-breakpoint-down(sm) {
                     min-width: rem(44);
                 }
+
                 @include media-breakpoint-down(xs) {
                     min-width: rem(44);
                     margin-right: rem(15);
@@ -1836,6 +1851,7 @@
 
 .smart-gift-box-mcs {
     max-width: 80%;
+
     @include media-breakpoint-down(sm) {
         max-width: 100%;  
     }
@@ -1847,6 +1863,7 @@
             display: flex;
             align-items: center;
             width: 100%;
+
             @include media-breakpoint-down(lg) {
                 display: block;
             }
@@ -1861,6 +1878,7 @@
                     width: 100%;
                     max-width: 50%;
                 }
+
                 @include media-breakpoint-down(lg) {
                     max-width: 100%;  
                     margin-right: rem(0);
@@ -1871,6 +1889,7 @@
             .btn.btn-border-none {
                 width: 100%;
                 max-width: 50%; 
+
                 @include media-breakpoint-down(lg) {
                     max-width: 100%;  
                 }
@@ -1881,18 +1900,21 @@
             }
 
             .dw-apple-pay-button {
+
                 &.apple-pay-pdp {
                     max-width: 50%;
                     height: rem(40);
                     border-radius: rem(4);
                     margin-bottom: rem(5);
                     min-width: 50%;
+
                     @include media-breakpoint-down(lg) {
                         max-width: 100%;  
                         min-width: 100%;
                     }
                 }
             }
+
             .dw-apple-pay-button + .btn.btn-border-none {
                 display: none;
             }
@@ -1902,6 +1924,7 @@
 
 .smart-gift-box-new-mcs {
     max-width: 80%;
+
     @include media-breakpoint-down(sm) {
         max-width: 100%;  
     }
@@ -1912,6 +1935,7 @@
     }
 
     .custom-tooltipsmart {
+
         @include media-breakpoint-up(lg) {
             max-width: 100%;
             left: auto;
@@ -1921,9 +1945,9 @@
 
         .smart-gift-btn {
 
-            .smartgift-btn-popup{
+            .smartgift-btn-popup {
 
-                &::after,&::before{
+                &::after,&::before {
                     right: rem(13);
                 }
             }
