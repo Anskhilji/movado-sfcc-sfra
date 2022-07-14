@@ -1879,6 +1879,23 @@
                     min-width: 100%;
                 }
             }
+
+            .dw-apple-pay-button {
+                &.apple-pay-pdp {
+                    max-width: 50%;
+                    height: rem(40);
+                    border-radius: rem(4);
+                    margin-bottom: rem(5);
+                    min-width: 50%;
+                    @include media-breakpoint-down(lg) {
+                        max-width: 100%;  
+                        min-width: 100%;
+                    }
+                }
+            }
+            .dw-apple-pay-button + .btn.btn-border-none {
+                display: none;
+            }
         }
     }
 }
