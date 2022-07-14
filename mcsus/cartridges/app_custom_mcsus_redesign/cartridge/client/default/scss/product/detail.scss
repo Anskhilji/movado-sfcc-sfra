@@ -743,36 +743,8 @@
         }
     }
 }
-// check-scroll sticky-prodct-cart-redesign end
+// check-scroll sticky-prodct-cart-redesign ends
 
-// old design add to cart margin bottom remove
-// .product-detail {
-
-//     &.product-detail1-old-wrapper {
-
-//         .prices-add-to-cart-actions {
-
-//             .cta-add-to-cart {
-
-//                 .btn {
-
-//                     &.add-to-cart {
-                        
-//                         @include media-breakpoint-up(sm) {
-//                             margin-bottom: rem(0);
-//                         }
-//                     }
-                    
-//                     &.btn-border-none {
-//                         @include media-breakpoint-up(sm) {
-//                             margin-bottom: rem(0);
-//                         }
-//                     }
-//                 }
-//             }
-//         }
-//     }
-// }
 
 // mcs new design styling here
 .product-detail {
@@ -1902,6 +1874,10 @@
                 @include media-breakpoint-down(lg) {
                     max-width: 100%;  
                 }
+
+                .gpay-card-info-container {
+                    min-width: 100%;
+                }
             }
         }
     }
@@ -1915,6 +1891,7 @@
 
     &-new-design {
         max-width: 100%;
+        margin-bottom: rem(20);
     }
 
     .custom-tooltipsmart {
