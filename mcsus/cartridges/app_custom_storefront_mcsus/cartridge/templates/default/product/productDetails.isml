@@ -148,11 +148,11 @@
                                     <isinclude url="${URLUtils.https('Product-ShowMcsProdutPrice', 'pid', product.id)}"/>
                                 <iscomment> Custom: End </iscomment>
                             </div>
-                            <div class="d-block d-md-flex btn-margin">
+                            <div class="d-block d-md-flex btn-margin smart-gift-box-mcs">
                                 <!-- Cart and [Optionally] Apple Pay -->
                                 <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
                             </div>
-                            <div class="smart-gift-box-new">
+                            <div class="smart-gift-box-new smart-gift-box-new-mcs">
                                 <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
                                     <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
                                         <div class="d-block smart-main"><isinclude template="product/components/smartGift" /></div>
