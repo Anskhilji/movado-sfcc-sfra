@@ -222,6 +222,8 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 				if (riskifiedOrderDeclined) {
 					res.json({
 						error: false,
+						orderID: order.orderNo,
+						orderToken: order.orderToken,
 						continueUrl: URLUtils.url('Checkout-Declined').toString()
 					});
 					return next();

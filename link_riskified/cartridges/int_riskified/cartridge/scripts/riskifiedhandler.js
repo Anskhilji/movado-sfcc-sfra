@@ -23,7 +23,12 @@ function createOrder(order, orderParams) {
 
     riskifiedOrder = OrderModel.create(order, orderParams, null);
     
-    response = restService.post('sync', logLocation, riskifiedOrder, 'decide');
+    if (Site.getCurrent().preferences.custom.isRiskifiedSyncIntegerationEnabled) {
+        response = restService.post('sync', logLocation, riskifiedOrder, 'decide');
+    } else {
+        response = restService.post('async', logLocation, riskifiedOrder, 'create');
+        response.order.status = 'pending';
+    }
     if (!response.error) {
         if (response.order.status === 'declined') {
             var orderAnalysisResult = OrderModel.setOrderAnalysisStatus(order, Constants.ORDER_REVIEW_DECLINED_STATUS, logLocation);

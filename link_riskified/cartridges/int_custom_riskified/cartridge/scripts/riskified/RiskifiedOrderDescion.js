@@ -10,6 +10,7 @@
  var Order = require('dw/order/Order');
  var Transaction = require('dw/system/Transaction');
  var PaymentMgr = require('dw/order/PaymentMgr');
+ var OrderMgr = require('dw/order/OrderMgr');
  var Site = require('dw/system/Site');
 
  var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
@@ -45,6 +46,23 @@ function orderDeclined(order) {
                 false,
                 require('*/cartridge/scripts/hooks/paymentProcessHook').paymentRefund);
     }
+
+    try {
+        Transaction.wrap(function () {
+            //if order status is CREATED
+          if (order.getStatus() == Order.ORDER_STATUS_CREATED){
+              checkoutLogger.error('(RiskifiedOrderDescion) -> orderDeclined: Riskified status is declined and riskified failed the order and order status is created and order number is: ' + order.orderNo);
+              OrderMgr.failOrder(order, true);  //Order must be in status CREATED
+              order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
+          } else { //Only orders in status OPEN, NEW, or COMPLETED can be cancelled.
+              checkoutLogger.error('(RiskifiedOrderDescion) -> orderDeclined: Riskified status is declined and riskified cancelled the order and order status is OPEN, NEW, or COMPLETED can be cancelled and order number is: ' + order.orderNo);
+              OrderMgr.cancelOrder(order);
+              order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
+          }
+        });
+    } catch (ex) {
+        checkoutLogger.error('(RiskifiedOrderDescion) -> orderDeclined: Exception occurred while try to update order status to failed or cancel against order number: ' + order.orderNo + ' and exception is: ' + ex);
+    }
     
     return true;
 }
@@ -73,6 +91,21 @@ function orderApproved(order) {
     } catch (error) {
         checkoutLogger.error('RiskifiedParseResponseResult.js -> COCustomHelpers.sendOrderConfirmationEmail() -> throw error on sending confirmation email, Error: ' + error);
     }
+
+    // Salesforce Order Management attributes
+    if ('SOMIntegrationEnabled' in Site.getCurrent().preferences.custom && Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {
+        var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
+        var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
+        try {
+            var order = OrderMgr.getOrder(order.orderNo);
+            Transaction.wrap(function () {
+                populateOrderJSON.populateByOrder(order);
+            });
+        } catch (exSOM) {
+            somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
+        }
+    }
+    // End Salesforce Order Management
 }
 
 module.exports = {
