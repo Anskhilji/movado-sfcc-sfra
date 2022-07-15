@@ -14,7 +14,7 @@
                             <div class="prices prices-main">
                                 <isinclude template="product/components/productSet/setPrice" />
                             </div>
-                            <div class="tax-duties">
+                            <div class="tax-duties mb-3 mt-0">
                                 <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
                                 <isif condition="${isEswEnabled}" >
                                     <isset name="domesticAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
