@@ -269,6 +269,24 @@ server.post('ProcessPayments',
             checkoutLogger.error('(GooglePay) -> ProcessPayments: Riskified status is declined and going to get the responseObject from hooksHelper with paymentRefund param and order number is: ' + orderNumber);
             res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
             return next();
+        } else {
+                var RiskifiedOrderDescion = require('*/cartridge/scripts/riskified/RiskifiedOrderDescion');
+                if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'declined') {
+                        // Riskified order declined response from decide API
+                        riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order);
+                        if (riskifiedOrderDeclined) {
+                            // res.redirect(URLUtils.url('Checkout-Declined'));
+                            // return next();
+                            res.json({
+                                error: false,
+                                redirectUrl: URLUtils.url('Checkout-Declined').toString()
+                            });
+                            return next();
+                        }
+                } else if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'approved') {
+                    // Riskified order approved response from decide API
+                    RiskifiedOrderDescion.orderApproved(order);
+                }
         }
 
          // Calling fraud detection hook

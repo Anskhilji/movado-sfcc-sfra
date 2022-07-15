@@ -204,14 +204,8 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 
 	  // Handles payment authorization
 	  var handlePaymentResult = adyenHelpers.handlePayments(order, order.orderNo);
+	//   handlePaymentResult.status = 'approved';
 	  if (handlePaymentResult.error) {
-		if (handlePaymentResult == 'Declined') {
-			// Riskified order declined response from decide API
-		} else if (handlePaymentResult == 'Approved') {
-			// Riskified order approved response from decide API
-		} else {
-
-		}
           checkoutLogger.error('(CheckoutServices) -> PlaceOrder: Payment authorization is failed and going to the payment stage and order number is: ' + order.orderNo);
 		  res.json({
 	      error: true,
@@ -221,6 +215,22 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	      errorMessage: Resource.msg('error.technical', 'checkout', null)
 	    });
 	    return next();
+	  } else {
+		var RiskifiedOrderDescion = require('*/cartridge/scripts/riskified/RiskifiedOrderDescion');
+		if (handlePaymentResult.result && handlePaymentResult.result.response && handlePaymentResult.result.response.order.status === 'declined') {
+				// Riskified order declined response from decide API
+				riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order);
+				if (riskifiedOrderDeclined) {
+					res.json({
+						error: false,
+						continueUrl: URLUtils.url('Checkout-Declined').toString()
+					});
+					return next();
+				}
+		} else if (handlePaymentResult.result && handlePaymentResult.result.response && handlePaymentResult.result.response.order.status === 'approved') {
+			// Riskified order approved response from decide API
+			RiskifiedOrderDescion.orderApproved(order);
+		}
 	  }
 	  //set custom attirbute in session to avoid order confirmation page reload
 	  session.custom.orderJustPlaced = true;
