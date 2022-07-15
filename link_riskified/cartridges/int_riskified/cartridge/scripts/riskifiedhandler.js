@@ -24,9 +24,7 @@ function createOrder(order, orderParams) {
     riskifiedOrder = OrderModel.create(order, orderParams, null);
     
     response = restService.post('sync', logLocation, riskifiedOrder, 'decide');
-    // response.order.status = 'approved';
     if (!response.error) {
-        // response.order.status = 'apapprovedproved';
         if (response.order.status === 'declined') {
             var orderAnalysisResult = OrderModel.setOrderAnalysisStatus(order, Constants.ORDER_REVIEW_DECLINED_STATUS, logLocation);
         } else if (response.order.status === 'approved') {

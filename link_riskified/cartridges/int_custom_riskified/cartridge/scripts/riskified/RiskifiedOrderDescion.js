@@ -11,15 +11,14 @@
  var Transaction = require('dw/system/Transaction');
  var PaymentMgr = require('dw/order/PaymentMgr');
  var Site = require('dw/system/Site');
+
  var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
  var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
-//  var URLUtils = require('dw/web/URLUtils');
 
 function orderDeclined(order) {
     var paymentInstrument = order.paymentInstrument;
     var paymentMethod = PaymentMgr.getPaymentMethod(paymentInstrument.getPaymentMethod());
     var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
-    var YotpoHelper = require('int_custom_yotpo/cartridge/scripts/yotpo/helper/YotpoHelper');
     var responseObject;
     session.custom.currencyCode = order.currencyCode;
 

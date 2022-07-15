@@ -204,7 +204,6 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 
 	  // Handles payment authorization
 	  var handlePaymentResult = adyenHelpers.handlePayments(order, order.orderNo);
-	//   handlePaymentResult.status = 'approved';
 	  if (handlePaymentResult.error) {
           checkoutLogger.error('(CheckoutServices) -> PlaceOrder: Payment authorization is failed and going to the payment stage and order number is: ' + order.orderNo);
 		  res.json({
