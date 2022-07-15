@@ -275,8 +275,6 @@ server.post('ProcessPayments',
                         // Riskified order declined response from decide API
                         riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order);
                         if (riskifiedOrderDeclined) {
-                            // res.redirect(URLUtils.url('Checkout-Declined'));
-                            // return next();
                             res.json({
                                 error: false,
                                 redirectUrl: URLUtils.url('Checkout-Declined').toString()
