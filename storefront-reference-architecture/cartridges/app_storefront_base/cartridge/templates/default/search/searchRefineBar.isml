@@ -37,7 +37,7 @@
                     </isif>
 
                     <!--- ATTRIBUTE REFINEMENTS --->
-                    <isif condition="${refinement.isAttributeRefinement || refinement.isPromotionRefinement}">
+                    <isif condition="${refinement.isAttributeRefinement}">
                         <isinclude template="search/refinements/attributes" />
                     </isif>
 
