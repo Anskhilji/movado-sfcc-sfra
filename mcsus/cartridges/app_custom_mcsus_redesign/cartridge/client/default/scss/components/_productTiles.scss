@@ -1,3 +1,125 @@
 .mcs-product-carousel-redeisng {
-   
+
+    .product-tile {
+
+        .tile-body {
+            
+            // yotpo rating styling
+            .yotpo {
+                margin-bottom: rem(8);
+                width: 100%;
+
+                .yotpo-display-wrapper {
+    
+                    .yotpo-bottomline {
+                        margin-bottom: rem(0);
+
+                        &.star-clickable {
+                            align-items: center;
+                        }
+                    }
+                }
+
+                .text-m {
+                    color: $light-gray3 !important; //need to override yotpo color
+                    font-size: rem(12);
+                    letter-spacing: rem(0);
+                    line-height: rem(14);
+                    font-weight: 400;
+                    margin-left: rem(5);
+                }
+            }
+    
+            // .product-family-name styling
+            .product-family-name-redesign {
+                margin: rem(0);
+                font-size: rem(16);
+                line-height: rem(20);
+                margin-bottom: rem(8);
+                
+                a {
+                    color: $light-black1;
+                    font-size: rem(16);
+                    font-weight: bold;
+                    letter-spacing: 0;
+                    line-height: rem(20);
+                    text-decoration: underline;
+                    text-transform: uppercase;
+                }
+            }
+
+            // product name styling
+            .pdp-link {
+                margin: rem(0);
+                margin-bottom: rem(8);
+                .product-name {
+                    color: $light-black1;
+                    font-size: rem(18);
+                    letter-spacing: rem(0);
+                    line-height: rem(26);
+                    font-weight: 400;
+                    text-transform: capitalize;
+                }
+            }
+            
+            // price styling
+            .price-promotions {
+
+                .price-pdp-mvmt {
+                    color: $light-black1;
+                    font-size: rem(20);
+                    font-weight: 600;
+                    letter-spacing: rem(0);
+                    line-height: rem(14);
+                    display: flex;
+                    align-items: center;
+        
+                    del {
+                        order: 1;
+        
+                        .strike-through {
+                            margin-left: rem(0);
+                            color: $light-gray3;
+                            font-size: rem(16);
+                            letter-spacing: rem(0);
+                            line-height: rem(14);
+                            font-weight: 400;
+                        }
+                    }
+
+                    .sale-price-mvmt {
+                        order: 0;
+                        margin-right: rem(6);
+                    }
+                }
+                
+                // promotions styling
+                .promotions{
+                    width: auto;
+                    
+                    .callout {
+                        padding: rem(0) rem(14);
+                        box-sizing: border-box;
+                        width: auto;
+                        height: rem(27);
+                        line-height: rem(27);
+                        border: rem(1) solid $light-pink;
+                        border-radius: rem(3);
+                        background-color: $light-pink2;
+                        color: $dark-pink;
+                        font-family: $futura-medium;
+                        font-style: italic;
+                        font-weight: 600;
+                        font-size: rem(13);
+                        letter-spacing: 0;
+                        text-align: center;
+                        display: inline-block;
+                        margin-bottom: rem(10);
+                        margin-right: rem(0);
+                        margin-left: rem(0);
+                    }
+                }
+            }
+        }
+    }
 }

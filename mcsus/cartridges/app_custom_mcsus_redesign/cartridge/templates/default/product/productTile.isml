@@ -19,6 +19,12 @@
             <isinclude template="product/components/productTileSwatch" />
         </isif>
 
+         <div class="row m-0">
+            <div class="col d-flex w-100 p-0">
+                <isinclude template="product/components/ratings" />
+            </div>
+        </div>
+        
         <iscomment> Custom :MSS-1859 Banrd Name </iscomment>
         <isinclude template="product/components/productBrandName" />
 
@@ -42,12 +48,8 @@
             </div>
         </isloop>
 
-        <div class="row m-0">
-            <div class="col d-flex w-100 p-0">
-                <isinclude template="product/components/ratings" />
-            </div>
-        </div>
-        <div class="price-promotions d-flex justify-content-between">
+       
+        <div class="price-promotions d-flex justify-content-between flex-wrap">
 
          <isset name="price" value="${product.price}" scope="page" />
         <iscomment> Custom: Start [pricing shows only when following requirements meet] </iscomment>
