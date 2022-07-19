@@ -31,24 +31,6 @@ if (window.ClydeSitePreferences && !Clyde.checkReady() && productId) {
     });
 }
 
-// this code is V1 code for define Clyde but its not working so we comment
-
-// if (typeof Clyde !== 'undefined' && productId) {
-//     if (Clyde.checkReady() === false) {
-//         Clyde.init({
-//             key: ClydeSitePreferences.CLYDE_API_KEY,
-//             defaultSelector: '#clyde-cta',
-//             type: ClydeSitePreferences.CLYDE_WIDGET_TYPE,
-//             environment: ClydeSitePreferences.CLYDE_WIDGET_ENVIRONMENT,
-//             skipGeoIp: ClydeSitePreferences.CLYDE_WIDGET_SKIP_GEO_LOCATION
-//         }, function () {
-//             Clyde.setActiveProduct(productId);
-//         }
-//         );
-//     }
-// }
-
-
 clydeWidget = {
     getSelectedClydeContract: function (form) {
         var clydeContract = Clyde.getSelectedContract();
