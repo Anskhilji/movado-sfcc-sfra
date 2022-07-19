@@ -60,7 +60,8 @@ server.append(
         var OrderModel = require('*/cartridge/models/order');
         var Site = require('dw/system/Site');
         var orderCustomHelper = require('*/cartridge/scripts/helpers/orderCustomHelper');
-
+        var Money = require('dw/value/Money');
+        
         var viewData = res.getViewData();
         var actionUrls = viewData.order.checkoutCouponUrls;
         var currentCustomer = req.currentCustomer.raw;
@@ -124,10 +125,10 @@ server.append(
                 shippable: allValid,
                 countryCode: currentLocale.country,
                 containerView: 'basket',
-                defaultShipment: true
+                defaultShipment: true,
             }
         );
-
+        
         // Custom Start: Add email for Amazon Pay
         res.setViewData({
             order: orderModel,
@@ -135,10 +136,16 @@ server.append(
             totals: totals,
             customerEmail: viewData.order.orderEmail ? viewData.order.orderEmail : null,
             expirationYears: creditCardExpirationYears,
-            countryCode: countryCode
+            countryCode: countryCode,
+            couponLineItems: currentBasket.couponLineItems
         });
 
         next();
+});
+
+server.get('Declined', function (req, res, next) {
+    res.render('checkout/declinedOrder');
+    next();
 });
 
 module.exports = server.exports();

@@ -41,7 +41,23 @@
 
                     <div class="row">
                         <div class="col-sm-12">
-                            <isinclude template="product/components/old/pidRating" />
+                            <isset name="isYotpoStoreProductRatingEnabled" value="${!empty(dw.system.Site.current.preferences.custom.yotpoStoreProductRatingEnabled) ? dw.system.Site.current.preferences.custom.yotpoStoreProductRatingEnabled : false}" scope="page" />
+                            <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
+                                <div class="product-number-rating clearfix">
+                                    <isif condition="${!empty(dw.system.Site.getCurrent().preferences.custom.enableProductSKU) ? dw.system.Site.getCurrent().preferences.custom.enableProductSKU : false}">
+                                        <div class="product-number hidden-xs-down sku-text-alignment pull-left">
+                                            <isinclude template="product/components/productNumber" />
+                                        </div>
+                                    </isif>
+                                    <div class="ratings pull-right">
+                                        <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                                            <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            <iselse/>
+                                <isinclude template="product/components/old/pidRating" />
+                            </isif>
                         </div>
                     </div>
 
@@ -67,7 +83,22 @@
 
                     <iscomment> <p> <span>Model:</span> <span><isprint value="${product.id}" encoding="on" /></span> </p> </iscomment>
                     <div class="d-block d-md-block d-sm-none">
-                        <isinclude template="product/components/old/pidRating" />
+                        <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
+                            <div class="product-number-rating clearfix">
+                                <isif condition="${!empty(dw.system.Site.getCurrent().preferences.custom.enableProductSKU) ? dw.system.Site.getCurrent().preferences.custom.enableProductSKU : false}">
+                                    <div class="product-number sku-text-alignment">
+                                        <isinclude template="product/components/productNumber" />
+                                    </div>
+                                </isif>
+                                <div class="ratings pull-right hidden-sm-down">
+                                    <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                                        <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
+                                    </div>
+                                </div>
+                            </div>
+                        <iselse/>
+                            <isinclude template="product/components/old/pidRating" />
+                        </isif>
                     </div>
 
                     <div class="row">
@@ -114,7 +145,7 @@
                                 </div>
                             </isif>
                         <iscomment> Custom End: </iscomment>
-                        <div class="col-12 prices-add-to-cart-actions">
+                       <div class="col-12 prices-add-to-cart-actions">
                             <!-- Prices -->
                             <div class="prices">
                                 <isset name="price" value="${product.price}" scope="page" />
@@ -122,13 +153,15 @@
                                     <isinclude url="${URLUtils.https('Product-ShowMcsProdutPrice', 'pid', product.id)}"/>
                                 <iscomment> Custom: End </iscomment>
                             </div>
-                            <div class="d-block d-md-flex">
+                            <div class="d-block d-md-flex btn-margin smart-gift-box-mcs">
                                 <!-- Cart and [Optionally] Apple Pay -->
                                 <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
+                            </div>
+                            <div class="smart-gift-box-new smart-gift-box-new-mcs">
                                 <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
                                     <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
-                                        <div class="d-none d-md-flex"><isinclude template="product/components/old/smartGift" /></div>
-                                    </isif>    
+                                        <div class="d-block smart-main"><isinclude template="product/components/smartGift" /></div>
+                                    </isif>
                                 </isif>
                             </div>
                         </div>
@@ -138,7 +171,7 @@
                                 <isinclude url="${URLUtils.https('Wishlist-ShowIcon','gtmObj',JSON.stringify(pdict.wishlistGtmObj))}"/>
                                 <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
                                     <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
-                                        <div class="d-block d-md-none smartgift-medium-scr"><isinclude template="product/components/old/smartGift" /></div>
+                                        <div class="d-none smartgift-medium-scr"><isinclude template="product/components/smartGift" /></div>
                                     </isif>
                                 </isif>
                                 <span class="product-id d-none" itemprop="productID" >${product.id}</span>

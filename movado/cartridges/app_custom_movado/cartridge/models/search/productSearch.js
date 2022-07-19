@@ -253,6 +253,7 @@ function getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams, sorting
         }
 
     }
+    
     allSearchHitsProducts.forEach(function (searchHitResultProduct) {
         paramContainer = {
             pid: searchHitResultProduct.productID
