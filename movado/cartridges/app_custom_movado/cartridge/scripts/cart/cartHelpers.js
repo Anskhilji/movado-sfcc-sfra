@@ -341,7 +341,7 @@ function checkBundledProductCanBeAdded(childProducts, productLineItems, quantity
 function addProductToCart(currentBasket, productId, quantity, childProducts, options, form) {
     var availableToSell;
     var defaultShipment = currentBasket.defaultShipment;
-    var perpetual = 100;
+    var perpetual;
     var product = ProductMgr.getProduct(productId);
     var productInCart;
     var productLineItems = currentBasket.productLineItems;
@@ -373,7 +373,7 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
         canBeAdded = checkBundledProductCanBeAdded(childProducts, productLineItems, quantity);
     } else {
         totalQtyRequested = quantity + getQtyAlreadyInCart(productId, productLineItems);
-        // perpetual = product.availabilityModel.inventoryRecord.perpetual;
+        perpetual = product.availabilityModel.inventoryRecord.perpetual;
         canBeAdded =
             (perpetual
                 || totalQtyRequested <= product.availabilityModel.inventoryRecord.ATS.value);
