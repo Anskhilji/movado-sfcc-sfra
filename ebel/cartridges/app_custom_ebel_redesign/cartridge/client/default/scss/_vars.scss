@@ -1,0 +1,94 @@
+$storm-gray:#787a8a !default;
+$gray94:#f0f0f0 !default;
+$white-grey:#eaeaea !default;
+$gray-x11:#bcbec0 !default;
+$regent-grey:#787A8A !default;
+$gray90:#E5E5E5 !default;
+$gull-gray-light:rgba(160, 169, 186, 0.1) !default;
+$parrot-green:#99CB7F !default;
+$gray-green:rgba(102,152,76,0.1) !default;
+$dark-green:#66984C !default;
+$white-smoke:#F2F2F2 !default;
+$gray-overlay:rgba(242,242,242,0.89) !default;
+$dark-pink:#ead7dc !default;
+$grey9-light: #d6d7d8 !default;
+$gray98:#fafafa !default;
+$zircon: #eaebeb;
+$slate-grey-light: #f5f6f8;
+$slate-grey: #A0A9BA;
+$black: #000;
+$dark-black:#060506;
+$cerulean: #0092DB;
+$drak-red: #bb4f35;
+$pink-light: #FAF4ED;
+
+$footer-redesign-bg: #f1f2f5 !default;
+$sonic-silver:  #78797a !default;
+$dim-gray: #696969;
+$storm-gray: #787A8A;
+$mine-shaft: #333333;
+
+$font-futura-demi: "futura-pt-demi", "FuturaStd-Medium", sans-serif;
+$font-fotter: "futura-pt", "FuturaStd-Medium", sans-serif;
+$heart-icon: "\F004";
+
+@mixin font-bold {
+    font-family: "futura-pt-bold", "FuturaStd-Bold", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+@mixin font-medium {
+    font-family: "futura-pt", "FuturaStd-Medium", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
+@mixin font-light {
+    font-family: "futura-pt", "FuturaStd-Book", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+@mixin font-book {
+    font-family: "futura-pt", "FuturaStd-Book", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+@mixin font-demi {
+    font-family: "futura-pt", sans-serif, Arial;
+    font-weight: 600;
+    font-style: normal;
+}
+
+//font Families:
+$font-HelveticaNeueLT : "HelveticaNeueLT-Roman", helvetica, arial, sans-serif !default;
+$font-HelveticaNeueLT-medium : "HelveticaNeueLT-Roman", helvetica, arial, sans-serif !default;
+$font-HelveticaNeueLT-book : "HelveticaNeueLTStd-ThEx", helvetica, arial, sans-serif !default;
+$font-HelveticaNeueLT-bold : "HelveticaNeueLT-Roman", Arial, sans-serif !default;
+$font-HelveticaNeueLT-font : "HelveticaNeueLT-LightExt", helvetica, arial, sans-serif !default;
+
+$container-1366: 1366px;
+$custom-xll:1440px;
+$custom-xl:1280px;
+$custom-lg:1070px;
+$custom-sm:800px;
+$custom-sm1: 300px;
+$custom-sm2: 330px;
+$custom-sm3: 355px;
+$custom-sm4: 440px;
+$custom-sm5: 630px;
+$custom-sm6: 790px;
+$custom-sm7: 500px;
+$custom-sm8: 555px;
+$custom-sm9: 560px;
+$custom-sm10: 580px;
+$custom-sm11: 400px;
+$custom-sm12: 440px;
+$custom-md1: 790px;
+$custom-md2: 810px;
+$custom-lg1: 990px;
+$custom-lg2: 1120px;
+$custom-lg3: 992px;
+$custom-sm13: 351px;

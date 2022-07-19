@@ -1,0 +1,102 @@
+$arrow-height: 1.25em;
+
+.promo-icon {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    max-width: rem(500);
+
+    @include media-breakpoint-down(md) {
+        max-width: rem(400);
+    }
+
+    .icon {
+        display: none;
+    }
+
+    .detail-btn {
+        display: inline-block;
+    }
+
+    .showtooltip {
+        background-color: transparent;
+        height: rem(21);
+        line-height: rem(21);
+        display: inline-block;
+        text-transform: capitalize;
+        color: $dark-green;
+        padding-left: rem(0.8);
+        vertical-align: middle;
+        margin-top: rem(-3);
+        position: relative;
+        z-index: 99;
+
+        &::after, &::before {
+            border-left: solid transparent $arrow-height/2;
+            border-right: solid transparent $arrow-height/2;
+            content: " ";
+            height: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            position: absolute;
+            width: 0;
+            bottom: rem(-11);
+            border-bottom: solid $white $arrow-height/2;
+            display: none;
+        }
+
+        &::before {
+            border-bottom: solid $gull-gray-light rem(10);
+            top: rem(22);
+        }
+
+        &.active {
+            &::after, &::before {
+                display: block;
+            }
+        }
+    }
+
+    p {
+        margin-top: rem(10);
+    }
+
+    &:hover .tooltip, &:hover .left-tooltip {
+        display: block;
+    }
+
+    .custom-tooltip {
+        display: none;
+        position: absolute;
+        padding: rem(20) rem(15);
+        border-radius: $border-radius;
+        background-color: $white;
+        color: $grey14;
+        font-size: rem(12);
+        width: 100%;
+        animation: fade-in 0.01s linear forwards;
+        z-index: 9;
+        box-shadow: 0 0 rem(7) 0 $gray90;
+        word-wrap: break-word;
+        opacity: 0;
+        margin-top: rem(11);
+        right: 0px;
+        left: 0px;
+
+        @keyframes fade-in {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        p {
+            font-size: rem(12);
+            font-family: $font-book;
+            margin: 0;
+            padding: 0;
+
+            @include media-breakpoint-down(md) {
+                text-align: left;
+            }
+        }
+    }
+}

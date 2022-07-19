@@ -15,7 +15,7 @@
                     <div class="container-fluid px-0">
                     <div class="row overlay"></div>
                         <div class="row header-container m-0">
-                            <div class="col-12 col-md-12 navbar-header header-logo text-center">
+                            <div class="col-12 col-md-12 navbar-header header-logo text-center d-none d-lg-block">
                                 <div class="d-none d-lg-inline-block logo-ebl-box header-logo-ebl">
                                 <isslot id="brand-logo" description="Brand Logo" context="global" />
                                 </div>
@@ -36,11 +36,30 @@
                                     </span>
                                 </button>
                             </div>
-                            <div class="col-9 col-md-10 p-0 justify-content-center main-menu desktop-menu">
+                            <iscomment> for mobile  </iscomment>
+                           <div class="col-3 col-md-2 navbar-header header-logo text-left">
+                                <iscomment>Custom Start: Adding ESW Logic </iscomment>
+                                <div class="d-none">
+                                    <isif condition="${isEswEnabled}" >
+                                    <isinclude url="${URLUtils.url('EShopWorld-GetEswHeader', 'countryCode', 
+                                    !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
+                                </isif>
+                                </div>
+                                <iscomment> Custom End </iscomment>
+                                <button class="navbar-toggler-custom navbar-toggler d-lg-none"
+                                    role="tab" type="button" aria-controls="sg-navbar-collapse"
+                                    aria-expanded="false">
+                                    <i class="fa fa-bars"></i> 
+                                    <span class="menu-text d-md-inline-block d-lg-none">
+                                        ${Resource.msg('link.header.menu', 'common', null)}
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="col-6 col-md-8 p-0 justify-content-center main-menu desktop-menu">
                                 <div class="d-none d-lg-inline-block">
                                     <isinclude url="${URLUtils.url('Page-IncludeHeaderMenu')}" />
                                 </div>
-                                <div class="d-block text-center d-lg-none">
+                                <div class="d-block text-center d-lg-none logo-ebl-box header-logo-ebl">
                                     <isslot id="brand-logo" description="Brand Logo" context="global" />
                                 </div>
                             </div>
