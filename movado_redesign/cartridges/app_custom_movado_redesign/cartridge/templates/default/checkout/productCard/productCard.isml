@@ -38,6 +38,8 @@
                     <p class="line-item-attributes">${attribute.displayName}: ${attribute.displayValue}</p>
                 </isloop>
 
+                <iscomment> Removed Product Options to fix debossed:off bug </iscomment>
+
                 <div class="item-model model-name mb-2">
                 	${lineItem.resources.Model} ${lineItem.id}
                 </div>

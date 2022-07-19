@@ -33,6 +33,8 @@
                             </isif>
                         </isloop>
                         
+                        <iscomment> Removed Product Options to fix debossed:off bug </iscomment>
+
                         <p class="line-item-attributes model-name mb-2">${lineItem.resources.Model} ${lineItem.id}</p>
                         <isloop items="${lineItem.options}" var="option">
                             <isif condition="${!!option && option.selectedValueId != 0}">
