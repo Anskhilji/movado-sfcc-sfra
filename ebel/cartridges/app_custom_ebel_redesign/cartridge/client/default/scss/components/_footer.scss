@@ -73,6 +73,7 @@
                 font-weight: 600;
             }
         }
+
         .store-locator-heading {
             margin-top: rem(15);
         }
@@ -105,15 +106,18 @@
                 border-radius: rem(5);
                 box-shadow: rem(1) rem(4) rem(8) rgba(0, 0, 0, 0.1);
                 right: rem(40);
+
                 @include media-breakpoint-up(sm) {
                     width: 100%;
                     right: 0;
                     left: 0;
                 }
+
                 @include media-breakpoint-up(lg) {
                     width: 100%;
                     left: rem(-15);
                 }
+
                 .collapse-inner {
                     max-height: rem(255);
                     overflow-y: auto;
@@ -133,6 +137,7 @@
 
             span {
                 position: relative;
+
                 &::after, &::before {
                     position: absolute;
                     display: block;
@@ -165,11 +170,13 @@
 
             &.active {
                 span {
+
                     &::after, &::before {
                         display: inline-block;
                     }
                 }
             }
+
             .flag-icon {
                 border: none;
                 margin-right: rem(5);
@@ -177,6 +184,7 @@
         }
 
         .selectLanguage {
+
             &.active {
                 span {
                     &::after, &::before {
@@ -184,7 +192,9 @@
                     }
                 }
             }
+
             .title {
+
                 &:after {
                     margin-left: rem(10);
                 }
@@ -231,6 +241,7 @@
                 }
 
             }
+
             .footer-newsletter-email-button {
                 height: rem(46);
                 width: rem(46);
@@ -338,6 +349,7 @@
             a {
                 font-size: rem(25);
             }
+
             li {
                 float: left;
                 margin: 0;
@@ -388,6 +400,7 @@
         }
 
         .UsableNetAssistive {
+
             h3 {
                 font-size: rem(15);
                 font-weight: 600; 
@@ -554,10 +567,12 @@
             box-shadow: none;
         }
     }
+
     .footer-newsletter-email-button {
         height: rem(55);
         width: rem(50);
     }
+
     .submission-status {
         font-size: rem(15);
         color: $red;
