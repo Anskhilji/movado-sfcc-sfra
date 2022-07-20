@@ -17,18 +17,22 @@ if (document.querySelector('.product-number span')) {
     }
 }
 
-// this code is used in v2 to define Clyde 
-if (window.ClydeSitePreferences && !Clyde.checkReady() && productId) {
-    Clyde.init({
-        key: ClydeSitePreferences.CLYDE_API_KEY,
-        defaultSelector: '#clyde-cta',
-        skipGeoIp: ClydeSitePreferences.CLYDE_SKIP_GEO_IP
-    }, function () {
-        var clydeWidgetHandler = Clyde.getSettings();
-        if (clydeWidgetHandler.productPage === true) {
-            Clyde.setActiveProduct(productId);
+// this code is used in v2 to define Clyde
+if (window.ClydeSitePreferences && productId) {
+    if (typeof Clyde !== 'undefined') {
+        if (Clyde.checkReady() === false) {
+            Clyde.init({
+                key: ClydeSitePreferences.CLYDE_API_KEY,
+                defaultSelector: '#clyde-cta',
+                skipGeoIp: ClydeSitePreferences.CLYDE_SKIP_GEO_IP
+            }, function () {
+                var clydeWidgetHandler = Clyde.getSettings();
+                if (clydeWidgetHandler.productPage === true) {
+                    Clyde.setActiveProduct(productId);
+                }
+            });
         }
-    });
+    }
 }
 
 clydeWidget = {
