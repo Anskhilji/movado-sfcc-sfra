@@ -1,47 +1,12 @@
-.suggestions-wrapper {
-    position: relative;
-}
+
 
 .suggestions {
-    width: 100%;
-    position: relative;
 
     .items-header {
 
         > div {
-            color: $storm-gray;
-            @include font-medium;
-            font-size: rem(15);
-            padding-bottom: rem(15);
-            font-weight: 600;
-        }
-    }
-
-    > div {
-        padding: 0;
-    }
-
-    .item {
-
-        .name {
-
-            > a {
-                font-size: rem(15);
-            }
+           font-family: $font-HelveticaNeueLT-medium;
         }
     }
 }
 
-@include media-breakpoint-up(md) {
-
-    .suggestions {
-        border-radius: rem(0);
-        box-shadow: none;
-        padding-top: rem(11);
-        top: 0;
-    }
-
-    .suggestions:after, .suggestions:before {
-        content: none;
-    }
-}
