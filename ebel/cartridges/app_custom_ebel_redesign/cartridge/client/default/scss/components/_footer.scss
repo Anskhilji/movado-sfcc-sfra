@@ -1,7 +1,8 @@
 .footer {
 
     &-redesign {
-
+        background-color: $pink-light;
+        
         .footer-item {
             font-family: $font-HelveticaNeueLT-book;
         }
@@ -46,9 +47,5 @@
                 }
             }
         }
-    }
-    
-    &-redesign-ebl {
-        background-color: $pink-light;
     }
 }
