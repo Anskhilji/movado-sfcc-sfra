@@ -3,14 +3,14 @@
 @import 'vars';
 @import "utilities/fonts";
 @import '~movado/global';
+@import '~movad_redesign/global';
 @import '~ebel/variables';
 @import "lib/slick";
 @import "lib/slick-theme";
 @import "animate.css/animate";
 @import "components/header";
 @import "custom-animation";
-@import 'common';
 @import "components/subMenuSlot";
-@import "components/tooltip";
-@import "malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar";
+// @import "components/tooltip";
+// @import "malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar";
 @import "components/footer";
