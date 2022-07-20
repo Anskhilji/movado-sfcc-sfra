@@ -15,6 +15,7 @@
                     <div class="container-fluid px-0">
                     <div class="row overlay"></div>
                         <div class="row header-container m-0">
+                            <iscomment> custom start: MSS-1713 logo position chnage for desktop  </iscomment>
                             <div class="col-12 col-md-12 navbar-header header-logo text-center d-none d-lg-block">
                                 <div class="d-none d-lg-inline-block logo-ebl-box header-logo-ebl">
                                 <isslot id="brand-logo" description="Brand Logo" context="global" />
@@ -36,7 +37,9 @@
                                     </span>
                                 </button>
                             </div>
-                            <iscomment> for mobile  </iscomment>
+                            <iscomment> custom end </iscomment>
+
+                            <iscomment> custom start: MSS-1713 logo position chnage for MObile </iscomment>
                            <div class="col-3 col-md-2 navbar-header header-logo text-left">
                                 <iscomment>Custom Start: Adding ESW Logic </iscomment>
                                 <div class="d-none">
@@ -55,6 +58,7 @@
                                     </span>
                                 </button>
                             </div>
+                            <iscomment> custom end </iscomment>
                             <div class="col-6 col-md-8 p-0 justify-content-center main-menu desktop-menu">
                                 <div class="d-none d-lg-inline-block">
                                     <isinclude url="${URLUtils.url('Page-IncludeHeaderMenu')}" />
