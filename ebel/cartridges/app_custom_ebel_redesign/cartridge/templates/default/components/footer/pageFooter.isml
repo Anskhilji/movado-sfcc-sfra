@@ -1,5 +1,7 @@
 <isset name="enableUsablenetAccessibility" value="${dw.system.Site.current.preferences.custom.enableUsablenetAccessibility}" scope="page" />
+<iscomment> CUstome Start: "MSS-1713" add class for change styling </iscomment>
 <footer class="footer-redesign footer-redesign-ebl">
+<iscomment> CUstome End </iscomment>
     <iscomment> Footer top section moved to 'fotoer top slot' </iscomment>
     <isslot id="footer-top-slot" description="Footer top slot" context="global" />
     
