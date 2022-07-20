@@ -124,8 +124,8 @@
             cursor: pointer;
 
             &:focus {
-                        outline: -webkit-focus-ring-color auto 1px;
-                }
+                outline: -webkit-focus-ring-color auto 1px;
+            }
         }
     }
 
@@ -136,18 +136,18 @@
     .result-count {
 
         > span {
-                margin: 0;
-                font-family: $font-HelveticaNeueLT-book;
-                font-size: rem(15);
-                letter-spacing: normal;
+            margin: 0;
+            font-family: $font-HelveticaNeueLT-book;
+            font-size: rem(15);
+            letter-spacing: normal;
         }
 
         .make-bold, .category-name {
-                font-family: $font-HelveticaNeueLT;
-                font-size: rem(17);
-                margin: 0;
-                margin-right: rem(5);
-                text-transform: capitalize;
+            font-family: $font-HelveticaNeueLT;
+            font-size: rem(17);
+            margin: 0;
+            margin-right: rem(5);
+            text-transform: capitalize;
         }
 
         .category-name {font-size: rem(15);}
@@ -392,6 +392,7 @@
                 }
             }
         }
+
         .close-refinebar {
             background: url("../images/left-arrow.svg") left -4px center no-repeat;
             border: none;
@@ -475,44 +476,44 @@
         }
 
         .promotions, .plp-promotions {
-                margin-left: rem(15);
+            margin-left: rem(15);
+
+            @include media-breakpoint-down(sm) {
+                margin-left: rem(10);
+            }
+
+            .callout.promo-msg {
+                padding-top: 0;
+                letter-spacing: normal;
+                font-size: rem(15);
+                font-family: $font-HelveticaNeueLT-medium;
+                color: $dark-blue2;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                width: 60%;
+                white-space: nowrap;
+                margin: 0;
+
+                p {
+                    margin: 0;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                }
+
+                @include media-breakpoint-down(md) {
+                    font-size: rem(12);
+                }
 
                 @include media-breakpoint-down(sm) {
-                        margin-left: rem(10);
-                }
-
-                .callout.promo-msg {
-                        padding-top: 0;
-                        letter-spacing: normal;
-                        font-size: rem(15);
-                        font-family: $font-HelveticaNeueLT-medium;
-                        color: $dark-blue2;
-                        text-overflow: ellipsis;
-                        overflow: hidden;
-                        width: 60%;
-                        white-space: nowrap;
-                        margin: 0;
-
-                        p {
-                                margin: 0;
-                                text-overflow: ellipsis;
-                                overflow: hidden;
-                        }
-
-                        @include media-breakpoint-down(md) {
-                            font-size: rem(12);
-                        }
-
-                        @include media-breakpoint-down(sm) {
-                                font-size: rem(10);
-                                text-overflow: ellipsis;
-                                overflow: hidden;
-                                width: 95px;
-                                white-space: nowrap;
-                                text-align: left;
-                        }
+                    font-size: rem(10);
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    width: 95px;
+                    white-space: nowrap;
+                    text-align: left;
                 }
             }
+        }
 
         .plp-promotions {
             margin-left: rem(5);
@@ -539,7 +540,6 @@
                 @include media-breakpoint-down(xs) {
                     font-size: rem(10); 
                 }
-    
             }
         } 
 
@@ -599,10 +599,12 @@
                 padding-right: rem(5);
             }
         }
+
         .exclusive-badge-container {
             position: absolute;
             top: rem(15);
         }
+
         .new-product {
             display: inline-block;
             color: $storm-gray;
@@ -791,13 +793,13 @@
                 display: block;
             }
 
-        .product-not-available-msg {
+            .product-not-available-msg {
                 color: $red;
                 text-align: center;
-        }
+            }
 
             .tile-btns, .tile-discription {
-                opacity: 0;
+                opacity: 0; 
             }
         }
 
@@ -840,7 +842,7 @@
                         position: relative;
 
                         .plpToCart {
-                                vertical-align: middle;
+                            vertical-align: middle;
                         }
 
                         .dw-apple-pay-button.apple-pay-pdp {
@@ -878,20 +880,20 @@
     .cs-carousel-wrapper {
 
         .slick-list {
-                padding: 0 rem(160) !important;
-                margin: 0 rem(-20);
+            padding: 0 rem(160) !important;
+            margin: 0 rem(-20);
 
-                @include media-breakpoint-down(md) {
-                    padding: 0 rem(80) !important;
+            @include media-breakpoint-down(md) {
+                padding: 0 rem(80) !important;
 
-                    .slick-slide {
-                        margin: 0 rem(10);
+                .slick-slide {
+                    margin: 0 rem(10);
 
-                        img {
-                            min-height: rem(215);
-                        }
+                    img {
+                        min-height: rem(215);
                     }
                 }
+            }
         }
 
         .slick-slide {

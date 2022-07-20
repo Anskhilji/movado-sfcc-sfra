@@ -186,6 +186,7 @@
         .selectLanguage {
 
             &.active {
+
                 span {
                     &::after, &::before {
                         display: inline-block;
@@ -447,12 +448,14 @@
 
     &-top {
         background-color: $black;
+        
         &-inner {
             
             @include media-breakpoint-up(sm) {
                 padding: rem(20) 0;
             }
         }
+
         &-item {
             min-width: rem(250);
             margin-bottom: rem(40);
@@ -508,6 +511,7 @@
                 }
             }
         }
+
         &-wrapper {
             flex-wrap: wrap;
 
@@ -587,6 +591,7 @@
         }
     }
 }
+
 .copyright-footer-row {
     padding-left: rem(135);
     padding-right: rem(105);
