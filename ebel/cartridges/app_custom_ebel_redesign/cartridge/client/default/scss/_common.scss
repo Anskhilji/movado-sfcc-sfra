@@ -3,12 +3,14 @@
 }
 
 .slick-prev , .slick-next{
+    
     &::before {
         content: "";
     }
 }
 
 .product-tile {
+
     .tile-discription, .tile-btns {
         display: none;
     }
