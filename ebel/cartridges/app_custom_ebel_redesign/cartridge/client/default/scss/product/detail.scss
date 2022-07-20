@@ -411,16 +411,21 @@ $arrow-height: 1.25em;
     }
 
     .zoom-carousel-slider {
+
         img {
             width: rem(100);
             height: rem(100);
         }
+
         .slick-slide {
+
             img {
                 border:rem(1) solid transparent;
             }
         }
+
         .slick-current {
+
             img {
                 border-color: $black;
             }
@@ -518,8 +523,6 @@ $arrow-height: 1.25em;
             width: rem(96);
             padding-left: rem(25);
         }
-        
-        
     }
 
     .ratings {
@@ -960,6 +963,7 @@ $arrow-height: 1.25em;
 
                 .option-message {
                     position: relative;
+
                     .engraving-input, .debossing-input {
                         font-family: $font-HelveticaNeueLT-book;
                         font-size: rem(15);
@@ -1031,29 +1035,29 @@ $arrow-height: 1.25em;
             height: 100%;
             margin-right: -4px;
             vertical-align: top;
-          }
+        }
 
           .popup-inner {
-            display: inline-block;
-            text-align: left;
-            vertical-align: middle;
-            position: absolute;
-            max-width: 90%;
-            width: 100%;
-            padding: rem(20) 0;
-            box-shadow: 0px 2px 6px rgba(0, 0, 0, 1);
-            background: $white;
-            text-align: center;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding-bottom: rem(5);
+                display: inline-block;
+                text-align: left;
+                vertical-align: middle;
+                position: absolute;
+                max-width: 90%;
+                width: 100%;
+                padding: rem(20) 0;
+                box-shadow: 0px 2px 6px rgba(0, 0, 0, 1);
+                background: $white;
+                text-align: center;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                padding-bottom: rem(5);
 
-            @include media-breakpoint-down(sm) {
-                left:50%;
-                height: 100vh;
-                max-width: 100%;
-            }
+                @include media-breakpoint-down(sm) {
+                    left:50%;
+                    height: 100vh;
+                    max-width: 100%;
+                }
           }
     }
 
@@ -1106,13 +1110,17 @@ $arrow-height: 1.25em;
     }
 
     .detail-sec {
+        
         @include media-breakpoint-up(md) {
             padding-top: 0;
         }
     }
 .primary-images {
+
         .main-carousel {
+
             .slick-slide {
+
                 img {
                     min-width: auto;
                 }
@@ -1464,6 +1472,7 @@ $arrow-height: 1.25em;
 
         .bottom-detail {
             padding: 0;
+
             @include media-breakpoint-down(xs) {
                 text-align: center;
             }
@@ -1471,6 +1480,7 @@ $arrow-height: 1.25em;
 
         .bottom-detail-mobile {
             margin-top: rem(-50);
+
             @include media-breakpoint-down(xs) {
                 margin-top: rem(-34);
             }
@@ -1487,6 +1497,7 @@ $arrow-height: 1.25em;
             margin-bottom: rem(20);
             min-height: 70vh;
             height: auto;
+
             @include media-breakpoint-down(xs) {
                 min-height: 50vh;
             }
@@ -1559,6 +1570,7 @@ $arrow-height: 1.25em;
 
     @media (min-width: $custom-sm1) and (max-width: $custom-sm2) {
         .detail-bottom-blocks {
+            
             .bottom-block {
                 width: 100%
             }
@@ -1567,6 +1579,7 @@ $arrow-height: 1.25em;
 
     @media (min-width: $custom-lg1) and (max-width: $custom-lg2) {
         .detail-bottom-blocks {
+
             .bottom-block {
                 width: rem(187.2);
             }
@@ -1575,6 +1588,7 @@ $arrow-height: 1.25em;
 
     @media (min-width: $custom-md1) and (max-width: $custom-md2) {
         .detail-bottom-blocks {
+
             .bottom-block {
                 width: rem(156);
             }
@@ -1583,6 +1597,7 @@ $arrow-height: 1.25em;
 
     @media (min-width: $custom-sm3) and (max-width: $custom-sm4) {
         .detail-bottom-blocks {
+
             .bottom-block {
                 width: rem(160);
             }
@@ -1591,6 +1606,7 @@ $arrow-height: 1.25em;
 
     @media (min-width: $custom-sm7) and (max-width: $custom-sm8) {
         .detail-bottom-blocks {
+
             .bottom-block {
                 width: rem(224);
             }
@@ -1599,6 +1615,7 @@ $arrow-height: 1.25em;
 
     @media (min-width: $custom-sm5) and (max-width: $custom-sm6) {
         .detail-bottom-blocks {
+
             .bottom-block {
                 width: rem(130);
             }
@@ -1607,6 +1624,7 @@ $arrow-height: 1.25em;
     
     @media (min-width: $custom-sm9) and (max-width: $custom-sm10) {
         .detail-bottom-blocks {
+
             .bottom-block {
                 width: rem(256);
             }
@@ -1615,6 +1633,7 @@ $arrow-height: 1.25em;
 
     @media (min-width: $custom-sm11) and (max-width: $custom-sm12) {
         .detail-bottom-blocks {
+
             .bottom-block {
                 width: rem(176);
             }
@@ -1636,6 +1655,7 @@ $arrow-height: 1.25em;
     }
 
     .pdp-movado {
+
         &.prices-add-to-cart-actions {
 
             &.cart-sticky-wrapper-btn {
@@ -1719,6 +1739,7 @@ body {
 .cart-and-ipay {
     justify-content: flex-start;
 }
+
 .smart-gift-btn {
     width: 100%;
 
@@ -1781,26 +1802,29 @@ body {
                 top: rem(4);
                 border-left: solid transparent 0.525em;
                 border-right: solid transparent 0.525em;
+
                 @include media-breakpoint-down(sm) {
                     right: rem(11);
                     top: rem(1);
                 }
+
                 @include media-breakpoint-down(xs) {
                     top: rem(3);
                     right: rem(13);
                 }
             }
             
-    
             &.active {
                 &::after, &::before {
                     display: block;
                 }
             }
+
             @include media-breakpoint-down(sm) {
                 min-width: rem(44);
                 margin-left: rem(-1);
             }
+
             @include media-breakpoint-down(xs) {
                 min-width: rem(44);
                 margin-left: rem(-4);
@@ -1814,7 +1838,6 @@ body {
     display: none;
     position: absolute;
     padding: rem(22);
-
     background-color: $white;
     color:$dark-black;
     font-size: 0.75rem;
@@ -1827,9 +1850,11 @@ body {
     bottom: rem(43);
     right: 0;
     left: 0;
+
     @include media-breakpoint-down(sm) {
         bottom: rem(47);
     }
+
     .smartgift-num-one {
         font-family: $font-book;
         font-size: rem(14);
@@ -1859,14 +1884,13 @@ body {
         margin-top: rem(-21);
         font-family: $font-medium;
     }
+
     &-smartgift-heading{
         p {
             font-family: $font-book;
             font-size: rem(14);
             text-transform: uppercase;
         }
-
-        
     }
 }
 
@@ -2010,6 +2034,7 @@ body {
 }
 
 .pdp-modern-design {
+
     .promotions {
         text-align: center;
     }

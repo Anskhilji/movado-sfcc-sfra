@@ -47,6 +47,7 @@
 
     @include media-breakpoint-down(lg) {
         padding: 0 rem(10);
+
         .cs-carousel-wrapper {
 
             .cs-carousel {
@@ -61,7 +62,6 @@
             .slick-list {
                 margin: 0 rem(-5);
             }
-
         }
     }
 
@@ -246,12 +246,14 @@
                     padding: 0;
                     margin: 0;
                 }
+
                 .pdp-link {
                     text-overflow: ellipsis;
                     overflow: hidden;
                     width: 100%;
                     white-space: nowrap;
                 }
+
                 .price {
                     padding: 0;
                     display: block;
@@ -275,7 +277,6 @@
                 .tile-discription, .tile-btns {
                     display: none;
                 }
-    
             }
         }
     }
