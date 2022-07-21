@@ -1,0 +1,121 @@
+.main-menu {
+
+    .dropdown-menu {
+
+        .featured-promotion {
+            
+            h3 {
+                font-family: $font-HelveticaNeueLT-medium;
+            }
+        }
+    }
+}
+
+.desktop-menu {
+
+    .dropdown-item {
+
+        a {
+            font-family: $font-HelveticaNeueLT-book;
+        }
+    }
+
+    .nav-item {
+        .nav-link {
+            font-family: $font-HelveticaNeueLT;
+        }
+    }
+}
+
+.multilevel-dropdown {
+
+    .navbar {
+
+        .close-menu {
+            .close-button {
+                font-family: $font-HelveticaNeueLT-book;
+            }
+
+            .back {
+                font-family: $font-HelveticaNeueLT-book;
+            }
+        }
+
+        .dropdown-menu {
+
+            .dropdown-link {
+                font-family: $font-HelveticaNeueLT-book;
+            }
+        }
+    }
+
+    .country-selector-mobile {
+
+        .country-selector-wrapper {
+          
+            select {
+                font-family: $font-HelveticaNeueLT-book;
+            }
+        }
+    }
+
+    li.top-category {
+
+        .nav-link {
+            font-family: $font-HelveticaNeueLT-medium;
+        }
+    }
+
+    .mobile-login {
+
+        li.top-category {
+
+            .nav-link {
+                font-family: $font-HelveticaNeueLT-book;
+            }
+        }
+
+        .my-account {
+
+            .dropdown-link {
+                font-family: $font-HelveticaNeueLT-book;
+            }
+        }
+    }
+
+    .nav-item {
+
+        .nav-link {
+            font-family: $font-HelveticaNeueLT-book;          
+        }
+    }
+
+    .shop-by-collection-slide {
+
+        .featured-promotion {
+
+            p {
+               
+                a {
+                   
+                    span {
+                        font-family: $font-HelveticaNeueLT-book;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.mobile-menu {
+
+   .movado-header-dropdown {
+
+        .header-tiles    {
+
+            span {
+                font-family: $font-HelveticaNeueLT-book;
+            }
+        }
+    }
+}

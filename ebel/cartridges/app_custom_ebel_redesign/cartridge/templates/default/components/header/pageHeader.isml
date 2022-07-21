@@ -1,0 +1,155 @@
+<iscomment> Custom: HTML Structure change</iscomment>
+<isslot id="header-banner-m" description="Slot above the site header" context="global" />
+<header class="new-header ebl-header-sec">
+    <iscomment>Custom Start: Adding ESW cartridge integration </iscomment>
+    <isif condition="${isEswEnabled}" >
+        <isinclude url="${URLUtils.url('EShopWorld-GetEswLandingPage', 'countryCode', 
+        !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
+    </isif>
+    <iscomment> Custom End </iscomment>
+    <nav>
+        <div class="sticky-header-wrapper">
+            <div class="sticky-header-placeholder"></div>
+            <div class="header-menu-wrapper non-sticky">
+                <div class="header-wrapper">
+                    <div class="container-fluid px-0">
+                    <div class="row overlay"></div>
+                        <div class="row header-container m-0">
+                            <iscomment> custom start: MSS-1713 logo position chnage for desktop  </iscomment>
+                            <div class="col-12 col-md-12 navbar-header header-logo text-center d-none d-lg-block">
+                                <div class="d-none d-lg-inline-block logo-ebl-box header-logo-ebl">
+                                <isslot id="brand-logo" description="Brand Logo" context="global" />
+                                </div>
+                                <iscomment>Custom Start: Adding ESW Logic </iscomment>
+                                <div class="d-none">
+                                    <isif condition="${isEswEnabled}" >
+                                    <isinclude url="${URLUtils.url('EShopWorld-GetEswHeader', 'countryCode', 
+                                    !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
+                                </isif>
+                                </div>
+                                <iscomment> Custom End </iscomment>
+                                <button class="navbar-toggler-custom navbar-toggler d-lg-none"
+                                    role="tab" type="button" aria-controls="sg-navbar-collapse"
+                                    aria-expanded="false">
+                                    <i class="fa fa-bars"></i> 
+                                    <span class="menu-text d-md-inline-block d-lg-none">
+                                        ${Resource.msg('link.header.menu', 'common', null)}
+                                    </span>
+                                </button>
+                            </div>
+                            <iscomment> custom end </iscomment>
+
+                            <iscomment> custom start: MSS-1713 logo position chnage for MObile </iscomment>
+                           <div class="col-3 col-md-2 navbar-header header-logo text-left">
+                                <iscomment>Custom Start: Adding ESW Logic </iscomment>
+                                <div class="d-none">
+                                    <isif condition="${isEswEnabled}" >
+                                    <isinclude url="${URLUtils.url('EShopWorld-GetEswHeader', 'countryCode', 
+                                    !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
+                                </isif>
+                                </div>
+                                <iscomment> Custom End </iscomment>
+                                <button class="navbar-toggler-custom navbar-toggler d-lg-none"
+                                    role="tab" type="button" aria-controls="sg-navbar-collapse"
+                                    aria-expanded="false">
+                                    <i class="fa fa-bars"></i> 
+                                    <span class="menu-text d-md-inline-block d-lg-none">
+                                        ${Resource.msg('link.header.menu', 'common', null)}
+                                    </span>
+                                </button>
+                            </div>
+                            <iscomment> custom end </iscomment>
+                            <div class="col-6 col-md-8 p-0 justify-content-center main-menu desktop-menu">
+                                <div class="d-none d-lg-inline-block">
+                                    <isinclude url="${URLUtils.url('Page-IncludeHeaderMenu')}" />
+                                </div>
+                                <div class="d-block text-center d-lg-none logo-ebl-box header-logo-ebl">
+                                    <isslot id="brand-logo" description="Brand Logo" context="global" />
+                                </div>
+                            </div>
+                            <div class="col-3 col-md-2 justify-content-end right">
+                                <a href="javascript:void(0);" class="search-icon header-icon" tabindex="0" aria-label="Search" role="search"></a>
+                                <div class="hidden-md-down  navbar-header account-wrapper search">
+                                    <isinclude url="${URLUtils.url('Account-Header')}" />
+                                </div>
+                                <iscomment>Custom Start: Added condition to show cart icon if ecommerce functionality is enabled </iscomment>
+                                <isif condition="${dw.system.Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled}">
+                                    <div class="minicart" data-action-url="${URLUtils.url('Cart-MiniCartShow')}">
+                                        <isinclude url="${URLUtils.url('Cart-MiniCart')}" />
+                                    </div>
+                                </isif>
+                            </div>
+                        </div>
+
+                        <div class="desktop-search pb-md-4 show w-100">
+                            <div class="row justify-content-center">
+                                <div class="col-md-3 hidden-md-down">
+                                    <isslot id="brand-logo" description="Brand Logo" context="global" />
+                                </div>
+                                <div class="col-sm-9 col-lg-6 m-0 p-md-0">
+                                    <form role="search" action="${URLUtils.url('Search-Show')}" method="get" name="simpleSearch">
+                                        <button class="fa fa-search gtm-customEvent d-none" type="submit" data-gtm-tracking='{"event": "dataTrack","eventCategory": "Search CTA","eventAction": "Click","eventLabel": "${request.httpURL}"}'>
+                                            <span class="sr-only">"${Resource.msg('label.header.search', 'common', null)}"</span>
+                                        </button>
+                                        <input class="form-control search-field header-search-field"
+                                            type="search" name="q"
+                                            title="${Resource.msg('label.header.searchwatermark', 'common', null)}"
+                                            value="${!empty(pdict.productSearch) && !empty(pdict.productSearch.searchKeywords)?pdict.productSearch.searchKeywords:''}"
+                                            placeholder="${Resource.msg('label.header.searchwatermark', 'common', null)}"
+                                            autocomplete="off"
+                                            data-query-threshold="${dw.system.Site.getCurrent().getCustomPreferenceValue('SearchMinChars')}" />
+                                        <div class="suggestions-wrapper" data-url="${URLUtils.url('SearchServices-GetSuggestions', 'q')}"></div>
+                                        <input type="hidden" value="${pdict.locale}" name="lang" />
+                                        <a href="javascript:void(0);" class="search-close search-close-mobile hidden-lg-up"></a>
+                                    </form>
+                                    <div class="row search-recomendation justify-content-center">
+                                        <div class="col-12">
+                                            <div class="search-suggestions">
+                                                <div><isslot id="top-search-product-name" description="Top Search Product Name" context="global" /></div>
+                                                <div><isslot id="top-search-product" description="Top Search Product" context="global" /></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="col-md-3 text-right hidden-md-down">
+                                    <a href="javascript:void(0);" class="search-close">${Resource.msg('label.button.close', 'common', null)}</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-menu navbar-toggleable-sm mobile-menu menu-toggleable-left multilevel-dropdown d-inline-block d-lg-none" id="sg-navbar-collapse">
+                <div class="container">
+                    <div class="row">
+                        <isinclude url="${URLUtils.url('Page-IncludeHeaderMenu')}" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="search-mobile d-none">
+            <isinclude template="components/header/search" />
+        </div>
+        <isinclude template="analyticsTracking/analyticsTrackingHeader.isml">
+        <script>
+            var isklarnaPromoEnabled = false;
+        </script>
+        <isset name="siteLocaleCountryCode" value="${dw.util.Locale.getLocale(request.locale).getCountry()}" scope="page" />
+        <isif condition="${!empty(dw.system.Site.getCurrent().getCustomPreferenceValue('klarnaAllowedCountries')) && dw.system.Site.getCurrent().getCustomPreferenceValue('klarnaAllowedCountries').indexOf(siteLocaleCountryCode) > -1}">
+            <isset name="KlarnaOnSiteMessaging" value="${JSON.parse(dw.system.Site.getCurrent().getCustomPreferenceValue('klarnaMessagingUci'))}" scope="page" />
+            <isif condition="${!empty(KlarnaOnSiteMessaging) && siteLocaleCountryCode in KlarnaOnSiteMessaging && KlarnaOnSiteMessaging[siteLocaleCountryCode].uci}">
+                <script async src="https://eu-library.klarnaservices.com/merchant.js?uci=${KlarnaOnSiteMessaging[siteLocaleCountryCode].uci}&country=${siteLocaleCountryCode}"></script>
+                <script>
+                    isklarnaPromoEnabled = true;
+                </script>
+                <script>
+                    window.isklarnaPromoEnabled = true;
+                </script>
+            </isif>
+        </isif>
+    </nav>
+</header>
+
