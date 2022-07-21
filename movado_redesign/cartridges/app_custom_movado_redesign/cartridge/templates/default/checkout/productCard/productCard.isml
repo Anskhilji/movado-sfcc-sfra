@@ -38,27 +38,7 @@
                     <p class="line-item-attributes">${attribute.displayName}: ${attribute.displayValue}</p>
                 </isloop>
 
-                <iscomment> Custom Start: Removed Product Options to fix debossed:off bug </iscomment>
-                <iscomment> <div class="item-options">
-                    <isloop items="${lineItem.options}" var="option">
-                        <isif condition="${option.optionId != lineItem.resources.Engraved &&
-                        	option.optionId != lineItem.resources.Embossed &&
-                        	option.optionId != lineItem.resources.GiftWrapped}">
-                        	<isif condition="${lineItem.customAttributes['emboss']}">
-                        		<div class="line-item-option">${Resource.msg('label.personalization.debossed', 'confirmation', null)}</div>
-                        	<iselseif condition="${option.optionId != lineItem.resources.Engraved &&
-                        		option.optionId != lineItem.resources.GiftWrapped}" >
-                        		<div class="line-item-option">${Resource.msg('label.personalization.debossed.off', 'confirmation', null)}</div>
-                        	<iselse>
-                        		<div class="line-item-option">${option.displayName}</div>
-                        	</isif>
-                        </isif>
-                        <isif condition="${!empty(option.displayName) && !(option.optionId === 'clydeWarranty')}">
-                             <div class="line-item-option">${option.displayName}</div>
-                        </isif>
-                    </isloop>
-                </div> </iscomment>
-                <iscomment> Custom End </iscomment>
+                <iscomment> [MSS-1789] Removed Product Options to fix debossed:off bug </iscomment>
 
                 <div class="item-model model-name mb-2">
                 	${lineItem.resources.Model} ${lineItem.id}
