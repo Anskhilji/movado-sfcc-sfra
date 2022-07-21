@@ -361,50 +361,55 @@ ltkProduct.prototype.getCollectionCategory = function (product, collectionUrl) {
     var meta5 = '';
     var Meta5 = '';
     var reviewURL = '';
-    if (!empty(collectionUrl)) {
-        reviewURL = collectionUrl;
-        collectionCategory.reviewURL = reviewURL;
-    }
+    try {
+        if (!empty(collectionUrl)) {
+            reviewURL = collectionUrl;
+            collectionCategory.reviewURL = reviewURL;
+        }
 
-    if (!empty(product) && product.variant === false) {
-        if (!empty(product.primaryCategory)) {
-            var cat = product.primaryCategory;
+        if (!empty(product) && product.variant === false) {
+            if (!empty(product.primaryCategory)) {
+                var cat = product.primaryCategory;
 
-            while (cat.parent != null) {
-                Meta5 = cat.displayName;
-                if (cat.parent.topLevel === true) {
-                    meta4 = cat.parent.displayName;
-                    break;
+                while (cat.parent != null) {
+                    Meta5 = cat.displayName;
+                    if (cat.parent.topLevel === true) {
+                        meta4 = cat.parent.displayName;
+                        break;
+                    }
+                    cat = cat.parent;
                 }
-                cat = cat.parent;
             }
-        }
 
-        if (!empty(product.primaryCategory) && (product.primaryCategory.subCategories.empty === false)) {
-            meta5 = Meta5;
-        }
-        collectionCategory.meta4 = meta4;
-        collectionCategory.meta5 = meta5;
-    } else if (!empty(product) && product.variant === true) {
-        if (!empty(product.masterProduct) && !empty(product.masterProduct.primaryCategory)) {
-            var cate = product.masterProduct.primaryCategory;
-            while (cate.parent != null) {
-                Meta5 = cate.displayName;
-                if (cate.parent.topLevel === true) {
-                    meta4 = cate.parent.displayName;
-                    break;
+            if (!empty(product.primaryCategory) && (product.primaryCategory.subCategories.empty === false)) {
+                meta5 = Meta5;
+            }
+            collectionCategory.meta4 = meta4;
+            collectionCategory.meta5 = meta5;
+        } else if (!empty(product) && product.variant === true) {
+            if (!empty(product.masterProduct) && !empty(product.masterProduct.primaryCategory)) {
+                var cate = product.masterProduct.primaryCategory;
+                while (cate.parent != null) {
+                    Meta5 = cate.displayName;
+                    if (cate.parent.topLevel === true) {
+                        meta4 = cate.parent.displayName;
+                        break;
+                    }
+                    cate = cate.parent;
                 }
-                cate = cate.parent;
             }
+            if (!empty(product.masterProduct) && !empty(product.masterProduct.primaryCategory) && (product.masterProduct.primaryCategory.subCategories.empty === false)) {
+                meta5 = Meta5;
+            }
+            collectionCategory.meta4 = meta4;
+            collectionCategory.meta5 = meta5;
         }
-        if (!empty(product.masterProduct) && !empty(product.masterProduct.primaryCategory) && (product.masterProduct.primaryCategory.subCategories.empty === false)) {
-            meta5 = Meta5;
-        }
-        collectionCategory.meta4 = meta4;
-        collectionCategory.meta5 = meta5;
-    }
 
-    return collectionCategory;
+        return collectionCategory;
+    } catch (error) {
+        Logger.error('Listrak Collection Category Processing Failed for Product: {0}, Error: {1}', product.ID, error);
+        return collectionCategory;
+    }
 }
 
 ltkProduct.prototype.getFamilyName = function (product) {
@@ -412,7 +417,6 @@ ltkProduct.prototype.getFamilyName = function (product) {
     var getProductFamilyName = product.custom.familyName[0];
     if (!empty(getProductFamilyName)) {
         familyName = getProductFamilyName;
-        return familyName;
     }
     return familyName;
 }
@@ -422,7 +426,6 @@ ltkProduct.prototype.getStrapWidth = function (product) {
     var getWatchStrapWidth = product.custom.strapWidth;
     if (!empty(getWatchStrapWidth)) {
         StrapWidth = getWatchStrapWidth;
-        return StrapWidth;
     }
     return StrapWidth;
 }
@@ -432,7 +435,6 @@ ltkProduct.prototype.getCaseDiameter = function (product) {
     var getWatchCaseDiameter = product.custom.caseDiameter;
     if (!empty(getWatchCaseDiameter)) {
         CaseDiameter = getWatchCaseDiameter;
-        return CaseDiameter;
     }
     return CaseDiameter;
 }
