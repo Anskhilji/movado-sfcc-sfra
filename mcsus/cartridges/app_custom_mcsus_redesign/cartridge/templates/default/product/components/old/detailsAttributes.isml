@@ -1,0 +1,21 @@
+<isif condition="${product.pdpAttributesList && product.pdpAttributesList.length}">
+    <h2 class="col-sm-12 col-md-4 col-lg-3 detail-heading">
+      <button class="title text-uppercase btn p-0 text-left shadow-none">${product.resources.Details}</button>
+    </h2>
+    <div class="col-sm-12 col-md-8 col-lg-9 value content">
+        <div class="row">
+            <isloop items="${product.pdpAttributesList}" var="attr">
+            <div class="col-12 col-sm-4 attribute">
+                <div class="attribute-badge">
+                    <img src="${attr.image}" alt="${attr.name}" />
+
+                </div>
+                <div class="attribute-detail">
+                    <span class="attribute-name">${attr.name}</span>
+                    <span class="attribute-value">${attr.value}</span>
+                </div>
+            </div>
+            </isloop>
+        </div>
+    </div>
+</isif>
