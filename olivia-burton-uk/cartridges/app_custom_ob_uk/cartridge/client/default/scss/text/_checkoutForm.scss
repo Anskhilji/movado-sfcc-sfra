@@ -545,4 +545,24 @@
           }
         }
     }
+
+    &.data-checkout-stage-redesign {
+
+        .mx-field-wrapper {
+
+            .form-group {
+
+                .form-control {
+                  
+                    &.input-wrapper-checkout {
+                        font-weight: 600;
+                    }
+
+                    &.custom-select-box {
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
+    }
 }
