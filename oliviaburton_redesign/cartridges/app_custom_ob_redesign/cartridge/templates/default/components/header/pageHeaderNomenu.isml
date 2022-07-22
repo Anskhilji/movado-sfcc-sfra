@@ -3,7 +3,34 @@
         <div class="sticky-header-wrapper">
             <div class="sticky-header-placeholder"></div>
             <div class="header-menu-wrapper desktop-menu-wrapper">
-                <div class="header-wrapper checkout-header-wrapper checkout-box-container">
+                <div class="row no-gutters w-100 d-hide-mobile-wrapper"> 
+                    <div class="col-lg-7 col-md-7 header-redesign-wrapper">     
+                        <div class="header-wrapper checkout-header-wrapper checkout-box-container">
+                            <div class="header-left align-start-box">
+                                <div class="flex align-items-center checkout-logo">
+                                    <isslot id="olivia-logo" description="Olivia Brand Logo" context="global" />
+                                </div>
+                                <div class="checkout-text checkout-label-custom">
+                                    <h5> 
+                                        <div class="secure-text">${Resource.msg('checkout.secure.text', 'checkout', null)} </div>
+                                    </h5>
+                                </div>
+                            </div>
+                         </div>
+                    </div>
+
+                    <div class="col-lg-5 col-md-5 header-redesign-wrapper2">
+                        <div class="header-wrapper checkout-header-wrapper checkout-box-container">
+                            <div class="right obright-menu mini-cart-wrapper">
+                                    <div class="minicart" data-action-url="${URLUtils.url('Cart-MiniCartShow')}">
+                                        <isinclude url="${URLUtils.url('Cart-MiniCart')}"/>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <iscomment> Medium Screen Resolution Design for Checkout Header Menu </iscomment>
+                <div class="header-wrapper checkout-header-wrapper checkout-box-container d-show-desktop-wrapper">
                     <div class="header-left align-start-box">
                         <div class="flex align-items-center checkout-logo">
                             <isslot id="olivia-logo" description="Olivia Brand Logo" context="global" />
@@ -38,8 +65,6 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
     </nav>
 </header>

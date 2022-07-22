@@ -8,40 +8,32 @@ var clydeWidget;
 var elem = document.querySelector('.product-number span');
 var productId = elem ? elem.textContent : null;
 if (document.querySelector('.product-number span')) {
-    var productId = document.querySelector('.product-number span').innerHTML || '';
+    productId = document.querySelector('.product-number span').innerHTML || '';
 
+} else {
+    var cartValue = document.querySelector('.add-to-cart');
+    if (cartValue) {
+        productId = cartValue.dataset.pid;
+    }
+}
+
+// this code is used in v2 to define Clyde
+if (window.ClydeSitePreferences && productId) {
     if (typeof Clyde !== 'undefined') {
         if (Clyde.checkReady() === false) {
             Clyde.init({
                 key: ClydeSitePreferences.CLYDE_API_KEY,
                 defaultSelector: '#clyde-cta',
-                type: ClydeSitePreferences.CLYDE_WIDGET_TYPE,
-                environment: ClydeSitePreferences.CLYDE_WIDGET_ENVIRONMENT,
-                skipGeoIp: ClydeSitePreferences.CLYDE_WIDGET_SKIP_GEO_LOCATION
+                skipGeoIp: ClydeSitePreferences.CLYDE_SKIP_GEO_IP
             }, function () {
-                Clyde.setActiveProduct(productId);
-            }
-            );
+                var clydeWidgetHandler = Clyde.getSettings();
+                if (clydeWidgetHandler.productPage === true) {
+                    Clyde.setActiveProduct(productId);
+                }
+            });
         }
     }
 }
-
-// this code is used in v2 to define Clyde but its not working so we remove
-// this code and keep V1 code for define Clyde
-
-// if (window.ClydeSitePreferences && !Clyde.checkReady() && productId) {
-//     Clyde.init({
-//         key: ClydeSitePreferences.CLYDE_API_KEY,
-//         defaultSelector: '#clyde-cta',
-//         skipGeoIp: ClydeSitePreferences.CLYDE_SKIP_GEO_IP
-//     }, function () {
-//         var clydeWidgetHandler = Clyde.getSettings();
-//         if (clydeWidgetHandler.productPage === true) {
-//             Clyde.setActiveProduct(productId);
-//         }
-//     });
-// }
-
 
 clydeWidget = {
     getSelectedClydeContract: function (form) {

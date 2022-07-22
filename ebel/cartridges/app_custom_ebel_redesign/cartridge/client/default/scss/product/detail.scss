@@ -1,0 +1,216 @@
+@import '~movado/product/detail';
+@import '~movad_redesign/product/detail';
+@import '../vars';
+
+.container-fluid.pdp-v-one {
+
+    &.product-detail {
+        background-color: $white;
+    }
+
+    .product-name {
+        font-family: $font-HelveticaNeueLT-book;
+    }
+
+    .description {
+        font-family: $font-HelveticaNeueLT-book;
+    }
+
+    .price {
+        font-family: $font-HelveticaNeueLT-book;
+    }
+
+    .affirm-as-low-as {
+        font-family: $font-HelveticaNeueLT-book;
+       
+        .affirm-modal-trigger {
+            font-family: $font-HelveticaNeueLT-book;
+        }
+    }
+
+    .availability-msg {
+        font-family: $font-HelveticaNeueLT-book;
+    }
+
+    .add-to-cart {
+        font-family: $font-HelveticaNeueLT-book;
+    }
+
+    .engraving-btn, .debossing-btn {
+
+        > a {
+            font-family: $font-HelveticaNeueLT-book;
+        }
+    }
+
+    .debossing-text, .engraved-text {
+        font-family: $font-HelveticaNeueLT-book;
+    }
+
+    .promotions {
+
+        .callout {
+            font-family: $font-HelveticaNeueLT-book;
+        }
+    }
+
+    .exclusive-badges {
+
+        .badge {
+            font-family: $font-HelveticaNeueLT-book;
+        }
+    }
+
+    .description-and-detail {
+
+        .attribute-name {
+            font-family: $font-HelveticaNeueLT-book;
+        }
+
+        .attribute-value {
+            font-family: $font-HelveticaNeueLT-book;
+        }
+
+        .title {
+            font-family: $font-HelveticaNeueLT-book;
+        }
+    }
+
+    .drop-hint {
+        font-family: $font-HelveticaNeueLT-book;
+    }
+
+    .product-tile {
+
+        .out-of-stock {
+            font-family: $font-HelveticaNeueLT-book;
+        }
+
+        .new-product, .pre-order, .exclusive-product  { 
+            font-family: $font-HelveticaNeueLT-bold
+        }
+
+        .tile-body {
+
+            .price {
+                font-family: $font-HelveticaNeueLT-bold
+            }
+
+            .product-name {
+                font-family: $font-HelveticaNeueLT-bold
+            }
+        }
+    }
+
+    .carousel-title {
+        font-family: $font-HelveticaNeueLT-book;
+    }
+
+    .detail-bottom-blocks {
+
+        .bottom-block {
+
+            p {
+                font-family: $font-HelveticaNeueLT-book;
+            }
+        }
+    }
+
+    .popup {
+
+        .popup-head {
+
+            h1 {
+                font-family: $font-HelveticaNeueLT-book;
+            }
+        }
+
+        .popup-body {
+
+            p {
+                font-family: $font-HelveticaNeueLT-book;
+            }
+
+            .watch-image {
+            
+                .text-on-watch{
+
+                    pre, span {
+                        font-family: $font-HelveticaNeueLT-book;
+                    }
+                }
+            }
+
+            .text-area {
+                
+                .option-message {
+                 
+                    .engraving-input, .debossing-input {
+                        font-family: $font-HelveticaNeueLT-book; 
+                    }
+                }
+
+                label.error {
+                    font-family: $font-HelveticaNeueLT-book;
+                }
+            }
+
+            .popup-action-btns {
+
+                .save, .cancel {
+                    font-family: $font-HelveticaNeueLT-book;
+                }
+            }
+        }
+    }
+}
+
+.container-fluid.pdp-mobile {
+
+    @include media-breakpoint-down(md) {
+
+        .carousel-title {
+            font-family: $font-HelveticaNeueLT-book;
+        }
+    }
+}
+
+.smart-gift-btn {
+
+    .smartgift {
+
+        &-btn-redesign {
+            font-family: $font-HelveticaNeueLT-book;
+        }
+
+        &-btn-popup {
+            font-family: $font-HelveticaNeueLT-medium;
+        }
+    }
+}
+
+.custom-tooltipsmart {
+
+    .smartgift-num-one {
+        font-family: $font-HelveticaNeueLT-book;
+    }
+
+    &-line-one{
+        font-family: $font-HelveticaNeueLT-medium;
+    }
+
+    &-line-two{
+        font-family: $font-HelveticaNeueLT-medium;
+    }
+
+    &-line-three{
+        font-family: $font-HelveticaNeueLT-medium;
+    }
+
+    &-smartgift-heading{
+
+        p {
+            font-family: $font-HelveticaNeueLT-book;
+        }
+    }
+}
