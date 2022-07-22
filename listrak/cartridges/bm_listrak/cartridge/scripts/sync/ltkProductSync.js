@@ -92,7 +92,7 @@ function productSync() {
             // Custom End
 
             // Custom Start: [MSS-1697 Add Collection URL, Strap Width, Case Diameter, Family Name to Listrak MVMT Product Feed]
-            if (Site.getCurrent().ID === 'MVMTUS' || Site.getCurrent().ID === 'MVMTEU') {
+            if (Site.current.ID === 'MVMTUS' || Site.current.ID === 'MVMTEU') {
                 productFile.AddRowItem('Review URL');
                 productFile.AddRowItem('Meta4');
                 productFile.AddRowItem('Meta5');
@@ -227,7 +227,7 @@ function productSync() {
                 // Custom End
 
                 // Custom Start: [MSS-1697 Add Collection URL, Strap Width, Case Diameter, Family Name to Listrak MVMT Product Feed]
-                if (Site.getCurrent().ID === 'MVMTUS' || Site.getCurrent().ID === 'MVMTEU') {
+                if (Site.current.ID === 'MVMTUS' || Site.current.ID === 'MVMTEU') {
                     productFile.AddRowItem(prd.reviewURL, true);
                     productFile.AddRowItem(prd.meta4, true);
                     productFile.AddRowItem(prd.meta5, true);
