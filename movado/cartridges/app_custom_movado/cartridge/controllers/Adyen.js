@@ -201,7 +201,7 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
                         // Riskified order declined response from decide API
                         riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order);
                         if (riskifiedOrderDeclined) {
-                            res.redirect(URLUtils.url('Checkout-Declined'));
+                            res.redirect(URLUtils.url('Checkout-Declined', 'ID', order.orderNo));
                             return next();
                         }
                 } else if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'approved') {
