@@ -223,7 +223,7 @@ function productSync() {
 
                 // Custom Start: [MSS-1696 Listrak - Create New Product Feed for MVMT - Add Gender]
                 if (Site.getCurrent().ID === 'MVMTUS' || Site.getCurrent().ID === 'MVMTEU') {
-                    productFile.AddRowItem(prd.getWatchGender, true);
+                    productFile.AddRowItem(prd.watchGender, true);
                 }
                 // Custom End
 

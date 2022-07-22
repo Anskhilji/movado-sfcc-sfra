@@ -56,7 +56,7 @@ function ltkProduct() {
     // Custom End:
 
     // Custom Start: [MSS-1696 Listrak - Create New Product Feed for MVMT - Add Gender]
-    this.getWatchGender = '';
+    this.watchGender = '';
     // Custom End:
 }
 
@@ -128,7 +128,7 @@ ltkProduct.prototype.LoadProduct = function (product) {
 
     // Custom Start: [MSS-1696 Listrak - Create New Product Feed for MVMT - Add Gender]
     if (Site.getCurrent().ID === 'MVMTUS' || Site.getCurrent().ID === 'MVMTEU') {
-        this.getWatchGender = this.getGender(product);
+        this.watchGender = this.getGender(product);
     }
     // Custom End:
 };
@@ -331,9 +331,9 @@ ltkProduct.prototype.getGender = function (product) {
     var gender = '';
     var productFeedJson = dw.system.Site.current.preferences.custom.Listrak_ProductFeedGenderAttribute;
     productFeedJson = JSON.parse(productFeedJson);
-    var getWatchGender = product.custom.watchGender[0];
-    if (!empty(getWatchGender)) {
-        var watchGenderArr = getWatchGender.split(',');
+    var watchGenderAttr = product.custom.watchGender[0];
+    if (!empty(watchGenderAttr)) {
+        var watchGenderArr = watchGenderAttr.split(',');
     }
     if (!empty(productFeedJson) && !empty(watchGenderArr[0])) {
         gender = productFeedJson[watchGenderArr[0]];
