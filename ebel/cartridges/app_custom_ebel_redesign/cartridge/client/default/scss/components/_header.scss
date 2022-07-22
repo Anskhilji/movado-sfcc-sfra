@@ -3,96 +3,137 @@
 }
 
 header {
+    &.new-header {
 
-    &.ebl-header-sec {
+        .desktop-search {
+        
+            .search-suggestions {
+        
+                h3 {
+                    font-family: $font-HelveticaNeueLT-medium; 
+                }
 
-        @include media-breakpoint-up(lg) {
+                .category-slot {
             
-            &.new-header {
+                    a {
+                        font-family: $font-HelveticaNeueLT-book;            
+                    }
+                }
+            }
+            
+            .search-close {
+              font-family: $font-HelveticaNeueLT-book;
+            }
+           
+        }
+
+        .header-search-field{
+            font-family: $font-HelveticaNeueLT-medium; 
+        }
+
+        .user {
+            
+            &.user-not-login {
+      
+                .popover {
+            
+                    .btn {
+                        font-family: $font-HelveticaNeueLT-medium; 
+                    }
+                }
+            }
+        }
+
+        &.ebl-header-sec {
+
+            @include media-breakpoint-up(lg) {
                 
-                .logo-ebl-box {
-                    margin-top: rem(10);
+                &.new-header {
                     
-                    &.logo-ebl {
-                        overflow: hidden;
-                        height: 1.5rem;
-                    }
-                }
-                
-                .logo-link {
-
-                    img {
-                        width: rem(144);
-                    }
-                }
-
-                .header-wrapper {
-
-                    .header-container {
-                        height: rem(131);
-                    }
-                }
-
-                .header-menu-wrapper {
-
-                    &.sticky-header {
-
-                        .header-wrapper {
-
-                            .header-container {
-                                height: rem(98);
-                            }
+                    .logo-ebl-box {
+                        margin-top: rem(10);
+                        
+                        &.logo-ebl {
+                            overflow: hidden;
+                            height: 1.5rem;
                         }
                     }
-                }
-            }
-        }
-        // when the sticky add the styling apply
-        &.new-header {
-          
-            .header-menu-wrapper {
-
-                &.sticky-header {
-    
-                    .overlay {
-                        height: rem(98);
-                    }
-                }
-            }     
-        }
-
-        //whitout sticky apply the syling apply
-        &.new-header {
-
-            .overlay {
-                height: rem(131);
-            }
-
-            @include media-breakpoint-down(lg) {
-                
-                .logo-ebl-box {
                     
-                    &.logo-ebl {
-                        overflow: hidden;
-                        height: 1.5rem;
-                        margin-top: rem(7);
+                    .logo-link {
 
                         img {
                             width: rem(144);
                         }
                     }
-                }
-            
-                .logo-link {
 
-                    img {
-                        width: rem(94);
+                    .header-wrapper {
+
+                        .header-container {
+                            height: rem(131);
+                        }
+                    }
+
+                    .header-menu-wrapper {
+
+                        &.sticky-header {
+
+                            .header-wrapper {
+
+                                .header-container {
+                                    height: rem(98);
+                                }
+                            }
+                        }
                     }
                 }
             }
+            // when the sticky add the styling apply
+            &.new-header {
+            
+                .header-menu-wrapper {
 
-            // menu styling
-            @import "menu";
+                    &.sticky-header {
+        
+                        .overlay {
+                            height: rem(98);
+                        }
+                    }
+                }     
+            }
+
+            //whitout sticky apply the syling apply
+            &.new-header {
+
+                .overlay {
+                    height: rem(131);
+                }
+
+                @include media-breakpoint-down(lg) {
+                    
+                    .logo-ebl-box {
+                        
+                        &.logo-ebl {
+                            overflow: hidden;
+                            height: 1.5rem;
+                            margin-top: rem(7);
+
+                            img {
+                                width: rem(144);
+                            }
+                        }
+                    }
+                
+                    .logo-link {
+
+                        img {
+                            width: rem(94);
+                        }
+                    }
+                }
+
+                // menu styling
+                @import "menu";
+            }
         }
     }
 }

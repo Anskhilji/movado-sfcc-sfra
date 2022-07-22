@@ -50,7 +50,7 @@ $checkout-font-weight: 600;
 }
 
 .shipping-method-option {
-    font-family: $font-book;
+    font-family: $font-HelveticaNeueLT-book;
     font-size: rem(16);
     color: $grey14;
     letter-spacing: rem(0.4);
@@ -63,7 +63,7 @@ $checkout-font-weight: 600;
 }
 
 .shipping-method-pricing {
-    font-family: $font-medium;
+    font-family: $font-HelveticaNeueLT-medium;
     font-size: rem(16);
     line-height: rem(19);
     letter-spacing: rem(0.4);
@@ -463,7 +463,7 @@ header {
             }
 
             .logo-checkout-text {
-                font-family: $font-book;
+                font-family: $font-HelveticaNeueLT-book;
                 color: $grey14;
                 font-size: rem(18);
                 line-height: rem(22);
