@@ -5,14 +5,19 @@ exports.LTK_ACCESS_TOKEN_OBJECT_ID = 'ltk_AccessToken';
 exports.CURRENCY_USD = 'USD';
 exports.GERMANY_COUNTRYCODE = 'DE';
 exports.BIRTH_YEAR = '1900';
+exports.LTK_TRANSACTIONAL_SWITCH = 'Listrak';
+exports.LTK_ACCOUNT_CONTEXT = 'Account';
+exports.LTK_ORDER_CONTEXT = 'Order';
 exports.DATE_SEPRATOR = '/';
 exports.Subscription_State = 'Subscribed';
 exports.LTK_API_ENDPOINT = {
     CONTACT: '/List/{listId}/Contact/',
 }
+exports.LTK_TRANSACTIONAL_API_ENDPOINT = 'List/{listId}/TransactionalMessage/{transactionalMessageId}/Message';
 exports.SERVICE_ID = {
     LTK_AUTH: 'listrak.auth.api',
     LTK_EVENT: 'listrak.event.api',
+    LTK_TRANSACTIONAL: 'listrak.transactional.email',
 }
 exports.Source = {
     Footer: 'Listrak_FooterSourceID',

@@ -1,0 +1,51 @@
+.footer {
+
+    &-redesign {
+        background-color: $pink-light;
+        
+        .footer-item {
+            font-family: $font-HelveticaNeueLT-book;
+        }
+
+        h3 {
+            a {
+                font-family: $font-HelveticaNeueLT-book;
+            }
+        }    
+
+        .selectCountry,.selectLanguage {
+
+            .btn {
+                font-family: $font-HelveticaNeueLT-medium;
+            }
+
+            .title {
+                font-family: $font-HelveticaNeueLT-medium;
+            }
+        }
+
+        .footer-signup-container {
+
+            .footer-newsletter-email-field {
+                font-family: $font-HelveticaNeueLT-book;
+            }
+        }
+
+        .copyright {
+            font-family: $font-HelveticaNeueLT-book ;
+        }
+    }
+
+    &-top {
+
+        &-item {
+
+            &-heading {
+
+                h2 {
+                    font-family: $font-HelveticaNeueLT-medium;
+                }
+            }
+        }
+    }
+}
