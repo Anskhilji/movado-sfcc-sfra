@@ -1,6 +1,12 @@
 <div class="product-number-rating">
-<iscomment>custom start: remove product number` </iscomment>
-    <!-- Product Rating -->
+    <iscomment> Custom Start: Remove Product Number </iscomment>
+    <isif condition="${dw.system.Site.getCurrent().preferences.custom.enableProductSKU}">
+        <div class="product-number d-none sku-text-alignment">
+            <isinclude template="product/components/productNumber" />
+        </div>
+    </isif>
+
+    <iscomment> Product Rating </iscomment>
     <div class="ratings">
         <isinclude template="product/components/productRating" />
     </div>
