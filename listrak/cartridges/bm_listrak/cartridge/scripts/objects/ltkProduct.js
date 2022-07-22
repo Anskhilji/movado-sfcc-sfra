@@ -350,7 +350,7 @@ ltkProduct.prototype.getSalePriceInfo = function (product) {
 ltkProduct.prototype.getCollectionURL = function (product) {
     var collectionUrl = '';
     if (!empty(product.ID) && !empty(product.primaryCategory))	{
-        collectionUrl = URLUtils.https('Search-Show', 'cid', product.primaryCategory.ID);
+        collectionUrl = URLUtils.https('Search-Show', 'cgid', product.primaryCategory.ID);
     }
 
     return collectionUrl;
