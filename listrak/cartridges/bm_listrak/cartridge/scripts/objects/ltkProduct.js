@@ -369,15 +369,15 @@ ltkProduct.prototype.getCollectionCategory = function (product, collectionUrl) {
 
         if (!empty(product) && product.variant === false) {
             if (!empty(product.primaryCategory)) {
-                var cat = product.primaryCategory;
+                var productPrimaryCategory = product.primaryCategory;
 
-                while (cat.parent != null) {
-                    Meta5 = cat.displayName;
-                    if (cat.parent.topLevel === true) {
-                        meta4 = cat.parent.displayName;
+                while (productPrimaryCategory.parent != null) {
+                    Meta5 = productPrimaryCategory.displayName;
+                    if (productPrimaryCategory.parent.topLevel === true) {
+                        meta4 = productPrimaryCategory.parent.displayName;
                         break;
                     }
-                    cat = cat.parent;
+                    productPrimaryCategory = productPrimaryCategory.parent;
                 }
             }
 
@@ -388,14 +388,14 @@ ltkProduct.prototype.getCollectionCategory = function (product, collectionUrl) {
             collectionCategory.meta5 = meta5;
         } else if (!empty(product) && product.variant === true) {
             if (!empty(product.masterProduct) && !empty(product.masterProduct.primaryCategory)) {
-                var cate = product.masterProduct.primaryCategory;
-                while (cate.parent != null) {
-                    Meta5 = cate.displayName;
-                    if (cate.parent.topLevel === true) {
-                        meta4 = cate.parent.displayName;
+                var masterPrimaryCategory = product.masterProduct.primaryCategory;
+                while (masterPrimaryCategory.parent != null) {
+                    Meta5 = masterPrimaryCategory.displayName;
+                    if (masterPrimaryCategory.parent.topLevel === true) {
+                        meta4 = masterPrimaryCategory.parent.displayName;
                         break;
                     }
-                    cate = cate.parent;
+                    masterPrimaryCategory = masterPrimaryCategory.parent;
                 }
             }
             if (!empty(product.masterProduct) && !empty(product.masterProduct.primaryCategory) && (product.masterProduct.primaryCategory.subCategories.empty === false)) {
@@ -414,18 +414,18 @@ ltkProduct.prototype.getCollectionCategory = function (product, collectionUrl) {
 
 ltkProduct.prototype.getFamilyName = function (product) {
     var familyName = '';
-    var getProductFamilyName = product.custom.familyName[0];
-    if (!empty(getProductFamilyName)) {
-        familyName = getProductFamilyName;
+    var productFamilyName = product.custom.familyName[0];
+    if (!empty(productFamilyName)) {
+        familyName = productFamilyName;
     }
     return familyName;
 }
 
 ltkProduct.prototype.getStrapWidth = function (product) {
     var StrapWidth = '';
-    var getWatchStrapWidth = product.custom.strapWidth;
-    if (!empty(getWatchStrapWidth)) {
-        StrapWidth = getWatchStrapWidth;
+    var watchStrapWidth = product.custom.strapWidth;
+    if (!empty(watchStrapWidth)) {
+        StrapWidth = watchStrapWidth;
     }
     return StrapWidth;
 }
