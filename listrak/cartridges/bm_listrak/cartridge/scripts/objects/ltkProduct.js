@@ -13,6 +13,7 @@ var Promotion = require('dw/campaign/Promotion');
 var PromotionMgr = require('dw/campaign/PromotionMgr');
 var Logger = require('dw/system/Logger').getLogger('Listrak');
 var Site = require('dw/system/Site');
+var URLUtils = require('dw/web/URLUtils');
 
 /**
  * Object that holds inflated product information.
@@ -349,7 +350,7 @@ ltkProduct.prototype.getSalePriceInfo = function (product) {
 ltkProduct.prototype.getCollectionURL = function (product) {
     var collectionUrl = '';
     if (!empty(product.ID) && !empty(product.primaryCategory))	{
-        collectionUrl = dw.web.URLUtils.https('Search-Show', 'cid', product.primaryCategory.ID);
+        collectionUrl = URLUtils.https('Search-Show', 'cid', product.primaryCategory.ID);
     }
 
     return collectionUrl;
@@ -359,7 +360,7 @@ ltkProduct.prototype.getCollectionCategory = function (product, collectionUrl) {
     var collectionCategory = {};
     var meta4 = '';
     var meta5 = '';
-    var Meta5 = '';
+    var metaCheck5 = '';
     var reviewURL = '';
     try {
         if (!empty(collectionUrl)) {
@@ -372,7 +373,7 @@ ltkProduct.prototype.getCollectionCategory = function (product, collectionUrl) {
                 var productPrimaryCategory = product.primaryCategory;
 
                 while (productPrimaryCategory.parent != null) {
-                    Meta5 = productPrimaryCategory.displayName;
+                    metaCheck5 = productPrimaryCategory.displayName;
                     if (productPrimaryCategory.parent.topLevel === true) {
                         meta4 = productPrimaryCategory.parent.displayName;
                         break;
@@ -382,7 +383,7 @@ ltkProduct.prototype.getCollectionCategory = function (product, collectionUrl) {
             }
 
             if (!empty(product.primaryCategory) && (product.primaryCategory.subCategories.empty === false)) {
-                meta5 = Meta5;
+                meta5 = metaCheck5;
             }
             collectionCategory.meta4 = meta4;
             collectionCategory.meta5 = meta5;
@@ -390,7 +391,7 @@ ltkProduct.prototype.getCollectionCategory = function (product, collectionUrl) {
             if (!empty(product.masterProduct) && !empty(product.masterProduct.primaryCategory)) {
                 var masterPrimaryCategory = product.masterProduct.primaryCategory;
                 while (masterPrimaryCategory.parent != null) {
-                    Meta5 = masterPrimaryCategory.displayName;
+                    metaCheck5 = masterPrimaryCategory.displayName;
                     if (masterPrimaryCategory.parent.topLevel === true) {
                         meta4 = masterPrimaryCategory.parent.displayName;
                         break;
@@ -399,7 +400,7 @@ ltkProduct.prototype.getCollectionCategory = function (product, collectionUrl) {
                 }
             }
             if (!empty(product.masterProduct) && !empty(product.masterProduct.primaryCategory) && (product.masterProduct.primaryCategory.subCategories.empty === false)) {
-                meta5 = Meta5;
+                meta5 = metaCheck5;
             }
             collectionCategory.meta4 = meta4;
             collectionCategory.meta5 = meta5;
@@ -413,29 +414,17 @@ ltkProduct.prototype.getCollectionCategory = function (product, collectionUrl) {
 }
 
 ltkProduct.prototype.getFamilyName = function (product) {
-    var familyName = '';
-    var productFamilyName = product.custom.familyName[0];
-    if (!empty(productFamilyName)) {
-        familyName = productFamilyName;
-    }
+    var familyName = !empty(product.custom.familyName[0]) ? product.custom.familyName[0] : '';
     return familyName;
 }
 
 ltkProduct.prototype.getStrapWidth = function (product) {
-    var StrapWidth = '';
-    var watchStrapWidth = product.custom.strapWidth;
-    if (!empty(watchStrapWidth)) {
-        StrapWidth = watchStrapWidth;
-    }
-    return StrapWidth;
+    var strapWidth = !empty(product.custom.strapWidth) ? product.custom.strapWidth : '';
+    return strapWidth;
 }
 
 ltkProduct.prototype.getCaseDiameter = function (product) {
-    var CaseDiameter = '';
-    var getWatchCaseDiameter = product.custom.caseDiameter;
-    if (!empty(getWatchCaseDiameter)) {
-        CaseDiameter = getWatchCaseDiameter;
-    }
-    return CaseDiameter;
+    var caseDiameter = !empty(product.custom.caseDiameter) ? product.custom.caseDiameter : '';
+    return caseDiameter;
 }
 // Custom End
