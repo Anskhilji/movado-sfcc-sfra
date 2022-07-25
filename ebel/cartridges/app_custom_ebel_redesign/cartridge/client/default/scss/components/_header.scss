@@ -44,6 +44,23 @@ header {
             }
         }
 
+        .suggestions {
+
+            .items-header > div {
+                font-family: $font-HelveticaNeueLT-medium; 
+            }
+            .item {
+
+                .name {
+                    font-family: $font-HelveticaNeueLT-book;
+
+                    a {
+                        font-family: $font-HelveticaNeueLT-book; 
+                    }
+                }
+            }
+        }
+
         &.ebl-header-sec {
 
             @include media-breakpoint-up(lg) {
