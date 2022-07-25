@@ -1,0 +1,106 @@
+.product-tile {
+
+    .tile-body {
+
+        .price {
+            font-family: $font-HelveticaNeueLT-medium;
+        }
+
+        .pdp-link {
+
+            a {
+                font-family: $font-HelveticaNeueLT-book;
+            }
+        }
+
+        .compare{
+
+            label{
+                font-family: $font-HelveticaNeueLT-medium;
+            }
+        }
+    }
+
+    .promo-msg.callout{
+        font-family: $font-HelveticaNeueLT-medium;
+    }
+}
+
+// full bleed image toaster product
+.full-bleed-image-product {
+
+    .full-bleed-img-box {
+
+        .bleed-text-box {
+            
+            &-title {
+                font-family: $font-HelveticaNeueLT-medium;
+            }
+            
+            &-click-view {
+                font-family: $font-HelveticaNeueLT-medium;
+            }
+        }
+    }
+
+    .plp-new-design {
+       
+        .product-tile {
+          
+            .promotions, .plp-promotions {
+            
+                .callout.promo-msg {
+                    font-family: $font-HelveticaNeueLT-medium;
+                }
+            }
+
+          
+            .out-of-stock, .pre-order {
+                font-family: $font-HelveticaNeueLT-medium;
+            }
+
+            .plp-botton-text {
+
+                .pre-order-text {
+                    font-family: $font-HelveticaNeueLT-book;
+                } 
+            }
+
+            .new-product {
+                font-family: $font-HelveticaNeueLT-medium;
+            }
+
+            .tile-body {
+            
+                .price {
+                    @include font-light;
+                }
+
+                .product-name {
+                    @include font-demi;
+                }
+
+                .tile-detail-btn {
+                    font-family: $font-HelveticaNeueLT-medium;
+                }          
+            }
+        }
+    }
+    // product collection popup style here
+    .product-popup-box {
+
+        .product-collection-box {
+           
+            .product-collection-title {
+                font-family: $font-HelveticaNeueLT-medium;
+            }
+        }
+    }
+
+    .product-count-box {
+
+        .product-custom-title {
+            font-family: $font-HelveticaNeueLT-book;
+        }
+    }
+}

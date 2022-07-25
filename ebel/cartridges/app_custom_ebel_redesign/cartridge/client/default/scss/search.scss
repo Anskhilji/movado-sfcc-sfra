@@ -30,6 +30,12 @@
 
     .result-count {
 
+        p {
+            font-family: $font-HelveticaNeueLT-book;
+            span {
+                font-family: $font-HelveticaNeueLT-book;
+            }
+        }
         > span {
             font-family: $font-HelveticaNeueLT-book;
         }
@@ -147,5 +153,13 @@
         p {
             font-family: $font-HelveticaNeueLT-book;
         }
+    }
+}
+
+
+.search-nav {
+
+    .nav-link {
+        font-family: $font-HelveticaNeueLT-medium;
     }
 }
