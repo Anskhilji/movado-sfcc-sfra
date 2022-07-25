@@ -329,17 +329,21 @@ ltkProduct.prototype.getSalePriceInfo = function (product) {
 // Custom Start: [MSS-1696 Listrak - Create New Product Feed for MVMT - Add Gender]
 ltkProduct.prototype.getGender = function (product) {
     var gender = '';
-    var productFeedJson = dw.system.Site.current.preferences.custom.Listrak_ProductFeedGenderAttribute;
+    var productFeedJson = Site.getCurrent().getCustomPreferenceValue('Listrak_ProductFeedGenderAttribute');
     productFeedJson = JSON.parse(productFeedJson);
     var watchGenderAttr = product.custom.watchGender[0];
-    if (!empty(watchGenderAttr)) {
-        var watchGenderArr = watchGenderAttr.split(',');
-    }
-    if (!empty(productFeedJson) && !empty(watchGenderArr[0])) {
-        gender = productFeedJson[watchGenderArr[0]];
-        return gender;
-    }
+    try {
+        if (!empty(watchGenderAttr)) {
+            var watchGenderArr = watchGenderAttr.split(',');
+        }
+        if (!empty(productFeedJson) && !empty(watchGenderArr[0])) {
+            gender = productFeedJson[watchGenderArr[0]];
+        }
 
-    return gender;
+        return gender;
+    } catch (error) {
+        Logger.error('Listrak Product Processing Failed for Product: {0}, Error: {1}', product.ID, error);
+        return categoryArray;
+    }
 };
 // Custom End
