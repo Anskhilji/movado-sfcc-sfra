@@ -210,7 +210,7 @@ function onPaymentAuthorized(paymentData) {
                 } else {
                     var redirectUrl = data.redirectUrl;
                     var urlParams = {
-                        ID: data.orderID,
+                        ID: data.orderID
                     };
 
                     redirectUrl += (redirectUrl.indexOf('?') !== -1 ? '&' : '?') +
