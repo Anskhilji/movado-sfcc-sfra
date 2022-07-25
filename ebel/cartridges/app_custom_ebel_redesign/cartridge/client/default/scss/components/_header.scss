@@ -6,7 +6,7 @@ header {
     &.new-header {
 
         .desktop-search {
-        
+            min-height: rem(170);
             .search-suggestions {
         
                 h3 {
@@ -138,3 +138,16 @@ header {
     }
 }
 
+.accessible-link {
+    font-family: $font-HelveticaNeueLT-book;
+}
+
+.header-banner {
+    .html-slot-container {
+        font-family: $font-HelveticaNeueLT-book;
+
+        .carousel-item {
+            font-family: $font-HelveticaNeueLT-book;
+        }
+    }
+}
