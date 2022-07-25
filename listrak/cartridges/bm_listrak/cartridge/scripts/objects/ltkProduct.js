@@ -127,7 +127,8 @@ ltkProduct.prototype.LoadProduct = function (product) {
     // Custom End:
 
     // Custom Start: [MSS-1696 Listrak - Create New Product Feed for MVMT - Add Gender]
-    if (Site.current.ID === 'MVMTUS' || Site.current.ID === 'MVMTEU') {
+    var productFeedValue = Site.getCurrent().getCustomPreferenceValue('Listrak_ProductFeedGenderAttribute');
+    if (!empty(productFeedValue)) {
         this.watchGender = this.getGender(product);
     }
     // Custom End:
