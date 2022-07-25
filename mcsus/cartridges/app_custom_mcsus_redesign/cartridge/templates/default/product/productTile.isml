@@ -49,7 +49,7 @@
         </isloop>
 
        
-        <div class="price-promotions d-flex justify-content-between flex-wrap">
+        <div class="price-promotions d-flex justify-content-start flex-wrap">
 
          <isset name="price" value="${product.price}" scope="page" />
         <iscomment> Custom: Start [pricing shows only when following requirements meet] </iscomment>

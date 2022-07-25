@@ -201,7 +201,7 @@
         <iscomment> product detail redesign section end here </iscomment>
          <div class="container pdp-bottom-rating">
             <isinclude template="widget/yotporeviewswidget" />
-            <hr>
+            <iscomment> <hr> </iscomment>
         </div>
         
 
