@@ -331,9 +331,10 @@ ltkProduct.prototype.getSalePriceInfo = function (product) {
 ltkProduct.prototype.getGender = function (product) {
     var gender = '';
     var productFeedJson = Site.getCurrent().getCustomPreferenceValue('Listrak_ProductFeedGenderAttribute');
-    productFeedJson = JSON.parse(productFeedJson);
-    var watchGenderAttr = product.custom.watchGender[0];
+
     try {
+        productFeedJson = JSON.parse(productFeedJson);
+        var watchGenderAttr = product.custom.watchGender[0];
         if (!empty(watchGenderAttr)) {
             var watchGenderArr = watchGenderAttr.split(',');
         }
