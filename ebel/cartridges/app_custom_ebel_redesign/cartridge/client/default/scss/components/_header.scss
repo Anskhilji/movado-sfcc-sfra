@@ -3,10 +3,12 @@
 }
 
 header {
+
     &.new-header {
 
         .desktop-search {
             min-height: rem(170);
+            
             .search-suggestions {
         
                 h3 {
@@ -49,6 +51,7 @@ header {
             .items-header > div {
                 font-family: $font-HelveticaNeueLT-medium; 
             }
+
             .item {
 
                 .name {
@@ -160,6 +163,7 @@ header {
 }
 
 .header-banner {
+
     .html-slot-container {
         font-family: $font-HelveticaNeueLT-book;
 
