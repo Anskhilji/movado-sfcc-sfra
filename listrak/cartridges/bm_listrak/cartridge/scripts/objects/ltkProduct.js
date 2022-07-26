@@ -43,6 +43,7 @@ function ltkProduct() {
     var catStartLevel = dw.system.Site.current.preferences.custom.Listrak_TopLevelCategory;
     this.categoryStartLevel = catStartLevel;
     this.additionalAttributes = dw.system.Site.current.preferences.custom.Listrak_Additional_Attributes;
+    this.categoryLevelAttributes = Site.getCurrent().getCustomPreferenceValue('Listrak_CategoryLevelAttributes');
     this.additionalAttributeValues = new dw.util.HashMap();
 
     // Custom Start: Adding Product Sale information
@@ -78,7 +79,7 @@ ltkProduct.prototype.LoadProductURLOnly = function (product) {
     this.linkURL = this.getProductURL(product);
 
     // collection url
-    if (Site.getCurrent().ID === 'MVMTUS' || Site.getCurrent().ID === 'MVMTEU') {
+    if (this.categoryLevelAttributes) {
         var collectionCategoryObject = this.getCollectionCategory(product, this.getCollectionURL(product));
         this.reviewURL = collectionCategoryObject.reviewURL ? collectionCategoryObject.reviewURL : '';
     }
@@ -139,7 +140,7 @@ ltkProduct.prototype.LoadProduct = function (product) {
     // Custom End:
 
     // Custom Start: [MSS-1697 Add Collection URL, Strap Width, Case Diameter, Family Name to Listrak MVMT Product Feed]
-    if (Site.getCurrent().ID === 'MVMTUS' || Site.getCurrent().ID === 'MVMTEU') {
+    if (this.categoryLevelAttributes) {
         var collectionCategoryObject = this.getCollectionCategory(product, this.getCollectionURL(product));
         if (!empty(collectionCategoryObject)) {
             this.reviewURL = collectionCategoryObject.reviewURL ? collectionCategoryObject.reviewURL : '';
