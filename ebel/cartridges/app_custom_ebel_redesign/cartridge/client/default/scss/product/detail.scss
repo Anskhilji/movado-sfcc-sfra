@@ -1,4 +1,3 @@
-@import '~movado/product/detail';
 @import '~movad_redesign/product/detail';
 @import '../vars';
 
@@ -34,6 +33,9 @@
 
     .add-to-cart {
         font-family: $font-HelveticaNeueLT-book;
+        background: $black;
+        border-color: $black;
+        color: $white;
     }
 
     .engraving-btn, .debossing-btn {
@@ -99,6 +101,10 @@
             .product-name {
                 font-family: $font-HelveticaNeueLT-bold
             }
+        }
+
+        .image-container {
+            background-color: $white;
         }
     }
 

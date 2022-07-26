@@ -30,6 +30,14 @@
 
     .result-count {
 
+        p {
+            font-family: $font-HelveticaNeueLT-book;
+
+            span {
+                font-family: $font-HelveticaNeueLT-book;
+            }
+        }
+        
         > span {
             font-family: $font-HelveticaNeueLT-book;
         }
@@ -90,6 +98,7 @@
     }
    
     .product-tile {
+        background: $white;
 
         .promotions, .plp-promotions {
            
@@ -129,6 +138,7 @@
 
             .tile-discription, .product-not-available-msg {  
                 font-family: $font-HelveticaNeueLT-book;
+                max-height: rem(39);
             }
         }
     }
@@ -145,5 +155,13 @@
         p {
             font-family: $font-HelveticaNeueLT-book;
         }
+    }
+}
+
+
+.search-nav {
+
+    .nav-link {
+        font-family: $font-HelveticaNeueLT-medium;
     }
 }
