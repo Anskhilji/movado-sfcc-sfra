@@ -8,39 +8,39 @@ header {
 
         .desktop-search {
             min-height: rem(170);
-            
+
             .search-suggestions {
-        
+
                 h3 {
-                    font-family: $font-HelveticaNeueLT-medium; 
+                    font-family: $font-HelveticaNeueLT-medium;
                 }
 
                 .category-slot {
-            
+
                     a {
-                        font-family: $font-HelveticaNeueLT-book;            
+                        font-family: $font-HelveticaNeueLT-book;
                     }
                 }
             }
-            
+
             .search-close {
-              font-family: $font-HelveticaNeueLT-book;
+                font-family: $font-HelveticaNeueLT-book;
             }
-           
+
         }
 
         .header-search-field {
-            font-family: $font-HelveticaNeueLT-medium; 
+            font-family: $font-HelveticaNeueLT-medium;
         }
 
         .user {
-            
+
             &.user-not-login {
-      
+
                 .popover {
-            
+
                     .btn {
-                        font-family: $font-HelveticaNeueLT-medium; 
+                        font-family: $font-HelveticaNeueLT-medium;
                     }
                 }
             }
@@ -48,8 +48,8 @@ header {
 
         .suggestions {
 
-            .items-header > div {
-                font-family: $font-HelveticaNeueLT-medium; 
+            .items-header>div {
+                font-family: $font-HelveticaNeueLT-medium;
             }
 
             .item {
@@ -58,7 +58,7 @@ header {
                     font-family: $font-HelveticaNeueLT-book;
 
                     a {
-                        font-family: $font-HelveticaNeueLT-book; 
+                        font-family: $font-HelveticaNeueLT-book;
                     }
                 }
             }
@@ -67,18 +67,18 @@ header {
         &.ebl-header-sec {
 
             @include media-breakpoint-up(lg) {
-                
+
                 &.new-header {
-                    
+
                     .logo-ebl-box {
                         margin-top: rem(10);
-                        
+
                         &.logo-ebl {
                             overflow: hidden;
                             height: rem(24);
                         }
                     }
-                    
+
                     .logo-link {
 
                         img {
@@ -107,19 +107,19 @@ header {
                     }
                 }
             }
-            
+
             // when the sticky add the styling apply
             &.new-header {
-            
+
                 .header-menu-wrapper {
 
                     &.sticky-header {
-        
+
                         .overlay {
                             height: rem(98);
                         }
                     }
-                }     
+                }
             }
 
             //whitout sticky apply the syling apply
@@ -130,9 +130,9 @@ header {
                 }
 
                 @include media-breakpoint-down(lg) {
-                    
+
                     .logo-ebl-box {
-                        
+
                         &.logo-ebl {
                             overflow: hidden;
                             height: rem(24);
@@ -143,7 +143,7 @@ header {
                             }
                         }
                     }
-                
+
                     .logo-link {
 
                         img {
@@ -154,6 +154,38 @@ header {
 
                 // menu styling
                 @import "menu";
+            }
+        }
+
+        .top-search-tiles {
+
+            .product {
+        
+        
+                .product-tile {
+        
+                    .out-of-stock {
+                        font-family: $font-HelveticaNeueLT-book;
+                    }
+        
+                    .new-product,
+                    .pre-order {
+                        font-family: $font-HelveticaNeueLT-book;
+                    }
+        
+                    .tile-body {
+        
+                        .price {
+                            font-family: $font-HelveticaNeueLT-book;
+                        }
+                        
+                        .pdp-link {
+                            .product-name {
+                                font-family: $font-HelveticaNeueLT-medium;
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -173,3 +205,5 @@ header {
         }
     }
 }
+
+
