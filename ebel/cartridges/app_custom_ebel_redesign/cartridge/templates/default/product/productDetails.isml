@@ -91,36 +91,28 @@
                             <!-- Prices -->
                             <div class="prices">
                                 <iscomment> Custom Start: Product price shows when following requirements meet </iscomment>
-                                <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
-                                    <isset name="price" value="${product.price}" scope="page" />
-                                    <isinclude template="product/components/pricing/main" />
-                                </isif>
+                                <isset name="price" value="${product.price}" scope="page" />
+                                <isinclude template="product/components/pricing/main" />
                             </div>
                             <div class = "d-block d-md-none">
                             <iscomment> Custom Start: Product price shows when following requirements meet </iscomment>
-                                <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
-                                    <isset name="fpname" value="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" scope="page" />
-                                    <isset name="context" value="pdp" scope="page" />
-                                    <isset name="country" value="${request.httpParameterMap.get('country').value}" scope="page" />
-                                    <isinclude url="${URLUtils.https('Affirm-AffirmBanner', 'pid', product.id, 'context', context, 'fpname', fpname, 'country', country)}"/>
-                                </isif>    
+                                <isset name="fpname" value="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" scope="page" />
+                                <isset name="context" value="pdp" scope="page" />
+                                <isset name="country" value="${request.httpParameterMap.get('country').value}" scope="page" />
+                                <isinclude url="${URLUtils.https('Affirm-AffirmBanner', 'pid', product.id, 'context', context, 'fpname', fpname, 'country', country)}"/>
                             </div>
                             <div class = "d-none d-md-block">
                             <iscomment> Custom Start: Affirm text shows when following requirements meet </iscomment>
-                                <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
-                                    <isset name="fpname" value="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" scope="page" />
-                                    <isset name="context" value="pdp" scope="page" />
-                                    <isset name="country" value="${request.httpParameterMap.get('country').value}" scope="page" />
-                                    <isinclude url="${URLUtils.https('Affirm-AffirmBanner', 'pid', product.id, 'context', context, 'fpname', fpname, 'country', country)}"/>
-                                </isif>
+                                <isset name="fpname" value="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" scope="page" />
+                                <isset name="context" value="pdp" scope="page" />
+                                <isset name="country" value="${request.httpParameterMap.get('country').value}" scope="page" />
+                                <isinclude url="${URLUtils.https('Affirm-AffirmBanner', 'pid', product.id, 'context', context, 'fpname', fpname, 'country', country)}"/>
                             </div>
                             <!-- Applicable Promotions -->
                             <iscomment> Custom Start: Promotions shows when following requirements meet </iscomment>
-                            <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
-                                <div class="promotions">
-                                    <isinclude template="product/components/promotions" />
-                                </div>
-                            </isif>
+                            <div class="promotions">
+                                <isinclude template="product/components/promotions" />
+                            </div>
 
                             <iscomment> Custom Start: Clyde Integration </iscomment>
                             <isif condition = "${dw.system.Site.current.preferences.custom.clydeWidgetDisplay}">
@@ -135,12 +127,10 @@
 
                             <!-- Product Availability -->
                             <iscomment> Custom Start: Affirm text shows when following requirements meet </iscomment>
-                            <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
-                                <div class="availability mb-3 product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
-                                    data-available="${product.available}">
-                                    <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
-                                </div>
-                            </isif>
+                            <div class="availability mb-3 product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
+                                data-available="${product.available}">
+                                <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
+                            </div>
                                 <!-- Cart and [Optionally] Apple Pay -->
                             <div class="cart-wishlist ${product.available && product.readyToOrder ? '' : 'cart-wishlist-out-of-stock'}">
                                 <iscomment> Custom Start: Adding Esw updated cartridge code for add to cart button and applepay </iscomment>
@@ -223,10 +213,8 @@
                     <!-- Prices -->
                     <div class="prices">
                         <iscomment> Custom Start: Product price shows when following requirements meet </iscomment>
-                        <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
-                            <isset name="price" value="${product.price}" scope="page" />
-                            <isinclude template="product/components/pricing/main" />
-                        </isif>
+                        <isset name="price" value="${product.price}" scope="page" />
+                        <isinclude template="product/components/pricing/main" />
                     </div>
                     <!-- Cart and [Optionally] Apple Pay -->
                     <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
