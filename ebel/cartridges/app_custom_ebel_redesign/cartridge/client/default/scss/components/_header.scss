@@ -29,7 +29,7 @@ header {
            
         }
 
-        .header-search-field{
+        .header-search-field {
             font-family: $font-HelveticaNeueLT-medium; 
         }
 
@@ -75,7 +75,7 @@ header {
                         
                         &.logo-ebl {
                             overflow: hidden;
-                            height: 1.5rem;
+                            height: rem(24);
                         }
                     }
                     
@@ -107,6 +107,7 @@ header {
                     }
                 }
             }
+            
             // when the sticky add the styling apply
             &.new-header {
             
@@ -134,7 +135,7 @@ header {
                         
                         &.logo-ebl {
                             overflow: hidden;
-                            height: 1.5rem;
+                            height: rem(24);
                             margin-top: rem(7);
 
                             img {
