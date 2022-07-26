@@ -33,6 +33,9 @@
 
     .add-to-cart {
         font-family: $font-HelveticaNeueLT-book;
+        background: $black;
+        border-color: $black;
+        color: $white;
     }
 
     .engraving-btn, .debossing-btn {
