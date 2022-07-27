@@ -48,6 +48,8 @@ function getProductSearchHit(apiProduct) {
  */
 module.exports = function productTile(product, apiProduct, productType, params, productSetStockAvailabilityModel, factory) {
     var productSearchHit = getProductSearchHit(apiProduct);
+    var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
+    var ociPreOrderParameters = productCustomHelper.getOCIPreOrderParameters(apiProduct);
     if (!productSearchHit) {
         return null;
     }
@@ -101,5 +103,11 @@ module.exports = function productTile(product, apiProduct, productType, params, 
     /**
      * Custom End:
      */
+    if (!empty(ociPreOrderParameters)) {
+        Object.defineProperty(product, 'ociPreOrderParameters', {
+            enumerable: true,
+            value: ociPreOrderParameters
+        });
+    }
     return product;
 };

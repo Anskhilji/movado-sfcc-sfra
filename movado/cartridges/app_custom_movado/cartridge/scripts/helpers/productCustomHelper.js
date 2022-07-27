@@ -173,6 +173,25 @@ function getCurrentCountry() {
     return availableCountry;
 }
 
+function getOCIPreOrderParameters(apiProduct) {
+    try {
+        var ociPreOrderObject = {};
+        if (!empty(apiProduct)) {
+            var productAvailabilityModel = apiProduct.getAvailabilityModel();
+            var ociPreOrderProductAllocation = productAvailabilityModel.inventoryRecord.allocation.value;
+            var ociPreOrderProductATO = productAvailabilityModel.inventoryRecord.ATS.value;
+            var ociPreOrderProductFuture = productAvailabilityModel.inventoryRecord.backorderable;
+            ociPreOrderObject.ociPreOrderProductAllocation = !empty(ociPreOrderProductAllocation) ? ociPreOrderProductAllocation : '';
+            ociPreOrderObject.ociPreOrderProductATO = !empty(ociPreOrderProductATO) ? ociPreOrderProductATO : '';
+            ociPreOrderObject.ociPreOrderProductFuture = !empty(ociPreOrderProductFuture) ? ociPreOrderProductFuture : '';
+        }
+        return ociPreOrderObject;
+    } catch (e) {
+        Logger.error('(productCustomHelper.js -> getOCIPreOrderParameters) Error occured while getting omni channel inventory attributes: ' + e.stack, e.message, apiProduct.ID);
+        return '';
+    }
+}
+
 module.exports = {
     getExplicitRecommendations: getExplicitRecommendations,
     getCollectionName: getCollectionName,
@@ -181,5 +200,6 @@ module.exports = {
     getPDPMarketingContentAssetHTML: getPDPMarketingContentAssetHTML,
     getCurrentCountry: getCurrentCountry,
     getPDPContentAssetHTML: getPDPContentAssetHTML,
-    getPLPCustomURL: getPLPCustomURL
+    getPLPCustomURL: getPLPCustomURL,
+    getOCIPreOrderParameters: getOCIPreOrderParameters
 };
