@@ -195,6 +195,19 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
                 session.custom.klarnaRiskifiedFlag = '';
                 res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
                 return next();
+            } else {
+                var RiskifiedOrderDescion = require('*/cartridge/scripts/riskified/RiskifiedOrderDescion');
+                if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'declined') {
+                        // Riskified order declined response from decide API
+                        riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order);
+                        if (riskifiedOrderDeclined) {
+                            res.redirect(URLUtils.url('Checkout-Declined', 'ID', order.orderNo));
+                            return next();
+                        }
+                } else if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'approved') {
+                    // Riskified order approved response from decide API
+                    RiskifiedOrderDescion.orderApproved(order);
+                }
             }
         } catch (e) {
             // put logger

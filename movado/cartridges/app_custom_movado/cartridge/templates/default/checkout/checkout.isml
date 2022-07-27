@@ -24,17 +24,14 @@
     
     <div id="checkout-main" class="data-checkout-stage data-checkout-stage-redesign <isif condition="${pdict.order.usingMultiShipping && pdict.order.shipping.length > 1}">multi-ship</isif>" data-customer-type="${pdict.customer.registeredUser ? 'registered' : 'guest'}" data-checkout-stage="${pdict.currentStage}" data-checkout-get-url="${URLUtils.https('CheckoutServices-Get')}">
         
-        <div class="row d-sm-none no-gutters pop-up-container-box  cart-product-mobile-view">
+        <div class="row d-sm-none no-gutters pop-up-container-box cart-product-mobile-view">
             <div class="col-12 pop-up-box-space d-flex justify-content-between">
-                <p class="grand-total-label top-grandtotal-label">${Resource.msg('order.confirmation.email.label.orderTotal','order',null)} (${Resource.msgf('label.number.items.in.cart','cart', null, pdict.order.items.totalQuantity)})</p>
-                <p class="grand-total-price top-grand-total-price-wrapper">${pdict.order.totals.subTotal}</p>
+                <p class="grand-total-label top-grandtotal-label">${Resource.msg('order.confirmation.email.label.orderTotal','order',null)} (${pdict.order.items.totalQuantity == 1 ? Resource.msgf('label.cart.signle.item','cart', null, pdict.order.items.totalQuantity) : Resource.msgf('label.number.items.in.cart','cart', null, pdict.order.items.totalQuantity)})</p>
+                <p class="grand-total-price top-grand-total-price-wrapper">${pdict.order.totals.grandTotal}</p>
             </div>
             <div class="col-12 checkout-promo-section checkout-promo-redesign d-none-promo-box">
                  <isinclude template="checkout/orderSummaryPopUp.isml" />
             </div>
-        </div>
-        <div class="alert card alert-dismissible error-message mt-2" role="alert">
-            <p class="error-message-text checkout-global-error mt-2"></p>
         </div>
 
         <div class="checkout-content container position-relative">
@@ -42,6 +39,11 @@
             <div class="row checkout-content-container-inner">
 
                 <div class="col-md-7 left-section">
+                    <div class="col-12 col-error-container">
+                        <div class="alert card alert-dismissible error-message mt-4" role="alert">
+                            <p class="error-message-text checkout-global-error mt-2"></p>
+                        </div>
+                    </div>
                     <!-- Progressbar Template for desktop -->
                     <div class="d-none d-sm-block progressbar-container">
                         <isinclude template="checkout/checkoutProgressbar.isml" />
@@ -122,19 +124,16 @@
                                 <div class="checkout-coupons-and-promos coupons-wrapper">
                                     <isinclude template="cart/cartCouponDisplay" />
                                 </div>
-                                <div class="checkout-coupons-remove">
-                                    <isinclude template="cart/cartRemoveCouponModal"/>
-                                </div>
                             </div>
                             <div class="card order-summary-card card-border-none-wrapper card-summary-wrapper-container">
 
                                 <div class="card-body order-total-summary">
-                                    <isinclude template="checkout/orderTotalSummary" />
+                                    <isinclude template="checkout/orderTotalSummaryRedesign" />
                                 </div>
                             </div>
                             
                             <div class="flex-box-contianer-bottom">
-                                <isinclude template="checkout/orderProductSummary" />
+                                <isinclude template="checkout/orderProductSummaryRedesign" />
 
                                 <!----------------------------------------------------------------------------------->
                                 <!-- Help and Phone -->
@@ -154,5 +153,7 @@
         </div>
     </div>
     <isinclude template="checkout/shipping/shippingAddressTemplate" />
-
+ <div class="checkout-coupons-remove">
+    <isinclude template="cart/cartRemoveCouponModal"/>
+</div>
 </isdecorate>

@@ -755,11 +755,21 @@ header {
     .right-section {
 
         .right-content {
+            padding-top: rem(88.8);
+
+            @include custom-media-query-1440($large-screen-width-1440) {
+                padding-top: rem(88.8);
+            }
+
             @include media-breakpoint-down(md) {
                 padding-top: rem(121.6);
             }
             
             @include media-breakpoint-down(sm) {
+                padding-top: rem(0);
+            }
+            
+            @include custom-media-query-max($medium-screen-width) {
                 padding-top: rem(0);
             }
         }
@@ -900,6 +910,79 @@ header {
                             }
                         }
                     }
+                }
+            }
+        }
+    }
+}
+
+.data-checkout-stage {
+
+    &.data-checkout-stage-redesign {
+
+        .order-summary-container {
+
+            .card-border-none-wrapper {
+
+                .card-summary-wrapper-container {
+                    @include media-breakpoint-down(xs) {
+                        margin-bottom: rem(18.4);
+                    }
+                }
+            }
+
+            .order-product-summary {
+
+                .product-summary-block {
+
+                    .product-card-wrapper {
+
+                        &.product-card-container {
+                            
+                            .product-line-item-details {
+                                @include media-breakpoint-down(xs) {
+                                    margin-top: rem(8);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .checkout-content-container-inner {
+
+            .left-section {
+        
+                .col-error-container {
+                    padding: rem(0) rem(10);
+                    margin-top: rem(55);
+
+                    @include custom-media-query-max($medium-screen-width) {
+                        margin-top: rem(55);
+                    }
+
+                    @include media-breakpoint-down(xs) {
+                        margin-top: rem(0);
+                        padding: rem(0);
+                    }
+
+                    @include media-breakpoint-up(md) {
+                        margin-top: rem(114);
+                    }
+
+                    @include media-breakpoint-up(lg) {
+                        margin-top: rem(60);
+                    }
+
+                    @include media-breakpoint-up(xl) {
+                        margin-top: rem(65);
+                    }
+        
+                    @include custom-media-query-1440($large-screen-width-1440) {
+                        margin-top: rem(55);
+                    }
+
                 }
             }
         }

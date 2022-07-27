@@ -1,0 +1,167 @@
+@import '~movado/search';
+@import '~movad_redesign/search';
+@import 'vars';
+
+.plp-new-design {
+
+    .filter-bar {
+
+        .filter-value {
+
+            a {
+                font-family: $font-HelveticaNeueLT-medium;
+            }
+        }
+    }
+
+    .product-grid {
+
+        #show-more-update {
+            font-family: $font-HelveticaNeueLT-book;
+        }
+    }
+
+    .filter-btn {
+
+        button {
+            font-family: $font-HelveticaNeueLT;
+        }
+    }
+
+    .result-count {
+
+        p {
+            font-family: $font-HelveticaNeueLT-book;
+
+            span {
+                font-family: $font-HelveticaNeueLT-book;
+            }
+        }
+        
+        > span {
+            font-family: $font-HelveticaNeueLT-book;
+        }
+
+        .make-bold, .category-name {
+            font-family: $font-HelveticaNeueLT;
+        }
+    }
+
+    .plp-show-more {
+
+        button {
+            font-family: $font-HelveticaNeueLT-medium;
+        }
+    }
+
+    .refinement-bar {
+
+        .custom-select {
+            font-family: $font-HelveticaNeueLT-medium;
+        }
+
+        .custom-select {
+
+            .custom-select__option {
+                font-family: $font-HelveticaNeueLT-book;
+            }
+            
+            &> .custom-select__option {
+                font-family: $font-HelveticaNeueLT-medium;
+            }
+        }
+
+        .refinement.card {
+           
+            .card-header {
+                font-family: $font-HelveticaNeueLT-book;
+            }
+
+            .selection-tab {
+                font-family: $font-HelveticaNeueLT-medium;
+            }
+        }
+
+        .close-refinebar {
+            font-family: $font-HelveticaNeueLT-medium;
+        }
+
+        .header-bar {
+          
+            .secondary-bar {
+
+                .reset {
+                    font-family: $font-HelveticaNeueLT;
+                }
+            }
+        }
+    }
+   
+    .product-tile {
+        background: $white;
+
+        .promotions, .plp-promotions {
+           
+            .callout.promo-msg {
+                font-family: $font-HelveticaNeueLT-medium;
+            }
+        }
+
+        .out-of-stock, .pre-order {
+            font-family: $font-HelveticaNeueLT-medium;
+        }
+
+        .plp-botton-text {
+
+            .pre-order-text {
+                font-family: $font-HelveticaNeueLT-book;
+            } 
+        }
+
+        .new-product {
+            font-family: $font-HelveticaNeueLT-medium;
+        }
+
+        .tile-body {
+
+            .price {
+                font-family: $font-HelveticaNeueLT-book;
+            }
+
+            .product-name {
+                font-family: $font-HelveticaNeueLT;
+            }
+
+            .tile-detail-btn {
+                font-family: $font-HelveticaNeueLT-medium;
+            }
+
+            .tile-discription, .product-not-available-msg {  
+                font-family: $font-HelveticaNeueLT-book;
+                max-height: rem(36);
+            }
+        }
+    }
+}
+
+.plp-discover.plp-new-design {
+
+    .discover-head {
+    
+        h2 {
+            font-family: $font-HelveticaNeueLT-medium;
+        }
+
+        p {
+            font-family: $font-HelveticaNeueLT-book;
+        }
+    }
+}
+
+
+.search-nav {
+
+    .nav-link {
+        font-family: $font-HelveticaNeueLT-medium;
+    }
+}

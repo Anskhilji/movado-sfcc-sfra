@@ -459,11 +459,15 @@ function updateMultiShipInformation(order) {
     var $submitShippingBtn = $('button.submit-shipping');
     $('.shipping-error .alert-danger').remove();
 
-    if ($('.form-control.input-wrapper-checkout').hasClass('is-invalid')) {
-        $('.form-control.input-wrapper-checkout').closest('.mx-field-wrapper').find('.info-icon.info-icon-email').addClass('icon-right-wrapper');
-    } else {
-        $('.info-icon.info-icon-email').removeClass('icon-right-wrapper');
-    }
+    $('input.input-wrapper-checkout,select.custom-select-box').each(function () {
+        if ($(this).val().length > 0 && !$(this).hasClass('.is-invalid')) {
+            $(this).removeClass('is-invalid');
+            $(this).closest('.mx-field-wrapper').find('.info-icon.info-icon-email').removeClass('icon-right-wrapper');
+        } else {
+            $(this).closest('.mx-field-wrapper').find('.info-icon.info-icon-email').addClass('icon-right-wrapper');
+            $('.shippingAddressTwo').closest('.mx-field-wrapper').find('.info-icon.info-icon-email').removeClass('icon-right-wrapper');
+        }
+    });
 
     if (order.usingMultiShipping) {
         $checkoutMain.addClass('multi-ship');
@@ -474,7 +478,9 @@ function updateMultiShipInformation(order) {
         $submitShippingBtn.prop('disabled', null);
     }
 
-    $('body').trigger('shipping:updateMultiShipInformation', { order: order });
+    $('body').trigger('shipping:updateMultiShipInformation', {
+        order: order
+    });
 }
 
 /**

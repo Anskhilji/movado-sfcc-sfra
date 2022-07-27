@@ -6,6 +6,12 @@
         assets.addJs('/js/productDetail.js');
         assets.addCss('/css/product/detail.css');
     </isscript>
+
+    <isset name="isListrakEnable" value="${!empty(dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) ? dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled : false}" scope="page" />
+    <isif condition="${isListrakEnable}">
+        <isinclude url="${URLUtils.https('ltkActivityTracking-TrackRequest', 'pid', pdict.product.id)}"/>  
+    </isif>
+
     <isif condition="${dw.system.Site.current.preferences.custom.EUMEnabled}">
         <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.pdp', 'eum', null))}"/>
     </isif>
@@ -166,7 +172,7 @@
                         </isif>
                         <iscomment> Custom Start: Clyde Integration </iscomment>
                             <isif condition = "${dw.system.Site.current.preferences.custom.clydeWidgetDisplay}">
-                                <div id="clyde-cta" >
+                                <div class="col-md-10 col-12" id="clyde-cta" >
                                 </div>
                             </isif>
                         <iscomment> Custom End: </iscomment>
@@ -175,12 +181,13 @@
                                 <!-- Cart and [Optionally] Apple Pay -->
                                 <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id, 'isRedesign', true)}"/>
                             </div>
-
-                            <iscomment> <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
-                                <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
-                                    <div class="d-flex"><isinclude template="product/components/smartGift" /></div>
-                                </isif>    
-                            </isif> </iscomment>
+                            <div class="smart-gift-box-new smart-gift-box-new-mcs smart-gift-box-new-mcs-new-design">
+                                <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
+                                    <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
+                                        <div class="d-block smart-main"><isinclude template="product/components/smartGift" /></div>
+                                    </isif>    
+                                </isif> 
+                            </div>
                         </div>
 
                         <div class="wishlist-row">

@@ -7,7 +7,12 @@
         assets.addJs('/js/productDetail.js');
         assets.addCss('/css/product/detailRedesign.css');
     </isscript>
+    
     <isset name="isListrakEnable" value="${!empty(dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) ? dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled : false}" scope="page" />
+    <isif condition="${isListrakEnable}">
+        <isinclude url="${URLUtils.https('ltkActivityTracking-TrackRequest', 'pid', pdict.product.id)}"/>  
+    </isif>
+    
     <isif condition="${dw.system.Site.current.preferences.custom.EUMEnabled}">
         <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.pdp', 'eum', null))}"/>
     </isif>
@@ -57,6 +62,22 @@
                                     <isinclude template="product/components/productRating" />
                                 </isif>
                             </div>
+                        </div>
+                        <div class="tax-duties">
+                            <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
+                            <isif condition="${isEswEnabled}" >
+                                <isset name="domesticAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
+                                <isset name="isTaxDutiesAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isTaxDutiesAllowedCountry()}" scope="page" />
+                                <isif condition="${!empty(isTaxDutiesAllowedCountry)}">
+                                    <isif condition="${!domesticAllowedCountry && isTaxDutiesAllowedCountry}">
+                                        <isslot id="cs-esw-tax-duties" description="Tax Duties" context="global" />
+                                    </isif>
+                                <iselse/>
+                                    <isif condition="${!domesticAllowedCountry}">
+                                        <isslot id="cs-esw-tax-duties" description="Tax Duties" context="global" />
+                                    </isif>
+                                </isif>
+                            </isif>
                         </div>
                         <!-- Affirm Text -->
                         <div>

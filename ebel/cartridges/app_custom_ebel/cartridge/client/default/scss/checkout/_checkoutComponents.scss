@@ -100,7 +100,7 @@ $stored-payment-spacing: rem(16);
     }
   }
   .custom-select {
-    font-family: $font-medium;
+    font-family: $font-HelveticaNeueLT-medium;
     font-size: rem(14);
     line-height: rem(17);
     letter-spacing: rem(0.4);
@@ -139,7 +139,7 @@ $stored-payment-spacing: rem(16);
     .order-receipt-label,
     .text-right,
     .sub-total {
-      font-family: $font-medium;
+      font-family: $font-HelveticaNeueLT-medium;
       font-size: rem(16);
       letter-spacing: rem(0.4);
       line-height: rem(21);
@@ -150,7 +150,7 @@ $stored-payment-spacing: rem(16);
     .grand-total {
       .order-receipt-label,
       .text-right {
-        font-family: $font-bold;
+        font-family: $font-HelveticaNeueLT-bold;
         font-size: rem(18);
         letter-spacing: rem(0.4);
         line-height: rem(22);
@@ -260,9 +260,14 @@ $stored-payment-spacing: rem(16);
   }
 
   &.leading-lines-wrapper {
-      padding: rem(8) 0;
       border-bottom: rem(1) dashed $grey-dark-3;
-
+      &:first-child {
+        padding-bottom: rem(8);
+      }
+      &:not(:first-of-type) {
+        padding: rem(8) 0;
+      }
+      
       .start-lines {
 
           &::before {
@@ -305,7 +310,7 @@ $stored-payment-spacing: rem(16);
 }
 
 .summary-details {
-  font-family: $font-book;
+  font-family: $font-HelveticaNeueLT-book;
   font-size: rem(14);
   letter-spacing: rem(0.4);
   line-height: rem(21);
@@ -319,7 +324,7 @@ $stored-payment-spacing: rem(16);
 }
 
 .summary-section-label {
-  font-family: $font-medium;
+  font-family: $font-HelveticaNeueLT-medium;
   font-size: rem(14);
   letter-spacing: rem(0.4);
   line-height: rem(17);
@@ -770,11 +775,6 @@ $stored-payment-spacing: rem(16);
         }
     }
     
-    &.data-checkout-stage-redesign {
-        margin-bottom: rem(0);
-        padding-top: rem(16);
-    }
-
     .card-body {
 
         form {
@@ -871,6 +871,51 @@ $stored-payment-spacing: rem(16);
                     }
                 }
             }
+        }
+    }
+}
+
+#mainContent {
+  
+    .data-checkout-stage {
+
+        &.data-checkout-stage-redesign {
+          margin-bottom: rem(0);
+          padding-top: rem(16);
+
+          .pop-up-container-box {
+
+              .pop-up-box-space {
+                  padding-top: rem(10);
+              }
+          }
+          .order-product-summary {
+      
+              .product-summary-block {
+      
+                    .card {
+        
+                          &.product-line-item {
+          
+                                &.product-card-wrapper {
+                                  
+                                      &.product-card-container {
+                                        
+                                          &:last-child {
+                                            border-bottom: rem(0);
+                                          }
+
+                                          .product-line-item-details {
+                                              @include media-breakpoint-down(xs) {
+                                                  margin-top: rem(16);
+                                              }
+                                          }
+                                      }
+                                }
+                          }
+                    }
+              }
+          }
         }
     }
 }

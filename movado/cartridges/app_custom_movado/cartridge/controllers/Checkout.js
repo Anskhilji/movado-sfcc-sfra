@@ -125,7 +125,7 @@ server.append(
                 shippable: allValid,
                 countryCode: currentLocale.country,
                 containerView: 'basket',
-                defaultShipment: true
+                defaultShipment: true,
             }
         );
         
@@ -136,10 +136,27 @@ server.append(
             totals: totals,
             customerEmail: viewData.order.orderEmail ? viewData.order.orderEmail : null,
             expirationYears: creditCardExpirationYears,
-            countryCode: countryCode
+            countryCode: countryCode,
+            couponLineItems: currentBasket.couponLineItems
         });
 
         next();
+});
+
+server.get('Declined', function (req, res, next) {
+    var Constants = require('~/cartridge/scripts/helpers/utils/Constants');
+
+    var orderDeclinedObj = {
+        orderNumber: req.querystring.ID,
+        status: Constants.RISKFIED_ORDER_DECLINED
+    };
+
+    res.setViewData({
+        orderDeclinedObj: JSON.stringify(orderDeclinedObj)
+    });
+    
+    res.render('checkout/declinedOrder');
+    next();
 });
 
 module.exports = server.exports();

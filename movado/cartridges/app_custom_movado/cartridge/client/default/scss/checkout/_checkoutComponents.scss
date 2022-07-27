@@ -140,6 +140,7 @@ $stored-payment-spacing: rem(16);
             .top-grandtotal-label {
                 padding-top: rem(10);
                 margin-bottom: rem(6);
+                
             }
 
             .grand-total-price {
@@ -364,6 +365,10 @@ $stored-payment-spacing: rem(16);
 
 .product-summary-block {
   margin: 1em 0;
+  @include media-breakpoint-down(xs) {
+    margin: rem(0);
+  }
+
   .line-item-name {
     @extend %card-header;
     text-transform: uppercase;
@@ -414,8 +419,13 @@ $stored-payment-spacing: rem(16);
   }
 
     &.leading-lines-wrapper {
-        padding: rem(8) 0;
         border-bottom: rem(1) dashed $grey-dark-3;
+        &:first-child {
+          padding-bottom: rem(8);
+        }
+        &:not(:first-of-type) {
+          padding: rem(8) 0;
+        }
 
         &.sales-tax-item {
             border-bottom: rem(1) solid $grey-dark-3;
@@ -478,7 +488,7 @@ $stored-payment-spacing: rem(16);
                 margin-bottom: rem(0);
               
               .shipping-total-cost {
-                  color: $parrot-green;
+                  color: $parrot-green2;
               }
 
               span {
@@ -751,14 +761,14 @@ $stored-payment-spacing: rem(16);
 
         .left-section {
 
-          .shipping-section {
-              @include media-breakpoint-down(md) {
-                  padding: rem(0) rem(5);
-              }
-              @include media-breakpoint-down(xs) {
-                  padding: rem(0);
-              }
-          }
+            .shipping-section {
+                @include media-breakpoint-down(md) {
+                    padding: rem(0) rem(5);
+                }
+                @include media-breakpoint-down(xs) {
+                    padding: rem(0);
+                }
+            }
 
             .shipping-method-box-wrapper {
                 margin-top: rem(0);
@@ -1224,6 +1234,7 @@ $stored-payment-spacing: rem(16);
 
         &.grand-total-wrapper{
             padding: rem(8) 0;
+            padding-bottom: rem(0);
       
           .start-lines {
       
@@ -1290,7 +1301,11 @@ $stored-payment-spacing: rem(16);
                   
                             .product-line-item-details {
                                 overflow: hidden;
-                                margin-bottom: rem(30);
+                                margin-bottom: rem(4);
+
+                                @include media-breakpoint-down(xs) {
+                                  margin-top: rem(8);
+                                }
                       
                                 .item-image {
                                     width: rem(100);
@@ -1308,14 +1323,30 @@ $stored-payment-spacing: rem(16);
                                     position: relative;
                                     overflow: hidden;
                                     width: 100%;
+
+                                    p {
+                                      font-size: rem(12);
+                                      font-weight: 500;
+                                      letter-spacing: rem(0.7);
+                                      line-height: rem(10);
+                                      color: $black;
+                                      margin-bottom: rem(10);
+                                      &.clyde-option-price {
+                                        color: $black;
+                                      }
+                                    }
                 
                                     .line-item-attributes {
                                         font-size: rem(12);
                                         font-weight: 500;
                                         letter-spacing: rem(0.7);
                                         line-height: rem(10);
-                                        color: $grey18;
+                                        color: $grey8;
                                         margin-bottom: rem(10);
+
+                                        &.clyde-option-attributes {
+                                           line-height: normal;
+                                        }
                                     }
                         
                                     .line-item-header {
@@ -1333,6 +1364,11 @@ $stored-payment-spacing: rem(16);
                                             line-height: rem(22);
                                             color: $light-black2;
                                             text-transform: unset;
+                                            margin-bottom: rem(0);
+                                            
+                                            span {
+                                                line-height: rem(22);
+                                            }
                                         }
                                       
                                         .item-options {

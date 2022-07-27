@@ -58,6 +58,10 @@
     &.product-card-container {
         margin-bottom: rem(30);
 
+        &:last-child {
+            border-bottom: none !important;
+        }
+
         .product-line-item-details {
 
             .item-attributes {
@@ -68,6 +72,15 @@
                     letter-spacing: rem(0.7);
                     line-height: rem(10);
                     color: $grey18;
+
+                    &.model-name {
+                        font-size: rem(12);
+                        font-weight: 500;
+                        letter-spacing: rem(0.7);
+                        line-height: rem(10);
+                        color: $grey18;
+                        text-transform: uppercase;
+                    }
                 }
 
                 .line-item-availability {
@@ -91,10 +104,35 @@
                         line-height: rem(18);
                         color: $grey8;
                     }
+
+                    .original-price {
+                        font-size: rem(12);
+                        font-weight: 500;
+                        letter-spacing: rem(0.86);
+                        line-height: rem(10);
+                        color: $grey8;
+                        margin-bottom: rem(10) !important;
+                    }
+
+                    .savings {
+                        font-size: rem(12);
+                        font-weight: 500;
+                        letter-spacing: rem(0.86);
+                        line-height: rem(10);
+                        margin-bottom: rem(10) !important;
+                    }
+
+                    .total-amount {
+                        font-size: rem(12);
+                        letter-spacing: rem(0.86);
+                        line-height: rem(10);
+                        margin-bottom: rem(10) !important;
+                        color: $grey8;
+                    }
                 }
                 
                 .item-quantity-container-box {
-                    margin-top: rem(30);
+                    margin-top: rem(10);
                 }
 
                 .item-options {

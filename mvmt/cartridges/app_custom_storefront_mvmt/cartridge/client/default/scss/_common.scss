@@ -644,6 +644,8 @@ div {
                 width: auto;
                 max-width: fit-content;
                 background-color: transparent;
+                display: flex;
+                margin-bottom: rem(20);
 
                 .flex-box-promo-code {
                     display: flex;
@@ -659,6 +661,7 @@ div {
                     color: $parrot-green;
                     text-transform: capitalize;
                     margin-right: rem(10);
+                    display: none;
                 }
 
                 .coupon-not-applied {
@@ -667,6 +670,7 @@ div {
                     line-height: rem(24);
                     text-transform: capitalize;
                     margin-right: rem(10);
+                    display: none;
                 }
 
                 .coupon-code {
@@ -678,32 +682,46 @@ div {
                     align-items: center;
                     justify-content: space-between;
 
-                    .clear-icon-btn {
-                        background-image: url("../images/clear_black_icon.svg");
-                        width: rem(16);
-                        height: rem(16);
+                    .remove-coupon {
+                        margin-left: rem(5);
+                        color: $gossamer;
                     }
                 }
             }
         }
 
         .collapsible-promo-redesign-wrapper {
+            margin-bottom: rem(15);
 
-            .promo-label-wrapper {
-                color: $cerulean;
-                font-size: rem(13);
-                font-weight: 500;
-                letter-spacing: rem(0.7);
-                line-height: rem(24);
-                text-transform: capitalize;
-                width: auto;
-                &::after {
-                    content: "";
+            @include media-breakpoint-down(xs) {
+                margin-bottom: rem(15);
+            }
+
+            .promo-box-space {
+
+                .promo-label-wrapper {
+
+                    &.title {
+                        color: $cerulean;
+                        font-size: rem(13);
+                        font-weight: 500;
+                        letter-spacing: rem(0.93);
+                        line-height: rem(24);
+                        text-transform: capitalize;
+                        width: auto;
+                        margin-bottom: rem(0);
+                        
+                        &::after {
+                            content: "";
+                        }
+                    }
                 }
             }
 
             .promo-input-wrapper {
+                margin: rem(0);
                 position: relative;
+                margin-top: rem(13);
 
                 .checkout-promo-code-submit {
                     position: absolute;
@@ -720,6 +738,11 @@ div {
                         letter-spacing: rem(1);
                         line-height: rem(20);
                         text-transform: capitalize;
+                      
+                        @include media-breakpoint-down(xs) {
+                            font-size: rem(12);
+                            letter-spacing: rem(1.07);
+                        }
 
                         &:hover {
                             background-color: transparent;
@@ -738,12 +761,25 @@ div {
                     border-radius: rem(3);
                     height: rem(45);
                     font-size: rem(12);
-                    letter-spacing: rem(1.25);
-                    padding-top: rem(16);
+                    letter-spacing: rem(0.92);
                     background-color: transparent;
+                    font-weight: 500;
+                    color: $black;
+                    line-height: rem(24);
+                    padding: rem(16) rem(10) rem(6) rem(10);
+                    margin-bottom: rem(0);
+
+                    @include media-breakpoint-down(xs) {
+                        font-weight: 500;
+                        color: $black;
+                        font-size: rem(12);
+                        letter-spacing: rem(0.92);
+                        margin-bottom: rem(0);
+                    }
 
                     &:focus {
                         box-shadow: none;
+                        padding-left: rem(10);
                       
                         &::placeholder {
                             color: transparent;
@@ -753,7 +789,7 @@ div {
                         + .promo-code-coupon-label {
                             transition: 0.25s ease-in-out;
                             top: 0;
-                            left: rem(12.8);
+                            left: rem(11);
                             height: rem(24);
                             color: $grey17;
                             font-size: rem(10);
@@ -772,8 +808,8 @@ div {
 
                 .promo-code-coupon-label {
                     position: absolute;
-                    top: rem(16);
-                    left: rem(12.8);
+                    top: rem(15);
+                    left: rem(11);
                     color: $grey17;
                     transition: 0.25s ease-in-out;
                     width: 100%;
@@ -781,11 +817,12 @@ div {
                     text-transform: capitalize;
                     font-size: rem(12);
                     letter-spacing: rem(0.92);
+                    font-weight: 500;
         
                     &.input-has-value {
                         transition: 0.25s ease-in-out;
                         top: 0;
-                        left: rem(12.8);
+                        left: rem(11);
                         height: rem(24);
                         color: $grey17;
                         font-size: rem(10);
@@ -806,6 +843,19 @@ div {
                 .coupon-error {
                     margin: rem(5) 0;
                 }
+                .promo-label-wrapper { 
+                    margin-bottom: rem(13);
+                    display: inline-block;
+
+                    @include media-breakpoint-down(xs) {
+                        margin-bottom: rem(0);
+                    }
+                }
+            }
+            .coupon-error {
+                &.checkout-coupon-error {
+                    font-size: rem(14);
+                }
             }
         }
 
@@ -813,22 +863,181 @@ div {
             position: absolute;
             width: 100%;
             z-index: 10;
-            height: 70vh;
-            background-color: $white;
+            max-height: 70vh;
+            background-color: $gray8;
             overflow: auto;
             display: none;
             top: rem(10);
-            padding: rem(24) rem(34) rem(0) rem(34);
+            padding: rem(16) rem(24) rem(0) rem(32);
 
             &.pop-up-top-container {
-                top: -4.375rem;
+                top: rem(-70);
+
+                .top-grandtotal-label {
+                    color: $light-black4;
+
+                    &.label-container-wrapper {
+                        margin-bottom: rem(21);
+                        color: $light-black4;
+                        font-weight: 500;
+                        letter-spacing: rem(1);
+                        line-height: rem(20);
+                    }
+                }
+                .top-grand-total-price-wrapper {
+                    color: $light-black4;
+                    font-weight: 500;
+                    letter-spacing: rem(1);
+                    line-height: rem(20);
+                }
+
+                .mob-order-total-m {
+                    margin-bottom: rem(3);
+                    .top-grandtotal-label {
+    
+                        &.label-container-wrapper {
+                            margin-bottom: 0;
+                        }
+                    }
+
+                    .top-grand-total-price-wrapper {
+                        margin-bottom: 0;
+                    }
+                }
             }
   
             .sticky-hide-wrapper {
                 position: sticky;
                 bottom: 0;
-                background: $white;
+                background: $gray8;
                 padding: rem(20) rem(0) rem(20) rem(0);
+            }
+
+            .card-border-none-wrapper {
+
+                &.card-summary-wrapper-container {
+                    
+                    @include media-breakpoint-down(sm) {
+                        margin-bottom: rem(30);
+                    }
+
+                    .order-total-summary {
+
+                        .leading-lines {
+
+                            &.leading-lines-wrapper {
+                        
+                                .start-lines {
+                                    p {
+                                        margin: rem(0);
+                                    }
+                                    .order-receipt-label {
+                                        margin-bottom: rem(0);
+                                        color: $light-black4;
+                                        font-size: rem(13);
+                                        font-weight: 300;
+                                        letter-spacing: rem(0.7);
+                                        line-height: rem(20);
+                                        background-color: transparent;
+
+                                        @include media-breakpoint-down(xs) {
+                                            letter-spacing: rem(0.93);
+                                        }
+                        
+                                        span {
+                                            font-size: rem(13);
+                                            font-weight: 300;
+                                            letter-spacing: rem(0.7);
+                                            line-height: rem(20);
+                                            color: $light-black4;
+                                            text-transform: capitalize;
+                                            background-color: transparent;
+
+                                            @include media-breakpoint-down(xs) {
+                                                letter-spacing: rem(0.93);
+                                            }
+                                        }
+                                    }
+                                }
+                        
+                                .end-lines {
+                        
+                                    .text-right {
+                                        
+                                        &.tax-total {
+                                            color: $light-black4;
+                                            font-size: rem(13);
+                                            font-weight: 300;
+                                            letter-spacing: rem(0.7);
+                                            line-height: rem(20);
+                                            background-color: transparent;
+
+                                            @include media-breakpoint-down(xs) {
+                                                letter-spacing: rem(0.93);
+                                            }
+                                        }
+                        
+                                        span {
+                                            color: $light-black4;
+                                            font-size: rem(13);
+                                            font-weight: 300;
+                                            letter-spacing: rem(0.7);
+                                            line-height: rem(20);
+                                            background-color: transparent;
+
+                                            @include media-breakpoint-down(xs) {
+                                                letter-spacing: rem(0.93);
+                                            }
+                        
+                                            &.product-discount-total {
+                                                color: $gossamer2;
+                                                background-color: transparent;
+                                            }
+                        
+                                            &.order-discount-total {
+                                                color: $gossamer2;
+                                                background-color: transparent;
+                                            }
+                
+                                            &.shipping-total-cost {
+                                                color: $gossamer2;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                    .flex-box-contianer-bottom {
+                        
+                        .grand-total {
+        
+                            &.grand-total-wrapper {
+                
+                                .start-lines {
+                
+                                    .order-receipt-label {
+                                        color: $light-black4;
+                                    }
+                                }
+                
+                                .end-lines {
+                
+                                    .text-right {
+                
+                                        .grand-total {
+                
+                                            &.grand-total-sum {
+                                                color: $light-black4;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
         
@@ -851,3 +1060,4 @@ div {
         }
     }
 }
+

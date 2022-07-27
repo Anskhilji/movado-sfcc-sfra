@@ -104,7 +104,7 @@
                 </isif>
                 <div class="item-quantity-container-box">
                     <div class="item-model line-item-attributes item-quantity-wrapper">
-                    ${Resource.msg('field.selectquantity','cart',null)}:  <span class="line-item-value"> <isprint value="${lineItem.quantity}" formatter="##" /></span>
+                    ${Resource.msg('field.selectquantity.cart','cart',null)}. <span class="line-item-value"> <isprint value="${lineItem.quantity}" formatter="##" /></span>
                     </div>
 
                     <div class="item-total-${lineItem.UUID} price price-box-container">

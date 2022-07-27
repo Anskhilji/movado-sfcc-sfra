@@ -364,6 +364,36 @@ header {
                 max-width: 65.278%;
                 flex: 0 0 65.278%;
             }
+
+            .col-error-container {
+                padding: rem(0) rem(10);
+                margin-top: rem(55);
+
+                @include custom-media-query-max($medium-screen-width) {
+                    margin-top: rem(55);
+                }
+
+                @include media-breakpoint-down(xs) {
+                    margin-top: rem(0);
+                    padding: rem(0);
+                }
+
+                @include media-breakpoint-up(md) {
+                    margin-top: rem(82);
+                }
+
+                @include media-breakpoint-up(lg) {
+                    margin-top: rem(60);
+                }
+
+                @include media-breakpoint-up(xl) {
+                    margin-top: rem(65);
+                }
+    
+                @include custom-media-query-1440($large-screen-width-1440) {
+                    margin-top: rem(55);
+                }
+            }
         }
 
         .right-section {
@@ -387,6 +417,17 @@ header {
             
             @include custom-media-query-max($medium-screen-width) {
                 padding: rem(0) rem(15);
+            }
+
+            .right-content {
+                padding-top: rem(82);
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+
+                @include custom-media-query-max($medium-screen-width) {
+                    padding-top: rem(0);
+                }
             }
         }
 
