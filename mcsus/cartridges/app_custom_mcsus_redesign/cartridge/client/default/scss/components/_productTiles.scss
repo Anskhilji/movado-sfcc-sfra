@@ -38,10 +38,9 @@
     
             // .product-family-name styling
             .product-family-name-redesign {
-                margin: rem(0);
+                margin: rem(0) rem(0) rem(8) rem(0);
                 font-size: rem(16);
                 line-height: rem(20);
-                margin-bottom: rem(8);
 
                 @include media-breakpoint-down(sm) {
                     margin-bottom: rem(14);
@@ -63,8 +62,7 @@
 
             // product name styling
             .pdp-link {
-                margin: rem(0);
-                margin-bottom: rem(8);
+                margin: rem(0) rem(0) rem(8) rem(0);
                 overflow: hidden;
                 text-overflow: ellipsis;
                 display: -webkit-box;
@@ -269,8 +267,7 @@
                                     &.slick-active {
                                         @include media-breakpoint-down(xs) {
                                             opacity: 0.46;
-                                        }
-                                        
+                                        }                                        
                                     }
                                 }
                             }
