@@ -874,3 +874,16 @@ $stored-payment-spacing: rem(16);
         }
     }
 }
+
+.right-section {
+
+    .leading-lines {
+
+        &.justify-content-between {
+          
+            .end-lines {
+                background: transparent;
+            }
+        }
+    }
+}

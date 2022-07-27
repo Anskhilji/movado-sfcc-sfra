@@ -610,7 +610,7 @@ $stored-payment-spacing: rem(16);
         .credit-card-label {
           color: $black;
           font-family: $font-medium;
-          font-size: rem(14);
+          font-size: rem(12);
           font-weight: 500;
           letter-spacing: 0.5px;
           line-height: rem(24);
@@ -618,7 +618,7 @@ $stored-payment-spacing: rem(16);
           text-transform: capitalize;
 
           @include media-breakpoint-down(sm) { 
-            font-size: rem(10.89);
+            font-size: rem(9.6);
           }
           @include media-breakpoint-down(xs) { 
             font-size: rem(14);
