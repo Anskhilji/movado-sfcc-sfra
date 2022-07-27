@@ -10,6 +10,7 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
     var URLUtils = require('dw/web/URLUtils');
     var ProductFactory = require('*/cartridge/scripts/factories/product');
     var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
+    var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
     var customCategoryHelpers = require('app_custom_movado/cartridge/scripts/helpers/customCategoryHelpers');
     var SmartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
     
@@ -34,6 +35,7 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
     // able to handle the different product types
     try {
         product = ProductFactory.get(productTileParams);
+        var customURL = productCustomHelper.getPLPCustomURL(product);
         productUrl = URLUtils.url('Product-Show', 'pid', !empty(product) ? product.id : '').relative().toString();
         quickViewUrl = URLUtils.url('Product-ShowQuickView', 'pid', !empty(product) ? product.id : '')
             .relative().toString();
@@ -92,6 +94,7 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
     viewData.isPLPProduct = true;
     viewData.readyToOrder = readyToOrder;
     viewData.ecommerceFunctionalityEnabled = !empty(Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled) ? Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled : false;
+    viewData.customURL = customURL;
 
     res.setViewData(viewData);
     Object.keys(req.querystring).forEach(function (key) {
