@@ -159,7 +159,7 @@
         line-height: rem(22);
         letter-spacing: rem(2);
         color: $grey14;
-        font-family: $font-bold;
+        font-family: $font-raleway-bold;
     }
     .promo-msg{
         color: $green;
@@ -172,13 +172,13 @@
         font-weight: bold;
         line-height: rem(22);
         color: $grey14;
-        font-family: $font-bold;
+        font-family: $font-raleway-bold;
     }
     .line-item-attributes{
-        font-family: $font-medium;
+        font-family: $font-raleway-medium;
     }
     .view-cart{
-        font-family: $font-book;
+        font-family: $font-raleway-book;
     }
     .line-item-divider {
         margin: 0.625em -0.625em 0.625em -1.325em;
@@ -192,12 +192,12 @@
 .model-name{
     color: $grey4;
     font-size: rem(14);
-    font-family: $font-medium;
+    font-family: $font-raleway-medium;
     line-height: rem(17);
     letter-spacing: rem(1.75);
 }
 label.quantity-label{
-    font-family: $font-medium;
+    font-family: $font-raleway-medium;
     font-size: rem(14);
     text-transform: inherit;
 }

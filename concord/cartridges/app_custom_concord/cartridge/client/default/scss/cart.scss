@@ -33,7 +33,7 @@ $negative-spacer: -0.625rem;
   }
 
   .estimated-price {
-    font-family: $font-medium;
+    font-family: $font-raleway-medium;
     font-size: rem(16);
     letter-spacing: rem(2);
     line-height: rem(19);
@@ -244,7 +244,7 @@ $negative-spacer: -0.625rem;
 }
 
 .more-ways-text {
-  font-family: $font-medium;
+  font-family: $font-raleway-medium;
   font-size: rem(16);
   letter-spacing: rem(0.88);
   line-height: rem(17); 
@@ -265,7 +265,7 @@ $negative-spacer: -0.625rem;
     margin: 0;
     padding: rem(15);
     left: 0;
-    font-family: $font-book;
+    font-family: $font-raleway-book;
     color: $grey14;
     text-transform: uppercase;
     font-size: rem(34);
@@ -322,7 +322,7 @@ $negative-spacer: -0.625rem;
     .character-limit,
     .gift-check + label {
       color: $grey14;
-      font-family: $font-book;
+      font-family: $font-raleway-book;
       font-size: rem(14);
       letter-spacing: rem(.4);
       line-height: rem(17);
@@ -351,7 +351,7 @@ $negative-spacer: -0.625rem;
 
   .price-label,
   .cost {
-    font-family: $font-book;
+    font-family: $font-raleway-book;
     font-size: rem(14);
     letter-spacing: rem(0.88);
     line-height: rem(17);
@@ -360,13 +360,13 @@ $negative-spacer: -0.625rem;
 
   .grand-total-label,
   .grand-total {
-    font-family: $font-bold;
+    font-family: $font-raleway-bold;
   }
 }
 
 .cart-empty {
   .empty-cart-header {
-    font-family: $font-medium;
+    font-family: $font-raleway-medium;
     font-weight: 500;
     font-size: rem(26);
     letter-spacing: rem(2);

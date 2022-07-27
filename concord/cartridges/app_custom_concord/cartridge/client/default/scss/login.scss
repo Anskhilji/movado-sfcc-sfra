@@ -51,11 +51,11 @@
     .hidden-xs-down{
         text-decoration: underline;
         font-size: rem(14);
-        font-family: $font-medium;
+        font-family: $font-raleway-medium;
     }
     .privacy-policy{
         margin-top: rem(16);
-        font-family: $font-medium;
+        font-family: $font-raleway-medium;
     }
     .add-to-email-list {
         text-transform: none;
@@ -76,7 +76,7 @@
         align-self: self-start;
     }
     input[placeholder],label{
-        font-family: $font-medium;
+        font-family: $font-raleway-medium;
     }
 }
 .alert.alert-danger.alert-custom{

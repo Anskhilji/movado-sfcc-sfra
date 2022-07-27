@@ -21,7 +21,7 @@
           a {
             padding: rem(16) 0;
             display: block;
-            font-family: $font-medium;
+            font-family: $font-raleway-medium;
             font-size: rem(14);
             letter-spacing: rem(2);
             position: relative;
@@ -72,7 +72,7 @@
       margin-bottom: rem(40);
     }
     p {
-      font-family: $font-book;
+      font-family: $font-raleway-book;
       font-size: rem(14);
       letter-spacing: rem(1);
       margin-bottom: rem(40);
@@ -85,7 +85,7 @@
       }
     }
     a {
-      font-family: $font-medium;
+      font-family: $font-raleway-medium;
       font-size: rem(16);
       letter-spacing: rem(2);
       text-decoration: underline;
