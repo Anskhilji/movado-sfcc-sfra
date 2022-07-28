@@ -100,10 +100,6 @@
                         <iscomment> product rating </iscomment>
                         <iscomment> <p> <span>Model:</span> <span><isprint value="${product.id}" encoding="on" /></span> </p> </iscomment>
                         <isif condition="${pdict.yotpoWidgetData.isReviewEnabled}">
-<<<<<<< HEAD
-                            <div class="d-none d-sm-block  rating-box-redisgn">
-                                <isinclude template="product/components/pidRating" />
-=======
                             <div class="d-none d-sm-block rating-box-redisgn">
                                 <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
                                     <div class="product-number-rating">
@@ -116,7 +112,6 @@
                                 <iselse/>
                                     <isinclude template="product/components/pidRating" />
                                 </isif>
->>>>>>> release-45-develop
                             </div>
                         </isif>
                     </div>
