@@ -42,12 +42,13 @@
             </div>
         </isif>
 
-        <isloop items="${product.badges.textBadges}" var="badge">
-            <div class="exclusive-product">
-                ${badge.text}
-            </div>
-        </isloop>
-
+        <div class="exclusive-product-badge-container">
+            <isloop items="${product.badges.textBadges}" var="badge">
+                <div class="exclusive-product">
+                    ${badge.text}
+                </div>
+            </isloop>
+        </div>
        
         <div class="price-promotions d-flex justify-content-start flex-wrap">
 
