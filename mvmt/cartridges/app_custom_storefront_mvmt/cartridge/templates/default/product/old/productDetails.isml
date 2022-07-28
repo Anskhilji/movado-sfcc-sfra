@@ -234,7 +234,7 @@
                         </isif>
                     </div>
 
-                    <isif condition="${product.variationAttributes && product.variationAttributes.length > 0}">
+                    <isif condition="${product.options && product.options.length > 0 && !(option.id == "clydeWarranty") && dw.system.Site.current.preferences.custom.isClydeEnabled}">
                         <isinclude template="product/components/variationAttributes" />
                     </isif>
                     <iscomment> Custom Start: Clyde Integration </iscomment>
