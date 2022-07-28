@@ -1,0 +1,106 @@
+.product-tile {
+
+    .tile-body {
+
+        .price {
+            font-family: $font-raleway-medium;
+        }
+
+        .pdp-link {
+
+            a {
+                font-family: $font-raleway-book;
+            }
+        }
+
+        .compare {
+
+            label {
+                font-family: $font-raleway-medium;
+            }
+        }
+    }
+
+    .promo-msg.callout {
+        font-family: $font-raleway-medium;
+    }
+}
+
+// full bleed image toaster product
+.full-bleed-image-product {
+
+    .full-bleed-img-box {
+
+        .bleed-text-box {
+            
+            &-title {
+                font-family: $font-raleway-medium;
+            }
+            
+            &-click-view {
+                font-family: $font-raleway-medium;
+            }
+        }
+    }
+
+    .plp-new-design {
+       
+        .product-tile {
+          
+            .promotions, .plp-promotions {
+            
+                .callout.promo-msg {
+                    font-family: $font-raleway-medium;
+                }
+            }
+
+          
+            .out-of-stock, .pre-order {
+                font-family: $font-raleway-medium;
+            }
+
+            .plp-botton-text {
+
+                .pre-order-text {
+                    font-family: $font-raleway-book;
+                } 
+            }
+
+            .new-product {
+                font-family: $font-raleway-medium;
+            }
+
+            .tile-body {
+            
+                .price {
+                    @include font-light;
+                }
+
+                .product-name {
+                    @include font-demi;
+                }
+
+                .tile-detail-btn {
+                    font-family: $font-raleway-medium;
+                }          
+            }
+        }
+    }
+    // product collection popup style here
+    .product-popup-box {
+
+        .product-collection-box {
+           
+            .product-collection-title {
+                font-family: $font-raleway-medium;
+            }
+        }
+    }
+
+    .product-count-box {
+
+        .product-custom-title {
+            font-family: $font-raleway-book;
+        }
+    }
+}

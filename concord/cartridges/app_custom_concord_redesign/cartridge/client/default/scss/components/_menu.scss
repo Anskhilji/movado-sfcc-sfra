@@ -1,0 +1,131 @@
+.main-menu {
+
+    .dropdown-menu {
+
+        .featured-promotion {
+            
+            h3 {
+                font-family: $font-raleway-medium;
+            }
+
+            p {
+                font-family: $font-raleway-book;
+
+                span {
+                    font-family: $font-raleway-book;
+                }
+            }
+        }
+    }
+}
+
+.desktop-menu {
+
+    .dropdown-item {
+
+        a {
+            font-family: $font-raleway-book;
+        }
+    }
+
+    .nav-item {
+
+        .nav-link {
+            font-family: $font-raleway;
+        }
+    }
+}
+
+.multilevel-dropdown {
+
+    .navbar {
+
+        .close-menu {
+            
+            .close-button {
+                font-family: $font-raleway-book;
+            }
+
+            .back {
+                font-family: $font-raleway-book;
+            }
+        }
+
+        .dropdown-menu {
+
+            .dropdown-link {
+                font-family: $font-raleway-book;
+            }
+        }
+    }
+
+    .country-selector-mobile {
+
+        .country-selector-wrapper {
+          
+            select {
+                font-family: $font-raleway-book;
+            }
+        }
+    }
+
+    li.top-category {
+
+        .nav-link {
+            font-family: $font-raleway-medium;
+        }
+    }
+
+    .mobile-login {
+
+        li.top-category {
+
+            .nav-link {
+                font-family: $font-raleway-book;
+            }
+        }
+
+        .my-account {
+
+            .dropdown-link {
+                font-family: $font-raleway-book;
+            }
+        }
+    }
+
+    .nav-item {
+
+        .nav-link {
+            font-family: $font-raleway-book;          
+        }
+    }
+
+    .shop-by-collection-slide {
+
+        .featured-promotion {
+
+            p {
+               
+                a {
+                   
+                    span {
+                        font-family: $font-raleway-book;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.mobile-menu {
+
+   .movado-header-dropdown {
+
+        .header-tiles    {
+
+            span {
+                font-family: $font-raleway-book;
+            }
+        }
+    }
+}

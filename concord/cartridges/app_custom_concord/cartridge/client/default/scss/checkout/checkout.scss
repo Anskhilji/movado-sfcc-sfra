@@ -1,3 +1,4 @@
+@import "~movado/checkout/checkout";
 @import "../variables";
 @import "../mixins";
 @import "bootstrap/scss/variables";
@@ -300,9 +301,7 @@ span.ship-to-city-st-zip {
         white-space: pre-wrap;
     }
 }
-//  Import movado-checkout at the end to prevent variable overwrite
 
-@import "~movado/checkout/checkout";
 header {
     &.checkout-header {
         .checkout-header-placeholder {

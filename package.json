@@ -146,6 +146,7 @@
     "link_clyde": "./link_clyde/cartridges/int_clyde_sfra/cartridge/client/default/js",
     "hourtime": "./hourtime/cartridges/app_custom_storefront_hourtime/cartridge/client/default/js",
     "concord": "./concord/cartridges/app_custom_concord/cartridge/client/default/js",
+    "concord_redesign": "./concord/cartridges/app_custom_concord/cartridge/client/default/js",
     "ebel": "./ebel/cartridges/app_custom_ebel/cartridge/client/default/js",
     "olivia-burton-uk": "./olivia-burton-uk/cartridges/app_custom_ob_uk/cartridge/client/default/js",
     "product_compare": "./plugin_productcompare/cartridges/plugin_productcompare/cartridge/client/default/js",

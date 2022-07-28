@@ -1,0 +1,9 @@
+@import "~concord/staticContent.scss";
+
+.btn-save,.form-control {
+    font-family: $font-raleway-medium;
+}
+
+.slick-next:before, .slick-prev:before {
+    content: "";
+}

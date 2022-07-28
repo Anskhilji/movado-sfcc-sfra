@@ -1,0 +1,24 @@
+.product-card-wrapper {
+    
+    .line-item-name {
+        font-family: $font-raleway-medium;  
+    }
+
+    .item-info {
+
+        .item-attributes {
+
+            .total-amount {
+                font-family: $font-raleway-medium;  
+            }
+            
+            .model-name, .original-price, .savings {
+                font-family: $font-raleway-medium;  
+            }
+    
+            .personalize-msg, .personalize-price {
+                font-family: $font-raleway-medium;  
+            }
+        }
+    }
+}

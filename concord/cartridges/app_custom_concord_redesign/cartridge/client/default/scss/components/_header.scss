@@ -1,0 +1,212 @@
+header {
+
+    &.new-header {
+
+        .desktop-search {
+            min-height: rem(170);
+
+            .search-suggestions {
+
+                h3 {
+                    font-family: $font-raleway-medium;
+                }
+
+                .category-slot {
+
+                    a {
+                        font-family: $font-raleway-book;
+                    }
+                }
+            }
+
+            .search-close {
+                font-family: $font-raleway-book;
+            }
+
+        }
+
+        .header-search-field {
+            font-family: $font-raleway-medium;
+        }
+
+        .user {
+
+            &.user-not-login {
+
+                .popover {
+
+                    .btn {
+                        font-family: $font-raleway-medium;
+                    }
+                }
+            }
+        }
+
+        .suggestions {
+
+            .items-header > div {
+                font-family: $font-raleway-medium;
+            }
+
+            .item {
+
+                .name {
+                    font-family: $font-raleway-book;
+
+                    a {
+                        font-family: $font-raleway-book;
+                    }
+                }
+            }
+        }
+
+        &.ebl-header-sec {
+
+            @include media-breakpoint-up(lg) {
+
+                &.new-header {
+
+                    .logo-ebl-box {
+                        margin-top: rem(10);
+
+                        &.logo-ebl {
+                            overflow: hidden;
+                            height: rem(24);
+                        }
+                    }
+
+                    .logo-link {
+
+                        img {
+                            width: rem(176);
+                        }
+                    }
+
+                    .header-wrapper {
+
+                        .header-container {
+                            height: rem(122);
+                        }
+                    }
+
+                    .header-menu-wrapper {
+
+                        &.sticky-header {
+
+                            .header-wrapper {
+
+                                .header-container {
+                                    height: rem(119);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            // when the sticky add this styling apply
+            &.new-header {
+
+                .header-menu-wrapper {
+
+                    &.sticky-header {
+
+                        .overlay {
+                            height: rem(119);
+                        }
+
+                        .logo-link {
+
+                            img {
+                                width: rem(160);
+                            }
+                        }
+                    }
+                }
+            }
+
+            //whitout sticky apply the syling apply
+            &.new-header {
+
+                .overlay {
+                    height: rem(122);
+                }
+
+                @include media-breakpoint-down(lg) {
+
+                    .logo-ebl-box {
+
+                        &.logo-ebl {
+                            overflow: hidden;
+                            height: rem(24);
+                            margin-top: rem(7);
+
+                            img {
+                                width: rem(144);
+                            }
+                        }
+                    }
+
+                    .logo-link {
+
+                        img {
+                            width: rem(94);
+                        }
+                    }
+                }
+
+                // menu styling
+                @import "menu";
+            }
+        }
+
+        .top-search-tiles {
+
+            .product {
+        
+                .product-tile {
+        
+                    .out-of-stock {
+                        font-family: $font-raleway-book;
+                    }
+        
+                    .new-product,
+                    .pre-order {
+                        font-family: $font-raleway-book;
+                    }
+        
+                    .tile-body {
+        
+                        .price {
+                            font-family: $font-raleway-book;
+                        }
+                        
+                        .pdp-link {
+
+                            .product-name {
+                                font-family: $font-raleway-medium;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.accessible-link {
+    font-family: $font-raleway-book;
+}
+
+.header-banner {
+
+    .html-slot-container {
+        font-family: $font-raleway-book;
+
+        .carousel-item {
+            font-family: $font-raleway-book;
+        }
+    }
+}
+
+
