@@ -373,7 +373,7 @@
                                                 color: $grey18;
                                                 font-size: rem(12);
                                                 letter-spacing: rem(1.5);
-                                                line-height: rem(10);
+                                                line-height: rem(18);
                                                 text-transform: uppercase;
                                                 margin-bottom: rem(10) !important;
                                               }
@@ -434,7 +434,7 @@
                                               }
                             
                                               .savings {
-                                                  font-size: rem(12);
+                                                  font-size: rem(14);
                                                   font-weight: 500;
                                                   letter-spacing: rem(0.86);
                                                   line-height: rem(10);
@@ -481,6 +481,7 @@
 
               &.card-summary-wrapper-container {
                 margin-bottom: rem(40);
+                display: block;
 
                 .card-body {
 
@@ -757,7 +758,7 @@
                                       }
                     
                                       .savings {
-                                          font-size: rem(12);
+                                          font-size: rem(14);
                                           font-weight: 500;
                                           letter-spacing: rem(0.86);
                                           line-height: rem(10);
