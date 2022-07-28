@@ -18,6 +18,9 @@ $dark-red: #981608 !default;
 $yellow: #FFC517 !default;
 $alabaster: #F4F2E9 !default;
 $border-color: #979797 !default;
+$parrot-green: #3AAB4A;
+$cerulean: #0092DB;
+$invalid-red: #C82727;
 
 // Consolidated values
 $grey1: #f9f9f9 !default;
@@ -36,6 +39,10 @@ $grey13: #E1E2E3 !default;
 $grey14: #060506 !default;
 $grey15: #787777 !default;
 $grey16: #D2D2D2 !default;
+$grey18: #929292 !default;
+$grey19: #404040 !default;
+$grey20: #FAF8F8;
+$grey21: #676767;
 
 $grey-transparent-1: rgba(0, 0, 0, 0.65) !default;
 $grey-transparent-2: rgba(0, 0, 0, 0.25) !default;
@@ -48,6 +55,8 @@ $grey-transparent-8: rgba(0,0,0, 0.8) !default;
 $grey-light: rgba(187, 189, 191, 0.3) !default;
 $grey-dark: rgba(187, 189, 191, 0.5) !default;
 $grey-dark-1: rgba(6,5,6,0.6) !default;
+$grey-dark-2: rgba(228,228,228,0.32) !default; 
+$grey-dark-3: rgba(51,51,51,0.17) !default;
 
 $light-gray: $grey1 !default;
 $slightly-darker-gray: $grey4 !default;
@@ -116,10 +125,23 @@ $font-raleway-bold : "raleway", Arial, sans-serif !default;
 $font-primary: $font-raleway-book;
 
 // Larger Screen
+$medium-screen-width: 768px;
 $large-screen-width: 1400px;
+$large-screen-width-1440: 1440px;
 
 @mixin custom-media-query($large-screen-width) {
   @media (min-width:#{$large-screen-width}) {
       @content;
   }
+}
+@mixin custom-media-query-1440($large-screen-width-1440) {
+    @media (min-width:#{$large-screen-width-1440}) {
+        @content;
+    }
+}
+
+@mixin custom-media-query-max($medium-screen-width) {
+    @media (max-width:#{$medium-screen-width}) {
+        @content;
+    }
 }
