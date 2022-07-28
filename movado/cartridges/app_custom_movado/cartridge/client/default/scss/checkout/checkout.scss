@@ -1375,3 +1375,7 @@ header {
     height: 100%;
 }
 
+:focus {
+    outline: none;
+    box-shadow: none;
+}
