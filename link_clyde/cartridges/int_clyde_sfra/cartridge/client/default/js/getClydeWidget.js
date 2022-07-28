@@ -10,7 +10,7 @@ var productId = elem ? elem.textContent : null;
 if (document.querySelector('.product-number span')) {
     productId = document.querySelector('.product-number span').innerHTML || '';
 
-} else {
+} else if (!$('.clyde-cart-widget .clyde-fade-in')) {
     var cartValue = document.querySelector('.add-to-cart');
     if (cartValue) {
         productId = cartValue.dataset.pid;
