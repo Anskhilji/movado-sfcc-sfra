@@ -18,7 +18,7 @@
                             <iscomment> custom start: MSS-1713 logo position chnage for desktop  </iscomment>
                             <div class="col-12 col-md-12 navbar-header header-logo text-center d-none d-lg-block">
                                 <div class="d-none d-lg-inline-block logo-ebl-box header-logo-ebl">
-                                <isslot id="brand-logo" description="Brand Logo" context="global" />
+                                    <isslot id="brand-logo" description="Brand Logo" context="global" />
                                 </div>
                                 <iscomment>Custom Start: Adding ESW Logic </iscomment>
                                 <div class="d-none">

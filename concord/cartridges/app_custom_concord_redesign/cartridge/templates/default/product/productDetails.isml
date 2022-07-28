@@ -41,7 +41,6 @@
                             <isinclude template="product/components/pidRating" />
                         </div>
                     </div>
-
                 </div>
             </div>
 
@@ -84,7 +83,6 @@
                         <isif condition="${product.variationAttributes && product.variationAttributes.length > 0}">
                             <isinclude template="product/components/variationAttributes" />
                         </isif>
-
 
                         <!-- Affirm Text -->
                         <div class="col-12 prices-add-to-cart-actions">
