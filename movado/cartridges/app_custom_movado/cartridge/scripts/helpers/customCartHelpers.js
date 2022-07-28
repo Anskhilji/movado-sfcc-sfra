@@ -309,6 +309,22 @@ function getCountrySwitch() {
 
 };
 
+function removeNullClydeLineItem(currentBasket) {
+    var Constants = require('*/cartridge/utils/Constants');
+    var Transaction = require('dw/system/Transaction');
+    var orderLineItems = currentBasket.allProductLineItems;
+    var orderLineItemsIterator = orderLineItems.iterator();
+    var productLineItem;
+    Transaction.wrap(function () {
+        while (orderLineItemsIterator.hasNext()) {
+            productLineItem = orderLineItemsIterator.next();
+            if (productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == Constants.CLYDE_WARRANTY && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
+                currentBasket.removeProductLineItem(productLineItem);
+            }
+        }
+    });
+};
+
 module.exports = {
     updateOptionLineItem: updateOptionLineItem,
     updateOption: updateOption,
@@ -322,6 +338,7 @@ module.exports = {
     getContentAssetContent: getContentAssetContent,
     getcartPageHtml: getcartPageHtml,
     getCartForAnalyticsTracking: getCartForAnalyticsTracking,
-    getCountrySwitch: getCountrySwitch
+    getCountrySwitch: getCountrySwitch,
+    removeNullClydeLineItem: removeNullClydeLineItem
 };
 
