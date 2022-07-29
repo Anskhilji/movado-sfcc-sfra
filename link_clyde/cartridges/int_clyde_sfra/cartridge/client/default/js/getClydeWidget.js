@@ -10,9 +10,10 @@ var productId = elem ? elem.textContent : null;
 if (document.querySelector('.product-number span')) {
     productId = document.querySelector('.product-number span').innerHTML || '';
 
-} else if (!$('.clyde-cart-widget .clyde-fade-in')) {
+} else {
     var cartValue = document.querySelector('.add-to-cart');
-    if (cartValue) {
+    var clydeCta = document.querySelector('#clyde-cta');
+    if (clydeCta && cartValue) {
         productId = cartValue.dataset.pid;
     }
 }
