@@ -133,12 +133,11 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
 
         try {
             Transaction.begin();
-            var placeOrderStatus = OrderMgr.placeOrder(order);
-            if (placeOrderStatus === Status.ERROR) {
-                checkoutLogger.error('(Adyen) -> ShowConfirmation: Place order status has error and order number is: ' + orderNumber);
-                throw new Error();
-            }
             if (!checkoutCustomHelpers.isRiskified(paymentInstrument)) {
+                if (placeOrderStatus === Status.ERROR) {
+                    checkoutLogger.error('(Adyen) -> ShowConfirmation: Place order status has error and order number is: ' + orderNumber);
+                    throw new Error();
+                }
                 order.setConfirmationStatus(Order.CONFIRMATION_STATUS_CONFIRMED);
                 if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) {
                     var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
@@ -147,28 +146,7 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
                         orderState: 'created'
                     });
                 }
-            }
-            order.setExportStatus(Order.EXPORT_STATUS_READY);
-            order.custom.Adyen_eventCode = (klarnaPaymentMethod && klarnaPaymentMethod.search(constants.KLARNA_PAYMENT_METHOD_TEXT) > -1)
-                ? klarnaPaymentStatus.toUpperCase()
-                : constants.PAYMENT_STATUS_CAPTURE;
-            order.custom.Adyen_value = order.totalGrossPrice.value;
-            if ('pspReference' in req.querystring && req.querystring.pspReference) {
-                checkoutLogger.debug('(Adyen) -> ShowConfirmation: Going to set the pspReference in the order and order number is: ' + orderNumber);
-                order.custom.Adyen_pspReference = req.querystring.pspReference;
-            } else if (klarnaPaymentPspReference) {
-                checkoutLogger.debug('(Adyen) -> ShowConfirmation: Going to set the klarnaPayment pspReference in the order and order number is: ' + orderNumber);
-                order.custom.Adyen_pspReference = klarnaPaymentPspReference;
-            }
-            if ('paymentMethod' in req.querystring && req.querystring.paymentMethod) {
-                checkoutLogger.debug('(Adyen) -> ShowConfirmation: Going to set the paymentMethod in the order and order number is: ' + orderNumber);
-                order.custom.Adyen_paymentMethod = req.querystring.paymentMethod;
-            } else if (klarnaPaymentMethod) {
-                checkoutLogger.debug('(Adyen) -> ShowConfirmation: Going to set the klarnaPaymentMethod in the order and order number is: ' + orderNumber);
-                order.custom.Adyen_paymentMethod = klarnaPaymentMethod;
-            }
-            Transaction.commit();
-
+            } 
             var checkoutDecisionStatus;
             if (empty(session.custom.klarnaRiskifiedFlag)) {
                 checkoutDecisionStatus = hooksHelper(
@@ -198,17 +176,61 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
             } else {
                 var RiskifiedOrderDescion = require('*/cartridge/scripts/riskified/RiskifiedOrderDescion');
                 if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'declined') {
-                        // Riskified order declined response from decide API
-                        riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order);
-                        if (riskifiedOrderDeclined) {
-                            res.redirect(URLUtils.url('Checkout-Declined'));
-                            return next();
-                        }
+                    // Riskified order declined response from decide API
+                    order.custom.Adyen_eventCode = (klarnaPaymentMethod && klarnaPaymentMethod.search(constants.KLARNA_PAYMENT_METHOD_TEXT) > -1)
+                        ? klarnaPaymentStatus.toUpperCase()
+                        : constants.PAYMENT_STATUS_CAPTURE;
+                    order.custom.Adyen_value = order.totalGrossPrice.value;
+                    if ('pspReference' in req.querystring && req.querystring.pspReference) {
+                        checkoutLogger.debug('(Adyen) -> ShowConfirmation: Going to set the pspReference in the order and order number is: ' + orderNumber);
+                        order.custom.Adyen_pspReference = req.querystring.pspReference;
+                    } else if (klarnaPaymentPspReference) {
+                        checkoutLogger.debug('(Adyen) -> ShowConfirmation: Going to set the klarnaPayment pspReference in the order and order number is: ' + orderNumber);
+                        order.custom.Adyen_pspReference = klarnaPaymentPspReference;
+                    }
+                    if ('paymentMethod' in req.querystring && req.querystring.paymentMethod) {
+                        checkoutLogger.debug('(Adyen) -> ShowConfirmation: Going to set the paymentMethod in the order and order number is: ' + orderNumber);
+                        order.custom.Adyen_paymentMethod = req.querystring.paymentMethod;
+                    } else if (klarnaPaymentMethod) {
+                        checkoutLogger.debug('(Adyen) -> ShowConfirmation: Going to set the klarnaPaymentMethod in the order and order number is: ' + orderNumber);
+                        order.custom.Adyen_paymentMethod = klarnaPaymentMethod;
+                    }
+                    riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order);
+                    if (riskifiedOrderDeclined) {
+                        res.redirect(URLUtils.url('Checkout-Declined'));
+                        return next();
+                    }
                 } else if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'approved') {
                     // Riskified order approved response from decide API
+                    var placeOrderStatus = OrderMgr.placeOrder(order); // move to line 142 
+                    if (placeOrderStatus === Status.ERROR) {
+                        checkoutLogger.error('(Adyen) -> ShowConfirmation: Place order status has error and order number is: ' + orderNumber);
+                        throw new Error();
+                    }
+                    order.setExportStatus(Order.EXPORT_STATUS_READY); // move to line 142
                     RiskifiedOrderDescion.orderApproved(order);
                 }
             }
+
+            order.custom.Adyen_eventCode = (klarnaPaymentMethod && klarnaPaymentMethod.search(constants.KLARNA_PAYMENT_METHOD_TEXT) > -1)
+                ? klarnaPaymentStatus.toUpperCase()
+                : constants.PAYMENT_STATUS_CAPTURE;
+            order.custom.Adyen_value = order.totalGrossPrice.value;
+            if ('pspReference' in req.querystring && req.querystring.pspReference) {
+                checkoutLogger.debug('(Adyen) -> ShowConfirmation: Going to set the pspReference in the order and order number is: ' + orderNumber);
+                order.custom.Adyen_pspReference = req.querystring.pspReference;
+            } else if (klarnaPaymentPspReference) {
+                checkoutLogger.debug('(Adyen) -> ShowConfirmation: Going to set the klarnaPayment pspReference in the order and order number is: ' + orderNumber);
+                order.custom.Adyen_pspReference = klarnaPaymentPspReference;
+            }
+            if ('paymentMethod' in req.querystring && req.querystring.paymentMethod) {
+                checkoutLogger.debug('(Adyen) -> ShowConfirmation: Going to set the paymentMethod in the order and order number is: ' + orderNumber);
+                order.custom.Adyen_paymentMethod = req.querystring.paymentMethod;
+            } else if (klarnaPaymentMethod) {
+                checkoutLogger.debug('(Adyen) -> ShowConfirmation: Going to set the klarnaPaymentMethod in the order and order number is: ' + orderNumber);
+                order.custom.Adyen_paymentMethod = klarnaPaymentMethod;
+            }
+            Transaction.commit();
         } catch (e) {
             // put logger
             checkoutLogger.error('(Adyen) -> ShowConfirmation: Exception is occurred while placing an order and order number is: ' + orderNumber + ' and exception is: ' + e);
