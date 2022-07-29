@@ -8,7 +8,7 @@
 
 %address-link {
   margin-top: rem(15);
-  font-family: $font-medium;
+  font-family: $font-HelveticaNeueLT-medium;
   font-size: rem(14);
   line-height: rem(14);
   color: $grey14;
@@ -21,13 +21,13 @@
 }
 
 %store-map {
-  font-family: $font-book;
+  font-family: $font-HelveticaNeueLT-book;
   font-size: rem(15);
   color: $grey14;
 }
 
 %card-header {
-  font-family: $font-medium;
+  font-family: $font-HelveticaNeueLT-medium;
   font-size: rem(16);
   letter-spacing: rem(0.4);
   line-height: rem(19);

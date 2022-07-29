@@ -90,10 +90,15 @@
 
     .tax-duties {
         display: inline-block;
-        color: $grey5;
+        color: $black;
         margin-bottom: rem(15);
         font-size: rem(14);
-        font-weight: 600;
+        font-weight: 500;
+
+        @include media-breakpoint-down(sm) {
+            display: block;
+            text-align: center;
+        }
     }
 }
 

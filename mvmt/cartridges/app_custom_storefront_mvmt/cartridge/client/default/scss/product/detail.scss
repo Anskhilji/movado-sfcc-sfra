@@ -1993,11 +1993,15 @@
 
     .tax-duties {
         display: inline-block;
-        color: $transparent-gray;
+        color: $light-black;
         font-size: rem(14);
         font-weight: 500;
         letter-spacing: rem(.5);
         margin-bottom: rem(15);
+
+        @include media-breakpoint-down(sm) {
+            padding-left: rem(10);
+        }
     }
 
     .cart-and-ipay {
