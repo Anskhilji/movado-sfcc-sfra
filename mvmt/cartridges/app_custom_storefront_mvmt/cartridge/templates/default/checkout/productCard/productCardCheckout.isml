@@ -1,10 +1,11 @@
 <div class="card product-line-item product-card-wrapper product-card-container" data-product-line-item="${lineItem.UUID}">
+
     <isif condition="${lineItem.productType === 'bundle'}">
         <div class="bundle-includes">${Resource.msg('msg.bundle.includes','cart',null)}</div>
         <!--- individual bundled line items --->
         <isinclude template="cart/productCard/cartProductCardBundledItems" />
     <iselse/>
-        <div class="product-line-item-details item-info d-flex">
+        <div class="product-line-item-details item-info d-flex flex-row">
             <div class="item-image">
                 <iscomment> Custom Start: Clyde Integration</iscomment>
                     <isif condition="${dw.system.Site.current.preferences.custom.isClydeEnabled}">
@@ -25,9 +26,6 @@
                 <iscomment> Custom End: </iscomment>
             </div>
             <div class="item-attributes flex-column">
-                <div class="item-model model-name mb-2">
-                	${lineItem.resources.Model} ${lineItem.id}
-                </div>
                 <div class="line-item-header">
                     <isif condition=${miniCart}>
                         <isinclude template="checkout/productCard/productCardProductNameAndRemove" />
@@ -57,6 +55,10 @@
                              <div class="line-item-option">${option.displayName}</div>
                         </isif>
                     </isloop>
+                </div>
+
+                <div class="item-model model-name mb-2">
+                	${lineItem.resources.Model} ${lineItem.id}
                 </div>
 
                 <div class="item-personalization">
@@ -103,8 +105,8 @@
                     <isinclude template="cart/productCard/cartProductCardAvailability" />
                 </isif>
                 <div class="item-quantity-container-box">
-                    <div class="item-model line-item-attributes item-quantity-wrapper">
-                    ${Resource.msg('field.selectquantity.cart','cart',null)}. <span class="line-item-value"> <isprint value="${lineItem.quantity}" formatter="##" /></span>
+                    <div class="item-model line-item-attributes">
+                    ${Resource.msg('field.selectquantity.cart','cart',null)}.  <span class="line-item-value"> <isprint value="${lineItem.quantity}" formatter="##" /></span>
                     </div>
 
                     <div class="item-total-${lineItem.UUID} price price-box-container">
@@ -171,7 +173,7 @@
         </div>
     </div>
 
-    <div class="line-item-promo mb-2 item-${lineItem.UUID}">
+    <div class="line-item-promo item-${lineItem.UUID}">
         <isinclude template="checkout/productCard/productCardProductPromotions" />
     </div>
 </div>

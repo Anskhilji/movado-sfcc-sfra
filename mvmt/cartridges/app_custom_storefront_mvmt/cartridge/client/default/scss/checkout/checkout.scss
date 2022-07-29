@@ -1277,10 +1277,10 @@ header {
                                     
                                     .item-model {
                                         color: $light-black;
-                                        font-size: rem(14);
+                                        font-size: rem(12);
                                         font-weight: 500;
                                         letter-spacing: rem(1);
-                                        line-height: rem(18);
+                                        line-height: rem(10);
 
                                         @include media-breakpoint-down(xs) {
                                             line-height: rem(10);
