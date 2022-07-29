@@ -916,7 +916,6 @@ div {
             .card-border-none-wrapper {
 
                 &.card-summary-wrapper-container {
-                    
                     @include media-breakpoint-down(sm) {
                         margin-bottom: rem(30);
                     }

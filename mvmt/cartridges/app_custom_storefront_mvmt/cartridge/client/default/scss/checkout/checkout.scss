@@ -963,6 +963,8 @@ header {
                 &.card-summary-wrapper-container {
                     margin-bottom: rem(26);
                     margin-top: rem(0);
+                    display: block;
+                    
                     @include media-breakpoint-down(sm) {
                         margin-bottom: rem(30);
                     }
