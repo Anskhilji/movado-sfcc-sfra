@@ -1,0 +1,227 @@
+<isdecorate template="common/layout/page">
+
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets');
+        assets.addJs('/lib/pinchzoom/pinch-zoom.umd.js');
+        assets.addJs('/js/productDetail.js');
+        assets.addCss('/css/product/detail.css');
+    </isscript>
+
+    <isset name="isListrakEnable" value="${!empty(dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) ? dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled : false}" scope="page" />
+    <isif condition="${isListrakEnable}">
+        <isinclude url="${URLUtils.https('ltkActivityTracking-TrackRequest', 'pid', pdict.product.id)}"/>  
+    </isif>
+    
+    <isif condition="${dw.system.Site.current.preferences.custom.EUMEnabled}">
+        <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.pdp', 'eum', null))}"/>
+    </isif>
+
+    <isset name="sitePref" value="${dw.system.Site.getCurrent().preferences.custom}" scope="page">
+    <isif condition="${!empty(sitePref.enableSmartGift)}">
+        <isif condition="${sitePref.smartGiftMode == 'TEST' || sitePref.smartGiftMode == 'LIVE'}">
+            <script>
+                (function (d,g,e,c,t,s) {t= d.createElement(g);t.async=1;t.src=e;t.onload=function(){SmartGiftWidget.mount(c);};s=d.getElementsByTagName(g)[0];s.parentNode.insertBefore(t, s);})
+                (document,'script','${sitePref.jsLibURL}', '${sitePref.smartGiftMerchantCode}');
+            </script>
+        </isif>
+    </isif>
+    <isset name="product" value="${pdict.product}" scope="page" />
+    <isset name="isQuickView" value="${false}" scope="page" />
+    <isset name="isProductSet" value="${pdict.product.productType === 'set'}" scope="page" />
+    <isobject object="${product.raw}" view="detail">
+        <div class="container product-detail product-wrapper product-detail1-wrapper product-detail1-old-wrapper" data-pid="${product.id}" itemscope
+            itemtype="http://schema.org/Product">
+            <div class="row hidden-xs-down d-md-none">
+                <div class="col-12">
+                    <!---Breadcrumbs--->
+                    <div class="product-breadcrumb">
+                        <isinclude template="components/breadcrumbs/old/pageBreadcrumbs" />
+                    </div>
+
+                    <!-- Product Name -->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h1 class="product-name text-uppercase" itemprop="name">${product.productName}</h1>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <isset name="isYotpoStoreProductRatingEnabled" value="${!empty(dw.system.Site.current.preferences.custom.yotpoStoreProductRatingEnabled) ? dw.system.Site.current.preferences.custom.yotpoStoreProductRatingEnabled : false}" scope="page" />
+                            <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
+                                <div class="product-number-rating clearfix">
+                                    <isif condition="${!empty(dw.system.Site.getCurrent().preferences.custom.enableProductSKU) ? dw.system.Site.getCurrent().preferences.custom.enableProductSKU : false}">
+                                        <div class="product-number hidden-xs-down sku-text-alignment pull-left">
+                                            <isinclude template="product/components/productNumber" />
+                                        </div>
+                                    </isif>
+                                    <div class="ratings pull-right">
+                                        <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                                            <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            <iselse/>
+                                <isinclude template="product/components/old/pidRating" />
+                            </isif>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <hr class="hidden-xs-down d-md-none"/>
+
+            <div class="row">
+            <div class="col-12">
+                <!---Breadcrumbs--->
+                <div class="product-breadcrumb hidden-sm-down">
+                    <isinclude template="components/breadcrumbs/old/pageBreadcrumbs" />
+                </div>
+            </div>
+                <!-- Product Images Carousel -->
+                <isinclude template="product/components/old/imageCarouselPdp" />
+
+                <div class="col-12 col-sm-6">
+
+
+                    <!-- Product Name -->
+                    <h2 class="product-name prdouct-name-gtm d-sm-none d-md-block text-uppercase">${product.productName}</h2>
+
+                    <iscomment> <p> <span>Model:</span> <span><isprint value="${product.id}" encoding="on" /></span> </p> </iscomment>
+                    <div class="d-block d-md-block d-sm-none">
+                        <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
+                            <div class="product-number-rating clearfix">
+                                <isif condition="${!empty(dw.system.Site.getCurrent().preferences.custom.enableProductSKU) ? dw.system.Site.getCurrent().preferences.custom.enableProductSKU : false}">
+                                    <div class="product-number sku-text-alignment">
+                                        <isinclude template="product/components/productNumber" />
+                                    </div>
+                                </isif>
+                                <div class="ratings pull-right hidden-sm-down">
+                                    <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                                        <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
+                                    </div>
+                                </div>
+                            </div>
+                        <iselse/>
+                            <isinclude template="product/components/old/pidRating" />
+                        </isif>
+                    </div>
+
+                    <div class="row">
+                        <!-- Attributes and Quantity -->
+                        <div class="col-md-10 col-12">
+                            <iscomment> hidden text badge old design  </iscomment>
+                            <iscomment> <isinclude template="product/components/old/badges" /> </iscomment>
+
+                            <!-- Product Availability -->
+                            <div class="availability product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
+                                data-available="${product.available}">
+                                <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
+                            </div>
+
+                            <!-- Applicable Promotions -->
+                            <div class="promotions">
+                                <isinclude template="product/components/promotions" />
+                            </div>
+
+                            <isif condition="${!product.variationAttributes && product.options.length === 0}">
+                                <div class="simple-quantity">
+                                    <isinclude template="product/components/quantity" />
+                                </div>
+                            </isif>
+                            <hr />
+                        </div>
+                        <isif condition="${product.options && product.options.length > 0 && !(option.id == "clydeWarranty") && dw.system.Site.current.preferences.custom.isClydeEnabled}">
+                            <isinclude template="product/components/options" />
+                        </isif>
+                        <div class="col-md-10 col-12">
+                            <isinclude template="product/components/mainAttributes" />
+                        </div>
+
+                        <isif condition="${product.variationAttributes && product.variationAttributes.length > 0}">
+                            <isinclude template="product/components/variationAttributes" />
+                        </isif>
+                        <!-- Affirm Text -->
+                        <div class="col-md-10 col-12">
+                            <isinclude url="${URLUtils.https('Product-ShowMcsAffirmText', 'pid', product.id)}"/>
+                        </div>
+                        <iscomment> Custom Start: Clyde Integration </iscomment>
+                            <isif condition = "${dw.system.Site.current.preferences.custom.clydeWidgetDisplay}">
+                                <div id="clyde-cta" >
+                                </div>
+                            </isif>
+                        <iscomment> Custom End: </iscomment>
+                       <div class="col-12 prices-add-to-cart-actions">
+                            <!-- Prices -->
+                            <div class="prices">
+                                <isset name="price" value="${product.price}" scope="page" />
+                                <iscomment> Custom: Start [pricing shows only when following requirements meet] </iscomment>
+                                    <isinclude url="${URLUtils.https('Product-ShowMcsProdutPrice', 'pid', product.id)}"/>
+                                <iscomment> Custom: End </iscomment>
+                            </div>
+                            <div class="d-block d-md-flex btn-margin smart-gift-box-mcs">
+                                <!-- Cart and [Optionally] Apple Pay -->
+                                <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
+                            </div>
+                            <div class="smart-gift-box-new smart-gift-box-new-mcs">
+                                <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
+                                    <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
+                                        <div class="d-block smart-main"><isinclude template="product/components/smartGift" /></div>
+                                    </isif>
+                                </isif>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="wishlist-row row">
+                                <isinclude url="${URLUtils.https('Wishlist-ShowIcon','gtmObj',JSON.stringify(pdict.wishlistGtmObj))}"/>
+                                <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
+                                    <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
+                                        <div class="d-none smartgift-medium-scr"><isinclude template="product/components/smartGift" /></div>
+                                    </isif>
+                                </isif>
+                                <span class="product-id d-none" itemprop="productID" >${product.id}</span>
+                            </div>
+                            <div class="row description">
+                                <isinclude template="product/components/old/description" />
+                            </div>
+                        </div>
+                        <isinclude template="product/components/moreStyles" />
+                    </div>
+
+                    <!-- Size Chart -->
+                    <isif condition="${product.variationAttributes && product.sizeChartId}">
+                        <div class="size-chart col-md-10 col-12">
+                            <isinclude template="product/components/sizeChart" />
+                        </div>
+                    </isif>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <isinclude template="product/components/old/descriptionAndDetails" />
+        </div>
+
+        <isif condition="${!dw.system.Site.getCurrent().getCustomPreferenceValue('disableRecommendationsTypesOnPDP')}">
+            <isinclude template="product/components/youMayLikeRecommendation" />
+       </isif>
+
+       <isset name="apiProduct" value="${dw.catalog.ProductMgr.getProduct(pdict.product.id)}" scope="page" />
+       <isinclude template="product/components/contentAssets" />
+       
+       <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"
+                context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}" />
+
+        <!-- The Modal: Starts | To be filled by the from rendered by the ShareByEmail controller-->
+        <div class="modal fade share-via-email-overlay" id="sendtofriendform">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+
+                </div>
+            </div>
+        </div>
+        <!-- The Modal: Ends-->
+
+    </isobject>
+</isdecorate>

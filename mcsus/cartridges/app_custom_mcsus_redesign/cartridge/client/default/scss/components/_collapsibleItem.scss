@@ -1,0 +1,16 @@
+@each $size in map-keys($grid-breakpoints) {
+
+    @include media-breakpoint-down($size) {
+        .collapsible-#{$size} {
+            .title,
+            .card-header {
+                @include clearfix;
+
+                &::after {
+                    font-family: "FontAwesome";
+                }
+            }
+
+        }
+    }
+}

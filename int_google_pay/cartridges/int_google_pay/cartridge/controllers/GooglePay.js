@@ -277,6 +277,7 @@ server.post('ProcessPayments',
                         if (riskifiedOrderDeclined) {
                             res.json({
                                 error: false,
+                                orderID: orderNumber,
                                 redirectUrl: URLUtils.url('Checkout-Declined').toString()
                             });
                             return next();
