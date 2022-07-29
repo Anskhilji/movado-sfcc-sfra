@@ -131,7 +131,7 @@
                                 </div>
                             </isif>
                             <iscomment> Custom End </iscomment>
-                            <isif condition="${product.options && product.options.length > 0}">
+                            <isif condition="${product.options && product.options.length > 0 && !(option.id == "clydeWarranty") && dw.system.Site.current.preferences.custom.isClydeEnabled}">
                                 <isinclude template="product/components/options" />
                             </isif>
                                 
