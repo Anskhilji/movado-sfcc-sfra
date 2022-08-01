@@ -61,6 +61,10 @@
         <iscomment> Custom: Start [pricing shows only when following requirements meet] </iscomment>
             <isinclude url="${URLUtils.https('Product-ShowMcsProdutPrice', 'pid', product.id)}"/>
         <iscomment> Custom: End </iscomment>
+
+        <iscomment> new add to card button template addded </iscomment>
+        <isinclude template="product/components/addToCartPLP.isml" sf-toolkit="on" />
+
         <isif condition="${!pdict.isCompareableDisabled}"> 
             <isinclude template="product/components/compare" />
         </isif>
