@@ -1,0 +1,275 @@
+@import "~movado/components/_productTiles";
+@import "../variables";
+
+.product-tile {
+
+    &.product-tile-plp-container {
+      position: relative;
+
+        .image-container {
+
+            .product-badge {
+                display: none;
+            }
+        }
+      
+        .tile-body {
+
+            .product-family-name-plp {
+
+                .product-family-name-redesign {
+                    color: $light-black1;
+                    font-size: rem(16);
+                    font-weight: bold;
+                    letter-spacing: 0;
+                    line-height: rem(20);
+                    margin-bottom: rem(12);
+
+                    @include media-breakpoint-down(xs) {
+                      font-size: rem(10);
+                      line-height: rem(15);
+                      margin-bottom: rem(8);
+                    }
+
+                    a {
+                        text-decoration: underline;
+                    }
+                }
+            }
+
+            .star-rating-plp {
+                height: rem(34);
+
+                @include media-breakpoint-down(xs) {
+                    height: rem(15);
+                }
+                .yotpo-display-wrapper {
+
+                    .yotpo-bottomline {
+                        margin-bottom: rem(16);
+
+                        .yotpo-icon {
+                          font-size: rem(12) !important;
+                        }
+                    }
+                }
+            }
+
+            .color-swatches {
+              min-height: 1rem;
+              text-align: left;
+
+                .product-tile-color-label {
+                    cursor: pointer;
+                    font-size: 1em;
+
+                    @include media-breakpoint-down(md) {
+                      font-size: 0.9375em;
+                    }
+
+                    @include media-breakpoint-down(sm) {
+                      font-size: 0.8125em;
+                    }
+                }
+            }
+
+            .pdp-link {
+                text-align: left;
+                height: rem(52);
+                margin: rem(0) rem(0) rem(12) rem(0);
+
+                @include media-breakpoint-down(xs) {
+                    height: rem(35);
+                    margin: rem(0) rem(0) rem(8) rem(0);
+                }
+
+                a {
+                    color: $light-black1;
+                    font-size: rem(18);
+                    font-weight: bold;
+                    letter-spacing: normal;
+                    line-height: rem(26);
+                    word-break: break-word;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                    font-weight: 400;
+                    height: inherit;
+                  
+
+                    @include media-breakpoint-down(xs) {
+                        font-size: rem(14);
+                        line-height: rem(18);
+                        letter-spacing: rem(0);
+                    }
+                }
+            }
+            
+            .price-promotions {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                flex-wrap: wrap;
+
+                .price {
+                    width: auto;
+                    font-size: rem(16);
+                    font-weight: 500;
+                    font-family: $font-medium;
+                    text-align: left;
+                    padding-left: rem(0);
+                    margin: rem(0) rem(10) rem(0) rem(0);
+      
+                    @include media-breakpoint-down(sm) {
+                        font-size: rem(14);
+                    }
+    
+                    .tiered {
+                        font-size: 0.875em;
+                        
+                        .value {
+                            font-weight: bold;
+                        }
+                    }
+
+                    .price-pdp-mvmt {
+                        display: flex;
+                        margin-bottom: rem(8);
+
+                        del {
+                            order: 1;
+                            font-size: rem(16);
+                            letter-spacing: 0;
+                            line-height: rem(14);
+                            color: $light-gray3;
+
+                            @include media-breakpoint-down(xs) {
+                              font-size: rem(12);
+                              line-height: rem(15);
+                            }
+
+                            .strike-through {
+                                color: $light-gray3;
+                                margin-right: rem(0);
+                            }
+                        }
+
+                        .sale-price-mvmt {
+                            font-size: rem(20);
+                            font-weight: 600;
+                            letter-spacing: 0;
+                            line-height: rem(14);
+                            color: $light-black1;
+                            margin-right: rem(5);
+
+                            @include media-breakpoint-down(xs) {
+                                font-size: rem(12);
+                                line-height: rem(15);
+                            }
+                        }
+                    }
+                }
+
+                .promotions {
+                    background-color: $light-pink2;
+                    border: rem(1) solid $light-pink;
+                    padding: rem(6) rem(13);
+                    border-radius: rem(3);
+                    margin-bottom: rem(8);
+
+                    @include media-breakpoint-down(xs){
+                        background-color: $grey-light4;
+                        border: rem(.5) solid $black;
+                    }
+
+                    .promo-msg.callout {
+                        font-size: rem(13);
+                        font-weight: 500;
+                        font-family: $font-medium;
+                        letter-spacing: rem(0);
+                        text-align: left;
+                        padding: rem(0);
+                        font-style: oblique;
+                        line-height: rem(14);
+
+                        @include media-breakpoint-down(xs){
+                            font-size: rem(12);
+                            font-weight: 500;
+                        }                
+                    }
+                }
+            }
+
+            .text-badges-container {
+                position: absolute;
+                top: 0;
+                justify-content: space-between;
+                width: 100%;
+
+                .exclusive-product {
+                    border-radius: rem(3);
+                    background-color: $grey-light4;
+                    font-size: rem(13);
+                    font-style: oblique;
+                    font-weight: 500;
+                    letter-spacing: 0;
+                    line-height: rem(14);
+                    color: $black;
+                    text-transform: capitalize;
+                    padding: rem(7.5) rem(22);
+                }
+            }
+        }
+    }
+
+
+
+    .image-container {
+      border: none;
+
+      .fa-stack-2x {
+        font-size: rem(36);
+      }
+      .fa-stack-1x {
+        font-size: rem(18);
+      }
+      .quickview {
+        background: url('../../images/quickview_eye.svg') no-repeat center center;
+        width: rem(20);
+        height: rem(20);
+        bottom: rem(10);
+        right: rem(10);
+        display: block;
+      }
+    }
+
+    .out-of-stock {
+      font-size: rem(12);
+      font-family: $font-regular;
+      font-weight: 400;
+      text-align: left;
+    }
+    .exclusive-product {
+        font-size: rem(12);
+        text-align: left;
+        padding: 0;
+    }
+}
+.container {
+  &.plp-tiles-wrapper {
+    .breadcrumbs-wrapper-main {
+      margin: rem(0) rem(-8);
+    }
+    
+    .col-space-inner {
+      padding: rem(0) rem(8);
+    }
+    .breadcrumb {
+      border-bottom: none;
+      margin: rem(12.8) 0 rem(12.8);
+      padding: rem(9.6) 0 rem(8);
+    }
+  }
+}
