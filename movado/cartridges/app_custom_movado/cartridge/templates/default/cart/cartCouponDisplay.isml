@@ -14,7 +14,7 @@
                             data-toggle="modal"
                             data-target="#removeCouponModal"
                             data-uuid="${discount.UUID}">
-                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
             </div>
