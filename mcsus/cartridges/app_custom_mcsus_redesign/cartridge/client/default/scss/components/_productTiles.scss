@@ -4,7 +4,7 @@
 .product-tile {
 
     &.product-tile-plp-container {
-      position: relative;
+        position: relative;
 
         .image-container {
 
@@ -51,6 +51,7 @@
                 @include media-breakpoint-down(xs) {
                     height: rem(15);
                 }
+
                 .yotpo-display-wrapper {
 
                     .yotpo-bottomline {
@@ -107,7 +108,6 @@
                     -webkit-box-orient: vertical;
                     font-weight: 400;
                     height: inherit;
-                  
 
                     @include media-breakpoint-down(xs) {
                         font-size: rem(14);
@@ -156,8 +156,8 @@
                             color: $light-gray3;
 
                             @include media-breakpoint-down(xs) {
-                              font-size: rem(12);
-                              line-height: rem(15);
+                                font-size: rem(12);
+                                line-height: rem(15);
                             }
 
                             .strike-through {
@@ -253,8 +253,6 @@
         }
     }
 
-
-
     .image-container {
       border: none;
 
@@ -287,18 +285,18 @@
     }
 }
 .container {
-  &.plp-tiles-wrapper {
-    .breadcrumbs-wrapper-main {
-      margin: rem(0) rem(-8);
+    &.plp-tiles-wrapper {
+        .breadcrumbs-wrapper-main {
+            margin: rem(0) rem(-8);
+        }
+        
+        .col-space-inner {
+            padding: rem(0) rem(8);
+        }
+        .breadcrumb {
+            border-bottom: none;
+            margin: rem(12.8) 0 rem(12.8);
+            padding: rem(9.6) 0 rem(8);
+        }
     }
-    
-    .col-space-inner {
-      padding: rem(0) rem(8);
-    }
-    .breadcrumb {
-      border-bottom: none;
-      margin: rem(12.8) 0 rem(12.8);
-      padding: rem(9.6) 0 rem(8);
-    }
-  }
 }
