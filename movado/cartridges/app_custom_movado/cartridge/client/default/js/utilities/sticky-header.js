@@ -23,9 +23,11 @@
                     top: 0 + (opts.offsetTop || 0)
                 });
                 $thisInstance.parent().addClass('fixed-header');
+                $('.header-logo-ebl').addClass('logo-ebl');
             } else {
                 $thisInstance.removeClass('sticky-header');
                 $thisInstance.parent().removeClass('fixed-header');
+                $('.header-logo-ebl').removeClass('logo-ebl');
             }
         };
 
