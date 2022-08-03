@@ -1,3 +1,4 @@
+@import "~movado/checkout/checkout";
 @import "../variables";
 @import "../mixins";
 @import "bootstrap/scss/variables";
@@ -50,7 +51,7 @@ $checkout-font-weight: 600;
 }
 
 .shipping-method-option {
-    font-family: $font-book;
+    font-family: $font-HelveticaNeueLT-book;
     font-size: rem(16);
     color: $grey14;
     letter-spacing: rem(0.4);
@@ -63,7 +64,7 @@ $checkout-font-weight: 600;
 }
 
 .shipping-method-pricing {
-    font-family: $font-medium;
+    font-family: $font-HelveticaNeueLT-medium;
     font-size: rem(16);
     line-height: rem(19);
     letter-spacing: rem(0.4);
@@ -360,10 +361,6 @@ span.ship-to-city-st-zip {
     }
 }
 
-//  Import movado-checkout at the end to prevent variable overwrite
-
-@import "~movado/checkout/checkout";
-
 header {
     &.checkout-header {
         .fixed-header {
@@ -534,7 +531,7 @@ header {
             }
 
             .logo-checkout-text {
-                font-family: $font-book;
+                font-family: $font-HelveticaNeueLT-book;
                 color: $grey14;
                 font-size: rem(18);
                 line-height: rem(22);

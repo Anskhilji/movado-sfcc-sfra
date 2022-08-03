@@ -11,6 +11,11 @@
         assets.addCss('/css/lib/product-tile-name.css');
     </isscript>
 
+    <isset name="isListrakEnable" value="${!empty(dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) ? dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled : false}" scope="page" />
+    <isif condition="${isListrakEnable}">
+        <isinclude url="${URLUtils.https('ltkActivityTracking-TrackRequest', 'pid', pdict.product.id)}"/>  
+    </isif>
+
     <isset name="sitePref" value="${dw.system.Site.getCurrent().preferences.custom}" scope="page">
     <isif condition="${sitePref.EUMEnabled}">
         <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.pdp', 'eum', null))}"/>
@@ -150,22 +155,25 @@
                         <isinclude template="product/components/pidRatingAlternate" />
                     </div>
 
-                    <div class="tax-duties">
-                        <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
-                        <isif condition="${isEswEnabled}" >
-                            <isset name="domesticAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
-                            <isset name="isTaxDutiesAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isTaxDutiesAllowedCountry()}" scope="page" />
-                            <isif condition="${!empty(isTaxDutiesAllowedCountry)}">
-                                <isif condition="${!domesticAllowedCountry && isTaxDutiesAllowedCountry}">
+                    <iscomment> Custom Start: Tax Duties shows when following requirements meet </iscomment>
+                    <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
+                    <isif condition="${isEswEnabled}" >
+                        <isset name="domesticAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
+                        <isset name="isTaxDutiesAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isTaxDutiesAllowedCountry()}" scope="page" />
+                        <isif condition="${!empty(isTaxDutiesAllowedCountry)}">
+                            <isif condition="${!domesticAllowedCountry && isTaxDutiesAllowedCountry}">
+                                <div class="tax-duties">
                                     <isslot id="cs-esw-tax-duties" description="Tax Duties" context="global" />
-                                </isif>
-                            <iselse/>
-                                <isif condition="${!domesticAllowedCountry}">
+                                </div>
+                            </isif>
+                        <iselse/>
+                            <isif condition="${!domesticAllowedCountry}">
+                                <div class="tax-duties">
                                     <isslot id="cs-esw-tax-duties" description="Tax Duties" context="global" />
-                                </isif>
+                                </div>
                             </isif>
                         </isif>
-                    </div>
+                    </isif>
 
                     <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
                     <isif condition="${isEswEnabled}" >

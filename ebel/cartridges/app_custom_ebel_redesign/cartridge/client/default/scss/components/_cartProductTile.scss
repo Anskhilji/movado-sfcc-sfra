@@ -1,0 +1,24 @@
+.product-card-wrapper {
+    
+    .line-item-name {
+        font-family: $font-HelveticaNeueLT-medium;  
+    }
+
+    .item-info {
+
+        .item-attributes {
+
+            .total-amount {
+                font-family: $font-HelveticaNeueLT-medium;  
+            }
+            
+            .model-name, .original-price, .savings {
+                font-family: $font-HelveticaNeueLT-medium;  
+            }
+    
+            .personalize-msg, .personalize-price {
+                font-family: $font-HelveticaNeueLT-medium;  
+            }
+        }
+    }
+}

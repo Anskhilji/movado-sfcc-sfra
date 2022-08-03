@@ -100,7 +100,7 @@ $stored-payment-spacing: rem(16);
     }
   }
   .custom-select {
-    font-family: $font-medium;
+    font-family: $font-HelveticaNeueLT-medium;
     font-size: rem(14);
     line-height: rem(17);
     letter-spacing: rem(0.4);
@@ -139,7 +139,7 @@ $stored-payment-spacing: rem(16);
     .order-receipt-label,
     .text-right,
     .sub-total {
-      font-family: $font-medium;
+      font-family: $font-HelveticaNeueLT-medium;
       font-size: rem(16);
       letter-spacing: rem(0.4);
       line-height: rem(21);
@@ -150,7 +150,7 @@ $stored-payment-spacing: rem(16);
     .grand-total {
       .order-receipt-label,
       .text-right {
-        font-family: $font-bold;
+        font-family: $font-HelveticaNeueLT-bold;
         font-size: rem(18);
         letter-spacing: rem(0.4);
         line-height: rem(22);
@@ -310,7 +310,7 @@ $stored-payment-spacing: rem(16);
 }
 
 .summary-details {
-  font-family: $font-book;
+  font-family: $font-HelveticaNeueLT-book;
   font-size: rem(14);
   letter-spacing: rem(0.4);
   line-height: rem(21);
@@ -324,7 +324,7 @@ $stored-payment-spacing: rem(16);
 }
 
 .summary-section-label {
-  font-family: $font-medium;
+  font-family: $font-HelveticaNeueLT-medium;
   font-size: rem(14);
   letter-spacing: rem(0.4);
   line-height: rem(17);
