@@ -11,10 +11,15 @@
             .product-badge {
                 display: none;
             }
+
+            .quickview {
+                display: none;
+            }
         }
       
         .tile-body {
-
+            padding: rem(10) rem(0) rem(18.5) rem(0);
+            
             .product-family-name-plp {
                 @include media-breakpoint-down(xs) {
                     margin-top: rem(8);
@@ -49,7 +54,7 @@
                 .yotpo-display-wrapper {
 
                     .yotpo-bottomline {
-                        margin-bottom: rem(16);
+                        margin-bottom: rem(0);
 
                         .yotpo-icon {
                             @include media-breakpoint-down(xs) {
@@ -158,6 +163,7 @@
                             .strike-through {
                                 color: $light-gray3;
                                 margin-right: rem(0);
+                                font-weight: 400;
                             }
                         }
 

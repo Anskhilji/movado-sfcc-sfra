@@ -81,7 +81,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
         decorators.mgattributes(product, apiProduct);
     }
     if (!params.images || params.images == true) {
-        decorators.images(product, apiProduct, { types: ['tile533', 'tile256', 'tile217', 'tile150', 'tile512', 'tile300X375','tile512X640','tile532X300', 'tile300X300', 'tile180'], quantity: 'all' });
+        decorators.images(product, apiProduct, { types: ['tile533', 'tile256', 'tile217', 'tile150', 'tile512', 'tile300X375','tile512X640','tile532X300', 'tile300X300', 'tile180','tile326','tile166'], quantity: 'all' });
     }
     if (!params.promotions || params.promotions == true) {
         decorators.promotions(product, options.promotions);
