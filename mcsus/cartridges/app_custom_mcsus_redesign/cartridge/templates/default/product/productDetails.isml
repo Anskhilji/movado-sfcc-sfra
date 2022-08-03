@@ -50,7 +50,18 @@
                         <isif condition="${pdict.yotpoWidgetData.isReviewEnabled}">
                             <iscomment> product rating </iscomment>
                             <div class="d-block rating-box-redisgn">
-                                <isinclude template="product/components/pidRating" />
+                                <isset name="isYotpoStoreProductRatingEnabled" value="${!empty(dw.system.Site.current.preferences.custom.yotpoStoreProductRatingEnabled) ? dw.system.Site.current.preferences.custom.yotpoStoreProductRatingEnabled : false}" scope="page" />
+                                <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
+                                    <div class="product-number-rating">
+                                        <div class="ratings">
+                                            <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                                                <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <iselse/>
+                                    <isinclude template="product/components/pidRating" />
+                                </isif>
                             </div>
                         </isif>
                     </div>
@@ -85,12 +96,22 @@
                         </h2>
                         <!-- Product Name -->
                         <h2 class="product-name prdouct-name-gtm d-none d-sm-block">${product.productName}</h2>
-                        
+
                         <iscomment> product rating </iscomment>
                         <iscomment> <p> <span>Model:</span> <span><isprint value="${product.id}" encoding="on" /></span> </p> </iscomment>
                         <isif condition="${pdict.yotpoWidgetData.isReviewEnabled}">
-                            <div class="d-none d-sm-block  rating-box-redisgn">
-                                <isinclude template="product/components/pidRating" />
+                            <div class="d-none d-sm-block rating-box-redisgn">
+                                <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
+                                    <div class="product-number-rating">
+                                        <div class="ratings">
+                                            <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                                                <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <iselse/>
+                                    <isinclude template="product/components/pidRating" />
+                                </isif>
                             </div>
                         </isif>
                     </div>
@@ -155,7 +176,7 @@
                         </isif>
                         <iscomment> Custom Start: Clyde Integration </iscomment>
                             <isif condition = "${dw.system.Site.current.preferences.custom.clydeWidgetDisplay}">
-                                <div id="clyde-cta" >
+                                <div class="col-md-10 col-12" id="clyde-cta" >
                                 </div>
                             </isif>
                         <iscomment> Custom End: </iscomment>
