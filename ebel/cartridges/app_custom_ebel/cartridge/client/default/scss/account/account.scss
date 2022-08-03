@@ -121,7 +121,7 @@
               vertical-align: middle;
               font-size: rem(24);
               font-weight: 300;
-              font-family: $font-medium;
+              font-family: $font-HelveticaNeueLT-medium;
               line-height: rem(25);
             }
             .account-wl-image{
@@ -134,7 +134,7 @@
           dt,.field-label{
             color: $grey14;
             font-size: rem(14);
-            font-family: $font-medium;
+            font-family: $font-HelveticaNeueLT-medium;
           }
           dd,.field-value{
             color: $grey-dark-1;
@@ -146,7 +146,7 @@
               font-size: rem(14);
               color: $grey-dark-1;
               &.dashboard-cards-block-title{
-                font-family: $font-medium;
+                font-family: $font-HelveticaNeueLT-medium;
                 font-weight: 500;
                 color:$grey14;
               }
@@ -172,7 +172,7 @@
           .field-label{
             color: $grey14;
             font-size: rem(14);
-            font-family: $font-medium;
+            font-family: $font-HelveticaNeueLT-medium;
           }
           .field-value{
             color: $grey-dark-1;
