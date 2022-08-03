@@ -138,6 +138,8 @@
 		<isif condition="${pdict.productSearch.category}">
 			<isslot id="cs_plp_bottom_slot" context="category" description="Recommendation content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
 			<isslot id="cs_plp_seo_bottom_slot" context="category" description="SEO content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
+			<isslot id="cs_plp_marketing_bottom_slot" context="category" description="Marketing content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
+            <isslot id="cs_plp_marketing_tile_slot" context="category" description="Marketing content tile on PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
 		</isif>
 
 		<isif condition="${dw.system.Site.current.getCustomPreferenceValue('enableSwatch')}">
