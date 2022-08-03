@@ -6,6 +6,12 @@
         assets.addJs('/js/productDetail.js');
         assets.addCss('/css/product/detail.css');
     </isscript>
+
+    <isset name="isListrakEnable" value="${!empty(dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) ? dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled : false}" scope="page" />
+    <isif condition="${isListrakEnable}">
+        <isinclude url="${URLUtils.https('ltkActivityTracking-TrackRequest', 'pid', pdict.product.id)}"/>  
+    </isif>
+    
     <isif condition="${dw.system.Site.current.preferences.custom.EUMEnabled}">
         <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.pdp', 'eum', null))}"/>
     </isif>
@@ -114,7 +120,7 @@
                                 </div>
                             </isif>
                         <iscomment> Custom End: </iscomment>
-                        <div class="col-12 prices-add-to-cart-actions">
+                       <div class="col-12 prices-add-to-cart-actions">
                             <!-- Prices -->
                             <div class="prices">
                                 <isset name="price" value="${product.price}" scope="page" />
@@ -122,13 +128,15 @@
                                     <isinclude url="${URLUtils.https('Product-ShowMcsProdutPrice', 'pid', product.id)}"/>
                                 <iscomment> Custom: End </iscomment>
                             </div>
-                            <div class="d-block d-md-flex">
+                            <div class="d-block d-md-flex btn-margin smart-gift-box-mcs">
                                 <!-- Cart and [Optionally] Apple Pay -->
                                 <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
+                            </div>
+                            <div class="smart-gift-box-new smart-gift-box-new-mcs">
                                 <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
                                     <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
-                                        <div class="d-none d-md-flex"><isinclude template="product/components/old/smartGift" /></div>
-                                    </isif>    
+                                        <div class="d-block smart-main"><isinclude template="product/components/smartGift" /></div>
+                                    </isif>
                                 </isif>
                             </div>
                         </div>
@@ -138,7 +146,7 @@
                                 <isinclude url="${URLUtils.https('Wishlist-ShowIcon','gtmObj',JSON.stringify(pdict.wishlistGtmObj))}"/>
                                 <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
                                     <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
-                                        <div class="d-block d-md-none smartgift-medium-scr"><isinclude template="product/components/old/smartGift" /></div>
+                                        <div class="d-none smartgift-medium-scr"><isinclude template="product/components/smartGift" /></div>
                                     </isif>
                                 </isif>
                                 <span class="product-id d-none" itemprop="productID" >${product.id}</span>
