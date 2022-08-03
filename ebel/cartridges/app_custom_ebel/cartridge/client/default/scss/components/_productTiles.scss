@@ -65,7 +65,7 @@
             font-size: rem(14);
             font-weight: 500;
             line-height: rem(17);
-            font-family: $font-medium;
+            font-family: $font-HelveticaNeueLT-medium;
             color:$grey-transparent-1;
             margin-bottom: 0;
             .tiered {
@@ -95,7 +95,7 @@
                   letter-spacing: 1.76px;
                   line-height: rem(20);
                   font-weight:300;
-                  font-family: $font-book;
+                  font-family: $font-HelveticaNeueLT-book;
                 }
 
                 @include media-breakpoint-down(sm) {
@@ -103,7 +103,7 @@
                     letter-spacing: 2px;
                     font-weight:300;
                     line-height: rem(17);
-                    font-family: $font-book;
+                    font-family: $font-HelveticaNeueLT-book;
                 }
             }
         }
@@ -114,7 +114,7 @@
         .compare{
           label{
             font-weight: 500;
-            font-family: $font-medium;
+            font-family: $font-HelveticaNeueLT-medium;
             line-height:rem(17);
             color:$grey-transparent-1;
           }
@@ -211,7 +211,7 @@
     .promo-msg.callout{
       font-size: rem(14);
       font-weight: 500;
-      font-family: $font-medium;
+      font-family: $font-HelveticaNeueLT-medium;
       line-height: rem(17);
       letter-spacing: rem(0.4);
       text-align: center;
