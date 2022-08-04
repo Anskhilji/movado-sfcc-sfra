@@ -226,7 +226,8 @@
                 position: absolute;
                 top: 0;
                 justify-content: space-between;
-                width: 100%;                
+                width: 100%;
+                flex-direction: row-reverse;
 
                 @include media-breakpoint-down(xs) {
                     justify-content: flex-end;
@@ -282,11 +283,6 @@
         font-family: $font-regular;
         font-weight: 400;
         text-align: left;
-    }
-    .exclusive-product {
-        font-size: rem(12);
-        text-align: left;
-        padding: 0;
     }
 }
 .container {
