@@ -55,7 +55,8 @@ function getResources(pageContext) {
         GOOGLE_PAY_AUTOCOMPLETE: autoComplete,
         GOOGLE_PAY_ALLOWED_COUNTRY_CODES: allowedCountryCodes,
         COUPONCODE_URL: URLUtils.url('CouponCode-Apply').toString(),
-        IS_YOTPO_ENABLED: !empty(Site.current.preferences.custom.yotpoCartridgeEnabled) ? Site.current.preferences.custom.yotpoCartridgeEnabled : false
+        IS_YOTPO_ENABLED: !empty(Site.current.preferences.custom.yotpoCartridgeEnabled) ? Site.current.preferences.custom.yotpoCartridgeEnabled : false,
+        LISTRAK_SUCCESS_MSG: Resource.msg('info.obus.site.id', 'common', null)
     };
     return resources;
 }

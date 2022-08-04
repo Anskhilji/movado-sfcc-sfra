@@ -28,17 +28,20 @@ server.post('Subscribe',
                         result.success = backInStockNotificationHelper.saveBackInStockNotificationObj(backInStockNotificationObj);
                     }
                 }
+                var requestParams = {
+                    email: form.email
+                }
                 //Custom Start [MSS-1453]: Send Subscriber to Listrak if checkbox is checked
                 if ((form.enabledMarketing == 'true' || form.enabledMarketing == true) && Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
                     var ltkApi = require('*/cartridge/scripts/api/ListrakAPI');
                     var ltkConstants = require('*/cartridge/scripts/utils/ListrakConstants');
-                    var requestParams = {
-                        email: form.email,
-                        source: ltkConstants.Source.BackInStock,
-                        event: ltkConstants.Event.BackInStock,
-                        subscribe: ltkConstants.Subscribe.BackInStock
-                    }
+                        requestParams.source = ltkConstants.Source.BackInStock;
+                        requestParams.event = ltkConstants.Event.BackInStock,
+                        requestParams.subscribe = ltkConstants.Subscribe.BackInStock
                     ltkApi.sendSubscriberToListrak(requestParams);
+                } else {
+                    var SFMCApi = require('int_custom_marketing_cloud/cartridge/scripts/api/SFMCApi');
+                    SFMCApi.sendSubscriberToSFMC(requestParams);
                 }
                 //Custom End: 
             }

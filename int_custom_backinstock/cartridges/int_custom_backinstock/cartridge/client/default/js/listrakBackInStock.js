@@ -1,4 +1,72 @@
 'use strict';
+// var backInStockNotification = require('backInStockNotification');
+var triggerEmail = true; 
+var processResponse = function ($selector, data) {
+    if (data.success) {
+        $selector.find('.back-in-stock-notification-listrak-container, .back-in-stock-notification-marketing-container').addClass('d-none');
+        var mediumWidth = 992;
+        var $windowWidth = $(window).width();
+        if ($windowWidth < mediumWidth) {
+            $('.description-and-detail').addClass('description-and-detail-pt');
+            $('.description-and-detail').removeClass('description-and-detail-pad');
+        } else {
+            $('.back-in-stock-notification-container-success').addClass('back-in-stock-notification-container-mb');
+            $('.listrak-success-msg').text(window.Resources.LISTRAK_SUCCESS_MESSAGE);
+        }
+        $('.back-in-stock-notification-container-success').removeClass('d-none').focus();
+    } else {
+        if (!data.success) {
+            if (!data.isValidEmail) {
+                $selector.find('.back-in-stock-notification-invalid-email').removeClass('d-none');
+            } else if (data.isAlreadySubscribed) {
+                $selector.find('.back-in-stock-notification-already-subscribed').removeClass("d-none");
+            } else {
+                $selector.find('.back-in-stock-notification-technical-error').removeClass('d-none');
+            }
+        }
+    }
+    triggerEmail = true;
+}
+
+var submitBackInStockEmail = function ($selector) {
+    $selector.find('.back-in-stock-notification-error').addClass('d-none');
+    $selector.spinner().start();
+    var url = $selector.data('url');
+    var pid = $selector.data('pid');
+    var emailAddress = $selector.find('.back-in-stock-notification-email').val();
+
+    var enabledMarketing = false;
+    if ($selector.find('#backInStockListrakPreference').length > 0) {
+        if ($selector.find('#backInStockListrakPreference').is(':checked')) {
+            enabledMarketing = true;
+        }
+    }
+
+    var form = {
+        pid: pid,
+        email: emailAddress,
+        enabledMarketing: enabledMarketing
+    }
+
+    $.ajax({
+        url: url,
+        data: form,
+        method: 'POST',
+        success: function (response) {
+            if (response.result) {
+                processResponse($selector, response.result);
+            } else {
+                $selector.find('.back-in-stock-notification-technical-error').removeClass('d-none');
+            }
+            $selector.spinner().stop();
+        },
+        error: function (response) {
+            $selector.find('.back-in-stock-notification-technical-error').removeClass('d-none');
+            $selector.spinner().stop();
+        }
+    });
+
+}
 
 $('.form').submit(function(e) {
     e.preventDefault();
@@ -9,9 +77,10 @@ $('.form').submit(function(e) {
     var $phone = ''
     var $alertCode = $('#alertCode').val();
     var $listrakSuccessMsg= $('.listrak-success-msg');
-    var $emailRequired = $('.back-in-stock-notification-error-required');
+    var $emailRequired = $('.back-in-stock-notification-error-required'); 
     var $emailInvalid = $('.back-in-stock-notification-error-invalid');
     var $phoneInvalid = $('.back-in-stock-notification-invalid-phone');
+    var $backInStockListrakPreference = $('#backInStockListrakPreference');
     $emailRequired.text('');
     $emailInvalid.text('');
     $phoneInvalid.text('');
@@ -23,6 +92,17 @@ $('.form').submit(function(e) {
 
         if ($email) {
             $isValid = $pattern.test($email);
+            if ($backInStockListrakPreference.length > 0) {
+                if (triggerEmail) {
+                    e.preventDefault();
+                    triggerEmail = false;
+                    var $selector;
+                    if ($backInStockContainerMain.length > 0) {
+                        $selector = $('.listrak-back-in-stock-notification-container-main');
+                    } 
+                    submitBackInStockEmail($selector);
+                }
+            }
         }
         
         if ($form.find('.back-in-stock-notification-phone').length > 0) {
