@@ -59,11 +59,7 @@
 
         <isset name="price" value="${product.price}" scope="page" />
         <iscomment> Custom: Start [pricing shows only when following requirements meet] </iscomment>
-            <isif condition="${product.productType === 'set'}">
-                <isinclude template="product/components/pricing/setPrice" />
-            <iselse/>
-                <isinclude template="product/components/pricing/main" />
-            </isif>
+            <isinclude url="${URLUtils.https('Product-ShowMcsProdutPrice', 'pid', product.id)}"/>
         <iscomment> Custom: End </iscomment>
         <isif condition="${!pdict.isCompareableDisabled}"> 
             <isinclude template="product/components/compare" />
