@@ -778,6 +778,7 @@
                                     padding: rem(0);
                                     @include media-breakpoint-down(sm) {
                                         padding: rem(0) rem(15); 
+                                        margin-bottom: rem(0);
                                     }
                                     @include media-breakpoint-down(xs) {
                                         padding: rem(0) rem(5); 
@@ -1058,6 +1059,7 @@
                                     .ratings {
                                         margin-left: auto;
                                         margin-right: auto;
+                                        margin-bottom: rem(0);
 
                                     .yotpo {
 
@@ -1307,6 +1309,10 @@
                                 margin-bottom: rem(25);
                                 margin-right: rem(0);
                                 width: 100%;
+
+                                @include media-breakpoint-down(sm) {
+                                    font-size: rem(20.8);
+                                }
 
                                 .affirm-modal-trigger {
                                     display: inline-block;
