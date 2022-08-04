@@ -1,4 +1,4 @@
-<div class="product-tile" data-loggedin-status-url="${URLUtils.url('Account-LoggedInStatus')}" itemscope itemtype="http://schema.org/Product">
+<div class="product-tile product-tile-plp-container" data-loggedin-status-url="${URLUtils.url('Account-LoggedInStatus')}" itemscope itemtype="http://schema.org/Product">
     <!-- dwMarker="product" dwContentID="${product.uuid}" -->
 
     <isloop items="${product.availability.messages}" var="message">
@@ -15,20 +15,21 @@
     <isinclude template="product/components/productTileImage" />
 
     <div class="tile-body">
+        <div class="row m-0">
+            <div class="col d-flex w-100 p-0 star-rating-plp">
+                <isinclude template="product/components/ratings" />
+            </div>
+        </div>
+        <div class="product-family-name-plp text-left">
+            <isif condition="${product.brand}">
+                <h2 class="product-family-name-plp-redesign">
+                    <a href="${!empty(pdict.customURL) ? pdict.customURL : ''}">${product.brand}</a>
+                </h2>
+            </isif>
+        </div>
+
         <isif condition="${pdict.display.swatches !== false}">
             <isinclude template="product/components/productTileSwatch" />
-        </isif>
-
-        <isif condition="${product.promotions}">
-            <div class="promotions">
-                <isloop items="${product.promotions}" var="promotion" status ="promoStatus">
-                    <isif condition="${promotion.plpCalloutMsg !== ''}">
-                        <div class="callout promo-msg">
-                            <isprint value="${promotion.plpCalloutMsg}" encoding="off">
-                        </div>
-                    </isif>
-                </isloop>
-            </div>
         </isif>
 
         <isinclude template="product/components/productTileName" />
@@ -44,26 +45,36 @@
                 ${Resource.msg('label.soldout', 'common', null)}
             </div>
         </isif>
-
-        <isloop items="${product.badges.textBadges}" var="badge">
-            <div class="exclusive-product">
-                ${badge.text}
-            </div>
-        </isloop>
-
-        <div class="row m-0">
-            <div class="col d-flex w-100 p-0">
-                <isinclude template="product/components/ratings" />
-            </div>
+        <div class="d-flex text-badges-container">
+            <isloop items="${product.badges.textBadges}" var="badge">
+                <div class="exclusive-product">
+                    ${badge.text}
+                </div>
+            </isloop>
         </div>
 
-        <isset name="price" value="${product.price}" scope="page" />
-        <iscomment> Custom: Start [pricing shows only when following requirements meet] </iscomment>
-            <isinclude url="${URLUtils.https('Product-ShowMcsProdutPrice', 'pid', product.id)}"/>
-        <iscomment> Custom: End </iscomment>
-        <isif condition="${!pdict.isCompareableDisabled}"> 
-            <isinclude template="product/components/compare" />
-        </isif>
+        <div class="price-promotions">
+            <isset name="price" value="${product.price}" scope="page" />
+            <iscomment> Custom: Start [pricing shows only when following requirements meet] </iscomment>
+                <isif condition="${product.productType === 'set'}">
+                    <isinclude template="product/components/pricing/setPrice" />
+                <iselse/>
+                    <isinclude template="product/components/pricing/main" />
+                </isif>
+            <iscomment> Custom: End </iscomment>
+
+            <isif condition="${product.promotions}">
+                <div class="promotions">
+                    <isloop items="${product.promotions}" var="promotion" status ="promoStatus">
+                        <isif condition="${promotion.plpCalloutMsg !== ''}">
+                            <div class="callout promo-msg">
+                                <isprint value="${promotion.plpCalloutMsg}" encoding="off" />
+                            </div>
+                        </isif>
+                    </isloop>
+                </div>
+            </isif>
+        </div>
         
         <isif condition="${pdict.display.selectBonusProductsButton}">
             <button class="btn btn-block btn-outline-primary select-bonus-product" data-pid="${product.id}" ${outOfStock || !product.available ? "disabled" : "" }>
