@@ -7,6 +7,8 @@
         position: relative;
 
         .image-container {
+            border: none;
+
             .product-badge {
                 display: none;
             }
@@ -17,8 +19,9 @@
         }
         
         .tile-body {
-            padding: rem(10) rem(0) rem(18.5) rem(0);
-            
+            background-color: $white;
+            padding: rem(10) rem(10) rem(18.5) rem(14);
+
             .product-family-name-plp {
                 @include media-breakpoint-down(xs) {
                     margin-top: rem(8);
@@ -188,8 +191,8 @@
                 }
 
                 .promotions {
-                    background-color: $light-pink2;
-                    border: rem(1) solid $light-pink;
+                    background-color: $grey-light4;
+                    border: rem(1) solid $black;
                     padding: rem(6) rem(13);
                     border-radius: rem(3);
                     margin-bottom: rem(8);
@@ -210,7 +213,7 @@
                             padding: rem(0);
                             font-style: oblique;
                             line-height: rem(14);
-                            color: $dark-pink;
+                            color: $black;
                             
                             @include media-breakpoint-down(xs) {
                                 font-size: rem(12);
@@ -226,7 +229,7 @@
                 position: absolute;
                 top: 0;
                 justify-content: space-between;
-                width: 100%;                
+                width: 100%;
 
                 @include media-breakpoint-down(xs) {
                     justify-content: flex-end;
@@ -255,38 +258,89 @@
                     }
                 }
             }
-        }
-    }
 
-    .image-container {
-        border: none;
+            .out-of-stock {
+                font-size: rem(12);
+                font-family: $font-regular;
+                font-weight: 400;
+                text-align: left;
+            }
+            .exclusive-product {
+                font-size: rem(12);
+                text-align: left;
+                padding: 0;
+            }
+        }
 
-        .fa-stack-2x {
-            font-size: rem(36);
-        }
-        .fa-stack-1x {
-            font-size: rem(18);
-        }
-        .quickview {
-            background: url('../../images/quickview_eye.svg') no-repeat center center;
-            width: rem(20);
-            height: rem(20);
-            bottom: rem(10);
-            right: rem(10);
+        .cta-add-to-cart {
+            box-sizing: border-box;
+            padding: rem(9) rem(15);
+            width: 100%;
+            border: rem(0.4) solid $light-grey7;
+            border-radius: rem(3);
             display: block;
-        }
-    }
+            margin-top: rem(8);
 
-    .out-of-stock {
-        font-size: rem(12);
-        font-family: $font-regular;
-        font-weight: 400;
-        text-align: left;
-    }
-    .exclusive-product {
-        font-size: rem(12);
-        text-align: left;
-        padding: 0;
+            @include media-breakpoint-up(lg) {
+                display: none;
+                margin-top: rem(15);
+            }
+
+            @include media-breakpoint-down(md) {
+                padding: rem(7.76) rem(6);
+                font-size: rem(12);
+            }
+
+            @include media-breakpoint-down(xs) {
+                padding: rem(3.84) rem(6);
+                font-size: rem(10);
+            }
+
+            .add-to-cart-plp {
+                color: $light-brown1;
+                font-family: $font-gill-std-medium;
+                font-size: rem(14);
+                font-weight: 600;
+                letter-spacing: 0;
+                text-align: center;
+                padding: rem(0);
+                background: transparent;
+                border-color: transparent;
+                border: none;
+
+                @include media-breakpoint-down(xs) {
+                    font-size: rem(10);
+                }
+
+                &.btn-primary {
+                    &:focus,
+                    &:active {
+                        background-color: transparent;
+                        border: none;
+                        box-shadow: none;
+                        color: $light-brown1;
+                    }
+                }
+            }
+
+        }
+
+        &:hover {
+            @include media-breakpoint-up(lg) {
+                box-shadow: 0 rem(2) rem(12) 0 $grey-light7;
+                transform: scale(0.9);
+                position: absolute;
+                z-index: 5;
+                top: rem(-24);
+            }
+
+            .cta-add-to-cart {
+                @include media-breakpoint-up(lg) {
+                  display: block;
+                }
+            }
+        }
+
     }
 }
 .container {

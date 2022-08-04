@@ -62,13 +62,10 @@
             <isinclude url="${URLUtils.https('Product-ShowMcsProdutPrice', 'pid', product.id)}"/>
         <iscomment> Custom: End </iscomment>
 
-        <iscomment> new add to card button template addded </iscomment>
-        <isinclude template="product/components/addToCartPLP.isml" sf-toolkit="on" />
-
         <isif condition="${!pdict.isCompareableDisabled}"> 
             <isinclude template="product/components/compare" />
         </isif>
-        
+
         <isif condition="${pdict.display.selectBonusProductsButton}">
             <button class="btn btn-block btn-outline-primary select-bonus-product" data-pid="${product.id}" ${outOfStock || !product.available ? "disabled" : "" }>
                 ${Resource.msg('button.choiceofbonus.select', 'product', null)}
