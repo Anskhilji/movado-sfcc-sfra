@@ -23,7 +23,7 @@
         </div>
         <div class="product-family-name-plp text-left">
             <isif condition="${product.brand}">
-                <h2 class="product-family-name-redesign">
+                <h2 class="product-family-name-plp-redesign">
                     <a href="${!empty(pdict.customURL) ? pdict.customURL : ''}">${product.brand}</a>
                 </h2>
             </isif>
@@ -74,6 +74,10 @@
                 </div>
             </isif>
         </div>
+        <iscomment> Custom: End </iscomment>
+        <isif condition="${!pdict.isCompareableDisabled}"> 
+            <isinclude template="product/components/compare" />
+        </isif>
         
         <isif condition="${pdict.display.selectBonusProductsButton}">
             <button class="btn btn-block btn-outline-primary select-bonus-product" data-pid="${product.id}" ${outOfStock || !product.available ? "disabled" : "" }>
