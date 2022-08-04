@@ -1,13 +1,12 @@
-@import "~movado/components/_productTiles";
+@import "~mcsus/components/_productTiles";
 @import "../variables";
 
 .product-tile {
-
+   
     &-plp-container {
         position: relative;
 
         .image-container {
-
             .product-badge {
                 display: none;
             }
@@ -16,7 +15,7 @@
                 display: none;
             }
         }
-      
+        
         .tile-body {
             padding: rem(10) rem(0) rem(18.5) rem(0);
             
@@ -40,13 +39,14 @@
                     }
 
                     a {
+                        color: $light-black1;
                         text-decoration: underline;
                     }
                 }
             }
 
             .star-rating-plp {
-                height: rem(34);
+                height: rem(29.6);
 
                 @include media-breakpoint-down(xs) {
                     height: rem(15);
@@ -57,6 +57,10 @@
                     .yotpo-bottomline {
                         margin-bottom: rem(0);
 
+                        .yotpo-stars {
+                            padding-right: rem(5);
+                        }
+                        
                         .yotpo-icon {
                             @include media-breakpoint-down(xs) {
                                 font-size: rem(12) !important;
@@ -131,11 +135,11 @@
                     text-align: left;
                     padding-left: rem(0);
                     margin: rem(0) rem(10) rem(0) rem(0);
-      
+        
                     @include media-breakpoint-down(xs) {
                         font-size: rem(12);
                     }
-    
+
                     .tiered {
                         font-size: rem(14);
                         
@@ -207,7 +211,7 @@
                             font-style: oblique;
                             line-height: rem(14);
                             color: $dark-pink;
-                          
+                            
                             @include media-breakpoint-down(xs) {
                                 font-size: rem(12);
                                 font-weight: 500;
