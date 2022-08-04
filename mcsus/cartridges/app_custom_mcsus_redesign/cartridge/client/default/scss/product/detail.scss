@@ -806,10 +806,10 @@
                                     padding: rem(0);
                                     @include media-breakpoint-down(sm) {
                                         padding: rem(0) rem(15); 
-                                        margin-bottom: rem(0);
                                     }
                                     @include media-breakpoint-down(xs) {
                                         padding: rem(0) rem(5); 
+                                        margin-bottom: rem(0);
                                     }
 
                                     .breadcrumb-item {
@@ -1338,7 +1338,7 @@
                                 margin-right: rem(0);
                                 width: 100%;
 
-                                @include media-breakpoint-down(sm) {
+                                @include media-breakpoint-down(xs) {
                                     font-size: rem(20.8);
                                 }
 
