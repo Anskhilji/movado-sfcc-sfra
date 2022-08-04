@@ -36,10 +36,7 @@ $large-screen-width-down: 1400px;
     }
 }
 
-@font-face {font-family: 'GillSansMTStd-Light';font-display: block;src: url('../webfonts/39E094_1_0.eot');src: url('../webfonts/39E094_1_0.eot?#iefix') format('embedded-opentype'),url('../webfonts/39E094_1_0.woff2') format('woff2'),url('../webfonts/39E094_1_0.woff') format('woff'),url('../webfonts/39E094_1_0.ttf') format('truetype');}
 @font-face {font-family: 'Gill-Sans-MT-Medium';font-display: block;src: url('../webfonts/Gill-Sans-MT-Medium.woff') format('woff');}
 
 //font family
-$font-gill-std: "GillSansMTStd-Light", Arial, sans-serif;
 $font-gill-std-medium: "Gill-Sans-MT-Medium", Arial, sans-serif;
-$font-gills-light: "GillSansMTStd-Light", Arial, sans-serif;
