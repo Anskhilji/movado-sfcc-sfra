@@ -75,9 +75,9 @@
             </isif>
         </div>
         <iscomment> Custom: End </iscomment>
-        <isif condition="${!pdict.isCompareableDisabled}"> 
+        <iscomment> <isif condition="${!pdict.isCompareableDisabled}"> 
             <isinclude template="product/components/compare" />
-        </isif>
+        </isif> </iscomment>
         
         <isif condition="${pdict.display.selectBonusProductsButton}">
             <button class="btn btn-block btn-outline-primary select-bonus-product" data-pid="${product.id}" ${outOfStock || !product.available ? "disabled" : "" }>
