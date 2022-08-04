@@ -34,9 +34,9 @@
                     margin-bottom: rem(12);
 
                     @include media-breakpoint-down(xs) {
-                      font-size: rem(10);
-                      line-height: rem(15);
-                      margin-bottom: rem(8);
+                        font-size: rem(10);
+                        line-height: rem(15);
+                        margin-bottom: rem(8);
                     }
 
                     a {
@@ -67,19 +67,19 @@
             }
 
             .color-swatches {
-              min-height: 1rem;
-              text-align: left;
+                min-height: 1rem;
+                text-align: left;
 
                 .product-tile-color-label {
                     cursor: pointer;
                     font-size: 1em;
 
                     @include media-breakpoint-down(md) {
-                      font-size: 0.9375em;
+                        font-size: 0.9375em;
                     }
 
                     @include media-breakpoint-down(sm) {
-                      font-size: 0.8125em;
+                        font-size: 0.8125em;
                     }
                 }
             }
@@ -254,29 +254,29 @@
     }
 
     .image-container {
-      border: none;
+        border: none;
 
-      .fa-stack-2x {
-        font-size: rem(36);
-      }
-      .fa-stack-1x {
-        font-size: rem(18);
-      }
-      .quickview {
-        background: url('../../images/quickview_eye.svg') no-repeat center center;
-        width: rem(20);
-        height: rem(20);
-        bottom: rem(10);
-        right: rem(10);
-        display: block;
-      }
+        .fa-stack-2x {
+            font-size: rem(36);
+        }
+        .fa-stack-1x {
+            font-size: rem(18);
+        }
+        .quickview {
+            background: url('../../images/quickview_eye.svg') no-repeat center center;
+            width: rem(20);
+            height: rem(20);
+            bottom: rem(10);
+            right: rem(10);
+            display: block;
+        }
     }
 
     .out-of-stock {
-      font-size: rem(12);
-      font-family: $font-regular;
-      font-weight: 400;
-      text-align: left;
+        font-size: rem(12);
+        font-family: $font-regular;
+        font-weight: 400;
+        text-align: left;
     }
     .exclusive-product {
         font-size: rem(12);
