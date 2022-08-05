@@ -133,7 +133,7 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
 
         try {
             Transaction.begin();
-            if (!checkoutCustomHelpers.isRiskified(paymentInstrument)) {
+            if (!checkoutCustomHelpers.isRiskified(paymentInstrument) || klarnaPaymentStatus && klarnaPaymentStatus.toUpperCase() === constants.PAYMENT_STATUS_AUTHORISED) {
                 var placeOrderStatus = OrderMgr.placeOrder(order);
                 if (placeOrderStatus === Status.ERROR) {
                     checkoutLogger.error('(Adyen) -> ShowConfirmation: Place order status has error and order number is: ' + orderNumber);
@@ -195,14 +195,14 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
                 return next();
             } else {
                 var RiskifiedOrderDescion = require('*/cartridge/scripts/riskified/RiskifiedOrderDescion');
-                if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'declined') {
+                if (checkoutDecisionStatus && checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'declined') {
                     // Riskified order declined response from decide API
                     riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order);
                     if (riskifiedOrderDeclined) {
                         res.redirect(URLUtils.url('Checkout-Declined'));
                         return next();
                     }
-                } else if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'approved') {
+                } else if (checkoutDecisionStatus && checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'approved') {
                     // Riskified order approved response from decide API
                     var placeOrderStatus = OrderMgr.placeOrder(order); 
                     if (placeOrderStatus === Status.ERROR) {
