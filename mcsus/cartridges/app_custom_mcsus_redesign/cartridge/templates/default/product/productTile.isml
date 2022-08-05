@@ -22,7 +22,7 @@
         </div>
         <div class="product-family-name-plp text-left">
             <isif condition="${product.brand}">
-                <h2 class="product-family-name-plp-redesign">
+                <h2 class="product-family-name-redesign">
                     <a href="${!empty(pdict.customURL) ? pdict.customURL : ''}">${product.brand}</a>
                 </h2>
             </isif>
