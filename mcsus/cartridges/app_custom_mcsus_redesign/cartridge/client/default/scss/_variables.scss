@@ -36,7 +36,5 @@ $large-screen-width-down: 1400px;
     }
 }
 
-@font-face {font-family: 'Gill-Sans-MT-Medium';font-display: block;src: url('../webfonts/Gill-Sans-MT-Medium.woff') format('woff');}
-
 //font family
-$font-gill-std-medium: "Gill-Sans-MT-Medium", Arial, sans-serif;
+$font-gill-std-medium: "Gill-Sans-MT-Medium";
