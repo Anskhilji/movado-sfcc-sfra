@@ -191,34 +191,28 @@
                 }
 
                 .promotions {
-                    background-color: $grey-light4;
-                    border: rem(1) solid $black;
-                    padding: rem(6) rem(13);
-                    border-radius: rem(3);
-                    margin-bottom: rem(8);
-
-                    @include media-breakpoint-down(xs){
-                        background-color: $grey-light4;
-                        border: rem(.5) solid $black;
-                        padding: rem(2.25) rem(5.25);
-                    }
-
+                    
                     .promo-msg {
                         &.callout {
-                            font-size: rem(13);
-                            font-weight: 500;
-                            font-family: $font-medium;
+                            font-size: rem(13);                            
                             letter-spacing: rem(0);
                             text-align: left;
-                            padding: rem(0);
-                            font-style: oblique;
                             line-height: rem(14);
                             color: $black;
+                            background-color: $grey-light4;
+                            border: rem(1) solid $black;
+                            padding: rem(6) rem(13);
+                            border-radius: rem(3);
+                            margin-bottom: rem(8);
+                            @include font-medium;
+                            font-style: oblique;
+                            font-weight: 600;
                             
                             @include media-breakpoint-down(xs) {
                                 font-size: rem(12);
                                 font-weight: 500;
                                 color: $black;
+                                padding: rem(2.25) rem(5.25);
                             }
                         }
                     }
@@ -230,6 +224,11 @@
                 top: 0;
                 justify-content: space-between;
                 width: 100%;
+                
+                @include media-breakpoint-up(lg) {
+                    width: 90%;
+                    top: rem(10);
+                }
 
                 @include media-breakpoint-down(xs) {
                     justify-content: flex-end;
@@ -243,8 +242,9 @@
                     border-radius: rem(3);
                     background-color: $grey-light4;
                     font-size: rem(13);
+                    @include font-medium;
                     font-style: oblique;
-                    font-weight: 500;
+                    font-weight: 600;
                     letter-spacing: 0;
                     line-height: rem(14);
                     color: $black;
