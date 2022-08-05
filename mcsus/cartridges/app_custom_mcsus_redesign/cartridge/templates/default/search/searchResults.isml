@@ -58,11 +58,11 @@
 						<isif condition="${pdict.productSearch.productIds.length > 0}">
 						    <div class="row grid-header ml-0 mr-0">
 						    <div class="result-count text-center col-12 col-md-9 col-sm-6 order-sm-2 d-none">
-						    <iselse>
+						    <iselse/>
 						    <div class="row grid-header justify-content-center">
 						    <div class="result-count col d-none">
 						</isif>
-						<isinclude template="search/resultsCount" />
+						<iscomment> <isinclude template="search/resultsCount" /> </iscomment>
 					</div>
 					<isif condition="${pdict.productSearch.productIds.length > 0}">
 						<div class="col-6 col-sm-6 order-sm-1 sort-filters-button sort-col">
@@ -120,11 +120,6 @@
 										</div>
 									</isif>
 								</isloop>
-								<div class="col-12">
-									<div class="search-resull-redesign">
-										<isinclude template="search/resultsCount" />
-									</div>
-								</div>
 								<isif condition="${pdict.productSearch.enablePagination}">
 									<isinclude template="search/pagination" />
 								<iselse>

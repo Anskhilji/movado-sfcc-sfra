@@ -119,7 +119,7 @@
 								<isif condition="${pdict.productSearch.enablePagination}">
 									<isinclude template="search/pagination" />
 								<iselse>
-									<isinclude template="search/showMore" />
+									<isinclude template="search/old/showMore" />
 								</isif>
 							</div>
 						</div>
