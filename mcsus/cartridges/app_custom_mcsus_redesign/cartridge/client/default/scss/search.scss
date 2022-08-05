@@ -1,0 +1,138 @@
+@import "~mcsus/search";
+@import 'variables';
+
+
+.search-results-plp-redesign {
+
+  .breadcrumb {
+      padding-left: rem(0);
+      padding-right: rem(0);
+  }
+  .search-banner {
+
+    img {
+      width: 100%;
+    }
+  }
+
+    .search-results-container  {
+        .product-counter-wrapper {
+            width: 100%;
+
+            .searech-results-wrapper  {
+
+                .sort-col {
+                    &::before {
+                        display: none;
+                    }
+                }
+
+                .sort-filters-box {
+                    position: relative;
+                    max-width: rem(187);
+
+                    .fliter-icon {
+                        position: absolute;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        left: rem(9.7);
+                    }
+
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        top: 50%;
+                        transform: translateY(-50%) rotate(-136deg);
+                        right: rem(10);
+                        height: rem(6);
+                        width: rem(6);
+                        border-top: 1px solid $black;  
+                        border-left: 1px solid $black;  
+                        pointer-events: none;
+                    }
+
+                    .sorting-rules-filters {
+                        font-size: rem(14);
+                        letter-spacing: rem(1);
+                        line-height: rem(17);
+                        color: $light-black1;
+                        padding-left: rem(30);
+                        height: rem(38);
+
+                        &::-ms-expand {
+                            display: none;
+                        }
+                    }
+                }
+
+                .filter-results-redesign {
+                    width: rem(152);
+                    height: rem(38);
+                    font-size: rem(14);
+                    letter-spacing: rem(1);
+                    line-height: rem(17);
+                    border-radius: rem(3);
+                    font-weight: 400;
+                }
+
+                .refinement-bar {
+                    background-color: #fff;
+                    box-shadow: $grey-light6;
+                    display: none;
+                    right: 0;
+                    position: fixed;
+                    top: 0;
+                    width: 100%;
+                    z-index: 1019;
+                    height: 100vh;
+                    display: none !important;
+
+                    &.refinement-bar-pl {
+                        display: block !important;
+                    }
+                    .header-bar {
+                        padding: rem(15);
+                        
+                        .total-product-count {
+                            margin-top: 0;
+                        }
+
+                        .result-count > span  {
+                            font-size: rem(20);
+                            font-family: $font-medium;
+                            font-weight: 500;
+                        }
+
+                        button {
+                            &.close {
+                                display: flex;
+                                align-items: center;
+                                outline: none;
+                                box-shadow: none;
+                            }
+                        }
+                    }
+
+                    .reset-container, .refine-wrapper {
+                        padding: rem(0) rem(10);
+                    }
+                }
+
+                .product-tiles-wrapper {
+
+                    .filter-bar {
+                        
+                        .filter-value {
+            
+                            a {
+                                &::after {
+                                    top: 3px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

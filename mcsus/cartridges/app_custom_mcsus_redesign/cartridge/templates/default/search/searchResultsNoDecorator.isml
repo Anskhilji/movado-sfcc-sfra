@@ -49,20 +49,21 @@
 
 				<isif condition="${pdict.productSearch.productIds.length > 0}">
 					<div class="row grid-header">
-						<div class="result-count text-center col-12 col-md-9 col-sm-6 order-sm-2">
+						<div class="result-count d-none text-center col-12 col-md-9 col-sm-6 order-sm-2">
 							<iselse>
 								<div class="row grid-header justify-content-center">
-									<div class="result-count col">
+									<div class="result-count col  d-none">
 				</isif>
 				<isinclude template="search/resultsCount" />
 			</div>
 			<isif condition="${pdict.productSearch.productIds.length > 0}">
-				<div class="col-6 col-sm-3 order-sm-1 sort-col">
+				<div class="col-6 col-sm-6 order-sm-1 sort-col">
 					<isinclude template="search/sortOrderMenu" />
 				</div>
 
-				<div class="col-6 col-sm-3 text-right d-md-none order-sm-3 filter-col">
-					<button type="button" class="btn btn-primary filter-results col-12">
+				<div class="col-6 col-sm-6 text-right order-sm-3 filter-col">
+					<button type="button" class="btn btn-primary filter-results filter-results-redesign">
+						<img src="${URLUtils.staticURL('/images/akar-icons_settings-horizontal.svg')}" class="img-fluid" alt="">
 						${Resource.msg('button.filter', 'search', null)}
 					</button>
 				</div>
