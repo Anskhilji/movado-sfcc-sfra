@@ -31,7 +31,6 @@ var submitBackInStockEmail = function ($selector) {
     $selector.spinner().start();
     var url = $selector.data('url');
     var pid = $selector.data('pid');
-    var test = 123;
     var emailAddress = $selector.find('.back-in-stock-notification-email').val();
     var enabledMarketing = false;
     if ($selector.find('#backInStockMarketingCloudPreference').length > 0) {
