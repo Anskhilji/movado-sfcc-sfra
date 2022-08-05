@@ -1,7 +1,7 @@
 <!--- Close button --->
 <div class="filter-header mx-sm-0">
     <div class="header-bar clearfix">
-        <div class="pull-left  result-count">
+        <div class="pull-left result-count">
             <isinclude template="search/resultsCount" />
         </div>
         <button class="pull-right close">

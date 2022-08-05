@@ -52,7 +52,7 @@
 						<div class="result-count d-none text-center col-12 col-md-9 col-sm-6 order-sm-2">
 							<iselse>
 								<div class="row grid-header justify-content-center">
-									<div class="result-count col  d-none">
+									<div class="result-count col d-none">
 				</isif>
 				<isinclude template="search/resultsCount" />
 			</div>

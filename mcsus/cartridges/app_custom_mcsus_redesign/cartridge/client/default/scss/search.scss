@@ -32,15 +32,12 @@
                 margin-top: rem(0);
 
                 .tab-pane {
-                    margin-bottom: rem(50);
-                    margin-top: rem(50);
+                    margin-bottom: rem(50) rem(0);
 
                     @include media-breakpoint-down(xs) {
-                        border-top: rem(1) solid $border-color;
-                        border-bottom: rem(1) solid $border-color;
+                        border: rem(1) rem(0) rem(1) rem(0) solid $border-color;
                         padding: rem(10) rem(0);
-                        margin-bottom: rem(18);
-                        margin-top: rem(20);
+                        margin-bottom: rem(20) rem(0) rem(18) rem(0);
                     }
 
                     .grid-header {
@@ -48,7 +45,6 @@
                         margin-top: rem(0);
 
                         .sort-col {
-
                             &::before {
                                 display: none;
                             }
@@ -94,8 +90,8 @@
                         right: rem(10);
                         height: rem(6);
                         width: rem(6);
-                        border-top: 1px solid $black;
-                        border-left: 1px solid $black;
+                        border-top: rem(1) solid $black;
+                        border-left: rem(1) solid $black;
                         pointer-events: none;
 
                         @include media-breakpoint-down(xs) {
@@ -115,9 +111,7 @@
                             border: none;
                             font-size: rem(13);
                             line-height: rem(16);
-                            padding-top: rem(0);
-                            padding-bottom: rem(0);
-                            padding-left: rem(30);
+                            padding: rem(0) rem(28) ren(0) rem(30);
                             height: rem(20);
 
                             &:focus {
@@ -143,8 +137,7 @@
                         letter-spacing: rem(2.79);
                         line-height: rem(16);
                         border: none;
-                        padding-top: rem(0);
-                        padding-bottom: rem(0);
+                        padding: rem(0) rem(20) rem(0) rem(12);
                         height: rem(20);
                     }
                 }
@@ -152,7 +145,6 @@
                 .refinement-bar {
                     background-color: $white;
                     box-shadow: $grey-light6;
-                    display: none;
                     right: 0;
                     position: fixed;
                     top: 0;
