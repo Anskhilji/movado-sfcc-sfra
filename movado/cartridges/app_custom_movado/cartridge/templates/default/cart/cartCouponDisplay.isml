@@ -18,17 +18,17 @@
                     </button>
                 </div>
             </div>
-            <iscomment> <div class="coupon-promotion-relationship">
+            <div class="coupon-promotion-relationship">
                 <isloop items="${discount.relationship}" var="relatedPromotion">
                     <div><isprint value="${relatedPromotion.callOutMsg}" encoding="off"/></div>
                 </isloop>
-            </div> </iscomment>
+            </div>
         </div>
         <iscomment> MSS-1466 Remove Promotion Callout Msg </iscomment>
-        <iscomment> <iselseif condition="${discount.lineItemText !== 'null' && discount.price !== 'null'}" >
+        <iselseif condition="${discount.lineItemText !== 'null' && discount.price !== 'null'}" >
             <div class="promotion-information">
                 <span class="promotion-name">${discount.lineItemText}</span>
                 <span class="applied-promotion-discount">${discount.price}</span>
-            </div> </iscomment>
+            </div>
     </isif> 
 </isloop>

@@ -479,10 +479,6 @@ input[type="radio"] {
     text-transform: uppercase;
   }
 
-  .coupon-promotion-relationship {
-    display: none;
-  }
-
   .applied-promotion-discount {
     color: $success;
     float: right;
@@ -903,6 +899,14 @@ header~.container .promotions .callout a{
             line-height: rem(24);
             margin-right: rem(20);
             text-transform: uppercase;
+        }
+
+        .coupon-promotion-relationship {
+          display: none;
+        }
+
+        .promotion-information {
+          display: none;
         }
     }
 }
