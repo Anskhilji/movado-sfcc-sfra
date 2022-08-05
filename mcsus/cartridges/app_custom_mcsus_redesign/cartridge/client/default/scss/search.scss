@@ -4,7 +4,8 @@
 .search-results-plp-redesign {
 
     .breadcrumb {
-        padding: rem(0.75) rem(0);
+        padding: rem(12) rem(0);
+        margin: rem(0);
     }
     .search-banner {
         
@@ -90,7 +91,8 @@
                         right: rem(10);
                         height: rem(6);
                         width: rem(6);
-                        border: rem(1) rem(0) rem(0) rem(1) $black;
+                        border-top: rem(1) solid $black;
+                        border-left: rem(1) solid $black;
                         pointer-events: none;
 
                         @include media-breakpoint-down(xs) {
@@ -128,6 +130,10 @@
                     line-height: rem(17);
                     border-radius: rem(3);
                     font-weight: 400;
+                    &:focus {
+                        outline: none;
+                        box-shadow: none;
+                    }
 
                     @include media-breakpoint-down(xs) {
                         background-color: transparent;
@@ -197,7 +203,7 @@
 
                             a {
                                 &::after {
-                                    top: 3px;
+                                    top: rem(3);
                                 }
                             }
                         }
