@@ -192,28 +192,15 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	//Custom End
 
     checkoutLogger.debug('(CheckoutServices) -> PlaceOrder: Order is created with order number: ' + order.orderNo);
-
-	// To add specific days to the Date object.
-    // function addDays(currentDate, days) {
-	//     var result = new Date(currentDate);
-	//     result.setDate(result.getDate() + 30);
-	//     return result;
-    // }
-
-	//Set order custom attribute if there is any pre-order item exists in order
-    if (isPreOrder) {
-	    // var currentDate = order.custom.lastAdjustmentDate ? order.custom.lastAdjustmentDate : order.getCreationDate();
-	    // var currentDate = order.getCreationDate();
-	    // var days = '30';
-	    // var lastAdjustmentDate = addDays(currentDate, days);
-	    Transaction.wrap(function () {
-		    order.custom.isPreorder = isPreOrder;
-		    if (orderCustomHelpers.getPaymentMethod(order) == 'CREDIT_CARD') {
-			    order.custom.isPreorderProcessing = isPreOrder;
-		    }
-		    // order.custom.lastAdjustmentDate = lastAdjustmentDate;
-	    });
-    }
+	  //Set order custom attribute if there is any pre-order item exists in order
+	  if (isPreOrder) {
+		Transaction.wrap(function () {
+			order.custom.isPreorder = isPreOrder;
+			if (orderCustomHelpers.getPaymentMethod(order) == 'CREDIT_CARD') {
+				order.custom.isPreorderProcessing = isPreOrder;
+			}
+		});
+	  }
 
 	  // Handles payment authorization
 	  var handlePaymentResult = adyenHelpers.handlePayments(order, order.orderNo);
