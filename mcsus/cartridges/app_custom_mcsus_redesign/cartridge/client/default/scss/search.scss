@@ -4,8 +4,7 @@
 .search-results-plp-redesign {
 
     .breadcrumb {
-        padding-left: rem(0);
-        padding-right: rem(0);
+        padding: rem(0.75) rem(0);
     }
     .search-banner {
         
@@ -32,12 +31,13 @@
                 margin-top: rem(0);
 
                 .tab-pane {
-                    margin-bottom: rem(50) rem(0);
+                    margin: rem(50) rem(0);
 
                     @include media-breakpoint-down(xs) {
-                        border: rem(1) rem(0) rem(1) rem(0) solid $border-color;
+                        border-top: rem(1) solid $border-color;
+                        border-bottom: rem(1) solid $border-color;
                         padding: rem(10) rem(0);
-                        margin-bottom: rem(20) rem(0) rem(18) rem(0);
+                        margin: rem(20) rem(0) rem(15) rem(0);
                     }
 
                     .grid-header {
@@ -90,8 +90,7 @@
                         right: rem(10);
                         height: rem(6);
                         width: rem(6);
-                        border-top: rem(1) solid $black;
-                        border-left: rem(1) solid $black;
+                        border: rem(1) rem(0) rem(0) rem(1) $black;
                         pointer-events: none;
 
                         @include media-breakpoint-down(xs) {
@@ -111,7 +110,7 @@
                             border: none;
                             font-size: rem(13);
                             line-height: rem(16);
-                            padding: rem(0) rem(28) ren(0) rem(30);
+                            padding: rem(0) rem(28) rem(0) rem(30);
                             height: rem(20);
 
                             &:focus {
