@@ -11,7 +11,6 @@ var processResponse = function ($selector, data) {
             $('.description-and-detail').removeClass('description-and-detail-pad');
         } else {
             $('.back-in-stock-notification-container-success').addClass('back-in-stock-notification-container-mb');
-            $('.listrak-success-msg').text(window.Resources.LISTRAK_SUCCESS_MESSAGE);
         }
         $('.back-in-stock-notification-container-success').removeClass('d-none').focus();
     } else {
@@ -92,15 +91,17 @@ $('.form').submit(function(e) {
 
         if ($email) {
             $isValid = $pattern.test($email);
-            if ($backInStockListrakPreference.length > 0) {
-                if (triggerEmail) {
-                    e.preventDefault();
-                    triggerEmail = false;
-                    var $selector;
-                    if ($backInStockContainerMain.length > 0) {
-                        $selector = $('.listrak-back-in-stock-notification-container-main');
-                    } 
-                    submitBackInStockEmail($selector);
+            if ($isValid) {
+                if ($backInStockListrakPreference.length > 0) {
+                    if (triggerEmail) {
+                        e.preventDefault();
+                        triggerEmail = false;
+                        var $selector;
+                        if ($backInStockContainerMain.length > 0) {
+                            $selector = $('.listrak-back-in-stock-notification-container-main');
+                        } 
+                        submitBackInStockEmail($selector);
+                    }
                 }
             }
         }
