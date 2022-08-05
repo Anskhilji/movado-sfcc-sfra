@@ -1,35 +1,83 @@
 @import "~mcsus/search";
-@import 'variables';
-
+@import "variables";
 
 .search-results-plp-redesign {
 
-  .breadcrumb {
-      padding-left: rem(0);
-      padding-right: rem(0);
-  }
-  .search-banner {
-
-    img {
-      width: 100%;
+    .breadcrumb {
+        padding-left: rem(0);
+        padding-right: rem(0);
     }
-  }
+    .search-banner {
+        
+        img {
+            width: 100%;
+            height: rem(263);
 
-    .search-results-container  {
+            @include media-breakpoint-down(xs) {
+                height: rem(197);
+            }
+        }
+    }
+
+    .search-results-container {
+
+        @include media-breakpoint-down(xs) {
+            margin: rem(0);
+        }
+
         .product-counter-wrapper {
             width: 100%;
 
-            .searech-results-wrapper  {
+            .searech-results-wrapper {
+                margin-top: rem(0);
 
-                .sort-col {
-                    &::before {
-                        display: none;
+                .tab-pane {
+                    margin-bottom: rem(50);
+                    margin-top: rem(50);
+
+                    @include media-breakpoint-down(xs) {
+                        border-top: rem(1) solid $border-color;
+                        border-bottom: rem(1) solid $border-color;
+                        padding: rem(10) rem(0);
+                        margin-bottom: rem(18);
+                        margin-top: rem(20);
+                    }
+
+                    .grid-header {
+                        margin-bottom: rem(0);
+                        margin-top: rem(0);
+
+                        .sort-col {
+
+                            &::before {
+                                display: none;
+                            }
+
+                            @include media-breakpoint-down(xs) {
+                                padding: rem(0);
+                                margin: rem(0);
+                            }
+                        }
+
+                        .filter-col {
+
+                            @include media-breakpoint-down(xs) {
+                                padding: rem(0);
+                                border-left: rem(1) solid $border-color;
+                            }
+                        }
                     }
                 }
 
                 .sort-filters-box {
                     position: relative;
                     max-width: rem(187);
+
+                    @include media-breakpoint-down(xs) {
+                        height: rem(20);
+                        display: flex;
+                        align-items: center;
+                    }
 
                     .fliter-icon {
                         position: absolute;
@@ -39,16 +87,20 @@
                     }
 
                     &::after {
-                        content: '';
+                        content: "";
                         position: absolute;
                         top: 50%;
                         transform: translateY(-50%) rotate(-136deg);
                         right: rem(10);
                         height: rem(6);
                         width: rem(6);
-                        border-top: 1px solid $black;  
-                        border-left: 1px solid $black;  
+                        border-top: 1px solid $black;
+                        border-left: 1px solid $black;
                         pointer-events: none;
+
+                        @include media-breakpoint-down(xs) {
+                            display: none;
+                        }
                     }
 
                     .sorting-rules-filters {
@@ -59,8 +111,18 @@
                         padding-left: rem(30);
                         height: rem(38);
 
-                        &::-ms-expand {
-                            display: none;
+                        @include media-breakpoint-down(xs) {
+                            border: none;
+                            font-size: rem(13);
+                            line-height: rem(16);
+                            padding-top: rem(0);
+                            padding-bottom: rem(0);
+                            padding-left: rem(30);
+                            height: rem(20);
+
+                            &:focus {
+                                box-shadow: none;
+                            }
                         }
                     }
                 }
@@ -73,10 +135,22 @@
                     line-height: rem(17);
                     border-radius: rem(3);
                     font-weight: 400;
+
+                    @include media-breakpoint-down(xs) {
+                        background-color: transparent;
+                        color: $light-black1;
+                        font-size: rem(13);
+                        letter-spacing: rem(2.79);
+                        line-height: rem(16);
+                        border: none;
+                        padding-top: rem(0);
+                        padding-bottom: rem(0);
+                        height: rem(20);
+                    }
                 }
 
                 .refinement-bar {
-                    background-color: #fff;
+                    background-color: $white;
                     box-shadow: $grey-light6;
                     display: none;
                     right: 0;
@@ -90,14 +164,15 @@
                     &.refinement-bar-pl {
                         display: block !important;
                     }
+                    
                     .header-bar {
                         padding: rem(15);
-                        
+
                         .total-product-count {
                             margin-top: 0;
                         }
 
-                        .result-count > span  {
+                        .result-count > span {
                             font-size: rem(20);
                             font-family: $font-medium;
                             font-weight: 500;
@@ -113,23 +188,66 @@
                         }
                     }
 
-                    .reset-container, .refine-wrapper {
+                    .reset-container,
+                    .refine-wrapper {
                         padding: rem(0) rem(10);
+
+                        @include media-breakpoint-down(xs) {
+                            padding: rem(0);
+                        }
                     }
                 }
 
                 .product-tiles-wrapper {
 
                     .filter-bar {
-                        
+
                         .filter-value {
-            
+
                             a {
                                 &::after {
                                     top: 3px;
                                 }
                             }
                         }
+                    }
+                }
+            }
+        }
+
+        .search-resull-redesign {
+            text-align: center;
+            display: block;
+            margin-top: rem(16);
+
+            @include media-breakpoint-down(xs) {
+                margin-top: rem(9);
+            }
+
+            .total-product-count {
+                color: $light-black1;
+                font-size: rem(18);
+                letter-spacing: rem(0);
+                line-height: rem(26);
+                font-weight: 400;
+
+                @include media-breakpoint-down(xs) {
+                    font-size: rem(14);
+                    line-height: rem(18);
+                }
+            }
+        }
+
+        .grid-footer {
+
+            .show-more {
+                padding-top: rem(0);
+
+                button {
+                    margin-top: rem(20);
+
+                    @include media-breakpoint-down(xs) {
+                        margin-top: rem(15);
                     }
                 }
             }

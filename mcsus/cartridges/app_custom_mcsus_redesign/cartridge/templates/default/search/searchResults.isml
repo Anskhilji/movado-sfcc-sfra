@@ -70,7 +70,10 @@
 						</div>
 						<div class="col-6 col-sm-6 text-right order-sm-3 filter-col">
 							<button type="button" class="btn btn-primary filter-results filter-results-redesign">
-								<img src="${URLUtils.staticURL('/images/akar-icons_settings-horizontal.svg')}" class="img-fluid" alt="">
+							<picture>
+								<source media="(min-width:544px)" srcset="${URLUtils.staticURL('/images/akar-icons_settings-horizontal.svg')}">
+								<img src="${URLUtils.staticURL('/images/ep_filter.svg')}" class="img-fluid">
+							</picture>							
 								${Resource.msg('button.filter', 'search', null)}
 							</button>
 						</div>
@@ -82,14 +85,14 @@
 			<isif condition="${pdict.productSearch.productIds.length > 0}">
 				<!--- Refinement bar --->
 				<div class="row ml-0 mr-0">
-					<div class="refinement-bar movado-refinebar refinement-bar-find col-md-3 px-0">
+					<div class="refinement-bar movado-refinebar refinement-bar-find col-md-3 px-sm-0">
 						<isinclude url="${pdict.refineurl}" />
 					</div>
 
 					<div class="col-sm-12 col-md-12 product-tiles-wrapper">
 						<div class="container-fluid">
 							<!--- Selected filters bar --->
-							<div class="row filter-bar s">
+							<div class="row filter-bar">
 								<isif condition="${pdict.productSearch.selectedFilters.length > 0}">
 									<span class="d-none d-sm-block d-md-none label-container">${Resource.msg('label.selectedfilter', 'search', null)}:</span>
 								</isif>
@@ -117,6 +120,11 @@
 										</div>
 									</isif>
 								</isloop>
+								<div class="col-12">
+									<div class="search-resull-redesign">
+										<isinclude template="search/resultsCount" />
+									</div>
+								</div>
 								<isif condition="${pdict.productSearch.enablePagination}">
 									<isinclude template="search/pagination" />
 								<iselse>

@@ -1,5 +1,5 @@
 <!--- Close button --->
-<div class="filter-header mx-0">
+<div class="filter-header mx-sm-0">
     <div class="header-bar clearfix">
         <div class="pull-left  result-count">
             <isinclude template="search/resultsCount" />
