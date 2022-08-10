@@ -14,7 +14,7 @@
         <div class="show-more total-product-count">
             ${Resource.msgf('updated.products.showMoreButton', 'search', null, showing, pdict.productSearch.count)}
         </div>
-        <div class="show-more">
+        <div class="plp-show-more">
             <div class="text-center">
                 <button class="btn btn-outline-primary col-12 col-sm-5"
                         data-url="${pdict.productSearch.showMoreUrl}"
