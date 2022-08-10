@@ -1,5 +1,4 @@
 'use strict';
-// var backInStockNotification = require('backInStockNotification');
 var triggerEmail = true; 
 var processResponse = function ($selector, data) {
     if (data.success) {
@@ -18,7 +17,7 @@ var processResponse = function ($selector, data) {
             if (!data.isValidEmail) {
                 $selector.find('.back-in-stock-notification-invalid-email').removeClass('d-none');
             } else if (data.isAlreadySubscribed) {
-                $selector.find('.back-in-stock-notification-already-subscribed').removeClass("d-none");
+                $selector.find('.back-in-stock-notification-already-subscribed').removeClass('d-none');
             } else {
                 $selector.find('.back-in-stock-notification-technical-error').removeClass('d-none');
             }

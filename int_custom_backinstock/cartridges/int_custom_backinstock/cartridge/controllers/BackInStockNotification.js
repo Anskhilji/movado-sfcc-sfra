@@ -35,9 +35,9 @@ server.post('Subscribe',
                 if ((form.enabledMarketing == 'true' || form.enabledMarketing == true) && Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
                     var ltkApi = require('*/cartridge/scripts/api/ListrakAPI');
                     var ltkConstants = require('*/cartridge/scripts/utils/ListrakConstants');
-                        requestParams.source = ltkConstants.Source.BackInStock;
-                        requestParams.event = ltkConstants.Event.BackInStock,
-                        requestParams.subscribe = ltkConstants.Subscribe.BackInStock
+                    requestParams.source = ltkConstants.Source.BackInStock;
+                    requestParams.event = ltkConstants.Event.BackInStock;
+                    requestParams.subscribe = ltkConstants.Subscribe.BackInStock;
                     ltkApi.sendSubscriberToListrak(requestParams);
                 } else {
                     var SFMCApi = require('int_custom_marketing_cloud/cartridge/scripts/api/SFMCApi');

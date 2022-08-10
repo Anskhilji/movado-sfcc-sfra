@@ -34,8 +34,8 @@
                     <input type="checkbox" id="backInStockListrakPreference" name="backInStockListrakPreference">
                     <span class="checkmark"></span>
                     <p class="back-in-stock-notification-listrack-confirmation-copy">
-                        <isset name="Brand" value="${dw.system.Site.getCurrent().ID}" scope="page" />
-                        ${Resource.msgf('listrack.back.in.stock.notification.confirmation', 'product', null, Brand)}
+                        <isset name="brand" value="${dw.system.Site.getCurrent().ID}" scope="page" />
+                        ${Resource.msgf('listrack.back.in.stock.notification.confirmation', 'product', null, brand)}
                         <a href="$url('Page-Show','cid','ca-global-privacy-policy')$" rel="noopener noreferrer" target="_blank" title="Go to Privacy">${Resource.msg('privacy.policy', 'product', null)}</a>
                     </p>
                 </div>
