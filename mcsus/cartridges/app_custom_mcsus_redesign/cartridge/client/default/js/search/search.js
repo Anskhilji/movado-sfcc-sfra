@@ -233,7 +233,10 @@ function updatePageURLForShowMore(showMoreUrl) {
     var size = params.sz;
     var newSize = parseInt(start) + parseInt(size);
     var url;
-    
+    var currentProductCount = $('#show-more-update').text();
+    var res = currentProductCount.replace(size, newSize);
+    $('#show-more-update').text(res);
+
     if (history.pushState) {
     	if (document.location.href.indexOf('?') > -1) {
     		if (document.location.href.indexOf('sz=') > -1) {
@@ -378,7 +381,7 @@ module.exports = {
 
     showMore: function () {
         // Show more products
-        $('.filter-container').on('click', '.show-more button', function (e) {
+        $('.filter-container').on('click', '.plp-show-more button, .show-more button', function (e) {
             e.stopPropagation();
 
             //push data on ga tracking

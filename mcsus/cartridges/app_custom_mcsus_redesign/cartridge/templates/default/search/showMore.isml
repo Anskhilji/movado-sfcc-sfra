@@ -11,7 +11,7 @@
         <isset name="showing" value=${pdict.productSearch.count} scope="page" />
     </isif>
     <isif condition="${pdict.productSearch.showMoreUrl !== ''}">
-        <div class="show-more total-product-count">
+        <div class="show-more total-product-count" id='show-more-update'>
             ${Resource.msgf('updated.products.showMoreButton', 'search', null, showing, pdict.productSearch.count)}
         </div>
         <div class="plp-show-more">
