@@ -20,7 +20,11 @@
         
         .tile-body {
             background-color: $white;
-            padding: rem(10) rem(10) rem(18.5) rem(14);
+            padding: rem(12) rem(10) rem(18.5) rem(14);
+
+            @include media-breakpoint-down(xs) {
+                padding: rem(8) rem(0) rem(9.5) rem(0);
+            }
 
             .product-family-name-plp {
                 @include media-breakpoint-down(xs) {
@@ -56,11 +60,13 @@
                 }
 
                 .yotpo-display-wrapper {
+                    color: $black !important;
 
                     .yotpo-bottomline {
                         margin-bottom: rem(0);
 
                         .yotpo-stars {
+                            color: $black !important;
                             padding-right: rem(5);
                         }
                         
@@ -70,6 +76,10 @@
                             }
                         }
                     }
+                }
+                
+                &:focus {
+                    box-shadow: none;
                 }
             }
 
@@ -115,6 +125,7 @@
                     -webkit-box-orient: vertical;
                     font-weight: 400;
                     height: inherit;
+                    text-transform: capitalize;
 
                     @include media-breakpoint-down(xs) {
                         font-size: rem(14);
@@ -137,7 +148,7 @@
                     font-family: $font-medium;
                     text-align: left;
                     padding-left: rem(0);
-                    margin: rem(0) rem(10) rem(0) rem(0);
+                    margin: rem(0) rem(6) rem(0) rem(0);
         
                     @include media-breakpoint-down(xs) {
                         font-size: rem(12);
@@ -196,7 +207,7 @@
                         &.callout {
                             font-size: rem(13);                            
                             letter-spacing: rem(0);
-                            text-align: left;
+                            text-align: center;
                             line-height: rem(14);
                             color: $black;
                             background-color: $grey-light4;
@@ -225,8 +236,8 @@
                 justify-content: space-between;
                 width: 100%;
 
-                @include media-breakpoint-up(lg) {
-                    width: 90%;
+                @include media-breakpoint-up(sm) {
+                    width: 95%;
                     top: rem(10);
                 }
 
@@ -301,7 +312,7 @@
 
             .add-to-cart-plp {
                 color: $light-brown1;
-                font-family: $font-gill-std-medium;
+                font-family: $font-gill-std-semibold;
                 font-size: rem(14);
                 font-weight: 600;
                 letter-spacing: 0;
