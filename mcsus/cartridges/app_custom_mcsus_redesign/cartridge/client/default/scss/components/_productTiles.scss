@@ -261,7 +261,6 @@
                     flex-direction: column;
                     text-align: right;
                     align-items: flex-end;
-                    padding-right: rem(10);
                 }
 
                 .exclusive-product {
@@ -355,11 +354,10 @@
         }
 
         &:hover {
-            box-shadow: 0 rem(2) rem(12) 0 $grey-light7;
-
             @include media-breakpoint-up(lg) {
                 position: relative;
                 z-index: 5;
+                box-shadow: 0 rem(2) rem(12) 0 $grey-light7;
             }
 
             .tile-body {

@@ -224,6 +224,8 @@
                         }
 
                         @include media-breakpoint-up(lg) {
+                            padding: rem(0);
+
                             &:nth-child(4n+0) {
                                 border-right: none;
                             }
@@ -256,7 +258,7 @@
                 
                 &.total-product-count {
                     padding-bottom: rem(0);
-                    margin-top: rem(16);
+                    margin-top: rem(46);
                     color: $light-black1;
                     font-size: rem(18);
                     letter-spacing: rem(0);
@@ -265,7 +267,7 @@
                     text-align: center;
     
                     @include media-breakpoint-down(xs) {
-                        margin-top: rem(9);
+                        margin-top: rem(39);
                         font-size: rem(14);
                         line-height: rem(18);
                     }
@@ -287,6 +289,14 @@
                     }
                 }
             }
+        }
+    }
+
+    .pagination-container {
+        margin-top: rem(60);
+
+        @include media-breakpoint-down(xs) {
+            margin-top: rem(39);
         }
     }
 }
