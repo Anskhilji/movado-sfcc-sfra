@@ -1,5 +1,5 @@
 <iscomment> custom style:MSS-1829 remove class </iscomment>
-<div class="row breadcrumbs-wrapper-main">
+<div class="row breadcrumbs-wrapper-main d-none d-sm-block">
     <div class="col col-space-inner">
         <ol class="breadcrumb">
             <isloop items="${pdict.breadcrumbs}" var="breadcrumbValue">
