@@ -339,6 +339,6 @@ module.exports = function productTile(product, apiProduct, productType, params) 
         value: saveMessage
     });
 
-
+    
     return product;
 };
