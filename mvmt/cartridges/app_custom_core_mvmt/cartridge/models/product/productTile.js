@@ -17,7 +17,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     baseProductTile.call(this, product, apiProduct, productType, params);
     var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
     var searchCustomHelper = require('*/cartridge/scripts/helpers/searchCustomHelper');
-
+    
     var colorVariations;
     var defaultVariantImage;
     var defulatVariantEyewearImage;
@@ -338,6 +338,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
         enumerable: true,
         value: saveMessage
     });
+
 
     return product;
 };

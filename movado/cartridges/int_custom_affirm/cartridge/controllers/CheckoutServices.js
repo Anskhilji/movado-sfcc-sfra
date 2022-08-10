@@ -191,7 +191,7 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	}
 	//Custom End
 
-    checkoutLogger.debug('(CheckoutServices) -> PlaceOrder: Order is created with order number: ' + order.orderNo);
+	checkoutLogger.debug('(CheckoutServices) -> PlaceOrder: Order is created with order number: ' + order.orderNo);
 	  //Set order custom attribute if there is any pre-order item exists in order
 	  if (isPreOrder) {
 		Transaction.wrap(function () {
