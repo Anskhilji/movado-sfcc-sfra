@@ -16,7 +16,7 @@
 	</h1>
 </div>
 <div class="container search-results">
-   <isinclude template="components/old/breadcrumbs/pageBreadcrumbs" />
+   <isinclude template="components/breadcrumbs/old/pageBreadcrumbs" />
 		<isif condition="${!pdict.productSearch.isCategorySearch}">
     <div class="row">
       <div class="search-nav">
