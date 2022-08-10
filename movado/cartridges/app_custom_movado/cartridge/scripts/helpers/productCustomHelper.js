@@ -178,12 +178,9 @@ function getOCIPreOrderParameters(apiProduct) {
         var ociPreOrderObject = {};
         if (!empty(apiProduct)) {
             var productAvailabilityModel = apiProduct.getAvailabilityModel();
-            var ociPreOrderProductAllocation = productAvailabilityModel.inventoryRecord.allocation.value;
-            var ociPreOrderProductATO = productAvailabilityModel.inventoryRecord.ATS.value;
-            var ociPreOrderProductFuture = productAvailabilityModel.inventoryRecord.backorderable;
-            ociPreOrderObject.ociPreOrderProductAllocation = !empty(ociPreOrderProductAllocation) ? ociPreOrderProductAllocation : '';
-            ociPreOrderObject.ociPreOrderProductATO = !empty(ociPreOrderProductATO) ? ociPreOrderProductATO : '';
-            ociPreOrderObject.ociPreOrderProductFuture = !empty(ociPreOrderProductFuture) ? ociPreOrderProductFuture : '';
+            ociPreOrderObject.ociPreOrderProductAllocation = !empty(productAvailabilityModel.inventoryRecord.allocation.value) ? productAvailabilityModel.inventoryRecord.allocation.value : null;
+            ociPreOrderObject.ociPreOrderProductATO = !empty(productAvailabilityModel.inventoryRecord.ATS.valueociPreOrderProductATO) ? productAvailabilityModel.inventoryRecord.ATS.value : null;
+            ociPreOrderObject.ociPreOrderProductFuture = !empty(productAvailabilityModel.inventoryRecord.backorderableeOrderProductFuture) ? productAvailabilityModel.inventoryRecord.backorderable : null;
         }
         return ociPreOrderObject;
     } catch (e) {
