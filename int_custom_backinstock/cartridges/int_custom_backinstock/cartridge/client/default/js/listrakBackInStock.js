@@ -1,31 +1,5 @@
-'use strict';
-var triggerEmail = true; 
-var processResponse = function ($selector, data) {
-    if (data.success) {
-        $selector.find('.back-in-stock-notification-listrak-container, .back-in-stock-notification-marketing-container').addClass('d-none');
-        var mediumWidth = 992;
-        var $windowWidth = $(window).width();
-        if ($windowWidth < mediumWidth) {
-            $('.description-and-detail').addClass('description-and-detail-pt');
-            $('.description-and-detail').removeClass('description-and-detail-pad');
-        } else {
-            $('.back-in-stock-notification-container-success').addClass('back-in-stock-notification-container-mb');
-        }
-        $('.back-in-stock-notification-container-success').removeClass('d-none').focus();
-    } else {
-        if (!data.success) {
-            if (!data.isValidEmail) {
-                $selector.find('.back-in-stock-notification-invalid-email').removeClass('d-none');
-            } else if (data.isAlreadySubscribed) {
-                $selector.find('.back-in-stock-notification-already-subscribed').removeClass('d-none');
-            } else {
-                $selector.find('.back-in-stock-notification-technical-error').removeClass('d-none');
-            }
-        }
-    }
-    triggerEmail = true;
-}
-
+var triggerEmail = true;
+var backInStockNotification = require('../js/backInStockNotification');
 var submitBackInStockEmail = function ($selector) {
     $selector.find('.back-in-stock-notification-error').addClass('d-none');
     $selector.spinner().start();
@@ -52,7 +26,7 @@ var submitBackInStockEmail = function ($selector) {
         method: 'POST',
         success: function (response) {
             if (response.result) {
-                processResponse($selector, response.result);
+                backInStockNotification.processResponse($selector, response.result);
             } else {
                 $selector.find('.back-in-stock-notification-technical-error').removeClass('d-none');
             }
@@ -66,7 +40,7 @@ var submitBackInStockEmail = function ($selector) {
 
 }
 
-$('.form').submit(function(e) {
+$('.form').submit(function (e) {
     e.preventDefault();
     var $backInStockContainerMain = $('.listrak-back-in-stock-notification-container-main');
     var $form = $('.back-in-stock-notification-form');
@@ -74,8 +48,8 @@ $('.form').submit(function(e) {
     var $email = '';
     var $phone = ''
     var $alertCode = $('#alertCode').val();
-    var $listrakSuccessMsg= $('.listrak-success-msg');
-    var $emailRequired = $('.back-in-stock-notification-error-required'); 
+    var $listrakSuccessMsg = $('.listrak-success-msg');
+    var $emailRequired = $('.back-in-stock-notification-error-required');
     var $emailInvalid = $('.back-in-stock-notification-error-invalid');
     var $phoneInvalid = $('.back-in-stock-notification-invalid-phone');
     var $backInStockListrakPreference = $('#backInStockListrakPreference');
@@ -98,13 +72,13 @@ $('.form').submit(function(e) {
                         var $selector;
                         if ($backInStockContainerMain.length > 0) {
                             $selector = $('.listrak-back-in-stock-notification-container-main');
-                        } 
+                        }
                         submitBackInStockEmail($selector);
                     }
                 }
             }
         }
-        
+
         if ($form.find('.back-in-stock-notification-phone').length > 0) {
             $phone = $('.back-in-stock-notification-phone').val().trim();
             var $phonePattern = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
@@ -126,7 +100,7 @@ $('.form').submit(function(e) {
                     $phone = '';
                     return;
                 }
-            } else if ($phone !== '' && !$isValidPhone && $email !== ''  && !$isValid) {
+            } else if ($phone !== '' && !$isValidPhone && $email !== '' && !$isValid) {
                 $emailInvalid.text(window.Resources.EMIAL_ADDRESS_INVALID);
                 $phoneInvalid.text(window.Resources.PHONE_NUMBER_INVALID);
                 $email = '';
@@ -146,7 +120,7 @@ $('.form').submit(function(e) {
                 $email = '';
                 $phone = '';
             }
-        
+
         } else {
             if ($email == '' || $email == undefined) {
                 $emailInvalid.text(window.Resources.EMIAL_ADDRESS_REQUIRED);
@@ -163,7 +137,7 @@ $('.form').submit(function(e) {
             $phone = $('.back-in-stock-notification-phone').val().trim();
             var $phonePattern = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
             var $isValidPhone;
-            
+
             if ($phone) {
                 $isValidPhone = $phonePattern.test($phone)
             }
@@ -179,17 +153,24 @@ $('.form').submit(function(e) {
             }
         }
     }
-    
+
     if ($email || $phone) {
         SubmitAlert($email, $phone, $pid, $alertCode);
     }
-    
-    function SubmitAlert (email, phone, pid, alertCode) {
+
+    function SubmitAlert(email, phone, pid, alertCode) {
         var $emailAddress = email;
         var $phoneNumber = phone;
         var $productSKU = pid;
         var $alertCode = alertCode;
-        _ltk.Alerts.AddAlertWithIdentifiers({Identifiers:{Email:$emailAddress, PhoneNumber:$phoneNumber}, Sku:$productSKU, AlertCode:$alertCode});
+        _ltk.Alerts.AddAlertWithIdentifiers({
+            Identifiers: {
+                Email: $emailAddress,
+                PhoneNumber: $phoneNumber
+            },
+            Sku: $productSKU,
+            AlertCode: $alertCode
+        });
         _ltk.Alerts.Submit();
         $backInStockContainerMain.addClass('d-none');
         $listrakSuccessMsg.text(window.Resources.LISTRAK_SUCCESS_MESSAGE);
