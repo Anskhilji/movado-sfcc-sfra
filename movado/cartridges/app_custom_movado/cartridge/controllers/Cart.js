@@ -200,6 +200,20 @@ server.append('AddProduct', function (req, res, next) {
             });
         }
 
+        // Custom Start MSS-1930 Added code for Cart Tracking
+        if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
+            var ltkSendSca = require('*/cartridge/controllers/ltkSendSca');
+            var ltkHelper = require('*/cartridge/scripts/helper/ltkHelper');
+            var ltkCartHelper = require('*/cartridge/scripts/helper/ltkCartHelper');
+            session.privacy.ltkCountryCode = ltkHelper.getCountryCode(req);
+            ltkSendSca.SendSCAPost();
+            res.setViewData({
+                SCACart: ltkCartHelper.ltkLoadBasket(req),
+                listrakCountryCode: session.privacy.ltkCountryCode
+            });
+        }
+        // Custom End
+
         res.setViewData({
             quantityTotal: quantityTotal,
             recommendedProductCardHtml: recommendedProductCardHtml,
