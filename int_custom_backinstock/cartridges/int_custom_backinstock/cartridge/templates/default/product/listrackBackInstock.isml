@@ -30,14 +30,8 @@
                 <div class="col-12 mb-2 p-0">
                     <iscontentasset aid="listrak-back-in-stock-terms" />
                 </div>
-                <div class="back-in-stock-notification-listrack-container">
-                    <input type="checkbox" id="backInStockMarketingCloudPreference" name="backInStockMarketingCloudPreference">
-                    <span class="checkmark"></span>
-                    <p class="back-in-stock-notification-listrack-confirmation-copy">
-                        <isset name="brand" value="${dw.system.Site.getCurrent().ID}" scope="page" />
-                        ${Resource.msgf('listrack.back.in.stock.notification.confirmation', 'product', null, brand)}
-                        <a href="$url('Page-Show','cid','ca-global-privacy-policy')$" rel="noopener noreferrer" target="_blank" title="Go to Privacy">${Resource.msg('privacy.policy', 'product', null)}</a>
-                    </p>
+                <div class="col-12 mb-2 p-0">
+                    <iscontentasset aid="listrak-back-in-stock-subscription-checkbox" />
                 </div>
                 <div class="col p-0">
                     <button class="btn btn-primary text-capitalize" type="submit" name="SubmitAlert">${Resource.msg('listrak.button.text', 'product', null)}</button>
