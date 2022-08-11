@@ -8,6 +8,11 @@
 
         .image-container {
             border: none;
+            padding-top: rem(20);
+
+            @include media-breakpoint-down(xs) {
+                padding-top: rem(15);
+            }
 
             .product-badge {
                 display: none;
@@ -146,14 +151,9 @@
 
                             @include media-breakpoint-down(xs) {
                                 font-size: rem(8.18);
-                                line-height: rem(10);
                             }
                         }
                     }
-                }
-                
-                &:focus {
-                    box-shadow: none;
                 }
             }
 
@@ -327,7 +327,7 @@
 
             @include media-breakpoint-up(lg) {
                 display: none;
-                margin-top: rem(15);
+                margin-top: rem(19);
             }
 
             @include media-breakpoint-down(md) {
@@ -410,4 +410,9 @@
             padding: rem(9.6) 0 rem(8);
         }
     }
+}
+
+:focus {
+    box-shadow: none;
+    outline: none;
 }
