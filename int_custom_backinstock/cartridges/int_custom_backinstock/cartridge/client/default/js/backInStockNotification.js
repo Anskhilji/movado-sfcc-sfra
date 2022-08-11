@@ -95,5 +95,6 @@ $(document).ready(function () {
     });
 })
 module.exports = {
-    processResponse
+    processResponse,
+    submitBackInStockEmail
  }

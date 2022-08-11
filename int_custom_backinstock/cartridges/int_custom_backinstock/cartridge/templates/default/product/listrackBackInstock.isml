@@ -31,7 +31,7 @@
                     <iscontentasset aid="listrak-back-in-stock-terms" />
                 </div>
                 <div class="back-in-stock-notification-listrack-container">
-                    <input type="checkbox" id="backInStockListrakPreference" name="backInStockListrakPreference">
+                    <input type="checkbox" id="backInStockMarketingCloudPreference" name="backInStockMarketingCloudPreference">
                     <span class="checkmark"></span>
                     <p class="back-in-stock-notification-listrack-confirmation-copy">
                         <isset name="brand" value="${dw.system.Site.getCurrent().ID}" scope="page" />
