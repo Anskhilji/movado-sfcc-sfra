@@ -200,7 +200,7 @@ server.append('AddProduct', function (req, res, next) {
             });
         }
 
-        // Custom Start MSS-1930 Added code for Cart Tracking
+        // Custom Start MSS-1930 Added code for Listrak Cart Tracking
         if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
             var ltkSendSca = require('*/cartridge/controllers/ltkSendSca');
             var ltkHelper = require('*/cartridge/scripts/helper/ltkHelper');
