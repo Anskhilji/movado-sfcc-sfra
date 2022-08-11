@@ -45,14 +45,7 @@
                 ${Resource.msg('label.soldout', 'common', null)}
             </div>
         </isif>
-        <div class="d-flex text-badges-container">
-            <isloop items="${product.badges.textBadges}" var="badge">
-                <div class="exclusive-product">
-                    ${badge.text}
-                </div>
-            </isloop>
-        </div>
-
+        
         <div class="price-promotions">
             <isset name="price" value="${product.price}" scope="page" />
             <iscomment> Custom: Start [pricing shows only when following requirements meet] </iscomment>
@@ -70,6 +63,7 @@
                             <div class="callout promo-msg">
                                 <isprint value="${promotion.plpCalloutMsg}" encoding="off" />
                             </div>
+                            <isbreak/>
                         </isif>
                     </isloop>
                 </div>
