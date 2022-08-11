@@ -67,7 +67,7 @@
 							<source media="(min-width:544px)" srcset="${URLUtils.staticURL('/images/akar-icons_settings-horizontal.svg')}">
 							<img src="${URLUtils.staticURL('/images/ep_filter.svg')}" class="img-fluid">
 						</picture>	
-						${Resource.msg('button.filter', 'search', null)}
+						${Resource.msg('button.filters', 'search', null)}
 					</button>
 				</div>
 			</isif>

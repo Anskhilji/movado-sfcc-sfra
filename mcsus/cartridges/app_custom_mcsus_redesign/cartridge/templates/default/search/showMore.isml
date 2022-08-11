@@ -21,7 +21,7 @@
                         data-page-number="${pdict.productSearch.pageNumber}"
                         data-category-id="${pdict.productSearch.category.id}"
                 >
-                    ${Resource.msg('button.more', 'search', null)}
+                    ${Resource.msg('button.load.more', 'search', null)}
                 </button>
             </div>
         </div>
