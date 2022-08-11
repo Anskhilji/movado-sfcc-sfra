@@ -2,6 +2,13 @@
 @import "variables";
 
 .search-results-plp-redesign {
+    @include media-breakpoint-down(xs) {
+        padding: 0 rem(10);
+    }
+    @include media-breakpoint-up(xl) {
+        padding-left: rem(31);
+        padding-right: rem(31);
+    }
 
     .breadcrumb {
         padding: rem(23) rem(0) rem(14) rem(0);
@@ -224,6 +231,12 @@
                 }
 
                 .product-tiles-wrapper {
+                    @include media-breakpoint-up(lg) {
+                        padding-right: rem(15);
+                    }
+                    @include media-breakpoint-down(md) {
+                        padding: rem(0) rem(15);
+                    }
                     @include media-breakpoint-down(xs) {
                         padding: rem(0);
                     }
@@ -270,9 +283,15 @@
                         }
                     }
 
+                    > .container-fluid {
+                        @include media-breakpoint-down(xs) {
+                            padding: 0;
+                        }
+                    }
+
                     .product-grid {
                         @include media-breakpoint-down(xs) {
-                            margin-top: rem(20);
+                            margin:rem(20) rem(0) rem(0) rem(0);
                         } 
                     }
                 }
@@ -324,10 +343,21 @@
     }
 
     .pagination-container {
-        margin-top: rem(60);
+        margin-top: rem(20);
 
         @include media-breakpoint-down(xs) {
             margin-top: rem(39);
         }
+    }
+}
+
+.result-count-show {
+    margin-bottom: rem(20);
+    .total-product-count {
+        color: $light-black1;
+        font-size: rem(12);
+        letter-spacing: rem(0);
+        line-height: rem(22);
+        font-weight: 400;
     }
 }
