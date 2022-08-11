@@ -13,7 +13,6 @@ $('.form').submit(function(e) {
     var $emailInvalid = $('.back-in-stock-notification-error-invalid');
     var $phoneInvalid = $('.back-in-stock-notification-invalid-phone');
     var $backInStockListrakPreference = $('#backInStockMarketingCloudPreference');
-    var $triggerEmail = true;
     $emailRequired.text('');
     $emailInvalid.text('');
     $phoneInvalid.text('');
@@ -27,15 +26,12 @@ $('.form').submit(function(e) {
             $isValid = $pattern.test($email);
             if ($isValid) {
                 if ($backInStockListrakPreference.length > 0) {
-                    if ($triggerEmail) {
-                        e.preventDefault();
-                        $triggerEmail = false;
-                        var $selector;
-                        if ($backInStockContainerMain.length > 0) {
-                            $selector = $('.listrak-back-in-stock-notification-container-main');
-                        }
-                        backInStockNotification.submitBackInStockEmail($selector);
+                    e.preventDefault();
+                    var $selector;
+                    if ($backInStockContainerMain.length > 0) {
+                        $selector = $('.listrak-back-in-stock-notification-container-main');
                     }
+                    backInStockNotification.submitBackInStockEmail($selector);
                 }
             }
         }
