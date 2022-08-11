@@ -64,7 +64,7 @@
 						    <div class="row grid-header justify-content-center">
 						    <div class="result-count col d-none">
 						</isif>
-						<isinclude template="search/resultsCount" />
+						<iscomment> <isinclude template="search/resultsCount" /> </iscomment>
 					</div>
 					<isif condition="${pdict.productSearch.productIds.length > 0}">
 						<div class="col-6 col-sm-6 order-sm-1 sort-filters-button sort-col">
