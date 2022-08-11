@@ -196,6 +196,9 @@
                 }
 
                 .product-tiles-wrapper {
+                    @include media-breakpoint-down(xs) {
+                        padding: rem(0);
+                    }
 
                     .filter-bar {
 
@@ -208,6 +211,42 @@
                             }
                         }
                     }
+
+                    .col-container-inner {
+                        border-bottom: rem(1) solid $grey-light8;
+                        border-right: rem(1) solid $grey-light8;
+                        padding: rem(0) rem(10);
+
+                        @include media-breakpoint-up(md) {
+                            &:nth-child(3n+0) {
+                                border-right: none;
+                            }
+                        }
+
+                        @include media-breakpoint-up(lg) {
+                            padding: rem(0);
+
+                            &:nth-child(4n+0) {
+                                border-right: none;
+                            }
+                            
+                            &:nth-child(3n+0) {
+                                border-right: rem(1) solid $grey-light8;
+                            }
+                        }
+
+                        @include custom-media-query-max($medium-screen-width) {
+                            &:nth-child(even) {
+                                border-right: none;
+                            }
+                        }
+                    }
+
+                    .product-grid {
+                        @include media-breakpoint-down(xs) {
+                            margin-top: rem(20);
+                        } 
+                    }
                 }
             }
         }
@@ -219,7 +258,7 @@
                 
                 &.total-product-count {
                     padding-bottom: rem(0);
-                    margin-top: rem(16);
+                    margin-top: rem(46);
                     color: $light-black1;
                     font-size: rem(18);
                     letter-spacing: rem(0);
@@ -228,7 +267,7 @@
                     text-align: center;
     
                     @include media-breakpoint-down(xs) {
-                        margin-top: rem(9);
+                        margin-top: rem(39);
                         font-size: rem(14);
                         line-height: rem(18);
                     }
@@ -250,6 +289,14 @@
                     }
                 }
             }
+        }
+    }
+
+    .pagination-container {
+        margin-top: rem(60);
+
+        @include media-breakpoint-down(xs) {
+            margin-top: rem(39);
         }
     }
 }
