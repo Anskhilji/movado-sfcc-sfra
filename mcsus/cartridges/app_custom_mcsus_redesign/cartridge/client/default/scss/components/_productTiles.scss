@@ -8,11 +8,6 @@
 
         .image-container {
             border: none;
-            padding-top: rem(20);
-
-            @include media-breakpoint-down(xs) {
-                padding-top: rem(15);
-            }
 
             .product-badge {
                 display: none;
