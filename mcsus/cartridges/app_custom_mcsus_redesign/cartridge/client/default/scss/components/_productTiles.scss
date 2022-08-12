@@ -140,9 +140,7 @@
 
                         .text-m {
                             color: $light-gray3 !important;
-                            font-size: rem(12);
                             letter-spacing: 0;
-                            line-height: rem(15);
 
                             @include media-breakpoint-down(xs) {
                                 font-size: rem(8.18);
