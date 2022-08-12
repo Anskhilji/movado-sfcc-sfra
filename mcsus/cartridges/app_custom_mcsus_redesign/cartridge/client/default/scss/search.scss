@@ -162,6 +162,9 @@
 
                     img {
                         margin-right: rem(6.4);
+                        @include media-breakpoint-down(xs) {
+                            margin-right: rem(15);
+                        }
                     }
                     &:focus {
                         outline: none;
