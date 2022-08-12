@@ -49,6 +49,17 @@ Font family and minor adjustments have been made in _backInStockNotification SCS
         text-align: left;
     }
 
+    &-listrack-confirmation-copy {
+        height: rem(20);
+        color: $granite-gray;
+        font-size: rem(13);
+        font-weight: 300;
+        letter-spacing: rem(0.5);
+        line-height: rem(17);
+        margin-left: rem(12.5);
+        text-align: left;
+    }
+
     &-email, &-phone {
         width: 100%;
         border-radius: 0;
@@ -81,16 +92,14 @@ Font family and minor adjustments have been made in _backInStockNotification SCS
 
 
     &-form {
-        display: flex;
         position: relative;
-
+        display: flex;
         .error-msg {
             text-align: left;
             color: $red;
             margin: rem(5) 0;
         }
     }
-
 
     &-marketing-container {
         display: flex;
@@ -141,6 +150,54 @@ Font family and minor adjustments have been made in _backInStockNotification SCS
         }
     }
 
+    &-listrack-container {
+        display: flex;
+        margin-top: rem(15);
+        margin-bottom: rem(15);
+        
+        .checkmark {
+            height: rem(13);
+            position: absolute;
+            width: rem(13);
+            content: "";
+            margin-top: rem(3);
+
+            &:after {
+                height: rem(13);
+                position: absolute;
+                left: 0;
+                width: rem(13);
+                background-color: $white;
+                border: solid $black rem(1);
+                content: "";
+            }
+        }
+
+        input {
+            height: rem(20);
+            opacity: 0;
+            z-index: 1;
+
+            &:checked {
+                ~.checkmark {
+                    background-color: $black;
+
+                    &:after {
+                        border-width: 0 rem(3) rem(3) 0;
+                        -webkit-transform: rotate(45deg);
+                        -ms-transform: rotate(45deg);
+                        transform: rotate(45deg);
+                        border: solid $white;
+                        border-width: 0 rem(1) rem(1) 0;
+                        height: 10px;
+                        left: rem(4);
+                        width: rem(5);
+                        background-color: $black;
+                    }
+                }
+            }
+        }
+    }
 
     &-container-success {
         display: flex;
