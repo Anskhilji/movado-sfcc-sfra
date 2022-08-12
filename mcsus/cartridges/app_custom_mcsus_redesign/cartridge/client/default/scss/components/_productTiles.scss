@@ -215,6 +215,14 @@
                 align-items: center;
                 flex-wrap: wrap;
 
+                @include media-breakpoint-up(lg) {
+                    min-height: rem(58);
+                }
+
+                @include media-breakpoint-up(xl) {
+                    min-height: rem(36);
+                }
+
                 .price {
                     width: auto;
                     font-size: rem(16);
