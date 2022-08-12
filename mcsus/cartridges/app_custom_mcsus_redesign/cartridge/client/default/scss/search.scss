@@ -5,6 +5,7 @@
     @include media-breakpoint-down(xs) {
         padding: 0 rem(10);
     }
+
     @include media-breakpoint-up(xl) {
         padding: 0 rem(31);
     }
@@ -161,6 +162,7 @@
 
                     img {
                         margin-right: rem(6.4);
+
                         @include media-breakpoint-down(xs) {
                             margin-right: rem(15);
                         }
@@ -236,9 +238,11 @@
                     @include media-breakpoint-up(lg) {
                         padding-right: rem(15);
                     }
+
                     @include media-breakpoint-down(md) {
                         padding: rem(0) rem(15);
                     }
+                    
                     @include media-breakpoint-down(xs) {
                         padding: rem(0);
                     }
@@ -373,7 +377,7 @@
         } 
     }
 
-    button{
+    button {
         &.close {
             display: none;
         }
