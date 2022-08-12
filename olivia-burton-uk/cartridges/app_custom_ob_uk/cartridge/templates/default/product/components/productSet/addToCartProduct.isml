@@ -1,5 +1,11 @@
 <div class="row add-to-cart-observer cart-and-ipay ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "d-none" : ""}">
     <div class="col-sm-12">
+        <isset name="siteID" value="${dw.system.Site.current.ID}" scope="page" />
+        <isif condition="${siteID == 'OliviaBurtonUS'}">
+            <isset name="addtoCart" value="${Resource.msg('button.addtocart', 'common', null)}" scope="page" />
+        <iselse/>
+            <isset name="addtoCart" value="${Resource.msg('button.addtobag', 'common', null)}" scope="page" /> 
+        </isif>
         <button class='add-to-cart btn btn-primary-cta add-to-cart-global <isif condition="${product.isProductRestricted}">d-none</isif>'
             data-pid="${product.id}"
             ${!product.readyToOrder ? "disabled" : ""}  >
@@ -7,7 +13,7 @@
                 <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
                      ${Resource.msg('button.preorder.now', 'common', null)} </br>
                 <iselse/>
-                     ${Resource.msg('button.addtocart', 'common', null)}
+                     ${addtoCart}
                 </isif>
         </button>
         <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}" />
