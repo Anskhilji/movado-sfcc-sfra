@@ -353,12 +353,25 @@
 
 .result-count-show {
     margin-bottom: rem(20);
-    
-    .total-product-count {
-        color: $light-black1;
-        font-size: rem(12);
-        letter-spacing: rem(0);
-        line-height: rem(22);
-        font-weight: 400;
+    &.header-bar {
+        background: none;
+        padding: 0;
+        border: none;
+    }
+
+    .result-count {
+        float: none;
+        
+        .total-product-count {
+            color: $light-black1;
+            font-size: rem(12);
+            letter-spacing: rem(0);
+            line-height: rem(22);
+            font-weight: 400;
+        } 
+    }
+
+    button.close {
+        display: none;
     }
 }

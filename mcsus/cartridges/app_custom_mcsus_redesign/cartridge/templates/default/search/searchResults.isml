@@ -82,8 +82,8 @@
 					</isif>
 				</div>
 			</div>
-			<div class="col-12 d-block d-sm-none px-0">
-				<div class="result-count-show result-count">
+			<div class="col-12 d-block d-sm-none px-0 result-count-show header-bar">
+				<div class="result-count">
 					<isinclude template="search/resultsCount" />
 				</div>
 			</div>
