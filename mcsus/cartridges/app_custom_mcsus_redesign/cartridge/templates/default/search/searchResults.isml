@@ -12,8 +12,9 @@
 		<iscomment>changes the placement of breadcrumbs to top from content slot banner.</iscomment>
 		<isinclude template="components/breadcrumbs/pageBreadcrumbs" />
 		
-		<div class="hero search-banner container-fluid p-0">
-			<isif condition="${pdict.productSearch.isCategorySearch}">
+		<div class="hero search-banner row p-0">
+			<div class="col-12 px-0 px-sm-3">
+				<isif condition="${pdict.productSearch.isCategorySearch}">
 				<isif condition="${dw.system.Site.current.preferences.custom.EUMEnabled}">
 					<isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.plp', 'eum', null))}"/>
 				</isif>
@@ -24,6 +25,7 @@
 				</isif>
 				<isslot id="cs-search-banner-image" description="Search banner Image" context="global" />
 			</isif>
+			</div>
 		</div>
 		<isif condition="${!pdict.productSearch.isCategorySearch}">
 			<div class="row">
@@ -74,13 +76,18 @@
 								<source media="(min-width:544px)" srcset="${URLUtils.staticURL('/images/akar-icons_settings-horizontal.svg')}">
 								<img src="${URLUtils.staticURL('/images/ep_filter.svg')}" class="img-fluid">
 							</picture>
-							${Resource.msg('button.filter', 'search', null)}
+							    <span class="d-none d-sm-inline-block">${Resource.msg('button.filters', 'search', null)}</span>
+							    <span class="d-inline-block d-sm-none">${Resource.msg('button.filterby', 'search', null)}</span>
 							</button>
 						</div>
 					</isif>
 				</div>
 			</div>
-
+			<div class="col-12 d-block d-sm-none px-0 result-count-show header-bar">
+			    <div class="result-count">
+				    <isinclude template="search/resultsCount" />
+			    </div>
+			</div>
 
 			<isif condition="${pdict.productSearch.productIds.length > 0}">
 				<!--- Refinement bar --->
