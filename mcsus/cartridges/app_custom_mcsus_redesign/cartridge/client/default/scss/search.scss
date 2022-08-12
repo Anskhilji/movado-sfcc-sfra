@@ -11,11 +11,6 @@
         
         img {
             width: 100%;
-            height: rem(263);
-
-            @include media-breakpoint-down(xs) {
-                height: rem(197);
-            }
         }
     }
 
