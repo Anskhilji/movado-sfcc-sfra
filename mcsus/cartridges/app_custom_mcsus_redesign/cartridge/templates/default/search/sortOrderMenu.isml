@@ -6,14 +6,14 @@
             <img src="${URLUtils.staticURL('/images/bi_sort-up.svg')}" class="img-fluid fliter-icon">
         </picture>
         <select name="sort-order" id="sort-order" class="custom-select sorting-rules-filters" title="${Resource.msg('label.sortby', 'search', null)}">
-            <isloop items="${pdict.productSearch.productSort.options}" var="option">
-                <option class="sorting-rule-options ${option.id}" data-filter-category="${pdict.productSearch.category && !empty(pdict.productSearch.category) ? pdict.productSearch.category.id : ''}" value="${option.url}"
-                    data-id="${option.id}" 
-                    ${pdict.productSearch.productSort.ruleId === option.id ? 'selected' : '' }
-                >
-                    ${option.displayName}
-                </option>
-            </isloop>
+                <isloop items="${pdict.productSearch.productSort.options}" var="option">
+                    <option class="sorting-rule-options ${option.id}" data-filter-category="${pdict.productSearch.category && !empty(pdict.productSearch.category) ? pdict.productSearch.category.id : ''}" value="${option.url}"
+                        data-id="${option.id}" 
+                        ${pdict.productSearch.productSort.ruleId === option.id ? 'selected' : '' }
+                    >
+                        ${option.displayName}
+                    </option>
+                </isloop>
         </select>
     </div>
 </isif>

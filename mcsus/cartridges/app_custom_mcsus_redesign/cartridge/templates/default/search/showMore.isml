@@ -11,17 +11,17 @@
         <isset name="showing" value=${pdict.productSearch.count} scope="page" />
     </isif>
     <isif condition="${pdict.productSearch.showMoreUrl !== ''}">
-        <div class="show-more total-product-count">
+        <div class="show-more total-product-count" id='show-more-update'>
             ${Resource.msgf('updated.products.showMoreButton', 'search', null, showing, pdict.productSearch.count)}
         </div>
-        <div class="show-more">
+        <div class="plp-show-more">
             <div class="text-center">
                 <button class="btn btn-outline-primary col-12 col-sm-5"
                         data-url="${pdict.productSearch.showMoreUrl}"
                         data-page-number="${pdict.productSearch.pageNumber}"
                         data-category-id="${pdict.productSearch.category.id}"
                 >
-                    ${Resource.msg('button.more', 'search', null)}
+                    ${Resource.msg('button.load.more', 'search', null)}
                 </button>
             </div>
         </div>
