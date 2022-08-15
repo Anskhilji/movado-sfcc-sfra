@@ -1,6 +1,14 @@
 @import "~mcsus/search";
 @import "variables";
 
+// old design show breadcrumbs
+.breadcrumbs-show {
+    
+    .breadcrumbs-wrapper-main {
+        display: block !important;
+    }
+}
+
 .search-results-plp-redesign {
     @include media-breakpoint-down(xs) {
         padding: 0 rem(10);
@@ -322,7 +330,7 @@
 
         .grid-footer {
             margin-top: rem(66.5);
-            
+
             @include media-breakpoint-down(md) {
                 margin-top: rem(20);
             }
