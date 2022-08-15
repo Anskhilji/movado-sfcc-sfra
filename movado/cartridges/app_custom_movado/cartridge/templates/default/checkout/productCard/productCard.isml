@@ -40,20 +40,16 @@
 
                 <div class="item-options">
                     <isloop items="${lineItem.options}" var="option">
-                        <isif condition="${option.optionId != lineItem.resources.Engraved &&
-                        	option.optionId != lineItem.resources.Embossed &&
-                        	option.optionId != lineItem.resources.GiftWrapped}">
-                        	<isif condition="${lineItem.customAttributes['emboss']}">
-                        		<div class="line-item-option">${Resource.msg('label.personalization.debossed', 'confirmation', null)}</div>
-                        	<iselseif condition="${option.optionId != lineItem.resources.Engraved &&
-                        		option.optionId != lineItem.resources.GiftWrapped}" >
-                        		<div class="line-item-option">${Resource.msg('label.personalization.debossed.off', 'confirmation', null)}</div>
-                        	<iselse>
-                        		<div class="line-item-option">${option.displayName}</div>
-                        	</isif>
-                        </isif>
-                        <isif condition="${!empty(option.displayName) && !(option.optionId === 'clydeWarranty')}">
-                             <div class="line-item-option">${option.displayName}</div>
+                        <isif condition="${option.optionId == lineItem.resources.Engraved ||
+                            option.optionId == lineItem.resources.Embossed ||
+                            option.optionId == lineItem.resources.GiftWrapped}">
+                            <isif condition="${lineItem.customAttributes['emboss']}">
+                                <div class="line-item-option">${option.displayName}</div>
+                            <iselseif condition="${lineItem.customAttributes['engrave']}"/>
+                                <div class="line-item-option">${option.displayName}</div>
+                            <iselseif condition="${lineItem.customAttributes['giftWrap']}"/>
+                                <div class="line-item-option">${option.displayName}</div>
+                            </isif>
                         </isif>
                     </isloop>
                 </div>
