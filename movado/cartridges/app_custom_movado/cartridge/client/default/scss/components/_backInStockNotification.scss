@@ -152,8 +152,10 @@ Font family and minor adjustments have been made in _backInStockNotification SCS
 
     &-listrack-container {
         display: flex;
-        margin-top: rem(15);
-        margin-bottom: rem(15);
+
+        @include media-breakpoint-up(md) {
+            margin-bottom: rem(15);
+        }
         
         .checkmark {
             height: rem(13);
