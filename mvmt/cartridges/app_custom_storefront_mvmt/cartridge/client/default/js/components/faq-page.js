@@ -15,13 +15,42 @@ function activTabOnLoad() {
     }
 }
 
+$(document).ready(function() {
+    var $tabsUrl = window.location.href;
+    if ($tabsUrl.indexOf('#') > 0) {
+        var $URL = $tabsUrl.split('#');
+        var $absoluteUrlWithId = '#'+$URL[1];
+        var $absoluteUrl = $URL[1];
+        $('.faq-nav-control-bar-link').removeClass('is-active');
+    
+        $('.faq-nav-control-bar-link').each(function(value,element){
+            var $this = $(element);
+            if ($this.attr('href') == $absoluteUrlWithId) {
+                $this.addClass('is-active');
+            }
+        });
+    
+        $('.tab-pane-control').addClass('d-none');
+    
+        $('.tab-pane-control').each(function(value,element){
+            
+            var $this = $(element);
+            var $contentId = $this.attr('id').replace(/"|'/g,'');
+            if ($contentId == $absoluteUrl) {
+                $this.removeClass('d-none');
+            }
+        });
+    }
+});
+
 $(window).on('load', function() {
     var $generaltab = $('.faq-nav-control-bar-link');
     $('html, body').animate({ scrollTop: 0 }, "fast");
-    $('.tab-pane-control').addClass('d-none');
-    var $id = $($generaltab.attr('href'));
-    $id.removeClass('d-none');
+    // $('.tab-pane-control').addClass('d-none');
+    // var $id = $($generaltab.attr('href'));
+    // $id.removeClass('d-none');
     activTabOnLoad();
+
     $('.faq-nav-control-bar-inner').removeClass('active');
     $('.faq-nav-control-bar-btn span').text($(this).text());
     var showHelpContainer = $generaltab.data('show-help');
