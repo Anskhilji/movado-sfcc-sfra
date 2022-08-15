@@ -5,9 +5,10 @@
    
     &-plp-container {
         position: relative;
-       @include media-breakpoint-up(lg) {
-        padding-bottom: rem(192);
-       }
+        
+        @include media-breakpoint-up(lg) {
+            padding-bottom: rem(192);
+        }
 
         .image-container {
             border: none;

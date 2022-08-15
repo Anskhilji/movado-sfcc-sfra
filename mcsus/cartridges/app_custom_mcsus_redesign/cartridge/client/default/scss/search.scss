@@ -322,6 +322,7 @@
 
         .grid-footer {
             margin-top: rem(66.5);
+            
             @include media-breakpoint-down(md) {
                 margin-top: rem(20);
             }
