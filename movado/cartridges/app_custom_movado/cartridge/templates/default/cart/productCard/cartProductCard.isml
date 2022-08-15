@@ -39,11 +39,17 @@
                                     option.optionId == lineItem.resources.Embossed ||
                                     option.optionId == lineItem.resources.GiftWrapped}">
                                     <isif condition="${lineItem.customAttributes['emboss']}">
-                                        <div class="line-item-option">${option.displayName}</div>
+                                        <div class="lineItem-options-values" data-option-id="${option.optionId}" data-value-id="${option.selectedValueId}">
+                                            <p class="line-item-attributes">${option.displayName}</p>
+                                        </div>
                                     <iselseif condition="${lineItem.customAttributes['engrave']}"/>
-                                        <div class="line-item-option">${option.displayName}</div>
+                                        <div class="lineItem-options-values" data-option-id="${option.optionId}" data-value-id="${option.selectedValueId}">
+                                            <p class="line-item-attributes">${option.displayName}</p>
+                                        </div>
                                     <iselseif condition="${lineItem.customAttributes['giftWrap']}"/>
-                                        <div class="line-item-option">${option.displayName}</div>
+                                        <div class="lineItem-options-values" data-option-id="${option.optionId}" data-value-id="${option.selectedValueId}">
+                                            <p class="line-item-attributes">${option.displayName}</p>
+                                        </div>
                                     </isif>
                                 </isif>
                             </isloop>
