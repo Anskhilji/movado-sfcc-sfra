@@ -291,7 +291,7 @@
                         border-right: rem(1) solid $grey-light8;
                         padding: rem(0) rem(10);
                         
-                        @include media-breakpoint-up(sm) {
+                        @include media-breakpoint-up(lg) {
                             padding: rem(0);
                         }
 
