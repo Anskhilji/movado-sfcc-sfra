@@ -307,7 +307,7 @@ function getTileHeight() {
             var tileHeight = $(this).innerHeight();
             $(this).closest('.product-tile-plp-container').css('padding-bottom',tileHeight);
         })
-    }, 1000);
+    }, 100);
 }
 
 $( document ).ready(function() {
