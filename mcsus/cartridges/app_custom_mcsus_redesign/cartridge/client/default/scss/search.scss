@@ -9,18 +9,24 @@
     @include media-breakpoint-up(xl) {
         padding: 0 rem(31);
     }
+    .breadcrumbs-wrapper-main {
 
-    .breadcrumb {
-        padding: rem(23) rem(0) rem(14) rem(0);
-        margin: rem(0);
+        @include media-breakpoint-down(xs) {
+            display: none;
+        }
 
-        .breadcrumb-item {
-            a {
-                color: $light-grey5;
-                font-size: rem(14);
-                font-weight: 400;
-                letter-spacing: rem(0);
-                line-height: rem(30);
+        .breadcrumb {
+            padding: rem(23) rem(0) rem(14) rem(0);
+            margin: rem(0);
+
+            .breadcrumb-item {
+                a {
+                    color: $light-grey5;
+                    font-size: rem(14);
+                    font-weight: 400;
+                    letter-spacing: rem(0);
+                    line-height: rem(30);
+                }
             }
         }
     }
@@ -47,6 +53,14 @@
 
             .searech-results-wrapper {
                 margin-top: rem(0);
+                
+                @include media-breakpoint-down(sm) {
+                    padding: 0 rem(15);
+                }
+                
+                @include media-breakpoint-down(xs) {
+                    padding: 0;
+                }
 
                 .tab-pane {
                     margin: rem(50) rem(0) rem(54) rem(0);
@@ -239,12 +253,13 @@
                 }
 
                 .product-tiles-wrapper {
+                    padding: rem(0);
                     @include media-breakpoint-up(lg) {
                         padding-right: rem(15);
                     }
 
                     @include media-breakpoint-down(md) {
-                        padding: rem(0) rem(15);
+                        padding-right: rem(15);
                     }
 
                     @include media-breakpoint-down(xs) {
@@ -267,26 +282,23 @@
                         border-bottom: rem(1) solid $grey-light8;
                         border-right: rem(1) solid $grey-light8;
                         padding: rem(0) rem(10);
+                        padding: rem(0);
 
-                        @include media-breakpoint-up(md) {
-                            &:nth-child(3n+0) {
-                                border-right: rem(1) solid transparent;
-                            }
+                        &:nth-child(4n+0) {
+                            border-right: rem(1) solid transparent;
                         }
+                        
 
-                        @include media-breakpoint-up(lg) {
-                            padding: rem(0);
-
-                            &:nth-child(4n+0) {
-                                border-right: rem(1) solid transparent;
-                            }
-                            
+                        @include media-breakpoint-down(md) {
                             &:nth-child(3n+0) {
-                                border-right: rem(1) solid $grey-light8;
+                                border-right: rem(1) solid transparent;
                             }
                         }
 
                         @include custom-media-query-max($medium-screen-width) {
+                            &:nth-child(3n+0) {
+                                border-right: rem(1) solid $grey-light8;
+                            }
                             &:nth-child(even) {
                                 border-right: rem(1) solid transparent;
                             }
@@ -309,13 +321,16 @@
         }
 
         .grid-footer {
+            margin-top: rem(66.5);
+            @include media-breakpoint-down(md) {
+                margin-top: rem(20);
+            }
 
             .show-more {
                 padding-top: rem(0);
                 
                 &.total-product-count {
                     padding-bottom: rem(0);
-                    margin-top: rem(66.5);
                     color: $light-black1;
                     font-size: rem(18);
                     letter-spacing: rem(0);
@@ -324,7 +339,6 @@
                     text-align: center;
     
                     @include media-breakpoint-down(xs) {
-                        margin-top: rem(39);
                         font-size: rem(14);
                         line-height: rem(18);
                     }

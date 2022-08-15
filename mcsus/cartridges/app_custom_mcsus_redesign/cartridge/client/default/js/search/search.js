@@ -301,6 +301,21 @@ function refreshYotpoWidgets() {
     }
 }
 
+function getTileHeight() {
+    setTimeout(function() { 
+        $('.tile-body').each(function() {
+            var tileHeight = $(this).innerHeight();
+            $(this).closest('.product-tile-plp-container').css('padding-bottom',tileHeight);
+        })
+    }, 1000);
+}
+
+$( document ).ready(function() {
+    if($(window).width() > 991) {
+        getTileHeight()
+    }
+});
+
 module.exports = {
     filter: function () {
         // Display refinements bar when Menu icon clicked
@@ -310,6 +325,9 @@ module.exports = {
             if (refinementBarPl) {
               refinementBarPl.addClass('refinement-bar-pl');
               $('.secondary-bar').addClass('secondary-bar-mt');
+            }
+            if($(window).width() > 991) {
+                getTileHeight()
             }
         });
     },
@@ -322,6 +340,9 @@ module.exports = {
             if (refinementBarPl) {
               refinementBarPl.removeClass('refinement-bar-pl');
               $('.secondary-bar').removeClass('secondary-bar-mt');
+            }
+            if($(window).width() > 991) {
+                getTileHeight()
             }
         });
     },
@@ -371,6 +392,9 @@ module.exports = {
                     }
                     // edit
                     $.spinner().stop();
+                    if($(window).width() > 991) {
+                        getTileHeight()
+                    }
                 },
                 error: function () {
                     $.spinner().stop();
@@ -420,6 +444,9 @@ module.exports = {
                     }
                     // edit end
                     $.spinner().stop();
+                    if($(window).width() > 991) {
+                        getTileHeight()
+                    }
                 },
                 error: function () {
                     $.spinner().stop();
@@ -479,6 +506,9 @@ module.exports = {
                 }
                 $.spinner().stop();
                 moveFocusToTop();
+                if($(window).width() > 991) {
+                    getTileHeight()
+                }
             },
             error: function () {
                 $.spinner().stop();
@@ -539,6 +569,9 @@ module.exports = {
                         $.spinner().stop();
                         moveFocusToTop();
                         swatches.showSwatchImages();
+                        if($(window).width() > 991) {
+                            getTileHeight()
+                        }
                     },
                     error: function () {
                         $.spinner().stop();
@@ -553,14 +586,21 @@ module.exports = {
             if ($('#content-search-results').html() === '') {
                 getContent($(this), $('#content-search-results'));
             }
+            if($(window).width() > 991) {
+                getTileHeight()
+            }
         });
 
         // Display the next page of content results from the search
         $('.filter-container').on('click', '.show-more-content button', function () {
             getContent($(this), $('#content-search-results .result-count'));
             $('.show-more-content').remove();
+            if($(window).width() > 991) {
+                getTileHeight()
+            }
         });
     },
+    
     updatePageURLForShowMore: updatePageURLForShowMore,
     updateSortOptions: updateSortOptions,
     replaceQueryParam: replaceQueryParam,
