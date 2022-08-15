@@ -156,6 +156,10 @@
                     margin-left: auto;
                     background-color: $black;
 
+                    @include media-breakpoint-down(md) {
+                        padding: rem(6) rem(12);
+                    }
+
                     span {
                         transform: translateY(0px);
                     }
@@ -242,7 +246,7 @@
                     @include media-breakpoint-down(md) {
                         padding: rem(0) rem(15);
                     }
-                    
+
                     @include media-breakpoint-down(xs) {
                         padding: rem(0);
                     }
@@ -342,6 +346,11 @@
 
                     @include media-breakpoint-down(xs) {
                         margin-top: rem(15);
+                        width: calc(100% - 20px);
+                        height: rem(50);
+                        line-height: rem(12);
+                        font-size: rem(10);
+                        letter-spacing: rem(0);
                     }
                 }
             }
