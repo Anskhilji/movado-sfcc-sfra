@@ -5,6 +5,10 @@
    
     &-plp-container {
         position: relative;
+        
+        @include media-breakpoint-up(lg) {
+            padding-bottom: rem(192);
+        }
 
         .image-container {
             border: none;
@@ -68,7 +72,7 @@
         .tile-body {
 
             @include media-breakpoint-up(lg) {
-                position: relative;
+                position: absolute;
                 &::before {
                     content: '';
                     position: absolute;

@@ -10,7 +10,9 @@
 	</isif>
 	<div class="container filter-container search-results plp-tiles-wrapper">
 		<iscomment>changes the placement of breadcrumbs to top from content slot banner.</iscomment>
-		<isinclude template="components/breadcrumbs/old/pageBreadcrumbs" />
+		<div class="breadcrumbs-show">
+			<isinclude template="components/breadcrumbs/old/pageBreadcrumbs" />
+		</div>
 		
 		<div class="hero search-banner container p-0">
 			<isif condition="${pdict.productSearch.isCategorySearch}">
