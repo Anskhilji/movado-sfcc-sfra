@@ -2,12 +2,12 @@
 <div class="filter-header">
     <div class="header-bar d-md-none clearfix">
         <div class="pull-left d-md-none result-count">
-            <isinclude template="search/resultsCount" />
+            <isinclude template="search/old/resultsCount" />
         </div>
         <button class="pull-right close">
             <span>${Resource.msg('button.close', 'search', null)}</span>
             <i class="fa fa-close"></i>
-        </button>
+        </button> 
     </div>
 </div>
 
@@ -37,7 +37,7 @@
                     </isif>
 
                     <!--- ATTRIBUTE REFINEMENTS --->
-                    <isif condition="${refinement.isAttributeRefinement}">
+                    <isif condition="${refinement.isAttributeRefinement || refinement.isPromotionRefinement}">
                         <isinclude template="search/refinements/attributes" />
                     </isif>
 

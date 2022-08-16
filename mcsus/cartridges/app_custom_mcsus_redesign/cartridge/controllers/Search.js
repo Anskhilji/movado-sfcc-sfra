@@ -63,7 +63,11 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     /**
      * Custom Start: Implementing A/B test for MCS PLP
      */
-    if (ABTestMgr.isParticipant('MCSRedesignPLPABTest', 'render-new-design')) {
+     if (ABTestMgr.isParticipant('MCSRedesignPLPABTest', 'Control')) {
+        if (categoryTemplate && (categoryTemplate.indexOf('searchResults') > 0)) {
+            categoryTemplate = 'search/old/searchResults';
+        }
+    } else if (ABTestMgr.isParticipant('MCSRedesignPLPABTest', 'render-new-design')) {
         if (categoryTemplate && (categoryTemplate.indexOf('searchResults') > 0)) {
             categoryTemplate = 'search/searchResults';
         }
@@ -88,7 +92,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     pageMetaHelper.setPageMetaTags(req.pageMetaData, productSearch);
 
     var refineurl = URLUtils.url('Search-Refinebar');
-    var whitelistedParams = ['q', 'cgid', 'pmin', 'pmax', 'srule'];
+    var whitelistedParams = ['q', 'cgid', 'pmin', 'pmax', 'srule', 'pmid'];
     var isRefinedSearch = false;
     Object.keys(req.querystring).forEach(function (element) {
         if (whitelistedParams.indexOf(element) > -1) {
@@ -239,6 +243,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     var ProductSearchModel = require('dw/catalog/ProductSearchModel');
     var ProductSearch = require('*/cartridge/models/search/productSearch');
     var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
+    var refineBarTemplate;
 
     var apiProductSearch = new ProductSearchModel();
     apiProductSearch = searchHelper.setupSearch(apiProductSearch, req.querystring);
@@ -251,9 +256,12 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
         CatalogMgr.getSiteCatalog().getRoot()
     );
 
-    var refineBarTemplate = '/search/old/searchRefineBar';
-    if (ABTestMgr.isParticipant('MCSRedesignPLPABTest', 'render-new-design')) {
-        refineBarTemplate = '/search/searchRefineBar';
+    if (ABTestMgr.isParticipant('MCSRedesignPLPABTest','Control')) {
+        refineBarTemplate = 'search/old/searchRefineBar';
+    } else if (ABTestMgr.isParticipant('MCSRedesignPLPABTest','render-new-design')) {
+        refineBarTemplate = 'search/searchRefineBar';
+    } else {
+        refineBarTemplate = 'search/old/searchRefineBar';
     }
 
     res.render(refineBarTemplate, {
@@ -273,6 +281,7 @@ server.replace('UpdateGrid', function (req, res, next) {
     var marketingProduct;
     var quantity = 0;
     var marketingProductData;
+    var productGridTemplate;
 
     var ProductSearchModel = require('dw/catalog/ProductSearchModel');
     var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
@@ -300,9 +309,12 @@ server.replace('UpdateGrid', function (req, res, next) {
         marketingProductData = JSON.stringify(marketingProductsData);
     }
 
-    var productGridTemplate = '/search/old/productGrid';
-    if (ABTestMgr.isParticipant('MCSRedesignPLPABTest', 'render-new-design')) {
-        productGridTemplate = '/search/productGrid';
+    if (ABTestMgr.isParticipant('MCSRedesignPLPABTest','Control')) {
+        productGridTemplate = 'search/old/productGrid';
+    } else if (ABTestMgr.isParticipant('MCSRedesignPLPABTest','render-new-design')) {
+        productGridTemplate = 'search/productGrid';
+    } else {
+        productGridTemplate = 'search/old/productGrid';
     }
 
     res.render(productGridTemplate, {
