@@ -60,6 +60,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
         departmentCategoryName: departmentCategoryName 
     });
 
+    var refineurl = URLUtils.url('Search-Refinebar');
     /**
      * Custom Start: Implementing A/B test for MCS PLP
      */
@@ -70,6 +71,8 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     } else if (ABTestMgr.isParticipant('MCSRedesignPLPABTest', 'render-new-design')) {
         if (categoryTemplate && (categoryTemplate.indexOf('searchResults') > 0)) {
             categoryTemplate = 'search/searchResults';
+            refineurl = URLUtils.url('Search-RefinebarNew');
+
         }
         resultsTemplate = isAjax ? 'search/searchResultsNoDecorator' : 'search/searchResults';
     } else {
@@ -91,7 +94,6 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
 
     pageMetaHelper.setPageMetaTags(req.pageMetaData, productSearch);
 
-    var refineurl = URLUtils.url('Search-Refinebar');
     var whitelistedParams = ['q', 'cgid', 'pmin', 'pmax', 'srule', 'pmid'];
     var isRefinedSearch = false;
     Object.keys(req.querystring).forEach(function (element) {
@@ -243,7 +245,6 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     var ProductSearchModel = require('dw/catalog/ProductSearchModel');
     var ProductSearch = require('*/cartridge/models/search/productSearch');
     var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
-    var refineBarTemplate;
 
     var apiProductSearch = new ProductSearchModel();
     apiProductSearch = searchHelper.setupSearch(apiProductSearch, req.querystring);
@@ -256,13 +257,37 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
         CatalogMgr.getSiteCatalog().getRoot()
     );
 
-    if (ABTestMgr.isParticipant('MCSRedesignPLPABTest','Control')) {
-        refineBarTemplate = 'search/old/searchRefineBar';
-    } else if (ABTestMgr.isParticipant('MCSRedesignPLPABTest','render-new-design')) {
-        refineBarTemplate = 'search/searchRefineBar';
-    } else {
-        refineBarTemplate = 'search/old/searchRefineBar';
-    }
+    var refineBarTemplate = 'search/old/searchRefineBar';
+
+    res.render(refineBarTemplate, {
+        productSearch: productSearch,
+        querystring: req.querystring
+    });
+
+    next();
+});
+
+/**
+ * Add a new endpoint for refinebar to apply A/B test
+ */
+ server.get('RefinebarNew', cache.applyShortPromotionSensitiveCache, function (req, res, next) {
+    var CatalogMgr = require('dw/catalog/CatalogMgr');
+    var ProductSearchModel = require('dw/catalog/ProductSearchModel');
+    var ProductSearch = require('*/cartridge/models/search/productSearch');
+    var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
+
+    var apiProductSearch = new ProductSearchModel();
+    apiProductSearch = searchHelper.setupSearch(apiProductSearch, req.querystring);
+    apiProductSearch.search();
+    var productSearch = new ProductSearch(
+        apiProductSearch,
+        req.querystring,
+        req.querystring.srule,
+        CatalogMgr.getSortingOptions(),
+        CatalogMgr.getSiteCatalog().getRoot()
+    );
+
+    var refineBarTemplate = 'search/searchRefineBar';
 
     res.render(refineBarTemplate, {
         productSearch: productSearch,
