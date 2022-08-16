@@ -404,6 +404,17 @@
                 }
             }
         }
+        // hover disable
+        &.disable-hover {
+            
+            &:hover {
+                .cta-add-to-cart {
+                    @include media-breakpoint-up(lg) {
+                      display: none;
+                    }
+                }
+            }
+        }
 
     }
 }

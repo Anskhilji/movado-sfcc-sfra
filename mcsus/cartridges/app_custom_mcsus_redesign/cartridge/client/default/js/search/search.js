@@ -423,7 +423,7 @@ module.exports = {
                     eventLabel: $pageCounter
                 });
             }
-
+            $('.product-tile-plp-container').addClass('disable-hover');
             e.preventDefault();
 
             $.spinner().start();
@@ -447,6 +447,9 @@ module.exports = {
                     if($(window).width() > 991) {
                         getTileHeight()
                     }
+                    setTimeout(() => {
+                        $('.product-tile-plp-container').removeClass('disable-hover');
+                    }, 200);
                 },
                 error: function () {
                     $.spinner().stop();
