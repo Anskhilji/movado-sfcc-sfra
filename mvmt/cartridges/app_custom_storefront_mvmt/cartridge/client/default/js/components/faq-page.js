@@ -27,6 +27,7 @@ $(document).ready(function() {
     
         $('.faq-nav-control-bar-link').each(function(value,element){
             var $this = $(element);
+            
             if ($this.attr('href') == $absoluteUrlWithId) {
                 $this.addClass('is-active');
             }
