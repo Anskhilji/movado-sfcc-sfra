@@ -268,7 +268,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
 });
 
 /**
- * Replacing controller from base as need to remove cache and apply A/B test
+ * Add a new endpoint for refinebar to apply A/B test
  */
  server.get('RefinebarNew', cache.applyShortPromotionSensitiveCache, function (req, res, next) {
     var CatalogMgr = require('dw/catalog/CatalogMgr');
