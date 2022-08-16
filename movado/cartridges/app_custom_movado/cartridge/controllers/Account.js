@@ -664,17 +664,17 @@ server.replace('SaveNewPassword', server.middleware.https, function (req, res, n
                 var emailMarketingContent = ContentMgr.getContent('email-password-changed-marketing');
 
                 var objectForEmail = {
-                    email : email,
+                    email: email,
                     firstName: resettingCustomer.profile.firstName,
                     lastName: resettingCustomer.profile.lastName,
-		  url: url,
-		  passwordChangedTitle: Resource.msg('passwordchangedemail.subject', 'account', null),
-		  dear: Resource.msg('msg.passwordemail.dear', 'login', null),
-		  emailHeader: (emailHeaderContent && emailHeaderContent.custom && emailHeaderContent.custom.body ? emailHeaderContent.custom.body : ''),
-		  emailFooter: (emailFooterContent && emailFooterContent.custom && emailFooterContent.custom.body ? emailFooterContent.custom.body : ''),
-		  apiContentBody: (apiContent && apiContent.custom && apiContent.custom.body ? apiContent.custom.body : ''),
-		  emailMarketingContent: (emailMarketingContent && emailMarketingContent.custom && emailMarketingContent.custom.body ? emailMarketingContent.custom.body : ''),
-		  shopNow: Resource.msg('email.shop.now', 'account', null),
+                    url: url,
+                    passwordChangedTitle: Resource.msg('passwordchangedemail.subject', 'account', null),
+                    dear: Resource.msg('msg.passwordemail.dear', 'login', null),
+                    emailHeader: (emailHeaderContent && emailHeaderContent.custom && emailHeaderContent.custom.body ? emailHeaderContent.custom.body : ''),
+                    emailFooter: (emailFooterContent && emailFooterContent.custom && emailFooterContent.custom.body ? emailFooterContent.custom.body : ''),
+                    apiContentBody: (apiContent && apiContent.custom && apiContent.custom.body ? apiContent.custom.body : ''),
+                    emailMarketingContent: (emailMarketingContent && emailMarketingContent.custom && emailMarketingContent.custom.body ? emailMarketingContent.custom.body : ''),
+                    shopNow: Resource.msg('email.shop.now', 'account', null),
                     resettingCustomer: resettingCustomer
                 };
 
