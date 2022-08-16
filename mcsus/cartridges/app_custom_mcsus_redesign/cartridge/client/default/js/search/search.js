@@ -361,7 +361,6 @@ module.exports = {
         	e.preventDefault();
 
             $.spinner().start();
-
             // Push Data into gtm For Sorting Rules Filters
             var $filteredText = $(this).find(':selected').text().trim();
             var $filterCategory = $(this).find(':selected').data('filter-category');
@@ -375,6 +374,7 @@ module.exports = {
                     eventLabel: $filteredText
                   });
             }
+            $('.product-tile-plp-container').addClass('disable-hover');
             
             $(this).trigger('search:sort', this.value);
             $.ajax({
@@ -390,11 +390,16 @@ module.exports = {
                     if (window.Resources.IS_YOTPO_ENABLED) {
                         refreshYotpoWidgets();
                     }
+                    $('.product-tile-plp-container').addClass('disable-hover');
+
                     // edit
                     $.spinner().stop();
                     if($(window).width() > 991) {
                         getTileHeight()
                     }
+                    setTimeout(() => {
+                        $('.product-tile-plp-container').removeClass('disable-hover');
+                    }, 200);
                 },
                 error: function () {
                     $.spinner().stop();
