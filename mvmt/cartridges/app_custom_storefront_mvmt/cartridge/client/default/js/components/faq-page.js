@@ -22,6 +22,7 @@ $(document).ready(function() {
         var $URL = $tabsUrl.split('#');
         var $absoluteUrlWithId = '#'+$URL[1];
         var $absoluteUrl = $URL[1];
+
         $('.faq-nav-control-bar-link').removeClass('is-active');
     
         $('.faq-nav-control-bar-link').each(function(value,element){
@@ -32,11 +33,11 @@ $(document).ready(function() {
         });
     
         $('.tab-pane-control').addClass('d-none');
-    
+
         $('.tab-pane-control').each(function(value,element){
-            
             var $this = $(element);
             var $contentId = $this.attr('id').replace(/"|'/g,'');
+
             if ($contentId == $absoluteUrl) {
                 $this.removeClass('d-none');
             }
