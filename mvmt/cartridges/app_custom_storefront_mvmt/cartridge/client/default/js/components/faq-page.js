@@ -16,6 +16,7 @@ function activTabOnLoad() {
 }
 
 $(document).ready(function() {
+    activTabOnLoad();
     var $tabsUrl = window.location.href;
     if ($tabsUrl.indexOf('#') > 0) {
         var $URL = $tabsUrl.split('#');
@@ -46,10 +47,6 @@ $(document).ready(function() {
 $(window).on('load', function() {
     var $generaltab = $('.faq-nav-control-bar-link');
     $('html, body').animate({ scrollTop: 0 }, "fast");
-    // $('.tab-pane-control').addClass('d-none');
-    // var $id = $($generaltab.attr('href'));
-    // $id.removeClass('d-none');
-    activTabOnLoad();
 
     $('.faq-nav-control-bar-inner').removeClass('active');
     $('.faq-nav-control-bar-btn span').text($(this).text());
