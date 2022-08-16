@@ -334,7 +334,7 @@ server.append(
         res.setViewData({
             paypalButtonImg: customCartHelpers.getContentAssetContent('ca-paypal-button')
         });
-
+        customCartHelpers.removeClydeWarranty(viewData);
         customCartHelpers.removeNullClydeLineItem(currentBasket);
 
         var FolderSearch = require('*/cartridge/models/search/folderSearch');
