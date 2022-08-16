@@ -162,7 +162,7 @@
         line-height: rem(22);
         letter-spacing: rem(0.4);
         color: $grey14;
-        font-family: $font-bold;
+        font-family: $font-HelveticaNeueLT-bold;
     }
     .promo-msg{
         color: $green;
@@ -175,13 +175,13 @@
         font-weight: bold;
         line-height: rem(22);
         color: $grey14;
-        font-family: $font-bold;
+        font-family: $font-HelveticaNeueLT-bold;
     }
     .line-item-attributes{
-        font-family: $font-medium;
+        font-family: $font-HelveticaNeueLT-medium;
     }
     .view-cart{
-        font-family: $font-book;
+        font-family: $font-HelveticaNeueLT-book;
     }
     .line-item-divider {
         margin: 0.625em -0.625em 0.625em -1.325em;
@@ -195,12 +195,12 @@
 .model-name{
     color: $grey4;
     font-size: rem(14);
-    font-family: $font-medium;
+    font-family: $font-HelveticaNeueLT-medium;
     line-height: rem(17);
     letter-spacing: rem(0.4);
 }
 label.quantity-label{
-    font-family: $font-medium;
+    font-family: $font-HelveticaNeueLT-medium;
     font-size: rem(14);
     text-transform: inherit;
 }
