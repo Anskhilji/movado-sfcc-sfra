@@ -664,6 +664,7 @@ server.replace('SaveNewPassword', server.middleware.https, function (req, res, n
                 var emailMarketingContent = ContentMgr.getContent('email-password-changed-marketing');
 
                 var objectForEmail = {
+                    email : email,
                     firstName: resettingCustomer.profile.firstName,
                     lastName: resettingCustomer.profile.lastName,
 		  url: url,
