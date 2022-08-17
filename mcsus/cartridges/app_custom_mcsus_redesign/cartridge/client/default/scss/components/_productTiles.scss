@@ -218,6 +218,10 @@
                     min-height: rem(36);
                 }
 
+                @include media-breakpoint-down(xs) {
+                    min-height: rem(29);
+                }
+
                 .price {
                     width: auto;
                     font-size: rem(16);
@@ -297,9 +301,9 @@
                             font-weight: 600;
                             
                             @include media-breakpoint-down(xs) {
-                                font-size: rem(12);
+                                font-size: rem(8);
                                 color: $black;
-                                padding: rem(3.79) rem(7.25) rem(1.75) rem(4.25);
+                                padding: rem(2.4) rem(5.5) rem(1.2) rem(4.25);
                             }
                         }
                     }
