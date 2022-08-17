@@ -13,15 +13,19 @@
             <isif condition="${product.productType === 'set' || product.productType === 'bundle'}">
                 <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
                     ${Resource.msg('button.preorder.all.now', 'common', null)} </br>
-                 <iselse/>
+                <iselseif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.backorder', 'common', null) && !empty(product) && !empty(product.ociPreOrderParameters) && product.ociPreOrderParameters.ociPreOrderProductAllocation === 0.00 && product.ociPreOrderParameters.ociPreOrderProductATO > 0 && product.ociPreOrderParameters.ociPreOrderProductFuture === true}"/>
+                    ${Resource.msg('button.preorder.now', 'common', null)} </br>
+                <iselse/>
                     ${Resource.msg('button.addalltocart', 'common', null)}
-                 </isif>
-            <iselse>
-                 <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
+                </isif>
+            <iselse/>
+                <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
                     ${Resource.msg('button.preorder.now', 'common', null)}
-                 <iselse/>
+                <iselseif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.backorder', 'common', null) && !empty(product) && !empty(product.ociPreOrderParameters) && product.ociPreOrderParameters.ociPreOrderProductAllocation === 0.00 && product.ociPreOrderParameters.ociPreOrderProductATO > 0 && product.ociPreOrderParameters.ociPreOrderProductFuture === true}"/>
+                    ${Resource.msg('button.preorder.now', 'common', null)} </br>
+                <iselse/>
                     ${addtoCart}
-                 </isif>
+                </isif>
             </isif>
         </button>
         <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />

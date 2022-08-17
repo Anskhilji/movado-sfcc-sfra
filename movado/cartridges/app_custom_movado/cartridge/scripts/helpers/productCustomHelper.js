@@ -173,6 +173,22 @@ function getCurrentCountry() {
     return availableCountry;
 }
 
+function getOCIPreOrderParameters(apiProduct) {
+    try {
+        var ociPreOrderObject = {};
+        if (!empty(apiProduct)) {
+            var productAvailabilityModel = apiProduct.getAvailabilityModel();
+            ociPreOrderObject.ociPreOrderProductAllocation = !empty(productAvailabilityModel.inventoryRecord.allocation.value) ? productAvailabilityModel.inventoryRecord.allocation.value : null;
+            ociPreOrderObject.ociPreOrderProductATO = !empty(productAvailabilityModel.inventoryRecord.ATS.valueociPreOrderProductATO) ? productAvailabilityModel.inventoryRecord.ATS.value : null;
+            ociPreOrderObject.ociPreOrderProductFuture = !empty(productAvailabilityModel.inventoryRecord.backorderableeOrderProductFuture) ? productAvailabilityModel.inventoryRecord.backorderable : null;
+        }
+        return ociPreOrderObject;
+    } catch (e) {
+        Logger.error('(productCustomHelper.js -> getOCIPreOrderParameters) Error occured while getting omni channel inventory attributes: ' + e.stack, e.message, apiProduct.ID);
+        return '';
+    }
+}
+
 function getYotpoReviewsCustomAttribute(apiProduct) {
     var yotpoReviews = '';
     if (!empty(apiProduct) && !empty(apiProduct.custom.yotpoStarRattings)) {
@@ -190,5 +206,6 @@ module.exports = {
     getYotpoReviewsCustomAttribute: getYotpoReviewsCustomAttribute,
     getCurrentCountry: getCurrentCountry,
     getPDPContentAssetHTML: getPDPContentAssetHTML,
-    getPLPCustomURL: getPLPCustomURL
+    getPLPCustomURL: getPLPCustomURL,
+    getOCIPreOrderParameters: getOCIPreOrderParameters
 };
