@@ -17,18 +17,18 @@ function activTabOnLoad() {
 
 $(document).ready(function() {
     activTabOnLoad();
-    var $tabsUrl = window.location.href;
-    if ($tabsUrl.indexOf('#') > 0) {
-        var $URL = $tabsUrl.split('#');
-        var $absoluteUrlWithId = '#'+$URL[1];
-        var $absoluteUrl = $URL[1];
+    var $tabsURL = window.location.href;
+    if ($tabsURL.indexOf('#') > 0) {
+        var $URL = $tabsURL.split('#');
+        var $absoluteURLWithID = '#'+$URL[1];
+        var $absoluteURL = $URL[1];
 
         $('.faq-nav-control-bar-link').removeClass('is-active');
     
         $('.faq-nav-control-bar-link').each(function(value,element){
             var $this = $(element);
             
-            if ($this.attr('href') == $absoluteUrlWithId) {
+            if ($this.attr('href') == $absoluteURLWithID) {
                 $this.addClass('is-active');
             }
         });
@@ -37,9 +37,9 @@ $(document).ready(function() {
 
         $('.tab-pane-control').each(function(value,element){
             var $this = $(element);
-            var $contentId = $this.attr('id').replace(/"|'/g,'');
+            var $contentID = $this.attr('id').replace(/"|'/g,'');
 
-            if ($contentId == $absoluteUrl) {
+            if ($contentID == $absoluteURL) {
                 $this.removeClass('d-none');
             }
         });
