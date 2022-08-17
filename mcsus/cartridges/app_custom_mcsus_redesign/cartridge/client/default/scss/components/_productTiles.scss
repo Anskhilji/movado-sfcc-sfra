@@ -323,6 +323,7 @@
             @include media-breakpoint-up(lg) {
                 display: none;
                 margin-top: rem(19);
+                width: 100%;
             }
 
             .add-to-cart-plp {
