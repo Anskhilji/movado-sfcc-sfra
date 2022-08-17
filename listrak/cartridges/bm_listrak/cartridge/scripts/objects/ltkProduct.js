@@ -345,7 +345,7 @@ ltkProduct.prototype.getGender = function (product) {
         return gender;
     } catch (error) {
         Logger.error('Listrak Product Processing Failed for Product: {0}, Error: {1}', product.ID, error);
-        return categoryArray;
+        return gender;
     }
 };
 // Custom End
