@@ -111,7 +111,7 @@ function parseRiskifiedResponse(order, reqBody) {
         			order: order
         	};
             var customerLocale = order.customerLocaleID || Site.current.defaultLocale;
-        	COCustomHelpers.sendCancellationEmail(orderObj, customerLocale);
+            COCustomHelpers.sendCancellationEmail(orderObj, customerLocale);
         }
         
     } else {
