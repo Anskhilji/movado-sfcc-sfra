@@ -1,6 +1,12 @@
 <div class="row cart-and-ipay">
     <div class="col-sm-12  cta-container <isif condition="${!(product.readyToOrder && product.available)}">d-none</isif>">
         <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}">
+        <isset name="siteID" value="${dw.system.Site.current.ID}" scope="page" />
+        <isif condition="${siteID == 'OliviaBurtonUS'}">
+            <isset name="addtoCart" value="${Resource.msg('button.addtocart', 'common', null)}" scope="page" />
+        <iselse/>
+            <isset name="addtoCart" value="${Resource.msg('button.addtobag', 'common', null)}" scope="page" /> 
+        </isif>
         <iscomment>Custom start: Applied hot pink color on cart global in scss using cta-primary class </iscomment>
         <button class="add-to-cart-global btn btn-primary-cta gtm-addtocart <isif condition="${product.isProductRestricted}">d-none</isif>"
                 data-pid="${product.id}">
@@ -18,7 +24,7 @@
                 <iselseif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.backorder', 'common', null) && !empty(product) && !empty(product.ociPreOrderParameters) && product.ociPreOrderParameters.ociPreOrderProductAllocation === 0.00 && product.ociPreOrderParameters.ociPreOrderProductATO > 0 && product.ociPreOrderParameters.ociPreOrderProductFuture === true}"/>
                     ${Resource.msg('button.preorder.now', 'common', null)} </br>
                 <iselse/>
-                    ${Resource.msg('button.addtocart', 'common', null)}
+                    ${addtoCart}
                 </isif>
             </isif>
         </button>
