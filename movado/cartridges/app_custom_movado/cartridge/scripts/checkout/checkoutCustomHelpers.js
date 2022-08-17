@@ -102,12 +102,16 @@ function sendOrderConfirmationEmail(order, locale) {
  * Send order cancellation email
  * @param {Object} emailObject
  */
-function sendCancellationEmail(emailObject) {
+function sendCancellationEmail(emailObject, locale) {
+    var OrderModel = require('*/cartridge/models/order');
+    var Locale = require('dw/util/Locale');
+    var currentLocale = Locale.getLocale(locale);
     var ContentMgr = require('dw/content/ContentMgr');
     var emailHeaderContent = ContentMgr.getContent('email-header');
     var emailFooterContent = ContentMgr.getContent('email-footer');
     var emailMarketingContent = ContentMgr.getContent('email-order-cancellation-marketing');
     var topContent = ContentMgr.getContent('email-cancellation-top');
+    var orderModel = new OrderModel(emailObject.order, { countryCode: currentLocale.country });
 
     var orderObject = {
         emailHeader: (emailHeaderContent && emailHeaderContent.custom && emailHeaderContent.custom.body ? emailHeaderContent.custom.body : ''),
@@ -118,7 +122,8 @@ function sendCancellationEmail(emailObject) {
         salution: Resource.msgf('order.cancellation.email.salution', 'order', null, emailObject.firstName, emailObject.lastName ? emailObject.lastName : ''),
         orderProcess: Resource.msgf('order.cancellation.email.placed', 'order', null, emailObject.creationDate),
         orderNumber: Resource.msgf('order.cancellation.email.number.heading', 'order', null, emailObject.orderNumber),
-        order: emailObject.order
+        order: emailObject.order,
+        currentOrder: orderModel
     };
     var emailObj = {
         to: emailObject.customerEmail,

@@ -104,6 +104,38 @@ function send(emailObj, template, context) {
                 requestParams.lastName = context.lastName;
                 requestParams.email = context.email;
                 break;
+            case 13:
+                requestParams.messageContext = Constants.LTK_ORDER_CONTEXT;
+                requestParams.messageId = Site.current.preferences.custom.Listrak_OrderCancellationMessageID;
+                requestParams.orderNumber = context.order.orderNo;
+                requestParams.totalTax = !empty(context.currentOrder.totals.totalTax) ? context.currentOrder.totals.totalTax : '$0.00';
+                requestParams.shipping = !empty(context.currentOrder.totals.totalShippingCost) ? context.currentOrder.totals.totalShippingCost : '$0.00';
+                requestParams.subTotal = !empty(context.currentOrder.totals.subTotal) ? context.currentOrder.totals.subTotal : '$0.00';
+                requestParams.grandTotal = !empty(context.currentOrder.totals.grandTotal) ? context.currentOrder.totals.grandTotal : '$0.00';
+                requestParams.creationDate = context.order.creationDate.toLocaleDateString();
+                requestParams.creationDate = context.currentOrder.creationDate;
+                requestParams.billingFirstName = context.order.billingAddress.firstName;
+                requestParams.billingLastName = context.order.billingAddress.lastName;
+                requestParams.billingAddress1 = context.order.billingAddress.address1;
+                requestParams.billingAddress2 = context.order.billingAddress.address2;
+                requestParams.billingCity = context.order.billingAddress.city;
+                requestParams.billingStateCode = context.order.billingAddress.stateCode;
+                requestParams.billingPostalCode = context.order.billingAddress.postalCode;
+                requestParams.billingCountryCode = context.order.billingAddress.countryCode;
+                requestParams.billingPhone = context.order.billingAddress.phone;
+                requestParams.shippingFirstName = context.order.shipments[0].shippingAddress.firstName;
+                requestParams.shippingLastName = context.order.shipments[0].shippingAddress.lastName;
+                requestParams.shippingAddress1 = context.order.shipments[0].shippingAddress.address1;
+                requestParams.shippingAddress2 = context.order.shipments[0].shippingAddress.address2;
+                requestParams.shippingCity = context.order.shipments[0].shippingAddress.city;
+                requestParams.shippingStateCode = context.order.shipments[0].shippingAddress.stateCode;
+                requestParams.shippingPostalCode = context.order.shipments[0].shippingAddress.postalCode;
+                requestParams.shippingCountry = context.order.shipments[0].shippingAddress.countryCode;
+                requestParams.shippingPhone = context.order.shipments[0].shippingAddress.phone;
+                requestParams.shippingMethod = context.order.shipments[0].shippingMethod.displayName;
+                requestParams.paymentMethod = context.order.paymentInstruments[0].paymentMethod;
+                requestParams.email = context.order.customerEmail;
+                break;
             default:
                 requestParams.messageContext = Constants.LTK_ORDER_CONTEXT;
                 requestParams.messageId = Site.current.preferences.custom.Listrak_OrderConfirmationMessageID;
