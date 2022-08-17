@@ -22,6 +22,7 @@ $(window).on('load', function() {
     var $id = $($generaltab.attr('href'));
     $id.removeClass('d-none');
 
+    activTabOnLoad();
     $('.faq-nav-control-bar-inner').removeClass('active');
     $('.faq-nav-control-bar-btn span').text($(this).text());
     var showHelpContainer = $generaltab.data('show-help');
@@ -192,7 +193,5 @@ module.exports = function () {
             }
         });
     });
-
-    activTabOnLoad();
 };
 

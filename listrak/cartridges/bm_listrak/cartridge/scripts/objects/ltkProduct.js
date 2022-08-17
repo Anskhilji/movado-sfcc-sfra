@@ -57,6 +57,10 @@ function ltkProduct() {
     this.salePrice = '';
     // Custom End:
 
+    // Custom Start: [MSS-1696 Listrak - Create New Product Feed for MVMT - Add Gender]
+    this.watchGender = '';
+    // Custom End:
+
     // Custom Start: [MSS-1697 Add Collection URL, Strap Width, Case Diameter, Family Name to Listrak MVMT Product Feed]
     this.reviewURL = '';
     this.style = '';
@@ -137,6 +141,13 @@ ltkProduct.prototype.LoadProduct = function (product) {
 
      // Custom Start: [MSS-1690 Adding Product Sale Price Information]
     this.salePrice = this.getSalePriceInfo(product);
+    // Custom End:
+
+    // Custom Start: [MSS-1696 Listrak - Create New Product Feed for MVMT - Add Gender]
+    var productFeedValue = Site.getCurrent().getCustomPreferenceValue('Listrak_ProductFeedGenderAttribute');
+    if (!empty(productFeedValue)) {
+        this.watchGender = this.getGender(product);
+    }
     // Custom End:
 
     // Custom Start: [MSS-1697 Add Collection URL, Strap Width, Case Diameter, Family Name to Listrak MVMT Product Feed]
@@ -345,6 +356,29 @@ ltkProduct.prototype.getSalePriceInfo = function (product) {
 
     return salePrice;
 }
+// Custom End:
+
+// Custom Start: [MSS-1696 Listrak - Create New Product Feed for MVMT - Add Gender]
+ltkProduct.prototype.getGender = function (product) {
+    var gender = '';
+    var productFeedJson = Site.getCurrent().getCustomPreferenceValue('Listrak_ProductFeedGenderAttribute');
+
+    try {
+        productFeedJson = JSON.parse(productFeedJson);
+        var watchGenderAttr = product.custom.watchGender[0];
+        if (!empty(watchGenderAttr)) {
+            var watchGenderArr = watchGenderAttr.split(',');
+        }
+        if (!empty(productFeedJson) && !empty(watchGenderArr[0])) {
+            gender = productFeedJson[watchGenderArr[0]];
+        }
+
+        return gender;
+    } catch (error) {
+        Logger.error('Listrak Product Processing Failed for Product: {0}, Error: {1}', product.ID, error);
+        return categoryArray;
+    }
+};
 // Custom End
 
 // Custom Start: [MSS-1697 Add Collection URL, Strap Width, Case Diameter, Family Name to Listrak MVMT Product Feed]

@@ -8,7 +8,6 @@ var Constants = require('*/cartridge/scripts/util/Constants');
 var ContentMgr = require('dw/content/ContentMgr');
 var Site = require('dw/system/Site').getCurrent();
 
-
 /**
  * Get explicit recommendations for product
  * @param {string} pid : The ID of Product
@@ -108,6 +107,56 @@ function getPdpVideoConfigs(apiProduct) {
     }
 }
 
+/**
+ * Method use to get Custome URL to render on PDP
+ * @param {Product} product
+ * @returns {String} Custome URL
+ */
+
+ function getPLPCustomURL(product) {
+     var Site = require('dw/system/Site');
+     var URLUtils = require('dw/web/URLUtils');
+     var customURL;
+     var customURLObj = !empty(Site.current.preferences.custom.plpCustomUrl) ? JSON.parse(Site.current.preferences.custom.plpCustomUrl) : '';
+     var brandID = Site.current.ID;
+     try {
+         if (customURLObj && customURLObj[brandID]) {
+             if (customURLObj[brandID] && customURLObj[brandID].settings.enabledFullQualifiedURL) {
+                 customURL = !empty(customURLObj[product.brand] && customURLObj[product.brand].URL) ? customURLObj[product.brand].URL : null;
+
+             } else {
+                 customURL = URLUtils.url(customURLObj[brandID].settings.pipelineURL, customURLObj[brandID].settings.params, customURLObj[brandID].URL).toString();
+             }
+         }
+         return customURL;
+     } catch (e) {
+        Logger.error('(productCustomHelper.js -> getPLPCustomURL) Error occured while getting plp URL from custom preferences: ' + e.stack, e.message);
+         return '';
+     }
+ }
+/**
+ * Method use to get content asset HTML to render on PDP
+ * @param {Product} apiProduct
+ * @returns {String} content asset HTML
+ */
+function getPDPContentAssetHTML(apiProduct) {
+    try {
+        var contentAssetID = !empty(apiProduct.custom.pdpContentAssetID) ? apiProduct.custom.pdpContentAssetID : '';
+        if (empty(contentAssetID) && apiProduct.variant) {
+            contentAssetID = !empty(apiProduct.masterProduct.custom.pdpContentAssetID) ? apiProduct.masterProduct.custom.pdpContentAssetID : '';
+        }
+        var pdpContentAsset = ContentMgr.getContent(contentAssetID);
+        var pdpContentAssetHTML;
+        if (pdpContentAsset && pdpContentAsset.online && !empty(pdpContentAsset.custom.body)) {
+            pdpContentAssetHTML = pdpContentAsset.custom.body.markup.toString();
+        }
+        return pdpContentAssetHTML;
+    } catch (e) {
+        Logger.error('(productCustomHelper.js -> getPDPContentAssetHTML) Error occured while getting pdp content asset html: ' + e.stack, e.message);
+        return '';
+    }
+}
+
 function getCurrentCountry() {
     var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
     var availableCountry = 'US';
@@ -124,11 +173,39 @@ function getCurrentCountry() {
     return availableCountry;
 }
 
+function getOCIPreOrderParameters(apiProduct) {
+    try {
+        var ociPreOrderObject = {};
+        if (!empty(apiProduct)) {
+            var productAvailabilityModel = apiProduct.getAvailabilityModel();
+            ociPreOrderObject.ociPreOrderProductAllocation = !empty(productAvailabilityModel.inventoryRecord.allocation.value) ? productAvailabilityModel.inventoryRecord.allocation.value : null;
+            ociPreOrderObject.ociPreOrderProductATO = !empty(productAvailabilityModel.inventoryRecord.ATS.valueociPreOrderProductATO) ? productAvailabilityModel.inventoryRecord.ATS.value : null;
+            ociPreOrderObject.ociPreOrderProductFuture = !empty(productAvailabilityModel.inventoryRecord.backorderableeOrderProductFuture) ? productAvailabilityModel.inventoryRecord.backorderable : null;
+        }
+        return ociPreOrderObject;
+    } catch (e) {
+        Logger.error('(productCustomHelper.js -> getOCIPreOrderParameters) Error occured while getting omni channel inventory attributes: ' + e.stack, e.message, apiProduct.ID);
+        return '';
+    }
+}
+
+function getYotpoReviewsCustomAttribute(apiProduct) {
+    var yotpoReviews = '';
+    if (!empty(apiProduct) && !empty(apiProduct.custom.yotpoStarRattings)) {
+        yotpoReviews = apiProduct.custom.yotpoStarRattings;
+    }
+    return yotpoReviews;
+}
+
 module.exports = {
     getExplicitRecommendations: getExplicitRecommendations,
     getCollectionName: getCollectionName,
     getSaveMessage: getSaveMessage,
     getPdpVideoConfigs: getPdpVideoConfigs,
     getPDPMarketingContentAssetHTML: getPDPMarketingContentAssetHTML,
-    getCurrentCountry: getCurrentCountry
+    getYotpoReviewsCustomAttribute: getYotpoReviewsCustomAttribute,
+    getCurrentCountry: getCurrentCountry,
+    getPDPContentAssetHTML: getPDPContentAssetHTML,
+    getPLPCustomURL: getPLPCustomURL,
+    getOCIPreOrderParameters: getOCIPreOrderParameters
 };

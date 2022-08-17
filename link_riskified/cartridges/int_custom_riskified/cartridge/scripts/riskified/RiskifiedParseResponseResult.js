@@ -102,7 +102,7 @@ function parseRiskifiedResponse(order, reqBody) {
         /* Send Cancellation Email*/
         if(responseObject.decision == RESP_SUCCESS){
             checkoutLogger.info('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Order is cancelled and going to send cancellation email for order number: ' + order.orderNo);
-        	var orderObj ={
+        	var orderObj = {
         			customerEmail :order.customerEmail,
         			firstName  :order.billingAddress.firstName,
         			lastName:order.billingAddress.lastName,
@@ -112,7 +112,6 @@ function parseRiskifiedResponse(order, reqBody) {
         	};
         	COCustomHelpers.sendCancellationEmail(orderObj);
         }
-        
     } else {
         if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) {
             var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');

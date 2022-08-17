@@ -164,7 +164,7 @@ $stored-payment-spacing: rem(16);
     display: none;
   }
   .checkout-promo-code-form .form-group {
-    padding: 0 rem(10);
+    padding: 0 rem(0);
   }
 
   @include media-breakpoint-down(xs) {
@@ -257,6 +257,71 @@ $stored-payment-spacing: rem(16);
       background: $white;
     }
   }
+
+  &.leading-lines-wrapper {
+      border-bottom: rem(1) dashed $grey-dark-3;
+      &:first-child {
+        padding-bottom: rem(8);
+      }
+      &:not(:first-of-type) {
+        padding: rem(8) 0;
+      }
+
+    .start-lines {
+
+        &::before {
+            content: "";
+        }
+    }
+
+    .order-label-wrapper {
+        margin-bottom: rem(0);
+        color: $black;
+        font-size: rem(13);
+        font-weight: 300;
+        letter-spacing: rem(0.7);
+        line-height: rem(20);
+
+      span {
+          color: $black;
+          font-size: rem(13);
+          font-weight: 300;
+          letter-spacing: rem(0.7);
+          line-height: rem(20);
+      }
+      
+      &.order-discount-total {
+          color: $parrot-green;
+      }
+    }
+
+    .end-lines {
+
+      .text-right {
+          margin-bottom: rem(0);
+
+        .sub-total {
+            color: $black;
+            font-size: rem(13);
+            font-weight: 300;
+            letter-spacing: rem(0.7);
+            line-height: rem(20);
+        }
+
+        .shipping-total-cost {
+            color: $parrot-green;
+        }
+
+        &.tax-total {
+            color: $black;
+            font-size: rem(13);
+            font-weight: 300;
+            letter-spacing: rem(0.7);
+            line-height: rem(20);
+        }
+      }
+    }
+  }
 }
 
 .summary-details {
@@ -313,10 +378,10 @@ $stored-payment-spacing: rem(16);
       .nav-item {
         .form-check-label {
           &.credit-card-label {
-            font-size: rem(13);
+            font-size: rem(12);
   
             @include media-breakpoint-down(sm) { 
-              font-size: rem(10);
+              font-size: rem(9.6);
             }
             @include media-breakpoint-down(xs) { 
               font-size: rem(14);
@@ -453,4 +518,586 @@ $stored-payment-spacing: rem(16);
 
 .multi-shipping {
   display: none;
+}
+
+.data-checkout-stage {
+
+    .card-border-none {
+        border: none;
+        box-shadow: none;
+        padding: rem(0);
+
+        .card-body {
+            padding: rem(0);
+
+            .mx-field-wrapper {
+
+                .info-icon {
+
+                    &.info-icon-email {
+                        position: absolute;
+                        right: rem(25);
+                        top: rem(12);
+                        padding-bottom: rem(0);
+      
+                        .icon {
+                            background-image: url("../../images/info-icon.svg");
+                            background-repeat: no-repeat;
+                            background-size: cover;
+                            width: rem(15);
+                            height: rem(15);
+                            background-color: transparent;
+                        }
+      
+                        &.icon-right-wrapper {
+                            right: rem(64);
+                            top: rem(12);
+                            padding-bottom: rem(0);
+
+                            @include media-breakpoint-down(sm) {
+                                right: rem(25);
+                            }
+      
+                        }                        
+                    }
+                }
+            }
+            
+            .shipping-address-block {
+                @include custom-media-query-1440($large-screen-width-1440) {
+                    max-width: rem(700);
+                    padding-left: rem(5);
+                }
+            }
+        }
+
+        &.card-bottom-space {
+            margin-bottom: rem(20);
+        }
+    }
+    
+    .card-bottom-space {
+        margin-bottom: rem(20);
+    }
+
+    .field-left {
+
+        &.mx-field-wrapper {
+            @include custom-media-query-1440($large-screen-width-1440) {
+                padding: rem(0) rem(10);
+            }
+        }
+    }
+
+    .mx-field-wrapper {
+        @include custom-media-query-1440($large-screen-width-1440) {
+            padding: rem(0) rem(10);
+        }
+
+        .form-group {
+            margin-bottom: rem(20);
+
+            @include media-breakpoint-down(xs) {
+                margin-bottom: rem(15);
+            }        
+        }
+    }
+
+    .field-right {
+
+        &.mx-field-wrapper {
+            @include custom-media-query-1440($large-screen-width-1440) {
+                padding: rem(0) rem(10);
+            }
+        }
+    }
+
+    .form-group {
+
+      .form-control-label {
+
+        &.field-label-wrapper {
+          color: $grey8;
+          font-size: rem(13);
+          font-weight: 500;
+          letter-spacing: rem(0.7);
+          line-height: rem(20);
+        }
+      }
+
+        .form-control {
+
+            &.input-wrapper-checkout {
+                height: rem(45);
+                border: rem(1) solid $grey16;
+                border-radius: rem(3);
+                font-size: rem(13);
+                font-weight: 500;
+                letter-spacing: rem(0.7);
+                line-height: rem(24);
+                color: $grey6 !important;
+                padding-top: rem(16);
+
+                &:focus {
+                    border-color: $black;
+                    box-shadow: none;
+
+                  + .field-label-wrapper {
+                      transition: 0.2s ease-in-out;
+                      top: 0;
+                      left: 2em;
+                      height: rem(24);
+                      color: $grey15;
+                      font-size: rem(10);
+                      font-weight: 500;
+                      letter-spacing: rem(0.7);
+                      line-height: rem(20);
+                      width: 100%;
+                      pointer-events: none;
+
+                      &.field-select-wrapper-box {
+                          left: rem(13);
+                      }
+                    }
+
+                    + .field-label-wrapper-card {
+                      left: rem(15);
+                    }
+              
+                    + .field-label-wrapper-card-1 {
+                        left: rem(24);
+                      }
+              
+                    + .field-label-wrapper-card-2 {
+                        left: rem(15);
+                      }
+                    
+                    + .field-label-wrapper-card-3 {
+                        left: rem(24);
+                      }
+                }
+
+                &.is-invalid {
+
+                    &:focus {
+                        border: rem(1) solid $invalid-red;
+                    }
+                }
+            }
+
+            &.custom-select-box {
+                height: rem(45);
+                border: rem(1) solid $grey16;
+                border-radius: rem(3);
+                background-color: $grey-dark-2;
+                margin-top: rem(0);
+                
+                &:focus {
+                    border-color: $black;
+                    box-shadow: none;
+                }
+
+                + i {
+                    top: rem(14);
+                }
+
+                &.is-invalid {
+
+                  &:focus {
+                      border: rem(1) solid $invalid-red;
+                  }
+                }
+            }
+        }
+
+        .field-label-wrapper {
+            position: absolute;
+            top: 1em;
+            left: 2em;
+            color: $grey15;
+            transition: 0.2s ease-in-out;
+            width: 100%;
+            pointer-events: none;
+            text-transform: capitalize;
+
+          &.input-has-value {
+              transition: 0.2s ease-in-out;
+              top: 0;
+              left: 2em;
+              height: rem(24);
+              color: $grey15;
+              font-size: rem(10);
+              font-weight: 500;
+              letter-spacing: rem(0.7);
+              line-height: rem(20);
+              width: 100%;
+              pointer-events: none;
+          }
+
+          &.field-select-wrapper-box {
+              left: rem(16);
+            
+            &.input-has-value {
+                left: rem(13);
+            }
+          }
+          
+          &.field-label-wrapper-card {
+              left: rem(15);
+
+            &.input-has-value {
+                left: rem(15);
+            }
+          }
+
+          &.field-label-wrapper-card-1 {
+              left: rem(24);
+
+              &.input-has-value {
+                  left: rem(24);
+              }
+          }
+
+          &.field-label-wrapper-card-2 {
+              left: rem(15);
+
+              &.input-has-value {
+                  left: rem(15);
+            }
+          }
+      
+          &.field-label-wrapper-card-3 {
+              left: rem(24);
+              
+              &.input-has-value {
+                  left: rem(24);
+              }
+          }
+        }
+
+        &.required {
+
+            .form-control-label {
+
+                &.field-label-wrapper {
+                    &::before {
+                      content: "";
+                      color: transparent;
+                    }
+                  
+                    &::after {
+                      content: "*";
+                      color: $grey15;
+                    }
+                }
+            }
+        }
+    }
+
+    .card-header-inner-wrapper {
+        max-width: rem(350);
+        margin-bottom: rem(20);
+    }
+
+    .card-body {
+
+        form {
+
+            &.billing-form {
+
+                .form-group {
+                
+                    .form-control {
+            
+                        &.input-wrapper-checkout {
+              
+                            &:focus {
+              
+                                + .field-label-wrapper {
+                                    @include media-breakpoint-down(xs) {
+                                        left: rem(26.4);
+                                    }
+              
+                                    &.field-select-wrapper-box {
+                                        left: rem(13);
+                                    }
+                                }
+
+                                + .field-label-wrapper-card {
+                                    left: rem(15);
+                                }
+                      
+                                + .field-label-wrapper-card-1 {
+                                    left: rem(24);
+                                }
+                        
+                                + .field-label-wrapper-card-2 {
+                                    left: rem(13);
+                                }
+                              
+                                + .field-label-wrapper-card-3 {
+                                    left: rem(24);
+                                }
+                            }
+                        }            
+                    }
+          
+                    .field-label-wrapper {
+                        @include media-breakpoint-down(xs) {
+                          left: 1.75em;
+                        }
+
+                        &.input-has-value {   
+                            @include media-breakpoint-down(xs) {
+                                left: rem(26.4);
+                            }
+                        }
+
+                        &.field-label-wrapper-card {
+                            left: rem(15);
+        
+                            &.input-has-value {
+                                left: rem(15);
+                            }
+                        }
+      
+                        &.field-label-wrapper-card-1 {
+                            left: rem(24);
+          
+                            &.input-has-value {
+                                left: rem(24);
+                            }
+                        }
+      
+                        &.field-label-wrapper-card-2 {
+                            left: rem(13);
+          
+                            &.input-has-value {
+                                left: rem(13);
+                            }
+                        }
+                  
+                        &.field-label-wrapper-card-3 {
+                          left: rem(24);
+                            
+                            &.input-has-value {
+                                left: rem(24);
+                            }
+                        }
+            
+                        &.field-select-wrapper-box {
+                            left: rem(16);
+          
+                            &.input-has-value {
+                                left: rem(13);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+header {
+
+    &.checkout-header {
+
+        .header-redesign-wrapper {
+            @include custom-media-query-1440($large-screen-width-1440) {
+                max-width: 65.278%;
+                flex: 0 0 65.278%;
+            }
+
+            .checkout-header-wrapper {
+                @include media-breakpoint-down(md) {
+                    justify-content: space-between;
+                    padding: rem(0) rem(20);
+                    margin-top: rem(30);
+                }
+
+                @include media-breakpoint-up(xl) {
+                    padding: rem(0) rem(30) rem(0) rem(40);
+                    margin-top: rem(30);
+                }
+
+                @include custom-media-query-1440($large-screen-width-1440) {
+                    padding: rem(0) rem(60) rem(0) rem(100);
+                    margin-top: rem(30);
+                }
+            }
+
+            .header-left {
+
+                &.align-start-box {
+                    max-width: 100%;
+
+                    @include media-breakpoint-down(md) {
+                        max-width: 100%;
+                    }
+                }
+            }
+        }
+
+        .header-redesign-wrapper2 {
+            background: $grey20;
+
+            @include custom-media-query-1440($large-screen-width-1440) {
+                flex: 0 0 34.722%;
+                max-width: 34.722%;
+                padding: 0;
+            }
+
+            .header-wrapper {
+
+                &.checkout-header-wrapper {
+                    background: $grey20;
+
+                    @include media-breakpoint-down(md) {
+                        background: $grey20;
+                    }
+
+                    .right {
+                        justify-content: flex-end;
+
+                        @include media-breakpoint-up(md) {
+                            padding-right: rem(10);
+                        }
+
+                        @include media-breakpoint-up(lg) {
+                            padding-right: rem(0);
+                        }                  
+                    }
+                }
+            }
+
+        }
+
+        .header-menu-wrapper {
+
+            .header-wrapper {
+
+                &.checkout-header-wrapper {
+
+                    &.d-show-desktop-wrapper {
+                        @include media-breakpoint-up(md) {
+                            display: none;
+                        } 
+                    }
+                    
+                    &.d-hide-mobile-wrapper {
+                        @include media-breakpoint-down(custom-md) {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+
+        .sticky-header-wrapper {
+
+            &.fixed-header {
+
+                .header-redesign-wrapper {
+
+                    .checkout-header-wrapper {
+
+                        .align-start-box {
+
+                            @include media-breakpoint-up(md) {
+                                max-width: 58.33%;
+                            }
+
+                            @include media-breakpoint-up(lg) {
+                                max-width: 100%;
+                            }
+
+                            .checkout-label-custom {
+                                @include media-breakpoint-up(md) {
+                                    padding-right: rem(15);
+                                }
+
+                                @include media-breakpoint-up(lg) {
+                                    padding-right: rem(0);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .header-redesign-wrapper2 {
+
+                    .checkout-header-wrapper {
+                        background: $grey20;
+
+                        .right {
+
+                            &.mini-cart-wrapper {
+                                @include media-breakpoint-up(md) {
+                                    justify-content: flex-end;
+                                    width: 38%;
+                                    margin-left: rem(0);
+                                    padding-right: rem(0);
+                                }
+
+                                @include media-breakpoint-up(lg) {
+                                    justify-content: flex-end;
+                                    width: auto;
+                                    margin-left: auto;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .header-menu-wrapper {
+
+          .header-redesign-wrapper {
+
+              .checkout-header-wrapper {
+
+                  .header-left {
+                      max-width: 100%;
+
+                      @include media-breakpoint-up(xl) {
+                          max-width: 100%;
+                      }
+
+                      &.align-start-box {
+                          max-width: 100%;
+
+                          @include media-breakpoint-up(xl) {
+                              max-width: 100%;
+                              margin: auto;
+                          }
+
+                          @include custom-media-query-1440($large-screen-width-1440) {
+                              max-width: 100%;
+                          }
+                      }
+                  }
+              }
+          }
+        }
+    }
+}
+
+.checkout-promo-section {
+
+  &.checkout-promo-redesign {
+
+    .collapsible-promo-redesign-wrapper {
+        margin-bottom: rem(15);
+
+        @include custom-media-query-max($medium-screen-width) {
+            padding: rem(0) rem(5);
+        }
+
+        @include media-breakpoint-down(xs) {
+            padding: rem(0) rem(15);
+        }
+    }
+  }
 }

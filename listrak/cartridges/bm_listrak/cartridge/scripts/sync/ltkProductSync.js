@@ -92,6 +92,13 @@ function productSync() {
             productFile.AddRowItem('SalePrice');
             // Custom End
 
+            // Custom Start: [MSS-1696 Listrak - Create New Product Feed for MVMT - Add Gender]
+            var productFeedJson = Site.getCurrent().getCustomPreferenceValue('Listrak_ProductFeedGenderAttribute');
+            if (!empty(productFeedJson)) {
+                productFile.AddRowItem('Gender');
+            }
+            // Custom End
+
             // Custom Start: [MSS-1697 Add Collection URL, Strap Width, Case Diameter, Family Name to Listrak MVMT Product Feed]
             if (categoryLevelAttributes) {
                 productFile.AddRowItem('Review URL');
@@ -225,6 +232,12 @@ function productSync() {
 
                 // Custom Start: [MSS-1690 Add Sale Price Information]
                 productFile.AddRowItem(prd.onSale == true ? prd.salePrice : '' , true);
+                // Custom End
+
+                // Custom Start: [MSS-1696 Listrak - Create New Product Feed for MVMT - Add Gender]
+                if (!empty(prd.watchGender)) {
+                    productFile.AddRowItem(prd.watchGender, true);
+                }
                 // Custom End
 
                 // Custom Start: [MSS-1697 Add Collection URL, Strap Width, Case Diameter, Family Name to Listrak MVMT Product Feed]
