@@ -1,6 +1,6 @@
 'use strict';
 
-var formHelpers = require('base/checkout/formErrors');
+var formHelpers = require('../checkout/formErrors');
 
 /**
  * To open the SendToFriend Modal.

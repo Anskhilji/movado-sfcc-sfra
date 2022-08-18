@@ -133,8 +133,47 @@
                             </div>
                         <iscomment> Custom: End </iscomment>
                     </div>
+                    <iscomment> Custom Start: Tax Duties shows when following requirements meet </iscomment>
+                    <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
+                    <isif condition="${isEswEnabled}" >
+                        <isset name="domesticAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
+                        <isset name="isTaxDutiesAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isTaxDutiesAllowedCountry()}" scope="page" />
+                        <isif condition="${!empty(isTaxDutiesAllowedCountry)}">
+                            <isif condition="${!domesticAllowedCountry && isTaxDutiesAllowedCountry}">
+                                <div class="tax-duties">
+                                    <isslot id="cs-esw-tax-duties" description="Tax Duties" context="global" />
+                                </div>
+                            </isif>
+                        <iselse/>
+                            <isif condition="${!domesticAllowedCountry}">
+                                <div class="tax-duties">
+                                    <isslot id="cs-esw-tax-duties" description="Tax Duties" context="global" />
+                                </div>
+                            </isif>
+                        </isif>
+                    </isif>
                     <iscomment> Custom End: Change Naming Conventions for PDP </iscomment>
 
+                    <iscomment> Custom Start: Tax Duties shows when following requirements meet </iscomment>
+                    <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
+                    <isif condition="${isEswEnabled}" >
+                        <isset name="domesticAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
+                        <isset name="isTaxDutiesAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isTaxDutiesAllowedCountry()}" scope="page" />
+                        <isif condition="${!empty(isTaxDutiesAllowedCountry)}">
+                            <isif condition="${!domesticAllowedCountry && isTaxDutiesAllowedCountry}">
+                                <div class="tax-duties">
+                                    <isslot id="cs-esw-tax-duties" description="Tax Duties" context="global" />
+                                </div>
+                            </isif>
+                        <iselse/>
+                            <isif condition="${!domesticAllowedCountry}">
+                                <div class="tax-duties">
+                                    <isslot id="cs-esw-tax-duties" description="Tax Duties" context="global" />
+                                </div>
+                            </isif>
+                        </isif>
+                    </isif>
+                    
                     <!-- Product Availability -->
                     <iscomment>Custom Start: Remove Porduct availabilty label</iscomment>
                     <iscomment> 
@@ -157,7 +196,14 @@
                     <div class="ratings-mobile pb-2">
                         <div class="col-12 rating-margin">
                             <div class="ratings p-0">
-                                <isinclude template="product/components/productRating" />
+                                <isset name="isYotpoStoreProductRatingEnabled" value="${!empty(dw.system.Site.current.preferences.custom.yotpoStoreProductRatingEnabled) ? dw.system.Site.current.preferences.custom.yotpoStoreProductRatingEnabled : false}" scope="page" />
+                                <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
+                                    <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                                        <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
+                                    </div>
+                                <iselse/>
+                                    <isinclude template="product/components/productRating" />
+                                </isif>
                             </div>
                         </div>
                     </div>
@@ -216,7 +262,17 @@
                     </div>
 
                     <div class="hidden-sm-down">
-                        <isinclude template="product/components/pidRating" />
+                        <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
+                            <div class="product-price-rating clearfix">
+                                <div class="ratings">
+                                    <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                                        <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
+                                    </div>
+                                </div>
+                            </div>
+                        <iselse/>
+                            <isinclude template="product/components/pidRating" />
+                        </isif>
                     </div>
 
                     <!-- Applicable Promotions -->
@@ -308,11 +364,20 @@
                       </div>
                     </isif>
 
-                    <isif condition="${sitePref.enableBackInStock}">
+                    <isif condition="${sitePref.enableBackInStock && !sitePref.Listrak_EnableBackInStockSms && !sitePref.Listrak_EnableBackInStockEmail}">
+                        <isinclude template="product/backInStockNotification" sf-toolkit="on" />                                
+                    <iselseif condition="${isListrakEnable}">
+                        <isif condition="${sitePref.Listrak_EnableBackInStockSms || sitePref.Listrak_EnableBackInStockEmail}">
+                            <isinclude template="product/listrackBackInstock" sf-toolkit="on" />
+                        <iselse>
+                            <isinclude template="product/backInStockNotification" sf-toolkit="on" />
+                        </isif>
+                    </iselseif> 
+                    <iselse>
                         <isinclude template="product/backInStockNotification" sf-toolkit="on" />
                     </isif>
 
-                    <isif condition="${product.options && product.options.length > 0}">
+                    <isif condition="${product.options && product.options.length > 0 && !(option.id == "clydeWarranty") && dw.system.Site.current.preferences.custom.isClydeEnabled}">
                         <isinclude template="product/components/options" />
                     </isif>
                     <div class="col-md-10 col-12">

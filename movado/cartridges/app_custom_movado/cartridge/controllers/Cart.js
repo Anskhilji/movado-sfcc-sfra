@@ -186,7 +186,21 @@ server.append('AddProduct', function (req, res, next) {
         }
 
         customCartHelpers.removeNullClydeLineItem(currentBasket);
-        
+
+        // Custom Start MSS-1930 Added code for Listrak Cart Tracking
+        if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
+            var ltkSendSca = require('*/cartridge/controllers/ltkSendSca');
+            var ltkHelper = require('*/cartridge/scripts/helper/ltkHelper');
+            var ltkCartHelper = require('*/cartridge/scripts/helper/ltkCartHelper');
+            session.privacy.ltkCountryCode = ltkHelper.getCountryCode(req);
+            ltkSendSca.SendSCAPost();
+            res.setViewData({
+                SCACart: ltkCartHelper.ltkLoadBasket(req),
+                listrakCountryCode: session.privacy.ltkCountryCode
+            });
+        }
+        // Custom End
+
         res.setViewData({
             quantityTotal: quantityTotal,
             recommendedProductCardHtml: recommendedProductCardHtml,
@@ -361,6 +375,10 @@ server.append(
     var CartModel = require('*/cartridge/models/cart');
 
     var basketModel = new CartModel(BasketMgr.getCurrentBasket());
+    res.setViewData({
+        couponLineItems: BasketMgr.currentBasket.couponLineItems,
+        couponLineItemsLength : BasketMgr.currentBasket.couponLineItems.length,
+    });
     res.json(basketModel);
     next();
 });
@@ -506,6 +524,17 @@ server.append('MiniCartShow', function(req, res, next){
         res.setViewData({cartAnalyticsTrackingData: JSON.stringify(cartAnalyticsTrackingData)});
     }
     
+    next();
+});
+
+server.append(
+	'RemoveCouponLineItem',
+	function (req, res, next) {
+    var BasketMgr = require('dw/order/BasketMgr');
+    res.setViewData({
+        couponLineItems: BasketMgr.currentBasket.couponLineItems,
+        couponLineItemsLength : BasketMgr.currentBasket.couponLineItems.length,
+    });
     next();
 });
 

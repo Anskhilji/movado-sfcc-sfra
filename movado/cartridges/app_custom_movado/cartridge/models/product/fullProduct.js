@@ -25,6 +25,8 @@ module.exports = function fullProduct(product, apiProduct, options) {
     var pdpContentAssetHTML = productCustomHelper.getPDPContentAssetHTML(apiProduct);
     var detailAndSpecAttributes = productCustomHelpers.getPdpDetailAndSpecsAttributes(apiProduct);
     var pdpMarketingContentAssetHTML = productCustomHelper.getPDPMarketingContentAssetHTML(apiProduct);
+    var ociPreOrderParameters = productCustomHelper.getOCIPreOrderParameters(apiProduct);
+    var yotpoReviewsCustomAttribute = productCustomHelper.getYotpoReviewsCustomAttribute(apiProduct);
 
     decorators.base(product, apiProduct, options.productType);
     decorators.price(product, apiProduct, options.promotions, false, options.optionModel);
@@ -96,6 +98,13 @@ module.exports = function fullProduct(product, apiProduct, options) {
         });
     }
 
+    if (!empty(yotpoReviewsCustomAttribute)) {
+        Object.defineProperty(product, 'yotpoReviewsCustomAttribute', {
+            enumerable: true,
+            value: yotpoReviewsCustomAttribute
+        });
+    }
+
     if (!empty(detailAndSpecAttributes)) {
         Object.defineProperty(product, 'pdpDetailedAttributes', {
             enumerable: true,
@@ -116,6 +125,14 @@ module.exports = function fullProduct(product, apiProduct, options) {
             value: pdpContentAssetHTML
         });
     }
+
+    if (!empty(ociPreOrderParameters)) {
+        Object.defineProperty(product, 'ociPreOrderParameters', {
+            enumerable: true,
+            value: ociPreOrderParameters
+        });
+    }
+
 
     return product;
 };
