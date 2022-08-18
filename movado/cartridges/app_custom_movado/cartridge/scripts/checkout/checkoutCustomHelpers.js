@@ -305,6 +305,53 @@ function declineOrder(order) {
 
 }
 
+function productLayout(products) {
+    var allLineItems = products.order.items.items;
+    var productHTML = '';
+    for each(var lineItem in allLineItems){
+        var imageUrl = lineItem.images.tile150[0] && lineItem.images.tile150[0].url ? lineItem.images.tile150[0].url : ""; 
+        var imageAlt = lineItem.images.tile150[0] && lineItem.images.tile150[0].alt ? lineItem.images.tile150[0].alt : "";
+        productHTML += '<table width="100%" class="Column-2 mobile-align-center" cellpadding="0" cellspacing="0" border="0">' +
+        '<tr>' +
+            '<td style="text-align:center; font-size:0px; padding:20px 0;">' +
+              '<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="width:300px; vertical-align:middle;">' +
+              '<div class="column-50" style="width:100%; max-width:300px; display:inline-block; vertical-align:middle; margin:0">' +
+                '<table width="100%" cellpadding="0" cellspacing="0" border="0">' +
+                  '<tr>' +
+                    '<td align="right" style="padding: 10px 10px 10px 10px;">' +
+                      '<img src="'+imageUrl+'" alt="'+imageAlt+'" style="display:block; width: 100%; max-width: 200px;border:0px;" width="200">' +
+                    '</td>' +
+                  '</tr>' +
+                '</table>' +
+              '</div>' +
+              '</td><td style="width:300px; vertical-align:middle;">' +
+              '<div class="column-50" style="width:100%; max-width:300px; display:inline-block; vertical-align:middle; margin:0;">' +
+                '<table width="100%" cellpadding="0" cellspacing="0" border="0">' +
+                  '<tr>' +
+                    '<td style="padding: 20px 20px 0px 20px; border-width: 0px; border-style: none; font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; font-size: 24px; font-weight: normal; color: #4A4A4A; line-height: 1.5; text-align: left">' +
+                       lineItem.productName +'<br>'+ 
+                    '</td>' +
+                  '</tr>' +
+                  '<tr>' +
+                    '<td style="padding: 0px 20px 30px 20px; border-width: 0px; border-style: none; font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; font-size: 16px; font-weight: normal; color: #4A4A4A; line-height: 1.5; text-align: left">' +
+                    lineItem.quantity +
+                    '</td>' +
+                  '</tr>' +
+                  '<tr>' +
+                    '<td style="padding: 0px 20px 20px 20px; border-width: 0px; border-style: none; font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; font-size: 16px; font-weight: normal; color: #4A4A4A; line-height: 1.5; text-align: left">' +
+                      'Price:' + lineItem.priceTotal.price +
+                    '</td>' +
+                  '</tr>' +
+                '</table>' +
+              '</div>' +
+              '</td></tr></table>' +
+            '</td>' +
+          '</tr>' +
+        '</table>';
+    }
+    return productHTML;
+}
+
 module.exports = {
     sendConfirmationEmail: sendConfirmationEmail,
     sendOrderConfirmationEmail: sendOrderConfirmationEmail,
@@ -313,5 +360,6 @@ module.exports = {
     sendShippingEmail: sendShippingEmail,
     failOrderRisifiedCall: failOrderRisifiedCall,
     isRiskified: isRiskified,
-    declineOrder: declineOrder
+    declineOrder: declineOrder,
+    productLayout: productLayout
 };
