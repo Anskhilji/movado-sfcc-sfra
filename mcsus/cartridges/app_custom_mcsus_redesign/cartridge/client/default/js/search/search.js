@@ -233,6 +233,7 @@ function updatePageURLForShowMore(showMoreUrl) {
     var size = params.sz;
     var newSize = parseInt(start) + parseInt(size);
     var url;
+    $(window).width() > 544 ? $('.mobile-show-more').remove() : $('.desktop-show-more').remove();
     var currentProductCount = $('#show-more-update').text();
     var res = currentProductCount.replace(size, newSize);
     $('#show-more-update').text(res);
