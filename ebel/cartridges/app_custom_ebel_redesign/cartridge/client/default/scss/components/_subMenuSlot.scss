@@ -1,0 +1,34 @@
+.trending-category-recommendation {
+
+    .cs-carousel-wrapper {
+
+        .carousel-title {
+            font-family: $font-HelveticaNeueLT-medium;   
+        }
+    }
+
+    .product {
+
+        .product-tile {
+
+            .out-of-stock {
+               font-family: $font-HelveticaNeueLT-book;
+            }
+
+            .new-product, .pre-order, .out-of-stock  {       
+                font-family: $font-HelveticaNeueLT-book;
+            }
+
+            .tile-body {
+
+                .price {       
+                    font-family: $font-HelveticaNeueLT-book;
+                }
+    
+                .product-name {            
+                    font-family: $font-HelveticaNeueLT-medium;
+                }
+            }
+        }
+    }
+}

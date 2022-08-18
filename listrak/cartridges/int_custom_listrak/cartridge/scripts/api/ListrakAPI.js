@@ -52,7 +52,8 @@ function sendTransactionalEmailToListrak(requestParams) {
         params.totalTax = requestParams.totalTax;
         params.shipping = requestParams.shipping;
         params.subTotal = requestParams.subTotal;
-        params.grandTotal = requestParams.grandTotal; 
+        params.totalShippingCost = requestParams.totalShippingCost;
+        params.grandTotal = requestParams.grandTotal;
         params.creationDate=  requestParams.creationDate; 
         params.billingFirstName = requestParams.billingFirstName; 
         params.billingLastName = requestParams.billingLastName;
@@ -76,6 +77,7 @@ function sendTransactionalEmailToListrak(requestParams) {
         params.paymentMethod = requestParams.paymentMethod;
         params.email = requestParams.email;
         params.name = requestParams.name;
+        params.productLayout = requestParams.productLayout;
         service = LTKAPIHelper.getTransactionalAPIService(serviceID, Constants.LTK_TRANSACTIONAL_API_ENDPOINT, accessToken, requestParams.messageId);
         var result = LTKAPIHelper.addTransactionalEmailToLTK(params, service);
     } catch (e) {
