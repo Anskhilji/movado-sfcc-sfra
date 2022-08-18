@@ -52,7 +52,6 @@ function sendTransactionalEmailToListrak(requestParams) {
         params.totalTax = requestParams.totalTax;
         params.shipping = requestParams.shipping;
         params.subTotal = requestParams.subTotal;
-        params.totalShippingCost = requestParams.totalShippingCost;
         params.grandTotal = requestParams.grandTotal;
         params.creationDate=  requestParams.creationDate; 
         params.billingFirstName = requestParams.billingFirstName; 
