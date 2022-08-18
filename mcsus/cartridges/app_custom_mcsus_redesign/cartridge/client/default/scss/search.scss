@@ -405,6 +405,11 @@
 
 .result-count-show {
     margin-bottom: rem(20);
+
+    @include media-breakpoint-down(xs) {
+        margin-bottom: rem(22);
+    }
+
     &.header-bar {
         background: none;
         padding: 0;
