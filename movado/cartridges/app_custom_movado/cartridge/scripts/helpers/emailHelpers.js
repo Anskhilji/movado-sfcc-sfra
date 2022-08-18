@@ -133,7 +133,8 @@ function productLayout(products) {
     var allLineItems = products.order.items.items;
     var productHTML = '';
     for each(var lineItem in allLineItems){
-        var html = lineItem;
+        var imageUrl = lineItem.images.tile150[0] && lineItem.images.tile150[0].url ? lineItem.images.tile150[0].url : ""; 
+        var imageAlt = lineItem.images.tile150[0] && lineItem.images.tile150[0].alt ? lineItem.images.tile150[0].alt : "";
         productHTML += '<table width="100%" class="Column-2 mobile-align-center" cellpadding="0" cellspacing="0" border="0">' +
         '<tr>' +
             '<td style="text-align:center; font-size:0px; padding:20px 0;">' +
@@ -142,7 +143,7 @@ function productLayout(products) {
                 '<table width="100%" cellpadding="0" cellspacing="0" border="0">' +
                   '<tr>' +
                     '<td align="right" style="padding: 10px 10px 10px 10px;">' +
-                      '<img src="https://via.placeholder.com/200x250" alt="Product" style="display:block; width: 100%; max-width: 200px;border:0px;" width="200">' +
+                      '<img src="'+imageUrl+'" alt="'+imageAlt+'" style="display:block; width: 100%; max-width: 200px;border:0px;" width="200">' +
                     '</td>' +
                   '</tr>' +
                 '</table>' +
