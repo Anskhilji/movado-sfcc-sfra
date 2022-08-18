@@ -1,7 +1,6 @@
 <isif condition="${pdict.productSearch.productIds.length > 0}">
     <label class="sr-only" for="sort-order">${Resource.msg('label.sortby', 'search', null)}</label>
     <div class="sort-filters-box">
-        <div class="sort-filters-box-sub-container">
             <picture>
                 <source media="(max-width:543px)" srcset="${URLUtils.staticURL('/images/carbon_chevron-sort.svg')}">
                 <img src="${URLUtils.staticURL('/images/bi_sort-up.svg')}" class="img-fluid fliter-icon">
@@ -16,6 +15,5 @@
                         </option>
                     </isloop>
             </select>
-        </div>
     </div>
 </isif>
