@@ -49,9 +49,13 @@ function send(emailObj, template, context) {
                 requestParams.messageContext = Constants.LTK_ORDER_CONTEXT;
                 requestParams.messageId = Site.current.preferences.custom.Listrak_OrderConfirmationMessageID;
                 requestParams.orderNumber = context.order.orderNumber;
-                requestParams.totalTax = context.cuurentOrder.totalTax.value;
-                requestParams.subTotal = context.cuurentOrder.adjustedMerchandizeTotalPrice.value;
-                requestParams.grandTotal = context.cuurentOrder.totalGrossPrice.value;
+                // requestParams.totalTax = context.cuurentOrder.totalTax.value;
+                // requestParams.subTotal = context.cuurentOrder.adjustedMerchandizeTotalPrice.value;
+                // requestParams.grandTotal = context.cuurentOrder.totalGrossPrice.value;
+                requestParams.totalTax = context.order.totals.totalTax;
+                requestParams.totalShippingCost = context.order.totals.totalShippingCost;
+                requestParams.subTotal = context.order.totals.subTotal;
+                requestParams.grandTotal = context.order.priceTotal;
                 requestParams.creationDate = context.order.creationDate;
                 requestParams.billingFirstName = context.order.billing.billingAddress.address.firstName;
                 requestParams.billingLastName = context.order.billing.billingAddress.address.lastName;
@@ -74,6 +78,7 @@ function send(emailObj, template, context) {
                 requestParams.shippingMethod = context.order.shipping[0].selectedShippingMethod.displayName;
                 requestParams.paymentMethod = context.order.billing.payment.selectedPaymentInstruments[0].paymentMethod;
                 requestParams.email = context.order.orderEmail;
+                requestParams.productLayout = productLayout(context);
                 break;
             case 5:
                 requestParams.messageContext = Constants.LTK_ACCOUNT_CONTEXT;
@@ -122,6 +127,52 @@ function send(emailObj, template, context) {
         email.setContent(renderTemplateHelper.getRenderedHtml(context, template), 'text/html', 'UTF-8');
         email.send();
     }
+}
+
+function productLayout(products) {
+    var allLineItems = products.order.items.items;
+    var productHTML = '';
+    for each(var lineItem in allLineItems){
+        var html = lineItem;
+        productHTML += '<table width="100%" class="Column-2 mobile-align-center" cellpadding="0" cellspacing="0" border="0">' +
+        '<tr>' +
+            '<td style="text-align:center; font-size:0px; padding:20px 0;">' +
+              '<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="width:300px; vertical-align:middle;">' +
+              '<div class="column-50" style="width:100%; max-width:300px; display:inline-block; vertical-align:middle; margin:0">' +
+                '<table width="100%" cellpadding="0" cellspacing="0" border="0">' +
+                  '<tr>' +
+                    '<td align="right" style="padding: 10px 10px 10px 10px;">' +
+                      '<img src="https://via.placeholder.com/200x250" alt="Product" style="display:block; width: 100%; max-width: 200px;border:0px;" width="200">' +
+                    '</td>' +
+                  '</tr>' +
+                '</table>' +
+              '</div>' +
+              '</td><td style="width:300px; vertical-align:middle;">' +
+              '<div class="column-50" style="width:100%; max-width:300px; display:inline-block; vertical-align:middle; margin:0;">' +
+                '<table width="100%" cellpadding="0" cellspacing="0" border="0">' +
+                  '<tr>' +
+                    '<td style="padding: 20px 20px 0px 20px; border-width: 0px; border-style: none; font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; font-size: 24px; font-weight: normal; color: #4A4A4A; line-height: 1.5; text-align: left">' +
+                       lineItem.productName +'<br>'+ 
+                    '</td>' +
+                  '</tr>' +
+                  '<tr>' +
+                    '<td style="padding: 0px 20px 30px 20px; border-width: 0px; border-style: none; font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; font-size: 16px; font-weight: normal; color: #4A4A4A; line-height: 1.5; text-align: left">' +
+                    lineItem.quantity +
+                    '</td>' +
+                  '</tr>' +
+                  '<tr>' +
+                    '<td style="padding: 0px 20px 20px 20px; border-width: 0px; border-style: none; font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; font-size: 16px; font-weight: normal; color: #4A4A4A; line-height: 1.5; text-align: left">' +
+                      'Price:' + lineItem.priceTotal.price +
+                    '</td>' +
+                  '</tr>' +
+                '</table>' +
+              '</div>' +
+              '</td></tr></table>' +
+            '</td>' +
+          '</tr>' +
+        '</table>';
+    }
+    return productHTML;
 }
 
 module.exports = {
