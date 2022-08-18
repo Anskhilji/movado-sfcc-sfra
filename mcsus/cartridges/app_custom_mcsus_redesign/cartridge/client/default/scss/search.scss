@@ -365,17 +365,6 @@
                         font-size: rem(14);
                         line-height: rem(18);
                     }
-
-                    .d-mobile-hide {
-                        @include media-breakpoint-down(xs) {
-                            display: none;
-                        }
-                    }
-                    .d-desktop-hide {
-                        @include media-breakpoint-up(sm) {
-                            display: none;
-                        }
-                    }
                 }
             }
 
