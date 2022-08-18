@@ -194,7 +194,7 @@ function refund(order, amount, isJob, sendMail) {
 
         /* check the payment method and accordingly revoke authorization or  perform refund*/
         var paymentMethod = order.paymentInstruments[0].paymentMethod;
-        if (paymentMethod && (paymentMethod == 'CREDIT_CARD' || paymentMethod == 'DW_APPLE_PAY') && amount == orderTotal && refundedAmount == 0) {
+        if (paymentMethod && (paymentMethod == 'CREDIT_CARD' || paymentMethod == 'DW_APPLE_PAY' || paymentMethod == 'GOOGLE_PAY') && amount == orderTotal && refundedAmount == 0) {
             var cancelResponse = hooksHelper('app.payment.adyen.cancelOrRefund', 'cancelOrRefund', order, amount, isJob, sendMail,
                 require('*/cartridge/scripts/hooks/payment/adyenCancelSVC').cancelOrRefund);
             return cancelResponse;

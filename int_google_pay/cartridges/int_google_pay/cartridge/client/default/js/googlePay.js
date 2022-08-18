@@ -208,8 +208,18 @@ function onPaymentAuthorized(paymentData) {
                         }
                     });
                 } else {
+                    var redirectUrl = data.redirectUrl;
+                    var urlParams = {
+                        ID: data.orderID
+                    };
+
+                    redirectUrl += (redirectUrl.indexOf('?') !== -1 ? '&' : '?') +
+                        Object.keys(urlParams).map(function (key) {
+                            return key + '=' + encodeURIComponent(urlParams[key]);
+                        }).join('&');
+
                     setTimeout(() => {
-                        window.location.href = data.redirectUrl
+                        window.location.href = redirectUrl
                     }, 300);
                     resolve({ transactionState: 'SUCCESS' });
                 }
@@ -326,6 +336,7 @@ function onGooglePayLoaded(isMiniCart) {
         window.dw.applepay &&
         window.ApplePaySession &&
         window.ApplePaySession.canMakePayments()) {
+        $('.googlepay-btn').remove();
         $('.google-pay-container').remove();
         $('#google-pay-container-mini-cart').remove();
         $('.google-pay-options').remove();
@@ -334,6 +345,7 @@ function onGooglePayLoaded(isMiniCart) {
     }
 
     if (isIE() || window.ApplePaySession) {
+        $('.googlepay-btn').remove();
         $('.google-pay-container').remove();
         $('#google-pay-container-mini-cart').remove();
         $('.google-pay-options').remove();

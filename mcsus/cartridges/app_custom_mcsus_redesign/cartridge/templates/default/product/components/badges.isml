@@ -1,0 +1,6 @@
+<div class="exclusive-badges">
+    <isloop items="${product.badges.textBadges}" var="badge">
+    <iscomment> custom start: remove class text-uppercase </iscomment>
+        <span class="badge">${badge.text}</span>
+    </isloop>
+</div>

@@ -34,6 +34,7 @@ $(document).ready(function () {
     processInclude(require('movado/components/rakutenCookieHandler'));
     processInclude(require('googlePay/googlePay'));
     processInclude(require('movado/components/Coupon'));
+    processInclude(require('./product/slickSearch'));
 });
 
 require('base/components/spinner');

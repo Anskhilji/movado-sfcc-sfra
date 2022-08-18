@@ -244,10 +244,11 @@ function sendCreateOrder(order) {
             RecoveryModel.saveDataObject(logLocation, order.orderNo, checkoutDeniedParams);
         }
 
-        return false;
+        return response;
     }
 
-    return true;
+    return response;
+    
 }
 
 /**

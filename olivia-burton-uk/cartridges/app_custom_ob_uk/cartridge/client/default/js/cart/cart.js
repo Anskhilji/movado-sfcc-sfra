@@ -106,7 +106,7 @@ function updateCartTotals(data) {
     }
     $('.delivery-date').empty().append(data.totals.deliveryDate);
     $('.tax-total').empty().append(data.totals.totalTax);
-    $('.grand-total, .cart-total').empty().append(data.totals.grandTotal);
+    $('.grand-total-sum, .cart-total').empty().append(data.totals.grandTotal);
     $('.sub-total').empty().append(data.totals.subTotal);
     /* Affirm block for refreshing promo message */
     var totalCalculated = data.totals.grandTotal.substr(1).toString().replace(/\,/g, '');
@@ -682,6 +682,9 @@ module.exports = function () {
             dataType: 'json',
             success: function (data) {
                 $('.coupon-uuid-' + uuid).remove();
+                if (data.couponLineItemsLength !== undefined && data.couponLineItemsLength !== '') {
+                    data.couponLineItemsLength > 0 ? $('.promo-code-applied').text(data.couponLineItemsLength + " " + window.Resources.COUPON_LINE_ITEM_LENGTH) : $('.promo-code-applied').text('');
+                }
                 updateCartTotals(data);
                 updateApproachingDiscounts(data.approachingDiscounts);
                 $('.promotion-information').parent().empty().append(data.totals.discountsHtml);

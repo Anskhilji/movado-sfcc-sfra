@@ -27,6 +27,23 @@ $(document).ready(function() {
         centerMode: true,
         focusOnSelect: true,
     });
+    $('.carousel-nav-redesign').slick({
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        asNavFor: '.primary-images .main-carousel',
+        dots: true,
+        arrows:false,
+        focusOnSelect: true,
+        infinite: true,
+        responsive: [
+            {
+                breakpoint: 544,
+                settings: {
+                    dots: false,
+                }
+            },
+        ]
+    });
 
     $('.zoom-carousel').slick({
         slidesToShow: 1,
@@ -94,4 +111,12 @@ $(document).ready(function() {
             initializeCarousel(winWidth);
         });
     // Custom End: MSS-1564 zoom carousel popup active on click after zoom icon on pdp
+});
+
+// added active class & scroll down on reviews widget
+$('.rating-box-redisgn .ratings').on('click', function () {
+    $('html, body').animate({
+        scrollTop: $('.pdp-bottom-rating').offset().top
+    }, 10);
+    $('html').css({'scroll-behavior':'smooth'});
 });
