@@ -3,6 +3,7 @@
 exports.LTK_ACCESS_TOKEN_OBJECT = 'ltk_AccessToken';
 exports.LTK_ACCESS_TOKEN_OBJECT_ID = 'ltk_AccessToken';
 exports.CURRENCY_USD = 'USD';
+exports.CURRENCY_GBP = 'GBP';
 exports.GERMANY_COUNTRYCODE = 'DE';
 exports.BIRTH_YEAR = '1900';
 exports.LTK_TRANSACTIONAL_SWITCH = 'Listrak';
