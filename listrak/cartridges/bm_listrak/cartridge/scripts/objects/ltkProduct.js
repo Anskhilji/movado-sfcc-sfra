@@ -417,7 +417,7 @@ ltkProduct.prototype.getCollectionCategory = function (product, collectionUrl) {
                 }
             }
 
-            if (!empty(product.primaryCategory) && (product.primaryCategory.subCategories.empty === false)) {
+            if (!empty(product.primaryCategory) && (product.primaryCategory.parent.subCategories.empty === false)) {
                 meta5 = metaCheck5;
             }
             collectionCategory.meta4 = meta4;
@@ -434,7 +434,7 @@ ltkProduct.prototype.getCollectionCategory = function (product, collectionUrl) {
                     masterPrimaryCategory = masterPrimaryCategory.parent;
                 }
             }
-            if (!empty(product.masterProduct) && !empty(product.masterProduct.primaryCategory) && (product.masterProduct.primaryCategory.subCategories.empty === false)) {
+            if (!empty(product.masterProduct) && !empty(product.masterProduct.primaryCategory) && (product.masterProduct.primaryCategory.parent.subCategories.empty === false)) {
                 meta5 = metaCheck5;
             }
             collectionCategory.meta4 = meta4;
