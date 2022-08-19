@@ -13,7 +13,6 @@
 function send(emailObj, template, context) {
     var Mail = require('dw/net/Mail');
     var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
-    var checkoutCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
     var Site = require('dw/system/Site');
     var URLUtils = require('dw/web/URLUtils');
     var messageType = '';
@@ -50,10 +49,9 @@ function send(emailObj, template, context) {
                 requestParams.messageContext = Constants.LTK_ORDER_CONTEXT;
                 requestParams.messageId = Site.current.preferences.custom.Listrak_OrderConfirmationMessageID;
                 requestParams.orderNumber = context.order.orderNumber;
-                requestParams.totalTax = context.order.totals.totalTax;
-                requestParams.totalShippingCost = context.order.totals.totalShippingCost;
-                requestParams.subTotal = context.order.totals.subTotal;
-                requestParams.grandTotal = context.order.priceTotal;
+                requestParams.totalTax = context.cuurentOrder.totalTax.value;
+                requestParams.subTotal = context.cuurentOrder.adjustedMerchandizeTotalPrice.value;
+                requestParams.grandTotal = context.cuurentOrder.totalGrossPrice.value;
                 requestParams.creationDate = context.order.creationDate;
                 requestParams.billingFirstName = context.order.billing.billingAddress.address.firstName;
                 requestParams.billingLastName = context.order.billing.billingAddress.address.lastName;
@@ -76,7 +74,6 @@ function send(emailObj, template, context) {
                 requestParams.shippingMethod = context.order.shipping[0].selectedShippingMethod.displayName;
                 requestParams.paymentMethod = context.order.billing.payment.selectedPaymentInstruments[0].paymentMethod;
                 requestParams.email = context.order.orderEmail;
-                requestParams.productLayout = checkoutCustomHelpers.productLayout(context);
                 break;
             case 5:
                 requestParams.messageContext = Constants.LTK_ACCOUNT_CONTEXT;
