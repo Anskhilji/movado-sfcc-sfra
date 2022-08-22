@@ -184,7 +184,7 @@ function getOCIPreOrderParameters(apiProduct) {
         }
         return ociPreOrderObject;
     } catch (e) {
-        Logger.error('(productCustomHelper.js -> getOCIPreOrderParameters) Error occured while getting omni channel inventory attributes: ' + e.stack, e.message, apiProduct.ID);
+        Logger.error('(productCustomHelper.js -> getOCIPreOrderParameters) Error occured while getting omni channel inventory attributes. Product {0}: \n Error: {1} \n', apiProduct.ID, e);
         return '';
     }
 }
