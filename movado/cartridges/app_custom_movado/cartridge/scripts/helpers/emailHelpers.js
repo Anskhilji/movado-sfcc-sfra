@@ -11,6 +11,7 @@
  * @param {obj} context - Object with context to be passed as pdict into ISML template.
  */
 function send(emailObj, template, context) {
+    var Currency = require('dw/util/Currency');
     var Mail = require('dw/net/Mail');
     var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
     var Site = require('dw/system/Site');
@@ -25,10 +26,8 @@ function send(emailObj, template, context) {
     var listrakEnabled = !empty(Site.current.preferences.custom.Listrak_Cartridge_Enabled) ? Site.current.preferences.custom.Listrak_Cartridge_Enabled : false;
     var Constants = require('*/cartridge/scripts/utils/ListrakConstants');
 
-    if (context.order.currencyCode == Constants.CURRENCY_USD) {
-        currencyCode = '$0.00';
-    } else if (context.order.currencyCode == Constants.CURRENCY_GBP) {
-        currencyCode = '£0.00';
+    if (context.order.currencyCode) {
+        currencyCode = Currency.getCurrency(context.order.currencyCode).getSymbol() + '0.00';
     }
     if (listrakEnabled && listrakTransactionalSwitch == Constants.LTK_TRANSACTIONAL_SWITCH) {
         switch (emailObj.type) {
