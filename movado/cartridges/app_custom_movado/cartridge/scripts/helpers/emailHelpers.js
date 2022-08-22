@@ -113,7 +113,7 @@ function send(emailObj, template, context) {
             case 13:
                 requestParams.messageContext = Constants.LTK_ORDER_CONTEXT;
                 requestParams.messageId = Site.current.preferences.custom.Listrak_OrderCancellationMessageID;
-                requestParams.orderNumber = context.order.orderNo;
+                requestParams.orderNumber = !empty(context.order.orderNo) ? context.order.orderNo : '';
                 requestParams.totalTax = !empty(context.currentOrder.totals.totalTax) ? context.currentOrder.totals.totalTax : zeroAmount;
                 requestParams.shippingCost = !empty(context.currentOrder.totals.totalShippingCost) ? context.currentOrder.totals.totalShippingCost : zeroAmount;
                 requestParams.subTotal = !empty(context.currentOrder.totals.subTotal) ? context.currentOrder.totals.subTotal : zeroAmount;
