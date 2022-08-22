@@ -329,7 +329,7 @@ function removeClydeWarranty(currentItems) {
     var Constants = require('*/cartridge/utils/Constants');
     if (currentItems && currentItems.items && currentItems.items.length > 0) {
         for (var i = 0; i < currentItems.items.length; i++) {
-            if (currentItems.items[i].options[0].optionId == Constants.CLYDE_WARRANTY && currentItems.items[i].options[0].selectedValueId == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
+            if (currentItems.items[i].options[0] && currentItems.items[i].options[0].optionId == Constants.CLYDE_WARRANTY && currentItems.items[i].options[0].selectedValueId == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
                 currentItems.items[i].options[0] = currentItems.items[i].options[0].displayName;
             }
         }
