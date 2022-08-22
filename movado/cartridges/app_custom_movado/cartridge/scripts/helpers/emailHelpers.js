@@ -19,7 +19,7 @@ function send(emailObj, template, context) {
     var messageType = '';
     var messageContext = '';
     var messageId = '';
-    var currencyCode = '';
+    var zeroAmount = '';
     var requestParams = {
     };
     var listrakTransactionalSwitch = !empty(Site.current.preferences.custom.transactionalSwitch.value) ? Site.current.preferences.custom.transactionalSwitch.value.toString() : '';
@@ -27,7 +27,7 @@ function send(emailObj, template, context) {
     var Constants = require('*/cartridge/scripts/utils/ListrakConstants');
 
     if (context.order.currencyCode) {
-        currencyCode = Currency.getCurrency(context.order.currencyCode).getSymbol() + '0.00';
+        zeroAmount = Currency.getCurrency(context.order.currencyCode).symbol + '0.00';
     }
     if (listrakEnabled && listrakTransactionalSwitch == Constants.LTK_TRANSACTIONAL_SWITCH) {
         switch (emailObj.type) {
@@ -114,10 +114,10 @@ function send(emailObj, template, context) {
                 requestParams.messageContext = Constants.LTK_ORDER_CONTEXT;
                 requestParams.messageId = Site.current.preferences.custom.Listrak_OrderCancellationMessageID;
                 requestParams.orderNumber = context.order.orderNo;
-                requestParams.totalTax = !empty(context.currentOrder.totals.totalTax) ? context.currentOrder.totals.totalTax : currencyCode;
-                requestParams.shipping = !empty(context.currentOrder.totals.totalShippingCost) ? context.currentOrder.totals.totalShippingCost : currencyCode;
-                requestParams.subTotal = !empty(context.currentOrder.totals.subTotal) ? context.currentOrder.totals.subTotal : currencyCode;
-                requestParams.grandTotal = !empty(context.currentOrder.totals.grandTotal) ? context.currentOrder.totals.grandTotal : currencyCode;
+                requestParams.totalTax = !empty(context.currentOrder.totals.totalTax) ? context.currentOrder.totals.totalTax : zeroAmount;
+                requestParams.shippingCost = !empty(context.currentOrder.totals.totalShippingCost) ? context.currentOrder.totals.totalShippingCost : zeroAmount;
+                requestParams.subTotal = !empty(context.currentOrder.totals.subTotal) ? context.currentOrder.totals.subTotal : zeroAmount;
+                requestParams.grandTotal = !empty(context.currentOrder.totals.grandTotal) ? context.currentOrder.totals.grandTotal : zeroAmount;
                 requestParams.creationDate = context.order.creationDate.toLocaleDateString();
                 requestParams.creationDate = context.currentOrder.creationDate;
                 requestParams.billingFirstName = context.order.billingAddress.firstName;
