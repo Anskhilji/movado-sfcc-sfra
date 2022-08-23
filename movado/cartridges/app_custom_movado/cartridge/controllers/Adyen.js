@@ -194,30 +194,30 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
                 res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
                 return next();
             } else if (checkoutDecisionStatus && checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'declined') {
-                    var RiskifiedOrderDescion = require('*/cartridge/scripts/riskified/RiskifiedOrderDescion');
-                    // Riskified order declined response from decide API
-                    riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order);
-                    if (riskifiedOrderDeclined) {
-                        res.redirect(URLUtils.url('Checkout-Declined'));
-                        return next();
-                    }
-                } else if (checkoutDecisionStatus && checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'approved') {
-                    // Riskified order approved response from decide API
-                    var placeOrderStatus = OrderMgr.placeOrder(order); 
-                    if (placeOrderStatus === Status.ERROR) {
-                        checkoutLogger.error('(Adyen) -> ShowConfirmation: Place order status has error and order number is: ' + orderNumber);
-                        throw new Error();
-                    }
-                    order.setExportStatus(Order.EXPORT_STATUS_READY);
-                    RiskifiedOrderDescion.orderApproved(order);
-                } else  {
-                    var placeOrderStatus = OrderMgr.placeOrder(order); 
-                    if (placeOrderStatus === Status.ERROR) {
-                        checkoutLogger.error('(Adyen) -> ShowConfirmation: Place order status has error and order number is: ' + orderNumber);
-                        throw new Error();
-                    }
-                    order.setExportStatus(Order.EXPORT_STATUS_READY);
+                var RiskifiedOrderDescion = require('*/cartridge/scripts/riskified/RiskifiedOrderDescion');
+                // Riskified order declined response from decide API
+                riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order);
+                if (riskifiedOrderDeclined) {
+                    res.redirect(URLUtils.url('Checkout-Declined'));
+                    return next();
                 }
+            } else if (checkoutDecisionStatus && checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'approved') {
+                // Riskified order approved response from decide API
+                var placeOrderStatus = OrderMgr.placeOrder(order); 
+                 if (placeOrderStatus === Status.ERROR) {
+                    checkoutLogger.error('(Adyen) -> ShowConfirmation: Place order status has error and order number is: ' + orderNumber);
+                    throw new Error();
+                }
+                order.setExportStatus(Order.EXPORT_STATUS_READY);
+                RiskifiedOrderDescion.orderApproved(order);
+            } else  {
+                var placeOrderStatus = OrderMgr.placeOrder(order); 
+                if (placeOrderStatus === Status.ERROR) {
+                    checkoutLogger.error('(Adyen) -> ShowConfirmation: Place order status has error and order number is: ' + orderNumber);
+                    throw new Error();
+                }
+                order.setExportStatus(Order.EXPORT_STATUS_READY);
+            }
             Transaction.commit();
         } catch (e) {
             // put logger
