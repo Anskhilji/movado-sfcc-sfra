@@ -31,7 +31,11 @@ function send(emailObj, template, context) {
     }
 
     if (context.order.totals.totalTax === Constants.TOTAL_TAX) {
-      context.order.totals.totalTax = null;
+        context.order.totals.totalTax = null;
+    }
+
+    if (context.currentOrder && context.currentOrder.totals && context.currentOrder.totals.totalTax === Constants.TOTAL_TAX) {
+        context.currentOrder.totals.totalTax = null;
     }
 
     if (listrakEnabled && listrakTransactionalSwitch == Constants.LTK_TRANSACTIONAL_SWITCH) {
