@@ -118,7 +118,7 @@ function send(emailObj, template, context) {
                 requestParams.shippingCost = !empty(context.currentOrder.totals.totalShippingCost) ? context.currentOrder.totals.totalShippingCost : zeroAmount;
                 requestParams.subTotal = !empty(context.currentOrder.totals.subTotal) ? context.currentOrder.totals.subTotal : zeroAmount;
                 requestParams.grandTotal = !empty(context.currentOrder.totals.grandTotal) ? context.currentOrder.totals.grandTotal : zeroAmount;
-                requestParams.creationDate2 = !empty(context.currentOrder.creationDate) ? context.currentOrder.creationDate : '';
+                requestParams.creationDate = !empty(context.currentOrder.creationDate) ? context.currentOrder.creationDate : '';
                 requestParams.billingFirstName = !empty(context.order.billingAddress.firstName) ? context.order.billingAddress.firstName : '';
                 requestParams.billingLastName = !empty(context.order.billingAddress.lastName) ? context.order.billingAddress.lastName : '';
                 requestParams.billingAddress1 = !empty(context.order.billingAddress.address1) ? context.order.billingAddress.address1 : '';
