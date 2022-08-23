@@ -110,7 +110,8 @@ function parseRiskifiedResponse(order, reqBody) {
         			creationDate :order.creationDate,
         			order: order
         	};
-        	COCustomHelpers.sendCancellationEmail(orderObj);
+            var customerLocale = order.customerLocaleID || Site.current.defaultLocale;
+            COCustomHelpers.sendCancellationEmail(orderObj, customerLocale);
         }
     } else {
         if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) {

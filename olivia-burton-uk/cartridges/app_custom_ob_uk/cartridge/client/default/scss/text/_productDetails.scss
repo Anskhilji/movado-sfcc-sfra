@@ -693,7 +693,7 @@
     margin-top: rem(15);
     font-size: rem(14);
     font-weight: 600;
-
+	
     @include media-breakpoint-down(sm) {
         display: block;
         text-align: center;

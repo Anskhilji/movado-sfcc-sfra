@@ -55,7 +55,9 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var productSearchHit = getProductSearchHit(apiProduct);
     var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
     var collectionName = productCustomHelper.getCollectionName(apiProduct);
+    var ociPreOrderParameters = productCustomHelper.getOCIPreOrderParameters(apiProduct);
     var yotpoReviewsCustomAttribute = productCustomHelper.getYotpoReviewsCustomAttribute(apiProduct);
+
     if (!productSearchHit) {
         return null;
     }
@@ -104,6 +106,13 @@ module.exports = function productTile(product, apiProduct, productType, params) 
         });
     }
     // Custom end
+
+    if (!empty(ociPreOrderParameters)) {
+        Object.defineProperty(product, 'ociPreOrderParameters', {
+            enumerable: true,
+            value: ociPreOrderParameters
+        });
+    }
 
     if (!empty(yotpoReviewsCustomAttribute)) {
         Object.defineProperty(product, 'yotpoReviewsCustomAttribute', {
