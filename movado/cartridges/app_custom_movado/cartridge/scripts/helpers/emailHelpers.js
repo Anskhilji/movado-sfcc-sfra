@@ -65,7 +65,7 @@ function send(emailObj, template, context) {
             case 4:
                 requestParams.messageContext = Constants.LTK_ORDER_CONTEXT;
                 requestParams.messageId = Site.current.preferences.custom.Listrak_OrderConfirmationMessageID;
-                requestParams.orderNumber = context.order.orderNumber;
+                requestParams.orderNumber = context.order.orderNo;
                 requestParams.totalTax = !empty(context.order.totals.totalTax) ? context.order.totals.totalTax : zeroAmount;
                 requestParams.shippingCost = !empty(context.order.totals.totalShippingCost) ? context.order.totals.totalShippingCost : zeroAmount;
                 requestParams.subTotal = !empty(context.order.totals.subTotal) ? context.order.totals.subTotal : zeroAmount;
@@ -157,7 +157,7 @@ function send(emailObj, template, context) {
             default:
                 requestParams.messageContext = Constants.LTK_ORDER_CONTEXT;
                 requestParams.messageId = Site.current.preferences.custom.Listrak_OrderConfirmationMessageID;
-                requestParams.orderNumber = context.order.orderNumber;
+                requestParams.orderNumber = context.order.orderNo;
                break; 
         }
         if (!empty(requestParams.messageContext && requestParams.messageId)) {
