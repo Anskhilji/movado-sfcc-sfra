@@ -62,6 +62,10 @@
             line-height: rem(20);
             color: $black;
         }
+
+        &-listrack-container {
+            margin-bottom: rem(0);
+        }
     }
 }
 .back-in-stock-notification-container {

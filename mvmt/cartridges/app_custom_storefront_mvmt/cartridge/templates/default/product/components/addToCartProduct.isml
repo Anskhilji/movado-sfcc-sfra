@@ -8,7 +8,11 @@
 	<isset name="preOrder" value="${false}" scope="page"/>
 	<isif condition="${availabilityStatus && availabilityStatus.indexOf(Resource.msg('label.product.pre.order', 'common', null)) != -1}">
 	   <isset name="preOrder" value="${true}" scope="page"/>
-	</isif>  
+	</isif>
+    <isset name="ociPreOrder" value="${false}" scope="page"/>
+    <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.backorder', 'common', null) && !empty(product) && !empty(product.ociPreOrderParameters) && product.ociPreOrderParameters.ociPreOrderProductAllocation === 0.00 && product.ociPreOrderParameters.ociPreOrderProductATO > 0 && product.ociPreOrderParameters.ociPreOrderProductFuture === true}">
+       <isset name="ociPreOrder" value="${true}" scope="page"/>
+    </isif>
 </isif>
 
 <div class="cart-and-ipay w-100">
@@ -27,9 +31,11 @@
                     <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>
                     <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
                         ${Resource.msg('button.preorder.now', 'common', null)} </br>
-                    <iselseif condition="${product.available}">
+                    <iselseif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.backorder', 'common', null) && !empty(product) && !empty(product.ociPreOrderParameters) && product.ociPreOrderParameters.ociPreOrderProductAllocation === 0.00 && product.ociPreOrderParameters.ociPreOrderProductATO > 0 && product.ociPreOrderParameters.ociPreOrderProductFuture === true}"/>
+                        ${Resource.msg('button.preorder.now', 'common', null)} </br>
+                    <iselseif condition="${product.available}"/>
                         ${Resource.msg('button.addtocart', 'common', null)} 
-                    <iselse>
+                    <iselse/>
                         ${Resource.msg('button.sold.out', 'product', null)}
                     </isif>
                     <isif condition="${!pdict.isPLPProduct}"> 
@@ -64,9 +70,11 @@
                     <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>
                     <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
                         ${Resource.msg('button.preorder.now', 'common', null)} </br>
-                    <iselseif condition="${product.available}">
+                    <iselseif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.backorder', 'common', null) && !empty(product) && !empty(product.ociPreOrderParameters) && product.ociPreOrderParameters.ociPreOrderProductAllocation === 0.00 && product.ociPreOrderParameters.ociPreOrderProductATO > 0 && product.ociPreOrderParameters.ociPreOrderProductFuture === true}"/>
+                        ${Resource.msg('button.preorder.now', 'common', null)} </br>
+                    <iselseif condition="${product.available}"/>
                         ${Resource.msg('button.addtocart', 'common', null)} 
-                    <iselse>
+                    <iselse/>
                         ${Resource.msg('button.sold.out', 'product', null)}
                     </isif>
                     <isif condition="${!pdict.isPLPProduct}">
@@ -86,9 +94,11 @@
                     <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>
                     <isif condition="${outOfStock}">
                         ${Resource.msg('button.sold.out', 'product', null)}
-                    <iselseif condition="${preOrder}">
+                    <iselseif condition="${preOrder}"/>
                         ${Resource.msg('button.preorder.now', 'common', null)}
-                    <iselse>
+                    <iselseif condition="${ociPreOrder}"/>
+                        ${Resource.msg('button.preorder.now', 'common', null)}
+                    <iselse/>
                         ${Resource.msg('button.addtocart', 'common', null)}
                     </isif>
             </button>

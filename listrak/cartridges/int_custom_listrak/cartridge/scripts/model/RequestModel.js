@@ -219,11 +219,7 @@ function generateTransactionalEmailToLTKPayload(params) {
                 },
                 {
                     "segmentationFieldId": Site.current.preferences.custom.Listrak_Transactional_ShippingHandling || '',
-                    "value": params.totalShippingCost || ''
-                },
-                {
-                    "segmentationFieldId": Site.current.preferences.custom.Listrak_ProductLayoutHTML || '',
-                    "value": params.productLayout || ''
+                    "value": params.shippingCost || ''
                 }
             ]
         };
