@@ -29,6 +29,11 @@ function send(emailObj, template, context) {
     if (context.order.currencyCode) {
         zeroAmount = Currency.getCurrency(context.order.currencyCode).symbol + '0.00';
     }
+
+    if (context.order.totals.totalTax === Constants.TOTAL_TAX) {
+      context.order.totals.totalTax = null;
+    }
+
     if (listrakEnabled && listrakTransactionalSwitch == Constants.LTK_TRANSACTIONAL_SWITCH) {
         switch (emailObj.type) {
             case 1:
@@ -57,9 +62,10 @@ function send(emailObj, template, context) {
                 requestParams.messageContext = Constants.LTK_ORDER_CONTEXT;
                 requestParams.messageId = Site.current.preferences.custom.Listrak_OrderConfirmationMessageID;
                 requestParams.orderNumber = context.order.orderNumber;
-                requestParams.totalTax = context.cuurentOrder.totalTax.value;
-                requestParams.subTotal = context.cuurentOrder.adjustedMerchandizeTotalPrice.value;
-                requestParams.grandTotal = context.cuurentOrder.totalGrossPrice.value;
+                requestParams.totalTax = !empty(context.order.totals.totalTax) ? context.order.totals.totalTax : zeroAmount;
+                requestParams.shippingCost = !empty(context.order.totals.totalShippingCost) ? context.order.totals.totalShippingCost : zeroAmount;
+                requestParams.subTotal = !empty(context.order.totals.subTotal) ? context.order.totals.subTotal : zeroAmount;
+                requestParams.grandTotal = !empty(context.order.priceTotal) ? context.order.priceTotal : zeroAmount;
                 requestParams.creationDate = context.order.creationDate;
                 requestParams.billingFirstName = context.order.billing.billingAddress.address.firstName;
                 requestParams.billingLastName = context.order.billing.billingAddress.address.lastName;
