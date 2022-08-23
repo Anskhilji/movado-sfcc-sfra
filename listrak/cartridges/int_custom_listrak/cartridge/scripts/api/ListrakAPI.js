@@ -76,6 +76,7 @@ function sendTransactionalEmailToListrak(requestParams) {
         params.paymentMethod = requestParams.paymentMethod;
         params.email = requestParams.email;
         params.name = requestParams.name;
+        params.productLayout = requestParams.productLayout;
         service = LTKAPIHelper.getTransactionalAPIService(serviceID, Constants.LTK_TRANSACTIONAL_API_ENDPOINT, accessToken, requestParams.messageId);
         var result = LTKAPIHelper.addTransactionalEmailToLTK(params, service);
     } catch (e) {
