@@ -216,7 +216,7 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
                         checkoutLogger.error('(Adyen) -> ShowConfirmation: Place order status has error and order number is: ' + orderNumber);
                         throw new Error();
                     }
-                        order.setExportStatus(Order.EXPORT_STATUS_READY);
+                    order.setExportStatus(Order.EXPORT_STATUS_READY);
                 }
             Transaction.commit();
         } catch (e) {
