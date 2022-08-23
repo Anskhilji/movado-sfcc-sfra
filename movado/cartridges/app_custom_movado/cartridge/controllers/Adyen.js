@@ -211,13 +211,13 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
                     order.setExportStatus(Order.EXPORT_STATUS_READY);
                     RiskifiedOrderDescion.orderApproved(order);
                 } else  {
-                var placeOrderStatus = OrderMgr.placeOrder(order); 
-                if (placeOrderStatus === Status.ERROR) {
-                    checkoutLogger.error('(Adyen) -> ShowConfirmation: Place order status has error and order number is: ' + orderNumber);
-                    throw new Error();
+                    var placeOrderStatus = OrderMgr.placeOrder(order); 
+                    if (placeOrderStatus === Status.ERROR) {
+                        checkoutLogger.error('(Adyen) -> ShowConfirmation: Place order status has error and order number is: ' + orderNumber);
+                        throw new Error();
+                    }
+                        order.setExportStatus(Order.EXPORT_STATUS_READY);
                 }
-                order.setExportStatus(Order.EXPORT_STATUS_READY);
-            }
             Transaction.commit();
         } catch (e) {
             // put logger
