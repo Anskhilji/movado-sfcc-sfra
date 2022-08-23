@@ -30,7 +30,7 @@ function send(emailObj, template, context) {
         zeroAmount = Currency.getCurrency(context.order.currencyCode).symbol + '0.00';
     }
 
-    if (context.order.totals.totalTax === Constants.TOTAL_TAX) {
+    if (context.order && context.order.totals && context.order.totals.totalTax === Constants.TOTAL_TAX) {
         context.order.totals.totalTax = null;
     }
 
