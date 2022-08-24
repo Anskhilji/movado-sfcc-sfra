@@ -29,14 +29,14 @@
                 @include media-breakpoint-up(sm) {
                     top: rem(10);
                 }
-                
-                @include media-breakpoint-down(xs) {
-                    top: rem(10);
-                }
 
                 @include media-breakpoint-up(lg) {
                     padding: rem(10) rem(10) rem(0) rem(10);
                     top: rem(0);
+                }
+
+                @include media-breakpoint-down(xs) {
+                    top: rem(10);
                 }
 
                 .exclusive-product {
