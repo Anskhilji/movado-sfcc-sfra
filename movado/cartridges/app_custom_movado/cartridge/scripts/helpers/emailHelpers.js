@@ -36,8 +36,10 @@ function send(emailObj, template, context) {
             case 2:
                 requestParams.messageContext = Constants.LTK_ACCOUNT_CONTEXT;
                 requestParams.messageId = Site.current.preferences.custom.Listrak_PasswordResetMessageID;
-                requestParams.passwordReset = URLUtils.url('Account-LegacyCustomerPasswordReset').toString();
+                requestParams.passwordReset = URLUtils.https('Account-SetNewPassword', 'token', context.passwordResetToken).toString();
                 requestParams.email = context.email;
+                requestParams.firstName = context.firstName;
+                requestParams.lastName = context.lastName;
                 break;
             case 3:
                 requestParams.messageContext = Constants.LTK_ACCOUNT_CONTEXT;
