@@ -173,6 +173,22 @@ function getCurrentCountry() {
     return availableCountry;
 }
 
+function getOCIPreOrderParameters(apiProduct) {
+    try {
+        var ociPreOrderObject = {};
+        if (!empty(apiProduct)) {
+            var productAvailabilityModel = apiProduct.getAvailabilityModel();
+            ociPreOrderObject.ociPreOrderProductAllocation = !empty(productAvailabilityModel.inventoryRecord.allocation.value) ? productAvailabilityModel.inventoryRecord.allocation.value : null;
+            ociPreOrderObject.ociPreOrderProductATO = !empty(productAvailabilityModel.inventoryRecord.ATS.value) ? productAvailabilityModel.inventoryRecord.ATS.value : null;
+            ociPreOrderObject.ociPreOrderProductFuture = !empty(productAvailabilityModel.inventoryRecord.backorderable) ? productAvailabilityModel.inventoryRecord.backorderable : null;
+        }
+        return ociPreOrderObject;
+    } catch (e) {
+        Logger.error('(productCustomHelper.js -> getOCIPreOrderParameters) Error occured while getting omni channel inventory attributes. Product {0}: \n Error: {1} \n', apiProduct.ID, e);
+        return '';
+    }
+}
+
 module.exports = {
     getExplicitRecommendations: getExplicitRecommendations,
     getCollectionName: getCollectionName,
@@ -181,5 +197,6 @@ module.exports = {
     getPDPMarketingContentAssetHTML: getPDPMarketingContentAssetHTML,
     getCurrentCountry: getCurrentCountry,
     getPDPContentAssetHTML: getPDPContentAssetHTML,
-    getPLPCustomURL: getPLPCustomURL
+    getPLPCustomURL: getPLPCustomURL,
+    getOCIPreOrderParameters: getOCIPreOrderParameters
 };
