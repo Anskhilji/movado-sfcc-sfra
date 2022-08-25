@@ -142,7 +142,7 @@ ltkProduct.prototype.LoadProduct = function (product) {
      // Custom Start: [MSS-1690 Adding Product Sale Price Information]
     this.salePrice = this.getSalePriceInfo(product);
     // Custom End:
-    
+
     // Custom Start: [MSS-1696 Listrak - Create New Product Feed for MVMT - Add Gender]
     var productFeedValue = Site.getCurrent().getCustomPreferenceValue('Listrak_ProductFeedGenderAttribute');
     if (!empty(productFeedValue)) {
@@ -356,22 +356,23 @@ ltkProduct.prototype.getSalePriceInfo = function (product) {
 
     return salePrice;
 }
-// Custom End
+// Custom End:
 
 // Custom Start: [MSS-1696 Listrak - Create New Product Feed for MVMT - Add Gender]
 ltkProduct.prototype.getGender = function (product) {
     var gender = '';
     var productFeedJson = Site.getCurrent().getCustomPreferenceValue('Listrak_ProductFeedGenderAttribute');
-    try {        
+
+    try {
         productFeedJson = JSON.parse(productFeedJson);
         var watchGenderAttr = product.custom.watchGender[0];
         if (!empty(watchGenderAttr)) {
             var watchGenderArr = watchGenderAttr.split(',');
         }
-
         if (!empty(productFeedJson) && !empty(watchGenderArr[0])) {
             gender = productFeedJson[watchGenderArr[0]];
         }
+
         return gender;
     } catch (error) {
         Logger.error('Listrak Product Processing Failed for Product: {0}, Error: {1}', product.ID, error);
@@ -386,6 +387,7 @@ ltkProduct.prototype.getCollectionURL = function (product) {
     if (!empty(product.ID) && !empty(product.primaryCategory))	{
         collectionUrl = URLUtils.https('Search-Show', 'cgid', product.primaryCategory.ID);
     }
+
     return collectionUrl;
 }
 
@@ -395,25 +397,27 @@ ltkProduct.prototype.getCollectionCategory = function (product, collectionUrl) {
     var meta5 = '';
     var metaCheck5 = '';
     var reviewURL = '';
-
     try {
         if (!empty(collectionUrl)) {
             reviewURL = collectionUrl;
             collectionCategory.reviewURL = reviewURL;
         }
+
         if (!empty(product) && product.variant === false) {
             if (!empty(product.primaryCategory)) {
                 var productPrimaryCategory = product.primaryCategory;
+
                 while (productPrimaryCategory.parent != null) {
                     metaCheck5 = productPrimaryCategory.displayName;
                     if (productPrimaryCategory.parent.topLevel === true) {
                         meta4 = productPrimaryCategory.parent.displayName;
                         break;
                     }
-                productPrimaryCategory = productPrimaryCategory.parent;
+                    productPrimaryCategory = productPrimaryCategory.parent;
                 }
             }
-            if (!empty(product.primaryCategory) && (product.primaryCategory.subCategories.empty === false)) {
+
+            if (!empty(product.primaryCategory) && (product.primaryCategory.parent.subCategories.empty === false)) {
                 meta5 = metaCheck5;
             }
             collectionCategory.meta4 = meta4;
@@ -430,12 +434,13 @@ ltkProduct.prototype.getCollectionCategory = function (product, collectionUrl) {
                     masterPrimaryCategory = masterPrimaryCategory.parent;
                 }
             }
-            if (!empty(product.masterProduct) && !empty(product.masterProduct.primaryCategory) && (product.masterProduct.primaryCategory.subCategories.empty === false)) {
+            if (!empty(product.masterProduct) && !empty(product.masterProduct.primaryCategory) && (product.masterProduct.primaryCategory.parent.subCategories.empty === false)) {
                 meta5 = metaCheck5;
             }
             collectionCategory.meta4 = meta4;
             collectionCategory.meta5 = meta5;
         }
+
         return collectionCategory;
     } catch (error) {
         Logger.error('Listrak Collection Category Processing Failed for Product: {0}, Error: {1}', product.ID, error);
