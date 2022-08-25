@@ -13,6 +13,7 @@ var Promotion = require('dw/campaign/Promotion');
 var PromotionMgr = require('dw/campaign/PromotionMgr');
 var Logger = require('dw/system/Logger').getLogger('Listrak');
 var Site = require('dw/system/Site');
+var URLUtils = require('dw/web/URLUtils');
 
 /**
  * Object that holds inflated product information.
@@ -42,6 +43,7 @@ function ltkProduct() {
     var catStartLevel = dw.system.Site.current.preferences.custom.Listrak_TopLevelCategory;
     this.categoryStartLevel = catStartLevel;
     this.additionalAttributes = dw.system.Site.current.preferences.custom.Listrak_Additional_Attributes;
+    this.categoryLevelAttributes = Site.getCurrent().getCustomPreferenceValue('Listrak_CategoryLevelAttributes');
     this.additionalAttributeValues = new dw.util.HashMap();
 
     // Custom Start: Adding Product Sale information
@@ -58,6 +60,15 @@ function ltkProduct() {
     // Custom Start: [MSS-1696 Listrak - Create New Product Feed for MVMT - Add Gender]
     this.watchGender = '';
     // Custom End:
+
+    // Custom Start: [MSS-1697 Add Collection URL, Strap Width, Case Diameter, Family Name to Listrak MVMT Product Feed]
+    this.reviewURL = '';
+    this.style = '';
+    this.meta1 = '';
+    this.size = '';
+    this.meta4 = '';
+    this.meta5 = '';
+    // Custom End:
 }
 
 /* Method to load product URLs only. */
@@ -70,6 +81,12 @@ ltkProduct.prototype.LoadProductURLOnly = function (product) {
 
 	// product url
     this.linkURL = this.getProductURL(product);
+
+    // collection url
+    if (this.categoryLevelAttributes) {
+        var collectionCategoryObject = this.getCollectionCategory(product, this.getCollectionURL(product));
+        this.reviewURL = collectionCategoryObject.reviewURL ? collectionCategoryObject.reviewURL : '';
+    }
 };
 
 /* Method to load full product. */
@@ -125,11 +142,25 @@ ltkProduct.prototype.LoadProduct = function (product) {
      // Custom Start: [MSS-1690 Adding Product Sale Price Information]
     this.salePrice = this.getSalePriceInfo(product);
     // Custom End:
-    
+
     // Custom Start: [MSS-1696 Listrak - Create New Product Feed for MVMT - Add Gender]
     var productFeedValue = Site.getCurrent().getCustomPreferenceValue('Listrak_ProductFeedGenderAttribute');
     if (!empty(productFeedValue)) {
         this.watchGender = this.getGender(product);
+    }
+    // Custom End:
+
+    // Custom Start: [MSS-1697 Add Collection URL, Strap Width, Case Diameter, Family Name to Listrak MVMT Product Feed]
+    if (this.categoryLevelAttributes) {
+        var collectionCategoryObject = this.getCollectionCategory(product, this.getCollectionURL(product));
+        if (!empty(collectionCategoryObject)) {
+            this.reviewURL = collectionCategoryObject.reviewURL ? collectionCategoryObject.reviewURL : '';
+            this.meta4 = collectionCategoryObject.meta4 ? collectionCategoryObject.meta4 : '';
+            this.meta5 = collectionCategoryObject.meta5 ? collectionCategoryObject.meta5 : '';
+        }
+        this.style = this.getFamilyName(product);
+        this.meta1 = this.getStrapWidth(product);
+        this.size = this.getCaseDiameter(product);
     }
     // Custom End:
 };
@@ -325,26 +356,110 @@ ltkProduct.prototype.getSalePriceInfo = function (product) {
 
     return salePrice;
 }
-// Custom End
+// Custom End:
 
 // Custom Start: [MSS-1696 Listrak - Create New Product Feed for MVMT - Add Gender]
 ltkProduct.prototype.getGender = function (product) {
     var gender = '';
     var productFeedJson = Site.getCurrent().getCustomPreferenceValue('Listrak_ProductFeedGenderAttribute');
-    try {        
+
+    try {
         productFeedJson = JSON.parse(productFeedJson);
         var watchGenderAttr = product.custom.watchGender[0];
         if (!empty(watchGenderAttr)) {
             var watchGenderArr = watchGenderAttr.split(',');
         }
-
         if (!empty(productFeedJson) && !empty(watchGenderArr[0])) {
             gender = productFeedJson[watchGenderArr[0]];
         }
+
         return gender;
     } catch (error) {
         Logger.error('Listrak Product Processing Failed for Product: {0}, Error: {1}', product.ID, error);
         return gender;
     }
 };
+// Custom End
+
+// Custom Start: [MSS-1697 Add Collection URL, Strap Width, Case Diameter, Family Name to Listrak MVMT Product Feed]
+ltkProduct.prototype.getCollectionURL = function (product) {
+    var collectionUrl = '';
+    if (!empty(product.ID) && !empty(product.primaryCategory))	{
+        collectionUrl = URLUtils.https('Search-Show', 'cgid', product.primaryCategory.ID);
+    }
+
+    return collectionUrl;
+}
+
+ltkProduct.prototype.getCollectionCategory = function (product, collectionUrl) {
+    var collectionCategory = {};
+    var meta4 = '';
+    var meta5 = '';
+    var metaCheck5 = '';
+    var reviewURL = '';
+    try {
+        if (!empty(collectionUrl)) {
+            reviewURL = collectionUrl;
+            collectionCategory.reviewURL = reviewURL;
+        }
+
+        if (!empty(product) && product.variant === false) {
+            if (!empty(product.primaryCategory)) {
+                var productPrimaryCategory = product.primaryCategory;
+
+                while (productPrimaryCategory.parent != null) {
+                    metaCheck5 = productPrimaryCategory.displayName;
+                    if (productPrimaryCategory.parent.topLevel === true) {
+                        meta4 = productPrimaryCategory.parent.displayName;
+                        break;
+                    }
+                    productPrimaryCategory = productPrimaryCategory.parent;
+                }
+            }
+
+            if (!empty(product.primaryCategory) && (product.primaryCategory.parent.subCategories.empty === false)) {
+                meta5 = metaCheck5;
+            }
+            collectionCategory.meta4 = meta4;
+            collectionCategory.meta5 = meta5;
+        } else if (!empty(product) && product.variant === true) {
+            if (!empty(product.masterProduct) && !empty(product.masterProduct.primaryCategory)) {
+                var masterPrimaryCategory = product.masterProduct.primaryCategory;
+                while (masterPrimaryCategory.parent != null) {
+                    metaCheck5 = masterPrimaryCategory.displayName;
+                    if (masterPrimaryCategory.parent.topLevel === true) {
+                        meta4 = masterPrimaryCategory.parent.displayName;
+                        break;
+                    }
+                    masterPrimaryCategory = masterPrimaryCategory.parent;
+                }
+            }
+            if (!empty(product.masterProduct) && !empty(product.masterProduct.primaryCategory) && (product.masterProduct.primaryCategory.parent.subCategories.empty === false)) {
+                meta5 = metaCheck5;
+            }
+            collectionCategory.meta4 = meta4;
+            collectionCategory.meta5 = meta5;
+        }
+
+        return collectionCategory;
+    } catch (error) {
+        Logger.error('Listrak Collection Category Processing Failed for Product: {0}, Error: {1}', product.ID, error);
+        return collectionCategory;
+    }
+}
+
+ltkProduct.prototype.getFamilyName = function (product) {
+    var familyName = !empty(product.custom.familyName[0]) ? product.custom.familyName[0] : '';
+    return familyName;
+}
+
+ltkProduct.prototype.getStrapWidth = function (product) {
+    var strapWidth = !empty(product.custom.strapWidth) ? product.custom.strapWidth : '';
+    return strapWidth;
+}
+
+ltkProduct.prototype.getCaseDiameter = function (product) {
+    var caseDiameter = !empty(product.custom.caseDiameter) ? product.custom.caseDiameter : '';
+    return caseDiameter;
+}
 // Custom End
