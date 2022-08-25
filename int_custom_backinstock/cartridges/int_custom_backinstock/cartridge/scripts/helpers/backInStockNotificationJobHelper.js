@@ -7,6 +7,7 @@ var CustomObjectMgr = require('dw/object/CustomObjectMgr');
 var File = require('dw/io/File');
 var FileWriter = require('dw/io/FileWriter');
 var Logger = require('dw/system/Logger');
+var ProductMgr = require('dw/catalog/ProductMgr');
 var Site = require('dw/system/Site');
 var StringUtils = require('dw/util/StringUtils');
 var Resource = require('dw/web/Resource');
@@ -44,7 +45,17 @@ function processBackInStockObject(backInStockNotificationObj) {
         var product = productFactory.get({ pid: backInStockNotificationObj.custom.productID });
         if (!empty(product)) {
             if (product.available) {
-                result.success = sendBackInStockNotificationEmail(backInStockNotificationObj, product);
+                var backInStockProduct = ProductMgr.getProduct(backInStockNotificationObj.custom.productID);
+                var productInventoryRecord = backInStockProduct.availabilityModel.inventoryRecord ? backInStockProduct.availabilityModel.inventoryRecord.ATS.value : '';
+                var perpetual = backInStockProduct.availabilityModel.inventoryRecord.perpetual;
+                var minimumBackInStockNotification = Site.current.preferences.custom.minimumBackInStockNotification;
+                if (!empty(minimumBackInStockNotification)) {
+                    if (productInventoryRecord >= minimumBackInStockNotification || perpetual) {
+                        result.success = sendBackInStockNotificationEmail(backInStockNotificationObj, product);
+                    } else {
+                        Logger.info('Minimum stock level not meet, therefore not sending emails again product:{0} and minimum stock level is:{1} ', backInStockNotificationObj.custom.productID, minimumBackInStockNotification)
+                    }
+                }
                 if (result.success) {
                     removeBackInStockObj(backInStockNotificationObj);
                 }

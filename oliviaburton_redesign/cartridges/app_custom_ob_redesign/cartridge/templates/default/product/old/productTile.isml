@@ -12,7 +12,7 @@
         </isif>
     </isloop>
 
-    <isinclude template="product/components/productTileImage" />
+    <isinclude template="product/components/old/productTileImage" />
 
     <div class="tile-body">
         <isif condition="${pdict.display.swatches !== false &&  product.productType == 'master'}">

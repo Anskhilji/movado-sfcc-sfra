@@ -1,120 +1,86 @@
-<iscomment>Custom Start: Changed the HTML structure, makes tabs</iscomment>
-<div class="description-and-detail">
-    <div class="pdp-tabs-nav">
-        <isif condition="${!pdict.isCompareableDisabled || product.attributes && product.attributes.length}">
-            <button class="pdp-tab-button active" data-tab="${product.resources.Details}">${product.resources.Details}</button>
-        </isif>
-        <isif condition="${product.attributes && product.attributes.length}">
-            <button class="pdp-tab-button" data-tab="${product.resources.Highlight}">${product.resources.Highlight}</button>
-        </isif>
-        <button class="pdp-tab-button <isif condition= ${!product.attributes && !product.attributes.length}>active</isif>" data-tab="${Resource.msg('label.tab.review', 'product', null)}">${Resource.msg('label.tab.review', 'product', null)} <span class="pdp-tab-reviews"><isinclude template="widget/yotporatingswidget" /> <span></button>
-    </div>
-    <div class="pdp-tabs-body">
-        <isif condition="${!pdict.isCompareableDisabled}">
-            <isif condition="${product.attributes && product.attributes.length}">
-                <div class="pdp-tab-content active fadeIn ${product.resources.Details}">
-                    <div class="pdp-mobile-accordian">
-                        <div class="pdp-mobile-accordian-label">${product.resources.Details}</div>
-                        <div class="pdp-mobile-accordian-switch pdp-mobile-accordian-plus">
-                            <svg width="21px" height="21px" viewBox="0 0 21 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                <g id="UI-KIT" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-1062.000000, -6284.000000)">
-                                    <g id="UI_COMPONENTS" transform="translate(206.000000, 5895.000000)" fill="#555759">
-                                        <g id="$ICON-/-plus" transform="translate(850.000000, 383.000000)">
-                                            <g id="2044286---add-interface-plus-u" transform="translate(6.000000, 6.000000)">
-                                                <path d="M10.9195787,9.68042131 L19.6804213,9.68042131 C20.0226052,9.68042131 20.3,9.95781614 20.3,10.3 C20.3,10.6421839 20.0226052,10.9195787 19.6804213,10.9195787 L10.9195787,10.9195787 L10.9195787,19.6804213 C10.9195787,20.0226052 10.6421839,20.3 10.3,20.3 C9.95781614,20.3 9.68042131,20.0226052 9.68042131,19.6804213 L9.68042131,10.9195787 L0.919578686,10.9195787 C0.577394827,10.9195787 0.3,10.6421839 0.3,10.3 C0.3,9.95781614 0.577394827,9.68042131 0.919578686,9.68042131 L9.68042131,9.68042131 L9.68042131,0.919578686 C9.68042131,0.577394827 9.95781614,0.3 10.3,0.3 C10.6421839,0.3 10.9195787,0.577394827 10.9195787,0.919578686 L10.9195787,9.68042131 Z" id="Combined-Shape" fill-rule="nonzero"></path>
-                                            </g>
-                                        </g>
-                                    </g>
-                                </g>
-                            </svg>
-                        </div>
-                        <div class="pdp-mobile-accordian-switch pdp-mobile-accordian-minus">
-                            <svg width="21px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
-                                <g>
-                                    <g>
-                                        <path d="M501.333,245.333H10.667C4.776,245.333,0,250.109,0,256c0,5.891,4.776,10.667,10.667,10.667h490.667    c5.891,0,10.667-4.776,10.667-10.667C512,250.109,507.224,245.333,501.333,245.333z"/>
-                                    </g>
-                                </g>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="pdp-content-body">
-                        <isinclude template="product/components/detailsAttributes" />
-                    </div>
+ <div class="description-and-detail">
+                <div class="pdp-tabs-nav d-none">
+                    <isif condition="${!pdict.isCompareableDisabled || product.attributes && product.attributes.length}">
+                        <button class="pdp-tab-button active" data-tab="${product.resources.Details}">${product.resources.Details}</button>
+                    </isif>
+                    <isif condition="${product.attributes && product.attributes.length}">
+                        <button class="pdp-tab-button" data-tab="${product.resources.Highlight}">${product.resources.Highlight}</button>
+                    </isif>
+                    <button class="pdp-tab-button <isif condition= ${!product.attributes && !product.attributes.length}>active</isif>" data-tab="${Resource.msg('label.tab.review', 'product', null)}">${Resource.msg('label.tab.review', 'product', null)} <span class="pdp-tab-reviews"><isinclude template="widget/yotporatingswidget" /> <span></button>
                 </div>
-            </isif>
-        </isif>
+                <div class="pdp-tabs-body">
+                    <isif condition="${!pdict.isCompareableDisabled}">
+                        <isif condition="${product.attributes && product.attributes.length}">
+                            <div class="pdp-tab-content active fadeIn ${product.resources.Details}">
+                                <div class="pdp-mobile-accordian mvmv-pdp-accordian active">
+                                    <div class="pdp-mobile-accordian-label">${Resource.msg("label.product.redesign.description", 'product', null)}</div>
+                                    <div class="pdp-mobile-accordian-switch accordian-angle-down">
+                                    </div>
+                                </div>
+                                <div class="pdp-content-body active">
+                                    <isif condition="${product.shortDescription}">
+                                        <div class="row">
+                                                <div class="col-12">
+                                                    <div class="d-flex justify-content-center pd-desc-mvmt product-description" itemprop="description">
+                                                        <isprint value="${product.shortDescription}" encoding="off" />
+                                                    </div>
+                                                </div>
+                                        </div>
+                                    </isif>
+                                </div>
+                            </div>
+                        </isif>
+                    </isif>
 
-        <isif condition="${product.attributes && product.attributes.length}">
-            <div class="pdp-tab-content <isif condition= ${!product.attributes && product.attributes.length}>active fadeIn</isif> ${product.resources.Highlight}">
-                <div class="pdp-mobile-accordian">
-                    <div class="pdp-mobile-accordian-label">${product.resources.Highlight}</div>
-                    <div class="pdp-mobile-accordian-switch pdp-mobile-accordian-plus">
-                        <svg width="21px" height="21px" viewBox="0 0 21 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                            <g id="UI-KIT" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-1062.000000, -6284.000000)">
-                                <g id="UI_COMPONENTS" transform="translate(206.000000, 5895.000000)" fill="#555759">
-                                    <g id="$ICON-/-plus" transform="translate(850.000000, 383.000000)">
-                                        <g id="2044286---add-interface-plus-u" transform="translate(6.000000, 6.000000)">
-                                            <path d="M10.9195787,9.68042131 L19.6804213,9.68042131 C20.0226052,9.68042131 20.3,9.95781614 20.3,10.3 C20.3,10.6421839 20.0226052,10.9195787 19.6804213,10.9195787 L10.9195787,10.9195787 L10.9195787,19.6804213 C10.9195787,20.0226052 10.6421839,20.3 10.3,20.3 C9.95781614,20.3 9.68042131,20.0226052 9.68042131,19.6804213 L9.68042131,10.9195787 L0.919578686,10.9195787 C0.577394827,10.9195787 0.3,10.6421839 0.3,10.3 C0.3,9.95781614 0.577394827,9.68042131 0.919578686,9.68042131 L9.68042131,9.68042131 L9.68042131,0.919578686 C9.68042131,0.577394827 9.95781614,0.3 10.3,0.3 C10.6421839,0.3 10.9195787,0.577394827 10.9195787,0.919578686 L10.9195787,9.68042131 Z" id="Combined-Shape" fill-rule="nonzero"></path>
-                                        </g>
-                                    </g>
-                                </g>
-                            </g>
-                        </svg>
-                    </div>
-                    <div class="pdp-mobile-accordian-switch pdp-mobile-accordian-minus">
-                        <svg width="21px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
-                            <g>
-                                <g>
-                                    <path d="M501.333,245.333H10.667C4.776,245.333,0,250.109,0,256c0,5.891,4.776,10.667,10.667,10.667h490.667    c5.891,0,10.667-4.776,10.667-10.667C512,250.109,507.224,245.333,501.333,245.333z"/>
-                                </g>
-                            </g>
-                        </svg>
-                    </div>
-                </div>
-                <div class="pdp-content-body">
-                    <div class="w-100">
-                        <isinclude template="product/components/highlights" />
-                    </div>
-                </div>
-            </div>
-        </isif>
+                    <isif condition="${product.attributes && product.attributes.length}">
+                        <div class="pdp-tab-content <isif condition= ${!product.attributes && product.attributes.length}>active fadeIn</isif> ${product.resources.Highlight}">
+                            <div class="pdp-mobile-accordian mvmv-pdp-accordian">
+                                <div class="pdp-mobile-accordian-label">${Resource.msg("label.product.redesign.specifications", 'product', null)}</div>
+                                <div class="pdp-mobile-accordian-switch accordian-angle-down">
+                                </div>
+                            </div>
+                            <div class="pdp-content-body">
+                                <div class="w-100">
+                                    <isif condition="${!empty(dw.system.Site.current.preferences.custom.isHighlightEnabled) ? dw.system.Site.current.preferences.custom.isHighlightEnabled :false}">
+                                        <isinclude template="product/components/highlights" />
+                                    </isif>
+                                </div>
+                            </div>
+                        </div>
+                    </isif>
+                    
+                    <div class="pdp-tab-content <isif condition= ${!product.attributes && product.attributes.length}>active fadeIn</isif>">
+                        <div class="pdp-mobile-accordian mvmv-pdp-accordian review-box-mvmt">
+                            <div class="pdp-mobile-accordian-label">${Resource.msg('label.tab.review', 'product', null)} <span class="pdp-stras"><isinclude template="product/components/productRating" /></span></div>
+                            <div class="pdp-mobile-accordian-switch accordian-angle-down">
+                            </div>
+                        </div>
+                        <div class="pdp-content-body accordian-mobile-body review-box-mvmt">
+                            <div class="w-100 accordian-review-box reviews-here">
+                                <h3 class="details-heading text-center">${Resource.msg('label.tab.review.redesign', 'product', null)}</h3>
+                                 <div class="yotpo yotpo-shoppers-say accordian-review" data-product-id="${pdict.product.id}"></div>
+                            </div>
 
-        <div class="pdp-tab-content <isif condition= ${!product.attributes && product.attributes.length}>active fadeIn</isif> ${Resource.msg('label.tab.review', 'product', null)}">
-            <div class="pdp-mobile-accordian">
-                <div class="pdp-mobile-accordian-label">${Resource.msg('label.tab.review', 'product', null)} <span class="d-md-none"><isinclude template="product/components/productRating" /></span></div>
-                <div class="pdp-mobile-accordian-switch pdp-mobile-accordian-plus">
-                    <svg width="21px" height="21px" viewBox="0 0 21 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <g id="UI-KIT" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-1062.000000, -6284.000000)">
-                            <g id="UI_COMPONENTS" transform="translate(206.000000, 5895.000000)" fill="#555759">
-                                <g id="$ICON-/-plus" transform="translate(850.000000, 383.000000)">
-                                    <g id="2044286---add-interface-plus-u" transform="translate(6.000000, 6.000000)">
-                                        <path d="M10.9195787,9.68042131 L19.6804213,9.68042131 C20.0226052,9.68042131 20.3,9.95781614 20.3,10.3 C20.3,10.6421839 20.0226052,10.9195787 19.6804213,10.9195787 L10.9195787,10.9195787 L10.9195787,19.6804213 C10.9195787,20.0226052 10.6421839,20.3 10.3,20.3 C9.95781614,20.3 9.68042131,20.0226052 9.68042131,19.6804213 L9.68042131,10.9195787 L0.919578686,10.9195787 C0.577394827,10.9195787 0.3,10.6421839 0.3,10.3 C0.3,9.95781614 0.577394827,9.68042131 0.919578686,9.68042131 L9.68042131,9.68042131 L9.68042131,0.919578686 C9.68042131,0.577394827 9.95781614,0.3 10.3,0.3 C10.6421839,0.3 10.9195787,0.577394827 10.9195787,0.919578686 L10.9195787,9.68042131 Z" id="Combined-Shape" fill-rule="nonzero"></path>
-                                    </g>
-                                </g>
-                            </g>
-                        </g>
-                    </svg>
-                </div>
-                <div class="pdp-mobile-accordian-switch pdp-mobile-accordian-minus">
-                    <svg width="21px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
-                        <g>
-                            <g>
-                                <path d="M501.333,245.333H10.667C4.776,245.333,0,250.109,0,256c0,5.891,4.776,10.667,10.667,10.667h490.667    c5.891,0,10.667-4.776,10.667-10.667C512,250.109,507.224,245.333,501.333,245.333z"/>
-                            </g>
-                        </g>
-                    </svg>
+                            <div class="w-100 accordian-review-box review-empty-box">
+                                <h3 class="details-heading text-center">${Resource.msg('label.tab.no-review-redesign', 'product', null)}</h3>
+                                <p class="no-review-sec">
+                                    ${dw.system.Site.current.preferences.custom.noReviewMessage}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="pdp-tab-content active fadeIn">
+                        <div class="pdp-mobile-accordian mvmv-pdp-accordian">
+                            <div class="pdp-mobile-accordian-label">${Resource.msg("label.product.shipping.and.returns", 'product', null)}</div>
+                            <div class="pdp-mobile-accordian-switch accordian-angle-down">
+                            </div>
+                        </div>
+                        <div class="pdp-content-body">
+                            <div class="w-100">
+                                <div class="pd-desc-mvmt product-description"><isslot id="cs-pdp-shipping-and-retruns" context="global" description="Shipping & Returns" /></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="pdp-content-body">
-                <div id="yotpoReviews" class="w-100">
-                    <h3 class="details-heading text-center">${Resource.msg('label.tab.review', 'product', null)}</h3>
-                    <iscomment>Yotpo reviews widget will appear here, if these needs to be relocated
-                    then appropriate template should be overridden. </iscomment>
-                    <isinclude template="widget/yotporeviewswidget" />
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<iscomment>Custom End</iscomment>

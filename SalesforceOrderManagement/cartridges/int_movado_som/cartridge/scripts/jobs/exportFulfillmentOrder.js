@@ -184,6 +184,11 @@ function createSAPOrderFile(args, impexFilePath, record) {
                 writeXmlElement(streamWriter, 'PaymentMethod', p.paymentMethod);
                 writeXmlElement(streamWriter, 'PaymentAmount', p.paymentAmount.toFixed(2), true);
 
+                // MVMT-419
+                if (Object.hasOwnProperty.call(p, 'giftCardNumber')) {
+                    writeXmlElement(streamWriter, 'GiftCardNumber', p.giftCardNumber);
+                }
+
                 streamWriter.writeEndElement(); 
             });
         }
@@ -212,6 +217,9 @@ function createSAPOrderFile(args, impexFilePath, record) {
         }
         if (Object.hasOwnProperty.call(record.poHeader, 'returnWOReceipt')) {
             writeXmlElement(streamWriter, 'ReturnWOReceipt', record.poHeader.returnWOReceipt);
+        }
+        if (Object.hasOwnProperty.call(record.poHeader, 'returnTrackingNumber')) {
+            writeXmlElement(streamWriter, 'ReturnTrackingNumber', record.poHeader.returnTrackingNumber);
         }
         if (Object.hasOwnProperty.call(record.poHeader, 'registerAssociateId')) {
             writeXmlElement(streamWriter, 'RegisterAssociateId', record.poHeader.registerAssociateId);
@@ -419,6 +427,51 @@ function createSAPOrderFile(args, impexFilePath, record) {
                             streamWriter.writeRaw('\r\n');
                         });
                     }
+                    if (Object.hasOwnProperty.call(personalization, 'contractSku')) {
+                        writeXmlElement(streamWriter, 'ContractSku', personalization.contractSku);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'grossValue')) {
+                        writeXmlElement(streamWriter, 'GrossValue', personalization.grossValue.toFixed(2), true);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'markDownAmount')) {
+                        writeXmlElement(streamWriter, 'MarkDownAmount', personalization.markDownAmount.toFixed(2), true);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'promoCode')) {
+                        writeXmlElement(streamWriter, 'PromoCode', personalization.promoCode);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'promoAmount')) {
+                        writeXmlElement(streamWriter, 'PromoAmount', personalization.promoAmount.toFixed(2), true);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'loyaltyAmount')) {
+                        writeXmlElement(streamWriter, 'LoyaltyAmount', personalization.loyaltyAmount.toFixed(2), true);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'subTotal')) {
+                        writeXmlElement(streamWriter, 'SubTotal', personalization.subTotal.toFixed(2), true);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'taxAmount')) {
+                        writeXmlElement(streamWriter, 'TaxAmount', personalization.taxAmount.toFixed(2), true);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'tax1')) {
+                        writeXmlElement(streamWriter, 'Tax1', personalization.tax1.toFixed(2), true);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'tax2')) {
+                        writeXmlElement(streamWriter, 'Tax2', personalization.tax2.toFixed(2), true);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'tax3')) {
+                        writeXmlElement(streamWriter, 'Tax3', personalization.tax3.toFixed(2), true);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'tax4')) {
+                        writeXmlElement(streamWriter, 'Tax4', personalization.tax4.toFixed(2), true);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'tax5')) {
+                        writeXmlElement(streamWriter, 'Tax5', personalization.tax5.toFixed(2), true);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'tax6')) {
+                        writeXmlElement(streamWriter, 'Tax6', personalization.tax6.toFixed(2), true);
+                    }
+                    if (Object.hasOwnProperty.call(personalization, 'netAmount')) {
+                        writeXmlElement(streamWriter, 'NetAmount', personalization.netAmount.toFixed(2), true);
+                    }
 
                     /* Create EcommercePOItemPersonalization Elements : end */
                     streamWriter.writeEndElement();
@@ -474,8 +527,8 @@ function exportFulfillmentOrder(args) {
         url: endpoint
     });
     if (!exportData || !exportData.ok || exportData.error) {
-        Logger.error('exportError=' + exportData.error + ' exportMsg=' + exportData.msg);
-        return new Status(Status.ERROR, 'ERROR', 'exportError=' + exportData.error + ' exportMsg=' + exportData.msg);
+        Logger.error('exportError=' + exportData.error + ' exportMsg=' + exportData.errorMessage);
+        return new Status(Status.ERROR, 'ERROR', 'exportError=' + exportData.error + ' exportMsg=' + exportData.errorMessage);
     }
     if ('errorCode' in exportData.object[0] && exportData.object[0].errorCode === 'NO CONTENT') {
         return new Status(Status.OK, 'OK', 'exportFulfillmentOrder finished - no new records found');
@@ -513,11 +566,11 @@ function exportAppeasementOrder(args) {
         url: endpoint
     });
     if (!exportData || exportData.error || exportData.msg !== 'OK') {
-        Logger.error('No data.  exportError=' + exportData.error + ' exportMsg=' + exportData.msg);
+        Logger.error('No data.  exportError=' + exportData.error + ' exportMsg=' + exportData.errorMessage);
     }
 
     if (exportData.error && exportData.error === 500) {
-        Logger.error('ERROR 500. exportError=' + exportData.error + ' exportMsg=' + exportData.msg);
+        Logger.error('ERROR 500. exportError=' + exportData.error + ' exportMsg=' + exportData.errorMessage);
         return new Status(Status.ERROR, 'ERROR', 'exportReturnOrder encountered error 500 from OMS API');
     }
 
@@ -553,11 +606,11 @@ function exportReturnOrder(args) {
         url: endpoint
     });
     if (!exportData || exportData.error || exportData.msg !== 'OK') {
-        Logger.error('No data.  exportError=' + exportData.error + ' exportMsg=' + exportData.msg);
+        Logger.error('No data.  exportError=' + exportData.error + ' exportMsg=' + exportData.errorMessage);
     }
 
     if (exportData.error && exportData.error === 500) {
-        Logger.error('ERROR 500. exportError=' + exportData.error + ' exportMsg=' + exportData.msg);
+        Logger.error('ERROR 500. exportError=' + exportData.error + ' exportMsg=' + exportData.errorMessage);
         return new Status(Status.ERROR, 'ERROR', 'exportReturnOrder encountered error 500 from OMS API');
     }
 

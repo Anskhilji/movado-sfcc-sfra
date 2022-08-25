@@ -65,7 +65,7 @@
                 </isif>
                 <div class="${(pdict.display && pdict.display.isTopSearch) ? 'top-search-product-detail' : 'product-detail'}" data-isplp="true" data-pid="${product.id}" itemscope
                     itemtype="http://schema.org/Product">
-                    <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id, 'isPLPProduct', true)}"/>
+                    <isinclude template="product/components/showCartButtonProduct" />
                 </div>
             </div>
         </div>

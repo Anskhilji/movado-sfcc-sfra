@@ -1,0 +1,7 @@
+<isset name="sitePreferences" value="${require('dw/system/Site').getCurrent().getPreferences().getCustom()}" scope="page" />
+    <isscript>
+        if (sitePreferences.amzPayEnabled) {
+            var assets = require('*/cartridge/scripts/assets.js');
+            var assign = assets.addJs('https://static-na.payments-amazon.com/checkout.js');
+        }
+    </isscript>

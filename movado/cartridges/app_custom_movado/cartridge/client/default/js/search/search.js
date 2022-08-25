@@ -130,6 +130,26 @@ function getUrlParamObj(url) {
     return params;
 }
 
+// Custom Start: [MSS-1348 Fix for not applying price filters]
+function removeParam(key, sourceURL) {
+    var rtn = sourceURL.split("?")[0],
+        param,
+        params_arr = [],
+        queryString = (sourceURL.indexOf("?") !== -1) ? sourceURL.split("?")[1] : "";
+    if (queryString !== "") {
+        params_arr = queryString.split("&");
+        for (var i = params_arr.length - 1; i >= 0; i -= 1) {
+            param = params_arr[i].split("=")[0];
+            if (param === key) {
+                params_arr.splice(i, 1);
+            }
+        }
+        if (params_arr.length) rtn = rtn + "?" + params_arr.join("&");
+    }
+    return rtn;
+}
+// Custom End
+
 /**
  * Adds selected facets to page URL
  *
@@ -267,11 +287,27 @@ function moveFocusToTop() {
     }, 500);
 }
 
+function refreshYotpoWidgets() {
+    if((document.readyState === 'complete' || document.readyState === 'interactive') && (isYotpoJsLoaded)) {
+        var api = new Yotpo.API(yotpo);
+        api.refreshWidgets();
+    } else {
+        setTimeout(function() {
+            refreshYotpoWidgets();
+        }, 500);
+    }
+}
+
 module.exports = {
     filter: function () {
         // Display refinements bar when Menu icon clicked
         $('.container').on('click', 'button.filter-results', function () {
             $('.refinement-bar, .movado-modal').show();
+            var refinementBarPl = $('.search-results-container').find('.refinement-bar-find, .secondary-bar');
+            if (refinementBarPl) {
+              refinementBarPl.addClass('refinement-bar-pl');
+              $('.secondary-bar').addClass('secondary-bar-mt');
+            }
         });
     },
 
@@ -279,6 +315,11 @@ module.exports = {
         // Refinements close button
         $('.container').on('click', '.refinement-bar button.close, .modal-background', function () {
             $('.refinement-bar, .movado-modal').hide();
+            var refinementBarPl = $('.search-results-container').find('.refinement-bar-find, .secondary-bar');
+            if (refinementBarPl) {
+              refinementBarPl.removeClass('refinement-bar-pl');
+              $('.secondary-bar').removeClass('secondary-bar-mt');
+            }
         });
     },
 
@@ -322,6 +363,9 @@ module.exports = {
                     $('.product-grid').empty().html(response);
                     // edit
                     updatePageURLForSortRule(url);
+                    if (window.Resources.IS_YOTPO_ENABLED) {
+                        refreshYotpoWidgets();
+                    }
                     // edit
                     $.spinner().stop();
                 },
@@ -368,6 +412,9 @@ module.exports = {
                     updateSortOptions(response);
                     // edit
                     updatePageURLForShowMore(showMoreUrl);
+                    if (window.Resources.IS_YOTPO_ENABLED) {
+                        refreshYotpoWidgets();
+                    }
                     // edit end
                     $.spinner().stop();
                 },
@@ -424,6 +471,9 @@ module.exports = {
             	// edit
             	updatePageURLForPagination(showMoreUrl);
             	// edit
+                if (window.Resources.IS_YOTPO_ENABLED) {
+                    refreshYotpoWidgets();
+                }
                 $.spinner().stop();
                 moveFocusToTop();
             },
@@ -459,6 +509,7 @@ module.exports = {
                 if (urlparams.hasOwnProperty('srule') == true) {
                     if (urlparams.srule) {
                         currentSelectedSortId = urlparams.srule;
+                        filtersURL = removeParam('srule', filtersURL);  // Custom: [MSS-1348 Fix for not applying price filters]
                         filtersURL = replaceUrlParam(filtersURL, 'srule', currentSelectedSortId);
                     }
                 }
@@ -479,6 +530,9 @@ module.exports = {
                         // edit start
                         updatePageURLForFacets(filtersURL);
                         // edit end
+                        if (window.Resources.IS_YOTPO_ENABLED) {
+                            refreshYotpoWidgets();
+                        }
                         $.spinner().stop();
                         moveFocusToTop();
                         swatches.showSwatchImages();

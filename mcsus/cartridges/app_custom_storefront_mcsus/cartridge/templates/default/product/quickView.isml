@@ -12,8 +12,9 @@
 
             <!-- Product Name -->
             <h1 class="heading-two text-uppercase">${product.productName}</h1>
-
-            <isinclude template="product/components/pidRating" />
+            
+            <iscomment> custom shange:MSS-1829 add old path </iscomment>
+            <isinclude template="product/components/old/pidRating" />
 
             <div class="row">
                 <!-- Attributes and Quantity -->
@@ -38,7 +39,7 @@
                     </isif>
                     <hr />
                 </div>
-                <isif condition="${product.options && product.options.length > 0}">
+                <isif condition="${product.options && product.options.length > 0 && !(option.id == "clydeWarranty") && dw.system.Site.current.preferences.custom.isClydeEnabled}">
                     <isinclude template="product/components/options" />
                 </isif>
                 <div class="col-12">

@@ -69,6 +69,58 @@ $stored-payment-spacing: rem(16);
     padding-right: rem(10);
     padding-bottom: rem(7);
   }
+
+  .form-group {
+    .form-control-label {
+      margin-bottom: 0;
+      font-family: $font-book;
+      font-size: rem(14);
+      line-height: rem(17);
+      letter-spacing: rem(1);
+      color: $grey14;
+      padding-bottom: rem(4);
+    }
+  }
+}
+
+#mainContent {
+  .data-checkout-stage {
+    padding-top: rem(10);
+    margin-bottom: rem(50);
+
+    .checkout-content {
+      @include media-breakpoint-up(md) {
+        max-width: rem(940);
+      }
+      @include media-breakpoint-up(lg) {
+        max-width: rem(940);
+      }
+      @include media-breakpoint-up(xl) {
+        max-width: rem(940);
+      }
+    }
+  }
+}
+
+.data-checkout-stage {
+  padding-top: rem(10);
+  margin-bottom: rem(50);
+
+  .top-grandtotal-label {
+    text-transform: uppercase;
+  }
+
+  .card-body {
+    padding: rem(15) rem(10);
+  }
+
+  .card-header {
+    @extend %card-header;
+    padding-left: rem(10);
+    padding-right: rem(10);
+    padding-bottom: rem(7);
+  }
+
   .form-group {
     .form-control-label {
       margin-bottom: 0;
@@ -81,13 +133,22 @@ $stored-payment-spacing: rem(16);
     }
 
     > .info-icon {
-        padding-bottom: rem(4);
+      padding-bottom: rem(4);
     }
 
     .form-control {
       border: rem(1) solid $grey14;
       color: $grey14;
     }
+
+    #expirationDate {
+      margin-top: rem(4);
+    }
+
+    #securityCode {
+      margin-top: rem(1);
+    }
+
     .add-address,
     .edit-address {
       margin-top: rem(10);
@@ -125,6 +186,11 @@ $stored-payment-spacing: rem(16);
       margin-top: rem(10);
       margin-bottom: rem(10);
       text-transform: uppercase;
+    }
+    .display-name {
+      &::after {
+        content: "";
+      }
     }
   }
 
@@ -299,38 +365,146 @@ $stored-payment-spacing: rem(16);
     padding-bottom: 0;
   }
   .payment-information {
-    .panel {
-      padding-right: rem(10);
-      padding-left: rem(10);
-      margin-left: rem(-10);
-      margin-right: rem(-10);
-      border-top: rem(1) solid $border-color;
-    }
+     
+   .payment-options {
+      .nav-item {
+        margin-right: rem(25);
+        margin-bottom: rem(25);
 
-    .accordion-link {
-      margin-top: rem(8);
-      + label {
-        &:after,
-        &:before {
-          top: 50%;
-          transform: translateY(-50%);
+        @include media-breakpoint-down(md) {
+          margin:rem(0) rem(20) rem(20) rem(0);
         }
-        &:after {
-          content: "\F107";
-          position: absolute;
-          font-family: "FontAwesome";
-          font-size: rem(18);
-          right: 0;
+        @include media-breakpoint-down(sm) {
+          margin:rem(0) rem(10) rem(10) rem(0);
+        }
+        @include media-breakpoint-down(xs) { 
+          margin:rem(0) rem(8) rem(8) rem(0);
+        }
+
+        .nav-link{
+          box-sizing: border-box;
+          height: rem(45);
+          width: rem(115);
+          border: rem(1) solid $grey16;
+          border-radius: rem(3);
+          background-color: $white;
+          position: relative;
+          padding: rem(8);
+
+          @include media-breakpoint-down(sm) {
+            height: rem(35);
+            width: rem(89);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: rem(5);
+          }
+          @include media-breakpoint-down(xs) {
+            height: rem(55);
+            width: rem(135);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: rem(5);
+          }
+          
+          &.active {
+            border: rem(2) solid $black;
+          }
+          &.apple-pay-link {
+             padding: rem(0);
+             background-color: $black;
+             
+            &.active {
+              border: rem(0) solid $black;
+            }
+          }
+
+        }
+
+        .apple-pay-link {
+          border: none;
+          .apple-pay-logo-btn {
+            width: rem(48);
+          }
+        }
+
+        .form-check {
+          padding-left: 0;
+        }
+
+        .credit-card-label {
+          color: $black;
+          font-family: $font-medium;
+          font-size: rem(14);
+          font-weight: 500;
+          letter-spacing: 0.5px;
+          line-height: rem(24);
+          text-align: center;
+          text-transform: capitalize;
+
+          @include media-breakpoint-down(sm) { 
+            font-size: rem(10.89);
+          }
+          @include media-breakpoint-down(xs) { 
+            font-size: rem(14);
+          }
+        }
+
+        .alternative-payment-methods-links {
+          background-color: $white;
+          
+          label {
+            @include media-breakpoint-down(xs) { 
+              width: rem(72);
+            }
+          }
+        }
+
+        .klarna-payment-button {
+          background-color: $klarna-pink;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .google-pay-link {
+          background-color: $white;
+          img {
+            @include media-breakpoint-down(sm) {
+              height: rem(15);
+            }
+            @include media-breakpoint-down(xs) {
+              height: rem(20);
+            }
+          }
         }
       }
-      &:checked {
-        + label::after {
-          content: "\F106";
-        }
+   }
+   
+  .amazonPayPanel {
+    display: none;
+  }
+  .panel {
+    padding-right: rem(10);
+    padding-left: rem(10);
+    margin-left: rem(-10);
+    margin-right: rem(-10);
+    border-top: rem(1) solid $border-color;
+  }
+
+  .accordion-link {
+    margin-top: rem(8);
+    + label {
+      &:before {
+        top: 50%;
+        transform: translateY(-50%);
       }
     }
+  }
 
-    .affirm-payment-method {
+  .affirm-payment-method {
+    @include media-breakpoint-up(md) {
       padding: 0 rem(10) rem(10) rem(10);
       margin: 0;
       width: 100%;
@@ -338,9 +512,14 @@ $stored-payment-spacing: rem(16);
         text-decoration: underline;
       }
     }
+  }
 
-    .affirm-panel-image {
+  .affirm-panel-image {
       width: rem(75);
+      vertical-align: inherit;
+      @include media-breakpoint-down(xs) { 
+        width: rem(72);
+      }
     }
   }
 }

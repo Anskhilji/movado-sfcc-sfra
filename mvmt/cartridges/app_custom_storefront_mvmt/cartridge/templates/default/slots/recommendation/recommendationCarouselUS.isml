@@ -2,6 +2,24 @@
   <script>
       $(document).ready(function() {
           window.slickSlider.initCarousel($('.pdp-product-recommendation'));
+          
+          $('.product-tile-redesign .swatches').slick({
+            infinite: true,
+            speed: 300,
+            slidesToShow: 5,
+            slidesToScroll: 1,
+            dots: false,
+            arrows: true,
+            autoplay: false,
+            responsive: [
+            {
+              breakpoint: 544,
+              settings: {
+                slidesToShow: 3,
+              }
+            },
+          ]
+        });
       });
   </script>
   <div class="container-fluid product-slot-slider pdp-product-recommendation">
@@ -21,7 +39,7 @@
             <isloop items="${slotcontent.content}" var="product">
                 <div class="carousel-tile">
                   <isobject object="${product}" view="recommendation">
-                    <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true, 'plpTile', true)}"/>
+                    <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true, 'plpTile', true, 'lazyload', true)}"/>
                   </isobject>
                 </div>
             </isloop>

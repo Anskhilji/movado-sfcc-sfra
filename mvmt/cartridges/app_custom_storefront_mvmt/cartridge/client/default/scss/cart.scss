@@ -201,14 +201,13 @@
                     font-family: $font-book;
                     font-size: rem(14);
                     letter-spacing: normal;
-
+                    margin: rem(5) rem(0) rem(5) rem(0);
                     @include media-breakpoint-down(xs) {
                         border: none;
                     }
                 }
 
                 .checkout-btn {
-                    margin-bottom: rem(16);
                     line-height: rem(44);
                     background-color: $light-green;
                     box-shadow: none;
@@ -225,7 +224,9 @@
                     &.paypal-btn {
                         background-color: $yellow;
                         border-color: $yellow;
-                        padding: rem(16) rem(20);
+                        padding: rem(0) rem(20);
+                        height: rem(32);
+                        line-height: rem(32);
 
                         &:not(:disabled):not(.disabled):active, &:hover {
                             background-color: $yellow;
@@ -245,7 +246,7 @@
                 }
 
                 .apple-pay-cart {
-                    height: rem(58);
+                    height: rem(32);
                     background-size: 50%;
                 }
 
@@ -843,4 +844,97 @@
 
 .add-bonus-products {
     @include btn-primary;
+}
+
+.google-pay-express-button {
+    margin-bottom: rem(16);
+
+    .google-pay-container {
+        .gpay-button {
+            min-height: rem(32)!important;
+            padding: rem(8) 15% !important;
+            margin-left: rem(0) !important;
+        }
+    }
+}
+
+.gift-box-wrapper-cart {
+    display: flex;
+    align-items: center;
+    margin-bottom: rem(8);
+    margin-top: rem(7);
+
+    .gift-box-wrapper-label {
+        margin-left: rem(0);
+        margin-bottom: 0;
+        font-size: rem(16);
+        text-transform: none;
+        font-weight: 400;
+
+        &.custom-control-label-pdp {
+            display: block;
+            position: relative;
+            padding-left: rem(35);
+            margin-bottom: rem(12);
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            
+                input {
+                    position: absolute;
+                    opacity: 0;
+                    cursor: pointer;
+                    height: 0;
+                    width: 0;
+                }
+
+                .checkmark {
+                    position: absolute;
+                    top: rem(1);
+                    left: 0;
+                    height: rem(20);
+                    width: rem(20);
+                    background-color: transparent;
+                    border: rem(1) solid $black;
+                    border-radius: rem(4);
+                    @include media-breakpoint-down(sm) {
+                        top: rem(0);
+                    }
+                }
+
+                input {
+                    &:checked ~ .checkmark {
+                        background-color: $gossamer;
+                        border-color: $gossamer;
+                    }
+                }
+
+                input {
+                    &:checked ~ .checkmark {
+                        &:after {
+                            display: block;
+                        }
+                    }
+                }
+                
+                .checkmark {
+                    &:after {
+                        content: "";
+                        position: absolute;
+                        display: none;
+                        left: rem(7);
+                        top: rem(3);
+                        width: rem(5);
+                        height: rem(10);
+                        border: solid white;
+                        border-width: 0 rem(3) rem(3) 0;
+                        -webkit-transform: rotate(45deg);
+                        -ms-transform: rotate(45deg);
+                        transform: rotate(45deg);
+                    }
+                }
+        }
+    }
 }

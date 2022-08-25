@@ -409,6 +409,7 @@ function clearSabrixLineTaxAttributes(taxService){
         lineItem.custom.sabrixDistrictTotal = 0;
         lineItem.custom.sabrixAdditionalDistrictTotal = 0;
       });
+      lineItem.updateTax(0); //This is added; due to fail of sabrix service discount was not applied to orderTotal
     }
   }
 }
@@ -510,7 +511,7 @@ function updateLineItemSabrixTax(responseObject, svc){
       var line = invoice.LINE[k];
       var itemMap = svc.itemMap;
       var lineItem = itemMap.get(new Number(line.LINENUMBER).toFixed());
-      var rate = line.TAXSUMMARY.EFFECTIVETAXRATE;
+      var rate = line.TAXSUMMARY.TAXRATE;
 
 			/* var basis = line.TAXSUMMARY.TAXABLEBASIS;
 			var taxAmount =  new money(Number(line.TOTALTAXAMOUNT),invoice.CURRENCYCODE.toString());

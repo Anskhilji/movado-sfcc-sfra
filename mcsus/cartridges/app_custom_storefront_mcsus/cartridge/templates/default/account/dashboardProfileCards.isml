@@ -1,0 +1,41 @@
+<isset name="sitePreferences" value="${require('dw/system/Site').getCurrent().getPreferences().getCustom()}" scope="page" />
+
+<isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addCss('/css/account/account.css');
+</isscript>
+
+<div class="row justify-content-center">
+    <div class="col-sm-6">
+        <!---Profile--->
+        <isinclude template="account/profileCard"/>
+
+        <isif condition="${!pdict.account.isExternallyAuthenticated}">
+            <!---Password--->
+            <isinclude template="account/passwordCard"/>
+        </isif>
+
+        <!---Address Book--->
+        <isinclude template="account/addressBookCard"/>
+    </div>
+    <div class="col-sm-6">
+        <!---Order History--->
+        <isif condition="${sitePreferences.SOMIntegrationEnabled}">
+            <isinclude url="${URLUtils.url('Account-MostRecentOrder','c',pdict.account.profile.email)}" />
+        <iselse/>
+            <isif condition="${pdict.account.orderHistory}">
+                <isset name="order" value="${pdict.account.orderHistory}" scope="page"/>
+                <isinclude template="account/order/orderHistoryCard"/>
+            </isif>
+        </isif>
+        <isif condition="${pdict.account.wishlist}">
+            <!---Wishlist--->
+            <div class="wishlist-account-card test-class" data-error-msg="${Resource.msg('wishlist.removefromwishlist.failure.msg','wishlist',null)}">
+                <isinclude template="account/wishlist/listCards"/>
+            </div>
+        </isif>
+        
+        <!---MyWatches--->
+        	<isinclude template="account/myWatches"/> 
+    </div>
+</div>

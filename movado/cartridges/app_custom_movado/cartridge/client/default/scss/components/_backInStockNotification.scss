@@ -1,6 +1,9 @@
 /*
+
 Font family and minor adjustments have been made in _backInStockNotification SCSS of each site
+
 */
+
 .back-in-stock-notification {
 
     &-button {
@@ -20,12 +23,12 @@ Font family and minor adjustments have been made in _backInStockNotification SCS
         text-transform: uppercase;
         margin-right: rem(15);
 
-
         &:hover {
             background: transparent;
             border: none;
             outline: none;
         }
+
 
         &:focus {
             background: transparent;
@@ -46,7 +49,7 @@ Font family and minor adjustments have been made in _backInStockNotification SCS
         text-align: left;
     }
 
-    &-email {
+    &-email, &-phone {
         width: 100%;
         border-radius: 0;
         border: rem(1) solid $black;
@@ -64,6 +67,7 @@ Font family and minor adjustments have been made in _backInStockNotification SCS
         }
     }
 
+
     &-email-notification-copy {
         height: rem(18);
         color: $black;
@@ -75,10 +79,18 @@ Font family and minor adjustments have been made in _backInStockNotification SCS
         text-align: left;
     }
 
+
     &-form {
         display: flex;
         position: relative;
+
+        .error-msg {
+            text-align: left;
+            color: $red;
+            margin: rem(5) 0;
+        }
     }
+
 
     &-marketing-container {
         display: flex;
@@ -125,10 +137,10 @@ Font family and minor adjustments have been made in _backInStockNotification SCS
                         background-color: $black;
                     }
                 }
-
             }
         }
     }
+
 
     &-container-success {
         display: flex;
@@ -156,5 +168,4 @@ Font family and minor adjustments have been made in _backInStockNotification SCS
         color: $red;
         margin-top: rem(5);
     }
-
 }

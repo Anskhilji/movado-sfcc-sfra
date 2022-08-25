@@ -87,7 +87,9 @@ function calculateTax(basket) {
     } catch (e) {
 			/* clear line tax attributes as service resulted in error */
       sabrixTaxHelper.clearSabrixLineTaxAttributes(taxService);
-      Logger.getLogger('SabrixTaxHelper').debug('Error occured while updating tax in order with error log : ' + e);
+      var exception = 'Error occured while updating tax in order with error on LineNumber: '+ e.lineNumber +' and FileName: '+ e.fileName+' and log : ' + e.toString();
+      sendFalureEmail(exception);
+      Logger.getLogger('SabrixTaxHelper').error(exception);
       session.privacy.taxError = true;
       return new Status(Status.ERROR);
     }

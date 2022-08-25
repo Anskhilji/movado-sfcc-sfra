@@ -1,14 +1,6 @@
 <div class="product-price-rating clearfix">
-    <!-- Product Price -->
-    <iscomment> Custom: Product id removed, product price added </iscomment>
-    <div class="prices">
-        <isset name="price" value="${product.price}" scope="page" />
-        <isinclude template="product/components/pricing/main" />
-    </div>
-    <iscomment> Custom: End </iscomment>
-
-    <!-- Product Rating -->
+  <!-- Product Rating -->
     <div class="ratings">
-        <isinclude template="product/components/productRating" />
+       <isinclude template="product/components/productRating" />
     </div>
-</div>
+ </div>
