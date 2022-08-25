@@ -50,11 +50,11 @@ function sendOrderConfirmationEmail(order, locale) {
     var bottomContent = ContentMgr.getContent('email-confirmation-bottom');
     var emailPickInStoreFooterContent = ContentMgr.getContent('email-footer-pick-in-store');
     var emailPickInStoreHeaderContent = ContentMgr.getContent('email-header-pick-in-store');
-    var bottomPickInStoreContent = ContentMgr.getContent('email-confirmation-pick-in-stock-bottom');
-    var emailMarketingPickInStockContent = ContentMgr.getContent('email-order-confirmation-marketing-pick-in-stock');
+    var bottomPickInStoreContent = ContentMgr.getContent('email-confirmation-pick-in-store-bottom');
+    var emailMarketingPickInStoreContent = ContentMgr.getContent('email-order-confirmation-marketing-pick-in-store');
     var orderModel = new OrderModel(order, { countryCode: currentLocale.country });
 
-    var  orderConfirmationObj = {
+    var orderConfirmationObj = {
         emailHeader: (emailHeaderContent && emailHeaderContent.custom && emailHeaderContent.custom.body ? emailHeaderContent.custom.body : ''),
         emailFooter: (emailFooterContent && emailFooterContent.custom && emailFooterContent.custom.body ? emailFooterContent.custom.body : ''),
         emailMarketingContent: (emailMarketingContent && emailMarketingContent.custom && emailMarketingContent.custom.body ? emailMarketingContent.custom.body : ''),
@@ -65,7 +65,7 @@ function sendOrderConfirmationEmail(order, locale) {
         orderConfirmationObj = {
             emailHeader: (emailPickInStoreHeaderContent && emailPickInStoreHeaderContent.custom && emailPickInStoreHeaderContent.custom.body ? emailPickInStoreHeaderContent.custom.body : ''),
             emailFooter: (emailPickInStoreFooterContent && emailPickInStoreFooterContent.custom && emailPickInStoreFooterContent.custom.body ? emailPickInStoreFooterContent.custom.body : ''),
-            emailMarketingContent: (emailMarketingPickInStockContent && emailMarketingPickInStockContent.custom && emailMarketingPickInStockContent.custom.body ? emailMarketingPickInStockContent.custom.body : ''),
+            emailMarketingContent: (emailMarketingPickInStoreContent && emailMarketingPickInStoreContent.custom && emailMarketingPickInStoreContent.custom.body ? emailMarketingPickInStoreContent.custom.body : ''),
             bottomContent: (bottomPickInStoreContent && bottomPickInStoreContent.custom && bottomPickInStoreContent.custom.body ? bottomPickInStoreContent.custom.body : '')
         };
     }
@@ -108,7 +108,7 @@ function sendOrderConfirmationEmail(order, locale) {
 
     var emailObj = {
         to: order.customerEmail,
-        subject: Resource.msgf('subject.order.confirmation.email', 'order', null, orderModel.orderNumber),
+        subject: order.custom.pickInStore ? Resource.msgf('subject.order.confirmation.email.pickup', 'order', null, orderModel.orderNumber) : Resource.msgf('subject.order.confirmation.email', 'order', null, orderModel.orderNumber),
         from: Site.current.getCustomPreferenceValue('customerServiceEmail') || 'no-reply@salesforce.com',
         type: emailHelpers.emailTypes.orderConfirmation
     };
