@@ -280,6 +280,11 @@
   opacity: 0;
   pointer-events: none;
 
+  @include media-breakpoint-down(xs) {
+      padding-top: rem(68);
+      z-index: 1117;
+  }
+
   .suggested-products-caresoul {
 
     .top-search-tiles {
@@ -324,6 +329,10 @@
   .mobile-search-content {
     border-top: rem(1) solid $gray91;
     padding-top: rem(30);
+
+    @include media-breakpoint-down(xs) {
+        padding-top: rem(0);
+    }
   }
 
     .search {
