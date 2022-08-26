@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://www.demandware.com/xml/impex/metadata/2006-10-31">
+    <custom-type type-id="ltk_dataObject">
+        <display-name xml:lang="x-default">Listrak Data Object</display-name>
+        <description xml:lang="x-default">Data to be sent to Listrak</description>
+        <staging-mode>no-staging</staging-mode>
+        <storage-scope>organization</storage-scope>
+        <key-definition attribute-id="transactionUID">
+            <type>string</type>
+            <min-length>0</min-length>
+        </key-definition>
+        <attribute-definitions>
+            <attribute-definition attribute-id="data">
+                <display-name xml:lang="x-default">Data to be sent to Listrak</display-name>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+                <field-length>0</field-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="endpointPath">
+                <display-name xml:lang="x-default">End Point Path</display-name>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+                <field-length>0</field-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="sentStatus">
+                <display-name xml:lang="x-default">Sent Status</display-name>
+                <description xml:lang="x-default">Marked true if data was successfully sent to Listrak</description>
+                <type>boolean</type>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+        </attribute-definitions>
+        <group-definitions>
+            <attribute-group group-id="dataObject">
+                <display-name xml:lang="x-default">Listrak Data Object</display-name>
+                <attribute attribute-id="data"/>
+                <attribute attribute-id="sentStatus"/>
+                <attribute attribute-id="transactionUID"/>
+            </attribute-group>
+        </group-definitions>
+    </custom-type>
+
+    <custom-type type-id="ltk_emailSignup">
+        <display-name xml:lang="x-default">Listrak Email Signup Configuration</display-name>
+        <staging-mode>no-staging</staging-mode>
+        <storage-scope>organization</storage-scope>
+        <key-definition attribute-id="ltkSubscriptionCode">
+            <display-name xml:lang="x-default">Listrak Subscriber Code</display-name>
+            <type>string</type>
+            <min-length>0</min-length>
+            <field-length>0</field-length>
+        </key-definition>
+        <attribute-definitions>
+            <attribute-definition attribute-id="emailField">
+                <display-name xml:lang="x-default">Email Form Field</display-name>
+                <description xml:lang="x-default">Form field containing the email address to be subscribed</description>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+                <field-length>0</field-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="emailSignupName">
+                <display-name xml:lang="x-default">Email Signup Name</display-name>
+                <description xml:lang="x-default">Name of the email signup configuration</description>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+                <field-length>0</field-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="errorContentAsset">
+                <display-name xml:lang="x-default">Error Signup Content Asset</display-name>
+                <description xml:lang="x-default">This content asset will be made available as a input variable when the Error Signup Template is rendered.</description>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+                <field-length>0</field-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="errorTemplate">
+                <display-name xml:lang="x-default">Error Signup Template</display-name>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+                <field-length>0</field-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="profileField">
+                <display-name xml:lang="x-default">Profile Form Fields</display-name>
+                <description xml:lang="x-default">Name of form field containing Listrak profile data</description>
+                <type>set-of-string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <field-length>0</field-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="signupFlagField">
+                <display-name xml:lang="x-default">Email Signup Flag Field</display-name>
+                <description xml:lang="x-default">Name of the form field that specifies true/false for whether the user should be signed up. Used in places like the checkout form where the user can opt in to the list on an existing form. Leave blank if no flag is used on the submitting form.</description>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+                <field-length>0</field-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="successContentAsset">
+                <display-name xml:lang="x-default">Successful Signup Content Asset</display-name>
+                <description xml:lang="x-default">This content asset will be available in the chosen template as a form input.</description>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+                <field-length>0</field-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="successTemplate">
+                <display-name xml:lang="x-default">Successful Signup Template</display-name>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+                <field-length>0</field-length>
+            </attribute-definition>
+        </attribute-definitions>
+        <group-definitions>
+            <attribute-group group-id="SubscriberSettings">
+                <display-name xml:lang="x-default">Listrak Subscriber Settings</display-name>
+                <attribute attribute-id="emailSignupName"/>
+                <attribute attribute-id="ltkSubscriptionCode"/>
+            </attribute-group>
+            <attribute-group group-id="signupFormValues">
+                <display-name xml:lang="x-default">Signup Form Values</display-name>
+                <attribute attribute-id="emailField"/>
+                <attribute attribute-id="signupFlagField"/>
+                <attribute attribute-id="profileField"/>
+            </attribute-group>
+            <attribute-group group-id="signupResponseContent">
+                <display-name xml:lang="x-default">Signup Response Content</display-name>
+                <attribute attribute-id="successTemplate"/>
+                <attribute attribute-id="successContentAsset"/>
+                <attribute attribute-id="errorTemplate"/>
+                <attribute attribute-id="errorContentAsset"/>
+            </attribute-group>
+        </group-definitions>
+    </custom-type>
+
+    <custom-type type-id="ltk_info">
+        <display-name xml:lang="x-default">Listrak Information</display-name>
+        <staging-mode>no-staging</staging-mode>
+        <storage-scope>site</storage-scope>
+        <key-definition attribute-id="name">
+            <display-name xml:lang="x-default">Name</display-name>
+            <type>string</type>
+            <min-length>0</min-length>
+            <field-length>0</field-length>
+        </key-definition>
+        <attribute-definitions>
+            <attribute-definition attribute-id="value">
+                <display-name xml:lang="x-default">Value</display-name>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+        </attribute-definitions>
+        <group-definitions>
+            <attribute-group group-id="Information">
+                <display-name xml:lang="x-default">Listrak Information</display-name>
+                <attribute attribute-id="name"/>
+                <attribute attribute-id="value"/>
+            </attribute-group>
+        </group-definitions>
+    </custom-type>
+
+    <custom-type type-id="ltk_messageObject">
+        <display-name xml:lang="x-default">Message ID</display-name>
+        <staging-mode>no-staging</staging-mode>
+        <storage-scope>organization</storage-scope>
+        <key-definition attribute-id="messageID">
+            <type>string</type>
+            <min-length>0</min-length>
+        </key-definition>
+        <attribute-definitions>
+            <attribute-definition attribute-id="message">
+                <display-name xml:lang="x-default">Error Message</display-name>
+                <description xml:lang="x-default">Error Message Text</description>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+                <field-length>0</field-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="messageSeverity">
+                <display-name xml:lang="x-default">Message Severity</display-name>
+                <type>enum-of-string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <value-definitions>
+                    <value-definition>
+                        <display xml:lang="x-default">Informational Message</display>
+                        <value>Information</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Warning</display>
+                        <value>Low</value>
+                    </value-definition>
+                    <value-definition default="true">
+                        <display xml:lang="x-default">Standard Error</display>
+                        <value>Medium</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">High Importance Error</display>
+                        <value>High</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Urgent Importance Error</display>
+                        <value>Critical</value>
+                    </value-definition>
+                </value-definitions>
+            </attribute-definition>
+            <attribute-definition attribute-id="scriptName">
+                <display-name xml:lang="x-default">Name of the script in which the error occurred</display-name>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+                <field-length>0</field-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="sentStatus">
+                <display-name xml:lang="x-default">Sent Status</display-name>
+                <description xml:lang="x-default">Has the data been successfully sent to Listrak</description>
+                <type>boolean</type>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="severity">
+                <display-name xml:lang="x-default">Message Level Severity</display-name>
+                <description xml:lang="x-default">1 - Warning&#13;
+5 - Error&#13;
+10 - Terminal Error</description>
+                <type>double</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <field-length>0</field-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="version">
+                <display-name xml:lang="x-default">Software Version</display-name>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+        </attribute-definitions>
+        <group-definitions>
+            <attribute-group group-id="ErrorInfo">
+                <display-name xml:lang="x-default">Error Information</display-name>
+                <attribute attribute-id="creationDate" system="true"/>
+                <attribute attribute-id="scriptName"/>
+                <attribute attribute-id="severity"/>
+                <attribute attribute-id="message"/>
+                <attribute attribute-id="messageSeverity"/>
+                <attribute attribute-id="sentStatus"/>
+                <attribute attribute-id="version"/>
+            </attribute-group>
+        </group-definitions>
+    </custom-type>
+
+</metadata>

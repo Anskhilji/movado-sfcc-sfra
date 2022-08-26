@@ -1,11 +1,37 @@
 @import "~movado/checkout/checkoutComponents";
-
+.klarna-payment-button {
+  .label-klarna-icon {
+    @include media-breakpoint-down(sm) {
+      width: rem(55);
+    }
+    @include media-breakpoint-down(xs) {
+      width: rem(60);
+    }
+  }
+}
 .klarna {
   &-panel {
     &-image {
-      width: rem(77);
-      border-radius: rem(8);
-      height: rem(39);
+      width: rem(68);
+      background: url("../../../images/klarna.svg") center center no-repeat;
+      height: rem(15);
+      position: absolute;
+      left: rem(23);
+      top: rem(13);
+      @include media-breakpoint-down(sm) {
+        background: url("../../../images/klarna-mobile.svg") center center no-repeat;
+        left: 11px;
+        top: 10px; 
+      }
+      @include media-breakpoint-down(xs) {
+        background: url("../../../images/klarna-mobile.svg") center center no-repeat;
+        top: rem(0);
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        left: rem(0); 
+      }
     }
   }
 }

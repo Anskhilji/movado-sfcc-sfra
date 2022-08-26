@@ -1,0 +1,26 @@
+{
+  "name": "Listrak",
+  "version": "20.1.0",
+  "description": "Listrak",
+  "main": "index.js",
+  "engines": {
+    "node": ">=4.0 <12.0.0"
+  },
+  "scripts": {
+    "lint": "npm run lint:css && npm run lint:js",
+    "lint:css": "sgmf-scripts --lint css",
+    "lint:js": "sgmf-scripts --lint js",
+    "lint2": "eslint --fix --ext .js,.jsx ."
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb-base": "^5.0.3",
+    "eslint-plugin-import": "^1.16.0",
+    "eslint-plugin-sitegenesis": "~1.0.0",
+    "sgmf-scripts": "^2.3.0",
+    "style-loader": "^0.21.0",
+    "stylelint": "^8.4.0",
+    "stylelint-config-standard": "^17.0.0",
+    "stylelint-scss": "^2.5.0"
+  }
+}

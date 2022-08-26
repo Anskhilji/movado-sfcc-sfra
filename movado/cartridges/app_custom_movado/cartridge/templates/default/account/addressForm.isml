@@ -111,16 +111,9 @@
                 <label class="form-control-label" for="state">
                     <isprint value="${pdict.addressForm.states.stateCode.label}" encoding="htmlcontent" />
                 </label>
-                <div class="custom-select-wrapper">
-                    <select class="form-control custom-select" id="state"
-                        <isprint value="${pdict.addressForm.states.stateCode.attributes}" encoding="off" />
-                        autocomplete="address-level1">
-                        <isloop items=${pdict.addressForm.states.stateCode.options} var="state">
-                            <option id="${state.id}" value="${state.htmlValue}" <isif condition="${state.selected}">selected</isif>>${state.label || ' '}</option>
-                        </isloop>
-                    </select>
-                    <i class="fa fa-angle-down"></i>
-                </div>
+                <input type="text" class="form-control" id="state"
+                    <isprint value="${pdict.addressForm.states.stateCode.attributes}" encoding="off" />
+                    autocomplete="address-level1">
                 <div class="invalid-feedback"></div>
             </div>
         </div>

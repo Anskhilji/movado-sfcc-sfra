@@ -51,15 +51,24 @@
     .hidden-xs-down{
         text-decoration: underline;
         font-size: rem(14);
-        font-family: $font-medium;
+        font-family: $font-HelveticaNeueLT-medium;
     }
     .privacy-policy{
         margin-top: rem(16);
-        font-family: $font-medium;
+        font-family: $font-HelveticaNeueLT-medium;
     }
     .add-to-email-list {
         text-transform: none;
 	}
+    .signup-verification {
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 0;
+        width: 0;
+        z-index: -1;
+    }
 }
 .login-page{
     .card{
@@ -67,7 +76,7 @@
         align-self: self-start;
     }
     input[placeholder],label{
-        font-family: $font-medium;
+        font-family: $font-HelveticaNeueLT-medium;
     }
 }
 .alert.alert-danger.alert-custom{

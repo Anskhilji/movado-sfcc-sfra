@@ -17,6 +17,7 @@
         
         <iscomment> Custom: [added just a plp check here] </iscomment>
         <isif condition="${!pdict.display.plpTile}"> 
+
             <button class='add-to-cart btn btn-primary ${(!product.readyToOrder || !product.available) ? "out-of-stock-btn" : ""} ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "out-of-stock-btn" : ""}'
                 data-pid="${product.id}"
                 data-add-to-cart-text="${Resource.msg('button.addtocart', 'common', null)}" 
@@ -29,10 +30,10 @@
                     <iselseif condition="${product.available}">
                         ${Resource.msg('button.addtocart', 'common', null)} 
                     <iselse>
-                        ${Resource.msg('button.out.of.stock', 'product', null)}
+                        ${Resource.msg('button.sold.out', 'product', null)}
                     </isif>
                     <isif condition="${!pdict.isPLPProduct}"> 
-                        <span class="product-price-mobile"> 
+                        <span class="product-price-mobile" data-price="${JSON.stringify(product.price)}"> 
                             <isset name="price" value="${product.price}" scope="page" />
                             <div class="add-to-cart-price-holder specific">
                                 <isinclude template="product/components/pricing/main" />
@@ -45,6 +46,11 @@
             <isif condition="${currentCountry.equalsIgnoreCase('US')}" >
                 <isif condition="${product.available && product.readyToOrder}">
                     <isapplepay class="apple-pay-pdp btn" sku="${product.id}"></isapplepay>
+                    <isif condition="${dw.system.Site.current.preferences.custom.isGooglePayEnabled}">
+                         <div class="mt-2">
+                            <isinclude url="${URLUtils.https('GooglePay-RenderButton', 'googlePayEntryPoint', 'Product-Show', 'pid', product.id)}" sf-toolkit="on"/>
+                        </div>
+                    </isif>
                 </isif>
             </isif>
             <iscomment> Custom End </iscomment>
@@ -61,7 +67,7 @@
                     <iselseif condition="${product.available}">
                         ${Resource.msg('button.addtocart', 'common', null)} 
                     <iselse>
-                        ${Resource.msg('button.out.of.stock', 'product', null)}
+                        ${Resource.msg('button.sold.out', 'product', null)}
                     </isif>
                     <isif condition="${!pdict.isPLPProduct}">
                         <span class="product-price-mobile"> 
@@ -79,7 +85,7 @@
                     ${outOfStock ? "disabled" : ""}>
                     <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>
                     <isif condition="${outOfStock}">
-                        ${Resource.msg('button.out.of.stock', 'product', null)}
+                        ${Resource.msg('button.sold.out', 'product', null)}
                     <iselseif condition="${preOrder}">
                         ${Resource.msg('button.preorder.now', 'common', null)}
                     <iselse>

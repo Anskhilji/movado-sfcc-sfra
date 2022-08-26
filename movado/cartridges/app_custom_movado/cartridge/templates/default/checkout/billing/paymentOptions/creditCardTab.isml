@@ -1,15 +1,13 @@
-<div class="form-check panel-heading py-3" data-method-id="${paymentOption.ID}">
-  <div class="panel-title" tabindex="0">
-    <isif condition="${paymentmethod === 'CREDIT_CARD'}" >
-      <isset name="checked" value="checked" scope="page"/>
-    <iselse/>
-      <isset name="checked" value="" scope="page"/>
-    </isif>
-    <input type='radio' id="${paymentOption.ID}" name='paymentOption' class="form-check-input accordion-link" value='credit card' ${checked}/>
-    <label for="${paymentOption.ID}" class="form-check-label d-block">
-      ${Resource.msg('checkout.card.description', 'checkout', null)}  <img src="${URLUtils.staticURL('/images/payment-methods.png')}" alt="${Resource.msg('checkout.credit.logo.text', 'checkout', null)}"/>
-    </label>
-    <a class="credit-card-panel" data-toggle="collapse" aria-controls="credit-card-content" href="${'#' + 'credit-card-content'}">
-    </a>
-  </div>
+
+<isif condition="${paymentmethod === 'CREDIT_CARD'}" >
+    <isset name="checked" value="checked" scope="page"/>
+<iselse/>
+    <isset name="checked" value="" scope="page"/>
+</isif>
+<div class="form-check panel-heading" data-method-id="${paymentOption.ID}">
+    <button id="${paymentOption.ID}" data-bs-toggle="pill" data-bs-target="#credit-card-content" data-method-id="${paymentOption.ID}" name='paymentOption' class="nav-link credit-card-selection active" type="button" role="tab" aria-controls="credit-card-content" aria-selected="true">
+      <label for="${paymentOption.ID}" class="form-check-label credit-card-label d-block">
+          ${Resource.msg('checkout.card.description', 'checkout', null)}
+      </label>
+    </button>
 </div>

@@ -17,6 +17,8 @@
             <iscomment>Custom End: Add klarna payment methods</iscomment>
             <iselseif condition="${payment.paymentMethod === 'DW_APPLE_PAY'}"/>
                 <tr><td class="p" style="line-height:18px;font-size:12px;color:#000001;vertical-align:top;" >${pdict.applePay}</td></tr>
+            <iselseif condition="${payment.paymentMethod === 'GOOGLE_PAY'}" />
+                 <tr><td class="p" style="line-height:18px;font-size:12px;color:#000001;vertical-align:top;" >${Resource.msg('payment.name', 'googlePay', null)}</td></tr>
             <iselse/>
                 <tr><td class="p" style="line-height:18px;font-size:12px;color:#000001;vertical-align:top;" >${payment.owner}</td></tr>
                 <tr><td class="p" style="line-height:18px;font-size:12px;color:#000001;vertical-align:top;" >${payment.type}</td></tr>

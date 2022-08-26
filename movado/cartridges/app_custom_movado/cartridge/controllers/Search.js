@@ -70,18 +70,22 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
         departmentCategoryName: departmentCategoryName 
     });
     var categoryTemplateReDesign = 'search/searchResults';
-
-    if (categoryTemplateReDesign && categoryTemplate && (categoryTemplate.indexOf('searchResults') > 0)) {
-        categoryTemplate = categoryTemplateReDesign;
-        /**
-        * Custom Start: Added logic for OB Redesign.
-        */
-        if (viewData.resultsTemplate && !empty(viewData.resultsTemplate )) {
-            categoryTemplate = viewData.resultsTemplate;
+    var categoryTemplateEyewear = 'search/searchResultsEyewear';
+    if (!empty(categoryTemplate ) && (categoryTemplate == categoryTemplateEyewear)) {
+        categoryTemplate = categoryTemplateEyewear;
+    } else {
+        if (categoryTemplateReDesign && categoryTemplate && (categoryTemplate.indexOf('searchResults') > 0)) {
+            categoryTemplate = categoryTemplateReDesign;
+            /**
+            * Custom Start: Added logic for OB Redesign.
+            */
+            if (viewData.resultsTemplate && !empty(viewData.resultsTemplate )) {
+                categoryTemplate = viewData.resultsTemplate;
+            }
+            /**
+            * Custom End:
+            */
         }
-        /**
-        * Custom End:
-        */
     }
 
 
@@ -97,7 +101,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     pageMetaHelper.setPageMetaTags(req.pageMetaData, productSearch);
 
     var refineurl = URLUtils.url('Search-Refinebar');
-    var whitelistedParams = ['q', 'cgid', 'pmin', 'pmax', 'srule'];
+    var whitelistedParams = ['q', 'cgid', 'pmin', 'pmax', 'srule','pmid'];
     var isRefinedSearch = false;
     Object.keys(req.querystring).forEach(function (element) {
         if (whitelistedParams.indexOf(element) > -1) {
@@ -119,10 +123,14 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
         }
     });
 
+    var isEnableSingleProductRow = searchCustomHelper.getSingleColumnPerRow(productSearch);
+    var isEyewearTile = searchCustomHelper.getEyewearTile(productSearch);
+    var isNonWatchesTileEnable = searchCustomHelper.getIsNonWatchesTileAttribute(productSearch);
+
     if (productSearch.searchKeywords !== null && !isRefinedSearch) {
         reportingURLs = reportingUrlsHelper.getProductSearchReportingURLs(productSearch);
     }
-    
+ 
     if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
     	if (productSearch && productSearch.category && productSearch.category.id){
             var categoryNameWithoutApostrophe = stringUtils.removeSingleQuotes(productSearch.category.name);
@@ -144,30 +152,39 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
         if (isAjax) {
             res.render(resultsTemplate, {
                 productSearch: productSearch,
+                isEyewearTile: isEyewearTile,
+                isEnableSingleProductRow: isEnableSingleProductRow,
                 maxSlots: maxSlots,
                 reportingURLs: reportingURLs,
                 refineurl: refineurl,
-                categoryAnalyticsTrackingData: JSON.stringify(categoryAnalyticsTrackingData)
+                categoryAnalyticsTrackingData: JSON.stringify(categoryAnalyticsTrackingData),
+                isNonWatchesTileEnable: isNonWatchesTileEnable
             });
         } else {
             res.render(categoryTemplate, {
                 productSearch: productSearch,
+                isEyewearTile: isEyewearTile,
+                isEnableSingleProductRow: isEnableSingleProductRow,
                 maxSlots: maxSlots,
                 category: apiProductSearch.category,
                 reportingURLs: reportingURLs,
                 refineurl: refineurl,
                 categoryAnalyticsTrackingData: JSON.stringify(categoryAnalyticsTrackingData),
-                relativeURL: URLUtils.url('Search-Show', 'cgid', productSearch.category.id)
+                relativeURL: URLUtils.url('Search-Show', 'cgid', productSearch.category.id),
+                isNonWatchesTileEnable: isNonWatchesTileEnable
 
             });
         }
     } else {
         res.render(resultsTemplate, {
             productSearch: productSearch,
+            isEnableSingleProductRow: isEnableSingleProductRow,
+            isEyewearTile: isEyewearTile,
             maxSlots: maxSlots,
             reportingURLs: reportingURLs,
             refineurl: refineurl,
-            categoryAnalyticsTrackingData: JSON.stringify(categoryAnalyticsTrackingData)
+            categoryAnalyticsTrackingData: JSON.stringify(categoryAnalyticsTrackingData),
+            isNonWatchesTileEnable: isNonWatchesTileEnable
         });
     }
 
@@ -274,13 +291,18 @@ server.get('ShowContent', cache.applyDefaultCache, function (req, res, next) {
 server.append('UpdateGrid', function (req, res, next) {
     var ProductMgr = require('dw/catalog/ProductMgr');
     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
-
+    var searchCustomHelper = require('*/cartridge/scripts/helpers/searchCustomHelper');
+    var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
     var apiProduct;
     var compareBoxEnabled = Site.getCurrent().preferences.custom.CompareEnabled;
     var marketingProductsData = [];
     var marketingProduct;
     var quantity = 0;
     var marketingProductData;
+    var isEnableSingleProductRow;
+    var isEyewearTile = false;
+    var categoryTemplate;
+    var isNonWatchesTileEnable = searchCustomHelper.getIsNonWatchesTileAttribute(res.viewData.productSearch);
 
     if (res.viewData.productSearch && res.viewData.productSearch.category && res.viewData.productSearch.category.id) {
         for (var i = 0; i < res.viewData.productSearch.productIds.length; i++) {
@@ -291,10 +313,17 @@ server.append('UpdateGrid', function (req, res, next) {
             }
         }
         marketingProductData = JSON.stringify(marketingProductsData);
+        isEnableSingleProductRow = searchCustomHelper.getSingleColumnPerRow(res.viewData.productSearch);
+        isEyewearTile = searchCustomHelper.getEyewearTile(res.viewData.productSearch);
     }
+    
+
     res.setViewData({
         compareBoxEnabled: compareBoxEnabled,
-        marketingProductData: marketingProductData
+        marketingProductData: marketingProductData,
+        isEnableSingleProductRow: isEnableSingleProductRow,
+        isEyewearTile: isEyewearTile,
+        isNonWatchesTileEnable: isNonWatchesTileEnable
     });
     return next();
 });

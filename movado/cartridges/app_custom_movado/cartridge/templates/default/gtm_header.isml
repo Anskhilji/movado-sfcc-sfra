@@ -1,5 +1,6 @@
 <iscomment> Custom: defined the following variable </iscomment>
 <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
+<isset name="isClydeEnabled" value="${!empty(dw.system.Site.current.preferences.custom.isClydeEnabled) ? dw.system.Site.current.preferences.custom.isClydeEnabled : false}" scope="page" />
 <script>
     dataLayer = window.dataLayer = window.dataLayer || [];
     pageDataGTM = {};
@@ -21,8 +22,9 @@
         'pageUrl': '${pdict.gtm.pageUrl}',
         'Page': '${pdict.gtm.pageType}',
         'googleAnalyticsParameters': '${pdict.gtm.googleAnalyticsParameters}',
-        'departmentCategoryName': ''
-
+        'departmentCategoryName': '',
+        'customerIPAddressLocation': '${pdict.gtm.customerIPAddressLocation}',
+        'rakutenAllowedCountries': '${pdict.gtm.rakutenAllowedCountries}'
         
         // Custom: Added country dimension on the the base of ESW enabled
         
@@ -163,7 +165,12 @@
                         'cityStateZipCode': '${produtArray.cartObj.cityStateZipCode}',
                         'subTotal': '${produtArray.cartObj.subTotal}',
                         'paymentMethod': '${produtArray.cartObj.paymentMethod}',
-                        'orderlevelDiscount': '${produtArray.cartObj.orderlevelDiscount}'}
+                        'orderlevelDiscount': '${produtArray.cartObj.orderlevelDiscount}',
+                        <isif condition= "${isClydeEnabled && produtArray.cartObj.optionId !== '' && produtArray.cartObj.optionPrice !== ''}">
+                            'optionId': '${produtArray.cartObj.optionId}',
+                            'optionPrice': '${produtArray.cartObj.optionPrice}'
+                        </isif>
+                        }
                         <isif condition= "${status.index < checkoutObj.length-1}">,</isif>
                     </isloop>
                 ]
@@ -174,6 +181,8 @@
         </isloop>
         );
     </isif>
+
+    <isset name="Site" value="${require('dw/system/Site')}" scope="page" />
     <isif condition="${pdict.gtm.action === 'order-confirm' && session.custom.orderJustPlaced === true}">
     dataLayer.push (
         <isloop items="${pdict.gtm.orderConfirmation}" var="orderProdutsArray" status="loopStatus">
@@ -190,7 +199,14 @@
                                 'shipping': '${orderObj.orderObj.shipping}',
                                 'coupon': '${orderObj.orderObj.orderCoupon}',
                                 'country': '${orderObj.orderObj.country}',
-                                'paymentMethod': '${orderObj.orderObj.paymentMethod}'}
+                                'paymentMethod': '${orderObj.orderObj.paymentMethod}',
+                                <isif condition= "${Site.current.ID === 'OliviaBurtonUK'}">
+                                    'shippingVatAmount': '${orderObj.orderObj.shippingVatAmount}',
+                                    'shippingMerchValue': '${orderObj.orderObj.shippingMerchValue}',
+                                    'orderVatAmount': '${orderObj.orderObj.orderVatAmount}',
+                                    'orderMerchValue': '${orderObj.orderObj.orderMerchValue}'
+                                </isif>
+                                }
                             </isif>
                         </isloop>
                             
@@ -213,7 +229,15 @@
                     'currency': '${orderObj.productObj.currency}',
                     'productQuantityTotal': '${orderObj.productObj.productQuantityTotal}',
                     'subtotal': '${orderObj.productObj.subtotal}',
-                    'orderLevelDiscount': '${orderObj.productObj.orderLevelPromotionPrice}'
+                    'orderLevelDiscount': '${orderObj.productObj.orderLevelPromotionPrice}',
+                    <isif condition= "${isClydeEnabled && orderObj.productObj.optionId !== '' && orderObj.productObj.optionPrice !== ''}">
+                        'optionId': '${orderObj.productObj.optionId}',
+                        'optionPrice': '${orderObj.productObj.optionPrice}'
+                    </isif>
+                    <isif condition= "${Site.current.ID === 'OliviaBurtonUK'}">
+                        'productVatAmount': '${orderObj.productObj.productVatAmount}',
+                        'productMerchValue': '${orderObj.productObj.productMerchValue}'
+                    </isif>
                     }
                     <isif condition= "${status.index < orderProdutsArray.length-2}">,</isif>
                 </isif>

@@ -6,11 +6,37 @@ var cache = require('*/cartridge/scripts/middleware/cache');
 server.extend(page);
 
 var URLUtils = require('dw/web/URLUtils');
+var Site = require('dw/system/Site');
 
-server.append(
+server.replace(
     'IncludeHeaderMenu',
+    server.middleware.include,
+    cache.applyPromotionSensitiveCache,
     function (req, res, next) {
-        res.setViewData({ loggedIn: req.currentCustomer.raw.authenticated });
+        var catalogMgr = require('dw/catalog/CatalogMgr');
+        var Categories = require('*/cartridge/models/categories');
+        var siteRootCategory = catalogMgr.getSiteCatalog().getRoot();
+
+        var topLevelCategories = siteRootCategory.hasOnlineSubCategories() ?
+                siteRootCategory.getOnlineSubCategories() : null;
+
+        var ABTestMgr = require('dw/campaign/ABTestMgr');
+        
+        var menuTemplate = null;
+        
+        // A/B testing for header design
+        if (ABTestMgr.isParticipant('MVMTHeaderRedesign','Control')) {
+            menuTemplate = '/components/header/old/menu';
+        } else if (ABTestMgr.isParticipant('MVMTHeaderRedesign','header-redesign')) {
+            menuTemplate = '/components/header/menu';
+        } else {
+            menuTemplate = '/components/header/old/menu';
+        }
+
+        res.setViewData({ 
+            loggedIn: req.currentCustomer.raw.authenticated
+        });
+        res.render(menuTemplate, new Categories(topLevelCategories));
         next();
     }
 );
@@ -25,7 +51,7 @@ server.get(
         var assigned = ABTestMgr.getAssignedTestSegments();
         var headerTemplate = null;
         // A/B testing for header design
-        if (ABTestMgr.isParticipant('MVMTHeaderRedesign','HamburgerRight')) {
+        if (ABTestMgr.isParticipant('MVMTHeaderRedesign','header-redesign')) {
             headerTemplate = '/components/header/pageHeader';
         } else {
             headerTemplate = '/components/header/old/pageHeader';

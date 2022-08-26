@@ -5,7 +5,7 @@
     <div class="top-search-tiles search-recommendation" data-carousel-config="${slotcontent.custom.carouselConfig ? slotcontent.custom.carouselConfig.replace(/[\n\s]/gi, '') : ''}">
       <isloop items="${slotcontent.content}" var="product" status="loopState">
         <isobject object="${product}" view="recommendation">
-          <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true, 'isTopSearch', true)}"/>
+          <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true, 'isTopSearch', true, 'lazyload', true, 'showAddToCart', true, 'searchSuggestion', true)}"/>
         </isobject>
       </isloop>
     </div>

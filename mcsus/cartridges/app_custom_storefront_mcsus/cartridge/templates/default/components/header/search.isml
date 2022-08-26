@@ -1,0 +1,32 @@
+<div class="site-search">
+    <form role="search" action="${URLUtils.url('Search-Show')}" method="get" name="simpleSearch">
+        <button class="search-icon gtm-customEvent" type="submit" data-gtm-tracking='{"event": "dataTrack","eventCategory": "Search CTA","eventAction": "Click","eventLabel": "${request.httpURL}"}'>
+             <span class="sr-only">"${Resource.msg('label.header.search', 'common', null)}"</span>
+        </button>
+        	<input class="form-control search-field"
+               type="search"
+               name="q"
+               title="${Resource.msg('label.header.searchwatermark', 'common', null)}"
+               value="${!empty(pdict.productSearch) && !empty(pdict.productSearch.searchKeywords)?pdict.productSearch.searchKeywords:''}"
+               placeholder="${Resource.msg('label.header.searchwatermark', 'common', null)}"
+               autocomplete="off"
+               data-query-threshold="${dw.system.Site.getCurrent().getCustomPreferenceValue('SearchMinChars')}" />
+        <div class="suggestions-wrapper" data-url="${URLUtils.url('SearchServices-GetSuggestions', 'q')}"></div>
+        <input type="hidden" value="${pdict.locale}" name="lang" />
+    </form>
+    <div class="row search-recomendation justify-content-center">
+        <div class="col-12">
+            <div class="search-suggestions">
+                <div>
+                    <isslot id="top-search-product-name" description="Top Search Product Name" context="global" />
+                </div>
+                <div>
+                    <isslot id="top-search-product" description="Top Search Product" context="global" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="search-button">
+    <i class="fa fa-search"></i>
+</div>

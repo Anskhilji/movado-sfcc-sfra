@@ -22,6 +22,7 @@ $(document).ready(function () {
     processInclude(require('./clp/clpcustom'));
     processInclude(require('./components/dashboard'));
     processInclude(require('./components/mobileMenu'));
+    processInclude(require('./components/plpVariations'));
     processInclude(require('./components/search'));
     processInclude(require('./utilities/sticky-header'));
     processInclude(require('./utilities/gtm-events'));
@@ -30,6 +31,10 @@ $(document).ready(function () {
     processInclude(require('./components/newsLetterSubscription'));
     processInclude(require('./videoPopup'));
     processInclude(require('./components/miniCartRecommendations'));
+    processInclude(require('movado/components/rakutenCookieHandler'));
+    processInclude(require('googlePay/googlePay'));
+    processInclude(require('movado/components/Coupon'));
+    processInclude(require('./product/slickSearch'));
 });
 
 require('base/components/spinner');

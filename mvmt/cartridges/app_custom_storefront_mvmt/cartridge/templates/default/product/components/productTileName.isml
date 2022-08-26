@@ -2,13 +2,25 @@
 <div class="pdp-link" itemprop="name">
     <iscomment> Custom: [added just a plp check here] </iscomment>
     <isif condition="${!pdict.display.plpTile}">
-        <a class="link product-name" href="${pdict.urls.product}" itemprop="url">${product.productName}</a>
-    
+        <isif condition="${product.defaultVariantColor}">
+            <a class="link product-name" href="${pdict.urls.product}" itemprop="url">${product.defaultVariantColor || ''}</a>
+        <iselse/>
+            <a class="link product-name" href="${pdict.urls.product}" itemprop="url">${product.color || ''}</a>
+        </isif>
     <iscomment> Custom: Start [added this code for plp either it is master product or not] </iscomment>
-    <iselseif condition="${product.productType != 'master' || !product.defaultVariant}">
-        <a class="link product-name" href="${pdict.urls.product}" itemprop="url">${product.productName}</a>
-    <iselse>
-        <a class="link product-name" href="${pdict.urls.product}" itemprop="url">${apiProduct.variationModel.defaultVariant.name}</a>
+    <iselseif condition="${product.productType != 'master' || !product.defaultVariant}"/>
+        <isif condition="${product.isWatchTile}">
+            <a class="link product-name" href="${pdict.urls.product}" itemprop="url">${product.productName || ''}</a>
+        <iselse/>
+            <a class="link product-name" href="${pdict.urls.product}" itemprop="url">${product.color || ''}</a>
+        </isif>
+    <iselse/>
+        <isif condition="${product.isWatchTile}">
+            <a class="link product-name" href="${pdict.urls.product}" itemprop="url">${!empty(apiProduct.variationModel.defaultVariant.name) ? apiProduct.variationModel.defaultVariant.name : product.productName}</a>
+        <iselse/>
+            <a class="link product-name" href="${pdict.urls.product}" itemprop="url">${!empty(product.defaultVariantColor) ? product.defaultVariantColor : product.color}</a>
+        </isif>
     </isif>
 </div>
 </isif>
+

@@ -28,7 +28,7 @@ checkoutCustomHelpers.sendOrderConfirmationEmail = function (order, locale) {
         emailMarketingContent: (emailMarketingContent && emailMarketingContent.custom && emailMarketingContent.custom.body ? emailMarketingContent.custom.body : ''),
         bottomContent: (bottomContent && bottomContent.custom && bottomContent.custom.body ? bottomContent.custom.body : ''),
         orderConfirmationHeading: Resource.msgf('order.confirmation.email.heading', 'order', null, orderModel.orderNumber),
-        salution: Resource.msgf('order.confirmation.email.salution', 'order', null, orderModel.billing.billingAddress.address.firstName, orderModel.billing.billingAddress.address.lastName),
+        salution: Resource.msgf('order.confirmation.email.salution', 'order', null, orderModel.billing.billingAddress.address.firstName, orderModel.billing.billingAddress.address.lastName ? orderModel.billing.billingAddress.address.lastName : ''),
         thankYou: Resource.msgf('order.confirmation.email.thankyou', 'order', null),
         orderNumberHeading: Resource.msgf('order.confirmation.email.no.heading', 'order', null, orderModel.orderNumber),
         orderProcess: Resource.msgf('order.confirmation.email.placed', 'order', null, orderModel.creationDate),
@@ -56,7 +56,8 @@ checkoutCustomHelpers.sendOrderConfirmationEmail = function (order, locale) {
         phoneLabel: Resource.msg('order.confirmation.email.label.phone', 'order', null),
         shippingMethodLabel: Resource.msg('order.confirmation.email.label.shippingmethod', 'order', null),
         shippingStatusLabel: Resource.msg('order.confirmation.email.label.shippingstatus', 'order', null),
-        billingLabel: Resource.msg('order.confirmation.email.label.billingaddress', 'order', null)
+        billingLabel: Resource.msg('order.confirmation.email.label.billingaddress', 'order', null),
+        cuurentOrder: order
     };
 
     var emailObj = {
@@ -117,7 +118,7 @@ checkoutCustomHelpers.sendShippingEmail = function (order) {
         emailMarketingContent: (emailMarketingContent && emailMarketingContent.custom && emailMarketingContent.custom.body ? emailMarketingContent.custom.body : ''),
         bottomContent: (bottomContent && bottomContent.custom && bottomContent.custom.body ? bottomContent.custom.body : ''),
         orderShippingHeading: Resource.msgf('order.shipping.email.heading', 'order', null, orderModel.orderNumber),
-        salution: Resource.msgf('order.confirmation.email.salution', 'order', null, orderModel.billing.billingAddress.address.firstName, orderModel.billing.billingAddress.address.lastName),
+        salution: Resource.msgf('order.confirmation.email.salution', 'order', null, orderModel.billing.billingAddress.address.firstName, orderModel.billing.billingAddress.address.lastName ? orderModel.billing.billingAddress.address.lastName : ''),
         thankYou: Resource.msgf('order.confirmation.email.thankyou', 'order', null),
         quantityLabel: Resource.msg('order.confirmation.email.quantity', 'order', null),
         bonusLabel: Resource.msg('order.confirmation.email.bonus', 'order', null),

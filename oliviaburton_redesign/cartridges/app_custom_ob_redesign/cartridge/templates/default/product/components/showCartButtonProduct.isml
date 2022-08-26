@@ -1,0 +1,7 @@
+<isset name="product" value="${pdict.product}" scope="page"/>
+<isif condition="${pdict.isPLPProduct}">
+    <isinclude template="product/components/addToCartProduct" />
+<iselse>
+    <isinclude template="product/old/components/addToCartProduct" />
+</isif>
+

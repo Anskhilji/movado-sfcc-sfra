@@ -10,11 +10,41 @@
      .leading-lines {
     display:none;
   }
+ }
 }
 
+.progressbar-container {
+  &.confirmation-container {
+     max-width: rem(1300);
+     width: 100%;
+     margin: 0 auto;
+
+     @include media-breakpoint-down(lg) {
+        padding-left: rem(15);
+        padding-right: rem(15);
+        margin: 0 auto;
+    }
+
+    .checkout-progressbar {
+      @include media-breakpoint-up(xs) {
+          display: none;
+      }
+    
+      @include media-breakpoint-up(sm) {
+          display: block;
+          padding: 0;
+      }
+    
+      @include media-breakpoint-up(lg) {
+          padding: 0;
+          padding-top: auto;
+      }
+    }
+  }
 }
+
 .order-thank-you-email-msg {
-  font-family: $font-book;
+  font-family: $font-HelveticaNeueLT-book;
   font-size: rem(14);
   letter-spacing: rem(0.4);
   font-weight: 500;
@@ -71,7 +101,7 @@
 .order-summary-title{
   h5{
     font-size: rem(16);
-    font-family: $font-medium;
+    font-family: $font-HelveticaNeueLT-medium;
     font-weight: 500;
     letter-spacing: rem(2);
   }

@@ -1,37 +1,54 @@
-<isif condition="${paymentmethod === 'Affirm'}" >
-    <isset name="show" value="show" scope="page"/>      
-<iselse/>
-    <isset name="show" value="" scope="page"/>
-</isif>
-<div class="panel-collapse collapse ${show}" id="affirm-content" data-parent="#accordion">
+<isset name="affirmData" value="${require('*/cartridge/scripts/data/affirmData')}" scope="page" />
+<isset name="inStockLabel" value="${require('dw/web/Resource').msg('label.instock', 'common', null)}" scope="page" />
+<isscript>
+    var plis = !empty(pdict.order.items) ? pdict.order.items.items : '';
+    var inStockCheckout = true;
+    for (var i = 0; i < plis.length; i++) {
+        var pli = plis[i]
+        inStockCheckout = pli.availability.messages.every(function(e) { return e === inStockLabel })
+        if (!inStockCheckout) break;
+    }
+</isscript>
+<isset name="showInlineCheckoutMsg" value="${affirmData.getInlineCheckoutMessagingStatus()}" scope="page"/>
+<isset name="showInStockCheckout" value="${affirmData.getShowInStockOnly() ? inStockCheckout : true}" scope="page"/>
+<div class="panel-collapse" id="affirm-content" data-parent="#accordion">
 	<div class="panel-body">
-		<fieldset class="affirm-form">
-			<div class="form-row label-inline affirm-payment-method">
+		<fieldset class="affirm-form pb-3">
+			<div class="affirm-payment-method">
 				<div class="field-wrapper">
+					<input type="hidden" class="form-control"
+					name="${pdict.forms.billingForm.paymentMethod.htmlName}"
+					value="Affirm">
 
-					<label for="affirmPayment" class="field-label">
-						<img alt="${Resource.msg('paymentMethodType.label','forms',null)}" src="https://cdn-assets.affirm.com/images/blue_logo-transparent_bg.png"
-						 title="${Resource.msg('paymentMethodType.label','forms',null)}" />
-						<span>${Resource.msg('payment.monthlypayments', 'affirm', null)}</span>
-						<a class="affirm-product-modal" style="" data-amount="${require('dw/order/BasketMgr').currentBasket.totalGrossPrice.multiply(100).getValue().toFixed()}">${Resource.msg('payment.learnmore',
-							'affirm', null)}</a>
-					</label>
+					<isif condition="${showInStockCheckout}">
+						<isif condition="${showInlineCheckoutMsg}">
+							<div id="affirm-inline-container"></div>
+						<iselse/>
+                            <label for="affirmPayment" class="field-label">
+	                            <img alt="${Resource.msg('paymentMethodType.label','forms',null)}" src="https://cdn-assets.affirm.com/images/blue_logo-transparent_bg.png"
+		                        title="${Resource.msg('paymentMethodType.label','forms',null)}" />
+	                            <span>${Resource.msg('payment.monthlypayments', 'affirm', null)}</span>
+	                            <a class="affirm-product-modal" style="" data-amount="${require('dw/order/BasketMgr').currentBasket.totalGrossPrice.multiply(100).getValue().toFixed()}">${Resource.msg('payment.learnmore',
+		                        'affirm', null)}</a>
+                            </label>
+						</isif>
+					<iselse/>
+						<p class="affirm-not-available">${Resource.msg('payment.info.oos', 'affirm', null)}</p>
+					</isif>
 				</div>
-				${Resource.msg('payment.info', 'affirm', null)}
 			</div>
-		</fieldset>
-		<isset name="affirm" value="${require('int_affirm/cartridge/scripts/affirm.ds')}" scope="page" />
-		<isset name="affirmTotal" value="${pdict.order.totals.grandTotal}" scope="session" />
+			${Resource.msg('payment.info', 'affirm', null)}
+	</fieldset>
+	<isset name="affirm" value="${require('int_affirm/cartridge/scripts/affirm.ds')}" scope="page" />
+	<isset name="affirmTotal" value="${pdict.order.totals.grandTotal}" scope="session" />
 		<!--TODO:FIX: affirmselected and  session.forms.billing.paymentMethod.value == 'Affirm'  -->
-		<div id="affirm-config" data-vcnenabled='<isprint value="${affirm.data.getAffirmVCNStatus() == ' on'}" encoding="on" />'
-		data-affirmenabled='
-		<isprint value="${affirm.data.getAffirmOnlineStatus()}" encoding="on" />'
-		data-affirupdateurl='
-		<isprint value="${URLUtils.url('Affirm-CheckoutObject')}" encoding="on" />'
-		data-mode='
-		<isprint value="${dw.system.Site.getCurrent().getCustomPreferenceValue('AffirmModalEnable').value}" encoding="on" />'
-		>
-	</div>
-
+	<div id="affirm-config" data-vcnenabled='<isprint value="${affirm.data.getAffirmVCNStatus() == ' on'}" encoding="on" />'
+	data-affirmenabled='
+	<isprint value="${affirm.data.getAffirmOnlineStatus()}" encoding="on" />'
+	data-affirupdateurl='
+	<isprint value="${URLUtils.url('Affirm-CheckoutObject')}" encoding="on" />'
+	data-mode='
+	<isprint value="${dw.system.Site.getCurrent().getCustomPreferenceValue('AffirmModalEnable').value}" encoding="on" />'
+	></div>
 </div>
 </div>

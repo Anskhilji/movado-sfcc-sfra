@@ -129,6 +129,22 @@ function createCancelOrRefundRequest(orderNo, merchantAccount, pspReference) {
     return JSON.stringify(requestObj);
 }
 
+/**
+ * creates the request body for technically cancel request
+ * @param orderNo
+ * @param merchantAccount
+ * @returns JSON - Technical Cancel Request Object
+ */
+ function createTechnicalCancelRequest(orderNo, merchantAccount) {
+    var requestObj = {};
+    requestObj.reference = orderNo;
+    requestObj.paymentReference = orderNo;
+    requestObj.merchantAccount = merchantAccount;
+
+    Logger.getLogger('Adyen').debug('Service Request for Technical Cancel  : ' + JSON.stringify(requestObj));
+    return JSON.stringify(requestObj);
+}
+
 
 /**
  * creates the capture or refund request for capturing or refunding the amount sent in status feed
@@ -197,3 +213,4 @@ module.exports.createCancelOrRefundRequest = createCancelOrRefundRequest;
 module.exports.createAdjustAuthorisationRequest = createAdjustAuthorisationRequest;
 module.exports.triggerEmail = triggerEmail;
 module.exports.getUpdatedAuthorizationAmount = getUpdatedAuthorizationAmount;
+module.exports.createTechnicalCancelRequest = createTechnicalCancelRequest;

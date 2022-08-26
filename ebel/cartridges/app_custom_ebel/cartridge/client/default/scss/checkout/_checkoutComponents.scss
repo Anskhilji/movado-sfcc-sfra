@@ -57,6 +57,7 @@ $stored-payment-spacing: rem(16);
 .data-checkout-stage {
   padding-top: rem(10);
   margin-bottom: rem(50);
+  
   .top-grandtotal-label {
     text-transform: uppercase;
   }
@@ -72,7 +73,7 @@ $stored-payment-spacing: rem(16);
   .form-group {
     .form-control-label {
       margin-bottom: 0;
-      font-family: $font-book;
+      font-family: inherit;
       font-size: rem(14);
       line-height: rem(17);
       letter-spacing: rem(0.4);
@@ -88,13 +89,18 @@ $stored-payment-spacing: rem(16);
       border: rem(1) solid $grey14;
       color: $grey14;
     }
+
+    .expirationDate {
+      margin-top: rem(2);
+    }
+    
     .add-address,
     .edit-address {
       margin-top: rem(10);
     }
   }
   .custom-select {
-    font-family: $font-medium;
+    font-family: $font-HelveticaNeueLT-medium;
     font-size: rem(14);
     line-height: rem(17);
     letter-spacing: rem(0.4);
@@ -131,7 +137,7 @@ $stored-payment-spacing: rem(16);
     .order-receipt-label,
     .text-right,
     .sub-total {
-      font-family: $font-medium;
+      font-family: $font-HelveticaNeueLT-medium;
       font-size: rem(16);
       letter-spacing: rem(0.4);
       line-height: rem(21);
@@ -142,7 +148,7 @@ $stored-payment-spacing: rem(16);
     .grand-total {
       .order-receipt-label,
       .text-right {
-        font-family: $font-bold;
+        font-family: $font-HelveticaNeueLT-bold;
         font-size: rem(18);
         letter-spacing: rem(0.4);
         line-height: rem(22);
@@ -182,6 +188,10 @@ $stored-payment-spacing: rem(16);
     .checkout-promo-code-form .form-group {
       padding: 0;
     }
+  }
+ 
+  @include media-breakpoint-up(lg) {
+    padding-top: rem(0);
   }
 }
 
@@ -249,7 +259,7 @@ $stored-payment-spacing: rem(16);
 }
 
 .summary-details {
-  font-family: $font-book;
+  font-family: $font-HelveticaNeueLT-book;
   font-size: rem(14);
   letter-spacing: rem(0.4);
   line-height: rem(21);
@@ -263,7 +273,7 @@ $stored-payment-spacing: rem(16);
 }
 
 .summary-section-label {
-  font-family: $font-medium;
+  font-family: $font-HelveticaNeueLT-medium;
   font-size: rem(14);
   letter-spacing: rem(0.4);
   line-height: rem(17);
@@ -330,16 +340,19 @@ $stored-payment-spacing: rem(16);
     }
 
     .affirm-payment-method {
-      padding: 0 rem(10) rem(10) rem(10);
-      margin: 0;
-      width: 100%;
-      .affirm-product-modal {
-        text-decoration: underline;
+      @include media-breakpoint-up(md) {
+        padding: 0 rem(10) rem(10) rem(10);
+        margin: 0;
+        width: 100%;
+        .affirm-product-modal {
+          text-decoration: underline;
+        }
       }
     }
 
     .affirm-panel-image {
       width: rem(75);
+      vertical-align: inherit;
     }
   }
 }

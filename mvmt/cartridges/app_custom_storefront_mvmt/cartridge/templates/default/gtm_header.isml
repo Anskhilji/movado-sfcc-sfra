@@ -2,6 +2,7 @@
     custom start: set global variable.
 </iscomment>
 <isset name="gtmPageType" value="${pdict.gtm.pageType}" scope="session" />
+<isset name="isClydeEnabled" value="${!empty(dw.system.Site.current.preferences.custom.isClydeEnabled) ? dw.system.Site.current.preferences.custom.isClydeEnabled : false}" scope="page" />
 <script>
     // Custom Start: Update pageDataGTM values according to mvmt.
     dataLayer = window.dataLayer = window.dataLayer || [];
@@ -13,6 +14,7 @@
         'userEmail': '${pdict.gtm.userEmail}',
         'hashedEmail': '${pdict.gtm.userHashedEmail}',
         'customerType': '${pdict.gtm.customerType}',
+        'customerID': '${pdict.customerID}',
         'userFirstName': '${pdict.gtm.userFirstName}',
         'userLastName': '${pdict.gtm.userLastName}',
         'userPhone': '${pdict.gtm.userPhone}',
@@ -25,7 +27,9 @@
         'pageUrl': '${pdict.gtm.pageUrl}',
         'country': '${pdict.gtm.country}',
         'googleAnalyticsParameters': '${pdict.gtm.googleAnalyticsParameters}',
-        'departmentCategoryName': ''
+        'departmentCategoryName': '',
+        'customerIPAddressLocation': '${pdict.gtm.customerIPAddressLocation}',
+        'rakutenAllowedCountries': '${pdict.gtm.rakutenAllowedCountries}'
     };
     
     if (pageDataGTM != undefined && pageDataGTM) {
@@ -50,7 +54,9 @@
                     'productType': '${pdict.gtm.product.productType}',
                     'variant': '${pdict.gtm.product.variant}',
                     'quantity': '${pdict.gtm.product.quantity}',
-                    'currency': '${pdict.gtm.product.currency}'
+                    'currency': '${pdict.gtm.product.currency}',
+                    'familyName': '${pdict.gtm.product.familyName}',
+                    'productColor': '${pdict.gtm.product.productColor}'
                 }]
             }
         },
@@ -86,7 +92,9 @@
                             'cityStateZipCode': '${produtArray.cartObj.cityStateZipCode}',
                             'subTotal': '${produtArray.cartObj.subTotal}',
                             'discount': '${produtArray.cartObj.discount}',
-                            'orderlevelDiscount': '${produtArray.cartObj.orderlevelDiscount}'}
+                            'orderlevelDiscount': '${produtArray.cartObj.orderlevelDiscount}',
+                            'familyName': '${produtArray.cartObj.familyName}',
+                            'productColor': '${produtArray.cartObj.productColor}'}
                             <isif condition= "${status.index < checkoutObj.length-1}">,</isif>
                         </isloop>
                     ]
@@ -115,7 +123,9 @@
                         'description': unescape('${produtArray.cartObj.description}'),
                         'imageURL': '${produtArray.cartObj.imageURL}',
                         'productURL': '${produtArray.cartObj.prouctUrl}',
-                        'barnd': '${produtArray.cartObj.brand}'}
+                        'barnd': '${produtArray.cartObj.brand}',
+                        'familyName': '${produtArray.cartObj.familyName}',
+                        'productColor': '${produtArray.cartObj.productColor}'}
                         <isif condition= "${status.index < checkoutObj.length-1}">,</isif>
                     </isloop>
                     ]
@@ -158,7 +168,14 @@
                     'cityStateZipCode': '${produtArray.cartObj.cityStateZipCode}',
                     'subTotal': '${produtArray.cartObj.subTotal}',
                     'paymentMethod': '${produtArray.cartObj.paymentMethod}',
-                    'orderlevelDiscount': '${produtArray.cartObj.orderlevelDiscount}'}
+                    'orderlevelDiscount': '${produtArray.cartObj.orderlevelDiscount}',
+                    'familyName': '${produtArray.cartObj.familyName}',
+                    'productColor': '${produtArray.cartObj.productColor}',
+                    <isif condition= "${isClydeEnabled && produtArray.cartObj.optionId !== '' && produtArray.cartObj.optionPrice !== ''}">
+                        'optionId': '${produtArray.cartObj.optionId}',
+                        'optionPrice': '${produtArray.cartObj.optionPrice}'
+                    </isif>
+                    }
                     <isif condition= "${status.index < checkoutObj.length-1}">,</isif>
                 </isloop>
                 ]
@@ -211,13 +228,23 @@
                                 'imageURL': '${orderObj.productObj.imageURL}',
                                 'productURL': '${orderObj.productObj.productURL}',
                                 'coupon': '${orderObj.productObj.itemCoupon}',
+                                'unitBasePrice': '${orderObj.productObj.unitBasePrice}',
+                                'unitPriceLessTax': '${orderObj.productObj.unitPriceLessTax}',
+                                'taxOnBasePrice': '${orderObj.productObj.taxOnBasePrice}',
                                 'brand':  '${orderObj.productObj.brand}',
                                 'discountTaxShipping': '${orderObj.productObj.discountTaxShipping}',
                                 'cityStateZipCode': '${orderObj.productObj.cityStateZipCode}',
                                 'currency': '${orderObj.productObj.currency}',
                                 'productQuantityTotal': '${orderObj.productObj.productQuantityTotal}',
                                 'subtotal': '${orderObj.productObj.subtotal}',
-                                'orderLevelDiscount': '${orderObj.productObj.orderLevelPromotionPrice}'}
+                                'orderLevelDiscount': '${orderObj.productObj.orderLevelPromotionPrice}',
+                                'familyName': '${orderObj.productObj.familyName}',
+                                'productColor': '${orderObj.productObj.productColor}',
+                                <isif condition= "${isClydeEnabled && orderObj.productObj.optionId !== '' && orderObj.productObj.optionPrice !== ''}">
+                                    'optionId': '${orderObj.productObj.optionId}',
+                                    'optionPrice': '${orderObj.productObj.optionPrice}'
+                                </isif>
+                                }
                                 <isif condition= "${status.index < orderProdutsArray.length-2}">,</isif>
                             </isif>
                         </isloop>

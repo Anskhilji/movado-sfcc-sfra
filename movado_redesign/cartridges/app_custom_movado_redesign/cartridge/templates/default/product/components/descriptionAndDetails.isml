@@ -3,7 +3,9 @@
           <div class="col-sm-6 col-md-7 description">
             <div class="row">
                 <div class="col-md-10">
-                    <isinclude template="product/components/highlights" />
+                    <isif condition="${!empty(dw.system.Site.current.preferences.custom.isHighlightEnabled) ? dw.system.Site.current.preferences.custom.isHighlightEnabled :false}">
+                        <isinclude template="product/components/highlights" />
+                    </isif>
                 </div>
             </div>
           </div>
@@ -15,6 +17,13 @@
             </isif>
         </isif>
     </div>
+    <isslot id="cs_pdp_marketing-section-1" description="content section" context="global" />
+    <div class="pdp-content-asset-wrapper">
+        <isif condition="${!empty(product.pdpMarketingContentAssetHTML)}">
+            <isprint value="${product.pdpMarketingContentAssetHTML}" encoding="off" />
+        </isif>
+    </div>
+    <isslot id="cs_pdp_marketing-section-2" description="content section" context="global" />
     <iscomment>Yotpo reviews widget will appear here, if these needs to be relocated
      then appropriate template should be overridden. </iscomment>
     <isinclude template="widget/yotporeviewswidget" />

@@ -12,6 +12,14 @@ $arrow-height: 1.25em;
     min-width: auto;
 }
 
+.product-detail {
+    .google-pay-container {
+        .gpay-button {
+            border-radius: rem(0);
+        }
+    }
+}
+
 .container-fluid.pdp-v-one {
     padding-top: rem(16);
     padding-bottom: rem(16);
@@ -56,6 +64,8 @@ $arrow-height: 1.25em;
         font-size: rem(17);
         color: $grey8;
         letter-spacing: normal;
+        width: 100%;
+        text-transform: capitalize;
     }
 
     .price {
@@ -63,6 +73,13 @@ $arrow-height: 1.25em;
         font-size: rem(34);
         color: $grey8;
         letter-spacing: normal;
+    }
+
+    .tax-duties {
+        display: inline-block;
+        color: $storm-gray;
+        margin-bottom: rem(15);
+        font-size: rem(14);
     }
 
     .prices {
@@ -75,6 +92,12 @@ $arrow-height: 1.25em;
         color: $grey8;
         letter-spacing: normal;
         margin: 0;
+        width: 100%;
+        height: rem(40);
+
+        @include media-breakpoint-down(xs) {
+            height: auto;
+        }
 
         .affirm-modal-trigger {
             @include font-demi;
@@ -98,6 +121,7 @@ $arrow-height: 1.25em;
         font-size: rem(16);
         letter-spacing: normal;
         width: 100%;
+        height: rem(38);
     }
 
     .slick-slide {
@@ -199,6 +223,8 @@ $arrow-height: 1.25em;
 
         .cs-carousel-wrapper {
             margin-bottom: rem(10);
+            width: 100%;
+            height: 100%;
 
             .slick-arrow.slick-next {
                 background-image: url("../../images/slide-right-arrow.png");
@@ -240,7 +266,7 @@ $arrow-height: 1.25em;
 
                     @include media-breakpoint-up(xl) {
                         min-width: auto;
-                        max-width: 70%;
+                        max-width: 100%;
                     }
                 }
             }
@@ -461,6 +487,7 @@ $arrow-height: 1.25em;
     .product-number-rating {
         display: flex;
         align-items: center;
+        width: 100%;
     }
 
     .drop-hint {
@@ -472,11 +499,48 @@ $arrow-height: 1.25em;
         outline: none;
         letter-spacing: normal;
         text-decoration: none;
+        width: rem(200);
+        height: rem(22);
+
+        @include media-breakpoint-down(xs) {
+            width: rem(160);
+        }
+
+        @media only screen and (max-width: $custom-sm13) {
+            width: rem(96);
+            padding-left: rem(25);
+        }
+        
+        
     }
 
     .ratings {
         margin: 0;
         margin-right: rem(25);
+        width: rem(212);
+        height: rem(20);
+
+        @include media-breakpoint-up(md) {
+            margin-right: rem(25);
+        }
+
+        @include media-breakpoint-up(lg) {
+            margin-right: rem(10);
+        }
+
+        @include media-breakpoint-down(xs) {
+            width: 100%;
+        }
+
+        @media only screen and (max-width: $custom-sm13) {
+            margin-right: rem(0);
+        }
+
+    }
+
+    .ratings-redesign {
+        width: rem(0)!important;
+        height: rem(0)!important;
     }
 
     .product-tile {
@@ -1398,6 +1462,9 @@ $arrow-height: 1.25em;
 
         .bottom-detail-mobile {
             margin-top: rem(-50);
+            @include media-breakpoint-down(xs) {
+                margin-top: rem(-34);
+            }
         }
 
         .promotions {
@@ -1409,6 +1476,11 @@ $arrow-height: 1.25em;
 
         .primary-images {
             margin-bottom: rem(20);
+            min-height: 70vh;
+            height: auto;
+            @include media-breakpoint-down(xs) {
+                min-height: 50vh;
+            }
         }
     }
 
@@ -1554,6 +1626,56 @@ $arrow-height: 1.25em;
 
     }
 
+    .pdp-movado {
+        &.prices-add-to-cart-actions {
+
+            &.cart-sticky-wrapper-btn {
+                display: none;
+
+                @include media-breakpoint-down(xs) {
+                    position: fixed;
+                    bottom: 0;
+                    background-color: $white;
+                    padding: rem(10);
+                    box-shadow: rem(10) rem(10) rem(6) rem(6) $grey-dark-2;
+
+                    .prices {
+                        padding: rem(0);
+
+                        .price {
+                            font-size: rem(16);
+                            margin: rem(0);
+                            font-weight: 400;
+                        }
+                    }
+
+                    .smart-gift-btn {
+                        display: none;
+                    }
+
+                    @include media-breakpoint-down(xs) {
+                        display: block;
+                    }
+                }
+
+                .apple-pay-pdp {
+                    display: none;
+                }
+
+                &.scroll-hidden {
+                    visibility: hidden;
+                    transition: all 0.6s;
+                    opacity: 0;
+                }
+
+                &.scroll-bottom {
+                    bottom: rem(0);
+                    transform: translateY(0);
+                    transition: all 0.6s;
+                }
+            }
+        }
+    }
 }
 
 @media only screen and (min-width: $custom-xll) {

@@ -121,7 +121,7 @@ $slide-out-animation: left 0.5s cubic-bezier(0, 1, 0.5, 1);
         display: flex;
         align-items: center;
         font-size: rem(16);
-        font-family: $font-medium;
+        font-family: $font-HelveticaNeueLT-medium;
         font-weight: 500;
       }
       .close-button {
@@ -143,7 +143,7 @@ $slide-out-animation: left 0.5s cubic-bezier(0, 1, 0.5, 1);
         .dropdown-link,
         .nav-link {
           color: $grey10;
-          font-family: $font-bold;
+          font-family: $font-HelveticaNeueLT-bold;
           font-size: rem(14);
           font-weight: bold;
           letter-spacing: rem(0.4);
@@ -246,7 +246,7 @@ $slide-out-animation: left 0.5s cubic-bezier(0, 1, 0.5, 1);
     align-items: center;
     .nav-item {
       .nav-link {
-        font-family: $font-medium;
+        font-family: $font-HelveticaNeueLT-medium;
         font-weight: 500;
         font-size: rem(14);
       }
@@ -315,7 +315,7 @@ $slide-out-animation: left 0.5s cubic-bezier(0, 1, 0.5, 1);
           span {
             display: block;
             font-size: rem(14);
-            font-family: $font-book;
+            font-family: $font-HelveticaNeueLT-book;
             font-weight: 300;
           }
           &:first-child {
@@ -336,7 +336,7 @@ $slide-out-animation: left 0.5s cubic-bezier(0, 1, 0.5, 1);
       }
       .dropdown-toggle {
         color: $grey10;
-        font-family: $font-bold;
+        font-family: $font-HelveticaNeueLT-bold;
         font-size: rem(14);
         font-weight: bold;
         position: static;
