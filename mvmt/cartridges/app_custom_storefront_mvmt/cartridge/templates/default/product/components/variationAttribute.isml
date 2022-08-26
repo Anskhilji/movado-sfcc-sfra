@@ -36,10 +36,11 @@ Template Notes:
             <isloop items="${attr.values}" var="attrValue">
                 <isif condition="${!(isBundle && product.productType === 'variant' && !attrValue.selected) }">
                     <a  href="${attrValue.url}"
-                        class=" product-size-options color-variation 
+                        class=" product-size-options color-variation
+                                ${attr.id == 'colorWatch' ? 'swatchs-redesign' : ''}
                                 ${attrValue.selected ? 'active' : ''}
                                 ${!attrValue.selectable ? 'disabled' : ''} "
-                        style="background-image: url(${attrValue.images['swatch'][0].url})"
+                        style="background-image: url(${attr.id == 'colorWatch' ? attrValue.tileImage300X300.url : attrValue.images['swatch'][0].url})"
                         ${ product.productType === "variant" && isBundle ? "disabled" : "" }>
                             <span data-attr-value="${attrValue.value}" class=" ${attr.id}-value ${attrValue.selectable ? '' : 'disabled'}">
                             </span>
