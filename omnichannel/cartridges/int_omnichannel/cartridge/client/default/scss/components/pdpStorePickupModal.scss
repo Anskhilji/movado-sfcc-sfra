@@ -3,24 +3,29 @@
 
 .store-pickup-modal-body {
   min-height: rem(534);
+  padding: rem(0);
 }
 
 .pickup-store-pdetail {
-  padding-left: rem(20);
+  padding-left: rem(50.5);
+  margin: rem(9) rem(0) rem(30) rem(0);
 
   &-pd-specification {
-    padding-top: rem(15);
+    padding: rem(0);
   }
   
   &-product-name {
+    font-family: $font-demi;
     color: $light-gray-black;
     font-size: rem(16);
     font-weight: 300;
     letter-spacing: rem(0.7);
     line-height: rem(24);
+    margin-bottom: rem(0);
   }
 
   &-product-number {
+    font-family: $font-demi;
     color: $light-gray-brown;
     font-size: rem(12);
     font-weight: 300;
@@ -28,10 +33,51 @@
     line-height: rem(24);
   }
 
+  .img-outer {
+    width: rem(100);
+    height: rem(100);
+    margin-right: rem(30);
+  }
+
   .price {
     font-size: rem(12);
     color: $black-dark;
+    margin-top: rem(10);
+
+    .price-pdp-mvmt {
+
+      .strike-through  {
+
+        .value {
+            color: $light-gray-white;
+            font-family: $font-demi;
+            font-size: rem(12);
+            font-weight: 300;
+            letter-spacing: rem(0.53);
+            line-height: rem(24);
+            margin: rem(0);
+        }
+      }
+
+      .sale-price-mvmt {
+
+        .value {
+          color: $black-dark;
+          font-family: $font-demi;
+          font-size: rem(12);
+          font-weight: 300;
+          letter-spacing: rem(0.53);
+          line-height: rem(24);
+          margin: rem(0);
+        }
+      }
+    }
   }
+}
+
+.hr-width {
+  width: 80%;
+  margin: 0 auto;
 }
 
 .total-stores {
