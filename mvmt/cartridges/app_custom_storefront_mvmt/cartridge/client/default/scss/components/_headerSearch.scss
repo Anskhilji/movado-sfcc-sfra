@@ -331,7 +331,7 @@
     padding-top: rem(30);
 
     @include media-breakpoint-down(xs) {
-        padding-top: rem(0);
+        padding-top: rem(10);
     }
   }
 
