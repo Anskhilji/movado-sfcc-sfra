@@ -191,7 +191,8 @@
                             </div>
                         </div>
                         <isset name="giftBoxMessage" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxMessage) ? dw.system.Site.current.preferences.custom.giftBoxMessage : ''}" scope="page" />
-                        <isif condition="${!empty(product.isGiftBoxAllowed) && product.isGiftBoxAllowed && product.giftBoxSKUData.giftBoxSKUAvailability}">
+                        <isset name="giftBoxEnabled" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxEnabled) ? dw.system.Site.current.preferences.custom.giftBoxEnabled : false}" scope="page" />
+                        <isif condition="${!empty(product.isGiftBoxAllowed) && product.isGiftBoxAllowed && product.giftBoxSKUData.giftBoxSKUAvailability && giftBoxEnabled}">
                             <div class="gift-box-wrapper gift-box-wrapper-pdp d-show-mobile custom-checkbox-pdp">
                                 <label for="gift-allowed-checkout-mob" class="gift-box-wrapper-label custom-control-label-pdp">
                                     <input id="gift-allowed-checkout-mob" type="checkbox" name="gift-allowed-checkout" class="gift-box-wrapper-checkbox gift-allowed-checkbox" value="${product.giftBoxSKUData.giftBoxSKU}">
@@ -272,7 +273,7 @@
                                 </div>
                             </div>
                         </div>
-                        <isif condition="${!empty(product.isGiftBoxAllowed) && product.isGiftBoxAllowed && product.giftBoxSKUData.giftBoxSKUAvailability}">
+                        <isif condition="${!empty(product.isGiftBoxAllowed) && product.isGiftBoxAllowed && product.giftBoxSKUData.giftBoxSKUAvailability && giftBoxEnabled}">
                             <div class="gift-box-wrapper gift-box-wrapper-pdp d-show-desktop custom-checkbox-pdp">
                                 <label for="gift-allowed-checkout" class="gift-box-wrapper-label custom-control-label-pdp">
                                     <input id="gift-allowed-checkout" type="checkbox" name="gift-allowed-checkout" class="gift-box-wrapper-checkbox gift-allowed-checkbox" value="${product.giftBoxSKUData.giftBoxSKU}">

@@ -578,6 +578,28 @@ function handleVariantResponse(response, $productContainer) {
         }
     }
 
+    if (!(response.product.isGiftBoxAllowed)) {
+        $('.gift-box-wrapper').css('visibility', 'hidden');
+        if($('.product-side-details .gift-allowed-checkbox').is(":checked")) {
+            $('.product-side-details .gift-allowed-checkbox').prop("checked", false);
+        }
+    } else {
+        if ($(window).width() >= 768) {
+            if($('.gift-box-wrapper').attr('style')) {
+                $('.gift-box-wrapper').removeAttr('style');
+            }
+            $('.gift-box-wrapper.d-desktop-show').show();
+        } else {
+            if($('.gift-box-wrapper').attr('style')) {
+                $('.gift-box-wrapper').removeAttr('style');
+            }
+            $('.gift-box-wrapper.d-mobile-show').show();
+        }
+        if($('.product-side-details .gift-allowed-checkbox').is(":checked")) {
+            $('.product-side-details .gift-allowed-checkbox').prop("checked", false);
+        }
+    }
+
     //Update Product Title
     if (typeof response.product.productName !== 'undefined' && response.product.productName !== '' && response.product.productName !== null) {
         $productContainer.find('.product-name').text(response.product.productName);
@@ -1159,6 +1181,7 @@ module.exports = {
             var pid;
             var pidsObj;
             var setPids;
+            var giftPid;
 
             $('body').trigger('product:beforeAddToCart', this);
 
@@ -1179,8 +1202,14 @@ module.exports = {
 
             if ($(this).closest('.product-detail') && $(this).closest('.product-detail').data('isplp') == true) {
                 pid = $(this).data('pid');
+                if ($('.gift-allowed-checkbox').is(":checked")) {
+                    giftPid = $('.gift-allowed-checkbox').val();
+                }
             } else {
             	pid = getPidValue($(this));
+                if ($('.gift-allowed-checkbox').is(":checked")) {
+                    giftPid = $('.gift-allowed-checkbox').val();
+                }
             }
 
             var $productContainer = $(this).closest('.product-detail');
@@ -1194,7 +1223,8 @@ module.exports = {
                 pid: pid,
                 pidsObj: pidsObj,
                 childProducts: getChildProducts(),
-                quantity: getQuantitySelected($(this))
+                quantity: getQuantitySelected($(this)),
+                giftPid: giftPid ? giftPid : ''
             };
 
             /**
@@ -1205,7 +1235,8 @@ module.exports = {
                     pid: pid,
                     pidsObj: pidsObj,
                     childProducts: getChildProducts(),
-                    quantity: 1
+                    quantity: 1,
+                    giftPid: giftPid ? giftPid : ''
                 };
             }
             /**

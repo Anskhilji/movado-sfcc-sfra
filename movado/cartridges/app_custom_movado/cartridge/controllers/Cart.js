@@ -15,6 +15,7 @@ server.prepend('AddProduct', function (req, res, next) {
     var Transaction = require('dw/system/Transaction');
     var BasketMgr = require('dw/order/BasketMgr');
     var currentBasket = BasketMgr.getCurrentBasket();
+    var ProductMgr = require('dw/catalog/ProductMgr');
 
     if (!empty(req.form.isGiftItem)) {
         var lineItemsIterator = currentBasket.allProductLineItems.iterator();
@@ -115,6 +116,7 @@ server.append('AddProduct', function (req, res, next) {
                 }
             });
         }
+
         var productLineItems = currentBasket.productLineItems.iterator();
         var productLineItem;
         var quantity;
@@ -250,6 +252,25 @@ server.post('AddGiftMessage',
     next();
 });
 
+server.prepend(
+    'Show',
+    server.middleware.https,
+    consentTracking.consent,
+    csrfProtection.generateToken,
+    function (req, res, next) {
+    res.setViewData({ loggedIn: req.currentCustomer.raw.authenticated });
+    var BasketMgr = require('dw/order/BasketMgr');
+    var CartModel = require('*/cartridge/models/cart');
+    var currentBasket = BasketMgr.getCurrentOrNewBasket();
+    var basketModel = new CartModel(currentBasket);
+    var productLineItems = currentBasket.productLineItems.iterator();
+
+    while (productLineItems.hasNext()) {
+        var productLineItem = productLineItems.next();
+    }
+
+next();
+});
 
 server.append(
 	    'Show',
@@ -443,10 +464,12 @@ server.get(
 
 server.append('RemoveProductLineItem', function (req, res, next) {
     var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
+    var ArrayList = require('dw/util/ArrayList');
     var BasketMgr = require('dw/order/BasketMgr');
     var currentBasket = BasketMgr.getCurrentOrNewBasket();
     var emptyCartDom;
     var Site = require('dw/system/Site');
+    var Transaction = require('dw/system/Transaction');
     var isKlarnaCartPromoEnabled = Site.current.getCustomPreferenceValue('klarnaCartPromoMsg');
 
     emptyCartDom = customCartHelpers.getCartAssets();
@@ -472,6 +495,29 @@ server.append('RemoveProductLineItem', function (req, res, next) {
             });
         }
         res.setViewData({emptyCartDom: emptyCartDom});
+    }
+
+    var giftProductSku;
+    var pid = req.querystring.pid;
+    var giftBoxCategorySKUPairArray = !empty(Site.current.preferences.custom.giftBoxCategorySKUPair) ? new ArrayList(Site.current.preferences.custom.giftBoxCategorySKUPair).toArray() : '';
+
+    for (var i = 0; i < giftBoxCategorySKUPairArray.length; i++) {
+        giftProductSku = giftBoxCategorySKUPairArray[i].split("|");
+
+        if (pid != giftProductSku[1]) {
+            continue;
+        } else {
+            if (pid == giftProductSku[1]) {
+                var lineItems = currentBasket.allProductLineItems.toArray().filter(function(product) {
+                    return product.custom.giftPid == pid;
+                });
+                for (var j = 0; j < lineItems.length; j++) {
+                    Transaction.wrap(function () {
+                        lineItems[j].custom.giftPid = "";
+                    });
+                }
+            }
+        }
     }
     res.setViewData({isKlarnaCartPromoEnabled: isKlarnaCartPromoEnabled});
 	 next();
