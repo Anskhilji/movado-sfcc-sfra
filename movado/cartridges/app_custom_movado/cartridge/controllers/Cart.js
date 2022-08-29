@@ -116,7 +116,6 @@ server.append('AddProduct', function (req, res, next) {
                 }
             });
         }
-
         var productLineItems = currentBasket.productLineItems.iterator();
         var productLineItem;
         var quantity;
