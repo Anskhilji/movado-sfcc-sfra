@@ -52,6 +52,9 @@
                         </isif>
                     </div>
                 </div>
+                <div class="col-12">
+                    <hr class="d-block d-sm-none">
+                </div>
             </div>
         </isloop>
     </div>
