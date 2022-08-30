@@ -148,7 +148,7 @@
         </isif>
     </div>
     <div class="no-results-carousel plp-new-design">
-       <isif condition="${pdict.contentSearch && pdict.contentSearch.contentCount == 0}">
+       <isif condition="${pdict.contentSearch && pdict.contentSearch.contentCount == 0 && pdict.productSearch.productIds.length == 0}">
             <isslot id="cs-noresult-recommendations" description="Recommendations for no result search" context="global" />
        </isif>
     </div>
