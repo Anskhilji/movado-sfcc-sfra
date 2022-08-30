@@ -302,8 +302,24 @@ function getProductPromoAndSalePrice(product) {
             salePrice = formatMoney(promotionalPrice);
         }
         return salePrice;
-    } catch(e) {
+    } catch (e) {
         Logger.error('(productCustomHelper.js -> getProductPromoAndSalePrice) Error occured while getting promo price: ' + e.stack, e.message, product.ID);
+    }
+}
+
+function getOCIPreOrderParameters(apiProduct) {
+    try {
+        var ociPreOrderObject = {};
+        if (!empty(apiProduct)) {
+            var productAvailabilityModel = apiProduct.getAvailabilityModel();
+            ociPreOrderObject.ociPreOrderProductAllocation = !empty(productAvailabilityModel.inventoryRecord.allocation.value) ? productAvailabilityModel.inventoryRecord.allocation.value : null;
+            ociPreOrderObject.ociPreOrderProductATO = !empty(productAvailabilityModel.inventoryRecord.ATS.value) ? productAvailabilityModel.inventoryRecord.ATS.value : null;
+            ociPreOrderObject.ociPreOrderProductFuture = !empty(productAvailabilityModel.inventoryRecord.backorderable) ? productAvailabilityModel.inventoryRecord.backorderable : null;
+        }
+        return ociPreOrderObject;
+    } catch (e) {
+        Logger.error('(productCustomHelper.js -> getOCIPreOrderParameters) Error occured while getting omni channel inventory attributes. Product {0}: \n Error: {1} \n', apiProduct.ID, e);
+        return '';
     }
 }
 
@@ -316,7 +332,8 @@ module.exports = {
     getCurrentCountry: getCurrentCountry,
     getPDPContentAssetHTML: getPDPContentAssetHTML,
     getPLPCustomURL: getPLPCustomURL,
-    getProductCategory:getProductCategory,
+    getOCIPreOrderParameters: getOCIPreOrderParameters,
+    getProductCategory: getProductCategory,
     isGiftBoxAllowed: isGiftBoxAllowed,
     getGiftBoxSKU: getGiftBoxSKU
 };

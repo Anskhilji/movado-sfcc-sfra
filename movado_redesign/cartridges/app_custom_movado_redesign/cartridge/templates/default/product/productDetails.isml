@@ -173,6 +173,8 @@
                                                 <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>
                                                 <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
                                                     ${Resource.msg('button.preorder.now', 'common', null)} </br>
+                                                <iselseif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.backorder', 'common', null) && !empty(product) && !empty(product.ociPreOrderParameters) && product.ociPreOrderParameters.ociPreOrderProductAllocation === 0.00 && product.ociPreOrderParameters.ociPreOrderProductATO > 0 && product.ociPreOrderParameters.ociPreOrderProductFuture === true}"/>
+                                                    ${Resource.msg('button.preorder.now', 'common', null)} </br>
                                                 <iselse/>
                                                     ${Resource.msg('button.addtocart', 'common', null)}
                                                 </isif>
