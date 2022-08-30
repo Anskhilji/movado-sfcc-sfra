@@ -13,6 +13,7 @@ require('dw/net');
 require('dw/object');
 
 var Calendar = require('dw/util/Calendar');
+var Site = require('dw/system/Site');
 
 var ErrorHandling = require('~/cartridge/scripts/util/ltkErrorHandling.js');
 importScript('sync/ltkExportUtils.js');
@@ -34,6 +35,7 @@ function productSync() {
     var subCategoryLevels = dw.system.Site.current.preferences.custom.Listrak_SubcategoryLevels;
 	// If maxRelated = 0, related products won't be exported
     var maxRelated = dw.system.Site.current.preferences.custom.Listrak_MaxRecommendedProductExport;
+    var categoryLevelAttributes = Site.getCurrent().getCustomPreferenceValue('Listrak_CategoryLevelAttributes');
     if (subCategoryLevels <= 0) {
         subCategoryLevels = 1;
     } // if not set, use default of 1
@@ -90,6 +92,23 @@ function productSync() {
             productFile.AddRowItem('SalePrice');
             // Custom End
 
+            // Custom Start: [MSS-1696 Listrak - Create New Product Feed for MVMT - Add Gender]
+            var productFeedJson = Site.getCurrent().getCustomPreferenceValue('Listrak_ProductFeedGenderAttribute');
+            if (!empty(productFeedJson)) {
+                productFile.AddRowItem('Gender');
+            }
+            // Custom End
+
+            // Custom Start: [MSS-1697 Add Collection URL, Strap Width, Case Diameter, Family Name to Listrak MVMT Product Feed]
+            if (categoryLevelAttributes) {
+                productFile.AddRowItem('Review URL');
+                productFile.AddRowItem('Meta4');
+                productFile.AddRowItem('Meta5');
+                productFile.AddRowItem('Style');
+                productFile.AddRowItem('Meta1');
+                productFile.AddRowItem('Size');
+            }
+            // Custom End
             productFile.WriteRow();
 
 			// //////// Write product rows //////////
@@ -214,6 +233,24 @@ function productSync() {
                 productFile.AddRowItem(prd.onSale == true ? prd.salePrice : '' , true);
                 // Custom End
 
+                // Custom Start: [MSS-1696 Listrak - Create New Product Feed for MVMT - Add Gender]
+                if (!empty(productFeedJson)) {
+                    productFile.AddRowItem(prd.watchGender, true);
+                }
+                // Custom End
+
+                
+                // Custom Start: [MSS-1697 Add Collection URL, Strap Width, Case Diameter, Family Name to Listrak MVMT Product Feed]
+                if (categoryLevelAttributes) {
+                    productFile.AddRowItem(prd.reviewURL, true);
+                    productFile.AddRowItem(prd.meta4, true);
+                    productFile.AddRowItem(prd.meta5, true);
+                    productFile.AddRowItem(prd.style, true);
+                    productFile.AddRowItem(prd.meta1, true);
+                    productFile.AddRowItem(prd.size, true);
+                }
+                // Custom End
+                
                 productFile.WriteRow();
             }
         } catch (e) {

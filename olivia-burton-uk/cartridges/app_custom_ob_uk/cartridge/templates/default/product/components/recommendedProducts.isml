@@ -31,10 +31,16 @@
                         </div>
                         <div class="upsell-text">
                             <p class="upsell-text-add"><span class="upsell-text-add-icon"></span>
-                                <isif condition="${dw.campaign.ABTestMgr.isParticipant('OBRedesignPDPABTest','render-new-design')}">
-                                    ${Resource.msg('label.add.text.redesign', 'product', null)}</p>
+                                <isset name="siteID" value="${dw.system.Site.current.ID}" scope="page" />
+                                <isif condition="${siteID == 'OliviaBurtonUS'}">
+                                    <isset name="addtoCart" value="${Resource.msg('button.addtocart', 'common', null)}" scope="page" />
                                 <iselse/>
-                                    ${Resource.msg('label.add.text', 'product', null)}</p>
+                                    <isset name="addtoCart" value="${Resource.msg('button.addtobag', 'common', null)}" scope="page" /> 
+                                </isif>
+                                <isif condition="${dw.campaign.ABTestMgr.isParticipant('OBRedesignPDPABTest','render-new-design')}">
+                                    ${addtoCart}</p>
+                                <iselse/>
+                                    ${addtoCart}</p>
                                 </isif>
                         </div>
                     </div>
