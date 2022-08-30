@@ -140,18 +140,18 @@ $('.desktop-search-close-text').click(function() {
 $('.header-search-field').focusout(function() {
     if (!$('.header-search-field').val()) {
         $('.search-recomendation').fadeIn();
+        $('.justify-content-center').addClass('d-none');
     } else {
         $('.search-recomendation').fadeOut();
     }
 });
 
-$(".mobile-search-field").keydown(function() { 
+$(".mobile-search-field").keydown(function() {
     if($(this).length && $(this).val().length) {
         $(".clear-text-img").removeClass('d-none');
     } else {
         $(".clear-text-img").addClass('d-none');
     }
-    
 });
 
 $(window).on('load resize', function() {
