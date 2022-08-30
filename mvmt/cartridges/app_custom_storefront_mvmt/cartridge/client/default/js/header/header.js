@@ -130,7 +130,6 @@ $('.desktop-search-close-text').click(function() {
     $('.desktop-side-search').removeClass('desktop-search-active');
     $('.search-modal-open').removeClass('active');
     $('.search-modal-open').removeClass('color-or-family');
-    $('.justify-content-center').removeClass('d-none');
     $('.suggestions-wrapper').addClass('d-none');
     $('.search-field').val('');
     if ($stickyHeader.hasClass('fixed-header')){
@@ -154,7 +153,7 @@ $(".mobile-search-field").keydown(function() {
     } else {
         $(".clear-text-img").addClass('d-none');
     }
-
+    
 });
 
 $('.mobile-search-field').focusout(function() {
