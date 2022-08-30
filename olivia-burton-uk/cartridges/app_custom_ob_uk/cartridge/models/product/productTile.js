@@ -106,7 +106,7 @@ module.exports = function productTile(product, apiProduct, productType, params, 
      * Custom End:
      */
 
-    if (!empty(ociPreOrderParameters)) {
+     if (!empty(ociPreOrderParameters)) {
         Object.defineProperty(product, 'ociPreOrderParameters', {
             enumerable: true,
             value: ociPreOrderParameters

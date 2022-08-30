@@ -125,14 +125,12 @@ module.exports = function fullProduct(product, apiProduct, options) {
             value: pdpContentAssetHTML
         });
     }
-
     if (!empty(ociPreOrderParameters)) {
         Object.defineProperty(product, 'ociPreOrderParameters', {
             enumerable: true,
             value: ociPreOrderParameters
         });
     }
-
-
+    
     return product;
 };
