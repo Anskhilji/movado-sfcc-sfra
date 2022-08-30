@@ -111,6 +111,7 @@ $('.mobile-search-close-text').click(function() {
     $('.mobile-side-search').removeClass('active');
     $('.search-modal-open').removeClass('active');
     $('.search-modal-open').removeClass('color-or-family');
+    $('.justify-content-center').removeClass('d-none');
 });
 
 $('.mobile-nav .mobile-subnav-btn').click(function() {
@@ -120,6 +121,7 @@ $('.mobile-nav .mobile-subnav-btn').click(function() {
 $('.clear-text-img').click(function() {
     $('.search-field').val('');
     $(".clear-text-img").addClass('d-none');
+    $('.justify-content-center').removeClass('d-none');
 });
 
 $('.desktop-search-close-text').click(function() {
@@ -152,7 +154,7 @@ $(".mobile-search-field").keydown(function() {
     } else {
         $(".clear-text-img").addClass('d-none');
     }
-    
+
 });
 
 $(window).on('load resize', function() {
