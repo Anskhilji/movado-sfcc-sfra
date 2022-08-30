@@ -34,6 +34,8 @@ $grey11: #6a6969 !default;
 $grey12: #eaebeb !default;
 $grey13: #E1E2E3 !default;
 $grey14: #060506 !default;
+$grey15: #787777 !default;
+$grey16: #D2D2D2 !default;
 
 $grey-transparent-1: rgba(0, 0, 0, 0.65) !default;
 $grey-transparent-2: rgba(0, 0, 0, 0.25) !default;
@@ -67,10 +69,11 @@ $white-smoke:#F2F2F2 !default;
 $grid-breakpoints: (
     xs: 0,
     sm: 544px,
+    custom-md: 768px,
     md: 769px,
     lg: 992px,
-    xl: 1200px
-) !default;
+    xl: 1200px,
+    ) !default;
 
 $container-max-widths: (
     md: 720px,
@@ -106,10 +109,21 @@ $table-border-color: $grey3 !default;
 $svg-check: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3E%3C/svg%3E") !default;
 
 //font Families:
-$font-medium : "HelveticaNeueLT-Roman", helvetica, arial, sans-serif !default;
-$font-book : "HelveticaNeueLTStd-ThEx", helvetica, arial, sans-serif !default;
-$font-bold : "HelveticaNeueLT-Roman", Arial, sans-serif !default;
-$light-font : "HelveticaNeueLT-LightExt", helvetica, arial, sans-serif !default;
-$font-primary: $font-book;
+$font-HelveticaNeueLT : "HelveticaNeueLT-Roman", helvetica, arial, sans-serif !default;
+$font-HelveticaNeueLT-medium : "HelveticaNeueLT-Roman", helvetica, arial, sans-serif !default;
+$font-HelveticaNeueLT-book : "HelveticaNeueLTStd-ThEx", helvetica, arial, sans-serif !default;
+$font-HelveticaNeueLT-bold : "HelveticaNeueLT-Roman", Arial, sans-serif !default;
+$font-HelveticaNeueLT-font : "HelveticaNeueLT-LightExt", helvetica, arial, sans-serif !default;
+
+$font-primary: $font-HelveticaNeueLT-book;
 $maroon : rgb(75,40,9) !default;
 $footer-custom : rgb(254,253,252) !default;
+
+// Larger Screen
+$large-screen-width: 1400px;
+
+@mixin custom-media-query($large-screen-width) {
+  @media (min-width:#{$large-screen-width}) {
+      @content;
+  }
+}

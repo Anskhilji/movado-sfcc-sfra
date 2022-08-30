@@ -3,12 +3,13 @@
 <isinclude template="/components/modules" sf-toolkit="off" />
 <isset name="addressFields" value="${pdict.forms.shippingForm.shippingAddress.addressFields}" scope="page"/>
 <isset name="sitePref" value="${dw.system.Site.current.preferences}" scope="page"/>
+<isset name="countryCode" value="${pdict.countryCode}" scope="page"/>
+<isset name="usCountryCode" value="${Resource.msg('checkout.country.code.us','checkout',null)}" scope="page"/>
 <isif condition="${shippingModel.shippingAddress}">
     <isset name="shippingAddress" value="${shippingModel.shippingAddress}" scope="page" />
 <iselse/>
     <isset name="shippingAddress" value="${{}}" scope="page" />
 </isif>
-
 <div class="row">
     <div class="col-sm-6 field-left">
         <div class="form-group
@@ -55,15 +56,17 @@
             <div class="invalid-feedback"></div>
         </div>
     </div>
-    <div class="form-group col-12 d-flex ${pdict.forms.billingForm.subscribetomovado.htmlName}">
-        <input autofocus type="checkbox" class="subscribeToMovado mr-2" id="subscribeToMovado"
-        <isprint value="${addressFields.subscribetomovado.attributes}" encoding="off" />> 
-        <label class="form-control-label text-transform-reset" for="subscribeToMovado">
-            ${Resource.msg('field.customer.subscribeTo', 'checkout', null)}
-            <a class="link" href="${URLUtils.url('Page-Show', 'cid', 'ca-privacy-policy')}" target="_blank" rel='noopener noreferrer'>
-                ${Resource.msg('link.privacypolicy.registration', 'registration', null)}
-            </a>
-        </label>
+    <div class="${sitePref.custom.Auto_Optin_Checkout && countryCode === usCountryCode ? 'd-none' : ''}">
+        <div class="form-group col-12 d-flex ${pdict.forms.billingForm.subscribetomovado.htmlName}">
+            <input autofocus type="checkbox" class="subscribeToMovado mr-2" id="subscribeToMovado"
+            <isprint value="${addressFields.subscribetomovado.attributes}" encoding="off" />> 
+            <label class="form-control-label text-transform-reset" for="subscribeToMovado">
+                ${Resource.msg('field.customer.subscribeTo', 'checkout', null)}
+                <a class="link" href="${URLUtils.url('Page-Show', 'cid', 'ca-privacy-policy')}" target="_blank" rel='noopener noreferrer'>
+                    ${Resource.msg('link.privacypolicy.registration', 'registration', null)}
+                </a>
+            </label>
+        </div>
     </div>
 </div>
 
@@ -95,7 +98,7 @@
                     <iscontentasset aid="calloutMsgAddress1"/>
                 </isif>
             </label>
-            <input type="text" class="form-control shippingAddressOne" id="shippingAddressOne"
+            <input type="text" class="form-control shippingAddressOne" id="shippingAddressOne" <isif condition="${enableAutoComplete}">placeholder="${Resource.msg('input.autocomplete.address.placeholder','forms',null)}"</isif>
                 value="${shippingAddress.address1||''}" <isprint value=${addressFields.address1.attributes} encoding="off"/>
                 autocomplete="shipping address-line1">
             <div class="invalid-feedback"><isprint value="${addressFields.address1.error}" ></div>
@@ -168,7 +171,7 @@
             <label class="form-control-label" for="shippingState">
                 ${Resource.msg('field.shipping.address.state','address',null)}
             </label>
-            <input class="form-control shippingState" id="shippingState" name="${addressFields.states.stateCode.htmlName}"
+            <input class="form-control shippingState" id="shippingCounty" name="${addressFields.states.stateCode.htmlName}"
                 value="${shippingAddress.stateCode||''}"
                 <isprint value="${addressFields.states.stateCode.attributes}" encoding="off" />
                 autocomplete="shipping address-level1">

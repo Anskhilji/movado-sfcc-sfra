@@ -1,0 +1,3 @@
+<div class="panel-body pb-3">
+    <isinclude url="${URLUtils.https('GooglePay-RenderButton')}" sf-toolkit="on"/>
+</div>

@@ -5,11 +5,8 @@
     <isset name="show" value="" scope="page"/>
 </isif>
 <iscomment>Custom Start:Adds the class show if there is no Amazon Pay Redirect URL in the basket</iscomment>
-<div class="panel-collapse collapse ${empty(pdict.order.amzPayRedirectURL) ? 'show' : ''}" id="credit-card-content" data-parent="#accordion">
-<iscomment>Custom End</iscomment>
-<div class="panel-body">
     <!--- payment method is credit card --->
-
+    <!--- payment method is credit card --->
     <!--- register/authenticated user --->
     <isif condition="${pdict.customer.registeredUser}">
         <div class="user-payment-instruments container ${pdict.customer.registeredUser && pdict.customer.customerPaymentInstruments.length ? '' : 'checkout-hidden'}">
@@ -31,5 +28,4 @@
             <button class="btn btn-block cancel-new-payment btn-outline-primary ${pdict.customer.registeredUser && pdict.customer.customerPaymentInstruments.length ? '' : 'checkout-hidden'}" type="button">${Resource.msg('button.back.to.stored.payments', 'checkout', null)}</button>
         </isif>
     </fieldset>
-</div>
-</div>
+

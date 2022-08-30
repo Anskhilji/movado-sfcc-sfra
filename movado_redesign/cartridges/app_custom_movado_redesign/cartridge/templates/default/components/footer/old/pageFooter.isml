@@ -78,4 +78,10 @@
 
     <iscomment>Logged in Customer tracking for Yotpo Swell Loyalty</iscomment>
     <isinclude template="include/yotpofooter"/>
+
+    <iscomment>Listrak Cartridge Integration</iscomment>
+    <isset name="isListrakEnable" value="${!empty(dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) ? dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled : false}" scope="page" />
+    <isif condition="${isListrakEnable}">
+        <isinclude url="${URLUtils.url('ltkInclude-Start')}"/>
+    </isif>
 </footer>

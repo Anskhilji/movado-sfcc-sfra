@@ -258,6 +258,17 @@ function getSelectedPaymentMethod(orderModel) {
     return selectedPaymentMethod;
 }
 
+function getCountryCode(request) {
+    var countryCode;
+    if (!empty(session.privacy.countryCode)) {
+        countryCode = session.privacy.countryCode;
+    } else if (request.httpCookies && request.httpCookies['esw.location'] != null && request.httpCookies['esw.location'].value != '') {
+        countryCode = request.httpCookies['esw.location'] != null ? (request.httpCookies['esw.location'].value != null ? request.httpCookies['esw.location'].value : '') : '';
+    } else {
+        countryCode = request.geolocation.countryCode;
+    }
+    return countryCode;
+}
 
 module.exports = {
     formatOrderDate: formatOrderDate,
@@ -272,7 +283,8 @@ module.exports = {
     getCustomerNo: getCustomerNo,
     isPreOrder: isPreOrder,
     getPaymentMethod: getPaymentMethod,
-    getSelectedPaymentMethod: getSelectedPaymentMethod
+    getSelectedPaymentMethod: getSelectedPaymentMethod,
+    getCountryCode: getCountryCode
 };
 
 function getTrackingURL(trackingUrl, vendorCode, trackingNum) {

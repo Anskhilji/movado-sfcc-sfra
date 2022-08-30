@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jobs xmlns="http://www.demandware.com/xml/impex/jobs/2015-07-01">
+    <job job-id="Listrak Customer Sync" priority="0">
+        <description>Customer Sync</description>
+        <parameters/>
+        <flow>
+            <context site-id="RefArch"/>
+            <step step-id="LTK_Customer_Sync" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Sync customers</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_listrak/cartridge/scripts/sync/ltkCustomerSync.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">customerSync</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                    <parameter name="ExecuteScriptModule.TimeoutInSeconds">1800</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <rules/>
+        <triggers>
+            <run-recurring enabled="false">
+                <recurrence>
+                    <date-from>2017-07-28Z</date-from>
+                    <start-time>08:00:00.000Z</start-time>
+                    <interval>24h</interval>
+                    <day-of-week>
+                        <weekday>Tuesday</weekday>
+                        <weekday>Monday</weekday>
+                        <weekday>Wednesday</weekday>
+                        <weekday>Sunday</weekday>
+                        <weekday>Thursday</weekday>
+                        <weekday>Friday</weekday>
+                        <weekday>Saturday</weekday>
+                    </day-of-week>
+                </recurrence>
+            </run-recurring>
+        </triggers>
+    </job>
+
+    <job job-id="Listrak Order Sync" priority="0">
+        <description>Sync Orders</description>
+        <parameters/>
+        <flow>
+            <context site-id="RefArch"/>
+            <step step-id="LTK_Order_Sync" type="ExecuteScriptModule" enforce-restart="false">
+                <description>Syncs orders</description>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_listrak/cartridge/scripts/sync/ltkOrderSync.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">orderSync</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                    <parameter name="ExecuteScriptModule.TimeoutInSeconds">1800</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <rules/>
+        <triggers>
+            <run-recurring enabled="false">
+                <recurrence>
+                    <date-from>2017-07-28Z</date-from>
+                    <start-time>15:50:43.000Z</start-time>
+                    <interval>30m</interval>
+                    <day-of-week>
+                        <weekday>Tuesday</weekday>
+                        <weekday>Monday</weekday>
+                        <weekday>Wednesday</weekday>
+                        <weekday>Sunday</weekday>
+                        <weekday>Thursday</weekday>
+                        <weekday>Friday</weekday>
+                        <weekday>Saturday</weekday>
+                    </day-of-week>
+                </recurrence>
+            </run-recurring>
+        </triggers>
+    </job>
+
+    <job job-id="Listrak Product Sync" priority="0">
+        <description/>
+        <parameters/>
+        <flow>
+            <context site-id="RefArch"/>
+            <step step-id="LTK_Product_Sync" type="ExecuteScriptModule" enforce-restart="false">
+                <description/>
+                <parameters>
+                    <parameter name="ExecuteScriptModule.Module">bm_listrak/cartridge/scripts/sync/ltkProductSync.js</parameter>
+                    <parameter name="ExecuteScriptModule.FunctionName">productSync</parameter>
+                    <parameter name="ExecuteScriptModule.Transactional">false</parameter>
+                    <parameter name="ExecuteScriptModule.TimeoutInSeconds">1800</parameter>
+                </parameters>
+            </step>
+        </flow>
+        <rules/>
+        <triggers>
+            <run-recurring enabled="false">
+                <recurrence>
+                    <date-from>2017-06-14Z</date-from>
+                    <start-time>08:00:00.000Z</start-time>
+                    <interval>24h</interval>
+                    <day-of-week>
+                        <weekday>Tuesday</weekday>
+                        <weekday>Monday</weekday>
+                        <weekday>Wednesday</weekday>
+                        <weekday>Sunday</weekday>
+                        <weekday>Thursday</weekday>
+                        <weekday>Friday</weekday>
+                        <weekday>Saturday</weekday>
+                    </day-of-week>
+                </recurrence>
+            </run-recurring>
+        </triggers>
+    </job>
+
+</jobs>

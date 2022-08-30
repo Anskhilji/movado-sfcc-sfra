@@ -16,7 +16,7 @@
 <subject>
     <isprint value="${emailObject.subject}">
 </subject>
-
+<from>${dw.system.Site.getCurrent().getCustomPreferenceValue('customerServiceEmail')}</from>
 <head>
     <isprint value="${emailObject.emailHeader}" encoding="off" />
 </head>

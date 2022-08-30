@@ -20,7 +20,11 @@ var Site = require('dw/system/Site');
 module.exports = function fullProduct(product, apiProduct, options) {
     var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
     var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
+    var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
     var collectionName = productCustomHelper.getCollectionName(apiProduct);
+    var pdpContentAssetHTML = productCustomHelper.getPDPContentAssetHTML(apiProduct);
+    var detailAndSpecAttributes = productCustomHelpers.getPdpDetailAndSpecsAttributes(apiProduct);
+    var pdpMarketingContentAssetHTML = productCustomHelper.getPDPMarketingContentAssetHTML(apiProduct);
 
     decorators.base(product, apiProduct, options.productType);
     decorators.price(product, apiProduct, options.promotions, false, options.optionModel);
@@ -28,10 +32,10 @@ module.exports = function fullProduct(product, apiProduct, options) {
 
     if (options.variationModel) {
         // Custom Start: Define view type 'gallery' for DIS
-        decorators.images(product, options.variationModel, { types: ['pdp533','tile150', 'zoom830', 'zoom1660', 'gallery'], quantity: 'all' });
+        decorators.images(product, options.variationModel, { types: ['pdp533','tile532X300','tile640','tile520','tile300','tile150', 'tile156', 'zoom830', 'zoom1660', 'gallery','tile300X375','tile512X640', 'tile256', 'tile300X300','pdp600', 'tile100', 'tile126', 'pdp700', 'pdp453'], quantity: 'all' });
     } else {
      // Custom Start: Define view type for 'gallery' for DIS
-        decorators.images(product, apiProduct, { types: ['pdp533','tile150', 'zoom830', 'zoom1660', 'gallery'], quantity: 'all' });
+        decorators.images(product, apiProduct, { types: ['pdp533','tile260xtile340','tile532X300','tile640','tile520','tile300','tile150', 'tile156', 'zoom830', 'zoom1660', 'gallery','tile300X375','tile512X640', 'tile256', 'tile300X300','pdp600', 'tile100', 'tile126', 'pdp700', 'pdp453'], quantity: 'all' });
     }
     decorators.emailImage(product, apiProduct, { types: ['tile150'], quantity: 'single' });
     decorators.quantity(product, apiProduct, options.quantity);
@@ -84,6 +88,34 @@ module.exports = function fullProduct(product, apiProduct, options) {
         enumerable: true,
         value: collectionName
     });
+
+    if (pdpMarketingContentAssetHTML) {
+        Object.defineProperty(product, 'pdpMarketingContentAssetHTML', {
+            enumerable: true,
+            value: pdpMarketingContentAssetHTML
+        });
+    }
+
+    if (!empty(detailAndSpecAttributes)) {
+        Object.defineProperty(product, 'pdpDetailedAttributes', {
+            enumerable: true,
+            value: detailAndSpecAttributes.pdpDetailAttributes
+        });
+    }
+
+    if (!empty(detailAndSpecAttributes)) {
+        Object.defineProperty(product, 'pdpSpecsAttributes', {
+            enumerable: true,
+            value: detailAndSpecAttributes.pdpSpecAttributes
+        });
+    }
+
+    if (pdpContentAssetHTML) {
+        Object.defineProperty(product, 'pdpContentAssetHTML', {
+            enumerable: true,
+            value: pdpContentAssetHTML
+        });
+    }
 
     return product;
 };

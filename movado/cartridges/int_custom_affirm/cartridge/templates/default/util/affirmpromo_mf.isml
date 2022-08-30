@@ -5,6 +5,10 @@
 <isif condition="${isEswEnabled}">
     <isif condition="${!empty(request.httpCookies['esw.location'])  &&  !empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US')}" >
         <isset name="isAffirmAllowed" value="true" scope="page" />
+    <iselseif condition="${!empty(pdict.country) && pdict.country.equalsIgnoreCase('US')}" />
+        <isset name="isAffirmAllowed" value="true" scope="page" />
+    <iselseif condition="${!empty(request.geolocation.countryCode) && request.geolocation.countryCode.equalsIgnoreCase('US')}" />
+        <isset name="isAffirmAllowed" value="true" scope="page" />
     <iselse>
         <isset name="isAffirmAllowed" value=${false} scope="page" />
     </isif>
@@ -37,8 +41,11 @@
     </isif>
 <iscomment> Custom Start: Add condition to show affirm promo banner.</iscomment>
 <iselseif condition="${pdict.context == 'pdp' && affirmData.getProductPromoMessageStatus() && affirmData.isPromoBannerAllowed() && isAffirmAllowed}">
-
-    <isset name="Product" value="${require('dw/catalog/ProductMgr').getProduct(product.id)}" scope="page"/>
+    <isif condition="${!empty(pdict.pid)}">
+        <isset name="Product" value="${require('dw/catalog/ProductMgr').getProduct(pdict.pid)}" scope="page"/>
+    <iselse/>
+        <isset name="Product" value="${require('dw/catalog/ProductMgr').getProduct(product.id)}" scope="page"/>
+    </isif>
     <isset name="psTop" value="${!empty(Product) && (Product.productSet || Product.bundle || Product.product)}" scope="page"/>
     <isif condition="${psTop}">
         <isset name="productValue" value="${Product}" scope="page"/>
@@ -52,7 +59,11 @@
         <iselseif condition="${Product.master || Product.variationGroup}" >
             <isset name="price" value="${productPriceModel.minPrice}" scope="page"/>
         <iselse/>
-            <isset name="price" value="${productPriceModel.price}" scope="page"/>
+            <isif condition="${!empty(pdict.pid)}">
+                <isset name="price" value="${affirmUtils.getProductPrice(pdict.pid)}" scope="page"/>
+            <iselse/>
+                <isset name="price" value="${affirmUtils.getProductPrice(product.id)}" scope="page"/>
+            </isif>
         </isif>
         <isif condition="${(!Product.productSet || psTop) && affirmData.getAffirmMinTotal() <= price.getValue()}">
             <p class="affirm-as-low-as"

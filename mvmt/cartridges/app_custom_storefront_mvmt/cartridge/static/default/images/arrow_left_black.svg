@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>8C0205D8-D3EF-4109-8854-8CAF4AF52752</title>
+    <g id="Plain_Image_Background" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="02_WBKG" transform="translate(-986.000000, -2784.000000)">
+            <g id="chevron_right_black_24dp-copy" transform="translate(998.000000, 2796.000000) scale(-1, 1) translate(-998.000000, -2796.000000) translate(986.000000, 2784.000000)">
+                <circle id="Oval" fill-opacity="0.89" fill="#EFEFEF" cx="12" cy="12" r="12"></circle>
+                <path d="M9.29,6.71 C8.9,7.1 8.9,7.73 9.29,8.12 L13.17,12 L9.29,15.88 C8.9,16.27 8.9,16.9 9.29,17.29 C9.68,17.68 10.31,17.68 10.7,17.29 L15.29,12.7 C15.68,12.31 15.68,11.68 15.29,11.29 L10.7,6.7 C10.32,6.32 9.68,6.32 9.29,6.71 Z" id="Path" fill="#000000" fill-rule="nonzero"></path>
+            </g>
+        </g>
+    </g>
+</svg>

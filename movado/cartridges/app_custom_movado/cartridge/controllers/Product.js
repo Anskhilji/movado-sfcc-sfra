@@ -35,6 +35,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
     var customCategoryHelpers = require('app_custom_movado/cartridge/scripts/helpers/customCategoryHelpers');
     var SmartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
+    var ProductMgr = require('dw/catalog/ProductMgr');
     var youMayLikeRecommendations = [];
     var moreStyleRecommendations = [];
     var explicitRecommendations = [];
@@ -44,25 +45,50 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var product = viewData.product;
     var productPrice = !empty(product) ? product.price : '';
     var YotpoIntegrationHelper = require('*/cartridge/scripts/common/integrationHelper.js');
+    var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
+    var smartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
+    var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
+    var smartGift = smartGiftHelper.getSmartGiftCardBasket(showProductPageHelperResult.product.id);
+    var smartGiftAddToCartURL = Site.current.preferences.custom.smartGiftURL + showProductPageHelperResult.product.id;
+
 
     var collectionContentList;
-    var socialShareEnable = Site.getCurrent().preferences.custom.addthis_enabled;
     var moreStyleGtmArray = [];
     var klarnaProductPrice = '0';
     var isEmbossEnabled;
     var isEngraveEnabled;
     var isGiftWrapEnabled;
     var isPdpStorePickup = true;
+    var collectionName;
     yotpoConfig = YotpoIntegrationHelper.getYotpoConfig(req, viewData.locale);
 
     var productDecimalPrice = 0.0;
 
     var strapGuideContent = ContentMgr.getContent('strap-guide-text-configs');
     var strapGuideText = strapGuideContent && strapGuideContent.custom.body ? strapGuideContent.custom.body : '';
+    var apiProduct = ProductMgr.getProduct(product.id);
+    var params = req.querystring;
+    if (!apiProduct.variant && apiProduct.master) {
+        var defaultVariant = apiProduct.variationModel.defaultVariant;
+
+        if (defaultVariant && !empty(apiProduct) && !empty(apiProduct.master) && defaultVariant.getAvailabilityModel().inStock) {
+            var pid = apiProduct.variationModel.defaultVariant.getID();
+            params.pid = pid;
+            apiProduct = ProductMgr.getProduct(pid);
+        }
+
+        var showProductPageHelperResult = productHelper.showProductPage(params, req.pageMetaData);
+        
+        viewData.product =  showProductPageHelperResult.product,
+        viewData.addToCartUrl = showProductPageHelperResult.addToCartUrl,
+        viewData.resources = showProductPageHelperResult.resources,
+        viewData.breadcrumbs = showProductPageHelperResult.breadcrumbs
+    }
 
     /* get recommendations for product*/
     if (product) {
         product = productMgr.getProduct(product.id);
+        collectionName = !empty(product.custom.familyName) ? product.custom.familyName[0] : '';
         explicitRecommendations = productCustomHelper.getExplicitRecommendations(product.ID);
 
         // Custom Start: Add pricing logic for Klarna promo banners
@@ -116,7 +142,6 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         collectionContentList: collectionContentList,
         hideMoreCollectionsHeader: product.custom.hideMoreCollectionsHeader,
         loggedIn: req.currentCustomer.raw.authenticated,
-        socialShareEnable: socialShareEnable,
         moreStyleGtmArray: moreStyleGtmArray,
         wishlistGtmObj: wishlistGtmObj,
         klarnaProductPrice: klarnaProductPrice,
@@ -127,7 +152,12 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         relativeURL: URLUtils.url('Product-Show','pid', product.ID),
         explicitRecommendations: explicitRecommendations,
         strapGuideText: strapGuideText,
-        isPdpStorePickup: isPdpStorePickup
+        isPdpStorePickup: isPdpStorePickup,
+        collectionName: collectionName,
+        addToCartUrl: showProductPageHelperResult.addToCartUrl,
+        isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
+        smartGiftAddToCartURL : smartGiftAddToCartURL,
+        plpProductFamilyName: Site.getCurrent().preferences.custom.plpProductFamilyName ? Site.getCurrent().preferences.custom.plpProductFamilyName : false
     };
     var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
     res.setViewData(smartGift);
@@ -201,12 +231,17 @@ server.replace('Variation', function (req, res, next) {
             textBadges: !empty(product.badges.textBadges) ? product.badges.textBadges.toArray() : null
         };
     }
+    var OptionsValidationError;
+    if (params.validationErrorEmbossed || params.validationErrorEngraved) {
+        OptionsValidationError = true
+    }
 
     res.json({
         product: product,
         resources: productHelper.getResources(),
         validationErrorEmbossed: params.validationErrorEmbossed,
         validationErrorEngraved: params.validationErrorEngraved,
+        OptionsValidationError: OptionsValidationError,
         badges: badges,
         eswModuleEnabled: eswModuleEnabled
     });
@@ -329,7 +364,6 @@ server.get('ShowAvailability', function (req, res, next) {
 server.get('ShowCartButton', function (req, res, next) {
     var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
     var smartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
-    
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
     var smartGift = smartGiftHelper.getSmartGiftCardBasket(showProductPageHelperResult.product.id);
     var smartGiftAddToCartURL = Site.current.preferences.custom.smartGiftURL + showProductPageHelperResult.product.id;
@@ -341,7 +375,7 @@ server.get('ShowCartButton', function (req, res, next) {
         loggedIn: req.currentCustomer.raw.authenticated,
         restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites,
         ecommerceFunctionalityEnabled : Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled,
-        smartGiftAddToCartURL : smartGiftAddToCartURL 
+        smartGiftAddToCartURL : smartGiftAddToCartURL
     });
     next();
 });

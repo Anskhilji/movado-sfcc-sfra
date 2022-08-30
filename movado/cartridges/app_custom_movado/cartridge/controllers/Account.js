@@ -117,13 +117,25 @@ server.replace(
 );
 
 
+server.append(
+    'Login',
+    function (req, res, next) {
+        var viewData = res.getViewData();
+        var authenticatedCustomer = viewData.authenticatedCustomer;
+        if (!empty(authenticatedCustomer)) {
+            var newProfile = authenticatedCustomer.getProfile();
+            Transaction.wrap(function () {
+                newProfile.custom.customerCurrentCountry = req.geolocation.countryCode;
+            });
+        }
+        return next();
+    });
+
 // Function will be called when a new customer is being created
 server.replace('SubmitRegistration', server.middleware.https, csrfProtection.validateAjaxRequest, function (req, res, next) {
     var CustomerMgr = require('dw/customer/CustomerMgr');
     var Resource = require('dw/web/Resource');
     var URLUtils = require('dw/web/URLUtils');
-
-    var SFMCApi = require('int_custom_marketing_cloud/cartridge/scripts/api/SFMCApi');
     var EmailSubscriptionHelper = require('int_custom_marketing_cloud/cartridge/scripts/helper/EmailSubscriptionHelper');
     var formErrors = require('*/cartridge/scripts/formErrors');
     var registrationForm = null;
@@ -131,6 +143,7 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
     var redirectUrl = null;
     var accountHelpers = require('*/cartridge/scripts/helpers/accountHelpers');
     var isYotpoSwellLoyaltyEnabled = !empty(Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) ? Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled : false;
+    var isAccountSignupVerificationEnabled = !empty(Site.current.preferences.custom.isAccountSignupVerificationEnabled) ? Site.current.preferences.custom.isAccountSignupVerificationEnabled : false;
 
     // setting variables for the BeforeComplete function
     registrationForm = server.forms.getForm('profile');
@@ -142,6 +155,17 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
             Resource.msg('error.message.mismatch.email', 'forms', null);
         registrationForm.valid = false;
     }
+
+        // Custom Start: [Added Honeypot Logic]
+        if (isAccountSignupVerificationEnabled) {
+            if ((!empty(registrationForm.customer.hpemail.htmlValue)) ||
+                (!empty(registrationForm.customer.hpemailconfirm.htmlValue))) {
+                    registrationForm.valid = false;
+            } else {
+                registrationForm.valid = true;
+            }
+        }
+        // Custom End
 
     if (registrationForm.login.password.value !== registrationForm.login.passwordconfirm.value) {
         registrationForm.login.password.valid = false;
@@ -169,6 +193,7 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
         lastName: registrationForm.customer.lastname.value,
         birthdate: registrationForm.customer.birthdate.value,
         birthmonth: registrationForm.customer.birthmonth.value,
+        birthmonthNumber: registrationForm.customer.birthmonth.selectedOption,
         phone: registrationForm.customer.phone.value,
         email: registrationForm.customer.email.value,
         emailConfirm: registrationForm.customer.emailconfirm.value,
@@ -220,7 +245,21 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
                                 var requestParams = {
                                     email: registrationForm.email
                                 }
-                                SFMCApi.sendSubscriberToSFMC(requestParams);
+                                if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
+                                    var ltkApi = require('*/cartridge/scripts/api/ListrakAPI');
+                                    var ltkConstants = require('*/cartridge/scripts/utils/ListrakConstants');
+                                    requestParams.source = ltkConstants.Source.Create_Account;
+                                    requestParams.event = ltkConstants.Event.Create_Account;
+                                    requestParams.subscribe = ltkConstants.Subscribe.Create_Account;
+                                    requestParams.firstName= registrationForm.firstName;
+                                    requestParams.lastName= registrationForm.lastName;
+                                    requestParams.birthDate= registrationForm.birthdate;
+                                    requestParams.birthMonth= registrationForm.birthmonthNumber;
+                                    ltkApi.sendSubscriberToListrak(requestParams);
+                                } else {
+                                    var SFMCApi = require('int_custom_marketing_cloud/cartridge/scripts/api/SFMCApi');
+                                    SFMCApi.sendSubscriberToSFMC(requestParams);
+                                }
                                 newsletterSignupProssesed = EmailSubscriptionHelper.emailSubscriptionResponse(true);
                             } else {
                                 newsletterSignupProssesed = EmailSubscriptionHelper.emailSubscriptionResponse(false);
@@ -232,6 +271,7 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
                             newCustomerProfile.phoneHome = registrationForm.phone;
                             newCustomerProfile.custom.birthdate = registrationForm.birthdate;
                             newCustomerProfile.custom.birthmonth = registrationForm.birthmonth;
+                            newCustomerProfile.custom.customerCurrentCountry = req.geolocation.countryCode;
                             if (newsletterSignupProssesed.success) {
                                 newCustomerProfile.custom.addtoemaillist = newsletterSignupProssesed.optOutFlag || registrationForm.addToEmailList;
                             }
@@ -280,21 +320,23 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
                     fields: formErrors.getFormErrors(registrationForm)
                 });
             }
-            // Custom Start: Yotpo Swell Integration 
-            if (isYotpoSwellLoyaltyEnabled) {
-                var viewData = res.getViewData();
-                if (viewData.success) {
-                    var email = registrationForm.email;
-                    var customerAPI = CustomerMgr.getCustomerByLogin(email);
-                    if (customerAPI) {
-                        var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
-                        SwellExporter.exportCustomer({
-                            customerNo: customerAPI.profile.customerNo
-                        });
+            if (!empty(authenticatedCustomer.profile.custom.customerCurrentCountry)) {
+                // Custom Start: Yotpo Swell Integration 
+                if (isYotpoSwellLoyaltyEnabled && authenticatedCustomer.profile.custom.customerCurrentCountry.equalsIgnoreCase('US')) {
+                    var viewData = res.getViewData();
+                    if (viewData.success) {
+                        var email = registrationForm.email;
+                        var customerAPI = CustomerMgr.getCustomerByLogin(email);
+                        if (customerAPI) {
+                            var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
+                            SwellExporter.exportCustomer({
+                                customerNo: customerAPI.profile.customerNo
+                            });
+                        }
                     }
                 }
+                // Custom End: Yotpo Swell Integration 
             }
-            // Custom End: Yotpo Swell Integration 
         });
     } else {
         res.json({
@@ -508,6 +550,16 @@ server.append(
                     var emailFooterContent = ContentMgr.getContent('email-footer');
                     var emailMarketingContent = ContentMgr.getContent('email-password-changed-marketing');
                     var url;
+                    var passwordText;
+
+                    var listrakTransactionalSwitch = !empty(Site.current.preferences.custom.transactionalSwitch.value) ? Site.current.preferences.custom.transactionalSwitch.value.toString() : '';
+                    var listrakEnabled = !empty(Site.current.preferences.custom.Listrak_Cartridge_Enabled) ? Site.current.preferences.custom.Listrak_Cartridge_Enabled : false;
+                    var Constants = require('*/cartridge/scripts/utils/ListrakConstants');
+                    if (listrakEnabled && listrakTransactionalSwitch == Constants.LTK_TRANSACTIONALSWITCH) {
+                        passwordText = Resource.msg('createaccount.listrak.password', 'account', null);
+                    } else {
+                        passwordText = Resource.msg('createaccount.password', 'account', null);
+                    }
                     // Custom Start: Adding Marketing Cloud cartridge integration
                     if (isMarketingCloudEnabled) {
                         url = URLUtils.https('Account-EditPassword');
@@ -525,7 +577,9 @@ server.append(
 			  apiContentBody: (apiContent && apiContent.custom && apiContent.custom.body ? apiContent.custom.body : ''),
 			  emailMarketingContent: (emailMarketingContent && emailMarketingContent.custom && emailMarketingContent.custom.body ? emailMarketingContent.custom.body : ''),
 			  shopNow: Resource.msg('email.shop.now', 'account', null),
-                        resettingCustomer: customer
+                        resettingCustomer: customer,
+                        passwordText: passwordText,
+                        email: email
                     };
 
                     var emailObj = {

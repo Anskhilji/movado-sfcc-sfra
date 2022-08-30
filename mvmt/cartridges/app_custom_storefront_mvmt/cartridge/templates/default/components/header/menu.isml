@@ -1,130 +1,150 @@
-<div class="d-none d-lg-inline-block">
-  <nav class="navbar header-desktop-categories navbar-expand-lg bg-inverse col-12">
-    <div class="menu-group" aria-label="Main menu" role="navigation">
-     <ul class="nav navbar-nav" role="menu">
-       <isif condition="${pdict.categories}">
-         <isloop items="${pdict.categories}" var="category">
-           <isif condition="${category.subCategories || category.disableSubCategories}">
-             <iscomment> Custom: sub-dropdown class added</iscomment>
-             <li class="nav-item sub-dropdown dropdown gtm-customEvent" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-             <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                ${category.name}
-              </a>
-             <isset name="topCat" value="${category}" scope="page"/>
-             <isset name="gtmCategoryVal" value="${JSON.stringify(category.gtmNavVal)}" scope="page"/>
-             <isset name="menuItem" value="${category}" scope="page" />
-             <isinclude template="components/header/menuItem" />
-             </li>
-           <iselse/>
-             <li class="nav-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-               <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" role="button" class="nav-link">
-                 ${category.name}
-               </a>
-             </li>
-           </isif>
-         </isloop>
-       </isif>
-     </ul>
-    </div>
-  </nav>
-
-  <iscomment> Custom: added div mobile-view-design for custom mobile menu</iscomment>
-  <div class="mobile-view-design">
-    <isif condition="${pdict.categories}">
-      <ul class="header-mobile-categories">
-        <isloop items="${pdict.categories}" begin="0" end="1" var="category">
-          <isif condition="${category.subCategories || category.disableSubCategories}">
-            <li class="header-mobile-category header-border-right gtm-customEvent"  data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-              <span id="${category.id}" data-trigger-menu="${category.name}" class="header-mobile-category-text">
-                ${category.name}
-              </span>
-            </li>
-          <iselse/>
-            <li class="header-mobile-category header-border-right gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-              <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" role="button" class="nav-link">
-                ${category.name}
-              </a>
-            </li>
-          </isif>
-        </isloop>
-      </ul>
-    </isif>
-  </div>
-
-  <iscomment> Custom: added div mobile-view-category for custom mobile menu</iscomment>
-  <div class="mobile-view-category">
-    <div class="mobile-menu-section-header">${Resource.msg('title.header.dropdown', 'common', null)}</div>
-    <isloop items="${pdict.categories}" begin="0" end="1" var="category">
-      <ul class="mobile-category-list" data-mobile-category="${category.name}">
-        <isloop items="${category.subCategories}" var="subCategory">
-          <isif condition="${!subCategory.subCategories}">
-            <li class="mobile-category-item"><a class="mobile-category-link" href="${category.url}">${subCategory.name}</a></li>
-          <iselse>
-            <li class="mobile-category-item">
-              <button class="mobile-subnav-btn">${subCategory.name}</button>
-              <ul class="mobile-collapse-nav">
-                <isloop items="${subCategory.subCategories}" var="thirdLevelCategory">
-                  <li class="menu-list-item">
-                    <a href="${thirdLevelCategory.url}" class="menu-item-link">
-                      <img class="dropdown-menu-item-img ${thirdLevelCategory.categoryImageURL == null ? 'no-img' : ''}" alt="${thirdLevelCategory.name}" src="${thirdLevelCategory.categoryImageURL ? thirdLevelCategory.categoryImageURL : '#'}" title="${thirdLevelCategory.name}" />
-                      <span>${thirdLevelCategory.name}</span>
+  <div class="d-none d-lg-inline-block">
+    <nav class="navbar header-desktop-categories navbar-expand-lg bg-inverse col-12">
+      <div class="menu-group" aria-label="Main menu" role="navigation">
+      <ul class="nav navbar-nav" role="menu">
+        <isif condition="${pdict.categories}">
+            <isset name="headerRedesignSegment" value="${dw.campaign.ABTestMgr.isParticipant('MVMTHeaderRedesign','header-redesign')}" scope="page" />
+            <isloop items="${pdict.categories}" var="category">
+              <isif condition="${category.abTestSegmentIDs}">
+                <isloop items="${category.abTestSegmentIDs}" var="abTestID">
+                  <isif condition="${headerRedesignSegment && abTestID == "header-redesign"}">
+                  <isif condition="${category.subCategories || category.disableSubCategories}">
+                  <iscomment> Custom: sub-dropdown class added</iscomment>
+                  <li class="nav-item sub-dropdown dropdown gtm-customEvent" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
+                    <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      ${category.name}
+                    </a>
+                  <isset name="topCat" value="${category}" scope="page"/>
+                  <isset name="gtmCategoryVal" value="${JSON.stringify(category.gtmNavVal)}" scope="page"/>
+                  <isset name="menuItem" value="${category}" scope="page" />
+                    <isinclude template="components/header/menuItem" />
+                </li>
+                <iselse/>
+                  <li class="nav-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
+                    <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" role="button" class="nav-link">
+                      ${category.name}
                     </a>
                   </li>
+                </isif>
+                  </isif>
                 </isloop>
-              </ul>
-            </li>
-          </isif>
-        </isloop>
+              </isif>
+            </isloop>
+        </isif>
       </ul>
-    </isloop>
-  </div>
-</div>
-<nav class="d-block d-lg-none navbar navbar-expand-lg col-12">
-  <div class="close-menu grey-sub-menu clearfix hidden-lg-up">
-    <div class="new-header-menu-logo">
-      <isslot id="brand-logo" description="Brand Logo" context="global" />
-    </div>
-    <a class="close-button" href="${'#'}" role="button">
-      <span class="close-icon"></span>
-    </a>
-    <a class="back" href="${'#'}" role="button">
-      <span class="caret-left"></span>
-      ${Resource.msg('link.header.menu.back', 'common', null)}
-    </a>
-  </div>
-  <div class="menu-group mvmt-menu-group" aria-label="Main menu" role="navigation">
-    <ul class="nav navbar-nav" role="menu">
+      </div>
+    </nav>
+
+    <iscomment> Custom: added div mobile-view-design for custom mobile menu</iscomment>
+    <div class="mobile-view-design">
       <isif condition="${pdict.categories}">
-        <isloop items="${pdict.categories}" var="category">
-          <isif condition="${category.subCategories}">
-            <iscomment> Custom: sub-dropdown class added</iscomment>
-            <li class="nav-item sub-dropdown dropdown gtm-customEvent" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-              <span class="image-text" style="color: ${category.hexColor}">${category.name}</span>
-              <img alt="${category.name}" src="${category.categoryImageURL ? category.categoryImageURL : '#'}" title="${category.name}" />
-              <isset name="topCat" value="${category}" scope="page"/>
-              <isset name="gtmCategoryVal" value="${JSON.stringify(category.gtmNavVal)}" scope="page"/>
-              <isset name="menuItem" value="${category}" scope="page" />
-              <isinclude template="components/header/mobile/menuItem" />
-            </li>
-          <iselse/>
-            <li class="nav-item gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
-              <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" role="button">
-                <span class="image-text" style="color: ${category.hexColor}">${category.name}</span>
-                <img alt="${category.name}" src="${category.categoryImageURL ? category.categoryImageURL : '#'}" title="${category.name}" />
-              </a>
-            </li>
-          </isif>
-        </isloop>
-      </isif>
-      <isinclude url="${URLUtils.url('Account-Header', 'mobile', true)}" />
-      <isinclude url="${URLUtils.url('Page-Locale', 'mobile', true)}" />
-    </ul>
-    <div class="register-btn-menu">
-      <isif condition="${!pdict.loggedIn && !customer.isAuthenticated()}">
-        <a href="${URLUtils.https('Login-Show')}">
-          <button type="button" class="register-button btn btn-dark">${Resource.msg('link.header.register', 'account', null)}</button>
-        </a>
+        <ul class="header-mobile-categories">
+          <isloop items="${pdict.categories}" begin="0" end="1" var="category">
+            <isif condition="${category.subCategories || category.disableSubCategories}">
+              <li class="header-mobile-category header-border-right gtm-customEvent"  data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
+                <span id="${category.id}" data-trigger-menu="${category.name}" class="header-mobile-category-text">
+                  ${category.name}
+                </span>
+              </li>
+            <iselse/>
+              <li class="header-mobile-category header-border-right gtm-customEvent" role="menuitem" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
+                <a href="<isprint value="${category.url}" encoding="htmldoublequote"/>" id="${category.id}" role="button" class="nav-link">
+                  ${category.name}
+                </a>
+              </li>
+            </isif>
+          </isloop>
+        </ul>
       </isif>
     </div>
+
+    <iscomment> Custom: added div mobile-view-category for custom mobile menu</iscomment>
+    <div class="mobile-view-category">
+      <div class="mobile-menu-section-header">${Resource.msg('title.header.dropdown', 'common', null)}</div>
+      <isloop items="${pdict.categories}" begin="0" end="1" var="category">
+        <ul class="mobile-category-list" data-mobile-category="${category.name}">
+          <isloop items="${category.subCategories}" var="subCategory">
+            <isif condition="${!subCategory.subCategories}">
+              <li class="mobile-category-item"><a class="mobile-category-link" href="${category.url}">${subCategory.name}</a></li>
+            <iselse>
+              <li class="mobile-category-item">
+                <button class="mobile-subnav-btn">${subCategory.name}</button>
+                <ul class="mobile-collapse-nav">
+                  <isloop items="${subCategory.subCategories}" var="thirdLevelCategory">
+                    <li class="menu-list-item">
+                      <a href="${thirdLevelCategory.url}" class="menu-item-link">
+                        <img class="dropdown-menu-item-img ${thirdLevelCategory.categoryImageURL == null ? 'no-img' : ''}" alt="${thirdLevelCategory.name}" src="${thirdLevelCategory.categoryImageURL ? thirdLevelCategory.categoryImageURL : '#'}" title="${thirdLevelCategory.name}" loading="lazy" />
+                        <span>${thirdLevelCategory.name}</span>
+                      </a>
+                    </li>
+                  </isloop>
+                </ul>
+              </li>
+            </isif>
+          </isloop>
+        </ul>
+      </isloop>
+    </div>
   </div>
-</nav>
+  
+  <nav class="d-block d-lg-none navbar navbar-expand-lg col-12">
+    <div class="close-menu grey-sub-menu clearfix hidden-lg-up">
+      <div class="new-header-menu-logo">
+        <isslot id="brand-logo" description="Brand Logo" context="global" />
+      </div>
+      <a class="close-button" href="${'#'}" role="button">
+        <span class="close-icon"></span>
+      </a>
+      <a class="back" href="${'#'}" role="button">
+        <span class="caret-left"></span>
+        ${Resource.msg('link.header.menu.back', 'common', null)}
+      </a>
+    </div>
+    <div class="menu-group mvmt-menu-group menu-group-redesign" aria-label="Main menu" role="navigation">
+
+      <ul class="nav navbar-nav lazy-load d-none" role="menu">
+        <div class="mobile-tabs-container">
+              <ul class="mobile-menu-tabs">
+                  <isif condition="${pdict.categories}">
+                    <isloop items="${pdict.categories}" var="category">
+                      <isif condition="${category.id == "mens" || category.id == "womens"}" >
+                          <li class="nav-item tab-link current gtm-customEvent" role="menuitem" data-tab="${category.name}" data-gtm-tracking='${JSON.stringify(category.gtmNavVal)}'>
+                            <span  id="${category.id}" role="button">
+                              <span class="image-text" style="color: ${category.hexColor}">${category.name}</span>
+                            </span>
+                          </li>
+                      </isif>
+                    </isloop>
+                  </isif>
+              </ul>
+              <isif condition="${pdict.categories}">
+                <div class="mobile-tabs-content">
+                    <isloop items="${pdict.categories}" var="category">
+                        <isif condition="${category.id == "mens" || category.id == "womens"}" >
+                            <isif condition="${category.subCategories}">
+                              <iscomment> Custom: sub-dropdown class added</iscomment>
+                                  <span id="${category.name}" class="tab-content  ${category.name}">
+                                    <isset name="topCat" value="${category}" scope="page"/>
+                                    <isset name="gtmCategoryVal" value="${JSON.stringify(category.gtmNavVal)}" scope="page"/>
+                                    <isset name="menuItem" value="${category}" scope="page" />
+                                    <isinclude template="components/header/mobile/menuItem" />
+                                  </span>
+                            </isif>
+                        </isif>
+                    </isloop>
+                </div>    
+              </isif>
+        </div><!-- container -->
+
+        <isinclude url="${URLUtils.url('Account-Header', 'mobile', true)}" />
+        <isinclude url="${URLUtils.url('Page-Locale', 'mobile', true)}" />
+      </ul>
+      <div class="register-btn-menu">
+        <isif condition="${!pdict.loggedIn && !customer.isAuthenticated()}">
+          <a href="${URLUtils.https('Login-Show')}">
+            <button type="button" class="register-button btn btn-dark">${Resource.msg('link.header.register', 'account', null)}</button>
+          </a>
+        </isif>
+      </div>
+    </div>
+  </nav>

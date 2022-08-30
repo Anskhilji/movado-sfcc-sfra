@@ -48,16 +48,36 @@ function sendOrderConfirmationEmail(order, locale) {
     var emailFooterContent = ContentMgr.getContent('email-footer');
     var emailMarketingContent = ContentMgr.getContent('email-order-confirmation-marketing');
     var bottomContent = ContentMgr.getContent('email-confirmation-bottom');
+    var emailPickInStoreFooterContent = ContentMgr.getContent('email-footer-pick-in-store');
+    var emailPickInStoreHeaderContent = ContentMgr.getContent('email-header-pick-in-store');
+    var bottomPickInStoreContent = ContentMgr.getContent('email-confirmation-pick-in-store-bottom');
+    var emailMarketingPickInStoreContent = ContentMgr.getContent('email-order-confirmation-marketing-pick-in-store');
     var orderModel = new OrderModel(order, { countryCode: currentLocale.country });
 
-    var orderObject = {
-        order: orderModel,
+    var orderConfirmationObj = {
         emailHeader: (emailHeaderContent && emailHeaderContent.custom && emailHeaderContent.custom.body ? emailHeaderContent.custom.body : ''),
         emailFooter: (emailFooterContent && emailFooterContent.custom && emailFooterContent.custom.body ? emailFooterContent.custom.body : ''),
         emailMarketingContent: (emailMarketingContent && emailMarketingContent.custom && emailMarketingContent.custom.body ? emailMarketingContent.custom.body : ''),
-        bottomContent: (bottomContent && bottomContent.custom && bottomContent.custom.body ? bottomContent.custom.body : ''),
+        bottomContent: (bottomContent && bottomContent.custom && bottomContent.custom.body ? bottomContent.custom.body : '')
+    };
+
+    if (!empty(order.custom.pickInStore)) {
+        orderConfirmationObj = {
+            emailHeader: (emailPickInStoreHeaderContent && emailPickInStoreHeaderContent.custom && emailPickInStoreHeaderContent.custom.body ? emailPickInStoreHeaderContent.custom.body : ''),
+            emailFooter: (emailPickInStoreFooterContent && emailPickInStoreFooterContent.custom && emailPickInStoreFooterContent.custom.body ? emailPickInStoreFooterContent.custom.body : ''),
+            emailMarketingContent: (emailMarketingPickInStoreContent && emailMarketingPickInStoreContent.custom && emailMarketingPickInStoreContent.custom.body ? emailMarketingPickInStoreContent.custom.body : ''),
+            bottomContent: (bottomPickInStoreContent && bottomPickInStoreContent.custom && bottomPickInStoreContent.custom.body ? bottomPickInStoreContent.custom.body : '')
+        };
+    }
+
+    var orderObject = {
+        order: orderModel,
+        emailHeader: orderConfirmationObj.emailHeader,
+        emailFooter: orderConfirmationObj.emailFooter,
+        emailMarketingContent: orderConfirmationObj.emailMarketingContent,
+        bottomContent: orderConfirmationObj.bottomContent,
         orderConfirmationHeading: Resource.msgf('order.confirmation.email.heading', 'order', null, orderModel.orderNumber),
-        salution: Resource.msgf('order.confirmation.email.salution', 'order', null, orderModel.billing.billingAddress.address.firstName, orderModel.billing.billingAddress.address.lastName),
+        salution: Resource.msgf('order.confirmation.email.salution', 'order', null, orderModel.billing.billingAddress.address.firstName, orderModel.billing.billingAddress.address.lastName ? orderModel.billing.billingAddress.address.lastName : '') ,
         thankYou: Resource.msgf('order.confirmation.email.thankyou', 'order', null),
         orderNumberHeading: Resource.msgf('order.confirmation.email.no.heading', 'order', null, orderModel.orderNumber),
         orderProcess: Resource.msgf('order.confirmation.email.placed', 'order', null, orderModel.creationDate),
@@ -83,17 +103,18 @@ function sendOrderConfirmationEmail(order, locale) {
         phoneLabel: Resource.msg('order.confirmation.email.label.phone', 'order', null),
         shippingMethodLabel: Resource.msg('order.confirmation.email.label.shippingmethod', 'order', null),
         shippingStatusLabel: Resource.msg('order.confirmation.email.label.shippingstatus', 'order', null),
-        billingLabel: Resource.msg('order.confirmation.email.label.billingaddress', 'order', null)
+        billingLabel: Resource.msg('order.confirmation.email.label.billingaddress', 'order', null),
+        cuurentOrder: order
     };
 
     var emailObj = {
         to: order.customerEmail,
-        subject: Resource.msgf('subject.order.confirmation.email', 'order', null, orderModel.orderNumber),
+        subject: order.custom.pickInStore ? Resource.msgf('subject.order.confirmation.email.pickup', 'order', null, orderModel.orderNumber) : Resource.msgf('subject.order.confirmation.email', 'order', null, orderModel.orderNumber),
         from: Site.current.getCustomPreferenceValue('customerServiceEmail') || 'no-reply@salesforce.com',
         type: emailHelpers.emailTypes.orderConfirmation
     };
 
-    emailHelpers.sendEmail(emailObj, 'checkout/confirmation/email/confirmationEmail', orderObject);
+    emailHelpers.sendEmail(emailObj, order.custom.pickInStore ? 'checkout/confirmation/email/confirmationEmailPickInStore' : 'checkout/confirmation/email/confirmationEmail', orderObject);
     delete session.custom.currencyCode;
     checkoutLogger.debug('(checkoutCustomHelpers) -> sendOrderConfirmationEmail: Sent Order Confirmation mail to the current user, for order : ' + orderModel.orderNumber);
 }
@@ -114,7 +135,7 @@ function sendCancellationEmail(emailObject) {
         emailMarketingContent: (emailMarketingContent && emailMarketingContent.custom && emailMarketingContent.custom.body ? emailMarketingContent.custom.body : ''),
         topContent: (topContent && topContent.custom && topContent.custom.body ? topContent.custom.body : ''),
         orderCancellationHeading: Resource.msg('order.cancellation.email.heading', 'order', null),
-        salution: Resource.msgf('order.cancellation.email.salution', 'order', null, emailObject.firstName, emailObject.lastName),
+        salution: Resource.msgf('order.cancellation.email.salution', 'order', null, emailObject.firstName, emailObject.lastName ? emailObject.lastName : ''),
         orderProcess: Resource.msgf('order.cancellation.email.placed', 'order', null, emailObject.creationDate),
         orderNumber: Resource.msgf('order.cancellation.email.number.heading', 'order', null, emailObject.orderNumber),
         order: emailObject.order
@@ -184,7 +205,7 @@ function sendShippingEmail(order) {
         emailMarketingContent: (emailMarketingContent && emailMarketingContent.custom && emailMarketingContent.custom.body ? emailMarketingContent.custom.body : ''),
         bottomContent: (bottomContent && bottomContent.custom && bottomContent.custom.body ? bottomContent.custom.body : ''),
         orderShippingHeading: Resource.msgf('order.shipping.email.heading', 'order', null, orderModel.orderNumber),
-        salution: Resource.msgf('order.confirmation.email.salution', 'order', null, orderModel.billing.billingAddress.address.firstName, orderModel.billing.billingAddress.address.lastName),
+        salution: Resource.msgf('order.confirmation.email.salution', 'order', null, orderModel.billing.billingAddress.address.firstName, orderModel.billing.billingAddress.address.lastName ? orderModel.billing.billingAddress.address.lastName : ''),
         thankYou: Resource.msgf('order.confirmation.email.thankyou', 'order', null),
         quantityLabel: Resource.msg('order.confirmation.email.quantity', 'order', null),
         bonusLabel: Resource.msg('order.confirmation.email.bonus', 'order', null),

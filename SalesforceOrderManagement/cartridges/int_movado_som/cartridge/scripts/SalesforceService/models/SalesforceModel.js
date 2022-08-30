@@ -106,6 +106,12 @@ var SalesforceModel = ({
             requestMethod: 'GET'
         });
     },
+    createWarrantyCancellationRequest: function (isOrderCancelled, foParentItemIds, orderSummaryId) {
+        return SalesforceModel.createSalesforceRestRequest({
+            url: SalesforceFactory.ENDPOINTS.WARRANTYCANCELLATION + '?isOrderCancelled=' + isOrderCancelled + '&foParentItemIds=' + foParentItemIds + '&orderSummaryId=' + orderSummaryId,
+            requestMethod: 'GET'
+        });
+    },
     buildCompositeFulfillmentOrderUpdateRequest: function (req) {
         var requestData = {
             url: SalesforceFactory.ENDPOINTS.FULFILLMENTORDER + '/' + req.fulfillmentOrderId,
@@ -185,8 +191,8 @@ var SalesforceModel = ({
                 TrackingNumber: req.TrackingNumber,
                 TrackingURL: req.TrackingURL || '',
                 Description: description,
-                SAPCarrierCode__c: req.SAPCarrierCode,
-                SAPDeliveryNumber__c: req.SAPDeliveryNumber
+                SAPCarrierCode__c: req.SAPCarrierCode || '',
+                SAPDeliveryNumber__c: req.SAPDeliveryNumber || ''
             }
         };
         return requestData;
@@ -195,7 +201,7 @@ var SalesforceModel = ({
         var requestData = {
             url: SalesforceFactory.ENDPOINTS.OPERATIONLOG,
             method: 'POST',
-            referenceId: 'OPLOG-' + req.orderSummaryId,
+            referenceId: 'OPLOG' + req.orderSummaryId,
             body: {
                 Order_Summary__c: req.orderSummaryId,
                 Fulfillment_Order__c: req.fulfillmentOrderId,

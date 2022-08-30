@@ -1,4 +1,7 @@
 'use strict';
+if(Resources.IS_CLYDE_ENABLED) {
+    var clydeWidget = require('link_clyde/getClydeWidget.js');
+}
 
 /**
  * Retrieves the relevant pid value
@@ -11,7 +14,11 @@ function getPidValue($el) {
     if ($('#quickViewModal').hasClass('show') && !$('.product-set').length) {
         pid = $($el).closest('.modal-content').find('.product-quickview').data('pid');
     } else if ($('.product-set-detail').length || $('.product-set').length) {
-        pid = $($el).closest('.product-detail').find('.product-id').text();
+        pid = $($el).closest('.product-detail').data('pid');
+    } else if ($($el).closest('.recomended-products') && $($el).closest('.recomended-products').data('recomendation') == true) {
+        pid = $($el).data('pid');
+    } else if ($($el).closest('.recomended-products-redesign ') && $($el).closest('.recomended-products-redesign ').data('recomendation') == true) {
+        pid = $($el).data('pid');
     } else {
         pid = $('.product-detail:not(".bundle-item")').data('pid');
     }
@@ -255,7 +262,7 @@ function removeOption($productOptionContainer) {
     $productOptionContainer.closest('form').validate().resetForm();
 }
 
-function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, $productContainer) {
+function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, $productContainer, OptionsValidationError) {
     var optionForm;
     if (embossedMessageError) {
         optionForm = $productContainer.find('form[name="embossing"]');
@@ -268,7 +275,6 @@ function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, 
             "option-message": embossedMessageError
         });
     }
-
     if (engravedMessageError) {
         optionForm = $productContainer.find('form[name="engraving"]');
         optionForm.removeClass('submitted');
@@ -278,6 +284,9 @@ function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, 
         validateOptions(optionForm).showErrors({
             "option-message": engravedMessageError
         });
+    }
+    if (!OptionsValidationError) {
+        $('.popup-opened').hide();
     }
 }
 
@@ -402,8 +411,7 @@ function attributeSelect(selectedValueUrl, $productContainer) {
                 handleVariantResponse(data, $productContainer);
                 updateOptions(data.product.options, $productContainer);
                 updateQuantities(data.product.quantities, $productContainer);
-                handleOptionsMessageErrors(data.validationErrorEmbossed, data.validationErrorEngraved, $productContainer);
-
+                handleOptionsMessageErrors(data.validationErrorEmbossed, data.validationErrorEngraved, $productContainer, data.OptionsValidationError);
                 $('body').trigger('product:afterAttributeSelect',
                     { data: data, container: $productContainer });
                 $.spinner().stop();
@@ -620,28 +628,13 @@ function validateOptions($el) {
         });
     }
 }
-/**
- * Custom Start: Retrieve recommended products
- *
- */
-function getRecommendationProducts() {
-    var $recommendedProductSelector = $('.upsell-input:checked');
-    var productArray = [];
-    for (var i = 0; i < $recommendedProductSelector.length; i++) {
-        var $currentRecommendedProduct = $recommendedProductSelector[i];
-            var form = {
-                pid: $currentRecommendedProduct.value,
-                quantity: 1
-            };
-        productArray.push(form);
-    }
-    return productArray.length ? JSON.stringify(productArray) : [] ;
-}
 
 var updateCartPage = function(data) {
   $('.cart-section-wrapper').html(data.cartPageHtml);
   if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
-        affirm.ui.refresh();
+        affirm.ui.ready(function() {
+            affirm.ui.refresh();
+        });
    }
 };
 
@@ -737,7 +730,7 @@ module.exports = {
     },
 
     addToCart: function () {
-        $(document).off('click.addToCart').on('click.addToCart', 'button.add-to-cart, button.add-to-cart-global', function (e) {
+        $(document).off('click.addToCart').on('click.addToCart', 'button.add-to-cart, button.add-to-cart-global, button.add-to-cart-recomendations', function (e) {
             var addToCartUrl;
             var pid;
             var pidsObj;
@@ -752,7 +745,7 @@ module.exports = {
                     if (!$(this).hasClass('product-set-detail')) {
                         setPids.push({
                             pid: $(this).find('.product-id').text(),
-                            qty: $(this).find('.quantity-select').val(),
+                            qty: 1,
                             options: getOptions($(this))
                         });
                     }
@@ -761,6 +754,7 @@ module.exports = {
             }
 
             pid = getPidValue($(this));
+
 
             var $productContainer = $(this).closest('.product-detail');
             if (!$productContainer.length) {
@@ -773,8 +767,7 @@ module.exports = {
                 pid: pid,
                 pidsObj: pidsObj,
                 childProducts: getChildProducts(),
-                quantity: getQuantitySelected($(this)),
-                recommendationArray: getRecommendationProducts()
+                quantity: getQuantitySelected($(this))            
             };
             /**
             * Custom Start: Add to cart form for Oliva Burton
@@ -784,13 +777,22 @@ module.exports = {
                     pid: pid,
                     pidsObj: pidsObj,
                     childProducts: getChildProducts(),
-                    quantity: 1,
-                    recommendationArray: getRecommendationProducts()
+                    quantity: 1                
                 };
             }
             /**
             *  Custom End
             */
+            
+            /**
+             * Custom Start: Clyde Integration
+             */
+            if (window.Resources && window.Resources.IS_CLYDE_ENABLED) {
+                form = clydeWidget.getSelectedClydeContract(form);
+            }
+            /**
+             * Custom end:
+             */
             $productContainer.find('input[type="text"], textarea, input[type="radio"]:checked').filter('[required]')
             .each(function() {
                 if($(this).val() && $(this).closest("form.submitted").length) {
@@ -814,6 +816,10 @@ module.exports = {
                         updateCartPage(data);
                         handlePostCartAdd(data);
                         $('body').trigger('product:afterAddToCart', data);
+                        if (window.Resources.LISTRAK_ENABLED) {
+                            var ltkSendSCA = require('listrak_custom/ltkSendSCA');
+                            ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
+                        }
                         $.spinner().stop();
                     },
                     error: function () {
@@ -1010,14 +1016,33 @@ module.exports = {
         $(document).on('click', '.add-to-cart-plp-redesign', function (e) {
             $.spinner().start();
             var addToCartUrl;
+            var pid;
+            var pidsObj;
+            var setPids;
             var $this = $(this);
 
             $('body').trigger('product:beforeAddToCart', this);
 
             addToCartUrl = getAddToCartUrl();
+            if ($this.data('product-set') == true) {
+                setPids = [];
+                $this.find('.product-sets').each(function () {
+                    setPids.push({
+                        pid: $(this).text(),
+                        qty: 1,
+                        options: getOptions($(this))
+                    });
+                });
+                pidsObj = JSON.stringify(setPids);
+                pid = getPidValue($(this));
+            } else {
+                pid = $(this).data('pid');
+            }
 
             var form = {
-                pid: $this.data('pid'),
+                pid: pid,
+                pidsObj: pidsObj,
+                childProducts: getChildProducts(),
                 quantity: 1
             };
 
@@ -1030,6 +1055,10 @@ module.exports = {
                         updateCartPage(data);
                         handlePostCartAdd(data);
                         $('body').trigger('product:afterAddToCart', data);
+                        if (window.Resources.LISTRAK_ENABLED) {
+                            var ltkSendSCA = require('listrak_custom/ltkSendSCA');
+                            ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
+                        }
                         $.spinner().stop();
                     },
                     error: function () {
