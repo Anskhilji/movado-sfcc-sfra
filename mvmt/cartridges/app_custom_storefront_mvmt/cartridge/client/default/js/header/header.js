@@ -154,7 +154,7 @@ $(".mobile-search-field").keydown(function() {
     } else {
         $(".clear-text-img").addClass('d-none');
     }
-
+    
 });
 
 $(window).on('load resize', function() {
