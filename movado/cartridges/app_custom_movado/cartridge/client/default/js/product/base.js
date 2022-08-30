@@ -578,10 +578,10 @@ function handleVariantResponse(response, $productContainer) {
         }
     }
 
-    if (!(response.product.isGiftBoxAllowed)) {
+    if (!(response && response.product && response.product.isGiftBoxAllowed)) {
         $('.gift-box-wrapper').css('visibility', 'hidden');
-        if($('.product-side-details .gift-allowed-checkbox').is(":checked")) {
-            $('.product-side-details .gift-allowed-checkbox').prop("checked", false);
+        if($('.product-side-details .gift-allowed-checkbox').is(':checked')) {
+            $('.product-side-details .gift-allowed-checkbox').prop('checked', false);
         }
     } else {
         if ($(window).width() >= 768) {
@@ -595,8 +595,8 @@ function handleVariantResponse(response, $productContainer) {
             }
             $('.gift-box-wrapper.d-mobile-show').show();
         }
-        if($('.product-side-details .gift-allowed-checkbox').is(":checked")) {
-            $('.product-side-details .gift-allowed-checkbox').prop("checked", false);
+        if($('.product-side-details .gift-allowed-checkbox').is(':checked')) {
+            $('.product-side-details .gift-allowed-checkbox').prop('checked', false);
         }
     }
 

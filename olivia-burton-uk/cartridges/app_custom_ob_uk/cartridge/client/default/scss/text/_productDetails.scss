@@ -1631,7 +1631,7 @@
     &.d-show-desktop {
         display: block;
         @include media-breakpoint-down(sm) {
-            display: none;
+        	display: none;
         }
     }
 
@@ -1658,7 +1658,6 @@
         font-size: rem(16);
         text-transform: none;
         font-weight: 400;
-
         &.custom-control-label-pdp {
             display: block;
             position: relative;
@@ -1671,7 +1670,7 @@
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
-			@include media-breakpoint-down(sm) {
+            @include media-breakpoint-down(sm) {
 				color: $white;
 			}
 
