@@ -386,6 +386,10 @@ server.append(
     var CartModel = require('*/cartridge/models/cart');
 
     var basketModel = new CartModel(BasketMgr.getCurrentBasket());
+    res.setViewData({
+        couponLineItems: BasketMgr.currentBasket.couponLineItems,
+        couponLineItemsLength : BasketMgr.currentBasket.couponLineItems.length,
+    });
     res.json(basketModel);
     next();
 });
@@ -531,6 +535,17 @@ server.append('MiniCartShow', function(req, res, next){
         res.setViewData({cartAnalyticsTrackingData: JSON.stringify(cartAnalyticsTrackingData)});
     }
 
+    next();
+});
+
+server.append(
+	'RemoveCouponLineItem',
+	function (req, res, next) {
+    var BasketMgr = require('dw/order/BasketMgr');
+    res.setViewData({
+        couponLineItems: BasketMgr.currentBasket.couponLineItems,
+        couponLineItemsLength : BasketMgr.currentBasket.couponLineItems.length,
+    });
     next();
 });
 
