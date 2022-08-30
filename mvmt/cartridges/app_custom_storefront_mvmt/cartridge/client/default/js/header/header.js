@@ -146,12 +146,13 @@ $('.header-search-field').focusout(function() {
     }
 });
 
-$(".mobile-search-field").keydown(function() {
+$(".mobile-search-field").keydown(function() { 
     if($(this).length && $(this).val().length) {
         $(".clear-text-img").removeClass('d-none');
     } else {
         $(".clear-text-img").addClass('d-none');
     }
+    
 });
 
 $(window).on('load resize', function() {
