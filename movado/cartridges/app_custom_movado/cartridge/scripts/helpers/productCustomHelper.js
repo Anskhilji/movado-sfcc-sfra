@@ -177,33 +177,18 @@ function getCurrentCountry() {
 
 //Custom Start: Get Category of Product
 function getProductCategory(apiProduct) {
-    var isCategory;
-    var currentCategory = null;
-    var apiCategories;
+    var currentPrimaryCategory;
     try {
-        if (!empty(apiProduct)) {
-            if (apiProduct.variant) {
-                apiCategories = apiProduct.getVariationModel().getMaster().getOnlineCategories();
-            } else {
-                apiCategories = apiProduct.getOnlineCategories();
-            }
-            if (!empty(apiCategories)) {
-                for (i = 0 ; apiCategories.length > 0 ; i++) {
-                    currentCategory = apiCategories[i];
-                    if ((!empty(currentCategory) && currentCategory.ID == Constants.WATCHES_CATEGORY) || (!empty(currentCategory) && currentCategory.ID == Constants.NEWARRIVALS_CATEGORY) || (!empty(currentCategory) && currentCategory.ID == Constants.JEWELRY_CATEGORY) || (!empty(currentCategory) && currentCategory.ID == Constants.ACCESSORIES_CATEGORY)) {
-                        isCategory = currentCategory.ID;
+        if (!empty(apiProduct) && apiProduct.primaryCategory != null) {
+            if (!empty(apiProduct.primaryCategory)) {
+                var productPrimaryCategory = apiProduct.primaryCategory;
+
+                while (productPrimaryCategory.parent != null) {
+                    if (productPrimaryCategory.parent.ID == 'root') {
+                        currentPrimaryCategory = productPrimaryCategory.ID;
                         break;
                     }
-
-                    if (!empty(currentCategory)) {
-                            if (currentCategory.parent != null) {
-                                currentCategory = currentCategory.parent;
-                                if ((!empty(currentCategory) && currentCategory.ID == Constants.WATCHES_CATEGORY) || (!empty(currentCategory) && currentCategory.ID == Constants.NEWARRIVALS_CATEGORY) || (!empty(currentCategory) && currentCategory.ID == Constants.JEWELRY_CATEGORY) || (!empty(currentCategory) && currentCategory.ID == Constants.ACCESSORIES_CATEGORY)) {
-                                    isCategory = currentCategory.ID;
-                                    break; // break outer loop
-                                }
-                            }
-                    }
+                    productPrimaryCategory = productPrimaryCategory.parent;
                 }
             }
         }
@@ -211,7 +196,7 @@ function getProductCategory(apiProduct) {
         Logger.error('(productCustomHelper.js -> getProductCategory) Error occured while getting category from apiProduct : ' + error.message);
         return;
     }
-    return isCategory;
+    return currentPrimaryCategory;
 }
 //Custom End: Get Category of Product
 
