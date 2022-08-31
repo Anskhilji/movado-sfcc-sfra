@@ -1,5 +1,6 @@
 @import "_variables";
 @import "bootstrap/scss/mixins/breakpoints";
+@import '~movado/global';
 .store-pickup-model {
 
     @include media-breakpoint-up(sm) { 
@@ -8,8 +9,13 @@
         }
     }
 
+    .ie-model {
+        margin-top: rem(170);
+    }
+
     &-header {
         border: none;
+        padding: rem(20);
     }
 
     &-title {
@@ -21,6 +27,12 @@
         line-height: rem(24);
         text-transform: uppercase;
         padding-left: rem(32);
+        position: absolute;
+        top: 18px;
+
+        @include media-breakpoint-down(md) {
+            padding-left: rem(10);
+        }
     }
 
     .store-pickup {
@@ -31,6 +43,10 @@
             position: relative;
             bottom: rem(5);
 
+            @include media-breakpoint-down(md) {
+                padding-left: rem(10);
+            }
+
             &-field {
                 box-sizing: border-box;
                 height: rem(40);
@@ -39,6 +55,10 @@
                 background-color: $white-dark;
                 padding-left: rem(10);
                 font-size: rem(14);
+
+                @include media-breakpoint-down(md) {
+                    width: 100%;
+                }
             
                 &:placeholder {
                     color: $light-gray-brown;
@@ -56,6 +76,13 @@
             margin-left: rem(20);
             position: relative;
             width: rem(135);
+            bottom: rem(5);
+
+            i {
+                position: absolute;
+                right: rem(10);
+                top: rem(15);
+            }
     
             &-dropdown-field {
                 box-sizing: border-box;
@@ -65,12 +92,14 @@
                 background-color: $white-dark;
                 color: $black-dark;
                 font-family: $font-demi;
-                font-size: rem(14);
+                font-size: rem(12);
                 font-weight: 300;
                 letter-spacing: rem(0.4);
                 line-height: rem(24);
                 padding-left: rem(5);
-                padding-top: rem(10);
+                padding-top: rem(12);
+                @include select-appearance(none);
+                cursor: pointer;
             }
     
             &-dropdown-label {
@@ -81,7 +110,7 @@
                 letter-spacing: rem(0.29);
                 line-height: rem(24);
                 position: absolute;
-                left: rem(10);
+                left: rem(7);
                 top: rem(-2);
                 text-transform: capitalize;
             }
@@ -92,12 +121,14 @@
             margin-left: rem(20);
             position: relative;
             bottom: rem(5);
+            height: rem(40);
+            width: rem(125);
             
             &-btn {
                 border: rem(1) solid $black-dark;
                 box-sizing: border-box;
-                height: rem(40);
-                width: rem(125);
+                height: 100%;
+                width: 100%;
                 background-color: $white-dark;
                 color: $light-gray-black;
                 font-family: $font-demi;
@@ -107,6 +138,7 @@
                 line-height: rem(24);
                 text-align: center;
                 text-transform: uppercase;
+                cursor: pointer;
             }
         }
     }
