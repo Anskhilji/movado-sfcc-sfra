@@ -60,7 +60,7 @@ server.get('GetPreferredStore', function (req, res, next) {
         address1: address1,
         phone: phone
     }
-    res.render(isPdp ? 'product/components/pdpStorePickUp' : 'modalpopup/modelPopUpButton', {
+    res.render(isPdp ? 'product/components/pdpStorePickUp' : 'product/components/pdpStorePickUp', {
         storeObject: storeObject,
         isPdp: isPdp
     });

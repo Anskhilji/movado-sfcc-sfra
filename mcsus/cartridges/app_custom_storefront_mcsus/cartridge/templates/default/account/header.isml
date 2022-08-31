@@ -4,6 +4,7 @@
       <i class="login-icon"></i>
       <span class="user-message">${Resource.msg('link.header.login', 'account', null)}</span>
     </a>
+<isinclude template="modalpopup/modelPopUpButton"/>
   </div>
 <iselse/>
   <div class="user hidden-md-down" tabindex="0">
