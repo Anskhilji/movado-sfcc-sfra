@@ -1,5 +1,5 @@
 <isdecorate template="common/layout/page">
-
+<isset name="isPickupStoreEnabled" value="${!empty(dw.system.Site.current.preferences.custom.isPickupStoreEnabled) ? dw.system.Site.current.preferences.custom.isPickupStoreEnabled : false}" scope="page" />
     <isscript>
         var assets = require('*/cartridge/scripts/assets');
         assets.addJs('/lib/pinchzoom/pinch-zoom.umd.js');
@@ -128,6 +128,11 @@
                                     <isinclude url="${URLUtils.https('Product-ShowMcsProdutPrice', 'pid', product.id)}"/>
                                 <iscomment> Custom: End </iscomment>
                             </div>
+                            <isif condition="${isPickupStoreEnabled}">
+                                <div class="pdp-store-pickup-wraper row">
+                                    <isinclude url="${URLUtils.url('PickupStore-GetPreferredStore', 'isPdp', pdict.isPdpStorePickup)}" />
+                                </div>
+                            </isif>
                             <div class="d-block d-md-flex btn-margin smart-gift-box-mcs">
                                 <!-- Cart and [Optionally] Apple Pay -->
                                 <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
