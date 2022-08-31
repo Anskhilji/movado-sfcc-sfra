@@ -106,6 +106,15 @@
                                     <isinclude url="${URLUtils.https('Product-ShowMcsProdutPrice', 'pid', product.id)}"/>
                                 <iscomment> Custom: End </iscomment>
                             </div>
+                            <isif condition="${isPickupStoreEnabled}">
+                                <div class="ispickup-store">
+                                <p>hello</p>
+                                    <div class="pdp-store-pickup-wraper row">
+                                        <isinclude url="${URLUtils.url('PickupStore-GetPreferredStore', 'isPdp', pdict.isPdpStorePickup)}" />
+                                    ${pdict.isPdpStorePickup}
+                                    </div>
+                                </div>
+                            </isif>
                             <isinclude template="product/components/promotions" />
                         </div>
                     </div>
