@@ -1954,3 +1954,103 @@
         }
     }
 }
+
+
+// ispick up store pdp redesign
+
+.ispickup-store {
+    padding: rem(15);
+    .pdp-store-pickup-wraper {
+        padding: 0;
+        background-color: transparent;
+
+        .col-sm-6 {
+            padding: 0;
+        }
+
+        .pdp-store-pickup-inventory {
+            order: 1;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            .pdp-store-pickup-display-inline-block-delevery {
+                width: auto;
+            }
+
+            .pdp-store-pickup-display-inline-block-inventory-icon {
+                background-image: url(../../images/charm_circle-tick.svg);
+                padding: rem(7.5);
+                margin-right: rem(8);
+            }
+
+            .pick-up-store-stock-for-deliver {
+                font-family: $font-book;
+                font-size: rem(14);
+                letter-spacing: rem(0);
+                line-height: rem(24);
+                color: $green-2;
+                font-weight: 400;
+                margin-bottom: rem(0);
+                display: inline-block;
+            }
+
+            .pick-up-store-openings {
+                display: none;
+            }
+        }
+
+        .pdp-store-pickup-address {
+            .pdp {
+                &-store {
+                    &-pickup {
+                        &-display{
+                            &-inline{
+                                &-block {
+                                    &-store{
+                                        &-icon {
+                                            background-image: url(../../images/map-pin.svg);
+                                            padding: rem(15);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        .pick-up-store-available-for-store {
+            opacity: 0.5;
+            color: $black;
+            font-family: $font-book;
+            font-size: rem(10);
+            letter-spacing: 0;
+            line-height: rem(12);
+            font-weight: 400;
+        }
+
+        .pick-up-store-available-pickup-stores {
+            color: $black;
+            font-family: $font-book;
+            font-size: rem(14);
+            letter-spacing: rem(1);
+            line-height: rem(17);
+            font-weight: 400;
+        }
+
+        .pick-up-store-change-store {
+            opacity: 0.5;
+            color: $black;
+            font-family: $font-book;
+            font-size: rem(14);
+            letter-spacing: 0;
+            line-height: rem(12);
+            font-weight: 400;
+        }
+
+        
+
+        
+    }
+}

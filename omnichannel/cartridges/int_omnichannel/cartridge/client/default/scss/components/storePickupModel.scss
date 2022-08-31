@@ -36,6 +36,10 @@
         text-transform: uppercase;
         padding-left: rem(50.5);
         padding-top: rem(30.5);
+
+        @include custom-media-query-max($medium-screen-width) {
+            padding-left: rem(15);
+        }
     }
 
     .store-pickup {
@@ -119,6 +123,10 @@
                 line-height: rem(24);
                 padding-left: rem(10);
                 padding-top: rem(10);
+
+                @include custom-media-query-max($medium-screen-width) {
+                    background-position-x: 98%;
+                }
             }
     
             &-dropdown-label {

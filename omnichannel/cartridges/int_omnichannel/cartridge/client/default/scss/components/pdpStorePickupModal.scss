@@ -111,7 +111,7 @@
   padding: 0 rem(15);
   margin-bottom: rem(40.5);
 
-    @include media-breakpoint-down(sm) {
+    @include custom-media-query-max($medium-screen-width) {
         height: rem(200);
     }
 
