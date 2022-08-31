@@ -307,9 +307,9 @@ $(window).scroll(function() {
     }
 
     if (scroll > screenWidth) {
-        $(".filter-box").addClass("filter-bar-sticky");
-    }else {
-        $(".filter-box").removeClass("filter-bar-sticky");
+        $('.filter-box').addClass('filter-bar-sticky');
+    } else {
+        $('.filter-box').removeClass('filter-bar-sticky');
     }
 }); 
 
