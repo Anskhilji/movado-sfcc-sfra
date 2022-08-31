@@ -6,7 +6,7 @@
 
         <div class="col-6">
             <isobject object="${product}" view="recommendation">
-                <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true)}"/>
+                <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true, 'lazyload', true)}"/>
             </isobject>
         </div>
     </isloop>

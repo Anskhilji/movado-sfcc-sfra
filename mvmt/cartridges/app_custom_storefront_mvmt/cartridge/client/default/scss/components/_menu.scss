@@ -117,7 +117,7 @@
   }
 
   .menu-group {
-    margin-left: rem(150);
+    margin-left: rem(0);
 
     @include media-breakpoint-down(lg) {
       margin-left: rem(70);
@@ -176,6 +176,10 @@
           width: 75%;
           height: rem(2);
           background: $black;
+
+          @include media-breakpoint-down(lg) {
+              top: auto;
+          }
         }
       }
 
@@ -470,7 +474,6 @@
       padding: 0;
       width: rem(6);
       border: 0;
-      transform: rotate(90deg);
       position: absolute;
       right: 0;
       top: rem(7);
@@ -713,7 +716,7 @@
     .dropdown-menu {
       left: auto;
       overflow-x: hidden;
-      right: rem(-300);
+      right: rem(-355);
       transition: right 0.5s cubic-bezier(0, 1, 0.5, 1);
     }
   

@@ -3,13 +3,36 @@
     <!---item price--->
     <div class="col-4 d-none line-item-price-${lineItem.UUID}">
         <p class="line-item-price-info">${Resource.msg('label.each.item.price','cart',null)}</p>
-        <isset name="price" value="${lineItem.price}" scope="page"/>
-        <isinclude template="/product/components/pricing/main" />
+        <iscomment> Custom Start: Clyde Integration </iscomment>
+            <isif condition="${dw.system.Site.current.preferences.custom.isClydeEnabled}">
+                <isif condition="${(lineItem.productName).substring(0, 13) === 'clydeContract'}">
+                    <div class="pricing line-item-total-price-amount item-total-${lineItem.UUID}">
+                        ${lineItem.formattedPrice}
+                    </div>
+                <iselse>
+                    <isset name="price" value="${lineItem.price}" scope="page"/>
+                    <isinclude template="/product/components/pricing/main" />
+                </isif>
+            <iselse/>
+                <isset name="price" value="${lineItem.price}" scope="page"/>
+                <isinclude template="/product/components/pricing/main" />
+            </isif>
+        <iscomment> Custom: End </iscomment>
     </div>
     <!--- line item total price --->
     <div class="line-item-total-price">
         <div class="item-total-${lineItem.UUID} price">
-            <isinclude template="checkout/productCard/productCardProductTotalPrice" />
+            <iscomment> Custom Start: Clyde Integration</iscomment>
+                <isif condition="${dw.system.Site.current.preferences.custom.isClydeEnabled}">
+                    <isif condition="${(lineItem.productName).substring(0, 13) === 'clydeContract'}">
+                        <div class="pricing line-item-total-price-amount item-total-${lineItem.UUID}">${lineItem.formattedPrice}</div>
+                    <iselse>
+                        <isinclude template="checkout/productCard/productCardProductTotalPrice" />
+                    </isif>
+                <iselse/>
+                    <isinclude template="checkout/productCard/productCardProductTotalPrice" />
+                </isif>
+            <iscomment> Custom End: </iscomment>
         </div>
     </div>
     <!--- product restriction - product not available msg --->

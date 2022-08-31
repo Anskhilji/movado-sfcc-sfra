@@ -11,6 +11,9 @@ $(document).ready(function() { // eslint-disable-line
     }
     processInclude(require('./checkout/billing'));
     processInclude(require('./checkout/checkout'));
+    if (Resources.GOOGLE_AUTO_COMPLETE_ENABLED) {
+        processInclude(require('./checkout/autoCompleteAddress'));
+    }
     var paymentMethod = $('.payment-options .show').parent().find('.form-check').data('method-id');
     var brandCode = $('.payment-options .show').parent().find('.form-check').data('brand-code');
     $('#selectedPaymentOption').val(paymentMethod);
@@ -33,7 +36,7 @@ $(document).ready(function() { // eslint-disable-line
         $('body').addClass('apple-pay-enabled');
     }
 
-    var checkedPaymentMethod = $('input[name = "paymentOption"]:checked');
+    var checkedPaymentMethod = $('.credit-card-selection');
 
     // Custom Change: prevent from triggering if the payment method id is credit card
     if (checkedPaymentMethod && checkedPaymentMethod.attr('id') !== Resources.CREDIT_CARD_PAYMENT_METHOD_ID) {
@@ -43,7 +46,7 @@ $(document).ready(function() { // eslint-disable-line
     // Avoid self toggle once a payment panel is expanded.
     $('a', $('.payment-options .form-check')).on('click', function (e) {
         $('#selectedPaymentOption').removeClass('is-invalid')
-        if ($(this).parents('.panel').children('.panel-collapse').hasClass('show')) {
+        if ($(this).parents('.nav-pills').siblings('.tab-content-payment-options').children('.tab-pane').hasClass('active')) {
             e.stopPropagation();
         }
     });

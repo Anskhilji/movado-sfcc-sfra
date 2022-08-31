@@ -186,9 +186,21 @@ function CartModel(basket) {
         additionalCheckout: Resource.msg('additional.checkout', 'cart', null)
       },
       assets: assets,
-      swellRedemption: getSwellRedemption(!empty(basket) ? basket.getPriceAdjustments() : null)
+      swellRedemption: getSwellRedemption(!empty(basket) ? basket.getPriceAdjustments() : null),
+      giftOptions: getGiftOptions(basket)
     });
     return cartObject;
+}
+
+function getGiftOptions(basket) {
+    var productHasGift = [];
+    var lineItems = basket.allProductLineItems.toArray();
+    for (var i = 0; i < lineItems.length; i++) {
+        if (lineItems[i].custom.giftPid) {
+            productHasGift.push(basket.allProductLineItems[i].productID);
+        }
+    }
+    return productHasGift;
 }
 
 module.exports = CartModel;

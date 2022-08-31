@@ -1,0 +1,2 @@
+<isset name="codes" value="${pdict.subpointcode}" scope="page" />
+<script src="${URLUtils.staticURL('/js/ltkSubPoints.js')}" ltk-data='<isprint value="${codes}"/>'></script>

@@ -1,5 +1,6 @@
 'use strict';
 
+var ArrayList = require('dw/util/ArrayList');
 var Bytes = require('dw/util/Bytes');
 var CatalogMgr = require('dw/catalog/CatalogMgr');
 var Encoding = require('dw/crypto/Encoding');
@@ -52,6 +53,8 @@ function gtmModel(req) {
     this.tertiarySiteSection = '';
     this.searchTerm = '';
     this.googleAnalyticsParameters = '';
+    this.customerIPAddressLocation = '';
+    this.rakutenAllowedCountries =  [];
 
 
         if (!empty(req.querystring)) {
@@ -63,7 +66,7 @@ function gtmModel(req) {
             searchkeyword = searchQuery.q ? searchQuery.q : '';
             cgid = searchQuery.cgid;
             pid = searchQuery.pid;
-        }            
+        }
         if (cgid != null || searchkeyword != null) {
             departmentCategoryName = getPLPDepartmentCategory(req, cgid, searchkeyword);
         }
@@ -171,7 +174,9 @@ function gtmModel(req) {
                     currency: productImpressionTags && productImpressionTags.currency ? productImpressionTags.currency : '',
                     // Custom start: Added secoundary category if exist and quantity on product on pdp
                     deparmentIncludedCategoryName: departmentCategoryName,
-                    quantity: '1'
+                    quantity: '1',
+                    familyName: productImpressionTags && productImpressionTags.familyName ? productImpressionTags.familyName : '',
+                    productColor: productImpressionTags && productImpressionTags.productColor ? productImpressionTags.productColor : ''
                     // Custom End
                 };
             } else {
@@ -219,6 +224,11 @@ function gtmModel(req) {
     this.userHashedEmail = userShippingDetails && !empty (userShippingDetails.userShippingEmail) ? Encoding.toHex(new Bytes(userShippingDetails.userShippingEmail, 'UTF-8')) : (!empty(userHashedEmail) ? userHashedEmail : '');
     this.googleAnalyticsParameters = googleAnalyticsParameters != null ? googleAnalyticsParameters : '';
     this.departmentCategoryName = (departmentCategoryName != null && departmentCategoryName != undefined && !empty(departmentCategoryName)) ? departmentCategoryName : '';
+    var customerIPAddressLocation = !empty(request.geolocation.countryCode) ? request.geolocation.countryCode : '';
+    var isRakutenEnabled = !empty(Site.current.preferences.custom.isRakutenEnable) ? Site.current.preferences.custom.isRakutenEnable : false;
+    this.rakutenAllowedCountries = new ArrayList(!empty(Site.current.preferences.custom.rakutenAllowedCountries) ? Site.current.preferences.custom.rakutenAllowedCountries : '').toArray();
+    this.rakutenAllowedCountries = isRakutenEnabled ? this.rakutenAllowedCountries.toString() : '';
+    this.customerIPAddressLocation = customerIPAddressLocation || '';
 }
 
 
@@ -341,18 +351,28 @@ function getSearchQuery(queryStringVal) {
         var searchArray = [];
         var searchQuery = '';
         var queryString = queryStringVal ? Encoding.fromURI(queryStringVal) : '';
+        var searchArrayQuery = [];
         if (queryString.indexOf('&') >= 0) {
             searchArray = queryString.split('&');
             searchArray = searchArray[1].split('=');
             if ((searchArray[0].indexOf('q')) > -1) {
                 searchQuery = { q: searchArray[1] };
             }
-    
             if ((queryString.indexOf('dwvar_')) > -1 && (queryString.indexOf('pid')) > -1) {
                 searchArray = queryString.split('=');
                 searchQuery = { pid: searchArray[searchArray.length - 1] };
+            } else if ((queryString.indexOf('pid')) > -1) {
+                searchArray = queryString.split('&');
+                var productID;
+                for (var index = 0; index < searchArray.length; index++) {
+                    if (searchArray[index].indexOf('pid=') > -1) {
+                        productID = searchArray[index];
+                        break;
+                    }
+                }
+                searchArrayQuery = productID ? productID.split('=') : '';
+                searchQuery = { pid: searchArrayQuery[1] };
             }
-    
         } else if ((queryString.indexOf('pid')) > -1) {
                 searchArray = queryString.split('=');
                 searchQuery = { pid: searchArray[1] };
@@ -366,7 +386,6 @@ function getSearchQuery(queryStringVal) {
         return searchQuery;
     } catch(ex) {
         Logger.error('Error occured while getting search query for gtm. Error: {0} \n Stack: {1} \n', ex.message, ex.stack);
-        
         return '';
     }
 }
@@ -583,9 +602,11 @@ function getPDPProductImpressionsTags(productObj, queryString) {
         var productType = productModel.productType;
         var prodOptionArray = getProductOptions(productObj.optionModel.options);
         var variant = !empty(variantSize) ? variantSize.displayValue : '';
+        var familyName = productObj.custom.familyName[0];
+        var productColor = productObj.custom.color;
 
         productPersonalization = prodOptionArray != null ? prodOptionArray : '';
-        return { productID: productID, variantID:variantID, productType:productType, customCategory:customCategory, Sku:sku, productName: productName, brand: brand, productPersonalization: productPersonalization, variant: variant, productPrice: productPrice, list: 'PDP', currency: currency };
+        return { productID: productID, variantID:variantID, productType:productType, customCategory:customCategory, Sku:sku, productName: productName, brand: brand, productPersonalization: productPersonalization, variant: variant, familyName: familyName, productColor: productColor, productPrice: productPrice, list: 'PDP', currency: currency };
     } catch (ex) {
         Logger.error('Error Occured while getting product impressions tags for gtm against lineitem. Error: {0} \n Stack: {1} \n', ex.message, ex.stack);
         return '';
@@ -639,6 +660,10 @@ function getBasketParameters() {
         // Custom End
         var jewelryType = '';
         var watchGender = '';
+        var familyName = '';
+        var productColor = '';
+        var isClydeEnabled = !empty(Site.current.preferences.custom.isClydeEnabled) ? Site.current.preferences.custom.isClydeEnabled : false;
+
         collections.forEach(cartItems, function (cartItem) {
             if (cartItem.product != null && cartItem.product.optionModel != null) {
                 var variants = getVariants(cartItem);
@@ -649,6 +674,30 @@ function getBasketParameters() {
                 if (!empty(productObj.custom.jewelryType)) {
                     jewelryType = productObj.custom.jewelryType;
                 }
+                if (!empty(productObj.custom.familyName)) {
+                    familyName = productObj.custom.familyName[0];
+                }
+                if (!empty(productObj.custom.color)) {
+                    productColor = productObj.custom.color;
+                }
+
+                // Custom Start: Check for Clyde Option
+                if (isClydeEnabled) {
+                    if (cartItem.optionProductLineItems) {
+                        var optionId;
+                        var optionPrice;
+                        var optionProducts;
+                        var productOptions = cartItem.optionProductLineItems;
+                        for (var i = 0; i < productOptions.length; i++) {
+                            optionProducts = {
+                                id: productOptions[i].optionID == 'clydeWarranty' ? productOptions[i].optionValueID : '',
+                                price: productOptions[i].optionID == 'clydeWarranty' ? productOptions[i].adjustedPrice : ''
+                            }
+                        }
+                    } 
+                } 
+                // Custom End
+
                 var customCategory = watchGender + " " + jewelryType;
                 var productModel = productFactory.get({pid: cartItem.productID});
                 var productPrice = productModel.price && productModel.price.sales ? productModel.price.sales.decimalPrice : (productModel.price && productModel.price.list ? productModel.price.list.decimalPrice : '');
@@ -678,7 +727,12 @@ function getBasketParameters() {
                     orderlevelDiscount: totalsModel.orderLevelDiscountTotal.value,
                     // Custom End
                     // Custom Start : Added payment method
-                    paymentMethod: paymentMethod });
+                    paymentMethod: paymentMethod,
+                    familyName: familyName,
+                    productColor: productColor,
+                    optionId: optionProducts ? optionProducts.id : '',
+                    optionPrice: optionProducts ? optionProducts.price : '' 
+                });
             }
         });
     }
@@ -730,7 +784,11 @@ function getCartJSONArray(checkoutObject) {
             cartObj.discount = cartJSON[i].discount;
             // Custom End
             cartObj.paymentMethod = cartJSON[i].paymentMethod;
-    
+            cartObj.familyName = cartJSON[i].familyName;
+            cartObj.productColor = cartJSON[i].productColor;
+            cartObj.optionId = (!empty(cartJSON[i].optionId)) ? cartJSON[i].optionId : '';
+            cartObj.optionPrice = (!empty(cartJSON[i].optionPrice)) ? formatMoney(cartJSON[i].optionPrice) : '';
+
             if (cartArray.length < 10) {
                 cartArray.push({
                     cartObj: cartObj
@@ -890,6 +948,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
             });
         });
 
+        var isClydeEnabled = !empty(Site.current.preferences.custom.isClydeEnabled) ? Site.current.preferences.custom.isClydeEnabled : false;
         var orderJSONArray = [];
         collections.forEach(order.productLineItems, function (productLineItem) {
             try {
@@ -897,15 +956,44 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
                 var produtObj = {};
                 var watchGender = "";
                 var jewelryType = "";
+                var familyName = "";
+                var productColor = "";
 
                 var productObj = ProductMgr.getProduct(productLineItem.product.ID);
+
                 if (productObj.custom.watchGender && productObj.custom.watchGender.length) {
                     watchGender = productObj.custom.watchGender[0];
                 }
                 if (!empty(productObj.custom.jewelryType)) {
                     jewelryType = productObj.custom.jewelryType;
                 }
+                if (!empty(productObj.custom.familyName)) {
+                    familyName = productObj.custom.familyName[0];
+                }
+                if (!empty(productObj.custom.color)) {
+                    productColor = productObj.custom.color;
+                }
+                
                 var customCategory = watchGender + " " + jewelryType;
+                
+                // Custom Start: Check for Clyde Option
+                if (isClydeEnabled) {
+                    if (productLineItem.optionProductLineItems) {
+                        var optionId;
+                        var optionPrice;
+                        var optionProducts;
+                        var productOptions = productLineItem.optionProductLineItems;
+                        for (var i = 0; i < productOptions.length; i++) {
+                            var optionProducts = {
+                                id: productOptions[i].optionID == 'clydeWarranty' ? productOptions[i].optionValueID : '',
+                                price: productOptions[i].optionID == 'clydeWarranty' ? productOptions[i].adjustedPrice : ''
+                            }
+                        }
+                    }
+                }
+                optionId = optionProducts ? optionProducts.id : '';
+                optionPrice = optionProducts ? optionProducts.price :'';
+                // Custom End
 
                 produtObj.id = productLineItem.product.ID;
                 produtObj.name = stringUtils.removeSingleQuotes(productLineItem.product.name);
@@ -913,8 +1001,13 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
                 produtObj.category = stringUtils.removeSingleQuotes(customCategory),
                 produtObj.variant = variants;
                 produtObj.price = (productLineItem.getAdjustedNetPrice().getDecimalValue() - averageOrderLevelDiscount) / productLineItem.quantityValue;
+                produtObj.unitBasePrice = productLineItem.basePrice.decimalValue.toString();
+                produtObj.taxOnBasePrice = (productLineItem.basePrice.decimalValue * productLineItem.taxRate).toString();
+                produtObj.unitPriceLessTax = (productLineItem.basePrice.decimalValue + productLineItem.tax.decimalValue).toString();
                 produtObj.currency = (productLineItem.product.priceModel.price.available ? (productLineItem.product.priceModel.price.currencyCode) : (productLineItem.product.priceModel.minPrice.currencyCode));
                 produtObj.description = '';
+                produtObj.familyName = familyName;
+                produtObj.productColor = productColor;
                 // Custom Start : Added subtotal
                 produtObj.subtotal = orderSubTotal;
                 // Custom End
@@ -942,9 +1035,10 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
                 produtObj.imageURL = productLineItem.product.image.absURL;
                 produtObj.productURL = URLUtils.url('Product-Show', 'pid', productLineItem.productID).abs().toString();
                 produtObj.quantity = productLineItem.quantityValue;
-
                 produtObj.itemCoupon = itemLevelCouponString;
-
+                produtObj.optionId = optionId ? optionId : '';
+                produtObj.optionPrice = optionPrice ? formatMoney(optionPrice) : '';
+                
                 if (orderJSONArray.length < 10) {
                     orderJSONArray.push({ productObj: produtObj });
                 } else {

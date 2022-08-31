@@ -7,7 +7,9 @@ var ProductMgr = require('dw/catalog/ProductMgr')
 var PromotionMgr = require('dw/campaign/PromotionMgr');
 var Promotion = require('dw/campaign/Promotion');
 var Money = require('dw/value/Money');
+var Site = require('dw/system/Site');
 var Resource = require('dw/web/Resource');
+
 var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
@@ -21,14 +23,15 @@ server.replace(
         var ABTestMgr = require('dw/campaign/ABTestMgr');
         var Locale = require('dw/util/Locale');
         var OrderMgr = require('dw/order/OrderMgr');
+        var Site = require('dw/system/Site');
         var Transaction = require('dw/system/Transaction');
 
         var OrderModel = require('*/cartridge/models/order');
         var reportingUrlsHelper = require('*/cartridge/scripts/reportingUrls');
-
         var abTestSegment;
         var order = OrderMgr.getOrder(req.querystring.ID);
         var token = req.querystring.token ? req.querystring.token : null;
+        var userIPAddress = request.httpRemoteAddress || '';
 
         if (!order
             || !token
@@ -72,12 +75,45 @@ server.replace(
             }
         }
 
-        // Save test segments in order custom attribute
-        if (!empty(abTestParticipationSegments)) {
-            Transaction.wrap(function () {
+        // Custom Start: Save values in order custom attributes
+        Transaction.wrap(function() {
+            if(!empty(abTestParticipationSegments)) {
                 order.custom.abTestParticipationSegment = abTestParticipationSegments;
-            });
+            }
+            order.custom.userIPAddress = userIPAddress;
+            order.custom.customerCurrentCountry = req.geolocation.countryCode;
+            order.custom.isOrderCompleted = true;
+        });
+
+        // Custom Start: Salesforce Order Management attributes.  Backup method - only executed if attributes are null (i.e., ORM exception after COPlaceOrder)
+        if (Site.current.getCustomPreferenceValue('SOMIntegrationEnabled')) {
+            if ('SFCCPriceBookId' in order.custom && !order.custom.SFCCPriceBookId) {
+                var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
+                var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
+                somLog.debug('Processing Order ' + order.orderNo);
+                try {
+                    Transaction.wrap(function () {
+                        populateOrderJSON.populateByOrder(order);
+                    });
+                } catch (exSOM) {
+                    somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
+                }
+            }
         }
+        /**~
+         * Custom Start: Clyde Integration
+         */
+         if (Site.getCurrent().preferences.custom.isClydeEnabled) {
+            var addClydeContract = require('*/cartridge/scripts/clydeAddContracts.js');
+            addClydeContract.createOrderCustomAttr(order);
+        }
+        /**
+         * Custom: End
+         */
+
+        var YotpoIntegrationHelper = require('*/cartridge/scripts/common/integrationHelper.js');
+
+        var yotpoConversionTrackingData = YotpoIntegrationHelper.getConversionTrackingData(req, order, currentLocale);
 
         if (!req.currentCustomer.profile) {
             passwordForm = server.forms.getForm('newPasswords');
@@ -86,16 +122,48 @@ server.replace(
                 order: orderModel,
                 returningCustomer: false,
                 passwordForm: passwordForm,
-                reportingURLs: reportingURLs
+                reportingURLs: reportingURLs,
+                yotpoConversionTrackingData: yotpoConversionTrackingData
             });
         } else {
             res.render('checkout/confirmation/confirmation', {
                 order: orderModel,
                 returningCustomer: true,
-                reportingURLs: reportingURLs
+                reportingURLs: reportingURLs,
+                yotpoConversionTrackingData: yotpoConversionTrackingData
             });
         }
         req.session.raw.custom.orderID = req.querystring.ID; // eslint-disable-line no-param-reassign
+        
+        // MSS-1867 - start when Auto_Optin_Checkout enabled then
+        var orderCustomHelper = require('*/cartridge/scripts/helpers/orderCustomHelper');
+        var countryCode = orderCustomHelper.getCountryCode(req);
+        var Constants = require('*/cartridge/scripts/util/Constants');
+        
+        if (Site.current.preferences.custom.Auto_Optin_Checkout && countryCode == Constants.US_COUNTRY_CODE) {
+            var requestParams = {
+                email : order.getCustomerEmail() ? order.getCustomerEmail() : '',
+                requestLocation: 'CHECKOUT_SERVICE',
+                campaignName: Constants.MVMT_CHECKOUT_CAMPAIGN_NAME
+            }
+                
+            if (!empty(requestParams.email)) {
+                if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
+                    var ltkApi = require('*/cartridge/scripts/api/ListrakAPI');
+                    var ltkConstants = require('*/cartridge/scripts/utils/ListrakConstants');
+                    requestParams.source = ltkConstants.Source.Checkout;
+                    requestParams.event = ltkConstants.Event.Checkout;
+                    requestParams.subscribe = ltkConstants.Subscribe.Checkout;
+                    requestParams.firstName = order.getBillingAddress().firstName || '';
+                    requestParams.lastName = order.getBillingAddress().lastName || '';
+                    ltkApi.sendSubscriberToListrak(requestParams);
+                } else {
+                    var sfmcApi = require('*/cartridge/scripts/api/SFMCApi');
+                    sfmcApi.sendSubscriberToSFMC(requestParams);
+                }
+            }
+        }
+        // MSS-1867 - end when Auto_Optin_Checkout enabled then
         return next();
     }
 );
@@ -103,28 +171,30 @@ server.replace(
 server.append('Confirm', function (req, res, next) {
     var OrderMgr = require('dw/order/OrderMgr');
     var Site = require('dw/system/Site');
-    var Transaction = require('dw/system/Transaction');
     var viewData = res.getViewData();
     var marketingProductsData = [];
     var orderAnalyticsTrackingData;
     var uniDaysTrackingLineItems;
-    var orderNo = !empty(viewData.order) && !empty(viewData.order.orderNumber) ? viewData.order.orderNumber : session.custom.orderNumber;
+    var orderNo = '';
+
+    if (!empty(viewData) && !empty(viewData.order) && !empty(viewData.order.orderNumber)) {
+        orderNo = viewData.order.orderNumber;
+    } else if (!empty(session) && !empty(session.custom.orderNumber)) {
+        orderNo = session.custom.orderNumber;
+    } else {
+        orderNo = req.querystring.ID
+    }
+
     var order = OrderMgr.getOrder(orderNo);
     var orderLineItems = order.getAllProductLineItems();
     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
     var productLineItem;
-    var userIPAddress = request.httpRemoteAddress || '';
     var couponLineItemsItr = order.getCouponLineItems().iterator();
     var checkoutAddrHelper = require('*/cartridge/scripts/helpers/checkoutAddressHelper');
     var orderCustomHelper = require('*/cartridge/scripts/helpers/orderCustomHelper');
     if (!empty(viewData.order)) {
         checkoutAddrHelper.saveCheckoutShipAddress(viewData.order);
     }
-    
-
-    Transaction.wrap(function () {
-        order.custom.userIPAddress = userIPAddress;
-    });
 
     if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
         var queryStringIntoParts = viewData.queryString.split('&');
@@ -239,23 +309,6 @@ server.append('Confirm', function (req, res, next) {
     res.setViewData({
         marketingProductData : JSON.stringify(marketingProductsData)
     });
-
-    
-    // Custom Start: Salesforce Order Management attributes.  Backup method - only executed if attributes are null (i.e., ORM exception after COPlaceOrder)
-    if (Site.current.getCustomPreferenceValue('SOMIntegrationEnabled')) {
-        if ('SFCCPriceBookId' in order.custom && !order.custom.SFCCPriceBookId) {
-            var populateOrderJSON = require('*/cartridge/scripts/jobs/populateOrderJSON');
-            var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
-            somLog.debug('Processing Order ' + order.orderNo);
-            try {
-                Transaction.wrap(function () {
-                    populateOrderJSON.populateByOrder(order);
-                });
-            } catch (exSOM) {
-                somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
-            }
-        }
-    }
     
     var customerID = '';
     var loggedIn = req.currentCustomer.raw.authenticated;

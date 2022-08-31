@@ -4,7 +4,7 @@
 @import "../commonPlaceholders";
 
 $checkout-font-weight: 600;
-
+$custom-weight: 400;
 $receipt-font-size: rem(14);
 $receipt-spacing: 0.625em;
 $stored-payment-spacing: rem(16);
@@ -57,22 +57,26 @@ $stored-payment-spacing: rem(16);
 .data-checkout-stage {
   padding-top: rem(10);
   margin-bottom: rem(50);
+
   .top-grandtotal-label {
     text-transform: uppercase;
   }
+
   .card-body {
     padding: rem(15) rem(10);
   }
+
   .card-header {
     @extend %card-header;
     padding-left: rem(10);
     padding-right: rem(10);
     padding-bottom: rem(7);
   }
+
   .form-group {
     .form-control-label {
       margin-bottom: 0;
-      font-family: $font-book;
+      font-family: inherit;
       font-size: rem(14);
       line-height: rem(17);
       letter-spacing: rem(.4);
@@ -88,11 +92,13 @@ $stored-payment-spacing: rem(16);
       border: rem(1) solid $grey14;
       color: $grey14;
     }
+
     .add-address,
     .edit-address {
       margin-top: rem(10);
     }
   }
+
   .custom-select {
     font-family: $font-medium;
     font-size: rem(14);
@@ -107,6 +113,7 @@ $stored-payment-spacing: rem(16);
       right: rem(8);
     }
   }
+
   .single-shipping {
     .card-header {
       color: $grey14;
@@ -128,16 +135,19 @@ $stored-payment-spacing: rem(16);
   }
 
   .order-total-summary {
-    .order-receipt-label,
-    .text-right,
-    .sub-total {
-      font-family: $font-medium;
-      font-size: rem(16);
-      letter-spacing: rem(2);
-      line-height: rem(21);
-      color: $grey14;
+    &.card-body {
+      .order-receipt-label,
+      .text-right,
+      .sub-total {
+        font-family: $font-medium;
+        font-size: rem(16);
+        letter-spacing: rem(2);
+        line-height: rem(21);
+        color: $grey14;
+        font-weight: $custom-weight;
+      }
     }
-
+  
     .grand-total {
       .order-receipt-label,
       .text-right {
@@ -156,6 +166,7 @@ $stored-payment-spacing: rem(16);
   .checkout-promo-code-form .form-group {
     padding: 0 rem(10);
   }
+
   @include media-breakpoint-down(xs) {
     padding-left: rem(10);
     padding-right: rem(10);
@@ -298,6 +309,22 @@ $stored-payment-spacing: rem(16);
     padding-bottom: 0;
   }
   .payment-information {
+    .payment-options {
+      .nav-item {
+        .form-check-label {
+          &.credit-card-label {
+            font-size: rem(13);
+  
+            @include media-breakpoint-down(sm) { 
+              font-size: rem(10);
+            }
+            @include media-breakpoint-down(xs) { 
+              font-size: rem(14);
+            }
+          }
+        }
+      }
+    }
     .panel {
       padding-right: rem(10);
       padding-left: rem(10);
@@ -330,16 +357,19 @@ $stored-payment-spacing: rem(16);
     }
 
     .affirm-payment-method {
-      padding: 0 rem(10) rem(10) rem(10);
-      margin: 0;
-      width: 100%;
-      .affirm-product-modal {
-        text-decoration: underline;
+      @include media-breakpoint-up(md) {
+        padding: 0 rem(10) rem(10) rem(10);
+        margin: 0;
+        width: 100%;
+        .affirm-product-modal {
+          text-decoration: underline;
+        }
       }
     }
 
     .affirm-panel-image {
       width: rem(75);
+      vertical-align: inherit;
     }
   }
 }
@@ -363,6 +393,40 @@ $stored-payment-spacing: rem(16);
 
 .multi-ship .single-shipping .shipping-content {
   display: none;
+}
+
+.shipping-content {
+
+  .shippingLastName {
+    margin-top: rem(-2);
+  }
+
+  .shippingState {
+    margin-top: rem(-2);
+  }
+
+  .shippingZipCode {
+    margin-top: rem(-2);
+  }
+
+  #securityCode {
+    margin-top: rem(-2);
+  }
+}
+
+.payment-form {
+
+  .billingLastName {
+    margin-top: rem(-2);
+  }
+
+  .billingState {
+    margin-top: rem(-2);
+  }
+
+  .billingZipCode {
+    margin-top: rem(-2);
+  }
 }
 
 .multi-ship .shipping-summary .single-shipping {

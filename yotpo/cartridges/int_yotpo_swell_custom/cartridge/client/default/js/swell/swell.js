@@ -21,7 +21,9 @@ function updateCartTotals(data) {
     var totalCalculated = data.totals.grandTotal.substr(1).toString().replace(/\,/g, '');
     $('.affirm-as-low-as').attr('data-amount', (totalCalculated * 100).toFixed());
     if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
-        affirm.ui.refresh();
+        affirm.ui.ready(function() {
+            affirm.ui.refresh();
+        });
     }
     $('.minicart-quantity').empty().append(data.numItems);
 
@@ -194,7 +196,7 @@ $(document).ready(function() {
  * @param {Object} data - AJAX response from the server
  */
 function updateSwellPointsContainer(data) {
-    if (data.swellRedemption.swellRedemptionID !== '') {
+    if (data && data.swellRedemption && data.swellRedemption.swellRedemptionID !== '') {
         var swellPointsContainar =
         '<div class="redeem-rewards-promos swell-promotion-information col-12">' +
         '<div class="promotion-price-adjustment">'+

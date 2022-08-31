@@ -21,6 +21,9 @@ $(document).ready(function () {
     processInclude(require('./product/wishlistHeart'));
     processInclude(require('./utilities/swatches'));
     processInclude(require('./components/emailPopUpSubscription'));
+    processInclude(require('./components/rakutenCookieHandler'));
+    processInclude(require('googlePay/googlePay'));
+    processInclude(require('./components/Coupon'));
 });
 
 require('base/components/spinner');

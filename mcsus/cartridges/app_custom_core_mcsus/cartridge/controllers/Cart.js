@@ -52,6 +52,22 @@ server.prepend(
     next();
 });
 
+server.get('MiniCartCheckout', server.middleware.include, function (req, res, next) {
+    var BasketMgr = require('dw/order/BasketMgr');
+
+    var currentBasket = BasketMgr.getCurrentBasket();
+    var quantityTotal;
+
+    if (currentBasket) {
+        quantityTotal = currentBasket.productQuantityTotal;
+    } else {
+        quantityTotal = 0;
+    }
+
+    res.render('/components/header/miniCartCheckout', { quantityTotal: quantityTotal });
+    next();
+});
+
 server.replace('MiniCartShow', userLoggedIn.validateLoggedInAjaxMCS, function (req, res, next) {
     var BasketMgr = require('dw/order/BasketMgr');
     var Transaction = require('dw/system/Transaction');

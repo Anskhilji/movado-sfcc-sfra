@@ -16,9 +16,13 @@
             </p>
             <isif condition="${!session.privacy.pickupFromStore}">
                 <p>
-                    <span class="summary-section-label order-status-label">${Resource.msg('label.orderhistory.orderstatus', 'account', null)}</span>
+                    <span class="summary-section-label order-status-label">${Resource.msg('label.orderhistory.orderstatus','account',null)}</span>
                     <span class="summary-details order-status">
-                        <isif condition="${pdict.order.sapOrderStatus != null}">${pdict.order.sapOrderStatus}</isif>
+                        <isif condition="${pdict.omsOrderStaus != null && pdict.omsOrderStaus.status != null}">
+                            ${pdict.omsOrderStaus.status}
+                        <iselse/>
+                            ${pdict.order.sapOrderStatus}    
+                        </isif>
                     </span>
                 </p>
             </isif>

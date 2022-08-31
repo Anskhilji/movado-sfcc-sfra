@@ -1,4 +1,73 @@
 @import "~oliviaburton_redesign/_variables";
+.listrak-back-in-stock-notification-container-main {
+    margin-bottom: rem(30);
+
+    .btn-primary {
+        font-family: $font-gill-std-semibold;
+    }
+    .back-in-stock-notification-email-notification-copy {
+        height: auto;
+        margin-bottom: rem(10);
+        font-family: $font-adobe;
+        font-size: rem(20);
+        letter-spacing: rem(1.71);
+        line-height: rem(25);
+        font-style: initial;
+    }
+    
+    .back-in-stock-notification {
+
+        &-phone {
+            width: 100%;
+            border-radius: 0;
+            border: rem(1) solid $black;
+            font-family: $font-gill-std-semibold;
+            height: rem(45);
+            padding-left: rem(15);
+            padding-right: rem(97);
+            background: transparent;
+            font-size: rem(15);
+            font-weight: 500;
+            letter-spacing: rem(1);
+            line-height: rem(20);
+            color: $black;
+
+            &:focus {
+                outline: $black;
+            }
+    
+            &:-ms-clear {
+                display: none;
+            }
+        }
+        &-form {
+            max-width: rem(430);
+    
+            @include media-breakpoint-down(sm) {
+                max-width: 100%;
+            }
+
+            .error-msg {
+                text-align: left;
+                color: $red;
+                margin: rem(5) 0;
+            }
+        }
+        
+        &-email {
+            font-family: $font-gill-std-semibold;
+            font-size: rem(15);
+            font-weight: 500;
+            letter-spacing: rem(1);
+            line-height: rem(20);
+            color: $black;
+        }
+
+        &-listrack-container {
+            margin-bottom: rem(0);
+        }
+    }
+}
 .back-in-stock-notification-container {
     margin-bottom: rem(30);
 

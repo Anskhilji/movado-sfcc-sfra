@@ -112,6 +112,7 @@ server.replace('OAuthReentry', server.middleware.https, function (req, res, next
             authenticatedCustomerProfile.setFirstName(firstName);
             authenticatedCustomerProfile.setLastName(lastName);
             authenticatedCustomerProfile.setEmail(email);
+            authenticatedCustomerProfile.custom.customerCurrentCountry = req.geolocation.countryCode;
         });
         firstTimeUser = true;
     }
@@ -120,6 +121,7 @@ server.replace('OAuthReentry', server.middleware.https, function (req, res, next
     if (credentials.isEnabled()) {
         Transaction.wrap(function () {
             CustomerMgr.loginExternallyAuthenticatedCustomer(oauthProviderID, userID, true);
+            authenticatedCustomerProfile.custom.customerCurrentCountry = req.geolocation.countryCode;
             if (firstTimeUser) {
                 accountHelpers.sendCreateAccountEmail(authenticatedCustomerProfile);
             }

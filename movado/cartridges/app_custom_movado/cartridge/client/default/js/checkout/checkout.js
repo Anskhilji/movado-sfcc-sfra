@@ -52,7 +52,6 @@ var formHelpers = require('base/checkout/formErrors');
           'placeOrder',
           'submitted'
       ];
-
     /**
      * Updates the URL to determine stage
      * @param {number} currentStage - The current stage the user is currently on in the checkout
@@ -67,22 +66,73 @@ var formHelpers = require('base/checkout/formErrors');
           + '#'
           + checkoutStages[currentStage]
       );
+
+       if($('.progressbar-container .checkout-progressbar').length) {
+            $('.checkout-progressbar li').removeClass('active');
+            $('.checkout-progressbar li').removeClass('completed');
+            var checkedIcon = '<i class="fa fa-check"></i>';
+
+            if (checkoutStages[currentStage] == 'shipping') {
+                $('.checkout-progressbar li:nth-child(1)').addClass('active');
+                $('.checkout-progressbar li:nth-child(1)').find('.step-no').html('1');
+            }
+            else if (checkoutStages[currentStage] === 'payment') {
+                $('.checkout-progressbar li:nth-child(2)').addClass('active');
+                $('.checkout-progressbar li:nth-child(2)').find('.step-no').html('2');
+                $('.checkout-progressbar li:nth-child(1)').addClass('completed'); 
+                $('.checkout-form-error').addClass('d-none')
+            }
+
+            else if (checkoutStages[currentStage] === 'placeOrder' && $('.payment-information').data('payment-method-id') !== 'Affirm') {
+                $('.checkout-progressbar li:nth-child(3)').addClass('active');
+                $('.checkout-progressbar li:nth-child(3)').find('.step-no').html('3');
+                $('.checkout-progressbar li:nth-child(2)').addClass('completed');
+                $('.checkout-progressbar li:nth-child(1)').addClass('completed'); 
+            }
+            else {
+                $('.checkout-progressbar li:nth-child(4)').addClass('active');
+                $('.checkout-progressbar li:nth-child(4)').find('.step-no').html('4');
+                $('.checkout-progressbar li:nth-child(3)').addClass('completed');
+                $('.checkout-progressbar li:nth-child(2)').addClass('completed');
+                $('.checkout-progressbar li:nth-child(1)').addClass('completed');
+            }
+            $('.checkout-progressbar li.completed').find('.step-no').html(checkedIcon); 
+        }
+
       $('.checkout-promo-section').removeClass('d-none');
-         if (checkoutStages[currentStage] == 'placeOrder') {
-        	 $('.checkout-promo-section').addClass('d-none');
-              if ($('.payment-information').data('payment-method-id') == 'Affirm') {
-                  var url = $('#affirm-config').data('affirupdateurl');
-                  $.spinner().start();
-                  $.ajax({
-                      url: url,
-                      method: 'GET',
-                      success: function (data) {
-                          $('#vcn-data').data('vcndata', JSON.parse(data.vcndata));
-                          $.spinner().stop();
-                      }
-                  });
-              }
-          }
+ 
+             if (checkoutStages[currentStage] == 'payment') {
+            	if ($('#affirm-config').data('affirmenabled')) {
+
+                	$('.affirm-payment-tab').trigger('click');
+                    if ($('#affirm-inline-container').length > 0) {
+                        var inlineCheckoutObject = $('#vcn-data').data('vcndata');
+                        if (inlineCheckoutObject !== undefined && inlineCheckoutObject !== '') {
+                            affirm.ui.ready(function() {
+                                affirm.checkout.inline({
+                                    merchant: {
+                                        inline_container: 'affirm-inline-container'
+                                    },
+                                    data: { total: inlineCheckoutObject.total } 
+                                });
+                            });
+                        }
+                    }
+                }
+            } else if (checkoutStages[currentStage] == 'placeOrder') {
+            	if ($('.payment-information').data('payment-method-id') == 'Affirm') {
+            		var url = $('#affirm-config').data('affirupdateurl');
+            		$.spinner().start();
+                	$.ajax({
+                		url: url,
+                		method: 'GET',
+                		success: function (data) {
+                			$('#vcn-data').data('vcndata', JSON.parse(data.vcndata));
+                			$.spinner().stop();
+                		}
+                	});
+            	}
+            }
          $('body').trigger('checkOutStage:success', checkoutStages[currentStage]);
       }
 
@@ -100,7 +150,8 @@ var formHelpers = require('base/checkout/formErrors');
          */
           updateStage: function () {
               var stage = checkoutStages[members.currentStage];
-          var defer = $.Deferred(); // eslint-disable-line
+              var defer = $.Deferred(); // eslint-disable-line
+              //  Handle active and completed step
 
               if (stage === 'shipping') {
             //
@@ -324,7 +375,7 @@ var formHelpers = require('base/checkout/formErrors');
                                   ID: data.orderID,
                                   token: data.orderToken
                               };
-
+                              
                               continueUrl += (continueUrl.indexOf('?') !== -1 ? '&' : '?') +
                   Object.keys(urlParams).map(function (key) {
                       return key + '=' + encodeURIComponent(urlParams[key]);
@@ -341,12 +392,12 @@ var formHelpers = require('base/checkout/formErrors');
                   });
                   return defer;
               }
-          var p = $('<div>').promise(); // eslint-disable-line
-              setTimeout(function () {
-            p.done(); // eslint-disable-line
-              }, 500);
-          return p; // eslint-disable-line
-          },
+              var p = $('<div>').promise(); // eslint-disable-line
+                setTimeout(function () {
+                p.done(); // eslint-disable-line
+                }, 500);
+                return p; // eslint-disable-line
+              },
 
         /**
          * Initialize the checkout stage.
@@ -432,6 +483,7 @@ var formHelpers = require('base/checkout/formErrors');
             // Update UI with new stage
                   members.handleNextStage(true);
                   $('.next-step-button button').removeAttr('disabled');
+                  
               });
 
               promise.fail(function (data) {
@@ -520,6 +572,8 @@ var formHelpers = require('base/checkout/formErrors');
 
       return this;
   };
+
+
 }(jQuery));
 
 function openBillingFormForPickupStore(checkoutStages, members, isReload) {
@@ -633,10 +687,10 @@ var exports = {
             summaryHelpers.updateTotals(data.order.totals);
             data.order.shipping.forEach(function (shipping) {
                 shippingHelpers.methods.updateShippingInformation(
-              shipping,
-              data.order,
-              data.customer,
-              data.options
+                shipping,
+                data.order,
+                data.customer,
+                data.options
           );
                 $('body').trigger('checkOutShipping:success', [shipping.selectedShippingMethod.shippingCost,shipping.selectedShippingMethod.displayName, data.order.couponLineItemArray]);
             });
@@ -748,16 +802,24 @@ var exports = {
                 }
             });
         });
+
+        $('.creditcard-securitycode').on('keypress', function(event) {
+            if(!((event.charCode >= 48 && event.charCode <= 57))) {
+                return false;
+            }
+        })
     }
 };
 
 [billingHelpers, shippingHelpers, addressHelpers].forEach(function (library) {
     Object.keys(library).forEach(function (item) {
-        exports[item] = library[item];
-        if (typeof library[item] === 'object') {
-            exports[item] = $.extend({}, exports[item], library[item]);
-        } else {
+        if (item != 'handleCreditCardNumber' && item != 'creditCardExpiryDate') {
             exports[item] = library[item];
+            if (typeof library[item] === 'object') {
+                exports[item] = $.extend({}, exports[item], library[item]);
+            } else {
+                exports[item] = library[item];
+            }
         }
     });
 });

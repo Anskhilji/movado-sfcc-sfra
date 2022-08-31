@@ -50,7 +50,7 @@ function getOrderConfirmationObject(order) {
             paymentTotalLabel: Resource.msg('order.confirmation.email.label.paymenttotal', 'order', null),
             phoneLabel: Resource.msg('order.confirmation.email.label.phone', 'order', null),
             quantityLabel: Resource.msg('order.confirmation.email.quantity', 'order', null),
-            salution: Resource.msgf('order.confirmation.email.salution', 'order', null, orderModel.billing.billingAddress.address.firstName, orderModel.billing.billingAddress.address.lastName),
+            salution: Resource.msgf('order.confirmation.email.salution', 'order', null, orderModel.billing.billingAddress.address.firstName, orderModel.billing.billingAddress.address.lastName ? orderModel.billing.billingAddress.address.lastName : ''),
             shipToLabel: Resource.msg('order.confirmation.email.label.shippingto', 'order', null),
             shippingMethodLabel: Resource.msg('order.confirmation.email.label.shippingmethod', 'order', null),
             shippingStatusLabel: Resource.msg('order.confirmation.email.label.shippingstatus', 'order', null),
