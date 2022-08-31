@@ -52,6 +52,7 @@
         &-form-wrapper {
             padding: 0 rem(15);
             flex-wrap: wrap;
+
             @include media-breakpoint-up(md) {
                 padding: 0 rem(50.5);
                 display: flex;
@@ -64,6 +65,7 @@
             position: relative;
             width: 100%;
             margin-bottom: rem(15);
+
             @include media-breakpoint-up(md) {
                 margin-bottom: rem(0);
                 width: rem(220);
@@ -104,6 +106,7 @@
             position: relative;
             width: 100%;
             margin-bottom: rem(15);
+
             @include media-breakpoint-up(md) {
                 margin-left: rem(20);
                 margin-bottom: rem(0);
@@ -156,6 +159,7 @@
             position: relative;
             width: 100%;
             margin-bottom: rem(15);
+            
             @include media-breakpoint-up(md) {
                 margin-left: rem(20);
                 margin-bottom: rem(0);

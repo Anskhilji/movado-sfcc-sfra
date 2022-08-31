@@ -65,7 +65,7 @@ server.get('GetPreferredStore', function (req, res, next) {
         storeObject: storeObject,
         isPdp: isPdp
     });
-    next();
+    return next();
 });
 
 module.exports = server.exports();
