@@ -17,7 +17,9 @@
     <div class="tile-body">
         <div class="row m-0">
             <div class="col d-flex w-100 p-0 star-rating-plp">
+            <a href="${pdict.urls.product}#yotpo-reviews-top-div" >
                 <isinclude template="product/components/ratings" />
+                </a>
             </div>
         </div>
         <div class="product-family-name-plp text-left">
