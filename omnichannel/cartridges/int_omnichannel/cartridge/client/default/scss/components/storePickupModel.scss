@@ -1,5 +1,6 @@
 @import "_variables";
 @import "bootstrap/scss/mixins/breakpoints";
+@import '~movado/global';
 .store-pickup-model {
 
     .modal-content {
@@ -10,6 +11,10 @@
         .modal-lg {
             width: rem(620);
         }
+    }
+
+    .ie-model {
+        margin-top: rem(170);
     }
 
     &-header {
@@ -64,6 +69,10 @@
                 width: rem(220);
             }
 
+            @include media-breakpoint-down(md) {
+                padding-left: rem(10);
+            }
+
             &-field {
                 box-sizing: border-box;
                 height: rem(40);
@@ -78,7 +87,6 @@
                 font-weight: 300;
                 letter-spacing: rem(0.4);
                 line-height: rem(24);
-
             
                 &:placeholder {
                     color: $light-gray-brown;
@@ -137,7 +145,7 @@
                 letter-spacing: rem(0.29);
                 line-height: rem(24);
                 position: absolute;
-                left: rem(10);
+                left: rem(7);
                 top: rem(-2);
                 text-transform: capitalize;
             }
@@ -168,6 +176,7 @@
                 line-height: rem(24);
                 text-align: center;
                 text-transform: uppercase;
+                cursor: pointer;
             }
         }
     }

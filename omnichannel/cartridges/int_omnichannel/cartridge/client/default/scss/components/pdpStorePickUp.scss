@@ -46,7 +46,7 @@
     }
 
     .pick-up-store {
-        font-family: $font-book;
+        font-family: $font-std;
 
         &-stock-for-deliver {
             color: $dark-light-black;
@@ -54,6 +54,7 @@
             font-weight: 700;
             letter-spacing: rem(0.61);
             line-height: rem(17);
+            font-family: $font-std;
         }
     
         &-openings {
@@ -62,6 +63,7 @@
             font-weight: 300;
             letter-spacing: rem(0.76);
             line-height: rem(20);
+            color: $light-black;
             margin: 0;
         }
     
@@ -71,11 +73,13 @@
             font-weight: 700;
             letter-spacing: rem(0.61);
             line-height: rem(17);
+            font-family: $font-std;
         }
     
         &-available-pickup-stores {
             opacity: 0.8;
             font-size: rem(12);
+            color: $light-black;
             font-weight: 300;
             line-height: rem(20);
             margin: 0;
@@ -90,6 +94,7 @@
             margin: 0;
             text-decoration: underline;
             cursor: pointer;
+            color: $light-black;
         }
     }
 }

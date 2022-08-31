@@ -6,7 +6,7 @@
 <div class="col-sm-6 pdp-store-pickup-inventory">
     <div class="pdp-store-pickup-display-inline-block-inventory-icon"></div> 
     <div class="pdp-store-pickup-display-inline-block-delevery">
-        <h3 class="pick-up-store-stock-for-deliver">${Resource.msg('storepickup.product.stock.deliver.text.avalibilty', 'pdpStorePickUp', null)}</h3>
+        <p class="pick-up-store-stock-for-deliver">${Resource.msg('storepickup.product.stock.deliver.text.avalibilty', 'pdpStorePickUp', null)}</p>
         <p class="pick-up-store-openings">${pickupStoreOpenDays || ''}</p>  
     </div>
 </div>

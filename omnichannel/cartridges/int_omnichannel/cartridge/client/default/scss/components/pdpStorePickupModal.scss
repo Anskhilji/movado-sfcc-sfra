@@ -6,6 +6,16 @@
   padding: rem(0);
 }
 
+.store-pickup-modal-body .store-list-wpdp {
+  max-height: rem(410);
+}
+
+.store-pickup-form-wrapper {
+  position: relative;
+  padding-top: rem(10);
+  display: flex;
+}
+
 .pickup-store-pdetail {
   margin: rem(9) rem(0) rem(30) rem(0);
   @include media-breakpoint-up(md) {
@@ -133,7 +143,7 @@
         span {
           color: $light-gray-black;
           line-height: initial;
-          font-size: rem(12);
+          font-size: rem(14);
           font-weight: 700;
           letter-spacing: rem(0.61);
           line-height: rem(24);
@@ -163,6 +173,16 @@
 
 }
 
+.store-list::-webkit-scrollbar {
+	width: rem(5);
+	background-color: #F5F5F5;
+}
+
+.store-list::-webkit-scrollbar-thumb {
+	border-radius: rem(5);
+	background-color: #979797;
+}
+
 .store-select-button {
   // padding-top: rem(10);
 
@@ -186,8 +206,8 @@
     cursor: pointer;
 
     &:disabled {
-      border: rem(1) solid $light-gray-brown;
-      background-color: $light-gray-brown;
+      border: rem(1) solid $disabled-gray;
+      background-color: $disabled-gray;
       cursor: default;
     }
 
@@ -202,12 +222,9 @@
 }
 
 .store-availibilty-hours {
-  // padding-top: 0;
-  // @include media-breakpoint-up(md) {
-  //   padding-top: rem(25);
-  // }
 
   .store-product-available {
+    
     span {
       color: $light-gray-black;
       font-size: rem(13);

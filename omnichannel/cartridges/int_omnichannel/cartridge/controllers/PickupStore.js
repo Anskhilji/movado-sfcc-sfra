@@ -31,7 +31,8 @@ server.get('GetStoresList', function (req, res, next) {
     var result = {
         html: html.text,
         zipCode: session.privacy.pickupStoreZipCode,
-        radius: session.privacy.pickupStoreRadius
+        radius: session.privacy.pickupStoreRadius,
+        isPdp: isPdp
     }
 
     res.json(result);
