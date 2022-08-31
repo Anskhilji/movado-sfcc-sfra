@@ -1324,11 +1324,14 @@ movadoBase.selectAttribute = function () {
 }
 
 movadoBase.colorAttribute = function () {
-    $(document).off('click', '[data-attr="color"] a').on('click','[data-attr="color"] a', function (e) {
+    $(document).off('click', '[data-attr="color"] a, [data-attr="colorWatch"] a').on('click','[data-attr="color"] a, [data-attr="colorWatch"] a', function (e) {
         e.preventDefault();
     
         if ($(this).attr('disabled') || $(this).hasClass('active')) {
             return;
+        } else {
+            $('.product-size-options.color-variation.active').removeClass('active');
+            $(this).addClass('active');
         }
     
         var $productContainer = $(this).closest('.set-item');

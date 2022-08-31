@@ -2464,6 +2464,34 @@
                 justify-content: flex-start;
             }
         }
+
+        .swatchs-redesign {
+            width: rem(49);
+            height: rem(49);
+            border-radius: rem(1.47);
+            border: rem(1) solid $transparent-gray-light;
+            background-size: cover;
+            box-sizing: border-box;
+            
+            @include media-breakpoint-down(xs) {
+                width: rem(50);
+                height: rem(50);
+            }
+
+            &.active {
+                border: rem(1) solid $black;
+            }
+
+            &.disabled {
+
+                span {
+                    &:before {
+                        background: none;
+                    }
+                }
+    
+            }
+        }
     }
 
     .polarization {
