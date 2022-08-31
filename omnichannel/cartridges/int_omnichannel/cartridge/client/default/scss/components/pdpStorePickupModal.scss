@@ -80,6 +80,9 @@
 .hr-width {
   width: calc(100% - 30px);
   margin: 0 auto;
+  hr {
+    margin-bottom: rem(20);
+  }
   @include media-breakpoint-up(md) {
     width: calc(100% - 100px);
   }
@@ -95,7 +98,7 @@
   margin: rem(0) auto;
   margin-top: rem(15);
   text-transform: uppercase;
-  padding-bottom: rem(5);
+  padding-bottom: rem(15);
   width: calc(100% - 30px);
   @include media-breakpoint-up(md) {
     width: calc(100% - 100px);
@@ -105,22 +108,30 @@
 .store-list {
   overflow-x: hidden;
   overflow-y: auto;
-  height: auto;
-  max-height: rem(320);
   padding: 0 rem(15);
+  margin-bottom: rem(40.5);
 
-  @include media-breakpoint-up(md) {
-    padding: 0 rem(50.5);
-  }
+    @include media-breakpoint-down(sm) {
+        height: rem(200);
+    }
+
+    @include media-breakpoint-up(md) {
+        padding: 0 rem(50.5);
+        max-height: rem(312);
+        height: auto;
+    }
 
   &-details {
-    padding-top: rem(10);
-    padding-bottom: rem(10);
     font-family: $font-demi;
+    padding-bottom: rem(10);
+
+    @include media-breakpoint-up(md) {
+      padding: rem(0) 0;
+    }
 
       .store-name {
         span {
-          color: $black-dark;
+          color: $light-gray-black;
           line-height: initial;
           font-size: rem(12);
           font-weight: 700;
@@ -153,11 +164,11 @@
 }
 
 .store-select-button {
-  padding-top: rem(10);
+  // padding-top: rem(10);
 
-  @include media-breakpoint-up(md) {
-    padding-top: rem(35);
-  }
+  // @include media-breakpoint-up(md) {
+  //   padding-top: rem(35);
+  // }
 
   .store-pickup-select {
     height: rem(25);
@@ -179,21 +190,29 @@
       background-color: $light-gray-brown;
       cursor: default;
     }
+
+    @include media-breakpoint-down(md) {
+      width: 100%;
+    }
+  
+    @include media-breakpoint-down(sm) {
+      width: rem(120);
+    }
   }
 }
 
 .store-availibilty-hours {
-  padding-top: 0;
-  @include media-breakpoint-up(md) {
-    padding-top: rem(25);
-  }
+  // padding-top: 0;
+  // @include media-breakpoint-up(md) {
+  //   padding-top: rem(25);
+  // }
 
   .store-product-available {
     span {
       color: $light-gray-black;
-      font-size: rem(12);
+      font-size: rem(13);
       font-family: $font-demi;
-      font-weight: 700;
+      font-weight: 600;
       letter-spacing: rem(0.61);
       line-height: rem(24);
     }
@@ -203,8 +222,8 @@
     label {
       color: $black-dark;
       font-family: $font-demi;
-      font-size: rem(12);
-      font-weight: 700;
+      font-size: rem(14);
+      font-weight: 500;
       letter-spacing: rem(0.61);
       line-height: rem(20);
       text-transform: none;
@@ -214,11 +233,12 @@
   .store-hours-title {
     &::after {
       content: "\F106";
-      font-size: rem(15);
+      font-size: rem(13);
       font-family: "FontAwesome";
       float: right;
       padding-left: rem(10);
-      font-weight: 700;
+      font-weight: 600;
+      color: $black-dark;
     }
   }
   
@@ -226,11 +246,12 @@
     &.collapsed {
       &:after {
         content: "\F107";
-        font-size: rem(15);
+        font-size: rem(13);
         font-family: "FontAwesome";
         float: right;
         padding-left: rem(10);
-        font-weight: 700;
+        font-weight: 600;
+        color: $black-dark;
       }
     }
   }
@@ -255,6 +276,26 @@
 }
 
 .no-store {
-  padding: rem(20) rem(33);
-  text-align: center;
+    padding: rem(20) rem(33);
+    text-align: center;
+}
+
+
+.pickup-modal-ch {
+    margin-bottom: rem(20);
+
+  .store-list-details {
+      max-width: rem(220);
+      width: 100%;
+  }
+
+  .store-availble {
+      max-width: rem(135);
+      width: 100%;
+  }
+
+  .store-select-btn {
+      max-width: rem(120);
+      width: 100%;
+  }
 }

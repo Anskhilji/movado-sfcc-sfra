@@ -102,15 +102,22 @@
                 box-sizing: border-box;
                 height: rem(40);
                 width: 100%;
+                background-image: url("../../images/drop-down-arrow.svg");
+                background-repeat: no-repeat;
+                -moz-appearance:none; /* Firefox */
+                -webkit-appearance:none; /* Safari and Chrome */
+                appearance:none;
+                background-position-x: 94%;
+                background-position-y: 14px;
                 border: rem(1) solid $light-gray-white;
                 background-color: $white-dark;
                 color: $black-dark;
                 font-family: $font-demi;
                 font-size: rem(14);
-                font-weight: 300;
+                font-weight: 500;
                 letter-spacing: rem(0.4);
                 line-height: rem(24);
-                padding-left: rem(5);
+                padding-left: rem(10);
                 padding-top: rem(10);
             }
     
