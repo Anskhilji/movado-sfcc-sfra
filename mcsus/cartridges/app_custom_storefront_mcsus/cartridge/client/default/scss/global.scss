@@ -35,6 +35,8 @@
 @import "bootstrapOverrides";
 @import "components/footer";
 @import "components/menu";
+@import '~omnichannel/storePickupMain';
+@import "checkout/checkout";
 @import "components/countrySelector";
 @import "components/productTiles";
 @import "components/breadcrumb";
