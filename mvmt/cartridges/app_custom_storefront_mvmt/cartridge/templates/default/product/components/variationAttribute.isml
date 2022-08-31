@@ -30,7 +30,7 @@ Template Notes:
         </button>
     </isif>
 
-    <div class="product-size-select-list">
+    <div class="product-size-select-list ${attr.id == 'colorWatch' ? 'pdp-swatchs-redesign' : ''}">
         <isif condition="${attr.swatchable}">
             <!-- Circular Color  Attribute Values -->
             <isloop items="${attr.values}" var="attrValue">
