@@ -2,6 +2,9 @@
 
 var server = require('server');
 
+var page = module.superModule;
+server.extend(page);
+
 server.replace('GetPreferredStore', function (req, res, next) {
     var StoreMgr = require('dw/catalog/StoreMgr');
     var preferedPickupStore;
