@@ -65,8 +65,6 @@
   height: auto;
   max-height: rem(400);
 
-  
-
   &-details {
     padding-top: rem(15);
     padding-bottom: rem(15);
@@ -106,15 +104,13 @@
 
 }
 
-.store-list::-webkit-scrollbar
-{
-	width: 5px;
+.store-list::-webkit-scrollbar {
+	width: rem(5);
 	background-color: #F5F5F5;
 }
 
-.store-list::-webkit-scrollbar-thumb
-{
-	border-radius: 5px;
+.store-list::-webkit-scrollbar-thumb {
+	border-radius: rem(5);
 	background-color: #979797;
 }
 
