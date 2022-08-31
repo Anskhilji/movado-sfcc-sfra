@@ -2,13 +2,13 @@
 @import "bootstrap/scss/mixins/breakpoints";
 
 .selected-pickup-store {
-  @include font-medium;
   text-transform: uppercase;
   line-height: rem(18);
   color: $dark-light-black;
   font-size: rem(14);
   letter-spacing: rem(1);
   margin-bottom: rem(15);
+  font-weight: 500;
 }
 
 .billing-pickup-store {
@@ -43,6 +43,21 @@
 
 .store-hours {
   margin-top: rem(20);
+
+    .hour-labels {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: rem(250);
+        margin-bottom: rem(5);
+        span {
+            color: $light-black;
+            font-size: rem(14);
+            font-weight: 300;
+            letter-spacing: rem(1);
+            line-height: rem(24);
+        }
+    }
 }
 
 .billing-store-address {

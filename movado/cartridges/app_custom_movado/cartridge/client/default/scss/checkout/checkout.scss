@@ -128,6 +128,14 @@ span.ship-to-city-st-zip {
                 @include media-breakpoint-up(lg) {
                     font-size: rem(20);
                 }
+
+                &.store-label-details {
+                    color: $grey14;
+                    font-size: rem(16);
+                    font-weight: 500;
+                    letter-spacing: rem(2);
+                    line-height: rem(21);
+                }
             }
         }
     }
@@ -844,4 +852,12 @@ header {
         background-color: $google-white1 !important;
         height: rem(45) !important;
     }
+}
+.checkout-pickup-items {
+    color: $grey18;
+    font-size: rem(16);
+    font-weight: 500;
+    letter-spacing: rem(1.14);
+    line-height: rem(24);
+    text-transform: uppercase;
 }

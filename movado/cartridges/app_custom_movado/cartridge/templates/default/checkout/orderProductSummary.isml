@@ -8,6 +8,9 @@
                 <span class="grand-total-price">${pdict.order.totals.subTotal}</span>
             </div>
         </div>
+        <isif condition="${true}">
+            <div class="checkout-pickup-items">${Resource.msgf('store.pickup.checkout.items', 'storePickUp', null,  pdict.order.items.totalQuantity)}</div>
+        </isif>
         <div class="product-summary-block">
             <isloop items="${pdict.order.shipping}" var="shippingModel">
                 <isif condition="${pdict.order.shipping.length > 1}">

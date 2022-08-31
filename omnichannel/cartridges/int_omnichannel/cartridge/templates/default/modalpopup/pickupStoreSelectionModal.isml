@@ -58,13 +58,8 @@
                             </div>
                             <div class="store-pickup-radius">
                                 <label class="store-pickup-radius-dropdown-label"
-<<<<<<< HEAD
-                                    for="store-pickup-radius">${Resource.msg('store.pickup.dropdown.label', 'storePickUp', null)}</label>
-                                <select class="form-select store-pickup-radius-dropdown-field" id="store-pickup-radius"
-=======
                                     for="store-pickup-radius">${Resource.msg('store.pickup.dropdown.label', 'pdpStorePickUp', null)}</label>
                                 <select class="form-select custom-select store-pickup-radius-dropdown-field" id="store-pickup-radius"
->>>>>>> feature/MSS-1403-implement-bopis-and-bofis-for-mcs
                                     name="radius">
                                     <option value="15">${Resource.msgf('store.pickup.radius.option.text', 'storePickUp', null, 15);}</option>
                                     <option value="30" selected>${Resource.msgf('store.pickup.radius.option.text', 'storePickUp', null, 30);}</option>
