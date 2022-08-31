@@ -10,9 +10,9 @@
             <div class="modal-header store-pickup-model-header">
                 <p class="store-pickup-model-title">
                     <isif condition="${!empty(pdict.isPdpStorePickup) && pdict.isPdpStorePickup != undefined && pdict.isPdpStorePickup === true}">
-                        ${Resource.msg('store.pickup.model.pdp.title', 'pdpStorePickUp', null)}</p>
+                        ${Resource.msg('store.pickup.model.pdp.title', 'storePickUp', null)}</p>
                     <iselse>
-                        ${Resource.msg('store.pickup.model.title', 'pdpStorePickUp', null)}</p>
+                        ${Resource.msg('store.pickup.model.title', 'storePickUp', null)}</p>
                     </isif>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -58,7 +58,7 @@
                             </div>
                             <div class="store-pickup-radius">
                                 <label class="store-pickup-radius-dropdown-label"
-                                    for="store-pickup-radius">${Resource.msg('store.pickup.dropdown.label', 'pdpStorePickUp', null)}</label>
+                                    for="store-pickup-radius">${Resource.msg('store.pickup.dropdown.label', 'storePickUp', null)}</label>
                                 <select class="form-select custom-select store-pickup-radius-dropdown-field" id="store-pickup-radius"
                                     name="radius">
                                     <option value="15">${Resource.msgf('store.pickup.radius.option.text', 'storePickUp', null, 15);}</option>
