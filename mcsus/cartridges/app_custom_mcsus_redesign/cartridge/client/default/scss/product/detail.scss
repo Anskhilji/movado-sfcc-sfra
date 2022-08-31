@@ -1959,13 +1959,19 @@
 // ispick up store pdp redesign
 
 .ispickup-store {
-    padding: rem(15);
+    padding: 0 rem(15);
+    width: 100%;
     .pdp-store-pickup-wraper {
         padding: 0;
         background-color: transparent;
+        min-height: auto;
+        margin-bottom: rem(25);
 
         .col-sm-6 {
             padding: 0;
+            @include media-breakpoint-down(xs) {
+                padding: 0 rem(15); 
+            }
         }
 
         .pdp-store-pickup-inventory {
@@ -1973,6 +1979,11 @@
             display: flex;
             justify-content: flex-end;
             align-items: center;
+            @include media-breakpoint-down(xs) {
+                justify-content: flex-start; 
+                margin-top: rem(15);
+            }
+
             .pdp-store-pickup-display-inline-block-delevery {
                 width: auto;
             }
@@ -2000,6 +2011,7 @@
         }
 
         .pdp-store-pickup-address {
+            
             .pdp {
                 &-store {
                     &-pickup {
@@ -2028,6 +2040,7 @@
             letter-spacing: 0;
             line-height: rem(12);
             font-weight: 400;
+            margin-bottom: 0;
         }
 
         .pick-up-store-available-pickup-stores {
@@ -2037,6 +2050,7 @@
             letter-spacing: rem(1);
             line-height: rem(17);
             font-weight: 400;
+            text-decoration: underline;
         }
 
         .pick-up-store-change-store {
@@ -2048,9 +2062,5 @@
             line-height: rem(12);
             font-weight: 400;
         }
-
-        
-
-        
     }
 }
