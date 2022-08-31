@@ -131,7 +131,6 @@
                                 <div class="old-ispick-store">
                                     <div class="pdp-store-pickup-wraper row">
                                         <isinclude url="${URLUtils.url('PickupStore-GetPreferredStore', 'isPdp', pdict.isPdpStorePickup)}" />
-                                        ${pdict.isPdpStorePickup}
                                     </div>
                                 </div>
                             </isif>

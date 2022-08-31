@@ -2,13 +2,13 @@
 @import "bootstrap/scss/mixins/breakpoints";
 .store-pickup-model {
 
+    .modal-content {
+        border: rem(1) solid $light-gray;
+    }
+
     @include media-breakpoint-up(sm) { 
         .modal-lg {
             width: rem(620);
-
-            .modal-content {
-                border: none;
-            }
         }
     }
 

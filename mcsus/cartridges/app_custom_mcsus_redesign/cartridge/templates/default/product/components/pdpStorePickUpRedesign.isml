@@ -4,7 +4,6 @@
 </isscript>
 <isset name="pickupStoreOpenDays" value="${!empty(dw.system.Site.current.preferences.custom.pickupStoreOpenDays) ? dw.system.Site.current.preferences.custom.pickupStoreOpenDays : ''}" scope="page" />
 <div class="col-sm-6 pdp-store-pickup-inventory">
-<h1>hello world</h1>
     <div class="pdp-store-pickup-display-inline-block-inventory-icon"></div> 
     <div class="pdp-store-pickup-display-inline-block-delevery">
         <h3 class="pick-up-store-stock-for-deliver">${Resource.msg('storepickup.product.stock.deliver.text.avalibilty', 'pdpStorePickUp', null)}</h3>
@@ -15,9 +14,8 @@
     <div class="pdp-store-pickup-address">
         <div class="pdp-store-pickup-display-inline-block-store-icon"></div>
         <div class="pdp-store-pickup-display-inline-block">
-            <h3 class="pick-up-store-available-for-store">${pdict.storeObject.address1 ? Resource.msg('storepickup.avalibilty', 'pdpStorePickUp', null) : Resource.msg('storepickup.check.available.store.location', 'pdpStorePickUp', null)}</h3>
-            <p class="pick-up-store-available-pickup-stores js-store-modal" data-url='${URLUtils.https('PickupStore-GetStoresList', 'isPdp', pdict.isPdp)}'>${pdict.storeObject.address1 ? pdict.storeObject.address1 + ' ' + pdict.storeObject.phone : ''}</p>
-            <span class="pick-up-store-change-store js-store-modal" data-url='${URLUtils.https('PickupStore-GetStoresList', 'isPdp', pdict.isPdp)}'>${pdict.storeObject.address1 ? Resource.msg('store.pickup.set.change.store', 'pdpStorePickUp', null) : Resource.msg('storepickup.check.available.store', 'pdpStorePickUp', null)}</span>
+            <h3 class="pick-up-store-available-for-store">${Resource.msg('storepickup.check.available.store.location', 'pdpStorePickUp', null)}</h3>
+            <p class="pick-up-store-available-pickup-stores js-store-modal" data-url='${URLUtils.https('PickupStore-GetStoresList', 'isPdp', pdict.isPdp)}'>${pdict.storeObject.address1 ? pdict.storeObject.address1 + ' ' + pdict.storeObject.phone : Resource.msg('storepickup.check.available.store', 'pdpStorePickUp', null)}</p>
         </div>
     </div>
 </div>

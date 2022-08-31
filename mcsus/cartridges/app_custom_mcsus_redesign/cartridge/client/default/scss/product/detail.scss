@@ -2023,6 +2023,8 @@
                                         &-icon {
                                             background-image: url(../../images/map-pin.svg);
                                             padding: rem(15);
+                                            margin-right: rem(9);
+                                            transform: translateX(-2px);
                                         }
                                     }
                                 }
