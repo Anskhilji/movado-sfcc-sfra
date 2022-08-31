@@ -1,5 +1,7 @@
 'use strict';
 
+var ArrayList = require('dw/util/ArrayList');
+var formatMoney = require('dw/util/StringUtils').formatMoney;
 var ProductMgr = require('dw/catalog/ProductMgr');
 var Logger = require('dw/system/Logger');
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
@@ -173,6 +175,123 @@ function getCurrentCountry() {
     return availableCountry;
 }
 
+//Custom Start: Get Category of Product
+function getProductCategory(apiProduct) {
+    var currentPrimaryCategory;
+    try {
+        if (!empty(apiProduct) && apiProduct.primaryCategory != null) {
+            if (!empty(apiProduct.primaryCategory)) {
+                var productPrimaryCategory = apiProduct.primaryCategory;
+
+                while (productPrimaryCategory.parent != null) {
+                    if (productPrimaryCategory.parent.ID == 'root') {
+                        currentPrimaryCategory = productPrimaryCategory.ID;
+                        break;
+                    }
+                    productPrimaryCategory = productPrimaryCategory.parent;
+                }
+            }
+        }
+    } catch (error) {
+        Logger.error('(productCustomHelper.js -> getProductCategory) Error occured while getting category from apiProduct : ' + error.message);
+        return;
+    }
+    return currentPrimaryCategory;
+}
+//Custom End: Get Category of Product
+
+/**
++ * Method use to check if gift box is allowed for product
++ * @param {Product} apiProduct
++ * @returns {Boolean} isGiftBoxAllowed
++ */
+function isGiftBoxAllowed(apiProduct) {
+    try {
+        var isGiftBoxAllowed = !empty(apiProduct.custom.isGiftBoxAllowed) ? apiProduct.custom.isGiftBoxAllowed : false;
+        if (empty(isGiftBoxAllowed) && apiProduct.variant) {
+            isGiftBoxAllowed = !empty(apiProduct.masterProduct.custom.isGiftBoxAllowed) ? apiProduct.masterProduct.custom.isGiftBoxAllowed : false;
+        }
+        return isGiftBoxAllowed;
+    } catch (e) {
+        Logger.error('(productCustomHelper.js -> isGiftBoxAllowed) Error occured while checking if gift box allowed: ' + e.stack, e.message, apiProduct.ID);
+        return false;
+    }
+}
+
+function getGiftBoxSKU(apiProduct) {
+    var giftBoxSKU;
+    var giftBoxSKUAvailability;
+    var giftBoxSKUData;
+    var giftBoxSKUPrice;
+    var giftProductUUID;
+    try {
+        var currentCategory = getProductCategory(apiProduct);
+        var giftBoxCategorySKUPairArray = !empty(Site.current.preferences.custom.giftBoxCategorySKUPair) ? new ArrayList(Site.current.preferences.custom.giftBoxCategorySKUPair).toArray() : '';
+        var currentGiftBoxCategorySKUPair;
+
+        for (var giftBoxCategorySKUPair = 0; giftBoxCategorySKUPair < giftBoxCategorySKUPairArray.length; giftBoxCategorySKUPair++) {
+            currentGiftBoxCategorySKUPair = giftBoxCategorySKUPairArray[giftBoxCategorySKUPair].split("|");
+            if (currentCategory == currentGiftBoxCategorySKUPair[0]) {
+                giftBoxSKU = currentGiftBoxCategorySKUPair[1];
+                break;
+            }
+        }
+        if (!empty(giftBoxSKU)) {
+            giftBoxSKUAvailability = ProductMgr.getProduct(giftBoxSKU).getAvailabilityModel().inStock;
+            giftBoxSKUPrice = getProductPromoAndSalePrice(ProductMgr.getProduct(giftBoxSKU)) ? getProductPromoAndSalePrice(ProductMgr.getProduct(giftBoxSKU)) : formatMoney(ProductMgr.getProduct(giftBoxSKU).getPriceModel().price);
+            giftBoxSKUData = {
+                giftBoxSKU: giftBoxSKU,
+                giftBoxSKUAvailability: giftBoxSKUAvailability,
+                giftBoxSKUPrice: giftBoxSKUPrice
+            }
+        }
+        return giftBoxSKUData;
+
+    } catch (e) {
+        Logger.error('(productCustomHelper.js -> getGiftBoxSKU) Error occured while getting gift box SKU: ' + e.stack, e.message, apiProduct.ID);
+    }
+}
+
+function getProductPromoAndSalePrice(product) {
+    try {
+        var Currency = require('dw/util/Currency');
+        var Money = require('dw/value/Money');
+        var Promotion = require('dw/campaign/Promotion');
+        var PromotionMgr = require('dw/campaign/PromotionMgr');
+
+        var salePrice = '';
+        var PromotionIt = PromotionMgr.activePromotions.getProductPromotions(product).iterator();
+        var promotionalPrice = Money.NOT_AVAILABLE;
+        var currentPromotionalPrice = Money.NOT_AVAILABLE;
+        var salePriceEffectiveDate;
+    
+        while (PromotionIt.hasNext()) {
+            var promo = PromotionIt.next();
+            if (promo.getPromotionClass() != null && promo.getPromotionClass().equals(Promotion.PROMOTION_CLASS_PRODUCT) && !promo.basedOnCoupons) {
+                if (product.optionProduct) {
+                    currentPromotionalPrice = promo.getPromotionalPrice(product, product.getOptionModel());
+                } else {
+                    currentPromotionalPrice = promo.getPromotionalPrice(product);
+                }
+                if (promotionalPrice.value > currentPromotionalPrice.value && currentPromotionalPrice.value !== 0) {
+                    promotionalPrice = currentPromotionalPrice;
+                } else if (promotionalPrice.value == 0) {
+                    if ((currentPromotionalPrice.value !== 0 && currentPromotionalPrice.value !== null)) {
+                        promotionalPrice = currentPromotionalPrice;
+                    }
+                }
+            }
+        }
+
+        if (promotionalPrice.available) {
+            salePrice = formatMoney(promotionalPrice);
+        }
+        return salePrice;
+    } catch (e) {
+        Logger.error('(productCustomHelper.js -> getProductPromoAndSalePrice) Error occured while getting promo price: ' + e.stack, e.message, product.ID);
+    }
+}
+
 function getOCIPreOrderParameters(apiProduct) {
     try {
         var ociPreOrderObject = {};
@@ -207,5 +326,8 @@ module.exports = {
     getCurrentCountry: getCurrentCountry,
     getPDPContentAssetHTML: getPDPContentAssetHTML,
     getPLPCustomURL: getPLPCustomURL,
-    getOCIPreOrderParameters: getOCIPreOrderParameters
+    getOCIPreOrderParameters: getOCIPreOrderParameters,
+    getProductCategory: getProductCategory,
+    isGiftBoxAllowed: isGiftBoxAllowed,
+    getGiftBoxSKU: getGiftBoxSKU
 };

@@ -25,6 +25,8 @@ module.exports = function fullProduct(product, apiProduct, options) {
     var pdpContentAssetHTML = productCustomHelper.getPDPContentAssetHTML(apiProduct);
     var detailAndSpecAttributes = productCustomHelpers.getPdpDetailAndSpecsAttributes(apiProduct);
     var pdpMarketingContentAssetHTML = productCustomHelper.getPDPMarketingContentAssetHTML(apiProduct);
+    var isGiftBoxAllowed = productCustomHelper.isGiftBoxAllowed(apiProduct);
+    var giftBoxSKUData = productCustomHelper.getGiftBoxSKU(apiProduct);
     var ociPreOrderParameters = productCustomHelper.getOCIPreOrderParameters(apiProduct);
     var yotpoReviewsCustomAttribute = productCustomHelper.getYotpoReviewsCustomAttribute(apiProduct);
 
@@ -131,6 +133,20 @@ module.exports = function fullProduct(product, apiProduct, options) {
             value: ociPreOrderParameters
         });
     }
-    
+
+    if (!empty(isGiftBoxAllowed)) {
+        Object.defineProperty(product, 'isGiftBoxAllowed', {
+            enumerable: true,
+            value: isGiftBoxAllowed
+        });
+    }
+
+    if (!empty(giftBoxSKUData)) {
+        Object.defineProperty(product, 'giftBoxSKUData', {
+            enumerable: true,
+            value: giftBoxSKUData
+        });
+    }
+
     return product;
 };
