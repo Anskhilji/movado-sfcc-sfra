@@ -3,24 +3,42 @@
 
 .store-pickup-modal-body {
   min-height: rem(534);
+  padding: rem(0);
+}
+
+.store-pickup-modal-body .store-list-wpdp {
+  max-height: rem(410);
+}
+
+.store-pickup-form-wrapper {
+  position: relative;
+  padding-top: rem(10);
+  display: flex;
 }
 
 .pickup-store-pdetail {
-  padding-left: rem(20);
+  margin: rem(9) rem(0) rem(30) rem(0);
+  
+  @include media-breakpoint-up(md) {
+    padding-left: rem(50.5);
+  }
 
   &-pd-specification {
-    padding-top: rem(15);
+    padding: rem(0);
   }
   
   &-product-name {
+    font-family: $font-demi;
     color: $light-gray-black;
     font-size: rem(16);
     font-weight: 300;
     letter-spacing: rem(0.7);
     line-height: rem(24);
+    margin-bottom: rem(0);
   }
 
   &-product-number {
+    font-family: $font-demi;
     color: $light-gray-brown;
     font-size: rem(12);
     font-weight: 300;
@@ -28,40 +46,107 @@
     line-height: rem(24);
   }
 
+  .img-outer {
+    width: rem(100);
+    height: rem(100);
+    margin-right: rem(30);
+  }
+
   .price {
     font-size: rem(12);
     color: $black-dark;
+    margin-top: rem(10);
+
+    .price-pdp-mvmt {
+
+      .strike-through  {
+
+        .value {
+            color: $light-gray-white;
+            font-family: $font-demi;
+            font-size: rem(12);
+            font-weight: 300;
+            letter-spacing: rem(0.53);
+            line-height: rem(24);
+            margin: rem(0);
+        }
+      }
+
+      .sale-price-mvmt {
+
+        .value {
+          color: $black-dark;
+          font-family: $font-demi;
+          font-size: rem(12);
+          font-weight: 300;
+          letter-spacing: rem(0.53);
+          line-height: rem(24);
+          margin: rem(0);
+        }
+      }
+    }
+  }
+}
+
+.hr-width {
+  width: calc(100% - 30px);
+  margin: 0 auto;
+
+  hr {
+    margin-bottom: rem(20);
+  }
+
+  @include media-breakpoint-up(md) {
+    width: calc(100% - 100px);
   }
 }
 
 .total-stores {
   color: $black-dark;
+  font-family: $font-demi;
   font-size: rem(10);
   font-weight: 500;
   letter-spacing: rem(0.44);
   line-height: rem(20);
-  margin-left: rem(33);
+  margin: rem(0) auto;
   margin-top: rem(15);
   text-transform: uppercase;
+  padding-bottom: rem(15);
+  width: calc(100% - 30px);
+  @include media-breakpoint-up(md) {
+    width: calc(100% - 100px);
+  }
 }
 
 .store-list {
-  padding: 0 rem(33);
   overflow-x: hidden;
   overflow-y: auto;
-  height: auto;
-  max-height: rem(320);
+  padding: 0 rem(15);
+  margin-bottom: rem(40.5);
+
+    @include custom-media-query-max($medium-screen-width) {
+        height: rem(200);
+    }
+
+    @include media-breakpoint-up(md) {
+        padding: 0 rem(50.5);
+        max-height: rem(312);
+        height: auto;
+    }
 
   &-details {
-    padding-top: rem(15);
-    padding-bottom: rem(15);
-    font-family: $font-book;
+    font-family: $font-demi;
+    padding-bottom: rem(10);
+
+    @include media-breakpoint-up(md) {
+      padding: rem(0) 0;
+    }
 
       .store-name {
         span {
-          color: $black-dark;
+          color: $light-gray-black;
           line-height: initial;
-          font-size: rem(12);
+          font-size: rem(14);
           font-weight: 700;
           letter-spacing: rem(0.61);
           line-height: rem(24);
@@ -91,13 +176,22 @@
 
 }
 
+.store-list::-webkit-scrollbar {
+	width: rem(5);
+	background-color: #F5F5F5;
+}
+
+.store-list::-webkit-scrollbar-thumb {
+	border-radius: rem(5);
+	background-color: #979797;
+}
+
 .store-select-button {
-  padding-top: rem(35);
 
   .store-pickup-select {
     height: rem(25);
     width: rem(120);
-    font-family: $font-book;
+    font-family: $font-demi;
     font-size: rem(12);
     font-weight: 500;
     letter-spacing: rem(0.53);
@@ -110,33 +204,42 @@
     cursor: pointer;
 
     &:disabled {
-      border: rem(1) solid $light-gray-brown;
-      background-color: $light-gray-brown;
+      border: rem(1) solid $disabled-gray;
+      background-color: $disabled-gray;
       cursor: default;
+    }
+
+    @include media-breakpoint-down(md) {
+      width: 100%;
+    }
+  
+    @include media-breakpoint-down(sm) {
+      width: rem(120);
     }
   }
 }
 
 .store-availibilty-hours {
-  padding-top: rem(25);
 
   .store-product-available {
+    
     span {
       color: $light-gray-black;
-      font-size: rem(12);
-      font-family: $font-book;
-      font-weight: 700;
+      font-size: rem(13);
+      font-family: $font-demi;
+      font-weight: 600;
       letter-spacing: rem(0.61);
       line-height: rem(24);
     }
   }
 
   .store-hours {
+
     label {
       color: $black-dark;
-      font-family: $font-book;
-      font-size: rem(12);
-      font-weight: 700;
+      font-family: $font-demi;
+      font-size: rem(14);
+      font-weight: 500;
       letter-spacing: rem(0.61);
       line-height: rem(20);
       text-transform: none;
@@ -144,42 +247,73 @@
   }
 
   .store-hours-title {
+
     &::after {
       content: "\F106";
-      font-size: rem(15);
+      font-size: rem(13);
       font-family: "FontAwesome";
       float: right;
       padding-left: rem(10);
-      font-weight: 700;
+      font-weight: 600;
+      color: $black-dark;
     }
   }
   
   .store-hours-title {
+    
     &.collapsed {
       &:after {
         content: "\F107";
-        font-size: rem(15);
+        font-size: rem(13);
         font-family: "FontAwesome";
         float: right;
         padding-left: rem(10);
-        font-weight: 700;
+        font-weight: 600;
+        color: $black-dark;
       }
     }
   }
 
   .store-hours-time {
-    span {
       color: $black-dark;
-      font-family: $font-book;
+      font-family: $font-demi;
       font-size: rem(12);
       font-weight: 300;
       letter-spacing: rem(0.61);
       line-height: rem(20);
-    }
+
+      span {
+        color: $black-dark;
+        font-family: $font-demi;
+        font-size: rem(12);
+        font-weight: 300;
+        letter-spacing: rem(0.61);
+        line-height: rem(20);
+      }
   }
 }
 
 .no-store {
-  padding: rem(20) rem(33);
-  text-align: center;
+    padding: rem(20) rem(33);
+    text-align: center;
+}
+
+
+.pickup-store-modal {
+    margin-bottom: rem(20);
+
+  .store-list-details {
+      max-width: rem(220);
+      width: 100%;
+  }
+
+  .store-availble {
+      max-width: rem(135);
+      width: 100%;
+  }
+
+  .store-select-btn {
+      max-width: rem(120);
+      width: 100%;
+  }
 }
