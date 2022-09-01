@@ -1,3 +1,4 @@
+<isset name="isPickupStoreEnabled" value="${!empty(dw.system.Site.current.preferences.custom.isPickupStoreEnabled) ? dw.system.Site.current.preferences.custom.isPickupStoreEnabled : false}" scope="page" />
 <isif condition="${pdict.name === null}">
   <li class="nav-item d-lg-none" role="menuitem">
     <a href="${URLUtils.https('Login-Show')}" class="nav-link">
@@ -6,12 +7,14 @@
     </a>
   </li>
 
-  <li class="nav-item d-lg-none" role="menuitem">
-    <a href="${URLUtils.https('PickupStore-GetStoresList', 'isPdp', pdict.isPdp)}" class="store-pickup-button js-store-modal nav-link">
-      <i class="fa stores-icon" aria-hidden="true"></i>
-      <span class="user-message">${(pdict.storeObject && pdict.storeObject.address1) || Resource.msg('store.pickup.set.your.store.btn', 'pdpStorePickUp', null)}</span>
-    </a>
-  </li>
+  <isif condition="${isPickupStoreEnabled}">
+    <li class="nav-item d-lg-none" role="menuitem">
+      <a href="${URLUtils.https('PickupStore-GetStoresList', 'isPdp', pdict.isPdp)}" class="store-pickup-button js-store-modal nav-link">
+        <i class="fa stores-icon" aria-hidden="true"></i>
+        <span class="user-message">${(pdict.storeObject && pdict.storeObject.address1) || Resource.msg('store.pickup.set.your.store.btn', 'pdpStorePickUp', null)}</span>
+      </a>
+    </li>
+  </isif>
 
   <li class="nav-item my-stores d-lg-none" role="menuitem">
     <a href="${URLUtils.https('Stores-Find')}" class="nav-link">

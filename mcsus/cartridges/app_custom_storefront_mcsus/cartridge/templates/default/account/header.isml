@@ -1,10 +1,13 @@
+<isset name="isPickupStoreEnabled" value="${!empty(dw.system.Site.current.preferences.custom.isPickupStoreEnabled) ? dw.system.Site.current.preferences.custom.isPickupStoreEnabled : false}" scope="page" />
 <isif condition="${pdict.name === null}">
   <div class="user hidden-md-down">
     <a href="${URLUtils.https('Login-Show')}">
       <i class="login-icon"></i>
       <span class="user-message">${Resource.msg('link.header.login', 'account', null)}</span>
     </a>
-    <isinclude template="modalpopup/modelPopUpButton"/>
+    <isif condition="${isPickupStoreEnabled}">
+      <isinclude template="modalpopup/modelPopUpButton"/>
+    </isif>
   </div>
 <iselse/>
   <div class="user hidden-md-down" tabindex="0">
