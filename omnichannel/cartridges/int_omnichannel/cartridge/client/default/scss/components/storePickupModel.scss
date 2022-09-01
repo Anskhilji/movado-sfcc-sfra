@@ -159,13 +159,13 @@
             position: relative;
             width: 100%;
             margin-bottom: rem(15);
-            
+
             @include media-breakpoint-up(md) {
                 margin-left: rem(20);
                 margin-bottom: rem(0);
                 width: rem(125);
             }
-            
+
             &-btn {
                 border: rem(1) solid $black-dark;
                 box-sizing: border-box;
@@ -187,26 +187,30 @@
 }
 .set-your-store {
     color: $light-black;
-    font-family: $font-demi;
+    font-family: $font-thin;
     font-size: rem(14);
-    font-weight: 300;
+    font-weight: 500;
     letter-spacing: rem(1);
+    text-transform: capitalize;
     line-height: rem(18);
     position: relative;
     bottom: rem(4.80);
-    }
+}
 
 .store-pickup-button {
     text-decoration: none;
     position: relative;
-    top: rem(3);
-    left: rem(12);
+    top: rem(5);
     cursor: pointer;
+    @include media-breakpoint-down(md) {
+        top: rem(0);
+    }
 
     .pickup-store-popup-button {
-        background: url('../../images/pickupstore-popup-button.svg') no-repeat center;
-        width: rem(15);
-        height: rem(20);
+        background: url('../../images/pickupstore-popup-button.svg') center center no-repeat;
+        background-size: contain;
+        width: rem(25);
+        height: rem(25);
         display: inline-block;
     }
 }
