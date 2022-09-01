@@ -1,4 +1,3 @@
-
 <div class="card product-line-item product-card-wrapper" data-product-line-item="${lineItem.UUID}">
 
     <div class="line-item-header">

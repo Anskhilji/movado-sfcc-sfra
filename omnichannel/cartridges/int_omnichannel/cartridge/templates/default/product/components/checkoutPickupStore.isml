@@ -1,13 +1,13 @@
 <isscript>
     var assets = require('*/cartridge/scripts/assets');
-    assets.addCss('/css/components/checkputPickupStore.css');
+    assets.addCss('/css/components/checkoutPickupStore.css');
 </isscript>
 <isif condition="${pdict.preferedPickupStore}">
     <div class="selected-pickup-store">${Resource.msg('store.pickup.checkout.selected', 'storePickUp', null)}</div>
     <div class="">
         <div class="store-address">
             ${pdict.preferedPickupStore.address1 + ' ' + pdict.preferedPickupStore.address2} <br />
-            ${pdict.preferedPickupStore.phone}
+            <span class="text-underline-content">${pdict.preferedPickupStore.phone}</span>
         </div>
     </div>
     <div class="row store-hours">

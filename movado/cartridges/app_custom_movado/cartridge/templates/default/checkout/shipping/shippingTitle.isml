@@ -1,5 +1,5 @@
 <isif condition="${session.privacy.pickupFromStore}">
-    <p class="summary-section-label shipping-addr-label">${Resource.msg('label.order.your.detail', 'storePickUp', null)}:</p>
+    <p class="summary-section-label shipping-addr-label billing-details-label">${Resource.msg('label.order.your.detail', 'storePickUp', null)}:</p>
 <iselse/>
     <p class="summary-section-label shipping-addr-label">${Resource.msg('label.order.shipping.address', 'confirmation', null)}</p>
 </isif>

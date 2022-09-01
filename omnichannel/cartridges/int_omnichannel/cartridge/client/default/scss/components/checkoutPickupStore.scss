@@ -66,4 +66,9 @@
   color: $dark-gray;
   font-size: rem(14);
   line-height: rem(23);
+  text-transform: capitalize;
+}
+
+.text-underline-content {
+  text-decoration: underline;
 }
