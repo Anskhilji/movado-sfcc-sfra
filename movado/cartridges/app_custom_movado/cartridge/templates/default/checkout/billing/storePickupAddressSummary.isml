@@ -1,4 +1,4 @@
-<div class="address-summary">
+<div class="address-summary mb-0">
     <div>
         <span class="firstName">
             <isif condition="${address && address.firstName}">${address.firstName}</isif>
