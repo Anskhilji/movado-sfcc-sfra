@@ -7,7 +7,7 @@
     <div class="store-list">
         <isloop items="${param.pickupStore.stores}" var="store">
             <div class="row">
-                <div class="col-12 pickup-modal-ch d-flex align-items-md-center justify-content-between flex-column flex-md-row w-100">
+                <div class="col-12 pickup-store-modal d-flex align-items-md-center justify-content-between flex-column flex-md-row w-100">
                     <div class="store-list-details">
                         <div class="store-name">
                             <span>${store.name}</span>

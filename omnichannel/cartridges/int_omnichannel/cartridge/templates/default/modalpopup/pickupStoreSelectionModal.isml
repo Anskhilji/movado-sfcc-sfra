@@ -35,11 +35,10 @@
                                     <isinclude template="product/components/productNumber" />
                                 </div>
                                 <h1 class="pickup-store-pdetail-product-name text-uppercase">${product != undefined && product != null ? product.productName : ''}</h1>
-                                    <iscomment> <isset name="price"
+                                    <isset name="price"
                                         value="${product != null && product != undefined && ? product.price : ''}"
-                                        scope="page" /> </iscomment>
+                                        scope="page" />
                                     <isinclude url="${URLUtils.https('Product-ShowMcsProdutPrice', 'pid', product != undefined && product != null ? product.id : '')}" />
-
                             </div>
                         </div>
                     </div>
