@@ -16,7 +16,6 @@
         &-inventory {
             display: flex;
             align-items: flex-start;
-            padding: 0;
         }
 
         &-display-inline-block {
@@ -96,6 +95,18 @@
             text-decoration: underline;
             cursor: pointer;
             color: $light-black;
+        }
+    }
+}
+
+.pickup-store-old {
+    padding: 0 rem(15);
+
+    .pdp-store-pickup-wraper {
+        padding: rem(20) 0;
+
+        .col-sm-6 {
+            padding: 0 20px;
         }
     }
 }

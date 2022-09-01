@@ -164,8 +164,10 @@
                                 <iscomment> Custom: End </iscomment>
                             </div>
                             <isif condition="${isPickupStoreEnabled}">
-                                <div class="pdp-store-pickup-wraper row">
-                                    <isinclude url="${URLUtils.url('PickupStore-GetPreferredStore', 'isPdp', pdict.isPdpStorePickup)}" />
+                                <div class="pickup-store-old">
+                                    <div class="pdp-store-pickup-wraper row">
+                                        <isinclude url="${URLUtils.url('PickupStore-GetPreferredStore', 'isPdp', pdict.isPdpStorePickup)}" />
+                                    </div>
                                 </div>
                             </isif>
                             <div class="d-block d-md-flex btn-margin smart-gift-box-mcs">

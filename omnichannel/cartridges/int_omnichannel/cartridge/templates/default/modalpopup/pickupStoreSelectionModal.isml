@@ -15,37 +15,35 @@
                         ${Resource.msg('store.pickup.model.title', 'pdpStorePickUp', null)}</p>
                     </isif>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true model-close"><img src="${URLUtils.staticURL('/images/close.svg')}" alt="close"></span>
                 </button>
             </div>
             <div class="modal-body store-pickup-modal-body">
                 <isif condition="${!empty(pdict.isPdpStorePickup) && pdict.isPdpStorePickup != undefined && pdict.isPdpStorePickup === true}">
                     <div class="row pickup-store-pdetail">
-                        <div class="col-md-3">
-                            <picture>
+                        <div class="col-md-12 d-md-flex align-itmes-start flex-wrap flex-sm-nowrap p-md-0 text-center text-md-left">
+                            <div class="img-outer mx-auto mx-md-0">
+                                <picture>
                                 <img src="${product && product.images['pdp533'].length > 0 ? product.images['pdp533'][0].url : ''}"
                                     alt="${product && product.images['pdp533'][0].length > 0 ? product.images['pdp533'][0].alt : ''}"
                                     itemprop="image" />
                                 <isset name="isImageExist" value="true" scope="page" />
                             </picture>
-                        </div>
-                        <div class="col-md-9 pickup-store-pdetail-pd-specification">
-                            <div class="pickup-store-pdetail-product-number">
-                                <isinclude template="product/components/productNumber" />
                             </div>
-                            <h1 class="pickup-store-pdetail-product-name text-uppercase">${product != undefined && product != null ? product.productName : ''}</h1>
-                                <isset name="price"
-                                    value="${product != null && product != undefined && ? product.price : ''}"
-                                    scope="page" />
-                                <isinclude url="${URLUtils.https('Product-ShowMcsProdutPrice', 'pid', product != undefined && product != null ? product.id : '')}" />
+                            <div class="pickup-store-pdetail-pd-specification">
+                                <div class="pickup-store-pdetail-product-number">
+                                    <isinclude template="product/components/productNumber" />
+                                </div>
+                                <h1 class="pickup-store-pdetail-product-name text-uppercase">${product != undefined && product != null ? product.productName : ''}</h1>
+                                    <isset name="price"
+                                        value="${product != null && product != undefined && ? product.price : ''}"
+                                        scope="page" />
+                                    <isinclude url="${URLUtils.https('Product-ShowMcsProdutPrice', 'pid', product != undefined && product != null ? product.id : '')}" />
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="product-seprator-line">
-                                <hr />
-                            </div>
-                        </div>
+                    <div class="hr-width">
+                        <hr />
                     </div>
                 </isif>
                 <div class="row">
