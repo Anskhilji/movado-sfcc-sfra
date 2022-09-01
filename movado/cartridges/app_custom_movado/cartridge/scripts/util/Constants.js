@@ -10,3 +10,7 @@ exports.MVMT_CHECKOUT_CAMPAIGN_NAME='Checkout';
 exports.US_COUNTRY_CODE='US';
 exports.PRICE_LOW_TO_HIGH = 'price-low-to-high';
 exports.PRICE_HIGH_TO_LOW = 'price-high-to-low';
+exports.WATCHES_CATEGORY = 'shop-watches';
+exports.NEWARRIVALS_CATEGORY = 'new-arrivals';
+exports.JEWELRY_CATEGORY = 'shop-jewelry';
+exports.ACCESSORIES_CATEGORY = 'accessories';

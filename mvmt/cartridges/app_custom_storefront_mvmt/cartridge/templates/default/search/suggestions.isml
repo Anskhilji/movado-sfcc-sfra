@@ -30,14 +30,14 @@
         </div>
 
         <isif condition="${pdict.suggestions.product && pdict.suggestions.product.available}">
-            <div class="col-8 suggested-products-tiles">
-            <div class="row items-header d-none d-lg-block">
+            <div class="col-lg-8 suggested-products-tiles">
+            <div class="row items-header">
                 <div class="col-xs-12 col-sm-10">${Resource.msg('label.suggest.products', 'search', null)}</div>
             </div>
 
-            <div class="row items d-none d-lg-flex">
+            <div class="row items">
                 <isloop items="${pdict.suggestions.product.products}" var="product">
-                    <div class="col-sm-4 item">
+                    <div class="col-6 col-sm-4 item">
                         <iscomment>
                             Custom Start: Added new parameter isSuggestionTile to detect suggestion tiles in template
                         </iscomment>

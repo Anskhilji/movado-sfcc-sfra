@@ -1,5 +1,4 @@
 <div class="card product-line-item product-card-wrapper" data-product-line-item="${lineItem.UUID}">
-
     <div class="line-item-header">
         <isif condition=${miniCart}>
             <isinclude template="checkout/productCard/productCardProductNameAndRemove" />
@@ -7,7 +6,6 @@
             <isinclude template="checkout/productCard/productCardProductName" />
         </isif>
     </div>
-
     <isif condition="${lineItem.productType === 'bundle'}">
         <div class="bundle-includes">${Resource.msg('msg.bundle.includes','cart',null)}</div>
         <!--- individual bundled line items --->
@@ -34,6 +32,7 @@
                 <iscomment> Custom End: </iscomment>
             </div>
             <div class="item-attributes flex-column">
+
                 <isloop items="${lineItem.variationAttributes}" var="attribute">
                     <p class="line-item-attributes">${attribute.displayName}: ${attribute.displayValue}</p>
                 </isloop>
@@ -105,8 +104,7 @@
                 <isif condition="${(pdict.order && !pdict.order.orderStatus) || miniCart}">
                     <isinclude template="cart/productCard/cartProductCardAvailability" />
                 </isif>
-
-                 <div class="item-model mb-2 line-item-attributes">
+                <div class="item-model mb-2 line-item-attributes">
                 ${Resource.msg('field.selectquantity','cart',null)}:  <span class="line-item-value"> <isprint value="${lineItem.quantity}" formatter="##" /></span>
                 </div>
 

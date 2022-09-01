@@ -53,10 +53,16 @@
                             </div>
                             <!-- Product Rating -->
                             <div class="ratings d-none-mobile-rating">
-                                <isinclude template="product/components/productRating" />
+                                <isset name="isYotpoStoreProductRatingEnabled" value="${!empty(dw.system.Site.current.preferences.custom.yotpoStoreProductRatingEnabled) ? dw.system.Site.current.preferences.custom.yotpoStoreProductRatingEnabled : false}" scope="page" />
+                                <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
+                                    <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                                        <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
+                                    </div>
+                                <iselse/>
+                                    <isinclude template="product/components/productRating" />
+                                </isif>
                             </div>
                         </div>
-
                         <iscomment> Custom Start: Tax Duties shows when following requirements meet </iscomment>
                         <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
                         <isif condition="${isEswEnabled}" >
@@ -107,7 +113,13 @@
                         <div class="product-section-mobile scroll-wrapper-inner">
                             <!-- Product Rating -->
                             <div class="ratings ratings-mobile d-lg-none d-sm-none">
-                                <isinclude template="product/components/productRating" />
+                                <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
+                                    <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                                        <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
+                                    </div>
+                                <iselse/>
+                                    <isinclude template="product/components/productRating" />
+                                </isif>
                             </div>
                             <iscomment> Custom Start: [MSS-1341 Show/Hide Short Description on PDP]</iscomment>
                             <isset name="isRecommendationsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.recommendationsEnabled) ? dw.system.Site.current.preferences.custom.recommendationsEnabled : false}" scope="page" />
@@ -123,7 +135,7 @@
                                 </div>
                             </isif>
                             <iscomment> Custom End </iscomment>
-                            <isif condition="${product.options && product.options.length > 0}">
+                            <isif condition="${product.options && product.options.length > 0 && !(option.id == "clydeWarranty") && dw.system.Site.current.preferences.custom.isClydeEnabled}">
                                 <isinclude template="product/components/options" />
                             </isif>
                                 
@@ -138,6 +150,19 @@
                                 <!-- Cart and [Optionally] Apple Pay -->
                                 <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
                             </div>
+
+                            <isset name="giftBoxMessage" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxMessage) ? dw.system.Site.current.preferences.custom.giftBoxMessage : ''}" scope="page" />
+                            <isset name="giftBoxEnabled" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxEnabled) ? dw.system.Site.current.preferences.custom.giftBoxEnabled : false}" scope="page" />
+                            <isif condition="${!empty(product.isGiftBoxAllowed) && product.isGiftBoxAllowed && product.giftBoxSKUData.giftBoxSKUAvailability && giftBoxEnabled}">
+                                <div class="gift-box-wrapper gift-box-wrapper-pdp d-show-desktop custom-checkbox-pdp">
+                                    <label for="gift-allowed-checkout" class="gift-box-wrapper-label custom-control-label-pdp">
+                                        <input id="gift-allowed-checkout" type="checkbox" name="gift-allowed-checkout" class="gift-box-wrapper-checkbox gift-allowed-checkbox" value="${product.giftBoxSKUData.giftBoxSKU}">
+                                        ${giftBoxMessage} ${product.giftBoxSKUData.giftBoxSKUPrice} 
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                            </isif>
+
                             <isif condition="${sitePref.enableBackInStock && !sitePref.Listrak_EnableBackInStockSms && !sitePref.Listrak_EnableBackInStockEmail}">
                                 <isinclude template="product/backInStockNotification" sf-toolkit="on" />                                
                             <iselseif condition="${isListrakEnable}">

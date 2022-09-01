@@ -65,6 +65,8 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     var isBillingPostalNotValid;
     var orderShippingAddress;
     var isShippingPostalNotValid;
+    var orderNumber = order.orderNo;
+    var URLUtils = require('dw/web/URLUtils');
     var paymentInstruments = order.getPaymentInstruments(
         PaymentInstrument.METHOD_DW_APPLE_PAY).toArray();
     if (!paymentInstruments.length) {
@@ -72,7 +74,7 @@ exports.afterAuthorization = function (order, payment, custom, status) {
             'app.fraud.detection.checkoutdenied',
             'checkoutDenied',
             orderNumber,
-            paymentInstrument,
+            paymentInstruments[0],
             require('*/cartridge/scripts/hooks/fraudDetectionHook').checkoutDenied);
         checkoutLogger.error('Unable to find Apple Pay payment instrument for order:' + order.orderNo);
         return new Status(Status.ERROR);
@@ -83,7 +85,7 @@ exports.afterAuthorization = function (order, payment, custom, status) {
             'app.fraud.detection.checkoutdenied',
             'checkoutDenied',
             orderNumber,
-            paymentInstrument,
+            paymentInstruments[0],
             require('*/cartridge/scripts/hooks/fraudDetectionHook').checkoutDenied);
         checkoutLogger.error('Unable to authorze Apple Pay payment for order: ' + order.orderNo);
         return new Status(Status.ERROR);
@@ -188,12 +190,25 @@ exports.afterAuthorization = function (order, payment, custom, status) {
         Logger.error('(applePay.js) --> Exception occured while try to validate shipping & billing address for orderID: {0} and exception is: {1}', order.orderNo, e);
     }
 
-    hooksHelper(
+    var checkoutDecisionStatus = hooksHelper(
         'app.fraud.detection.create',
         'create',
         order.orderNo,
         order.paymentInstrument,
         require('*/cartridge/scripts/hooks/fraudDetectionHook').create);
+
+    var RiskifiedOrderDescion = require('*/cartridge/scripts/riskified/RiskifiedOrderDescion');
+    if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'declined') {
+        // Riskified order declined response from decide API
+        riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order);
+        if (riskifiedOrderDeclined) {
+            var riskifiedError = new Status(Status.ERROR);
+            return riskifiedError;
+        }
+    } else if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'approved') {
+        // Riskified order approved response from decide API
+        RiskifiedOrderDescion.orderApproved(order);
+    }
     if (deliveryValidationFail) {
         var sendMail = true; // send email is set to true
         var isJob = false; // isJob is set to false because in case of job this hook is never called

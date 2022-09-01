@@ -37,7 +37,21 @@
 
                     <div class="row">
                         <div class="col-sm-12">
-                            <isinclude template="product/components/pidRating" />
+                            <isset name="isYotpoStoreProductRatingEnabled" value="${!empty(dw.system.Site.current.preferences.custom.yotpoStoreProductRatingEnabled) ? dw.system.Site.current.preferences.custom.yotpoStoreProductRatingEnabled : false}" scope="page" />
+                            <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
+                                <div class="product-number-rating clearfix">
+                                    <div class="product-number sku-text-alignment">
+                                        <isinclude template="product/components/productNumber" />
+                                    </div>
+                                    <div class="ratings pull-right">
+                                        <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                                            <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            <iselse/>
+                                <isinclude template="product/components/pidRating" />
+                            </isif>
                         </div>
                     </div>
 
@@ -58,8 +72,21 @@
                     <!-- Product Name -->
                     <h2 class="product-name d-sm-none d-md-block text-uppercase">${product.productName}</h2>
 
-                    <div class="d-block d-md-block d-sm-none">
-                        <isinclude template="product/components/pidRating" />
+                    <div class="d-block d-md-block d-sm-none hidden-sm-down">
+                        <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
+                            <div class="product-number-rating clearfix">
+                                <div class="product-number sku-text-alignment">
+                                    <isinclude template="product/components/productNumber" />
+                                </div>
+                                <div class="ratings pull-right hidden-sm-down">
+                                    <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                                        <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
+                                    </div>
+                                </div>
+                            </div>
+                        <iselse/>
+                            <isinclude template="product/components/pidRating" />
+                        </isif>
                     </div>
 
                     <div class="price-availability d-flex align-items-center">
@@ -74,7 +101,6 @@
                             <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
                         </div>
                     </div>
-
                     <iscomment> Custom Start: Tax Duties shows when following requirements meet </iscomment>
                     <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
                     <isif condition="${isEswEnabled}" >
@@ -94,7 +120,6 @@
                             </isif>
                         </isif>
                     </isif>
-
                     <!-- Affirm Text -->
                     <div class="mt-2">
                         <isset name="fpname" value="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" scope="page" />
@@ -141,7 +166,7 @@
                             </isif>
                             <hr />
                         </div>
-                        <isif condition="${product.options && product.options.length > 0}">
+                        <isif condition="${product.options && product.options.length > 0 && !(option.id == "clydeWarranty") && dw.system.Site.current.preferences.custom.isClydeEnabled}">
                             <isinclude template="product/components/old/options" />
                         </isif>
                         <div class="col-md-10 col-12">
@@ -220,6 +245,20 @@
                                 <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
                             </div>
                         </isif>
+
+                        <isset name="giftBoxMessage" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxMessage) ? dw.system.Site.current.preferences.custom.giftBoxMessage : ''}" scope="page" />
+                        <isset name="giftBoxEnabled" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxEnabled) ? dw.system.Site.current.preferences.custom.giftBoxEnabled : false}" scope="page" />
+                        <isif condition="${!empty(product.isGiftBoxAllowed) && product.isGiftBoxAllowed && product.giftBoxSKUData.giftBoxSKUAvailability && giftBoxEnabled}">
+                            <div class="col-12 gift-box-wrapper gift-box-wrapper-pdp d-show-desktop custom-checkbox-pdp">
+                                <label for="gift-allowed-checkout" class="gift-box-wrapper-label custom-control-label-pdp">
+                                    <input id="gift-allowed-checkout" type="checkbox" name="gift-allowed-checkout" class="gift-box-wrapper-checkbox gift-allowed-checkbox" value="${product.giftBoxSKUData.giftBoxSKU}">
+                                    ${giftBoxMessage} ${product.giftBoxSKUData.giftBoxSKUPrice} 
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </isif>
+
+
 
                         <div class="col-12">
                             <isif condition="${sitePref.enableBackInStock && !sitePref.Listrak_EnableBackInStockSms && !sitePref.Listrak_EnableBackInStockEmail}">
