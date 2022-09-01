@@ -39,23 +39,4 @@ server.get('ShowMcsAffirmText', function (req, res, next) {
     next();
 });
 
-server.get('getStoresList', function (req, res, next) {
-    var radius = req.querystring.radius;
-    var zipCode = req.querystring.zipCode;
-    var geolocation = req.geolocation;
-    var stores = storeHelpers.getStores(radius, null, null, geolocation, zipCode, false);
-    var path = '/modalpopup/pickupStoreList.isml';
-    var tmplate = new Template(path);
-    var data = new HashMap();
-
-    data.put('stores', stores);
-    var html = tmplate.render(data);
-    var result = {
-        html: html.text
-    }
-
-    res.json(result);
-    next();
-});
-
 module.exports = server.exports();
