@@ -106,7 +106,6 @@
                                     <isinclude url="${URLUtils.https('Product-ShowMcsProdutPrice', 'pid', product.id)}"/>
                                 <iscomment> Custom: End </iscomment>
                             </div>
-
                             <isinclude template="product/components/promotions" />
                         </div>
                     </div>
@@ -154,14 +153,15 @@
                                 <div id="clyde-cta" >
                                 </div>
                             </isif>
-                        <iscomment> Custom End: </iscomment> 
+
                         <isif condition="${isPickupStoreEnabled}">
-                            <div class="col-12">
+                            <div class="pickup-store">
                                 <div class="pdp-store-pickup-wraper row">
                                     <isinclude url="${URLUtils.url('PickupStore-GetPreferredStore', 'isPdp', pdict.isPdpStorePickup)}" />
                                 </div>
                             </div>
                         </isif>
+                        <iscomment> Custom End: </iscomment>
                         <div class="col-12 prices-add-to-cart-actions prices-add-to-cart-redesign ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "d-none" : ""}">
                             <div class="d-block">
                                 <!-- Cart and [Optionally] Apple Pay -->
