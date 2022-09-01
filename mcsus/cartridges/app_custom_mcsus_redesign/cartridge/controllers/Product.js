@@ -40,6 +40,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
    var isEmbossEnabled;
    var isEngraveEnabled;
    var isGiftWrapEnabled;
+   var isPdpStorePickup = true;
    var collectionName;
    var isPdpStorePickup = true;
    var productDecimalPrice = 0.0;

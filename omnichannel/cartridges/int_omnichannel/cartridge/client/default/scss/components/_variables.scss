@@ -11,6 +11,7 @@ $light-gray-brown: #666666;
 $disabled-gray: #b2b2b2;
 
 $green: #50A12E;
+$light-gray: #979797;
 
 $grid-breakpoints: (
     xs: 0,
@@ -27,3 +28,11 @@ $font-book : "FuturaStd-Book", Arial, sans-serif !default;
 $font-bold : "FuturaStd-Bold", Arial, sans-serif !default;
 $font-demi: "futura-pt", sans-serif, Arial;
 $font-std: "Futura Std";
+
+$medium-screen-width: 768px;
+
+@mixin custom-media-query-max($medium-screen-width) {
+    @media (max-width:#{$medium-screen-width}) {
+        @content;
+    }
+}
