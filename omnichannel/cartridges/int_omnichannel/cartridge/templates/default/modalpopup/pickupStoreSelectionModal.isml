@@ -22,7 +22,7 @@
                 <isif condition="${!empty(pdict.isPdpStorePickup) && pdict.isPdpStorePickup != undefined && pdict.isPdpStorePickup === true}">
                     <div class="row pickup-store-pdetail">
                         <div class="col-md-12 d-md-flex align-itmes-start flex-wrap flex-sm-nowrap p-md-0 text-center text-md-left">
-                            <div class="img-outer mx-auto mx-md-0">
+                            <div class="img-outer">
                                 <picture>
                                 <img src="${product && product.images['pdp533'].length > 0 ? product.images['pdp533'][0].url : ''}"
                                     alt="${product && product.images['pdp533'][0].length > 0 ? product.images['pdp533'][0].alt : ''}"
