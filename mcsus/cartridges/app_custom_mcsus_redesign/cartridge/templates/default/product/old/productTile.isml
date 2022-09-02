@@ -2,13 +2,13 @@
     <!-- dwMarker="product" dwContentID="${product.uuid}" -->
 
     <isloop items="${product.availability.messages}" var="message">
-        <isset name="outOfStock" value="${false}" scope="page"/>
+    	<isset name="outOfStock" value="${false}" scope="page"/>
         <isif condition="${message === Resource.msg('label.not.available', 'common', null)}">
-            <isset name="outOfStock" value="${true}" scope="page"/>
+        	<isset name="outOfStock" value="${true}" scope="page"/>
         </isif>
         <isset name="preOrder" value="${false}" scope="page"/>
         <isif condition="${message === Resource.msg('info.product.availability.preorder', 'common', null)}">
-            <isset name="preOrder" value="${true}" scope="page"/>
+        	<isset name="preOrder" value="${true}" scope="page"/>
         </isif>
     </isloop>
 
@@ -16,7 +16,7 @@
 
     <div class="tile-body">
         <isif condition="${pdict.display.swatches !== false}">
-            <isinclude template="product/components/productTileSwatch" />
+            <isinclude template="product/components/old/productTileSwatch" />
         </isif>
 
         <isif condition="${product.promotions}">
@@ -31,7 +31,7 @@
             </div>
         </isif>
 
-        <isinclude template="product/components/productTileName" />
+        <isinclude template="product/components/old/productTileName" />
         
         <isif condition="${preOrder}">
             <div class="out-of-stock">
@@ -59,7 +59,11 @@
 
         <isset name="price" value="${product.price}" scope="page" />
         <iscomment> Custom: Start [pricing shows only when following requirements meet] </iscomment>
-            <isinclude url="${URLUtils.https('Product-ShowMcsProdutPrice', 'pid', product.id)}"/>
+            <isif condition="${product.productType === 'set'}">
+                <isinclude template="product/components/pricing/setPrice" />
+            <iselse/>
+                <isinclude template="product/components/pricing/main" />
+            </isif>
         <iscomment> Custom: End </iscomment>
         <isif condition="${!pdict.isCompareableDisabled}"> 
             <isinclude template="product/components/compare" />

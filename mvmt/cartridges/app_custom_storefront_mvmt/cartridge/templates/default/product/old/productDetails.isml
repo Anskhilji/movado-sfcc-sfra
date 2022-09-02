@@ -135,6 +135,26 @@
                     </div>
                     <iscomment> Custom End: Change Naming Conventions for PDP </iscomment>
 
+                    <iscomment> Custom Start: Tax Duties shows when following requirements meet </iscomment>
+                    <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
+                    <isif condition="${isEswEnabled}" >
+                        <isset name="domesticAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
+                        <isset name="isTaxDutiesAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isTaxDutiesAllowedCountry()}" scope="page" />
+                        <isif condition="${!empty(isTaxDutiesAllowedCountry)}">
+                            <isif condition="${!domesticAllowedCountry && isTaxDutiesAllowedCountry}">
+                                <div class="tax-duties">
+                                    <isslot id="cs-esw-tax-duties" description="Tax Duties" context="global" />
+                                </div>
+                            </isif>
+                        <iselse/>
+                            <isif condition="${!domesticAllowedCountry}">
+                                <div class="tax-duties">
+                                    <isslot id="cs-esw-tax-duties" description="Tax Duties" context="global" />
+                                </div>
+                            </isif>
+                        </isif>
+                    </isif>
+                    
                     <!-- Product Availability -->
                     <iscomment>Custom Start: Remove Porduct availabilty label</iscomment>
                     <iscomment> 
@@ -308,7 +328,16 @@
                       </div>
                     </isif>
 
-                    <isif condition="${sitePref.enableBackInStock}">
+                    <isif condition="${sitePref.enableBackInStock && !sitePref.Listrak_EnableBackInStockSms && !sitePref.Listrak_EnableBackInStockEmail}">
+                        <isinclude template="product/backInStockNotification" sf-toolkit="on" />                                
+                    <iselseif condition="${isListrakEnable}">
+                        <isif condition="${sitePref.Listrak_EnableBackInStockSms || sitePref.Listrak_EnableBackInStockEmail}">
+                            <isinclude template="product/listrackBackInstock" sf-toolkit="on" />
+                        <iselse>
+                            <isinclude template="product/backInStockNotification" sf-toolkit="on" />
+                        </isif>
+                    </iselseif> 
+                    <iselse>
                         <isinclude template="product/backInStockNotification" sf-toolkit="on" />
                     </isif>
 

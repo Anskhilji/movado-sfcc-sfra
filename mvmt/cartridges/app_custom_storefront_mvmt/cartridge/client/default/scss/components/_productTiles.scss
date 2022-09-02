@@ -63,6 +63,16 @@
   
     .image-container {
       border: none;
+
+      a {
+        display: block;
+
+        .tile-image {
+            width: auto; 
+            max-width: 100%; 
+            height: auto;
+        }
+      }
   
       .quickview {
         display: none;
@@ -840,6 +850,9 @@
                 .slick {
                   &-arrow {
                     height: rem(0);
+                    @include media-breakpoint-down(sm) {
+                      height: rem(20);
+                    }
                   }
                 }
 

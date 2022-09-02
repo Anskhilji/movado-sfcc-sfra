@@ -96,6 +96,25 @@
                                     <isinclude template="product/components/pricing/main" />
                                 </isif>
                             </div>
+                            <iscomment> Custom Start: Tax Duties shows when following requirements meet </iscomment>
+                            <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
+                            <isif condition="${isEswEnabled}" >
+                                <isset name="domesticAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
+                                <isset name="isTaxDutiesAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isTaxDutiesAllowedCountry()}" scope="page" />
+                                <isif condition="${!empty(isTaxDutiesAllowedCountry)}">
+                                    <isif condition="${!domesticAllowedCountry && isTaxDutiesAllowedCountry}">
+                                        <div class="tax-duties">
+                                            <isslot id="cs-esw-tax-duties" description="Tax Duties" context="global" />
+                                        </div>
+                                    </isif>
+                                <iselse/>
+                                    <isif condition="${!domesticAllowedCountry}">
+                                        <div class="tax-duties">
+                                            <isslot id="cs-esw-tax-duties" description="Tax Duties" context="global" />
+                                        </div>
+                                    </isif>
+                                </isif>
+                            </isif>
                             <div class = "d-block d-md-none">
                             <iscomment> Custom Start: Product price shows when following requirements meet </iscomment>
                                 <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
@@ -154,6 +173,8 @@
                                                 <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>
                                                 <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
                                                     ${Resource.msg('button.preorder.now', 'common', null)} </br>
+                                                <iselseif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.backorder', 'common', null) && !empty(product) && !empty(product.ociPreOrderParameters) && product.ociPreOrderParameters.ociPreOrderProductAllocation === 0.00 && product.ociPreOrderParameters.ociPreOrderProductATO > 0 && product.ociPreOrderParameters.ociPreOrderProductFuture === true}"/>
+                                                    ${Resource.msg('button.preorder.now', 'common', null)} </br>
                                                 <iselse/>
                                                     ${Resource.msg('button.addtocart', 'common', null)}
                                                 </isif>
@@ -173,7 +194,7 @@
                                                         <isinclude template="product/components/smartGift" />
                                                     </isif>
                                                 </isif>
-                                                <div class="product-not-available-msg <isif condition="${!product.isProductRestricted}">d-none</isif>">${Resource.msg('esw.product.notavailable','esw',null)}</div>
+                                            <div class="product-not-available-msg <isif condition="${!product.isProductRestricted}">d-none</isif>">${Resource.msg('esw.product.notavailable','esw',null)}</div>
                                             <iselse/>
                                                 <isapplepay class="apple-pay-pdp btn mt-2" sku="${product.id}"></isapplepay>
                                                 <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}"> 
@@ -219,7 +240,20 @@
                         </div>
                     </isif>
                 </div>
+                <div class="col-12 pdp-movado prices-add-to-cart-actions cart-sticky-wrapper-btn scroll-hidden">
+                    <!-- Prices -->
+                    <div class="prices">
+                        <iscomment> Custom Start: Product price shows when following requirements meet </iscomment>
+                        <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
+                            <isset name="price" value="${product.price}" scope="page" />
+                            <isinclude template="product/components/pricing/main" />
+                        </isif>
+                    </div>
+                    <!-- Cart and [Optionally] Apple Pay -->
+                    <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
+                </div>
             </div>
+            <div class="cart-wishlist-observer"></div>
         </div>
         <div class="container-fluid pdp-mobile detail-bg pdp-v-one">
             <isinclude template="product/components/descriptionAndDetails" />
