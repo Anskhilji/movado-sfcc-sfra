@@ -531,12 +531,12 @@ var formHelpers = require('base/checkout/formErrors');
                   }
               }
 
-          // Set the next stage on the DOM
-              $(plugin).attr('data-checkout-stage', checkoutStages[members.currentStage]);
-              if (Resources.INSTORE_PICKUP_ENABLE) {
-                    openBillingFormForPickupStore(checkoutStages, members);
-              }
-          },
+            // Set the next stage on the DOM
+            $(plugin).attr('data-checkout-stage', checkoutStages[members.currentStage]);
+            if (Resources.INSTORE_PICKUP_ENABLE) {
+                openBillingFormForPickupStore(checkoutStages, members);
+            }
+        },
 
         /**
          * Previous State
@@ -583,9 +583,9 @@ function openBillingFormForPickupStore(checkoutStages, members, isReload) {
         $('.billingState').val('')
         $('.billingAddressCity').val('')
         $('.billingZipCode').val('')
-        $(".billing-form").attr('data-address-mode', 'new');
+        $('.billing-form').attr('data-address-mode', 'new');
     } else {
-        $(".billing-form").attr('data-address-mode', 'details');
+        $('.billing-form').attr('data-address-mode', 'details');
     }
 }
 
