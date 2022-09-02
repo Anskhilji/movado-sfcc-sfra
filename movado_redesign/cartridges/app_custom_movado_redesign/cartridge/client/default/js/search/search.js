@@ -290,7 +290,13 @@ function updatePageURLForPagination(showMoreUrl) {
  * Moving the focus to top after pagination and filtering
  */
 function moveFocusToTop() {
-    var topScrollHeight = $('.tab-content').offset().top - $('header').outerHeight();
+    var topScrollHeight;
+    var filters = $('.filter-value');
+    if(filters.length > 0){
+        topScrollHeight = $('.tab-content').offset().top - $('header').outerHeight() - $('.filter-box').outerHeight() - $('.filter-bar').outerHeight();
+    } else {
+        topScrollHeight = $('.tab-content').offset().top + $('header').outerHeight();
+    }
     $('html, body').animate({
         scrollTop: topScrollHeight
     }, 500);

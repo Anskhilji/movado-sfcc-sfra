@@ -1041,7 +1041,6 @@
 
 // filter bar sticky styling MSS-1912
 .filter-box {
-    transition: all 0.4s;
     
     &.filter-bar-sticky {
         position: fixed;
@@ -1050,6 +1049,7 @@
         top: rem(60);
         background-color: $white;
         z-index: 101;
+        border-bottom: rem(1) solid $white-grey;
 
         @include media-breakpoint-down(sm) {
            top: rem(45);
