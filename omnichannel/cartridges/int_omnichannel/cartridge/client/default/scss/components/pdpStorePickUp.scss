@@ -23,7 +23,7 @@
             display: inline-block;
 
             &-delevery {
-                width: 73%;
+                width: 75.25%;
             }
 
             &-store-icon {
@@ -52,29 +52,31 @@
         &-stock-for-deliver {
             color: $dark-light-black;
             font-size: rem(14);
-            font-weight: 700;
+            font-weight: 600;
             letter-spacing: rem(0.61);
             line-height: rem(17);
-            font-family: $font-std;
+            font-family: $font-std-medium;
+            margin-bottom: rem(6);
         }
     
         &-openings {
             opacity: 0.8;
             font-size: rem(12);
             font-weight: 300;
-            letter-spacing: rem(0.76);
+            letter-spacing: rem(0.86);
             line-height: rem(20);
             color: $light-black;
             margin: 0;
+            font-family: $font-book-std;
         }
     
         &-available-for-store {
             color: $dark-light-black;
             font-size: rem(14);
-            font-weight: 700;
+            font-weight: 600;
             letter-spacing: rem(0.61);
             line-height: rem(17);
-            font-family: $font-std;
+            font-family: $font-std-medium;
             margin-bottom: rem(5);
         }
     
@@ -84,19 +86,22 @@
             color: $light-black;
             font-weight: 300;
             line-height: rem(20);
+            letter-spacing: rem(0.86);
             margin: 0;
+            font-family: $font-book-std;
         }
     
         &-change-store {
             opacity: 0.8;
             font-size: rem(12);
             font-weight: 300;
-            letter-spacing: rem(0.76);
+            letter-spacing: rem(0.86);
             line-height: rem(20);
             margin: 0;
             text-decoration: underline;
             cursor: pointer;
             color: $light-black;
+            font-family: $font-book-std;
         }
     }
 }
