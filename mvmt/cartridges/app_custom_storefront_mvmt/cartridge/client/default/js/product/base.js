@@ -427,7 +427,7 @@ function processNonSwatchValues(attr, $productContainer) {
  */
 function updateAttrs(attrs, $productContainer) {
     // Currently, the only attribute type that has image swatches is Color.
-    var attrsWithSwatches = ['color'];
+    var attrsWithSwatches = ['color','colorWatch'];
 
     attrs.forEach(function (attr) {
         if (attrsWithSwatches.indexOf(attr.id) > -1) {
@@ -873,7 +873,7 @@ function handleVariantResponse(response, $productContainer) {
 
     // Update Family Name and Case Diameter
     if (typeof response.product.collectionName !== 'undefined' && response.product.collectionName !== '' && response.product.collectionName !== null) {
-        $productContainer.find('.product-brand-info .collection-name').text(response.product.collectionName);
+        $productContainer.find('.product-brand-info .collection-name, .category-watches .watches-collection-name').text(response.product.collectionName);
     }
     if (typeof response.product.caseDiameter !== 'undefined' && response.product.caseDiameter !== '' && response.product.caseDiameter !== null) {
         $productContainer.find('.product-brand-info .case-diameter').text(response.product.caseDiameter);
@@ -1324,11 +1324,14 @@ movadoBase.selectAttribute = function () {
 }
 
 movadoBase.colorAttribute = function () {
-    $(document).off('click', '[data-attr="color"] a').on('click','[data-attr="color"] a', function (e) {
+    $(document).off('click', '[data-attr="color"] a, [data-attr="colorWatch"] a').on('click','[data-attr="color"] a, [data-attr="colorWatch"] a', function (e) {
         e.preventDefault();
     
         if ($(this).attr('disabled') || $(this).hasClass('active')) {
             return;
+        } else {
+            $('.product-size-options.color-variation.active').removeClass('active');
+            $(this).addClass('active');
         }
     
         var $productContainer = $(this).closest('.set-item');

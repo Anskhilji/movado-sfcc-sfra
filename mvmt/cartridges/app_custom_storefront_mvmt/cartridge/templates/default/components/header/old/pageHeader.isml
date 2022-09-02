@@ -251,10 +251,14 @@
             <input type="hidden" value="${pdict.locale}" name="lang" />
             <a href="javascript:void(0);" class="search-close search-close-mobile hidden-lg-up"></a>
         </form>
-        <div class="row search-recomendation justify-content-center">
+        <div class="row search-recomendation justify-content-center content-show">
             <div class="col-12">
                 <div class="row search-suggestions">
-                    <div class="col-sm-4"><isslot id="top-search-product-name" description="Top Search Product Name" context="global" /></div>
+                <div class="col-sm-4">
+                    <isslot id="top-search-product-name" description="Top Search Product Name" context="global" /></div>
+                </div>
+                <div class="col-lg-8 suggested-products-caresoul">
+                    <isslot id="top-search-product" description="Top Search Product" context="global" />
                 </div>
             </div>
         </div>

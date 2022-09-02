@@ -1038,3 +1038,27 @@
     }
   }
 }
+
+// filter bar sticky styling MSS-1912
+.filter-box {
+    transition: all 0.4s;
+    
+    &.filter-bar-sticky {
+        position: fixed;
+        left: rem(15);
+        right: rem(15);
+        top: rem(60);
+        background-color: $white;
+        z-index: 101;
+
+        @include media-breakpoint-down(sm) {
+           top: rem(45);
+        }
+      }
+
+    .result-count {
+        @include media-breakpoint-down(sm) {
+            padding-bottom: rem(0);
+        }
+    }
+}

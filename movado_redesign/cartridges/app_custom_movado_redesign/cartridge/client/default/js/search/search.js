@@ -296,6 +296,23 @@ function moveFocusToTop() {
     }, 500);
 }
 
+// filter bar sticky styling MSS-1912
+$(window).scroll(function() {    
+    var scroll = $(window).scrollTop();
+    var screenWidth = 130;
+    
+    //  this var use for mobile scree 
+    if (window.innerWidth <= 767) {
+        screenWidth = 45;
+    }
+
+    if (scroll > screenWidth) {
+        $('.filter-box').addClass('filter-bar-sticky');
+    } else {
+        $('.filter-box').removeClass('filter-bar-sticky');
+    }
+}); 
+
 module.exports = {
     filter: function () {
         // Display refinements bar when Menu icon clicked
