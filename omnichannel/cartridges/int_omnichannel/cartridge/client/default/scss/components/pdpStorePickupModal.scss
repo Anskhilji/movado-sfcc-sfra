@@ -35,6 +35,11 @@
     letter-spacing: rem(0.7);
     line-height: rem(24);
     margin-bottom: rem(0);
+    word-wrap: break-word;
+
+    @include media-breakpoint-up(md) {
+      width: calc(100% - 30px);
+    }
   }
 
   &-product-number {
@@ -50,6 +55,10 @@
     width: rem(100);
     height: rem(100);
     margin-right: rem(30);
+
+    @include custom-media-query-max($medium-screen-width) {
+        margin: auto;
+    }
   }
 
   .price {

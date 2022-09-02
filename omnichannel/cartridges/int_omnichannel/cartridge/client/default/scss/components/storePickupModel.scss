@@ -150,6 +150,10 @@
                         right: rem(8);
                         top: rem(15);
                     }
+                    
+                    @include custom-media-query-max($medium-screen-width) {
+                        right: rem(10);
+                    }
                 }
             }
             
