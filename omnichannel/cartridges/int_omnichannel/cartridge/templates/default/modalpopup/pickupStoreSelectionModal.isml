@@ -36,7 +36,7 @@
                                 </div>
                                 <h1 class="pickup-store-pdetail-product-name text-uppercase">${product != undefined && product != null ? product.productName : ''}</h1>
                                     <isset name="price"
-                                        value="${product != null && product != undefined && ? product.price : ''}"
+                                        value="${product != null && product != undefined ? product.price : ''}"
                                         scope="page" />
                                     <isinclude url="${URLUtils.https('Product-ShowMcsProdutPrice', 'pid', product != undefined && product != null ? product.id : '')}" />
                             </div>
