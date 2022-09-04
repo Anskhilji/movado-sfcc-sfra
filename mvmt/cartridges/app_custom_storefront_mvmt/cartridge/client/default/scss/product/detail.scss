@@ -2422,6 +2422,10 @@
                     white-space: nowrap;
                     vertical-align: bottom;
                 }
+
+                &.colorWatch{
+                    margin-bottom: rem(10);
+                }
             }
 
             &-seefit-text {
@@ -2477,6 +2481,10 @@
                 box-sizing: border-box;
                 background-color: $white;
                 
+                &:hover {
+                    border: rem(1) solid $black;
+                }
+
                 @include media-breakpoint-down(xs) {
                     width: rem(50);
                     height: rem(50);
@@ -2591,6 +2599,14 @@
 
                 .pdp-select-variations {
                     background-color: $white;
+
+                    &.color-watch-swatches {
+                        align-items: start;
+
+                        .pdp-swatchs-redesign {
+                            justify-content: start;
+                        }
+                    }
 
                     .select-size-head-label {
                         display: none;
