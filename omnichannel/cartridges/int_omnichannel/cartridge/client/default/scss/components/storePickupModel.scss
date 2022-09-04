@@ -5,6 +5,7 @@
 
     .modal-content {
         border: rem(1) solid $light-gray;
+        border-radius: rem(0);
     }
 
     @include media-breakpoint-up(sm) { 
@@ -33,7 +34,7 @@
 
     &-title {
         color: $light-gray-black;
-        font-family: $font-demi;
+        font-family: $font-book-std;
         font-size: rem(20);
         font-weight: 300;
         letter-spacing: rem(0.88);
@@ -41,6 +42,7 @@
         text-transform: uppercase;
         padding-left: rem(50.5);
         padding-top: rem(30.5);
+        margin-bottom: rem(21);
 
         @include custom-media-query-max($medium-screen-width) {
             padding-left: rem(15);
@@ -72,7 +74,7 @@
             }
 
             @include media-breakpoint-down(md) {
-                padding-left: rem(10);
+                padding-left: rem(0);
             }
 
             &-field {
@@ -83,16 +85,15 @@
                 background-color: $white-dark;
                 padding-left: rem(10);
                 font-size: rem(14);
-                font-family: $font-demi;
+                font-family: $font-book-std;
                 color: $light-gray-brown;
-                font-size: rem(14);
                 font-weight: 300;
                 letter-spacing: rem(0.4);
                 line-height: rem(24);
             
                 &:placeholder {
                     color: $light-gray-brown;
-                    font-family: $font-demi;
+                    font-family: $font-book-std;
                     font-size: rem(14);
                     font-weight: 300;
                     letter-spacing: rem(0.4);
@@ -127,28 +128,45 @@
                 border: rem(1) solid $light-gray-white;
                 background-color: $white-dark;
                 color: $black-dark;
-                font-family: $font-demi;
+                font-family: $font-std-medium;
                 font-size: rem(14);
                 font-weight: 500;
                 letter-spacing: rem(0.4);
-                line-height: rem(24);
+                line-height: rem(28.8);
                 padding-left: rem(10);
                 padding-top: rem(10);
+                text-transform: unset;
 
                 @include custom-media-query-max($medium-screen-width) {
                     background-position-x: 98%;
                 }
+
+                @include media-breakpoint-up(md) {
+                    padding-right: rem(10);
+                }
+               
+                + i {
+                    @include media-breakpoint-up(md) {
+                        right: rem(8);
+                        top: rem(15);
+                    }
+                    
+                    @include custom-media-query-max($medium-screen-width) {
+                        right: rem(10);
+                    }
+                }
             }
+            
     
             &-dropdown-label {
                 color: $light-gray-brown;
-                font-family: $font-demi;
+                font-family: $font-std-medium;
                 font-size: rem(10);
                 font-weight: 300;
                 letter-spacing: rem(0.29);
                 line-height: rem(24);
                 position: absolute;
-                left: rem(7);
+                left: rem(10);
                 top: rem(-2);
                 text-transform: capitalize;
             }
@@ -173,11 +191,11 @@
                 width: 100%;
                 background-color: $white-dark;
                 color: $light-gray-black;
-                font-family: $font-demi;
+                font-family: $font-std-medium;
                 font-size: rem(16);
                 font-weight: 500;
                 letter-spacing: rem(0.7);
-                line-height: rem(24);
+                line-height: rem(36);
                 text-align: center;
                 text-transform: uppercase;
                 cursor: pointer;
