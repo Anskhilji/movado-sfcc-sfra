@@ -11,7 +11,6 @@ $(document).ready(function () {
             radius: $radius.val(),
             isSearch: true
         }
-
         $('#pickupStoreModal').spinner().start();
         $.ajax({
             url: url,
