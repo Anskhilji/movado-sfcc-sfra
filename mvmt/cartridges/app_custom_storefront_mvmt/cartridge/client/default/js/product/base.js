@@ -1,5 +1,4 @@
 'use strict';
-const { constant } = require('lodash');
 var movadoBase = require('movado/product/base');
 if(Resources.IS_CLYDE_ENABLED){
     var clydeWidget = require('link_clyde/getClydeWidget.js');
