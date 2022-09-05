@@ -17,7 +17,7 @@
 }
 
 .pickup-store-pdetail {
-  margin: rem(9) rem(0) rem(30) rem(0);
+    margin: rem(0) rem(0) rem(30) rem(0);
   
   @include media-breakpoint-up(md) {
     padding-left: rem(50.5);
@@ -25,6 +25,10 @@
 
   &-pd-specification {
     padding: rem(0);
+
+    @include media-breakpoint-up(md) {
+        width: calc(100% - 30px);
+    }
   }
   
   &-product-name {
@@ -143,6 +147,10 @@
         padding: 0 rem(25) rem(0) rem(50.5);
         max-height: rem(312);
         height: auto;
+    }
+
+    @include media-breakpoint-up(lg) {
+        max-height: rem(380);
     }
 
   &-details {

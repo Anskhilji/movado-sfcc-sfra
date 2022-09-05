@@ -42,7 +42,7 @@
         text-transform: uppercase;
         padding-left: rem(50.5);
         padding-top: rem(30.5);
-        margin-bottom: rem(21);
+        margin-bottom: rem(30);
 
         @include custom-media-query-max($medium-screen-width) {
             padding-left: rem(15);
