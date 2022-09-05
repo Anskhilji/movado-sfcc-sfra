@@ -157,7 +157,7 @@ $(".mobile-search-field").keydown(function() {
 });
 
 $('.mobile-search-field').focusout(function() {
-    var isSearchModel = $('.desktop-side-search').hasClass('desktop-search-active');
+    var isSearchModel = $('.product-serach-items').length;
     if (isSearchModel) {
         $('.content-show').addClass('d-none');
     }

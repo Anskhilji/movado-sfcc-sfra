@@ -54,8 +54,10 @@
 
     .swatch-circle {
         @include swatch(1.8em, $white);
-        height: rem(16);
-        width: rem(16);
+        height: rem(50);
+        width: rem(50);
+        margin-right: 0;
+        border: none;
     }
 
     .search-suggestions-result {
@@ -94,7 +96,7 @@
           @include media-breakpoint-down(sm) {
             color: $black;
             font-family: $font-medium;
-            font-size: rem(12);
+            font-size: rem(15);
             line-height: rem(16);
             letter-spacing: rem(0.82);
           }
@@ -303,6 +305,11 @@
         }
 
         @include media-breakpoint-down(sm) {
+          width: 33.33%;
+          flex: 0 0 33.33%;
+        }
+
+        @include media-breakpoint-down(xs) {
           width: 50%;
           flex: 0 0 50%;
         }
@@ -314,11 +321,20 @@
             width: auto;
             height: rem(210);
 
+            @include media-breakpoint-down(xs) {
+              height: rem(128);
+            }
+
             img {
               width: auto;
               height: rem(210);
               margin: 0 auto;
               display: block;
+
+              @include media-breakpoint-down(xs) {
+                width: rem(144);
+                height: rem(128);
+              }
             }
           }
         }
