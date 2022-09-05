@@ -45,7 +45,7 @@
                 </isloop>
             </div>
 
-            <div class="row product-serach-items items d-md-none b-block">
+            <div class="row product-serach-items items d-md-none d-block">
                 <isloop items="${pdict.suggestions.product.products}" var="product">
                     <div class="col-12 item">
                         <div class="row">
