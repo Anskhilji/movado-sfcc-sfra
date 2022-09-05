@@ -35,7 +35,17 @@
                 <div class="col-xs-12 col-sm-10">${Resource.msg('label.suggest.products', 'search', null)}</div>
             </div>
 
-            <div class="row product-serach-items items">
+            <div class="row items d-md-flex d-none">
+                <isloop items="${pdict.suggestions.product.products}" var="product">
+                    <div class="col-6 col-sm-4 item">
+                        <iscomment> Custom Start: Added new parameter isSuggestionTile to detect suggestion tiles in template </iscomment>
+                        <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.id, 'pview', 'tile', 'ratings', true, 'swatches', true, 'isSuggestionTile', true, 'lazyload', true, 'isRedesigned', true, 'showAddToCart', true, 'searchSuggestion', true)}"/>
+                        <iscomment> Custom End: </iscomment>
+                    </div>
+                </isloop>
+            </div>
+
+            <div class="row product-serach-items items d-md-none b-block">
                 <isloop items="${pdict.suggestions.product.products}" var="product">
                     <div class="col-12 item">
                         <div class="row">
@@ -44,7 +54,7 @@
                                     <img class="swatch-circle" alt="${product.name}" src="${product.imageUrl}" />
                                 </a>
                             </div>
-                            <div class="name align-self-center gtm-customEvent" data-gtm-tracking='{"event": "dataTrack","eventCategory": "Search CTA","eventAction": "Click","eventLabel": "${request.httpURL}"}'>
+                            <div class="name align-self-center">
                                 <a class="product-serach-container" href="${product.url}">${product.name}</a>
                             </div>
                         </div>
