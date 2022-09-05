@@ -29,6 +29,17 @@ server.prepend('AddProduct', function (req, res, next) {
                 });
                 break;
             }
+            // if (currentLineItemsIterator.custom.giftItemUUID) {
+            //     continue;
+            // } else {
+            //     for(i = 0; i <; i++) {
+
+            //     }
+            //     Transaction.wrap(function () {
+            //         currentLineItemsIterator.custom.giftItemUUID = req.form.pid;
+            //     });
+
+            // }
         }
     }
     next();
@@ -176,6 +187,23 @@ server.append('AddProduct', function (req, res, next) {
             session.custom.addToCartPerSession = true;
             res.setViewData({addToCartPerSession : true});
         }
+
+        // var reqGift = req.form.isGiftItem;
+        delete session.privacy.giftItemUUID
+
+        var giftItemUUID;
+
+        if (req.form.isGiftItem && res.viewData.pliUUID) {
+            // res.setViewData({
+                giftItemUUID = res.viewData.pliUUID;
+                // delete session.custom.giftItemUUID 
+                session.privacy.giftItemUUID = giftItemUUID;
+
+            // });
+        }
+
+        var giftHamza = session.privacy.giftItemUUID;
+
         res.setViewData({viewData: viewData});
 
         var quantityTotal;
@@ -214,6 +242,8 @@ server.append('AddProduct', function (req, res, next) {
             });
         }
         // Custom End
+
+
 
         res.setViewData({
             quantityTotal: quantityTotal,
@@ -377,7 +407,6 @@ server.append(
                 paypalerrors: paypalerrors
              });
         }
-
         res.setViewData({
             paypalButtonImg: customCartHelpers.getContentAssetContent('ca-paypal-button')
         });

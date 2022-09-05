@@ -309,6 +309,22 @@ function getCountrySwitch() {
 
 };
 
+// function isGiftItemExist(currentProductUUID) {
+//     var BasketMgr = require('dw/order/BasketMgr');
+//     var currentBasket = BasketMgr.getCurrentOrNewBasket();
+//     var isGiftExist = false;
+
+//     var prodLineItems = currentBasket.productLineItems;
+//     Transaction.wrap(function(){
+//         for each(var lineItem in prodLineItems){
+//             if(lineItem.UUID === currentProductUUID){
+//                 isGiftExist = true;
+//             }
+//         }
+//     });
+//     return isGiftExist
+// };
+
 module.exports = {
     updateOptionLineItem: updateOptionLineItem,
     updateOption: updateOption,

@@ -15,6 +15,7 @@
         <isinclude url="${URLUtils.url('EUMData-IncludePage', 'pageData', Resource.msg('page.name.cart', 'eum', null))}"/>
     </isif>
     <div class="cart-section-wrapper">
+    <p data-cart-i="${session.privacy.giftItemUUID}">SKUUUU</p>
         <isinclude template="cart/cartSection"/>
     </div>
     <div class="container cart-recommendation-wrapper mt-4">

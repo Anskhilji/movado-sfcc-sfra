@@ -75,22 +75,51 @@
 	                        </div>
                         </isif>
 
+<isset name="CurrentBasket" value="${require('dw/order/BasketMgr').getCurrentBasket()}" scope="page" />
+<isset name="BasketLineItems" value="${CurrentBasket.getAllProductLineItems()}" scope="page" />
+<isset name="isGiftExist" value="true" scope="page" />
+<p data-hello-session="${session.privacy.giftItemUUID}">Session</p>
+<isloop items="${BasketLineItems}" var="currentLineItem" status="loopStatus">
+    <iscomment> <h5>${lineItem.UUID}loopitem</h5> </iscomment>
+    <isif condition="${currentLineItem.UUID == session.privacy.giftItemUUID}">
+        <isset name="isGiftExist" value="false" scope="page" />
+        
+    </isif>
+</isloop>
+
+
+
+
                         <isset name="product" value="${dw.catalog.ProductMgr.getProduct(lineItem.id)}" scope="page" />
                         <isset name="isGiftBoxAllowed" value="${require('*/cartridge/scripts/helpers/productCustomHelper').isGiftBoxAllowed(product)}" scope="page" />
                         <isset name="giftBoxEnabled" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxEnabled) ? dw.system.Site.current.preferences.custom.giftBoxEnabled : false}" scope="page" />
                         <isset name="giftBoxSKUData" value="${require('*/cartridge/scripts/helpers/productCustomHelper').getGiftBoxSKU(product)}" scope="page" />
                         <isset name="isCartPage" value="${true}" scope="page" />
                         <isset name="giftBoxMessage" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxMessage) ? dw.system.Site.current.preferences.custom.giftBoxMessage : ''}" scope="page" />
-                        <isif condition="${isGiftBoxAllowed && giftBoxEnabled && giftBoxSKUData.giftBoxSKUAvailability && !(pdict.giftOptions.indexOf(lineItem.id) > -1)}">
+                        <p data-lineitem="${JSON.stringify(lineItem)}">Line Item</p>
+
+<h2>${giftBoxSKUData.giftBoxSKUAvailability} SKU Availble</h2>
+<h3>${(pdict.giftOptions)}GiftOptions</h3>
+<h3>${!(pdict.giftOptions.indexOf(lineItem.id) > -1)}</h3>
+<h4>${(lineItem.customAttributes.giftPid ? false : true)} customAttributesOrder</h4>
+<iscomment> <h5>${BasketLineItems}items</h5> </iscomment>
+
+
+                        <isif condition="${isGiftBoxAllowed && giftBoxEnabled && giftBoxSKUData.giftBoxSKUAvailability && isGiftExist}">
+                          <p data-gift0e="${isGiftExist}">isGiftExist</p>
+                           
                            <div class="gift-box-wrapper gift-box-wrapper-cart">
                                <label class="gift-box-wrapper-label custom-control-label-pdp label-add" for="gift-allowed-checkout">
                                     <img class="cart-giftbox-img" src="${URLUtils.staticURL('/images/icons-gift-box.svg')}" alt="giftBox">
                                     <input id="gift-allowed-checkout" type="checkbox" data-add-to-cart-url="${URLUtils.url('Cart-AddProduct')}" data-requested-page="${isCartPage}" name="gift-allowed-checkout" class="gift-allowed-checkbox gift-allowed-checkbox-mini giftbox-mini-${lineItem.id}" data-parent-pid="${lineItem.id}" data-pid="${lineItem.id}" value="${giftBoxSKUData.giftBoxSKU}">
-                                    ${giftBoxMessage} ${giftBoxSKUData.giftBoxSKUPrice}
-                                    <span class="checkmark-add">+ ADD</span>
+                                    <div class="gift-box-text">
+                                        ${giftBoxMessage} ${giftBoxSKUData.giftBoxSKUPrice}
+                                    </div>
+                                    <span class="checkmark-add"><span class="inner-span">+ ADD</span></span>
                                 </label>
                            </div>
                         </isif>
+                        <p data-uuiiid="${pdict.giftItemUUID}">controllerPdict</p>
                     </div>
                 </div>
             </div>

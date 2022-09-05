@@ -64,6 +64,7 @@ function handlePostCartAdd(response) {
     // show add to cart modal
     $('#addToCartModal .modal-body').html(response.message);
     $('#addToCartModal .modal-body p').addClass(messageType);
+    $(this).data('requested-page');
     if (typeof setAnalyticsTrackingByAJAX !== 'undefined') {
         if (response.cartAnalyticsTrackingData !== undefined) {
             setAnalyticsTrackingByAJAX.cartAnalyticsTrackingData = response.cartAnalyticsTrackingData;
@@ -78,7 +79,9 @@ function handlePostCartAdd(response) {
         && Object.keys(response.newBonusDiscountLineItem).length !== 0) {
         chooseBonusProducts(response.newBonusDiscountLineItem);
     } else {
-        $('#addToCartModal').modal('show');
+        if (!$('#mainContent').closest('cart-section-wrapper')) {
+            $('#addToCartModal').modal('show');
+        }
     }
 }
 
@@ -136,6 +139,7 @@ module.exports = function () {
         var url = $this.data('add-to-cart-url');
         var parentPid = $this.data('parent-pid');
         var pid = $this.val();
+        // var uuid = $this.uuid()
         
         var isCartPage = $(this).data('requested-page');
         var form = {
