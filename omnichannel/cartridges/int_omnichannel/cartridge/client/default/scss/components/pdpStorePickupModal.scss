@@ -27,7 +27,7 @@
     padding: rem(0);
 
     @include media-breakpoint-up(md) {
-      width: calc(100% - 30px);
+        width: calc(100% - 30px);
     }
   }
   
