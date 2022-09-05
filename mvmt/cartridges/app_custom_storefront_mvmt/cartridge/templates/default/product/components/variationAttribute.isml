@@ -9,7 +9,7 @@ Template Notes:
 
 </iscomment>
 
-<div class="attribute pdp-select-variations">
+<div class="attribute pdp-select-variations ${attr.id == 'colorWatch' ? 'color-watch-swatches' : ''}">
     <label class="select-size-head-label ${attr.id}">
         ${attr.displayName} 
         <iscomment> Custom: Start [added span, static text will be replaced when dynamic value applied] </iscomment> 

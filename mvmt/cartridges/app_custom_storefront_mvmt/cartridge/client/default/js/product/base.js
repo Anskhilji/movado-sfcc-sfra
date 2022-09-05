@@ -1059,6 +1059,15 @@ function handleVariantResponse(response, $productContainer) {
         var $productNameSelector = $('.product-side-details .product-name');
         $productNameSelector.text(response.product.productName);
         var $variationProductURL = $('.variationAttribute').data('url') + '?pid=' + response.product.id + '&isStrapAjax=true';
+        
+        //update case diameter for watches
+        if (typeof response.product.caseDiameterRedesigned !== 'undefined' && response.product.caseDiameterRedesigned !== '' && response.product.caseDiameterRedesigned !== null) {
+            if ($productContainer.find('.product-brand-info .watches-case-diameter').length > 0) {
+                $productContainer.find('.product-brand-info .watches-case-diameter').text(response.product.caseDiameterRedesigned);
+            } else {
+                $productNameSelector.html(response.product.productName + '<span class="watches-case-diameter w-100" data-selected-variation-attr="caseDiameter">'+ response.product.caseDiameterRedesigned +'</span>')
+            }
+        }
 
         $.ajax({
             url: $variationProductURL,
