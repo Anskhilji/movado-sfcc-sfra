@@ -203,12 +203,12 @@ function productLayout(products) {
                   "</tr>" +
                   "<tr>" +
                     "<td style='padding: 0px 20px 30px 20px; border-width: 0px; border-style: none; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 16px; font-weight: normal; color: #4A4A4A; line-height: 1.5; text-align: left'>" +
-                    ' Quantity : ' + lineItem.quantity + 
+                    'Quantity: ' + lineItem.quantity + 
                     "</td>" +
                   "</tr>" +
                   "<tr>" +
                     "<td style='padding: 0px 20px 20px 20px; border-width: 0px; border-style: none; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 16px; font-weight: normal; color: #4A4A4A; line-height: 1.5; text-align: left'>" +
-                      ' Price : ' + lineItem.priceTotal.price + 
+                      'Price: ' + lineItem.priceTotal.price + 
                     "</td>" +
                   "</tr>" +
                 "</table>" +
