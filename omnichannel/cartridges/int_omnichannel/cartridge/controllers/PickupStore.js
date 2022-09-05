@@ -41,7 +41,9 @@ server.get('GetStoresList', function (req, res, next) {
 
 server.post('SetStoreIDSession', function (req, res, next) {
     var storeID = req.querystring.storeID;
+    var storeAddress = req.querystring.storeAddress1;
     session.privacy.pickupStoreID = storeID;
+    session.privacy.storeAddress = storeAddress;
     res.json(true);
     next();
 });
