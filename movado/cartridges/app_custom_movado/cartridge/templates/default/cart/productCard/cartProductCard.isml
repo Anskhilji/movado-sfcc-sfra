@@ -86,8 +86,10 @@
                                <label class="gift-box-wrapper-label custom-control-label-pdp label-add" for="gift-allowed-checkout">
                                     <img class="cart-giftbox-img" src="${URLUtils.staticURL('/images/icons-gift-box.svg')}" alt="giftBox">
                                     <input id="gift-allowed-checkout" type="checkbox" data-add-to-cart-url="${URLUtils.url('Cart-AddProduct')}" data-requested-page="${isCartPage}" name="gift-allowed-checkout" class="gift-allowed-checkbox gift-allowed-checkbox-mini giftbox-mini-${lineItem.id}" data-parent-pid="${lineItem.id}" data-pid="${lineItem.id}" value="${giftBoxSKUData.giftBoxSKU}">
-                                    ${giftBoxMessage} ${giftBoxSKUData.giftBoxSKUPrice}
-                                    <span class="checkmark-add">+ ADD</span>
+                                    <div class="gift-box-text">
+                                        ${giftBoxMessage} ${giftBoxSKUData.giftBoxSKUPrice}
+                                    </div>
+                                    <span class="checkmark-add"><span class="inner-span">+ ADD</span></span>
                                 </label>
                            </div>
                         </isif>

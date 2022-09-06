@@ -176,6 +176,7 @@ server.append('AddProduct', function (req, res, next) {
             session.custom.addToCartPerSession = true;
             res.setViewData({addToCartPerSession : true});
         }
+
         res.setViewData({viewData: viewData});
 
         var quantityTotal;
@@ -377,7 +378,6 @@ server.append(
                 paypalerrors: paypalerrors
              });
         }
-
         res.setViewData({
             paypalButtonImg: customCartHelpers.getContentAssetContent('ca-paypal-button')
         });

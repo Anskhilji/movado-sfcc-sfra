@@ -417,6 +417,21 @@ function displayMessageAndRemoveFromCart(data) {
         $('.cart.cart-page #removeProductModal').modal();
     }, 2000);
 }
+function detectBrowser() {
+    if (navigator.userAgent.includes('Chrome')) {
+        return 'chrome';
+    }
+    if (navigator.userAgent.includes('Firefox')) {
+        return 'firefox';
+    }
+    if (navigator.userAgent.includes('Safari')) {
+        return 'safari';
+    }
+}
+
+$(document).ready(function() {
+    document.body.className = detectBrowser();
+});
 
 module.exports = function () {
     // Check if Is gift message is checked on cart load then show text area otherwise hide it.
