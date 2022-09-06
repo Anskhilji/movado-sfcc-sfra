@@ -43,7 +43,7 @@ $(document).on('click', '.store-pickup-select', function () {
     }
 })
 function setStoreInSession(url, address) {
-    url = address ? url+'&storeAddress1='+address : url;
+    url = address ? url+'&storeAddress='+address : url;
     $.ajax({
         url: url,
         type: 'POST',
