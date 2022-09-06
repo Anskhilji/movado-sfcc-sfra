@@ -165,21 +165,25 @@
                             <!-- Applicable Promotions -->
                             <iscomment> Custom Start: Promotions shows when following requirements meet </iscomment>
                             <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
-                                <isloop items="${product.promotions}" var="promotion">
-                                    <isif condition="${!empty(promotion.calloutMsg)}">
-                                        <isinclude template="product/components/promotions" />
-                                    </isif>
-                                </isloop>
+                                <div class="promotions">
+                                    <isloop items="${product.promotions}" var="promotion">
+                                        <isif condition="${!empty(promotion.calloutMsg)}">
+                                            <isinclude template="product/components/promotions" />
+                                        </isif>
+                                    </isloop>
+                                </div>
                             </isif>
 
                             <iscomment> Custom Start: Clyde Integration </iscomment>
                             <isif condition="${dw.system.Site.current.preferences.custom.isClydeEnabled}">
-                                <hr class="clyde-top-border"/>
-                                <div class="clyde-widget">
-                                    <div id="clyde-cta">                                
-                                    </div>
-                                </div>
-                                <hr class="clyde-bottom-border"/>  
+                                 <isif condition="${domesticAllowedCountry}">
+                                    <hr class="clyde-top-border"/>
+                                        <div class="clyde-widget">
+                                            <div id="clyde-cta">                                
+                                            </div>
+                                        </div>
+                                    <hr class="clyde-bottom-border"/>
+                                </isif>
                             </isif>
                             <iscomment> Custom End: </iscomment>
 
