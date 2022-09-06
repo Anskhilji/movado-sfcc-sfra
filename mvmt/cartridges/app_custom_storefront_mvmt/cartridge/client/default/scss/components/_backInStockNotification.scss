@@ -9,10 +9,15 @@
     }
 
     &-marketing-container {
+        position: relative;
         
         .checkmark { 
             left: 0;
         }
+    }
+
+    &-listrack-container {
+        margin-bottom: rem(0);
     }
     
     &-email-notification-copy {

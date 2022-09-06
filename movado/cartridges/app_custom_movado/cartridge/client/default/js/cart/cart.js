@@ -108,7 +108,9 @@ function updateCartTotals(data) {
     var totalCalculated = data.totals.grandTotal.substr(1).toString().replace(/\,/g, '');
     $('.affirm-as-low-as').attr('data-amount', (totalCalculated * 100).toFixed());
     if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
-        affirm.ui.refresh();
+        affirm.ui.ready(function() {
+            affirm.ui.refresh();
+        });
     }
     $('.minicart-quantity').empty().append(data.numItems);
 
@@ -514,9 +516,17 @@ module.exports = function () {
                     setAnalyticsTrackingByAJAX.cartAnalyticsTrackingData = data.cartAnalyticsTrackingData;
                     window.dispatchEvent(setAnalyticsTrackingByAJAX);
                 }
-                if(pickupStoreAvailable != null && pickupStoreAvailable != undefined){
+
+                if(pickupStoreAvailable != null && pickupStoreAvailable != undefined) {
                     updateStorePickupProductAvailability();
                 }
+                
+                //Custom Start: [MSS-1451] Listrak SendSCA on Remove
+                if (window.Resources.LISTRAK_ENABLED) {
+                    var ltkSendSCA = require('listrak_custom/ltkSendSCA');
+                    ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
+                }
+                //Custom End
                 $.spinner().stop();
             },
             error: function (err) {

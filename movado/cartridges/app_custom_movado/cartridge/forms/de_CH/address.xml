@@ -18,7 +18,7 @@
            />
     <field formid="email" label="profile.email" type="string" mandatory="true" binding="email"
            max-length="254" missing-error="error.card.info.missing.email"
-           regexp="(^(?=[\w]{1,64}(?!.*?\.\.)+(?!\@)+[\w!.#$%&amp;'*+-=?^_`{|}~\S+-]{1,64})+[^\@\s]{1,64}[^\@\.\s-]+@[^\-\.\s][\w\.-]+[\.]+(?!.*web|.*'')[\w\.]{2,6}[^\-\.@\s]+$)" 
+           regexp="(^(?=[\w]{1,64}(?!.*?\.\.)+(?!\@)+[\w!.#$%&amp;&apos;*+-=?^_`{|}~\S]{1,64})+[^\()\[\]\\@,;:&quot;&lt;\s]{1,64}[^\/()\[\]\\@.,;:&quot;&lt;\s-]+@[^\/()\[\]\\@!.,;:#$%*+=?^_`{|}~&quot;&amp;&apos;&lt;+\s\-][\w\.\-]*[^\/()\[\]\\@,;:!#$%*+=?^_`{|}~&quot;&amp;&apos;&lt;\s]*[\.]+(?!.*web|.*'')[A-Za-z]{2,15}$)
            parse-error="error.message.invalid"
            /> 
     <field formid="subscribetomovado"
@@ -68,7 +68,7 @@
     </field>
 
     <!-- use global state list -->
-    <include formid="states" name="states" missing-error="error.message.required" parse-error="error.message.required" value-error="error.message.required"/>
+    <include formid="states" name="addressStates" missing-error="error.message.required" parse-error="error.message.required" value-error="error.message.required"/>
 
     <!-- phone is mandatory for addresses -->
     <field formid="phone" label="label.input.phonenumber" description="address.phone.example" type="string" mandatory="true"

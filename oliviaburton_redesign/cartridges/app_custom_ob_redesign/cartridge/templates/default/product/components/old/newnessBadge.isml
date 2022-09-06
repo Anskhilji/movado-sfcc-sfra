@@ -1,4 +1,3 @@
-
 <isloop items="${product.badges.imageBadges}" var="imageBadge" status="loopStatus">
     <isif condition="${loopStatus.first}">
         <div class="badge-left">

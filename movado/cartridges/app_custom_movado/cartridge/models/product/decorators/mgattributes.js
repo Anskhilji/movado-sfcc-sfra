@@ -21,8 +21,11 @@ module.exports = function (object, apiProduct) {
         	
         	embossingHorizontalPlaceholder: Resource.msg('pdict.product.resources.placeholdertext.text.horizontal.embossing', 'product', null),
         	embossingVerticalPlaceholder: Resource.msg('pdict.product.resources.placeholdertext.text.vertical.embossing', 'product', null),
+            embossingHorizontalPlaceholderRedesign: Resource.msg('pdict.product.resources.placeholdertext.text.horizontal.embossing.redesign', 'product', null),
+        	embossingVerticalPlaceholderRedesign: Resource.msg('pdict.product.resources.placeholdertext.text.vertical.embossing.redesign', 'product', null),
         	
         	engravingPlaceholder: Resource.msg('pdict.product.resources.placeholdertext.text.engraving', 'product', null),
+            engravingPlaceholderRedesign: Resource.msg('pdict.product.resources.placeholdertext.text.engraving.redesign', 'product', null),
         	Free: Resource.msg('label.product.option.personalization.Free', 'product', null),
             errorEmptyEmbossText: Resource.msg('label.product.personalization.mandatory.embossing.message', 'product', null),
             errorMaxlengthEmbossText: Resource.msg('label.product.personalization.maxlength.embossing.message', 'product', null),
@@ -71,5 +74,26 @@ module.exports = function (object, apiProduct) {
         enumerable: true,
         value: productCustomHelpers.getShopBagLabel(apiProduct)
     });
+
+    if (!empty(apiProduct.custom.productDetailAttribute1)) {
+        Object.defineProperty(object, 'productDetailAttribute1', {
+            enumerable: true,
+            value: apiProduct.custom.productDetailAttribute1.markup
+        });
+    }
+
+    if (!empty(apiProduct.custom.productDetailAttribute2)) {
+        Object.defineProperty(object, 'productDetailAttribute2', {
+            enumerable: true,
+            value: apiProduct.custom.productDetailAttribute2.markup
+        });
+    }
+    
+    if (!empty(apiProduct.custom.productDetailAttribute3)) {
+        Object.defineProperty(object, 'productDetailAttribute3', {
+            enumerable: true,
+            value: apiProduct.custom.productDetailAttribute3.markup
+        });
+    }
 };
 

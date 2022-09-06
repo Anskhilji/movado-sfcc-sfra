@@ -1,0 +1,25 @@
+<iscomment>
+	Purpose:	Includes Listrak Javascript, Click Tracking and Email Capture components. 
+				Should be included in the site footer so that this is included on all site pages.
+				Conditionally includes SCA/Order pipelines.
+</iscomment>
+
+<isinclude template="includes/ltkJS.isml"/>
+<isinclude template="includes/ltkClickTracking.isml"/>
+<isinclude template="includes/ltkActivityTracking.isml"/>
+
+<isif condition="${pdict.CurrentSession.privacy.SendSCA == true}" >
+	<isinclude url="${URLUtils.url('ltkSendSca-RenderSca')}"/>
+</isif>
+
+<isif condition="${pdict.CurrentSession.privacy.SendActivity == true}" >
+	<isinclude url="${URLUtils.url("ltkActivityTracking-ClearTracker")}"/>
+</isif>
+
+<isif condition="${pdict.CurrentSession.privacy.SendOrder == true}">	
+	<iscomponent pipeline="ltkSendOrder-Send" OrderNumber="${pdict.CurrentSession.privacy.OrderNumber}" Email="${pdict.CurrentSession.privacy.Email}" PostalCode="${pdict.CurrentSession.privacy.PostalCode}" />
+</isif>
+
+<div class="d-none ltkClearFlag" data-url="${URLUtils.url("ltkSendSca-ClearFlag")}"></div>
+
+<isinclude url="${URLUtils.url('ltkSignup-Start')}"/>

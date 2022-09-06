@@ -4,25 +4,19 @@
 </isscript>
 <isset name="pickupStoreOpenDays" value="${!empty(dw.system.Site.current.preferences.custom.pickupStoreOpenDays) ? dw.system.Site.current.preferences.custom.pickupStoreOpenDays : ''}" scope="page" />
 <div class="col-sm-6 pdp-store-pickup-inventory">
-    <div class="pdp-store-pickup-icon pdp-store-pickup-icon-default"></div> 
-    <div class="pdp-store-pickup-delevery">
-        <h3 class="pick-up-store-stock-for-deliver">${Resource.msg('storepickup.product.stock.deliver.text.avalibilty', 'storePickUp', null)}</h3>
+    <div class="pdp-store-pickup-display-inline-block-inventory-icon"></div> 
+    <div class="pdp-store-pickup-display-inline-block-delevery">
+        <p class="pick-up-store-stock-for-deliver">${Resource.msg('storepickup.product.stock.deliver.text.avalibilty', 'storePickUp', null)}</p>
         <p class="pick-up-store-openings">${pickupStoreOpenDays || ''}</p>  
     </div>
 </div>
 <div class="col-sm-6">
     <div class="pdp-store-pickup-address">
-        <div class="pdp-store-pickup-icon ${pdict.store.address1 && pdict.store.inventory > 0 ? 'pdp-store-pickup-icon-available' : pdict.store.address1 && pdict.store.inventory == 0 ? 'pdp-store-pickup-icon-unavailable' : 'pdp-store-pickup-icon-default'}"></div>
-        <div class="pdp-store-pickup-availabilty">
-        <isif condition="${pdict.store.address1 && pdict.store.inventory >= 0}">
-            <h3 class="pick-up-store-available-for-store">${Resource.msg('storepickup.avalibilty', 'storePickUp', null)}</h3>
-        <iselseif condition="${pdict.store.address1 && pdict.store.inventory == 0}" />
-            <h3 class="pick-up-store-available-for-store">${Resource.msg('storepickup.unavalibilty', 'storePickUp', null)}</h3>
-        <iselse/>
-            <h3 class="pick-up-store-available-for-store">${Resource.msg('storepickup.check.available.store.text', 'storePickUp', null)}</h3>
-        </isif>
-            <p class="pick-up-store-available-pickup-stores">${pdict.store.address1 ? pdict.store.address1 + ' ' + (pdict.store.stateCode || '') + ' ' +  (pdict.store.phone || '') : ''}</p>
-            <span class="pick-up-store-change-store js-store-modal" data-url='${URLUtils.https('PickupStore-GetStoresList', 'isPdp', pdict.isPdp, 'pid', pdict.pid)}'>${pdict.store.address1 ? Resource.msg('store.pickup.set.change.store', 'storePickUp', null) : Resource.msg('storepickup.check.available.store', 'storePickUp', null)}</span>
+        <div class="pdp-store-pickup-display-inline-block-store-icon"></div>
+        <div class="pdp-store-pickup-display-inline-block">
+            <h3 class="pick-up-store-available-for-store">${pdict.storeObject.address1 ? Resource.msg('storepickup.avalibilty', 'storePickUp', null) : Resource.msg('storepickup.check.available.store.text', 'pdpStorePickUp', null)}</h3>
+            <p class="pick-up-store-available-pickup-stores js-store-modal" data-url='${URLUtils.https('PickupStore-GetStoresList', 'isPdp', pdict.isPdp)}'>${pdict.storeObject.address1 ? pdict.storeObject.address1 + ' ' + pdict.storeObject.phone : ''}</p>
+            <span class="pick-up-store-change-store js-store-modal" data-url='${URLUtils.https('PickupStore-GetStoresList', 'isPdp', pdict.isPdp)}'>${pdict.storeObject.address1 ? Resource.msg('store.pickup.set.change.store', 'pdpStorePickUp', null) : Resource.msg('storepickup.check.available.store', 'pdpStorePickUp', null)}</span>
         </div>
     </div>
 </div>

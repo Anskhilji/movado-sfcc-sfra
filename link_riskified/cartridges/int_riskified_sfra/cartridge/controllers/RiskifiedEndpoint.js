@@ -22,15 +22,6 @@ server.post('AnalysisNotificationEndpoint', function (req, res, next){
 	var moduleName = "AnalysisNotificationEndpoint";
 	var logLocation = moduleName + " : Riskified~handleAnalysisResponse";
 	
-	if(!RCUtilities.isCartridgeEnabled()){
-		RCLogger.logMessage("riskifiedCartridgeEnabled site preference is not enabled therefore cannot proceed further", "debug", logLocation);
-		
-		res.render('riskified/riskifiedorderanalysisresponse', {
-			CartridgeDisabled: true
-		});
-		return next();
-	}
-	
 	var response = AnalysisResponseModel.handle(moduleName);
 	
 	if(response.error){

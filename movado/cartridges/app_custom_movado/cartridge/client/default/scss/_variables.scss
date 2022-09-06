@@ -14,10 +14,17 @@ $red: #c00 !default;
 $light-blue: #7ed0ee !default;
 $orange: #EA4138 !default;
 $dark-blue: #2A326D !default;
+$dark-blue2: #118feb !default;
 $dark-red: #981608 !default;
 $yellow: #FFC517 !default;
+$yellow2: #FDCC4F !default;
 $border-color: #979797 !default;
+$klarna-pink: #FFBBCE;
+$invalid-red: #C82727;
+
+
 // Consolidated values
+
 $grey1: #f9f9f9 !default;
 $grey2: #eee !default;
 $grey3: #ccc !default;
@@ -32,6 +39,11 @@ $grey11: #6a6969 !default;
 $grey12: #eaebeb !default;
 $grey13: #E1E2E3 !default;
 $grey14: #060506 !default;
+$grey16: #D2D2D2 !default;
+$grey15: #070707 !default;
+$grey17: #787777 !default;
+$google-grey1: #444444 !default;
+$google-white1: #F6F6F6 !default;
 
 $grey-transparent-1: rgba(0, 0, 0, 0.65) !default;
 $grey-transparent-2: rgba(0, 0, 0, 0.25) !default;
@@ -43,6 +55,7 @@ $grey-transparent-7: rgba(0,0,0,0.24) !default;
 $grey-light: rgba(187, 189, 191, 0.3) !default;
 $grey-dark: rgba(187, 189, 191, 0.5) !default;
 $grey-dark-1: rgba(6,5,6,0.6) !default;
+$grey-dark-2: rgba(228,228,228,0.32) !default;
 
 $light-gray: $grey1 !default;
 $slightly-darker-gray: $grey4 !default;
@@ -64,14 +77,16 @@ $white-smoke:#F2F2F2 !default;
 $granite-gray:  #5C5C5C;
 $apple: #59AF2C;
 $cerulean: #0092DB;
+$parrot-green: #3AAB4A;
 
 $grid-breakpoints: (
     xs: 0,
     sm: 544px,
+    custom-md: 768px,
     md: 769px,
     lg: 992px,
-    xl: 1200px
-) !default;
+    xl: 1200px,
+    ) !default;
 
 $container-max-widths: (
     md: 720px,
@@ -114,3 +129,71 @@ $font-primary: $font-book;
 $font-demi: "futura-pt", sans-serif, Arial;
 
 $font-awesome: "FontAwesome";
+
+// Larger Screen
+$small-screen-width: 320px;
+$small-screen-width375: 375px;
+$medium-screen-width: 768px;
+$medium-screen-width800: 800px;
+$large-screen-width: 1400px;
+ 
+@mixin custom-media-query($large-screen-width) {
+  @media (min-width:#{$large-screen-width}) {
+      @content;
+  }
+}
+
+@mixin custom-media-query-max($medium-screen-width) {
+    @media (max-width:#{$medium-screen-width}) {
+        @content;
+    }
+}
+
+@mixin custom-media-query-max-medium($medium-screen-width800) {
+    @media (max-width:#{$medium-screen-width800}) {
+        @content;
+    }
+}
+
+// For screen 320px to 375px
+@mixin custom-media-query2($small-screen-width, $small-screen-width375) {
+    @media (min-width:#{$small-screen-width}) and (max-width:#{$small-screen-width375}) {
+        @content;
+    }
+}
+
+$gray-x11: #BCBEC0 !default;
+$gray-overlay: rgba(242,242,242,0.89) !default;
+$dark-pink: #EAD7DC !default;
+$grey9-light: #D6D7D8 !default;
+$storm-gray: #787A8A;
+
+@mixin font-bold {
+    font-family: "futura-pt-bold", "FuturaStd-Bold", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+@mixin font-medium {
+    font-family: "futura-pt", "FuturaStd-Medium", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
+@mixin font-light {
+    font-family: "futura-pt", "FuturaStd-Book", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+@mixin font-book {
+    font-family: "futura-pt", "FuturaStd-Book", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+@mixin font-demi {
+    font-family: "futura-pt", sans-serif, Arial;
+    font-weight: 600;
+    font-style: normal;
+}

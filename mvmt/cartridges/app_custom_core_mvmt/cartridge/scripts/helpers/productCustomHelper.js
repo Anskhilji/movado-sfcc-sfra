@@ -1,7 +1,9 @@
 'use strict';
 
 var movadoProductCustomHelper = module.superModule;
+
 var ContentMgr = require('dw/content/ContentMgr');
+var formatMoney = require('dw/util/StringUtils').formatMoney;
 var ProductMgr = require('dw/catalog/ProductMgr');
 var Logger = require('dw/system/Logger');
 var Site = require('dw/system/Site').getCurrent();
@@ -38,7 +40,7 @@ function getProductCustomAttribute(apiProduct) {
             }
         }
     } catch (e) {
-        Logger.error('(productCustomHepler.js -> getProductCustomAttribute) Error occured while reading json from site preferences: ' + e);
+        Logger.error('(productCustomHelper.js -> getProductCustomAttribute) Error occured while reading json from site preferences: ' + e);
     }
     return category;
 }
@@ -94,7 +96,7 @@ function getProductAttributes(apiProduct) {
                             seeTheFitSpecs.push(attribute);
                         }
                     } catch (e) {
-                        Logger.error('(productCustomHepler.js -> getProductAttributes) Error occured while setting the attributes values in the object : ' + e);
+                        Logger.error('(productCustomHelper.js -> getProductAttributes) Error occured while setting the attributes values in the object : ' + e);
                     }
                 }
             }
@@ -113,6 +115,25 @@ function getProductAttributes(apiProduct) {
 }
 
 /**
+ * Method used to check if current product belongs to watches category
+ * @param {Object} apiProduct - apiProduct is from ProductMgr
+ * @returns {Boolean} isWatchTile - true if product belongs to watches
+ */
+
+ function getIsWatchTile(apiProduct) {
+    try {
+        if (!empty(apiProduct)) {
+        var isWatchTile = !empty(apiProduct.custom.isWatchTile) ? apiProduct.custom.isWatchTile : false;
+        }
+        return isWatchTile;
+        
+    } catch (e) {
+        Logger.error('(productCustomHelper.js -> getIsWatchTile) Error occured while checking is it watch tile: ' + e.stack, e.message, apiProduct.ID);
+        return false;
+    }
+}
+
+/**
  * It is used to get category object of current product
  * @param {Object} apiProduct - apiProduct is from ProductMgr
  * @param {Object} categories - categories json configured in site preference
@@ -127,8 +148,9 @@ function getCategoryConfig(apiProduct, categoriesConfig) {
     var apiCategories = apiProduct.getOnlineCategories().iterator();
     while (apiCategories.hasNext()) {
         currentCategory = apiCategories.next();
-        category = categoriesConfig[currentCategory.ID];
-        
+        if (!empty(currentCategory)) {
+            category = categoriesConfig[currentCategory.ID];
+        }        
         if (!empty(category)) {
             break;
         }
@@ -136,7 +158,9 @@ function getCategoryConfig(apiProduct, categoriesConfig) {
         while (currentCategory.parent != null) {
             currentCategory = currentCategory.parent;
             if (!empty(currentCategory)) {
-                category = categoriesConfig[currentCategory.ID];
+                if (!empty(currentCategory)) {
+                    category = categoriesConfig[currentCategory.ID];
+                } 
                 if (!empty(category)) {
                     categoryConfigFound = true;
                     break;
@@ -210,7 +234,7 @@ function getCategoryConfig(apiProduct, categoriesConfig) {
             }
         }
     } catch (e) {
-        Logger.error('(productCustomHepler.js -> getPdpDetailAndSpecsAttributes) Error occured while reading json from site preferences: ' + e);
+        Logger.error('(productCustomHelper.js -> getPdpDetailAndSpecsAttributes) Error occured while reading json from site preferences: ' + e);
     }
     return detailAndSpecAttributes = {
         pdpDetailAttributes: pdpDetailAttributes,
@@ -236,7 +260,7 @@ function getRefinementSwatches(presentationID) {
             swatchImages.swatchImageURL = imageUrl.toString();
         }
     } catch (e) {
-        Logger.error('(productCustomHepler.js -> getRefinementSwatches) Error occured while generating the swatch image url : ' + e);
+        Logger.error('(productCustomHelper.js -> getRefinementSwatches) Error occured while generating the swatch image url : ' + e);
     }
     return swatchImages;
 }
@@ -295,7 +319,7 @@ function getGtmPromotionObject (promotions) {
             }
             return JSON.stringify(promotionObj);
         } catch (e) {
-            Logger.error('(productCustomHepler.js -> getGtmPromotionObject) Error occured while getiing promoObj for GTM : ' + e + e.stack);
+            Logger.error('(productCustomHelper.js -> getGtmPromotionObject) Error occured while getiing promoObj for GTM : ' + e + e.stack);
             return null;
         }
     } else {
@@ -309,13 +333,24 @@ function getGtmPromotionObject (promotions) {
  * @param {Product} apiProduct
  * @returns {String }Diameter name
  */
-function getCaseDiameter(apiProduct) {
+function getCaseDiameter(apiProduct, isRedesigned, caseDiametterUnitPdp) {
     var caseDiameterWatches = '';
-    var caseDiameterHyphen = Constants.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR;
-    var caseDiameterUnit = Constants.MM_UNIT;
+    var caseDiameterUnit;
+    var caseDiameterHyphen = isRedesigned ? Constants.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR_REDESIGN
+        : Constants.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR;
+    if (!empty(caseDiametterUnitPdp)) {
+        caseDiameterUnit = caseDiametterUnitPdp;
+        caseDiameterHyphen = '';
+    } else {
+        caseDiameterUnit = Constants.MM_UNIT;
+    }
     var caseDiameter = !empty(apiProduct.custom.caseDiameter) ? apiProduct.custom.caseDiameter : '';
     var collectionName = !empty(apiProduct.custom.familyName) ? apiProduct.custom.familyName[0] : '';
-    if (!empty(collectionName) && !empty(caseDiameter)) {
+    var productName = !empty(apiProduct.name) ? apiProduct.name : '';
+    var isWatchTile = getIsWatchTile(apiProduct);
+    if (isWatchTile && !empty(collectionName) && !empty(caseDiameter)) {
+        caseDiameterWatches = caseDiameterHyphen + caseDiameter + caseDiameterUnit;
+    } else if (!isWatchTile && !empty(productName) && !empty(caseDiameter)) {
         caseDiameterWatches = caseDiameterHyphen + caseDiameter + caseDiameterUnit;
     } else if (!empty(caseDiameter)) {
         caseDiameterWatches = caseDiameter + caseDiameterUnit;
@@ -324,25 +359,172 @@ function getCaseDiameter(apiProduct) {
 }
 
 /**
- * Method use to get content asset HTML to render on PDP
+ * Method use to get color name from product's custom attribute`
  * @param {Product} apiProduct
- * @returns {String} content asset HTML
+ * @returns {String }color name
  */
-function getPDPContentAssetHTML (apiProduct) {
+function getColor(apiProduct, product) {
+    var color = '';
+    color = apiProduct.custom.color || '';
+    if (apiProduct.master && product && product.variationAttributes.length > 0) {
+        try {
+            product.variationAttributes[0].values.forEach(function (attribute) {
+                if (attribute.selected) {
+                    color = attribute.value;
+                    return;
+                }
+            })
+        } catch (error) {
+            Logger.error('(productCustomHelper.js -> getColor) Error occured while getting color from product variationAttribute : ' + error.message);
+            return;
+        }
+    }
+
+    return color || '';
+}
+
+//Custom Start: Get Category of Product
+function getProductCategory(apiProduct, product) {
+    var isCategory;
+    var currentCategory = null;
+    var apiCategories;
     try {
-        var contentAssetID = !empty(apiProduct.custom.pdpContentAssetID) ? apiProduct.custom.pdpContentAssetID : '';
-        if (empty(contentAssetID) && apiProduct.variant) {
-            contentAssetID = !empty(apiProduct.masterProduct.custom.pdpContentAssetID) ? apiProduct.masterProduct.custom.pdpContentAssetID : '';
+        if (!empty(apiProduct)) {
+            if (apiProduct.variant) {
+                apiCategories = apiProduct.getVariationModel().getMaster().getOnlineCategories();
+            } else {
+                apiCategories = apiProduct.getOnlineCategories();
+            }
+            if (!empty(apiCategories)) {
+                for (i = 0 ; apiCategories.length > 0 ; i++) {
+                    currentCategory = apiCategories[i];
+            
+                    if ((!empty(currentCategory) && currentCategory.ID == Constants.WATCHES_CATEGORY) || (!empty(currentCategory) && currentCategory.ID == Constants.EYEWEAR_CATEGORY) || (!empty(currentCategory) && currentCategory.ID == Constants.JEWELRY_CATEGORY)) {
+                        isCategory = currentCategory.ID;
+                        break;
+                    }
+            
+                    if(!empty(currentCategory)) {
+                        var category;
+                        var index;
+                        category = currentCategory.ID;
+                        index = category.indexOf("strapguide");
+            
+                        if (index == 0) {
+                            isCategory = Constants.STRAPS_CATEGORY;
+                            break; // break outer loop
+                        }
+                    }
+            
+                    if (!empty(currentCategory)) {
+                            if (currentCategory.parent != null) {
+                                currentCategory = currentCategory.parent;
+                                if ((!empty(currentCategory) && currentCategory.ID == Constants.WATCHES_CATEGORY) || (!empty(currentCategory) && currentCategory.ID == Constants.EYEWEAR_CATEGORY) || (!empty(currentCategory) && currentCategory.ID == Constants.JEWELRY_CATEGORY)) {
+                                    isCategory = currentCategory.ID;
+                                    break; // break outer loop
+                                }
+                            }
+                    }
+                }
+            }
         }
-        var pdpContentAsset = ContentMgr.getContent(contentAssetID);
-        var pdpContentAssetHTML;
-        if (pdpContentAsset  && pdpContentAsset.online && !empty(pdpContentAsset.custom.body) ) {
-            pdpContentAssetHTML = pdpContentAsset.custom.body.markup.toString();
+    } catch (error) {
+        Logger.error('(productCustomHelper.js -> getProductCategory) Error occured while getting category from apiProduct : ' + error.message);
+        return;
+    }
+    return isCategory;
+}
+//Custom End: Get Category of Product
+
+/**
++ * Method use to check if gift box is allowed for product
++ * @param {Product} apiProduct
++ * @returns {Boolean} isGiftBoxAllowed
++ */
+function isGiftBoxAllowed(apiProduct) {
+    try {
+        var isGiftBoxAllowed = !empty(apiProduct.custom.isGiftBoxAllowed) ? apiProduct.custom.isGiftBoxAllowed : false;
+        if (empty(isGiftBoxAllowed) && apiProduct.variant) {
+            isGiftBoxAllowed = !empty(apiProduct.masterProduct.custom.isGiftBoxAllowed) ? apiProduct.masterProduct.custom.isGiftBoxAllowed : false;
         }
-        return pdpContentAssetHTML;
+        return isGiftBoxAllowed;
     } catch (e) {
-        Logger.error('(productCustomHepler.js -> getPDPContentAssetHTML) Error occured while getting pdp content asset html: ' + e.stack, e.message);
-        return '';
+        Logger.error('(productCustomHelper.js -> isGiftBoxAllowed) Error occured while checking if gift box allowed: ' + e.stack, e.message, apiProduct.ID);
+        return false;
+    }
+}
+
+function getGiftBoxSKU(apiProduct) {
+    var ArrayList = require('dw/util/ArrayList');
+    var giftBoxSKU;
+    var giftBoxSKUAvailability;
+    var giftBoxSKUData;
+    var giftBoxSKUPrice;
+    try {
+        var currentCategory = getProductCategory(apiProduct);
+        var giftBoxCategorySKUPairArray = !empty(Site.current.preferences.custom.giftBoxCategorySKUPair) ? new ArrayList(Site.current.preferences.custom.giftBoxCategorySKUPair).toArray() : '';
+        var currentGiftBoxCategorySKUPair;
+
+        for (var giftBoxCategorySKUPair = 0; giftBoxCategorySKUPair < giftBoxCategorySKUPairArray.length; giftBoxCategorySKUPair++) {
+            currentGiftBoxCategorySKUPair = giftBoxCategorySKUPairArray[giftBoxCategorySKUPair].split("|");
+            if (currentCategory == currentGiftBoxCategorySKUPair[0]) {
+                giftBoxSKU = currentGiftBoxCategorySKUPair[1];
+                break;
+            }
+        }
+        if (!empty(giftBoxSKU)) {
+            giftBoxSKUAvailability = ProductMgr.getProduct(giftBoxSKU).getAvailabilityModel().inStock;
+            giftBoxSKUPrice = getProductPromoAndSalePrice(ProductMgr.getProduct(giftBoxSKU)) ? getProductPromoAndSalePrice(ProductMgr.getProduct(giftBoxSKU)) : formatMoney(ProductMgr.getProduct(giftBoxSKU).getPriceModel().price);
+            giftBoxSKUData = {
+                giftBoxSKU: giftBoxSKU,
+                giftBoxSKUAvailability: giftBoxSKUAvailability,
+                giftBoxSKUPrice: giftBoxSKUPrice
+            }
+        }
+        return giftBoxSKUData;
+
+    } catch (e) {
+        Logger.error('(productCustomHelper.js -> getGiftBoxSKU) Error occured while getting gift box SKU: ' + e.stack, e.message, apiProduct.ID);
+    }
+}
+
+function getProductPromoAndSalePrice(product) {
+    try {
+        var Currency = require('dw/util/Currency');
+        var Money = require('dw/value/Money');
+        var Promotion = require('dw/campaign/Promotion');
+        var PromotionMgr = require('dw/campaign/PromotionMgr');
+
+        var salePrice = '';
+        var PromotionIt = PromotionMgr.activePromotions.getProductPromotions(product).iterator();
+        var promotionalPrice = Money.NOT_AVAILABLE;
+        var currentPromotionalPrice = Money.NOT_AVAILABLE;
+        var salePriceEffectiveDate;
+    
+        while (PromotionIt.hasNext()) {
+            var promo = PromotionIt.next();
+            if (promo.getPromotionClass() != null && promo.getPromotionClass().equals(Promotion.PROMOTION_CLASS_PRODUCT) && !promo.basedOnCoupons) {
+                if (product.optionProduct) {
+                    currentPromotionalPrice = promo.getPromotionalPrice(product, product.getOptionModel());
+                } else {
+                    currentPromotionalPrice = promo.getPromotionalPrice(product);
+                }
+                if (promotionalPrice.value > currentPromotionalPrice.value && currentPromotionalPrice.value !== 0) {
+                    promotionalPrice = currentPromotionalPrice;
+                } else if (promotionalPrice.value == 0) {
+                    if ((currentPromotionalPrice.value !== 0 && currentPromotionalPrice.value !== null)) {
+                        promotionalPrice = currentPromotionalPrice;
+                    }
+                }
+            }
+        }
+
+        if (promotionalPrice.available) {
+            salePrice = formatMoney(promotionalPrice);
+        }
+        return salePrice;
+    } catch(e) {
+        Logger.error('(productCustomHelper.js -> getProductPromoAndSalePrice) Error occured while getting promo price: ' + e.stack, e.message, product.ID);
     }
 }
 
@@ -352,7 +534,12 @@ movadoProductCustomHelper.getPdpDetailAndSpecsAttributes = getPdpDetailAndSpecsA
 movadoProductCustomHelper.getPdpCollectionContentAssetID = getPdpCollectionContentAssetID;
 movadoProductCustomHelper.getCurrentCountry = getCurrentCountry;
 movadoProductCustomHelper.getGtmPromotionObject = getGtmPromotionObject;
-movadoProductCustomHelper.getPDPContentAssetHTML = getPDPContentAssetHTML;
 movadoProductCustomHelper.getCaseDiameter = getCaseDiameter;
+movadoProductCustomHelper.getColor = getColor;
+movadoProductCustomHelper.getIsWatchTile = getIsWatchTile;
+movadoProductCustomHelper.getProductCategory = getProductCategory;
+movadoProductCustomHelper.isGiftBoxAllowed = isGiftBoxAllowed;
+movadoProductCustomHelper.getGiftBoxSKU = getGiftBoxSKU;
 
 module.exports = movadoProductCustomHelper;
+

@@ -5,7 +5,6 @@ server.extend(module.superModule);
 
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
-var sfmcApi = require('*/cartridge/scripts/api/SFMCApi');
 
 server.replace('UpdateShippingMethodsList', server.middleware.https, function (req, res, next) {
     var BasketMgr = require('dw/order/BasketMgr');
@@ -102,10 +101,9 @@ server.replace(
         var Site = require('dw/system/Site');
         var Transaction = require('dw/system/Transaction');
         var URLUtils = require('dw/web/URLUtils');
-
+        var Constants = require('*/cartridge/scripts/util/Constants');
         var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
         var checkoutAddrHelper = require('*/cartridge/scripts/helpers/checkoutAddressHelper');
-
         var emailObj = [];
 
         var currentBasket = BasketMgr.getCurrentBasket();
@@ -164,10 +162,24 @@ server.replace(
             if (subscribeToMovado) {
                 var requestParams = {
                     email: form.shippingAddress.addressFields.email.htmlValue,
-                    requestLocation: 'CHECKOUT_SERVICE'
+                    requestLocation: 'CHECKOUT_SERVICE',
+                    campaignName: Constants.MVMT_CHECKOUT_CAMPAIGN_NAME
                 }
                 if (!empty(requestParams) && !empty(requestParams.email)) {
-                    sfmcApi.sendSubscriberToSFMC(requestParams);
+                    if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
+                        var ltkApi = require('*/cartridge/scripts/api/ListrakAPI');
+                        var ltkConstants = require('*/cartridge/scripts/utils/ListrakConstants');
+                        requestParams.source = ltkConstants.Source.Checkout;
+                        requestParams.event = ltkConstants.Event.Checkout;
+                        requestParams.subscribe = ltkConstants.Subscribe.Checkout;
+                        requestParams.firstName= form.shippingAddress.addressFields.firstName.value;
+                        requestParams.lastName= form.shippingAddress.addressFields.lastName.value;
+                        
+                        ltkApi.sendSubscriberToListrak(requestParams);
+                    } else {
+                        var sfmcApi = require('*/cartridge/scripts/api/SFMCApi');
+                        sfmcApi.sendSubscriberToSFMC(requestParams);
+                    }
                     var isGtmEnabled = Site.current.getCustomPreferenceValue('gtmEnabled');
                     if (isGtmEnabled) {
                         var userEmail = !empty(form.shippingAddress.addressFields.email.htmlValue) ? form.shippingAddress.addressFields.email.htmlValue : '';

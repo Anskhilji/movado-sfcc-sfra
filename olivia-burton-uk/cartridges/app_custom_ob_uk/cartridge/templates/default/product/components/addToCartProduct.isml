@@ -1,26 +1,45 @@
 <div class="row cart-and-ipay ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "d-none" : ""}">
     <div class="col-sm-12">
-        <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}">
+        <isset name="siteID" value="${dw.system.Site.current.ID}" scope="page" />
+        <isif condition="${siteID == 'OliviaBurtonUS'}">
+            <isset name="addtoCart" value="${Resource.msg('button.addtocart', 'common', null)}" scope="page" />
+        <iselse/>
+            <isset name="addtoCart" value="${Resource.msg('button.addtobag', 'common', null)}" scope="page" /> 
+        </isif>
         <button class='add-to-cart btn btn-primary-cta  <isif condition="${product.isProductRestricted}">d-none</isif>'
             data-pid="${product.id}"
             ${!product.readyToOrder ? "disabled" : ""}  >
                 <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>
                 <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
-                     ${Resource.msg('button.preorder.now', 'common', null)} </br>
+                    ${Resource.msg('button.preorder.now', 'common', null)} </br>
+                <iselseif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.backorder', 'common', null) && !empty(product) && !empty(product.ociPreOrderParameters) && product.ociPreOrderParameters.ociPreOrderProductAllocation === 0.00 && product.ociPreOrderParameters.ociPreOrderProductATO > 0 && product.ociPreOrderParameters.ociPreOrderProductFuture === true}"/>
+                    ${Resource.msg('button.preorder.now', 'common', null)} </br>
                 <iselse/>
-                     ${Resource.msg('button.addtocart', 'common', null)}
+                    ${addtoCart}
                 </isif>
         </button>
+        <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}" />
+        
         <isif condition="${product.available && product.readyToOrder}">
             <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
             <isif condition="${isEswEnabled}">
                 <isset name="isexpressCheckoutEnable" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
                 <isif condition="${isexpressCheckoutEnable}">
-                    <isapplepay class="apple-pay-pdp btn ml-sm-2" sku="${product.id}"></isapplepay>
+                    <isapplepay class="apple-pay-pdp btn ml-sm-2 ml-lg-0" sku="${product.id}"></isapplepay>
+                    <isif condition="${dw.system.Site.current.preferences.custom.isGooglePayEnabled}">
+                        <div class="btn pt-0 mt-2 btn-cart-googlepay">
+                            <isinclude url="${URLUtils.https('GooglePay-RenderButton', 'googlePayEntryPoint', 'Product-Show', 'pid', product.id)}" sf-toolkit="on"/>
+                        </div>
+                    </isif>
                 </isif>
-             <div class="product-not-available-msg <isif condition="${!product.isProductRestricted}">d-none</isif>">${Resource.msg('esw.product.notavailable','esw',null)}</div>
-            <iselse>
-                <isapplepay class="apple-pay-pdp btn ml-sm-2" sku="${product.id}"></isapplepay>
+                <div class="product-not-available-msg <isif condition="${!product.isProductRestricted}">d-none</isif>">${Resource.msg('esw.product.notavailable','esw',null)}</div>
+            <iselse/>
+                <isapplepay class="apple-pay-pdp btn ml-sm-2 ml-lg-0" sku="${product.id}"></isapplepay>
+                  <isif condition="${dw.system.Site.current.preferences.custom.isGooglePayEnabled}">
+                     <div class="btn pt-0 mt-2">
+                         <isinclude url="${URLUtils.https('GooglePay-RenderButton', 'googlePayEntryPoint', 'Product-Show', 'pid', product.id)}" sf-toolkit="on"/>
+                     </div>
+                  </isif>
             </isif>
         </isif>
     </div>

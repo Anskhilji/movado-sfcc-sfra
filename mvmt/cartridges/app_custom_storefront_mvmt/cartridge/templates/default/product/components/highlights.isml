@@ -1,8 +1,6 @@
 <iscomment>Attribute list added, Heading added</iscomment>
 <div class="row w-100 justify-content-md-center">
     <div class="col-12">
-        <h3 class="details-heading mb-sm-0">${Resource.msg('label.spec.care', 'product', null)}</h3>
-
         <div class="attribute-list attribute-specs-list">
             <isloop items="${product.pdpSpecAttributes}" var="attr">
                 <div class="attribute-detail">

@@ -196,30 +196,30 @@ input[type="radio"] {
   }
 }
 .heading-one {
-  font-family: $font-book;
+  font-family: $font-HelveticaNeueLT-book;
   font-size: rem(26);
   letter-spacing: rem(0.4);
   line-height: rem(35);
 }
 .heading-two {
-  font-family: $font-book;
+  font-family: $font-HelveticaNeueLT-book;
   font-size: rem(20);
   letter-spacing: rem(0.4);
   line-height: rem(30);
 }
 .heading-three {
-  font-family: $light-font;
+  font-family: $font-HelveticaNeueLT-font;
   font-size: rem(18);
   letter-spacing: rem(0.4);
   line-height: rem(30);
 }
 .heading-four {
-  font-family: $font-medium;
+  font-family: $font-HelveticaNeueLT-medium;
   font-size: rem(16);
   letter-spacing: rem(0.4);
 }
 .body-text {
-  font-family: $font-book;
+  font-family: $font-HelveticaNeueLT-book;
   font-size: rem(14);
   letter-spacing: rem(1);
 }
@@ -353,7 +353,7 @@ input[type="radio"] {
     font-size: rem(32);
     letter-spacing: rem(0.95);
     line-height: rem(42.75);
-    font-family: $font-book;
+    font-family: $font-HelveticaNeueLT-book;
   }
   .heading-three {
     font-size: rem(30);
@@ -464,7 +464,7 @@ input[type="radio"] {
   }
 
   .coupon-code {
-    font-family: $font-medium;
+    font-family: $font-HelveticaNeueLT-medium;
     font-size: rem(16);
     letter-spacing: rem(2);
     line-height: rem(19);
@@ -481,7 +481,7 @@ input[type="radio"] {
 
   .coupon-applied,
   .coupon-not-applied {
-    font-family: $font-medium;
+    font-family: $font-HelveticaNeueLT-medium;
     font-size: rem(12);
     letter-spacing: rem(1);
     line-height: rem(14);
@@ -535,7 +535,7 @@ input[type="radio"] {
 }
 .form-group {
 	.form-control-field-label {
-		font-family: $font-medium;
+		font-family: $font-HelveticaNeueLT-medium;
 		font-size: rem(14);
 		margin-bottom: rem(8);
 		display: inline-block;
@@ -560,6 +560,15 @@ header~.container .promotions .callout a{
   color: $grey14;
   line-height: rem(14);
 }
+
+.pt_customerservice {
+  .right-content {
+    .heading-two {
+      margin-bottom: rem(40);
+    }
+  }
+}
+
 @media only screen and (max-width: 1300px) {
     .static-content-wrapper {
         .cs-carousel-wrapper {

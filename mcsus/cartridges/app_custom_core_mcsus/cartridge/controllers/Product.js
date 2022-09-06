@@ -1,9 +1,9 @@
 'use strict';
 
 var server = require('server');
-var URLUtils = require('dw/web/URLUtils');
 var Site = require('dw/system/Site');
 var page = module.superModule;
+
 server.extend(page);
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 

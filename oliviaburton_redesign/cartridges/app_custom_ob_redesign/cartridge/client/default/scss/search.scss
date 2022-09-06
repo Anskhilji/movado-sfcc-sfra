@@ -363,6 +363,15 @@
             }
         }
     }
+
+    .cs-carousel-wrapper {
+        margin-top: rem(32);
+
+        img {
+            max-width: 100%;
+            width: 100%;
+        }
+    }
 }
 
 .plp-redesign {
@@ -378,6 +387,14 @@
 
     &.container-fluid {
         max-width: none;
+    }
+
+    .banner-title {
+        font-family: $font-gill-sans-std;
+    }
+
+    .banner-links li a {
+        font-weight: 500;
     }
 
     .plp-filter {
@@ -521,7 +538,7 @@
                 &-item {
                     padding: rem(8) rem(20);
                     display: block;
-                    font-family: $font-gill-std-bold;
+                    font-family: $font-gill-sans-std;
                     font-weight: 600;
                     font-size: rem(15);
                     color: $black;
@@ -540,7 +557,7 @@
                 }
 
                 &-toggle {
-                    font-family: $font-gill-std-bold;
+                    font-family: $font-gill-sans-std;
                     font-size: rem(15);
                     font-weight: 600;
                     color: $gray20;
@@ -552,7 +569,7 @@
                     right: 0;
                     width: rem(200);
                     text-align: left;
-                    padding: rem(19) rem(20);
+                    padding: rem(18) rem(20);
 
                     &::after {
                         content: "";
@@ -561,7 +578,7 @@
                         height: rem(20);
                         position: absolute;
                         right: rem(20);
-                        top: rem(22);
+                        top: rem(20);
                         transition: transform 0.3s;
                         background-size: 100%;
                         margin: 0;
@@ -590,9 +607,25 @@
                     overflow-x: auto;
                     max-width: 55vw;
 
-                    @include media-breakpoint-up(xl) {
-                        max-width: none;
+                    &::-webkit-scrollbar {
+                        width: rem(15);
+                        height: rem(4);
+                        cursor: pointer;
                     }
+
+                    &::-webkit-scrollbar-thumb {
+                        background: $dark-gray; 
+                        border-radius: rem(20);
+                    }
+
+                    @include media-breakpoint-up(xl) {
+                        max-width: 60vw;
+                    }
+
+                    @include media-breakpoint-up(xxxl) {
+                        max-width: 70vw;
+                    }
+                    
                 }
 
                 .values {
@@ -645,7 +678,7 @@
                 left: rem(25);
 
                 .category-name {
-                    font-family: $font-gill-std-bold;
+                    font-family: $font-gill-sans-std;
                     font-size: rem(15);
                     font-weight: 600;
                     color: $gray20;
@@ -662,10 +695,10 @@
                 }
 
                 span {
-                    font-family: $font-gill-std-normal;
+                    font-family: $font-gill-sans-std;
                     font-size: rem(15);
                     line-height: rem(20);
-                    font-weight: 400;
+                    font-weight: 500;
                     color: $gray20;
                     letter-spacing: normal;
                     text-transform: capitalize;
@@ -695,7 +728,7 @@
         &-btn {
             font-family: $font-gill-std-normal;
             font-size: rem(15);
-            font-weight: 400;
+            font-weight: 500;
             line-height: rem(20);
             letter-spacing: normal;
             text-transform: capitalize;
@@ -708,6 +741,7 @@
             position: relative;
             padding: rem(20) 0;
             border-bottom: rem(1) solid transparent;
+
             @include media-breakpoint-up(lg) {
                 min-width: rem(80);
                 margin: 0 rem(10);
@@ -716,7 +750,15 @@
             @include media-breakpoint-up(xl) {
                 margin: 0 rem(20);
                 font-size: rem(15);
+                min-width: rem(80);
+            }
+            @include media-breakpoint-up(xxl) {
+                margin: 0 rem(20);
+                font-size: rem(15);
                 min-width: auto;
+            }
+            @include media-breakpoint-up(xxxl) {
+                min-width: none;
             }
             &::after {
                 content: "";
@@ -772,7 +814,7 @@
         &-reset {
             font-family: $font-gill-std-normal;
             font-size: rem(14);
-            font-weight: 400;
+            font-weight: 500;
             letter-spacing: normal;
             color: $eclipse;
             text-decoration: underline;
@@ -1000,7 +1042,7 @@
                 
                 .result-count {
                     .category-name {
-                        font-family: $font-gill-std-bold;
+                        font-family: $font-gill-sans-std;
                         font-size: rem(12);
                         font-weight: 600;
                         color: $gray20;
@@ -1017,10 +1059,10 @@
                     }
 
                     span {
-                        font-family: $font-gills-light;
+                        font-family: $font-gill-sans-std;
                         font-size: rem(12);
+                        font-weight: 500;
                         line-height: rem(16);
-                        font-weight: 300;
                         color: $gray20;
                         letter-spacing: normal;
                         text-transform: capitalize;
@@ -1053,7 +1095,7 @@
                 width: 100%;
                 border: rem(1) solid $gray90;
                 border-radius: rem(5);
-                font-family: $font-gill-std-semibold;
+                font-family: $font-gill-sans-std;
                 font-size: rem(12);
                 line-height: rem(16);
                 font-weight: 600;
@@ -1210,7 +1252,7 @@
                             font-family: $font-gill-std-normal;
                             font-size: rem(14);
                             line-height: rem(16);
-                            font-weight: 400;
+                            font-weight: 500;
                             letter-spacing: rem(0.5);
                         }
 
@@ -1285,10 +1327,11 @@
                 padding-right: rem(15);
                 font-family: $font-gill-std-normal;
                 font-size: rem(14);
-                font-weight: 400;
+                font-weight: 500;
                 letter-spacing: normal;
                 color: $gray20;
                 text-transform: capitalize;
+
                 &::before {
                     content: "+";
                     display: inline-block;
@@ -1316,19 +1359,24 @@
         padding-right: rem(5);
         padding-left: rem(5);
 
+        @include media-breakpoint-up(xs-custom) {    
+            margin-bottom: rem(48);
+        }
+
         @include media-breakpoint-up(sm) {
+            margin-bottom: rem(48);
             padding-right: rem(8);
             padding-left: rem(8);
         }
 
         @include media-breakpoint-up(lg) {
-            margin-bottom: rem(20);
+            margin-bottom: rem(60);
             flex: 0 0 25%;
             max-width: 25%;
         }
 
         @include media-breakpoint-up(xl) {
-            margin-bottom: rem(20);
+            margin-bottom: rem(60);
             flex: 0 0 20%;
             max-width: 20%;
         }
@@ -1354,13 +1402,78 @@
 
             &-tile {
                 background: $snow;
+                min-height: auto;
+                height: 100%;
+                position: relative;
+
+                @include media-breakpoint-up(xs-custom) {
+                    min-height: rem(300);
+                    height: auto;
+                }
+
+                @include media-breakpoint-up(xsm-custom) {
+                    min-height: rem(324);
+                    height: auto;
+                }
+
+                @include media-breakpoint-up(sm-custom) {
+                    min-height: rem(340);
+                    height: auto;
+                }
+
+                @media (min-width:$grid-breakpoint-one) and (max-width:$grid-breakpoint-two) {
+                    min-height: rem(380);
+                    height: 100%;
+                }
+
+                @include media-breakpoint-up(sm) {
+                    min-height: auto;
+                    height: 100%;
+                }
+
+                .tile-picture {
+                    transition: 0.3s all;
+                    display: block;
+                    height: 100%;
+
+                    &-hidden {
+                        display: none;
+                    }
+
+                    img {
+                        width: 100%;
+                    }
+                }
 
                 &:hover {
                     box-shadow: 0 rem(2) rem(6) rgba(155, 155, 155, 0.5);
+
                     @include media-breakpoint-up(lg) {
-                        margin-bottom: rem(-56);
                         position: relative;
                         z-index: 5;
+                    }
+
+                    .tile-picture {
+                        display: none;
+
+                        &-hidden {
+                            display: block;
+                        }
+                    }
+
+                    .tile-body {
+                        @include media-breakpoint-up(lg) {
+                            min-height: rem(172);
+                            height: auto;
+                            transform: translateY(80px);
+                            margin-bottom: rem(5);
+                            box-shadow: 0 rem(2) rem(2) rgba(155, 155, 155, 0.5);
+                        }
+    
+    
+                        @include media-breakpoint-up(sm) {
+                            padding: rem(15) rem(20);
+                        }
                     }
 
                     .cta-add-to-cart {
@@ -1368,54 +1481,53 @@
                             display: block;
                         }
                     }
-
-                    .image-container {
-                        a {
-                            .tile-picture {
-                                &-primary {
-                                    opacity: 0;
-                                }
-                                &-hidden {
-                                    opacity: 1;
-                                }
-                            }
-                        }
-                    }
                 }
+
                 .image-container {
                     background: $pink-smoke;
                     border: none;
-                    height: rem(225);
+                    height: auto;
+                    padding-bottom: rem(65);
 
+                    @include media-breakpoint-up(xs-custom) {
+                        padding-bottom: 0;
+                    }
+
+                    @include media-breakpoint-up(sm-custom) {
+                        padding-bottom: 0;
+                    }
+                    
                     @include media-breakpoint-up(sm) {
-                        height: rem(240);
+                        padding-bottom: rem(160);
                     }
+
+                    &.family-name-enabled {
+                        @include media-breakpoint-up(md) {
+                            padding-bottom: rem(160);
+                        }
+
+                        @include media-breakpoint-up(lg) {
+                            padding-bottom: rem(96);
+                        }
+                    }
+
+                    @include media-breakpoint-up(md) {
+                        padding-bottom: rem(136);
+                    }
+
                     @include media-breakpoint-up(lg) {
-                        height: rem(260);
+                        padding-bottom: rem(96);
                     }
-                    @include media-breakpoint-up(xxl) {
-                        height: rem(340);
+
+                    @include media-breakpoint-up(xl) {
+                        padding-bottom: rem(96);
                     }
+
                     a {
                         height: 100%;
                         width: 100%;
                         position: relative;
                         display: block;
-
-                        .tile-picture {
-                            position: absolute;
-                            height: 100%;
-                            width: 100%;
-                            transition: 0.3s all;
-
-                            &-hidden {
-                                opacity: 0;
-                            }
-
-                            img {
-                                height: 100%;
-                            }
-                        }
                     }
 
                     .product-badge.redesigned {
@@ -1430,19 +1542,51 @@
                         img {
                             width: rem(35);
                             height: rem(35);
+
+                            @include media-breakpoint-up(xs) {
+                                width: rem(32);
+                                height: rem(32);                               
+                                position: relative;                               
+                                left: rem(8);
+                                top: rem(-8);
+                            }
+                            
+                            @include media-breakpoint-down(md) {    
+                                left: rem(6);
+                                top: rem(-6);
+                            }
+
                             @include media-breakpoint-up(xl) {
-                                width: rem(60);
-                                height: rem(60);
+                                width: rem(48);
+                                height: rem(48);
+                                position: relative;
+                                left: rem(15);
+                                top: rem(-15);
                             }
                         }
                     }
                 }
+
                 .tile-body {
                     text-align: left;
                     padding: rem(10) rem(15);
+                    background-color: $snow;
+                    position: absolute;
+                    left: 0;
+                    bottom: 0;
+                    width: 100%;
+                    display: block;
+                    overflow: hidden;
 
                     @include media-breakpoint-up(sm) {
                         padding: rem(15) rem(20);
+                    }
+
+                    @include media-breakpoint-up(lg) {
+                        min-height: rem(128);
+                        height: auto;
+                        transition: transform 0.4s all;
+                        transform: translateY(25px);
                     }
 
                     .pdp-link {
@@ -1460,6 +1604,7 @@
                             font-size: rem(12);
                             font-family: $font-gills-light;
                             font-weight: 300;
+                            color: $gray20;
                             line-height: rem(18);
                             letter-spacing: 0.5px;
 
@@ -1473,6 +1618,77 @@
                                 line-height: rem(20);
                             }
                         }
+                        
+                        @include media-breakpoint-up(xs) {
+                            .truncate-text-sm {
+                              display: block;
+                            }
+                            .truncate-text-md {
+                              display: none;
+                            }
+                            .truncate-text-lg {
+                              display: none;
+                            }
+                            .truncate-text-xl {
+                              display: none;
+                            }
+                          }
+                          @include media-breakpoint-up(sm) {
+                            .truncate-text-sm {
+                              display: block;
+                            }
+                            .truncate-text-md {
+                              display: none;
+                            }
+                            .truncate-text-lg {
+                              display: none;
+                            }
+                            .truncate-text-xl {
+                              display: none;
+                            }
+                          }
+                          @include media-breakpoint-up(md) {
+                            .truncate-text-lg {
+                              display: none;
+                            }
+                            .truncate-text-xl {
+                              display: none;
+                            }
+                            .truncate-text-md {
+                              display: block;
+                            }
+                            .truncate-text-sm {
+                              display: none;
+                            }
+                          }
+                          @include media-breakpoint-up(lg) {
+                            .truncate-text-lg {
+                              display: block;
+                            }
+                            .truncate-text-md {
+                              display: none;
+                            }
+                            .truncate-text-sm {
+                              display: none;
+                            }
+                            .truncate-text-xl {
+                              display: none;
+                            }
+                          }
+                          @include media-breakpoint-up(xl) {
+                            .truncate-text-xl {
+                              display: block;
+                            }
+                            .truncate-text-md {
+                              display: none;
+                            }
+                            .truncate-text-sm {
+                              display: none;
+                            }
+                            .truncate-text-lg {
+                              display: none;
+                            }
+                          }
                     }
 
                     .pricing-save {
@@ -1516,6 +1732,7 @@
                         }
                     }
                 }
+
                 .cta-add-to-cart {
                     display: block;
                     margin-top: rem(8);
@@ -1566,7 +1783,7 @@
                     }
 
                     .save-value {
-                        font-family: $font-gill-std-semibold;
+                        font-family: $font-gill-sans-std;
                         font-size: rem(12);
                         color: $black;
                         font-weight: 600;
@@ -1587,7 +1804,7 @@
                 }
 
                 h3 {
-                    font-family: $font-gill-std-semibold;
+                    font-family: $font-gill-sans-std;
                     font-size: rem(12);
                     color: $gray20;
                     font-weight: 600;
@@ -1622,7 +1839,7 @@
             background-color: $white;
             border: rem(1) solid $black;
             border-radius: rem(3);
-            font-family: $font-gill-std-bold;
+            font-family: $font-gill-sans-std;
             font-weight: 600;
             font-size: rem(15);
             color: $gray20;
@@ -1768,6 +1985,7 @@
         margin-bottom: rem(30);
     }
 }
+
 
 .no-overflow {
     overflow: hidden;
