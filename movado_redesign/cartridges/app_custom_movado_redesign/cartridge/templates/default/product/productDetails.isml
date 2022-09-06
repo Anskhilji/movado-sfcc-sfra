@@ -176,12 +176,14 @@
 
                             <iscomment> Custom Start: Clyde Integration </iscomment>
                             <isif condition="${dw.system.Site.current.preferences.custom.isClydeEnabled}">
-                                <isif condition="${domesticAllowedCountry}">
+                                <isif condition="${dw.system.Site.current.preferences.custom.clydeGeofencing}">
                                     <hr class="clyde-top-border" />
+                                </isif>
                                     <div class="clyde-widget">
                                         <div id="clyde-cta">                                
                                         </div>
                                     </div>
+                                <isif condition="${dw.system.Site.current.preferences.custom.clydeGeofencing}">
                                     <hr class="clyde-bottom-border" />
                                 </isif>
                             </isif>
