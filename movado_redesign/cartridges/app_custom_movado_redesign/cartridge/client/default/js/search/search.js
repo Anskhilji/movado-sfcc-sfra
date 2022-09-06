@@ -290,9 +290,9 @@ function updatePageURLForPagination(showMoreUrl) {
  * Moving the focus to top after pagination and filtering
  */
 function moveFocusToTop() {
-    var element = document.querySelector(".tab-content");
-    var headerEl = document.querySelector(".header-menu-wrapper");
-    var stickyNav = document.querySelector(".filter-box");
+    var element = document.querySelector('.tab-content');
+    var headerEl = document.querySelector('.header-menu-wrapper');
+    var stickyNav = document.querySelector('.filter-box');
     var filters = $('.filter-bar').outerHeight();
     var headerElHeight = headerEl.getBoundingClientRect().height;
     var stickyNavHeight = stickyNav.getBoundingClientRect().height;
