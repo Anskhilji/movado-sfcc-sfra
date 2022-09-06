@@ -121,10 +121,6 @@ function getProductLineItemCustomAttributes(item) {
     if (item.custom.sapLineStatus) {
         customAttributes.sapLineStatus = item.custom.sapLineStatus;
     }
-
-    if(item.custom.giftPid) {
-        customAttributes.giftPid = item.custom.giftPid;
-    }
     return customAttributes;
 }
 
