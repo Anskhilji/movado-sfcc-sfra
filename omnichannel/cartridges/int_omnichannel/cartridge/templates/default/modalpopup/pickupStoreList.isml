@@ -13,7 +13,7 @@
                             <span>${store.name}</span>
                         </div>
                         <div class="store-address">
-                            <span>${store.address1}</span>
+                            <span>${store.address1} ${store.address2}</span>
                         </div>
                         <isif condition="${store.distance}">
                             <div class="store-distance">
