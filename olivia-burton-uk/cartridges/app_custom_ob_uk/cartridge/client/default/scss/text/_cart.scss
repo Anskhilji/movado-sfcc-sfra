@@ -498,6 +498,9 @@ div.checkout-button-wrapper {
             @include custom-media-query($small-screen-width375){
               font-size: rem(13);
             }
+            @include custom-media-query($small-screen-width){
+              width: 82px;
+            }
             @include media-breakpoint-up(md) {
               font-size: rem(16);
             }
