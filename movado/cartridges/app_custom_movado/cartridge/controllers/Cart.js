@@ -20,10 +20,10 @@ server.prepend('AddProduct', function (req, res, next) {
     if (!empty(req.form.isGiftItem)) {
         var lineItemsIterator = currentBasket.allProductLineItems.iterator();
         var currentLineItemsIterator;
-        var parentPid = req.form.parentPid;
+        var parentUUID = req.form.parentPid;
         while (lineItemsIterator.hasNext()) {
             currentLineItemsIterator = lineItemsIterator.next();
-            if (currentLineItemsIterator.productID == parentPid) {
+            if (currentLineItemsIterator.UUID == parentUUID) {
                 Transaction.wrap(function () {
                     currentLineItemsIterator.custom.giftPid = req.form.pid;
                 });
@@ -215,6 +215,20 @@ server.append('AddProduct', function (req, res, next) {
             });
         }
         // Custom End
+
+        if (req.form.isGiftItem && req.form.parentPid) {
+            var lineItemsIterators = currentBasket.allProductLineItems.iterator();
+            var currentLineItemsIterators;
+            while (lineItemsIterators.hasNext()) {
+                currentLineItemsIterators = lineItemsIterators.next();
+                if (currentLineItemsIterators.UUID == res.viewData.pliUUID) {
+                    Transaction.wrap(function () {
+                        currentLineItemsIterators.custom.giftParentUUID = req.form.parentPid;
+                    });
+                    break;
+                }
+            }
+        }
 
         res.setViewData({
             quantityTotal: quantityTotal,
@@ -479,6 +493,35 @@ server.get(
 }
 );
 
+server.prepend('RemoveProductLineItem', function (req, res, next) {
+    var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
+    var ArrayList = require('dw/util/ArrayList');
+    var BasketMgr = require('dw/order/BasketMgr');
+    var currentBasket = BasketMgr.getCurrentOrNewBasket();
+    var emptyCartDom;
+    var Site = require('dw/system/Site');
+    var Transaction = require('dw/system/Transaction');
+
+    var deletedGiftPid = req.querystring.uuid;
+    var giftParentUuid = currentBasket.allProductLineItems.toArray().filter(function(product) {
+        return product.UUID == deletedGiftPid;
+    });
+
+    var linesItemsIterator = currentBasket.allProductLineItems.iterator();
+        var currentsLineItemsIterator;
+        while (linesItemsIterator.hasNext()) {
+            currentsLineItemsIterator = linesItemsIterator.next();
+            if (currentsLineItemsIterator.UUID == giftParentUuid[0].custom.giftParentUUID) {
+                Transaction.wrap(function () {
+                    currentsLineItemsIterator.custom.giftPid = "";
+                });
+                break;
+            }
+        }
+
+	next();
+});
+
 server.append('RemoveProductLineItem', function (req, res, next) {
     var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
     var ArrayList = require('dw/util/ArrayList');
@@ -514,28 +557,6 @@ server.append('RemoveProductLineItem', function (req, res, next) {
         res.setViewData({emptyCartDom: emptyCartDom});
     }
 
-    var giftProductSku;
-    var pid = req.querystring.pid;
-    var giftBoxCategorySKUPairArray = !empty(Site.current.preferences.custom.giftBoxCategorySKUPair) ? new ArrayList(Site.current.preferences.custom.giftBoxCategorySKUPair).toArray() : '';
-
-    for (var i = 0; i < giftBoxCategorySKUPairArray.length; i++) {
-        giftProductSku = giftBoxCategorySKUPairArray[i].split("|");
-
-        if (pid != giftProductSku[1]) {
-            continue;
-        } else {
-            if (pid == giftProductSku[1]) {
-                var lineItems = currentBasket.allProductLineItems.toArray().filter(function(product) {
-                    return product.custom.giftPid == pid;
-                });
-                for (var j = 0; j < lineItems.length; j++) {
-                    Transaction.wrap(function () {
-                        lineItems[j].custom.giftPid = "";
-                    });
-                }
-            }
-        }
-    }
     res.setViewData({isKlarnaCartPromoEnabled: isKlarnaCartPromoEnabled});
 	 next();
 });

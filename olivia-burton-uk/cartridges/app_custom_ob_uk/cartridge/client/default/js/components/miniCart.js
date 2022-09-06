@@ -138,7 +138,6 @@ module.exports = function () {
         var url = $this.data('add-to-cart-url');
         var parentPid = $this.data('parent-pid');
         var pid = $this.val();
-
         var isCartPage = $(this).data('requested-page');
         var form = {
             pid: pid,
