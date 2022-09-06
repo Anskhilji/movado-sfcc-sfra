@@ -290,10 +290,15 @@ function updatePageURLForPagination(showMoreUrl) {
  * Moving the focus to top after pagination and filtering
  */
 function moveFocusToTop() {
-    var topScrollHeight = $('.tab-content').offset().top - $('header').outerHeight();
-    $('html, body').animate({
-        scrollTop: topScrollHeight
-    }, 500);
+    var element = document.querySelector('.tab-content');
+    var headerEl = document.querySelector('.header-menu-wrapper');
+    var stickyNav = document.querySelector('.filter-box');
+    var filters = $('.filter-bar').outerHeight();
+    var headerElHeight = headerEl.getBoundingClientRect().height;
+    var stickyNavHeight = stickyNav.getBoundingClientRect().height;
+    var totalHeight = headerElHeight + stickyNavHeight + filters;
+    var y = element.getBoundingClientRect().top + window.pageYOffset - totalHeight;
+    window.scrollTo({top: y, behavior: 'smooth'});
 }
 
 // filter bar sticky styling MSS-1912
