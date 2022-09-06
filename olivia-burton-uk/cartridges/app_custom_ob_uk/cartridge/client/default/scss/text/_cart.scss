@@ -474,8 +474,8 @@ div.checkout-button-wrapper {
         display: flex;
         align-items: center;
         font-weight: 600;
-        .checkmark {
 
+        .checkmark {
           &-add {
             border: rem(1) solid $black;
             border-radius: rem(100);
@@ -489,6 +489,7 @@ div.checkout-button-wrapper {
             height: rem(24);
             position: relative;
             width: rem(76);
+
             .inner-span {
               position: absolute;
               top: 50%;
