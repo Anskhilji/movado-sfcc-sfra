@@ -108,7 +108,6 @@ server.append('AddProduct', function (req, res, next) {
                         currentLineItemsIterator = lineItemsIterator.next();
                         if (currentLineItemsIterator.productID == parentPid) {
                             currentLineItemsIterator.custom.giftPid = req.form.giftPid;
-                            break;
                         }
                     }
                     cartHelper.ensureAllShipmentsHaveMethods(currentBasket);
