@@ -502,16 +502,16 @@ server.prepend('RemoveProductLineItem', function (req, res, next) {
         return product.UUID == deletedGiftPid;
     });
     var linesItemsIterator = currentBasket.allProductLineItems.iterator();
-        var currentsLineItemsIterator;
-        while (linesItemsIterator.hasNext()) {
-            currentsLineItemsIterator = linesItemsIterator.next();
-            if (currentsLineItemsIterator.UUID == giftsParentUUID[0].custom.giftParentUUID) {
-                Transaction.wrap(function () {
-                    currentsLineItemsIterator.custom.giftPid = "";
-                });
-                break;
-            }
+    var currentsLineItemsIterator;
+    while (linesItemsIterator.hasNext()) {
+        currentsLineItemsIterator = linesItemsIterator.next();
+        if (currentsLineItemsIterator.UUID == giftsParentUUID[0].custom.giftParentUUID) {
+            Transaction.wrap(function () {
+                currentsLineItemsIterator.custom.giftPid = "";
+            });
+            break;
         }
+    }
 
 	next();
 });
