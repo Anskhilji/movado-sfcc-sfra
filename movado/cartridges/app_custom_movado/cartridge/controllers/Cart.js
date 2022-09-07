@@ -494,24 +494,19 @@ server.get(
 );
 
 server.prepend('RemoveProductLineItem', function (req, res, next) {
-    var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
-    var ArrayList = require('dw/util/ArrayList');
     var BasketMgr = require('dw/order/BasketMgr');
-    var currentBasket = BasketMgr.getCurrentOrNewBasket();
-    var emptyCartDom;
-    var Site = require('dw/system/Site');
     var Transaction = require('dw/system/Transaction');
-
+    var currentBasket = BasketMgr.getCurrentOrNewBasket();
     var deletedGiftPid = req.querystring.uuid;
-    var giftParentUuid = currentBasket.allProductLineItems.toArray().filter(function(product) {
+
+    var giftsParentUUID = currentBasket.allProductLineItems.toArray().filter(function(product) {
         return product.UUID == deletedGiftPid;
     });
-
     var linesItemsIterator = currentBasket.allProductLineItems.iterator();
         var currentsLineItemsIterator;
         while (linesItemsIterator.hasNext()) {
             currentsLineItemsIterator = linesItemsIterator.next();
-            if (currentsLineItemsIterator.UUID == giftParentUuid[0].custom.giftParentUUID) {
+            if (currentsLineItemsIterator.UUID == giftsParentUUID[0].custom.giftParentUUID) {
                 Transaction.wrap(function () {
                     currentsLineItemsIterator.custom.giftPid = "";
                 });
