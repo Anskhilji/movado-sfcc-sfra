@@ -341,8 +341,10 @@ $(document).ready(function() {
     var $isClydeSitePrefrence = document.querySelector('.clyde-site-prefrence');
 
     if ($isClydeSitePrefrence) {
-        var $isClydeEnabled = $isClydeSitePrefrence.dataset.sitePrefrence;
-        if ($isClydeEnabled == 'true') {
+        var $isClydeEnabled = $isClydeSitePrefrence.dataset.clydeEnable;
+        var $isClydeWidgetEnabled = $isClydeSitePrefrence.dataset.clydeWidget;
+        
+        if ($isClydeEnabled == 'true' && $isClydeWidgetEnabled == 'true') {
             var $clydeWidget = document.querySelector('.clyde-widget');
 
             function refreshClydeWidgets() {

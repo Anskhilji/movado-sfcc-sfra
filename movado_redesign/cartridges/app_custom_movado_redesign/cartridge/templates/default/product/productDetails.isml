@@ -176,8 +176,9 @@
 
                             <iscomment> Custom Start: Clyde Integration </iscomment>
                             <isset name="isClydeEnable" value="${!empty(dw.system.Site.current.preferences.custom.isClydeEnabled) ? dw.system.Site.current.preferences.custom.isClydeEnabled : false}" scope="page" />
-                            <div hidden="hidden" class="clyde-site-prefrence" data-site-prefrence="${isClydeEnable}"></div>
-                            <isif condition="${isClydeEnable}">
+                            <isset name="isClydeWidgetEnable" value="${!empty(dw.system.Site.current.preferences.custom.clydeWidgetDisplay) ? dw.system.Site.current.preferences.custom.clydeWidgetDisplay : false}" scope="page" />
+                            <div hidden="hidden" class="clyde-site-prefrence" data-clyde-enable="${isClydeEnable}" data-clyde-widget="${isClydeWidgetEnable}"></div>
+                            <isif condition="${isClydeEnable && isClydeWidgetEnable}">
                                 <hr class="clyde-top-border d-none" />
                                 <div class="clyde-widget">
                                     <div id="clyde-cta">                                
