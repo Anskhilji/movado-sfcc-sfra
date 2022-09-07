@@ -36,10 +36,6 @@
                 }
 
                 @include media-breakpoint-down(xs) {
-                    justify-content: flex-end;
-                    flex-direction: column;
-                    text-align: right;
-                    align-items: flex-end;
                     top: rem(10);
                 }
 
@@ -106,7 +102,7 @@
                     @include media-breakpoint-down(xs) {
                         font-size: rem(10);
                         line-height: rem(15);
-                        margin-bottom: rem(8);
+                        margin-bottom: rem(3.2);
                     }
 
                     a {
@@ -233,6 +229,7 @@
         
                     @include media-breakpoint-down(xs) {
                         font-size: rem(12);
+                        width: 100%;
                     }
 
                     .tiered {
