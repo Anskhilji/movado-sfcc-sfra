@@ -2394,7 +2394,7 @@
         font-weight: 400;
 
         &.custom-control-label-pdp {
-            display: block;
+            display: inline-block;
             position: relative;
             padding-left: rem(23);
             margin-bottom: rem(12);
@@ -2407,6 +2407,9 @@
             user-select: none;
             text-align: left;
             line-height: rem(19);
+            @include media-breakpoint-down(sm-custom) {
+                margin-top: rem(12);
+            }
 
             input {
                 position: absolute;
