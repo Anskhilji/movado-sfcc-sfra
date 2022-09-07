@@ -6,6 +6,7 @@ var Logger = require('dw/system/Logger').getLogger('OmniChannel');
 var Transaction = require('dw/system/Transaction');
 var BasketMgr = require('dw/order/BasketMgr');
 var omniChannelAPI = require('*/cartridge/scripts/api/omniChannelAPI');
+var omniChannelAPIHelper = require('~/cartridge/scripts/helpers/omniChannelAPIHelper');
 var StoreMgr = require('dw/catalog/StoreMgr');
 
 var page = module.superModule;
@@ -39,34 +40,13 @@ server.append(
                 Logger.error('Error Occurred in Cart.Show During updating of pickInStore in CurrentBasket and LineItems and call OmniChannel Inventory API, Error: {0}', error.toString());
             }
 
-            if (apiResponse.success && apiResponse.response.length > 0 && apiResponse.response[0].length > 0 && apiResponse.response[0].inventory.length > 0) {
+            if (apiResponse.success && apiResponse.response.length > 0 && apiResponse.response[0].inventory.length > 0) {
                 lineItemsInventory = apiResponse.response[0].inventory[0].records;
             }
             
             var items = viewData.items;
             //Custom:Start  Update lineItems array if its available for pickup store
-            var itemInventory = [];
-            items.forEach(function (item) {
-                if (lineItemsInventory && lineItemsInventory.length > 0) {
-                    var currentItemInventory = lineItemsInventory.filter(function (lineItem) { return lineItem.sku == item.id });
-                    var itemInv = currentItemInventory.length > 0 ? currentItemInventory[0].ato : 0;
-                    var loopInventory = itemInventory.filter(function (i) { return i.itemId == item.id }).map(function (obj) { return obj.remain });
-                    if ((loopInventory.length == 0 || loopInventory > 0) && itemInv > 0) {
-                        item.storePickupAvailable = true;
-                        if (loopInventory.length == 0) {
-                            itemInventory.push({ itemId: item.id, remain: itemInv - 1 });
-                            return;
-                        }
-                        itemInventory.filter(function (i) { return i.itemId == item.id }).map(function (obj) { obj.remain = obj.remain - 1 });
-                    } else {
-                        item.storePickupAvailable = false;
-                        viewData.isAllItemsAvailable = false;
-                    }
-                } else {
-                    item.storePickupAvailable = false;
-                    viewData.isAllItemsAvailable = false;
-                }
-            });
+            omniChannelAPIHelper.setLineItemInventory(items, lineItemsInventory, viewData);
             //Custom:End
             res.setViewData(viewData);
         }
@@ -77,26 +57,46 @@ server.append(
 server.post(
     'SetPickupFromStore',
     function (req, res, next) {
-        var pickupFromStore = req.form.pickupFromStore == 'true' ? true : false;
-        session.privacy.pickupFromStore = pickupFromStore;
+        var storeFormPickUP = req.form.pickupFromStore == 'true' ? true : false;
+        session.privacy.pickupFromStore = storeFormPickUP;
+        var viewData = {};
+        var isAllItemsAvailable = true;
         var currentBasket;
+        var productIds = [];
+        var items = [];
+        var apiResponse;
+        var lineItemsInventory;
+        viewData.storeFormPickUP = storeFormPickUP;
+        viewData.isAllItemsAvailable = isAllItemsAvailable;
         try {
             currentBasket = BasketMgr.getCurrentBasket();
             Transaction.wrap(function () {
                 if (currentBasket) {
                     var productLineItemsIterator = currentBasket.productLineItems.iterator();
-                    currentBasket.custom.pickInStore = pickupFromStore;
                     while (productLineItemsIterator.hasNext()) {
                         var productLineItem = productLineItemsIterator.next();
-                        productLineItem.custom.pickInStore = pickupFromStore;
+                        productIds.push(productLineItem.productID);
+                        items.push({id:productLineItem.product.ID});
                     }
                 }
             });
+            var storeArray = [];
+            var preferedPickupStore = StoreMgr.getStore(session.privacy.pickupStoreID);
+            storeArray.push(preferedPickupStore);
+            apiResponse = omniChannelAPI.omniChannelInvetoryAPI(productIds, storeArray);
+
+            if (apiResponse.success && apiResponse.response.length > 0 && apiResponse.response[0].inventory.length > 0) {
+                lineItemsInventory = apiResponse.response[0].inventory[0].records;
+            }
+
+            omniChannelAPIHelper.setLineItemInventory(items, lineItemsInventory, viewData);
+
+
         } catch (error) {
-            Logger.error('Error Occurred in OmniChannel Cart.SetPickupFromStore During updating of pickInStore in CurrentBasket and LineItems, Error: {0}', error.toString());
+            Logger.error('Error Occurred in Cart.Show During updating of pickInStore in CurrentBasket and LineItems and call OmniChannel Inventory API, Error: {0}', error.toString());
         }
         res.json({
-            pickupFromStore: pickupFromStore
+            viewData: viewData
         });
         return next();
     }

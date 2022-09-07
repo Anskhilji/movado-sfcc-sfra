@@ -3,8 +3,8 @@
 function generateAuthenticationPayLoad(params) {
     return {
         "grant_type": "client_credentials",
-        "client_id": params.clientID,
-        "client_secret": params.clientSecret,
+        "client_id": '4b394b43-96fb-45ab-afec-f77a9c52f3e1',
+        "client_secret": 'bp6VwFf5te7YHPIx3syB',
     };
 }
 
@@ -17,15 +17,12 @@ function generateStoreIDsArray(storesList) {
 }
 
 function generateOmniChannelInventoryAPIPayLoad(productIds, storesList) {
-    var payLoad = [];
-    payLoad.push({
-        sku: '',
-        group: '',
+    var payLoad = {
         skus: productIds,
-        locations: generateStoreIDsArray(storesList),
+        locations:generateStoreIDsArray(storesList),
         groups: []
 
-    });
+    };
     return JSON.stringify(payLoad);
 }
 module.exports = {

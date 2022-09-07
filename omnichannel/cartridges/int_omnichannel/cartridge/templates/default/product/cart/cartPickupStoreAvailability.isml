@@ -1,9 +1,10 @@
-<div class="pickup-store-rectangle ${!session.privacy.pickupStoreID ? "d-none" : ''}">
+<div class="pickup-store-rectangle">
     <div class="form-group checkbox">
         <div class="custom-control custom-checkbox">
             <input type="checkbox" class="custom-control-input form-check cart-store-pickup" id="enableStorePickup" data-url="${URLUtils.url('Cart-SetPickupFromStore')}"
-            <isif condition="${session.privacy.pickupFromStore}">checked</isif>>
-            <label class="custom-control-label checkbox-label pickup-checkbox" for="enableStorePickup">
+            ${session.privacy.pickupFromStore ? 'Checked' : ''}
+            ${session.privacy.pickupStoreID ? '' : 'disabled'}>
+            <label class="custom-control-label checkbox-label pickup-checkbox ${session.privacy.pickupStoreID ? '' : 'disabled'}" for="enableStorePickup">
                 ${Resource.msg('store.pickup.cart.avalibility.checkbox', 'storePickUp', null);}
             </label>
         </div>

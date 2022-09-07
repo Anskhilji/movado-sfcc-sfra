@@ -11,11 +11,19 @@
     <div class="row ${bonuslineitemrow} item-info ${enableGiftMessage ? '' : 'border-bottom-0'}">
         <div class="${session.privacy.pickupStoreID ? "col-lg-6" : "col-lg-12"}">
             <div class="row">
+
                 <div class="col-lg-12 d-flex flex-row mb-2 product-detail">
                    <isif condition="${lineItem && lineItem.images && lineItem.images.tile150[0]}">
                    		<isset name="productImage" value="${lineItem.images.tile150[0]}" scope="page"/>
                    		<img class="product-image mr-4" src="${productImage.url}" alt="${productImage.alt}" title="${productImage.title}">
                    </isif>
+
+                <div class="col-lg-12 d-flex flex-row mb-2">
+                    <isif condition="${lineItem && lineItem.images && lineItem.images.tile150[0]}">
+                        <isset name="productImage" value="${lineItem.images.tile150[0]}" scope="page"/>
+                        <img class="product-image mr-4" src="${productImage.url}" alt="${productImage.alt}" title="${productImage.title}">
+                    </isif>
+
                     <div class="item-attributes d-flex flex-column">
                         <isloop items="${lineItem.variationAttributes}" var="attribute">
                             <isif condition="${typeof option != 'undefined' && option.optionId === Resource.msg('emboss.displayValue', 'cart', null) && lineItem.customAttributes.emboss}">
@@ -79,9 +87,9 @@
                 </div>
             </div>
         </div>
-        <isif condition="${session.privacy.pickupStoreID}">
+        <iscomment> <isif condition="${session.privacy.pickupStoreID}"> </iscomment>
             <isinclude template="product/cart/cartPickupStoreProductAvailability" />
-        </isif>
+        <iscomment> </isif> </iscomment>
         <isif condition="${lineItem.bonusProductLineItemUUID === 'bonus'}">
             <div class="col-12 d-lg-none"><hr class="line-item-divider"></div>
         </isif>

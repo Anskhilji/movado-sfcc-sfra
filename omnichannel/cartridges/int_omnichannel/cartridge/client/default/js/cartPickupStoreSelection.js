@@ -7,19 +7,18 @@ $(document).on('click', '.cart-store-pickup', function (event) {
     var pickupFromStore = $(this).prop('checked');
     $.ajax({
         url: url,
-        data: { pickupFromStore: pickupFromStore },
+        data: {
+            pickupFromStore: pickupFromStore
+        },
         method: 'POST',
         success: function (response) {
-            if (response.pickupFromStore) {
-                $('.pickup-store-cart-availability').removeClass('d-none');
-                $('.default-product-availability').addClass('d-none');
-                updateStorePickupProductAvailability();
-            } else {
-                $('.pickup-store-cart-availability').addClass('d-none');
-                $('.default-product-availability').removeClass('d-none');
-                $('.checkout-btn').removeClass('disabled');
-                $('.apple-pay-cart').attr('disabled', false);
-                updateCartCSS(pickupFromStore);
+            if (pickupFromStore) {
+                var isAllItemsAvailable = response.viewData.isAllItemsAvailable ? true : false;
+                $('.remove-product').attr({'data-store-pickup-available': isAllItemsAvailable})
+                updateStorePickupProductAvailability(response.viewData);
+                handleAvailabilityOnStore(response.viewData);
+            }else{
+                updateStorePickupProductAvailability(response.viewData);
             }
             $.spinner().stop();
         },
@@ -28,6 +27,22 @@ $(document).on('click', '.cart-store-pickup', function (event) {
         }
     });
 });
+
+function handleAvailabilityOnStore(data) {
+    data.items.forEach(function (item) {
+        if (item.storePickupAvailable) {
+            $('.pickup-store-inventory-seperator .availabe-icon' + item.id).removeClass('d-none');
+            $('.pickup-store-inventory-seperator .availabe-msg' + item.id).removeClass('d-none');
+            $('.pickup-store-inventory-seperator .unavailable-icon' + item.id).addClass('d-none');
+            $('.pickup-store-inventory-seperator .unavailable-msg' + item.id).addClass('d-none');
+        } else {
+            $('.pickup-store-inventory-seperator .unavailable-icon' + item.id).removeClass('d-none');
+            $('.pickup-store-inventory-seperator .unavailable-msg' + item.id).removeClass('d-none');
+            $('.pickup-store-inventory-seperator .availabe-msg' + item.id).addClass('d-none');
+            $('.pickup-store-inventory-seperator .availabe-icon' + item.id).addClass('d-none');
+        }
+    });
+}
 
 function updateCartCSS(pickupFromStore) {
     if (pickupFromStore) {
@@ -44,22 +59,25 @@ function updateCartCSS(pickupFromStore) {
     }
 }
 
-function updateStorePickupProductAvailability() {
-    var pickupFromStore = $('.cart-store-pickup').prop('checked');
-    $('.remove-product').each(function (index, removeProduct) {
-        var storePickupAvailable = $(removeProduct).data('store-pickup-available');
-        if (pickupFromStore && storePickupAvailable == false) {
-            $('.checkout-btn').addClass('disabled');
-            setTimeout(function() {
-                $('.apple-pay-cart').attr('disabled', true);
-            }, 300);
-            $('.pickup-store-error').removeClass('d-none');
-            return;
-        } else {
-            $('.checkout-btn').removeClass('disabled');
-            $('.apple-pay-cart').attr('disabled', false);
-            $('.pickup-store-error').addClass('d-none');
-        }
-    });
-    updateCartCSS(pickupFromStore);
+function updateStorePickupProductAvailability(data) {
+    var allItems = $('.remove-product').data('store-pickup-available');
+    var isAllItemsAvailable;
+    var  pickupFromStore = $('.cart-store-pickup').prop('checked');
+    if (data != undefined && data.isAllItemsAvailable != undefined) {
+        isAllItemsAvailable = pickupFromStore ? data.isAllItemsAvailable : pickupFromStore;
+    } else {
+        isAllItemsAvailable = allItems;
+    }
+    if (isAllItemsAvailable == false && pickupFromStore == true) {
+        $('.checkout-btn').addClass('disabled');
+        setTimeout(function () {
+            $('.apple-pay-cart').attr('disabled', true);
+        }, 300);
+        $('.pickup-store-error').removeClass('d-none');
+        return;
+    } else {
+        $('.checkout-btn').removeClass('disabled');
+        $('.apple-pay-cart').attr('disabled', false);
+        $('.pickup-store-error').addClass('d-none');
+    }
 }

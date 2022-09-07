@@ -42,7 +42,6 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
    var isGiftWrapEnabled;
    var isPdpStorePickup = true;
    var collectionName;
-   var isPdpStorePickup = true;
    var productDecimalPrice = 0.0;
 
    var strapGuideContent = ContentMgr.getContent('strap-guide-text-configs');

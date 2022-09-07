@@ -95,6 +95,7 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
     viewData.readyToOrder = readyToOrder;
     viewData.ecommerceFunctionalityEnabled = !empty(Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled) ? Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled : false;
     viewData.customURL = customURL;
+
     res.setViewData(viewData);
     Object.keys(req.querystring).forEach(function (key) {
         if (req.querystring[key] === 'true') {

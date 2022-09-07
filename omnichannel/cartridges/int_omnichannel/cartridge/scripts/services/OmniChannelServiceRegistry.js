@@ -67,7 +67,7 @@ function getAPIServiceConfigs() {
         ]
     }
     var serviceConfig = {
-        mockCall: function (svc, args) {
+        call: function (svc, args) {
             return {
                 statusCode: 200,
                 statusMessage: "Success",
@@ -99,12 +99,11 @@ function getOmniChannelInventoryAPIService(serviceID, endpoint) {
     var serviceConfig = getAPIServiceConfigs();
     var dataService = LocalServiceRegistry.createService(serviceID, serviceConfig);
 
-    var baseUrl = dataService.getConfiguration().getCredential().URL;
-    var url = baseUrl.toString();
-    url = url.replace('{shortCode}', sitePreferences.omniChannelShortCode).replace('{version}', sitePreferences.omniChannelVersion);
+    var getCredentials = dataService.getConfiguration().getCredential();
+    var url = getCredentials.URL.toString();
+    url = url.replace('{{short_code}}', getCredentials.custom.short_code);
     if (!empty(endpoint)) {
-        endpoint = endpoint.replace('{organizationId}', sitePreferences.omniChannelOrganizationId)
-        url = url + endpoint;
+        url = endpoint.replace('{{api_url}}', url).replace('{{tenant_group_id}}', getCredentials.custom.tenant_group_id).replace('{{api_version}}', getCredentials.custom.version);
     }
     dataService.setURL(url);
     return dataService;

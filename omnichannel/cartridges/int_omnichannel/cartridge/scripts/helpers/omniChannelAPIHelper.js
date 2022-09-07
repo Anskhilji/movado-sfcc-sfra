@@ -2,6 +2,7 @@
 
 var OmniChannelServiceRegistry = require('~/cartridge/scripts/services/OmniChannelServiceRegistry');
 var OmniChannelRequestModel = require('~/cartridge/scripts/model/OmniChannelRequestModel');
+var CommerceServiceModel = require("*/cartridge/scripts/CommerceService/models/CommerceServiceModel");
 var Logger = require('dw/system/Logger').getLogger('OmniChannel');
 var Resource = require('dw/web/Resource');
 
@@ -32,8 +33,8 @@ function getAuthTokenFromAPI(requestParams) {
 
 function getAuthToken(params) {
     var accessToken = null;
-    accessToken = getAuthTokenFromAPI(params);
-    return accessToken;
+    accessToken = CommerceServiceModel.createCommerceAPILogin();
+    return accessToken.object.access_token;
 }
 
 function makeStoreList(apiResponse, prmStoresList) {
@@ -50,7 +51,7 @@ function makeStoreList(apiResponse, prmStoresList) {
             stateCode: store.stateCode,
             distance: store.custom ? store.custom.distance : store.distance,
             inventory: apiResponse.locations.filter(function (currentStore) {
-                return currentStore.ID == store.ID 
+                return currentStore.id == store.ID;
             })
         });
     })
@@ -60,17 +61,27 @@ function makeStoreList(apiResponse, prmStoresList) {
 function omniChannelInventoryAPICall(productIds, storesList, service) {
     var omniChannelInventoryAPIPayload = OmniChannelRequestModel.generateOmniChannelInventoryAPIPayLoad(productIds, storesList);
     var responsePayload = null;
+    var newStoresList;
+    var errorMessage;
     var result = {
         message: Resource.msg('omnichannel.inventory.event.api', 'common', null),
         success: false,
         response: null
     }
     try {
-        responsePayload = service.setMock().call(omniChannelInventoryAPIPayload);
+        responsePayload = service.call(omniChannelInventoryAPIPayload);
     } catch (e) {
         Logger.error('Error Occured While Calling omniChannelInventoryAPICall and Error is : {0}', e.toString());
     }
-    if (!empty(responsePayload.object) && !empty(responsePayload.object.locations) && !empty(responsePayload.object.locations.length > 0)) {
+    errorMessage = responsePayload.status == 'ERROR' ? JSON.parse(responsePayload.errorMessage) : '';
+    if (errorMessage.errorCode == 'LocationDoesNotExist') {
+        newStoresList = [];
+        storesList.filter(function (store) {
+            store.ID != errorMessage.location ? newStoresList.push(store) : null;
+        });
+       return omniChannelInventoryAPICall(productIds, newStoresList, service);
+
+    } else if (!empty(responsePayload.object) && !empty(responsePayload.object.locations) && !empty(responsePayload.object.locations.length > 0)) {
         result.success = true;
         result.response = makeStoreList(responsePayload.object, storesList);
     } else {
@@ -80,8 +91,54 @@ function omniChannelInventoryAPICall(productIds, storesList, service) {
     }
     return result;
 }
+
+
+function setLineItemInventory(items, lineItemsInventory, viewData) {
+    //Custom:Start  Update lineItems array if its available for pickup store
+    var itemInventory = [];
+    var unavailableProducts = [];
+    items.forEach(function (item) {
+        if (lineItemsInventory && lineItemsInventory.length > 0) {
+            var currentItemInventory = lineItemsInventory.filter(function (lineItem) {
+                return lineItem.sku == item.id
+            });
+            var itemInv = currentItemInventory.length > 0 ? currentItemInventory[0].ato : 0;
+            var loopInventory = itemInventory.filter(function (i) {
+                return i.itemId == item.id
+            }).map(function (obj) {
+                return obj.remain
+            });
+            if ((loopInventory.length == 0 || loopInventory > 0) && itemInv > 0) {
+                item.storePickupAvailable = true;
+                if (loopInventory.length == 0) {
+                    itemInventory.push({
+                        itemId: item.id,
+                        remain: itemInv - 1
+                    });
+                    return;
+                }
+                itemInventory.filter(function (i) {
+                    return i.itemId == item.id
+                }).map(function (obj) {
+                    obj.remain = obj.remain - 1
+                });
+            } else {
+                item.storePickupAvailable = false;
+                viewData.isAllItemsAvailable = false;
+            }
+        } else {
+            item.storePickupAvailable = false;
+            viewData.isAllItemsAvailable = false;
+        }
+    });
+    viewData.items = items;
+   return viewData;
+    //Custom:End
+}
+
 module.exports = {
     getAuthToken: getAuthToken,
     getOmniChannelInventoryAPIService: getOmniChannelInventoryAPIService,
-    omniChannelInventoryAPICall: omniChannelInventoryAPICall
+    omniChannelInventoryAPICall: omniChannelInventoryAPICall,
+    setLineItemInventory: setLineItemInventory
 }

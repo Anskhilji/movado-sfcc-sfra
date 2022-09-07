@@ -1,10 +1,11 @@
 'use strict';
 
 exports.API_ENDPOINT = {
-    AVAILABILITY: '/organizations/{organizationId}/availability-records/actions/get-availability',
+    AVAILABILITY: '{{api_url}}/inventory/availability/{{api_version}}/organizations/{{tenant_group_id}}/availability-records/actions/get-availability',
+    BATCH_UPDATE: '{{api_url}}/inventory/availability/{{api_version}}/organizations/{{tenant_group_id}}/availability-records/actions/batch-update'
 }
 
 exports.SERVICE_ID = {
-    OMNI_CHANNEL_AUTH: 'omnichannel.auth.api',
-    OMNI_CHANNEL_INVENTORY: 'omnichannel.inventory.event.api'
+    OMNI_CHANNEL_AUTH: 'commerceAPI.login',
+    OMNI_CHANNEL_INVENTORY: 'commerceAPI.rest'
 }

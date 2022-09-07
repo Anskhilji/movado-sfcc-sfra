@@ -14,9 +14,17 @@
     <div class="pdp-store-pickup-address">
         <div class="pdp-store-pickup-display-inline-block-store-icon"></div>
         <div class="pdp-store-pickup-display-inline-block">
-            <h3 class="pick-up-store-available-for-store">${pdict.storeObject.address1 ? Resource.msg('storepickup.avalibilty', 'storePickUp', null) : Resource.msg('storepickup.check.available.store.text', 'pdpStorePickUp', null)}</h3>
-            <p class="pick-up-store-available-pickup-stores js-store-modal" data-url='${URLUtils.https('PickupStore-GetStoresList', 'isPdp', pdict.isPdp)}'>${pdict.storeObject.address1 ? pdict.storeObject.address1 + ' ' + pdict.storeObject.phone : ''}</p>
-            <span class="pick-up-store-change-store js-store-modal" data-url='${URLUtils.https('PickupStore-GetStoresList', 'isPdp', pdict.isPdp)}'>${pdict.storeObject.address1 ? Resource.msg('store.pickup.set.change.store', 'pdpStorePickUp', null) : Resource.msg('storepickup.check.available.store', 'pdpStorePickUp', null)}</span>
+            <h3 class="pick-up-store-available-for-store">
+                <isif condition="${pdict.store.address1 && pdict.store.inventoryInStock > 0}">
+                    ${Resource.msg('storepickup.avalibilty', 'storePickUp', null)}
+                <iselseif condition="${pdict.store.address1 && pdict.store.inventoryInStock == 0}"/>
+                    ${Resource.msg('storepickup.unavalibilty', 'storePickUp', null)}
+                <iselse/>
+                    ${Resource.msg('storepickup.check.available.store.text', 'storePickUp', null)}
+                </isif>
+            </h3>
+            <p class="pick-up-store-available-pickup-stores js-store-modal" data-url='${URLUtils.https('PickupStore-GetStoresList', 'isPdp', pdict.isPdp)}'>${pdict.store.address1 ? pdict.store.address1 + ' ' + pdict.store.phone : ''}</p>
+            <span class="pick-up-store-change-store js-store-modal" data-url='${URLUtils.https('PickupStore-GetStoresList', 'isPdp', pdict.isPdp)}'>${pdict.store.address1 ? Resource.msg('store.pickup.set.change.store', 'pdpStorePickUp', null) : Resource.msg('storepickup.check.available.store', 'pdpStorePickUp', null)}</span>
         </div>
     </div>
 </div>

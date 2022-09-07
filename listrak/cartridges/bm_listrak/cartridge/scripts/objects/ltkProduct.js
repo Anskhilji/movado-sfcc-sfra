@@ -463,3 +463,4 @@ ltkProduct.prototype.getCaseDiameter = function (product) {
     return caseDiameter;
 }
 // Custom End
+// Custom End

@@ -6,6 +6,7 @@ var HashMap = require('dw/util/HashMap');
 var storeHelper = require('*/cartridge/scripts/helpers/storeHelper');
 var omniChannelAPI = require('*/cartridge/scripts/api/omniChannelAPI');
 var OmniChannelLog = require('dw/system/Logger').getLogger('omniChannel');
+var BasketMgr = require('dw/order/BasketMgr');
 var StoreMgr = require('dw/catalog/StoreMgr');
 
 server.get('GetStoresList', function (req, res, next) {
@@ -15,21 +16,35 @@ server.get('GetStoresList', function (req, res, next) {
     var isSearch = req.querystring.isSearch;
     var geolocation = req.geolocation;
     var productInventoryInStore = null;
+    var productIds = [];
 
     if (isSearch) {
         session.privacy.pickupStoreRadius = radius;
         session.privacy.pickupStoreZipCode = zipCode;
     }
-    var pickupStores = storeHelper.getStores(radius || session.privacy.pickupStoreRadius, geolocation, zipCode || session.privacy.pickupStoreZipCode);
-    if(pid) {
-        var productIds = [];
+
+    if (!(pid)) {
+        currentBasket = BasketMgr.getCurrentBasket();
+        if (currentBasket) {
+            var productLineItemsIterator = currentBasket.productLineItems.iterator();
+            while (productLineItemsIterator.hasNext()) {
+                var productLineItem = productLineItemsIterator.next();
+                productIds.push(productLineItem.productID);
+            }
+        }
+    } else {
         productIds.push(pid);
+    }
+
+    var pickupStores = storeHelper.getStores(radius || session.privacy.pickupStoreRadius, geolocation, zipCode || session.privacy.pickupStoreZipCode);
+    if (productIds && productIds.length > 0) {
         try {
             productInventoryInStore = omniChannelAPI.omniChannelInvetoryAPI(productIds, pickupStores.stores);
         } catch (error) {
             OmniChannelLog.error('(PickupStore.js -> OmniChannel) Error is occurred in omniChannelAPI.omniChannelInvetoryAPI', error.toString());
         }
     }
+    req.querystring;
     var path = '/modalpopup/pickupStoreList.isml';
     var tmplate = new Template(path);
     var map = new HashMap();
@@ -44,7 +59,7 @@ server.get('GetStoresList', function (req, res, next) {
         html: html.text,
         zipCode: session.privacy.pickupStoreZipCode,
         radius: session.privacy.pickupStoreRadius,
-        isPdp: isPdp
+        isPdp: true
     }
 
     res.json(result);
@@ -66,6 +81,7 @@ server.get('GetPreferredStore', function (req, res, next) {
     var phone;
     var stateCode;
     var inventory = 0;
+    var productInventoryInStock = 0;
     var productInventoryInCurrentStore;
     if (session.privacy.pickupStoreID) {
         preferedPickupStore = StoreMgr.getStore(session.privacy.pickupStoreID);
@@ -83,6 +99,11 @@ server.get('GetPreferredStore', function (req, res, next) {
                     && productInventoryInStore.response[0].inventory
                     && productInventoryInStore.response[0].inventory.length > 0
                     ? productInventoryInStore.response[0].inventory[0].records[0].reserved : 0;
+
+                productInventoryInStock = productInventoryInStore.success &&
+                    productInventoryInStore.response[0].inventory &&
+                    productInventoryInStore.response[0].inventory.length > 0 ?
+                    productInventoryInStore.response[0].inventory[0].records[0].ato : 0;
             } catch (error) {
                 OmniChannelLog.error('(Product.js -> OmniChannel) Error is occurred in omniChannelAPI.omniChannelInvetoryAPI ' + error.toString());
             }
@@ -93,7 +114,8 @@ server.get('GetPreferredStore', function (req, res, next) {
         address1: address1,
         phone: phone,
         stateCode: stateCode,
-        inventory: productInventoryInCurrentStore
+        inventory: productInventoryInCurrentStore,
+        inventoryInStock: productInventoryInStock
     }
     res.render(isPdp ? 'product/components/pdpStorePickUp' : 'modalpopup/modelPopUpButton', {
         store: store,
