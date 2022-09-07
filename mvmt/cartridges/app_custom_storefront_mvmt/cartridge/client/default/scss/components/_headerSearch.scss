@@ -296,6 +296,15 @@
         overflow-y: auto;
         flex-wrap: wrap;
       }
+
+      @include media-breakpoint-down(xs) {
+          max-height: 46vh;
+          overflow-x: hidden;
+      }
+
+      @include media-breakpoint-down(xsm) {
+          max-height: 32vh;
+      }
       
       & > .product {
 
@@ -309,11 +318,6 @@
           flex: 0 0 33.33%;
         }
 
-        @include media-breakpoint-down(xs) {
-          width: 50%;
-          flex: 0 0 50%;
-        }
-
         .product-tile-redesign {
 
           .plp-image-carousel {
@@ -325,6 +329,10 @@
               height: rem(128);
             }
 
+            @include media-breakpoint-down(xs) {
+                width: 100%;
+            }
+
             img {
               width: auto;
               height: rem(210);
@@ -332,8 +340,13 @@
               display: block;
 
               @include media-breakpoint-down(xs) {
-                width: rem(144);
-                height: rem(128);
+                  width: rem(144);
+                  height: rem(128);
+              }
+
+              @include media-breakpoint-down(xsm) {
+                  width: rem(104);
+                  height: rem(104);
               }
             }
           }
