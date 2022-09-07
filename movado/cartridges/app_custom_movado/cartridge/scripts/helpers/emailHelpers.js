@@ -195,17 +195,17 @@ function productLayout(products) {
               "<div class='column-50' style='width:100%; max-width:300px; display:inline-block; vertical-align:middle; margin:0;'>" +
                 "<table width='100%' cellpadding='0' cellspacing='0' border='0'>" +
                   "<tr>" +
-                    "<td style='padding: 20px 20px 0px 20px; border-width: 0px; border-style: none; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 24px; font-weight: normal; color: #4A4A4A; line-height: 1.5; text-align: left'>" +
+                    "<td style='padding: 20px 20px 0px 20px; border-width: 0px; border-style: none; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; font-size: 24px; font-weight: normal; color: #4A4A4A; line-height: 1.5; text-align: left'>" +
                        lineItem.productName +"<br>"+ 
                     "</td>" +
                   "</tr>" +
                   "<tr>" +
-                    "<td style='padding: 0px 20px 30px 20px; border-width: 0px; border-style: none; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 16px; font-weight: normal; color: #4A4A4A; line-height: 1.5; text-align: left'>" +
+                    "<td style='padding: 0px 20px 30px 20px; border-width: 0px; border-style: none; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; font-size: 16px; font-weight: normal; color: #4A4A4A; line-height: 1.5; text-align: left'>" +
                     'Quantity: ' + lineItem.quantity + 
                     "</td>" +
                   "</tr>" +
                   "<tr>" +
-                    "<td style='padding: 0px 20px 20px 20px; border-width: 0px; border-style: none; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 16px; font-weight: normal; color: #4A4A4A; line-height: 1.5; text-align: left'>" +
+                    "<td style='padding: 0px 20px 20px 20px; border-width: 0px; border-style: none; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; font-size: 16px; font-weight: normal; color: #4A4A4A; line-height: 1.5; text-align: left'>" +
                       'Price: ' + lineItem.priceTotal.price + 
                     "</td>" +
                   "</tr>" +
