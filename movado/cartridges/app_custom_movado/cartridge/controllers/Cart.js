@@ -87,7 +87,7 @@ server.append('AddProduct', function (req, res, next) {
                 });
             }
         }
-        // Custom Start MSS-1535 Gift Box Implementation
+        // Custom Start MSS-1935 Gift Box Implementation
         if (!empty(req.form.giftPid)) {
             Transaction.wrap(function () {
                 quantity = 1;
@@ -226,7 +226,7 @@ server.append('AddProduct', function (req, res, next) {
         }
         // Custom End
 
-        // Custom Start MSS-1535 Gift Box Implementation
+        // Custom Start MSS-1935 Gift Box Implementation
         if (req.form.isGiftItem && req.form.parentPid) {
             var lineItemsIterators = currentBasket.allProductLineItems.iterator();
             var currentLineItemsIterators;
@@ -511,7 +511,7 @@ server.prepend('RemoveProductLineItem', function (req, res, next) {
     var currentBasket = BasketMgr.getCurrentOrNewBasket();
     var deletedGiftPid = req.querystring.uuid;
 
-    // Custom Start MSS-1535 Gift Box Implementation
+    // Custom Start MSS-1935 Gift Box Implementation
     var giftsParentUUID = currentBasket.allProductLineItems.toArray().filter(function(product) {
         return product.UUID == deletedGiftPid;
     });
