@@ -30,14 +30,6 @@ function send(emailObj, template, context) {
         zeroAmount = Currency.getCurrency(context.order.currencyCode).symbol + '0.00';
     }
 
-    if (context.order && context.order.totals && context.order.totals.totalTax === Constants.TOTAL_TAX) {
-        context.order.totals.totalTax = null;
-    }
-
-    if (context.currentOrder && context.currentOrder.totals && context.currentOrder.totals.totalTax === Constants.TOTAL_TAX) {
-        context.currentOrder.totals.totalTax = null;
-    }
-
     if (listrakEnabled && listrakTransactionalSwitch == Constants.LTK_TRANSACTIONAL_SWITCH) {
         switch (emailObj.type) {
             case 1:
@@ -63,6 +55,9 @@ function send(emailObj, template, context) {
                 requestParams.email = context.email;
                 break;
             case 4:
+                if (context.order && context.order.totals && context.order.totals.totalTax === Constants.TOTAL_TAX) {
+                    context.order.totals.totalTax = null;
+                }
                 requestParams.messageContext = Constants.LTK_ORDER_CONTEXT;
                 requestParams.messageId = Site.current.preferences.custom.Listrak_OrderConfirmationMessageID;
                 requestParams.orderNumber = !empty(context.order.orderNo) ?  context.order.orderNo : context.order.orderNumber;
@@ -124,6 +119,9 @@ function send(emailObj, template, context) {
                 requestParams.email = context.email;
                 break;
             case 13:
+                if (context.currentOrder && context.currentOrder.totals && context.currentOrder.totals.totalTax === Constants.TOTAL_TAX) {
+                    context.currentOrder.totals.totalTax = null;
+                }
                 requestParams.messageContext = Constants.LTK_ORDER_CONTEXT;
                 requestParams.messageId = Site.current.preferences.custom.Listrak_OrderCancellationMessageID;
                 requestParams.orderNumber = !empty(context.order.orderNo) ? context.order.orderNo : '';
