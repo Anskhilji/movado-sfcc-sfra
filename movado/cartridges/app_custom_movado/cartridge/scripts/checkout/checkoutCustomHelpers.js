@@ -44,6 +44,7 @@ function sendOrderConfirmationEmail(order, locale) {
     var Locale = require('dw/util/Locale');
     var currentLocale = Locale.getLocale(locale);
     var ContentMgr = require('dw/content/ContentMgr');
+    var Site = require('dw/system/Site');
     var emailHeaderContent = ContentMgr.getContent('email-header');
     var emailFooterContent = ContentMgr.getContent('email-footer');
     var emailMarketingContent = ContentMgr.getContent('email-order-confirmation-marketing');
@@ -53,6 +54,7 @@ function sendOrderConfirmationEmail(order, locale) {
     var bottomPickInStoreContent = ContentMgr.getContent('email-confirmation-pick-in-store-bottom');
     var emailMarketingPickInStoreContent = ContentMgr.getContent('email-order-confirmation-marketing-pick-in-store');
     var orderModel = new OrderModel(order, { countryCode: currentLocale.country });
+    var isPickupStoreEnabled = !empty(Site.current.preferences.custom.isPickupStoreEnabled) ? Site.current.preferences.custom.isPickupStoreEnabled : false;
 
     var orderConfirmationObj = {
         emailHeader: (emailHeaderContent && emailHeaderContent.custom && emailHeaderContent.custom.body ? emailHeaderContent.custom.body : ''),
@@ -61,7 +63,7 @@ function sendOrderConfirmationEmail(order, locale) {
         bottomContent: (bottomContent && bottomContent.custom && bottomContent.custom.body ? bottomContent.custom.body : '')
     };
 
-    if (!empty(order.custom.pickInStore)) {
+    if (isPickupStoreEnabled && !empty(order) && !empty(order.custom.pickInStore)) {
         orderConfirmationObj = {
             emailHeader: (emailPickInStoreHeaderContent && emailPickInStoreHeaderContent.custom && emailPickInStoreHeaderContent.custom.body ? emailPickInStoreHeaderContent.custom.body : ''),
             emailFooter: (emailPickInStoreFooterContent && emailPickInStoreFooterContent.custom && emailPickInStoreFooterContent.custom.body ? emailPickInStoreFooterContent.custom.body : ''),
@@ -107,14 +109,18 @@ function sendOrderConfirmationEmail(order, locale) {
         cuurentOrder: order
     };
 
+    var subject = isPickupStoreEnabled && order.custom.pickInStore ? Resource.msgf('subject.order.confirmation.email.pickup', 'order', null, orderModel.orderNumber) : Resource.msgf('subject.order.confirmation.email', 'order', null, orderModel.orderNumber);
+
     var emailObj = {
         to: order.customerEmail,
-        subject: order.custom.pickInStore ? Resource.msgf('subject.order.confirmation.email.pickup', 'order', null, orderModel.orderNumber) : Resource.msgf('subject.order.confirmation.email', 'order', null, orderModel.orderNumber),
+        subject: subject,
         from: Site.current.getCustomPreferenceValue('customerServiceEmail') || 'no-reply@salesforce.com',
         type: emailHelpers.emailTypes.orderConfirmation
     };
 
-    emailHelpers.sendEmail(emailObj, order.custom.pickInStore ? 'checkout/confirmation/email/confirmationEmailPickInStore' : 'checkout/confirmation/email/confirmationEmail', orderObject);
+    var emailTemplate = isPickupStoreEnabled && order.custom.pickInStore ? 'checkout/confirmation/email/confirmationEmailPickInStore' : 'checkout/confirmation/email/confirmationEmail';
+
+    emailHelpers.sendEmail(emailObj, emailTemplate, orderObject);
     delete session.custom.currencyCode;
     checkoutLogger.debug('(checkoutCustomHelpers) -> sendOrderConfirmationEmail: Sent Order Confirmation mail to the current user, for order : ' + orderModel.orderNumber);
 }

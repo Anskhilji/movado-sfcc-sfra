@@ -11,7 +11,7 @@ $(document).ready(function () {
             radius: $radius.val(),
             isSearch: true
         }
-        $.spinner().start();
+        $('#pickupStoreModal').spinner().start();
         $.ajax({
             url: url,
             type: 'GET',
@@ -32,17 +32,18 @@ $(document).on('click', '.store-pickup-select', function () {
     var stringifyData = JSON.stringify($(this).data('store'));
     if (stringifyData !== '') {
         var storePickup = JSON.parse(stringifyData);
+        var storeAddress1 = storePickup.address1;
         var storeAddress = storePickup.address1 + ' ' + storePickup.stateCode + ' ' + storePickup.phone;
         $('.available-for-store, .pick-up-store-available-for-store').text(Resources.BOPIS_STORE_AVAILABLE_TEXT);
         $('.set-your-store').text(storePickup.address1);
         $('.available-pickup-stores, .pick-up-store-available-pickup-stores').text(storeAddress);
         $('.pick-up-store-change-store').text('Change');
         $('#pickupStoreModal').modal('hide');
-        setStoreInSession($(this).data('url'))
+        setStoreInSession($(this).data('url'), storeAddress1);
     }
 })
-function setStoreInSession(url) {
-
+function setStoreInSession(url, address) {
+    url = address ? url+'&storeAddress='+address : url;
     $.ajax({
         url: url,
         type: 'POST',
