@@ -33,17 +33,21 @@ $(document).on('click', '.store-pickup-select', function () {
     if (stringifyData !== '') {
         var storePickup = JSON.parse(stringifyData);
         var storeAddress1 = storePickup.address1;
-        var storeAddress = storePickup.address1 + ' ' + storePickup.stateCode + ' ' + storePickup.phone;
+        var storePostalCode = storePickup.postalCode;
+        var storeAddress = storePickup.address1 + ' ' + (storePickup.stateCode != undefined ? storePickup.stateCode + ' ' : '') + (storePostalCode != undefined ? storePostalCode : '');
+        var stateCode = storePickup.stateCode;
         $('.available-for-store, .pick-up-store-available-for-store').text(Resources.BOPIS_STORE_AVAILABLE_TEXT);
         $('.set-your-store').text(storePickup.address1);
         $('.available-pickup-stores, .pick-up-store-available-pickup-stores').text(storeAddress);
         $('.pick-up-store-change-store').text('Change');
         $('#pickupStoreModal').modal('hide');
-        setStoreInSession($(this).data('url'), storeAddress1);
+        setStoreInSession($(this).data('url'), storeAddress1, stateCode, storePostalCode);
     }
 })
-function setStoreInSession(url, address) {
-    url = address ? url+'&storeAddress='+address : url;
+function setStoreInSession(url, address, stateCode, storePostalCode) {
+    url = address ? url + '&storeAddress=' + address : url;
+    url = stateCode ? url + '&stateCode=' + stateCode : url;
+    url = storePostalCode ? url + '&storePostalCode=' + storePostalCode : url;
     $.ajax({
         url: url,
         type: 'POST',
