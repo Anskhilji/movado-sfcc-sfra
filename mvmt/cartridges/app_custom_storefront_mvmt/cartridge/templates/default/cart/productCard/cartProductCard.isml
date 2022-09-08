@@ -75,7 +75,7 @@
                         <isset name="giftBoxMessage" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxMessage) ? dw.system.Site.current.preferences.custom.giftBoxMessage : ''}" scope="page" />
                         <isif condition="${isGiftBoxAllowed && giftBoxEnabled && giftBoxSKUData.giftBoxSKUAvailability && !(pdict.giftOptions.indexOf(lineItem.UUID) > -1)}">
                            <div class="gift-box-wrapper  gift-box-wrapper-cart">
-                               <label class="gift-box-wrapper-label custom-control-label-pdp" for="gift-allowed-checkout">
+                               <label class="gift-box-wrapper-label custom-control-label-pdp">
                                     <input id="gift-allowed-checkout" type="checkbox" data-add-to-cart-url="${URLUtils.url('Cart-AddProduct')}" data-requested-page="${isCartPage}" name="gift-allowed-checkout" class="gift-allowed-checkbox gift-allowed-checkbox-mini giftbox-mini-${lineItem.UUID}" data-parent-pid="${lineItem.UUID}" data-pid="${lineItem.id}" value="${giftBoxSKUData.giftBoxSKU}">
                                     ${giftBoxMessage} ${giftBoxSKUData.giftBoxSKUPrice}
                                      <span class="checkmark"></span>
