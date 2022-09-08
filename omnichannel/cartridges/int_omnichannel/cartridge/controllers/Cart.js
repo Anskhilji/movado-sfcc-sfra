@@ -90,8 +90,6 @@ server.post(
             }
 
             omniChannelAPIHelper.setLineItemInventory(items, lineItemsInventory, viewData);
-
-
         } catch (error) {
             Logger.error('Error Occurred in Cart.Show During updating of pickInStore in CurrentBasket and LineItems and call OmniChannel Inventory API, Error: {0}', error.toString());
         }

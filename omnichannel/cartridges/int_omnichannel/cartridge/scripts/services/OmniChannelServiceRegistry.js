@@ -18,7 +18,6 @@ function getAuthorizationServiceConfigs() {
     return serviceConfig;
 }
 
-
 function getAPIServiceConfigs() {
     var response = {};
     var serviceConfig = {
