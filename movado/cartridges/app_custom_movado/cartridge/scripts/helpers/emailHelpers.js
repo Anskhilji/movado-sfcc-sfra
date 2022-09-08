@@ -30,14 +30,6 @@ function send(emailObj, template, context) {
         zeroAmount = Currency.getCurrency(context.order.currencyCode).symbol + '0.00';
     }
 
-    if (context.order && context.order.totals && context.order.totals.totalTax === Constants.TOTAL_TAX) {
-        context.order.totals.totalTax = null;
-    }
-
-    if (context.currentOrder && context.currentOrder.totals && context.currentOrder.totals.totalTax === Constants.TOTAL_TAX) {
-        context.currentOrder.totals.totalTax = null;
-    }
-
     if (listrakEnabled && listrakTransactionalSwitch == Constants.LTK_TRANSACTIONAL_SWITCH) {
         switch (emailObj.type) {
             case 1:
@@ -63,6 +55,9 @@ function send(emailObj, template, context) {
                 requestParams.email = context.email;
                 break;
             case 4:
+                if (context.order && context.order.totals && context.order.totals.totalTax === Constants.TOTAL_TAX) {
+                    context.order.totals.totalTax = null;
+                }
                 requestParams.messageContext = Constants.LTK_ORDER_CONTEXT;
                 requestParams.messageId = Site.current.preferences.custom.Listrak_OrderConfirmationMessageID;
                 requestParams.orderNumber = !empty(context.order.orderNo) ?  context.order.orderNo : context.order.orderNumber;
@@ -124,6 +119,9 @@ function send(emailObj, template, context) {
                 requestParams.email = context.email;
                 break;
             case 13:
+                if (context.currentOrder && context.currentOrder.totals && context.currentOrder.totals.totalTax === Constants.TOTAL_TAX) {
+                    context.currentOrder.totals.totalTax = null;
+                }
                 requestParams.messageContext = Constants.LTK_ORDER_CONTEXT;
                 requestParams.messageId = Site.current.preferences.custom.Listrak_OrderCancellationMessageID;
                 requestParams.orderNumber = !empty(context.order.orderNo) ? context.order.orderNo : '';
@@ -197,17 +195,17 @@ function productLayout(products) {
               "<div class='column-50' style='width:100%; max-width:300px; display:inline-block; vertical-align:middle; margin:0;'>" +
                 "<table width='100%' cellpadding='0' cellspacing='0' border='0'>" +
                   "<tr>" +
-                    "<td style='padding: 20px 20px 0px 20px; border-width: 0px; border-style: none; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 24px; font-weight: normal; color: #4A4A4A; line-height: 1.5; text-align: left'>" +
+                    "<td style='padding: 20px 20px 0px 20px; border-width: 0px; border-style: none; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; font-size: 24px; font-weight: normal; color: #4A4A4A; line-height: 1.5; text-align: left'>" +
                        lineItem.productName +"<br>"+ 
                     "</td>" +
                   "</tr>" +
                   "<tr>" +
-                    "<td style='padding: 0px 20px 30px 20px; border-width: 0px; border-style: none; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 16px; font-weight: normal; color: #4A4A4A; line-height: 1.5; text-align: left'>" +
+                    "<td style='padding: 0px 20px 30px 20px; border-width: 0px; border-style: none; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; font-size: 16px; font-weight: normal; color: #4A4A4A; line-height: 1.5; text-align: left'>" +
                     'Quantity: ' + lineItem.quantity + 
                     "</td>" +
                   "</tr>" +
                   "<tr>" +
-                    "<td style='padding: 0px 20px 20px 20px; border-width: 0px; border-style: none; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 16px; font-weight: normal; color: #4A4A4A; line-height: 1.5; text-align: left'>" +
+                    "<td style='padding: 0px 20px 20px 20px; border-width: 0px; border-style: none; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; font-size: 16px; font-weight: normal; color: #4A4A4A; line-height: 1.5; text-align: left'>" +
                       'Price: ' + lineItem.priceTotal.price + 
                     "</td>" +
                   "</tr>" +
