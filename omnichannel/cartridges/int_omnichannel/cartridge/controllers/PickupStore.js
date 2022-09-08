@@ -67,8 +67,14 @@ server.get('GetStoresList', function (req, res, next) {
 });
 
 server.post('SetStoreIDSession', function (req, res, next) {
-    var storeID = req.querystring.storeID;
+    var storeID = (!empty(req.querystring.storeID)) ? req.querystring.storeID : '';
+    var storeAddress = (!empty(req.querystring.storeAddress)) ? req.querystring.storeAddress : '';
+    var stateCode = (!empty(req.querystring.stateCode)) ? req.querystring.stateCode : '';
+    var storePostalCode = (!empty(req.querystring.storePostalCode)) ? req.querystring.storePostalCode : '';
     session.privacy.pickupStoreID = storeID;
+    session.privacy.storeAddress = storeAddress;
+    session.privacy.stateCode = stateCode;
+    session.privacy.storePostalCode = storePostalCode;
     res.json(true);
     next();
 });

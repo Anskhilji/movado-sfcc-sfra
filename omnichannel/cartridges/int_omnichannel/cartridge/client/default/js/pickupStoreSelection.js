@@ -32,7 +32,10 @@ $(document).on('click', '.store-pickup-select', function () {
     var stringifyData = JSON.stringify($(this).data('store'));
     if (stringifyData !== '') {
         var storePickup = JSON.parse(stringifyData);
-        var storeAddress = (storePickup.address1 || '') + ' ' + (storePickup.stateCode || '') + ' ' + (storePickup.phone || '');
+        var storeAddress1 = storePickup.address1;
+        var storePostalCode = storePickup.postalCode;
+        var storeAddress = storePickup.address1 + ' ' + (storePickup.stateCode != undefined ? storePickup.stateCode + ' ' : '') + (storePostalCode != undefined ? storePostalCode : '');
+        var stateCode = storePickup.stateCode;
         $('.available-for-store, .pick-up-store-available-for-store').text(Resources.BOPIS_STORE_AVAILABLE_TEXT);
         $('.set-your-store').text(storePickup.address1);
         $('.available-pickup-stores, .pick-up-store-available-pickup-stores').text(storeAddress);
@@ -42,16 +45,17 @@ $(document).on('click', '.store-pickup-select', function () {
             $('.pdp-store-pickup-store-icon').addClass('pdp-store-pickup-store-icon-available')
         }
         if ($('.pickup-store-cart-address').length) {
-            setStoreInSession($(this).data('url'), true);
+            setStoreInSession($(this).data('url'), storeAddress1, stateCode, storePostalCode, true);
         } else {
-            setStoreInSession($(this).data('url'), false);
+            setStoreInSession($(this).data('url'), storeAddress1, stateCode, storePostalCode, false);
         }
-
     }
 })
 
-function setStoreInSession(url, isFromCart) {
-
+function setStoreInSession(url, address, stateCode, storePostalCode, isFromCart) {
+    url = address ? url + '&storeAddress=' + address : url;
+    url = stateCode ? url + '&stateCode=' + stateCode : url;
+    url = storePostalCode ? url + '&storePostalCode=' + storePostalCode : url;
     $.ajax({
         url: url,
         type: 'POST',
@@ -60,7 +64,8 @@ function setStoreInSession(url, isFromCart) {
                 window.location.reload();
             }
             $.spinner().stop();
-        }, error: function (error) {
+        },
+        error: function (error) {
             $.spinner().stop();
         }
 

@@ -91,7 +91,7 @@
                 letter-spacing: rem(0.4);
                 line-height: rem(24);
             
-                &:placeholder {
+                &::placeholder {
                     color: $light-gray-brown;
                     font-family: $font-book-std;
                     font-size: rem(14);

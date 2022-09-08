@@ -15,7 +15,7 @@
         <div class="pdp-store-pickup-display-inline-block-store-icon"></div>
         <div class="pdp-store-pickup-display-inline-block">
             <h3 class="pick-up-store-available-for-store">${Resource.msg('storepickup.check.available.store.location', 'pdpStorePickUp', null)}</h3>
-            <p class="pick-up-store-available-pickup-stores js-store-modal" data-url='${URLUtils.https('PickupStore-GetStoresList', 'isPdp', pdict.isPdp)}'>${pdict.storeObject.address1 ? pdict.storeObject.address1 + ' ' + pdict.storeObject.phone : Resource.msg('storepickup.check.available.store', 'pdpStorePickUp', null)}</p>
+            <p class="pick-up-store-available-pickup-stores js-store-modal" data-url='${URLUtils.https('PickupStore-GetStoresList', 'isPdp', pdict.isPdp)}'>${pdict.storeObject.address1 ? pdict.storeObject.address1 + ' ' + (session.privacy.stateCode != undefined ? session.privacy.stateCode + ' ' : '') + (session.privacy.storePostalCode != undefined ? session.privacy.storePostalCode : '') : Resource.msg('storepickup.check.available.store', 'pdpStorePickUp', null)}</p>
         </div>
     </div>
 </div>
