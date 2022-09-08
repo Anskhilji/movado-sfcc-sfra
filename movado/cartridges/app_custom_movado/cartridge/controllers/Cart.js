@@ -15,7 +15,6 @@ server.prepend('AddProduct', function (req, res, next) {
     var Transaction = require('dw/system/Transaction');
     var BasketMgr = require('dw/order/BasketMgr');
     var currentBasket = BasketMgr.getCurrentBasket();
-    var ProductMgr = require('dw/catalog/ProductMgr');
 
     if (!empty(req.form.isGiftItem)) {
         var lineItemsIterator = currentBasket.allProductLineItems.iterator();
@@ -88,6 +87,7 @@ server.append('AddProduct', function (req, res, next) {
                 });
             }
         }
+        // Custom Start MSS-1935 Gift Box Implementation
         if (!empty(req.form.giftPid)) {
             Transaction.wrap(function () {
                 quantity = 1;
@@ -102,12 +102,22 @@ server.append('AddProduct', function (req, res, next) {
 
                     var lineItemsIterator = currentBasket.allProductLineItems.iterator();
                     var currentLineItemsIterator;
-                    var parentPid = req.form.pid;
-
                     while (lineItemsIterator.hasNext()) {
                         currentLineItemsIterator = lineItemsIterator.next();
-                        if (currentLineItemsIterator.productID == parentPid) {
+                        if (currentLineItemsIterator.UUID == res.viewData.pliUUID) {
                             currentLineItemsIterator.custom.giftPid = req.form.giftPid;
+                        }
+                    }
+
+                    var lineItemsIterators = currentBasket.allProductLineItems.iterator();
+                    var currentLineItemsIterators;
+                    while (lineItemsIterators.hasNext()) {
+                        currentLineItemsIterators = lineItemsIterators.next();
+                        if (currentLineItemsIterators.UUID == result.uuid) {
+                            Transaction.wrap(function () {
+                                currentLineItemsIterators.custom.giftParentUUID = res.viewData.pliUUID;
+                            });
+                            break;
                         }
                     }
                     cartHelper.ensureAllShipmentsHaveMethods(currentBasket);
@@ -115,6 +125,7 @@ server.append('AddProduct', function (req, res, next) {
                 }
             });
         }
+        // Custom End
         var productLineItems = currentBasket.productLineItems.iterator();
         var productLineItem;
         var quantity;
@@ -215,6 +226,7 @@ server.append('AddProduct', function (req, res, next) {
         }
         // Custom End
 
+        // Custom Start MSS-1935 Gift Box Implementation
         if (req.form.isGiftItem && req.form.parentPid) {
             var lineItemsIterators = currentBasket.allProductLineItems.iterator();
             var currentLineItemsIterators;
@@ -228,6 +240,7 @@ server.append('AddProduct', function (req, res, next) {
                 }
             }
         }
+        // Custom End
 
         res.setViewData({
             quantityTotal: quantityTotal,
@@ -498,6 +511,7 @@ server.prepend('RemoveProductLineItem', function (req, res, next) {
     var currentBasket = BasketMgr.getCurrentOrNewBasket();
     var deletedGiftPid = req.querystring.uuid;
 
+    // Custom Start MSS-1935 Gift Box Implementation
     var giftsParentUUID = currentBasket.allProductLineItems.toArray().filter(function(product) {
         return product.UUID == deletedGiftPid;
     });
@@ -512,6 +526,7 @@ server.prepend('RemoveProductLineItem', function (req, res, next) {
             break;
         }
     }
+    // Custom End
 
 	next();
 });
