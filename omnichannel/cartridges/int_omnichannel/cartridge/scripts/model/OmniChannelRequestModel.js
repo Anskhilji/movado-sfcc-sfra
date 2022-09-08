@@ -10,7 +10,7 @@ function generateAuthenticationPayLoad(params) {
 
 function generateStoreIDsArray(storesList) {
     var storeIds = [];
-    if (storeList && storeList.length > 0) {
+    if (storesList && storesList.length > 0) {
         for (var store in storesList) {
             storeIds.push(storesList[store].ID);
         }
