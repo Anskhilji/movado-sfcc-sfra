@@ -57,6 +57,11 @@
         &-unavailable {
           background: url("../../images/pickup-store-inventory-icon.svg")
             no-repeat center;
+
+              &.store-pick-store-unavailable {
+                background: url("../../images/pickupstore-icon.svg")
+                  no-repeat center;
+              }
         }
 
         &-online {
@@ -118,18 +123,24 @@
       }
     }
 
-    .custom-checkbox .pickup-checkbox {
-      &::before {
-        border: rem(2) solid $black-dark;
-        border-radius: rem(3);
-        box-shadow: none;
-        background: transparent;
-      }
+    .custom-checkbox {
 
-      &.disabled{
-        border: rem(2) solid $gray-info;
-      }
-    }
+        .pickup-checkbox {
+            &::before {
+                border: rem(2) solid $black-dark;
+                border-radius: rem(3);
+                box-shadow: none;
+                background: transparent;
+            }
+
+            &.disabled{
+                border: rem(2) solid $gray-info;
+                &::before {
+                  border-color: $light-black2;
+                }
+            }
+        }
+    } 
   }
 
   &-error {

@@ -16,7 +16,7 @@
                    
                 </div>
                 <iselse/>
-                    <span class="pickup-store-inventory-status-icon pickup-store-inventory-status-icon-unavailable"></span>
+                    <span class="pickup-store-inventory-status-icon pickup-store-inventory-status-icon-unavailable store-pick-store-unavailable"></span>
                     <span class="unavailable-text">${Resource.msg('storepickup.check.avalibilty', 'storePickUp', null)}</span>
             </isif>
         </div>

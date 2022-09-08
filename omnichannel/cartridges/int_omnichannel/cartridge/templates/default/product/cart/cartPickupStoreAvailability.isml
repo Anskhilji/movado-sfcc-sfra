@@ -1,6 +1,6 @@
 <div class="pickup-store-rectangle">
     <div class="form-group checkbox">
-        <div class="custom-control custom-checkbox">
+        <div class="custom-control custom-checkbox ${session.privacy.pickupStoreID ? '' : 'disabled'}">
             <input type="checkbox" class="custom-control-input form-check cart-store-pickup" id="enableStorePickup" data-url="${URLUtils.url('Cart-SetPickupFromStore')}"
             ${session.privacy.pickupFromStore ? 'Checked' : ''}
             ${session.privacy.pickupStoreID ? '' : 'disabled'}>
