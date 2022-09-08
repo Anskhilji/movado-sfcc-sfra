@@ -507,23 +507,40 @@ server.get(
 
 server.prepend('RemoveProductLineItem', function (req, res, next) {
     var BasketMgr = require('dw/order/BasketMgr');
+    var Site = require('dw/system/Site');
     var Transaction = require('dw/system/Transaction');
     var currentBasket = BasketMgr.getCurrentOrNewBasket();
+    var Constants = require('*/cartridge/utils/Constants');
     var deletedGiftPid = req.querystring.uuid;
 
-    // Custom Start MSS-1935 Gift Box Implementation
     var giftsParentUUID = currentBasket.allProductLineItems.toArray().filter(function(product) {
         return product.UUID == deletedGiftPid;
     });
-    var linesItemsIterator = currentBasket.allProductLineItems.iterator();
-    var currentsLineItemsIterator;
-    while (linesItemsIterator.hasNext()) {
-        currentsLineItemsIterator = linesItemsIterator.next();
-        if (currentsLineItemsIterator.UUID == giftsParentUUID[0].custom.giftParentUUID) {
-            Transaction.wrap(function () {
-                currentsLineItemsIterator.custom.giftPid = "";
-            });
-            break;
+    // Custom Start MSS-1935 Gift Box Implementation
+    if (Site.current.ID === 'MVMTUS' || Site.current.ID === 'MVMTEU') {
+        if (giftsParentUUID[0].custom.giftParentUUID) {
+            var linesItemsIterator = currentBasket.allProductLineItems.iterator();
+            var currentsLineItemsIterator;
+            while (linesItemsIterator.hasNext()) {
+                currentsLineItemsIterator = linesItemsIterator.next();
+                if (currentsLineItemsIterator.custom.giftPid) {
+                    Transaction.wrap(function () {
+                        currentsLineItemsIterator.custom.giftPid = "";
+                    });
+                }
+            }
+        }
+    } else {
+        var linesItemsIterator = currentBasket.allProductLineItems.iterator();
+        var currentsLineItemsIterator;
+        while (linesItemsIterator.hasNext()) {
+            currentsLineItemsIterator = linesItemsIterator.next();
+            if (currentsLineItemsIterator.UUID == giftsParentUUID[0].custom.giftParentUUID) {
+                Transaction.wrap(function () {
+                    currentsLineItemsIterator.custom.giftPid = "";
+                });
+                break;
+            }
         }
     }
     // Custom End
