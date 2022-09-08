@@ -9,3 +9,8 @@ exports.SERVICE_ID = {
     OMNI_CHANNEL_AUTH: 'commerceAPI.login',
     OMNI_CHANNEL_INVENTORY: 'commerceAPI.rest'
 }
+
+exports.ERRORS_TYPE = {
+    ERROR: 'ERROR',
+    LOCATION_NOT_EXIST: 'LocationDoesNotExist'
+}

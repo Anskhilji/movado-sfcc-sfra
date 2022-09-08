@@ -3,6 +3,7 @@
 var OmniChannelServiceRegistry = require('~/cartridge/scripts/services/OmniChannelServiceRegistry');
 var OmniChannelRequestModel = require('~/cartridge/scripts/model/OmniChannelRequestModel');
 var CommerceServiceModel = require("*/cartridge/scripts/CommerceService/models/CommerceServiceModel");
+var Constants = require('~/cartridge/scripts/helpers/utils/Constants');
 var Logger = require('dw/system/Logger').getLogger('OmniChannel');
 var Resource = require('dw/web/Resource');
 
@@ -73,8 +74,8 @@ function omniChannelInventoryAPICall(productIds, storesList, service) {
     } catch (e) {
         Logger.error('Error Occured While Calling omniChannelInventoryAPICall and Error is : {0}', e.toString());
     }
-    errorMessage = responsePayload.status == 'ERROR' ? JSON.parse(responsePayload.errorMessage) : '';
-    if (errorMessage.errorCode == 'LocationDoesNotExist') {
+    errorMessage = responsePayload.status == Constants.ERRORS_TYPE.ERROR ? JSON.parse(responsePayload.errorMessage) : '';
+    if (errorMessage.errorCode == Constants.ERRORS_TYPE.LOCATION_NOT_EXIST) {
         newStoresList = [];
         storesList.filter(function (store) {
             store.ID != errorMessage.location ? newStoresList.push(store) : null;
@@ -97,41 +98,47 @@ function setLineItemInventory(items, lineItemsInventory, viewData) {
     //Custom:Start  Update lineItems array if its available for pickup store
     var itemInventory = [];
     var unavailableProducts = [];
-    items.forEach(function (item) {
-        if (lineItemsInventory && lineItemsInventory.length > 0) {
-            var currentItemInventory = lineItemsInventory.filter(function (lineItem) {
-                return lineItem.sku == item.id
-            });
-            var itemInv = currentItemInventory.length > 0 ? currentItemInventory[0].ato : 0;
-            var loopInventory = itemInventory.filter(function (i) {
-                return i.itemId == item.id
-            }).map(function (obj) {
-                return obj.remain
-            });
-            if ((loopInventory.length == 0 || loopInventory > 0) && itemInv > 0) {
-                item.storePickupAvailable = true;
-                if (loopInventory.length == 0) {
-                    itemInventory.push({
-                        itemId: item.id,
-                        remain: itemInv - 1
+    try {
+        if (items && items.length > 0) {
+            items.forEach(function (item) {
+                if (lineItemsInventory && lineItemsInventory.length > 0) {
+                    var currentItemInventory = lineItemsInventory.filter(function (lineItem) {
+                        return lineItem.sku == item.id
                     });
-                    return;
+                    var itemInv = currentItemInventory.length > 0 ? currentItemInventory[0].ato : 0;
+                    var loopInventory = itemInventory.filter(function (i) {
+                        return i.itemId == item.id
+                    }).map(function (obj) {
+                        return obj.remain
+                    });
+                    if ((loopInventory.length == 0 || loopInventory > 0) && itemInv > 0) {
+                        item.storePickupAvailable = true;
+                        if (loopInventory.length == 0) {
+                            itemInventory.push({
+                                itemId: item.id,
+                                remain: itemInv - 1
+                            });
+                            return;
+                        }
+                        itemInventory.filter(function (i) {
+                            return i.itemId == item.id
+                        }).map(function (obj) {
+                            obj.remain = obj.remain - 1
+                        });
+                    } else {
+                        item.storePickupAvailable = false;
+                        viewData.isAllItemsAvailable = false;
+                    }
+                } else {
+                    item.storePickupAvailable = false;
+                    viewData.isAllItemsAvailable = false;
                 }
-                itemInventory.filter(function (i) {
-                    return i.itemId == item.id
-                }).map(function (obj) {
-                    obj.remain = obj.remain - 1
-                });
-            } else {
-                item.storePickupAvailable = false;
-                viewData.isAllItemsAvailable = false;
-            }
-        } else {
-            item.storePickupAvailable = false;
-            viewData.isAllItemsAvailable = false;
+            });
         }
-    });
-    viewData.items = items;
+        viewData.items = items;
+    } catch (e) {
+        Logger.error('Error Occured While Check Store Inventory on setLineItemInventory and Error is : {0}', e.toString());
+    }
    return viewData;
     //Custom:End
 }

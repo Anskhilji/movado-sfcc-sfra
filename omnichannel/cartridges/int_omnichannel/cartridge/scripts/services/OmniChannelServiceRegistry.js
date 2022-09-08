@@ -20,52 +20,7 @@ function getAuthorizationServiceConfigs() {
 
 
 function getAPIServiceConfigs() {
-    var response = {
-        "locations": [
-            {
-                "id": "warehouse5",
-                "records": [
-                    {
-                        "sku": "sku123",
-                        "atf": 2,
-                        "ato": 2,
-                        "onHand": 0,
-                        "reserved": 2,
-                        "safetyStockCount": 0,
-                        "effectiveDate": "2019-07-24T21:13:00Z",
-                        "futures": [
-                            {
-                                "expectedDate": "2019-08-24T21:13:00Z",
-                                "quantity": 10.25
-                            }
-                        ]
-                    }
-                ]
-            }
-        ],
-        "groups": [
-            {
-                "id": "UnitedStates",
-                "records": [
-                    {
-                        "sku": "sku123",
-                        "atf": 2,
-                        "ato": 2,
-                        "onHand": 0,
-                        "reserved": 2,
-                        "safetyStockCount": 0,
-                        "effectiveDate": "2019-07-24T21:13:00Z",
-                        "futures": [
-                            {
-                                "expectedDate": "2019-08-24T21:13:00Z",
-                                "quantity": 10.25
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    }
+    var response = {};
     var serviceConfig = {
         call: function (svc, args) {
             return {
@@ -80,11 +35,7 @@ function getAPIServiceConfigs() {
             return args;
         },
         parseResponse: function (svc, client) {
-            if (svc.mock) {
-                return client.text;
-            } else {
-                return JSON.parse(client.text);
-            }
+            return JSON.parse(client.text);
         }
     };
     return serviceConfig;

@@ -3,18 +3,18 @@ $(function () {
     updateStorePickupProductAvailability();
 })
 $(document).on('click', '.cart-store-pickup', function (event) {
-    var url = $(this).data('url');
-    var pickupFromStore = $(this).prop('checked');
+    var $url = $(this).data('url');
+    var $pickupFromStore = $(this).prop('checked');
     $.ajax({
-        url: url,
+        url: $url,
         data: {
-            pickupFromStore: pickupFromStore
+            pickupFromStore: $pickupFromStore
         },
         method: 'POST',
         success: function (response) {
-            if (pickupFromStore) {
-                var isAllItemsAvailable = response.viewData.isAllItemsAvailable ? true : false;
-                $('.remove-product').attr({'data-store-pickup-available': isAllItemsAvailable})
+            if ($pickupFromStore) {
+                var $isAllItemsAvailable = response.viewData.isAllItemsAvailable ? true : false;
+                $('.remove-product').attr({'data-store-pickup-available': $isAllItemsAvailable})
                 updateStorePickupProductAvailability(response.viewData);
                 handleAvailabilityOnStore(response.viewData);
             }else{
@@ -60,15 +60,15 @@ function updateCartCSS(pickupFromStore) {
 }
 
 function updateStorePickupProductAvailability(data) {
-    var allItems = $('.remove-product').data('store-pickup-available');
-    var isAllItemsAvailable;
-    var  pickupFromStore = $('.cart-store-pickup').prop('checked');
+    var $allItems = $('.remove-product').data('store-pickup-available');
+    var $isAllItemsAvailable;
+    var  $pickupFromStore = $('.cart-store-pickup').prop('checked');
     if (data != undefined && data.isAllItemsAvailable != undefined) {
-        isAllItemsAvailable = pickupFromStore ? data.isAllItemsAvailable : pickupFromStore;
+        $isAllItemsAvailable = $pickupFromStore ? data.isAllItemsAvailable : $pickupFromStore;
     } else {
-        isAllItemsAvailable = allItems;
+        $isAllItemsAvailable = $allItems;
     }
-    if (isAllItemsAvailable == false && pickupFromStore == true) {
+    if ($isAllItemsAvailable == false && $pickupFromStore == true) {
         $('.checkout-btn').addClass('disabled');
         setTimeout(function () {
             $('.apple-pay-cart').attr('disabled', true);

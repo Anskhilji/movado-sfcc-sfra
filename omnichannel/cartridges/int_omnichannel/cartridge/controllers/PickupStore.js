@@ -17,6 +17,9 @@ server.get('GetStoresList', function (req, res, next) {
     var geolocation = req.geolocation;
     var productInventoryInStore = null;
     var productIds = [];
+    var path = '/modalpopup/pickupStoreList.isml';
+    var tmplate = new Template(path);
+    var map = new HashMap();
 
     if (isSearch) {
         session.privacy.pickupStoreRadius = radius;
@@ -44,10 +47,6 @@ server.get('GetStoresList', function (req, res, next) {
             OmniChannelLog.error('(PickupStore.js -> OmniChannel) Error is occurred in omniChannelAPI.omniChannelInvetoryAPI', error.toString());
         }
     }
-    req.querystring;
-    var path = '/modalpopup/pickupStoreList.isml';
-    var tmplate = new Template(path);
-    var map = new HashMap();
 
     map.put('pickupStore', productInventoryInStore && productInventoryInStore.success ? productInventoryInStore.response : pickupStores.stores);
     map.put('selectedStore', session.privacy.pickupStoreID);

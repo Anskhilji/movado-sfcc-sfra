@@ -3,15 +3,17 @@
 function generateAuthenticationPayLoad(params) {
     return {
         "grant_type": "client_credentials",
-        "client_id": '4b394b43-96fb-45ab-afec-f77a9c52f3e1',
-        "client_secret": 'bp6VwFf5te7YHPIx3syB',
+        "client_id": params.clientID,
+        "client_secret": params.clientSecret,
     };
 }
 
 function generateStoreIDsArray(storesList) {
     var storeIds = [];
-    for(var store in storesList){
-        storeIds.push(storesList[store].ID);
+    if (storeList && storeList.length > 0) {
+        for (var store in storesList) {
+            storeIds.push(storesList[store].ID);
+        }
     }
     return storeIds;
 }

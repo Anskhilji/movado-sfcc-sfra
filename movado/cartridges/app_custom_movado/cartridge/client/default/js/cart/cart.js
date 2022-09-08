@@ -417,8 +417,8 @@ function displayMessageAndRemoveFromCart(data) {
 
 function updateStorePickupProductAvailability() {
     $('.remove-product').each(function (index, removeProduct) {
-        var storePickupAvailable = $(removeProduct).data('store-pickup-available');
-        if (storePickupAvailable == false) {
+        var $storePickupAvailable = $(removeProduct).data('store-pickup-available');
+        if ($storePickupAvailable == false) {
             $('.checkout-btn').addClass('disabled');
             $('.apple-pay-cart').attr('disabled', true);
 
