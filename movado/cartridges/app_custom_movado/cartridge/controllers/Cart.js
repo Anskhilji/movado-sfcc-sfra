@@ -29,9 +29,27 @@ server.prepend('AddProduct', function (req, res, next) {
                 break;
             }
         }
-    }
+    } 
     next();
 });
+
+//Show add to Cart Button as Remote Include
+server.get('ShowAddProductButton', function (req, res, next) {
+    var isProductRestricted = req.querystring.isProductRestricted;
+    var productId = req.querystring.productId;
+    var readyToOrder = req.querystring.readyToOrder;
+    var productAvailability = req.querystring.productAvailability;
+
+    res.render('product/components/addToCartButton', {
+        isProductRestricted: isProductRestricted,
+        productId: productId,
+        readyToOrder: readyToOrder,
+        productAvailability: productAvailability
+    });
+
+    next();
+});
+
 // Added custom code for personalization text for Engraving and Embossing
 server.append('AddProduct', function (req, res, next) {
     var BasketMgr = require('dw/order/BasketMgr');

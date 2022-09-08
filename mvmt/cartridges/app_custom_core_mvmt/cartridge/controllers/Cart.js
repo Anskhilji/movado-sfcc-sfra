@@ -30,6 +30,18 @@ server.replace('MiniCart', server.middleware.include, function (req, res, next) 
     next();
 });
 
+//Show add to Cart Button as Remote Include
+server.replace('ShowAddProductButton', function (req, res, next) {
+    var product = req.querystring.product;
+
+    res.render('product/components/showCartButtonProduct', {
+        product: product
+    });
+
+    next();
+});
+
+
 server.get('MiniCartCheckout', server.middleware.include, function (req, res, next) {
     var BasketMgr = require('dw/order/BasketMgr');
 
