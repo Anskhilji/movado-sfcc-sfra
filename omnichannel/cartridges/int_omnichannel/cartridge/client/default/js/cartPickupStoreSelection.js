@@ -30,33 +30,22 @@ $(document).on('click', '.cart-store-pickup', function (event) {
 
 function handleAvailabilityOnStore(data) {
     data.items.forEach(function (item) {
+        var $pickUpStoreAvailableIcon = $('.pickup-store-inventory-seperator .availabe-icon' + item.id);
+        var $pickUpStoreAvailableText = $('.pickup-store-inventory-seperator .availabe-msg' + item.id);
+        var $pickUpStoreUnavailableIcon = $('.pickup-store-inventory-seperator .unavailable-icon' + item.id);
+        var $pickUpStoreUnavailableText = $('.pickup-store-inventory-seperator .unavailable-msg' + item.id);
         if (item.storePickupAvailable) {
-            $('.pickup-store-inventory-seperator .availabe-icon' + item.id).removeClass('d-none');
-            $('.pickup-store-inventory-seperator .availabe-msg' + item.id).removeClass('d-none');
-            $('.pickup-store-inventory-seperator .unavailable-icon' + item.id).addClass('d-none');
-            $('.pickup-store-inventory-seperator .unavailable-msg' + item.id).addClass('d-none');
+            $pickUpStoreAvailableIcon.removeClass('d-none');
+            $pickUpStoreAvailableText.removeClass('d-none');
+            $pickUpStoreUnavailableIcon.addClass('d-none');
+            $pickUpStoreUnavailableText.addClass('d-none');
         } else {
-            $('.pickup-store-inventory-seperator .unavailable-icon' + item.id).removeClass('d-none');
-            $('.pickup-store-inventory-seperator .unavailable-msg' + item.id).removeClass('d-none');
-            $('.pickup-store-inventory-seperator .availabe-msg' + item.id).addClass('d-none');
-            $('.pickup-store-inventory-seperator .availabe-icon' + item.id).addClass('d-none');
+            $pickUpStoreUnavailableIcon.removeClass('d-none');
+            $pickUpStoreUnavailableText.removeClass('d-none');
+            $pickUpStoreAvailableIcon.addClass('d-none');
+            $pickUpStoreAvailableText.addClass('d-none');
         }
     });
-}
-
-function updateCartCSS(pickupFromStore) {
-    if (pickupFromStore) {
-        $('.line-item-name').addClass('pickup-store-line-item-name');
-        $('.total-amount').addClass('pickup-store-total-amount');
-        $('.product-detail').addClass('pickup-store-product-detail');
-        $('.product-info').addClass('pickup-store-product-info');
-    } else {
-        $('.line-item-name').removeClass('pickup-store-line-item-name');
-        $('.total-amount').removeClass('pickup-store-total-amount');
-        $('.product-detail').removeClass('pickup-store-product-detail');
-        $('.product-info').removeClass('pickup-store-product-info');
-        $('.pickup-store-error').addClass('d-none');
-    }
 }
 
 function updateStorePickupProductAvailability(data) {
