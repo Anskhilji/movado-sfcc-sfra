@@ -129,11 +129,17 @@ function sendOrderConfirmationEmail(order, locale) {
  * @param {Object} emailObject
  */
 function sendCancellationEmail(emailObject) {
+    var Site = require('dw/system/Site');
     var ContentMgr = require('dw/content/ContentMgr');
     var emailHeaderContent = ContentMgr.getContent('email-header');
     var emailFooterContent = ContentMgr.getContent('email-footer');
     var emailMarketingContent = ContentMgr.getContent('email-order-cancellation-marketing');
     var topContent = ContentMgr.getContent('email-cancellation-top');
+    var emailPickInStoreFooterContent = ContentMgr.getContent('email-footer-pick-in-store');
+    var emailPickInStoreHeaderContent = ContentMgr.getContent('email-header-pick-in-store');
+    var topContentPickInStoreContent = ContentMgr.getContent('email-cancalation-pick-in-store-top');
+    var emailMarketingPickInStoreContent = ContentMgr.getContent('email-order-cancalation-marketing-pick-in-store');
+    var isPickupStoreEnabled = !empty(Site.current.preferences.custom.isPickupStoreEnabled) ? Site.current.preferences.custom.isPickupStoreEnabled : false;
 
     var orderObject = {
         emailHeader: (emailHeaderContent && emailHeaderContent.custom && emailHeaderContent.custom.body ? emailHeaderContent.custom.body : ''),
@@ -146,13 +152,29 @@ function sendCancellationEmail(emailObject) {
         orderNumber: Resource.msgf('order.cancellation.email.number.heading', 'order', null, emailObject.orderNumber),
         order: emailObject.order
     };
+
+    if (isPickupStoreEnabled && !empty(emailObject.order) && !empty(emailObject.order.custom.pickInStore)) {
+        orderObject = {
+            emailHeader: (emailPickInStoreHeaderContent && emailPickInStoreHeaderContent.custom && emailPickInStoreHeaderContent.custom.body ? emailPickInStoreHeaderContent.custom.body : ''),
+            emailFooter: (emailPickInStoreFooterContent && emailPickInStoreFooterContent.custom && emailPickInStoreFooterContent.custom.body ? emailPickInStoreFooterContent.custom.body : ''),
+            emailMarketingContent: (emailMarketingPickInStoreContent && emailMarketingPickInStoreContent.custom && emailMarketingPickInStoreContent.custom.body ? emailMarketingPickInStoreContent.custom.body : ''),
+            topContent: (topContentPickInStoreContent && topContentPickInStoreContent.custom && topContentPickInStoreContent.custom.body ? topContentPickInStoreContent.custom.body : ''),
+            orderCancellationHeading: Resource.msg('order.cancellation.email.heading', 'order', null),
+            salution: Resource.msgf('order.cancellation.email.salution', 'order', null, emailObject.firstName, emailObject.lastName ? emailObject.lastName : ''),
+            orderProcess: Resource.msgf('order.cancellation.email.placed', 'order', null, emailObject.creationDate),
+            orderNumber: Resource.msgf('order.cancellation.email.number.heading', 'order', null, emailObject.orderNumber),
+            order: emailObject.order
+        };
+    }
+
     var emailObj = {
         to: emailObject.customerEmail,
-        subject: Resource.msgf('subject.order.cancellation.email', 'order', null, emailObject.orderNumber),
+        subject: isPickupStoreEnabled && emailObject.order.custom.pickInStore ? Resource.msgf('subject.order.cancellation.email.pickup', 'order', null, emailObject.orderNumber) : Resource.msgf('subject.order.cancellation.email', 'order', null, emailObject.orderNumber),
         from: Site.current.getCustomPreferenceValue('customerServiceEmail') || 'no-reply@salesforce.com',
         type: emailHelpers.emailTypes.orderCancellation
     };
-    emailHelpers.sendEmail(emailObj, 'order/email/cancellation', orderObject);
+    var emailTemplate = isPickupStoreEnabled && emailObject.order.custom.pickInStore ? 'order/email/cancellationEmailPickInStore' : 'order/email/cancellation';
+    emailHelpers.sendEmail(emailObj, emailTemplate, orderObject);
     checkoutLogger.debug('(checkoutCustomHelpers) -> sendCancellationEmail: Sent order cancellation mail to the current user, for order:' + emailObject.orderNumber);
 }
 
