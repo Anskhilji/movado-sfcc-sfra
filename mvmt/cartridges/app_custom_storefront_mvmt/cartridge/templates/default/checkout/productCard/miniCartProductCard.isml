@@ -110,10 +110,10 @@
         <isset name="giftBoxEnabled" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxEnabled) ? dw.system.Site.current.preferences.custom.giftBoxEnabled : false}" scope="page" />
         <isset name="giftBoxSKUData" value="${require('*/cartridge/scripts/helpers/productCustomHelper').getGiftBoxSKU(product)}" scope="page" />
         <isset name="giftBoxMessage" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxMessage) ? dw.system.Site.current.preferences.custom.giftBoxMessage : ''}" scope="page" />
-        <isif condition="${isGiftBoxAllowed && giftBoxEnabled && giftBoxSKUData.giftBoxSKUAvailability && !(pdict.giftOptions.indexOf(lineItem.id) > -1)}">
+        <isif condition="${isGiftBoxAllowed && giftBoxEnabled && giftBoxSKUData.giftBoxSKUAvailability && !(pdict.giftOptions.indexOf(lineItem.UUID) > -1)}">
             <div class="gift-box-wrapper">
-                <label for="gift-allowed-checkout" class="gift-box-wrapper-label custom-control-label-pdp">
-                    <input id="gift-allowed-checkout" type="checkbox" data-add-to-cart-url="${URLUtils.url('Cart-AddProduct')}" name="gift-allowed-checkout" class="gift-box-wrapper-checkbox gift-allowed-checkbox gift-allowed-checkbox-mini giftbox-mini-${lineItem.id}" data-parent-pid="${lineItem.id}" data-pid="${lineItem.id}" value="${giftBoxSKUData.giftBoxSKU}">
+                <label class="gift-box-wrapper-label custom-control-label-pdp">
+                    <input id="gift-allowed-checkout" type="checkbox" data-add-to-cart-url="${URLUtils.url('Cart-AddProduct')}" name="gift-allowed-checkout" class="gift-box-wrapper-checkbox gift-allowed-checkbox gift-allowed-checkbox-mini giftbox-mini-${lineItem.UUID}" data-parent-pid="${lineItem.UUID}" data-pid="${lineItem.id}" value="${giftBoxSKUData.giftBoxSKU}">
                     ${giftBoxMessage} ${giftBoxSKUData.giftBoxSKUPrice}
                     <span class="checkmark"></span>
                 </label>
