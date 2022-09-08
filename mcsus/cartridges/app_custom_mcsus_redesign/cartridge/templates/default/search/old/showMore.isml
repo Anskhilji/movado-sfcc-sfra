@@ -5,16 +5,17 @@
 >
     <!--- More button --->
     <isif condition="${pdict.productSearch.showMoreUrl !== ''}">
-    <iscomment> Custom Start: Remove the bootstrap columns classes </iscomment>
         <div class="show-more">
             <div class="text-center">
                 <button class="btn btn-outline-primary col-12 col-sm-5"
-                        data-url="${pdict.productSearch.showMoreUrl}">
+                        data-url="${pdict.productSearch.showMoreUrl}"
+                        data-page-number="${pdict.productSearch.pageNumber}"
+                        data-category-id="${pdict.productSearch.category.id}"
+                >
                     ${Resource.msg('button.more', 'search', null)}
                 </button>
             </div>
         </div>
-    <iscomment> Custom End</iscomment>
     </isif>
 
     <input type="hidden" class="permalink" value="${pdict.productSearch.permalink}" />
