@@ -107,10 +107,6 @@
                                     <isinclude url="${URLUtils.https('Product-ShowMcsProdutPrice', 'pid', product.id)}"/>
                                 <iscomment> Custom: End </iscomment>
                             </div>
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
                             <isinclude template="product/components/promotions" />
                         </div>
                     </div>
