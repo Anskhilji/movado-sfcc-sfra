@@ -499,6 +499,10 @@
         opacity: 0.5;
         padding: 0 rem(17);
         text-transform: uppercase;
+
+        @include media-breakpoint-down(md) {
+          font-size: rem(15);
+        }
     }
 
     .swatch-circle {
