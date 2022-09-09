@@ -219,7 +219,7 @@
                 </isif>
             </label>
             <input type="text" class="form-control shippingZipCode" id="shippingZipCode"
-                value="${session.privacy.pickupFromStore ? pdict.pickupStore.postalCode || '' : shippingAddress.postalCode||''}" <isprint value="${addressFields.postalCode.attributes}" encoding="off"/>
+                value="${session.privacy.pickupFromStore ? pdict.pickupStore.postalCode || '' : shippingAddress.postalCode||''}" <isprint value="${!session.privacy.pickupFromStore ? addressFields.postalCode.attributes : ''}" encoding="off"/>
                 autocomplete="shipping postal-code">
             <div class="invalid-feedback"><isprint value="${addressFields.postalCode.error}" ></div>
         </div>

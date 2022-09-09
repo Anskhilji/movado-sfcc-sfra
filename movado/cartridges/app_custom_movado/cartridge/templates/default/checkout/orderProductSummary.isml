@@ -9,7 +9,7 @@
             </div>
         </div>
         <isif condition="${session.privacy.pickupFromStore}">
-            <div class="checkout-pickup-items">${Resource.msgf('store.pickup.checkout.items', 'storePickUp', null,  pdict.order.items.totalQuantity)}</div>
+            <div class="checkout-pickup-items d-none">${Resource.msgf('store.pickup.checkout.items', 'storePickUp', null,  pdict.order.items.totalQuantity)}</div>
         </isif>
         <div class="product-summary-block">
             <isloop items="${pdict.order.shipping}" var="shippingModel">
