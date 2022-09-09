@@ -83,13 +83,13 @@
                 width: 100%;
                 border: rem(1) solid $light-gray-white;
                 background-color: $white-dark;
-                padding-left: rem(10);
+                padding: rem(12)x rem(0) rem(12) rem(10);
                 font-size: rem(14);
                 font-family: $font-book-std;
                 color: $light-gray-brown;
                 font-weight: 300;
                 letter-spacing: rem(0.4);
-                line-height: rem(24);
+                line-height: rem(40);
             
                 &::placeholder {
                     color: $light-gray-brown;
