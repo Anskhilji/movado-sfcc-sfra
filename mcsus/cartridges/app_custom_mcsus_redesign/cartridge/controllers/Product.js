@@ -40,8 +40,8 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
    var isEmbossEnabled;
    var isEngraveEnabled;
    var isGiftWrapEnabled;
+   var isPdpStorePickup = true;
    var collectionName;
-
    var productDecimalPrice = 0.0;
 
    var strapGuideContent = ContentMgr.getContent('strap-guide-text-configs');
@@ -143,6 +143,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
        relativeURL: URLUtils.url('Product-Show','pid', product.ID),
        explicitRecommendations: explicitRecommendations,
        strapGuideText: strapGuideText,
+       isPdpStorePickup: isPdpStorePickup,
        collectionName: collectionName,
        addToCartUrl: showProductPageHelperResult.addToCartUrl,
        isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
