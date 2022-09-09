@@ -2,7 +2,7 @@
 $(function () {
     updateStorePickupProductAvailability();
 })
-$(document).on('click', '.cart-store-pickup', function (event) {
+$(document).on('click', '.remove-btn.remove-product, .cart-store-pickup', function (event) {
     var $url = $(this).data('url');
     var $pickupFromStore = $(this).prop('checked');
     $.ajax({
@@ -49,7 +49,15 @@ function handleAvailabilityOnStore(data) {
 }
 
 function updateStorePickupProductAvailability(data) {
-    var $allItems = $('.remove-product').data('store-pickup-available');
+    var $allItems = false;
+    $('.remove-product').each(function(){
+        $allItems=$(this).data('store-pickup-available');
+        if($allItems == false){
+         return   $allItems = false;
+        }else{
+            $allItems = true;
+        }
+    });
     var $isAllItemsAvailable;
     var  $pickupFromStore = $('.cart-store-pickup').prop('checked');
     if (data != undefined && data.isAllItemsAvailable != undefined) {
