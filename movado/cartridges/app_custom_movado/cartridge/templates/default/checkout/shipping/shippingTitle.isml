@@ -1,4 +1,4 @@
-<isif condition="${session.privacy.pickupFromStore && order.custom.pickInStore}">
+<isif condition="${session.privacy.pickupFromStore && pdict.order.custom.BOPIS}">
     <p class="summary-section-label shipping-addr-label billing-details-label">${Resource.msg('label.order.your.detail', 'storePickUp', null)}:</p>
 <iselse/>
     <p class="summary-section-label shipping-addr-label">${Resource.msg('label.order.shipping.address', 'confirmation', null)}</p>

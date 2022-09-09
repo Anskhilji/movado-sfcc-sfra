@@ -6,7 +6,7 @@
 </isif>
 <isset name="affirm" value="${require('int_affirm/cartridge/scripts/affirm.ds')}" scope="page" />
 <div class="summary-details billing">
-   <isif condition="${session.privacy.pickupFromStore && order.custom.pickInStore}">
+   <isif condition="${session.privacy.pickupFromStore && pdict.order.custom.BOPIS}">
 	     <isinclude template="checkout/billing/storePickupAddressSummary" />
    <iselse/>
 	     <isinclude template="checkout/addressSummary" />
