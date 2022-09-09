@@ -291,7 +291,16 @@
 
       h3 {
           @include media-breakpoint-down(md) {
+              color: $night-rider;
+              font-family: $font-medium;
+              font-weight: 500;
               font-size: rem(15);
+              line-height: rem(16);
+              letter-spacing: rem(0.82);
+              margin-bottom: rem(5);
+              opacity: 0.5;
+              padding: 0 rem(2);
+              text-transform: uppercase;
           }
       }
 
