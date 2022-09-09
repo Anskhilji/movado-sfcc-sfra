@@ -289,6 +289,12 @@
 
   .suggested-products-caresoul {
 
+      h3 {
+          @include media-breakpoint-down(md) {
+              font-size: rem(15);
+          }
+      }
+
     .top-search-tiles {
 
       @include media-breakpoint-down(md) { 
