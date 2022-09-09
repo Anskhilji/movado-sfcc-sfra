@@ -131,7 +131,7 @@
                             <isif condition="${isPickupStoreEnabled}">
                                 <div class="pickup-store-old">
                                     <div class="pdp-store-pickup-wraper row">
-                                        <isinclude url="${URLUtils.url('PickupStore-GetPreferredStore', 'isPdp', pdict.isPdpStorePickup)}" />
+                                        <isinclude url="${URLUtils.url('PickupStore-GetPreferredStore', 'isPdp', pdict.isPdpStorePickup, 'pid', product.id)}" />
                                     </div>
                                 </div>
                             </isif>

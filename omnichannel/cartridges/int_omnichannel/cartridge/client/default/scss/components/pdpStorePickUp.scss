@@ -39,6 +39,24 @@
             }
         }
 
+        &-icon {
+            display: inline-block;
+            padding: rem(10);
+            margin-right: rem(10);
+    
+            &-default {
+                background: url('../../images/pickupstore-icon.svg') no-repeat center;
+            }
+
+            &-available {
+                background: url('../../images/pickup-store-inventory-icon.svg') no-repeat center;
+            }
+
+            &-unavailable {
+                background: url('../../images/pickupstore-icon.svg') no-repeat center;
+            } 
+            }
+
         &-address {
             display: flex;
             align-items: flex-start;

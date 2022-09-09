@@ -1,0 +1,4 @@
+<div class="pickup-store-error pickup-store-error-rectangle d-none">
+    <i class="pickup-store-error-icon"></i>
+    <span class="pickup-store-error pickup-store-error-text">${Resource.msg('store.pickup.cart.error', 'storePickUp', null)}</span>
+</div

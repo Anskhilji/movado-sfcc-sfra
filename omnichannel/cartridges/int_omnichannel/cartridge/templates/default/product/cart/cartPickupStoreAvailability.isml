@@ -1,0 +1,17 @@
+<div class="pickup-store-rectangle">
+    <div class="form-group checkbox">
+        <div class="custom-control custom-checkbox ${session.privacy.pickupStoreID ? '' : 'disabled'}">
+            <input type="checkbox" class="custom-control-input form-check cart-store-pickup" id="enableStorePickup" data-url="${URLUtils.url('Cart-SetPickupFromStore')}"
+            ${session.privacy.pickupFromStore ? 'Checked' : ''}
+            ${session.privacy.pickupStoreID ? '' : 'disabled'}>
+            <label class="custom-control-label checkbox-label pickup-checkbox ${session.privacy.pickupStoreID ? '' : 'disabled'}" for="enableStorePickup">
+                ${Resource.msg('store.pickup.cart.avalibility.checkbox', 'storePickUp', null);}
+            </label>
+        </div>
+    </div>
+    <div class="pickup-store-rectangle-store-detail">
+        <span class="pickup-store-cart-address">${(pdict.pickupStore.address1 || "") + ' ' + (pdict.pickupStore.stateCode || "")}</span>
+        <span class="change js-store-modal" data-url="${URLUtils.https('PickupStore-GetStoresList')}">${session.privacy.pickupStoreID ? Resource.msg('store.pickup.set.change.store', 'storePickUp', null) : Resource.msg('store.pickup.set.your.store.btn', 'storePickUp', null)}</span>
+    </div>
+</div>
+<isinclude template="product/cart/cartPickupStoreError" />
