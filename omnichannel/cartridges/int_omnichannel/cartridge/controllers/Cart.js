@@ -72,11 +72,13 @@ server.post(
             currentBasket = BasketMgr.getCurrentBasket();
             Transaction.wrap(function () {
                 if (currentBasket) {
+                    currentBasket.custom.BOPIS = storeFormPickUP;
                     var productLineItemsIterator = currentBasket.productLineItems.iterator();
                     while (productLineItemsIterator.hasNext()) {
                         var productLineItem = productLineItemsIterator.next();
                         productIds.push(productLineItem.productID);
                         items.push({id:productLineItem.product.ID});
+                        productLineItem.custom.BOPIS = storeFormPickUP;
                     }
                 }
             });

@@ -41,7 +41,7 @@ server.prepend('PlaceOrder', server.middleware.https, function (req, res, next) 
 			var preferedPickupStore = StoreMgr.getStore(session.privacy.pickupStoreID);
 			storeArray.push(preferedPickupStore);
 			apiResponse = omniChannelAPI.omniChannelInvetoryAPI(productIds, storeArray);
-			if (apiResponse && apiResponse.success && apiResponse.response.length > 0 && apiResponse.response[0].length > 0 && apiResponse.response[0].inventory.length > 0) {
+			if (apiResponse && apiResponse.success && apiResponse.response.length > 0 && apiResponse.response[0].inventory.length > 0) {
 				lineItemsInventory = apiResponse.response[0].inventory[0].records;
 			}
 			//Custom:Start  Update lineItems array if its available for pickup store
