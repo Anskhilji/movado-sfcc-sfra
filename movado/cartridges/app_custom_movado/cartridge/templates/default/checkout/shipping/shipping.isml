@@ -17,7 +17,7 @@
             <div class="card-header">
                  <iscomment> Custom Start: Add Amazon Pay Integeration</iscomment>
                 <isif condition="${pdict.order.amzPayRedirectURL}">
-                    <isif condition="${session.privacy.pickupFromStore}">
+                    <isif condition="${session.privacy.pickupFromStore && order.custom.pickInStore}">
                         <h4 class="pull-left store-label-details">${Resource.msg('heading.checkout.store.pickup', 'storePickUp', null)}</h4>
                     <iselse/>
                         <h4 class="pull-left">${Resource.msg('heading.checkout.shipping', 'checkout', null)}</h4>
@@ -25,7 +25,7 @@
                 
                     <span class="edit-shipping-first pull-right text_underline">${Resource.msg('action.edit.step', 'checkout', null)}</span>
                     <iselse>
-                        <isif condition="${session.privacy.pickupFromStore}">
+                        <isif condition="${session.privacy.pickupFromStore && order.custom.pickInStore}">
                             <h4 class="pull-left store-label-details">${Resource.msg('heading.checkout.store.pickup', 'storePickUp', null)}</h4>
                         <iselse/>
                             <h4 class="pull-left">${Resource.msg('heading.checkout.shipping', 'checkout', null)}</h4>

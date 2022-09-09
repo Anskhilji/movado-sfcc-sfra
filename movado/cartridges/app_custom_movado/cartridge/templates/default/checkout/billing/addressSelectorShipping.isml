@@ -1,4 +1,4 @@
-<isif condition="${!session.privacy.pickupFromStore && pdict.order.shipping[0].shippingAddress}">
+<isif condition="${!session.privacy.pickupFromStore && order.custom.pickInStore && pdict.order.shipping[0].shippingAddress}">
     <option disabled>${Resource.msg('msg.shipping.addresses', 'checkout', null)}</option>
     <isloop items="${pdict.order.shipping}" var="aShippingModel">
         <option value="${aShippingModel.UUID}"

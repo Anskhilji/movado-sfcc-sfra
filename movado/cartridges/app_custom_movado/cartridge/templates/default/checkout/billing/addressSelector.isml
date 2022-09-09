@@ -2,7 +2,7 @@
 <select name="addressSelector"
         class="addressSelector custom-select form-control"
         data-create-shipment-url="${URLUtils.https('Checkout-SetBillingAddress')}">
-        <isif condition="${session.privacy.pickupFromStore && !billingAddress}">
+        <isif condition="${session.privacy.pickupFromStore && order.custom.pickInStore && !billingAddress}">
              <option value="new" data-first-name="" data-last-name="" data-company-name="" data-address1="" data-address2=""
                 data-city="" data-state-code="" data-country-code="" data-postal-code="" data-phone="">
                 ${Resource.msg('msg.new.address', 'checkout', null)}
@@ -17,7 +17,7 @@
                 ${Resource.msg('msg.new.address', 'checkout', null)}
             </option>
         </isif>
-    <isif condition="${!session.privacy.pickupFromStore && (pdict.order.billing.matchingAddressId || !billingAddress)}">
+    <isif condition="${!session.privacy.pickupFromStore && order.custom.pickInStore && (pdict.order.billing.matchingAddressId || !billingAddress)}">
         <option value="new"
             data-first-name="" data-last-name="" data-company-name=""
             data-address1="" data-address2=""
@@ -26,7 +26,7 @@
             data-phone="">
             ${Resource.msg('msg.new.address', 'checkout', null)}
         </option>
-    <iselseif condition="${!session.privacy.pickupFromStore}"/>
+    <iselseif condition="${!session.privacy.pickupFromStore && order.custom.pickInStore}"/>
         <option value="manual-entry"
             data-first-name="${billingAddress.firstName||''}"
             data-last-name="${billingAddress.lastName||''}"

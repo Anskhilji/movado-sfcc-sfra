@@ -14,7 +14,7 @@
                     <isprint value="${pdict.order.creationDate}" style="DATE_SHORT" />
                 </span>
             </p>
-            <isif condition="${!session.privacy.pickupFromStore}">
+            <isif condition="${!session.privacy.pickupFromStore && order.custom.pickInStore}">
                 <p>
                     <span class="summary-section-label order-status-label">${Resource.msg('label.orderhistory.orderstatus','account',null)}</span>
                     <span class="summary-details order-status">

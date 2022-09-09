@@ -22,7 +22,7 @@ server.prepend(
     function (req, res, next) {
         //Custom Start: This code will update with the checkbox of pickup from store once we implement slide 12,13 in BOPIS
         var currentBasket;
-        if (session.privacy.pickupFromStore) {
+        if (session.privacy.pickupFromStore && order.custom.pickInStore) {
             try {
                 currentBasket = BasketMgr.getCurrentBasket();
                 Transaction.wrap(function () {

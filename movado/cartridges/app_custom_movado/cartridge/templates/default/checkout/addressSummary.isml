@@ -1,4 +1,4 @@
-<div class="${session.privacy.pickupFromStore ? 'address-summary mb-0' : 'address-summary'}">
+<div class="${session.privacy.pickupFromStore && order.custom.pickInStore ? 'address-summary mb-0' : 'address-summary'}">
 	<div>
 		<span class="firstName">
 		    <isif condition="${address && address.firstName}">${address.firstName}</isif>
@@ -7,7 +7,7 @@
 			<isif condition="${address && address.lastName}">${address.lastName}</isif>
 	    </span>
 	</div>
-	<isif condition="${!session.privacy.pickupFromStore}">
+	<isif condition="${!session.privacy.pickupFromStore && order.custom.pickInStore}">
 		<div class="companyName">
 			<isif condition="${address && address.companyName}">${address.companyName}</isif>
 		</div>

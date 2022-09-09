@@ -4,7 +4,7 @@
     <isset name="addressMode" value="${shippingModel.matchingAddressId ? 'edit' : 'new'}" scope="page" />
 </isif>
 <div class="card-body shipping-content">
-<isif condition="${session.privacy.pickupFromStore}">
+<isif condition="${session.privacy.pickupFromStore && order.custom.pickInStore}">
     <div class="shipping-your-detail">
         ${Resource.msg('label.order.your.detail', 'storePickUp', null)}
     </div>
@@ -32,7 +32,7 @@
                 <isinclude template="checkout/shipping/shippingAddress" />
             </fieldset>
 
-            <isif condition="${session.privacy.pickupFromStore}">
+            <isif condition="${session.privacy.pickupFromStore && order.custom.pickInStore}">
                 <div>
                     <isinclude url="${URLUtils.url('Checkout-CheckoutPickupStore')}" />
                 </div>

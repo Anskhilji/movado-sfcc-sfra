@@ -40,7 +40,7 @@
     </div>
 </div>
 
-<isif condition="${session.privacy.pickupFromStore}">
+<isif condition="${session.privacy.pickupFromStore && order.custom.pickInStore}">
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group
@@ -70,7 +70,7 @@
         <isif condition=${addressFields.email.mandatory === true}>required</isif>
         ${addressFields.email.htmlName}">
             <label class="form-control-label" for="email">${Resource.msg('field.customer.email', 'checkout', null)}</label>
-            <span class="info-icon ${session.privacy.pickupFromStore ? 'd-none' : ''}">
+            <span class="info-icon ${session.privacy.pickupFromStore && order.custom.pickInStore ? 'd-none' : ''}">
                 <span class="icon">i</span>
                 <div class="tooltip">
                     ${Resource.msg('tooltip.email','creditCard',null)}
@@ -82,7 +82,7 @@
         </div>
     </div>
     <div class="${sitePref.custom.Auto_Optin_Checkout && countryCode === usCountryCode ? 'd-none' : ''}">
-        <div class="form-group col-12 ${session.privacy.pickupFromStore ? 'd-none' : 'd-flex'} ${pdict.forms.billingForm.subscribetomovado.htmlName}">
+        <div class="form-group col-12 ${session.privacy.pickupFromStore && order.custom.pickInStore ? 'd-none' : 'd-flex'} ${pdict.forms.billingForm.subscribetomovado.htmlName}">
             <input autofocus type="checkbox" class="subscribeToMovado mr-2" id="subscribeToMovado"
             <isprint value="${addressFields.subscribetomovado.attributes}" encoding="off" />> 
             <label class="form-control-label text-transform-reset" for="subscribeToMovado">
@@ -96,7 +96,7 @@
 </div>
 
 
-<div class="row ${session.privacy.pickupFromStore ? 'd-none' : ''}">
+<div class="row ${session.privacy.pickupFromStore && order.custom.pickInStore ? 'd-none' : ''}">
 	<div class="col-sm-12">
 		<!-- companyName -->
 	    <div class="form-group
@@ -113,7 +113,7 @@
     </div>
 </div>
 
-<div class="row ${session.privacy.pickupFromStore ? 'd-none' : ''}">
+<div class="row ${session.privacy.pickupFromStore && order.custom.pickInStore ? 'd-none' : ''}">
     <div class="col-sm-12">
         <div class="form-group
             ${addressFields.address1.mandatory === true ? 'required' : ''}
@@ -125,7 +125,7 @@
                 </isif>
             </label>
             <span><input type="text" class="form-control shippingAddressOne" id="shippingAddressOne"
-                value="${session.privacy.pickupFromStore ? pdict.pickupStore.address1 || '' : shippingAddress.address1||''}" <isprint value="${addressFields.address1.attributes}" encoding="off"/>
+                value="${session.privacy.pickupFromStore && order.custom.pickInStore ? pdict.pickupStore.address1 || '' : shippingAddress.address1||''}" <isprint value="${addressFields.address1.attributes}" encoding="off"/>
                 autocomplete="shipping address-line1">
                 <div class="invalid-feedback"><isprint value="${addressFields.address1.error}" ></div>
             </span>
@@ -133,7 +133,7 @@
     </div>
  </div>
 
-<div class="row ${session.privacy.pickupFromStore ? 'd-none' : ''}">
+<div class="row ${session.privacy.pickupFromStore && order.custom.pickInStore ? 'd-none' : ''}">
     <div class="col-sm-12">
         <div class="form-group
             ${addressFields.address2.mandatory === true ? 'required' : ''}
@@ -145,7 +145,7 @@
                 </isif>
             </label>
             <input type="text" class="form-control shippingAddressTwo" id="shippingAddressTwo"
-                value="${session.privacy.pickupFromStore ? pdict.pickupStore.address2 || '' : shippingAddress.address2||''}" <isprint value="${addressFields.address2.attributes}" encoding="off"/>
+                value="${session.privacy.pickupFromStore && order.custom.pickInStore ? pdict.pickupStore.address2 || '' : shippingAddress.address2||''}" <isprint value="${addressFields.address2.attributes}" encoding="off"/>
                 autocomplete="shipping address-line2">
             <div class="invalid-feedback"><isprint value="${addressFields.address2.error}" ></div>
         </div>
@@ -153,7 +153,7 @@
 </div>
 
 <!--- make drop down--->
-<div class="row ${session.privacy.pickupFromStore ? 'd-none' : ''}">
+<div class="row ${session.privacy.pickupFromStore && order.custom.pickInStore ? 'd-none' : ''}">
     <div class="col-sm-6 field-left">
         <div class="form-group
             ${addressFields.country.mandatory === true ? 'required' : ''}
@@ -166,9 +166,9 @@
                 <isprint value=${addressFields.country.attributes} encoding="off"/>
                 autocomplete="shipping country">
                     <isloop items=${addressFields.country.options} var="country">
-                        <option id="${country.id}" value="${country.htmlValue}" ${!session.privacy.pickupFromStore && shippingAddress.countryCode && country.id === shippingAddress.countryCode.value ? 'selected' : ''}>${country.label}</option>
+                        <option id="${country.id}" value="${country.htmlValue}" ${!session.privacy.pickupFromStore && order.custom.pickInStore && shippingAddress.countryCode && country.id === shippingAddress.countryCode.value ? 'selected' : ''}>${country.label}</option>
                     </isloop>
-                    <isif condition="${session.privacy.pickupFromStore}">
+                    <isif condition="${session.privacy.pickupFromStore && order.custom.pickInStore}">
                         <option id="${pdict.pickupStore.countryCode.value}" value="${pdict.pickupStore.countryCode.value}" selected>
                             ${pdict.pickupStore.countryCode.displayValue || ' '}</option>
                     </isif>
@@ -188,9 +188,9 @@
                 <isprint value=${addressFields.states.stateCode.attributes} encoding="off"/>
                 autocomplete="shipping address-level1">
                 <isloop items=${addressFields.states.stateCode.options} var="state">
-                    <option id="${state.id}" value="${state.htmlValue}" ${!session.privacy.pickupFromStore && state.id===shippingAddress.stateCode ? 'selected' : ''}>${state.label || ' '}</option>
+                    <option id="${state.id}" value="${state.htmlValue}" ${!session.privacy.pickupFromStore && order.custom.pickInStore && state.id===shippingAddress.stateCode ? 'selected' : ''}>${state.label || ' '}</option>
                 </isloop>
-                <isif condition="${session.privacy.pickupFromStore}">
+                <isif condition="${session.privacy.pickupFromStore && order.custom.pickInStore}">
                     <option id="${pdict.pickupStore.stateCode}" value="${pdict.pickupStore.stateCode}" selected>${pdict.pickupStore.stateCode || ' '}</option>
                 </isif>
             </select>
@@ -200,7 +200,7 @@
     </div>
 </div>
 
-<div class="row ${session.privacy.pickupFromStore ? 'd-none' : ''}">
+<div class="row ${session.privacy.pickupFromStore && order.custom.pickInStore ? 'd-none' : ''}">
     <div class="col-sm-6 field-left">
         <div class="form-group
             ${addressFields.city.mandatory === true ? 'required' : ''}
@@ -209,7 +209,7 @@
                 <isprint value="${addressFields.city.label}" encoding="htmlcontent" />
             </label>
             <input type="text" class="form-control shippingAddressCity" id="shippingAddressCity"
-                value="${session.privacy.pickupFromStore ? pdict.pickupStore.city || '' : shippingAddress.city||''}" <isprint value="${addressFields.city.attributes}" encoding="off"/>
+                value="${session.privacy.pickupFromStore && order.custom.pickInStore ? pdict.pickupStore.city || '' : shippingAddress.city||''}" <isprint value="${addressFields.city.attributes}" encoding="off"/>
                 autocomplete="shipping address-level2">
             <div class="invalid-feedback"><isprint value="${addressFields.city.error}" ></div>
         </div>
@@ -225,14 +225,14 @@
                 </isif>
             </label>
             <input type="text" class="form-control shippingZipCode" id="shippingZipCode"
-                value="${session.privacy.pickupFromStore ? pdict.pickupStore.postalCode || '' : shippingAddress.postalCode ||''}" <isprint value="${!session.privacy.pickupFromStore ? addressFields.postalCode.attributes : ''}" encoding="off"/>
+                value="${session.privacy.pickupFromStore && order.custom.pickInStore ? pdict.pickupStore.postalCode || '' : shippingAddress.postalCode ||''}" <isprint value="${!session.privacy.pickupFromStore && order.custom.pickInStore ? addressFields.postalCode.attributes : ''}" encoding="off"/>
                 autocomplete="shipping postal-code">
             <div class="invalid-feedback"><isprint value="${addressFields.postalCode.error}" ></div>
         </div>
     </div>
 </div>
 
-<isif condition="${!session.privacy.pickupFromStore}">
+<isif condition="${!session.privacy.pickupFromStore && order.custom.pickInStore}">
     <div class="row">
         <div class="col-sm-12">
             <div class="form-group
@@ -257,7 +257,7 @@
 </isif>
 
 <isif condition="${pdict.customer.registeredUser}">
-	<div class="row ${session.privacy.pickupFromStore ? 'd-none' : ''}">
+	<div class="row ${session.privacy.pickupFromStore && order.custom.pickInStore ? 'd-none' : ''}">
 		<div class="col">
 			<div class="form-group
 	            ${addressFields.saveShippingAddress.mandatory === true ? 'required' : ''}
