@@ -1,0 +1,71 @@
+<div class="card confirm-details">
+    <div class="card-header">
+        <h4 class="heading-four text-uppercase">${Resource.msg('title.receipt', 'confirmation', null)}</h4>
+    </div>
+
+    <div class="card-body">
+            <p class="order-info">
+                <span class="summary-section-label order-number-label">${Resource.msg('label.order.number','confirmation', null)}</span><br>
+                <span class="summary-details order-number">${pdict.order.orderNumber}</span>
+            </p>
+             <p class="order-info">
+                <span class="summary-section-label order-date-label">${Resource.msg('label.order.date', 'confirmation',null)}</span><br>
+                <span class="summary-details order-date">
+                    <isprint value="${pdict.order.creationDate}" style="DATE_SHORT" />
+                </span>
+            </p>
+            <isif condition="${!session.privacy.pickupFromStore && order.custom.pickInStore}">
+                <p>
+                    <span class="summary-section-label order-status-label">${Resource.msg('label.orderhistory.orderstatus','account',null)}</span>
+                    <span class="summary-details order-status">
+                        <isif condition="${pdict.omsOrderStaus != null && pdict.omsOrderStaus.status != null}">
+                            ${pdict.omsOrderStaus.status}
+                        <iselse/>
+                            ${pdict.order.sapOrderStatus}    
+                        </isif>
+                    </span>
+                </p>
+            </isif>
+            <isif condition="${pdict.order.trackingUrls && pdict.order.trackingUrls.length > 0}">
+                 <p class="order-info">
+                    <span class="summary-section-label order-tracking-label">${Resource.msg('label.order.tracking','confirmation', null)}</span>
+                    <span class="summary-details order-tracking">
+                        <isloop items="${pdict.order.trackingUrls}" var="tracking" status="status">
+                            <a href="${tracking.trackingURL}">${tracking.trackingNumber}<isif
+                                    condition="${status.index < pdict.order.trackingUrls.length - 1}">
+                                    ${Resource.msg('label.order.trackingDivider', 'confirmation', null)}</isif>
+                            </a>
+                        </isloop>
+                    </span>
+                </p>
+            </isif>
+
+        <isinclude template="checkout/shipping/shippingSummary" />
+        <isinclude template="checkout/billing/billingSummary" />
+
+    </div>
+</div>
+<div class="row order-summary-title">
+
+    <div class="col-12">
+        <h5 class="text-uppercase flex mb-md-2">${Resource.msg('lable.order.title', 'confirmation', null)}
+            <span class="order-item-quantity grand-total-label d-none d-md-block mb-0">
+                (${Resource.msgf('label.number.items.in.cart', 'cart', null, pdict.order.items.totalQuantity)})</span>
+        </h5>
+    </div>
+</div>
+<div class="row">
+
+    <div class="col-12">
+
+        <span class="order-item-quantity grand-total-label d-md-none text-uppercase flex">
+            ${Resource.msgf('label.number.items.in.cart', 'cart', null, pdict.order.items.totalQuantity)}</span>
+        <isinclude template="checkout/orderProductSummary" />
+    </div>
+    <div class="checkout-order-total-summary col-12">
+
+        <div class="order-total-summary p-0 p-md-3">
+            <isinclude template="checkout/orderTotalSummary" />
+        </div>
+    </div>
+</div>
