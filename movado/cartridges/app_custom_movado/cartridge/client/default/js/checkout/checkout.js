@@ -23,7 +23,7 @@ var formHelpers = require('base/checkout/formErrors');
     
   $.fn.checkout = function () { // eslint-disable-line
       var plugin = this;
-      if (Resources.INSTORE_PICKUP_ENABLE) {
+      if (Resources.PICKUP_FROM_STORE) {
           openBillingFormForPickupStore(null, null, true);
       }
     //
@@ -536,7 +536,7 @@ var formHelpers = require('base/checkout/formErrors');
 
             // Set the next stage on the DOM
             $(plugin).attr('data-checkout-stage', checkoutStages[members.currentStage]);
-            if (Resources.INSTORE_PICKUP_ENABLE) {
+            if (Resources.PICKUP_FROM_STORE) {
                 openBillingFormForPickupStore(checkoutStages, members);
             }
         },
@@ -552,7 +552,7 @@ var formHelpers = require('base/checkout/formErrors');
               }
 
               $(plugin).attr('data-checkout-stage', checkoutStages[members.currentStage]);
-              if (Resources.INSTORE_PICKUP_ENABLE) {
+              if (Resources.PICKUP_FROM_STORE) {
                   openBillingFormForPickupStore(checkoutStages, members);
               }
           },

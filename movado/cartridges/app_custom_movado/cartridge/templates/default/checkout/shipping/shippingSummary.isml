@@ -38,8 +38,7 @@
                         <span class="shipping-method-title">${!empty(shippingModel.selectedShippingMethod) && !empty(shippingModel.selectedShippingMethod.displayName) ? shippingModel.selectedShippingMethod.displayName : ''}</span>
                         <span class="shipping-method-arrival-time">
                             <isif condition="${shippingModel.selectedShippingMethod && shippingModel.selectedShippingMethod.estimatedArrivalTime}">
-                                ( ${!empty(shippingModel.selectedShippingMethod) && !empty(shippingModel.selectedShippingMethod.estimatedArrivalTime) 
-                                ? shippingModel.selectedShippingMethod.estimatedArrivalTime : ''} )
+                                ( ${!empty(shippingModel.selectedShippingMethod) && !empty(shippingModel.selectedShippingMethod.estimatedArrivalTime) ? shippingModel.selectedShippingMethod.estimatedArrivalTime : ''} )
                             </isif>
                         </span>
                     </p>

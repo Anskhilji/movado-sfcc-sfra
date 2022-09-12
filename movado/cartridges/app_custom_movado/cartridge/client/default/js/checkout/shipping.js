@@ -23,7 +23,7 @@ function updateShippingAddressSelector(productLineItem, shipping, order, custome
         $shippingAddressSelector = $('.addressSelector', form);
     }
 
-    if (!Resources.INSTORE_PICKUP_ENABLE && $shippingAddressSelector && $shippingAddressSelector.length === 1) {
+    if (!Resources.PICKUP_FROM_STORE && $shippingAddressSelector && $shippingAddressSelector.length === 1) {
         $shippingAddressSelector.empty();
         // Add New Address option
         $shippingAddressSelector.append(addressHelpers.methods.optionValueForAddress(

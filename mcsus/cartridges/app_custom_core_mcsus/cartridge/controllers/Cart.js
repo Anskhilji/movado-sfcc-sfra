@@ -20,26 +20,7 @@ server.prepend(
     userLoggedIn.validateLoggedInMCS,
     csrfProtection.generateToken,
     function (req, res, next) {
-        //Custom Start: This code will update with the checkbox of pickup from store once we implement slide 12,13 in BOPIS
-        var currentBasket;
-        if (session.privacy.pickupFromStore && pdict.order.custom.BOPIS) {
-            try {
-                currentBasket = BasketMgr.getCurrentBasket();
-                Transaction.wrap(function () {
-                    if (currentBasket) {
-                        currentBasket.custom.pickInStore = true;
-                        var productLineItemsIterator = currentBasket.productLineItems.iterator();
-                        while (productLineItemsIterator.hasNext()) {
-                            var productLineItem = productLineItemsIterator.next();
-                            productLineItem.custom.pickInStore = true;
-                        }
-                    }
-                });
-            } catch (error) {
-                Logger.error('Error Occurred in Cart.Show During updating of pickInStore in CurrentBasket and LineItems, Error: {0}', error.toString());
-            }
-        }
-        //Custom End
+ 
         next();
     }
 );
