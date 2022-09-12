@@ -1068,7 +1068,11 @@ function handleVariantResponse(response, $productContainer) {
                 $productNameSelector.html(response.product.productName + '<span class="watches-case-diameter w-100" data-selected-variation-attr="caseDiameter">'+ response.product.caseDiameterRedesigned +'</span>')
             }
         }
-
+        if (typeof response.product.shortDescription !== 'undefined' && response.product.shortDescription !== '' && response.product.shortDescription !== null) {
+            if ($productContainer.find('.pd-desc-mvmt.product-description').length > 0) {
+                $productContainer.find('.pd-desc-mvmt.product-description').text(response.product.shortDescription);
+            }
+        }
         $.ajax({
             url: $variationProductURL,
             method: 'GET',
