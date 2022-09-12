@@ -2603,6 +2603,11 @@
                     &.color-watch-swatches {
                         align-items: start;
 
+                        &-margin {
+                            margin-left: rem(10);
+                            margin-right: rem(10);
+                        }
+                        
                         .pdp-swatchs-redesign {
                             justify-content: start;
                         }
