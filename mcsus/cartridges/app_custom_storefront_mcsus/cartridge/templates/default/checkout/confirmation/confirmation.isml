@@ -37,7 +37,7 @@
             </div>
 
             <div class="col-md-6">
-                <isif condition="${session.privacy.pickupFromStore && order.custom.pickInStore}">
+                <isif condition="${session.privacy.pickupFromStore && pdict.order.custom.BOPIS}">
                     <isinclude template="checkout/confirmation/confirmationDetailsPickupFromStore" />
                 <iselse/>
                     <isinclude template="checkout/confirmation/confirmationDetails" />
