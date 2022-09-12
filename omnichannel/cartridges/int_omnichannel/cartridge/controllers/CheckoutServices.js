@@ -37,8 +37,9 @@ server.prepend('PlaceOrder', server.middleware.https, function (req, res, next) 
 			Transaction.wrap(function () {
 				if (currentBasket) {
 					var productLineItemsIterator = currentBasket.productLineItems.iterator();
+					var productLineItem;
 					while (productLineItemsIterator.hasNext()) {
-						var productLineItem = productLineItemsIterator.next();
+						productLineItem = productLineItemsIterator.next();
 						productIds.push(productLineItem.productID);
 					}
 				}
