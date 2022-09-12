@@ -25,10 +25,14 @@
                     justify-content: flex-start;
                     align-content: space-around;
                     align-items: flex-start;
+                    z-index: 9999999;
+                    background-color: red;
+                    top: rem(40);
 
                     &.sticky {
                         padding-left: 0;
                         height: fit-content;
+                        padding: rem(20) rem(0);
                     }
 
                     .active-filters {
@@ -42,7 +46,6 @@
                                 border: rem(1) solid $light-green10;
                                 border-radius: rem(13);
                                 background-color: $light-green9;
-                                margin-top: rem(20);
 
                                 a {
                                     height: rem(20);

@@ -10,7 +10,7 @@
                     <i class="fa fa-square-o"></i>
                 </isif>
                 <iscomment>Label</iscomment>
-                <span class="<isif condition="${refinementValue.selected && refinementValue.selectable}">selected</isif>" >${refinementValue.displayValue}</span>
+                <span class="<isif condition="${refinementValue.selected && refinementValue.selectable}">selected</isif> selected-filter" data-selected-filter="${refinementValue.displayValue}" >${refinementValue.displayValue}</span>
             </a>
         </label>
     <iselse>
@@ -22,7 +22,7 @@
                     <div class="fa fa-square-o rounded-image" style="background-image: url('${refinementValue.swatchImageURL}')"></div>
                 </isif>
             </a>
-            <span class="<isif condition="${refinementValue.selected && refinementValue.selectable}">selected</isif>" >${refinementValue.displayValue}</span>
+            <span class="<isif condition="${refinementValue.selected && refinementValue.selectable}">selected</isif> selected-filter" data-selected-filter="${refinementValue.displayValue}" >${refinementValue.displayValue}</span>
         </label>
     </isif>
 </li>

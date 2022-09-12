@@ -586,17 +586,22 @@ module.exports = {
                 e.preventDefault();
                 e.stopPropagation();
                 filterLoadInProgress = true;
+                console.log('Filter Rule Started');
                 // Get currently selected sort option to retain sorting rules
+
                 var urlparams = getUrlParamObj(document.location.href);
+                console.log(urlparams);
+                alert(`urlParams: ${document.location.href}`);
                 var filtersURL = e.currentTarget.href;
+                alert(`filters URL ${filtersURL}`);
                 var currentSelectedSortId = '';
-                if (urlparams.hasOwnProperty('srule') == true) {
-                    if (urlparams.srule) {
-                        currentSelectedSortId = urlparams.srule;
-                        filtersURL = removeParam('srule', filtersURL);  // Custom: [MSS-1348 Fix for not applying price filters]
-                        filtersURL = replaceUrlParam(filtersURL, 'srule', currentSelectedSortId);
-                    }
-                }
+                // if (urlparams.hasOwnProperty('srule') == true) {
+                //     if (urlparams.srule) {
+                //         currentSelectedSortId = urlparams.srule;
+                //         filtersURL = removeParam('srule', filtersURL);  // Custom: [MSS-1348 Fix for not applying price filters]
+                //         filtersURL = replaceUrlParam(filtersURL, 'srule', currentSelectedSortId);
+                //     }
+                // }
 
                 $.spinner().start();
                 $(this).trigger('search:filter', e);
@@ -732,6 +737,8 @@ module.exports = {
             $(".plp-filter-bar .plp-filter-btn").not($(this)).removeClass('active');
             $(".filter-group").not($(this).next()).removeClass('active loaded');
             $(".plp-active-filter").not($(this).next().children('.plp-active-filter')).removeClass('loaded');
+            $('.plp-active-filter.sticky').toggleClass('d-none');
+            $(button).hasClass('active') ? $('.plp-active-filter.sticky').removeClass('d-none') : $('.plp-active-filter.sticky').addClass('d-none');
         });
 
         $(document).on('click', '.filter-close-btn', function (e) {

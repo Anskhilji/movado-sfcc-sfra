@@ -226,12 +226,30 @@
         <div class="plp-filter-bar-inner ">
             <div class="plp-filter-options">
                 <div class="plp-filter-lists">
+                <div class="plp-active-filter sticky d-none">
+                    <div class="plp-active-filter-list">
+                        <div class="active-filters">
+                            <div class="row m-0 filter-bar">
+                                <ul>
+                                    <li class="filter-value">
+                                        <a href="">Purple</a>
+                                    </li>
+                                    <li class="filter-value">
+                                        <a href="">Yellow</a>
+                                    </li>
+                                </ul>
+                                <iscomment> <isinclude template="search/filterBar" /> </iscomment>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                     <div class="refinements">
                         <iscomment> Start: Create category slot for straps </iscomment>
                         <isif condition="${pdict.productSearch.category}">
                             <isslot id="slot-straps-mvmt" description="Strap MVMT products" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
                         </isif>
                         <iscomment> End </iscomment>
+                        
                         <isloop items="${refinements}" var="refinement">
                         <isif condition="${refinement.values && (refinement.values.length > 0 ) && (refinement.values[0].id != 'dialStyle')}">
                             <div class="plp-filter-list">
@@ -246,16 +264,19 @@
                                         <!--- CATEGORY REFINEMENTS --->
                                         <isif condition="${refinement.isCategoryRefinement}">
                                             <isset name="categories" value="${refinement.values}" scope="page" />
+                                            <p>Categories</p>
                                             <isinclude template="search/refinements/categories" />
                                         </isif>
 
                                         <!--- ATTRIBUTE REFINEMENTS --->
                                         <isif condition="${refinement.isAttributeRefinement || refinement.isPromotionRefinement}">
+                                        <p>attributes</p>
                                             <isinclude template="search/refinements/attributes" />
                                         </isif>
 
                                         <!--- PRICE REFINEMENTS --->
                                         <isif condition="${refinement.isPriceRefinement}">
+                                        <p>prices</p>
                                             <isinclude template="search/refinements/prices" />
                                         </isif>
                                         <span class="close-icon"></span>
@@ -265,16 +286,7 @@
                         </isif>
                         </isloop>
                     </div>
-                    <isinclude template="search/sortOrderMenu" />
-                </div>
-            </div>
-        </div>
-        <div class="plp-active-filter sticky">
-            <div class="plp-active-filter-list">
-                <div class="active-filters">
-                    <div class="row m-0 filter-bar">
-                        <isinclude template="search/filterBar" />
-                    </div>
+               
                 </div>
             </div>
         </div>
