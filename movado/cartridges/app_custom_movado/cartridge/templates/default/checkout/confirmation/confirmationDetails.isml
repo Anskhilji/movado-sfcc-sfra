@@ -26,19 +26,17 @@
                     </span>
                 </p>
             </isif>
-            <isif condition="${pdict.order.trackingUrls && pdict.order.trackingUrls.length > 0}">
-                 <p class="order-info">
-                    <span class="summary-section-label order-tracking-label">${Resource.msg('label.order.tracking','confirmation', null)}</span>
-                    <span class="summary-details order-tracking">
-                        <isloop items="${pdict.order.trackingUrls}" var="tracking" status="status">
-                            <a href="${tracking.trackingURL}">${tracking.trackingNumber}<isif
-                                    condition="${status.index < pdict.order.trackingUrls.length - 1}">
-                                    ${Resource.msg('label.order.trackingDivider', 'confirmation', null)}</isif>
-                            </a>
-                        </isloop>
-                    </span>
-                </p>
-            </isif>
+            <p class="order-info">
+                <span class="summary-section-label order-tracking-label">${Resource.msg('label.order.tracking', 'confirmation', null)}</span>
+                <span class="summary-details order-tracking">
+                    <isloop items="${pdict.order.trackingUrls}" var="tracking" status="status">
+                        <a href="${tracking.trackingURL}">${tracking.trackingNumber}<isif
+                                condition="${status.index < pdict.order.trackingUrls.length - 1}">
+                                ${Resource.msg('label.order.trackingDivider', 'confirmation', null)}</isif>
+                        </a>
+                    </isloop>
+                </span>
+            </p>
 
         <isinclude template="checkout/shipping/shippingSummary" />
         <isinclude template="checkout/billing/billingSummary" />
