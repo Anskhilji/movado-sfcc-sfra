@@ -9,13 +9,14 @@
     <isinclude template="cart/productCard/cartProductCardHeader" />
 
     <div class="row ${bonuslineitemrow} item-info ${enableGiftMessage ? '' : 'border-bottom-0'}">
-        <div class="col-12">
+        <div class="${dw.system.Site.current.preferences.custom.isPickupStoreEnabled ? "col-lg-6" : "col-lg-12"}">
             <div class="row">
-                <div class="col-lg-12 d-flex flex-row mb-2">
-                    <isif condition="${lineItem && lineItem.images && lineItem.images.tile150[0]}">
-                        <isset name="productImage" value="${lineItem.images.tile150[0]}" scope="page"/>
-                        <img class="product-image mr-4" src="${productImage.url}" alt="${productImage.alt}" title="${productImage.title}">
-                    </isif>
+
+                <div class="col-lg-12 d-flex flex-row mb-2 product-detail">
+                   <isif condition="${lineItem && lineItem.images && lineItem.images.tile150[0]}">
+                   		<isset name="productImage" value="${lineItem.images.tile150[0]}" scope="page"/>
+                   		<img class="product-image mr-4" src="${productImage.url}" alt="${productImage.alt}" title="${productImage.title}">
+                   </isif>
 
                     <div class="item-attributes d-flex flex-column">
                         <isloop items="${lineItem.variationAttributes}" var="attribute">
@@ -62,7 +63,9 @@
                             </isif>
                         </isloop>
 
-                        <isinclude template="cart/productCard/cartProductCardAvailability" />
+                        <div class="default-product-availability ${session.privacy.pickupFromStore ? "d-none" : ""}">
+                            <isinclude template="cart/productCard/cartProductCardAvailability" />
+                        </div>
                         <isinclude template="cart/productCard/cartProductCardProductPrice" />
                         <isif condition="${lineItem.productType && lineItem.productType === Resource.msg('product.variant','product',null)}" >
                             <div class="product-edit">
@@ -78,6 +81,9 @@
                 </div>
             </div>
         </div>
+        <isif condition="${dw.system.Site.current.preferences.custom.isPickupStoreEnabled}">
+            <isinclude template="product/cart/cartPickupStoreProductAvailability" />
+        </isif>
         <isif condition="${lineItem.bonusProductLineItemUUID === 'bonus'}">
             <div class="col-12 d-lg-none"><hr class="line-item-divider"></div>
         </isif>

@@ -41,10 +41,18 @@ $(document).on('click', '.store-pickup-select', function () {
         $('.available-pickup-stores, .pick-up-store-available-pickup-stores').text(storeAddress);
         $('.pick-up-store-change-store').text('Change');
         $('#pickupStoreModal').modal('hide');
-        setStoreInSession($(this).data('url'), storeAddress1, stateCode, storePostalCode);
+        if (storePickup.inventory && storePickup.inventory[0].records[0].ato > 0) {
+            $('.pdp-store-pickup-store-icon').addClass('pdp-store-pickup-store-icon-available')
+        }
+        if ($('.pickup-store-cart-address').length) {
+            setStoreInSession($(this).data('url'), storeAddress1, stateCode, storePostalCode, true);
+        } else {
+            setStoreInSession($(this).data('url'), storeAddress1, stateCode, storePostalCode, false);
+        }
     }
 })
-function setStoreInSession(url, address, stateCode, storePostalCode) {
+
+function setStoreInSession(url, address, stateCode, storePostalCode, isFromCart) {
     url = address ? url + '&storeAddress=' + address : url;
     url = stateCode ? url + '&stateCode=' + stateCode : url;
     url = storePostalCode ? url + '&storePostalCode=' + storePostalCode : url;
@@ -52,8 +60,12 @@ function setStoreInSession(url, address, stateCode, storePostalCode) {
         url: url,
         type: 'POST',
         success: function (response) {
+            if (isFromCart) {
+                window.location.reload();
+            }
             $.spinner().stop();
-        }, error: function (error) {
+        },
+        error: function (error) {
             $.spinner().stop();
         }
 
