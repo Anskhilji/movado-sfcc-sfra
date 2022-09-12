@@ -9,7 +9,6 @@ Template Notes:
 
 </iscomment>
 <isset name="pdpRedesignControlSegment" value="${!dw.campaign.ABTestMgr.isParticipant('MVMTRedesignPDPABTest','render-new-design')}" scope="page" />
-<h1>${pdpRedesignControlSegment}</h1>
 <div class="attribute pdp-select-variations ${attr.id == 'colorWatch' ? 'color-watch-swatches' : ''} ${pdpRedesignControlSegment ? 'color-watch-swatches-margin' : ''}">
     <label class="select-size-head-label ${attr.id}">
         ${attr.displayName} 
@@ -18,7 +17,7 @@ Template Notes:
             <isloop items="${attr.values}" var="attrValue">
                 <isif condition="${attrValue.selected}">
                     <isset name="selectedAttributeValue" value="${attrValue.value}" scope="page" />
-                    ${attrValue.displayValue}d-flex justify-content-center mb-2 pd-desc-mvmt product-description
+                    ${attrValue.displayValue}
                 </isif>
             </isloop>
         </span>
