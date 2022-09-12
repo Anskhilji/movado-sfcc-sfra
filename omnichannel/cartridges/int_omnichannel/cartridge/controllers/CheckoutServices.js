@@ -13,10 +13,15 @@ server.prepend('PlaceOrder', server.middleware.https, function (req, res, next) 
 	var omniChannelAPI = require('*/cartridge/scripts/api/omniChannelAPI');
 	var productIds = [];
 	var storeArray = [];
+	var itemInventory = [];
 	var isAllItemsAvailable = true;
 	var apiResponse;
 	var lineItemsInventory;
+	var currentItemInventory;
+	var itemInv;
+	var loopInventory;
 	var currentBasket = BasketMgr.getCurrentBasket();
+	var preferedPickupStore = StoreMgr.getStore(session.privacy.pickupStoreID);
 
 	if (!currentBasket) {
 		res.json({
@@ -38,25 +43,25 @@ server.prepend('PlaceOrder', server.middleware.https, function (req, res, next) 
 					}
 				}
 			});
-			var preferedPickupStore = StoreMgr.getStore(session.privacy.pickupStoreID);
 			storeArray.push(preferedPickupStore);
 			apiResponse = omniChannelAPI.omniChannelInvetoryAPI(productIds, storeArray);
 			if (apiResponse && apiResponse.success && apiResponse.response.length > 0 && apiResponse.response[0].inventory.length > 0) {
 				lineItemsInventory = apiResponse.response[0].inventory[0].records;
 			}
 			//Custom:Start  Update lineItems array if its available for pickup store
-			var itemInventory = [];
 			if (lineItemsInventory && lineItemsInventory.length > 0) {
 				productIds.forEach(function (pid) {
-					var currentItemInventory = lineItemsInventory.filter(function (lineItem) { return lineItem.sku == pid });
-					var itemInv = currentItemInventory.length > 0 ? currentItemInventory[0].ato : 0;
-					var loopInventory = itemInventory.filter(function (i) { return i.itemId == pid }).map(function (obj) { return obj.remain });
+					currentItemInventory = lineItemsInventory.filter(function (lineItem) { return lineItem.sku == pid });
+					itemInv = currentItemInventory.length > 0 ? currentItemInventory[0].ato : 0;
+					loopInventory = itemInventory.filter(function (i) { return i.itemId == pid }).map(function (obj) { return obj.remain });
 					if ((loopInventory.length == 0 || loopInventory > 0) && itemInv > 0) {
 						if (loopInventory.length == 0) {
 							itemInventory.push({ itemId: pid, remain: itemInv - 1 });
+							session.privacy.pickupFromStore = false;
 							return;
 						}
 						itemInventory.filter(function (i) { return i.itemId == pid }).map(function (obj) { obj.remain = obj.remain - 1 });
+						session.privacy.pickupFromStore = false;
 					} else {
 						isAllItemsAvailable = false;
 						return;
