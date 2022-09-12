@@ -5,7 +5,6 @@ var server = require('server');
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var userLoggedIn = require('*/cartridge/scripts/middleware/userLoggedIn');
-var StoreMgr = require('dw/catalog/StoreMgr');
 
 var page = module.superModule;
 server.extend(page);

@@ -5,10 +5,6 @@ var server = require('server');
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var userLoggedIn = require('*/cartridge/scripts/middleware/userLoggedIn');
-var BasketMgr = require('dw/order/BasketMgr');
-var Transaction = require('dw/system/Transaction');
-var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
-var Logger = require('dw/system/Logger')
 
 var page = module.superModule;
 server.extend(page);
