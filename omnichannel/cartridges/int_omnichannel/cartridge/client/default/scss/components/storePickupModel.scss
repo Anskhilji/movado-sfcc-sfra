@@ -83,14 +83,20 @@
                 width: 100%;
                 border: rem(1) solid $light-gray-white;
                 background-color: $white-dark;
-                padding-left: rem(10);
+                padding: rem(12) rem(10) rem(12) rem(10);
                 font-size: rem(14);
                 font-family: $font-book-std;
                 color: $light-gray-brown;
                 font-weight: 300;
                 letter-spacing: rem(0.4);
-                line-height: rem(24);
-            
+                line-height: rem(40);
+
+                @include media-breakpoint-down(xs) {
+                    line-height: rem(20);
+                    vertical-align: middle;
+                    padding: rem(10) rem(10) rem(6.4) rem(10);
+                }
+
                 &::placeholder {
                     color: $light-gray-brown;
                     font-family: $font-book-std;
@@ -199,6 +205,10 @@
                 text-align: center;
                 text-transform: uppercase;
                 cursor: pointer;
+
+                @include media-breakpoint-down(xs) {
+                    line-height: rem(40);
+                }
             }
         }
     }

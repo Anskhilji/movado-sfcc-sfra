@@ -33,7 +33,8 @@ server.replace('GetPreferredStore', function (req, res, next) {
     }
     res.render(isPdp ? template : 'modalpopup/modelPopUpButton', {
         storeObject: storeObject,
-        isPdp: isPdp
+        isPdp: isPdp,
+        store: storeObject
     });
     return next();
 });

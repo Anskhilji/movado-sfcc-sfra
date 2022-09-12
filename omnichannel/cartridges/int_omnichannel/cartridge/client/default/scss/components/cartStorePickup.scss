@@ -38,6 +38,15 @@
       display: flex;
       justify-content: center;
       align-items: center;
+
+      @include media-breakpoint-down(md) {
+          border-left: none;
+          justify-content: flex-start;
+      }
+      
+      .unavailable-text {
+          font-family: $font-book-std;
+      }
     }
 
     &-status {
@@ -55,7 +64,7 @@
         }
 
         &-unavailable {
-          background: url("../../images/pickup-store-inventory-icon.svg")
+          background: url("../../images/no-stock-availability.svg")
             no-repeat center;
 
               &.store-pick-store-unavailable {
@@ -73,7 +82,7 @@
 
       span {
         color: $dark-light-black;
-        font-family: $font-demi;
+        font-family: $font-book;
         font-size: rem(14);
         font-weight: 300;
         letter-spacing: rem(0.61);
@@ -88,23 +97,23 @@
 
   &-rectangle {
     box-sizing: border-box;
-    height: rem(86);
+    min-height: rem(86);
     border: rem(1) solid $light-gray-info;
     background-color: $gray-info;
     box-shadow: 0 rem(2) rem(6) 0 $gray-shadow;
     margin-bottom: rem(20);
-    padding: rem(20);
+    padding: rem(19) rem(30) rem(19) rem(20);
 
     .checkbox {
       margin-bottom: rem(5);
 
       &-label {
         color: $light-black;
-        font-family: $font-demi;
+        font-family: $font-std-medium;
         font-size: rem(16);
         font-weight: 500;
         letter-spacing: rem(1.14);
-        line-height: rem(24);
+        line-height: rem(20);
       }
     }
 
@@ -115,7 +124,7 @@
       font-weight: 300;
       letter-spacing: rem(1);
       line-height: rem(20);
-      margin-left: rem(23);
+      margin-left: rem(29);
 
       .change {
         text-decoration: underline;
@@ -126,11 +135,18 @@
     .custom-checkbox {
 
         .pickup-checkbox {
+            padding-left: rem(4);
+
             &::before {
                 border: rem(2) solid $black-dark;
                 border-radius: rem(3);
                 box-shadow: none;
                 background: transparent;
+                left: rem(-27);
+            }
+
+            &::after {
+              left: rem(-27);
             }
 
             &.disabled{
@@ -149,17 +165,17 @@
 
     &-rectangle {
       box-sizing: border-box;
-      height: rem(71);
+      min-height: rem(71);
       border: rem(1) solid $alert-box;
       border-radius: 0 0 rem(3) rem(3);
       background-color: $alert-box-bg;
       margin-bottom: rem(20);
-      padding: rem(15.5);
+      padding: rem(15.5) rem(20);
     }
 
     &-text {
       color: $alert-text;
-      font-family: $font-demi;
+      font-family: $font-book-std;
       font-size: rem(14);
       font-weight: 300;
       letter-spacing: rem(0.82);
@@ -172,7 +188,7 @@
       background: url("../../images/warning.svg")
       no-repeat center;
       margin-right: rem(20);
-      margin-left: rem(10.5);
+      margin-left: rem(0);
     }
   }
 }

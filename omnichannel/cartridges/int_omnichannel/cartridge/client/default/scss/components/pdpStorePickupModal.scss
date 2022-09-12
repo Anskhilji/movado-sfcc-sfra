@@ -2,7 +2,7 @@
 @import "bootstrap/scss/mixins/breakpoints";
 
 .store-pickup-modal-body {
-  min-height: rem(534);
+  min-height: rem(510);
   padding: rem(0);
 }
 
@@ -226,6 +226,10 @@
     color: $white-dark;
     text-transform: uppercase;
     cursor: pointer;
+
+    @include media-breakpoint-down(xs) {
+        line-height: rem(25);
+    }
 
     &:disabled {
       border: rem(1) solid $disabled-gray;
