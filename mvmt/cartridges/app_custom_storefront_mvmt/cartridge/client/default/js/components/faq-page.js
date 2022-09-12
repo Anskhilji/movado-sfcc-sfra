@@ -27,13 +27,13 @@ $(document).ready(function() {
     
         $('.faq-nav-control-bar-link').each(function(value,element){
             var $this = $(element);
-            var mobileTabTitle;
+            var $mobileTabTitle;
 
             if ($this.attr('href') == $absoluteURLWithID) {
                 $this.addClass('is-active');
-                mobileTabTitle = $this.attr('title');
-                if (mobileTabTitle !== '' && mobileTabTitle !== undefined) {
-                    $('.faq-nav-control-bar-btn').text(mobileTabTitle);
+                $mobileTabTitle = $this.attr('title');
+                if ($mobileTabTitle !== '' && $mobileTabTitle !== undefined) {
+                    $('.faq-nav-control-bar-btn').text($mobileTabTitle);
                 }
             }
         });
@@ -58,12 +58,12 @@ $(window).on('resize', function() {
         var $absoluteURLWithID = '#'+$URL[1];
         $('.faq-nav-control-bar-link').each(function(value,element){
             var $this = $(element);
-            var mobileTabTitle;
+            var $mobileTabTitle;
             
             if ($this.attr('href') == $absoluteURLWithID) {
-                mobileTabTitle = $this.attr('title');
-                if (mobileTabTitle !== '' && mobileTabTitle !== undefined) {
-                    $('.faq-nav-control-bar-btn').text(mobileTabTitle);
+                $mobileTabTitle = $this.attr('title');
+                if ($mobileTabTitle !== '' && $mobileTabTitle !== undefined) {
+                    $('.faq-nav-control-bar-btn').text($mobileTabTitle);
                 }
             }
         });
