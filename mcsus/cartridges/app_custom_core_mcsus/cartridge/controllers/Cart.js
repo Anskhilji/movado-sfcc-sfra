@@ -16,7 +16,7 @@ server.prepend(
     userLoggedIn.validateLoggedInMCS,
     csrfProtection.generateToken,
     function (req, res, next) {
- 
+
         next();
     }
 );
