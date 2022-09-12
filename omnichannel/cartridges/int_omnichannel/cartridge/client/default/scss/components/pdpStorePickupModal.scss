@@ -227,6 +227,10 @@
     text-transform: uppercase;
     cursor: pointer;
 
+    @include media-breakpoint-down(xs) {
+        line-height: rem(25);
+    }
+
     &:disabled {
       border: rem(1) solid $disabled-gray;
       background-color: $disabled-gray;
