@@ -63,7 +63,7 @@ function sendOrderConfirmationEmail(order, locale) {
         bottomContent: (bottomContent && bottomContent.custom && bottomContent.custom.body ? bottomContent.custom.body : '')
     };
 
-    if (isPickupStoreEnabled && !empty(order) && !empty(order.custom.pickInStore)) {
+    if (isPickupStoreEnabled && !empty(order) && !empty(order.custom.BOPIS)) {
         orderConfirmationObj = {
             emailHeader: (emailPickInStoreHeaderContent && emailPickInStoreHeaderContent.custom && emailPickInStoreHeaderContent.custom.body ? emailPickInStoreHeaderContent.custom.body : ''),
             emailFooter: (emailPickInStoreFooterContent && emailPickInStoreFooterContent.custom && emailPickInStoreFooterContent.custom.body ? emailPickInStoreFooterContent.custom.body : ''),
@@ -109,7 +109,7 @@ function sendOrderConfirmationEmail(order, locale) {
         cuurentOrder: order
     };
 
-    var subject = isPickupStoreEnabled && order.custom.pickInStore ? Resource.msgf('subject.order.confirmation.email.pickup', 'order', null, orderModel.orderNumber) : Resource.msgf('subject.order.confirmation.email', 'order', null, orderModel.orderNumber);
+    var subject = isPickupStoreEnabled && order.custom.BOPIS ? Resource.msgf('subject.order.confirmation.email.pickup', 'order', null, orderModel.orderNumber) : Resource.msgf('subject.order.confirmation.email', 'order', null, orderModel.orderNumber);
 
     var emailObj = {
         to: order.customerEmail,
@@ -118,7 +118,7 @@ function sendOrderConfirmationEmail(order, locale) {
         type: emailHelpers.emailTypes.orderConfirmation
     };
 
-    var emailTemplate = isPickupStoreEnabled && order.custom.pickInStore ? 'checkout/confirmation/email/confirmationEmailPickInStore' : 'checkout/confirmation/email/confirmationEmail';
+    var emailTemplate = isPickupStoreEnabled && order.custom.BOPIS ? 'checkout/confirmation/email/confirmationEmailPickInStore' : 'checkout/confirmation/email/confirmationEmail';
 
     emailHelpers.sendEmail(emailObj, emailTemplate, orderObject);
     delete session.custom.currencyCode;
@@ -153,7 +153,7 @@ function sendCancellationEmail(emailObject) {
         order: emailObject.order
     };
 
-    if (isPickupStoreEnabled && !empty(emailObject.order) && !empty(emailObject.order.custom.pickInStore)) {
+    if (isPickupStoreEnabled && !empty(emailObject.order) && !empty(emailObject.order.custom.BOPIS)) {
         orderObject = {
             emailHeader: (emailPickInStoreHeaderContent && emailPickInStoreHeaderContent.custom && emailPickInStoreHeaderContent.custom.body ? emailPickInStoreHeaderContent.custom.body : ''),
             emailFooter: (emailPickInStoreFooterContent && emailPickInStoreFooterContent.custom && emailPickInStoreFooterContent.custom.body ? emailPickInStoreFooterContent.custom.body : ''),
@@ -169,11 +169,11 @@ function sendCancellationEmail(emailObject) {
 
     var emailObj = {
         to: emailObject.customerEmail,
-        subject: isPickupStoreEnabled && emailObject.order.custom.pickInStore ? Resource.msgf('subject.order.cancellation.email.pickup', 'order', null, emailObject.orderNumber) : Resource.msgf('subject.order.cancellation.email', 'order', null, emailObject.orderNumber),
+        subject: isPickupStoreEnabled && emailObject.order.custom.BOPIS ? Resource.msgf('subject.order.cancellation.email.pickup', 'order', null, emailObject.orderNumber) : Resource.msgf('subject.order.cancellation.email', 'order', null, emailObject.orderNumber),
         from: Site.current.getCustomPreferenceValue('customerServiceEmail') || 'no-reply@salesforce.com',
         type: emailHelpers.emailTypes.orderCancellation
     };
-    var emailTemplate = isPickupStoreEnabled && emailObject.order.custom.pickInStore ? 'order/email/cancellationEmailPickInStore' : 'order/email/cancellation';
+    var emailTemplate = isPickupStoreEnabled && emailObject.order.custom.BOPIS ? 'order/email/cancellationEmailPickInStore' : 'order/email/cancellation';
     emailHelpers.sendEmail(emailObj, emailTemplate, orderObject);
     checkoutLogger.debug('(checkoutCustomHelpers) -> sendCancellationEmail: Sent order cancellation mail to the current user, for order:' + emailObject.orderNumber);
 }
