@@ -62,16 +62,16 @@
                         <div class="refinement-bar col">
                             <isinclude url="${pdict.refineurl}" />
                         </div>
-                        <div class="container-fluid mt-3">
-                            <div class="row pb-2 pb-sm-3">
+                        <div class="container-fluid mt-0">
+                            <div class="row py-2 py-sm-3 filter-box">
                                 <div class="col-12">
-                                    <div class="d-flex justify-content-between">
+                                    <div class="d-flex justify-content-between align-items-start">
                                         <div id="product-search-results">
                                             <isif condition="${pdict.productSearch.productIds.length > 0}">
                                                 <div class="row m-0 grid-header">
                                                     <div class="result-count">
                                             <iselse>
-                                                <div class="row m-0 grid-header justify-content-center">
+                                                <div class="row m-0 grid-header justify-content-start">
                                                     <div class="result-count col">
                                             </isif>
                                             <isinclude template="search/resultsCount" />
