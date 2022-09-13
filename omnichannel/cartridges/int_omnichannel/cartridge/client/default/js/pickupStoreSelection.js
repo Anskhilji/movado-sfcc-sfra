@@ -28,6 +28,12 @@ $(document).ready(function () {
     })
 })
 
+$(function() {
+    if (navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1) {
+        $('.store-pickup-model').addClass('safari-mac');
+    }
+});
+
 $(document).on('click', '.store-pickup-select', function () {
     var stringifyData = JSON.stringify($(this).data('store'));
     if (stringifyData !== '') {

@@ -1435,6 +1435,14 @@
                                         justify-content: center;
                                         transition: all 0s;
                                     }
+                                    .dw-apple-pay-button  { 
+                                        &:active,&:hover {
+                                            background-image: -webkit-named-image(apple-pay-logo-white);
+                                        }
+                                    }
+                                    .dw-apple-pay-button + .googlepay-btn {
+                                        display: none;
+                                    }
                                 }
                             }
                         }
