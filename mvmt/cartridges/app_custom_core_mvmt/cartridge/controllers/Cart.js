@@ -4,6 +4,7 @@
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
+var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 
 var server = require('server');
 var page = module.superModule;
@@ -32,15 +33,16 @@ server.replace('MiniCart', server.middleware.include, function (req, res, next) 
 
 //Show add to Cart Button as Remote Include
 server.replace('ShowAddProductButton', function (req, res, next) {
-    var product = req.querystring.product;
+    var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
+    var productId = req.querystring.pid;
 
     res.render('product/components/showCartButtonProduct', {
-        product: product
+        product: showProductPageHelperResult.product,
+        productId: productId
     });
 
     next();
 });
-
 
 server.get('MiniCartCheckout', server.middleware.include, function (req, res, next) {
     var BasketMgr = require('dw/order/BasketMgr');

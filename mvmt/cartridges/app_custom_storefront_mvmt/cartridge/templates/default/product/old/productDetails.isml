@@ -33,7 +33,7 @@
                         <isset name="price" value="${product.price}" scope="page" />
                         <isinclude template="product/components/pricing/main" />
                     </span>
-                    <isinclude url="${URLUtils.https('Cart-ShowAddProductButton', 'product', product)}"/>
+                    <isinclude url="${URLUtils.https('Cart-ShowAddProductButton', 'pid', product.id)}"/>
                 </div>
             </div>
         </section>
@@ -186,7 +186,7 @@
                             <div class="col-12 prices-add-to-cart-actions-top">
                                 <div class="d-block">
                                     <!-- Cart and [Optionally] Apple Pay -->
-                                    <isinclude url="${URLUtils.https('Cart-ShowAddProductButton', 'product', product)}"/>
+                                    <isinclude url="${URLUtils.https('Cart-ShowAddProductButton', 'pid', product.id)}"/>
                                 </div>
                             </div>
                         </div>
@@ -227,7 +227,7 @@
                             <div class="col-12 prices-add-to-cart-actions">
                                 <div class="d-block">
                                     <!-- Cart and [Optionally] Apple Pay -->
-                                    <isinclude url="${URLUtils.https('Cart-ShowAddProductButton', 'product', product)}"/>
+                                    <isinclude url="${URLUtils.https('Cart-ShowAddProductButton', 'pid', product.id)}"/>
                                     <isapplepay class="apple-pay-pdp btn apple-pay" sku="${product.id}"></isapplepay>
 
                                 </div>
@@ -283,7 +283,7 @@
                     <div class="show-cart-button-desktop">
                         <div class="row">
                             <div class="col-12 prices-add-to-cart-actions">
-                                <isinclude url="${URLUtils.https('Cart-ShowAddProductButton', 'product', product)}"/>
+                                <isinclude url="${URLUtils.https('Cart-ShowAddProductButton', 'pid', product.id)}"/>
                             </div>
                         </div>
                     </div>

@@ -163,43 +163,7 @@
                                 <!-- Cart and [Optionally] Apple Pay -->
                             <div class="cart-wishlist ${product.available && product.readyToOrder ? '' : 'cart-wishlist-out-of-stock'}">
                                 <iscomment> Custom Start: Adding Esw updated cartridge code for add to cart button and applepay </iscomment>
-                                <div class="cart-and-ipay ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "d-none" : ""}">
-                                    <div class="cta-add-to-cart">
-                                        <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}">
-                                        <iscomment> Custom Start: Adding Esw updated cartridge code ({product.isProductRestricted}>d-none) </iscomment>
-                                        <isinclude url="${URLUtils.https('Cart-ShowAddProductButton', 'isProductRestricted', product.isProductRestricted, 'productId', product.id, 'readyToOrder', product.readyToOrder, 'productAvailability', product.availability.messages[0])}" sf-toolkit="on"/>
-                                        <isif condition="${product.available && product.readyToOrder}">
-                                            <iscomment> Custom Start: Adding check for applepay button to show only when country US is selected</iscomment>
-                                            <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
-                                            <isif condition="${isEswEnabled}">
-                                                <isif condition="${!empty(request.httpCookies['esw.location'])  &&  !empty(request.httpCookies['esw.location'].value) && request.httpCookies['esw.location'].value.equalsIgnoreCase('US') && !product.isProductRestricted}" >
-                                                    <isapplepay class="apple-pay-pdp btn mt-2" sku="${product.id}"></isapplepay>
-                                                    <isif condition="${dw.system.Site.current.preferences.custom.isGooglePayEnabled}">
-                                                        <div class="google-pay-wrapper mt-2">
-                                                            <isinclude url="${URLUtils.https('GooglePay-RenderButton', 'googlePayEntryPoint', 'Product-Show', 'pid', product.id)}" sf-toolkit="on"/>
-                                                        </div>
-                                                    </isif>
-                                                    <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
-                                                        <isinclude template="product/components/smartGift" />
-                                                    </isif>
-                                                </isif>
-                                            <div class="product-not-available-msg <isif condition="${!product.isProductRestricted}">d-none</isif>">${Resource.msg('esw.product.notavailable','esw',null)}</div>
-                                            <iselse/>
-                                                <isapplepay class="apple-pay-pdp btn mt-2" sku="${product.id}"></isapplepay>
-                                                <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}"> 
-                                                    <isinclude template="product/components/smartGift" />
-                                                </isif>
-                                                <isif condition="${dw.system.Site.current.preferences.custom.isGooglePayEnabled}">
-                                                     <div class="google-pay-wrapper mt-2">
-                                                        <isinclude url="${URLUtils.https('GooglePay-RenderButton', 'googlePayEntryPoint', 'Product-Show', 'pid', product.id)}" sf-toolkit="on"/>
-                                                    </div>
-                                                </isif>
-                                            </isif>
-                                            <iscomment> Custom End </iscomment>
-                                        </isif>
-                                        
-                                    </div>
-                                </div>
+                                <isinclude url="${URLUtils.https('Cart-ShowAddProductButton', 'pid', product.id)}"/>
                                 <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
                                     <div class="traditional-wishlist-row wishlist-row">
                                         <isinclude url="${URLUtils.https('Wishlist-ShowIcon', 'gtmObj',JSON.stringify(pdict.wishlistGtmObj))}"/>

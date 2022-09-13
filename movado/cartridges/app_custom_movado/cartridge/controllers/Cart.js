@@ -6,6 +6,7 @@ var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var collections = require('*/cartridge/scripts/util/collections');
 var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
+var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 
 var page = module.superModule;
 server.extend(page);
@@ -35,16 +36,13 @@ server.prepend('AddProduct', function (req, res, next) {
 
 //Show add to Cart Button as Remote Include
 server.get('ShowAddProductButton', function (req, res, next) {
-    var isProductRestricted = req.querystring.isProductRestricted;
-    var productId = req.querystring.productId;
-    var readyToOrder = req.querystring.readyToOrder;
-    var productAvailability = req.querystring.productAvailability;
+    var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
+    var productId = req.querystring.pid;
 
-    res.render('product/components/addToCartButton', {
-        isProductRestricted: isProductRestricted,
-        productId: productId,
-        readyToOrder: readyToOrder,
-        productAvailability: productAvailability
+    res.render('product/components/addToCartPDP', {
+        product: showProductPageHelperResult.product,
+        addToCartUrl: showProductPageHelperResult.addToCartUrl,
+        productId: productId
     });
 
     next();
