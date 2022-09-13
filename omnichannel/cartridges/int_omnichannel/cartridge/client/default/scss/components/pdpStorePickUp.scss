@@ -61,6 +61,11 @@
             display: flex;
             align-items: flex-start;
             padding: 0;
+
+            .pickup-store-inventory-status-icon-unavailable {
+                padding: rem(10);
+                margin-right: rem(10);
+            }
         }
     }
 
