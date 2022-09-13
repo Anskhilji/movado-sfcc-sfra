@@ -32,10 +32,9 @@
   }
   
   &-product-name {
-    font-family: $font-std-medium;
     color: $light-gray-black;
     font-size: rem(16);
-    font-weight: 300;
+    font-weight: 400;
     letter-spacing: rem(0.7);
     line-height: rem(24);
     margin-bottom: rem(0);
@@ -47,10 +46,9 @@
   }
 
   &-product-number {
-    font-family: $font-book-std;
     color: $light-gray-brown;
     font-size: rem(12);
-    font-weight: 300;
+    font-weight: 400;
     letter-spacing: rem(0.53);
     line-height: rem(24);
   }
@@ -77,9 +75,8 @@
 
         .value {
             color: $light-gray-white;
-            font-family: $font-book-std;
             font-size: rem(12);
-            font-weight: 300;
+            font-weight: 400;
             letter-spacing: rem(0.53);
             line-height: rem(24);
             margin: rem(0);
@@ -90,9 +87,8 @@
 
         .value {
           color: $black-dark;
-          font-family: $font-book-std;
           font-size: rem(12);
-          font-weight: 300;
+          font-weight: 400;
           letter-spacing: rem(0.53);
           line-height: rem(24);
           margin: rem(0);
@@ -117,7 +113,6 @@
 
 .total-stores {
   color: $black-dark;
-  font-family: $font-std-medium;
   font-size: rem(10);
   font-weight: 600;
   letter-spacing: rem(0.44);
@@ -154,7 +149,7 @@
     }
 
   &-details {
-    font-family: $font-demi;
+    font-family: $font-thin;
     padding-bottom: rem(10);
 
     @include media-breakpoint-up(md) {
@@ -168,7 +163,6 @@
           font-weight: 600;
           letter-spacing: rem(0.61);
           line-height: rem(24);
-          font-family: $font-std-medium;
           text-transform: capitalize;
           display: block;
         }
@@ -178,10 +172,9 @@
         span {
           color: $light-gray-brown;
           font-size: rem(14);
-          font-weight: 300;
+          font-weight:400;
           letter-spacing: rem(0.61);
           line-height: rem(20);
-          font-family: $font-std-medium;
           text-transform: capitalize;
         }
       }
@@ -193,7 +186,6 @@
           font-weight: 500;
           letter-spacing: rem(0.61);
           line-height: rem(20);
-          font-family: $font-std-medium;
         }
       }
   }
@@ -215,7 +207,6 @@
   .store-pickup-select {
     height: rem(25);
     width: rem(120);
-    font-family: $font-std-medium;
     font-size: rem(12);
     font-weight: 500;
     letter-spacing: rem(0.53);
@@ -254,7 +245,6 @@
     span {
       color: $light-gray-black;
       font-size: rem(14);
-      font-family: $font-std-medium;
       font-weight: 600;
       letter-spacing: rem(0.61);
       line-height: rem(24);
@@ -265,9 +255,8 @@
 
     label {
       color: $black-dark;
-      font-family: $font-std-medium;
       font-size: rem(14);
-      font-weight: 300;
+      font-weight: 400;
       letter-spacing: rem(0.61);
       line-height: rem(20);
       text-transform: none;
@@ -304,17 +293,15 @@
 
   .store-hours-time {
       color: $black-dark;
-      font-family: $font-demi;
       font-size: rem(12);
-      font-weight: 300;
+      font-weight: 400;
       letter-spacing: rem(0.61);
       line-height: rem(20);
 
       span {
         color: $black-dark;
-        font-family: $font-demi;
         font-size: rem(12);
-        font-weight: 300;
+        font-weight: 400;
         letter-spacing: rem(0.61);
         line-height: rem(20);
       }
@@ -324,9 +311,7 @@
 .no-store {
     padding: rem(20) rem(33);
     text-align: center;
-    font-family: $font-std-medium;
 }
-
 
 .pickup-store-modal {
     margin-bottom: rem(20);
