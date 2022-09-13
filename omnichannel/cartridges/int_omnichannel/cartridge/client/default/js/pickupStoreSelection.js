@@ -51,7 +51,7 @@ $(document).on('click', '.store-pickup-select', function () {
             $('.pdp-store-pickup-store-icon').addClass('pdp-store-pickup-store-icon-available');
             $('.pdp-icon-box').addClass('pdp-store-pickup-display-inline-block-inventory-icon');
         } else {
-            $('.pdp-icon-box').addClass('pdp-store-pickup-display-inline-block-store-icon') 
+            $('.pdp-icon-box').addClass('pdp-store-pickup-display-inline-block-store-icon'); 
         }
         if ($('.pickup-store-cart-address').length) {
             setStoreInSession($(this).data('url'), storeAddress1, stateCode, storePostalCode, true);
