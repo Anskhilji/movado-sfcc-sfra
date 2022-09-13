@@ -195,13 +195,24 @@
                 font-size: rem(16);
                 font-weight: 500;
                 letter-spacing: rem(0.7);
-                line-height: rem(36);
+                line-height: rem(40);
+                padding: rem(0) rem(6);
                 text-align: center;
                 text-transform: uppercase;
                 cursor: pointer;
 
                 @include media-breakpoint-down(xs) {
-                    line-height: rem(40);
+                    line-height: rem(44);
+                }
+            }
+        }
+    }
+
+    &.safari-mac {
+        .store-pickup {
+            &-search-store {
+                &-btn {
+                    line-height: rem(44);
                 }
             }
         }

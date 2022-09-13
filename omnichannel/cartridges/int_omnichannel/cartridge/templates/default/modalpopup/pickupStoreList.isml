@@ -12,7 +12,7 @@
                         <div class="store-name">
                             <span>${store.name}</span>
                         </div>
-                        <div class="store-address">
+                        <div class="store-address w-100">
                            <span>${(store.address1 || '') + ' ' + (store.stateCode || '') + ' ' + (store.phone || '') }</span>
                         </div>
                         <isif condition="${store.distance}">

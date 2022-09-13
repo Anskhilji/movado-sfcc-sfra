@@ -101,7 +101,7 @@
     background-color: $gray-info;
     box-shadow: 0 rem(2) rem(6) 0 $gray-shadow;
     margin-bottom: rem(20);
-    padding: rem(19) rem(30) rem(19) rem(20);
+    padding: rem(20.5) rem(30.5) rem(20.5) rem(20.5);
 
     .checkbox {
       margin-bottom: rem(5);
@@ -139,11 +139,11 @@
                 border-radius: rem(3);
                 box-shadow: none;
                 background: transparent;
-                left: rem(-27);
+                left: rem(-24);
             }
 
             &::after {
-              left: rem(-27);
+              left: rem(-24);
             }
 
             &.disabled{
@@ -167,7 +167,7 @@
       border-radius: 0 0 rem(3) rem(3);
       background-color: $alert-box-bg;
       margin-bottom: rem(20);
-      padding: rem(15.5) rem(20);
+      padding: rem(14.5) rem(19);
     }
 
     &-text {
