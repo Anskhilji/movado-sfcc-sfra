@@ -162,8 +162,41 @@ function placeOrder(order, fraudDetectionStatus) {
     return result;
 }
 
+
+function parseGetPaymentDetailsResponse(args) {
+    var order = args.Order;
+    var orderNumber = args.Order.orderNo;
+    checkoutLogger.debug('(adyenHelpers) -> parseGetPaymentDetailsResponse: Inside parseGetPaymentDetailsResponse to parse the service response and order number is: ' + orderNumber);
+    var result = { error: false };
+    var serviceResponse = args.ServiceResponse;
+    if (serviceResponse && serviceResponse.hasOwnProperty('resultCode') && serviceResponse.resultCode === 'RedirectShopper') {
+        if (serviceResponse.hasOwnProperty('paymentData') && serviceResponse.hasOwnProperty('redirect') && serviceResponse.redirect.hasOwnProperty('url')) {
+            result.redirectUrl = serviceResponse.redirect.url;
+            updateOrderCustomAttibutes({ Order: order, Paymentdata: serviceResponse.paymentData });
+        } else {
+            checkoutLogger.error('(adyenHelpers) -> parseGetPaymentDetailsResponse: Error occurred while trying to validate the service response and order number is: ' + orderNumber + ' and going to set the error');
+            result.error = true;
+        }
+    } else {
+        checkoutLogger.error('(adyenHelpers) -> parseGetPaymentDetailsResponse: Error occurred because service not have the resultCode and redirectShopper property and order number is: ' + orderNumber + ' and going to set the error');
+        result.error = true;
+    }
+
+    return result;
+}
+
+function updateOrderCustomAttibutes(args) {
+    var order = args.Order;
+    checkoutLogger.debug('(adyenHelpers) -> updateOrderCustomAttibutes: Inside updateOrderCustomAttibutes to update the order custom attribute of klarna payment data and order number is: ' + args.Order.orderNo);
+    Transaction.wrap(function () {
+        order.custom.klarnaPaymentdata = args.Paymentdata;
+    });
+}
+
 module.exports = {
     handlePayments: handlePayments,
     placeOrder: placeOrder,
-    validatePayment: validatePayment
+    validatePayment: validatePayment,
+    parseGetPaymentDetailsResponse: parseGetPaymentDetailsResponse,
+    updateOrderCustomAttibutes: updateOrderCustomAttibutes
 };
