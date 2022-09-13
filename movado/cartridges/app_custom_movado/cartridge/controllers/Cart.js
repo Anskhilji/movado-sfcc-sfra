@@ -507,7 +507,6 @@ server.get(
 
 server.prepend('RemoveProductLineItem', function (req, res, next) {
     var BasketMgr = require('dw/order/BasketMgr');
-    var Transaction = require('dw/system/Transaction');
     var currentBasket = BasketMgr.getCurrentOrNewBasket();
     var deletedGiftPid = req.querystring.uuid;
 
@@ -515,17 +514,7 @@ server.prepend('RemoveProductLineItem', function (req, res, next) {
     var giftsParentUUID = currentBasket.allProductLineItems.toArray().filter(function(product) {
         return product.UUID == deletedGiftPid;
     });
-    var linesItemsIterator = currentBasket.allProductLineItems.iterator();
-    var currentsLineItemsIterator;
-    while (linesItemsIterator.hasNext()) {
-        currentsLineItemsIterator = linesItemsIterator.next();
-        if (currentsLineItemsIterator.UUID == giftsParentUUID[0].custom.giftParentUUID) {
-            Transaction.wrap(function () {
-                currentsLineItemsIterator.custom.giftPid = "";
-            });
-            break;
-        }
-    }
+    customCartHelpers.getGiftTransactionATC(currentBasket, giftsParentUUID);
     // Custom End
 
 	next();
