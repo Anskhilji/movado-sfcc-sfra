@@ -53,14 +53,7 @@
                             </div>
                             <!-- Product Rating -->
                             <div class="ratings d-none-mobile-rating">
-                                <isset name="isYotpoStoreProductRatingEnabled" value="${!empty(dw.system.Site.current.preferences.custom.yotpoStoreProductRatingEnabled) ? dw.system.Site.current.preferences.custom.yotpoStoreProductRatingEnabled : false}" scope="page" />
-                                <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
-                                    <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
-                                        <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
-                                    </div>
-                                <iselse/>
-                                    <isinclude template="product/components/productRating" />
-                                </isif>
+                                <isinclude template="product/components/productRating" />
                             </div>
                         </div>
                         <iscomment> Custom Start: Tax Duties shows when following requirements meet </iscomment>
@@ -113,13 +106,7 @@
                         <div class="product-section-mobile scroll-wrapper-inner">
                             <!-- Product Rating -->
                             <div class="ratings ratings-mobile d-lg-none d-sm-none">
-                                <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
-                                    <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
-                                        <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
-                                    </div>
-                                <iselse/>
-                                    <isinclude template="product/components/productRating" />
-                                </isif>
+                                <isinclude template="product/components/productRating" />
                             </div>
                             <iscomment> Custom Start: [MSS-1341 Show/Hide Short Description on PDP]</iscomment>
                             <isset name="isRecommendationsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.recommendationsEnabled) ? dw.system.Site.current.preferences.custom.recommendationsEnabled : false}" scope="page" />
@@ -135,7 +122,7 @@
                                 </div>
                             </isif>
                             <iscomment> Custom End </iscomment>
-                            <isif condition="${product.options && product.options.length > 0 && !(option.id == "clydeWarranty") && dw.system.Site.current.preferences.custom.isClydeEnabled}">
+                            <isif condition="${product.options && product.options.length > 0}">
                                 <isinclude template="product/components/options" />
                             </isif>
                                 
