@@ -21,21 +21,23 @@
                             </div>
                         </isif>
                     </div>
-                    <isif condition="${param.isPdp}">
+
                         <div class="store-availble">
                             <div class="store-availibilty-hours">
-                                <isif condition="${store.inventory.length != 0}">
-                                    <div class="store-product-available">
-                                        <span>${Resource.msgf('store.pickup.store.availabe.inventory', 'storePickUp', null, store.inventory[0].records[0].ato)}</span>
-                                    </div>
-                                <iselseif condition="${param.isPdp}"/>
-                                    <div class="store-product-available">
-                                        <span>${Resource.msgf('store.pickup.store.availabe.inventory', 'storePickUp', null, 0)}</span>
-                                    </div>
+                                <isif condition="${param.isPdp}">
+                                    <isif condition="${store.inventory.length != 0}">
+                                        <div class="store-product-available">
+                                            <span>${Resource.msgf('store.pickup.store.availabe.inventory', 'storePickUp', null, store.inventory[0].records[0].ato)}</span>
+                                        </div>
+                                    <iselseif condition="${param.isPdp}"/>
+                                        <div class="store-product-available">
+                                            <span>${Resource.msgf('store.pickup.store.availabe.inventory', 'storePickUp', null, 0)}</span>
+                                        </div>
+                                    </isif>
                                 </isif>
                                 <isif condition="${store.storeHours}">
                                     <div class="store-hours">
-                                        <label class="store-hours-title collapsed" data-toggle="collapse"
+                                        <label class="store-hours-title collapsed"
                                             data-target="${'#storeHours-' + store.ID}" aria-expanded="false"
                                             aria-controls="${'storeHours-' + store.ID}"
                                             for="${'storeHours-' + store.ID}">${Resource.msg('store.pickup.store.hours.label', 'storePickUp', null)}</label>
@@ -48,7 +50,6 @@
                                 </isif>
                             </div>
                         </div>
-                    </isif>
                     <div class="store-select-btn">
                         <div class="store-select-button">
                             <isif condition="${param.selectedStore == store.ID}">
