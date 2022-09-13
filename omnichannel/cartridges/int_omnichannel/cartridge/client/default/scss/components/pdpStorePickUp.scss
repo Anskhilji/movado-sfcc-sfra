@@ -61,11 +61,15 @@
             display: flex;
             align-items: flex-start;
             padding: 0;
+
+            .pickup-store-inventory-status-icon-unavailable {
+                padding: rem(10);
+                margin-right: rem(10);
+            }
         }
     }
 
     .pick-up-store {
-        font-family: $font-std;
 
         &-stock-for-deliver {
             color: $dark-light-black;
@@ -73,7 +77,6 @@
             font-weight: 600;
             letter-spacing: rem(0.61);
             line-height: rem(17);
-            font-family: $font-std-medium;
             margin-bottom: rem(6);
         }
     
@@ -85,7 +88,6 @@
             line-height: rem(20);
             color: $light-black;
             margin: 0;
-            font-family: $font-book-std;
         }
     
         &-available-for-store {
@@ -94,7 +96,6 @@
             font-weight: 600;
             letter-spacing: rem(0.61);
             line-height: rem(17);
-            font-family: $font-std-medium;
             margin-bottom: rem(5);
         }
     
@@ -106,7 +107,6 @@
             line-height: rem(20);
             letter-spacing: rem(0.86);
             margin: 0;
-            font-family: $font-book-std;
         }
     
         &-change-store {
@@ -119,7 +119,6 @@
             text-decoration: underline;
             cursor: pointer;
             color: $light-black;
-            font-family: $font-book-std;
         }
     }
 }

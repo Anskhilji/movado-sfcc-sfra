@@ -34,9 +34,8 @@
 
     &-title {
         color: $light-gray-black;
-        font-family: $font-book-std;
         font-size: rem(20);
-        font-weight: 300;
+        font-weight: 500;
         letter-spacing: rem(0.88);
         line-height: rem(24);
         text-transform: uppercase;
@@ -85,9 +84,8 @@
                 background-color: $white-dark;
                 padding: rem(12) rem(10) rem(12) rem(10);
                 font-size: rem(14);
-                font-family: $font-book-std;
                 color: $light-gray-brown;
-                font-weight: 300;
+                font-weight: 500;
                 letter-spacing: rem(0.4);
                 line-height: rem(40);
 
@@ -99,7 +97,6 @@
 
                 &::placeholder {
                     color: $light-gray-brown;
-                    font-family: $font-book-std;
                     font-size: rem(14);
                     font-weight: 300;
                     letter-spacing: rem(0.4);
@@ -134,7 +131,6 @@
                 border: rem(1) solid $light-gray-white;
                 background-color: $white-dark;
                 color: $black-dark;
-                font-family: $font-std-medium;
                 font-size: rem(14);
                 font-weight: 500;
                 letter-spacing: rem(0.4);
@@ -166,9 +162,8 @@
     
             &-dropdown-label {
                 color: $light-gray-brown;
-                font-family: $font-std-medium;
                 font-size: rem(10);
-                font-weight: 300;
+                font-weight: 400;
                 letter-spacing: rem(0.29);
                 line-height: rem(24);
                 position: absolute;
@@ -197,7 +192,6 @@
                 width: 100%;
                 background-color: $white-dark;
                 color: $light-gray-black;
-                font-family: $font-std-medium;
                 font-size: rem(16);
                 font-weight: 500;
                 letter-spacing: rem(0.7);

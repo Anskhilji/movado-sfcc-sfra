@@ -85,3 +85,16 @@ if (isIE()){
 } else {
     $('.store-pickup-model .store-pickup-model-container').removeClass('ie-model');
 }
+
+$(document).on('click', '.store-hours .store-hours-title', function (){
+    var dataAtrribute = $(this).attr('aria-expanded');
+    var attrId = $(this).attr('data-target');
+    if(dataAtrribute == 'true'){
+        $(this).addClass('collapsed').attr({'aria-expanded': 'false'});
+        $(attrId).removeClass('show');
+    }else{
+        $(this).removeClass('collapsed').attr({'aria-expanded': 'true'});
+        $(attrId).addClass('show');
+  
+    }
+});
