@@ -23,7 +23,7 @@ function updateShippingAddressSelector(productLineItem, shipping, order, custome
         $shippingAddressSelector = $('.addressSelector', form);
     }
 
-    if ($shippingAddressSelector && $shippingAddressSelector.length === 1) {
+    if (!Resources.PICKUP_FROM_STORE && $shippingAddressSelector && $shippingAddressSelector.length === 1) {
         $shippingAddressSelector.empty();
         // Add New Address option
         $shippingAddressSelector.append(addressHelpers.methods.optionValueForAddress(
@@ -215,36 +215,40 @@ function updateShippingMethods(shipping) {
  * Update list of available shipping methods whenever user modifies shipping address details.
  * @param {jQuery} $shippingForm - current shipping form
  */
+
 function updateShippingMethodList($shippingForm) {
     // delay for autocomplete!
     setTimeout(function () {
+
         var $shippingMethodList = $shippingForm.find('.shipping-method-list');
-        var urlParams = addressHelpers.methods.getAddressFieldsFromUI($shippingForm);
-        var shipmentUUID = $shippingForm.find('[name=shipmentUUID]').val();
         var url = $shippingMethodList.data('actionUrl');
-        urlParams.shipmentUUID = shipmentUUID;
+        if (url) {
+            var urlParams = addressHelpers.methods.getAddressFieldsFromUI($shippingForm);
+            var shipmentUUID = $shippingForm.find('[name=shipmentUUID]').val();
+            urlParams.shipmentUUID = shipmentUUID;
 
-        $shippingMethodList.spinner().start();
-        $.ajax({
-            url: url,
-            type: 'post',
-            dataType: 'json',
-            data: urlParams,
-            success: function (data) {
-                if (data.error) {
-                    window.location.href = data.redirectUrl;
-                } else {
-                    $('body').trigger('checkout:updateCheckoutView',
-                        {
-                            order: data.order,
-                            customer: data.customer,
-                            options: { keepOpen: true }
-                        });
+            $shippingMethodList.spinner().start();
+            $.ajax({
+                url: url,
+                type: 'post',
+                dataType: 'json',
+                data: urlParams,
+                success: function (data) {
+                    if (data.error) {
+                        window.location.href = data.redirectUrl;
+                    } else {
+                        $('body').trigger('checkout:updateCheckoutView',
+                            {
+                                order: data.order,
+                                customer: data.customer,
+                                options: { keepOpen: true }
+                            });
 
-                    $shippingMethodList.spinner().stop();
+                        $shippingMethodList.spinner().stop();
+                    }
                 }
-            }
-        });
+            });
+        }
     }, 300);
 }
 

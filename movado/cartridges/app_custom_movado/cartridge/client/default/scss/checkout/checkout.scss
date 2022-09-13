@@ -128,6 +128,14 @@ span.ship-to-city-st-zip {
                 @include media-breakpoint-up(lg) {
                     font-size: rem(20);
                 }
+
+                &.store-label-details {
+                    color: $grey14;
+                    font-size: rem(16);
+                    font-weight: 500;
+                    letter-spacing: rem(2);
+                    line-height: rem(21);
+                }
             }
         }
     }
@@ -768,6 +776,14 @@ header {
     }
 }
 
+.shipping-your-detail {
+    text-transform: uppercase;
+    line-height: rem(18);
+    font-size: rem(14);
+    color: $grey14;
+    font-weight: 500;
+    margin-bottom: rem(15);
+}
 .checkout-label-custom {
     @include media-breakpoint-up(xl) {
         max-width: rem(892);
@@ -835,4 +851,14 @@ header {
         background-color: $google-white1 !important;
         height: rem(45) !important;
     }
+}
+.checkout-pickup-items {
+    color: $grey18;
+    font-size: rem(16);
+    font-weight: 500;
+    letter-spacing: rem(1.14);
+    line-height: rem(24);
+    text-transform: uppercase;
+    margin-top: rem(21);
+    margin-bottom: rem(-3);
 }

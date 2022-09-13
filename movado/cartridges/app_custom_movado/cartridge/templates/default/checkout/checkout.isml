@@ -55,7 +55,11 @@
 
                     <div class="card shipping-summary">
                         <div class="card-header flex justify-content-between align-items-center">
+                        <isif condition="${session.privacy.pickupFromStore && pdict.order.custom.BOPIS}">
+                            <h4 class="pull-left store-label-details">${Resource.msg('heading.checkout.store.pickup.detail', 'storePickUp', null)}</h4>
+                        <iselse/>
                             <h4 class="pull-left">${Resource.msg('heading.checkout.shipping', 'checkout', null)}</h4>
+                        </isif>
                             <span class="edit-button pull-right" tabindex="0">${Resource.msg('action.edit.step', 'checkout', null)}</span>
                         </div>
                         <div class="card-body">
@@ -67,7 +71,7 @@
                     <isinclude template="checkout/billing/billing" />
                     <div class="card payment-summary">
                         <div class="card-header flex justify-content-between align-items-center">
-                            <h4 class="pull-left">${Resource.msg('heading.payment', 'checkout', null)}</h4>
+                            <h4 class="pull-left store-label-details">${Resource.msg('heading.payment', 'checkout', null)}</h4>
                             <span class="edit-button pull-right">${Resource.msg('action.edit.step', 'checkout', null)}</span>
                         </div>
 

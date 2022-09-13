@@ -4,6 +4,11 @@
     <isset name="addressMode" value="${shippingModel.matchingAddressId ? 'edit' : 'new'}" scope="page" />
 </isif>
 <div class="card-body shipping-content">
+<isif condition="${session.privacy.pickupFromStore && pdict.order.custom.BOPIS}">
+    <div class="shipping-your-detail">
+        ${Resource.msg('label.order.your.detail', 'storePickUp', null)}
+    </div>
+</isif>
     <form class="shipping-form" autocomplete="on" novalidate
           action="${shipmentLoopState
           ? URLUtils.url('CheckoutAddressServices-AddNewAddress')
@@ -27,17 +32,24 @@
                 <isinclude template="checkout/shipping/shippingAddress" />
             </fieldset>
 
-            <fieldset class="shipping-method-block">
-                <h5 class="ship-method-header">${Resource.msg('heading.shipping.method', 'checkout', null)}</h5>
-
-                <isinclude template="checkout/shipping/shippingMethod" />
-            </fieldset>
+            <isif condition="${session.privacy.pickupFromStore && pdict.order.custom.BOPIS}">
+                <div>
+                    <isinclude url="${URLUtils.url('Checkout-CheckoutPickupStore')}" />
+                </div>
+            <iselse/>
+                <fieldset class="shipping-method-block">
+                    <h5 class="ship-method-header">${Resource.msg('heading.shipping.method', 'checkout', null)}</h5>
+            
+                    <isinclude template="checkout/shipping/shippingMethod" />
+                </fieldset>
+            </isif>
 
             <iscomment> <fieldset class="gift-message-block">
                 <isinclude template="checkout/shipping/isGift" />
             </fieldset> </iscomment>
         </div>
 
+        
         <div class="view-address-block ${shippingModel.shippingAddress ? '' : 'd-none' }">
             <isinclude template="checkout/shipping/shippingCard" />
         </div>
