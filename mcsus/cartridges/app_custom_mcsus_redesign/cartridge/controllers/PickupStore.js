@@ -12,7 +12,6 @@ server.replace('GetPreferredStore', function (req, res, next) {
     var BasketMgr = require('dw/order/BasketMgr');
 
     var preferedPickupStore;
-    var a = req.querystring;
     var isPdp = req.querystring.isPdp;
     var address1;
     var phone;
