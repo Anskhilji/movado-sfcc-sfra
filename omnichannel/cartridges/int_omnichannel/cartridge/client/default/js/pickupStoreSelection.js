@@ -33,9 +33,12 @@ $(document).on('click', '.store-pickup-select', function () {
     if (stringifyData !== '') {
         var storePickup = JSON.parse(stringifyData);
         var storeAddress1 = storePickup.address1;
+        var storeAddress2 = storePickup.address2;
         var storePostalCode = storePickup.postalCode;
         var storeAddress = storePickup.address1 + ' ' + (storePickup.stateCode != undefined ? storePickup.stateCode + ' ' : '') + (storePostalCode != undefined ? storePostalCode : '');
         var stateCode = storePickup.stateCode;
+        var storeCity = storePickup.city;
+        var storeCountryCode = storePickup.countryCode;
         $('.available-for-store, .pick-up-store-available-for-store').text(Resources.BOPIS_STORE_AVAILABLE_TEXT);
         $('.set-your-store').text(storePickup.address1);
         $('.available-pickup-stores, .pick-up-store-available-pickup-stores').text(storeAddress);
@@ -45,17 +48,20 @@ $(document).on('click', '.store-pickup-select', function () {
             $('.pdp-store-pickup-store-icon').addClass('pdp-store-pickup-store-icon-available')
         }
         if ($('.pickup-store-cart-address').length) {
-            setStoreInSession($(this).data('url'), storeAddress1, stateCode, storePostalCode, true);
+            setStoreInSession($(this).data('url'), storeAddress1, stateCode, storePostalCode, storeCity, storeCountryCode, storeAddress2, true);
         } else {
-            setStoreInSession($(this).data('url'), storeAddress1, stateCode, storePostalCode, false);
+            setStoreInSession($(this).data('url'), storeAddress1, stateCode, storePostalCode, storeCity, storeCountryCode, storeAddress2, false);
         }
     }
 })
 
-function setStoreInSession(url, address, stateCode, storePostalCode, isFromCart) {
+function setStoreInSession(url, address, stateCode, storePostalCode, storeCity, storeCountryCode, storeAddress2, isFromCart) {
     url = address ? url + '&storeAddress=' + address : url;
     url = stateCode ? url + '&stateCode=' + stateCode : url;
     url = storePostalCode ? url + '&storePostalCode=' + storePostalCode : url;
+    url = storeCity ? url + '&storeCity=' + storeCity : url;
+    url = storeCountryCode ? url + '&storeCountryCode=' + storeCountryCode : url;
+    url = storeAddress2 ? url + '&storeAddress2=' + storeAddress2 : url;
     $.ajax({
         url: url,
         type: 'POST',

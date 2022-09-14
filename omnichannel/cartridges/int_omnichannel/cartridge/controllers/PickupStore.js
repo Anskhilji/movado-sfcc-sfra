@@ -70,10 +70,16 @@ server.post('SetStoreIDSession', function (req, res, next) {
     var storeAddress = (!empty(req.querystring.storeAddress)) ? req.querystring.storeAddress : '';
     var stateCode = (!empty(req.querystring.stateCode)) ? req.querystring.stateCode : '';
     var storePostalCode = (!empty(req.querystring.storePostalCode)) ? req.querystring.storePostalCode : '';
+    var storeCity = (!empty(req.querystring.storeCity)) ? req.querystring.storeCity : '';
+    var storeCountryCode = (!empty(req.querystring.storeCountryCode)) ? req.querystring.storeCountryCode : '';
+    var storeAddress2 = (!empty(req.querystring.storeAddress2)) ? req.querystring.storeAddress2 : '';   
     session.privacy.pickupStoreID = storeID;
     session.privacy.storeAddress = storeAddress;
     session.privacy.stateCode = stateCode;
     session.privacy.storePostalCode = storePostalCode;
+    session.privacy.storeCity = storeCity;
+    session.privacy.storeCountryCode = storeCountryCode;
+    session.privacy.storeAddress2 = storeAddress2;
     res.json(true);
     next();
 });

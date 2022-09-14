@@ -18,7 +18,8 @@ function getResources(pageContext) {
     var resources = {
         BOPIS_STORE_FETCHING_ERROR: Resource.msg('store.pickup.search.result.error', 'storePickUp', null),
         BOPIS_STORE_AVAILABLE_TEXT: Resource.msg('store.pickup.search.available.text', 'storePickUp', null),
-        BOPIS_STORE_CART_ERROR: Resource.msg('store.pickup.cart.error', 'storePickUp', null)
+        BOPIS_STORE_CART_ERROR: Resource.msg('store.pickup.cart.error', 'storePickUp', null),
+        PICKUP_FROM_STORE: session.privacy.pickupFromStore || false,
     };
     return resources;
 }

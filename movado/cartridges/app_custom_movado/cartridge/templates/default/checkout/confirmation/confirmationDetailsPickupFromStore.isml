@@ -14,7 +14,7 @@
                     <isprint value="${pdict.order.creationDate}" style="DATE_SHORT" />
                 </span>
             </p>
-            <isif condition="${!session.privacy.pickupFromStore && pdict.order.custom.BOPIS}">
+            <isif condition="${!isBOPISOrder}">
                 <p>
                     <span class="summary-section-label order-status-label">${Resource.msg('label.orderhistory.orderstatus','account',null)}</span>
                     <span class="summary-details order-status">
@@ -40,6 +40,7 @@
                 </p>
             </isif>
 
+        <isset name="isBOPISOrder" value="${pdict.OrderObj.custom.BOPIS}" scope="page" />
         <isinclude template="checkout/shipping/shippingSummary" />
         <isinclude template="checkout/billing/billingSummary" />
 
