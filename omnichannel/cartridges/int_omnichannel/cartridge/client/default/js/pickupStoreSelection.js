@@ -50,6 +50,7 @@ $(document).on('click', '.store-pickup-select', function () {
         if (storePickup.inventory && storePickup.inventory[0].records[0].ato > 0) {
             $('.pdp-store-pickup-store-icon').addClass('pdp-store-pickup-store-icon-available');
             $('.pdp-icon-box').addClass('pdp-store-pickup-display-inline-block-inventory-icon');
+            $('.pdp-icon-box').removeClass('pdp-store-pickup-display-inline-block-store-icon'); 
         } else {
             $('.pdp-icon-box').addClass('pdp-store-pickup-display-inline-block-store-icon'); 
         }

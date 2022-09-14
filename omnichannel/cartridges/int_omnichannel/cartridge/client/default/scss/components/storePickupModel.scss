@@ -82,17 +82,16 @@
                 width: 100%;
                 border: rem(1) solid $light-gray-white;
                 background-color: $white-dark;
-                padding: rem(12) rem(10) rem(12) rem(10);
+                padding: rem(10);
                 font-size: rem(14);
                 color: $light-gray-brown;
                 font-weight: 500;
                 letter-spacing: rem(0.4);
-                line-height: rem(40);
 
                 @include media-breakpoint-down(xs) {
                     line-height: rem(20);
                     vertical-align: middle;
-                    padding: rem(10) rem(10) rem(6.4) rem(10);
+                    padding: rem(8) rem(10);
                 }
 
                 &::placeholder {
@@ -200,20 +199,6 @@
                 text-align: center;
                 text-transform: uppercase;
                 cursor: pointer;
-
-                @include media-breakpoint-down(xs) {
-                    line-height: rem(44);
-                }
-            }
-        }
-    }
-
-    &.safari-mac {
-        .store-pickup {
-            &-search-store {
-                &-btn {
-                    line-height: rem(44);
-                }
             }
         }
     }

@@ -495,6 +495,7 @@ module.exports = function () {
                     $('html').removeClass('veiled');
                     $('.estimate-price-wrapper').hide();
                     $('.cart-error').empty();
+                    $('.cart-store-pickup').prop('checked', false);
                 } else {
                     if (data.toBeDeletedUUIDs && data.toBeDeletedUUIDs.length > 0) {
                         for (var i = 0; i < data.toBeDeletedUUIDs.length; i++) {
