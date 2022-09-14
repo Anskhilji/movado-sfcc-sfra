@@ -5,7 +5,7 @@
   <div class="container mb-5 mt-4">
     <div class="row">
       <div class="col-12">
-        <h2 class="page-title mb-4">${Resource.msg('global.storename.sitemap','common',null)}</h2>
+        <h2 class="page-title mb-4">${Resource.msg('label.header.sitemap','common',null)}</h2>
       </div>
     </div>
     <div class="row">
