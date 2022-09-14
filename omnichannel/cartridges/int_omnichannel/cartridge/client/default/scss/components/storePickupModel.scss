@@ -94,7 +94,7 @@
                 @include media-breakpoint-down(xs) {
                     line-height: rem(20);
                     vertical-align: middle;
-                    padding: rem(10) rem(10) rem(6.4) rem(10);
+                    padding: rem(8) rem(10) rem(6.2) rem(10);
                 }
 
                 &::placeholder {
@@ -206,20 +206,6 @@
                 text-align: center;
                 text-transform: uppercase;
                 cursor: pointer;
-
-                @include media-breakpoint-down(xs) {
-                    line-height: rem(44);
-                }
-            }
-        }
-    }
-
-    &.safari-mac {
-        .store-pickup {
-            &-search-store {
-                &-btn {
-                    line-height: rem(44);
-                }
             }
         }
     }
