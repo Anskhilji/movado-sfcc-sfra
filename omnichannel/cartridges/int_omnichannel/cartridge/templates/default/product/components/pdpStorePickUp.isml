@@ -12,12 +12,18 @@
 </div>
 <div class="col-sm-6">
     <div class="pdp-store-pickup-address">
-        <div class="pdp-store-pickup-display-inline-block-store-icon"></div>
+        <isif condition="${pdict.store.inventoryInStock > 0}">
+            <div class="pdp-icon-box pdp-store-pickup-display-inline-block-inventory-icon"></div>
+        <iselseif condition="${pdict.store.address1 && (pdict.store.inventoryInStock == undefined || pdict.store.inventoryInStock == 0)}"/>
+            <div class="pdp-icon-box pickup-store-inventory-status-icon-unavailable"></div>
+        <iselse/>
+            <div class="pdp-icon-box pdp-store-pickup-display-inline-block-store-icon"></div>
+        </isif>
         <div class="pdp-store-pickup-display-inline-block">
             <h3 class="pick-up-store-available-for-store">
                 <isif condition="${pdict.store.address1 && pdict.store.inventoryInStock > 0}">
                     ${Resource.msg('storepickup.avalibilty', 'storePickUp', null)}
-                <iselseif condition="${pdict.store.address1 && pdict.store.inventoryInStock == 0}"/>
+                <iselseif condition="${pdict.store.address1 && (pdict.store.inventoryInStock == undefined || pdict.store.inventoryInStock == 0)}"/>
                     ${Resource.msg('storepickup.unavalibilty', 'storePickUp', null)}
                 <iselse/>
                     ${Resource.msg('storepickup.check.available.store.text', 'storePickUp', null)}

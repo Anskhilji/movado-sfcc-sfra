@@ -20,6 +20,7 @@ function getResources(pageContext) {
         BOPIS_STORE_AVAILABLE_TEXT: Resource.msg('store.pickup.search.available.text', 'storePickUp', null),
         BOPIS_STORE_CART_ERROR: Resource.msg('store.pickup.cart.error', 'storePickUp', null),
         PICKUP_FROM_STORE: session.privacy.pickupFromStore || false,
+        GOOGLE_PAY_ENABLED: Site.current.preferences.custom.isGooglePayEnabled || false
     };
     return resources;
 }

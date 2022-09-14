@@ -28,6 +28,12 @@ $(document).ready(function () {
     })
 })
 
+$(function() {
+    if (navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1) {
+        $('.store-pickup-model').addClass('safari-mac');
+    }
+});
+
 $(document).on('click', '.store-pickup-select', function () {
     var stringifyData = JSON.stringify($(this).data('store'));
     if (stringifyData !== '') {
@@ -45,7 +51,11 @@ $(document).on('click', '.store-pickup-select', function () {
         $('.pick-up-store-change-store').text('Change');
         $('#pickupStoreModal').modal('hide');
         if (storePickup.inventory && storePickup.inventory[0].records[0].ato > 0) {
-            $('.pdp-store-pickup-store-icon').addClass('pdp-store-pickup-store-icon-available')
+            $('.pdp-store-pickup-store-icon').addClass('pdp-store-pickup-store-icon-available');
+            $('.pdp-icon-box').addClass('pdp-store-pickup-display-inline-block-inventory-icon');
+            $('.pdp-icon-box').removeClass('pdp-store-pickup-display-inline-block-store-icon'); 
+        } else {
+            $('.pdp-icon-box').addClass('pdp-store-pickup-display-inline-block-store-icon'); 
         }
         if ($('.pickup-store-cart-address').length) {
             setStoreInSession($(this).data('url'), storeAddress1, stateCode, storePostalCode, storeCity, storeCountryCode, storeAddress2, true);
@@ -91,3 +101,16 @@ if (isIE()){
 } else {
     $('.store-pickup-model .store-pickup-model-container').removeClass('ie-model');
 }
+
+$(document).on('click', '.store-hours .store-hours-title', function (){
+    var dataAtrribute = $(this).attr('aria-expanded');
+    var attrId = $(this).attr('data-target');
+    if(dataAtrribute == 'true'){
+        $(this).addClass('collapsed').attr({'aria-expanded': 'false'});
+        $(attrId).removeClass('show');
+    }else{
+        $(this).removeClass('collapsed').attr({'aria-expanded': 'true'});
+        $(attrId).addClass('show');
+  
+    }
+});
