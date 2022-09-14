@@ -1,0 +1,4 @@
+<span class="store-pickup-button js-store-modal" data-url='${URLUtils.https('PickupStore-GetStoresList', 'isPdp', pdict.isPdp)}'>
+    <span class="pickup-store-popup-button" ></span>
+    <span class="set-your-store">${(session.privacy.storeAddress) || Resource.msg('store.pickup.set.your.store.btn', 'pdpStorePickUp', null)}</span>
+</span>

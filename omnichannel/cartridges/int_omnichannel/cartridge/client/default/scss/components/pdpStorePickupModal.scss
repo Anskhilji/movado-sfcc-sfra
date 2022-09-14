@@ -1,0 +1,345 @@
+@import "_variables";
+@import "bootstrap/scss/mixins/breakpoints";
+
+.store-pickup-modal-body {
+  min-height: rem(534);
+  padding: rem(0);
+}
+
+.store-pickup-modal-body .store-list-wpdp {
+  max-height: rem(410);
+}
+
+.store-pickup-form-wrapper {
+  position: relative;
+  padding-top: rem(10);
+  display: flex;
+}
+
+.pickup-store-pdetail {
+    margin: rem(0) rem(0) rem(30) rem(0);
+  
+  @include media-breakpoint-up(md) {
+    padding-left: rem(50.5);
+  }
+
+  &-pd-specification {
+    padding: rem(0);
+
+    @include media-breakpoint-up(md) {
+        width: calc(100% - 30px);
+    }
+  }
+  
+  &-product-name {
+    font-family: $font-std-medium;
+    color: $light-gray-black;
+    font-size: rem(16);
+    font-weight: 300;
+    letter-spacing: rem(0.7);
+    line-height: rem(24);
+    margin-bottom: rem(0);
+    word-wrap: break-word;
+
+    @include media-breakpoint-up(md) {
+      width: calc(100% - 30px);
+    }
+  }
+
+  &-product-number {
+    font-family: $font-book-std;
+    color: $light-gray-brown;
+    font-size: rem(12);
+    font-weight: 300;
+    letter-spacing: rem(0.53);
+    line-height: rem(24);
+  }
+
+  .img-outer {
+    width: rem(100);
+    height: rem(100);
+    margin-right: rem(30);
+
+    @include custom-media-query-max($medium-screen-width) {
+        margin: auto;
+    }
+  }
+
+  .price {
+    font-size: rem(12);
+    color: $black-dark;
+    margin-top: rem(10);
+
+    .price-pdp-mvmt {
+
+      .strike-through  {
+          margin-right: rem(10);
+
+        .value {
+            color: $light-gray-white;
+            font-family: $font-book-std;
+            font-size: rem(12);
+            font-weight: 300;
+            letter-spacing: rem(0.53);
+            line-height: rem(24);
+            margin: rem(0);
+        }
+      }
+
+      .sale-price-mvmt {
+
+        .value {
+          color: $black-dark;
+          font-family: $font-book-std;
+          font-size: rem(12);
+          font-weight: 300;
+          letter-spacing: rem(0.53);
+          line-height: rem(24);
+          margin: rem(0);
+        }
+      }
+    }
+  }
+}
+
+.hr-width {
+  width: calc(100% - 30px);
+  margin: 0 auto;
+
+  hr {
+    margin-bottom: rem(20);
+  }
+
+  @include media-breakpoint-up(md) {
+    width: calc(100% - 100px);
+  }
+}
+
+.total-stores {
+  color: $black-dark;
+  font-family: $font-std-medium;
+  font-size: rem(10);
+  font-weight: 600;
+  letter-spacing: rem(0.44);
+  line-height: rem(20);
+  margin: rem(0) auto;
+  margin-top: rem(15);
+  text-transform: uppercase;
+  padding-bottom: rem(15);
+  width: calc(100% - 30px);
+  @include media-breakpoint-up(md) {
+    width: calc(100% - 100px);
+  }
+}
+
+.store-list {
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 0 rem(15);
+  margin-bottom: rem(40.5);
+  margin-right: rem(25);
+
+    @include custom-media-query-max($medium-screen-width) {
+        height: rem(200);
+    }
+
+    @include media-breakpoint-up(md) {
+        padding: 0 rem(25) rem(0) rem(50.5);
+        max-height: rem(312);
+        height: auto;
+    }
+
+    @include media-breakpoint-up(lg) {
+        max-height: rem(380);
+    }
+
+  &-details {
+    font-family: $font-demi;
+    padding-bottom: rem(10);
+
+    @include media-breakpoint-up(md) {
+      padding: rem(0) 0;
+    }
+
+      .store-name {
+        span {
+          color: $light-gray-black;
+          font-size: rem(14);
+          font-weight: 600;
+          letter-spacing: rem(0.61);
+          line-height: rem(24);
+          font-family: $font-std-medium;
+          text-transform: capitalize;
+          display: block;
+        }
+      }
+  
+      .store-address {
+        span {
+          color: $light-gray-brown;
+          font-size: rem(14);
+          font-weight: 300;
+          letter-spacing: rem(0.61);
+          line-height: rem(20);
+          font-family: $font-std-medium;
+          text-transform: capitalize;
+        }
+      }
+  
+      .store-distance {
+        span {
+          color: $green;
+          font-size: rem(14);
+          font-weight: 500;
+          letter-spacing: rem(0.61);
+          line-height: rem(20);
+          font-family: $font-std-medium;
+        }
+      }
+  }
+
+}
+
+.store-list::-webkit-scrollbar {
+	width: rem(5);
+	background-color: #F5F5F5;
+}
+
+.store-list::-webkit-scrollbar-thumb {
+	border-radius: rem(5);
+	background-color: #979797;
+}
+
+.store-select-button {
+
+  .store-pickup-select {
+    height: rem(25);
+    width: rem(120);
+    font-family: $font-std-medium;
+    font-size: rem(12);
+    font-weight: 500;
+    letter-spacing: rem(0.53);
+    line-height: rem(18);
+    text-align: center;
+    border: rem(1) solid $black-dark;
+    background-color: $black-dark;
+    color: $white-dark;
+    text-transform: uppercase;
+    cursor: pointer;
+
+    &:disabled {
+      border: rem(1) solid $disabled-gray;
+      background-color: $disabled-gray;
+      cursor: default;
+    }
+
+    @include media-breakpoint-down(md) {
+      width: 100%;
+    }
+  
+    @include media-breakpoint-down(sm) {
+      width: rem(120);
+    }
+  }
+}
+
+.store-availibilty-hours {
+
+  .store-product-available {
+    
+    span {
+      color: $light-gray-black;
+      font-size: rem(14);
+      font-family: $font-std-medium;
+      font-weight: 600;
+      letter-spacing: rem(0.61);
+      line-height: rem(24);
+    }
+  }
+
+  .store-hours {
+
+    label {
+      color: $black-dark;
+      font-family: $font-std-medium;
+      font-size: rem(14);
+      font-weight: 300;
+      letter-spacing: rem(0.61);
+      line-height: rem(20);
+      text-transform: none;
+    }
+  }
+
+  .store-hours-title {
+
+    &::after {
+      content: "\F106";
+      font-size: rem(13);
+      font-family: "FontAwesome";
+      float: right;
+      padding-left: rem(10);
+      font-weight: 600;
+      color: $black-dark;
+    }
+  }
+  
+  .store-hours-title {
+    
+    &.collapsed {
+      &:after {
+        content: "\F107";
+        font-size: rem(13);
+        font-family: "FontAwesome";
+        float: right;
+        padding-left: rem(10);
+        font-weight: 600;
+        color: $black-dark;
+      }
+    }
+  }
+
+  .store-hours-time {
+      color: $black-dark;
+      font-family: $font-demi;
+      font-size: rem(12);
+      font-weight: 300;
+      letter-spacing: rem(0.61);
+      line-height: rem(20);
+
+      span {
+        color: $black-dark;
+        font-family: $font-demi;
+        font-size: rem(12);
+        font-weight: 300;
+        letter-spacing: rem(0.61);
+        line-height: rem(20);
+      }
+  }
+}
+
+.no-store {
+    padding: rem(20) rem(33);
+    text-align: center;
+    font-family: $font-std-medium;
+}
+
+
+.pickup-store-modal {
+    margin-bottom: rem(20);
+    gap: rem(20);
+
+  .store-list-details {
+      max-width: rem(223);
+      width: 100%;
+  }
+
+  .store-availble {
+      max-width: rem(135);
+      width: 100%;
+  }
+
+  .store-select-btn {
+      max-width: rem(120);
+      width: 100%;
+  }
+}
