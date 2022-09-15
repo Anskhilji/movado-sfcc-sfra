@@ -341,7 +341,6 @@ function getGiftTransactionATC(currentBasket, giftsParentUUID) {
     }
 };
 
-
 module.exports = {
     updateOptionLineItem: updateOptionLineItem,
     updateOption: updateOption,
@@ -358,4 +357,3 @@ module.exports = {
     getGiftTransactionATC: getGiftTransactionATC,
     getCountrySwitch: getCountrySwitch
 };
-

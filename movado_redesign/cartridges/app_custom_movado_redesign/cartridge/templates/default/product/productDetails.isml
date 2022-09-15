@@ -67,7 +67,7 @@
                 <div class="col-12 col-lg-5 detail-sec pt-sm-5">
 	               <div class="row">
 	                   <!-- Attributes and Quantity -->
-                        <div class="col-md-10 col-12">
+	                   <div class="col-md-10 col-12">
                             <isinclude template="product/components/badges" />
                         </div>
 	                </div>
@@ -104,7 +104,7 @@
                             </div>
                         </isif>
 
-                        <isif condition="${product.attributes && product.attributes.length > 0 && product.variant}">
+                       <isif condition="${product.attributes && product.attributes.length > 0 && product.variant}">
                             <div class="col-md-10 col-12">
                                 <isinclude template="product/components/mainAttributes" />
                             </div>
@@ -165,7 +165,7 @@
                             <!-- Applicable Promotions -->
                             <iscomment> Custom Start: Promotions shows when following requirements meet </iscomment>
                             <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
-                                <div class="promotions">
+                               <div class="promotions">
                                     <isloop items="${product.promotions}" var="promotion">
                                         <isif condition="${!empty(promotion.calloutMsg)}">
                                             <isinclude template="product/components/promotions" />

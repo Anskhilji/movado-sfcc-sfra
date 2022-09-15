@@ -336,6 +336,41 @@ $(document).ready(function() {
     };
 
     // custom end: MSS-1772 pdp sticky ATC
+    
+    // custom start: remove or add clyde top and bottom border if clyde widgets exist
+
+    var $isClydeSitePrefrence = document.querySelector('.clyde-site-prefrence');
+
+    if ($isClydeSitePrefrence) {
+        var $isClydeEnabled = $isClydeSitePrefrence.dataset.clydeEnable;
+        var $isClydeWidgetEnabled = $isClydeSitePrefrence.dataset.clydeWidget;
+
+        if ($isClydeEnabled == 'true' && $isClydeWidgetEnabled == 'true') {
+            var $clydeWidget = document.querySelector('.clyde-widget');
+
+            function refreshClydeWidgets() {
+                if(document.readyState === 'complete' && $clydeWidget) {
+                    var $clydeTopBorder = document.querySelector('.clyde-top-border');
+                    var $clydeBottomBorder = document.querySelector('.clyde-bottom-border');
+                    var $iframe = document.getElementById('clyde-widget-product-page-frame');
+                    var $isContain = $iframe.classList.contains('clyde-fade-in');
+
+                    if ($isContain) {
+                        $clydeTopBorder.classList.remove('d-none');
+                        $clydeBottomBorder.classList.remove('d-none');
+                    } else {
+                        $clydeTopBorder.classList.add('d-none');
+                        $clydeBottomBorder.classList.add('d-none');
+                    }
+                } else {
+                    setTimeout(refreshClydeWidgets, 500);
+                }
+            }
+            setTimeout(refreshClydeWidgets, 500);
+        }
+    }
+
+    // custom end: remove or add clyde top and bottom border if clyde widgets exist
 
     // custom start: remove or add clyde top and bottom border if clyde widgets exist
     var $isClydeSitePrefrence = document.querySelector('.clyde-site-prefrence');
