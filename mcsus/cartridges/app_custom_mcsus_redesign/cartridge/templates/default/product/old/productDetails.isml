@@ -126,11 +126,11 @@
                             <div class="prices">
                                 <isset name="price" value="${product.price}" scope="page" />
                                 <iscomment> Custom: Start [pricing shows only when following requirements meet] </iscomment>
-                                <isif condition="${product.productType === 'set'}">
-                                    <isinclude template="product/components/pricing/setPrice" />
-                                <iselse/>
-                                    <isinclude template="product/components/pricing/main" />
-                                </isif>
+                                    <isif condition="${product.productType === 'set'}">
+                                        <isinclude template="product/components/pricing/setPrice" />
+                                    <iselse/>
+                                        <isinclude template="product/components/pricing/main" />
+                                    </isif>
                                 <iscomment> Custom: End </iscomment>
                             </div>
                             <isif condition="${isPickupStoreEnabled}">

@@ -3,7 +3,6 @@
 var server = require('server');
 var Site = require('dw/system/Site');
 var page = module.superModule;
-var ProductMgr = require('dw/catalog/ProductMgr');
 
 server.extend(page);
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
