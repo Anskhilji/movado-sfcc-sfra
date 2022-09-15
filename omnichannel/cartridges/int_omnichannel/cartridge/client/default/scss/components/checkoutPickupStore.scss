@@ -9,6 +9,10 @@
     letter-spacing: rem(1);
     margin-bottom: rem(15);
     font-weight: 500;
+
+    &-label {
+        margin-top: rem(15);
+    }
 }
 
 .billing-pickup-store {
@@ -20,6 +24,10 @@
     font-size: rem(14);
     letter-spacing: rem(1);
     margin-bottom: rem(5);
+
+    &-label {
+        margin-top: rem(20);
+    }
 }
 
 .store-address {
@@ -40,6 +48,11 @@
     font-size: rem(12);
     letter-spacing: rem(0.86);
     line-height: rem(24);
+
+    &-text {
+        max-width: rem(200);
+        margin: auto;
+    }
 }
 
 .store-hours {
@@ -49,7 +62,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        max-width: rem(250);
+        max-width: rem(202);
         margin-bottom: rem(5);
         span {
             color: $light-black;
@@ -57,6 +70,7 @@
             font-weight: 300;
             letter-spacing: rem(1);
             line-height: rem(24);
+            min-width: rem(100);
         }
     }
 }
@@ -68,6 +82,10 @@
     font-size: rem(14);
     line-height: rem(23);
     text-transform: capitalize;
+
+    &-label {
+        margin-bottom: rem(15);
+    }
 }
 
 .text-underline-content {

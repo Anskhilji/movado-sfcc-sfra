@@ -179,6 +179,8 @@ $stored-payment-spacing: rem(16);
 
         &.billing-details-label {
             margin-bottom: rem(5);
+            letter-spacing: rem(1);
+            padding-top: rem(4);
         }
     }
   }

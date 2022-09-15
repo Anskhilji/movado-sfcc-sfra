@@ -783,6 +783,7 @@ header {
     color: $grey14;
     font-weight: 500;
     margin-bottom: rem(15);
+    padding-top: rem(6);
 }
 .checkout-label-custom {
     @include media-breakpoint-up(xl) {

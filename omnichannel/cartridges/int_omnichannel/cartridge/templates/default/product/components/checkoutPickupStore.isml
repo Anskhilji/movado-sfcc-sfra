@@ -3,11 +3,12 @@
     assets.addCss('/css/components/checkoutPickupStore.css');
 </isscript>
 <isif condition="${pdict.preferedPickupStore}">
-    <div class="selected-pickup-store">${Resource.msg('store.pickup.checkout.selected', 'storePickUp', null)}</div>
+    <div class="selected-pickup-store selected-pickup-store-label">${Resource.msg('store.pickup.checkout.selected', 'storePickUp', null)}</div>
     <div class="">
         <div class="store-address">
-            ${pdict.preferedPickupStore.address1 + ' ' + pdict.preferedPickupStore.address2} <br />
-            <span class="text-underline-content">${pdict.preferedPickupStore.phone}</span>
+            <div>${pdict.preferedPickupStore.address1 ? pdict.preferedPickupStore.address1 : ''}</div>
+            <div>${pdict.preferedPickupStore.address2 ? pdict.preferedPickupStore.address2 : ''}</div>
+            <span class="text-underline-content">${pdict.preferedPickupStore.phone ? pdict.preferedPickupStore.phone : ''}</span>
         </div>
     </div>
     <div class="row store-hours">
@@ -15,7 +16,7 @@
             <isprint value="${pdict.preferedPickupStore.storeHours}" encoding="off" />
         </div>
         <div class="col-md-6 store-note">
-            ${Resource.msg('store.pickup.checkout.store.note', 'storePickUp', null)}
+            <p class="store-note-text">${Resource.msg('store.pickup.checkout.store.note', 'storePickUp', null)}</p>
         </div>
     </div>
 </isif>
