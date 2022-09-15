@@ -31,8 +31,6 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
     var smartGift = smartGiftHelper.getSmartGiftCardBasket(showProductPageHelperResult.product.id);
     var smartGiftAddToCartURL = Site.current.preferences.custom.smartGiftURL + showProductPageHelperResult.product.id;
-    var ABTestMgr = require('dw/campaign/ABTestMgr');
-
 
     var collectionContentList;
     var moreStyleGtmArray = [];
@@ -133,6 +131,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
        relativeURL: URLUtils.url('Product-Show','pid', product.ID),
        explicitRecommendations: explicitRecommendations,
        strapGuideText: strapGuideText,
+       isPdpStorePickup: isPdpStorePickup,
        collectionName: collectionName,
        addToCartUrl: showProductPageHelperResult.addToCartUrl,
        isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,

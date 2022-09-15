@@ -45,10 +45,19 @@
         }
     }
 
+    @include media-breakpoint-down(md) {
+      .items {
+        max-width: 100%;
+        max-height: rem(370);
+      }
+    }
+
     .swatch-circle {
         @include swatch(1.8em, $white);
-        height: rem(16);
-        width: rem(16);
+        height: rem(50);
+        width: rem(50);
+        margin-right: 0;
+        border: none;
     }
 
     .search-suggestions-result {
@@ -87,7 +96,7 @@
           @include media-breakpoint-down(sm) {
             color: $black;
             font-family: $font-medium;
-            font-size: rem(12);
+            font-size: rem(15);
             line-height: rem(16);
             letter-spacing: rem(0.82);
           }
@@ -273,9 +282,101 @@
   opacity: 0;
   pointer-events: none;
 
+  @include media-breakpoint-down(xs) {
+      padding-top: rem(68);
+      z-index: 1117;
+  }
+
+  .suggested-products-caresoul {
+
+      h3 {
+          @include media-breakpoint-down(md) {
+              color: $night-rider;
+              font-family: $font-medium;
+              font-weight: 500;
+              font-size: rem(15);
+              line-height: rem(16);
+              letter-spacing: rem(0.82);
+              margin-bottom: rem(5);
+              opacity: 0.5;
+              padding: 0 rem(2);
+              text-transform: uppercase;
+          }
+      }
+
+    .top-search-tiles {
+
+      @include media-breakpoint-down(md) { 
+        max-height: rem(360);
+        overflow-y: auto;
+        flex-wrap: wrap;
+      }
+
+      @include media-breakpoint-down(xs) {
+          max-height: 46vh;
+          overflow-x: hidden;
+      }
+
+      @include media-breakpoint-down(xsm) {
+          max-height: 32vh;
+      }
+      
+      & > .product {
+
+        @include media-breakpoint-down(md) {
+          width: 25%;
+          flex: 0 0 25%;
+        }
+
+        @include media-breakpoint-down(sm) {
+          width: 33.33%;
+          flex: 0 0 33.33%;
+        }
+
+        .product-tile-redesign {
+
+          .plp-image-carousel {
+            position: relative;
+            width: auto;
+            height: rem(210);
+
+            @include media-breakpoint-down(xs) {
+              height: rem(128);
+            }
+
+            @include media-breakpoint-down(xs) {
+                width: 100%;
+            }
+
+            img {
+              width: auto;
+              height: rem(210);
+              margin: 0 auto;
+              display: block;
+
+              @include media-breakpoint-down(xs) {
+                  width: rem(144);
+                  height: rem(128);
+              }
+
+              @include media-breakpoint-down(xsm) {
+                  width: rem(104);
+                  height: rem(104);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
   .mobile-search-content {
     border-top: rem(1) solid $gray91;
     padding-top: rem(30);
+
+    @include media-breakpoint-down(xs) {
+        padding-top: rem(10);
+    }
   }
 
     .search {
@@ -398,6 +499,10 @@
         opacity: 0.5;
         padding: 0 rem(17);
         text-transform: uppercase;
+
+        @include media-breakpoint-down(md) {
+          font-size: rem(15);
+        }
     }
 
     .swatch-circle {
@@ -445,11 +550,19 @@
 .suggested-products {
 
     &-caresoul {
-        padding-left: rem(48);
+      padding-left: rem(48);
+
+      @include media-breakpoint-down(md) {
+        padding-left: rem(15);
+      }
     }
 
     &-tiles {
-        padding-left: rem(56);
+      padding-left: rem(56);
+
+      @include media-breakpoint-down(md) {
+        padding-left: rem(15);
+      }
     }
 }
 

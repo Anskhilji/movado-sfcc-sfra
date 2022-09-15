@@ -44,18 +44,40 @@ function sendOrderConfirmationEmail(order, locale) {
     var Locale = require('dw/util/Locale');
     var currentLocale = Locale.getLocale(locale);
     var ContentMgr = require('dw/content/ContentMgr');
+    var Site = require('dw/system/Site');
     var emailHeaderContent = ContentMgr.getContent('email-header');
     var emailFooterContent = ContentMgr.getContent('email-footer');
     var emailMarketingContent = ContentMgr.getContent('email-order-confirmation-marketing');
     var bottomContent = ContentMgr.getContent('email-confirmation-bottom');
+    var emailPickInStoreFooterContent = ContentMgr.getContent('email-footer-pick-in-store');
+    var emailPickInStoreHeaderContent = ContentMgr.getContent('email-header-pick-in-store');
+    var bottomPickInStoreContent = ContentMgr.getContent('email-confirmation-pick-in-store-bottom');
+    var emailMarketingPickInStoreContent = ContentMgr.getContent('email-order-confirmation-marketing-pick-in-store');
     var orderModel = new OrderModel(order, { countryCode: currentLocale.country });
+    var isPickupStoreEnabled = !empty(Site.current.preferences.custom.isPickupStoreEnabled) ? Site.current.preferences.custom.isPickupStoreEnabled : false;
 
-    var orderObject = {
-        order: orderModel,
+    var orderConfirmationObj = {
         emailHeader: (emailHeaderContent && emailHeaderContent.custom && emailHeaderContent.custom.body ? emailHeaderContent.custom.body : ''),
         emailFooter: (emailFooterContent && emailFooterContent.custom && emailFooterContent.custom.body ? emailFooterContent.custom.body : ''),
         emailMarketingContent: (emailMarketingContent && emailMarketingContent.custom && emailMarketingContent.custom.body ? emailMarketingContent.custom.body : ''),
-        bottomContent: (bottomContent && bottomContent.custom && bottomContent.custom.body ? bottomContent.custom.body : ''),
+        bottomContent: (bottomContent && bottomContent.custom && bottomContent.custom.body ? bottomContent.custom.body : '')
+    };
+
+    if (isPickupStoreEnabled && !empty(order) && !empty(order.custom.pickInStore)) {
+        orderConfirmationObj = {
+            emailHeader: (emailPickInStoreHeaderContent && emailPickInStoreHeaderContent.custom && emailPickInStoreHeaderContent.custom.body ? emailPickInStoreHeaderContent.custom.body : ''),
+            emailFooter: (emailPickInStoreFooterContent && emailPickInStoreFooterContent.custom && emailPickInStoreFooterContent.custom.body ? emailPickInStoreFooterContent.custom.body : ''),
+            emailMarketingContent: (emailMarketingPickInStoreContent && emailMarketingPickInStoreContent.custom && emailMarketingPickInStoreContent.custom.body ? emailMarketingPickInStoreContent.custom.body : ''),
+            bottomContent: (bottomPickInStoreContent && bottomPickInStoreContent.custom && bottomPickInStoreContent.custom.body ? bottomPickInStoreContent.custom.body : '')
+        };
+    }
+
+    var orderObject = {
+        order: orderModel,
+        emailHeader: orderConfirmationObj.emailHeader,
+        emailFooter: orderConfirmationObj.emailFooter,
+        emailMarketingContent: orderConfirmationObj.emailMarketingContent,
+        bottomContent: orderConfirmationObj.bottomContent,
         orderConfirmationHeading: Resource.msgf('order.confirmation.email.heading', 'order', null, orderModel.orderNumber),
         salution: Resource.msgf('order.confirmation.email.salution', 'order', null, orderModel.billing.billingAddress.address.firstName, orderModel.billing.billingAddress.address.lastName ? orderModel.billing.billingAddress.address.lastName : '') ,
         thankYou: Resource.msgf('order.confirmation.email.thankyou', 'order', null),
@@ -87,14 +109,18 @@ function sendOrderConfirmationEmail(order, locale) {
         cuurentOrder: order
     };
 
+    var subject = isPickupStoreEnabled && order.custom.pickInStore ? Resource.msgf('subject.order.confirmation.email.pickup', 'order', null, orderModel.orderNumber) : Resource.msgf('subject.order.confirmation.email', 'order', null, orderModel.orderNumber);
+
     var emailObj = {
         to: order.customerEmail,
-        subject: Resource.msgf('subject.order.confirmation.email', 'order', null, orderModel.orderNumber),
+        subject: subject,
         from: Site.current.getCustomPreferenceValue('customerServiceEmail') || 'no-reply@salesforce.com',
         type: emailHelpers.emailTypes.orderConfirmation
     };
 
-    emailHelpers.sendEmail(emailObj, 'checkout/confirmation/email/confirmationEmail', orderObject);
+    var emailTemplate = isPickupStoreEnabled && order.custom.pickInStore ? 'checkout/confirmation/email/confirmationEmailPickInStore' : 'checkout/confirmation/email/confirmationEmail';
+
+    emailHelpers.sendEmail(emailObj, emailTemplate, orderObject);
     delete session.custom.currencyCode;
     checkoutLogger.debug('(checkoutCustomHelpers) -> sendOrderConfirmationEmail: Sent Order Confirmation mail to the current user, for order : ' + orderModel.orderNumber);
 }
@@ -102,12 +128,16 @@ function sendOrderConfirmationEmail(order, locale) {
  * Send order cancellation email
  * @param {Object} emailObject
  */
-function sendCancellationEmail(emailObject) {
+function sendCancellationEmail(emailObject, locale) {
+    var OrderModel = require('*/cartridge/models/order');
+    var Locale = require('dw/util/Locale');
+    var currentLocale = Locale.getLocale(locale);
     var ContentMgr = require('dw/content/ContentMgr');
     var emailHeaderContent = ContentMgr.getContent('email-header');
     var emailFooterContent = ContentMgr.getContent('email-footer');
     var emailMarketingContent = ContentMgr.getContent('email-order-cancellation-marketing');
     var topContent = ContentMgr.getContent('email-cancellation-top');
+    var orderModel = new OrderModel(emailObject.order, { countryCode: currentLocale.country });
 
     var orderObject = {
         emailHeader: (emailHeaderContent && emailHeaderContent.custom && emailHeaderContent.custom.body ? emailHeaderContent.custom.body : ''),
@@ -118,7 +148,8 @@ function sendCancellationEmail(emailObject) {
         salution: Resource.msgf('order.cancellation.email.salution', 'order', null, emailObject.firstName, emailObject.lastName ? emailObject.lastName : ''),
         orderProcess: Resource.msgf('order.cancellation.email.placed', 'order', null, emailObject.creationDate),
         orderNumber: Resource.msgf('order.cancellation.email.number.heading', 'order', null, emailObject.orderNumber),
-        order: emailObject.order
+        order: emailObject.order,
+        currentOrder: orderModel
     };
     var emailObj = {
         to: emailObject.customerEmail,

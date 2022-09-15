@@ -1,0 +1,234 @@
+@import "_variables";
+@import "bootstrap/scss/mixins/breakpoints";
+@import '~movado/global';
+.store-pickup-model {
+
+    .modal-content {
+        border: rem(1) solid $light-gray;
+        border-radius: rem(0);
+    }
+
+    @include media-breakpoint-up(sm) { 
+        .modal-lg {
+            width: rem(620);
+        }
+    }
+
+    .ie-model {
+        margin-top: rem(170);
+    }
+
+    &-header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        padding: rem(0);
+
+        .close {
+            opacity: 1;
+            padding: rem(0);
+            margin: rem(-30.5) rem(20.5) rem(-16) auto;
+        }
+    }
+
+    &-title {
+        color: $light-gray-black;
+        font-family: $font-book-std;
+        font-size: rem(20);
+        font-weight: 300;
+        letter-spacing: rem(0.88);
+        line-height: rem(24);
+        text-transform: uppercase;
+        padding-left: rem(50.5);
+        padding-top: rem(30.5);
+        margin-bottom: rem(30);
+
+        @include custom-media-query-max($medium-screen-width) {
+            padding-left: rem(15);
+        }
+    }
+
+    .store-pickup {
+
+        &-form-wrapper {
+            padding: 0 rem(15);
+            flex-wrap: wrap;
+
+            @include media-breakpoint-up(md) {
+                padding: 0 rem(50.5);
+                display: flex;
+                flex-wrap: nowrap;
+            }
+        }
+
+        &-zip-code {
+            padding-left: rem(0);
+            position: relative;
+            width: 100%;
+            margin-bottom: rem(15);
+
+            @include media-breakpoint-up(md) {
+                margin-bottom: rem(0);
+                width: rem(220);
+            }
+
+            @include media-breakpoint-down(md) {
+                padding-left: rem(0);
+            }
+
+            &-field {
+                box-sizing: border-box;
+                height: rem(40);
+                width: 100%;
+                border: rem(1) solid $light-gray-white;
+                background-color: $white-dark;
+                padding-left: rem(10);
+                font-size: rem(14);
+                font-family: $font-book-std;
+                color: $light-gray-brown;
+                font-weight: 300;
+                letter-spacing: rem(0.4);
+                line-height: rem(24);
+            
+                &::placeholder {
+                    color: $light-gray-brown;
+                    font-family: $font-book-std;
+                    font-size: rem(14);
+                    font-weight: 300;
+                    letter-spacing: rem(0.4);
+                    line-height: rem(24);
+                }
+            }
+        }
+
+        &-radius {
+            display: inline-block;
+            position: relative;
+            width: 100%;
+            margin-bottom: rem(15);
+
+            @include media-breakpoint-up(md) {
+                margin-left: rem(20);
+                margin-bottom: rem(0);
+                width: rem(135);
+            }
+    
+            &-dropdown-field {
+                box-sizing: border-box;
+                height: rem(40);
+                width: 100%;
+                background-image: url("../../images/drop-down-arrow.svg");
+                background-repeat: no-repeat;
+                -moz-appearance:none; /* Firefox */
+                -webkit-appearance:none; /* Safari and Chrome */
+                appearance:none;
+                background-position-x: 94%;
+                background-position-y: 14px;
+                border: rem(1) solid $light-gray-white;
+                background-color: $white-dark;
+                color: $black-dark;
+                font-family: $font-std-medium;
+                font-size: rem(14);
+                font-weight: 500;
+                letter-spacing: rem(0.4);
+                line-height: rem(28.8);
+                padding-left: rem(10);
+                padding-top: rem(10);
+                text-transform: unset;
+
+                @include custom-media-query-max($medium-screen-width) {
+                    background-position-x: 98%;
+                }
+
+                @include media-breakpoint-up(md) {
+                    padding-right: rem(10);
+                }
+               
+                + i {
+                    @include media-breakpoint-up(md) {
+                        right: rem(8);
+                        top: rem(15);
+                    }
+                    
+                    @include custom-media-query-max($medium-screen-width) {
+                        right: rem(10);
+                    }
+                }
+            }
+            
+    
+            &-dropdown-label {
+                color: $light-gray-brown;
+                font-family: $font-std-medium;
+                font-size: rem(10);
+                font-weight: 300;
+                letter-spacing: rem(0.29);
+                line-height: rem(24);
+                position: absolute;
+                left: rem(10);
+                top: rem(-2);
+                text-transform: capitalize;
+            }
+        }
+
+        &-search-store {
+            display: inline-block;
+            position: relative;
+            width: 100%;
+            margin-bottom: rem(15);
+
+            @include media-breakpoint-up(md) {
+                margin-left: rem(20);
+                margin-bottom: rem(0);
+                width: rem(125);
+            }
+
+            &-btn {
+                border: rem(1) solid $black-dark;
+                box-sizing: border-box;
+                height: rem(40);
+                width: 100%;
+                background-color: $white-dark;
+                color: $light-gray-black;
+                font-family: $font-std-medium;
+                font-size: rem(16);
+                font-weight: 500;
+                letter-spacing: rem(0.7);
+                line-height: rem(36);
+                text-align: center;
+                text-transform: uppercase;
+                cursor: pointer;
+            }
+        }
+    }
+}
+.set-your-store {
+    color: $light-black;
+    font-family: $font-thin;
+    font-size: rem(14);
+    font-weight: 500;
+    letter-spacing: rem(1);
+    text-transform: capitalize;
+    line-height: rem(18);
+    position: relative;
+    bottom: rem(4.80);
+}
+
+.store-pickup-button {
+    text-decoration: none;
+    position: relative;
+    top: rem(5);
+    cursor: pointer;
+    @include media-breakpoint-down(md) {
+        top: rem(0);
+    }
+
+    .pickup-store-popup-button {
+        background: url('../../images/pickupstore-popup-button.svg') center center no-repeat;
+        background-size: contain;
+        width: rem(25);
+        height: rem(25);
+        display: inline-block;
+    }
+}
