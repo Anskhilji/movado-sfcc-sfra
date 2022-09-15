@@ -124,7 +124,7 @@ server.replace(
                 passwordForm: passwordForm,
                 reportingURLs: reportingURLs,
                 yotpoConversionTrackingData: yotpoConversionTrackingData,
-                OrderObj: order
+                orderObj: order
             });
         } else {
             res.render('checkout/confirmation/confirmation', {
@@ -132,7 +132,7 @@ server.replace(
                 returningCustomer: true,
                 reportingURLs: reportingURLs,
                 yotpoConversionTrackingData: yotpoConversionTrackingData,
-                OrderObj: order
+                orderObj: order
             });
         }
         req.session.raw.custom.orderID = req.querystring.ID; // eslint-disable-line no-param-reassign
