@@ -197,7 +197,7 @@ function getGiftOptions(basket) {
     var lineItems = basket.allProductLineItems.toArray();
     for (var i = 0; i < lineItems.length; i++) {
         if (lineItems[i].custom.giftPid) {
-            productHasGift.push(basket.allProductLineItems[i].productID);
+            productHasGift.push(basket.allProductLineItems[i].UUID);
         }
     }
     return productHasGift;
