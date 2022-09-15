@@ -51,6 +51,9 @@ function makeStoreList(apiResponse, prmStoresList) {
             storeHours: store.storeHours,
             stateCode: store.stateCode,
             distance: store.custom ? store.custom.distance : store.distance,
+            postalCode: store.postalCode,
+            city: store.city,
+            countryCode: store.countryCode,
             inventory: apiResponse.locations.filter(function (currentStore) {
                 return currentStore.id == store.ID;
             })

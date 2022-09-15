@@ -5,16 +5,16 @@
 
     <div class="card-body pickup-from-store">
             <p class="order-info">
-                <span class="summary-section-label order-number-label">${Resource.msg('label.order.number','confirmation', null)}</span><br>
+                <span class="summary-section-label order-number-label">${Resource.msg('label.order.number','confirmation', null)}</span>
                 <span class="summary-details order-number">${pdict.order.orderNumber}</span>
             </p>
              <p class="order-info">
-                <span class="summary-section-label order-date-label">${Resource.msg('label.order.date', 'confirmation',null)}</span><br>
+                <span class="summary-section-label order-date-label">${Resource.msg('label.order.date', 'confirmation',null)}</span>
                 <span class="summary-details order-date">
                     <isprint value="${pdict.order.creationDate}" style="DATE_SHORT" />
                 </span>
             </p>
-            <isif condition="${!session.privacy.pickupFromStore && pdict.order.custom.BOPIS}">
+            <isif condition="${!isBOPISOrder}">
                 <p>
                     <span class="summary-section-label order-status-label">${Resource.msg('label.orderhistory.orderstatus','account',null)}</span>
                     <span class="summary-details order-status">
@@ -40,6 +40,7 @@
                 </p>
             </isif>
 
+        <isset name="isBOPISOrder" value="${pdict.orderObj.custom.BOPIS}" scope="page" />
         <isinclude template="checkout/shipping/shippingSummary" />
         <isinclude template="checkout/billing/billingSummary" />
 

@@ -12,7 +12,8 @@
 }
 
 .billing-pickup-store {
-    @include font-Std;
+    font-weight: 500;
+    font-style: normal;
     text-transform: uppercase;
     line-height: rem(17);
     color: $dark-light-black;

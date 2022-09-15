@@ -227,42 +227,38 @@ $receipt-font-size: rem(14);
 
 .pickup-store-header h4 {
     color: $grey14;
-    font-family: $font-std-medium;
     font-size: rem(20);
-    font-weight: 600;
     letter-spacing: rem(2);
     line-height: rem(25);
 }
 
 .pickup-from-store {
+    br {
+      display: none;
+    }
 
     .summary-section-label {
         letter-spacing: rem(1);
-        margin-bottom: rem(4);
-        font-family: $font-std-medium;
-        font-weight: 600;
-
-        &.billing-details-label {
-            font-weight: 600;
-            font-family: $font-std-medium;
+        margin-bottom: rem(5);
+        display: block;
+        
+        &.multi-shipping {
+          display: none;
         }
     }
 
     .billing-pickup-store {
-        font-weight: 600;
-        font-family: $font-std-medium;
         margin-top: rem(15);
     }
 
     .summary-details {
-        font-family: $font-book-std;
         letter-spacing: rem(1);
         margin-top: rem(3);
+        display: block;
     }
 
     .billing-store-address {
-        font-family: $font-book-std;
-        margin-bottom: rem(13);
-        margin-top: rem(5);
+        margin-bottom: rem(15);
+        margin-top: rem(0);
     }
 }
