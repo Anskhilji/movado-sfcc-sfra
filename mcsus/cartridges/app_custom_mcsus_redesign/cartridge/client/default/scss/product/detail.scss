@@ -202,8 +202,15 @@
         }
         
         .cs-carousel {
-            padding-bottom: 0;
+            padding: rem(0) rem(5) rem(0) rem(5);
             margin-bottom: rem(24);
+        }
+
+        .product-badges {
+
+            .badge-left {
+                padding: rem(0) rem(5) rem(0) rem(5);  
+            }
         }
     }
 
