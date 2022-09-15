@@ -372,3 +372,176 @@ div.checkout-button-wrapper {
             font-weight: 300;
     }
 }
+
+// giftbox css
+.gift-box-wrapper-cart {
+  display: flex;
+  align-items: center;
+  margin-bottom: rem(8);
+  margin-top: rem(7);
+
+  .gift-box-wrapper-label {
+    margin-left: rem(0);
+    margin-bottom: 0;
+    font-size: rem(16);
+    text-transform: none;
+    font-weight: 400;
+
+    .cart-giftbox-img {
+      margin-right: rem(10);
+      @include media-breakpoint-down(xs) {
+        height: rem(15);
+      }
+    }
+
+    &.custom-control-label-pdp {
+      display: block;
+      position: relative;
+      padding-left: rem(35);
+      margin-bottom: rem(12);
+      cursor: pointer;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      font-size: rem(10);
+      .gift-box-text{
+        color: $black;
+      }
+      @include custom-media-query($small-screen-width375){
+        font-size: rem(13);
+      }
+      @include media-breakpoint-up(md) {
+        font-size: rem(16);
+      }
+
+      input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+      }
+
+      .checkmark {
+        position: absolute;
+        top: rem(1);
+        left: 0;
+        height: rem(20);
+        width: rem(20);
+        background-color: transparent;
+        border: rem(1) solid $black;
+        border-radius: rem(4);
+        @include media-breakpoint-down(sm) {
+          top: rem(0);
+        }
+      }
+
+      input {
+        &:checked ~ .checkmark {
+          background-color: $gossamer;
+          border-color: $gossamer;
+        }
+      }
+
+      input {
+        &:checked ~ .checkmark {
+          &:after {
+            display: block;
+          }
+        }
+      }
+
+      .checkmark {
+        &:after {
+          content: "";
+          position: absolute;
+          display: none;
+          left: rem(7);
+          top: rem(3);
+          width: rem(5);
+          height: rem(10);
+          border: solid white;
+          border-width: 0 rem(3) rem(3) 0;
+          -webkit-transform: rotate(45deg);
+          -ms-transform: rotate(45deg);
+          transform: rotate(45deg);
+        }
+      }
+
+      &.label-add {
+        padding-left: rem(0);
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+
+        .checkmark {
+          &-add {
+            border: rem(1) solid $black;
+            border-radius: rem(100);
+            font-weight: 600;
+            color: $black;
+            font-size: rem(10);
+            margin-left: rem(10);
+            padding: rem(3) rem(10);
+            color: $black;
+            margin-left: rem(10);
+            height: rem(24);
+            position: relative;
+            width: rem(76);
+
+            .inner-span {
+              position: absolute;
+              top: 50%;
+              transform: translateY(-50%);
+            }
+            @include custom-media-query($small-screen-width375){
+              font-size: rem(13);
+              min-width: rem(68);
+            }
+            @include custom-media-query($small-screen-width){
+              width: 82px;
+            }
+            @include media-breakpoint-up(md) {
+              font-size: rem(16);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// only safari giftbox css
+.safari {
+  .gift-box-wrapper-cart {
+
+    .gift-box-wrapper-label {
+
+      &.custom-control-label-pdp {
+
+        .gift-box-text{
+          transform: translateY(3px);
+        }
+
+
+        &.label-add {
+
+          .checkmark {
+
+            &-add {
+
+              .inner-span {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                height: rem(14);
+              }
+
+            }
+          }
+        }
+      }
+    }
+  }
+}

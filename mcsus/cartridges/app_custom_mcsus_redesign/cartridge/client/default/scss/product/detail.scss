@@ -1097,12 +1097,17 @@
                                 position: absolute;
                                 right: rem(6);
                                 top: rem(13);
+                                width: 100%;
                             }
 
                             .exclusive-badges {
                                 margin-bottom: rem(0);
                                 @include media-breakpoint-down(xs) {
                                     margin-top: rem(0);
+                                    display: flex;
+                                    justify-content: space-between;
+                                    width: 100%;
+                                    padding-left: rem(12);
                                 }
 
                                 .badge {
