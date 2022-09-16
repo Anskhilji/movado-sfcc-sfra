@@ -430,6 +430,9 @@
 
     width: 100%;
     overflow: hidden;
+    @include media-breakpoint-down(xs) {
+        padding: 0 rem(6);
+    }
 
     .product-tile {
 
@@ -480,134 +483,15 @@
                     }
                 }
     
-                // .product-family-name styling
-                .product-family-name-redesign {
-                    margin: rem(0) rem(0) rem(8) rem(0);
-                    font-size: rem(16);
-                    line-height: rem(20);
-    
-                    @include media-breakpoint-down(sm) {
-                        margin-bottom: rem(14);
-                    }
-    
-                    @include media-breakpoint-down(xs) {
-                        margin-bottom: rem(10.88);
-                    }                
-    
-                    a {
-                        color: $light-black1;
-                        font-size: rem(16);
-                        font-weight: bold;
-                        letter-spacing: 0;
-                        line-height: rem(20);
-                        text-decoration: underline;
-                    }
-                }
-    
-                // product name styling
-                .pdp-link {
-                    margin: rem(0) rem(0) rem(8) rem(0);
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    display: -webkit-box;
-                    line-height: rem(24);
-                    height: rem(50);
-                    -webkit-line-clamp: 2;
-                    -webkit-box-orient: vertical;
-    
-                    @include media-breakpoint-down(xs) {
-                        height: rem(40);
-                        line-height: rem(20);
-                        margin-bottom: rem(11);
-                    }
-    
-                    .product-name {
-                        color: $light-black1;
-                        font-size: rem(18);
-                        letter-spacing: rem(0);
-                        line-height: rem(26);
-                        font-weight: 400;
-                        text-transform: capitalize;
-    
-                        @include media-breakpoint-down(sm) {
-                            font-size: rem(16);
-                        }
-    
-    
-                        @include media-breakpoint-down(xs) {
-                            font-size: rem(14);
-                            line-height: rem(20);
-                        }
-                    }
-                }            
-    
                 // price styling
                 .price-promotions {
-                    align-items: center;
-    
-                    .price {
-                        width: auto;
-                    }
-    
-                    .price-pdp-mvmt {
-                        color: $light-black1;
-                        font-size: rem(20);
-                        font-weight: 600;
-                        letter-spacing: rem(0);
-                        line-height: rem(14);
-                        display: flex;
-                        align-items: center;        
-    
-                        del {
-                            order: 1;
-            
-                            .strike-through {
-                                color: $light-gray3;
-                                font-size: rem(16);
-                                letter-spacing: rem(0);
-                                line-height: rem(14);
-                                font-weight: 400;
-                                margin: rem(0) rem(6) rem(0) rem(0);
-                            }
-                        }
-    
-                        .sale-price-mvmt {
-                            order: 0;
-                            margin-right: rem(6);
-                        }
-    
-                        @include media-breakpoint-down(xs) {
-                            align-items: baseline;
-                        }
-                    }                
-    
                     // promotions styling
                     .promotions {
                         width: auto;                    
-    
-                        .callout {
-                            padding: rem(0) rem(14);
-                            box-sizing: border-box;
-                            width: auto;
-                            height: rem(27);
-                            line-height: rem(27);
-                            border: rem(1) solid $black;
-                            border-radius: rem(3);
-                            background-color: $grey-light4;
-                            color: $black;
-                            font-family: $futura-medium;
-                            font-style: italic;
-                            font-weight: 600;
-                            font-size: rem(13);
-                            letter-spacing: 0;
-                            text-align: center;
-                            display: inline-block;
-                            margin: rem(0) rem(0) rem(10) rem(0);
-                        }
                     }
                 }
     
-                .add-to-cart-plp {
+                .cta-add-to-cart {
                     display: none;
                 }
             }
@@ -646,15 +530,18 @@
                         }
                     }
 
-
                     .cs-carousel {
 
                         .slick {
 
                             &-slide {
                                 @include media-breakpoint-up(xl) {
-                                    margin: rem(0) rem(25);
+                                    margin: rem(0) rem(12.5);
                                 }
+                            }
+                            &-prev , &-next {
+                                top: 50%;
+                                transform: translateY(-50%);
                             }
 
                             &-prev {
@@ -663,11 +550,11 @@
                                 background-size: auto;
 
                                 @include media-breakpoint-up(lg) {
-                                    left: rem(-10);
+                                    left: rem(-25);
                                 }
 
                                 @include media-breakpoint-up(xl) {
-                                    left: rem(-25);
+                                    left: rem(-89);
                                 }
                             }
 
@@ -678,11 +565,11 @@
                                 background-size: auto;
 
                                 @include media-breakpoint-up(lg) {
-                                    right: rem(-10);
+                                    right: rem(-25);
                                 }
 
                                 @include media-breakpoint-up(xl) {
-                                    right: rem(-25);
+                                    right: rem(-89);
                                 }
                             }
 
@@ -745,7 +632,6 @@
                             @include media-breakpoint-down(xs) {
                                 padding-bottom: rem(25);
                             }
-
 
                             .exclusive-product {
                                 border-radius: rem(3);
