@@ -14,8 +14,8 @@ function updateBillingAddressSelector(order, customer) {
     var form = $('form[name$=billing]')[0];
     var $billingAddressSelector = $('.addressSelector', form);
     var hasSelectedAddress = false;
-
-    if ($billingAddressSelector && $billingAddressSelector.length === 1) {
+ 
+    if (!Resources.PICKUP_FROM_STORE && $billingAddressSelector && $billingAddressSelector.length === 1) {
         $billingAddressSelector.empty();
     // Add New Address option
         $billingAddressSelector.append(addressHelpers.methods.optionValueForAddress(

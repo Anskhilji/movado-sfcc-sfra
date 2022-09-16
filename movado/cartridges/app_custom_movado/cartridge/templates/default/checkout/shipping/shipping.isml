@@ -14,30 +14,38 @@
         <isset name="shipmentLoopState" value="${null}" scope="page" />
         <isset name="lineItem" value="${null}" scope="page" />
         <div class="card card-border-none" data-shipment-uuid="${shippingModel.UUID}">
-        <div class="row">
-            <div class="col-12 col-space-wrapper heading-wrapper-label-shipping">
-                <div class="card-header card-border-none card-bottom-space">
-                    <iscomment> Custom Start: Add Amazon Pay Integeration</iscomment>
-                    <isif condition="${pdict.order.amzPayRedirectURL}">
-                        <h4 class="pull-left">${Resource.msg('heading.checkout.shipping', 'checkout', null)}</h4>
-                        <span class="edit-shipping-first pull-right text_underline">${Resource.msg('action.edit.step', 'checkout', null)}</span>
-                    <iselse>
-                        <h4 class="heading-content-label">${Resource.msg('heading.checkout.shipping', 'checkout', null)}</h4>
-                    </isif>
-                    <iscomment> Custom End </iscomment>
+            <div class="row">
+                <div class="col-12 col-space-wrapper heading-wrapper-label-shipping">
+                    <div class="card-header card-border-none card-bottom-space">
+                        <iscomment> Custom Start: Add Amazon Pay Integeration</iscomment>
+                        <isif condition="${pdict.order.amzPayRedirectURL}">
+                            <isif condition="${session.privacy.pickupFromStore}">
+                                <h4 class="pull-left store-label-details">${Resource.msg('heading.checkout.store.pickup', 'storePickUp', null)}</h4>
+                            <iselse/>
+                                <h4 class="pull-left">${Resource.msg('heading.checkout.shipping', 'checkout', null)}</h4>
+                            </isif>
+                        
+                            <span class="edit-shipping-first pull-right text_underline">${Resource.msg('action.edit.step', 'checkout', null)}</span>
+                            <iselse>
+                                <isif condition="${session.privacy.pickupFromStore}">
+                                    <h4 class="pull-left store-label-details">${Resource.msg('heading.checkout.store.pickup', 'storePickUp', null)}</h4>
+                                <iselse/>
+                                    <h4 class="pull-left heading-content-label">${Resource.msg('heading.checkout.shipping', 'checkout', null)}</h4>
+                                </isif>
+                        </isif>
+                        <iscomment> Custom End </iscomment>
+                    </div>
                 </div>
             </div>
-        </div>
+                <div class="shipping-error"></div>
 
-            <div class="shipping-error"></div>
+                <iscomment> Custom Start: Add Amazon Pay Integeration</iscomment>
+                <isif condition="${empty(pdict.order.amzPayRedirectURL)}">
+                    <isinclude template="checkout/shipping/multiShipCheckbox" />
+                </isif>
+                <iscomment> Custom End </iscomment>
 
-            <iscomment> Custom Start: Add Amazon Pay Integeration</iscomment>
-            <isif condition="${empty(pdict.order.amzPayRedirectURL)}">
-                <isinclude template="checkout/shipping/multiShipCheckbox" />
-            </isif>
-            <iscomment> Custom End </iscomment>
-
-            <isinclude template="checkout/shipping/shipmentCard" />
+                <isinclude template="checkout/shipping/shipmentCard" />
         </div>
     </div>
 

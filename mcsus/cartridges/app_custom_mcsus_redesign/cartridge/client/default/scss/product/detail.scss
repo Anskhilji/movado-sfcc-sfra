@@ -1994,6 +1994,8 @@
         background-color: transparent;
         min-height: auto;
         margin-bottom: rem(25);
+        max-width: 100%;
+        margin-right: rem(0);
 
         .col-sm-6 {
             @include media-breakpoint-down(xs) {
@@ -2006,10 +2008,12 @@
             display: flex;
             justify-content: flex-end;
             align-items: center;
-            padding: 0 rem(15);
+            padding: 0 rem(0) rem(0) rem(15);
+            
             @include media-breakpoint-down(xs) {
                 justify-content: flex-start; 
                 margin-top: rem(15);
+                padding: 0 rem(15);
             }
 
             .pdp-store-pickup-display-inline-block-delevery {
