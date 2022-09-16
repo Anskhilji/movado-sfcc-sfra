@@ -2,5 +2,5 @@
 <isslot id="noresult-recommendations" description="Recommendations for no result search" context="global" />
 
 <isif condition="${pdict.productSearch.count == 0}">
-    <isslot id="cs-noresult-content" description="Content Slot on No Results Page" context="global"  />
+    <isslot id="cs-noresult-content" description="Content Slot on No Results Page" context="global" />
 </isif>
