@@ -1,0 +1,38 @@
+[
+  {
+    "ship_method": "Narvar Concierge",
+    "carrier_service": "E1",
+    "items_info": [
+        {
+            "quantity": 4,
+            "sku": "750518548197M",
+            "item_id": "750518548197M"
+        }
+    ],
+    "carrier": "C1",
+    "shipped_to": {
+        "first_name": "Sebashish",
+        "last_name": "Meher",
+        "phone": "5697798936",
+        "email": "test@gmail.com",
+        "fax": "",
+        "address": {
+            "street_1": "#509, 9th A main",
+            "street_2": "BEML layout, Thubarahalli",
+            "city": "Bangalore",
+            "state": "CA",
+            "zip": "95901",
+            "country": "US",
+            "lat": 0,
+            "lng": 0
+        }
+    },
+    "ship_source" : "DC-West",
+    "shipped_from": {},
+    "ship_discount": 0,
+    "ship_total": 0,
+    "ship_tax": 0,
+    "ship_date": "2020-03-17T14:36:07Z",
+    "tracking_number": "trk123"
+  }
+]
