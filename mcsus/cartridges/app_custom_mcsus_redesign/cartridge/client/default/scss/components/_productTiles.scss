@@ -36,10 +36,6 @@
                 }
 
                 @include media-breakpoint-down(xs) {
-                    justify-content: flex-end;
-                    flex-direction: column;
-                    text-align: right;
-                    align-items: flex-end;
                     top: rem(10);
                 }
 
@@ -58,8 +54,8 @@
                     text-align: center;
 
                     @include media-breakpoint-down(xs) {
-                        padding: rem(4.56) rem(10) rem(2.28) rem(8);
-                        font-size: rem(12);
+                        padding: rem(2.56) rem(10) rem(2.28) rem(8);
+                        font-size: rem(8);
                         margin-bottom: rem(5);
                         width: auto;
                     }
@@ -101,12 +97,11 @@
                     font-weight: bold;
                     letter-spacing: 0;
                     line-height: rem(20);
-                    margin-bottom: rem(12);
+                    margin-bottom: rem(3.2);
 
                     @include media-breakpoint-down(xs) {
                         font-size: rem(10);
                         line-height: rem(15);
-                        margin-bottom: rem(8);
                     }
 
                     a {
@@ -233,6 +228,7 @@
         
                     @include media-breakpoint-down(xs) {
                         font-size: rem(12);
+                        width: 100%;
                     }
 
                     .tiered {

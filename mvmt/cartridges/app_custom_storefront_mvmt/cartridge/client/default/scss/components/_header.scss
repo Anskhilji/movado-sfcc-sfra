@@ -1329,6 +1329,12 @@ header.new-header.mvmt-header-design {
             }
         }
      }
+
+     .header-wrapper {
+        @include media-breakpoint-down(xs) {
+            z-index: 9999;
+        }
+     }
 }
 
 @media only screen and (max-width:$custom-md-width) {
