@@ -9,6 +9,6 @@
     </div>
 </isif>
 
-<isif condition="${pdict.productSearch.count == 0}">
+<isif condition="${pdict.productSearch !== null && pdict.productSearch.count == 0}">
     <isslot id="cs-noresult-content" description="Content Slot on No Results Page" context="global" />
 </isif>
