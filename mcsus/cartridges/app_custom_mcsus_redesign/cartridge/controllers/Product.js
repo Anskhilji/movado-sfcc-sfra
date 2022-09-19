@@ -37,6 +37,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var klarnaProductPrice = '0';
     var isEmbossEnabled;
     var isEngraveEnabled;
+    var isPdpStorePickup = true;
     var isGiftWrapEnabled;
     var collectionName;
 
