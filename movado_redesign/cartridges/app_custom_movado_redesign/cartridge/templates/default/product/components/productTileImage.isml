@@ -21,7 +21,7 @@
             </isif>
         </div>
         <a href="${pdict.urls.product}">
-            <isif condition="${!empty(product) && !empty(product.images) && !empty(product.images.tile640[0]) && !empty(product.images.tile512[0].url)}"> 
+            <isif condition="${!empty(product) && !empty(product.images) && !empty(product.images.tile640[0]) && !empty(product.images.tile640[0].url)}"> 
                  <picture>
                     <isif condition="${product.images.tile640[0]}"><source media="(min-width: 992px)" srcset="${product.images.tile640[0].url}" /></isif>
                     <isif condition="${product.images.tile520[0]}"><source media="(min-width: 544px)" srcset="${product.images.tile520[0].url}" /></isif>
