@@ -89,7 +89,6 @@ function send(emailObj, template, context) {
                 requestParams.paymentMethod = context.order.billing.payment.selectedPaymentInstruments[0].paymentMethod;
                 requestParams.email = context.order.orderEmail;
                 requestParams.productLayout = productLayout(context);
-                requestParams.email = context.order.orderEmail;
                 break;
             case 5:
                 requestParams.messageContext = Constants.LTK_ACCOUNT_CONTEXT;
@@ -119,6 +118,40 @@ function send(emailObj, template, context) {
                 requestParams.firstName = context.firstName;
                 requestParams.lastName = context.lastName;
                 requestParams.email = context.email;
+                break;
+            case 13:
+                if (context.currentOrder && context.currentOrder.totals && context.currentOrder.totals.totalTax === Constants.TOTAL_TAX) {
+                    context.currentOrder.totals.totalTax = null;
+                }
+                requestParams.messageContext = Constants.LTK_ORDER_CONTEXT;
+                requestParams.messageId = Site.current.preferences.custom.Listrak_OrderCancellationMessageID;
+                requestParams.orderNumber = !empty(context.order.orderNo) ? context.order.orderNo : '';
+                requestParams.totalTax = !empty(context.currentOrder.totals.totalTax) ? context.currentOrder.totals.totalTax : zeroAmount;
+                requestParams.shippingCost = !empty(context.currentOrder.totals.totalShippingCost) ? context.currentOrder.totals.totalShippingCost : zeroAmount;
+                requestParams.subTotal = !empty(context.currentOrder.totals.subTotal) ? context.currentOrder.totals.subTotal : zeroAmount;
+                requestParams.grandTotal = !empty(context.currentOrder.totals.grandTotal) ? context.currentOrder.totals.grandTotal : zeroAmount;
+                requestParams.creationDate = !empty(context.currentOrder.creationDate) ? context.currentOrder.creationDate : '';
+                requestParams.billingFirstName = !empty(context.order.billingAddress.firstName) ? context.order.billingAddress.firstName : '';
+                requestParams.billingLastName = !empty(context.order.billingAddress.lastName) ? context.order.billingAddress.lastName : '';
+                requestParams.billingAddress1 = !empty(context.order.billingAddress.address1) ? context.order.billingAddress.address1 : '';
+                requestParams.billingAddress2 = !empty(context.order.billingAddress.address2) ? context.order.billingAddress.address2 : '';
+                requestParams.billingCity = !empty(context.order.billingAddress.city) ? context.order.billingAddress.city : '';
+                requestParams.billingStateCode = !empty(context.order.billingAddress.stateCode) ? context.order.billingAddress.stateCode : '';
+                requestParams.billingPostalCode = !empty(context.order.billingAddress.postalCode) ? context.order.billingAddress.postalCode : '';
+                requestParams.billingCountryCode = !empty(context.order.billingAddress.countryCode) ? context.order.billingAddress.countryCode : '';
+                requestParams.billingPhone = !empty(context.order.billingAddress.phone) ? context.order.billingAddress.phone : '';
+                requestParams.shippingFirstName = !empty(context.order.shipments[0].shippingAddress.firstName) ? context.order.shipments[0].shippingAddress.firstName : '';
+                requestParams.shippingLastName = !empty(context.order.shipments[0].shippingAddress.lastName) ? context.order.shipments[0].shippingAddress.lastName : '';
+                requestParams.shippingAddress1 = !empty(context.order.shipments[0].shippingAddress.address1) ? context.order.shipments[0].shippingAddress.address1 : '';
+                requestParams.shippingAddress2 = !empty(context.order.shipments[0].shippingAddress.address2) ? context.order.shipments[0].shippingAddress.address2 : '';
+                requestParams.shippingCity = !empty(context.order.shipments[0].shippingAddress.city) ? context.order.shipments[0].shippingAddress.city : '';
+                requestParams.shippingStateCode = !empty(context.order.shipments[0].shippingAddress.stateCode) ? context.order.shipments[0].shippingAddress.stateCode : '';
+                requestParams.shippingPostalCode = !empty(context.order.shipments[0].shippingAddress.postalCode) ? context.order.shipments[0].shippingAddress.postalCode : '';
+                requestParams.shippingCountry = !empty(context.order.shipments[0].shippingAddress.countryCode) ? context.order.shipments[0].shippingAddress.countryCode : '';
+                requestParams.shippingPhone = !empty(context.order.shipments[0].shippingAddress.phone) ? context.order.shipments[0].shippingAddress.phone : '';
+                requestParams.shippingMethod = !empty(context.order.shipments[0].shippingMethod.displayName) ? context.order.shipments[0].shippingMethod.displayName : '';
+                requestParams.paymentMethod = !empty(context.order.paymentInstruments[0].paymentMethod) ? context.order.paymentInstruments[0].paymentMethod : '';
+                requestParams.email = !empty(context.order.customerEmail) ? context.order.customerEmail : '';
                 break;
             default:
                 requestParams.messageContext = Constants.LTK_ORDER_CONTEXT;

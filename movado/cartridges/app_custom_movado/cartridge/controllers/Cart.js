@@ -533,6 +533,9 @@ server.append('RemoveProductLineItem', function (req, res, next) {
     emptyCartDom = customCartHelpers.getCartAssets();
 
     if (currentBasket.productLineItems.length === 0) {
+        if (session.privacy.pickupFromStore) {
+            delete session.privacy.pickupFromStore;
+        }
     	var cartAnalyticsTrackingData;
         if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
             cartAnalyticsTrackingData = {

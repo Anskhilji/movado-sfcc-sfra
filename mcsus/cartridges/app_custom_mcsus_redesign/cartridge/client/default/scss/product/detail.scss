@@ -202,8 +202,15 @@
         }
         
         .cs-carousel {
-            padding-bottom: 0;
+            padding: rem(0) rem(5);
             margin-bottom: rem(24);
+        }
+
+        .product-badges {
+
+            .badge-left {
+                padding: rem(0) rem(5);
+            }
         }
     }
 
@@ -822,15 +829,33 @@
                         .primary-images {
                             max-width: 59.30%;
                             width: 100%;
+                            position: sticky;
+                            position: -webkit-sticky; // for safari
+                            align-self: flex-start;
+                            height: auto;
+                            top: rem(0);
+
+                            @include custom-media-query($large-screen-width) {
+                                top: rem(0);
+                            }
+                            
+                            @include custom-media-query-down($large-screen-width-down) {
+                                top: rem(-185);
+                            }
+
                             @include media-breakpoint-down(lg) {
                                 max-width: 50.30%;
+                                top: rem(0);
                             }
+
                             @include media-breakpoint-down(md) {
                                 max-width: 47%;
                             }
+
                             @include media-breakpoint-down(xs) {
                                 max-width: 100%;
                                 min-height: unset;
+                                position: static;
                             }
 
                             .carousel-tile-inner-box {
@@ -1965,3 +1990,120 @@
         }
     }
 }
+
+// CSS Start: isPick up store pdp redesign
+.pickup-store {
+    padding: 0 rem(15);
+    width: 100%;
+    
+    .pdp-store-pickup-wraper {
+        padding: 0;
+        background-color: transparent;
+        min-height: auto;
+        margin-bottom: rem(25);
+        max-width: 100%;
+        margin-right: rem(0);
+
+        .col-sm-6 {
+            @include media-breakpoint-down(xs) {
+                padding: 0 rem(15); 
+            }
+        }
+
+        .pdp-store-pickup-inventory {
+            order: 1;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 0 rem(0) rem(0) rem(15);
+            
+            @include media-breakpoint-down(xs) {
+                justify-content: flex-start; 
+                margin-top: rem(15);
+                padding: 0 rem(15);
+            }
+
+            .pdp-store-pickup-display-inline-block-delevery {
+                width: auto;
+            }
+
+            .pdp-store-pickup-display-inline-block-inventory-icon {
+                background-image: url(../../images/charm_circle-tick.svg);
+                padding: rem(7.5);
+                margin-right: rem(8);
+            }
+
+            .pick-up-store-stock-for-deliver {
+                font-family: $font-book;
+                font-size: rem(14);
+                letter-spacing: rem(0);
+                line-height: rem(24);
+                color: $green-2;
+                font-weight: 400;
+                margin-bottom: rem(0);
+                display: inline-block;
+            }
+
+            .pick-up-store-openings {
+                display: none;
+            }
+        }
+
+        .pdp-store-pickup-address {
+            
+            .pdp {
+                &-store {
+                    &-pickup {
+                        &-display{
+                            &-inline{
+                                &-block {
+                                    &-store{
+                                        &-icon {
+                                            background-image: url(../../images/map-pin.svg);
+                                            padding: rem(15);
+                                            margin-right: rem(9);
+                                            transform: translateX(-2px);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        .pick-up-store-available-for-store {
+            opacity: 0.5;
+            color: $black;
+            font-family: $font-book;
+            font-size: rem(10);
+            letter-spacing: 0;
+            line-height: rem(12);
+            font-weight: 400;
+            margin-bottom: 0;
+        }
+
+        .pick-up-store-available-pickup-stores {
+            color: $black;
+            font-family: $font-book;
+            font-size: rem(14);
+            letter-spacing: rem(1);
+            line-height: rem(17);
+            font-weight: 400;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .pick-up-store-change-store {
+            opacity: 0.5;
+            color: $black;
+            font-family: $font-book;
+            font-size: rem(14);
+            letter-spacing: 0;
+            line-height: rem(12);
+            font-weight: 400;
+        }
+    }
+}
+// CSS End: isPick up store pdp redesign
