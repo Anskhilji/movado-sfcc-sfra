@@ -1,0 +1,38 @@
+<table width="100%" border="0" cellpadding="0" cellspacing="0" align="left" valign="top" style="border-collapse:collapse;font-family:'Century Gothic', Arial, sans-serif;font-weight:500;" >
+    <tr>
+        <td width="100%" class="inline" style="color:#000001;vertical-align:top;" >
+            <table  width="100%"border="0" cellpadding="0" cellspacing="0" align="left" valign="top" style="border-collapse:collapse;font-family:'Century Gothic', Arial, sans-serif;" >
+                <tr><td class="p" style="line-height:18px;font-size:12px;color:#000001;vertical-align:top;white-space:nowrap" >${pdict.orderSummarySubTotalLabel}</td></tr>
+                <isif condition="${!(pdict.order.totals.orderLevelDiscountTotal.value === 0)}" >
+                <tr><td class="p" style="line-height:18px;font-size:12px;color:#000001;vertical-align:top;white-space:nowrap" >${pdict.orderSummaryOrderDiscountLabel}</td></tr>
+                </isif>
+                <tr><td class="p" style="line-height:18px;font-size:12px;color:#000001;vertical-align:top;white-space:nowrap" >${pdict.orderSummaryShippingLabel}</td></tr>
+                <isif condition="${!(pdict.order.totals.shippingLevelDiscountTotal.value === 0)}">
+                <tr><td class="p" style="line-height:18px;font-size:12px;color:#000001;vertical-align:top;white-space:nowrap" >${pdict.orderSummaryShippingDiscountLabel}</td></tr>
+                </isif>
+                <tr><td class="p" style="line-height:18px;font-size:12px;color:#000001;vertical-align:top;white-space:nowrap" >${pdict.orderSummaryTaxLabel}</td></tr>
+                <tr><td class="p strong" style="line-height:18px;font-size:12px;font-weight:700;color:#000001;vertical-align:top;white-space:nowrap" >${pdict.orderSummaryTotalLabel}</td></tr>
+            </table>
+        </td>
+        <td width="100%" class="inline" style="color:#000001;vertical-align:top;" >
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" align="right" valign="top" style="border-collapse:collapse;font-family:'Century Gothic', Arial, sans-serif;" >
+                <tr><td class="p right" style="line-height:18px;font-size:12px;text-align:right;color:#000001;vertical-align:top;white-space:nowrap" >${pdict.order.totals.subTotal}</td></tr>
+                <isif condition="${!(pdict.order.totals.orderLevelDiscountTotal.value === 0)}">
+                    <tr><td class="p red right" style="line-height:18px;font-size:12px;text-align:right;color:#000001;vertical-align:top;white-space:nowrap" >- ${pdict.order.totals.orderLevelDiscountTotal.formatted}</td></tr>
+                </isif>
+                <tr><td class="p right" style="line-height:18px;font-size:12px;text-align:right;color:#000001;vertical-align:top;white-space:nowrap" >${pdict.order.totals.totalShippingCost}</td></tr>
+                <isif condition="${!(pdict.order.totals.shippingLevelDiscountTotal.value === 0)}">
+                <tr><td class="p red right" style="line-height:18px;font-size:12px;text-align:right;color:#000001;vertical-align:top;white-space:nowrap" >- ${pdict.order.totals.shippingLevelDiscountTotal.formatted}</td></tr>
+                </isif>
+                <tr><td class="p right" style="line-height:18px;font-size:12px;text-align:right;color:#000001;vertical-align:top;white-space:nowrap" >
+                <isif condition="${pdict.order.totalTaxVal == '-'}">
+                    ${pdict.order.resources.toBeDeclared}
+                <iselse/>
+                    ${pdict.order.totals.totalTax}
+                </isif>
+                </td></tr>
+                <tr><td class="p strong right" style="line-height:18px;font-size:12px;text-align:right;font-weight:700;color:#000001;vertical-align:top;white-space:nowrap" >${pdict.order.totals.grandTotal}</td></tr>
+            </table>
+        </td>
+    </tr>
+</table>

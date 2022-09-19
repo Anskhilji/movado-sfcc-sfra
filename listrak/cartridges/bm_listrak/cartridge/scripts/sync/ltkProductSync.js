@@ -109,7 +109,6 @@ function productSync() {
                 productFile.AddRowItem('Size');
             }
             // Custom End
-
             productFile.WriteRow();
 
 			// //////// Write product rows //////////
@@ -240,6 +239,7 @@ function productSync() {
                 }
                 // Custom End
 
+                
                 // Custom Start: [MSS-1697 Add Collection URL, Strap Width, Case Diameter, Family Name to Listrak MVMT Product Feed]
                 if (categoryLevelAttributes) {
                     productFile.AddRowItem(prd.reviewURL, true);
@@ -250,7 +250,7 @@ function productSync() {
                     productFile.AddRowItem(prd.size, true);
                 }
                 // Custom End
-
+                
                 productFile.WriteRow();
             }
         } catch (e) {

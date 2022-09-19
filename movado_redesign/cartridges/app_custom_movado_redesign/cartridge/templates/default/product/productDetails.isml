@@ -68,8 +68,8 @@
 	               <div class="row">
 	                   <!-- Attributes and Quantity -->
 	                   <div class="col-md-10 col-12">
-	                       <isinclude template="product/components/badges" />
-	                    </div>
+                            <isinclude template="product/components/badges" />
+                        </div>
 	                </div>
                     <!-- Product Name -->
                     <h2 class="product-name product-title-for-gtm d-sm-none d-md-block text-capitalize">${product.productName}</h2>
@@ -96,18 +96,19 @@
                     
                     <div class="row m-0">
                         <!-- Attributes and Quantity -->
-                        <div class="col-md-10 col-12">
-
-                            <isif condition="${!product.variationAttributes && product.options.length === 0}">
+                        <isif condition="${!product.variationAttributes && product.options.length === 0}">
+                            <div class="col-md-10 col-12">
                                 <div class="simple-quantity d-none">
                                     <isinclude template="product/components/quantity" />
                                 </div>
-                            </isif>
-                        </div>
+                            </div>
+                        </isif>
 
-                        <div class="col-md-10 col-12">
-                            <isinclude template="product/components/mainAttributes" />
-                        </div>
+                       <isif condition="${product.attributes && product.attributes.length > 0 && product.variant}">
+                            <div class="col-md-10 col-12">
+                                <isinclude template="product/components/mainAttributes" />
+                            </div>
+                        </isif>
 
                         <isif condition="${product.variationAttributes && product.variationAttributes.length > 0}">
                             <isinclude template="product/components/variationAttributes" />
@@ -164,15 +165,26 @@
                             <!-- Applicable Promotions -->
                             <iscomment> Custom Start: Promotions shows when following requirements meet </iscomment>
                             <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
-                                <div class="promotions">
-                                    <isinclude template="product/components/promotions" />
+                               <div class="promotions">
+                                    <isloop items="${product.promotions}" var="promotion">
+                                        <isif condition="${!empty(promotion.calloutMsg)}">
+                                            <isinclude template="product/components/promotions" />
+                                        </isif>
+                                    </isloop>
                                 </div>
                             </isif>
 
                             <iscomment> Custom Start: Clyde Integration </iscomment>
-                            <isif condition = "${dw.system.Site.current.preferences.custom.clydeWidgetDisplay}">
-                                <div id="clyde-cta" >
+                            <isset name="isClydeEnable" value="${!empty(dw.system.Site.current.preferences.custom.isClydeEnabled) ? dw.system.Site.current.preferences.custom.isClydeEnabled : false}" scope="page" />
+                            <isset name="isClydeWidgetEnable" value="${!empty(dw.system.Site.current.preferences.custom.clydeWidgetDisplay) ? dw.system.Site.current.preferences.custom.clydeWidgetDisplay : false}" scope="page" />
+                            <div hidden="hidden" class="clyde-site-prefrence" data-clyde-enable="${isClydeEnable}" data-clyde-widget="${isClydeWidgetEnable}"></div>
+                            <isif condition="${isClydeEnable && isClydeWidgetEnable}">
+                                <hr class="clyde-top-border d-none" />
+                                <div class="clyde-widget">
+                                    <div id="clyde-cta">                                
+                                    </div>
                                 </div>
+                                <hr class="clyde-bottom-border d-none" />
                             </isif>
                             <iscomment> Custom End: </iscomment>
 

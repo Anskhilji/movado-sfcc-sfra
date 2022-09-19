@@ -19,6 +19,7 @@
                     data-name="${lineItem.productName}"
                     data-action="${pdict.actionUrls.removeProductLineItemUrl}"
                     data-uuid="${lineItem.UUID}"
+                    data-store-pickup-available="${lineItem.storePickupAvailable}"
                     aria-label="remove" data-gtm-cart="${JSON.stringify(pdict.cartItemObj[loopStatus.index])}">
                 <span aria-hidden="true">&times;</span>
             </button>

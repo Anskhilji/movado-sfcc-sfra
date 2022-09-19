@@ -405,3 +405,41 @@ $receipt-font-size: rem(14);
     }
   }
 }
+
+.pickup-store-header h4 {
+  color: $grey14;
+  font-size: rem(20);
+  letter-spacing: rem(2);
+  line-height: rem(25);
+}
+
+.pickup-from-store {
+  br {
+    display: none;
+  }
+
+  .summary-section-label {
+      letter-spacing: rem(1);
+      margin-bottom: rem(5);
+      display: block;
+      
+      &.multi-shipping {
+        display: none;
+      }
+  }
+
+  .billing-pickup-store {
+      margin-top: rem(15);
+  }
+
+  .summary-details {
+      letter-spacing: rem(1);
+      margin-top: rem(3);
+      display: block;
+  }
+
+  .billing-store-address {
+      margin-bottom: rem(15);
+      margin-top: rem(0);
+  }
+}

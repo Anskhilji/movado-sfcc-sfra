@@ -27,9 +27,14 @@ $(document).ready(function() {
     
         $('.faq-nav-control-bar-link').each(function(value,element){
             var $this = $(element);
-            
+            var $mobileTabTitle;
+
             if ($this.attr('href') == $absoluteURLWithID) {
                 $this.addClass('is-active');
+                $mobileTabTitle = $this.attr('title');
+                if ($mobileTabTitle !== '' && $mobileTabTitle !== undefined) {
+                    $('.faq-nav-control-bar-btn').text($mobileTabTitle);
+                }
             }
         });
     
@@ -41,6 +46,25 @@ $(document).ready(function() {
 
             if ($contentID == $absoluteURL) {
                 $this.removeClass('d-none');
+            }
+        });
+    }
+});
+
+$(window).on('resize', function() {
+    var $tabsURL = window.location.href;
+    if ($tabsURL.indexOf('#') > 0) {
+        var $URL = $tabsURL.split('#');
+        var $absoluteURLWithID = '#'+$URL[1];
+        $('.faq-nav-control-bar-link').each(function(value,element){
+            var $this = $(element);
+            var $mobileTabTitle;
+            
+            if ($this.attr('href') == $absoluteURLWithID) {
+                $mobileTabTitle = $this.attr('title');
+                if ($mobileTabTitle !== '' && $mobileTabTitle !== undefined) {
+                    $('.faq-nav-control-bar-btn').text($mobileTabTitle);
+                }
             }
         });
     }
@@ -112,6 +136,10 @@ module.exports = function () {
     });
     
     $('.faq-nav-control-bar-link').on('click', function() {
+        var $windowWidth = $(window).width();
+        if ($windowWidth <= 991) {
+            $('.faq-nav-control-bar-btn').text('');
+        }
         $('html, body').animate({ scrollTop: 0 }, "fast");
         $(this).siblings().removeClass('is-active');
         $(this).addClass('is-active');
@@ -120,7 +148,7 @@ module.exports = function () {
         $id.removeClass('d-none');
 
         $('.faq-nav-control-bar-inner').removeClass('active');
-        $('.faq-nav-control-bar-btn span').text($(this).text());
+        $('.faq-nav-control-bar-btn').text($(this).text());
         var showHelpContainer = $(this).data('show-help');
         if (showHelpContainer) {
             $helpContainer.removeClass('d-none');

@@ -34,7 +34,7 @@
                     <iselseif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.backorder', 'common', null) && !empty(product) && !empty(product.ociPreOrderParameters) && product.ociPreOrderParameters.ociPreOrderProductAllocation === 0.00 && product.ociPreOrderParameters.ociPreOrderProductATO > 0 && product.ociPreOrderParameters.ociPreOrderProductFuture === true}"/>
                         ${Resource.msg('button.preorder.now', 'common', null)} </br>
                     <iselseif condition="${product.available}"/>
-                        ${Resource.msg('button.addtocart', 'common', null)} 
+                        ${Resource.msg('button.addtocart', 'common', null)}
                     <iselse/>
                         ${Resource.msg('button.sold.out', 'product', null)}
                     </isif>
@@ -73,7 +73,7 @@
                     <iselseif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.backorder', 'common', null) && !empty(product) && !empty(product.ociPreOrderParameters) && product.ociPreOrderParameters.ociPreOrderProductAllocation === 0.00 && product.ociPreOrderParameters.ociPreOrderProductATO > 0 && product.ociPreOrderParameters.ociPreOrderProductFuture === true}"/>
                         ${Resource.msg('button.preorder.now', 'common', null)} </br>
                     <iselseif condition="${product.available}"/>
-                        ${Resource.msg('button.addtocart', 'common', null)} 
+                        ${Resource.msg('button.addtocart', 'common', null)}
                     <iselse/>
                         ${Resource.msg('button.sold.out', 'product', null)}
                     </isif>
@@ -86,7 +86,7 @@
                         </span>
                     </isif>
             </button>
-	    <iselse>
+	    <iselse/>
 	        <button class='add-to-cart btn btn-primary ${outOfStock ? "out-of-stock-btn" : ""}' data-avalibility="${!outOfStock}" 
                 data-pid="${product.defaultVariant ? product.defaultVariant.ID : ''}"
                 data-add-to-cart-text="${Resource.msg('button.addtocart', 'common', null)}"

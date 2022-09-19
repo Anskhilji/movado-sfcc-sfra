@@ -52,6 +52,8 @@ $grey21: #676767;
 $grey22: #EFEFEF;
 $grey23: #F7F7F7;
 $grey24: #bfbfbf;
+$grey25: #1E1E1E;
+
 $google-grey1: #444444 !default;
 $google-white1: #F6F6F6 !default;
 
@@ -94,7 +96,9 @@ $white-smoke:#F2F2F2 !default;
 $granite-gray:  #5C5C5C;
 $apple: #59AF2C;
 $cerulean: #0092DB;
+$border-gray: #DBDBDB;
 $parrot-green: #3AAB4A;
+$border-gray: #DBDBDB;
 $parrot-green2: #429C19;
 
 $grid-breakpoints: (
@@ -144,6 +148,8 @@ $font-medium : "FuturaStd-Medium", Arial, sans-serif !default;
 $font-book : "FuturaStd-Book", Arial, sans-serif !default;
 $font-bold : "FuturaStd-Bold", Arial, sans-serif !default;
 $font-primary: $font-book;
+$font-demi: "futura-pt", sans-serif, Arial;
+
 $font-awesome: "FontAwesome";
 
 // Larger Screen

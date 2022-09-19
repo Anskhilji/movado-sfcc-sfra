@@ -11,7 +11,7 @@
 
 .search-results-plp-redesign {
     @include media-breakpoint-down(xs) {
-        padding: 0 rem(10);
+        padding: 0 rem(15);
     }
 
     @include media-breakpoint-up(xl) {
@@ -109,6 +109,10 @@
                         display: flex;
                         align-items: center;
                         margin: 0 auto;
+                        justify-content: center;
+                        width: calc(40vw - 5px);
+                        min-width: calc(30vw - 5px);
+                        max-width: calc(30vw - 5px);
                     }
 
                     .fliter-icon {
@@ -116,6 +120,14 @@
                         top: 50%;
                         transform: translateY(-50%);
                         left: rem(9.7);
+
+                        @include media-breakpoint-down(xs) {
+                            position: unset;
+                            transform: translateY(-2px);
+                            top: unset;
+                            left: unset;
+                            min-width: rem(13);
+                        }
                     }
 
                     &::after {
@@ -148,8 +160,9 @@
                             border: none;
                             font-size: rem(13);
                             line-height: rem(16);
-                            padding: rem(0) rem(12.8) rem(0) rem(35);
+                            padding: rem(0) rem(12.8) rem(0) rem(6);
                             height: rem(20);
+                            text-align: center;
 
                             &:focus {
                                 box-shadow: none;
@@ -321,8 +334,8 @@
 
                     .product-grid {
                         @include media-breakpoint-down(xs) {
-                            margin: rem(20) rem(0) rem(0) rem(0);
-                        } 
+                            margin: rem(0) rem(0) rem(0) rem(0);
+                        }
                     }
                 }
             }
@@ -392,6 +405,11 @@
 
 .result-count-show {
     margin-bottom: rem(20);
+
+    @include media-breakpoint-down(xs) {
+        margin-bottom: rem(22);
+    }
+
     &.header-bar {
         background: none;
         padding: 0;

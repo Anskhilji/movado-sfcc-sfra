@@ -55,7 +55,7 @@ function create(order, orderParams, checkoutDeniedParams) {
         orderTotal;
     var LineItem = require('*/cartridge/scripts/riskified/export/api/models/LineItemModel');
     var DiscountCode = require('./DiscountCodeModel');
-    var ShippingLine = require('./ShippingLineModel');
+    var ShippingLine = require('*/cartridge/scripts/riskified/export/api/models/ShippingLineModel');
     var PaymentDetails = require('./PaymentDetailsModel');
     var AddressModel = require('./AddressModel');
     var Customer = require('./CustomerModel');

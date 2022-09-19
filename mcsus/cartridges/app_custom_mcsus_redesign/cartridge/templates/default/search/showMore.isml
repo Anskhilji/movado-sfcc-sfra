@@ -12,7 +12,12 @@
     </isif>
     <isif condition="${pdict.productSearch.showMoreUrl !== ''}">
         <div class="show-more total-product-count" id='show-more-update'>
-            ${Resource.msgf('updated.products.showMoreButton', 'search', null, showing, pdict.productSearch.count)}
+            <span class="d-none d-sm-inline-block desktop-show-more">
+                ${Resource.msgf('updated.products.showMoreButton', 'search', null, showing, pdict.productSearch.count)}
+            </span>
+            <span class="d-sm-none mobile-show-more">
+                ${Resource.msgf('updated.products.showMoreButton.mobile', 'search', null, showing, pdict.productSearch.count)}
+            </span>
         </div>
         <div class="plp-show-more">
             <div class="text-center">

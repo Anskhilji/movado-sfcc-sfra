@@ -309,16 +309,17 @@ function getCountrySwitch() {
 
 };
 
-function removeNullClydeLineItem(currentBasket) {
+function removeNullClydeWarrantyLineItem(currentBasket) {
     var Constants = require('*/cartridge/utils/Constants');
     var Transaction = require('dw/system/Transaction');
+    var Site = require('dw/system/Site');
     var orderLineItems = currentBasket.allProductLineItems;
     var orderLineItemsIterator = orderLineItems.iterator();
     var productLineItem;
     Transaction.wrap(function () {
         while (orderLineItemsIterator.hasNext()) {
             productLineItem = orderLineItemsIterator.next();
-            if (productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == Constants.CLYDE_WARRANTY && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
+            if (Site.getCurrent().preferences.custom.isClydeEnabled && productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == Constants.CLYDE_WARRANTY && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
                 currentBasket.removeProductLineItem(productLineItem);
             }
         }
@@ -334,7 +335,38 @@ function removeClydeWarranty(currentItems) {
             }
         }
     }
+};
 
+function getGiftTransactionATC(currentBasket, giftsParentUUID) {
+    var Site = require('dw/system/Site');
+    var Transaction = require('dw/system/Transaction');
+
+    if (Site.current.ID === 'MVMTUS' || Site.current.ID === 'MVMTEU') {
+        if (giftsParentUUID[0].custom.giftParentUUID) {
+            var linesItemsIterator = currentBasket.allProductLineItems.iterator();
+            var currentsLineItemsIterator;
+            while (linesItemsIterator.hasNext()) {
+                currentsLineItemsIterator = linesItemsIterator.next();
+                if (currentsLineItemsIterator.custom.giftPid) {
+                    Transaction.wrap(function () {
+                        currentsLineItemsIterator.custom.giftPid = "";
+                    });
+                }
+            }
+        }
+    } else {
+        var linesItemsIterator = currentBasket.allProductLineItems.iterator();
+        var currentsLineItemsIterator;
+        while (linesItemsIterator.hasNext()) {
+            currentsLineItemsIterator = linesItemsIterator.next();
+            if (currentsLineItemsIterator.UUID == giftsParentUUID[0].custom.giftParentUUID) {
+                Transaction.wrap(function () {
+                    currentsLineItemsIterator.custom.giftPid = "";
+                });
+                break;
+            }
+        }
+    }
 };
 
 module.exports = {
@@ -351,7 +383,7 @@ module.exports = {
     getcartPageHtml: getcartPageHtml,
     getCartForAnalyticsTracking: getCartForAnalyticsTracking,
     getCountrySwitch: getCountrySwitch,
-    removeNullClydeLineItem: removeNullClydeLineItem,
-    removeClydeWarranty: removeClydeWarranty
+    removeClydeWarranty: removeClydeWarranty,
+    getGiftTransactionATC: getGiftTransactionATC,
+    removeNullClydeWarrantyLineItem: removeNullClydeWarrantyLineItem
 };
-
