@@ -1,5 +1,6 @@
 <isdecorate template="common/layout/page">
 <isset name="isPickupStoreEnabled" value="${!empty(dw.system.Site.current.preferences.custom.isPickupStoreEnabled) ? dw.system.Site.current.preferences.custom.isPickupStoreEnabled : false}" scope="page" />
+
     <isscript>
         var assets = require('*/cartridge/scripts/assets');
         assets.addJs('/lib/pinchzoom/pinch-zoom.umd.js');
@@ -166,7 +167,7 @@
                             <isif condition="${isPickupStoreEnabled}">
                                 <div class="pickup-store-old">
                                     <div class="pdp-store-pickup-wraper row">
-                                        <isinclude url="${URLUtils.url('PickupStore-GetPreferredStore', 'isPdp', pdict.isPdpStorePickup)}" />
+                                        <isinclude url="${URLUtils.url('PickupStore-GetPreferredStore', 'isPdp', pdict.isPdpStorePickup, 'pid', product.id)}" />
                                     </div>
                                 </div>
                             </isif>

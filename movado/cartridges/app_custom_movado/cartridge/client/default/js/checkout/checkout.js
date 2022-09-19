@@ -18,10 +18,14 @@ var formHelpers = require('./formErrors');
  * Billing info and payment info are used a bit synonymously in this code.
  *
  */
+ var isPlaceOrderDisplay;
 (function ($) {
+    
   $.fn.checkout = function () { // eslint-disable-line
       var plugin = this;
-
+      if (Resources.PICKUP_FROM_STORE) {
+          openBillingFormForPickupStore(null, null, true);
+      }
     //
     // Collect form data from user input
     //
@@ -71,12 +75,14 @@ var formHelpers = require('./formErrors');
             if (checkoutStages[currentStage] == 'shipping') {
                 $('.checkout-progressbar li:nth-child(1)').addClass('active');
                 $('.checkout-progressbar li:nth-child(1)').find('.step-no').html('1');
+                $('.checkout-pickup-items').removeClass('d-none');
             }
             else if (checkoutStages[currentStage] === 'payment') {
                 $('.checkout-progressbar li:nth-child(2)').addClass('active');
                 $('.checkout-progressbar li:nth-child(2)').find('.step-no').html('2');
                 $('.checkout-progressbar li:nth-child(1)').addClass('completed'); 
-                $('.checkout-form-error').addClass('d-none')
+                $('.checkout-form-error').addClass('d-none');
+                $('.checkout-pickup-items').removeClass('d-none');
             }
 
             else if (checkoutStages[currentStage] === 'placeOrder' && $('.payment-information').data('payment-method-id') !== 'Affirm') {
@@ -84,6 +90,7 @@ var formHelpers = require('./formErrors');
                 $('.checkout-progressbar li:nth-child(3)').find('.step-no').html('3');
                 $('.checkout-progressbar li:nth-child(2)').addClass('completed');
                 $('.checkout-progressbar li:nth-child(1)').addClass('completed'); 
+                $('.checkout-pickup-items').removeClass('d-none');
             }
             else {
                 $('.checkout-progressbar li:nth-child(4)').addClass('active');
@@ -227,6 +234,7 @@ var formHelpers = require('./formErrors');
             //
             // Submit the Billing Address Form
             //
+                  isPlaceOrderDisplay = true;
                   formHelpers.clearPreviousErrors('.payment-form');
 
                   var paymentForm = $('#dwfrm_billing').serialize();
@@ -341,7 +349,6 @@ var formHelpers = require('./formErrors');
                           }
                       }
                   });
-
                   return defer;
               } else if (stage === 'placeOrder' && $('.payment-information').data('payment-method-id') !== 'Affirm') {
                   $('.checkout-promo-section').addClass('d-none');
@@ -528,9 +535,12 @@ var formHelpers = require('./formErrors');
                   }
               }
 
-          // Set the next stage on the DOM
-              $(plugin).attr('data-checkout-stage', checkoutStages[members.currentStage]);
-          },
+            // Set the next stage on the DOM
+            $(plugin).attr('data-checkout-stage', checkoutStages[members.currentStage]);
+            if (Resources.PICKUP_FROM_STORE) {
+                openBillingFormForPickupStore(checkoutStages, members);
+            }
+        },
 
         /**
          * Previous State
@@ -543,6 +553,9 @@ var formHelpers = require('./formErrors');
               }
 
               $(plugin).attr('data-checkout-stage', checkoutStages[members.currentStage]);
+              if (Resources.PICKUP_FROM_STORE) {
+                  openBillingFormForPickupStore(checkoutStages, members);
+              }
           },
 
         /**
@@ -566,6 +579,19 @@ var formHelpers = require('./formErrors');
 
 
 }(jQuery));
+
+function openBillingFormForPickupStore(checkoutStages, members, isReload) {
+    if (checkoutStages && members && checkoutStages[members.currentStage] == 'payment' && !isPlaceOrderDisplay && !isReload) {
+        $('.billingAddressOne').val('')
+        $('.billingAddressTwo').val('')
+        $('.billingState').val('')
+        $('.billingAddressCity').val('')
+        $('.billingZipCode').val('')
+        $('.billing-form').attr('data-address-mode', 'new');
+    } else {
+        $('.billing-form').attr('data-address-mode', 'details');
+    }
+}
 
 function appendToUrl(url, params) {
     var newUrl = url;

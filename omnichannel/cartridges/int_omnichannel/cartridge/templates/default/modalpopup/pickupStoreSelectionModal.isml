@@ -10,16 +10,16 @@
             <div class="modal-header store-pickup-model-header">
                 <p class="store-pickup-model-title">
                     <isif condition="${!empty(pdict.isPdpStorePickup) && pdict.isPdpStorePickup != undefined && pdict.isPdpStorePickup === true}">
-                        ${Resource.msg('store.pickup.model.pdp.title', 'pdpStorePickUp', null)}</p>
+                        ${Resource.msg('store.pickup.model.pdp.title', 'storePickUp', null)}</p>
                     <iselse>
-                        ${Resource.msg('store.pickup.model.title', 'pdpStorePickUp', null)}</p>
+                        ${Resource.msg('store.pickup.model.title', 'storePickUp', null)}</p>
                     </isif>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true model-close"><img src="${URLUtils.staticURL('/images/close.svg')}" alt="close"></span>
                 </button>
             </div>
             <div class="modal-body store-pickup-modal-body">
-                <isif condition="${!empty(pdict.isPdpStorePickup) && pdict.isPdpStorePickup != undefined && pdict.isPdpStorePickup === true}">
+                <isif condition="${!empty(pdict.isPdpStorePickup) && pdict.isPdpStorePickup === true}">
                     <div class="row pickup-store-pdetail">
                         <div class="col-md-12 d-md-flex align-itmes-start flex-wrap flex-sm-nowrap p-md-0 text-center text-md-left">
                             <div class="img-outer">
@@ -60,20 +60,20 @@
                             </div>
                             <div class="store-pickup-radius">
                                 <label class="store-pickup-radius-dropdown-label"
-                                    for="store-pickup-radius">${Resource.msg('store.pickup.dropdown.label', 'pdpStorePickUp', null)}</label>
+                                    for="store-pickup-radius">${Resource.msg('store.pickup.dropdown.label', 'storePickUp', null)}</label>
                                 <select class="form-select custom-select store-pickup-radius-dropdown-field" id="store-pickup-radius"
                                     name="radius">
-                                    <option value="15">${Resource.msgf('store.pickup.radius.option.text', 'pdpStorePickUp', null, 15);}</option>
-                                    <option value="30" selected>${Resource.msgf('store.pickup.radius.option.text', 'pdpStorePickUp', null, 30);}</option>
-                                    <option value="50">${Resource.msgf('store.pickup.radius.option.text', 'pdpStorePickUp', null, 50);}</option>
-                                    <option value="100">${Resource.msgf('store.pickup.radius.option.text', 'pdpStorePickUp', null, 100);}</option>
-                                    <option value="300">${Resource.msgf('store.pickup.radius.option.text', 'pdpStorePickUp', null, 300);}</option>
+                                    <option value="15">${Resource.msgf('store.pickup.radius.option.text', 'storePickUp', null, 15);}</option>
+                                    <option value="30" selected>${Resource.msgf('store.pickup.radius.option.text', 'storePickUp', null, 30);}</option>
+                                    <option value="50">${Resource.msgf('store.pickup.radius.option.text', 'storePickUp', null, 50);}</option>
+                                    <option value="100">${Resource.msgf('store.pickup.radius.option.text', 'storePickUp', null, 100);}</option>
+                                    <option value="300">${Resource.msgf('store.pickup.radius.option.text', 'storePickUp', null, 300);}</option>
                                 </select>
                                 <i class="fa fa-angle-down"></i>
                             </div>
                             <div class="store-pickup-search-store">
                                 <button class="store-pickup-search-store-btn" id="search-store"
-                                    data-url='${URLUtils.https('PickupStore-GetStoresList', 'isPdp', pdict.isPdpStorePickup)}'>Search</button>
+                                        data-pid="${!empty(pdict.isPdpStorePickup) && !empty(product) ? product.id : ''}" data-url='${URLUtils.https('PickupStore-GetStoresList', 'isPdp', pdict.isPdpStorePickup, 'isSearch', true, 'pid', !empty(pdict.isPdpStorePickup) && !empty(product) ? product.id : '')}'>Search</button>
                             </div>
                         </div>
                     </div>
