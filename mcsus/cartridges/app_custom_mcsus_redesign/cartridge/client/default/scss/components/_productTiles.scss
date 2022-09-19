@@ -426,7 +426,7 @@
 }
 
 // 1859
-.mcs-product-carousel-redeisng {
+.mcs-product-carousel-redesign {
 
     width: 100%;
     overflow: hidden;
@@ -439,6 +439,10 @@
         &-plp-container {
             @include media-breakpoint-up(lg) {
                 padding-bottom: rem(0);
+            }
+
+            .tile-body { 
+                position: static;
             }
 
             &:hover {
