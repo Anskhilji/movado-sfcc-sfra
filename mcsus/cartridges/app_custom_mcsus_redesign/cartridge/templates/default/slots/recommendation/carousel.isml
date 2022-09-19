@@ -1,5 +1,5 @@
 <isif condition="${slotcontent && !!slotcontent.content.length}">
-    <div class="mcs-redesign mcs-product-carousel mcs-product-carousel-redeisng">
+    <div class="mcs-redesign mcs-product-carousel mcs-product-carousel-redesign">
         <div class="container mcs-product-carousel-container">
             <div class="row mcs-product-carousel-row">
                 <div class="col-12 mcs-product-carousel-column">
@@ -11,7 +11,7 @@
                             <isloop items="${slotcontent.content}" var="product">
                                 <div class="carousel-tile">
                                     <isobject object="${product}" view="recommendation">
-                                        <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true, 'isRedesign', true)}"/>
+                                        <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true, 'isRedesigned', true)}"/>
                                     </isobject>
                                 </div>
                             </isloop>
