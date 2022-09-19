@@ -438,11 +438,7 @@
 
         &-plp-container {
             @include media-breakpoint-up(lg) {
-                padding-bottom: rem(0);
-            }
-
-            .tile-body { 
-                position: static;
+                padding-bottom: rem(0) !important;
             }
 
             &:hover {
@@ -457,7 +453,9 @@
 
             .tile-body {
                 // yotpo rating styling
-    
+                position: static;
+                transform: translateY(0);
+
                 .yotpo {
                     margin-bottom: rem(8);
                     width: 100%;
@@ -491,7 +489,13 @@
                 .price-promotions {
                     // promotions styling
                     .promotions {
-                        width: auto;                    
+                        width: auto;
+
+                        .promo-msg {
+                            &.callout {
+                                margin-bottom: rem(11);
+                            }
+                        }
                     }
                 }
     
@@ -584,6 +588,7 @@
 
                                 @include media-breakpoint-down(xs) {
                                     max-width: rem(227);
+                                    bottom: rem(-15);
                                 }
 
                                 li {
@@ -610,8 +615,9 @@
                                     }
 
                                     &.slick-active {
-                                        @include media-breakpoint-down(xs) {
-                                            opacity: 0.46;
+
+                                        button {
+                                            background-color: $black;
                                         }
                                     }
                                 }
