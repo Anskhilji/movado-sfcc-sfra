@@ -14,7 +14,11 @@
         </isif>
     </isloop>
 
-    <isinclude template="product/components/productTileImage" />
+    <isif condition="${pdict.display.recommendattionTile === true}">
+        <isinclude template="product/components/productTileRecommendations" />
+    <iselse>
+        <isinclude template="product/components/productTileImage" />
+    </isif>
 
     <div class="tile-body" aria-label="pooduct tile popover" tabindex="0">
         <div class="d-flex">
