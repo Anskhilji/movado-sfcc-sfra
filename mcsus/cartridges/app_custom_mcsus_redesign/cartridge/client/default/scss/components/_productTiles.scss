@@ -425,7 +425,7 @@
     outline: none;
 }
 
-// 1859
+// MSS-1859 New Carousel Template - Product & Recommender Type
 .mcs-product-carousel-redesign {
 
     width: 100%;
@@ -537,7 +537,6 @@
                     .cs-carousel {
 
                         .slick {
-
                             &-slide {
                                 margin: rem(0) rem(6);
                                 @include media-breakpoint-up(xl) {
