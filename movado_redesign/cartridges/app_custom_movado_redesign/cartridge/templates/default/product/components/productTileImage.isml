@@ -25,7 +25,7 @@
                  <picture>
                     <isif condition="${product.images.tile640[0]}"><source media="(min-width: 992px)" srcset="${product.images.tile640[0].url}" /></isif>
                     <isif condition="${product.images.tile520[0]}"><source media="(min-width: 544px)" srcset="${product.images.tile520[0].url}" /></isif>
-                    <isif condition="${product.images.tile534[0]}"><source media="(min-width: 320px)" srcset="${product.images.tile534[0].url}" /></isif>
+                    <isif condition="${product.images.tile533[0]}"><source media="(min-width: 320px)" srcset="${product.images.tile533[0].url}" /></isif>
                     <isif condition="${product.images.tile640[0]}"><img class="tile-image gtm-product" src="${product.images.tile640[0].url}" alt="${pdict.apiProduct.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
                 </picture>
             </isif>
