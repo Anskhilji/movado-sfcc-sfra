@@ -16,11 +16,14 @@ server.post('Subscribe', server.middleware.https, function (req, res, next) {
     var EmailSubscriptionHelper = require('int_custom_marketing_cloud/cartridge/scripts/helper/EmailSubscriptionHelper');
 
     var emailSubmitLocation = !empty(req.querystring) ? req.querystring.pageType : 'footer';
-    var geolocation = !empty(request.geolocation.countryCode) ? request.geolocation.countryCode : '';
+    var geolocation;
+    if (Site.current.ID === 'MCSUS') {
+        geolocation = !empty(request.geolocation.countryCode) ? request.geolocation.countryCode : '';
+    }
 
     var requestParams = {
         email: !empty(request.httpParameterMap.email.value) ? request.httpParameterMap.email.value : '',
-        country: !empty(request.httpParameterMap.country.value) ? request.httpParameterMap.country.value : Site.current.ID === 'MCSUS' ? geolocation : '',
+        country: !empty(request.httpParameterMap.country.value) ? request.httpParameterMap.country.value : geolocation,
         firstName: !empty(request.httpParameterMap.firstName.value) ? request.httpParameterMap.firstName.value : '',
         lastName: !empty(request.httpParameterMap.lastName.value) ? request.httpParameterMap.lastName.value : '',
         campaignName: !empty(request.httpParameterMap.campaignName.value) ? request.httpParameterMap.campaignName.value : '',
