@@ -123,6 +123,11 @@
 				</div>
 			</isif>
 		</div>
+
+		<isif condition="${pdict.productSearch !== null && pdict.productSearch.count == 0 && !pdict.productSearch.productIds.length}">
+			<isslot id="cs-noresult-content" description="Content Slot on No Results Page" context="global" />
+		</isif>
+		
 		<!--- Content Grid --->
 		<div class="tab-pane" id="content-search-results-pane" role="tabpanel" aria-expanded="false">
 			<div id="content-search-results" class="content-grid-header"></div>
