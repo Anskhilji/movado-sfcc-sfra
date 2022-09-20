@@ -105,6 +105,8 @@ server.replace(
         var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
         var checkoutAddrHelper = require('*/cartridge/scripts/helpers/checkoutAddressHelper');
         var emailObj = [];
+        var ShippingMgr = require('dw/order/ShippingMgr');
+        var ShippingHelper = require('*/cartridge/scripts/checkout/shippingHelpers');
 
         var currentBasket = BasketMgr.getCurrentBasket();
         checkoutLogger.debug('(CheckoutShippingServices) -> SubmitShipping: Inside SubmitShipping to submit shipping form');
@@ -241,6 +243,12 @@ server.replace(
                     currentBasket.setCustomerEmail(form.shippingAddress.addressFields.email.htmlValue || '');
                     if (!empty(currentBasket.billingAddress)) {
                         currentBasket.billingAddress.setPhone(form.shippingAddress.addressFields.phone.htmlValue || '');
+                    }
+
+                    var shippingMethods = ShippingMgr.getAllShippingMethods();
+                    var shipment = currentBasket.defaultShipment
+                    if (session.privacy.pickupFromStore) {
+                        ShippingHelper.selectBOPISShippingMethod(shippingMethods, shipment);
                     }
                 });
 
