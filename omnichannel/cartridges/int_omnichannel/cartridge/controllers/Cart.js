@@ -8,6 +8,8 @@ var BasketMgr = require('dw/order/BasketMgr');
 var omniChannelAPI = require('*/cartridge/scripts/api/omniChannelAPI');
 var omniChannelAPIHelper = require('~/cartridge/scripts/helpers/omniChannelAPIHelper');
 var StoreMgr = require('dw/catalog/StoreMgr');
+var ShippingMgr = require('dw/order/ShippingMgr');
+var ShippingHelper = require('*/cartridge/scripts/checkout/shippingHelpers');
 
 var page = module.superModule;
 server.extend(page);
@@ -79,6 +81,12 @@ server.post(
                         productIds.push(productLineItem.productID);
                         items.push({id:productLineItem.product.ID});
                         productLineItem.custom.BOPIS = storeFormPickUP;
+                    }
+
+                    var shippingMethods = ShippingMgr.getAllShippingMethods();
+                    var shipment = currentBasket.defaultShipment
+                    if (session.privacy.pickupFromStore) {
+                        ShippingHelper.selectBOPISShippingMethod(shippingMethods, shipment);
                     }
                 }
             });
