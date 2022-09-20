@@ -79,6 +79,7 @@ server.post(
                         productIds.push(productLineItem.productID);
                         items.push({id:productLineItem.product.ID});
                         productLineItem.custom.BOPIS = storeFormPickUP;
+                        productLineItem.setProductInventoryListID(session.privacy.pickupStoreID);
                     }
                 }
             });
