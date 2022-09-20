@@ -558,10 +558,14 @@
                                 background-size: auto;
 
                                 @include media-breakpoint-up(lg) {
-                                    left: rem(-25);
+                                    left: rem(-12.5);
                                 }
 
                                 @include media-breakpoint-up(xl) {
+                                    left: rem(-25);
+                                }
+
+                                @include custom-media-query($large-screen-width) {
                                     left: rem(-89);
                                 }
                             }
@@ -572,10 +576,14 @@
                                 background-size: auto;
 
                                 @include media-breakpoint-up(lg) {
-                                    right: rem(-25);
+                                    right: rem(-12.5);
                                 }
 
                                 @include media-breakpoint-up(xl) {
+                                    right: rem(-25);
+                                }
+
+                                @include custom-media-query($large-screen-width) {
                                     right: rem(-89);
                                 }
                             }
