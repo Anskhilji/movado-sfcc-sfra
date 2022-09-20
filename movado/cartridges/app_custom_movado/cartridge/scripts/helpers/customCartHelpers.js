@@ -312,14 +312,13 @@ function getCountrySwitch() {
 function removeNullClydeWarrantyLineItem(currentBasket) {
     var Constants = require('*/cartridge/utils/Constants');
     var Transaction = require('dw/system/Transaction');
-    var Site = require('dw/system/Site');
     var orderLineItems = currentBasket.allProductLineItems;
     var orderLineItemsIterator = orderLineItems.iterator();
     var productLineItem;
     Transaction.wrap(function () {
         while (orderLineItemsIterator.hasNext()) {
             productLineItem = orderLineItemsIterator.next();
-            if (Site.getCurrent().preferences.custom.isClydeEnabled && productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == Constants.CLYDE_WARRANTY && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
+            if (productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == Constants.CLYDE_WARRANTY && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
                 currentBasket.removeProductLineItem(productLineItem);
             }
         }
@@ -330,8 +329,12 @@ function removeClydeWarranty(currentItems) {
     var Constants = require('*/cartridge/utils/Constants');
     if (currentItems && currentItems.items && currentItems.items.length > 0) {
         for (var i = 0; i < currentItems.items.length; i++) {
-            if (currentItems.items[i].options[0] && currentItems.items[i].options[0].optionId == Constants.CLYDE_WARRANTY && currentItems.items[i].options[0].selectedValueId == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
-                currentItems.items[i].options[0] = currentItems.items[i].options[0].displayName;
+            if (currentItems.items[i].options.length > 0) {
+                for (var j = 0; j < currentItems.items[i].options.length; j++) {
+                    if (currentItems.items[i].options[j].optionId == Constants.CLYDE_WARRANTY && currentItems.items[i].options[j].selectedValueId == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
+                        currentItems.items[i].options[j] = currentItems.items[i].options[j].displayName;
+                    }
+                }
             }
         }
     }
