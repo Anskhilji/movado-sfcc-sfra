@@ -81,7 +81,11 @@ server.post(
                         productIds.push(productLineItem.productID);
                         items.push({id:productLineItem.product.ID});
                         productLineItem.custom.BOPIS = storeFormPickUP;
-                        productLineItem.setProductInventoryListID(session.privacy.pickupStoreID);
+                        if (storeFormPickUP) {
+                            productLineItem.setProductInventoryListID(session.privacy.pickupStoreID);
+                        } else {
+                           productLineItem.setProductInventoryListID(null);
+                        }
                     }
 
                     var shippingMethods = ShippingMgr.getAllShippingMethods();
