@@ -125,7 +125,7 @@
 		</div>
 
 		<isif condition="${pdict.productSearch !== null && pdict.productSearch.count == 0 && !pdict.productSearch.productIds.length}">
-	        <isslot id="noresult-recommendations" description="Recommendations for no result search" context="global" />
+            <isslot id="noresult-recommendations" description="Recommendations for no result search" context="global" />
             <isslot id="cs-noresult-content" description="Content Slot on No Results Page" context="global" />
 		</isif>
 		
