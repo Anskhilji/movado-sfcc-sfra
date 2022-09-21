@@ -822,15 +822,33 @@
                         .primary-images {
                             max-width: 59.30%;
                             width: 100%;
+                            position: sticky;
+                            position: -webkit-sticky; // for safari
+                            align-self: flex-start;
+                            height: auto;
+                            top: rem(0);
+
+                            @include custom-media-query($large-screen-width) {
+                                top: rem(0);
+                            }
+                            
+                            @include custom-media-query-down($large-screen-width-down) {
+                                top: rem(-185);
+                            }
+
                             @include media-breakpoint-down(lg) {
                                 max-width: 50.30%;
+                                top: rem(0);
                             }
+
                             @include media-breakpoint-down(md) {
                                 max-width: 47%;
                             }
+
                             @include media-breakpoint-down(xs) {
                                 max-width: 100%;
                                 min-height: unset;
+                                position: static;
                             }
 
                             .carousel-tile-inner-box {
@@ -1097,12 +1115,17 @@
                                 position: absolute;
                                 right: rem(6);
                                 top: rem(13);
+                                width: 100%;
                             }
 
                             .exclusive-badges {
                                 margin-bottom: rem(0);
                                 @include media-breakpoint-down(xs) {
                                     margin-top: rem(0);
+                                    display: flex;
+                                    justify-content: space-between;
+                                    width: 100%;
+                                    padding-left: rem(12);
                                 }
 
                                 .badge {
