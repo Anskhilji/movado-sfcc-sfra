@@ -123,11 +123,13 @@ server.get(
             address1 = preferedPickupStore.address1;
             phone = preferedPickupStore.phone;
             stateCode = preferedPickupStore.stateCode;
+            postalCode = preferedPickupStore.postalCode;
         }
         var store = {
             address1: address1,
             phone: phone,
-            stateCode: stateCode
+            stateCode: stateCode,
+            postalCode: postalCode
         }
         res.render('product/cart/cartPickupStoreAvailability', {
             pickupStore: store,

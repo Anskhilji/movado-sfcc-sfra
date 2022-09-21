@@ -8,6 +8,7 @@ var omniChannelAPI = require('*/cartridge/scripts/api/omniChannelAPI');
 var OmniChannelLog = require('dw/system/Logger').getLogger('omniChannel');
 var BasketMgr = require('dw/order/BasketMgr');
 var StoreMgr = require('dw/catalog/StoreMgr');
+var StringUtils = require('dw/util/StringUtils');
 
 server.get('GetStoresList', function (req, res, next) {
     var radius = req.querystring.radius;
@@ -72,11 +73,13 @@ server.post('SetStoreIDSession', function (req, res, next) {
     var storePostalCode = (!empty(req.querystring.storePostalCode)) ? req.querystring.storePostalCode : '';
     var storeCity = (!empty(req.querystring.storeCity)) ? req.querystring.storeCity : '';
     var storeCountryCode = (!empty(req.querystring.storeCountryCode)) ? req.querystring.storeCountryCode : '';
-    var storeAddress2 = (!empty(req.querystring.storeAddress2)) ? req.querystring.storeAddress2 : '';   
+    var storeAddress2 = (!empty(req.querystring.storeAddress2)) ? req.querystring.storeAddress2 : '';
+    var zipCode = StringUtils.truncate(storePostalCode, 5, null, null);
+
     session.privacy.pickupStoreID = storeID;
     session.privacy.storeAddress = storeAddress;
     session.privacy.stateCode = stateCode;
-    session.privacy.storePostalCode = storePostalCode;
+    session.privacy.storePostalCode = zipCode;
     session.privacy.storeCity = storeCity;
     session.privacy.storeCountryCode = storeCountryCode;
     session.privacy.storeAddress2 = storeAddress2;

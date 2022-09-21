@@ -67,26 +67,18 @@ function updateStorePickupProductAvailability(data) {
     }
 
     if ($pickupFromStore == true) {
-        $('.apple-pay-cart').addClass('d-none');
-        $('.gpay-button').addClass('d-none');
         $('.paypal-btn').addClass('d-none');
-    } else {
-        $('.apple-pay-cart').removeClass('d-none');
-        $('.gpay-button').removeClass('d-none');
-        $('.paypal-btn').removeClass('d-none'); 
-    }
-    
-    if ($isAllItemsAvailable == false && $pickupFromStore == true) {
-        $('.checkout-btn').addClass('disabled');
+        $('.more-ways-text').addClass('d-none');
         setTimeout(function () {
-            $('.apple-pay-cart').attr('disabled', true);
-            $('.gpay-button').prop('disabled', true);
+            $('.gpay-button').addClass('d-none');
+            $('.apple-pay-cart').addClass('d-none');
         }, 300);
-        $('.pickup-store-error').removeClass('d-none');
-        return;
     } else {
-        $('.checkout-btn').removeClass('disabled');
-        $('.apple-pay-cart').attr('disabled', false);
-        $('.pickup-store-error').addClass('d-none');
+        $('.paypal-btn').removeClass('d-none');
+        $('.more-ways-text').removeClass('d-none');
+        setTimeout(function () {
+            $('.gpay-button').removeClass('d-none');
+            $('.apple-pay-cart').removeClass('d-none');
+        }, 300); 
     }
 }
