@@ -367,6 +367,9 @@ $receipt-font-size: rem(14);
 
     .start-lines {
 
+    .summary-section-label {
+        letter-spacing: rem(1);
+        margin-bottom: rem(5);
         &::before {
             content: '';
         }
@@ -391,6 +394,10 @@ $receipt-font-size: rem(14);
 
     .end-lines {
 
+    .summary-details {
+        letter-spacing: rem(1);
+        margin-top: rem(3);
+    }
         .text-right {
             margin-bottom: rem(0);
 

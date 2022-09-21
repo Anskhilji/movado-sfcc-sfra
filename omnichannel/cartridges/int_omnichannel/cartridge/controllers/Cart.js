@@ -8,6 +8,8 @@ var BasketMgr = require('dw/order/BasketMgr');
 var omniChannelAPI = require('*/cartridge/scripts/api/omniChannelAPI');
 var omniChannelAPIHelper = require('~/cartridge/scripts/helpers/omniChannelAPIHelper');
 var StoreMgr = require('dw/catalog/StoreMgr');
+var ShippingMgr = require('dw/order/ShippingMgr');
+var ShippingHelper = require('*/cartridge/scripts/checkout/shippingHelpers');
 
 var page = module.superModule;
 server.extend(page);
@@ -81,6 +83,12 @@ server.post(
                         productLineItem.custom.BOPIS = storeFormPickUP;
                         productLineItem.setProductInventoryListID(session.privacy.pickupStoreID);
                     }
+
+                    var shippingMethods = ShippingMgr.getAllShippingMethods();
+                    var shipment = currentBasket.defaultShipment
+                    if (session.privacy.pickupFromStore) {
+                        ShippingHelper.selectBOPISShippingMethod(shippingMethods, shipment);
+                    }
                 }
             });
             var storeArray = [];
@@ -116,11 +124,13 @@ server.get(
             address1 = preferedPickupStore.address1;
             phone = preferedPickupStore.phone;
             stateCode = preferedPickupStore.stateCode;
+            postalCode = preferedPickupStore.postalCode;
         }
         var store = {
             address1: address1,
             phone: phone,
-            stateCode: stateCode
+            stateCode: stateCode,
+            postalCode: postalCode
         }
         res.render('product/cart/cartPickupStoreAvailability', {
             pickupStore: store,
