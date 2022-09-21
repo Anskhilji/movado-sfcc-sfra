@@ -27,7 +27,7 @@ function send(emailObj, template, context) {
     var Constants = require('*/cartridge/scripts/utils/ListrakConstants');
 
     
-    if (context.order.currencyCode) {
+    if (context && context.order && context.order.currencyCode) {
         zeroAmount = Currency.getCurrency(context.order.currencyCode).symbol + '0.00';
     }
 
