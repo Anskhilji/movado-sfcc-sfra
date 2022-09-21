@@ -25,5 +25,21 @@ function getShippingModels(currentBasket, customer, containerView, defaultShipme
     });
 }
 
+function selectBOPISShippingMethod(shippingMethods, shipment) {
+    var shippingMethod;
+    var storePickupEnabled;
+    var iterator = shippingMethods.iterator();
+    while (iterator.hasNext()) {
+        shippingMethod = iterator.next();
+        storePickupEnabled = shippingMethod.custom.storePickupEnabled ? shippingMethod.custom.storePickupEnabled : false;
+        if (storePickupEnabled) {
+            var shippingMethodId = shippingMethod.ID;
+            shipment.setShippingMethod(shippingMethod);
+            break;
+        }
+    }
+}
+
 baseShippingHelpers.getShippingModels = getShippingModels;
+baseShippingHelpers.selectBOPISShippingMethod = selectBOPISShippingMethod;
 module.exports = baseShippingHelpers;
