@@ -6,7 +6,7 @@
     <div class="billing-pickup-store billing-pickup-store-label">${Resource.msg('store.pickup.billing.selected', 'storePickUp', null)}</div>
     <div class="row">
         <div class="billing-store-address billing-store-address-label col-md-6">
-            <div>${pdict.preferedPickupStore.address1 ? pdict.preferedPickupStore.address1 : ''}</div>
+            <div>${pdict.preferedPickupStore.address1 ? (pdict.preferedPickupStore.address1 || "") + ' ' + (pdict.preferedPickupStore.stateCode || "")+ ' ' + (pdict.preferedPickupStore.postalCode || "")  : ''}</div>
             <div>${pdict.preferedPickupStore.address2 ? pdict.preferedPickupStore.address2 : ''}</div>
             <span>${pdict.preferedPickupStore.phone ? pdict.preferedPickupStore.phone : ''}</span>
         </div>
