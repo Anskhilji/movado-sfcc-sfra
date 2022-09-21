@@ -421,6 +421,14 @@
           opacity: 1;
           display: flex;
           transform: translateY(0);
+
+          .filter-refinement-container {
+
+            .filter-selected { 
+              border: rem(1) solid $black;
+              border-radius: 50%;
+            }
+          }
         }
       }
 

@@ -1,4 +1,4 @@
-<ul class="values content">
+<ul class="values content" data-category="">
     <isloop items="${categories}" var="category">
         <li>
             <a href="${category.url}">

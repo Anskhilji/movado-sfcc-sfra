@@ -1,21 +1,21 @@
 <iscomment>Custom Start: Adding swatchImageURL in the background image and adding new classes swatch-image and selected-swatch-image for changing the selection</iscomment>
-<li title="${refinementValue.title}" class="col-sm-auto col-md-12 size-attribute-container ${!refinementValue.selectable ? 'disabled' : ''}">
+<li title="${refinementValue.title}" data-filter-id="${refinementValue.id}" data-target-url="${refinementValue.url}" data-selected-filter="${refinementValue.type == 'promotion' ? refinementValue.value : refinementValue.displayValue}" class="col-sm-auto col-md-12 size-attribute-container filter-element ${!refinementValue.selectable ? 'disabled' : ''}">
     <isif condition="${empty(refinementValue.swatchImageURL) && !refinementValue.isSwatchImagesEnabled}" >
-        <label class="elements size-element">
-            <a role="checkbox" aria-checked="<isif condition="${refinementValue.selected && refinementValue.selectable}">true<iselse/>false</isif>" tabindex="0" href="${refinementValue.url}" class="${!refinementValue.selectable ? 'disabled' : ''}" <isif condition="${!refinementValue.selectable}">disabled</isif>>
+        <label class="elements size-element filter-elements" data-filter-id="${refinementValue.id}" data-selected-filter="${refinementValue.displayValue}">
+            <a role="checkbox" data-selected-filter="${refinementValue.displayValue}" aria-checked="<isif condition="${refinementValue.selected && refinementValue.selectable}">true<iselse/>false</isif>" tabindex="0" href="${refinementValue.url}" class="selected ${!refinementValue.selectable ? 'disabled' : ''}" <isif condition="${!refinementValue.selectable}">disabled</isif>>
                 <iscomment>Checkbox</iscomment>
                 <isif condition="${refinementValue.selected && refinementValue.selectable}">
-                    <i class="fa fa-check-square"></i>
+                    <i class="fa fa-check-square selected check-square"></i>
                 <iselse>
-                    <i class="fa fa-square-o"></i>
+                    <i class="fa fa-square-o selected square-o"></i>
                 </isif>
                 <iscomment>Label</iscomment>
-                <span class="<isif condition="${refinementValue.selected && refinementValue.selectable}">selected</isif> selected-filter" data-selected-filter="${refinementValue.displayValue}" >${refinementValue.displayValue}</span>
+                <span class="<isif condition="${refinementValue.selected && refinementValue.selectable}">selected</isif>" >${refinementValue.displayValue}</span>
             </a>
         </label>
     <iselse>
-        <label class="elements size-element">
-            <a role="checkbox" aria-checked="<isif condition="${refinementValue.selected && refinementValue.selectable}">true<iselse/>false</isif>" tabindex="0" href="${refinementValue.url}" class="${!refinementValue.selectable ? 'disabled' : ''} swatch-image <isif condition="${refinementValue.selected && refinementValue.selectable}">selected-swatch-image</isif>" <isif condition="${!refinementValue.selectable}">disabled</isif>>
+        <label class="elements size-element filter-elements" data-filter-id="${refinementValue.id}" data-target-url="${refinementValue.url}" data-selected-filter="${refinementValue.displayValue}">
+            <a role="checkbox" data-selected-filter="${refinementValue.displayValue}" aria-checked="<isif condition="${refinementValue.selected && refinementValue.selectable}">true<iselse/>false</isif>" tabindex="0" href="${refinementValue.url}" class="${!refinementValue.selectable ? 'disabled' : ''} swatch-image selected <isif condition="${refinementValue.selected && refinementValue.selectable}">filter-selected check-filter-selected</isif>" <isif condition="${!refinementValue.selectable}">disabled</isif>>
                 <isif condition="${refinementValue.selected && refinementValue.selectable}">
                     <div class="fa fa-check-square rounded-image" >
                         <img src="${refinementValue.swatchImageURL}" loading="lazy" alt="bg-image">
@@ -26,7 +26,7 @@
                     </div>
                 </isif>
             </a>
-            <span class="<isif condition="${refinementValue.selected && refinementValue.selectable}">selected</isif> selected-filter" data-selected-filter="${refinementValue.displayValue}" >${refinementValue.displayValue}</span>
+            <span class="<isif condition="${refinementValue.selected && refinementValue.selectable}">selected</isif> " >${refinementValue.displayValue}</span>
         </label>
     </isif>
 </li>

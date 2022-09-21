@@ -1,14 +1,13 @@
 <isif condition="${dw.system.Site.current.getCustomPreferenceValue('enableSwatch')}">
-
-<ul>
+<ul class="selected-filter-bar">
     <isloop items="${pdict.productSearch.selectedFilters}" var="refinement">
         <isif condition="${refinement.type === 'color'}">
-            <li class="swatch-filter ${refinement.presentationId}" title="${refinement.title}">
-                <a href="${refinement.url}"></a>
+            <li class="swatch-filter added-filter-bar ${refinement.presentationId}" data-added-filter-bar="${refinement.displayValue}" title="${refinement.title}">
+                <a href=""></a>
             </li>
         <iselse>
-            <li class="filter-value" title="${refinement.title}">
-                <a href="${refinement.url}">
+            <li class="filter-value added-filter-bar" title="${refinement.title}" data-added-filter-bar="${refinement.displayValue}">
+                <a href="">
                     ${refinement.displayValue}
                 </a>
             </li>
@@ -17,11 +16,10 @@
 </ul>
 
 <iselse>
-
-<ul>
+<ul class="selected-filter-bar">
     <isloop items="${pdict.productSearch.selectedFilters}" var="refinement">
-            <li class="filter-value" title="${refinement.title}">
-                <a href="${refinement.url}">
+            <li class="filter-value added-filter-bar" data-added-filter-bar="${refinement.displayValue}" title="${refinement.title}">
+                <a href="">
                     ${refinement.displayValue}
                 </a>
             </li>

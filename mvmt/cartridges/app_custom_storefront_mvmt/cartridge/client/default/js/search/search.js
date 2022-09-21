@@ -1,6 +1,7 @@
 'use strict';
 
 var swatches = require('movado/utilities/swatches');
+const { start } = require('selenium-standalone');
 var initiallyLoadedProducts = $('.product-grid').data('initial-products');
 var isInfiniteScrollEnabled = $('.mvmt-plp.container-fluid').data('infinte-scroll-enabled');
 var isPaginationEnabled = $('.mvmt-plp.container-fluid').data('enable-pagination');
@@ -9,6 +10,9 @@ var totalProductCount = $('.total-product-count').data('total-product-count');
 
 var loadMoreInProcessing = false;
 var filterLoadInProgress = false;
+var filterBarId = [];
+var filterBarObj = [];
+var iterator = 1;
 
 /**
  * Update DOM elements with Ajax results
@@ -261,16 +265,71 @@ function updatePageURLForSortRule(href) {
  * @param {string} paramValue - paramter value to be replaced
  * @return {undefined}
  */
-function replaceUrlParam(url, paramName, paramValue) {
-    var pattern = new RegExp('(\\?|\\&)(' + paramName + '=).*?(&|$)');
+// function replaceUrlParam(url, pmid, pmidValue) {
+//     var patternPmid = new RegExp('(\\?|\\&)(' + pmid + '=).*?(&|$)');
+//     var newUrl = url;
+//     if (url.search(patternPmid) >= 0) {
+//         newUrl = url.replace(patternPmid, (newUrl.indexOf('&') > 0 ? '&' : '?') + pmid + '=' + pmidValue);
+//     }
+//     else {
+//         newUrl = newUrl + (newUrl.indexOf('?') !== -1 ? '&' : '?') + pmid + '=' + pmidValue;
+//     }
+//     return newUrl;
+// }
+
+function replaceUrlParamPmid(url, pmid, pmidValue) {
+    var patternPmid = new RegExp('(\\?|\\&)(' + pmid + '=).*?(&|$)');
     var newUrl = url;
-    if (url.search(pattern) >= 0) {
-        newUrl = url.replace(pattern, (newUrl.indexOf('&') > 0 ? '&' : '?') + paramName + '=' + paramValue);
+    if (url.search(patternPmid) >= 0) {
+        newUrl = url.replace(patternPmid, (newUrl.indexOf('&') > 0 ? '&' : '?') + pmid + '=' + pmidValue);
     }
     else {
-        newUrl = newUrl + (newUrl.indexOf('?') > 0 ? '&' : '?') + paramName + '=' + paramValue;
+        newUrl = newUrl + (newUrl.indexOf('?') !== -1 ? '&' : '?') + pmid + '=' + pmidValue;
     }
     return newUrl;
+}
+
+function replaceUrlParamSrule(url, srule, sruleValue) {
+    var patternSrule = new RegExp('(\\?|\\&)(' + srule + '=).*?(&|$)');
+    var newUrl = url;
+    if (url.search(patternSrule) >= 0) {
+        newUrl = url.replace(pattern, (newUrl.indexOf('&') > 0 ? '&' : '?') + srule + '=' + sruleValue);
+    }
+    else {
+        newUrl = newUrl + (newUrl.indexOf('?') !== -1 ? '&' : '?') + srule + '=' + sruleValue;
+    }
+    return newUrl;
+}
+
+function replaceUrlParamPmidSrule(url, pmid, pmidValue, srule, sruleValue) {
+    var patternPmid = new RegExp('(\\?|\\&)(' + pmid + '=).*?(&|$)');
+    var patternSrule = new RegExp('(\\?|\\&)(' + srule + '=).*?(&|$)');
+    var newUrl = url;
+    if (url.search(patternPmid) >= 0 && url.search(patternSrule) >= 0) {
+        newUrl = url.replace(patternPmid, (newUrl.indexOf('&') > 0 ? '&' : '?') + srule + '=' + sruleValue); // how to make url her. need to discuress with haroon bhai
+    }
+    else {
+        newUrl = newUrl + (newUrl.indexOf('?') !== -1 ? '&' : '?') + pmid + '=' + pmidValue + (newUrl.indexOf('?') !== -1 ? '&' : '?') + srule + '=' + sruleValue;
+    }
+    return newUrl;
+}
+
+function replaceUrlParamSearchQuery(url, queryParam, queryParamValue) {
+    var newUrl = url;
+    var paramStr = newUrl.slice(newUrl.indexOf('?') + 1);
+    return  newUrl = '?' + queryParam + '=' + queryParamValue + '&' +  paramStr;
+}
+
+function replaceUrlParamSearchQueryPmid(url, queryParam, queryParamValue, pmid, pmidValue) {
+    var newUrl = url;
+    var paramStr = newUrl.slice(newUrl.indexOf('?') + 1);
+    return  newUrl = '?' + queryParam + '=' + queryParamValue + '&' +  paramStr + '&' + pmid + '=' + pmidValue;
+}
+
+function replaceUrlParamSearchQueryPmidSrule(url, queryParam, queryParamValue, pmid, pmidValue, srule, sruleValue) {
+    var newUrl = url;
+    var paramStr = newUrl.slice(newUrl.indexOf('?') + 1);
+    return  newUrl = '?' + queryParam + '=' + queryParamValue + '&' +  paramStr + '&' + pmid + '=' + pmidValue + '&' + srule + '=' + sruleValue;
 }
 
 /**
@@ -576,71 +635,427 @@ module.exports = {
             });
         });
     },
-
+    // .refinements li a, .refinement-bar a.reset, .filter-value a, .swatch-filter a, .top-refinements a
+    // .filter-refinement-container
+    // .search-refinement-close
     applyFilter: function () {
+        // Handle refinement value selection and reset click
+        // $('.search-refinement-close, .plp-grid-overlay').on('click', function (e) {
+            $('.container, .container-fluid').on(
+                'click',
+                '.search-refinement-close', function(e) {
+            e.preventDefault();
+            // e.stopPropagation();
+            var isSelectedFilterBar = document.querySelector('.filter-bar-list > .selected-filter-bar');
+            console.log(isSelectedFilterBar);
+            if (isSelectedFilterBar) {
+                var isFilterChildList = isSelectedFilterBar.children.length > 0;
+                if (!isFilterChildList) {
+                    $(".filter-group").removeClass('active loaded');
+                    $(".plp-active-filter").removeClass('loaded');
+                    $(".plp-filter-bar .plp-filter-btn").removeClass('active');
+                    $('.plp-grid-overlay').removeClass('active');
+                    // var oldUrl = document.location.href;
+                    // var url = oldUrl.slice(oldUrl.indexOf('?') + 1);
+                    // window.history.pushState({}, '', url);
+                    return;
+                } else {
+                    filterLoadInProgress = true;
+    
+                    var parentSelectorOuter = document.querySelector('.plp-filter-redesign');
+                    console.log(parentSelector);
+                    if (parentSelectorOuter) {
+                        var parentSelector = parentSelectorOuter.querySelectorAll('.filter-refinement-container');
+                        console.log(parentSelector);
+                        var prefv = '';
+                        var indexValue = 1;
+                        var params = '';
+                        var pminValue = '';
+                        var pmaxValue = '';
+    
+                        parentSelector.forEach(function (el, index) {
+                                if (el.hasChildNodes()) {
+                                    var prefn = el.dataset.filterId;
+                                    var childElement = el.querySelectorAll('.filter-element');
+                                    
+                                    childElement.forEach(function (e, i) {
+                                        var hasFilerSelected = e.querySelector('.check-filter-selected');
+                                        console.log(hasFilerSelected);
+    
+                                        if (hasFilerSelected) {
+                                            if (prefv.indexOf('%7C') == -1) {
+                                                prefv +='%7C';
+                                            }
+                                            if (e.dataset.filterId == 'price') {
+                                                console.log(e);
+                                                pminValue += e.dataset.valuePmin;
+                                                pmaxValue += e.dataset.valuePmax;
+                                            } else {
+                                                prefv += e.dataset.selectedFilter;
+                                            }
+                                            if (prefv.indexOf('%7C') !== -1) {
+                                                prefv +='%7C';
+                                            } 
+                                        }
+                                    });
+                                    if (prefv) {
+                                        if (params.indexOf('?') == -1) {
+                                            params += '?';
+                                        } else {
+                                            params +='&';
+                                        }
+                                        prefv = prefv.slice(3, -3);
+                                        if(prefn == "pmid"){
+                                            params += `pmid=${prefv}`;
+                                            indexValue--;
+                                        } else if (prefn == 'price') {
+                                            // ?pmin=500.00&pmax=1000.00
+                                            if (pminValue !== '' && pmaxValue !== '') {
+                                                params += `pmin=${pminValue}&pmax=${pmaxValue}`;
+                                            }
+                                        }else{
+                                            params += `prefn${indexValue}=${prefn}&prefv${indexValue}=${prefv}`;
+                                        }
+                                        indexValue++;
+                                    }
+                                    
+                                };
+                            console.log(params);
+                            // ?prefn1=color&prefv1=Brown&prefn2=pmid&prefv2=Product Level Promotion
+                            prefv = '';
+                        });
+    
+                        
+                        var urlparams = getUrlParamObj(document.location.href);
+                        
+                        //  window.location.href;
+                        var filtersURL = params;
+                        console.log(filtersURL);
+    
+                        var currentSelectedSortId = '';
+    
+                        if (urlparams.hasOwnProperty('pmid') == true && urlparams.hasOwnProperty('srule') == false && urlparams.hasOwnProperty('q') == false) {
+                            if (urlparams.pmid) {
+                                currentSelectedSortId = urlparams.pmid;
+                                // filtersURL = removeParam('srule', filtersURL);  // Custom: [MSS-1348 Fix for not applying price filters]
+                                filtersURL = replaceUrlParamPmid(filtersURL, 'pmid', currentSelectedSortId);
+                                
+                            }
+                        }
+    
+                        if (urlparams.hasOwnProperty('pmid') == false && urlparams.hasOwnProperty('srule') == true && urlparams.hasOwnProperty('q') == false) {
+                            if (urlparams.srule) {
+                                currentSelectedSortId = urlparams.srule;
+                                // filtersURL = removeParam('srule', filtersURL);  // Custom: [MSS-1348 Fix for not applying price filters]
+                                filtersURL = replaceUrlParamSrule(filtersURL, 'srule', currentSelectedSortId);
+                                
+                            }
+                        }
+                        // ?prefn1=color&prefv1=Brown%7CGreen&pmid=product_level_promotion&srule=best-sellers
+                        if (urlparams.hasOwnProperty('pmid') == true && urlparams.hasOwnProperty('srule') == true && urlparams.hasOwnProperty('q') == false) {
+                            if (urlparams.pmid && urlparams.srule) {
+                                var paramSrule = urlparams.srule;
+                                var paramPmid = urlparams.pmid;
+                                // filtersURL = removeParam('srule', filtersURL);  // Custom: [MSS-1348 Fix for not applying price filters]
+                                filtersURL = replaceUrlParamPmidSrule(filtersURL, 'pmid', paramPmid, 'srule', paramSrule);
+                            }
+                        }
+    
+                        if (urlparams.hasOwnProperty('pmid') == false && urlparams.hasOwnProperty('srule') == false && urlparams.hasOwnProperty('q') == true) {
+                            if (urlparams.q) {
+                                var paramSearchQuery = urlparams.q;
+                                // filtersURL = removeParam('srule', filtersURL);  // Custom: [MSS-1348 Fix for not applying price filters]
+                                filtersURL = replaceUrlParamSearchQuery(filtersURL, 'q', paramSearchQuery);
+                            }
+                        }
+    
+                        if (urlparams.hasOwnProperty('pmid') == true && urlparams.hasOwnProperty('q') == true && urlparams.hasOwnProperty('srule') == false) {
+                            if (urlparams.q) {
+                                var paramSearchQuery = urlparams.q;
+                                var paramPmid = urlparams.pmid;
+                                // filtersURL = removeParam('srule', filtersURL);  // Custom: [MSS-1348 Fix for not applying price filters]
+                                filtersURL = replaceUrlParamSearchQueryPmid(filtersURL, 'q', paramSearchQuery, 'pmid', paramPmid);
+                            }
+                        }
+    
+                        if (urlparams.hasOwnProperty('pmid') == true && urlparams.hasOwnProperty('q') == true && urlparams.hasOwnProperty('srule') == true) {
+                            if (urlparams.q) {
+                                var paramSearchQuery = urlparams.q;
+                                var paramPmid = urlparams.pmid;
+                                var paramSrule = urlparams.srule;
+                                // filtersURL = removeParam('srule', filtersURL);  // Custom: [MSS-1348 Fix for not applying price filters]
+                                filtersURL = replaceUrlParamSearchQueryPmidSrule(filtersURL, 'q', paramSearchQuery, 'pmid', paramPmid, 'srule', paramSrule);
+                            }
+                        }
+                        // ?cgid=watches-womens-all&prefn1=color&start=0&sz=13&prefv1=Blue%7CGrey&pmin=100.00&pmax=200.00&pmid=product_level_promotion&srule=price-high-to-low                    
+                        // ?cgid=watches-womens-all&prefn1=color&srule=best-sellers&start=0&sz=5&prefv1=Blue&pmin=100.00&pmax=200.00&pmid=product_level_promotion
+                        // if (urlparams.hasOwnProperty('pmid') == true && urlparams.hasOwnProperty('srule') == false) {
+                        //     if (urlparams.pmid) {
+                        //         currentSelectedSortId = urlparams.pmid;
+                        //         filtersURL = replaceUrlPmid(filtersURL, 'pmid', currentSelectedSortId);
+                        //     }
+                        // }
+                        var baseUrl = document.location.href;
+                        if (baseUrl.indexOf('?') !== -1) {
+                            baseUrl = baseUrl.split('?')[0];
+                        }
+                        console.log(typeof baseUrl);
+                        filtersURL = baseUrl + filtersURL;
+                        $.spinner().start();
+                        $(this).trigger('search:filter', e);
+                        $.ajax({
+                            url: filtersURL,
+                            data: {
+                                page: $('.grid-footer').data('page-number'),
+                                selectedUrl: filtersURL
+                            },
+                            method: 'GET',
+                            success: function (response) {
+                                var params = '';
+                                var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
+                                $('body').trigger('facet:success', [gtmFacetArray]);
+                                parseResults(response);
+                                updatePageURLForFacets(filtersURL);
+                                $.spinner().stop();
+                                moveFocusToTop();
+                                swatches.showSwatchImages();
+    
+                                $('.mobile-filter-menu').removeClass('active');
+                                $('.mobile-sort-menu').removeClass('active').addClass('disable-events');
+                                $('body').removeClass('lock-bg');
+                                $('.mvmt-plp .result-count').removeClass('col-12 col-md-9 col-sm-6 order-sm-2');
+                                $('.mobile-filter-menu').removeClass('active').addClass('disable-events');
+                                $('.mvmt-plp .grid-header .sort-col, .mvmt-plp .grid-header .filter-col').remove();
+                                $('.plp-grid-overlay').removeClass('active');
+                                $('.plp-active-filter.sticky').addClass('d-none');
+                                bulidLifeStyleCarousel();
+                                if (isInfiniteScrollEnabled && (isPaginationEnabled == false)) {
+                                    loadMoreIndex = $('#product-search-results .product-tile').length - (parseInt(initiallyLoadedProducts / 2) + 1);
+                                }
+    
+                            },
+                            error: function () {
+                                $.spinner().stop();
+                                filterLoadInProgress = false;
+                            }
+                        });
+                    }
+                }
+
+            }
+        });
+    },
+    applyFilterSelect: function () {
         // Handle refinement value selection and reset click
         $('.container, .container-fluid').on(
             'click',
-            '.refinements li a, .refinement-bar a.reset, .filter-value a, .swatch-filter a, .top-refinements a',
+            '.filter-refinement-container',
             function (e) {
                 e.preventDefault();
-                e.stopPropagation();
                 filterLoadInProgress = true;
-                console.log('Filter Rule Started');
                 // Get currently selected sort option to retain sorting rules
+                var clicked = e.target.closest('.filter-elements');
+                var filterBar = document.querySelectorAll('.selected-filter-bar');
 
-                var urlparams = getUrlParamObj(document.location.href);
-                console.log(urlparams);
-                alert(`urlParams: ${document.location.href}`);
-                var filtersURL = e.currentTarget.href;
-                alert(`filters URL ${filtersURL}`);
-                var currentSelectedSortId = '';
-                // if (urlparams.hasOwnProperty('srule') == true) {
-                //     if (urlparams.srule) {
-                //         currentSelectedSortId = urlparams.srule;
-                //         filtersURL = removeParam('srule', filtersURL);  // Custom: [MSS-1348 Fix for not applying price filters]
-                //         filtersURL = replaceUrlParam(filtersURL, 'srule', currentSelectedSortId);
-                //     }
-                // }
+                if (!clicked) return;
+                    console.log(clicked);
+                if (clicked) {
+                    console.log(filterBar);
+                    // var isfilterUrl = clicked.querySelector('a');
+                    var isSelected = clicked.querySelector('.selected');
+                    // var targetUrl = isfilterUrl.href;
+                    var filterBarValue = clicked.dataset.selectedFilter;
+                    var isCheckSquare = clicked.querySelector('.check-square');
+                    var isSquareO = clicked.querySelector('.square-o');
+                    var isCheckCircle = clicked.querySelector('.check-circle');
+                    var isCheckO = clicked.querySelector('.check-o');
+                    
+                    if (isSelected && isCheckSquare == null && isSquareO == null && isCheckCircle == null && isCheckO == null) {
+                        var containClass = isSelected.classList.toggle('filter-selected');
+                        // vdata-target-url="${refinementValue.url}"
+                        if (containClass) {
+                            isSelected.classList.add('check-filter-selected');
+                            var html = `<li class="filter-value added-filter-bar" data-added-filter-bar="${filterBarValue}">
+                                            <a href="">${filterBarValue}</a>
+                                        </li>`;
+                            filterBar.forEach(function (e) {
+                                e.insertAdjacentHTML('beforeend', html);    
+                            });
+                       } else {
+                        // console.log(isSelected);
+                        var selectedFilterId = isSelected.dataset.selectedFilter;
+                            var slectedFilterBarAll = document.querySelectorAll('.selected-filter-bar');
 
-                $.spinner().start();
-                $(this).trigger('search:filter', e);
-                $.ajax({
-                    url: filtersURL,
-                    data: {
-                        page: $('.grid-footer').data('page-number'),
-                        selectedUrl: e.currentTarget.href + currentSelectedSortId
-                    },
-                    method: 'GET',
-                    success: function (response) {
-                        var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
-                        $('body').trigger('facet:success', [gtmFacetArray]);
-                        parseResults(response);
-                        updatePageURLForFacets(filtersURL);
-                        $.spinner().stop();
-                        moveFocusToTop();
-                        swatches.showSwatchImages();
+                            if (slectedFilterBarAll.length > 0) {
+                                slectedFilterBarAll.forEach(function (el) {
+                                    if (el.hasChildNodes()) {
+                                        var addedFilterBarAll = el.querySelectorAll('.added-filter-bar');
+                                        addedFilterBarAll.forEach(function (e) {
+                                            if (e.dataset.addedFilterBar == selectedFilterId) {
+                                                e.remove();
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                            isSelected.classList.remove('check-filter-selected');
+                       }                  
+                    } else if (isSelected && isCheckSquare == null && isSquareO !== null && isCheckCircle == null && isCheckO == null) {
+                        console.log(isSquareO)
+                        var isSquareOParent = isSquareO.parentNode;
+                        isSquareOParent.classList.add('check-filter-selected');
+                        isSquareO.classList.remove('square-o');
+                        isSquareO.classList.remove('fa-square-o');
+                        isSquareO.classList.add('fa-check-square');
+                        isSquareO.classList.add('check-square');
+                        var html = `<li class="filter-value added-filter-bar" data-added-filter-bar="${filterBarValue}">
+                                        <a href="">${filterBarValue}</a>
+                                    </li>`;
+                        filterBar.forEach(function (e) {
+                            e.insertAdjacentHTML('beforeend', html);    
+                        });
 
-                        $('.mobile-filter-menu').removeClass('active');
-                        $('.mobile-sort-menu').removeClass('active').addClass('disable-events');
-                        $('body').removeClass('lock-bg');
-                        $('.mvmt-plp .result-count').removeClass('col-12 col-md-9 col-sm-6 order-sm-2');
-                        $('.mobile-filter-menu').removeClass('active').addClass('disable-events');
-                        $('.mvmt-plp .grid-header .sort-col, .mvmt-plp .grid-header .filter-col').remove();
-                        $('.plp-grid-overlay').removeClass('active');
-                        bulidLifeStyleCarousel();
-                        if (isInfiniteScrollEnabled && (isPaginationEnabled == false)) {
-                            loadMoreIndex = $('#product-search-results .product-tile').length - (parseInt(initiallyLoadedProducts / 2) + 1);
+                    } else if (isSelected && isSquareO == null && isCheckSquare !== null && isCheckCircle == null && isCheckO == null) {
+                        console.log(isCheckSquare);
+
+                        var selectedFilterId = isSelected.dataset.selectedFilter;
+                        var slectedFilterBarAll = document.querySelectorAll('.selected-filter-bar');
+
+                        if (slectedFilterBarAll.length > 0) {
+                            slectedFilterBarAll.forEach(function (el) {
+                                if (el.hasChildNodes()) {
+                                    var addedFilterBarAll = el.querySelectorAll('.added-filter-bar');
+                                    addedFilterBarAll.forEach(function (e) {
+                                        if (e.dataset.addedFilterBar == selectedFilterId) {
+                                            e.remove();
+                                        }
+                                    });
+                                }
+                            });
                         }
 
-                    },
-                    error: function () {
-                        $.spinner().stop();
-                        filterLoadInProgress = false;
+                        var isCheckSquaretParent = isCheckSquare.parentNode;
+                        isCheckSquaretParent.classList.remove('check-filter-selected');
+                        isCheckSquare.classList.remove('fa-check-square');
+                        isCheckSquare.classList.remove('check-square');
+                        isCheckSquare.classList.add('square-o');
+                        isCheckSquare.classList.add('fa-square-o');
+                    } else if (isSelected && isSquareO == null && isCheckSquare == null && isCheckCircle == null && isCheckO !== null) {
+                        // fa-circle-o
+                        // fa-check-circle
+                            var isparentSelector = document.querySelectorAll('.filter-refinement-container');
+                            console.log(isparentSelector);
+                            if (isparentSelector) {
+                                isparentSelector.forEach(function (el, index) {
+                                if (el.hasChildNodes()) {
+                                    var isPriceFilter = el.dataset.filterId;
+                                    
+                                    if (isPriceFilter == 'price') {
+                                        var childElement = el.querySelectorAll('.filter-element');
+                                    
+                                        childElement.forEach(function (e, i) {
+                                            var isPriceFilterSelected = e.querySelector('.check-filter-selected');
+                                            console.log(isPriceFilterSelected);
+                                            
+                                            if (isPriceFilterSelected) {
+                                                if (isPriceFilterSelected.classList.contains('check-filter-selected')) {
+                                                    isPriceFilterSelected.classList.remove('check-filter-selected');
+
+                                                    if (isPriceFilterSelected.hasChildNodes()) {
+                                                        var priceFilterChildEl = isPriceFilterSelected.querySelector('.fa-check-circle');
+                                                        
+                                                        if (priceFilterChildEl) {
+                                                            priceFilterChildEl.classList.remove('fa-check-circle', 'check-circle');
+                                                            priceFilterChildEl.classList.add('check-o', 'fa-circle-o');
+                                                        }
+                                                    }
+                                                    
+                                                }
+                                            }
+                                        });
+                                    }
+                                };
+                            });
+                        }
+                        var isCheckOParent = isCheckO.parentNode;
+                        isCheckOParent.classList.add('check-filter-selected');
+                        isCheckO.classList.remove('check-o', 'fa-circle-o');
+                        isCheckO.classList.add('fa-check-circle', 'check-circle');
+                        var html = `<li class="filter-value">
+                                            <a href="#">${filterBarValue}</a>
+                                        </li>`;
+                        filterBar.forEach(function (e) {
+                            e.insertAdjacentHTML('beforeend', html);    
+                        });
                     }
-                });
+                }
             });
     },
+
+
+//  applyFilter: function () {
+//      // Handle refinement value selection and reset click
+//     $('.container, .container-fluid').on(
+//         'click',
+//         '.refinements li a, .refinement-bar a.reset, .filter-value a, .swatch-filter a, .top-refinements a',
+//         function (e) {
+//             e.preventDefault();
+//             e.stopPropagation();
+//             filterLoadInProgress = true;
+//             // Get currently selected sort option to retain sorting rules
+
+//             var urlparams = getUrlParamObj(document.location.href);
+//             var filtersURL = e.currentTarget.href;
+//             var currentSelectedSortId = '';
+
+//             if (urlparams.hasOwnProperty('srule') == true) {
+//                 if (urlparams.srule) {
+//                     currentSelectedSortId = urlparams.srule;
+//                     filtersURL = removeParam('srule', filtersURL);  // Custom: [MSS-1348 Fix for not applying price filters]
+//                     filtersURL = replaceUrlParam(filtersURL, 'srule', currentSelectedSortId);
+//                 }
+//             }
+//             var test = e.currentTarget.href + currentSelectedSortId
+//             $.spinner().start();
+//             $(this).trigger('search:filter', e);
+//             $.ajax({
+//                 url: filtersURL,
+//                 data: {
+//                     page: $('.grid-footer').data('page-number'),
+//                     selectedUrl: e.currentTarget.href + currentSelectedSortId
+//                 },
+//                 method: 'GET',
+//                 success: function (response) {
+//                     var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
+//                     $('body').trigger('facet:success', [gtmFacetArray]);
+//                     parseResults(response);
+//                     updatePageURLForFacets(filtersURL);
+//                     $.spinner().stop();
+//                     moveFocusToTop();
+//                     swatches.showSwatchImages();
+
+//                     $('.mobile-filter-menu').removeClass('active');
+//                     $('.mobile-sort-menu').removeClass('active').addClass('disable-events');
+//                     $('body').removeClass('lock-bg');
+//                     $('.mvmt-plp .result-count').removeClass('col-12 col-md-9 col-sm-6 order-sm-2');
+//                     $('.mobile-filter-menu').removeClass('active').addClass('disable-events');
+//                     $('.mvmt-plp .grid-header .sort-col, .mvmt-plp .grid-header .filter-col').remove();
+//                     $('.plp-grid-overlay').removeClass('active');
+//                     bulidLifeStyleCarousel();
+//                     if (isInfiniteScrollEnabled && (isPaginationEnabled == false)) {
+//                         loadMoreIndex = $('#product-search-results .product-tile').length - (parseInt(initiallyLoadedProducts / 2) + 1);
+//                     }
+
+//                 },
+//                 error: function () {
+//                     $.spinner().stop();
+//                     filterLoadInProgress = false;
+//                 }
+//             });
+//         });
+// },
+
+
     //Custom Start: Make this fucntion for mobile filter
     applyFilterMobile: function () {
         // Handle refinement value selection and reset click

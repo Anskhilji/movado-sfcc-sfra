@@ -48,6 +48,7 @@
             <div class="plp-active-filter-list">
                 <div class="active-filters">
                     <div class="row m-0 filter-bar">
+                    for mobile
                         <isinclude template="search/filterBar" />
                         <isif condition="${pdict.productSearch.selectedFilters.length > 0}">
                             <a class="reset" href="${pdict.productSearch.resetLink}">
@@ -59,7 +60,7 @@
             </div>
         </div>
     </div>
-
+<iscomment> 1 </iscomment>
     <div class="mobile-filter-container">
         <div class="mobile-filter-menu">
             <div class="mobile-filter-options">
@@ -82,16 +83,19 @@
                                         <!--- CATEGORY REFINEMENTS --->
                                         <isif condition="${refinement.isCategoryRefinement}">
                                             <isset name="categories" value="${refinement.values}" scope="page" />
+                                            mobile categories
                                             <isinclude template="search/refinements/categories" />
                                         </isif>
 
                                         <!--- ATTRIBUTE REFINEMENTS --->
                                         <isif condition="${refinement.isAttributeRefinement  || refinement.isPromotionRefinement}">
+                                        1nd attrib
                                             <isinclude template="search/refinements/attributes" />
                                         </isif>
 
                                         <!--- PRICE REFINEMENTS --->
                                         <isif condition="${refinement.isPriceRefinement}">
+                                        mobile price
                                             <isinclude template="search/refinements/prices" />
                                         </isif>
                                     </div>
@@ -109,6 +113,7 @@
                 </isloop>
             </div>
         </div>
+        <iscomment> 2 </iscomment>
         <div class="mobile-sort-menu">
             <div data-mobile-close-filters="" class="mobile-menu-close" data-close-menu=".mobile-sort-menu">
                 <svg width="12" height="10" viewBox="0 0 12 10" xmlns="http://www.w3.org/2000/svg">
@@ -183,6 +188,7 @@
 
                                                             <!--- ATTRIBUTE REFINEMENTS --->
                                                             <isif condition="${refinement.isAttributeRefinement  || refinement.isPromotionRefinement}">
+                                                            2nd attrib
                                                                 <isinclude template="search/refinements/attributes" />
                                                             </isif>
 
@@ -190,7 +196,7 @@
                                                             <isif condition="${refinement.isPriceRefinement}">
                                                                 <isinclude template="search/refinements/prices" />
                                                             </isif>
-                                                            <span class="close-icon"></span>
+                                                            <span class="close-icon search-refinement-close"></span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -220,29 +226,12 @@
 <isif condition="${pdict.productSearch.category}">
     <isslot id="slot-straps-mvmt" description="Strap MVMT products" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
 </isif>
-
+<iscomment> 3 </iscomment>
 <div class="refine-wrapper plp-filter-redesign">
     <div class="plp-filter-bar">
         <div class="plp-filter-bar-inner ">
             <div class="plp-filter-options">
                 <div class="plp-filter-lists">
-                <div class="plp-active-filter sticky d-none">
-                    <div class="plp-active-filter-list">
-                        <div class="active-filters">
-                            <div class="row m-0 filter-bar">
-                                <ul>
-                                    <li class="filter-value">
-                                        <a href="">Purple</a>
-                                    </li>
-                                    <li class="filter-value">
-                                        <a href="">Yellow</a>
-                                    </li>
-                                </ul>
-                                <iscomment> <isinclude template="search/filterBar" /> </iscomment>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                     <div class="refinements">
                         <iscomment> Start: Create category slot for straps </iscomment>
                         <isif condition="${pdict.productSearch.category}">
@@ -258,7 +247,7 @@
                                     <span class="arrow-down"></span>
                                 </button>
                                 <div class="filter-group">
-                                    <div class="filter-group-outer">
+                                    <div class="filter-group-outer filter-group-outer-desktop">
                                         <h2 class="refinement-name">${refinement.displayName}</h2>
 
                                         <!--- CATEGORY REFINEMENTS --->
@@ -270,7 +259,7 @@
 
                                         <!--- ATTRIBUTE REFINEMENTS --->
                                         <isif condition="${refinement.isAttributeRefinement || refinement.isPromotionRefinement}">
-                                        <p>attributes</p>
+                                        <p>3rd attribut</p>
                                             <isinclude template="search/refinements/attributes" />
                                         </isif>
 
@@ -279,14 +268,23 @@
                                         <p>prices</p>
                                             <isinclude template="search/refinements/prices" />
                                         </isif>
-                                        <span class="close-icon"></span>
+                                        <span class="close-icon search-refinement-close"></span>
                                     </div>
                                 </div>
                             </div>
                         </isif>
                         </isloop>
                     </div>
-               
+                     <isinclude template="search/sortOrderMenu" />
+                </div>
+            </div>
+        </div>
+        <div class="plp-active-filter sticky d-none">
+            <div class="plp-active-filter-list">
+                <div class="active-filters">
+                    <div class="row m-0 filter-bar filter-bar-list">
+                        <isinclude template="search/filterBar" />
+                    </div>
                 </div>
             </div>
         </div>

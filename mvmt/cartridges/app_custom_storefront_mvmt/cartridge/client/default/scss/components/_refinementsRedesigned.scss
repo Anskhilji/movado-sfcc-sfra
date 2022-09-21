@@ -26,13 +26,13 @@
                     align-content: space-around;
                     align-items: flex-start;
                     z-index: 9999999;
-                    background-color: red;
-                    top: rem(40);
+                    // background-color: yellow;
+                    top: rem(75);
 
                     &.sticky {
                         padding-left: 0;
                         height: fit-content;
-                        padding: rem(20) rem(0);
+                        padding: rem(7) rem(0);
                     }
 
                     .active-filters {
