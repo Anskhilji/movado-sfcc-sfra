@@ -16,7 +16,7 @@ var Money = require('dw/value/Money');
 function getLocalPriceBooksDetails(localizeObj) {
 
     var localListPriceBook = localizeObj.indexOf('LIST') > -1 ? localizeObj : '';
-    var localSalePriceBook = localizeObj.indexOf('SALE') > -1 ? localizeObj : '';
+    var localSalePriceBook = localizeObj.indexOf('ECOM_SALE') > -1 ? localizeObj : '';
     var localizePriceBooks = [];
     var currencyCode = 'USD';
 
@@ -147,18 +147,18 @@ function buildPriceBookSchema(writeDirPath, priceBook, localizeObj) {
             products = salableProducts.next().getRepresentedProducts().toArray();
             products.forEach(function (product) { // eslint-disable-line no-loop-func
                 var AdjustedSalePrice = convertedSalePrice(product);
-                if (!empty(AdjustedSalePrice)) {
-                    priceBookStreamWriter.writeStartElement('price-table');
-                    priceBookStreamWriter.writeAttribute('product-id', product.getID());
-                    priceBookStreamWriter.writeCharacters('\n');
-                    priceBookStreamWriter.writeStartElement('amount');
-                    priceBookStreamWriter.writeAttribute('quantity', '1');
-                    priceBookStreamWriter.writeCharacters(AdjustedSalePrice.salePrice);
-                    priceBookStreamWriter.writeEndElement();
-                    priceBookStreamWriter.writeCharacters('\n');
-                    priceBookStreamWriter.writeEndElement();
-                    totalAssignedProducts++;
-                }
+                    if (!empty(AdjustedSalePrice.salePrice)) {
+                        priceBookStreamWriter.writeStartElement('price-table');
+                        priceBookStreamWriter.writeAttribute('product-id', product.getID());
+                        priceBookStreamWriter.writeCharacters('\n');
+                        priceBookStreamWriter.writeStartElement('amount');
+                        priceBookStreamWriter.writeAttribute('quantity', '1');
+                        priceBookStreamWriter.writeCharacters(AdjustedSalePrice.salePrice);
+                        priceBookStreamWriter.writeEndElement();
+                        priceBookStreamWriter.writeCharacters('\n');
+                        priceBookStreamWriter.writeEndElement();
+                        totalAssignedProducts++;
+                    }
             });
         }
 
