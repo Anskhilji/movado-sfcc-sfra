@@ -14,7 +14,11 @@
         </isif>
     </isloop>
 
-    <isinclude template="product/components/productTileImage" />
+    <isif condition="${pdict.display.recommendattionTile === true}">
+        <isinclude template="product/components/productTileRecommendations" />
+    <iselse>
+        <isinclude template="product/components/productTileImage" />
+    </isif>
 
     <div class="tile-body" aria-label="pooduct tile popover" tabindex="0">
         <div class="d-flex">
@@ -129,10 +133,17 @@
         </div>
         <div class="row m-10 d-none">
             <div class="col d-flex align-items-center justify-content-center">
-                <isinclude template="product/components/ratings" />
+                <isset name="isYotpoStoreProductRatingEnabled" value="${!empty(dw.system.Site.current.preferences.custom.yotpoStoreProductRatingEnabled) ? dw.system.Site.current.preferences.custom.yotpoStoreProductRatingEnabled : false}" scope="page" />
+                <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
+                    <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                        <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
+                    </div>
+                <iselse/>
+                    <isinclude template="product/components/ratings" />
+                </isif>
             </div>
         </div>
-        
+
         <!-- END_dwmarker -->
     </div>
 </isif>

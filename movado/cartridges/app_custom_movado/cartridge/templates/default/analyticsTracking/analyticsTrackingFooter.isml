@@ -113,6 +113,17 @@
             dataLayer.push({'event': orderConfirmationTriggerEvent, 'orderConfirmationObj': orderConfirmationObj});
             orderConfirmationTriggerEvent = null;
         }
+
+        var orderDeclinedTriggerEvent;
+        var orderDeclinedObj = '';
+        if ('${pdict.orderDeclinedObj}' != 'null') {
+            orderDeclinedObj = JSON.parse('<isprint value="${pdict.orderDeclinedObj}" encoding="htmlsinglequote"/>');
+            orderDeclinedTriggerEvent = 'RiskifiedDecline';
+        }
+        if (orderDeclinedTriggerEvent) {
+            dataLayer.push({'event': orderDeclinedTriggerEvent, 'orderDeclinedObj': orderDeclinedObj});
+            orderDeclinedTriggerEvent = null;
+        }
     </script>
 </isif>
 

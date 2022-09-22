@@ -37,7 +37,11 @@
             </div>
 
             <div class="col-md-6">
-                <isinclude template="checkout/confirmation/confirmationDetails" />
+                <isif condition="${pdict.orderObj.custom.BOPIS}">
+                    <isinclude template="checkout/confirmation/confirmationDetailsPickupFromStore" />
+                <iselse/>
+                    <isinclude template="checkout/confirmation/confirmationDetails" />
+                </isif>
                 <a href="${URLUtils.url('Home-Show')}" class="btn btn-primary btn-block order-confirmation-continue-shopping" role="button" aria-pressed="true">
                     ${Resource.msg('button.continue.shopping','confirmation',null)}
                 </a>

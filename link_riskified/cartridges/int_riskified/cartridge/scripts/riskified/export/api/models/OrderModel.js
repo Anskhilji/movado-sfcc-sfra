@@ -55,7 +55,7 @@ function create(order, orderParams, checkoutDeniedParams) {
         orderTotal;
     var LineItem = require('*/cartridge/scripts/riskified/export/api/models/LineItemModel');
     var DiscountCode = require('./DiscountCodeModel');
-    var ShippingLine = require('./ShippingLineModel');
+    var ShippingLine = require('*/cartridge/scripts/riskified/export/api/models/ShippingLineModel');
     var PaymentDetails = require('./PaymentDetailsModel');
     var AddressModel = require('./AddressModel');
     var Customer = require('./CustomerModel');
@@ -224,7 +224,7 @@ function setOrderAnalysisStatus(order, status, callerModule) {
     RCLogger.logMessage('The order analysis status is: ' + status, 'debug', logLocation);
 
     try {
-        if (empty(session.custom.delayRiskifiedStatus)) {
+        if (empty(session.custom.delayRiskifiedStatus) || session.custom.delayRiskifiedStatus) {
             Transaction.wrap(function () {
                 order.custom.riskifiedOrderAnalysis = status;
             });
