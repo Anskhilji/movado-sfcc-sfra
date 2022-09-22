@@ -101,12 +101,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="mobile-active-option">
+                            <div class="mobile-active-option redesign-filter-mobile">
                                 <div class="mobile-active-actions">
                                     <button type="button" class="mobile-active-shop-btn results-count-loaded"
                                         data-mobile-close-filters="">${Resource.msgf('label.btn.shop.redesigned', 'search', null)}
                                         <isinclude template="search/resultsCount" /></button>
+                                        <button type="button" class="mobile-active-shop-btn mobile-active-shop-btn-outline">Clear All</button>
                                 </div>
+                                
                             </div>
                         </div>
                     </isif>
@@ -211,11 +213,12 @@
                 </div>
             </div>
             
-            <div class="mobile-active-option-redesign">
+            <div class="mobile-active-option-redesign redesign-filter-mobile">
                 <div class="mobile-active-actions">
                     <button type="button" class="mobile-active-shop-btn results-count-loaded"
                         data-mobile-close-filters="">${Resource.msgf('label.btn.shop.redesigned', 'search', null)}
                         <isinclude template="search/resultsCount" /></button>
+                        <button type="button" class="mobile-active-shop-btn mobile-active-shop-btn-outline">Clear All</button>
                 </div>
             </div>
         </div>

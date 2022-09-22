@@ -1,7 +1,6 @@
 'use strict';
 
 var swatches = require('movado/utilities/swatches');
-const { start } = require('selenium-standalone');
 var initiallyLoadedProducts = $('.product-grid').data('initial-products');
 var isInfiniteScrollEnabled = $('.mvmt-plp.container-fluid').data('infinte-scroll-enabled');
 var isPaginationEnabled = $('.mvmt-plp.container-fluid').data('enable-pagination');
