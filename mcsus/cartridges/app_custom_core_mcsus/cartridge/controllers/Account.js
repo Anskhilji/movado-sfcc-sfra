@@ -133,6 +133,8 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
 								var newCustomerProfile = newCustomer.getProfile();
 
 								var newsletterSignupProssesed;
+                                var geolocation = !empty(req.geolocation.countryCode) ? req.geolocation.countryCode : '';
+								
 								if (registrationForm.addToEmailList) {
 									var requestParams = {
 										email: registrationForm.email
@@ -147,6 +149,7 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
 										requestParams.lastName= registrationForm.lastName;
 										requestParams.birthDate= registrationForm.birthdate;
 										requestParams.birthMonth= registrationForm.birthmonthNumber;
+                                        requestParams.country = !empty(requestParams.country) ? requestParams.country : geolocation;
 										ltkApi.sendSubscriberToListrak(requestParams);
 									} else {
 										var SFMCApi = require('int_custom_marketing_cloud/cartridge/scripts/api/SFMCApi');
