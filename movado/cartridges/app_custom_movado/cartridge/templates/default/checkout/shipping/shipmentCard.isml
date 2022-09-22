@@ -5,8 +5,12 @@
 </isif>
 <div class="card-body shipping-content card-shipping-container-wrapper">
 <isif condition="${session.privacy.pickupFromStore}">
-    <div class="shipping-your-detail">
-        ${Resource.msg('label.order.your.detail', 'storePickUp', null)}
+    <div class="row">
+        <div class="col-12 shipping-details-label">
+            <div class="shipping-your-detail">
+                ${Resource.msg('label.order.your.detail', 'storePickUp', null)}
+            </div>
+        </div>
     </div>
 </isif>
     <form class="shipping-form" autocomplete="on" novalidate

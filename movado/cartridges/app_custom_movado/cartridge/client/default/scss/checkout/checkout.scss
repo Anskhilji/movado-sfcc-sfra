@@ -139,7 +139,10 @@ span.ship-to-city-st-zip {
                     font-weight: 500;
                     letter-spacing: rem(2);
                     line-height: rem(21);
-                    margin-bottom: rem(15);
+
+                    &-main {
+                        margin-bottom: rem(15);
+                    }
                 }
             }
         }
@@ -722,6 +725,15 @@ header {
                     background: none;
                 }
             }
+            &.input-invalid-icon {
+                &.is-invalid {
+                    background-position-x: 93%;
+
+                    @include media-breakpoint-down(sm) {
+                        background: none;
+                    }
+                }
+            }
 
             &#shippingState,
             &#shippingCountrydefault,
@@ -808,15 +820,24 @@ header {
         transform: translateX(-50%);
     }
 }
+.shipping-details-label {
+    @include media-breakpoint-down(md) { 
+        padding: rem(0) rem(10);
+    }
+    
+    @include media-breakpoint-down(xs) { 
+        padding: rem(0);
+    }
 
-.shipping-your-detail {
-    text-transform: uppercase;
-    line-height: rem(18);
-    font-size: rem(14);
-    color: $grey14;
-    font-weight: 500;
-    margin-bottom: rem(15);
-    padding-top: rem(6);
+    .shipping-your-detail {
+        text-transform: uppercase;
+        line-height: rem(18);
+        font-size: rem(14);
+        color: $grey14;
+        font-weight: 500;
+        margin-bottom: rem(15);
+        padding-top: rem(6);
+    }
 }
 .checkout-label-custom {
 

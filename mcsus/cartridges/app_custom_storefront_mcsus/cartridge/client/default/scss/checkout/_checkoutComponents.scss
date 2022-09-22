@@ -113,7 +113,7 @@ $receipt-font-size: rem(14);
     .start-lines span {
       font-family: $font-book;
       font-weight: bold;
-      font-size: rem(18);
+      font-size: rem(14);
   
       @include media-breakpoint-down(md) {
         font-size: rem(14);
