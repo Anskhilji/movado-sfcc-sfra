@@ -7,6 +7,7 @@ var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger')
 var AdyenHelper = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
 var adyenLogger = require('dw/system/Logger').getLogger('Adyen', 'adyen');
 var LocalServiceRegistry = require('dw/svc/LocalServiceRegistry');
+var Logger = require('dw/system/Logger');
 /**
  * This method is used to build request object required to call Adyen AdjustAuthorisation API.
  *
