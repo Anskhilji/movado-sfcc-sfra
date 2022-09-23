@@ -15,94 +15,56 @@ var Status = require('dw/system/Status');
 var Order = require('dw/order/Order');
 var constants = require('*/cartridge/scripts/helpers/constants.js');
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
+var adyenPaymentCheckout = require('int_custom_adyen_klarna/cartridge/scripts/adyen/klarna/adyenPaymentCheckout.js');
 
-var AdyenHelper = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
-var adyenHelpers = require('~/cartridge/scripts/helpers/adyenHelpers');
 
 server.replace('Redirect', server.middleware.https, function (req, res, next) {
-    var adyenVerificationSHA256 = require('int_adyen_overlay/cartridge/scripts/adyenRedirectVerificationSHA256');
-
     var order = OrderMgr.getOrder(session.custom.orderNo);
+    var orderNumber = session.custom.orderNo;
     checkoutLogger.debug('(Adyen) -> Redirect: Inside Redirect to payment is made from Klarna/Paypal and order number is: ' + order.orderNo);
 
-    var riskifiedCheckoutCreateResponse = hooksHelper(
-        'app.fraud.detection.checkoutcreate',
-        'checkoutCreate',
-        order.orderNo,
-        order.paymentInstrument,
-        require('*/cartridge/scripts/hooks/fraudDetectionHook').checkoutCreate);
-    if (!riskifiedCheckoutCreateResponse) {
-        checkoutLogger.error('Riskified API Call failed for order number: ' + order.orderNo);
-        res.render('error', {
-            message: Resource.msg('subheading.error.general', 'error', null)
-        });
-        return next();
-    }
+    var openInvoiceWhiteListMethods = Site.getCurrent().getCustomPreferenceValue('Adyen_Open_Invoice_Whitelist');
+    if ((session.custom.brandCode).search(constants.KLARNA_PAYMENT_METHOD_TEXT) > -1) {
+        if (!empty(openInvoiceWhiteListMethods) && openInvoiceWhiteListMethods.search(constants.KLARNA_PAYMENT_METHOD_TEXT) > -1) {
+            result = adyenPaymentCheckout.getDetails(order);
+            if (result.error) {
+                checkoutLogger.error('(Adyen) -> Redirect: Error occurred while trying to get the adyen checkout payment details order number is: ' + orderNumber);
+                res.render('error');
+                return next();
+            }
+            session.custom.klarnaRiskifiedFlag = true;
 
-
-    var result;
-    var callResult;
-
-    Transaction.wrap(function () {
-        result = adyenVerificationSHA256.verify({
-            Order: order,
-            OrderNo: order.orderNo,
-            CurrentSession: session,
-            CurrentUser: customer,
-            PaymentInstrument: order.paymentInstrument,
-            brandCode: session.custom.brandCode,
-            issuerId: session.custom.issuerId
-        });
-    });
-
-    if (result === PIPELET_ERROR) {
+            res.redirect(result.adyenPaymentResponse.redirectUrl);
+            return next();
+        }
         res.render('error');
         return next();
-    }
-
-    // var pdict = {
-    //     merchantSig: result.merchantSig,
-    //     Amount100: result.Amount100,
-    //     shopperEmail: result.shopperEmail,
-    //     shopperReference: result.shopperReference,
-    //     ParamsMap: result.paramsMap,
-    //     SessionValidity: result.sessionValidity,
-    //     Order: order,
-    //     OrderNo: order.orderNo
-    // };
-
-    // res.render('redirectHPP', pdict);
-
-    var requestObj = {
-        "amount": {
-          "currency": order.currencyCode,
-          "value": Math.round(order.totalGrossPrice * 100)
-        },
-        "reference": order.orderNo,
-        "paymentMethod": {
-          "type": result.brandCode
-        },
-        "merchantAccount": AdyenHelper.getAdyenMerchantAccount(),
-        "returnUrl": URLUtils.https('Adyen-ShowConfirmation').toString()
-    }
-
-    var adyenCheckout = AdyenHelper.getService('AdyenPaymentCheckout');
-    adyenCheckout.addHeader('Content-type', 'application/json');
-    callResult = adyenCheckout.call(JSON.stringify(requestObj));
-
-    
-
-    if (callResult && callResult.isOk() == false) {
-        res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
     } else {
-        var parsedResult = JSON.parse(callResult.object.getText());
-        var serviceResponse = adyenHelpers.parseGetPaymentDetailsResponse({
-            ServiceResponse: parsedResult,
-            Order: order
-        });
-        res.redirect(serviceResponse.redirectUrl);
+        var riskifiedCheckoutCreateResponse = hooksHelper(
+            'app.fraud.detection.checkoutcreate',
+            'checkoutCreate',
+            order.orderNo,
+            order.paymentInstrument,
+            require('*/cartridge/scripts/hooks/fraudDetectionHook').checkoutCreate);
+        if (!riskifiedCheckoutCreateResponse) {
+            checkoutLogger.error('Riskified API Call failed for order number: ' + order.orderNo);
+            res.render('error', {
+                message: Resource.msg('subheading.error.general', 'error', null)
+            });
+            return next();
+        }
     }
-    
+    var result;
+    if (!session.custom.klarnaRiskifiedFlag) {
+        result = adyenPaymentCheckout.getDetails(order);
+        if (result.error) {
+            checkoutLogger.error('(Adyen) -> Redirect: Error occurred while trying to get the adyen checkout payment details order number is: ' + orderNumber);
+            res.render('error');
+            return next();
+        }
+        res.redirect(result.adyenPaymentResponse.redirectUrl);
+        return next();
+    }   
     return next();
 });
 
@@ -119,7 +81,7 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
         order = OrderMgr.getOrder(req.querystring.merchantReference.toString());
     } else if (session.custom.brandCode.search(constants.KLARNA_PAYMENT_METHOD_TEXT) > -1) {
         order = OrderMgr.getOrder(session.custom.orderNo);
-    } else if (req.querystring.resultCode === "authorised") {
+    } else if (req.querystring.resultCode.toUpperCase() === constants.PAYMENT_STATUS_AUTHORISED) {
         order = OrderMgr.getOrder(session.custom.orderNo);
     }
 
@@ -149,27 +111,37 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
     var detailReulstVerification;
 
     if(req.querystring.resultCode && req.querystring.resultCode !== constants.PAYMENT_STATUS_CANCELLED) {
-        detailReulstVerification = adyenHelpers.verifyDetails({
+        detailReulstVerification = adyenPaymentCheckout.verifyDetails({
             Redirectresult: req.querystring.payload.toString(),
             Order: order
         })
     } else if (req.querystring.redirectResult) {
-        detailReulstVerification = adyenHelpers.verifyDetails({
+        detailReulstVerification = adyenPaymentCheckout.verifyDetails({
             Redirectresult: req.querystring.redirectResult.toString(),
             Order: order
         })
     }
 
-
+    if (session.custom.klarnaRiskifiedFlag && !detailReulstVerification.error) {
+        //Custom Start: Send order to swell
+        if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) {
+            var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
+            SwellExporter.exportOrder({
+                orderNo: orderNumber,
+                orderState: 'created'
+            });
+        }
+    }
 
     var orderNumber = order.orderNo;
     var paymentInstrument = order.paymentInstrument;
-    var viewData = res.getViewData();
-    var klarnaPaymentStatus = viewData.klarnaPaymentStatus;
-    var klarnaPaymentMethod = viewData.klarnaPaymentMethod;
-    var klarnaPaymentPspReference = viewData.klarnaPaymentPspReference;
+    if (session.custom.klarnaRiskifiedFlag) {
+        var klarnaPaymentStatus = detailReulstVerification.paymentVarificationResult.resultCode;
+        var klarnaPaymentMethod = session.custom.brandCode;
+    }
+
     // AUTHORISED: The payment authorisation was successfully completed.
-    if (req.querystring.authResult === constants.PAYMENT_STATUS_AUTHORISED || (klarnaPaymentStatus && klarnaPaymentStatus.toUpperCase() === constants.PAYMENT_STATUS_AUTHORISED) || (detailReulstVerification && detailReulstVerification.paymentVarificationResult && detailReulstVerification.paymentVarificationResult.resultCode === "Authorised")) {
+    if (req.querystring.authResult === constants.PAYMENT_STATUS_AUTHORISED || (detailReulstVerification && detailReulstVerification.paymentVarificationResult && detailReulstVerification.paymentVarificationResult.resultCode && detailReulstVerification.paymentVarificationResult.resultCode.toUpperCase() === constants.PAYMENT_STATUS_AUTHORISED)) {
         checkoutLogger.debug('(Adyen) -> ShowConfirmation: Payment is authorized and going to place the order and order number is: ' + orderNumber);
         var OrderModel = require('*/cartridge/models/order');
         var Locale = require('dw/util/Locale');
@@ -209,9 +181,6 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
             if ('pspReference' in req.querystring && req.querystring.pspReference) {
                 checkoutLogger.debug('(Adyen) -> ShowConfirmation: Going to set the pspReference in the order and order number is: ' + orderNumber);
                 order.custom.Adyen_pspReference = req.querystring.pspReference;
-            } else if (klarnaPaymentPspReference) {
-                checkoutLogger.debug('(Adyen) -> ShowConfirmation: Going to set the klarnaPayment pspReference in the order and order number is: ' + orderNumber);
-                order.custom.Adyen_pspReference = klarnaPaymentPspReference;
             } else if (detailReulstVerification && detailReulstVerification.paymentVarificationResult && detailReulstVerification.paymentVarificationResult.pspReference) {
                 checkoutLogger.debug('(Adyen) -> ShowConfirmation: Going to set the pspReference in the order and order number is: ' + orderNumber);
                 order.custom.Adyen_pspReference = detailReulstVerification.paymentVarificationResult.pspReference;

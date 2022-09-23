@@ -7,6 +7,7 @@ var Transaction = require('dw/system/Transaction');
 // Script includes
 var AdyenHelper = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
 var collections = require('*/cartridge/scripts/util/collections');
+var constants = require('*/cartridge/scripts/helpers/constants.js');
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 
 /**
@@ -176,70 +177,84 @@ function buildGetPaymentDetailsRequestPayload(args) {
     }
 
     var billingAddr = order.getBillingAddress();
+    if ((args.brandCode).search(constants.KLARNA_PAYMENT_METHOD_TEXT) > -1) {
+        var requestPayload = {
+            merchantAccount: args.MerchantAccount,
+            reference: args.OrderNo,
+            paymentMethod: {
+                type: args.brandCode
+            },
+            amount: {
+                currency: order.currencyCode
+            },
+            shopperLocale: request.httpLocale,
+            countryCode: billingAddr.countryCode.value.toString().toUpperCase(),
+            telephoneNumber: billingAddr.getPhone(),
+            shopperEmail: order.customerEmail,
+            shopperName: {
+                firstName: billingAddr.getFirstName(),
+                gender: (!empty(args.gender)) ? args.gender : 'UNKNOWN',
+                lastName: billingAddr.getLastName()
+            },
+            shopperIP: request.getHttpRemoteAddress(),
+            shopperReference: args.CurrentUser.ID,
+            billingAddress: {
+                city: billingAddr.city,
+                country: billingAddr.countryCode.value.toString().toUpperCase(),
+                houseNumberOrName: (!empty(args.houseNumber)) ? args.houseNumber : 'NA',
+                postalCode: billingAddr.postalCode,
+                street: billingAddr.address1,
+                stateOrProvince: (!empty(billingAddr.stateCode) ? billingAddr.stateCode : 'NA')
+            },
+            deliveryAddress: getOrderDeliveryAdress({ Order: order }),
+            browserInfo: getShopperBrowserInfo(),
+            returnUrl: URLUtils.https('Adyen-ShowConfirmation').toString()
+        };
 
-    var requestPayload = {
-        merchantAccount: args.MerchantAccount,
-        reference: args.OrderNo,
-        paymentMethod: {
-            type: args.brandCode
-        },
-        amount: {
-            currency: order.currencyCode
-        },
-        shopperLocale: request.httpLocale,
-        countryCode: billingAddr.countryCode.value.toString().toUpperCase(),
-        telephoneNumber: billingAddr.getPhone(),
-        shopperEmail: order.customerEmail,
-        shopperName: {
-            firstName: billingAddr.getFirstName(),
-            gender: (!empty(args.gender)) ? args.gender : 'UNKNOWN',
-            lastName: billingAddr.getLastName()
-        },
-        shopperIP: request.getHttpRemoteAddress(),
-        shopperReference: args.CurrentUser.ID,
-        billingAddress: {
-            city: billingAddr.city,
-            country: billingAddr.countryCode.value.toString().toUpperCase(),
-            houseNumberOrName: (!empty(args.houseNumber)) ? args.houseNumber : 'NA',
-            postalCode: billingAddr.postalCode,
-            street: billingAddr.address1,
-            stateOrProvince: (!empty(billingAddr.stateCode) ? billingAddr.stateCode : 'NA')
-        },
-        deliveryAddress: getOrderDeliveryAdress({ Order: order }),
-        browserInfo: getShopperBrowserInfo(),
-        returnUrl: URLUtils.https('Adyen-ShowConfirmation').toString()
-    };
+        var lineItems = [];
+        var totalAmount = 0;
+        // Add all product and shipping line items to request payload.
+        collections.forEach(order.getAllLineItems(), function (lineItem) {
+            if ((lineItem instanceof dw.order.ProductLineItem && !lineItem.bonusProductLineItem && (lineItem.optionID ? lineItem.adjustedNetPrice != 0 : true))
+                || lineItem instanceof dw.order.ShippingLineItem
+                || (lineItem instanceof dw.order.PriceAdjustment && lineItem.promotion.promotionClass === dw.campaign.Promotion.PROMOTION_CLASS_ORDER)) {
+                var quantity = getQuantity(lineItem);
+                // Amounts must be in minor units e.g. 10GBP is equal to 1000GBP
+                var itemAmount = AdyenHelper.getCurrencyValueForApi(getItemAmount(lineItem)) / quantity;
+                var vatAmount = AdyenHelper.getCurrencyValueForApi(getVatAmount(lineItem)) / quantity;
+                var itemAmountIncludingVat = itemAmount + vatAmount;
+                var vatPercentage = getVatPercentage(lineItem);
+                totalAmount += itemAmountIncludingVat * quantity;
+                var item = {
+                    quantity: quantity,
+                    amountExcludingTax: itemAmount,
+                    // [MSS-1089] Removed [taxPercentage: (new Number(vatPercentage) * 10000).toFixed(),] to fix Adyen internal validation error
+                    description: getDescription(lineItem),
+                    id: getId(lineItem),
+                    taxAmount: vatAmount,
+                    amountIncludingTax: itemAmountIncludingVat,
+                    taxCategory: 'NONE'
+                };
+                lineItems.push(item);
+            }
 
-    var lineItems = [];
-    var totalAmount = 0;
-    // Add all product and shipping line items to request payload.
-    collections.forEach(order.getAllLineItems(), function (lineItem) {
-        if ((lineItem instanceof dw.order.ProductLineItem && !lineItem.bonusProductLineItem && (lineItem.optionID ? lineItem.adjustedNetPrice != 0 : true))
-            || lineItem instanceof dw.order.ShippingLineItem
-            || (lineItem instanceof dw.order.PriceAdjustment && lineItem.promotion.promotionClass === dw.campaign.Promotion.PROMOTION_CLASS_ORDER)) {
-            var quantity = getQuantity(lineItem);
-            // Amounts must be in minor units e.g. 10GBP is equal to 1000GBP
-            var itemAmount = AdyenHelper.getCurrencyValueForApi(getItemAmount(lineItem)) / quantity;
-            var vatAmount = AdyenHelper.getCurrencyValueForApi(getVatAmount(lineItem)) / quantity;
-            var itemAmountIncludingVat = itemAmount + vatAmount;
-            var vatPercentage = getVatPercentage(lineItem);
-            totalAmount += itemAmountIncludingVat * quantity;
-            var item = {
-                quantity: quantity,
-                amountExcludingTax: itemAmount,
-                // [MSS-1089] Removed [taxPercentage: (new Number(vatPercentage) * 10000).toFixed(),] to fix Adyen internal validation error
-                description: getDescription(lineItem),
-                id: getId(lineItem),
-                taxAmount: vatAmount,
-                amountIncludingTax: itemAmountIncludingVat,
-                taxCategory: 'NONE'
-            };
-            lineItems.push(item);
+        });
+        requestPayload.lineItems = lineItems;
+        requestPayload.amount.value = totalAmount;
+    } else {
+        var requestPayload = {
+            "amount": {
+              "currency": order.currencyCode,
+              "value": Math.round(order.totalGrossPrice * 100)
+            },
+            "reference": order.orderNo,
+            "paymentMethod": {
+              "type": args.brandCode
+            },
+            "merchantAccount": args.MerchantAccount,
+            "returnUrl": URLUtils.https('Adyen-ShowConfirmation').toString()
         }
-
-    });
-    requestPayload.lineItems = lineItems;
-    requestPayload.amount.value = totalAmount;
+    }
 
     return requestPayload;
 }
