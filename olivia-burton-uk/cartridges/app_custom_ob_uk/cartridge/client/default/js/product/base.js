@@ -318,6 +318,28 @@ function handleVariantResponse(response, $productContainer) {
         }
     }
 
+    if (!(response && response.product && response.product.isGiftBoxAllowed)) {
+        $('.gift-box-wrapper').css('visibility', 'hidden');
+        if($('.product-side-details .gift-allowed-checkbox').is(':checked')) {
+            $('.product-side-details .gift-allowed-checkbox').prop('checked', false);
+        }
+    } else {
+        if ($(window).width() >= 768) {
+            if($('.gift-box-wrapper').attr('style')) {
+                $('.gift-box-wrapper').removeAttr('style');
+            }
+            $('.gift-box-wrapper.d-desktop-show').show();
+        } else {
+            if($('.gift-box-wrapper').attr('style')) {
+                $('.gift-box-wrapper').removeAttr('style');
+            }
+            $('.gift-box-wrapper.d-mobile-show').show();
+        }
+        if($('.product-side-details .gift-allowed-checkbox').is(':checked')) {
+            $('.product-side-details .gift-allowed-checkbox').prop('checked', false);
+        }
+    }
+
     // Update primary images
     var primaryImageUrls = response.product.images;
     primaryImageUrls.pdp533.forEach(function (imageUrl, idx) {
@@ -735,6 +757,7 @@ module.exports = {
             var pid;
             var pidsObj;
             var setPids;
+            var giftPid;
 
             $('body').trigger('product:beforeAddToCart', this);
 
@@ -754,6 +777,9 @@ module.exports = {
             }
 
             pid = getPidValue($(this));
+            if ($('.gift-allowed-checkbox').is(":checked")) {
+                giftPid = $('.gift-allowed-checkbox').val();
+            }
 
 
             var $productContainer = $(this).closest('.product-detail');
@@ -767,7 +793,8 @@ module.exports = {
                 pid: pid,
                 pidsObj: pidsObj,
                 childProducts: getChildProducts(),
-                quantity: getQuantitySelected($(this))            
+                quantity: getQuantitySelected($(this)),
+                giftPid: giftPid ? giftPid : ''
             };
             /**
             * Custom Start: Add to cart form for Oliva Burton
@@ -777,7 +804,8 @@ module.exports = {
                     pid: pid,
                     pidsObj: pidsObj,
                     childProducts: getChildProducts(),
-                    quantity: 1                
+                    quantity: 1,
+                    giftPid: giftPid ? giftPid : ''
                 };
             }
             /**

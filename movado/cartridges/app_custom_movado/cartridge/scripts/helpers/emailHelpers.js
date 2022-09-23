@@ -11,6 +11,7 @@
  * @param {obj} context - Object with context to be passed as pdict into ISML template.
  */
 function send(emailObj, template, context) {
+    var Currency = require('dw/util/Currency');
     var Mail = require('dw/net/Mail');
     var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
     var Site = require('dw/system/Site');
@@ -18,11 +19,18 @@ function send(emailObj, template, context) {
     var messageType = '';
     var messageContext = '';
     var messageId = '';
+    var zeroAmount = '';
     var requestParams = {
     };
     var listrakTransactionalSwitch = !empty(Site.current.preferences.custom.transactionalSwitch.value) ? Site.current.preferences.custom.transactionalSwitch.value.toString() : '';
     var listrakEnabled = !empty(Site.current.preferences.custom.Listrak_Cartridge_Enabled) ? Site.current.preferences.custom.Listrak_Cartridge_Enabled : false;
     var Constants = require('*/cartridge/scripts/utils/ListrakConstants');
+
+    
+    if (context.order.currencyCode) {
+        zeroAmount = Currency.getCurrency(context.order.currencyCode).symbol + '0.00';
+    }
+
     if (listrakEnabled && listrakTransactionalSwitch == Constants.LTK_TRANSACTIONAL_SWITCH) {
         switch (emailObj.type) {
             case 1:
@@ -48,12 +56,16 @@ function send(emailObj, template, context) {
                 requestParams.email = context.email;
                 break;
             case 4:
+                if (context.order && context.order.totals && context.order.totals.totalTax === Constants.TOTAL_TAX) {
+                    context.order.totals.totalTax = null;
+                }
                 requestParams.messageContext = Constants.LTK_ORDER_CONTEXT;
                 requestParams.messageId = Site.current.preferences.custom.Listrak_OrderConfirmationMessageID;
-                requestParams.orderNumber = context.order.orderNumber;
-                requestParams.totalTax = context.cuurentOrder.totalTax.value;
-                requestParams.subTotal = context.cuurentOrder.adjustedMerchandizeTotalPrice.value;
-                requestParams.grandTotal = context.cuurentOrder.totalGrossPrice.value;
+                requestParams.orderNumber = !empty(context.order.orderNo) ?  context.order.orderNo : context.order.orderNumber;
+                requestParams.totalTax = !empty(context.order.totals.totalTax) ? context.order.totals.totalTax : zeroAmount;
+                requestParams.shippingCost = !empty(context.order.totals.totalShippingCost) ? context.order.totals.totalShippingCost : zeroAmount;
+                requestParams.subTotal = !empty(context.order.totals.subTotal) ? context.order.totals.subTotal : zeroAmount;
+                requestParams.grandTotal = !empty(context.order.priceTotal) ? context.order.priceTotal : zeroAmount;
                 requestParams.creationDate = context.order.creationDate;
                 requestParams.billingFirstName = context.order.billing.billingAddress.address.firstName;
                 requestParams.billingLastName = context.order.billing.billingAddress.address.lastName;
@@ -75,6 +87,8 @@ function send(emailObj, template, context) {
                 requestParams.shippingPhone = context.order.shipping[0].shippingAddress.phone;
                 requestParams.shippingMethod = context.order.shipping[0].selectedShippingMethod.displayName;
                 requestParams.paymentMethod = context.order.billing.payment.selectedPaymentInstruments[0].paymentMethod;
+                requestParams.email = context.order.orderEmail;
+                requestParams.productLayout = productLayout(context);
                 requestParams.email = context.order.orderEmail;
                 break;
             case 5:
@@ -109,7 +123,7 @@ function send(emailObj, template, context) {
             default:
                 requestParams.messageContext = Constants.LTK_ORDER_CONTEXT;
                 requestParams.messageId = Site.current.preferences.custom.Listrak_OrderConfirmationMessageID;
-                requestParams.orderNumber = context.order.orderNumber;
+                requestParams.orderNumber = context.order.orderNo;
                break; 
         }
         if (!empty(requestParams.messageContext && requestParams.messageId)) {
@@ -124,6 +138,53 @@ function send(emailObj, template, context) {
         email.setContent(renderTemplateHelper.getRenderedHtml(context, template), 'text/html', 'UTF-8');
         email.send();
     }
+}
+
+function productLayout(products) {
+    var allLineItems = products.order.items.items;
+    var productHTML = '';
+    for each(var lineItem in allLineItems){
+        var imageUrl = lineItem.images.tile150[0] && lineItem.images.tile150[0].url ? lineItem.images.tile150[0].url : ""; 
+        var imageAlt = lineItem.images.tile150[0] && lineItem.images.tile150[0].alt ? lineItem.images.tile150[0].alt : "";
+        productHTML += "<table width='100%' class='Column-2 mobile-align-center' cellpadding='0' cellspacing='0' border='0'>" +
+        "<tr>" +
+            "<td style='text-align:center; font-size:0px; padding:20px 0;'>" +
+              "<table width='100%' cellpadding='0' cellspacing='0' border='0'><tr><td style='width:300px; vertical-align:middle;'>" +
+              "<div class='column-50' style='width:100%; max-width:300px; display:inline-block; vertical-align:middle; margin:0'>" +
+                "<table width='100%' cellpadding='0' cellspacing='0' border='0'>" +
+                  "<tr>" +
+                    "<td align='right' style='padding: 10px 10px 10px 10px;'>" +
+                      "<img src='"+imageUrl+"' alt='"+imageAlt+"' style='display:block; width: 100%; max-width: 200px;border:0px;' width='200'>" +
+                    "</td>" +
+                  "</tr>" +
+                "</table>" +
+              "</div>" +
+              "</td><td style='width:300px; vertical-align:middle;'>" +
+              "<div class='column-50' style='width:100%; max-width:300px; display:inline-block; vertical-align:middle; margin:0;'>" +
+                "<table width='100%' cellpadding='0' cellspacing='0' border='0'>" +
+                  "<tr>" +
+                    "<td style='padding: 20px 20px 0px 20px; border-width: 0px; border-style: none; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; font-size: 24px; font-weight: normal; color: #4A4A4A; line-height: 1.5; text-align: left'>" +
+                       lineItem.productName +"<br>"+ 
+                    "</td>" +
+                  "</tr>" +
+                  "<tr>" +
+                    "<td style='padding: 0px 20px 30px 20px; border-width: 0px; border-style: none; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; font-size: 16px; font-weight: normal; color: #4A4A4A; line-height: 1.5; text-align: left'>" +
+                    'Quantity: ' + lineItem.quantity + 
+                    "</td>" +
+                  "</tr>" +
+                  "<tr>" +
+                    "<td style='padding: 0px 20px 20px 20px; border-width: 0px; border-style: none; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; font-size: 16px; font-weight: normal; color: #4A4A4A; line-height: 1.5; text-align: left'>" +
+                      'Price: ' + lineItem.priceTotal.price + 
+                    "</td>" +
+                  "</tr>" +
+                "</table>" +
+              "</div>" +
+              "</td></tr></table>" +
+            "</td>" +
+          "</tr>" +
+        "</table>";
+    }
+    return productHTML;
 }
 
 module.exports = {
