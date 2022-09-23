@@ -243,16 +243,16 @@ function buildGetPaymentDetailsRequestPayload(args) {
         requestPayload.amount.value = totalAmount;
     } else {
         var requestPayload = {
-            "amount": {
-              "currency": order.currencyCode,
-              "value": Math.round(order.totalGrossPrice * 100)
+            amount: {
+              currency: order.currencyCode,
+              value: Math.round(order.totalGrossPrice * 100)
             },
-            "reference": order.orderNo,
-            "paymentMethod": {
-              "type": args.brandCode
+            reference: order.orderNo,
+            paymentMethod: {
+              type: args.brandCode
             },
-            "merchantAccount": args.MerchantAccount,
-            "returnUrl": URLUtils.https('Adyen-ShowConfirmation').toString()
+            merchantAccount: args.MerchantAccount,
+            returnUrl: URLUtils.https('Adyen-ShowConfirmation').toString()
         }
     }
 
