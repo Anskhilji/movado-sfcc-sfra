@@ -1,12 +1,13 @@
 <isif condition="${dw.system.Site.current.getCustomPreferenceValue('enableSwatch')}">
 <ul class="selected-filter-bar">
     <isloop items="${pdict.productSearch.selectedFilters}" var="refinement">
+    ${JSON.stringify(refinement)}
         <isif condition="${refinement.type === 'color'}">
-            <li class="swatch-filter added-filter-bar ${refinement.presentationId}" data-added-filter-bar="${refinement.displayValue}" title="${refinement.title}">
+            <li class="swatch-filter added-filter-bar  ${refinement.presentationId}" data-filter-id="${refinement.id ? refinement.id : refinement.type}" data-added-filter-bar="${refinement.type == 'promotion' ? refinement.value : refinement.displayValue}" title="${refinement.title}">
                 <a href=""></a>
             </li>
         <iselse>
-            <li class="filter-value added-filter-bar" title="${refinement.title}" data-added-filter-bar="${refinement.displayValue}">
+            <li class="filter-value added-filter-bar" title="${refinement.title}" data-filter-id="${refinement.id ? refinement.id : refinement.type}" data-added-filter-bar="${refinement.type == 'promotion' ? refinement.value : refinement.displayValue}">
                 <a href="">
                     ${refinement.displayValue}
                 </a>
@@ -18,7 +19,8 @@
 <iselse>
 <ul class="selected-filter-bar">
     <isloop items="${pdict.productSearch.selectedFilters}" var="refinement">
-            <li class="filter-value added-filter-bar" data-added-filter-bar="${refinement.displayValue}" title="${refinement.title}">
+    <iscomment> ${JSON.stringify(refinement)} </iscomment>
+            <li class="filter-value added-filter-bar" data-filter-id="${refinement.id ? refinement.id : refinement.type}" data-added-filter-bar="${refinement.type == 'promotion' ? refinement.value : refinement.displayValue}" title="${refinement.title}">
                 <a href="">
                     ${refinement.displayValue}
                 </a>

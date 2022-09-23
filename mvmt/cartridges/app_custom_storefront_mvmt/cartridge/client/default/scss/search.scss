@@ -1912,3 +1912,10 @@
 // MVMT PLP redesign style
 @import "searchRedesign";
 @import "./components/refinementsRedesigned";
+
+.selected {
+  &.filter-selected { 
+    border: rem(1) solid $black !important;
+    border-radius: 50%;
+  }
+}

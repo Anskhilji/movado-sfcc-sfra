@@ -2,8 +2,9 @@
 <li title="${refinementValue.title}" data-filter-id="${refinementValue.id}" data-target-url="${refinementValue.url}" data-selected-filter="${refinementValue.type == 'promotion' ? refinementValue.value : refinementValue.displayValue}" class="col-sm-auto col-md-12 filter-element ${!refinementValue.selectable ? 'disabled' : ''}">
     <isif condition="${empty(refinementValue.swatchImageURL) && !refinementValue.isSwatchImagesEnabled}" >
         <p>checkbox</p>
-        <label class="elements btn-boolean-redesign filter-elements ${refinementValue.selected ? "label-selected" : ''}" data-filter-id="${refinementValue.id}" data-target-url="${refinementValue.url}" data-selected-filter="${refinementValue.displayValue}"> <span class="d-inline d-md-none">${refinementValue.displayValue}</span>
-            <a class="filters-checkbox selected" data-selected-filter="${refinementValue.displayValue}" role="checkbox" aria-checked="<isif condition="${refinementValue.selected && refinementValue.selectable}">true<iselse/>false</isif>" tabindex="0" href="${refinementValue.url}" class="${!refinementValue.selectable ? 'disabled' : ''}" <isif condition="${!refinementValue.selectable}">disabled</isif>>
+        <label class="elements btn-boolean-redesign filter-elements ${refinementValue.selected ? "label-selected" : ''}" data-filter-id="${refinementValue.id}" data-target-url="${refinementValue.url}" data-selected-filter="${refinementValue.displayValue}"> 
+        <span class="d-inline d-md-none">${refinementValue.displayValue}</span>
+            <a class="filters-checkbox selected ${refinementValue.selected && refinementValue.selectable ? 'check-filter-selected' : ''}" data-selected-filter="${refinementValue.displayValue}" role="checkbox" aria-checked="<isif condition="${refinementValue.selected && refinementValue.selectable}">true<iselse/>false</isif>" tabindex="0" href="${refinementValue.url}" class="${!refinementValue.selectable ? 'disabled' : ''}" <isif condition="${!refinementValue.selectable}">disabled</isif>>
                 <iscomment>Checkbox</iscomment>
                 <isif condition="${refinementValue.selected && refinementValue.selectable}">
                     <i class="fa fa-check-square selected check-square" data-selected-filter="${refinementValue.displayValue}"></i>

@@ -99,6 +99,7 @@ function PriceRefinementValueWrapper(productSearch, refinementDefinition, refine
         'selected',
         'title',
         'url',
+        'type',
         'valueFrom',
         'valueTo'
     ];

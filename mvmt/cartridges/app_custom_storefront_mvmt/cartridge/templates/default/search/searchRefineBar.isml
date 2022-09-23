@@ -62,8 +62,25 @@
     </div>
 <iscomment> 1 </iscomment>
     <div class="mobile-filter-container">
-        <div class="mobile-filter-menu">
+        <div class="mobile-filter-menu mobile-menu-container-main">
             <div class="mobile-filter-options">
+                <div class="plp-active-filter  sticky new-design-filter-mobile-sort">
+                    <div class="plp-active-filter-list">
+                        <div class="active-filters">
+                            <div class="row m-0 filter-bar filter-bar-list">
+                            <iscomment> <ul>
+                                <li class="filter-value">
+                                    <a href="#">Purple</a>
+                                </li>
+                                <li class="filter-value">
+                                    <a href="#">Yellow</a>
+                                </li>
+                            </ul> </iscomment>
+                                <isinclude template="search/filterBar" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <isloop items="${refinements}" var="refinement">
                     <isif
                         condition="${refinement.values && (refinement.values.length > 0) && (refinement.values[0].id != 'dialStyle')}">
@@ -79,6 +96,7 @@
                                     </span>
                                 </div>
                                 <div class="mobile-selection-outer">
+
                                     <div class="mobile-selection-inner">
                                         <!--- CATEGORY REFINEMENTS --->
                                         <isif condition="${refinement.isCategoryRefinement}">
@@ -89,7 +107,7 @@
 
                                         <!--- ATTRIBUTE REFINEMENTS --->
                                         <isif condition="${refinement.isAttributeRefinement  || refinement.isPromotionRefinement}">
-                                        1nd attrib
+                                        mobile attrib
                                             <isinclude template="search/refinements/attributes" />
                                         </isif>
 
@@ -116,8 +134,8 @@
             </div>
         </div>
         <iscomment> 2 </iscomment>
-        <div class="mobile-sort-menu">
-            <div data-mobile-close-filters="" class="mobile-menu-close" data-close-menu=".mobile-sort-menu">
+        <div class="mobile-sort-menu mobile-sort-menu-container">
+            <div data-mobile-close-filters="" class="mobile-menu-close for sort close" data-close-menu=".mobile-sort-menu">
                 <svg width="12" height="10" viewBox="0 0 12 10" xmlns="http://www.w3.org/2000/svg">
                     <path d="M11 1l-1-1-4 4-4-4-1 1 4 4-4 4 1 1 4-4 4 4 1-1-4-4z" stroke-width=".5" stroke="#2B2B2B"
                         fill="#2B2B2B"></path>
@@ -158,6 +176,15 @@
                     </isif>
                 </div>
                 <div class="col-lg-12 filter-redesigned-mobile">
+                    <div class="plp-active-filter  sticky new-design-filter-mobile-sort">
+                        <div class="plp-active-filter-list">
+                            <div class="active-filters">
+                                <div class="row m-0 filter-bar filter-bar-list">
+                                    <isinclude template="search/filterBar" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="plp-filter-bar-mobile">
                         <div class="plp-filter-bar-inner ">
                             <div class="plp-filter-options">
@@ -185,17 +212,19 @@
                                                             <isif condition="${refinement.isCategoryRefinement}">
                                                                 <isset name="categories" value="${refinement.values}"
                                                                     scope="page" />
+                                                                    mobile sort categories
                                                                 <isinclude template="search/refinements/categories" />
                                                             </isif>
 
                                                             <!--- ATTRIBUTE REFINEMENTS --->
                                                             <isif condition="${refinement.isAttributeRefinement  || refinement.isPromotionRefinement}">
-                                                            2nd attrib
+                                                            mobile sort attrib
                                                                 <isinclude template="search/refinements/attributes" />
                                                             </isif>
 
                                                             <!--- PRICE REFINEMENTS --->
                                                             <isif condition="${refinement.isPriceRefinement}">
+                                                            mobile sort price
                                                                 <isinclude template="search/refinements/prices" />
                                                             </isif>
                                                             <span class="close-icon search-refinement-close"></span>
@@ -230,12 +259,12 @@
     <isslot id="slot-straps-mvmt" description="Strap MVMT products" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
 </isif>
 <iscomment> 3 </iscomment>
-<div class="refine-wrapper plp-filter-redesign">
+<div class="refine-wrapper plp-filter-redesign filters-apply-main">
     <div class="plp-filter-bar">
         <div class="plp-filter-bar-inner ">
             <div class="plp-filter-options">
                 <div class="plp-filter-lists">
-                    <div class="refinements">
+                    <div class="refinements filters-apply">
                         <iscomment> Start: Create category slot for straps </iscomment>
                         <isif condition="${pdict.productSearch.category}">
                             <isslot id="slot-straps-mvmt" description="Strap MVMT products" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
@@ -282,7 +311,16 @@
                 </div>
             </div>
         </div>
-        <div class="plp-active-filter sticky d-none">
+        <div class="plp-active-filter sticky">
+            <div class="plp-active-filter-list">
+                <div class="active-filters">
+                    <div class="row m-0 filter-bar filter-bar-list">
+                        <isinclude template="search/filterBar" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="plp-active-filter plp-active-filter-selected sticky d-none">
             <div class="plp-active-filter-list">
                 <div class="active-filters">
                     <div class="row m-0 filter-bar filter-bar-list">
