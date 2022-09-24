@@ -1,0 +1,58 @@
+<tr>
+    <td class="inline" style="color:#000001;vertical-align:top;" >
+        <table width="100" border="0" cellpadding="0" cellspacing="0" align="left" valign="top" style="border-collapse:collapse;font-family:'Century Gothic', Arial, sans-serif;font-weight:500;" >
+            <tr>
+                <td style="color:#000001;vertical-align:top;padding:10px;" >
+                    <a href='${URLUtils.http('Product-Show','pid',lineItem.id)}' target='_blank' style="color:#000001;" >
+                        <img src="${lineItem.images.tile150[0].url}" alt="${lineItem.productName}" title="${lineItem.productName}" width="150px" height="150px" />
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </td>
+    <td width="100%" style="color:#000001;vertical-align:top;" >
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" align="left" valign="top" style="border-collapse:collapse;font-family:'Century Gothic', Arial, sans-serif;font-weight:500;" >
+            <tr><td class="h5 uppercase" style="font-size:16px;text-transform:uppercase;color:#000001;vertical-align:top;" >${lineItem.productName}</td></tr>
+            <isif condition="${lineItem.shopLabel}">
+                <tr><td class="p" style="line-height:18px;font-size:12px;padding-bottom:16px;color:#000001;vertical-align:top;" >${lineItem.shopLabel}</td></tr>
+            </isif>
+            <tr><td class="p" style="line-height:18px;font-size:12px;padding-bottom:16px;color:#000001;vertical-align:top;" >${pdict.quantityLabel}${Number(lineItem.quantity).toFixed()}</td></tr>
+            <tr><td class="p" style="line-height:18px;font-size:12px;color:#000001;vertical-align:top;" >
+                <isif condition="${bonus}">
+                    ${pdict.bonusLabel}
+                <iselseif condition="${lineItem.price}"/>
+                    <isif condition="${lineItem.price.sales}" >
+                        ${lineItem.price.sales.formatted}
+                    <iselse/>
+                        ${lineItem.price.list.formatted}
+                    </isif>
+                <iselse/>
+                ${lineItem.priceTotal.price}
+                </isif>
+            </td></tr>
+            <isloop items="${lineItem.variationAttributes}" var="attribute">
+                <tr><td class="p" style="line-height:18px;font-size:12px;padding-bottom:16px;color:#000001;vertical-align:top;" >${attribute.displayName}: ${attribute.displayValue}</td></tr>
+            </isloop>
+            <isif condition="${lineItem.customAttributes && lineItem.customAttributes.engrave}">
+                <tr><td class="p" style="line-height:18px;font-size:12px;padding-bottom:16px;color:#000001;vertical-align:top;" >${pdict.engraveLabel}(${lineItem.customAttributes.engrave.price}):<br/>${lineItem.customAttributes.engrave.msgLine1?lineItem.customAttributes.engrave.msgLine1:''}<br/>${lineItem.customAttributes.engrave.msgLine2?lineItem.customAttributes.engrave.msgLine2:''}</td></tr>
+            </isif>
+            <isif condition="${lineItem.customAttributes && lineItem.customAttributes.emboss}">
+                <tr><td class="p" style="line-height:18px;font-size:12px;padding-bottom:16px;color:#000001;vertical-align:top;" >${pdict.embossLabel}(${lineItem.customAttributes.emboss.price}):<br/>${lineItem.customAttributes.emboss.msgLine1?lineItem.customAttributes.emboss.msgLine1:''}</td></tr>
+            </isif>
+            <isif condition="${lineItem.customAttributes && lineItem.customAttributes.giftWrap}">
+                <tr><td class="p" style="line-height:18px;font-size:12px;padding-bottom:16px;color:#000001;vertical-align:top;" >${pdict.giftWrapLabel}(${lineItem.customAttributes.giftWrap.price})</td></tr>
+            </isif>
+            <isif condition="${lineItem.customAttributes && lineItem.customAttributes.itemLevelGiftMessage}">
+                <tr><td class="p" style="line-height:18px;font-size:12px;padding-bottom:16px;color:#000001;vertical-align:top;" >${pdict.giftMessageLabel}<br/>${lineItem.customAttributes.itemLevelGiftMessage.msgLine1}</td></tr>
+            </isif>
+            <isif condition="${lineItem.customAttributes && lineItem.customAttributes.sapLineStatus}">
+                <tr><td class="p" style="line-height:18px;font-size:12px;padding-bottom:16px;color:#000001;vertical-align:top;" >${pdict.shippingStatusLabel}${lineItem.customAttributes.sapLineStatus}</td></tr>
+            </isif>
+            <isif condition="${lineItem.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
+                <isset name="availabilityDate" value="${dw.util.StringUtils.formatCalendar(new dw.util.Calendar(lineItem.availability.inStockDate), 'MM/dd/yyyy')}" scope="page" />
+                <tr><td class="p" style="line-height:18px;font-size:12px;padding-bottom:16px;margin-top:16px;color:#000001;vertical-align:top;" >${lineItem.availability.messages[0]}</td></tr>
+                <tr><td class="p" style="line-height:18px;font-size:12px;padding-bottom:16px;color:#000001;vertical-align:top;" >${Resource.msgf('order.item.ship.by.date.presale', 'order', null, availabilityDate)}</td></tr>
+            </isif>
+        </table>
+    </td>
+</tr>

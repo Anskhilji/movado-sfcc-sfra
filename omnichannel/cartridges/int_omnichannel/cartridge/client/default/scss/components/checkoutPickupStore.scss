@@ -1,0 +1,93 @@
+@import "_variables";
+@import "bootstrap/scss/mixins/breakpoints";
+
+.selected-pickup-store {
+    text-transform: uppercase;
+    line-height: rem(18);
+    color: $dark-light-black;
+    font-size: rem(14);
+    letter-spacing: rem(1);
+    margin-bottom: rem(15);
+    font-weight: 500;
+
+    &-label {
+        margin-top: rem(15);
+    }
+}
+
+.billing-pickup-store {
+    font-weight: 500;
+    font-style: normal;
+    text-transform: uppercase;
+    line-height: rem(17);
+    color: $dark-light-black;
+    font-size: rem(14);
+    letter-spacing: rem(1);
+    margin-bottom: rem(5);
+
+    &-label {
+        margin-top: rem(20);
+    }
+}
+
+.store-address {
+    font-family: $font-book;
+    font-weight: 300;
+    width: rem(260);
+    color: $light-black;
+    font-size: rem(14);
+    letter-spacing: rem(1);
+    line-height: rem(24);
+}
+
+.store-note {
+    opacity: 0.7;
+    color: $light-black;
+    font-family: $font-book;
+    font-weight: 300;
+    font-size: rem(12);
+    letter-spacing: rem(0.86);
+    line-height: rem(24);
+
+    &-text {
+        max-width: rem(200);
+        margin: auto;
+    }
+}
+
+.store-hours {
+    margin-top: rem(20);
+
+    .hour-labels {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: rem(202);
+        margin-bottom: rem(5);
+        span {
+            color: $light-black;
+            font-size: rem(14);
+            font-weight: 300;
+            letter-spacing: rem(1);
+            line-height: rem(24);
+            min-width: rem(100);
+        }
+    }
+}
+
+.billing-store-address {
+    font-family: $font-book;
+    font-weight: 300;
+    color: $dark-gray;
+    font-size: rem(14);
+    line-height: rem(23);
+    text-transform: capitalize;
+
+    &-label {
+        margin-bottom: rem(15);
+    }
+}
+
+.text-underline-content {
+    text-decoration: underline;
+}

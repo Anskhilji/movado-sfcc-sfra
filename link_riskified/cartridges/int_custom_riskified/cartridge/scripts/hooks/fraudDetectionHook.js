@@ -64,8 +64,10 @@ function create(orderNumber, paymentInstrument) {
     var result = {status : 'success'};
     if (isRiskifiedflag) {
         var serviceResult = RiskifiedService.sendCreateOrder(order);
-        if (!serviceResult) {
-            result.status = 'fail';        	
+        result.response = serviceResult
+        if (serviceResult.error) {
+            result.status = 'fail';   
+            result.response = serviceResult;  	
         }
     }
     return result;

@@ -21,14 +21,14 @@
     </a>
     <isinclude url="${URLUtils.https('Wishlist-ShowIcon','gtmObj',JSON.stringify(pdict.wishlistGtmObj), 'page', 'tile')}"/>
     <isif condition="${pdict.display.showQuickView !== false}">
-     <isif condition="${!('display' in pdict && 'quickView' in pdict.display && pdict.display.quickView == false)}">
-        <a class="quickview hidden-xs-down" href="${pdict.urls.quickView}" data-gtm-qv='${JSON.stringify(pdict.qvGtmObj)}'>
-            <iscomment> <span class="fa-stack fa-lg">
-                <i class="fa fa-circle fa-inverse fa-stack-2x"></i>
-                <i class="fa fa-expand fa-stack-1x"></i>
-            </span> </iscomment>
-            <span class="sr-only">${Resource.msg('button.quickview', 'common', null)} ${product.productName} ${product.id}</span>
-        </a>
-      </isif>
+        <isif condition="${!('display' in pdict && 'quickView' in pdict.display && pdict.display.quickView == false)}">
+            <a class="quickview hidden-xs-down d-none" href="${pdict.urls.quickView}" data-gtm-qv='${JSON.stringify(pdict.qvGtmObj)}'>
+                <iscomment> <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-inverse fa-stack-2x"></i>
+                    <i class="fa fa-expand fa-stack-1x"></i>
+                </span> </iscomment>
+                <span class="sr-only">${Resource.msg('button.quickview', 'common', null)} ${product.productName} ${product.id}</span>
+            </a>
+          </isif>
     </isif>
 </div>
