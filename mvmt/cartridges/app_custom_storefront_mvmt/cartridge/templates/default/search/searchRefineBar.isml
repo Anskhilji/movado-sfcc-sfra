@@ -86,8 +86,8 @@
                         condition="${refinement.values && (refinement.values.length > 0) && (refinement.values[0].id != 'dialStyle')}">
                         <div class="mobile-selection mobile-${refinement.values[0].id}">
                             <div class="mobile-selection-group">
-                                <div class="mobile-menu-close" data-close-menu=".mobile-filter-menu">
-                                    <svg width="12" height="10" viewBox="0 0 12 10" xmlns="http://www.w3.org/2000/svg">
+                                <div class="mobile-menu-close mobile-menu-filter-close" data-close-menu=".mobile-filter-menu">
+                                    <svg width="12" class="mobile-menu-close-filters" height="10" viewBox="0 0 12 10" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M11 1l-1-1-4 4-4-4-1 1 4 4-4 4 1 1 4-4 4 4 1-1-4-4z" stroke-width=".5"
                                             stroke="#2B2B2B" fill="#2B2B2B"></path>
                                     </svg>
@@ -121,10 +121,10 @@
                             </div>
                             <div class="mobile-active-option redesign-filter-mobile">
                                 <div class="mobile-active-actions">
-                                    <button type="button" class="mobile-active-shop-btn results-count-loaded"
+                                    <button type="button" class="mobile-active-shop-btn results-count-loaded mobile-menu-close mobile-menu-close-filters"
                                         data-mobile-close-filters="">${Resource.msgf('label.btn.shop.redesigned', 'search', null)}
                                         <isinclude template="search/resultsCount" /></button>
-                                        <button type="button" class="mobile-active-shop-btn mobile-active-shop-btn-outline">Clear All</button>
+                                        <button type="button" class="mobile-active-shop-btn mobile-active-shop-btn-outline mobile-filters-clear disabled">Clear All</button>
                                 </div>
                                 
                             </div>
@@ -136,7 +136,7 @@
         <iscomment> 2 </iscomment>
         <div class="mobile-sort-menu mobile-sort-menu-container">
             <div data-mobile-close-filters="" class="mobile-menu-close for sort close" data-close-menu=".mobile-sort-menu">
-                <svg width="12" height="10" viewBox="0 0 12 10" xmlns="http://www.w3.org/2000/svg">
+                <svg width="12" class="mobile-menu-close-filters" height="10" viewBox="0 0 12 10" xmlns="http://www.w3.org/2000/svg">
                     <path d="M11 1l-1-1-4 4-4-4-1 1 4 4-4 4 1 1 4-4 4 4 1-1-4-4z" stroke-width=".5" stroke="#2B2B2B"
                         fill="#2B2B2B"></path>
                 </svg>
@@ -244,10 +244,10 @@
             
             <div class="mobile-active-option-redesign redesign-filter-mobile">
                 <div class="mobile-active-actions">
-                    <button type="button" class="mobile-active-shop-btn results-count-loaded"
+                    <button type="button" class="mobile-active-shop-btn results-count-loaded mobile-menu-close mobile-menu-close-filters"
                         data-mobile-close-filters="">${Resource.msgf('label.btn.shop.redesigned', 'search', null)}
                         <isinclude template="search/resultsCount" /></button>
-                        <button type="button" class="mobile-active-shop-btn mobile-active-shop-btn-outline">Clear All</button>
+                        <button type="button" class="mobile-active-shop-btn mobile-active-shop-btn-outline mobile-filters-clear disabled">Clear All</button>
                 </div>
             </div>
         </div>
