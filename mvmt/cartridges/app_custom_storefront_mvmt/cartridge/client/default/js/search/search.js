@@ -1813,18 +1813,6 @@ module.exports = {
         });
     },
 
-    // applyFiltersBtnClicked: function () {
-    //     // Handle refinement value selection and reset click
-    //     $('body').on(
-    //         'click',
-    //         '.plp-filter-list',
-    //         function (e) {
-    //             e.preventDefault();
-    //             // $(this).trigger('search:applyFilter');
-    //             $('body').trigger('search:applyFilter', true);    
-    //     });
-    // },
-
     triggerapplyFilter: function () {
         $('.plp-grid-overlay').click(
             function (e) {
