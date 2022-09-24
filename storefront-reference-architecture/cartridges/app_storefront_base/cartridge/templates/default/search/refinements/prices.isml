@@ -1,11 +1,11 @@
-<ul class="values content filter-refinement-container" data-filter-id="price">
+<ul class="values content">
     <isloop items="${refinement.values}" var="refinementValue">
-        <li class="col-sm-4 col-md-12 filter-element" title="${refinementValue.title}" data-filter-id="${refinementValue.type}" data-selected-filter="${refinementValue.displayValue}" data-value-pmin="${refinementValue.valueFrom}" data-value-pmax="${refinementValue.valueTo}">
-            <a href="${refinementValue.url}" class="filter-elements ${refinementValue.selected ? 'check-filter-selected' : ''}" data-filter-id="price" data-value-pmin="${refinementValue.valueFrom}" data-value-pmax="${refinementValue.valueTo}" data-selected-filter="${refinementValue.displayValue}">
+        <li class="col-sm-4 col-md-12" title="${refinementValue.title}">
+            <a href="${refinementValue.url}">
                 <isif condition="${refinementValue.selected}">
-                    <i class="fa fa-check-circle selected check-circle"></i>
+                    <i class="fa fa-check-circle"></i>
                 <iselse>
-                    <i class="fa fa-circle-o selected check-o"></i>
+                    <i class="fa fa-circle-o"></i>
                 </isif>
 
                 <span>

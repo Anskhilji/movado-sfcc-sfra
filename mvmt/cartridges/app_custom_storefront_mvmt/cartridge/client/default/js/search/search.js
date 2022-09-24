@@ -317,6 +317,27 @@ function replaceUrlParamSearchQueryPmidSrule(url, queryParam, queryParamValue, p
     return  newUrl = '?' + queryParam + '=' + queryParamValue + '&' +  paramStr + '&' + pmid + '=' + pmidValue + '&' + srule + '=' + sruleValue;
 }
 
+function replaceUrlParamSruleQ(url, srule, paramSrule, q, paramSearchQuery) {
+    var newUrl = url;
+    var paramStr = newUrl.slice(newUrl.indexOf('?') + 1);
+    return  newUrl = '?' + q + '=' + paramSearchQuery + '&' +  paramStr + '&' + srule + '=' + paramSrule;
+}
+
+function removeUrlParamsQ(url, q, paramSearchQuery) {
+    var newUrl = url;
+    return  newUrl = '?' + q + '=' + paramSearchQuery;
+}
+
+function removeUrlParamsQSrule(url, q, paramSearchQuery, srule, queryParamSrule) {
+    var newUrl = url;
+    return  newUrl = '?' + q + '=' + paramSearchQuery + '&' + srule + '=' + queryParamSrule;
+}
+
+function removeUrlParamsSrule(url, srule, queryParamSrule) {
+    var newUrl = url;
+    return  newUrl = '?' + srule + '=' + queryParamSrule;
+}
+
 
 function checkClearAllBtn() {
     var addedFilterBarCheck = document.querySelector('.selected-filter-bar');
@@ -651,7 +672,6 @@ module.exports = {
     // .search-refinement-close
     applyFilter: function () {
         // Handle refinement value selection and reset click
-        // $('.search-refinement-close, .plp-grid-overlay').on('click', function (e) {
             $('.container, .container-fluid').on(
                 'click',
                 '.search-refinement-close', function(e) {
@@ -667,9 +687,35 @@ module.exports = {
                     $(".plp-active-filter-selected").addClass('d-none');
                     $(".plp-filter-bar .plp-filter-btn").removeClass('active');
                     $('.plp-grid-overlay').removeClass('active');
+
+                    var RemoveUrlParams = getUrlParamObj(document.location.href);
                     var oldUrl = document.location.href;
                     var url = oldUrl.split('?')[0];
-                    window.history.pushState({}, '/', url);
+                    var newFilteredUrl = url;
+
+                    if (RemoveUrlParams.hasOwnProperty('q') == true) {
+                        if (RemoveUrlParams.hasOwnProperty('q') == true && RemoveUrlParams.hasOwnProperty('srule') == false) {
+                            if (RemoveUrlParams.q) {
+                                var queryParamQ = RemoveUrlParams.q;
+                                newFilteredUrl = removeUrlParamsQ(newFilteredUrl, 'q', queryParamQ);
+                            }
+                        }
+                        if (RemoveUrlParams.hasOwnProperty('q') == true && RemoveUrlParams.hasOwnProperty('srule') == true) {
+                            if (RemoveUrlParams.q) {
+                                var queryParamQ = RemoveUrlParams.q;  
+                                var queryParamSrule = RemoveUrlParams.srule;  
+                                newFilteredUrl = removeUrlParamsQSrule(newFilteredUrl, 'q', queryParamQ, 'srule', queryParamSrule);
+                            }
+                        }
+                    } else {
+                        if (RemoveUrlParams.hasOwnProperty('srule') == true) {
+                            if (RemoveUrlParams.srule) {
+                                var queryParamSrule = RemoveUrlParams.srule;  
+                                newFilteredUrl = removeUrlParamsSrule(newFilteredUrl, 'srule', queryParamSrule);
+                            }
+                        }
+                    }
+                    window.history.pushState({}, '', newFilteredUrl);
                     return;
                 } else {
                     filterLoadInProgress = true;
@@ -778,6 +824,15 @@ module.exports = {
                                 var paramSearchQuery = urlparams.q;
                                 // filtersURL = removeParam('srule', filtersURL);  // Custom: [MSS-1348 Fix for not applying price filters]
                                 filtersURL = replaceUrlParamSearchQuery(filtersURL, 'q', paramSearchQuery);
+                            }
+                        }
+
+                        if (urlparams.hasOwnProperty('pmid') == false && urlparams.hasOwnProperty('srule') == true && urlparams.hasOwnProperty('q') == true) {
+                            if (urlparams.q && urlparams.srule) {
+                                var paramSrule = urlparams.srule;
+                                var paramSearchQuery = urlparams.q;
+                                // filtersURL = removeParam('srule', filtersURL);  // Custom: [MSS-1348 Fix for not applying price filters]
+                                filtersURL = replaceUrlParamSruleQ(filtersURL, 'srule', paramSrule, 'q', paramSearchQuery);
                             }
                         }
     
@@ -1071,7 +1126,7 @@ module.exports = {
         });
     },
 
-    // Start: Fitlers for mobile
+    //Custom Start: Make this fucntion for mobile filter
     applyFilterSelectMobile: function () {
         // Handle refinement value selection and reset click
         $('.mobile-menu-container-main, .mobile-sort-menu-container').on(
@@ -1320,17 +1375,15 @@ module.exports = {
         // $('.search-refinement-close, .plp-grid-overlay').on('click', function (e) {
             $('.mobile-menu-container-main, .mobile-sort-menu-container').on(
                 'click',
-                '.mobile-menu-close', function(e) {
+                '.mobile-menu-close-filters', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            alert('mobile close clicked');
             var isSelectedFilterBar = document.querySelector('.filter-bar-list > .selected-filter-bar');
             
             if (isSelectedFilterBar) {
 
                 var isFilterChildList = isSelectedFilterBar.children.length > 0;
                 if (!isFilterChildList) {
-                    alert('not found');
                     $(".filter-group").removeClass('active loaded');
                     $(".plp-active-filter").removeClass('loaded');
                     $(".plp-active-filter-selected").addClass('d-none');
@@ -1347,9 +1400,34 @@ module.exports = {
                     if (isMobileActive) {
                         mobileMenuContainerMain.classList.remove('active');
                     }
+                    var RemoveUrlParams = getUrlParamObj(document.location.href);
                     var oldUrl = document.location.href;
                     var url = oldUrl.split('?')[0];
-                    window.history.pushState({}, '/', url);
+                    var newFilteredUrl = url;
+
+                    if (RemoveUrlParams.hasOwnProperty('q') == true) {
+                        if (RemoveUrlParams.hasOwnProperty('q') == true && RemoveUrlParams.hasOwnProperty('srule') == false) {
+                            if (RemoveUrlParams.q) {
+                                var queryParamQ = RemoveUrlParams.q;
+                                newFilteredUrl = removeUrlParamsQ(newFilteredUrl, 'q', queryParamQ);
+                            }
+                        }
+                        if (RemoveUrlParams.hasOwnProperty('q') == true && RemoveUrlParams.hasOwnProperty('srule') == true) {
+                            if (RemoveUrlParams.q) {
+                                var queryParamQ = RemoveUrlParams.q;  
+                                var queryParamSrule = RemoveUrlParams.srule;  
+                                newFilteredUrl = removeUrlParamsQSrule(newFilteredUrl, 'q', queryParamQ, 'srule', queryParamSrule);
+                            }
+                        }
+                    }
+
+                    if (RemoveUrlParams.hasOwnProperty('srule') == true) {
+                        if (RemoveUrlParams.srule) {
+                            var queryParamSrule = RemoveUrlParams.srule;  
+                            newFilteredUrl = removeUrlParamsSrule(newFilteredUrl, 'srule', queryParamSrule);
+                        }
+                    }
+                    window.history.pushState({}, '', newFilteredUrl);
                     return;
                 } else {
                     filterLoadInProgress = true;
@@ -1450,6 +1528,14 @@ module.exports = {
                                 // filtersURL = removeParam('srule', filtersURL);  // Custom: [MSS-1348 Fix for not applying price filters]
                                 filtersURL = replaceUrlParamSrule(filtersURL, 'srule', currentSelectedSortId);
                                 
+                            }
+                        }
+                        if (urlparams.hasOwnProperty('pmid') == false && urlparams.hasOwnProperty('srule') == true && urlparams.hasOwnProperty('q') == true) {
+                            if (urlparams.q && urlparams.srule) {
+                                var paramSrule = urlparams.srule;
+                                var paramSearchQuery = urlparams.q;
+                                // filtersURL = removeParam('srule', filtersURL);  // Custom: [MSS-1348 Fix for not applying price filters]
+                                filtersURL = replaceUrlParamSruleQ(filtersURL, 'srule', paramSrule, 'q', paramSearchQuery);
                             }
                         }
                         if (urlparams.hasOwnProperty('pmid') == true && urlparams.hasOwnProperty('srule') == true && urlparams.hasOwnProperty('q') == false) {
@@ -1607,10 +1693,9 @@ module.exports = {
             checkClearAllBtn();
           };
     },
-    // mobile-filter-menu-trigger
 
-    // End: Fitlers for mobile
-
+    //Custom End
+    
     removedSelectedFilters: function () {
     //     $('.selected-filter-bar').click(
         $('.plp-active-filter, .plp-active-filter-list').on(
@@ -1730,26 +1815,13 @@ module.exports = {
 
     // applyFiltersBtnClicked: function () {
     //     // Handle refinement value selection and reset click
-    //     $('.filters-apply-main').on(
+    //     $('body').on(
     //         'click',
-    //         '.filters-apply',
+    //         '.plp-filter-list',
     //         function (e) {
     //             e.preventDefault();
-    //         var isButtonClicked = e.target.closest('.plp-filter-btn');
-
-    //         if (!isButtonClicked) return;
-
-    //         if (isButtonClicked) {
     //             // $(this).trigger('search:applyFilter');
-    //             if (isButtonClicked.classList.contains('active')) {
-    //                 var siblingElement = isButtonClicked.querySelector('.filter-group');
-    //                 if (siblingElement) {
-    //                     if (siblingElement.classList.contains('active', 'loaded')) {
-    //                         $(this).trigger('search:applyFilter');
-    //                     }
-    //                 }
-    //             }     
-    //         }
+    //             $('body').trigger('search:applyFilter', true);    
     //     });
     // },
 
@@ -1760,130 +1832,6 @@ module.exports = {
         });
     },
 
-
-    // $(document).on('click', function (event) {
-    //     if (!$(event.target).closest('#menutop').length) {
-
-//  applyFilter: function () {
-//      // Handle refinement value selection and reset click
-//     $('.container, .container-fluid').on(
-//         'click',
-//         '.refinements li a, .refinement-bar a.reset, .filter-value a, .swatch-filter a, .top-refinements a',
-//         function (e) {
-//             e.preventDefault();
-//             e.stopPropagation();
-//             filterLoadInProgress = true;
-//             // Get currently selected sort option to retain sorting rules
-
-//             var urlparams = getUrlParamObj(document.location.href);
-//             var filtersURL = e.currentTarget.href;
-//             var currentSelectedSortId = '';
-
-//             if (urlparams.hasOwnProperty('srule') == true) {
-//                 if (urlparams.srule) {
-//                     currentSelectedSortId = urlparams.srule;
-//                     filtersURL = removeParam('srule', filtersURL);  // Custom: [MSS-1348 Fix for not applying price filters]
-//                     filtersURL = replaceUrlParam(filtersURL, 'srule', currentSelectedSortId);
-//                 }
-//             }
-//             var test = e.currentTarget.href + currentSelectedSortId
-//             $.spinner().start();
-//             $(this).trigger('search:filter', e);
-//             $.ajax({
-//                 url: filtersURL,
-//                 data: {
-//                     page: $('.grid-footer').data('page-number'),
-//                     selectedUrl: e.currentTarget.href + currentSelectedSortId
-//                 },
-//                 method: 'GET',
-//                 success: function (response) {
-//                     var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
-//                     $('body').trigger('facet:success', [gtmFacetArray]);
-//                     parseResults(response);
-//                     updatePageURLForFacets(filtersURL);
-//                     $.spinner().stop();
-//                     moveFocusToTop();
-//                     swatches.showSwatchImages();
-
-//                     $('.mobile-filter-menu').removeClass('active');
-//                     $('.mobile-sort-menu').removeClass('active').addClass('disable-events');
-//                     $('body').removeClass('lock-bg');
-//                     $('.mvmt-plp .result-count').removeClass('col-12 col-md-9 col-sm-6 order-sm-2');
-//                     $('.mobile-filter-menu').removeClass('active').addClass('disable-events');
-//                     $('.mvmt-plp .grid-header .sort-col, .mvmt-plp .grid-header .filter-col').remove();
-//                     $('.plp-grid-overlay').removeClass('active');
-//                     bulidLifeStyleCarousel();
-//                     if (isInfiniteScrollEnabled && (isPaginationEnabled == false)) {
-//                         loadMoreIndex = $('#product-search-results .product-tile').length - (parseInt(initiallyLoadedProducts / 2) + 1);
-//                     }
-
-//                 },
-//                 error: function () {
-//                     $.spinner().stop();
-//                     filterLoadInProgress = false;
-//                 }
-//             });
-//         });
-// },
-
-
-    //Custom Start: Make this fucntion for mobile filter
-    // applyFilterMobile: function () {
-    //     // Handle refinement value selection and reset click
-    //     $('.container, .container-fluid').on(
-    //         'click',
-    //         '.mobile-filter .mobile-selection-inner a, .mobile-active-actions .mobile-active-clear-btn',
-    //         function (e) {
-    //             e.preventDefault();
-    //             e.stopPropagation();
-
-    //             // Get currently selected sort option to retain sorting rules
-    //             var urlparams = getUrlParamObj(document.location.href);
-    //             var filtersURL = e.currentTarget.href;
-    //             var currentSelectedSortId = '';
-    //             if (urlparams.hasOwnProperty('srule') == true) {
-    //                 if (urlparams.srule) {
-    //                     currentSelectedSortId = urlparams.srule;
-    //                     filtersURL = removeParam('srule', filtersURL);  // Custom: [MSS-1348 Fix for not applying price filters]
-    //                     filtersURL = replaceUrlParam(filtersURL, 'srule', currentSelectedSortId);
-    //                 }
-    //             }
-    //             $.spinner().start();
-    //             $(this).trigger('search:filter', e);
-    //             $.ajax({
-    //                 url: filtersURL,
-    //                 data: {
-    //                     page: $('.grid-footer').data('page-number'),
-    //                     selectedUrl: filtersURL
-    //                 },
-    //                 method: 'GET',
-    //                 success: function (response) {
-    //                     var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
-    //                     $('body').trigger('facet:success', [gtmFacetArray]);
-    //                     parseMobileResults(response);
-    //                     // edit start
-    //                     updatePageURLForFacets(filtersURL);
-    //                     // edit end
-    //                     $.spinner().stop();
-    //                     moveFocusToTop();
-    //                     swatches.showSwatchImages();
-    //                     $('.mvmt-plp .result-count').removeClass('col-12 col-md-9 col-sm-6 order-sm-2');
-    //                     $('.mobile-filter-menu').removeClass('active').addClass('disable-events');
-    //                     $('body').removeClass('lock-bg');
-    //                     $('.mvmt-plp .grid-header .sort-col').remove();
-    //                     $('.mvmt-plp .grid-header .filter-col').remove();
-    //                     if (isInfiniteScrollEnabled && (isPaginationEnabled == false)) {
-    //                         loadMoreIndex = $('#product-search-results .product-tile').length - (parseInt(initiallyLoadedProducts / 2) + 1);
-    //                     }
-    //                     bulidLifeStyleCarousel();
-    //                 },
-    //                 error: function () {
-    //                     $.spinner().stop();
-    //                 }
-    //             });
-    //         });
-    // },
-    // Custom End
     showContentTab: function () {
         // Display content results from the search
         $('.container, .container-fluid').on('click', '.content-search', function () {
@@ -2002,9 +1950,11 @@ module.exports = {
                 $('' + menu + ' .mobile-selection:not(.acitve) .mobile-active-filters, ' + menu + ' .mobile-selection:not(.acitve) .mobile-active-actions').addClass('skip-animation');
             }, 300);
         });
-
-        $(document).on("click", '.mobile-menu-close, .mobile-close-menu', function(e) {
-            var  menuClose = $(this).data('close-menu');
+                                // mobile-menu-close
+        $(document).on("click", '.mobile-menu-close-filters, .mobile-close-menu', function(e) {
+            alert('working');
+            var isParent = $(this).closest('.mobile-menu-close');
+            var  menuClose = isParent.data('close-menu');
             $(''+ menuClose +'').removeClass('active').addClass('disable-events');
             $('body').removeClass('lock-bg');
 

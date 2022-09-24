@@ -531,7 +531,7 @@
                         .new-design-filter-mobile-sort {
                             z-index: 12;
                             position: relative;
-                            top: rem(100);
+                            top: rem(81);
                         }
                     }
                 }
@@ -1447,7 +1447,7 @@
                 position: relative;
                 text-align: center;
                 text-transform: uppercase;
-                cursor: pointer;
+                cursor: default;
 
                 svg {
                     width: rem(15);
@@ -1459,6 +1459,7 @@
                     top: auto;
                     transform: translateY(0);
                     order: 2;
+                    cursor: pointer !important;
                 }
 
                 .filter-by-heading {
@@ -1472,6 +1473,11 @@
                     left: auto;
                     display: block;
                     order: 1;
+                    color: $black !important;
+                }
+                
+                &.close {
+                    opacity: 1;
                 }
             }
         }
@@ -1533,7 +1539,7 @@
     &.plp-active-filter {
         display: flex;
         opacity: 1;
-        background: $white;
+        background: transparent;
         border: none;
         left: 0;
         margin: 0;

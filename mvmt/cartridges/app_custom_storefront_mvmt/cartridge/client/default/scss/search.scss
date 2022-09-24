@@ -1023,7 +1023,6 @@
     position: relative;
     text-align: center;
     text-transform: uppercase;
-    cursor: pointer;
 
     svg {
       width: rem(10);
@@ -1034,6 +1033,7 @@
       left: rem(20);
       top: 50%;
       transform: translateY(-50%);
+      cursor: pointer;
     }
   }
 }
