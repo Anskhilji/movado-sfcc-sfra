@@ -1419,12 +1419,12 @@ module.exports = {
                                 newFilteredUrl = removeUrlParamsQSrule(newFilteredUrl, 'q', queryParamQ, 'srule', queryParamSrule);
                             }
                         }
-                    }
-
-                    if (RemoveUrlParams.hasOwnProperty('srule') == true) {
-                        if (RemoveUrlParams.srule) {
-                            var queryParamSrule = RemoveUrlParams.srule;  
-                            newFilteredUrl = removeUrlParamsSrule(newFilteredUrl, 'srule', queryParamSrule);
+                    } else {
+                        if (RemoveUrlParams.hasOwnProperty('srule') == true) {
+                            if (RemoveUrlParams.srule) {
+                                var queryParamSrule = RemoveUrlParams.srule;  
+                                newFilteredUrl = removeUrlParamsSrule(newFilteredUrl, 'srule', queryParamSrule);
+                            }
                         }
                     }
                     window.history.pushState({}, '', newFilteredUrl);
