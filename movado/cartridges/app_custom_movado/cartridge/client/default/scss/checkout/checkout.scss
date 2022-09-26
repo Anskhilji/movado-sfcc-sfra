@@ -820,6 +820,7 @@ header {
         transform: translateX(-50%);
     }
 }
+
 .shipping-details-label {
     @include media-breakpoint-down(md) { 
         padding: rem(0) rem(10);
