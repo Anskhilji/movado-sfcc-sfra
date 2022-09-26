@@ -69,13 +69,16 @@ function updateStorePickupProductAvailability(data) {
     if ($pickupFromStore == true) {
         $('.paypal-btn').addClass('d-none');
         $('.more-ways-text').addClass('d-none');
+        $('.checkout-btn').addClass('disabled');
         setTimeout(function () {
             $('.gpay-button').addClass('d-none');
             $('.apple-pay-cart').addClass('d-none');
         }, 300);
     } else {
+        $('.checkout-btn').removeClass('disabled');
         $('.paypal-btn').removeClass('d-none');
         $('.more-ways-text').removeClass('d-none');
+
         setTimeout(function () {
             $('.gpay-button').removeClass('d-none');
             $('.apple-pay-cart').removeClass('d-none');

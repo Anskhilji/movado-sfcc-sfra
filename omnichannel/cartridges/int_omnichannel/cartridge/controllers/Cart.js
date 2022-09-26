@@ -119,6 +119,7 @@ server.get(
         var address1;
         var phone;
         var stateCode;
+        var postalCode;
         if (session.privacy.pickupStoreID) {
             preferedPickupStore = StoreMgr.getStore(session.privacy.pickupStoreID);
             address1 = preferedPickupStore.address1;
