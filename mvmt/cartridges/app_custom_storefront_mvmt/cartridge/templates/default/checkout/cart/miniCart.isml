@@ -114,7 +114,7 @@
                     <span class="subtotal-total-discount">${empty(pdict.totals.subTotal) ? '0' : pdict.totals.subTotal}</span>
                     </isif>
                     Custom End </iscomment>
-                    <span class="subtotal-value text-right grand-total cost">${empty(pdict.totals.subTotaladjustedNetPrice) ? '0' : pdict.totals.subTotaladjustedNetPrice}</span>
+                    <span class="subtotal-value text-right grand-total grand-total-sum cost">${empty(pdict.totals.subTotaladjustedNetPrice) ? '0' : pdict.totals.subTotaladjustedNetPrice}</span>
                 </div>
             </div>
         </div>

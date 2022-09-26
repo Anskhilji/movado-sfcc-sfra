@@ -38,11 +38,19 @@
                     </isloop>
                 </div>
             </div>
-        <iselseif condition="${discount.lineItemText !== 'null' && discount.price !== 'null'}" >
-            <iscomment> <div class="promotion-information col-12">
+            <isif condition="${!empty(discount.relationship)}">
+                <div class="promotion-information col-12">
+                    <span class="promotion-name">${discount.promotionName ? discount.promotionName : ''}</span>
+                    <isloop items="${discount.relationship}" var="relatedPromotion">
+                        <span class="applied-promotion-discount">${relatedPromotion.adjustedCoupenPrice ? relatedPromotion.adjustedCoupenPrice : ''}</span>
+                    </isloop>
+                </div>
+            </isif>
+        <iselseif condition="${discount.lineItemText !== 'null' && discount.price !== 'null'}"/>
+            <div class="promotion-information col-12">
                 <span class="promotion-name">${discount.lineItemText}</span>
                 <span class="applied-promotion-discount">${discount.price}</span>
-            </div> </iscomment>
+            </div>
         </isif>
     </isloop>
 </div>

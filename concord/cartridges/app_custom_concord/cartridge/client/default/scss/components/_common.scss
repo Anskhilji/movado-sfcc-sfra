@@ -667,6 +667,10 @@ header~.container .promotions .callout a{
                       width: rem(16);
                       height: rem(16);
                       margin-left: rem(10);
+
+                      span {
+                          display: none;
+                      }
                   }
               }
           }
