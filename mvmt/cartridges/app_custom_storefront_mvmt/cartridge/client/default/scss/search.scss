@@ -839,6 +839,7 @@
         height: auto;
         transition: opacity 0.5s, transform 0.5s;
         transform: translateY(80px);
+        margin-top: rem(54);
 
         &.loaded {
           display: flex;
