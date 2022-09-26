@@ -81,7 +81,7 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
         order = OrderMgr.getOrder(req.querystring.merchantReference.toString());
     } else if (session.custom.brandCode.search(constants.KLARNA_PAYMENT_METHOD_TEXT) > -1) {
         order = OrderMgr.getOrder(session.custom.orderNo);
-    } else if (req.querystring.resultCode.toUpperCase() === constants.PAYMENT_STATUS_AUTHORISED) {
+    } else if (req.querystring && req.querystring.resultCode) {
         order = OrderMgr.getOrder(session.custom.orderNo);
     }
 
@@ -110,12 +110,12 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
 
     var detailReulstVerification;
 
-    if(req.querystring.resultCode && req.querystring.resultCode !== constants.PAYMENT_STATUS_CANCELLED) {
+    if(req.querystring && req.querystring.resultCode) {
         detailReulstVerification = adyenPaymentCheckout.verifyDetails({
             Redirectresult: req.querystring.payload.toString(),
             Order: order
         })
-    } else if (req.querystring.redirectResult) {
+    } else if (req.querystring && req.querystring.redirectResult) {
         detailReulstVerification = adyenPaymentCheckout.verifyDetails({
             Redirectresult: req.querystring.redirectResult.toString(),
             Order: order
