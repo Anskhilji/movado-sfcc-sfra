@@ -911,6 +911,14 @@ header {
     text-transform: uppercase;
     margin-top: rem(21);
     margin-bottom: rem(-3);
+
+    &-container {
+        margin: rem(0) auto rem(24) auto;
+
+        @include media-breakpoint-down(xs) {
+            margin: rem(0) auto rem(20) auto;
+        }
+    }
 }
     .container-custom-inner-box {
         max-width: 1440px;

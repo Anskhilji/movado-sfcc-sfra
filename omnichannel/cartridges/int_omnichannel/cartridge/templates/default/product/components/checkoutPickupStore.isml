@@ -12,9 +12,9 @@
             <span class="text-underline-content">${pdict.preferedPickupStore.phone ? pdict.preferedPickupStore.phone : ''}</span>
         </div>
     </div>
-    <div class="row store-hours">
+    <div class="row store-hours mt-4">
         <div class="col-md-6">
-            <isprint value="${pdict.preferedPickupStore.storeHours}" encoding="off" />
+            <div class="store-hours-container"><isprint value="${pdict.preferedPickupStore.storeHours}" encoding="off" /></div>
         </div>
         <div class="col-md-6 store-note">
             <p class="store-note-text">${Resource.msg('store.pickup.checkout.store.note', 'storePickUp', null)}</p>
