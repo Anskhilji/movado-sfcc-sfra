@@ -765,7 +765,6 @@ module.exports = {
                         if (urlparams.hasOwnProperty('pmid') == true && urlparams.hasOwnProperty('srule') == false && urlparams.hasOwnProperty('q') == false) {
                             if (urlparams.pmid) {
                                 currentSelectedSortId = urlparams.pmid;
-                                // filtersURL = removeParam('srule', filtersURL);  // Custom: [MSS-1348 Fix for not applying price filters]
                                 filtersURL = replaceUrlParamPmid(filtersURL, 'pmid', currentSelectedSortId);
                                 
                             }
