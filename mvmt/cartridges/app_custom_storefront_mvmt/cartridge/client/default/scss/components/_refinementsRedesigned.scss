@@ -879,6 +879,7 @@
                         // clear all botton styled
                         &.redesign-filter-mobile {
                             bottom: 13vh;
+                            
                             .mobile-active-actions {
                                 transform: translateY(0%);
                                 @include  media-breakpoint-down(xs) {

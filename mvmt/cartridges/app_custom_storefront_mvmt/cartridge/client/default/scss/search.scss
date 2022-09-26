@@ -422,13 +422,13 @@
           display: flex;
           transform: translateY(0);
 
-          .filter-refinement-container {
+            .filter-refinement-container {
 
-            .filter-selected { 
-              border: rem(1) solid $black;
-              border-radius: 50%;
+                .filter-selected { 
+                    border: rem(1) solid $black;
+                    border-radius: 50%;
+                }
             }
-          }
         }
       }
 
@@ -1915,8 +1915,8 @@
 @import "./components/refinementsRedesigned";
 
 .selected {
-  &.filter-selected { 
-    border: rem(1) solid $black !important;
-    border-radius: 50%;
-  }
+    &.filter-selected { 
+        border: rem(1) solid $black !important;
+        border-radius: 50%;
+    }
 }
