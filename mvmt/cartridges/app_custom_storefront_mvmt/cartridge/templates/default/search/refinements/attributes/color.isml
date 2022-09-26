@@ -3,7 +3,6 @@
 <isif condition="${dw.system.Site.current.getCustomPreferenceValue('enableSwatch')}">
     <li title="${refinementValue.title}" data-filter-id="${refinementValue.id}" data-selected-filter="${refinementValue.type == 'promotion' ? refinementValue.value : refinementValue.displayValue}" class="color-attribute filter-element ${!refinementValue.selectable ? 'disabled' : ''}">
         <span hidden="hidden" class="filter-elements" data-filter-id="${refinementValue.id}" data-target-url="${refinementValue.url}" data-selected-filter="${refinementValue.displayValue}"></span>
-        <h3>COLOR.ISML</h3>
         <a href="${refinementValue.url}" data-selected-filter="${refinementValue.displayValue}">
             <span class="${refinementValue.presentationId} swatch-circle color-value swatch-mark <isif condition="${refinementValue.selected && refinementValue.selectable}">selected</isif><isif condition="${!refinementValue.selectable}">disabled</isif>" ></span>
         </a>
