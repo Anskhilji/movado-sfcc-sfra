@@ -774,7 +774,6 @@ module.exports = {
                         if (urlparams.hasOwnProperty('pmid') == false && urlparams.hasOwnProperty('srule') == true && urlparams.hasOwnProperty('q') == false) {
                             if (urlparams.srule) {
                                 currentSelectedSortId = urlparams.srule;
-                                // filtersURL = removeParam('srule', filtersURL);  // Custom: [MSS-1348 Fix for not applying price filters]
                                 filtersURL = replaceUrlParamSrule(filtersURL, 'srule', currentSelectedSortId);
                                 
                             }
@@ -784,7 +783,6 @@ module.exports = {
                             if (urlparams.pmid && urlparams.srule) {
                                 var paramSrule = urlparams.srule;
                                 var paramPmid = urlparams.pmid;
-                                // filtersURL = removeParam('srule', filtersURL);  // Custom: [MSS-1348 Fix for not applying price filters]
                                 filtersURL = replaceUrlParamPmidSrule(filtersURL, 'pmid', paramPmid, 'srule', paramSrule);
                             }
                         }
@@ -792,7 +790,6 @@ module.exports = {
                         if (urlparams.hasOwnProperty('pmid') == false && urlparams.hasOwnProperty('srule') == false && urlparams.hasOwnProperty('q') == true) {
                             if (urlparams.q) {
                                 var paramSearchQuery = urlparams.q;
-                                // filtersURL = removeParam('srule', filtersURL);  // Custom: [MSS-1348 Fix for not applying price filters]
                                 filtersURL = replaceUrlParamSearchQuery(filtersURL, 'q', paramSearchQuery);
                             }
                         }
@@ -801,7 +798,6 @@ module.exports = {
                             if (urlparams.q && urlparams.srule) {
                                 var paramSrule = urlparams.srule;
                                 var paramSearchQuery = urlparams.q;
-                                // filtersURL = removeParam('srule', filtersURL);  // Custom: [MSS-1348 Fix for not applying price filters]
                                 filtersURL = replaceUrlParamSruleQ(filtersURL, 'srule', paramSrule, 'q', paramSearchQuery);
                             }
                         }
@@ -810,7 +806,6 @@ module.exports = {
                             if (urlparams.q) {
                                 var paramSearchQuery = urlparams.q;
                                 var paramPmid = urlparams.pmid;
-                                // filtersURL = removeParam('srule', filtersURL);  // Custom: [MSS-1348 Fix for not applying price filters]
                                 filtersURL = replaceUrlParamSearchQueryPmid(filtersURL, 'q', paramSearchQuery, 'pmid', paramPmid);
                             }
                         }
@@ -1123,7 +1118,7 @@ module.exports = {
                                 e.insertAdjacentHTML('beforeend', html);    
                             });
                        } else {
-                        var selectedFilterId = isSelected.dataset.selectedFilter;
+                            var selectedFilterId = isSelected.dataset.selectedFilter;
                             var slectedFilterBarAll = document.querySelectorAll('.selected-filter-bar');
 
                             if (slectedFilterBarAll.length > 0) {
@@ -1170,7 +1165,6 @@ module.exports = {
                                                     isSelectLabelParent.classList.remove('label-selected');
                                                 }
                                                 if (isPriceFilterSelected.classList.contains('check-filter-selected')) {
-                                                    // var filterElementPmid = isPriceFilterSelected.parentNode;
                                                     selectedFilterId = e.dataset.selectedFilter;
                                                     isPriceFilterSelected.classList.remove('check-filter-selected');
 
@@ -1217,8 +1211,6 @@ module.exports = {
                         });
 
                     } else if (isSelected && isSquareO == null && isCheckSquare !== null && isCheckCircle == null && isCheckO == null) {
-
-                        // var selectedFilterId = isSelected.dataset.selectedFilter;
                         var filterElementLabelParent = clicked.parentNode;
                         var selectedFilterId  = filterElementLabelParent.dataset.selectedFilter
                         var slectedFilterBarAll = document.querySelectorAll('.selected-filter-bar');
@@ -1301,8 +1293,8 @@ module.exports = {
                     isCheckO.classList.remove('check-o', 'fa-circle-o');
                     isCheckO.classList.add('fa-check-circle', 'check-circle');
                     var html = `<li class="filter-value added-filter-bar" data-filter-id="${filterBarId}" data-added-filter-bar="${filterBarValue}">
-                                        <a href="">${filterBarValue}</a>
-                                    </li>`;
+                                    <a href="">${filterBarValue}</a>
+                                </li>`;
                     filterBar.forEach(function (e) {
                         e.insertAdjacentHTML('beforeend', html);    
                     });
@@ -1376,7 +1368,6 @@ module.exports = {
                 } else {
                     filterLoadInProgress = true;
                     var selectedFiltersAll;
-                    // var parentSelectorOuter = document.querySelector('.plp-filter-redesign');
                     var mobileSortMenu = document.querySelector('.mobile-sort-menu-container');
                     var isActive = mobileSortMenu.classList.contains('active');
                     if (isActive) {
@@ -1448,7 +1439,6 @@ module.exports = {
                         if (urlparams.hasOwnProperty('pmid') == true && urlparams.hasOwnProperty('srule') == false && urlparams.hasOwnProperty('q') == false) {
                             if (urlparams.pmid) {
                                 currentSelectedSortId = urlparams.pmid;
-                                // filtersURL = removeParam('srule', filtersURL);  // Custom: [MSS-1348 Fix for not applying price filters]
                                 filtersURL = replaceUrlParamPmid(filtersURL, 'pmid', currentSelectedSortId);
                                 
                             }
@@ -1457,7 +1447,6 @@ module.exports = {
                         if (urlparams.hasOwnProperty('pmid') == false && urlparams.hasOwnProperty('srule') == true && urlparams.hasOwnProperty('q') == false) {
                             if (urlparams.srule) {
                                 currentSelectedSortId = urlparams.srule;
-                                // filtersURL = removeParam('srule', filtersURL);  // Custom: [MSS-1348 Fix for not applying price filters]
                                 filtersURL = replaceUrlParamSrule(filtersURL, 'srule', currentSelectedSortId);
                                 
                             }
@@ -1466,7 +1455,6 @@ module.exports = {
                             if (urlparams.q && urlparams.srule) {
                                 var paramSrule = urlparams.srule;
                                 var paramSearchQuery = urlparams.q;
-                                // filtersURL = removeParam('srule', filtersURL);  // Custom: [MSS-1348 Fix for not applying price filters]
                                 filtersURL = replaceUrlParamSruleQ(filtersURL, 'srule', paramSrule, 'q', paramSearchQuery);
                             }
                         }
@@ -1474,7 +1462,6 @@ module.exports = {
                             if (urlparams.pmid && urlparams.srule) {
                                 var paramSrule = urlparams.srule;
                                 var paramPmid = urlparams.pmid;
-                                // filtersURL = removeParam('srule', filtersURL);  // Custom: [MSS-1348 Fix for not applying price filters]
                                 filtersURL = replaceUrlParamPmidSrule(filtersURL, 'pmid', paramPmid, 'srule', paramSrule);
                             }
                         }
@@ -1482,7 +1469,6 @@ module.exports = {
                         if (urlparams.hasOwnProperty('pmid') == false && urlparams.hasOwnProperty('srule') == false && urlparams.hasOwnProperty('q') == true) {
                             if (urlparams.q) {
                                 var paramSearchQuery = urlparams.q;
-                                // filtersURL = removeParam('srule', filtersURL);  // Custom: [MSS-1348 Fix for not applying price filters]
                                 filtersURL = replaceUrlParamSearchQuery(filtersURL, 'q', paramSearchQuery);
                             }
                         }
@@ -1491,7 +1477,6 @@ module.exports = {
                             if (urlparams.q) {
                                 var paramSearchQuery = urlparams.q;
                                 var paramPmid = urlparams.pmid;
-                                // filtersURL = removeParam('srule', filtersURL);  // Custom: [MSS-1348 Fix for not applying price filters]
                                 filtersURL = replaceUrlParamSearchQueryPmid(filtersURL, 'q', paramSearchQuery, 'pmid', paramPmid);
                             }
                         }
@@ -1501,7 +1486,6 @@ module.exports = {
                                 var paramSearchQuery = urlparams.q;
                                 var paramPmid = urlparams.pmid;
                                 var paramSrule = urlparams.srule;
-                                // filtersURL = removeParam('srule', filtersURL);  // Custom: [MSS-1348 Fix for not applying price filters]
                                 filtersURL = replaceUrlParamSearchQueryPmidSrule(filtersURL, 'q', paramSearchQuery, 'pmid', paramPmid, 'srule', paramSrule);
                             }
                         }
@@ -1683,7 +1667,6 @@ module.exports = {
                                         isFilterSelected.classList.remove('check-filter-selected');
                                         isPriceRadioBtn.classList.remove('fa-check-circle', 'check-circle');
                                         isPriceRadioBtn.classList.add('fa-circle-o', 'check-o');
-                                        // clickedFilterBarClose.remove();
                                         var slectedFilterBarAll = document.querySelectorAll('.selected-filter-bar');
 
                                         if (slectedFilterBarAll.length > 0) {
@@ -1700,7 +1683,6 @@ module.exports = {
                                         }
                                     } else {
                                         isFilterSelected.classList.remove('check-filter-selected', 'filter-selected');
-                                        // clickedFilterBarClose.remove();
                                         var slectedFilterBarAll = document.querySelectorAll('.selected-filter-bar');
 
                                         if (slectedFilterBarAll.length > 0) {
