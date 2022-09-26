@@ -263,39 +263,20 @@ function updatePageURLForSortRule(href) {
  */
 
 function replaceUrlParamPmid(url, pmid, pmidValue) {
-    var patternPmid = new RegExp('(\\?|\\&)(' + pmid + '=).*?(&|$)');
     var newUrl = url;
-    if (url.search(patternPmid) >= 0) {
-        newUrl = url.replace(patternPmid, (newUrl.indexOf('&') > 0 ? '&' : '?') + pmid + '=' + pmidValue);
-    }
-    else {
-        newUrl = newUrl + (newUrl.indexOf('?') !== -1 ? '&' : '?') + pmid + '=' + pmidValue;
-    }
+    newUrl = newUrl + (newUrl.indexOf('?') !== -1 ? '&' : '?') + pmid + '=' + pmidValue;
     return newUrl;
 }
 
 function replaceUrlParamSrule(url, srule, sruleValue) {
-    var patternSrule = new RegExp('(\\?|\\&)(' + srule + '=).*?(&|$)');
     var newUrl = url;
-    if (url.search(patternSrule) >= 0) {
-        newUrl = url.replace(pattern, (newUrl.indexOf('&') > 0 ? '&' : '?') + srule + '=' + sruleValue);
-    }
-    else {
-        newUrl = newUrl + (newUrl.indexOf('?') !== -1 ? '&' : '?') + srule + '=' + sruleValue;
-    }
+    newUrl = newUrl + (newUrl.indexOf('?') !== -1 ? '&' : '?') + srule + '=' + sruleValue;
     return newUrl;
 }
 
 function replaceUrlParamPmidSrule(url, pmid, pmidValue, srule, sruleValue) {
-    var patternPmid = new RegExp('(\\?|\\&)(' + pmid + '=).*?(&|$)');
-    var patternSrule = new RegExp('(\\?|\\&)(' + srule + '=).*?(&|$)');
     var newUrl = url;
-    if (url.search(patternPmid) >= 0 && url.search(patternSrule) >= 0) {
-        newUrl = url.replace(patternPmid, (newUrl.indexOf('&') > 0 ? '&' : '?') + srule + '=' + sruleValue); // how to make url her. need to discuress with haroon bhai
-    }
-    else {
-        newUrl = newUrl + (newUrl.indexOf('?') !== -1 ? '&' : '?') + pmid + '=' + pmidValue + (newUrl.indexOf('?') !== -1 ? '&' : '?') + srule + '=' + sruleValue;
-    }
+    newUrl = newUrl + (newUrl.indexOf('?') !== -1 ? '&' : '?') + pmid + '=' + pmidValue + (newUrl.indexOf('?') !== -1 ? '&' : '?') + srule + '=' + sruleValue;
     return newUrl;
 }
 
@@ -667,9 +648,8 @@ module.exports = {
             });
         });
     },
-    // .refinements li a, .refinement-bar a.reset, .filter-value a, .swatch-filter a, .top-refinements a
-    // .filter-refinement-container
-    // .search-refinement-close
+    // Custom start: Desktop filters
+    // making urls for prefn1,pmid,pmin,pmax,srule and based on url getting the data
     applyFilter: function () {
         // Handle refinement value selection and reset click
             $('.container, .container-fluid').on(
@@ -678,14 +658,13 @@ module.exports = {
             e.preventDefault();
             // e.stopPropagation();
             var isSelectedFilterBar = document.querySelector('.filter-bar-list > .selected-filter-bar');
-            console.log(isSelectedFilterBar);
             if (isSelectedFilterBar) {
                 var isFilterChildList = isSelectedFilterBar.children.length > 0;
                 if (!isFilterChildList) {
-                    $(".filter-group").removeClass('active loaded');
-                    $(".plp-active-filter").removeClass('loaded');
-                    $(".plp-active-filter-selected").addClass('d-none');
-                    $(".plp-filter-bar .plp-filter-btn").removeClass('active');
+                    $('.filter-group').removeClass('active loaded');
+                    $('.plp-active-filter').removeClass('loaded');
+                    $('.plp-active-filter-selected').addClass('d-none');
+                    $('.plp-filter-bar .plp-filter-btn').removeClass('active');
                     $('.plp-grid-overlay').removeClass('active');
 
                     var RemoveUrlParams = getUrlParamObj(document.location.href);
@@ -721,10 +700,8 @@ module.exports = {
                     filterLoadInProgress = true;
     
                     var parentSelectorOuter = document.querySelector('.plp-filter-redesign');
-                    console.log(parentSelector);
                     if (parentSelectorOuter) {
                         var parentSelector = parentSelectorOuter.querySelectorAll('.filter-refinement-container');
-                        console.log(parentSelector);
                         var prefv = '';
                         var indexValue = 1;
                         var params = '';
@@ -738,14 +715,12 @@ module.exports = {
                                     
                                     childElement.forEach(function (e, i) {
                                         var hasFilerSelected = e.querySelector('.check-filter-selected');
-                                        console.log(hasFilerSelected);
     
                                         if (hasFilerSelected) {
                                             if (prefv.indexOf('%7C') == -1) {
                                                 prefv +='%7C';
                                             }
                                             if (e.dataset.filterId == 'price') {
-                                                console.log(e);
                                                 pminValue += e.dataset.valuePmin;
                                                 pmaxValue += e.dataset.valuePmax;
                                             } else {
@@ -767,7 +742,7 @@ module.exports = {
                                             params += `pmid=${prefv}`;
                                             indexValue--;
                                         } else if (prefn == 'price') {
-                                            // ?pmin=500.00&pmax=1000.00
+                                            // making url for pmin & pmax example: ?pmin=500.00&pmax=1000.00
                                             if (pminValue !== '' && pmaxValue !== '') {
                                                 params += `pmin=${pminValue}&pmax=${pmaxValue}`;
                                             }
@@ -778,18 +753,13 @@ module.exports = {
                                     }
                                     
                                 };
-                            console.log(params);
-                            // ?prefn1=color&prefv1=Brown&prefn2=pmid&prefv2=Product Level Promotion
+                            // Example url: ?prefn1=color&prefv1=Brown&prefn2=pmid&prefv2=Product_level_Promotion
                             prefv = '';
                         });
     
                         
                         var urlparams = getUrlParamObj(document.location.href);
-                        
-                        //  window.location.href;
                         var filtersURL = params;
-                        console.log(filtersURL);
-    
                         var currentSelectedSortId = '';
     
                         if (urlparams.hasOwnProperty('pmid') == true && urlparams.hasOwnProperty('srule') == false && urlparams.hasOwnProperty('q') == false) {
@@ -850,7 +820,6 @@ module.exports = {
                                 var paramSearchQuery = urlparams.q;
                                 var paramPmid = urlparams.pmid;
                                 var paramSrule = urlparams.srule;
-                                // filtersURL = removeParam('srule', filtersURL);  // Custom: [MSS-1348 Fix for not applying price filters]
                                 filtersURL = replaceUrlParamSearchQueryPmidSrule(filtersURL, 'q', paramSearchQuery, 'pmid', paramPmid, 'srule', paramSrule);
                             }
                         }
@@ -859,7 +828,6 @@ module.exports = {
                         if (baseUrl.indexOf('?') !== -1) {
                             baseUrl = baseUrl.split('?')[0];
                         }
-                        console.log(typeof baseUrl);
                         filtersURL = baseUrl + filtersURL;
                         $.spinner().start();
                         $(this).trigger('search:filter', e);
@@ -905,6 +873,8 @@ module.exports = {
             }
         });
     },
+
+    // desktop filters multi selection
     applyFilterSelect: function () {
         // Handle refinement value selection and reset click
         $('.container, .container-fluid').on(
@@ -920,12 +890,8 @@ module.exports = {
                 var filterBar = document.querySelectorAll('.selected-filter-bar');
 
                 if (!clicked) return;
-                    console.log(clicked);
                 if (clicked) {
-                    console.log(filterBar);
-                    // var isfilterUrl = clicked.querySelector('a');
                     var isSelected = clicked.querySelector('.selected');
-                    // var targetUrl = isfilterUrl.href;
                     var filterBarValue = clicked.dataset.selectedFilter;
                     var filterBarId = clicked.dataset.filterId;
                     var isCheckSquare = clicked.querySelector('.check-square');
@@ -935,7 +901,6 @@ module.exports = {
                     
                     if (isSelected && isCheckSquare == null && isSquareO == null && isCheckCircle == null && isCheckO == null) {
                         var containClass = isSelected.classList.toggle('filter-selected');
-                        // vdata-target-url="${refinementValue.url}"
                         if (containClass) {
                             isSelected.classList.add('check-filter-selected');
                             var html = `<li class="filter-value added-filter-bar" data-filter-id="${filterBarId}" data-added-filter-bar="${filterBarValue}">
@@ -945,7 +910,6 @@ module.exports = {
                                 e.insertAdjacentHTML('beforeend', html);    
                             });
                        } else {
-                        // console.log(isSelected);
                         var selectedFilterId = isSelected.dataset.selectedFilter;
                             var slectedFilterBarAll = document.querySelectorAll('.selected-filter-bar');
 
@@ -964,14 +928,12 @@ module.exports = {
                             isSelected.classList.remove('check-filter-selected');
                        }                  
                     } else if (isSelected && isCheckSquare == null && isSquareO !== null && isCheckCircle == null && isCheckO == null) {
-                        console.log(isSquareO)
                         var filterElement = clicked.parentNode;
                         var isFilterElementValue = filterElement.dataset.selectedFilter;
                         var isSquareOParent = isSquareO.parentNode;
 
                         var selectedFilterId = '';
                         var isparentSelector = document.querySelectorAll('.filter-refinement-container');
-                        console.log(isparentSelector);
                         if (isparentSelector) {
                             isparentSelector.forEach(function (el, index) {
                                 if (el.hasChildNodes()) {
@@ -981,11 +943,9 @@ module.exports = {
                                     
                                         childElement.forEach(function (e, i) {
                                             var isPriceFilterSelected = e.querySelector('.check-filter-selected');
-                                            console.log(isPriceFilterSelected);
                                             
                                             if (isPriceFilterSelected) {
                                                 if (isPriceFilterSelected.classList.contains('check-filter-selected')) {
-                                                    // var filterElementPmid = isPriceFilterSelected.parentNode;
                                                     selectedFilterId = e.dataset.selectedFilter;
                                                     isPriceFilterSelected.classList.remove('check-filter-selected');
 
@@ -1032,9 +992,6 @@ module.exports = {
                         });
 
                     } else if (isSelected && isSquareO == null && isCheckSquare !== null && isCheckCircle == null && isCheckO == null) {
-                        console.log(isCheckSquare);
-
-                        // var selectedFilterId = isSelected.dataset.selectedFilter;
                         var filterElementLabelParent = clicked.parentNode;
                         var selectedFilterId  = filterElementLabelParent.dataset.selectedFilter
                         var slectedFilterBarAll = document.querySelectorAll('.selected-filter-bar');
@@ -1059,11 +1016,8 @@ module.exports = {
                         isCheckSquare.classList.add('square-o');
                         isCheckSquare.classList.add('fa-square-o');
                     } else if (isSelected && isSquareO == null && isCheckSquare == null && isCheckCircle == null && isCheckO !== null) {
-                        // fa-circle-o
-                        // fa-check-circle
                         var selectedFilterId = '';
                         var isparentSelector = document.querySelectorAll('.filter-refinement-container');
-                        console.log(isparentSelector);
                         if (isparentSelector) {
                             isparentSelector.forEach(function (el, index) {
                             if (el.hasChildNodes()) {
@@ -1073,7 +1027,6 @@ module.exports = {
                                 
                                     childElement.forEach(function (e, i) {
                                         var isPriceFilterSelected = e.querySelector('.check-filter-selected');
-                                        console.log(isPriceFilterSelected);
                                         
                                         if (isPriceFilterSelected) {
                                             if (isPriceFilterSelected.classList.contains('check-filter-selected')) {
@@ -1126,7 +1079,17 @@ module.exports = {
         });
     },
 
-    //Custom Start: Make this fucntion for mobile filter
+    // trigger desktop filter on overlay click
+    triggerapplyFilter: function () {
+        $('.plp-grid-overlay').click(
+            function (e) {
+            $(this).trigger('search:applyFilter');
+        });
+    },
+    // Custom end: Desktop filters
+
+    //Custom Start: Mobile filters
+    // mobile filters multi selection
     applyFilterSelectMobile: function () {
         // Handle refinement value selection and reset click
         $('.mobile-menu-container-main, .mobile-sort-menu-container').on(
@@ -1141,22 +1104,16 @@ module.exports = {
                 var filterBar = document.querySelectorAll('.selected-filter-bar');
 
                 if (!clicked) return;
-                    // console.log(clicked);
                 if (clicked) {
-                    // console.log(filterBar);
-                    // var isfilterUrl = clicked.querySelector('a');
                     var isSelected = clicked.querySelector('.selected');
-                    // var targetUrl = isfilterUrl.href;
                     var filterBarValue = clicked.dataset.selectedFilter;
                     var filterBarId = clicked.dataset.filterId;
                     var isCheckSquare = clicked.querySelector('.check-square');
                     var isSquareO = clicked.querySelector('.square-o');
                     var isCheckCircle = clicked.querySelector('.check-circle');
                     var isCheckO = clicked.querySelector('.check-o');
-                    // console.log(isSelected);
                     if (isSelected && isCheckSquare == null && isSquareO == null && isCheckCircle == null && isCheckO == null) {
                         var containClass = isSelected.classList.toggle('filter-selected');
-                        // vdata-target-url="${refinementValue.url}"
                         if (containClass) {
                             isSelected.classList.add('check-filter-selected');
                             var html = `<li class="filter-value added-filter-bar" data-filter-id="${filterBarId}" data-added-filter-bar="${filterBarValue}">
@@ -1166,7 +1123,6 @@ module.exports = {
                                 e.insertAdjacentHTML('beforeend', html);    
                             });
                        } else {
-                        // console.log(isSelected);
                         var selectedFilterId = isSelected.dataset.selectedFilter;
                             var slectedFilterBarAll = document.querySelectorAll('.selected-filter-bar');
 
@@ -1185,23 +1141,19 @@ module.exports = {
                             isSelected.classList.remove('check-filter-selected');
                        }                  
                     } else if (isSelected && isCheckSquare == null && isSquareO !== null && isCheckCircle == null && isCheckO == null) {
-                        console.log(clicked);
                         var filterElement = clicked.parentNode;
                         var isFiltersCheckBox = clicked.querySelector('.filters-checkbox');
                         var filterElement = clicked.parentNode;
-
                         if (isFiltersCheckBox) {
                             var filterElementLabel = filterElement.querySelector('.filter-elements');
                             filterElementLabel.classList.add('label-selected');
                         } 
-
                         var isFilterElementValue = filterElement.dataset.selectedFilter;
                         var isSquareOParent = isSquareO.parentNode;
 
 
                         var selectedFilterId = '';
                         var isparentSelector = document.querySelectorAll('.filter-refinement-container');
-                        console.log(isparentSelector);
                         if (isparentSelector) {
                             isparentSelector.forEach(function (el, index) {
                                 if (el.hasChildNodes()) {
@@ -1211,7 +1163,6 @@ module.exports = {
                                     
                                         childElement.forEach(function (e, i) {
                                             var isPriceFilterSelected = e.querySelector('.check-filter-selected');
-                                            console.log(isPriceFilterSelected);
                                             
                                             if (isPriceFilterSelected) {
                                                 var isSelectLabelParent = isPriceFilterSelected.parentNode;
@@ -1286,9 +1237,7 @@ module.exports = {
                         }
 
                         var isCheckSquaretParent = isCheckSquare.parentNode;
-                        // console.log(filterElementLabelParent);
                         var filterElementLabelRemove = filterElementLabelParent.querySelector('.filter-elements');
-                        // console.log(filterElementLabelRemove);
                         if (filterElementLabelRemove.classList.contains('label-selected')) {
                             filterElementLabelRemove.classList.remove('label-selected');
                         }
@@ -1299,11 +1248,8 @@ module.exports = {
                         isCheckSquare.classList.add('fa-square-o');
                     } 
                     else if (isSelected && isSquareO == null && isCheckSquare == null && isCheckCircle == null && isCheckO !== null) {
-                        // fa-circle-o
-                        // fa-check-circle
                         var selectedFilterId = '';
                         var isparentSelector = document.querySelectorAll('.filter-refinement-container');
-                        console.log(isparentSelector);
                         if (isparentSelector) {
                             isparentSelector.forEach(function (el, index) {
                             if (el.hasChildNodes()) {
@@ -1313,7 +1259,6 @@ module.exports = {
                                 
                                     childElement.forEach(function (e, i) {
                                         var isPriceFilterSelected = e.querySelector('.check-filter-selected');
-                                        console.log(isPriceFilterSelected);
                                         
                                         if (isPriceFilterSelected) {
                                             if (isPriceFilterSelected.classList.contains('check-filter-selected')) {
@@ -1369,10 +1314,9 @@ module.exports = {
 
         });
     },
-    
+
+    // making urls for prefn1,pmid,pmin,pmax,srule and based on url getting the data
     applyFilterMobile: function () {
-        // Handle refinement value selection and reset click
-        // $('.search-refinement-close, .plp-grid-overlay').on('click', function (e) {
             $('.mobile-menu-container-main, .mobile-sort-menu-container').on(
                 'click',
                 '.mobile-menu-close-filters', function(e) {
@@ -1384,10 +1328,10 @@ module.exports = {
 
                 var isFilterChildList = isSelectedFilterBar.children.length > 0;
                 if (!isFilterChildList) {
-                    $(".filter-group").removeClass('active loaded');
-                    $(".plp-active-filter").removeClass('loaded');
-                    $(".plp-active-filter-selected").addClass('d-none');
-                    $(".plp-filter-bar .plp-filter-btn").removeClass('active');
+                    $('.filter-group').removeClass('active loaded');
+                    $('.plp-active-filter').removeClass('loaded');
+                    $('.plp-active-filter-selected').addClass('d-none');
+                    $('.plp-filter-bar .plp-filter-btn').removeClass('active');
                     $('.plp-grid-overlay').removeClass('active');
                     var mobileSortMenu = document.querySelector('.mobile-sort-menu-container');
                     var mobileMenuContainerMain = document.querySelector('.mobile-menu-container-main');
@@ -1434,21 +1378,15 @@ module.exports = {
                     var selectedFiltersAll;
                     // var parentSelectorOuter = document.querySelector('.plp-filter-redesign');
                     var mobileSortMenu = document.querySelector('.mobile-sort-menu-container');
-                    console.log(mobileSortMenu);
                     var isActive = mobileSortMenu.classList.contains('active');
                     if (isActive) {
                         selectedFiltersAll = mobileSortMenu.querySelectorAll('.filter-refinement-container');
-                        console.log(selectedFiltersAll);
                     } else {
                         var mobileMenuContainerMain  = document.querySelector('.mobile-menu-container-main');
                         selectedFiltersAll = mobileMenuContainerMain.querySelectorAll('.filter-refinement-container');
-                        console.log(selectedFiltersAll);
                     }
 
-                    console.log(selectedFiltersAll);
                     if (selectedFiltersAll) {
-                        // var parentSelector = parentSelectorOuter.querySelectorAll('.filter-refinement-container');
-                        // console.log(parentSelector);
                         var prefv = '';
                         var indexValue = 1;
                         var params = '';
@@ -1462,14 +1400,12 @@ module.exports = {
                                     
                                     childElement.forEach(function (e, i) {
                                         var hasFilerSelected = e.querySelector('.check-filter-selected');
-                                        console.log(hasFilerSelected);
     
                                         if (hasFilerSelected) {
                                             if (prefv.indexOf('%7C') == -1) {
                                                 prefv +='%7C';
                                             }
                                             if (e.dataset.filterId == 'price') {
-                                                console.log(e);
                                                 pminValue += e.dataset.valuePmin;
                                                 pmaxValue += e.dataset.valuePmax;
                                             } else {
@@ -1502,15 +1438,11 @@ module.exports = {
                                     }
                                     
                                 };
-                            console.log(params);
                             prefv = '';
                         });
        
                         var urlparams = getUrlParamObj(document.location.href);
-                        
-                        var filtersURL = params;
-                        console.log(filtersURL);
-    
+                        var filtersURL = params;    
                         var currentSelectedSortId = '';
     
                         if (urlparams.hasOwnProperty('pmid') == true && urlparams.hasOwnProperty('srule') == false && urlparams.hasOwnProperty('q') == false) {
@@ -1578,7 +1510,6 @@ module.exports = {
                         if (baseUrl.indexOf('?') !== -1) {
                             baseUrl = baseUrl.split('?')[0];
                         }
-                        console.log(typeof baseUrl);
                         filtersURL = baseUrl + filtersURL;
                         $.spinner().start();
                         $(this).trigger('search:filter', e);
@@ -1624,6 +1555,7 @@ module.exports = {
         });
     },
 
+    // trigger mobile filter on close 'x' btn click
     triggerapplyFilterMobile: function () {
         $('.mobile-menu-container-main, .mobile-sort-menu-container').on(
             'click',
@@ -1634,6 +1566,7 @@ module.exports = {
         });
     },
 
+    // clear all selected fitlers for mobile
     applyFilterMobileClear: function () {
         $('.mobile-menu-container-main, .mobile-sort-menu-container').on(
             'click',
@@ -1687,15 +1620,15 @@ module.exports = {
                 window.history.pushState({}, '/', url);
         });
     },
-
+    // check clear all button is disabled or not based on window load
     applyFilterMobileClearBtnCheck: function () {
         window.onload = () => {
             checkClearAllBtn();
           };
     },
-
     //Custom End
     
+    // Custom filters: this method will work for desktop and mobile filters
     removedSelectedFilters: function () {
     //     $('.selected-filter-bar').click(
         $('.plp-active-filter, .plp-active-filter-list').on(
@@ -1714,10 +1647,8 @@ module.exports = {
                     if (el.hasChildNodes()) {
                         var childElementAll = el.querySelectorAll('.filter-element');
                         childElementAll.forEach(function (e) {
-                            console.log(e);
                             if (e.dataset.selectedFilter == currentValue) {
                                 var isFilterSelected = e.querySelector('.check-filter-selected');
-                                console.log(isFilterSelected);
                                 if (isFilterSelected) {
                                     var isCheckBox = isFilterSelected.querySelector('.check-square');
                                     var isPriceRadioBtn = isFilterSelected.querySelector('.check-circle');
@@ -1729,12 +1660,9 @@ module.exports = {
                                                 filterElementLabelSelected.classList.remove('label-selected');
                                             }
                                         }
-                                        // var filterElementLabelParent = clicked.parentNode;
                                         isFilterSelected.classList.remove('check-filter-selected');
                                         isCheckBox.classList.remove('fa-check-square', 'check-square');
                                         isCheckBox.classList.add('square-o', 'fa-square-o');
-                                        // clickedFilterBarClose.remove();
-                                        console.log(isFilterSelected);
 
                                         var slectedFilterBarAll = document.querySelectorAll('.selected-filter-bar');
 
@@ -1796,7 +1724,6 @@ module.exports = {
 
                 var addedFilterBarCheck = document.querySelector('.selected-filter-bar');
                 var addedFilterBarCheckLength = addedFilterBarCheck.children.length > 0;
-                console.log(addedFilterBarCheck);
                 if (!addedFilterBarCheckLength) {
                     var mobileFiltersClearBtn = document.querySelectorAll('.mobile-filters-clear');
                     if (mobileFiltersClearBtn) {
@@ -1812,13 +1739,7 @@ module.exports = {
             }
         });
     },
-
-    triggerapplyFilter: function () {
-        $('.plp-grid-overlay').click(
-            function (e) {
-            $(this).trigger('search:applyFilter');
-        });
-    },
+    // Custom end: this method will work for desktop and mobile filters
 
     showContentTab: function () {
         // Display content results from the search
@@ -1859,7 +1780,6 @@ module.exports = {
             $(".plp-filter-bar .plp-filter-btn").not($(this)).removeClass('active');
             $(".filter-group").not($(this).next()).removeClass('active loaded');
             $(".plp-active-filter").not($(this).next().children('.plp-active-filter')).removeClass('loaded');
-            // $('.plp-active-filter-selected').toggleClass('d-none');
             $(button).hasClass('active') ? $('.plp-active-filter-selected').removeClass('d-none') : $('.plp-active-filter-selected').addClass('d-none');
         });
 
@@ -1938,9 +1858,8 @@ module.exports = {
                 $('' + menu + ' .mobile-selection:not(.acitve) .mobile-active-filters, ' + menu + ' .mobile-selection:not(.acitve) .mobile-active-actions').addClass('skip-animation');
             }, 300);
         });
-                                // mobile-menu-close
+        // Custom start: Mobile filters popup close on x button
         $(document).on("click", '.mobile-menu-close-filters, .mobile-close-menu', function(e) {
-            alert('working');
             var isParent = $(this).closest('.mobile-menu-close');
             var  menuClose = isParent.data('close-menu');
             $(''+ menuClose +'').removeClass('active').addClass('disable-events');
@@ -1951,7 +1870,7 @@ module.exports = {
 
             $('.mobile-selection .mobile-active-filters, .mobile-selection .mobile-active-actions').removeClass('skip-animation loaded');
         });
-
+        // Custom end: Mobile filters popup close on x button
         $(document).on("click", '.mobile-selection .mobile-menu-close', function(e) {
             $('.mobile-filter-sort-redesign').addClass('filter-open');
         });

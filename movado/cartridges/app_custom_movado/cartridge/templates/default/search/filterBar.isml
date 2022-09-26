@@ -18,7 +18,6 @@
 <iselse>
 <ul class="selected-filter-bar">
     <isloop items="${pdict.productSearch.selectedFilters}" var="refinement">
-    <iscomment> ${JSON.stringify(refinement)} </iscomment>
             <li class="filter-value added-filter-bar" data-filter-id="${refinement.id ? refinement.id : refinement.type}" data-added-filter-bar="${refinement.type == 'promotion' ? refinement.value : refinement.displayValue}" title="${refinement.title}">
                 <a href="">
                     ${refinement.displayValue}

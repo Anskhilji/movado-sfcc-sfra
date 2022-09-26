@@ -36,14 +36,11 @@
                     justify-content: flex-start;
                     align-content: space-around;
                     align-items: flex-start;
-                    // z-index: 9999999;
-                    // top: rem(75);
 
                     &.sticky {
                         padding-left: 0;
                         height: fit-content;
                         padding: rem(20) rem(0);
-                        // padding: rem(7) rem(0);
                     }
 
                     .active-filters {
@@ -1568,7 +1565,7 @@
                     box-sizing: border-box;
                     height: rem(25);
                     margin: 0 rem(4) rem(10) 0;
-                    padding: 0 0.9375rem 0 0.9375rem;
+                    padding: 0 rem(0.9375) 0 rem(0.9375);
                     margin-left: rem(10);
                     border: rem(1) solid rgba(83, 197, 110, 0.55);
                     border-radius: rem(13);

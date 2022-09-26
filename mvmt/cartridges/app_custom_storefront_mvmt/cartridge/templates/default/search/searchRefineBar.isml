@@ -25,7 +25,6 @@
 </div>
 
 <iscomment> Mobile Filter Redesign </iscomment>
-
 <div class="mobile-filter mobile-filter-redesign">
     <div class="mvmt-redesign-filter-bar">
         <div class="mvmt-redesign-filter-inner">
@@ -59,7 +58,7 @@
             </div>
         </div>
     </div>
-<iscomment> mobile filter menu </iscomment>
+<iscomment> Mobile filters menu </iscomment>
     <div class="mobile-filter-container">
         <div class="mobile-filter-menu mobile-menu-container-main">
             <div class="mobile-filter-options">
@@ -121,7 +120,7 @@
                 </isloop>
             </div>
         </div>
-        <iscomment> mobile sort menu </iscomment>
+        <iscomment> Mobile sort filters menu </iscomment>
         <div class="mobile-sort-menu mobile-sort-menu-container">
             <div data-mobile-close-filters="" class="mobile-menu-close mobile-menu-filter-close for sort" data-close-menu=".mobile-sort-menu">
                 <svg width="12" class="mobile-menu-close-filters" height="10" viewBox="0 0 12 10" xmlns="http://www.w3.org/2000/svg">
@@ -243,7 +242,7 @@
 <isif condition="${pdict.productSearch.category}">
     <isslot id="slot-straps-mvmt" description="Strap MVMT products" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}" />
 </isif>
-<iscomment> 3 </iscomment>
+<iscomment> Desktop filters menu </iscomment>
 <div class="refine-wrapper plp-filter-redesign filters-apply-main">
     <div class="plp-filter-bar">
         <div class="plp-filter-bar-inner ">
