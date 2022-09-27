@@ -1,5 +1,6 @@
 'use strict';
 
+const { event } = require('jquery');
 var swatches = require('movado/utilities/swatches');
 var initiallyLoadedProducts = $('.product-grid').data('initial-products');
 var isInfiniteScrollEnabled = $('.mvmt-plp.container-fluid').data('infinte-scroll-enabled');
@@ -394,6 +395,23 @@ function bulidLifeStyleCarousel() {
         });
     });
 }
+
+// onscroll add class for filter popup
+function filterScroll() {
+    $(".mobile-selection-group").scroll(function() {
+        var scroll = $(this).scrollTop();
+        if (scroll > 50) {
+            $('.filter-scroll').addClass("scrolled");
+        } else {
+            $('.filter-scroll').removeClass("scrolled");
+        }
+    });
+}
+
+$(document).ready(function () {
+    filterScroll();
+});
+// onscroll add class for filter popup end
 
 /**
  * Adds page start and size to page URL for pagination
@@ -1526,12 +1544,13 @@ module.exports = {
                                     loadMoreIndex = $('#product-search-results .product-tile').length - (parseInt(initiallyLoadedProducts / 2) + 1);
                                 }
                                 bulidLifeStyleCarousel();
+                                filterScroll();
                             },
                             error: function () {
                                 $.spinner().stop();
                             }
                         });
-                    }
+                    }                    
                 }
 
             }

@@ -62,7 +62,7 @@
     <div class="mobile-filter-container">
         <div class="mobile-filter-menu mobile-menu-container-main">
             <div class="mobile-filter-options">
-                <div class="plp-active-filter sticky new-design-filter-mobile-sort">
+                <div class="plp-active-filter sticky new-design-filter-mobile-sort filter-scroll">
                     <div class="plp-active-filter-list">
                         <div class="active-filters">
                             <div class="row m-0 filter-bar filter-bar-list">

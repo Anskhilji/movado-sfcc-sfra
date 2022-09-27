@@ -601,6 +601,17 @@
                             z-index: 12;
                             position: relative;
                             top: rem(81);
+                            transition: all 0.4s;
+
+                            &.filter-scroll {
+
+                                &.scrolled {
+                                    top:0;
+                                    background-color: $white-gray;
+                                    margin: 0 auto;
+                                    padding: rem(17) 0;
+                                }
+                            }
                         }
                     }
                 }
@@ -882,6 +893,7 @@
                             
                             .mobile-active-actions {
                                 transform: translateY(0%);
+                                background-color: $white;
                                 @include  media-breakpoint-down(xs) {
                                     flex-wrap: wrap;
                                 }
@@ -1596,7 +1608,7 @@
 
                     .mobile-active-actions {
                         transform: translateY(0%);
-
+                        background-color: $white;
                         @include  media-breakpoint-down(xs) {
                             flex-wrap: wrap;
                         }
