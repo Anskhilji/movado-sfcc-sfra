@@ -7,6 +7,7 @@ var Status = require('dw/system/Status');
 var Promotion = require('dw/campaign/Promotion');
 var PromotionMgr = require('dw/campaign/PromotionMgr');
 var Money = require('dw/value/Money');
+var Currency = require('dw/util/Currency');
 
 /**
  * Get local price books details mentioned in site prefrence.
@@ -17,9 +18,12 @@ function getLocalPriceBooksDetails(localizeObj) {
 
     var localSalePriceBook = localizeObj.promotionalConversion.sale_pricebook.indexOf('SALE') > -1 ? localizeObj.promotionalConversion.sale_pricebook : '';
     var localizePriceBooks = [];
+    var currency;
 
     if (!empty(localSalePriceBook)) {
         var salePriceBookObj = PriceBookMgr.getPriceBook(localSalePriceBook);
+        currency = Currency.getCurrency(salePriceBookObj.currencyCode);
+        session.setCurrency(currency)
         if (salePriceBookObj) {
             localizePriceBooks.push({
                 localPriceBook: salePriceBookObj,
@@ -33,7 +37,6 @@ function getLocalPriceBooksDetails(localizeObj) {
 }
 
 function convertedSalePrice(product,localizeObj) {
-    var Currency = require('dw/util/Currency');
     var salePrice = '';
     var priceBook;
     var PromotionIt;
