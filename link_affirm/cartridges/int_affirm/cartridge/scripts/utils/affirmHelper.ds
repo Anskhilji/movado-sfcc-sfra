@@ -110,7 +110,7 @@ function postProcess(order){
 				Transaction.wrap(function(){
 					affirm.order.captureOrder(order.custom.AffirmExternalId, order.orderNo);
 					order.custom.AffirmStatus = 'CAPTURE';
-					if (!Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {
+					if (!Site.current.preferences.custom.SOMIntegrationEnabled) {
 						order.setPaymentStatus(Order.PAYMENT_STATUS_PAID);
 						order.setStatus(Order.ORDER_STATUS_COMPLETED);
 					}
