@@ -15,24 +15,12 @@ var Money = require('dw/value/Money');
  */
 function getLocalPriceBooksDetails(localizeObj) {
 
-    var localListPriceBook = localizeObj.indexOf('LIST') > -1 ? localizeObj : '';
-    var localSalePriceBook = localizeObj.indexOf('ECOM_SALE') > -1 ? localizeObj : '';
+    var localSalePriceBook = localizeObj.promotionalConversion.sale_pricebook.indexOf('SALE') > -1 ? localizeObj.promotionalConversion.sale_pricebook : '';
     var localizePriceBooks = [];
-    var currencyCode = 'USD';
 
-    if (!empty(localListPriceBook)) {
-        var listPriceBookObj = PriceBookMgr.getPriceBook(localListPriceBook);
-        if ((empty(listPriceBookObj)) || (!empty(listPriceBookObj) && listPriceBookObj.getCurrencyCode() === currencyCode)) {
-            localizePriceBooks.push({
-                localPriceBook: listPriceBookObj,
-                type: 'list',
-                id: localListPriceBook
-            });
-        }
-    }
     if (!empty(localSalePriceBook)) {
         var salePriceBookObj = PriceBookMgr.getPriceBook(localSalePriceBook);
-        if ((empty(salePriceBookObj)) || (!empty(salePriceBookObj) && salePriceBookObj.getCurrencyCode() === currencyCode)) {
+        if (salePriceBookObj) {
             localizePriceBooks.push({
                 localPriceBook: salePriceBookObj,
                 type: 'sale',
@@ -40,29 +28,45 @@ function getLocalPriceBooksDetails(localizeObj) {
             });
         }
     }
+
     return localizePriceBooks;
 }
 
-function convertedSalePrice(product) {
+function convertedSalePrice(product,localizeObj) {
     var Currency = require('dw/util/Currency');
     var salePrice = '';
-    var PromotionIt = PromotionMgr.activePromotions.getProductPromotions(product).iterator();
+    var priceBook;
+    var PromotionIt;
+
+    if (product && product.priceModel && product.priceModel.priceInfo && product.priceModel.priceInfo.priceBook) {
+        priceBook = product.priceModel.priceInfo.priceBook.ID;
+    }
+
+    if (priceBook == localizeObj.promotionalConversion.base_pricebook) {
+        PromotionIt = PromotionMgr.activePromotions.getProductPromotions(product).iterator();
+    }
+
     var promotionalPrice = Money.NOT_AVAILABLE;
     var currentPromotionalPrice = Money.NOT_AVAILABLE;
-    
-    while (PromotionIt.hasNext()) {
-        var promo = PromotionIt.next();
-        if (promo.getPromotionClass() != null && promo.getPromotionClass().equals(Promotion.PROMOTION_CLASS_PRODUCT) && !promo.basedOnCoupons) {
-            if (product.optionProduct) {
-                currentPromotionalPrice = promo.getPromotionalPrice(product, product.getOptionModel());
-            } else {
-                currentPromotionalPrice = promo.getPromotionalPrice(product);
-            }
-            if (promotionalPrice.value > currentPromotionalPrice.value && currentPromotionalPrice.value !== 0) {
-                promotionalPrice = currentPromotionalPrice;
-            } else if (promotionalPrice.value == 0) {
-                if ((currentPromotionalPrice.value !== 0 && currentPromotionalPrice.value !== null)) {
+
+    if(PromotionIt){
+        while (PromotionIt.hasNext()) {
+            var promo = PromotionIt.next();
+            if (promo.getPromotionClass() != null && promo.getPromotionClass().equals(Promotion.PROMOTION_CLASS_PRODUCT) && !promo.basedOnCoupons) {
+
+                if (product.optionProduct) {
+                    currentPromotionalPrice = promo.getPromotionalPrice(product, product.getOptionModel());
+                } else {
+                    currentPromotionalPrice = promo.getPromotionalPrice(product);
+                }
+
+                if (promotionalPrice.value > currentPromotionalPrice.value && currentPromotionalPrice.value !== 0) {
                     promotionalPrice = currentPromotionalPrice;
+                } else if (promotionalPrice.value == 0) {
+
+                    if ((currentPromotionalPrice.value !== 0 && currentPromotionalPrice.value !== null)) {
+                        promotionalPrice = currentPromotionalPrice;
+                    }
                 }
             }
         }
@@ -71,7 +75,7 @@ function convertedSalePrice(product) {
     if (promotionalPrice.available) {
         salePrice = promotionalPrice.decimalValue.toString();
     }
-    
+
     return {
         salePrice: salePrice
     };
@@ -95,7 +99,6 @@ function buildPriceBookSchema(writeDirPath, priceBook, localizeObj) {
     psm.setCategoryID('root');
     psm.setRecursiveCategorySearch(true);
     psm.search();
-    var currencyCode = 'USD';
 
     var salableProducts = psm.getProductSearchHits();
 
@@ -116,7 +119,7 @@ function buildPriceBookSchema(writeDirPath, priceBook, localizeObj) {
     priceBookStreamWriter.writeAttribute('pricebook-id', priceBook.id);
     priceBookStreamWriter.writeCharacters('\n');
     priceBookStreamWriter.writeStartElement('currency');
-    priceBookStreamWriter.writeCharacters((!empty(priceBook.localPriceBook)) ? priceBook.localPriceBook.getCurrencyCode() : currencyCode);
+    priceBookStreamWriter.writeCharacters((!empty(priceBook.localPriceBook)) ? priceBook.localPriceBook.getCurrencyCode() : priceBook.localPriceBook.currencyCode);
     priceBookStreamWriter.writeEndElement();
     priceBookStreamWriter.writeCharacters('\n');
     priceBookStreamWriter.writeStartElement('display-name');
@@ -146,7 +149,7 @@ function buildPriceBookSchema(writeDirPath, priceBook, localizeObj) {
         while (salableProducts.hasNext()) {
             products = salableProducts.next().getRepresentedProducts().toArray();
             products.forEach(function (product) { // eslint-disable-line no-loop-func
-                var AdjustedSalePrice = convertedSalePrice(product);
+                var AdjustedSalePrice = convertedSalePrice(product,localizeObj);
                     if (!empty(AdjustedSalePrice.salePrice)) {
                         priceBookStreamWriter.writeStartElement('price-table');
                         priceBookStreamWriter.writeAttribute('product-id', product.getID());
@@ -184,10 +187,9 @@ function execute(args) {
     var Site = require('dw/system/Site').getCurrent();
 
     try {
-        var salePriceBooks = Site.getCurrent().getCustomPreferenceValue('priceBookID');
+        var salePriceBooks = JSON.parse(Site.getCurrent().getCustomPreferenceValue('promotionalPriceBookConverstion'));
         var writeDirPath = args.impexDirPath;
         var totalAssignedProducts;
-
         salePriceBooks.forEach(function (localizeObj) {
             var	localizePriceBooks = getLocalPriceBooksDetails(localizeObj);
             if (!empty(localizePriceBooks)) {
