@@ -261,6 +261,13 @@
       line-height: rem(20);
       text-transform: none;
     }
+
+      .hour-labels {
+        
+          span {
+              letter-spacing: rem(0);
+          }
+      }
   }
 
   .store-hours-title {

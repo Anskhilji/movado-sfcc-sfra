@@ -727,7 +727,7 @@ header {
             }
             &.input-invalid-icon {
                 &.is-invalid {
-                    background-position-x: 93%;
+                    background-position-x: 93.5%;
 
                     @include media-breakpoint-down(sm) {
                         background: none;
