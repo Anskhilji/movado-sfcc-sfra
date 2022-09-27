@@ -105,3 +105,9 @@
 .text-underline-content {
     text-decoration: underline;
 }
+
+.pickup-store-container {
+    @include media-breakpoint-down(xs) {
+        padding: rem(0);
+    }
+}

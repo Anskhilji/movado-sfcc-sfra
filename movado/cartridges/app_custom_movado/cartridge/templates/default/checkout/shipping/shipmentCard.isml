@@ -37,8 +37,10 @@
             </fieldset>
 
             <isif condition="${session.privacy.pickupFromStore}">
-                <div>
-                    <isinclude url="${URLUtils.url('Checkout-CheckoutPickupStore')}" />
+                <div class="row">
+                    <div class="col-12 pickup-store-container">
+                        <isinclude url="${URLUtils.url('Checkout-CheckoutPickupStore')}" />
+                    </div>
                 </div>
             <iselse/>
                 <fieldset class="shipping-method-block mx-shipping-box shipping-method-box-wrapper">
