@@ -79,6 +79,7 @@ $stored-payment-spacing: rem(16);
     padding-left: rem(10);
     padding-right: rem(10);
     padding-bottom: rem(7);
+
     &.card-heading-wrapper {
         padding-left: rem(0)
     }
@@ -209,8 +210,6 @@ $stored-payment-spacing: rem(16);
     padding-top: rem(0);
   }
 }
-
-
 
 .shipping-method {
   text-overflow: ellipsis;
