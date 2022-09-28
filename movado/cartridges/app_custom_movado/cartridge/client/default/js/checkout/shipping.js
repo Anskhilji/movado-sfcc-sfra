@@ -460,7 +460,7 @@ function updateMultiShipInformation(order) {
     $('.shipping-error .alert-danger').remove();
 
     $('input.input-wrapper-checkout,select.custom-select-box').each(function () {
-        if ($(this).val().length > 0 && !$(this).hasClass('.is-invalid')) {
+        if (!empty($(this).val()) && $(this).val().length > 0 && !$(this).hasClass('.is-invalid')) {
             $(this).removeClass('is-invalid');
             $(this).closest('.mx-field-wrapper').find('.info-icon.info-icon-email').removeClass('icon-right-wrapper');
         } else {
