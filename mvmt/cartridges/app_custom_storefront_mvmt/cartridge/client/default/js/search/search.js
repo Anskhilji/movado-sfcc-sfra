@@ -1,6 +1,5 @@
 'use strict';
 
-const { event } = require('jquery');
 var swatches = require('movado/utilities/swatches');
 var initiallyLoadedProducts = $('.product-grid').data('initial-products');
 var isInfiniteScrollEnabled = $('.mvmt-plp.container-fluid').data('infinte-scroll-enabled');
@@ -780,14 +779,6 @@ module.exports = {
                         var filtersURL = params;
                         var currentSelectedSortId = '';
     
-                        if (urlparams.hasOwnProperty('pmid') == true && urlparams.hasOwnProperty('srule') == false && urlparams.hasOwnProperty('q') == false) {
-                            if (urlparams.pmid) {
-                                currentSelectedSortId = urlparams.pmid;
-                                filtersURL = replaceUrlParamPmid(filtersURL, 'pmid', currentSelectedSortId);
-                                
-                            }
-                        }
-    
                         if (urlparams.hasOwnProperty('pmid') == false && urlparams.hasOwnProperty('srule') == true && urlparams.hasOwnProperty('q') == false) {
                             if (urlparams.srule) {
                                 currentSelectedSortId = urlparams.srule;
@@ -1452,14 +1443,6 @@ module.exports = {
                         var urlparams = getUrlParamObj(document.location.href);
                         var filtersURL = params;    
                         var currentSelectedSortId = '';
-    
-                        if (urlparams.hasOwnProperty('pmid') == true && urlparams.hasOwnProperty('srule') == false && urlparams.hasOwnProperty('q') == false) {
-                            if (urlparams.pmid) {
-                                currentSelectedSortId = urlparams.pmid;
-                                filtersURL = replaceUrlParamPmid(filtersURL, 'pmid', currentSelectedSortId);
-                                
-                            }
-                        }
     
                         if (urlparams.hasOwnProperty('pmid') == false && urlparams.hasOwnProperty('srule') == true && urlparams.hasOwnProperty('q') == false) {
                             if (urlparams.srule) {

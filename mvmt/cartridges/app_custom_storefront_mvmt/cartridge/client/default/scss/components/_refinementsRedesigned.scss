@@ -40,23 +40,23 @@
 
                             /* width */
                             &::-webkit-scrollbar {
-                                width: 5px;
-                                height: 5px;
+                                width: rem(5);
+                                height: rem(5);
                             }
                             
                             /* Track */
                             &::-webkit-scrollbar-track {
-                                background: #f1f1f1;
+                                background: $gray8;
                             }
                             
                             /* Handle */
                             &::-webkit-scrollbar-thumb {
-                                background: #888;
+                                background: $gray11;
                             }
                             
                             /* Handle on hover */
                             &::-webkit-scrollbar-thumb:hover {
-                                background: #555;
+                                background: $gray13;
                             }
     
                             .selected-filter-bar {
