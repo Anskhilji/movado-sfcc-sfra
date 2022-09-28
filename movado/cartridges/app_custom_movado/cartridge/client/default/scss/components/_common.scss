@@ -489,6 +489,9 @@ input[type="radio"] {
     margin-top: rem(10);
   }
 
+  .flex-box-promo-code {
+    position: relative;
+  }
   .remove-coupon {
     border: none;
     background: transparent;
@@ -496,6 +499,9 @@ input[type="radio"] {
     font-size: rem(24);
     color: $black;
     margin-left: rem(10);
+    position: absolute;
+    top: 0;
+    right: 0;
   }
 }
 
@@ -672,6 +678,7 @@ header~.container .promotions .callout a{
                         width: rem(16);
                         height: rem(16);
                         margin-left: rem(10);
+                        position: static;
 
                         span {
                             display: none;

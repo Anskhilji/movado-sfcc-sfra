@@ -64,11 +64,24 @@ $stored-payment-spacing: rem(16);
   .card-body {
     padding: rem(15) rem(10);
   }
+
+  .card-border-none-wrapper {
+
+      .card-body {
+
+          &.order-total-summary {
+              padding: 0rem;
+          }
+      }
+  }
   .card-header {
     @extend %card-header;
     padding-left: rem(10);
     padding-right: rem(10);
     padding-bottom: rem(7);
+    &.card-heading-wrapper {
+        padding-left: rem(0)
+    }
   }
   .form-group {
     .form-control-label {
@@ -196,6 +209,8 @@ $stored-payment-spacing: rem(16);
     padding-top: rem(0);
   }
 }
+
+
 
 .shipping-method {
   text-overflow: ellipsis;
