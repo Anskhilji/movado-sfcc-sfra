@@ -1,3 +1,4 @@
+<isset name="isBOPISOrder" value="${pdict.orderObj.custom.BOPIS}" scope="page" />
 <div class="card confirm-details">
     <div class="card-header pickup-store-header">
         <h4 class="heading-four text-uppercase">${Resource.msg('title.receipt', 'confirmation', null)}</h4>
@@ -40,7 +41,6 @@
                 </p>
             </isif>
 
-        <isset name="isBOPISOrder" value="${pdict.orderObj.custom.BOPIS}" scope="page" />
         <isinclude template="checkout/shipping/shippingSummary" />
         <isinclude template="checkout/billing/billingSummary" />
 

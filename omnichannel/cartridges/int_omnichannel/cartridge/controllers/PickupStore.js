@@ -91,14 +91,16 @@ server.post('SetStoreIDSession', function (req, res, next) {
 
 server.get('GetPreferredStore', function (req, res, next) {
     var preferedPickupStore;
-    var isPdp = req.querystring.isPdp || false;
-    var pid = req.querystring.pid;
+    var isPdp = req.querystring.isPdp;
     var address1;
     var phone;
+    var template = null;
+    var pid = req.querystring.pid;
     var stateCode;
     var inventory = 0;
     var productInventoryInStock = 0;
     var productInventoryInCurrentStore;
+
     if (session.privacy.pickupStoreID) {
         preferedPickupStore = StoreMgr.getStore(session.privacy.pickupStoreID);
         address1 = preferedPickupStore.address1;
@@ -111,10 +113,10 @@ server.get('GetPreferredStore', function (req, res, next) {
                 productIds.push(pid);
                 storeArray.push(preferedPickupStore);
                 var productInventoryInStore = omniChannelAPI.omniChannelInvetoryAPI(productIds, storeArray);
-                productInventoryInCurrentStore = productInventoryInStore.success
-                    && productInventoryInStore.response[0].inventory
-                    && productInventoryInStore.response[0].inventory.length > 0
-                    ? productInventoryInStore.response[0].inventory[0].records[0].reserved : 0;
+                productInventoryInCurrentStore = productInventoryInStore.success &&
+                    productInventoryInStore.response[0].inventory &&
+                    productInventoryInStore.response[0].inventory.length > 0 ?
+                    productInventoryInStore.response[0].inventory[0].records[0].reserved : 0;
 
                 productInventoryInStock = productInventoryInStore.success &&
                     productInventoryInStore.response[0].inventory &&
@@ -133,11 +135,14 @@ server.get('GetPreferredStore', function (req, res, next) {
         inventory: productInventoryInCurrentStore,
         inventoryInStock: productInventoryInStock
     }
-    res.render(isPdp ? 'product/components/pdpStorePickUp' : 'modalpopup/modelPopUpButton', {
-        store: store,
-        pid: pid,
-        isPdp: isPdp
 
+    template = 'product/components/pdpStorePickUpRedesign';
+
+    var storeObject = store;
+    res.render(isPdp ? template : 'modalpopup/modelPopUpButton', {
+        storeObject: storeObject,
+        isPdp: isPdp,
+        store: store 
     });
     return next();
 });
