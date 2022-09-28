@@ -106,6 +106,7 @@ function updateStorePickupProductAvailability(data) {
         $('.paypal-btn').addClass('d-none');
         $('.more-ways-text').addClass('d-none');
         $('#shippingMethods').attr('disabled', 'disabled');
+        $('.pickup-store-error').addClass('d-none');
         setTimeout(function () {
             $('.gpay-button').addClass('d-none');
             $('.apple-pay-cart').addClass('d-none');
@@ -115,11 +116,13 @@ function updateStorePickupProductAvailability(data) {
         $('.more-ways-text').addClass('d-none');
         $('.checkout-btn').addClass('disabled');
         $('#shippingMethods').attr('disabled', 'disabled');
+        $('.pickup-store-error').removeClass('d-none');
         setTimeout(function () {
             $('.gpay-button').addClass('d-none');
             $('.apple-pay-cart').addClass('d-none');
         }, 300);
     } else {
+        $('.pickup-store-error').addClass('d-none');
         $('.paypal-btn').removeClass('d-none');
         $('.more-ways-text').removeClass('d-none');
         $('#shippingMethods').removeAttr('disabled');
