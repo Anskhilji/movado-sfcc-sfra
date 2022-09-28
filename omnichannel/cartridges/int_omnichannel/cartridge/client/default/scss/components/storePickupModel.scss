@@ -213,6 +213,10 @@
     line-height: rem(18);
     position: relative;
     bottom: rem(4.80);
+
+    @include media-breakpoint-down(md) {
+        bottom: 0;
+    }
 }
 
 .store-pickup-button {

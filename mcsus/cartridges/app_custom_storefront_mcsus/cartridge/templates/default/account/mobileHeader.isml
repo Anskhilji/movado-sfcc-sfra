@@ -8,11 +8,11 @@
   </li>
 
   <isif condition="${isPickupStoreEnabled}">
-    <li class="nav-item d-lg-none" role="menuitem">
-      <a href="${URLUtils.https('PickupStore-GetStoresList', 'isPdp', pdict.isPdp)}" class="store-pickup-button js-store-modal nav-link">
-        <i class="fa stores-icon" aria-hidden="true"></i>
-        <span class="user-message">${(pdict.storeObject && pdict.storeObject.address1) || Resource.msg('store.pickup.set.your.store.home.btn', 'storePickUp', null)}</span>
-      </a>
+    <li class="nav-item d-flex align-items-center d-lg-none" role="menuitem">
+      <span class="store-pickup-button js-store-modal nav-link d-flex align-items-center" data-url='${URLUtils.https('PickupStore-GetStoresList', 'isPdp', pdict.isPdp)}'>
+          <span class="pickup-store-popup-button mr-3" ></span>
+          <span class="set-your-store">${(session.privacy.storeAddress) || Resource.msg('store.pickup.set.your.store.home.btn', 'storePickUp', null)}</span>
+      </span>
     </li>
   </isif>
 

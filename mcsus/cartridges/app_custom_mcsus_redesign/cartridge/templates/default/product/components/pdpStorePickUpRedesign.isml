@@ -20,7 +20,7 @@
             <div class="pdp-icon-box pdp-store-pickup-display-inline-block-store-icon"></div>
         </isif>
         <div class="pdp-store-pickup-display-inline-block">
-            <h3 class="pick-up-store-available-for-store">${Resource.msg('storepickup.check.available.store.location', 'storePickUp', null)}</h3>
+            <h3 class="pick-up-store-available-for-store">${Resource.msg('storepickup.avalibilty', 'storePickUp', null)}</h3>
             <p class="pick-up-store-available-pickup-stores js-store-modal" data-url='${URLUtils.https('PickupStore-GetStoresList', 'isPdp', pdict.isPdp)}'>${pdict.store.address1 ? pdict.store.address1 + ' ' + (session.privacy.stateCode != undefined ? session.privacy.stateCode + ' ' : '') + (session.privacy.storePostalCode != undefined ? session.privacy.storePostalCode : '') : Resource.msg('storepickup.check.available.store', 'storePickUp', null)}</p>
         </div>
     </div>

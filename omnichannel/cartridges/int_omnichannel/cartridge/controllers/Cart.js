@@ -10,6 +10,7 @@ var omniChannelAPIHelper = require('~/cartridge/scripts/helpers/omniChannelAPIHe
 var StoreMgr = require('dw/catalog/StoreMgr');
 var ShippingMgr = require('dw/order/ShippingMgr');
 var ShippingHelper = require('*/cartridge/scripts/checkout/shippingHelpers');
+var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
 
 var page = module.superModule;
 server.extend(page);
@@ -31,6 +32,14 @@ server.append(
                         while (productLineItemsIterator.hasNext()) {
                             var productLineItem = productLineItemsIterator.next();
                             productIds.push(productLineItem.productID);
+                        }
+
+                        var shippingMethods = ShippingMgr.getAllShippingMethods();
+                        var shipment = currentBasket.defaultShipment
+                        if (session.privacy.pickupFromStore) {
+                            ShippingHelper.selectBOPISShippingMethod(shippingMethods, shipment);
+                        } else {
+                            ShippingHelper.selectShippingMethod(shipment);
                         }
                     }
                 });
@@ -59,6 +68,7 @@ server.append(
 server.post(
     'SetPickupFromStore',
     function (req, res, next) {
+        var CartModel = require('*/cartridge/models/cart');
         var storeFormPickUP = req.form.pickupFromStore == 'true' ? true : false;
         session.privacy.pickupFromStore = storeFormPickUP;
         var viewData = {};
@@ -90,11 +100,17 @@ server.post(
 
                     var shippingMethods = ShippingMgr.getAllShippingMethods();
                     var shipment = currentBasket.defaultShipment
-                    if (session.privacy.pickupFromStore) {
+                    if (storeFormPickUP) {
                         ShippingHelper.selectBOPISShippingMethod(shippingMethods, shipment);
+                    } else {
+                        ShippingHelper.selectShippingMethod(shipment);
                     }
+                    basketCalculationHelpers.calculateTotals(currentBasket);
+                    var cartModel = new CartModel(currentBasket);
+                    viewData.cartModel = cartModel;
                 }
             });
+
             var storeArray = [];
             var preferedPickupStore = StoreMgr.getStore(session.privacy.pickupStoreID);
             storeArray.push(preferedPickupStore);
@@ -123,6 +139,7 @@ server.get(
         var address1;
         var phone;
         var stateCode;
+        var postalCode;
         if (session.privacy.pickupStoreID) {
             preferedPickupStore = StoreMgr.getStore(session.privacy.pickupStoreID);
             address1 = preferedPickupStore.address1;
