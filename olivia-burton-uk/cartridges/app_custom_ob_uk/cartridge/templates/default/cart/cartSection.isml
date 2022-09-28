@@ -84,7 +84,7 @@
             <!---totals, and checkout actions--->
             <div class="col-sm-5 col-md-4 totals">
                 <isinclude template="cart/cartPromoCode" />
-                <div class="coupons-and-promos coupons-wrapper mb-3">
+                <div class="coupons-and-promos coupons-wrapper coupon-card-icon mb-3">
                     <isinclude template="cart/cartCouponDisplay" />
                 </div>
                 <iscomment> Custom Start: Adding ESW cartridge integration </iscomment>

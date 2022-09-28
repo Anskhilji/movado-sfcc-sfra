@@ -489,10 +489,6 @@ input[type="radio"] {
     margin-top: rem(10);
   }
 
-  .flex-box-promo-code {
-    position: relative;
-  }
-
   .remove-coupon {
     border: none;
     background: transparent;
@@ -500,12 +496,21 @@ input[type="radio"] {
     font-size: rem(24);
     color: $black;
     margin-left: rem(10);
+  }
+}
+
+.coupon-card-icon {
+
+  .remove-coupon {
     position: absolute;
     top: 0;
     right: 0;
   }
-}
 
+  .flex-box-promo-code {
+    position: relative;
+  }
+}
 .product-option {
   form {
     button {

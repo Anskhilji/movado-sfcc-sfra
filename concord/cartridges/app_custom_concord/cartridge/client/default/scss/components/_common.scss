@@ -499,6 +499,25 @@ input[type="radio"] {
   }
 }
 
+.coupon-card-icon {
+
+  .remove-coupon {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  .flex-box-promo-code {
+    position: relative;
+  }
+}
+
+.checkout-promo-redesign {
+
+  .remove-coupon {
+    position: unset;
+  }
+}
 .product-option {
   form {
     button {
