@@ -114,7 +114,7 @@ $(document).ready(function() { // eslint-disable-line
         $('body').removeClass('overflow-hidden');
         $('.overlayer-box').removeClass('d-block');
     });
-    
+
     if (window.Resources.PICKUP_FROM_STORE) {
         var form = $('form[name=dwfrm_billing]');
         if (!form) return;
@@ -128,6 +128,5 @@ $(document).ready(function() { // eslint-disable-line
         $('input[name$=_postalCode]', form).val('');
         $('select[name$=_stateCode],input[name$=_stateCode]', form).val('');
         $('select[name$=_country]', form).val('');
-
     }
 });
