@@ -21,7 +21,7 @@
                        <!-- Promos -->
                        <div class="checkout-promo-section checkout-promo-redesign">
                            <isinclude template="checkout/checkoutPromoCode" />
-                            <div class="checkout-coupons-and-promos coupons-wrapper">
+                            <div class="checkout-coupons-and-promos coupons-wrapper coupon-card-icon">
                                 <isloop items="${pdict.totals.discounts}" var="discount">
                                     <isif condition="${discount.type === 'coupon'}">
                                         <isinclude template="cart/cartCouponDisplay" />
