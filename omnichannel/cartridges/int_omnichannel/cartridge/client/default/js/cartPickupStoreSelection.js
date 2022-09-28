@@ -17,10 +17,10 @@ $(document).on('click', '.remove-btn.remove-product, .cart-store-pickup', functi
                 $('.remove-product').attr({'data-store-pickup-available': $isAllItemsAvailable})
                 updateStorePickupProductAvailability(response.viewData);
                 handleAvailabilityOnStore(response.viewData);
-                updateBopisShippingMethods(response.viewData, $pickupFromStore);
+                updateBOPISShippingMethods(response.viewData, $pickupFromStore);
             }else{
                 updateStorePickupProductAvailability(response.viewData);
-                updateBopisShippingMethods(response.viewData, $pickupFromStore);
+                updateBOPISShippingMethods(response.viewData, $pickupFromStore);
             }
             $.spinner().stop();
         },
@@ -30,7 +30,7 @@ $(document).on('click', '.remove-btn.remove-product, .cart-store-pickup', functi
     });
 });
 
-function updateBopisShippingMethods(data, $pickupFromStore) {
+function updateBOPISShippingMethods(data, $pickupFromStore) {
     $('#shippingMethods').empty();
     var shipments = data.cartModel.shipments[0].shippingMethods;
     var html;
