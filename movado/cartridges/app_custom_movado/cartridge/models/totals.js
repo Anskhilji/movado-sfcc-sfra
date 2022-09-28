@@ -73,8 +73,7 @@ function getDiscounts(lineItemContainer) {
         priceAdjustments = collections.map(
             couponLineItem.priceAdjustments, function (priceAdjustment) {
                 return { 
-                    callOutMsg: priceAdjustment.promotion.calloutMsg,
-                    adjustedCoupenPrice: priceAdjustment.netPrice
+                    callOutMsg: priceAdjustment.promotion.calloutMsg
                 };
             });
         discounts[couponLineItem.UUID] = {
@@ -84,7 +83,6 @@ function getDiscounts(lineItemContainer) {
             applied: couponLineItem.applied,
             valid: couponLineItem.valid,
             relationship: priceAdjustments,
-            promotionName: couponLineItem.promotion.ID
         };
     });
 
