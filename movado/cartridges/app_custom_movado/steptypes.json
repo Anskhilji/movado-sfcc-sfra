@@ -1,0 +1,24 @@
+{
+  "step-types": {
+      "script-module-step": [
+          {
+              "@type-id": "custom.GenerateSalePricing",
+              "timeout-in-seconds": "180000",
+              "description": "This job used to generate sale price books.",
+              "module": "app_custom_movado/cartridge/scripts/jobs/GenerateSalePricing.js",
+              "transactional": "true",
+              "function": "execute",
+              "parameters": {
+                  "parameters": [
+                    {
+                  "@name":"impexDirPath",
+                  "@type":"string",
+                  "@required":"true",
+                  "description":"Define IMPEX directory path here."
+                }
+              ]
+              }
+          }
+      ]
+  }
+}
