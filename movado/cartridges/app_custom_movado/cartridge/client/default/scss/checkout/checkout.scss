@@ -139,6 +139,10 @@ span.ship-to-city-st-zip {
                     font-weight: 500;
                     letter-spacing: rem(2);
                     line-height: rem(21);
+
+                    &-main {
+                        margin-bottom: rem(15);
+                    }
                 }
             }
         }
@@ -721,6 +725,15 @@ header {
                     background: none;
                 }
             }
+            &.input-invalid-icon {
+                &.is-invalid {
+                    background-position-x: 93.5%;
+
+                    @include media-breakpoint-down(sm) {
+                        background: none;
+                    }
+                }
+            }
 
             &#shippingState,
             &#shippingCountrydefault,
@@ -808,14 +821,24 @@ header {
     }
 }
 
-.shipping-your-detail {
-    text-transform: uppercase;
-    line-height: rem(18);
-    font-size: rem(14);
-    color: $grey14;
-    font-weight: 500;
-    margin-bottom: rem(15);
-    padding-top: rem(6);
+.shipping-details-label {
+    @include media-breakpoint-down(md) { 
+        padding: rem(0) rem(10);
+    }
+    
+    @include media-breakpoint-down(xs) { 
+        padding: rem(0);
+    }
+
+    .shipping-your-detail {
+        text-transform: uppercase;
+        line-height: rem(18);
+        font-size: rem(14);
+        color: $grey14;
+        font-weight: 500;
+        margin-bottom: rem(15);
+        padding-top: rem(6);
+    }
 }
 .checkout-label-custom {
 
@@ -889,6 +912,14 @@ header {
     text-transform: uppercase;
     margin-top: rem(21);
     margin-bottom: rem(-3);
+
+    &-container {
+        margin: rem(0) auto rem(24) auto;
+
+        @include media-breakpoint-down(xs) {
+            margin: rem(0) auto rem(20) auto;
+        }
+    }
 }
     .container-custom-inner-box {
         max-width: 1440px;
@@ -1180,6 +1211,7 @@ header {
             margin-bottom: rem(24);
             background: transparent;
             margin-top: rem(0);
+            display: block;
 
             @include media-breakpoint-down(xs) {
                 margin-bottom: rem(26.4);
@@ -1402,3 +1434,7 @@ header {
     height: 100%;
 }
 
+:focus {
+    outline: none;
+    box-shadow: none;
+}

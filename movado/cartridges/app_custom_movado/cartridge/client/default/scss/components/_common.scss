@@ -479,10 +479,6 @@ input[type="radio"] {
     text-transform: uppercase;
   }
 
-  .coupon-promotion-relationship {
-    display: none;
-  }
-
   .applied-promotion-discount {
     color: $success;
     float: right;
@@ -493,6 +489,10 @@ input[type="radio"] {
     margin-top: rem(10);
   }
 
+  .flex-box-promo-code {
+    position: relative;
+  }
+
   .remove-coupon {
     border: none;
     background: transparent;
@@ -500,6 +500,9 @@ input[type="radio"] {
     font-size: rem(24);
     color: $black;
     margin-left: rem(10);
+    position: absolute;
+    top: 0;
+    right: 0;
   }
 }
 
@@ -676,6 +679,11 @@ header~.container .promotions .callout a{
                         width: rem(16);
                         height: rem(16);
                         margin-left: rem(10);
+                        position: static;
+
+                        span {
+                            display: none;
+                        }
                     }
                 }
             }
@@ -899,6 +907,14 @@ header~.container .promotions .callout a{
             line-height: rem(24);
             margin-right: rem(20);
             text-transform: uppercase;
+        }
+
+        .coupon-promotion-relationship {
+          display: none;
+        }
+
+        .promotion-information {
+          display: none;
         }
     }
 }

@@ -424,3 +424,216 @@
     box-shadow: none;
     outline: none;
 }
+
+// MSS-1859 New Carousel Template - Product & Recommender Type
+.mcs-product-carousel-redesign {
+
+    width: 100%;
+    overflow: hidden;
+    @include media-breakpoint-down(xs) {
+        padding: 0 rem(4);
+    }
+
+    .product-tile {
+
+        &-plp-container {
+            @include media-breakpoint-up(lg) {
+                padding-bottom: rem(0) !important;
+            }
+
+            &:hover {
+                box-shadow: unset;
+
+                .tile-body {
+                    box-shadow: unset;
+                    margin-bottom: rem(0);
+                    position: relative;
+                }
+            }
+
+            .tile-body {
+                // yotpo rating styling
+                position: static;
+                transform: translateY(0);
+
+                .yotpo {
+                    margin-bottom: rem(8);
+                    width: 100%;
+    
+                    @include media-breakpoint-down(xs) {
+                        margin-bottom: rem(11);
+                    }
+    
+                    .yotpo-display-wrapper {  
+    
+                        .yotpo-bottomline {
+                            margin-bottom: rem(0);
+    
+                            &.star-clickable {
+                                align-items: center;
+                            }
+                        }
+                    }
+    
+                    .text-m {
+                        color: $light-gray3 !important;
+                        font-size: rem(12);
+                        letter-spacing: rem(0);
+                        line-height: rem(14);
+                        font-weight: 400;
+                        margin-left: rem(5);
+                    }
+                }
+    
+                // price styling
+                .price-promotions {
+                    // promotions styling
+                    .promotions {
+                        width: auto;
+
+                        .promo-msg {
+                            &.callout {
+                                margin-bottom: rem(11);
+                            }
+                        }
+                    }
+                }
+    
+                .cta-add-to-cart {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    .mcs-product-carousel-container {
+        margin-top: rem(31);
+
+        @include media-breakpoint-up(xl) {
+            max-width: rem(1280);
+        }
+
+        @include media-breakpoint-down(xs) {
+            padding: rem(0) rem(20);
+        }
+
+        .mcs-product-carousel-row {
+
+            .mcs-product-carousel-column {
+
+                .cs-carousel-wrapper {
+
+                    .carousel-title {
+                        font-size: rem(24);
+                        letter-spacing: 0;
+                        line-height: rem(24);
+                        font-family: $font-regular;
+                        margin-bottom: rem(43);
+                        font-weight: 400;
+
+                        @include media-breakpoint-down(xs) {
+                            font-size: rem(18);
+                            line-height: rem(22);
+                            margin-bottom: rem(35);
+                        }
+                    }
+
+                    .cs-carousel {
+
+                        .slick {
+                            &-slide {
+                                margin: rem(0) rem(6);
+                                @include media-breakpoint-up(xl) {
+                                    margin: rem(0) rem(12.5);
+                                }
+                            }
+                            &-prev , &-next {
+                                top: 50%;
+                                transform: translateY(-50%);
+                            }
+
+                            &-prev {
+                                background-color: transparent;
+                                background-image: url('../images/chevron-left-arrow.svg');
+                                background-size: auto;
+
+                                @include media-breakpoint-up(lg) {
+                                    left: rem(-12.5);
+                                }
+
+                                @include media-breakpoint-up(xl) {
+                                    left: rem(-25);
+                                }
+
+                                @include custom-media-query($large-screen-width) {
+                                    left: rem(-89);
+                                }
+                            }
+
+                            &-next {
+                                background-color: transparent;
+                                background-image: url('../images/chevron-right-arrow.svg');
+                                background-size: auto;
+
+                                @include media-breakpoint-up(lg) {
+                                    right: rem(-12.5);
+                                }
+
+                                @include media-breakpoint-up(xl) {
+                                    right: rem(-25);
+                                }
+
+                                @include custom-media-query($large-screen-width) {
+                                    right: rem(-89);
+                                }
+                            }
+
+                            &-dots {
+                                max-width: rem(300);
+                                margin: 0 auto;
+                                text-align: center;
+                                position: relative;
+
+                                @include media-breakpoint-down(xs) {
+                                    max-width: rem(227);
+                                    bottom: rem(-15);
+                                }
+
+                                li {
+                                    width: 100%;
+                                    height: rem(4);
+                                    margin: 0;
+
+                                    @include media-breakpoint-down(xs) {
+                                        height: rem(2);
+                                    }                                    
+
+                                    button {
+                                        width: 100%;
+                                        border-radius: 0;
+                                        height: rem(4);
+
+                                        @include media-breakpoint-down(xs) {
+                                            height: rem(2);
+                                        }
+
+                                        &::before {
+                                            content: "";
+                                        }
+                                    }
+
+                                    &.slick-active {
+
+                                        button {
+                                            background-color: $black;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }  
+                }
+            }
+        }
+    }
+}

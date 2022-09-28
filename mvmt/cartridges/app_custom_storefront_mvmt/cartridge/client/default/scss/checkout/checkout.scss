@@ -963,6 +963,8 @@ header {
                 &.card-summary-wrapper-container {
                     margin-bottom: rem(26);
                     margin-top: rem(0);
+                    display: block;
+                    
                     @include media-breakpoint-down(sm) {
                         margin-bottom: rem(30);
                     }
@@ -1027,10 +1029,6 @@ header {
                                             &.order-discount-total {
                                                 color: $gossamer2;
                                                 background-color: transparent;
-                                            }
-                
-                                            &.shipping-total-cost {
-                                                color: $gossamer2;
                                             }
                                         }
                                     }
@@ -1277,10 +1275,10 @@ header {
                                     
                                     .item-model {
                                         color: $light-black;
-                                        font-size: rem(14);
+                                        font-size: rem(12);
                                         font-weight: 500;
                                         letter-spacing: rem(1);
-                                        line-height: rem(18);
+                                        line-height: rem(10);
 
                                         @include media-breakpoint-down(xs) {
                                             line-height: rem(10);
@@ -1551,4 +1549,9 @@ header {
     justify-content: space-between;
     flex-direction: column;
     height: 100%;
+}
+
+:focus {
+    outline: none;
+    box-shadow: none;
 }

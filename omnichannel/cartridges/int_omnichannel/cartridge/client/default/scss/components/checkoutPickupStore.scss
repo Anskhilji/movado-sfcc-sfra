@@ -52,25 +52,39 @@
     &-text {
         max-width: rem(200);
         margin: auto;
+
+        @include media-breakpoint-down(xs) {
+            max-width: 100%;
+        }
     }
 }
 
 .store-hours {
-    margin-top: rem(20);
 
     .hour-labels {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        max-width: rem(202);
         margin-bottom: rem(5);
+
         span {
             color: $light-black;
             font-size: rem(14);
             font-weight: 300;
             letter-spacing: rem(1);
             line-height: rem(24);
-            min-width: rem(100);
+        }
+    }
+
+    &-container {
+        max-width: rem(210);
+
+        .hour-labels {
+            max-width: rem(202);
+
+            span {
+                min-width: rem(100);
+            }
         }
     }
 }
@@ -90,4 +104,10 @@
 
 .text-underline-content {
     text-decoration: underline;
+}
+
+.pickup-store-container {
+    @include media-breakpoint-down(xs) {
+        padding: rem(0);
+    }
 }

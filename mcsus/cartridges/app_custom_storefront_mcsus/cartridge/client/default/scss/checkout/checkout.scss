@@ -264,6 +264,10 @@ header {
             @include media-breakpoint-up(lg){
               font-size: rem(20);
             }
+            &.heading-content-label {
+                margin-bottom: rem(20);
+                font-size: rem(15);
+            }
           }
         }
     }
@@ -691,4 +695,9 @@ header {
             }
         }
     }
+}
+
+:focus {
+    outline: none;
+    box-shadow: none;
 }
