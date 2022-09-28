@@ -17,10 +17,14 @@ $(document).on('click', '.remove-btn.remove-product, .cart-store-pickup', functi
                 $('.remove-product').attr({'data-store-pickup-available': $isAllItemsAvailable})
                 updateStorePickupProductAvailability(response.viewData);
                 handleAvailabilityOnStore(response.viewData);
-                updateBOPISShippingMethods(response.viewData, $pickupFromStore);
+                if (response.viewData !== '' && response.viewData !== undefined) {
+                    updateBOPISShippingMethods(response.viewData, $pickupFromStore);
+                }
             }else{
                 updateStorePickupProductAvailability(response.viewData);
-                updateBOPISShippingMethods(response.viewData, $pickupFromStore);
+                if (response.viewData !== '' && response.viewData !== undefined) {
+                    updateBOPISShippingMethods(response.viewData, $pickupFromStore);
+                }
             }
             $.spinner().stop();
         },
@@ -32,21 +36,25 @@ $(document).on('click', '.remove-btn.remove-product, .cart-store-pickup', functi
 
 function updateBOPISShippingMethods(data, $pickupFromStore) {
     $('#shippingMethods').empty();
-    var shipments = data.cartModel.shipments[0].shippingMethods;
+    var shipments = data ? data.cartModel.shipments[0].shippingMethods : '';
     var html;
-    shipments.forEach(function (shipment) {
-        if (data.cartModel.shipments[0].selectedShippingMethod === shipment.ID) { 
-            var selected = 'selected';
-        }
-        html += '<option '+ selected +' data-shipping-id='+ shipment.ID +'>'
-        + (shipment.displayName ? shipment.displayName : '') + ' ' + (shipment.estimatedArrivalTime ? shipment.estimatedArrivalTime : '')
-        + '</option>';
-        $('#shippingMethods').empty().append(html);
-    });
+    if (shipments !== undefined && shipments !== '') {
+        shipments.forEach(function (shipment) {
+            if (data.cartModel.shipments[0].selectedShippingMethod === shipment.ID) { 
+                var selected = 'selected';
+            }
+            html += '<option '+ selected +' data-shipping-id='+ shipment.ID +'>'
+            + (shipment.displayName ? shipment.displayName : '') + ' ' + (shipment.estimatedArrivalTime ? shipment.estimatedArrivalTime : '')
+            + '</option>';
+            $('#shippingMethods').empty().append(html);
+        });
+    }
 
-    var shippingTotal = data.cartModel.totals.totalShippingCost;
-    if (data.cartModel.shipments[0].selectedShippingMethod !== null) {
-        $('.shipping-cost').empty().append(shippingTotal);
+    var shippingTotal = data ? data.cartModel.totals.totalShippingCost : '';
+    if (shippingTotal !== undefined && shippingTotal !== '') {
+        if (data.cartModel.shipments[0].selectedShippingMethod !== undefined) {
+            $('.shipping-cost').empty().append(shippingTotal);
+        }
     }
  
     if ($pickupFromStore) {

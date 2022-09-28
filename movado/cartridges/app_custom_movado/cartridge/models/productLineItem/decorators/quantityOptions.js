@@ -27,7 +27,7 @@ function getMinMaxQuantityOptions(productLineItem, quantity) {
     if (productLineItem.productInventoryListID) {
         var inventoryList = ProductInventoryMgr.getInventoryList(productLineItem.productInventoryListID);
         var inventoryRecord = inventoryList.getRecord(productLineItem.product.ID);
-        availableToSell = inventoryRecord.ATS.value;
+        availableToSell = inventoryRecord ? inventoryRecord.ATS.value : '';
     }
 
     var max = Math.max(Math.min(availableToSell, 10), quantity);
