@@ -46,7 +46,7 @@ function PriceObject(productSearch,
         });
         return priceObj;
     }
-    // PriceRefinementValueWrapper(productSearch, refinementDefinition, value);
+    
     return priceModel;
 }
 
