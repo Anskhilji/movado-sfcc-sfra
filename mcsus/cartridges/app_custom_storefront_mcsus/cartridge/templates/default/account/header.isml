@@ -13,6 +13,9 @@
   <div class="user hidden-md-down" tabindex="0">
     <i class="login-icon"></i>
     <span class="user-message">${pdict.name}</span>
+    <isif condition="${isPickupStoreEnabled}">
+      <isinclude template="modalpopup/modelPopUpButton"/>
+    </isif>
     <div class="popover popover-bottom">
       <a href="${URLUtils.https('Account-Show')}">${Resource.msg('link.header.myaccount', 'account', null)}</a>
       <a href="${URLUtils.https('Wishlist-Show')}">

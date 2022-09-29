@@ -2,21 +2,21 @@
 <select name="addressSelector"
         class="addressSelector custom-select form-control custom-select-box"
         data-create-shipment-url="${URLUtils.https('Checkout-SetBillingAddress')}">
-        <isif condition="${session.privacy.pickupFromStore && billingAddress}">
-             <option value="new" data-first-name="" data-last-name="" data-company-name="" data-address1="" data-address2=""
-                data-city="" data-state-code="" data-country-code="" data-postal-code="" data-phone="">
-                ${Resource.msg('msg.new.address', 'checkout', null)}
-            </option>
-        <iselse/>
-            <option value="new" data-first-name="${billingAddress.firstName || ''}"
-                data-last-name="${billingAddress.lastName || ''}" data-company-name="${billingAddress.companyName || ''}"
-                data-address1="${billingAddress.address1 || ''}" data-address2="${billingAddress.address2 || ''}"
-                data-city="${billingAddress.city || ''}" data-state-code="${billingAddress.stateCode}"
-                data-country-code="${billingAddress.countryCode ? billingAddress.countryCode.value : ''}"
-                data-postal-code="${billingAddress.postalCode}" data-phone="${billingAddress.phone}">
-                ${Resource.msg('msg.new.address', 'checkout', null)}
-            </option>
-        </isif>
+    <isif condition="${session.privacy.pickupFromStore && !billingAddress}">
+        <option value="new" data-first-name="" data-last-name="" data-company-name="" data-address1="" data-address2=""
+            data-city="" data-state-code="" data-country-code="" data-postal-code="" data-phone="">
+            ${Resource.msg('msg.new.address', 'checkout', null)}
+        </option>
+    <iselse/>
+        <option value="new" data-first-name="${billingAddress.firstName || ''}"
+            data-last-name="${billingAddress.lastName || ''}" data-company-name="${billingAddress.companyName || ''}"
+            data-address1="${billingAddress.address1 || ''}" data-address2="${billingAddress.address2 || ''}"
+            data-city="${billingAddress.city || ''}" data-state-code="${billingAddress.stateCode}"
+            data-country-code="${billingAddress.countryCode ? billingAddress.countryCode.value : ''}"
+            data-postal-code="${billingAddress.postalCode}" data-phone="${billingAddress.phone}">
+            ${Resource.msg('msg.new.address', 'checkout', null)}
+        </option>
+    </isif>
     <isif condition="${!session.privacy.pickupFromStore && (pdict.order.billing.matchingAddressId || !billingAddress)}">
         <option value="new"
             data-first-name="" data-last-name="" data-company-name=""
@@ -46,10 +46,9 @@
          ${billingAddress.stateCode||''}
          ${billingAddress.postalCode||''}
         </option>
-    </iselseif>
     </isif>
     <isinclude template="checkout/billing/addressSelectorShipping">
-    <isif condition="${pdict.customer.addresses && pdict.customer.addresses.length > 1}">
+    <isif condition="${pdict.customer.addresses}">
         <option disabled>${Resource.msg('msg.account.addresses', 'checkout', null)}</option>
         <isloop items="${pdict.customer.addresses}" var="address">
             <option value="${address.ID}"

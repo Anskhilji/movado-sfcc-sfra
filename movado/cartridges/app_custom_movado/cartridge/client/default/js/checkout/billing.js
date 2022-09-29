@@ -14,52 +14,102 @@ function updateBillingAddressSelector(order, customer) {
     var form = $('form[name$=billing]')[0];
     var $billingAddressSelector = $('.addressSelector', form);
     var hasSelectedAddress = false;
- 
-    if (!Resources.PICKUP_FROM_STORE && $billingAddressSelector && $billingAddressSelector.length === 1) {
-        $billingAddressSelector.empty();
-    // Add New Address option
-        $billingAddressSelector.append(addressHelpers.methods.optionValueForAddress(
-        null,
-        false,
-        order,
-        { type: 'billing' }));
-
-    // Separator -
-        $billingAddressSelector.append(addressHelpers.methods.optionValueForAddress(
-        order.resources.shippingAddresses, false, order, {
-          // className: 'multi-shipping',
-            type: 'billing'
-        }
-    ));
-
-        shippings.forEach(function (aShipping) {
-            var isSelected = order.billing.matchingAddressId === aShipping.UUID;
-            hasSelectedAddress = hasSelectedAddress || isSelected;
-      // Shipping Address option
-            $billingAddressSelector.append(
-          addressHelpers.methods.optionValueForAddress(aShipping, isSelected, order,
-              {
-            // className: 'multi-shipping',
-                  type: 'billing'
-              }
-          )
-      );
-        });
-
-        if (customer.addresses && customer.addresses.length > 0) {
+    var customerData = $('.submit-shipping').data('customer');
+    if (!customerData) {
+        if (!Resources.PICKUP_FROM_STORE && $billingAddressSelector && $billingAddressSelector.length === 1) {
+            $billingAddressSelector.empty();
+        // Add New Address option
             $billingAddressSelector.append(addressHelpers.methods.optionValueForAddress(
-          order.resources.accountAddresses, false, order));
-            customer.addresses.forEach(function (address) {
-                var isSelected = order.billing.matchingAddressId === address.ID;
+            null,
+            false,
+            order,
+            { type: 'billing' }));
+    
+        // Separator -
+            $billingAddressSelector.append(addressHelpers.methods.optionValueForAddress(
+            order.resources.shippingAddresses, false, order, {
+              // className: 'multi-shipping',
+                type: 'billing'
+            }
+        ));
+    
+            shippings.forEach(function (aShipping) {
+                var isSelected = order.billing.matchingAddressId === aShipping.UUID;
                 hasSelectedAddress = hasSelectedAddress || isSelected;
-        // Customer Address option
+          // Shipping Address option
                 $billingAddressSelector.append(
-            addressHelpers.methods.optionValueForAddress({
-                UUID: 'ab_' + address.ID,
-                shippingAddress: address
-            }, isSelected, order, { type: 'billing' })
-        );
+              addressHelpers.methods.optionValueForAddress(aShipping, isSelected, order,
+                  {
+                // className: 'multi-shipping',
+                      type: 'billing'
+                  }
+              )
+          );
             });
+    
+            if (customer.addresses && customer.addresses.length > 0) {
+                $billingAddressSelector.append(addressHelpers.methods.optionValueForAddress(
+              order.resources.accountAddresses, false, order));
+                customer.addresses.forEach(function (address) {
+                    var isSelected = order.billing.matchingAddressId === address.ID;
+                    hasSelectedAddress = hasSelectedAddress || isSelected;
+            // Customer Address option
+                    $billingAddressSelector.append(
+                addressHelpers.methods.optionValueForAddress({
+                    UUID: 'ab_' + address.ID,
+                    shippingAddress: address
+                }, isSelected, order, { type: 'billing' })
+            );
+                });
+            }
+        }
+    } else {
+        if ($billingAddressSelector && $billingAddressSelector.length === 1) {
+            $billingAddressSelector.empty();
+        // Add New Address option
+            $billingAddressSelector.append(addressHelpers.methods.optionValueForAddress(
+            null,
+            false,
+            order,
+            { type: 'billing' }));
+    
+        // Separator -
+            $billingAddressSelector.append(addressHelpers.methods.optionValueForAddress(
+            order.resources.shippingAddresses, false, order, {
+              // className: 'multi-shipping',
+                type: 'billing'
+            }
+        ));
+    
+            shippings.forEach(function (aShipping) {
+                var isSelected = order.billing.matchingAddressId === aShipping.UUID;
+                hasSelectedAddress = hasSelectedAddress || isSelected;
+          // Shipping Address option
+                $billingAddressSelector.append(
+              addressHelpers.methods.optionValueForAddress(aShipping, isSelected, order,
+                  {
+                // className: 'multi-shipping',
+                      type: 'billing'
+                  }
+              )
+          );
+            });
+    
+            if (customer.addresses && customer.addresses.length > 0) {
+                $billingAddressSelector.append(addressHelpers.methods.optionValueForAddress(
+              order.resources.accountAddresses, false, order));
+                customer.addresses.forEach(function (address) {
+                    var isSelected = order.billing.matchingAddressId === address.ID;
+                    hasSelectedAddress = hasSelectedAddress || isSelected;
+            // Customer Address option
+                    $billingAddressSelector.append(
+                addressHelpers.methods.optionValueForAddress({
+                    UUID: 'ab_' + address.ID,
+                    shippingAddress: address
+                }, isSelected, order, { type: 'billing' })
+            );
+                });
+            }
         }
     }
 
