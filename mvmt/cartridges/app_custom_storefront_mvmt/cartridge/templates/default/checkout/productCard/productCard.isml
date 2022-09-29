@@ -1,0 +1,177 @@
+<div class="card product-line-item product-card-wrapper" data-product-line-item="${lineItem.UUID}">
+    <div class="line-item-header">
+        <isif condition=${miniCart}>
+            <isinclude template="checkout/productCard/productCardProductNameAndRemove" />
+        <iselse>
+            <isinclude template="checkout/productCard/productCardProductName" />
+        </isif>
+    </div>
+    <isif condition="${lineItem.productType === 'bundle'}">
+        <div class="bundle-includes">${Resource.msg('msg.bundle.includes','cart',null)}</div>
+        <!--- individual bundled line items --->
+        <isinclude template="cart/productCard/cartProductCardBundledItems" />
+    <iselse/>
+        <div class="product-line-item-details item-info d-flex flex-row">
+            <div class="item-image">
+                <iscomment> Custom Start: Clyde Integration</iscomment>
+                    <isif condition="${dw.system.Site.current.preferences.custom.isClydeEnabled}">
+                        <isif condition="${(lineItem.productName).substring(0, 13) === 'clydeContract'}">
+                            <img class="product-image" src="${URLUtils.staticURL('/images/clyde.png')}" alt="${lineItem.productName}" title="${lineItem.productName}">
+                        <iselse/>
+                            <img class="product-image"
+                                src="${!empty(lineItem.images) && !empty(lineItem.images.tile150[0]) && !empty(lineItem.images.tile150[0].url) ? lineItem.images.tile150[0].url : ''}"
+                                alt="${!empty(lineItem.images) && !empty(lineItem.images.tile150[0]) && !empty(lineItem.images.tile150[0].alt) ? lineItem.images.tile150[0].alt : ''}"
+                                title="${!empty(lineItem.images) && !empty(lineItem.images.tile150[0]) && !empty(lineItem.images.tile150[0].title) ? lineItem.images.tile150[0].title : ''}">
+                        </isif>
+                    <iselse/>
+                        <img class="product-image"
+                            src="${!empty(lineItem.images) && !empty(lineItem.images.tile150[0]) && !empty(lineItem.images.tile150[0].url) ? lineItem.images.tile150[0].url : ''}"
+                            alt="${!empty(lineItem.images) && !empty(lineItem.images.tile150[0]) && !empty(lineItem.images.tile150[0].alt) ? lineItem.images.tile150[0].alt : ''}"
+                            title="${!empty(lineItem.images) && !empty(lineItem.images.tile150[0]) && !empty(lineItem.images.tile150[0].title) ? lineItem.images.tile150[0].title : ''}">
+                    </isif>
+                <iscomment> Custom End: </iscomment>
+            </div>
+            <div class="item-attributes flex-column">
+
+                <isloop items="${lineItem.variationAttributes}" var="attribute">
+                    <p class="line-item-attributes">${attribute.displayName}: ${attribute.displayValue}</p>
+                </isloop>
+
+                <div class="item-options">
+                    <isloop items="${lineItem.options}" var="option">
+                        <isif condition="${option.optionId != lineItem.resources.Engraved &&
+                        	option.optionId != lineItem.resources.Embossed &&
+                        	option.optionId != lineItem.resources.GiftWrapped}">
+                        	<isif condition="${lineItem.customAttributes['emboss']}">
+                        		<div class="line-item-option">${Resource.msg('label.personalization.debossed', 'confirmation', null)}</div>
+                        	<iselseif condition="${option.optionId != lineItem.resources.Engraved &&
+                        		option.optionId != lineItem.resources.GiftWrapped}" >
+                        		<div class="line-item-option">${Resource.msg('label.personalization.debossed.off', 'confirmation', null)}</div>
+                        	<iselse>
+                        		<div class="line-item-option">${option.displayName}</div>
+                        	</isif>
+                        </isif>
+                        <isif condition="${!empty(option.displayName) && !(option.optionId === 'clydeWarranty')}">
+                             <div class="line-item-option">${option.displayName}</div>
+                        </isif>
+                    </isloop>
+                </div>
+
+                <div class="item-model model-name mb-2">
+                	${lineItem.resources.Model} ${lineItem.id}
+                </div>
+
+                <div class="item-personalization">
+                	<isif condition="${lineItem.customAttributes['engrave']}">
+                		<div class="line-item-option mb-2">
+                			<div class="personalize-price">${Resource.msgf('label.personalization.engrave', 'confirmation', null, lineItem.customAttributes['engrave'].price)}</div>
+                			<div class="personalize-msg">${lineItem.customAttributes['engrave'].msgLine1}
+                                <isif condition="${lineItem.customAttributes['engrave'].msgLine2}">
+                                    <br/>
+                                    ${lineItem.customAttributes['engrave'].msgLine2}
+                                </isif>
+                            </div>
+                		</div>
+                	</isif>
+
+                	<isif condition="${lineItem.customAttributes['emboss']}">
+                		<div class="line-item-option mb-2">
+	                		<div class="personalize-price">${Resource.msgf('label.personalization.deboss', 'confirmation', null, lineItem.customAttributes['emboss'].price)} <span class="personalize-msg">${lineItem.customAttributes['emboss'].msgLine1}</span></div>
+	                	</div>
+                	</isif>
+
+                	<isif condition="${lineItem.customAttributes['giftWrap']}">
+                		<div class="line-item-option mb-2">
+                            <div class="personalize-price">${Resource.msgf('label.personalization.giftWrap', 'confirmation', null, lineItem.customAttributes['giftWrap'].price)}</div>
+                		</div>
+                	</isif>
+
+                	<isif condition="${lineItem.customAttributes['itemLevelGiftMessage']}">
+                		<div class="line-item-option mb-2">
+                            <div class="personalize-price">${Resource.msgf('label.personalization.giftMessage', 'confirmation', null)}</div>
+                			<div class="personalize-msg">${lineItem.customAttributes['itemLevelGiftMessage'].msgLine1}</div>
+                		</div>
+                	</isif>
+
+                	<isif condition="${lineItem.customAttributes['giftMessage']}">
+                		<div class="line-item-option">
+                			<div class="personalize-price">${Resource.msgf('label.personalization.giftMessage', 'confirmation', null)}</div>>
+                			<div class="personalize-msg">${lineItem.customAttributes['giftMessage']}</div>
+                		</div>
+                	</isif>
+                </div>
+
+                <isif condition="${(pdict.order && !pdict.order.orderStatus) || miniCart}">
+                    <isinclude template="cart/productCard/cartProductCardAvailability" />
+                </isif>
+                <div class="item-model mb-2 line-item-attributes">
+                ${Resource.msg('field.selectquantity','cart',null)}:  <span class="line-item-value"> <isprint value="${lineItem.quantity}" formatter="##" /></span>
+                </div>
+
+                <div class="item-total-${lineItem.UUID} price">
+                <isinclude template="checkout/productCard/productCardProductTotalPrice" />
+                </div>
+            </div>
+        </div>
+    </isif>
+
+    <isloop items="${lineItem.options}" var="option">
+        <isif condition="${dw.system.Site.current.preferences.custom.isClydeEnabled}">
+            <isif condition="${!empty(option.displayName) && option.optionId === 'clydeWarranty'}">
+                <div class="product-line-item-details d-flex flex-row">
+                    <div class="item-image">
+                        <img class="product-image" src="${option.imageURL}" alt="${option.displayName}" title="${option.displayName}">
+                    </div>
+                    <div class="item-attributes">
+                        <p class="line-item-attributes">${option.lineItemText}</p>
+                        <isif condition="${!empty(option.price) && !empty(option.adjustedPrice) && option.price == option.adjustedPrice}">
+                                <p class="line-item-attributes clyde-option-price" data-option-id="${option.optionId}" data-value-id="${option.selectedValueId}" data-uuid="${lineItem.UUID}">${(option.price)}</p>
+                            <iselse>
+                                <isif condition="${!empty(option.adjustedPrice)}">
+                                    <p>${option.adjustedPrice}</p>
+                                </isif>
+                        </isif>
+                    </div>
+                </div>
+            </isif>
+        </isif>
+    </isloop>
+
+    <isif condition="${lineItem.productType === 'bundle' && ((pdict.order && !pdict.order.orderStatus) || miniCart)}">
+        <isinclude template="cart/productCard/cartProductCardAvailability" />
+    </isif>
+    <div class="row align-items-start d-none">
+        <!--- item price --->
+        <div class="col-4 d-none line-item-unit-price">
+            <isif condition="${lineItem.price}">
+            <p class="line-item-pricing-info">
+                <span class="line-item-total-text unit-price-label">
+                    ${Resource.msg('label.each.item.price','cart',null)}
+                </span><br/>
+                <isset name="price" value="${lineItem.price}" scope="page"/>
+                <isinclude template="/product/components/pricing/main.isml" />
+            </p>
+            </isif>
+        </div>
+        <!--- quantity --->
+        <div class="col-4 d-none line-item-quantity justify-content-center flex">
+            <isinclude template="checkout/productCard/productCardQuantityDisplay" />
+        </div>
+
+        <!--- line item total price --->
+        <div class="col-4 line-item-total-price justify-content-end">
+            <p class="line-item-pricing-info">
+                <span class="line-item-total-text line-item-total-price-label">
+                    ${Resource.msg('label.total.price','cart',null)}
+                </span>
+            </p>
+            <div class="item-total-${lineItem.UUID} price">
+                <isinclude template="checkout/productCard/productCardProductTotalPrice" />
+            </div>
+        </div>
+    </div>
+
+    <div class="line-item-promo item-${lineItem.UUID}">
+        <isinclude template="checkout/productCard/productCardProductPromotions" />
+    </div>
+</div>

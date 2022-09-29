@@ -62,4 +62,3 @@
         <p class="text-right"><span class="grand-total-sum">${pdict.order.totals.grandTotal}</span></p>
     </div>
 </div>
-

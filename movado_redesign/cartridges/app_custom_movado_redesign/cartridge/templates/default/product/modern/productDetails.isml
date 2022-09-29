@@ -78,7 +78,6 @@
                                 <isset name="price" value="${product.price}" scope="page" />
                                 <isinclude template="product/components/pricing/main" />
                             </div>
-
                             <iscomment> Custom Start: Tax Duties shows when following requirements meet </iscomment>
                             <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
                             <isif condition="${isEswEnabled}" >
@@ -98,7 +97,6 @@
                                     </isif>
                                 </isif>
                             </isif>
-
                             <!-- Applicable Promotions -->
                             <div class="promotions">
                                 <isinclude template="product/components/promotions" />
@@ -158,7 +156,7 @@
         </isif>
         <div class="container-fluid pdp-mobile pdp-v-one recently-viewed">
             <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP" context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}"/>
-        </div
+        </div>
         <isinclude template="product/components/contentAssets" />
 
         <div class="container-fluid pdp-mobile pdp-v-one my-md-5 collection-you-may-like">

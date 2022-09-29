@@ -52,7 +52,7 @@
             <p class="grand-total-label price-label">${Resource.msg('label.cart.grandtotal','cart',null)}</p>
         </div>
         <div class="col-6">
-            <p class="text-right grand-total cost">${empty(totals) || empty(totals.grandTotal) ? '0.00' : totals.grandTotal}</p>
+            <p class="text-right grand-total-sum cost">${empty(totals) || empty(totals.grandTotal) ? '0.00' : totals.grandTotal}</p>
         </div>
     </div>
 </div>
