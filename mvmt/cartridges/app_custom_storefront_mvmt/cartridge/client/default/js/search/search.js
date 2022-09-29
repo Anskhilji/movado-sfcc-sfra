@@ -456,10 +456,13 @@ function moveFocusToTop() {
     }, 600);
 }
 
+// Desktop Filter bar plp: on plp after clicked on filters bar close btn
 function removeSelectedFilterDesktop($element) {
     var isSelectedFilterBar = document.querySelector('.filter-bar-list > .selected-filter-bar');
+
     if (isSelectedFilterBar) {
         var isFilterChildList = isSelectedFilterBar.children.length > 0;
+
         if (!isFilterChildList) {
             $('.filter-group').removeClass('active loaded');
             $('.plp-active-filter').removeClass('loaded');
@@ -665,12 +668,13 @@ function removeSelectedFilterDesktop($element) {
     }
 }
 
+// Mobile Filter bar plp: on plp after clicked on filters bar close btn
 function removeSelectedFilterMobile($element) {
     var isSelectedFilterBar = document.querySelector('.filter-bar-list > .selected-filter-bar');
             
     if (isSelectedFilterBar) {
-
         var isFilterChildList = isSelectedFilterBar.children.length > 0;
+
         if (!isFilterChildList) {
             $('.filter-group').removeClass('active loaded');
             $('.plp-active-filter').removeClass('loaded');
@@ -1457,7 +1461,6 @@ module.exports = {
                         }
 
                     } else if (isSelected && isSquareO == null && isCheckSquare !== null && isCheckCircle == null && isCheckO == null) {
-                        // alert('is check square');
                         var filterElementLabelParent = clicked.parentNode;
                         var selectedFilterId  = filterElementLabelParent.dataset.selectedFilter
                         var slectedFilterBarAll = document.querySelectorAll('.selected-filter-bar');
@@ -1607,7 +1610,6 @@ module.exports = {
                             isSelected.classList.remove('check-filter-selected');
                        }                  
                     } else if (isSelected && isCheckSquare == null && isSquareO !== null && isCheckCircle == null && isCheckO == null) {
-                        // alert('is square o');
                         var isFiltersCheckBox = clicked.querySelector('.filters-checkbox');
                         var filterElement = clicked.parentNode;
                         var isFilterElementFilterId = filterElement.dataset.filterId;
@@ -1682,7 +1684,6 @@ module.exports = {
                                 e.insertAdjacentHTML('beforeend', html);    
                             });
                         } else {
-                            alert('not pmid');
                             if (isFiltersCheckBox) {
                                 var filterElementLabel = filterElement.querySelector('.filter-elements');
                                 filterElementLabel.classList.add('label-selected');
@@ -2335,10 +2336,7 @@ module.exports = {
         });
     },
 
-
-
     mobileSortFilterMenu: function () {
-        // active-filter-closed
         $(document).on("click", '.mobile-filter-sort-redesign, .mobile-filter-btn-list button', function(e) {
             // alert('mobile filter sort');
             var  menu = $(this).data('menu');
