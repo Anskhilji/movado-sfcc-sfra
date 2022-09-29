@@ -2,7 +2,7 @@
 <select name="addressSelector"
         class="addressSelector custom-select form-control custom-select-box"
         data-create-shipment-url="${URLUtils.https('Checkout-SetBillingAddress')}">
-        <isif condition="${session.privacy.pickupFromStore && !billingAddress}">
+        <isif condition="${session.privacy.pickupFromStore && billingAddress}">
              <option value="new" data-first-name="" data-last-name="" data-company-name="" data-address1="" data-address2=""
                 data-city="" data-state-code="" data-country-code="" data-postal-code="" data-phone="">
                 ${Resource.msg('msg.new.address', 'checkout', null)}
