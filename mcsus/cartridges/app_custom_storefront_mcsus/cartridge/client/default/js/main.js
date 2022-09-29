@@ -5,4 +5,5 @@ $(document).ready(function () {
     processInclude(require('./miniCartCustom'));
     processInclude(require('./accountLogout'));
     processInclude(require('./header/header'));
+    processInclude(require('./getClydeWidget'));
 });
