@@ -907,6 +907,10 @@
                                         @include  media-breakpoint-down(xs) {
                                             margin-top: rem(10);
                                         }
+
+                                        &.disabled {
+                                            background-color: $gray11;
+                                        }
                                     }
                                 }
                             }
@@ -1640,6 +1644,10 @@
 
                     @include  media-breakpoint-down(xs) {
                         margin-top: rem(10);
+                    }
+
+                    &.disabled {
+                        background-color: $gray11;
                     }
                 }
             }
