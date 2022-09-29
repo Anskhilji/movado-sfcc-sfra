@@ -26,9 +26,61 @@
                     align-content: space-around;
                     align-items: flex-start;
 
+                    &.plp-active-filter-selected {
+                        z-index: 9999999;
+                        top: rem(75);
+    
+                        &.sticky {
+                            padding-left: 0;
+                            height: fit-content;
+                            padding: rem(7) rem(0) !important;
+                            width: calc(100% - 220px);
+                            overflow-x: auto;
+                            position: absolute;
+
+                            /* width */
+                            &::-webkit-scrollbar {
+                                width: rem(5);
+                                height: rem(5);
+                            }
+                            
+                            /* Track */
+                            &::-webkit-scrollbar-track {
+                                background: $gray8;
+                            }
+                            
+                            /* Handle */
+                            &::-webkit-scrollbar-thumb {
+                                background: $gray11;
+                            }
+                            
+                            /* Handle on hover */
+                            &::-webkit-scrollbar-thumb:hover {
+                                background: $gray13;
+                            }
+    
+                            .selected-filter-bar {
+                                display: flex;
+                                flex-wrap: nowrap;
+                                .filter {
+    
+                                    &-value {
+    
+                                        a { 
+                                            white-space: nowrap;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                     &.sticky {
                         padding-left: 0;
-                        height: fit-content;
+                        height: auto;
+                        max-height: 100%;
+                        padding: rem(10) rem(0);
+                        position: static;
                     }
 
                     .active-filters {
@@ -42,7 +94,7 @@
                                 border: rem(1) solid $light-green10;
                                 border-radius: rem(13);
                                 background-color: $light-green9;
-                                margin-top: rem(20);
+                                margin: rem(10) rem(0) rem(10) rem(20);
 
                                 a {
                                     height: rem(20);
@@ -90,7 +142,7 @@
             .filter-group {
                 padding-left: rem(20);
                 top: rem(41);
-                padding-top: rem(50);
+                padding-top: rem(67);
                 background-color: $white;
 
                 @include media-breakpoint-up(md) {
@@ -508,8 +560,61 @@
                 &>.mobile-filter-menu.active {
                     border-radius: rem(15) rem(15) 0 0;
                     top: 12vh;
+
+                    .mobile-filter-options {
+                        .new-design-filter-mobile-sort {
+                            width: 100%;
+                            overflow-x: auto;
+                            max-width: 85%;
+                            margin: rem(17) auto rem(17) auto;
+                            background: $white-gray;
+
+                            .plp-active-filter-list {
+
+                                .active-filters {
+
+                                    .filter-bar-list {
+
+                                        .selected-filter-bar {
+                                            flex-wrap: nowrap;
+
+                                            .filter-value {
+                                                padding: rem(0) rem(15);
+
+                                                a {
+                                                    white-space: nowrap;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
 
+                .mobile-filter-menu {
+
+                    .mobile-filter-options {
+
+                        .new-design-filter-mobile-sort {
+                            z-index: 12;
+                            position: relative;
+                            top: rem(81);
+                            transition: all 0.4s;
+
+                            &.filter-scroll {
+
+                                &.scrolled {
+                                    top:0;
+                                    background-color: $white-gray;
+                                    margin: 0 auto;
+                                    padding: rem(17) 0;
+                                }
+                            }
+                        }
+                    }
+                }
                 .mobile-sort-menu {
 
                     &.active {
@@ -606,6 +711,36 @@
                                     }
                                 }
 
+                            }
+                        }
+
+                        .filter-redesigned-mobile {
+
+                            .new-design-filter-mobile-sort {
+                                width: 86.3%;
+                                overflow-x: auto;
+                                margin: rem(0) 0 rem(17) rem(-10);
+
+                                .plp-active-filter-list {
+
+                                    .active-filters {
+
+                                        .filter-bar-list {
+
+                                            .selected-filter-bar {
+                                                flex-wrap: nowrap;
+
+                                                .filter-value {
+                                                    padding: rem(0) rem(15);
+
+                                                    a {
+                                                        white-space: nowrap;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -750,6 +885,30 @@
                                 font-size: rem(12);
                                 font-weight: 500;
                                 text-transform: uppercase;
+                            }
+                        }
+                        // clear all botton styled
+                        &.redesign-filter-mobile {
+                            bottom: 13vh;
+                            
+                            .mobile-active-actions {
+                                transform: translateY(0%);
+                                background-color: $white;
+                                @include  media-breakpoint-down(xs) {
+                                    flex-wrap: wrap;
+                                }
+
+                                .mobile-active-shop-btn { 
+
+                                    &-outline {
+                                        background-color: transparent;
+                                        border: rem(1) solid $black;
+                                        color: $black;
+                                        @include  media-breakpoint-down(xs) {
+                                            margin-top: rem(10);
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -897,7 +1056,7 @@
                                             height: rem(40);
                                             width: rem(40);
                                             border: none;
-                                            margin: rem(10) 0 0;
+                                            margin: rem(0) 0 0;
                                         }
 
                                         &-image {
@@ -1195,7 +1354,7 @@
                                 height: rem(46);
 
                                 @include media-breakpoint-down(md) {
-                                    margin: rem(28) 0 0 0;
+                                    margin: rem(0) 0 0 0;
                                 }
 
                                 &.fa-check-square,
@@ -1400,7 +1559,7 @@
                 position: relative;
                 text-align: center;
                 text-transform: uppercase;
-                cursor: pointer;
+                cursor: default;
 
                 svg {
                     width: rem(15);
@@ -1412,6 +1571,7 @@
                     top: auto;
                     transform: translateY(0);
                     order: 2;
+                    cursor: pointer !important;
                 }
 
                 .filter-by-heading {
@@ -1425,6 +1585,11 @@
                     left: auto;
                     display: block;
                     order: 1;
+                    color: $black !important;
+                }
+                
+                &.close {
+                    opacity: 1;
                 }
             }
         }
@@ -1436,6 +1601,19 @@
                 width: 100%;
                 left: 0;
                 bottom: 20.5vh;
+
+                 // clear all botton styled
+                &.redesign-filter-mobile {
+                    bottom: 13vh;
+
+                    .mobile-active-actions {
+                        transform: translateY(0%);
+                        background-color: $white;
+                        @include  media-breakpoint-down(xs) {
+                            flex-wrap: wrap;
+                        }
+                    }
+                }
             }
             &-actions {
                 &.loaded {
@@ -1453,7 +1631,92 @@
                 font-size: rem(12);
                 font-weight: 500;
                 text-transform: uppercase;
+
+                 // clear all botton styled
+                &-outline {
+                    background-color: transparent;
+                    border: rem(1) solid $black;
+                    color: $black;
+
+                    @include  media-breakpoint-down(xs) {
+                        margin-top: rem(10);
+                    }
+                }
             }
         }
+    }
+}
+
+.new-design-filter-mobile-sort {
+    &.plp-active-filter {
+        display: flex;
+        opacity: 1;
+        background: transparent;
+        border: none;
+        left: 0;
+        margin: 0;
+        width: 100%;
+        max-height: 100%;
+        padding: 0;
+
+        .active-filters {
+            width: 100%;
+            flex-wrap: nowrap;
+
+            .filter-bar {
+
+                display: flex;
+                flex-wrap: nowrap;
+
+                ul {
+                    width: calc(100% - rem(31));
+                    flex-wrap: wrap;
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: flex-start;
+                }
+
+                .filter-value {
+                    box-sizing: border-box;
+                    height: rem(25);
+                    margin: 0 rem(4) rem(10) 0;
+                    padding: 0 rem(0.9375) 0 rem(0.9375);
+                    margin-left: rem(10);
+                    border: rem(1) solid rgba(83, 197, 110, 0.55);
+                    border-radius: rem(13);
+                    background-color: rgba(83, 197, 110, 0.07);
+
+                    a {
+                        color: $black;
+                        font-family: $font-book;
+                        font-size: rem(12);
+                        font-weight: 400;
+                        letter-spacing: rem(1);
+                        line-height: rem(20);
+                        padding-left: 0;
+                        padding-right: rem(15);
+
+                        &:before {
+                            height: rem(14);
+                            width: rem(14);
+                            right: rem(5);
+                            left: initial;
+                            top: rem(1);
+                        }
+                    }
+                }
+
+            }
+
+            .reset {
+                display: none;
+            }
+        }
+
+        &-list {
+            flex-basis: 100%;
+            margin-bottom: rem(30);
+        }
+
     }
 }
