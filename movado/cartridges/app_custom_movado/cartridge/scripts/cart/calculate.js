@@ -1,13 +1,14 @@
 /* eslint-disable */
 'use strict';
 
-/** @module calculate */
 /**
+ * @module calculate.js
+ *
  * This javascript file implements methods (via Common.js exports) that are needed by
  * the new (smaller) CalculateCart.ds script file.  This allows OCAPI calls to reference
  * these tools via the OCAPI 'hook' mechanism
+ *
  */
-
 var HashMap = require('dw/util/HashMap');
 var PromotionMgr = require('dw/campaign/PromotionMgr');
 var ShippingMgr = require('dw/order/ShippingMgr');
@@ -103,7 +104,7 @@ exports.calculate = function (basket) {
  *
  * @param {object} basket The basket containing the elements to be computed
  */
-function calculateProductPrices(basket) {
+function calculateProductPrices (basket) {
     // get total quantities for all products contained in the basket
     var productQuantities = basket.getProductQuantities();
     var productQuantitiesIt = productQuantities.keySet().iterator();
@@ -127,7 +128,6 @@ function calculateProductPrices(basket) {
             productLineItem.setPriceValue(productLineItem.basePrice.valueOrNull);
             continue;
         }
-
         // set price when product have salePriceBook 1953 Research creating a new promotion job to build sale Price book
         productLineItem.setGrossPrice(productLineItem.basePrice);
         var adjustments = productLineItem.priceAdjustments;
@@ -135,7 +135,6 @@ function calculateProductPrices(basket) {
             var adjustment = adjustments.iterator().next();
             adjustment.setPriceValue(0);
         }
-
         var product = productLineItem.product;
 
         // handle option line items
@@ -145,14 +144,14 @@ function calculateProductPrices(basket) {
             if (!productLineItem.bonusProductLineItem) {
                 productLineItem.updateOptionPrice();
             }
-            // handle bundle line items, but only if they're not a bonus
+        // handle bundle line items, but only if they're not a bonus
         } else if (productLineItem.bundledProductLineItem) {
             // no price is set for bundled product line items
-            // handle bonus line items
-            // the promotion engine set the price of a bonus product to 0.0
-            // we update this price here to the actual product price just to
-            // provide the total customer savings in the storefront
-            // we have to update the product price as well as the bonus adjustment
+        // handle bonus line items
+        // the promotion engine set the price of a bonus product to 0.0
+        // we update this price here to the actual product price just to
+        // provide the total customer savings in the storefront
+        // we have to update the product price as well as the bonus adjustment
         } else if (productLineItem.bonusProductLineItem && product !== null) {
             var price = product.priceModel.price;
             var adjustedPrice = productLineItem.adjustedPrice;
@@ -168,18 +167,16 @@ function calculateProductPrices(basket) {
             }
 
 
-            // set the product price. Updates the 'basePrice' of the product line item,
-            // and either the 'netPrice' or the 'grossPrice' based on the current taxation
-            // policy
+        // set the product price. Updates the 'basePrice' of the product line item,
+        // and either the 'netPrice' or the 'grossPrice' based on the current taxation
+        // policy
 
-            // handle product line items unrelated to product
+        // handle product line items unrelated to product
         } else if (product === null) {
             productLineItem.setPriceValue(null);
-            // handle normal product line items
+        // handle normal product line items
         } else {
-            if (product.name.substring(0, 13) != 'clydeContract') {
-                productLineItem.setPriceValue(productPrices.get(product).valueOrNull);
-            }
+            productLineItem.setPriceValue(productPrices.get(product).valueOrNull);
         }
     }
 }
@@ -192,7 +189,7 @@ function calculateProductPrices(basket) {
  *
  * @param {object} basket The basket containing the gift certificates
  */
-function calculateGiftCertificatePrices(basket) {
+function calculateGiftCertificatePrices (basket) {
     var giftCertificates = basket.getGiftCertificateLineItems().iterator();
     while (giftCertificates.hasNext()) {
         var giftCertificate = giftCertificates.next();
@@ -200,7 +197,7 @@ function calculateGiftCertificatePrices(basket) {
     }
 }
 
-exports.calculateShipping = function (basket) {
+exports.calculateShipping = function(basket) {
     ShippingMgr.applyShippingCost(basket);
     return new Status(Status.OK);
 }
@@ -224,7 +221,7 @@ exports.calculateShipping = function (basket) {
  *
  * @param {dw.order.Basket} basket The basket containing the elements for which taxes need to be calculated
  */
-exports.calculateTax = function (basket) {
+exports.calculateTax = function(basket) {
     var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
 
     var taxes = basketCalculationHelpers.calculateTaxes(basket);
@@ -233,10 +230,7 @@ exports.calculateTax = function (basket) {
     var taxesMap = {};
 
     taxes.taxes.forEach(function (item) {
-        taxesMap[item.uuid] = {
-            value: item.value,
-            amount: item.amount
-        };
+        taxesMap[item.uuid] = { value: item.value, amount: item.amount };
     });
 
     var lineItems = basket.getAllLineItems();
@@ -275,25 +269,25 @@ exports.calculateTax = function (basket) {
     // this includes order-level shipping price adjustments
     if (!basket.getPriceAdjustments().empty || !basket.getShippingPriceAdjustments().empty) {
         if (collections.first(basket.getPriceAdjustments(), function (priceAdjustment) {
-                return taxesMap[priceAdjustment.UUID] === null;
-            }) || collections.first(basket.getShippingPriceAdjustments(), function (shippingPriceAdjustment) {
-                return taxesMap[shippingPriceAdjustment.UUID] === null;
-            })) {
+            return taxesMap[priceAdjustment.UUID] === null;
+        }) || collections.first(basket.getShippingPriceAdjustments(), function (shippingPriceAdjustment) {
+            return taxesMap[shippingPriceAdjustment.UUID] === null;
+        })) {
             // tax hook didn't provide taxes for global price adjustment, we need to calculate them ourselves.
             // calculate a mix tax rate from
-            var basketPriceAdjustmentsTaxRate = ((basket.getMerchandizeTotalGrossPrice().value + basket.getShippingTotalGrossPrice().value) /
-                (basket.getMerchandizeTotalNetPrice().value + basket.getShippingTotalNetPrice())) - 1;
+            var basketPriceAdjustmentsTaxRate = ((basket.getMerchandizeTotalGrossPrice().value + basket.getShippingTotalGrossPrice().value)
+                / (basket.getMerchandizeTotalNetPrice().value + basket.getShippingTotalNetPrice())) - 1;
 
-            var basketPriceAdjustments = basket.getPriceAdjustments();
-            collections.forEach(basketPriceAdjustments, function (basketPriceAdjustment) {
-                basketPriceAdjustment.updateTax(basketPriceAdjustmentsTaxRate);
-            });
+                var basketPriceAdjustments = basket.getPriceAdjustments();
+                collections.forEach(basketPriceAdjustments, function (basketPriceAdjustment) {
+                    basketPriceAdjustment.updateTax(basketPriceAdjustmentsTaxRate);
+                });
 
-            var basketShippingPriceAdjustments = basket.getShippingPriceAdjustments();
-            collections.forEach(basketShippingPriceAdjustments, function (basketShippingPriceAdjustment) {
-                basketShippingPriceAdjustment.updateTax(totalShippingGrossPrice / totalShippingNetPrice - 1);
-            });
-        }
+                var basketShippingPriceAdjustments = basket.getShippingPriceAdjustments();
+                collections.forEach(basketShippingPriceAdjustments, function(basketShippingPriceAdjustment) {
+                    basketShippingPriceAdjustment.updateTax(totalShippingGrossPrice/totalShippingNetPrice - 1);
+                });
+            }
     }
 
     // if hook returned custom properties attach them to the order model

@@ -13,3 +13,5 @@ exports.CLYDE_WARRANTY_OPTION_ID_NONE = 'NONE';
 exports.PRODUCT_TYPE = 'set';
 exports.PRICE_LOW_TO_HIGH = 'price-low-to-high';
 exports.PRICE_HIGH_TO_LOW = 'price-high-to-low';
+exports.ECOM_SALE_PRICE_BOOK = 'sale';
+exports.PRICE_BOOK_DATE_FORMATE = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
