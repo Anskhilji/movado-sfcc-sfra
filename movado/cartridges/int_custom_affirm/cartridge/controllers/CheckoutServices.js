@@ -125,6 +125,14 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	    return next();
 	  }
 
+	  if (session.privacy.pickupFromStore) {
+		var shippingAddress = currentBasket.defaultShipment.shippingAddress;
+		shippingAddress.setAddress1(session.privacy.storeAddress || '');
+		shippingAddress.setAddress2(session.privacy.storeAddress2 || '');
+		shippingAddress.setPostalCode(session.privacy.storePostalCode || '');
+		shippingAddress.setStateCode(session.privacy.stateCode || '');
+	  }
+
 	  // Check to make sure billing address exists
 	  if (!currentBasket.billingAddress) {
           checkoutLogger.error('(CheckoutServices) -> PlaceOrder: Billing address is not valid');
