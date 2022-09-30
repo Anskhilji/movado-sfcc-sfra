@@ -81,6 +81,7 @@ function updateBillingAddressSelector(order, customer) {
             }
         ));
     
+        if (!Resources.PICKUP_FROM_STORE) {
             shippings.forEach(function (aShipping) {
                 var isSelected = order.billing.matchingAddressId === aShipping.UUID;
                 hasSelectedAddress = hasSelectedAddress || isSelected;
@@ -94,6 +95,7 @@ function updateBillingAddressSelector(order, customer) {
               )
           );
             });
+        }
     
             if (customer.addresses && customer.addresses.length > 0) {
                 $billingAddressSelector.append(addressHelpers.methods.optionValueForAddress(
