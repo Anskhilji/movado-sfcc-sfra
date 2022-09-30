@@ -456,6 +456,444 @@ function moveFocusToTop() {
     }, 600);
 }
 
+// Desktop Filter bar plp: on plp after clicked on filters bar close btn
+function removeSelectedFilterDesktop($element) {
+    var isSelectedFilterBar = document.querySelector('.filter-bar-list > .selected-filter-bar');
+
+    if (isSelectedFilterBar) {
+        var isFilterChildList = isSelectedFilterBar.children.length > 0;
+
+        if (!isFilterChildList) {
+            $('.filter-group').removeClass('active loaded');
+            $('.plp-active-filter').removeClass('loaded');
+            $('.plp-active-filter-selected').addClass('d-none');
+            $('.plp-filter-bar .plp-filter-btn').removeClass('active');
+            $('.plp-grid-overlay').removeClass('active');
+
+            var RemoveUrlParams = getUrlParamObj(document.location.href);
+            var oldUrl = document.location.href;
+            var url = oldUrl.split('?')[0];
+            var urlReload = oldUrl.split('?')[1];
+            var newFilteredUrl = url;
+
+            if (RemoveUrlParams.hasOwnProperty('q') == true) {
+                if (RemoveUrlParams.hasOwnProperty('q') == true && RemoveUrlParams.hasOwnProperty('srule') == false) {
+                    if (RemoveUrlParams.q) {
+                        var queryParamQ = RemoveUrlParams.q;
+                        newFilteredUrl = removeUrlParamsQ(newFilteredUrl, 'q', queryParamQ);
+                    }
+                }
+                if (RemoveUrlParams.hasOwnProperty('q') == true && RemoveUrlParams.hasOwnProperty('srule') == true) {
+                    if (RemoveUrlParams.q) {
+                        var queryParamQ = RemoveUrlParams.q;  
+                        var queryParamSrule = RemoveUrlParams.srule;  
+                        newFilteredUrl = removeUrlParamsQSrule(newFilteredUrl, 'q', queryParamQ, 'srule', queryParamSrule);
+                    }
+                }
+            } else {
+                if (RemoveUrlParams.hasOwnProperty('srule') == true) {
+                    if (RemoveUrlParams.srule) {
+                        var queryParamSrule = RemoveUrlParams.srule;  
+                        newFilteredUrl = removeUrlParamsSrule(newFilteredUrl, 'srule', queryParamSrule);
+                    }
+                }
+            }
+            window.history.pushState({}, '', newFilteredUrl);
+
+            if (urlReload) {
+                window.location.reload();
+            }
+            return;
+        } else {
+            filterLoadInProgress = true;
+
+            var parentSelectorOuter = document.querySelector('.plp-filter-redesign');
+            if (parentSelectorOuter) {
+                var parentSelector = parentSelectorOuter.querySelectorAll('.filter-refinement-container');
+                var prefv = '';
+                var indexValue = 1;
+                var params = '';
+                var pminValue = '';
+                var pmaxValue = '';
+
+                parentSelector.forEach(function (el, index) {
+                    if (el.hasChildNodes()) {
+                        var prefn = el.dataset.filterId;
+                        var childElement = el.querySelectorAll('.filter-element');
+                        
+                        childElement.forEach(function (e, i) {
+                            var hasFilerSelected = e.querySelector('.check-filter-selected');
+
+                            if (hasFilerSelected) {
+                                if (prefv.indexOf('%7C') == -1) {
+                                    prefv +='%7C';
+                                }
+                                if (e.dataset.filterId == 'price') {
+                                    pminValue += e.dataset.valuePmin;
+                                    pmaxValue += e.dataset.valuePmax;
+                                } else {
+                                    prefv += e.dataset.selectedFilter;
+                                }
+                                if (prefv.indexOf('%7C') !== -1) {
+                                    prefv +='%7C';
+                                } 
+                            }
+                        });
+                        if (prefv) {
+                            if (params.indexOf('?') == -1) {
+                                params += '?';
+                            } else {
+                                params +='&';
+                            }
+                            prefv = prefv.slice(3, -3);
+                            if(prefn == "pmid"){
+                                params += `pmid=${prefv}`;
+                                indexValue--;
+                            } else if (prefn == 'price') {
+                                // making url for pmin & pmax example: ?pmin=500.00&pmax=1000.00
+                                if (pminValue !== '' && pmaxValue !== '') {
+                                    params += `pmin=${pminValue}&pmax=${pmaxValue}`;
+                                    indexValue--;
+                                }
+                            }else{
+                                params += `prefn${indexValue}=${prefn}&prefv${indexValue}=${prefv}`;
+                            }
+                            indexValue++;
+                        }
+                        
+                    };
+                    // Example url: ?prefn1=color&prefv1=Brown&prefn2=pmid&prefv2=Product_level_Promotion
+                    prefv = '';
+                });
+
+                
+                var urlparams = getUrlParamObj(document.location.href);
+                var filtersURL = params;
+                var currentSelectedSortId = '';
+
+                if (urlparams.hasOwnProperty('pmid') == false && urlparams.hasOwnProperty('srule') == true && urlparams.hasOwnProperty('q') == false) {
+                    if (urlparams.srule) {
+                        currentSelectedSortId = urlparams.srule;
+                        filtersURL = replaceUrlParamSrule(filtersURL, 'srule', currentSelectedSortId);
+                        
+                    }
+                }
+                // ?prefn1=color&prefv1=Brown%7CGreen&pmid=product_level_promotion&srule=best-sellers
+                if (urlparams.hasOwnProperty('pmid') == true && urlparams.hasOwnProperty('srule') == true && urlparams.hasOwnProperty('q') == false) {
+                    if (urlparams.pmid && urlparams.srule) {
+                        var paramSrule = urlparams.srule;
+                        var paramPmid = urlparams.pmid;
+                        filtersURL = replaceUrlParamPmidSrule(filtersURL, 'pmid', paramPmid, 'srule', paramSrule);
+                    }
+                }
+
+                if (urlparams.hasOwnProperty('pmid') == false && urlparams.hasOwnProperty('srule') == false && urlparams.hasOwnProperty('q') == true) {
+                    if (urlparams.q) {
+                        var paramSearchQuery = urlparams.q;
+                        filtersURL = replaceUrlParamSearchQuery(filtersURL, 'q', paramSearchQuery);
+                    }
+                }
+
+                if (urlparams.hasOwnProperty('pmid') == false && urlparams.hasOwnProperty('srule') == true && urlparams.hasOwnProperty('q') == true) {
+                    if (urlparams.q && urlparams.srule) {
+                        var paramSrule = urlparams.srule;
+                        var paramSearchQuery = urlparams.q;
+                        filtersURL = replaceUrlParamSruleQ(filtersURL, 'srule', paramSrule, 'q', paramSearchQuery);
+                    }
+                }
+
+                if (urlparams.hasOwnProperty('pmid') == true && urlparams.hasOwnProperty('q') == true && urlparams.hasOwnProperty('srule') == false) {
+                    if (urlparams.q) {
+                        var paramSearchQuery = urlparams.q;
+                        var paramPmid = urlparams.pmid;
+                        filtersURL = replaceUrlParamSearchQueryPmid(filtersURL, 'q', paramSearchQuery, 'pmid', paramPmid);
+                    }
+                }
+
+                if (urlparams.hasOwnProperty('pmid') == true && urlparams.hasOwnProperty('q') == true && urlparams.hasOwnProperty('srule') == true) {
+                    if (urlparams.q) {
+                        var paramSearchQuery = urlparams.q;
+                        var paramPmid = urlparams.pmid;
+                        var paramSrule = urlparams.srule;
+                        filtersURL = replaceUrlParamSearchQueryPmidSrule(filtersURL, 'q', paramSearchQuery, 'pmid', paramPmid, 'srule', paramSrule);
+                    }
+                }
+
+                var baseUrl = document.location.href;
+                if (baseUrl.indexOf('?') !== -1) {
+                    baseUrl = baseUrl.split('?')[0];
+                }
+                filtersURL = baseUrl + filtersURL;
+                $.spinner().start();
+                $(this).trigger('search:filter', $element);
+                $.ajax({
+                    url: filtersURL,
+                    data: {
+                        page: $('.grid-footer').data('page-number'),
+                        selectedUrl: filtersURL
+                    },
+                    method: 'GET',
+                    success: function (response) {
+                        var params = '';
+                        var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
+                        $('body').trigger('facet:success', [gtmFacetArray]);
+                        parseResults(response);
+                        updatePageURLForFacets(filtersURL);
+                        $.spinner().stop();
+                        moveFocusToTop();
+                        swatches.showSwatchImages();
+
+                        $('.mobile-filter-menu').removeClass('active');
+                        $('.mobile-sort-menu').removeClass('active').addClass('disable-events');
+                        $('body').removeClass('lock-bg');
+                        $('.mvmt-plp .result-count').removeClass('col-12 col-md-9 col-sm-6 order-sm-2');
+                        $('.mobile-filter-menu').removeClass('active').addClass('disable-events');
+                        $('.mvmt-plp .grid-header .sort-col, .mvmt-plp .grid-header .filter-col').remove();
+                        $('.plp-grid-overlay').removeClass('active');
+                        $('.plp-active-filter-selected').addClass('d-none');
+                        bulidLifeStyleCarousel();
+                        if (isInfiniteScrollEnabled && (isPaginationEnabled == false)) {
+                            loadMoreIndex = $('#product-search-results .product-tile').length - (parseInt(initiallyLoadedProducts / 2) + 1);
+                        }
+
+                    },
+                    error: function () {
+                        $.spinner().stop();
+                        filterLoadInProgress = false;
+                    }
+                });
+            }
+        }
+
+    }
+}
+
+// Mobile Filter bar plp: on plp after clicked on filters bar close btn
+function removeSelectedFilterMobile($element) {
+    var isSelectedFilterBar = document.querySelector('.filter-bar-list > .selected-filter-bar');
+            
+    if (isSelectedFilterBar) {
+        var isFilterChildList = isSelectedFilterBar.children.length > 0;
+
+        if (!isFilterChildList) {
+            $('.filter-group').removeClass('active loaded');
+            $('.plp-active-filter').removeClass('loaded');
+            $('.plp-active-filter-selected').addClass('d-none');
+            $('.plp-filter-bar .plp-filter-btn').removeClass('active');
+            $('.plp-grid-overlay').removeClass('active');
+            $('.mobile-filter-redesign').removeClass('active-filter-closed-mobile');
+            var mobileSortMenu = document.querySelector('.mobile-sort-menu-container');
+            var mobileMenuContainerMain = document.querySelector('.mobile-menu-container-main');
+            var isSortActive = mobileSortMenu.classList.contains('active');
+            var isMobileActive = mobileMenuContainerMain.classList.contains('active');
+            if (isSortActive) {
+                $('.mobile-sort-menu').removeClass('active');
+                $('body').removeClass('lock-bg');
+            } 
+            if (isMobileActive) {
+                mobileMenuContainerMain.classList.remove('active');
+            }
+            var RemoveUrlParams = getUrlParamObj(document.location.href);
+            var oldUrl = document.location.href;
+            var url = oldUrl.split('?')[0];
+            var urlReload = oldUrl.split('?')[1];
+            var newFilteredUrl = url;
+
+            if (RemoveUrlParams.hasOwnProperty('q') == true) {
+                if (RemoveUrlParams.hasOwnProperty('q') == true && RemoveUrlParams.hasOwnProperty('srule') == false) {
+                    if (RemoveUrlParams.q) {
+                        var queryParamQ = RemoveUrlParams.q;
+                        newFilteredUrl = removeUrlParamsQ(newFilteredUrl, 'q', queryParamQ);
+                    }
+                }
+                if (RemoveUrlParams.hasOwnProperty('q') == true && RemoveUrlParams.hasOwnProperty('srule') == true) {
+                    if (RemoveUrlParams.q) {
+                        var queryParamQ = RemoveUrlParams.q;  
+                        var queryParamSrule = RemoveUrlParams.srule;  
+                        newFilteredUrl = removeUrlParamsQSrule(newFilteredUrl, 'q', queryParamQ, 'srule', queryParamSrule);
+                    }
+                }
+            } else {
+                if (RemoveUrlParams.hasOwnProperty('srule') == true) {
+                    if (RemoveUrlParams.srule) {
+                        var queryParamSrule = RemoveUrlParams.srule;  
+                        newFilteredUrl = removeUrlParamsSrule(newFilteredUrl, 'srule', queryParamSrule);
+                    }
+                }
+            }
+            window.history.pushState({}, '', newFilteredUrl);
+
+            if (urlReload) {
+                window.location.reload();
+            }
+            return;
+        } else {
+            filterLoadInProgress = true;
+            var selectedFiltersAll;
+            var mobileSortMenu = document.querySelector('.mobile-sort-menu-container');
+            var isActive = mobileSortMenu.classList.contains('active');
+            if (isActive) {
+                selectedFiltersAll = mobileSortMenu.querySelectorAll('.filter-refinement-container');
+            } else {
+                var mobileMenuContainerMain  = document.querySelector('.mobile-menu-container-main');
+                selectedFiltersAll = mobileMenuContainerMain.querySelectorAll('.filter-refinement-container');
+            }
+
+            if (selectedFiltersAll) {
+                var prefv = '';
+                var indexValue = 1;
+                var params = '';
+                var pminValue = '';
+                var pmaxValue = '';
+
+                selectedFiltersAll.forEach(function (el, index) {
+                        if (el.hasChildNodes()) {
+                            var prefn = el.dataset.filterId;
+                            var childElement = el.querySelectorAll('.filter-element');
+                            
+                            childElement.forEach(function (e, i) {
+                                var hasFilerSelected = e.querySelector('.check-filter-selected');
+
+                                if (hasFilerSelected) {
+                                    if (prefv.indexOf('%7C') == -1) {
+                                        prefv +='%7C';
+                                    }
+                                    if (e.dataset.filterId == 'price') {
+                                        pminValue += e.dataset.valuePmin;
+                                        pmaxValue += e.dataset.valuePmax;
+                                    } else {
+                                        prefv += e.dataset.selectedFilter;
+                                    }
+                                    if (prefv.indexOf('%7C') !== -1) {
+                                        prefv +='%7C';
+                                    } 
+                                }
+                            });
+                            if (prefv) {
+                                if (params.indexOf('?') == -1) {
+                                    params += '?';
+                                } else {
+                                    params +='&';
+                                }
+                                prefv = prefv.slice(3, -3);
+                                if(prefn == "pmid"){
+                                    params += `pmid=${prefv}`;
+                                    indexValue--;
+                                } else if (prefn == 'price') {
+                                    // ?pmin=500.00&pmax=1000.00
+                                    if (pminValue !== '' && pmaxValue !== '') {
+                                        params += `pmin=${pminValue}&pmax=${pmaxValue}`;
+                                        indexValue--;
+                                    }
+                                }else{
+                                    params += `prefn${indexValue}=${prefn}&prefv${indexValue}=${prefv}`;
+                                }
+                                indexValue++;
+                            }
+                            
+                        };
+                    prefv = '';
+                });
+
+                var urlparams = getUrlParamObj(document.location.href);
+                var filtersURL = params;    
+                var currentSelectedSortId = '';
+
+                if (urlparams.hasOwnProperty('pmid') == false && urlparams.hasOwnProperty('srule') == true && urlparams.hasOwnProperty('q') == false) {
+                    if (urlparams.srule) {
+                        currentSelectedSortId = urlparams.srule;
+                        filtersURL = replaceUrlParamSrule(filtersURL, 'srule', currentSelectedSortId);
+                        
+                    }
+                }
+                if (urlparams.hasOwnProperty('pmid') == false && urlparams.hasOwnProperty('srule') == true && urlparams.hasOwnProperty('q') == true) {
+                    if (urlparams.q && urlparams.srule) {
+                        var paramSrule = urlparams.srule;
+                        var paramSearchQuery = urlparams.q;
+                        filtersURL = replaceUrlParamSruleQ(filtersURL, 'srule', paramSrule, 'q', paramSearchQuery);
+                    }
+                }
+                if (urlparams.hasOwnProperty('pmid') == true && urlparams.hasOwnProperty('srule') == true && urlparams.hasOwnProperty('q') == false) {
+                    if (urlparams.pmid && urlparams.srule) {
+                        var paramSrule = urlparams.srule;
+                        var paramPmid = urlparams.pmid;
+                        filtersURL = replaceUrlParamPmidSrule(filtersURL, 'pmid', paramPmid, 'srule', paramSrule);
+                    }
+                }
+
+                if (urlparams.hasOwnProperty('pmid') == false && urlparams.hasOwnProperty('srule') == false && urlparams.hasOwnProperty('q') == true) {
+                    if (urlparams.q) {
+                        var paramSearchQuery = urlparams.q;
+                        filtersURL = replaceUrlParamSearchQuery(filtersURL, 'q', paramSearchQuery);
+                    }
+                }
+
+                if (urlparams.hasOwnProperty('pmid') == true && urlparams.hasOwnProperty('q') == true && urlparams.hasOwnProperty('srule') == false) {
+                    if (urlparams.q) {
+                        var paramSearchQuery = urlparams.q;
+                        var paramPmid = urlparams.pmid;
+                        filtersURL = replaceUrlParamSearchQueryPmid(filtersURL, 'q', paramSearchQuery, 'pmid', paramPmid);
+                    }
+                }
+
+                if (urlparams.hasOwnProperty('pmid') == true && urlparams.hasOwnProperty('q') == true && urlparams.hasOwnProperty('srule') == true) {
+                    if (urlparams.q) {
+                        var paramSearchQuery = urlparams.q;
+                        var paramPmid = urlparams.pmid;
+                        var paramSrule = urlparams.srule;
+                        filtersURL = replaceUrlParamSearchQueryPmidSrule(filtersURL, 'q', paramSearchQuery, 'pmid', paramPmid, 'srule', paramSrule);
+                    }
+                }
+
+                var baseUrl = document.location.href;
+                if (baseUrl.indexOf('?') !== -1) {
+                    baseUrl = baseUrl.split('?')[0];
+                }
+                filtersURL = baseUrl + filtersURL;
+                $.spinner().start();
+                $(this).trigger('search:filter', $element);
+                $.ajax({
+                    url: filtersURL,
+                    data: {
+                        page: $('.grid-footer').data('page-number'),
+                        selectedUrl: filtersURL
+                    },
+                    method: 'GET',
+                    success: function (response) {
+                        var params = '';
+                        var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
+                        $('body').trigger('facet:success', [gtmFacetArray]);
+                        parseResults(response);
+                        updatePageURLForFacets(filtersURL);
+                        $.spinner().stop();
+                        moveFocusToTop();
+                        swatches.showSwatchImages();
+                        $('.mvmt-plp .result-count').removeClass('col-12 col-md-9 col-sm-6 order-sm-2');
+                        $('.mobile-filter-menu').removeClass('active').addClass('disable-events');
+                        $('body').removeClass('lock-bg');
+                        $('.mvmt-plp .grid-header .sort-col').remove();
+                        $('.mvmt-plp .grid-header .filter-col').remove();
+                        $('.mobile-filter-redesign').removeClass('active-filter-closed-mobile');
+                        if (isActive) {
+                            $('.mobile-sort-menu').removeClass('active');
+                            $('body').removeClass('lock-bg');
+                        }
+                        checkClearAllBtn();
+                        if (isInfiniteScrollEnabled && (isPaginationEnabled == false)) {
+                            loadMoreIndex = $('#product-search-results .product-tile').length - (parseInt(initiallyLoadedProducts / 2) + 1);
+                        }
+                        bulidLifeStyleCarousel();
+                        filterScroll();
+                    },
+                    error: function () {
+                        $.spinner().stop();
+                    }
+                });
+            }                    
+        }
+
+    }
+}
 // Added container-fluid class alongside container
 
 module.exports = {
@@ -665,6 +1103,7 @@ module.exports = {
             });
         });
     },
+
     // Custom start: Desktop filters
     // making urls for prefn1,pmid,pmin,pmax,srule and based on url getting the data
     applyFilter: function () {
@@ -683,10 +1122,12 @@ module.exports = {
                     $('.plp-active-filter-selected').addClass('d-none');
                     $('.plp-filter-bar .plp-filter-btn').removeClass('active');
                     $('.plp-grid-overlay').removeClass('active');
+                    $('.plp-filter-redesign').removeClass('active-filter-closed-desktop');
 
                     var RemoveUrlParams = getUrlParamObj(document.location.href);
                     var oldUrl = document.location.href;
                     var url = oldUrl.split('?')[0];
+                    var urlReload = oldUrl.split('?')[1];
                     var newFilteredUrl = url;
 
                     if (RemoveUrlParams.hasOwnProperty('q') == true) {
@@ -712,6 +1153,10 @@ module.exports = {
                         }
                     }
                     window.history.pushState({}, '', newFilteredUrl);
+
+                    if (urlReload) {
+                        window.location.reload();
+                    }
                     return;
                 } else {
                     filterLoadInProgress = true;
@@ -762,6 +1207,7 @@ module.exports = {
                                             // making url for pmin & pmax example: ?pmin=500.00&pmax=1000.00
                                             if (pminValue !== '' && pmaxValue !== '') {
                                                 params += `pmin=${pminValue}&pmax=${pmaxValue}`;
+                                                indexValue--;
                                             }
                                         }else{
                                             params += `prefn${indexValue}=${prefn}&prefv${indexValue}=${prefv}`;
@@ -859,6 +1305,7 @@ module.exports = {
                                 $('.mvmt-plp .grid-header .sort-col, .mvmt-plp .grid-header .filter-col').remove();
                                 $('.plp-grid-overlay').removeClass('active');
                                 $('.plp-active-filter-selected').addClass('d-none');
+                                $('.plp-filter-redesign').removeClass('active-filter-closed-desktop');
                                 bulidLifeStyleCarousel();
                                 if (isInfiniteScrollEnabled && (isPaginationEnabled == false)) {
                                     loadMoreIndex = $('#product-search-results .product-tile').length - (parseInt(initiallyLoadedProducts / 2) + 1);
@@ -932,67 +1379,86 @@ module.exports = {
                        }                  
                     } else if (isSelected && isCheckSquare == null && isSquareO !== null && isCheckCircle == null && isCheckO == null) {
                         var filterElement = clicked.parentNode;
-                        var isFilterElementValue = filterElement.dataset.selectedFilter;
-                        var isSquareOParent = isSquareO.parentNode;
-
-                        var selectedFilterId = '';
-                        var isparentSelector = document.querySelectorAll('.filter-refinement-container');
-                        if (isparentSelector) {
-                            isparentSelector.forEach(function (el, index) {
-                                if (el.hasChildNodes()) {
-                                    var isPriceFilter = el.dataset.filterId;
-                                    if (isPriceFilter == 'pmid') {
-                                        var childElement = el.querySelectorAll('.filter-element');
-                                    
-                                        childElement.forEach(function (e, i) {
-                                            var isPriceFilterSelected = e.querySelector('.check-filter-selected');
-                                            
-                                            if (isPriceFilterSelected) {
-                                                if (isPriceFilterSelected.classList.contains('check-filter-selected')) {
-                                                    selectedFilterId = e.dataset.selectedFilter;
-                                                    isPriceFilterSelected.classList.remove('check-filter-selected');
-
-                                                    if (isPriceFilterSelected.hasChildNodes()) {
-                                                        var pmidFilterChildEl = isPriceFilterSelected.querySelector('.fa-check-square');
-                                                        
-                                                        if (pmidFilterChildEl) {
-                                                            pmidFilterChildEl.classList.remove('fa-check-square', 'check-square');
-                                                            pmidFilterChildEl.classList.add('fa-square-o', 'square-o');
+                        var isFilterElementFilterId = filterElement.dataset.filterId;
+                        if (isFilterElementFilterId == 'pmid') {
+                            var isFilterElementValue = filterElement.dataset.selectedFilter;
+                            var isSquareOParent = isSquareO.parentNode;
+    
+                            var selectedFilterId = '';
+                            var isparentSelector = document.querySelectorAll('.filter-refinement-container');
+                            if (isparentSelector) {
+                                isparentSelector.forEach(function (el, index) {
+                                    if (el.hasChildNodes()) {
+                                        var isPriceFilter = el.dataset.filterId;
+                                        if (isPriceFilter == 'pmid') {
+                                            var childElement = el.querySelectorAll('.filter-element');
+                                        
+                                            childElement.forEach(function (e, i) {
+                                                var isPriceFilterSelected = e.querySelector('.check-filter-selected');
+                                                
+                                                if (isPriceFilterSelected) {
+                                                    if (isPriceFilterSelected.classList.contains('check-filter-selected')) {
+                                                        selectedFilterId = e.dataset.selectedFilter;
+                                                        isPriceFilterSelected.classList.remove('check-filter-selected');
+    
+                                                        if (isPriceFilterSelected.hasChildNodes()) {
+                                                            var pmidFilterChildEl = isPriceFilterSelected.querySelector('.fa-check-square');
+                                                            
+                                                            if (pmidFilterChildEl) {
+                                                                pmidFilterChildEl.classList.remove('fa-check-square', 'check-square');
+                                                                pmidFilterChildEl.classList.add('fa-square-o', 'square-o');
+                                                            }
                                                         }
+                                                        
                                                     }
-                                                    
                                                 }
+                                            });
+                                        }
+                                    };
+                                });
+                            }
+                            
+                            var slectedFilterBarAll = document.querySelectorAll('.selected-filter-bar');
+                            if (slectedFilterBarAll.length > 0) {
+                                slectedFilterBarAll.forEach(function (el) {
+                                    if (el.hasChildNodes()) {
+                                        var addedFilterBarAll = el.querySelectorAll('.added-filter-bar');
+                                        addedFilterBarAll.forEach(function (e) {
+                                            if (e.dataset.addedFilterBar == selectedFilterId) {
+                                                e.remove();
                                             }
                                         });
                                     }
-                                };
+                                });
+                            }
+    
+                            isSquareOParent.classList.add('check-filter-selected');
+                            isSquareO.classList.remove('square-o');
+                            isSquareO.classList.remove('fa-square-o');
+                            isSquareO.classList.add('fa-check-square');
+                            isSquareO.classList.add('check-square');
+                            var html = `<li class="filter-value added-filter-bar" data-filter-id="${filterBarId}" data-added-filter-bar="${isFilterElementValue}">
+                                            <a href="">${filterBarValue}</a>
+                                        </li>`;
+                            filterBar.forEach(function (e) {
+                                e.insertAdjacentHTML('beforeend', html);    
+                            });
+                        } else {
+                            var isFilterElementValue = filterElement.dataset.selectedFilter;
+                            var isSquareOParent = isSquareO.parentNode;
+    
+                            isSquareOParent.classList.add('check-filter-selected');
+                            isSquareO.classList.remove('square-o');
+                            isSquareO.classList.remove('fa-square-o');
+                            isSquareO.classList.add('fa-check-square');
+                            isSquareO.classList.add('check-square');
+                            var html = `<li class="filter-value added-filter-bar" data-filter-id="${filterBarId}" data-added-filter-bar="${isFilterElementValue}">
+                                            <a href="">${filterBarValue}</a>
+                                        </li>`;
+                            filterBar.forEach(function (e) {
+                                e.insertAdjacentHTML('beforeend', html);    
                             });
                         }
-                        var slectedFilterBarAll = document.querySelectorAll('.selected-filter-bar');
-                        if (slectedFilterBarAll.length > 0) {
-                            slectedFilterBarAll.forEach(function (el) {
-                                if (el.hasChildNodes()) {
-                                    var addedFilterBarAll = el.querySelectorAll('.added-filter-bar');
-                                    addedFilterBarAll.forEach(function (e) {
-                                        if (e.dataset.addedFilterBar == selectedFilterId) {
-                                            e.remove();
-                                        }
-                                    });
-                                }
-                            });
-                        }
-
-                        isSquareOParent.classList.add('check-filter-selected');
-                        isSquareO.classList.remove('square-o');
-                        isSquareO.classList.remove('fa-square-o');
-                        isSquareO.classList.add('fa-check-square');
-                        isSquareO.classList.add('check-square');
-                        var html = `<li class="filter-value added-filter-bar" data-filter-id="${filterBarId}" data-added-filter-bar="${isFilterElementValue}">
-                                        <a href="">${filterBarValue}</a>
-                                    </li>`;
-                        filterBar.forEach(function (e) {
-                            e.insertAdjacentHTML('beforeend', html);    
-                        });
 
                     } else if (isSelected && isSquareO == null && isCheckSquare !== null && isCheckCircle == null && isCheckO == null) {
                         var filterElementLabelParent = clicked.parentNode;
@@ -1144,79 +1610,99 @@ module.exports = {
                             isSelected.classList.remove('check-filter-selected');
                        }                  
                     } else if (isSelected && isCheckSquare == null && isSquareO !== null && isCheckCircle == null && isCheckO == null) {
-                        var filterElement = clicked.parentNode;
                         var isFiltersCheckBox = clicked.querySelector('.filters-checkbox');
                         var filterElement = clicked.parentNode;
-                        if (isFiltersCheckBox) {
-                            var filterElementLabel = filterElement.querySelector('.filter-elements');
-                            filterElementLabel.classList.add('label-selected');
-                        } 
-                        var isFilterElementValue = filterElement.dataset.selectedFilter;
-                        var isSquareOParent = isSquareO.parentNode;
-
-
-                        var selectedFilterId = '';
-                        var isparentSelector = document.querySelectorAll('.filter-refinement-container');
-                        if (isparentSelector) {
-                            isparentSelector.forEach(function (el, index) {
-                                if (el.hasChildNodes()) {
-                                    var isPriceFilter = el.dataset.filterId;
-                                    if (isPriceFilter == 'pmid') {
-                                        var childElement = el.querySelectorAll('.filter-element');
-                                    
-                                        childElement.forEach(function (e, i) {
-                                            var isPriceFilterSelected = e.querySelector('.check-filter-selected');
-                                            
-                                            if (isPriceFilterSelected) {
-                                                var isSelectLabelParent = isPriceFilterSelected.parentNode;
-                                                if (isSelectLabelParent.classList.contains('label-selected')) {
-                                                    isSelectLabelParent.classList.remove('label-selected');
-                                                }
-                                                if (isPriceFilterSelected.classList.contains('check-filter-selected')) {
-                                                    selectedFilterId = e.dataset.selectedFilter;
-                                                    isPriceFilterSelected.classList.remove('check-filter-selected');
-
-                                                    if (isPriceFilterSelected.hasChildNodes()) {
-                                                        var pmidFilterChildEl = isPriceFilterSelected.querySelector('.fa-check-square');
-                                                        
-                                                        if (pmidFilterChildEl) {
-                                                            pmidFilterChildEl.classList.remove('fa-check-square', 'check-square');
-                                                            pmidFilterChildEl.classList.add('fa-square-o', 'square-o');
-                                                        }
+                        var isFilterElementFilterId = filterElement.dataset.filterId;
+                        if (isFilterElementFilterId == 'pmid') {
+                            if (isFiltersCheckBox) {
+                                var filterElementLabel = filterElement.querySelector('.filter-elements');
+                                filterElementLabel.classList.add('label-selected');
+                            } 
+                            var isFilterElementValue = filterElement.dataset.selectedFilter;
+                            var isSquareOParent = isSquareO.parentNode;
+    
+                            var selectedFilterId = '';
+                            var isparentSelector = document.querySelectorAll('.filter-refinement-container');
+                            if (isparentSelector) {
+                                isparentSelector.forEach(function (el, index) {
+                                    if (el.hasChildNodes()) {
+                                        var isPriceFilter = el.dataset.filterId;
+                                        if (isPriceFilter == 'pmid') {
+                                            var childElement = el.querySelectorAll('.filter-element');
+                                        
+                                            childElement.forEach(function (e, i) {
+                                                var isPriceFilterSelected = e.querySelector('.check-filter-selected');
+                                                
+                                                if (isPriceFilterSelected) {
+                                                    var isSelectLabelParent = isPriceFilterSelected.parentNode;
+                                                    if (isSelectLabelParent.classList.contains('label-selected')) {
+                                                        isSelectLabelParent.classList.remove('label-selected');
                                                     }
-                                                    
+                                                    if (isPriceFilterSelected.classList.contains('check-filter-selected')) {
+                                                        selectedFilterId = e.dataset.selectedFilter;
+                                                        isPriceFilterSelected.classList.remove('check-filter-selected');
+    
+                                                        if (isPriceFilterSelected.hasChildNodes()) {
+                                                            var pmidFilterChildEl = isPriceFilterSelected.querySelector('.fa-check-square');
+                                                            
+                                                            if (pmidFilterChildEl) {
+                                                                pmidFilterChildEl.classList.remove('fa-check-square', 'check-square');
+                                                                pmidFilterChildEl.classList.add('fa-square-o', 'square-o');
+                                                            }
+                                                        }
+                                                        
+                                                    }
                                                 }
+                                            });
+                                        }
+                                    };
+                                });
+                            }
+                            var slectedFilterBarAll = document.querySelectorAll('.selected-filter-bar');
+                            if (slectedFilterBarAll.length > 0) {
+                                slectedFilterBarAll.forEach(function (el) {
+                                    if (el.hasChildNodes()) {
+                                        var addedFilterBarAll = el.querySelectorAll('.added-filter-bar');
+                                        addedFilterBarAll.forEach(function (e) {
+                                            if (e.dataset.addedFilterBar == selectedFilterId) {
+                                                e.remove();
                                             }
                                         });
                                     }
-                                };
+                                });
+                            }
+    
+                            isSquareOParent.classList.add('check-filter-selected');
+                            isSquareO.classList.remove('square-o');
+                            isSquareO.classList.remove('fa-square-o');
+                            isSquareO.classList.add('fa-check-square');
+                            isSquareO.classList.add('check-square');
+                            var html = `<li class="filter-value added-filter-bar" data-filter-id="${filterBarId}" data-added-filter-bar="${isFilterElementValue}">
+                                            <a href="">${filterBarValue}</a>
+                                        </li>`;
+                            filterBar.forEach(function (e) {
+                                e.insertAdjacentHTML('beforeend', html);    
+                            });
+                        } else {
+                            if (isFiltersCheckBox) {
+                                var filterElementLabel = filterElement.querySelector('.filter-elements');
+                                filterElementLabel.classList.add('label-selected');
+                            } 
+                            var isFilterElementValue = filterElement.dataset.selectedFilter;
+                            var isSquareOParent = isSquareO.parentNode;
+    
+                            isSquareOParent.classList.add('check-filter-selected');
+                            isSquareO.classList.remove('square-o');
+                            isSquareO.classList.remove('fa-square-o');
+                            isSquareO.classList.add('fa-check-square');
+                            isSquareO.classList.add('check-square');
+                            var html = `<li class="filter-value added-filter-bar" data-filter-id="${filterBarId}" data-added-filter-bar="${isFilterElementValue}">
+                                            <a href="">${filterBarValue}</a>
+                                        </li>`;
+                            filterBar.forEach(function (e) {
+                                e.insertAdjacentHTML('beforeend', html);    
                             });
                         }
-                        var slectedFilterBarAll = document.querySelectorAll('.selected-filter-bar');
-                        if (slectedFilterBarAll.length > 0) {
-                            slectedFilterBarAll.forEach(function (el) {
-                                if (el.hasChildNodes()) {
-                                    var addedFilterBarAll = el.querySelectorAll('.added-filter-bar');
-                                    addedFilterBarAll.forEach(function (e) {
-                                        if (e.dataset.addedFilterBar == selectedFilterId) {
-                                            e.remove();
-                                        }
-                                    });
-                                }
-                            });
-                        }
-
-                        isSquareOParent.classList.add('check-filter-selected');
-                        isSquareO.classList.remove('square-o');
-                        isSquareO.classList.remove('fa-square-o');
-                        isSquareO.classList.add('fa-check-square');
-                        isSquareO.classList.add('check-square');
-                        var html = `<li class="filter-value added-filter-bar" data-filter-id="${filterBarId}" data-added-filter-bar="${isFilterElementValue}">
-                                        <a href="">${filterBarValue}</a>
-                                    </li>`;
-                        filterBar.forEach(function (e) {
-                            e.insertAdjacentHTML('beforeend', html);    
-                        });
 
                     } else if (isSelected && isSquareO == null && isCheckSquare !== null && isCheckCircle == null && isCheckO == null) {
                         var filterElementLabelParent = clicked.parentNode;
@@ -1333,6 +1819,7 @@ module.exports = {
                     $('.plp-active-filter-selected').addClass('d-none');
                     $('.plp-filter-bar .plp-filter-btn').removeClass('active');
                     $('.plp-grid-overlay').removeClass('active');
+                    $('.mobile-filter-redesign').removeClass('active-filter-closed-mobile');
                     var mobileSortMenu = document.querySelector('.mobile-sort-menu-container');
                     var mobileMenuContainerMain = document.querySelector('.mobile-menu-container-main');
                     var isSortActive = mobileSortMenu.classList.contains('active');
@@ -1347,6 +1834,7 @@ module.exports = {
                     var RemoveUrlParams = getUrlParamObj(document.location.href);
                     var oldUrl = document.location.href;
                     var url = oldUrl.split('?')[0];
+                    var urlReload = oldUrl.split('?')[1];
                     var newFilteredUrl = url;
 
                     if (RemoveUrlParams.hasOwnProperty('q') == true) {
@@ -1372,6 +1860,10 @@ module.exports = {
                         }
                     }
                     window.history.pushState({}, '', newFilteredUrl);
+
+                    if (urlReload) {
+                        window.location.reload();
+                    }
                     return;
                 } else {
                     filterLoadInProgress = true;
@@ -1429,6 +1921,7 @@ module.exports = {
                                             // ?pmin=500.00&pmax=1000.00
                                             if (pminValue !== '' && pmaxValue !== '') {
                                                 params += `pmin=${pminValue}&pmax=${pmaxValue}`;
+                                                indexValue--;
                                             }
                                         }else{
                                             params += `prefn${indexValue}=${prefn}&prefv${indexValue}=${prefv}`;
@@ -1518,6 +2011,7 @@ module.exports = {
                                 $('body').removeClass('lock-bg');
                                 $('.mvmt-plp .grid-header .sort-col').remove();
                                 $('.mvmt-plp .grid-header .filter-col').remove();
+                                $('.mobile-filter-redesign').removeClass('active-filter-closed-mobile');
                                 if (isActive) {
                                     $('.mobile-sort-menu').removeClass('active');
                                     $('body').removeClass('lock-bg');
@@ -1616,7 +2110,7 @@ module.exports = {
     // Custom filters: this method will work for desktop and mobile filters
     removedSelectedFilters: function () {
     //     $('.selected-filter-bar').click(
-        $('.plp-active-filter, .plp-active-filter-list').on(
+        $('.mobile-filter-redesign, .plp-active-filter, .plp-active-filter-list').on(
             'click',
             '.selected-filter-bar',
             function (e) {
@@ -1719,6 +2213,21 @@ module.exports = {
                     }
                 }
 
+                var mobileActiveFilterClosed = document.querySelector('.active-filter-closed-mobile');
+                var desktopActiveFilterClosed = document.querySelector('.active-filter-closed-desktop');
+                if (!desktopActiveFilterClosed && mobileActiveFilterClosed) {
+                    removeSelectedFilterDesktop($(this));
+                } else if (desktopActiveFilterClosed && !mobileActiveFilterClosed) {
+                    removeSelectedFilterMobile($(this));
+                } else if (!desktopActiveFilterClosed && !mobileActiveFilterClosed) {
+                    var mediumWidth = 992;
+                    var $windowWidth = $(window).width();
+                    if ($windowWidth >= mediumWidth) {
+                        removeSelectedFilterDesktop($(this));
+                    } else {
+                        removeSelectedFilterMobile($(this));
+                    }
+                }
             }
         });
     },
@@ -1764,6 +2273,14 @@ module.exports = {
             $(".filter-group").not($(this).next()).removeClass('active loaded');
             $(".plp-active-filter").not($(this).next().children('.plp-active-filter')).removeClass('loaded');
             $(button).hasClass('active') ? $('.plp-active-filter-selected').removeClass('d-none') : $('.plp-active-filter-selected').addClass('d-none');
+            var isFilterContains = $(".plp-filter-redesign").hasClass('active-filter-closed-desktop');
+            var isActiveFilterMobile= $(".mobile-filter-redesign").hasClass('active-filter-closed-mobile');
+            if (!isActiveFilterMobile) {
+                $(".mobile-filter-redesign").addClass('active-filter-closed-mobile');
+            }
+            if (!isFilterContains) {
+                $(".plp-filter-redesign").addClass('active-filter-closed-desktop');
+            }
         });
 
         $(document).on('click', '.filter-close-btn', function (e) {
@@ -1819,10 +2336,7 @@ module.exports = {
         });
     },
 
-
-
     mobileSortFilterMenu: function () {
-
         $(document).on("click", '.mobile-filter-sort-redesign, .mobile-filter-btn-list button', function(e) {
             var  menu = $(this).data('menu');
             var selectors = ''+ menu +' .mobile-sort-order, '+ menu +' .mobile-filter-actions, '+ menu +' .mobile-filter-options-list, '+ menu +' .mobile-menu-close, '+ menu +' .mobile-selection.active .mobile-selection-outer';
@@ -1832,6 +2346,14 @@ module.exports = {
                 $('' + selectors + '').addClass('loaded');
                 $('' + menu + ' .mobile-selection').addClass('border-radius-transform-transition skip-animation');
             }, 300);
+            var isFilterContains = $('.plp-filter-redesign').hasClass('active-filter-closed-desktop');
+            var isActiveFilterMobile= $('.mobile-filter-redesign').hasClass('active-filter-closed-mobile');
+            if (!isActiveFilterMobile) {
+                $('.mobile-filter-redesign').addClass('active-filter-closed-mobile');
+            }
+            if (!isFilterContains) {
+                $('.plp-filter-redesign').addClass('active-filter-closed-desktop');
+            }
         });
         $(document).on("click", '.filter-open button', function(e) {
             var  menu = $(this).data('menu');
@@ -1864,6 +2386,7 @@ module.exports = {
         });
 
         $(document).on("click", '.mobile-filter-options-list button, .mobile-active-filters button, .mobile-filter-btn', function (e) {
+
             var str = $(this).data('option-select');
             var optionMenu = str.split(" ")[0];
             $('body').addClass('lock-bg');
@@ -1884,6 +2407,14 @@ module.exports = {
                     $('' + optionMenu + ' .mobile-active-filters, ' + optionMenu + ' .mobile-active-actions').addClass('loaded skip-animation');
                 }
             }, 500);
+            var isFilterContains = $('.plp-filter-redesign').hasClass('active-filter-closed-desktop');
+            var isActiveFilterMobile= $('.mobile-filter-redesign').hasClass('active-filter-closed-mobile');
+            if (!isActiveFilterMobile) {
+                $('.mobile-filter-redesign').addClass('active-filter-closed-mobile');
+            }
+            if (!isFilterContains) {
+                $('.plp-filter-redesign').addClass('active-filter-closed-desktop');
+            }
         });
     },
 
