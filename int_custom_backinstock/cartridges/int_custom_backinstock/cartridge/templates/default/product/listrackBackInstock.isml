@@ -2,42 +2,4 @@
     var assets = require('*/cartridge/scripts/assets');
     assets.addJs('/js/listrakBackInStock.js');
 </isscript>
-<isinclude template="/components/modules" sf-toolkit="off" />
-<div class="listrak-back-in-stock-notification-container-main ${product.isListrakBackInStockEnabled ? '' : 'd-none'}" data-url="${URLUtils.url('BackInStockNotification-Subscribe')}" data-pid="${product.id}">
-    <p class="back-in-stock-notification-email-notification-copy">
-        ${Resource.msg('listrak.form.title', 'product', null)}
-    </p>
-    <form class="back-in-stock-notification-form back-in-stock-notification-listrak-container form" data-pid="${product.id}" data-url="${URLUtils.url('BackInStockNotification-Subscribe')}">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12 p-0">
-                    <input id="productSKU" type="hidden" name="lProductSKU" placeholder="Product SKU" value="${product.id}">
-                    <input id="alertCode" type="hidden" name="lAlertCode" placeholder="Alert Code" value="${sitePref.alertCode}">               
-                </div>
-                <isif condition="${sitePref.Listrak_EnableBackInStockEmail}">
-                    <div class="col-12 mb-2 p-0 email-chek">
-                        <input class="back-in-stock-notification-email" id="lbisEmail" type="text" name="lbisEmail" placeholder="${Resource.msg('listrak.form.email.placeholder', 'product', null)}">
-                        <p class="back-in-stock-notification-invalid-email error-msg back-in-stock-notification-error-invalid"></p>
-                        <p class="back-in-stock-notification-invalid-email error-msg back-in-stock-notification-error-required"></p>
-                    </div>
-                </isif>
-                <isif condition="${sitePref.Listrak_EnableBackInStockSms}">
-                    <div class="col-12 mb-2 p-0 phone-check">
-                        <input class="back-in-stock-notification-phone" id="lbisEmail" type="text" name="lbisPhone" placeholder="${Resource.msg('listrak.form.phone.placeholder', 'product', null)}">
-                        <p class="back-in-stock-notification-invalid-phone error-msg back-in-stock-notification-error"></p>
-                    </div>
-                </isif>
-                <div class="col-12 mb-2 p-0">
-                    <iscontentasset aid="listrak-back-in-stock-terms" />
-                </div>
-                <div class="col-12 mb-2 p-0">
-                    <iscontentasset aid="listrak-back-in-stock-subscription-checkbox" />
-                </div>
-                <div class="col p-0">
-                    <button class="btn btn-primary text-capitalize" type="submit" name="SubmitAlert">${Resource.msg('listrak.button.text', 'product', null)}</button>
-                </div>
-            </div>
-        </div>
-    </form>
-</div>
-<p class="listrak-success-msg"></p>
+<isinclude url="${URLUtils.https('BackInStockNotification-ShowBackInStock', 'pid', product.id)}"/>

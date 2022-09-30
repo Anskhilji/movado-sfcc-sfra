@@ -4,6 +4,7 @@ var server = require('server');
 
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
+var cacheAtc = require('*/cartridge/scripts/middleware/cache');
 var collections = require('*/cartridge/scripts/util/collections');
 var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
@@ -34,8 +35,8 @@ server.prepend('AddProduct', function (req, res, next) {
     next();
 });
 
-//Show add to Cart Button as Remote Include
-server.get('ShowAddProductButton', function (req, res, next) {
+// Show add to Cart Button as Remote Include
+server.get('ShowAddProductButton', cacheAtc.applyAtcSensitiveCache, function (req, res, next) {
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
     var productId = req.querystring.pid;
 

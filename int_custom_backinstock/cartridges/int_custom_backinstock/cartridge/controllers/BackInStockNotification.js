@@ -3,6 +3,8 @@
 var server = require('server');
 
 var backInStockNotificationHelper = require('*/cartridge/scripts/helpers/backInStockNotificationHelper');
+var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
+var cacheAtc = require('*/cartridge/scripts/middleware/cache');
 var Site = require('dw/system/Site');
 
 server.post('Subscribe',
@@ -52,5 +54,31 @@ server.post('Subscribe',
         return next();
     }
 );
+
+// Show back-in stock notification as Remote Include
+server.get('ShowBackInStock', cacheAtc.applyAtcSensitiveCache, function (req, res, next) {
+    var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
+    var productId = req.querystring.pid;
+    var template = null;
+
+    if (Site.getCurrent().preferences.custom.enableBackInStock && !Site.getCurrent().preferences.custom.Listrak_EnableBackInStockSms && !Site.getCurrent().preferences.custom.Listrak_EnableBackInStockEmail) {
+        template = 'product/backInStockNotificationForm';
+    } else if (Site.getCurrent().preferences.custom.Listrak_Cartridge_Enabled) {
+        if (Site.getCurrent().preferences.custom.Listrak_EnableBackInStockSms || Site.getCurrent().preferences.custom.Listrak_EnableBackInStockEmail) {
+            template = 'product/listrackBackInstockForm';
+        } else {
+            template = 'product/backInStockNotificationForm';
+        }
+    } else {
+        template = 'product/backInStockNotificationForm';
+    }
+
+    res.render(template, {
+        product: showProductPageHelperResult.product,
+        productId: productId
+    });
+
+    next();
+});
 
 module.exports = server.exports();

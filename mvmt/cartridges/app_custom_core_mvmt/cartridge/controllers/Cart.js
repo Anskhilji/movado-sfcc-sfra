@@ -3,6 +3,7 @@
 
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
+var cacheAtc = require('*/cartridge/scripts/middleware/cache');
 var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 
@@ -31,8 +32,8 @@ server.replace('MiniCart', server.middleware.include, function (req, res, next) 
     next();
 });
 
-//Show add to Cart Button as Remote Include
-server.replace('ShowAddProductButton', function (req, res, next) {
+// Show add to Cart Button as Remote Include
+server.replace('ShowAddProductButton', cacheAtc.applyAtcSensitiveCache, function (req, res, next) {
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
     var productId = req.querystring.pid;
 
