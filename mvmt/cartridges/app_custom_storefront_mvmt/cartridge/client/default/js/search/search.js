@@ -2338,7 +2338,6 @@ module.exports = {
 
     mobileSortFilterMenu: function () {
         $(document).on("click", '.mobile-filter-sort-redesign, .mobile-filter-btn-list button', function(e) {
-            // alert('mobile filter sort');
             var  menu = $(this).data('menu');
             var selectors = ''+ menu +' .mobile-sort-order, '+ menu +' .mobile-filter-actions, '+ menu +' .mobile-filter-options-list, '+ menu +' .mobile-menu-close, '+ menu +' .mobile-selection.active .mobile-selection-outer';
             $(''+ menu +'').addClass('active').removeClass('disable-events');
@@ -2347,13 +2346,13 @@ module.exports = {
                 $('' + selectors + '').addClass('loaded');
                 $('' + menu + ' .mobile-selection').addClass('border-radius-transform-transition skip-animation');
             }, 300);
-            var isFilterContains = $(".plp-filter-redesign").hasClass('active-filter-closed-desktop');
-            var isActiveFilterMobile= $(".mobile-filter-redesign").hasClass('active-filter-closed-mobile');
+            var isFilterContains = $('.plp-filter-redesign').hasClass('active-filter-closed-desktop');
+            var isActiveFilterMobile= $('.mobile-filter-redesign').hasClass('active-filter-closed-mobile');
             if (!isActiveFilterMobile) {
-                $(".mobile-filter-redesign").addClass('active-filter-closed-mobile');
+                $('.mobile-filter-redesign').addClass('active-filter-closed-mobile');
             }
             if (!isFilterContains) {
-                $(".plp-filter-redesign").addClass('active-filter-closed-desktop');
+                $('.plp-filter-redesign').addClass('active-filter-closed-desktop');
             }
         });
         $(document).on("click", '.filter-open button', function(e) {
@@ -2387,7 +2386,6 @@ module.exports = {
         });
 
         $(document).on("click", '.mobile-filter-options-list button, .mobile-active-filters button, .mobile-filter-btn', function (e) {
-            // alert('mobile filter');
 
             var str = $(this).data('option-select');
             var optionMenu = str.split(" ")[0];
@@ -2409,13 +2407,13 @@ module.exports = {
                     $('' + optionMenu + ' .mobile-active-filters, ' + optionMenu + ' .mobile-active-actions').addClass('loaded skip-animation');
                 }
             }, 500);
-            var isFilterContains = $(".plp-filter-redesign").hasClass('active-filter-closed-desktop');
-            var isActiveFilterMobile= $(".mobile-filter-redesign").hasClass('active-filter-closed-mobile');
+            var isFilterContains = $('.plp-filter-redesign').hasClass('active-filter-closed-desktop');
+            var isActiveFilterMobile= $('.mobile-filter-redesign').hasClass('active-filter-closed-mobile');
             if (!isActiveFilterMobile) {
-                $(".mobile-filter-redesign").addClass('active-filter-closed-mobile');
+                $('.mobile-filter-redesign').addClass('active-filter-closed-mobile');
             }
             if (!isFilterContains) {
-                $(".plp-filter-redesign").addClass('active-filter-closed-desktop');
+                $('.plp-filter-redesign').addClass('active-filter-closed-desktop');
             }
         });
     },
