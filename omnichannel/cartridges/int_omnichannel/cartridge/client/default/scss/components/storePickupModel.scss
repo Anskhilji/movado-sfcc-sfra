@@ -232,3 +232,10 @@
         display: inline-block;
     }
 }
+
+.top-navbar-label{
+    @include media-breakpoint-up(lg) {
+        height: rem(39);
+        line-height: rem(39);
+    }
+}
