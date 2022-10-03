@@ -17,7 +17,6 @@ var Logger = require('dw/system/Logger');
 var Status = require('dw/system/Status');
 var HookMgr = require('dw/system/HookMgr');
 var collections = require('*/cartridge/scripts/util/collections');
-var Constants = require('*/cartridge/scripts/util/Constants');
 
 /**
  * @function calculate
