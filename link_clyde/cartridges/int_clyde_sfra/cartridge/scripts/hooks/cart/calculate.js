@@ -129,11 +129,11 @@ function calculateProductPrices(basket) {
         }
 
         // set price when product have salePriceBook 1953 Research creating a new promotion job to build sale Price book
-        productLineItem.setGrossPrice(productLineItem.basePrice);
         var adjustments = productLineItem.priceAdjustments;
         if (!adjustments.isEmpty() && productLineItem.product.priceModel.priceInfo.priceBook.ID.toLowerCase().indexOf(Constants.ECOM_SALE_PRICE_BOOK) > -1) {
             var adjustment = adjustments.iterator().next();
             adjustment.setPriceValue(0);
+            productLineItem.setGrossPrice(productLineItem.basePrice);
         }
 
         var product = productLineItem.product;
