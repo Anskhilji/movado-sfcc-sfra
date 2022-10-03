@@ -128,13 +128,14 @@ function calculateProductPrices (basket) {
             productLineItem.setPriceValue(productLineItem.basePrice.valueOrNull);
             continue;
         }
-        // set price when product have salePriceBook 1953 Research creating a new promotion job to build sale Price book
+        //CUSTOM START : set price when product have salePriceBook 1953 Research creating a new promotion job to build sale Price book
         var adjustments = productLineItem.priceAdjustments;
         if (!adjustments.isEmpty() && productLineItem.product.priceModel.priceInfo.priceBook.ID.toLowerCase().indexOf(Constants.ECOM_SALE_PRICE_BOOK) > -1) {
             var adjustment = adjustments.iterator().next();
             adjustment.setPriceValue(0);
             productLineItem.setGrossPrice(productLineItem.basePrice);
         }
+        //CUSTOM END:
         var product = productLineItem.product;
 
         // handle option line items
