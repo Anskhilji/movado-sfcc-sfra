@@ -10,7 +10,7 @@
                 <isif condition="${recommendation != null}">
                     <div class="upsell-wrapper">
                         <input type="hidden" class="add-to-cart-url" value="${URLUtils.url('Cart-AddProduct')}">
-                        <button class="upsell-input add-to-cart-recomendations" data-pid="${recommendation.id}"
+                        <button class="upsell-input add-to-cart-recomendations" data-pid="${recommendation.id}" data-atc="Style_with_pdp"
                             name="additionalProducts" value="${recommendation.id}">
                         </button>
                         <div class="upsell-wrapper-inner">
