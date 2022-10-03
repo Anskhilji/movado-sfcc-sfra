@@ -8,6 +8,9 @@ var Promotion = require('dw/campaign/Promotion');
 var PromotionMgr = require('dw/campaign/PromotionMgr');
 var Money = require('dw/value/Money');
 var Currency = require('dw/util/Currency');
+var StringUtils = require('dw/util/StringUtils');
+var Calendar = require('dw/util/Calendar');
+var Constants = require('*/cartridge/scripts/util/Constants');
 
 /**
  * Get local price books details mentioned in site prefrence.
@@ -16,7 +19,7 @@ var Currency = require('dw/util/Currency');
  */
 function getLocalPriceBooksDetails(localizeObj) {
 
-    var localSalePriceBook = localizeObj.promotionalConversion.sale_pricebook.indexOf('SALE') > -1 ? localizeObj.promotionalConversion.sale_pricebook : '';
+    var localSalePriceBook = localizeObj.promotionalConversion.sale_pricebook.toLowerCase().indexOf(Constants.ECOM_SALE_PRICE_BOOK) > -1 ? localizeObj.promotionalConversion.sale_pricebook : '';
     var localizePriceBooks = [];
     var currency;
 
@@ -40,6 +43,10 @@ function convertedSalePrice(product,localizeObj) {
     var salePrice = '';
     var priceBook;
     var PromotionIt;
+    var startDate;
+    var endDate;
+    var promotionalPrice = Money.NOT_AVAILABLE;
+    var currentPromotionalPrice = Money.NOT_AVAILABLE;
 
     if (product && product.priceModel && product.priceModel.priceInfo && product.priceModel.priceInfo.priceBook) {
         priceBook = product.priceModel.priceInfo.priceBook.ID;
@@ -49,14 +56,12 @@ function convertedSalePrice(product,localizeObj) {
         PromotionIt = PromotionMgr.activePromotions.getProductPromotions(product).iterator();
     }
 
-    var promotionalPrice = Money.NOT_AVAILABLE;
-    var currentPromotionalPrice = Money.NOT_AVAILABLE;
-
     if(PromotionIt){
         while (PromotionIt.hasNext()) {
             var promo = PromotionIt.next();
             if (promo.getPromotionClass() != null && promo.getPromotionClass().equals(Promotion.PROMOTION_CLASS_PRODUCT) && !promo.basedOnCoupons) {
-
+                startDate = promo.startDate ? StringUtils.formatCalendar(new Calendar(promo.startDate), Constants.PRICE_BOOK_DATE_FORMATE) : promo.startDate;
+                endDate =  promo.endDate ? StringUtils.formatCalendar(new Calendar(promo.endDate), Constants.PRICE_BOOK_DATE_FORMATE) : promo.endDate;
                 if (product.optionProduct) {
                     currentPromotionalPrice = promo.getPromotionalPrice(product, product.getOptionModel());
                 } else {
@@ -80,7 +85,9 @@ function convertedSalePrice(product,localizeObj) {
     }
 
     return {
-        salePrice: salePrice
+        salePrice: salePrice,
+        startDate: startDate,
+        endDate: endDate
     };
 }
 
@@ -157,6 +164,18 @@ function buildPriceBookSchema(writeDirPath, priceBook, localizeObj) {
                         priceBookStreamWriter.writeStartElement('price-table');
                         priceBookStreamWriter.writeAttribute('product-id', product.getID());
                         priceBookStreamWriter.writeCharacters('\n');
+                        if (AdjustedSalePrice.startDate) {
+                            priceBookStreamWriter.writeStartElement('online-from');
+                            priceBookStreamWriter.writeCharacters(AdjustedSalePrice.startDate);
+                            priceBookStreamWriter.writeEndElement();
+                            priceBookStreamWriter.writeCharacters('\n');
+                        }
+                        if (AdjustedSalePrice.endDate) {
+                            priceBookStreamWriter.writeStartElement('online-to');
+                            priceBookStreamWriter.writeCharacters(AdjustedSalePrice.endDate);
+                            priceBookStreamWriter.writeEndElement();
+                            priceBookStreamWriter.writeCharacters('\n');
+                        }
                         priceBookStreamWriter.writeStartElement('amount');
                         priceBookStreamWriter.writeAttribute('quantity', '1');
                         priceBookStreamWriter.writeCharacters(AdjustedSalePrice.salePrice);
