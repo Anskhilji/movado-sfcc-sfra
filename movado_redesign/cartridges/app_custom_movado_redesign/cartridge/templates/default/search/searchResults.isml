@@ -65,6 +65,19 @@
                         <div class="container-fluid mt-0">
                             <div class="row py-2 py-sm-3 filter-box">
                                 <div class="col-12">
+                                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                        <isloop items="${pdict.productSearch.refinements}" var="refinement">
+                                            <li class="nav-item refinement refinement-${refinement.displayName.toLowerCase().replace(/ /g, '-')}">
+                                                <a class="nav-link  movado-refinements-type" id="${refinement.displayName.toLowerCase().replace(/ /g, '-')}-list" data-toggle="tab" href="#home" role="tab" data-filter-category="${pdict.productSearch.category && !empty(pdict.productSearch.category) ? pdict.productSearch.category.id : ''}" aria-controls="home" aria-selected="true">${refinement.displayName}</a>
+                                            </li>
+                                        </isloop>
+                                    </ul>
+                                    <div class="tab-content" id="myTabContent">
+                                    <isloop items="${pdict.productSearch.refinements}" var="refinement">
+                                        <div class="tab-pane fade show" id="${refinement.displayName.toLowerCase().replace(/ /g, '-')}Heading" role="tabpanel" aria-labelledby="${refinement.displayName.toLowerCase().replace(/ /g, '-')}-list">${refinement.displayName}...</div>
+                                    </isloop>
+                                       
+                                    </div>
                                     <div class="d-flex justify-content-between align-items-start">
                                         <div id="product-search-results">
                                             <isif condition="${pdict.productSearch.productIds.length > 0}">
@@ -150,6 +163,9 @@
     <div class="no-results-carousel plp-new-design">
        <isif condition="${pdict.contentSearch && pdict.contentSearch.contentCount == 0}">
             <isslot id="cs-noresult-recommendations" description="Recommendations for no result search" context="global" />
+       </isif>
+       <isif condition="${pdict.productSearch !== null && pdict.productSearch.count == 0 && !pdict.productSearch.productIds.length}">
+            <isslot id="cs-noresult-content" description="Content Slot on No Results Page" context="global" />
        </isif>
     </div>
 </isdecorate>
