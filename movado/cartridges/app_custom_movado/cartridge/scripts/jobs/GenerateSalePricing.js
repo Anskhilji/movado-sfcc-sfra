@@ -37,7 +37,7 @@ function getLocalPriceBooksDetails(localizeObj) {
     return localizePriceBooks;
 }
 
-function convertedSalePrice(product,localizeObj,priceBookObj) {
+function convertedSalePrice(product,localizeObj) {
     var Constants = require('*/cartridge/scripts/util/Constants');
     var salePrice = '';
     var priceBook;
@@ -161,7 +161,7 @@ function buildPriceBookSchema(writeDirPath, priceBook, localizeObj) {
         while (salableProducts.hasNext()) {
             products = salableProducts.next().getRepresentedProducts().toArray();
             products.forEach(function (product) { // eslint-disable-line no-loop-func
-                var AdjustedSalePrice = convertedSalePrice(product,localizeObj,priceBook);
+                var AdjustedSalePrice = convertedSalePrice(product,localizeObj);
                     if (!empty(AdjustedSalePrice.salePrice)) {
                         priceBookStreamWriter.writeStartElement('price-table');
                         priceBookStreamWriter.writeAttribute('product-id', product.getID());
