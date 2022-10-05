@@ -17,57 +17,42 @@ var Money = require('dw/value/Money');
 var Logger = require('dw/system/Logger');
 
 server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
-   var Constants = require('*/cartridge/utils/Constants');
-   var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
-   var customCategoryHelpers = require('app_custom_movado/cartridge/scripts/helpers/customCategoryHelpers');
-   var SmartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
-   var youMayLikeRecommendations = [];
-   var moreStyleRecommendations = [];
-   var explicitRecommendations = [];
-   var youMayLikeRecommendationTypeIds = Site.getCurrent().getCustomPreferenceValue('youMayLikeRecomendationTypes');
-   var moreStylesRecommendationTypeIds = Site.getCurrent().getCustomPreferenceValue('moreStylesRecomendationTypes');
-   var YotpoIntegrationHelper = require('*/cartridge/scripts/common/integrationHelper.js');
-   var yotpoCustomHelper = require('*/cartridge/scripts/yotpo/helper/YotpoHelper');
-   var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
-   var smartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
-   var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
-   var smartGift = smartGiftHelper.getSmartGiftCardBasket(showProductPageHelperResult.product.id);
-   var smartGiftAddToCartURL = Site.current.preferences.custom.smartGiftURL + showProductPageHelperResult.product.id;
-   var ABTestMgr = require('dw/campaign/ABTestMgr');
+    var Constants = require('*/cartridge/utils/Constants');
+    var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
+    var customCategoryHelpers = require('app_custom_movado/cartridge/scripts/helpers/customCategoryHelpers');
+    var SmartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
+    var youMayLikeRecommendations = [];
+    var moreStyleRecommendations = [];
+    var explicitRecommendations = [];
+    var youMayLikeRecommendationTypeIds = Site.getCurrent().getCustomPreferenceValue('youMayLikeRecomendationTypes');
+    var moreStylesRecommendationTypeIds = Site.getCurrent().getCustomPreferenceValue('moreStylesRecomendationTypes');
+    var YotpoIntegrationHelper = require('*/cartridge/scripts/common/integrationHelper.js');
+    var yotpoCustomHelper = require('*/cartridge/scripts/yotpo/helper/YotpoHelper');
+    var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
+    var smartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
+    var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
+    var smartGift = smartGiftHelper.getSmartGiftCardBasket(showProductPageHelperResult.product.id);
+    var smartGiftAddToCartURL = Site.current.preferences.custom.smartGiftURL + showProductPageHelperResult.product.id;
+    var ABTestMgr = require('dw/campaign/ABTestMgr');
 
 
-   var collectionContentList;
-   var moreStyleGtmArray = [];
-   var klarnaProductPrice = '0';
-   var isEmbossEnabled;
-   var isEngraveEnabled;
-   var isGiftWrapEnabled;
-   var collectionName;
+    var collectionContentList;
+    var moreStyleGtmArray = [];
+    var klarnaProductPrice = '0';
+    var isEmbossEnabled;
+    var isEngraveEnabled;
+    var isGiftWrapEnabled;
+    var collectionName;
 
-   var productDecimalPrice = 0.0;
+    var productDecimalPrice = 0.0;
 
-   var strapGuideContent = ContentMgr.getContent('strap-guide-text-configs');
-   var strapGuideText = strapGuideContent && strapGuideContent.custom.body ? strapGuideContent.custom.body : '';
+    var strapGuideContent = ContentMgr.getContent('strap-guide-text-configs');
+    var strapGuideText = strapGuideContent && strapGuideContent.custom.body ? strapGuideContent.custom.body : '';
 
-   var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
-   var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
-   var productType = showProductPageHelperResult.product.productType;
-   var template =  showProductPageHelperResult.template;
-
-    //MSS_1753 OB Product Sets Page Design Desktop
-    if(productType !== Constants.PRODUCT_TYPE) {
-
-        // Custom Comment Start: A/B testing for OB Redesign PDP
-        if (ABTestMgr.isParticipant('OBRedesignPDPABTest','Control')) {
-            template = 'product/old/productDetails';
-        } else if (ABTestMgr.isParticipant('OBRedesignPDPABTest','render-new-design')) {
-            template =  'product/productDetails';
-        } else {
-            template = 'product/old/productDetails';
-        }
-
-    }
-   // Custom Comment End: A/B testing for OB Redesign PDP
+    var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
+    var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
+    var productType = showProductPageHelperResult.product.productType;
+    var template =  showProductPageHelperResult.template;
 
     var viewData = res.getViewData();
     var product = showProductPageHelperResult.product;
@@ -211,15 +196,8 @@ server.replace('ShowAvailability', function (req, res, next) {
 
     var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
-       // Custom Comment Start: A/B testing for OB Redesign PDP
-    if (ABTestMgr.isParticipant('OBRedesignPDPABTest','Control')) {
-        template = 'product/components/old/availability';
-    } else if (ABTestMgr.isParticipant('OBRedesignPDPABTest','render-new-design')) {
-        template =  'product/components/availability';
-    } else {
-        template = 'product/components/old/availability';
-    }
-    // Custom Comment End: A/B testing for OB Redesign PDP
+    var template =  'product/components/availability';
+
     res.render(template, {
         product: showProductPageHelperResult.product
     });
