@@ -44,6 +44,7 @@ function ltkProduct() {
     this.categoryStartLevel = catStartLevel;
     this.additionalAttributes = dw.system.Site.current.preferences.custom.Listrak_Additional_Attributes;
     this.categoryLevelAttributes = Site.getCurrent().getCustomPreferenceValue('Listrak_CategoryLevelAttributes');
+    this.getAssignedCategories = Site.getCurrent().getCustomPreferenceValue('Listrak_GetAssignedCategories');
     this.additionalAttributeValues = new dw.util.HashMap();
 
     // Custom Start: Adding Product Sale information
@@ -68,6 +69,11 @@ function ltkProduct() {
     this.size = '';
     this.meta4 = '';
     this.meta5 = '';
+    // Custom End:
+
+    // Custom Start: [MSS-1966 Listrak - MCS Feed Changes]
+    this.Meta4 = '';
+    this.Meta5 = '';
     // Custom End:
 }
 
@@ -163,6 +169,20 @@ ltkProduct.prototype.LoadProduct = function (product) {
         this.size = this.getCaseDiameter(product);
     }
     // Custom End:
+
+    // Custom Start: [MSS-1966 Listrak - MCS Feed Changes]
+    if (this.getAssignedCategories) {
+        var productCurrentCategory = this.getProductCurrentCategory(product);
+        if (!empty(productCurrentCategory.specifiedMeta4) && !empty(productCurrentCategory.specifiedMeta5)) {
+            this.Meta4 = productCurrentCategory.specifiedMeta4;
+            this.Meta5 = productCurrentCategory.specifiedMeta5;
+        } else if (!empty(productCurrentCategory.specifiedMeta4) && empty(productCurrentCategory.specifiedMeta5)) {
+            this.Meta5 = productCurrentCategory.specifiedMeta4;
+        } else if (!empty(productCurrentCategory.specifiedMeta5) && empty(productCurrentCategory.specifiedMeta4)) {
+            this.Meta5 = productCurrentCategory.specifiedMeta5;
+        }
+    }
+    // Custom End
 };
 // MOD 16.3 Extra Prod Attributes
 ltkProduct.prototype.getAttributes = function (product) {
@@ -461,5 +481,49 @@ ltkProduct.prototype.getStrapWidth = function (product) {
 ltkProduct.prototype.getCaseDiameter = function (product) {
     var caseDiameter = !empty(product.custom.caseDiameter) ? product.custom.caseDiameter : '';
     return caseDiameter;
+}
+// Custom End
+
+// Custom Start: [MSS-1966 Listrak - MCS Feed Changes]
+ltkProduct.prototype.getProductCurrentCategory = function (product) {
+    var specifiedMeta4 = '';
+    var specifiedMeta5 = '';
+    var specifiedCategories = {};
+    try {
+        if (!empty(product) && product.categories.empty === false) {
+            var productCategories = product.categories;
+            for (var i = 0; i < productCategories.length; i++) {
+                var productCategory = product.categories[i];
+                while (productCategory.parent != null) {
+                    if (productCategory.parent.topLevel === true) {
+                        if (productCategory.parent.displayName == 'Deal') {
+                            specifiedMeta5 = 'Deals';
+                        } else if(productCategory.parent.displayName == 'Clearance') {
+                            specifiedMeta5 = 'Clearance';
+                        } else if(productCategory.parent.displayName == 'Hidden Category') {
+                            specifiedMeta4 = productCategory.displayName;
+                        }
+                        break;
+                    } else if(productCategory.topLevel === true) {
+                        if (productCategory.displayName == 'Deal') {
+                            specifiedMeta5 = 'Deals';
+                        } else if(productCategory.displayName == 'Clearance') {
+                            specifiedMeta5 = 'Clearance';
+                        } else if(productCategory.displayName == 'Hidden Category') {
+                            specifiedMeta4 = productCategory.displayName;
+                        }
+                        break;
+                    }
+                    productCategory = productCategory.parent;
+                }
+                specifiedCategories.specifiedMeta4 = specifiedMeta4;
+                specifiedCategories.specifiedMeta5 = specifiedMeta5;
+            }
+        }
+        return specifiedCategories;
+    } catch (error) {
+        Logger.error('Listrak Collection Category Processing Failed for Product: {0}, Error: {1}', product.ID, error);
+        return specifiedCategories;
+    }
 }
 // Custom End
