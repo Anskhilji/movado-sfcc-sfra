@@ -18,7 +18,7 @@
             </div>
         </isif>
         <div class="col-md-6 store-note">
-            <p class="store-note-text">${Resource.msg('store.pickup.checkout.store.note', 'storePickUp', null)}</p>
+            <p class="store-note-text">${dw.system.Site.current.getCustomPreferenceValue('bopisCheckoutAlertNote') ? dw.system.Site.current.getCustomPreferenceValue('bopisCheckoutAlertNote') : '' }</p>
         </div>
     </div>
 </isif>
