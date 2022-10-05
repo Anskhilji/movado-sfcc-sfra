@@ -70,11 +70,6 @@ function ltkProduct() {
     this.meta4 = '';
     this.meta5 = '';
     // Custom End:
-
-    // Custom Start: [MSS-1966 Listrak - MCS Feed Changes]
-    this.Meta4 = '';
-    this.Meta5 = '';
-    // Custom End:
 }
 
 /* Method to load product URLs only. */
@@ -171,15 +166,15 @@ ltkProduct.prototype.LoadProduct = function (product) {
     // Custom End:
 
     // Custom Start: [MSS-1966 Listrak - MCS Feed Changes]
-    if (this.getAssignedCategories) {
+    if (!empty(this.getAssignedCategories)) {
         var productCurrentCategory = this.getProductCurrentCategory(product);
         if (!empty(productCurrentCategory.specifiedMeta4) && !empty(productCurrentCategory.specifiedMeta5)) {
-            this.Meta4 = productCurrentCategory.specifiedMeta4;
-            this.Meta5 = productCurrentCategory.specifiedMeta5;
+            this.meta4 = productCurrentCategory.specifiedMeta4;
+            this.meta5 = productCurrentCategory.specifiedMeta5;
         } else if (!empty(productCurrentCategory.specifiedMeta4) && empty(productCurrentCategory.specifiedMeta5)) {
-            this.Meta5 = productCurrentCategory.specifiedMeta4;
+            this.meta5 = productCurrentCategory.specifiedMeta4;
         } else if (!empty(productCurrentCategory.specifiedMeta5) && empty(productCurrentCategory.specifiedMeta4)) {
-            this.Meta5 = productCurrentCategory.specifiedMeta5;
+            this.meta5 = productCurrentCategory.specifiedMeta5;
         }
     }
     // Custom End

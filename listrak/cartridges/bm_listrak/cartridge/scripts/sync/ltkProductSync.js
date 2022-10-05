@@ -262,8 +262,8 @@ function productSync() {
 
                 // Custom Start: [MSS-1966 Listrak - MCS Feed Changes]
                 if (getAssignedCategories) {
-                    productFile.AddRowItem(prd.Meta4, true);
-                    productFile.AddRowItem(prd.Meta5, true);
+                    productFile.AddRowItem(prd.meta4, true);
+                    productFile.AddRowItem(prd.meta5, true);
                 }
                 // Custom End
 
