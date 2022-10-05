@@ -2056,6 +2056,12 @@
                                             padding: rem(15);
                                             margin-right: rem(9);
                                             transform: translateX(-2px);
+
+                                            @include media-breakpoint-down(xs) {
+                                                background-image: url(../../images/map-pin-mobile.svg);
+                                                transform: translateX(-7px);
+                                                margin-right: rem(0);
+                                            }
                                         }
                                     }
                                 }

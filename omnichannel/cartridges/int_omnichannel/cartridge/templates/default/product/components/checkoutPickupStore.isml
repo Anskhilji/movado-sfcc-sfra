@@ -12,9 +12,11 @@
         </div>
     </div>
     <div class="row store-hours">
-        <div class="col-md-6">
-            <isprint value="${pdict.preferedPickupStore.storeHours}" encoding="off" />
-        </div>
+        <isif condition="${pdict.preferedPickupStore.storeHours}">
+            <div class="col-md-6">
+                <isprint value="${pdict.preferedPickupStore.storeHours}" encoding="off" />
+            </div>
+        </isif>
         <div class="col-md-6 store-note">
             <p class="store-note-text">${Resource.msg('store.pickup.checkout.store.note', 'storePickUp', null)}</p>
         </div>
