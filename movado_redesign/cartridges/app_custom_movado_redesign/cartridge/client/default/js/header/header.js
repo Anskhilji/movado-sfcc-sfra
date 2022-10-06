@@ -215,41 +215,41 @@ $(".mobile-menu .close-button").click(function(){
 });
 
 setTimeout(function(){
-    $(".navbar-toggler-custom").removeAttr('disabled');
+    $('.navbar-toggler-custom').removeAttr('disabled');
 }, 500);
 
 $(document).ready(function() {
-    $(".navbar-toggler-custom").click(function(e){
+    $('.navbar-toggler-custom').click(function(e){
         e.preventDefault();
         e.stopPropagation();
         var parentElement = e.target.closest('.navbar-toggler-custom');
         if (!parentElement) return;
         if (parentElement) {
         setTimeout(function(){
-            $(".mobile-menu .nav-item > a").removeClass("fadeOutLeft fast animated").addClass("fadeInLeft fast animated");
-            $(".country-selector-mobile .html-slot-container, .mobile-login .nav-link").removeClass("fadeOutLeft fast animated").addClass("fadeInLeft fast animated");
-            $(".mobile-menu").removeClass("fadeOut");
-            $(".mobile-menu").removeClass("animated");
-            $(".mobile-menu").removeClass("delay-point-three");
-            $(".mobile-menu").addClass("in");
-            $(".mobile-menu").addClass("animated");
+            $('.mobile-menu .nav-item > a').removeClass('fadeOutLeft fast animated').addClass('fadeInLeft fast animated');
+            $('.country-selector-mobile .html-slot-container, .mobile-login .nav-link').removeClass('fadeOutLeft fast animated').addClass('fadeInLeft fast animated');
+            $('.mobile-menu').removeClass('fadeOut');
+            $('.mobile-menu').removeClass('animated');
+            $('.mobile-menu').removeClass('delay-point-three');
+            $('.mobile-menu').addClass('in');
+            $('.mobile-menu').addClass('animated');
         }, 300);
         var $mobileMenu = document.querySelector('.mobile-menu');
         function checkHamburgerToggeler() {
             if($mobileMenu) {
-                $(".modal-background").addClass("d-block");
-                $(".mobile-menu").removeClass("fadeOut");
-                $(".mobile-menu").removeClass("animated");
-                $(".mobile-menu").removeClass("delay-point-three");
-                $(".mobile-menu").addClass("in");
-                $(".mobile-menu").addClass("animated");
+                $('.modal-background').addClass('d-block');
+                $('.mobile-menu').removeClass('fadeOut');
+                $('.mobile-menu').removeClass('animated');
+                $('.mobile-menu').removeClass('delay-point-three');
+                $('.mobile-menu').addClass('in');
+                $('.mobile-menu').addClass('animated');
             } else {
                 setTimeout(checkHamburgerToggeler, 400);
             }
         }
         setTimeout(checkHamburgerToggeler, 400);
-        $(".dropdown-menu .dropdown-item a").removeClass("fadeOutLeft").addClass("animated fast fadeInLeft");
-        $('.slick-slider').slick("refresh");
+        $('.dropdown-menu .dropdown-item a').removeClass('fadeOutLeft').addClass('animated fast fadeInLeft');
+        $('.slick-slider').slick('refresh');
         }
     });
 });
