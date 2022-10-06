@@ -224,7 +224,7 @@ function setOrderAnalysisStatus(order, status, callerModule) {
     RCLogger.logMessage('The order analysis status is: ' + status, 'debug', logLocation);
 
     try {
-        if (empty(session.custom.delayRiskifiedStatus)) {
+        if (empty(session.custom.delayRiskifiedStatus) || session.custom.delayRiskifiedStatus) {
             Transaction.wrap(function () {
                 order.custom.riskifiedOrderAnalysis = status;
             });

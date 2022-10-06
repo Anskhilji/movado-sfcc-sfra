@@ -1,6 +1,0 @@
-<isif condition="${product.shortDescription}">
-    <div class="col-12 value content" itemprop="description">
-        <isprint value="${product.shortDescription}" encoding="off" />
-    </div>
-</isif>
-
