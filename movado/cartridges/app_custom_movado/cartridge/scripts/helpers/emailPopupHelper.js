@@ -119,6 +119,58 @@ function checkPopupQualifications (req) {
     }
 }
 
+function listrakPersistentPopup() {
+    var Site = require('dw/system/Site');
+    // var emailPopupHelper = require('*/cartridge/scripts/helpers/emailPopupHelper');
+    var currentSite = Site.getCurrent();
+    // var response = checkPopupQualifications(req);
+    var SitePreferences = Site.current.preferences.custom;
+    var popupID;
+    var eswEshopworldModuleEnabled = currentSite.getCustomPreferenceValue('eswEshopworldModuleEnabled');
+    if (eswEshopworldModuleEnabled) {
+        var eswCustomHelper = require('*/cartridge/scripts/helpers/eswCustomHelper');
+    }
+    var domesticAllowedCountry = SitePreferences.eswEshopworldModuleEnabled ? eswCustomHelper.isCurrentDomesticAllowedCountry() : false;
+    if (SitePreferences.Listrak_Cartridge_Enabled) {
+        var Constants = require('*/cartridge/scripts/util/Constants');
+        var currentCountry = eswCountryCode();
+        if (Site.current.ID == 'MVMTUS') {
+            if (currentCountry == Constants.US_COUNTRY_CODE) {
+                popupID = SitePreferences.Listrak_USPopupID || false;
+            } else {
+                popupID = SitePreferences.Listrak_USInternationalOptInPopupID || false;
+            }
+        } else if (Site.current.ID == 'MVMTEU') {
+            if (currentCountry == Constants.DE_COUNTRY_CODE) {
+                popupID = SitePreferences.Listrak_GermanyOptInPopup || false;
+            } else {
+                popupID = SitePreferences.Listrak_EUInternationalOptInPopupID || false;
+            }
+        } else {
+            if (eswEshopworldModuleEnabled) {
+                if (domesticAllowedCountry) {
+                    popupID = SitePreferences.Listrak_DomesticPopupID || false;
+                } else if (!domesticAllowedCountry && currentCountry !== Constants.DE_COUNTRY_CODE) {
+                    popupID = SitePreferences.Listrak_InternationalPopupID || false;
+                } else {
+                    popupID = SitePreferences.Listrak_DoubleOptInPopupID || false;
+                }
+            } else {
+                var currentCountry = require('*/cartridge/scripts/helper/ltkHelper.js').getCountryCode(req);
+                if (currentCountry == Constants.US_COUNTRY_CODE) {
+                    popupID = SitePreferences.Listrak_DomesticPopupID || false;
+                } else if (currentCountry == Constants.DE_COUNTRY_CODE) {
+                    popupID = SitePreferences.Listrak_DoubleOptInPopupID || false;
+                } else {
+                    popupID = SitePreferences.Listrak_InternationalPopupID || false;
+                }
+            }
+        }
+    }
+
+    return popupID;
+}
+
 
 /**
  * Matching the current country with configured countries
@@ -155,3 +207,4 @@ module.exports.isEmailPopUpEnabled = isEmailPopUpEnabled;
 module.exports.checkPopupQualifications = checkPopupQualifications;
 module.exports.isDoubleOptInPopupCountry = isDoubleOptInPopupCountry;
 module.exports.eswCountryCode = eswCountryCode;
+module.exports.listrakPersistentPopup = listrakPersistentPopup;

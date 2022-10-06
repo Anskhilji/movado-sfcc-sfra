@@ -56,12 +56,40 @@ server.get('Show', function (req, res, next) {
             }
         }
     }
-    res.render('common/emailOptInPopUp', {
-        isEmailPopUpEnabled : response.isEmailPopUpEnabled,
-        popUpSettings: response.popUpSettings,
-        popupID: popupID
-    });
-    next();
+    
+    var isAjax = Object.hasOwnProperty.call(request.httpHeaders, 'x-requested-with');
+    if(isAjax){
+        res.json({
+            success: true,
+            popupID: popupID,
+        });
+    } else {
+        res.render('common/emailOptInPopUp', {
+            isEmailPopUpEnabled : response.isEmailPopUpEnabled,
+            popUpSettings: response.popUpSettings,
+            popupID: popupID
+        });
+    }
+  
+        // data-emailoptinfrequency = "${pdict.popUpSettings.emailPopupMuteForDays}"
+    // data-emailpopupposition = "${pdict.popUpSettings.emailPopUpPosition}"
+    // data-emailpopupdelaytime = "${pdict.popUpSettings.emailPopupWaitTime}">
+
+    // var context = { 
+    //     isEmailPopUpEnabled : response.isEmailPopUpEnabled,
+    //     popUpSettings: response.popUpSettings,
+    //     popupID: popupID
+    // };
+    // listrakPopupHtml = renderTemplateHelper.getRenderedHtml(context, 'common/emailOptInPopUp');
+
+   
+    // res.setViewData({
+    //     isEmailPopUpEnabled : response.isEmailPopUpEnabled,
+    //     popUpSettings: response.popUpSettings,
+    //     popupID: popupID,
+    //     listrakPopupHtml: listrakPopupHtml
+    // });
+    return next();
 });
 
 module.exports = server.exports();
