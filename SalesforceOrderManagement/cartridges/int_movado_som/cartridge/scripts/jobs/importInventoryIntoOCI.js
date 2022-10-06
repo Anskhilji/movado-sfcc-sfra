@@ -17,6 +17,7 @@ var XMLStreamConstants = require('dw/io/XMLStreamConstants');
 var JXON = require('*/cartridge/scripts/util/JXON');
 
 var task = 'ImportInventoryToOCI'; /** Defaulting TaskName */
+var safetyStockCount = 0;
 
 /**
 * Processes the OCI Inventory Update for the given OCIPayload
@@ -163,6 +164,19 @@ function importInventoryIntoOCI(args) {
                 if (onHandQuantity < 0) {
                     onHandQuantity = 0;
                 }
+                
+                var futureExpectedDate = recordNode.record.futureexpectedtimestamp;
+                var ociFutureStock = null;
+                if(futureExpectedDate != null) {
+                    var futureQuantity = parseInt(recordNode.record.preorderbackorderallocation,10);
+                    if (futureQuantity < 0) {
+                        futureQuantity = 0;
+                    }
+                    ociFutureStock = new OCIPayloads.OCIFutureStock(
+                        futureExpectedDate,
+                        futureQuantity
+                    );
+                }
 
                 var ociRecord = new OCIPayloads.OCIRecord(
                     recordNode.record['@product-id'].toUpperCase(), // sku - Stock Keeping Unit
@@ -171,6 +185,8 @@ function importInventoryIntoOCI(args) {
                     new Date().toISOString(), // effectiveDate - Inventory Effective Date
                     onHandQuantity // onHand - Stock Level OnHand
                 );
+                if(ociFutureStock != null)
+                ociRecord.futureStock.push(ociFutureStock);
 
                 if (iRecordsCounter === 100) {
                     try {

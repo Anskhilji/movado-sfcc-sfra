@@ -3,6 +3,8 @@
 var baseShippingHelpers = module.superModule;
 var collections = require('*/cartridge/scripts/util/collections');
 var ShippingModel = require('*/cartridge/models/shipping');
+var ShippingMgr = require('dw/order/ShippingMgr');
+var ShippingMethodModel = require('*/cartridge/models/shipping/shippingMethod');
 
 
 // Public (class) static model functions
@@ -40,6 +42,42 @@ function selectBOPISShippingMethod(shippingMethods, shipment) {
     }
 }
 
+/**
+ * Plain JS object that represents a DW Script API dw.order.ShippingMethod object
+ * @param {dw.order.Shipment} shipment - the target Shipment
+ * @param {Object} [address] - optional address object
+ * @returns {dw.util.Collection} an array of ShippingModels
+ */
+ function getApplicableShippingMethods(shipment, address) {
+    if (!shipment) return null;
+
+    var shipmentShippingModel = ShippingMgr.getShipmentShippingModel(shipment);
+
+    var shippingMethods;
+    if (address) {
+        shippingMethods = shipmentShippingModel.getApplicableShippingMethods(address);
+    } else {
+        shippingMethods = shipmentShippingModel.getApplicableShippingMethods();
+    }
+
+    // Filter out whatever the method associated with in store pickup
+    var filteredMethods = [];
+    collections.forEach(shippingMethods, function (shippingMethod) {
+        if (session.privacy.pickupFromStore) {
+            if (shippingMethod.custom.storePickupEnabled) {
+                filteredMethods.push(new ShippingMethodModel(shippingMethod, shipment));
+            }
+        } else {
+            if (!shippingMethod.custom.storePickupEnabled) {
+                filteredMethods.push(new ShippingMethodModel(shippingMethod, shipment));
+            }
+        }
+    });
+
+    return filteredMethods;
+}
+
 baseShippingHelpers.getShippingModels = getShippingModels;
 baseShippingHelpers.selectBOPISShippingMethod = selectBOPISShippingMethod;
+baseShippingHelpers.getApplicableShippingMethods = getApplicableShippingMethods;
 module.exports = baseShippingHelpers;

@@ -22,7 +22,7 @@
                 <isloop items="${discount.relationship}" var="relatedPromotion">
                     <div><isprint value="${relatedPromotion.callOutMsg}" encoding="off"/></div>
                 </isloop>
-            </div> </iscomment>
+            </div>
         </div>
         <iscomment> MSS-1466 Remove Promotion Callout Msg </iscomment>
         <iselseif condition="${discount.lineItemText !== 'null' && discount.price !== 'null'}" >

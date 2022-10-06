@@ -10,6 +10,9 @@
                 </div>
             </div> 
         </iscomment>
+        <isif condition="${session.privacy.pickupFromStore}">
+            <div class="checkout-pickup-items checkout-pickup-items-container d-none">${Resource.msgf('store.pickup.checkout.items', 'storePickUp', null,  pdict.order.items.totalQuantity)}</div>
+        </isif>
         <div class="product-summary-block">
             <isloop items="${pdict.order.shipping}" var="shippingModel">
                 <isif condition="${pdict.order.shipping.length > 1}">

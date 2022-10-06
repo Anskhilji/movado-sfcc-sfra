@@ -1233,6 +1233,7 @@ function updateQuantities(quantities, $productContainer) {
  * @param {jQuery} $productContainer - DOM element for current product
  */
 function attributeSelect(selectedValueUrl, $productContainer) {
+    var isColorSwatch = $('.variationAttribute').find('.color-Attribute').hasClass('colorWatch');
     if (selectedValueUrl) {
 
         $('body').trigger('product:beforeAttributeSelect',
@@ -1246,6 +1247,10 @@ function attributeSelect(selectedValueUrl, $productContainer) {
                 updateOptions(data.product.options, $productContainer);
                 updateQuantities(data.product.quantities, $productContainer);
                 handleOptionsMessageErrors(data.validationErrorEmbossed, data.validationErrorEngraved, $productContainer);
+                if(isColorSwatch) {
+                    var listrakTracking = require('movado/listrakActivityTracking.js');
+                    listrakTracking.listrackProductTracking();
+                }
                 $('body').trigger('product:afterAttributeSelect',
                     { data: data, container: $productContainer });
                 $.spinner().stop();

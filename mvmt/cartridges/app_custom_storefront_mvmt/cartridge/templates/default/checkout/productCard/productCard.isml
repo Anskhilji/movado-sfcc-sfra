@@ -32,7 +32,6 @@
                 <iscomment> Custom End: </iscomment>
             </div>
             <div class="item-attributes flex-column">
-            
                 <isloop items="${lineItem.variationAttributes}" var="attribute">
                     <p class="line-item-attributes">${attribute.displayName}: ${attribute.displayValue}</p>
                 </isloop>

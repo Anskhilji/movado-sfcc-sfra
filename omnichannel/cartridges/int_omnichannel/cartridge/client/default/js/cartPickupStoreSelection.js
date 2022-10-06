@@ -17,8 +17,14 @@ $(document).on('click', '.remove-btn.remove-product, .cart-store-pickup', functi
                 $('.remove-product').attr({'data-store-pickup-available': $isAllItemsAvailable})
                 updateStorePickupProductAvailability(response.viewData);
                 handleAvailabilityOnStore(response.viewData);
+                if (response.viewData !== '' && response.viewData !== undefined) {
+                    updateBOPISShippingMethods(response.viewData, $pickupFromStore);
+                }
             }else{
                 updateStorePickupProductAvailability(response.viewData);
+                if (response.viewData !== '' && response.viewData !== undefined) {
+                    updateBOPISShippingMethods(response.viewData, $pickupFromStore);
+                }
             }
             $.spinner().stop();
         },
@@ -27,6 +33,36 @@ $(document).on('click', '.remove-btn.remove-product, .cart-store-pickup', functi
         }
     });
 });
+
+function updateBOPISShippingMethods(data, $pickupFromStore) {
+    $('#shippingMethods').empty();
+    var shipments = data ? data.cartModel.shipments[0].shippingMethods : '';
+    var html;
+    if (shipments !== undefined && shipments !== '') {
+        shipments.forEach(function (shipment) {
+            if (data.cartModel.shipments[0].selectedShippingMethod === shipment.ID) { 
+                var selected = 'selected';
+            }
+            html += '<option '+ selected +' data-shipping-id='+ shipment.ID +'>'
+            + (shipment.displayName ? shipment.displayName : '') + ' ' + (shipment.estimatedArrivalTime ? shipment.estimatedArrivalTime : '')
+            + '</option>';
+            $('#shippingMethods').empty().append(html);
+        });
+    }
+
+    var shippingTotal = data ? data.cartModel.totals.totalShippingCost : '';
+    if (shippingTotal !== undefined && shippingTotal !== '') {
+        if (data.cartModel.shipments[0].selectedShippingMethod !== undefined) {
+            $('.shipping-cost').empty().append(shippingTotal);
+        }
+    }
+ 
+    if ($pickupFromStore) {
+        $('#shippingMethods').attr('disabled', 'disabled');
+    } else {
+        $('#shippingMethods').removeAttr('disabled');
+    }
+}
 
 function handleAvailabilityOnStore(data) {
     data.items.forEach(function (item) {
@@ -66,19 +102,35 @@ function updateStorePickupProductAvailability(data) {
         $isAllItemsAvailable = $allItems;
     }
 
-    if ($pickupFromStore == true) {
+    if ($pickupFromStore == true && $isAllItemsAvailable == true) {
         $('.paypal-btn').addClass('d-none');
         $('.more-ways-text').addClass('d-none');
+        $('#shippingMethods').attr('disabled', 'disabled');
+        $('.pickup-store-error').addClass('d-none');
+        setTimeout(function () {
+            $('.gpay-button').addClass('d-none');
+            $('.apple-pay-cart').addClass('d-none');
+        }, 300);
+    } else if ($pickupFromStore == true && $isAllItemsAvailable == false) {
+        $('.paypal-btn').addClass('d-none');
+        $('.more-ways-text').addClass('d-none');
+        $('.checkout-btn').addClass('disabled');
+        $('#shippingMethods').attr('disabled', 'disabled');
+        $('.pickup-store-error').removeClass('d-none');
         setTimeout(function () {
             $('.gpay-button').addClass('d-none');
             $('.apple-pay-cart').addClass('d-none');
         }, 300);
     } else {
+        $('.pickup-store-error').addClass('d-none');
         $('.paypal-btn').removeClass('d-none');
         $('.more-ways-text').removeClass('d-none');
+        $('#shippingMethods').removeAttr('disabled');
         setTimeout(function () {
             $('.gpay-button').removeClass('d-none');
             $('.apple-pay-cart').removeClass('d-none');
+            $('.checkout-btn').removeClass('disabled');
+            $('.paypal-btn').removeClass('disabled');
         }, 300); 
     }
 }

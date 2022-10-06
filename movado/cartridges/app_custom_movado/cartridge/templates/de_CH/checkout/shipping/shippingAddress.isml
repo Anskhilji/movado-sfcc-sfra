@@ -38,20 +38,20 @@
 
 <isif condition="${session.privacy.pickupFromStore}">
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-6 mx-field-wrapper">
             <div class="form-group
-            ${addressFields.phone.mandatory === true ? 'required' : ''}
-            ${addressFields.phone.htmlName}">
-                <label class="form-control-label" for="shippingPhoneNumber">
-                    <isprint value="${addressFields.phone.label}" encoding="htmlcontent" />
-                    <isif condition="${sitePref.custom.enableCalloutMsgMobileNumber === true}">
-                        <iscontentasset aid="calloutMsgMobileNumber" />
-                    </isif>
-                </label>
-                <input type="tel" class="form-control shippingPhoneNumber" id="shippingPhoneNumber"
+                ${addressFields.phone.mandatory === true ? 'required' : ''}
+                ${addressFields.phone.htmlName}">            
+                <isif condition="${sitePref.custom.enableCalloutMsgMobileNumber === true}">
+                    <iscontentasset aid="calloutMsgMobileNumber" />
+                </isif>
+                <input type="tel" class="form-control input-wrapper-checkout shippingPhoneNumber" id="shippingPhoneNumber"
                     value="${shippingAddress.phone || ''}" <isprint value="${addressFields.phone.attributes}"
                     encoding="off" />
                 autocomplete="tel">
+                <label class="form-control-label field-label-wrapper" for="shippingPhoneNumber">
+                    <isprint value="${addressFields.phone.label}" encoding="htmlcontent" />
+                </label>
                 <div class="invalid-feedback">
                     <isprint value="${addressFields.phone.error}">
                 </div>
