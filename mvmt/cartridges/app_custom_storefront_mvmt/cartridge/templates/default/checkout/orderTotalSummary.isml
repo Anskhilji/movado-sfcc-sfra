@@ -42,7 +42,7 @@
 <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('disableSalesTaxLine') !== true}">
     <div class="row leading-lines justify-content-between sales-tax-item">
         <div class="start-lines">
-            <p class="order-receipt-label"><span>${Resource.msg('label.order.sales.tax','confirmation', null)}</span></p>
+            <p class="order-receipt-label"><span>${Resource.msg('label.order.confirmation.sales.tax','confirmation', null)}</span></p>
         </div>
         <div class="end-lines">
             <isif condition="${pdict.order.totalTaxVal == '-'}">
@@ -57,7 +57,7 @@
 <iscomment> Custom Start: Removed the grand total class and added this to last p tag </iscomment>
 <div class="row justify-content-between leading-lines">
     <div class="start-lines">
-        <p class="order-receipt-label"><span>${Resource.msg('label.order.grand.total','confirmation', null)}</span></p>
+        <p class="order-receipt-label"><span>${Resource.msg('label.order.confirmation.grand.total','confirmation', null)}</span></p>
     </div>
     <div class="end-lines">
         <p class="text-right"><span class="grand-total grand-total-sum">${pdict.order.totals.grandTotal}</span></p>
