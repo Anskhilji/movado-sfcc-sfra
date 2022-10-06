@@ -14,6 +14,7 @@ var PromotionMgr = require('dw/campaign/PromotionMgr');
 var Logger = require('dw/system/Logger').getLogger('Listrak');
 var Site = require('dw/system/Site');
 var URLUtils = require('dw/web/URLUtils');
+var Constants = require('~/cartridge/scripts/util/ListrakConstants');
 
 /**
  * Object that holds inflated product information.
@@ -481,6 +482,9 @@ ltkProduct.prototype.getCaseDiameter = function (product) {
 
 // Custom Start: [MSS-1966 Listrak - MCS Feed Changes]
 ltkProduct.prototype.getProductCurrentCategory = function (product) {
+    var productCategory;
+    var percentProductCategory;
+    var percentResult;
     var specifiedMeta4 = '';
     var specifiedMeta5 = '';
     var specifiedCategories = {};
@@ -488,24 +492,26 @@ ltkProduct.prototype.getProductCurrentCategory = function (product) {
         if (!empty(product) && product.categories.empty === false) {
             var productCategories = product.categories;
             for (var i = 0; i < productCategories.length; i++) {
-                var productCategory = product.categories[i];
+                productCategory = product.categories[i];
+                percentProductCategory = productCategory.displayName;
+                percentResult = percentProductCategory.indexOf("%");
+                if (percentResult > -1) {
+                    specifiedMeta4 = productCategory.displayName;
+                    continue;
+                }
                 while (productCategory.parent != null) {
                     if (productCategory.parent.topLevel === true) {
-                        if (productCategory.parent.displayName == 'Deal') {
-                            specifiedMeta5 = 'Deals';
-                        } else if(productCategory.parent.displayName == 'Clearance') {
-                            specifiedMeta5 = 'Clearance';
-                        } else if(productCategory.parent.displayName == 'Hidden Category') {
-                            specifiedMeta4 = productCategory.displayName;
+                        if (productCategory.parent.displayName == Constants.LTK_CURRENT_CATEGORY_DEAL) {
+                            specifiedMeta5 = Constants.LTK_CURRENT_CATEGORY_DEALS;
+                        } else if(productCategory.parent.displayName == Constants.LTK_CURRENT_CATEGORY_CLEARANCE) {
+                            specifiedMeta5 = Constants.LTK_CURRENT_CATEGORY_CLEARANCE;
                         }
                         break;
                     } else if(productCategory.topLevel === true) {
-                        if (productCategory.displayName == 'Deal') {
-                            specifiedMeta5 = 'Deals';
-                        } else if(productCategory.displayName == 'Clearance') {
-                            specifiedMeta5 = 'Clearance';
-                        } else if(productCategory.displayName == 'Hidden Category') {
-                            specifiedMeta4 = productCategory.displayName;
+                        if (productCategory.displayName == Constants.LTK_CURRENT_CATEGORY_DEAL) {
+                            specifiedMeta5 = Constants.LTK_CURRENT_CATEGORY_DEALS;
+                        } else if(productCategory.displayName == Constants.LTK_CURRENT_CATEGORY_CLEARANCE) {
+                            specifiedMeta5 = Constants.LTK_CURRENT_CATEGORY_CLEARANCE;
                         }
                         break;
                     }
