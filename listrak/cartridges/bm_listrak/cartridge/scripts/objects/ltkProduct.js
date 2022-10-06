@@ -14,7 +14,7 @@ var PromotionMgr = require('dw/campaign/PromotionMgr');
 var Logger = require('dw/system/Logger').getLogger('Listrak');
 var Site = require('dw/system/Site');
 var URLUtils = require('dw/web/URLUtils');
-var Constants = require('~/cartridge/scripts/util/ListrakConstants');
+var Constants = require('bm_listrak/cartridge/scripts/util/ListrakConstants');
 
 /**
  * Object that holds inflated product information.
