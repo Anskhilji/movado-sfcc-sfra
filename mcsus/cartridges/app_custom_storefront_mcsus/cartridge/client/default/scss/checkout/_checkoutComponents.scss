@@ -373,6 +373,7 @@ $receipt-font-size: rem(14);
         &::before {
             content: '';
         }
+      }
 
       .order-receipt-label {
           margin-bottom: rem(0);

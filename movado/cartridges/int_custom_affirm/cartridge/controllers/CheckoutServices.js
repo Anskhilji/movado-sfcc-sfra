@@ -232,7 +232,7 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 			// Riskified order approved response from decide API
 			RiskifiedOrderDescion.orderApproved(order);
 		}
-	  }
+	}
 	  //set custom attirbute in session to avoid order confirmation page reload
 	  session.custom.orderJustPlaced = true;
 	  //set order number in session to get order back after redirection

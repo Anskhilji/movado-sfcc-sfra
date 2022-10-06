@@ -248,7 +248,6 @@ function sendCreateOrder(order) {
     }
 
     return response;
-    
 }
 
 /**

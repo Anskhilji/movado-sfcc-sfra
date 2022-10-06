@@ -622,9 +622,9 @@ function updateCheckoutTotals(data) {
     }
     
     $('.tax-total').empty().append(data.totals.totalTax);
-    $('.grand-total-sum').empty().append(data.totals.grandTotal);
     $('.sub-total').empty().append(data.totals.subTotal);
     $('.grand-total-price').empty().append(data.totals.subTotal);
+    $('.grand-total-sum').empty().append(data.totals.grandTotal);
 
     if (data.totals.orderLevelDiscountTotal.value > 0) {
         $('.order-discount').removeClass('hide-order-discount');

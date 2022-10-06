@@ -191,7 +191,7 @@
                         <div class="col-12 prices-add-to-cart-actions prices-add-to-cart-redesign ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "d-none" : ""}">
                             <div class="d-block">
                                 <!-- Cart and [Optionally] Apple Pay -->
-                                <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id, 'isRedesign', true)}"/>
+                                <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
                             </div>
                             <div class="smart-gift-box-new smart-gift-box-new-mcs smart-gift-box-new-mcs-new-design">
                                 <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
