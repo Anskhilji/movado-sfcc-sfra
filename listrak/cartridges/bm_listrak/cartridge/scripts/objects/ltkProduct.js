@@ -45,7 +45,7 @@ function ltkProduct() {
     this.categoryStartLevel = catStartLevel;
     this.additionalAttributes = dw.system.Site.current.preferences.custom.Listrak_Additional_Attributes;
     this.categoryLevelAttributes = Site.getCurrent().getCustomPreferenceValue('Listrak_CategoryLevelAttributes');
-    this.getAssignedCategories = Site.getCurrent().getCustomPreferenceValue('Listrak_GetAssignedCategories');
+    this.getAssignedCategories = Site.getCurrent().getCustomPreferenceValue('Listrak_ConfiguredCategories');
     this.additionalAttributeValues = new dw.util.HashMap();
 
     // Custom Start: Adding Product Sale information
@@ -488,6 +488,7 @@ ltkProduct.prototype.getProductCurrentCategory = function (product) {
     var specifiedMeta4 = '';
     var specifiedMeta5 = '';
     var specifiedCategories = {};
+    var getConfiguredCategories = Site.getCurrent().getCustomPreferenceValue('Listrak_ConfiguredCategories');
     try {
         if (!empty(product) && product.categories.empty === false) {
             var productCategories = product.categories;
@@ -501,17 +502,17 @@ ltkProduct.prototype.getProductCurrentCategory = function (product) {
                 }
                 while (productCategory.parent != null) {
                     if (productCategory.parent.topLevel === true) {
-                        if (productCategory.parent.displayName == Constants.LTK_CURRENT_CATEGORY_DEALS) {
-                            specifiedMeta5 = Constants.LTK_CURRENT_CATEGORY_DEALS;
-                        } else if(productCategory.parent.displayName == Constants.LTK_CURRENT_CATEGORY_CLEARANCE) {
-                            specifiedMeta5 = Constants.LTK_CURRENT_CATEGORY_CLEARANCE;
+                        for (var j = 0; j < getConfiguredCategories.length; j++) {
+                            if (productCategory.parent.displayName == getConfiguredCategories[j]) {
+                                specifiedMeta5 = getConfiguredCategories[j];
+                            }
                         }
                         break;
                     } else if(productCategory.topLevel === true) {
-                        if (productCategory.displayName == Constants.LTK_CURRENT_CATEGORY_DEALS) {
-                            specifiedMeta5 = Constants.LTK_CURRENT_CATEGORY_DEALS;
-                        } else if(productCategory.displayName == Constants.LTK_CURRENT_CATEGORY_CLEARANCE) {
-                            specifiedMeta5 = Constants.LTK_CURRENT_CATEGORY_CLEARANCE;
+                        for (var k = 0; k < getConfiguredCategories.length; k++) {
+                            if (productCategory.displayName == getConfiguredCategories[k]) {
+                                specifiedMeta5 = getConfiguredCategories[k];
+                            }
                         }
                         break;
                     }
