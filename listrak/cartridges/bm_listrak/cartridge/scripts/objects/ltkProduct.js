@@ -501,14 +501,14 @@ ltkProduct.prototype.getProductCurrentCategory = function (product) {
                 }
                 while (productCategory.parent != null) {
                     if (productCategory.parent.topLevel === true) {
-                        if (productCategory.parent.displayName == Constants.LTK_CURRENT_CATEGORY_DEAL) {
+                        if (productCategory.parent.displayName == Constants.LTK_CURRENT_CATEGORY_DEALS) {
                             specifiedMeta5 = Constants.LTK_CURRENT_CATEGORY_DEALS;
                         } else if(productCategory.parent.displayName == Constants.LTK_CURRENT_CATEGORY_CLEARANCE) {
                             specifiedMeta5 = Constants.LTK_CURRENT_CATEGORY_CLEARANCE;
                         }
                         break;
                     } else if(productCategory.topLevel === true) {
-                        if (productCategory.displayName == Constants.LTK_CURRENT_CATEGORY_DEAL) {
+                        if (productCategory.displayName == Constants.LTK_CURRENT_CATEGORY_DEALS) {
                             specifiedMeta5 = Constants.LTK_CURRENT_CATEGORY_DEALS;
                         } else if(productCategory.displayName == Constants.LTK_CURRENT_CATEGORY_CLEARANCE) {
                             specifiedMeta5 = Constants.LTK_CURRENT_CATEGORY_CLEARANCE;
