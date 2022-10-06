@@ -1,0 +1,136 @@
+@import "_variables";
+@import "bootstrap/scss/mixins/breakpoints";
+
+.pdp-store-pickup-wraper {
+    width: auto;
+    background-color: $light-white;
+    margin-bottom: rem(20);
+    min-height: rem(120);
+    height: auto;
+    padding: rem(20);
+    padding-bottom: rem(21);
+    padding-right: rem(22);
+    max-width: rem(530);
+
+    .pdp-store-pickup {
+
+        &-inventory {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        &-display-inline-block {
+            display: inline-block;
+
+            &-delevery {
+                width: 75.25%;
+            }
+
+            &-store-icon {
+                background: url('../../images/pickupstore-icon.svg') no-repeat center;
+                padding: rem(10);
+                margin-right: rem(10);
+            }
+
+            &-inventory-icon {
+                background: url('../../images/pickup-store-inventory-icon.svg') no-repeat center;
+                padding: rem(10);
+                margin-right: rem(10);
+            }
+        }
+
+        &-icon {
+            display: inline-block;
+            padding: rem(10);
+            margin-right: rem(10);
+    
+            &-default {
+                background: url('../../images/pickupstore-icon.svg') no-repeat center;
+            }
+
+            &-available {
+                background: url('../../images/pickup-store-inventory-icon.svg') no-repeat center;
+            }
+
+            &-unavailable {
+                background: url('../../images/pickupstore-icon.svg') no-repeat center;
+            } 
+            }
+
+        &-address {
+            display: flex;
+            align-items: flex-start;
+            padding: 0;
+
+            .pickup-store-inventory-status-icon-unavailable {
+                padding: rem(10);
+                margin-right: rem(10);
+            }
+        }
+    }
+
+    .pick-up-store {
+
+        &-stock-for-deliver {
+            color: $dark-light-black;
+            font-size: rem(14);
+            font-weight: 600;
+            letter-spacing: rem(0.61);
+            line-height: rem(17);
+            margin-bottom: rem(6);
+        }
+    
+        &-openings {
+            opacity: 0.8;
+            font-size: rem(12);
+            font-weight: 300;
+            letter-spacing: rem(0.86);
+            line-height: rem(20);
+            color: $light-black;
+            margin: 0;
+        }
+    
+        &-available-for-store {
+            color: $dark-light-black;
+            font-size: rem(14);
+            font-weight: 600;
+            letter-spacing: rem(0.61);
+            line-height: rem(17);
+            margin-bottom: rem(5);
+        }
+    
+        &-available-pickup-stores {
+            opacity: 0.8;
+            font-size: rem(12);
+            color: $light-black;
+            font-weight: 300;
+            line-height: rem(20);
+            letter-spacing: rem(0.86);
+            margin: 0;
+        }
+    
+        &-change-store {
+            opacity: 0.8;
+            font-size: rem(12);
+            font-weight: 300;
+            letter-spacing: rem(0.86);
+            line-height: rem(20);
+            margin: 0;
+            text-decoration: underline;
+            cursor: pointer;
+            color: $light-black;
+        }
+    }
+}
+
+.pickup-store-old {
+    padding: 0 rem(15);
+
+    .pdp-store-pickup-wraper {
+        padding: rem(20) rem(22) rem(21) rem(20);
+
+        .col-sm-6 {
+            padding: rem(0);
+        }
+    }
+}

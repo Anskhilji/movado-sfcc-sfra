@@ -208,7 +208,7 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     } else if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'approved') {
         // Riskified order approved response from decide API
         RiskifiedOrderDescion.orderApproved(order);
-    }    
+    }
     if (deliveryValidationFail) {
         var sendMail = true; // send email is set to true
         var isJob = false; // isJob is set to false because in case of job this hook is never called

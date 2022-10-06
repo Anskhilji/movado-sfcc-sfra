@@ -144,6 +144,17 @@ server.append(
 });
 
 server.get('Declined', function (req, res, next) {
+    var Constants = require('~/cartridge/scripts/helpers/utils/Constants');
+
+    var orderDeclinedObj = {
+        orderNumber: req.querystring.ID,
+        status: Constants.RISKFIED_ORDER_DECLINED
+    };
+
+    res.setViewData({
+        orderDeclinedObj: JSON.stringify(orderDeclinedObj)
+    });
+    
     res.render('checkout/declinedOrder');
     next();
 });
