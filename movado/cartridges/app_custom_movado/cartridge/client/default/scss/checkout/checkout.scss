@@ -1179,6 +1179,7 @@ header {
             margin-bottom: rem(24);
             background: transparent;
             margin-top: rem(0);
+            display: block;
 
             @include media-breakpoint-down(xs) {
                 margin-bottom: rem(26.4);
@@ -1401,3 +1402,7 @@ header {
     height: 100%;
 }
 
+:focus {
+    outline: none;
+    box-shadow: none;
+}

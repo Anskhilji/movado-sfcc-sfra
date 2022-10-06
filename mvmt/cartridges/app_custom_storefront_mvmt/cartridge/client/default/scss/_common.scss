@@ -916,7 +916,6 @@ div {
             .card-border-none-wrapper {
 
                 &.card-summary-wrapper-container {
-                    
                     @include media-breakpoint-down(sm) {
                         margin-bottom: rem(30);
                     }
@@ -1061,3 +1060,8 @@ div {
     }
 }
 
+:focus {
+    outline: none;
+    outline-color: transparent;
+    box-shadow: none;
+}

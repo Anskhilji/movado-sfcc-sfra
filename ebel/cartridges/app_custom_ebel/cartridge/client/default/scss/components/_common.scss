@@ -673,6 +673,10 @@ header~.container .promotions .callout a{
                       background-image: url("../images/clear_black_icon.svg");
                       width: rem(16);
                       height: rem(16);
+
+                      span {
+                          display: none;
+                      }
                   }
               }
           }

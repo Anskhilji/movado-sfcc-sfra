@@ -197,20 +197,7 @@ server.append('AddProduct', function (req, res, next) {
             quantityTotal = 0;
         }
 
-        if (!Site.getCurrent().preferences.custom.isClydeEnabled || Site.getCurrent().preferences.custom.isClydeEnabled) {
-            var Constants = require('*/cartridge/utils/Constants');
-            var orderLineItems = currentBasket.allProductLineItems;
-            var orderLineItemsIterator = orderLineItems.iterator();
-            var productLineItem;
-            Transaction.wrap(function () {
-                while (orderLineItemsIterator.hasNext()) {
-                    productLineItem = orderLineItemsIterator.next();
-                    if (productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == Constants.CLYDE_WARRANTY && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
-                        currentBasket.removeProductLineItem(productLineItem);
-                    }
-                }
-            });
-        }
+        customCartHelpers.removeNullClydeWarrantyLineItem(currentBasket);
 
         // Custom Start MSS-1930 Added code for Listrak Cart Tracking
         if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
@@ -407,6 +394,10 @@ server.append(
         res.setViewData({
             paypalButtonImg: customCartHelpers.getContentAssetContent('ca-paypal-button')
         });
+
+        customCartHelpers.removeClydeWarranty(viewData);
+        customCartHelpers.removeNullClydeWarrantyLineItem(currentBasket);
+
 
         var FolderSearch = require('*/cartridge/models/search/folderSearch');
         var pageMetaHelper = require('*/cartridge/scripts/helpers/pageMetaHelper');

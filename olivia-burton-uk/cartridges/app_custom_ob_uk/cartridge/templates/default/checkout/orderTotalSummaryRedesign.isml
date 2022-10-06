@@ -26,12 +26,20 @@
         <p class="order-receipt-label"><span>${Resource.msg('label.order.shipping.cost','confirmation', null)}</span></p>
     </div>
     <div class="end-lines">
-        <p class="text-right"><span class="shipping-total-cost">${pdict.order.totals.totalShippingCost}</span></p>
+        <isif condition="${pdict.order.totals.isFree == true}">
+            <p class="text-right">
+                <span class="shipping-total-cost">${pdict.order.totals.freeShippingLabel}</span>
+            </p>
+        <iselse>
+            <p class="text-right">
+                <span class="shipping-total-cost">${pdict.order.totals.totalShippingCost}</span>
+            </p>
+        </isif>
     </div>
 </div>
 
 <!--- Shipping Discount --->
-<div class="row leading-lines leading-lines-wrapper justify-content-between shipping-discount <isif condition="${pdict.order.totals.shippingLevelDiscountTotal.value === 0}">hide-shipping-discount</isif>">
+<div class="row leading-lines leading-lines-wrapper justify-content-between shipping-discount <isif condition="${pdict.order.totals.shippingLevelDiscountTotal.value === 0 || pdict.order.totals.isFree == true}">hide-shipping-discount</isif>">
     <div class="start-lines">
         <p class="order-receipt-label"><span>${Resource.msg('label.shipping.discount', 'common', null)}</span></p>
     </div>
@@ -44,11 +52,11 @@
 <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('disableSalesTaxLine') !== true}">
     <div class="row leading-lines leading-lines-wrapper justify-content-between sales-tax-item">
         <div class="start-lines">
-            <p class="order-receipt-label"><span>${Resource.msg('label.order.confirmation.sales.tax','confirmation', null)}</span></p>
+            <p class="order-receipt-label"><span>${Resource.msg('label.order.sales.tax','confirmation', null)}</span></p>
         </div>
         <div class="end-lines">
             <isif condition="${pdict.order.totalTaxVal == '-'}">
-            	<p class="text-right tax-total">${pdict.order.resources.toBeDeclared}</p>
+                <p class="text-right tax-total">${pdict.order.resources.toBeDeclared}</p>
             <iselse>
             <p class="text-right tax-total">${pdict.order.totals.totalTax}</p>
             </isif>
@@ -56,14 +64,12 @@
     </div>
 </isif>
 <!--- Grand Total --->
-<iscomment> Custom Start: Removed the grand total class and added this to last p tag </iscomment>
-<div class="row justify-content-between leading-lines">
-    <div class="start-lines">
-        <p class="order-receipt-label"><span>${Resource.msg('label.order.confirmation.grand.total','confirmation', null)}</span></p>
+<div class="row grand-total grand-total-wrapper justify-content-between leading-lines">
+    <div class="start-lines d-flex text-uppercase">
+        <p class="order-receipt-label mr-1"><span>${Resource.msg('label.order.grand.total','confirmation', null)}</span></p>
+        <iscomment> <span class="order-receipt-label grand-total-label">(${Resource.msgf('label.number.items.in.cart','cart', null, pdict.order.items.totalQuantity)})</span> </iscomment>
     </div>
     <div class="end-lines">
-        <p class="text-right"><span class="grand-total grand-total-sum">${pdict.order.totals.grandTotal}</span></p>
+        <p class="text-right"><span class="grand-total-sum">${pdict.order.totals.grandTotal}</span></p>
     </div>
 </div>
-<iscomment> Custom End </iscomment>
-
