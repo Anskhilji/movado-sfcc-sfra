@@ -2,6 +2,8 @@
     var assets = require('*/cartridge/scripts/assets');
     assets.addCss('/css/components/checkoutPickupStore.css');
 </isscript>
+<isset name="checkoutAlertNote" value="${dw.system.Site.current.getCustomPreferenceValue('bopisCheckoutAlertNote')}" scope="page" />
+
 <isif condition="${pdict.preferedPickupStore}">
     <div class="selected-pickup-store selected-pickup-store-label">${Resource.msg('store.pickup.checkout.selected', 'storePickUp', null)}</div>
     <div class="">
@@ -18,7 +20,7 @@
             </div>
         </isif>
         <div class="col-md-6 store-note">
-            <p class="store-note-text">${dw.system.Site.current.getCustomPreferenceValue('bopisCheckoutAlertNote') ? dw.system.Site.current.getCustomPreferenceValue('bopisCheckoutAlertNote') : '' }</p>
+            <p class="store-note-text">${checkoutAlertNote ? checkoutAlertNote : '' }</p>
         </div>
     </div>
 </isif>
