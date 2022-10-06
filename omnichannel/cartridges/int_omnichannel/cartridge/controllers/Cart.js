@@ -80,6 +80,11 @@ server.post(
         var lineItemsInventory;
         viewData.storeFormPickUP = storeFormPickUP;
         viewData.isAllItemsAvailable = isAllItemsAvailable;
+        if (session.privacy.pickupFromStore) {
+            session.custom.applePayCheckout = false;
+        } else {
+            session.custom.StorePickUp = false;
+        }
         try {
             currentBasket = BasketMgr.getCurrentBasket();
             Transaction.wrap(function () {
