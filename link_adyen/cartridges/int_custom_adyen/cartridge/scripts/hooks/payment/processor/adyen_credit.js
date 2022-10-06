@@ -229,11 +229,13 @@ function Authorize(orderNumber, paymentInstrument, paymentProcessor) {
             true,
             require('*/cartridge/scripts/hooks/paymentProcessHook').paymentRefund);
         return {
-            error: true
+            error: true,
+            result: checkoutDecisionStatus
         };
     }
     return {
-        error: false
+        error: false,
+        result: checkoutDecisionStatus
     };
 }
 

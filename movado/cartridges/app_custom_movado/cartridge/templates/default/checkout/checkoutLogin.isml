@@ -1,4 +1,4 @@
-<isdecorate template="common/layout/checkout">
+<isdecorate template="common/layout/old/checkout">
     <isset name="sitePreferences" value="${require('dw/system/Site').getCurrent().getPreferences().getCustom()}" scope="page" />
 
     <isscript>

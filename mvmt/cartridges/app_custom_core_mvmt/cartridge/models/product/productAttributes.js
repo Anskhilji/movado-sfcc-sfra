@@ -15,7 +15,7 @@ var productAttribute = module.superModule;
  * @returns {boolean} flag that specifies if the current attribute should be displayed as a swatch
  */
 function isSwatchable(dwAttributeId) {
-    var imageableAttrs = ['color'];
+    var imageableAttrs = ['color', 'productName'];
     return imageableAttrs.indexOf(dwAttributeId) > -1;
 }
 

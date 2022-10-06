@@ -1,6 +1,6 @@
 'use strict';
 
-var formHelpers = require('base/checkout/formErrors');
+var formHelpers = require('../checkout/formErrors');
 
 /**
  * Create an alert to display the error message
