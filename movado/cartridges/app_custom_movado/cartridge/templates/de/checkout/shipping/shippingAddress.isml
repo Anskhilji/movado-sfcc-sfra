@@ -222,14 +222,11 @@
             <isif condition="${sitePref.custom.enableCalloutMsgMobileNumber === true}">
                 <iscontentasset aid="calloutMsgMobileNumber"/>
             </isif>
-                <input type="tel" class="form-control input-wrapper-checkout shippingPhoneNumber" id="shippingPhoneNumber"
-                    value="${shippingAddress.phone || ''}" <isprint value="${addressFields.phone.attributes}"
-                    encoding="off" />
-                autocomplete="tel">
-                <div class="invalid-feedback">
-                    <isprint value="${addressFields.phone.error}">
-                </div>
-            </div>
+            <input type="tel" class="form-control input-wrapper-checkout shippingPhoneNumber" id="shippingPhoneNumber"
+                value="${shippingAddress.phone ||''}" <isprint value="${addressFields.phone.attributes}" encoding="off"/>
+                   autocomplete="tel">
+            <label class="form-control-label field-label-wrapper" for="shippingPhoneNumber"><isprint value="${addressFields.phone.label}" encoding="htmlcontent" /></label>
+            <div class="invalid-feedback"><isprint value="${addressFields.phone.error}" ></div>
         </div>
     </div>
 </isif>

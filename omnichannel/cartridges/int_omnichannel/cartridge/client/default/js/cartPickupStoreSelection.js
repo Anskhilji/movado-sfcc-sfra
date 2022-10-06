@@ -56,6 +56,11 @@ function updateBOPISShippingMethods(data, $pickupFromStore) {
             $('.shipping-cost').empty().append(shippingTotal);
         }
     }
+
+    var grandTotal = data ? data.cartModel.totals.grandTotal : '';
+    if (grandTotal !== undefined && grandTotal !== '') {
+        $('.grand-total-sum').empty().append(grandTotal);
+    }
  
     if ($pickupFromStore) {
         $('#shippingMethods').attr('disabled', 'disabled');
