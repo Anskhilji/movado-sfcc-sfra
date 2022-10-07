@@ -20,7 +20,7 @@ $(document).on('click', '.remove-btn.remove-product, .cart-store-pickup', functi
                 if (response.viewData !== '' && response.viewData !== undefined) {
                     updateBOPISShippingMethods(response.viewData, $pickupFromStore);
                 }
-            }else{
+            } else {
                 updateStorePickupProductAvailability(response.viewData);
                 if (response.viewData !== '' && response.viewData !== undefined) {
                     updateBOPISShippingMethods(response.viewData, $pickupFromStore);
@@ -60,6 +60,16 @@ function updateBOPISShippingMethods(data, $pickupFromStore) {
     var grandTotal = data ? data.cartModel.totals.grandTotal : '';
     if (grandTotal !== undefined && grandTotal !== '') {
         $('.grand-total-sum').empty().append(grandTotal);
+    }
+
+    $('.coupons-and-promos').empty().append(data.cartModel.totals.discountsHtml);
+
+    if (data.cartModel.totals.orderLevelDiscountTotal.value > 0) {
+        $('.order-discount').removeClass('hide-order-discount');
+        $('.order-discount-total').empty()
+            .append('- ' + data.cartModel.totals.orderLevelDiscountTotal.formatted);
+    } else {
+        $('.order-discount').addClass('hide-order-discount');
     }
  
     if ($pickupFromStore) {
