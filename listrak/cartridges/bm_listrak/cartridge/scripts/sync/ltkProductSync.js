@@ -36,7 +36,7 @@ function productSync() {
 	// If maxRelated = 0, related products won't be exported
     var maxRelated = dw.system.Site.current.preferences.custom.Listrak_MaxRecommendedProductExport;
     var categoryLevelAttributes = Site.getCurrent().getCustomPreferenceValue('Listrak_CategoryLevelAttributes');
-    var getAssignedCategories = Site.getCurrent().getCustomPreferenceValue('Listrak_GetAssignedCategories');
+    var getAssignedCategories = Site.getCurrent().getCustomPreferenceValue('Listrak_ConfiguredCategories');
     if (subCategoryLevels <= 0) {
         subCategoryLevels = 1;
     } // if not set, use default of 1
@@ -112,7 +112,7 @@ function productSync() {
             // Custom End
 
             // Custom Start: [MSS-1966 Listrak - MCS Feed Changes]
-            if (getAssignedCategories) {
+            if (!empty(getAssignedCategories)) {
                 productFile.AddRowItem('Meta4');
                 productFile.AddRowItem('Meta5');
             }
@@ -261,7 +261,7 @@ function productSync() {
                 // Custom End
 
                 // Custom Start: [MSS-1966 Listrak - MCS Feed Changes]
-                if (getAssignedCategories) {
+                if (!empty(getAssignedCategories)) {
                     productFile.AddRowItem(prd.meta4, true);
                     productFile.AddRowItem(prd.meta5, true);
                 }
