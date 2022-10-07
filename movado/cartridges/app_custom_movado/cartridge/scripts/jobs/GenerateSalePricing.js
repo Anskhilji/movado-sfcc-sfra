@@ -44,13 +44,17 @@ function convertedSalePrice(product,localizeObj) {
     var PromotionIt;
     var startDate;
     var endDate;
+    var startDate1;
+    var endDate1;
     var promotionalPrice = Money.NOT_AVAILABLE;
     var currentPromotionalPrice = Money.NOT_AVAILABLE;
 
     if (product && product.priceModel && product.priceModel.priceInfo && product.priceModel.priceInfo.priceBook) {
         priceBook = product.priceModel.priceInfo.priceBook.ID;
     }
-
+if(product.ID == '1216485'){
+    product;
+}
     if (priceBook == localizeObj.promotionalConversion.sale_pricebook) {
         var basePriceBook = PriceBookMgr.getPriceBook(localizeObj.promotionalConversion.base_pricebook);
         PriceBookMgr.setApplicablePriceBooks(basePriceBook);
@@ -62,8 +66,7 @@ function convertedSalePrice(product,localizeObj) {
         while (PromotionIt.hasNext()) {
             var promo = PromotionIt.next();
             if (promo.getPromotionClass() != null && promo.getPromotionClass().equals(Promotion.PROMOTION_CLASS_PRODUCT) && !promo.basedOnCoupons) {
-                startDate = promo.startDate ? StringUtils.formatCalendar(new Calendar(promo.startDate), Constants.PRICE_BOOK_DATE_FORMATE) : promo.startDate;
-                endDate =  promo.endDate ? StringUtils.formatCalendar(new Calendar(promo.endDate), Constants.PRICE_BOOK_DATE_FORMATE) : promo.endDate;
+               
                 if (product.optionProduct) {
                     currentPromotionalPrice = promo.getPromotionalPrice(product, product.getOptionModel());
                 } else {
@@ -72,10 +75,14 @@ function convertedSalePrice(product,localizeObj) {
 
                 if (promotionalPrice.value > currentPromotionalPrice.value && currentPromotionalPrice.value !== 0) {
                     promotionalPrice = currentPromotionalPrice;
+                    startDate = promo.startDate ? StringUtils.formatCalendar(new Calendar(promo.startDate), Constants.PRICE_BOOK_DATE_FORMATE) : promo.startDate;
+                    endDate =  promo.endDate ? StringUtils.formatCalendar(new Calendar(promo.endDate), Constants.PRICE_BOOK_DATE_FORMATE) : promo.endDate;
                 } else if (promotionalPrice.value == 0) {
 
                     if ((currentPromotionalPrice.value !== 0 && currentPromotionalPrice.value !== null)) {
                         promotionalPrice = currentPromotionalPrice;
+                        startDate = promo.startDate ? StringUtils.formatCalendar(new Calendar(promo.startDate), Constants.PRICE_BOOK_DATE_FORMATE) : promo.startDate;
+                        endDate =  promo.endDate ? StringUtils.formatCalendar(new Calendar(promo.endDate), Constants.PRICE_BOOK_DATE_FORMATE) : promo.endDate;
                     }
                 }
             }
