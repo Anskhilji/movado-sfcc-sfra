@@ -1,0 +1,51 @@
+<iscomment> Custom Start: Adding ESW cartridge integration </iscomment>
+<isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
+<isif condition="${isEswEnabled}" >
+    <isscript>
+        var collections = require('*/cartridge/scripts/util/collections');
+        var formatMoney = require('dw/util/StringUtils').formatMoney;
+        var matchingLineItem;
+        var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
+        if (eswHelper.getEShopWorldModuleEnabled()) {
+            var currentBasket = dw.order.BasketMgr.getCurrentBasket();
+            if(currentBasket != null) {
+                matchingLineItem = collections.find(currentBasket.productLineItems, function (item) {
+                    return item.productID === lineItem.id && item.UUID === lineItem.UUID;
+                });
+            }
+        }
+    </isscript>
+</isif>
+<isif condition="${lineItem.priceTotal.savingPrice > 0}">
+    <div class="<isif condition=${!lineItem.priceTotal.nonAdjustedPrice}>non-adjusted-price</isif> original-price"> 
+        ${Resource.msg('cart.label.price','cart',null)} 
+        <isif condition=${lineItem.priceTotal.nonAdjustedPrice}>
+                ${isEswEnabled ? formatMoney(lineItem.priceTotal.nonAdjustedPrice) : lineItem.priceTotal.nonAdjustedPrice}
+        </isif>
+    </div>
+    <div class="savings">${Resource.msg('cart.label.savings','cart',null)} ${lineItem.priceTotal.formattedSavingPrice}</div>
+    <div class="total-amount">${Resource.msg('cart.label.itemTotal','cart',null)} 
+        <span class="line-item-total-price-amount item-total-${lineItem.UUID}">
+            <isif condition="${isEswEnabled}" >
+                <isif condition="${!empty(matchingLineItem)}">
+                    ${formatMoney(eswHelper.getSubtotalObject(matchingLineItem, false))}
+                <iselse>
+                    ${lineItem.priceTotal.price}
+                </isif>
+            <iselse>
+                ${lineItem.priceTotal.price}
+            </isif>
+        </span>
+    </div>
+<iselse>
+    <isif condition="${isEswEnabled}" >
+        <isif condition="${!empty(matchingLineItem)}">
+            <div class="line-item-total-price-amount item-total-${lineItem.UUID} total-amount">${formatMoney(eswHelper.getSubtotalObject(matchingLineItem, false))}</div>
+        <iselse>
+            <div class="line-item-total-price-amount item-total-${lineItem.UUID} total-amount">${lineItem.priceTotal.price}</div>
+        </isif>
+    <iselse>
+        <div class="line-item-total-price-amount item-total-${lineItem.UUID} total-amount">${lineItem.priceTotal.price}</div>
+    </isif>
+</isif>
+<iscomment> Custom End </iscomment>

@@ -4,7 +4,7 @@
  *
  * @see {@link https://developers.google.com/pay/api/web/reference/request-objects#PaymentDataRequest|apiVersion in PaymentDataRequest}
  */
-const baseRequest = {
+ const baseRequest = {
     apiVersion: 2,
     apiVersionMinor: 0
 };
