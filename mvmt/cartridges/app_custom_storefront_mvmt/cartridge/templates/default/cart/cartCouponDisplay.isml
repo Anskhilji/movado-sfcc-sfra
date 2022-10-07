@@ -42,7 +42,7 @@
             <div class="promotion-information col-12">
                 <span class="promotion-name">${discount.lineItemText}</span>
                 <span class="applied-promotion-discount">${discount.price}</span>
-            </div> </iscomment>
+            </div>
         </isif>
     </isloop>
 </div>

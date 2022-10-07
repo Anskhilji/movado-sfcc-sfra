@@ -31,8 +31,6 @@
                 </h2>
             </isif>
         </div>
-                <iscomment> Custom :MSS-1859 Banrd Name </iscomment>
-        <iscomment> <isinclude template="product/components/productBrandName" /> </iscomment>
 
         <isif condition="${pdict.display.swatches !== false}">
             <isinclude template="product/components/productTileSwatch" />

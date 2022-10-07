@@ -2,31 +2,42 @@
 $(document).ready(function () {
     var $searchStore = $('#search-store');
     $searchStore.click(function () {
+        getStoreList($searchStore);
+    });
 
-        var $zipCode = $('#zip-code');
-        var $radius = $('#store-pickup-radius');
-        url = $searchStore.data('url');
-        data = {
-            zipCode: $zipCode.val(),
-            radius: $radius.val(),
-            isSearch: true
+    $('.store-pickup-zip-code-field').on('keypress',function (event) {
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if(keycode == '13'){
+            var $searchStore = $('#search-store');
+            getStoreList($searchStore);
         }
-        $('#pickupStoreModal').spinner().start();
-        $.ajax({
-            url: url,
-            type: 'GET',
-            data: data,
-            success: function (response) {
-                $('#store-list').html(response.html);
-                $.spinner().stop();
-            }, error: function (error) {
-                $('#store-list').html('<div class="no-store">'+Resources.BOPIS_STORE_FETCHING_ERROR+'</div>');
-                $.spinner().stop();
-            }
-
-        })
-    })
+    });
 })
+
+function getStoreList($searchStore) {
+    var $zipCode = $('#zip-code');
+    var $radius = $('#store-pickup-radius');
+    url = $searchStore.data('url');
+    data = {
+        zipCode: $zipCode.val(),
+        radius: $radius.val(),
+        isSearch: true
+    }
+    $('#pickupStoreModal').spinner().start();
+    $.ajax({
+        url: url,
+        type: 'GET',
+        data: data,
+        success: function (response) {
+            $('#store-list').html(response.html);
+            $.spinner().stop();
+        },
+        error: function (error) {
+            $('#store-list').html('<div class="no-store">' + Resources.BOPIS_STORE_FETCHING_ERROR + '</div>');
+            $.spinner().stop();
+        }
+    })
+}
 
 $(function() {
     if (navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1) {

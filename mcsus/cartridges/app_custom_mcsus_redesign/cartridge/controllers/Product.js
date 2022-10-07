@@ -36,11 +36,15 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var klarnaProductPrice = '0';
     var isEmbossEnabled;
     var isEngraveEnabled;
+    var isPdpStorePickup = true;
     var isGiftWrapEnabled;
     var collectionName;
+
     var productDecimalPrice = 0.0;
+
     var strapGuideContent = ContentMgr.getContent('strap-guide-text-configs');
     var strapGuideText = strapGuideContent && strapGuideContent.custom.body ? strapGuideContent.custom.body : '';
+
     var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
     var productType = showProductPageHelperResult.product.productType;

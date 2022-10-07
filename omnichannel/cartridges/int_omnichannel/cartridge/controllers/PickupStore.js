@@ -8,6 +8,7 @@ var omniChannelAPI = require('*/cartridge/scripts/api/omniChannelAPI');
 var OmniChannelLog = require('dw/system/Logger').getLogger('omniChannel');
 var BasketMgr = require('dw/order/BasketMgr');
 var StoreMgr = require('dw/catalog/StoreMgr');
+var StringUtils = require('dw/util/StringUtils');
 
 server.get('GetStoresList', function (req, res, next) {
     var radius = req.querystring.radius;
@@ -72,11 +73,15 @@ server.post('SetStoreIDSession', function (req, res, next) {
     var storePostalCode = (!empty(req.querystring.storePostalCode)) ? req.querystring.storePostalCode : '';
     var storeCity = (!empty(req.querystring.storeCity)) ? req.querystring.storeCity : '';
     var storeCountryCode = (!empty(req.querystring.storeCountryCode)) ? req.querystring.storeCountryCode : '';
-    var storeAddress2 = (!empty(req.querystring.storeAddress2)) ? req.querystring.storeAddress2 : '';   
+    var storeAddress2 = (!empty(req.querystring.storeAddress2)) ? req.querystring.storeAddress2 : '';
+    if (storePostalCode.length > 5) {
+       var  zipCode = StringUtils.truncate(storePostalCode, 5, null, null);
+    }
+
     session.privacy.pickupStoreID = storeID;
     session.privacy.storeAddress = storeAddress;
     session.privacy.stateCode = stateCode;
-    session.privacy.storePostalCode = storePostalCode;
+    session.privacy.storePostalCode = storePostalCode ? storePostalCode : zipCode;
     session.privacy.storeCity = storeCity;
     session.privacy.storeCountryCode = storeCountryCode;
     session.privacy.storeAddress2 = storeAddress2;
@@ -86,14 +91,16 @@ server.post('SetStoreIDSession', function (req, res, next) {
 
 server.get('GetPreferredStore', function (req, res, next) {
     var preferedPickupStore;
-    var isPdp = req.querystring.isPdp || false;
-    var pid = req.querystring.pid;
+    var isPdp = req.querystring.isPdp;
     var address1;
     var phone;
+    var template = null;
+    var pid = req.querystring.pid;
     var stateCode;
     var inventory = 0;
     var productInventoryInStock = 0;
     var productInventoryInCurrentStore;
+
     if (session.privacy.pickupStoreID) {
         preferedPickupStore = StoreMgr.getStore(session.privacy.pickupStoreID);
         address1 = preferedPickupStore.address1;
@@ -106,10 +113,10 @@ server.get('GetPreferredStore', function (req, res, next) {
                 productIds.push(pid);
                 storeArray.push(preferedPickupStore);
                 var productInventoryInStore = omniChannelAPI.omniChannelInvetoryAPI(productIds, storeArray);
-                productInventoryInCurrentStore = productInventoryInStore.success
-                    && productInventoryInStore.response[0].inventory
-                    && productInventoryInStore.response[0].inventory.length > 0
-                    ? productInventoryInStore.response[0].inventory[0].records[0].reserved : 0;
+                productInventoryInCurrentStore = productInventoryInStore.success &&
+                    productInventoryInStore.response[0].inventory &&
+                    productInventoryInStore.response[0].inventory.length > 0 ?
+                    productInventoryInStore.response[0].inventory[0].records[0].reserved : 0;
 
                 productInventoryInStock = productInventoryInStore.success &&
                     productInventoryInStore.response[0].inventory &&
@@ -128,11 +135,14 @@ server.get('GetPreferredStore', function (req, res, next) {
         inventory: productInventoryInCurrentStore,
         inventoryInStock: productInventoryInStock
     }
-    res.render(isPdp ? 'product/components/pdpStorePickUp' : 'modalpopup/modelPopUpButton', {
-        store: store,
-        pid: pid,
-        isPdp: isPdp
 
+    template = 'product/components/pdpStorePickUpRedesign';
+
+    var storeObject = store;
+    res.render(isPdp ? template : 'modalpopup/modelPopUpButton', {
+        storeObject: storeObject,
+        isPdp: isPdp,
+        store: store 
     });
     return next();
 });
