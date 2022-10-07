@@ -41,22 +41,13 @@
 }
 
 .store-note {
-    opacity: 0.7;
-    color: $light-black;
     font-family: $font-book;
     font-weight: 300;
-    font-size: rem(12);
-    letter-spacing: rem(0.86);
+    width: rem(260);
+    color: $light-black;
+    font-size: rem(14);
+    letter-spacing: rem(1);
     line-height: rem(24);
-
-    &-text {
-        max-width: rem(200);
-        margin: auto;
-
-        @include media-breakpoint-down(xs) {
-            max-width: 100%;
-        }
-    }
 }
 
 .store-hours {
