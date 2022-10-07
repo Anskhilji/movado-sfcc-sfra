@@ -200,7 +200,7 @@ header {
         @include media-breakpoint-up(lg) {
             display: block;
             padding-left: rem(0);
-            margin-left: rem(-1);
+            margin-left: rem(30);
         }
         
         .location {
