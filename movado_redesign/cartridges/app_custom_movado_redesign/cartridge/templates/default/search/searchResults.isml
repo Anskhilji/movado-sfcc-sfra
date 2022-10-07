@@ -60,11 +60,12 @@
                 <div class="tab-pane active" id="product-search-results" role="tabpanel" aria-expanded="true">
                     <isif condition="${pdict.productSearch.productIds.length > 0}">
                     <iscomment> Custom:MSS-1948 add for MObile </iscomment>
-                        <div class="d-block d-md-none">
+                        <iscomment> <div class="d-block d-md-none">
                             <div class="refinement-bar refinement-bar-mobile col">
-                                 <isinclude url="${pdict.refineurl}" />
+                             <isinclude url="${pdict.refineurl}" />
+                                <isinclude template="search/searchRefineBarMobile" />
                             </div>
-                        </div>
+                        </div> </iscomment>
                         <div class="container-fluid mt-0">
                             <div class="row py-2 py-sm-3 filter-box">
                                 <div class="col-12">
@@ -98,9 +99,9 @@
                                     </div>
                                 </div>
                             </div>
-                                <div class="d-none d-md-flex align-items-cetner justify-content-between">
-                                    <div class="refinement-bar refinement-bar-redesign">
-                                        <isinclude template="search/searchRefineBarDesktop" />
+                                <div class="d-md-flex align-items-cetner justify-content-between">
+                                    <div class="refinement-bar refinement-bar-redesign col">
+                                        <isinclude url="${pdict.refineurl}" />
                                     </div>                                    
                                 </div>
                             <div class="row filter-bar m-0">

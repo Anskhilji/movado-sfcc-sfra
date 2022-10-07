@@ -575,4 +575,20 @@ module.exports = {
             $('.show-more-content').remove();
         });
     },
+    
+    selectedFilterActive: function () {
+        $('.refine-wrapper').on('click', '.movado-refinements-container', function (e) {
+            var clicked = e.target.closest('.refinement-btn');
+            var filterAll = document.querySelectorAll('.selected-refinement');
+            if (!clicked) return;
+            if (clicked) {
+                filterAll.forEach(function (e) {
+                    var isContain = e.classList.contains('active');
+                    if (isContain) {
+                        e.classList.remove('active');
+                    }
+                });
+            }
+        });
+    },
 };
