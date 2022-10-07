@@ -318,6 +318,7 @@ server.append(
         var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
         var productLineItems = currentBasket.productLineItems.iterator();
         var marketingProductsData = [];
+
         
         // Custom Start: Adding ESW cartridge integration
         if (isEswEnabled) {
@@ -326,7 +327,7 @@ server.append(
             var Transaction = require('dw/system/Transaction');
             var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
             var session = req.session.raw;
-            
+
             var viewData = res.getViewData();
             // ESW fail order if order no is set in session
             if (session.privacy.eswfail || (session.privacy.orderNo && !empty(session.privacy.orderNo))) { // eslint-disable-line no-undef
@@ -353,6 +354,12 @@ server.append(
 
         }
         // Custom End
+        var session = req.session.raw;
+        if (session.privacy.pickupFromStore) {
+            session.custom.applePayCheckout = false;
+        } else {
+            session.custom.StorePickUp = false;
+        }
 
         if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
             var cartAnalyticsTrackingData;

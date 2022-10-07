@@ -24,6 +24,13 @@ server.append(
             var productIds = [];
             var apiResponse;
             var lineItemsInventory;
+
+            if (session.privacy.pickupFromStore) {
+                session.custom.applePayCheckout = false;
+            } else {
+                session.custom.StorePickUp = false;
+            }
+            
             try {
                 currentBasket = BasketMgr.getCurrentBasket();
                 Transaction.wrap(function () {

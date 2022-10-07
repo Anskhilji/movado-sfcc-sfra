@@ -290,10 +290,22 @@ exports.failOrder = function (order, status) {
  */
 exports.prepareBasket = function (basket, parameters) {
     // get personalization data from session for PDP and Quickview
-    if (!session.privacy.pickupFromStore) {
-        session.custom.applePayCheckout = true;
+
+
+    if (!empty(parameters.sku)) {
+        if (!session.privacy.pickupFromStore) {
+            session.custom.StorePickUp = false;
+            session.custom.applePayCheckout = true;
+        } else {
+            session.custom.applePayCheckout = true;
+            session.custom.StorePickUp = false;
+        }
     } else {
-        session.custom.StorePickUp = true;
+        if (!session.privacy.pickupFromStore) {
+            session.custom.applePayCheckout = true;
+        } else {
+            session.custom.StorePickUp = true;
+        }
     }
     
     if (parameters.sku && parameters.sku === session.custom.appleProductId) {
@@ -443,12 +455,3 @@ function isAllowedCountryCode(countryCode) {
     }
     return false;
 }
-
-exports.getRequest = function (basket, request) {
-    if (!session.privacy.pickupFromStore) {
-        session.custom.applePayCheckout = true;
-    } else {
-        session.custom.StorePickUp = true;
-    }
-    return new ApplePayHookResult(new Status(Status.OK), null);
-};
