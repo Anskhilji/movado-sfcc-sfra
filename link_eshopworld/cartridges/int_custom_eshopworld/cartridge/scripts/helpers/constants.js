@@ -7,3 +7,4 @@ exports.ONE_TRUST_COOKIE_ENABLED = 'C0004:1';
 exports.OPTANON_CONSENT_COOKIE_NAME = 'OptanonConsent';
 exports.PRICE_LOW_TO_HIGH = 'price-low-to-high';
 exports.PRICE_HIGH_TO_LOW = 'price-high-to-low';
+exports.ECOM_SALE_PRICE_BOOK = 'sale';

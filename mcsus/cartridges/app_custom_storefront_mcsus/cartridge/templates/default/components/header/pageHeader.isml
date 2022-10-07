@@ -16,7 +16,7 @@
             <div class="row">
               <div class="col-12 header-container">
                 <div class="left navbar-header">
-                  <div class="hidden-md-down account-wrapper">
+                  <div class="hidden-md-down account-wrapper top-navbar-label">
                     <isinclude url="${URLUtils.url('Account-Header')}" />
                     <iscomment>Custom Start: Adding ESW Logic </iscomment>
                     <isif condition="${isEswEnabled}">

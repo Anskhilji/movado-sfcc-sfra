@@ -22,4 +22,7 @@
       <a href="${URLUtils.url('Login-Logout')}">${Resource.msg('link.header.logout', 'account', null)}</a>
     </div>
   </div>
+  <isif condition="${isPickupStoreEnabled}">
+    <isinclude template="modalpopup/modelPopUpButton"/>
+  </isif>
 </isif>

@@ -9,7 +9,7 @@ function OCIPayload() {
 
 /* #region OCIRecord */
 // Class that represents and OCI Inventory Record
-function OCIRecord(sku, location, id, effectiveDate, onHand) {
+function OCIRecord(sku, location, id, effectiveDate, onHand, safetyStockCount) {
     this.sku = sku;
     this.location = location;
     this.id = id;
@@ -17,7 +17,7 @@ function OCIRecord(sku, location, id, effectiveDate, onHand) {
     this.futureStock = new Array();
     this.effectiveDate = effectiveDate;
     this.onHand = onHand;
-    this.safetyStockCount = 0;
+    this.safetyStockCount = safetyStockCount;
 }
 /* #endregion */
 

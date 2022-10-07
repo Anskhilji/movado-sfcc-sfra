@@ -10,3 +10,4 @@ exports.MVMT_CHECKOUT_CAMPAIGN_NAME='Checkout';
 exports.US_COUNTRY_CODE='US';
 exports.PRICE_LOW_TO_HIGH = 'price-low-to-high';
 exports.PRICE_HIGH_TO_LOW = 'price-high-to-low';
+exports.ECOM_SALE_PRICE_BOOK = 'sale';

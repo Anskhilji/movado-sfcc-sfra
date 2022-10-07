@@ -492,10 +492,6 @@ $stored-payment-spacing: rem(16);
 
             .text-right {
                 margin-bottom: rem(0);
-              
-              .shipping-total-cost {
-                  color: $parrot-green2;
-              }
 
               span {
                   background-color: transparent;
@@ -858,6 +854,7 @@ $stored-payment-spacing: rem(16);
             font-weight: 500;
             letter-spacing: rem(0.7);
             line-height: rem(21);
+            margin-bottom: rem(20);
         }
 
         .credit-card-form {

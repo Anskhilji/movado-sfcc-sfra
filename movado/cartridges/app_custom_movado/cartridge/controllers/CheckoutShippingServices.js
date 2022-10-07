@@ -161,6 +161,8 @@ server.replace(
             
             // Subscribe to the movado email list: Starts.
             var subscribeToMovado = form.shippingAddress.addressFields.subscribetomovado.value;
+            var geolocation = !empty(req.geolocation.countryCode) ? req.geolocation.countryCode : '';
+            
             if (subscribeToMovado) {
                 var requestParams = {
                     email: form.shippingAddress.addressFields.email.htmlValue,
@@ -176,6 +178,7 @@ server.replace(
                         requestParams.subscribe = ltkConstants.Subscribe.Checkout;
                         requestParams.firstName= form.shippingAddress.addressFields.firstName.value;
                         requestParams.lastName= form.shippingAddress.addressFields.lastName.value;
+                        requestParams.country = !empty(requestParams.country) ? requestParams.country : geolocation;
                         
                         ltkApi.sendSubscriberToListrak(requestParams);
                     } else {

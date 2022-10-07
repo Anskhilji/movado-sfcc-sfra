@@ -27,7 +27,7 @@
         <div class="row d-sm-none no-gutters pop-up-container-box cart-product-mobile-view">
             <div class="col-12 pop-up-box-space d-flex justify-content-between">
                 <p class="grand-total-label top-grandtotal-label">${Resource.msg('order.confirmation.email.label.orderTotal','order',null)} (${pdict.order.items.totalQuantity == 1 ? Resource.msgf('label.cart.signle.item','cart', null, pdict.order.items.totalQuantity) : Resource.msgf('label.number.items.in.cart','cart', null, pdict.order.items.totalQuantity)})</p>
-                <p class="grand-total-price top-grand-total-price-wrapper">${pdict.order.totals.grandTotal}</p>
+                <p class="grand-total-price grand-total-sum top-grand-total-price-wrapper">${pdict.order.totals.grandTotal}</p>
             </div>
             <div class="col-12 checkout-promo-section checkout-promo-redesign d-none-promo-box">
                  <isinclude template="checkout/orderSummaryPopUp.isml" />
@@ -96,7 +96,7 @@
                     <div class="row">
                         <div class="col-12 next-step-button">
                             <div class="mx-container-box1">
-                                <button class="btn btn-primary btn-block mx-shipping-box submit-shipping" type="submit" name="submit" value="submit-shipping" <isif condition="${pdict.order.usingMultiShipping && !pdict.order.shippable}">disabled</isif>>
+                                <button class="btn btn-primary btn-block mx-shipping-box submit-shipping" data-customer="${!empty(pdict.customer.addresses) ? true : false}" type="submit" name="submit" value="submit-shipping" <isif condition="${pdict.order.usingMultiShipping && !pdict.order.shippable}">disabled</isif>>
                                     ${Resource.msg('button.next.payment', 'checkout', null)}
                                 </button>
 
@@ -124,7 +124,7 @@
                             <!-- Promos -->
                             <div class="checkout-promo-section checkout-promo-redesign">
                                 <isinclude template="checkout/checkoutPromoCode" />
-                                <div class="checkout-coupons-and-promos coupons-wrapper">
+                                <div class="checkout-coupons-and-promos coupons-wrapper coupon-card-icon">
                                     <isinclude template="cart/cartCouponDisplay" />
                                 </div>
                             </div>

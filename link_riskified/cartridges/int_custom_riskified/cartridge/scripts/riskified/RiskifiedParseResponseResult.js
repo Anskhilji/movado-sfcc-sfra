@@ -138,7 +138,6 @@ function parseRiskifiedResponse(order, reqBody) {
             checkoutLogger.error('RiskifiedParseResponseResult.js -> COCustomHelpers.sendOrderConfirmationEmail() -> throw error on sending confirmation email, Error: ' + error);
         }
         
-
         /* Accept in OMS */
         if (Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {
             try {
