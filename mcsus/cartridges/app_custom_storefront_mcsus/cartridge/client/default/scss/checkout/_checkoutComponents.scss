@@ -362,7 +362,7 @@ $receipt-font-size: rem(14);
 
 .grand-total {
 
-  &.grand-total-wrapper{
+  &.grand-total-wrapper {
     padding: rem(8) 0;
 
     .start-lines {
@@ -375,43 +375,43 @@ $receipt-font-size: rem(14);
         }
       }
 
-      .order-receipt-label {
-          margin-bottom: rem(0);
-          color: $grey8;
-          font-size: rem(14);
-          font-weight: 500;
-          letter-spacing: rem(0.65);
-          line-height: rem(21);
-        
-        span {
+        .order-receipt-label {
+            margin-bottom: rem(0);
             color: $grey8;
             font-size: rem(14);
             font-weight: 500;
             letter-spacing: rem(0.65);
             line-height: rem(21);
+          
+          span {
+              color: $grey8;
+              font-size: rem(14);
+              font-weight: 500;
+              letter-spacing: rem(0.65);
+              line-height: rem(21);
+          }
         }
       }
-    }
 
-    .end-lines {
+      .end-lines {
 
-    .summary-details {
-        letter-spacing: rem(1);
-        margin-top: rem(3);
-    }
-        .text-right {
-            margin-bottom: rem(0);
+      .summary-details {
+          letter-spacing: rem(1);
+          margin-top: rem(3);
+      }
+          .text-right {
+              margin-bottom: rem(0);
 
-            .grand-total-sum {
-                font-size: rem(14);
-                color: $grey8;
-                font-weight: 500;
-                letter-spacing: rem(0.65);
-                line-height: rem(21);
-            }
-        }
+              .grand-total-sum {
+                  font-size: rem(14);
+                  color: $grey8;
+                  font-weight: 500;
+                  letter-spacing: rem(0.65);
+                  line-height: rem(21);
+              }
+          }
+      }
     }
-  }
 }
 
 .pickup-store-header h4 {
