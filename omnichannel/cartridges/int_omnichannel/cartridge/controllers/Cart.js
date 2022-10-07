@@ -78,6 +78,7 @@ server.post(
         var CartModel = require('*/cartridge/models/cart');
         var storeFormPickUP = req.form.pickupFromStore == 'true' ? true : false;
         session.privacy.pickupFromStore = storeFormPickUP;
+        session.custom.pickupFromStore = storeFormPickUP;
         var viewData = {};
         var isAllItemsAvailable = true;
         var currentBasket;
