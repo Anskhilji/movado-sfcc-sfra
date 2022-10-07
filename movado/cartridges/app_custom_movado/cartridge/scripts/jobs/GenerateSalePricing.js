@@ -10,15 +10,13 @@ var Money = require('dw/value/Money');
 var Currency = require('dw/util/Currency');
 var StringUtils = require('dw/util/StringUtils');
 var Calendar = require('dw/util/Calendar');
-var Constants = require('*/cartridge/scripts/util/Constants');
-
 /**
  * Get local price books details mentioned in site prefrence.
  * @param {Object} localizeObj configured in site preference
  * @returns {array} returns price books detail in array
  */
 function getLocalPriceBooksDetails(localizeObj) {
-
+    var Constants = require('*/cartridge/scripts/util/Constants');
     var localSalePriceBook = localizeObj.promotionalConversion.sale_pricebook.toLowerCase().indexOf(Constants.ECOM_SALE_PRICE_BOOK) > -1 ? localizeObj.promotionalConversion.sale_pricebook : '';
     var localizePriceBooks = [];
     var currency;
@@ -40,6 +38,7 @@ function getLocalPriceBooksDetails(localizeObj) {
 }
 
 function convertedSalePrice(product,localizeObj) {
+    var Constants = require('*/cartridge/scripts/util/Constants');
     var salePrice = '';
     var priceBook;
     var PromotionIt;
@@ -52,9 +51,12 @@ function convertedSalePrice(product,localizeObj) {
         priceBook = product.priceModel.priceInfo.priceBook.ID;
     }
 
-    if (priceBook == localizeObj.promotionalConversion.base_pricebook) {
-        PromotionIt = PromotionMgr.activePromotions.getProductPromotions(product).iterator();
+    if (priceBook == localizeObj.promotionalConversion.sale_pricebook) {
+        var basePriceBook = PriceBookMgr.getPriceBook(localizeObj.promotionalConversion.base_pricebook);
+        PriceBookMgr.setApplicablePriceBooks(basePriceBook);
     }
+
+    PromotionIt = PromotionMgr.activePromotions.getProductPromotions(product).iterator();
 
     if(PromotionIt){
         while (PromotionIt.hasNext()) {

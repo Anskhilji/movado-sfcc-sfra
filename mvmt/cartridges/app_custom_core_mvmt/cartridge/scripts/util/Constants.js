@@ -20,3 +20,4 @@ exports.FAMILY_NAME_AND_CASE_DIAMETER_SEPARATOR_REDESIGN = ' | ';
 exports.PRICE_LOW_TO_HIGH = 'price-low-to-high';
 exports.PRICE_HIGH_TO_LOW = 'price-high-to-low';
 exports.ECOM_SALE_PRICE_BOOK = 'sale';
+exports.PRICE_BOOK_DATE_FORMATE = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
