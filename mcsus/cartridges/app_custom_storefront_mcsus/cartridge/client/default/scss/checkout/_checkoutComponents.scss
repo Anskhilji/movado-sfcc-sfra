@@ -367,45 +367,52 @@ $receipt-font-size: rem(14);
 
     .start-lines {
 
+    .summary-section-label {
+        letter-spacing: rem(1);
+        margin-bottom: rem(5);
         &::before {
             content: '';
         }
+      }
 
-      .order-receipt-label {
-          margin-bottom: rem(0);
-          color: $grey8;
-          font-size: rem(14);
-          font-weight: 500;
-          letter-spacing: rem(0.65);
-          line-height: rem(21);
-        
-        span {
+        .order-receipt-label {
+            margin-bottom: rem(0);
             color: $grey8;
             font-size: rem(14);
             font-weight: 500;
             letter-spacing: rem(0.65);
             line-height: rem(21);
+          
+          span {
+              color: $grey8;
+              font-size: rem(14);
+              font-weight: 500;
+              letter-spacing: rem(0.65);
+              line-height: rem(21);
+          }
         }
       }
+
+      .end-lines {
+
+      .summary-details {
+          letter-spacing: rem(1);
+          margin-top: rem(3);
+      }
+          .text-right {
+              margin-bottom: rem(0);
+
+              .grand-total-sum {
+                  font-size: rem(14);
+                  color: $grey8;
+                  font-weight: 500;
+                  letter-spacing: rem(0.65);
+                  line-height: rem(21);
+              }
+          }
+      }
     }
-
-    .end-lines {
-
-        .text-right {
-            margin-bottom: rem(0);
-
-            .grand-total-sum {
-                font-size: rem(14);
-                color: $grey8;
-                font-weight: 500;
-                letter-spacing: rem(0.65);
-                line-height: rem(21);
-            }
-        }
-    }
-  }
 }
-
 
 .pickup-store-header h4 {
   color: $grey14;
