@@ -26,8 +26,10 @@ function optionValueForAddress(shipping, selected, order, options) {
     var className = safeOptions.className || '';
     var isSelected = selected;
     var isNew = !shipping;
-    if (typeof shipping === 'string') {
-        return $('<option class="' + className + '" disabled>' + shipping + '</option>');
+    if (!Resources.PICKUP_FROM_STORE) {
+        if (typeof shipping === 'string') {
+            return $('<option class="' + className + '" disabled>' + shipping + '</option>');
+        }
     }
     var safeShipping = shipping || {};
     var shippingAddress = safeShipping.shippingAddress || {};

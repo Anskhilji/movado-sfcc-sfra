@@ -13,7 +13,7 @@ server.get('ShowMcsAffirmText', function (req, res, next) {
         loggedIn: req.currentCustomer.raw.authenticated,
         product: showProductPageHelperResult.product,
         restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites
-    }); 
+    });
     next();
 });
 

@@ -67,7 +67,7 @@ function create(orderNumber, paymentInstrument) {
         result.response = serviceResult
         if (serviceResult.error) {
             result.status = 'fail';   
-            result.response = serviceResult;    
+            result.response = serviceResult;	
         }
     }
     return result;

@@ -195,7 +195,14 @@
                         <div class="ratings-mobile pb-2">
                             <div class="col-12 rating-margin mobile-click-review">
                                 <div class="ratings p-0">
-                                    <isinclude template="product/components/productRating" />
+                                    <isset name="isYotpoStoreProductRatingEnabled" value="${!empty(dw.system.Site.current.preferences.custom.yotpoStoreProductRatingEnabled) ? dw.system.Site.current.preferences.custom.yotpoStoreProductRatingEnabled : false}" scope="page" />
+                                    <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
+                                        <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                                            <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
+                                        </div>
+                                    <iselse/>
+                                        <isinclude template="product/components/productRating" />
+                                    </isif>
                                 </div>
                             </div>
                         </div>
@@ -255,9 +262,18 @@
                         </div>
 
                         <div class="hidden-sm-down">
-                            <isinclude template="product/components/pidRating" />
+                            <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
+                                <div class="product-price-rating clearfix">
+                                    <div class="ratings">
+                                        <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                                            <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            <iselse/>
+                                <isinclude template="product/components/pidRating" />
+                            </isif>
                         </div>
-                    </div>
 
                         <!-- Applicable Promotions -->
                         <div class="promotions">
@@ -351,7 +367,7 @@
                             <isinclude template="product/backInStockNotification" sf-toolkit="on" />
                         </isif>
 
-                        <isif condition="${product.options && product.options.length > 0}">
+                        <isif condition="${product.options && product.options.length > 0 && !(option.id == "clydeWarranty") && dw.system.Site.current.preferences.custom.isClydeEnabled}">
                             <isinclude template="product/components/options" />
                         </isif>
                         <div class="col-md-10 col-12">

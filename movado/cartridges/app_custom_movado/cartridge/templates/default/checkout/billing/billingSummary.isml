@@ -6,7 +6,7 @@
 </isif>
 <isset name="affirm" value="${require('int_affirm/cartridge/scripts/affirm.ds')}" scope="page" />
 <div class="summary-details billing">
-     <isinclude template="checkout/addressSummary" />
+	     <isinclude template="checkout/addressSummary" />
      <iscomment> Custom: Removed shipping email and phone no </iscomment>
 	<isset name="CurrentBasket" value="${require('dw/order/BasketMgr').getCurrentBasket()}" scope="page" />
 	<isif condition="${CurrentBasket}"> 
