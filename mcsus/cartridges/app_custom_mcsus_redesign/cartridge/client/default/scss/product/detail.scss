@@ -2060,8 +2060,13 @@
                                         &-icon {
                                             background-image: url(../../images/map-pin.svg);
                                             padding: rem(15);
-                                            margin-right: rem(0);
-                                            transform: translateX(-8px);
+                                            margin-right: rem(5);
+                                            transform: translateX(-2px);
+
+                                            @include media-breakpoint-down(xs) {
+                                                background-image: url(../../images/map-pin-mobile.svg);
+                                                transform: translateX(-8px);
+                                            }
                                         }
                                     }
                                 }
