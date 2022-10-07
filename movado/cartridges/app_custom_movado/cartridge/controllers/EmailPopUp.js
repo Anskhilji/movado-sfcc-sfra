@@ -70,25 +70,6 @@ server.get('Show', function (req, res, next) {
             popupID: popupID
         });
     }
-  
-        // data-emailoptinfrequency = "${pdict.popUpSettings.emailPopupMuteForDays}"
-    // data-emailpopupposition = "${pdict.popUpSettings.emailPopUpPosition}"
-    // data-emailpopupdelaytime = "${pdict.popUpSettings.emailPopupWaitTime}">
-
-    // var context = { 
-    //     isEmailPopUpEnabled : response.isEmailPopUpEnabled,
-    //     popUpSettings: response.popUpSettings,
-    //     popupID: popupID
-    // };
-    // listrakPopupHtml = renderTemplateHelper.getRenderedHtml(context, 'common/emailOptInPopUp');
-
-   
-    // res.setViewData({
-    //     isEmailPopUpEnabled : response.isEmailPopUpEnabled,
-    //     popUpSettings: response.popUpSettings,
-    //     popupID: popupID,
-    //     listrakPopupHtml: listrakPopupHtml
-    // });
     return next();
 });
 

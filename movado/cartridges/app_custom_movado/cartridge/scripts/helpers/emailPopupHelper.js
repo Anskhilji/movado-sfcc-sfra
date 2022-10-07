@@ -119,7 +119,7 @@ function checkPopupQualifications (req) {
     }
 }
 
-function listrakPersistentPopup() {
+function listrakPersistentPopup(req) {
     var Site = require('dw/system/Site');
     // var emailPopupHelper = require('*/cartridge/scripts/helpers/emailPopupHelper');
     var currentSite = Site.getCurrent();

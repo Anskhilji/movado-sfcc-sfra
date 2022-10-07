@@ -487,6 +487,12 @@
             </div>
         </div>
         <!-- The Modal: Ends-->
-
+    <isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page" />
+    <isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled && pdict.popupID}">
+        <span class="listrak-persistent-url" data-listrak-url="${URLUtils.https('EmailPopUp-Show')}"></span>
+        <span class="listrak-popup-product-detail"></span>
+        <iscontentasset aid="listrak-persistent-popup"/>
+    </isif>
+    <!-- End: Listrak persistent popup -->
     </isobject>
 </isdecorate>

@@ -127,7 +127,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     var isEnableSingleProductRow = searchCustomHelper.getSingleColumnPerRow(productSearch);
     var isEyewearTile = searchCustomHelper.getEyewearTile(productSearch);
     var isNonWatchesTileEnable = searchCustomHelper.getIsNonWatchesTileAttribute(productSearch);
-    var listrakPersistentPopup = emailPopupHelper.listrakPersistentPopup();
+    var listrakPersistentPopup = emailPopupHelper.listrakPersistentPopup(req);
     if (productSearch.searchKeywords !== null && !isRefinedSearch) {
         reportingURLs = reportingUrlsHelper.getProductSearchReportingURLs(productSearch);
     }

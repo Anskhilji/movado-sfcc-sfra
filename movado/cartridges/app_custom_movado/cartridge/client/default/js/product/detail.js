@@ -171,6 +171,7 @@ $( document ).ready(function() {
     }
 });
 
+// Custom start: Listrak persistent popup
  $(document).on('click','.listrak-popup', function(e) {
     e.preventDefault();
     e.stopPropagation();
@@ -241,9 +242,9 @@ window.onload = () => {
             listrakPopup.classList.add('button-product-detail');
         }
     }
-    alert(data);
 };
-// listrak-persistent-popup
+// Custom End: Listrak persistent popup
+
 function refreshAffirmUI() {
     if (Resources.AFFIRM_PAYMENT_METHOD_STATUS) {
         if (document.readyState === "complete") {
