@@ -367,12 +367,13 @@ $receipt-font-size: rem(14);
 
     .start-lines {
 
-      .summary-section-label {
-          letter-spacing: rem(1);
-          margin-bottom: rem(5);
-          &::before {
-              content: '';
-          }
+    .summary-section-label {
+        letter-spacing: rem(1);
+        margin-bottom: rem(5);
+        &::before {
+            content: '';
+        }
+      }
 
         .order-receipt-label {
             margin-bottom: rem(0);
@@ -411,9 +412,7 @@ $receipt-font-size: rem(14);
           }
       }
     }
-  }
 }
-
 
 .pickup-store-header h4 {
   color: $grey14;
