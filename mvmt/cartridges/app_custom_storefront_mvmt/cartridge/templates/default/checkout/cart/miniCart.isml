@@ -84,56 +84,13 @@
                        <div class="card-body">
                            <isinclude template="checkout/productCard/miniCartProductCard" />
                        </div>
+                        <div class="text-center gift-box-container">
+                            <span class="gift-box-container-label">${Resource.msg('label.minicart.gift.message', 'cart', null)} </span>
+                            <!-- Button trigger modal -->
+                            <a href="${URLUtils.https('Cart-ShowGiftBoxModal')}?pid=${lineItem.id}" type="button" class="btn gift-box-container-link" data-toggle="modal" data-target="#giftBoxModelPopUp">${Resource.msg('label.minicart.giftbox.link', 'cart', null)}</a>
+                        </div>
                    </div>
                </isif>
-            </div>
-
-            <div class="text-center gift-box-container">
-                <span class="gift-box-container-label">${Resource.msg('label.minicart.gift.message', 'cart', null)} </span>
-                <!-- Button trigger modal -->
-                <a type="button" class="btn gift-box-container-link" data-toggle="modal" data-target="#exampleModalCenter">${Resource.msg('label.minicart.giftbox.link', 'cart', null)}</a>
-
-                <!-- Modal -->
-                <div class="modal gift-box-container-modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered gift-box-container-modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header gift-box-container-modal-header">
-                                <h5 class="modal-title gift-box-container-modal-heading" id="exampleModalLongTitle">${Resource.msg('label.minicart.giftbox.modal.heading', 'cart', null)}</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body gift-box-container-modal-body">
-                                <div class="gift-box-container-modal-body-item-image">
-                                    <img class="product-image" src="${lineItem.images.tile150[0].url}" alt="${lineItem.images.tile150[0].alt}" title="${lineItem.images.tile150[0].title}">
-                                </div>
-                                <form class="gift-box-container-modal-body-form" action="#">
-                                    <label class="radio-container"> ${Resource.msg('label.minicart.giftbox.modal.labelone', 'cart', null)}
-                                    <input type="radio" checked="checked" name="radio">
-                                    <span class="checkmark"></span>
-                                    </label>
-                                    <label class="radio-container"> ${Resource.msg('label.minicart.giftbox.modal.labeltwo', 'cart', null)} <span class="label-right-wrapper">$5.00</span>
-                                    <input type="radio" name="radio">
-                                    <span class="checkmark"></span>
-                                    </label>
-                                    <label class="radio-container "> ${Resource.msg('label.minicart.giftbox.modal.labelthree', 'cart', null)}  <span class="label-right-wrapper">${Resource.msg('label.minicart.giftbox.modal.labelfour', 'cart', null)}</span>
-                                    <input type="radio" name="radio" class="clicked-label">
-                                    <span class="checkmark"></span>
-                                    </label>
-
-                                    <div class="form-group gift-box-container-modal-body-form-textarea-container">
-                                        <label for="exampleFormControlTextarea1" class="gift-box-container-modal-body-form-textarea-container-label">Enter your message (optional)</label>
-                                        <textarea class="form-control gift-box-container-modal-body-form-textarea-container-text-box" id="exampleFormControlTextarea1" placeholder="Happy Birthday Ryann!!" rows="3"></textarea>
-                                    </div>
-                                </form>
-                                <div>
-                                    <p class="gift-box-container-modal-body-note">Note: All items ship to one address</p>
-                                    <button type="btn" class=" btn gift-box-container-modal-body-save-button">SAVE</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </isloop>
     </div>
@@ -196,4 +153,12 @@
     </div>
     <iscomment>Logged in Customer tracking for Yotpo Swell Loyalty</iscomment>
     <isinclude template="include/yotpofooter"/>
+
+    <!-- Modal -->
+    <div class="modal gift-box-container-modal fade" id="giftBoxModelPopUp" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered gift-box-container-modal-dialog" role="document">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
 </isif>

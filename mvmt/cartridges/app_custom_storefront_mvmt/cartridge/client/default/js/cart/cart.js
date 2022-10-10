@@ -871,6 +871,21 @@ module.exports = function () {
         });
     });
 
+
+    $('body').on('click', '.gift-box-container-link', function (evt) {
+        evt.preventDefault(); 
+        var endPointUrl = $(evt.target).closest('a').attr('href');
+        $.spinner().start();
+        $.ajax({
+            url: endPointUrl,
+            type: 'get',
+            success: function (response) {
+                $('#giftBoxModelPopUp').find('.modal-content').html(response);
+                $.spinner().stop();
+            }
+        });
+    });
+
     base.selectAttribute();
     base.colorAttribute();
     base.removeBonusProduct();

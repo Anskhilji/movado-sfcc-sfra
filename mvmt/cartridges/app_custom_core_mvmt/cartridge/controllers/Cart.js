@@ -4,6 +4,7 @@
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
+var productFactory = require('*/cartridge/scripts/factories/product');
 
 var server = require('server');
 var page = module.superModule;
@@ -28,6 +29,28 @@ server.replace('MiniCart', server.middleware.include, function (req, res, next) 
 
     res.render('/components/header/miniCart', {isMobile: isMobile, quantityTotal: quantityTotal });
     next();
+});
+
+
+/**
+* Opens the Modal and populates it with GiftBox and Gift Message.
+*/
+
+server.get('ShowGiftBoxModal', server.middleware.https, csrfProtection.generateToken, function (req, res, next) {
+   var params = {
+       pid: req.querystring.pid
+   };
+   var product = productFactory.get(params);
+   var images = product.images.tile150;
+
+   viewData = {
+       product: product,
+       image: images[0]
+   };
+
+   res.setViewData(viewData);
+   res.render('checkout/cart/giftBoxModel');
+   next();
 });
 
 server.get('MiniCartCheckout', server.middleware.include, function (req, res, next) {

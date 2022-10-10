@@ -1,0 +1,38 @@
+<isset name="product" value="${pdict.product}" scope="page" />
+<!-- Modal Header -->
+<div class="modal-header gift-box-container-modal-header">
+    <h5 class="modal-title gift-box-container-modal-heading" id="exampleModalLongTitle">${Resource.msg('label.minicart.giftbox.modal.heading', 'cart', null)}</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<!-- Modal Body -->
+<div class="modal-body gift-box-container-modal-body">
+    <div class="gift-box-container-modal-body-item-image">
+        <img class="product-image" src="${pdict.image.url}" alt="${pdict.image.alt}" title="${pdict.image.title}">
+    </div>
+    <form class="gift-box-container-modal-body-form" action="#">
+        <label class="radio-container"> ${Resource.msg('label.minicart.giftbox.modal.labelone', 'cart', null)}
+        <input type="radio" checked="checked" name="radio">
+        <span class="checkmark"></span>
+        </label>
+        <label class="radio-container"> ${Resource.msg('label.minicart.giftbox.modal.labeltwo', 'cart', null)} <span class="label-right-wrapper">$5.00</span>
+        <input type="radio" name="radio">
+        <span class="checkmark"></span>
+        </label>
+        <label class="radio-container "> ${Resource.msg('label.minicart.giftbox.modal.labelthree', 'cart', null)}  <span class="label-right-wrapper">${Resource.msg('label.minicart.giftbox.modal.labelfour', 'cart', null)}</span>
+        <input type="radio" name="radio" class="clicked-label">
+        <span class="checkmark"></span>
+        </label>
+
+        <div class="form-group gift-box-container-modal-body-form-textarea-container">
+            <label for="exampleFormControlTextarea1" class="gift-box-container-modal-body-form-textarea-container-label">Enter your message (optional)</label>
+            <textarea class="form-control gift-box-container-modal-body-form-textarea-container-text-box" id="exampleFormControlTextarea1" placeholder="Happy Birthday Ryann!!" rows="3"></textarea>
+        </div>
+    </form>
+    <div>
+        <p class="gift-box-container-modal-body-note">Note: All items ship to one address</p>
+        <button type="btn" class=" btn gift-box-container-modal-body-save-button">SAVE</button>
+    </div>
+</div>
