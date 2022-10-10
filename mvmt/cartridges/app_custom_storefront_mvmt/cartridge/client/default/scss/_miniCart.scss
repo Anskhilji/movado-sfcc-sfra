@@ -1673,7 +1673,7 @@
 
                 .radio-container {
                     position: relative;
-                    padding-left: rem(20);
+                    padding-left: rem(45.6);
                     margin-bottom: rem(15);
                     cursor: pointer;
                     -webkit-user-select: none;
@@ -1688,13 +1688,11 @@
                     font-size: rem(13);
                     font-weight: 500;
                     letter-spacing: rem(1.08);
-                    line-height: rem(12);
+                    line-height: rem(45.6);
                     max-width: rem(271);
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
+                    display: block;
+                    text-align: left;
                     border-radius: rem(3);
-                  
                 }
                   
                 /* Hide the browser's default radio button */
@@ -1708,7 +1706,7 @@
                 .checkmark {
                     position: absolute;
                     top: rem(13);
-                    left: rem(100);
+                    left: rem(13);
                     height: rem(20);
                     width: rem(20);
                     background-color: $white;
@@ -1748,6 +1746,11 @@
                     background: $black;
                     border: rem(1) solid $white;
                 }
+
+                .label-right-wrapper {
+                    float: right;
+                    padding-right: rem(20);
+                }
             }
 
             &-note {
@@ -1782,4 +1785,8 @@
 
 .modal-backdrop {
     z-index: 999;
+}
+
+.textarea-container {
+    display: none;
 }

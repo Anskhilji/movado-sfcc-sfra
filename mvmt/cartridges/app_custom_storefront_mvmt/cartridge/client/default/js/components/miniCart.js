@@ -724,4 +724,9 @@ module.exports = function () {
     $('body').on('product:afterAddToCart', function () {
         updateMiniCart = true;
     });
+
+    $('.clicked-label').click(function() {
+        $('.textarea-container').addClass('d-block');
+    });
+    
 };
