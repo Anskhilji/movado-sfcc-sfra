@@ -2462,7 +2462,6 @@ listrakPersistentApply: function () {
         if (isContainListrakPopup && !isTargetContain) {
             var listrakPersistenPopupUrl = document.querySelector('.listrak-persistent-url');
             var url = listrakPersistenPopupUrl.dataset.listrakUrl;
-            console.log(url);
             $.ajax({
                 url: url,
                 method: 'GET',

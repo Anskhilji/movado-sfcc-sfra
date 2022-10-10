@@ -710,7 +710,6 @@ listrakPersistentApply: function () {
         if (isContainListrakPopup && !isTargetContain) {
             var listrakPersistenPopupUrl = document.querySelector('.listrak-persistent-url');
             var url = listrakPersistenPopupUrl.dataset.listrakUrl;
-            console.log(url);
             $.ajax({
                 url: url,
                 method: 'GET',
@@ -752,8 +751,6 @@ listrakPersistentCheckLoad: function () {
         var listrakPopupSearchResult = document.querySelector('.listrak-popup-search-result');
         var listrakPopupProductDetail = document.querySelector('.listrak-popup-product-detail');
         var data = sessionStorage.getItem("listrakPersistenPopup");
-        console.log(data);
-        console.log(listrakPopupSearchResult);
         if (data == null) {
             var isListrakPopupContain = listrakPopup.classList.contains('listrak-persistent-popup');
         

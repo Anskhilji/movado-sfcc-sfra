@@ -121,9 +121,7 @@ function checkPopupQualifications (req) {
 
 function listrakPersistentPopup(req) {
     var Site = require('dw/system/Site');
-    // var emailPopupHelper = require('*/cartridge/scripts/helpers/emailPopupHelper');
     var currentSite = Site.getCurrent();
-    // var response = checkPopupQualifications(req);
     var SitePreferences = Site.current.preferences.custom;
     var popupID;
     var eswEshopworldModuleEnabled = currentSite.getCustomPreferenceValue('eswEshopworldModuleEnabled');
