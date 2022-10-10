@@ -575,7 +575,9 @@ module.exports = {
             $('.show-more-content').remove();
         });
     },
-    
+
+    // Custom start: For Mobile Filters
+    // Current filter active
     selectedFilterActive: function () {
         $('.refine-wrapper').on('click', '.movado-refinements-container', function (e) {
             var clicked = e.target.closest('.refinement-btn');
@@ -591,4 +593,13 @@ module.exports = {
             }
         });
     },
+    // start: append value to plp sort by from select option
+    selectedFiltervalueAppendToPlpSortBy: function () {
+        $('.sort-order-mobile-menu').on('click', '.custom-select__dropdown', function (e) {
+            var mobileFilterBtn = document.querySelector('.mobile-fliter-sort-button');
+            var selectedValue = e.target.innerText;
+            mobileFilterBtn.innerHTML = 'Sort by: ' + selectedValue; 
+        });
+    },
+    // Custom end: For Mobile Filters
 };

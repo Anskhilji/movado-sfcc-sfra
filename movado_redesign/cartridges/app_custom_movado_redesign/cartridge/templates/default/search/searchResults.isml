@@ -94,7 +94,13 @@
                                         </isif>
                                         <iscomment> sort button for mobile     </iscomment>
                                         <div class="d-md-none ctm-filter-btn">
-                                           <button type="button" class=" filter-btn-mobile mobile-fliter-sort-button">Sort by</button>
+                                           <button type="button" class=" filter-btn-mobile mobile-fliter-sort-button">
+                                                <isif condition="${pdict.productSearch.productIds.length > 0}">
+                                                    <isloop items="${pdict.productSearch.productSort.options}" var="option">
+                                                        ${pdict.productSearch.productSort.ruleId === option.id ? 'Sort by: '+ option.displayName : '' }
+                                                    </isloop>
+                                                </isif>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>

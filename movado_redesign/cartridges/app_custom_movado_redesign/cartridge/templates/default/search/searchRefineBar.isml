@@ -17,7 +17,7 @@
 <div class="refine-wrapper d-md-flex align-items-start justify-content-between">
     <div class="sort-order-menu-box order-md-1">
         <isif condition="${pdict.productSearch.productIds.length > 0}">
-            <div class="mb-3 sort-col sort-open-state-modal position-relative">
+            <div class="mb-3 sort-col sort-open-state-modal position-relative sort-order-mobile-menu">
                 <isinclude template="search/sortOrderMenu" />
             </div>
         </isif>
@@ -27,7 +27,7 @@
             Sort and Filter More
         </div>
         <isloop items="${pdict.productSearch.refinements}" var="refinement">
-            <div class="card collapsible-sm refinement-box-filter refinement refinement-${refinement.displayName.toLowerCase().replace(/ /g, '-')}">
+            <div class="card selected-refinement collapsible-sm refinement-box-filter refinement refinement-${refinement.displayName.toLowerCase().replace(/ /g, '-')}">
                 <button class="card-header refinement-btn movado-refinements-type text-left" role="tab" data-filter-category="${pdict.productSearch.category && !empty(pdict.productSearch.category) ? pdict.productSearch.category.id : ''}" aria-expanded="false" id="${refinement.displayName}Heading">
                     ${refinement.displayName}
                 </button>
