@@ -1664,6 +1664,19 @@
             @include media-breakpoint-up(sm) {
                 max-width: rem(574);
             }
+            @include media-breakpoint-down(xs) {
+                margin: rem(0);
+                height: 100%;
+            }
+
+            .modal-content {
+                border: none;
+                border-radius: rem(0);
+                
+                @include media-breakpoint-down(xs) {
+                    height: 100%;
+                }
+            }
         }
 
         &-body {
