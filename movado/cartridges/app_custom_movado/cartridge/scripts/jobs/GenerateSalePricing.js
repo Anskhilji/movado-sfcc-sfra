@@ -44,8 +44,6 @@ function convertedSalePrice(product,localizeObj) {
     var PromotionIt;
     var startDate;
     var endDate;
-    var startDate1;
-    var endDate1;
     var promotionalPrice = Money.NOT_AVAILABLE;
     var currentPromotionalPrice = Money.NOT_AVAILABLE;
 
