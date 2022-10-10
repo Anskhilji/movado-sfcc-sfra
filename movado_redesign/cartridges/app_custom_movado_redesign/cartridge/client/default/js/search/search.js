@@ -577,22 +577,52 @@ module.exports = {
     },
 
     // Custom start: For Mobile Filters
-    // Current filter active
-    selectedFilterActive: function () {
+    // Current filter active desktop
+    selectedFilterActiveDesktop: function () {
         $('.refine-wrapper').on('click', '.movado-refinements-container', function (e) {
-            var clicked = e.target.closest('.refinement-btn');
-            var filterAll = document.querySelectorAll('.selected-refinement');
-            if (!clicked) return;
-            if (clicked) {
-                filterAll.forEach(function (e) {
-                    var isContain = e.classList.contains('active');
-                    if (isContain) {
-                        e.classList.remove('active');
-                    }
-                });
+            var $winWidth = $(window).width();
+            var $mediumBreakPoint = 992;
+
+            if ($winWidth >= $mediumBreakPoint) {
+                var clicked = e.target.closest('.refinement-btn');
+                var filterAll = document.querySelectorAll('.selected-refinement');
+                if (!clicked) return;
+                if (clicked) {
+                    filterAll.forEach(function (e) {
+                        var isContain = e.classList.contains('active');
+                        if (isContain) {
+                            e.classList.remove('active');
+                        }
+                    });
+                }
             }
         });
     },
+    
+    // Current filter active mobile
+    selectedFilterActiveMobile: function () {
+        $('.refine-wrapper').on('click', '.sort-order-mobile-menu', function (e) {
+            var $winWidth = $(window).width();
+            var $mediumBreakPoint = 992;
+
+            if ($winWidth < $mediumBreakPoint) {
+                var clicked = e.target.closest('.custom-select__option');
+                var filterAll = document.querySelectorAll('.custom-select__option');
+                
+                if (!clicked) return;
+                if (clicked) {
+                    filterAll.forEach(function (e) {
+                        var isContain = e.classList.contains('active');
+                        if (isContain) {
+                            e.classList.remove('active');
+                        }
+                    });
+                    clicked.classList.add('active');
+                }
+            }
+        });
+    },
+
     // start: append value to plp sort by from select option
     selectedFiltervalueAppendToPlpSortBy: function () {
         $('.sort-order-mobile-menu').on('click', '.custom-select__dropdown', function (e) {
