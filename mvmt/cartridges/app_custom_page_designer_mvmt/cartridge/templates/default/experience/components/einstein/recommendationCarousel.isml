@@ -2,8 +2,8 @@
     var assets = require('*/cartridge/scripts/assets.js');
     assets.addJs('/js/einstein-recommendations.js');
 </isscript>
-<div id="${pdict.id}" class="container-fluid product-slot-slider mvmt-plp-redesign">
-    <div class="row product-grid">
+<div id="${pdict.id}" class="container-fluid product-slot-slider">
+    <div class="row">
         <div class="col-12">
             <div class="cs-carousel-wrapper">
                 <div class="product-slider-aside">
