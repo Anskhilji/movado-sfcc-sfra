@@ -1660,6 +1660,12 @@
             }
         }
 
+        &-dialog {
+            @include media-breakpoint-up(sm) {
+                max-width: rem(574);
+            }
+        }
+
         &-body {
             &-item-image {
                 width: rem(100);
@@ -1693,6 +1699,7 @@
                     display: block;
                     text-align: left;
                     border-radius: rem(3);
+                    text-transform: capitalize;
                 }
                   
                 /* Hide the browser's default radio button */
@@ -1751,6 +1758,31 @@
                     float: right;
                     padding-right: rem(20);
                 }
+
+                &-textarea-container {
+                    text-align: left;
+
+                    &-label {
+                        text-align: left;
+                        color: $light-black3;
+                        font-family: $font-medium;
+                        font-size: rem(13);
+                        font-weight: 500;
+                        letter-spacing: rem(0.5);
+                        line-height: rem(12);
+                    }
+
+                    &-text-box {
+                        border: rem(1) solid $light-black4;
+                        border-radius: rem(3);
+
+                        &::placeholder {
+                            color: $light-black3;
+                            font-family: $font-medium;
+                            font-size: rem(13);
+                        }
+                    }
+                }
             }
 
             &-note {
@@ -1785,8 +1817,4 @@
 
 .modal-backdrop {
     z-index: 999;
-}
-
-.textarea-container {
-    display: none;
 }

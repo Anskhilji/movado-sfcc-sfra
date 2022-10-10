@@ -878,9 +878,4 @@ module.exports = function () {
     base.enableBonusProductSelection();
     base.showMoreBonusProducts();
     base.addBonusProductsToCart();
-
-
-    $('.clicked-label').click(function() {
-        $('.textarea-container').addClass('d-block');
-    });
 };
