@@ -57,7 +57,7 @@
                         </isif>
                     </div>
                 <iselseif condition="${pdict.display.recommendattionTile}" />
-                   <div class="product-brand-info">
+                    <div class="product-brand-info">
                     <isif condition="${product.isWatchTile}">
                         <isif condition="${!empty(product.defaultVariantCollectionName) || !empty(product.collectionName)}">
                             <span class="collection-name">${!empty(product.defaultVariantCollectionName) ? product.defaultVariantCollectionName : product.collectionName}</span>
