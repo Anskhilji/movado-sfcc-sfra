@@ -95,10 +95,12 @@
                                         <iscomment> sort button for mobile     </iscomment>
                                         <div class="d-md-none ctm-filter-btn">
                                            <button type="button" class=" filter-btn-mobile mobile-fliter-sort-button">
-                                                <isif condition="${pdict.productSearch.productIds.length > 0}">
+                                                <isif condition="${pdict.productSearch.productIds.length > 0 && pdict.productSearch.productSort.ruleId !== 'relevance' && pdict.productSearch.productSort.ruleId !== 'featured'}">
                                                     <isloop items="${pdict.productSearch.productSort.options}" var="option">
                                                         ${pdict.productSearch.productSort.ruleId === option.id ? 'Sort by: '+ option.displayName : '' }
                                                     </isloop>
+                                                    <iselse>
+                                                        Sort by:
                                                 </isif>
                                             </button>
                                         </div>
