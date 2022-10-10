@@ -4,7 +4,7 @@ var server = require('server');
 
 var backInStockNotificationHelper = require('*/cartridge/scripts/helpers/backInStockNotificationHelper');
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
-var cacheAtc = require('*/cartridge/scripts/middleware/cache');
+var cache = require('*/cartridge/scripts/middleware/cache');
 var Site = require('dw/system/Site');
 
 server.post('Subscribe',
@@ -56,7 +56,7 @@ server.post('Subscribe',
 );
 
 // Show back-in stock notification as Remote Include
-server.get('ShowBackInStock', cacheAtc.applyAtcSensitiveCache, function (req, res, next) {
+server.get('ShowBackInStock', cache.applyAtcSensitiveCache, function (req, res, next) {
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
     var productId = req.querystring.pid;
     var template = null;

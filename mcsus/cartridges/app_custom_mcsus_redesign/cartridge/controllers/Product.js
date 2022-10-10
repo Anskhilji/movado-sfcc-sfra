@@ -179,7 +179,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
    next();
 }, pageMetaData.computedPageMetaData);
 
-server.replace('ShowCartButton', function (req, res, next) {
+server.replace('ShowCartButton', cache.applyAtcSensitiveCache, function (req, res, next) {
     var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
     var smartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
