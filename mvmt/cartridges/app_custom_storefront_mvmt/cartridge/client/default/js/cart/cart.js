@@ -413,13 +413,13 @@ module.exports = function () {
         e.preventDefault();
         var $this = $(this);
         var endPointURL = $this.attr('href');
-        var giftMessage = $this.parent().find('.gift-text').val();
+        var giftMessage = $('.gift-text').val();
         var prodUUID = $this.data('product-uuid');
 
-        $this.parent().find('.gift-message-blank').hide();
-        $this.parent().find('.gift-message-error').hide();
+        $('.gift-message-blank').hide();
+        $('.gift-message-error').hide();
         if (!giftMessage) {
-            $this.parent().find('.gift-message-blank').show();
+            $('.gift-message-blank').show();
             return false;
         }
 
@@ -435,11 +435,10 @@ module.exports = function () {
             success: function (data) {
                 $.spinner().stop();
                 if (data.result.error) {
-                    $this.parent().find('.gift-message-error').show();
+                    $('.gift-message-error').show();
                     return false;
                 }
-                $this.prop('disabled', 'disabled').find('.saved-button').removeClass('d-none');
-                $this.parent().find('.gift-message-error').hide();
+                $('.gift-message-error').hide();
                 $this.find('.apply-button').addClass('d-none');
             },
             error: function (data) {
@@ -884,6 +883,15 @@ module.exports = function () {
                 $.spinner().stop();
             }
         });
+    });
+
+    $('body').on('click', '.gift-message-box-input', function () {
+        $('.gift-message-box').removeClass('d-none');
+        $('.gift-message-blank').hide();
+        $('.gift-message-error').hide();
+        $('.add-gift-message').removeClass('d-none');
+        $('.add-gift-box').addClass('d-none');
+
     });
 
     base.selectAttribute();

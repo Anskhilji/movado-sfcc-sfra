@@ -21,18 +21,23 @@
         <input type="radio" name="radio">
         <span class="checkmark"></span>
         </label>
-        <label class="radio-container "> ${Resource.msg('label.minicart.giftbox.modal.labelthree', 'cart', null)}  <span class="label-right-wrapper">${Resource.msg('label.minicart.giftbox.modal.labelfour', 'cart', null)}</span>
+        <label class="radio-container gift-message-box-input"> ${Resource.msg('label.minicart.giftbox.modal.labelthree', 'cart', null)}  <span class="label-right-wrapper">${Resource.msg('label.minicart.giftbox.modal.labelfour', 'cart', null)}</span>
         <input type="radio" name="radio" class="clicked-label">
         <span class="checkmark"></span>
         </label>
 
-        <div class="form-group gift-box-container-modal-body-form-textarea-container">
+        <div class="form-group gift-textarea gift-message-box d-none gift-box-container-modal-body-form-textarea-container">
             <label for="exampleFormControlTextarea1" class="gift-box-container-modal-body-form-textarea-container-label">Enter your message (optional)</label>
-            <textarea class="form-control gift-box-container-modal-body-form-textarea-container-text-box" id="exampleFormControlTextarea1" placeholder="Happy Birthday Ryann!!" rows="3"></textarea>
+            <textarea rows="3" name="giftMessageText" class="form-control gift-text gift-box-container-modal-body-form-textarea-container-text-box" aria-label="Type your complimentary gift message here" col="70" placeholder="Type your complimentary gift message here" data-format-error="" data-required-error="" data-row-max="3" data-row-maxlength="70" maxlength="50"></textarea>
+                <div class="gift-error-wrapper">
+                    <span class="gift-message-blank">Please enter Gift Message</span>
+                    <span class="gift-message-error">Please enter valid input</span>
+                </div>
         </div>
     </form>
-    <div>
+    <div>  
         <p class="gift-box-container-modal-body-note">Note: All items ship to one address</p>
-        <button type="btn" class=" btn gift-box-container-modal-body-save-button">SAVE</button>
+        <button type="btn" class="btn add-gift-box gift-box-container-modal-body-save-button">SAVE</button>
+        <button type="btn" class="btn d-none add-gift-message gift-box-container-modal-body-save-button" href="${URLUtils.url('Cart-AddGiftMessage')}" data-product-uuid="${product.uuid}">SAVE</button>
     </div>
 </div>
