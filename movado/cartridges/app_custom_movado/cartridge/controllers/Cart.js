@@ -460,8 +460,6 @@ server.replace(
             if (couponErrorMessages) {
                 var errorCodes = JSON.parse(couponErrorMessages);
                 var localeErrorCodes = errorCodes[req.locale.id] || errorCodes['default'];
-                var test = e.errorCode;
-
                 var errorMessageKey = localeErrorCodes[e.errorCode] || localeErrorCodes.default;
                 errorMessage = Resource.msg(errorMessageKey, 'cart', null);
                 // Custom End
