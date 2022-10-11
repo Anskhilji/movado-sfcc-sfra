@@ -454,6 +454,7 @@ server.replace(
             });
         } catch (e) {
             error = true;
+            // Custom Start: if custom preference 'couponErrorMessages' in strofront group is not empty and have promotion error messages josn 
             var couponErrorMessages = !empty(Site.current.preferences.custom.couponErrorMessages) ? Site.current.preferences.custom.couponErrorMessages : false;
 
             if (couponErrorMessages) {
@@ -463,6 +464,7 @@ server.replace(
 
                 var errorMessageKey = localeErrorCodes[e.errorCode] || localeErrorCodes.default;
                 errorMessage = Resource.msg(errorMessageKey, 'cart', null);
+                // Custom End
             } else {
                 var errorCodes = {
                     COUPON_CODE_ALREADY_IN_BASKET: 'error.coupon.already.in.cart',
