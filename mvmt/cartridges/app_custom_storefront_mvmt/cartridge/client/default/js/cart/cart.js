@@ -103,7 +103,7 @@ function updateMiniCartTotals(data) {
     }
     if ($grandTotalSelector.length > 0) {
         $grandTotalSelector.each(function () {
-            $(this).empty().append(data.totals.grandTotal);
+            $(this).empty().append(data.totals.subTotaladjustedNetPrice);
         });
     }
     if ($subTotalSelector.length > 0) {
