@@ -1,9 +1,12 @@
 <iscomment> Custom: HTML structure changed</iscomment>
 <div class="filter-header d-md-none">
     <div class="header-bar clearfix">
-        <button class="close-refinebar pull-left" data-filter-category="${pdict.productSearch.category && !empty(pdict.productSearch.category) ? pdict.productSearch.category.id : ''}" aria-label="close filter">${Resource.msg('label.selectedfilter', 'search', null)}</button>
+        <button class="close-refinebar pull-left" data-filter-category="${pdict.productSearch.category && !empty(pdict.productSearch.category) ? pdict.productSearch.category.id : ''}" aria-label="close filter">
+        <span class="d-none filter-more">${Resource.msg('label.filterMore', 'search', null)}</span>
+        <span class="d-none sort-by">${Resource.msg('label.sortby', 'search', null)}</span>
+        </button>
         <isif condition="${pdict.productSearch.productIds.length > 0}">
-            <div class="pull-right">
+            <div class="pull-right d-none">
                 <div class="secondary-bar p-0">
                     <a class="reset" href="${pdict.productSearch.resetLink}">
                         ${Resource.msg('link.reset.new', 'search', null)}
@@ -15,7 +18,7 @@
 </div>
 
 <div class="refine-wrapper d-md-flex align-items-start justify-content-between">
-    <div class="sort-order-menu-box order-md-1">
+    <div class="sort-order-menu-box order-md-1 d-none">
         <isif condition="${pdict.productSearch.productIds.length > 0}">
             <div class="mb-3 sort-col sort-open-state-modal position-relative sort-order-mobile-menu">
                 <isinclude template="search/sortOrderMenu" />
@@ -24,7 +27,7 @@
     </div>  
     <div class="refinements movado-refinements-container">
         <div class="filter-btn-ctm d-none d-md-block">
-            Sort and Filter More
+             ${Resource.msg('sort-and-filter-more', 'search', null)}
         </div>
         <isloop items="${pdict.productSearch.refinements}" var="refinement">
             <div class="card selected-refinement collapsible-sm refinement-box-filter refinement refinement-${refinement.displayName.toLowerCase().replace(/ /g, '-')}">
@@ -52,5 +55,10 @@
                 </div>
             </div>
         </isloop>
+    </div>
+    <div class="show-bottom-btn">
+       <div class="result-count">
+         <isinclude template="search/resultsCount" />
+       </div>
     </div>
 </div>

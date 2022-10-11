@@ -1453,12 +1453,35 @@
       &-redesign {
         top: rem(45);
         width: 100%;
+        // height: calc(100vh - 45px);
+        
         .refinements {
           padding-top: 0;
+          overflow: hidden;
+          overflow-y: auto;
+          max-height: calc(100vh - 145px);
+          .card  {
+            padding: rem(20) rem(23);
+            margin-bottom: 0;
+
+            .card-header {
+              padding: 0;
+              outline: none;
+              &::after {
+                right: rem(23);
+                top: rem(25);
+              }
+            }
+          }
         }
         
         .refine-wrapper {
+          padding: rem(0);
+          // height: calc(100vh + 120px);
           .sort-open-state-modal {
+            &.sort-order-mobile-menu {
+              padding: rem(18) rem(10px) rem(0) rem(10px);
+            }
             .custom-select {
               position: static;
               border: none;
@@ -1532,6 +1555,46 @@
             }
           }
         }
+
+        .filter-header {
+          .header-bar {
+            .close-refinebar  {
+              display: block;
+              width: 100%;
+              background-position: right;
+              margin-left: 0;
+              padding-left: 0;
+              text-align: left;
+            }
+          }
+        }
+
+        .show-bottom-btn {
+          margin: rem(10) rem(0);
+          padding: rem(0) rem(10);
+          position: absolute;
+          bottom: rem(45);
+          right: 0;
+          left: 0;
+          .result-count {
+            span {
+              background: $black;
+            height: rem(40);
+            width: 100%;
+            color: $white;
+            @include font-demi;
+            font-size: rem(15);
+            font-weight: 500;
+            letter-spacing: 0;
+            line-height: rem(40);
+            text-align: center;
+            padding: 0;
+            }
+            .category-name {
+              display: none;
+            }
+          }
+        }
       }
     }
 
@@ -1540,7 +1603,7 @@
       .filter-btn-mobile {
         box-sizing: border-box;
         height: rem(24.5);
-        width: rem(80.5);
+        min-width: rem(80.5);
         border: rem(0.5) solid $grey10-light;
         border-radius: rem(2);
         color: $black;
