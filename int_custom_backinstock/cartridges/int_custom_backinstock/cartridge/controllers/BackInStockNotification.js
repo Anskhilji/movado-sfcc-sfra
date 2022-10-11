@@ -1,7 +1,6 @@
 'use strict';
 
 var server = require('server');
-
 var backInStockNotificationHelper = require('*/cartridge/scripts/helpers/backInStockNotificationHelper');
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 var Site = require('dw/system/Site');
