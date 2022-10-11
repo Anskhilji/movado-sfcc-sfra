@@ -1107,12 +1107,12 @@
 
           .refinement {
             &.card {
-             &.active {
-              .card-body {
-                padding: 0 rem(15);
-                display: block;
+              &.active {
+                .card-body {
+                  padding: 0 rem(15);
+                  display: block;
+                }
               }
-             }
             }
           }
 
@@ -1454,19 +1454,25 @@
         top: rem(45);
         width: 100%;
         // height: calc(100vh - 45px);
-        
+
         .refinements {
           padding-top: 0;
           overflow: hidden;
           overflow-y: auto;
           max-height: calc(100vh - 145px);
-          .card  {
+
+          .card {
             padding: rem(20) rem(23);
             margin-bottom: 0;
 
             .card-header {
               padding: 0;
               outline: none;
+
+              &:focus {
+                outline: none;
+              }
+
               &::after {
                 right: rem(23);
                 top: rem(25);
@@ -1474,14 +1480,16 @@
             }
           }
         }
-        
+
         .refine-wrapper {
           padding: rem(0);
+
           // height: calc(100vh + 120px);
           .sort-open-state-modal {
             &.sort-order-mobile-menu {
               padding: rem(18) rem(10px) rem(0) rem(10px);
             }
+
             .custom-select {
               position: static;
               border: none;
@@ -1558,7 +1566,7 @@
 
         .filter-header {
           .header-bar {
-            .close-refinebar  {
+            .close-refinebar {
               display: block;
               width: 100%;
               background-position: right;
@@ -1576,20 +1584,22 @@
           bottom: rem(45);
           right: 0;
           left: 0;
+
           .result-count {
             span {
               background: $black;
-            height: rem(40);
-            width: 100%;
-            color: $white;
-            @include font-demi;
-            font-size: rem(15);
-            font-weight: 500;
-            letter-spacing: 0;
-            line-height: rem(40);
-            text-align: center;
-            padding: 0;
+              height: rem(40);
+              width: 100%;
+              color: $white;
+              @include font-demi;
+              font-size: rem(15);
+              font-weight: 500;
+              letter-spacing: 0;
+              line-height: rem(40);
+              text-align: center;
+              padding: 0;
             }
+
             .category-name {
               display: none;
             }
