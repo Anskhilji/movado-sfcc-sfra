@@ -18,7 +18,7 @@
 </div>
 
 <div class="refine-wrapper d-md-flex align-items-start justify-content-between">
-    <div class="sort-order-menu-box order-md-1 d-none">
+    <div class="sort-order-menu-box order-md-1 d-none d-md-block">
         <isif condition="${pdict.productSearch.productIds.length > 0}">
             <div class="mb-3 sort-col sort-open-state-modal position-relative sort-order-mobile-menu">
                 <isinclude template="search/sortOrderMenu" />
@@ -56,7 +56,7 @@
             </div>
         </isloop>
     </div>
-    <div class="show-bottom-btn">
+    <div class="show-bottom-btn d-md-none">
        <div class="result-count">
          <isinclude template="search/resultsCount" />
        </div>

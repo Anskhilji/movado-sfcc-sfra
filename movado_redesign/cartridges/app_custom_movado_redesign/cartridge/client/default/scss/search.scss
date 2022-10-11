@@ -203,9 +203,9 @@
       }
 
       span {
-        &:not(:first-of-type) {
-          display: none;
-        }
+          &:not(:first-of-type) {
+              display: none;
+          }
       }
     }
 
@@ -1103,6 +1103,7 @@
               display: block !important;
               overflow: visible;
               pointer-events: unset;
+              padding: 0;
 
               // open state filter 
               &.refinement-open-state {
@@ -1159,7 +1160,6 @@
                       align-items: center;
                       cursor: pointer;
                   }
-
 
                   .values {
                       margin: 0;
@@ -1238,7 +1238,7 @@
                               color: $dark-green;
                               background: $gray-green;
                           }
-                        }
+                      }
 
                       .card-body {
                           padding: 0;

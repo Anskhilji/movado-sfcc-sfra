@@ -301,6 +301,14 @@ function moveFocusToTop() {
     window.scrollTo({top: y, behavior: 'smooth'});
 }
 
+function clickedFilterButton() {
+    $(".movado-refinements-type").click(function(){
+        $(".refinement-bar-redesign").addClass("refinement-open-state");
+        $(".tab-pane.active>.container-fluid").addClass("container-open-state");
+        $(".modal-background").removeClass("fadeOut").addClass("d-block fadeIn fast");
+    });
+}
+
 // filter bar sticky styling MSS-1912
 $(window).scroll(function() {    
     var scroll = $(window).scrollTop();
@@ -553,6 +561,7 @@ module.exports = {
                         moveFocusToTop();
                         swatches.showSwatchImages();
                         $('.plp-new-design .result-count').removeClass('col-12 col-md-9 col-sm-6 order-sm-2');
+                        clickedFilterButton();
                     },
                     error: function () {
                         $.spinner().stop();
