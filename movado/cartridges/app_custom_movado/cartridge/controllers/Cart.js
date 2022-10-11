@@ -423,6 +423,92 @@ server.append(
 	    }
 	);
 
+server.replace(
+	'AddCoupon',
+	server.middleware.https,
+	csrfProtection.validateAjaxRequest,
+	function (req, res, next) {
+        var BasketMgr = require('dw/order/BasketMgr');
+        var Resource = require('dw/web/Resource');
+        var Transaction = require('dw/system/Transaction');
+        var URLUtils = require('dw/web/URLUtils');
+        var CartModel = require('*/cartridge/models/cart');
+        var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
+        var Site = require('dw/system/Site');
+
+        var currentBasket = BasketMgr.getCurrentBasket();
+
+        if (!currentBasket) {
+            res.setStatusCode(500);
+            res.json({
+                error: true,
+                redirectUrl: URLUtils.url('Cart-Show').toString()
+            });
+
+            return next();
+        }
+
+        if (!currentBasket) {
+            res.setStatusCode(500);
+            res.json({ errorMessage: Resource.msg('error.add.coupon', 'cart', null) });
+            return next();
+        }
+
+        var error = false;
+        var errorMessage;
+
+        try {
+            Transaction.wrap(function () {
+                return currentBasket.createCouponLineItem(req.querystring.couponCode, true);
+            });
+        } catch (e) {
+            error = true;
+            // Custom Start: if custom preference 'couponErrorMessages' in strofront group is not empty and have promotion error messages json 
+            var couponErrorMessages = !empty(Site.current.preferences.custom.couponErrorMessages) ? Site.current.preferences.custom.couponErrorMessages : false;
+
+            if (couponErrorMessages) {
+                var errorCodes = JSON.parse(couponErrorMessages);
+                var localeErrorCodes = errorCodes[req.locale.id] || errorCodes['default'];
+                var errorMessageKey = localeErrorCodes[e.errorCode] || localeErrorCodes.default;
+                errorMessage = Resource.msg(errorMessageKey, 'cart', null);
+                // Custom End
+            } else {
+                var errorCodes = {
+                    COUPON_CODE_ALREADY_IN_BASKET: 'error.coupon.already.in.cart',
+                    COUPON_ALREADY_IN_BASKET: 'error.coupon.cannot.be.combined',
+                    COUPON_CODE_ALREADY_REDEEMED: 'error.coupon.already.redeemed',
+                    COUPON_CODE_UNKNOWN: 'error.unable.to.add.coupon',
+                    COUPON_DISABLED: 'error.unable.to.add.coupon',
+                    REDEMPTION_LIMIT_EXCEEDED: 'error.unable.to.add.coupon',
+                    TIMEFRAME_REDEMPTION_LIMIT_EXCEEDED: 'error.unable.to.add.coupon',
+                    NO_ACTIVE_PROMOTION: 'error.unable.to.add.coupon',
+                    default: 'error.unable.to.add.coupon'
+                };
+    
+                var errorMessageKey = errorCodes[e.errorCode] || errorCodes.default;
+                errorMessage = Resource.msg(errorMessageKey, 'cart', null);
+            }
+        }
+
+        if (error) {
+            res.json({
+                error: error,
+                errorMessage: errorMessage
+            });
+            return next();
+        }
+
+        Transaction.wrap(function () {
+            basketCalculationHelpers.calculateTotals(currentBasket);
+        });
+
+        var basketModel = new CartModel(currentBasket);
+
+        res.json(basketModel);
+        return next();
+    }
+);
+
 server.append(
 	'AddCoupon',
 	server.middleware.https,
