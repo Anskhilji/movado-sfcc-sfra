@@ -35,7 +35,7 @@
                 </div>
         </div>
     </form>
-    <div>  
+    <div class="text-center">  
         <p class="gift-box-container-modal-body-note">Note: All items ship to one address</p>
         <button type="btn" class="btn add-gift-box gift-box-container-modal-body-save-button">SAVE</button>
         <button type="btn" class="btn d-none add-gift-message gift-box-container-modal-body-save-button" href="${URLUtils.url('Cart-AddGiftMessage')}" data-product-uuid="${product.uuid}">SAVE</button>
