@@ -359,7 +359,7 @@ server.get('ShowAvailability', function (req, res, next) {
     next();
 });
 
-server.get('ShowCartButton', cache.applyAtcSensitiveCache, function (req, res, next) {
+server.get('ShowCartButton', function (req, res, next) {
     var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
     var smartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
