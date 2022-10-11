@@ -197,20 +197,7 @@ server.append('AddProduct', function (req, res, next) {
             quantityTotal = 0;
         }
 
-        if (!Site.getCurrent().preferences.custom.isClydeEnabled || Site.getCurrent().preferences.custom.isClydeEnabled) {
-            var Constants = require('*/cartridge/utils/Constants');
-            var orderLineItems = currentBasket.allProductLineItems;
-            var orderLineItemsIterator = orderLineItems.iterator();
-            var productLineItem;
-            Transaction.wrap(function () {
-                while (orderLineItemsIterator.hasNext()) {
-                    productLineItem = orderLineItemsIterator.next();
-                    if (productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == Constants.CLYDE_WARRANTY && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
-                        currentBasket.removeProductLineItem(productLineItem);
-                    }
-                }
-            });
-        }
+        customCartHelpers.removeNullClydeWarrantyLineItem(currentBasket);
 
         // Custom Start MSS-1930 Added code for Listrak Cart Tracking
         if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
@@ -315,8 +302,8 @@ next();
 server.append(
 	    'Show',
 	    server.middleware.https,
-	    consentTracking.consent,
-	    csrfProtection.generateToken,
+        consentTracking.consent,
+        csrfProtection.generateToken,
 	    function (req, res, next) {
         res.setViewData({ loggedIn: req.currentCustomer.raw.authenticated });
         var BasketMgr = require('dw/order/BasketMgr');
@@ -332,6 +319,7 @@ server.append(
         var productLineItems = currentBasket.productLineItems.iterator();
         var marketingProductsData = [];
 
+        
         // Custom Start: Adding ESW cartridge integration
         if (isEswEnabled) {
             var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
@@ -366,6 +354,12 @@ server.append(
 
         }
         // Custom End
+        var session = req.session.raw;
+        if (session.privacy.pickupFromStore) {
+            session.custom.applePayCheckout = false;
+        } else {
+            session.custom.StorePickUp = false;
+        }
 
         if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
             var cartAnalyticsTrackingData;
@@ -407,6 +401,12 @@ server.append(
         res.setViewData({
             paypalButtonImg: customCartHelpers.getContentAssetContent('ca-paypal-button')
         });
+        customCartHelpers.removeClydeWarranty(viewData);
+        customCartHelpers.removeNullClydeWarrantyLineItem(currentBasket);
+
+        customCartHelpers.removeClydeWarranty(viewData);
+        customCartHelpers.removeNullClydeWarrantyLineItem(currentBasket);
+
 
         var FolderSearch = require('*/cartridge/models/search/folderSearch');
         var pageMetaHelper = require('*/cartridge/scripts/helpers/pageMetaHelper');
@@ -533,6 +533,9 @@ server.append('RemoveProductLineItem', function (req, res, next) {
     emptyCartDom = customCartHelpers.getCartAssets();
 
     if (currentBasket.productLineItems.length === 0) {
+        if (session.privacy.pickupFromStore) {
+            delete session.privacy.pickupFromStore;
+        }
     	var cartAnalyticsTrackingData;
         if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
             cartAnalyticsTrackingData = {
@@ -598,7 +601,7 @@ server.append('MiniCartShow', function(req, res, next){
         }
         res.setViewData({cartAnalyticsTrackingData: JSON.stringify(cartAnalyticsTrackingData)});
     }
-
+    
     next();
 });
 

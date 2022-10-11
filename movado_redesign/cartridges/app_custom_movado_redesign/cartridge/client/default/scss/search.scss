@@ -1072,6 +1072,15 @@
     }
 }
 
+.listrak-persistent-popup {
+  display: none !important;
+}
+.button-floting {
+  &.button-search-result {
+    bottom: rem(41);
+  }
+}
+
 // custom: MSS-1948 styling start here for desktop design
 @include media-breakpoint-up(md) {
     .container-open-state {

@@ -1,5 +1,6 @@
 <iscomment> A/B test implemented </iscomment>
 <isdecorate template="common/layout/page">
+<isinclude template="/components/modules" sf-toolkit="off" />
 	<isscript>
 		var assets = require('*/cartridge/scripts/assets');
 		assets.addJs('/js/search-redesign.js');
@@ -123,6 +124,12 @@
 				</div>
 			</isif>
 		</div>
+
+        <isif condition="${pdict.productSearch !== null && pdict.productSearch.count == 0 && !pdict.productSearch.productIds.length}">
+            <isslot id="noresult-recommendations" description="Recommendations for no result search" context="global" />
+            <isslot id="cs-noresult-content" description="Content Slot on No Results Page" context="global" />
+        </isif>
+		
 		<!--- Content Grid --->
 		<div class="tab-pane" id="content-search-results-pane" role="tabpanel" aria-expanded="false">
 			<div id="content-search-results" class="content-grid-header"></div>
@@ -147,4 +154,12 @@
 			<isprint value="${dw.content.ContentMgr.getContent('swatch-color-images').custom.body}" encoding="off"/>
 		</div>
 	</isif>
+	<!-- Start: Listrak persistent popup -->
+    <isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page" />
+    <isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled && pdict.popupID}">
+        <span class="listrak-persistent-url" data-listrak-url="${URLUtils.https('EmailPopUp-Show')}"></span>
+        <span class="listrak-popup-search-result"></span>
+        <iscontentasset aid="listrak-persistent-popup"/>
+    </isif>
+    <!-- End: Listrak persistent popup -->
 </isdecorate>
