@@ -454,7 +454,7 @@ server.replace(
             });
         } catch (e) {
             error = true;
-            // Custom Start: if custom preference 'couponErrorMessages' in strofront group is not empty and have promotion error messages josn 
+            // Custom Start: if custom preference 'couponErrorMessages' in strofront group is not empty and have promotion error messages json 
             var couponErrorMessages = !empty(Site.current.preferences.custom.couponErrorMessages) ? Site.current.preferences.custom.couponErrorMessages : false;
 
             if (couponErrorMessages) {
