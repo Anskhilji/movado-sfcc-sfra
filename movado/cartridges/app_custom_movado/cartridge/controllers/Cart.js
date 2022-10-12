@@ -2,10 +2,13 @@
 
 var server = require('server');
 
+var cache = require('*/cartridge/scripts/middleware/cache');
+
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var collections = require('*/cartridge/scripts/util/collections');
 var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
+var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 
 var page = module.superModule;
 server.extend(page);
@@ -29,9 +32,27 @@ server.prepend('AddProduct', function (req, res, next) {
                 break;
             }
         }
-    }
+    } 
     next();
 });
+
+// Show add to Cart Button as Remote Include
+server.get('ShowAddProductButton', 
+    server.middleware.include,
+    cache.applyDefaultCache,
+    function (req, res, next) {
+        var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
+        var productId = req.querystring.pid;
+
+        res.render('product/components/addToCartPDP', {
+            product: showProductPageHelperResult.product,
+            addToCartUrl: showProductPageHelperResult.addToCartUrl,
+            productId: productId
+        });
+
+    next();
+});
+
 // Added custom code for personalization text for Engraving and Embossing
 server.append('AddProduct', function (req, res, next) {
     var BasketMgr = require('dw/order/BasketMgr');
