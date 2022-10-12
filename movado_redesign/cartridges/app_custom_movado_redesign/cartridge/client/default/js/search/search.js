@@ -309,6 +309,25 @@ function clickedFilterButton() {
     });
 }
 
+function filterApplyAddClassFilter() {
+    var $winWidthFilter = $(window).width();
+    var $mediumBreakPointFilter = 992;
+
+    if ($winWidthFilter < $mediumBreakPointFilter) {
+        $(".close-refinebar .filter-more").removeClass("d-none").addClass("d-block");
+        $(".close-refinebar .sort-by").removeClass("d-block").addClass("d-none");
+    }
+}
+function filterApplyRemoveClassSort() {
+    var $winWidthSort = $(window).width();
+    var $mediumBreakPointSort = 992;
+
+    if ($winWidthSort < $mediumBreakPointSort) {
+        $(".close-refinebar .sort-by").removeClass("d-none").addClass("d-block");
+        $(".close-refinebar .filter-more").removeClass("d-block").addClass("d-none");
+    }
+}
+
 // filter bar sticky styling MSS-1912
 $(window).scroll(function() {    
     var scroll = $(window).scrollTop();
@@ -385,6 +404,7 @@ module.exports = {
                     updatePageURLForSortRule(url);
                     // edit
                     $.spinner().stop();
+                    filterApplyRemoveClassSort()
                 },
                 error: function () {
                     $.spinner().stop();
@@ -562,6 +582,7 @@ module.exports = {
                         swatches.showSwatchImages();
                         $('.plp-new-design .result-count').removeClass('col-12 col-md-9 col-sm-6 order-sm-2');
                         clickedFilterButton();
+                        filterApplyAddClassFilter();
                     },
                     error: function () {
                         $.spinner().stop();
@@ -632,7 +653,7 @@ module.exports = {
         });
     },
 
-    // start: append value to plp sort by from select option
+   // start: append value to plp sort by from select option
     selectedFiltervalueAppendToPlpSortBy: function () {
         $('.sort-order-mobile-menu').on('click', '.custom-select__dropdown', function (e) {
             var $mobileFilterBtn = $('.mobile-fliter-sort-button');

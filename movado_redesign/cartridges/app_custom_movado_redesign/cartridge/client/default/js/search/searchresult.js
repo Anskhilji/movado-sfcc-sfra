@@ -8,8 +8,8 @@ $(document).ready(function () {
         $('.search-results.plp-new-design .custom-select__option').focus();
         $(".search-results.plp-new-design .movado-refinements-container").addClass("d-block");
         $(".refine-wrapper .sort-order-menu-box").removeClass("d-block").addClass("d-none");
-        $(".close-refinebar .filter-more").removeClass("d-none").addClass("d-inline-block");
-        $(".close-refinebar .sort-by").removeClass("d-inline-block").addClass("d-none");
+        $(".close-refinebar .filter-more").removeClass("d-none").addClass("d-block");
+        $(".close-refinebar .sort-by").removeClass("d-block").addClass("d-none");
     });
 
     $('.search-results.plp-new-design .refinement-bar .selected-value').prepend("<span>Sort By</span> ");
@@ -47,16 +47,16 @@ $(document).ready(function () {
         $(".modal-background").removeClass("fadeOut").addClass("d-block fadeIn fast");
     });
 
-    $(".mobile-fliter-sort-button").click(function(){
+    $(".mobile-fliter-sort-btn-click").click(function(){
         $(".modal-background").removeClass("fadeOut").addClass("d-block fadeIn fast modal-moblie")
         $("body").addClass("no-overflow");
         $(".search-results.plp-new-design .refinement-bar").removeClass("fadeOutRight").addClass("fast fadeInRight animated d-block");
         $(".search-results.plp-new-design .movado-refinements-container").addClass("d-none");
         $(".search-results.plp-new-design .movado-refinements-container").removeClass("d-block").addClass("d-none");
         $(".refine-wrapper .sort-order-menu-box").addClass("d-block");
-        $(".close-refinebar .sort-by").removeClass("d-none").addClass("d-inline-block");
-        $(".close-refinebar .filter-more").removeClass("d-inline-block").addClass("d-none");
-        $('.search-results.plp-new-design .custom-select__option').focus();
+        $(".close-refinebar .sort-by").removeClass("d-none").addClass("d-block");
+        $(".close-refinebar .filter-more").removeClass("d-block").addClass("d-none");
+        $('.search-results.plp-new-design .custom-select__option').focus(); 
     });
     
 });
