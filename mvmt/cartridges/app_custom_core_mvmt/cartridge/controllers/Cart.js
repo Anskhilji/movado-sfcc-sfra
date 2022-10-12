@@ -5,6 +5,8 @@ var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
 var productFactory = require('*/cartridge/scripts/factories/product');
+var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
+var ProductMgr = require('dw/catalog/ProductMgr');
 
 var server = require('server');
 var page = module.superModule;
@@ -38,14 +40,22 @@ server.replace('MiniCart', server.middleware.include, function (req, res, next) 
 
 server.get('ShowGiftBoxModal', server.middleware.https, csrfProtection.generateToken, function (req, res, next) {
    var params = {
-       pid: req.querystring.pid
+       pid: req.querystring.pid,
+       uuid: req.querystring.uuid,
+       itemLevelGiftMessage: req.querystring.itemLevelGiftMessage
    };
+   
    var product = productFactory.get(params);
+   var apiProduct = ProductMgr.getProduct(req.querystring.pid);
+   var giftBoxSKUData = productCustomHelper.getGiftBoxSKU(apiProduct);
    var images = product.images.tile150;
 
    viewData = {
        product: product,
-       image: images[0]
+       image: images[0],
+       productUUID : params.uuid,
+       giftBoxSKUData: giftBoxSKUData,
+       itemLevelGiftMessage: params.itemLevelGiftMessage
    };
 
    res.setViewData(viewData);

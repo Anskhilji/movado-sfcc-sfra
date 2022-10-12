@@ -894,6 +894,13 @@ module.exports = function () {
 
     });
 
+    $('body').on('click', '.add-gift-box-input', function () {
+        $('.gift-message-box').addClass('d-none');
+        $('.add-gift-message').addClass('d-none');
+        $('.add-gift-box').removeClass('d-none');
+
+    });
+
     base.selectAttribute();
     base.colorAttribute();
     base.removeBonusProduct();

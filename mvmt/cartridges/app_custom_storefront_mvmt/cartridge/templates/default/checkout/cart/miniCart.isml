@@ -72,7 +72,7 @@
 
     <div class="product-summary">
         <isloop items="${items}" var="lineItem" status="loopStatus">
-            <div class="row">
+            <div class="row" data-lineitem="${JSON.stringify(lineItem)}">
                <isif condition="${lineItem.bonusProductLineItemUUID === 'bonus'}">
                    <div class="card ${miniCart ? 'bonus-product-line-item' : ''} uuid-${lineItem.UUID}">
                        <div class="card-body">
@@ -84,12 +84,6 @@
                        <div class="card-body">
                            <isinclude template="checkout/productCard/miniCartProductCard" />
                        </div>
-                        <div class="gift-box-container">
-                            <img class="gift-icon" src="${URLUtils.staticURL('/images/giftbox-icon.svg')}" />
-                            <div class="gift-box-container-label">${Resource.msg('label.minicart.gift.message', 'cart', null)} </div>
-                            <!-- Button trigger modal -->
-                            <a href="${URLUtils.https('Cart-ShowGiftBoxModal')}?pid=${lineItem.id}" type="button" class="btn gift-box-container-link" data-toggle="modal" data-target="#giftBoxModelPopUp">${Resource.msg('label.minicart.giftbox.link', 'cart', null)}</a>
-                        </div>
                    </div>
                </isif>
             </div>
