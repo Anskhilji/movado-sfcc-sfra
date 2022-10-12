@@ -23,7 +23,7 @@
       });
   </script>
   <div class="container-fluid product-slot-slider mvmt-plp-redesign pdp-product-recommendation">
-    <div class="row product-grid">
+    <div class="row product-grid recommendation">
       <div class="col-12">
         <div class="cs-carousel-wrapper">
           <div class="product-slider-aside">
