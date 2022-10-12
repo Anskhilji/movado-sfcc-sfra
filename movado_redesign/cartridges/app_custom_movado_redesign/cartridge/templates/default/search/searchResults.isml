@@ -97,12 +97,11 @@
                                            <button type="button" class=" filter-btn-mobile mobile-fliter-sort-btn-click">
                                                 <img src="${URLUtils.staticURL('/images/icon-park_setting-config.svg')}" alt="">
                                                 <span class="mobile-fliter-sort-button">
-                                                    <isif condition="${pdict.productSearch.productIds.length > 0 && pdict.productSearch.productSort.ruleId !== 'relevance' && pdict.productSearch.productSort.ruleId !== 'featured'}">
+                                                    <isif condition="${pdict.productSearch.productIds.length > 0 && pdict.productSearch.productSort.ruleId !== Resource.msg('label.relevance', 'search', null) && pdict.productSearch.productSort.ruleId !== Resource.msg('label.featured', 'search', null)}">
                                                         <isloop items="${pdict.productSearch.productSort.options}" var="option">
                                                             ${pdict.productSearch.productSort.ruleId === option.id ? Resource.msg('label.sortbycol', 'search', null) + option.displayName : '' }
                                                         </isloop>
                                                         <iselse>
-                                                        
                                                             ${Resource.msg('label.sortby-bestsellers', 'search', null)}
                                                     </isif>
                                                 </span>
