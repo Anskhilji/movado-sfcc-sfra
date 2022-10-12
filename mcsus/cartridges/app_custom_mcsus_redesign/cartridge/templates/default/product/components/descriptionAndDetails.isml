@@ -1,0 +1,17 @@
+<div class="description-and-detail  description-and-detail-redesign">
+    <isif condition="${!pdict.isCompareableDisabled}">
+        <isif condition="${product.attributes && product.attributes.length}">
+        <iscomment>custom start: remove class collapsible-sm and HR tag" </iscomment>
+            <div class="product-attributes">  
+                <isinclude template="product/components/detailsAttributes" />
+            </div>
+        </isif>
+    </isif>
+    <isif condition="${product.longDescription && !empty(dw.system.Site.current.preferences.custom.isHighlightEnabled) ? dw.system.Site.current.preferences.custom.isHighlightEnabled :false}">
+        <hr/>
+        <div class="row description collapsible-sm">
+            <isinclude template="product/components/highlights" />
+        </div>
+    </isif>
+    <iscomment> remove  yotporeviewswidget </iscomment>
+</div>

@@ -403,11 +403,30 @@ function getBasketParameters() {
         // Custom Start : Added city state zip code with pipe bars
         var cityStateZipCode = (currentBasket.billingAddress) ? currentBasket.billingAddress.city + Constants.MOVADO_SHIPPING_PIPE_BARS + currentBasket.billingAddress.stateCode + Constants.MOVADO_SHIPPING_PIPE_BARS + currentBasket.billingAddress.postalCode: '';
         // Custom End
+        var isClydeEnabled = !empty(Site.current.preferences.custom.isClydeEnabled) ? Site.current.preferences.custom.isClydeEnabled : false;
         collections.forEach(cartItems, function (cartItem) {
             if (cartItem.product != null && cartItem.product.optionModel != null) {
                 var variants = getVariants(cartItem);
                 var productModel = productFactory.get({pid: cartItem.productID});
                 var productPrice = productModel.price && productModel.price.sales ? productModel.price.sales.decimalPrice : (productModel.price && productModel.price.list ? productModel.price.list.decimalPrice : '');
+                
+                // Custom Start: Check for Clyde Option
+                if (isClydeEnabled) {
+                    if (cartItem.optionProductLineItems) {
+                        var optionId;
+                        var optionPrice;
+                        var optionProducts;
+                        var productOptions = cartItem.optionProductLineItems;
+                        for (var i = 0; i < productOptions.length; i++) {
+                            optionProducts = {
+                                id: productOptions[i].optionID == 'clydeWarranty' ? productOptions[i].optionValueID : '',
+                                price: productOptions[i].optionID == 'clydeWarranty' ? productOptions[i].adjustedPrice : ''
+                            }
+                        }
+                    } 
+                } 
+                // Custom End
+
                 cartJSON.push({
                     id: cartItem.productID,
                     name: stringUtils.removeSingleQuotes(cartItem.productName),
@@ -431,7 +450,10 @@ function getBasketParameters() {
                     orderlevelDiscount: totalsModel.orderLevelDiscountTotal.value,
                     // Custom End
                     // Custom Start : Added payment method
-                    paymentMethod: paymentMethod });
+                    paymentMethod: paymentMethod,
+                    optionId: optionProducts ? optionProducts.id : '',
+                    optionPrice: optionProducts ? optionProducts.price : '' 
+                });
             }       // Custom End
         });
     }
@@ -476,6 +498,8 @@ function getCartJSONArray(checkoutObject) {
         cartObj.discount = cartJSON[i].discount;
         // Custom End
         cartObj.paymentMethod = cartJSON[i].paymentMethod;
+        cartObj.optionId = (!empty(cartJSON[i].optionId)) ? cartJSON[i].optionId : '';
+        cartObj.optionPrice = (!empty(cartJSON[i].optionPrice)) ? formatMoney(cartJSON[i].optionPrice) : '';
 
         if (cartArray.length < 10) {
             cartArray.push({
@@ -632,6 +656,7 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
             });
         });
 
+        var isClydeEnabled = !empty(Site.current.preferences.custom.isClydeEnabled) ? Site.current.preferences.custom.isClydeEnabled : false;
         var orderJSONArray = [];
         collections.forEach(order.productLineItems, function (productLineItem) {
             var variants = getVariants(productLineItem);
@@ -651,6 +676,26 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
             } else {
                 produtObj.price = productLineItem.getAdjustedNetPrice().getDecimalValue().toString();
             }
+            
+            // Custom Start: Check for Clyde Option
+            if (isClydeEnabled) {
+                if (productLineItem.optionProductLineItems) {
+                    var optionId;
+                    var optionPrice;
+                    var optionProducts;
+                    var productOptions = productLineItem.optionProductLineItems;
+                    for (var i = 0; i < productOptions.length; i++) {
+                        var optionProducts = {
+                            id: productOptions[i].optionID == 'clydeWarranty' ? productOptions[i].optionValueID : '',
+                            price: productOptions[i].optionID == 'clydeWarranty' ? productOptions[i].adjustedPrice : ''
+                        }
+                    }
+                }
+            }
+            optionId = optionProducts ? optionProducts.id : '';
+            optionPrice = optionProducts ? optionProducts.price :'';
+            // Custom End
+
             produtObj.unitBasePrice = productLineItem.basePrice.decimalValue.toString();
             produtObj.unitPriceLessTax = (productLineItem.basePrice.decimalValue + productLineItem.tax.decimalValue).toString();
             // Custom Start : Added subtotal
@@ -673,6 +718,22 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
 
             produtObj.orderLevelPromotionPrice = orderLevelPromotionPrice;
             // Custom End
+            produtObj.optionId = optionId ? optionId : '';
+            produtObj.optionPrice = optionPrice ? formatMoney(optionPrice) : '';
+
+            // Custom Start : Added VAT for OBUK
+            if (Site.current.ID === 'OliviaBurtonUK') {
+                produtObj.productVatAmount = ((!empty(productLineItem.basePrice.decimalValue)) && (!empty(productLineItem.adjustedPrice.decimalValue)) && (productLineItem.bonusProductLineItem === false)) 
+                    ? (productLineItem.basePrice.decimalValue !== productLineItem.adjustedPrice.decimalValue) 
+                    ? (productLineItem.adjustedPrice.decimalValue * 20 / 100).toFixed(2) : (productLineItem.basePrice.decimalValue * 20 / 100).toFixed(2)
+                    : '';
+                produtObj.productMerchValue = ((!empty(productLineItem.basePrice.decimalValue)) && (!empty(productLineItem.adjustedPrice.decimalValue)) && (productLineItem.bonusProductLineItem === false))
+                    ? (productLineItem.basePrice.decimalValue !== productLineItem.adjustedPrice.decimalValue)
+                    ? (productLineItem.adjustedPrice.decimalValue - produtObj.productVatAmount).toFixed(2) : (productLineItem.basePrice.decimalValue - produtObj.productVatAmount).toFixed(2)
+                    : '';
+            }
+            // Custom End
+
                 produtObj.itemCoupon = itemLevelCouponString;
 
                 if (orderJSONArray.length < 10) {
@@ -692,6 +753,21 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
         orderObj.orderCoupon = orderLevelCouponString;
         orderObj.country = order.billingAddress.countryCode.displayValue;
         orderObj.paymentMethod = paymentMethod;
+
+        // Custom Start : Added VAT for OBUK
+        if (Site.current.ID === 'OliviaBurtonUK') {
+            orderObj.shippingVatAmount = (order.shippingTotalPrice.decimalValue * 20 / 100).toFixed(2);
+            orderObj.shippingMerchValue = (order.shippingTotalPrice.decimalValue - orderObj.shippingVatAmount).toFixed(2);
+        }
+        // Custom End
+
+        // Custom Start : Added VAT for OBUK
+        if (Site.current.ID === 'OliviaBurtonUK') {
+            orderObj.orderVatAmount = (order.totalGrossPrice.decimalValue * 20 / 100).toFixed(2);
+            orderObj.orderMerchValue = (order.totalGrossPrice.decimalValue - orderObj.orderVatAmount).toFixed(2);
+        }
+        // Custom End
+
         orderJSONArray.push({ orderObj: orderObj });
         gtmorderConfObj.push(orderJSONArray);
     }

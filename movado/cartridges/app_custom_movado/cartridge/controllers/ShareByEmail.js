@@ -109,6 +109,7 @@ server.post('SendToFriend', server.middleware.https, csrfProtection.validateAjax
                 addToCartURL: addToCartURL,
                 addToCartText: Resource.msg('global.addtocart', 'account', null),
                 viewProductText: Resource.msg('global.viewdetails', 'account', null),
+                friendsEmail: result.friendsEmail,
                 productModel: Resource.msg('global.itemno', 'account', null),
                 priceLabel: Resource.msg('global.price', 'account', null),
                 emailHeader: (emailHeaderContent && emailHeaderContent.custom && emailHeaderContent.custom.body ? emailHeaderContent.custom.body : ''),

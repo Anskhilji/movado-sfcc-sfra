@@ -74,5 +74,26 @@ module.exports = function (object, apiProduct) {
         enumerable: true,
         value: productCustomHelpers.getShopBagLabel(apiProduct)
     });
+
+    if (!empty(apiProduct.custom.productDetailAttribute1)) {
+        Object.defineProperty(object, 'productDetailAttribute1', {
+            enumerable: true,
+            value: apiProduct.custom.productDetailAttribute1.markup
+        });
+    }
+
+    if (!empty(apiProduct.custom.productDetailAttribute2)) {
+        Object.defineProperty(object, 'productDetailAttribute2', {
+            enumerable: true,
+            value: apiProduct.custom.productDetailAttribute2.markup
+        });
+    }
+    
+    if (!empty(apiProduct.custom.productDetailAttribute3)) {
+        Object.defineProperty(object, 'productDetailAttribute3', {
+            enumerable: true,
+            value: apiProduct.custom.productDetailAttribute3.markup
+        });
+    }
 };
 

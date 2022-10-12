@@ -217,6 +217,9 @@ function populateByOrder(order) {
                 // Copy long ESW attribute names to shorter alternative
                 productLineItem.custom.eswRetailerCurrencyItemPriceInfoBeforeDi = productLineItem.custom.eswRetailerCurrencyItemPriceInfoBeforeDiscount;
                 productLineItem.custom.eswShopperCurrencyItemPriceInfoBeforeDis = productLineItem.custom.eswShopperCurrencyItemPriceInfoBeforeDiscount;
+
+                 //populate Item ImageURL Attribute
+                 productLineItem.custom.ImageURL = getLineItemImage(productLineItem);
             });
 
         });
@@ -274,6 +277,18 @@ function populateByOrder(order) {
         return new Status(Status.ERROR, 'ERROR', 'populateOrderJSON failed. Fatal log sent.');
     }
     return new Status(Status.OK, 'OK', 'populateOrderJSON finished successfully for order ' + order.orderNo);
+}
+
+
+//get Item Image URL
+function getLineItemImage(productLineItem) {
+    var imageURL = '';
+    var apiProduct = dw.catalog.ProductMgr.getProduct(productLineItem.getProductID());
+    if(apiProduct != null) {
+        const productImage = apiProduct.getImage('large', 0);
+        imageURL =  !empty(productImage) && productImage.getAbsURL().toString() || '';
+    }
+    return imageURL;
 }
 
 module.exports = {

@@ -28,7 +28,6 @@ server.replace(
 
         var OrderModel = require('*/cartridge/models/order');
         var reportingUrlsHelper = require('*/cartridge/scripts/reportingUrls');
-
         var abTestSegment;
         var order = OrderMgr.getOrder(req.querystring.ID);
         var token = req.querystring.token ? req.querystring.token : null;
@@ -135,6 +134,36 @@ server.replace(
             });
         }
         req.session.raw.custom.orderID = req.querystring.ID; // eslint-disable-line no-param-reassign
+        
+        // MSS-1867 - start when Auto_Optin_Checkout enabled then
+        var orderCustomHelper = require('*/cartridge/scripts/helpers/orderCustomHelper');
+        var countryCode = orderCustomHelper.getCountryCode(req);
+        var Constants = require('*/cartridge/scripts/util/Constants');
+        
+        if (Site.current.preferences.custom.Auto_Optin_Checkout && countryCode == Constants.US_COUNTRY_CODE) {
+            var requestParams = {
+                email : order.getCustomerEmail() ? order.getCustomerEmail() : '',
+                requestLocation: 'CHECKOUT_SERVICE',
+                campaignName: Constants.MVMT_CHECKOUT_CAMPAIGN_NAME
+            }
+                
+            if (!empty(requestParams.email)) {
+                if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
+                    var ltkApi = require('*/cartridge/scripts/api/ListrakAPI');
+                    var ltkConstants = require('*/cartridge/scripts/utils/ListrakConstants');
+                    requestParams.source = ltkConstants.Source.Checkout;
+                    requestParams.event = ltkConstants.Event.Checkout;
+                    requestParams.subscribe = ltkConstants.Subscribe.Checkout;
+                    requestParams.firstName = order.getBillingAddress().firstName || '';
+                    requestParams.lastName = order.getBillingAddress().lastName || '';
+                    ltkApi.sendSubscriberToListrak(requestParams);
+                } else {
+                    var sfmcApi = require('*/cartridge/scripts/api/SFMCApi');
+                    sfmcApi.sendSubscriberToSFMC(requestParams);
+                }
+            }
+        }
+        // MSS-1867 - end when Auto_Optin_Checkout enabled then
         return next();
     }
 );

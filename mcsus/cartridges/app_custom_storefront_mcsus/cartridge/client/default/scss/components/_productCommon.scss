@@ -126,6 +126,9 @@
                         @include media-breakpoint-down(xs) {
                             margin-bottom: rem(10);
                         }
+                        @include media-breakpoint-up(sm) {
+                            margin-bottom: rem(5);
+                        }
                     }
 
                     &.btn-border-none {
@@ -136,6 +139,18 @@
                             @include media-breakpoint-down(xs) {
                                 border-radius: rem(0);
                             }
+                        }
+                    }
+
+                    &.btn-border-none {
+                        @include media-breakpoint-down(lg) {
+                            width: 100%;
+                        }
+                        @include media-breakpoint-down(xs) {
+                            margin-bottom: rem(8);
+                        }
+                        @include media-breakpoint-up(sm) {
+                            margin-bottom: rem(5);
                         }
                     }
                 }

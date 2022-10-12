@@ -180,6 +180,7 @@ function getCustomerNo(customer) {
 
 function isPreOrder(order) {
     var Transaction = require('dw/system/Transaction');
+    var ProductMgr = require('dw/catalog/ProductMgr');
     var isPreOrder = false;
     if (order) {
         var productLineItems = order.getProductLineItems();
@@ -188,7 +189,7 @@ function isPreOrder(order) {
             while (productLineItemsIterator.hasNext()) {
                 var lineItem = productLineItemsIterator.next();
                 if (lineItem instanceof dw.order.ProductLineItem && !lineItem.bonusProductLineItem) {
-	                var apiProduct = dw.catalog.ProductMgr.getProduct(lineItem.getProductID());
+	                var apiProduct = ProductMgr.getProduct(lineItem.getProductID());
 	                var productAvailabilityModel = apiProduct.getAvailabilityModel();
 	                var availabilityModelLevels = productAvailabilityModel.getAvailabilityLevels(lineItem.getQuantity().decimalValue);
 	                if (availabilityModelLevels.preorder.value > 0) {
@@ -196,7 +197,19 @@ function isPreOrder(order) {
                             lineItem.custom.isPreOrderProduct = true;
                         });
 	                    isPreOrder = true;
-	                }
+	                } else {
+                        var apiProduct = ProductMgr.getProduct(lineItem.getProductID());
+                        var productAvailabilityModel = apiProduct.getAvailabilityModel();
+                        var ociCurrentAllocation = productAvailabilityModel.inventoryRecord.allocation.value;
+                        var ociProductATO = productAvailabilityModel.inventoryRecord.ATS.value;
+                        var ociProductFuture = productAvailabilityModel.inventoryRecord.backorderable;
+                        if (ociCurrentAllocation === 0.00 && ociProductATO > 0 && ociProductFuture === true) {
+                            Transaction.wrap(function () {
+                                lineItem.custom.isPreOrderProduct = true;
+                            });
+                            isPreOrder = true;
+                        }
+                    }
                 }
             }
         }
@@ -258,6 +271,17 @@ function getSelectedPaymentMethod(orderModel) {
     return selectedPaymentMethod;
 }
 
+function getCountryCode(request) {
+    var countryCode;
+    if (!empty(session.privacy.countryCode)) {
+        countryCode = session.privacy.countryCode;
+    } else if (request.httpCookies && request.httpCookies['esw.location'] != null && request.httpCookies['esw.location'].value != '') {
+        countryCode = request.httpCookies['esw.location'] != null ? (request.httpCookies['esw.location'].value != null ? request.httpCookies['esw.location'].value : '') : '';
+    } else {
+        countryCode = request.geolocation.countryCode;
+    }
+    return countryCode;
+}
 
 module.exports = {
     formatOrderDate: formatOrderDate,
@@ -272,7 +296,8 @@ module.exports = {
     getCustomerNo: getCustomerNo,
     isPreOrder: isPreOrder,
     getPaymentMethod: getPaymentMethod,
-    getSelectedPaymentMethod: getSelectedPaymentMethod
+    getSelectedPaymentMethod: getSelectedPaymentMethod,
+    getCountryCode: getCountryCode
 };
 
 function getTrackingURL(trackingUrl, vendorCode, trackingNum) {

@@ -2,6 +2,7 @@
     custom start: set global variable.
 </iscomment>
 <isset name="gtmPageType" value="${pdict.gtm.pageType}" scope="session" />
+<isset name="isClydeEnabled" value="${!empty(dw.system.Site.current.preferences.custom.isClydeEnabled) ? dw.system.Site.current.preferences.custom.isClydeEnabled : false}" scope="page" />
 <script>
     // Custom Start: Update pageDataGTM values according to mvmt.
     dataLayer = window.dataLayer = window.dataLayer || [];
@@ -169,7 +170,12 @@
                     'paymentMethod': '${produtArray.cartObj.paymentMethod}',
                     'orderlevelDiscount': '${produtArray.cartObj.orderlevelDiscount}',
                     'familyName': '${produtArray.cartObj.familyName}',
-                    'productColor': '${produtArray.cartObj.productColor}'}
+                    'productColor': '${produtArray.cartObj.productColor}',
+                    <isif condition= "${isClydeEnabled && produtArray.cartObj.optionId !== '' && produtArray.cartObj.optionPrice !== ''}">
+                        'optionId': '${produtArray.cartObj.optionId}',
+                        'optionPrice': '${produtArray.cartObj.optionPrice}'
+                    </isif>
+                    }
                     <isif condition= "${status.index < checkoutObj.length-1}">,</isif>
                 </isloop>
                 ]
@@ -233,7 +239,12 @@
                                 'subtotal': '${orderObj.productObj.subtotal}',
                                 'orderLevelDiscount': '${orderObj.productObj.orderLevelPromotionPrice}',
                                 'familyName': '${orderObj.productObj.familyName}',
-                                'productColor': '${orderObj.productObj.productColor}'}
+                                'productColor': '${orderObj.productObj.productColor}',
+                                <isif condition= "${isClydeEnabled && orderObj.productObj.optionId !== '' && orderObj.productObj.optionPrice !== ''}">
+                                    'optionId': '${orderObj.productObj.optionId}',
+                                    'optionPrice': '${orderObj.productObj.optionPrice}'
+                                </isif>
+                                }
                                 <isif condition= "${status.index < orderProdutsArray.length-2}">,</isif>
                             </isif>
                         </isloop>

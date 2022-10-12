@@ -53,33 +53,33 @@
 	               <div class="row">
 	                   <!-- Attributes and Quantity -->
 	                   <div class="col-md-10 col-12">
-	                       <isinclude template="product/components/badges" />
-	                    </div>
+                            <isinclude template="product/components/badges" />
+                        </div>
 	                </div>
                     <!-- Product Name -->
                     <h2 class="product-name product-title-for-gtm d-sm-none d-md-block text-capitalize">${product.productName}</h2>
-
                     <div class="hidden-sm-down">
                         <isinclude template="product/components/pidRating" />
                     </div>
-                    <div class="row mt-4 description">
+                    <div class="row mt-4 product-description description">
                         <isinclude template="product/components/description" />
                     </div>
                     
                     <div class="row m-0">
                         <!-- Attributes and Quantity -->
-                        <div class="col-md-10 col-12">
-
-                            <isif condition="${!product.variationAttributes && product.options.length === 0}">
+                        <isif condition="${!product.variationAttributes && product.options.length === 0}">
+                            <div class="col-md-10 col-12">
                                 <div class="simple-quantity d-none">
                                     <isinclude template="product/components/quantity" />
                                 </div>
-                            </isif>
-                        </div>
+                            </div>
+                        </isif>
 
-                        <div class="col-md-10 col-12">
-                            <isinclude template="product/components/mainAttributes" />
-                        </div>
+                       <isif condition="${product.attributes && product.attributes.length > 0 && product.variant}">
+                            <div class="col-md-10 col-12">
+                                <isinclude template="product/components/mainAttributes" />
+                            </div>
+                        </isif>
 
                         <isif condition="${product.variationAttributes && product.variationAttributes.length > 0}">
                             <isinclude template="product/components/variationAttributes" />
@@ -96,6 +96,25 @@
                                     <isinclude template="product/components/pricing/main" />
                                 </isif>
                             </div>
+                            <iscomment> Custom Start: Tax Duties shows when following requirements meet </iscomment>
+                            <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
+                            <isif condition="${isEswEnabled}" >
+                                <isset name="domesticAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
+                                <isset name="isTaxDutiesAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isTaxDutiesAllowedCountry()}" scope="page" />
+                                <isif condition="${!empty(isTaxDutiesAllowedCountry)}">
+                                    <isif condition="${!domesticAllowedCountry && isTaxDutiesAllowedCountry}">
+                                        <div class="tax-duties">
+                                            <isslot id="cs-esw-tax-duties" description="Tax Duties" context="global" />
+                                        </div>
+                                    </isif>
+                                <iselse/>
+                                    <isif condition="${!domesticAllowedCountry}">
+                                        <div class="tax-duties">
+                                            <isslot id="cs-esw-tax-duties" description="Tax Duties" context="global" />
+                                        </div>
+                                    </isif>
+                                </isif>
+                            </isif>
                             <div class = "d-block d-md-none">
                             <iscomment> Custom Start: Product price shows when following requirements meet </iscomment>
                                 <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
@@ -117,15 +136,26 @@
                             <!-- Applicable Promotions -->
                             <iscomment> Custom Start: Promotions shows when following requirements meet </iscomment>
                             <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
-                                <div class="promotions">
-                                    <isinclude template="product/components/promotions" />
+                               <div class="promotions">
+                                    <isloop items="${product.promotions}" var="promotion">
+                                        <isif condition="${!empty(promotion.calloutMsg)}">
+                                            <isinclude template="product/components/promotions" />
+                                        </isif>
+                                    </isloop>
                                 </div>
                             </isif>
 
                             <iscomment> Custom Start: Clyde Integration </iscomment>
-                            <isif condition = "${dw.system.Site.current.preferences.custom.clydeWidgetDisplay}">
-                                <div id="clyde-cta" >
+                            <isset name="isClydeEnable" value="${!empty(dw.system.Site.current.preferences.custom.isClydeEnabled) ? dw.system.Site.current.preferences.custom.isClydeEnabled : false}" scope="page" />
+                            <isset name="isClydeWidgetEnable" value="${!empty(dw.system.Site.current.preferences.custom.clydeWidgetDisplay) ? dw.system.Site.current.preferences.custom.clydeWidgetDisplay : false}" scope="page" />
+                                <div hidden="hidden" class="clyde-site-prefrence" data-clyde-enable="${isClydeEnable}" data-clyde-widget="${isClydeWidgetEnable}"></div>
+                                <isif condition="${isClydeEnable && isClydeWidgetEnable}">
+                                <hr class="clyde-top-border d-none" />
+                                <div class="clyde-widget">
+                                    <div id="clyde-cta">                                
+                                    </div>
                                 </div>
+                                <hr class="clyde-bottom-border d-none" />
                             </isif>
                             <iscomment> Custom End: </iscomment>
 
@@ -154,6 +184,8 @@
                                                 <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>
                                                 <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
                                                     ${Resource.msg('button.preorder.now', 'common', null)} </br>
+                                                <iselseif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.backorder', 'common', null) && !empty(product) && !empty(product.ociPreOrderParameters) && product.ociPreOrderParameters.ociPreOrderProductAllocation === 0.00 && product.ociPreOrderParameters.ociPreOrderProductATO > 0 && product.ociPreOrderParameters.ociPreOrderProductFuture === true}"/>
+                                                    ${Resource.msg('button.preorder.now', 'common', null)} </br>
                                                 <iselse/>
                                                     ${Resource.msg('button.addtocart', 'common', null)}
                                                 </isif>
@@ -173,7 +205,7 @@
                                                         <isinclude template="product/components/smartGift" />
                                                     </isif>
                                                 </isif>
-                                                <div class="product-not-available-msg <isif condition="${!product.isProductRestricted}">d-none</isif>">${Resource.msg('esw.product.notavailable','esw',null)}</div>
+                                            <div class="product-not-available-msg <isif condition="${!product.isProductRestricted}">d-none</isif>">${Resource.msg('esw.product.notavailable','esw',null)}</div>
                                             <iselse/>
                                                 <isapplepay class="apple-pay-pdp btn mt-2" sku="${product.id}"></isapplepay>
                                                 <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}"> 
@@ -219,7 +251,20 @@
                         </div>
                     </isif>
                 </div>
+                <div class="col-12 pdp-movado prices-add-to-cart-actions cart-sticky-wrapper-btn scroll-hidden">
+                    <!-- Prices -->
+                    <div class="prices">
+                        <iscomment> Custom Start: Product price shows when following requirements meet </iscomment>
+                        <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
+                            <isset name="price" value="${product.price}" scope="page" />
+                            <isinclude template="product/components/pricing/main" />
+                        </isif>
+                    </div>
+                    <!-- Cart and [Optionally] Apple Pay -->
+                    <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
+                </div>
             </div>
+            <div class="cart-wishlist-observer"></div>
         </div>
         <div class="container-fluid pdp-mobile detail-bg pdp-v-one">
             <isinclude template="product/components/descriptionAndDetails" />

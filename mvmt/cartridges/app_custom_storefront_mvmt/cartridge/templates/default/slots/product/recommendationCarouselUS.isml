@@ -1,7 +1,25 @@
 <isif condition="${slotcontent && !!slotcontent.content.length}">
   <script>
       $(document).ready(function() {
-          window.slickSlider.initCarousel($('.product-slot-slider'));
+        window.slickSlider.initCarousel($('.product-slot-slider'));
+
+        $('.product-tile-redesign .swatches').slick({
+          infinite: true,
+          speed: 300,
+          slidesToShow: 5,
+          slidesToScroll: 1,
+          dots: false,
+          arrows: true,
+          autoplay: false,
+          responsive: [
+            {
+              breakpoint: 544,
+                settings: {
+                  slidesToShow: 3,
+                }
+            },
+          ]
+        });
       });
   </script>
   <div class="container-fluid product-slot-slider">

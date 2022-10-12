@@ -1,0 +1,7 @@
+<div class="product-number-rating">
+<iscomment>custom start: remove product number` </iscomment>
+    <!-- Product Rating -->
+    <div class="ratings">
+        <isinclude template="product/components/productRating" />
+    </div>
+</div>

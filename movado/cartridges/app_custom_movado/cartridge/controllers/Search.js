@@ -101,7 +101,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     pageMetaHelper.setPageMetaTags(req.pageMetaData, productSearch);
 
     var refineurl = URLUtils.url('Search-Refinebar');
-    var whitelistedParams = ['q', 'cgid', 'pmin', 'pmax', 'srule'];
+    var whitelistedParams = ['q', 'cgid', 'pmin', 'pmax', 'srule','pmid'];
     var isRefinedSearch = false;
     Object.keys(req.querystring).forEach(function (element) {
         if (whitelistedParams.indexOf(element) > -1) {

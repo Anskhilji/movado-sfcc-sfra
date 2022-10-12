@@ -11,7 +11,6 @@ var Site = require('dw/system/Site');
 var emailPopupHelper = require('*/cartridge/scripts/helpers/emailPopupHelper');
 var currentSite = Site.getCurrent();
 
-
 server.get('Show', function (req, res, next) {
     var response = emailPopupHelper.checkPopupQualifications(req);
     var SitePreferences = Site.current.preferences.custom;
@@ -37,12 +36,23 @@ server.get('Show', function (req, res, next) {
                 popupID = SitePreferences.Listrak_EUInternationalOptInPopupID || false;
             }
         } else {
-            if (domesticAllowedCountry) {
-                popupID = SitePreferences.Listrak_DomesticPopupID || false;
-            } else if (!domesticAllowedCountry && currentCountry !== Constants.DE_COUNTRY_CODE) {
-                popupID = SitePreferences.Listrak_InternationalPopupID || false;
+            if (eswEshopworldModuleEnabled) {
+                if (domesticAllowedCountry) {
+                    popupID = SitePreferences.Listrak_DomesticPopupID || false;
+                } else if (!domesticAllowedCountry && currentCountry !== Constants.DE_COUNTRY_CODE) {
+                    popupID = SitePreferences.Listrak_InternationalPopupID || false;
+                } else {
+                    popupID = SitePreferences.Listrak_DoubleOptInPopupID || false;
+                }
             } else {
-                popupID = SitePreferences.Listrak_DoubleOptInPopupID || false;
+                var currentCountry = require('*/cartridge/scripts/helper/ltkHelper.js').getCountryCode(req);
+                if (currentCountry == Constants.US_COUNTRY_CODE) {
+                    popupID = SitePreferences.Listrak_DomesticPopupID || false;
+                } else if (currentCountry == Constants.DE_COUNTRY_CODE) {
+                    popupID = SitePreferences.Listrak_DoubleOptInPopupID || false;
+                } else {
+                    popupID = SitePreferences.Listrak_InternationalPopupID || false;
+                }
             }
         }
     }

@@ -147,6 +147,9 @@
      isUseDeliveryContactDetailsForPaymentContactDetailsPrefEnabled: function () {
          return Site.getCustomPreferenceValue('eswUseDeliveryContactDetailsForPaymentContactDetails');
      },
+    isMultipleFxRatesEnabled: function () {
+        return Site.getCustomPreferenceValue('isMultipleFxRatesEnabled');
+    },
      getLocalizedPricingCountries: function () {
          return Site.getCustomPreferenceValue('eswLocalizedPricingCountries');
      },

@@ -101,6 +101,7 @@ server.post('SendToFriend', server.middleware.https, csrfProtection.validateAjax
                 saluationText: Resource.msgf('wishlist.share.email.salutation', 'account', null, result.yourName),
                 personalMessage: result.message !== '' ? result.message : null,
                 wishlist: wishlistObject,
+                friendsEmail: result.friendsEmail,
                 notAvailableText: Resource.msg('displayproductlistitems.notavailable', 'account', null),
                 addToCartText: Resource.msg('global.addtocart', 'account', null),
                 viewProductText: Resource.msg('global.viewdetails', 'account', null),

@@ -1,0 +1,14 @@
+<iscomment> custom style:MSS-1829 remove class </iscomment>
+<div class="row breadcrumbs-wrapper-main">
+    <div class="col col-space-inner">
+        <ol class="breadcrumb">
+            <isloop items="${pdict.breadcrumbs}" var="breadcrumbValue">
+                <li class="breadcrumb-item">
+                    <a href="${breadcrumbValue.url}">
+                        ${breadcrumbValue.htmlValue}
+                    </a>
+                </li>
+            </isloop>
+        </ol>
+    </div>
+</div>

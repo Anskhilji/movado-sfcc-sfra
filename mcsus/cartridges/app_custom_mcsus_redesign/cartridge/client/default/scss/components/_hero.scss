@@ -1,0 +1,20 @@
+.search-results-plp-redesign {
+
+    .hero {
+
+        .page-title {
+            color: $white;
+            font-family: $font-book;
+            font-size: rem(32);
+            font-weight: 600;
+            letter-spacing: rem(3);
+            line-height: rem(30);
+
+            @include media-breakpoint-down(xs) {
+                font-size: rem(18);
+                font-weight: 400;
+                letter-spacing: rem(0);
+            }
+        }
+    }
+}

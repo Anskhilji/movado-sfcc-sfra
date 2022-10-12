@@ -1,6 +1,6 @@
 <isif condition="${product.promotions}">
     <isloop items="${product.promotions}" var="promotion">
-        <div class="callout" title="${promotion.details}">
+        <div class="${promotion.calloutMsg ? 'callout' : ''}" title="${promotion.details}">
             <isprint value="${promotion.calloutMsg}" encoding="off" />
         </div>
     </isloop>

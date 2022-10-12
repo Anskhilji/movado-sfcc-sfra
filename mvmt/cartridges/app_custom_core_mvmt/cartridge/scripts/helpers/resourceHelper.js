@@ -52,6 +52,7 @@ function getResources(pageContext) {
         US_COUNTRY_CODE: Resource.msg('label.us.country.code', 'common', null),
         CREDIT_CARD_PAYMENT_METHOD_ID: Resource.msg('checkout.payment.method.credit.card.id', 'checkout', null),
         LABEL_SWELL_POINTS_APPLIED: Resource.msg('label.swell.points.applied', 'cart', null),
+        COUPON_LINE_ITEM_LENGTH: Resource.msg('coupon.applied.counter','cart', null),
         KLARNA_PDP_MESSAGES_ENABLED: !empty(Site.current.preferences.custom.klarnaPdpPromoMsg) ? Site.current.preferences.custom.klarnaPdpPromoMsg : false,
         IS_CLYDE_ENABLED: Site.current.preferences.custom.isClydeEnabled || false,
         IS_RAKUTEN_ENABLED:  Site.current.preferences.custom.isRakutenEnable || false,
@@ -68,7 +69,12 @@ function getResources(pageContext) {
         GOOGLE_PAY_ALLOWED_COUNTRY_CODES: allowedCountryCodes,
         COUPONCODE_URL: URLUtils.url('CouponCode-Apply').toString(),
         EYEWEAR_POLARIZATION: Resource.msg('pdp.eyewaer.polarization.text','product',null),
-        EYEWEAR_POLARIZATION_SEPRATOR: Resource.msg('pdp.product.specs.separator','product',null)
+        EYEWEAR_POLARIZATION_SEPRATOR: Resource.msg('pdp.product.specs.separator','product',null),
+        EMIAL_ADDRESS_INVALID: Resource.msg('listrak.invalid.email', 'product', null),
+        EMIAL_ADDRESS_REQUIRED: Resource.msg('listrak.required.email', 'product', null),
+        PHONE_NUMBER_INVALID: Resource.msg('listrak.invalid.phone', 'product', null),
+        PHONE_NUMBER_REQUIRED: Resource.msg('listrak.required.phone', 'product', null),
+        LISTRAK_SUCCESS_MESSAGE: Resource.msg('listrak.success.message', 'product', null)
     };
     return resources;
 }

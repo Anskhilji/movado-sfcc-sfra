@@ -23,10 +23,20 @@ function createOrder(order, orderParams) {
 
     riskifiedOrder = OrderModel.create(order, orderParams, null);
     
-    response = restService.post('async', logLocation, riskifiedOrder, 'create');
-
+    if (Site.getCurrent().preferences.custom.isRiskifiedSyncIntegerationEnabled) {
+        response = restService.post('sync', logLocation, riskifiedOrder, 'decide');
+    } else {
+        response = restService.post('async', logLocation, riskifiedOrder, 'create');
+        response.order.status = 'pending';
+    }
     if (!response.error) {
-        var orderAnalysisResult = OrderModel.setOrderAnalysisStatus(order, Constants.ORDER_REVIEW_PENDING_STATUS, logLocation);
+        if (response.order.status === 'declined') {
+            var orderAnalysisResult = OrderModel.setOrderAnalysisStatus(order, Constants.ORDER_REVIEW_DECLINED_STATUS, logLocation);
+        } else if (response.order.status === 'approved') {
+            var orderAnalysisResult = OrderModel.setOrderAnalysisStatus(order, Constants.ORDER_REVIEW_APPROVED_STATUS, logLocation);
+        } else {
+            var orderAnalysisResult = OrderModel.setOrderAnalysisStatus(order, Constants.ORDER_REVIEW_PENDING_STATUS, logLocation);
+        }
         if (!orderAnalysisResult) {
             response.error = true;
             response.recoveryNeeded = false;

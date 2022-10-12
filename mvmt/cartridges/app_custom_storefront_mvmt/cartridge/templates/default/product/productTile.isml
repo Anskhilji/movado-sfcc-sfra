@@ -1,4 +1,8 @@
-<div class="product-tile" itemscope itemtype="http://schema.org/Product">
+<isscript>
+    var assets = require('*/cartridge/scripts/assets');
+    assets.addCss('/css/lib/product-tile-name.css');
+</isscript>
+<div class="product-tile-redesign product-tile" itemscope itemtype="http://schema.org/Product">
     <!-- dwMarker="product" dwContentID="${product.uuid}" -->
 
     <isloop items="${product.availability.messages}" var="message">
@@ -13,43 +17,126 @@
     </isloop>
     <isif condition="${pdict.display.isEyewearTile}">
         <isinclude template="product/components/productTileImageEyewear" />
-    <iselse>
+    <iselse/>
         <isinclude template="product/components/productTileImage" />
     </isif>
     <div class="tile-body">
-        <isif condition="${pdict.display.swatches !== false &&  product.productType == 'master'}">
+        <div class="swatches-container">
+            <isif condition="${pdict.display.swatches !== false &&  product.productType == 'master'}">
                 <isif condition="${pdict.display.isEyewearTile}">
                     <isinclude template="product/components/productTileEyewearSwatch" />
-                <iselse>
+                <iselse/>
                     <isinclude template="product/components/productTileSwatch" />
                 </isif>
-            
-        </isif>
+            </isif>
+        </div>
 
-        <isinclude template="product/components/old/productTileName" />
-        
-        <isif condition="${preOrder}">
-            <div class="out-of-stock">
-                ${Resource.msg('info.product.availability.preorder', 'common', null)}
+        <isif condition="${pdict.display.showAddToCart}">
+            <div class="product-brand-info">
+                <isif condition="${product.isWatchTile}">
+                    <div class="ellipsis-format">
+                        <isif condition="${!empty(product.defaultVariantCollectionName) || !empty(product.collectionName)}">
+                            <isif condition="${!empty(product.defaultVariantCollectionName)}">
+                                <isset name="collectionArray" value="${(product.defaultVariantCollectionName.toString()).split(' ')}" scope="page" />
+                                <isif condition="${collectionArray.length == 2}">
+                                    <span class="collection-name text-family-truncate-wrapper">${!empty(product.defaultVariantCollectionName) ? product.defaultVariantCollectionName : product.collectionName}</span>
+                                    <isif condition="${!empty(product.defaultVariantCaseDiameterRedesigned) || !empty(product.caseDiameterRedesigned)}">
+                                        <isif condition="${!empty(product.defaultVariantCaseDiameterRedesigned)}">
+                                            <isset name="diameterArray" value="${(product.defaultVariantCaseDiameterRedesigned.toString()).split(' ')}" scope="page" />
+                                            <span class="case-diameter suggestions-case-diameter d-block">${diameterArray[2]}</span>
+                                        <iselse/>
+                                            <isset name="diameterArray" value="${(product.caseDiameterRedesigned.toString()).split(' ')}" scope="page" />
+                                            <span class="case-diameter suggestions-case-diameter d-block">${diameterArray[2]}</span>
+                                        </isif>
+                                    </isif>
+                                <iselseif condition="${collectionArray.length == 3}" />
+                                    <span class="collection-name text-family-truncate-wrapper collection-name-third collection-name3">${collectionArray[0]}</span>
+                                    <span class="collection-name text-family-truncate-wrapper collection-name-third collection-name-third-dnone">${collectionArray[1]}</span>
+                                    <br class="collection-name-third-dnone"/>
+                                    <span class="collection-name text-family-truncate-wrapper collection-name-third collection-name-third-dnone">${collectionArray[2]}</span>
+                                    <isif condition="${!empty(product.defaultVariantCaseDiameterRedesigned) || !empty(product.caseDiameterRedesigned)}">
+                                        <isif condition="${!empty(product.defaultVariantCaseDiameterRedesigned)}">
+                                            <span class="case-diameter suggestions-case-diameter">${!empty(product.defaultVariantCaseDiameterRedesigned) ? product.defaultVariantCaseDiameterRedesigned : product.caseDiameterRedesigned}</span>
+                                        <iselse/>
+                                            <span class="case-diameter suggestions-case-diameter">${!empty(product.defaultVariantCaseDiameterRedesigned) ? product.defaultVariantCaseDiameterRedesigned : product.caseDiameterRedesigned}</span>
+                                        </isif>
+                                    </isif>
+                                <iselseif condition="${collectionArray.length > 3}" />
+                                    <span class="collection-name text-family-truncate-wrapper">${!empty(product.defaultVariantCollectionName) ? product.defaultVariantCollectionName : product.collectionName}</span>
+                                    <isif condition="${!empty(product.defaultVariantCaseDiameterRedesigned)}">
+                                        <span class="case-diameter suggestions-case-diameter">${product.defaultVariantCaseDiameterRedesigned || ''}</span>
+                                    <iselse/>
+                                        <span class="case-diameter suggestions-case-diameter">${product.caseDiameterRedesigned || ''}</span>
+                                    </isif>
+                                <iselse/>
+                                    <span class="collection-name text-family-truncate-wrapper">${!empty(product.defaultVariantCollectionName) ? product.defaultVariantCollectionName : product.collectionName}</span>
+                                    <isif condition="${!empty(product.defaultVariantCaseDiameterRedesigned)}">
+                                        <span class="case-diameter suggestions-case-diameter">${product.defaultVariantCaseDiameterRedesigned || ''}</span>
+                                    <iselse/>
+                                        <span class="case-diameter suggestions-case-diameter">${product.caseDiameterRedesigned || ''}</span>
+                                    </isif>
+                               </isif>
+                            <iselse/>
+                                <isset name="collectionArray" value="${(product.collectionName.toString()).split(' ')}" scope="page" />
+                                <isif condition="${collectionArray.length == 2}">
+                                    <span class="collection-name text-family-truncate-wrapper">${!empty(product.defaultVariantCollectionName) ? product.defaultVariantCollectionName : product.collectionName}</span>
+                                    <isif condition="${!empty(product.defaultVariantCaseDiameterRedesigned) || !empty(product.caseDiameterRedesigned)}">
+                                        <isif condition="${!empty(product.defaultVariantCaseDiameterRedesigned)}">
+                                            <isset name="diameterArray" value="${(product.defaultVariantCaseDiameterRedesigned.toString()).split(' ')}" scope="page" />
+                                            <span class="case-diameter suggestions-case-diameter d-block">${diameterArray[2]}</span>
+                                        <iselse/>
+                                            <isset name="diameterArray" value="${(product.caseDiameterRedesigned.toString()).split(' ')}" scope="page" />
+                                            <span class="case-diameter suggestions-case-diameter d-block">${diameterArray[2]}</span>
+                                        </isif>
+                                    </isif>
+                                <iselseif condition="${collectionArray.length == 3}" />
+                                    <span class="collection-name text-family-truncate-wrapper collection-name-third collection-name3">${collectionArray[0]}</span>
+                                    <span class="collection-name text-family-truncate-wrapper collection-name-third collection-name-third-dnone">${collectionArray[1]}</span>
+                                    <br/>
+                                    <span class="collection-name text-family-truncate-wrapper collection-name-third collection-name-third-dnone">${collectionArray[2]}</span>
+
+                                    <isif condition="${!empty(product.defaultVariantCaseDiameterRedesigned) || !empty(product.caseDiameterRedesigned)}">
+                                        <isif condition="${!empty(product.defaultVariantCaseDiameterRedesigned)}">
+                                            <span class="case-diameter suggestions-case-diameter">${!empty(product.defaultVariantCaseDiameterRedesigned) ? product.defaultVariantCaseDiameterRedesigned : product.caseDiameterRedesigned}</span>
+                                        <iselse/>
+                                            <span class="case-diameter suggestions-case-diameter">${!empty(product.defaultVariantCaseDiameterRedesigned) ? product.defaultVariantCaseDiameterRedesigned : product.caseDiameterRedesigned}</span>
+                                        </isif>
+                                    </isif>
+                                <iselseif condition="${collectionArray.length > 3}" />
+                                    <span class="collection-name text-family-truncate-wrapper">${!empty(product.defaultVariantCollectionName) ? product.defaultVariantCollectionName : product.collectionName}</span>
+                                    <isif condition="${!empty(product.defaultVariantCaseDiameterRedesigned)}">
+                                        <span class="case-diameter suggestions-case-diameter">${product.defaultVariantCaseDiameterRedesigned || ''}</span>
+                                    <iselse/>
+                                        <span class="case-diameter suggestions-case-diameter">${product.caseDiameterRedesigned || ''}</span>
+                                    </isif>
+                                <iselse/>
+                                    <span class="collection-name text-family-truncate-wrapper">${!empty(product.defaultVariantCollectionName) ? product.defaultVariantCollectionName : product.collectionName}</span>
+                                    <isif condition="${!empty(product.defaultVariantCaseDiameterRedesigned)}">
+                                        <span class="case-diameter suggestions-case-diameter">${product.defaultVariantCaseDiameterRedesigned || ''}</span>
+                                    <iselse/>
+                                        <span class="case-diameter suggestions-case-diameter">${product.caseDiameterRedesigned || ''}</span>
+                                    </isif>
+                               </isif>
+                            </isif>
+                        </isif>
+                    </div>
+                    <isinclude template="product/components/old/productTileName" />
+                <iselse/>
+                    <span class="collection-name text-family-truncate-wrapper">${!empty(product.defaultVariantCollectionName) ? product.defaultVariantCollectionName : product.collectionName}</span>
+                    <isinclude template="product/components/productTileName" />
+                </isif>
+
             </div>
         </isif>
 
-		<isif condition="${outOfStock}">
-			<div class="out-of-stock">
-                ${Resource.msg('label.soldout', 'common', null)}
-            </div>
+        <isif condition="${product.productType == 'master' && !empty(product.defaultVariantPrice)}">
+            <isset name="price" value="${product.defaultVariantPrice}" scope="page" />
+        <iselse/>
+            <isset name="price" value="${product.price}" scope="page" />
         </isif>
-        
-			<isloop items="${product.badges.textBadges}" var="badge">
-		        <div class="exclusive-product">
-		        	${badge.text}
-		        </div>
-		    </isloop>
-
-        <isset name="price" value="${product.price}" scope="page" />
         <isif condition="${product.productType === 'set'}">
             <isinclude template="product/components/pricing/setPrice" />
-        <iselse>
+        <iselse/>
             <isinclude template="product/components/pricing/main" />
         </isif>
         <isif condition="${!pdict.isCompareableDisabled}"> 
@@ -64,7 +151,7 @@
                     <isloop items="${product.promotions}" var="promotion" status ="promoStatus">
                         <isif condition="${promotion.plpCalloutMsg !== ''}">
                             <div class="callout promo-msg">
-                                <isprint value="${promotion.plpCalloutMsg}" encoding="off">
+                                <isprint value="${promotion.plpCalloutMsg}" encoding="off"/>
                             </div>
                         </isif>
                     </isloop>
@@ -80,11 +167,6 @@
             </button>
         </isif>
     </div>
-    <div class="row m-10">
-        <div class="col d-flex align-items-center justify-content-center">
-            <isinclude template="product/components/ratings" />
-        </div>
-    </div>
-    
+
     <!-- END_dwmarker -->
 </div>

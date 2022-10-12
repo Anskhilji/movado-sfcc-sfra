@@ -38,9 +38,11 @@
                     <isinclude template="product/components/badges" />
                 </div>
                 <isif condition="${pdict.display.swatches !== false && product.productType == 'master'}">
-                    <div class="plp-swatches ${product.variationsAttributes && product.variationsAttributes[0] && product.variationsAttributes[0].values && product.variationsAttributes[0].values.length > 0 ? '':'0-opacity'}">
-                        <isinclude template="product/components/productTileSwatch" />
-                    </div>
+                    <isif condition="${product.colorVariationsValues.values}">
+                        <div class="plp-swatches ${product.variationsAttributes && product.variationsAttributes[0] && product.variationsAttributes[0].values && product.variationsAttributes[0].values.length > 0 ? '':'0-opacity'}">
+                            <isinclude template="product/components/productTileSwatch" />
+                        </div>
+                    </isif>
                 </isif>
             </div>
             <div class="tile-inner-content">

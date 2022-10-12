@@ -4,7 +4,7 @@
  *
  * @see {@link https://developers.google.com/pay/api/web/reference/request-objects#PaymentDataRequest|apiVersion in PaymentDataRequest}
  */
-const baseRequest = {
+ const baseRequest = {
     apiVersion: 2,
     apiVersionMinor: 0
 };
@@ -326,6 +326,7 @@ function onGooglePayLoaded(isMiniCart) {
         window.dw.applepay &&
         window.ApplePaySession &&
         window.ApplePaySession.canMakePayments()) {
+        $('.googlepay-btn').remove();
         $('.google-pay-container').remove();
         $('#google-pay-container-mini-cart').remove();
         $('.google-pay-options').remove();
@@ -334,6 +335,7 @@ function onGooglePayLoaded(isMiniCart) {
     }
 
     if (isIE() || window.ApplePaySession) {
+        $('.googlepay-btn').remove();
         $('.google-pay-container').remove();
         $('#google-pay-container-mini-cart').remove();
         $('.google-pay-options').remove();
