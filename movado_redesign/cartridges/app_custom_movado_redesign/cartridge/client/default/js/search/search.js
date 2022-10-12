@@ -618,10 +618,10 @@ module.exports = {
                 var $filterAll = $('.selected-refinement');
                 if (!$clicked) return;
                 if ($clicked) {
-                    $filterAll.forEach(function (e) {
-                        var $isContain = e.classList.contains('active');
+                    $filterAll.each(function (e) {
+                        var $isContain = $(this).hasClass('active');
                         if ($isContain) {
-                            e.classList.remove('active');
+                            $(this).removeClass('active');
                         }
                     });
                 }
@@ -641,10 +641,10 @@ module.exports = {
                 
                 if (!$clicked) return;
                 if ($clicked) {
-                    $filterAll.forEach(function (e) {
-                        var $isContain = e.classList.contains('active');
+                    $filterAll.each(function (e) {
+                        var $isContain = $(this).hasClass('active');
                         if ($isContain) {
-                            e.classList.remove('active');
+                            $(this).removeClass('active');
                         }
                     });
                     $clicked.classList.add('active');
