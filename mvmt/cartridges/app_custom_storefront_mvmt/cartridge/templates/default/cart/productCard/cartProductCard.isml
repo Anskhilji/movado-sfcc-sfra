@@ -67,7 +67,7 @@
                                 <a href="${URLUtils.url('Cart-GetProduct', 'uuid', lineItem.UUID)}" class="edit" title="${Resource.msg('link.edit.item', 'cart',null)}">${Resource.msg('link.edit.item', 'cart', null)}</a>
                             </div>
                         </isif>
-                        <isset name="product" value="${dw.catalog.ProductMgr.getProduct(lineItem.id)}" scope="page" />
+                        <iscomment> <isset name="product" value="${dw.catalog.ProductMgr.getProduct(lineItem.id)}" scope="page" />
                         <isset name="isGiftBoxAllowed" value="${require('*/cartridge/scripts/helpers/productCustomHelper').isGiftBoxAllowed(product)}" scope="page" />
                         <isset name="giftBoxEnabled" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxEnabled) ? dw.system.Site.current.preferences.custom.giftBoxEnabled : false}" scope="page" />
                         <isset name="giftBoxSKUData" value="${require('*/cartridge/scripts/helpers/productCustomHelper').getGiftBoxSKU(product)}" scope="page" />
@@ -81,7 +81,7 @@
                                      <span class="checkmark"></span>
                                 </label>
                            </div>
-                        </isif>
+                        </isif> </iscomment>
                         <isif condition="${pdict.loggedIn}">
                              <div class="hidden-xs-down edit-add-to-wishlist">
                                   <isinclude template="cart/productCard/cartProductCardEdit" />
@@ -140,12 +140,19 @@
             <div class="col-12 d-lg-none"><hr class="line-item-divider"></div>
         </isif>
     </div>
+
+    <isset name="isCartPage" value="${true}" scope="page" />
+    <div class="gift-box-container">
+        <img class="gift-icon" alt="" src="${URLUtils.staticURL('/images/giftbox-icon.svg')}" />
+        <isif condition="${lineItem.customAttributes['itemLevelGiftMessage']}">
+            <div class="gift-box-container-label">${lineItem.customAttributes['itemLevelGiftMessage'].msgLine1}</div>
+            <a href="${URLUtils.https('Cart-ShowGiftBoxModal', 'pid', lineItem.id, 'uuid', lineItem.UUID, 'itemLevelGiftMessage', lineItem.customAttributes['itemLevelGiftMessage'].msgLine1, 'isCartPage', isCartPage)}" type="button" class="btn gift-box-container-link" data-toggle="modal" data-target="#giftBoxModelPopUp">Add/Edit</a>
+        <iselse/>
+            <div class="gift-box-container-label">${Resource.msg('label.minicart.gift.message', 'cart', null)} </div>
+            <a href="${URLUtils.https('Cart-ShowGiftBoxModal', 'pid', lineItem.id, 'uuid', lineItem.UUID, 'isCartPage', isCartPage)}" type="button" class="btn gift-box-container-link" data-toggle="modal" data-target="#giftBoxModelPopUp">${Resource.msg('label.minicart.giftbox.link', 'cart', null)}</a>
+        </isif>
+    </div>
     <isif condition="${lineItem.bonusProductLineItemUUID === 'bonus'}">
         <isinclude template="cart/productCard/cartEmbeddedBonusProducts" />
-    </isif>
-    <isif condition="${enableGiftMessage}">
-        <isif condition="${!lineItem.isBonusProductLineItem}"> 
-            <isinclude template="cart/productCard/cartGiftMessaging" />
-        </isif>
     </isif>
 </div>

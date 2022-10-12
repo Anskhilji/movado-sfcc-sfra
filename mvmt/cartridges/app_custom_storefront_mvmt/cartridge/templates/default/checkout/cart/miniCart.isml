@@ -49,7 +49,7 @@
             </isif>
         </div>
     <isslot id="cs-mincart-top-slot" description="Static text slot on Mini Cart" context="global" />
-    <isif condition="${enableGiftMessage}">
+    <iscomment> <isif condition="${enableGiftMessage}">
         <div class="gift-messages">
             <div class="row gift-messages-wrapper">
                 <div class="col-12 d-flex pr-0  justify-content-center">
@@ -68,7 +68,7 @@
                 </div>
             </div>
         </div>
-    </isif>
+    </isif> </iscomment>
 
     <div class="product-summary">
         <isloop items="${items}" var="lineItem" status="loopStatus">

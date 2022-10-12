@@ -42,7 +42,8 @@ server.get('ShowGiftBoxModal', server.middleware.https, csrfProtection.generateT
    var params = {
        pid: req.querystring.pid,
        uuid: req.querystring.uuid,
-       itemLevelGiftMessage: req.querystring.itemLevelGiftMessage
+       itemLevelGiftMessage: req.querystring.itemLevelGiftMessage,
+       isCartPage: req.querystring.isCartPage
    };
    
    var product = productFactory.get(params);
@@ -55,7 +56,8 @@ server.get('ShowGiftBoxModal', server.middleware.https, csrfProtection.generateT
        image: images[0],
        productUUID : params.uuid,
        giftBoxSKUData: giftBoxSKUData,
-       itemLevelGiftMessage: params.itemLevelGiftMessage
+       itemLevelGiftMessage: params.itemLevelGiftMessage,
+       isCartPage: params.isCartPage
    };
 
    res.setViewData(viewData);

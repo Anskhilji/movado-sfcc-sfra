@@ -17,7 +17,7 @@
         <input type="radio" checked="checked" name="radio">
         <span class="checkmark"></span>
         </label>
-        <label class="radio-container add-gift-box-input"> ${Resource.msg('label.minicart.giftbox.modal.labeltwo', 'cart', null)} <span class="label-right-wrapper">$5.00</span>
+        <label class="radio-container add-gift-box-input"> ${Resource.msg('label.minicart.giftbox.modal.labeltwo', 'cart', null)} <span class="label-right-wrapper">${pdict.giftBoxSKUData.giftBoxSKUPrice ? pdict.giftBoxSKUData.giftBoxSKUPrice : '$0'}</span>
         <input type="radio" name="radio">
         <span class="checkmark"></span>
         </label>
@@ -38,7 +38,7 @@
     <isset name="giftBoxSKUData" value="${require('*/cartridge/scripts/helpers/productCustomHelper').getGiftBoxSKU(product)}" scope="page" />
     <div class="text-center">  
         <p class="gift-box-container-modal-body-note">Note: All items ship to one address</p>
-        <input type="button" value="Save" id="gift-allowed-checkout" data-add-to-cart-url="${URLUtils.url('Cart-AddProduct')}" name="gift-allowed-checkout" class="btn add-gift-box gift-box-container-modal-body-save-button  minicart-gift-allowed-checkbox gift-allowed-checkbox-mini giftbox-mini-${product.uuid}" data-parent-pid="${product.uuid}" data-pid="${product.id}" data-value="${pdict.giftBoxSKUData.giftBoxSKU}">
+        <input type="button" value="Save" id="gift-allowed-checkout" data-add-to-cart-url="${URLUtils.url('Cart-AddProduct')}" name="gift-allowed-checkout" class="btn add-gift-box gift-box-container-modal-body-save-button  minicart-gift-allowed-checkbox gift-allowed-checkbox-mini giftbox-mini-${product.uuid}" data-requested-page="${pdict.isCartPage ? pdict.isCartPage : false}" data-parent-pid="${product.uuid}" data-pid="${product.id}" data-value="${pdict.giftBoxSKUData.giftBoxSKU}">
         <button type="btn" class="btn d-none add-gift-message gift-box-container-modal-body-save-button" href="${URLUtils.url('Cart-AddGiftMessage')}" data-product-uuid="${pdict.productUUID}">SAVE</button>
     </div>
 </div>
