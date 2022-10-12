@@ -3,10 +3,13 @@
 var server = require('server');
 var backInStockNotificationHelper = require('*/cartridge/scripts/helpers/backInStockNotificationHelper');
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
+
+var cache = require('*/cartridge/scripts/middleware/cache');
 var Site = require('dw/system/Site');
 
 server.post('Subscribe',
     server.middleware.https,
+    cache.applyDefaultCache,
     function (req, res, next) {
         var form = req.form;
         var result = {
