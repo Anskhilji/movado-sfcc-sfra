@@ -593,13 +593,13 @@ module.exports = {
             var $mediumBreakPoint = 992;
 
             if ($winWidth >= $mediumBreakPoint) {
-                var clicked = e.target.closest('.refinement-btn');
-                var filterAll = document.querySelectorAll('.selected-refinement');
-                if (!clicked) return;
-                if (clicked) {
-                    filterAll.forEach(function (e) {
-                        var isContain = e.classList.contains('active');
-                        if (isContain) {
+                var $clicked = e.target.closest('.refinement-btn');
+                var $filterAll = $('.selected-refinement');
+                if (!$clicked) return;
+                if ($clicked) {
+                    $filterAll.forEach(function (e) {
+                        var $isContain = e.classList.contains('active');
+                        if ($isContain) {
                             e.classList.remove('active');
                         }
                     });
@@ -615,18 +615,18 @@ module.exports = {
             var $mediumBreakPoint = 992;
 
             if ($winWidth < $mediumBreakPoint) {
-                var clicked = e.target.closest('.custom-select__option');
-                var filterAll = document.querySelectorAll('.custom-select__option');
+                var $clicked = e.target.closest('.custom-select__option');
+                var $filterAll = $('.custom-select__option');
                 
-                if (!clicked) return;
-                if (clicked) {
-                    filterAll.forEach(function (e) {
-                        var isContain = e.classList.contains('active');
-                        if (isContain) {
+                if (!$clicked) return;
+                if ($clicked) {
+                    $filterAll.forEach(function (e) {
+                        var $isContain = e.classList.contains('active');
+                        if ($isContain) {
                             e.classList.remove('active');
                         }
                     });
-                    clicked.classList.add('active');
+                    $clicked.classList.add('active');
                 }
             }
         });
@@ -635,9 +635,9 @@ module.exports = {
     // start: append value to plp sort by from select option
     selectedFiltervalueAppendToPlpSortBy: function () {
         $('.sort-order-mobile-menu').on('click', '.custom-select__dropdown', function (e) {
-            var mobileFilterBtn = document.querySelector('.mobile-fliter-sort-button');
-            var selectedValue = e.target.innerText;
-            mobileFilterBtn.innerHTML = 'Sort by: ' + selectedValue; 
+            var $mobileFilterBtn = $('.mobile-fliter-sort-button');
+            var $selectedValue = e.target.innerText;
+            $mobileFilterBtn.innerHTML = 'Sort by: ' + $selectedValue; 
         });
     },
     // Custom end: For Mobile Filters
