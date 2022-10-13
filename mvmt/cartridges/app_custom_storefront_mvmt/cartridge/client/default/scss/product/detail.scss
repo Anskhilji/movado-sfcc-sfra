@@ -2403,6 +2403,11 @@
         justify-content: center;
         flex-direction: column;
 
+        @include media-breakpoint-down(xs) {
+            align-items: flex-start;
+            justify-content: flex-start;
+        }
+
         @include media-breakpoint-up(md-down) {
 
             flex-direction: row;
@@ -2458,6 +2463,11 @@
                     width: auto;
                     background: none;
                     border-top: none;
+                }
+
+                @include media-breakpoint-down(xs) {
+                    text-align: left;
+                    padding-left: 0;
                 }
             }
         }
@@ -2523,6 +2533,10 @@
             padding-top: rem(15);
             border-top: rem(2) solid $white-gray;
             margin-bottom: rem(20);
+            @include media-breakpoint-down(xs) {
+                border-top: none;
+                padding-top: rem(0);
+            }
         }
     }
 
@@ -2591,9 +2605,12 @@
             border: none;
 
             > div {
-                border-top: rem(1) solid $light-gray4;
+                border-top: rem(0) solid $light-gray4;
                 border-bottom: rem(1) solid $light-gray4;
                 background-color: $white;
+                @include media-breakpoint-down(xs) {
+                    border-top: none;
+                }
             }
 
             .attribute {
