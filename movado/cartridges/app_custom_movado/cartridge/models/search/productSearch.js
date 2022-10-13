@@ -43,7 +43,6 @@ function getRefinements(productSearch, refinements, refinementDefinitions) {
     return collections.map(refinementDefinitions, function (definition) {
         var refinementValues = refinements.getAllRefinementValues(definition);
         var values = searchRefinementsFactory.get(productSearch, definition, refinementValues);
-
         return {
             displayName: definition.displayName,
             isCategoryRefinement: definition.categoryRefinement,
