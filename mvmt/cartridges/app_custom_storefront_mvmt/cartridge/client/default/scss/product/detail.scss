@@ -1572,7 +1572,7 @@
                             font-weight: 300;
                             line-height: normal;
                             @include media-breakpoint-down(sm) {
-                                display: inline;
+                                display: block;
                             }
 
                             &.strike-through {
@@ -2064,6 +2064,10 @@
             @include media-breakpoint-up(md-down) {
               
                 border-radius: rem(5);
+            }
+
+            @include media-breakpoint-down(xs) {
+                line-height: rem(28);
             }
         }
 
