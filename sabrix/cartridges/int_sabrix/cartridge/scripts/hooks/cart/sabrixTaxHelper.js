@@ -7,6 +7,7 @@ var ProductLineItem = require('dw/order/ProductLineItem');
 var ShippingLineItem = require('dw/order/ShippingLineItem');
 var Resource = require('dw/web/Resource');
 var System = require('dw/system/System');
+var StoreMgr = require('dw/catalog/StoreMgr');
 var Transaction = require('dw/system/Transaction');
 
 /**
@@ -91,6 +92,16 @@ function createSabrixRequestObject(basket, svc){
 
 	// Addresses Start
   var shipFromAddress = new svc.webReference.ZoneAddressType();
+
+    if (!empty(session.privacy.pickupFromStore)) {
+        var selectedStore = StoreMgr.getStore(session.privacy.pickupStoreID);
+        shipFromCity = selectedStore.city;
+        shipFromCountryCode = selectedStore.countryCode.value;
+        shipFromStateCode = selectedStore.stateCode;
+        shipFromAddress1 = selectedStore.address1;
+        shipFromAddress2 = selectedStore.address2;
+        shipFromPostalCode = selectedStore.postalCode;
+    }
 
   shipFromAddress.setCITY(shipFromCity);
   shipFromAddress.setCOUNTRY(shipFromCountryCode);

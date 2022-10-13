@@ -124,6 +124,16 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	    });
 	    return next();
 	  }
+		
+		if (session.privacy.pickupFromStore) {
+			Transaction.wrap(function () {
+				var shippingAddress = currentBasket.defaultShipment.shippingAddress;
+				shippingAddress.setAddress1(session.privacy.storeAddress || '');
+				shippingAddress.setAddress2(session.privacy.storeAddress2 || '');
+				shippingAddress.setPostalCode(session.privacy.storePostalCode || '');
+				shippingAddress.setStateCode(session.privacy.stateCode || '');
+		    });
+		}
 
 	  // Check to make sure billing address exists
 	  if (!currentBasket.billingAddress) {
@@ -191,7 +201,7 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	}
 	//Custom End
 
-      checkoutLogger.debug('(CheckoutServices) -> PlaceOrder: Order is created with order number: ' + order.orderNo);
+	checkoutLogger.debug('(CheckoutServices) -> PlaceOrder: Order is created with order number: ' + order.orderNo);
 	  //Set order custom attribute if there is any pre-order item exists in order
 	  if (isPreOrder) {
 		Transaction.wrap(function () {
