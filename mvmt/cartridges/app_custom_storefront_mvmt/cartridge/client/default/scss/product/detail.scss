@@ -2086,12 +2086,6 @@
         }
     }
 
-    .show-cart-button-desktop {
-        .prices-add-to-cart-actions {
-            position: static;
-        }
-    }
-
     @include media-breakpoint-up(xss) {
         .show-cart-button-desktop {
             display: none;
