@@ -1893,6 +1893,7 @@
     }
    
     .show-cart-button-below-price {
+        padding: rem(20) rem(0);
         .prices-add-to-cart-actions-top {
             position: relative;
             background-color: transparent;
@@ -1903,7 +1904,7 @@
 
             button.add-to-cart {
                 
-                    width: 94.64%;
+                    width: 100%;
                     height: rem(45);
                     line-height: 0.75;
                     border-radius: rem(3);
@@ -2082,6 +2083,12 @@
                 display: none;
             }
 
+        }
+    }
+
+    .show-cart-button-desktop {
+        .prices-add-to-cart-actions {
+            position: static;
         }
     }
 
@@ -2463,6 +2470,7 @@
             max-width: 100%;
             flex-basis: 100%;
             padding-top: rem(16);
+            justify-content: flex-start;
 
             @include media-breakpoint-up(md-down) {
                 justify-content: flex-start;
@@ -2585,12 +2593,13 @@
             > div {
                 border-top: rem(1) solid $light-gray4;
                 border-bottom: rem(1) solid $light-gray4;
-                background-color: $white-gray;
+                background-color: $white;
             }
 
             .attribute {
                 margin: 0;
-                text-align: center;
+                text-align: left;
+                background-color: $white;
             }
 
             .color-Attribute {
@@ -2614,7 +2623,7 @@
                     }
 
                     .select-size-head-label {
-                        display: none;
+                        display: block;
 
                         &.colorWatch {
                             display: block;
