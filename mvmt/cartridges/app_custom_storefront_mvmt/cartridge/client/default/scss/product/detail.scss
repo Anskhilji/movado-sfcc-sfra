@@ -2527,6 +2527,7 @@
             padding-top: rem(15);
             border-top: rem(2) solid $white-gray;
             margin-bottom: rem(20);
+
             @include media-breakpoint-down(xs) {
                 border-top: none;
                 padding-top: rem(0);
@@ -2602,6 +2603,7 @@
                 border-top: rem(0) solid $light-gray4;
                 border-bottom: rem(1) solid $light-gray4;
                 background-color: $white;
+                
                 @include media-breakpoint-down(xs) {
                     border-top: none;
                 }
