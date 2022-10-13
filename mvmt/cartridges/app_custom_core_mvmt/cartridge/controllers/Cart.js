@@ -39,7 +39,10 @@ server.replace('MiniCart', server.middleware.include, function (req, res, next) 
 */
 
 server.get('ShowGiftBoxModal', server.middleware.https, csrfProtection.generateToken, function (req, res, next) {
-   var params = {
+    var CartModel = require('*/cartridge/models/cart');
+    var BasketMgr = require('dw/order/BasketMgr');
+    
+    var params = {
        pid: req.querystring.pid,
        uuid: req.querystring.uuid,
        itemLevelGiftMessage: req.querystring.itemLevelGiftMessage,
@@ -50,6 +53,8 @@ server.get('ShowGiftBoxModal', server.middleware.https, csrfProtection.generateT
    var apiProduct = ProductMgr.getProduct(req.querystring.pid);
    var giftBoxSKUData = productCustomHelper.getGiftBoxSKU(apiProduct);
    var images = product.images.tile150;
+   var currentBasket = BasketMgr.getCurrentBasket();
+   var basketModel = new CartModel(currentBasket);
 
    viewData = {
        product: product,
@@ -57,7 +62,8 @@ server.get('ShowGiftBoxModal', server.middleware.https, csrfProtection.generateT
        productUUID : params.uuid,
        giftBoxSKUData: giftBoxSKUData,
        itemLevelGiftMessage: params.itemLevelGiftMessage,
-       isCartPage: params.isCartPage
+       isCartPage: params.isCartPage,
+       basket: basketModel
    };
 
    res.setViewData(viewData);

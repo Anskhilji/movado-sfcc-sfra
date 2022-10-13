@@ -439,6 +439,7 @@ module.exports = function () {
                     return false;
                 }
                 $('.gift-message-error').hide();
+                updateCartTotals(data.basketModel);
                 $this.find('.apply-button').addClass('d-none');
             },
             error: function (data) {
@@ -873,10 +874,10 @@ module.exports = function () {
 
     $('body').on('click', '.gift-box-container-link', function (evt) {
         evt.preventDefault(); 
-        var endPointUrl = $(evt.target).closest('a').attr('href');
+        var $endPointUrl = $(evt.target).closest('a').attr('href');
         $.spinner().start();
         $.ajax({
-            url: endPointUrl,
+            url: $endPointUrl,
             type: 'get',
             success: function (response) {
                 $('#giftBoxModelPopUp').find('.modal-content').html(response);
