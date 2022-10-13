@@ -17,6 +17,7 @@ $zircon: #eaebeb;
 $slate-grey-light: #f5f6f8;
 $slate-grey: #A0A9BA;
 $black: #000;
+$light-black3:rgba(0,0,0,0.89);
 $dark-black:#060506;
 $cerulean: #0092DB;
 
@@ -25,6 +26,8 @@ $sonic-silver:  #78797a !default;
 $dim-gray: #696969;
 $storm-gray: #787A8A;
 $mine-shaft: #333333;
+$grey10-light: #C4C1C1;
+$grey11-light: #F5F5F5;
 
 $font-futura-demi: "futura-pt-demi", "FuturaStd-Medium", sans-serif;
 $font-fotter: "futura-pt", "FuturaStd-Medium", sans-serif;
@@ -83,3 +86,27 @@ $custom-lg1: 990px;
 $custom-lg2: 1120px;
 $custom-lg3: 992px;
 $custom-sm13: 351px;
+
+@mixin scrollBar {
+
+    /* width */
+    &::-webkit-scrollbar {
+        height: rem(5);
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+        background: $slate-grey-light;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+        background: $regent-grey;
+        border-radius: rem(5);
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+        background: $slate-grey;
+    }
+}

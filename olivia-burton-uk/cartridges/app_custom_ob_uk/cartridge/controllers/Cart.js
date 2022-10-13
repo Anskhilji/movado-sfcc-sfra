@@ -23,6 +23,12 @@ server.append('AddProduct', function (req, res, next) {
             customProductOptionsHelper.updateOptionLineItem(currentBasket, viewData.pliUUID, embossedMessage, engravedMessage, orientation, font);
         }
 
+        if (res.viewData.pliUUID) {
+            res.setViewData({
+                giftItemUUID: res.viewData.pliUUID
+            });
+        }
+
     }
     next();
 });

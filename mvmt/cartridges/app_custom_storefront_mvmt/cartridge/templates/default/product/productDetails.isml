@@ -33,7 +33,7 @@
                         <isset name="price" value="${product.price}" scope="page" />
                         <isinclude template="product/components/pricing/main" />
                     </span>
-                    <isinclude template="product/components/showCartButtonProduct" />
+                    <isinclude url="${URLUtils.https('Cart-ShowAddProductButton', 'pid', product.id)}"/>
                 </div>
             </div>
         </section>
@@ -195,7 +195,14 @@
                         <div class="ratings-mobile pb-2">
                             <div class="col-12 rating-margin mobile-click-review">
                                 <div class="ratings p-0">
-                                    <isinclude template="product/components/productRating" />
+                                    <isset name="isYotpoStoreProductRatingEnabled" value="${!empty(dw.system.Site.current.preferences.custom.yotpoStoreProductRatingEnabled) ? dw.system.Site.current.preferences.custom.yotpoStoreProductRatingEnabled : false}" scope="page" />
+                                    <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
+                                        <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                                            <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
+                                        </div>
+                                    <iselse/>
+                                        <isinclude template="product/components/productRating" />
+                                    </isif>
                                 </div>
                             </div>
                         </div>
@@ -204,7 +211,7 @@
                                 <div class="col-12 prices-add-to-cart-actions-top">
                                     <div class="d-block">
                                         <!-- Cart and [Optionally] Apple Pay -->
-                                        <isinclude template="product/components/showCartButtonProduct" />
+                                        <isinclude url="${URLUtils.https('Cart-ShowAddProductButton', 'pid', product.id)}"/>
                                     </div>
                                 </div>
                             </div>
@@ -246,7 +253,7 @@
                                 <div class="col-12 prices-add-to-cart-actions">
                                     <div class="d-block">
                                         <!-- Cart and [Optionally] Apple Pay -->
-                                        <isinclude template="product/components/showCartButtonProduct" />
+                                        <isinclude url="${URLUtils.https('Cart-ShowAddProductButton', 'pid', product.id)}"/>
                                         <isapplepay class="apple-pay-pdp btn apple-pay" sku="${product.id}"></isapplepay>
 
                                     </div>
@@ -255,9 +262,18 @@
                         </div>
 
                         <div class="hidden-sm-down">
-                            <isinclude template="product/components/pidRating" />
+                            <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
+                                <div class="product-price-rating clearfix">
+                                    <div class="ratings">
+                                        <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
+                                            <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            <iselse/>
+                                <isinclude template="product/components/pidRating" />
+                            </isif>
                         </div>
-                    </div>
 
                         <!-- Applicable Promotions -->
                         <div class="promotions">
@@ -289,7 +305,7 @@
                         <div class="show-cart-button-desktop">
                             <div class="row">
                                 <div class="col-12 prices-add-to-cart-actions">
-                                    <isinclude template="product/components/showCartButtonProduct" />
+                                <isinclude url="${URLUtils.https('Cart-ShowAddProductButton', 'pid', product.id)}"/>
                                 </div>
                             </div>
                         </div>
@@ -351,7 +367,7 @@
                             <isinclude template="product/backInStockNotification" sf-toolkit="on" />
                         </isif>
 
-                        <isif condition="${product.options && product.options.length > 0}">
+                        <isif condition="${product.options && product.options.length > 0 && !(option.id == "clydeWarranty") && dw.system.Site.current.preferences.custom.isClydeEnabled}">
                             <isinclude template="product/components/options" />
                         </isif>
                         <div class="col-md-10 col-12">
@@ -487,6 +503,12 @@
             </div>
         </div>
         <!-- The Modal: Ends-->
-
+        <!-- Start: Listrak persistent popup -->
+        <isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled && pdict.popupID}">
+            <span class="listrak-persistent-url" data-listrak-url="${URLUtils.https('EmailPopUp-Show')}"></span>
+            <span class="listrak-popup-product-detail"></span>
+            <iscontentasset aid="listrak-persistent-popup"/>
+        </isif>
+        <!-- End: Listrak persistent popup -->
     </isobject>
 </isdecorate>

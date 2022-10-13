@@ -1,7 +1,0 @@
-<isloop items="${pdict.items}" var="lineItem" status="loopStatus">
-    <isif condition="${lineItem.productType === 'bundle'}">
-        <isinclude template="cart/productCard/cartBundleCard" />
-    <iselse/>
-        <isinclude template="cart/productCard/cartProductCard" />
-    </isif>
-</isloop>

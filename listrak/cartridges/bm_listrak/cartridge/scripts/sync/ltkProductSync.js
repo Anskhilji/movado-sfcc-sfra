@@ -37,6 +37,7 @@ function productSync() {
     var maxRelated = dw.system.Site.current.preferences.custom.Listrak_MaxRecommendedProductExport;
     var categoryLevelAttributes = Site.getCurrent().getCustomPreferenceValue('Listrak_CategoryLevelAttributes');
     var productFeedJewelryJson = Site.getCurrent().getCustomPreferenceValue('Listrak_ProductFeedJewelryAttribute');
+    var getAssignedCategories = Site.getCurrent().getCustomPreferenceValue('Listrak_ConfiguredCategories');
     if (subCategoryLevels <= 0) {
         subCategoryLevels = 1;
     } // if not set, use default of 1
@@ -112,6 +113,14 @@ function productSync() {
                 productFile.AddRowItem('Size');
             }
             // Custom End
+
+            // Custom Start: [MSS-1966 Listrak - MCS Feed Changes]
+            if (!empty(getAssignedCategories)) {
+                productFile.AddRowItem('Meta4');
+                productFile.AddRowItem('Meta5');
+            }
+            // Custom End:
+
             productFile.WriteRow();
 
 			// //////// Write product rows //////////
@@ -257,7 +266,14 @@ function productSync() {
                     productFile.AddRowItem(prd.size, true);
                 }
                 // Custom End
-                
+
+                // Custom Start: [MSS-1966 Listrak - MCS Feed Changes]
+                if (!empty(getAssignedCategories)) {
+                    productFile.AddRowItem(prd.meta4, true);
+                    productFile.AddRowItem(prd.meta5, true);
+                }
+                // Custom End
+
                 productFile.WriteRow();
             }
         } catch (e) {

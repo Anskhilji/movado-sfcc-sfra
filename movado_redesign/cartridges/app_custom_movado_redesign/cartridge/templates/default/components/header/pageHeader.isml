@@ -27,7 +27,7 @@
                                 <iscomment> Custom End </iscomment>
                                 <button class="navbar-toggler-custom navbar-toggler d-lg-none"
                                     role="tab" type="button" aria-controls="sg-navbar-collapse"
-                                    aria-expanded="false">
+                                    aria-expanded="false" disabled>
                                     <i class="fa fa-bars"></i> 
                                     <span class="menu-text d-md-inline-block d-lg-none">
                                         ${Resource.msg('link.header.menu', 'common', null)}

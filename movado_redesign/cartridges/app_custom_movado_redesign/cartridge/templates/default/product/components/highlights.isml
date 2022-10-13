@@ -4,7 +4,7 @@
 </div>
 <h2 class="col-sm-12  mb-4">
     <!-- TODO: Title BM Configurable -->
-    <div class="title text-capitalize p-0 shadow-none">${Resource.msg('label.product.detail.highlights2', 'product', null)}</div>
+    <div class="title text-capitalize p-0 shadow-none text-unset-wrapper">${Resource.msg('label.product.detail.highlights2', 'product', null)}</div>
 </h2>
 <isif condition="${product.longDescription}">
     <div class="col-sm-12 bottom-detail product-bottom-detail mb-4">
