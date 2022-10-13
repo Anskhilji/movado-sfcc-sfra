@@ -887,7 +887,7 @@ module.exports = function () {
     });
 
     $('body').on('click', '.gift-message-box-input', function () {
-        $('.gift-message-box').removeClass('d-none');
+        $('.gift-message-box').removeClass('hide-box');
         $('.gift-message-blank').hide();
         $('.gift-message-error').hide();
         $('.add-gift-message').removeClass('d-none');
@@ -896,7 +896,7 @@ module.exports = function () {
     });
 
     $('body').on('click', '.add-gift-box-input', function () {
-        $('.gift-message-box').addClass('d-none');
+        $('.gift-message-box').addClass('hide-box');
         $('.add-gift-message').addClass('d-none');
         $('.add-gift-box').removeClass('d-none');
 

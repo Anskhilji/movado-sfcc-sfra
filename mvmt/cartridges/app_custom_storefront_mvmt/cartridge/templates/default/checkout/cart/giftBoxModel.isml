@@ -1,8 +1,8 @@
 <isset name="product" value="${pdict.product}" scope="page" />
 <!-- Modal Header -->
-<div class="modal-header gift-box-container-modal-header">
-    <h5 class="modal-title gift-box-container-modal-heading" id="exampleModalLongTitle">${Resource.msg('label.minicart.giftbox.modal.heading', 'cart', null)}</h5>
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<div class="modal-header gift-box-container-modal-header border-0">
+    <h5 class="modal-title gift-box-container-modal-heading w-100 text-center" id="exampleModalLongTitle">${Resource.msg('label.minicart.giftbox.modal.heading', 'cart', null)}</h5>
+    <button type="button" class="close d-none d-md-block" data-dismiss="modal" aria-label="Close">
     <span aria-hidden="true">&times;</span>
     </button>
 </div>
@@ -26,7 +26,7 @@
         <span class="checkmark"></span>
         </label>
 
-        <div class="form-group gift-textarea gift-message-box d-none gift-box-container-modal-body-form-textarea-container">
+        <div class="form-group gift-textarea gift-message-box hide-box gift-box-container-modal-body-form-textarea-container">
             <label for="exampleFormControlTextarea1" class="gift-box-container-modal-body-form-textarea-container-label">Enter your message (optional)</label>
             <textarea rows="3" name="giftMessageText" class="form-control gift-text gift-box-container-modal-body-form-textarea-container-text-box" aria-label="Type your complimentary gift message here" col="70" placeholder="Type your complimentary gift message here" data-format-error="" data-required-error="" data-row-max="3" data-row-maxlength="70" maxlength="50">${pdict.itemLevelGiftMessage ? pdict.itemLevelGiftMessage : ''}</textarea>
                 <div class="gift-error-wrapper">
@@ -40,5 +40,11 @@
         <p class="gift-box-container-modal-body-note">Note: All items ship to one address</p>
         <input type="button" value="Save" id="gift-allowed-checkout" data-add-to-cart-url="${URLUtils.url('Cart-AddProduct')}" name="gift-allowed-checkout" class="btn add-gift-box gift-box-container-modal-body-save-button  minicart-gift-allowed-checkbox gift-allowed-checkbox-mini giftbox-mini-${product.uuid}" data-requested-page="${pdict.isCartPage ? pdict.isCartPage : false}" data-parent-pid="${product.uuid}" data-pid="${product.id}" data-value="${pdict.giftBoxSKUData.giftBoxSKU}">
         <button type="btn" class="btn d-none add-gift-message gift-box-container-modal-body-save-button" href="${URLUtils.url('Cart-AddGiftMessage')}" data-product-uuid="${pdict.productUUID}">SAVE</button>
+        <iscomment> close icon for mobile  </iscomment>
+        <div class="d-md-none">
+            <button type="button" class="close float-none mt-2" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
     </div>
 </div>
