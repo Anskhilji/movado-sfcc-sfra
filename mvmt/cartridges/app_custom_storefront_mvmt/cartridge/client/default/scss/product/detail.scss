@@ -2617,6 +2617,10 @@
                 margin: 0;
                 text-align: left;
                 background-color: $white;
+
+                @include media-breakpoint-down(md-down) {
+                    margin: 0 rem(10) 0 rem(10);
+                }
             }
 
             .color-Attribute {
