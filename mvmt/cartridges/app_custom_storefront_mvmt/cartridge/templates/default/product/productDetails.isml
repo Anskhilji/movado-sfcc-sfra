@@ -304,7 +304,7 @@
                                 <div class="col-12 prices-add-to-cart-actions-top">
                                     <div class="d-block">
                                         <!-- Cart and [Optionally] Apple Pay -->
-                                        <isinclude template="product/components/showCartButtonProduct" />
+                                        <isinclude url="${URLUtils.https('Cart-ShowAddProductButton', 'pid', product.id)}"/>
                                     </div>
                                 </div>
                             </div>
