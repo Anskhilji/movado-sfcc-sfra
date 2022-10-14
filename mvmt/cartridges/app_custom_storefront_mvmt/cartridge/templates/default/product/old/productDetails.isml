@@ -207,11 +207,13 @@
                             </div>
                         </div>
                     </div>
+                    <iscomment> Custom Start: display variations on mobile screen and hide on desktop </iscomment>
                     <isif condition="${product.variationAttributes && product.variationAttributes.length > 0}">
                         <div class="d-md-none">
                             <isinclude template="product/components/variationAttributes" />
                         </div>
                     </isif>
+                    <iscomment> Custom End </iscomment>
                     <div class="show-cart-button-below-price">
                         <div class="row">
                             <div class="col-12 prices-add-to-cart-actions-top">
