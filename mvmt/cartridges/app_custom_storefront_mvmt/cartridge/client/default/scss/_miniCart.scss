@@ -1841,11 +1841,16 @@
                 max-width: rem(271);
                 width: 100%;
                 margin: auto;
-                height: rem(45);
+                height: rem(45); 
             }
 
         }
     }
+}
+
+.gift-product-row {
+    border-top: 1px solid $gray14;
+    margin-top: rem(27);
 }
 
 .modal-backdrop {

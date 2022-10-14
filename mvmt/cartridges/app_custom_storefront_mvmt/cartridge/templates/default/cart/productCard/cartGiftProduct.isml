@@ -1,11 +1,6 @@
-<isset name="hasEmbeddedBonusProducts" value="${lineItem.bonusProductLineItemUUID === 'bonus'}"  scope="page"/>
-<isset name="bonusproductlineitem" value="${hasEmbeddedBonusProducts ? 'bonus-product-line-item' : ''}" scope="page"/>
-<isset name="bonuslineitemrow" value="${hasEmbeddedBonusProducts ? 'bonus-line-item-row' : ''}" scope="page"/>
-<isset name="enableGiftMessage" value="${dw.system.Site.getCurrent().preferences.custom.enableGiftMessage}" scope="page"/>
-
-<div class="card ${JSON.stringify(lineItem)} product-info pb-0 ${bonusproductlineitem} uuid-${lineItem.UUID} product-card-wrapper">
     <!--- name and remove buttons --->
-    <div class="row ${bonuslineitemrow} item-info">
+    <isset name="lineItem" value="${childlineItem}" scope="page" />
+    <div class="row gift-product-row ${bonuslineitemrow} item-info">
         <isif condition="${lineItem && lineItem.images && lineItem.images.tile150[0]}">
             <isset name="productImage" value="${lineItem.images.tile150[0]}" scope="page"/>
             <iscomment> bootstrap columns classes changed </iscomment>
@@ -140,25 +135,3 @@
             <div class="col-12 d-lg-none"><hr class="line-item-divider"></div>
         </isif>
     </div>
-    <isset name="giftPid" value="${lineItem.giftPid}" scope="page" />
-    <isloop items="${pdict.items}" var="childlineItem" status="loopStatus">
-        <isif condition="${childlineItem.id == giftPid}">
-            <isinclude template="cart/productCard/cartGiftProduct" />
-        </isif>
-    </isloop>
-
-    <isset name="isCartPage" value="${true}" scope="page" />
-    <div class="gift-box-container w-100 justify-content-start full-cart-continaer">
-        <img class="gift-icon" alt="" src="${URLUtils.staticURL('/images/giftbox-icon.svg')}" />
-        <isif condition="${lineItem.customAttributes['itemLevelGiftMessage']}">
-            <div class="gift-box-container-label">${lineItem.customAttributes['itemLevelGiftMessage'].msgLine1}</div>
-            <a href="${URLUtils.https('Cart-ShowGiftBoxModal', 'pid', lineItem.id, 'uuid', lineItem.UUID, 'itemLevelGiftMessage', lineItem.customAttributes['itemLevelGiftMessage'].msgLine1, 'isCartPage', isCartPage)}" type="button" class="btn gift-box-container-link" data-toggle="modal" data-target="#giftBoxModelPopUp">Add/Edit</a>
-        <iselse/>
-            <div class="gift-box-container-label">${Resource.msg('label.minicart.gift.message', 'cart', null)} </div>
-            <a href="${URLUtils.https('Cart-ShowGiftBoxModal', 'pid', lineItem.id, 'uuid', lineItem.UUID, 'isCartPage', isCartPage)}" type="button" class="btn gift-box-container-link" data-toggle="modal" data-target="#giftBoxModelPopUp">${Resource.msg('label.minicart.giftbox.link', 'cart', null)}</a>
-        </isif>
-    </div>
-    <isif condition="${lineItem.bonusProductLineItemUUID === 'bonus'}">
-        <isinclude template="cart/productCard/cartEmbeddedBonusProducts" />
-    </isif>
-</div>

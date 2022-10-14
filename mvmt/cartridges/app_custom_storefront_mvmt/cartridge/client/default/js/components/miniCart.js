@@ -162,6 +162,12 @@ var updateCartPage = function(data) {
             $miniCartSelector.find('.item-total-' + item.UUID + ' .product-line-item-details  .price .strike-through').remove();
         }
         $miniCartSelector.find('.item-total-' + item.UUID + ' .product-line-item-details  .sales').empty().append(item.priceTotal.price);
+        var $giftPid = item.giftPid;
+        data.items.forEach(function (childitem) {
+            if (childitem.id == $giftPid) {
+                $miniCartSelector.find('.sale-gift-price-mvmt').empty().append(childitem.priceTotal.price);
+            }
+        });
     });
     // Custom End
 }

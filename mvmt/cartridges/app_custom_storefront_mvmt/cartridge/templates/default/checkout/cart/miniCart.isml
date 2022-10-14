@@ -49,7 +49,8 @@
             </isif>
         </div>
     <isslot id="cs-mincart-top-slot" description="Static text slot on Mini Cart" context="global" />
-    <iscomment> <isif condition="${enableGiftMessage}">
+  
+  <isif condition="${enableGiftMessage}">
         <div class="gift-messages">
             <div class="row gift-messages-wrapper">
                 <div class="col-12 d-flex pr-0  justify-content-center">
@@ -68,7 +69,7 @@
                 </div>
             </div>
         </div>
-    </isif> </iscomment>
+    </isif> 
 
     <div class="product-summary">
         <isloop items="${items}" var="lineItem" status="loopStatus">
@@ -79,7 +80,7 @@
                            <isinclude template="checkout/productCard/miniCartBonusProductCard" />
                        </div>
                    </div>
-               <iselse/>
+                <iselseif condition="${!lineItem.giftParentUUID}"/>
                    <div class="card uuid-${lineItem.UUID}">
                        <div class="card-body">
                            <isinclude template="checkout/productCard/miniCartProductCard" />
@@ -151,12 +152,12 @@
     </div>
     <iscomment>Logged in Customer tracking for Yotpo Swell Loyalty</iscomment>
     <isinclude template="include/yotpofooter"/>
+</isif>
 
-    <!-- Modal -->
-    <div class="modal gift-box-container-modal fade" id="giftBoxModelPopUp" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered gift-box-container-modal-dialog" role="document">
-            <div class="modal-content">
-            </div>
+<!-- Modal -->
+<div class="modal gift-box-container-modal fade" id="giftBoxModelPopUp" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered gift-box-container-modal-dialog" role="document">
+        <div class="modal-content">
         </div>
     </div>
-</isif>
+</div>

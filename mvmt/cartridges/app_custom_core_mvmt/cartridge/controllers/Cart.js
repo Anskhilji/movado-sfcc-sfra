@@ -53,8 +53,6 @@ server.get('ShowGiftBoxModal', server.middleware.https, csrfProtection.generateT
    var apiProduct = ProductMgr.getProduct(req.querystring.pid);
    var giftBoxSKUData = productCustomHelper.getGiftBoxSKU(apiProduct);
    var images = product.images.tile150;
-   var currentBasket = BasketMgr.getCurrentBasket();
-   var basketModel = new CartModel(currentBasket);
 
    viewData = {
        product: product,
@@ -62,8 +60,7 @@ server.get('ShowGiftBoxModal', server.middleware.https, csrfProtection.generateT
        productUUID : params.uuid,
        giftBoxSKUData: giftBoxSKUData,
        itemLevelGiftMessage: params.itemLevelGiftMessage,
-       isCartPage: params.isCartPage,
-       basket: basketModel
+       isCartPage: params.isCartPage
    };
 
    res.setViewData(viewData);

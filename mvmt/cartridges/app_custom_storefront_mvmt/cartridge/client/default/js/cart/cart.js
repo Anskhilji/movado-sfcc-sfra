@@ -79,7 +79,7 @@ function validateBasket(data) {
  * re-renders the order totals and the number of items in the cart
  * @param {Object} data - AJAX response from the server
  */
- function updateCartTotals(data) { 
+ function updateCartTotals(data, $giftProduct) { 
     if (data.numItems) {
         $('.minicart .minicart-quantity').text(data.numItems);
     }
@@ -152,6 +152,12 @@ function validateBasket(data) {
         }
         $miniCartSelector.find('.item-total-' + item.UUID + ' .product-line-item-details  .sales').empty().append(item.priceTotal.price);
     });
+    // Custom End
+
+    // Custom Start: remove gift product from cart
+    if ($giftProduct !== undefined && $giftProduct == true) {
+        $('.gift-lineitem-container').empty();       
+    }
     // Custom End
 }
 
@@ -439,7 +445,6 @@ module.exports = function () {
                     return false;
                 }
                 $('.gift-message-error').hide();
-                updateCartTotals(data.basketModel);
                 $this.find('.apply-button').addClass('d-none');
             },
             error: function (data) {
@@ -519,6 +524,7 @@ module.exports = function () {
         var $productName = $(this).data('name');
         var $uuid = $(this).data('uuid');
         var $gtmProdObj = $(this).data('gtm-cart');
+        var $giftProduct = $(this).data('gift');
         var $urlParams = {
             pid: $productID,
             uuid: $uuid
@@ -587,7 +593,7 @@ module.exports = function () {
                         $('.bonus-product').remove();
                     }
                     $('.coupons-and-promos').children('.coupons-and-promos-wrapper').empty().append(data.basket.totals.discountsHtml);
-                    updateCartTotals(data.basket);
+                    updateCartTotals(data.basket, $giftProduct);
                     updateApproachingDiscounts(data.basket.approachingDiscounts);
                     $('body').trigger('setShippingMethodSelection', data.basket);
                     validateBasket(data.basket);
@@ -891,6 +897,7 @@ module.exports = function () {
         $('.gift-message-blank').hide();
         $('.gift-message-error').hide();
         $('.add-gift-message').removeClass('d-none');
+        $('.add-gift-message').removeAttr('disabled');
         $('.add-gift-box').addClass('d-none');
 
     });
@@ -899,6 +906,7 @@ module.exports = function () {
         $('.gift-message-box').addClass('hide-box');
         $('.add-gift-message').addClass('d-none');
         $('.add-gift-box').removeClass('d-none');
+        $('.add-gift-box').removeAttr('disabled');
 
     });
 
