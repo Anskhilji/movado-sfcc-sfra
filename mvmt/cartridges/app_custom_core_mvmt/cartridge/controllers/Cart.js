@@ -35,10 +35,15 @@ server.replace('MiniCart', server.middleware.include, function (req, res, next) 
 server.replace('ShowAddProductButton', function (req, res, next) {
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
     var productId = req.querystring.pid;
+    var display = {
+        plpTile: false
+    }
 
     res.render('product/components/showCartButtonProduct', {
         product: showProductPageHelperResult.product,
-        productId: productId
+        isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
+        productId: productId,
+        display: display
     });
 
     next();

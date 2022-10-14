@@ -266,10 +266,10 @@
         <!-- The Modal: Ends-->
         <!-- sticky ATC -->
         <div class="top-sticky-card scroll-hidden">
-            <isinclude template="product/components/stickyAddToCart" />
+            <isinclude url="${URLUtils.https('Product-ShowStickyATCButton', 'pid', product.id)}"/>
         </div>
         <div class="bottom-sticky-card scroll-hidden">
-            <isinclude template="product/components/stickyAddToCart" />
+            <isinclude url="${URLUtils.https('Product-ShowStickyATCButton', 'pid', product.id)}"/>
         </div>
     <!-- Start: Listrak persistent popup -->
     <isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled && pdict.popupID}">
