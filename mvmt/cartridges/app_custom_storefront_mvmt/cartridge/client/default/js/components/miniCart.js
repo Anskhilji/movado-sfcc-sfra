@@ -97,8 +97,9 @@ var updateCartPage = function(data) {
     var $miniCartSelector = $('.mini-cart-data');
     var $noOfItems = $miniCartSelector.find('.mini-cart-data .number-of-items'); 
     var $shippingCostSelector = $miniCartSelector.find('.shipping-cost');
-    var $totalTaxSelector = $miniCartSelector.find('.tax-total');
-    var $grandTotalSelector = $miniCartSelector.find('.grand-total, .cart-total, .minicart-footer .subtotal-payment-summary .grand-total'); 
+    var $totalTaxSelector = $miniCartSelector.find('.tax-total'); 
+    var $grandTotalSelector = $miniCartSelector.find('.grand-total, .cart-total, .minicart-footer .subtotal-payment-summary .grand-total');
+    var $grandCartTotalSelector = $('.main-cart-block').find('.grand-total, .cart-total, .minicart-footer .subtotal-payment-summary .grand-total'); 
     var $subTotalSelector = $miniCartSelector.find('.sub-total');
     var $affirmPriceSelector = $miniCartSelector.find('.affirm-as-low-as');
     var $orderDiscountSelector = $miniCartSelector.find('.order-discount');
@@ -116,6 +117,11 @@ var updateCartPage = function(data) {
          $grandTotalSelector.each(function () {
              $(this).empty().append(data.totals.subTotaladjustedNetPrice);
          });
+    }
+    if ($grandCartTotalSelector.length > 0) {
+        $grandCartTotalSelector.each(function () {
+            $(this).empty().append(data.totals.subTotaladjustedNetPrice);
+        });
     }
     if ($subTotalSelector.length > 0) {
         $subTotalSelector.empty().append(data.totals.subTotal);

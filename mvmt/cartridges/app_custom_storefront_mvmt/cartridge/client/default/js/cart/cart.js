@@ -88,6 +88,7 @@ function validateBasket(data) {
     var $shippingCostSelector = $miniCartSelector.find('.shipping-cost');
     var $totalTaxSelector = $miniCartSelector.find('.tax-total');
     var $grandTotalSelector = $miniCartSelector.find('.grand-total, .cart-total, .minicart-footer .subtotal-payment-summary .grand-total'); 
+    var $grandCartTotalSelector = $('.main-cart-block').find('.grand-total, .cart-total, .minicart-footer .subtotal-payment-summary .grand-total'); 
     var $subTotalSelector = $miniCartSelector.find('.sub-total');
     var $affirmPriceSelector = $miniCartSelector.find('.affirm-as-low-as');
     var $orderDiscountSelector = $miniCartSelector.find('.order-discount'); 
@@ -105,6 +106,11 @@ function validateBasket(data) {
          $grandTotalSelector.each(function () {
              $(this).empty().append(data.totals.subTotaladjustedNetPrice);
          });
+    }
+    if ($grandCartTotalSelector.length > 0) {
+        $grandCartTotalSelector.each(function () {
+            $(this).empty().append(data.totals.subTotaladjustedNetPrice);
+        });
     }
     if ($subTotalSelector.length > 0) {
         $subTotalSelector.empty().append(data.totals.subTotal);
@@ -156,7 +162,8 @@ function validateBasket(data) {
 
     // Custom Start: remove gift product from cart
     if ($giftProduct !== undefined && $giftProduct == true) {
-        $('.gift-lineitem-container').empty();       
+        $('.gift-lineitem-container').empty();
+        $('.gift-product-row').empty();       
     }
     // Custom End
 }
@@ -633,6 +640,7 @@ module.exports = function () {
         var $productName = $(this).data('name');
         var $uuid = $(this).data('uuid');
         var $gtmProdObj = $(this).data('gtm-cart');
+        var $giftProduct = $(this).data('gift');
         var $urlParams = {
             pid: $productID,
             uuid: $uuid
@@ -703,7 +711,7 @@ module.exports = function () {
                         $('.bonus-product').remove();
                     }
                     $('.coupons-and-promos').children('.coupons-and-promos-wrapper').empty().append(data.basket.totals.discountsHtml);
-                    updateCartTotals(data.basket);
+                    updateCartTotals(data.basket, $giftProduct);
                     updateApproachingDiscounts(data.basket.approachingDiscounts);
                     $('body').trigger('setShippingMethodSelection', data.basket);
                     validateBasket(data.basket);
