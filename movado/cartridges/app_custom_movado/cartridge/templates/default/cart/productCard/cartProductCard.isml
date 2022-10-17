@@ -74,6 +74,25 @@
                               <isinclude template="cart/productCard/cartProductCardEdit" />
 	                        </div>
                         </isif>
+
+                        <isset name="product" value="${dw.catalog.ProductMgr.getProduct(lineItem.id)}" scope="page" />
+                        <isset name="isGiftBoxAllowed" value="${require('*/cartridge/scripts/helpers/productCustomHelper').isGiftBoxAllowed(product)}" scope="page" />
+                        <isset name="giftBoxEnabled" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxEnabled) ? dw.system.Site.current.preferences.custom.giftBoxEnabled : false}" scope="page" />
+                        <isset name="giftBoxSKUData" value="${require('*/cartridge/scripts/helpers/productCustomHelper').getGiftBoxSKU(product)}" scope="page" />
+                        <isset name="isCartPage" value="${true}" scope="page" />
+                        <isset name="giftBoxMessage" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxMessage) ? dw.system.Site.current.preferences.custom.giftBoxMessage : ''}" scope="page" />
+                        <isif condition="${isGiftBoxAllowed && giftBoxEnabled && giftBoxSKUData.giftBoxSKUAvailability && !(pdict.giftOptions.indexOf(lineItem.UUID) > -1)}">
+                           <div class="gift-box-wrapper gift-box-wrapper-cart">
+                               <label class="gift-box-wrapper-label custom-control-label-pdp label-add">
+                                    <img class="cart-giftbox-img" src="${URLUtils.staticURL('/images/icons-gift-box.svg')}" alt="giftBox">
+                                    <input id="gift-allowed-checkout" type="checkbox" data-add-to-cart-url="${URLUtils.url('Cart-AddProduct')}" data-requested-page="${isCartPage}" name="gift-allowed-checkout" class="gift-allowed-checkbox gift-allowed-checkbox-mini giftbox-mini-${lineItem.id}" data-parent-pid="${lineItem.UUID}" data-pid="${lineItem.id}" value="${giftBoxSKUData.giftBoxSKU}">
+                                    <div class="gift-box-text">
+                                        ${giftBoxMessage} ${giftBoxSKUData.giftBoxSKUPrice}
+                                    </div>
+                                    <span class="checkmark-add"><span class="inner-span">+ ADD</span></span>
+                                </label>
+                           </div>
+                        </isif>
                     </div>
                 </div>
             </div>

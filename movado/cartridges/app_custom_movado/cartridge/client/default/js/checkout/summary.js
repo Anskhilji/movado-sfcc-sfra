@@ -1,5 +1,9 @@
 'use strict';
 
+$(document).ready(function(){
+    $(window).width() > 543 ? $('.cart-product-mobile-view').empty() : $('.cart-product-desktop-view').empty();
+});
+
 /**
  * updates the totals summary
  * @param {Array} totals - the totals data

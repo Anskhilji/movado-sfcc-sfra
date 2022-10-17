@@ -5,15 +5,15 @@
     <isset name="action" value="${URLUtils.url('AmazonPay-SubmitPayment')}" scope="page" />
     <isset name="addressMode" value="${'new'}" scope="page" />
 </isif>
-<div class="card ghost payment">
+<div class="card ghost payment mx-shipping-box d-none">
     <div class="card-header">
         <span class="checkout-card-header">${Resource.msg('heading.payment', 'checkout', null)}</span>
     </div>
 </div>
 
-<div class="card payment-form">
-    <div class="card-header">
-        <h4>${Resource.msg('heading.payment', 'checkout', null)}</h4>
+<div class="card payment-form card-border-none">
+    <div class="card-header card-border-none card-bottom-space">
+        <h4 class="heading-content-label">${Resource.msg('heading.payment', 'checkout', null)}</h4>
     </div>
     <div class="card-body">
         <form autocomplete="on" method="POST" action="${action}" class="billing-form"
@@ -25,7 +25,7 @@
             <!-------------------------------------------------------------------------->
             <fieldset class="address-selector-block">
                 <div class="form-group relative">
-                    <label class="form-control-label" for="shipmentSelector">
+                    <label class="form-control-label field-label-wrapper field-select-wrapper-box" for="shipmentSelector">
                         ${Resource.msg('heading.billing.address', 'checkout', null)}
                     </label>
 

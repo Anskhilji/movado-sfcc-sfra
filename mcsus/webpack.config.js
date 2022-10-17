@@ -150,5 +150,39 @@ if (fs.existsSync(path.join(__dirname, './cartridges/app_custom_storefront_mcsus
         }
     });
 }
+if (fs.existsSync(path.join(__dirname, './cartridges/app_custom_mcsus_redesign/cartridge/client/default/js/'))) {
+    var jsFiles = shell.ls(path.join(__dirname, './cartridges/app_custom_mcsus_redesign/cartridge/client/default/js/*.js'));
+    jsFiles = jsFiles.filter(filename => path.basename(filename).indexOf('_') !== 0);
+    var jsEntries = {};
+    jsFiles.forEach(filename => {
+        var basename = path.basename(filename, '.js');
+        jsEntries[basename] = path.resolve(filename);
+    });
+
+    configs.push({
+        mode: 'production',
+        name: 'js',
+        entry: jsEntries,
+        output: {
+            path: path.resolve(path.join(__dirname, './cartridges/app_custom_mcsus_redesign/cartridge/static/default/js')),
+            filename: '[name].js'
+        },
+        module: {
+            rules: [
+                {
+                    test: /\.js$/,
+                    use: {
+                        loader: 'babel-loader',
+                        options: {
+                            presets: ['@babel/env'],
+                            plugins: ['@babel/plugin-proposal-object-rest-spread'],
+                            cacheDirectory: true
+                        }
+                    }
+                }
+            ]
+        }
+    });
+}
 
 module.exports = configs;

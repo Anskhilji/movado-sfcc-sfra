@@ -49,6 +49,7 @@ function getRefinements(productSearch, refinements, refinementDefinitions) {
             isCategoryRefinement: definition.categoryRefinement,
             isAttributeRefinement: definition.attributeRefinement,
             isPriceRefinement: definition.priceRefinement,
+            isPromotionRefinement: definition.promotionRefinement,
             values: values
         };
     });
@@ -253,6 +254,7 @@ function getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams, sorting
         }
 
     }
+    
     allSearchHitsProducts.forEach(function (searchHitResultProduct) {
         paramContainer = {
             pid: searchHitResultProduct.productID

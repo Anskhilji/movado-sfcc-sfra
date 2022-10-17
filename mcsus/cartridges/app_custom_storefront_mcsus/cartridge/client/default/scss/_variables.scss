@@ -45,6 +45,7 @@ $grey14: #060506 !default;
 $grey16: #D2D2D2 !default;
 $grey15: #070707 !default;
 $grey17: #787777 !default;
+$slate-grey: #A0A9BA;
 $grayish-blue: #212529;
 $light-silver: #D8D8D8;
 $Grey: #242526;
@@ -52,6 +53,7 @@ $silver: #B0B0B0;
 $light-grey4: #6C757D;
 $black3: #1E1E1E;
 $gray2: #A5A5A5;
+$gull-gray-light:rgba(160, 169, 186, 0.1) !default;
 
 $white-transparent: rgba(255,255,255,0.5) !default;
 $grey-transparent-1: rgba(0, 0, 0, 0.65) !default;
@@ -86,6 +88,7 @@ $placeholder: $grey4 !default;
 $white-smoke:#F2F2F2 !default;
 $white-smoke2: rgba(245,245,245,0.9) !default;
 $white-smoke3: #F6F6F6 !default;
+$dark-black: #060506;
 $granite-gray:  #5C5C5C;
 $apple: #59AF2C;
 $cerulean: #0092DB;
@@ -95,6 +98,7 @@ $light-gray1: rgba(205,205,205,0.5);
 $white1: #FFFFFF;
 $black2: #060606;
 $dark-gray1: #343A40;
+$font-futura-demi: "futura-pt-demi", "FuturaStd-Medium", sans-serif;
 
 $grid-breakpoints: (
     xs: 0,
@@ -171,8 +175,8 @@ $font-primary: $font-book;
 $font-regular: "proxima-nova";
 $font-awesome: "FontAwesome";
 $font-proxima-nova: "proxima-nova-bold";
-$font-book-std : "FuturaStd-Book", Arial, sans-serif !default;
-
+$font-book-std: "FuturaStd-Book", Arial, sans-serif !default;
+$font-std-medium: "FuturaStd-Medium", Arial, sans-serif !default;
 $width: 100%;
 $spaceLeft: rem(20);
 $marginLeftlg : 60%;

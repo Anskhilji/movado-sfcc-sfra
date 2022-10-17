@@ -39,6 +39,7 @@ function getResources(pageContext) {
         LINK_QUICKVIEW_VIEWDETAILS: Resource.msg('link.quickview.viewdetails', 'product', null),
         LINK_QUICKVIEW_CLOSE: Resource.msg('link.quickview.close', 'product', null),
         CREDIT_CARD_PAYMENT_METHOD_ID: Resource.msg('checkout.payment.method.credit.card.id', 'checkout', null),
+        COUPON_LINE_ITEM_LENGTH: Resource.msg('coupon.applied.counter','cart', null),
         KLARNA_PDP_MESSAGES_ENABLED:!empty(Site.current.preferences.custom.klarnaPdpPromoMsg) ? Site.current.preferences.custom.klarnaPdpPromoMsg : false,
         CART_GIFT_MESSAGE_LIMIT: !empty(Site.current.preferences.custom.cartGiftMessageLimit) ? Site.current.preferences.custom.cartGiftMessageLimit : 0,
         IS_CLYDE_ENABLED: Site.current.preferences.custom.isClydeEnabled || false,
@@ -55,7 +56,12 @@ function getResources(pageContext) {
         GOOGLE_PAY_AUTOCOMPLETE: autoComplete,
         GOOGLE_PAY_ALLOWED_COUNTRY_CODES: allowedCountryCodes,
         COUPONCODE_URL: URLUtils.url('CouponCode-Apply').toString(),
-        IS_YOTPO_ENABLED: !empty(Site.current.preferences.custom.yotpoCartridgeEnabled) ? Site.current.preferences.custom.yotpoCartridgeEnabled : false
+        IS_YOTPO_ENABLED: !empty(Site.current.preferences.custom.yotpoCartridgeEnabled) ? Site.current.preferences.custom.yotpoCartridgeEnabled : false,
+        EMIAL_ADDRESS_INVALID: Resource.msg('listrak.invalid.email', 'product', null),
+        EMIAL_ADDRESS_REQUIRED: Resource.msg('listrak.required.email', 'product', null),
+        PHONE_NUMBER_INVALID: Resource.msg('listrak.invalid.phone', 'product', null),
+        PHONE_NUMBER_REQUIRED: Resource.msg('listrak.required.phone', 'product', null),
+        LISTRAK_SUCCESS_MESSAGE: Resource.msg('listrak.success.message', 'product', null)
     };
     return resources;
 }

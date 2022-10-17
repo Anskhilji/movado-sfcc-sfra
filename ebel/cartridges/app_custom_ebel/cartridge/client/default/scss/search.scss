@@ -380,7 +380,7 @@
     text-align: left;
     margin-top: 1.875rem;
     h5{
-      font-family:$font-medium;
+      font-family:$font-HelveticaNeueLT-medium;
       font-weight:500;
       font-size: rem(18);
     }
@@ -420,7 +420,7 @@
       font-size: rem(18);
       line-height: rem(22);
       letter-spacing: 2px;
-      font-family: $font-medium;
+      font-family: $font-HelveticaNeueLT-medium;
       font-weight:500;
       &:focus{
         background-color: $grey1;
@@ -439,12 +439,12 @@
       font-size: rem(14);
       line-height: rem(16);
       letter-spacing: 1px;
-      font-family: $font-book;
+      font-family: $font-HelveticaNeueLT-book;
       font-weight:300;
     }
     p a{
       text-decoration: underline;
-      font-family: $font-bold;
+      font-family: $font-HelveticaNeueLT-bold;
       font-weight:700;
     }
     .make-bold{
