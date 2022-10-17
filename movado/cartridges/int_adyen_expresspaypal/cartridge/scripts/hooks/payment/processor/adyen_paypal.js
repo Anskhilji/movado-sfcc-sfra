@@ -76,8 +76,10 @@ function Authorize(orderNumber, paymentInstrument, paymentProcessor) {
             error: true
         };
     }
+
     return {
-        error: false
+        error: false,
+        result: checkoutDecisionStatus
     };
 }
 

@@ -136,7 +136,7 @@
                 <isinclude template="product/components/ratings" />
             </div>
         </div>
-        
+
         <!-- END_dwmarker -->
     </div>
 </isif>

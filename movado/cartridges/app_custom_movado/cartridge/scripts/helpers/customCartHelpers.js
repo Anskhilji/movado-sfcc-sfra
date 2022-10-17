@@ -309,6 +309,39 @@ function getCountrySwitch() {
 
 };
 
+
+function removeNullClydeWarrantyLineItem(currentBasket) {
+    var Constants = require('*/cartridge/utils/Constants');
+    var Transaction = require('dw/system/Transaction');
+    var orderLineItems = currentBasket.allProductLineItems;
+    var orderLineItemsIterator = orderLineItems.iterator();
+    var productLineItem;
+    Transaction.wrap(function () {
+        while (orderLineItemsIterator.hasNext()) {
+            productLineItem = orderLineItemsIterator.next();
+            if (productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == Constants.CLYDE_WARRANTY && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
+                currentBasket.removeProductLineItem(productLineItem);
+            }
+        }
+    });
+};
+
+function removeClydeWarranty(currentItems) {
+    var Constants = require('*/cartridge/utils/Constants');
+    if (currentItems && currentItems.items && currentItems.items.length > 0) {
+        for (var i = 0; i < currentItems.items.length; i++) {
+            if (currentItems.items[i].options.length > 0) {
+                for (var j = 0; j < currentItems.items[i].options.length; j++) {
+                    if (currentItems.items[i].options[j].optionId == Constants.CLYDE_WARRANTY && currentItems.items[i].options[j].selectedValueId == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
+                        currentItems.items[i].options[j] = currentItems.items[i].options[j].displayName;
+                    }
+                }
+            }
+        }
+    }
+};
+
+
 function getGiftTransactionATC(currentBasket, giftsParentUUID) {
     var Site = require('dw/system/Site');
     var Transaction = require('dw/system/Transaction');
@@ -355,5 +388,7 @@ module.exports = {
     getcartPageHtml: getcartPageHtml,
     getCartForAnalyticsTracking: getCartForAnalyticsTracking,
     getGiftTransactionATC: getGiftTransactionATC,
-    getCountrySwitch: getCountrySwitch
+    getCountrySwitch: getCountrySwitch,
+    removeClydeWarranty: removeClydeWarranty,
+    removeNullClydeWarrantyLineItem: removeNullClydeWarrantyLineItem
 };
