@@ -4,13 +4,10 @@
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
-<<<<<<< HEAD
 var productFactory = require('*/cartridge/scripts/factories/product');
 var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
 var ProductMgr = require('dw/catalog/ProductMgr');
-=======
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
->>>>>>> release-49-develop
 
 var server = require('server');
 var page = module.superModule;
