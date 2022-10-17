@@ -816,3 +816,46 @@ header {
         }
     }
 }
+//custom MSS-1883
+.fedex-body{
+    text-align: center;
+}
+.fedex-title{
+    font-size: 18px;
+    margin-top: rem(20);
+}
+.sub-title{
+    font-size: 14px;
+    margin-top: rem(20);
+}
+.box-1 {
+    margin-top: rem(20);
+    border:1px solid #000;
+}
+.box-2 {
+    margin-top: rem(20);
+    margin-bottom: rem(30px);  
+}
+.continue-btn{
+    padding: 8px 60px;
+    background-color: #000;
+    color: #fff;
+}
+.continue-btn:hover{
+    color: #fff;
+}
+.edit-link{
+    padding-left: rem(45);
+    color: rgb(45, 146, 230);
+}
+.edit-link:hover{
+    color: rgb(45, 146, 230);
+}
+.radio-heading{
+    font-size: 14px;
+    font-weight: 600;
+}
+.sub-heading{
+    margin-top: rem(20);
+    line-height: 22px;
+}
