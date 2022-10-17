@@ -54,7 +54,7 @@ server.get('ShowGiftBoxModal', server.middleware.https, csrfProtection.generateT
     viewData = {
         product: product,
         image: images[0],
-        productUUID : params.uuid,
+        productUUID: params.uuid,
         giftBoxSKUData: giftBoxSKUData,
         itemLevelGiftMessage: params.itemLevelGiftMessage,
         isCartPage: params.isCartPage
