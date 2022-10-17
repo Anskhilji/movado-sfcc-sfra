@@ -27,19 +27,19 @@
         </label>
 
         <div class="form-group gift-textarea gift-message-box hide-box gift-box-container-modal-body-form-textarea-container">
-            <label for="exampleFormControlTextarea1" class="gift-box-container-modal-body-form-textarea-container-label">Enter your message (optional)</label>
+            <label for="exampleFormControlTextarea1" class="gift-box-container-modal-body-form-textarea-container-label">${Resource.msg('label.minicart.enter.optional.message', 'cart', null)}</label>
             <textarea rows="3" name="giftMessageText" class="form-control gift-text gift-box-container-modal-body-form-textarea-container-text-box" aria-label="Type your complimentary gift message here" col="70" placeholder="Type your complimentary gift message here" data-format-error="" data-required-error="" data-row-max="3" data-row-maxlength="70" maxlength="50">${pdict.itemLevelGiftMessage ? pdict.itemLevelGiftMessage : ''}</textarea>
                 <div class="gift-error-wrapper">
-                    <span class="gift-message-blank">Please enter Gift Message</span>
-                    <span class="gift-message-error">Please enter valid input</span>
+                    <span class="gift-message-blank">${Resource.msg('label.minicart.giftbox.enter.gift-message', 'cart', null)}</span>
+                    <span class="gift-message-error">${Resource.msg('label.minicart.enter.valid.input', 'cart', null)}</span>
                 </div>
         </div>
     </form>
     <isset name="giftBoxSKUData" value="${require('*/cartridge/scripts/helpers/productCustomHelper').getGiftBoxSKU(product)}" scope="page" />
     <div class="text-center">  
-        <p class="gift-box-container-modal-body-note">Note: All items ship to one address</p>
+        <p class="gift-box-container-modal-body-note">${Resource.msg('label.minicart.giftbox.address.note', 'cart', null)}</p>
         <input type="button" disabled="disabled" value="Save" id="gift-allowed-checkout" data-add-to-cart-url="${URLUtils.url('Cart-AddProduct')}" name="gift-allowed-checkout" class="btn add-gift-box gift-box-container-modal-body-save-button  minicart-gift-allowed-checkbox gift-allowed-checkbox-mini giftbox-mini-${pdict.productUUID}" data-requested-page="${pdict.isCartPage ? pdict.isCartPage : false}" data-parent-pid="${pdict.productUUID}" data-pid="${product.id}" data-value="${pdict.giftBoxSKUData.giftBoxSKU}">
-        <button type="btn" disabled="disabled" class="btn d-none add-gift-message gift-box-container-modal-body-save-button" href="${URLUtils.url('Cart-AddGiftMessage')}" data-product-uuid="${pdict.productUUID}">SAVE</button>
+        <button type="btn" disabled="disabled" class="btn d-none add-gift-message gift-box-container-modal-body-save-button" href="${URLUtils.url('Cart-AddGiftMessage')}" data-product-uuid="${pdict.productUUID}">${Resource.msg('label.minicart.giftmessage.btn', 'cart', null)}</button>
         <iscomment> close icon for mobile  </iscomment>
         <div class="d-md-none">
             <button type="button" class="close float-none mt-2" data-dismiss="modal" aria-label="Close">

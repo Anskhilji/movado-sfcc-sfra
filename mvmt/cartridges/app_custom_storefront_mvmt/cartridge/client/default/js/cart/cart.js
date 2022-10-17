@@ -453,6 +453,19 @@ module.exports = function () {
                 }
                 $('.gift-message-error').hide();
                 $this.find('.apply-button').addClass('d-none');
+                data.basketModel.items.forEach(function (item) {
+                    var $itemLevelGiftMessage = item.customAttributes.itemLevelGiftMessage.msgLine1;
+                    if ($itemLevelGiftMessage !== undefined && $itemLevelGiftMessage !== '') {
+                        $('.gift-box-container-label').addClass('d-none');
+                        $('.gift-box-container-label-edit').removeClass('d-none');
+                        $('.gift-box-container-label-edit').text($itemLevelGiftMessage);
+                        $('.gift-box-container-modal .gift-text').text($itemLevelGiftMessage);
+                        $('.gift-personlize-msg').text($itemLevelGiftMessage);
+                        $('.gift-box-container-link').addClass('d-none');
+                        $('.gift-box-container-link-edit').removeClass('d-none');
+                    }
+                });
+                $('#giftBoxModelPopUp').modal('hide')
             },
             error: function (data) {
             	$.spinner().stop();

@@ -50,26 +50,6 @@
         </div>
     <isslot id="cs-mincart-top-slot" description="Static text slot on Mini Cart" context="global" />
   
-  <isif condition="${enableGiftMessage}">
-        <div class="gift-messages">
-            <div class="row gift-messages-wrapper">
-                <div class="col-12 d-flex pr-0  justify-content-center">
-                    <div class="custom-control custom-checkbox">
-                        <input name="giftMessageCheck" class="custom-control-input gift-messages-chekbox" id="gift-messages-route" type="checkbox">
-                        <label class="checkout-checkbox custom-control-label gift-messages-label" for="gift-messages-route">${Resource.msg('label.minicart.gift.message', 'cart', null)}</label>
-                    </div>
-                    <a class="gift-messages-tooltip">${Resource.msg('label.minicart.gift.detail', 'cart', null)}</a>
-                </div>
-            </div>
-            <div class="row gift-messages-model">
-                <div class="col-12">
-                    <div class="custom-tooltipsmart">
-                        <isslot id="gift-model-content-minicart" description="gift model content" context="global" />
-                    </div>
-                </div>
-            </div>
-        </div>
-    </isif> 
 
     <div class="product-summary">
         <isloop items="${items}" var="lineItem" status="loopStatus">
@@ -89,9 +69,11 @@
                </isif>
             </div>
         </isloop>
-            <isslot id="cs_cart_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"
-                context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}" />
 
+        <iscomment>Custom Start: Recomendation Carousel </iscomment>
+        <isslot id="cs_cart_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"
+            context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}" />
+        <iscomment> Custom End </iscomment>
     </div>
     <div class="minicart-footer">
         <iscomment>Custom Start: Adding promo code template </iscomment>

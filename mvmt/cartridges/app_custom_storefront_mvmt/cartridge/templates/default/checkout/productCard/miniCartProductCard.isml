@@ -67,7 +67,7 @@
                     <isif condition="${lineItem.customAttributes['itemLevelGiftMessage']}">
                         <div class="line-item-option">
                             <div class="personalize-price">${Resource.msgf('label.personalization.giftMessage', 'confirmation', null)}</div>
-                            <div class="personalize-msg">${lineItem.customAttributes['itemLevelGiftMessage'].msgLine1}</div>
+                            <div class="personalize-msg gift-personlize-msg">${lineItem.customAttributes['itemLevelGiftMessage'].msgLine1}</div>
                         </div>
                     </isif>
 
@@ -125,4 +125,6 @@
         <div class="gift-box-container-label">${Resource.msg('label.minicart.gift.message', 'cart', null)} </div>
         <a href="${URLUtils.https('Cart-ShowGiftBoxModal', 'pid', lineItem.id, 'uuid', lineItem.UUID)}" type="button" class="btn gift-box-container-link" data-toggle="modal" data-target="#giftBoxModelPopUp">${Resource.msg('label.minicart.giftbox.link', 'cart', null)}</a>
     </isif>
+    <div class="gift-box-container-label gift-box-container-label-edit d-none">${lineItem.customAttributes['itemLevelGiftMessage'].msgLine1}</div>
+    <a href="${URLUtils.https('Cart-ShowGiftBoxModal', 'pid', lineItem.id, 'uuid', lineItem.UUID, 'itemLevelGiftMessage', lineItem.customAttributes['itemLevelGiftMessage'].msgLine1)}" type="button" class="btn gift-box-container-link gift-box-container-link-edit d-none" data-toggle="modal" data-target="#giftBoxModelPopUp">Add/Edit</a>
 </div>

@@ -446,6 +446,7 @@ module.exports = function () {
                         var pid = $this.data('pid');
                         $('.giftbox-mini-' + pid ).hide();
                         $('.giftbox-mini-' + pid).next('label').hide();
+                        $('#giftBoxModelPopUp').modal('hide')
                         $.spinner().stop();
                         //Custom End
                     },
