@@ -27,7 +27,7 @@
             <isslot id="cs-search-banner-image" description="Search banner Image" context="global" />
         </isif>
         <div class="banner-count d-none d-md-block">
-            <div class="result-count ">
+            <div class="result-count">
                 <isinclude template="search/resultsCount" />
             </div>
         </div>
@@ -74,7 +74,7 @@
                                                 <div class="row m-0 grid-header">
                                                     <div class="result-count">
                                             <iselse>
-                                                <div class="row m-0 grid-header justify-content-start">
+                                                <div class="row m-0 grid-header results-count justify-content-start">
                                                     <div class="result-count col">
                                             </isif>
                                             <isinclude template="search/resultsCount" />
