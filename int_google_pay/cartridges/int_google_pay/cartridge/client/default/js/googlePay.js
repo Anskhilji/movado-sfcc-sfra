@@ -4,7 +4,7 @@
  *
  * @see {@link https://developers.google.com/pay/api/web/reference/request-objects#PaymentDataRequest|apiVersion in PaymentDataRequest}
  */
-const baseRequest = {
+ const baseRequest = {
     apiVersion: 2,
     apiVersionMinor: 0
 };
@@ -208,8 +208,18 @@ function onPaymentAuthorized(paymentData) {
                         }
                     });
                 } else {
+                    var redirectUrl = data.redirectUrl;
+                    var urlParams = {
+                        ID: data.orderID
+                    };
+
+                    redirectUrl += (redirectUrl.indexOf('?') !== -1 ? '&' : '?') +
+                        Object.keys(urlParams).map(function (key) {
+                            return key + '=' + encodeURIComponent(urlParams[key]);
+                        }).join('&');
+
                     setTimeout(() => {
-                        window.location.href = data.redirectUrl
+                        window.location.href = redirectUrl
                     }, 300);
                     resolve({ transactionState: 'SUCCESS' });
                 }

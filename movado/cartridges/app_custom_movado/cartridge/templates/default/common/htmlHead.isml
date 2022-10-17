@@ -94,7 +94,7 @@
 <iscomment> Custom End </iscomment>
 
   <isset name="fontStyleSheet"
-    value="${!empty(dw.system.Site.current.preferences.custom.fontStyleSheet) ? dw.system.Site.current.preferences.custom.fontStyleSheet : false}"
+    value="${!empty(dw.system.Site.current.preferences.custom.fontStyleSheet) ? dw.system.Site.current.preferences.custom.fontStyleSheet : ''}"
     scope="page" />
   <isprint value="${fontStyleSheet}" encoding="off" />
   

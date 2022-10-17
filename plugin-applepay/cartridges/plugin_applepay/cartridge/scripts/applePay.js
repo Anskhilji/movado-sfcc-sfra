@@ -65,6 +65,7 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     var isBillingPostalNotValid;
     var orderShippingAddress;
     var isShippingPostalNotValid;
+    var orderNumber = order.orderNo;
     var paymentInstruments = order.getPaymentInstruments(
         PaymentInstrument.METHOD_DW_APPLE_PAY).toArray();
     if (!paymentInstruments.length) {
@@ -72,7 +73,7 @@ exports.afterAuthorization = function (order, payment, custom, status) {
             'app.fraud.detection.checkoutdenied',
             'checkoutDenied',
             orderNumber,
-            paymentInstrument,
+            paymentInstruments[0],
             require('*/cartridge/scripts/hooks/fraudDetectionHook').checkoutDenied);
         checkoutLogger.error('Unable to find Apple Pay payment instrument for order:' + order.orderNo);
         return new Status(Status.ERROR);
@@ -83,10 +84,16 @@ exports.afterAuthorization = function (order, payment, custom, status) {
             'app.fraud.detection.checkoutdenied',
             'checkoutDenied',
             orderNumber,
-            paymentInstrument,
+            paymentInstruments[0],
             require('*/cartridge/scripts/hooks/fraudDetectionHook').checkoutDenied);
         checkoutLogger.error('Unable to authorze Apple Pay payment for order: ' + order.orderNo);
         return new Status(Status.ERROR);
+    }
+
+    if (session.privacy.pickupFromStore) {
+        session.custom.applePayCheckout = false;
+    } else {
+        session.custom.StorePickUp = false;
     }
 
     var transactionID = payment.getPaymentTransaction().getTransactionID();
@@ -188,12 +195,26 @@ exports.afterAuthorization = function (order, payment, custom, status) {
         Logger.error('(applePay.js) --> Exception occured while try to validate shipping & billing address for orderID: {0} and exception is: {1}', order.orderNo, e);
     }
 
-    hooksHelper(
+    var checkoutDecisionStatus = hooksHelper(
         'app.fraud.detection.create',
         'create',
         order.orderNo,
         order.paymentInstrument,
         require('*/cartridge/scripts/hooks/fraudDetectionHook').create);
+
+    var RiskifiedOrderDescion = require('*/cartridge/scripts/riskified/RiskifiedOrderDescion');
+    if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'declined') {
+        // Riskified order declined response from decide API
+        riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order);
+        if (riskifiedOrderDeclined) {
+            var riskifiedError = new Status(Status.ERROR);
+            session.privacy.riskifiedDeclined = true;
+            return riskifiedError;
+        }
+    } else if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'approved') {
+        // Riskified order approved response from decide API
+        RiskifiedOrderDescion.orderApproved(order);
+    }
     if (deliveryValidationFail) {
         var sendMail = true; // send email is set to true
         var isJob = false; // isJob is set to false because in case of job this hook is never called
@@ -243,6 +264,23 @@ exports.afterAuthorization = function (order, payment, custom, status) {
 };
 
 /**
+ *	if order is failed and RiskDeclined true then based on session privacy check redirect to the checkout declined page
+ * @param order
+ * @param status
+ * @returns status
+ */
+exports.failOrder = function (order, status) {
+    var URLUtils = require('dw/web/URLUtils');
+
+    if (session.privacy.riskifiedDeclined) {
+        delete session.privacy.riskifiedDeclined;
+        return new ApplePayHookResult(new Status(Status.ERROR), URLUtils.url('Checkout-Declined', 'ID', order.orderNo));
+    } else {
+        return new Status(Status.OK);
+    }
+};
+
+/**
  *	prepareBasket hook implementation for Apple pay updating the  personalization data in Basket from PDP and Quickview
  * @param order
  * @param payment
@@ -252,6 +290,24 @@ exports.afterAuthorization = function (order, payment, custom, status) {
  */
 exports.prepareBasket = function (basket, parameters) {
     // get personalization data from session for PDP and Quickview
+
+
+    if (!empty(parameters.sku)) {
+        if (!session.privacy.pickupFromStore) {
+            session.custom.StorePickUp = false;
+            session.custom.applePayCheckout = true;
+        } else {
+            session.custom.applePayCheckout = true;
+            session.custom.StorePickUp = false;
+        }
+    } else {
+        if (!session.privacy.pickupFromStore) {
+            session.custom.applePayCheckout = true;
+        } else {
+            session.custom.StorePickUp = true;
+        }
+    }
+    
     if (parameters.sku && parameters.sku === session.custom.appleProductId) {
         var appleEngraveOptionId = session.custom.appleEngraveOptionId;
         var appleEmbossOptionId = session.custom.appleEmbossOptionId;

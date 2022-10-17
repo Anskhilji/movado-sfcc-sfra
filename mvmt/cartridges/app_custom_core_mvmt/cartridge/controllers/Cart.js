@@ -4,9 +4,13 @@
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
+<<<<<<< HEAD
 var productFactory = require('*/cartridge/scripts/factories/product');
 var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
 var ProductMgr = require('dw/catalog/ProductMgr');
+=======
+var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
+>>>>>>> release-49-develop
 
 var server = require('server');
 var page = module.superModule;
@@ -66,6 +70,24 @@ server.get('ShowGiftBoxModal', server.middleware.https, csrfProtection.generateT
    res.setViewData(viewData);
    res.render('checkout/cart/giftBoxModel');
    next();
+});
+
+// Show add to Cart Button as Remote Include
+server.replace('ShowAddProductButton', function (req, res, next) {
+    var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
+    var productId = req.querystring.pid;
+    var display = {
+        plpTile: false
+    }
+
+    res.render('product/components/showCartButtonProduct', {
+        product: showProductPageHelperResult.product,
+        isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
+        productId: productId,
+        display: display
+    });
+
+    next();
 });
 
 server.get('MiniCartCheckout', server.middleware.include, function (req, res, next) {

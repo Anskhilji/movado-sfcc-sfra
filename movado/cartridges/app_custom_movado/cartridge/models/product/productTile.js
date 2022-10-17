@@ -15,8 +15,7 @@ function getProductSearchHit(apiProduct) {
     var searchModel = new ProductSearchModel();
     var allVariantProducts;
     var variantProduct;
-
-    if(!empty(apiProduct)) {
+    if (!empty(apiProduct)) {
         searchModel.setSearchPhrase(apiProduct.ID);
         searchModel.search();
     }
@@ -33,7 +32,7 @@ function getProductSearchHit(apiProduct) {
             var tempHit = searchHits.next();
             if (tempHit.firstRepresentedProductID === apiProduct.ID) {
                 hit = tempHit;
-            }  else if (!empty(apiProduct) && !empty(apiProduct.variants) && apiProduct.variants.length > 0 && tempHit.hitType == 'slicing_group') {
+            } else if (!empty(apiProduct) && !empty(apiProduct.variants) && apiProduct.variants.length > 0 && tempHit.hitType == 'slicing_group') {
                 allVariantProducts = apiProduct.variants.toArray();
                 variantProduct = allVariantProducts.filter(function (data) { return data.ID === tempHit.firstRepresentedProductID });
                 hit = variantProduct ? tempHit : null;
@@ -57,6 +56,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
     var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
     var collectionName = productCustomHelper.getCollectionName(apiProduct);
     var ociPreOrderParameters = productCustomHelper.getOCIPreOrderParameters(apiProduct);
+    var yotpoReviewsCustomAttribute = productCustomHelper.getYotpoReviewsCustomAttribute(apiProduct);
 
     if (!productSearchHit) {
         return null;
@@ -83,7 +83,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
         decorators.mgattributes(product, apiProduct);
     }
     if (!params.images || params.images == true) {
-        decorators.images(product, apiProduct, { types: ['tile533', 'tile256', 'tile217', 'tile150', 'tile512', 'tile300X375','tile512X640','tile532X300', 'tile300X300', 'tile180'], quantity: 'all' });
+        decorators.images(product, apiProduct, { types: ['tile300', 'tile533','tile640' ,'tile520', 'tile256', 'tile217', 'tile150', 'tile512', 'tile300X375','tile512X640','tile532X300', 'tile300X300', 'tile180'], quantity: 'all' });
     }
     if (!params.promotions || params.promotions == true) {
         decorators.promotions(product, options.promotions);
@@ -111,6 +111,13 @@ module.exports = function productTile(product, apiProduct, productType, params) 
         Object.defineProperty(product, 'ociPreOrderParameters', {
             enumerable: true,
             value: ociPreOrderParameters
+        });
+    }
+
+    if (!empty(yotpoReviewsCustomAttribute)) {
+        Object.defineProperty(product, 'yotpoReviewsCustomAttribute', {
+            enumerable: true,
+            value: yotpoReviewsCustomAttribute
         });
     }
 

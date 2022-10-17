@@ -3,13 +3,13 @@
     <isif condition="${!empty(lineItem)} ">
         <div class="row">
             <isif condition="${lineItem.bonusProductLineItemUUID === 'bonus'}">
-                <div class="card ab1 ${miniCart ? 'bonus-product-line-item' : ''} uuid-${lineItem.UUID}">
+                <div class="card ${miniCart ? 'bonus-product-line-item' : ''} uuid-${lineItem.UUID}">
                     <div class="card-body">
                         <isinclude template="checkout/productCard/miniCartBonusProductCard" />
                     </div>
                 </div>
             <iselseif condition="${!empty(lineItem.giftPid)}"/>
-                <div class="card ab2 ${JSON.stringify(lineItem)} ${lineItem.giftPid} uuid-${lineItem.UUID}">
+                <div class="card ${JSON.stringify(lineItem)} ${lineItem.giftPid} uuid-${lineItem.UUID}">
                     <div class="card-body">
                         <isinclude template="checkout/productCard/miniCartProductCard" />
                     </div>
