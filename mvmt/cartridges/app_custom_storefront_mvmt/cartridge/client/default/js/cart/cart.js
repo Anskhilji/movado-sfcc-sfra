@@ -1003,7 +1003,6 @@ module.exports = function () {
         $('.add-gift-message').removeClass('d-none');
         $('.add-gift-message').removeAttr('disabled');
         $('.add-gift-box').addClass('d-none');
-
     });
 
     $('body').on('click', '.add-gift-box-input', function () {

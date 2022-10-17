@@ -1636,7 +1636,7 @@
     .gift-icon {
         margin-right: rem(10);
     }
-    
+
     &-label {
         color: $light-black;
         font-family: $font-medium;
@@ -1646,7 +1646,6 @@
         line-height: rem(16);
     }
 
-
     &-link {
         color: $curious-light-blue;
         font-family: $font-medium;
@@ -1655,11 +1654,11 @@
         letter-spacing: rem(0.53);
         line-height: rem(16);
         text-transform: capitalize;
-    
+
         &:hover {
             color: $curious-light-blue;
         }
-    
+
         &:focus {
             box-shadow: none;
         }
@@ -1703,7 +1702,7 @@
             .modal-content {
                 border: none;
                 border-radius: rem(0);
-                
+
                 @include media-breakpoint-down(xs) {
                     height: 100%;
                 }

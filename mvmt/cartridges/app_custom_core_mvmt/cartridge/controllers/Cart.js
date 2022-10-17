@@ -34,39 +34,35 @@ server.replace('MiniCart', server.middleware.include, function (req, res, next) 
     next();
 });
 
-
 /**
 * Opens the Modal and populates it with GiftBox and Gift Message.
 */
-
 server.get('ShowGiftBoxModal', server.middleware.https, csrfProtection.generateToken, function (req, res, next) {
-    var CartModel = require('*/cartridge/models/cart');
-    var BasketMgr = require('dw/order/BasketMgr');
-    
+    var viewData;
     var params = {
-       pid: req.querystring.pid,
-       uuid: req.querystring.uuid,
-       itemLevelGiftMessage: req.querystring.itemLevelGiftMessage,
-       isCartPage: req.querystring.isCartPage
-   };
-   
-   var product = productFactory.get(params);
-   var apiProduct = ProductMgr.getProduct(req.querystring.pid);
-   var giftBoxSKUData = productCustomHelper.getGiftBoxSKU(apiProduct);
-   var images = product.images.tile150;
+        pid: req.querystring.pid,
+        uuid: req.querystring.uuid,
+        itemLevelGiftMessage: req.querystring.itemLevelGiftMessage,
+        isCartPage: req.querystring.isCartPage
+    };
 
-   viewData = {
-       product: product,
-       image: images[0],
-       productUUID : params.uuid,
-       giftBoxSKUData: giftBoxSKUData,
-       itemLevelGiftMessage: params.itemLevelGiftMessage,
-       isCartPage: params.isCartPage
-   };
+    var product = productFactory.get(params);
+    var apiProduct = ProductMgr.getProduct(req.querystring.pid);
+    var giftBoxSKUData = productCustomHelper.getGiftBoxSKU(apiProduct);
+    var images = product.images.tile150;
 
-   res.setViewData(viewData);
-   res.render('checkout/cart/giftBoxModel');
-   next();
+    viewData = {
+        product: product,
+        image: images[0],
+        productUUID : params.uuid,
+        giftBoxSKUData: giftBoxSKUData,
+        itemLevelGiftMessage: params.itemLevelGiftMessage,
+        isCartPage: params.isCartPage
+    };
+
+    res.setViewData(viewData);
+    res.render('checkout/cart/giftBoxModel');
+    next();
 });
 
 // Show add to Cart Button as Remote Include
@@ -177,7 +173,6 @@ server.append('RemoveProductLineItem', function (req, res, next) {
                     if (childGiftitem.productID == item.custom.giftPid) {
                         currentBasket.removeProductLineItem(childGiftitem);
                     }
-
                 }
             }
         }
