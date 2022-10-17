@@ -124,6 +124,9 @@ function getPagingModel(productHits, count, pageSize, startIndex) {
  */
 function getShowMoreUrl(productSearch, httpParams, enableGridSlot, sortedProductSearchHits) {
     var showMoreEndpoint = 'Search-UpdateGrid';
+    if (session.custom.showMoreEndpoint) {
+        showMoreEndpoint = session.custom.showMoreEndpoint;
+    }
     var currentStart = httpParams.start || 0;
     var pageSize = httpParams.sz || DEFAULT_PAGE_SIZE;
     var category = catalogMgr.getCategory(productSearch.categoryID);
