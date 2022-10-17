@@ -1014,6 +1014,10 @@ module.exports = function () {
 
     });
 
+    $('body').on('click', '.gift-box-none-button', function () {
+        $('.add-gift-message').attr('disabled', 'disabled');
+    });
+
     base.selectAttribute();
     base.colorAttribute();
     base.removeBonusProduct();

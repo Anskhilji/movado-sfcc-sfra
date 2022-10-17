@@ -793,6 +793,5 @@ module.exports = function () {
 
     $('.clicked-label').click(function() {
         $('.textarea-container').addClass('d-block');
-    });
-    
+    }); 
 };

@@ -6,10 +6,8 @@
     <isif condition="${isEswEnabled}">
         <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page" />
         <isif condition="${empty(pdict.product)}">
-            <p>1</p>
             <isset name="matchingLineItem" value="${typeof childlineItem != 'undefined' ? eswHelper.getMatchingLineItem(childlineItem) : ''}" scope="page" />
         <iselse>
-        <p>2</p>
             <isset name="matchingLineItem" value="${eswHelper.getMatchingLineItem(pdict.product)}" scope="page" />
         </isif>
     </isif>
@@ -37,10 +35,8 @@
         </del>
     </isif>
     <isif condition="${isEswEnabled && !empty(matchingLineItem)}">
-    <p>3</p>
         <isset name="price" value="${formatMoney(eswHelper.getUnitPriceCost(matchingLineItem))}" scope="page" />
     <iselse>
-    <p>4</p>
         <isset name="price" value="${!empty(finalOrigPrice) ? finalOrigPrice.sales : ''}" scope="page" />
     </isif>
 

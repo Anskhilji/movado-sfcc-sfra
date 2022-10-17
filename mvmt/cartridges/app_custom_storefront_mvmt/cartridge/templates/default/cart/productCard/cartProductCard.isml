@@ -134,7 +134,7 @@
 
     <isset name="isCartPage" value="${true}" scope="page" />
     <div class="gift-box-container w-100 justify-content-start full-cart-continaer">
-        <img class="gift-icon" alt="" src="${URLUtils.staticURL('/images/giftbox-icon.svg')}" />
+        <img class="gift-icon" alt="gift box icon" src="${URLUtils.staticURL('/images/giftbox-icon.svg')}" />
         <isif condition="${lineItem.customAttributes['itemLevelGiftMessage']}">
             <div class="gift-box-container-label">${lineItem.customAttributes['itemLevelGiftMessage'].msgLine1}</div>
             <a href="${URLUtils.https('Cart-ShowGiftBoxModal', 'pid', lineItem.id, 'uuid', lineItem.UUID, 'itemLevelGiftMessage', lineItem.customAttributes['itemLevelGiftMessage'].msgLine1, 'isCartPage', isCartPage)}" type="button" class="btn gift-box-container-link" data-toggle="modal" data-target="#giftBoxModelPopUp">Add/Edit</a>

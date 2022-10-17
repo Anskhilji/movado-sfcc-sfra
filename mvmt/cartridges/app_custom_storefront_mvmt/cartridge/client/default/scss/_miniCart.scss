@@ -1648,13 +1648,18 @@
 
 
     &-link {
-        color: $curious-light-blue !important;
+        color: $curious-light-blue;
         font-family: $font-medium;
         font-size: rem(12);
         font-weight: 500;
         letter-spacing: rem(0.53);
         line-height: rem(16);
         text-transform: capitalize;
+    
+        &:hover {
+            color: $curious-light-blue;
+        }
+    
         &:focus {
             box-shadow: none;
         }
@@ -1667,12 +1672,22 @@
 
             &-heading {
                 color: $light-black;
-                font-family: "Adobe Garamond Pro";
+                // font-family: $font-GaramondPro;
                 font-size: rem(24);
                 font-style: italic;
                 letter-spacing: rem(0);
                 line-height: rem(30);
                 text-align: center;
+                margin-top: rem(14);
+            }
+
+            .close {
+                opacity: 1;
+                width: rem(25);
+                height: rem(25);
+                padding: 0;
+                margin-top: rem(2);
+                margin-right: rem(4);
             }
         }
 
@@ -1844,6 +1859,9 @@
                 height: rem(45); 
             }
 
+            .close {
+                opacity: 1;
+            }
         }
     }
 }

@@ -162,6 +162,26 @@ server.append('RemoveProductLineItem', function (req, res, next) {
     var isMiniCart = empty(req.querystring.isMiniCart) ? false : req.querystring.isMiniCart;
     var basket = empty(res.getViewData().basket) ? '' : res.getViewData().basket;
     var basketItems = empty(basket) ? 0 : basket.items.length;
+    var BasketMgr = require('dw/order/BasketMgr');
+    var currentBasket = BasketMgr.getCurrentOrNewBasket();
+
+    // this is logic is used to remove child gift item if we remove parent product
+    if (req.querystring.pid && req.querystring.uuid) {
+        var productLineItems = currentBasket.getAllProductLineItems(req.querystring.pid); 
+        for (var i = 0; i < productLineItems.length; i++) {
+            var item = productLineItems[i];
+            if (item.custom.giftPid) {
+                var giftProductLineItems = currentBasket.getAllProductLineItems(item.custom.giftPid);
+                for (var i = 0; i < giftProductLineItems.length; i++) {
+                    var childGiftitem = giftProductLineItems[i];
+                    if (childGiftitem.productID == item.custom.giftPid) {
+                        currentBasket.removeProductLineItem(childGiftitem);
+                    }
+
+                }
+            }
+        }
+    }
 
     if (basketItems == 0 && isMiniCart) {
         var ContentMgr = require('dw/content/ContentMgr');

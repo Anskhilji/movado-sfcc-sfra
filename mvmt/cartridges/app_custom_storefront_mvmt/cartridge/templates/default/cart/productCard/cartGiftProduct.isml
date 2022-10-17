@@ -2,7 +2,7 @@
     <isset name="lineItem" value="${childlineItem}" scope="page" />
     <div class="row gift-product-row ${bonuslineitemrow} item-info">
         <isif condition="${lineItem && lineItem.images && lineItem.images.tile150[0]}">
-            <isset name="productImage" value="${lineItem.images.tile150[0]}" scope="page"/>
+            <isset name="productImage" value="${lineItem && lineItem.images && lineItem.images.tile150[0] ? lineItem.images.tile150[0] : ''}" scope="page"/>
             <iscomment> bootstrap columns classes changed </iscomment>
             <div class="align-items-center col-8 col-lg-6 d-flex">
                 <img class="product-image" src="${productImage.url}" alt="${productImage.alt}" title="${productImage.title}">
