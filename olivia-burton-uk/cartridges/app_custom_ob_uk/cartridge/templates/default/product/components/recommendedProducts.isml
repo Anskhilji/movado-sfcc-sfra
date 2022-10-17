@@ -15,9 +15,7 @@
                         </button>
                         <div class="upsell-wrapper-inner">
                            <div class="upsell-image-box">
-                                <isif condition="${!empty(recommendation) && !empty(recommendation.images) && !empty(recommendation.images.tile217 && recommendation.images.tile217[0].url ? recommendation.images.tile217[0].url : '')}">
-                                    <img class="img-fluid upsell-image" alt="${recommendation.productName}" src="${recommendation.images.tile217[0].url}" />
-                                </isif>
+                                <img class="img-fluid upsell-image" alt="${recommendation.productName}" src="${!empty(recommendation) && !empty(recommendation.images) && !empty(recommendation.images.tile217) && !empty(recommendation.images.tile217[0].url) ? recommendation.images.tile217[0].url : ''}" />
                            </div>
                             <p class="upsell-description">${recommendation.productName}</p>
                             <div class="upsell-meta">
