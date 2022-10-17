@@ -11,7 +11,7 @@ module.exports = function () {
             var $lifeStyleImageContainer = $productContainer.find('.image-container .life-style-image');
             var isEnableSingleProductRow = $('.search-results').data('is-enable-single-product-row');
             var isNonWatchesTileEnable = $('.search-results').data('is-non-watches-tile-enable');
-            if (!($productContainer.parents('.product-grid').length > 0)) {
+            if (!($productContainer.parents('.product-grid').length > 0) || (($productContainer.parents('.product-grid').length > 0) && ($('.product-grid').hasClass('recommendation')))) {
                 $productContainer.find('.image-container').find('source').attr('srcset', primaryImageUrls.tile256[0].url);
                 $imageContainer.attr('src', primaryImageUrls.tile256[0].url);
                 // life style image handling

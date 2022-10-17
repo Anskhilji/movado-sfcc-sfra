@@ -72,6 +72,12 @@ server.append(
         var currentBasket = BasketMgr.getCurrentBasket();
         var countryCode = orderCustomHelper.getCountryCode(req);
 
+        if (session.privacy.pickupFromStore) {
+            session.custom.applePayCheckout = false;
+        } else {
+            session.custom.StorePickUp = false;
+        }
+
         if (!currentBasket) {
             res.redirect(URLUtils.url('Cart-Show'));
             return next();
@@ -144,6 +150,17 @@ server.append(
 });
 
 server.get('Declined', function (req, res, next) {
+    var Constants = require('~/cartridge/scripts/helpers/utils/Constants');
+
+    var orderDeclinedObj = {
+        orderNumber: req.querystring.ID,
+        status: Constants.RISKFIED_ORDER_DECLINED
+    };
+
+    res.setViewData({
+        orderDeclinedObj: JSON.stringify(orderDeclinedObj)
+    });
+    
     res.render('checkout/declinedOrder');
     next();
 });

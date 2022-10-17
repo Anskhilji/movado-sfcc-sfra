@@ -301,6 +301,33 @@ function moveFocusToTop() {
     window.scrollTo({top: y, behavior: 'smooth'});
 }
 
+function clickedFilterButton() {
+    $(".movado-refinements-type").click(function(){
+        $(".refinement-bar-redesign").addClass("refinement-open-state");
+        $(".tab-pane.active>.container-fluid").addClass("container-open-state");
+        $(".modal-background").removeClass("fadeOut").addClass("d-block fadeIn fast");
+    });
+}
+
+function filterApplyAddClassFilter() {
+    var $winWidthFilter = $(window).width();
+    var $mediumBreakPointFilter = 992;
+
+    if ($winWidthFilter < $mediumBreakPointFilter) {
+        $(".close-refinebar .filter-more").removeClass("d-none").addClass("d-block");
+        $(".close-refinebar .sort-by").removeClass("d-block").addClass("d-none");
+    }
+}
+function filterApplyRemoveClassSort() {
+    var $winWidthSort = $(window).width();
+    var $mediumBreakPointSort = 992;
+
+    if ($winWidthSort < $mediumBreakPointSort) {
+        $(".close-refinebar .sort-by").removeClass("d-none").addClass("d-block");
+        $(".close-refinebar .filter-more").removeClass("d-block").addClass("d-none");
+    }
+}
+
 // filter bar sticky styling MSS-1912
 $(window).scroll(function() {    
     var scroll = $(window).scrollTop();
@@ -377,6 +404,7 @@ module.exports = {
                     updatePageURLForSortRule(url);
                     // edit
                     $.spinner().stop();
+                    filterApplyRemoveClassSort()
                 },
                 error: function () {
                     $.spinner().stop();
@@ -553,6 +581,8 @@ module.exports = {
                         moveFocusToTop();
                         swatches.showSwatchImages();
                         $('.plp-new-design .result-count').removeClass('col-12 col-md-9 col-sm-6 order-sm-2');
+                        clickedFilterButton();
+                        filterApplyAddClassFilter();
                     },
                     error: function () {
                         $.spinner().stop();
@@ -575,4 +605,61 @@ module.exports = {
             $('.show-more-content').remove();
         });
     },
+
+    // Custom start: For Mobile Filters
+    // Current filter active desktop
+    selectedFilterActiveDesktop: function () {
+        $('.refine-wrapper').on('click', '.movado-refinements-container', function (e) {
+            var $winWidth = $(window).width();
+            var $mediumBreakPoint = 992;
+
+            if ($winWidth >= $mediumBreakPoint) {
+                var $clicked = e.target.closest('.refinement-btn');
+                var $filterAll = $('.selected-refinement');
+                if (!$clicked) return;
+                if ($clicked) {
+                    $filterAll.each(function (e) {
+                        var $isContain = $(this).hasClass('active');
+                        if ($isContain) {
+                            $(this).removeClass('active');
+                        }
+                    });
+                }
+            }
+        });
+    },
+    
+    // Current filter active mobile
+    selectedFilterActiveMobile: function () {
+        $('.refine-wrapper').on('click', '.sort-order-mobile-menu', function (e) {
+            var $winWidth = $(window).width();
+            var $mediumBreakPoint = 992;
+
+            if ($winWidth < $mediumBreakPoint) {
+                var $clicked = e.target.closest('.custom-select__option');
+                var $filterAll = $('.custom-select__option');
+                
+                if (!$clicked) return;
+                if ($clicked) {
+                    $filterAll.each(function (e) {
+                        var $isContain = $(this).hasClass('active');
+                        if ($isContain) {
+                            $(this).removeClass('active');
+                        }
+                    });
+                    $clicked.classList.add('active');
+                }
+            }
+        });
+    },
+
+   // start: append value to plp sort by from select option
+    selectedFiltervalueAppendToPlpSortBy: function () {
+        $('.sort-order-mobile-menu').on('click', '.custom-select__dropdown', function (e) {
+            var $mobileFilterBtn = $('.mobile-fliter-sort-button');
+            var $selectedValue = e.target.innerText;
+            $mobileFilterBtn.innerHTML = 'Sort by: ' + $selectedValue; 
+        });
+    },
+    // Custom end: For Mobile Filters
 };

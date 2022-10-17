@@ -36,6 +36,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var smartGift = smartGiftHelper.getSmartGiftCardBasket(showProductPageHelperResult.product.id);
     var smartGiftAddToCartURL = Site.current.preferences.custom.smartGiftURL + showProductPageHelperResult.product.id;
     var ABTestMgr = require('dw/campaign/ABTestMgr');
+    var emailPopupHelper = require('*/cartridge/scripts/helpers/emailPopupHelper');
 
     var collectionContentList;
     var moreStyleGtmArray = [];
@@ -105,7 +106,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     //Custom Start: Adding ESW variable to check eswModule enabled or disabled
     var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
     //Custom End
-
+    var listrakPersistentPopup = emailPopupHelper.listrakPersistentPopup(req);
     viewData = {
         isEmbossEnabled: isEmbossEnabled,
         isEngraveEnabled: isEngraveEnabled,
@@ -134,7 +135,8 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
         addToCartUrl: showProductPageHelperResult.addToCartUrl,
         isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
         smartGiftAddToCartURL: smartGiftAddToCartURL,
-        plpProductFamilyName: Site.getCurrent().preferences.custom.plpProductFamilyName ? Site.getCurrent().preferences.custom.plpProductFamilyName : false
+        plpProductFamilyName: Site.getCurrent().preferences.custom.plpProductFamilyName ? Site.getCurrent().preferences.custom.plpProductFamilyName : false,
+        popupID: listrakPersistentPopup
     };
 
     var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);

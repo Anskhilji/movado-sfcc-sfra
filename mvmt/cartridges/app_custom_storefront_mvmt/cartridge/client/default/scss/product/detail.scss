@@ -1572,7 +1572,7 @@
                             font-weight: 300;
                             line-height: normal;
                             @include media-breakpoint-down(sm) {
-                                display: inline;
+                                display: block;
                             }
 
                             &.strike-through {
@@ -1893,6 +1893,7 @@
     }
    
     .show-cart-button-below-price {
+        padding: rem(20) rem(0);
         .prices-add-to-cart-actions-top {
             position: relative;
             background-color: transparent;
@@ -1903,7 +1904,7 @@
 
             button.add-to-cart {
                 
-                    width: 94.64%;
+                    width: 100%;
                     height: rem(45);
                     line-height: 0.75;
                     border-radius: rem(3);
@@ -2063,6 +2064,10 @@
             @include media-breakpoint-up(md-down) {
               
                 border-radius: rem(5);
+            }
+
+            @include media-breakpoint-down(xs) {
+                line-height: rem(28);
             }
         }
 
@@ -2396,6 +2401,11 @@
         justify-content: center;
         flex-direction: column;
 
+        @include media-breakpoint-down(xs) {
+            align-items: flex-start;
+            justify-content: flex-start;
+        }
+
         @include media-breakpoint-up(md-down) {
 
             flex-direction: row;
@@ -2452,6 +2462,11 @@
                     background: none;
                     border-top: none;
                 }
+
+                @include media-breakpoint-down(xs) {
+                    text-align: left;
+                    padding-left: 0;
+                }
             }
         }
 
@@ -2463,6 +2478,7 @@
             max-width: 100%;
             flex-basis: 100%;
             padding-top: rem(16);
+            justify-content: flex-start;
 
             @include media-breakpoint-up(md-down) {
                 justify-content: flex-start;
@@ -2515,6 +2531,11 @@
             padding-top: rem(15);
             border-top: rem(2) solid $white-gray;
             margin-bottom: rem(20);
+
+            @include media-breakpoint-down(xs) {
+                border-top: none;
+                padding-top: rem(0);
+            }
         }
     }
 
@@ -2583,14 +2604,19 @@
             border: none;
 
             > div {
-                border-top: rem(1) solid $light-gray4;
+                border-top: rem(0) solid $light-gray4;
                 border-bottom: rem(1) solid $light-gray4;
-                background-color: $white-gray;
+                background-color: $white;
+                
+                @include media-breakpoint-down(xs) {
+                    border-top: none;
+                }
             }
 
             .attribute {
                 margin: 0;
-                text-align: center;
+                text-align: left;
+                background-color: $white;
             }
 
             .color-Attribute {
@@ -2614,7 +2640,7 @@
                     }
 
                     .select-size-head-label {
-                        display: none;
+                        display: block;
 
                         &.colorWatch {
                             display: block;
@@ -4864,4 +4890,13 @@
     @include media-breakpoint-up(md-down) {
         display: none;
     }  
+}
+
+.listrak-persistent-popup {
+    display: none !important;
+}
+.button-floting {
+    &.button-product-detail {
+        bottom: rem(160);
+    }
 }
