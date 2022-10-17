@@ -5,7 +5,7 @@
         <div class="linked-head">
             <iscontentasset aid="style-with-text-configs" />
         </div>
-        <div class="${dw.campaign.ABTestMgr.isParticipant('OBRedesignPDPABTest','render-new-design') ? 'recomended-products-redesign' : 'recomended-products'}" data-recomendation="true">
+        <div class="recomended-products-redesign" data-recomendation="true">
             <isloop items="${pdict.explicitRecommendations}" var="recommendation">
                 <isif condition="${recommendation != null}">
                     <div class="upsell-wrapper">
@@ -15,7 +15,7 @@
                         </button>
                         <div class="upsell-wrapper-inner">
                            <div class="upsell-image-box">
-                                <img class="img-fluid upsell-image" alt="${recommendation.productName}" src="${dw.campaign.ABTestMgr.isParticipant('OBRedesignPDPABTest','render-new-design') ? recommendation.images.tile217[0].url : recommendation.images.tile150[0].url}" />
+                                <img class="img-fluid upsell-image" alt="${recommendation.productName}" src="${recommendation.images.tile217[0].url}" />
                            </div>
                             <p class="upsell-description">${recommendation.productName}</p>
                             <div class="upsell-meta">
@@ -37,11 +37,7 @@
                                 <iselse/>
                                     <isset name="addtoCart" value="${Resource.msg('button.addtobag', 'common', null)}" scope="page" /> 
                                 </isif>
-                                <isif condition="${dw.campaign.ABTestMgr.isParticipant('OBRedesignPDPABTest','render-new-design')}">
                                     ${addtoCart}</p>
-                                <iselse/>
-                                    ${addtoCart}</p>
-                                </isif>
                         </div>
                     </div>
                 </isif>
