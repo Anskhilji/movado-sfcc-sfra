@@ -2529,7 +2529,6 @@
 
         .pdp-select-variations {
             padding-top: rem(15);
-            border-top: rem(2) solid $white-gray;
             margin-bottom: rem(20);
 
             @include media-breakpoint-down(xs) {
@@ -2617,6 +2616,10 @@
                 margin: 0;
                 text-align: left;
                 background-color: $white;
+
+                @include media-breakpoint-down(md-down) {
+                    margin: 0 rem(10) 0 rem(10);
+                }
             }
 
             .color-Attribute {
