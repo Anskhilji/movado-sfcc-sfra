@@ -230,16 +230,6 @@ server.get('RemoveProductLineItem', function (req, res, next) {
                     }
 
                     var shipmentToRemove = item.shipment;
-                    if (item.custom.giftPid) {
-                        var giftProductLineItems = currentBasket.getAllProductLineItems(item.custom.giftPid);
-                        for (var i = 0; i < giftProductLineItems.length; i++) {
-                            var childGiftitem = giftProductLineItems[i];
-                            if (childGiftitem.productID == item.custom.giftPid) {
-                                currentBasket.removeProductLineItem(childGiftitem);
-                            }
-
-                        }
-                    }
                     currentBasket.removeProductLineItem(item);
                     if (shipmentToRemove.productLineItems.empty && !shipmentToRemove.default) {
                         currentBasket.removeShipment(shipmentToRemove);
