@@ -115,4 +115,48 @@ $(document).ready(function() { // eslint-disable-line
         $('.overlayer-box').removeClass('d-block');
     });
 
+    var customerData = $('.submit-shipping').data('customer');
+    if (!customerData) {
+        if (window.Resources.PICKUP_FROM_STORE) {
+            var form = $('form[name=dwfrm_billing]');
+            if (!form) return;
+    
+            $('input[name$=_firstName]', form).val('');
+            $('input[name$=_lastName]', form).val('');
+            $('input[name$=_companyName]', form).val('');
+            $('input[name$=_address1]', form).val('');
+            $('input[name$=_address2]', form).val('');
+            $('input[name$=_city]', form).val('');
+            $('input[name$=_postalCode]', form).val('');
+            $('select[name$=_stateCode],input[name$=_stateCode]', form).val('');
+            $('select[name$=_country]', form).val('');
+        }
+    }
+
+    $('.fedex-btn-call').on('click', function (e) {
+        //fedEx call
+        $.ajax({
+            url: 'https://bdkz-012.sandbox.us01.dx.commercecloud.salesforce.com/on/demandware.store/Sites-MovadoUS-Site/en_US/FedEx-AddressValidation',
+            method: 'POST',
+            data: '',
+            success: function (data) {
+                if (!data.error && data.fedExAddressValidationAPI.validateObject.fedExAddress == true) {
+                    $('.recomended-address').text(data.fedExAddressValidationAPI.fedExApiAddress.streetAddress);
+                    $('.recomended-city').text(data.fedExAddressValidationAPI.fedExApiAddress.city +', '+data.fedExAddressValidationAPI.fedExApiAddress.stateOrProvinceCode);
+                    $('.recomended-postalCode').text(data.fedExAddressValidationAPI.fedExApiAddress.postalCode);
+                    $('.user-address').text(data.fedExAddressValidationAPI.userAddress.streetLines);
+                    $('.user-city').text(data.fedExAddressValidationAPI.userAddress.city + ', ' + data.fedExAddressValidationAPI.userAddress.state);
+                    $('.user-postalCode').text(data.fedExAddressValidationAPI.userAddress.postalCode);
+                    $('#fedExAdressModal').modal('show');
+                }
+            },
+            error: function (err) {
+                if (err.responseJSON.redirectUrl) {
+                    // window.location.href = err.responseJSON.redirectUrl;
+                }
+            }
+        });
+        //end fedex call
+    });
+
 });

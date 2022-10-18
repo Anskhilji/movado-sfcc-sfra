@@ -1,0 +1,47 @@
+<isif condition="${dw.system.Site.current.preferences.custom.isAddressValidationEnable}">
+<!-- Trigger the modal with a button -->
+<button type="button" class="btn btn-info btn-lg d-none fedex-btn-popup-call" data-url="${URLUtils.url('FedEx-AddressValidation')}" data-fedex="true" data-toggle="modal" data-target="#fedExAdressModal">Open
+    Modal</button>
+    <button type="button" class="btn btn-primary btn-lg fedex-btn-call"  >Open
+    Modal</button>
+
+<!-- Modal -->
+<div id="fedExAdressModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content fedex-address">
+            <div class="modal-body fedex-body">
+                <h4 class="modal-title fedex-title ${dw.system.Site.current.preferences.custom.isAddressValidationEnable}">PLEASE VERIFY YOUR ADDRESS</h4>
+                <p class="sub-title">The address you provided doesn't match with the official USPS address.<br>
+                    Please select which one to use.</p>
+                <div class="box-1 d-block">
+                    <div class="form-check">
+                        <input class="form-check-input Recommended-address fedex-recommended-address" data-fedex-address="" type="radio" id="Recommended-address" name="Recommended-address"
+                           >
+                        <label class="form-check-label radio-heading" for="Recommended-address">Recommended
+                            address</label>
+                    </div>
+                    <p class="recomended-address">128 Worthington Ave</p>
+                    <p class="recomended-city">Shrewsbury, MA </p>
+                    <p class="recomended-postalCode">01545-4125</p>
+                </div>
+                <div class="box-1 d-block">
+                    <div class=" form-check">
+                        <input class="form-check-input user-address" type="radio" id="you-entered" name="user-address"
+                           >
+                        <label class="form-check-label radio-heading" for="user-address">You Entered</label>
+                        <a class="edit-link" href=""> Edit</a>
+                    </div>
+                    <p class="user-address">128 Worthington Ave</p>
+                    <p class="user-city">Shrewsbury, MA </p>
+                    <p class="user-postalCode">01545-4125</p>
+                </div>
+                <a href="#" data-fedexx="false" class="btn btn-primary fedex-continue-btn">CONTINUE </a>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+</isif>

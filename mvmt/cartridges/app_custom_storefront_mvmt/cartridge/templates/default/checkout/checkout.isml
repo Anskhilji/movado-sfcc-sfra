@@ -112,41 +112,6 @@
                         </div>
                     </div>
 
-                    <!-- Trigger the modal with a button -->
-                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
-
-                    <!-- Modal -->
-                    <div id="myModal" class="modal fade" role="dialog">
-                    <div class="modal-dialog">
-
-                        <!-- Modal content-->
-                        <div class="modal-content fedex-address">
-                            <div class="modal-body fedex-body">
-                                <h4 class="modal-title fedex-title">PLEASE VERIFY YOUR ADDRESS</h4>
-                                <p class="sub-title">The address you provided doesn't match with the official USPS address.<br>
-                                   Please select which one to use.</p>
-                                <div class="box-1 d-block">
-                                   <div class="form-check">
-                                        <input class="form-check-input" type="radio" id="Recommended-address" name="fedex-radio" value="Recommended address">
-                                        <label class="form-check-label radio-heading" for="Recommended-address">Recommended address</label>
-                                   </div>
-                                   <p class="sub-heading">128 Worthington Ave <br>Shrewsbury, MA <b>01545-4125</b></p>
-                                </div>
-                                <div class="box-1 d-block">
-                                   <div class=" form-check">
-                                        <input class="form-check-input" type="radio" id="you-entered" name="fedex-radio" value="You Entered">
-                                        <label class="form-check-label radio-heading" for="you-entered">You Entered</label>
-                                        <a class="edit-link" href=""> Edit</a>
-                                   </div>
-                                   <p class="sub-heading">128 Worthington Ave <br>Shrewsbury, MA <b>01545-4125</b></p>
-                                </div>
-                                <a href="#"  class="continue-btn">CONTINUE </a>
-                                   
-                            </div>
-                        </div>
-
-                    </div>
-                    </div>
                 </div>
 
                 <!----------------------------------------------------------------------------------->
