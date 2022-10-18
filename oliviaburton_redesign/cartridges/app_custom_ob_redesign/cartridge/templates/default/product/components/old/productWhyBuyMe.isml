@@ -1,0 +1,8 @@
+<isif condition="${product.whyBuyMe}">
+    <div class="col-12">
+        <h3 class="why-buy-me">${Resource.msg('product.attribute.why.buy.me.heading','product',null)}</h3>
+    </div>
+    <div class="col-12 why-buy-me-details">
+        <isprint value="${product.whyBuyMe}" encoding="off" />
+    </div>
+</isif>
