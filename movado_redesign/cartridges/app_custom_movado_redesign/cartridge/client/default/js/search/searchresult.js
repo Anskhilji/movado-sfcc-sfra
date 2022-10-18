@@ -12,10 +12,10 @@ $(document).ready(function () {
         $(".close-refinebar .sort-by").removeClass("d-block").addClass("d-none");
     });
 
-    $('.search-results.plp-new-design .refinement-bar .selected-value').prepend("<span>Sort By</span> ");
+    $('.search-results.plp-new-design .refinement-bar .selected-value').prepend("<span>Sort by: </span> ");
 
     $('.plp-new-design .refine-wrapper .custom-select .custom-select__option').click( function() {
-        $('.refinement-bar .selected-value').prepend("<span>Sort By</span> ");
+        $('.refinement-bar .selected-value').prepend("<span>Sort by:</span> ");
     });
 
     $('.search-results.plp-new-design .refinement li:last-Child').focusout(function(event) {
@@ -45,6 +45,7 @@ $(document).ready(function () {
         $(".refinement-bar-redesign").addClass("refinement-open-state");
         $(".tab-pane.active>.container-fluid").addClass("container-open-state");
         $(".modal-background").removeClass("fadeOut").addClass("d-block fadeIn fast");
+        $(".filter-btn-ctm").removeClass("d-md-none").addClass("d-md-flex");
     });
 
     $(".mobile-fliter-sort-btn-click").click(function(){
@@ -73,6 +74,7 @@ $(".search-results.plp-new-design .refinement-bar").keyup(function(event) {
             $(".refinement-bar-redesign").removeClass("refinement-open-state");
             $(".tab-pane.active>.container-fluid").removeClass("container-open-state");
             $(".refinement-box-filter").removeClass("active");
+            $(".filter-btn-ctm").removeClass("d-md-flex").addClass("d-md-none");
         },300);
 
         setTimeout(function() {
@@ -103,6 +105,7 @@ $(document).mouseup(e => {
         $(".refinement-bar-redesign").removeClass("refinement-open-state");
         $(".tab-pane.active>.container-fluid").removeClass("container-open-state");
         $(".refinement-box-filter").removeClass("active");
+        $(".filter-btn-ctm").removeClass("d-md-flex").addClass("d-md-none");
 
         setTimeout(function(){
             $(".modal-background").addClass("fadeOut");

@@ -26,7 +26,7 @@
         </isif>
     </div>  
     <div class="refinements movado-refinements-container">
-        <div class="filter-btn-ctm d-none d-md-flex">
+        <div class="filter-btn-ctm d-none d-md-none">
              <img src="${URLUtils.staticURL('/images/icon-park_setting-config.svg')}" alt=""> 
              ${Resource.msg('label.sort-and-filter-more', 'search', null)}
         </div>

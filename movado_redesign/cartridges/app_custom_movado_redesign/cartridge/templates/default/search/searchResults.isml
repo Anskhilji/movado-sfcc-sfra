@@ -110,7 +110,7 @@
                                     </div>
                                 </div>
                             </div>
-                                <div class="d-md-flex align-items-cetner justify-content-between">
+                                <div class="d-md-flex align-items-cetner justify-content-between inner-filter-box-relative">
                                     <div class="refinement-bar refinement-bar-redesign col">
                                         <isinclude url="${pdict.refineurl}" />
                                     </div>                                    
