@@ -41,6 +41,7 @@
                             <isinclude template="product/components/pidRating" />
                         </div>
                     </div>
+
                 </div>
             </div>
             <hr class="hidden-xs-down d-md-none"/>
@@ -58,7 +59,7 @@
                     <!-- Product Name -->
                     <h2 class="product-name d-sm-none d-md-block text-uppercase">${product.productName}</h2>
 
-                    <div class="d-block d-md-block d-sm-none hidden-sm-down">
+                    <div class="d-block d-md-block d-sm-none">
                         <isinclude template="product/components/pidRating" />
                     </div>
 
@@ -72,6 +73,7 @@
                             <div class="availability product-availability text-uppercase" data-ready-to-order="${product.readyToOrder}"
                                 data-available="${product.available}">
                                 <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
+                                
                             </div>
 
                             <!-- Applicable Promotions -->
@@ -130,13 +132,13 @@
                                 <isinclude url="${URLUtils.https('Affirm-AffirmBanner', 'pid', product.id, 'context', context, 'fpname', fpname, 'country', country)}"/>
                             </div>
                             <div class="d-block d-md-flex">
-                                <!-- Cart and [Optionally] Apple Pay -->
-                                <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
-                                <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
-                                    <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
-                                        <div class="d-none d-md-flex"><isinclude template="product/components/smartGift" /></div>
-                                    </isif>    
-                                </isif>
+                               <!-- Cart and [Optionally] Apple Pay -->
+                               <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
+                               <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
+	                               <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null) || product.availability.messages[0] === Resource.msg('info.product.availability.inStock', 'common', null)}">
+	                                   <div class="d-none d-md-flex"><isinclude template="product/components/smartGift" /></div>
+	                               </isif>    
+                               </isif>
                             </div>
                         </div>
 
@@ -179,11 +181,11 @@
         </div>
         <isif condition="${!dw.system.Site.getCurrent().getCustomPreferenceValue('disableRecommendationsTypesOnPDP')}">
             <isinclude template="product/components/youMayLikeRecommendation" />
-        </isif>
-        <isset name="apiProduct" value="${dw.catalog.ProductMgr.getProduct(pdict.product.id)}" scope="page" />
-        <isinclude template="product/components/contentAssets" />
-        <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"
-                 context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}" />
+       </isif>
+       <isset name="apiProduct" value="${dw.catalog.ProductMgr.getProduct(pdict.product.id)}" scope="page" />
+       <isinclude template="product/components/contentAssets" />
+       <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"
+                context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}" />
 
         <!-- The Modal: Starts | To be filled by the from rendered by the ShareByEmail controller-->
         <div class="modal fade share-via-email-overlay" id="sendtofriendform">
