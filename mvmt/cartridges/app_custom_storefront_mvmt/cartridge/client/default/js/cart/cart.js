@@ -79,7 +79,7 @@ function validateBasket(data) {
  * re-renders the order totals and the number of items in the cart
  * @param {Object} data - AJAX response from the server
  */
-function updateMiniCartTotals(data) {
+function updateMiniCartTotals(data, $giftProduct) {
     if (data.numItems) {
         $('.minicart .minicart-quantity').text(data.numItems);
     }
@@ -153,16 +153,24 @@ function updateMiniCartTotals(data) {
         $miniCartSelector.find('.item-total-' + item.UUID + ' .product-line-item-details  .sales').empty().append(item.priceTotal.price);
     });
     // Custom End
+
+    // Custom Start: remove gift product from cart
+    if ($giftProduct !== undefined && $giftProduct == true) {
+        $('.gift-lineitem-container').empty();
+        $('.gift-product-row').empty();       
+    }
+    // Custom End
 }
 
 
-function updateCartTotals(data) {
+function updateCartTotals(data, $giftProduct) {
     if (typeof data.totals.deliveryTime != 'undefined' && typeof data.totals.deliveryTime.isExpress != 'undefined' && data.totals.deliveryTime.isExpress) {
         $('.delivery-time').removeClass('d-none');
     } else {
         $('.delivery-time').addClass('d-none');
     }
 
+    var $grandCartTotalSelector = $('.main-cart-block').find('.grand-total, .cart-total, .minicart-footer .subtotal-payment-summary .grand-total'); 
     $('.delivery-date').empty().append(data.totals.deliveryDate);
     $('.number-of-items').empty().append(data.resources.numberOfItems);
     $('.shipping-cost').empty().append(data.totals.totalShippingCost);
@@ -179,6 +187,11 @@ function updateCartTotals(data) {
     }
     $('.minicart-quantity').empty().append(data.numItems);
 
+    if ($grandCartTotalSelector.length > 0) {
+        $grandCartTotalSelector.each(function () {
+            $(this).empty().append(data.totals.subTotaladjustedNetPrice);
+        });
+    }
     if (data.totals.orderLevelDiscountTotal.value > 0) {
         $('.order-discount').removeClass('hide-order-discount');
         $('.order-discount-total').empty()
@@ -215,6 +228,13 @@ function updateCartTotals(data) {
             $('.item-' + item.UUID).empty().append(item.renderedPromotions);
             $('.item-total-' + item.UUID).empty().append(item.priceTotal.renderedPrice);
         });
+    }
+    // Custom End
+
+    // Custom Start: remove gift product from cart
+    if ($giftProduct !== undefined && $giftProduct == true) {
+        $('.gift-lineitem-container').empty();
+        $('.gift-product-row').empty();       
     }
     // Custom End
 }
@@ -478,13 +498,13 @@ module.exports = function () {
         e.preventDefault();
         var $this = $(this);
         var endPointURL = $this.attr('href');
-        var giftMessage = $this.parent().find('.gift-text').val();
+        var giftMessage = $('.gift-text').val();
         var prodUUID = $this.data('product-uuid');
 
-        $this.parent().find('.gift-message-blank').hide();
-        $this.parent().find('.gift-message-error').hide();
+        $('.gift-message-blank').hide();
+        $('.gift-message-error').hide();
         if (!giftMessage) {
-            $this.parent().find('.gift-message-blank').show();
+            $('.gift-message-blank').show();
             return false;
         }
 
@@ -500,12 +520,24 @@ module.exports = function () {
             success: function (data) {
                 $.spinner().stop();
                 if (data.result.error) {
-                    $this.parent().find('.gift-message-error').show();
+                    $('.gift-message-error').show();
                     return false;
                 }
-                $this.prop('disabled', 'disabled').find('.saved-button').removeClass('d-none');
-                $this.parent().find('.gift-message-error').hide();
+                $('.gift-message-error').hide();
                 $this.find('.apply-button').addClass('d-none');
+                data.basketModel.items.forEach(function (item) {
+                    var $itemLevelGiftMessage = item.customAttributes.itemLevelGiftMessage.msgLine1;
+                    if ($itemLevelGiftMessage !== undefined && $itemLevelGiftMessage !== '') {
+                        $('.gift-box-container-label').addClass('d-none');
+                        $('.gift-box-container-label-edit').removeClass('d-none');
+                        $('.gift-box-container-label-edit').text($itemLevelGiftMessage);
+                        $('.gift-box-container-modal .gift-text').text($itemLevelGiftMessage);
+                        $('.gift-personlize-msg').text($itemLevelGiftMessage);
+                        $('.gift-box-container-link').addClass('d-none');
+                        $('.gift-box-container-link-edit').removeClass('d-none');
+                    }
+                });
+                $('#giftBoxModelPopUp').modal('hide')
             },
             error: function (data) {
                 $.spinner().stop();
@@ -586,6 +618,7 @@ module.exports = function () {
         var $productName = $(this).data('name');
         var $uuid = $(this).data('uuid');
         var $gtmProdObj = $(this).data('gtm-cart');
+        var $giftProduct = $(this).data('gift');
         var $urlParams = {
             pid: $productID,
             uuid: $uuid
@@ -656,7 +689,7 @@ module.exports = function () {
                     }
                     $('.coupons-and-promos').children('.coupons-and-promos-wrapper').empty().append(data.basket.totals.discountsHtml);
                     var $miniCartSelector = $('.mini-cart-data .mini-cart-header');
-                    $miniCartSelector.length > 0 ? updateMiniCartTotals(data.basket) : updateCartTotals(data.basket);
+                    $miniCartSelector.length > 0 ? updateMiniCartTotals(data.basket, $giftProduct) : updateCartTotals(data.basket, $giftProduct);
                     updateApproachingDiscounts(data.basket.approachingDiscounts);
                     $('body').trigger('setShippingMethodSelection', data.basket);
                     validateBasket(data.basket);
@@ -696,6 +729,7 @@ module.exports = function () {
         var $productName = $(this).data('name');
         var $uuid = $(this).data('uuid');
         var $gtmProdObj = $(this).data('gtm-cart');
+        var $giftProduct = $(this).data('gift');
         var $urlParams = {
             pid: $productID,
             uuid: $uuid
@@ -767,7 +801,7 @@ module.exports = function () {
                     }
                     $('.coupons-and-promos').children('.coupons-and-promos-wrapper').empty().append(data.basket.totals.discountsHtml);
                     var $miniCartSelector = $('.mini-cart-data .mini-cart-header');
-                    $miniCartSelector.length > 0 ? updateMiniCartTotals(data.basket) : updateCartTotals(data.basket);
+                    $miniCartSelector.length > 0 ? updateMiniCartTotals(data.basket, $giftProduct) : updateCartTotals(data.basket, $giftProduct);
                     updateApproachingDiscounts(data.basket.approachingDiscounts);
                     $('body').trigger('setShippingMethodSelection', data.basket);
                     validateBasket(data.basket);
@@ -945,6 +979,42 @@ module.exports = function () {
                 setMiniCartProductSummaryHeight();
             }
         });
+    });
+
+
+    $('body').on('click', '.gift-box-container-link', function (evt) {
+        evt.preventDefault(); 
+        var $endPointUrl = $(evt.target).closest('a').attr('href');
+        $.spinner().start();
+        $.ajax({
+            url: $endPointUrl,
+            type: 'get',
+            success: function (response) {
+                $('#giftBoxModelPopUp').find('.modal-content').html(response);
+                $.spinner().stop();
+            }
+        });
+    });
+
+    $('body').on('click', '.gift-message-box-input', function () {
+        $('.gift-message-box').removeClass('hide-box');
+        $('.gift-message-blank').hide();
+        $('.gift-message-error').hide();
+        $('.add-gift-message').removeClass('d-none');
+        $('.add-gift-message').removeAttr('disabled');
+        $('.add-gift-box').addClass('d-none');
+    });
+
+    $('body').on('click', '.add-gift-box-input', function () {
+        $('.gift-message-box').addClass('hide-box');
+        $('.add-gift-message').addClass('d-none');
+        $('.add-gift-box').removeClass('d-none');
+        $('.add-gift-box').removeAttr('disabled');
+
+    });
+
+    $('body').on('click', '.gift-box-none-button', function () {
+        $('.add-gift-message').attr('disabled', 'disabled');
     });
 
     base.selectAttribute();

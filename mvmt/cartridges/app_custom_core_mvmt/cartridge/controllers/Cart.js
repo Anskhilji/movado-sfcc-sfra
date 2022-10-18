@@ -4,6 +4,9 @@
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
+var productFactory = require('*/cartridge/scripts/factories/product');
+var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
+var ProductMgr = require('dw/catalog/ProductMgr');
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 
 var server = require('server');
@@ -28,6 +31,37 @@ server.replace('MiniCart', server.middleware.include, function (req, res, next) 
     }
 
     res.render('/components/header/miniCart', {isMobile: isMobile, quantityTotal: quantityTotal });
+    next();
+});
+
+/**
+* Opens the Modal and populates it with GiftBox and Gift Message.
+*/
+server.get('ShowGiftBoxModal', server.middleware.https, csrfProtection.generateToken, function (req, res, next) {
+    var viewData;
+    var params = {
+        pid: req.querystring.pid,
+        uuid: req.querystring.uuid,
+        itemLevelGiftMessage: req.querystring.itemLevelGiftMessage,
+        isCartPage: req.querystring.isCartPage
+    };
+
+    var product = productFactory.get(params);
+    var apiProduct = ProductMgr.getProduct(req.querystring.pid);
+    var giftBoxSKUData = productCustomHelper.getGiftBoxSKU(apiProduct);
+    var images = product.images.tile150;
+
+    viewData = {
+        product: product,
+        image: images[0],
+        productUUID: params.uuid,
+        giftBoxSKUData: giftBoxSKUData,
+        itemLevelGiftMessage: params.itemLevelGiftMessage,
+        isCartPage: params.isCartPage
+    };
+
+    res.setViewData(viewData);
+    res.render('checkout/cart/giftBoxModel');
     next();
 });
 
@@ -115,6 +149,36 @@ server.prepend(
         while (productLineItems.hasNext()) {
             var productLineItem = productLineItems.next();
         }
+
+    next();
+});
+
+// this logic is used to remove child gift item if we remove parent product
+server.prepend('RemoveProductLineItem', function (req, res, next) {
+    var BasketMgr = require('dw/order/BasketMgr');
+    var Transaction = require('dw/system/Transaction');
+    var currentBasket = BasketMgr.getCurrentBasket();
+    var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
+
+    Transaction.wrap(function () {
+        if (req.querystring.pid && req.querystring.uuid) {
+            var productId = req.querystring.pid;
+            var productLineItems = currentBasket.getAllProductLineItems(productId); 
+            for (var i = 0; i < productLineItems.length; i++) {
+                var item = productLineItems[i];
+                if (item.custom.giftPid) {
+                    var giftProductLineItems = currentBasket.getAllProductLineItems(item.custom.giftPid);
+                    for (var i = 0; i < giftProductLineItems.length; i++) {
+                        var childGiftitem = giftProductLineItems[i];
+                        if (childGiftitem.productID == item.custom.giftPid) {
+                            currentBasket.removeProductLineItem(childGiftitem);
+                        }
+                    }
+                }
+            }
+            basketCalculationHelpers.calculateTotals(currentBasket);
+        }
+    });
 
     next();
 });

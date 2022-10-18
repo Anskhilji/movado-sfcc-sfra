@@ -1620,3 +1620,256 @@
 .amazon-mini-button {
     display: flex;
 }
+
+.gift-box-container {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    border-top: 1px solid $gray14;
+    padding: rem(9) 0;
+    &.full-cart-continaer {
+        margin-top: rem(27);
+    }
+
+    .gift-icon {
+        margin-right: rem(10);
+    }
+
+    &-label {
+        color: $light-black;
+        font-family: $font-medium;
+        font-size: rem(12);
+        font-weight: 500;
+        letter-spacing: rem(0);
+        line-height: rem(16);
+    }
+
+    &-link {
+        color: $curious-light-blue;
+        font-family: $font-medium;
+        font-size: rem(12);
+        font-weight: 500;
+        letter-spacing: rem(0.53);
+        line-height: rem(16);
+        text-transform: capitalize;
+
+        &:hover {
+            color: $curious-light-blue;
+        }
+
+        &:focus {
+            box-shadow: none;
+        }
+    }
+
+    &-modal {
+        z-index: 999999;
+
+        &-header {
+
+            &-heading {
+                color: $light-black;
+                font-family: $font-GaramondPro;
+                font-size: rem(24);
+                font-style: italic;
+                letter-spacing: rem(0);
+                line-height: rem(30);
+                text-align: center;
+                margin-top: rem(14);
+            }
+
+            .close {
+                opacity: 1;
+                width: rem(25);
+                height: rem(25);
+                padding: 0;
+                margin-top: rem(2);
+                margin-right: rem(4);
+            }
+        }
+
+        &-dialog {
+            @include media-breakpoint-up(sm) {
+                max-width: rem(574);
+            }
+            @include media-breakpoint-down(xs) {
+                margin: rem(0);
+                height: 100%;
+            }
+
+            .modal-content {
+                border: none;
+                border-radius: rem(0);
+
+                @include media-breakpoint-down(xs) {
+                    height: 100%;
+                }
+            }
+        }
+
+        &-body {
+            &-item-image {
+                width: rem(100);
+                height: rem(100);
+                margin: auto;
+            }
+
+            &-form {
+                max-width: rem(275);
+                margin: rem(30) auto rem(24);
+
+                .radio-container {
+                    position: relative;
+                    padding-left: rem(45.6);
+                    margin-bottom: rem(15);
+                    cursor: pointer;
+                    -webkit-user-select: none;
+                    -moz-user-select: none;
+                    -ms-user-select: none;
+                    user-select: none;
+                    box-sizing: border-box;
+                    height: rem(50);
+                    border: rem(2) solid $light-black4;
+                    color: $light-black3;
+                    font-family: $font-medium;
+                    font-size: rem(13);
+                    font-weight: 500;
+                    letter-spacing: rem(1.08);
+                    line-height: rem(45.6);
+                    max-width: rem(271);
+                    display: block;
+                    text-align: left;
+                    border-radius: rem(3);
+                    text-transform: capitalize;
+                }
+                  
+                /* Hide the browser's default radio button */
+                .radio-container input {
+                    position: absolute;
+                    opacity: 0;
+                    cursor: pointer;
+                }
+                
+                /* Create a custom radio button */
+                .checkmark {
+                    position: absolute;
+                    top: rem(13);
+                    left: rem(13);
+                    height: rem(20);
+                    width: rem(20);
+                    background-color: $white;
+                    border: rem(2) solid $black;
+                    border-radius: 50%;
+                }
+                
+                /* On mouse-over, add a grey background color */
+                .radio-container:hover input ~ .checkmark {
+                    background-color: $white;
+                }
+                
+                /* When the radio button is checked, add a blue background */
+                .radio-container input:checked ~ .checkmark {
+                    background-color: $white;
+                }
+                
+                /* Create the indicator (the dot/circle - hidden when not checked) */
+                .radio-container .checkmark:after {
+                    content: "";
+                    position: absolute;
+                    display: none;
+                }
+                
+                /* Show the indicator (dot/circle) when checked */
+                .radio-container input:checked ~ .checkmark:after {
+                    display: block;
+                }
+                
+                /* Style the indicator (dot/circle) */
+                .radio-container .checkmark:after {
+                    top: rem(2);
+                    left: rem(2);
+                    width: rem(12);
+                    height: rem(12);
+                    border-radius: 50%;
+                    background: $black;
+                    border: rem(1) solid $white;
+                }
+
+                .label-right-wrapper {
+                    float: right;
+                    padding-right: rem(20);
+                }
+
+                &-textarea-container {
+                    text-align: left;
+                    &.hide-box {
+                        opacity: 0;
+                        visibility: hidden;
+                    }
+
+                    &-label {
+                        text-align: left;
+                        color: $light-black3;
+                        font-family: $font-medium;
+                        font-size: rem(13);
+                        font-weight: 500;
+                        letter-spacing: rem(0.5);
+                        line-height: rem(12);
+                    }
+
+                    &-text-box {
+                        border: rem(1) solid $light-black4;
+                        border-radius: rem(3);
+
+                        &::placeholder {
+                            color: $light-black3;
+                            font-family: $font-medium;
+                            font-size: rem(13);
+                        }
+                    }
+                }
+            }
+
+            &-note {
+                color: $light-black3;
+                font-family: $font-medium;
+                font-size: rem(13);
+                font-weight: 300;
+                letter-spacing: rem(0.5);
+                line-height: rem(12);
+                text-align: center;
+            }
+
+            &-save-button {
+                border-radius: rem(3);
+                background-color: $light-green2;
+                color: $white;
+                font-family: $font-medium;
+                font-size: rem(15);
+                font-weight: 500;
+                letter-spacing: rem(1.25);
+                line-height: rem(12);
+                text-align: center;
+                max-width: rem(271);
+                width: 100%;
+                margin: auto;
+                height: rem(45); 
+            }
+
+            .close {
+                opacity: 1;
+            }
+        }
+    }
+}
+
+.gift-product-row {
+    border-top: 1px solid $gray14;
+    margin-top: rem(27);
+}
+
+.modal-backdrop {
+    z-index: 999;
+}
