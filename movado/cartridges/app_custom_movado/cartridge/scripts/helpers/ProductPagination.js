@@ -11,6 +11,9 @@ var DEFAULT_PAGE_SIZE = Site.getCurrent().getCustomPreferenceValue('pageSize');
 var collections = require('*/cartridge/scripts/util/collections');
 var urlHelper = require('*/cartridge/scripts/helpers/urlHelpers');
 var ACTION_ENDPOINT = 'Search-UpdateGrid';
+if (session.custom.showMoreEndpoint) {
+    ACTION_ENDPOINT = session.custom.showMoreEndpoint;
+}
 var SEARCH_SHOW_ACTION_ENDPOINT = 'Search-Show';
 
 function getPagingModel(productHits, count, pageSize, startIndex) {
@@ -32,6 +35,9 @@ function getPagingModel(productHits, count, pageSize, startIndex) {
  */
 function getPaginationUrls(productSearch, httpParams, pageNumber, enableGridSlot) {
     var showMoreEndpoint = 'Search-UpdateGrid';
+    if (session.custom.showMoreEndpoint) {
+        showMoreEndpoint = session.custom.showMoreEndpoint;
+    }
     var pageSize = httpParams.sz || DEFAULT_PAGE_SIZE;
     var hitsCount = productSearch.count;
     var pagingUrls = new HashMap();
