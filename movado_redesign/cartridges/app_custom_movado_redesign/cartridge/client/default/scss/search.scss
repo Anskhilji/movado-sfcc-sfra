@@ -1396,7 +1396,7 @@
                               color: $light-black3;
                               @include font-bold;
                               font-size: rem(12);
-                              font-weight: 4s00;
+                              font-weight: 400;
                               letter-spacing: rem(0.7);
                               line-height: rem(15);
                               margin: rem(23) rem(0);
@@ -1406,7 +1406,6 @@
                           .values {
                               &.content {
                                   padding: 0;
-                                  gap: rem(0) rem(20);
                                   padding-bottom: rem(10);
 
                                   .col-6 {
@@ -1414,6 +1413,7 @@
                                       flex: inherit;
                                       padding: 0;
                                       margin-bottom: rem(10);
+                                      margin-right: rem(20);
                            
                                       &:nth-child(odd),
                                       &:nth-child(even) {
@@ -1736,7 +1736,7 @@
                             line-height: rem(15);
                             letter-spacing: rem(1);
                             color: $light-black3;
-                            font-weight: 400;
+                            font-weight: 600;
                             text-transform: uppercase;
 
                             &:focus {

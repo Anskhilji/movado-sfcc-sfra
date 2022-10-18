@@ -582,9 +582,9 @@ module.exports = {
                         moveFocusToTop();
                         swatches.showSwatchImages();
                         $('.plp-new-design .result-count').removeClass('col-12 col-md-9 col-sm-6 order-sm-2');
-                        $(".refinement-bar-redesign").removeClass("refinement-open-state");
-                        $(".tab-pane.active>.container-fluid").removeClass("container-open-state");
-                        $(".modal-background").removeClass("d-block");
+                        $('.refinement-bar-redesign').removeClass('refinement-open-state');
+                        $('.tab-pane.active>.container-fluid').removeClass('container-open-state');
+                        $('.modal-background').removeClass('d-block');
                         clickedFilterButton();
                         filterApplyAddClassFilter();
                         var $productSearchResult = $('.grid-header .result-count .category-name').data('result-counts');
