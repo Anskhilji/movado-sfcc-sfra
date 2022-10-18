@@ -123,8 +123,7 @@
 
     <button class="scroll-top"></button>
     <isif condition="${pdict.productSearch.productIds.length > 0}">
-        <div class="container">
-            <div class="plp-grid-overlay search-refinement-close"></div>
+        <div class="plp-grid-overlay">
         </div>
     </isif>
 

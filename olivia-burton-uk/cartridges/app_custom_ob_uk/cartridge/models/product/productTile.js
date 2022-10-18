@@ -111,6 +111,5 @@ module.exports = function productTile(product, apiProduct, productType, params, 
             value: ociPreOrderParameters
         });
     }
-
     return product;
 };

@@ -421,14 +421,6 @@
           opacity: 1;
           display: flex;
           transform: translateY(0);
-
-            .filter-refinement-container {
-
-                .filter-selected { 
-                    border: rem(1) solid $black;
-                    border-radius: 50%;
-                }
-            }
         }
       }
 
@@ -839,7 +831,6 @@
         height: auto;
         transition: opacity 0.5s, transform 0.5s;
         transform: translateY(80px);
-        margin-top: rem(54);
 
         &.loaded {
           display: flex;
@@ -1024,6 +1015,7 @@
     position: relative;
     text-align: center;
     text-transform: uppercase;
+    cursor: pointer;
 
     svg {
       width: rem(10);
@@ -1034,7 +1026,6 @@
       left: rem(20);
       top: 50%;
       transform: translateY(-50%);
-      cursor: pointer;
     }
   }
 }
@@ -1913,10 +1904,3 @@
 // MVMT PLP redesign style
 @import "searchRedesign";
 @import "./components/refinementsRedesigned";
-
-.selected {
-    &.filter-selected { 
-        border: rem(1) solid $black !important;
-        border-radius: 50%;
-    }
-}
