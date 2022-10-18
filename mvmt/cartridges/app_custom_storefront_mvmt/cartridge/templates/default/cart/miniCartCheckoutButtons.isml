@@ -5,7 +5,7 @@
     <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page" />
     <isset name="currentCountry" value="${require('*/cartridge/scripts/helpers/productCustomHelper').getCurrentCountry()}" scope="page" />
     <isif condition="${currentCountry.equalsIgnoreCase('US')}" >
-        <isset name="checkoutBtn" value="${Resource.msg('button.checkout', 'cart', null)}" scope="page" />
+        <isset name="checkoutBtn" value="${Resource.msg('button.mini.cart.checkout', 'cart', null)}" scope="page" />
     <iselse/>
         <isset name="checkoutBtn" value="${Resource.msg('button.esw.checkout', 'cart', null)}" scope="page" /> 
     </isif>
