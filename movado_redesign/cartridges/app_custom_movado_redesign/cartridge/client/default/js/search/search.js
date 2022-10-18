@@ -306,6 +306,8 @@ function clickedFilterButton() {
         $(".refinement-bar-redesign").addClass("refinement-open-state");
         $(".tab-pane.active>.container-fluid").addClass("container-open-state");
         $(".modal-background").removeClass("fadeOut").addClass("d-block fadeIn fast");
+        $(".filter-btn-ctm").removeClass("d-md-none").addClass("d-md-flex");
+        $("body").addClass("no-overflow");
     });
 }
 
@@ -533,7 +535,6 @@ module.exports = {
             function (e) {
                 e.preventDefault();
                 e.stopPropagation();
-                
                 //push data into datalayer for filters into gtm
                 var $filterType = $(this).parents('.card-body').siblings('.movado-refinements-type').text().trim();
                 dataLayer.push({
@@ -581,8 +582,15 @@ module.exports = {
                         moveFocusToTop();
                         swatches.showSwatchImages();
                         $('.plp-new-design .result-count').removeClass('col-12 col-md-9 col-sm-6 order-sm-2');
+                        $('.refinement-bar-redesign').removeClass('refinement-open-state');
+                        $('.tab-pane.active>.container-fluid').removeClass('container-open-state');
+                        $('.modal-background').removeClass('d-block');
                         clickedFilterButton();
                         filterApplyAddClassFilter();
+                        var $productSearchResult = $('.grid-header .result-count .category-name').data('result-counts');
+                        var $bannerCount = $('.banner-count .result-count');
+                        var $html = '<span>(' + $productSearchResult + ')</span>';
+                        $bannerCount.html($html);
                     },
                     error: function () {
                         $.spinner().stop();
