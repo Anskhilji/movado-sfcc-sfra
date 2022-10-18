@@ -631,7 +631,7 @@ module.exports = {
                         $('.refinement-bar-redesign').removeClass('refinement-open-state');
                         $('.tab-pane.active>.container-fluid').removeClass('container-open-state');
                         $('.modal-background').removeClass('d-block');
-                        $("body").removeClass("no-overflow-ctm");
+                        $('body').removeClass('no-overflow-ctm');
                     }else{
                         $('.refinement').removeClass('active');
                         $($clicked).parent().addClass('active');
