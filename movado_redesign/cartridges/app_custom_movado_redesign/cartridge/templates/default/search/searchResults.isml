@@ -26,7 +26,7 @@
             </isif>
             <isslot id="cs-search-banner-image" description="Search banner Image" context="global" />
         </isif>
-        <div class="banner-count d-none d-md-block">
+        <div class="banner-count d-none ${pdict.productSearch.productIds.length > 0 ? 'd-md-block' : 'd-md-none position-static'}">
             <div class="result-count">
                 <isinclude template="search/resultsCount" />
             </div>

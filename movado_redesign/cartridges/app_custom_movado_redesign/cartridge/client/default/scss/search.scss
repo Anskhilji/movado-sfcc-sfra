@@ -1086,11 +1086,41 @@
 .banner-count {
     text-align: center;
     position: absolute;
-    top: 70%;
+    top: 80%;
     margin: 0;
     left: 50%;
     padding: 0;
-    transform: translate(-50%, -70%);
+    transform: translate(-50%, -80%);
+    &.position-static {
+      position: static;
+      transform: unset;
+      left: auto;
+      top: auto;
+      display: none;
+
+      .result-count {
+
+        p {
+            margin: 0;
+        }
+  
+          span {
+              color: $black;
+  
+              .make-bold {
+                color: $black;
+              }
+  
+              .search-keywords {
+                color: $black;
+              }
+          }
+  
+          .category-name {
+              display: inline-block;
+          }
+      }
+    }
 
     @include media-breakpoint-down(lg) {
       top: 87%;
