@@ -31,8 +31,8 @@
              ${Resource.msg('label.sort-and-filter-more', 'search', null)}
         </div>
         <isloop items="${pdict.productSearch.refinements}" var="refinement">
-            <div class="card selected-refinement collapsible-sm refinement-box-filter refinement refinement-${refinement.displayName.toLowerCase().replace(/ /g, '-')}">
-                <button class="card-header refinement-btn movado-refinements-type text-left" role="tab" data-filter-category="${pdict.productSearch.category && !empty(pdict.productSearch.category) ? pdict.productSearch.category.id : ''}" aria-expanded="false" id="${refinement.displayName}Heading">
+            <div class="card selected-refinement refinement-box-filter refinement refinement-${refinement.displayName.toLowerCase().replace(/ /g, '-')}">
+                <button class="card-header refinement-btn movado-refinements-type text-left" role="tab" data-filter-category="${pdict.productSearch.category && !empty(pdict.productSearch.category) ? pdict.productSearch.category.id : ''}" aria-expanded="false" id="${refinement.displayName}Heading" >
                     ${refinement.displayName}
                 </button>
                 <div class="card-body" role="tabpanel"  aria-labelledby="${refinement.displayName}Heading">

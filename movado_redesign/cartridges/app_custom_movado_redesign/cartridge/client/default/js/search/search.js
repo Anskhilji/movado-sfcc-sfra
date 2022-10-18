@@ -623,15 +623,18 @@ module.exports = {
 
             if ($winWidth >= $mediumBreakPoint) {
                 var $clicked = e.target.closest('.refinement-btn');
-                var $filterAll = $('.selected-refinement');
                 if (!$clicked) return;
                 if ($clicked) {
-                    $filterAll.each(function (e) {
-                        var $isContain = $(this).hasClass('active');
-                        if ($isContain) {
-                            $(this).removeClass('active');
-                        }
-                    });
+                    if($($clicked).parent().hasClass('active')){
+                        $('.refinement').removeClass('active');
+                        $(".refinement-bar-redesign").removeClass("refinement-open-state");
+                        $(".tab-pane.active>.container-fluid").removeClass("container-open-state");
+                        $(".modal-background").removeClass("d-block");
+                        $("body").removeClass("no-overflow");
+                    }else{
+                        $('.refinement').removeClass('active');
+                        $($clicked).parent().addClass('active');
+                    }
                 }
             }
         });

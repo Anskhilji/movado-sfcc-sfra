@@ -1324,9 +1324,11 @@
                             align-items: center;
                             cursor: pointer;
                             position: relative;
+                            &:focus {
+                              outline: none;
+                            }
 
                             &:hover,
-                            &:focus,
                             &.selected {
                                 border-color: $parrot-green;
                                 color: $dark-green;
@@ -1369,9 +1371,12 @@
                           height: 100%;
                           justify-content: center;
                           text-transform: capitalize;
-
+                          
+                          &:focus {
+                            outline: none;
+                          }
+                          
                           &:hover,
-                          &:focus,
                           &.selected {
                               border-color: $parrot-green;
                               color: $dark-green;
@@ -1704,6 +1709,9 @@
                                     height: rem(30);
                                     min-height: auto;
                                     outline: none;
+                                    &:focus {
+                                      outline: none;
+                                    }
 
                                     &:hover,
                                     &.active {
