@@ -102,7 +102,7 @@ exports.calculate = function (basket) {
  *
  * @param {object} basket The basket containing the elements to be computed
  */
-function calculateProductPrices(basket) {
+function calculateProductPrices (basket) {
     // get total quantities for all products contained in the basket
     var productQuantities = basket.getProductQuantities();
     var productQuantitiesIt = productQuantities.keySet().iterator();
@@ -138,7 +138,7 @@ function calculateProductPrices(basket) {
             }
         // handle bundle line items, but only if they're not a bonus
         } else if (productLineItem.bundledProductLineItem) {
-        // no price is set for bundled product line items
+            // no price is set for bundled product line items
         // handle bonus line items
         // the promotion engine set the price of a bonus product to 0.0
         // we update this price here to the actual product price just to
@@ -168,8 +168,8 @@ function calculateProductPrices(basket) {
             productLineItem.setPriceValue(null);
         // handle normal product line items
         } else {
-            if (product.name.substring(0, 13) != 'clydeContract') {
-                productLineItem.setPriceValue(productPrices.get(product).valueOrNull);
+            if(product.name.substring(0, 13) != 'clydeContract'){
+               productLineItem.setPriceValue(productPrices.get(product).valueOrNull);
             }
         }
     }
@@ -183,7 +183,7 @@ function calculateProductPrices(basket) {
  *
  * @param {object} basket The basket containing the gift certificates
  */
-function calculateGiftCertificatePrices(basket) {
+function calculateGiftCertificatePrices (basket) {
     var giftCertificates = basket.getGiftCertificateLineItems().iterator();
     while (giftCertificates.hasNext()) {
         var giftCertificate = giftCertificates.next();
@@ -191,7 +191,7 @@ function calculateGiftCertificatePrices(basket) {
     }
 }
 
-exports.calculateShipping = function (basket) {
+exports.calculateShipping = function(basket) {
     ShippingMgr.applyShippingCost(basket);
     return new Status(Status.OK);
 }
@@ -269,19 +269,19 @@ exports.calculateTax = function(basket) {
         })) {
             // tax hook didn't provide taxes for global price adjustment, we need to calculate them ourselves.
             // calculate a mix tax rate from
-            var basketPriceAdjustmentsTaxRate = ((basket.getMerchandizeTotalGrossPrice().value + basket.getShippingTotalGrossPrice().value) /
-                (basket.getMerchandizeTotalNetPrice().value + basket.getShippingTotalNetPrice())) - 1;
+            var basketPriceAdjustmentsTaxRate = ((basket.getMerchandizeTotalGrossPrice().value + basket.getShippingTotalGrossPrice().value)
+                / (basket.getMerchandizeTotalNetPrice().value + basket.getShippingTotalNetPrice())) - 1;
 
-            var basketPriceAdjustments = basket.getPriceAdjustments();
-            collections.forEach(basketPriceAdjustments, function (basketPriceAdjustment) {
-                basketPriceAdjustment.updateTax(basketPriceAdjustmentsTaxRate);
-            });
+                var basketPriceAdjustments = basket.getPriceAdjustments();
+                collections.forEach(basketPriceAdjustments, function (basketPriceAdjustment) {
+                    basketPriceAdjustment.updateTax(basketPriceAdjustmentsTaxRate);
+                });
 
-            var basketShippingPriceAdjustments = basket.getShippingPriceAdjustments();
-            collections.forEach(basketShippingPriceAdjustments, function (basketShippingPriceAdjustment) {
-                basketShippingPriceAdjustment.updateTax(totalShippingGrossPrice / totalShippingNetPrice - 1);
-            });
-        }
+                var basketShippingPriceAdjustments = basket.getShippingPriceAdjustments();
+                collections.forEach(basketShippingPriceAdjustments, function(basketShippingPriceAdjustment) {
+                    basketShippingPriceAdjustment.updateTax(totalShippingGrossPrice/totalShippingNetPrice - 1);
+                });
+            }
     }
 
     // if hook returned custom properties attach them to the order model
