@@ -41,12 +41,18 @@ $(document).ready(function () {
     });
 
     // custom:MSS-1948 
+    if (navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1) {
+        document.getElementById('nav-questions').className += ' filter-safari';
+    }
     $(".movado-refinements-type").click(function(){
         $(".refinement-bar-redesign").addClass("refinement-open-state");
         $(".tab-pane.active>.container-fluid").addClass("container-open-state");
         $(".modal-background").removeClass("fadeOut").addClass("d-block fadeIn fast");
         $(".filter-btn-ctm").removeClass("d-md-none").addClass("d-md-flex");
-        $("body").addClass("no-overflow");
+        $("body").addClass("no-overflow-ctm");
+    });
+    $(".filter-btn-ctm").click(function(){
+        $("body").addClass("no-overflow-ctm");
     });
 
     $(".mobile-fliter-sort-btn-click").click(function(){
@@ -76,6 +82,7 @@ $(".search-results.plp-new-design .refinement-bar").keyup(function(event) {
             $(".tab-pane.active>.container-fluid").removeClass("container-open-state");
             $(".refinement-box-filter").removeClass("active");
             $(".filter-btn-ctm").removeClass("d-md-flex").addClass("d-md-none");
+            $("body").removeClass("no-overflow-ctm");
         },300);
 
         setTimeout(function() {
@@ -107,6 +114,7 @@ $(document).mouseup(e => {
         $(".tab-pane.active>.container-fluid").removeClass("container-open-state");
         $(".refinement-box-filter").removeClass("active");
         $(".filter-btn-ctm").removeClass("d-md-flex").addClass("d-md-none");
+        $("body").removeClass("no-overflow-ctm");
 
         setTimeout(function(){
             $(".modal-background").addClass("fadeOut");

@@ -307,7 +307,7 @@ function clickedFilterButton() {
         $(".tab-pane.active>.container-fluid").addClass("container-open-state");
         $(".modal-background").removeClass("fadeOut").addClass("d-block fadeIn fast");
         $(".filter-btn-ctm").removeClass("d-md-none").addClass("d-md-flex");
-        $("body").addClass("no-overflow");
+        $('body').addClass('no-overflow-ctm');
     });
 }
 
@@ -374,7 +374,7 @@ module.exports = {
         $('.container, .container-fluid').on('change', '[name=sort-order]', function (e) {
             setTimeout( function () {
                 if ( $('.plp-new-design .refinement-bar .selected-value:contains("Sort")').length == 0) {
-                    $('.plp-new-design .refinement-bar .selected-value').prepend('<span>Sort By</span> ');
+                    $('.plp-new-design .refinement-bar .selected-value').prepend('<span>Sort by:</span> ');
                 }
             }, 20);
             var url = this.value;
@@ -576,7 +576,7 @@ module.exports = {
                         $('.search-results.plp-new-design #sort-order').customSelect();
                         setTimeout( function () {
                             if ( $('.plp-new-design .refinement-bar .selected-value:contains("Sort")').length == 0) {
-                                $('.plp-new-design .refinement-bar .selected-value').prepend('<span>Sort By</span> ');
+                                $('.plp-new-design .refinement-bar .selected-value').prepend('<span>Sort by:</span> ');
                             }
                         }, 20);
                         moveFocusToTop();
@@ -585,6 +585,7 @@ module.exports = {
                         $('.refinement-bar-redesign').removeClass('refinement-open-state');
                         $('.tab-pane.active>.container-fluid').removeClass('container-open-state');
                         $('.modal-background').removeClass('d-block');
+                        $("body").removeClass("no-overflow-ctm");
                         clickedFilterButton();
                         filterApplyAddClassFilter();
                         var $productSearchResult = $('.grid-header .result-count .category-name').data('result-counts');
@@ -619,19 +620,22 @@ module.exports = {
     selectedFilterActiveDesktop: function () {
         $('.refine-wrapper').on('click', '.movado-refinements-container', function (e) {
             var $winWidth = $(window).width();
-            var $mediumBreakPoint = 992;
+            var $mediumBreakPoint = 320;
 
             if ($winWidth >= $mediumBreakPoint) {
                 var $clicked = e.target.closest('.refinement-btn');
-                var $filterAll = $('.selected-refinement');
                 if (!$clicked) return;
                 if ($clicked) {
-                    $filterAll.each(function (e) {
-                        var $isContain = $(this).hasClass('active');
-                        if ($isContain) {
-                            $(this).removeClass('active');
-                        }
-                    });
+                    if($($clicked).parent().hasClass('active')){
+                        $('.refinement').removeClass('active');
+                        $('.refinement-bar-redesign').removeClass('refinement-open-state');
+                        $('.tab-pane.active>.container-fluid').removeClass('container-open-state');
+                        $('.modal-background').removeClass('d-block');
+                        $('body').removeClass('no-overflow-ctm');
+                    }else{
+                        $('.refinement').removeClass('active');
+                        $($clicked).parent().addClass('active');
+                    }
                 }
             }
         });
