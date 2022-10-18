@@ -274,6 +274,7 @@ function getcartPageHtml (req) {
   };
   basketModel.paypalButtonImg = getContentAssetContent('ca-paypal-button');
   basketModel.paypalerror = !!req.querystring.paypalerror;
+  basketModel.lastNameError = req.querystring.lastNameError;
 
   return renderTemplateHelper.getRenderedHtml(basketModel, '/cart/cartSection');
 };

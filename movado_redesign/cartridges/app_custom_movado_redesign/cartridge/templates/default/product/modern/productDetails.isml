@@ -16,6 +16,13 @@
     <isobject object="${product.raw}" view="detail">
         <div class="container-fluid pdp-mobile pdp-modern-design pdp-v-one pdp-v-two product-detail product-wrapper" data-pid="${product.id}" itemscope
             itemtype="http://schema.org/Product">
+
+            <isif condition="${pdict.lastNameError}">
+                <div class="container cart-error-messaging cart-error alert card alert-dismissible fade show" style="background-color: white;">
+                    ${Resource.msg('error.last.name', 'checkout', null)}
+                </div>
+            </isif>
+
             <div class="row mobile-detail-head">
                 <div class="col-12">
                     <!---Breadcrumbs--->

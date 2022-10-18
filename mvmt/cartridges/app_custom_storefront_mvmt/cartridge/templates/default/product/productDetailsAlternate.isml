@@ -25,6 +25,12 @@
     <isset name="isProductSet" value="${pdict.product.productType === 'set'}" scope="page" />
     <isobject object="${product.raw}" view="detail">
 
+        <isif condition="${pdict.lastNameError}">
+            <div class="container cart-error-messaging cart-error alert card alert-dismissible fade show" style="background-color: white;">
+                ${Resource.msg('error.last.name', 'checkout', null)}
+            </div>
+        </isif>
+        
         <section class="sticky-bar" data-desktop-sticky-atc-bar>
             <div class="sticky-bar-container">
                 <div>

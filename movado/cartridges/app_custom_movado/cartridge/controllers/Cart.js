@@ -398,6 +398,11 @@ server.append(
         customCartHelpers.removeClydeWarranty(viewData);
         customCartHelpers.removeNullClydeWarrantyLineItem(currentBasket);
 
+        if (!empty(req.querystring.lastNameError)) {
+            res.setViewData({ 
+                lastNameError: req.querystring.lastNameError
+            });
+        }
 
         var FolderSearch = require('*/cartridge/models/search/folderSearch');
         var pageMetaHelper = require('*/cartridge/scripts/helpers/pageMetaHelper');
