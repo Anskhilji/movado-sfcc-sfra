@@ -182,7 +182,6 @@ function getShippingMethods(currentBasket, selectedShippingMethod, shippingAddre
 function setShippingAndBillingAddress(currentBasket, selectedShippingMethod, shippingAddressData, shipment) {
     var firstName = shippingAddressData.name;
     var lastName = shippingAddressData.name;
-    var error = false;
     var profileLastName = currentBasket.customer.profile && currentBasket.customer.profile.lastName ? currentBasket.customer.profile.lastName : '';
 
     if (empty(shipment)) {
@@ -195,11 +194,10 @@ function setShippingAndBillingAddress(currentBasket, selectedShippingMethod, shi
 
         if (splitFullName.length > 0) {
             firstName = splitFullName[0];
-            lastName = splitFullName[1];
+            lastName = '';
             if (empty(lastName)) {
                 if (currentBasket.customer.registered == true) {
                     lastName = profileLastName;
-                    error = false;
                 } else {
                     var errorMessage = Resource.msg('error.last.name', 'checkout', null)
                     return {serverErrors: errorMessage , error: true}
