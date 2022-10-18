@@ -26,9 +26,9 @@
         </isif>
     </div>  
     <div class="refinements movado-refinements-container">
-        <div class="filter-btn-ctm d-none d-md-none">
+        <div class="filter-btn-ctm d-none d-md-none" id="nav-questions">
              <img src="${URLUtils.staticURL('/images/icon-park_setting-config.svg')}" alt=""> 
-             ${Resource.msg('label.sort-and-filter-more', 'search', null)}
+             <span>${Resource.msg('label.sort-and-filter-more', 'search', null)}</span>
         </div>
         <isloop items="${pdict.productSearch.refinements}" var="refinement">
             <div class="card selected-refinement refinement-box-filter refinement refinement-${refinement.displayName.toLowerCase().replace(/ /g, '-')}">
