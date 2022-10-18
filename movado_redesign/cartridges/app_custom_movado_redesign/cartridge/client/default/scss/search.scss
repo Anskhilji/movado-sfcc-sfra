@@ -1059,9 +1059,13 @@
         background-color: $white;
         z-index: 101;
         border-bottom: rem(1) solid $white-grey;
+        padding-top: rem(20);
 
         @include media-breakpoint-down(sm) {
            top: rem(45);
+           left: 0;
+           right: 0;
+           padding: rem(10);
         }
       }
 
@@ -1183,7 +1187,7 @@
 @include custom-media-query($custom-lg4) {
   .inner-filter-box-relative {
       position: relative;
-      z-index: 9;
+      z-index: 362;
   }
 
   .container-open-state {
@@ -1243,6 +1247,7 @@
                             .card-body {
                                 padding: 0 rem(15);
                                 display: block;
+                                z-index: -1;
                             }
                           }
                       }
@@ -1378,7 +1383,7 @@
                           padding: 0;
                           margin-top: rem(10);
                           position: absolute;
-                          top: rem(71);
+                          top: rem(65);
                           width: 100%;
                           left: 0;
                           background-color: $white;
@@ -1571,6 +1576,11 @@
 
 // custom: MSS-1948 styling start here for mobile design
 @include custom-media-query-max($medium-screen-width) {
+  .inner-filter-box-relative {
+      &.filter-bar-sticky {
+        position: static;
+      }
+  }
     .container-open-state {
         position: relative;
     }

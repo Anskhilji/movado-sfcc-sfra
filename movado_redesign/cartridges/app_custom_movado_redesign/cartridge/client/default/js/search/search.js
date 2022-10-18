@@ -307,6 +307,7 @@ function clickedFilterButton() {
         $(".tab-pane.active>.container-fluid").addClass("container-open-state");
         $(".modal-background").removeClass("fadeOut").addClass("d-block fadeIn fast");
         $(".filter-btn-ctm").removeClass("d-md-none").addClass("d-md-flex");
+        $("body").addClass("no-overflow");
     });
 }
 
@@ -582,6 +583,7 @@ module.exports = {
                         swatches.showSwatchImages();
                         $('.plp-new-design .result-count').removeClass('col-12 col-md-9 col-sm-6 order-sm-2');
                         $(".refinement-bar-redesign").removeClass("refinement-open-state");
+                        $(".tab-pane.active>.container-fluid").removeClass("container-open-state");
                         $(".modal-background").removeClass("d-block");
                         clickedFilterButton();
                         filterApplyAddClassFilter();

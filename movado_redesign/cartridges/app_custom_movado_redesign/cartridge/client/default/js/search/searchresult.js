@@ -46,6 +46,7 @@ $(document).ready(function () {
         $(".tab-pane.active>.container-fluid").addClass("container-open-state");
         $(".modal-background").removeClass("fadeOut").addClass("d-block fadeIn fast");
         $(".filter-btn-ctm").removeClass("d-md-none").addClass("d-md-flex");
+        $("body").addClass("no-overflow");
     });
 
     $(".mobile-fliter-sort-btn-click").click(function(){
