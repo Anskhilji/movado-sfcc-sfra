@@ -102,7 +102,7 @@
                 }
                 @include media-breakpoint-up(md-down) {
                     position: absolute;
-                    z-index: 7;
+                    z-index: 2;
                     top: 35%;
                 }
                 @include media-breakpoint-up(md) {
@@ -173,6 +173,7 @@
     &.recommendation-slider {
         max-width: 100%;
         padding: rem(0);
+        border-top: none;
 
         .slider-container {
             padding: rem(0) rem(15);
