@@ -58,7 +58,7 @@
                     <!-- Product Name -->
                     <h2 class="product-name d-sm-none d-md-block text-uppercase">${product.productName}</h2>
 
-                    <div class="d-block d-md-block d-sm-none hidden-sm-down">
+                    <div class="d-block d-md-block d-sm-none">
                         <isinclude template="product/components/pidRating" />
                     </div>
 
