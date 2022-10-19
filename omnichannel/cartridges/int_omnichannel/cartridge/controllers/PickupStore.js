@@ -75,13 +75,13 @@ server.post('SetStoreIDSession', function (req, res, next) {
     var storeCountryCode = (!empty(req.querystring.storeCountryCode)) ? req.querystring.storeCountryCode : '';
     var storeAddress2 = (!empty(req.querystring.storeAddress2)) ? req.querystring.storeAddress2 : '';
     if (storePostalCode.length > 5) {
-       var  zipCode = StringUtils.truncate(storePostalCode, 5, null, null);
+        storePostalCode = StringUtils.truncate(storePostalCode, 5, null, null);
     }
 
     session.privacy.pickupStoreID = storeID;
     session.privacy.storeAddress = storeAddress;
     session.privacy.stateCode = stateCode;
-    session.privacy.storePostalCode = storePostalCode ? storePostalCode : zipCode;
+    session.privacy.storePostalCode = storePostalCode;
     session.privacy.storeCity = storeCity;
     session.privacy.storeCountryCode = storeCountryCode;
     session.privacy.storeAddress2 = storeAddress2;
