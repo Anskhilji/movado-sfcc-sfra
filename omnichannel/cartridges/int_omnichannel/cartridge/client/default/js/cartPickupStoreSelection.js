@@ -1,10 +1,15 @@
 'use strict';
 $(function () {
-    updateStorePickupProductAvailability();
-})
+    checkAllLineItem();
+});
+
 $(document).on('click', '.remove-btn.remove-product, .cart-store-pickup', function (event) {
-    var $url = $(this).data('url');
-    var $pickupFromStore = $(this).prop('checked');
+    checkAllLineItem();
+});
+
+function checkAllLineItem() {
+    var $url = $('.cart-store-pickup').data('url');
+    var $pickupFromStore = $('.cart-store-pickup').prop('checked');
     $.ajax({
         url: $url,
         data: {
@@ -32,7 +37,7 @@ $(document).on('click', '.remove-btn.remove-product, .cart-store-pickup', functi
             $.spinner().stop();
         }
     });
-});
+}
 
 function updateBOPISShippingMethods(data, $pickupFromStore) {
     $('#shippingMethods').empty();
