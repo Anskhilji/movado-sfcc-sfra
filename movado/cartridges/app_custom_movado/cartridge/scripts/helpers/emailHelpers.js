@@ -53,6 +53,8 @@ function send(emailObj, template, context) {
                 requestParams.messageId = Site.current.preferences.custom.Listrak_PasswordUpdateMessageID;
                 requestParams.passwordText = context.passwordText;
                 requestParams.email = context.email;
+                requestParams.firstName = context.firstName;
+                requestParams.lastName = context.lastName;
                 break;
             case 4:
                 if (context.order && context.order.totals && context.order.totals.totalTax === Constants.TOTAL_TAX) {
