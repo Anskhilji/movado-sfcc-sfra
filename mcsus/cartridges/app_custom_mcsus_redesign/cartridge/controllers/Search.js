@@ -65,7 +65,6 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     });
 
     var refineurl = URLUtils.url('Search-Refinebar');
-    session.custom.showMoreEndpoint = 'Search-UpdateGrid';
     /**
      * Custom Start: Implementing A/B test for MCS PLP
      */
