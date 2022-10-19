@@ -2547,8 +2547,6 @@ module.exports = {
             var listrakPopupSearchResult = document.querySelector('.listrak-popup-search-result');
             var listrakPopupProductDetail = document.querySelector('.listrak-popup-product-detail');
             var data = sessionStorage.getItem("listrakPersistenPopup");
-            console.log(data);
-            console.log(listrakPopupSearchResult);
             if (data == null) {
                 var isListrakPopupContain = listrakPopup.classList.contains('listrak-persistent-popup');
             
