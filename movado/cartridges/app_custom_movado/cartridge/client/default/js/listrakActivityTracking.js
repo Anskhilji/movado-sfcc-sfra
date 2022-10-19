@@ -3,7 +3,7 @@
  */
 
 module.exports = {
-    listrackProductTracking: function () {
+    listrackProductTracking: function (d) {
         if (document.addEventListener) document.addEventListener('ltkAsyncListener', d);
         else {
             e = document.documentElement; e.ltkAsyncProperty = 0; e.attachEvent('onpropertychange', function (e) {
