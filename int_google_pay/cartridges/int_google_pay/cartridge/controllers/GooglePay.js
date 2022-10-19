@@ -96,6 +96,9 @@ server.post('ProcessPayments',
 
         var validationHelpers = require('*/cartridge/scripts/helpers/basketValidationHelpers');
         var currentBasket = BasketMgr.getCurrentOrNewBasket();
+        var referralUrl = req.referer;
+        var googlePayEntryPoint = referralUrl && (referralUrl.indexOf('Cart-Show') > -1) || (referralUrl.indexOf('shopping-bag') > -1) ? false : true;
+        var productID = (!empty(currentBasket)) ? currentBasket.productLineItems[0].productID : '';
         if (!currentBasket) {
             res.json({
                 error: true,
@@ -142,7 +145,27 @@ server.post('ProcessPayments',
             var selectedShippingMethod = googlePayResponse.shippingOptionData.id;
             var shippingAddressData = googlePayResponse.shippingAddress;
             shippingAddressData.email = googlePayResponse.email;
-            googlePayHelper.setShippingAndBillingAddress(currentBasket, selectedShippingMethod, shippingAddressData, currentBasket.defaultShipment);
+            var response = googlePayHelper.setShippingAndBillingAddress(currentBasket, selectedShippingMethod, shippingAddressData, currentBasket.defaultShipment);
+            
+            if (response) {
+                if (googlePayEntryPoint) {
+                    res.json({
+                        error: false,
+                        lastNameError: true,
+                        redirectUrl: (URLUtils.url('Product-Show', 'pid', productID, 'lastNameError', true)).toString()
+                    });
+                    return next();
+    
+                } else {
+                    res.json({
+                        error: false,
+                        lastNameError: true,
+                        redirectUrl: (URLUtils.url('Cart-Show', 'lastNameError', true)).toString()
+                    });
+                    return next();
+    
+                }
+            }
         }
 
 

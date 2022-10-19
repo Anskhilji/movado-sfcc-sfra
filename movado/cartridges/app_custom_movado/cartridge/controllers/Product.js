@@ -173,6 +173,12 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         viewData.pdpAnalyticsTrackingData = JSON.stringify(pdpAnalyticsTrackingData);
     }
 
+    if (!empty(req.querystring.lastNameError)) {
+        res.setViewData({ 
+            lastNameError: req.querystring.lastNameError
+        });
+    }
+
     res.setViewData(viewData);
     next();
 }, pageMetaData.computedPageMetaData);
