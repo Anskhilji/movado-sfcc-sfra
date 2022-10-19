@@ -1955,6 +1955,7 @@
                         @include media-breakpoint-up(lg) {
                             padding: 0;
                         }
+                        
                         .tile-inner-content {
             
                             .product-brand-info {
@@ -2006,7 +2007,9 @@
                             bottom: 0;
                         }
                         margin-bottom: 0;
+                        
                         .cta-add-to-cart  {
+
                             .add-to-cart  {
                                 color: $black;
                                 font-family: $font-futura-pt;
@@ -2025,6 +2028,7 @@
                                     opacity:1;
                                     bottom: 0;
                                 }
+                                
                                 &:hover {
                                     background: $white-gray;
                                 }
