@@ -4,6 +4,7 @@ var shippingHelpers = require('./shipping');
 var billingHelpers = require('./billing');
 var summaryHelpers = require('./summary');
 var formHelpers = require('./formErrors');
+require('./fedexAddressValidate');
 var checkoutstages;
 
 
@@ -150,29 +151,29 @@ var checkoutstages;
               var defer = $.Deferred(); // eslint-disable-line
               //  Handle active and completed step
                 //fedEx call
-                var fedex = $('.fedex-btn-popup-call').attr('data-fedex');
-                if(fedex == "true"){
-                    var fedexURL = $('.fedex-btn-popup-call').data('url');
-                    checkoutstages = stage;
-                    $.ajax({
-                        url: fedexURL,
-                        method: 'POST',
-                        data: {stage:stage == 'payment' ? 'billing' : stage},
-                        success: function (data) {
-                            if (!data.error && data.fedExAddressValidationAPI && data.fedExAddressValidationAPI.validateObject && data.fedExAddressValidationAPI.validateObject.fedExAddress == false) {
-                                $('.fedex-recommended-address').attr('data-fedex-address',JSON.stringify(data.fedExAddressValidationAPI.fedExApiAddress));
-                                $('.recomended-address').text(data.fedExAddressValidationAPI.fedExApiAddress.streetAddress);
-                                $('.recomended-city').text(data.fedExAddressValidationAPI.fedExApiAddress.city +', '+data.fedExAddressValidationAPI.fedExApiAddress.stateOrProvinceCode);
-                                $('.recomended-postalCode').text(data.fedExAddressValidationAPI.fedExApiAddress.postalCode);
-                                $('.user-address').text(data.fedExAddressValidationAPI.userAddress.streetLines);
-                                $('.user-city').text(data.fedExAddressValidationAPI.userAddress.city + ', ' + data.fedExAddressValidationAPI.userAddress.state);
-                                $('.user-postalCode').text(data.fedExAddressValidationAPI.userAddress.postalCode);
-                                $('#fedExAdressModal').modal('show');
-                                defer.reject();
-                            }
-                        }
-                    });
-                }
+                // var fedex = $('.fedex-btn-popup-call').attr('data-fedex');
+                // if(fedex == "true"){
+                //     var fedexURL = $('.fedex-btn-popup-call').data('url');
+                //     checkoutstages = stage;
+                //     $.ajax({
+                //         url: fedexURL,
+                //         method: 'POST',
+                //         data: {stage:stage == 'payment' ? 'billing' : stage},
+                //         success: function (data) {
+                //             if (!data.error && data.fedExAddressValidationAPI && data.fedExAddressValidationAPI.validateObject && data.fedExAddressValidationAPI.validateObject.fedExAddress == false) {
+                //                 $('.fedex-recommended-address').attr('data-fedex-address',JSON.stringify(data.fedExAddressValidationAPI.fedExApiAddress));
+                //                 $('.recomended-address').text(data.fedExAddressValidationAPI.fedExApiAddress.streetAddress);
+                //                 $('.recomended-city').text(data.fedExAddressValidationAPI.fedExApiAddress.city +', '+data.fedExAddressValidationAPI.fedExApiAddress.stateOrProvinceCode);
+                //                 $('.recomended-postalCode').text(data.fedExAddressValidationAPI.fedExApiAddress.postalCode);
+                //                 $('.user-address').text(data.fedExAddressValidationAPI.userAddress.streetLines);
+                //                 $('.user-city').text(data.fedExAddressValidationAPI.userAddress.city + ', ' + data.fedExAddressValidationAPI.userAddress.state);
+                //                 $('.user-postalCode').text(data.fedExAddressValidationAPI.userAddress.postalCode);
+                //                 $('#fedExAdressModal').modal('show');
+                //                 defer.reject();
+                //             }
+                //         }
+                //     });
+                // }
                 //end fedex call
               if (stage === 'shipping') {
             //
@@ -226,7 +227,6 @@ var checkoutstages;
                           }
                       });
 
-                    // if(fedex == "true"){
                       $.ajax({
                           url: form.attr('action'),
                           method: 'POST',
@@ -248,7 +248,6 @@ var checkoutstages;
                               defer.reject(err.responseJSON);
                           }
                       });
-                //   }
                   return defer;
                 }
               } else if (stage === 'payment') {
@@ -836,27 +835,27 @@ var exports = {
     });
 });
 
-$('.fedex-continue-btn').click(function(){
-var recommendedAddress=  $('input[name="Recommended-address"]:checked').val();
-var userAddress =  $('input[name="user-address"]:checked').val();
-var fedexRecommendedAddress = JSON.parse($('.fedex-recommended-address').attr('data-fedex-address'));
-var checkoutFormStage = checkoutstages == 'payment' ? 'billing' : checkoutstages;
-if (recommendedAddress == 'on') {
-    $('.'+checkoutFormStage+'AddressOne').val(fedexRecommendedAddress.streetAddress);
-    $('.'+checkoutFormStage+'AddressCity').val(fedexRecommendedAddress.city);
-    $('.'+checkoutFormStage+'ZipCode').val(fedexRecommendedAddress.postalCode);
-    $("."+checkoutFormStage+"State option:selected").removeAttr("selected");
-    $("."+checkoutFormStage+"State option[value='"+fedexRecommendedAddress.stateOrProvinceCode+"']").attr('selected', 'selected');
-    $('.fedex-btn-popup-call').attr('data-fedex',"false");
-    $('.submit-'+checkoutstages).click();
-    $('#fedExAdressModal').modal('hide');
-} else if (userAddress == 'on') {
-    $('.fedex-btn-popup-call').attr('data-fedex',"false");
-    $('.submit-'+checkoutstages).click();
-    $('#fedExAdressModal').modal('hide');
-} else {
-    $('#fedExAdressModal').modal('show');
-}
+// $('.fedex-continue-btn').click(function(){
+// var recommendedAddress=  $('input[name="Recommended-address"]:checked').val();
+// var userAddress =  $('input[name="user-address"]:checked').val();
+// var fedexRecommendedAddress = JSON.parse($('.fedex-recommended-address').attr('data-fedex-address'));
+// var checkoutFormStage = checkoutstages == 'payment' ? 'billing' : checkoutstages;
+// if (recommendedAddress == 'on') {
+//     $('.'+checkoutFormStage+'AddressOne').val(fedexRecommendedAddress.streetAddress);
+//     $('.'+checkoutFormStage+'AddressCity').val(fedexRecommendedAddress.city);
+//     $('.'+checkoutFormStage+'ZipCode').val(fedexRecommendedAddress.postalCode);
+//     $("."+checkoutFormStage+"State option:selected").removeAttr("selected");
+//     $("."+checkoutFormStage+"State option[value='"+fedexRecommendedAddress.stateOrProvinceCode+"']").attr('selected', 'selected');
+//     $('.fedex-btn-popup-call').attr('data-fedex',"false");
+//     $('.submit-'+checkoutstages).click();
+//     $('#fedExAdressModal').modal('hide');
+// } else if (userAddress == 'on') {
+//     $('.fedex-btn-popup-call').attr('data-fedex',"false");
+//     $('.submit-'+checkoutstages).click();
+//     $('#fedExAdressModal').modal('hide');
+// } else {
+//     $('#fedExAdressModal').modal('show');
+// }
 
-}) 
+// }) 
 module.exports = exports;
