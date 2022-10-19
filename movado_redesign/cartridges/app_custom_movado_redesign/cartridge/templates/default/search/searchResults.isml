@@ -90,7 +90,7 @@
                                                 <div class="d-md-none filter-btn ctm-filter-btn">
                                                     <button type="button" class="filter-results filter-btn-mobile">
                                                         <img src="${URLUtils.staticURL('/images/bytesize_filter.svg')}" alt="">
-                                                        ${Resource.msg('button.filterby', 'search', null)}
+                                                        <span class="filter-content-label">${Resource.msg('button.filterby', 'search', null)}</span>
                                                     </button>
                                                 </div>
                                             </isif>

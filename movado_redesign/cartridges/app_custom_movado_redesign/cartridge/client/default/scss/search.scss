@@ -1860,6 +1860,16 @@
                   margin-right: rem(10);
                 }
 
+                .mobile-fliter-sort-button {
+                    transform: translateY(1px);
+                    display: inline-block;
+                }
+
+                .filter-content-label {
+                    transform: translateY(1px);
+                    display: inline-block;
+                }
+
                 &.refinement-open-state-sort {
                     position: fixed;
                     inset: 0;
