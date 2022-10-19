@@ -60,7 +60,7 @@
                            <isinclude template="checkout/productCard/miniCartBonusProductCard" />
                        </div>
                    </div>
-                <iselseif condition="${!lineItem.giftParentUUID}"/>
+                <iselse/>
                    <div class="card uuid-${lineItem.UUID}">
                        <div class="card-body">
                            <isinclude template="checkout/productCard/miniCartProductCard" />

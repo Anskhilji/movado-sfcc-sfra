@@ -8,7 +8,7 @@
                         <isinclude template="checkout/productCard/miniCartBonusProductCard" />
                     </div>
                 </div>
-            <iselseif condition="${!empty(lineItem.giftPid)}"/>
+            <iselse/>
                 <div class="card ${JSON.stringify(lineItem)} ${lineItem.giftPid} uuid-${lineItem.UUID}">
                     <div class="card-body">
                         <isinclude template="checkout/productCard/miniCartProductCard" />

@@ -64,13 +64,6 @@
                         </div>
                     </isif>
 
-                    <isif condition="${lineItem.customAttributes['itemLevelGiftMessage']}">
-                        <div class="line-item-option">
-                            <div class="personalize-price">${Resource.msgf('label.personalization.giftMessage', 'confirmation', null)}</div>
-                            <div class="personalize-msg gift-personlize-msg">${lineItem.customAttributes['itemLevelGiftMessage'].msgLine1}</div>
-                        </div>
-                    </isif>
-
                     <isif condition="${lineItem.customAttributes['giftMessage']}">
                         <div class="line-item-option">
                             <div class="personalize-price">${Resource.msgf('label.personalization.giftMessage', 'confirmation', null)}</div>>
@@ -105,8 +98,9 @@
                 <isinclude template="checkout/productCard/miniCartProductCardQuantitySelector" />
             </div>
         </div>
+        <isset name="giftPid" value="${lineItem.giftPid}" scope="page" />
         <isloop items="${items}" var="childlineItem" status="loopStatus">
-            <isif condition="${childlineItem.id == lineItem.giftPid}">
+            <isif condition="${childlineItem.id == giftPid}">
                 <isinclude template="checkout/productCard/miniCartGiftProduct" />
             </isif>
         </isloop>
@@ -119,12 +113,12 @@
 <div class="gift-box-container">
     <img class="gift-icon" alt="gift box icon" src="${URLUtils.staticURL('/images/giftbox-icon.svg')}" />
     <isif condition="${lineItem.customAttributes['itemLevelGiftMessage']}">
-        <div class="gift-box-container-label">${lineItem.customAttributes['itemLevelGiftMessage'].msgLine1}</div>
-        <a href="${URLUtils.https('Cart-ShowGiftBoxModal', 'pid', lineItem.id, 'uuid', lineItem.UUID, 'itemLevelGiftMessage', lineItem.customAttributes['itemLevelGiftMessage'].msgLine1)}" type="button" class="btn gift-box-container-link" data-toggle="modal" data-target="#giftBoxModelPopUp">Add/Edit</a>
+        <div class="gift-box-container-labe gift-lineitem-message-${lineItem.UUID}">${lineItem.customAttributes['itemLevelGiftMessage'].msgLine1}</div>
+        <a href="${URLUtils.https('Cart-ShowGiftBoxModal', 'pid', lineItem.id, 'uuid', lineItem.UUID, 'itemLevelGiftMessage', lineItem.customAttributes['itemLevelGiftMessage'] ? lineItem.customAttributes['itemLevelGiftMessage'].msgLine1 : '')}" type="button" class="btn gift-box-container-link" data-toggle="modal" data-target="#giftBoxModelPopUp">Add/Edit</a>
     <iselse/>
         <div class="gift-box-container-label">${Resource.msg('label.minicart.giftbox.heading', 'cart', null)} </div>
         <a href="${URLUtils.https('Cart-ShowGiftBoxModal', 'pid', lineItem.id, 'uuid', lineItem.UUID)}" type="button" class="btn gift-box-container-link" data-toggle="modal" data-target="#giftBoxModelPopUp">${Resource.msg('label.minicart.giftbox.link', 'cart', null)}</a>
     </isif>
-    <div class="gift-box-container-label gift-box-container-label-edit d-none">${lineItem.customAttributes['itemLevelGiftMessage'].msgLine1}</div>
-    <a href="${URLUtils.https('Cart-ShowGiftBoxModal', 'pid', lineItem.id, 'uuid', lineItem.UUID, 'itemLevelGiftMessage', lineItem.customAttributes['itemLevelGiftMessage'].msgLine1)}" type="button" class="btn gift-box-container-link gift-box-container-link-edit d-none" data-toggle="modal" data-target="#giftBoxModelPopUp">Add/Edit</a>
+    <div class="gift-box-container-label gift-box-container-label-edit gift-lineitem-message-${lineItem.UUID} d-none">${lineItem.customAttributes['itemLevelGiftMessage'].msgLine1}</div>
+    <a href="${URLUtils.https('Cart-ShowGiftBoxModal', 'pid', lineItem.id, 'uuid', lineItem.UUID, 'itemLevelGiftMessage', lineItem.customAttributes['itemLevelGiftMessage'] ? lineItem.customAttributes['itemLevelGiftMessage'].msgLine1 : '')}" type="button" class="btn gift-box-container-link gift-box-container-link-edit d-none" data-toggle="modal" data-target="#giftBoxModelPopUp">Add/Edit</a>
 </div>

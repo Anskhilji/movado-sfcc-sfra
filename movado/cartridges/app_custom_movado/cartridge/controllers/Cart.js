@@ -28,6 +28,7 @@ server.prepend('AddProduct', function (req, res, next) {
             if (currentLineItemsIterator.UUID == parentUUID) {
                 Transaction.wrap(function () {
                     currentLineItemsIterator.custom.giftPid = req.form.pid;
+                    currentLineItemsIterator.custom.giftParentUUID = req.form.parentPid;
                 });
                 break;
             }
