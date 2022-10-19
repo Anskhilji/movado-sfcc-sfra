@@ -11,9 +11,6 @@ var DEFAULT_PAGE_SIZE = Site.getCurrent().getCustomPreferenceValue('pageSize');
 var collections = require('*/cartridge/scripts/util/collections');
 var urlHelper = require('*/cartridge/scripts/helpers/urlHelpers');
 var ACTION_ENDPOINT = 'Search-UpdateGrid';
-if (session.custom.showMoreEndpoint) {
-    ACTION_ENDPOINT = session.custom.showMoreEndpoint;
-}
 var SEARCH_SHOW_ACTION_ENDPOINT = 'Search-Show';
 
 function getPagingModel(productHits, count, pageSize, startIndex) {
@@ -144,6 +141,9 @@ function getPaginationUrls(productSearch, httpParams, pageNumber, enableGridSlot
  * @return {SortingOption} - Sorting option
  */
 function getPaginationSortingOptions(productSearch, sortingOptions, pagingModel) {
+    if (session.custom.showMoreEndpoint) {
+        ACTION_ENDPOINT = session.custom.showMoreEndpoint;
+    }
     return collections.map(sortingOptions, function (option) {
         var baseUrl = productSearch.urlSortingRule(ACTION_ENDPOINT, option.sortingRule);
 
@@ -172,6 +172,9 @@ function getPaginationSortingOptions(productSearch, sortingOptions, pagingModel)
  * @return {SortingOption} - Sorting option
  */
 function getSortingOptions(productSearch, sortingOptions, pagingModel) {
+    if (session.custom.showMoreEndpoint) {
+        ACTION_ENDPOINT = session.custom.showMoreEndpoint;
+    }
     return collections.map(sortingOptions, function (option) {
         var baseUrl = productSearch.urlSortingRule(ACTION_ENDPOINT, option.sortingRule);
 
