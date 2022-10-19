@@ -1021,6 +1021,9 @@ module.exports = function () {
         $('.add-gift-message').removeClass('d-none');
         $('.add-gift-message').removeAttr('disabled');
         $('.add-gift-box').addClass('d-none');
+        $('.gift-box-none-button').removeClass('active');
+        $('.add-gift-box-input').removeClass('active');
+        $('.gift-message-box-input').addClass('active');
     });
 
     $('body').on('click', '.add-gift-box-input', function () {
@@ -1028,13 +1031,18 @@ module.exports = function () {
         $('.add-gift-message').addClass('d-none');
         $('.add-gift-box').removeClass('d-none');
         $('.add-gift-box').removeAttr('disabled');
-
+        $('.gift-box-none-button').removeClass('active');
+        $('.add-gift-box-input').addClass('active');
+        $('.gift-message-box-input').removeClass('active');
     });
 
     $('body').on('click', '.gift-box-none-button', function () {
         $('.add-gift-message').attr('disabled', 'disabled');
         $('.gift-message-box').addClass('hide-box');
         $('.add-gift-box').attr('disabled', 'disabled');
+        $('.gift-box-none-button').addClass('active');
+        $('.add-gift-box-input').removeClass('active');
+        $('.gift-message-box-input').removeClass('active');
     });
 
     base.selectAttribute();
