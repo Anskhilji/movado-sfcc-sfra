@@ -588,10 +588,27 @@ module.exports = {
                         $("body").removeClass("no-overflow-ctm");
                         clickedFilterButton();
                         filterApplyAddClassFilter();
-                        var $productSearchResult = $('.grid-header .result-count .category-name').data('result-counts');
                         var $bannerCount = $('.banner-count .result-count');
-                        var $html = '<span>(' + $productSearchResult + ')</span>';
-                        $bannerCount.html($html);
+                        var $productSearchResult = $('.grid-header .result-count .category-name').data('result-counts');
+                        var $bannerSearchResultCountAppend = $('.banner-count .result-count .search-result-count');
+                        var $bannerSearchResultCount = $('.search-result-counts .result-count .search-result-count').data('result-counts');
+
+                        if ($bannerSearchResultCount && $bannerSearchResultCount !== undefined) {
+                            $bannerSearchResultCountAppend.html($bannerSearchResultCount);
+                        } else if ($productSearchResult && $productSearchResult !== undefined) {
+                            var $html = '<span>(' + $productSearchResult + ')</span>';
+                            $bannerCount.html($html);
+                        } else {
+                            var $searchResultCountBanner = $('.search-result-count');
+                            if ($searchResultCountBanner.length > 0) {
+                                var $html = '<span class="make-bold">' + 0 + '</span> Results for';
+                                $bannerSearchResultCountAppend.html($html);
+                            } else {
+                                var $html = '<span>(' + 0 + ' items)</span>';
+                                $bannerCount.html($html);
+                            }
+                        }
+                        
                     },
                     error: function () {
                         $.spinner().stop();
@@ -670,7 +687,8 @@ module.exports = {
         $('.sort-order-mobile-menu').on('click', '.custom-select__dropdown', function (e) {
             var $mobileFilterBtn = $('.mobile-fliter-sort-button');
             var $selectedValue = e.target.innerText;
-            $mobileFilterBtn.innerHTML = 'Sort by: ' + $selectedValue; 
+            var $html = 'Sort by: ' + $selectedValue;
+            $mobileFilterBtn.html($html);
         });
     },
     // Custom end: For Mobile Filters
