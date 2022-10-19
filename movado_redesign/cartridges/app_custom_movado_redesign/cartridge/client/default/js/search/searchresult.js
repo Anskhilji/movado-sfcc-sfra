@@ -97,6 +97,7 @@ $(document).on("click",".search-results.plp-new-design  .close-refinebar", funct
     $(".modal-background").addClass("fadeOut");
     $("body").removeClass("no-overflow");
     $(".search-results.plp-new-design  .refinement-bar").addClass("fadeOutRight");
+    $(".modal-background").addClass("d-none");
 
     setTimeout(function(){
         $(".modal-background").removeClass("d-block modal-moblie");
