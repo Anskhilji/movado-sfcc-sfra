@@ -151,6 +151,14 @@ function updateMiniCartTotals(data, $giftProduct) {
             $miniCartSelector.find('.item-total-' + item.UUID + ' .product-line-item-details  .price .strike-through').remove();
         }
         $miniCartSelector.find('.item-total-' + item.UUID + ' .product-line-item-details  .sales').empty().append(item.priceTotal.price);
+        
+        if (item.giftPid !== undefined && item.giftPid !== '') {
+            data.items.forEach(function (childitem) {
+                if (childitem.id == item.giftPid) {
+                    $('.sale-gift-price-mvmt').empty().append(childitem.priceTotal.price);
+                }
+            });
+        }
     });
     // Custom End
 
@@ -222,6 +230,13 @@ function updateCartTotals(data, $giftProduct) {
                 $('.card.product-info').find('.item-total-' + item.UUID + ' .price .price-pdp-mvmt .strike-through').remove();
             }
             $('.card.product-info').find('.item-total-' + item.UUID + ' .price-pdp-mvmt .sales').empty().append(item.priceTotal.price);
+            if (item.giftPid !== undefined && item.giftPid !== '') {
+                data.items.forEach(function (childitem) {
+                    if (childitem.id == item.giftPid) {
+                        $('.sale-gift-price-mvmt').empty().append(childitem.priceTotal.price);
+                    }
+                });
+            }
         });
     } else {
         data.items.forEach(function (item) {
@@ -526,18 +541,21 @@ module.exports = function () {
                 $('.gift-message-error').hide();
                 $this.find('.apply-button').addClass('d-none');
                 data.basketModel.items.forEach(function (item) {
-                    var $itemLevelGiftMessage = item.customAttributes.itemLevelGiftMessage.msgLine1;
+                    if (item.customAttributes.itemLevelGiftMessage && item.customAttributes.itemLevelGiftMessage.msgLine1) {
+                        var $itemLevelGiftMessage = item.customAttributes.itemLevelGiftMessage.msgLine1;
+                    }
                     if ($itemLevelGiftMessage !== undefined && $itemLevelGiftMessage !== '') {
                         $('.gift-box-container-label').addClass('d-none');
                         $('.gift-box-container-label-edit').removeClass('d-none');
-                        $('.gift-box-container-label-edit').text($itemLevelGiftMessage);
                         $('.gift-box-container-modal .gift-text').text($itemLevelGiftMessage);
                         $('.gift-personlize-msg').text($itemLevelGiftMessage);
                         $('.gift-box-container-link').addClass('d-none');
                         $('.gift-box-container-link-edit').removeClass('d-none');
+                        $('.gift-lineitem-message-' + item.UUID).text($itemLevelGiftMessage);
+                        
                     }
                 });
-                $('#giftBoxModelPopUp').modal('hide')
+                $('#giftBoxModelPopUp').modal('hide');
             },
             error: function (data) {
                 $.spinner().stop();
@@ -1015,6 +1033,8 @@ module.exports = function () {
 
     $('body').on('click', '.gift-box-none-button', function () {
         $('.add-gift-message').attr('disabled', 'disabled');
+        $('.gift-message-box').addClass('hide-box');
+        $('.add-gift-box').attr('disabled', 'disabled');
     });
 
     base.selectAttribute();

@@ -1624,11 +1624,11 @@
 .gift-box-container {
     text-align: center;
     display: flex;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     align-self: center;
     border-top: 1px solid $gray14;
-    padding: rem(9) 0;
+    padding: rem(9) 0 rem(9) rem(45);
     &.full-cart-continaer {
         margin-top: rem(27);
     }
@@ -1690,6 +1690,17 @@
             }
         }
 
+        &-heading {
+            color: $light-black;
+            font-family: $font-GaramondPro;
+            font-size: rem(24);
+            font-style: italic;
+            letter-spacing: rem(0);
+            line-height: rem(30);
+            text-align: center;
+            margin-top: rem(14);
+        }
+
         &-dialog {
             @include media-breakpoint-up(sm) {
                 max-width: rem(574);
@@ -1710,6 +1721,7 @@
         }
 
         &-body {
+            padding: rem(14) rem(16) rem(16) rem(16);
             &-item-image {
                 width: rem(100);
                 height: rem(100);
@@ -1731,7 +1743,7 @@
                     user-select: none;
                     box-sizing: border-box;
                     height: rem(50);
-                    border: rem(2) solid $light-black4;
+                    border: rem(2) solid $light-gray6;
                     color: $light-black3;
                     font-family: $font-medium;
                     font-size: rem(13);
@@ -1743,6 +1755,9 @@
                     text-align: left;
                     border-radius: rem(3);
                     text-transform: capitalize;
+                    &.active {
+                        border-color: $light-black6;
+                    }
                 }
                   
                 /* Hide the browser's default radio button */
@@ -1817,6 +1832,8 @@
                         font-weight: 500;
                         letter-spacing: rem(0.5);
                         line-height: rem(12);
+                        text-transform: capitalize;
+                        margin-bottom: rem(10);
                     }
 
                     &-text-box {
@@ -1836,7 +1853,7 @@
                 color: $light-black3;
                 font-family: $font-medium;
                 font-size: rem(13);
-                font-weight: 300;
+                font-weight: 400;
                 letter-spacing: rem(0.5);
                 line-height: rem(12);
                 text-align: center;
@@ -1872,4 +1889,19 @@
 
 .modal-backdrop {
     z-index: 999;
+}
+
+.cart-page {
+
+    .gift-box-container {
+        padding: rem(12) rem(0);
+
+        .gift-icon {
+            margin-right: rem(15);
+        } 
+
+        .gift-box-container-link {
+            padding: rem(0) rem(0) rem(0) rem(15);
+        }
+    }
 }

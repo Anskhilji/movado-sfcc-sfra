@@ -104,7 +104,7 @@
         <iscomment> Custom End </iscomment>
         <div class="col-2 hidden-md-down p-0 p-lg-2 item-total-${lineItem.UUID}">
             <isset name="price" value="${lineItem.price}" scope="page"/>
-            <isinclude template="/product/components/pricing/main" />
+            <isinclude template="/product/components/pricing/giftMain" />
         </div>
         <div class="col-3 col-sm-2 hidden-md-down">
             <isif condition="${!lineItem.isBonusProductLineItem}"/>
