@@ -113,10 +113,20 @@
 <div class="gift-box-container">
     <img class="gift-icon" alt="gift box icon" src="${URLUtils.staticURL('/images/giftbox-icon.svg')}" />
     <isif condition="${lineItem.customAttributes['itemLevelGiftMessage']}">
-        <div class="gift-box-container-labe gift-lineitem-message-${lineItem.UUID}">${lineItem.customAttributes['itemLevelGiftMessage'].msgLine1}</div>
+         <div class="gift-message-box text-left">
+            <div class="gift-box-container-labe gift-lineitem-message-${lineItem.UUID}">${lineItem.customAttributes['itemLevelGiftMessage'].msgLine1}</div>
+            <div class="gift-msg-text">
+                “Happy Birthday, Ryan!”
+            </div>
+        </div>
         <a href="${URLUtils.https('Cart-ShowGiftBoxModal', 'pid', lineItem.id, 'uuid', lineItem.UUID, 'itemLevelGiftMessage', lineItem.customAttributes['itemLevelGiftMessage'] ? lineItem.customAttributes['itemLevelGiftMessage'].msgLine1 : '')}" type="button" class="btn gift-box-container-link" data-toggle="modal" data-target="#giftBoxModelPopUp">Add/Edit</a>
     <iselse/>
-        <div class="gift-box-container-label">${Resource.msg('label.minicart.giftbox.heading', 'cart', null)} </div>
+        <div class="gift-message-box text-left">
+            <div class="gift-box-container-label">${Resource.msg('label.minicart.giftbox.heading', 'cart', null)} </div>
+            <div class="gift-msg-text">
+                “Happy Birthday, Ryan!”
+            </div>
+        </div>
         <a href="${URLUtils.https('Cart-ShowGiftBoxModal', 'pid', lineItem.id, 'uuid', lineItem.UUID)}" type="button" class="btn gift-box-container-link" data-toggle="modal" data-target="#giftBoxModelPopUp">${Resource.msg('label.minicart.giftbox.link', 'cart', null)}</a>
     </isif>
     <div class="gift-box-container-label gift-box-container-label-edit gift-lineitem-message-${lineItem.UUID} d-none">${lineItem.customAttributes['itemLevelGiftMessage'].msgLine1}</div>

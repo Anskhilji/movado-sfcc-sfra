@@ -1624,9 +1624,8 @@
 .gift-box-container {
     text-align: center;
     display: flex;
-    justify-content: start;
-    align-items: center;
-    align-self: center;
+    justify-content: flex-start;
+    align-items: flex-start;
     border-top: 1px solid $gray14;
     padding: rem(9) 0 rem(9) rem(45);
     &.full-cart-continaer {
@@ -1654,6 +1653,7 @@
         letter-spacing: rem(0.53);
         line-height: rem(16);
         text-transform: capitalize;
+        padding-top: 0;
 
         &:hover {
             color: $curious-light-blue;
@@ -1666,6 +1666,9 @@
 
     &-modal {
         z-index: 999999;
+        @include media-breakpoint-down(xs) {
+            top: unset;
+        }
 
         &-header {
 
@@ -1685,8 +1688,8 @@
                 width: rem(25);
                 height: rem(25);
                 padding: 0;
-                margin-top: rem(2);
-                margin-right: rem(4);
+                margin-top: rem(4);
+                margin-right: rem(6);
             }
         }
 
@@ -1707,7 +1710,7 @@
             }
             @include media-breakpoint-down(xs) {
                 margin: rem(0);
-                height: 100%;
+                height: 100vh;
             }
 
             .modal-content {
@@ -1715,7 +1718,8 @@
                 border-radius: rem(0);
 
                 @include media-breakpoint-down(xs) {
-                    height: 100%;
+                    height: 100vh;
+                    overflow-y: auto;
                 }
             }
         }
@@ -1815,6 +1819,7 @@
                 .label-right-wrapper {
                     float: right;
                     padding-right: rem(20);
+                    font-weight: 300;
                 }
 
                 &-textarea-container {
@@ -1839,11 +1844,15 @@
                     &-text-box {
                         border: rem(1) solid $light-black4;
                         border-radius: rem(3);
+                        font-weight: 500;
+                        font-family: $font-medium;
+                        font-size: rem(12);
 
                         &::placeholder {
                             color: $light-black3;
                             font-family: $font-medium;
-                            font-size: rem(13);
+                            font-size: rem(12);
+                            font-weight: 500;
                         }
                     }
                 }
@@ -1878,8 +1887,9 @@
 
             .close {
                 opacity: 1;
-                margin: 0;
-                margin-top: rem(20);
+                @include media-breakpoint-down(xs) {
+                    margin-top: rem(20);
+                }
             }
         }
     }
@@ -1906,5 +1916,19 @@
         .gift-box-container-link {
             padding: rem(0) rem(0) rem(0) rem(15);
         }
+    }   
+}
+
+.gift-message-box {
+    
+    .gift-msg-text {
+        color: $light-black;
+        font-family: $font-medium;
+        font-size: rem(14);
+        font-weight: 500;
+        letter-spacing: rem(0);
+        line-height: rem(18);
+        font-style: oblique;
+        margin-top: rem(5);
     }
 }
