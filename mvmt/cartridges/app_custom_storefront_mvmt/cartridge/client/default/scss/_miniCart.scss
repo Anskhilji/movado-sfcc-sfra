@@ -1857,6 +1857,7 @@
                 letter-spacing: rem(0.5);
                 line-height: rem(12);
                 text-align: center;
+                margin-bottom: rem(20);
             }
 
             &-save-button {
@@ -1877,6 +1878,8 @@
 
             .close {
                 opacity: 1;
+                margin: 0;
+                margin-top: rem(20);
             }
         }
     }

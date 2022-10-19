@@ -137,14 +137,14 @@
         <img class="gift-icon" alt="gift box icon" src="${URLUtils.staticURL('/images/giftbox-icon.svg')}" />
         <isif condition="${lineItem.customAttributes['itemLevelGiftMessage']}">
             <div class="gift-box-container-label">${lineItem.customAttributes['itemLevelGiftMessage'].msgLine1}</div>
-            <a href="${URLUtils.https('Cart-ShowGiftBoxModal', 'pid', lineItem.id, 'uuid', lineItem.UUID, 'itemLevelGiftMessage', lineItem.customAttributes['itemLevelGiftMessage'] ? lineItem.customAttributes['itemLevelGiftMessage'].msgLine1 : '', 'isCartPage', isCartPage)}" type="button" class="btn gift-box-container-link" data-toggle="modal" data-target="#giftBoxModelPopUp">Add/Edit</a>
+            <a href="${URLUtils.https('Cart-ShowGiftBoxModal', 'pid', lineItem.id, 'uuid', lineItem.UUID, 'itemLevelGiftMessage', lineItem.customAttributes['itemLevelGiftMessage'] ? lineItem.customAttributes['itemLevelGiftMessage'].msgLine1 : '', 'isCartPage', isCartPage)}" type="button" class="btn gift-box-container-link" data-toggle="modal" data-target="#giftBoxModelPopUp">Edit</a>
         <iselse/>
             <div class="gift-box-container-label">${Resource.msg('label.minicart.gift.message', 'cart', null)} </div>
             <a href="${URLUtils.https('Cart-ShowGiftBoxModal', 'pid', lineItem.id, 'uuid', lineItem.UUID, 'isCartPage', isCartPage)}" type="button" class="btn gift-box-container-link" data-toggle="modal" data-target="#giftBoxModelPopUp">${Resource.msg('label.minicart.giftbox.link', 'cart', null)}</a>
         </isif>
 
         <div class="gift-box-container-label gift-box-container-label-edit d-none">${lineItem.customAttributes['itemLevelGiftMessage'].msgLine1}</div>
-        <a href="${URLUtils.https('Cart-ShowGiftBoxModal', 'pid', lineItem.id, 'uuid', lineItem.UUID, 'itemLevelGiftMessage', lineItem.customAttributes['itemLevelGiftMessage'] ? lineItem.customAttributes['itemLevelGiftMessage'].msgLine1 : '', 'isCartPage', isCartPage)}" type="button" class="btn gift-box-container-link gift-box-container-link-edit d-none" data-toggle="modal" data-target="#giftBoxModelPopUp">Add/Edit</a>
+        <a href="${URLUtils.https('Cart-ShowGiftBoxModal', 'pid', lineItem.id, 'uuid', lineItem.UUID, 'itemLevelGiftMessage', lineItem.customAttributes['itemLevelGiftMessage'] ? lineItem.customAttributes['itemLevelGiftMessage'].msgLine1 : '', 'isCartPage', isCartPage)}" type="button" class="btn gift-box-container-link gift-box-container-link-edit d-none" data-toggle="modal" data-target="#giftBoxModelPopUp">Edit</a>
     </div>
     <isif condition="${lineItem.bonusProductLineItemUUID === 'bonus'}">
         <isinclude template="cart/productCard/cartEmbeddedBonusProducts" />

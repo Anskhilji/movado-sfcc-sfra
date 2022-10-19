@@ -171,7 +171,7 @@ function updateMiniCartTotals(data, $giftProduct) {
 }
 
 
-function updateCartTotals(data, $giftProduct) {
+function updateCartTotals(data, $giftProduct, $productID) {
     if (typeof data.totals.deliveryTime != 'undefined' && typeof data.totals.deliveryTime.isExpress != 'undefined' && data.totals.deliveryTime.isExpress) {
         $('.delivery-time').removeClass('d-none');
     } else {
@@ -236,6 +236,9 @@ function updateCartTotals(data, $giftProduct) {
                         $('.sale-gift-price-mvmt').empty().append(childitem.priceTotal.price);
                     }
                 });
+            }
+            if ($giftProduct !== undefined && $giftProduct == true && $productID !== undefined) {
+                $('.gift-product-remove-'+ $productID).remove();
             }
         });
     } else {
@@ -819,7 +822,7 @@ module.exports = function () {
                     }
                     $('.coupons-and-promos').children('.coupons-and-promos-wrapper').empty().append(data.basket.totals.discountsHtml);
                     var $miniCartSelector = $('.mini-cart-data .mini-cart-header');
-                    $miniCartSelector.length > 0 ? updateMiniCartTotals(data.basket, $giftProduct) : updateCartTotals(data.basket, $giftProduct);
+                    $miniCartSelector.length > 0 ? updateMiniCartTotals(data.basket, $giftProduct) : updateCartTotals(data.basket, $giftProduct, $productID);
                     updateApproachingDiscounts(data.basket.approachingDiscounts);
                     $('body').trigger('setShippingMethodSelection', data.basket);
                     validateBasket(data.basket);
