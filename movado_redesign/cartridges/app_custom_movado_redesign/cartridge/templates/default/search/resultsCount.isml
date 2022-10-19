@@ -6,7 +6,7 @@
     <iscomment> Custom End: category name added</iscomment>
 <iselse>
     <p>
-        <span>
+        <span class="search-result-count" data-result-counts="${Resource.msgf('label.resultsfor', 'search', null, pdict.productSearch.count)}">
             <isif condition="${pdict.productSearch.productIds.length > 0}">
                 <isprint value="${Resource.msgf('label.resultsfor', 'search', null, pdict.productSearch.count)}" encoding="off">
             <iselse>
