@@ -3056,7 +3056,10 @@
 }
 
 .promotions {
-
+    @include media-breakpoint-down(sm) {
+        padding: rem(0) rem(10);
+    }
+    
      .row:first-child {
          margin: 0;
          padding: 0;
