@@ -301,8 +301,6 @@ server.replace(
                 });
             });
         }
-        //fedex
-
         return next();
     }
 );
