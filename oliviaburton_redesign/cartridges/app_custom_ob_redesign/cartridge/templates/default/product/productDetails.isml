@@ -24,10 +24,10 @@
     <isobject object="${product.raw}" view="detail">
     <isset name="topLevelBackground" value="${dw.system.Site.getCurrent().getCustomPreferenceValue('topLevelBackground')}" scope="page" />
         <iscomment> ${topLevelBackground}; </iscomment>
-        <div class="custom-bg" style="background-color: ${topLevelBackground};">
+        <div class="custom-bg ${pdict.lastNameError ? 'pt-2' : ''}" style="background-color: ${topLevelBackground};">
 
             <isif condition="${pdict.lastNameError}">
-                <div class="container cart-error-messaging cart-error mt-2 gpay-error alert card alert-dismissible fade show">
+                <div class="container cart-error-messaging cart-error gpay-error alert card alert-dismissible fade show">
                     ${Resource.msg('error.last.name', 'checkout', null)}
                 </div>
             </isif>
