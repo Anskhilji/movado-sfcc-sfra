@@ -1964,14 +1964,20 @@
                         }
                         
                         .tile-inner-content {
-            
+                            margin: rem(22.15) rem(0) rem(5) rem(0);    
                             .product-brand-info {
-                                display: none;
+                                margin: 0;
+                                color: $light-gray2;
+                                font-family: $font-medium;
+                                font-size: rem(11);
+                                font-weight: 500;
+                                letter-spacing: 0;
+                                line-height: rem(12);
+                                text-align: center;
                             }
             
                             .pdp-link {
-                                margin: rem(22.15) rem(0) rem(5) rem(0);
-
+                                margin: rem(5) rem(0) rem(5) rem(0);
                                 .product-name {
                                     margin: 0;
                                     color: $light-gray2;
