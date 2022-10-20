@@ -3,7 +3,7 @@
 <isset name="itemsLength" value="${empty(pdict.items.length) ? 0 : pdict.items.length}" scope="page"/>
 <isset name="orderLevelDiscountTotal" value="${pdict.totals.orderLevelDiscountTotal.value}" scope="page">
 <isset name="enableGiftMessage" value="${dw.system.Site.getCurrent().preferences.custom.enableGiftMessage}" scope="page"/>
-<isset name="enableCartRecomendations" value="${dw.system.Site.getCurrent().preferences.custom.enableCartRecomendations}" scope="page"/>
+<iscomment> <isset name="enableCartRecomendations" value="${dw.system.Site.getCurrent().preferences.custom.enableCartRecomendations}" scope="page"/> </iscomment>
 <isif condition="${!empty(pdict.reportingURLs)}">
     <isinclude template="reporting/reportingUrls" />
 </isif>
@@ -73,10 +73,10 @@
         </isloop>
 
         <iscomment>Custom Start: Recomendation Carousel </iscomment>
-        <isif condition="${enableCartRecomendations}">
+        <iscomment> <isif condition="${enableCartRecomendations}">
         <isslot id="cs_cart_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"
             context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}" />
-        </isif>
+        </isif> </iscomment>
         <iscomment> Custom End </iscomment>
     </div>
     <div class="minicart-footer">

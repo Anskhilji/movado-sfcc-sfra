@@ -51,13 +51,24 @@ server.get('ShowGiftBoxModal', server.middleware.https, csrfProtection.generateT
     var giftBoxSKUData = productCustomHelper.getGiftBoxSKU(apiProduct);
     var images = product.images.tile150;
 
+    var BasketMgr = require('dw/order/BasketMgr');
+    var CartModel = require('*/cartridge/models/cart');
+    var currentBasket = BasketMgr.getCurrentOrNewBasket();
+    var basketModel = new CartModel(currentBasket);
+    var itemLevelGiftMessage;
+
+    for (var i = 0; i < basketModel.items.length; i++) {
+        var lineItem = basketModel.items[i];
+        itemLevelGiftMessage = (!empty(lineItem.customAttributes) && !empty(lineItem.customAttributes.itemLevelGiftMessage)) ? lineItem.customAttributes.itemLevelGiftMessage.msgLine1 : '';
+    }
+
     viewData = {
         product: product,
         image: images[0],
         productUUID: params.uuid,
         giftBoxSKUData: giftBoxSKUData,
-        itemLevelGiftMessage: params.itemLevelGiftMessage,
-        isCartPage: params.isCartPage
+        isCartPage: params.isCartPage,
+        itemLevelGiftMessage: itemLevelGiftMessage
     };
 
     res.setViewData(viewData);
