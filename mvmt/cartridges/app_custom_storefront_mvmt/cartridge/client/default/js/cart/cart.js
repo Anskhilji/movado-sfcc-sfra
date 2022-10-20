@@ -555,6 +555,9 @@ module.exports = function () {
                         $('.gift-box-container-link').addClass('d-none');
                         $('.gift-box-container-link-edit').removeClass('d-none');
                         $('.gift-lineitem-message-' + item.UUID).text($itemLevelGiftMessage);
+                        $('.gift-msg-text').addClass('d-none')
+                        $('.gift-msg-text-edit').removeClass('d-none');
+                        $('.gift-message-btn-' + item.UUID).text('Edit');
                         
                     }
                 });
