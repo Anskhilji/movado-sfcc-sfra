@@ -13,7 +13,7 @@ Template Notes:
     <label class="select-size-head-label ${attr.id}">
         ${attr.displayName} 
         <iscomment> Custom: Start [added span, static text will be replaced when dynamic value applied] </iscomment> 
-        <span class="selected-variation d-none d-md-inline-block" data-selected-variation-attr="${attr.id}">
+        <span class="selected-variation d-none" data-selected-variation-attr="${attr.id}">
             <isloop items="${attr.values}" var="attrValue">
                 <isif condition="${attrValue.selected}">
                     <isset name="selectedAttributeValue" value="${attrValue.value}" scope="page" />
