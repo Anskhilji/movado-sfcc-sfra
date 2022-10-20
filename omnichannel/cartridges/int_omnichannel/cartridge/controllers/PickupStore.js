@@ -74,7 +74,7 @@ server.post('SetStoreIDSession', function (req, res, next) {
     var storeCity = (!empty(req.querystring.storeCity)) ? req.querystring.storeCity : '';
     var storeCountryCode = (!empty(req.querystring.storeCountryCode)) ? req.querystring.storeCountryCode : '';
     var storeAddress2 = (!empty(req.querystring.storeAddress2)) ? req.querystring.storeAddress2 : '';
-    var standardZipCode = (!empty(req.querystring.storePostalCode)) ? req.querystring.storePostalCode : '';;
+    var standardZipCode = storePostalCode;
     if (standardZipCode.length > 5) {
         standardZipCode = StringUtils.truncate(standardZipCode, 5, null, null);
     }
