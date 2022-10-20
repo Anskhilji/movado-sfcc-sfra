@@ -59,13 +59,6 @@
                         </div>
                     </isif>
 
-                    <isif condition="${lineItem.customAttributes['itemLevelGiftMessage']}">
-                        <div class="line-item-option">
-                            <div class="personalize-price">${Resource.msgf('label.personalization.giftMessage', 'confirmation', null)}</div>
-                            <div class="personalize-msg gift-personlize-msg">${lineItem.customAttributes['itemLevelGiftMessage'].msgLine1}</div>
-                        </div>
-                    </isif>
-
                     <isif condition="${lineItem.customAttributes['giftMessage']}">
                         <div class="line-item-option">
                             <div class="personalize-price">${Resource.msgf('label.personalization.giftMessage', 'confirmation', null)}</div>>

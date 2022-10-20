@@ -1,10 +1,11 @@
-    <!--- name and remove buttons --->
+<div class="container">
+        <!--- name and remove buttons --->
     <isset name="lineItem" value="${childlineItem}" scope="page" />
     <div class="row gift-product-row gift-product-remove-${lineItem.id} ${bonuslineitemrow} item-info">
         <isif condition="${lineItem && lineItem.images && lineItem.images.tile150[0]}">
             <isset name="productImage" value="${lineItem && lineItem.images && lineItem.images.tile150[0] ? lineItem.images.tile150[0] : ''}" scope="page"/>
             <iscomment> bootstrap columns classes changed </iscomment>
-            <div class="align-items-center col-8 col-lg-6 d-flex">
+            <div class="align-items-center col-8 col-lg-6 d-flex pl-0">
                 <img class="product-image" src="${productImage.url}" alt="${productImage.alt}" title="${productImage.title}">
                 <div class="item-name-and-price">
                     <isinclude template="cart/productCard/cartProductCardHeader" />
@@ -137,3 +138,4 @@
             <div class="col-12 d-lg-none"><hr class="line-item-divider"></div>
         </isif>
     </div>
+</div>
