@@ -114,7 +114,7 @@
     <img class="gift-icon" alt="gift box icon" src="${URLUtils.staticURL('/images/giftbox-icon.svg')}" />
     <isif condition="${lineItem.customAttributes['itemLevelGiftMessage']}">
          <div class="gift-message-box text-left">
-            <div class="gift-box-container-labe">${Resource.msg('label.minicart.giftbox.heading', 'cart', null)}</div>
+            <div class="gift-box-container-label">${Resource.msg('label.minicart.giftbox.heading', 'cart', null)}</div>
             <div class="gift-msg-text gift-lineitem-message-${lineItem.UUID}">
                 ${lineItem.customAttributes['itemLevelGiftMessage'] ? lineItem.customAttributes['itemLevelGiftMessage'].msgLine1 : ''}
             </div>
