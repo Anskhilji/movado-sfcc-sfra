@@ -165,7 +165,7 @@ function updateCartTotals(data) {
 
     $('.delivery-date').empty().append(data.totals.deliveryDate);
     $('.number-of-items').empty().append(data.resources.numberOfItems);
-    $('.shipping-cost').empty().append(data.totals.totalShippingCost);
+    $('.shipping-total-cost').empty().append(data.totals.totalShippingCost);
     $('.tax-total').empty().append(data.totals.totalTax);
     $('.sub-total').empty().append(data.totals.subTotal);
     $('.grand-total-sum, .cart-total').empty().append(data.totals.grandTotal);
