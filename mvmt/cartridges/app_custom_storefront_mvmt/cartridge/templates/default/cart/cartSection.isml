@@ -56,7 +56,9 @@
                 <isloop items="${pdict.items}" var="lineItem" status="loopStatus">
                     <isif condition="${lineItem.productType === 'bundle'}">
                         <isinclude template="cart/productCard/cartBundleCard" />
-                    <iselseif condition="${!lineItem.giftParentUUID}"/>
+                    <iselseif condition="${!empty(lineItem.giftParentUUID)}"/>
+                        <isnext />
+                    <iselse/>
                         <isinclude template="cart/productCard/cartProductCard" />
                     </isif>
                 </isloop>

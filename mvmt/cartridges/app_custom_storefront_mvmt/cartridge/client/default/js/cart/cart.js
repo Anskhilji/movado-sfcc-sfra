@@ -171,7 +171,7 @@ function updateMiniCartTotals(data, $giftProduct) {
 }
 
 
-function updateCartTotals(data, $giftProduct) {
+function updateCartTotals(data, $giftProduct, $productID) {
     if (typeof data.totals.deliveryTime != 'undefined' && typeof data.totals.deliveryTime.isExpress != 'undefined' && data.totals.deliveryTime.isExpress) {
         $('.delivery-time').removeClass('d-none');
     } else {
@@ -236,6 +236,9 @@ function updateCartTotals(data, $giftProduct) {
                         $('.sale-gift-price-mvmt').empty().append(childitem.priceTotal.price);
                     }
                 });
+            }
+            if ($giftProduct !== undefined && $giftProduct == true && $productID !== undefined) {
+                $('.gift-product-remove-'+ $productID).remove();
             }
         });
     } else {
@@ -552,6 +555,9 @@ module.exports = function () {
                         $('.gift-box-container-link').addClass('d-none');
                         $('.gift-box-container-link-edit').removeClass('d-none');
                         $('.gift-lineitem-message-' + item.UUID).text($itemLevelGiftMessage);
+                        $('.gift-msg-text').addClass('d-none')
+                        $('.gift-msg-text-edit').removeClass('d-none');
+                        $('.gift-message-btn-' + item.UUID).text('Edit');
                         
                     }
                 });
@@ -819,7 +825,7 @@ module.exports = function () {
                     }
                     $('.coupons-and-promos').children('.coupons-and-promos-wrapper').empty().append(data.basket.totals.discountsHtml);
                     var $miniCartSelector = $('.mini-cart-data .mini-cart-header');
-                    $miniCartSelector.length > 0 ? updateMiniCartTotals(data.basket, $giftProduct) : updateCartTotals(data.basket, $giftProduct);
+                    $miniCartSelector.length > 0 ? updateMiniCartTotals(data.basket, $giftProduct) : updateCartTotals(data.basket, $giftProduct, $productID);
                     updateApproachingDiscounts(data.basket.approachingDiscounts);
                     $('body').trigger('setShippingMethodSelection', data.basket);
                     validateBasket(data.basket);
@@ -1021,6 +1027,9 @@ module.exports = function () {
         $('.add-gift-message').removeClass('d-none');
         $('.add-gift-message').removeAttr('disabled');
         $('.add-gift-box').addClass('d-none');
+        $('.gift-box-none-button').removeClass('active');
+        $('.add-gift-box-input').removeClass('active');
+        $('.gift-message-box-input').addClass('active');
     });
 
     $('body').on('click', '.add-gift-box-input', function () {
@@ -1028,13 +1037,18 @@ module.exports = function () {
         $('.add-gift-message').addClass('d-none');
         $('.add-gift-box').removeClass('d-none');
         $('.add-gift-box').removeAttr('disabled');
-
+        $('.gift-box-none-button').removeClass('active');
+        $('.add-gift-box-input').addClass('active');
+        $('.gift-message-box-input').removeClass('active');
     });
 
     $('body').on('click', '.gift-box-none-button', function () {
         $('.add-gift-message').attr('disabled', 'disabled');
         $('.gift-message-box').addClass('hide-box');
         $('.add-gift-box').attr('disabled', 'disabled');
+        $('.gift-box-none-button').addClass('active');
+        $('.add-gift-box-input').removeClass('active');
+        $('.gift-message-box-input').removeClass('active');
     });
 
     base.selectAttribute();

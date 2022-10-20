@@ -14,7 +14,7 @@
         <img class="product-image" src="${pdict.image.url}" alt="${pdict.image.alt}" title="${pdict.image.title}">
     </div>
     <form class="gift-box-container-modal-body-form" action="#">
-        <label class="radio-container gift-box-none-button"> ${Resource.msg('label.minicart.giftbox.modal.labelone', 'cart', null)}
+        <label class="radio-container gift-box-none-button active"> ${Resource.msg('label.minicart.giftbox.modal.labelone', 'cart', null)}
         <input type="radio" checked="checked" name="radio">
         <span class="checkmark"></span>
         </label>
@@ -50,7 +50,7 @@
         <button type="btn" disabled="disabled" class="btn d-none add-gift-message gift-box-container-modal-body-save-button" href="${URLUtils.url('Cart-AddGiftMessage')}" data-product-uuid="${pdict.productUUID}">${Resource.msg('label.minicart.giftmessage.btn', 'cart', null)}</button>
         <iscomment> close icon for mobile  </iscomment>
         <div class="d-md-none">
-            <button type="button" class="close float-none mt-2" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close float-none" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true"><img src="${URLUtils.staticURL('./images/times-circle.svg')}" alt="close icon"></span>
             </button>
         </div>

@@ -1624,9 +1624,8 @@
 .gift-box-container {
     text-align: center;
     display: flex;
-    justify-content: start;
-    align-items: center;
-    align-self: center;
+    justify-content: flex-start;
+    align-items: flex-start;
     border-top: 1px solid $gray14;
     padding: rem(9) 0 rem(9) rem(45);
     &.full-cart-continaer {
@@ -1654,6 +1653,7 @@
         letter-spacing: rem(0.53);
         line-height: rem(16);
         text-transform: capitalize;
+        padding-top: 0;
 
         &:hover {
             color: $curious-light-blue;
@@ -1666,6 +1666,9 @@
 
     &-modal {
         z-index: 999999;
+        @include media-breakpoint-down(xs) {
+            top: unset;
+        }
 
         &-header {
 
@@ -1685,8 +1688,8 @@
                 width: rem(25);
                 height: rem(25);
                 padding: 0;
-                margin-top: rem(2);
-                margin-right: rem(4);
+                margin-top: rem(4);
+                margin-right: rem(6);
             }
         }
 
@@ -1707,7 +1710,7 @@
             }
             @include media-breakpoint-down(xs) {
                 margin: rem(0);
-                height: 100%;
+                height: 100vh;
             }
 
             .modal-content {
@@ -1715,7 +1718,8 @@
                 border-radius: rem(0);
 
                 @include media-breakpoint-down(xs) {
-                    height: 100%;
+                    height: 100vh;
+                    overflow-y: auto;
                 }
             }
         }
@@ -1815,6 +1819,7 @@
                 .label-right-wrapper {
                     float: right;
                     padding-right: rem(20);
+                    font-weight: 300;
                 }
 
                 &-textarea-container {
@@ -1839,11 +1844,15 @@
                     &-text-box {
                         border: rem(1) solid $light-black4;
                         border-radius: rem(3);
+                        font-weight: 500;
+                        font-family: $font-medium;
+                        font-size: rem(12);
 
                         &::placeholder {
                             color: $light-black3;
                             font-family: $font-medium;
-                            font-size: rem(13);
+                            font-size: rem(12);
+                            font-weight: 500;
                         }
                     }
                 }
@@ -1857,6 +1866,7 @@
                 letter-spacing: rem(0.5);
                 line-height: rem(12);
                 text-align: center;
+                margin-bottom: rem(20);
             }
 
             &-save-button {
@@ -1877,6 +1887,9 @@
 
             .close {
                 opacity: 1;
+                @include media-breakpoint-down(xs) {
+                    margin-top: rem(20);
+                }
             }
         }
     }
@@ -1902,6 +1915,133 @@
 
         .gift-box-container-link {
             padding: rem(0) rem(0) rem(0) rem(15);
+        }
+    }   
+}
+
+.gift-message-box {
+    
+    .gift-msg-text {
+        color: $light-black;
+        font-family: $font-medium;
+        font-size: rem(14);
+        font-weight: 500;
+        letter-spacing: rem(0);
+        line-height: rem(18);
+        font-style: oblique;
+        margin-top: rem(5);
+    }
+}
+
+
+// minicart-recommendation-rail
+.product-slot-slider {
+    &.recommendation-slider {
+        
+        .cs-carousel-wrapper {
+
+            .product-tile-redesign {
+
+                &.minicart-recommendation-rail {
+                    margin: 0 rem(2);
+                    border: rem(1) solid $white-gray;
+
+                    .image-container {
+                        min-width: unset;
+                        min-height: unset;
+                    }
+                    
+                    .tile-body {
+                        @include media-breakpoint-up(lg) {
+                            padding: 0;
+                        }
+                        
+                        .tile-inner-content {
+            
+                            .product-brand-info {
+                                display: none;
+                            }
+            
+                            .pdp-link {
+                                margin: rem(22.15) rem(0) rem(5) rem(0);
+
+                                .product-name {
+                                    margin: 0;
+                                    color: $light-gray2;
+                                    font-family: $font-medium;
+                                    font-size: rem(11);
+                                    font-weight: 500;
+                                    letter-spacing: 0;
+                                    line-height: rem(12);
+                                    text-align: center;
+                                }
+                            }
+                        }
+
+                        .price {
+                            margin-bottom: rem(6.22);
+                            padding: 0;
+
+                            del {
+
+                                .strike-through {
+                                    
+                                    span {
+                                        color: $black;
+                                        font-family: $font-medium;
+                                        font-size: rem(10);
+                                        font-weight: 300;
+                                        letter-spacing: rem(0.83);
+                                        line-height: rem(13);
+                                        text-align: center;
+                                    }
+                                }
+                            }
+                        }
+            
+                    }
+            
+                    .cart-and-ipay {
+                        @include media-breakpoint-up(lg) {
+                            opacity: 1;
+                            bottom: 0;
+                        }
+                        margin-bottom: 0;
+                        
+                        .cta-add-to-cart  {
+
+                            .add-to-cart  {
+                                color: $black;
+                                font-family: $font-futura-pt;
+                                font-size: rem(11);
+                                font-weight: 500;
+                                letter-spacing: rem(1);
+                                line-height: rem(10);
+                                text-align: center;
+                                height: rem(24.88);
+                                width: 100%;
+                                border: none;
+                                background: $white-gray;
+                                padding: 0;
+                                min-height: unset;
+                                @include media-breakpoint-up(lg) {
+                                    opacity: 1;
+                                    bottom: 0;
+                                }
+                                
+                                &:hover {
+                                    background: $white-gray;
+                                }
+                                &::before {
+                                    content: '+';
+                                    display: inline-block;
+                                    color: $black;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

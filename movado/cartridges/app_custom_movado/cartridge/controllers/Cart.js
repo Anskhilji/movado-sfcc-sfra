@@ -28,7 +28,6 @@ server.prepend('AddProduct', function (req, res, next) {
             if (currentLineItemsIterator.UUID == parentUUID) {
                 Transaction.wrap(function () {
                     currentLineItemsIterator.custom.giftPid = req.form.pid;
-                    currentLineItemsIterator.custom.giftParentUUID = req.form.parentPid;
                 });
                 break;
             }
@@ -170,17 +169,6 @@ server.append('AddProduct', function (req, res, next) {
             recommendedProductCardHtml = renderTemplateHelper.getRenderedHtml(basketModel, 'cart/productCard/recommendationProductCard');
         }
 
-        if (req.form.isGiftItem && !empty(req.form.isGiftItem)) {
-            basketModel.removeProductLineItemUrl = basketModel.actionUrls.removeProductLineItemUrl;
-            var template;
-            if (isCartPage === 'true') {
-                template = 'cart/productCard/cartGiftProductCard';
-            } else {
-                template = 'cart/productCard/miniCartGiftProductCard';
-            }
-            giftProductCardHtml = renderTemplateHelper.getRenderedHtml(basketModel, template);
-        }
-
         var addCartGtmArray = customCartHelpers.createAddtoCartProdObj(currentBasket, viewData.pliUUID, embossedMessage, engravedMessage);
         viewData.addCartGtmArray = addCartGtmArray;
 
@@ -255,6 +243,19 @@ server.append('AddProduct', function (req, res, next) {
             }
         }
         // Custom End
+
+
+        if (req.form.isGiftItem && !empty(req.form.isGiftItem)) {
+            basketModel = new CartModel(currentBasket);
+            basketModel.removeProductLineItemUrl = basketModel.actionUrls.removeProductLineItemUrl;
+            var template;
+            if (isCartPage === 'true') {
+                template = 'cart/productCard/cartGiftProductCard';
+            } else {
+                template = 'cart/productCard/miniCartGiftProductCard';
+            }
+            giftProductCardHtml = renderTemplateHelper.getRenderedHtml(basketModel, template);
+        }
 
         res.setViewData({
             quantityTotal: quantityTotal,
