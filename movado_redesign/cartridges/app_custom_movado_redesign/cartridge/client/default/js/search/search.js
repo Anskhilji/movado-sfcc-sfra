@@ -301,6 +301,35 @@ function moveFocusToTop() {
     window.scrollTo({top: y, behavior: 'smooth'});
 }
 
+function clickedFilterButton() {
+    $(".movado-refinements-type").click(function(){
+        $(".refinement-bar-redesign").addClass("refinement-open-state");
+        $(".tab-pane.active>.container-fluid").addClass("container-open-state");
+        $(".modal-background").removeClass("fadeOut").addClass("d-block fadeIn fast");
+        $(".filter-btn-ctm").removeClass("d-md-none").addClass("d-md-flex");
+        $('body').addClass('no-overflow-ctm');
+    });
+}
+
+function filterApplyAddClassFilter() {
+    var $winWidthFilter = $(window).width();
+    var $mediumBreakPointFilter = 992;
+
+    if ($winWidthFilter < $mediumBreakPointFilter) {
+        $(".close-refinebar .filter-more").removeClass("d-none").addClass("d-block");
+        $(".close-refinebar .sort-by").removeClass("d-block").addClass("d-none");
+    }
+}
+function filterApplyRemoveClassSort() {
+    var $winWidthSort = $(window).width();
+    var $mediumBreakPointSort = 992;
+
+    if ($winWidthSort < $mediumBreakPointSort) {
+        $(".close-refinebar .sort-by").removeClass("d-none").addClass("d-block");
+        $(".close-refinebar .filter-more").removeClass("d-block").addClass("d-none");
+    }
+}
+
 // filter bar sticky styling MSS-1912
 $(window).scroll(function() {    
     var scroll = $(window).scrollTop();
@@ -345,7 +374,7 @@ module.exports = {
         $('.container, .container-fluid').on('change', '[name=sort-order]', function (e) {
             setTimeout( function () {
                 if ( $('.plp-new-design .refinement-bar .selected-value:contains("Sort")').length == 0) {
-                    $('.plp-new-design .refinement-bar .selected-value').prepend('<span>Sort By</span> ');
+                    $('.plp-new-design .refinement-bar .selected-value').prepend('<span>Sort by:</span> ');
                 }
             }, 20);
             var url = this.value;
@@ -377,6 +406,7 @@ module.exports = {
                     updatePageURLForSortRule(url);
                     // edit
                     $.spinner().stop();
+                    filterApplyRemoveClassSort()
                 },
                 error: function () {
                     $.spinner().stop();
@@ -505,7 +535,6 @@ module.exports = {
             function (e) {
                 e.preventDefault();
                 e.stopPropagation();
-                
                 //push data into datalayer for filters into gtm
                 var $filterType = $(this).parents('.card-body').siblings('.movado-refinements-type').text().trim();
                 dataLayer.push({
@@ -547,12 +576,39 @@ module.exports = {
                         $('.search-results.plp-new-design #sort-order').customSelect();
                         setTimeout( function () {
                             if ( $('.plp-new-design .refinement-bar .selected-value:contains("Sort")').length == 0) {
-                                $('.plp-new-design .refinement-bar .selected-value').prepend('<span>Sort By</span> ');
+                                $('.plp-new-design .refinement-bar .selected-value').prepend('<span>Sort by:</span> ');
                             }
                         }, 20);
                         moveFocusToTop();
                         swatches.showSwatchImages();
                         $('.plp-new-design .result-count').removeClass('col-12 col-md-9 col-sm-6 order-sm-2');
+                        $('.refinement-bar-redesign').removeClass('refinement-open-state');
+                        $('.tab-pane.active>.container-fluid').removeClass('container-open-state');
+                        $('.modal-background').removeClass('d-block');
+                        $("body").removeClass("no-overflow-ctm");
+                        clickedFilterButton();
+                        filterApplyAddClassFilter();
+                        var $bannerCount = $('.banner-count .result-count');
+                        var $productSearchResult = $('.grid-header .result-count .category-name').data('result-counts');
+                        var $bannerSearchResultCountAppend = $('.banner-count .result-count .search-result-count');
+                        var $bannerSearchResultCount = $('.search-result-counts .result-count .search-result-count').data('result-counts');
+
+                        if ($bannerSearchResultCount && $bannerSearchResultCount !== undefined) {
+                            $bannerSearchResultCountAppend.html($bannerSearchResultCount);
+                        } else if ($productSearchResult && $productSearchResult !== undefined) {
+                            var $html = '<span>(' + $productSearchResult + ')</span>';
+                            $bannerCount.html($html);
+                        } else {
+                            var $searchResultCountBanner = $('.search-result-count');
+                            if ($searchResultCountBanner.length > 0) {
+                                var $html = '<span class="make-bold">' + 0 + '</span> Results for';
+                                $bannerSearchResultCountAppend.html($html);
+                            } else {
+                                var $html = '<span>(' + 0 + ' items)</span>';
+                                $bannerCount.html($html);
+                            }
+                        }
+                        
                     },
                     error: function () {
                         $.spinner().stop();
@@ -575,4 +631,65 @@ module.exports = {
             $('.show-more-content').remove();
         });
     },
+
+    // Custom start: For Mobile Filters
+    // Current filter active desktop
+    selectedFilterActiveDesktop: function () {
+        $('.refine-wrapper').on('click', '.movado-refinements-container', function (e) {
+            var $winWidth = $(window).width();
+            var $mediumBreakPoint = 320;
+
+            if ($winWidth >= $mediumBreakPoint) {
+                var $clicked = e.target.closest('.refinement-btn');
+                if (!$clicked) return;
+                if ($clicked) {
+                    if($($clicked).parent().hasClass('active')){
+                        $('.refinement').removeClass('active');
+                        $('.refinement-bar-redesign').removeClass('refinement-open-state');
+                        $('.tab-pane.active>.container-fluid').removeClass('container-open-state');
+                        $('.modal-background').removeClass('d-block');
+                        $('body').removeClass('no-overflow-ctm');
+                    }else{
+                        $('.refinement').removeClass('active');
+                        $($clicked).parent().addClass('active');
+                    }
+                }
+            }
+        });
+    },
+    
+    // Current filter active mobile
+    selectedFilterActiveMobile: function () {
+        $('.refine-wrapper').on('click', '.sort-order-mobile-menu', function (e) {
+            var $winWidth = $(window).width();
+            var $mediumBreakPoint = 992;
+
+            if ($winWidth < $mediumBreakPoint) {
+                var $clicked = e.target.closest('.custom-select__option');
+                var $filterAll = $('.custom-select__option');
+                
+                if (!$clicked) return;
+                if ($clicked) {
+                    $filterAll.each(function (e) {
+                        var $isContain = $(this).hasClass('active');
+                        if ($isContain) {
+                            $(this).removeClass('active');
+                        }
+                    });
+                    $clicked.classList.add('active');
+                }
+            }
+        });
+    },
+
+   // start: append value to plp sort by from select option
+    selectedFiltervalueAppendToPlpSortBy: function () {
+        $('.sort-order-mobile-menu').on('click', '.custom-select__dropdown', function (e) {
+            var $mobileFilterBtn = $('.mobile-fliter-sort-button');
+            var $selectedValue = e.target.innerText;
+            var $html = 'Sort by: ' + $selectedValue;
+            $mobileFilterBtn.html($html);
+        });
+    },
+    // Custom end: For Mobile Filters
 };

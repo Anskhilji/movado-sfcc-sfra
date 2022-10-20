@@ -97,8 +97,9 @@ var updateCartPage = function(data) {
     var $miniCartSelector = $('.mini-cart-data');
     var $noOfItems = $miniCartSelector.find('.mini-cart-data .number-of-items'); 
     var $shippingCostSelector = $miniCartSelector.find('.shipping-cost');
-    var $totalTaxSelector = $miniCartSelector.find('.tax-total');
-    var $grandTotalSelector = $miniCartSelector.find('.grand-total, .cart-total, .minicart-footer .subtotal-payment-summary .grand-total'); 
+    var $totalTaxSelector = $miniCartSelector.find('.tax-total'); 
+    var $grandTotalSelector = $miniCartSelector.find('.grand-total, .cart-total, .minicart-footer .subtotal-payment-summary .grand-total');
+    var $grandCartTotalSelector = $('.main-cart-block').find('.grand-total, .cart-total, .minicart-footer .subtotal-payment-summary .grand-total'); 
     var $subTotalSelector = $miniCartSelector.find('.sub-total');
     var $affirmPriceSelector = $miniCartSelector.find('.affirm-as-low-as');
     var $orderDiscountSelector = $miniCartSelector.find('.order-discount');
@@ -116,6 +117,11 @@ var updateCartPage = function(data) {
          $grandTotalSelector.each(function () {
              $(this).empty().append(data.totals.subTotaladjustedNetPrice);
          });
+    }
+    if ($grandCartTotalSelector.length > 0) {
+        $grandCartTotalSelector.each(function () {
+            $(this).empty().append(data.totals.subTotaladjustedNetPrice);
+        });
     }
     if ($subTotalSelector.length > 0) {
         $subTotalSelector.empty().append(data.totals.subTotal);
@@ -162,6 +168,12 @@ var updateCartPage = function(data) {
             $miniCartSelector.find('.item-total-' + item.UUID + ' .product-line-item-details  .price .strike-through').remove();
         }
         $miniCartSelector.find('.item-total-' + item.UUID + ' .product-line-item-details  .sales').empty().append(item.priceTotal.price);
+        var $giftPid = item.giftPid;
+        data.items.forEach(function (childitem) {
+            if (childitem.id == $giftPid) {
+                $miniCartSelector.find('.sale-gift-price-mvmt').empty().append(childitem.priceTotal.price);
+            }
+        });
     });
     // Custom End
 }
@@ -381,6 +393,81 @@ module.exports = function () {
                         var pid = $this.data('pid');
                         $('.giftbox-mini-' + pid ).hide();
                         $('.giftbox-mini-' + pid).next('label').hide();
+                        $.spinner().stop();
+                        //Custom End
+                    },
+                    error: function () {
+                        $.spinner().stop();
+                    },
+                    complete: function () {
+                        $('body').trigger('miniCart:recommendations');
+                    }
+                });
+            }
+    });
+
+    $('body').off('click', '.minicart-gift-allowed-checkbox').on('click', '.minicart-gift-allowed-checkbox', function(e) {
+        e.preventDefault();
+        $.spinner().start();
+        var $this = $(this);
+        var url = $this.data('add-to-cart-url');
+        var parentPid = $this.data('parent-pid');
+        var pid = $this.data('value');
+        var isCartPage = $(this).data('requested-page');
+        var form = {
+            pid: pid,
+            quantity: 1,
+            isGiftItem: true,
+            isCartPage: isCartPage,
+            parentPid: parentPid
+            };
+
+            if (url) {
+                $.ajax({
+                    url: url,
+                    method: 'POST',
+                    data: form,
+                    success: function (data) {
+                    if (isCartPage) {
+                        $('.main-cart-block .product-list-block').empty();
+                        $('.main-cart-block .product-list-block').append(data.giftProductCardHtml);
+                    } else {
+                        $('.mini-cart-data .product-summary').empty();
+                        $('.mini-cart-data .product-summary').append(data.giftProductCardHtml);
+                    }
+                        updateCartTotals(data.cart);
+                        handlePostCartAdd(data);
+                        //Custom Start: [MSS-1451] Listrak SendSCA on AddToCart
+                        if (window.Resources.LISTRAK_ENABLED) {
+                            var ltkSendSCA = require('listrak_custom/ltkSendSCA');
+                            ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
+                        }
+
+                        var pid = $this.data('pid');
+                        $('.giftbox-mini-' + pid ).hide();
+                        $('.giftbox-mini-' + pid).next('label').hide();
+
+                        data.cart.items.forEach(function (item) {
+                            if (item.customAttributes.itemLevelGiftMessage && item.customAttributes.itemLevelGiftMessage.msgLine1) {
+                                var $itemLevelGiftMessage = item.customAttributes.itemLevelGiftMessage.msgLine1;
+                            }
+                            if ($itemLevelGiftMessage !== undefined && $itemLevelGiftMessage !== '') {
+                                $('.gift-box-container-label').addClass('d-none');
+                                $('.gift-box-container-label-edit').removeClass('d-none');
+                                $('.gift-box-container-modal .gift-text').text($itemLevelGiftMessage);
+                                $('.gift-personlize-msg').text($itemLevelGiftMessage);
+                                $('.gift-box-container-link').addClass('d-none');
+                                $('.gift-box-container-link-edit').removeClass('d-none');
+                                $('.gift-lineitem-message-' + item.UUID).text($itemLevelGiftMessage);
+                                $('.gift-msg-text').addClass('d-none')
+                                $('.gift-msg-text-edit').removeClass('d-none');
+                                $('.gift-message-btn-' + item.UUID).text('Edit');
+                            }
+
+                            $('.gift-message-btn-' + item.UUID).text('Edit');
+                        });
+
+                        $('#giftBoxModelPopUp').modal('hide')
                         $.spinner().stop();
                         //Custom End
                     },
@@ -724,4 +811,8 @@ module.exports = function () {
     $('body').on('product:afterAddToCart', function () {
         updateMiniCart = true;
     });
+
+    $('.clicked-label').click(function() {
+        $('.textarea-container').addClass('d-block');
+    }); 
 };

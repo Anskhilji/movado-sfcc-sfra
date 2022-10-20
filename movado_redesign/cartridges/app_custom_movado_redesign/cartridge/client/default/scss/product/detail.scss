@@ -25,6 +25,10 @@ $arrow-height: 1.25em;
     padding-bottom: rem(16);
     margin: 0;
 
+    .gpay-error {
+        background-color: $white;
+    }
+
     .dw-apple-pay-button {
         &.apple-pay-pdp {
             margin-top: rem(5);
@@ -150,7 +154,6 @@ $arrow-height: 1.25em;
             margin-top: rem(20);
         }
     }
-
     .clyde-widget {
         max-width: rem(319);
 
@@ -428,6 +431,7 @@ $arrow-height: 1.25em;
             color: $storm-gray;
             padding: rem(3) rem(8);
             margin: 0;
+            line-height: rem(13);
         }
     }
 
@@ -546,6 +550,10 @@ $arrow-height: 1.25em;
             font-size: rem(28);
             letter-spacing: normal;
             color: $grey8;
+
+            &.text-unset-wrapper {
+                text-transform: initial !important;
+            }
         }
     }
 
@@ -2150,5 +2158,14 @@ body {
             top: 0;
             position: relative;
         }
+    }
+}
+
+.listrak-persistent-popup {
+    display: none !important;
+}
+.button-floting {
+    &.button-product-detail {
+        bottom: rem(160);
     }
 }

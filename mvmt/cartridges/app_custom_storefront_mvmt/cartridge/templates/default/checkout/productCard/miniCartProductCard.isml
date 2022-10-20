@@ -64,13 +64,6 @@
                         </div>
                     </isif>
 
-                    <isif condition="${lineItem.customAttributes['itemLevelGiftMessage']}">
-                        <div class="line-item-option">
-                            <div class="personalize-price">${Resource.msgf('label.personalization.giftMessage', 'confirmation', null)}</div>
-                            <div class="personalize-msg">${lineItem.customAttributes['itemLevelGiftMessage'].msgLine1}</div>
-                        </div>
-                    </isif>
-
                     <isif condition="${lineItem.customAttributes['giftMessage']}">
                         <div class="line-item-option">
                             <div class="personalize-price">${Resource.msgf('label.personalization.giftMessage', 'confirmation', null)}</div>>
@@ -105,22 +98,48 @@
                 <isinclude template="checkout/productCard/miniCartProductCardQuantitySelector" />
             </div>
         </div>
-        <isset name="product" value="${dw.catalog.ProductMgr.getProduct(lineItem.id)}" scope="page" />
-        <isset name="isGiftBoxAllowed" value="${require('*/cartridge/scripts/helpers/productCustomHelper').isGiftBoxAllowed(product)}" scope="page" />
-        <isset name="giftBoxEnabled" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxEnabled) ? dw.system.Site.current.preferences.custom.giftBoxEnabled : false}" scope="page" />
-        <isset name="giftBoxSKUData" value="${require('*/cartridge/scripts/helpers/productCustomHelper').getGiftBoxSKU(product)}" scope="page" />
-        <isset name="giftBoxMessage" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxMessage) ? dw.system.Site.current.preferences.custom.giftBoxMessage : ''}" scope="page" />
-        <isif condition="${isGiftBoxAllowed && giftBoxEnabled && giftBoxSKUData.giftBoxSKUAvailability && !(pdict.giftOptions.indexOf(lineItem.UUID) > -1)}">
-            <div class="gift-box-wrapper">
-                <label class="gift-box-wrapper-label custom-control-label-pdp">
-                    <input id="gift-allowed-checkout" type="checkbox" data-add-to-cart-url="${URLUtils.url('Cart-AddProduct')}" name="gift-allowed-checkout" class="gift-box-wrapper-checkbox gift-allowed-checkbox gift-allowed-checkbox-mini giftbox-mini-${lineItem.UUID}" data-parent-pid="${lineItem.UUID}" data-pid="${lineItem.id}" value="${giftBoxSKUData.giftBoxSKU}">
-                    ${giftBoxMessage} ${giftBoxSKUData.giftBoxSKUPrice}
-                    <span class="checkmark"></span>
-                </label>
-            </div>
-        </isif>
+        <isset name="giftPid" value="${lineItem.giftPid}" scope="page" />
+        <isloop items="${items}" var="childlineItem" status="loopStatus">
+            <isif condition="${childlineItem.id == giftPid}">
+                <isinclude template="checkout/productCard/miniCartGiftProduct" />
+            </isif>
+        </isloop>
         <isif condition="${dw.system.Site.current.preferences.custom.enableCartRecommendations}">
             <div class="cart-recommendations" data-url="${URLUtils.url('Cart-Recommendations', 'pid', lineItem.id)}"></div>
         </isif>
     </isif>
+</div>
+
+<div class="gift-box-container">
+    <img class="gift-icon" alt="gift box icon" src="${URLUtils.staticURL('/images/giftbox-icon.svg')}" />
+    <isif condition="${lineItem.customAttributes['itemLevelGiftMessage']}">
+         <div class="gift-message-box text-left">
+            <div class="gift-box-container-label">${Resource.msg('label.minicart.giftbox.heading', 'cart', null)}</div>
+            <div class="gift-msg-text text-truncate gift-lineitem-message-${!empty(lineItem.giftParentUUID) ? lineItem.giftParentUUID : lineItem.UUID}">
+                <isif condition="${lineItem.customAttributes['itemLevelGiftMessage'] ? lineItem.customAttributes['itemLevelGiftMessage'].msgLine1 : false}">
+                    "${lineItem.customAttributes['itemLevelGiftMessage'] ? lineItem.customAttributes['itemLevelGiftMessage'].msgLine1 : ''}"
+                </isif>
+            </div>
+        </div>
+        <a href="${URLUtils.https('Cart-ShowGiftBoxModal', 'pid', lineItem.id, 'uuid', lineItem.UUID, 'itemLevelGiftMessage', lineItem.customAttributes['itemLevelGiftMessage'] ? lineItem.customAttributes['itemLevelGiftMessage'].msgLine1 : '')}"  class="btn gift-box-container-link" data-toggle="modal" data-target="#giftBoxModelPopUp">Edit</a>
+    <iselse/>
+        <div class="gift-message-box text-left">
+            <div class="gift-box-container-label">${Resource.msg('label.minicart.giftbox.heading', 'cart', null)}</div>
+            <div class="gift-msg-text text-truncate gift-lineitem-message-${!empty(lineItem.giftParentUUID) ? lineItem.giftParentUUID : lineItem.UUID}">
+                <isif condition="${lineItem.customAttributes['itemLevelGiftMessage'] ? lineItem.customAttributes['itemLevelGiftMessage'].msgLine1 : false}">
+                    "${lineItem.customAttributes['itemLevelGiftMessage'] ? lineItem.customAttributes['itemLevelGiftMessage'].msgLine1 : ''}"
+                </isif>
+            </div>
+        </div>
+        <a href="${URLUtils.https('Cart-ShowGiftBoxModal', 'pid', lineItem.id, 'uuid', lineItem.UUID)}"  class="btn gift-box-container-link gift-message-btn-${!empty(lineItem.giftParentUUID) ? lineItem.giftParentUUID : lineItem.UUID}" data-toggle="modal" data-target="#giftBoxModelPopUp">${Resource.msg('label.minicart.giftbox.link', 'cart', null)}</a>
+    </isif>
+    <div class="gift-message-box text-left">
+        <div class="gift-box-container-label gift-box-container-label-edit d-none">${Resource.msg('label.minicart.giftbox.heading', 'cart', null)}</div>
+        <div class="gift-msg-text text-truncate gift-msg-text-edit d-none gift-lineitem-message-${!empty(lineItem.giftParentUUID) ? lineItem.giftParentUUID : lineItem.UUID}">
+                <isif condition="${lineItem.customAttributes['itemLevelGiftMessage'] ? lineItem.customAttributes['itemLevelGiftMessage'].msgLine1 : false}">
+                    "${lineItem.customAttributes['itemLevelGiftMessage'] ? lineItem.customAttributes['itemLevelGiftMessage'].msgLine1 : ''}"
+                </isif>
+        </div>
+    </div>
+    <a href="${URLUtils.https('Cart-ShowGiftBoxModal', 'pid', lineItem.id, 'uuid', lineItem.UUID, 'itemLevelGiftMessage', lineItem.customAttributes['itemLevelGiftMessage'] ? lineItem.customAttributes['itemLevelGiftMessage'].msgLine1 : '')}"  class="btn gift-box-container-link gift-box-container-link-edit d-none gift-message-btn-${!empty(lineItem.giftParentUUID) ? lineItem.giftParentUUID : lineItem.UUID}" data-toggle="modal" data-target="#giftBoxModelPopUp">Edit</a>
 </div>

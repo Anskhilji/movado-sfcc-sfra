@@ -7,6 +7,7 @@ var ProductLineItem = require('dw/order/ProductLineItem');
 var ShippingLineItem = require('dw/order/ShippingLineItem');
 var Resource = require('dw/web/Resource');
 var System = require('dw/system/System');
+var StoreMgr = require('dw/catalog/StoreMgr');
 var Transaction = require('dw/system/Transaction');
 
 /**
@@ -92,6 +93,18 @@ function createSabrixRequestObject(basket, svc){
 	// Addresses Start
   var shipFromAddress = new svc.webReference.ZoneAddressType();
 
+    if (session.privacy.pickupStoreID) {
+        var selectedStore = StoreMgr.getStore(session.privacy.pickupStoreID);
+        if (!empty(selectedStore)) {
+            shipFromCity = selectedStore.city;
+            shipFromCountryCode = selectedStore.countryCode.value;
+            shipFromStateCode = selectedStore.stateCode;
+            shipFromAddress1 = selectedStore.address1;
+            shipFromAddress2 = selectedStore.address2;
+            shipFromPostalCode = selectedStore.postalCode;
+        }
+    }
+
   shipFromAddress.setCITY(shipFromCity);
   shipFromAddress.setCOUNTRY(shipFromCountryCode);
   shipFromAddress.setSTATE(shipFromStateCode);
@@ -120,9 +133,13 @@ function createSabrixRequestObject(basket, svc){
     }
 
     if (sa.postalCode && sa.postalCode.length > 5) {
-      var postalCodeSplit = sa.postalCode.split('-');
-      shipToAddress.setPOSTCODE(postalCodeSplit[0]);
-      shipToAddress.setGEOCODE(postalCodeSplit[1]);
+      if (!empty(session.privacy.pickupFromStore)) {
+        shipToAddress.setPOSTCODE(sa.postalCode);
+      } else {
+        var postalCodeSplit = sa.postalCode.split('-');
+        shipToAddress.setPOSTCODE(postalCodeSplit[0]);
+        shipToAddress.setGEOCODE(postalCodeSplit[1]);
+      }
     } else {
       shipToAddress.setPOSTCODE(sa.postalCode);
     }

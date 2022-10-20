@@ -24,7 +24,7 @@
     <isset name="isQuickView" value="${false}" scope="page" />
     <isset name="isProductSet" value="${pdict.product.productType === 'set'}" scope="page" />
     <isobject object="${product.raw}" view="detail">
-
+        
         <section class="sticky-bar" data-desktop-sticky-atc-bar>
             <div class="sticky-bar-container">
                 <div>
@@ -46,6 +46,13 @@
         </div>
         <div class="container-fluid product-detail product-wrapper pdp-mvmt" data-pid="${product.id}" itemscope
             itemtype="http://schema.org/Product">
+
+            <isif condition="${pdict.lastNameError}">
+                <div class="container cart-error-messaging cart-error gpay-error alert card alert-dismissible fade show">
+                    ${Resource.msg('error.last.name', 'checkout', null)}
+                </div>
+            </isif>
+
             <!---Breadcrumbs--->
             <div class="row d-md-none">
                 <div class="col-12">
@@ -154,6 +161,25 @@
                     <div class="hidden-sm-down">
                         <isinclude template="product/components/pidRatingAlternate" />
                     </div>
+                    <iscomment> Custom Start: Tax Duties shows when following requirements meet </iscomment>
+                    <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
+                    <isif condition="${isEswEnabled}" >
+                        <isset name="domesticAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
+                        <isset name="isTaxDutiesAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isTaxDutiesAllowedCountry()}" scope="page" />
+                        <isif condition="${!empty(isTaxDutiesAllowedCountry)}">
+                            <isif condition="${!domesticAllowedCountry && isTaxDutiesAllowedCountry}">
+                                <div class="tax-duties">
+                                    <isslot id="cs-esw-tax-duties" description="Tax Duties" context="global" />
+                                </div>
+                            </isif>
+                        <iselse/>
+                            <isif condition="${!domesticAllowedCountry}">
+                                <div class="tax-duties">
+                                    <isslot id="cs-esw-tax-duties" description="Tax Duties" context="global" />
+                                </div>
+                            </isif>
+                        </isif>
+                    </isif>
 
                     <iscomment> Custom Start: Tax Duties shows when following requirements meet </iscomment>
                     <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
@@ -204,7 +230,7 @@
                         </isif>
                     </div>
 
-                    <isif condition="${product.options && product.options.length > 0}">
+                    <isif condition="${product.options && product.options.length > 0 && !(option.id == "clydeWarranty") && dw.system.Site.current.preferences.custom.isClydeEnabled}">
                         <isinclude template="product/components/options" />
                     </isif>
                     <div class="col-md-10 col-12">

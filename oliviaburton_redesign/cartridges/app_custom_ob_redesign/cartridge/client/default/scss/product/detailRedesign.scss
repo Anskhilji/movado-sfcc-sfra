@@ -4,6 +4,12 @@
 @import "../components/primaryImagesCarousel";
 @import "../components/productCommon";
 
+.custom-bg {
+    .gpay-error {
+        background-color: $white;
+    }
+}
+
 .product-detail {
     &-redesign {
         max-width: rem(1440);
@@ -2465,5 +2471,14 @@
                 }
             }
         }
+    }
+}
+
+.listrak-persistent-popup {
+    display: none !important;
+}
+.button-floting {
+    &.button-product-detail {
+        bottom: rem(160);
     }
 }
