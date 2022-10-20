@@ -3942,6 +3942,11 @@
 // PDP-Redesign-MVMT
 .product {
     &-detail {
+
+        .gpay-error {
+            background-color: $white;
+        }
+        
         &.pdp-mvmt-redesign {
             padding: rem(20);
 
@@ -3955,6 +3960,10 @@
                 @include media-breakpoint-down(sm) {
                     padding: rem(0) rem(10);
                 }
+            }
+
+            .gpay-error {
+                background-color: $white;
             }
 
             .col-mx-50-wrapper {
