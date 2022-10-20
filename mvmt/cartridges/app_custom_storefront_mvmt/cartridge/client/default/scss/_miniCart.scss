@@ -1935,7 +1935,7 @@
 
 
 // minicart-recommendation-rail
-.product-slot-slider{
+.product-slot-slider {
     &.recommendation-slider {
         
         .cs-carousel-wrapper {
@@ -2003,7 +2003,7 @@
             
                     .cart-and-ipay {
                         @include media-breakpoint-up(lg) {
-                            opacity:1;
+                            opacity: 1;
                             bottom: 0;
                         }
                         margin-bottom: 0;
@@ -2025,7 +2025,7 @@
                                 padding: 0;
                                 min-height: unset;
                                 @include media-breakpoint-up(lg) {
-                                    opacity:1;
+                                    opacity: 1;
                                     bottom: 0;
                                 }
                                 
