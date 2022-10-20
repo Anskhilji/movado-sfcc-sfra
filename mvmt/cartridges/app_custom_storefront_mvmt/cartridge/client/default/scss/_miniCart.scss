@@ -1941,6 +1941,14 @@
 
 
 // minicart-recommendation-rail
+.cart-message {
+    
+    p {
+        font-family: $font-book;
+        font-size: rem(11);
+        text-transform: none;
+    }
+}
 .product-slot-slider {
     &.recommendation-slider {
         
