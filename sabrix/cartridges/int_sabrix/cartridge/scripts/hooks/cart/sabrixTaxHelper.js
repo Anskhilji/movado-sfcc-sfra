@@ -223,6 +223,15 @@ function createSabrixRequestObject(basket, svc){
     line.setISEXEMPT(isExempt);
     line.setPOINTOFTITLETRANSFER(linePointOfTransfer);
 
+    // Custom BOPIS
+  if (session.privacy.pickupStoreID) {
+    var userElement = new svc.webReference.UserElementType();
+    userElement.setNAME('ATTRIBUTE1');
+    userElement.setVALUE(session.privacy.pickupStoreID);
+    // setting the user defined element
+    line.USERELEMENT.push(userElement);
+  }
+
     lines.add(line);
   }
 	// end looping line items
