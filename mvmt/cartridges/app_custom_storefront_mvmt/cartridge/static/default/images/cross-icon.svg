@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="25px" height="25px" viewBox="0 0 25 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>42D91462-6D5E-4CEF-9512-1A3BEDF9A478</title>
+    <g id="Address_Validation" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="01D" transform="translate(-975.000000, -317.000000)">
+            <g id="Group-6" transform="translate(420.000000, 297.000000)">
+                <g id="clear_black_24dp" transform="translate(555.000000, 20.000000)">
+                    <polygon id="Path" points="0 0 25 0 25 25 0 25"></polygon>
+                    <path d="M19.0625,5.94791667 C18.65625,5.54166667 18,5.54166667 17.59375,5.94791667 L12.5,11.03125 L7.40625,5.9375 C7,5.53125 6.34375,5.53125 5.9375,5.9375 C5.53125,6.34375 5.53125,7 5.9375,7.40625 L11.03125,12.5 L5.9375,17.59375 C5.53125,18 5.53125,18.65625 5.9375,19.0625 C6.34375,19.46875 7,19.46875 7.40625,19.0625 L12.5,13.96875 L17.59375,19.0625 C18,19.46875 18.65625,19.46875 19.0625,19.0625 C19.46875,18.65625 19.46875,18 19.0625,17.59375 L13.96875,12.5 L19.0625,7.40625 C19.4583333,7.01041667 19.4583333,6.34375 19.0625,5.94791667 Z" id="Path" fill="#000000" fill-rule="nonzero"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
