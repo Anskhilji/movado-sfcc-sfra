@@ -1951,7 +1951,7 @@
                 &.minicart-recommendation-rail {
                     margin: 0 rem(2);
                     border: rem(1) solid $white-gray;
-                    max-width: auto;
+                    max-width: unset;
 
                     .image-container {
                         min-width: unset;
