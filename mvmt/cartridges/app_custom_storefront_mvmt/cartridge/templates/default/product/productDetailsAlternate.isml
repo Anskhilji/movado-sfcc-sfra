@@ -48,7 +48,7 @@
             itemtype="http://schema.org/Product">
 
             <isif condition="${pdict.lastNameError}">
-                <div class="container cart-error-messaging cart-error alert card alert-dismissible fade show" style="background-color: white;">
+                <div class="container cart-error-messaging cart-error gpay-error alert card alert-dismissible fade show">
                     ${Resource.msg('error.last.name', 'checkout', null)}
                 </div>
             </isif>

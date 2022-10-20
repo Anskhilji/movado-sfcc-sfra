@@ -4,6 +4,12 @@
 @import "../components/primaryImagesCarousel";
 @import "../components/productCommon";
 
+.custom-bg {
+    .gpay-error {
+        background-color: $white;
+    }
+}
+
 .product-detail {
     &-redesign {
         max-width: rem(1440);
