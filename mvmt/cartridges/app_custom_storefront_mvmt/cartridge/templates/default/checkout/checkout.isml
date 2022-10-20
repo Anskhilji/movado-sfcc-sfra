@@ -111,41 +111,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-direction='bottom' data-target="#exampleModalCenter1">LG Modal</button>
-
-                    <!-- Modal -->
-                    <div class="modal fedex-popup fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle1" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered modal-lg fedex-popup-dialog-sm" role="document">
-                            <div class="modal-content fedex-popup-content">
-                                <div class="modal-header fedex-popup-header">
-                                    <h5 class="modal-title" id="exampleModalCenterTitle"></h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <img src="${URLUtils.staticURL('/images/cross-icon.svg')}" alt=""/>
-                                    </button>
-                                </div>
-                                <div class="modal-body fedex-popup-body text-center">
-                                    <h3 class="fedex-popup-body-heading">Please verify your address</h3>
-                                    <p class="fedex-popup-body-label">The address you provided doesn't match with the official USPS address.</p>
-                                    <p class="fedex-popup-body-label-sub"> Please select which one to use.</p>                                    
-                                    <!-- 2nd & 5th for no recommendations -->
-                                    <div class="fedex-popup-body-container">
-                                        <div class="fedex-popup-body-container-box-one">
-                                            <p class="heading-one-content"> Recommended Address</p>
-                                            <div class="content-label"><span> 128 Worthington Ave <br>Shrewsbury, MA <b><strong>01545-4125</strong></b></span></div>
-                                            <a href="#" class="btn btn-wrapper">Use this address</a>
-                                        </div>
-
-                                        <div class="fedex-popup-body-container-box-one">
-                                            <p class="heading-two-content"> You Entered  <a class="sub-link" href="#">Edit</a></p>
-                                            <div class="content-label"><span> 128 Worthington Ave <br>Shrewsbury, MA <b>01545-4125</b></span></div>
-                                            <a href="#" class="btn btn-wrapper btn-bg-white">Use this address</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <isinclude template="checkout/fedExAdressModal" />
                 </div>
 
                 <!----------------------------------------------------------------------------------->

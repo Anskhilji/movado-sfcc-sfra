@@ -1,47 +1,56 @@
 <isif condition="${dw.system.Site.current.preferences.custom.isAddressValidationEnable}">
-<!-- Trigger the modal with a button -->
-<button type="button" class="btn btn-info btn-lg d-none fedex-btn-popup-call" data-url="${URLUtils.url('FedEx-AddressValidation')}" data-fedex="true" data-toggle="modal" data-target="#fedExAdressModal">Open
-    Modal</button>
-    <button type="button" class="btn btn-primary btn-lg fedex-btn-call"  >Open
-    Modal</button>
+    <button type="button" class="btn btn-primary  d-none fedex-btn-popup-call"
+        data-url="${URLUtils.url('FedEx-AddressValidation')}" data-fedex="${dw.system.Site.current.preferences.custom.isAddressValidationEnable}" data-toggle="modal"
+        data-direction='bottom' data-target="#fedExAdressModal">LG Modal</button>
 
-<!-- Modal -->
-<div id="fedExAdressModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content fedex-address">
-            <div class="modal-body fedex-body">
-                <h4 class="modal-title fedex-title ${dw.system.Site.current.preferences.custom.isAddressValidationEnable}">PLEASE VERIFY YOUR ADDRESS</h4>
-                <p class="sub-title">The address you provided doesn't match with the official USPS address.<br>
-                    Please select which one to use.</p>
-                <div class="box-1 d-block">
-                    <div class="form-check">
-                        <input class="form-check-input Recommended-address fedex-recommended-address" data-fedex-address="" type="radio" id="Recommended-address" name="Recommended-address"
-                           >
-                        <label class="form-check-label radio-heading" for="Recommended-address">Recommended
-                            address</label>
-                    </div>
-                    <p class="recomended-address">128 Worthington Ave</p>
-                    <p class="recomended-city">Shrewsbury, MA </p>
-                    <p class="recomended-postalCode">01545-4125</p>
+    <!-- Modal -->
+    <div class="modal fedex-popup fade" id="fedExAdressModal" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg fedex-popup-dialog-sm" role="document">
+            <div class="modal-content fedex-popup-content">
+                <div class="modal-header fedex-popup-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <img src="${URLUtils.staticURL('/images/cross-icon.svg')}" alt="" />
+                    </button>
                 </div>
-                <div class="box-1 d-block">
-                    <div class=" form-check">
-                        <input class="form-check-input user-address" type="radio" id="you-entered" name="user-address"
-                           >
-                        <label class="form-check-label radio-heading" for="user-address">You Entered</label>
-                        <a class="edit-link" href=""> Edit</a>
-                    </div>
-                    <p class="user-address">128 Worthington Ave</p>
-                    <p class="user-city">Shrewsbury, MA </p>
-                    <p class="user-postalCode">01545-4125</p>
-                </div>
-                <a href="#" data-fedexx="false" class="btn btn-primary fedex-continue-btn">CONTINUE </a>
+                <div class="modal-body fedex-popup-body text-center fedex-address fedex-recommended-address"
+                    data-fedex-address=''>
+                    <h3 class="fedex-popup-body-heading">Please verify your address</h3>
+                    <p class="fedex-popup-body-label">The address you provided doesn't match with the official USPS
+                        address.</p>
+                    <p class="fedex-popup-body-label-sub"> Please select which one to use.</p>
+                    <!-- 2nd & 5th for no recommendations -->
+                    <div class="fedex-popup-body-container">
+                        <div class="fedex-popup-body-container-box-one recommended-address-wrapper">
+                            <p class="heading-one-content"> Recommended Address</p>
+                            <div class="content-label">
+                                <span class="recomended-address"> 128 Worthington Ave
+                                    <br>Shrewsbury, MA <b><strong>01545-4125</strong></b>
+                                </span>
+                                <p class="recomended-address">128 Worthington Ave</p>
+                                <p class="recomended-city">Shrewsbury, MA </p>
+                                <p class="recomended-postalCode">01545-4125</p>
+                            </div>
+                            <a href="#" class="btn btn-wrapper fedex-continue-btn fedex-recommend">Use this address</a>
+                        </div>
 
+                        <div class="fedex-popup-body-container-box-one">
+                            <p class="heading-two-content"> You Entered <a class="sub-link fedex-user-address" href="#">Edit</a></p>
+                            <div class="content-label">
+                                <span> 128 Worthington Ave <br class="">Shrewsbury, MA
+                                    <b>01545-4125</b>
+                                </span>
+                                <p class="user-address">128 Worthington Ave</p>
+                                <p class="user-city">Shrewsbury, MA </p>
+                                <p class="user-postalCode">01545-4125</p>
+                            </div>
+                            <a href="#" class="btn btn-wrapper btn-bg-white fedex-continue-btn user-recommend">Use this
+                                address</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-
     </div>
-</div>
 </isif>

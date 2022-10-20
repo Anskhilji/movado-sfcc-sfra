@@ -1,47 +1,48 @@
 'use strict';
 
 var server = require('server');
-// server.extend(module.superModule);
 var fedExAPI = require('*/cartridge/scripts/api/fedExAPI');
 var fedExAPIHelper = require('~/cartridge/scripts/helpers/fedExAPIHelper');
-var cache = require('*/cartridge/scripts/middleware/cache');
 var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
+var Logger = require('dw/system/Logger').getLogger('FedEx');
 
 
-server.post('AddressValidation',cache.applyShortPromotionSensitiveCache, function (req, res, next) {
-    // var stage  = req.form.form;
-    // var addressForm = JSON.parse(stage);
-    // var formErrors = COHelpers.validateShippingForm(stage);
-
-    // if (Object.keys(formErrors).length > 0) {
-    //     res.json({
-    //         form: stage,
-    //         fieldErrors: [formErrors],
-    //         serverErrors: [],
-    //         error: true
-    //     });
-    //     return next();
-    // };
-    // if(stage == 'shipping'){
-    //     addressForm = addressForm.shippingAddress;
-    // }
-    // var address = {
-    //     streetLines: addressForm.addressFields.address1.htmlValue,
-    //     city:  addressForm.addressFields.city.htmlValue,
-    //     state: addressForm.addressFields.states.stateCode.htmlValue,
-    //     postalCode:  addressForm.addressFields.postalCode.htmlValue,
-    //     countryCode: addressForm.addressFields.country.htmlValue,
-    // }
+server.post('AddressValidation', function (req, res, next) {
+    var shippingForm = server.forms.getForm('shipping');
+    var shippingFormErrors = COHelpers.validateShippingForm(shippingForm.shippingAddress.addressFields);
+    var fedExAddressValidationAPI;
+    if (Object.keys(shippingFormErrors).length > 0) {
+        res.json({
+            form: shippingForm,
+            fieldErrors: [shippingFormErrors],
+            serverErrors: [],
+            error: true
+        });
+        return next();
+    };
     var address = {
-        streetLines:  "7372 PARKRIDGE BLVD",
-        city:  "IRVING",
-        state: "TX",
-        postalCode: "750638659",
-        countryCode: "US",
+        streetLines: shippingForm.shippingAddress.addressFields.address1.value || '',
+        city: shippingForm.shippingAddress.addressFields.city.value || '',
+        postalCode: shippingForm.shippingAddress.addressFields.postalCode.value || '',
+        state: shippingForm.shippingAddress.addressFields.states.stateCode.value || '',
+        countryCode: shippingForm.shippingAddress.addressFields.country.value || ''
+    };
+    try {
+        var fedExApiAddress = fedExAPI.fexExAddressValidationAPI(address);
+        if (fedExApiAddress.success) {
+            fedExAddressValidationAPI = fedExAPIHelper.fedExAddressValidation(fedExApiAddress,address);
+            fedExAddressValidationAPI.userAddress = address;
+        } else {
+            res.json({
+                error: true,
+                fedExAddressValidationAPI: fedExAddressValidationAPI
+            });
+            return next();
+        }
+    } catch (e) {
+        Logger.error('Error Occured While Calling FedExAPICall and Error is : {0}', e.toString());
     }
-    var fedExApiAddress = fedExAPI.fexExAddressValidationAPI(address);
-    var fedExAddressValidationAPI = fedExAPIHelper.fedExAddressValidation(fedExApiAddress);
-    fedExAddressValidationAPI.userAddress = address;
+
     res.json({
         fedExAddressValidationAPI: fedExAddressValidationAPI
     });

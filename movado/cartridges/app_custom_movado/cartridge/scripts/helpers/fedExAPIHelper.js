@@ -35,7 +35,6 @@ function getAuthToken(params) {
 function fedExValidateAddressAPICall(address, service) {
     var fedExAPIPayload = FedExRequestModel.generateFedExAddressValidationAPIPayLoad(address);
     var responsePayload = null;
-    var errorMessage;
     var result = {
         message: Resource.msg('omnichannel.inventory.event.api', 'common', null),
         success: false,
@@ -59,7 +58,7 @@ function fedExValidateAddressAPICall(address, service) {
     return result;
 }
 
-function fedExAddressValidation(fedExAddress){
+function fedExAddressValidation(fedExAddress, userAddress) {
     var validateObject;
     var fedExApiAddress;
     var postalCode;
@@ -70,16 +69,23 @@ function fedExAddressValidation(fedExAddress){
             stateOrProvinceCode: fedExAddress.response[0].stateOrProvinceCodeToken.changed,
             fedExAddress : false
         }
-        for (var object in validateObject) {
-            if (validateObject[object] == true) {
-                validateObject['fedExAddress'] = false;
-            }
-        }
+
         if(fedExAddress.response[0].postalCodeToken){
             postalCode = fedExAddress.response[0].postalCodeToken.value;
             postalCode = postalCode.split('-');
             postalCode = postalCode[0];
         }
+
+        if(userAddress.postalCode == postalCode){
+            validateObject.postalCode = false
+        }
+
+        for (var object in validateObject) {
+            if (validateObject[object] == true) {
+                validateObject['fedExAddress'] = true;
+            }
+        }
+
         fedExApiAddress = {
             city: fedExAddress.response[0].cityToken[0].value,
             postalCode: postalCode,
