@@ -130,7 +130,7 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 				var shippingAddress = currentBasket.defaultShipment.shippingAddress;
 				shippingAddress.setAddress1(session.privacy.storeAddress || '');
 				shippingAddress.setAddress2(session.privacy.storeAddress2 || '');
-				shippingAddress.setPostalCode(session.privacy.storePostalCode || '');
+				shippingAddress.setPostalCode(session.privacy.extendedZipCode || '');
 				shippingAddress.setStateCode(session.privacy.stateCode || '');
 		    });
 		}
