@@ -584,7 +584,7 @@ module.exports = {
                         $('.plp-new-design .result-count').removeClass('col-12 col-md-9 col-sm-6 order-sm-2');
                         $('.refinement-bar-redesign').removeClass('refinement-open-state');
                         $('.tab-pane.active>.container-fluid').removeClass('container-open-state');
-                        $('.modal-background').removeClass('d-block');
+                        $('.movado.modal-background').removeClass('d-block');
                         $("body").removeClass("no-overflow-ctm");
                         clickedFilterButton();
                         filterApplyAddClassFilter();
@@ -640,14 +640,14 @@ module.exports = {
             var $mediumBreakPoint = 320;
 
             if ($winWidth >= $mediumBreakPoint) {
-                var $clicked = e.target.closest('.refinement-btn');
+                var $clicked = e.target.closest('.refinement-btn-clicked');
                 if (!$clicked) return;
                 if ($clicked) {
                     if($($clicked).parent().hasClass('active')){
                         $('.refinement').removeClass('active');
                         $('.refinement-bar-redesign').removeClass('refinement-open-state');
                         $('.tab-pane.active>.container-fluid').removeClass('container-open-state');
-                        $('.modal-background').removeClass('d-block');
+                        $('.movado.modal-background').removeClass('d-block');
                         $('body').removeClass('no-overflow-ctm');
                     }else{
                         $('.refinement').removeClass('active');

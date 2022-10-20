@@ -1053,13 +1053,13 @@
     
     &.filter-bar-sticky {
         position: fixed;
-        left: rem(15);
-        right: rem(15);
+        left: rem(0);
+        right: rem(0);
         top: rem(60);
         background-color: $white;
         z-index: 101;
         border-bottom: rem(1) solid $white-grey;
-        padding-top: rem(20);
+        padding-top: rem(20) rem(10) rem(0) rem(10);
 
         @include media-breakpoint-down(sm) {
            top: rem(45);
