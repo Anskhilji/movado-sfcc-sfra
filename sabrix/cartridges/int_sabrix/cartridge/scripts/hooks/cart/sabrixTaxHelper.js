@@ -93,14 +93,16 @@ function createSabrixRequestObject(basket, svc){
 	// Addresses Start
   var shipFromAddress = new svc.webReference.ZoneAddressType();
 
-    if (!empty(session.privacy.pickupFromStore)) {
+    if (session.privacy.pickupStoreID) {
         var selectedStore = StoreMgr.getStore(session.privacy.pickupStoreID);
-        shipFromCity = selectedStore.city;
-        shipFromCountryCode = selectedStore.countryCode.value;
-        shipFromStateCode = selectedStore.stateCode;
-        shipFromAddress1 = selectedStore.address1;
-        shipFromAddress2 = selectedStore.address2;
-        shipFromPostalCode = selectedStore.postalCode;
+        if (!empty(selectedStore)) {
+            shipFromCity = selectedStore.city;
+            shipFromCountryCode = selectedStore.countryCode.value;
+            shipFromStateCode = selectedStore.stateCode;
+            shipFromAddress1 = selectedStore.address1;
+            shipFromAddress2 = selectedStore.address2;
+            shipFromPostalCode = selectedStore.postalCode;
+        }
     }
 
   shipFromAddress.setCITY(shipFromCity);
