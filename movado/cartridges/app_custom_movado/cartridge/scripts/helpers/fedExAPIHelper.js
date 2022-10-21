@@ -12,18 +12,29 @@ function getFedExAPIService(serviceID, accessToken) {
 }
 
 function getAuthTokenFromAPI(requestParams) {
+    var CacheMgr = require('dw/system/CacheMgr');
+    var Site = require('dw/system/Site');
+    var cache = CacheMgr.getCache('FedExToken');
+    var cacheKey = [Site.current.ID, request.locale, 'auth'].join('_');
+    var tokenObject;
+
     var service = FedExServiceRegistry.getAuthorizationService(requestParams);
     var payload = FedExRequestModel.generateAuthenticationPayLoad(service);
-    try {
-        var responsePayload = service.call(payload);
-        if (responsePayload.object) {
-            return responsePayload.object.access_token;
-        } else {
-            Logger.error('FedEx: Get Auth Token Call. Error code : {0} Error => ResponseStatus: {1} ', responsePayload.getError().toString(), responsePayload.getStatus());
+
+    tokenObject = cache.get(cacheKey, function requestAuthToken() {
+        try {
+            var responsePayload = service.call(payload);
+            if (responsePayload.object) {
+                return responsePayload.object.access_token;
+            } else {
+                Logger.error('FedEx: Get Auth Token Call. Error code : {0} Error => ResponseStatus: {1} ', responsePayload.getError().toString(), responsePayload.getStatus());
+            }
+        } catch (e) {
+            Logger.error('FedEx: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
         }
-    } catch (e) {
-        Logger.error('FedEx: {0} in {1} : {2}', e.toString(), e.fileName, e.lineNumber);
-    }
+        return;
+    });
+    return tokenObject;
 }
 
 function getAuthToken(params) {
