@@ -93,7 +93,7 @@ function createSabrixRequestObject(basket, svc){
 	// Addresses Start
   var shipFromAddress = new svc.webReference.ZoneAddressType();
 
-    if (session.privacy.pickupStoreID) {
+    if (session.privacy.pickupFromStore && session.privacy.pickupStoreID) {
         var selectedStore = StoreMgr.getStore(session.privacy.pickupStoreID);
         if (!empty(selectedStore)) {
             shipFromCity = selectedStore.city;
