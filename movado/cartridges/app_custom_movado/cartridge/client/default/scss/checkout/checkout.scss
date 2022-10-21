@@ -1554,7 +1554,7 @@ header {
 
                 .heading-one-content {
                     color: $cerulean;
-                    font-size: rem(16);
+                    font-size: rem(14);
                     letter-spacing: rem(0);
                     margin-bottom: rem(10);
                     font-weight: 500;
@@ -1578,6 +1578,7 @@ header {
                         font-size: rem(14);
                         letter-spacing: rem(1.17);
                         line-height: rem(20);
+                        display: inline-block;
 
                         b {
 
@@ -1634,4 +1635,14 @@ header {
             }
         }
     }
+}
+
+.signle-box-container {
+    max-width: rem(317);
+    margin: auto;
+    padding: 0;
+}
+
+.popup-body-content {
+    max-width: rem(600);
 }

@@ -36,6 +36,7 @@ $(document).ready(function () {
                     //if fedex has any recomendation
                     if (!data.error && data.fedExAddressValidationAPI && data.fedExAddressValidationAPI.validateObject && data.fedExAddressValidationAPI.validateObject.fedExAddress == true) {
                         $('.recommended-address-wrapper').removeClass('d-none');
+                        $('.fedex-popup-body-container').removeClass('signle-box-container').parent().parent().parent().removeClass('popup-body-content');
                         $('.fedex-recommended-address').attr('data-fedex-address', JSON.stringify(data.fedExAddressValidationAPI.fedExApiAddress));
                         $('.recomended-address').text(data.fedExAddressValidationAPI.fedExApiAddress.streetAddress);
                         $('.recomended-city').text(data.fedExAddressValidationAPI.fedExApiAddress.city + ', ' + data.fedExAddressValidationAPI.fedExApiAddress.stateOrProvinceCode);
@@ -48,6 +49,7 @@ $(document).ready(function () {
                         //if fedex validate user address is already correct
                     } else if (!data.error && data.fedExAddressValidationAPI && data.fedExAddressValidationAPI.validateObject && data.fedExAddressValidationAPI.validateObject.fedExAddress == false) {
                         $('.recommended-address-wrapper').addClass('d-none');
+                        $('.fedex-popup-body-container').addClass('signle-box-container').parent().parent().parent().addClass('popup-body-content');
                         $('.user-address').text(data.fedExAddressValidationAPI.userAddress.streetLines);
                         $('.user-city').text(data.fedExAddressValidationAPI.userAddress.city + ', ' + data.fedExAddressValidationAPI.userAddress.state);
                         $('.user-postalCode').text(data.fedExAddressValidationAPI.userAddress.postalCode);
