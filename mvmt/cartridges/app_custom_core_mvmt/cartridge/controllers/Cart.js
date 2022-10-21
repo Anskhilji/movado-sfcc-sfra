@@ -94,6 +94,92 @@ server.replace('ShowAddProductButton', function (req, res, next) {
     next();
 });
 
+server.post('AddGiftProduct', function (req, res, next) {
+
+    var Transaction = require('dw/system/Transaction');
+    var cartHelper = require('*/cartridge/scripts/cart/cartHelpers');
+    var BasketMgr = require('dw/order/BasketMgr');
+    var currentBasket = BasketMgr.getCurrentOrNewBasket();
+    var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
+    var ProductLineItemsModel = require('*/cartridge/models/productLineItems');
+    var CartModel = require('*/cartridge/models/cart');
+    var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
+    var isCartPage = req.form.isCartPage;
+    var result;
+    var quantity;
+    var parentUUID = req.form.parentPid;
+         // Custom Start MSS-1935 Gift Box Implementation
+         if (!empty(req.form.giftPid)) {
+            Transaction.wrap(function () {
+                quantity = 1;
+                result = cartHelper.addProductToCart(
+                        currentBasket,
+                        req.form.giftPid,
+                        1,
+                        [],
+                        []
+                    );
+                if (!result.error) {
+                   
+                    var lineItemsIterator = currentBasket.allProductLineItems.iterator();
+                    var currentLineItemsIterator;
+                    while (lineItemsIterator.hasNext()) {
+                        currentLineItemsIterator = lineItemsIterator.next();
+                        if (currentLineItemsIterator.UUID == req.form.parentPid) {
+                            currentLineItemsIterator.custom.giftPid = req.form.giftPid;
+                        } else if (currentLineItemsIterator.UUID == result.uuid) {
+                            currentLineItemsIterator.custom.giftParentUUID = req.form.parentPid;
+                        }
+                    }
+
+                    cartHelper.ensureAllShipmentsHaveMethods(currentBasket);
+                    basketCalculationHelpers.calculateTotals(currentBasket);
+                }
+            });
+        }
+        
+        
+        if (req.form.isGiftItem && !empty(req.form.isGiftItem)) {
+            basketModel = new CartModel(currentBasket);
+            basketModel.removeProductLineItemUrl = basketModel.actionUrls.removeProductLineItemUrl;
+            var template;
+            if (isCartPage === 'true') {
+                template = 'cart/productCard/cartGiftProductCard';
+            } else {
+                template = 'cart/productCard/miniCartGiftProductCard';
+            }
+            giftProductCardHtml = renderTemplateHelper.getRenderedHtml(basketModel, template);
+        }
+
+        var quantityTotal = ProductLineItemsModel.getTotalQuantity(currentBasket.productLineItems);
+        var cartModel = new CartModel(currentBasket);
+        var SCACart;
+        var listrakCountryCode;
+
+        if (dw.system.Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
+            var ltkSendSca = require('*/cartridge/controllers/ltkSendSca');
+            var ltkHelper = require('*/cartridge/scripts/helper/ltkHelper');
+            var ltkCartHelper = require('*/cartridge/scripts/helper/ltkCartHelper');
+            session.privacy.ltkCountryCode = ltkHelper.getCountryCode(req);
+            ltkSendSca.SendSCAPost();
+            SCACart =  ltkCartHelper.ltkLoadBasket(req);
+            listrakCountryCode = session.privacy.ltkCountryCode;
+        }
+
+        res.json({
+            quantityTotal: quantityTotal,
+            message: result.message,
+            cart: cartModel,
+            error: result.error,
+            pliUUID: result.uuid,
+            giftProductCardHtml: giftProductCardHtml,
+            SCACart: SCACart,
+            listrakCountryCode: listrakCountryCode
+        });
+    
+        next();
+});
+
 server.get('MiniCartCheckout', server.middleware.include, function (req, res, next) {
     var BasketMgr = require('dw/order/BasketMgr');
 
@@ -170,6 +256,7 @@ server.prepend('RemoveProductLineItem', function (req, res, next) {
     var Transaction = require('dw/system/Transaction');
     var currentBasket = BasketMgr.getCurrentBasket();
     var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
+    var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
 
     Transaction.wrap(function () {
         if (req.querystring.pid && req.querystring.uuid) {
@@ -181,7 +268,7 @@ server.prepend('RemoveProductLineItem', function (req, res, next) {
                     var giftProductLineItems = currentBasket.getAllProductLineItems(item.custom.giftPid);
                     for (var i = 0; i < giftProductLineItems.length; i++) {
                         var childGiftitem = giftProductLineItems[i];
-                        if (childGiftitem.productID == item.custom.giftPid) {
+                        if (childGiftitem.custom.giftParentUUID == item.UUID) {
                             currentBasket.removeProductLineItem(childGiftitem);
                         }
                     }
@@ -190,6 +277,15 @@ server.prepend('RemoveProductLineItem', function (req, res, next) {
             basketCalculationHelpers.calculateTotals(currentBasket);
         }
     });
+
+    var deletedGiftPid = req.querystring.uuid;
+
+    // Custom Start MSS-1935 Gift Box Implementation
+    var giftsParentUUID = currentBasket.allProductLineItems.toArray().filter(function(product) {
+        return product.UUID == deletedGiftPid;
+    });
+    customCartHelpers.getGiftTransactionATC(currentBasket, giftsParentUUID);
+    // Custom End
 
     next();
 });
