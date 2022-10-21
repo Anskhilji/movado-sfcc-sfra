@@ -83,6 +83,7 @@
     </div>
     <div class="d-none d-lg-block">
         <isif condition="${pdict.display.showAddToCart}">
+        <isset name="recommendationRail" value="${pdict.display.recommendationRail}" scope="page" />
             <isinclude template="product/components/showCartButtonProduct" />
         </isif>
     </div>

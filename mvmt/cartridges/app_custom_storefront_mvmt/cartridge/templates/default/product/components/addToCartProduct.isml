@@ -34,7 +34,11 @@
                     <iselseif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.backorder', 'common', null) && !empty(product) && !empty(product.ociPreOrderParameters) && product.ociPreOrderParameters.ociPreOrderProductAllocation === 0.00 && product.ociPreOrderParameters.ociPreOrderProductATO > 0 && product.ociPreOrderParameters.ociPreOrderProductFuture === true}"/>
                         ${Resource.msg('button.preorder.now', 'common', null)} </br>
                     <iselseif condition="${product.available}"/>
-                        ${Resource.msg('button.addtocart', 'common', null)}
+                        <isif condition="${recommendationRail}">
+                            ${Resource.msg('button.addtocart.cart.recommendation', 'common', null)}
+                        <iselse/>
+                            ${Resource.msg('button.addtocart', 'common', null)}
+                        </isif>
                     <iselse/>
                         ${Resource.msg('button.sold.out', 'product', null)}
                     </isif>
