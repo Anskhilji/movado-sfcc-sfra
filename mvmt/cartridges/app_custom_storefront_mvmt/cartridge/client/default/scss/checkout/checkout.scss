@@ -1652,7 +1652,6 @@ header {
             justify-content: space-between;
             align-items: center;
             gap: rem(30);
-            padding: rem(15) rem(70) rem(0) rem(71);
 
             @include media-breakpoint-down(md-down) {
                 padding: rem(15) rem(30) rem(0) rem(30);

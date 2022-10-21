@@ -6,7 +6,7 @@
     <!-- Modal -->
     <div class="modal fedex-popup fade" id="fedExAdressModal" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalCenterTitle1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg fedex-popup-dialog-sm" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg fedex-address-validation-box fedex-popup-dialog-sm" role="document">
             <div class="modal-content fedex-popup-content">
                 <div class="modal-header fedex-popup-header">
                     <h5 class="modal-title" id="exampleModalCenterTitle"></h5>
@@ -30,7 +30,7 @@
                                     <span class="recomended-postalCode"><b><strong>01545-4125</strong></b></span>
                                 </p>
                             </div>
-                            <a href="#" class="btn btn-wrapper fedex-continue-btn fedex-recommend">Use this address</a>
+                            <a href="#" class="btn btn-wrapper fedex-continue-btn fedex-recommend">${Resource.msg('popup.label.content.button', 'checkout', null)}</a>
                         </div>
 
                         <div class="fedex-popup-body-container-box-one">
