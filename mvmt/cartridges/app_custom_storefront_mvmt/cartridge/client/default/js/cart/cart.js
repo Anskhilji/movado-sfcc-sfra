@@ -79,7 +79,7 @@ function validateBasket(data) {
  * re-renders the order totals and the number of items in the cart
  * @param {Object} data - AJAX response from the server
  */
-function updateMiniCartTotals(data, $giftProduct) {
+function updateMiniCartTotals(data, $giftProduct, $uuid) {
     if (data.numItems) {
         $('.minicart .minicart-quantity').text(data.numItems);
     }
@@ -155,17 +155,19 @@ function updateMiniCartTotals(data, $giftProduct) {
         if (item.giftPid !== undefined && item.giftPid !== '') {
             data.items.forEach(function (childitem) {
                 if (childitem.id == item.giftPid) {
-                    $('.sale-gift-price-mvmt').empty().append(childitem.priceTotal.price);
+                    $('.sale-gift-price-mvmt-' + childitem.UUID).empty().append(childitem.priceTotal.price);
                 }
             });
+        }
+        if ($giftProduct !== undefined && $giftProduct == true && $uuid !== undefined) {
+            $('.gift-lineitem-container-'+ $uuid).remove();
         }
     });
     // Custom End
 
     // Custom Start: remove gift product from cart
     if ($giftProduct !== undefined && $giftProduct == true) {
-        $('.gift-lineitem-container').empty();
-        $('.gift-product-row').empty();       
+        $('.gift-lineitem-container-'+ $uuid).empty(); 
     }
     // Custom End
 }
@@ -713,7 +715,7 @@ module.exports = function () {
                     }
                     $('.coupons-and-promos').children('.coupons-and-promos-wrapper').empty().append(data.basket.totals.discountsHtml);
                     var $miniCartSelector = $('.mini-cart-data .mini-cart-header');
-                    $miniCartSelector.length > 0 ? updateMiniCartTotals(data.basket, $giftProduct) : updateCartTotals(data.basket, $giftProduct);
+                    $miniCartSelector.length > 0 ? updateMiniCartTotals(data.basket, $giftProduct, $uuid) : updateCartTotals(data.basket, $giftProduct, $uuid);
                     updateApproachingDiscounts(data.basket.approachingDiscounts);
                     $('body').trigger('setShippingMethodSelection', data.basket);
                     validateBasket(data.basket);
