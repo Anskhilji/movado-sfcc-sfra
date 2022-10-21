@@ -162,6 +162,7 @@ function createSabrixRequestObject(basket, svc){
       } else {
         shipToAddress.setPOSTCODE(sa.postalCode);
       }
+    }
     invoice.setSHIPTO(shipToAddress);
   }
 
