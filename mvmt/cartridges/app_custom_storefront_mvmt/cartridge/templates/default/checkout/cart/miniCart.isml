@@ -52,25 +52,27 @@
   
 
     <div class="product-summary">
-        <isloop items="${items}" var="lineItem" status="loopStatus">
-            <div class="row" data-lineitem="${JSON.stringify(lineItem)}">
-               <isif condition="${lineItem.bonusProductLineItemUUID === 'bonus'}">
-                   <div class="card ${miniCart ? 'bonus-product-line-item' : ''} uuid-${lineItem.UUID}">
-                       <div class="card-body">
-                           <isinclude template="checkout/productCard/miniCartBonusProductCard" />
-                       </div>
-                   </div>
-                <iselseif condition="${!empty(lineItem.giftParentUUID)}"/>
-                    <isnext />
-                <iselse/>
-                   <div class="card uuid-${lineItem.UUID}">
-                       <div class="card-body">
-                           <isinclude template="checkout/productCard/miniCartProductCard" />
-                       </div>
-                   </div>
-               </isif>
-            </div>
-        </isloop>
+        <div class="mini-cart-product">
+            <isloop items="${items}" var="lineItem" status="loopStatus">
+                <div class="row" data-lineitem="${JSON.stringify(lineItem)}">
+                    <isif condition="${lineItem.bonusProductLineItemUUID === 'bonus'}">
+                        <div class="card ${miniCart ? 'bonus-product-line-item' : ''} uuid-${lineItem.UUID}">
+                            <div class="card-body">
+                                <isinclude template="checkout/productCard/miniCartBonusProductCard" />
+                            </div>
+                        </div>
+                    <iselseif condition="${!empty(lineItem.giftParentUUID)}" />
+                        <isnext />
+                    <iselse/>
+                        <div class="card uuid-${lineItem.UUID}">
+                            <div class="card-body">
+                                <isinclude template="checkout/productCard/miniCartProductCard" />
+                            </div>
+                        </div>
+                    </isif>
+                </div>
+            </isloop>
+        </div>
         <isset name="apiProduct" value="${dw.catalog.ProductMgr.getProduct(pdict.items[0].id)}" scope="page" />
         <iscomment>Custom Start: Recomendation Carousel </iscomment>
         <isif condition="${enableCartRecomendations}">

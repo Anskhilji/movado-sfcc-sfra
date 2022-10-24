@@ -111,6 +111,8 @@
         </isif>
     </isif>
 </div>
+
+<isset name="itemLevelGiftMessage" value="${lineItem.customAttributes['itemLevelGiftMessage'] ? lineItem.customAttributes['itemLevelGiftMessage'].msgLine1 : ''}" scope="page" />
 <div class="gift-box-container">
     <img class="gift-icon" alt="gift box icon" src="${URLUtils.staticURL('/images/giftbox-icon.svg')}" />
     <isif condition="${!empty(itemLevelGiftMessage)}">
