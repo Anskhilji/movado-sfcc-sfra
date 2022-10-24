@@ -20,10 +20,10 @@
                         <div class="bottom-section">
                             <isprint value="${slotcontent.custom.bottomSectionCarousel}" encoding="off" />
                         </div>
-                        </isif>
-                    </div>
+                    </isif>
                 </div>
             </div>
         </div>
-    </isif>
+    </div>
+</isif>
 </div>
