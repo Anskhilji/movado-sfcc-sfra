@@ -18,7 +18,7 @@ function getAuthorizationServiceConfigs() {
 			return msg;
 		},
         getRequestLogMessage: function (serviceRequest) {
-            return serviceRequest;
+            return JSON.stringify(serviceRequest);
         },
         getResponseLogMessage: function (serviceResponse) {
             if (serviceResponse.errorText) {
@@ -40,7 +40,10 @@ function getAPIServiceConfigs() {
         },
         parseResponse: function (svc, client) {
             return JSON.parse(client.text);
-        }
+        },
+        filterLogMessage: function (msg) {
+			return msg;
+		},
     };
     return serviceConfig;
 }
