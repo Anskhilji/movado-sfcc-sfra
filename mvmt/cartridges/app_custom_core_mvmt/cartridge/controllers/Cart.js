@@ -60,6 +60,9 @@ server.get('ShowGiftBoxModal', server.middleware.https, csrfProtection.generateT
     for (var i = 0; i < basketModel.items.length; i++) {
         var lineItem = basketModel.items[i];
         itemLevelGiftMessage = (!empty(lineItem.customAttributes) && !empty(lineItem.customAttributes.itemLevelGiftMessage)) ? lineItem.customAttributes.itemLevelGiftMessage.msgLine1 : '';
+        if (!empty(lineItem.giftPid)) {
+            var ProductLineItemUUID = lineItem.UUID;
+        }
     }
 
     viewData = {
@@ -68,7 +71,9 @@ server.get('ShowGiftBoxModal', server.middleware.https, csrfProtection.generateT
         productUUID: params.uuid,
         giftBoxSKUData: giftBoxSKUData,
         isCartPage: params.isCartPage,
-        itemLevelGiftMessage: itemLevelGiftMessage
+        itemLevelGiftMessage: itemLevelGiftMessage,
+        basketModel: basketModel,
+        ProductLineItemUUID: ProductLineItemUUID
     };
 
     res.setViewData(viewData);

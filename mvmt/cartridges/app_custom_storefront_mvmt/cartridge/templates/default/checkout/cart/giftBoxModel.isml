@@ -23,7 +23,7 @@
 
         <iscomment> gift product option  </iscomment>
         <isset name="giftBoxEnabled" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxEnabled) ? dw.system.Site.current.preferences.custom.giftBoxEnabled : false}" scope="page" />
-        <isif condition="${!empty(product.isGiftBoxAllowed) && product.isGiftBoxAllowed && product.giftBoxSKUData.giftBoxSKUAvailability && giftBoxEnabled}">
+        <isif condition="${!empty(product.isGiftBoxAllowed) && product.isGiftBoxAllowed && product.giftBoxSKUData.giftBoxSKUAvailability && giftBoxEnabled && !(pdict.basketModel.giftOptions.indexOf(pdict.ProductLineItemUUID) > -1)}">
             <label class="radio-container add-gift-box-input"> ${Resource.msg('label.minicart.giftbox.modal.labeltwo', 'cart', null)} <span class="label-right-wrapper">${product.giftBoxSKUData.giftBoxSKUPrice ? product.giftBoxSKUData.giftBoxSKUPrice : '$0'}</span>
                 <input type="radio" name="radio">
                 <span class="checkmark"></span>

@@ -1,3 +1,4 @@
+<isset name="recommendationRail" value="${pdict.display.recommendationRail}" scope="page" />
 <iscomment> Custom Start: Add to cart button added, badges an availablity, rating removed </iscomment>
 <div class="product-tile-redesign minicart-recommendation-rail grid-tile-design" itemscope itemtype="http://schema.org/Product">
     <div class="tile-content">
@@ -83,7 +84,6 @@
     </div>
     <div class="d-none d-lg-block">
         <isif condition="${pdict.display.showAddToCart}">
-        <isset name="recommendationRail" value="${pdict.display.recommendationRail}" scope="page" />
             <isinclude template="product/components/showCartButtonProduct" />
         </isif>
     </div>

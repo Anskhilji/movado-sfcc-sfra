@@ -171,7 +171,7 @@ var updateCartPage = function(data) {
         var $giftPid = item.giftPid;
         data.items.forEach(function (childitem) {
             if (childitem.id == $giftPid) {
-                $miniCartSelector.find('.sale-gift-price-mvmt').empty().append(childitem.priceTotal.price);
+                $miniCartSelector.find('.sale-gift-price-mvmt-'+ childitem.UUID).empty().append(childitem.priceTotal.price);
             }
         });
     });
@@ -460,8 +460,8 @@ module.exports = function () {
                                 $('.gift-personlize-msg').text($itemLevelGiftMessage);
                                 $('.gift-box-container-link').addClass('d-none');
                                 $('.gift-box-container-link-edit').removeClass('d-none');
-                                $('.gift-lineitem-message-' + item.UUID).text($itemLevelGiftMessage);
-                                $('.gift-lineitem-message-gift-' + item.UUID).text($itemLevelGiftMessage);
+                                $('.gift-lineitem-message-' + item.UUID).text('"'+$itemLevelGiftMessage+'"');
+                                $('.gift-lineitem-message-gift-' + item.UUID).text('"'+$itemLevelGiftMessage+'"');
                                 $('.gift-msg-text').addClass('d-none')
                                 $('.gift-msg-text-edit').removeClass('d-none');
                                 $('.gift-message-btn-' + item.UUID).text('Edit');
