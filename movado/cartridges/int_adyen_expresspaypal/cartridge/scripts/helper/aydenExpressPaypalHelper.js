@@ -259,11 +259,22 @@ function formsValidation(currentBasket, formData) {
         postalCode: shippingPostalCode,
         countryCode: shippingCountryCode,
     }
-    var fedExAddress = fedExAPI.fexExAddressValidationAPI(shippingAddress);
+    var fedExAddress = fedExAPI.fedExAddressValidationAPI(shippingAddress);
     if(fedExAddress.success == true){
         validatedFields.city = fedExAddress.response[0].cityToken[0].changed;
         validatedFields.postalCode = fedExAddress.response[0].postalCodeToken.changed;
         validatedFields.stateCode = fedExAddress.response[0].stateOrProvinceCodeToken.changed;
+    }
+    if (fedExAddress.response[0].postalCodeToken && fedExAddress.response[0].postalCodeToken.value.length > 5) {
+        postalCode = fedExAddress.response[0].postalCodeToken.value;
+        postalCode = postalCode.split('-');
+        postalCode = postalCode[0];
+    } else {
+        postalCode = fedExAddress.response[0].postalCodeToken.value;
+    }
+
+    if (shippingPostalCode == postalCode) {
+        validatedFields.postalCode = false
     }
 
     for (var prop in validatedFields) {

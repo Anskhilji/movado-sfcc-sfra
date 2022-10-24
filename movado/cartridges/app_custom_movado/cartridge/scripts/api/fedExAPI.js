@@ -1,12 +1,13 @@
 'use strict';
 
-var Logger = require('dw/system/Logger').getLogger('FedEx');
 var Constants = require('~/cartridge/scripts/helpers/utils/Constants');
 var fedExAPIHelper = require('~/cartridge/scripts/helpers/fedExAPIHelper');
+var Logger = require('dw/system/Logger').getLogger('FedEx');
+var Resource = require('dw/web/Resource');
 
-function fexExAddressValidationAPI(address) {
+function fedExAddressValidationAPI(address) {
     var result = {
-        message: 'Error Occured during fedExAPICall',
+        message: Resource.msg('fedex.api.error', 'common', null),
         success: false
     }
     var accessToken = fedExAPIHelper.getAuthToken(Constants.FEDEX_SERVICE_ID.FEDEX_AUTHENTICATION);
@@ -20,5 +21,5 @@ function fexExAddressValidationAPI(address) {
 }
 
 module.exports = {
-    fexExAddressValidationAPI: fexExAddressValidationAPI
+    fedExAddressValidationAPI: fedExAddressValidationAPI
 }

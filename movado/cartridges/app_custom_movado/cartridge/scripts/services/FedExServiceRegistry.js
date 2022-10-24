@@ -8,7 +8,7 @@ function getAuthorizationServiceConfigs() {
         createRequest: function (svc, args) {
             svc.setRequestMethod('POST');
             svc.addHeader('Content-Type', 'application/x-www-form-urlencoded');
-            svc.setAuthentication("authentication:NONE");
+            svc.setAuthentication('NONE');
             return args;
         },
         parseResponse: function (svc, client) {

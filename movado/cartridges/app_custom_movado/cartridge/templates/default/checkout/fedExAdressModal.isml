@@ -1,7 +1,7 @@
 <isif condition="${dw.system.Site.current.preferences.custom.isAddressValidationEnable}">
     <button type="button" class="btn btn-primary d-none fedex-btn-popup-call"
         data-url="${URLUtils.url('FedEx-AddressValidation')}" data-fedex="${dw.system.Site.current.preferences.custom.isAddressValidationEnable}" data-toggle="modal"
-        data-direction='bottom' data-target="#fedExAdressModal">LG Modal</button>
+        data-direction='bottom' data-target="#fedExAdressModal"></button>
 
     <!-- Modal -->
     <div class="modal fedex-popup fade" id="fedExAdressModal" tabindex="-1" role="dialog"
@@ -22,24 +22,24 @@
                     <!-- 2nd & 5th for no recommendations -->
                     <div class="fedex-popup-body-container">
                         <div class="fedex-popup-body-container-box-one recommended-address-wrapper">
-                            <p class="heading-one-content"> Recommended Address</p>
+                            <p class="heading-one-content">${Resource.msg('popup.label.recommended.address', 'checkout', null)}</p>
                             <div class="content-label">
                                 <p>
-                                    <span class="recomended-address">128 Worthington Ave</span> <br>
-                                    <span class="recomended-city">Shrewsbury, MA </span>
-                                    <span class="recomended-postalCode"><b><strong>01545-4125</strong></b></span>
+                                    <span class="recomended-address"></span> <br>
+                                    <span class="recomended-city"></span>
+                                    <span class="recomended-postalCode"><b><strong></strong></b></span>
                                 </p>
                             </div>
                             <a href="#" class="btn btn-wrapper fedex-continue-btn fedex-recommend">${Resource.msg('popup.label.content.button', 'checkout', null)}</a>
                         </div>
 
                         <div class="fedex-popup-body-container-box-one">
-                            <p class="heading-two-content"> You Entered <a class="sub-link fedex-user-address" href="#">Edit</a></p>
+                            <p class="heading-two-content"> ${Resource.msg('popup.label.user.address', 'checkout', null)} <a class="sub-link fedex-user-address" href="#"> ${Resource.msg('popup.label.user.address.edit.button', 'checkout', null)}</a></p>
                             <div class="content-label">
                                 <p>
-                                    <span class="user-address">128 Worthington Ave</span> <br>
-                                    <span class="user-city">Shrewsbury, MA </span>
-                                    <span class="user-postalCode">01545-4125</span>
+                                    <span class="user-address"></span> <br>
+                                    <span class="user-city"></span>
+                                    <span class="user-postalCode"></span>
                                 </p>
                             </div>
                             <a href="#" class="btn btn-wrapper btn-bg-white fedex-continue-btn user-recommend">${Resource.msg('popup.label.content.button', 'checkout', null)}</a>

@@ -1,9 +1,12 @@
 'use strict';
 
+var CacheMgr = require('dw/system/CacheMgr');
+var cache = CacheMgr.getCache('FedExToken');
 var FedExServiceRegistry = require('~/cartridge/scripts/services/FedExServiceRegistry');
 var FedExRequestModel = require('~/cartridge/scripts/model/FedExRequestModel');
 var Logger = require('dw/system/Logger').getLogger('FedEx');
 var Resource = require('dw/web/Resource');
+var Site = require('dw/system/Site');
 
 function getFedExAPIService(serviceID, accessToken) {
     var service = FedExServiceRegistry.getFedExAPIService(serviceID);
@@ -12,9 +15,6 @@ function getFedExAPIService(serviceID, accessToken) {
 }
 
 function getAuthTokenFromAPI(requestParams) {
-    var CacheMgr = require('dw/system/CacheMgr');
-    var Site = require('dw/system/Site');
-    var cache = CacheMgr.getCache('FedExToken');
     var cacheKey = [Site.current.ID, request.locale, 'auth'].join('_');
     var tokenObject;
 
@@ -47,7 +47,7 @@ function fedExValidateAddressAPICall(address, service) {
     var fedExAPIPayload = FedExRequestModel.generateFedExAddressValidationAPIPayLoad(address);
     var responsePayload = null;
     var result = {
-        message: Resource.msg('omnichannel.inventory.event.api', 'common', null),
+        message: Resource.msg('fedex.api.error', 'common', null),
         success: false,
         response: null
     }
@@ -73,36 +73,42 @@ function fedExAddressValidation(fedExAddress, userAddress) {
     var validateObject;
     var fedExApiAddress;
     var postalCode;
-    if(fedExAddress && fedExAddress.response){
-        validateObject = {
-            city: fedExAddress.response[0].cityToken[0].changed,
-            postalCode: fedExAddress.response[0].postalCodeToken.changed,
-            stateOrProvinceCode: fedExAddress.response[0].stateOrProvinceCodeToken.changed,
-            fedExAddress : false
-        }
-
-        if(fedExAddress.response[0].postalCodeToken){
-            postalCode = fedExAddress.response[0].postalCodeToken.value;
-            postalCode = postalCode.split('-');
-            postalCode = postalCode[0];
-        }
-
-        if(userAddress.postalCode == postalCode){
-            validateObject.postalCode = false
-        }
-
-        for (var object in validateObject) {
-            if (validateObject[object] == true) {
-                validateObject['fedExAddress'] = true;
+    try {
+        if(fedExAddress && fedExAddress.response){
+            validateObject = {
+                city: fedExAddress.response[0].cityToken[0].changed,
+                postalCode: fedExAddress.response[0].postalCodeToken.changed,
+                stateOrProvinceCode: fedExAddress.response[0].stateOrProvinceCodeToken.changed,
+                fedExAddress : false
+            }
+    
+            if (fedExAddress.response[0].postalCodeToken && fedExAddress.response[0].postalCodeToken.value.length > 5) {
+                postalCode = fedExAddress.response[0].postalCodeToken.value;
+                postalCode = postalCode.split('-');
+                postalCode = postalCode[0];
+            } else {
+                postalCode = fedExAddress.response[0].postalCodeToken.value;
+            }
+    
+            if(userAddress.postalCode == postalCode){
+                validateObject.postalCode = false
+            }
+    
+            for (var object in validateObject) {
+                if (validateObject[object] == true) {
+                    validateObject['fedExAddress'] = true;
+                }
+            }
+    
+            fedExApiAddress = {
+                city: fedExAddress.response[0].cityToken[0].value,
+                postalCode: postalCode,
+                stateOrProvinceCode: fedExAddress.response[0].stateOrProvinceCodeToken.value,
+                streetAddress: fedExAddress.response[0].streetLinesToken[0]
             }
         }
-
-        fedExApiAddress = {
-            city: fedExAddress.response[0].cityToken[0].value,
-            postalCode: postalCode,
-            stateOrProvinceCode: fedExAddress.response[0].stateOrProvinceCodeToken.value,
-            streetAddress: fedExAddress.response[0].streetLinesToken[0]
-        }
+    } catch (e) {
+        Logger.error('FedEx address validation API returns Error on Call : {0}', fedExAddress.errorMessage);
     }
 
     return {

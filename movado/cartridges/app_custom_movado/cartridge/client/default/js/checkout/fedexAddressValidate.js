@@ -4,7 +4,7 @@ $(document).ready(function () {
         formHelpers.clearPreviousErrors('.shipping-form');
 
         var fedex = $('.fedex-btn-popup-call').attr('data-fedex');
-        if (fedex == "true") {
+        if (fedex == 'true') {
             e.preventDefault();
             e.stopPropagation();
             var formData = $('.shipping-form').serialize();
@@ -30,7 +30,7 @@ $(document).ready(function () {
                             defer.reject(data);
                         }
                         // if fedex return any error
-                        $('.fedex-btn-popup-call').attr('data-fedex', "false");
+                        $('.fedex-btn-popup-call').attr('data-fedex', 'false');
                         $(formButton).click();
                     }
                     //if fedex has any recomendation
@@ -69,13 +69,13 @@ $(document).ready(function () {
                             $('.' + checkoutFormStage + 'AddressOne').val(fedexRecommendedAddress.streetAddress);
                             $('.' + checkoutFormStage + 'AddressCity').val(fedexRecommendedAddress.city);
                             $('.' + checkoutFormStage + 'ZipCode').val(fedexRecommendedAddress.postalCode);
-                            $("." + checkoutFormStage + "State option:selected").removeAttr("selected");
-                            $("." + checkoutFormStage + "State option[value='" + fedexRecommendedAddress.stateOrProvinceCode + "']").attr('selected', 'selected');
-                            $('.fedex-btn-popup-call').attr('data-fedex', "false");
+                            $('.' + checkoutFormStage + 'State option:selected').removeAttr('selected');
+                            $('.' + checkoutFormStage + 'State option[value=' + fedexRecommendedAddress.stateOrProvinceCode + ']').attr('selected', 'selected');
+                            $('.fedex-btn-popup-call').attr('data-fedex', 'false');
                             $('#fedExAdressModal').modal('hide');
                             $(formButton).click();
                         } else if (userAddress) {
-                            $('.fedex-btn-popup-call').attr('data-fedex', "false");
+                            $('.fedex-btn-popup-call').attr('data-fedex', 'false');
                             $('#fedExAdressModal').modal('hide');
                             $(formButton).click();
                         } else {

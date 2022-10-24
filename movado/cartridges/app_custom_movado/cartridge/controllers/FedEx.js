@@ -28,7 +28,7 @@ server.post('AddressValidation', function (req, res, next) {
         countryCode: shippingForm.shippingAddress.addressFields.country.value || ''
     };
     try {
-        var fedExApiAddress = fedExAPI.fexExAddressValidationAPI(address);
+        var fedExApiAddress = fedExAPI.fedExAddressValidationAPI(address);
         if (fedExApiAddress.success) {
             fedExAddressValidationAPI = fedExAPIHelper.fedExAddressValidation(fedExApiAddress,address);
             fedExAddressValidationAPI.userAddress = address;

@@ -207,7 +207,7 @@ require('./fedexAddressValidate');
                     '<span aria-hidden="true">&times;</span>' +
                     '</button>' + errorMsg + '</div>';
                                   $('.shipping-error').append(errorHtml);
-                                $('.fedex-btn-popup-call').attr('data-fedex', "false");
+                                $('.fedex-btn-popup-call').attr('data-fedex', 'false');
 
                                   defer.reject();
                               }
@@ -235,7 +235,7 @@ require('./fedexAddressValidate');
                           success: function (data) {
                               shippingHelpers.methods.shippingFormResponse(defer, data);
                               if (!data.error) {
-                                $('.fedex-btn-popup-call').attr('data-fedex',"true");
+                                $('.fedex-btn-popup-call').attr('data-fedex', 'true');
                                 var scrollUtil = require('../utilities/scrollUtil');
                                 scrollUtil.scrollPaymentSection('.payment-form', 65);
 
