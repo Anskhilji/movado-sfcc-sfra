@@ -401,8 +401,6 @@ server.append(
         res.setViewData({
             paypalButtonImg: customCartHelpers.getContentAssetContent('ca-paypal-button')
         });
-        customCartHelpers.removeClydeWarranty(viewData);
-        customCartHelpers.removeNullClydeWarrantyLineItem(currentBasket);
 
         customCartHelpers.removeClydeWarranty(viewData);
         customCartHelpers.removeNullClydeWarrantyLineItem(currentBasket);

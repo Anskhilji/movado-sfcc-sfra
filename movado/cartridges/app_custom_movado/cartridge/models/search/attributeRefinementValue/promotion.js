@@ -92,8 +92,7 @@ function PromotionRefinementValueWrapper(
         'selected',
         'selectable',
         'title',
-        'url',
-        'value'
+        'url'
     ];
     items.forEach(function (item) {
         this[item] = value[item];
