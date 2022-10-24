@@ -13,6 +13,18 @@ function getAuthorizationServiceConfigs() {
         },
         parseResponse: function (svc, client) {
             return JSON.parse(client.text);
+        },
+        filterLogMessage: function (msg) {
+			return msg;
+		},
+        getRequestLogMessage: function (serviceRequest) {
+            return serviceRequest;
+        },
+        getResponseLogMessage: function (serviceResponse) {
+            if (serviceResponse.errorText) {
+                Logger.error('Error occurred while calling FedEx API {0}: {1} ({2})', serviceResponse.statusCode, serviceResponse.statusMessage, serviceResponse.errorText);
+            }
+            return serviceResponse.text;
         }
     };
     return serviceConfig;
@@ -21,13 +33,6 @@ function getAuthorizationServiceConfigs() {
 function getAPIServiceConfigs() {
     var response = {};
     var serviceConfig = {
-        call: function (svc, args) {
-            return {
-                statusCode: 200,
-                statusMessage: "Success",
-                text: response
-            }
-        },
         createRequest: function (svc, args) {
             svc.addHeader('Content-Type', 'application/json');
             svc.setRequestMethod('POST');
@@ -45,7 +50,6 @@ function getAuthorizationService(serviceID) {
 }
 
 function getFedExAPIService(serviceID) {
-    var sitePreferences = Site.current.preferences.custom;
     var serviceConfig = getAPIServiceConfigs();
     var dataService = LocalServiceRegistry.createService(serviceID, serviceConfig);
     var getCredentials = dataService.getConfiguration().getCredential();

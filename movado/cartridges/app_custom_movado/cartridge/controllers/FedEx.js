@@ -1,10 +1,11 @@
 'use strict';
 
 var server = require('server');
-var fedExAPI = require('*/cartridge/scripts/api/fedExAPI');
-var fedExAPIHelper = require('~/cartridge/scripts/helpers/fedExAPIHelper');
-var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
 var Logger = require('dw/system/Logger').getLogger('FedEx');
+
+var fedExAPI = require('*/cartridge/scripts/api/fedExAPI');
+var fedExAPIHelper = require('*/cartridge/scripts/helpers/fedExAPIHelper');
+var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
 
 
 server.post('AddressValidation', function (req, res, next) {
@@ -40,7 +41,12 @@ server.post('AddressValidation', function (req, res, next) {
             return next();
         }
     } catch (e) {
-        Logger.error('Error Occured While Calling FedExAPICall and Error is : {0}', e.toString());
+        Logger.error('Error Occured While Calling FedExAPICall and Error is : {0}', e.toString(), e.fileName, e.lineNumber);
+        res.json({
+            error: true,
+            fedExAddressValidationAPI: fedExAddressValidationAPI
+        });
+        return next();
     }
 
     res.json({

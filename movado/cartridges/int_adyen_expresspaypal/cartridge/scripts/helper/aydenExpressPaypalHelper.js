@@ -260,7 +260,7 @@ function formsValidation(currentBasket, formData) {
         countryCode: shippingCountryCode,
     }
     var fedExAddress = fedExAPI.fedExAddressValidationAPI(shippingAddress);
-    if(fedExAddress.success == true){
+    if(fedExAddress.success == true && fedExAddress.response && fedExAddress.response.length > 0){
         validatedFields.city = fedExAddress.response[0].cityToken[0].changed;
         validatedFields.postalCode = fedExAddress.response[0].postalCodeToken.changed;
         validatedFields.stateCode = fedExAddress.response[0].stateOrProvinceCodeToken.changed;

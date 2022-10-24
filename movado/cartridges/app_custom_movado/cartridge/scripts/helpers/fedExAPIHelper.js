@@ -2,11 +2,12 @@
 
 var CacheMgr = require('dw/system/CacheMgr');
 var cache = CacheMgr.getCache('FedExToken');
-var FedExServiceRegistry = require('~/cartridge/scripts/services/FedExServiceRegistry');
-var FedExRequestModel = require('~/cartridge/scripts/model/FedExRequestModel');
 var Logger = require('dw/system/Logger').getLogger('FedEx');
 var Resource = require('dw/web/Resource');
 var Site = require('dw/system/Site');
+
+var FedExServiceRegistry = require('*/cartridge/scripts/services/FedExServiceRegistry');
+var FedExRequestModel = require('*/cartridge/scripts/model/FedExRequestModel');
 
 function getFedExAPIService(serviceID, accessToken) {
     var service = FedExServiceRegistry.getFedExAPIService(serviceID);
@@ -15,13 +16,13 @@ function getFedExAPIService(serviceID, accessToken) {
 }
 
 function getAuthTokenFromAPI(requestParams) {
-    var cacheKey = [Site.current.ID, request.locale, 'auth'].join('_');
+    var fedexAuth = [Site.current.ID, request.locale, 'auth'].join('_');
     var tokenObject;
 
     var service = FedExServiceRegistry.getAuthorizationService(requestParams);
     var payload = FedExRequestModel.generateAuthenticationPayLoad(service);
 
-    tokenObject = cache.get(cacheKey, function requestAuthToken() {
+    tokenObject = cache.get(fedexAuth, function requestAuthToken() {
         try {
             var responsePayload = service.call(payload);
             if (responsePayload.object) {
@@ -74,7 +75,7 @@ function fedExAddressValidation(fedExAddress, userAddress) {
     var fedExApiAddress;
     var postalCode;
     try {
-        if(fedExAddress && fedExAddress.response){
+        if(fedExAddress && fedExAddress.response && fedExAddress.response.length > 0){
             validateObject = {
                 city: fedExAddress.response[0].cityToken[0].changed,
                 postalCode: fedExAddress.response[0].postalCodeToken.changed,
