@@ -1,0 +1,52 @@
+<isif condition="${dw.system.Site.current.preferences.custom.isAddressValidationEnable}">
+    <button type="button" class="btn btn-primary d-none fedex-btn-popup-call"
+        data-url="${URLUtils.url('FedEx-AddressValidation')}" data-fedex="${dw.system.Site.current.preferences.custom.isAddressValidationEnable}" data-toggle="modal"
+        data-direction='bottom' data-target="#fedExAdressModal"></button>
+
+    <!-- Modal -->
+    <div class="modal fedex-popup fade" id="fedExAdressModal" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg fedex-address-validation-box fedex-popup-dialog-sm" role="document">
+            <div class="modal-content fedex-popup-content">
+                <div class="modal-header fedex-popup-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <img src="${URLUtils.staticURL('/images/cross-icon.svg')}" alt="" />
+                    </button>
+                </div>
+                <div class="modal-body fedex-popup-body text-center fedex-address fedex-recommended-address"
+                    data-fedex-address=''>
+                    <h3 class="fedex-popup-body-heading">${Resource.msg('popup.label.heading', 'checkout', null)}</h3>
+                    <p class="fedex-popup-body-label">${Resource.msg('popup.label.content', 'checkout', null)}</p>
+                    <p class="fedex-popup-body-label-sub">${Resource.msg('popup.label.content.sub', 'checkout', null)}</p>
+                    <!-- 2nd & 5th for no recommendations -->
+                    <div class="fedex-popup-body-container">
+                        <div class="fedex-popup-body-container-box-one recommended-address-wrapper">
+                            <p class="heading-one-content">${Resource.msg('popup.label.recommended.address', 'checkout', null)}</p>
+                            <div class="content-label">
+                                <p>
+                                    <span class="recomended-address"></span> <br>
+                                    <span class="recomended-city"></span>
+                                    <span class="recomended-postalCode"><b><strong></strong></b></span>
+                                </p>
+                            </div>
+                            <a href="#" class="btn btn-wrapper fedex-continue-btn fedex-recommend">${Resource.msg('popup.label.content.button', 'checkout', null)}</a>
+                        </div>
+
+                        <div class="fedex-popup-body-container-box-one">
+                            <p class="heading-two-content"> ${Resource.msg('popup.label.user.address', 'checkout', null)} <a class="sub-link edit-user-address" href="#"> ${Resource.msg('popup.label.user.address.edit.button', 'checkout', null)}</a></p>
+                            <div class="content-label">
+                                <p>
+                                    <span class="user-address"></span> <br>
+                                    <span class="user-city"></span>
+                                    <span class="user-postalCode"></span>
+                                </p>
+                            </div>
+                            <a href="#" class="btn btn-wrapper btn-bg-white fedex-continue-btn user-recommend">${Resource.msg('popup.label.content.button', 'checkout', null)}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</isif>
