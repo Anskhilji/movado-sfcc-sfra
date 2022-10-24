@@ -38,7 +38,7 @@
                     </isloop>
                 </div>
             </div>
-        <iselseif condition="${discount.lineItemText !== 'null' && discount.price !== 'null'}" >
+        <iselseif condition="${discount.lineItemText !== 'null' && discount.price !== 'null'}"/>
             <div class="promotion-information col-12">
                 <span class="promotion-name">${discount.lineItemText}</span>
                 <span class="applied-promotion-discount">${discount.price}</span>

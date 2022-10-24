@@ -1,0 +1,34 @@
+<iscomment> Custom Start: quick view button removed</iscomment>
+<div class="image-container">
+    <div class="badge-container">
+        <isloop items="${product.badges.textBadges}" var="badge">
+            <div class="new-product mb-1 text-uppercase">
+                <span class="badge-text">${badge.text}</span>
+            </div>
+        </isloop>
+        <isloop items="${product.badges.imageBadges}" var="imageBadge">
+            <div class="new-product mb-1 text-uppercase"><span class="badge-text">${Resource.msg('label.new', 'common', null)}</span></div>
+        </isloop>
+        <isif condition="${preOrder}">
+            <div class="out-of-stock pre-order mb-1 text-uppercase">
+                ${Resource.msg('info.product.availability.preorder', 'common', null)}
+            </div>
+        </isif>
+        <isif condition="${outOfStock}">
+            <div class="out-of-stock mb-1 text-uppercase">
+                ${Resource.msg('label.soldout', 'common', null)}
+            </div>
+        </isif>
+    </div>
+    <a href="${pdict.urls.product}">
+        <isif condition="${!empty(product) && !empty(product.images) && !empty(product.images.tile533[0]) && !empty(product.images.tile533[0].url)}"> 
+            <picture>
+                <isif condition="${product.images.tile533[0]}"><source media="(min-width: 992px)" srcset="${product.images.tile533[0].url}" /></isif>
+                <isif condition="${product.images.tile533[0]}"><source media="(min-width: 544px)" srcset="${product.images.tile533[0].url}" /></isif>
+                <isif condition="${product.images.tile533[0]}"><source media="(min-width: 320px)" srcset="${product.images.tile533[0].url}" /></isif>
+                <isif condition="${product.images.tile533[0]}"><img class="tile-image gtm-product" src="${product.images.tile533[0].url}" alt="${pdict.apiProduct.productName}" itemprop="image"  data-gtm-product='${JSON.stringify(pdict.productClickGtmObj)}' data-gtm-facets='${JSON.stringify(pdict.productGtmObj)}'/></isif>
+            </picture>
+        </isif>
+    </a>
+</div>
+<iscomment> Custom End: quick view button removed</iscomment>

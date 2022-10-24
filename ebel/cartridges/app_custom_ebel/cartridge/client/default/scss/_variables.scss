@@ -19,6 +19,7 @@ $yellow: #FFC517 !default;
 $border-color: #979797 !default;
 $linen: #faf4ed !default;
 $burntOchre: #bb4f35 !default;
+$invalid-red: #C82727;
 // Consolidated values
 $grey1: #f9f9f9 !default;
 $grey2: #eee !default;
@@ -36,6 +37,12 @@ $grey13: #E1E2E3 !default;
 $grey14: #060506 !default;
 $grey15: #787777 !default;
 $grey16: #D2D2D2 !default;
+$grey18: #929292 !default;
+$grey19: #404040 !default;
+$grey20: #FAF8F8;
+$grey21: #676767;
+$parrot-green: #3AAB4A;
+$cerulean: #0092DB;
 
 $grey-transparent-1: rgba(0, 0, 0, 0.65) !default;
 $grey-transparent-2: rgba(0, 0, 0, 0.25) !default;
@@ -47,6 +54,8 @@ $grey-transparent-7: rgba(0,0,0,0.24) !default;
 $grey-light: rgba(187, 189, 191, 0.3) !default;
 $grey-dark: rgba(187, 189, 191, 0.5) !default;
 $grey-dark-1: rgba(6,5,6,0.6) !default;
+$grey-dark-2: rgba(228,228,228,0.32) !default; 
+$grey-dark-3: rgba(51,51,51,0.17) !default;
 
 $light-gray: $grey1 !default;
 $slightly-darker-gray: $grey4 !default;
@@ -120,10 +129,24 @@ $maroon : rgb(75,40,9) !default;
 $footer-custom : rgb(254,253,252) !default;
 
 // Larger Screen
+$medium-screen-width: 768px;
 $large-screen-width: 1400px;
+$large-screen-width-1440: 1440px;
 
 @mixin custom-media-query($large-screen-width) {
-  @media (min-width:#{$large-screen-width}) {
-      @content;
-  }
+    @media (min-width:#{$large-screen-width}) {
+        @content;
+    }
+}
+
+@mixin custom-media-query-1440($large-screen-width-1440) {
+    @media (min-width:#{$large-screen-width-1440}) {
+        @content;
+    }
+}
+
+@mixin custom-media-query-max($medium-screen-width) {
+    @media (max-width:#{$medium-screen-width}) {
+        @content;
+    }
 }

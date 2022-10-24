@@ -132,6 +132,25 @@
                                 </div>
                             <iscomment> Custom: End </iscomment>
                         </div>
+                        <iscomment> Custom Start: Tax Duties shows when following requirements meet </iscomment>
+                        <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
+                        <isif condition="${isEswEnabled}" >
+                            <isset name="domesticAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
+                            <isset name="isTaxDutiesAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isTaxDutiesAllowedCountry()}" scope="page" />
+                            <isif condition="${!empty(isTaxDutiesAllowedCountry)}">
+                                <isif condition="${!domesticAllowedCountry && isTaxDutiesAllowedCountry}">
+                                    <div class="tax-duties">
+                                        <isslot id="cs-esw-tax-duties" description="Tax Duties" context="global" />
+                                    </div>
+                                </isif>
+                            <iselse/>
+                                <isif condition="${!domesticAllowedCountry}">
+                                    <div class="tax-duties">
+                                        <isslot id="cs-esw-tax-duties" description="Tax Duties" context="global" />
+                                    </div>
+                                </isif>
+                            </isif>
+                        </isif>
                         <iscomment> Custom End: Change Naming Conventions for PDP </iscomment>
 
                         <iscomment> Custom Start: Tax Duties shows when following requirements meet </iscomment>
@@ -191,7 +210,8 @@
                             </div>
                         </div>
                         <isset name="giftBoxMessage" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxMessage) ? dw.system.Site.current.preferences.custom.giftBoxMessage : ''}" scope="page" />
-                        <isif condition="${!empty(product.isGiftBoxAllowed) && product.isGiftBoxAllowed && product.giftBoxSKUData.giftBoxSKUAvailability}">
+                        <isset name="giftBoxEnabled" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxEnabled) ? dw.system.Site.current.preferences.custom.giftBoxEnabled : false}" scope="page" />
+                        <isif condition="${!empty(product.isGiftBoxAllowed) && product.isGiftBoxAllowed && product.giftBoxSKUData.giftBoxSKUAvailability && giftBoxEnabled}">
                             <div class="gift-box-wrapper gift-box-wrapper-pdp d-show-mobile custom-checkbox-pdp">
                                 <label for="gift-allowed-checkout-mob" class="gift-box-wrapper-label custom-control-label-pdp">
                                     <input id="gift-allowed-checkout-mob" type="checkbox" name="gift-allowed-checkout" class="gift-box-wrapper-checkbox gift-allowed-checkbox" value="${product.giftBoxSKUData.giftBoxSKU}">
@@ -237,6 +257,7 @@
                         <div class="hidden-sm-down">
                             <isinclude template="product/components/pidRating" />
                         </div>
+                    </div>
 
                         <!-- Applicable Promotions -->
                         <div class="promotions">
@@ -272,7 +293,7 @@
                                 </div>
                             </div>
                         </div>
-                        <isif condition="${!empty(product.isGiftBoxAllowed) && product.isGiftBoxAllowed && product.giftBoxSKUData.giftBoxSKUAvailability}">
+                        <isif condition="${!empty(product.isGiftBoxAllowed) && product.isGiftBoxAllowed && product.giftBoxSKUData.giftBoxSKUAvailability && giftBoxEnabled}">
                             <div class="gift-box-wrapper gift-box-wrapper-pdp d-show-desktop custom-checkbox-pdp">
                                 <label for="gift-allowed-checkout" class="gift-box-wrapper-label custom-control-label-pdp">
                                     <input id="gift-allowed-checkout" type="checkbox" name="gift-allowed-checkout" class="gift-box-wrapper-checkbox gift-allowed-checkbox" value="${product.giftBoxSKUData.giftBoxSKU}">

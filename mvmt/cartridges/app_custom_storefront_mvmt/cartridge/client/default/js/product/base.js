@@ -427,7 +427,7 @@ function processNonSwatchValues(attr, $productContainer) {
  */
 function updateAttrs(attrs, $productContainer) {
     // Currently, the only attribute type that has image swatches is Color.
-    var attrsWithSwatches = ['color'];
+    var attrsWithSwatches = ['color','colorWatch'];
 
     attrs.forEach(function (attr) {
         if (attrsWithSwatches.indexOf(attr.id) > -1) {
@@ -873,7 +873,7 @@ function handleVariantResponse(response, $productContainer) {
 
     // Update Family Name and Case Diameter
     if (typeof response.product.collectionName !== 'undefined' && response.product.collectionName !== '' && response.product.collectionName !== null) {
-        $productContainer.find('.product-brand-info .collection-name').text(response.product.collectionName);
+        $productContainer.find('.product-brand-info .collection-name, .category-watches .watches-collection-name').text(response.product.collectionName);
     }
     if (typeof response.product.caseDiameter !== 'undefined' && response.product.caseDiameter !== '' && response.product.caseDiameter !== null) {
         $productContainer.find('.product-brand-info .case-diameter').text(response.product.caseDiameter);
@@ -1059,7 +1059,20 @@ function handleVariantResponse(response, $productContainer) {
         var $productNameSelector = $('.product-side-details .product-name');
         $productNameSelector.text(response.product.productName);
         var $variationProductURL = $('.variationAttribute').data('url') + '?pid=' + response.product.id + '&isStrapAjax=true';
-
+        
+        //update case diameter for watches
+        if (typeof response.product.caseDiameterRedesigned !== 'undefined' && response.product.caseDiameterRedesigned !== '' && response.product.caseDiameterRedesigned !== null) {
+            if ($productContainer.find('.product-brand-info .watches-case-diameter').length > 0) {
+                $productContainer.find('.product-brand-info .watches-case-diameter').text(response.product.caseDiameterRedesigned);
+            } else {
+                $productNameSelector.html(response.product.productName + '<span class="watches-case-diameter w-100" data-selected-variation-attr="caseDiameter">'+ response.product.caseDiameterRedesigned +'</span>')
+            }
+        }
+        if (typeof response.product.shortDescription !== 'undefined' && response.product.shortDescription !== '' && response.product.shortDescription !== null) {
+            if ($productContainer.find('.pd-desc-mvmt.product-description').length > 0) {
+                $productContainer.find('.pd-desc-mvmt.product-description').text(response.product.shortDescription);
+            }
+        }
         $.ajax({
             url: $variationProductURL,
             method: 'GET',
@@ -1324,11 +1337,14 @@ movadoBase.selectAttribute = function () {
 }
 
 movadoBase.colorAttribute = function () {
-    $(document).off('click', '[data-attr="color"] a').on('click','[data-attr="color"] a', function (e) {
+    $(document).off('click', '[data-attr="color"] a, [data-attr="colorWatch"] a').on('click','[data-attr="color"] a, [data-attr="colorWatch"] a', function (e) {
         e.preventDefault();
     
         if ($(this).attr('disabled') || $(this).hasClass('active')) {
             return;
+        } else {
+            $('.product-size-options.color-variation.active').removeClass('active');
+            $(this).addClass('active');
         }
     
         var $productContainer = $(this).closest('.set-item');

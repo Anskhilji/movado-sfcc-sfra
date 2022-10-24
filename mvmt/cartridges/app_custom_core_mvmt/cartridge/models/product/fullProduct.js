@@ -26,10 +26,7 @@ module.exports = function fullProduct(product, apiProduct, options) {
     var color = productCustomHelper.getColor(apiProduct, product);
     var caseDiameter = productCustomHelper.getCaseDiameter(apiProduct);
     var caseDiameterRedesigned = productCustomHelper.getCaseDiameter(apiProduct, true);
-    var isWatchTile = productCustomHelper.getIsWatchTile(apiProduct);
     var isCategory = productCustomHelper.getProductCategory(apiProduct, product);
-    var isGiftBoxAllowed = productCustomHelper.isGiftBoxAllowed(apiProduct);
-    var giftBoxSKUData = productCustomHelper.getGiftBoxSKU(apiProduct);
 
     if (!empty(currentCountry)) {
         Object.defineProperty(product, 'currentCountry', {
@@ -129,31 +126,10 @@ module.exports = function fullProduct(product, apiProduct, options) {
         });
     }
 
-    if (!empty(isWatchTile)) {
-        Object.defineProperty(product, 'isWatchTile', {
-            enumerable: true,
-            value: isWatchTile
-        });
-    }
-
     if (!empty(isCategory)) {
         Object.defineProperty(product, 'isCategory', {
             enumerable: true,
             value: isCategory
-        });
-    }
-
-    if (!empty(isGiftBoxAllowed)) {
-        Object.defineProperty(product, 'isGiftBoxAllowed', {
-            enumerable: true,
-            value: isGiftBoxAllowed
-        });
-    }
-
-    if (!empty(giftBoxSKUData)) {
-        Object.defineProperty(product, 'giftBoxSKUData', {
-            enumerable: true,
-            value: giftBoxSKUData
         });
     }
 

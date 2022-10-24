@@ -66,6 +66,41 @@ $arrow-height: 1.25em;
         letter-spacing: normal;
         width: 100%;
         text-transform: capitalize;
+        height: auto;
+        margin-bottom: rem(40);
+    }
+
+    .variationAttribute {
+        margin-bottom: rem(40);
+
+        @include media-breakpoint-down(md) {
+            margin-top: rem(0);
+            margin-bottom: rem(5);
+        }
+    }
+
+    .clyde-top-border {
+        height: rem(1);
+        margin-bottom: rem(30); 
+        margin-top: rem(30);
+        border-color: $border-gray;
+
+        @include media-breakpoint-down(md) {
+            margin-bottom: rem(20); 
+            margin-top: rem(20);
+        }
+    }
+
+    .clyde-bottom-border {
+        height: rem(1);
+        margin-bottom: rem(30);
+        margin-top: rem(20);
+        border-color: $border-gray;
+
+        @include media-breakpoint-down (md) {
+            margin-bottom: rem(20);
+            margin-top: rem(-15); 
+        } 
     }
 
     .price {
@@ -83,7 +118,7 @@ $arrow-height: 1.25em;
     }
 
     .prices {
-        padding-bottom: rem(10);
+        padding-bottom: rem(20);
     }
 
     .affirm-as-low-as {
@@ -108,11 +143,34 @@ $arrow-height: 1.25em;
         }
     }
 
+    div.availability {
+        margin-top: rem(30);
+
+        @include media-breakpoint-down(md) {
+            margin-top: rem(20);
+        }
+    }
+
+    .clyde-widget {
+        max-width: rem(319);
+
+        @include media-breakpoint-down(md) {
+            max-width: rem(275);
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        #clyde-cta {
+            height: auto;
+        }
+    }
+
     .availability-msg {
         color: $storm-gray;
         @include font-demi;
         font-size: rem(15);
         letter-spacing: normal;
+        line-height: rem(20);
     }
 
     .add-to-cart {
@@ -332,6 +390,13 @@ $arrow-height: 1.25em;
 
     .promotions {
         width: 100%;
+        margin-bottom: rem(30);
+        margin-top: rem(27);
+
+        @include media-breakpoint-down(md) {
+            margin-bottom: rem(20);
+            margin-top: rem(17);
+        }
 
         .callout {
             @include font-demi;
@@ -340,7 +405,7 @@ $arrow-height: 1.25em;
             padding-top: rem(0);
             color: $dark-green;
             letter-spacing: normal;
-            margin-bottom: rem(20);
+            margin-top: rem(3);
             width: 100%;
 
             span {
@@ -1378,7 +1443,7 @@ $arrow-height: 1.25em;
             background: $white;
             border-radius: rem(35) rem(35) 0 0;
             box-shadow: 0 rem(-2) rem(6) rem(-1) $grey-light;
-            padding-top: rem(30);
+            padding-top: rem(20);
             text-align: center;
 
             .product-name {
@@ -1391,6 +1456,10 @@ $arrow-height: 1.25em;
 
             .exclusive-badges {
                 margin: 0;
+                margin-bottom: rem(5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
         }
 
@@ -1423,7 +1492,12 @@ $arrow-height: 1.25em;
         }
 
         .prices {
-            margin-bottom: rem(10);
+            margin-bottom: rem(-5);
+            margin-top: rem(5);
+
+            @include media-breakpoint-down(xs) {
+                margin: rem(0) auto rem(10);
+            }
         }
 
         .mobile-detail-head {
