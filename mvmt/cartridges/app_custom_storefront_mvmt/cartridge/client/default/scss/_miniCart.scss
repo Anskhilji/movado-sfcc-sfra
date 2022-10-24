@@ -2053,10 +2053,6 @@
                                 &:hover {
                                     background: $white-gray;
                                 }
-                                &::before {
-                                    display: inline-block;
-                                    color: $black;
-                                }
                             }
                         }
                     }
