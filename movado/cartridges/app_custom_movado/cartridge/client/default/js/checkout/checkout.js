@@ -206,7 +206,7 @@ require('./fedexAddressValidate');
                     '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
                     '<span aria-hidden="true">&times;</span>' +
                     '</button>' + errorMsg + '</div>';
-                                  $('.shipping-error').append(errorHtml);
+                                $('.shipping-error').append(errorHtml);
                                 $('.fedex-btn-popup-call').attr('data-fedex', 'false');
 
                                   defer.reject();
