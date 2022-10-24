@@ -133,7 +133,7 @@
             <isinclude template="cart/productCard/cartGiftProduct" />
         </isif>
     </isloop>
-
+    <isset name="itemLevelGiftMessage" value="${lineItem.customAttributes['itemLevelGiftMessage'] ? lineItem.customAttributes['itemLevelGiftMessage'].msgLine1 : ''}" scope="page" />
     <isset name="isCartPage" value="${true}" scope="page" />
     <div class="gift-box-container w-100 align-items-start justify-content-start full-cart-continaer">
         <img class="gift-icon" alt="gift box icon" src="${URLUtils.staticURL('/images/giftbox-icon.svg')}" />
