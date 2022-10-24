@@ -60,7 +60,7 @@ server.get('ShowGiftBoxModal', server.middleware.https, csrfProtection.generateT
     for (var i = 0; i < basketModel.items.length; i++) {
         var lineItem = basketModel.items[i];
         itemLevelGiftMessage = (!empty(lineItem.customAttributes) && !empty(lineItem.customAttributes.itemLevelGiftMessage)) ? lineItem.customAttributes.itemLevelGiftMessage.msgLine1 : '';
-        if (!empty(lineItem.giftPid)) {
+        if (lineItem.id == params.pid) {
             var ProductLineItemUUID = lineItem.UUID;
         }
     }
