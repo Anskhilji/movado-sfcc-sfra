@@ -20,6 +20,8 @@ $(document).ready(function () {
             var popupContainer = $('.fedex-popup-body-container');
             var recomendedAddressBox = $('.recommended-address-wrapper');
             var fedexRecommendation = $('.fedex-recommended-address');
+            var fedexUserContent = $('.fedex-popup-body-label-sub');
+            var fedexRecommendedContent = $('.fedex-popup-body-label-sub');
             var formSelector = isMultiShip ?
                 '.multi-shipping .active form' :
                 '.single-shipping form';
@@ -47,6 +49,7 @@ $(document).ready(function () {
                         recomendedAddressBox.removeClass('d-none');
                         popupContainer.removeClass('signle-box-container');
                         addressValidationBox.removeClass('popup-body-content');
+                        fedexRecommendedContent.text(Resources.FEDEX_RECOMMENDED_ADDRESS_MESSAGE);
                         fedexRecommendation.attr('data-fedex-address', JSON.stringify(data.fedExAddressValidationAPI.fedExApiAddress));
                         $('.recomended-address').text(data.fedExAddressValidationAPI.fedExApiAddress.streetAddress);
                         $('.recomended-city').text(data.fedExAddressValidationAPI.fedExApiAddress.city + ', ' + data.fedExAddressValidationAPI.fedExApiAddress.stateOrProvinceCode);
@@ -61,6 +64,7 @@ $(document).ready(function () {
                         recomendedAddressBox.addClass('d-none');
                         popupContainer.addClass('signle-box-container');
                         addressValidationBox.addClass('popup-body-content');
+                        fedexUserContent.text(Resources.FEDEX_USER_ADDRESS_MESSAGE);
                         userAddress.text(data.fedExAddressValidationAPI.userAddress.streetLines);
                         userCity.text(data.fedExAddressValidationAPI.userAddress.city + ', ' + data.fedExAddressValidationAPI.userAddress.state);
                         userPostalCode.text(data.fedExAddressValidationAPI.userAddress.postalCode);
@@ -80,8 +84,8 @@ $(document).ready(function () {
                             $('.' + checkoutFormStage + 'AddressOne').val(fedexRecommendedAddress.streetAddress);
                             $('.' + checkoutFormStage + 'AddressCity').val(fedexRecommendedAddress.city);
                             $('.' + checkoutFormStage + 'ZipCode').val(fedexRecommendedAddress.postalCode);
-                            $('.' + checkoutFormStage + 'State option:selected').removeAttr('selected');
-                            $('.' + checkoutFormStage + 'State option[value=' + fedexRecommendedAddress.stateOrProvinceCode + ']').attr('selected', 'selected');
+                            $('.' + checkoutFormStage + 'State option:selected').removeAttr('selected');                          
+                            $('.' + checkoutFormStage + 'State option[value=' + fedexRecommendedAddress.stateOrProvinceCode + ']').prop('selected', true);
                             fedexBtnPopupCall.attr('data-fedex', 'false');
                             fedExModal.modal('hide');
                             $(formButton).click();

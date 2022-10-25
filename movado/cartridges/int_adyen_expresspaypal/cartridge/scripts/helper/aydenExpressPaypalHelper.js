@@ -252,34 +252,43 @@ function formsValidation(currentBasket, formData) {
     var shippingPostalCode = fetchFromMap(formData, 'deliveryAddress.postalCode');
     var shippingCountryCode = fetchFromMap(formData, 'deliveryAddress.country');
 
-    var shippingAddress = {
-        streetLines: shippingStreetLines,
-        city: shippingCity,
-        state: shippingState,
-        postalCode: shippingPostalCode,
-        countryCode: shippingCountryCode,
-    }
-    var fedExAddress = fedExAPI.fedExAddressValidationAPI(shippingAddress);
-    if(fedExAddress.success == true && fedExAddress.response && fedExAddress.response.length > 0){
-        validatedFields.city = fedExAddress.response[0].cityToken[0].changed;
-        validatedFields.postalCode = fedExAddress.response[0].postalCodeToken.changed;
-        validatedFields.stateCode = fedExAddress.response[0].stateOrProvinceCodeToken.changed;
-    }
-    if (fedExAddress.response[0].postalCodeToken && fedExAddress.response[0].postalCodeToken.value.length > 5) {
-        postalCode = fedExAddress.response[0].postalCodeToken.value;
-        postalCode = postalCode.split('-');
-        postalCode = postalCode[0];
-    } else {
-        postalCode = fedExAddress.response[0].postalCodeToken.value;
-    }
-
-    if (shippingPostalCode == postalCode) {
-        validatedFields.postalCode = false
-    }
 
     for (var prop in validatedFields) {
         if (validatedFields[prop] == true) {
             validatedFields['paypalerror'] = true;
+        }
+    }
+    if (validatedFields.paypalerror == false) {
+        var shippingAddress = {
+            streetLines: shippingStreetLines,
+            city: shippingCity,
+            state: shippingState,
+            postalCode: shippingPostalCode,
+            countryCode: shippingCountryCode,
+        }
+        var fedExAddress = fedExAPI.fedExAddressValidationAPI(shippingAddress);
+        if (fedExAddress.success == true && fedExAddress.response && fedExAddress.response.length > 0) {
+            validatedFields.city = fedExAddress.response[0].cityToken[0].changed;
+            validatedFields.postalCode = fedExAddress.response[0].postalCodeToken.changed;
+            validatedFields.stateCode = fedExAddress.response[0].stateOrProvinceCodeToken.changed;
+
+            if (fedExAddress.response[0].postalCodeToken && fedExAddress.response[0].postalCodeToken.value.length > 5) {
+                postalCode = fedExAddress.response[0].postalCodeToken.value;
+                postalCode = postalCode.split('-');
+                postalCode = postalCode[0];
+            } else {
+                postalCode = fedExAddress.response[0].postalCodeToken.value;
+            }
+        }
+
+        if (shippingPostalCode == postalCode) {
+            validatedFields.postalCode = false
+        }
+
+        for (var prop in shippingAddress) {
+            if (validatedFields[prop] == true) {
+                validatedFields['paypalerror'] = true;
+            }
         }
     }
     return validatedFields;

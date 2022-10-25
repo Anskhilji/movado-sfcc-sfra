@@ -1,5 +1,6 @@
 'use strict';
 
+var Logger = require('dw/system/Logger').getLogger('FedEx');
 var LocalServiceRegistry = require('dw/svc/LocalServiceRegistry');
 var Site = require('dw/system/Site');
 
