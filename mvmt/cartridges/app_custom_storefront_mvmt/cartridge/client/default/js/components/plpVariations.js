@@ -14,6 +14,10 @@ module.exports = function () {
             if (!($productContainer.parents('.product-grid').length > 0) || (($productContainer.parents('.product-grid').length > 0) && ($('.product-grid').hasClass('recommendation')))) {
                 $productContainer.find('.image-container').find('source').attr('srcset', primaryImageUrls.tile256[0].url);
                 $imageContainer.attr('src', primaryImageUrls.tile256[0].url);
+                
+                if (($productContainer.parents('.product-grid').length > 0) && ($('.product-grid').hasClass('recommendation'))) {
+                    $productContainer.find('.image-container').find('a').attr('href', pdpURL);
+                }
                 // life style image handling
             } else if ($categoryRendringTemplate !== undefined && $categoryRendringTemplate !== '' && $categoryRendringTemplate == true) {
                 $productContainer.find('.image-container').find('source').attr('srcset', primaryImageUrls.tile532X300[0].url).data('lazy', primaryImageUrls.tile532X300[0].url);
