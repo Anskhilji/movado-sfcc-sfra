@@ -1,6 +1,4 @@
  <div class="description-and-detail">
-<h1>New Description and details</h1>
-
                 <div class="pdp-tabs-nav d-none">
                     <isif condition="${!pdict.isCompareableDisabled || product.attributes && product.attributes.length}">
                         <button class="pdp-tab-button active" data-tab="${product.resources.Details}">${product.resources.Details}</button>

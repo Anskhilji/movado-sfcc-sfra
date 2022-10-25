@@ -1,6 +1,4 @@
 <iscomment>Custom Start: Changed the bootstrap classes</iscomment>
-<h1>New Details Attribute</h1>
-
 <isif condition="${product.pdpAttributesList && product.pdpAttributesList.length}">
     <div class="col-12 value content">
         <div class="row">

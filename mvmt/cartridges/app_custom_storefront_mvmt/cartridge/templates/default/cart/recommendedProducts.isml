@@ -1,6 +1,5 @@
 <iscomment> Custom: Start new template added for recommendation products </iscomment>
 <div class="mini-cart-product-list">
-<h1>Recommened products</h1>
     <isif condition="${!empty(pdict.explicitRecommendations) && pdict.explicitRecommendations.length > 0}">
         <button class="mini-cart-show-recommendations" id="btn-${pdict.pid}">${Resource.msg('label.minicart.recommendatation.text', 'cart', null)}</button>
         <button class="mini-cart-hide-recommendations d-none" >${Resource.msg('label.minicart.hide.recommendatation.text', 'cart', null)}</button>
