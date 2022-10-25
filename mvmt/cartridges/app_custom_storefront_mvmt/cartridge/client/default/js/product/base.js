@@ -1249,7 +1249,7 @@ function attributeSelect(selectedValueUrl, $productContainer) {
                 handleOptionsMessageErrors(data.validationErrorEmbossed, data.validationErrorEngraved, $productContainer);
                 if(isColorSwatch) {
                     var listrakTracking = require('movado/listrakActivityTracking.js');
-                    listrakTracking.listrackProductTracking();
+                    listrakTracking.listrackProductTracking(data.product.id, d);
                 }
                 $('body').trigger('product:afterAttributeSelect',
                     { data: data, container: $productContainer });
