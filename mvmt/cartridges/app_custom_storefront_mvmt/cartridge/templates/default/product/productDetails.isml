@@ -2,7 +2,7 @@
 
 <isdecorate template="common/layout/page">
 <isinclude template="/components/modules" sf-toolkit="off" />
-
+<h1>New PDP Design</h1>
     <isscript>
         var assets = require('*/cartridge/scripts/assets');
         assets.addJs('/js/productDetail.js');
