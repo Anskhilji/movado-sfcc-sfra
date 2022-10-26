@@ -1634,6 +1634,7 @@ header {
                 letter-spacing: rem(1.15);
                 line-height: rem(24);
                 color: $black;
+                font-weight: 500;
             }
         }
 
@@ -1727,7 +1728,7 @@ header {
 
                 .content-label {
                     line-height: normal;
-                    padding-bottom: rem(16);
+                    padding-bottom: rem(20);
     
                     span {
                         color: $dark-silver;
