@@ -14,16 +14,16 @@
                     <isprint value="${pdict.order.creationDate}" style="DATE_SHORT" />
                 </span>
             </p>
-            <p>
-                <span class="summary-section-label order-status-label">${Resource.msg('label.orderhistory.orderstatus','account',null)}</span>
-                <span class="summary-details order-status">
-                    <isif condition="${pdict.omsOrderStaus != null && pdict.omsOrderStaus.status != null}">
-                        ${pdict.omsOrderStaus.status}
-                    <iselse/>
-                        ${pdict.order.sapOrderStatus}    
-                    </isif>
-                </span>
-            </p>
+                <p>
+                    <span class="summary-section-label order-status-label">${Resource.msg('label.orderhistory.orderstatus','account',null)}</span>
+                    <span class="summary-details order-status">
+                        <isif condition="${pdict.omsOrderStaus != null && pdict.omsOrderStaus.status != null}">
+                            ${pdict.omsOrderStaus.status}
+                        <iselse/>
+                            ${pdict.order.sapOrderStatus}    
+                        </isif>
+                    </span>
+                </p>
             <isif condition="${pdict.order.trackingUrls && pdict.order.trackingUrls.length > 0}">
                  <p class="order-info">
                     <span class="summary-section-label order-tracking-label">${Resource.msg('label.order.tracking','confirmation', null)}</span>

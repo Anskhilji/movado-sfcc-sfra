@@ -1,3 +1,4 @@
+<isset name="isPickupStoreEnabled" value="${!empty(dw.system.Site.current.preferences.custom.isPickupStoreEnabled) ? dw.system.Site.current.preferences.custom.isPickupStoreEnabled : false}" scope="page" />
 <isslot id="header-banner-m" description="Slot above the site header" context="global" />
 <header>
   <iscomment>Custom Start: Adding ESW cartridge integration </iscomment>
@@ -16,7 +17,7 @@
             <div class="row">
               <div class="col-12 header-container">
                 <div class="left navbar-header">
-                  <div class="hidden-md-down account-wrapper">
+                  <div class="hidden-md-down account-wrapper top-navbar-label">
                     <isinclude url="${URLUtils.url('Account-Header')}" />
                     <iscomment>Custom Start: Adding ESW Logic </iscomment>
                     <isif condition="${isEswEnabled}">
@@ -40,9 +41,11 @@
                       ${Resource.msg('link.header.menu', 'common', null)}
                     </span>
                   </button>
-                  <div class="btn btn-store-locator">
+                  <isif condition="${!isPickupStoreEnabled}">
+                    <div class="btn btn-store-locator">
                       <iscontentasset aid="ca-header-locate-store" />
-                  </div>
+                    </div>
+                  </isif>
                 </div>
                 <div class="middle">
                   <isslot id="brand-logo" description="Brand Logo" context="global" />

@@ -72,6 +72,12 @@ server.append(
         var currentBasket = BasketMgr.getCurrentBasket();
         var countryCode = orderCustomHelper.getCountryCode(req);
 
+        if (session.privacy.pickupFromStore) {
+            session.custom.applePayCheckout = false;
+        } else {
+            session.custom.StorePickUp = false;
+        }
+
         if (!currentBasket) {
             res.redirect(URLUtils.url('Cart-Show'));
             return next();
@@ -144,6 +150,7 @@ server.append(
 });
 
 server.get('Declined', function (req, res, next) {
+
     res.render('checkout/declinedOrder');
     next();
 });
