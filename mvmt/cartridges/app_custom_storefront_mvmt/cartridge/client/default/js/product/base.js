@@ -1247,7 +1247,7 @@ function attributeSelect(selectedValueUrl, $productContainer) {
                 updateQuantities(data.product.quantities, $productContainer);
                 handleOptionsMessageErrors(data.validationErrorEmbossed, data.validationErrorEngraved, $productContainer);
                 var listrakTracking = require('movado/listrakActivityTracking.js');
-                listrakTracking.listrackProductTracking(data.product.id, d);
+                listrakTracking.listrackProductTracking(data.product.id);
                 $('body').trigger('product:afterAttributeSelect',
                     { data: data, container: $productContainer });
                 $.spinner().stop();
