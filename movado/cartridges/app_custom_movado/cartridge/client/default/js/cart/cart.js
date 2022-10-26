@@ -343,13 +343,13 @@ function fillModalElement(editProductUrl) {
  * @param {string} productName - product name
  * @param {string} uuid - uuid
  */
-function confirmDelete(actionUrl, productID, productName, uuid, gtmProdObj) {
+function confirmDelete(actionUrl, productID, productName, uuid, gtmProdObj, pickupStoreAvailable) {
     var $deleteConfirmBtn = $('.cart-delete-confirmation-btn');
     var $productToRemoveSpan = $('.product-to-remove');
-
     $deleteConfirmBtn.data('pid', productID);
     $deleteConfirmBtn.data('action', actionUrl);
     $deleteConfirmBtn.data('uuid', uuid);
+    $deleteConfirmBtn.data('store-pickup-available', pickupStoreAvailable);
     $('.gtm-cart').attr('data-gtm-cart', JSON.stringify(gtmProdObj));
 
     $productToRemoveSpan.empty().append(productName);
@@ -415,6 +415,22 @@ function displayMessageAndRemoveFromCart(data) {
     }, 2000);
 }
 
+function updateStorePickupProductAvailability() {
+    $('.remove-product').each(function (index, removeProduct) {
+        var $storePickupAvailable = $(removeProduct).data('store-pickup-available');
+        if ($storePickupAvailable == false) {
+            $('.checkout-btn').addClass('disabled');
+            $('.apple-pay-cart').attr('disabled', true);
+
+            return;
+        } else {
+            $('.checkout-btn').removeClass('disabled');
+            $('.apple-pay-cart').attr('disabled', false);
+            $('.pickup-store-error').remove();
+        }
+    });
+}
+
 module.exports = function () {
     // Check if Is gift message is checked on cart load then show text area otherwise hide it.
     handleAddGiftCheckbox();
@@ -427,12 +443,13 @@ module.exports = function () {
         var productName = $(this).data('name');
         var uuid = $(this).data('uuid');
         var gtmProdObj = $(this).data('gtm-cart');
-        confirmDelete(actionUrl, productID, productName, uuid, gtmProdObj);
+        var pickupStoreAvailable = $(this).data('store-pickup-available');
+        confirmDelete(actionUrl, productID, productName, uuid, gtmProdObj, pickupStoreAvailable);
     });
 
     $('body').on('afterRemoveFromCart', function (e, data) {
         e.preventDefault();
-        confirmDelete(data.actionUrl, data.productID, data.productName, data.uuid);
+        confirmDelete(data.actionUrl, data.productID, data.productName, data.uuid, data.pickupStoreAvailable);
     });
 
     $('.optional-promo').click(function (e) {
@@ -446,6 +463,7 @@ module.exports = function () {
         var productID = $(this).data('pid');
         var url = $(this).data('action');
         var uuid = $(this).data('uuid');
+        var pickupStoreAvailable = $(this).data('store-pickup-available');
         var urlParams = {
             pid: productID,
             uuid: uuid
@@ -477,6 +495,7 @@ module.exports = function () {
                     $('html').removeClass('veiled');
                     $('.estimate-price-wrapper').hide();
                     $('.cart-error').empty();
+                    $('.cart-store-pickup').prop('checked', false);
                 } else {
                     if (data.toBeDeletedUUIDs && data.toBeDeletedUUIDs.length > 0) {
                         for (var i = 0; i < data.toBeDeletedUUIDs.length; i++) {
@@ -498,6 +517,11 @@ module.exports = function () {
                     setAnalyticsTrackingByAJAX.cartAnalyticsTrackingData = data.cartAnalyticsTrackingData;
                     window.dispatchEvent(setAnalyticsTrackingByAJAX);
                 }
+
+                if(pickupStoreAvailable != null && pickupStoreAvailable != undefined) {
+                    updateStorePickupProductAvailability();
+                }
+                
                 //Custom Start: [MSS-1451] Listrak SendSCA on Remove
                 if (window.Resources.LISTRAK_ENABLED) {
                     var ltkSendSCA = require('listrak_custom/ltkSendSCA');

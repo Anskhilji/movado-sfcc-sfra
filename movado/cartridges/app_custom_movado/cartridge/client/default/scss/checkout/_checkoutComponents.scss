@@ -251,6 +251,12 @@ $stored-payment-spacing: rem(16);
 
     .summary-section-label {
       margin-bottom: 0;
+
+        &.billing-details-label {
+            margin-bottom: rem(5);
+            letter-spacing: rem(1);
+            padding-top: rem(4);
+        }
     }
   }
 
@@ -848,6 +854,7 @@ $stored-payment-spacing: rem(16);
             font-weight: 500;
             letter-spacing: rem(0.7);
             line-height: rem(21);
+            margin-bottom: rem(20);
         }
 
         .credit-card-form {

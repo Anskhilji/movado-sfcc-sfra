@@ -1,0 +1,50 @@
+<html>
+<head>
+	<isprint value="${pdict.emailHeader}" encoding="off" />
+<body>
+	<table class="responsive-540" width="550" border="0" cellpadding="0" cellspacing="0" align="center" valign="top"
+		class="yahoo-center-fix"
+		style="border-collapse:collapse;font-family:'Century Gothic', Arial, sans-serif;table-layout:fixed;margin-top:0;margin-bottom:0;margin-right:auto;margin-left:auto;">
+
+		<tr>
+			<td class="h1 center uppercase pad-40-top pad-40-btm"
+				style="font-size:20px;text-align:center;text-transform:uppercase;padding-top:40px;padding-bottom:40px;color:#000001;vertical-align:top;font-weight:500;">
+			${pdict.orderConfirmationHeading}</td>
+		</tr>
+		<tr>
+			<td class="p"
+				style="line-height:18px;font-size:12px;padding-bottom:16px;color:#000001;vertical-align:top;font-weight:500;">
+				${pdict.salution}</td>
+		</tr>
+		<tr>
+			<td class="p pad-40-btm"
+				style="line-height:18px;font-size:12px;padding-bottom:40px;color:#000001;vertical-align:top;font-weight:500;">
+				${pdict.thankYou}</td>
+		</tr>
+		<tr>
+			<td class="p center"
+				style="line-height:18px;font-size:12px;text-align:center;color:#000001;vertical-align:top;">
+				<div class="blockquote"
+					style="background-attachment:scroll;padding-top:20px;padding-bottom:20px;padding-right:30px;padding-left:30px;font-weight:500;">
+					<span class="strong uppercase" style="font-weight:800;text-transform:uppercase;">
+						${pdict.orderNumberHeading}
+					</span>
+					<br/>
+					${pdict.orderProcess}
+				</div>
+			</td>
+		</tr>
+	</table>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" valign="top"
+		style="border-collapse:collapse;font-family:'Century Gothic', Arial, sans-serif;">
+		<tr>
+			<td class="pad-40-top pad-40-btm"
+				style="padding-top:40px;padding-bottom:40px;color:#000001;vertical-align:top;">
+			</td>
+		</tr>
+	</table>
+	<isinclude template="checkout/confirmation/email/orderDetailsPickupInStore" />
+	<isprint value="${pdict.bottomContent}" encoding="off" />
+	<isprint value="${pdict.emailMarketingContent}" encoding="off" />
+</table>
+<isprint value="${pdict.emailFooter}" encoding="off" />

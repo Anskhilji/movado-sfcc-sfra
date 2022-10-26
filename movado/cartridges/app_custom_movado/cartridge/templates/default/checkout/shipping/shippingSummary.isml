@@ -9,15 +9,34 @@
                 <isset name="address" value="{}" scope="page"/>
             </isif>
             <div class="summary-details shipping">
+            <isif condition="${session.privacy.pickupFromStore ? session.privacy.pickupFromStore : isBOPISOrder}">
+                <isinclude template="checkout/billing/storePickupAddressSummary" />
+            <iselse/>
                 <isinclude template="checkout/addressSummary" />
+            </isif>
+	            <iscomment> <isinclude template="checkout/billing/storePickupAddressSummary" /> </iscomment>
+            <isif condition="${session.privacy.pickupFromStore ? session.privacy.pickupFromStore : isBOPISOrder}">
+                <div class="shipping-phone">
+                    ${shippingModel.shippingAddress && shippingModel.shippingAddress.phone ? shippingModel.shippingAddress.phone : ''}
+                </div>
+                <span class="order-summary-email">${pdict.order.orderEmail}</span>
+            <iselse/>
                 <span class="order-summary-email">${pdict.order.orderEmail}</span>
                 <div class="shipping-phone">
                     ${shippingModel.shippingAddress && shippingModel.shippingAddress.phone ? shippingModel.shippingAddress.phone : ''}
                 </div>
+            </isif>
             </div>
 
+        <isif condition="${session.privacy.pickupFromStore ? session.privacy.pickupFromStore : isBOPISOrder}">
+            <isinclude url="${URLUtils.url('Checkout-CheckoutPickupStore', 'isBilling', true)}" />
+        <iselse/>
             <!--- Shipping information --->
-            <p class="summary-section-label shipping-method-label">${Resource.msg('label.order.shipping.method', 'confirmation', null)}</p>
+            <isif condition="${session.privacy.pickupFromStore ? session.privacy.pickupFromStore : isBOPISOrder}">
+                <p class="summary-section-label shipping-method-label">${Resource.msg('label.order.your.detail', 'storePickUp', null)}:</p>
+            <iselse/>
+                <p class="summary-section-label shipping-method-label">${Resource.msg('label.order.shipping.method', 'confirmation', null)}</p>
+            </isif>
             <div class="row summary-details leading-lines justify-content-between">
                 <div class="start-lines">
                     <p class="shipping-method">
@@ -37,6 +56,7 @@
                     </p>
                 </div>
             </div>
+        </isif>
             <isinclude template="checkout/shipping/giftMessageSummary" />
         </div>
     </isif>
