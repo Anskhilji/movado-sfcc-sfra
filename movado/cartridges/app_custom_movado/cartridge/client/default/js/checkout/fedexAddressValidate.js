@@ -1,4 +1,6 @@
 var formHelpers = require('base/checkout/formErrors');
+var fedexHelpers = require('../utilities/fedexHelpers');
+
 $(document).ready(function () {
     $('.submit-shipping').on('click', function (e) {
         formHelpers.clearPreviousErrors('.shipping-form');
@@ -20,6 +22,7 @@ $(document).ready(function () {
             var popupContainer = $('.fedex-popup-body-container');
             var recomendedAddressBox = $('.recommended-address-wrapper');
             var fedexRecommendation = $('.fedex-recommended-address');
+            var fedexModalTextMsg = $('.fedex-popup-body-label-sub');
             var formSelector = isMultiShip ?
                 '.multi-shipping .active form' :
                 '.single-shipping form';
@@ -47,11 +50,12 @@ $(document).ready(function () {
                         recomendedAddressBox.removeClass('d-none');
                         popupContainer.removeClass('signle-box-container');
                         addressValidationBox.removeClass('popup-body-content');
+                        fedexModalTextMsg.text(Resources.FEDEX_RECOMMENDED_ADDRESS_MESSAGE);
                         fedexRecommendation.attr('data-fedex-address', JSON.stringify(data.fedExAddressValidationAPI.fedExApiAddress));
-                        $('.recomended-address').text(data.fedExAddressValidationAPI.fedExApiAddress.streetAddress);
-                        $('.recomended-city').text(data.fedExAddressValidationAPI.fedExApiAddress.city + ', ' + data.fedExAddressValidationAPI.fedExApiAddress.stateOrProvinceCode);
+                        $('.recomended-address').text(fedexHelpers.capitalizeString(data.fedExAddressValidationAPI.fedExApiAddress.streetAddress));
+                        $('.recomended-city').text(fedexHelpers.capitalizeString(data.fedExAddressValidationAPI.fedExApiAddress.city) + ', ' + data.fedExAddressValidationAPI.fedExApiAddress.stateOrProvinceCode);
                         $('.recomended-postalCode').text(data.fedExAddressValidationAPI.fedExApiAddress.postalCode);
-                        userAddress.text(data.fedExAddressValidationAPI.userAddress.streetLines);
+                        userAddress.text(fedexHelpers.capitalizeString(data.fedExAddressValidationAPI.userAddress.streetLines));
                         userCity.text(data.fedExAddressValidationAPI.userAddress.city + ', ' + data.fedExAddressValidationAPI.userAddress.state);
                         userPostalCode.text(data.fedExAddressValidationAPI.userAddress.postalCode);
                         fedExModal.modal('show');
@@ -61,8 +65,9 @@ $(document).ready(function () {
                         recomendedAddressBox.addClass('d-none');
                         popupContainer.addClass('signle-box-container');
                         addressValidationBox.addClass('popup-body-content');
-                        userAddress.text(data.fedExAddressValidationAPI.userAddress.streetLines);
-                        userCity.text(data.fedExAddressValidationAPI.userAddress.city + ', ' + data.fedExAddressValidationAPI.userAddress.state);
+                        fedexModalTextMsg.text(Resources.FEDEX_USER_ADDRESS_MESSAGE);
+                        userAddress.text(fedexHelpers.capitalizeString(data.fedExAddressValidationAPI.userAddress.streetLines));
+                        userCity.text(fedexHelpers.capitalizeString(data.fedExAddressValidationAPI.userAddress.city) + ', ' + data.fedExAddressValidationAPI.userAddress.state);
                         userPostalCode.text(data.fedExAddressValidationAPI.userAddress.postalCode);
                         fedExModal.modal('show');
                         defer.reject();
@@ -81,7 +86,7 @@ $(document).ready(function () {
                             $('.' + checkoutFormStage + 'AddressCity').val(fedexRecommendedAddress.city);
                             $('.' + checkoutFormStage + 'ZipCode').val(fedexRecommendedAddress.postalCode);
                             $('.' + checkoutFormStage + 'State option:selected').removeAttr('selected');
-                            $('.' + checkoutFormStage + 'State option[value=' + fedexRecommendedAddress.stateOrProvinceCode + ']').attr('selected', 'selected');
+                            $('.' + checkoutFormStage + 'State option[value=' + fedexRecommendedAddress.stateOrProvinceCode + ']').prop('selected', true);
                             fedexBtnPopupCall.attr('data-fedex', 'false');
                             fedExModal.modal('hide');
                             $(formButton).click();
