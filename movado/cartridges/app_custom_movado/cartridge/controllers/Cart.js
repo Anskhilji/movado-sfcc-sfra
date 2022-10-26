@@ -302,8 +302,8 @@ next();
 server.append(
 	    'Show',
 	    server.middleware.https,
-	    consentTracking.consent,
-	    csrfProtection.generateToken,
+        consentTracking.consent,
+        csrfProtection.generateToken,
 	    function (req, res, next) {
         res.setViewData({ loggedIn: req.currentCustomer.raw.authenticated });
         var BasketMgr = require('dw/order/BasketMgr');
@@ -319,6 +319,7 @@ server.append(
         var productLineItems = currentBasket.productLineItems.iterator();
         var marketingProductsData = [];
 
+        
         // Custom Start: Adding ESW cartridge integration
         if (isEswEnabled) {
             var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
@@ -353,6 +354,12 @@ server.append(
 
         }
         // Custom End
+        var session = req.session.raw;
+        if (session.privacy.pickupFromStore) {
+            session.custom.applePayCheckout = false;
+        } else {
+            session.custom.StorePickUp = false;
+        }
 
         if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
             var cartAnalyticsTrackingData;
@@ -524,6 +531,9 @@ server.append('RemoveProductLineItem', function (req, res, next) {
     emptyCartDom = customCartHelpers.getCartAssets();
 
     if (currentBasket.productLineItems.length === 0) {
+        if (session.privacy.pickupFromStore) {
+            delete session.privacy.pickupFromStore;
+        }
     	var cartAnalyticsTrackingData;
         if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
             cartAnalyticsTrackingData = {
@@ -589,7 +599,7 @@ server.append('MiniCartShow', function(req, res, next){
         }
         res.setViewData({cartAnalyticsTrackingData: JSON.stringify(cartAnalyticsTrackingData)});
     }
-
+    
     next();
 });
 

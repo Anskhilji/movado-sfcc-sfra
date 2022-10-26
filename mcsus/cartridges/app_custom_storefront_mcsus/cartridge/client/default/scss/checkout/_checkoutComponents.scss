@@ -113,7 +113,7 @@ $receipt-font-size: rem(14);
     .start-lines span {
       font-family: $font-book;
       font-weight: bold;
-      font-size: rem(18);
+      font-size: rem(14);
   
       @include media-breakpoint-down(md) {
         font-size: rem(14);
@@ -362,46 +362,92 @@ $receipt-font-size: rem(14);
 
 .grand-total {
 
-  &.grand-total-wrapper{
+  &.grand-total-wrapper {
     padding: rem(8) 0;
 
     .start-lines {
 
+    .summary-section-label {
+        letter-spacing: rem(1);
+        margin-bottom: rem(5);
         &::before {
             content: '';
         }
+      }
 
-      .order-receipt-label {
-          margin-bottom: rem(0);
-          color: $grey8;
-          font-size: rem(14);
-          font-weight: 500;
-          letter-spacing: rem(0.65);
-          line-height: rem(21);
-        
-        span {
+        .order-receipt-label {
+            margin-bottom: rem(0);
             color: $grey8;
             font-size: rem(14);
             font-weight: 500;
             letter-spacing: rem(0.65);
             line-height: rem(21);
+          
+          span {
+              color: $grey8;
+              font-size: rem(14);
+              font-weight: 500;
+              letter-spacing: rem(0.65);
+              line-height: rem(21);
+          }
         }
       }
+
+      .end-lines {
+
+      .summary-details {
+          letter-spacing: rem(1);
+          margin-top: rem(3);
+      }
+          .text-right {
+              margin-bottom: rem(0);
+
+              .grand-total-sum {
+                  font-size: rem(14);
+                  color: $grey8;
+                  font-weight: 500;
+                  letter-spacing: rem(0.65);
+                  line-height: rem(21);
+              }
+          }
+      }
     }
+}
 
-    .end-lines {
+.pickup-store-header h4 {
+  color: $grey14;
+  font-size: rem(20);
+  letter-spacing: rem(2);
+  line-height: rem(25);
+}
 
-        .text-right {
-            margin-bottom: rem(0);
+.pickup-from-store {
+  br {
+    display: none;
+  }
 
-            .grand-total-sum {
-                font-size: rem(14);
-                color: $grey8;
-                font-weight: 500;
-                letter-spacing: rem(0.65);
-                line-height: rem(21);
-            }
-        }
-    }
+  .summary-section-label {
+      letter-spacing: rem(1);
+      margin-bottom: rem(5);
+      display: block;
+      
+      &.multi-shipping {
+        display: none;
+      }
+  }
+
+  .billing-pickup-store {
+      margin-top: rem(15);
+  }
+
+  .summary-details {
+      letter-spacing: rem(1);
+      margin-top: rem(3);
+      display: block;
+  }
+
+  .billing-store-address {
+      margin-bottom: rem(15);
+      margin-top: rem(0);
   }
 }
