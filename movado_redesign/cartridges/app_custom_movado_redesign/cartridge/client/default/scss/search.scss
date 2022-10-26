@@ -40,8 +40,8 @@
 
     ul {
       width: 100%;
-      padding-top: rem(15);
-      border-top: rem(1) solid $white-grey;
+      padding-top: rem(0);
+      border-top: rem(0) solid $white-grey;
     }
 
     .filter-value {
@@ -1057,15 +1057,15 @@
         right: rem(0);
         top: rem(60);
         background-color: $white;
-        z-index: 101;
+        z-index: 9999;
         border-bottom: rem(1) solid $white-grey;
-        padding-top: rem(20) rem(10) rem(0) rem(10);
+        padding: rem(20) rem(10) rem(0) rem(10);
 
         @include media-breakpoint-down(sm) {
            top: rem(45);
            left: 0;
            right: 0;
-           padding: rem(10);
+           padding:rem(0) rem(10);
         }
       }
 
@@ -1188,7 +1188,26 @@
 @include custom-media-query($custom-lg4) {
   .inner-filter-box-relative {
       position: relative;
-      z-index: 362;
+      z-index: 9;
+      border-bottom: rem(1) solid $white-grey;
+      margin-bottom: rem(10);
+  }
+
+  .filter-box {
+      &.filter-bar-sticky {
+                
+          .inner-filter-box-relative {
+            border-bottom: rem(0);
+            margin-bottom: rem(0);
+          }
+
+          .filter-bar {
+        
+              ul{
+                  padding-top: rem(10);
+              }
+          }
+      }
   }
 
   .container-open-state {
@@ -1214,6 +1233,18 @@
     }
 
   .plp-new-design {
+
+      .product-grid {
+          clear: both;
+      }
+      
+      .filter-bar {
+      
+          ul{
+              padding-top: 0;
+              border-top: 0;
+          }
+      }
 
       .refinement-bar {
           &-redesign {
@@ -1618,6 +1649,26 @@
     }
 
     .plp-new-design {
+      
+      .filter-box {
+          &.filter-bar-sticky {
+
+            .mobile-filter-box {
+                padding-top: rem(8);  
+            }
+            
+            .inner-filter-box-relative {
+
+              .refinement-bar-redesign {
+                  top: rem(45);
+                
+                  .show-bottom-btn {
+                    bottom: rem(45);
+                  }
+              }
+            }
+          }
+      }
 
         .refinement-bar {
             &-redesign {
