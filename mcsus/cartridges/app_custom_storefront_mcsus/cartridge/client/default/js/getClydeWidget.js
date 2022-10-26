@@ -32,16 +32,17 @@ if (window.ClydeSitePreferences && productId) {
             }, function () {
                 var clydeWidgetHandler = Clyde.getSettings();
                 if (clydeWidgetHandler.productPage === true) {
+                    // Custom start: MSS-1865 MCS Add code for product price:
                     getPrice = $('.sale-price-mvmt span').hasClass('value');
                     if (getPrice) {
                         setPrice = $('.sale-price-mvmt span').attr('content');
+                        if (setPrice) {
+                            productData = { sku: productId, price: setPrice };
+                        } else {
+                            productData = { sku: productId, price: '' };
+                        }
                     }
-
-                    if (setPrice) {
-                        productData = { sku: productId, price: setPrice };
-                    } else {
-                        productData = { sku: productId, price: '' };
-                    }
+                    // Custom end
                     Clyde.setActiveProduct(productData);
                 }
             });
