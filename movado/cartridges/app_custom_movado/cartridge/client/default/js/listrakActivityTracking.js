@@ -3,7 +3,7 @@
  */
 
 module.exports = {
-    listrackProductTracking: function (d) {
+    listrackProductTracking: function (skuData, d) {
         if (document.addEventListener) document.addEventListener('ltkAsyncListener', d);
         else {
             e = document.documentElement; e.ltkAsyncProperty = 0; e.attachEvent('onpropertychange', function (e) {
@@ -23,7 +23,7 @@ module.exports = {
         }
         var scriptVars = document.querySelector('script[src*="ltkActivityTracking.js"]');
 
-        var sku = scriptVars.getAttribute('ltk-data-sku');
+        var sku = skuData;
         var qvSku = scriptVars.getAttribute('ltk-data-qvsku');
         var category = scriptVars.getAttribute('ltk-data-category');
         var clearUrl = scriptVars.getAttribute('ltk-data-clearurl');
