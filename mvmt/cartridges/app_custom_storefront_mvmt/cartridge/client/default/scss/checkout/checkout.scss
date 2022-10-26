@@ -1736,6 +1736,11 @@ header {
                         line-height: rem(20);
                         display: inline-block;
                     }
+
+                    .recomended-postalCode {
+                        color: $black;
+                        font-weight: bold;
+                    }
                 }
 
                 .btn-wrapper {

@@ -258,7 +258,8 @@ function formsValidation(currentBasket, formData) {
             validatedFields['paypalerror'] = true;
         }
     }
-    if (validatedFields.paypalerror == false) {
+    
+    if (validatedFields.paypalerror == false && Site.current.preferences.custom.isAddressValidationEnable == true) {
         var shippingAddress = {
             streetLines: shippingStreetLines,
             city: shippingCity,
@@ -279,17 +280,18 @@ function formsValidation(currentBasket, formData) {
             } else {
                 postalCode = fedExAddress.response[0].postalCodeToken.value;
             }
-        }
+            
+            if (shippingPostalCode == postalCode) {
+                validatedFields.postalCode = false
+            }
 
-        if (shippingPostalCode == postalCode) {
-            validatedFields.postalCode = false
-        }
-
-        for (var prop in shippingAddress) {
-            if (validatedFields[prop] == true) {
-                validatedFields['paypalerror'] = true;
+            for (var prop in shippingAddress) {
+                if (validatedFields[prop] == true) {
+                    validatedFields['paypalerror'] = true;
+                }
             }
         }
+
     }
     return validatedFields;
 }
