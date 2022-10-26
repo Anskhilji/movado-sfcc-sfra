@@ -1,3 +1,4 @@
+<iscomment> due to regressions for ebel so we diceded to foeword a template for ebel cartrudge </iscomment>
 <iscontent type="text/html" charset="UTF-8" compact="true"/>
 
 <isinclude template="/components/modules" sf-toolkit="off" />
