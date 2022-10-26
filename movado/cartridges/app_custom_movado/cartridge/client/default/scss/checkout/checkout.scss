@@ -1480,6 +1480,11 @@ header {
         }
         .close {
             opacity: 1;
+            margin-top: rem(-10);
+
+            @include media-breakpoint-down(xs) {
+                margin-top: rem(-5);
+            }
 
             &:focus {
                 border: none;
@@ -1511,6 +1516,7 @@ header {
                 font-size: rem(18);
                 letter-spacing: rem(1.15);
                 line-height: rem(24);
+                color: $black;
             }
         }
 
@@ -1526,6 +1532,9 @@ header {
             @include media-breakpoint-down(xs) {
                 padding: rem(0) rem(20);
                 margin-bottom: rem(30);
+                opacity: 1;
+                color: $grey21;
+                letter-spacing: rem(1.08);
             }
 
             &-sub {
@@ -1539,6 +1548,9 @@ header {
 
                 @include media-breakpoint-down(xs) {
                     margin-bottom: rem(30);
+                    opacity: 1;
+                    color: $grey21;
+                    letter-spacing: rem(1.08);
                 }
             }
         }
@@ -1562,7 +1574,6 @@ header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: rem(30);
             padding: rem(15) rem(70) rem(0) rem(71);
             
             @include media-breakpoint-down(sm) {
@@ -1579,13 +1590,14 @@ header {
                 padding: rem(15) rem(30) rem(20) rem(30);
                 text-align: left;
                 width: 100%;
+                border-radius: rem(3);
 
                 .heading-one-content {
                     color: $cerulean;
                     font-size: rem(14);
-                    letter-spacing: rem(0);
+                    letter-spacing: rem(0.89);
                     margin-bottom: rem(5);
-                    font-weight: 500;
+                    font-weight: 600;
                     line-height: rem(24);
                 }
 
@@ -1609,11 +1621,6 @@ header {
                         line-height: rem(20);
                         display: inline-block;
                     }
-
-                    .recomended-postalCode {
-                        color: $black;
-                        font-weight: bold;   
-                    }
                 }
 
                 .btn-wrapper {
@@ -1626,8 +1633,7 @@ header {
                     letter-spacing: rem(0.88);
                     line-height: rem(24);
                     text-align: center;
-                    padding: rem(8.512);
-
+                    padding: rem(8.512) rem(20);
 
                     &.btn-bg-white {
                         background-color: $white;
@@ -1635,19 +1641,24 @@ header {
                         border: rem(2) solid $black;
                         font-weight: 600;
                     }
-                    
-                    &:focus {
-                        box-shadow: none;
-                    }
                 }
 
                 .sub-link {
                     float: right;
                     color: $cerulean;
-                    font-size: rem(12);
+                    font-size: rem(14);
                     font-weight: 600;
-                    letter-spacing: rem(0.77);
+                    letter-spacing: rem(0.89);
                     text-decoration: underline;
+                }
+
+                &.recommended-address-wrapper {
+                    margin-right: rem(30);
+
+                    @include media-breakpoint-down(xs) {
+                        margin-right: rem(0);
+                        margin-bottom: rem(30);
+                    }
                 }
             }
 
