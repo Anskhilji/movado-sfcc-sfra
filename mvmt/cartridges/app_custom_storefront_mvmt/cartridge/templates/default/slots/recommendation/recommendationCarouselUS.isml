@@ -2,8 +2,7 @@
   <script>
       $(document).ready(function() {
           window.slickSlider.initCarousel($('.pdp-product-recommendation'));
-          setTimeout(() => {
-            $('.product-tile-redesign .swatches').slick({
+            $('.product-tile-redesign .swatches').not('.slick-initialized').slick({
                 infinite: true,
                 speed: 300,
                 slidesToShow: 5,
@@ -20,7 +19,6 @@
                 },
               ]
             });
-          }, 2000);
       });
   </script>
   <div class="container-fluid product-slot-slider mvmt-plp-redesign pdp-product-recommendation">
