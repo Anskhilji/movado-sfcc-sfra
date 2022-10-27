@@ -83,8 +83,8 @@ function getTotalPrice(lineItem) {
          result.savingPrice = savingsPrice;
      }
     context = { lineItem: { priceTotal: result } };
-    result.renderedPrice = renderTemplateHelper.getRenderedHtml(context, template);
     result.saleFormattedPrice = formatMoney(lineItem.adjustedPrice);
+    result.renderedPrice = renderTemplateHelper.getRenderedHtml(context, template);
     return result;
     // Custom End
 }
