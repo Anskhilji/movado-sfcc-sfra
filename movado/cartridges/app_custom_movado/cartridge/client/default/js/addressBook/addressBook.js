@@ -82,14 +82,25 @@ module.exports = {
     submitAddress: function () {
         $('form.address-form').submit(function (e) {
             var $form = $(this);
+            var stateCode = null;
             e.preventDefault();
             url = $form.attr('action');
             $form.spinner().start();
             $('form.address-form').trigger('address:submit', e);
             if ($form[0].elements['state']) {
                 var state = $form[0].elements['state'].value;
-                var stateCode = usStateCodes.getStateCodeByStateName(state);
+                stateCode = usStateCodes.getStateCodeByStateName(state);
                 $form[0].elements['state'].value = stateCode || state;
+            }
+            if ($form[0].elements['country'].value === 'US' && !stateCode) {
+                $("#state").next('.invalid-feedback').html(window.Resources.INVALID_STATE);
+                );
+                $('.invalid-feedback').show();
+                $form.spinner().stop();
+                return;
+            } else {
+                $("#state").next('.invalid-feedback').empty();
+                $('.invalid-feedback').hide();
             }
             $.ajax({
                 url: url,
