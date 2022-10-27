@@ -198,6 +198,9 @@ function createSAPOrderFile(args, impexFilePath, record) {
         } else {
             writeXmlElement(streamWriter, 'AuthExpirationDate', moment().add(10, 'days').format('YYYYMMDD'));
         }
+		if (Object.hasOwnProperty.call(record.poHeader, 'OmniType')) {
+            writeXmlElement(streamWriter, 'OmniType', record.poHeader.OmniType);
+        }
 
         // POS
         if (Object.hasOwnProperty.call(record.poHeader, 'fulfilledStatus')) {

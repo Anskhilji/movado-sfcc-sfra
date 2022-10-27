@@ -91,6 +91,12 @@ exports.afterAuthorization = function (order, payment, custom, status) {
         return new Status(Status.ERROR);
     }
 
+    if (session.privacy.pickupFromStore) {
+        session.custom.applePayCheckout = false;
+    } else {
+        session.custom.StorePickUp = false;
+    }
+
     var transactionID = payment.getPaymentTransaction().getTransactionID();
     if (transactionID) {
         Transaction.wrap(function () {
@@ -267,6 +273,24 @@ exports.afterAuthorization = function (order, payment, custom, status) {
  */
 exports.prepareBasket = function (basket, parameters) {
     // get personalization data from session for PDP and Quickview
+
+
+    if (!empty(parameters.sku)) {
+        if (!session.privacy.pickupFromStore) {
+            session.custom.StorePickUp = false;
+            session.custom.applePayCheckout = true;
+        } else {
+            session.custom.applePayCheckout = true;
+            session.custom.StorePickUp = false;
+        }
+    } else {
+        if (!session.privacy.pickupFromStore) {
+            session.custom.applePayCheckout = true;
+        } else {
+            session.custom.StorePickUp = true;
+        }
+    }
+    
     if (parameters.sku && parameters.sku === session.custom.appleProductId) {
         var appleEngraveOptionId = session.custom.appleEngraveOptionId;
         var appleEmbossOptionId = session.custom.appleEmbossOptionId;

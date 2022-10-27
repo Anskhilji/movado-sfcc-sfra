@@ -24,6 +24,8 @@
                     <button class='add-to-cart btn btn-primary mr-0 d-flex align-items-center justify-content-between <isif condition="${product.isProductRestricted}">d-none</isif>' data-pid="${product.id}" ${!product.readyToOrder ? "disabled" : ""}>
                         <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
                             ${Resource.msg('button.preorder.now', 'common', null)} </br>
+                        <iselseif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.backorder', 'common', null) && !empty(product) && !empty(product.ociPreOrderParameters) && product.ociPreOrderParameters.ociPreOrderProductAllocation === 0.00 && product.ociPreOrderParameters.ociPreOrderProductATO > 0 && product.ociPreOrderParameters.ociPreOrderProductFuture === true}"/>
+                            ${Resource.msg('button.preorder.now', 'common', null)} </br>
                         <iselse/>
                             ${Resource.msg('button.addtocart', 'common', null)}
                         </isif>

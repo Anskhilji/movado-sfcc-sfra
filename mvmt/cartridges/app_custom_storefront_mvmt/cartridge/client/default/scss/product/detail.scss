@@ -2422,6 +2422,10 @@
                     white-space: nowrap;
                     vertical-align: bottom;
                 }
+
+                &.colorWatch{
+                    margin-bottom: rem(10);
+                }
             }
 
             &-seefit-text {
@@ -2462,6 +2466,45 @@
 
             @include media-breakpoint-up(md-down) {
                 justify-content: flex-start;
+            }
+
+            &.pdp-swatchs-redesign {
+                padding-top: rem(0);
+            }
+
+            .swatchs-redesign {
+                width: rem(49);
+                height: rem(49);
+                border-radius: rem(1.47);
+                border: rem(1) solid $transparent-gray-light;
+                background-size: cover;
+                box-sizing: border-box;
+                background-color: $white;
+                
+                &:hover {
+                    border: rem(1) solid $black;
+                }
+
+                @include media-breakpoint-down(xs) {
+                    width: rem(50);
+                    height: rem(50);
+                }
+    
+                &.active {
+                    border: rem(1) solid $black;
+                }
+
+                &.disabled {
+
+                    span {
+    
+                        &:before {
+                            left: rem(22);
+                            top: rem(-10);
+                            height: rem(66)
+                        }
+                    }
+                }
             }
         }
     }
@@ -2557,8 +2600,26 @@
                 .pdp-select-variations {
                     background-color: $white;
 
+                    &.color-watch-swatches {
+                        align-items: start;
+
+                        &-margin {
+                            margin-left: rem(10);
+                            margin-right: rem(10);
+                        }
+                        
+                        .pdp-swatchs-redesign {
+                            justify-content: start;
+                        }
+                    }
+
                     .select-size-head-label {
                         display: none;
+
+                        &.colorWatch {
+                            display: block;
+                            margin-bottom: rem(10);
+                        }
                     }
                 }
             }
