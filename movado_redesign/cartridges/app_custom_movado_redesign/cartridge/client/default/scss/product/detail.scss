@@ -25,6 +25,10 @@ $arrow-height: 1.25em;
     padding-bottom: rem(16);
     margin: 0;
 
+    .gpay-error {
+        background-color: $white;
+    }
+
     .dw-apple-pay-button {
         &.apple-pay-pdp {
             margin-top: rem(5);

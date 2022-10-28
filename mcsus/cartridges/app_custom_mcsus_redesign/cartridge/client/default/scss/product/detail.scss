@@ -769,6 +769,10 @@
                         &.product-detail {
                             margin-top: rem(23);
 
+                            .gpay-error {
+                                background-color: $white;
+                            }
+
                             // .product-breadcrumb-redesign
                             .paddind-sm-0 {
                                 @include media-breakpoint-down(sm) {

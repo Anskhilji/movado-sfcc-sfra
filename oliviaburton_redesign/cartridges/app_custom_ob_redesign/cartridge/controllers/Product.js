@@ -176,6 +176,12 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
        viewData.pdpAnalyticsTrackingData = JSON.stringify(pdpAnalyticsTrackingData);
    }
 
+    if (!empty(req.querystring.lastNameError)) {
+        res.setViewData({ 
+            lastNameError: req.querystring.lastNameError
+        });
+    }
+
    res.setViewData(viewData);
    if (!showProductPageHelperResult.product.online && productType !== 'set' && productType !== 'bundle') {
     res.setStatusCode(404);

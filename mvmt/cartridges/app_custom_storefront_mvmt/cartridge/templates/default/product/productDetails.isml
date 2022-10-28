@@ -43,6 +43,13 @@
         </div>
         <div class="container-fluid product-detail product-wrapper pdp-mvmt pdp-mvmt-redesign"  data-pid="${product.id}" data-gtm-fb-product="${JSON.stringify(product)}" itemscope
             itemtype="http://schema.org/Product">
+
+            <isif condition="${pdict.lastNameError}">
+                <div class="container cart-error-messaging cart-error gpay-error alert card alert-dismissible fade show">
+                    ${Resource.msg('error.last.name', 'checkout', null)}
+                </div>
+            </isif>
+
             <!---Breadcrumbs--->
             <hr class="hidden-xs-down d-none"/>
             <div class="row no-gutters justify-content-between-container">
