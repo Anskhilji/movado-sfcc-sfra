@@ -422,12 +422,13 @@
           display: flex;
           transform: translateY(0);
 
-          .filter-refinement-container {
-            .filter-selected { 
-                border: rem(1) solid $black;
-                border-radius: 50%;
+            .filter-refinement-container {
+
+                .filter-selected { 
+                    border: rem(1) solid $black;
+                    border-radius: 50%;
+                }
             }
-        }
         }
       }
 
@@ -1909,13 +1910,23 @@
     }
   }
 }
+
+.listrak-persistent-popup {
+  display: none !important;
+}
+
+.button-floting {
+  &.button-search-result {
+    bottom: rem(41);
+  }
+}
 // MVMT PLP redesign style
 @import "searchRedesign";
 @import "./components/refinementsRedesigned";
 
 .selected {
-  &.filter-selected { 
-      border: rem(1) solid $black !important;
-      border-radius: 50%;
-  }
+    &.filter-selected { 
+        border: rem(1) solid $black !important;
+        border-radius: 50%;
+    }
 }
