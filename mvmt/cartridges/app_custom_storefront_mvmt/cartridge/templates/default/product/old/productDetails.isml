@@ -140,6 +140,7 @@
                             </div>
                         <iscomment> Custom: End </iscomment>
                     </div>
+
                     <iscomment> Custom End: Change Naming Conventions for PDP </iscomment>
 
                     <iscomment> Custom Start: Tax Duties shows when following requirements meet </iscomment>
@@ -161,8 +162,6 @@
                             </isif>
                         </isif>
                     </isif>
-                    <iscomment> Custom End: Tax Duties shows when following requirements meet </iscomment>
-                    
                     
                     <!-- Product Availability -->
                     <iscomment>Custom Start: Remove Porduct availabilty label</iscomment>
@@ -190,6 +189,22 @@
                             </div>
                         </div>
                     </div>
+                    <div class="hidden-sm-down rating-box-container">
+                        <isinclude template="product/components/pidRating" />
+                    </div>
+
+                    <!-- Applicable Promotions mobile-->
+                    <div class="promotions d-md-none">
+                        <isinclude template="product/components/promotions" />
+                    </div>
+
+                    <iscomment> Custom Start: display variations on mobile screen and hide on desktop </iscomment>
+                    <isif condition="${product.variationAttributes && product.variationAttributes.length > 0}">
+                        <div class="d-md-none">
+                            <isinclude template="product/components/variationAttributes" />
+                        </div>
+                    </isif>
+                    <iscomment> Custom End </iscomment>
                     <div class="show-cart-button-below-price">
                         <div class="row">
                             <div class="col-12 prices-add-to-cart-actions-top">
@@ -202,7 +217,7 @@
                     </div>
                     <isset name="giftBoxMessage" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxMessage) ? dw.system.Site.current.preferences.custom.giftBoxMessage : ''}" scope="page" />
                     <isif condition="${!empty(product.isGiftBoxAllowed) && product.isGiftBoxAllowed && product.giftBoxSKUData.giftBoxSKUAvailability}">
-                        <div class="gift-box-wrapper gift-box-wrapper-pdp d-show-mobile custom-checkbox-pdp">
+                        <div class="gift-box-wrapper gift-box-wrapper-pdp d-show-mobile custom-checkbox-pdp gift-box-container">
                               <label for="gift-allowed-checkout-mob" class="gift-box-wrapper-label custom-control-label-pdp">
                                 <input id="gift-allowed-checkout-mob" type="checkbox" name="gift-allowed-checkout" class="gift-box-wrapper-checkbox gift-allowed-checkbox" value="${product.giftBoxSKUData.giftBoxSKU}">
                                 ${giftBoxMessage} ${product.giftBoxSKUData.giftBoxSKUPrice} 
@@ -244,12 +259,12 @@
                         </div>
                     </div>
 
-                    <div class="hidden-sm-down">
+                    <div class="hidden-sm-down d-none">
                         <isinclude template="product/components/pidRating" />
                     </div>
 
                     <!-- Applicable Promotions -->
-                    <div class="promotions">
+                    <div class="promotions d-none d-md-block">
                         <isinclude template="product/components/promotions" />
                     </div>
 
@@ -264,7 +279,9 @@
                     </div>
 
                     <isif condition="${product.variationAttributes && product.variationAttributes.length > 0}">
-                        <isinclude template="product/components/variationAttributes" />
+                        <div class="d-none d-md-block">
+                            <isinclude template="product/components/variationAttributes" />
+                        </div>
                     </isif>
                     <iscomment> Custom Start: Clyde Integration </iscomment>
                         <isif condition = "${dw.system.Site.current.preferences.custom.clydeWidgetDisplay}">
