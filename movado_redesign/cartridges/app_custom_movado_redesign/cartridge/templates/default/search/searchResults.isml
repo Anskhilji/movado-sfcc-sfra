@@ -1,5 +1,6 @@
 <iscomment> Custom: HTML structure changed</iscomment>
 <isdecorate template="common/layout/page">
+<isinclude template="/components/modules" sf-toolkit="off" />
     <isscript>
         var assets = require('*/cartridge/scripts/assets');
         assets.addJs('/js/search.js');
@@ -155,4 +156,12 @@
             <isslot id="cs-noresult-content" description="Content Slot on No Results Page" context="global" />
        </isif>
     </div>
+        <!-- Start: Listrak persistent popup -->
+    <isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page" />
+    <isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled && pdict.popupID}">
+        <span class="listrak-persistent-url" data-listrak-url="${URLUtils.https('EmailPopUp-Show')}"></span>
+        <span class="listrak-popup-search-result"></span>
+        <isslot id="cs-listrak-persistent-popup" description="Listrak persistent popup" context="global" />
+    </isif>
+    <!-- End: Listrak persistent popup -->
 </isdecorate>
