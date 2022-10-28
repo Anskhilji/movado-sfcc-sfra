@@ -768,6 +768,7 @@
             display: block;
         }
     }
+
     .rating-box-container {
         @include media-breakpoint-down(sm) {
             display: none;
@@ -790,6 +791,7 @@
             }
         }
     }
+
     .primary-images {
         position: relative;
         width: 100%;
@@ -1909,6 +1911,7 @@
    
     .show-cart-button-below-price {
         padding: rem(20) rem(0);
+        
         @include media-breakpoint-up(md-down) {
             display: none;
         }
