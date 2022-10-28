@@ -546,6 +546,10 @@ $arrow-height: 1.25em;
             font-size: rem(28);
             letter-spacing: normal;
             color: $grey8;
+
+            &.text-unset-wrapper {
+                text-transform: initial !important;
+            }
         }
     }
 
