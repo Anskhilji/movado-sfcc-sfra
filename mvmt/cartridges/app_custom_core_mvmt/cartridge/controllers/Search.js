@@ -62,6 +62,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
     var searchCustomHelper = require('*/cartridge/scripts/helpers/searchCustomHelper');
     var pageMetaHelper = require('*/cartridge/scripts/helpers/pageMetaHelper');
+    var emailPopupHelper = require('*/cartridge/scripts/helpers/emailPopupHelper');
     var Site = require('dw/system/Site');
     var viewData = res.getViewData();
 
