@@ -65,6 +65,16 @@ module.exports = function productLineItem(product, apiProduct, options) {
         enumerable: true,
         value: !empty(apiProduct.custom.bonusProductText) ? true : false
     });
+
+    Object.defineProperty(product, 'giftPid', {
+        enumerable: true,
+        value: options.lineItem.custom.giftPid ? options.lineItem.custom.giftPid : ''
+    });
+    
+    Object.defineProperty(product, 'giftParentUUID', {
+        enumerable: true,
+        value: options.lineItem.custom.giftParentUUID ? options.lineItem.custom.giftParentUUID : ''
+    });
     
     return product;
 };

@@ -5,6 +5,8 @@
     <isif condition="${pdict.display.plpTile === true || pdict.display.recommendattionTile === true}">
         <isif condition="${!empty(pdict.display.isRedesigned)}">
             <isinclude template="product/productSlotTile" />
+        <iselseif condition="${!empty(pdict.display.recommendationRail)}"/>
+            <isinclude template="product/cartRecommendationProductSlotTile" />
         <iselse/>
             <isinclude template="product/old/productSlotTile" />
         </isif>

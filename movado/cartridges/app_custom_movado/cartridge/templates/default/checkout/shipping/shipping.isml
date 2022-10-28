@@ -28,7 +28,7 @@
                             <span class="edit-shipping-first pull-right text_underline">${Resource.msg('action.edit.step', 'checkout', null)}</span>
                             <iselse>
                                 <isif condition="${session.privacy.pickupFromStore}">
-                                    <h4 class="pull-left store-label-details">${Resource.msg('heading.checkout.store.pickup', 'storePickUp', null)}</h4>
+                                    <h4 class="pull-left store-label-details store-label-details-main">${Resource.msg('heading.checkout.store.pickup', 'storePickUp', null)}</h4>
                                 <iselse/>
                                     <h4 class="pull-left heading-content-label">${Resource.msg('heading.checkout.shipping', 'checkout', null)}</h4>
                                 </isif>

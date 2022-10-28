@@ -36,6 +36,8 @@ function productSync() {
 	// If maxRelated = 0, related products won't be exported
     var maxRelated = dw.system.Site.current.preferences.custom.Listrak_MaxRecommendedProductExport;
     var categoryLevelAttributes = Site.getCurrent().getCustomPreferenceValue('Listrak_CategoryLevelAttributes');
+    var productFeedJewelryJson = Site.getCurrent().getCustomPreferenceValue('Listrak_ProductFeedJewelryAttribute');
+    var getAssignedCategories = Site.getCurrent().getCustomPreferenceValue('Listrak_ConfiguredCategories');
     if (subCategoryLevels <= 0) {
         subCategoryLevels = 1;
     } // if not set, use default of 1
@@ -57,9 +59,11 @@ function productSync() {
             productFile.AddRowItem('Brand');
             productFile.AddRowItem('Category');
             productFile.AddRowItem('SubCategory');
-            for (var i = 2; i <= subCategoryLevels; i++) {
-                var fieldName = 'SubCategory' + i.toString();
-                productFile.AddRowItem(fieldName);
+            if (empty(productFeedJewelryJson)) {
+                for (var i = 2; i <= subCategoryLevels; i++) {
+                    var fieldName = 'SubCategory' + i.toString();
+                    productFile.AddRowItem(fieldName);
+                }
             }
             productFile.AddRowItem('CategoryTree');
             productFile.AddRowItem('QOH');
@@ -109,6 +113,14 @@ function productSync() {
                 productFile.AddRowItem('Size');
             }
             // Custom End
+
+            // Custom Start: [MSS-1966 Listrak - MCS Feed Changes]
+            if (!empty(getAssignedCategories)) {
+                productFile.AddRowItem('Meta4');
+                productFile.AddRowItem('Meta5');
+            }
+            // Custom End:
+
             productFile.WriteRow();
 
 			// //////// Write product rows //////////
@@ -165,9 +177,13 @@ function productSync() {
 
 				// Category
                 productFile.AddRowItem(prd.categories[0], true); // Category
-                productFile.AddRowItem(prd.categories[1], true); // Sub-category
-                for (i = 2; i <= subCategoryLevels; i++) {
-                    productFile.AddRowItem(prd.categories[i], true);
+                if (!empty(productFeedJewelryJson)) {
+                    productFile.AddRowItem(prd.jewelryType, true); // Jewelry Type
+                } else {
+                    productFile.AddRowItem(prd.categories[1], true); // Sub-category
+                    for (i = 2; i <= subCategoryLevels; i++) {
+                        productFile.AddRowItem(prd.categories[i], true);
+                    }
                 }
 				// CategoryTree
                 var tree = '';
@@ -250,7 +266,14 @@ function productSync() {
                     productFile.AddRowItem(prd.size, true);
                 }
                 // Custom End
-                
+
+                // Custom Start: [MSS-1966 Listrak - MCS Feed Changes]
+                if (!empty(getAssignedCategories)) {
+                    productFile.AddRowItem(prd.meta4, true);
+                    productFile.AddRowItem(prd.meta5, true);
+                }
+                // Custom End
+
                 productFile.WriteRow();
             }
         } catch (e) {

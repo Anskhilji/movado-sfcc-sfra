@@ -59,13 +59,21 @@
         margin-right: rem(10);
 
         &-available {
-          background: url("../../images/pickup-store-inventory-icon.svg")
-            no-repeat center;
+          background: url("../../images/pickup-store-inventory-icon.svg") no-repeat center;
+
+            @include media-breakpoint-down(xs) {
+                background: url("../../images/charm_circle-tick.svg")
+                no-repeat center;
+            }
         }
 
         &-unavailable {
           background: url("../../images/no-stock-availability.svg")
             no-repeat center;
+
+            @include media-breakpoint-down(xs) {
+                background: url("../../images/pdp-no-stock-availability.svg") no-repeat center;
+            }
 
               &.store-pick-store-unavailable {
                 background: url("../../images/pickupstore-icon.svg")
@@ -77,6 +85,11 @@
           background: url("../../images/pickup-store-inventory-icon.svg")
             no-repeat center;
           margin-bottom: rem(15);
+
+          @include media-breakpoint-down(xs) {
+              background: url("../../images/charm_circle-tick.svg")
+              no-repeat center;
+          }
         }
       }
 

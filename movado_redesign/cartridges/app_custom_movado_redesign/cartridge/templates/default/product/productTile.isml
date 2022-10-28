@@ -16,7 +16,7 @@
 
     <isif condition="${pdict.display.recommendattionTile === true}">
         <isinclude template="product/components/productTileRecommendations" />
-    <iselse>
+    <iselse/>
         <isinclude template="product/components/productTileImage" />
     </isif>
 

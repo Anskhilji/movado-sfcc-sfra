@@ -23,56 +23,111 @@ function updateShippingAddressSelector(productLineItem, shipping, order, custome
         $shippingAddressSelector = $('.addressSelector', form);
     }
 
-    if (!Resources.PICKUP_FROM_STORE && $shippingAddressSelector && $shippingAddressSelector.length === 1) {
-        $shippingAddressSelector.empty();
-        // Add New Address option
-        $shippingAddressSelector.append(addressHelpers.methods.optionValueForAddress(
-            null,
-            false,
-            order
-        ));
-
-        if (customer.addresses && customer.addresses.length > 0) {
+    var customerData = $('.submit-shipping').data('customer');
+    if (!customerData) {
+        if (!Resources.PICKUP_FROM_STORE && $shippingAddressSelector && $shippingAddressSelector.length === 1) {
+            $shippingAddressSelector.empty();
+            // Add New Address option
             $shippingAddressSelector.append(addressHelpers.methods.optionValueForAddress(
-                order.resources.accountAddresses,
+                null,
                 false,
                 order
             ));
-
-            customer.addresses.forEach(function (address) {
-                var isSelected = shipping.matchingAddressId === address.ID;
-                $shippingAddressSelector.append(
-                    addressHelpers.methods.optionValueForAddress(
-                        { UUID: 'ab_' + address.ID, shippingAddress: address },
-                        isSelected,
-                        order
-                    )
+    
+            if (customer.addresses && customer.addresses.length > 0) {
+                $shippingAddressSelector.append(addressHelpers.methods.optionValueForAddress(
+                    order.resources.accountAddresses,
+                    false,
+                    order
+                ));
+    
+                customer.addresses.forEach(function (address) {
+                    var isSelected = shipping.matchingAddressId === address.ID;
+                    $shippingAddressSelector.append(
+                        addressHelpers.methods.optionValueForAddress(
+                            { UUID: 'ab_' + address.ID, shippingAddress: address },
+                            isSelected,
+                            order
+                        )
+                    );
+                });
+            }
+            // Separator -
+            $shippingAddressSelector.append(addressHelpers.methods.optionValueForAddress(
+                order.resources.shippingAddresses, false, order, { className: 'multi-shipping' }
+            ));
+            shippings.forEach(function (aShipping) {
+                var isSelected = shipping.UUID === aShipping.UUID;
+                hasSelectedAddress = hasSelectedAddress || isSelected;
+                var addressOption = addressHelpers.methods.optionValueForAddress(
+                    aShipping,
+                    isSelected,
+                    order,
+                    { className: 'multi-shipping' }
                 );
+    
+                var newAddress = addressOption.html() === order.resources.addNewAddress;
+                var matchingUUID = aShipping.UUID === shipping.UUID;
+                if ((newAddress && matchingUUID) || (!newAddress && matchingUUID) || (!newAddress && !matchingUUID)) {
+                    $shippingAddressSelector.append(addressOption);
+                }
+                if (newAddress && !matchingUUID) {
+                    $(addressOption[0]).remove();
+                }
             });
         }
-        // Separator -
-        $shippingAddressSelector.append(addressHelpers.methods.optionValueForAddress(
-            order.resources.shippingAddresses, false, order, { className: 'multi-shipping' }
-        ));
-        shippings.forEach(function (aShipping) {
-            var isSelected = shipping.UUID === aShipping.UUID;
-            hasSelectedAddress = hasSelectedAddress || isSelected;
-            var addressOption = addressHelpers.methods.optionValueForAddress(
-                aShipping,
-                isSelected,
-                order,
-                { className: 'multi-shipping' }
-            );
-
-            var newAddress = addressOption.html() === order.resources.addNewAddress;
-            var matchingUUID = aShipping.UUID === shipping.UUID;
-            if ((newAddress && matchingUUID) || (!newAddress && matchingUUID) || (!newAddress && !matchingUUID)) {
-                $shippingAddressSelector.append(addressOption);
+    } else {
+        if ($shippingAddressSelector && $shippingAddressSelector.length === 1) {
+            $shippingAddressSelector.empty();
+            // Add New Address option
+            $shippingAddressSelector.append(addressHelpers.methods.optionValueForAddress(
+                null,
+                false,
+                order
+            ));
+    
+            if (customer.addresses && customer.addresses.length > 0) {
+                $shippingAddressSelector.append(addressHelpers.methods.optionValueForAddress(
+                    order.resources.accountAddresses,
+                    false,
+                    order
+                ));
+    
+                customer.addresses.forEach(function (address) {
+                    var isSelected = shipping.matchingAddressId === address.ID;
+                    $shippingAddressSelector.append(
+                        addressHelpers.methods.optionValueForAddress(
+                            { UUID: 'ab_' + address.ID, shippingAddress: address },
+                            isSelected,
+                            order
+                        )
+                    );
+                });
             }
-            if (newAddress && !matchingUUID) {
-                $(addressOption[0]).remove();
-            }
-        });
+            // Separator -
+            $shippingAddressSelector.append(addressHelpers.methods.optionValueForAddress(
+                order.resources.shippingAddresses, false, order, { className: 'multi-shipping' }
+            ));
+            shippings.forEach(function (aShipping) {
+                var isSelected = shipping.UUID === aShipping.UUID;
+                hasSelectedAddress = hasSelectedAddress || isSelected;
+                var addressOption = addressHelpers.methods.optionValueForAddress(
+                    aShipping,
+                    isSelected,
+                    order,
+                    { className: 'multi-shipping' }
+                );
+    
+                var newAddress = addressOption.html() === order.resources.addNewAddress;
+                var matchingUUID = aShipping.UUID === shipping.UUID;
+                if ((newAddress && matchingUUID) || (!newAddress && matchingUUID) || (!newAddress && !matchingUUID)) {
+                    $shippingAddressSelector.append(addressOption);
+                }
+                if (newAddress && !matchingUUID) {
+                    $(addressOption[0]).remove();
+                }
+            });
+        }
     }
 
     if (!hasSelectedAddress) {
@@ -464,7 +519,7 @@ function updateMultiShipInformation(order) {
     $('.shipping-error .alert-danger').remove();
 
     $('input.input-wrapper-checkout,select.custom-select-box').each(function () {
-        if ($(this).val().length > 0 && !$(this).hasClass('.is-invalid')) {
+        if ($(this).val() && $(this).val().length > 0 && !$(this).hasClass('.is-invalid')) {
             $(this).removeClass('is-invalid');
             $(this).closest('.mx-field-wrapper').find('.info-icon.info-icon-email').removeClass('icon-right-wrapper');
         } else {

@@ -4,6 +4,7 @@ var shippingHelpers = require('./shipping');
 var billingHelpers = require('./billing');
 var summaryHelpers = require('./summary');
 var formHelpers = require('./formErrors');
+require('./fedexAddressValidate');
 
 
 /**
@@ -24,7 +25,8 @@ var formHelpers = require('./formErrors');
   $.fn.checkout = function () { // eslint-disable-line
       var plugin = this;
       if (Resources.PICKUP_FROM_STORE) {
-          openBillingFormForPickupStore(null, null, true);
+          var customerData = $('.submit-shipping').data('customer');
+            openBillingFormForPickupStore(null, null, true, customerData);
       }
     //
     // Collect form data from user input
@@ -83,6 +85,23 @@ var formHelpers = require('./formErrors');
                 $('.checkout-progressbar li:nth-child(1)').addClass('completed'); 
                 $('.checkout-form-error').addClass('d-none');
                 $('.checkout-pickup-items').removeClass('d-none');
+                var customerData = $('.submit-shipping').data('customer');
+                if (!customerData) {
+                    if (window.Resources.PICKUP_FROM_STORE) {
+                        var form = $('form[name=dwfrm_billing]');
+                        if (!form) return;
+                
+                        $('input[name$=_firstName]', form).val('');
+                        $('input[name$=_lastName]', form).val('');
+                        $('input[name$=_companyName]', form).val('');
+                        $('input[name$=_address1]', form).val('');
+                        $('input[name$=_address2]', form).val('');
+                        $('input[name$=_city]', form).val('');
+                        $('input[name$=_postalCode]', form).val('');
+                        $('select[name$=_stateCode],input[name$=_stateCode]', form).val('');
+                        $('select[name$=_country]', form).val('');
+                    }
+                }
             }
 
             else if (checkoutStages[currentStage] === 'placeOrder' && $('.payment-information').data('payment-method-id') !== 'Affirm') {
@@ -155,7 +174,6 @@ var formHelpers = require('./formErrors');
               var stage = checkoutStages[members.currentStage];
               var defer = $.Deferred(); // eslint-disable-line
               //  Handle active and completed step
-
               if (stage === 'shipping') {
             //
             // Clear Previous Errors
@@ -171,7 +189,7 @@ var formHelpers = require('./formErrors');
                   var form = $(formSelector);
 
                   if (isMultiShip && form.length === 0) {
-              // in case the multi ship form is already submitted
+                    // in case the multi ship form is already submitted
                       var url = $('#checkout-main').attr('data-checkout-get-url');
                       $.ajax({
                           url: url,
@@ -188,12 +206,14 @@ var formHelpers = require('./formErrors');
                     '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
                     '<span aria-hidden="true">&times;</span>' +
                     '</button>' + errorMsg + '</div>';
-                                  $('.shipping-error').append(errorHtml);
+                                $('.shipping-error').append(errorHtml);
+                                $('.fedex-btn-popup-call').attr('data-fedex', 'false');
+
                                   defer.reject();
                               }
                           },
                           error: function () {
-                  // Server error submitting form
+                    // Server error submitting form
                               defer.reject();
                           }
                       });
@@ -215,6 +235,7 @@ var formHelpers = require('./formErrors');
                           success: function (data) {
                               shippingHelpers.methods.shippingFormResponse(defer, data);
                               if (!data.error) {
+                                $('.fedex-btn-popup-call').attr('data-fedex', 'true');
                                 var scrollUtil = require('../utilities/scrollUtil');
                                 scrollUtil.scrollPaymentSection('.payment-form', 65);
 
@@ -228,8 +249,8 @@ var formHelpers = require('./formErrors');
                               defer.reject(err.responseJSON);
                           }
                       });
-                  }
                   return defer;
+                }
               } else if (stage === 'payment') {
             //
             // Submit the Billing Address Form
@@ -538,7 +559,8 @@ var formHelpers = require('./formErrors');
             // Set the next stage on the DOM
             $(plugin).attr('data-checkout-stage', checkoutStages[members.currentStage]);
             if (Resources.PICKUP_FROM_STORE) {
-                openBillingFormForPickupStore(checkoutStages, members);
+                var customerData = $('.submit-shipping').data('customer');
+                openBillingFormForPickupStore(checkoutStages, members, false, customerData);
             }
         },
 
@@ -554,7 +576,8 @@ var formHelpers = require('./formErrors');
 
               $(plugin).attr('data-checkout-stage', checkoutStages[members.currentStage]);
               if (Resources.PICKUP_FROM_STORE) {
-                  openBillingFormForPickupStore(checkoutStages, members);
+                var customerData = $('.submit-shipping').data('customer');
+                openBillingFormForPickupStore(checkoutStages, members, false, customerData);
               }
           },
 
@@ -580,16 +603,36 @@ var formHelpers = require('./formErrors');
 
 }(jQuery));
 
-function openBillingFormForPickupStore(checkoutStages, members, isReload) {
-    if (checkoutStages && members && checkoutStages[members.currentStage] == 'payment' && !isPlaceOrderDisplay && !isReload) {
-        $('.billingAddressOne').val('')
-        $('.billingAddressTwo').val('')
-        $('.billingState').val('')
-        $('.billingAddressCity').val('')
-        $('.billingZipCode').val('')
-        $('.billing-form').attr('data-address-mode', 'new');
-    } else {
-        $('.billing-form').attr('data-address-mode', 'details');
+function openBillingFormForPickupStore(checkoutStages, members, isReload, customerData) {
+    if (!customerData) {
+        if (checkoutStages && members && checkoutStages[members.currentStage] == 'payment' && !isPlaceOrderDisplay && !isReload) {
+            $('.billing-form').attr('data-address-mode', 'new');
+            $('.billingAddressOne').val('');
+            $('.billingAddressTwo').val('');
+            $('.billingState').val('');
+            $('.billingAddressCity').val('');
+            $('.billingZipCode').val('');
+        } else {
+            $('.billing-form').attr('data-address-mode', 'details');
+        }
+    }
+
+    var customerData = $('.submit-shipping').data('customer');
+    if (!customerData) {
+        if (window.Resources.PICKUP_FROM_STORE) {
+            var form = $('form[name=dwfrm_billing]');
+            if (!form) return;
+    
+            $('input[name$=_firstName]', form).val('');
+            $('input[name$=_lastName]', form).val('');
+            $('input[name$=_companyName]', form).val('');
+            $('input[name$=_address1]', form).val('');
+            $('input[name$=_address2]', form).val('');
+            $('input[name$=_city]', form).val('');
+            $('input[name$=_postalCode]', form).val('');
+            $('select[name$=_stateCode],input[name$=_stateCode]', form).val('');
+            $('select[name$=_country]', form).val('');
+        }
     }
 }
 
@@ -622,9 +665,9 @@ function updateCheckoutTotals(data) {
     }
     
     $('.tax-total').empty().append(data.totals.totalTax);
-    $('.grand-total-sum').empty().append(data.totals.grandTotal);
     $('.sub-total').empty().append(data.totals.subTotal);
     $('.grand-total-price').empty().append(data.totals.subTotal);
+    $('.grand-total-sum').empty().append(data.totals.grandTotal);
 
     if (data.totals.orderLevelDiscountTotal.value > 0) {
         $('.order-discount').removeClass('hide-order-discount');
@@ -833,5 +876,4 @@ var exports = {
         }
     });
 });
-
 module.exports = exports;

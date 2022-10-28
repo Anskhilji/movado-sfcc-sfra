@@ -274,6 +274,7 @@ function getcartPageHtml (req) {
   };
   basketModel.paypalButtonImg = getContentAssetContent('ca-paypal-button');
   basketModel.paypalerror = !!req.querystring.paypalerror;
+  basketModel.lastNameError = req.querystring.lastNameError;
 
   return renderTemplateHelper.getRenderedHtml(basketModel, '/cart/cartSection');
 };
@@ -341,33 +342,17 @@ function removeClydeWarranty(currentItems) {
 };
 
 function getGiftTransactionATC(currentBasket, giftsParentUUID) {
-    var Site = require('dw/system/Site');
     var Transaction = require('dw/system/Transaction');
 
-    if (Site.current.ID === 'MVMTUS' || Site.current.ID === 'MVMTEU') {
-        if (giftsParentUUID[0].custom.giftParentUUID) {
-            var linesItemsIterator = currentBasket.allProductLineItems.iterator();
-            var currentsLineItemsIterator;
-            while (linesItemsIterator.hasNext()) {
-                currentsLineItemsIterator = linesItemsIterator.next();
-                if (currentsLineItemsIterator.custom.giftPid) {
-                    Transaction.wrap(function () {
-                        currentsLineItemsIterator.custom.giftPid = "";
-                    });
-                }
-            }
-        }
-    } else {
-        var linesItemsIterator = currentBasket.allProductLineItems.iterator();
-        var currentsLineItemsIterator;
-        while (linesItemsIterator.hasNext()) {
-            currentsLineItemsIterator = linesItemsIterator.next();
-            if (currentsLineItemsIterator.UUID == giftsParentUUID[0].custom.giftParentUUID) {
-                Transaction.wrap(function () {
-                    currentsLineItemsIterator.custom.giftPid = "";
-                });
-                break;
-            }
+    var linesItemsIterator = currentBasket.allProductLineItems.iterator();
+    var currentsLineItemsIterator;
+    while (linesItemsIterator.hasNext()) {
+        currentsLineItemsIterator = linesItemsIterator.next();
+        if (currentsLineItemsIterator.UUID == giftsParentUUID[0].custom.giftParentUUID) {
+            Transaction.wrap(function () {
+                currentsLineItemsIterator.custom.giftPid = "";
+            });
+            break;
         }
     }
 };
@@ -385,8 +370,8 @@ module.exports = {
     getContentAssetContent: getContentAssetContent,
     getcartPageHtml: getcartPageHtml,
     getCartForAnalyticsTracking: getCartForAnalyticsTracking,
+    getGiftTransactionATC: getGiftTransactionATC,
     getCountrySwitch: getCountrySwitch,
     removeClydeWarranty: removeClydeWarranty,
-    getGiftTransactionATC: getGiftTransactionATC,
     removeNullClydeWarrantyLineItem: removeNullClydeWarrantyLineItem
 };
