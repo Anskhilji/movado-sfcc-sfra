@@ -458,12 +458,12 @@ function moveFocusToTop() {
 
 // Mobile: For Filter & Sort button show x matach count update 
 function totalProductCountResultupdate() {
-    var mobileMenuContainerMainCountResult = $('.mobile-menu-container-main .mobile-filter-options .redesign-filter-mobile .total-products-count-result').first();
-    var mobileSortMenuContainerCountResultDataVal = mobileMenuContainerMainCountResult.data('total-product-count')
-    var mobileSortMenuContainerCountResultInnerText = mobileMenuContainerMainCountResult.text();
-    var mobileSortMenuContainerCountResult = $('.mobile-sort-menu-container .total-products-count-result');
-    mobileSortMenuContainerCountResult.data('total-product-count', mobileSortMenuContainerCountResultDataVal);
-    mobileSortMenuContainerCountResult.html(mobileSortMenuContainerCountResultInnerText);
+    var $mobileMenuContainerMainCountResult = $('.mobile-menu-container-main .mobile-filter-options .redesign-filter-mobile .total-products-count-result').first();
+    var $mobileSortMenuContainerCountResultDataVal = $mobileMenuContainerMainCountResult.data('total-product-count')
+    var $mobileSortMenuContainerCountResultInnerText = $mobileMenuContainerMainCountResult.text();
+    var $mobileSortMenuContainerCountResult = $('.mobile-sort-menu-container .total-products-count-result');
+    $mobileSortMenuContainerCountResult.data('total-product-count', $mobileSortMenuContainerCountResultDataVal);
+    $mobileSortMenuContainerCountResult.html($mobileSortMenuContainerCountResultInnerText);
 }
 
 // Desktop Filter bar plp: on plp after clicked on filters bar close btn
