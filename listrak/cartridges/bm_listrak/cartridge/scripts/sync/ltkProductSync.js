@@ -37,6 +37,7 @@ function productSync() {
     var maxRelated = dw.system.Site.current.preferences.custom.Listrak_MaxRecommendedProductExport;
     var categoryLevelAttributes = Site.getCurrent().getCustomPreferenceValue('Listrak_CategoryLevelAttributes');
     var getAssignedCategories = Site.getCurrent().getCustomPreferenceValue('Listrak_ConfiguredCategories');
+    var productFeedJewelryJson = Site.getCurrent().getCustomPreferenceValue('Listrak_ProductFeedJewelryAttribute');
     if (subCategoryLevels <= 0) {
         subCategoryLevels = 1;
     } // if not set, use default of 1
@@ -58,9 +59,11 @@ function productSync() {
             productFile.AddRowItem('Brand');
             productFile.AddRowItem('Category');
             productFile.AddRowItem('SubCategory');
-            for (var i = 2; i <= subCategoryLevels; i++) {
-                var fieldName = 'SubCategory' + i.toString();
-                productFile.AddRowItem(fieldName);
+            if (empty(productFeedJewelryJson)) {
+                for (var i = 2; i <= subCategoryLevels; i++) {
+                    var fieldName = 'SubCategory' + i.toString();
+                    productFile.AddRowItem(fieldName);
+                }
             }
             productFile.AddRowItem('CategoryTree');
             productFile.AddRowItem('QOH');
@@ -173,9 +176,13 @@ function productSync() {
 
                 // Category
                 productFile.AddRowItem(prd.categories[0], true); // Category
-                productFile.AddRowItem(prd.categories[1], true); // Sub-category
-                for (i = 2; i <= subCategoryLevels; i++) {
-                    productFile.AddRowItem(prd.categories[i], true);
+                if (!empty(productFeedJewelryJson)) {
+                    productFile.AddRowItem(prd.jewelryType, true); // Jewelry Type
+                } else {
+                    productFile.AddRowItem(prd.categories[1], true); // Sub-category
+                    for (i = 2; i <= subCategoryLevels; i++) {
+                        productFile.AddRowItem(prd.categories[i], true);
+                    }
                 }
                 // CategoryTree
                 var tree = '';
