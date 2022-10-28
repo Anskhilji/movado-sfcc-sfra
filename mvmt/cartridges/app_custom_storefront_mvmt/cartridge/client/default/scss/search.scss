@@ -1901,6 +1901,16 @@
     }
   }
 }
+
+.listrak-persistent-popup {
+  display: none !important;
+}
+.button-floting {
+  &.button-search-result {
+    bottom: rem(41);
+  }
+}
+
 // MVMT PLP redesign style
 @import "searchRedesign";
 @import "./components/refinementsRedesigned";
