@@ -261,6 +261,29 @@ function getProductLineMetadataItems(pli) {
             arr.push(obj);
         }
         // Custom End
+
+        // Custom Start : MSS-1960 MVMT - ESW - Pass Family Name & Color to ESW Cart Fields
+        if (!empty(pli.product) && !empty(pli.product.custom.familyName) && !empty(pli.product.custom.familyName.length)) {
+            var familyName = !empty(pli.product) && !empty(pli.product.custom) ? pli.product.custom.familyName[0]: null;
+            if (!empty(familyName)) {
+                obj = {
+                    name: 'Family Name',
+                    value: familyName
+                };
+                arr.push(obj);
+            }
+        }
+        if (!empty(pli.product) && !empty(pli.product.custom.color)) {
+            var color = !empty(pli.product) && !empty(pli.product.custom) && !empty(pli.product.custom.color) ? pli.product.custom.color: null;
+            if (!empty(color)) {
+                obj = {
+                    name: 'Product Color',
+                    value: color
+                };
+                arr.push(obj);
+            }
+        }
+        // Custom End
     }
     return arr.length > 0 ? arr : null;
 }
