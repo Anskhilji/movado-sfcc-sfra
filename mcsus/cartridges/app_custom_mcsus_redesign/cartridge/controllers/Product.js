@@ -189,4 +189,22 @@ server.replace('ShowCartButton', function (req, res, next) {
     next();
 });
 
+server.get('ShowStickyATCButton', function (req, res, next) {
+    var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
+    var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
+    var product = showProductPageHelperResult.product;
+    var customURL = productCustomHelper.getPLPCustomURL(product);
+
+    res.render('product/components/stickyAddToCart', {
+        product: product,
+        addToCartUrl: showProductPageHelperResult.addToCartUrl,
+        isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
+        loggedIn: req.currentCustomer.raw.authenticated,
+        restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites,
+        ecommerceFunctionalityEnabled: Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled,
+        customURL: customURL
+    });
+    next();
+});
+
 module.exports = server.exports();
