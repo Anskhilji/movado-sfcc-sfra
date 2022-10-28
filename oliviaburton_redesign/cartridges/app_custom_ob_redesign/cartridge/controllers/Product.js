@@ -33,7 +33,6 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
    var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
    var smartGift = smartGiftHelper.getSmartGiftCardBasket(showProductPageHelperResult.product.id);
    var smartGiftAddToCartURL = Site.current.preferences.custom.smartGiftURL + showProductPageHelperResult.product.id;
-   var ABTestMgr = require('dw/campaign/ABTestMgr');
 
 
    var collectionContentList;
@@ -53,21 +52,6 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
    var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
    var productType = showProductPageHelperResult.product.productType;
    var template =  showProductPageHelperResult.template;
-
-    //MSS_1753 OB Product Sets Page Design Desktop
-    if(productType !== Constants.PRODUCT_TYPE) {
-
-        // Custom Comment Start: A/B testing for OB Redesign PDP
-        if (ABTestMgr.isParticipant('OBRedesignPDPABTest','Control')) {
-            template = 'product/old/productDetails';
-        } else if (ABTestMgr.isParticipant('OBRedesignPDPABTest','render-new-design')) {
-            template =  'product/productDetails';
-        } else {
-            template = 'product/old/productDetails';
-        }
-
-    }
-   // Custom Comment End: A/B testing for OB Redesign PDP
 
     var viewData = res.getViewData();
     var product = showProductPageHelperResult.product;
@@ -207,19 +191,11 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
 }, pageMetaData.computedPageMetaData);
 
 server.replace('ShowAvailability', function (req, res, next) {
-    var ABTestMgr = require('dw/campaign/ABTestMgr');
 
     var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
-       // Custom Comment Start: A/B testing for OB Redesign PDP
-    if (ABTestMgr.isParticipant('OBRedesignPDPABTest','Control')) {
-        template = 'product/components/old/availability';
-    } else if (ABTestMgr.isParticipant('OBRedesignPDPABTest','render-new-design')) {
-        template =  'product/components/availability';
-    } else {
-        template = 'product/components/old/availability';
-    }
-    // Custom Comment End: A/B testing for OB Redesign PDP
+    var template =  'product/components/availability';
+
     res.render(template, {
         product: showProductPageHelperResult.product
     });
