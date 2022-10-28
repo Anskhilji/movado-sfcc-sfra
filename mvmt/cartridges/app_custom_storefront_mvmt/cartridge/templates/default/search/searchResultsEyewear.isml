@@ -133,8 +133,9 @@
 
         <button class="scroll-top"></button>
         <isif condition="${pdict.productSearch.productIds.length > 0}">
-            <div class="plp-grid-overlay">
-            </div>
+        <div class="container">
+            <div class="plp-grid-overlay search-refinement-close"></div>
+        </div>
         </isif>
 
         <isif condition="${pdict.productSearch.category}">
@@ -173,7 +174,8 @@
                     encoding="off" />
             </div>
         </isif>
-            <!-- Start: Listrak persistent popup -->
+
+    <!-- Start: Listrak persistent popup -->
     <isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled && pdict.popupID}">
         <span class="listrak-persistent-url" data-listrak-url="${URLUtils.https('EmailPopUp-Show')}"></span>
         <span class="listrak-popup-search-result"></span>
