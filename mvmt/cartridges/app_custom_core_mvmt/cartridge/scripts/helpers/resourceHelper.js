@@ -76,7 +76,8 @@ function getResources(pageContext) {
         PHONE_NUMBER_REQUIRED: Resource.msg('listrak.required.phone', 'product', null),
         LISTRAK_SUCCESS_MESSAGE: Resource.msg('listrak.success.message', 'product', null),
         FEDEX_USER_ADDRESS_MESSAGE: Resource.msg('popup.label.content.single-content', 'checkout', null),
-        FEDEX_RECOMMENDED_ADDRESS_MESSAGE: Resource.msg('popup.label.content.sub', 'checkout', null)
+        FEDEX_RECOMMENDED_ADDRESS_MESSAGE: Resource.msg('popup.label.content.sub', 'checkout', null),
+        INVALID_STATE: Resource.msg('invalid.state.error', 'forms', null)
     };
     return resources;
 }
