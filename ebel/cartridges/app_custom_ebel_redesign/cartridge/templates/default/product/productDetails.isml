@@ -1,6 +1,8 @@
 <iscomment> Custom: divs repositioned </iscomment>
 <isdecorate template="common/layout/page">
 
+<isinclude template="/components/modules" sf-toolkit="off" />
+
     <isscript>
         var assets = require('*/cartridge/scripts/assets');
         assets.addJs('/lib/pinchzoom/pinch-zoom.umd.js');
@@ -21,6 +23,12 @@
     <isobject object="${product.raw}" view="detail">
         <div class="container-fluid pdp-mobile pdp-v-one product-detail product-wrapper" data-pid="${product.id}" itemscope
             itemtype="http://schema.org/Product">
+
+             <isif condition="${pdict.lastNameError}">
+                <div class="container cart-error-messaging cart-error gpay-error alert card alert-dismissible fade show">
+                    ${Resource.msg('error.last.name', 'checkout', null)}
+                </div>
+            </isif>
 
             <div class="row mobile-detail-head d-md-none">
                 <div class="col-12">
@@ -271,6 +279,14 @@
             </div>
         </div>
         <!-- The Modal: Ends-->
+
+        <!-- Start: Listrak persistent popup -->
+        <isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled && && pdict.popupID}">
+            <span class="listrak-persistent-url" data-listrak-url="${URLUtils.https('EmailPopUp-Show')}"></span>
+            <span class="listrak-popup-product-detail"></span>
+            <isslot id="cs-listrak-persistent-popup" description="Listrak persistent popup" context="global" />
+        </isif>
+        <!-- End: Listrak persistent popup -->
 
     </isobject>
 </isdecorate>
