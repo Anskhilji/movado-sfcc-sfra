@@ -1779,7 +1779,7 @@
             }
         }
 
-        .product-description {
+        .product-description, .shipping-returns-description {
             @include media-breakpoint-down(sm) {
                 text-align: center;
             }
