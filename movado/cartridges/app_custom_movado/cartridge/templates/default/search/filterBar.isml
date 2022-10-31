@@ -1,5 +1,4 @@
 <isif condition="${dw.system.Site.current.getCustomPreferenceValue('enableSwatch')}">
-
 <ul>
     <isloop items="${pdict.productSearch.selectedFilters}" var="refinement">
         <isif condition="${refinement.type === 'color'}">
@@ -15,9 +14,7 @@
         </isif>
     </isloop>
 </ul>
-
 <iselse>
-
 <ul>
     <isloop items="${pdict.productSearch.selectedFilters}" var="refinement">
             <li class="filter-value" title="${refinement.title}">
@@ -27,7 +24,4 @@
             </li>
     </isloop>
 </ul>
-
-
 </isif>
-
