@@ -13,6 +13,21 @@ $(".search-field").on('click', function (e) {
         e.stopPropagation();
     }
 });
+
+// If you move your mouse away from the search flyout, the search flyout closes
+$('.search').on('mouseleave', function(){
+    $('.search-recomendation').hide();
+    $(this).focusout();
+});
+$('.search-recomendation').on('mouseenter', function(e){
+    $('.search').unbind("mouseleave");
+});
+$('.search-recomendation').on('mouseleave', function(e){
+    $('.search').bind("mouseleave");
+});
+// end
+
+
 $('body').on('click', function (e) {
     $(".search-recomendation").fadeOut();
     $(".search-field").css('border-radius', '3px');
