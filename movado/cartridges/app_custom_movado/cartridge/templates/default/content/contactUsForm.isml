@@ -1,13 +1,6 @@
-<script src="https://www.google.com/recaptcha/api.js"></script>
-<script>
- 	grecaptcha.ready();
-	function onSubmit(token) {
-		$('.submit-contact-form').click();
-	}
-</script>
-<isset name="isGoogleRecaptcha" value="${!empty(dw.system.Site.current.preferences.custom.googleRecaptcha) ? dw.system.Site.current.preferences.custom.googleRecaptcha : null}" scope="page" />
+<isset name="googeRecaptchaSiteKey" value="${!empty(dw.system.Site.current.preferences.custom.googleRecaptcha) ? dw.system.Site.current.preferences.custom.googleRecaptcha : null}" scope="page" />
  <div class="container contactus-page">
-	<form action="${URLUtils.url('ContactUs-Send')}" class="contactus" id="contactus" method="POST" name="contactus-form">
+	<form action="${URLUtils.url('ContactUs-Send')}" class="contactus" method="POST" name="contactus-form">
 
 		<div class="form-group
 			<isif condition="${pdict.contactUsForm.firstname.mandatory === true}">required</isif>">
@@ -91,8 +84,8 @@
 
 		<div class="row">
 			<div class="col">
-				<button class="btn btn-block btn-save btn-primary g-recaptcha" data-sitekey="${isGoogleRecaptcha}" data-callback='onSubmit' data-action='submit'>${Resource.msg('button.send','common',null)}</button>
-			    <button type="submit" name="Send" class="btn btn-save btn-block btn-primary d-none submit-contact-form">${Resource.msg('button.send','common',null)}</button>
+                <button class="btn btn-block btn-save btn-primary g-recaptcha" data-sitekey="${googeRecaptchaSiteKey}" data-callback='onSubmit' data-action='submit'>${Resource.msg('button.send','common',null)}</button>
+                <button type="submit" name="Send" class="btn btn-save btn-block btn-primary d-none submit-contact-form">${Resource.msg('button.send','common',null)}</button>
 			</div>
 		</div>
 	</form>

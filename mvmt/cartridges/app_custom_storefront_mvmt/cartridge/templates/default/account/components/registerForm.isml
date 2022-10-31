@@ -1,11 +1,4 @@
-<script src="https://www.google.com/recaptcha/api.js"></script>
-<script>
- 	grecaptcha.ready();
-	function onSubmit(token) {
-		$('.submit-signup-form').click();
-	}
-</script>
-<isset name="isGoogleRecaptcha" value="${!empty(dw.system.Site.current.preferences.custom.googleRecaptcha) ? dw.system.Site.current.preferences.custom.googleRecaptcha : null}" scope="page" />
+<isset name="googeRecaptchaSiteKey" value="${!empty(dw.system.Site.current.preferences.custom.googleRecaptcha) ? dw.system.Site.current.preferences.custom.googleRecaptcha : null}" scope="page" />
 <iscomment> Custom Start: Changing in html structure similar to mvmt design </iscomment>
 <form
     action="${pdict.createAccountUrl}"
@@ -174,7 +167,7 @@
     <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
     <div class="row justify-content-center no-gutters">
     <button type="submit" class="btn create-account btn-block btn-primary d-none submit-signup-form">${Resource.msg('button.createaccount.registration', 'registration', null)}</button>
-    <button type="submit" class="btn create-account btn-block btn-primary g-recaptcha" data-sitekey="${isGoogleRecaptcha}" data-callback='onSubmit'>${Resource.msg('button.createaccount.registration', 'registration', null)}</button>
+    <button type="submit" class="btn create-account btn-block btn-primary g-recaptcha" data-sitekey="${googeRecaptchaSiteKey}" data-callback='onSubmit'>${Resource.msg('button.createaccount.registration', 'registration', null)}</button>
     </div>
 </form>
 <iscomment> Custom End </iscomment>

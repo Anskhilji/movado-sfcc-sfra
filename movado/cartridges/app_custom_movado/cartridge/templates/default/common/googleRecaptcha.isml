@@ -1,0 +1,2 @@
+<isset name="recaptchaScript" value="${!empty(dw.system.Site.current.preferences.custom.recaptchaScript) ? dw.system.Site.current.preferences.custom.recaptchaScript : ''}" scope="page" />
+<isprint value="${recaptchaScript}" encoding="off" />
