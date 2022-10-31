@@ -23,7 +23,10 @@ $('.search-recomendation').on('mouseenter', function(e){
     $('.search').unbind("mouseleave");
 });
 $('.search-recomendation').on('mouseleave', function(e){
-    $('.search').bind("mouseleave");
+    $('.search').on('mouseleave', function(){
+        $('.search-recomendation').hide();
+        $(this).focusout();
+    });
 });
 // end
 
