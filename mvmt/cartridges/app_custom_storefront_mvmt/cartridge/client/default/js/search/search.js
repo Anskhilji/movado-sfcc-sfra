@@ -456,6 +456,16 @@ function moveFocusToTop() {
     }, 600);
 }
 
+// Mobile: For Filter & Sort button show x matach count update 
+function totalProductCountResultupdate() {
+    var $mobileMenuContainerMainCountResult = $('.mobile-menu-container-main .mobile-filter-options .redesign-filter-mobile .total-products-count-result').first();
+    var $mobileSortMenuContainerCountResultDataVal = $mobileMenuContainerMainCountResult.data('total-product-count')
+    var $mobileSortMenuContainerCountResultInnerText = $mobileMenuContainerMainCountResult.text();
+    var $mobileSortMenuContainerCountResult = $('.mobile-sort-menu-container .total-products-count-result');
+    $mobileSortMenuContainerCountResult.data('total-product-count', $mobileSortMenuContainerCountResultDataVal);
+    $mobileSortMenuContainerCountResult.html($mobileSortMenuContainerCountResultInnerText);
+}
+
 // Desktop Filter bar plp: on plp after clicked on filters bar close btn
 function removeSelectedFilterDesktop($element) {
     var isSelectedFilterBar = document.querySelector('.filter-bar-list > .selected-filter-bar');
@@ -884,6 +894,7 @@ function removeSelectedFilterMobile($element) {
                         }
                         bulidLifeStyleCarousel();
                         filterScroll();
+                        totalProductCountResultupdate();
                     },
                     error: function () {
                         $.spinner().stop();
@@ -927,7 +938,7 @@ function filterBarEmpty($element, filtersURL) {
             if (isInfiniteScrollEnabled && (isPaginationEnabled == false)) {
                 loadMoreIndex = $('#product-search-results .product-tile').length - (parseInt(initiallyLoadedProducts / 2) + 1);
             }
-
+            totalProductCountResultupdate();
         },
         error: function () {
             $.spinner().stop();
@@ -1835,8 +1846,6 @@ module.exports = {
                     filterBar.forEach(function (e) {
                         e.insertAdjacentHTML('beforeend', html);    
                     });
-
-
                 }
                 checkClearAllBtn();
             }
@@ -1852,7 +1861,7 @@ module.exports = {
             e.preventDefault();
             e.stopPropagation();
             var isSelectedFilterBar = document.querySelector('.filter-bar-list > .selected-filter-bar');
-            
+
             if (isSelectedFilterBar) {
 
                 var isFilterChildList = isSelectedFilterBar.children.length > 0;
@@ -2065,6 +2074,7 @@ module.exports = {
                                 }
                                 bulidLifeStyleCarousel();
                                 filterScroll();
+                                totalProductCountResultupdate();
                             },
                             error: function () {
                                 $.spinner().stop();
