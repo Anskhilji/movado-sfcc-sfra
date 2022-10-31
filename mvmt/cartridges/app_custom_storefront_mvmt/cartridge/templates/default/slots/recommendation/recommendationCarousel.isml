@@ -1,29 +1,28 @@
 <isif condition="${slotcontent && !!slotcontent.content.length}">
   <script>
-      $(document).ready(function() {
+       $(document).ready(function() {
           window.slickSlider.initCarousel($('.pdp-product-recommendation'));
-          
-          $('.product-tile-redesign .swatches').slick({
-            infinite: true,
-            speed: 300,
-            slidesToShow: 5,
-            slidesToScroll: 1,
-            dots: false,
-            arrows: true,
-            autoplay: false,
-            responsive: [
-            {
-              breakpoint: 544,
-                settings: {
-                  slidesToShow: 3,
-                }
-            },
-          ]
-        });
+            $('.product-tile-redesign .swatches').not('.slick-initialized').slick({
+                infinite: true,
+                speed: 300,
+                slidesToShow: 5,
+                slidesToScroll: 1,
+                dots: false,
+                arrows: true,
+                autoplay: false,
+                responsive: [
+                {
+                  breakpoint: 544,
+                  settings: {
+                    slidesToShow: 3,
+                  }
+                },
+              ]
+            });
       });
   </script>
-  <div class="container-fluid product-slot-slider pdp-product-recommendation">
-    <div class="row">
+  <div class="container-fluid product-slot-slider mvmt-plp-redesign pdp-product-recommendation">
+    <div class="row product-grid recommendation">
       <div class="col-12">
         <div class="cs-carousel-wrapper">
           <div class="product-slider-aside">

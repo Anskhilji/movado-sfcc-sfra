@@ -20,6 +20,13 @@
         </isif>
     </div>
 </isif>
+
+<isif condition="${pdict.lastNameError}">
+    <div class="container cart-error-messaging cart-error mt-2 alert card alert-dismissible fade show">
+        ${Resource.msg('error.last.name', 'checkout', null)}
+    </div>
+</isif>
+
 <isinclude template="error/paypalValidationErrors" sf-toolkit="on" />
 
 <div class="container cart-header-wrapper text-center">
