@@ -4393,7 +4393,7 @@
                             }
                         }
 
-                        .product-description{
+                        .product-description, .shipping-returns-description {
                             color: $light-black;
                             font-family: $font-medium;
                             font-size: rem(14);
