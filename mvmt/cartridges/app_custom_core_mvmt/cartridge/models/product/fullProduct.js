@@ -27,6 +27,7 @@ module.exports = function fullProduct(product, apiProduct, options) {
     var caseDiameter = productCustomHelper.getCaseDiameter(apiProduct);
     var caseDiameterRedesigned = productCustomHelper.getCaseDiameter(apiProduct, true);
     var isCategory = productCustomHelper.getProductCategory(apiProduct, product);
+    var masterProductID = apiProduct.master ? apiProduct.ID : apiProduct.masterProduct.ID;
 
     if (!empty(currentCountry)) {
         Object.defineProperty(product, 'currentCountry', {
@@ -34,7 +35,7 @@ module.exports = function fullProduct(product, apiProduct, options) {
             value: currentCountry
         });
     }
-    
+
     if (!empty(pdpCollectionContentAssetID)) {
         Object.defineProperty(product, 'pdpCollectionContentAssetID', {
             enumerable: true,
@@ -100,29 +101,29 @@ module.exports = function fullProduct(product, apiProduct, options) {
 
     if (!empty(caseDiameter)) {
         Object.defineProperty(product, 'caseDiameter', {
-        enumerable: true,
-        value: caseDiameter
+            enumerable: true,
+            value: caseDiameter
         });
     }
 
     if (!empty(caseDiameter)) {
         Object.defineProperty(product, 'caseDiameter', {
-        enumerable: true,
-        value: caseDiameter
+            enumerable: true,
+            value: caseDiameter
         });
     }
 
     if (!empty(caseDiameterRedesigned)) {
         Object.defineProperty(product, 'caseDiameterRedesigned', {
-        enumerable: true,
-        value: caseDiameterRedesigned
+            enumerable: true,
+            value: caseDiameterRedesigned
         });
     }
 
     if (!empty(color)) {
         Object.defineProperty(product, 'color', {
-        enumerable: true,
-        value: color
+            enumerable: true,
+            value: color
         });
     }
 
@@ -130,6 +131,13 @@ module.exports = function fullProduct(product, apiProduct, options) {
         Object.defineProperty(product, 'isCategory', {
             enumerable: true,
             value: isCategory
+        });
+    }
+
+    if (!empty(masterProductID)) {
+        Object.defineProperty(product, 'masterProductID', {
+            enumerable: true,
+            value: masterProductID
         });
     }
 
