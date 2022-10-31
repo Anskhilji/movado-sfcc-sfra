@@ -126,7 +126,7 @@ module.exports = {
             },
         });
 
-        // Custom Start: make slider images lazy load
+        // Custom Start: [MSS-2036] Removed slider images lazy load
         // $(document).on('beforeChange', '.primary-images .main-ob-carousel', function (event, slick, currentSlide, nextSlide) {
         //     var nextSlide = slick.$slides.get(nextSlide);
         //     var $slideSourceSets = $(nextSlide).find('source');
