@@ -45,7 +45,7 @@
             itemtype="http://schema.org/Product">
             <!---Breadcrumbs--->
             <hr class="hidden-xs-down d-none"/>
-            <div class="row pdp-desktop m-0">
+            <div class="row pdp-desktop m-0 image-carousel-pdp">
                 <!-- Product Images Carousel -->
                 <isinclude template="product/components/old/imageCarouselPDP" />
 

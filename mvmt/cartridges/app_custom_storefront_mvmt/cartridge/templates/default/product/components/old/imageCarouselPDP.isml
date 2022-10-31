@@ -1,7 +1,7 @@
-<div class="primary-images">
+<div class="primary-images image-carousel-pdp-old">
     <div class="product-badges">
         <!-- First two conditions are for PLP and the last is applicable on PDP -->
-        <isif condition="${(product.defaultVariantAvailabilityStatus === 'IN_STOCK' && pdict.display.plpTile === true) || (product.available && pdict.display.plpTile === true && product.productType !== 'master') || (product.available && pdict.display.plpTile === false)}">
+        <isif condition="${(pdict.product.defaultVariantAvailabilityStatus === 'IN_STOCK' && pdict.display.plpTile === true) || (pdict.product.available && pdict.display.plpTile === true && pdict.product.productType !== 'master') || (pdict.product.available && pdict.display.plpTile === false)}">
             <isinclude template="product/components/newnessBadge"/>
         </isif>
     </div>
@@ -69,13 +69,13 @@
           </svg>
         </div>
         <div class="main-mvmt-carousel main-mvmt-carousel-pdp-redesign show-arrow-box-mvmt">
-          <isset name="pdpVideoConfigs" value="${product.pdpVideoConfigs}" scope="page" />
-          <isloop items="${product.images['zoom1660']}" var="image" status="loopStatus">
-            <div class="carousel-tile ${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL) ? 'video' : ''}" data-thumb="${!empty(product.images) && !empty(product.images.tile150[loopStatus.count-1]) ? product.images.tile150[loopStatus.count-1].url : ''}">
+          <isset name="pdpVideoConfigs" value="${pdict.product.pdpVideoConfigs}" scope="page" />
+          <isloop items="${pdict.product.images['zoom1660']}" var="image" status="loopStatus">
+            <div class="carousel-tile ${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL) ? 'video' : ''}" data-thumb="${!empty(pdict.product.images) && !empty(pdict.product.images.tile150[loopStatus.count-1]) ? pdict.product.images.tile150[loopStatus.count-1].url : ''}">
                 <picture>
-                      <source media="(min-width: 992px)"  srcset="${product.images.zoom1660[loopStatus.count-1].url}" />
-                      <source media="(max-width: 991px)"  srcset="${product.images.zoom1660[loopStatus.count-1].url}" />
-                      <img class="normal-zoom" src="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count-1]) && !empty(product.images.zoom1660[loopStatus.count-1].url) ? product.images.zoom1660[loopStatus.count-1].url : ''}" alt="${image.alt}" itemprop="image" data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom830[loopStatus.count-1]) && !empty(product.images.zoom830[loopStatus.count-1].url) ? product.images.zoom830[loopStatus.count-1].url : ''}" data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count-1]) && !empty(product.images.zoom1660[loopStatus.count-1].url) ? product.images.zoom1660[loopStatus.count-1].url : ''}" />
+                      <source media="(min-width: 992px)"  srcset="${pdict.product.images.zoom1660[loopStatus.count-1].url}" />
+                      <source media="(max-width: 991px)"  srcset="${pdict.product.images.zoom1660[loopStatus.count-1].url}" />
+                      <img class="normal-zoom" src="${!empty(pdict.product.images) && !empty(pdict.product.images.zoom1660[loopStatus.count-1]) && !empty(pdict.product.images.zoom1660[loopStatus.count-1].url) ? pdict.product.images.zoom1660[loopStatus.count-1].url : ''}" alt="${image.alt}" itemprop="image" data-zoom-mobile-url="${!empty(pdict.product.images) && !empty(pdict.product.images.zoom830[loopStatus.count-1]) && !empty(pdict.product.images.zoom830[loopStatus.count-1].url) ? pdict.product.images.zoom830[loopStatus.count-1].url : ''}" data-zoom-desktop-url="${!empty(pdict.product.images) && !empty(pdict.product.images.zoom1660[loopStatus.count-1]) && !empty(pdict.product.images.zoom1660[loopStatus.count-1].url) ? pdict.product.images.zoom1660[loopStatus.count-1].url : ''}" />
                       <isset name="isImageExist" value="true" scope="page" />
                 </picture>
               <isif condition="${!empty(pdpVideoConfigs) && loopStatus.count == pdpVideoConfigs.imageIndex && !empty(pdpVideoConfigs.videoURL) }">
