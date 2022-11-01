@@ -28,7 +28,19 @@ module.exports = function fullProduct(product, apiProduct, options) {
     var caseDiameterRedesigned = productCustomHelper.getCaseDiameter(apiProduct, true);
     var isCategory = productCustomHelper.getProductCategory(apiProduct, product);
     var isWatchTile = productCustomHelper.getIsWatchTile(apiProduct);
-    var masterProductID = apiProduct.master ? apiProduct.ID : apiProduct.masterProduct.ID;
+    var masterProductID;
+
+    if (!empty(apiProduct)) {
+        if (apiProduct.master) {
+            masterProductID = apiProduct.ID;
+        } else {
+            if ((!empty(apiProduct.variationModel.master)) && (!empty(apiProduct.variationModel.master.ID))) {
+                masterProductID = apiProduct.variationModel.master.ID;
+            } else {
+                masterProductID = '';
+            }
+        }
+    }
 
     if (!empty(currentCountry)) {
         Object.defineProperty(product, 'currentCountry', {
