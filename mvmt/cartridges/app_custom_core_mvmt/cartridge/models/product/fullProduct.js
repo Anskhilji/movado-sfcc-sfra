@@ -28,7 +28,7 @@ module.exports = function fullProduct(product, apiProduct, options) {
     var caseDiameterRedesigned = productCustomHelper.getCaseDiameter(apiProduct, true);
     var isCategory = productCustomHelper.getProductCategory(apiProduct, product);
     var isWatchTile = productCustomHelper.getIsWatchTile(apiProduct);
-    var masterProductID = apiProduct.master ? apiProduct.ID : apiProduct.variationModel.master.ID;
+    var masterProductID = apiProduct.master ? apiProduct.ID : apiProduct.variationModel.master ? apiProduct.variationModel.master.ID : '';
 
     if (!empty(currentCountry)) {
         Object.defineProperty(product, 'currentCountry', {
