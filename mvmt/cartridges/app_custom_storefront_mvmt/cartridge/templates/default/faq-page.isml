@@ -3,16 +3,7 @@
         var assets = require('*/cartridge/scripts/assets.js');
         assets.addCss('/css/faq.css');
     </isscript>
-    
-<script src="https://www.google.com/recaptcha/api.js"></script>
-<script>
- 	grecaptcha.ready();
-	function onSubmit(token) {
-		$('.submit-contact-form').click();
-	}
-</script>
 <isset name="googeRecaptchaSiteKey" value="${!empty(dw.system.Site.current.preferences.custom.googleRecaptcha) ? dw.system.Site.current.preferences.custom.googleRecaptcha : null}" scope="page" />
-
     <isinclude template="/components/modules" sf-toolkit="off" />
     <div class="hero p-0">
         <isslot id="faq-top-banner" context="global" description="slot to show faq page banner" />
@@ -102,7 +93,7 @@
                            <div class="row">
                                <div class="col-md-6">
                                 <button type="submit" name="Send" class="btn-contact btn contact-tab-btn-save btn-block btn-primary g-recaptcha" data-sitekey="${googeRecaptchaSiteKey}"data-callback='onSubmit' data-action='submit'>${Resource.msg('contact.form.button.send','contactUs',null)}</button>
-                                <button type="submit" name="Send" class="btn-contact btn contact-tab-btn-save btn-block btn-primary d-none submit-contact-form">${Resource.msg('contact.form.button.send','contactUs',null)}</button>
+                                <button type="submit" name="Send" class="btn-contact btn contact-tab-btn-save btn-block btn-primary d-none form-submit">${Resource.msg('contact.form.button.send','contactUs',null)}</button>
                                </div>
                            </div>
                            <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>

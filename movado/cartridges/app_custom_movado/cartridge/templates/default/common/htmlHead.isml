@@ -4,7 +4,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1.0, user-scalable=no">
 <isinclude template="common/oneTrustCookiesScript" sf-toolkit="off" />
-<isinclude template="common/googleRecaptcha" sf-toolkit="off" />
 <isinclude template="/common/googleOptimize" sf-toolkit="off" />
 <iscomment> Custom Start: Adding Google Antiflicker Optimise Script </iscomment>
 <isinclude template="/common/optimizeAntiFlickerScript" sf-toolkit="off" />
@@ -98,4 +97,12 @@
     value="${!empty(dw.system.Site.current.preferences.custom.fontStyleSheet) ? dw.system.Site.current.preferences.custom.fontStyleSheet : ''}"
     scope="page" />
   <isprint value="${fontStyleSheet}" encoding="off" />
+  <script src="https://www.google.com/recaptcha/api.js"></script>
+<script>
+ 	grecaptcha.ready();
+	function onSubmit(token) {
+		$('.form-submit').click();
+	}
+</script>
+
   

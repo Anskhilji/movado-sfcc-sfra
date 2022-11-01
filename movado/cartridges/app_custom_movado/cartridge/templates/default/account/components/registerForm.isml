@@ -164,7 +164,7 @@
 
     <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
 
-    <button type="submit" class="btn btn-block btn-primary d-none submit-signup-form">${Resource.msg('button.createaccount.registration', 'registration', null)}</button>
+    <button type="submit" class="btn btn-block btn-primary d-none form-submit">${Resource.msg('button.createaccount.registration', 'registration', null)}</button>
     <button type="submit" class="btn btn-block btn-primary g-recaptcha" data-sitekey="${googeRecaptchaSiteKey}" data-callback='onSubmit'>${Resource.msg('button.createaccount.registration', 'registration', null)}
     </button>
     <div class="privacy-policy">
