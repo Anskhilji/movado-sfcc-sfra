@@ -281,6 +281,7 @@ var onLoadProductTile = function () {
     updateDataLayer('productImpressions');
     var $currentTarget = $('.gtm-product');
     var dataLayerObj = [];
+    var abTestDataLayer = [];
     var currency = '';
     $.each($currentTarget, function () {
         var gtmTrackingData = $(this).data('gtm-facets');
@@ -299,7 +300,11 @@ var onLoadProductTile = function () {
             currency = gtmTrackingData.currency;
         }
     });
-    sliceProductImpressionArray(dataLayerObj, currency);
+    var gtmTrackingDataAb = $currentTarget.data('gtm-facets');
+    if (gtmTrackingDataAb) {
+        abTestDataLayer.push(gtmTrackingDataAb.runningAbTest)
+    }
+    sliceProductImpressionArray(dataLayerObj, currency, abTestDataLayer);
 };
 
 /**
@@ -348,9 +353,9 @@ var onLoadProductTile = function () {
  * Custom Start: update function updated: sliceProductImpressionArray change data layer structre accoridng to mvmt
  **/
 
-var sliceProductImpressionArray = function (e, currency) {
+var sliceProductImpressionArray = function (e, currency, runningAbTest) {
     if ($('.slick-slider').length) {
-        showProductImpressionCaraousel(e, currency);
+        showProductImpressionCaraousel(e, currency, runningAbTest);
     } else {
         var maxProducts = 10;
         updateDataLayer('productImpressions');
@@ -361,7 +366,8 @@ var sliceProductImpressionArray = function (e, currency) {
                     event: 'productImpressions',
                     ecommerce: {
                         impressions: {
-                            products: productObj
+                            products: productObj,
+                            runningAbTests: runningAbTest[0]
                         }
                     }
                 });
@@ -374,7 +380,7 @@ var sliceProductImpressionArray = function (e, currency) {
  * Custom Start: update function updated: showProductImpressionCaraousel change data layer structre accoridng to mvmt
  **/
 
-var showProductImpressionCaraousel = function (e, currency) {
+var showProductImpressionCaraousel = function (e, currency, runningAbTest) {
     var dataProductImpression = {};
     updateDataLayer('productImpressions');
     var productObj = e.splice(0, 7);
@@ -382,7 +388,8 @@ var showProductImpressionCaraousel = function (e, currency) {
         event: 'productImpressions',
         ecommerce: {
             impressions: {
-                products: productObj
+                products: productObj,
+                runningAbTests: runningAbTest[0]
             } 
         }
     });
@@ -505,7 +512,9 @@ var updateCheckoutStage = function () {
              var productObj = dataLayerCheckout.splice(0, maxProducts);
              dataLayer.push({ ecommerce: { checkout: {
                  actionField: { step: checkoutStep },
-                 products: productObj }
+                 products: productObj,
+                 runningAbTest: abTestDataLayer 
+                }
              },
                  event: 'checkout' });
          }
@@ -631,7 +640,17 @@ var carouselAfterChangeEvent = function () {
             if (productData) {
                 currency = productData.currency;
                 productData.list = 'carousel';
-                productDataArray.push(productData);
+                productDataArray.push({ name: gtmTrackingData.name,
+                    familyName: gtmTrackingData.familyName,
+                    productColor: gtmTrackingData.productColor,
+                    id: gtmTrackingData.id,
+                    price: gtmTrackingData.price,
+                    category: gtmTrackingData.category,
+                    sku: gtmTrackingData.sku,
+                    variantID: gtmTrackingData.variantID,
+                    brand: gtmTrackingData.brand,
+                    currentCategory: gtmTrackingData.currentCategory,
+                    productType: gtmTrackingData.productType });
             }
         });
         updateDataLayer('productImpressions');
