@@ -354,6 +354,8 @@ var onLoadProductTile = function () {
  **/
 
 var sliceProductImpressionArray = function (e, currency, runningAbTest) {
+    var abTestSegment = runningAbTest && runningAbTest[0] ? runningAbTest[0] : '';
+
     if ($('.slick-slider').length) {
         showProductImpressionCaraousel(e, currency, runningAbTest);
     } else {
@@ -367,7 +369,7 @@ var sliceProductImpressionArray = function (e, currency, runningAbTest) {
                     ecommerce: {
                         impressions: {
                             products: productObj,
-                            runningAbTests: runningAbTest[0]
+                            runningAbTests: abTestSegment
                         }
                     }
                 });
@@ -382,6 +384,8 @@ var sliceProductImpressionArray = function (e, currency, runningAbTest) {
 
 var showProductImpressionCaraousel = function (e, currency, runningAbTest) {
     var dataProductImpression = {};
+    var abTestSegment = runningAbTest && runningAbTest[0] ? runningAbTest[0] : '';
+
     updateDataLayer('productImpressions');
     var productObj = e.splice(0, 7);
     dataLayer.push({
@@ -389,7 +393,7 @@ var showProductImpressionCaraousel = function (e, currency, runningAbTest) {
         ecommerce: {
             impressions: {
                 products: productObj,
-                runningAbTests: runningAbTest[0]
+                runningAbTests: abTestSegment
             } 
         }
     });

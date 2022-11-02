@@ -260,6 +260,8 @@ var onPromoImpressionsLoad = function (e) {
 };
 
 var sliceProductImpressionArray = function (e, currency, runningAbTest) {
+    var abTestSegment = runningAbTest && runningAbTest[0] ? runningAbTest[0] : '';
+
     if ($('.slick-slider').length) {
         showProductImpressionCaraousel(e, currency, runningAbTest);
     } else {
@@ -273,7 +275,7 @@ var sliceProductImpressionArray = function (e, currency, runningAbTest) {
                     ecommerce: {
                         currencyCode: currency,
                         impressions: productObj,
-                        runningAbTests: runningAbTest[0]
+                        runningAbTests: abTestSegment
                     }
                 });
             }
@@ -289,12 +291,13 @@ var showProductImpressionCaraousel = function (e, currency, runningAbTest) {
     $.each(productObj, function (pKey, pVal) {
         pVal.list = 'carousel';
     });
+    var abTestSegment = runningAbTest && runningAbTest[0] ? runningAbTest[0] : '';
     dataLayer.push({
         event: 'productImpressions',
         ecommerce: {
             currencyCode: currency,
             impressions: productObj,
-            runningAbTests: runningAbTest[0]
+            runningAbTests: abTestSegment
         }
     });
 };
