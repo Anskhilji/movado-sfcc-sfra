@@ -94,7 +94,6 @@ module.exports = {
             }
             if ($form[0].elements['country'].value === 'US' && !stateCode) {
                 $("#state").next('.invalid-feedback').html(window.Resources.INVALID_STATE);
-                );
                 $('.invalid-feedback').show();
                 $form.spinner().stop();
                 return;
