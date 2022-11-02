@@ -84,7 +84,7 @@
 
 		<div class="row">
 			<div class="col">
-                <button class="btn btn-block btn-save btn-primary g-recaptcha" data-sitekey="${googeRecaptchaSiteKey}" data-callback='onSubmit' data-action='submit'>${Resource.msg('button.send','common',null)}</button>
+                <button class="btn btn-block btn-save btn-primary g-recaptcha" data-sitekey="${googeRecaptchaSiteKey}" data-callback='onSubmitCaptcha' data-action='submit'>${Resource.msg('button.send','common',null)}</button>
                 <button type="submit" name="Send" class="btn btn-save btn-block btn-primary d-none form-submit">${Resource.msg('button.send','common',null)}</button>
 			</div>
 		</div>

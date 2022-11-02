@@ -92,7 +92,7 @@
                            </div>
                            <div class="row">
                                <div class="col-md-6">
-                                <button type="submit" name="Send" class="btn-contact btn contact-tab-btn-save btn-block btn-primary g-recaptcha" data-sitekey="${googeRecaptchaSiteKey}"data-callback='onSubmit' data-action='submit'>${Resource.msg('contact.form.button.send','contactUs',null)}</button>
+                                <button type="submit" name="Send" class="btn-contact btn contact-tab-btn-save btn-block btn-primary g-recaptcha" data-sitekey="${googeRecaptchaSiteKey}"data-callback='onSubmitCaptcha' data-action='submit'>${Resource.msg('contact.form.button.send','contactUs',null)}</button>
                                 <button type="submit" name="Send" class="btn-contact btn contact-tab-btn-save btn-block btn-primary d-none form-submit">${Resource.msg('contact.form.button.send','contactUs',null)}</button>
                                </div>
                            </div>

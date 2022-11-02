@@ -1,4 +1,6 @@
-grecaptcha.ready();
-function onSubmit(token) {
-    $('.form-submit').click();
+'use strict'
+
+window.onSubmitCaptcha = function() { 
+    var $submitForm = document.getElementsByClassName('form-submit');
+    $($submitForm).click(); 
 }
