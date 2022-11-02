@@ -829,6 +829,7 @@ function handleVariantResponse(response, $productContainer) {
     var primaryImageUrls = response.product.images;
     if(response.isNewDesign) {
         $('.quadrant-pdp-wrapper').remove();
+        $('.zoom-modal-inner').remove();
         $('.pdp-quadrant').prepend(response.productImages);
     } else {
         $('.image-carousel-pdp-old').remove();
