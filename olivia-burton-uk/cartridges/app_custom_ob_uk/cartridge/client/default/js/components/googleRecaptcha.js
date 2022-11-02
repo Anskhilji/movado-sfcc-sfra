@@ -1,1 +1,0 @@
-require('movado/components/googleRecaptcha');
