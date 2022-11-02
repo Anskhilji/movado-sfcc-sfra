@@ -640,17 +640,7 @@ var carouselAfterChangeEvent = function () {
             if (productData) {
                 currency = productData.currency;
                 productData.list = 'carousel';
-                productDataArray.push({ name: gtmTrackingData.name,
-                    familyName: gtmTrackingData.familyName,
-                    productColor: gtmTrackingData.productColor,
-                    id: gtmTrackingData.id,
-                    price: gtmTrackingData.price,
-                    category: gtmTrackingData.category,
-                    sku: gtmTrackingData.sku,
-                    variantID: gtmTrackingData.variantID,
-                    brand: gtmTrackingData.brand,
-                    currentCategory: gtmTrackingData.currentCategory,
-                    productType: gtmTrackingData.productType });
+                productDataArray.push(productData);
             }
         });
         updateDataLayer('productImpressions');
