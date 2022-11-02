@@ -98,11 +98,3 @@
     scope="page" />
   <isprint value="${fontStyleSheet}" encoding="off" />
   <script src="https://www.google.com/recaptcha/api.js"></script>
-<script>
- 	grecaptcha.ready();
-	function onSubmit(token) {
-		$('.form-submit').click();
-	}
-</script>
-
-  
