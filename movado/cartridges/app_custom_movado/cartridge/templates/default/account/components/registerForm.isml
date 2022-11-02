@@ -36,7 +36,7 @@
         <div class="dob-wrapper row">
           	<div class="custom-select-wrapper col-6">
 			  	<label for="month" class="sr-only">${Resource.msg('label.input.dateofbirth.month','forms',null)}</label>
-				<select class="form-control custom-select" id="month" <isprint value="${pdict.profileForm.customer.birthmonth.attributes}" encoding="off" />
+                <select class="form-control custom-select" id="month" <isprint value="${pdict.profileForm.customer.birthmonth.attributes}" encoding="off" />
                 data-birthdate ="${JSON.stringify(pdict.profileForm.customer.birthdate.options)}">
 		           <isloop items=${pdict.profileForm.customer.birthmonth.options} var="month">
 		           	 <option id="${'month-'+month.id}" value="${month.htmlValue}" <isif condition="${month.selected}">selected</isif> >${month.label}</option>
