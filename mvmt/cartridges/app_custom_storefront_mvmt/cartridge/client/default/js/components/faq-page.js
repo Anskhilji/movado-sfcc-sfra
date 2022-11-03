@@ -26,7 +26,12 @@ $(document).ready(function() {
     
         $('.faq-nav-control-bar-link').each(function(value,element){
             var $this = $(element);
+            var $mobileTabTitle;
             if ($this.attr('href') == $absoluteUrlWithId) {
+                $mobileTabTitle = $this.attr('title');
+                if ($mobileTabTitle !== '' && $mobileTabTitle !== undefined) {
+                    $('.faq-nav-control-bar-btn').text($mobileTabTitle);
+                }
                 $this.addClass('is-active');
             }
         });
