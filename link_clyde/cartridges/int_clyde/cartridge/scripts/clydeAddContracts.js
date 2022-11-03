@@ -181,7 +181,7 @@ function createOrderCustomAttr(order) {
                         var clydeItem = {
                             productId: productLineItem.custom.clydeAssociatedProductSku,
                             contractSku: productLineItem.custom.ClydeContractSku,
-                            contractPrice: productLineItem.getPriceValue(),
+                            contractPrice: productLineItem.proratedPrice.value ? productLineItem.proratedPrice.value : productLineItem.getPriceValue(),
                             quantity: productLineItem.quantityValue
                         };
                         contractjsonObj.push(clydeItem);
