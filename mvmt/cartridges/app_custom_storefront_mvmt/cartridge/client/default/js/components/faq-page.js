@@ -49,7 +49,7 @@ $(window).on('resize', function() {
     if ($tabsURL.indexOf('#') > 0) {
         var $URL = $tabsURL.split('#');
         var $absoluteURLWithID = '#'+$URL[1];
-        $('.faq-nav-control-bar-link').each(function(value,element){
+        $('.faq-nav-control-bar-link').each(function(value,element) {
             var $this = $(element);
             var $mobileTabTitle;
             
