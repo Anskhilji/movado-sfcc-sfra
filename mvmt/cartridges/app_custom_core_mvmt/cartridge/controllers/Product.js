@@ -243,12 +243,15 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
  */
 server.prepend('Variation', function (req, res, next) {
     var ABTestMgr = require('dw/campaign/ABTestMgr');
+    var viewData = res.getViewData();
 
     var attributeContext;
     var attributeTemplateLinked;
     var explicitRecommendations = [];
     var recommendedProductTemplate;
     var pid = req.querystring.pid;
+    var params = req.querystring;
+    var newDesign = false;
     var isStrapAjax = req.querystring.isStrapAjax;
 
     var strapGuideContent = ContentMgr.getContent('strap-guide-text-configs');
@@ -265,14 +268,23 @@ server.prepend('Variation', function (req, res, next) {
         strapGuideText: strapGuideText
     };
 
+    var pdpImagesTemplate = '';
     if (ABTestMgr.isParticipant('MVMTRedesignPDPABTest','Control')) {
         attributeTemplateLinked = 'product/components/old/recommendedProducts';
+        pdpImagesTemplate = 'product/components/old/imageCarouselPDP';
     } else if (ABTestMgr.isParticipant('MVMTRedesignPDPABTest','render-new-design')) {
         attributeTemplateLinked = 'product/components/recommendedProducts';
+        pdpImagesTemplate = 'product/components/quadrantPDP';
+        newDesign = true;
     } else {
         attributeTemplateLinked = 'product/components/old/recommendedProducts';
+        pdpImagesTemplate = 'product/components/old/imageCarouselPDP';
     }
-    
+
+    var product = ProductFactory.get(params);
+    var productHTML = renderTemplateHelper.getRenderedHtml({product: product}, pdpImagesTemplate);
+    viewData.productImages = productHTML;
+    viewData.isNewDesign = newDesign;
 
     recommendedProductTemplate = renderTemplateHelper.getRenderedHtml(
             attributeContext,

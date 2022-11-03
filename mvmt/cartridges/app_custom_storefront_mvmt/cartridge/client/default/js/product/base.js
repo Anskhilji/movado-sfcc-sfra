@@ -827,28 +827,14 @@ function handleVariantResponse(response, $productContainer) {
 
     // Update primary images
     var primaryImageUrls = response.product.images;
-    primaryImageUrls.pdp600.forEach(function (imageUrl, idx) {
-        $productContainer.find('.primary-images .cs-carousel-wrapper').find('img').eq(idx)
-            .attr('src', imageUrl.url);
-        $productContainer.find('.primary-images .cs-carousel-wrapper').find('.carousel-tile').eq(idx)
-            .attr('data-thumb', imageUrl.url);
-        $productContainer.find('.primary-images .cs-carousel-wrapper').find('picture source:nth-child(1)').eq(idx)
-            .attr('srcset', imageUrl.url);
-        $productContainer.find('.primary-images .cs-carousel-wrapper').find('picture source:nth-child(2)').eq(idx)
-            .attr('srcset', imageUrl.url);
-    });
-
-    // Update gallery images Quadrant
-    primaryImageUrls.pdp453.forEach(function (imageUrl, idx) {
-        $productContainer.find('.primary-images .gallery-slider-quadrant').find('img').eq(idx)
-            .attr('src', imageUrl.url);
-        $productContainer.find('.primary-images .gallery-slider-quadrant').find('.carousel-tile').eq(idx)
-            .attr('data-thumb', imageUrl.url);
-        $productContainer.find('.primary-images .gallery-slider-quadrant').find('picture source:nth-child(1)').eq(idx)
-            .attr('srcset', imageUrl.url);
-        $productContainer.find('.primary-images .gallery-slider-quadrant').find('picture source:nth-child(2)').eq(idx)
-            .attr('srcset', imageUrl.url);
-    });
+    if(response.isNewDesign) {
+        $('.quadrant-pdp-wrapper').remove();
+        $('.zoom-modal-inner').remove();
+        $('.pdp-quadrant').prepend(response.productImages);
+    } else {
+        $('.image-carousel-pdp-old').remove();
+        $('.image-carousel-pdp').prepend(response.productImages);
+    }
 
     // pdp Video for variations
     var pdpVideoConfigs = response.product.pdpVideoConfigs;
