@@ -93,17 +93,19 @@ function send(emailObj, template, context) {
                 requestParams.paymentMethod = context.order.billing.payment.selectedPaymentInstruments[0].paymentMethod;
                 requestParams.email = context.order.orderEmail;
                 requestParams.productLayout = productLayout(context);
-                for (var i = 0; i < context.order.items.totalQuantity; i++) {
-                   productLevelDiscount = context.order.items.items[i].priceTotal.savingPrice.value;
-                   productLevelTotalDiscount = productLevelTotalDiscount + productLevelDiscount;
+                if (!empty(context.order) && !empty(context.order.items) && !empty(context.order.items.totalQuantity > 0)) {
+                    for (var i = 0; i < context.order.items.totalQuantity; i++) {
+                    productLevelDiscount = context.order.items.items[i].priceTotal.savingPrice.value;
+                    productLevelTotalDiscount = productLevelTotalDiscount + productLevelDiscount;
+                    }
+                    if (productLevelTotalDiscount > 0) {
+                        totalDiscount = productLevelTotalDiscount + context.order.totals.orderLevelDiscountTotal.value;
+                        totalDiscount = Currency.getCurrency(context.cuurentOrder.currencyCode).symbol + totalDiscount;
+                    } else {
+                        totalDiscount = context.order.totals.orderLevelDiscountTotal.formatted;
+                    }
+                    requestParams.discount = !empty(totalDiscount) ? totalDiscount : zeroAmount;
                 }
-                if (!empty(productLevelTotalDiscount)) {
-                    totalDiscount = productLevelTotalDiscount + context.order.totals.orderLevelDiscountTotal.value;
-                    totalDiscount = Currency.getCurrency(context.cuurentOrder.currencyCode).symbol + totalDiscount;
-                } else {
-                    totalDiscount = context.order.totals.orderLevelDiscountTotal.formatted;
-                }
-                requestParams.discount = !empty(totalDiscount) ? totalDiscount : zeroAmount;
                 break;
             case 5:
                 requestParams.messageContext = Constants.LTK_ACCOUNT_CONTEXT;
