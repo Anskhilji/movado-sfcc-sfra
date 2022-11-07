@@ -7,7 +7,10 @@ var updateDataLayer = function (string) {
 };
 
 $('body').on('product:afterAddToCart', function (evt, data) {
-    if ($('[data-action]').data('action') == 'Product-Show' && data && data.addCartGtmArray) {
+    var addToCart = dataLayer.filter(function (e) {
+        return e.event == 'addToCart';
+    });
+    if ($('[data-action]').data('action') == 'Product-Show' && data && data.addCartGtmArray && addToCart.length == 0) {
         updateDataLayer('addToCart');
         var gtmCartData = data.addCartGtmArray ? data.addCartGtmArray : '';
         dataLayer.push({
@@ -28,7 +31,7 @@ $('body').on('product:afterAddToCart', function (evt, data) {
                 }
             }
         });
-    } else if ($('[data-action]').data('action') == 'Search-Show' && data && data.addCartGtmArray) {
+    } else if ($('[data-action]').data('action') == 'Search-Show' && data && data.addCartGtmArray && addToCart.length == 0) {
         updateDataLayer('addToCart');
         var gtmCartData = data.addCartGtmArray ? data.addCartGtmArray : '';
         dataLayer.push({
