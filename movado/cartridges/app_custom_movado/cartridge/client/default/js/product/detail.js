@@ -260,7 +260,7 @@ window.onload = () => {
     var listrakPopupSearchResult = document.querySelector('.listrak-popup-search-result');
     var listrakPopupProductDetail = document.querySelector('.listrak-popup-product-detail');
     var data = sessionStorage.getItem("listrakPersistenPopup");
-    if (data == null) {
+    if (data == null && listrakPopup != null) {
         var isListrakPopupContain = listrakPopup.classList.contains('listrak-persistent-popup');
     
         if (isListrakPopupContain) {
