@@ -113,10 +113,6 @@ function validateBasket(data) {
 
     if ($fullCart.length > 0) {
         $fullCart.find('.grand-total-sum').empty().append(data.totals.grandTotal);
-        // data.items.forEach(function (item) {
-        //     $fullCart.find('.item-' + item.UUID).empty().append(item.renderedPromotions);
-        //     $fullCart.find('.item-total-' + item.UUID).empty().append(item.priceTotal.renderedPrice);
-        // });
     }
 
     /* Affirm block for refreshing promo message */
