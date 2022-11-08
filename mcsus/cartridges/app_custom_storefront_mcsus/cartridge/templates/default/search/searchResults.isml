@@ -66,7 +66,7 @@
 						<isinclude template="search/resultsCount" />
 					</div>
 					<isif condition="${pdict.productSearch.productIds.length > 0}">
-						<div class="col-6 col-sm-3 order-sm-1 sort-filters-button sort-col">
+						<div class="col-6 col-sm-3 order-sm-1 sort-filters-button sort-col sort-filter-box">
 							<isinclude template="search/sortOrderMenu" />
 						</div>
 						<div class="col-6 col-sm-3 text-right d-md-none order-sm-3 filter-col">
@@ -146,7 +146,7 @@
 				<isprint value="${dw.content.ContentMgr.getContent('swatch-color-images').custom.body}" encoding="off"/>
 			</div>
 		</isif>
-				<!-- Start: Listrak persistent popup -->
+		<!-- Start: Listrak persistent popup -->
 		<isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page" />
 		<isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled && pdict.popupID}">
 			<span class="listrak-persistent-url" data-listrak-url="${URLUtils.https('EmailPopUp-Show')}"></span>

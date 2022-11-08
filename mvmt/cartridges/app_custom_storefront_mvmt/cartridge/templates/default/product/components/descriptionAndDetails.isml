@@ -58,7 +58,7 @@
                         <div class="pdp-content-body accordian-mobile-body review-box-mvmt">
                             <div class="w-100 accordian-review-box reviews-here">
                                 <h3 class="details-heading text-center">${Resource.msg('label.tab.review.redesign', 'product', null)}</h3>
-                                 <div class="yotpo yotpo-shoppers-say accordian-review" data-product-id="${pdict.product.id}"></div>
+                                 <div class="yotpo yotpo-shoppers-say accordian-review" data-product-id="${pdict.product && pdict.product.masterProductID ? pdict.product.masterProductID : ''}"></div>
                             </div>
 
                             <div class="w-100 accordian-review-box review-empty-box">
@@ -78,7 +78,7 @@
                         </div>
                         <div class="pdp-content-body">
                             <div class="w-100">
-                                <div class="pd-desc-mvmt product-description"><isslot id="cs-pdp-shipping-and-retruns" context="global" description="Shipping & Returns" /></div>
+                                <div class="pd-desc-mvmt shipping-returns-description product-descriptions"><isslot id="cs-pdp-shipping-and-retruns" context="global" description="Shipping & Returns" /></div>
                             </div>
                         </div>
                     </div>

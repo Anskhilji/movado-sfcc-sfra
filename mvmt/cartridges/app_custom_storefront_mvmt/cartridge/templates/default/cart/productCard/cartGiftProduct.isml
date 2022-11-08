@@ -1,0 +1,144 @@
+<div class="container px-0">
+        <!--- name and remove buttons --->
+    <isset name="lineItem" value="${childlineItem}" scope="page" />
+    <div class="row gift-product-row border-top-0 gift-product-remove-${lineItem.UUID} ${bonuslineitemrow} item-info">
+        <div class="col-12">
+            <div class="border-gift"></div>
+        </div>
+        <isif condition="${lineItem && lineItem.images && lineItem.images.tile150[0]}">
+            <isset name="productImage" value="${lineItem && lineItem.images && lineItem.images.tile150[0] ? lineItem.images.tile150[0] : ''}" scope="page"/>
+            <iscomment> bootstrap columns classes changed </iscomment>
+            <div class="align-items-center col-8 col-lg-6 d-flex">
+                <img class="product-image" src="${productImage.url}" alt="${productImage.alt}" title="${productImage.title}">
+                <div class="item-name-and-price">
+                    <isinclude template="cart/productCard/cartProductCardHeader" />
+                    <iscomment> cart-mobile class added </iscomment>
+                    <div class="hidden-lg-up cart-mobile-price mt-1">
+                        <isset name="price" value="${lineItem.price}" scope="page"/>
+                        <isinclude template="/product/components/pricing/main" />
+                    </div>
+                    <div class="item-attributes">
+                        <iscomment> Custom Start: Clyde Integration </iscomment>
+                            <isif condition="${dw.system.Site.current.preferences.custom.isClydeEnabled}">
+                                <isif condition="${(lineItem.productName).substring(0, 13) === 'clydeContract'}">
+                                    <p class="line-item-attributes">${(lineItem.lineItemText)}</p>
+                                <iselse/>
+                                    <isloop items="${lineItem.variationAttributes}" var="attribute">
+                                        <isif condition="${typeof option != 'undefined' && option.optionId === Resource.msg('emboss.displayValue', 'cart', null) && lineItem.customAttributes.emboss}"> 
+                                            <p class="line-item-attributes">${Resource.msg('emboss.displayValue.change', 'cart', null)}: ${attribute.displayValue}</p>
+                                        <iselse>
+                                            <p class="line-item-attributes">${attribute.displayName}: ${attribute.displayValue}</p>
+                                        </isif>
+                                    </isloop>
+                                </isif>
+                            <iselse/>
+                                <isloop items="${lineItem.variationAttributes}" var="attribute">
+                                    <isif condition="${typeof option != 'undefined' && option.optionId === Resource.msg('emboss.displayValue', 'cart', null) && lineItem.customAttributes.emboss}"> 
+                                        <p class="line-item-attributes">${Resource.msg('emboss.displayValue.change', 'cart', null)}: ${attribute.displayValue}</p>
+                                    <iselse>
+                                        <p class="line-item-attributes">${attribute.displayName}: ${attribute.displayValue}</p>
+                                    </isif>
+                                </isloop>
+                            </isif>
+                        <iscomment> Custom End: </iscomment>
+                        <iscomment> added class d-none </iscomment>
+                        <p class="line-item-attributes d-none model-name">${lineItem.resources.Model} ${lineItem.id}</p>
+                        <isloop items="${lineItem.options}" var="option">
+                            <isif condition="${!!option && option.selectedValueId != 0}" />
+                                <isif condition="${option.optionId === 'Embossed' && lineItem.customAttributes.emboss}">
+                                    <p class="line-item-attributes personalize-price">${Resource.msg('emboss.displayValue.change', 'cart', null)} (${lineItem.customAttributes.emboss.price}): <span class="personalize-msg">${lineItem.customAttributes.emboss.msgLine1}</span></p>
+                                </isif>
+                                <isif condition="${option.optionId === 'Engraved' && lineItem.customAttributes.engrave}">
+                                    <div class="mb-2">
+                                        <p class="line-item-attributes personalize-price">${option.optionId} (${lineItem.customAttributes.engrave.price}):</p>
+                                        <div class="personalize-msg">${lineItem.customAttributes.engrave.msgLine1}</div>
+                                        <isif condition="${lineItem.customAttributes.engrave.msgLine2}">
+                                            <div class="personalize-msg">${lineItem.customAttributes.engrave.msgLine2}</div>
+                                        </isif>
+                                    </div>
+                                </isif>
+                            </isif>
+                        </isloop>
+                        <isinclude template="cart/productCard/cartProductCardAvailability" />
+
+                        <isif condition="${lineItem.productType && lineItem.productType === Resource.msg('product.variant','product',null)}" >
+                            <div class="product-edit">
+                                <a href="${URLUtils.url('Cart-GetProduct', 'uuid', lineItem.UUID)}" class="edit" title="${Resource.msg('link.edit.item', 'cart',null)}">${Resource.msg('link.edit.item', 'cart', null)}</a>
+                            </div>
+                        </isif>
+                        <iscomment> <isset name="product" value="${dw.catalog.ProductMgr.getProduct(lineItem.id)}" scope="page" />
+                        <isset name="isGiftBoxAllowed" value="${require('*/cartridge/scripts/helpers/productCustomHelper').isGiftBoxAllowed(product)}" scope="page" />
+                        <isset name="giftBoxEnabled" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxEnabled) ? dw.system.Site.current.preferences.custom.giftBoxEnabled : false}" scope="page" />
+                        <isset name="giftBoxSKUData" value="${require('*/cartridge/scripts/helpers/productCustomHelper').getGiftBoxSKU(product)}" scope="page" />
+                        <isset name="isCartPage" value="${true}" scope="page" />
+                        <isset name="giftBoxMessage" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxMessage) ? dw.system.Site.current.preferences.custom.giftBoxMessage : ''}" scope="page" />
+                        <isif condition="${isGiftBoxAllowed && giftBoxEnabled && giftBoxSKUData.giftBoxSKUAvailability && !(pdict.giftOptions.indexOf(lineItem.UUID) > -1)}">
+                           <div class="gift-box-wrapper  gift-box-wrapper-cart">
+                               <label class="gift-box-wrapper-label custom-control-label-pdp">
+                                    <input id="gift-allowed-checkout" type="checkbox" data-add-to-cart-url="${URLUtils.url('Cart-AddProduct')}" data-requested-page="${isCartPage}" name="gift-allowed-checkout" class="gift-allowed-checkbox gift-allowed-checkbox-mini giftbox-mini-${lineItem.UUID}" data-parent-pid="${lineItem.UUID}" data-pid="${lineItem.id}" value="${giftBoxSKUData.giftBoxSKU}">
+                                    ${giftBoxMessage} ${giftBoxSKUData.giftBoxSKUPrice}
+                                     <span class="checkmark"></span>
+                                </label>
+                           </div>
+                        </isif> </iscomment>
+                        <isif condition="${pdict.loggedIn}">
+                             <div class="hidden-xs-down edit-add-to-wishlist">
+                                  <isinclude template="cart/productCard/cartProductCardEdit" />
+                             </div>
+                        </isif>
+                    </div>
+                    <div class="remove-line-item remove-line-item-mobile d-lg-none">
+                        <button type="button" class="remove-btn remove-product btn btn-light" data-toggle="modal"
+                                data-target="#removeProductModal" data-pid="${lineItem.id}"
+                                data-name="${lineItem.productName}"
+                                data-action="${pdict.actionUrls.removeProductLineItemUrl}"
+                                data-uuid="${lineItem.UUID}"
+                                data-gift="true"
+                                aria-label="remove" data-gtm-cart="${JSON.stringify(pdict.cartItemObj[loopStatus.index])}">
+                            <span>${Resource.msg('label.cart.remove', 'cart', null)}</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </isif>
+        <!--- quantity --->
+        <iscomment> Custom Start: Removed the d-none class </iscomment>
+        <div class="col-4 col-lg-2 line-item-quantity">
+            <isinclude template="checkout/productCard/productCardQuantitySelector" />
+        </div>
+        <iscomment> Custom End </iscomment>
+        <div class="col-2 hidden-md-down p-0 p-lg-2 item-total-${lineItem.UUID}">
+            <isset name="price" value="${lineItem.price}" scope="page"/>
+            <isinclude template="/product/components/pricing/giftMain" />
+        </div>
+        <div class="col-3 col-sm-2 hidden-md-down">
+            <isif condition="${!lineItem.isBonusProductLineItem}"/>
+                <div class="remove-line-item">
+                    <button type="button" class="remove-btn remove-product btn btn-light" data-toggle="modal"
+                            data-target="#removeProductModal" data-pid="${lineItem.id}"
+                            data-name="${lineItem.productName}"
+                            data-action="${pdict.actionUrls.removeProductLineItemUrl}"
+                            data-uuid="${lineItem.UUID}"
+                            data-gift="true"
+                            aria-label="remove" data-gtm-cart="${JSON.stringify(pdict.cartItemObj[loopStatus.index])}">
+                        <span class="hidden-sm-down">${Resource.msg('label.cart.remove', 'cart', null)}</span>
+                        <span class="hidden-md-up"><img src="${URLUtils.staticURL('/images/cartCross.svg')}"/></span>
+                    </button>
+                </div>
+                <iscomment> <div class="hidden-md-down">
+                    <button type="button" class="remove-btn-lg remove-product btn btn-light" data-toggle="modal"
+                            data-target="#removeProductModal" data-pid="${lineItem.id}"
+                            data-name="${lineItem.productName}"
+                            data-action="${pdict.actionUrls.removeProductLineItemUrl}"
+                            data-uuid="${lineItem.UUID}"
+                            aria-label="remove">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div> </iscomment>
+            </isif>
+        </div>
+        <isif condition="${lineItem.bonusProductLineItemUUID === 'bonus'}">
+            <div class="col-12 d-lg-none"><hr class="line-item-divider"></div>
+        </isif>
+    </div>
+</div>
