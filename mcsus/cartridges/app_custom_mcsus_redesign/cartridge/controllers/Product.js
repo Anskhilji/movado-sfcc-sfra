@@ -49,6 +49,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
     var productType = showProductPageHelperResult.product.productType;
     var template =  'product/productDetails';
+    var emailPopupHelper = require('*/cartridge/scripts/helpers/emailPopupHelper');
 
     var viewData = res.getViewData();
     var product = showProductPageHelperResult.product;
@@ -108,6 +109,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
    var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
    //Custom End
 
+   var listrakPersistentPopup = emailPopupHelper.listrakPersistentPopup(req);
    viewData = {
        isEmbossEnabled: isEmbossEnabled,
        isEngraveEnabled: isEngraveEnabled,
@@ -136,7 +138,8 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
        addToCartUrl: showProductPageHelperResult.addToCartUrl,
        isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
        smartGiftAddToCartURL : smartGiftAddToCartURL,
-       customURL: customURL
+       customURL: customURL,
+       popupID: listrakPersistentPopup
    };
    var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
    res.setViewData(smartGift);
@@ -150,6 +153,12 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
       pdpAnalyticsTrackingData.email = customer.isAuthenticated() && customer.getProfile() ? customer.getProfile().getEmail() : '';
        viewData.pdpAnalyticsTrackingData = JSON.stringify(pdpAnalyticsTrackingData);
    }
+
+    if (!empty(req.querystring.lastNameError)) {
+        res.setViewData({
+            lastNameError: req.querystring.lastNameError
+        });
+    }
 
    res.setViewData(viewData);
    if (!showProductPageHelperResult.product.online && productType !== 'set' && productType !== 'bundle') {
@@ -185,6 +194,24 @@ server.replace('ShowCartButton', function (req, res, next) {
         restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites,
         ecommerceFunctionalityEnabled : Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled,
         smartGiftAddToCartURL : smartGiftAddToCartURL
+    });
+    next();
+});
+
+server.get('ShowStickyATCButton', function (req, res, next) {
+    var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
+    var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
+    var product = showProductPageHelperResult.product;
+    var customURL = productCustomHelper.getPLPCustomURL(product);
+
+    res.render('product/components/stickyAddToCart', {
+        product: product,
+        addToCartUrl: showProductPageHelperResult.addToCartUrl,
+        isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
+        loggedIn: req.currentCustomer.raw.authenticated,
+        restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites,
+        ecommerceFunctionalityEnabled: Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled,
+        customURL: customURL
     });
     next();
 });

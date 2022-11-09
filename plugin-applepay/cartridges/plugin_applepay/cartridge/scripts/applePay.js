@@ -66,7 +66,6 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     var orderShippingAddress;
     var isShippingPostalNotValid;
     var orderNumber = order.orderNo;
-    var URLUtils = require('dw/web/URLUtils');
     var paymentInstruments = order.getPaymentInstruments(
         PaymentInstrument.METHOD_DW_APPLE_PAY).toArray();
     if (!paymentInstruments.length) {
@@ -209,6 +208,7 @@ exports.afterAuthorization = function (order, payment, custom, status) {
         riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order);
         if (riskifiedOrderDeclined) {
             var riskifiedError = new Status(Status.ERROR);
+            session.privacy.riskifiedDeclined = true;
             return riskifiedError;
         }
     } else if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'approved') {
@@ -262,6 +262,25 @@ exports.afterAuthorization = function (order, payment, custom, status) {
 
     return status;
 };
+
+/**
+ *	if order is failed and RiskDeclined true then based on session privacy check redirect to the checkout declined page
+ * @param order
+ * @param status
+ * @returns status
+ */
+ exports.failOrder = function (order, status) {
+    var URLUtils = require('dw/web/URLUtils');
+
+    if (session.privacy.riskifiedDeclined) {
+        delete session.privacy.riskifiedDeclined;
+        return new ApplePayHookResult(new Status(Status.ERROR), URLUtils.url('Checkout-Declined', 'ID', order.orderNo));
+    } else {
+        return new Status(Status.OK);
+    }
+};
+
+/**
 
 /**
  *	prepareBasket hook implementation for Apple pay updating the  personalization data in Basket from PDP and Quickview

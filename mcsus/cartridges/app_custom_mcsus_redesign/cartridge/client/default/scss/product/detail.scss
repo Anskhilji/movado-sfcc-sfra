@@ -769,6 +769,10 @@
                         &.product-detail {
                             margin-top: rem(23);
 
+                            .gpay-error {
+                                background-color: $white;
+                            }
+
                             // .product-breadcrumb-redesign
                             .paddind-sm-0 {
                                 @include media-breakpoint-down(sm) {
@@ -2111,3 +2115,14 @@
     }
 }
 // CSS End: isPick up store pdp redesign
+
+// CSS Start: listrak persistent popup
+.listrak-persistent-popup {
+    display: none !important;
+}
+.button-floting {
+    &.button-product-detail {
+        bottom: rem(160);
+    }
+}
+// CSS End: listrak persistent popup
