@@ -511,7 +511,7 @@ function removeSelectedFilterDesktop($element, desktopActiveTabId) {
             window.history.pushState({}, '', newFilteredUrl);
 
             if (urlReload) {
-                filterBarEmpty($(this), newFilteredUrl, desktopActiveTabId);
+                filterBarEmpty($(this), newFilteredUrl);
             }
             return;
         } else {
@@ -1191,10 +1191,8 @@ function clearAllBtnTrigger($element) {
 }
 
 // Desktop & Mobile Filter bar plp: on plp clicked on last filter btn without reload the page populate the results
-function filterBarEmpty($element, filtersURL, desktopActiveTabId) {
+function filterBarEmpty($element, filtersURL) {
     $.spinner().start();
-    var clickedFilterTab = desktopActiveTabId;
-
     $element.trigger('search:filter', $element);
     $.ajax({
         url: filtersURL,
@@ -1223,20 +1221,6 @@ function filterBarEmpty($element, filtersURL, desktopActiveTabId) {
             bulidLifeStyleCarousel();
             if (isInfiniteScrollEnabled && (isPaginationEnabled == false)) {
                 loadMoreIndex = $('#product-search-results .product-tile').length - (parseInt(initiallyLoadedProducts / 2) + 1);
-            }
-            var isClickedFilterTab = document.querySelectorAll('.plp-filter-list');
-            if (isClickedFilterTab && isClickedFilterTab.length > 0) {
-                isClickedFilterTab.forEach(function (el) {
-                  var filterSelectedTab =  el.firstChild.nextSibling;
-                  var isFilterSelectedTabId = filterSelectedTab.getAttribute('id');
-                  if (isFilterSelectedTabId == clickedFilterTab) {
-                    var filterSelectedPopup = el.lastChild.previousSibling;
-                    filterSelectedTab.classList.add('active');
-                    filterSelectedPopup.classList.add('loaded', 'active');
-                    $('.plp-grid-overlay').addClass('active');
-                    $('.plp-active-filter-selected').removeClass('d-none');
-                  }
-                });
             }
             totalProductCountResultupdate();
         },
@@ -2662,23 +2646,6 @@ module.exports = {
                 var desktopActiveTabId = activeTabEl && activeTabElAll.length == 0 ? activeTabEl.getAttribute('id') : activeTabElAll.length > 0 && activeTabElAll[1] ? activeTabElAll[1].getAttribute('id') : null;
                 // Custom end desktop
 
-                
-                // Custom start mobile: getting active filter tab id
-                // var isFilterSort = document.querySelector('.mobile-sort-menu.mobile-sort-menu-container');
-                // var isFilterSortActive = isFilterSort.classList.contains('active');
-
-                // if (!isFilterSortActive) {
-                //     var clickedFilterTabMobile = document.querySelector('.mvmt-redesign-filter-button.active');
-                //     var clickedFilterTabMobileDataValue = clickedFilterTabMobile.dataset.optionSelect;
-                //     var clickedFilterTabMobileDataValueRemoveDot = clickedFilterTabMobileDataValue.split('.')[1];
-                // } else {
-                //     //custom start: mobile filter & sort
-                //     var clickedFilterTabMobile = $(this).parent().parent().prev().attr('id') ? $(this).parent().parent().prev().attr('id') : null;
-                //     //custom start
-                // }
-                // Custom start desktop
-
-                
                 if (!desktopActiveFilterClosed && mobileActiveFilterClosed) {
                     removeSelectedFilterDesktop($(this), desktopActiveTabId);
                 } else if (desktopActiveFilterClosed && !mobileActiveFilterClosed) {
