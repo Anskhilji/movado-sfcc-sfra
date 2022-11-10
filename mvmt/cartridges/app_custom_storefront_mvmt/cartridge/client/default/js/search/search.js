@@ -702,7 +702,6 @@ function removeSelectedFilterMobile($element) {
 
         if (!isFilterSortActive) {
             var clickedFilterTabMobile = document.querySelector('.mvmt-redesign-filter-button.active');
-            console.log(clickedFilterTabMobile);
             if (clickedFilterTabMobile) {
                 var clickedFilterTabMobileDataValue = clickedFilterTabMobile.dataset.optionSelect;
                 var clickedFilterTabMobileDataValueRemoveDot = clickedFilterTabMobileDataValue.split('.')[1];
@@ -2849,7 +2848,6 @@ module.exports = {
             $('.mobile-selection').removeClass('skip-animation');
 
             $('.mobile-selection .mobile-active-filters, .mobile-selection .mobile-active-actions').removeClass('skip-animation loaded');
-            alert('hhdhhdhdh');
         });
         // Custom end: Mobile filters popup close on x button
         $(document).on("click", '.mobile-selection .mobile-menu-close', function(e) {
@@ -2896,7 +2894,6 @@ module.exports = {
                 var isMobileFilterTabContain = isMobileFilterTab.hasClass('mvmt-redesign-filter-button');
                 $('.mvmt-redesign-filter-button').removeClass('active');
                 isMobileFilterTab.addClass('active');
-                console.log(isMobileFilterTabContain);
             }
         });
     },
