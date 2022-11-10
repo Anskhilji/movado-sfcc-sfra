@@ -516,7 +516,7 @@ function removeSelectedFilterDesktop($element, desktopActiveTabId) {
             return;
         } else {
             filterLoadInProgress = true;
-            var clickedFilterTab = desktopActiveTabId;
+            var clickedFilterTabId = desktopActiveTabId;
             var parentSelectorOuter = document.querySelector('.plp-filter-redesign');
             if (parentSelectorOuter) {
                 var parentSelector = parentSelectorOuter.querySelectorAll('.filter-refinement-container');
@@ -668,15 +668,15 @@ function removeSelectedFilterDesktop($element, desktopActiveTabId) {
                         var isClickedFilterTab = document.querySelectorAll('.plp-filter-list');
                         if (isClickedFilterTab && isClickedFilterTab.length > 0) {
                             isClickedFilterTab.forEach(function (el) {
-                              var filterSelectedTab =  el.firstChild.nextSibling;
-                              var isFilterSelectedTabId = filterSelectedTab.getAttribute('id');
-                              if (isFilterSelectedTabId == clickedFilterTab) {
-                                var filterSelectedPopup = el.lastChild.previousSibling;
-                                filterSelectedTab.classList.add('active');
-                                filterSelectedPopup.classList.add('loaded', 'active');
-                                $('.plp-grid-overlay').addClass('active');
-                                $('.plp-active-filter-selected').removeClass('d-none');
-                              }
+                                var filterSelectedTab =  el.firstChild.nextSibling;
+                                var isFilterSelectedTabId = filterSelectedTab.getAttribute('id');
+                                if (isFilterSelectedTabId == clickedFilterTabId) {
+                                    var filterSelectedPopup = el.lastChild.previousSibling;
+                                    filterSelectedTab.classList.add('active');
+                                    filterSelectedPopup.classList.add('loaded', 'active');
+                                    $('.plp-grid-overlay').addClass('active');
+                                    $('.plp-active-filter-selected').removeClass('d-none');
+                                }
                             });
                         }
                     },
