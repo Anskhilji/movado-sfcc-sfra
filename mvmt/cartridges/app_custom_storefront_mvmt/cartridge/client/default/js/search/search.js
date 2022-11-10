@@ -1697,7 +1697,6 @@ module.exports = {
 
         $(document).on('click', '.plp-filter-redesign .filter-group .close-icon', function () {
             $('.plp-filter-btn.active').trigger('click');
-            // localStorage.removeItem("filterId");
         });
     },
 
@@ -2720,8 +2719,6 @@ module.exports = {
             if (!isFilterContains) {
                 $(".plp-filter-redesign").addClass('active-filter-closed-desktop');
             }
-            // var filterId = button.getAttribute('id');
-            // localStorage.setItem("filterId", filterId);
         });
 
         $(document).on('click', '.filter-close-btn', function (e) {
