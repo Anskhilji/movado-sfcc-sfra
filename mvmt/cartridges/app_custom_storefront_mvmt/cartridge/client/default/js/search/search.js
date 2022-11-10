@@ -467,7 +467,7 @@ function totalProductCountResultupdate() {
 }
 
 // Desktop Filter bar plp: on plp after clicked on filters bar close btn
-function removeSelectedFilterDesktop($element) {
+function removeSelectedFilterDesktop($element, desktopActiveTabId) {
     var isSelectedFilterBar = document.querySelector('.filter-bar-list > .selected-filter-bar');
 
     if (isSelectedFilterBar) {
@@ -511,12 +511,12 @@ function removeSelectedFilterDesktop($element) {
             window.history.pushState({}, '', newFilteredUrl);
 
             if (urlReload) {
-                filterBarEmpty($(this), newFilteredUrl);
+                filterBarEmpty($(this), newFilteredUrl, desktopActiveTabId);
             }
             return;
         } else {
             filterLoadInProgress = true;
-            var clickedFilterTab = localStorage.getItem("filterId");
+            var clickedFilterTab = desktopActiveTabId;
             var parentSelectorOuter = document.querySelector('.plp-filter-redesign');
             if (parentSelectorOuter) {
                 var parentSelector = parentSelectorOuter.querySelectorAll('.filter-refinement-container');
@@ -696,6 +696,19 @@ function removeSelectedFilterMobile($element) {
     var isSelectedFilterBar = document.querySelector('.filter-bar-list > .selected-filter-bar');
             
     if (isSelectedFilterBar) {
+
+        var isFilterSort = document.querySelector('.mobile-sort-menu.mobile-sort-menu-container');
+        var isFilterSortActive = isFilterSort.classList.contains('active');
+
+        if (!isFilterSortActive) {
+            var clickedFilterTabMobile = document.querySelector('.mvmt-redesign-filter-button.active');
+            console.log(clickedFilterTabMobile);
+            if (clickedFilterTabMobile) {
+                var clickedFilterTabMobileDataValue = clickedFilterTabMobile.dataset.optionSelect;
+                var clickedFilterTabMobileDataValueRemoveDot = clickedFilterTabMobileDataValue.split('.')[1];
+            }
+        }
+        
         var isFilterChildList = isSelectedFilterBar.children.length > 0;
 
         if (!isFilterChildList) {
@@ -905,6 +918,38 @@ function removeSelectedFilterMobile($element) {
                         if (isInfiniteScrollEnabled && (isPaginationEnabled == false)) {
                             loadMoreIndex = $('#product-search-results .product-tile').length - (parseInt(initiallyLoadedProducts / 2) + 1);
                         }
+                        // Custom Start: mobile filter active
+                        if (!isFilterSortActive) { 
+                            var mobileFilterMenuMain = document.querySelector('.mobile-filter-menu.mobile-menu-container-main');
+                            if (mobileFilterMenuMain) {
+                                var mobileActiveFilter = mobileFilterMenuMain.querySelector('.'+clickedFilterTabMobileDataValueRemoveDot);
+                                if (mobileActiveFilter) {
+                                    mobileFilterMenuMain.classList.add('active');
+                                    mobileFilterMenuMain.classList.remove('disable-events');
+                                    mobileActiveFilter.classList.add('active');
+                                    var mobileActiveFilterChild = mobileActiveFilter.children[0];
+                                    var firstChild = mobileActiveFilterChild.firstChild.nextSibling;
+                                    var lastChild = mobileActiveFilterChild.lastChild.previousSibling
+                                    ;
+                                    firstChild.classList.add('loaded');
+                                    lastChild.classList.add('loaded');
+                                    var mobileFilterButtonAll = document.querySelectorAll('.mvmt-redesign-filter-button');
+                                    mobileFilterButtonAll.forEach(function (el) {
+                                        var mobileFilterBtnDataValue = el.dataset.optionSelect;
+                                        if (mobileFilterBtnDataValue && mobileFilterBtnDataValue == clickedFilterTabMobileDataValue) {
+                                            el.classList.add('active');
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                        // Custom End
+
+                        // Custom Start: mobile sort & filter active
+                        if (isFilterSortActive) {
+                            isFilterSort.classList.add('active');
+                        }
+                        // Custom end
                         bulidLifeStyleCarousel();
                         filterScroll();
                         totalProductCountResultupdate();
@@ -1147,9 +1192,10 @@ function clearAllBtnTrigger($element) {
 }
 
 // Desktop & Mobile Filter bar plp: on plp clicked on last filter btn without reload the page populate the results
-function filterBarEmpty($element, filtersURL) {
+function filterBarEmpty($element, filtersURL, desktopActiveTabId) {
     $.spinner().start();
-    var clickedFilterTab = localStorage.getItem("filterId");
+    var clickedFilterTab = desktopActiveTabId;
+
     $element.trigger('search:filter', $element);
     $.ajax({
         url: filtersURL,
@@ -1668,7 +1714,7 @@ module.exports = {
 
         $(document).on('click', '.plp-filter-redesign .filter-group .close-icon', function () {
             $('.plp-filter-btn.active').trigger('click');
-            localStorage.removeItem("filterId");
+            // localStorage.removeItem("filterId");
         });
     },
 
@@ -2169,7 +2215,22 @@ module.exports = {
                     }
                     return;
                 } else if (isFilterChildList && clicked) {
-                    // var clickedFilterTab = $(this).parent().parent().prev().attr('id');
+
+                    var isFilterSort = document.querySelector('.mobile-sort-menu.mobile-sort-menu-container');
+                    var isFilterSortActive = isFilterSort.classList.contains('active');
+
+                    if (!isFilterSortActive) {
+                        var clickedFilterTabMobile = document.querySelector('.mvmt-redesign-filter-button.active');
+                        if (clickedFilterTabMobile) {
+                            var clickedFilterTabMobileDataValue = clickedFilterTabMobile.dataset.optionSelect;
+                            var clickedFilterTabMobileDataValueRemoveDot = clickedFilterTabMobileDataValue.split('.')[1];
+                        }
+                    } else {
+                        //custom start: mobile filter & sort
+                        var clickedFilterTab = $(this).parent().parent().prev().attr('id');
+                        //custom start
+                    }
+     
                     filterLoadInProgress = true;
                     var selectedFiltersAll;
                     var mobileSortMenu = document.querySelector('.mobile-sort-menu-container');
@@ -2324,6 +2385,53 @@ module.exports = {
                                 if (isInfiniteScrollEnabled && (isPaginationEnabled == false)) {
                                     loadMoreIndex = $('#product-search-results .product-tile').length - (parseInt(initiallyLoadedProducts / 2) + 1);
                                 }
+
+                                // Custom Start: mobile filter active
+                                var mobileFilterMenuMain = document.querySelector('.mobile-filter-menu.mobile-menu-container-main');
+                                if (mobileFilterMenuMain) {
+                                    var mobileActiveFilter = mobileFilterMenuMain.querySelector('.'+clickedFilterTabMobileDataValueRemoveDot);
+                                    if (mobileActiveFilter) {
+                                        mobileFilterMenuMain.classList.add('active');
+                                        mobileFilterMenuMain.classList.remove('disable-events');
+                                        mobileActiveFilter.classList.add('active');
+                                        var mobileActiveFilterChild = mobileActiveFilter.children[0];
+                                        var firstChild = mobileActiveFilterChild.firstChild.nextSibling;
+                                        var lastChild = mobileActiveFilterChild.lastChild.previousSibling
+                                        ;
+                                        firstChild.classList.add('loaded');
+                                        lastChild.classList.add('loaded');
+                                        var mobileFilterButtonAll = document.querySelectorAll('.mvmt-redesign-filter-button');
+                                        mobileFilterButtonAll.forEach(function (el) {
+                                            var mobileFilterBtnDataValue = el.dataset.optionSelect;
+                                            if (mobileFilterBtnDataValue && mobileFilterBtnDataValue == clickedFilterTabMobileDataValue) {
+                                                el.classList.add('active');
+                                            }
+                                        });
+                                    }
+                                }
+                                // Custom End
+
+                                // Custom Start: mobile sort & filter active
+                                if (isFilterSortActive) {
+                                    var sortFilterTabActive = document.querySelector('.mobile-sort-menu.mobile-sort-menu-container');
+                                    sortFilterTabActive.classList.add('active');
+                                    var isClickedFilterTab = document.querySelectorAll('.plp-filter-list');
+                                    if (isClickedFilterTab && isClickedFilterTab.length > 0) {
+                                        isClickedFilterTab.forEach(function (el) {
+                                            var filterSelectedTab =  el.firstChild.nextSibling;
+                                            var isFilterSelectedTabId = filterSelectedTab.getAttribute('id');
+                                            if (isFilterSelectedTabId == clickedFilterTab) {
+                                                var filterSelectedPopup = el.lastChild.previousSibling;
+                                                filterSelectedTab.classList.add('active');
+                                                filterSelectedPopup.classList.add('loaded', 'active');
+                                                $('.plp-grid-overlay').addClass('active');
+                                                $('.plp-active-filter-selected').removeClass('d-none');
+                                            }
+                                        });
+                                    }
+                                }
+                                // Custom end
+
                                 bulidLifeStyleCarousel();
                                 filterScroll();
                                 totalProductCountResultupdate();
@@ -2416,6 +2524,7 @@ module.exports = {
                 var mobileMenuContainerMain = e.target.closest('.mobile-menu-container-main');
                 var mobileSortMenuContaienr = e.target.closest('.mobile-sort-menu-container');
 
+                $('.mvmt-redesign-filter-button').removeClass('active');
                 if (mobileMenuContainerMain) {
                     var isMobileMenuContainerMainActive = mobileMenuContainerMain.classList.contains('active');
                     if (isMobileMenuContainerMainActive) {
@@ -2429,7 +2538,7 @@ module.exports = {
                     }
                 }
                 bodyLock.classList.remove('lock-bg');
-                alert('neeeeeeeeeeeeee');
+
         });
     },
     // check clear all button is disabled or not based on window load
@@ -2547,8 +2656,32 @@ module.exports = {
 
                 var mobileActiveFilterClosed = document.querySelector('.active-filter-closed-mobile');
                 var desktopActiveFilterClosed = document.querySelector('.active-filter-closed-desktop');
+
+                // Custom start desktop: getting active filter tab id
+                var activeTabEl = document.querySelector('.plp-filter-btn.active');
+                var activeTabElAll = document.querySelectorAll('.plp-filter-btn.plp-filter-btn-redesign.redesigned.active');
+                var desktopActiveTabId = activeTabEl && activeTabElAll.length == 0 ? activeTabEl.getAttribute('id') : activeTabElAll.length > 0 && activeTabElAll[1] ? activeTabElAll[1].getAttribute('id') : null;
+                // Custom end desktop
+
+                
+                // Custom start mobile: getting active filter tab id
+                // var isFilterSort = document.querySelector('.mobile-sort-menu.mobile-sort-menu-container');
+                // var isFilterSortActive = isFilterSort.classList.contains('active');
+
+                // if (!isFilterSortActive) {
+                //     var clickedFilterTabMobile = document.querySelector('.mvmt-redesign-filter-button.active');
+                //     var clickedFilterTabMobileDataValue = clickedFilterTabMobile.dataset.optionSelect;
+                //     var clickedFilterTabMobileDataValueRemoveDot = clickedFilterTabMobileDataValue.split('.')[1];
+                // } else {
+                //     //custom start: mobile filter & sort
+                //     var clickedFilterTabMobile = $(this).parent().parent().prev().attr('id') ? $(this).parent().parent().prev().attr('id') : null;
+                //     //custom start
+                // }
+                // Custom start desktop
+
+                
                 if (!desktopActiveFilterClosed && mobileActiveFilterClosed) {
-                    removeSelectedFilterDesktop($(this));
+                    removeSelectedFilterDesktop($(this), desktopActiveTabId);
                 } else if (desktopActiveFilterClosed && !mobileActiveFilterClosed) {
                     removeSelectedFilterMobile($(this));
                 } else if (!desktopActiveFilterClosed && !mobileActiveFilterClosed) {
@@ -2563,7 +2696,7 @@ module.exports = {
                     var mediumWidth = 992;
                     var $windowWidth = $(window).width();
                     if ($windowWidth >= mediumWidth) {
-                        removeSelectedFilterDesktop($(this));
+                        removeSelectedFilterDesktop($(this), desktopActiveTabId);
                     } else {
                         removeSelectedFilterMobile($(this));
                     }
@@ -2621,8 +2754,8 @@ module.exports = {
             if (!isFilterContains) {
                 $(".plp-filter-redesign").addClass('active-filter-closed-desktop');
             }
-            var filterId = button.getAttribute('id');
-            localStorage.setItem("filterId", filterId);
+            // var filterId = button.getAttribute('id');
+            // localStorage.setItem("filterId", filterId);
         });
 
         $(document).on('click', '.filter-close-btn', function (e) {
@@ -2716,6 +2849,7 @@ module.exports = {
             $('.mobile-selection').removeClass('skip-animation');
 
             $('.mobile-selection .mobile-active-filters, .mobile-selection .mobile-active-actions').removeClass('skip-animation loaded');
+            alert('hhdhhdhdh');
         });
         // Custom end: Mobile filters popup close on x button
         $(document).on("click", '.mobile-selection .mobile-menu-close', function(e) {
@@ -2756,6 +2890,13 @@ module.exports = {
             }
             if (!isFilterContains) {
                 $('.plp-filter-redesign').addClass('active-filter-closed-desktop');
+            }
+            var isMobileFilterTab = $(this).closest('button');
+            if (isMobileFilterTab.length > 0) {
+                var isMobileFilterTabContain = isMobileFilterTab.hasClass('mvmt-redesign-filter-button');
+                $('.mvmt-redesign-filter-button').removeClass('active');
+                isMobileFilterTab.addClass('active');
+                console.log(isMobileFilterTabContain);
             }
         });
     },
