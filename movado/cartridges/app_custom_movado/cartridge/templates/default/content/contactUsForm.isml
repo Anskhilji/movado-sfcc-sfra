@@ -1,3 +1,4 @@
+<isset name="isGoogleRecaptchaEnabled" value="${!empty(dw.system.Site.current.preferences.custom.googleRecaptchaEnabled) ? dw.system.Site.current.preferences.custom.googleRecaptchaEnabled : false}" scope="page" />
 <isset name="googeRecaptchaSiteKey" value="${!empty(dw.system.Site.current.preferences.custom.googleRecaptcha) ? dw.system.Site.current.preferences.custom.googleRecaptcha : null}" scope="page" />
  <div class="container contactus-page">
 	<form action="${URLUtils.url('ContactUs-Send')}" class="contactus" method="POST" name="contactus-form">
@@ -84,8 +85,10 @@
 
 		<div class="row">
 			<div class="col">
-                <button class="btn btn-block btn-save btn-primary g-recaptcha" data-sitekey="${googeRecaptchaSiteKey}" data-callback='onSubmitCaptcha' data-action='submit'>${Resource.msg('button.send','common',null)}</button>
-                <button type="submit" name="Send" class="btn btn-save btn-block btn-primary d-none form-submit">${Resource.msg('button.send','common',null)}</button>
+			    <isif condition="${isGoogleRecaptchaEnabled}">
+                    <button class="btn btn-block btn-save btn-primary g-recaptcha" data-sitekey="${googeRecaptchaSiteKey}" data-callback='onSubmitCaptcha' data-action='submit'>${Resource.msg('button.send','common',null)}</button>
+                </isif>
+				<button type="submit" name="Send" class="btn btn-save btn-block btn-primary ${isGoogleRecaptchaEnabled ? 'd-none' : ''} form-submit">${Resource.msg('button.send','common',null)}</button>
 			</div>
 		</div>
 	</form>
