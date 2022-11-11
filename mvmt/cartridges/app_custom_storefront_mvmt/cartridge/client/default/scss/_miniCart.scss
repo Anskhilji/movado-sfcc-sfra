@@ -486,6 +486,11 @@
             .row {
 
                 &:last-child {
+                    padding-bottom: rem(8);
+
+                    @include media-breakpoint-down(lg) {
+                        padding-bottom: rem(6);
+                    }
 
                     .card {
                         border-bottom: none;
