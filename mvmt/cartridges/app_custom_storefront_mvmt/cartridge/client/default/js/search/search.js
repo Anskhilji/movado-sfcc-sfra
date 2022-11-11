@@ -1684,47 +1684,6 @@ function mobileFilterSelect(currentElement) {
 }
 }
 
-// Desktop & Mobile Filter bar plp: on plp clicked on last filter btn without reload the page populate the results
-function filterBarEmpty($element, filtersURL) {
-    $.spinner().start();
-    $element.trigger('search:filter', $element);
-    $.ajax({
-        url: filtersURL,
-        data: {
-            page: $('.grid-footer').data('page-number'),
-            selectedUrl: filtersURL
-        },
-        method: 'GET',
-        success: function (response) {
-            var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
-            $('body').trigger('facet:success', [gtmFacetArray]);
-            parseResults(response);
-            $.spinner().stop();
-            moveFocusToTop();
-            swatches.showSwatchImages();
-
-            $('.mobile-filter-menu').removeClass('active');
-            $('.mobile-sort-menu').removeClass('active').addClass('disable-events');
-            $('body').removeClass('lock-bg');
-            $('.mvmt-plp .result-count').removeClass('col-12 col-md-9 col-sm-6 order-sm-2');
-            $('.mobile-filter-menu').removeClass('active').addClass('disable-events');
-            $('.mvmt-plp .grid-header .sort-col, .mvmt-plp .grid-header .filter-col').remove();
-            $('.plp-grid-overlay').removeClass('active');
-            $('.plp-active-filter-selected').addClass('d-none');
-            $('.plp-filter-redesign').removeClass('active-filter-closed-desktop');
-            bulidLifeStyleCarousel();
-            if (isInfiniteScrollEnabled && (isPaginationEnabled == false)) {
-                loadMoreIndex = $('#product-search-results .product-tile').length - (parseInt(initiallyLoadedProducts / 2) + 1);
-            }
-
-        },
-        error: function () {
-            $.spinner().stop();
-            filterLoadInProgress = false;
-        }
-    });
-}
-
 // Added container-fluid class alongside container
 
 module.exports = {
