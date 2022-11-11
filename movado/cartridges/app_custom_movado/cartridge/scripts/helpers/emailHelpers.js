@@ -101,6 +101,7 @@ function send(emailObj, template, context) {
                     }
                     if (productLevelTotalDiscount > 0) {
                         totalDiscount = productLevelTotalDiscount + context.order.totals.orderLevelDiscountTotal.value;
+                        totalDiscount = totalDiscount.toFixed(2);
                         totalDiscount = Currency.getCurrency(context.cuurentOrder.currencyCode).symbol + totalDiscount;
                     } else {
                         totalDiscount = context.order.totals.orderLevelDiscountTotal.formatted;
