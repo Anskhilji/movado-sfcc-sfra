@@ -66,9 +66,9 @@ function displayContract() {
             for (var i = 0; i < clydeCartWidget.length; i++) {
                 var productId = clydeCartWidget[i].getAttribute('data-product-id');
                 var container = '#' + clydeCartWidget[i].id;
+                // Custom start: Add code for product price with sku:
                 var priceUUID = container.split('uuid')[1];
                 var itemTotalUUID = '.item-total' + priceUUID;
-                // Custom start: Add code for product price with sku:
                 salePrice = $('.line-item-total-price  '+ itemTotalUUID +' .line-item-total-price-amount').attr('pricevalue');
                 if (salePrice) {
                     productData = { sku: productId, price: salePrice };
