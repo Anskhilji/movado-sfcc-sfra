@@ -83,8 +83,8 @@
 
 		<input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
 
-		<div class="row">
-			<div class="col">
+        <div class="row">
+            <div class="col">
                 <isif condition="${isGoogleRecaptchaEnabled}">
                     <button class="btn btn-block btn-save btn-primary g-recaptcha" data-sitekey="${googeRecaptchaSiteKey}" data-callback='onSubmitCaptcha' data-action='submit'>${Resource.msg('button.send','common',null)}</button>
                 </isif>
