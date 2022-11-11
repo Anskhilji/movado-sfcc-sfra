@@ -704,7 +704,6 @@ function removeSelectedFilterMobile($element) {
             var clickedFilterTabMobile = document.querySelector('.mvmt-redesign-filter-button.active');
             if (clickedFilterTabMobile) {
                 var clickedFilterTabMobileDataValue = clickedFilterTabMobile.dataset.optionSelect;
-                var clickedFilterTabMobileDataValueRemoveDot = clickedFilterTabMobileDataValue.split('.')[1];
             }
         }
         
@@ -921,15 +920,14 @@ function removeSelectedFilterMobile($element) {
                         if (!isFilterSortActive) { 
                             var mobileFilterMenuMain = document.querySelector('.mobile-filter-menu.mobile-menu-container-main');
                             if (mobileFilterMenuMain) {
-                                var mobileActiveFilter = mobileFilterMenuMain.querySelector('.'+clickedFilterTabMobileDataValueRemoveDot);
+                                var mobileActiveFilter = mobileFilterMenuMain.querySelector(clickedFilterTabMobileDataValue);
                                 if (mobileActiveFilter) {
                                     mobileFilterMenuMain.classList.add('active');
                                     mobileFilterMenuMain.classList.remove('disable-events');
                                     mobileActiveFilter.classList.add('active');
                                     var mobileActiveFilterChild = mobileActiveFilter.children[0];
                                     var firstChild = mobileActiveFilterChild.firstChild.nextSibling;
-                                    var lastChild = mobileActiveFilterChild.lastChild.previousSibling
-                                    ;
+                                    var lastChild = mobileActiveFilterChild.lastChild.previousSibling;
                                     firstChild.classList.add('loaded');
                                     lastChild.classList.add('loaded');
                                     var mobileFilterButtonAll = document.querySelectorAll('.mvmt-redesign-filter-button');
@@ -2205,7 +2203,6 @@ module.exports = {
                         var clickedFilterTabMobile = document.querySelector('.mvmt-redesign-filter-button.active');
                         if (clickedFilterTabMobile) {
                             var clickedFilterTabMobileDataValue = clickedFilterTabMobile.dataset.optionSelect;
-                            var clickedFilterTabMobileDataValueRemoveDot = clickedFilterTabMobileDataValue.split('.')[1];
                         }
                     } else {
                         //custom start: mobile filter & sort
@@ -2371,7 +2368,7 @@ module.exports = {
                                 // Custom Start: mobile filter active
                                 var mobileFilterMenuMain = document.querySelector('.mobile-filter-menu.mobile-menu-container-main');
                                 if (mobileFilterMenuMain) {
-                                    var mobileActiveFilter = mobileFilterMenuMain.querySelector('.'+clickedFilterTabMobileDataValueRemoveDot);
+                                    var mobileActiveFilter = mobileFilterMenuMain.querySelector(clickedFilterTabMobileDataValue);
                                     if (mobileActiveFilter) {
                                         mobileFilterMenuMain.classList.add('active');
                                         mobileFilterMenuMain.classList.remove('disable-events');
