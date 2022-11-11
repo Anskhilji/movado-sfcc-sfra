@@ -2500,10 +2500,6 @@ module.exports = {
                      }
                  });
                 checkClearAllBtn();
-
-                var oldUrl = document.location.href;
-                var url = oldUrl.split('?')[0];
-                window.history.pushState({}, '/', url);
                 clearAllBtnTrigger($(this));
         });
     },
