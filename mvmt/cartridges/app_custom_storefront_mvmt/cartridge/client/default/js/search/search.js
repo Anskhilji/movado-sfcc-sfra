@@ -480,30 +480,30 @@ function removeSelectedFilterDesktop($element, desktopActiveTabId) {
             $('.plp-filter-bar .plp-filter-btn').removeClass('active');
             $('.plp-grid-overlay').removeClass('active');
 
-            var RemoveUrlParams = getUrlParamObj(document.location.href);
+            var removeUrlParams = getUrlParamObj(document.location.href);
             var oldUrl = document.location.href;
             var url = oldUrl.split('?')[0];
             var urlReload = oldUrl.split('?')[1];
             var newFilteredUrl = url;
 
-            if (RemoveUrlParams.hasOwnProperty('q') == true) {
-                if (RemoveUrlParams.hasOwnProperty('q') == true && RemoveUrlParams.hasOwnProperty('srule') == false) {
-                    if (RemoveUrlParams.q) {
-                        var queryParamQ = RemoveUrlParams.q;
+            if (removeUrlParams.hasOwnProperty('q') == true) {
+                if (removeUrlParams.hasOwnProperty('q') == true && removeUrlParams.hasOwnProperty('srule') == false) {
+                    if (removeUrlParams.q) {
+                        var queryParamQ = removeUrlParams.q;
                         newFilteredUrl = removeUrlParamsQ(newFilteredUrl, 'q', queryParamQ);
                     }
                 }
-                if (RemoveUrlParams.hasOwnProperty('q') == true && RemoveUrlParams.hasOwnProperty('srule') == true) {
-                    if (RemoveUrlParams.q) {
-                        var queryParamQ = RemoveUrlParams.q;  
-                        var queryParamSrule = RemoveUrlParams.srule;  
+                if (removeUrlParams.hasOwnProperty('q') == true && removeUrlParams.hasOwnProperty('srule') == true) {
+                    if (removeUrlParams.q) {
+                        var queryParamQ = removeUrlParams.q;  
+                        var queryParamSrule = removeUrlParams.srule;  
                         newFilteredUrl = removeUrlParamsQSrule(newFilteredUrl, 'q', queryParamQ, 'srule', queryParamSrule);
                     }
                 }
             } else {
-                if (RemoveUrlParams.hasOwnProperty('srule') == true) {
-                    if (RemoveUrlParams.srule) {
-                        var queryParamSrule = RemoveUrlParams.srule;  
+                if (removeUrlParams.hasOwnProperty('srule') == true) {
+                    if (removeUrlParams.srule) {
+                        var queryParamSrule = removeUrlParams.srule;  
                         newFilteredUrl = removeUrlParamsSrule(newFilteredUrl, 'srule', queryParamSrule);
                     }
                 }
@@ -525,10 +525,11 @@ function removeSelectedFilterDesktop($element, desktopActiveTabId) {
                 var params = '';
                 var pminValue = '';
                 var pmaxValue = '';
+                var prefn;
 
                 parentSelector.forEach(function (el, index) {
                     if (el.hasChildNodes()) {
-                        var prefn = el.dataset.filterId;
+                        prefn = el.dataset.filterId;
                         var childElement = el.querySelectorAll('.filter-element');
                         
                         childElement.forEach(function (e, i) {
@@ -665,11 +666,14 @@ function removeSelectedFilterDesktop($element, desktopActiveTabId) {
                         if (isInfiniteScrollEnabled && (isPaginationEnabled == false)) {
                             loadMoreIndex = $('#product-search-results .product-tile').length - (parseInt(initiallyLoadedProducts / 2) + 1);
                         }
+
+                        var filterSelectedTab;
+                        var isFilterSelectedTabId;
                         var isClickedFilterTab = document.querySelectorAll('.plp-filter-list');
                         if (isClickedFilterTab && isClickedFilterTab.length > 0) {
                             isClickedFilterTab.forEach(function (el) {
-                                var filterSelectedTab =  el.firstChild.nextSibling;
-                                var isFilterSelectedTabId = filterSelectedTab.getAttribute('id');
+                                filterSelectedTab =  el.firstChild.nextSibling;
+                                isFilterSelectedTabId = filterSelectedTab.getAttribute('id');
                                 if (isFilterSelectedTabId == clickedFilterTabId) {
                                     var filterSelectedPopup = el.lastChild.previousSibling;
                                     filterSelectedTab.classList.add('active');
@@ -727,30 +731,30 @@ function removeSelectedFilterMobile($element) {
             if (isMobileActive) {
                 mobileMenuContainerMain.classList.remove('active');
             }
-            var RemoveUrlParams = getUrlParamObj(document.location.href);
+            var removeUrlParams = getUrlParamObj(document.location.href);
             var oldUrl = document.location.href;
             var url = oldUrl.split('?')[0];
             var urlReload = oldUrl.split('?')[1];
             var newFilteredUrl = url;
 
-            if (RemoveUrlParams.hasOwnProperty('q') == true) {
-                if (RemoveUrlParams.hasOwnProperty('q') == true && RemoveUrlParams.hasOwnProperty('srule') == false) {
-                    if (RemoveUrlParams.q) {
-                        var queryParamQ = RemoveUrlParams.q;
+            if (removeUrlParams.hasOwnProperty('q') == true) {
+                if (removeUrlParams.hasOwnProperty('q') == true && removeUrlParams.hasOwnProperty('srule') == false) {
+                    if (removeUrlParams.q) {
+                        var queryParamQ = removeUrlParams.q;
                         newFilteredUrl = removeUrlParamsQ(newFilteredUrl, 'q', queryParamQ);
                     }
                 }
-                if (RemoveUrlParams.hasOwnProperty('q') == true && RemoveUrlParams.hasOwnProperty('srule') == true) {
-                    if (RemoveUrlParams.q) {
-                        var queryParamQ = RemoveUrlParams.q;  
-                        var queryParamSrule = RemoveUrlParams.srule;  
+                if (removeUrlParams.hasOwnProperty('q') == true && removeUrlParams.hasOwnProperty('srule') == true) {
+                    if (removeUrlParams.q) {
+                        var queryParamQ = removeUrlParams.q;  
+                        var queryParamSrule = removeUrlParams.srule;  
                         newFilteredUrl = removeUrlParamsQSrule(newFilteredUrl, 'q', queryParamQ, 'srule', queryParamSrule);
                     }
                 }
             } else {
-                if (RemoveUrlParams.hasOwnProperty('srule') == true) {
-                    if (RemoveUrlParams.srule) {
-                        var queryParamSrule = RemoveUrlParams.srule;  
+                if (removeUrlParams.hasOwnProperty('srule') == true) {
+                    if (removeUrlParams.srule) {
+                        var queryParamSrule = removeUrlParams.srule;  
                         newFilteredUrl = removeUrlParamsSrule(newFilteredUrl, 'srule', queryParamSrule);
                     }
                 }
@@ -779,10 +783,11 @@ function removeSelectedFilterMobile($element) {
                 var params = '';
                 var pminValue = '';
                 var pmaxValue = '';
+                var prefn;
 
                 selectedFiltersAll.forEach(function (el, index) {
                         if (el.hasChildNodes()) {
-                            var prefn = el.dataset.filterId;
+                            prefn = el.dataset.filterId;
                             var childElement = el.querySelectorAll('.filter-element');
                             
                             childElement.forEach(function (e, i) {
@@ -930,9 +935,11 @@ function removeSelectedFilterMobile($element) {
                                     var lastChild = mobileActiveFilterChild.lastChild.previousSibling;
                                     firstChild.classList.add('loaded');
                                     lastChild.classList.add('loaded');
+
+                                    var mobileFilterBtnDataValue;
                                     var mobileFilterButtonAll = document.querySelectorAll('.mvmt-redesign-filter-button');
                                     mobileFilterButtonAll.forEach(function (el) {
-                                        var mobileFilterBtnDataValue = el.dataset.optionSelect;
+                                        mobileFilterBtnDataValue = el.dataset.optionSelect;
                                         if (mobileFilterBtnDataValue && mobileFilterBtnDataValue == clickedFilterTabMobileDataValue) {
                                             el.classList.add('active');
                                         }
@@ -985,30 +992,30 @@ function clearAllBtnTrigger($element) {
             if (isMobileActive) {
                 mobileMenuContainerMain.classList.remove('active');
             }
-            var RemoveUrlParams = getUrlParamObj(document.location.href);
+            var removeUrlParams = getUrlParamObj(document.location.href);
             var oldUrl = document.location.href;
             var url = oldUrl.split('?')[0];
             var urlReload = oldUrl.split('?')[1];
             var newFilteredUrl = url;
 
-            if (RemoveUrlParams.hasOwnProperty('q') == true) {
-                if (RemoveUrlParams.hasOwnProperty('q') == true && RemoveUrlParams.hasOwnProperty('srule') == false) {
-                    if (RemoveUrlParams.q) {
-                        var queryParamQ = RemoveUrlParams.q;
+            if (removeUrlParams.hasOwnProperty('q') == true) {
+                if (removeUrlParams.hasOwnProperty('q') == true && removeUrlParams.hasOwnProperty('srule') == false) {
+                    if (removeUrlParams.q) {
+                        var queryParamQ = removeUrlParams.q;
                         newFilteredUrl = removeUrlParamsQ(newFilteredUrl, 'q', queryParamQ);
                     }
                 }
-                if (RemoveUrlParams.hasOwnProperty('q') == true && RemoveUrlParams.hasOwnProperty('srule') == true) {
-                    if (RemoveUrlParams.q) {
-                        var queryParamQ = RemoveUrlParams.q;  
-                        var queryParamSrule = RemoveUrlParams.srule;  
+                if (removeUrlParams.hasOwnProperty('q') == true && removeUrlParams.hasOwnProperty('srule') == true) {
+                    if (removeUrlParams.q) {
+                        var queryParamQ = removeUrlParams.q;  
+                        var queryParamSrule = removeUrlParams.srule;  
                         newFilteredUrl = removeUrlParamsQSrule(newFilteredUrl, 'q', queryParamQ, 'srule', queryParamSrule);
                     }
                 }
             } else {
-                if (RemoveUrlParams.hasOwnProperty('srule') == true) {
-                    if (RemoveUrlParams.srule) {
-                        var queryParamSrule = RemoveUrlParams.srule;  
+                if (removeUrlParams.hasOwnProperty('srule') == true) {
+                    if (removeUrlParams.srule) {
+                        var queryParamSrule = removeUrlParams.srule;  
                         newFilteredUrl = removeUrlParamsSrule(newFilteredUrl, 'srule', queryParamSrule);
                     }
                 }
@@ -1037,10 +1044,11 @@ function clearAllBtnTrigger($element) {
                 var params = '';
                 var pminValue = '';
                 var pmaxValue = '';
+                var prefn;
 
                 selectedFiltersAll.forEach(function (el, index) {
                         if (el.hasChildNodes()) {
-                            var prefn = el.dataset.filterId;
+                            prefn = el.dataset.filterId;
                             var childElement = el.querySelectorAll('.filter-element');
                             
                             childElement.forEach(function (e, i) {
@@ -1909,30 +1917,30 @@ module.exports = {
                     $('.plp-grid-overlay').removeClass('active');
                     $('.plp-filter-redesign').removeClass('active-filter-closed-desktop');
 
-                    var RemoveUrlParams = getUrlParamObj(document.location.href);
+                    var removeUrlParams = getUrlParamObj(document.location.href);
                     var oldUrl = document.location.href;
                     var url = oldUrl.split('?')[0];
                     var urlReload = oldUrl.split('?')[1];
                     var newFilteredUrl = url;
 
-                    if (RemoveUrlParams.hasOwnProperty('q') == true) {
-                        if (RemoveUrlParams.hasOwnProperty('q') == true && RemoveUrlParams.hasOwnProperty('srule') == false) {
-                            if (RemoveUrlParams.q) {
-                                var queryParamQ = RemoveUrlParams.q;
+                    if (removeUrlParams.hasOwnProperty('q') == true) {
+                        if (removeUrlParams.hasOwnProperty('q') == true && removeUrlParams.hasOwnProperty('srule') == false) {
+                            if (removeUrlParams.q) {
+                                var queryParamQ = removeUrlParams.q;
                                 newFilteredUrl = removeUrlParamsQ(newFilteredUrl, 'q', queryParamQ);
                             }
                         }
-                        if (RemoveUrlParams.hasOwnProperty('q') == true && RemoveUrlParams.hasOwnProperty('srule') == true) {
-                            if (RemoveUrlParams.q) {
-                                var queryParamQ = RemoveUrlParams.q;  
-                                var queryParamSrule = RemoveUrlParams.srule;  
+                        if (removeUrlParams.hasOwnProperty('q') == true && removeUrlParams.hasOwnProperty('srule') == true) {
+                            if (removeUrlParams.q) {
+                                var queryParamQ = removeUrlParams.q;  
+                                var queryParamSrule = removeUrlParams.srule;  
                                 newFilteredUrl = removeUrlParamsQSrule(newFilteredUrl, 'q', queryParamQ, 'srule', queryParamSrule);
                             }
                         }
                     } else {
-                        if (RemoveUrlParams.hasOwnProperty('srule') == true) {
-                            if (RemoveUrlParams.srule) {
-                                var queryParamSrule = RemoveUrlParams.srule;  
+                        if (removeUrlParams.hasOwnProperty('srule') == true) {
+                            if (removeUrlParams.srule) {
+                                var queryParamSrule = removeUrlParams.srule;  
                                 newFilteredUrl = removeUrlParamsSrule(newFilteredUrl, 'srule', queryParamSrule);
                             }
                         }
@@ -1955,10 +1963,11 @@ module.exports = {
                         var params = '';
                         var pminValue = '';
                         var pmaxValue = '';
-    
+                        var prefn;
+
                         parentSelector.forEach(function (el, index) {
                                 if (el.hasChildNodes()) {
-                                    var prefn = el.dataset.filterId;
+                                    prefn = el.dataset.filterId;
                                     var childElement = el.querySelectorAll('.filter-element');
                                     
                                     childElement.forEach(function (e, i) {
@@ -2098,11 +2107,13 @@ module.exports = {
                                     loadMoreIndex = $('#product-search-results .product-tile').length - (parseInt(initiallyLoadedProducts / 2) + 1);
                                 }
                                 
+                                var filterSelectedTab;
+                                var isFilterSelectedTabId;
                                 var isClickedFilterTab = document.querySelectorAll('.plp-filter-list');
                                 if (isClickedFilterTab && isClickedFilterTab.length > 0) {
                                     isClickedFilterTab.forEach(function (el) {
-                                        var filterSelectedTab =  el.firstChild.nextSibling;
-                                        var isFilterSelectedTabId = filterSelectedTab.getAttribute('id');
+                                        filterSelectedTab =  el.firstChild.nextSibling;
+                                        isFilterSelectedTabId = filterSelectedTab.getAttribute('id');
                                         if (isFilterSelectedTabId == clickedFilterTab) {
                                             var filterSelectedPopup = el.lastChild.previousSibling;
                                             filterSelectedTab.classList.add('active');
@@ -2160,30 +2171,30 @@ module.exports = {
                     if (isMobileActive) {
                         mobileMenuContainerMain.classList.remove('active');
                     }
-                    var RemoveUrlParams = getUrlParamObj(document.location.href);
+                    var removeUrlParams = getUrlParamObj(document.location.href);
                     var oldUrl = document.location.href;
                     var url = oldUrl.split('?')[0];
                     var urlReload = oldUrl.split('?')[1];
                     var newFilteredUrl = url;
 
-                    if (RemoveUrlParams.hasOwnProperty('q') == true) {
-                        if (RemoveUrlParams.hasOwnProperty('q') == true && RemoveUrlParams.hasOwnProperty('srule') == false) {
-                            if (RemoveUrlParams.q) {
-                                var queryParamQ = RemoveUrlParams.q;
+                    if (removeUrlParams.hasOwnProperty('q') == true) {
+                        if (removeUrlParams.hasOwnProperty('q') == true && removeUrlParams.hasOwnProperty('srule') == false) {
+                            if (removeUrlParams.q) {
+                                var queryParamQ = removeUrlParams.q;
                                 newFilteredUrl = removeUrlParamsQ(newFilteredUrl, 'q', queryParamQ);
                             }
                         }
-                        if (RemoveUrlParams.hasOwnProperty('q') == true && RemoveUrlParams.hasOwnProperty('srule') == true) {
-                            if (RemoveUrlParams.q) {
-                                var queryParamQ = RemoveUrlParams.q;  
-                                var queryParamSrule = RemoveUrlParams.srule;  
+                        if (removeUrlParams.hasOwnProperty('q') == true && removeUrlParams.hasOwnProperty('srule') == true) {
+                            if (removeUrlParams.q) {
+                                var queryParamQ = removeUrlParams.q;  
+                                var queryParamSrule = removeUrlParams.srule;  
                                 newFilteredUrl = removeUrlParamsQSrule(newFilteredUrl, 'q', queryParamQ, 'srule', queryParamSrule);
                             }
                         }
                     } else {
-                        if (RemoveUrlParams.hasOwnProperty('srule') == true) {
-                            if (RemoveUrlParams.srule) {
-                                var queryParamSrule = RemoveUrlParams.srule;  
+                        if (removeUrlParams.hasOwnProperty('srule') == true) {
+                            if (removeUrlParams.srule) {
+                                var queryParamSrule = removeUrlParams.srule;  
                                 newFilteredUrl = removeUrlParamsSrule(newFilteredUrl, 'srule', queryParamSrule);
                             }
                         }
@@ -2227,10 +2238,11 @@ module.exports = {
                         var params = '';
                         var pminValue = '';
                         var pmaxValue = '';
-    
+                        var prefn;
+
                         selectedFiltersAll.forEach(function (el, index) {
                                 if (el.hasChildNodes()) {
-                                    var prefn = el.dataset.filterId;
+                                    prefn = el.dataset.filterId;
                                     var childElement = el.querySelectorAll('.filter-element');
                                     
                                     childElement.forEach(function (e, i) {
@@ -2375,13 +2387,14 @@ module.exports = {
                                         mobileActiveFilter.classList.add('active');
                                         var mobileActiveFilterChild = mobileActiveFilter.children[0];
                                         var firstChild = mobileActiveFilterChild.firstChild.nextSibling;
-                                        var lastChild = mobileActiveFilterChild.lastChild.previousSibling
-                                        ;
+                                        var lastChild = mobileActiveFilterChild.lastChild.previousSibling;
                                         firstChild.classList.add('loaded');
                                         lastChild.classList.add('loaded');
+
+                                        var mobileFilterBtnDataValue;
                                         var mobileFilterButtonAll = document.querySelectorAll('.mvmt-redesign-filter-button');
                                         mobileFilterButtonAll.forEach(function (el) {
-                                            var mobileFilterBtnDataValue = el.dataset.optionSelect;
+                                            mobileFilterBtnDataValue = el.dataset.optionSelect;
                                             if (mobileFilterBtnDataValue && mobileFilterBtnDataValue == clickedFilterTabMobileDataValue) {
                                                 el.classList.add('active');
                                             }
@@ -2392,13 +2405,15 @@ module.exports = {
 
                                 // Custom Start: mobile sort & filter active
                                 if (isFilterSortActive) {
+                                    var filterSelectedTab;
+                                    var isFilterSelectedTabId;
                                     var sortFilterTabActive = document.querySelector('.mobile-sort-menu.mobile-sort-menu-container');
                                     sortFilterTabActive.classList.add('active');
                                     var isClickedFilterTab = document.querySelectorAll('.plp-filter-list');
                                     if (isClickedFilterTab && isClickedFilterTab.length > 0) {
                                         isClickedFilterTab.forEach(function (el) {
-                                            var filterSelectedTab =  el.firstChild.nextSibling;
-                                            var isFilterSelectedTabId = filterSelectedTab.getAttribute('id');
+                                            filterSelectedTab =  el.firstChild.nextSibling;
+                                            isFilterSelectedTabId = filterSelectedTab.getAttribute('id');
                                             if (isFilterSelectedTabId == clickedFilterTab) {
                                                 var filterSelectedPopup = el.lastChild.previousSibling;
                                                 filterSelectedTab.classList.add('active');
