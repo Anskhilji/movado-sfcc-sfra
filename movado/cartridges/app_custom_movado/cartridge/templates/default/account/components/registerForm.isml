@@ -1,3 +1,4 @@
+<isset name="isGoogleRecaptchaEnabled" value="${!empty(dw.system.Site.current.preferences.custom.googleRecaptchaEnabled) ? dw.system.Site.current.preferences.custom.googleRecaptchaEnabled : false}" scope="page" />
 <isset name="googeRecaptchaSiteKey" value="${!empty(dw.system.Site.current.preferences.custom.googleRecaptcha) ? dw.system.Site.current.preferences.custom.googleRecaptcha : null}" scope="page" />
 <form
     action="${pdict.createAccountUrl}"
@@ -164,9 +165,11 @@
 
     <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
 
-    <button type="submit" class="btn btn-block btn-primary d-none form-submit">${Resource.msg('button.createaccount.registration', 'registration', null)}</button>
-    <button type="submit" class="btn btn-block btn-primary g-recaptcha" data-sitekey="${googeRecaptchaSiteKey}" data-callback='onSubmitCaptcha'>${Resource.msg('button.createaccount.registration', 'registration', null)}
-    </button>
+    <button type="submit" class="btn btn-block btn-primary ${isGoogleRecaptchaEnabled ? 'd-none' : ''} form-submit">${Resource.msg('button.createaccount.registration', 'registration', null)}</button>
+    <isif condition="${isGoogleRecaptchaEnabled}">
+        <button type="submit" class="btn btn-block btn-primary g-recaptcha" data-sitekey="${googeRecaptchaSiteKey}" data-callback='onSubmitCaptcha'>${Resource.msg('button.createaccount.registration', 'registration', null)}</button>
+    </isif>
+
     <div class="privacy-policy">
         <a href="${URLUtils.url('Page-Show', 'cid', 'ca-privacy-policy')}" target="_blank" rel='noopener noreferrer'>
             ${Resource.msg('link.privacypolicy.registration', 'registration', null)}
