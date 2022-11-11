@@ -66,17 +66,15 @@ function displayContract() {
             for (var i = 0; i < clydeCartWidget.length; i++) {
                 var productId = clydeCartWidget[i].getAttribute('data-product-id');
                 var container = '#' + clydeCartWidget[i].id;
+                var priceUUID = container.split('uuid')[1];
+                var itemTotalUUID = '.item-total' + priceUUID;
                 // Custom start: Add code for product price with sku:
-                salePrice = $('.line-item-total-price .price .line-item-total-price-amount').text();
+                salePrice = $('.line-item-total-price  '+ itemTotalUUID +' .line-item-total-price-amount').attr('pricevalue');
                 if (salePrice) {
-                    salePrice = salePrice.split('$')[1];
-                    salePrice = salePrice.replace(/^\s+|\s+$/gm, '');
                     productData = { sku: productId, price: salePrice };
                 } else {
-                    listPrice = $('.line-item-total-price .price .original-price').text();
+                    listPrice = $('.line-item-total-price '+ itemTotalUUID +' .original-price').attr('pricevalue');
                     if (listPrice) {
-                        listPrice = listPrice.split('$')[1];
-                        listPrice = listPrice.replace(/^\s+|\s+$/gm, '');
                         productData = { sku: productId, price: listPrice };
                     } else {
                         productData = { sku: productId, price: '' };
