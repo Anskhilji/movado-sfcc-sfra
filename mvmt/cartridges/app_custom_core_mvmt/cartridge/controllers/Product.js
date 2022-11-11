@@ -35,7 +35,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
     var smartGift = smartGiftHelper.getSmartGiftCardBasket(showProductPageHelperResult.product.id);
     var smartGiftAddToCartURL = Site.current.preferences.custom.smartGiftURL + showProductPageHelperResult.product.id;
-
+    var emailPopupHelper = require('*/cartridge/scripts/helpers/emailPopupHelper');
     var collectionContentList;
     var moreStyleGtmArray = [];
     var klarnaProductPrice = '0';
@@ -105,6 +105,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
     //Custom End
 
+    var listrakPersistentPopup = emailPopupHelper.listrakPersistentPopup(req);
     viewData = {
         isEmbossEnabled: isEmbossEnabled,
         isEngraveEnabled: isEngraveEnabled,
@@ -133,7 +134,8 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
         addToCartUrl: showProductPageHelperResult.addToCartUrl,
         isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
         smartGiftAddToCartURL: smartGiftAddToCartURL,
-        plpProductFamilyName: Site.getCurrent().preferences.custom.plpProductFamilyName ? Site.getCurrent().preferences.custom.plpProductFamilyName : false
+        plpProductFamilyName: Site.getCurrent().preferences.custom.plpProductFamilyName ? Site.getCurrent().preferences.custom.plpProductFamilyName : false,
+        popupID: listrakPersistentPopup
     };
 
     var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
@@ -153,6 +155,12 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     	};
     	pdpAnalyticsTrackingData.email = customer.isAuthenticated() && customer.getProfile() ? customer.getProfile().getEmail() : '';
         viewData.pdpAnalyticsTrackingData = JSON.stringify(pdpAnalyticsTrackingData);
+    }
+
+    if (!empty(req.querystring.lastNameError)) {
+        res.setViewData({ 
+            lastNameError: req.querystring.lastNameError
+        });
     }
 
     res.setViewData(viewData);

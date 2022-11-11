@@ -274,6 +274,7 @@ function getcartPageHtml (req) {
   };
   basketModel.paypalButtonImg = getContentAssetContent('ca-paypal-button');
   basketModel.paypalerror = !!req.querystring.paypalerror;
+  basketModel.lastNameError = req.querystring.lastNameError;
 
   return renderTemplateHelper.getRenderedHtml(basketModel, '/cart/cartSection');
 };
@@ -309,7 +310,6 @@ function getCountrySwitch() {
 
 };
 
-
 function removeNullClydeWarrantyLineItem(currentBasket) {
     var Constants = require('*/cartridge/utils/Constants');
     var Transaction = require('dw/system/Transaction');
@@ -340,7 +340,6 @@ function removeClydeWarranty(currentItems) {
         }
     }
 };
-
 
 function getGiftTransactionATC(currentBasket, giftsParentUUID) {
     var Site = require('dw/system/Site');
