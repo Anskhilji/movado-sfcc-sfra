@@ -22,7 +22,7 @@
     
         <del>
             <span class="strike-through list">
-                <span class="value" content="${price}" pricevalue="${price.value}">
+                <span class="value" content="${price}" price-value="${price.value}">
                     <span class="sr-only">
                         ${Resource.msg('label.price.reduced.from', 'pricing', null)}
                     </span>

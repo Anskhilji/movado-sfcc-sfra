@@ -37,7 +37,7 @@ if (window.ClydeSitePreferences && productId) {
                     if (salePrice) {
                         productData = { sku: productId, price: salePrice };
                     } else {
-                        listPrice = $('.prices .price-pdp-mvmt .strike-through span').attr('pricevalue');
+                        listPrice = $('.prices .price-pdp-mvmt .strike-through span').attr('price-value');
                         if (listPrice) {
                             productData = { sku: productId, price: listPrice };
                         } else {

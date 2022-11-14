@@ -69,11 +69,11 @@ function displayContract() {
                 // Custom start: Add code for product price with sku:
                 var priceUUID = container.split('uuid')[1];
                 var itemTotalUUID = '.item-total' + priceUUID;
-                salePrice = $('.line-item-total-price  '+ itemTotalUUID +' .line-item-total-price-amount').attr('pricevalue');
+                salePrice = $('.line-item-total-price  '+ itemTotalUUID +' .line-item-total-price-amount').attr('price-value');
                 if (salePrice) {
                     productData = { sku: productId, price: salePrice };
                 } else {
-                    listPrice = $('.line-item-total-price '+ itemTotalUUID +' .original-price').attr('pricevalue');
+                    listPrice = $('.line-item-total-price '+ itemTotalUUID +' .original-price').attr('price-value');
                     if (listPrice) {
                         productData = { sku: productId, price: listPrice };
                     } else {
