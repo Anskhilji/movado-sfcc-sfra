@@ -541,7 +541,6 @@ server.replace(
             return next();
         }
 
-
         Transaction.wrap(function () {
             basketCalculationHelpers.calculateTotals(currentBasket);
         });
