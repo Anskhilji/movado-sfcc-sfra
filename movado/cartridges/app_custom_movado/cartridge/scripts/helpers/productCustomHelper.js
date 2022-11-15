@@ -297,9 +297,9 @@ function getOCIPreOrderParameters(apiProduct) {
         var ociPreOrderObject = {};
         if (!empty(apiProduct)) {
             var productAvailabilityModel = apiProduct.getAvailabilityModel();
-            ociPreOrderObject.ociPreOrderProductAllocation = !empty(productAvailabilityModel.inventoryRecord.allocation.value) ? productAvailabilityModel.inventoryRecord.allocation.value : null;
-            ociPreOrderObject.ociPreOrderProductATO = !empty(productAvailabilityModel.inventoryRecord.ATS.value) ? productAvailabilityModel.inventoryRecord.ATS.value : null;
-            ociPreOrderObject.ociPreOrderProductFuture = !empty(productAvailabilityModel.inventoryRecord.backorderable) ? productAvailabilityModel.inventoryRecord.backorderable : null;
+            ociPreOrderObject.ociPreOrderProductAllocation = !empty(productAvailabilityModel) && !empty(productAvailabilityModel.inventoryRecord) && !empty(productAvailabilityModel.inventoryRecord.allocation) && !empty(productAvailabilityModel.inventoryRecord.allocation.value) ? productAvailabilityModel.inventoryRecord.allocation.value : null;
+            ociPreOrderObject.ociPreOrderProductATO = !empty(productAvailabilityModel) && !empty(productAvailabilityModel.inventoryRecord) && !empty(productAvailabilityModel.inventoryRecord.ATS) && !empty(productAvailabilityModel.inventoryRecord.ATS.value) ? productAvailabilityModel.inventoryRecord.ATS.value : null;
+            ociPreOrderObject.ociPreOrderProductFuture = !empty(productAvailabilityModel) && !empty(productAvailabilityModel.inventoryRecord) && !empty(productAvailabilityModel.inventoryRecord.backorderable) ? productAvailabilityModel.inventoryRecord.backorderable : null;
         }
         return ociPreOrderObject;
     } catch (e) {
