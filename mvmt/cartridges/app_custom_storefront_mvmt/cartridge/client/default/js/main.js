@@ -13,6 +13,7 @@ processInclude(require('movado/welcomeMat/welcomeMatModal'));
 processInclude(require('movado/components/mod_video'));
 processInclude(require('movado/utilities/swatches'));
 processInclude(require('movado/components/emailPopUpSubscription'));
+processInclude(require('movado/components/googleRecaptcha'));
 
 $(document).ready(function () {
     processInclude(require('./components/slickCarousel'));
