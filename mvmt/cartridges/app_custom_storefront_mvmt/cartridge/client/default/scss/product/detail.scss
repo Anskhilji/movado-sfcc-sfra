@@ -1796,7 +1796,7 @@
             }
         }
 
-        .product-description {
+        .product-description, .shipping-returns-description {
             @include media-breakpoint-down(sm) {
                 text-align: center;
             }
@@ -4463,7 +4463,7 @@
                             }
                         }
 
-                        .product-description{
+                        .product-description, .shipping-returns-description {
                             color: $light-black;
                             font-family: $font-medium;
                             font-size: rem(14);
