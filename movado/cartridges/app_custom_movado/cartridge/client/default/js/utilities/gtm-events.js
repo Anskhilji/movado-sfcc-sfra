@@ -140,7 +140,8 @@ var onPDPAddProductClickEvent = function () {
 				          name: addtoCartData.name,
 				          price: addtoCartData.price,
 				          category: addtoCartData.category,
-				          variant: addtoCartData.variant
+				          variant: addtoCartData.variant,
+                          ATC: addtoCartData.atcLocation
 				      }]
                     }
                 }
@@ -157,7 +158,8 @@ var onPDPAddProductClickEvent = function () {
 					          name: addtoCartData.name,
 					          price: addtoCartData.price,
 					          category: addtoCartData.category,
-					          variant: addtoCartData.variant
+					          variant: addtoCartData.variant,
+                              ATC: addtoCartData.atcLocation
 				      	}]
                     }
                 }

@@ -7,7 +7,7 @@
             <isset name="addtoCart" value="${Resource.msg('button.addtobag', 'common', null)}" scope="page" /> 
         </isif>
         <button class='add-to-cart btn btn-primary-cta  <isif condition="${product.isProductRestricted}">d-none</isif>'
-            data-pid="${product.id}" data-atc="PDPOld"
+            data-pid="${product.id}" data-atc="PDP"
             ${!product.readyToOrder ? "disabled" : ""}  >
                 <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>
                 <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
