@@ -514,6 +514,25 @@ server.replace(
             }
         }
 
+        var currentBasket = BasketMgr.getCurrentBasket();
+        var isCouponApplid = currentBasket.couponLineItems && currentBasket.couponLineItems.length > 0 ? currentBasket.couponLineItems[0] : null;
+        if (isCouponApplid !== null && !isCouponApplid.applied) {
+            error = true;
+            Transaction.wrap(function () {
+                currentBasket.removeCouponLineItem(currentBasket.couponLineItems[0]);
+            });
+
+            var couponErrorMessages = !empty(Site.current.preferences.custom.couponErrorMessages) ? Site.current.preferences.custom.couponErrorMessages : false;
+
+            if (couponErrorMessages) {
+                var errorCodes = JSON.parse(couponErrorMessages);
+                var localeErrorCodes = errorCodes[req.locale.id] || errorCodes['default'];
+                var errorMessageKey = localeErrorCodes.COUPON_NOT_APPLIED || localeErrorCodes.DEFAULT;
+                errorMessage = Resource.msg(errorMessageKey, 'cart', null);
+                // Custom End
+            }
+        }
+
         if (error) {
             res.json({
                 error: error,
@@ -521,6 +540,7 @@ server.replace(
             });
             return next();
         }
+
 
         Transaction.wrap(function () {
             basketCalculationHelpers.calculateTotals(currentBasket);
