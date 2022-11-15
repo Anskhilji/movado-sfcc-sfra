@@ -140,14 +140,18 @@
 .plp-redesign {
     &.search-banner {
         padding: 0;
+        min-height: rem(150);
+
+        @include media-breakpoint-down(sm-small) {
+            min-height: rem(106); 
+            background-color: red;
+        }
 
         picture {
             img {
                 width: 100%;
-
-                @include media-breakpoint-up(lg) {
-                    min-height: rem(300);
-                    max-height: auto;
+                @include media-breakpoint-down(sm) {
+                    min-height: unset;
                 }
             }
         }
