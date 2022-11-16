@@ -1,4 +1,4 @@
-<div class="col-12 grid-footer d-flex pagination-top-space"
+<div class="col-12 grid-footer d-flex pagination-wrapper"
      data-sort-options="${JSON.stringify(pdict.productSearch.productSort)}"
      data-page-size="${pdict.productSearch.pageSize}"
      data-page-number="${pdict.productSearch.pageNumber}"
