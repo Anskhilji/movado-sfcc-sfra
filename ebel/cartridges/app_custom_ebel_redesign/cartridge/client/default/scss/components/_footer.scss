@@ -5,9 +5,15 @@
         
         .footer-item {
             font-family: $font-HelveticaNeueLT-book;
+            
+            h3 {
+                font-family: $font-HelveticaNeueLT-book;
+            }
         }
 
         h3 {
+            font-family: $font-HelveticaNeueLT-book;
+
             a {
                 font-family: $font-HelveticaNeueLT-book;
             }
@@ -34,6 +40,13 @@
         .copyright {
             font-family: $font-HelveticaNeueLT-book ;
         }
+
+        .copyright-footer-row {
+
+            @include media-breakpoint-down(sm) {
+                padding-top: rem(35);
+            }
+        }
     }
 
     &-top {
@@ -49,3 +62,4 @@
         }
     }
 }
+

@@ -2,7 +2,7 @@
 var triggerEmail = true;
 var processResponse = function ($selector, data) {
     if (data.success) {
-        $selector.find('.back-in-stock-notification-container-main, .back-in-stock-notification-marketing-container').addClass('d-none');
+        $selector.find('.back-in-stock-notification-listrak-container, .back-in-stock-notification-container-main, .back-in-stock-notification-marketing-container').addClass('d-none');
         var mediumWidth = 992;
         var $windowWidth = $(window).width();
         if ($windowWidth < mediumWidth) {
@@ -94,3 +94,6 @@ $(document).ready(function () {
         }
     });
 })
+module.exports = {
+    submitBackInStockEmail
+ }

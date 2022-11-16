@@ -30,6 +30,14 @@
 
     .result-count {
 
+        p {
+            font-family: $font-HelveticaNeueLT-book;
+
+            span {
+                font-family: $font-HelveticaNeueLT-book;
+            }
+        }
+        
         > span {
             font-family: $font-HelveticaNeueLT-book;
         }
@@ -90,6 +98,7 @@
     }
    
     .product-tile {
+        background: $white;
 
         .promotions, .plp-promotions {
            
@@ -129,6 +138,7 @@
 
             .tile-discription, .product-not-available-msg {  
                 font-family: $font-HelveticaNeueLT-book;
+                max-height: rem(36);
             }
         }
     }
@@ -145,5 +155,22 @@
         p {
             font-family: $font-HelveticaNeueLT-book;
         }
+    }
+}
+
+
+.search-nav {
+
+    .nav-link {
+        font-family: $font-HelveticaNeueLT-medium;
+    }
+}
+
+.listrak-persistent-popup {
+    display: none !important;
+}
+.button-floting {
+    &.button-search-result {
+        bottom: rem(41);
     }
 }

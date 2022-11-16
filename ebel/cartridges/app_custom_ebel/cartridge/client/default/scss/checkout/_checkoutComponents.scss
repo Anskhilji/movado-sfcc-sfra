@@ -64,11 +64,25 @@ $stored-payment-spacing: rem(16);
   .card-body {
     padding: rem(15) rem(10);
   }
+
+  .card-border-none-wrapper {
+
+      .card-body {
+
+          &.order-total-summary {
+              padding: 0rem;
+          }
+      }
+  }
   .card-header {
     @extend %card-header;
     padding-left: rem(10);
     padding-right: rem(10);
     padding-bottom: rem(7);
+
+    &.card-heading-wrapper {
+        padding-left: rem(0)
+    }
   }
   .form-group {
     .form-control-label {
@@ -100,7 +114,7 @@ $stored-payment-spacing: rem(16);
     }
   }
   .custom-select {
-    font-family: $font-medium;
+    font-family: $font-HelveticaNeueLT-medium;
     font-size: rem(14);
     line-height: rem(17);
     letter-spacing: rem(0.4);
@@ -139,7 +153,7 @@ $stored-payment-spacing: rem(16);
     .order-receipt-label,
     .text-right,
     .sub-total {
-      font-family: $font-medium;
+      font-family: $font-HelveticaNeueLT-medium;
       font-size: rem(16);
       letter-spacing: rem(0.4);
       line-height: rem(21);
@@ -150,7 +164,7 @@ $stored-payment-spacing: rem(16);
     .grand-total {
       .order-receipt-label,
       .text-right {
-        font-family: $font-bold;
+        font-family: $font-HelveticaNeueLT-bold;
         font-size: rem(18);
         letter-spacing: rem(0.4);
         line-height: rem(22);
@@ -300,17 +314,13 @@ $stored-payment-spacing: rem(16);
         
           .text-right {
               margin-bottom: rem(0);
-            
-              .shipping-total-cost {
-                  color: $parrot-green;
-              }
           }
       }
   }
 }
 
 .summary-details {
-  font-family: $font-book;
+  font-family: $font-HelveticaNeueLT-book;
   font-size: rem(14);
   letter-spacing: rem(0.4);
   line-height: rem(21);
@@ -324,7 +334,7 @@ $stored-payment-spacing: rem(16);
 }
 
 .summary-section-label {
-  font-family: $font-medium;
+  font-family: $font-HelveticaNeueLT-medium;
   font-size: rem(14);
   letter-spacing: rem(0.4);
   line-height: rem(17);
@@ -916,6 +926,18 @@ $stored-payment-spacing: rem(16);
                     }
               }
           }
+        }
+    }
+}
+
+.right-section {
+
+    .leading-lines {
+        &.justify-content-between {
+          
+            .end-lines {
+                background: transparent;
+            }
         }
     }
 }

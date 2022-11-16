@@ -118,11 +118,13 @@ $table-border-color: $grey3 !default;
 $svg-check: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3E%3C/svg%3E") !default;
 
 //font Families:
-$font-medium : "HelveticaNeueLT-Roman", helvetica, arial, sans-serif !default;
-$font-book : "HelveticaNeueLTStd-ThEx", helvetica, arial, sans-serif !default;
-$font-bold : "HelveticaNeueLT-Roman", Arial, sans-serif !default;
-$light-font : "HelveticaNeueLT-LightExt", helvetica, arial, sans-serif !default;
-$font-primary: $font-book;
+$font-HelveticaNeueLT : "HelveticaNeueLT-Roman", helvetica, arial, sans-serif !default;
+$font-HelveticaNeueLT-medium : "HelveticaNeueLT-Roman", helvetica, arial, sans-serif !default;
+$font-HelveticaNeueLT-book : "HelveticaNeueLTStd-ThEx", helvetica, arial, sans-serif !default;
+$font-HelveticaNeueLT-bold : "HelveticaNeueLT-Roman", Arial, sans-serif !default;
+$font-HelveticaNeueLT-font : "HelveticaNeueLT-LightExt", helvetica, arial, sans-serif !default;
+
+$font-primary: $font-HelveticaNeueLT-book;
 $maroon : rgb(75,40,9) !default;
 $footer-custom : rgb(254,253,252) !default;
 

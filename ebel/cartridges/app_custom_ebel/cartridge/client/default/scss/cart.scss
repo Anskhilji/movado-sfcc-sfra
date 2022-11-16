@@ -28,7 +28,7 @@ $negative-spacer: -0.625rem;
   }
 
   .estimated-price {
-    font-family: $font-medium;
+    font-family: $font-HelveticaNeueLT-medium;
     font-size: rem(16);
     letter-spacing: rem(2);
     line-height: rem(19);
@@ -250,7 +250,7 @@ $negative-spacer: -0.625rem;
 }
 
 .more-ways-text {
-  font-family: $font-medium;
+  font-family: $font-HelveticaNeueLT-medium;
   font-size: rem(16);
   letter-spacing: rem(0.4);
   line-height: rem(19);
@@ -265,7 +265,7 @@ $negative-spacer: -0.625rem;
     margin: 0;
     padding: rem(15);
     left: 0;
-    font-family: $font-book;
+    font-family: $font-HelveticaNeueLT-book;
     color: $grey14;
     text-transform: uppercase;
     font-size: rem(26);
@@ -324,7 +324,7 @@ $negative-spacer: -0.625rem;
     .character-limit,
     .gift-check + label {
       color: $grey-transparent-6;
-      font-family: $font-book;
+      font-family: $font-HelveticaNeueLT-book;
       font-weight: 300;
       font-size: rem(14);
       letter-spacing: rem(0.4);
@@ -350,7 +350,7 @@ $negative-spacer: -0.625rem;
 
   .price-label,
   .cost {
-    font-family: $font-book;
+    font-family: $font-HelveticaNeueLT-book;
     font-weight: 300;
     font-size: rem(14);
     letter-spacing: rem(0.88);
@@ -360,14 +360,14 @@ $negative-spacer: -0.625rem;
 
   .grand-total-label,
   .grand-total {
-    font-family: $font-bold;
+    font-family: $font-HelveticaNeueLT-bold;
     font-weight: bold;
   }
 }
 
 .cart-empty {
   .empty-cart-header {
-    font-family: $font-medium;
+    font-family: $font-HelveticaNeueLT-medium;
     font-weight: 500;
     font-size: rem(26);
     letter-spacing: rem(2);

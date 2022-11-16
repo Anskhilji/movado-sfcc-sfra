@@ -1,5 +1,6 @@
 <iscomment> Custom: HTML structure changed</iscomment>
 <isdecorate template="common/layout/page">
+<isinclude template="/components/modules" sf-toolkit="off" />
     <isscript>
         var assets = require('*/cartridge/scripts/assets');
         assets.addJs('/js/search.js');
@@ -62,16 +63,16 @@
                         <div class="refinement-bar col">
                             <isinclude url="${pdict.refineurl}" />
                         </div>
-                        <div class="container-fluid mt-3">
-                            <div class="row pb-2 pb-sm-3">
+                        <div class="container-fluid mt-0">
+                            <div class="row py-2 py-sm-3 filter-box">
                                 <div class="col-12">
-                                    <div class="d-flex justify-content-between">
+                                    <div class="d-flex justify-content-between align-items-start">
                                         <div id="product-search-results">
                                             <isif condition="${pdict.productSearch.productIds.length > 0}">
                                                 <div class="row m-0 grid-header">
                                                     <div class="result-count">
                                             <iselse>
-                                                <div class="row m-0 grid-header justify-content-center">
+                                                <div class="row m-0 grid-header justify-content-start">
                                                     <div class="result-count col">
                                             </isif>
                                             <isinclude template="search/resultsCount" />
@@ -151,5 +152,16 @@
        <isif condition="${pdict.contentSearch && pdict.contentSearch.contentCount == 0}">
             <isslot id="cs-noresult-recommendations" description="Recommendations for no result search" context="global" />
        </isif>
+       <isif condition="${pdict.productSearch !== null && pdict.productSearch.count == 0 && !pdict.productSearch.productIds.length}">
+            <isslot id="cs-noresult-content" description="Content Slot on No Results Page" context="global" />
+       </isif>
     </div>
+        <!-- Start: Listrak persistent popup -->
+    <isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page" />
+    <isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled && pdict.popupID}">
+        <span class="listrak-persistent-url" data-listrak-url="${URLUtils.https('EmailPopUp-Show')}"></span>
+        <span class="listrak-popup-search-result"></span>
+        <isslot id="cs-listrak-persistent-popup" description="Listrak persistent popup" context="global" />
+    </isif>
+    <!-- End: Listrak persistent popup -->
 </isdecorate>

@@ -110,7 +110,8 @@ function parseRiskifiedResponse(order, reqBody) {
         			creationDate :order.creationDate,
         			order: order
         	};
-        	COCustomHelpers.sendCancellationEmail(orderObj);
+            var customerLocale = order.customerLocaleID || Site.current.defaultLocale;
+            COCustomHelpers.sendCancellationEmail(orderObj, customerLocale);
         }
     } else {
         if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) {
@@ -137,7 +138,6 @@ function parseRiskifiedResponse(order, reqBody) {
             checkoutLogger.error('RiskifiedParseResponseResult.js -> COCustomHelpers.sendOrderConfirmationEmail() -> throw error on sending confirmation email, Error: ' + error);
         }
         
-
         /* Accept in OMS */
         if (Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {
             try {
