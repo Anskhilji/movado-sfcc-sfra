@@ -68,7 +68,7 @@
                         <div class="container-fluid mt-0">
                             <div class="row py-2 py-sm-3">
                                 <div class="col-12">
-                                    <div class="d-flex justify-content-between align-items-start search-result-counts">
+                                    <div class="d-flex justify-content-between align-items-start search-result-counts filter-and-count">
                                         <div id="product-search-results" class="d-none d-md-block">
                                             <isif condition="${pdict.productSearch.productIds.length > 0}">
                                                 <div class="row m-0 grid-header">
