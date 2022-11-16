@@ -27,7 +27,7 @@
         <div class="row d-sm-none no-gutters pop-up-container-box cart-product-mobile-view">
             <div class="col-12 pop-up-box-space d-flex justify-content-between">
                 <p class="grand-total-label top-grandtotal-label">${Resource.msg('order.confirmation.email.label.orderTotal','order',null)} (${pdict.order.items.totalQuantity == 1 ? Resource.msgf('label.cart.signle.item','cart', null, pdict.order.items.totalQuantity) : Resource.msgf('label.number.items.in.cart','cart', null, pdict.order.items.totalQuantity)})</p>
-                <p class="grand-total-price top-grand-total-price-wrapper">${pdict.order.totals.grandTotal}</p>
+                <p class="grand-total-price grand-total-sum top-grand-total-price-wrapper">${pdict.order.totals.grandTotal}</p>
             </div>
             <div class="col-12 checkout-promo-section checkout-promo-redesign d-none-promo-box">
                  <isinclude template="checkout/orderSummaryPopUp.isml" />
@@ -61,7 +61,11 @@
                         <div class="col-12 col-space-wrapper">
                             <div class="card shipping-summary">
                                 <div class="card-header flex justify-content-between align-items-center">
+                                <isif condition="${session.privacy.pickupFromStore}">
+                                    <h4 class="pull-left store-label-details">${Resource.msg('heading.checkout.store.pickup.detail', 'storePickUp', null)}</h4>
+                                <iselse/>
                                     <h4 class="pull-left">${Resource.msg('heading.checkout.shipping', 'checkout', null)}</h4>
+                                </isif>
                                     <span class="edit-button pull-right" tabindex="0">${Resource.msg('action.edit.step', 'checkout', null)}</span>
                                 </div>
                                 <div class="card-body">
@@ -73,13 +77,12 @@
                     <!-- Step 2: Payment and Billing-->
                     <div class="row">
                         <div class="col-12 col-space-wrapper">
-                            <isinclude template="checkout/billing/billing" />
-                            <div class="card payment-summary ">
+                        <isinclude template="checkout/billing/billing" />
+                            <div class="card payment-summary">
                                 <div class="card-header flex justify-content-between align-items-center">
-                                    <h4 class="pull-left">${Resource.msg('heading.payment', 'checkout', null)}</h4>
-                                    <span class="edit-button pull-right">${Resource.msg('action.edit.step', 'checkout', null)}</span>
+                                    <h4 class="pull-left store-label-details">${Resource.msg('heading.payment', 'checkout', null)}</h4>
+                                        <span class="edit-button pull-right">${Resource.msg('action.edit.step', 'checkout', null)}</span>
                                 </div>
-
                                 <div class="card-body">
                                     <isinclude template="checkout/billing/billingSummary" />
                                 </div>
@@ -93,7 +96,7 @@
                     <div class="row">
                         <div class="col-12 next-step-button">
                             <div class="mx-container-box1">
-                                <button class="btn btn-primary btn-block mx-shipping-box submit-shipping" type="submit" name="submit" value="submit-shipping" <isif condition="${pdict.order.usingMultiShipping && !pdict.order.shippable}">disabled</isif>>
+                                <button class="btn btn-primary btn-block mx-shipping-box submit-shipping" data-customer="${!empty(pdict.customer.addresses) ? true : false}" type="submit" name="submit" value="submit-shipping" <isif condition="${pdict.order.usingMultiShipping && !pdict.order.shippable}">disabled</isif>>
                                     ${Resource.msg('button.next.payment', 'checkout', null)}
                                 </button>
 
@@ -107,7 +110,7 @@
                             </div>
                         </div>
                     </div>
-
+                    <isinclude template="checkout/fedExAdressModal" />
                 </div>
 
                 <!----------------------------------------------------------------------------------->
@@ -121,7 +124,7 @@
                             <!-- Promos -->
                             <div class="checkout-promo-section checkout-promo-redesign">
                                 <isinclude template="checkout/checkoutPromoCode" />
-                                <div class="checkout-coupons-and-promos coupons-wrapper">
+                                <div class="checkout-coupons-and-promos coupons-wrapper coupon-card-icon">
                                     <isinclude template="cart/cartCouponDisplay" />
                                 </div>
                             </div>

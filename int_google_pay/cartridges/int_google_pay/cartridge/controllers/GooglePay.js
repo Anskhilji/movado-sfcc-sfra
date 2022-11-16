@@ -96,6 +96,9 @@ server.post('ProcessPayments',
 
         var validationHelpers = require('*/cartridge/scripts/helpers/basketValidationHelpers');
         var currentBasket = BasketMgr.getCurrentOrNewBasket();
+        var referralUrl = req.referer;
+        var googlePayEntryPoint = referralUrl && (referralUrl.indexOf('Cart-Show') > -1) || (referralUrl.indexOf('shopping-bag') > -1) ? false : true;
+        var productID = (!empty(currentBasket)) ? currentBasket.productLineItems[0].productID : '';
         if (!currentBasket) {
             res.json({
                 error: true,
@@ -142,7 +145,27 @@ server.post('ProcessPayments',
             var selectedShippingMethod = googlePayResponse.shippingOptionData.id;
             var shippingAddressData = googlePayResponse.shippingAddress;
             shippingAddressData.email = googlePayResponse.email;
-            googlePayHelper.setShippingAndBillingAddress(currentBasket, selectedShippingMethod, shippingAddressData, currentBasket.defaultShipment);
+            var response = googlePayHelper.setShippingAndBillingAddress(currentBasket, selectedShippingMethod, shippingAddressData, currentBasket.defaultShipment);
+            
+            if (response) {
+                if (googlePayEntryPoint) {
+                    res.json({
+                        error: false,
+                        lastNameError: true,
+                        redirectUrl: (URLUtils.url('Product-Show', 'pid', productID, 'lastNameError', true)).toString()
+                    });
+                    return next();
+    
+                } else {
+                    res.json({
+                        error: false,
+                        lastNameError: true,
+                        redirectUrl: (URLUtils.url('Cart-Show', 'lastNameError', true)).toString()
+                    });
+                    return next();
+    
+                }
+            }
         }
 
 
@@ -270,22 +293,21 @@ server.post('ProcessPayments',
             res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
             return next();
         } else {
-                var RiskifiedOrderDescion = require('*/cartridge/scripts/riskified/RiskifiedOrderDescion');
-                if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'declined') {
-                        // Riskified order declined response from decide API
-                        riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order);
-                        if (riskifiedOrderDeclined) {
-                            res.json({
-                                error: false,
-                                orderID: orderNumber,
-                                redirectUrl: URLUtils.url('Checkout-Declined').toString()
-                            });
-                            return next();
-                        }
-                } else if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'approved') {
-                    // Riskified order approved response from decide API
-                    RiskifiedOrderDescion.orderApproved(order);
-                }
+            var RiskifiedOrderDescion = require('*/cartridge/scripts/riskified/RiskifiedOrderDescion');
+            if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'declined') {
+                    // Riskified order declined response from decide API
+                    riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order);
+                    if (riskifiedOrderDeclined) {
+                        res.json({
+                            error: false,
+                            redirectUrl: URLUtils.url('Checkout-Declined').toString()
+                        });
+                        return next();
+                    }
+            } else if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'approved') {
+                // Riskified order approved response from decide API
+                RiskifiedOrderDescion.orderApproved(order);
+            }
         }
 
          // Calling fraud detection hook

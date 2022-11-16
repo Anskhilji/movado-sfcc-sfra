@@ -27,8 +27,20 @@ module.exports = function fullProduct(product, apiProduct, options) {
     var caseDiameter = productCustomHelper.getCaseDiameter(apiProduct);
     var caseDiameterRedesigned = productCustomHelper.getCaseDiameter(apiProduct, true);
     var isCategory = productCustomHelper.getProductCategory(apiProduct, product);
-    var isGiftBoxAllowed = productCustomHelper.isGiftBoxAllowed(apiProduct);
-    var giftBoxSKUData = productCustomHelper.getGiftBoxSKU(apiProduct);
+    var isWatchTile = productCustomHelper.getIsWatchTile(apiProduct);
+    var masterProductID;
+
+    if (!empty(apiProduct)) {
+        if (apiProduct.master) {
+            masterProductID = apiProduct.ID;
+        } else {
+            if ((!empty(apiProduct.variationModel.master)) && (!empty(apiProduct.variationModel.master.ID))) {
+                masterProductID = apiProduct.variationModel.master.ID;
+            } else {
+                masterProductID = '';
+            }
+        }
+    }
 
     if (!empty(currentCountry)) {
         Object.defineProperty(product, 'currentCountry', {
@@ -36,7 +48,7 @@ module.exports = function fullProduct(product, apiProduct, options) {
             value: currentCountry
         });
     }
-    
+
     if (!empty(pdpCollectionContentAssetID)) {
         Object.defineProperty(product, 'pdpCollectionContentAssetID', {
             enumerable: true,
@@ -102,29 +114,36 @@ module.exports = function fullProduct(product, apiProduct, options) {
 
     if (!empty(caseDiameter)) {
         Object.defineProperty(product, 'caseDiameter', {
-        enumerable: true,
-        value: caseDiameter
+            enumerable: true,
+            value: caseDiameter
         });
     }
 
     if (!empty(caseDiameter)) {
         Object.defineProperty(product, 'caseDiameter', {
-        enumerable: true,
-        value: caseDiameter
+            enumerable: true,
+            value: caseDiameter
         });
     }
 
     if (!empty(caseDiameterRedesigned)) {
         Object.defineProperty(product, 'caseDiameterRedesigned', {
-        enumerable: true,
-        value: caseDiameterRedesigned
+            enumerable: true,
+            value: caseDiameterRedesigned
         });
     }
 
     if (!empty(color)) {
         Object.defineProperty(product, 'color', {
-        enumerable: true,
-        value: color
+            enumerable: true,
+            value: color
+        });
+    }
+
+    if (!empty(isWatchTile)) {
+        Object.defineProperty(product, 'isWatchTile', {
+            enumerable: true,
+            value: isWatchTile
         });
     }
 
@@ -135,17 +154,10 @@ module.exports = function fullProduct(product, apiProduct, options) {
         });
     }
 
-    if (!empty(isGiftBoxAllowed)) {
-        Object.defineProperty(product, 'isGiftBoxAllowed', {
+    if (!empty(masterProductID)) {
+        Object.defineProperty(product, 'masterProductID', {
             enumerable: true,
-            value: isGiftBoxAllowed
-        });
-    }
-
-    if (!empty(giftBoxSKUData)) {
-        Object.defineProperty(product, 'giftBoxSKUData', {
-            enumerable: true,
-            value: giftBoxSKUData
+            value: masterProductID
         });
     }
 

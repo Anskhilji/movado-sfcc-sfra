@@ -76,6 +76,41 @@ function getRetailerPromoCodes() {
 }
 
 /**
+ * Apply discount base based on order percentage so that each line item will get equal percentage discount
+ * @param {dw.order.Basket} basket - Basket Object
+ * @returns {object} - Array of discounted PIDs
+ */
+ function getProductPricePercentageShare(basket) {
+    var productLineItems = basket.productLineItems;
+    // Get all applied percentage order level discounts sum
+    var totalAppliedOrderLevelDiscount = 0;
+    if (!empty(basket) && !empty(basket.getPriceAdjustments())) {
+        basket.getPriceAdjustments().toArray().forEach(function (adjustment) {
+            if (adjustment.promotion.promotionClass === dw.order.PriceAdjustmentLimitTypes.TYPE_ORDER
+                && adjustment.appliedDiscount.type === dw.campaign.Discount.TYPE_PERCENTAGE) {
+                totalAppliedOrderLevelDiscount += adjustment.appliedDiscount.percentage;
+            }
+        });
+        // Just an exception in case of multiple order promotions exceeded 99%
+        totalAppliedOrderLevelDiscount = (totalAppliedOrderLevelDiscount > 99) ? 99 : totalAppliedOrderLevelDiscount;
+    }
+    // Calculate discounted price of each line item
+    var pricePercentageShare = new dw.util.ArrayList([]);
+    if (totalAppliedOrderLevelDiscount > 0) {
+        for (var lineItemNumber in productLineItems) {
+            var item = productLineItems[lineItemNumber];
+            var itemPrice = eswHelper.getUnitPriceCost(item).value;
+            var discountedTotalPrice = (itemPrice - (itemPrice * (totalAppliedOrderLevelDiscount / 100))).toFixed(2);
+            pricePercentageShare.add({
+                productID: item.productID,
+                discountedTotalPrice: Number(discountedTotalPrice)
+            });
+        }
+    }
+    return pricePercentageShare;
+}
+
+/**
  * function to get cart items for version 2
  * @returns {Object} - cart items
  */
@@ -94,6 +129,7 @@ function getCartItemsV2() {
             totalQuantity += item.quantity.value;
         }
     });
+    var productPriceSharePerentage = getProductPricePercentageShare(currentBasket);
     for (var lineItemNumber in currentBasket.productLineItems) {
         // Custom Start: Adding custom image variable for dynamic image code
         var ImageModel = require('*/cartridge/models/product/productImages');
@@ -123,12 +159,24 @@ function getCartItemsV2() {
             price = 0;
         } else {
             //Apply order level promotions
-            if (currentBasket.productLineItems.length == lineItemNumber + 1) {
-                price -= remainingDiscount / item.quantity.value;
+            if (productPriceSharePerentage.size() === 0) {
+                if (currentBasket.productLineItems.length == lineItemNumber + 1) {
+                    price -= remainingDiscount / item.quantity.value;
+                } else {
+                    price -= totalDiscount / totalQuantity;
+                }
+                discountAmount = beforeDiscount - price;
+                remainingDiscount -= (priceAfterProductPromos - price) * item.quantity.value;
             } else {
-                price -= totalDiscount / totalQuantity;
+                var collections = require('*/cartridge/scripts/util/collections');
+                var discountedPriceFromArr = collections.find(productPriceSharePerentage, function(productPrice){
+                    return productPrice.productID === item.productID;
+                });
+                price = discountedPriceFromArr.discountedTotalPrice;
+                discountAmount = beforeDiscount - price;
             }
             price = price.toFixed(2);
+            discountAmount = discountAmount.toFixed(2);
         }
         // Custom Start: Adding custom dynamic image code
         var tile = !empty(Site.getCustomPreferenceValue('preOrderImageType')) ? Site.getCustomPreferenceValue('preOrderImageType') : 'tile256';
@@ -259,6 +307,29 @@ function getProductLineMetadataItems(pli) {
                 value: customCategory
             };
             arr.push(obj);
+        }
+        // Custom End
+
+        // Custom Start : MSS-1960 MVMT - ESW - Pass Family Name & Color to ESW Cart Fields
+        if (!empty(pli.product) && !empty(pli.product.custom.familyName) && !empty(pli.product.custom.familyName.length)) {
+            var familyName = !empty(pli.product) && !empty(pli.product.custom) ? pli.product.custom.familyName[0]: null;
+            if (!empty(familyName)) {
+                obj = {
+                    name: 'Family Name',
+                    value: familyName
+                };
+                arr.push(obj);
+            }
+        }
+        if (!empty(pli.product) && !empty(pli.product.custom.color)) {
+            var color = !empty(pli.product) && !empty(pli.product.custom) && !empty(pli.product.custom.color) ? pli.product.custom.color: null;
+            if (!empty(color)) {
+                obj = {
+                    name: 'Product Color',
+                    value: color
+                };
+                arr.push(obj);
+            }
         }
         // Custom End
     }

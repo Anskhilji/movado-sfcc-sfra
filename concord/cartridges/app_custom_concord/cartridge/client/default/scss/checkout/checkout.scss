@@ -924,6 +924,8 @@ header {
             .card-border-none-wrapper {
 
                 .card-summary-wrapper-container {
+                    display: block;
+                    
                     @include media-breakpoint-down(xs) {
                         margin-bottom: rem(18.4);
                     }
@@ -986,4 +988,9 @@ header {
             }
         }
     }
+}
+
+:focus {
+    outline: none;
+    box-shadow: none;
 }

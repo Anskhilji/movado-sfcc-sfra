@@ -161,8 +161,6 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
             if ((!empty(registrationForm.customer.hpemail.htmlValue)) ||
                 (!empty(registrationForm.customer.hpemailconfirm.htmlValue))) {
                     registrationForm.valid = false;
-            } else {
-                registrationForm.valid = true;
             }
         }
         // Custom End
@@ -320,7 +318,7 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
                     fields: formErrors.getFormErrors(registrationForm)
                 });
             }
-            if (!empty(authenticatedCustomer.profile.custom.customerCurrentCountry)) {
+            if (!empty(authenticatedCustomer) && !empty(authenticatedCustomer.profile.custom.customerCurrentCountry)) {
                 // Custom Start: Yotpo Swell Integration 
                 if (isYotpoSwellLoyaltyEnabled && authenticatedCustomer.profile.custom.customerCurrentCountry.equalsIgnoreCase('US')) {
                     var viewData = res.getViewData();
@@ -664,16 +662,17 @@ server.replace('SaveNewPassword', server.middleware.https, function (req, res, n
                 var emailMarketingContent = ContentMgr.getContent('email-password-changed-marketing');
 
                 var objectForEmail = {
+                    email: email,
                     firstName: resettingCustomer.profile.firstName,
                     lastName: resettingCustomer.profile.lastName,
-		  url: url,
-		  passwordChangedTitle: Resource.msg('passwordchangedemail.subject', 'account', null),
-		  dear: Resource.msg('msg.passwordemail.dear', 'login', null),
-		  emailHeader: (emailHeaderContent && emailHeaderContent.custom && emailHeaderContent.custom.body ? emailHeaderContent.custom.body : ''),
-		  emailFooter: (emailFooterContent && emailFooterContent.custom && emailFooterContent.custom.body ? emailFooterContent.custom.body : ''),
-		  apiContentBody: (apiContent && apiContent.custom && apiContent.custom.body ? apiContent.custom.body : ''),
-		  emailMarketingContent: (emailMarketingContent && emailMarketingContent.custom && emailMarketingContent.custom.body ? emailMarketingContent.custom.body : ''),
-		  shopNow: Resource.msg('email.shop.now', 'account', null),
+                    url: url,
+                    passwordChangedTitle: Resource.msg('passwordchangedemail.subject', 'account', null),
+                    dear: Resource.msg('msg.passwordemail.dear', 'login', null),
+                    emailHeader: (emailHeaderContent && emailHeaderContent.custom && emailHeaderContent.custom.body ? emailHeaderContent.custom.body : ''),
+                    emailFooter: (emailFooterContent && emailFooterContent.custom && emailFooterContent.custom.body ? emailFooterContent.custom.body : ''),
+                    apiContentBody: (apiContent && apiContent.custom && apiContent.custom.body ? apiContent.custom.body : ''),
+                    emailMarketingContent: (emailMarketingContent && emailMarketingContent.custom && emailMarketingContent.custom.body ? emailMarketingContent.custom.body : ''),
+                    shopNow: Resource.msg('email.shop.now', 'account', null),
                     resettingCustomer: resettingCustomer
                 };
 

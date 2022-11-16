@@ -9,6 +9,7 @@ exports.LTK_TRANSACTIONAL_SWITCH = 'Listrak';
 exports.LTK_ACCOUNT_CONTEXT = 'Account';
 exports.LTK_ORDER_CONTEXT = 'Order';
 exports.DATE_SEPRATOR = '/';
+exports.TOTAL_TAX = 'TBD';
 exports.Subscription_State = 'Subscribed';
 exports.LTK_API_ENDPOINT = {
     CONTACT: '/List/{listId}/Contact/',

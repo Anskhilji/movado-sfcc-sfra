@@ -1,4 +1,6 @@
 <isdecorate template="common/layout/page">
+<isinclude template="/components/modules" sf-toolkit="off" />
+<isset name="isPickupStoreEnabled" value="${!empty(dw.system.Site.current.preferences.custom.isPickupStoreEnabled) ? dw.system.Site.current.preferences.custom.isPickupStoreEnabled : false}" scope="page" />
 
     <isscript>
         var assets = require('*/cartridge/scripts/assets');
@@ -31,6 +33,13 @@
     <isobject object="${product.raw}" view="detail">
         <div class="container-fluid product-detail product-wrapper product-detail1-wrapper mcs-product-detail-section-redesign" data-pid="${product.id}" itemscope
             itemtype="http://schema.org/Product">
+
+            <isif condition="${pdict.lastNameError}">
+                <div class="container cart-error-messaging cart-error gpay-error alert card alert-dismissible fade show">
+                    ${Resource.msg('error.last.name', 'checkout', null)}
+                </div>
+            </isif>
+
             <div class="row d-sm-none">
                 <div class="col-12">
                     <!---Breadcrumbs--->
@@ -50,18 +59,7 @@
                         <isif condition="${pdict.yotpoWidgetData.isReviewEnabled}">
                             <iscomment> product rating </iscomment>
                             <div class="d-block rating-box-redisgn">
-                                <isset name="isYotpoStoreProductRatingEnabled" value="${!empty(dw.system.Site.current.preferences.custom.yotpoStoreProductRatingEnabled) ? dw.system.Site.current.preferences.custom.yotpoStoreProductRatingEnabled : false}" scope="page" />
-                                <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
-                                    <div class="product-number-rating">
-                                        <div class="ratings">
-                                            <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
-                                                <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <iselse/>
-                                    <isinclude template="product/components/pidRating" />
-                                </isif>
+                                <isinclude template="product/components/pidRating" />
                             </div>
                         </isif>
                     </div>
@@ -101,6 +99,7 @@
                         <iscomment> <p> <span>Model:</span> <span><isprint value="${product.id}" encoding="on" /></span> </p> </iscomment>
                         <isif condition="${pdict.yotpoWidgetData.isReviewEnabled}">
                             <div class="d-none d-sm-block rating-box-redisgn">
+<<<<<<< HEAD
                                 <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
                                     <div class="product-number-rating">
                                         <div class="ratings">
@@ -112,6 +111,9 @@
                                 <iselse/>
                                     <isinclude template="product/components/pidRating" />
                                 </isif>
+=======
+                                <isinclude template="product/components/pidRating" />
+>>>>>>> release-51-a
                             </div>
                         </isif>
                     </div>
@@ -124,10 +126,13 @@
                             <div class="prices prices-redesign">
                                 <isset name="price" value="${product.price}" scope="page" />
                                 <iscomment> Custom: Start [pricing shows only when following requirements meet] </iscomment>
-                                    <isinclude url="${URLUtils.https('Product-ShowMcsProdutPrice', 'pid', product.id)}"/>
+                                    <isif condition="${product.productType === 'set'}">
+                                        <isinclude template="product/components/pricing/setPrice" />
+                                    <iselse/>
+                                        <isinclude template="product/components/pricing/main" />
+                                    </isif>
                                 <iscomment> Custom: End </iscomment>
                             </div>
-
                             <isinclude template="product/components/promotions" />
                         </div>
                     </div>
@@ -172,14 +177,26 @@
                         </isif>
                         <iscomment> Custom Start: Clyde Integration </iscomment>
                             <isif condition = "${dw.system.Site.current.preferences.custom.clydeWidgetDisplay}">
+<<<<<<< HEAD
                                 <div class="col-md-10 col-12" id="clyde-cta" >
+=======
+                                <div id="clyde-cta" >
+>>>>>>> release-51-a
                                 </div>
                             </isif>
+
+                        <isif condition="${isPickupStoreEnabled}">
+                            <div class="pickup-store">
+                                <div class="pdp-store-pickup-wraper row">
+                                    <isinclude url="${URLUtils.url('PickupStore-GetPreferredStore', 'isPdp', pdict.isPdpStorePickup, 'pid', product.id)}" />
+                                </div>
+                            </div>
+                        </isif>
                         <iscomment> Custom End: </iscomment>
                         <div class="col-12 prices-add-to-cart-actions prices-add-to-cart-redesign ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "d-none" : ""}">
                             <div class="d-block">
                                 <!-- Cart and [Optionally] Apple Pay -->
-                                <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id, 'isRedesign', true)}"/>
+                                <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
                             </div>
                             <div class="smart-gift-box-new smart-gift-box-new-mcs smart-gift-box-new-mcs-new-design">
                                 <isif condition="${dw.system.Site.getCurrent().getCustomPreferenceValue('enableSmartGift')}">
@@ -229,7 +246,6 @@
         <iscomment> product detail redesign section end here </iscomment>
          <div class="container pdp-bottom-rating">
             <isinclude template="widget/yotporeviewswidget" />
-            <hr>
         </div>
         
 
@@ -254,10 +270,17 @@
         <!-- The Modal: Ends-->
         <!-- sticky ATC -->
         <div class="top-sticky-card scroll-hidden">
-            <isinclude template="product/components/stickyAddToCart" />
+            <isinclude url="${URLUtils.https('Product-ShowStickyATCButton', 'pid', product.id)}"/>
         </div>
         <div class="bottom-sticky-card scroll-hidden">
-            <isinclude template="product/components/stickyAddToCart" />
+            <isinclude url="${URLUtils.https('Product-ShowStickyATCButton', 'pid', product.id)}"/>
         </div>
+        <!-- Start: Listrak persistent popup -->
+        <isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled && pdict.popupID}">
+            <span class="listrak-persistent-url" data-listrak-url="${URLUtils.https('EmailPopUp-Show')}"></span>
+            <span class="listrak-popup-product-detail"></span>
+            <isslot id="cs-listrak-persistent-popup" description="Listrak persistent popup" context="global" />
+        </isif>
+        <!-- End: Listrak persistent popup -->
     </isobject>
 </isdecorate>

@@ -132,6 +132,18 @@ span.ship-to-city-st-zip {
                 @include media-breakpoint-up(lg) {
                     font-size: rem(20);
                 }
+
+                &.store-label-details {
+                    color: $grey14;
+                    font-size: rem(16);
+                    font-weight: 500;
+                    letter-spacing: rem(2);
+                    line-height: rem(21);
+
+                    &-main {
+                        margin-bottom: rem(15);
+                    }
+                }
             }
         }
     }
@@ -713,6 +725,15 @@ header {
                     background: none;
                 }
             }
+            &.input-invalid-icon {
+                &.is-invalid {
+                    background-position-x: 93.5%;
+
+                    @include media-breakpoint-down(sm) {
+                        background: none;
+                    }
+                }
+            }
 
             &#shippingState,
             &#shippingCountrydefault,
@@ -800,6 +821,25 @@ header {
     }
 }
 
+.shipping-details-label {
+    @include media-breakpoint-down(md) { 
+        padding: rem(0) rem(10);
+    }
+    
+    @include media-breakpoint-down(xs) { 
+        padding: rem(0);
+    }
+
+    .shipping-your-detail {
+        text-transform: uppercase;
+        line-height: rem(18);
+        font-size: rem(14);
+        color: $grey14;
+        font-weight: 500;
+        margin-bottom: rem(15);
+        padding-top: rem(6);
+    }
+}
 .checkout-label-custom {
 
     h5{
@@ -861,6 +901,24 @@ header {
     .pac-item:nth-child(odd) {
         background-color: $google-white1 !important;
         height: rem(45) !important;
+    }
+}
+.checkout-pickup-items {
+    color: $grey25;
+    font-size: rem(16);
+    font-weight: 500;
+    letter-spacing: rem(1.14);
+    line-height: rem(24);
+    text-transform: uppercase;
+    margin-top: rem(21);
+    margin-bottom: rem(-3);
+
+    &-container {
+        margin: rem(0) auto rem(24) auto;
+
+        @include media-breakpoint-down(xs) {
+            margin: rem(0) auto rem(20) auto;
+        }
     }
 }
     .container-custom-inner-box {
@@ -1153,6 +1211,7 @@ header {
             margin-bottom: rem(24);
             background: transparent;
             margin-top: rem(0);
+            display: block;
 
             @include media-breakpoint-down(xs) {
                 margin-bottom: rem(26.4);
@@ -1375,3 +1434,263 @@ header {
     height: 100%;
 }
 
+:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.fedex-popup {
+
+    @include media-breakpoint-down(xs) {
+        padding: rem(0);
+        margin: rem(0);
+        bottom: 0;
+        top: auto;
+    }
+
+    &-dialog-sm {
+        @include media-breakpoint-down(md) {
+            max-width: rem(720);
+        }
+
+        @include media-breakpoint-down(sm) {
+            max-width: rem(600);
+        }
+
+        @include media-breakpoint-down(xs) {
+            margin: rem(0);
+            transform: translateY(0px) !important;
+        }
+    }
+
+    &-content {
+        @include media-breakpoint-down(xs) {
+            border: none;
+            border-top-left-radius: rem(30);
+            border-top-right-radius: rem(30);
+        }
+    }
+
+    &-header {
+        border-bottom: none;
+        padding: rem(11.5) rem(20);
+
+        @include media-breakpoint-down(xs) {
+            padding: rem(6.5) rem(20);
+        }
+        .close {
+            opacity: 1;
+            margin-top: rem(-10);
+
+            @include media-breakpoint-down(xs) {
+                margin-top: rem(-5);
+            }
+
+            &:focus {
+                border: none;
+                outline: none;
+                box-shadow: none;
+            }
+        }
+    }
+
+    &-body {
+        padding: rem(0) rem(0) rem(50) rem(0);
+
+        @include media-breakpoint-down(xs) {
+            padding: rem(0) rem(0) rem(20) rem(0);
+        }
+
+        &-heading {
+            text-transform: uppercase;
+            color: $grey8;
+            font-size: rem(16);
+            font-weight: 600;
+            letter-spacing: rem(1.07);
+            line-height: rem(21);
+            text-align: center;
+            margin-bottom: rem(20);
+
+            @include media-breakpoint-down(xs) {
+                text-transform: none;
+                font-size: rem(18);
+                letter-spacing: rem(1.15);
+                line-height: rem(24);
+                color: $black;
+                font-weight: 500;
+            }
+        }
+
+        &-label {
+            margin-bottom: rem(0);
+            opacity: 0.89;
+            color: $light-silver3;
+            font-size: rem(13);
+            letter-spacing: rem(0.5);
+            line-height: rem(20);
+            text-align: center;
+
+            @include media-breakpoint-down(xs) {
+                padding: rem(0) rem(20);
+                margin-bottom: rem(30);
+                opacity: 1;
+                color: $grey21;
+                letter-spacing: rem(1.08);
+            }
+
+            &-sub {
+                opacity: 0.89;
+                color: $light-silver3;
+                font-size: rem(13);
+                letter-spacing: rem(0.5);
+                line-height: rem(20);
+                text-align: center;
+                margin-bottom: rem(25);
+
+                @include media-breakpoint-down(xs) {
+                    margin-bottom: rem(30);
+                    opacity: 1;
+                    color: $grey21;
+                    letter-spacing: rem(1.08);
+                }
+            }
+        }
+
+        .d-block-mobile-label {
+            display: none;
+            @include media-breakpoint-down(xs) {
+                display: inline;
+            }
+        }
+
+        .d-block-desktop-label {
+            display: block;
+            @include media-breakpoint-down(xs) {
+                display: none;
+            }
+        }
+
+        // POP UP BODY
+        &-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: rem(15) rem(70) rem(0) rem(71);
+            
+            @include media-breakpoint-down(sm) {
+                padding: rem(15) rem(30) rem(0) rem(30);
+            }
+
+            @include media-breakpoint-down(xs) {
+                flex-direction: column;
+                padding: rem(0) rem(29);
+            }
+
+            &-box-one {
+                border: rem(1) solid $light-silver2;
+                padding: rem(15) rem(30) rem(20) rem(30);
+                text-align: left;
+                width: 100%;
+                border-radius: rem(3);
+
+                .heading-one-content {
+                    color: $cerulean;
+                    font-size: rem(14);
+                    letter-spacing: rem(0.89);
+                    margin-bottom: rem(5);
+                    font-weight: 600;
+                    line-height: rem(24);
+                }
+
+                .heading-two-content {
+                    color: $black;
+                    font-size: rem(14);
+                    font-weight: 600;
+                    letter-spacing: rem(0.89);
+                    line-height: rem(24);
+                    margin-bottom: rem(5);
+                }
+
+                .content-label {
+                    line-height: normal;
+                    padding-bottom: rem(20);
+    
+                    span {
+                        color: $grey21;
+                        font-size: rem(14);
+                        letter-spacing: rem(1.17);
+                        line-height: rem(20);
+                        display: inline-block;
+                    }
+
+                    .recomended-postalCode {
+                        color: $black;
+                        font-weight: bold;
+                    }
+                }
+
+                .btn-wrapper {
+                    width: 100%;
+                    border: rem(2) solid $black;
+                    border-radius: rem(2);
+                    background-color: $black;
+                    color: $white;
+                    font-size: rem(14);
+                    letter-spacing: rem(0.88);
+                    line-height: rem(24);
+                    text-align: center;
+                    padding: rem(8.512) rem(20);
+
+                    &.btn-bg-white {
+                        background-color: $white;
+                        color: $light-black3;
+                        border: rem(2) solid $black;
+                        font-weight: 600;
+                    }
+                }
+
+                .sub-link {
+                    float: right;
+                    color: $cerulean;
+                    font-size: rem(14);
+                    font-weight: 600;
+                    letter-spacing: rem(0.89);
+                    text-decoration: underline;
+                }
+
+                &.recommended-address-wrapper {
+                    margin-right: rem(30);
+
+                    @include media-breakpoint-down(xs) {
+                        margin-right: rem(0);
+                        margin-bottom: rem(30);
+                    }
+                }
+            }
+
+            &-single-box {
+                max-width: rem(313);
+                margin: auto;
+
+                @include media-breakpoint-down(xs) {
+                    max-width: 100%;
+                    padding: rem(20);
+                }
+            }
+        }
+    }
+}
+
+.signle-box-container {
+    max-width: rem(317);
+    margin: auto;
+    padding: rem(15) rem(0) rem(0) rem(0);
+
+    @include media-breakpoint-down(xs) {
+        padding: rem(0);
+    }
+}
+
+.popup-body-content {
+    max-width: rem(600);
+}

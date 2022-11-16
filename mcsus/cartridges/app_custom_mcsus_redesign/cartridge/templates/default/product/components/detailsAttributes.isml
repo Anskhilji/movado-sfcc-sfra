@@ -1,13 +1,13 @@
-<isif condition="${product.pdpAttributesList && product.pdpAttributesList.length}">
+<isif condition="${product.pdpDetailedAttributes && product.pdpDetailedAttributes.length}">
     <div class="value content">
     <iscomment>custom start: remove detail heading  </iscomment>
-        <isloop items="${product.pdpAttributesList}" var="attr">
+        <isloop items="${product.pdpDetailedAttributes}" var="attr">
             <div class="attribute">
                 <div class="attribute-badge">
-                    <img src="${attr.image}" alt="${attr.name}" />
+                    <img src="${attr.image}" alt="${attr.displayName}" />
                 </div>
                 <div class="attribute-detail">
-                    <span class="attribute-name">${attr.name}</span>
+                    <span class="attribute-name">${attr.displayName}</span>
                     <span class="attribute-value">${attr.value}</span>
                 </div>
             </div>

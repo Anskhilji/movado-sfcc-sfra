@@ -70,8 +70,25 @@ ServiceBuilder.prototype = {
             return serviceresult;
         }
         try {
-            if (!empty(requestBody)) serviceresult = this.service.call(requestBody);
-            else serviceresult = this.service.call();
+            if (!empty(requestBody)) {
+                serviceresult = this.service.call(requestBody);
+            }
+            else {
+                serviceresult = this.service.call();
+            }
+
+            if (!serviceresult || Object.keys(serviceresult).length === 0) {
+                var retryCount = 0;
+                do {
+                    ++retryCount;                    
+                    if (!empty(requestBody)) {
+                        serviceresult = this.service.call(requestBody);
+                    }
+                    else {
+                        serviceresult = this.service.call();
+                    }
+                } while (retryCount <= 5 && (!serviceresult || Object.keys(serviceresult).length === 0));
+            }
         } catch (e) {
             Logger.getLogger('ServiceBuilder').error('An error occurred during the service call :' + this.serviceName);
         }

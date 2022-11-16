@@ -21,6 +21,13 @@
         </isif>
     </div>
 </isif>
+
+<isif condition="${pdict.lastNameError}">
+    <div class="container cart-error-messaging cart-error mt-2 alert card alert-dismissible fade show">
+        ${Resource.msg('error.last.name', 'checkout', null)}
+    </div>
+</isif>
+
 <isinclude template="error/paypalValidationErrors" sf-toolkit="on" />
 <iscomment> Added class d-non </iscomment>
 <div class="container d-none cart-header-wrapper">
@@ -49,6 +56,8 @@
                 <isloop items="${pdict.items}" var="lineItem" status="loopStatus">
                     <isif condition="${lineItem.productType === 'bundle'}">
                         <isinclude template="cart/productCard/cartBundleCard" />
+                    <iselseif condition="${!empty(lineItem.giftParentUUID)}"/>
+                        <isnext />
                     <iselse/>
                         <isinclude template="cart/productCard/cartProductCard" />
                     </isif>
@@ -133,6 +142,13 @@
                 <div class="container">
                     <isprint value="${pdict.assets.needHelp}" encoding="off" />
                 </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal gift-box-container-modal fade" id="giftBoxModelPopUp" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered gift-box-container-modal-dialog" role="document">
+            <div class="modal-content">
             </div>
         </div>
     </div>
