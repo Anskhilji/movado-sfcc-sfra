@@ -99,7 +99,6 @@
                         <iscomment> <p> <span>Model:</span> <span><isprint value="${product.id}" encoding="on" /></span> </p> </iscomment>
                         <isif condition="${pdict.yotpoWidgetData.isReviewEnabled}">
                             <div class="d-none d-sm-block rating-box-redisgn">
-<<<<<<< HEAD
                                 <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
                                     <div class="product-number-rating">
                                         <div class="ratings">
@@ -111,9 +110,6 @@
                                 <iselse/>
                                     <isinclude template="product/components/pidRating" />
                                 </isif>
-=======
-                                <isinclude template="product/components/pidRating" />
->>>>>>> release-51-a
                             </div>
                         </isif>
                     </div>
@@ -177,11 +173,7 @@
                         </isif>
                         <iscomment> Custom Start: Clyde Integration </iscomment>
                             <isif condition = "${dw.system.Site.current.preferences.custom.clydeWidgetDisplay}">
-<<<<<<< HEAD
                                 <div class="col-md-10 col-12" id="clyde-cta" >
-=======
-                                <div id="clyde-cta" >
->>>>>>> release-51-a
                                 </div>
                             </isif>
 
