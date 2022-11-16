@@ -2002,3 +2002,12 @@
 .veil {
     z-index: 99999;
 }
+
+.listrak-persistent-popup {
+    display: none !important;
+  }
+  .button-floting {
+    &.button-search-result {
+      bottom: rem(41);
+    }
+  }

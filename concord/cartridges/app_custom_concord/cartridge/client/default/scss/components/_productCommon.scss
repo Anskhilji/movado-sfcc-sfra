@@ -53,6 +53,10 @@
         }
     }
 
+    .gpay-error {
+        background-color: $white;
+    }
+
     .exclusive-badges {
         margin-bottom: rem(16);
         .badge {
@@ -85,6 +89,19 @@
         font-size: rem(18);
         @include media-breakpoint-down(xs) {
             font-size: rem(16);
+        }
+    }
+
+    .tax-duties {
+        display: inline-block;
+        color: $black;
+        margin-bottom: rem(15);
+        font-size: rem(14);
+        font-weight: 500;
+
+        @include media-breakpoint-down(sm) {
+            display: block;
+            text-align: center;
         }
     }
 }

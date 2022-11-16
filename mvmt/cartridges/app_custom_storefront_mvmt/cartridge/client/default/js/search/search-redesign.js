@@ -3,7 +3,7 @@ module.exports = {
         $('.product-grid .plp-image-carousel').slick({
             slidesToShow: 1,
             slidesToScroll: 1,
-            infinite: true,
+            infinite: false,
             dots: true,
             arrows: false,
             useTransform: false

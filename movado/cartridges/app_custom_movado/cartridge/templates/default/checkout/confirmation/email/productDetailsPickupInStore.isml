@@ -1,0 +1,8 @@
+<isloop items="${shippingModel.productLineItems.items}" var="lineItem">
+    <isset name="bonus" value="${false}" scope="page"/>
+    <isinclude template="checkout/confirmation/email/productDetailPickupInStore" />
+    <isloop items="${lineItem.bonusProducts}" var="lineItem" status="loopState">
+        <isset name="bonus" value="${true}" scope="page"/>
+        <isinclude template="checkout/confirmation/email/productDetailPickupInStore" />
+    </isloop>
+</isloop>

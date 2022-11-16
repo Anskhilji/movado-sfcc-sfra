@@ -11,3 +11,5 @@ exports.OPTANON_CONSENT_COOKIE_NAME = 'OptanonConsent';
 exports.CLYDE_WARRANTY = 'clydeWarranty';
 exports.CLYDE_WARRANTY_OPTION_ID_NONE = 'NONE';
 exports.PRODUCT_TYPE = 'set';
+exports.PRICE_LOW_TO_HIGH = 'price-low-to-high';
+exports.PRICE_HIGH_TO_LOW = 'price-high-to-low';

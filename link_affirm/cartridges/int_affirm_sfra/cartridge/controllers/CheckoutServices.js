@@ -8,6 +8,8 @@ var COHelpers = require('~/cartridge/scripts/checkout/checkoutHelpers');
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var affirmHelper = require('*/cartridge/scripts/utils/affirmHelper');
 
+var Transaction = require('dw/system/Transaction');
+
 server.extend(page);
 
 
@@ -106,6 +108,12 @@ server.replace(
 
             /* Currently phone is hardcoded to credit card form so we will take phone from shipping address */
             var shippingAddress = currentBasket.defaultShipment.shippingAddress;
+
+            if (session.privacy.pickupFromStore) {
+                Transaction.wrap(function () {
+                    shippingAddress.setPostalCode(session.privacy.extendedZipCode || '');
+                });
+            }
 
             viewData.phone = { value: shippingAddress.phone };
             viewData.email = {

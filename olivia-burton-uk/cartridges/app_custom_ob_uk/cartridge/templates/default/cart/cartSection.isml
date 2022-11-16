@@ -18,6 +18,13 @@
         </isif>
     </div>
 </isif>
+
+<isif condition="${pdict.lastNameError}">
+    <div class="container cart-error-messaging cart-error mt-2 alert card alert-dismissible fade show">
+        ${Resource.msg('error.last.name', 'checkout', null)}
+    </div>
+</isif>
+
 <isinclude template="error/paypalValidationErrors" sf-toolkit="on" />
 
 <div class="container cart-header-wrapper text-center">
@@ -69,9 +76,9 @@
     </div>
 <iselse/>
     <div class="container cart cart-page">
-        <div class="row">
+        <div class="main-cart-block-ob row">
             <!---product cards--->
-            <div class="col-sm-7 col-md-8">
+            <div class="product-list-block-ob col-sm-7 col-md-8">
                 <isloop items="${pdict.items}" var="lineItem" status="loopStatus">
                     <isif condition="${lineItem.productType === 'bundle'}">
                         <isinclude template="cart/productCard/cartBundleCard" />
@@ -84,7 +91,7 @@
             <!---totals, and checkout actions--->
             <div class="col-sm-5 col-md-4 totals">
                 <isinclude template="cart/cartPromoCode" />
-                <div class="coupons-and-promos coupons-wrapper mb-3">
+                <div class="coupons-and-promos coupons-wrapper coupon-card-icon mb-3">
                     <isinclude template="cart/cartCouponDisplay" />
                 </div>
                 <iscomment> Custom Start: Adding ESW cartridge integration </iscomment>

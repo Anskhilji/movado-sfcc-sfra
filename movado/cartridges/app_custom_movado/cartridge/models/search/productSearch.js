@@ -8,6 +8,7 @@ var urlHelper = require('*/cartridge/scripts/helpers/urlHelpers');
 var ProductPagination = require('*/cartridge/scripts/helpers/ProductPagination');
 var Site = require('dw/system/Site');
 var catalogMgr = require('dw/catalog/CatalogMgr');
+var Constants = require('*/cartridge/scripts/util/Constants');
 
 var ACTION_ENDPOINT = 'Search-Show';
 var DEFAULT_PAGE_SIZE = Site.getCurrent().getCustomPreferenceValue('pageSize');
@@ -42,12 +43,12 @@ function getRefinements(productSearch, refinements, refinementDefinitions) {
     return collections.map(refinementDefinitions, function (definition) {
         var refinementValues = refinements.getAllRefinementValues(definition);
         var values = searchRefinementsFactory.get(productSearch, definition, refinementValues);
-
         return {
             displayName: definition.displayName,
             isCategoryRefinement: definition.categoryRefinement,
             isAttributeRefinement: definition.attributeRefinement,
             isPriceRefinement: definition.priceRefinement,
+            isPromotionRefinement: definition.promotionRefinement,
             values: values
         };
     });
@@ -117,10 +118,14 @@ function getPagingModel(productHits, count, pageSize, startIndex) {
  *
  * @param {dw.catalog.ProductSearchModel} productSearch - Product search object
  * @param {Object} httpParams - HTTP query parameters
+ * @param {Object} sortedProductSearchHits - sorted product searched on basis of sales price
  * @return {string} - More button URL
  */
-function getShowMoreUrl(productSearch, httpParams, enableGridSlot) {
+function getShowMoreUrl(productSearch, httpParams, enableGridSlot, sortedProductSearchHits) {
     var showMoreEndpoint = 'Search-UpdateGrid';
+    if (session.custom.showMoreEndpoint) {
+        showMoreEndpoint = session.custom.showMoreEndpoint;
+    }
     var currentStart = httpParams.start || 0;
     var pageSize = httpParams.sz || DEFAULT_PAGE_SIZE;
     var category = catalogMgr.getCategory(productSearch.categoryID);
@@ -128,7 +133,12 @@ function getShowMoreUrl(productSearch, httpParams, enableGridSlot) {
     if (category && category.template == categoryTemplateEyewear) {
         pageSize = Site.getCurrent().preferences.custom.eyewearPageSize;
     }
-    var hitsCount = productSearch.count;
+    var hitsCount;
+    if (false) {
+        hitsCount = sortedProductSearchHits.length;
+    } else {
+        hitsCount = productSearch.count;
+    }
     var nextStart;
 
     var paging = getPagingModel(
@@ -200,10 +210,14 @@ function getPhrases(suggestedPhrases) {
 /**
  * Sort the products on basis of their sales price
  * @param {dw.catalog.ProductSearchModel} productSearch - Product search object
+ * @param {Object} httpParams - http params
  * @return {Object[]} - List of sorted products
  */
-function getSortedProductsOnBasisOfSalesPrice(productSearch) {
+function getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams, sortingRule, pageElements) {
+    var Constants = require('*/cartridge/scripts/util/Constants');
+
     var ProductFactory = require('*/cartridge/scripts/factories/product');
+
     var paramContainer;
     var factoryProduct;
     var currentProduct;
@@ -212,36 +226,80 @@ function getSortedProductsOnBasisOfSalesPrice(productSearch) {
     var allSortedProductsIds = [];
     var allSearchHitsProducts = [];
     var searchHitsProductsList;
-    var xSalesPrice;
-    var ySalesPrice
+    var firstProductSalesPrice = 0;
+    var secondProductSalesPrice = 0;
+    var sortingOrder = Constants.PRICE_HIGH_TO_LOW;
+    var factoryProductSalesPrice;
+    var pmin = httpParams.pmin;
+    var pmax = httpParams.pmax;
+    var searchHitProductID;
+    var defaultVariant;
+    if (!empty(sortingRule)) {
+        sortingOrder = sortingRule;
+    }
+
     if (!empty(productSearch)){
         searchHitsProductsList = productSearch.productSearchHits.asList();
     }
+
     for (var i = 0; i < searchHitsProductsList.size(); i++) {
-        searchHitProduct = searchHitsProductsList[i]; 
-        allSearchHitsProducts.push({
-            productID: searchHitProduct.productID,
-            productSearchHit: searchHitProduct
-        });
+        defaultVariant = null;
+        searchHitProductID = '';
+        searchHitProduct = searchHitsProductsList[i];
+        searchHitProductID = searchHitProduct.productID
+
+        if (searchHitProduct.product.online) {
+            allSearchHitsProducts.push({
+                productID: searchHitProductID,
+                productSearchHit: searchHitProduct
+            });
+        }
+
     }
+    
     allSearchHitsProducts.forEach(function (searchHitResultProduct) {
         paramContainer = {
             pid: searchHitResultProduct.productID
         };
+
         factoryProduct = ProductFactory.get(paramContainer);
-        allFactoryProducts.push(factoryProduct);
+        if (!empty(factoryProduct) && !empty(factoryProduct.price) && !empty(factoryProduct.price.sales) && !empty(factoryProduct.price.sales.value)) {
+            factoryProductSalesPrice = factoryProduct.price.sales.value;
+        }
+        
+        if (!empty(factoryProductSalesPrice) && factoryProductSalesPrice >= pmin && factoryProductSalesPrice <= pmax) {
+            allFactoryProducts.push(factoryProduct);
+        } else if (typeof pmin === 'undefined' || typeof pmax === 'undefined') {
+            allFactoryProducts.push(factoryProduct);
+        } else {
+            allFactoryProducts.push(factoryProduct);
+        }
     });
-    allFactoryProducts.sort(function (x, y) {
-        xSalesPrice = x.price.sales.value;
-        ySalesPrice = y.price.sales.value;
-        return ySalesPrice - xSalesPrice;
+    allFactoryProducts.sort(function (firstProduct, secondProduct) {
+        firstProductSalesPrice = 0;
+        secondProductSalesPrice = 0;
+        if (!empty(firstProduct) && !empty(firstProduct.price) && !empty(firstProduct.price.sales) && !empty(firstProduct.price.sales.value)) {
+            firstProductSalesPrice = firstProduct.price.sales.value;
+        }
+        if (!empty(secondProduct) && !empty(secondProduct.price) && !empty(secondProduct.price.sales) && !empty(secondProduct.price.sales.value)) {
+            secondProductSalesPrice = secondProduct.price.sales.value;
+        }
+        
+        if (sortingOrder === Constants.PRICE_LOW_TO_HIGH) {
+            return firstProductSalesPrice - secondProductSalesPrice;
+        } else if (sortingOrder === Constants.PRICE_HIGH_TO_LOW) {
+            return secondProductSalesPrice - firstProductSalesPrice;
+        }
     });
     allFactoryProducts.forEach(function (sortedProductID) {
         for (var j = 0; j < allSearchHitsProducts.length; j++) {
             currentProduct = allSearchHitsProducts[j];
             if (sortedProductID.id === currentProduct.productID) {
+                var currentProductId = null;
+                var apiProduct = currentProduct.productSearchHit.product;
+                currentProductId = apiProduct.ID;
                 allSortedProductsIds.push({
-                    productID: currentProduct.productID,
+                    productID: currentProductId,
                     productSearchHit: currentProduct
                 });
             }
@@ -264,7 +322,6 @@ function getSortedProductsOnBasisOfSalesPrice(productSearch) {
 function ProductSearch(productSearch, httpParams, sortingRule, sortingOptions, rootCategory) {
     var sortProductsOnBasisOfSalesPrice = Site.getCurrent().getCustomPreferenceValue('sortProductsOnBasisOfSalesPrice');
     this.pageSize = parseInt(httpParams.sz, 10) || DEFAULT_PAGE_SIZE;
-    this.productSearch = productSearch;
     var category = catalogMgr.getCategory(productSearch.categoryID);
     var categoryTemplateEyewear = 'search/searchResultsEyewear';
     if (category && category.template == categoryTemplateEyewear) {
@@ -297,10 +354,16 @@ function ProductSearch(productSearch, httpParams, sortingRule, sortingOptions, r
 
     this.resetLink = getResetLink(productSearch, httpParams);
     this.bannerImageUrl = productSearch.category ? getBannerImageUrl(productSearch.category) : null;
-    if (sortProductsOnBasisOfSalesPrice) {
-        var sortedProductSearchHits = getSortedProductsOnBasisOfSalesPrice(productSearch);
+    if (sortProductsOnBasisOfSalesPrice && !empty(sortingRule) && (sortingRule == Constants.PRICE_LOW_TO_HIGH || sortingRule == Constants.PRICE_HIGH_TO_LOW)) {
+        var sortedProductSearchHits = getSortedProductsOnBasisOfSalesPrice(productSearch, httpParams, sortingRule, paging.pageElements);
         var sortedPagingElements = [];
         if (!empty(sortedProductSearchHits)) {
+            paging = getPagingModel(
+                productSearch.productSearchHits,
+                sortedProductSearchHits.length,
+                this.pageSize,
+                startIdx
+            );
             for (var i = paging.start; i <= paging.end; i++) {
                 sortedPagingElements.push(sortedProductSearchHits[i]);
             }
@@ -314,6 +377,7 @@ function ProductSearch(productSearch, httpParams, sortingRule, sortingOptions, r
             };
         });
     }
+    this.productSearch = productSearch;
     this.productSort = new ProductSortOptions(
         productSearch,
         sortingRule,
@@ -322,7 +386,7 @@ function ProductSearch(productSearch, httpParams, sortingRule, sortingOptions, r
         paging
     );
     if (!enablePagination) {
-    	this.showMoreUrl = getShowMoreUrl(productSearch, httpParams, enableGridSlot);
+    	this.showMoreUrl = getShowMoreUrl(productSearch, httpParams, enableGridSlot, sortedProductSearchHits);
     }
     this.permalink = getPermalink(
         productSearch,
