@@ -130,7 +130,7 @@ function updateStorePickupProductAvailability(data) {
         $('.more-ways-text').addClass('d-none');
         $('#shippingMethods').attr('disabled', 'disabled');
         $('.pickup-store-error').addClass('d-none');
-        $('.product-gift-wrap').hide();
+        $('.product-gift-wrap').addClass('d-none');
         setTimeout(function () {
             $('.gpay-button').addClass('d-none');
             $('.apple-pay-cart').addClass('d-none');
@@ -141,7 +141,7 @@ function updateStorePickupProductAvailability(data) {
         $('.checkout-btn').addClass('disabled');
         $('#shippingMethods').attr('disabled', 'disabled');
         $('.pickup-store-error').removeClass('d-none');
-        $('.product-gift-wrap').hide();
+        $('.product-gift-wrap').addClass('d-none');
         setTimeout(function () {
             $('.gpay-button').addClass('d-none');
             $('.apple-pay-cart').addClass('d-none');
@@ -151,7 +151,7 @@ function updateStorePickupProductAvailability(data) {
         $('.paypal-btn').removeClass('d-none');
         $('.more-ways-text').removeClass('d-none');
         $('#shippingMethods').removeAttr('disabled');
-        $('.product-gift-wrap').show();
+        $('.product-gift-wrap').removeClass('d-none');
         setTimeout(function () {
             $('.gpay-button').removeClass('d-none');
             $('.apple-pay-cart').removeClass('d-none');
