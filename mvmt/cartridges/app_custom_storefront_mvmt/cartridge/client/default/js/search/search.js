@@ -1683,7 +1683,6 @@ function mobileFilterSelect(currentElement) {
     checkClearAllBtn();
 }
 }
-
 // Added container-fluid class alongside container
 
 module.exports = {

@@ -6,7 +6,9 @@ $regent-grey:#787A8A !default;
 $gray90:#E5E5E5 !default;
 $gull-gray-light:rgba(160, 169, 186, 0.1) !default;
 $parrot-green:#99CB7F !default;
+$parrot-green1:#17A92B !default;
 $gray-green:rgba(102,152,76,0.1) !default;
+$gray-green2:rgba(102,189,114,0.1) !default;
 $dark-green:#66984C !default;
 $white-smoke:#F2F2F2 !default;
 $gray-overlay:rgba(242,242,242,0.89) !default;
@@ -17,6 +19,7 @@ $zircon: #eaebeb;
 $slate-grey-light: #f5f6f8;
 $slate-grey: #A0A9BA;
 $black: #000;
+$light-black3:rgba(0,0,0,0.89);
 $dark-black:#060506;
 $cerulean: #0092DB;
 
@@ -25,6 +28,8 @@ $sonic-silver:  #78797a !default;
 $dim-gray: #696969;
 $storm-gray: #787A8A;
 $mine-shaft: #333333;
+$grey10-light: #C4C1C1;
+$grey11-light: #F5F5F5;
 
 $font-futura-demi: "futura-pt-demi", "FuturaStd-Medium", sans-serif;
 $font-fotter: "futura-pt", "FuturaStd-Medium", sans-serif;
@@ -82,4 +87,29 @@ $custom-md2: 810px;
 $custom-lg1: 990px;
 $custom-lg2: 1120px;
 $custom-lg3: 992px;
+$custom-lg4: 769px;
 $custom-sm13: 351px;
+
+@mixin scrollBar {
+
+    /* width */
+    &::-webkit-scrollbar {
+        height: rem(5);
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+        background: $slate-grey-light;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+        background: $regent-grey;
+        border-radius: rem(5);
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+        background: $slate-grey;
+    }
+}
