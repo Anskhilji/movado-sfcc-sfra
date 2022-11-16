@@ -142,8 +142,9 @@
         padding: 0;
         min-height: rem(150);
 
-        @include media-breakpoint-down(sm-small) {
+        @include media-breakpoint-down(sm-custom) {
             min-height: rem(106); 
+            background-color: red;
         }
 
         picture {
