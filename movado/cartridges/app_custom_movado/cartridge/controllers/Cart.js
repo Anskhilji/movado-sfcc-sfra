@@ -459,6 +459,7 @@ server.replace(
         var CartModel = require('*/cartridge/models/cart');
         var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
         var Site = require('dw/system/Site');
+        var couponErrorMessages = !empty(Site.current.preferences.custom.couponErrorMessages) ? Site.current.preferences.custom.couponErrorMessages : false;
 
         var currentBasket = BasketMgr.getCurrentBasket();
 
@@ -488,8 +489,6 @@ server.replace(
         } catch (e) {
             error = true;
             // Custom Start: if custom preference 'couponErrorMessages' in strofront group is not empty and have promotion error messages json 
-            var couponErrorMessages = !empty(Site.current.preferences.custom.couponErrorMessages) ? Site.current.preferences.custom.couponErrorMessages : false;
-
             if (couponErrorMessages) {
                 var errorCodes = JSON.parse(couponErrorMessages);
                 var localeErrorCodes = errorCodes[req.locale.id] || errorCodes['default'];
@@ -515,19 +514,21 @@ server.replace(
         }
 
         // Custom Start: MSS-2026 Fixed When valid discount is applied to checkout that is not valid for basket error message is not shown.
-        var isCouponApplid = currentBasket.couponLineItems && currentBasket.couponLineItems.length > 0 ? currentBasket.couponLineItems[0] : null;
-        if (isCouponApplid !== null && !isCouponApplid.applied) {
-            error = true;
-            Transaction.wrap(function () {
-                currentBasket.removeCouponLineItem(currentBasket.couponLineItems[0]);
-            });
+        if (currentBasket.couponLineItems.length > 0) {
+            var couponLineItem = currentBasket.couponLineItems[0];
 
-            var couponErrorMessages = !empty(Site.current.preferences.custom.couponErrorMessages) ? Site.current.preferences.custom.couponErrorMessages : false;
-            if (couponErrorMessages) {
-                var errorCodes = JSON.parse(couponErrorMessages);
-                var localeErrorCodes = errorCodes[req.locale.id] || errorCodes['default'];
-                var errorMessageKey = localeErrorCodes.COUPON_NOT_APPLIED || localeErrorCodes.DEFAULT;
-                errorMessage = Resource.msg(errorMessageKey, 'cart', null);
+            if (!couponLineItem.applied) { 
+                error = true;
+
+                Transaction.wrap(function () {
+                    currentBasket.removeCouponLineItem(currentBasket.couponLineItems[0]);
+                });
+    
+                if (couponErrorMessages) {
+                    var errorCodes = JSON.parse(couponErrorMessages);
+                    var localeErrorCodes = errorCodes[req.locale.id] || errorCodes['default'];
+                    var errorMessage = localeErrorCodes.COUPON_NOT_APPLIED || localeErrorCodes.DEFAULT;
+                }
             }
         }
         // Custom End
