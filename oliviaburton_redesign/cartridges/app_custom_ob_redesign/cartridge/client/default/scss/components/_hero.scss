@@ -149,6 +149,7 @@
         picture {
             img {
                 width: 100%;
+
                 @include media-breakpoint-down(sm) {
                     min-height: unset;
                 }
