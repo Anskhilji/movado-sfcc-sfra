@@ -671,7 +671,7 @@ window.onload = () => {
     
         if (isListrakPopupContain) {
             listrakPopup.classList.remove('listrak-persistent-popup');
-    }
+        }
     }
     if (listrakPopupSearchResult) {
         var mediumWidth = 992;

@@ -772,6 +772,7 @@ module.exports = {
             }
         };
     }
+    // Custom End: Listrak persistent popup
 };
 
 $(window).on('load', function(e) {

@@ -201,20 +201,23 @@ exports.afterAuthorization = function (order, payment, custom, status) {
         order.orderNo,
         order.paymentInstrument,
         require('*/cartridge/scripts/hooks/fraudDetectionHook').create);
-
-    var RiskifiedOrderDescion = require('*/cartridge/scripts/riskified/RiskifiedOrderDescion');
-    if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'declined') {
-        // Riskified order declined response from decide API
-        riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order);
-        if (riskifiedOrderDeclined) {
-            var riskifiedError = new Status(Status.ERROR);
-            session.privacy.riskifiedDeclined = true;
-            return riskifiedError;
+    
+    if (!deliveryValidationFail) {
+        var RiskifiedOrderDescion = require('*/cartridge/scripts/riskified/RiskifiedOrderDescion');
+        if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'declined') {
+            // Riskified order declined response from decide API
+            riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order);
+            if (riskifiedOrderDeclined) {
+                var riskifiedError = new Status(Status.ERROR);
+                session.privacy.riskifiedDeclined = true;
+                return riskifiedError;
+            }
+        } else if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'approved') {
+            // Riskified order approved response from decide API
+            RiskifiedOrderDescion.orderApproved(order);
         }
-    } else if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'approved') {
-        // Riskified order approved response from decide API
-        RiskifiedOrderDescion.orderApproved(order);
     }
+    
     if (deliveryValidationFail) {
         var sendMail = true; // send email is set to true
         var isJob = false; // isJob is set to false because in case of job this hook is never called

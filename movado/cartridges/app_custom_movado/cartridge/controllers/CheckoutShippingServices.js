@@ -309,7 +309,6 @@ server.replace(
                 });
             });
         }
-
         return next();
     }
 );
