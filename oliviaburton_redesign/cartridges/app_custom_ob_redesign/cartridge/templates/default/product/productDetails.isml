@@ -24,7 +24,14 @@
     <isobject object="${product.raw}" view="detail">
     <isset name="topLevelBackground" value="${dw.system.Site.getCurrent().getCustomPreferenceValue('topLevelBackground')}" scope="page" />
         <iscomment> ${topLevelBackground}; </iscomment>
-        <div class="custom-bg" style="background-color: ${topLevelBackground};">
+        <div class="custom-bg ${pdict.lastNameError ? 'pt-2' : ''}" style="background-color: ${topLevelBackground};">
+
+            <isif condition="${pdict.lastNameError}">
+                <div class="container cart-error-messaging cart-error gpay-error alert card alert-dismissible fade show">
+                    ${Resource.msg('error.last.name', 'checkout', null)}
+                </div>
+            </isif>
+
             <div class="container-fluid product-detail product-detail-redesign pdp-obuk pdp-v-one product-wrapper" data-pid="${product.id}" itemscope
                 itemtype="http://schema.org/Product">
                 <!---Breadcrumbs--->
@@ -53,14 +60,7 @@
                             </div>
                             <!-- Product Rating -->
                             <div class="ratings d-none-mobile-rating">
-                                <isset name="isYotpoStoreProductRatingEnabled" value="${!empty(dw.system.Site.current.preferences.custom.yotpoStoreProductRatingEnabled) ? dw.system.Site.current.preferences.custom.yotpoStoreProductRatingEnabled : false}" scope="page" />
-                                <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
-                                    <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
-                                        <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
-                                    </div>
-                                <iselse/>
-                                    <isinclude template="product/components/productRating" />
-                                </isif>
+                                <isinclude template="product/components/productRating" />
                             </div>
                         </div>
                         <iscomment> Custom Start: Tax Duties shows when following requirements meet </iscomment>
@@ -113,13 +113,7 @@
                         <div class="product-section-mobile scroll-wrapper-inner">
                             <!-- Product Rating -->
                             <div class="ratings ratings-mobile d-lg-none d-sm-none">
-                                <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
-                                    <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
-                                        <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
-                                    </div>
-                                <iselse/>
-                                    <isinclude template="product/components/productRating" />
-                                </isif>
+                                <isinclude template="product/components/productRating" />
                             </div>
                             <iscomment> Custom Start: [MSS-1341 Show/Hide Short Description on PDP]</iscomment>
                             <isset name="isRecommendationsEnabled" value="${!empty(dw.system.Site.current.preferences.custom.recommendationsEnabled) ? dw.system.Site.current.preferences.custom.recommendationsEnabled : false}" scope="page" />
@@ -135,7 +129,7 @@
                                 </div>
                             </isif>
                             <iscomment> Custom End </iscomment>
-                            <isif condition="${product.options && product.options.length > 0 && !(option.id == "clydeWarranty") && dw.system.Site.current.preferences.custom.isClydeEnabled}">
+                            <isif condition="${product.options && product.options.length > 0}">
                                 <isinclude template="product/components/options" />
                             </isif>
                                 
@@ -248,6 +242,11 @@
             </div>
         </div>
         <!-- The Modal: Ends-->
-
+        <isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled && pdict.popupID}">
+            <span class="listrak-persistent-url" data-listrak-url="${URLUtils.https('EmailPopUp-Show')}"></span>
+            <span class="listrak-popup-product-detail"></span>
+            <isslot id="cs-listrak-persistent-popup" description="Listrak persistent popup" context="global" />
+        </isif>
+        <!-- End: Listrak persistent popup -->
     </isobject>
 </isdecorate>

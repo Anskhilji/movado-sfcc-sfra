@@ -20,22 +20,17 @@ function send(emailObj, template, context) {
     var messageContext = '';
     var messageId = '';
     var zeroAmount = '';
+    var productLevelDiscount = 0;
+    var productLevelTotalDiscount = 0;
+    var totalDiscount = '';
     var requestParams = {
     };
     var listrakTransactionalSwitch = !empty(Site.current.preferences.custom.transactionalSwitch.value) ? Site.current.preferences.custom.transactionalSwitch.value.toString() : '';
     var listrakEnabled = !empty(Site.current.preferences.custom.Listrak_Cartridge_Enabled) ? Site.current.preferences.custom.Listrak_Cartridge_Enabled : false;
     var Constants = require('*/cartridge/scripts/utils/ListrakConstants');
 
-    if (context.order.currencyCode) {
+    if (context && context.order && context.order.currencyCode) {
         zeroAmount = Currency.getCurrency(context.order.currencyCode).symbol + '0.00';
-    }
-
-    if (context.order && context.order.totals && context.order.totals.totalTax === Constants.TOTAL_TAX) {
-        context.order.totals.totalTax = null;
-    }
-
-    if (context.currentOrder && context.currentOrder.totals && context.currentOrder.totals.totalTax === Constants.TOTAL_TAX) {
-        context.currentOrder.totals.totalTax = null;
     }
 
     if (listrakEnabled && listrakTransactionalSwitch == Constants.LTK_TRANSACTIONAL_SWITCH) {
@@ -61,11 +56,16 @@ function send(emailObj, template, context) {
                 requestParams.messageId = Site.current.preferences.custom.Listrak_PasswordUpdateMessageID;
                 requestParams.passwordText = context.passwordText;
                 requestParams.email = context.email;
+                requestParams.firstName = context.firstName;
+                requestParams.lastName = context.lastName;
                 break;
             case 4:
+                if (context.order && context.order.totals && context.order.totals.totalTax === Constants.TOTAL_TAX) {
+                    context.order.totals.totalTax = null;
+                }
                 requestParams.messageContext = Constants.LTK_ORDER_CONTEXT;
                 requestParams.messageId = Site.current.preferences.custom.Listrak_OrderConfirmationMessageID;
-                requestParams.orderNumber = context.order.orderNo;
+                requestParams.orderNumber = !empty(context.order.orderNo) ?  context.order.orderNo : context.order.orderNumber;
                 requestParams.totalTax = !empty(context.order.totals.totalTax) ? context.order.totals.totalTax : zeroAmount;
                 requestParams.shippingCost = !empty(context.order.totals.totalShippingCost) ? context.order.totals.totalShippingCost : zeroAmount;
                 requestParams.subTotal = !empty(context.order.totals.subTotal) ? context.order.totals.subTotal : zeroAmount;
@@ -93,6 +93,20 @@ function send(emailObj, template, context) {
                 requestParams.paymentMethod = context.order.billing.payment.selectedPaymentInstruments[0].paymentMethod;
                 requestParams.email = context.order.orderEmail;
                 requestParams.productLayout = productLayout(context);
+                if (!empty(context.order) && !empty(context.order.items) && !empty(context.order.items.totalQuantity > 0)) {
+                    for (var i = 0; i < context.order.items.totalQuantity; i++) {
+                    productLevelDiscount = context.order.items.items[i].priceTotal.savingPrice.value;
+                    productLevelTotalDiscount = productLevelTotalDiscount + productLevelDiscount;
+                    }
+                    if (productLevelTotalDiscount > 0) {
+                        totalDiscount = productLevelTotalDiscount + context.order.totals.orderLevelDiscountTotal.value;
+                        totalDiscount = totalDiscount.toFixed(2);
+                        totalDiscount = Currency.getCurrency(context.cuurentOrder.currencyCode).symbol + totalDiscount;
+                    } else {
+                        totalDiscount = context.order.totals.orderLevelDiscountTotal.formatted;
+                    }
+                    requestParams.discount = !empty(totalDiscount) ? totalDiscount : zeroAmount;
+                }
                 break;
             case 5:
                 requestParams.messageContext = Constants.LTK_ACCOUNT_CONTEXT;
@@ -124,6 +138,9 @@ function send(emailObj, template, context) {
                 requestParams.email = context.email;
                 break;
             case 13:
+                if (context.currentOrder && context.currentOrder.totals && context.currentOrder.totals.totalTax === Constants.TOTAL_TAX) {
+                    context.currentOrder.totals.totalTax = null;
+                }
                 requestParams.messageContext = Constants.LTK_ORDER_CONTEXT;
                 requestParams.messageId = Site.current.preferences.custom.Listrak_OrderCancellationMessageID;
                 requestParams.orderNumber = !empty(context.order.orderNo) ? context.order.orderNo : '';
@@ -180,43 +197,43 @@ function productLayout(products) {
     for each(var lineItem in allLineItems){
         var imageUrl = lineItem.images.tile150[0] && lineItem.images.tile150[0].url ? lineItem.images.tile150[0].url : ""; 
         var imageAlt = lineItem.images.tile150[0] && lineItem.images.tile150[0].alt ? lineItem.images.tile150[0].alt : "";
-        productHTML += '<table width="100%" class="Column-2 mobile-align-center" cellpadding="0" cellspacing="0" border="0">' +
-        '<tr>' +
-            '<td style="text-align:center; font-size:0px; padding:20px 0;">' +
-              '<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="width:300px; vertical-align:middle;">' +
-              '<div class="column-50" style="width:100%; max-width:300px; display:inline-block; vertical-align:middle; margin:0">' +
-                '<table width="100%" cellpadding="0" cellspacing="0" border="0">' +
-                  '<tr>' +
-                    '<td align="right" style="padding: 10px 10px 10px 10px;">' +
-                      '<img src="'+imageUrl+'" alt="'+imageAlt+'" style="display:block; width: 100%; max-width: 200px;border:0px;" width="200">' +
-                    '</td>' +
-                  '</tr>' +
-                '</table>' +
-              '</div>' +
-              '</td><td style="width:300px; vertical-align:middle;">' +
-              '<div class="column-50" style="width:100%; max-width:300px; display:inline-block; vertical-align:middle; margin:0;">' +
-                '<table width="100%" cellpadding="0" cellspacing="0" border="0">' +
-                  '<tr>' +
-                    '<td style="padding: 20px 20px 0px 20px; border-width: 0px; border-style: none; font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; font-size: 24px; font-weight: normal; color: #4A4A4A; line-height: 1.5; text-align: left">' +
-                       lineItem.productName +'<br>'+ 
-                    '</td>' +
-                  '</tr>' +
-                  '<tr>' +
-                    '<td style="padding: 0px 20px 30px 20px; border-width: 0px; border-style: none; font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; font-size: 16px; font-weight: normal; color: #4A4A4A; line-height: 1.5; text-align: left">' +
-                    lineItem.quantity +
-                    '</td>' +
-                  '</tr>' +
-                  '<tr>' +
-                    '<td style="padding: 0px 20px 20px 20px; border-width: 0px; border-style: none; font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; font-size: 16px; font-weight: normal; color: #4A4A4A; line-height: 1.5; text-align: left">' +
-                      'Price:' + lineItem.priceTotal.price +
-                    '</td>' +
-                  '</tr>' +
-                '</table>' +
-              '</div>' +
-              '</td></tr></table>' +
-            '</td>' +
-          '</tr>' +
-        '</table>';
+        productHTML += "<table width='100%' class='Column-2 mobile-align-center' cellpadding='0' cellspacing='0' border='0'>" +
+        "<tr>" +
+            "<td style='text-align:center; font-size:0px; padding:20px 0;'>" +
+              "<table width='100%' cellpadding='0' cellspacing='0' border='0'><tr><td style='width:300px; vertical-align:middle;'>" +
+              "<div class='column-50' style='width:100%; max-width:300px; display:inline-block; vertical-align:middle; margin:0'>" +
+                "<table width='100%' cellpadding='0' cellspacing='0' border='0'>" +
+                  "<tr>" +
+                    "<td align='right' style='padding: 10px 10px 10px 10px;'>" +
+                      "<img src='"+imageUrl+"' alt='"+imageAlt+"' style='display:block; width: 100%; max-width: 200px;border:0px;' width='200'>" +
+                    "</td>" +
+                  "</tr>" +
+                "</table>" +
+              "</div>" +
+              "</td><td style='width:300px; vertical-align:middle;'>" +
+              "<div class='column-50' style='width:100%; max-width:300px; display:inline-block; vertical-align:middle; margin:0;'>" +
+                "<table width='100%' cellpadding='0' cellspacing='0' border='0'>" +
+                  "<tr>" +
+                    "<td style='padding: 20px 20px 0px 20px; border-width: 0px; border-style: none; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; font-size: 24px; font-weight: normal; color: #4A4A4A; line-height: 1.5; text-align: left'>" +
+                       lineItem.productName +"<br>"+ 
+                    "</td>" +
+                  "</tr>" +
+                  "<tr>" +
+                    "<td style='padding: 0px 20px 30px 20px; border-width: 0px; border-style: none; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; font-size: 16px; font-weight: normal; color: #4A4A4A; line-height: 1.5; text-align: left'>" +
+                    'Quantity: ' + lineItem.quantity + 
+                    "</td>" +
+                  "</tr>" +
+                  "<tr>" +
+                    "<td style='padding: 0px 20px 20px 20px; border-width: 0px; border-style: none; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; font-size: 16px; font-weight: normal; color: #4A4A4A; line-height: 1.5; text-align: left'>" +
+                      'Price: ' + lineItem.priceTotal.price + 
+                    "</td>" +
+                  "</tr>" +
+                "</table>" +
+              "</div>" +
+              "</td></tr></table>" +
+            "</td>" +
+          "</tr>" +
+        "</table>";
     }
     return productHTML;
 }

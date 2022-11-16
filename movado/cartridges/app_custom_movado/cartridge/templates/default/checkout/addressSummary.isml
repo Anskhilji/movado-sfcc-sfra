@@ -1,4 +1,4 @@
-<div class="address-summary">
+<div class="${session.privacy.pickupFromStore ? 'address-summary mb-0' : 'address-summary'}">
 	<div>
 		<span class="firstName">
 		    <isif condition="${address && address.firstName}">${address.firstName}</isif>
@@ -7,13 +7,12 @@
 			<isif condition="${address && address.lastName}">${address.lastName}</isif>
 	    </span>
 	</div>
-	
 	<div class="companyName">
-	    <isif condition="${address && address.companyName}">${address.companyName}</isif>
+		<isif condition="${address && address.companyName}">${address.companyName}</isif>
 	</div>
 
 	<div class="address1">
-	    <isif condition="${address && address.address1}">${address.address1}</isif>
+		<isif condition="${address && address.address1}">${address.address1}</isif>
 	</div>
 
 	<div class="address2">
@@ -21,12 +20,12 @@
 	</div>
 
 	<span class="city">
-	    <isif condition="${address && address.city}">${address.city},</isif>
+		<isif condition="${address && address.city}">${address.city},</isif>
 	</span>
 	<span class="stateCode">
-	   <isif condition="${address && address.stateCode}">${address.stateCode}</isif>
+		<isif condition="${address && address.stateCode}">${address.stateCode}</isif>
 	</span>
 	<span class="postalCode">
-	   <isif condition="${address && address.postalCode}">${address.postalCode}</isif>
+		<isif condition="${address && address.postalCode}">${address.postalCode}</isif>
 	</span>
 </div>

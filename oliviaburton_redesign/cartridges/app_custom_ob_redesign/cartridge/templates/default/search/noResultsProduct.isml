@@ -1,4 +1,3 @@
-<isinclude template="search/noResults" />
 <isif condition="${isAjaxSearchPage && pdict.productSearch.count == 0}">
     <div class="reset-container">
         <div class="secondary-bar">

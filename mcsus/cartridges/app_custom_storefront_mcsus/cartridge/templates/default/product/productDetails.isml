@@ -1,9 +1,11 @@
 <isdecorate template="common/layout/page">
+<isinclude template="/components/modules" sf-toolkit="off" />
 <isset name="isPickupStoreEnabled" value="${!empty(dw.system.Site.current.preferences.custom.isPickupStoreEnabled) ? dw.system.Site.current.preferences.custom.isPickupStoreEnabled : false}" scope="page" />
     <isscript>
         var assets = require('*/cartridge/scripts/assets');
         assets.addJs('/lib/pinchzoom/pinch-zoom.umd.js');
         assets.addJs('/js/productDetail.js');
+        assets.addJs('/js/pickupStoreSelection.js');
         assets.addCss('/css/product/detail.css');
     </isscript>
 
@@ -31,6 +33,13 @@
     <isobject object="${product.raw}" view="detail">
         <div class="container product-detail product-wrapper product-detail1-wrapper" data-pid="${product.id}" itemscope
             itemtype="http://schema.org/Product">
+
+        <isif condition="${pdict.lastNameError}">
+            <div class="container cart-error-messaging cart-error gpay-error alert card alert-dismissible fade show">
+                ${Resource.msg('error.last.name', 'checkout', null)}
+            </div>
+        </isif>
+
             <div class="row hidden-xs-down d-md-none">
                 <div class="col-12">
                     <!---Breadcrumbs--->
@@ -47,21 +56,7 @@
 
                     <div class="row">
                         <div class="col-sm-12">
-                            <isset name="isYotpoStoreProductRatingEnabled" value="${!empty(dw.system.Site.current.preferences.custom.yotpoStoreProductRatingEnabled) ? dw.system.Site.current.preferences.custom.yotpoStoreProductRatingEnabled : false}" scope="page" />
-                            <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
-                                <div class="product-number-rating clearfix">
-                                    <div class="product-number hidden-xs-down pull-left">
-                                        <isinclude template="product/components/productNumber" />
-                                    </div>
-                                    <div class="ratings pull-right">
-                                        <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
-                                            <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
-                                        </div>
-                                    </div>
-                                </div>
-                            <iselse/>
-                                <isinclude template="product/components/pidRating" />
-                            </isif>
+                            <isinclude template="product/components/pidRating" />
                         </div>
                     </div>
 
@@ -84,21 +79,8 @@
                     <h2 class="product-name prdouct-name-gtm d-sm-none d-md-block text-uppercase">${product.productName}</h2>
 
                     <iscomment> <p> <span>Model:</span> <span><isprint value="${product.id}" encoding="on" /></span> </p> </iscomment>
-                    <div class="d-block d-md-block hidden-sm-down">
-                        <isif condition="${!empty(product) && !empty(product.yotpoReviewsCustomAttribute) && isYotpoStoreProductRatingEnabled}">
-                            <div class="product-number-rating clearfix">
-                                <div class="product-number hidden-xs-down pull-left">
-                                    <isinclude template="product/components/productNumber" />
-                                </div>
-                                <div class="ratings pull-right">
-                                    <div id="yotpo-bottomline-top-div" class="yotpo yotpoBottomLine">
-                                        <isprint value="${product.yotpoReviewsCustomAttribute}" encoding="off"/>
-                                    </div>
-                                </div>
-                            </div>
-                        <iselse/>
-                            <isinclude template="product/components/pidRating" />
-                        </isif>
+                    <div class="d-block d-md-block d-sm-none">
+                        <isinclude template="product/components/pidRating" />
                     </div>
 
                     <div class="row">
@@ -159,8 +141,10 @@
                                 <iscomment> Custom: End </iscomment>
                             </div>
                             <isif condition="${isPickupStoreEnabled}">
-                                <div class="pdp-store-pickup-wraper row">
-                                    <isinclude url="${URLUtils.url('PickupStore-GetPreferredStore', 'isPdp', pdict.isPdpStorePickup)}" />
+                                <div class="pickup-store-old">
+                                    <div class="pdp-store-pickup-wraper row">
+                                        <isinclude url="${URLUtils.url('PickupStore-GetPreferredStore', 'isPdp', pdict.isPdpStorePickup, 'pid', product.id)}" />
+                                    </div>
                                 </div>
                             </isif>
                             <div class="d-block d-md-flex btn-margin smart-gift-box-mcs">
@@ -226,6 +210,13 @@
             </div>
         </div>
         <!-- The Modal: Ends-->
+                <!-- Start: Listrak persistent popup -->
+        <isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled && pdict.popupID}">
+            <span class="listrak-persistent-url" data-listrak-url="${URLUtils.https('EmailPopUp-Show')}"></span>
+            <span class="listrak-popup-product-detail"></span>
+            <isslot id="cs-listrak-persistent-popup" description="Listrak persistent popup" context="global" />
+        </isif>
+        <!-- End: Listrak persistent popup -->
 
     </isobject>
 </isdecorate>

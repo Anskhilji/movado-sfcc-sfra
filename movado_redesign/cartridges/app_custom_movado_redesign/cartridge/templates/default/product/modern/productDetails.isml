@@ -16,6 +16,13 @@
     <isobject object="${product.raw}" view="detail">
         <div class="container-fluid pdp-mobile pdp-modern-design pdp-v-one pdp-v-two product-detail product-wrapper" data-pid="${product.id}" itemscope
             itemtype="http://schema.org/Product">
+
+            <isif condition="${pdict.lastNameError}">
+                <div class="container cart-error-messaging cart-error gpay-error alert card alert-dismissible fade show">
+                    ${Resource.msg('error.last.name', 'checkout', null)}
+                </div>
+            </isif>
+
             <div class="row mobile-detail-head">
                 <div class="col-12">
                     <!---Breadcrumbs--->
@@ -154,7 +161,7 @@
         </isif>
         <div class="container-fluid pdp-mobile pdp-v-one recently-viewed">
             <isslot id="cs_pdp_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP" context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}"/>
-        </div
+        </div>
         <isinclude template="product/components/contentAssets" />
 
         <div class="container-fluid pdp-mobile pdp-v-one my-md-5 collection-you-may-like">

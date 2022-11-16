@@ -21,6 +21,13 @@
         </isif>
     </div>
 </isif>
+
+<isif condition="${pdict.lastNameError}">
+    <div class="container cart-error-messaging cart-error mt-2 alert card alert-dismissible fade show">
+        ${Resource.msg('error.last.name', 'checkout', null)}
+    </div>
+</isif>
+
 <isinclude template="error/paypalValidationErrors" sf-toolkit="on" />
 <iscomment> Added class d-non </iscomment>
 <div class="container d-none cart-header-wrapper">

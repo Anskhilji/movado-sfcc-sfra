@@ -44,6 +44,7 @@ function sendOrderConfirmationEmail(order, locale) {
     var Locale = require('dw/util/Locale');
     var currentLocale = Locale.getLocale(locale);
     var ContentMgr = require('dw/content/ContentMgr');
+    var Site = require('dw/system/Site');
     var emailHeaderContent = ContentMgr.getContent('email-header');
     var emailFooterContent = ContentMgr.getContent('email-footer');
     var emailMarketingContent = ContentMgr.getContent('email-order-confirmation-marketing');
@@ -53,6 +54,7 @@ function sendOrderConfirmationEmail(order, locale) {
     var bottomPickInStoreContent = ContentMgr.getContent('email-confirmation-pick-in-store-bottom');
     var emailMarketingPickInStoreContent = ContentMgr.getContent('email-order-confirmation-marketing-pick-in-store');
     var orderModel = new OrderModel(order, { countryCode: currentLocale.country });
+    var isPickupStoreEnabled = !empty(Site.current.preferences.custom.isPickupStoreEnabled) ? Site.current.preferences.custom.isPickupStoreEnabled : false;
 
     var orderConfirmationObj = {
         emailHeader: (emailHeaderContent && emailHeaderContent.custom && emailHeaderContent.custom.body ? emailHeaderContent.custom.body : ''),
@@ -61,7 +63,7 @@ function sendOrderConfirmationEmail(order, locale) {
         bottomContent: (bottomContent && bottomContent.custom && bottomContent.custom.body ? bottomContent.custom.body : '')
     };
 
-    if (!empty(order.custom.pickInStore)) {
+    if (isPickupStoreEnabled && !empty(order) && !empty(order.custom.BOPIS)) {
         orderConfirmationObj = {
             emailHeader: (emailPickInStoreHeaderContent && emailPickInStoreHeaderContent.custom && emailPickInStoreHeaderContent.custom.body ? emailPickInStoreHeaderContent.custom.body : ''),
             emailFooter: (emailPickInStoreFooterContent && emailPickInStoreFooterContent.custom && emailPickInStoreFooterContent.custom.body ? emailPickInStoreFooterContent.custom.body : ''),
@@ -107,14 +109,18 @@ function sendOrderConfirmationEmail(order, locale) {
         cuurentOrder: order
     };
 
+    var subject = isPickupStoreEnabled && order.custom.BOPIS ? Resource.msgf('subject.order.confirmation.email.pickup', 'order', null, orderModel.orderNumber) : Resource.msgf('subject.order.confirmation.email', 'order', null, orderModel.orderNumber);
+
     var emailObj = {
         to: order.customerEmail,
-        subject: order.custom.pickInStore ? Resource.msgf('subject.order.confirmation.email.pickup', 'order', null, orderModel.orderNumber) : Resource.msgf('subject.order.confirmation.email', 'order', null, orderModel.orderNumber),
+        subject: subject,
         from: Site.current.getCustomPreferenceValue('customerServiceEmail') || 'no-reply@salesforce.com',
         type: emailHelpers.emailTypes.orderConfirmation
     };
 
-    emailHelpers.sendEmail(emailObj, order.custom.pickInStore ? 'checkout/confirmation/email/confirmationEmailPickInStore' : 'checkout/confirmation/email/confirmationEmail', orderObject);
+    var emailTemplate = isPickupStoreEnabled && order.custom.BOPIS ? 'checkout/confirmation/email/confirmationEmailPickInStore' : 'checkout/confirmation/email/confirmationEmail';
+
+    emailHelpers.sendEmail(emailObj, emailTemplate, orderObject);
     delete session.custom.currencyCode;
     checkoutLogger.debug('(checkoutCustomHelpers) -> sendOrderConfirmationEmail: Sent Order Confirmation mail to the current user, for order : ' + orderModel.orderNumber);
 }
@@ -131,6 +137,11 @@ function sendCancellationEmail(emailObject, locale) {
     var emailFooterContent = ContentMgr.getContent('email-footer');
     var emailMarketingContent = ContentMgr.getContent('email-order-cancellation-marketing');
     var topContent = ContentMgr.getContent('email-cancellation-top');
+    var emailPickInStoreFooterContent = ContentMgr.getContent('email-footer-pick-in-store');
+    var emailPickInStoreHeaderContent = ContentMgr.getContent('email-header-pick-in-store');
+    var topContentPickInStoreContent = ContentMgr.getContent('email-cancalation-pick-in-store-top');
+    var emailMarketingPickInStoreContent = ContentMgr.getContent('email-order-cancalation-marketing-pick-in-store');
+    var isPickupStoreEnabled = !empty(Site.current.preferences.custom.isPickupStoreEnabled) ? Site.current.preferences.custom.isPickupStoreEnabled : false;
     var orderModel = new OrderModel(emailObject.order, { countryCode: currentLocale.country });
 
     var orderObject = {
@@ -145,13 +156,29 @@ function sendCancellationEmail(emailObject, locale) {
         order: emailObject.order,
         currentOrder: orderModel
     };
+
+    if (isPickupStoreEnabled && !empty(emailObject.order) && !empty(emailObject.order.custom.BOPIS)) {
+        orderObject = {
+            emailHeader: (emailPickInStoreHeaderContent && emailPickInStoreHeaderContent.custom && emailPickInStoreHeaderContent.custom.body ? emailPickInStoreHeaderContent.custom.body : ''),
+            emailFooter: (emailPickInStoreFooterContent && emailPickInStoreFooterContent.custom && emailPickInStoreFooterContent.custom.body ? emailPickInStoreFooterContent.custom.body : ''),
+            emailMarketingContent: (emailMarketingPickInStoreContent && emailMarketingPickInStoreContent.custom && emailMarketingPickInStoreContent.custom.body ? emailMarketingPickInStoreContent.custom.body : ''),
+            topContent: (topContentPickInStoreContent && topContentPickInStoreContent.custom && topContentPickInStoreContent.custom.body ? topContentPickInStoreContent.custom.body : ''),
+            orderCancellationHeading: Resource.msg('order.cancellation.email.heading', 'order', null),
+            salution: Resource.msgf('order.cancellation.email.salution', 'order', null, emailObject.firstName, emailObject.lastName ? emailObject.lastName : ''),
+            orderProcess: Resource.msgf('order.cancellation.email.placed', 'order', null, emailObject.creationDate),
+            orderNumber: Resource.msgf('order.cancellation.email.number.heading', 'order', null, emailObject.orderNumber),
+            order: emailObject.order
+        };
+    }
+
     var emailObj = {
         to: emailObject.customerEmail,
-        subject: Resource.msgf('subject.order.cancellation.email', 'order', null, emailObject.orderNumber),
+        subject: isPickupStoreEnabled && emailObject.order.custom.BOPIS ? Resource.msgf('subject.order.cancellation.email.pickup', 'order', null, emailObject.orderNumber) : Resource.msgf('subject.order.cancellation.email', 'order', null, emailObject.orderNumber),
         from: Site.current.getCustomPreferenceValue('customerServiceEmail') || 'no-reply@salesforce.com',
         type: emailHelpers.emailTypes.orderCancellation
     };
-    emailHelpers.sendEmail(emailObj, 'order/email/cancellation', orderObject);
+    var emailTemplate = isPickupStoreEnabled && emailObject.order.custom.BOPIS ? 'order/email/cancellationEmailPickInStore' : 'order/email/cancellation';
+    emailHelpers.sendEmail(emailObj, emailTemplate, orderObject);
     checkoutLogger.debug('(checkoutCustomHelpers) -> sendCancellationEmail: Sent order cancellation mail to the current user, for order:' + emailObject.orderNumber);
 }
 
