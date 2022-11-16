@@ -41,7 +41,7 @@ function checkAllLineItem() {
 
 function updateBOPISShippingMethods(data, $pickupFromStore) {
     $('#shippingMethods').empty();
-    var shipments = data && data.cartModel && data.cartModel.shipments && data.cartModel.shipments[0] ? data.cartModel.shipments[0].shippingMethods : '';
+    var shipments = data && data.cartModel && data.cartModel.shipments && data.cartModel.shipments.length > 0 ? data.cartModel.shipments[0].shippingMethods : '';
     var html;
     if (shipments !== undefined && shipments !== '') {
         shipments.forEach(function (shipment) {
