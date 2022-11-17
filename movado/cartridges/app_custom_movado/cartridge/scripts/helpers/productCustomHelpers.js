@@ -1177,6 +1177,20 @@ function productSetStockAvailability(productType, apiProduct) {
     }
 }
 
+function getGtmObjForPdp(product) {
+    return {
+        id: product.ID,
+        atcLocation: Resource.msg('gtm.list.pdp.express.value', 'cart', null),
+        name: product.name,
+        brand: product.brand,
+        category: product.variant && product.masterProduct.primaryCategory ? product.masterProduct.primaryCategory.ID : (product.primaryCategory ? product.primaryCategory.ID : ''),
+        variant: '',
+        price: product.priceModel.price.decimalValue ? product.priceModel.price.decimalValue.toString() : '0.0',
+        currency: product.priceModel.price.currencyCode,
+        list: Resource.msg('gtm.list.pdp.value', 'cart', null)
+    }
+}
+
 module.exports = {
     getBadges: getBadges,
     getPdpAttributes: getPdpAttributes,
@@ -1205,6 +1219,6 @@ module.exports = {
     getMarketingProducts : getMarketingProducts,
     isOnlyRedesignedBadge: isOnlyRedesignedBadge,
     setProductAvailability: setProductAvailability,
-    productSetStockAvailability: productSetStockAvailability
-
+    productSetStockAvailability: productSetStockAvailability,
+    getGtmObjForPdp: getGtmObjForPdp
 };

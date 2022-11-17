@@ -16,9 +16,9 @@
                     ${Resource.msg('button.preorder.now', 'common', null)} </br>
                 <iselse/>
                     ${addtoCart}
-                </isif>
+            </isif>
         </button>
-        <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}" data-gtm="${"id":product.id,"atcLocation":"PDP_express","name":product.productName,"brand":product.brand,"category":pli.product.variant && pli.product.masterProduct.primaryCategory ? pli.product.masterProduct.primaryCategory.ID: (pli.product.primaryCategory ? pli.product.primaryCategory.ID : ''),"variant":'',"price":product.price.decimalValue ? product.price.decimalValue.toString():'0.0',"currency":,"list":Resource.msg('gtm.list.pdp.value','cart',null)}" />
+        <input type="hidden" class="add-to-cart-url add-to-cart-gtm" value="${JSON.stringify(pdict.addCartGtmArray)}" />
         
         <isif condition="${product.available && product.readyToOrder}">
             <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
