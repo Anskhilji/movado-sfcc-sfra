@@ -73,6 +73,10 @@
                     padding-left: rem(100);
                 }
 
+                @include media-breakpoint-down(sm-custom) {
+                    padding: 0;
+                }
+
                 .slick {
                     &-slide {
                         text-align: center;
