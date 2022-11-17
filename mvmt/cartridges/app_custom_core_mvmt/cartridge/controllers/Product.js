@@ -233,10 +233,12 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
  * appends the base product route to save the personalization data in session variables
  */
 server.prepend('Variation', function (req, res, next) {
+    var viewData = res.getViewData();
     var attributeContext;
     var explicitRecommendations = [];
     var recommendedProductTemplate;
     var pid = req.querystring.pid;
+    var params = req.querystring;
     var isStrapAjax = req.querystring.isStrapAjax;
 
     var strapGuideContent = ContentMgr.getContent('strap-guide-text-configs');
@@ -254,6 +256,10 @@ server.prepend('Variation', function (req, res, next) {
     };
 
     var attributeTemplateLinked = 'product/components/recommendedProducts';
+    var pdpImagesTemplate = 'product/components/quadrantPDP';
+    var product = ProductFactory.get(params);
+    var productHTML = renderTemplateHelper.getRenderedHtml({product: product}, pdpImagesTemplate);
+    viewData.productImages = productHTML;
 
     recommendedProductTemplate = renderTemplateHelper.getRenderedHtml(
             attributeContext,
