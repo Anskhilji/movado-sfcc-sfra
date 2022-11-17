@@ -4,7 +4,9 @@
 var Transaction = require("dw/system/Transaction");
 var customObjectName = "CommerceAuthToken";
 var customObjectKey = "CommerceAuthTokenKey";
-var EXPIRE_LIMIT = 10 * 60;
+var Logger = require("dw/system/Logger");
+var Log = Logger.getLogger("CommerceService", "");
+var MILLISECONDS_CONVERSION_FACTOR = 1000;
 
 /**
  * Fetches object definition from Custom Object, creating it if not exists
@@ -39,11 +41,53 @@ function updateCachedTokenObject(obj) {
     var custObj = getOrCreateCustomObject(customObjectName, customObjectKey);
 
     if (!!custObj) {
-        Transaction.wrap(function () {
-            custObj.token = JSON.stringify(obj);
-        });
+        var bTxnUpdateError = false;
+        try {
+            Transaction.wrap(function () {
+                custObj.token = JSON.stringify(obj);
+                custObj.tokenTimeStamp = Date.now();
+            });
+        } catch (e) {
+            Log.error(
+                "Error updating custom object (updateCachedTokenObject). Error message: " +
+                    e.message +
+                    " more details: " +
+                    e.toString() +
+                    " in " +
+                    e.fileName +
+                    ":" +
+                    e.lineNumber
+            );
+            bTxnUpdateError = true;
+        }
+
+        if (bTxnUpdateError) {
+            var retryCount = 0;
+            do {
+                ++retryCount;
+                try {
+                    bTxnUpdateError = false;
+                    Transaction.wrap(function () {
+                        custObj.token = JSON.stringify(obj);
+                        custObj.tokenTimeStamp = Date.now();
+                    });
+                } catch (e) {
+                    Log.error(
+                        "Error updating custom object (updateCachedTokenObject). Error message: " +
+                            e.message +
+                            " more details: " +
+                            e.toString() +
+                            " in " +
+                            e.fileName +
+                            ":" +
+                            e.lineNumber
+                    );
+                    bTxnUpdateError = true;
+                }
+            } while (retryCount <= 5 && bTxnUpdateError);
+        }
     }
-    return obj;
+    return custObj;
 }
 
 /**
@@ -60,10 +104,9 @@ function isValidAuth(tokenObject) {
         }
 
         var parsedToken = JSON.parse(tokenObject.token);
-
         if (
-            !parsedToken.expires ||
-            Date.now() >= parsedToken.expires - EXPIRE_LIMIT
+            !parsedToken.expires_in ||
+            Date.now() >= (tokenObject.tokenTimeStamp + parsedToken.expires_in * MILLISECONDS_CONVERSION_FACTOR)
         ) {
             return false;
         }
@@ -90,7 +133,7 @@ var CommerceServiceUtils = {
                     CommerceServiceModel.createCommerceAPILogin();
 
                 if (getAccessToken) {
-                    updateCachedTokenObject(getAccessToken.object);
+                    tokenObject = updateCachedTokenObject(getAccessToken.object);
                 }
             }
         }
@@ -99,4 +142,3 @@ var CommerceServiceUtils = {
 };
 
 module.exports = CommerceServiceUtils;
-
