@@ -454,29 +454,15 @@ module.exports = function () {
                             }
 
                             if ($itemLevelGiftMessage !== undefined && $itemLevelGiftMessage !== '') {
-                                $('.gift-box-container-label').addClass('d-none');
-                                $('.gift-box-container-label-edit').removeClass('d-none');
                                 $('.gift-box-container-modal .gift-text').text($itemLevelGiftMessage);
+                                $('.gift-message-btn-' + item.UUID).attr('data-gift-message', $itemLevelGiftMessage);
                                 $('.gift-personlize-msg').text($itemLevelGiftMessage);
-                                $('.gift-box-container-link').addClass('d-none');
-                                $('.gift-box-container-link-edit').removeClass('d-none');
                                 $('.gift-lineitem-message-' + item.UUID).text('"'+$itemLevelGiftMessage+'"');
-                                $('.gift-lineitem-message-gift-' + item.UUID).text('"'+$itemLevelGiftMessage+'"');
-                                $('.gift-msg-text').addClass('d-none')
-                                $('.gift-msg-text-edit').removeClass('d-none');
                                 $('.gift-message-btn-' + item.UUID).text('Edit');
-                                
                             } 
 
                             if (item.UUID == parentPid) {
-                                $('.edit-gift-message-btn-' + item.UUID).text('Edit');
-                                $('.gift-box-container-label-defualt-' + item.UUID).addClass('d-none');
-                                $('.gift-message-label-'+ item.UUID).removeClass('d-none');
-                                $('.gift-box-container-link-' + item.UUID).addClass('d-none');
-                                $('.edit-gift-message-btn-' + item.UUID).removeClass('d-none');
-                                $('.gift-msg-text').addClass('d-none')
-                                $('.gift-msg-text-edit').removeClass('d-none');
-
+                                $('.gift-message-btn-' + item.UUID).text('Edit');
                             }
                         });
 

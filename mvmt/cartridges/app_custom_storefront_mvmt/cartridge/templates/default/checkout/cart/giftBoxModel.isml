@@ -11,9 +11,7 @@
 <!-- Modal Body -->
 <div class="modal-body gift-box-container-modal-body">
     <div class="gift-box-container-modal-body-item-image">
-    <isif condition="${product.giftBoxSKUData.giftBoxSKU ? product.giftBoxSKUData.giftBoxSKU : false}">
         <img class="product-image" src="${pdict.image.url}" alt="${pdict.image.alt}" title="${pdict.image.title}">
-    </isif>
     </div>
     <form class="gift-box-container-modal-body-form" action="#">
         <label class="radio-container gift-box-none-button active"> ${Resource.msg('label.minicart.giftbox.modal.labelone', 'cart', null)}

@@ -550,17 +550,11 @@ module.exports = function () {
                         var $itemLevelGiftMessage = item.customAttributes.itemLevelGiftMessage.msgLine1;
                     }
                     if ($itemLevelGiftMessage !== undefined && $itemLevelGiftMessage !== '') {
-                        $('.gift-box-container-label').addClass('d-none');
-                        $('.gift-box-container-label-edit').removeClass('d-none');
                         $('.gift-box-container-modal .gift-text').text($itemLevelGiftMessage);
+                        $('.gift-message-btn-' + item.UUID).attr('data-gift-message', $itemLevelGiftMessage);
                         $('.gift-personlize-msg').text($itemLevelGiftMessage);
-                        $('.gift-box-container-link').addClass('d-none');
-                        $('.gift-box-container-link-edit').removeClass('d-none');
                         $('.gift-lineitem-message-' + item.UUID).text('"'+$itemLevelGiftMessage+'"');
-                        $('.gift-msg-text').addClass('d-none')
-                        $('.gift-msg-text-edit').removeClass('d-none');
                         $('.gift-message-btn-' + item.UUID).text('Edit');
-                        
                     }
                 });
                 $('#giftBoxModelPopUp').modal('hide');
@@ -1011,13 +1005,31 @@ module.exports = function () {
     $('body').on('click', '.gift-box-container-link', function (evt) {
         evt.preventDefault(); 
         var $endPointUrl = $(evt.target).closest('a').attr('href');
+        var $itemLevelGiftMessage = $(this).data('gift-message');
         $.spinner().start();
         $.ajax({
             url: $endPointUrl,
             type: 'get',
             success: function (response) {
-                $('#giftBoxModelPopUp').find('.modal-content').html(response);
+                $('#giftBoxModelPopUp').find('.modal-content').html(response.template);
+                if ($itemLevelGiftMessage !== undefined && $itemLevelGiftMessage !== '') {
+                    $('.gift-box-container-modal .gift-text').text($itemLevelGiftMessage);
+                } else {
+                    $('.gift-box-container-modal .gift-text').text('');
+                }
+                
+                setTimeout(function () {
+                    if (response.basketModel.items.length) {
+                        response.basketModel.items.forEach(function (item) {
+                        if (item.UUID == response.ProductLineItemUUID) {
+                            $('.gift-box-container-modal .gift-text').text(response.itemLevelGiftMessage);
+                        }
+                    });
+                }
+                }, 2000);
+
                 $.spinner().stop();
+
             }
         });
     });
