@@ -428,7 +428,7 @@ module.exports = function () {
                     method: 'POST',
                     data: form,
                     success: function (data) {
-                    if (isCartPage) {
+                    if (isCartPage !== "undefined" && isCartPage !== '') { 
                         $('.main-cart-block .product-list-block').empty();
                         $('.main-cart-block .product-list-block').append(data.giftProductCardHtml);
                     } else {
@@ -463,6 +463,10 @@ module.exports = function () {
 
                             if (item.UUID == parentPid) {
                                 $('.gift-message-btn-' + item.UUID).text('Edit');
+                            }
+
+                            if (item.giftParentUUID !== '') {
+                                $('.gift-message-btn-' + parentPid).addClass('gift-product-chlid-uuid-' + item.UUID);
                             }
                         });
 
