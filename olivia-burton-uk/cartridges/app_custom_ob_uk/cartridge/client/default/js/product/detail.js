@@ -254,3 +254,10 @@ window.onload = () => {
     }
 };
 // Custom End: Listrak persistent popup
+
+// custome GTM tag on appel pay
+$('body').on('click', '.apple-pay-pdp', function () {
+    var dataGtmObj = $('.add-to-cart-gtm').attr('data-atc');
+    $('body').trigger('addToCart:success', dataGtmObj);
+});
+//custome end

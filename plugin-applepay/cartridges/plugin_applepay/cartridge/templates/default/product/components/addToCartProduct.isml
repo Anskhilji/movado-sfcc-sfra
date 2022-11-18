@@ -6,6 +6,6 @@
             ${Resource.msg('button.addtocart', 'common', null)}
     </button>
     <isif condition="${product.available && product.readyToOrder}">
-        <isapplepay class="apple-pay-pdp btn" sku="${product.id}" data-atc="PDP_express"></isapplepay>
+        <isapplepay class="apple-pay-pdp btn" sku="${product.id}"></isapplepay>
     </isif>
 </div>

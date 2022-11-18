@@ -662,11 +662,6 @@ var updateCartPage = function(data) {
    }
 };
 
-$('body').on('click', '.apple-pay-pdp', function () {
-    var dataGtmObj = $('.add-to-cart-gtm').val();
-    $('body').trigger('addToCart:success', dataGtmObj);
-});
-
 module.exports = {
 	attributeSelect: attributeSelect,
     methods: {
