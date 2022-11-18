@@ -124,6 +124,16 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	    });
 	    return next();
 	  }
+		
+		if (session.privacy.pickupFromStore) {
+			Transaction.wrap(function () {
+				var shippingAddress = currentBasket.defaultShipment.shippingAddress;
+				shippingAddress.setAddress1(session.privacy.storeAddress || '');
+				shippingAddress.setAddress2(session.privacy.storeAddress2 || '');
+				shippingAddress.setPostalCode(session.privacy.extendedZipCode || '');
+				shippingAddress.setStateCode(session.privacy.stateCode || '');
+		    });
+		}
 
 	  // Check to make sure billing address exists
 	  if (!currentBasket.billingAddress) {
@@ -191,7 +201,7 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	}
 	//Custom End
 
-      checkoutLogger.debug('(CheckoutServices) -> PlaceOrder: Order is created with order number: ' + order.orderNo);
+	checkoutLogger.debug('(CheckoutServices) -> PlaceOrder: Order is created with order number: ' + order.orderNo);
 	  //Set order custom attribute if there is any pre-order item exists in order
 	  if (isPreOrder) {
 		Transaction.wrap(function () {
@@ -214,7 +224,25 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	      errorMessage: Resource.msg('error.technical', 'checkout', null)
 	    });
 	    return next();
-	  }
+	  } else {
+		var RiskifiedOrderDescion = require('*/cartridge/scripts/riskified/RiskifiedOrderDescion');
+		if (handlePaymentResult.result && handlePaymentResult.result.response && handlePaymentResult.result.response.order.status === 'declined') {
+				// Riskified order declined response from decide API
+				riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order);
+				if (riskifiedOrderDeclined) {
+					res.json({
+						error: false,
+						orderID: order.orderNo,
+						orderToken: order.orderToken,
+						continueUrl: URLUtils.url('Checkout-Declined').toString()
+					});
+					return next();
+				}
+		} else if (handlePaymentResult.result && handlePaymentResult.result.response && handlePaymentResult.result.response.order.status === 'approved') {
+			// Riskified order approved response from decide API
+			RiskifiedOrderDescion.orderApproved(order);
+		}
+	}
 	  //set custom attirbute in session to avoid order confirmation page reload
 	  session.custom.orderJustPlaced = true;
 	  //set order number in session to get order back after redirection

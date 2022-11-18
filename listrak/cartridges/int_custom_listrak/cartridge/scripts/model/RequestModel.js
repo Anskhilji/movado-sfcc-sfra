@@ -94,6 +94,10 @@ function generateTransactionalEmailToLTKPayload(params) {
                     "value": params.totalTax || ''
                 },
                 {
+                    "segmentationFieldId": Site.current.preferences.custom.Listrak_Transactional_Discount || '',
+                    "value": params.discount || ''
+                },
+                {
                     "segmentationFieldId": Site.current.preferences.custom.Listrak_Transactional_Subtotal || '',
                     "value": params.subTotal || ''
                 },
@@ -234,5 +238,5 @@ function generateTransactionalEmailToLTKPayload(params) {
 module.exports = {
     generateAuthenticationPayLoad: generateAuthenticationPayLoad,
     generateAddContactToLTKPayload: generateAddContactToLTKPayload,
-    generateTransactionalEmailToLTKPayload:generateTransactionalEmailToLTKPayload
+    generateTransactionalEmailToLTKPayload: generateTransactionalEmailToLTKPayload
 }

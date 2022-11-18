@@ -9,6 +9,7 @@ $(document).ready(function () {
     processInclude(require('base/components/footer'));
     processInclude(require('./components/miniCart'));
     processInclude(require('./components/newsLetterSubscription'));
+    processInclude(require('./components/googleRecaptcha'));
     processInclude(require('./components/collapsibleItem'));
     processInclude(require('./components/search'));
     processInclude(require('./productTile'));

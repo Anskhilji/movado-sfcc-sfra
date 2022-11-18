@@ -115,6 +115,7 @@ function csvToArray(text) {
             // Remove backslash from \" in double quoted values.
             else if (!!m2) a.push(m2.replace(/\\"/g, '"'));
             else if (!!m3) a.push(m3);
+            else if (m0 == "," && !m3) a.push("");
             return ""; // Return empty string.
         }
     );

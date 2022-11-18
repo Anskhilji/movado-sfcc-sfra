@@ -24,7 +24,14 @@
     <isobject object="${product.raw}" view="detail">
     <isset name="topLevelBackground" value="${dw.system.Site.getCurrent().getCustomPreferenceValue('topLevelBackground')}" scope="page" />
         <iscomment> ${topLevelBackground}; </iscomment>
-        <div class="custom-bg" style="background-color: ${topLevelBackground};">
+        <div class="custom-bg ${pdict.lastNameError ? 'pt-2' : ''}" style="background-color: ${topLevelBackground};">
+
+            <isif condition="${pdict.lastNameError}">
+                <div class="container cart-error-messaging cart-error gpay-error alert card alert-dismissible fade show">
+                    ${Resource.msg('error.last.name', 'checkout', null)}
+                </div>
+            </isif>
+
             <div class="container-fluid product-detail product-detail-redesign pdp-obuk pdp-v-one product-wrapper" data-pid="${product.id}" itemscope
                 itemtype="http://schema.org/Product">
                 <!---Breadcrumbs--->
@@ -235,6 +242,11 @@
             </div>
         </div>
         <!-- The Modal: Ends-->
-
+        <isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled && pdict.popupID}">
+            <span class="listrak-persistent-url" data-listrak-url="${URLUtils.https('EmailPopUp-Show')}"></span>
+            <span class="listrak-popup-product-detail"></span>
+            <isslot id="cs-listrak-persistent-popup" description="Listrak persistent popup" context="global" />
+        </isif>
+        <!-- End: Listrak persistent popup -->
     </isobject>
 </isdecorate>

@@ -1,0 +1,68 @@
+
+
+$black-dark: #000000 !default;
+$light-black: #1E1E1E;
+$light-black2: rgba(0, 0, 0, 0.30);
+$dark-light-black: #060506;
+$white-dark: #FFFFFF !default;
+$light-white: #F9F9F9;
+$light-gray-black: #333333;
+$light-gray-white: #999999;
+$light-gray-brown: #666666;
+$dark-gray: rgba(6,5,6,0.6);
+$light-gray: #E0E0E0;
+$light-gray-info:#DEDEDE;
+$gray-info:#F7F7F7;
+$gray-shadow:rgba(188,188,188,0.5);
+$green: #50A12E;
+$alert: #AF2828;
+$alert-box: #e14a4a;
+$alert-box-bg: #fef2f2;
+$alert-text: #B02C2C;
+$disabled-gray: #b2b2b2;
+
+$green: #50A12E;
+$light-gray1: #979797;
+
+$grid-breakpoints: (
+    xs: 0,
+    sm: 544px,
+    md: 769px,
+    lg: 992px,
+    xl: 1200px
+) !default;
+
+//font Families:
+$font-demi: "futura-pt", sans-serif, Arial;
+$font-medium : "FuturaStd-Medium", Arial, sans-serif !default;
+$font-book : "FuturaStd-Book", Arial, sans-serif !default;
+$font-bold : "FuturaStd-Bold", Arial, sans-serif !default;
+
+@mixin font-medium {
+    font-family: "futura-pt", "sans-serif";
+    font-weight: 500;
+    font-style: normal;
+}
+
+@mixin font-book {
+    font-family: "futura-pt", "sans-serif";
+    font-weight: 400;
+    font-style: normal;
+}
+
+@mixin font-Std {
+    font-family: "FuturaStd-Medium", Arial, sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+$font-demi: "futura-pt", sans-serif, Arial;
+$font-std: "Futura Std";
+$font-thin : "proxima-nova";
+
+$medium-screen-width: 768px;
+
+@mixin custom-media-query-max($medium-screen-width) {
+    @media (max-width:#{$medium-screen-width}) {
+        @content;
+    }
+}

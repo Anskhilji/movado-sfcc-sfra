@@ -2,10 +2,13 @@
 
 var server = require('server');
 
+var cache = require('*/cartridge/scripts/middleware/cache');
+
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var collections = require('*/cartridge/scripts/util/collections');
 var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
+var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 
 var page = module.superModule;
 server.extend(page);
@@ -29,9 +32,27 @@ server.prepend('AddProduct', function (req, res, next) {
                 break;
             }
         }
-    }
+    } 
     next();
 });
+
+// Show add to Cart Button as Remote Include
+server.get('ShowAddProductButton', 
+    server.middleware.include,
+    cache.applyDefaultCache,
+    function (req, res, next) {
+        var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
+        var productId = req.querystring.pid;
+
+        res.render('product/components/addToCartPDP', {
+            product: showProductPageHelperResult.product,
+            addToCartUrl: showProductPageHelperResult.addToCartUrl,
+            productId: productId
+        });
+
+    next();
+});
+
 // Added custom code for personalization text for Engraving and Embossing
 server.append('AddProduct', function (req, res, next) {
     var BasketMgr = require('dw/order/BasketMgr');
@@ -197,20 +218,7 @@ server.append('AddProduct', function (req, res, next) {
             quantityTotal = 0;
         }
 
-        if (!Site.getCurrent().preferences.custom.isClydeEnabled || Site.getCurrent().preferences.custom.isClydeEnabled) {
-            var Constants = require('*/cartridge/utils/Constants');
-            var orderLineItems = currentBasket.allProductLineItems;
-            var orderLineItemsIterator = orderLineItems.iterator();
-            var productLineItem;
-            Transaction.wrap(function () {
-                while (orderLineItemsIterator.hasNext()) {
-                    productLineItem = orderLineItemsIterator.next();
-                    if (productLineItem instanceof dw.order.ProductLineItem && productLineItem.optionID == Constants.CLYDE_WARRANTY && productLineItem.optionValueID == Constants.CLYDE_WARRANTY_OPTION_ID_NONE) {
-                        currentBasket.removeProductLineItem(productLineItem);
-                    }
-                }
-            });
-        }
+        customCartHelpers.removeNullClydeWarrantyLineItem(currentBasket);
 
         // Custom Start MSS-1930 Added code for Listrak Cart Tracking
         if (Site.current.preferences.custom.Listrak_Cartridge_Enabled) {
@@ -315,8 +323,8 @@ next();
 server.append(
 	    'Show',
 	    server.middleware.https,
-	    consentTracking.consent,
-	    csrfProtection.generateToken,
+        consentTracking.consent,
+        csrfProtection.generateToken,
 	    function (req, res, next) {
         res.setViewData({ loggedIn: req.currentCustomer.raw.authenticated });
         var BasketMgr = require('dw/order/BasketMgr');
@@ -332,6 +340,7 @@ server.append(
         var productLineItems = currentBasket.productLineItems.iterator();
         var marketingProductsData = [];
 
+        
         // Custom Start: Adding ESW cartridge integration
         if (isEswEnabled) {
             var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
@@ -366,6 +375,12 @@ server.append(
 
         }
         // Custom End
+        var session = req.session.raw;
+        if (session.privacy.pickupFromStore) {
+            session.custom.applePayCheckout = false;
+        } else {
+            session.custom.StorePickUp = false;
+        }
 
         if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
             var cartAnalyticsTrackingData;
@@ -408,6 +423,15 @@ server.append(
             paypalButtonImg: customCartHelpers.getContentAssetContent('ca-paypal-button')
         });
 
+        customCartHelpers.removeClydeWarranty(viewData);
+        customCartHelpers.removeNullClydeWarrantyLineItem(currentBasket);
+
+        if (!empty(req.querystring.lastNameError)) {
+            res.setViewData({ 
+                lastNameError: req.querystring.lastNameError
+            });
+        }
+
         var FolderSearch = require('*/cartridge/models/search/folderSearch');
         var pageMetaHelper = require('*/cartridge/scripts/helpers/pageMetaHelper');
         var searchCustomHelpers = require('*/cartridge/scripts/helpers/searchCustomHelper');
@@ -422,6 +446,92 @@ server.append(
 	        next();
 	    }
 	);
+
+server.replace(
+	'AddCoupon',
+	server.middleware.https,
+	csrfProtection.validateAjaxRequest,
+	function (req, res, next) {
+        var BasketMgr = require('dw/order/BasketMgr');
+        var Resource = require('dw/web/Resource');
+        var Transaction = require('dw/system/Transaction');
+        var URLUtils = require('dw/web/URLUtils');
+        var CartModel = require('*/cartridge/models/cart');
+        var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
+        var Site = require('dw/system/Site');
+
+        var currentBasket = BasketMgr.getCurrentBasket();
+
+        if (!currentBasket) {
+            res.setStatusCode(500);
+            res.json({
+                error: true,
+                redirectUrl: URLUtils.url('Cart-Show').toString()
+            });
+
+            return next();
+        }
+
+        if (!currentBasket) {
+            res.setStatusCode(500);
+            res.json({ errorMessage: Resource.msg('error.add.coupon', 'cart', null) });
+            return next();
+        }
+
+        var error = false;
+        var errorMessage;
+
+        try {
+            Transaction.wrap(function () {
+                return currentBasket.createCouponLineItem(req.querystring.couponCode, true);
+            });
+        } catch (e) {
+            error = true;
+            // Custom Start: if custom preference 'couponErrorMessages' in strofront group is not empty and have promotion error messages json 
+            var couponErrorMessages = !empty(Site.current.preferences.custom.couponErrorMessages) ? Site.current.preferences.custom.couponErrorMessages : false;
+
+            if (couponErrorMessages) {
+                var errorCodes = JSON.parse(couponErrorMessages);
+                var localeErrorCodes = errorCodes[req.locale.id] || errorCodes['default'];
+                var errorMessageKey = localeErrorCodes[e.errorCode] || localeErrorCodes.DEFAULT;
+                errorMessage = Resource.msg(errorMessageKey, 'cart', null);
+                // Custom End
+            } else {
+                var errorCodes = {
+                    COUPON_CODE_ALREADY_IN_BASKET: 'error.coupon.already.in.cart',
+                    COUPON_ALREADY_IN_BASKET: 'error.coupon.cannot.be.combined',
+                    COUPON_CODE_ALREADY_REDEEMED: 'error.coupon.already.redeemed',
+                    COUPON_CODE_UNKNOWN: 'error.unable.to.add.coupon',
+                    COUPON_DISABLED: 'error.unable.to.add.coupon',
+                    REDEMPTION_LIMIT_EXCEEDED: 'error.unable.to.add.coupon',
+                    TIMEFRAME_REDEMPTION_LIMIT_EXCEEDED: 'error.unable.to.add.coupon',
+                    NO_ACTIVE_PROMOTION: 'error.unable.to.add.coupon',
+                    default: 'error.unable.to.add.coupon'
+                };
+    
+                var errorMessageKey = errorCodes[e.errorCode] || errorCodes.default;
+                errorMessage = Resource.msg(errorMessageKey, 'cart', null);
+            }
+        }
+
+        if (error) {
+            res.json({
+                error: error,
+                errorMessage: errorMessage
+            });
+            return next();
+        }
+
+        Transaction.wrap(function () {
+            basketCalculationHelpers.calculateTotals(currentBasket);
+        });
+
+        var basketModel = new CartModel(currentBasket);
+
+        res.json(basketModel);
+        return next();
+    }
+);
 
 server.append(
 	'AddCoupon',
@@ -533,6 +643,9 @@ server.append('RemoveProductLineItem', function (req, res, next) {
     emptyCartDom = customCartHelpers.getCartAssets();
 
     if (currentBasket.productLineItems.length === 0) {
+        if (session.privacy.pickupFromStore) {
+            delete session.privacy.pickupFromStore;
+        }
     	var cartAnalyticsTrackingData;
         if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
             cartAnalyticsTrackingData = {
@@ -598,7 +711,7 @@ server.append('MiniCartShow', function(req, res, next){
         }
         res.setViewData({cartAnalyticsTrackingData: JSON.stringify(cartAnalyticsTrackingData)});
     }
-
+    
     next();
 });
 

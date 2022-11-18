@@ -83,7 +83,8 @@ function validateBasket(data) {
     if (data.numItems) {
         $('.minicart .minicart-quantity').text(data.numItems);
     }
-    var $miniCartSelector = $('.mini-cart-data');
+    var $fullCart = $('.main-cart-block');
+    var $miniCartSelector = $('.mini-cart-data .product-summary').length > 0 ? $('.mini-cart-data') : $fullCart;
     var $noOfItems = $miniCartSelector.find('.mini-cart-data .number-of-items'); 
     var $shippingCostSelector = $miniCartSelector.find('.shipping-cost');
     var $totalTaxSelector = $miniCartSelector.find('.tax-total');
@@ -91,7 +92,7 @@ function validateBasket(data) {
     var $subTotalSelector = $miniCartSelector.find('.sub-total');
     var $affirmPriceSelector = $miniCartSelector.find('.affirm-as-low-as');
     var $orderDiscountSelector = $miniCartSelector.find('.order-discount'); 
-
+    
     if ($noOfItems.length > 0) {
         $noOfItems.empty().append(data.resources.numberOfItems);
     }
@@ -108,6 +109,10 @@ function validateBasket(data) {
     }
     if ($subTotalSelector.length > 0) {
         $subTotalSelector.empty().append(data.totals.subTotal);
+    }
+
+    if ($fullCart.length > 0) {
+        $fullCart.find('.grand-total-sum').empty().append(data.totals.grandTotal);
     }
 
     /* Affirm block for refreshing promo message */
@@ -139,7 +144,7 @@ function validateBasket(data) {
     }
 
     data.items.forEach(function (item) {
-    // Custom Start: Updated selector and rendered HTML as per MVMT site
+        // Custom Start: Updated selector and rendered HTML as per MVMT site
         if (item.price.list) {
             $miniCartSelector.find('.item-total-' + item.UUID + ' .product-line-item-details  .price .strike-through').remove();
             $miniCartSelector.find('.item-total-' + item.UUID + ' .product-line-item-details  .price').prepend('<span class="strike-through list">' +
@@ -151,8 +156,22 @@ function validateBasket(data) {
             $miniCartSelector.find('.item-total-' + item.UUID + ' .product-line-item-details  .price .strike-through').remove();
         }
         $miniCartSelector.find('.item-total-' + item.UUID + ' .product-line-item-details  .sales').empty().append(item.priceTotal.price);
+
+        // Custom Start: Updated selector and rendered HTML as per full cart/shoping bag MVMT site
+        if (item.price.list) {
+            $fullCart.find('.item-total-' + item.UUID + ' .price .strike-through').remove();
+            $fullCart.find('.item-total-' + item.UUID + ' .price').prepend('<span class="strike-through list">' +
+                '<span class="value" content="' + item.priceTotal.nonAdjustedFormattedPrice + '">' +
+                '<span class="sr-only">label.price.reduced.from</span>' +
+                '<span class="eswListPrice">' + item.priceTotal.nonAdjustedFormattedPrice + '</span>' +
+                '<span class="sr-only">label.price.to</span></span></span>');
+        } else {
+            $fullCart.find('.item-total-' + item.UUID + ' .price .strike-through').remove();
+        }
+        $fullCart.find('.item-total-' + item.UUID + ' .sales').empty().append(item.priceTotal.price);
     });
     // Custom End
+    
 }
 
 
@@ -852,6 +871,9 @@ module.exports = function () {
             dataType: 'json',
             success: function (data) {
                 $('.coupon-uuid-' + uuid).remove();
+                if (data.couponLineItemsLength !== undefined && data.couponLineItemsLength !== '') {
+                    data.couponLineItemsLength > 0 ? $('.promo-code-applied').text(data.couponLineItemsLength + " " + window.Resources.COUPON_LINE_ITEM_LENGTH) : $('.promo-code-applied').text('');
+                }
                 updateCartTotals(data);
                 updateApproachingDiscounts(data.approachingDiscounts);
                 $('.promotion-information').parent().empty().append(data.totals.discountsHtml);

@@ -1,6 +1,6 @@
 <isloop items="${refinement.values}" var="refinementValue" status="loopStatus">
   <isif condition="${loopStatus.first}">
-    <ul class="values content" <isif condition="${refinementValue.type === 'radio'}" >role="radiogroup"</isif> >
+    <ul class="values content filter-refinement-container" data-filter-id="${refinementValue.id}" <isif condition="${refinementValue.type === 'radio'}" >role="radiogroup"</isif> >
   </isif>
     <isif condition="${refinementValue.type === 'color'}">
         <isinclude template="search/refinements/attributes/color"/>

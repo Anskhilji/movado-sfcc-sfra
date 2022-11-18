@@ -211,12 +211,24 @@ function getShippingMethods(currentBasket, selectedShippingMethod, shippingAddre
 
     for (let index = 0; index < applicableShippingMethodsOnCart.length; index++) {
         var shippingMethod = applicableShippingMethodsOnCart[index];
-        var shippingOption = {
-            id: shippingMethod.ID,
-            label: shippingMethod.displayName ? shippingMethod.displayName : '' ,
-            description: shippingMethod.description ? shippingMethod.description : '',
+        var shippingOption;
+        if (shippingMethod.custom.storePickupEnabled) {
+            if (session.privacy.pickupFromStore) { 
+                shippingOption = {
+                    id: shippingMethod.ID,
+                    label: shippingMethod.displayName ? shippingMethod.displayName : '' ,
+                    description: shippingMethod.description ? shippingMethod.description : '',
+                }
+                shippingOptions.push(shippingOption);
+            }
+        } else {
+            shippingOption = {
+                id: shippingMethod.ID,
+                label: shippingMethod.displayName ? shippingMethod.displayName : '' ,
+                description: shippingMethod.description ? shippingMethod.description : '',
+            }
+            shippingOptions.push(shippingOption);
         }
-        shippingOptions.push(shippingOption);
     }
     defaultShippingMethods.shippingOptions = shippingOptions;
     shippingMethodData.defaultShippingMethods = defaultShippingMethods;
@@ -226,6 +238,7 @@ function getShippingMethods(currentBasket, selectedShippingMethod, shippingAddre
 function setShippingAndBillingAddress(currentBasket, selectedShippingMethod, shippingAddressData, shipment) {
     var firstName = shippingAddressData.name;
     var lastName = shippingAddressData.name;
+    var profileLastName = currentBasket.customer.profile && currentBasket.customer.profile.lastName ? currentBasket.customer.profile.lastName : '';
 
     if (empty(shipment)) {
         shipment = currentBasket.defaultShipment;
@@ -238,12 +251,20 @@ function setShippingAndBillingAddress(currentBasket, selectedShippingMethod, shi
         if (splitFullName.length > 0) {
             firstName = splitFullName[0];
             lastName = splitFullName[1];
+            if (empty(lastName)) {
+                if (currentBasket.customer.registered == true) {
+                    lastName = profileLastName;
+                } else {
+                    var errorMessage = Resource.msg('error.last.name', 'checkout', null)
+                    return {serverErrors: errorMessage , error: true}
+                }
+            }
         }
     }
 
     var address = {
         firstName: firstName || '',
-        lastName:  lastName || '',
+        lastName: lastName || '',
         companyName: shippingAddressData.companyName || '',
         address1: shippingAddressData.address1 || '',
         address2: shippingAddressData.address2 || '',
@@ -323,6 +344,10 @@ function getTransactionInfo(req) {
     var options = [];
     form.options = [];
 
+    if (session.privacy.pickupFromStore) {
+        session.custom.applePayCheckout = false;
+    }
+
     switch (req.form.googlePayEntryPoint) {
         case 'Product-Show':
             addProductToCart(currentBasket, productId, quantity, childProducts, options, form);
@@ -332,6 +357,13 @@ function getTransactionInfo(req) {
                 var addCartGtmArray = createAddtoCartProdObj(currentBasket, productId, embossedMessage, engravedMessage, form);
                 transactionInfo.addCartGtmArray = addCartGtmArray;
             }
+            if (session.privacy.pickupFromStore) {
+                session.custom.applePayCheckout = true;
+                Transaction.wrap(function () {
+                    ShippingHelper.selectShippingMethod(currentBasket.defaultShipment);
+                });
+            }
+
             if (req.form.includeShippingDetails && !empty(req.form.includeShippingDetails) && (req.form.includeShippingDetails != 'false')) {
                 var shippingMethods = getShippingMethods(currentBasket, req.form.selectedShippingMethod, req.form.shippingAddress);
                 transactionInfo.newShippingOptionParameters = shippingMethods.defaultShippingMethods;

@@ -8,6 +8,7 @@
 *
 */
 var LocalServiceRegistry = require('dw/svc/LocalServiceRegistry');
+var Site = require('dw/system/Site');
 
 var rskfdSyncRestService = LocalServiceRegistry.createService('int_riskified.https.sync.api', {
 
