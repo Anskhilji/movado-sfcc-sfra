@@ -2,6 +2,10 @@
 .tk-futura-pt { font-family: "futura-pt",sans-serif; }
 .tk-futura-pt-bold { font-family: "futura-pt-bold",sans-serif; }
 
+.filter-and-count {
+    visibility: hidden
+}
+
 @mixin font-medium {
     font-family: "futura-pt", "FuturaStd-Medium", sans-serif, Arial;
     font-weight: 500;
