@@ -1,5 +1,16 @@
 @import "~movado/components/carousel";
 
+.carousel-container-wrapper {
+    max-width: 100%;
+    padding: rem(0) rem(20);
+    overflow: hidden;
+}
+
+.full-width-max-1300 {
+    max-width: 100%;
+    padding: 0;
+    overflow: hidden;
+}
 // home page hero banner carousel and recommendation carousel dots to bars
 .carousel-main-wrapper {
 
