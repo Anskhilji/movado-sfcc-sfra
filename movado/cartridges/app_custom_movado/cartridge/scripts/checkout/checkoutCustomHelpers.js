@@ -357,6 +357,14 @@ function declineOrder(order) {
 
 }
 
+function removeGiftMessageLineItem(currentBasket) {
+	var prodLineItems = currentBasket.productLineItems;
+    
+    for each(var lineItem in prodLineItems) {
+        lineItem.custom.GiftWrapMessage = '';
+    }
+}
+
 module.exports = {
     sendConfirmationEmail: sendConfirmationEmail,
     sendOrderConfirmationEmail: sendOrderConfirmationEmail,
@@ -365,5 +373,6 @@ module.exports = {
     sendShippingEmail: sendShippingEmail,
     failOrderRisifiedCall: failOrderRisifiedCall,
     isRiskified: isRiskified,
-    declineOrder: declineOrder
+    declineOrder: declineOrder,
+    removeGiftMessageLineItem: removeGiftMessageLineItem
 };
