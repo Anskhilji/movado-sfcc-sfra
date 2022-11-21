@@ -1053,7 +1053,7 @@ module.exports = function () {
                         });
                     } else {
                         setTimeout(function() {
-                            refreshYotpoWidgets();
+                            refreshGiftMessage();
                         }, 500);
                     }
                 }
