@@ -166,7 +166,6 @@ function updateMiniCartTotals(data, $giftProduct, $uuid, $dataParentUUID) {
         if (item.UUID == $dataParentUUID) {
             $('.gift-product-chlid-uuid-' + $uuid).text('Add');
         }
-
         if (item.customAttributes.itemLevelGiftMessage && item.customAttributes.itemLevelGiftMessage.msgLine1) {
             var $itemLevelGiftMessage = item.customAttributes.itemLevelGiftMessage.msgLine1;
         }
@@ -1043,22 +1042,30 @@ module.exports = function () {
                 } else {
                     $('.gift-box-container-modal .gift-text').text('');
                 }
-                
-                setTimeout(function () {
-                    if (response.basketModel.items.length) {
-                        response.basketModel.items.forEach(function (item) {
-                        if (item.UUID == response.ProductLineItemUUID) {
-                            $('.gift-box-container-modal .gift-text').text(response.itemLevelGiftMessage);
-                        }
-                    });
-                }
-                }, 2000);
 
+                var giftBoxContainerModel = $('.gift-box-container-modal-body');
+                function refreshGiftMessage() {
+                    if(response.basketModel.items.length && giftBoxContainerModel) {
+                            response.basketModel.items.forEach(function (item) {
+                            if (item.UUID == response.ProductLineItemUUID) {
+                                $('.gift-box-container-modal .gift-text').text(response.itemLevelGiftMessage);
+                            }
+                        });
+                    } else {
+                        setTimeout(function() {
+                            refreshYotpoWidgets();
+                        }, 500);
+                    }
+                }
+                
+                refreshGiftMessage();
                 $.spinner().stop();
 
             }
         });
     });
+
+
 
     $('body').on('click', '.gift-message-box-input', function () {
         $('.gift-message-box').removeClass('hide-box');

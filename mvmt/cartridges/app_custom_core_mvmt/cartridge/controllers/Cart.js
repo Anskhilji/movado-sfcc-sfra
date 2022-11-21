@@ -78,7 +78,6 @@ server.get('ShowGiftBoxModal', server.middleware.https, csrfProtection.generateT
     };
 
     var template = 'checkout/cart/giftBoxModel';
-
     var giftModelTemplate = renderTemplateHelper.getRenderedHtml(viewData, template);
 
     res.setViewData(viewData);
