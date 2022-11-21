@@ -1410,7 +1410,6 @@
                 min-height: auto;
                 height: 100%;
                 position: relative;
-                overflow: hidden;
 
                 @include media-breakpoint-up(xs-custom) {
                     min-height: rem(300);
