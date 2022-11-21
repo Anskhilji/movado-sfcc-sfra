@@ -827,17 +827,12 @@ function handleVariantResponse(response, $productContainer) {
 
     // Update primary images
     var primaryImageUrls = response.product.images;
-    if (response.isNewDesign) {
-        $('.quadrant-pdp-wrapper').remove();
+    $('.quadrant-pdp-wrapper').remove();
+    $('.show-mobile-pdp').remove();
+    $('.zoom-modal-inner').remove();
+    $('.pdp-quadrant').prepend(response.productImages);
+    if ($(window).width() > 768) {
         $('.show-mobile-pdp').remove();
-        $('.zoom-modal-inner').remove();
-        $('.pdp-quadrant').prepend(response.productImages);
-        if ($(window).width() > 768) {
-            $('.show-mobile-pdp').remove();
-        }
-    } else {
-        $('.image-carousel-pdp-old').remove();
-        $('.image-carousel-pdp').prepend(response.productImages);
     }
 
     // pdp Video for variations
