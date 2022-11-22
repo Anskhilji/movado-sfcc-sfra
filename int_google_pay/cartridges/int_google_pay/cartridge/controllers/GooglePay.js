@@ -111,10 +111,10 @@ server.post('ProcessPayments',
         }
 
         if (session.privacy.pickupFromStore) {
-			Transaction.wrap(function () {
-				COCustomHelpers.removeGiftMessageLineItem(currentBasket);
-		    });
-		}
+            Transaction.wrap(function () {
+                COCustomHelpers.removeGiftMessageLineItem(currentBasket);
+            });
+        }
 
          // Added Smart Gift Logic
          if (currentBasket && !empty(currentBasket.custom.smartGiftTrackingCode)) {

@@ -36,10 +36,10 @@ server.replace(
         }
 
         if (session.privacy.pickupFromStore) {
-			Transaction.wrap(function () {
-				COCustomHelpers.removeGiftMessageLineItem(currentBasket);
-		    });
-		}
+            Transaction.wrap(function () {
+                COCustomHelpers.removeGiftMessageLineItem(currentBasket);
+            });
+        }
 
         var affirmCheck = affirmHelper.CheckCart(currentBasket);
 
