@@ -1,11 +1,14 @@
 'use strict';
 
 var server = require('server');
+var Site = require('dw/system/Site');
 var RiskifiedService = require('int_riskified');
 var Resource = require('dw/web/Resource');
 var OrderModelRiskified = require('int_riskified/cartridge/scripts/riskified/export/api/models/OrderModel');
 var OrderMgr = require('dw/order/OrderMgr');
 var PaymentMgr = require('dw/order/PaymentMgr');
+var attemptCounter = 0;
+var maxAttempted = 3;
 
 function checkoutCreate(orderNumber, paymentInstrument) {
     var order = OrderMgr.getOrder(orderNumber);
@@ -61,13 +64,27 @@ function create(orderNumber, paymentInstrument) {
     var order = OrderMgr.getOrder(orderNumber);
     var paymentMethod = PaymentMgr.getPaymentMethod(paymentInstrument.getPaymentMethod());
     var isRiskifiedflag = paymentMethod.custom.isRiskifiedEnable;
-    var result = {status : 'success'};
+    var result = { status: 'success' };
     if (isRiskifiedflag) {
         var serviceResult = RiskifiedService.sendCreateOrder(order);
         result.response = serviceResult
         if (serviceResult.error) {
-            result.status = 'fail';   
-            result.response = serviceResult;    
+            if (Site.getCurrent().preferences.custom.isRiskifiedSyncIntegerationEnabled) {
+                if (attemptCounter !== maxAttempted) {
+                    attemptCounter++;
+                    this.create(orderNumber, paymentInstrument);
+                } else { // Send success status
+                    result.status = 'pass';
+                    result.response = {
+                        order: {
+                            status: 'approved'
+                        }
+                    };
+                }
+            } else {
+                result.status = 'fail';
+                result.response = serviceResult;
+            }
         }
     }
     return result;

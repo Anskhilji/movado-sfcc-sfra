@@ -1,0 +1,64 @@
+.footer {
+
+    &-redesign {
+        
+        .footer-item {
+            font-family: $font-raleway-book;
+            
+            h3 {
+                font-family: $font-raleway-book;
+            }
+        }
+
+        h3 {
+            font-family: $font-raleway-book;
+
+            a {
+                font-family: $font-raleway-book;
+            }
+        }    
+
+        .selectCountry,.selectLanguage {
+
+            .btn {
+                font-family: $font-raleway-medium;
+            }
+
+            .title {
+                font-family: $font-raleway-medium;
+            }
+        }
+
+        .footer-signup-container {
+
+            .footer-newsletter-email-field {
+                font-family: $font-raleway-book;
+            }
+        }
+
+        .copyright {
+            font-family: $font-raleway-book ;
+        }
+
+        .copyright-footer-row {
+
+            @include media-breakpoint-down(sm) {
+                padding-top: rem(35);
+            }
+        }
+    }
+
+    &-top {
+
+        &-item {
+
+            &-heading {
+
+                h2 {
+                    font-family: $font-raleway-medium;
+                }
+            }
+        }
+    }
+}
+

@@ -694,10 +694,10 @@
     pointer-events: none;
     width: 100%;
     height: rem(80);
-    box-shadow: 0 rem(8) rem(14) rem(-8) $storm-gray;
+    border-bottom: rem(1) solid $black;
     z-index: 999;
     margin: 0;
-    opacity: 1;
+    opacity: 0.1;
 }
 
 .ob-redesign-header-banner {

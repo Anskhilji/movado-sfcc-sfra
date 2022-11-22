@@ -7,6 +7,10 @@
 @import "~movado/utilities/swatch";
 @import "~movado/components/categoryTiles";
 
+.filter-and-count-margin {
+    margin-top: rem(20);
+}
+
 .plp-old {
     .refinement {
         margin-bottom: rem(8);
@@ -1360,25 +1364,26 @@
         padding-left: rem(5);
 
         @include media-breakpoint-up(xs-custom) {    
-            margin-bottom: rem(48);
+            margin-bottom: rem(15);
         }
 
         @include media-breakpoint-up(sm) {
-            margin-bottom: rem(48);
+            margin-bottom: rem(20);
             padding-right: rem(8);
             padding-left: rem(8);
         }
 
         @include media-breakpoint-up(lg) {
-            margin-bottom: rem(60);
+            margin-bottom: rem(45.6);
             flex: 0 0 25%;
             max-width: 25%;
+            padding: rem(0) rem(10) rem(0) rem(10);
         }
 
         @include media-breakpoint-up(xl) {
-            margin-bottom: rem(60);
-            flex: 0 0 20%;
-            max-width: 20%;
+            margin-bottom: rem(45.6);
+            flex: 0 0 25%;
+            max-width: 25%;
         }
     }
 
@@ -1986,6 +1991,13 @@
     }
 }
 
+.filter-and-count {
+    visibility: hidden
+}
+
+.pagination-wrapper {
+    margin-top: rem(30);
+}
 
 .no-overflow {
     overflow: hidden;

@@ -649,3 +649,25 @@ header {
     display: none;
     z-index: 5;
 }
+
+
+.fedex-popup {
+
+    &-body {
+
+        &-heading {
+            font-family: $font-gill-std-medium;
+        }
+
+        // POP UP BODY
+        &-container {
+
+            &-box-one {
+
+                .btn-wrapper {
+                    font-family: $font-gill-std-medium;
+                }
+            }
+        }
+    }
+}

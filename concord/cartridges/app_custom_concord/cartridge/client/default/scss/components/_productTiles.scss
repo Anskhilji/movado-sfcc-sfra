@@ -64,7 +64,7 @@
         .price {
             font-size: rem(14);
             line-height: rem(17);
-            font-family: $font-medium;
+            font-family: $font-raleway-medium;
             color:$grey-dark-1;
             margin-bottom: 0;
             .tiered {
@@ -93,14 +93,14 @@
                 @include media-breakpoint-down(md) {
                   font-size: rem(15);
                   line-height: rem(20);
-                  font-family: $font-book;
+                  font-family: $font-raleway-book;
                 }
 
                 @include media-breakpoint-down(sm) {
                     font-size: rem(14);
                     letter-spacing: rem(.4);
                     line-height: rem(17);
-                    font-family: $font-book;
+                    font-family: $font-raleway-book;
                 }
             }
         }
@@ -110,7 +110,7 @@
         }
         .compare{
           label{
-            font-family: $font-medium;
+            font-family: $font-raleway-medium;
             line-height:1;
             color:$grey-transparent-1;
           }
@@ -206,7 +206,7 @@
     }
     .promo-msg.callout{
       font-size: rem(14);
-      font-family: $font-medium;
+      font-family: $font-raleway-medium;
       line-height: rem(17);
       letter-spacing: 2px;
       text-align: center;

@@ -189,7 +189,6 @@
                                     </div>
                                 </isif>
                            </div>
-
                             <isif condition="${sitePref.enableBackInStock && !sitePref.Listrak_EnableBackInStockSms && !sitePref.Listrak_EnableBackInStockEmail}">
                                 <isinclude template="product/backInStockNotification" sf-toolkit="on" />                                
                             <iselseif condition="${isListrakEnable}">
