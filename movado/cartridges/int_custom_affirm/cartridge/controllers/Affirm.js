@@ -35,6 +35,11 @@ server.replace(
             return next();
         }
 
+        if (session.privacy.pickupFromStore) {
+			Transaction.wrap(function () {
+				COCustomHelpers.removeGiftMessageLineItem(currentBasket);
+		    });
+		}
 
         var affirmCheck = affirmHelper.CheckCart(currentBasket);
 
