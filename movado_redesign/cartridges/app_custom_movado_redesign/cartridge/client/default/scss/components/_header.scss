@@ -704,6 +704,7 @@ header.new-header {
     .fixed-header {
       .header-menu-wrapper {
         position: fixed;
+        z-index: 99999;
       }
     }
 

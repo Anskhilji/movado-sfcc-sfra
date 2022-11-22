@@ -591,6 +591,7 @@
       align-items: flex-end;
       width: 100%;
       padding-right: rem(10);
+      z-index: 1;
 
       @include media-breakpoint-down(xs) {
         top: rem(5);
