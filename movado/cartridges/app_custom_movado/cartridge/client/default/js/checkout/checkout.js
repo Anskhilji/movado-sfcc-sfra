@@ -77,6 +77,8 @@ var formHelpers = require('./formErrors');
                 $('.checkout-progressbar li:nth-child(1)').addClass('active');
                 $('.checkout-progressbar li:nth-child(1)').find('.step-no').html('1');
                 $('.checkout-pickup-items').removeClass('d-none');
+                $('.personalize-price').addClass('option-wrapper');
+                $('.personalize-msg').addClass('option-wrapper');
             }
             else if (checkoutStages[currentStage] === 'payment') {
                 $('.checkout-progressbar li:nth-child(2)').addClass('active');
@@ -84,6 +86,9 @@ var formHelpers = require('./formErrors');
                 $('.checkout-progressbar li:nth-child(1)').addClass('completed'); 
                 $('.checkout-form-error').addClass('d-none');
                 $('.checkout-pickup-items').removeClass('d-none');
+                $('.personalize-price').addClass('option-wrapper');
+                $('.personalize-msg').addClass('option-wrapper');
+                
                 var customerData = $('.submit-shipping').data('customer');
                 if (!customerData) {
                     if (window.Resources.PICKUP_FROM_STORE) {
@@ -116,6 +121,8 @@ var formHelpers = require('./formErrors');
                 $('.checkout-progressbar li:nth-child(3)').addClass('completed');
                 $('.checkout-progressbar li:nth-child(2)').addClass('completed');
                 $('.checkout-progressbar li:nth-child(1)').addClass('completed');
+                $('.personalize-price').addClass('option-wrapper');
+                $('.personalize-msg').addClass('option-wrapper');
             }
             $('.checkout-progressbar li.completed').find('.step-no').html(checkedIcon); 
         }
