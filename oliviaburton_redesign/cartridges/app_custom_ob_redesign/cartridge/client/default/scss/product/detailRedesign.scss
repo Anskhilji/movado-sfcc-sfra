@@ -855,7 +855,7 @@
                                 &:hover {
                                     .upsell-text {
                                         p {
-                                            background-color: $pink-hot;
+                                            background-color: $black;
                                             color: $white;
                                             transition: 0.3s ease;
                                         }
@@ -1483,13 +1483,13 @@
                     .add-to-cart {
                         width: 100%;
                         height: rem(45);
-                        background: $pink-hot;
+                        background: $black;
                         @include font-gill ($font-weight: 600);
                         line-height: rem(20);
                         text-transform: uppercase;
-                        color: $black;
+                        color: $white;
                         font-family: $font-gill-std-semibold;
-                        border-color: $pink-hot;
+                        border-color: $black;
                         border-radius: rem(3);
                         max-width: 100%;
                         margin: 0 auto;
@@ -1500,7 +1500,7 @@
 
                         &:hover,
                         &:focus {
-                            background-color: $pink-hot;
+                            background-color: $white;
                             box-shadow: none;
                             color: $black;
                         }
@@ -1530,7 +1530,7 @@
                     display: none;
                     
                     @include media-breakpoint-down(sm-custom) {
-                        background-color: $white;
+                        background-color: $gray-light1;
                         border-radius: rem(40) rem(40) 0 0;
                         box-shadow: 0 0 rem(6) 0 rgba(196, 196, 196, 0.5);
                         z-index: 100;
@@ -1935,13 +1935,13 @@
             button.add-to-cart {
                 width: 100%;
                 height: rem(45);
-                background: $pink-hot;
+                background: $black;
                 @include font-gill($font-weight: 600);
                 line-height: rem(20);
                 text-transform: uppercase;
-                color: $black;
+                color: $white;
                 font-family: $font-gill-std-semibold;
-                border-color: $pink-hot;
+                border-color: $black;
                 border-radius: rem(3);
                 margin: 0;
                 max-width: rem(330);
@@ -1958,7 +1958,7 @@
 
                 &:hover,
                 &:focus {
-                    background-color: $pink-hot;
+                    background-color: $white;
                     box-shadow: none;
                     color: $black;
                 }

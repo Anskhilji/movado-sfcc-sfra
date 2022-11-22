@@ -1571,7 +1571,6 @@
                 .tile-body {
                     text-align: left;
                     padding: rem(10) rem(15);
-                    background-color: $snow;
                     position: absolute;
                     left: 0;
                     bottom: 0;
@@ -1786,11 +1785,11 @@
                     .save-value {
                         font-family: $font-gill-sans-std;
                         font-size: rem(12);
-                        color: $black;
+                        color: $white;
                         font-weight: 600;
                         letter-spacing: 0.5px;
                         padding: rem(3) rem(5);
-                        background-color: $pink-rose;
+                        background-color: $gray-dark;
                         border-radius: rem(5);
                         min-width: rem(67);
                         text-align: center;

@@ -2,7 +2,7 @@
 <isif condition="${!pdict.display.plpTile}">
     <isinclude template="product/old/productTile" sf-toolkit="on" />
 <iselse/>
-    <div class="product-tile new-tile" style="background-color: ${pdict.tileBodyBackground}; " itemscope itemtype="http://schema.org/Product">
+    <div class="product-tile new-tile alisss" style="background-color: ${pdict.tileBodyBackground}; " itemscope itemtype="http://schema.org/Product">
         <!-- dwMarker="product" dwContentID="${product.uuid}" -->
         <iscomment> Product tile extra elements removed </iscomment>
         <isloop items="${product.availability.messages}" var="message">

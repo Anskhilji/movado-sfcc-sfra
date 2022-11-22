@@ -52,9 +52,9 @@
 		}
 
 			button.add-to-cart {
-				color: $black;
-				background: $pink-hot;
-				border: rem(1) solid $pink-hot;
+				color: $white;
+				background: $black;
+				border: rem(1) solid $black;
 		
 				@include media-breakpoint-up(custom-md) {
 					width: rem(296);
@@ -62,6 +62,12 @@
 					padding: rem(10) rem(12) rem(10) rem(12);
 				}
 				
+				&:hover,
+                &:focus {
+                    background-color: $white;
+                    box-shadow: none;
+                    color: $black;
+                }
 			}
 
 			.google-pay-container {
