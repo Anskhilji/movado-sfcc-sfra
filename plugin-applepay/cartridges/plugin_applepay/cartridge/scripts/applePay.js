@@ -15,6 +15,7 @@ var Riskified = require('int_riskified/cartridge/scripts/Riskified');
 var Site = require('dw/system/Site');
 var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 var Constants = require('*/cartridge/utils/Constants');
+var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
 
 var server = require('server');
 
@@ -68,6 +69,7 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     var orderNumber = order.orderNo;
     var paymentInstruments = order.getPaymentInstruments(
         PaymentInstrument.METHOD_DW_APPLE_PAY).toArray();
+    var currentCountry = productCustomHelper.getCurrentCountry();
     if (!paymentInstruments.length) {
         hooksHelper(
             'app.fraud.detection.checkoutdenied',
@@ -94,6 +96,9 @@ exports.afterAuthorization = function (order, payment, custom, status) {
         session.custom.applePayCheckout = false;
     } else {
         session.custom.StorePickUp = false;
+        if (currentCountry == 'US') {
+            session.custom.isEswShippingMethod = false;
+        }
     }
 
     var transactionID = payment.getPaymentTransaction().getTransactionID();
@@ -295,7 +300,7 @@ exports.afterAuthorization = function (order, payment, custom, status) {
  */
 exports.prepareBasket = function (basket, parameters) {
     // get personalization data from session for PDP and Quickview
-
+    var currentCountry = productCustomHelper.getCurrentCountry();
 
     if (!empty(parameters.sku)) {
         if (!session.privacy.pickupFromStore) {
@@ -304,10 +309,16 @@ exports.prepareBasket = function (basket, parameters) {
         } else {
             session.custom.applePayCheckout = true;
             session.custom.StorePickUp = false;
+            if (currentCountry == 'US') {
+                session.custom.isEswShippingMethod = false;
+            }
         }
     } else {
         if (!session.privacy.pickupFromStore) {
             session.custom.applePayCheckout = true;
+            if (currentCountry == 'US') {
+                session.custom.isEswShippingMethod = false;
+            }
         } else {
             session.custom.StorePickUp = true;
         }

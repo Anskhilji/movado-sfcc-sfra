@@ -339,6 +339,8 @@ server.append(
         var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
         var productLineItems = currentBasket.productLineItems.iterator();
         var marketingProductsData = [];
+        var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
+        var currentCountry = productCustomHelper.getCurrentCountry();
 
         
         // Custom Start: Adding ESW cartridge integration
@@ -380,6 +382,9 @@ server.append(
             session.custom.applePayCheckout = false;
         } else {
             session.custom.StorePickUp = false;
+            if (currentCountry == 'US') {
+                session.custom.isEswShippingMethod = false;
+            }
         }
 
         if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {

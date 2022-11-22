@@ -11,6 +11,7 @@ var StoreMgr = require('dw/catalog/StoreMgr');
 var ShippingMgr = require('dw/order/ShippingMgr');
 var ShippingHelper = require('*/cartridge/scripts/checkout/shippingHelpers');
 var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
+var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
 
 var page = module.superModule;
 server.extend(page);
@@ -24,11 +25,15 @@ server.append(
             var productIds = [];
             var apiResponse;
             var lineItemsInventory;
+            var currentCountry = productCustomHelper.getCurrentCountry();
 
             if (session.privacy.pickupFromStore) {
                 session.custom.applePayCheckout = false;
             } else {
                 session.custom.StorePickUp = false;
+                if (currentCountry == 'US') {
+                    session.custom.isEswShippingMethod = false;
+                }
             }
             
             try {
@@ -86,12 +91,16 @@ server.post(
         var items = [];
         var apiResponse;
         var lineItemsInventory;
+        var currentCountry = productCustomHelper.getCurrentCountry();
         viewData.storeFormPickUP = storeFormPickUP;
         viewData.isAllItemsAvailable = isAllItemsAvailable;
         if (session.privacy.pickupFromStore) {
             session.custom.applePayCheckout = false;
         } else {
             session.custom.StorePickUp = false;
+            if (currentCountry == 'US') {
+                session.custom.isEswShippingMethod = false;
+            }
         }
         try {
             currentBasket = BasketMgr.getCurrentBasket();

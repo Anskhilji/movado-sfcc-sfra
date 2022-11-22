@@ -15,7 +15,7 @@ var collections = require('*/cartridge/scripts/util/collections');
 var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
 var checkoutAddrHelper = require('*/cartridge/scripts/helpers/checkoutAddressHelper');
 var ShippingHelper = require('*/cartridge/scripts/checkout/shippingHelpers');
-
+var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
 
 /**
  * Checks if google pay is enabled
@@ -164,10 +164,15 @@ function getShippingMethods(currentBasket, selectedShippingMethod, shippingAddre
             status: 'FINAL'
         }
     }
+    var currentCountry = productCustomHelper.getCurrentCountry();
 
     for (let index = 0; index < applicableShippingMethodsOnCart.length; index++) {
         var shippingMethod = applicableShippingMethodsOnCart[index];
         var shippingOption;
+        if (currentCountry == 'US') {
+            var isEswShippingMethod = session.custom.isEswShippingMethod;
+            isEswShippingMethod = false;
+        }
         if (shippingMethod.custom.storePickupEnabled) {
             if (session.privacy.pickupFromStore) { 
                 shippingOption = {
@@ -177,7 +182,10 @@ function getShippingMethods(currentBasket, selectedShippingMethod, shippingAddre
                 }
                 shippingOptions.push(shippingOption);
             }
-        } else {
+        } else if (shippingMethod.custom.isHideFromCheckout == true && currentCountry == 'US') {
+            continue;
+        }
+        else {
             shippingOption = {
                 id: shippingMethod.ID,
                 label: shippingMethod.displayName ? shippingMethod.displayName : '' ,
@@ -299,9 +307,14 @@ function getTransactionInfo(req) {
     var childProducts = [];
     var options = [];
     form.options = [];
+    var currentCountry = productCustomHelper.getCurrentCountry();
 
     if (session.privacy.pickupFromStore) {
         session.custom.applePayCheckout = false;
+    } else {
+        if (currentCountry == 'US') {
+            session.custom.isEswShippingMethod = false;
+        }
     }
 
     switch (req.form.googlePayEntryPoint) {
