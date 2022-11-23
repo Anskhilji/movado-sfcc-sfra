@@ -16,12 +16,14 @@ function getCurrentOptionModel(optionModel, selectedOptions) {
 
     if (selectedOptions && selectedOptions.length) {
         collections.forEach(productOptions, function (option) {
+            // Custom Start: [MSS-1789] To Avoid Selected Value ID Error 
             var currentOption = selectedOptions.filter(function (selectedOption) {
                 return selectedOption.optionId === option.ID;
             });
             if (currentOption && currentOption.length > 0 && 'selectedValueId' in currentOption[0]) {
                 selectedValueId = currentOption[0].selectedValueId;
             }
+            // Custom End
             selectedValue = optionModel.getOptionValue(option, selectedValueId);
             optionModel.setSelectedOptionValue(option, selectedValue);
         });
