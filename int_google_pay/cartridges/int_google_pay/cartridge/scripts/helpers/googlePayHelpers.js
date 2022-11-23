@@ -15,6 +15,7 @@ var collections = require('*/cartridge/scripts/util/collections');
 var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
 var checkoutAddrHelper = require('*/cartridge/scripts/helpers/checkoutAddressHelper');
 var ShippingHelper = require('*/cartridge/scripts/checkout/shippingHelpers');
+var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
 
 
 /**
@@ -103,51 +104,6 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
     return false;
 
 }
-
-function getProductOptions(embossedMessage,engravedMessage){
-	var variant;
-	if (embossedMessage!= undefined && engravedMessage != undefined) {
-		variant = EMBOSSED +','+ENGRAVED ;
-    } else if (engravedMessage != undefined) {
-    	variant = ENGRAVED;
-    }
-    else if (embossedMessage != undefined) {
-    	variant = EMBOSSED;
-    }else{
-    	variant = '';
-    }
-	return variant;
-}
-
-function createAddtoCartProdObj (lineItemCtnr, productId, embossedMessage, engravedMessage, form) {
-    var collections = require('*/cartridge/scripts/util/collections');
-    var productGtmArray={};
-    var variant;
-
-    collections.forEach(lineItemCtnr.productLineItems, function (pli) {
-        if (pli.product.ID == productId) {
-            var productID = pli.product.ID;
-            var productPrice = pli.price.decimalValue ? pli.price.decimalValue.toString() : '0.0';
-
-            variant=getProductOptions(embossedMessage,engravedMessage)
-            productGtmArray={
-                "id" : productId,
-                "atcLocation" : form.atcLocation ? form.atcLocation : '',
-                "name" : pli.product.name,
-                "brand" : pli.product.brand,
-                "category" : pli.product.variant && pli.product.masterProduct.primaryCategory ? pli.product.masterProduct.primaryCategory.ID
-                        : (pli.product.primaryCategory ? pli.product.primaryCategory.ID : ''),
-                "variant" : variant,
-                "price" : productPrice,
-                "currency" : pli.product.priceModel.price.currencyCode,
-                "list" : Resource.msg('gtm.list.pdp.value','cart',null)
-            };
-        }
-    });
-
-    return productGtmArray;
-}
-
 
 function removeAllProductLineItemsFromBasket(currentBasket) {
     Transaction.wrap(function () {
@@ -354,7 +310,7 @@ function getTransactionInfo(req) {
             if (addProductToCart) {
                 var embossedMessage = req.form.EmbossedMessage; // message to be Embossed Or Engraved  //'EM\nEngraveMessage';
                 var engravedMessage = req.form.EngravedMessage;
-                var addCartGtmArray = createAddtoCartProdObj(currentBasket, productId, embossedMessage, engravedMessage, form);
+                var addCartGtmArray = customCartHelpers.createAddtoCartProdObj(currentBasket, productId, embossedMessage, engravedMessage, form);
                 transactionInfo.addCartGtmArray = addCartGtmArray;
             }
             if (session.privacy.pickupFromStore) {

@@ -9,7 +9,7 @@
         </isif>
         <button class='btn btn-primary add-to-cart-plp-redesign ${!product.available ? "out-of-stock-btn" : ""} '
             data-pid="${product.id}"
-            data-atc="PLP"
+            data-atc="${Resource.msg('addtocart.plp.gtm.attr', 'common', null)}"
             data-product-set="${!empty(product.individualProducts) ? true : false}"
             data-add-to-cart-text="${addtoCart}" 
             ${!product.available ? "disabled" : ""} >

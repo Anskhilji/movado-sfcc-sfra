@@ -415,7 +415,7 @@ function getGoogleTransactionInfo(includeShippingDetails, selectedShippingMethod
         var data = {
             googlePayEntryPoint: $selector.data('entry-point'),
             pid: $selector.data('pid') ? $selector.data('pid') : false,
-            atcLocation: $selector.data('atc'),
+            addToCartLocation: $selector.data('atc') ? $selector.data('atc') : '',
             selectedShippingMethod: selectedShippingMethod,
             includeShippingDetails: includeShippingDetails,
             shippingAddress: shippingAddress ? JSON.stringify(shippingAddress) : shippingAddress

@@ -128,7 +128,7 @@ function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engr
             variant=getProductOptions(embossedMessage,engravedMessage)
                     productGtmArray={
                         "id" : productID,
-                        "atcLocation" : form.atcLocation ? form.atcLocation : '',
+                        "addToCartLocation" : form.addToCartLocation ? form.addToCartLocation : '',
                         "name" : pli.product.name,
                         "brand" : pli.product.brand,
                         "category" : pli.product.variant && pli.product.masterProduct.primaryCategory ? pli.product.masterProduct.primaryCategory.ID
