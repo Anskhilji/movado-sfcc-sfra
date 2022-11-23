@@ -82,6 +82,7 @@
                             data-name="${lineItem.productName}"
                             data-action="${pdict.removeProductLineItemUrl}"
                             data-gift="true"
+                            data-parent-pid="${lineItem.giftParentUUID}"
                             data-uuid="${lineItem.UUID}"
                             data-gtm-cart="${JSON.stringify(pdict.cartItemObj[loopStatus.index])}"
                             aria-label="remove">
