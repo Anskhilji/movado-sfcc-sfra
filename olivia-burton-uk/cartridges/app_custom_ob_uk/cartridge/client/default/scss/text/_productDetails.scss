@@ -63,11 +63,11 @@
 				}
 				
 				&:hover,
-                &:focus {
-                    background-color: $white;
-                    box-shadow: none;
-                    color: $black;
-                }
+					&:focus {
+					background-color: $white;
+					box-shadow: none;
+					color: $black;
+					}
 			}
 
 			.google-pay-container {
