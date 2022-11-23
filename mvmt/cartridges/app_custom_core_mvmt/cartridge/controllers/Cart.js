@@ -4,6 +4,7 @@
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
+var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 
 var server = require('server');
 var page = module.superModule;
@@ -27,6 +28,24 @@ server.replace('MiniCart', server.middleware.include, function (req, res, next) 
     }
 
     res.render('/components/header/miniCart', {isMobile: isMobile, quantityTotal: quantityTotal });
+    next();
+});
+
+// Show add to Cart Button as Remote Include
+server.replace('ShowAddProductButton', function (req, res, next) {
+    var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
+    var productId = req.querystring.pid;
+    var display = {
+        plpTile: false
+    }
+
+    res.render('product/components/showCartButtonProduct', {
+        product: showProductPageHelperResult.product,
+        isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
+        productId: productId,
+        display: display
+    });
+
     next();
 });
 

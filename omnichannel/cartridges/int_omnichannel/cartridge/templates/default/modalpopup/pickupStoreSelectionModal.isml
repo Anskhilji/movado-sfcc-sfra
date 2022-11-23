@@ -55,8 +55,7 @@
                         <div class="store-pickup-form-wrapper">
                             <div class="store-pickup-zip-code">
                                 <input class="store-pickup-zip-code-field" type="text" id="zip-code"
-                                    placeholder="Enter city, state, or zip " name="" minlength="4" maxlength="10"
-                                    pattern="(^[a-zA-Z0-9 ]+$)">
+                                    placeholder="Enter city, state, or zip " name="" pattern="(^[a-zA-Z0-9 ]+$)">
                             </div>
                             <div class="store-pickup-radius">
                                 <label class="store-pickup-radius-dropdown-label"

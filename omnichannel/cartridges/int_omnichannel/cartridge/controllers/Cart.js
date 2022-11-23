@@ -8,6 +8,9 @@ var BasketMgr = require('dw/order/BasketMgr');
 var omniChannelAPI = require('*/cartridge/scripts/api/omniChannelAPI');
 var omniChannelAPIHelper = require('~/cartridge/scripts/helpers/omniChannelAPIHelper');
 var StoreMgr = require('dw/catalog/StoreMgr');
+var ShippingMgr = require('dw/order/ShippingMgr');
+var ShippingHelper = require('*/cartridge/scripts/checkout/shippingHelpers');
+var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
 
 var page = module.superModule;
 server.extend(page);
@@ -21,6 +24,13 @@ server.append(
             var productIds = [];
             var apiResponse;
             var lineItemsInventory;
+
+            if (session.privacy.pickupFromStore) {
+                session.custom.applePayCheckout = false;
+            } else {
+                session.custom.StorePickUp = false;
+            }
+            
             try {
                 currentBasket = BasketMgr.getCurrentBasket();
                 Transaction.wrap(function () {
@@ -29,6 +39,14 @@ server.append(
                         while (productLineItemsIterator.hasNext()) {
                             var productLineItem = productLineItemsIterator.next();
                             productIds.push(productLineItem.productID);
+                        }
+
+                        var shippingMethods = ShippingMgr.getAllShippingMethods();
+                        var shipment = currentBasket.defaultShipment
+                        if (session.privacy.pickupFromStore) {
+                            ShippingHelper.selectBOPISShippingMethod(shippingMethods, shipment);
+                        } else {
+                            ShippingHelper.selectShippingMethod(shipment);
                         }
                     }
                 });
@@ -57,8 +75,10 @@ server.append(
 server.post(
     'SetPickupFromStore',
     function (req, res, next) {
+        var CartModel = require('*/cartridge/models/cart');
         var storeFormPickUP = req.form.pickupFromStore == 'true' ? true : false;
         session.privacy.pickupFromStore = storeFormPickUP;
+        session.custom.pickupFromStore = storeFormPickUP;
         var viewData = {};
         var isAllItemsAvailable = true;
         var currentBasket;
@@ -68,6 +88,11 @@ server.post(
         var lineItemsInventory;
         viewData.storeFormPickUP = storeFormPickUP;
         viewData.isAllItemsAvailable = isAllItemsAvailable;
+        if (session.privacy.pickupFromStore) {
+            session.custom.applePayCheckout = false;
+        } else {
+            session.custom.StorePickUp = false;
+        }
         try {
             currentBasket = BasketMgr.getCurrentBasket();
             Transaction.wrap(function () {
@@ -79,9 +104,26 @@ server.post(
                         productIds.push(productLineItem.productID);
                         items.push({id:productLineItem.product.ID});
                         productLineItem.custom.BOPIS = storeFormPickUP;
+                        if (storeFormPickUP) {
+                            productLineItem.setProductInventoryListID(session.privacy.pickupStoreID);
+                        } else {
+                           productLineItem.setProductInventoryListID(null);
+                        }
                     }
+
+                    var shippingMethods = ShippingMgr.getAllShippingMethods();
+                    var shipment = currentBasket.defaultShipment
+                    if (storeFormPickUP) {
+                        ShippingHelper.selectBOPISShippingMethod(shippingMethods, shipment);
+                    } else {
+                        ShippingHelper.selectShippingMethod(shipment);
+                    }
+                    basketCalculationHelpers.calculateTotals(currentBasket);
+                    var cartModel = new CartModel(currentBasket);
+                    viewData.cartModel = cartModel;
                 }
             });
+
             var storeArray = [];
             var preferedPickupStore = StoreMgr.getStore(session.privacy.pickupStoreID);
             storeArray.push(preferedPickupStore);
@@ -110,16 +152,19 @@ server.get(
         var address1;
         var phone;
         var stateCode;
+        var postalCode;
         if (session.privacy.pickupStoreID) {
             preferedPickupStore = StoreMgr.getStore(session.privacy.pickupStoreID);
             address1 = preferedPickupStore.address1;
             phone = preferedPickupStore.phone;
             stateCode = preferedPickupStore.stateCode;
+            postalCode = preferedPickupStore.postalCode;
         }
         var store = {
             address1: address1,
             phone: phone,
-            stateCode: stateCode
+            stateCode: stateCode,
+            postalCode: postalCode
         }
         res.render('product/cart/cartPickupStoreAvailability', {
             pickupStore: store,

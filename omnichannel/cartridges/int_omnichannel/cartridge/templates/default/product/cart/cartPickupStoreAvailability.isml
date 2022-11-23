@@ -10,7 +10,7 @@
         </div>
     </div>
     <div class="pickup-store-rectangle-store-detail">
-        <span class="pickup-store-cart-address">${session.privacy.pickupStoreID ? (pdict.pickupStore.address1 || "") + ' ' + (pdict.pickupStore.stateCode || "") : Resource.msg('store.pickup.set.your.store.btn', 'storePickUp', null)}</span>
+        <span class="pickup-store-cart-address">${session.privacy.pickupStoreID ? (pdict.pickupStore.address1 || "") + ' ' + (pdict.pickupStore.stateCode || "")+ ' ' + (pdict.pickupStore.postalCode || "") : Resource.msg('store.pickup.set.your.store.btn', 'storePickUp', null)}</span>
         <span class="change js-store-modal" data-url="${URLUtils.https('PickupStore-GetStoresList')}">${session.privacy.pickupStoreID ? Resource.msg('store.pickup.set.change.store', 'storePickUp', null) : Resource.msg('store.pickup.set.your.store.home.btn', 'storePickUp', null)}</span>
     </div>
 </div>

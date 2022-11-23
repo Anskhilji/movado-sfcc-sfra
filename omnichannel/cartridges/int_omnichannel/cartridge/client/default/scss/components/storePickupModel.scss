@@ -213,6 +213,10 @@
     line-height: rem(18);
     position: relative;
     bottom: rem(4.80);
+
+    @include media-breakpoint-down(md) {
+        bottom: 0;
+    }
 }
 
 .store-pickup-button {
@@ -230,5 +234,12 @@
         width: rem(25);
         height: rem(25);
         display: inline-block;
+    }
+}
+
+.top-navbar-label{
+    @include media-breakpoint-up(lg) {
+        height: rem(39);
+        line-height: rem(39);
     }
 }

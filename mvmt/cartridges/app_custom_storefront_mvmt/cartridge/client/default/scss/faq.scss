@@ -219,6 +219,46 @@
             padding-top: rem(53);
         }
     }
+
+    &-container-content {
+        @include media-breakpoint-down(md) {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .faq-nav-control-bar-btn {
+            
+            &-wrapper-content {
+                @include media-breakpoint-down(md) {
+                    width: 100%;
+                    position: relative;
+                }
+            }
+        }
+    
+        .plus-icon-svg-content {
+            display: none;
+    
+            @include media-breakpoint-down(md) {
+                position: absolute;
+                right: rem(20);
+                width: rem(10);
+                height: rem(10);
+                display: block;
+                top: rem(16);
+            }
+    
+            svg {
+                @include media-breakpoint-down(md) {
+                    width: inherit;
+                    height: inherit;
+                }
+            }
+        }
+    }
 }
 
 .contact-tab-details {

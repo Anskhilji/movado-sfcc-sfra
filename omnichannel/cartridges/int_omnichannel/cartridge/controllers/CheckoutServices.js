@@ -58,11 +58,9 @@ server.prepend('PlaceOrder', server.middleware.https, function (req, res, next) 
 					if ((loopInventory.length == 0 || loopInventory > 0) && itemInv > 0) {
 						if (loopInventory.length == 0) {
 							itemInventory.push({ itemId: pid, remain: itemInv - 1 });
-							session.privacy.pickupFromStore = false;
 							return;
 						}
 						itemInventory.filter(function (i) { return i.itemId == pid }).map(function (obj) { obj.remain = obj.remain - 1 });
-						session.privacy.pickupFromStore = false;
 					} else {
 						isAllItemsAvailable = false;
 						return;

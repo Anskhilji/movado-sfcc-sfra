@@ -124,6 +124,16 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	    });
 	    return next();
 	  }
+		
+		if (session.privacy.pickupFromStore) {
+			Transaction.wrap(function () {
+				var shippingAddress = currentBasket.defaultShipment.shippingAddress;
+				shippingAddress.setAddress1(session.privacy.storeAddress || '');
+				shippingAddress.setAddress2(session.privacy.storeAddress2 || '');
+				shippingAddress.setPostalCode(session.privacy.extendedZipCode || '');
+				shippingAddress.setStateCode(session.privacy.stateCode || '');
+		    });
+		}
 
 	  // Check to make sure billing address exists
 	  if (!currentBasket.billingAddress) {
@@ -232,7 +242,7 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 			// Riskified order approved response from decide API
 			RiskifiedOrderDescion.orderApproved(order);
 		}
-	  }
+	}
 	  //set custom attirbute in session to avoid order confirmation page reload
 	  session.custom.orderJustPlaced = true;
 	  //set order number in session to get order back after redirection

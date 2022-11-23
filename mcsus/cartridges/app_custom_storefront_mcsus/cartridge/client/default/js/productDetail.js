@@ -4,6 +4,7 @@ $(document).ready(function () {
     processInclude(require('./product/zoom'));
     processInclude(require('./product/carouselInitializer'));
     processInclude(require('./product/productDetailCustom'));
+    processInclude(require('./product/storePickUpDetail'));
 });
 
 // added active class & scroll down on reviews widget
@@ -13,3 +14,4 @@ $('.ratings > .yotpoBottomLine').on('click', function () {
         scrollTop: $($mainWidget).offset().top
     }, 10);
 });
+
