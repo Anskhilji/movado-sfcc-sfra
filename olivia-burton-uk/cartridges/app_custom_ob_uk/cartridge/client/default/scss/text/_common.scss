@@ -17,8 +17,8 @@ body {
 
 .compare-bar-wrapper {
   .compare.btn {
-    background: $pink-grey;
-    border: rem(1) solid $pink-grey;
+    background: $gray;
+    border: rem(1) solid $gray;
     color: $black;
   }
 
@@ -39,24 +39,24 @@ body {
 }
 
 .btn-primary {
-  background: $pink-hot;
-  border: rem(1) solid $pink-hot;
+  background: $gray;
+  border: rem(1) solid $gray;
   color: $black;
 
   &:hover {
-    background: $pink-hot;
-    border: rem(1) solid $pink-hot;
+    background: $gray;
+    border: rem(1) solid $gray;
     color: $black;
   }
   
   &-cta {
-    background: $pink-hot;
-    border: rem(1) solid $pink-hot;
+    background: $gray;
+    border: rem(1) solid $gray;
     color: $black;
 
       &:hover {
-          background: $pink-hot;
-          border: rem(1) solid $pink-hot;
+          background: $gray;
+          border: rem(1) solid $gray;
       }
   }
 }
@@ -185,7 +185,7 @@ form {
 }
 
 .header-banner {
-  background-color: $pink-grey;
+  background-color: $gray;
 
   .html-slot-container {
     color: $black;
@@ -233,7 +233,7 @@ form {
 
 .filter-bar {
   li.filter-value {
-    background: $pink-grey;
+    background: $gray;
   }
 }
 

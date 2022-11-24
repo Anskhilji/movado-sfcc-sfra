@@ -279,7 +279,7 @@
     
             &.filter-value {
                 border: none;
-                background: $pink-grey;
+                background: $gray;
                 padding: rem(4) rem(16) rem(7) rem(16);
                 border-radius: 1.125rem;
                 position: relative;
@@ -551,7 +551,7 @@
                     width: 100%;
 
                     &:hover {
-                        background-color: $pink-smoke;
+                        background-color: $gray;
                         text-decoration: none;
                     }
                 }
@@ -649,7 +649,7 @@
                             &.selected,
                             &:focus {
                                 border-color: $black;
-                                background: $pink-snow;
+                                background: $gray;
                                 text-decoration: none;
                                 outline: none;
                             }
@@ -764,7 +764,7 @@
                 content: "";
                 width: rem(1);
                 height: rem(13);
-                background: $pale-rose;
+                background: $gray;
                 position: absolute;
                 top: 50%;
                 right: rem(-20);
@@ -943,7 +943,7 @@
                                 &:hover,
                                 &.selected {
                                     border-color: $black;
-                                    background: $pink-snow;
+                                    background: $gray;
                                     font-weight: 600;
                                     text-decoration: none;
                                     outline: none;
@@ -996,7 +996,7 @@
 
                 .header-bar {
                     padding: rem(15) rem(20);
-                    background: $pink-rose;
+                    background: $gray;
 
                     .secondary-bar {
                         overflow: unset;
@@ -1162,7 +1162,7 @@
                     text-align: center;
 
                     &:hover {
-                        background-color: $pink-smoke;
+                        background-color: $gray;
                         text-decoration: none;
                     }
                 }
@@ -1485,7 +1485,7 @@
                 }
 
                 .image-container {
-                    background: $pink-smoke;
+                    background: $gray;
                     border: none;
                     height: auto;
                     padding-bottom: rem(65);
@@ -1571,7 +1571,6 @@
                 .tile-body {
                     text-align: left;
                     padding: rem(10) rem(15);
-                    background-color: $snow;
                     position: absolute;
                     left: 0;
                     bottom: 0;
@@ -1786,11 +1785,11 @@
                     .save-value {
                         font-family: $font-gill-sans-std;
                         font-size: rem(12);
-                        color: $black;
+                        color: $white;
                         font-weight: 600;
                         letter-spacing: 0.5px;
                         padding: rem(3) rem(5);
-                        background-color: $pink-rose;
+                        background-color: $gray-dark;
                         border-radius: rem(5);
                         min-width: rem(67);
                         text-align: center;
@@ -1943,8 +1942,8 @@
                 display: none;
                 font-family: $font-gill-std-bold;
                 font-size: rem(14);
-                background: $pink-hot;
-                border: rem(1) solid $pink-hot;
+                background: $gray;
+                border: rem(1) solid $gray;
                 text-decoration: none;
                 display: inline-block;
                 letter-spacing: normal;
