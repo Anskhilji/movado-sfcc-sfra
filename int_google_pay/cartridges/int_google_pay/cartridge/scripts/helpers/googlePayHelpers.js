@@ -170,7 +170,7 @@ function getShippingMethods(currentBasket, selectedShippingMethod, shippingAddre
     for (let index = 0; index < applicableShippingMethodsOnCart.length; index++) {
         var shippingMethod = applicableShippingMethodsOnCart[index];
         var shippingOption;
-        if (currentCountry == 'US') {
+        if (currentCountry == constants.US_COUNTRY_CODE) {
             var isEswShippingMethod = session.custom.isEswShippingMethod;
             isEswShippingMethod = false;
         }
@@ -183,7 +183,7 @@ function getShippingMethods(currentBasket, selectedShippingMethod, shippingAddre
                 }
                 shippingOptions.push(shippingOption);
             }
-        } else if (shippingMethod.custom.isHideFromCheckout == true && currentCountry == 'US') {
+        } else if (shippingMethod.custom.isHideFromCheckout == true && currentCountry == constants.US_COUNTRY_CODE) {
             continue;
         }
         else {
@@ -313,7 +313,7 @@ function getTransactionInfo(req) {
     if (session.privacy.pickupFromStore) {
         session.custom.applePayCheckout = false;
     } else {
-        if (currentCountry == 'US') {
+        if (currentCountry == constants.US_COUNTRY_CODE) {
             session.custom.isEswShippingMethod = false;
         }
     }

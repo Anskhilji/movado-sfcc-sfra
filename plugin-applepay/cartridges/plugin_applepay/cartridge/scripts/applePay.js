@@ -100,7 +100,7 @@ exports.afterAuthorization = function (order, payment, custom, status) {
         session.custom.applePayCheckout = false;
     } else {
         session.custom.StorePickUp = false;
-        if (currentCountry == 'US') {
+        if (currentCountry == Constants.US_COUNTRY_CODE) {
             session.custom.isEswShippingMethod = false;
         }
     }
@@ -313,14 +313,14 @@ exports.prepareBasket = function (basket, parameters) {
         } else {
             session.custom.applePayCheckout = true;
             session.custom.StorePickUp = false;
-            if (currentCountry == 'US') {
+            if (currentCountry == Constants.US_COUNTRY_CODE) {
                 session.custom.isEswShippingMethod = false;
             }
         }
     } else {
         if (!session.privacy.pickupFromStore) {
             session.custom.applePayCheckout = true;
-            if (currentCountry == 'US') {
+            if (currentCountry == Constants.US_COUNTRY_CODE) {
                 session.custom.isEswShippingMethod = false;
             }
         } else {
