@@ -551,7 +551,7 @@
                     width: 100%;
 
                     &:hover {
-                        background-color: $gray;
+                        background-color: $gray-light;
                         text-decoration: none;
                     }
                 }
@@ -1571,6 +1571,7 @@
                 .tile-body {
                     text-align: left;
                     padding: rem(10) rem(15);
+                    background-color: $gray;
                     position: absolute;
                     left: 0;
                     bottom: 0;
