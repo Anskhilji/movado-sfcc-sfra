@@ -426,11 +426,11 @@
 }
 
 
-// MSS-1859 New Carousel Template - Product & Recommender Type
+// Custom Start: MSS-1859 New Carousel Template - Product & Recommender Type
 .mcs-product-carousel-redesign {
-
     width: 100%;
     overflow: hidden;
+    
     @include media-breakpoint-down(xs) {
         padding: 0 rem(4);
     }
@@ -457,7 +457,6 @@
             }
 
             .tile-body {
-                // yotpo rating styling
     
                 .yotpo {
                     margin-bottom: rem(8);
@@ -488,9 +487,8 @@
                     }
                 }
     
-                // price styling
                 .price-promotions {
-                    // promotions styling
+
                     .promotions {
                         width: auto;                    
                     }
@@ -579,7 +577,7 @@
                                 @include media-breakpoint-up(xl) {
                                     right: rem(-25);
                                 }
-                                
+
                                 @include custom-media-query($large-screen-width) {
                                     right: rem(-89);
                                 }
@@ -632,3 +630,4 @@
         }
     }
 }
+// Custom End: MSS-1859 New Carousel Template - Product & Recommender Type
