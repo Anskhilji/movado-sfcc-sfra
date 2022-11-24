@@ -281,9 +281,16 @@
 		font-size: $font-size-text-heading1;
 		letter-spacing: rem(2);
 		font-weight: $font-semi-bold;
-		background: $gray;
-		color: $black;
+		background: $black;
+		color: $white;
 		border: none;
+
+		&:hover,
+		&:focus {
+			background: $white;
+			border: rem(1) solid $black;
+			color: $black;
+		}
 	}
 
 	a.btn-link {
