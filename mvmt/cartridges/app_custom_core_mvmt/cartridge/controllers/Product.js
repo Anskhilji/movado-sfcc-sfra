@@ -106,7 +106,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     //Custom Start: Adding ESW variable to check eswModule enabled or disabled
     var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
     //Custom End
-
+    var runningAbTest = productCustomHelper.getRunningAbTestSegments();
     var listrakPersistentPopup = emailPopupHelper.listrakPersistentPopup(req);
     viewData = {
         isEmbossEnabled: isEmbossEnabled,
@@ -137,7 +137,8 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
         isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
         smartGiftAddToCartURL: smartGiftAddToCartURL,
         plpProductFamilyName: Site.getCurrent().preferences.custom.plpProductFamilyName ? Site.getCurrent().preferences.custom.plpProductFamilyName : false,
-        popupID: listrakPersistentPopup
+        popupID: listrakPersistentPopup,
+        runningAbTest: runningAbTest
     };
 
     var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);

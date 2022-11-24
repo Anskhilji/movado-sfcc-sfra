@@ -2,6 +2,7 @@
 <script>
     if (pageDataGTM != undefined && pageDataGTM) {
         pageDataGTM.departmentCategoryName = "${pdict.departmentCategoryName ? pdict.departmentCategoryName : ''}"
+        pageDataGTM.runningAbTest = "${pdict.runningAbTest ? pdict.runningAbTest : ''}"
         dataLayer.push({ pageData: pageDataGTM});
     }
 </script>

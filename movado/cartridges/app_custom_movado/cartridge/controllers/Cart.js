@@ -9,6 +9,8 @@ var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var collections = require('*/cartridge/scripts/util/collections');
 var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
+var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
+
 
 var page = module.superModule;
 server.extend(page);
@@ -381,6 +383,11 @@ server.append(
         } else {
             session.custom.StorePickUp = false;
         }
+
+        var runningAbTest = productCustomHelper.getRunningAbTestSegments();
+        res.setViewData({
+            runningAbTest: runningAbTest
+        });
 
         if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
             var cartAnalyticsTrackingData;

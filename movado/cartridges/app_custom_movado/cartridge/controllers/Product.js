@@ -132,6 +132,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     //Custom End
 
     var listrakPersistentPopup = emailPopupHelper.listrakPersistentPopup(req);
+    var runningAbTest = productCustomHelper.getRunningAbTestSegments();
 
     viewData = {
         isEmbossEnabled: isEmbossEnabled,
@@ -162,7 +163,8 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
         smartGiftAddToCartURL : smartGiftAddToCartURL,
         plpProductFamilyName: Site.getCurrent().preferences.custom.plpProductFamilyName ? Site.getCurrent().preferences.custom.plpProductFamilyName : false,
-        popupID: listrakPersistentPopup
+        popupID: listrakPersistentPopup,
+        runningAbTest: runningAbTest
     };
     var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
     res.setViewData(smartGift);
