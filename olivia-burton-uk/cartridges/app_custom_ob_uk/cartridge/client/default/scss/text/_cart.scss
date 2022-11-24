@@ -229,11 +229,11 @@ div.checkout-button-wrapper {
     background-color: $black;
 
     &:hover,
-		&:focus {
-			background: $white;
-			border: rem(1) solid $black;
-			color: $black;
-		}
+    &:focus {
+        background: $white;
+        border: rem(1) solid $black;
+        color: $black;
+    }
   }
 }
 
