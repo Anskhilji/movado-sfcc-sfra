@@ -78,11 +78,11 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="filter-btn d-none d-md-inline-block">
+                                        <div class="filter-btn d-none d-md-inline-block filter-btn-main">
                                             <button class="filter-refinement-panel-btn" data-filter-category="${pdict.productSearch.category && !empty(pdict.productSearch.category) ? pdict.productSearch.category.id : ''}" >${Resource.msg('label.selectedfilter', 'search', null)}</button>
                                         </div>
                                         <isif condition="${pdict.productSearch.productIds.length > 0}">
-                                            <div class="d-md-none filter-btn">
+                                            <div class="d-md-none filter-btn filter-btn-main">
                                                 <button type="button" class="filter-results">
                                                     ${Resource.msg('button.filter', 'search', null)}
                                                 </button>
