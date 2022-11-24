@@ -52,9 +52,9 @@
 		}
 
 			button.add-to-cart {
-				color: $black;
-				background: $pink-hot;
-				border: rem(1) solid $pink-hot;
+				color: $white;
+				background: $black;
+				border: rem(1) solid $black;
 		
 				@include media-breakpoint-up(custom-md) {
 					width: rem(296);
@@ -62,6 +62,12 @@
 					padding: rem(10) rem(12) rem(10) rem(12);
 				}
 				
+				&:hover,
+				&:focus {
+					background-color: $white;
+					box-shadow: none;
+					color: $black;
+				}
 			}
 
 			.google-pay-container {
@@ -275,7 +281,7 @@
 		font-size: $font-size-text-heading1;
 		letter-spacing: rem(2);
 		font-weight: $font-semi-bold;
-		background: $pink-hot;
+		background: $gray;
 		color: $black;
 		border: none;
 	}
@@ -474,7 +480,7 @@
 				&:hover {
 					.upsell-text {
 						p {
-							background-color: $pink-hot;
+							background-color: $gray;
 							color: $white;
 							transition: 0.3s ease;
 						}
@@ -567,13 +573,13 @@
 
 				&-added {
 					display: none;
-					background: $pink-hot;
+					background: $gray;
 
 					&-checkmark {
 						display: inline-block;
 						width: rem(11);
 						height: rem(10);
-						background: $pink-hot url("../../images/white-checkmark.svg") center center no-repeat;
+						background: $gray url("../../images/white-checkmark.svg") center center no-repeat;
 						vertical-align: middle;
 						position: relative;
 						top: rem(-1);
@@ -606,7 +612,7 @@
 					}
 
 					.upsell-wrapper-inner {
-						border-color: $pink-hot;
+						border-color: $gray;
 					}
 				}
 			}
@@ -946,7 +952,7 @@
 
 						&.slick-active,&:hover {
 							button {
-								border-color: $pink-grey-light;
+								border-color: $gray;
 							}
 						}
 					}
@@ -1159,7 +1165,7 @@
 		height: rem(44);
 		width: rem(218);
 		border-radius: rem(3);
-		background-color: $pink-grey1;
+		background-color: $gray;
 		line-height: rem(41);
 		padding: rem(0) rem(17);
 		margin-bottom: rem(30);

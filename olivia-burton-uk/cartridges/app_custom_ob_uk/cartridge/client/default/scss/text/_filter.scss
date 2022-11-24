@@ -6,8 +6,8 @@
         font-size: $font-size-text-heading1;
         letter-spacing: rem(2);
         font-weight: $font-semi-bold;
-        background: $pink-hot;
-        border: rem(1) solid $pink-hot;
+        background: $gray;
+        border: rem(1) solid $gray;
       }
     }
   }
@@ -91,8 +91,8 @@
     font-weight: $font-semi-bold;
     letter-spacing: rem(2);
     color: $black;
-    background: $pink-hot;
-    border: rem(1) solid $pink-hot;
+    background: $gray;
+    border: rem(1) solid $gray;
   }
 
   .filter-bar {
@@ -104,7 +104,7 @@
     }
 
     li.filter-value {
-      background: $pink-grey;
+      background: $gray;
 
       a {
         font-family: $font-museo-light;
