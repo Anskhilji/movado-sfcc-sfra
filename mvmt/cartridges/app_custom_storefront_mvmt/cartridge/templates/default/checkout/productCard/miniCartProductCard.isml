@@ -23,22 +23,7 @@
                 <isloop items="${lineItem.variationAttributes}" var="attribute">
                     <p class="line-item-attributes">${attribute.displayName}: ${attribute.displayValue}</p>
                 </isloop>
-                <div class="item-options">
-                    <isloop items="${lineItem.options}" var="option">
-                        <isif condition="${option.optionId != lineItem.resources.Engraved &&
-                            option.optionId != lineItem.resources.Embossed &&
-                            option.optionId != lineItem.resources.GiftWrapped}">
-                            <isif condition="${lineItem.customAttributes['emboss']}">
-                                <div class="line-item-option">${Resource.msg('label.personalization.debossed', 'confirmation', null)}</div>
-                            <iselseif condition="${option.optionId != lineItem.resources.Engraved &&
-                                option.optionId != lineItem.resources.GiftWrapped}" >
-                                <div class="line-item-option">${Resource.msg('label.personalization.debossed.off', 'confirmation', null)}</div>
-                            <iselse>
-                                <div class="line-item-option">${option.displayName}</div>
-                            </isif>
-                        </isif>
-                    </isloop>
-                </div>
+
                 <div class="item-personalization">
                     <isif condition="${lineItem.customAttributes['engrave']}">
                         <div class="line-item-option">
