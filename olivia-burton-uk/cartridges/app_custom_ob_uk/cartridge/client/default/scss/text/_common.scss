@@ -4,7 +4,7 @@ body {
 
 .hero {
   h1.page-title {
-    font-family: $font-adobe;
+    font-family: $font-gills-light;
     font-size: $font-size-title6;
     letter-spacing: rem(1.8);
     text-transform: lowercase;
@@ -17,8 +17,8 @@ body {
 
 .compare-bar-wrapper {
   .compare.btn {
-    background: $pink-grey;
-    border: rem(1) solid $pink-grey;
+    background: $gray;
+    border: rem(1) solid $gray;
     color: $black;
   }
 
@@ -39,24 +39,24 @@ body {
 }
 
 .btn-primary {
-  background: $pink-hot;
-  border: rem(1) solid $pink-hot;
+  background: $gray;
+  border: rem(1) solid $gray;
   color: $black;
 
   &:hover {
-    background: $pink-hot;
-    border: rem(1) solid $pink-hot;
+    background: $gray;
+    border: rem(1) solid $gray;
     color: $black;
   }
   
   &-cta {
-    background: $pink-hot;
-    border: rem(1) solid $pink-hot;
+    background: $gray;
+    border: rem(1) solid $gray;
     color: $black;
 
       &:hover {
-          background: $pink-hot;
-          border: rem(1) solid $pink-hot;
+          background: $gray;
+          border: rem(1) solid $gray;
       }
   }
 }
@@ -83,7 +83,7 @@ select + i.fa {
 }
 
 .heading-one {
-  font-family: $font-adobe;
+  font-family: $font-gills-light;
   font-size: $font-size-title6;
   letter-spacing: rem(1.8);
 }
@@ -112,19 +112,19 @@ a {
 
 .pt_customerservice {
   .heading-two {
-    font-family: $font-adobe;
+    font-family: $font-gills-light;
     font-size: rem(30);
     letter-spacing: rem(0.4);
   }
 
   .heading-three {
-    font-family: $font-adobe;
+    font-family: $font-gills-light;
     font-size: $font-size-heading1;
     letter-spacing: rem(0.4);
   }
 
   .heading-four {
-    font-family:  $font-adobe;
+    font-family:  $font-gills-light;
     font-size: $font-size-heading3;
     letter-spacing: rem(0.4);
   }
@@ -185,7 +185,7 @@ form {
 }
 
 .header-banner {
-  background-color: $pink-grey;
+  background-color: $gray;
 
   .html-slot-container {
     color: $black;
@@ -233,7 +233,7 @@ form {
 
 .filter-bar {
   li.filter-value {
-    background: $pink-grey;
+    background: $gray;
   }
 }
 

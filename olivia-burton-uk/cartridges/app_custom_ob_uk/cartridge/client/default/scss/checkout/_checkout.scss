@@ -11,7 +11,7 @@ header {
                 .minicart {
                     &-quantity {
                         color: $black;
-                        background-color: $pink-grey;
+                        background-color: $gray;
                     }
                 }
             }
@@ -65,7 +65,7 @@ header {
 
                             &-quantity {
                                 color: $black;
-                                background-color: $pink-grey;
+                                background-color: $gray;
                                 font-size: rem(12);
                             }
                         }
@@ -337,12 +337,12 @@ header {
         .mx-container-box1 {
             
             .btn {
-                border: rem(2) solid $pink-hot;
-                background-color: $pink-hot;
+                border: rem(2) solid $gray;
+                background-color: $gray;
                 color: $black;
                 
                 &:focus {
-                    border-color: $pink-hot;
+                    border-color: $gray;
                 }
 
                 &:active {
@@ -648,4 +648,26 @@ header {
     left: 0;
     display: none;
     z-index: 5;
+}
+
+
+.fedex-popup {
+
+    &-body {
+
+        &-heading {
+            font-family: $font-gill-std-medium;
+        }
+
+        // POP UP BODY
+        &-container {
+
+            &-box-one {
+
+                .btn-wrapper {
+                    font-family: $font-gill-std-medium;
+                }
+            }
+        }
+    }
 }

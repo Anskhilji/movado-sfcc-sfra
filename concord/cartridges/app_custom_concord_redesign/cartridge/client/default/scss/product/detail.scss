@@ -1,0 +1,222 @@
+@import '~movad_redesign/product/detail';
+@import '../vars';
+
+.container-fluid.pdp-v-one {
+
+    &.product-detail {
+        background-color: $white;
+    }
+
+    .product-name {
+        font-family: $font-raleway-book;
+    }
+
+    .description {
+        font-family: $font-raleway-book;
+    }
+
+    .price {
+        font-family: $font-raleway-book;
+    }
+
+    .affirm-as-low-as {
+        font-family: $font-raleway-book;
+       
+        .affirm-modal-trigger {
+            font-family: $font-raleway-book;
+        }
+    }
+
+    .availability-msg {
+        font-family: $font-raleway-book;
+    }
+
+    .add-to-cart {
+        font-family: $font-raleway-book;
+        background: $black;
+        border-color: $black;
+        color: $white;
+    }
+
+    .engraving-btn, .debossing-btn {
+
+        > a {
+            font-family: $font-raleway-book;
+        }
+    }
+
+    .debossing-text, .engraved-text {
+        font-family: $font-raleway-book;
+    }
+
+    .promotions {
+
+        .callout {
+            font-family: $font-raleway-book;
+        }
+    }
+
+    .exclusive-badges {
+
+        .badge {
+            font-family: $font-raleway-book;
+        }
+    }
+
+    .description-and-detail {
+
+        .attribute-name {
+            font-family: $font-raleway-book;
+        }
+
+        .attribute-value {
+            font-family: $font-raleway-book;
+        }
+
+        .title {
+            font-family: $font-raleway-book;
+        }
+    }
+
+    .drop-hint {
+        font-family: $font-raleway-book;
+    }
+
+    .product-tile {
+
+        .out-of-stock {
+            font-family: $font-raleway-book;
+        }
+
+        .new-product, .pre-order, .exclusive-product  { 
+            font-family: $font-raleway-bold
+        }
+
+        .tile-body {
+
+            .price {
+                font-family: $font-raleway-bold
+            }
+
+            .product-name {
+                font-family: $font-raleway-bold
+            }
+        }
+
+        .image-container {
+            background-color: $white;
+        }
+    }
+
+    .carousel-title {
+        font-family: $font-raleway-book;
+    }
+
+    .detail-bottom-blocks {
+
+        .bottom-block {
+
+            p {
+                font-family: $font-raleway-book;
+            }
+        }
+    }
+
+    .popup {
+
+        .popup-head {
+
+            h1 {
+                font-family: $font-raleway-book;
+            }
+        }
+
+        .popup-body {
+
+            p {
+                font-family: $font-raleway-book;
+            }
+
+            .watch-image {
+            
+                .text-on-watch{
+
+                    pre, span {
+                        font-family: $font-raleway-book;
+                    }
+                }
+            }
+
+            .text-area {
+                
+                .option-message {
+                 
+                    .engraving-input, .debossing-input {
+                        font-family: $font-raleway-book; 
+                    }
+                }
+
+                label.error {
+                    font-family: $font-raleway-book;
+                }
+            }
+
+            .popup-action-btns {
+
+                .save, .cancel {
+                    font-family: $font-raleway-book;
+                }
+            }
+        }
+    }
+}
+
+.container-fluid.pdp-mobile {
+
+    @include media-breakpoint-down(md) {
+
+        .carousel-title {
+            font-family: $font-raleway-book;
+        }
+    }
+}
+
+.smart-gift-btn {
+
+    .smartgift {
+
+        &-btn-redesign {
+            font-family: $font-raleway-book;
+        }
+
+        &-btn-popup {
+            font-family: $font-raleway-medium;
+        }
+    }
+}
+
+.custom-tooltipsmart {
+
+    .smartgift-num-one {
+        font-family: $font-raleway-book;
+    }
+
+    &-line-one{
+        font-family: $font-raleway-medium;
+    }
+
+    &-line-two{
+        font-family: $font-raleway-medium;
+    }
+
+    &-line-three{
+        font-family: $font-raleway-medium;
+    }
+
+    &-smartgift-heading{
+
+        p {
+            font-family: $font-raleway-book;
+        }
+    }
+}
