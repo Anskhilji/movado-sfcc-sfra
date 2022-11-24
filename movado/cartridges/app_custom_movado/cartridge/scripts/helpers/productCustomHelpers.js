@@ -726,6 +726,7 @@ function getWishlistGtmObjforPDP(product) {
  */
 function getGtmProductClickObj(product, categoryName, position) {
     var productClickGtmObj = [];
+    var abTestParticipationSegments = getRunningAbTestSegments();
     if (categoryName != null) {
         productClickGtmObj.push({
             name: escapeQuotes(product.productName),
@@ -734,7 +735,8 @@ function getGtmProductClickObj(product, categoryName, position) {
             brand: product.brand,
             category: escapeQuotes(categoryName),
             position: position,
-            list: 'PLP'
+            list: 'PLP',
+            runningAbTest: abTestParticipationSegments
         });
     }	else {
         var productObj = ProductMgr.getProduct(product.id);
@@ -750,7 +752,8 @@ function getGtmProductClickObj(product, categoryName, position) {
             brand: product.brand,
             category: category,
             position: position,
-            list: 'Search Results'
+            list: 'Search Results',
+            runningAbTest: abTestParticipationSegments
         });
     }
 
@@ -766,6 +769,7 @@ function getGtmProductClickObj(product, categoryName, position) {
  */
 function getProductGtmObj(product, categoryName, position) {
     var productGtmObj = [];
+    var abTestParticipationSegments = getRunningAbTestSegments();
     if (categoryName != null) {
         productGtmObj.push({
 	          name: escapeQuotes(product.productName),
@@ -775,7 +779,8 @@ function getProductGtmObj(product, categoryName, position) {
 	          brand: product.brand,
 	          category: escapeQuotes(categoryName),
 	          list: 'PLP',
-	          position: position
+	          position: position,
+              runningAbTest: abTestParticipationSegments
 	         });
     }	else {
         var productObj = ProductMgr.getProduct(product.id);
@@ -791,11 +796,30 @@ function getProductGtmObj(product, categoryName, position) {
 	          brand: product.brand,
 	          category: category,
 	          list: 'Search Results',
-	          position: position
+	          position: position,
+              runningAbTest: abTestParticipationSegments
 	         });
     }
 
     return productGtmObj[0];
+}
+
+/**
+ * Function return running AB test segments
+ * @returns segmentsArray 
+ */
+ function getRunningAbTestSegments() {
+    var ABTestMgr = require('dw/campaign/ABTestMgr');
+    var assignedTestSegmentsIterator = ABTestMgr.getAssignedTestSegments().iterator();
+    var abTestParticipationSegments = [];
+
+    while (assignedTestSegmentsIterator.hasNext()) {
+        abTestSegment = assignedTestSegmentsIterator.next();
+        abTestParticipationSegments.push({
+            runningAbTest: abTestSegment.ABTest.ID + '+' + abTestSegment.ID
+        });
+    }
+    return abTestParticipationSegments;
 }
 
 /**
@@ -1177,6 +1201,20 @@ function productSetStockAvailability(productType, apiProduct) {
     }
 }
 
+function getGtmObjForPdp(product) {
+    return {
+        id: product.ID,
+        addToCartLocation: Resource.msg('gtm.list.pdp.express.value', 'cart', null),
+        name: product.name ? product.name : '',
+        brand: product.brand ? product.brand : '',
+        category: product.variant && product.masterProduct.primaryCategory ? product.masterProduct.primaryCategory.ID : (product.primaryCategory ? product.primaryCategory.ID : ''),
+        variant: '',
+        price: product.priceModel.price.decimalValue ? product.priceModel.price.decimalValue.toString() : '0.0',
+        currency: product.priceModel && product.priceModel.price ? product.priceModel.price.currencyCode : '',
+        list: Resource.msg('gtm.list.pdp.value', 'cart', null)
+    }
+}
+
 module.exports = {
     getBadges: getBadges,
     getPdpAttributes: getPdpAttributes,
@@ -1205,6 +1243,6 @@ module.exports = {
     getMarketingProducts : getMarketingProducts,
     isOnlyRedesignedBadge: isOnlyRedesignedBadge,
     setProductAvailability: setProductAvailability,
-    productSetStockAvailability: productSetStockAvailability
-
+    productSetStockAvailability: productSetStockAvailability,
+    getGtmObjForPdp: getGtmObjForPdp
 };

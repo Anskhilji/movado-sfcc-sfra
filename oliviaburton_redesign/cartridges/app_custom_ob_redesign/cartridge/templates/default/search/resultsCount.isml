@@ -1,6 +1,6 @@
 <isif condition="${pdict.productSearch.isCategorySearch}">
     <iscomment> Custom Start: category name added</iscomment>
-        <span>
+        <span class="filter-and-count">
             <label class="category-name">${pdict.productSearch.category.name}</label> (<isprint value="${Resource.msgf('label.results', 'search', null, pdict.productSearch.count)}" encoding="off">)
         </span>
     <iscomment> Custom End: category name added</iscomment>

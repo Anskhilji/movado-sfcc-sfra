@@ -1,0 +1,58 @@
+<isset name="product" value="${pdict.product}" scope="page" />
+<isset name="enableGiftMessage" value="${dw.system.Site.getCurrent().preferences.custom.enableGiftMessage}" scope="page"/>
+<!-- Modal Header -->
+<div class="modal-header gift-box-container-modal-header border-0">
+    <h5 class="modal-title gift-box-container-modal-heading w-100 text-center" id="exampleModalLongTitle">${Resource.msg('label.minicart.giftbox.modal.heading', 'cart', null)}</h5>
+    <button type="button" class="close d-none d-md-block" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true"><img src="${URLUtils.staticURL('./images/times-circle.svg')}" alt="close icon"></span>
+    </button>
+</div>
+
+<!-- Modal Body -->
+<div class="modal-body gift-box-container-modal-body">
+    <div class="gift-box-container-modal-body-item-image">
+        <img class="product-image" src="${pdict.image.url}" alt="${pdict.image.alt}" title="${pdict.image.title}">
+    </div>
+    <form class="gift-box-container-modal-body-form" action="#">
+        <label class="radio-container gift-box-none-button active"> ${Resource.msg('label.minicart.giftbox.modal.labelone', 'cart', null)}
+        <input type="radio" checked="checked" name="radio">
+        <span class="checkmark"></span>
+        </label>
+
+        <iscomment> gift product option  </iscomment>
+        <isset name="giftBoxEnabled" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxEnabled) ? dw.system.Site.current.preferences.custom.giftBoxEnabled : false}" scope="page" />
+        <isif condition="${!empty(product.isGiftBoxAllowed) && product.isGiftBoxAllowed && product.giftBoxSKUData.giftBoxSKUAvailability && giftBoxEnabled && !(pdict.basketModel.giftOptions.indexOf(pdict.ProductLineItemUUID) > -1)}">
+            <label class="radio-container add-gift-box-input"> ${Resource.msg('label.minicart.giftbox.modal.labeltwo', 'cart', null)} <span class="label-right-wrapper">${product.giftBoxSKUData.giftBoxSKUPrice ? product.giftBoxSKUData.giftBoxSKUPrice : '$0'}</span>
+                <input type="radio" name="radio">
+                <span class="checkmark"></span>
+            </label>
+        </isif>
+
+        <iscomment> gift message option  </iscomment>
+        <isif condition="${enableGiftMessage}">
+            <label class="radio-container gift-message-box-input"> ${Resource.msg('label.minicart.giftbox.modal.labelthree', 'cart', null)}  <span class="label-right-wrapper">${Resource.msg('label.minicart.giftbox.modal.labelfour', 'cart', null)}</span>
+                <input type="radio" name="radio" class="clicked-label">
+                <span class="checkmark"></span>
+            </label>
+        </isif>
+        <div class="form-group gift-textarea gift-message-box hide-box gift-box-container-modal-body-form-textarea-container">
+            <label for="exampleFormControlTextarea1" class="gift-box-container-modal-body-form-textarea-container-label">${Resource.msg('label.minicart.enter.optional.message', 'cart', null)}</label>
+            <textarea rows="3" name="giftMessageText" class="form-control gift-text gift-box-container-modal-body-form-textarea-container-text-box" aria-label="Type your complimentary gift message here" col="70" placeholder="Type your complimentary gift message here" data-format-error="" data-required-error="" data-row-max="3" data-row-maxlength="70" maxlength="50">${!empty(pdict.itemLevelGiftMessage) ? pdict.itemLevelGiftMessage : ''}</textarea>
+                <div class="gift-error-wrapper">
+                    <span class="gift-message-blank">${Resource.msg('label.minicart.giftbox.enter.gift-message', 'cart', null)}</span>
+                    <span class="gift-message-error">${Resource.msg('label.minicart.enter.valid.input', 'cart', null)}</span>
+                </div>
+        </div>
+    </form>
+    <div class="text-center">  
+        <p class="gift-box-container-modal-body-note">${Resource.msg('label.minicart.giftbox.address.note', 'cart', null)}</p>
+        <input type="button" disabled="disabled" value="Save" id="gift-allowed-checkout" data-add-to-cart-url="${URLUtils.url('Cart-AddGiftProduct')}" name="gift-allowed-checkout" class="btn add-gift-box gift-box-container-modal-body-save-button  minicart-gift-allowed-checkbox gift-allowed-checkbox-mini giftbox-mini-${pdict.productUUID}" data-requested-page="${pdict.isCartPage ? pdict.isCartPage : false}" data-parent-pid="${pdict.productUUID}" data-pid="${product.id}" data-value="${product.giftBoxSKUData.giftBoxSKU}">
+        <button type="btn" disabled="disabled" class="btn d-none add-gift-message gift-box-container-modal-body-save-button" href="${URLUtils.url('Cart-AddGiftMessage')}" data-product-uuid="${pdict.productUUID}">${Resource.msg('label.minicart.giftmessage.btn', 'cart', null)}</button>
+        <iscomment> close icon for mobile  </iscomment>
+        <div class="d-md-none">
+            <button type="button" class="close float-none" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"><img src="${URLUtils.staticURL('./images/times-circle.svg')}" alt="close icon"></span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -115,7 +115,7 @@ function getCartAssets(){
 	return emptyCartDom;
 }
 
-function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engravedMessage){
+function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engravedMessage, form){
 	var productGtmArray={};
 	var variant;
 	collections.forEach(lineItemCtnr.productLineItems, function (pli) {
@@ -128,6 +128,7 @@ function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engr
             variant=getProductOptions(embossedMessage,engravedMessage)
                     productGtmArray={
                         "id" : productID,
+                        "addToCartLocation" : form.addToCartLocation ? form.addToCartLocation : '',
                         "name" : pli.product.name,
                         "brand" : pli.product.brand,
                         "category" : pli.product.variant && pli.product.masterProduct.primaryCategory ? pli.product.masterProduct.primaryCategory.ID
@@ -342,33 +343,17 @@ function removeClydeWarranty(currentItems) {
 };
 
 function getGiftTransactionATC(currentBasket, giftsParentUUID) {
-    var Site = require('dw/system/Site');
     var Transaction = require('dw/system/Transaction');
 
-    if (Site.current.ID === 'MVMTUS' || Site.current.ID === 'MVMTEU') {
-        if (giftsParentUUID[0].custom.giftParentUUID) {
-            var linesItemsIterator = currentBasket.allProductLineItems.iterator();
-            var currentsLineItemsIterator;
-            while (linesItemsIterator.hasNext()) {
-                currentsLineItemsIterator = linesItemsIterator.next();
-                if (currentsLineItemsIterator.custom.giftPid) {
-                    Transaction.wrap(function () {
-                        currentsLineItemsIterator.custom.giftPid = "";
-                    });
-                }
-            }
-        }
-    } else {
-        var linesItemsIterator = currentBasket.allProductLineItems.iterator();
-        var currentsLineItemsIterator;
-        while (linesItemsIterator.hasNext()) {
-            currentsLineItemsIterator = linesItemsIterator.next();
-            if (currentsLineItemsIterator.UUID == giftsParentUUID[0].custom.giftParentUUID) {
-                Transaction.wrap(function () {
-                    currentsLineItemsIterator.custom.giftPid = "";
-                });
-                break;
-            }
+    var linesItemsIterator = currentBasket.allProductLineItems.iterator();
+    var currentsLineItemsIterator;
+    while (linesItemsIterator.hasNext()) {
+        currentsLineItemsIterator = linesItemsIterator.next();
+        if (currentsLineItemsIterator.UUID == giftsParentUUID[0].custom.giftParentUUID) {
+            Transaction.wrap(function () {
+                currentsLineItemsIterator.custom.giftPid = "";
+            });
+            break;
         }
     }
 };

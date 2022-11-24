@@ -772,4 +772,9 @@ module.exports = {
             }
         };
     }
+    // Custom End: Listrak persistent popup
 };
+
+$(window).on('load', function(e) {
+    $('.filter-and-count').css('visibility','visible');
+});

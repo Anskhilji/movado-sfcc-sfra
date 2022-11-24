@@ -12,7 +12,7 @@
         line-height: normal;
         text-align: center;
         font-size: rem(12);
-        font-family: $font-medium;
+        font-family: $font-raleway-medium;
         font-weight: 500;
     }
     .form-control{
@@ -21,7 +21,7 @@
       border-radius: 2px;
       border-right: 0;
       font-size: rem(14);
-      font-family: $font-medium;
+      font-family: $font-raleway-medium;
       height:36px;
     }
     .input-group-btn{
@@ -33,7 +33,7 @@
       border-bottom: 1px solid $black;
       .btn-primary{
         letter-spacing: 2px;
-        font-family: $font-medium;
+        font-family: $font-raleway-medium;
         line-height: rem(18);
         margin-top: rem(1);
         background: $black;
