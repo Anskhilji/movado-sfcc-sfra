@@ -115,7 +115,7 @@ function getCartAssets(){
 	return emptyCartDom;
 }
 
-function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engravedMessage){
+function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engravedMessage, form){
 	var productGtmArray={};
 	var variant;
 	collections.forEach(lineItemCtnr.productLineItems, function (pli) {
@@ -128,6 +128,7 @@ function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engr
             variant=getProductOptions(embossedMessage,engravedMessage)
                     productGtmArray={
                         "id" : productID,
+                        "addToCartLocation" : form.addToCartLocation ? form.addToCartLocation : '',
                         "name" : pli.product.name,
                         "brand" : pli.product.brand,
                         "category" : pli.product.variant && pli.product.masterProduct.primaryCategory ? pli.product.masterProduct.primaryCategory.ID
