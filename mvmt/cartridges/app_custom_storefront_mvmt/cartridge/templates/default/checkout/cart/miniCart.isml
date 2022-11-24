@@ -76,8 +76,10 @@
         <isset name="apiProduct" value="${dw.catalog.ProductMgr.getProduct(pdict.items[0].id)}" scope="page" />
         <iscomment>Custom Start: Recomendation Carousel </iscomment>
         <isif condition="${enableCartRecomendations}">
-        <isslot id="cs_cart_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"
-            context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}" />
+        <div class="recommendation-rail-wrapper">
+            <isslot id="cs_cart_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the PDP"
+                context-object="${apiProduct.variant ? apiProduct.masterProduct : apiProduct}" />
+        </div>
         </isif>
         <iscomment> Custom End </iscomment>
     </div>
