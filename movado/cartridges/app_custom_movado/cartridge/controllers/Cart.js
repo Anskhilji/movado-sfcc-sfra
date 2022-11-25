@@ -349,6 +349,7 @@ server.append(
         var basketModel = new CartModel(currentBasket);
         var cartItems = customCartHelpers.removeFromCartGTMObj(currentBasket.productLineItems);
         var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
+        var Constants = require('*/cartridge/scripts/util/Constants');
         var wishlistGTMObj = customCartHelpers.getWishlistGtmObj(currentBasket.productLineItems);
         var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
         var productLineItems = currentBasket.productLineItems.iterator();
@@ -395,7 +396,7 @@ server.append(
             session.custom.applePayCheckout = false;
         } else {
             session.custom.StorePickUp = false;
-            if (currentCountry == 'US') {
+            if (currentCountry == Constants.US_COUNTRY_CODE) {
                 session.custom.isEswShippingMethod = false;
             }
         }

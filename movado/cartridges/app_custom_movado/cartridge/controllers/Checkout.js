@@ -61,6 +61,7 @@ server.append(
         var Site = require('dw/system/Site');
         var orderCustomHelper = require('*/cartridge/scripts/helpers/orderCustomHelper');
         var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
+        var Constants = require('*/cartridge/scripts/util/Constants');
         var Money = require('dw/value/Money');
         var currentCountry = productCustomHelper.getCurrentCountry();
         
@@ -78,7 +79,7 @@ server.append(
             session.custom.applePayCheckout = false;
         } else {
             session.custom.StorePickUp = false;
-            if (currentCountry == 'US') {
+            if (currentCountry == Constants.US_COUNTRY_CODE) {
                 session.custom.isEswShippingMethod = false;
             }
         }

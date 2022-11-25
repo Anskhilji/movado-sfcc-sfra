@@ -9,6 +9,7 @@ var omniChannelAPI = require('*/cartridge/scripts/api/omniChannelAPI');
 var omniChannelAPIHelper = require('~/cartridge/scripts/helpers/omniChannelAPIHelper');
 var StoreMgr = require('dw/catalog/StoreMgr');
 var ShippingMgr = require('dw/order/ShippingMgr');
+var Constants = require('~/cartridge/scripts/helpers/utils/Constants');
 var ShippingHelper = require('*/cartridge/scripts/checkout/shippingHelpers');
 var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
 var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
@@ -31,7 +32,7 @@ server.append(
                 session.custom.applePayCheckout = false;
             } else {
                 session.custom.StorePickUp = false;
-                if (currentCountry == 'US') {
+                if (currentCountry == Constants.US_COUNTRY_CODE) {
                     session.custom.isEswShippingMethod = false;
                 }
             }
