@@ -1,0 +1,13 @@
+ <isset value="${dw.system.Site.current.preferences.custom}" name="sitePref" scope="page" />
+ <isif condition="${sitePref.enableBeam}">
+    <isif condition="${sitePref.enableBeamMiniCart}">
+        <beam-${sitePref.beamWidgetType.value}
+          apiKey="${sitePref.beamApiKey}"
+          chainId="${sitePref.beamChainId}"
+          storeId="${sitePref.beamStoreId}"
+          baseUrl="${sitePref.beamBaseURL}"
+          "${sitePref.beamDebugMode ? 'debug' : ''}"
+          class="beam-widget-mini-cart">
+        </beam-${sitePref.beamWidgetType.value}>
+    </isif>
+</isif>

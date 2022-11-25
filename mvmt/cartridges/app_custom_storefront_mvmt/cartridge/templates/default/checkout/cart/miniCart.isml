@@ -88,6 +88,8 @@
                </isif>
             </div>
         </isloop>
+        <isinclude template="beamIncludes" />
+        <isinclude template="beamWidgetMiniCart" />
     </div>
     <div class="minicart-footer">
         <iscomment>Custom Start: Adding promo code template </iscomment>

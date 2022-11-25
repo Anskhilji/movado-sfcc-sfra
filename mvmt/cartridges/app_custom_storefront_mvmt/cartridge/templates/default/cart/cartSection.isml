@@ -118,6 +118,8 @@
                         <iscomment> Custom End </iscomment>
                     </div>
                 </isif>
+                <isinclude template="beamIncludes" />
+                <isinclude template="beamWidgetCart" />
                 <div class="no-gutters row cart-order-outer-box">
                     <div class="cart-order-box">
                         <h1 class="page-title cart-header hidden-md-down">${Resource.msg('title2.cart', 'cart', null)}</h1>

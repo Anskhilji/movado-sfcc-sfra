@@ -1,0 +1,22 @@
+ <isset value="${dw.system.Site.current.preferences.custom}" name="sitePref" scope="page" />
+ <isif condition="${sitePref.enableBeam}">
+    <isif condition="${sitePref.enableBeamOrderConfirmation}">
+        <div id="#beam-container"></div>
+        <script type="module" crossorigin>	
+          import { showBeamOrderPageWidgets, utils } from "https://production-beam-widgets.beamimpact.com/web-sdk/v1.8.0/dist/components/shopify.esm.js";
+          
+          showBeamOrderPageWidgets({
+              parentSelector: "#beam-container",
+              apiKey: "${sitePref.beamApiKey}",
+              storeId: "${sitePref.beamStoreId}",
+              orderId: , // get from order
+              email: '', // get from order
+              cartTotal: 0, // get from order
+              currencyCode: "", // get from order
+			  countryCode: "", // get from order
+			  postalCode: "", // get from order
+              baseUrl: "${sitePref.beamBaseURL}",
+          });
+          </script>
+    </isif>
+</isif>
