@@ -55,16 +55,17 @@ server.append(
 	consentTracking.consent,
 	csrfProtection.generateToken,
 	function (req, res, next) {
+        var OrderModel = require('*/cartridge/models/order');
         var BasketMgr = require('dw/order/BasketMgr');
         var Locale = require('dw/util/Locale');
-        var OrderModel = require('*/cartridge/models/order');
+        var Money = require('dw/value/Money');
         var Site = require('dw/system/Site');
+
         var orderCustomHelper = require('*/cartridge/scripts/helpers/orderCustomHelper');
         var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
         var Constants = require('*/cartridge/scripts/util/Constants');
-        var Money = require('dw/value/Money');
+
         var currentCountry = productCustomHelper.getCurrentCountry();
-        
         var viewData = res.getViewData();
         var actionUrls = viewData.order.checkoutCouponUrls;
         var currentCustomer = req.currentCustomer.raw;

@@ -4,15 +4,19 @@ var server = require('server');
 
 var Logger = require('dw/system/Logger').getLogger('OmniChannel');
 var Transaction = require('dw/system/Transaction');
-var BasketMgr = require('dw/order/BasketMgr');
-var omniChannelAPI = require('*/cartridge/scripts/api/omniChannelAPI');
-var omniChannelAPIHelper = require('~/cartridge/scripts/helpers/omniChannelAPIHelper');
-var StoreMgr = require('dw/catalog/StoreMgr');
 var ShippingMgr = require('dw/order/ShippingMgr');
-var Constants = require('~/cartridge/scripts/helpers/utils/Constants');
-var ShippingHelper = require('*/cartridge/scripts/checkout/shippingHelpers');
+var BasketMgr = require('dw/order/BasketMgr');
+var StoreMgr = require('dw/catalog/StoreMgr');
+
+
+
 var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
+var omniChannelAPIHelper = require('~/cartridge/scripts/helpers/omniChannelAPIHelper');
 var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
+var ShippingHelper = require('*/cartridge/scripts/checkout/shippingHelpers');
+var omniChannelAPI = require('*/cartridge/scripts/api/omniChannelAPI');
+var Constants = require('~/cartridge/scripts/helpers/utils/Constants');
+
 
 var page = module.superModule;
 server.extend(page);
@@ -99,7 +103,7 @@ server.post(
             session.custom.applePayCheckout = false;
         } else {
             session.custom.StorePickUp = false;
-            if (currentCountry == 'US') {
+            if (currentCountry == Constants.US_COUNTRY_CODE) {
                 session.custom.isEswShippingMethod = false;
             }
         }

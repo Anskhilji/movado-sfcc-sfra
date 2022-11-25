@@ -343,18 +343,20 @@ server.append(
         var BasketMgr = require('dw/order/BasketMgr');
         var CartModel = require('*/cartridge/models/cart');
         var Site = require('dw/system/Site');
+
         var aydenExpressPaypalHelper = require('*/cartridge/scripts/helper/aydenExpressPaypalHelper');
         var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
-        var currentBasket = BasketMgr.getCurrentOrNewBasket();
-        var basketModel = new CartModel(currentBasket);
-        var cartItems = customCartHelpers.removeFromCartGTMObj(currentBasket.productLineItems);
         var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
         var Constants = require('*/cartridge/scripts/util/Constants');
-        var wishlistGTMObj = customCartHelpers.getWishlistGtmObj(currentBasket.productLineItems);
+        
+        var currentBasket = BasketMgr.getCurrentOrNewBasket();
+        var basketModel = new CartModel(currentBasket);
         var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
+        var cartItems = customCartHelpers.removeFromCartGTMObj(currentBasket.productLineItems);
+        var wishlistGTMObj = customCartHelpers.getWishlistGtmObj(currentBasket.productLineItems);
         var productLineItems = currentBasket.productLineItems.iterator();
-        var marketingProductsData = [];
         var currentCountry = productCustomHelper.getCurrentCountry();
+        var marketingProductsData = [];
 
         
         // Custom Start: Adding ESW cartridge integration
