@@ -65,6 +65,11 @@ module.exports = function productLineItem(product, apiProduct, options) {
         enumerable: true,
         value: !empty(apiProduct.custom.bonusProductText) ? true : false
     });
+
+    Object.defineProperty(product, 'familyName', {
+        enumerable: true,
+        value: !empty(apiProduct.custom.familyName) ? apiProduct.custom.familyName[0] : ''
+    });
     
     return product;
 };

@@ -1,0 +1,3 @@
+<div class="line-item-name">
+    <span>${lineItem.familyName}</span>
+</div>
