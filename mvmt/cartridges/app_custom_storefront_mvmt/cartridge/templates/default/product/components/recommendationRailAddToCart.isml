@@ -1,2 +1,0 @@
-<isset name="product" value="${pdict.product}" scope="page"/>
-<button class="mini-cart-add-to-cart btn " data-pid="${product.id}" data-url="${URLUtils.url('Cart-AddProduct')}">${Resource.msg('button.addtocart.cart.recommendation', 'common', null)}</button>
