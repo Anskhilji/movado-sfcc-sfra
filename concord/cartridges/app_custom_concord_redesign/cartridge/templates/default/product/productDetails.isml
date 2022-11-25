@@ -197,11 +197,11 @@
                                         
                                     </div>
                                 </div>
-                                <iscomment> <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
+                                <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
                                     <div class="traditional-wishlist-row wishlist-row">
                                         <isinclude url="${URLUtils.https('Wishlist-ShowIcon', 'gtmObj',JSON.stringify(pdict.wishlistGtmObj))}"/>
                                     </div>
-                                </isif> </iscomment>
+                                </isif>
                            </div>
 
                             <isif condition="${sitePref.enableBackInStock && !sitePref.Listrak_EnableBackInStockSms && !sitePref.Listrak_EnableBackInStockEmail}">
