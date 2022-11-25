@@ -131,7 +131,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     //Custom End
 
     var listrakPersistentPopup = emailPopupHelper.listrakPersistentPopup(req);
-    var runningAbTest = productCustomHelper.getRunningAbTestSegments();
+    var runningABTest = productCustomHelper.getRunningABTestSegments();
 
     viewData = {
         isEmbossEnabled: isEmbossEnabled,
@@ -163,7 +163,7 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
         smartGiftAddToCartURL : smartGiftAddToCartURL,
         plpProductFamilyName: Site.getCurrent().preferences.custom.plpProductFamilyName ? Site.getCurrent().preferences.custom.plpProductFamilyName : false,
         popupID: listrakPersistentPopup,
-        runningAbTest: runningAbTest
+        runningABTest: runningABTest
     };
     var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
     res.setViewData(smartGift);

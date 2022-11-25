@@ -312,7 +312,7 @@ function getOCIPreOrderParameters(apiProduct) {
  * Function return running AB test segments
  * @returns segmentsArray 
  */
- function getRunningAbTestSegments() {
+ function getRunningABTestSegments() {
     var ABTestMgr = require('dw/campaign/ABTestMgr');
     var abTestSegment = ABTestMgr.getAssignedTestSegments();
     return abTestSegment.length > 0 ? abTestSegment[0].ABTest.ID + '+' + abTestSegment[0].ID : '';
@@ -331,5 +331,5 @@ module.exports = {
     getProductCategory: getProductCategory,
     isGiftBoxAllowed: isGiftBoxAllowed,
     getGiftBoxSKU: getGiftBoxSKU,
-    getRunningAbTestSegments: getRunningAbTestSegments
+    getRunningABTestSegments: getRunningABTestSegments
 };

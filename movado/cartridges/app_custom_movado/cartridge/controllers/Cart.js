@@ -397,9 +397,9 @@ server.append(
             session.custom.StorePickUp = false;
         }
 
-        var runningAbTest = productCustomHelper.getRunningAbTestSegments();
+        var runningABTest = productCustomHelper.getRunningABTestSegments();
         res.setViewData({
-            runningAbTest: runningAbTest
+            runningABTest: runningABTest
         });
 
         if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {

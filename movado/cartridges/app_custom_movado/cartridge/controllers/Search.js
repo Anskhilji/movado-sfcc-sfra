@@ -245,9 +245,9 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
         }
     }
 
-    var runningAbTest = productCustomHelper.getRunningAbTestSegments();
+    var runningABTest = productCustomHelper.getRunningABTestSegments();
     res.setViewData({
-        runningAbTest: runningAbTest
+        runningABTest: runningABTest
     });
     
     try {

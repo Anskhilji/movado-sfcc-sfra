@@ -132,7 +132,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
    var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
    //Custom End
    var listrakPersistentPopup = emailPopupHelper.listrakPersistentPopup(req);
-   var runningAbTest = productCustomHelper.getRunningAbTestSegments();
+   var runningABTest = productCustomHelper.getRunningABTestSegments();
    viewData = {
        isEmbossEnabled: isEmbossEnabled,
        isEngraveEnabled: isEngraveEnabled,
@@ -161,7 +161,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
        isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
        smartGiftAddToCartURL : smartGiftAddToCartURL,
        popupID: listrakPersistentPopup,
-       runningAbTest: runningAbTest
+       runningABTest: runningABTest
    };
    var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
    res.setViewData(smartGift);

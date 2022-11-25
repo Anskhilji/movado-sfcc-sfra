@@ -137,7 +137,7 @@ server.append(
         );
         
         // Custom Start: Add email for Amazon Pay
-        var runningAbTest = productCustomHelper.getRunningAbTestSegments();
+        var runningABTest = productCustomHelper.getRunningABTestSegments();
         res.setViewData({
             order: orderModel,
             actionUrls: actionUrls,
@@ -146,7 +146,7 @@ server.append(
             expirationYears: creditCardExpirationYears,
             countryCode: countryCode,
             couponLineItems: currentBasket.couponLineItems,
-            runningAbTest: runningAbTest
+            runningABTest: runningABTest
         });
 
         next();

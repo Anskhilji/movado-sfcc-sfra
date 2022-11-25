@@ -110,7 +110,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
    //Custom End
    
    var listrakPersistentPopup = emailPopupHelper.listrakPersistentPopup(req);
-   var runningAbTest = productCustomHelper.getRunningAbTestSegments();
+   var runningABTest = productCustomHelper.getRunningABTestSegments();
    viewData = {
        isEmbossEnabled: isEmbossEnabled,
        isEngraveEnabled: isEngraveEnabled,
@@ -141,7 +141,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
        smartGiftAddToCartURL : smartGiftAddToCartURL,
        customURL: customURL,
        popupID: listrakPersistentPopup,
-       runningAbTest: runningAbTest
+       runningABTest: runningABTest
    };
    var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
    res.setViewData(smartGift);

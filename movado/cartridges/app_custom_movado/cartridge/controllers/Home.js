@@ -35,10 +35,10 @@ server.append('Show', consentTracking.consent, cache.applyDefaultCache, function
     		pageKeywords: folderSearch.folder.pageKeywords };
 
     pageMetaHelper.setPageMetaData(req.pageMetaData, contentObj);
-    var runningAbTest = productCustomHelper.getRunningAbTestSegments();
+    var runningABTest = productCustomHelper.getRunningABTestSegments();
     viewData.content = content && content.custom && content.custom.body ? content.custom.body : '';
     viewData.relativeURL = relativeURL;
-    viewData.runningAbTest = runningAbTest;
+    viewData.runningABTest = runningABTest;
     res.setViewData(viewData);
     return next();
 }, pageMetaData.computedPageMetaData);
