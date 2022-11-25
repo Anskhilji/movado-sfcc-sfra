@@ -8,6 +8,7 @@ var Transaction = require('dw/system/Transaction');
 var ApplePayHookResult = require('dw/extensions/applepay/ApplePayHookResult');
 
 var checkoutAddressHelper = require('*/cartridge/scripts/helpers/checkoutAddressHelper');
+var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 var collections = require('*/cartridge/scripts/util/collections');
 var RiskifiedService = require('int_riskified');
@@ -91,6 +92,9 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     }
 
     if (session.privacy.pickupFromStore) {
+        Transaction.wrap(function () {
+            COCustomHelpers.removeGiftMessageLineItem(order);
+        });
         session.custom.applePayCheckout = false;
     } else {
         session.custom.StorePickUp = false;

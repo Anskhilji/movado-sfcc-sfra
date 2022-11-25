@@ -104,7 +104,7 @@
                                 bottom: 0;
                                 width: 100%;
                                 height: rem(2);
-                                background: $pink-rose;
+                                background: $black;
                                 transform:  translateX(-100%);
                             }
 
@@ -188,7 +188,7 @@
                             border-radius: rem(20);
                             bottom: rem(-5);
                             left: rem(-1);
-                            background-color: $pink-rose;
+                            background-color: $black;
                             opacity: 0;
                         }
                     }
@@ -278,7 +278,7 @@
                 li {
                     width: 4%;
                     height: rem(2);
-                    background: $pink-rose;
+                    background: $gray;
                     margin: 0;
                     margin-top: rem(4);
                     display: inline-block;
@@ -318,7 +318,7 @@
                 max-width: rem(150);
                 border-radius: rem(5);
                 overflow: hidden;
-                background-color: $pink-smoke;
+                background-color: $gray;
                 text-align: center;
 
                 @include media-breakpoint-down(md) {
@@ -404,7 +404,7 @@
             max-width: rem(300);
             border-radius: rem(5);
             overflow: hidden;
-            background-color: $pink-smoke;
+            background-color: $gray;
             text-align: center;
             margin: 0 auto;
 
@@ -638,7 +638,7 @@
                     width: 100%;
                     max-width: rem(280);
                     min-width: 40%;
-                    background-color: $pink-rose;
+                    background-color: $gray-light;
                     bottom: 0;
                 }
 
@@ -694,10 +694,10 @@
     pointer-events: none;
     width: 100%;
     height: rem(80);
-    box-shadow: 0 rem(8) rem(14) rem(-8) $storm-gray;
+    border-bottom: rem(1) solid $black;
     z-index: 999;
     margin: 0;
-    opacity: 1;
+    opacity: 0.1;
 }
 
 .ob-redesign-header-banner {

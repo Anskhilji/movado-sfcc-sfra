@@ -148,7 +148,7 @@
                             </isif>
                             <iscomment> Custom End: </iscomment>
 
-	                        <isif condition="${product.options && product.options.length > 0 && !(option.id == "clydeWarranty") && dw.system.Site.current.preferences.custom.isClydeEnabled}">
+	                        <isif condition="${product.options && product.options.length > 0}">
 	                            <isinclude template="product/components/options" />
 	                        </isif>
 
@@ -287,6 +287,5 @@
             <isslot id="cs-listrak-persistent-popup" description="Listrak persistent popup" context="global" />
         </isif>
         <!-- End: Listrak persistent popup -->
-
     </isobject>
 </isdecorate>
