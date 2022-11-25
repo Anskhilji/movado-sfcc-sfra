@@ -1954,6 +1954,12 @@
         text-transform: none;
     }
 }
+
+.recommendation-rail-wrapper {
+    border-top: rem(1) solid $light-gray4;
+    padding-top: rem(10);
+}
+
 .product-slot-slider {
     &.recommendation-slider {
         
