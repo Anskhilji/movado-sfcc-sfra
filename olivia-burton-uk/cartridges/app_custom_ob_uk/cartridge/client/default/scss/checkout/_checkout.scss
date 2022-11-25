@@ -337,12 +337,15 @@ header {
         .mx-container-box1 {
             
             .btn {
-                border: rem(2) solid $gray;
-                background-color: $gray;
-                color: $black;
+                border: rem(2) solid $black;
+                background-color: $black;
+                color: $white;
                 
+                &:hover,
                 &:focus {
-                    border-color: $gray;
+                    background: $white;
+                    border: rem(1) solid $black;
+                    color: $black;
                 }
 
                 &:active {

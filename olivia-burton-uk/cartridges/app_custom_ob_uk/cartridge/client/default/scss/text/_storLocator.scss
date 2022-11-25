@@ -26,11 +26,18 @@
 
     .card-button {
       font-family: $font-museo-std;
-      color: $black;
+      color: $white;
       font-size: $font-size-text-heading1;
       letter-spacing: rem(2);
-      background: $gray;
-      border: rem(1) solid $gray;
+      background: $black;
+      border: rem(1) solid $black;
+
+      &:hover,
+      &:focus {
+          background: $white;
+          border: rem(1) solid $black;
+          color: $black;
+      }
     }
 
     label.form-control-label {
