@@ -678,7 +678,7 @@
                 left: rem(25);
 
                 .category-name {
-                    font-family: $font-gill-sans-std;
+                    font-family: $font-gills-light;
                     font-size: rem(15);
                     font-weight: 600;
                     color: $gray20;
@@ -1697,7 +1697,7 @@
                         > .price {
                             color: $gray20;
                             font-size: rem(12);
-                            font-family: $font-gill-std;
+                            font-family: $font-gill-sans-std;
                             font-weight: 600;
                             font-style: normal;
                             letter-spacing: 0.5px;
@@ -1722,6 +1722,8 @@
                             .strike-through {
                                 margin-right: rem(5);
                                 color: $dark-gray;
+                                font-family: $font-gills-light;
+                                font-weight: 300;
     
                                 @include media-breakpoint-up(lg) {
                                     margin-right: rem(10);
