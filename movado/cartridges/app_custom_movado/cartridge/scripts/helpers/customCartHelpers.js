@@ -120,7 +120,7 @@ function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engr
 	var variant;
 	collections.forEach(lineItemCtnr.productLineItems, function (pli) {
 
-        if (pli.UUID == productUUID) {
+        if (pli.product.ID == productUUID || pli.UUID == productUUID) {
             var productID = pli.product.ID;
             var productModel = productFactory.get({pid: productID});
             var productPrice = pli.price.decimalValue ? pli.price.decimalValue.toString() : '0.0';
