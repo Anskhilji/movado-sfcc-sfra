@@ -584,6 +584,7 @@ module.exports = {
                         $('.plp-new-design .result-count').removeClass('col-12 col-md-9 col-sm-6 order-sm-2');
                         $('.refinement-bar-redesign').removeClass('refinement-open-state');
                         $('.tab-pane.active>.container-fluid').removeClass('container-open-state');
+                        $('.modal-background').removeClass('d-block');
                         $("body").removeClass("no-overflow-ctm");
                         clickedFilterButton();
                         filterApplyAddClassFilter();
@@ -593,8 +594,8 @@ module.exports = {
                         var $bannerSearchResultCount = $('.search-result-counts .result-count .search-result-count').data('result-counts');
                         var filterBarLayout = $('.filter-bar-overlay');
 
-                        if (filterBarLayout.length < 0) {
-                            $('.modal-background').removeClass('d-block');
+                        if (filterBarLayout.length > 0) {
+                            $('.modal-background').addClass('d-block');
                         }
 
                         if ($bannerSearchResultCount && $bannerSearchResultCount !== undefined) {
