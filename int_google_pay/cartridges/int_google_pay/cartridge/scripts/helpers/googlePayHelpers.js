@@ -9,14 +9,19 @@ var Logger = require('dw/system/Logger');
 
 
 var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
-var cartHelper = require('*/cartridge/scripts/cart/cartHelpers');
-var constants = require('*/cartridge/scripts/helpers/googlePayConstants');
-var collections = require('*/cartridge/scripts/util/collections');
-var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
 var checkoutAddrHelper = require('*/cartridge/scripts/helpers/checkoutAddressHelper');
-var ShippingHelper = require('*/cartridge/scripts/checkout/shippingHelpers');
 var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
 var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
+var ShippingHelper = require('*/cartridge/scripts/checkout/shippingHelpers');
+var constants = require('*/cartridge/scripts/helpers/googlePayConstants');
+var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
+var collections = require('*/cartridge/scripts/util/collections');
+var cartHelper = require('*/cartridge/scripts/cart/cartHelpers');
+
+
+
+
+
 
 
 /**

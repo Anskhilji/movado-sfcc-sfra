@@ -345,8 +345,8 @@ server.append(
         var Site = require('dw/system/Site');
 
         var aydenExpressPaypalHelper = require('*/cartridge/scripts/helper/aydenExpressPaypalHelper');
-        var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
         var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
+        var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
         var Constants = require('*/cartridge/scripts/util/Constants');
         
         var currentBasket = BasketMgr.getCurrentOrNewBasket();
