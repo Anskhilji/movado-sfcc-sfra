@@ -1,7 +1,7 @@
 <div class="product-number-rating clearfix">
-    <!-- Product Number -->
+    <!-- Product Number sfsfsf-->
     <isif condition="${dw.system.Site.getCurrent().preferences.custom.enableProductSKU}">
-        <div class="product-number sku-text-alignment">
+        <div class="product-number sku-text-alignment d-none">
             <isinclude template="product/components/productNumber" />
         </div>
     </isif>
