@@ -10,14 +10,13 @@ var Logger = require('dw/system/Logger');
 
 var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
 var checkoutAddrHelper = require('*/cartridge/scripts/helpers/checkoutAddressHelper');
-var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
 var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
-var ShippingHelper = require('*/cartridge/scripts/checkout/shippingHelpers');
 var constants = require('*/cartridge/scripts/helpers/googlePayConstants');
 var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
 var collections = require('*/cartridge/scripts/util/collections');
 var cartHelper = require('*/cartridge/scripts/cart/cartHelpers');
-
+var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
+var ShippingHelper = require('*/cartridge/scripts/checkout/shippingHelpers');
 
 /**
  * Checks if google pay is enabled
