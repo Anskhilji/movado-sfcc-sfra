@@ -66,12 +66,13 @@ function create(orderNumber, paymentInstrument) {
     var order = OrderMgr.getOrder(orderNumber);
     var paymentMethod = PaymentMgr.getPaymentMethod(paymentInstrument.getPaymentMethod());
     var isRiskifiedflag = paymentMethod.custom.isRiskifiedEnable;
+    var isRiskifiedSyncIntegerationEnabled = !empty(Site.current.preferences.custom.isRiskifiedSyncIntegerationEnabled) ? Site.current.preferences.custom.isRiskifiedSyncIntegerationEnabled : false;
     var result = { status: 'success' };
         if (isRiskifiedflag) {
             var serviceResult = RiskifiedService.sendCreateOrder(order);
             result.response = serviceResult;
             if (serviceResult.error) {
-                if (Site.current.preferences.custom.isRiskifiedSyncIntegerationEnabled) {
+                if (isRiskifiedSyncIntegerationEnabled) {
                     if (attemptCounter < maxAttempted) {
                         attemptCounter++;
                         return create(orderNumber, paymentInstrument);
