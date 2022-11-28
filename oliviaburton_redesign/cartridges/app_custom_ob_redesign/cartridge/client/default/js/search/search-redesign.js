@@ -583,6 +583,7 @@ module.exports = {
                         // edit start
                         updatePageURLForFacets(filtersURL);
                         // edit end
+                        $('.filter-and-count').addClass('filter-count-visible');
                         $.spinner().stop();
                         moveFocusToTop();
                         swatches.showSwatchImages();
