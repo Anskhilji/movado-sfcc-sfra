@@ -485,9 +485,14 @@
                         padding: rem(0);
                     }
                     .price-to-center {
+                        .strike-through {
+                            span {
+                                font-weight: 300;
+                            }
+                        }
                         span {
                             @include media-breakpoint-down(sm-custom) {
-                                @include font-gill($font-size: 28, $font-weight: 300);
+                                @include font-gill($font-size: 28, $font-weight: 400);
                                 line-height: rem(45);
                                 color: $gray20;
                                 font-family: $font-gills-light;
@@ -584,7 +589,7 @@
                 }
 
                 span {
-                    @include font-gill($font-size: 28, $font-weight: 300);
+                    @include font-gill($font-size: 28, $font-weight: 400);
                     line-height: rem(45);
                     color: $gray20;
                     letter-spacing: rem(0);
@@ -600,6 +605,8 @@
                     }
                     .strike-through {
                         span {
+                            font-weight: 300;
+
                            @include media-breakpoint-down(lg) {
                                 text-decoration: inherit;
                            }
@@ -1887,7 +1894,7 @@
     
                 &-item {
                     a {
-                        @include font-gill($font-size: 12, $font-weight: 600, $letter-spacing: 0);
+                        @include font-gill($font-size: 12, $font-weight: 300, $letter-spacing: 0);
                         line-height: rem(16);
                         color: $black;
                         margin-left: rem(5);
@@ -2304,16 +2311,21 @@
                     .price {
                         padding-left: rem(4);
                         font-size: rem(13);
-                        font-family: $font-gill-std;
+                        font-family: $font-gill-std-semibold;
                         color: $gray20;
                         .value {
                             font-size: rem(13);
-                            font-family: $font-gill-std;
-                            font-weight: 600;
+                            font-family: $font-gills-light;
+                            font-weight: 300;
                             font-style: normal;
                             color: $gray20;
                             letter-spacing: rem(0);
                             line-height: rem(18);
+                        }
+                        .sale-price-mvmt {
+                            .value {
+                                font-weight: 600;
+                            }
                         }
                     }
 
