@@ -1,5 +1,5 @@
 .ob-footer {
-    background-color: $seashell;
+    background-color: $light-grey-5;
     overflow: hidden;
     
     .footer-redesign {
@@ -109,7 +109,7 @@
     
                 @include media-breakpoint-down(sm) {
                     padding: rem(16);
-                    background-color: $pink-smoke;
+                    background-color: $gray;
                 }
             }
     
@@ -170,6 +170,7 @@
                     font-family: $font-gills-light;
                     font-size: rem(15);
                     font-weight: 300;
+                    font-style: normal;
                     line-height: rem(20);
                     width: rem(300);
                     letter-spacing: rem(0.5);
@@ -190,7 +191,8 @@
     
             &-title {
                 font-family: $font-gill-std-semibold;
-                font-weight: 500;
+                font-weight: 600;
+                font-style: normal;
                 line-height: rem(22);
                 font-size: rem(17);
                 pointer-events: none;
@@ -297,7 +299,8 @@
                             height: rem(45);
                             border: rem(2) solid $dim-grey;
                             border-right-width: 0;
-                            font-family: $font-museo-light;
+                            font-family: $font-gill-std;
+                            font-weight: 300;
                             border-radius: rem(5) 0 0 rem(5);
     
                             @include media-breakpoint-down(sm) {
@@ -369,7 +372,8 @@
                     color: $gray20;
                     font-family: $font-gill-std-semibold;
                     font-size: rem(15);
-                    font-weight: 500;
+                    font-weight: 600;
+                    font-style: normal;
                     line-height: rem(21);
                     text-transform: capitalize;
                 }
@@ -386,6 +390,7 @@
                   line-height: rem(20);
                   font-family: $font-gill-std-normal;
                   font-weight: 400;
+                  font-style: normal;
                 }
             }
         }
@@ -415,7 +420,7 @@
 
 
 .sub-footer-container {
-    background-color: $pink-smoke;
+    background-color: $gray;
     padding: rem(28) rem(25);
     
     @include media-breakpoint-down(sm) {
@@ -501,14 +506,33 @@
             padding-left: rem(15) !important;
         }
     }
+
+    .headerDropdown {
+        
+        .esw-country-selector  {
+
+            .btn {
+                font-family: $font-gill-std-semibold;
+                font-weight: 600;
+                font-style: normal;
+            }
+        }
+    }
     
     @include media-breakpoint-down(md) {
+
         .headerDropdown {
             text-align: center;
             width: 100% !important;
 
             .esw-country-selector  {
                 border: none !important;
+
+                .btn {
+                    font-family: $font-gill-std-semibold;
+                    font-weight: 600;
+                    font-style: normal;
+                }
             }
         }
 

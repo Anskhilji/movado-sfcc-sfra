@@ -140,7 +140,8 @@ var onPDPAddProductClickEvent = function () {
 				          name: addtoCartData.name,
 				          price: addtoCartData.price,
 				          category: addtoCartData.category,
-				          variant: addtoCartData.variant
+				          variant: addtoCartData.variant,
+				          addToCartLocation: addtoCartData.addToCartLocation
 				      }]
                     }
                 }
@@ -153,12 +154,13 @@ var onPDPAddProductClickEvent = function () {
                 ecommerce: { currencyCode: addtoCartData.currency,
                     add: { actionField: { list: addtoCartData.list },
 				      products: [{
-					          id: addtoCartData.id,
-					          name: addtoCartData.name,
-					          price: addtoCartData.price,
-					          category: addtoCartData.category,
-					          variant: addtoCartData.variant
-				      	}]
+				          id: addtoCartData.id,
+				          name: addtoCartData.name,
+				          price: addtoCartData.price,
+				          category: addtoCartData.category,
+				          variant: addtoCartData.variant,
+				          addToCartLocation: addtoCartData.addToCartLocation
+				      }]
                     }
                 }
             });

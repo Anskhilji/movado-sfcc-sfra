@@ -25,11 +25,11 @@
         align-self: self-start;
     }
     input[placeholder],label{
-        font-family: $font-medium;
+        font-family: $font-raleway-medium;
     }
     .hidden-xs-down{
         text-decoration: underline;
         font-size: rem(14);
-        font-family: $font-medium;
+        font-family: $font-raleway-medium;
     }
 }

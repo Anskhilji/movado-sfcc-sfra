@@ -777,6 +777,7 @@ module.exports = {
                 });
                 pidsObj = JSON.stringify(setPids);
             }
+            var addToCartLocation = $(this).data('atc');
 
             pid = getPidValue($(this));
             if ($('.gift-allowed-checkbox').is(":checked")) {
@@ -793,6 +794,7 @@ module.exports = {
 
             var form = {
                 pid: pid,
+                addToCartLocation: addToCartLocation,
                 pidsObj: pidsObj,
                 childProducts: getChildProducts(),
                 quantity: getQuantitySelected($(this)),
@@ -804,6 +806,7 @@ module.exports = {
             if ($('.pdp-obuk')) {
                 form = {
                     pid: pid,
+                    addToCartLocation: addToCartLocation,
                     pidsObj: pidsObj,
                     childProducts: getChildProducts(),
                     quantity: 1,
@@ -1051,6 +1054,7 @@ module.exports = {
             var setPids;
             var $this = $(this);
 
+            var addToCartLocation = $(this).data('atc');
             $('body').trigger('product:beforeAddToCart', this);
 
             addToCartUrl = getAddToCartUrl();
@@ -1071,6 +1075,7 @@ module.exports = {
 
             var form = {
                 pid: pid,
+                addToCartLocation: addToCartLocation,
                 pidsObj: pidsObj,
                 childProducts: getChildProducts(),
                 quantity: 1

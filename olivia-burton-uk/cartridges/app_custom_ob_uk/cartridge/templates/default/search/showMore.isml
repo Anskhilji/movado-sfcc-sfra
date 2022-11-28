@@ -5,7 +5,7 @@
 >
     <!--- More button --->
     <isif condition="${pdict.productSearch.showMoreUrl !== ''}">
-        <div class="show-more">
+        <div class="show-more mt-4">
             <div class="text-center">
                 <button class="btn btn-primary col-12 col-sm-5"
                         data-url="${pdict.productSearch.showMoreUrl}"

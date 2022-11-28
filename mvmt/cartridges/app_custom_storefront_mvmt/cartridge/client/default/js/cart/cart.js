@@ -79,7 +79,7 @@ function validateBasket(data) {
  * re-renders the order totals and the number of items in the cart
  * @param {Object} data - AJAX response from the server
  */
-function updateMiniCartTotals(data, $giftProduct, $uuid) {
+function updateMiniCartTotals(data, $giftProduct, $uuid, $dataParentUUID) {
     if (data.numItems) {
         $('.minicart .minicart-quantity').text(data.numItems);
     }
@@ -182,6 +182,17 @@ function updateMiniCartTotals(data, $giftProduct, $uuid) {
         if ($giftProduct !== undefined && $giftProduct == true && $uuid !== undefined) {
             $('.gift-lineitem-container-'+ $uuid).remove();
         }
+
+        if (item.UUID == $dataParentUUID) {
+            $('.gift-product-chlid-uuid-' + $uuid).text('Add');
+        }
+        if (item.customAttributes.itemLevelGiftMessage && item.customAttributes.itemLevelGiftMessage.msgLine1) {
+            var $itemLevelGiftMessage = item.customAttributes.itemLevelGiftMessage.msgLine1;
+        }
+        if ($itemLevelGiftMessage !== undefined && $itemLevelGiftMessage !== '') {
+            $('.gift-product-chlid-uuid-' + $uuid).text('Edit');
+        }
+
     });
     // Custom End
 
@@ -193,7 +204,7 @@ function updateMiniCartTotals(data, $giftProduct, $uuid) {
 }
 
 
-function updateCartTotals(data, $giftProduct, $uuid) {
+function updateCartTotals(data, $giftProduct, $uuid, $dataParentUUID) {
     if (typeof data.totals.deliveryTime != 'undefined' && typeof data.totals.deliveryTime.isExpress != 'undefined' && data.totals.deliveryTime.isExpress) {
         $('.delivery-time').removeClass('d-none');
     } else {
@@ -262,6 +273,18 @@ function updateCartTotals(data, $giftProduct, $uuid) {
             if ($giftProduct !== undefined && $giftProduct == true && $uuid !== undefined) {
                 $('.gift-product-remove-'+ $uuid).remove();
             }
+
+            if (item.UUID == $dataParentUUID) {
+                $('.gift-product-chlid-uuid-' + $uuid).text('Add');
+            }
+    
+            if (item.customAttributes.itemLevelGiftMessage && item.customAttributes.itemLevelGiftMessage.msgLine1) {
+                var $itemLevelGiftMessage = item.customAttributes.itemLevelGiftMessage.msgLine1;
+            }
+            if ($itemLevelGiftMessage !== undefined && $itemLevelGiftMessage !== '') {
+                $('.gift-product-chlid-uuid-' + $uuid).text('Edit');
+            }
+
         });
     } else {
         data.items.forEach(function (item) {
@@ -570,17 +593,11 @@ module.exports = function () {
                         var $itemLevelGiftMessage = item.customAttributes.itemLevelGiftMessage.msgLine1;
                     }
                     if ($itemLevelGiftMessage !== undefined && $itemLevelGiftMessage !== '') {
-                        $('.gift-box-container-label').addClass('d-none');
-                        $('.gift-box-container-label-edit').removeClass('d-none');
                         $('.gift-box-container-modal .gift-text').text($itemLevelGiftMessage);
+                        $('.gift-message-btn-' + item.UUID).attr('data-gift-message', $itemLevelGiftMessage);
                         $('.gift-personlize-msg').text($itemLevelGiftMessage);
-                        $('.gift-box-container-link').addClass('d-none');
-                        $('.gift-box-container-link-edit').removeClass('d-none');
                         $('.gift-lineitem-message-' + item.UUID).text('"'+$itemLevelGiftMessage+'"');
-                        $('.gift-msg-text').addClass('d-none')
-                        $('.gift-msg-text-edit').removeClass('d-none');
                         $('.gift-message-btn-' + item.UUID).text('Edit');
-                        
                     }
                 });
                 $('#giftBoxModelPopUp').modal('hide');
@@ -663,6 +680,7 @@ module.exports = function () {
         var $productID = $(this).data('pid');
         var $productName = $(this).data('name');
         var $uuid = $(this).data('uuid');
+        var $dataParentUUID = $(this).data('parent-pid');
         var $gtmProdObj = $(this).data('gtm-cart');
         var $giftProduct = $(this).data('gift');
         var $urlParams = {
@@ -735,7 +753,7 @@ module.exports = function () {
                     }
                     $('.coupons-and-promos').children('.coupons-and-promos-wrapper').empty().append(data.basket.totals.discountsHtml);
                     var $miniCartSelector = $('.mini-cart-data .mini-cart-header');
-                    $miniCartSelector.length > 0 ? updateMiniCartTotals(data.basket, $giftProduct, $uuid) : updateCartTotals(data.basket, $giftProduct, $uuid);
+                    $miniCartSelector.length > 0 ? updateMiniCartTotals(data.basket, $giftProduct, $uuid, $dataParentUUID) : updateCartTotals(data.basket, $giftProduct, $uuid, $dataParentUUID);
                     updateApproachingDiscounts(data.basket.approachingDiscounts);
                     $('body').trigger('setShippingMethodSelection', data.basket);
                     validateBasket(data.basket);
@@ -773,6 +791,7 @@ module.exports = function () {
         var $actionUrl = $(this).data('action');
         var $productID = $(this).data('pid');
         var $productName = $(this).data('name');
+        var $dataParentUUID = $(this).data('parent-pid');
         var $uuid = $(this).data('uuid');
         var $gtmProdObj = $(this).data('gtm-cart');
         var $giftProduct = $(this).data('gift');
@@ -847,7 +866,7 @@ module.exports = function () {
                     }
                     $('.coupons-and-promos').children('.coupons-and-promos-wrapper').empty().append(data.basket.totals.discountsHtml);
                     var $miniCartSelector = $('.mini-cart-data .mini-cart-header');
-                    $miniCartSelector.length > 0 ? updateMiniCartTotals(data.basket, $giftProduct) : updateCartTotals(data.basket, $giftProduct, $uuid);
+                    $miniCartSelector.length > 0 ? updateMiniCartTotals(data.basket, $giftProduct, $dataParentUUID) : updateCartTotals(data.basket, $giftProduct, $uuid, $dataParentUUID);
                     updateApproachingDiscounts(data.basket.approachingDiscounts);
                     $('body').trigger('setShippingMethodSelection', data.basket);
                     validateBasket(data.basket);
@@ -1031,16 +1050,42 @@ module.exports = function () {
     $('body').on('click', '.gift-box-container-link', function (evt) {
         evt.preventDefault(); 
         var $endPointUrl = $(evt.target).closest('a').attr('href');
+        var $itemLevelGiftMessage = $(this).data('gift-message');
         $.spinner().start();
         $.ajax({
             url: $endPointUrl,
             type: 'get',
             success: function (response) {
-                $('#giftBoxModelPopUp').find('.modal-content').html(response);
+                $('#giftBoxModelPopUp').find('.modal-content').html(response.template);
+                if ($itemLevelGiftMessage !== undefined && $itemLevelGiftMessage !== '') {
+                    $('.gift-box-container-modal .gift-text').text($itemLevelGiftMessage);
+                } else {
+                    $('.gift-box-container-modal .gift-text').text('');
+                }
+
+                var giftBoxContainerModel = $('.gift-box-container-modal-body');
+                function refreshGiftMessage() {
+                    if(response.basketModel.items.length && giftBoxContainerModel) {
+                            response.basketModel.items.forEach(function (item) {
+                            if (item.UUID == response.ProductLineItemUUID) {
+                                $('.gift-box-container-modal .gift-text').text(response.itemLevelGiftMessage);
+                            }
+                        });
+                    } else {
+                        setTimeout(function() {
+                            refreshGiftMessage();
+                        }, 500);
+                    }
+                }
+                
+                refreshGiftMessage();
                 $.spinner().stop();
+
             }
         });
     });
+
+
 
     $('body').on('click', '.gift-message-box-input', function () {
         $('.gift-message-box').removeClass('hide-box');

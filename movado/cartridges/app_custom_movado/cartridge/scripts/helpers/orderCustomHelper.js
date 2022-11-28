@@ -95,7 +95,7 @@ function getProductLineItemCustomAttributes(item) {
         customAttributes.emboss = emboss;
     }
 
-    if (item.custom.GiftWrapMessage != undefined) {
+    if (item.custom.GiftWrapMessage != undefined && !session.privacy.pickupFromStore) {
         customAttributes.itemLevelGiftMessage = { msgLine1: item.custom.GiftWrapMessage };
     }
 

@@ -157,7 +157,7 @@
 
     .header-menu-wrapper {
         padding: 0;
-        box-shadow: rem(1) rem(2) rem(5) 0 $grey-transparent-7;
+        background-color: $gray;
     }
 
     .left {
@@ -180,9 +180,10 @@
 }
 
 .header-banner {
-    
+    background-color: $black;
+
     .html-slot-container {
-        color: $black;
+        color: $white;
         font-family: $font-gill-std;
         font-size: rem(14);
         font-weight: 600;
@@ -191,6 +192,10 @@
             font-size: rem(12);
         }
     }
+}
+
+.accessible-link {
+    color: $white;
 }
 
 .checkout-header {
