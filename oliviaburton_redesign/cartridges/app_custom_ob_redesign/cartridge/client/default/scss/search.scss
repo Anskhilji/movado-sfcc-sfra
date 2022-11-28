@@ -2014,9 +2014,15 @@
 
 .listrak-persistent-popup {
     display: none !important;
-  }
-  .button-floting {
+}
+
+.button-floting {
+    
     &.button-search-result {
-      bottom: rem(41);
+        bottom: rem(41);
     }
-  }
+}
+
+.filter-count-visible { 
+    visibility: visible;
+}
