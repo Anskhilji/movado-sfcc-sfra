@@ -19,11 +19,6 @@ var collections = require('*/cartridge/scripts/util/collections');
 var cartHelper = require('*/cartridge/scripts/cart/cartHelpers');
 
 
-
-
-
-
-
 /**
  * Checks if google pay is enabled
  * @returns {Boolean}
