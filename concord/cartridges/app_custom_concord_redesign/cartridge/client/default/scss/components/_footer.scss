@@ -8,6 +8,19 @@
             h3 {
                 font-family: $font-raleway-book;
             }
+
+            @include media-breakpoint-down(xs) {
+                &.collapsible-xs {
+                    
+                    .title:after {
+                        content: "";
+                    }
+
+                    &.active .title:after {
+                        content: "";
+                    }
+                }
+            }
         }
 
         h3 {
@@ -45,6 +58,10 @@
             @include media-breakpoint-down(sm) {
                 padding-top: rem(35);
             }
+        }
+
+        .footerDropdown {
+            display: block;
         }
     }
 
