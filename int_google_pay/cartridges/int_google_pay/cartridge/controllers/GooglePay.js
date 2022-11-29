@@ -25,8 +25,8 @@ server.post('GetTransactionInfo',
     server.middleware.https,
     function (req, res, next) {
         var currentBasket = BasketMgr.getCurrentOrNewBasket();
-        var productId = req.form.pid;
         var form = req.form;
+        var productId = form && form.pid ? form.pid : '';
         var embossedMessage = req.form.EmbossedMessage;
         var engravedMessage = req.form.EngravedMessage;
         if (!empty(currentBasket)) {
