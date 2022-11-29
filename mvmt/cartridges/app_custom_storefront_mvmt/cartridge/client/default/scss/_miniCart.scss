@@ -2065,6 +2065,30 @@
                                     background: $white-gray;
                                 }
                             }
+
+                            .recommendation-rail-add-to-cart  {
+                                color: $black;
+                                font-family: $font-futura-pt;
+                                font-size: rem(11);
+                                font-weight: 500;
+                                letter-spacing: rem(1);
+                                line-height: rem(10);
+                                text-align: center;
+                                height: rem(24.88);
+                                width: 100%;
+                                border: none;
+                                background: $white-gray;
+                                padding: 0;
+                                min-height: unset;
+                                @include media-breakpoint-up(lg) {
+                                    opacity: 1;
+                                    bottom: 0;
+                                }
+                                
+                                &:hover {
+                                    background: $white-gray;
+                                }
+                            }
                         }
                     }
                 }
