@@ -1,3 +1,4 @@
+<iscomment> Custom: [This Template is Used in Case Of Recommendation Rail On MiniCart] </iscomment>
 <iscomment> Custom: Start [change class and remove divs as per requirment] </iscomment>
 <isif condition="${product.productType == 'master'}">
     <isset name="availabilityStatus" value="${product.defaultVariantAvailabilityStatus}" scope="page" />
@@ -19,21 +20,20 @@
     <div class="cta-add-to-cart ${product.isBackInStockEnabled ? 'd-none' : ''}">
         <input type="hidden" class="add-to-cart-url" value="${URLUtils.url('Cart-AddProduct')}">
         
-        <iscomment> Custom: [added just a plp check here] </iscomment>
+        <iscomment> Custom: [added just a plp check here and add New class for Recommendation Rail on Cart and Change Data Attributes Values According To Requiremnt] </iscomment>
         <isif condition="${!pdict.display.plpTile}"> 
-            <button class='add-to-cart btn btn-primary ${(!product.readyToOrder || !product.available) ? "out-of-stock-btn" : ""} ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "out-of-stock-btn" : ""}'
-                data-pid="${product.id}"
+            <button class='recommendation-rail-add-to-cart btn btn-primary ${!product.available ? 'disabled' : ''}'
+                data-pid="${product.defaultVariantID ? product.defaultVariantID : product.id}"
                 data-add-to-cart-text="${Resource.msg('button.addtocart', 'common', null)}" 
                 data-out-of-stock-text="${Resource.msg('button.out.of.stock', 'product', null)}" 
-                ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "disabled" : ""}
-                ${(!product.readyToOrder || !product.available) ? "disabled" : ""} >
+                ${!product.available && !(product.variationAttributes && product.variationAttributes.length > 0) ? "disabled" : ""}>
                     <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>
                     <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
                         ${Resource.msg('button.preorder.now', 'common', null)} </br>
                     <iselseif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.backorder', 'common', null) && !empty(product) && !empty(product.ociPreOrderParameters) && product.ociPreOrderParameters.ociPreOrderProductAllocation === 0.00 && product.ociPreOrderParameters.ociPreOrderProductATO > 0 && product.ociPreOrderParameters.ociPreOrderProductFuture === true}"/>
                         ${Resource.msg('button.preorder.now', 'common', null)} </br>
                     <iselseif condition="${product.available}"/>
-                            ${Resource.msg('button.addtocart', 'common', null)}
+                        ${Resource.msg('button.addtocart.cart.recommendation', 'common', null)}
                     <iselse/>
                         ${Resource.msg('button.sold.out', 'product', null)}
                     </isif>
@@ -62,10 +62,9 @@
             
         <iscomment> Custom: Start [added this code for plp either it is master product or not] </iscomment>
         <iselseif condition="${product.productType != 'master'}">
-	        <button class='add-to-cart btn btn-primary ${!product.available ? "out-of-stock-btn" : ""}'
+	        <button class='recommendation-rail-add-to-cart btn btn-primary'
                 data-pid="${product.id}"
-                data-add-to-cart-text="${Resource.msg('button.addtocart', 'common', null)}" 
-                ${!product.available ? "disabled" : ""}>
+                data-add-to-cart-text="${Resource.msg('button.addtocart', 'common', null)}">
                     <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>
                     <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
                         ${Resource.msg('button.preorder.now', 'common', null)} </br>
@@ -86,10 +85,9 @@
                     </isif>
             </button>
 	    <iselse/>
-	        <button class='add-to-cart btn btn-primary ${outOfStock ? "out-of-stock-btn" : ""}' data-avalibility="${!outOfStock}" 
+	        <button class='recommendation-rail-add-to-cart btn btn-primary' data-avalibility="${!outOfStock}" 
                 data-pid="${product.defaultVariant ? product.defaultVariant.ID : ''}"
-                data-add-to-cart-text="${Resource.msg('button.addtocart', 'common', null)}"
-                    ${outOfStock ? "disabled" : ""}>
+                data-add-to-cart-text="${Resource.msg('button.addtocart', 'common', null)}">
                     <iscomment> <i class="fa fa-shopping-bag"></i> </iscomment>
                     <isif condition="${outOfStock}">
                         ${Resource.msg('button.sold.out', 'product', null)}

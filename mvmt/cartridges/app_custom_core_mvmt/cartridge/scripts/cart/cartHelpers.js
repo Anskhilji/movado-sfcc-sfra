@@ -103,10 +103,10 @@ cartHelpers.addProductToCart = function addProductToCart(currentBasket, productI
         canBeAdded = cartHelpers.checkBundledProductCanBeAdded(childProducts, productLineItems, quantity);
     } else {
         totalQtyRequested = quantity + cartHelpers.getQtyAlreadyInCart(productId, productLineItems);
-        perpetual = product.availabilityModel.inventoryRecord.perpetual;
+        perpetual = !empty(product) && !empty(product.availabilityModel) && !empty(product.availabilityModel.inventoryRecord) && !empty(product.availabilityModel.inventoryRecord.perpetual) ? product.availabilityModel.inventoryRecord.perpetual : false;
         canBeAdded =
             (perpetual
-            || totalQtyRequested <= product.availabilityModel.inventoryRecord.ATS.value);
+            || totalQtyRequested <= !empty(product) && !empty(product.availabilityModel) && !empty(product.availabilityModel.inventoryRecord) && !empty(product.availabilityModel.inventoryRecord.perpetual) && !empty(product.availabilityModel.inventoryRecord.ATS) && !empty(product.availabilityModel.inventoryRecord.ATS.value) ? product.availabilityModel.inventoryRecord.ATS.value : 0);
     }
 
     if (!canBeAdded) {

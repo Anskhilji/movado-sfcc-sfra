@@ -280,15 +280,19 @@ module.exports = function () {
         var variationPID = response.product.id;
         var isVariationQantityExist = response.product.quantities;
         var $addToCartSelector = $productContainer.find('.cta-add-to-cart button.add-to-cart');
-        var $cartRecommendation = $addToCartSelector.data('cart-recommendation');
+        var $addToCartRecRailSelector = $productContainer.find('.cta-add-to-cart button.recommendation-rail-add-to-cart');
+
         if (response.product.available) {
             if (response.product.available) {
                 var $cartButtonContainer = $productContainer.find('button.add-to-cart');
-                if ($cartRecommendation) {
-                    $cartButtonContainer.text(Resources.ADD_TO_CART_RECOMMENDATION_RAIL_LABEL);
-                } else {
                     $cartButtonContainer.text(Resources.ADD_TO_CART_LABEL);
-                }
+            }
+        }
+
+        if (response && response.product && response.product.available) {
+            if (response.product.available) {
+                var $cartButtonContainer = $productContainer.find('button.recommendation-rail-add-to-cart');
+                    $cartButtonContainer.text(Resources.ADD_TO_CART_RECOMMENDATION_RAIL_LABEL);
             }
         }
 
@@ -341,6 +345,27 @@ module.exports = function () {
                 $addToCartSelector.text(Resources.OUT_OF_STOCK_LABEL);
                 $addToCartSelector.addClass('out-of-stock-btn');
                 $addToCartSelector.prop('disabled', true);
+            }
+        }
+
+        $addToCartRecRailSelector.data('pid', variationPID);
+        if (isVariationQantityExist) {
+            $addToCartRecRailSelector.removeClass('out-of-stock-btn');
+            $addToCartRecRailSelector.prop('disabled', false);
+        } else {
+            $addToCartRecRailSelector.addClass('out-of-stock-btn');
+            $addToCartRecRailSelector.prop('disabled', true);
+        }
+        var $availibilityContainer = $productContainer.find('.mvmt-avilability');
+        if ($availibilityContainer) {
+
+            $availibilityContainer.hide();
+            if (!response.product.available) {
+                $availibilityContainer.show();
+                $availibilityContainer.removeClass('d-none').css('display', 'inline');
+                $addToCartRecRailSelector.text(Resources.OUT_OF_STOCK_LABEL);
+                $addToCartRecRailSelector.addClass('out-of-stock-btn');
+                $addToCartRecRailSelector.prop('disabled', true);
             }
         }
 
