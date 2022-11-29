@@ -154,7 +154,7 @@ header {
             &.new-header {
 
                 .overlay {
-                    height: rem(122);
+                    height: rem(118);
                 }
 
                 @include media-breakpoint-down(lg) {
