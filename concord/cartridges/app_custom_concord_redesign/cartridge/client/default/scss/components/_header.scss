@@ -43,6 +43,12 @@ header {
 
         }
 
+        .desktop-menu {
+            .dropdown-menu {
+                margin-top: rem(-3);
+            }
+        }
+
         .header-search-field {
             font-family: $font-raleway-medium;
         }
