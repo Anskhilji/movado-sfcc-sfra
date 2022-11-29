@@ -1,3 +1,4 @@
+<iscomment> Custom: [This Template is Used in Case Of Recommendation Rail On MiniCart] </iscomment>
 <iscomment> Custom: Start [change class and remove divs as per requirment] </iscomment>
 <isif condition="${product.productType == 'master'}">
     <isset name="availabilityStatus" value="${product.defaultVariantAvailabilityStatus}" scope="page" />
@@ -19,7 +20,7 @@
     <div class="cta-add-to-cart ${product.isBackInStockEnabled ? 'd-none' : ''}">
         <input type="hidden" class="add-to-cart-url" value="${URLUtils.url('Cart-AddProduct')}">
         
-        <iscomment> Custom: [added just a plp check here] </iscomment>
+        <iscomment> Custom: [added just a plp check here and add New class for Recommendation Rail on Cart and Change Data Attributes Values According To Requiremnt] </iscomment>
         <isif condition="${!pdict.display.plpTile}"> 
             <button class='recommendation-rail-add-to-cart btn btn-primary ${!product.available ? 'disabled' : ''}'
                 data-pid="${product.defaultVariantID ? product.defaultVariantID : product.id}"

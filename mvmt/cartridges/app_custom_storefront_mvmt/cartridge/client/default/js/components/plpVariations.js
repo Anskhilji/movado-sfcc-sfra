@@ -289,7 +289,7 @@ module.exports = function () {
             }
         }
 
-        if (response.product.available) {
+        if (response && response.product && response.product.available) {
             if (response.product.available) {
                 var $cartButtonContainer = $productContainer.find('button.recommendation-rail-add-to-cart');
                     $cartButtonContainer.text(Resources.ADD_TO_CART_RECOMMENDATION_RAIL_LABEL);

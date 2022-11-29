@@ -218,45 +218,6 @@ function getAddToCartUrl() {
     return $('.add-to-cart-url').val();
 }
 
-function openMiniCart() {
-    //Custom Start: Open the mini cart
-    var url = $('.minicart').data('action-url');
-    var count = parseInt($('.minicart .minicart-quantity').text());
-
-    if (count !== 0 && $('.mini-cart-data .popover.show').length === 0) {
-        $.get(url, function (data) {
-            $('.mini-cart-data .popover').empty();
-            $('.mini-cart-data .popover').append(data);
-            $('#footer-overlay').addClass('footer-form-overlay');
-            setMiniCartProductSummaryHeight();
-            giftMessageTooltip();
-            checkGiftBoxItem();
-            renderSwellRedemptionOptions();
-            $('.mini-cart-data .popover').addClass('show');
-            $('body').trigger('miniCart:recommendations');
-            updateMiniCart = false;
-            $.spinner().stop();
-            loadAmazonButton();
-            hideMiniCartCheckbox();
-        });
-    } else if (count === 0 && $('.mini-cart-data .popover.show').length === 0) {
-        $.get(url, function (data) {
-            $('.mini-cart-data .popover').empty();
-            $('.mini-cart-data .popover').append(data);
-            $('#footer-overlay').addClass('footer-form-overlay');
-            $('.mini-cart-data .popover').addClass('show');
-            $('body').trigger('miniCart:recommendations'); 
-            updateMiniCart = false;
-            $.spinner().stop();
-        });
-    }
-
-    $('.mobile-cart-icon').hide();
-    $('.mobile-cart-close-icon').show();
-    
-    //Custom End
-}
-
 module.exports = function () {
     $cart();
 
@@ -485,8 +446,7 @@ module.exports = function () {
                         $('.mini-cart-data .product-summary .mini-cart-product').append(data.giftProductCardHtml);
                     }
 
-                    $('.recommendation-rail-wrapper').css('border-top', 0);
-                    $('.recommendation-rail-wrapper').css('padding-top', 0);
+                    $('.recommendation-rail-wrapper').addClass('remove-recommendation-border');
 
                         updateCartTotals(data.cart);
                         handlePostCartAdd(data);
@@ -911,7 +871,7 @@ module.exports = function () {
                 
                 updateCartTotals(response.cart);
                 handlePostCartAdd(response);
-                
+
                 //Custom Start: [MSS-1451] Listrak SendSCA on AddToCart
                 if (window.Resources.LISTRAK_ENABLED) {
                     var ltkSendSCA = require('listrak_custom/ltkSendSCA');
