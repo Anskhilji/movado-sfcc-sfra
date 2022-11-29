@@ -30,7 +30,7 @@
                     <picture>
                         <source media="(min-width: 992px)" srcset="${product.images.zoom1660[loopStatus.count - 1].url}" />
                         <source media="(min-width: 544px)" srcset="${product.images.zoom1660[loopStatus.count - 1].url}" />
-                        <source media="(min-width: 320px)" srcset="${product.images.zoom1660[loopStatus.count - 1].url}" />
+                        <source media="(min-width: 320px)" srcset="${product.images.zoom830[loopStatus.count - 1].url}" />
                         <img class="normal-zoom" src="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count - 1]) && !empty(product.images.zoom1660[loopStatus.count - 1].url) ? product.images.zoom1660[loopStatus.count - 1].url : ''}"  alt="${!empty(image.alt) ? image.alt : ''}" itemprop="image"
                             data-zoom-mobile-url="${!empty(product.images) && !empty(product.images.zoom830[loopStatus.count - 1]) && !empty(product.images.zoom830[loopStatus.count - 1].url) ? product.images.zoom830[loopStatus.count - 1].url : ''}"
                             data-zoom-desktop-url="${!empty(product.images) && !empty(product.images.zoom1660[loopStatus.count - 1]) && !empty(product.images.zoom1660[loopStatus.count - 1].url) ? product.images.zoom1660[loopStatus.count - 1].url : ''}" />
