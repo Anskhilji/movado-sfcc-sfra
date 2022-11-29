@@ -12,11 +12,11 @@
             @include media-breakpoint-down(xs) {
                 &.collapsible-xs {
                     
-                    .title:after{
+                    .title:after {
                         content: "";
                     }
 
-                    &.active .title:after{
+                    &.active .title:after {
                         content: "";
                     }
                 }
