@@ -1115,9 +1115,9 @@
 
 		.price-pdp-mvmt {
 			color: $black3;
-			font-family: $font-gills-light;
+			font-family: $font-gill-std-semibold;
 			font-size: rem(34);
-			font-weight: 300;
+			font-weight: 400;
 			letter-spacing: 0;
 			line-height: rem(41);
 
@@ -1268,10 +1268,10 @@
 		.flex-container-shipping {
 			display: flex;
 			align-items: center;
-			font-family: $font-gill-std-medium;
+			font-family: $font-gill-std-semibold;
 			font-size: rem(15);
 			color: $grey8;
-			font-weight: 600;
+			font-weight: 300;
 			letter-spacing: 0;
 			line-height: rem(20);
 			text-transform: capitalize;
