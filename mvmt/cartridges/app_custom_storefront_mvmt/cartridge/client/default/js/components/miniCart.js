@@ -911,8 +911,7 @@ module.exports = function () {
                 
                 updateCartTotals(response.cart);
                 handlePostCartAdd(response);
-                // $('#close-mini-cart').trigger('click');
-                // openMiniCart();
+                
                 //Custom Start: [MSS-1451] Listrak SendSCA on AddToCart
                 if (window.Resources.LISTRAK_ENABLED) {
                     var ltkSendSCA = require('listrak_custom/ltkSendSCA');
