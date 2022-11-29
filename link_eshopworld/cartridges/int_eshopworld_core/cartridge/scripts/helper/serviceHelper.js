@@ -187,9 +187,7 @@ function getCartItemsV2() {
         if (empty(ImageModel[tile][0])) {
             if (siteId === 'MovadoUS') {
                 siteLogo = URLUtils.staticURL('/images/movado-logo.svg').toString();
-            } else if (siteId === 'MVMTUS') {
-                siteLogo = URLUtils.staticURL('/images/mvmt-logo.svg').toString();
-            } else if (siteId === 'MVMTEU') {
+            } else if (siteId === 'MVMTUS' || siteId === 'MVMTEU') {
                 siteLogo = URLUtils.staticURL('/images/mvmt-logo.svg').toString();
             } else if (siteId === 'OliviaBurtonUS') {
                 siteLogo = URLUtils.staticURL('/images/olivia-burton-logo.svg').toString();
