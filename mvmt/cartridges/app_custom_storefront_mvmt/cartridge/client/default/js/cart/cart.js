@@ -1082,7 +1082,7 @@ module.exports = function () {
                 refreshGiftMessage();
                 $.spinner().stop();
             },
-
+            
             error: function () {
                 $.spinner().stop();
             },
