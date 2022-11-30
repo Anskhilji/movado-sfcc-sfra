@@ -46,7 +46,7 @@ header {
         .desktop-menu {
             
             .dropdown-menu {
-                margin-top: rem(-3);
+                margin-top: rem(0);
             }
         }
 
@@ -117,7 +117,7 @@ header {
                     .header-wrapper {
 
                         .header-container {
-                            height: rem(122);
+                            height: rem(125);
                         }
                     }
 
@@ -128,7 +128,7 @@ header {
                             .header-wrapper {
 
                                 .header-container {
-                                    height: rem(119);
+                                    height: rem(105);
                                 }
                             }
                         }
@@ -144,7 +144,7 @@ header {
                     &.sticky-header {
 
                         .overlay {
-                            height: rem(119);
+                            height: rem(105);
                         }
 
                         .logo-link {
@@ -161,7 +161,7 @@ header {
             &.new-header {
 
                 .overlay {
-                    height: rem(118);
+                    height: rem(125);
                 }
 
                 @include media-breakpoint-down(lg) {
