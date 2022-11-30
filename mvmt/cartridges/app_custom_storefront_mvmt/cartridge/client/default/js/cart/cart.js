@@ -1048,7 +1048,8 @@ module.exports = function () {
 
 
     $('body').on('click', '.gift-box-container-link', function (evt) {
-        evt.preventDefault(); 
+        evt.preventDefault();
+        $('#giftBoxModelPopUp').find('.modal-content').empty();
         var $endPointUrl = $(evt.target).closest('a').attr('href');
         var $itemLevelGiftMessage = $(this).data('gift-message');
         $.spinner().start();
@@ -1080,7 +1081,16 @@ module.exports = function () {
                 
                 refreshGiftMessage();
                 $.spinner().stop();
+            },
+            
+            error: function () {
+                $.spinner().stop();
+            },
 
+            complete: function () {
+                setTimeout(function() {
+                   $('.gift-box-container-modal-body').removeClass('disable-gift-box-model');
+                }, 2000);
             }
         });
     });

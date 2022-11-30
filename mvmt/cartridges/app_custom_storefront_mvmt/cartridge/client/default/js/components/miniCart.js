@@ -392,9 +392,6 @@ module.exports = function () {
                         $('.mini-cart-data .product-summary .mini-cart-product').empty();
                         $('.mini-cart-data .product-summary .mini-cart-product').append(data.giftProductCardHtml);
                     }
-
-                    $('.recommendation-rail-wrapper').addClass('remove-recommendation-border');
-                    
                         updateCartTotals(data.cart);
                         handlePostCartAdd(data);
                         //Custom Start: [MSS-1451] Listrak SendSCA on AddToCart
@@ -448,9 +445,6 @@ module.exports = function () {
                         $('.mini-cart-data .product-summary .mini-cart-product').empty();
                         $('.mini-cart-data .product-summary .mini-cart-product').append(data.giftProductCardHtml);
                     }
-
-                    $('.recommendation-rail-wrapper').addClass('remove-recommendation-border');
-
                         updateCartTotals(data.cart);
                         handlePostCartAdd(data);
                         //Custom Start: [MSS-1451] Listrak SendSCA on AddToCart
