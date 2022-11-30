@@ -483,22 +483,6 @@
             -ms-overflow-style: none;
             padding-top: rem(25);
 
-            .row {
-
-                &:last-child {
-                    padding-bottom: rem(8);
-
-                    @include media-breakpoint-down(lg) {
-                        padding-bottom: rem(6);
-                    }
-
-                    .card {
-                        border-bottom: none;
-                        margin-bottom: 0;
-                    }
-                }
-            }
-
             /* Hide scrollbar for Chrome, Safari and Opera */
             &::-webkit-scrollbar {
                 display: none;
@@ -1904,6 +1888,11 @@
     }
 }
 
+.disable-gift-box-model {
+    pointer-events: none;
+    cursor: no-drop;
+}
+
 .border-gift {
     border-top: 1px solid $gray14;
     margin-top: rem(20);
@@ -1956,13 +1945,7 @@
 }
 
 .recommendation-rail-wrapper {
-    border-top: rem(1) solid $light-gray4;
     padding-top: rem(10);
-}
-
-.remove-recommendation-border {
-    border-top: 0;
-    padding-top: 0;
 }
 
 .product-slot-slider {
