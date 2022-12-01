@@ -172,7 +172,6 @@
                                     <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
                                 </div>
                             <iselseif condition="${dw.campaign.ABTestMgr.isParticipant('OBPdpCTATest','render-static-cta')}" /> 
-
                                 <div class="${product.available ? "add-to-cart-actions " : ""}">
                                     <!-- Cart and [Optionally] Apple Pay -->
                                     <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
