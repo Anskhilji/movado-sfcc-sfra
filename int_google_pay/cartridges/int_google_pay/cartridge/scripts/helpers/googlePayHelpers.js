@@ -320,12 +320,6 @@ function getTransactionInfo(req) {
     switch (req.form.googlePayEntryPoint) {
         case 'Product-Show':
             addProductToCart(currentBasket, productId, quantity, childProducts, options, form);
-            if (addProductToCart) {
-                var embossedMessage = req.form.EmbossedMessage; // message to be Embossed Or Engraved  //'EM\nEngraveMessage';
-                var engravedMessage = req.form.EngravedMessage;
-                var addCartGtmArray = customCartHelpers.createAddtoCartProdObj(currentBasket, productId, embossedMessage, engravedMessage, form);
-                transactionInfo.addCartGtmArray = addCartGtmArray;
-            }
             if (session.privacy.pickupFromStore) {
                 session.custom.applePayCheckout = true;
                 Transaction.wrap(function () {

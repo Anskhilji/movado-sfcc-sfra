@@ -162,7 +162,7 @@
                 .nav-link {
                     width: fit-content;
                     font-family: $font-gill-std-semibold;
-                    font-weight: 500;
+                    font-weight: 600;
                     font-size: rem(16);
                     text-transform: capitalize;
                     padding: rem(30) rem(10);
@@ -454,17 +454,21 @@
         overflow: auto;
 
         .dropdown-menu {
-            background-color: $white;
+            background-color: $gray;
             min-height: 100%;
 
             ul {
-                background-color: $white;
+                background-color: $gray;
             }
         }
 
         .mobile-main-navigaiton {
             position: static;
             padding-bottom: rem(60);
+
+            @include media-breakpoint-down(md) {
+                background-color: $gray;
+            }
         }
 
         .redesign-header-container {
@@ -485,6 +489,13 @@
 
         &.main-menu.menu-toggleable-left {
             max-width: rem(280);
+
+            &.main-menu {
+                
+                @include media-breakpoint-down(md) {
+                    background-color: $gray;
+                }
+            }
         }
 
         .navbar-expand-md {
@@ -498,7 +509,7 @@
             }
 
             .close-menu {
-                background: $white;
+                background: $gray;
                 border: none;
                 padding-left: rem(20);
 
@@ -600,7 +611,7 @@
 
 
         .menu-pane {
-            background-color: $white;
+            background-color: $gray;
         }
 
         .divider {
@@ -616,6 +627,10 @@
             .mobile-sign-in {
                 bottom: 0;
                 width: 100%;
+
+                &:hover {
+                    background-color: $gray;
+                }
 
                 &.show {
 
@@ -638,7 +653,7 @@
                     width: 100%;
                     max-width: rem(280);
                     min-width: 40%;
-                    background-color: $gray;
+                    background-color: $gray-light;
                     bottom: 0;
                 }
 
