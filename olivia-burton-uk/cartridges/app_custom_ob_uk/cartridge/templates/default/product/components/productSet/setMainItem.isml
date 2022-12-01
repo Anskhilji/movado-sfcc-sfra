@@ -162,23 +162,22 @@
                                 <isinclude template="product/components/productSet/productAvailability" />
                             </div>
 
-                                        <iscomment> Custom Start: [MSS-1954] Added A/B Test for ATC Button Variation </iscomment>
+                            <iscomment> Custom Start: [MSS-1954] Added A/B Test for ATC Button Variation </iscomment>
                             <isif condition="${dw.campaign.ABTestMgr.isParticipant('OBPdpCTATest','Control')}" >
-                            <h1>Control Segment</h1>
-                            <div class="add-to-cart-observer">
-                                <!-- Cart  -->
-                                <isinclude template="product/components/productSet/addToCartProduct" />
-                            </div>
-                            
-                            <div class="prices-add-to-cart-actions">
-                                <!-- Prices -->
-                                <div class="prices prices-main">
-                                    <isinclude template="product/components/productSet/setPrice" />
+                                <div class="add-to-cart-observer">
+                                    <!-- Cart  -->
+                                    <isinclude template="product/components/productSet/addToCartProduct" />
                                 </div>
+                                
+                                <div class="prices-add-to-cart-actions">
+                                    <!-- Prices -->
+                                    <div class="prices prices-main">
+                                        <isinclude template="product/components/productSet/setPrice" />
+                                    </div>
 
-                                <!-- Cart Mobile -->
-                               <isinclude template="product/components/productSet/addToCartProduct" />
-                            </div>
+                                    <!-- Cart Mobile -->
+                                <isinclude template="product/components/productSet/addToCartProduct" />
+                                </div>
                             <iselseif condition="${dw.campaign.ABTestMgr.isParticipant('OBPdpCTATest','render-sticky-cta')}" />
                             <div class="prices-add-to-cart-actions">
                                 <!-- Prices -->
@@ -191,15 +190,15 @@
                             </div>
 
                             <iselseif condition="${dw.campaign.ABTestMgr.isParticipant('OBPdpCTATest','render-static-cta')}" />
-                            <div class="add-to-cart-observer">
-                                <!-- Cart  -->
-                                <isinclude template="product/components/productSet/addToCartProduct" />
-                            </div>
+                                <div class="add-to-cart-observer">
+                                    <!-- Cart  -->
+                                    <isinclude template="product/components/productSet/addToCartProduct" />
+                                </div>
                             <iselse/>
-                            <div class="add-to-cart-observer">
-                                <!-- Cart  -->
-                                <isinclude template="product/components/productSet/addToCartProduct" />
-                            </div>
+                                <div class="add-to-cart-observer">
+                                    <!-- Cart  -->
+                                    <isinclude template="product/components/productSet/addToCartProduct" />
+                                </div>
                             
                             <div class="prices-add-to-cart-actions d-none">
                                 <!-- Prices -->
@@ -208,7 +207,6 @@
                                 </div>
 
                                 <!-- Cart Mobile -->
-                                
                                <isinclude template="product/components/productSet/addToCartProduct" />
                             </div>
                             </isif>

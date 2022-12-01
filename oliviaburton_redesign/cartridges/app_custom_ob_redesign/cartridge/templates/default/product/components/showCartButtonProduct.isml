@@ -1,5 +1,4 @@
 <isset name="product" value="${pdict.product}" scope="page"/>
-<h1>Hwllo wrold</h1>
 <isif condition="${pdict.isPLPProduct}">
     <isinclude template="product/components/addToCartProduct" />
 <iselse>

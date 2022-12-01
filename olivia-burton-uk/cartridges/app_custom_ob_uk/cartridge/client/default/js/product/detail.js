@@ -152,8 +152,6 @@ $(document).ready(function () {
         var $stickyAddToCartObserver = document.querySelector('.add-to-cart-observer');
         var $stickyAddToCart = document.querySelector('.prices-add-to-cart-actions');
 
-        console.log($stickyAddToCartObserver);
-        console.log($stickyAddToCart);
         if ($stickyAddToCartObserver && $stickyAddToCart) {
             var $obsCallBack = function (entries, observer) {
                 var [$entry] = entries;
