@@ -2360,6 +2360,11 @@
             padding: 0 rem(6.5);
         }
     }
+
+    .carousel-container-wrapper {
+        overflow: unset;
+    }
+    
     .cs-carousel-wrapper {
         .slick-list {
             margin: 0;
