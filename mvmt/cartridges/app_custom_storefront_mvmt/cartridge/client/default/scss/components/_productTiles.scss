@@ -82,6 +82,24 @@
         display: block;
       }
     }
+
+    &.minicart-recommendation-rail {
+      .tile-body {
+        .plp-swatches, .color-swatches-search {
+  
+          .slick {
+    
+            &-next {
+              right: rem(-16);
+            }
+    
+            &-prev {
+              left: rem(-18);
+            }
+          }
+        }
+      }
+    }
   
     .tile-body {
       padding: rem(15) 0;
@@ -858,6 +876,24 @@
 
                 .slick-track {
                   margin: 0 auto;
+                }
+              }
+
+              &.minicart-recommendation-rail {
+
+                .plp-swatches {
+                  .slick {
+                    &-arrow {
+                      margin: 0;
+                      padding: 0;
+                      top: rem(2);
+
+                      @include media-breakpoint-down(sm) {
+                        top: rem(0);
+                        height: rem(0);
+                      }
+                    }
+                  }
                 }
               }
 
