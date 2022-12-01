@@ -8,17 +8,12 @@ var ShippingMgr = require('dw/order/ShippingMgr');
 var BasketMgr = require('dw/order/BasketMgr');
 var StoreMgr = require('dw/catalog/StoreMgr');
 
-
-
 var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
 var Constants = require('~/cartridge/scripts/helpers/utils/Constants');
 var omniChannelAPIHelper = require('~/cartridge/scripts/helpers/omniChannelAPIHelper');
 var omniChannelAPI = require('*/cartridge/scripts/api/omniChannelAPI');
 var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
 var ShippingHelper = require('*/cartridge/scripts/checkout/shippingHelpers');
-
-
-
 
 var page = module.superModule;
 server.extend(page);
