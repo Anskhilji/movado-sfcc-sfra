@@ -118,7 +118,7 @@
                         <iscomment> Custom End </iscomment>
                     </div>
                 </isif>
-                <isinclude template="beamIncludes" />
+                 <iscomment> include in header  </iscomment>
                 <isinclude template="beamWidgetCart" />
                 <div class="no-gutters row cart-order-outer-box">
                     <div class="cart-order-box">

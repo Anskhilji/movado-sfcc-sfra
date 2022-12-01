@@ -1,7 +1,11 @@
  <isset value="${dw.system.Site.current.preferences.custom}" name="sitePref" scope="page" />
  <isif condition="${sitePref.enableBeam}">
     <isif condition="${sitePref.enableBeamOrderConfirmation}">
-        <div id="#beam-container"></div>
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets');
+        assets.addJs('/js/beamOrder.js');
+    </isscript>
+        <div id="beam-container"></div>
         <script type="module" crossorigin>	
           import { showBeamOrderPageWidgets, utils } from "https://production-beam-widgets.beamimpact.com/web-sdk/v1.8.0/dist/components/shopify.esm.js";
           
@@ -11,7 +15,7 @@
               storeId: 297,
               orderId: "${order.orderNumber}", // get from order
               email: "${order.orderEmail}", // get from order
-              cartTotal: "${order.totals.grandTotal}", // get from order
+              cartTotal: 118.50, // get from order
               currencyCode: "USD", // get from order
 			  countryCode: "US", // get from order
 			  postalCode: "10013", // get from order
