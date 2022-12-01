@@ -140,19 +140,15 @@
 	</div>
 	
 
-	<div class="container plp-recommendation-carousel">
-		<div class="row">
-			<div class="col-12">
-				<isif condition="${dw.campaign.ABTestMgr.isParticipant('EinsteinOrManualProdcutRecommendations','EinsteinRecommendation')}">
-					<isslot id="einstein-recommendations-plp" description="Einstein recommendations for PLP" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
-				<iselse>
-					<isif condition="${pdict.productSearch.category}">
-						<isslot id="cs_plp_bottom_slot" context="category" description="Recommendation content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
-						<isslot id="cs_plp_seo_bottom_slot" context="category" description="SEO content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
-					</isif>
-				</isif>
-			</div>
-		</div>
+	<div class="plp-recommendation-carousel">
+		<isif condition="${dw.campaign.ABTestMgr.isParticipant('EinsteinOrManualProdcutRecommendations','EinsteinRecommendation')}">
+			<isslot id="einstein-recommendations-plp" description="Einstein recommendations for PLP" context="category" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
+		<iselse>
+			<isif condition="${pdict.productSearch.category}">
+				<isslot id="cs_plp_bottom_slot" context="category" description="Recommendation content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
+				<isslot id="cs_plp_seo_bottom_slot" context="category" description="SEO content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
+			</isif>
+		</isif>
 	</div>
 
 	<isif condition="${dw.system.Site.current.getCustomPreferenceValue('enableSwatch')}">
