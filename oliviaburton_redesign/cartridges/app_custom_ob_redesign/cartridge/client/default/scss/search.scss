@@ -2028,3 +2028,11 @@
 .filter-count-visible { 
     visibility: visible;
 }
+
+.plp-recommendation-carousel {
+
+    .carousel-container-wrapper  {
+        overflow: unset;
+        padding: 0 rem(15);
+    }
+}
