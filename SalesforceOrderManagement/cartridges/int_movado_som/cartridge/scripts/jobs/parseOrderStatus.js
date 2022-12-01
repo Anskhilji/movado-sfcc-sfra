@@ -16,6 +16,8 @@ var OrderStatusCapture = require('*/cartridge/scripts/jobs/orderStatusCapture');
 var OrderStatusVoid = require('*/cartridge/scripts/jobs/orderStatusVoid');
 var OrderStatusRefund = require('*/cartridge/scripts/jobs/orderStatusRefund');
 var OrderStatusNotification = require('*/cartridge/scripts/jobs/orderStatusNotification');
+var errorMessage;
+var errorMessageList = [];
 
 /**
  * parseOrderStatus Grabs an order status file and parses it to be
@@ -47,53 +49,73 @@ function parseOrderStatus(args) {
     }
 
     for (var fileCount = 0; fileCount < filesToParse.length; fileCount++) {
-        var file = new File(filesToParse[fileCount]);
-        Logger.info('parseOrderStatus - Starting FILE ' + file.getFullPath());
-        var fileReader = new FileReader(file);
-        var xmlReader = new XMLStreamReader(fileReader);
+        try{
+            var file = new File(filesToParse[fileCount]);
+            Logger.info('parseOrderStatus - Starting FILE ' + file.getFullPath());
+            var fileReader = new FileReader(file);
+            var xmlReader = new XMLStreamReader(fileReader);
 
-        var parseEvent;
-        var tempLocalName = '';
-        var XMLToParse;
+            var parseEvent;
+            var tempLocalName = '';
+            var XMLToParse;
 
-        while (xmlReader.hasNext()) {
-            parseEvent = xmlReader.next();
-            if (parseEvent === XMLStreamConstants.START_ELEMENT) {
-                tempLocalName = StringUtils.trim(xmlReader.getLocalName());
+            while (xmlReader.hasNext()) {
+                try {
+                    parseEvent = xmlReader.next();
+                    if (parseEvent === XMLStreamConstants.START_ELEMENT) {
+                        tempLocalName = StringUtils.trim(xmlReader.getLocalName());
 
-                if (tempLocalName === 'EcommerceOrderStatus') {
-                    XMLToParse = xmlReader.readXMLObject();
-                    var nodeStatus = JXON.toJS(XMLToParse);
+                        if (tempLocalName === 'EcommerceOrderStatus') {
+                            XMLToParse = xmlReader.readXMLObject();
+                            var nodeStatus = JXON.toJS(XMLToParse);
 
-                    if (!nodeStatus || !nodeStatus.EcommerceOrderStatus || !nodeStatus.EcommerceOrderStatus.EcommerceOrderStatusHeader || !nodeStatus.EcommerceOrderStatus.EcommerceOrderStatusItem) {
-                        Logger.error('parseOrderStatus - bad or missing node encountered - ' + JSON.stringify(nodeStatus));
-                    }
+                            if (!nodeStatus || !nodeStatus.EcommerceOrderStatus || !nodeStatus.EcommerceOrderStatus.EcommerceOrderStatusHeader || !nodeStatus.EcommerceOrderStatus.EcommerceOrderStatusItem) {
+                                Logger.error('parseOrderStatus - bad or missing node encountered - ' + JSON.stringify(nodeStatus));
+                            }
 
-                    if (!Array.isArray(nodeStatus.EcommerceOrderStatus.EcommerceOrderStatusItem)) {
-                        nodeStatus.EcommerceOrderStatus.EcommerceOrderStatusItem = [nodeStatus.EcommerceOrderStatus.EcommerceOrderStatusItem];
-                    }
-                    var resultOrderStatus = processStatusOrder(nodeStatus.EcommerceOrderStatus);
-                    if (resultOrderStatus.error) {
-                        status.addItem(new StatusItem(Status.ERROR, 'ERROR', resultOrderStatus.message));
-                    }
-                } else {
-                    if (tempLocalName !== 'root') {
-                        Logger.error('parseOrderStatus - encountered unknown node - ' + tempLocalName);
+                            if (!Array.isArray(nodeStatus.EcommerceOrderStatus.EcommerceOrderStatusItem)) {
+                                nodeStatus.EcommerceOrderStatus.EcommerceOrderStatusItem = [nodeStatus.EcommerceOrderStatus.EcommerceOrderStatusItem];
+                            }
+                            var resultOrderStatus = processStatusOrder(nodeStatus.EcommerceOrderStatus);
+                            if (resultOrderStatus.error) {
+                                status.addItem(new StatusItem(Status.ERROR, 'ERROR', resultOrderStatus.message));
+                            }
+                        } else {
+                            if (tempLocalName !== 'root') {
+                                Logger.error('parseOrderStatus - encountered unknown node - ' + tempLocalName);
+                            }
+                        }
                     }
                 }
+                catch (e) {
+                    errorMessage  = 'Error encountered ' + e.stack +' '+ 'Error Message '+ e.message + ',';
+                    errorMessageList.push(errorMessage);
+                }
             }
-        }
 
-        xmlReader.close();
-        fileReader.close();
+            xmlReader.close();
+            fileReader.close();
+        }
+        catch (e) {
+            errorMessage  = 'Error encountered ' + e.stack +' '+ 'Error Message '+ e.message + ',';
+            errorMessageList.push(errorMessage);
+        }
     }
 
     if (status.items.length > 0) {
         Logger.error('parseOrderStatus errors:');
         for (var i = 0; i < status.items.size(); i++) {
+            errorMessage = status.items[i].message;
             Logger.error(status.items[i].message);
+            errorMessageList.push(errorMessage);
+        }
+        if (!! errorMessageList && errorMessageList.length > 0) {
+            SalesforceModel.sendErrorMail(errorMessageList);
         }
         return status;
+    }
+    if (!! errorMessageList && errorMessageList.length > 0) {
+        SalesforceModel.sendErrorMail(errorMessageList);
     }
     return new Status(Status.OK, 'OK', 'Finished Successfully');
 }
@@ -108,86 +130,91 @@ function processStatusOrder(SAPOrderStatus) {
     //
 
     Logger.info('Working on ' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber);
+    try{
+        var fulfillmentOrder = SalesforceModel.createSalesforceRestRequest({
+            method: 'GET',
+            url: '/services/data/v52.0/query/?q=' +
+                'SELECT+' +
+                'Id,Status,OrderSummary.Id,OrderSummary.eswOrderNo__c,FulfilledToName,' +
+                '(SELECT+' +
+                'Id,Type,Quantity,' +
+                'OrderItemSummary.Id,OrderItemSummary.LineNumber,' +
+                'OrderItemSummary.ProductCode,' +
+                'OrderItemSummary.WarrantyParentOrderItemSummary__r.Id,' +
+                'OrderItemSummary.WarrantyChildOrderItemSummary__r.Id,OrderItemSummary.WarrantyChildOrderItemSummary__r.Quantity+' +
+                'FROM+FulfillmentOrderLineItems)+' +
+                'FROM+FulfillmentOrder+WHERE+FulfillmentOrderNumber=\'' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber + '\'',
+            referenceId: 'SalesforceOrderStatus'
+        });
 
-    var fulfillmentOrder = SalesforceModel.createSalesforceRestRequest({
-        method: 'GET',
-        url: '/services/data/v52.0/query/?q=' +
-            'SELECT+' +
-            'Id,Status,OrderSummary.Id,OrderSummary.eswOrderNo__c,FulfilledToName,' +
-            '(SELECT+' +
-            'Id,Type,Quantity,' +
-            'OrderItemSummary.Id,OrderItemSummary.LineNumber,' +
-            'OrderItemSummary.ProductCode,' +
-            'OrderItemSummary.WarrantyParentOrderItemSummary__r.Id,' +
-            'OrderItemSummary.WarrantyChildOrderItemSummary__r.Id,OrderItemSummary.WarrantyChildOrderItemSummary__r.Quantity+' +
-            'FROM+FulfillmentOrderLineItems)+' +
-            'FROM+FulfillmentOrder+WHERE+FulfillmentOrderNumber=\'' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber + '\'',
-        referenceId: 'SalesforceOrderStatus'
-    });
+        if (!fulfillmentOrder.ok) {
+            return new Status(Status.ERROR, 'ERROR', 'Salesforce FO query error: ' + JSON.stringify(fulfillmentOrder));
+        }
 
-    if (!fulfillmentOrder.ok) {
-        return new Status(Status.ERROR, 'ERROR', 'Salesforce FO query error: ' + JSON.stringify(fulfillmentOrder));
+        // Object validation
+        if (!fulfillmentOrder.object || !fulfillmentOrder.object.records || fulfillmentOrder.object.records.length < 1 || !fulfillmentOrder.object.done) {
+            return new Status(Status.ERROR, 'ERROR', 'Salesforce FO query missing details: ' + JSON.stringify(fulfillmentOrder));
+        }
+        if (!fulfillmentOrder.object.records[0].FulfillmentOrderLineItems || !fulfillmentOrder.object.records[0].FulfillmentOrderLineItems.records) {
+            return new Status(Status.ERROR, 'ERROR', 'Salesforce FO query returned no line items: ' + JSON.stringify(fulfillmentOrder));
+        }
+
+        // Evaluate Transaction Type
+        switch (SAPOrderStatus.EcommerceOrderStatusHeader.TransactionType) {
+
+            case 'CAPTURE':
+                // Process rejections vs shipped here
+                return OrderStatusCapture.processStatusCapture(SAPOrderStatus, fulfillmentOrder);
+
+            case 'VOID':
+                // Process rejections
+                return OrderStatusVoid.processStatusVoid(SAPOrderStatus, fulfillmentOrder);
+
+            case 'REFUND':
+                // Process refunds
+                return OrderStatusRefund.processStatusRefund(SAPOrderStatus, fulfillmentOrder);
+
+            case 'REJECTION':
+                // Notification for refunds
+                return OrderStatusRefund.processStatusRefund(SAPOrderStatus, fulfillmentOrder);
+
+            case 'CANCELLATION':
+                switch (SAPOrderStatus.EcommerceOrderStatusHeader.EventType) {
+                    case 'RETURN':
+                        // Notification for refunds
+                        return OrderStatusRefund.processStatusRefund(SAPOrderStatus, fulfillmentOrder);
+                    default:
+                        Logger.error('Unknown EventType for CANCELLATION TransactionType: ' + SAPOrderStatus.EcommerceOrderStatusHeader.EventType);
+                        return new Status(Status.ERROR, 'ERROR', 'unknown EventType for TransactionType CANCELLATION: ' + JSON.stringify(SAPOrderStatus.EcommerceOrderStatusHeader));
+                }
+
+            case 'UPDATE':
+                switch (SAPOrderStatus.EcommerceOrderStatusHeader.EventType) {
+                    case 'FREE':
+                        return OrderStatusCapture.processStatusCapture(SAPOrderStatus, fulfillmentOrder);
+                    case 'BILLING':
+                        return OrderStatusCapture.processStatusCapture(SAPOrderStatus, fulfillmentOrder);
+                    case 'CANCELLATION':
+                        return OrderStatusRefund.processStatusRefund(SAPOrderStatus, fulfillmentOrder);
+                    case 'RETURN':
+                        return OrderStatusRefund.processStatusRefund(SAPOrderStatus, fulfillmentOrder);
+                    case 'UNDELIVERABLE':
+                        return OrderStatusNotification.processStatusNotification(SAPOrderStatus, fulfillmentOrder);
+                    default:
+                        return new Status(Status.ERROR, 'ERROR', 'unknown EventType for TransactionType UPDATE: ' + JSON.stringify(SAPOrderStatus.EcommerceOrderStatusHeader));
+                }
+
+            default:
+                Logger.error('Unknown TransactionType: ' + SAPOrderStatus.EcommerceOrderStatusHeader.TransactionType);
+                break;
+
+        }
+        return new Status(Status.OK);
     }
-
-    // Object validation
-    if (!fulfillmentOrder.object || !fulfillmentOrder.object.records || fulfillmentOrder.object.records.length < 1 || !fulfillmentOrder.object.done) {
-        return new Status(Status.ERROR, 'ERROR', 'Salesforce FO query missing details: ' + JSON.stringify(fulfillmentOrder));
+    catch (e) {
+        errorMessage  = 'Error occured in this Fulfillment Order: '+ SAPOrderStatus.EcommerceOrderStatusHeader.PONumber + ' with Error ' + e.stack + ' Error Message '+ e.message + ',';
+        errorMessageList.push(errorMessage);
     }
-    if (!fulfillmentOrder.object.records[0].FulfillmentOrderLineItems || !fulfillmentOrder.object.records[0].FulfillmentOrderLineItems.records) {
-        return new Status(Status.ERROR, 'ERROR', 'Salesforce FO query returned no line items: ' + JSON.stringify(fulfillmentOrder));
-    }
-
-    // Evaluate Transaction Type
-    switch (SAPOrderStatus.EcommerceOrderStatusHeader.TransactionType) {
-
-        case 'CAPTURE':
-            // Process rejections vs shipped here
-            return OrderStatusCapture.processStatusCapture(SAPOrderStatus, fulfillmentOrder);
-
-        case 'VOID':
-            // Process rejections
-            return OrderStatusVoid.processStatusVoid(SAPOrderStatus, fulfillmentOrder);
-
-        case 'REFUND':
-            // Process refunds
-            return OrderStatusRefund.processStatusRefund(SAPOrderStatus, fulfillmentOrder);
-
-        case 'REJECTION':
-            // Notification for refunds
-            return OrderStatusRefund.processStatusRefund(SAPOrderStatus, fulfillmentOrder);
-
-        case 'CANCELLATION':
-            switch (SAPOrderStatus.EcommerceOrderStatusHeader.EventType) {
-                case 'RETURN':
-                    // Notification for refunds
-                    return OrderStatusRefund.processStatusRefund(SAPOrderStatus, fulfillmentOrder);
-                default:
-                    Logger.error('Unknown EventType for CANCELLATION TransactionType: ' + SAPOrderStatus.EcommerceOrderStatusHeader.EventType);
-                    return new Status(Status.ERROR, 'ERROR', 'unknown EventType for TransactionType CANCELLATION: ' + JSON.stringify(SAPOrderStatus.EcommerceOrderStatusHeader));
-            }
-
-        case 'UPDATE':
-            switch (SAPOrderStatus.EcommerceOrderStatusHeader.EventType) {
-                case 'FREE':
-                    return OrderStatusCapture.processStatusCapture(SAPOrderStatus, fulfillmentOrder);
-                case 'BILLING':
-                    return OrderStatusCapture.processStatusCapture(SAPOrderStatus, fulfillmentOrder);
-                case 'CANCELLATION':
-                    return OrderStatusRefund.processStatusRefund(SAPOrderStatus, fulfillmentOrder);
-                case 'RETURN':
-                    return OrderStatusRefund.processStatusRefund(SAPOrderStatus, fulfillmentOrder);
-                case 'UNDELIVERABLE':
-                    return OrderStatusNotification.processStatusNotification(SAPOrderStatus, fulfillmentOrder);
-                default:
-                    return new Status(Status.ERROR, 'ERROR', 'unknown EventType for TransactionType UPDATE: ' + JSON.stringify(SAPOrderStatus.EcommerceOrderStatusHeader));
-            }
-
-        default:
-            Logger.error('Unknown TransactionType: ' + SAPOrderStatus.EcommerceOrderStatusHeader.TransactionType);
-            break;
-
-    }
-    return new Status(Status.OK);
 }
 
 module.exports.parseOrderStatus = parseOrderStatus;
