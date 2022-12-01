@@ -8,13 +8,13 @@
           showBeamOrderPageWidgets({
               parentSelector: "#beam-container",
               apiKey: "${sitePref.beamApiKey}",
-              storeId: "${sitePref.beamStoreId}",
+              storeId: 297,
               orderId: "${order.orderNumber}", // get from order
               email: "${order.orderEmail}", // get from order
               cartTotal: "${order.totals.grandTotal}", // get from order
-              currencyCode: "", // get from order
-			  countryCode: "", // get from order
-			  postalCode: "", // get from order
+              currencyCode: "USD", // get from order
+			  countryCode: "US", // get from order
+			  postalCode: "10013", // get from order
               baseUrl: "${sitePref.beamBaseURL}",
           });
           </script>
