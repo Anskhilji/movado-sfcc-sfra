@@ -152,23 +152,27 @@ $(document).ready(function () {
         var $stickyAddToCartObserver = document.querySelector('.add-to-cart-observer');
         var $stickyAddToCart = document.querySelector('.prices-add-to-cart-actions');
 
-        var $obsCallBack = function (entries, observer) {
-            var [$entry] = entries;
-            
-            if (!$entry.isIntersecting) {
-                $stickyAddToCart.classList.remove('d-none')
-                $stickyAddToCart.classList.add('d-block')
-            } else {
-                $stickyAddToCart.classList.add('d-none')
-                $stickyAddToCart.classList.remove('d-block')
-            }
-        };
-       
-        var $observer = new IntersectionObserver($obsCallBack, {
-            root: null,
-            threshold: 0.1
-        });
-        $observer.observe($stickyAddToCartObserver);
+        console.log($stickyAddToCartObserver);
+        console.log($stickyAddToCart);
+        if ($stickyAddToCartObserver && $stickyAddToCart) {
+            var $obsCallBack = function (entries, observer) {
+                var [$entry] = entries;
+                
+                if (!$entry.isIntersecting) {
+                    $stickyAddToCart.classList.remove('d-none');
+                    $stickyAddToCart.classList.add('d-block');
+                } else {
+                    $stickyAddToCart.classList.add('d-none');
+                    $stickyAddToCart.classList.remove('d-block');
+                }
+            };
+           
+            var $observer = new IntersectionObserver($obsCallBack, {
+                root: null,
+                threshold: 0.1
+            });
+            $observer.observe($stickyAddToCartObserver);
+        }
     }
 });
 
