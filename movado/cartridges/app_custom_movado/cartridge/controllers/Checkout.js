@@ -57,11 +57,15 @@ server.append(
 	function (req, res, next) {
         var BasketMgr = require('dw/order/BasketMgr');
         var Locale = require('dw/util/Locale');
+        var Money = require('dw/value/Money');
         var OrderModel = require('*/cartridge/models/order');
         var Site = require('dw/system/Site');
+
+        var Constants = require('*/cartridge/scripts/util/Constants');
         var orderCustomHelper = require('*/cartridge/scripts/helpers/orderCustomHelper');
-        var Money = require('dw/value/Money');
-        
+        var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
+
+        var currentCountry = productCustomHelper.getCurrentCountry();
         var viewData = res.getViewData();
         var actionUrls = viewData.order.checkoutCouponUrls;
         var currentCustomer = req.currentCustomer.raw;
@@ -76,6 +80,9 @@ server.append(
             session.custom.applePayCheckout = false;
         } else {
             session.custom.StorePickUp = false;
+            if (currentCountry == Constants.US_COUNTRY_CODE) {
+                session.custom.isEswShippingMethod = false;
+            }
         }
 
         if (!currentBasket) {
