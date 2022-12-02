@@ -152,7 +152,7 @@ $(document).ready(function () {
         var $stickyAddToCartObserver = document.querySelector('.add-to-cart-observer');
         var $stickyAddToCart = document.querySelector('.prices-add-to-cart-actions');
 
-        if ($stickyAddToCartObserver && $stickyAddToCart) {
+        if ($stickyAddToCartObserver !== null && $stickyAddToCart !== null) {
             var $obsCallBack = function (entries, observer) {
                 var [$entry] = entries;
                 
