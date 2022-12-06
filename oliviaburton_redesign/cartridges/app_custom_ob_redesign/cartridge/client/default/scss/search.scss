@@ -678,7 +678,7 @@
                 left: rem(25);
 
                 .category-name {
-                    font-family: $font-gill-sans-std;
+                    font-family: $font-gills-light;
                     font-size: rem(15);
                     font-weight: 600;
                     color: $gray20;
@@ -1605,6 +1605,7 @@
                             font-size: rem(12);
                             font-family: $font-gills-light;
                             font-weight: 300;
+                            font-style: normal;
                             color: $gray20;
                             line-height: rem(18);
                             letter-spacing: 0.5px;
@@ -1696,9 +1697,9 @@
                         > .price {
                             color: $gray20;
                             font-size: rem(12);
-                            font-family: $font-gill-std-normal;
-                            font-weight: 400;
-                            font-weight: normal;
+                            font-family: $font-gill-sans-std;
+                            font-weight: 600;
+                            font-style: normal;
                             letter-spacing: 0.5px;
                             line-height: rem(12);
                             padding-left: 0;
@@ -1721,6 +1722,8 @@
                             .strike-through {
                                 margin-right: rem(5);
                                 color: $dark-gray;
+                                font-family: $font-gills-light;
+                                font-weight: 300;
     
                                 @include media-breakpoint-up(lg) {
                                     margin-right: rem(10);
@@ -1752,6 +1755,7 @@
                         font-size: rem(13);
                         color: $gray20;
                         font-weight: 600;
+                        font-style: normal;
                         letter-spacing: 0.5px;
                         padding: rem(5) rem(3);
 
@@ -1784,10 +1788,11 @@
                     }
 
                     .save-value {
-                        font-family: $font-gill-sans-std;
+                        font-family: $font-gill-std-semibold;
                         font-size: rem(12);
                         color: $white;
                         font-weight: 600;
+                        font-style: normal;
                         letter-spacing: 0.5px;
                         padding: rem(3) rem(5);
                         background-color: $gray-dark;
@@ -1805,10 +1810,11 @@
                 }
 
                 h3 {
-                    font-family: $font-gill-sans-std;
+                    font-family: $font-gill-std-semibold;
                     font-size: rem(12);
                     color: $gray20;
                     font-weight: 600;
+                    font-style: normal;
                     letter-spacing: rem(1);
                     line-height: rem(12);
                     text-transform: capitalize;
@@ -1840,8 +1846,9 @@
             background-color: $white;
             border: rem(1) solid $black;
             border-radius: rem(3);
-            font-family: $font-gill-sans-std;
+            font-family: $font-gill-std-semibold;
             font-weight: 600;
+            font-style: normal;
             font-size: rem(15);
             color: $gray20;
             line-height: rem(21);
@@ -2006,4 +2013,12 @@
     &.button-search-result {
       bottom: rem(41);
     }
+  }
+
+  .plp-recommendation-carousel {
+
+        .carousel-container-wrapper  {
+            overflow: unset;
+            max-width: rem(1140);
+        }
   }
