@@ -127,10 +127,8 @@ function parseOrderStatus(args) {
  */
 function processStatusOrder(SAPOrderStatus) {
     // Retrieve SOM Fulfillment Order
-    //
-
-    Logger.info('Working on ' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber);
-    try{
+     Logger.info('Working on ' + SAPOrderStatus.EcommerceOrderStatusHeader.PONumber);
+    try {
         var fulfillmentOrder = SalesforceModel.createSalesforceRestRequest({
             method: 'GET',
             url: '/services/data/v52.0/query/?q=' +
