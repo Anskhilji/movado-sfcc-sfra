@@ -49,7 +49,7 @@ function parseOrderStatus(args) {
     }
 
     for (var fileCount = 0; fileCount < filesToParse.length; fileCount++) {
-        try{
+        try {
             var file = new File(filesToParse[fileCount]);
             Logger.info('parseOrderStatus - Starting FILE ' + file.getFullPath());
             var fileReader = new FileReader(file);
