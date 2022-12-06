@@ -29,7 +29,8 @@
     }
 
     .header-wrapper {
-
+        background-color: $gray-light2;
+        
         .right {
             display: flex;
             width: 25%;
@@ -157,7 +158,7 @@
 
     .header-menu-wrapper {
         padding: 0;
-        background-color: $gray;
+        background-color: $gray-light2;
     }
 
     .left {
