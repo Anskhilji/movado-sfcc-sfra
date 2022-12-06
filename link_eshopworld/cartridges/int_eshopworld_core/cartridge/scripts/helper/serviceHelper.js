@@ -189,9 +189,7 @@ function getCartItemsV2() {
                 siteLogo = URLUtils.staticURL('/images/movado-logo.svg').toString();
             } else if (siteId === 'MVMTUS' || siteId === 'MVMTEU') {
                 siteLogo = URLUtils.staticURL('/images/mvmt-logo.svg').toString();
-            } else if (siteId === 'OliviaBurtonUS') {
-                siteLogo = URLUtils.staticURL('/images/olivia-burton-logo.svg').toString();
-            } else if (siteId === 'OliviaBurtonUK') {
+            } else if (siteId === 'OliviaBurtonUS' || siteId === 'OliviaBurtonUK') {
                 siteLogo = URLUtils.staticURL('/images/olivia-burton-logo.svg').toString();
             } else if (siteId === 'EbelUS') {
                 siteLogo = URLUtils.staticURL('/images/ebel-logo.jpg').toString();
