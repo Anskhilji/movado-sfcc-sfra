@@ -1,5 +1,5 @@
 .ob-footer {
-    background-color: $light-grey-5;
+    background-color: $gray-light2;
     overflow: hidden;
     
     .footer-redesign {
@@ -420,7 +420,6 @@
 
 
 .sub-footer-container {
-    background-color: $gray;
     padding: rem(28) rem(25);
     
     @include media-breakpoint-down(sm) {
