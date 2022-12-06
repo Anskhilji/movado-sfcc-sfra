@@ -459,11 +459,11 @@
         overflow: auto;
 
         .dropdown-menu {
-            background-color: $gray;
+            background-color: $gray-light2;
             min-height: 100%;
 
             ul {
-                background-color: $gray;
+                background-color: $gray-light2;
             }
         }
 
@@ -472,7 +472,7 @@
             padding-bottom: rem(60);
 
             @include media-breakpoint-down(md) {
-                background-color: $gray;
+                background-color: $gray-light2;
             }
         }
 
@@ -498,7 +498,7 @@
             &.main-menu {
                 
                 @include media-breakpoint-down(md) {
-                    background-color: $gray;
+                    background-color: $gray-light2;
                 }
             }
         }
@@ -514,7 +514,7 @@
             }
 
             .close-menu {
-                background: $gray;
+                background: $gray-light2;
                 border: none;
                 padding-left: rem(20);
 
@@ -616,7 +616,7 @@
 
 
         .menu-pane {
-            background-color: $gray;
+            background-color: $gray-light2;
         }
 
         .divider {
@@ -634,7 +634,7 @@
                 width: 100%;
 
                 &:hover {
-                    background-color: $gray;
+                    background-color: $gray-light2;
                 }
 
                 &.show {
