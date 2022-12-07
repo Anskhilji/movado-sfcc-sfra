@@ -28,7 +28,7 @@
         <isif condition="${pdict.display.isEyewearTile}">
             <isinclude template="product/components/productTileImageEyewear" />
         <iselse>
-            <isinclude template="product/components/productTileImage" />
+            <isinclude template="product/components/old/productTileImage" />
         </isif>
 
         <div class="tile-body">

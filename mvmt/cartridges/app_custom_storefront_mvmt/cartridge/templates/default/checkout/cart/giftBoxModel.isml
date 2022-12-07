@@ -9,7 +9,7 @@
 </div>
 
 <!-- Modal Body -->
-<div class="modal-body gift-box-container-modal-body">
+<div class="modal-body gift-box-container-modal-body disable-gift-box-model">
     <div class="gift-box-container-modal-body-item-image">
         <img class="product-image" src="${pdict.image.url}" alt="${pdict.image.alt}" title="${pdict.image.title}">
     </div>

@@ -345,14 +345,19 @@ server.append(
         var BasketMgr = require('dw/order/BasketMgr');
         var CartModel = require('*/cartridge/models/cart');
         var Site = require('dw/system/Site');
+
         var aydenExpressPaypalHelper = require('*/cartridge/scripts/helper/aydenExpressPaypalHelper');
+        var Constants = require('*/cartridge/scripts/util/Constants');
+        var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
+        var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
+        
         var currentBasket = BasketMgr.getCurrentOrNewBasket();
         var basketModel = new CartModel(currentBasket);
-        var cartItems = customCartHelpers.removeFromCartGTMObj(currentBasket.productLineItems);
-        var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
-        var wishlistGTMObj = customCartHelpers.getWishlistGtmObj(currentBasket.productLineItems);
         var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
+        var cartItems = customCartHelpers.removeFromCartGTMObj(currentBasket.productLineItems);
+        var wishlistGTMObj = customCartHelpers.getWishlistGtmObj(currentBasket.productLineItems);
         var productLineItems = currentBasket.productLineItems.iterator();
+        var currentCountry = productCustomHelper.getCurrentCountry();
         var marketingProductsData = [];
 
         
@@ -395,6 +400,9 @@ server.append(
             session.custom.applePayCheckout = false;
         } else {
             session.custom.StorePickUp = false;
+            if (currentCountry == Constants.US_COUNTRY_CODE) {
+                session.custom.isEswShippingMethod = false;
+            }
         }
 
         var runningABTest = productCustomHelper.getRunningABTestSegments();

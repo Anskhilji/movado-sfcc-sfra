@@ -41,7 +41,6 @@
                                     </isif>
                                 </a>
                             </li>
-
                             <isif condition="${pdict.contentSearch && pdict.contentSearch.contentCount !== 0}">
                                 <li class="nav-item">
                                     <a class="nav-link content-search" href="#content-search-results-pane" data-toggle="tab" role="tab" aria-expanded="false"
@@ -78,11 +77,11 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="filter-btn d-none d-md-inline-block filter-btn-main">
+                                        <div class="filter-btn d-none d-md-inline-block">
                                             <button class="filter-refinement-panel-btn" data-filter-category="${pdict.productSearch.category && !empty(pdict.productSearch.category) ? pdict.productSearch.category.id : ''}" >${Resource.msg('label.selectedfilter', 'search', null)}</button>
                                         </div>
                                         <isif condition="${pdict.productSearch.productIds.length > 0}">
-                                            <div class="d-md-none filter-btn filter-btn-main">
+                                            <div class="d-md-none filter-btn">
                                                 <button type="button" class="filter-results">
                                                     ${Resource.msg('button.filter', 'search', null)}
                                                 </button>
@@ -97,7 +96,6 @@
                                 </isif>
                                 <isinclude template="search/filterBar" />
                             </div>
-
                             <div class="row product-grid" itemtype="http://schema.org/SomeProducts" itemid="#product">
                                 <isloop items="${pdict.productSearch.productIds}" var="product" status ="prodStatus">
                                     <isif condition="${pdict.productSearch.category && pdict.productSearch.enableGridSlot && pdict.productSearch.pageNumber == 0 && prodStatus.index === 4}">
@@ -120,26 +118,21 @@
                                         </div>
                                     </isif>
                                 </isloop>
-
                                 <isif condition="${pdict.productSearch.enablePagination}">
                                     <isinclude template="search/pagination" />
                                 <iselse>
                                     <isinclude template="search/showMore" />
                                 </isif>
-
                             </div>
                         </div>
                     </isif>
                 </div>
-
                 <div class="tab-pane" id="content-search-results-pane" role="tabpanel" aria-expanded="false">
                     <div id="content-search-results" class="content-grid-header"></div>
                 </div>
-
             </div>
         </div>
     </div>
-
     <div class="plp-discover plp-new-design">
         <isif condition="${pdict.productSearch.category}">
             <isslot id="cs_plp_bottom_slot-head" context="category" description="Content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>

@@ -254,7 +254,7 @@ $stored-payment-spacing: rem(16);
 
   &.justify-content-between {
     .end-lines {
-      background: $white;
+      background: transparent;
     }
   }
 
@@ -641,7 +641,6 @@ $stored-payment-spacing: rem(16);
                   + .field-label-wrapper {
                       transition: 0.2s ease-in-out;
                       top: 0;
-                      left: 2em;
                       height: rem(24);
                       color: $grey15;
                       font-size: rem(10);
@@ -709,7 +708,6 @@ $stored-payment-spacing: rem(16);
         .field-label-wrapper {
             position: absolute;
             top: 1em;
-            left: 2em;
             color: $grey15;
             transition: 0.2s ease-in-out;
             width: 100%;
@@ -719,7 +717,6 @@ $stored-payment-spacing: rem(16);
           &.input-has-value {
               transition: 0.2s ease-in-out;
               top: 0;
-              left: 2em;
               height: rem(24);
               color: $grey15;
               font-size: rem(10);
@@ -734,7 +731,7 @@ $stored-payment-spacing: rem(16);
               left: rem(16);
             
             &.input-has-value {
-                left: rem(13);
+                left: rem(16);
             }
           }
           
@@ -885,7 +882,7 @@ $stored-payment-spacing: rem(16);
                             left: rem(16);
           
                             &.input-has-value {
-                                left: rem(13);
+                                left: rem(16);
                             }
                         }
                     }

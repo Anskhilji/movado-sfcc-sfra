@@ -592,6 +592,11 @@ module.exports = {
                         var $productSearchResult = $('.grid-header .result-count .category-name').data('result-counts');
                         var $bannerSearchResultCountAppend = $('.banner-count .result-count .search-result-count');
                         var $bannerSearchResultCount = $('.search-result-counts .result-count .search-result-count').data('result-counts');
+                        var filterBarLayout = $('.filter-bar-overlay');
+
+                        if (filterBarLayout.length > 0) {
+                            $('.modal-background').addClass('d-block');
+                        }
 
                         if ($bannerSearchResultCount && $bannerSearchResultCount !== undefined) {
                             $bannerSearchResultCountAppend.html($bannerSearchResultCount);

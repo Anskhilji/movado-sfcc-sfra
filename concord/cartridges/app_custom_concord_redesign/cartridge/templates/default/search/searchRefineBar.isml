@@ -1,5 +1,5 @@
 <iscomment> Custom: HTML structure changed</iscomment>
-<div class="filter-header filter-bar-overlay">
+<div class="filter-header">
     <div class="header-bar clearfix">
         <button class="close-refinebar pull-left" data-filter-category="${pdict.productSearch.category && !empty(pdict.productSearch.category) ? pdict.productSearch.category.id : ''}" aria-label="close filter">${Resource.msg('label.selectedfilter', 'search', null)}</button>
         <isif condition="${pdict.productSearch.productIds.length > 0}">
@@ -13,7 +13,6 @@
         </isif>
     </div>
 </div>
-
 <div class="refine-wrapper">
     <isif condition="${pdict.productSearch.productIds.length > 0}">
         <div class="mb-3 sort-col position-relative">
@@ -27,18 +26,13 @@
                     ${refinement.displayName}
                 </button>
                 <div class="card-body" role="tabpanel"  aria-labelledby="${refinement.displayName}Heading">
-
                     <isif condition="${refinement.isCategoryRefinement}">
                         <isset name="categories" value="${refinement.values}" scope="page" />
                         <isinclude template="search/refinements/categories" />
                     </isif>
-
-
                     <isif condition="${refinement.isAttributeRefinement || refinement.isPromotionRefinement}">
                         <isinclude template="search/refinements/attributes" />
                     </isif>
-
-
                     <isif condition="${refinement.isPriceRefinement}">
                         <isinclude template="search/refinements/prices" />
                     </isif>

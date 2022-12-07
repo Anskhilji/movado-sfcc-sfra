@@ -483,22 +483,6 @@
             -ms-overflow-style: none;
             padding-top: rem(25);
 
-            .row {
-
-                &:last-child {
-                    padding-bottom: rem(8);
-
-                    @include media-breakpoint-down(lg) {
-                        padding-bottom: rem(6);
-                    }
-
-                    .card {
-                        border-bottom: none;
-                        margin-bottom: 0;
-                    }
-                }
-            }
-
             /* Hide scrollbar for Chrome, Safari and Opera */
             &::-webkit-scrollbar {
                 display: none;
@@ -1904,6 +1888,11 @@
     }
 }
 
+.disable-gift-box-model {
+    pointer-events: none;
+    cursor: no-drop;
+}
+
 .border-gift {
     border-top: 1px solid $gray14;
     margin-top: rem(20);
@@ -1954,6 +1943,11 @@
         text-transform: none;
     }
 }
+
+.recommendation-rail-wrapper {
+    padding-top: rem(10);
+}
+
 .product-slot-slider {
     &.recommendation-slider {
         
@@ -2037,6 +2031,30 @@
                         .cta-add-to-cart  {
 
                             .add-to-cart  {
+                                color: $black;
+                                font-family: $font-futura-pt;
+                                font-size: rem(11);
+                                font-weight: 500;
+                                letter-spacing: rem(1);
+                                line-height: rem(10);
+                                text-align: center;
+                                height: rem(24.88);
+                                width: 100%;
+                                border: none;
+                                background: $white-gray;
+                                padding: 0;
+                                min-height: unset;
+                                @include media-breakpoint-up(lg) {
+                                    opacity: 1;
+                                    bottom: 0;
+                                }
+                                
+                                &:hover {
+                                    background: $white-gray;
+                                }
+                            }
+
+                            .recommendation-rail-add-to-cart  {
                                 color: $black;
                                 font-family: $font-futura-pt;
                                 font-size: rem(11);

@@ -1,5 +1,5 @@
 <div class="line-item-name">
     <iscomment>Custom Start: Added anchor tag to navigate user to PDP after clicking product name </iscomment>
-    <a href="${URLUtils.https('Product-Show', 'pid', lineItem.id)}"><span>${lineItem.productName}</span></a>
+    <a href="${URLUtils.https('Product-Show', 'pid', lineItem.id)}"><span>${lineItem.familyName}</span></a>
     <iscomment>Custom End: Added anchor tag to navigate user to PDP after clicking product name </iscomment>
 </div>

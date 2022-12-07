@@ -397,8 +397,8 @@ function addGooglePayButton() {
 }
 
 function handlePostCartAdd(response) {
-    if(response.transactionInfo.addCartGtmArray !== undefined){
-        $('body').trigger('addToCart:success', JSON.stringify(response.transactionInfo.addCartGtmArray));
+    if (response && response.addCartGtmArray !== undefined) {
+        $('body').trigger('addToCart:success', JSON.stringify(response.addCartGtmArray));
     }
 }
 

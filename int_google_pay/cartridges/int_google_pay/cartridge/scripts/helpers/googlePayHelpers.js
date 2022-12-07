@@ -9,14 +9,14 @@ var Logger = require('dw/system/Logger');
 
 
 var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
-var cartHelper = require('*/cartridge/scripts/cart/cartHelpers');
-var constants = require('*/cartridge/scripts/helpers/googlePayConstants');
-var collections = require('*/cartridge/scripts/util/collections');
-var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
 var checkoutAddrHelper = require('*/cartridge/scripts/helpers/checkoutAddressHelper');
-var ShippingHelper = require('*/cartridge/scripts/checkout/shippingHelpers');
 var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
-
+var constants = require('*/cartridge/scripts/helpers/googlePayConstants');
+var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
+var collections = require('*/cartridge/scripts/util/collections');
+var cartHelper = require('*/cartridge/scripts/cart/cartHelpers');
+var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
+var ShippingHelper = require('*/cartridge/scripts/checkout/shippingHelpers');
 
 /**
  * Checks if google pay is enabled
@@ -164,10 +164,15 @@ function getShippingMethods(currentBasket, selectedShippingMethod, shippingAddre
             status: 'FINAL'
         }
     }
+    var currentCountry = productCustomHelper.getCurrentCountry();
 
     for (let index = 0; index < applicableShippingMethodsOnCart.length; index++) {
         var shippingMethod = applicableShippingMethodsOnCart[index];
         var shippingOption;
+        if (currentCountry == constants.US_COUNTRY_CODE) {
+            var isEswShippingMethod = session.custom.isEswShippingMethod;
+            isEswShippingMethod = false;
+        }
         if (shippingMethod.custom.storePickupEnabled) {
             if (session.privacy.pickupFromStore) { 
                 shippingOption = {
@@ -177,7 +182,10 @@ function getShippingMethods(currentBasket, selectedShippingMethod, shippingAddre
                 }
                 shippingOptions.push(shippingOption);
             }
-        } else {
+        } else if (shippingMethod.custom.isHideFromCheckout == true && currentCountry == constants.US_COUNTRY_CODE) {
+            continue;
+        }
+        else {
             shippingOption = {
                 id: shippingMethod.ID,
                 label: shippingMethod.displayName ? shippingMethod.displayName : '' ,
@@ -299,20 +307,19 @@ function getTransactionInfo(req) {
     var childProducts = [];
     var options = [];
     form.options = [];
+    var currentCountry = productCustomHelper.getCurrentCountry();
 
     if (session.privacy.pickupFromStore) {
         session.custom.applePayCheckout = false;
+    } else {
+        if (currentCountry == constants.US_COUNTRY_CODE) {
+            session.custom.isEswShippingMethod = false;
+        }
     }
 
     switch (req.form.googlePayEntryPoint) {
         case 'Product-Show':
             addProductToCart(currentBasket, productId, quantity, childProducts, options, form);
-            if (addProductToCart) {
-                var embossedMessage = req.form.EmbossedMessage; // message to be Embossed Or Engraved  //'EM\nEngraveMessage';
-                var engravedMessage = req.form.EngravedMessage;
-                var addCartGtmArray = customCartHelpers.createAddtoCartProdObj(currentBasket, productId, embossedMessage, engravedMessage, form);
-                transactionInfo.addCartGtmArray = addCartGtmArray;
-            }
             if (session.privacy.pickupFromStore) {
                 session.custom.applePayCheckout = true;
                 Transaction.wrap(function () {
