@@ -29,6 +29,10 @@
     }
 
     .header-wrapper {
+        
+        @include media-breakpoint-down(md) {
+            border-bottom: rem(1) solid $transparent-gray-2;
+        }
 
         .right {
             display: flex;
