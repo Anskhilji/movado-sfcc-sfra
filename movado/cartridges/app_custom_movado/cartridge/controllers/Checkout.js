@@ -57,7 +57,6 @@ server.append(
 	function (req, res, next) {
         var BasketMgr = require('dw/order/BasketMgr');
         var Locale = require('dw/util/Locale');
-        var Money = require('dw/value/Money');
         var OrderModel = require('*/cartridge/models/order');
         var Site = require('dw/system/Site');
 
@@ -143,6 +142,7 @@ server.append(
         );
         
         // Custom Start: Add email for Amazon Pay
+        var runningABTest = productCustomHelper.getRunningABTestSegments();
         res.setViewData({
             order: orderModel,
             actionUrls: actionUrls,
@@ -150,7 +150,8 @@ server.append(
             customerEmail: viewData.order.orderEmail ? viewData.order.orderEmail : null,
             expirationYears: creditCardExpirationYears,
             countryCode: countryCode,
-            couponLineItems: currentBasket.couponLineItems
+            couponLineItems: currentBasket.couponLineItems,
+            runningABTest: runningABTest
         });
 
         next();

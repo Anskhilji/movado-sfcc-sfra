@@ -24,6 +24,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     var searchCustomHelper = require('*/cartridge/scripts/helpers/searchCustomHelper');
     var pageMetaHelper = require('*/cartridge/scripts/helpers/pageMetaHelper');
     var emailPopupHelper = require('*/cartridge/scripts/helpers/emailPopupHelper');
+    var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
     var Site = require('dw/system/Site');
     var viewData = res.getViewData();
 
@@ -228,7 +229,12 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
             });
         }
     }
-    
+
+    var runningABTest = productCustomHelper.getRunningABTestSegments();
+    res.setViewData({
+        runningABTest: runningABTest
+    });
+
     try {
         var viewData = res.getViewData();
         var YotpoIntegrationHelper = require('/int_yotpo_sfra/cartridge/scripts/common/integrationHelper.js');
