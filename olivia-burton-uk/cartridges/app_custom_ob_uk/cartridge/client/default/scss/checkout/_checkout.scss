@@ -10,8 +10,8 @@ header {
             .header-wrapper.checkout-header-wrapper {
                 .minicart {
                     &-quantity {
-                        color: $black;
-                        background-color: $pink-grey;
+                        color: $white;
+                        background-color: $black;
                     }
                 }
             }
@@ -64,8 +64,8 @@ header {
                             }
 
                             &-quantity {
-                                color: $black;
-                                background-color: $pink-grey;
+                                color: $white;
+                                background-color: $black;
                                 font-size: rem(12);
                             }
                         }
@@ -337,12 +337,15 @@ header {
         .mx-container-box1 {
             
             .btn {
-                border: rem(2) solid $pink-hot;
-                background-color: $pink-hot;
-                color: $black;
+                border: rem(2) solid $black;
+                background-color: $black;
+                color: $white;
                 
+                &:hover,
                 &:focus {
-                    border-color: $pink-hot;
+                    background: $white;
+                    border: rem(1) solid $black;
+                    color: $black;
                 }
 
                 &:active {
