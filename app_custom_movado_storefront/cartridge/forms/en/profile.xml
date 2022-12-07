@@ -12,6 +12,11 @@
             regexp="(^[^(\\'\\&lt;\\>\\\\)]+$)" 
             parse-error="error.message.invalid" />
 
+            <field 
+            formid="grecaptchatoken"
+			type="string"
+            />
+
         <field 
             formid="lastname" 
             label="label.input.lastname.profile" 

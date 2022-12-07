@@ -144,9 +144,22 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
     var accountHelpers = require('*/cartridge/scripts/helpers/accountHelpers');
     var isYotpoSwellLoyaltyEnabled = !empty(Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) ? Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled : false;
     var isAccountSignupVerificationEnabled = !empty(Site.current.preferences.custom.isAccountSignupVerificationEnabled) ? Site.current.preferences.custom.isAccountSignupVerificationEnabled : false;
+    var googleRecaptchaAPI  = require('*/cartridge/scripts/api/googleRecaptchaAPI');
+
+    
+
+
 
     // setting variables for the BeforeComplete function
     registrationForm = server.forms.getForm('profile');
+
+    var token = registrationForm.customer.grecaptchatoken.value;
+
+    var result = googleRecaptchaAPI.googleRecaptcha(token);
+
+    if (result) {
+        
+    }
     redirectUrl = accountHelpers.getLoginRedirectURL(req.querystring.rurl, req.session.privacyCache, true);
     if (registrationForm.customer.email.value.toLowerCase() !== registrationForm.customer.emailconfirm.value.toLowerCase()) {
         registrationForm.customer.email.valid = false;

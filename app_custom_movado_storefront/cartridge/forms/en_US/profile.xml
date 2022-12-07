@@ -14,6 +14,11 @@
            />
 
         <field 
+            formid="grecaptchatoken"
+			type="string"
+            />
+
+        <field 
             formid="lastname" 
             label="label.input.lastname.profile" 
             mandatory="true" 
