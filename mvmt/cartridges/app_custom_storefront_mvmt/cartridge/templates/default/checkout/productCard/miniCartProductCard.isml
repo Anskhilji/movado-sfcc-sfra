@@ -87,7 +87,7 @@
                             data-name="${lineItem.productName}"
                             data-action="${pdict.removeProductLineItemUrl}"
                             data-uuid="${lineItem.UUID}"
-                            data-gtm-cart="${JSON.stringify(pdict.cartItemObj[loopStatus.index])}"
+                            data-gtm-cart="${pdict.cartItemObj ? JSON.stringify(pdict.cartItemObj[loopStatus.index]) : ''}"
                             aria-label="remove">
                         <span aria-hidden="true">${Resource.msg('label.cart.remove','cart',null)}</span>
                     </button>

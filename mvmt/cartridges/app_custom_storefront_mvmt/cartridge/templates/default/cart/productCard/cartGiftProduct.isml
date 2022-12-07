@@ -95,7 +95,7 @@
                                 data-parent-pid="${lineItem.giftParentUUID}"
                                 data-uuid="${lineItem.UUID}"
                                 data-gift="true"
-                                aria-label="remove" data-gtm-cart="${JSON.stringify(pdict.cartItemObj[loopStatus.index])}">
+                                aria-label="remove" data-gtm-cart="${pdict.cartItemObj ? JSON.stringify(pdict.cartItemObj[loopStatus.index]) : ''}">
                             <span>${Resource.msg('label.cart.remove', 'cart', null)}</span>
                         </button>
                     </div>
@@ -122,7 +122,7 @@
                             data-parent-pid="${lineItem.giftParentUUID}"
                             data-uuid="${lineItem.UUID}"
                             data-gift="true"
-                            aria-label="remove" data-gtm-cart="${JSON.stringify(pdict.cartItemObj[loopStatus.index])}">
+                            aria-label="remove" data-gtm-cart="${pdict.cartItemObj ? JSON.stringify(pdict.cartItemObj[loopStatus.index]) : ''}">
                         <span class="hidden-sm-down">${Resource.msg('label.cart.remove', 'cart', null)}</span>
                         <span class="hidden-md-up"><img src="${URLUtils.staticURL('/images/cartCross.svg')}"/></span>
                     </button>
