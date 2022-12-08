@@ -24,7 +24,7 @@ function googleCaptchaAPICall(service) {
         Logger.error('Error Occured While Calling GoogleRecaptchaAPICall and Error is : {0}', e.toString());
     }
 
-    if (!empty(responsePayload.object)) {
+    if (!empty(responsePayload.object && responsePayload.object.success == true)) {
         result.success = true;
         result.score = responsePayload.object.score
     } else {
