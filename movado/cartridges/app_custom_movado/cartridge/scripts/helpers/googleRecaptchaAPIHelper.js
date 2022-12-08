@@ -3,8 +3,8 @@
 var Logger = require('dw/system/Logger');
 var Resource = require('dw/web/Resource');
 
-var GoogleRecaptchaServiceRegistry = require('~/cartridge/scripts/services/GoogleRecaptchaServiceRegistry');
-var GoogleRecaptchaRequestModel = require('~/cartridge/scripts/model/GoogleRecaptchaRequestModel');
+var GoogleRecaptchaServiceRegistry = require('*/cartridge/scripts/services/GoogleRecaptchaServiceRegistry');
+var GoogleRecaptchaRequestModel = require('*/cartridge/scripts/model/GoogleRecaptchaRequestModel');
 
 function getGoogleCaptchaAPIService(serviceID, token) {
     var service = GoogleRecaptchaServiceRegistry.getGoogleAPIService(serviceID, token);
@@ -16,7 +16,7 @@ function googleCaptchaAPICall(service) {
     var responsePayload = null;
     var result = {
         success: false,
-        score: 0
+        score: undefined
     }
     try {
         responsePayload = service.call(googleRecaptchaAPIPayLoad);
@@ -24,7 +24,7 @@ function googleCaptchaAPICall(service) {
         Logger.error('Error Occured While Calling GoogleRecaptchaAPICall and Error is : {0}', e.toString());
     }
 
-    if (!empty(responsePayload.object && responsePayload.object.success == true)) {
+    if (!empty(responsePayload.object) && (responsePayload.object.success == true)) {
         result.success = true;
         result.score = responsePayload.object.score
     } else {

@@ -18,12 +18,10 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
 		var googleRecaptchaAPI  = require('*/cartridge/scripts/api/googleRecaptchaAPI');
 
 		var blockRegistrationOnSalesSites = Site.current.preferences.custom.blockRegistrationOnSalesSites;
-		var googleRecaptchaScore = !empty(Site.current.preferences.custom.googleRecaptchaScore) ? Site.current.preferences.custom.googleRecaptchaScore : 0
-		var googleRecaptchaToken = registrationForm.customer.grecaptchatoken.value;
 		var registrationForm = server.forms.getForm('profile');
 		var isGoogleRecaptchaEnabled = !empty(Site.current.preferences.custom.googleRecaptchaEnabled) ? Site.current.preferences.custom.googleRecaptchaEnabled : false;
 		var isAccountSignupVerificationEnabled = !empty(Site.current.preferences.custom.isAccountSignupVerificationEnabled) ? Site.current.preferences.custom.isAccountSignupVerificationEnabled : false;
-		var result = googleRecaptchaAPI.googleRecaptcha(googleRecaptchaToken);
+		
 		// Custom: Start [added the registration limit on this controller]
 
 		if (blockRegistrationOnSalesSites) {
@@ -36,12 +34,26 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
 		}
 		// Custom: End
 
-		if (isGoogleRecaptchaEnabled && result.success == false && result.score <= googleRecaptchaScore) {
-			res.json({
-				success: false,
-				errorMessage: Resource.msg('error.message.unable.to.create.account', 'login', null)
-			});
-			return next();  
+
+		if (isGoogleRecaptchaEnabled) {
+			var googleRecaptchaScore = !empty(Site.current.preferences.custom.googleRecaptchaScore) ? Site.current.preferences.custom.googleRecaptchaScore : 0;
+			var googleRecaptchaToken = registrationForm.customer.grecaptchatoken.value;
+			if (empty(googleRecaptchaToken)) {
+				res.json({
+					success: false,
+					errorMessage: Resource.msg('error.message.unable.to.create.account', 'login', null)
+				});
+				return next(); 
+			}
+
+			var result = googleRecaptchaAPI.googleRecaptcha(googleRecaptchaToken);
+			if (result.success == false && (result.score == undefined || result.score <= googleRecaptchaScore)) {
+				res.json({
+					success: false,
+					errorMessage: Resource.msg('error.message.unable.to.create.account', 'login', null)
+				});
+				return next(); 
+			}
 		}
 
 		// form validation
