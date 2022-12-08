@@ -166,7 +166,9 @@
     </div>
 
     <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
-    <input type="hidden" name="g-recaptcha-token" value="">
+    <input type="hidden" class="g-recaptcha-token" id="grecaptchatoken" name="${pdict.profileForm.customer.grecaptchatoken.htmlName}" 
+        <isprint value=${pdict.profileForm.customer.grecaptchatoken.attributes} encoding="off" />
+    >
     <div class="row justify-content-center no-gutters">
     <button type="submit" class="btn create-account btn-block btn-primary ${isGoogleRecaptchaEnabled ? 'd-none' : ''} form-submit">${Resource.msg('button.createaccount.registration', 'registration', null)}</button>
     <isif condition="${isGoogleRecaptchaEnabled}">

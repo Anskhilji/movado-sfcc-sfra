@@ -145,21 +145,24 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
     var isYotpoSwellLoyaltyEnabled = !empty(Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) ? Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled : false;
     var isAccountSignupVerificationEnabled = !empty(Site.current.preferences.custom.isAccountSignupVerificationEnabled) ? Site.current.preferences.custom.isAccountSignupVerificationEnabled : false;
     var googleRecaptchaAPI  = require('*/cartridge/scripts/api/googleRecaptchaAPI');
-
-    
-
-
+    var googleRecaptchaToken;
+    var googleRecaptchaScore = !empty(Site.current.preferences.custom.googleRecaptchaScore) ? Site.current.preferences.custom.googleRecaptchaScore : 0
 
     // setting variables for the BeforeComplete function
     registrationForm = server.forms.getForm('profile');
 
-    var token = registrationForm.customer.grecaptchatoken.value;
+    googleRecaptchaToken = registrationForm.customer.grecaptchatoken.value;
 
-    var result = googleRecaptchaAPI.googleRecaptcha(token);
+    var result = googleRecaptchaAPI.googleRecaptcha(googleRecaptchaToken);
 
-    if (result) {
-        
+    if (result.success == false && result.score <= googleRecaptchaScore) {
+        res.json({
+            success: false,
+            errorMessage: Resource.msg('error.message.unable.to.create.account', 'login', null)
+        });
+        return next();  
     }
+
     redirectUrl = accountHelpers.getLoginRedirectURL(req.querystring.rurl, req.session.privacyCache, true);
     if (registrationForm.customer.email.value.toLowerCase() !== registrationForm.customer.emailconfirm.value.toLowerCase()) {
         registrationForm.customer.email.valid = false;

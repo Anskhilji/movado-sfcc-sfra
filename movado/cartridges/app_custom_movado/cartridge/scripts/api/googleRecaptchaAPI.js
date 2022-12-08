@@ -10,8 +10,8 @@ function googleRecaptcha(token) {
         success: false
     }
     try {
-        service = googleRecaptchaAPIHelper.getGoogleCaptchaAPIService(Constants.SERVICE_ID.GOOGLE_RECAPTCH);
-        result = googleRecaptchaAPIHelper.googleCaptchaAPICall(token, service);
+        service = googleRecaptchaAPIHelper.getGoogleCaptchaAPIService(Constants.SERVICE_ID.GOOGLE_RECAPTCH, token);
+        result = googleRecaptchaAPIHelper.googleCaptchaAPICall(service);
 
     } catch (e) {
         Logger.error('Error Occured during googleRecaptchaAPICall: error is : {0}', e.toString());

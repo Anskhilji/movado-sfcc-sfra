@@ -143,6 +143,11 @@
             formid="addtoemaillist" 
             label="checkbox.emailsignup.profile.desc"  
             type="boolean" binding="profile.custom.addtoemaillist"/>
+
+        <field 
+            formid="grecaptchatoken"
+            type="string"
+        />
     </group>
 
     <group formid="login">

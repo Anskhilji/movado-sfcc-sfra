@@ -16,10 +16,16 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
 		var EmailSubscriptionHelper = require('int_custom_marketing_cloud/cartridge/scripts/helper/EmailSubscriptionHelper');
 		var formErrors = require('*/cartridge/scripts/formErrors');
 
+		var googleRecaptchaAPI  = require('*/cartridge/scripts/api/googleRecaptchaAPI');
+		var googleRecaptchaToken;
+
 		var registrationForm = server.forms.getForm('profile');
+		googleRecaptchaToken = registrationForm.customer.grecaptchatoken.value;
+		var result = googleRecaptchaAPI.googleRecaptcha(googleRecaptchaToken);
 		var isAccountSignupVerificationEnabled = !empty(Site.current.preferences.custom.isAccountSignupVerificationEnabled) ? Site.current.preferences.custom.isAccountSignupVerificationEnabled : false;
 		// Custom: Start [added the registration limit on this controller]
 		var blockRegistrationOnSalesSites = Site.current.preferences.custom.blockRegistrationOnSalesSites;
+		var googleRecaptchaScore = !empty(Site.current.preferences.custom.googleRecaptchaScore) ? Site.current.preferences.custom.googleRecaptchaScore : 0
 
 		if (blockRegistrationOnSalesSites) {
 			res.json({
@@ -30,6 +36,14 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
 			return next();
 		}
 		// Custom: End
+
+		if (result.success == false && result.score <= googleRecaptchaScore) {
+			res.json({
+				success: false,
+				errorMessage: Resource.msg('error.message.unable.to.create.account', 'login', null)
+			});
+			return next();  
+		}
 
 		// form validation
 		if (registrationForm.customer.email.value.toLowerCase()

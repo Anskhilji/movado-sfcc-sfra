@@ -1,6 +1,6 @@
 'use strict';
 
-function generateAuthenticationPayLoad(token, service) {
+function generateAuthenticationPayLoad(service) {
     return service.URL;
 }
 
