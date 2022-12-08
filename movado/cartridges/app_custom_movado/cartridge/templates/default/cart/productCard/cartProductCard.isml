@@ -113,7 +113,7 @@
             <isif condition="${!!option && option.optionId == "clydeWarranty"}" >
                 <isset name="clydeOption" value=${true} scope="page">
                 <div class="col-12 d-lg-none"><hr class="line-item-divider"></div>
-                <div class="row pt-2">
+                <div class="row pt-2 clyde-uuid-${lineItem.UUID}">
                     <div class="col-lg-12 d-flex flex-row">
                         <div class="item-image">
                             <img class="product-image" src="${option.imageURL}" alt="${option.displayName}" title="${option.displayName}">
@@ -127,6 +127,7 @@
                                     <p>${option.adjustedPrice}</p>
                                 </isif>
                             </isif>
+                            <isinclude template="components/deleteClydeProductButton" />
                         </div>
                     </div>
                 </div>

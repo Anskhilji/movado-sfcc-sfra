@@ -83,6 +83,20 @@ $negative-spacer: -0.625rem;
 .item-attributes {
   display: inline-block;
   vertical-align: top;
+
+  .remove-clyde-product {
+    color: $grey4;
+    font-size: rem(26);
+    position: absolute;
+    padding: 0;
+    top: rem(-10);
+    right: rem(19);
+    border: none;
+    background-color: $white;
+      &:focus,&:active {
+        background: none;
+      }
+  }
 }
 
 .line-item-divider {

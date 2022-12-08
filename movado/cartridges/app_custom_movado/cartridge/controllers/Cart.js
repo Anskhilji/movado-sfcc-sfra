@@ -726,4 +726,38 @@ server.append(
     next();
 });
 
+server.post('RemoveClydeProduct', function (req, res, next) {
+    var BasketMgr = require('dw/order/BasketMgr');
+    var currentBasket = BasketMgr.getCurrentBasket();
+    var productLineItem = null;
+    var optionProductLineItem = null;
+    var lineItems = currentBasket.productLineItems.iterator();
+    var productUUID = req.querystring.uuid;
+    while (lineItems.hasNext()) {
+        var item = lineItems.next();
+        if (item.UUID === productUUID) {
+            productLineItem = item;
+            break;
+        }
+    }
+    if (productLineItem) {
+        var optionLineItems = productLineItem.optionProductLineItems.iterator();
+        var Transaction = require('dw/system/Transaction');
+        Transaction.wrap(function () {
+            while (optionLineItems.hasNext()) {
+                var optionLineItem = optionLineItems.next();
+                if (optionLineItem) {
+                    optionProductLineItem = optionLineItem;
+                    currentBasket.removeProductLineItem(optionProductLineItem);
+                    break;
+                }
+            }
+        });
+    } res.json({
+        success: optionProductLineItem || false,
+        deleteUuid: productUUID,
+    });
+    next();
+});
+
 module.exports = server.exports();
