@@ -14,7 +14,6 @@ var ltkHelper = require('~/cartridge/scripts/util/ltkHelper');
 var Currency = require('dw/util/Currency');
 var constant = require('*/cartridge/scripts/helpers/constants');
 
-
 /**
  * Object used to hold order information.
  * */
@@ -126,7 +125,7 @@ ltkOrder.prototype.orderTotal = function () {
     return orderTotalUSD;
 }
 
-/* Helper function to calculate the total order price. */
+/* Helper function to calculate the total order price and convert into USD. */
 ltkOrder.prototype.getOrderTaxTotalUSD = function (order) {
     var orderTotal =  this.Order.ItemTotal + this.Order.TaxTotal + this.Order.ShipTotal;
     var orderTotalUSD = ltkHelper.priceConversionUSD(orderTotal, this.Order);
@@ -163,11 +162,7 @@ ltkOrder.prototype.GetOrderItem = function (item, order) {
     /* Ensure that the item has an associated product. */
     if (!empty(item.product)) {
         orderItem.Sku = item.product.ID;
-        /* MSS[1474]. Get Product Price by FX rates Conversions */
-        // orderItem.Price = ltkHelper.getItemPrice(item.basePrice.value, this.Order) || item.basePrice.value.toFixed(2);
-        // orderItem.DiscountedPrice = ltkHelper.getItemPrice(item.adjustedPrice.value, this.Order) || item.adjustedPrice.value.toFixed(2) || ltkHelper.getProductPrice(item.product);
-        // orderItem.localPrice = ltkHelper.getCurrencySymbol(Currency.getCurrency(this.Order.currencyCode)) + (item.adjustedPrice.value.toFixed(2) || ltkHelper.getProductPrice(item.product));
-
+        /* MSS[2017]. Listrak - All Brands - Order Export Job Updates */
         var price = ltkHelper.getItemPrice(item.basePrice.value, this.Order) || item.basePrice.value.toFixed(2);
         var discountedPrice = ltkHelper.getItemPrice(item.adjustedPrice.value, this.Order) || item.adjustedPrice.value.toFixed(2) || ltkHelper.getProductPrice(item.product);
         var localPrice = (item.adjustedPrice.value.toFixed(2) || ltkHelper.getProductPrice(item.product));
@@ -176,7 +171,7 @@ ltkOrder.prototype.GetOrderItem = function (item, order) {
         orderItem.DiscountedPrice = ltkHelper.priceConversionUSD(discountedPrice, this.Order) || item.adjustedPrice.value.toFixed(2);
         orderItem.localPrice = ltkHelper.priceConversionUSD(localPrice, this.Order) || item.adjustedPrice.value.toFixed(2);
 
-        /* MSS[1474]. Get Product Price by FX rates Conversions */
+        /* MSS[1474]. Listrak - All Brands - Order Export Job Updates */
     }
 
     if (!empty(item.shipment) && item.shipment.trackingNumber != null) {
