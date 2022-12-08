@@ -103,8 +103,6 @@ function gtmModel(req) {
 
         // get product impressions tags for PDP
         var productImpressionTags = getPDPProductImpressionsTags(productObj);
-        var abTestParticipationSegments = getRunningAbTestSegments();
-
         this.product = {
             productID: productImpressionTags.productID,
             productName: stringUtils.removeSingleQuotes(productImpressionTags.productName),
@@ -116,8 +114,7 @@ function gtmModel(req) {
             currency: productImpressionTags.currency,
             // Custom start: Added secoundary category if exist and quantity on product on pdp
             deparmentIncludedCategoryName: primarySiteSection + secoundarySiteSection,
-            quantity: '1',
-            runningAbTest: abTestParticipationSegments
+            quantity: '1'
             // Custom End
         };
     } else if (searchkeyword != null) {
@@ -156,24 +153,6 @@ function gtmModel(req) {
     this.searchCount = (searchCount != null && searchCount != undefined) ? searchCount : '';
     this.googleAnalyticsParameters = googleAnalyticsParameters != null ? googleAnalyticsParameters : '';
     this.customerIPAddressLocation = customerIPAddressLocation || '';
-}
-
-/**
- * Function return running AB test segments
- * @returns segmentsArray 
- */
-function getRunningAbTestSegments() {
-    var ABTestMgr = require('dw/campaign/ABTestMgr');
-    var assignedTestSegmentsIterator = ABTestMgr.getAssignedTestSegments().iterator();
-    var abTestParticipationSegments = [];
-
-    while (assignedTestSegmentsIterator.hasNext()) {
-        abTestSegment = assignedTestSegmentsIterator.next();
-        abTestParticipationSegments.push({
-            runningAbTest: abTestSegment.ABTest.ID + '+' + abTestSegment.ID
-        });
-    }
-    return abTestParticipationSegments;
 }
 
 /**
@@ -532,10 +511,8 @@ function getCartJSONArray(checkoutObject) {
             });
         }
     }
-    var abTestParticipationSegments = getRunningAbTestSegments();
 
     checkoutObject.push(cartArray);
-    checkoutObject.push(abTestParticipationSegments);
 }
 
 /**
@@ -767,7 +744,6 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
                 }
         });
 
-        var abTestParticipationSegments = getRunningAbTestSegments();
         var orderObj = {};
         orderObj.orderId = orderId;
         orderObj.revenue = order.totalGrossPrice.decimalValue;
@@ -776,7 +752,6 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
         orderObj.orderCoupon = orderLevelCouponString;
         orderObj.country = order.billingAddress.countryCode.displayValue;
         orderObj.paymentMethod = paymentMethod;
-        orderObj.runningAbTest = abTestParticipationSegments;
 
         // Custom Start : Added VAT for OBUK
         if (Site.current.ID === 'OliviaBurtonUK') {
