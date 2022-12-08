@@ -42,6 +42,12 @@ function getOrderItemTotalLocal(order) {
     return itemTotal;
 }
 
+function getOrderItemTotalLocalConvertToUSD(order) {
+    var itemTotalUSD;
+    itemTotalUSD = order.getTotalGrossPrice().value.toFixed(2);
+    return itemTotalUSD;
+}
+
 function getOrderTaxTotal(order) {
     var taxTotal;
     if (order.custom.eswRetailerCurrencyCode) {
@@ -98,6 +104,37 @@ function getItemPrice(productPrice, order) {
         }
     }
     return itemPrice ? itemPrice.toFixed(2) : itemPrice;
+}
+
+function priceConversionUSD(productPrice, order) {
+    var convertedItemPrice;
+    var eswShopperCurrency = false;
+    var eswFxRatesJson = !empty(Site.current.preferences.custom.eswFxRatesJson) ? Site.current.preferences.custom.eswFxRatesJson : false;
+    var listTrackCurrencyConversion = !empty(Site.current.preferences.custom.list_Track_Currency_Conversion) ? Site.current.preferences.custom.list_Track_Currency_Conversion : false;
+
+    if (eswFxRatesJson) {
+        var eswFxRatesCode = JSON.parse(eswFxRatesJson);
+
+        for (var i = 0; i < eswFxRatesCode.length; i++) {
+            var shopperCurrencyCheck = eswFxRatesCode[i];
+
+            if (shopperCurrencyCheck.toShopperCurrencyIso == order.currencyCode) {
+                eswShopperCurrency = true;
+                convertedItemPrice = productPrice * shopperCurrencyCheck.rate;
+            }
+        }
+    }
+
+    if (listTrackCurrencyConversion) {
+
+        if (!eswShopperCurrency) {
+            var listTrackCurrencyConversionJson = JSON.parse(listTrackCurrencyConversion);
+            var listTrackCurrencyConversionCode = listTrackCurrencyConversionJson[order.currencyCode];
+            convertedItemPrice = productPrice * listTrackCurrencyConversionCode.conversions.conversionRate;
+        }
+    }
+
+    return convertedItemPrice ? convertedItemPrice.toFixed(2) : convertedItemPrice;
 }
 
 function getESWLineItemTotal(order, lineItemTotal){
@@ -206,5 +243,7 @@ module.exports = {
     getCurrencySymbol: getCurrencySymbol,
     getProductPrice: getProductPrice,
     getESWLineItemTotal: getESWLineItemTotal,
-    getESWDiscountAmount: getESWDiscountAmount
+    getESWDiscountAmount: getESWDiscountAmount,
+    priceConversionUSD: priceConversionUSD,
+    getOrderItemTotalLocalConvertToUSD: getOrderItemTotalLocalConvertToUSD
 };

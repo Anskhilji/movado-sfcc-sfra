@@ -12,6 +12,8 @@ require('dw/content');
 var ExportUtil = require('~/cartridge/scripts/sync/ltkExportUtils');
 var ltkHelper = require('~/cartridge/scripts/util/ltkHelper');
 var Currency = require('dw/util/Currency');
+var constant = require('*/cartridge/scripts/helpers/constants');
+
 
 /**
  * Object used to hold order information.
@@ -21,7 +23,9 @@ function Order() {
     this.OrderNumber = null;
     this.ItemTotal = null;
     this.TaxTotal = null;
+    this.TaxTotalUSD = null;
     this.ShipTotal = null;
+    this.ShipTotalUSD = null;
     this.OrderTotal = null;
     this.EmailAddress = null;
     this.FirstName = null;
@@ -35,6 +39,7 @@ function Order() {
     this.localPrice = null;
     this.currencyCode = null;
     this.OrderDiscount = null;
+    this.CurrencyCodeUSD = null;
 }
 
 /**
@@ -49,6 +54,7 @@ function OrderItem() {
     this.custom = null;
     this.ItemDiscount = null;
     this.DiscountedPrice = null;
+    this.CurrencyCode = null;
 }
 
 /**
@@ -69,7 +75,6 @@ ltkOrder.prototype.LoadOrder = function (order) {
     this.Order.TaxTotal = ltkHelper.getOrderTaxTotal(order) || order.getTotalTax().value;
     this.Order.ShipTotal = ltkHelper.getOrderShipTotal(order) || order.getAdjustedShippingTotalNetPrice().value;
     this.Order.OrderTotal = ltkHelper.getOrderTotal(order) || order.totalGrossPrice.value;
-    this.Order.localPrice = ltkHelper.getOrderItemTotalLocal(order) || ''; 
     this.Order.currencyCode = order.currencyCode; 
     /* MSS[1474]. Get Order Prices by FX rates Conversions */
     this.Order.EmailAddress = order.customerEmail;
@@ -78,9 +83,16 @@ ltkOrder.prototype.LoadOrder = function (order) {
     this.Order.OrderDate = order.creationDate;
     this.Order.custom = order.custom;
     this.Order.Status = order.status.toString();
+    this.Order.CurrencyCodeUSD = constant.USD_CURRENCY_CODE;
     var self = this;
     /* Grab the coupon codes. */
     var cCodes = [];
+    var getOrderTaxTotalUSD = ltkHelper.getOrderTaxTotal(order) || order.getTotalTax().value;
+    var getOrderShipTotalUSD = ltkHelper.getOrderShipTotal(order) || order.getAdjustedShippingTotalNetPrice().value;
+    var localPrice = ltkHelper.getOrderItemTotalLocalConvertToUSD(order) || '';
+    this.Order.localPrice = ltkHelper.priceConversionUSD(localPrice, order);
+    this.Order.TaxTotalUSD = ltkHelper.priceConversionUSD(getOrderTaxTotalUSD, order);
+    this.Order.ShipTotalUSD = ltkHelper.priceConversionUSD(getOrderShipTotalUSD, order);
     order.getCouponLineItems().toArray().forEach(function (cli) {
         cCodes.push(cli.couponCode);
     });
@@ -102,15 +114,24 @@ ltkOrder.prototype.LoadOrder = function (order) {
     });
 
     // Custom Start: Added Logic for order discount [MSS-1473]
-    this.Order.OrderDiscount = this.getDiscountAmount(order.getPriceAdjustments(), order);
+    var OrderDiscunt = this.getDiscountAmount(order.getPriceAdjustments(), order);
+    this.Order.OrderDiscount = ltkHelper.priceConversionUSD(OrderDiscunt, order);
     // Custom End
 };
 
 /* Helper function to calculate the total order price. */
 ltkOrder.prototype.orderTotal = function () {
-    return this.Order.ItemTotal + this.Order.TaxTotal + this.Order.ShipTotal;
-};
+    var orderTotal =  this.Order.ItemTotal + this.Order.TaxTotal + this.Order.ShipTotal;
+    var orderTotalUSD = ltkHelper.priceConversionUSD(orderTotal, this.Order);
+    return orderTotalUSD;
+}
 
+/* Helper function to calculate the total order price. */
+ltkOrder.prototype.getOrderTaxTotalUSD = function (order) {
+    var orderTotal =  this.Order.ItemTotal + this.Order.TaxTotal + this.Order.ShipTotal;
+    var orderTotalUSD = ltkHelper.priceConversionUSD(orderTotal, this.Order);
+    return orderTotalUSD;
+}
 // Custom Start: Get the Order Line Item Total [MSS-1474]
 ltkOrder.prototype.lineItemTotal = function (order) {
     var lineItemAmount = 0;
@@ -122,10 +143,13 @@ ltkOrder.prototype.lineItemTotal = function (order) {
         lineItemTotal = lineItemTotal.add(lineItem.adjustedNetPrice);
     }
     if (order.custom.eswRetailerCurrencyCode) {
-        return ltkHelper.getESWLineItemTotal(order, lineItemTotal);
+        var getESWLineItemTotal = ltkHelper.getESWLineItemTotal(order, lineItemTotal);
+        var getESWLineItemTotalUSD =  ltkHelper.priceConversionUSD(getESWLineItemTotal, this.Order);
+        return getESWLineItemTotalUSD;
     }
 
-    return lineItemTotal.value;
+    lineItemTotalUSD = ltkHelper.priceConversionUSD(lineItemTotal.value, this.Order);
+    return lineItemTotalUSD;
 }
 // Custom End
 ltkOrder.prototype.Serialize = function () {
@@ -140,9 +164,18 @@ ltkOrder.prototype.GetOrderItem = function (item, order) {
     if (!empty(item.product)) {
         orderItem.Sku = item.product.ID;
         /* MSS[1474]. Get Product Price by FX rates Conversions */
-        orderItem.Price = ltkHelper.getItemPrice(item.basePrice.value, this.Order) || item.basePrice.value.toFixed(2);
-        orderItem.DiscountedPrice = ltkHelper.getItemPrice(item.adjustedPrice.value, this.Order) || item.adjustedPrice.value.toFixed(2) || ltkHelper.getProductPrice(item.product);
-        orderItem.localPrice = ltkHelper.getCurrencySymbol(Currency.getCurrency(this.Order.currencyCode)) + (item.adjustedPrice.value.toFixed(2) || ltkHelper.getProductPrice(item.product));
+        // orderItem.Price = ltkHelper.getItemPrice(item.basePrice.value, this.Order) || item.basePrice.value.toFixed(2);
+        // orderItem.DiscountedPrice = ltkHelper.getItemPrice(item.adjustedPrice.value, this.Order) || item.adjustedPrice.value.toFixed(2) || ltkHelper.getProductPrice(item.product);
+        // orderItem.localPrice = ltkHelper.getCurrencySymbol(Currency.getCurrency(this.Order.currencyCode)) + (item.adjustedPrice.value.toFixed(2) || ltkHelper.getProductPrice(item.product));
+
+        var price = ltkHelper.getItemPrice(item.basePrice.value, this.Order) || item.basePrice.value.toFixed(2);
+        var discountedPrice = ltkHelper.getItemPrice(item.adjustedPrice.value, this.Order) || item.adjustedPrice.value.toFixed(2) || ltkHelper.getProductPrice(item.product);
+        var localPrice = (item.adjustedPrice.value.toFixed(2) || ltkHelper.getProductPrice(item.product));
+
+        orderItem.Price = ltkHelper.priceConversionUSD(price, this.Order) || item.basePrice.value.toFixed(2);
+        orderItem.DiscountedPrice = ltkHelper.priceConversionUSD(discountedPrice, this.Order) || item.adjustedPrice.value.toFixed(2);
+        orderItem.localPrice = ltkHelper.priceConversionUSD(localPrice, this.Order) || item.adjustedPrice.value.toFixed(2);
+
         /* MSS[1474]. Get Product Price by FX rates Conversions */
     }
 
@@ -153,7 +186,9 @@ ltkOrder.prototype.GetOrderItem = function (item, order) {
     orderItem.Qty = item.quantity.value;
     orderItem.Product = item.product;
     // Custom Start: Add logic to get discount amount [MSS-1473]
-    orderItem.ItemDiscount = this.getDiscountAmount(item.getPriceAdjustments(), order);
+    var ItemDiscount = this.getDiscountAmount(item.getPriceAdjustments(), order);
+    orderItem.ItemDiscount = ltkHelper.priceConversionUSD(ItemDiscount, this.Order);
+    orderItem.CurrencyCode = constant.USD_CURRENCY_CODE;
     // Custom End
 
     return orderItem;
