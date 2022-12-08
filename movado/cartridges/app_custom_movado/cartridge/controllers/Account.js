@@ -136,17 +136,20 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
     var CustomerMgr = require('dw/customer/CustomerMgr');
     var Resource = require('dw/web/Resource');
     var URLUtils = require('dw/web/URLUtils');
+
+    var accountHelpers = require('*/cartridge/scripts/helpers/accountHelpers');
     var EmailSubscriptionHelper = require('int_custom_marketing_cloud/cartridge/scripts/helper/EmailSubscriptionHelper');
     var formErrors = require('*/cartridge/scripts/formErrors');
+    var googleRecaptchaAPI  = require('*/cartridge/scripts/api/googleRecaptchaAPI');
+
+    var googleRecaptchaScore = !empty(Site.current.preferences.custom.googleRecaptchaScore) ? Site.current.preferences.custom.googleRecaptchaScore : 0
+    var googleRecaptchaToken;
     var registrationForm = null;
     var registrationFormObj = null;
     var redirectUrl = null;
-    var accountHelpers = require('*/cartridge/scripts/helpers/accountHelpers');
     var isYotpoSwellLoyaltyEnabled = !empty(Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) ? Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled : false;
     var isAccountSignupVerificationEnabled = !empty(Site.current.preferences.custom.isAccountSignupVerificationEnabled) ? Site.current.preferences.custom.isAccountSignupVerificationEnabled : false;
-    var googleRecaptchaAPI  = require('*/cartridge/scripts/api/googleRecaptchaAPI');
-    var googleRecaptchaToken;
-    var googleRecaptchaScore = !empty(Site.current.preferences.custom.googleRecaptchaScore) ? Site.current.preferences.custom.googleRecaptchaScore : 0
+    var isGoogleRecaptchaEnabled = !empty(Site.current.preferences.custom.googleRecaptchaEnabled) ? Site.current.preferences.custom.googleRecaptchaEnabled : false;
 
     // setting variables for the BeforeComplete function
     registrationForm = server.forms.getForm('profile');
@@ -155,7 +158,7 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
 
     var result = googleRecaptchaAPI.googleRecaptcha(googleRecaptchaToken);
 
-    if (result.success == false && result.score <= googleRecaptchaScore) {
+    if (isGoogleRecaptchaEnabled && result.success == false && result.score <= googleRecaptchaScore) {
         res.json({
             success: false,
             errorMessage: Resource.msg('error.message.unable.to.create.account', 'login', null)
