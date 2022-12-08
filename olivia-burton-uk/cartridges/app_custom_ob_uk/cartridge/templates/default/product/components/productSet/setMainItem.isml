@@ -179,7 +179,12 @@
                                     <isinclude template="product/components/productSet/addToCartProduct" />
                                 </div>
                             <iselseif condition="${dw.campaign.ABTestMgr.isParticipant('OBPdpCTATest','render-sticky-cta')}" />
-                                <div class="prices-add-to-cart-actions">
+                                <div class="add-to-cart-observer d-none d-sm-block">
+                                    <!-- Cart  -->
+                                    <isinclude template="product/components/productSet/addToCartProduct" />
+                                </div>
+
+                                <div class="prices-add-to-cart-actions d-sm-none">
                                     <!-- Prices -->
                                     <div class="prices prices-main">
                                         <isinclude template="product/components/productSet/setPrice" />
