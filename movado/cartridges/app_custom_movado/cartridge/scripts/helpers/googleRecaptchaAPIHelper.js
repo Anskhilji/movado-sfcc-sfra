@@ -15,7 +15,6 @@ function googleCaptchaAPICall(service) {
     var googleRecaptchaAPIPayLoad = GoogleRecaptchaRequestModel.generateAuthenticationPayLoad(service);
     var responsePayload = null;
     var result = {
-        message: Resource.msg('google.recaptcha.api', 'common', null),
         success: false,
         score: 0
     }
