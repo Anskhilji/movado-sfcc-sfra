@@ -1,9 +1,10 @@
 'use strict';
 
+var Logger = require('dw/system/Logger');
+var Resource = require('dw/web/Resource');
+
 var GoogleRecaptchaServiceRegistry = require('~/cartridge/scripts/services/GoogleRecaptchaServiceRegistry');
 var GoogleRecaptchaRequestModel = require('~/cartridge/scripts/model/GoogleRecaptchaRequestModel');
-var Resource = require('dw/web/Resource');
-var Logger = require('dw/system/Logger');
 
 function getGoogleCaptchaAPIService(serviceID, token) {
     var service = GoogleRecaptchaServiceRegistry.getGoogleAPIService(serviceID, token);
@@ -14,7 +15,7 @@ function googleCaptchaAPICall(service) {
     var googleRecaptchaAPIPayLoad = GoogleRecaptchaRequestModel.generateAuthenticationPayLoad(service);
     var responsePayload = null;
     var result = {
-        message: Resource.msg('google.conversion.api', 'common', null),
+        message: Resource.msg('google.recaptcha.api', 'common', null),
         success: false,
         score: 0
     }
@@ -29,7 +30,7 @@ function googleCaptchaAPICall(service) {
         result.score = responsePayload.object.score
     } else {
         result.success = false;
-        Logger.error('FB Conversion API returns Error on Call : {0}', responsePayload.errorMessage);
+        Logger.error('Google Recaptcha API returns Error on Call : {0}', responsePayload.errorMessage);
     }
     return result;
 }

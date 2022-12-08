@@ -1,6 +1,6 @@
 'use strict';
 
-var Logger = require('dw/system/Logger').getLogger('OrderConversion');;
+var Logger = require('dw/system/Logger');
 var Constants = require('~/cartridge/scripts/helpers/utils/Constants');
 var googleRecaptchaAPIHelper = require('~/cartridge/scripts/helpers/googleRecaptchaAPIHelper');
 

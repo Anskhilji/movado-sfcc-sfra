@@ -23,7 +23,7 @@ function getGoogleAPIService(serviceID, response) {
     var dataService = LocalServiceRegistry.createService(serviceID, serviceConfig);
 
     var baseUrl = dataService.getConfiguration().getCredential().URL;
-    url =  baseUrl + '?secret=6LcvCmAjAAAAAFMU8JtTuYsyqDrh69gjf59k7K_E' + '&response=' + response;
+    var url =  baseUrl + '?secret=' + sitePreferences.googleRecaptchaSecretKey + '&response=' + response;
     dataService.setURL(url);
     return dataService;
 }
