@@ -43,13 +43,18 @@ server.get('ShowAddProductButton',
     server.middleware.include,
     cache.applyDefaultCache,
     function (req, res, next) {
+        var Site = require('dw/system/Site');
+        var smartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
         var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
+        var smartGift = smartGiftHelper.getSmartGiftCardBasket(showProductPageHelperResult.product.id);
+        var smartGiftAddToCartURL = Site.current.preferences.custom.smartGiftURL + showProductPageHelperResult.product.id;
         var productId = req.querystring.pid;
-
+        res.setViewData(smartGift);
         res.render('product/components/addToCartPDP', {
             product: showProductPageHelperResult.product,
             addToCartUrl: showProductPageHelperResult.addToCartUrl,
-            productId: productId
+            productId: productId,
+            smartGiftAddToCartURL: smartGiftAddToCartURL
         });
 
     next();
