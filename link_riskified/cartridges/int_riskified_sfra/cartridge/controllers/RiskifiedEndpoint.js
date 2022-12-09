@@ -10,6 +10,8 @@ var server = require('server');
 var RCLogger = require('*/cartridge/scripts/riskified/util/RCLogger');
 var RCUtilities = require('*/cartridge/scripts/riskified/util/RCUtilities');
 var AnalysisResponseModel = require('*/cartridge/scripts/riskified/export/api/riskifiedendpoint/AnalysisResponseModel');
+var CONotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
+var Constants = require('app_custom_movado/cartridge/scripts/helpers/utils/NotificationConstant');
 
 
 /**
@@ -23,9 +25,12 @@ server.post('AnalysisNotificationEndpoint', function (req, res, next){
 	var logLocation = moduleName + " : Riskified~handleAnalysisResponse";
 	
 	var response = AnalysisResponseModel.handle(moduleName);
+	var message;
 	
 	if(response.error){
-		RCLogger.logMessage("There were errors while updating order analysis. Error Message: " + response.message, "error", logLocation);
+		message = "There were errors while updating order analysis. Error Message: " + response.message, "error", logLocation;
+		RCLogger.logMessage(message);
+	    CONotificationHelpers.sendErrorNotification(Constants.RISKIFIED, message, logLocation, response.message);
 		
 		res.render('riskified/riskifiedorderanalysisresponse', {
 			AnalysisUpdateError:true,

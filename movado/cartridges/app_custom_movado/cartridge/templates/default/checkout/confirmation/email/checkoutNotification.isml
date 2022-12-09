@@ -1,0 +1,22 @@
+<iscontent type="text/html" charset="UTF-8"/>
+<html>
+<head>
+<isprint value="Email Header" encoding="off" />
+</head>
+    <body>
+        <div style="font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: x-small; color: Black;">
+            <div style="font-size: 20px; font-weight:bold;">ContactUS Inquiry</div>
+            <br>
+            <div style="font-size: 10px; font-weight:bold;">Session ID: ${pdict.sessionID}</div>
+            <br>
+            <div style="font-size: 10px; font-weight:bold;">Error File: ${pdict.fileDetails}</div>
+            <br>
+            <div style="font-size: 10px; font-weight:bold;">Error Message: ${pdict.message}</div>
+            <br>
+             <div style="font-size: 10px; font-weight:bold;">Error Details: ${pdict.details}</div>
+            <br>
+            <div style="font-size: 10px; font-weight:bold;">Order Time: ${pdict.timeStamp}</div>
+            <br>
+        </div>
+    </body>
+</html>

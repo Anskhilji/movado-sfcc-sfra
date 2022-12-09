@@ -3,6 +3,8 @@ var _moduleName = 'decohandler';
 
 var restService = require('~/cartridge/scripts/riskified/export/api/models/RestApiModel');
 var RCLogger = require('int_riskified/cartridge/scripts/riskified/util/RCLogger');
+var CONotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
+var Constants = require('app_custom_movado/cartridge/scripts/helpers/utils/NotificationConstant');
 
 /**
  * Elegibility by Deco
@@ -15,6 +17,7 @@ function isEligible(callerModule, orderNo) {
     var logLocation = callerModule + '~' + _moduleName + '.isEligible()',
         response,
         orderObject;
+    var message;
 
     orderObject = {
         order: {
@@ -25,7 +28,9 @@ function isEligible(callerModule, orderNo) {
     response = restService.post('deco', logLocation, orderObject, 'eligible');
 
     if (response.error) {
-        RCLogger.logMessage('Deco Service Error:' + response.message, 'error', logLocation);
+        message = 'Deco Service Error:' + response.message, 'error', logLocation;
+        RCLogger.logMessage(message);
+        CONotificationHelpers.sendErrorNotification(Constants.RISKIFIED, message, logLocation, response.message);
         throw new Error('Deco Service Error');
     }
     // is eligible or not_eligible
@@ -42,6 +47,7 @@ function optIn(callerModule, orderNo) {
     var logLocation = callerModule + '~' + _moduleName + '.optIn()',
         response,
         orderObject;
+    var message;
 
     orderObject = {
         order: {
@@ -52,7 +58,9 @@ function optIn(callerModule, orderNo) {
     response = restService.post('deco', logLocation, orderObject, 'opt_in');
 
     if (response.error) {
-        RCLogger.logMessage('Deco Service Error:' + response.message, 'error', logLocation);
+        message = 'Deco Service Error:' + response.message, 'error', logLocation;
+        RCLogger.logMessage(message);
+        CONotificationHelpers.sendErrorNotification(Constants.RISKIFIED, message, logLocation, response.message);
         throw new Error('Deco Service Error');
     }
 

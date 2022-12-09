@@ -10,6 +10,8 @@
 var PaymentInstrument = require('dw/order/PaymentInstrument');
 var UUIDUtils = require('dw/util/UUIDUtils');
 var RCLogger = require('int_riskified/cartridge/scripts/riskified/util/RCLogger');
+var CONotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
+var Constants = require('app_custom_movado/cartridge/scripts/helpers/utils/NotificationConstant');
 
 /**
  * This method generates checkout ID and saves it in session. It also extracts cardIIN
@@ -44,9 +46,12 @@ function savePaymentDetailsSFRA(cardNumber){
  */
 function savePaymentAuthorizationDetails(paymentParams, callerModule) {
     var logLocation = callerModule + '~PaymentInformationModel.savePaymentAuthorizationDetails()';
+    var message;
 
     if (empty(paymentParams)) {
-        RCLogger.logMessage('Payment parameters or payment method is empty', 'error', logLocation);
+        message = 'Payment parameters or payment method is empty', 'error', logLocation;
+        RCLogger.logMessage(message);
+        CONotificationHelpers.sendErrorNotification(Constants.RISKIFIED, message, logLocation);
     } else {
         if (paymentParams.paymentMethod == 'Card') {
             paymentParams.cardIIN = session.custom.cardIIN;
