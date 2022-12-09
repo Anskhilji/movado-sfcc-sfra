@@ -728,11 +728,8 @@ server.append(
 
 server.post('RemoveClydeProduct', function (req, res, next) {
     var BasketMgr = require('dw/order/BasketMgr');
-    var CartModel = require('*/cartridge/models/cart');
-    var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
     var currentBasket = BasketMgr.getCurrentBasket();
     var productLineItem = null;
-    var basketModel = null;
     var optionProductLineItem = null;
     var lineItems = currentBasket.productLineItems.iterator();
     var productUUID = req.querystring.uuid;
@@ -752,16 +749,13 @@ server.post('RemoveClydeProduct', function (req, res, next) {
                 if (optionLineItem) {
                     optionProductLineItem = optionLineItem;
                     currentBasket.removeProductLineItem(optionProductLineItem);
-                    basketCalculationHelpers.calculateTotals(currentBasket);
                     break;
                 }
             }
         });
-        basketModel = new CartModel(currentBasket);
     } res.json({
         success: optionProductLineItem || false,
         deleteUuid: productUUID,
-        basket: basketModel
     });
     next();
 });
