@@ -167,9 +167,9 @@ ltkOrder.prototype.GetOrderItem = function (item, order) {
         var discountedPrice = ltkHelper.getItemPrice(item.adjustedPrice.value, this.Order) || item.adjustedPrice.value.toFixed(2) || ltkHelper.getProductPrice(item.product);
         var localPrice = (item.adjustedPrice.value.toFixed(2) || ltkHelper.getProductPrice(item.product));
 
-        orderItem.Price = ltkHelper.priceConversionUSD(price, this.Order) || item.basePrice.value.toFixed(2);
-        orderItem.DiscountedPrice = ltkHelper.priceConversionUSD(discountedPrice, this.Order) || item.adjustedPrice.value.toFixed(2);
-        orderItem.localPrice = ltkHelper.priceConversionUSD(localPrice, this.Order) || item.adjustedPrice.value.toFixed(2);
+        orderItem.Price = ltkHelper.priceConversionUSD(price, this.Order);
+        orderItem.DiscountedPrice = ltkHelper.priceConversionUSD(discountedPrice, this.Order);
+        orderItem.localPrice = ltkHelper.priceConversionUSD(localPrice, this.Order);
 
         /* MSS[1474]. Listrak - All Brands - Order Export Job Updates */
     }

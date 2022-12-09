@@ -110,7 +110,7 @@ function priceConversionUSD(productPrice, order) {
     var convertedItemPrice;
     var eswShopperCurrency = false;
     var eswFxRatesJson = !empty(Site.current.preferences.custom.eswFxRatesJson) ? Site.current.preferences.custom.eswFxRatesJson : false;
-    var listTrackCurrencyConversion = !empty(Site.current.preferences.custom.list_Track_Currency_Conversion) ? Site.current.preferences.custom.list_Track_Currency_Conversion : false;
+    var listrakCurrencyConversion = !empty(Site.current.preferences.custom.Listrak_Currency_Conversion) ? Site.current.preferences.custom.Listrak_Currency_Conversion : false;
 
     if (eswFxRatesJson) {
         var eswFxRatesCode = JSON.parse(eswFxRatesJson);
@@ -125,19 +125,19 @@ function priceConversionUSD(productPrice, order) {
         }
     }
 
-    if (listTrackCurrencyConversion) {
+    if (listrakCurrencyConversion) {
 
         if (!eswShopperCurrency) {
-            var listTrackCurrencyConversionJson = JSON.parse(listTrackCurrencyConversion);
-            var listTrackCurrencyConversionCode = listTrackCurrencyConversionJson[order.currencyCode];
-            convertedItemPrice = productPrice * listTrackCurrencyConversionCode.conversions.conversionRate;
+            var listrakCurrencyConversionJson = JSON.parse(listrakCurrencyConversion);
+            var listrakCurrencyConversionCode = listrakCurrencyConversionJson[order.currencyCode];
+            convertedItemPrice = productPrice * listrakCurrencyConversionCode.conversions.conversionRate;
         }
     }
 
-    return convertedItemPrice ? convertedItemPrice.toFixed(2) : convertedItemPrice;
+    return convertedItemPrice ? convertedItemPrice.toFixed(2) : '';
 }
 
-function getESWLineItemTotal(order, lineItemTotal){
+function getESWLineItemTotal(order, lineItemTotal) {
     var eswTotal = lineItemTotal / order.custom.eswFxrateOc;
     if (order.custom.eswRetailerCurrencyCode == constant.USD_CURRENCY_CODE) {
         return eswTotal;
