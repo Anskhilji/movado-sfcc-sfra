@@ -726,7 +726,6 @@ function getWishlistGtmObjforPDP(product) {
  */
 function getGtmProductClickObj(product, categoryName, position) {
     var productClickGtmObj = [];
-    var abTestParticipationSegments = getRunningAbTestSegments();
     if (categoryName != null) {
         productClickGtmObj.push({
             name: escapeQuotes(product.productName),
@@ -735,8 +734,7 @@ function getGtmProductClickObj(product, categoryName, position) {
             brand: product.brand,
             category: escapeQuotes(categoryName),
             position: position,
-            list: 'PLP',
-            runningAbTest: abTestParticipationSegments
+            list: 'PLP'
         });
     }	else {
         var productObj = ProductMgr.getProduct(product.id);
@@ -752,8 +750,7 @@ function getGtmProductClickObj(product, categoryName, position) {
             brand: product.brand,
             category: category,
             position: position,
-            list: 'Search Results',
-            runningAbTest: abTestParticipationSegments
+            list: 'Search Results'
         });
     }
 
@@ -769,7 +766,6 @@ function getGtmProductClickObj(product, categoryName, position) {
  */
 function getProductGtmObj(product, categoryName, position) {
     var productGtmObj = [];
-    var abTestParticipationSegments = getRunningAbTestSegments();
     if (categoryName != null) {
         productGtmObj.push({
 	          name: escapeQuotes(product.productName),
@@ -779,8 +775,7 @@ function getProductGtmObj(product, categoryName, position) {
 	          brand: product.brand,
 	          category: escapeQuotes(categoryName),
 	          list: 'PLP',
-	          position: position,
-              runningAbTest: abTestParticipationSegments
+	          position: position
 	         });
     }	else {
         var productObj = ProductMgr.getProduct(product.id);
@@ -796,30 +791,11 @@ function getProductGtmObj(product, categoryName, position) {
 	          brand: product.brand,
 	          category: category,
 	          list: 'Search Results',
-	          position: position,
-              runningAbTest: abTestParticipationSegments
+	          position: position
 	         });
     }
 
     return productGtmObj[0];
-}
-
-/**
- * Function return running AB test segments
- * @returns segmentsArray 
- */
- function getRunningAbTestSegments() {
-    var ABTestMgr = require('dw/campaign/ABTestMgr');
-    var assignedTestSegmentsIterator = ABTestMgr.getAssignedTestSegments().iterator();
-    var abTestParticipationSegments = [];
-
-    while (assignedTestSegmentsIterator.hasNext()) {
-        abTestSegment = assignedTestSegmentsIterator.next();
-        abTestParticipationSegments.push({
-            runningAbTest: abTestSegment.ABTest.ID + '+' + abTestSegment.ID
-        });
-    }
-    return abTestParticipationSegments;
 }
 
 /**

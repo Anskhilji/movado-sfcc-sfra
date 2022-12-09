@@ -156,7 +156,6 @@ function gtmModel(req) {
 
             // get product impressions tags for PDP
             var productImpressionTags = getPDPProductImpressionsTags(productObj, req.querystring.urlQueryString);
-            var abTestParticipationSegments = getRunningAbTestSegments();
             // Custom Start Updated product values according to mvmt
             if (!empty(productImpressionTags)) {
                 this.product = {
@@ -177,8 +176,7 @@ function gtmModel(req) {
                     deparmentIncludedCategoryName: departmentCategoryName,
                     quantity: '1',
                     familyName: productImpressionTags && productImpressionTags.familyName ? productImpressionTags.familyName : '',
-                    productColor: productImpressionTags && productImpressionTags.productColor ? productImpressionTags.productColor : '',
-                    runningAbTest: abTestParticipationSegments
+                    productColor: productImpressionTags && productImpressionTags.productColor ? productImpressionTags.productColor : ''
                     // Custom End
                 };
             } else {
@@ -231,24 +229,6 @@ function gtmModel(req) {
     this.rakutenAllowedCountries = new ArrayList(!empty(Site.current.preferences.custom.rakutenAllowedCountries) ? Site.current.preferences.custom.rakutenAllowedCountries : '').toArray();
     this.rakutenAllowedCountries = isRakutenEnabled ? this.rakutenAllowedCountries.toString() : '';
     this.customerIPAddressLocation = customerIPAddressLocation || '';
-}
-
-/**
- * Function return running AB test segments
- * @returns segmentsArray 
- */
- function getRunningAbTestSegments() {
-    var ABTestMgr = require('dw/campaign/ABTestMgr');
-    var assignedTestSegmentsIterator = ABTestMgr.getAssignedTestSegments().iterator();
-    var abTestParticipationSegments = [];
-
-    while (assignedTestSegmentsIterator.hasNext()) {
-        abTestSegment = assignedTestSegmentsIterator.next();
-        abTestParticipationSegments.push({
-            runningAbTest: abTestSegment.ABTest.ID + '+' + abTestSegment.ID
-        });
-    }
-    return abTestParticipationSegments;
 }
 
 /**
@@ -826,8 +806,6 @@ function getCartJSONArray(checkoutObject) {
     }
 
     checkoutObject.push(cartArray);
-    var abTestParticipationSegments = getRunningAbTestSegments();
-    checkoutObject.push(abTestParticipationSegments);
 }
 
 /**
@@ -1073,7 +1051,6 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
         });
 
         // Custom changes Updated dataLayer according to mvmt
-        var abTestParticipationSegments = getRunningAbTestSegments();
         var orderObj = {};
         var orderPriceAdj;
         var totalOrderPriceAdjValue = 0.0;
@@ -1093,7 +1070,6 @@ function getOrderConfirmationArray(gtmorderConfObj, orderId) {
         orderObj.currencyCode = order.currencyCode;
         orderObj.country = !empty(order.billingAddress) && !empty(order.billingAddress.countryCode) ? order.billingAddress.countryCode.displayValue : '';
         orderObj.paymentMethod = paymentMethod;
-        orderObj.runningAbTest = abTestParticipationSegments;
         orderJSONArray.push({ orderObj: orderObj });
         gtmorderConfObj.push(orderJSONArray);
     }
