@@ -44,7 +44,6 @@
                 }
 
                 .exclusive-product {
-                    // border-radius: rem(3);
                     background-color: transparent;
                     font-size: rem(13);
                     @include font-medium;
@@ -60,11 +59,11 @@
                     align-items: center;
                     justify-content: center;
                     margin-left: rem(3);
-                    &:first-child{
+                    &:first-child {
                         max-width: rem(46);
                         border: rem(1) solid $black;
                     }
-                    &:last-child{
+                    &:last-child {
                         max-width: rem(46);
                         color: $beige4;
                         border: rem(1) solid $beige4;
