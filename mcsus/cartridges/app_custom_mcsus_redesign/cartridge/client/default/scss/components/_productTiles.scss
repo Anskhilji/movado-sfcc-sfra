@@ -16,6 +16,10 @@
             .product-badge {
                 display: none;
             }
+            
+            .text-badges-container{
+                flex-direction: column-reverse;
+            }
 
             .quickview {
                 display: none;
@@ -40,8 +44,8 @@
                 }
 
                 .exclusive-product {
-                    border-radius: rem(3);
-                    background-color: $grey-light4;
+                    // border-radius: rem(3);
+                    background-color: transparent;
                     font-size: rem(13);
                     @include font-medium;
                     font-style: oblique;
@@ -49,9 +53,22 @@
                     letter-spacing: 0;
                     line-height: rem(14);
                     color: $black;
-                    text-transform: capitalize;
+                    text-transform: uppercase;
                     padding: rem(6) rem(13) rem(4.64) rem(11);
                     text-align: center;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-left: rem(3);
+                    &:first-child{
+                        max-width: rem(46);
+                        border: rem(1) solid $black;
+                    }
+                    &:last-child{
+                        max-width: rem(46);
+                        color: $beige4;
+                        border: rem(1) solid $beige4;
+                    }
 
                     @include media-breakpoint-down(xs) {
                         padding: rem(2.56) rem(10) rem(2.28) rem(8);
@@ -287,7 +304,7 @@
                             text-align: center;
                             line-height: rem(14);
                             color: $black;
-                            background-color: $grey-light4;
+                            background-color: $beige4;
                             border: rem(1) solid $black;
                             padding: rem(6) rem(13);
                             border-radius: rem(3);
