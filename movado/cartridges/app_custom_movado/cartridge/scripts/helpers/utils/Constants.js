@@ -15,6 +15,7 @@ exports.SHIPPING_METHODS_UPGRADES_PRECEDENCE = Site.getCurrent().preferences.cus
 
 exports.SERVICE_ID = {
     FB_CONVERSION: 'fb.conversion.event.api',
+    GOOGLE_RECAPTCH: 'google.recaptcha.site.verify.api'
 }
 
 exports.RAKUTEN_COOKIE_NAME='rmStoreGateway';
