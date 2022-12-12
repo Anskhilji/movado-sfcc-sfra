@@ -2,12 +2,12 @@
 
 var baseProductTile = module.superModule;
 var ATTRIBUTE_NAME = 'color';
-var colorWatchAttribute = 'colorWatch';
 
 var Logger = require('dw/system/Logger');
 var URLUtils = require('dw/web/URLUtils');
 
 var Constants = require('*/cartridge/scripts/util/Constants');
+var COLOR_WATCH = Constants.COLOR_WATCH;
 var decorators = require('*/cartridge/models/product/decorators/index');
 var priceFactory = require('*/cartridge/scripts/factories/price');
 var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
@@ -53,7 +53,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
 
         if (product.variationsAttributes) {
             Object.keys(product.variationsAttributes).forEach(function (key) {
-                if (product.variationsAttributes[key].id !== ATTRIBUTE_NAME && product.variationsAttributes[key].id !== colorWatchAttribute) {
+                if (product.variationsAttributes[key].id !== ATTRIBUTE_NAME && product.variationsAttributes[key].id !== COLOR_WATCH) {
                     defaultVariant = apiProduct.variationModel.defaultVariant;
                     otherVariantValues = product.variationsAttributes[key].values;
                     if (!empty(defaultVariant) && !empty(defaultVariant.custom)) {
@@ -69,7 +69,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                     }
                 }
 
-                if ((product.variationsAttributes[key].id === ATTRIBUTE_NAME) || (product.variationsAttributes[key].id === colorWatchAttribute)) {
+                if ((product.variationsAttributes[key].id === ATTRIBUTE_NAME) || (product.variationsAttributes[key].id === COLOR_WATCH)) {
                     colorVariations = product.variationsAttributes[key];
                 }
 
@@ -121,7 +121,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                             }
                         });
                     } else {
-                        if (colorVariations.id === colorWatchAttribute) {
+                        if (colorVariations.id === COLOR_WATCH) {
                             Object.keys(colorVariations.values).forEach(function (key) {
                                 if (colorVariations.values[key]) {
                                     colorVariations.values[key].swatchesURL = URLUtils.url(
