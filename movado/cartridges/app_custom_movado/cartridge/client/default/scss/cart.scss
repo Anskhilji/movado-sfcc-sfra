@@ -97,9 +97,9 @@ $negative-spacer: -0.625rem;
     right: rem(19);
     border: none;
     background-color: transparent;
-      &:focus,&:active {
+    &:focus,&:active {
         background: none;
-      }
+    }
   }
 }
 
