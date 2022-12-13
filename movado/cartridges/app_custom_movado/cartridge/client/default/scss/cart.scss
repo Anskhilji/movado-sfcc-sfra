@@ -84,6 +84,10 @@ $negative-spacer: -0.625rem;
   display: inline-block;
   vertical-align: top;
 
+  @include media-breakpoint-down(sm) {
+    padding-right: rem(22);
+  }
+
   .remove-clyde-product {
     color: $grey4;
     font-size: rem(26);
@@ -92,7 +96,7 @@ $negative-spacer: -0.625rem;
     top: rem(-10);
     right: rem(19);
     border: none;
-    background-color: $white;
+    background-color: transparent;
       &:focus,&:active {
         background: none;
       }
