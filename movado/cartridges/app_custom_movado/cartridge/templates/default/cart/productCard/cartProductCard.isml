@@ -36,7 +36,7 @@
 
                         <p class="line-item-attributes model-name mb-2">${lineItem.resources.Model} ${lineItem.id}</p>
                         <isloop items="${lineItem.options}" var="option">
-                            <isif condition="${!!option && option.selectedValueId != 0}">
+                            <isif condition="${!!option}">
                                 <isif condition="${option.optionId === 'Embossed' && lineItem.customAttributes.emboss}">
                                 	<p class="line-item-attributes mb-2 personalize-price">${Resource.msg('emboss.displayValue.change', 'cart', null)} (${lineItem.customAttributes.emboss.price}): <span class="personalize-msg">${lineItem.customAttributes.emboss.msgLine1}</span></p>
                                 </isif>
