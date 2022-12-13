@@ -173,6 +173,12 @@ var updateCartPage = function(data) {
         data.items.forEach(function (childitem) {
             if (childitem.id == $giftPid) {
                 $miniCartSelector.find('.sale-gift-price-mvmt-'+ childitem.UUID).empty().append(childitem.priceTotal.price);
+                var giftLineItemContainer = $('.gift-lineitem-container-' + childitem.UUID + ' .strike-through.list');
+                giftLineItemContainer.find('.value').attr('content', childitem.priceTotal.nonAdjustedFormattedPrice);
+                giftLineItemContainer.find('.eswListPrice').text(childitem.priceTotal.nonAdjustedFormattedPrice);
+                if (childitem.price.list == null) {
+                    giftLineItemContainer.remove();
+                }
             }
         });
     });

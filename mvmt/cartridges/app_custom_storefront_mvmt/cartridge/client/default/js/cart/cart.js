@@ -169,13 +169,20 @@ function updateMiniCartTotals(data, $giftProduct, $uuid, $dataParentUUID) {
             $fullCart.find('.item-total-' + item.UUID + ' .price .strike-through').remove();
         }
         $fullCart.find('.item-total-' + item.UUID + ' .sales').empty().append(item.priceTotal.price);
-    // Custom End
+        // Custom End
     
         
         if (item.giftPid !== undefined && item.giftPid !== '') {
             data.items.forEach(function (childitem) {
                 if (childitem.id == item.giftPid) {
                     $('.sale-gift-price-mvmt-' + childitem.UUID).empty().append(childitem.priceTotal.price);
+                    var giftLineItemContainer = $('.gift-lineitem-container-' + childitem.UUID + ' .strike-through.list');
+                    giftLineItemContainer.find('.value').attr('content', childitem.priceTotal.nonAdjustedFormattedPrice);
+                    giftLineItemContainer.find('.eswListPrice').text(childitem.priceTotal.nonAdjustedFormattedPrice);
+                    if (childitem.price.list == null) {
+                        giftLineItemContainer.remove();
+                    }
+
                 }
             });
         }
