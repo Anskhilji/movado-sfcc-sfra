@@ -14,7 +14,9 @@ module.exports = function (object, promotions) {
                 promotionClass: promotion.promotionClass,
                 rank: promotion.rank,
                 image: promotion.image,
-                plpCalloutMsg: !empty(promotion.custom.calloutMessagePLP) ? promotion.custom.calloutMessagePLP.markup : ''
+                plpCalloutMsg: !empty(promotion.custom.calloutMessagePLP) ? promotion.custom.calloutMessagePLP.markup : '',
+                promotionBadge: promotion.custom.promotionBadge,
+                promotionMsg: !empty(promotion.custom.promotionMessage) ? promotion.custom.promotionMessage : '',
             };
         })
     });
