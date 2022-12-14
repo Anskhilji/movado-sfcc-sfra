@@ -8,8 +8,6 @@ $(document).ready(function () {
         $(".refine-wrapper-sidebar").addClass("fillterslideinleft");
         $('.search-results.plp-new-design .custom-select__option').focus();
         // Custom:MSS-2073 start
-        $(".refine-wrapper-sidebar .movado-refinements-container").addClass("d-block");
-        $(".refine-wrapper-sidebar .sort-order-mobile-menu").removeClass("d-block").addClass("d-none");
         $(".close-refinebar .filter-more").removeClass("d-none").addClass("d-block");
         $(".close-refinebar .sort-by").removeClass("d-block").addClass("d-none");
         // Custom:MSS-2073 end
@@ -77,6 +75,13 @@ $(document).ready(function () {
         $(".close-refinebar .sort-by").removeClass("d-none").addClass("d-block");
         $(".close-refinebar .filter-more").removeClass("d-block").addClass("d-none");
         $('.search-results.plp-new-design .custom-select__option').focus(); 
+    });
+
+    $(".search-results.plp-new-design .filter-btn").click(function(){
+        // Custom:MSS-2073 start
+        $(".refine-wrapper-sidebar .movado-refinements-container").addClass("d-block");
+        $(".refine-wrapper-sidebar .sort-order-mobile-menu").removeClass("d-block").addClass("d-none");
+        // Custom:MSS-2073 end
     });
 
     // Custom:MSS-2073 end
