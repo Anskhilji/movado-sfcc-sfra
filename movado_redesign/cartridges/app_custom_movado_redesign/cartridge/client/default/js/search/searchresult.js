@@ -4,7 +4,8 @@ $(document).ready(function () {
     $(".search-results.plp-new-design .filter-btn,.more-filter-btn").click(function(){
         $(".modal-background").removeClass("fadeOut").addClass("d-block fadeIn fast")
         $("body").addClass("no-overflow");
-        $(".search-results.plp-new-design .refinement-bar").removeClass("fadeOutRight").addClass("fast fadeInRight animated d-block");
+        $(".search-results.plp-new-design .refinement-bar, .refine-wrapper-sidebar").removeClass("fadeOutRight").addClass("fast fadeInRight animated d-block");
+        $(".refine-wrapper-sidebar").addClass("fillterslideinleft");
         $('.search-results.plp-new-design .custom-select__option').focus();
     });
 
@@ -57,6 +58,7 @@ $(document).ready(function () {
        $('.header-menu-wrapper').removeClass('header-active');
        $('.dk-fillter-check').unbind();
        $('.dk-fillter-m').removeClass('dk-fillter-check');
+       $(".search-results.plp-new-design  .refinement-bar, .refine-wrapper-sidebar").removeClass("fillterslideinleft");
     });
     // Custom:MSS-2073 end
 });
@@ -66,17 +68,17 @@ $(".search-results.plp-new-design .refinement-bar").keyup(function(event) {
     if (event.key === 'Escape') {
         $(".modal-background").fadeOut();
         $("body").removeClass("no-overflow");
-        $(".search-results.plp-new-design  .refinement-bar").removeClass("faster fadeInRight").addClass("fast fadeOutRight");
+        $(".search-results.plp-new-design  .refinement-bar, .refine-wrapper-sidebar").removeClass("faster fadeInRight fillterslideinleft").addClass("fast fadeOutRight");
         setTimeout(function() {
             $(".modal-background").removeClass("d-block");
-            $(".search-results.plp-new-design  .refinement-bar").removeClass("d-block");
+            $(".search-results.plp-new-design  .refinement-bar, .refine-wrapper-sidebar").removeClass("d-block fillterslideinleft");
             // Custom:MSS-2073 start
             $('.refinement-box-filter').removeClass('active');
             // Custom:MSS-2073 end
         },300);
 
         setTimeout(function() {
-            $(".refinement-bar").removeClass("animated");
+            $(".refinement-bar,.refine-wrapper-sidebar").removeClass("animated fillterslideinleft");
         }, 200);
         $(".search-results.plp-new-design .filter-btn > button").focus();
     }

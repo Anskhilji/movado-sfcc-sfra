@@ -29,7 +29,8 @@ function handleRefinements($results) {
             .addClass('active');
     });
 
-    updateDom($results, '.refinements');
+    // updateDom($results, '.refinements');
+    // updateDom($results, '.refinements-sidebar');
 }
 
 /**
@@ -61,6 +62,34 @@ function parseResults(response) {
         specialHandlers[selector]($results);
     });
 }
+
+// function parseResultsSimple(response) {
+//     var $results = $(response);
+//     var specialHandlers = {
+//         '.refinements': handleRefinements
+//     };
+
+//     // Update DOM elements that do not require special handling
+//     [
+//         '.refine-wrapper-simple'
+//     ].forEach(function (selector) {
+//         updateDom($results, selector);
+//     });
+// }
+
+// function parseResultsSideBar(response) {
+//     var $results = $(response);
+//     var specialHandlers = {
+//         '.refinements': handleRefinements
+//     };
+
+//     // Update DOM elements that do not require special handling
+//     [
+//         '.fillterslideinleft'
+//     ].forEach(function (selector) {
+//         updateDom($results, selector);
+//     });
+// }
 
 /**
  * This function retrieves another page of content to display in the content search grid
@@ -331,6 +360,7 @@ function moreFilterBtn($moreFilterBtn) {
         $("body").addClass("no-overflow");
         $(".search-results.plp-new-design .refinement-bar").removeClass("fadeOutRight").addClass("fast fadeInRight animated d-block");
         $('.search-results.plp-new-design .custom-select__option').focus();
+        $(".search-results.plp-new-design  .refinement-bar .refine-wrapper-sidebar").removeClass("fillterslideinleft");
     });
 }
  // Custom:MSS-2073 end
@@ -535,11 +565,12 @@ module.exports = {
         // Handle refinement value selection and reset click
         $('.container, .container-fluid').on(
             'click',
-            '.refinements li a, .refinement-bar a.reset, .filter-value a, .swatch-filter a',
+            '.refinements li a, .refinements-sidebar li a, .refinement-bar a.reset, .filter-value a, .swatch-filter a',
             function (e) {
                 e.preventDefault();
                 e.stopPropagation();
-                
+                console.log($(this));
+                console.log(e);
                 //push data into datalayer for filters into gtm
                 var $filterType = $(this).parents('.card-body').siblings('.movado-refinements-type').text().trim();
                 dataLayer.push({
@@ -562,7 +593,7 @@ module.exports = {
                     }
                 }
 
-                var moreFilters = $(".refinement-bar-redesign").hasClass("fadeOutRight")
+                var moreFilters = $(".refinement-bar-redesign").hasClass("fillterslideinleft")
                 if(moreFilters) {
                     moreFiltersSideBar = true;
                 }
@@ -580,6 +611,11 @@ module.exports = {
                     	var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
                     	$('body').trigger('facet:success', [gtmFacetArray]);
                         parseResults(response);
+                        // if (moreFilters) {
+                        //     parseResultsSideBar(response);
+                        // } else {
+                        //     parseResultsSimple(response);
+                        // }
                         // var refineWrapper = document.querySelector('.desktop-search-refine-bar-redesing .refine-wrapper')
                         // edit start
                         updatePageURLForFacets(filtersURL);
@@ -601,6 +637,8 @@ module.exports = {
                         var $moreFilterBtn = $('.more-filter-btn');
                         refinementBoxFilterDesktop($refinementBox, $dkFilterCheck, $modelBackground);
                         moreFilterBtn($moreFilterBtn);
+                        $('.modal-background').removeClass('d-block');
+                        $('.desktop-search-refine-bar-redesing').removeClass('active');
                         // Custom:MSS-2073 end
                     },
                     error: function () {
@@ -609,6 +647,85 @@ module.exports = {
                 });
             });
     },
+    //     // Handle refinement value selection and reset click
+    //     $('.container, .container-fluid').on(
+    //         'click',
+    //         '.refinements li a, .refinement-bar a.reset, .filter-value a, .swatch-filter a',
+    //         function (e) {
+    //             e.preventDefault();
+    //             e.stopPropagation();
+                
+    //             //push data into datalayer for filters into gtm
+    //             var $filterType = $(this).parents('.card-body').siblings('.movado-refinements-type').text().trim();
+    //             dataLayer.push({
+    //                 event: 'Filter Sort',
+    //                 eventCategory: 'Filter & Sort',
+    //                 eventAction: $filterType,
+    //                 eventLabel: $(this).text().trim()
+    //             });
+
+    //             // Get currently selected sort option to retain sorting rules
+    //             var moreFiltersSideBar = false;
+    //             var urlparams = getUrlParamObj(document.location.href);
+    //             var filtersURL = e.currentTarget.href;
+    //             var currentSelectedSortId = '';
+    //             if (urlparams.hasOwnProperty('srule') == true) {
+    //                 if (urlparams.srule) {
+    //                     currentSelectedSortId = urlparams.srule;
+    //                     filtersURL = removeParam('srule', filtersURL);  // Custom: [MSS-1348 Fix for not applying price filters]
+    //                     filtersURL = replaceUrlParam(filtersURL, 'srule', currentSelectedSortId);
+    //                 }
+    //             }
+
+    //             var moreFilters = $(".refinement-bar-redesign").hasClass("fadeOutRight")
+    //             if(moreFilters) {
+    //                 moreFiltersSideBar = true;
+    //             }
+    //             $.spinner().start();
+    //             $(this).trigger('search:filter', e);
+    //             $.ajax({
+    //                 url: filtersURL,
+    //                 data: {
+    //                     page: $('.grid-footer').data('page-number'),
+    //                     selectedUrl: filtersURL,
+    //                     moreFiltersSideBar: moreFiltersSideBar
+    //                 },
+    //                 method: 'GET',
+    //                 success: function (response) {
+    //                 	var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
+    //                 	$('body').trigger('facet:success', [gtmFacetArray]);
+    //                     parseResults(response);
+    //                     // var refineWrapper = document.querySelector('.desktop-search-refine-bar-redesing .refine-wrapper')
+    //                     // edit start
+    //                     updatePageURLForFacets(filtersURL);
+    //                     // edit end
+    //                     $.spinner().stop();
+    //                     $('.search-results.plp-new-design #sort-order').customSelect();
+    //                     setTimeout( function () {
+    //                         if ( $('.plp-new-design .refinement-bar .selected-value:contains("Sort")').length == 0) {
+    //                             $('.plp-new-design .refinement-bar .selected-value').prepend('<span>Sort By</span> ');
+    //                         }
+    //                     }, 20);
+    //                     moveFocusToTop();
+    //                     swatches.showSwatchImages();
+    //                     $('.plp-new-design .result-count').removeClass('col-12 col-md-9 col-sm-6 order-sm-2');
+    //                     // Custom:MSS-2073 start
+    //                     var $refinementBox = $('.refinement-box-filter-desktop');
+    //                     var $dkFilterCheck = $('.dk-fillter-check');
+    //                     var $modelBackground = $('.modal-background');
+    //                     var $moreFilterBtn = $('.more-filter-btn');
+    //                     refinementBoxFilterDesktop($refinementBox, $dkFilterCheck, $modelBackground);
+    //                     moreFilterBtn($moreFilterBtn);
+    //                     $('.modal-background').removeClass('d-block');
+    //                     $('.desktop-search-refine-bar-redesing').removeClass('active');
+    //                     // Custom:MSS-2073 end
+    //                 },
+    //                 error: function () {
+    //                     $.spinner().stop();
+    //                 }
+    //             });
+    //         });
+    // },
 
     showContentTab: function () {
         // Display content results from the search
