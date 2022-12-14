@@ -398,22 +398,33 @@
   
   .product-tile {
     width: auto;
-  
+
     .color-swatches {
       a {
         cursor: pointer;
         margin-right: 0.313em;
-  
+
         img {
-          border: rem(1) solid $white;
-          padding: rem(1);
-          background: none !important;
-          margin-right: 0;
-  
+          box-sizing: border-box;
+          height: 30px;
+          width: 30px;
+          border: 0.6px solid rgba(0, 0, 0, 0.1);
+          border-radius: 0.88px;
+          background-color: #FFFFFF;
+
           &.swatch-circle.is-active {
-            border: rem(1) solid $black;
-            border-radius: rem(50);
+            border-radius: 0.9px;
+            border: 0.6px solid #000000;
+
           }
+        }
+        
+        .swatch-counter {
+          box-sizing: border-box;
+          height: 30.61px;
+          width: 30.61px;
+          border: 0.61px solid #000000;
+          border-radius: 0.9px;
         }
       }
     }
