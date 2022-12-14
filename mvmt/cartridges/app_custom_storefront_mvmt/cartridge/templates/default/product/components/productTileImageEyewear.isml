@@ -70,6 +70,15 @@
             </isif>
         </isif>
     </div>    
+    <isif condition="${product.promotions && !empty(product.promotions)}">
+        <isloop items="${product.promotions}" var="promotion">
+            <isif condition="${promotion.promotionClass === dw.campaign.Promotion.PROMOTION_CLASS_PRODUCT && promotion.promotionBadge &&  promotion.promotionMsg &&  promotion.promotionMsg !== ''}">
+                <div class="product-badge-main">
+                    <span class="badge text-uppercase">${promotion.promotionMsg}</span>
+                </div>
+            </isif>
+        </isloop>
+    </isif>
     <isif condition="${!empty(product.saveMessage)}">
         <div class="product-tag-content">
             <div class="exclusive-badges exclusive-badge-search">
