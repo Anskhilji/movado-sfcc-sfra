@@ -352,6 +352,7 @@ function refinementBoxFilterDesktop($refinementBox, $dkFilterCheck, $modelBackgr
         $('.header-menu-wrapper').removeClass('header-active');
         $('.dk-fillter-check').unbind();
         $('.dk-fillter-m').removeClass('dk-fillter-check');
+        $(".refine-wrapper-sidebar").removeClass("fillterslideinleft");
     });
 }
 function moreFilterBtn($moreFilterBtn) {
@@ -361,6 +362,7 @@ function moreFilterBtn($moreFilterBtn) {
         $(".search-results.plp-new-design .refinement-bar").removeClass("fadeOutRight").addClass("fast fadeInRight animated d-block");
         $('.search-results.plp-new-design .custom-select__option').focus();
         $(".search-results.plp-new-design  .refinement-bar .refine-wrapper-sidebar").removeClass("fillterslideinleft");
+        $(".refine-wrapper-sidebar").addClass("fillterslideinleft");
     });
 }
  // Custom:MSS-2073 end
@@ -569,8 +571,7 @@ module.exports = {
             function (e) {
                 e.preventDefault();
                 e.stopPropagation();
-                console.log($(this));
-                console.log(e);
+                var $selectedFiltersNav = e.target;
                 //push data into datalayer for filters into gtm
                 var $filterType = $(this).parents('.card-body').siblings('.movado-refinements-type').text().trim();
                 dataLayer.push({
@@ -619,6 +620,50 @@ module.exports = {
                         // var refineWrapper = document.querySelector('.desktop-search-refine-bar-redesing .refine-wrapper')
                         // edit start
                         updatePageURLForFacets(filtersURL);
+                        var $selectedFiltersNav = $('.selected-filters-nav');
+                        var $selectedFilterVal = '';
+                        $selectedFiltersNav.each(function() {
+                            var $isChildEl = $(this).find('.filter-value');
+                            if ($isChildEl.length > 0) {
+                                $isChildEl.each (function () {
+                                    $selectedFilterVal = $(this).find('a').text().trim();
+                                    var $filterSideBar = $('.refine-wrapper-sidebar .selected-refinement');
+    
+                                    if ($filterSideBar.length > 0) {
+                                        $filterSideBar.each(function () {
+                                            var $selectedRefinementList = $(this).find('.card-body .values');
+                                            
+                                            if ($selectedRefinementList.length > 0) {
+                                                var $isChildren = $selectedRefinementList.find('li');
+    
+                                                if ($isChildren.length > 0) {
+                                                    $isChildren.each(function() {
+    
+                                                        var $isSelectionTabVal = $(this).find('.selection-tab').text().trim();
+    
+                                                        if ($isSelectionTabVal == $selectedFilterVal) {
+                                                            $(this).find('.selection-tab').addClass('selected');
+                                                            $selectedFilterVal = '';
+                                                        }
+                                                        
+                                                    });
+                                                }
+    
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        });
+
+                        console.log($selectedFiltersNav);
+                        // if (selectedFiltersNav.length > 0) {
+                        //     var selectedFiltersIndex = selectedFiltersNav;
+                        //     console.log(selectedFiltersIndex);
+                        //     if (selectedFiltersIndex.find('li')) {
+                        //         alert('ok');
+                        //     }
+                        // }
                         // edit end
                         $.spinner().stop();
                         $('.search-results.plp-new-design #sort-order').customSelect();
@@ -639,6 +684,7 @@ module.exports = {
                         moreFilterBtn($moreFilterBtn);
                         $('.modal-background').removeClass('d-block');
                         $('.desktop-search-refine-bar-redesing').removeClass('active');
+                        // $('.refine-wrapper-sidebar').removeClass('fillterslideinleft');
                         // Custom:MSS-2073 end
                     },
                     error: function () {
@@ -647,85 +693,6 @@ module.exports = {
                 });
             });
     },
-    //     // Handle refinement value selection and reset click
-    //     $('.container, .container-fluid').on(
-    //         'click',
-    //         '.refinements li a, .refinement-bar a.reset, .filter-value a, .swatch-filter a',
-    //         function (e) {
-    //             e.preventDefault();
-    //             e.stopPropagation();
-                
-    //             //push data into datalayer for filters into gtm
-    //             var $filterType = $(this).parents('.card-body').siblings('.movado-refinements-type').text().trim();
-    //             dataLayer.push({
-    //                 event: 'Filter Sort',
-    //                 eventCategory: 'Filter & Sort',
-    //                 eventAction: $filterType,
-    //                 eventLabel: $(this).text().trim()
-    //             });
-
-    //             // Get currently selected sort option to retain sorting rules
-    //             var moreFiltersSideBar = false;
-    //             var urlparams = getUrlParamObj(document.location.href);
-    //             var filtersURL = e.currentTarget.href;
-    //             var currentSelectedSortId = '';
-    //             if (urlparams.hasOwnProperty('srule') == true) {
-    //                 if (urlparams.srule) {
-    //                     currentSelectedSortId = urlparams.srule;
-    //                     filtersURL = removeParam('srule', filtersURL);  // Custom: [MSS-1348 Fix for not applying price filters]
-    //                     filtersURL = replaceUrlParam(filtersURL, 'srule', currentSelectedSortId);
-    //                 }
-    //             }
-
-    //             var moreFilters = $(".refinement-bar-redesign").hasClass("fadeOutRight")
-    //             if(moreFilters) {
-    //                 moreFiltersSideBar = true;
-    //             }
-    //             $.spinner().start();
-    //             $(this).trigger('search:filter', e);
-    //             $.ajax({
-    //                 url: filtersURL,
-    //                 data: {
-    //                     page: $('.grid-footer').data('page-number'),
-    //                     selectedUrl: filtersURL,
-    //                     moreFiltersSideBar: moreFiltersSideBar
-    //                 },
-    //                 method: 'GET',
-    //                 success: function (response) {
-    //                 	var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
-    //                 	$('body').trigger('facet:success', [gtmFacetArray]);
-    //                     parseResults(response);
-    //                     // var refineWrapper = document.querySelector('.desktop-search-refine-bar-redesing .refine-wrapper')
-    //                     // edit start
-    //                     updatePageURLForFacets(filtersURL);
-    //                     // edit end
-    //                     $.spinner().stop();
-    //                     $('.search-results.plp-new-design #sort-order').customSelect();
-    //                     setTimeout( function () {
-    //                         if ( $('.plp-new-design .refinement-bar .selected-value:contains("Sort")').length == 0) {
-    //                             $('.plp-new-design .refinement-bar .selected-value').prepend('<span>Sort By</span> ');
-    //                         }
-    //                     }, 20);
-    //                     moveFocusToTop();
-    //                     swatches.showSwatchImages();
-    //                     $('.plp-new-design .result-count').removeClass('col-12 col-md-9 col-sm-6 order-sm-2');
-    //                     // Custom:MSS-2073 start
-    //                     var $refinementBox = $('.refinement-box-filter-desktop');
-    //                     var $dkFilterCheck = $('.dk-fillter-check');
-    //                     var $modelBackground = $('.modal-background');
-    //                     var $moreFilterBtn = $('.more-filter-btn');
-    //                     refinementBoxFilterDesktop($refinementBox, $dkFilterCheck, $modelBackground);
-    //                     moreFilterBtn($moreFilterBtn);
-    //                     $('.modal-background').removeClass('d-block');
-    //                     $('.desktop-search-refine-bar-redesing').removeClass('active');
-    //                     // Custom:MSS-2073 end
-    //                 },
-    //                 error: function () {
-    //                     $.spinner().stop();
-    //                 }
-    //             });
-    //         });
-    // },
 
     showContentTab: function () {
         // Display content results from the search

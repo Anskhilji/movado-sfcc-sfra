@@ -1,9 +1,9 @@
 <iscomment> Custom: HTML structure changed</iscomment>
-<div class="filter-header d-md-none">
+<div class="filter-header">
     <div class="header-bar clearfix">
         <button class="close-refinebar pull-left" data-filter-category="${pdict.productSearch.category && !empty(pdict.productSearch.category) ? pdict.productSearch.category.id : ''}" aria-label="close filter">
-        <span class="d-none filter-more">${Resource.msg('label.filterMore', 'search', null)}</span>
-        <span class="d-none sort-by">${Resource.msg('label.sortby', 'search', null)}</span>
+        <span class="d-none d-md-block filter-more">${Resource.msg('label.filterMore', 'search', null)}</span>
+        <span class="d-none d-md-block sort-by">${Resource.msg('label.sortby', 'search', null)}</span>
         </button>
         <isif condition="${pdict.productSearch.productIds.length > 0}">
             <div class="pull-right d-none">
