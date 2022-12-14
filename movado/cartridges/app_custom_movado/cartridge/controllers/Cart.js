@@ -734,6 +734,10 @@ server.append('MiniCartShow', function(req, res, next){
             res.viewData.countrySwitch = countrySwitch;
         }    
     }
+    var runningABTest = productCustomHelper.getRunningABTestSegments();
+    res.setViewData({
+        runningABTest: runningABTest
+    });
     // Custom End
     
     if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {

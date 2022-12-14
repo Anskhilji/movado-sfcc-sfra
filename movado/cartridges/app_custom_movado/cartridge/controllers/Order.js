@@ -173,6 +173,7 @@ server.replace(
 server.append('Confirm', function (req, res, next) {
     var OrderMgr = require('dw/order/OrderMgr');
     var Site = require('dw/system/Site');
+    var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
     var viewData = res.getViewData();
     var marketingProductsData = [];
     var orderAnalyticsTrackingData;
@@ -346,6 +347,8 @@ server.append('Confirm', function (req, res, next) {
         orderConfirmationObj: JSON.stringify(orderConfirmationObj)
     });
     
+    var runningABTest = productCustomHelper.getRunningABTestSegments();
+    viewData.runningABTest = runningABTest;
     viewData.checkoutPage = true;
     if (viewData.order) {
         var selectedPaymentMethod = orderCustomHelper.getSelectedPaymentMethod(viewData.order);

@@ -7,6 +7,7 @@ var cache = require('*/cartridge/scripts/middleware/cache');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var Resource = require('dw/web/Resource');
 var URLUtils = require('dw/web/URLUtils');
+var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
 var pageMetaData = require('*/cartridge/scripts/middleware/pageMetaData');
 var ContentMgr = require('dw/content/ContentMgr');
 var page = module.superModule;
@@ -111,6 +112,10 @@ server.replace(
             );
         }
 
+    var runningABTest = productCustomHelper.getRunningABTestSegments();
+        res.setViewData({
+        runningABTest: runningABTest
+    });
         next();
     },
     pageMetaData.computedPageMetaData
