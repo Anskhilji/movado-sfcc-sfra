@@ -18,6 +18,7 @@ server.append(
     function (req, res, next) {
         var BasketMgr = require('dw/order/BasketMgr');
         var Site = require('dw/system/Site');
+        var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
         var currentBasket = BasketMgr.getCurrentBasket();
         currentBasket.startCheckout();
 
@@ -32,6 +33,10 @@ server.append(
                 return next();
             }    
         }
+        var runningABTest = productCustomHelper.getRunningABTestSegments();
+        res.setViewData({
+            runningABTest: runningABTest
+        });
         // Custom End
 
         if (currentBasket && !req.currentCustomer.profile) {
@@ -142,7 +147,6 @@ server.append(
         );
         
         // Custom Start: Add email for Amazon Pay
-        var runningABTest = productCustomHelper.getRunningABTestSegments();
         res.setViewData({
             order: orderModel,
             actionUrls: actionUrls,
@@ -150,8 +154,7 @@ server.append(
             customerEmail: viewData.order.orderEmail ? viewData.order.orderEmail : null,
             expirationYears: creditCardExpirationYears,
             countryCode: countryCode,
-            couponLineItems: currentBasket.couponLineItems,
-            runningABTest: runningABTest
+            couponLineItems: currentBasket.couponLineItems
         });
 
         next();

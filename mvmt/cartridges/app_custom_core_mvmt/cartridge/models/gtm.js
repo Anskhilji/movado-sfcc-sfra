@@ -18,6 +18,7 @@ var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 var googleAnalyticsHelpers = require('*/cartridge/scripts/helpers/googleAnalyticsHelpers');
 var Constants = require('*/cartridge/scripts/helpers/utils/Constants');
+var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
 
 var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ?
         Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
@@ -55,6 +56,7 @@ function gtmModel(req) {
     this.googleAnalyticsParameters = '';
     this.customerIPAddressLocation = '';
     this.rakutenAllowedCountries =  [];
+    this.runningABTests = ''
 
 
         if (!empty(req.querystring)) {
@@ -144,6 +146,8 @@ function gtmModel(req) {
     var userZip = getUserZip(currentCustomer);
         // Custom End
 
+    var runningABTests = productCustomHelper.getRunningABTestSegments();
+
         if (pid != null) {
             var ProductMgr = require('dw/catalog/ProductMgr');
             productObj = ProductMgr.getProduct(formatProductId(pid));
@@ -229,6 +233,7 @@ function gtmModel(req) {
     this.rakutenAllowedCountries = new ArrayList(!empty(Site.current.preferences.custom.rakutenAllowedCountries) ? Site.current.preferences.custom.rakutenAllowedCountries : '').toArray();
     this.rakutenAllowedCountries = isRakutenEnabled ? this.rakutenAllowedCountries.toString() : '';
     this.customerIPAddressLocation = customerIPAddressLocation || '';
+    this.runningABTests = runningABTests || '';
 }
 
 /**
