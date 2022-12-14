@@ -46,7 +46,6 @@ server.replace('Find', server.middleware.https, cache.applyDefaultCache, consent
         showMap: showMap,
         countryCode :countryCode
     };
-
     res.setViewData(viewData);
     res.render('storeLocator/storeLocator', viewData);
     next();
@@ -105,7 +104,6 @@ server.replace('FindStores', function (req, res, next) {
         stores = storeHelpers.getStores(radius, req.querystring.lat, req.querystring.long, req.geolocation, null, showMap, null, status);
         res.json(stores);
     }
-
     next();
 });
 
