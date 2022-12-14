@@ -7,6 +7,12 @@ $(document).ready(function () {
         $(".search-results.plp-new-design .refinement-bar, .refine-wrapper-sidebar").removeClass("fadeOutRight").addClass("fast fadeInRight animated d-block");
         $(".refine-wrapper-sidebar").addClass("fillterslideinleft");
         $('.search-results.plp-new-design .custom-select__option').focus();
+        // Custom:MSS-2073 start
+        $(".refine-wrapper-sidebar .movado-refinements-container").addClass("d-block");
+        $(".refine-wrapper-sidebar .sort-order-mobile-menu").removeClass("d-block").addClass("d-none");
+        $(".close-refinebar .filter-more").removeClass("d-none").addClass("d-block");
+        $(".close-refinebar .sort-by").removeClass("d-block").addClass("d-none");
+        // Custom:MSS-2073 end
     });
 
     $('.search-results.plp-new-design .refinement-bar .selected-value').prepend("<span>Sort By</span> ");
@@ -60,6 +66,19 @@ $(document).ready(function () {
        $('.dk-fillter-m').removeClass('dk-fillter-check');
        $(".search-results.plp-new-design  .refinement-bar, .refine-wrapper-sidebar").removeClass("fillterslideinleft");
     });
+
+    $(".mobile-fliter-sort-btn-click").click(function(){
+        $(".modal-background").removeClass("fadeOut").addClass("d-block fadeIn fast modal-moblie")
+        $("body").addClass("no-overflow");
+        $(".search-results.plp-new-design .refinement-bar").removeClass("fadeOutRight").addClass("fast fadeInRight animated d-block");
+        $(".search-results.plp-new-design .refinements-sidebar").addClass("d-none");
+        $(".search-results.plp-new-design .refinements-sidebar").removeClass("d-block").addClass("d-none");
+        $(".refine-wrapper-sidebar .sort-order-mobile-menu").addClass("d-block");
+        $(".close-refinebar .sort-by").removeClass("d-none").addClass("d-block");
+        $(".close-refinebar .filter-more").removeClass("d-block").addClass("d-none");
+        $('.search-results.plp-new-design .custom-select__option').focus(); 
+    });
+
     // Custom:MSS-2073 end
 });
 
