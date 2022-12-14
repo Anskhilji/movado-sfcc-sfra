@@ -2,8 +2,9 @@
 'use strict';
 var constant = require('*/cartridge/scripts/helpers/constants');
 
-var Site = require('dw/system/Site').getCurrent();
 var Currency = require('dw/util/Currency');
+var Logger = require('dw/system/Logger');
+var Site = require('dw/system/Site').getCurrent();
 /**
  * Get Fx Rate of shopper currency
  * @param {string} shopperCurrencyIso - getting from site preference
