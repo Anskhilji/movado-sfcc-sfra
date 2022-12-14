@@ -3,7 +3,6 @@
 var cache = require('*/cartridge/scripts/middleware/cache');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var storeHelpers = require('*/cartridge/scripts/helpers/customStoreHelper');
-var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
 var googleService = require('../scripts/googleMapService');
 var data = require('./countries.json');
 
@@ -48,10 +47,6 @@ server.replace('Find', server.middleware.https, cache.applyDefaultCache, consent
         countryCode :countryCode
     };
 
-    var runningABTest = productCustomHelper.getRunningABTestSegments();
-    res.setViewData({
-        runningABTest: runningABTest
-    });
     res.setViewData(viewData);
     res.render('storeLocator/storeLocator', viewData);
     next();
@@ -110,10 +105,7 @@ server.replace('FindStores', function (req, res, next) {
         stores = storeHelpers.getStores(radius, req.querystring.lat, req.querystring.long, req.geolocation, null, showMap, null, status);
         res.json(stores);
     }
-    var runningABTest = productCustomHelper.getRunningABTestSegments();
-    res.setViewData({
-        runningABTest: runningABTest
-    });
+
     next();
 });
 
