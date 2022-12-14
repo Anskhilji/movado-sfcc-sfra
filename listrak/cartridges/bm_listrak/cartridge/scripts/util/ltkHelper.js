@@ -2,8 +2,9 @@
 'use strict';
 var constant = require('*/cartridge/scripts/helpers/constants');
 
-var Site = require('dw/system/Site').getCurrent();
 var Currency = require('dw/util/Currency');
+var Logger = require('dw/system/Logger');
+var Site = require('dw/system/Site').getCurrent();
 /**
  * Get Fx Rate of shopper currency
  * @param {string} shopperCurrencyIso - getting from site preference
@@ -40,6 +41,12 @@ function getOrderItemTotalLocal(order) {
     var itemTotal;
     itemTotal = getCurrencySymbol(Currency.getCurrency(order.currencyCode)) + order.getTotalGrossPrice().value.toFixed(2);
     return itemTotal;
+}
+
+function getOrderItemTotalLocalConvertToUSD(order) {
+    var itemTotalUSD;
+    itemTotalUSD = order.getTotalGrossPrice().value.toFixed(2);
+    return itemTotalUSD;
 }
 
 function getOrderTaxTotal(order) {
@@ -100,7 +107,43 @@ function getItemPrice(productPrice, order) {
     return itemPrice ? itemPrice.toFixed(2) : itemPrice;
 }
 
-function getESWLineItemTotal(order, lineItemTotal){
+function priceConversionUSD(productPrice, order) {
+    try {
+        var convertedItemPrice;
+        var eswShopperCurrency = false;
+        var eswFxRatesJson = !empty(Site.current.preferences.custom.eswFxRatesJson) ? Site.current.preferences.custom.eswFxRatesJson : false;
+        var listrakCurrencyConversion = !empty(Site.current.preferences.custom.Listrak_Currency_Conversion) ? Site.current.preferences.custom.Listrak_Currency_Conversion : false;
+    
+        if (eswFxRatesJson) {
+            var eswFxRatesCode = JSON.parse(eswFxRatesJson);
+    
+            for (var i = 0; i < eswFxRatesCode.length; i++) {
+                var shopperCurrencyCheck = eswFxRatesCode[i];
+    
+                if (shopperCurrencyCheck.toShopperCurrencyIso == order.currencyCode) {
+                    eswShopperCurrency = true;
+                    convertedItemPrice = productPrice * shopperCurrencyCheck.rate;
+                }
+            }
+        }
+    
+        if (listrakCurrencyConversion) {
+    
+            if (!eswShopperCurrency) {
+                var listrakCurrencyConversionJson = JSON.parse(listrakCurrencyConversion);
+                var listrakCurrencyConversionCode = listrakCurrencyConversionJson[order.currencyCode];
+                convertedItemPrice = productPrice * listrakCurrencyConversionCode.conversions.conversionRate;
+            }
+        }
+    
+        return convertedItemPrice ? convertedItemPrice.toFixed(2) : '';
+    } catch (e) {
+        Logger.error('(ltkHelper.js -> priceConversionUSD) {0} on {1} and order number is: {2}', e.toString(), e.lineNumber, order.orderNo);
+    }
+    
+}
+
+function getESWLineItemTotal(order, lineItemTotal) {
     var eswTotal = lineItemTotal / order.custom.eswFxrateOc;
     if (order.custom.eswRetailerCurrencyCode == constant.USD_CURRENCY_CODE) {
         return eswTotal;
@@ -206,5 +249,7 @@ module.exports = {
     getCurrencySymbol: getCurrencySymbol,
     getProductPrice: getProductPrice,
     getESWLineItemTotal: getESWLineItemTotal,
-    getESWDiscountAmount: getESWDiscountAmount
+    getESWDiscountAmount: getESWDiscountAmount,
+    priceConversionUSD: priceConversionUSD,
+    getOrderItemTotalLocalConvertToUSD: getOrderItemTotalLocalConvertToUSD
 };
