@@ -178,7 +178,7 @@
     </div>
     <isif condition="${product.promotions && !empty(product.promotions)}">
         <isloop items="${product.promotions}" var="promotion">
-            <isif condition="${promotion.promotionClass === Resource.msg('product.promotion', 'product', null) && promotion.promotionBadge &&  promotion.promotionMsg &&  promotion.promotionMsg !== ''}">
+            <isif condition="${promotion.promotionClass === dw.campaign.Promotion.PROMOTION_CLASS_PRODUCT && promotion.promotionBadge &&  promotion.promotionMsg &&  promotion.promotionMsg !== ''}">
                 <div class="product-badge-main">
                     <span class="badge text-uppercase">${promotion.promotionMsg}</span>
                 </div>

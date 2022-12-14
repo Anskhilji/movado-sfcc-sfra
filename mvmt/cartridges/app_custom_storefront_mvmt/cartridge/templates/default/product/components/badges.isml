@@ -8,7 +8,7 @@
         <!-- Custom Start: Product level promotion badge for PDP -->
         <isif condition="${product.promotions && !empty(product.promotions)}">
             <isloop items="${product.promotions}" var="promotion">
-                <isif condition="${promotion.promotionClass === Resource.msg('product.promotion', 'product', null) && promotion.promotionBadge &&  promotion.promotionMsg &&  promotion.promotionMsg !== ''}">
+                <isif condition="${promotion.promotionClass === dw.campaign.Promotion.PROMOTION_CLASS_PRODUCT && promotion.promotionBadge &&  promotion.promotionMsg &&  promotion.promotionMsg !== ''}">
                     <span class="badge badge-bg text-uppercase hide-plp ">${promotion.promotionMsg}</span>
                 </isif>
             </isloop>
