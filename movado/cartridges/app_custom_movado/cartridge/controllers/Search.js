@@ -15,6 +15,8 @@ var ABTestMgr = require('dw/campaign/ABTestMgr');
 var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 var URLUtils = require('dw/web/URLUtils');
 
+var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
+
 server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
     var ProductSearchModel = require('dw/catalog/ProductSearchModel');
     var URLUtils = require('dw/web/URLUtils');
@@ -39,9 +41,14 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     /**
      * Custom Start: Added logic for OB Redesign.
      */
+    var testqadfa  = req.data;
     if (viewData.resultsTemplate && !empty(viewData.resultsTemplate )) {
         resultsTemplate = viewData.resultsTemplate;
     }
+
+    // if (res.viewData.asifeFilter) {
+    //     resultsTemplate = viewData.resultsTemplate;
+    // }
     /**
      * Custom End:
      */
@@ -189,7 +196,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
             popupID: listrakPersistentPopup
         });
     }
-
+    var tes = refineurl;
     var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
     var Resource = require('dw/web/Resource');
     if (productSearch.category) {

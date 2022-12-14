@@ -546,6 +546,9 @@ header.new-header {
 
   .header-menu-wrapper {
     transition: 0.2s;
+    &.header-active {
+      z-index: 1025;
+    }
 
     .desktop-menu {
       position: static;

@@ -1,21 +1,17 @@
 'use strict';
 
 $(document).ready(function () {
-    $(".search-results.plp-new-design .filter-btn").click(function(){
-        $(".modal-background").removeClass("fadeOut").addClass("d-block fadeIn fast modal-moblie")
+    $(".search-results.plp-new-design .filter-btn,.more-filter-btn").click(function(){
+        $(".modal-background").removeClass("fadeOut").addClass("d-block fadeIn fast")
         $("body").addClass("no-overflow");
         $(".search-results.plp-new-design .refinement-bar").removeClass("fadeOutRight").addClass("fast fadeInRight animated d-block");
         $('.search-results.plp-new-design .custom-select__option').focus();
-        $(".search-results.plp-new-design .movado-refinements-container").addClass("d-block");
-        $(".refine-wrapper .sort-order-menu-box").removeClass("d-block").addClass("d-none");
-        $(".close-refinebar .filter-more").removeClass("d-none").addClass("d-block");
-        $(".close-refinebar .sort-by").removeClass("d-block").addClass("d-none");
     });
 
-    $('.search-results.plp-new-design .refinement-bar .selected-value').prepend("<span>Sort by: </span> ");
+    $('.search-results.plp-new-design .refinement-bar .selected-value').prepend("<span>Sort By</span> ");
 
     $('.plp-new-design .refine-wrapper .custom-select .custom-select__option').click( function() {
-        $('.refinement-bar .selected-value').prepend("<span>Sort by:</span> ");
+        $('.refinement-bar .selected-value').prepend("<span>Sort By</span> ");
     });
 
     $('.search-results.plp-new-design .refinement li:last-Child').focusout(function(event) {
@@ -40,33 +36,29 @@ $(document).ready(function () {
         }
     });
 
-    // custom:MSS-1948 
-    if (navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1) {
-        document.getElementById('nav-questions').className += ' filter-safari';
-    }
-    $(".movado-refinements-type").click(function(){
-        $(".refinement-bar-redesign").addClass("refinement-open-state");
-        $(".tab-pane.active>.container-fluid").addClass("container-open-state");
-        $(".modal-background").removeClass("fadeOut").addClass("d-block fadeIn fast");
-        $(".filter-btn-ctm").removeClass("d-md-none").addClass("d-md-flex");
-        $("body").addClass("no-overflow-ctm");
-    });
-    $(".filter-btn-ctm").click(function(){
-        $("body").addClass("no-overflow-ctm");
+    // Custom:MSS-2073 start
+    $('.refinement-box-filter-desktop').on('click', function(){
+        $('.refinement-box-filter-desktop').removeClass('active');
+        $(this).addClass('active');
+        $('.modal-background').addClass('d-block');
+        $('.desktop-search-refine-bar-redesing').addClass('active');
+        $('.header-menu-wrapper').addClass('header-active');
+        $('.dk-fillter-m').addClass('dk-fillter-check');
+
+        $('.dk-fillter-check').on('click', function(e){
+            if(!$('.modal-background').hasClass('d-block')) {
+                $('.modal-background').addClass('d-block');
+            }
+         });
     });
 
-    $(".mobile-fliter-sort-btn-click").click(function(){
-        $(".modal-background").removeClass("fadeOut").addClass("d-block fadeIn fast modal-moblie")
-        $("body").addClass("no-overflow");
-        $(".search-results.plp-new-design .refinement-bar").removeClass("fadeOutRight").addClass("fast fadeInRight animated d-block");
-        $(".search-results.plp-new-design .movado-refinements-container").addClass("d-none");
-        $(".search-results.plp-new-design .movado-refinements-container").removeClass("d-block").addClass("d-none");
-        $(".refine-wrapper .sort-order-menu-box").addClass("d-block");
-        $(".close-refinebar .sort-by").removeClass("d-none").addClass("d-block");
-        $(".close-refinebar .filter-more").removeClass("d-block").addClass("d-none");
-        $('.search-results.plp-new-design .custom-select__option').focus(); 
+    $('.modal-background').on('click', function(e){
+       $('.refinement-box-filter-desktop, .desktop-search-refine-bar-redesing').removeClass('active');
+       $('.header-menu-wrapper').removeClass('header-active');
+       $('.dk-fillter-check').unbind();
+       $('.dk-fillter-m').removeClass('dk-fillter-check');
     });
-    
+    // Custom:MSS-2073 end
 });
 
 
@@ -78,11 +70,9 @@ $(".search-results.plp-new-design .refinement-bar").keyup(function(event) {
         setTimeout(function() {
             $(".modal-background").removeClass("d-block");
             $(".search-results.plp-new-design  .refinement-bar").removeClass("d-block");
-            $(".refinement-bar-redesign").removeClass("refinement-open-state");
-            $(".tab-pane.active>.container-fluid").removeClass("container-open-state");
-            $(".refinement-box-filter").removeClass("active");
-            $(".filter-btn-ctm").removeClass("d-md-flex").addClass("d-md-none");
-            $("body").removeClass("no-overflow-ctm");
+            // Custom:MSS-2073 start
+            $('.refinement-box-filter').removeClass('active');
+            // Custom:MSS-2073 end
         },300);
 
         setTimeout(function() {
@@ -97,25 +87,19 @@ $(document).on("click",".search-results.plp-new-design  .close-refinebar", funct
     $(".modal-background").addClass("fadeOut");
     $("body").removeClass("no-overflow");
     $(".search-results.plp-new-design  .refinement-bar").addClass("fadeOutRight");
-    $(".modal-background").addClass("d-none");
 
     setTimeout(function(){
-        $(".modal-background").removeClass("d-block modal-moblie");
+        $(".modal-background").removeClass("d-block");
     }, 300);
 });
 
-const $filter = $('.refinement-bar, .filter-btn, .search-icon, .desktop-search, .desktop-menu, .mobile-menu, .navbar-toggler-custom');
+const $filter = $('.refinement-bar, .filter-btn, more-filter-btn, .search-icon, .desktop-search, .desktop-menu, .mobile-menu, .navbar-toggler-custom');
 $(document).mouseup(e => {
     if (!$filter.is(e.target) // if the target of the click isn't the container...
     && $filter.has(e.target).length === 0) // ... nor a descendant of the container
     {
         $("body").removeClass("no-overflow");
         $(".search-results.plp-new-design  .refinement-bar").addClass("fadeOutRight");
-        $(".refinement-bar-redesign").removeClass("refinement-open-state");
-        $(".tab-pane.active>.container-fluid").removeClass("container-open-state");
-        $(".refinement-box-filter").removeClass("active");
-        $(".filter-btn-ctm").removeClass("d-md-flex").addClass("d-md-none");
-        $("body").removeClass("no-overflow-ctm");
 
         setTimeout(function(){
             $(".modal-background").addClass("fadeOut");

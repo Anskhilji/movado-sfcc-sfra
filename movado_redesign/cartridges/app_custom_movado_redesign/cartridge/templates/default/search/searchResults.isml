@@ -122,8 +122,13 @@
                                 </div>
                             </div>
 
-                            <div class="filter-box">
-                                <div class="d-md-flex align-items-cetner justify-content-between inner-filter-box-relative">
+                            <div class="">
+                                <div class="dk-fillter-m d-md-flex align-items-cetner justify-content-between filter-box w-100">
+                                    <div class="desktop-search-refine-bar-redesing w-100">
+                                        <isinclude template="search/searchRefineBarDesktop" />
+                                    </div>                                    
+                                </div>
+                                <div class="side-fliter">
                                     <div class="refinement-bar refinement-bar-redesign col">
                                         <isinclude url="${pdict.refineurl}" />
                                     </div>                                    
