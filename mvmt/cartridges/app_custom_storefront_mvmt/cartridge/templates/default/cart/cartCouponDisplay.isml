@@ -32,7 +32,7 @@
                 <isif condition="${discount.applied}">
                     <div class="coupon-applied">${Resource.msg('msg.coupon.applied','cart',null)}</div>
                 <iselse/>
-                    <div class="coupon-not-applied">${!empty(couponErrorMessages) && !empty(currentLocale) && currentLocale in couponErrorMessages && couponErrorMessages[currentLocale].COUPON_NOT_APPLIED ? couponErrorMessages[currentLocale].COUPON_NOT_APPLIED : Resource.msg('msg.coupon.not.applied','cart',null)}</div>
+                    <div class="coupon-not-applied">${!empty(couponErrorMessages) && !empty(currentLocale) && currentLocale in couponErrorMessages && couponErrorMessages[currentLocale].COUPON_NOT_APPLIED ? couponErrorMessages[currentLocale].COUPON_NOT_APPLIED : couponErrorMessages[currentLocale].DEFAULT || Resource.msg('msg.coupon.not.applied','cart',null)}</div>
                 </isif>
                 <div class="coupon-promotion-relationship">
                     <isloop items="${discount.relationship}" var="relatedPromotion">
