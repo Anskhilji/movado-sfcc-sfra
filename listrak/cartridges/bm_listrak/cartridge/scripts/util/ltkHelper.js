@@ -45,7 +45,7 @@ function getOrderItemTotalLocal(order) {
 
 function getOrderItemTotalLocalConvertToUSD(order) {
     var itemTotalUSD;
-    itemTotalUSD = order.getTotalGrossPrice().value.toFixed(2);
+    itemTotalUSD = order.getTotalGrossPrice().value;
     return itemTotalUSD;
 }
 
@@ -98,13 +98,13 @@ function getItemPrice(productPrice, order) {
     if (order.custom.eswRetailerCurrencyCode) {
         itemPrice = productPrice / order.custom.eswFxrateOc;
         if (order.custom.eswRetailerCurrencyCode == constant.USD_CURRENCY_CODE) {
-            return itemPrice ? itemPrice.toFixed(2) : itemPrice;
+            return itemPrice ? itemPrice : '';
         } else {
             var fxRate = getESWCurrencyFXRate(order.custom.eswRetailerCurrencyCode)[0].rate;
             itemPrice = itemPrice / fxRate;
         }
     }
-    return itemPrice ? itemPrice.toFixed(2) : itemPrice;
+    return itemPrice ? itemPrice : '';
 }
 
 function priceConversionUSD(productPrice, order) {
@@ -114,25 +114,29 @@ function priceConversionUSD(productPrice, order) {
         var eswFxRatesJson = !empty(Site.current.preferences.custom.eswFxRatesJson) ? Site.current.preferences.custom.eswFxRatesJson : false;
         var listrakCurrencyConversion = !empty(Site.current.preferences.custom.Listrak_Currency_Conversion) ? Site.current.preferences.custom.Listrak_Currency_Conversion : false;
     
-        if (eswFxRatesJson) {
-            var eswFxRatesCode = JSON.parse(eswFxRatesJson);
-    
-            for (var i = 0; i < eswFxRatesCode.length; i++) {
-                var shopperCurrencyCheck = eswFxRatesCode[i];
-    
-                if (shopperCurrencyCheck.toShopperCurrencyIso == order.currencyCode) {
-                    eswShopperCurrency = true;
-                    convertedItemPrice = productPrice * shopperCurrencyCheck.rate;
+        if (order.currencyCode == constant.USD_CURRENCY_CODE) {
+            convertedItemPrice = productPrice;
+        } else {
+            if (eswFxRatesJson) {
+                var eswFxRatesCode = JSON.parse(eswFxRatesJson);
+        
+                for (var i = 0; i < eswFxRatesCode.length; i++) {
+                    var shopperCurrencyCheck = eswFxRatesCode[i];
+        
+                    if (shopperCurrencyCheck.toShopperCurrencyIso == order.currencyCode) {
+                        eswShopperCurrency = true;
+                        convertedItemPrice = productPrice * shopperCurrencyCheck.rate;
+                    }
                 }
             }
-        }
-    
-        if (listrakCurrencyConversion) {
-    
-            if (!eswShopperCurrency) {
-                var listrakCurrencyConversionJson = JSON.parse(listrakCurrencyConversion);
-                var listrakCurrencyConversionCode = listrakCurrencyConversionJson[order.currencyCode];
-                convertedItemPrice = productPrice * listrakCurrencyConversionCode.conversions.conversionRate;
+        
+            if (listrakCurrencyConversion) {
+        
+                if (!eswShopperCurrency) {
+                    var listrakCurrencyConversionJson = JSON.parse(listrakCurrencyConversion);
+                    var listrakCurrencyConversionCode = listrakCurrencyConversionJson[order.currencyCode];
+                    convertedItemPrice = productPrice * listrakCurrencyConversionCode.conversions.conversionRate;
+                }
             }
         }
     
@@ -140,7 +144,6 @@ function priceConversionUSD(productPrice, order) {
     } catch (e) {
         Logger.error('(ltkHelper.js -> priceConversionUSD) {0} on {1} and order number is: {2}', e.toString(), e.lineNumber, order.orderNo);
     }
-    
 }
 
 function getESWLineItemTotal(order, lineItemTotal) {
@@ -157,12 +160,12 @@ function getESWLineItemTotal(order, lineItemTotal) {
 function getESWDiscountAmount(order, discount){
     var eswDiscountTotal = discount / order.custom.eswFxrateOc;
     if (order.custom.eswRetailerCurrencyCode == constant.USD_CURRENCY_CODE) {
-        return eswDiscountTotal ? eswDiscountTotal.toFixed(2) : eswDiscountTotal;
+        return eswDiscountTotal ? eswDiscountTotal : '';
     } else {
         var fxRate = getESWCurrencyFXRate(order.custom.eswRetailerCurrencyCode)[0].rate;
         eswDiscountTotal = eswDiscountTotal / fxRate;
     }
-    return eswDiscountTotal ? eswDiscountTotal.toFixed(2) : eswDiscountTotal;
+    return eswDiscountTotal ? eswDiscountTotal : '';
 }
 
 function getCurrencySymbol(currency) {
