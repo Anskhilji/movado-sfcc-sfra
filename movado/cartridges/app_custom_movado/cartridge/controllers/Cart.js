@@ -539,26 +539,6 @@ server.replace(
             }
         }
 
-        // Custom Start: MSS-2026 Fixed When valid discount is applied to checkout that is not valid for basket error message is not shown.
-        if (currentBasket.couponLineItems.length > 0) {
-            var couponLineItem = currentBasket.couponLineItems[0];
-
-            if (!couponLineItem.applied) { 
-                error = true;
-
-                Transaction.wrap(function () {
-                    currentBasket.removeCouponLineItem(currentBasket.couponLineItems[0]);
-                });
-    
-                if (couponErrorMessages) {
-                    var errorCodes = JSON.parse(couponErrorMessages);
-                    var localeErrorCodes = errorCodes[req.locale.id] || errorCodes['default'];
-                    var errorMessage = localeErrorCodes.COUPON_NOT_APPLIED || localeErrorCodes.DEFAULT;
-                }
-            }
-        }
-        // Custom End
-        
         if (error) {
             res.json({
                 error: error,
