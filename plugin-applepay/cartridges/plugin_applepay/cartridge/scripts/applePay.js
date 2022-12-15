@@ -8,6 +8,7 @@ var Transaction = require('dw/system/Transaction');
 var ApplePayHookResult = require('dw/extensions/applepay/ApplePayHookResult');
 
 var checkoutAddressHelper = require('*/cartridge/scripts/helpers/checkoutAddressHelper');
+var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 var collections = require('*/cartridge/scripts/util/collections');
 var RiskifiedService = require('int_riskified');
@@ -15,6 +16,7 @@ var Riskified = require('int_riskified/cartridge/scripts/Riskified');
 var Site = require('dw/system/Site');
 var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 var Constants = require('*/cartridge/utils/Constants');
+var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
 
 var server = require('server');
 
@@ -68,6 +70,7 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     var orderNumber = order.orderNo;
     var paymentInstruments = order.getPaymentInstruments(
         PaymentInstrument.METHOD_DW_APPLE_PAY).toArray();
+    var currentCountry = productCustomHelper.getCurrentCountry();
     if (!paymentInstruments.length) {
         hooksHelper(
             'app.fraud.detection.checkoutdenied',
@@ -91,9 +94,15 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     }
 
     if (session.privacy.pickupFromStore) {
+        Transaction.wrap(function () {
+            COCustomHelpers.removeGiftMessageLineItem(order);
+        });
         session.custom.applePayCheckout = false;
     } else {
         session.custom.StorePickUp = false;
+        if (currentCountry == Constants.US_COUNTRY_CODE) {
+            session.custom.isEswShippingMethod = false;
+        }
     }
 
     var transactionID = payment.getPaymentTransaction().getTransactionID();
@@ -295,7 +304,7 @@ exports.afterAuthorization = function (order, payment, custom, status) {
  */
 exports.prepareBasket = function (basket, parameters) {
     // get personalization data from session for PDP and Quickview
-
+    var currentCountry = productCustomHelper.getCurrentCountry();
 
     if (!empty(parameters.sku)) {
         if (!session.privacy.pickupFromStore) {
@@ -304,10 +313,16 @@ exports.prepareBasket = function (basket, parameters) {
         } else {
             session.custom.applePayCheckout = true;
             session.custom.StorePickUp = false;
+            if (currentCountry == Constants.US_COUNTRY_CODE) {
+                session.custom.isEswShippingMethod = false;
+            }
         }
     } else {
         if (!session.privacy.pickupFromStore) {
             session.custom.applePayCheckout = true;
+            if (currentCountry == Constants.US_COUNTRY_CODE) {
+                session.custom.isEswShippingMethod = false;
+            }
         } else {
             session.custom.StorePickUp = true;
         }

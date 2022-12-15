@@ -25,6 +25,7 @@ $(document).ready(function () {
     processInclude(require('./components/rakutenCookieHandler'));
     processInclude(require('googlePay/googlePay'));
     processInclude(require('./components/Coupon'));
+    processInclude(require('./components/clydeProduct'));
 });
 
 require('base/components/spinner');

@@ -23,7 +23,7 @@
             <div class="image-container" style="background-color: ${pdict.tileImageBackground};">
                 <isinclude template="product/components/productTileImage" />
             </div>
-             <div class="tile-body">
+             <div class="tile-body" style="background-color: ${pdict.tileBodyBackground};">
 
                 <isif condition="${pdict.display.swatches !== false && product.productType == 'master'}">
                     <isinclude template="product/components/productTileSwatch" />

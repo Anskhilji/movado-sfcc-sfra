@@ -827,17 +827,12 @@ function handleVariantResponse(response, $productContainer) {
 
     // Update primary images
     var primaryImageUrls = response.product.images;
-    if (response.isNewDesign) {
-        $('.quadrant-pdp-wrapper').remove();
+    $('.quadrant-pdp-wrapper').remove();
+    $('.show-mobile-pdp').remove();
+    $('.zoom-modal-inner').remove();
+    $('.pdp-quadrant').prepend(response.productImages);
+    if ($(window).width() > 768) {
         $('.show-mobile-pdp').remove();
-        $('.zoom-modal-inner').remove();
-        $('.pdp-quadrant').prepend(response.productImages);
-        if ($(window).width() > 768) {
-            $('.show-mobile-pdp').remove();
-        }
-    } else {
-        $('.image-carousel-pdp-old').remove();
-        $('.image-carousel-pdp').prepend(response.productImages);
     }
 
     // pdp Video for variations
@@ -1236,6 +1231,8 @@ function attributeSelect(selectedValueUrl, $productContainer) {
                 updateOptions(data.product.options, $productContainer);
                 updateQuantities(data.product.quantities, $productContainer);
                 handleOptionsMessageErrors(data.validationErrorEmbossed, data.validationErrorEngraved, $productContainer);
+                var listrakTracking = require('movado/listrakActivityTracking.js');
+                listrakTracking.listrackProductTracking(data.product.id);
                 $('body').trigger('product:afterAttributeSelect',
                     { data: data, container: $productContainer });
                 $.spinner().stop();
@@ -1327,7 +1324,7 @@ movadoBase.selectAttribute = function () {
 }
 
 movadoBase.colorAttribute = function () {
-    $(document).off('click', '[data-attr="color"] a, [data-attr="colorWatch"] a').on('click','[data-attr="color"] a, [data-attr="colorWatch"] a', function (e) {
+    $(document).off('click', '.color-Attribute[data-attr="color"] a, [data-attr="colorWatch"] a').on('click','.color-Attribute[data-attr="color"] a, [data-attr="colorWatch"] a', function (e) {
         e.preventDefault();
     
         if ($(this).attr('disabled') || $(this).hasClass('active')) {
