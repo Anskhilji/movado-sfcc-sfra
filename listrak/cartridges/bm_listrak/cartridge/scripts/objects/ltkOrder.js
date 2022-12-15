@@ -163,9 +163,9 @@ ltkOrder.prototype.GetOrderItem = function (item, order) {
     if (!empty(item.product)) {
         orderItem.Sku = item.product.ID;
         /* MSS[2017]. Listrak - All Brands - Order Export Job Updates */
-        var price = ltkHelper.getItemPrice(item.basePrice.value, this.Order) || item.basePrice.value.toFixed(2);
-        var discountedPrice = ltkHelper.getItemPrice(item.adjustedPrice.value, this.Order) || item.adjustedPrice.value.toFixed(2) || ltkHelper.getProductPrice(item.product);
-        var localPrice = (item.adjustedPrice.value.toFixed(2) || ltkHelper.getProductPrice(item.product));
+        var price = ltkHelper.getItemPrice(item.basePrice.value, this.Order) || item.basePrice.value;
+        var discountedPrice = ltkHelper.getItemPrice(item.adjustedPrice.value, this.Order) || item.adjustedPrice.value || ltkHelper.getProductPrice(item.product);
+        var localPrice = (item.adjustedPrice.value || ltkHelper.getProductPrice(item.product));
 
         orderItem.Price = ltkHelper.priceConversionUSD(price, this.Order);
         orderItem.DiscountedPrice = ltkHelper.priceConversionUSD(discountedPrice, this.Order);
@@ -202,6 +202,6 @@ ltkOrder.prototype.getDiscountAmount = function (priceAdjustments, order) {
         discount = ltkHelper.getESWDiscountAmount(order, discount);
         return discount;
     }
-    return discount.toFixed(2);
+    return discount;
 };
 // Custom End
