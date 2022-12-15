@@ -1576,7 +1576,6 @@
                     text-align: left;
                     padding: rem(10) rem(15);
                     background-color: $gray;
-                    position: absolute;
                     left: 0;
                     bottom: 0;
                     width: 100%;
@@ -1588,6 +1587,7 @@
                     }
 
                     @include media-breakpoint-up(lg) {
+                        position: absolute;
                         min-height: rem(128);
                         height: auto;
                         transition: transform 0.4s all;
