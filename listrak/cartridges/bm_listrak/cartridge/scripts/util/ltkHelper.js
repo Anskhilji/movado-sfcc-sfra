@@ -10,8 +10,7 @@ var Site = require('dw/system/Site').getCurrent();
  * @param {string} shopperCurrencyIso - getting from site preference
  * @returns {array} returns selected fx rate
  */
-function getESWCurrencyFXRate
-(shopperCurrencyIso) {
+function getESWCurrencyFXRate(shopperCurrencyIso) {
     var fxRates = JSON.parse(Site.getCustomPreferenceValue('eswFxRatesJson')),
         baseCurrency = Site.getCustomPreferenceValue('eswBaseCurrency').value,
         selectedFxRate = [];
@@ -31,8 +30,7 @@ function getOrderItemTotal(order) {
         if (order.custom.eswRetailerCurrencyCode == constant.USD_CURRENCY_CODE) {
             return itemTotal;
         } else {
-            var fxRate = getESWCurrencyFXRate
-            (order.custom.eswRetailerCurrencyCode)[0].rate;
+            var fxRate = getESWCurrencyFXRate(order.custom.eswRetailerCurrencyCode)[0].rate;
             itemTotal = itemTotal / fxRate;
         }
     }
