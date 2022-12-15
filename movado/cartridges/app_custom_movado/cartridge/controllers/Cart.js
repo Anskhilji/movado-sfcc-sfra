@@ -459,9 +459,12 @@ server.replace(
         var CartModel = require('*/cartridge/models/cart');
         var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
         var Site = require('dw/system/Site');
+        var TotalsModel = require('*/cartridge/models/totals');
+
         var couponErrorMessages = !empty(Site.current.preferences.custom.couponErrorMessages) ? Site.current.preferences.custom.couponErrorMessages : false;
 
         var currentBasket = BasketMgr.getCurrentBasket();
+        var totalsModel = new TotalsModel(currentBasket);
 
         if (!currentBasket) {
             res.setStatusCode(500);
@@ -512,6 +515,36 @@ server.replace(
             }
         }
 
+
+
+        Transaction.wrap(function () {
+            basketCalculationHelpers.calculateTotals(currentBasket);
+        });
+
+        var basketModel = new CartModel(currentBasket);
+
+        if (!empty(basketModel.totals)) {
+            var couponLineItems = basketModel.couponLineItems;
+            for (var i = 0; i < couponLineItems.length; i++) {
+                var couponLineItem = couponLineItems[i];
+                if (couponLineItem.applied === false) { 
+                    error = true;
+    
+                    Transaction.wrap(function () {
+                        var currentBasket = BasketMgr.getCurrentBasket();
+                        currentBasket.removeCouponLineItem(couponLineItem);
+                    });
+        
+                    if (couponErrorMessages) {
+                        var errorCodes = JSON.parse(couponErrorMessages);
+                        var localeErrorCodes = errorCodes[req.locale.id] || errorCodes['default'];
+                        var errorMessage = 'coupon cannot applied';
+                    }
+                }
+            }
+            
+        }
+
         if (error) {
             res.json({
                 error: error,
@@ -519,12 +552,6 @@ server.replace(
             });
             return next();
         }
-
-        Transaction.wrap(function () {
-            basketCalculationHelpers.calculateTotals(currentBasket);
-        });
-
-        var basketModel = new CartModel(currentBasket);
 
         res.json(basketModel);
         return next();
