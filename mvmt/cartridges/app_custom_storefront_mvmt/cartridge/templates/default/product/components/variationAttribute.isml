@@ -40,7 +40,7 @@ Template Notes:
                                 ${attr.id == 'colorWatch' ? 'swatchs-redesign' : ''}
                                 ${attrValue.selected ? 'active' : ''}
                                 ${!attrValue.selectable ? 'disabled' : ''} "
-                        style="background-image: url(${attrValue.tileImage300X300.url})"
+                        style="background-image: url(${attr.id == 'colorWatch' ? (!empty(attrValue)) && (!empty(attrValue.tileImage300X300.url)) ? attrValue.tileImage300X300.url : '' : (!empty(attrValue)) && (!empty(attrValue.images['swatch'][0].url)) ? attrValue.images['swatch'][0].url : ''})"
                         ${ product.productType === "variant" && isBundle ? "disabled" : "" }>
                             <span data-attr-value="${attrValue.value}" class=" ${attr.id}-value ${attrValue.selectable ? '' : 'disabled'}">
                             </span>
