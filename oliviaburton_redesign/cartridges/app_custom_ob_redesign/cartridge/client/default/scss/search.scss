@@ -1580,10 +1580,10 @@
 
                     @include media-breakpoint-up(sm) {
                         padding: rem(15) rem(20);
+                        position: absolute;
                     }
 
                     @include media-breakpoint-up(lg) {
-                        position: absolute;
                         min-height: rem(128);
                         height: auto;
                         transition: transform 0.4s all;
