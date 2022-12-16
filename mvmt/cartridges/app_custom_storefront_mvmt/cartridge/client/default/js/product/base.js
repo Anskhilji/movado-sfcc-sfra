@@ -827,17 +827,12 @@ function handleVariantResponse(response, $productContainer) {
 
     // Update primary images
     var primaryImageUrls = response.product.images;
-    if (response.isNewDesign) {
-        $('.quadrant-pdp-wrapper').remove();
+    $('.quadrant-pdp-wrapper').remove();
+    $('.show-mobile-pdp').remove();
+    $('.zoom-modal-inner').remove();
+    $('.pdp-quadrant').prepend(response.productImages);
+    if ($(window).width() > 768) {
         $('.show-mobile-pdp').remove();
-        $('.zoom-modal-inner').remove();
-        $('.pdp-quadrant').prepend(response.productImages);
-        if ($(window).width() > 768) {
-            $('.show-mobile-pdp').remove();
-        }
-    } else {
-        $('.image-carousel-pdp-old').remove();
-        $('.image-carousel-pdp').prepend(response.productImages);
     }
 
     // pdp Video for variations
@@ -944,6 +939,16 @@ function handleVariantResponse(response, $productContainer) {
                     $imageBadges.append('<div class="badge-right"><img src="' + imageBadge.imageUrl + '" alt="' + imageBadge.imageAlt + '"></div>');
                 }
             });
+        }
+
+        // Update promotion badge on pdp after change variations
+        if (response.product.promotions && response.product.promotions.length > 0) {
+
+            for (var i = 0; i < response.product.promotions.length; i++) {
+                if (response.product.promotions[i].promotionBadge == true && response.product.promotions[i].promotionMsg !== '') {
+                    $exclusiveBadges.prepend('<span class="badge custom-promotion-badge badge-bg text-uppercase hide-plp">' + response.product.promotions[i].promotionMsg + '</span>');
+                }
+            }
         }
    }
     
@@ -1236,6 +1241,8 @@ function attributeSelect(selectedValueUrl, $productContainer) {
                 updateOptions(data.product.options, $productContainer);
                 updateQuantities(data.product.quantities, $productContainer);
                 handleOptionsMessageErrors(data.validationErrorEmbossed, data.validationErrorEngraved, $productContainer);
+                var listrakTracking = require('movado/listrakActivityTracking.js');
+                listrakTracking.listrackProductTracking(data.product.id);
                 $('body').trigger('product:afterAttributeSelect',
                     { data: data, container: $productContainer });
                 $.spinner().stop();
@@ -1327,7 +1334,7 @@ movadoBase.selectAttribute = function () {
 }
 
 movadoBase.colorAttribute = function () {
-    $(document).off('click', '[data-attr="color"] a, [data-attr="colorWatch"] a').on('click','[data-attr="color"] a, [data-attr="colorWatch"] a', function (e) {
+    $(document).off('click', '.color-Attribute[data-attr="color"] a, [data-attr="colorWatch"] a').on('click','.color-Attribute[data-attr="color"] a, [data-attr="colorWatch"] a', function (e) {
         e.preventDefault();
     
         if ($(this).attr('disabled') || $(this).hasClass('active')) {

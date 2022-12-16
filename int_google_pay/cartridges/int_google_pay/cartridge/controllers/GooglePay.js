@@ -10,6 +10,7 @@ var Site = require('dw/system/Site');
 
 var adyenHelpers = require('*/cartridge/scripts/checkout/adyenHelpers');
 var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
+var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
 var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
 var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
 var checkoutLogger = require('app_custom_movado/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
@@ -24,10 +25,16 @@ server.post('GetTransactionInfo',
     server.middleware.https,
     function (req, res, next) {
         var currentBasket = BasketMgr.getCurrentOrNewBasket();
+        var form = req.form;
+        var productId = form && form.pid ? form.pid : '';
+        var embossedMessage = req.form.EmbossedMessage;
+        var engravedMessage = req.form.EngravedMessage;
         if (!empty(currentBasket)) {
             var transactionInfo = googlePayHelper.getTransactionInfo(req);
+            var addCartGtmArray = customCartHelpers.createAddtoCartProdObj(currentBasket, productId, embossedMessage, engravedMessage, form);
             res.json({
                 transactionInfo: transactionInfo,
+                addCartGtmArray: addCartGtmArray,
                 error: false
             });
         } else {
@@ -108,6 +115,12 @@ server.post('ProcessPayments',
                 redirectUrl: URLUtils.url('Cart-Show').toString()
             });
             return;
+        }
+
+        if (session.privacy.pickupFromStore) {
+            Transaction.wrap(function () {
+                COCustomHelpers.removeGiftMessageLineItem(currentBasket);
+            });
         }
 
          // Added Smart Gift Logic

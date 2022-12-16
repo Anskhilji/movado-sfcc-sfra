@@ -17,24 +17,23 @@ var Money = require('dw/value/Money');
 var Logger = require('dw/system/Logger');
 
 server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
-   var Constants = require('*/cartridge/utils/Constants');
-   var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
-   var customCategoryHelpers = require('app_custom_movado/cartridge/scripts/helpers/customCategoryHelpers');
-   var SmartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
-   var youMayLikeRecommendations = [];
-   var moreStyleRecommendations = [];
-   var explicitRecommendations = [];
-   var youMayLikeRecommendationTypeIds = Site.getCurrent().getCustomPreferenceValue('youMayLikeRecomendationTypes');
-   var moreStylesRecommendationTypeIds = Site.getCurrent().getCustomPreferenceValue('moreStylesRecomendationTypes');
-   var YotpoIntegrationHelper = require('*/cartridge/scripts/common/integrationHelper.js');
-   var yotpoCustomHelper = require('*/cartridge/scripts/yotpo/helper/YotpoHelper');
-   var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
-   var smartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
-   var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
-   var smartGift = smartGiftHelper.getSmartGiftCardBasket(showProductPageHelperResult.product.id);
-   var smartGiftAddToCartURL = Site.current.preferences.custom.smartGiftURL + showProductPageHelperResult.product.id;
-
-   var emailPopupHelper = require('*/cartridge/scripts/helpers/emailPopupHelper');
+    var Constants = require('*/cartridge/utils/Constants');
+    var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
+    var customCategoryHelpers = require('app_custom_movado/cartridge/scripts/helpers/customCategoryHelpers');
+    var SmartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
+    var youMayLikeRecommendations = [];
+    var moreStyleRecommendations = [];
+    var explicitRecommendations = [];
+    var youMayLikeRecommendationTypeIds = Site.getCurrent().getCustomPreferenceValue('youMayLikeRecomendationTypes');
+    var moreStylesRecommendationTypeIds = Site.getCurrent().getCustomPreferenceValue('moreStylesRecomendationTypes');
+    var YotpoIntegrationHelper = require('*/cartridge/scripts/common/integrationHelper.js');
+    var yotpoCustomHelper = require('*/cartridge/scripts/yotpo/helper/YotpoHelper');
+    var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
+    var smartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
+    var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
+    var smartGift = smartGiftHelper.getSmartGiftCardBasket(showProductPageHelperResult.product.id);
+    var smartGiftAddToCartURL = Site.current.preferences.custom.smartGiftURL + showProductPageHelperResult.product.id;
+    var emailPopupHelper = require('*/cartridge/scripts/helpers/emailPopupHelper');
 
    var collectionContentList;
    var moreStyleGtmArray = [];
@@ -132,7 +131,6 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
    //Custom Start: Adding ESW variable to check eswModule enabled or disabled
    var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
    //Custom End
-
    var listrakPersistentPopup = emailPopupHelper.listrakPersistentPopup(req);
    viewData = {
        isEmbossEnabled: isEmbossEnabled,

@@ -35,5 +35,10 @@ module.exports = function mgOrderLineItem(product, apiProduct, options) {
     productLineItemDecorators.bonusProductLineItemUUID(product, options.lineItem);
     productLineItemDecorators.preOrderUUID(product, options.lineItem);
     productLineItemDecorators.mgProductLineItemCutomAttr(product, options.lineItem);
+
+    Object.defineProperty(product, 'familyName', {
+        enumerable: true,
+        value: !empty(apiProduct.custom.familyName) ? apiProduct.custom.familyName[0] : ''
+    });
     return product;
 };

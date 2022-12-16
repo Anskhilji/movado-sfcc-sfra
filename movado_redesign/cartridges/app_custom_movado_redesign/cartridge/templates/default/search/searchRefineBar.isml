@@ -1,9 +1,12 @@
 <iscomment> Custom: HTML structure changed</iscomment>
-<div class="filter-header">
+<div class="filter-header d-md-none">
     <div class="header-bar clearfix">
-        <button class="close-refinebar pull-left" data-filter-category="${pdict.productSearch.category && !empty(pdict.productSearch.category) ? pdict.productSearch.category.id : ''}" aria-label="close filter">${Resource.msg('label.selectedfilter', 'search', null)}</button>
+        <button class="close-refinebar pull-left" data-filter-category="${pdict.productSearch.category && !empty(pdict.productSearch.category) ? pdict.productSearch.category.id : ''}" aria-label="close filter">
+        <span class="d-none filter-more">${Resource.msg('label.filterMore', 'search', null)}</span>
+        <span class="d-none sort-by">${Resource.msg('label.sortby', 'search', null)}</span>
+        </button>
         <isif condition="${pdict.productSearch.productIds.length > 0}">
-            <div class="pull-right">
+            <div class="pull-right d-none">
                 <div class="secondary-bar p-0">
                     <a class="reset" href="${pdict.productSearch.resetLink}">
                         ${Resource.msg('link.reset.new', 'search', null)}
@@ -14,20 +17,28 @@
     </div>
 </div>
 
-<div class="refine-wrapper">
-    <isif condition="${pdict.productSearch.productIds.length > 0}">
-        <div class="mb-3 sort-col position-relative">
-            <isinclude template="search/sortOrderMenu" />
-        </div>
-    </isif>
+<div class="refine-wrapper d-md-flex align-items-start justify-content-between">
+    <div class="sort-order-menu-box order-md-1">
+        <isif condition="${pdict.productSearch.productIds.length > 0}">
+            <div class="sort-col sort-open-state-modal position-relative sort-order-mobile-menu">
+                <isinclude template="search/sortOrderMenu" />
+            </div>
+        </isif>
+    </div>  
     <div class="refinements movado-refinements-container">
+        <div class="filter-btn-ctm d-none d-md-none" id="nav-questions">
+             <img src="${URLUtils.staticURL('/images/icon-park_setting-config.svg')}" alt=""> 
+             <span>${Resource.msg('label.sort-and-filter-more', 'search', null)}</span>
+        </div>
         <isloop items="${pdict.productSearch.refinements}" var="refinement">
-            <div class="card collapsible-sm refinement refinement-${refinement.displayName.toLowerCase().replace(/ /g, '-')}">
-                <button class="card-header movado-refinements-type text-left border-0" role="tab" data-filter-category="${pdict.productSearch.category && !empty(pdict.productSearch.category) ? pdict.productSearch.category.id : ''}" aria-expanded="false" id="${refinement.displayName}Heading">
+            <div class="card selected-refinement refinement-box-filter refinement refinement-${refinement.displayName.toLowerCase().replace(/ /g, '-')}">
+                <button class="card-header refinement-btn movado-refinements-type text-left" role="tab" data-filter-category="${pdict.productSearch.category && !empty(pdict.productSearch.category) ? pdict.productSearch.category.id : ''}" aria-expanded="false" id="${refinement.displayName}Heading" >
                     ${refinement.displayName}
                 </button>
                 <div class="card-body" role="tabpanel"  aria-labelledby="${refinement.displayName}Heading">
-
+                    <div class="innter-filter-heading d-none d-md-block">
+                        ${refinement.displayName}
+                    </div>
                     <isif condition="${refinement.isCategoryRefinement}">
                         <isset name="categories" value="${refinement.values}" scope="page" />
                         <isinclude template="search/refinements/categories" />
@@ -45,5 +56,10 @@
                 </div>
             </div>
         </isloop>
+    </div>
+    <div class="show-bottom-btn d-md-none">
+       <div class="result-count">
+         <isinclude template="search/resultsCount" />
+       </div>
     </div>
 </div>
