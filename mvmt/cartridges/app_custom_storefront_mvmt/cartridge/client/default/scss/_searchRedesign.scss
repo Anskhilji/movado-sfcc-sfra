@@ -112,8 +112,8 @@
                 top: 0;
 
                 .badge  {
-                    background-color: $badge-bg;
-                    border: rem(1) solid $gray88-solid;
+                    background-color: $white;
+                    border: rem(1) solid $red2;
                     font-size: rem(10);
                     font-weight: 500;
                     border-radius: rem(13);
@@ -121,7 +121,7 @@
                     padding: rem(2) rem(15);
                     line-height: normal;
                     letter-spacing: rem(0.83);
-                    color: $black;
+                    color: $red2;
                     height: auto;
 
                     @include media-breakpoint-up(lg) {
