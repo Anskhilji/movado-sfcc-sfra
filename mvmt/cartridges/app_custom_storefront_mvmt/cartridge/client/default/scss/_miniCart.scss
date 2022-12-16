@@ -482,7 +482,11 @@
             /* Hide scrollbar for IE and Edge */
             -ms-overflow-style: none;
             padding-top: rem(25);
-
+            
+            .mini-cart-fixed {
+                margin: 0 12px;    
+            }
+            
             .row {
 
                 &:last-child {

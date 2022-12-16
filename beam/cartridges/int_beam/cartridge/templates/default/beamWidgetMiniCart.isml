@@ -1,6 +1,7 @@
  <isset value="${dw.system.Site.current.preferences.custom}" name="sitePref" scope="page" />
  <isif condition="${sitePref.enableBeam}">
     <isif condition="${sitePref.enableBeamMiniCart}">
+     <div class="mini-cart-fixed">
         <beam-${sitePref.beamWidgetType.value}
           apiKey="${sitePref.beamApiKey}"
           chainId="${sitePref.beamChainId}"
@@ -9,6 +10,7 @@
           "${sitePref.beamDebugMode ? 'debug' : ''}"
           class="beam-widget-mini-cart">
         </beam-${sitePref.beamWidgetType.value}>
+      </div>
     </isif>
     <input type="hidden" class="beam-widget-minicart" value="${URLUtils.url('Beam-Cart')}">
 </isif>
