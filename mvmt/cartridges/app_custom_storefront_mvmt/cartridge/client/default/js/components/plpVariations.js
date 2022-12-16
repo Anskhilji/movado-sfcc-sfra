@@ -402,7 +402,7 @@ module.exports = function () {
 
     function updateColorVariation() {
         if (document.readyState === "complete") {
-            $(document).on('click', '[data-attr="colorVar"] a', function (e) {
+            $(document).on('click', '[data-attr="colorVar"] a.change-variation', function (e) {
                 e.preventDefault();
 
                 var swatchImageContainer = $(this).find('img.swatch-circle');

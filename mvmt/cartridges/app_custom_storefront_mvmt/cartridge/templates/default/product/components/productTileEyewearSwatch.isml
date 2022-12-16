@@ -1,21 +1,33 @@
 <isif condition="${product.variationsAttributes && product.variationsAttributes.length > 0}">
     <isif condition="${product.variationsAttributes[0].values.length > 0}">
         <iscomment> duplicate this template from productTileSwatch and add a data attribute to check categoryRendringTemplate for eyewear </iscomment>
-        <div class="color-swatches color-swatches-search color-Attribute" data-attr="colorVar" data-categroy-eyeware="${pdict.display.isEyewearTile}">
-            <div class="swatches">
+        <div class="color-swatches color-Attribute swatches-watches-olny" data-attr="colorVar" data-categroy-eyeware="${pdict.display.isEyewearTile}">
+            <div class="swatches-watches">
                 <isloop items="${product.colorVariationsValues.values}" var="swatch" status="loopState">
-                    <isif condition="${swatch.images != null
-                                    && swatch.images.swatch[0] != null
-                                    && swatch.images.swatch[0].url != null}">
-                        <a data-swatch-url="${swatch.swatchesURL}" data-pdp-url="${swatch.pdpURL}">
-                            <span>
-                                <img class='swatch swatch-circle ${(!empty(product.selectedSwatch) && !empty(product.selectedSwatch.id) && (product.selectedSwatch.id == swatch.id)) ? "is-active" : ""}'
-                                    data-index="${loopState.count-1}"
-                                    style="background-image: url(${swatch.images.swatch[0].url})"
-                                    src="${swatch.images.swatch[0].url}"
-                                    alt="${swatch.images.swatch[0].alt}"/>
-                            </span>
-                        </a>
+                    <isif condition="${swatch.images != null && swatch.images.swatch[0] != null && swatch.images.swatch[0].url != null}">
+                    <isif condition="${parseInt(loopState.index) < 4}">
+                        <div class="swatch-plus-box">
+                            <a data-swatch-url="${swatch.swatchesURL}" data-pdp-url="${swatch.pdpURL}"
+                                class="change-variation square-swatch">
+                                <span>
+                                    <img class='swatch swatch-circle ${(!empty(product.selectedSwatch) && !empty(product.selectedSwatch.id) && (product.selectedSwatch.id == swatch.id)) ?
+                                                                 "is-active" : ""}'
+                                        data-index="${loopState.count - 1}" style="background-image: url(${swatch.images.swatch[0].url})"
+                                        src="${swatch.images.swatch[0].url}" alt="${swatch.images.swatch[0].alt}" />
+                                </span>
+                            </a>
+                        </div>
+                    <iselse/>
+                        <div class="swatch-plus-box">
+                            <a href="${pdict.urls.product}" class="square-swatch">
+                                <span class="swatch-counter">
+                                    <isset name="swatchCounter" value="${parseInt(loopState.length - 4)}" scope="page"/>
+                                    ${Resource.msg('label.swatch.counter', 'common', null) + swatchCounter }
+                                </span>
+                            </a>
+                            <isbreak/>
+                        </div>
+                    </isif>
                     </isif>
                 </isloop>
             </div>
