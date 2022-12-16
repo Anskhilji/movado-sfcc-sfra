@@ -126,6 +126,10 @@
 
             .price {
                 font-family: $font-raleway-book;
+                
+                span {
+                    font-weight: 400;
+                }
             }
 
             .product-name {
