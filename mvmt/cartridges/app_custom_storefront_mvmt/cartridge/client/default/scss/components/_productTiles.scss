@@ -79,7 +79,7 @@
       }
   
       .product-badge {
-        display: block;
+        display: block;        
       }
     }
   
@@ -327,6 +327,16 @@
       }
     }
   
+    .promotion-badge-recommendation {
+
+      .product-tag-content { 
+
+        .hide-plp {
+          display: none;
+        }
+      }
+    }
+
     .product-tag-content {
       height: rem(18);
       margin-bottom: rem(15);
@@ -717,6 +727,7 @@
             .exclusive-badge-search {
               margin-bottom: rem(0);
 
+
               .badge {
                 background-color: $badge-bg;
                 border: rem(1) solid $gray88-solid;
@@ -870,4 +881,54 @@
         }
       }
     }
+  }
+
+    .search-inner-content {
+
+      .product-badge {
+        &-main {
+
+          .badge {
+            display: none;
+          }
+        }
+      }
+    }
+
+    .suggested-products-caresoul{
+
+      .image-container {
+  
+          .product-tag-content {
+      
+              .exclusive-badges {
+          
+                  .badge {
+              
+                      &.custom-promotion-badge {
+                          display: none;
+                      }
+                  }
+              }
+          }
+      }
+  }
+
+  .suggested-products-tiles {
+
+      .image-container {
+  
+          .product-tag-content {
+      
+              .exclusive-badges {
+          
+                  .badge {
+              
+                      &.custom-promotion-badge {
+                          display: none;
+                      }
+                  }
+              }
+          }
+      }
   }
