@@ -951,7 +951,7 @@ function handleVariantResponse(response, $productContainer) {
 
             for (var i = 0; i < response.product.promotions.length; i++) {
                 if (response.product.promotions[i].promotionBadge == true && response.product.promotions[i].promotionMsg !== '') {
-                    $exclusiveBadges.prepend('<span class="badge custom-promotion-badge badge-bg text-uppercase hide-plp ">' + response.product.promotions[i].promotionMsg + '</span>');
+                    $exclusiveBadges.prepend('<span class="badge custom-promotion-badge badge-bg text-uppercase hide-plp">' + response.product.promotions[i].promotionMsg + '</span>');
                 }
             }
         }
