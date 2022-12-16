@@ -1,22 +1,28 @@
 'use strict';
  // beam charity order
- console.log('out event');
- var beamOrder = {
-    orderId: 'dev01200002626',
-    caritiyId: window.localStorage.getItem('beam_nonprofit_key_pkKuIlcTqgbU.6b2fa3d6-1b5b-4839-9f22-08813dbee89a')
-}
 
 document.addEventListener("beamnonprofitselect", (evt) => {
-    console.log('in event');
-    const  selectedNonprofitId  = evt.detail;
+
+    var URL = $('.beam-container').val();
+    var chairtyId = evt.detail;
+    $.spinner().start();
+
     $.ajax({
-        url: '/on/demandware.store/Sites-MVMTUS-Site/en_US/Beam-Order',
-        method: 'POST',
-        data: beamOrder,
+        url: URL,
+        method: 'post',
+        data: {
+            orderId: $('.beam-container').data('order-number'),
+            chairtyId: chairtyId.selectedNonprofitId
+        },
+
         success: function (data) {
             if (data) {
-                data;
+                $.spinner().stop();
             }
+        },
+
+        error: function (err) {
+            $.spinner().stop();
         }
     });
 });

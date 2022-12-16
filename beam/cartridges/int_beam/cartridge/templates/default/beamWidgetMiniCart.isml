@@ -10,4 +10,5 @@
           class="beam-widget-mini-cart">
         </beam-${sitePref.beamWidgetType.value}>
     </isif>
+    <input type="hidden" class="beam-widget-minicart" value="${URLUtils.url('Beam-Cart')}">
 </isif>

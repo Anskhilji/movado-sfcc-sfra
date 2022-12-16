@@ -33,23 +33,23 @@ server.replace(
         var token = req.querystring.token ? req.querystring.token : null;
         var userIPAddress = request.httpRemoteAddress || '';
 
-        if (!order
-            || !token
-            || token !== order.orderToken
-            || order.customer.ID !== req.currentCustomer.raw.ID
-        ) {
-            res.render('/error', {
-                message: Resource.msg('error.confirmation.error', 'confirmation', null)
-            });
+        // if (!order
+        //     || !token
+        //     || token !== order.orderToken
+        //     || order.customer.ID !== req.currentCustomer.raw.ID
+        // ) {
+        //     res.render('/error', {
+        //         message: Resource.msg('error.confirmation.error', 'confirmation', null)
+        //     });
 
-            return next();
-        }
-        var lastOrderID = Object.prototype.hasOwnProperty.call(req.session.raw.custom, 'orderID') ? req.session.raw.custom.orderID : null;
-        if (lastOrderID === req.querystring.ID) {
-            session.custom.orderJustPlaced = false;
-            res.redirect(URLUtils.url('Home-Show'));
-            return next();
-        }
+        //     return next();
+        // }
+        // var lastOrderID = Object.prototype.hasOwnProperty.call(req.session.raw.custom, 'orderID') ? req.session.raw.custom.orderID : null;
+        // if (lastOrderID === req.querystring.ID) {
+        //     session.custom.orderJustPlaced = false;
+        //     res.redirect(URLUtils.url('Home-Show'));
+        //     return next();
+        // }
 
         var config = {
             numberOfLineItems: '*'
