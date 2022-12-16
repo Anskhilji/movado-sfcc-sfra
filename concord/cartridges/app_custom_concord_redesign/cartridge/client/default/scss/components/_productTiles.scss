@@ -1,5 +1,28 @@
 .product-tile {
 
+    .image-container {
+
+     .badge-container {
+        position: absolute;
+        top: rem(10);
+        right: rem(10);
+
+        .out-of-stock {
+            padding: rem(3) rem(10);
+            color: $storm-gray;
+            background-color: $dark-pink;
+            border-radius: rem(10);
+            display: flex;
+            align-items: center;
+            justify-content: center ;
+            font-size: rem(11);
+            font-weight: 600;
+
+        }
+     }
+
+    }
+
     .tile-body {
 
         .price {
