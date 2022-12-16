@@ -1,13 +1,13 @@
 <isif condition="${product.variationsAttributes && product.variationsAttributes.length > 0}">
 <isif condition="${product.variationsAttributes[0].values.length > 0}">
-    <div class="color-swatches swatches-watches-olny" data-attr="colorVar">
+    <div class="color-swatches color-Attribute swatches-watches-olny" data-attr="colorVar">
         <div class="swatches-watches">
         <isif condition="${product.colorVariationsValues && product.colorVariationsValues.values.length > 0}">
             <isloop items="${product.colorVariationsValues.values}" var="swatch" status="loopState">
                 <isif condition="${swatch.images != null && swatch.largeImage != null && swatch.largeImage.url != null}">
                 <isif condition="${parseInt(loopState.index) < 4}">
                     <div class="swatch-plus-box">
-                        <a data-swatch-url="${swatch.swatchesURL}" data-pdp-url="${swatch.pdpURL}" class="square-swatch">
+                        <a data-swatch-url="${swatch.swatchesURL}" data-pdp-url="${swatch.pdpURL}" class="change-variation square-swatch">
                         <span>
                             <img class='swatch swatch-circle ${(product.selectedSwatch.id == swatch.id) ? "is-active" : ""}'
                                 data-index="${loopState.count - 1}" style="background-image: url(${swatch.largeImage.url})"

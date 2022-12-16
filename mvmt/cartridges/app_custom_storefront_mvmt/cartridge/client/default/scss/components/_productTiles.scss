@@ -453,7 +453,10 @@
                 margin-right: rem(0);
                 height: rem(30);
                 width: rem(30);
-          
+                &:hover {
+                  text-decoration: none;
+                };
+
                 img {
                   &.swatch-circle {
                     box-sizing: border-box;
