@@ -21,7 +21,8 @@
                         <div class="swatch-plus-box">
                             <a href="${pdict.urls.product}" class="square-swatch">
                                 <span class="swatch-counter">
-                                    ${'+' + parseInt(loopState.length - 4)}
+                                    <isset name="swatchCounter" value="${parseInt(loopState.length - 4)}" scope="page"/>
+                                    ${Resource.msg('label.swatch.counter', 'common', null) + swatchCounter }
                                 </span>
                             </a>
                             <isbreak/>
