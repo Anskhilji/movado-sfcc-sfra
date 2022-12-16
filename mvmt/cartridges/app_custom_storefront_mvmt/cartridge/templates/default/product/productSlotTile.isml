@@ -59,7 +59,9 @@
                     <isif condition="${(product.productType != 'master' || !product.defaultVariant)}">
                         <span class="case-diameter">${!empty(product.caseDiameterRedesigned) ? product.caseDiameterRedesigned : ''}</span>
                     <iselse/>
-                        <span class="case-diameter">${!empty(product.defaultVariantCaseDiameterRedesigned) ? product.defaultVariantCaseDiameterRedesigned : product.caseDiameterRedesigned}</span>
+                        <isif condition="${product.isWatchTile}">
+                            <span class="case-diameter">${!empty(product.defaultVariantCaseDiameterRedesigned) ? product.defaultVariantCaseDiameterRedesigned : product.caseDiameterRedesigned}</span>
+                        </isif>
                     </isif>
                     </div>
                 </isif>
