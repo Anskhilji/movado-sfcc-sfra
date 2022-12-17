@@ -836,7 +836,7 @@ module.exports = {
             form.currentPage = $('.page[data-action]').data('action') || '';
 
             var personalize = $('.popup-tabs .personalize');
-            if (personalize.length) {
+            if (personalize.length && personalize.length > 0) {
                 var personalizationType = personalize.val();
                 form.personalizationType = personalizationType; 
             }

@@ -31,9 +31,9 @@ module.exports = {
 
             var standard = $('.debossing-tabs.standard');
             var script = $('.debossing-tabs.script');
-            var horizontal= $('.debossing-tabs.horizontal')
-            var vertical = $('.debossing-tabs.vertical')
-            var personalize = $('.popup-tabs .personalize')
+            var horizontal= $('.debossing-tabs.horizontal');
+            var vertical = $('.debossing-tabs.vertical');
+            var personalize = $('.popup-tabs .personalize');
 
             if (standard  || script || horizontal || vertical) {
                 if (standard.hasClass('active')) {
