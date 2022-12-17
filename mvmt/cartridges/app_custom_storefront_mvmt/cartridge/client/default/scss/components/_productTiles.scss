@@ -990,7 +990,14 @@
     }
   }
 
-    .search-inner-content {
+  .cs-carousel-wrapper {
+
+      .custom-promotion-badge {
+          display: none;
+      }
+  }
+
+    .search-inner-content,.mobile-side-search {
 
       .product-badge {
         &-main {

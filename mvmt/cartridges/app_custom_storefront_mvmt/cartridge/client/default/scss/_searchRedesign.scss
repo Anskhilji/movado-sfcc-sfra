@@ -104,29 +104,35 @@
                 }
             }
 
-            .product-badge-main {
-                display: flex;
+            .promotion-badge-box {
                 margin: rem(0);
                 position: absolute;
                 left: 0;
                 top: 0;
+                display: flex;
+                flex-wrap: wrap;
 
-                .badge  {
-                    background-color: $white;
-                    border: rem(1) solid $red2;
-                    font-size: rem(10);
-                    font-weight: 500;
-                    border-radius: rem(13);
-                    margin: 0;
-                    padding: rem(2) rem(15);
-                    line-height: normal;
-                    letter-spacing: rem(0.83);
-                    color: $red2;
-                    height: auto;
+                .product-badge-main {
+                    display: flex;
+                    margin: 0 rem(4) rem(4) 0;
 
-                    @include media-breakpoint-up(lg) {
-                        letter-spacing: rem(0.5);
-                        padding: rem(3) rem(15);
+                    .badge  {
+                        background-color: $white;
+                        border: rem(1) solid $red2;
+                        font-size: rem(10);
+                        font-weight: 500;
+                        border-radius: rem(13);
+                        margin: 0;
+                        padding: rem(2) rem(15);
+                        line-height: normal;
+                        letter-spacing: rem(0.83);
+                        color: $red2;
+                        height: auto;
+
+                        @include media-breakpoint-up(lg) {
+                            letter-spacing: rem(0.5);
+                            padding: rem(3) rem(15);
+                        }
                     }
                 }
             }

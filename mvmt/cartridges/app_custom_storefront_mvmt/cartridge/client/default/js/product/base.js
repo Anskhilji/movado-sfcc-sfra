@@ -924,13 +924,24 @@ function handleVariantResponse(response, $productContainer) {
    if (response.product.available) {
         var badges = response.badges;
 
+        // Update promotion badge on pdp after change variations
+        if (response.product.promotions && response.product.promotions.length > 0) {
+            var promotionBages = response.product.promotions;
+
+            promotionBages.forEach(function (badge) {
+                if (badge.promotionBadge == true && badge.promotionMsg !== '') {
+                    $exclusiveBadges.prepend('<span class="badge custom-promotion-badge badge-bg text-uppercase hide-plp">' + badge. promotionMsg + '</span>');
+                }
+            });
+        }
+
         if (badges.textBadges && badges.textBadges.length > 0) {
             badges.textBadges.forEach(function (badge) {
                 $exclusiveBadges.append('<span class="badge text-uppercase">' + badge.text + '</span>');
             });
         }
 
-    // Update image Badges
+        // Update image Badges
         if (badges.imageBadges && badges.imageBadges.length > 0) {
             badges.imageBadges.forEach(function (imageBadge, idx) {
                 if (idx === 0) {
@@ -939,16 +950,6 @@ function handleVariantResponse(response, $productContainer) {
                     $imageBadges.append('<div class="badge-right"><img src="' + imageBadge.imageUrl + '" alt="' + imageBadge.imageAlt + '"></div>');
                 }
             });
-        }
-
-        // Update promotion badge on pdp after change variations
-        if (response.product.promotions && response.product.promotions.length > 0) {
-
-            for (var i = 0; i < response.product.promotions.length; i++) {
-                if (response.product.promotions[i].promotionBadge == true && response.product.promotions[i].promotionMsg !== '') {
-                    $exclusiveBadges.prepend('<span class="badge custom-promotion-badge badge-bg text-uppercase hide-plp">' + response.product.promotions[i].promotionMsg + '</span>');
-                }
-            }
         }
    }
     
