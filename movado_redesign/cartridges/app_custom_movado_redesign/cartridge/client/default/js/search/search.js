@@ -565,7 +565,7 @@ module.exports = {
 
     applyFilter: function () {
         // Handle refinement value selection and reset click
-        $('.container, .container-fluid').on(
+        $('.dk-fillter-m').on(
             'click',
             '.refinements li a, .refinements-sidebar li a, .refinement-bar a.reset, .filter-value a, .swatch-filter a',
             function (e) {
@@ -627,7 +627,7 @@ module.exports = {
                             if ($isChildEl.length > 0) {
                                 $isChildEl.each (function () {
                                     $selectedFilterVal = $(this).find('a').text().trim();
-                                    var $filterSideBar = $('.refine-wrapper-sidebar .selected-refinement');
+                                    var $filterSideBar = $('.refine-wrapper-sidebar');
     
                                     if ($filterSideBar.length > 0) {
                                         $filterSideBar.each(function () {
@@ -655,6 +655,137 @@ module.exports = {
                                 });
                             }
                         });
+
+                        console.log($selectedFiltersNav);
+                        // if (selectedFiltersNav.length > 0) {
+                        //     var selectedFiltersIndex = selectedFiltersNav;
+                        //     console.log(selectedFiltersIndex);
+                        //     if (selectedFiltersIndex.find('li')) {
+                        //         alert('ok');
+                        //     }
+                        // }
+                        // edit end
+                        $.spinner().stop();
+                        $('.search-results.plp-new-design #sort-order').customSelect();
+                        setTimeout( function () {
+                            if ( $('.plp-new-design .refinement-bar .selected-value:contains("Sort")').length == 0) {
+                                $('.plp-new-design .refinement-bar .selected-value').prepend('<span>Sort By</span> ');
+                            }
+                        }, 20);
+                        moveFocusToTop();
+                        swatches.showSwatchImages();
+                        $('.plp-new-design .result-count').removeClass('col-12 col-md-9 col-sm-6 order-sm-2');
+                        // Custom:MSS-2073 start
+                        var $refinementBox = $('.refinement-box-filter-desktop');
+                        var $dkFilterCheck = $('.dk-fillter-check');
+                        var $modelBackground = $('.modal-background');
+                        var $moreFilterBtn = $('.more-filter-btn');
+                        refinementBoxFilterDesktop($refinementBox, $dkFilterCheck, $modelBackground);
+                        moreFilterBtn($moreFilterBtn);
+                        $('.modal-background').removeClass('d-block');
+                        $('.desktop-search-refine-bar-redesing').removeClass('active');
+                        // $('.refine-wrapper-sidebar').removeClass('fillterslideinleft');
+                        // Custom:MSS-2073 end
+                    },
+                    error: function () {
+                        $.spinner().stop();
+                    }
+                });
+            });
+    },
+
+    applyFilterSideBar: function () {
+        // Handle refinement value selection and reset click
+        $('.side-fliter').on(
+            'click',
+            '.refinements-sidebar li a, .refinements-sidebar li a, .refinement-bar a.reset, .filter-value a, .swatch-filter a',
+            function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var $selectedFiltersNav = e.target;
+                //push data into datalayer for filters into gtm
+                var $filterType = $(this).parents('.card-body').siblings('.movado-refinements-type').text().trim();
+                dataLayer.push({
+                    event: 'Filter Sort',
+                    eventCategory: 'Filter & Sort',
+                    eventAction: $filterType,
+                    eventLabel: $(this).text().trim()
+                });
+
+                // Get currently selected sort option to retain sorting rules
+                var moreFiltersSideBar = false;
+                var urlparams = getUrlParamObj(document.location.href);
+                var filtersURL = e.currentTarget.href;
+                var currentSelectedSortId = '';
+                if (urlparams.hasOwnProperty('srule') == true) {
+                    if (urlparams.srule) {
+                        currentSelectedSortId = urlparams.srule;
+                        filtersURL = removeParam('srule', filtersURL);  // Custom: [MSS-1348 Fix for not applying price filters]
+                        filtersURL = replaceUrlParam(filtersURL, 'srule', currentSelectedSortId);
+                    }
+                }
+
+                var moreFilters = $(".refinement-bar-redesign").hasClass("fillterslideinleft")
+                if(moreFilters) {
+                    moreFiltersSideBar = true;
+                }
+                $.spinner().start();
+                $(this).trigger('search:filter', e);
+                $.ajax({
+                    url: filtersURL,
+                    data: {
+                        page: $('.grid-footer').data('page-number'),
+                        selectedUrl: filtersURL,
+                        moreFiltersSideBar: moreFiltersSideBar
+                    },
+                    method: 'GET',
+                    success: function (response) {
+                    	var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
+                    	$('body').trigger('facet:success', [gtmFacetArray]);
+                        parseResults(response);
+                        // if (moreFilters) {
+                        //     parseResultsSideBar(response);
+                        // } else {
+                        //     parseResultsSimple(response);
+                        // }
+                        // var refineWrapper = document.querySelector('.desktop-search-refine-bar-redesing .refine-wrapper')
+                        // edit start
+                        updatePageURLForFacets(filtersURL);
+                        // var $selectedFiltersNav = $('.selected-filters-nav');
+                        // var $selectedFilterVal = '';
+                        // $selectedFiltersNav.each(function() {
+                        //     var $isChildEl = $(this).find('.filter-value');
+                        //     if ($isChildEl.length > 0) {
+                        //         $isChildEl.each (function () {
+                        //             $selectedFilterVal = $(this).find('a').text().trim();
+                        //             var $filterSideBar = $('.refine-wrapper-sidebar');
+    
+                        //             if ($filterSideBar.length > 0) {
+                        //                 $filterSideBar.each(function () {
+                        //                     var $selectedRefinementList = $(this).find('.card-body-sidebar .values');
+                                            
+                        //                     if ($selectedRefinementList.length > 0) {
+                        //                         var $isChildren = $selectedRefinementList.find('li');
+    
+                        //                         if ($isChildren.length > 0) {
+                        //                             $isChildren.each(function() {
+    
+                        //                                 var $isSelectionTabVal = $(this).find('.selection-tab').text().trim();
+    
+                        //                                 if ($isSelectionTabVal == $selectedFilterVal) {
+                        //                                     $(this).find('.selection-tab').addClass('selected');
+                        //                                     $selectedFilterVal = '';
+                        //                                 }
+                                                        
+                        //                             });
+                        //                         }
+    
+                        //                     }
+                        //                 });
+                        //             }
+                        //         });
+                        //     }
+                        // });
 
                         console.log($selectedFiltersNav);
                         // if (selectedFiltersNav.length > 0) {

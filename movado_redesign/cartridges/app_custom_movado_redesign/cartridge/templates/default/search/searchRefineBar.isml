@@ -25,13 +25,13 @@
             </div>
         </isif>
     </div>  
-    <div class="refinements-sidebar movado-refinements-container">
+    <div class="refinements-sidebar movado-refinements-container-sidebar">
         <isloop items="${pdict.productSearch.refinements}" var="refinement">
-            <div class="card selected-refinement collapsible-sm refinement-box-filter refinement refinement-${refinement.displayName.toLowerCase().replace(/ /g, '-')}">
-                <button class="card-header refinement-btn movado-refinements-type text-left" role="tab" data-filter-category="${pdict.productSearch.category && !empty(pdict.productSearch.category) ? pdict.productSearch.category.id : ''}" aria-expanded="false" id="${refinement.displayName}Heading" >
+            <div class="card selected-refinement-sidebar collapsible-sm refinement-box-filter-sidebar refinement-sidebar refinement-${refinement.displayName.toLowerCase().replace(/ /g, '-')}">
+                <button class="card-header-sidebar refinement-btn-sidebar movado-refinements-type-sidebar text-left" role="tab" data-filter-category="${pdict.productSearch.category && !empty(pdict.productSearch.category) ? pdict.productSearch.category.id : ''}" aria-expanded="false" id="${refinement.displayName}Heading" >
                     ${refinement.displayName}
                 </button>
-                <div class="card-body" role="tabpanel"  aria-labelledby="${refinement.displayName}Heading">
+                <div class="card-body-sidebar" role="tabpanel"  aria-labelledby="${refinement.displayName}Heading">
                     <isif condition="${refinement.isCategoryRefinement}">
                         <isset name="categories" value="${refinement.values}" scope="page" />
                         <isinclude template="search/refinements/categories" />
