@@ -839,6 +839,13 @@ module.exports = {
                 form.options = getOptions($productContainer);
             }
             form.currentPage = $('.page[data-action]').data('action') || '';
+
+            var personalize = $('.popup-tabs .personalize');
+            if (personalize.length && personalize.length > 0) {
+                var personalizationType = personalize.val();
+                form.personalizationType = personalizationType; 
+            }
+
             $(this).trigger('updateAddToCartFormData', form);
             if (addToCartUrl) {
                 $.ajax({
