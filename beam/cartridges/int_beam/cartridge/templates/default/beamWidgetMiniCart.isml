@@ -1,6 +1,11 @@
- <isset value="${dw.system.Site.current.preferences.custom}" name="sitePref" scope="page" />
+ 
+<isset value="${dw.system.Site.current.preferences.custom}" name="sitePref" scope="page" />
  <isif condition="${sitePref.enableBeam}">
     <isif condition="${sitePref.enableBeamMiniCart}">
+      <isscript>
+          var assets = require('*/cartridge/scripts/assets');
+          assets.addJs('/js/beamOrder.js');
+      </isscript>
      <div class="mini-cart-fixed">
         <beam-${sitePref.beamWidgetType.value}
           apiKey="${sitePref.beamApiKey}"
