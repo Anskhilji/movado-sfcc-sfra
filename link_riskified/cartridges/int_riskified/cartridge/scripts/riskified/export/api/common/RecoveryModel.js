@@ -20,7 +20,7 @@ var RCLogger = require('~/cartridge/scripts/riskified/util/RCLogger');
 var RCUtilities = require('~/cartridge/scripts/riskified/util/RCUtilities');
 var RiskifiedAPI = require('~/cartridge/scripts/riskifiedhandler');
 var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
-var Constants = require('app_custom_movado/cartridge/scripts/helpers/utils/NotificationConstant');
+var Constants = require('*/cartridge/scripts/helpers/utils/NotificationConstant');
 
 /**
 * This function loads data objects that hold backup information for order or checkout denied export.

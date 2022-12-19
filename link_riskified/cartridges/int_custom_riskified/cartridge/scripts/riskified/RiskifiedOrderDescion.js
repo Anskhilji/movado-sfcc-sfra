@@ -15,7 +15,7 @@
 
  var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
  var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
- var Constants = require('app_custom_movado/cartridge/scripts/helpers/utils/NotificationConstant');
+ var Constants = require('*/cartridge/scripts/helpers/utils/NotificationConstant');
  var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 
 function orderDeclined(order) {

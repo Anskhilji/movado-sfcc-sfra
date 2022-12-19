@@ -6,7 +6,7 @@ var Site = require('dw/system/Site');
 
 var restService = require('int_riskified/cartridge/scripts/riskified/export/api/models/RestApiModel');
 var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
-var Constants = require('app_custom_movado/cartridge/scripts/helpers/utils/NotificationConstant');
+var Constants = require('*/cartridge/scripts/helpers/utils/NotificationConstant');
 
 /**
  * Send a new order to Riskified.

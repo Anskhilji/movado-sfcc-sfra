@@ -13,7 +13,7 @@ var RCUtilities = require('int_riskified/cartridge/scripts/riskified/util/RCUtil
 var Constants = require('int_riskified/cartridge/scripts/riskified/util/Constants');
 var Site = require('dw/system/Site');
 var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
-var Constant = require('app_custom_movado/cartridge/scripts/helpers/utils/NotificationConstant');
+var Constant = require('*/cartridge/scripts/helpers/utils/NotificationConstant');
 /**
  * This method parse Riskified and Deco response and returns either data is successfully submited or not
  *

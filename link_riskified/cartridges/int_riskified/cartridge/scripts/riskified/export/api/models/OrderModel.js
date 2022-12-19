@@ -193,7 +193,7 @@ function updateOrderConfirmationStatus(order, orderConfirmationStatus, callerMod
     var Transaction = require('dw/system/Transaction');
     var RCLogger = require('int_riskified/cartridge/scripts/riskified/util/RCLogger');
     var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
-    var Constants = require('app_custom_movado/cartridge/scripts/helpers/utils/NotificationConstant');
+    var Constants = require('*/cartridge/scripts/helpers/utils/NotificationConstant');
     var message;
 
     message = 'SetOrderConfirmationStatus: The order confirmation status is : ' + orderConfirmationStatus, 'debug', logLocation;
@@ -227,7 +227,7 @@ function setOrderAnalysisStatus(order, status, callerModule) {
     var Transaction = require('dw/system/Transaction');
     var RCLogger = require('int_riskified/cartridge/scripts/riskified/util/RCLogger');
     var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
-    var Constants = require('app_custom_movado/cartridge/scripts/helpers/utils/NotificationConstant');
+    var Constants = require('*/cartridge/scripts/helpers/utils/NotificationConstant');
     var message;
 
     message = 'The order analysis status is: ' + status, 'debug', logLocation;
@@ -276,7 +276,7 @@ function savePaymentInformationInOrder(order, orderParams, callerModule) {
     var Transaction = require('dw/system/Transaction');
     var RCLogger = require('int_riskified/cartridge/scripts/riskified/util/RCLogger');
     var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
-    var Constants = require('app_custom_movado/cartridge/scripts/helpers/utils/NotificationConstant');
+    var Constants = require('*/cartridge/scripts/helpers/utils/NotificationConstant');
 
     try {
         Transaction.wrap(function () {

@@ -17,7 +17,7 @@ var Constants = require('~/cartridge/scripts/riskified/util/Constants');
 var RCLogger = require('~/cartridge/scripts/riskified/util/RCLogger');
 var RCUtilities = require('~/cartridge/scripts/riskified/util/RCUtilities');
 var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
-var Constant = require('app_custom_movado/cartridge/scripts/helpers/utils/NotificationConstant');
+var Constant = require('*/cartridge/scripts/helpers/utils/NotificationConstant');
 
 /**
  * This function parses analysis response.

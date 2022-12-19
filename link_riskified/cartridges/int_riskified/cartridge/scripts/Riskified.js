@@ -25,7 +25,7 @@ var RCUtilities = require('int_riskified/cartridge/scripts/riskified/util/RCUtil
 var Constants = require('int_riskified/cartridge/scripts/riskified/util/Constants');
 var RiskifiedAPI = require('int_riskified/cartridge/scripts/riskifiedhandler');
 var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
-var Constant = require('app_custom_movado/cartridge/scripts/helpers/utils/NotificationConstant');
+var Constant = require('*/cartridge/scripts/helpers/utils/NotificationConstant');
 
 /**
  * This method saves payment related information during billing step in checkout. It also generates

@@ -11,7 +11,7 @@ var PaymentInstrument = require('dw/order/PaymentInstrument');
 var UUIDUtils = require('dw/util/UUIDUtils');
 var RCLogger = require('int_riskified/cartridge/scripts/riskified/util/RCLogger');
 var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
-var Constants = require('app_custom_movado/cartridge/scripts/helpers/utils/NotificationConstant');
+var Constants = require('*/cartridge/scripts/helpers/utils/NotificationConstant');
 
 /**
  * This method generates checkout ID and saves it in session. It also extracts cardIIN

@@ -4,7 +4,7 @@ var _moduleName = 'decohandler';
 var restService = require('~/cartridge/scripts/riskified/export/api/models/RestApiModel');
 var RCLogger = require('int_riskified/cartridge/scripts/riskified/util/RCLogger');
 var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
-var Constants = require('app_custom_movado/cartridge/scripts/helpers/utils/NotificationConstant');
+var Constants = require('*/cartridge/scripts/helpers/utils/NotificationConstant');
 
 /**
  * Elegibility by Deco

@@ -20,7 +20,7 @@ var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 
 var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
 var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
-var Constants = require('app_custom_movado/cartridge/scripts/helpers/utils/NotificationConstant');
+var Constants = require('*/cartridge/scripts/helpers/utils/NotificationConstant');
 
 var URLUtils = require('dw/web/URLUtils');
 var PaymentInstrument = require('dw/order/PaymentInstrument');
