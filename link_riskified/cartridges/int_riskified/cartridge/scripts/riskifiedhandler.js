@@ -5,7 +5,7 @@ var _moduleName = 'riskifiedhandler';
 var Site = require('dw/system/Site');
 
 var restService = require('int_riskified/cartridge/scripts/riskified/export/api/models/RestApiModel');
-var CONotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
+var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
 var Constants = require('app_custom_movado/cartridge/scripts/helpers/utils/NotificationConstant');
 
 /**
@@ -43,7 +43,7 @@ function createOrder(order, orderParams) {
             response.error = true;
             response.recoveryNeeded = false;
             response.message = "Order review status couldn't be updated.";
-            CONotificationHelpers.sendErrorNotification(Constants.RISKIFIED, response.message, logLocation);
+            checkoutNotificationHelpers.sendErrorNotification(Constants.RISKIFIED, response.message, logLocation);
 
             return response;
         }
@@ -57,7 +57,7 @@ function createOrder(order, orderParams) {
                 response.error = true;
                 response.recoveryNeeded = false;
                 response.message = "Order confirmation status couldn't be udpated.";
-                CONotificationHelpers.sendErrorNotification(Constants.RISKIFIED, response.message, logLocation);
+                checkoutNotificationHelpers.sendErrorNotification(Constants.RISKIFIED, response.message, logLocation);
 
                 return response;
             }
@@ -261,7 +261,7 @@ function getSyncDecision(order, orderParams) {
     if (response.error) {
         message = 'Syncronous Decisin Error:' + response.message, 'error', logLocation;
         RCLogger.logMessage(message);
-        CONotificationHelpers.sendErrorNotification(Constants.RISKIFIED, message, logLocation);
+        checkoutNotificationHelpers.sendErrorNotification(Constants.RISKIFIED, message, logLocation);
         throw new Error('Syncronous Decision Error');
     }
 

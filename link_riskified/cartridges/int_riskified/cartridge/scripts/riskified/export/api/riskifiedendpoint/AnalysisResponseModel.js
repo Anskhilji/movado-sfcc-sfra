@@ -16,7 +16,7 @@ var OrderModel = require('~/cartridge/scripts/riskified/export/api/models/OrderM
 var Constants = require('~/cartridge/scripts/riskified/util/Constants');
 var RCLogger = require('~/cartridge/scripts/riskified/util/RCLogger');
 var RCUtilities = require('~/cartridge/scripts/riskified/util/RCUtilities');
-var CONotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
+var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
 var Constant = require('app_custom_movado/cartridge/scripts/helpers/utils/NotificationConstant');
 
 /**
@@ -35,7 +35,7 @@ function parseOrderAnalysisResponse(orderAnalysisStatus, callerModule) {
 
     message = 'ParseOrderAnalysisResponse: Riskified order analysis status: ' + orderAnalysisStatus, 'debug', logLocation;
     RCLogger.logMessage(message);
-    CONotificationHelpers.sendDebugNotification(Constant.RISKIFIED, message, logLocation);
+    checkoutNotificationHelpers.sendDebugNotification(Constant.RISKIFIED, message, logLocation);
 
     if ('approved'.equals(orderAnalysisStatus)) {
         orderAnalaysisStatus = Constants.ORDER_REVIEW_APPROVED_STATUS;
@@ -73,7 +73,7 @@ function handle(callerModule) {
             error   : true,
             message : 'riskifiedAuthCode site preference not set in cartridge'
         };
-        CONotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation, response.message);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation, response.message);
 
         return response;
     }
@@ -85,7 +85,7 @@ function handle(callerModule) {
             error   : true,
             message : 'Header HMAC missing'
         };
-        CONotificationHelpers.sendErrorNotification(Constant.RISKIFIED, response.message, logLocation);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, response.message, logLocation);
 
         return response;
     }
@@ -98,7 +98,7 @@ function handle(callerModule) {
             error   : true,
             message : 'Authentication error, calculated HashMAC not similar to request header'
         };
-        CONotificationHelpers.sendErrorNotification(Constant.RISKIFIED, response.message, logLocation);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, response.message, logLocation);
         return response;
     }
 
@@ -111,7 +111,7 @@ function handle(callerModule) {
             error   : true,
             message : 'Order ID is missing'
         };
-        CONotificationHelpers.sendErrorNotification(Constant.RISKIFIED, response.message, logLocation);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, response.message, logLocation);
         return response;
     }
 
@@ -121,7 +121,7 @@ function handle(callerModule) {
             error   : true,
             message : 'Order not found with order ID ' + orderId
         };
-        CONotificationHelpers.sendErrorNotification(Constant.RISKIFIED, response.message, logLocation);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, response.message, logLocation);
         return response;
     }
 
@@ -132,7 +132,7 @@ function handle(callerModule) {
             error   : true,
             message : 'Unknown Order Analysis Status'
         };
-        CONotificationHelpers.sendErrorNotification(Constant.RISKIFIED, response.message, logLocation);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, response.message, logLocation);
         return response;
     }
 
@@ -143,7 +143,7 @@ function handle(callerModule) {
             error   : true,
             message : "Order review status couldn't be udpated."
         };
-        CONotificationHelpers.sendErrorNotification(Constant.RISKIFIED, response.message, logLocation);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, response.message, logLocation);
         return response;
     }
 
@@ -155,7 +155,7 @@ function handle(callerModule) {
                 error   : true,
                 message : "Order review status couldn't be udpated."
             };
-            CONotificationHelpers.sendErrorNotification(Constant.RISKIFIED, response.message, logLocation);
+            checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, response.message, logLocation);
             return response;
         }
     }
@@ -164,7 +164,7 @@ function handle(callerModule) {
         error   : false,
         message : 'Order review status udpated successfully.'
     };
-    CONotificationHelpers.sendErrorNotification(Constant.RISKIFIED, response.message, logLocation);
+    checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, response.message, logLocation);
     return response;
 }
 

@@ -10,7 +10,7 @@
 var PaymentInstrument = require('dw/order/PaymentInstrument');
 var UUIDUtils = require('dw/util/UUIDUtils');
 var RCLogger = require('int_riskified/cartridge/scripts/riskified/util/RCLogger');
-var CONotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
+var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
 var Constants = require('app_custom_movado/cartridge/scripts/helpers/utils/NotificationConstant');
 
 /**
@@ -51,7 +51,7 @@ function savePaymentAuthorizationDetails(paymentParams, callerModule) {
     if (empty(paymentParams)) {
         message = 'Payment parameters or payment method is empty', 'error', logLocation;
         RCLogger.logMessage(message);
-        CONotificationHelpers.sendErrorNotification(Constants.RISKIFIED, message, logLocation);
+        checkoutNotificationHelpers.sendErrorNotification(Constants.RISKIFIED, message, logLocation);
     } else {
         if (paymentParams.paymentMethod == 'Card') {
             paymentParams.cardIIN = session.custom.cardIIN;

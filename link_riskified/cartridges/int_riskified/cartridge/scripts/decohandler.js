@@ -3,7 +3,7 @@ var _moduleName = 'decohandler';
 
 var restService = require('~/cartridge/scripts/riskified/export/api/models/RestApiModel');
 var RCLogger = require('int_riskified/cartridge/scripts/riskified/util/RCLogger');
-var CONotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
+var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
 var Constants = require('app_custom_movado/cartridge/scripts/helpers/utils/NotificationConstant');
 
 /**
@@ -30,7 +30,7 @@ function isEligible(callerModule, orderNo) {
     if (response.error) {
         message = 'Deco Service Error:' + response.message, 'error', logLocation;
         RCLogger.logMessage(message);
-        CONotificationHelpers.sendErrorNotification(Constants.RISKIFIED, message, logLocation, response.message);
+        checkoutNotificationHelpers.sendErrorNotification(Constants.RISKIFIED, message, logLocation, response.message);
         throw new Error('Deco Service Error');
     }
     // is eligible or not_eligible
@@ -60,7 +60,7 @@ function optIn(callerModule, orderNo) {
     if (response.error) {
         message = 'Deco Service Error:' + response.message, 'error', logLocation;
         RCLogger.logMessage(message);
-        CONotificationHelpers.sendErrorNotification(Constants.RISKIFIED, message, logLocation, response.message);
+        checkoutNotificationHelpers.sendErrorNotification(Constants.RISKIFIED, message, logLocation, response.message);
         throw new Error('Deco Service Error');
     }
 

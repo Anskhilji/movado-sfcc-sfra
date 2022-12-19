@@ -18,7 +18,7 @@ var RCLogger = require('*/cartridge/scripts/riskified/util/RCLogger');
 var RCUtilities = require('*/cartridge/scripts/riskified/util/RCUtilities');
 var riskifiedResponseResult = require('*/cartridge/scripts/riskified/RiskifiedParseResponseResult');
 var decisionNotification = require('*/cartridge/scripts/helper/decisionNotification');
-var coNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
+var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
 var constants = require('app_custom_movado/cartridge/scripts/helpers/utils/NotificationConstant');
 
 
@@ -41,7 +41,7 @@ server.prepend('AnalysisNotificationEndpoint', function (req, res, next) {
     if(!RCUtilities.isCartridgeEnabled()) {
         message = "riskifiedCartridgeEnabled site preference is not enabled therefore cannot proceed further", "debug", logLocation;
         RCLogger.logMessage(message);
-        coNotificationHelpers.sendDebugNotification(constants.RISKIFIED, message, logLocation);
+        checkoutNotificationHelpers.sendDebugNotification(constants.RISKIFIED, message, logLocation);
 		
         res.render('riskified/riskifiedorderanalysisresponse', {
             CartridgeDisabled: true
@@ -53,7 +53,7 @@ server.prepend('AnalysisNotificationEndpoint', function (req, res, next) {
     if (order && !order.custom.isOrderCompleted) {
         message = '(RiskifiedParseResponseResult) ->  Order is not completed yet therefore saving response in custom object and order number is: ' + order.orderNo;
         checkoutLogger.info(message);
-        coNotificationHelpers.sendInfoNotification(constants.RISKIFIED, message, logLocation);
+        checkoutNotificationHelpers.sendInfoNotification(constants.RISKIFIED, message, logLocation);
         // res.setStatusCode(400);
         var response = decisionNotification.saveDecisionNotification(orderId, body);
         if (response) {
@@ -91,12 +91,12 @@ server.append('AnalysisNotificationEndpoint', function (req, res, next) {
     if (order && !isError) {
         message = '(RiskifiedParseResponseResult) ->  parseRiskifiedResponse: Order is completed therefore going to update riskified status and order number is: ' + order.orderNo;
         checkoutLogger.info(message);
-        coNotificationHelpers.sendInfoNotification(constants.RISKIFIED, message, 'RiskifiedParseResponseResult');
+        checkoutNotificationHelpers.sendInfoNotification(constants.RISKIFIED, message, 'RiskifiedParseResponseResult');
         riskifiedResponseResult.parseRiskifiedResponse(order);
     } else if (order && isError == true && order.custom.isOrderCompleted) {
         message = '(RiskifiedParseResponseResult) ->  parseRiskifiedResponse: There is an error with message ' + responseMessage + ' and going to cancel order in OMS and order number is: ' + order.orderNo;
         checkoutLogger.info(message);
-        coNotificationHelpers.sendInfoNotification(constants.RISKIFIED, message, 'RiskifiedParseResponseResult');
+        checkoutNotificationHelpers.sendInfoNotification(constants.RISKIFIED, message, 'RiskifiedParseResponseResult');
         /* Reject in OMS - Do not process to fulfillment status */
         if ('SOMIntegrationEnabled' in Site.getCurrent().preferences && Site.getCurrent().preferences.custom.SOMIntegrationEnabled) {
             var somLog = require('dw/system/Logger').getLogger('SOM', 'CheckoutServices');
@@ -118,14 +118,14 @@ server.append('AnalysisNotificationEndpoint', function (req, res, next) {
                 if (order.getStatus() == Order.ORDER_STATUS_CREATED) {
                     message = '(RiskifiedParseResponseResult) -> parseRiskifiedResponse: There is an error with message ' + responseMessage + ' and riskified failed the order and order status is failed and order number is: ' + order.orderNo;
                     checkoutLogger.error(message);
-                    coNotificationHelpers.sendErrorNotification(constants.RISKIFIED, message, 'RiskifiedParseResponseResult', responseMessage);
+                    checkoutNotificationHelpers.sendErrorNotification(constants.RISKIFIED, message, 'RiskifiedParseResponseResult', responseMessage);
                     // MSS-1169 Passed true as param to fix deprecated method usage
                     OrderMgr.failOrder(order, true);  //Order must be in status CREATED
                     order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
                 } else { //Only orders in status OPEN, NEW, or COMPLETED can be cancelled.
                     message = '(RiskifiedParseResponseResult) -> parseRiskifiedResponse: There is an error with message ' + responseMessage + ' and order status is OPEN, NEW, or COMPLETED can be cancelled and order number is: ' + order.orderNo;
                     checkoutLogger.error(message);
-                    coNotificationHelpers.sendErrorNotification(constants.RISKIFIED, message, 'RiskifiedParseResponseResult', responseMessage);
+                    checkoutNotificationHelpers.sendErrorNotification(constants.RISKIFIED, message, 'RiskifiedParseResponseResult', responseMessage);
                     OrderMgr.cancelOrder(order);
                     order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
                 }

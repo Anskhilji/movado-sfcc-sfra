@@ -19,7 +19,7 @@ var OrderMgr = require('dw/order/OrderMgr');
 var RCLogger = require('~/cartridge/scripts/riskified/util/RCLogger');
 var RCUtilities = require('~/cartridge/scripts/riskified/util/RCUtilities');
 var RiskifiedAPI = require('~/cartridge/scripts/riskifiedhandler');
-var CONotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
+var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
 var Constants = require('app_custom_movado/cartridge/scripts/helpers/utils/NotificationConstant');
 
 /**
@@ -39,7 +39,7 @@ function getDataObjects(callerModule) {
         dataObjsIterator = CustomObjectMgr.queryCustomObjects('RCDataObject', queryString, null, date);
     } catch (e) {
         RCLogger.logMessage('Some error occurred while retrieving RCDataObject : Exception is: ' + e, 'error', logLocation);
-        CONotificationHelpers.sendErrorNotification(Constants.RISKIFIED, e.message, logLocation, e.fileName, e.lineNumber, e.stack);
+        checkoutNotificationHelpers.sendErrorNotification(Constants.RISKIFIED, e.message, logLocation, e.fileName, e.lineNumber, e.stack);
     }
 
     return dataObjsIterator;
@@ -63,7 +63,7 @@ function handleRetryError(rcDataObject, retryLimit, callerModule) {
         });
         message = 'The retry of data object export with ID ' + id +' has reached to maximum limit of ' + retryLimit +', therefore removed data object', 'debug', logLocation;
         RCLogger.logMessage(message);
-        CONotificationHelpers.sendDebugNotification(Constants.RISKIFIED, message, logLocation);
+        checkoutNotificationHelpers.sendDebugNotification(Constants.RISKIFIED, message, logLocation);
     } else {
         Transaction.wrap(function () {
             rcDataObject.custom.retryIndex += 1;
@@ -101,7 +101,7 @@ function saveDataObject(callerModule, orderNo, checkoutDeniedParams) {
         });
     } catch (e) {
         RCLogger.logMessage('Exception occured while saving data in RCDataObject : ' + e, 'error', logLocation);
-        CONotificationHelpers.sendErrorNotification(Constants.RISKIFIED, e.message, logLocation, e.fileName, e.lineNumber, e.stack);
+        checkoutNotificationHelpers.sendErrorNotification(Constants.RISKIFIED, e.message, logLocation, e.fileName, e.lineNumber, e.stack);
         return false;
     }
 
@@ -124,7 +124,7 @@ function retryExport(callerModule) {
     if (empty(dataObjsIterator) || !dataObjsIterator.hasNext()) {
         message = 'No data objects found therefore exiting.', 'debug', logLocation;
         RCLogger.logMessage(message);
-        CONotificationHelpers.sendDebugNotification(Constants.RISKIFIED, message, logLocation);
+        checkoutNotificationHelpers.sendDebugNotification(Constants.RISKIFIED, message, logLocation);
         return true;
     }
 
@@ -152,7 +152,7 @@ function retryExport(callerModule) {
                     });
                     message = 'The order ' + order.orderNo + ' was missing important information in custom attributes, ' + 'therefore cannot execute recovey and removed data object with ID ' + dataObjectId, 'info', logLocation;
                     RCLogger.logMessage(message);
-                    CONotificationHelpers.sendInfoNotification(Constants.RISKIFIED, message, logLocation);
+                    checkoutNotificationHelpers.sendInfoNotification(Constants.RISKIFIED, message, logLocation);
 
                     continue;
                 }
@@ -179,7 +179,7 @@ function retryExport(callerModule) {
                     '\n Data Object ID: ' + dataObjectId +
                     '\n Error Message: ' + response.message, 'error', logLocation;
                     RCLogger.logMessage(message);
-                    CONotificationHelpers.sendErrorNotification(Constants.RISKIFIED, message, logLocation, response.message);
+                    checkoutNotificationHelpers.sendErrorNotification(Constants.RISKIFIED, message, logLocation, response.message);
                 }
 
                 if (response.recoveryNeeded) {
@@ -189,7 +189,7 @@ function retryExport(callerModule) {
                     '\n Order Id: ' + order.orderNo +
                     '\n Checkout Denied: ' + isCheckoutDenied, 'debug', logLocation;
                     RCLogger.logMessage(message);
-                    CONotificationHelpers.sendDebugNotification(Constants.RISKIFIED, message, logLocation);
+                    checkoutNotificationHelpers.sendDebugNotification(Constants.RISKIFIED, message, logLocation);
 
                     Transaction.wrap(function () {
                         CustomObjectMgr.remove(rcDataObject);
@@ -203,14 +203,14 @@ function retryExport(callerModule) {
                         '\n Error Message: ' + response.message +
                         '\n Exception is: ' + e
                     , 'error', logLocation);
-                CONotificationHelpers.sendErrorNotification(Constants.RISKIFIED, e.message, logLocation, e.fileName, e.lineNumber, e.stack);
+                checkoutNotificationHelpers.sendErrorNotification(Constants.RISKIFIED, e.message, logLocation, e.fileName, e.lineNumber, e.stack);
 
                 handleRetryError(rcDataObject, retryLimit, logLocation);
             }
         } // end while
     } catch (e) {
         RCLogger.logMessage('Some error occurred while retrying export of order Information : Exception is: ' + e, 'error', logLocation);
-        CONotificationHelpers.sendErrorNotification(Constants.RISKIFIED, e.message, logLocation, e.fileName, e.lineNumber, e.stack);
+        checkoutNotificationHelpers.sendErrorNotification(Constants.RISKIFIED, e.message, logLocation, e.fileName, e.lineNumber, e.stack);
         return false;
     }
 

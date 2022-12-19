@@ -19,7 +19,7 @@ var userLoggedIn = require('*/cartridge/scripts/middleware/userLoggedIn');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 
 var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
-var CONotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
+var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
 var Constants = require('app_custom_movado/cartridge/scripts/helpers/utils/NotificationConstant');
 
 var URLUtils = require('dw/web/URLUtils');
@@ -86,7 +86,7 @@ server.get('OptIn', function (req, res, next) {
         message = 'riskifiedCartridgeEnabled site preference is not enabled therefore cannot proceed further', 'debug', logLocation;
         RCLogger.logMessage(message);
         reply.message = 'Deco Service Disabled in SitePreferences';
-        CONotificationHelpers.sendDebugNotification(Constants.RISKIFIED, message, logLocation);
+        checkoutNotificationHelpers.sendDebugNotification(Constants.RISKIFIED, message, logLocation);
     }
 
     if (request.httpParameterMap.isParameterSubmitted('order_no') && request.httpParameterMap.isParameterSubmitted('checkout_id')) {

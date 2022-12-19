@@ -12,7 +12,7 @@ var RCLogger = require('int_riskified/cartridge/scripts/riskified/util/RCLogger'
 var RCUtilities = require('int_riskified/cartridge/scripts/riskified/util/RCUtilities');
 var Constants = require('int_riskified/cartridge/scripts/riskified/util/Constants');
 var Site = require('dw/system/Site');
-var CONotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
+var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
 var Constant = require('app_custom_movado/cartridge/scripts/helpers/utils/NotificationConstant');
 /**
  * This method parse Riskified and Deco response and returns either data is successfully submited or not
@@ -52,7 +52,7 @@ function parseResponse(callerModule, responseFromRiskified, action) {
         parsingResponse.error = true;
         parsingResponse.errorCode = Constants.BAD_JSON;
         parsingResponse.message = 'Riskified API JSON Error';
-        CONotificationHelpers.sendErrorNotification(Constant.RISKIFIED, parseError.message, logLocation, parsingResponse.message);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, parseError.message, logLocation, parsingResponse.message);
         return parsingResponse;
     }
 
@@ -61,7 +61,7 @@ function parseResponse(callerModule, responseFromRiskified, action) {
         parsingResponse.errorCode = Constants.BAD_CALL;
         parsingResponse.recoveryNeeded = RCUtilities.getRecoverySetting(action);
         parsingResponse.message = apiResponse.error.message || 'Riskified API Service Error';
-        CONotificationHelpers.sendErrorNotification(Constant.RISKIFIED, parsingResponse.message, logLocation, parsingResponse.errorCode);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, parsingResponse.message, logLocation, parsingResponse.errorCode);
     }
 
     if ('order' in apiResponse) {
@@ -106,7 +106,7 @@ function post(serviceType, callerModule, payload, action) {
     if (empty(payload)) {
         message = 'Payload is missing, therefore cannot proceed further.', 'error', logLocation;
         RCLogger.logMessage(message);
-        CONotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation, Constants.BAD_PAYLOAD);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation, Constants.BAD_PAYLOAD);
         return {
             error          : true,
             errorCode      : Constants.BAD_PAYLOAD,
@@ -118,7 +118,7 @@ function post(serviceType, callerModule, payload, action) {
     if (empty(action)) {
         message = 'Action is missing, therefore cannot proceed further.', 'error', logLocation;
         RCLogger.logMessage(message);
-        CONotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation, Constants.BAD_ACTION);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation, Constants.BAD_ACTION);
         return {
             error          : true,
             errorCode      : Constants.BAD_ACTION,
@@ -157,7 +157,7 @@ function post(serviceType, callerModule, payload, action) {
     if (empty(params.hmac)) {
         message = 'Error calculating hash map, therefore cannot proceed further.', 'error', logLocation;
         RCLogger.logMessage(message);
-        CONotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation, Constants.BAD_HMAC);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation, Constants.BAD_HMAC);
         return {
             error          : true,
             errorCode      : Constants.BAD_HMAC,

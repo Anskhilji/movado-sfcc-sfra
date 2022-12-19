@@ -192,13 +192,13 @@ function updateOrderConfirmationStatus(order, orderConfirmationStatus, callerMod
     var logLocation = callerModule + '~' + _moduleName + '.updateOrderConfirmationStatus()';
     var Transaction = require('dw/system/Transaction');
     var RCLogger = require('int_riskified/cartridge/scripts/riskified/util/RCLogger');
-    var CONotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
+    var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
     var Constants = require('app_custom_movado/cartridge/scripts/helpers/utils/NotificationConstant');
     var message;
 
     message = 'SetOrderConfirmationStatus: The order confirmation status is : ' + orderConfirmationStatus, 'debug', logLocation;
     RCLogger.logMessage(message);
-    CONotificationHelpers.sendDebugNotification(Constants.RISKIFIED, message, logLocation);
+    checkoutNotificationHelpers.sendDebugNotification(Constants.RISKIFIED, message, logLocation);
 
     try {
         Transaction.wrap(function () {
@@ -206,7 +206,7 @@ function updateOrderConfirmationStatus(order, orderConfirmationStatus, callerMod
         });
     } catch (e) {
         RCLogger.logMessage('Cannot update the order confirmation status\n Error is  ' + e, 'error', logLocation);
-        CONotificationHelpers.sendErrorNotification(Constants.RISKIFIED, e.message, logLocation, e.fileName, e.lineNumber, e.stack);
+        checkoutNotificationHelpers.sendErrorNotification(Constants.RISKIFIED, e.message, logLocation, e.fileName, e.lineNumber, e.stack);
         return false;
     }
 
@@ -226,13 +226,13 @@ function setOrderAnalysisStatus(order, status, callerModule) {
     var logLocation = callerModule + '~' + _moduleName + '.setOrderAnalysisStatus()';
     var Transaction = require('dw/system/Transaction');
     var RCLogger = require('int_riskified/cartridge/scripts/riskified/util/RCLogger');
-    var CONotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
+    var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
     var Constants = require('app_custom_movado/cartridge/scripts/helpers/utils/NotificationConstant');
     var message;
 
     message = 'The order analysis status is: ' + status, 'debug', logLocation;
     RCLogger.logMessage(message);
-    CONotificationHelpers.sendDebugNotification(Constants.RISKIFIED, message, logLocation);
+    checkoutNotificationHelpers.sendDebugNotification(Constants.RISKIFIED, message, logLocation);
 
     try {
         if (empty(session.custom.delayRiskifiedStatus) || session.custom.delayRiskifiedStatus) {
@@ -242,14 +242,14 @@ function setOrderAnalysisStatus(order, status, callerModule) {
         } else {
             message = 'Deffered riskified order analysis status: ' + status + ' for order No: ' + order.getOrderNo(), 'info', logLocation;
             RCLogger.logMessage(message);
-            CONotificationHelpers.sendInfoNotification(Constants.RISKIFIED, message, logLocation);
+            checkoutNotificationHelpers.sendInfoNotification(Constants.RISKIFIED, message, logLocation);
             session.custom.riskifiedOrderAnalysis = status;
         }
 
     } catch (e) {
         RCLogger.logMessage(
             'Error occurred while setting order analysis status error is ' + e, 'error', logLocation);
-            CONotificationHelpers.sendErrorNotification(Constants.RISKIFIED, e.message, logLocation, e.fileName, e.lineNumber, e.stack);
+            checkoutNotificationHelpers.sendErrorNotification(Constants.RISKIFIED, e.message, logLocation, e.fileName, e.lineNumber, e.stack);
         return false;
     }
 
@@ -275,7 +275,7 @@ function savePaymentInformationInOrder(order, orderParams, callerModule) {
 
     var Transaction = require('dw/system/Transaction');
     var RCLogger = require('int_riskified/cartridge/scripts/riskified/util/RCLogger');
-    var CONotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
+    var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
     var Constants = require('app_custom_movado/cartridge/scripts/helpers/utils/NotificationConstant');
 
     try {
@@ -301,7 +301,7 @@ function savePaymentInformationInOrder(order, orderParams, callerModule) {
         });
     } catch (e) {
         RCLogger.logMessage('Error occurred while saving data in custom attributes of order. Error is ' + e, 'error', logLocation);
-        CONotificationHelpers.sendErrorNotification(Constants.RISKIFIED, e.message, logLocation, e.fileName, e.lineNumber, e.stack);
+        checkoutNotificationHelpers.sendErrorNotification(Constants.RISKIFIED, e.message, logLocation, e.fileName, e.lineNumber, e.stack);
         return false;
     }
     return true;

@@ -2,7 +2,7 @@
 
 var CustomObjectMgr = require('dw/object/CustomObjectMgr');
 var Transaction = require('dw/system/Transaction');
-var coNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
+var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
 var constants = require('app_custom_movado/cartridge/scripts/helpers/utils/NotificationConstant');
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 
@@ -19,14 +19,14 @@ function saveDecisionNotification(OrderID, decisionNotificationObject) {
                     existingObject.custom.decisionNotification = decisionNotificationObject;
                     message = '(decisionNotification.js) -> saveDecisionNotification: Order ' + OrderID + ' Response is already saved in Object now Updated this Object';
                     checkoutLogger.info(message);
-                    coNotificationHelpers.sendInfoNotification(constants.RISKIFIED, message, 'decisionNotification.js');
+                    checkoutNotificationHelpers.sendInfoNotification(constants.RISKIFIED, message, 'decisionNotification.js');
                 }
             });
         }
         return true;
     } catch (ex) {
         checkoutLogger.error('('+ex.FileName+') -> saveDecisionNotification: Error occured while saving decision notification object: Error is: ' + ex.toString() +'Line Number is: ' + ex.lineNumber);
-        coNotificationHelpers.sendErrorNotification(constants.RISKIFIED, ex.message, 'decisionNotification.js', ex.fileName, ex.lineNumber, ex.stack);
+        checkoutNotificationHelpers.sendErrorNotification(constants.RISKIFIED, ex.message, 'decisionNotification.js', ex.fileName, ex.lineNumber, ex.stack);
         return false;
     }
 }

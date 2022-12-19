@@ -24,7 +24,7 @@ var RCLogger = require('int_riskified/cartridge/scripts/riskified/util/RCLogger'
 var RCUtilities = require('int_riskified/cartridge/scripts/riskified/util/RCUtilities');
 var Constants = require('int_riskified/cartridge/scripts/riskified/util/Constants');
 var RiskifiedAPI = require('int_riskified/cartridge/scripts/riskifiedhandler');
-var CONotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
+var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
 var Constant = require('app_custom_movado/cartridge/scripts/helpers/utils/NotificationConstant');
 
 /**
@@ -42,7 +42,7 @@ function handlePayment(paymentMethod) {
     if (!RCUtilities.isCartridgeEnabled()) {
         message = 'riskifiedCartridgeEnabled site preference is not enabled therefore cannot proceed further', 'debug', logLocation;
         RCLogger.logMessage(message);
-        CONotificationHelpers.sendDebugNotification(Constant.RISKIFIED, message, logLocation);
+        checkoutNotificationHelpers.sendDebugNotification(Constant.RISKIFIED, message, logLocation);
         return false;
     }
 
@@ -58,7 +58,7 @@ function handlePaymentSFRAInfo(cardNumber) {
     if (!RCUtilities.isCartridgeEnabled()) {
         message = 'riskifiedCartridgeEnabled site preference is not enabled therefore cannot proceed further', 'debug', logLocation
         RCLogger.logMessage(message);
-        CONotificationHelpers.sendDebugNotification(Constant.RISKIFIED, message, logLocation);
+        checkoutNotificationHelpers.sendDebugNotification(Constant.RISKIFIED, message, logLocation);
         return false;
     }
 
@@ -146,14 +146,14 @@ function sendCheckoutDenied(order, paymentParams, authErrorParams) {
     if (!RCUtilities.isCartridgeEnabled()) {
         message = 'riskifiedCartridgeEnabled site preference is not enabled therefore cannot proceed further', 'debug', logLocation;
         RCLogger.logMessage(message);
-        CONotificationHelpers.sendDebugNotification(Constant.RISKIFIED, message, logLocation);
+        checkoutNotificationHelpers.sendDebugNotification(Constant.RISKIFIED, message, logLocation);
         return false;
     }
 
     if (empty(session.custom.checkoutUUID)) {
         message = 'checkoutUUID is lost, therefore cannot proceed further', 'error', logLocation;
         RCLogger.logMessage(message);
-        CONotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
         return false;
     }
 
@@ -187,7 +187,7 @@ function sendCheckoutDenied(order, paymentParams, authErrorParams) {
     if (response.error) {
         message = 'Error occured while sending checkout denied data with order number ' + order.orderNo + ' to Riskified.\n Error Message: ' + response.message, 'error', logLocation;
         RCLogger.logMessage(message);
-        CONotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
         if (response.recoveryNeeded) {
             RecoveryModel.saveDataObject(logLocation, order.orderNo, checkoutDeniedParams);
         }
@@ -232,14 +232,14 @@ function sendCreateOrder(order) {
     if (empty(session.custom.paymentParams) && !hasGiftCert) {
         message = 'Payment related information is lost, therefore cannot proceed further', 'error', logLocation;
         RCLogger.logMessage(message);
-        CONotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
         return false;
     }
 
     if (empty(session.custom.checkoutUUID)) {
         message = 'checkoutUUID is lost, therefore cannot proceed further', 'error', logLocation;
         RCLogger.logMessage(message);
-        CONotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
         return false;
     }
 
@@ -260,7 +260,7 @@ function sendCreateOrder(order) {
     if (response.error) {
         message = 'Error occured while exporting order ' + order.orderNo + ' to Riskified. \n Error Message: ' + response.message, 'error', logLocation;
         RCLogger.logMessage(message);
-        CONotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
 
         if (response.recoveryNeeded) {
             RecoveryModel.saveDataObject(logLocation, order.orderNo, checkoutDeniedParams);
@@ -298,7 +298,7 @@ function sendCancelOrder(order, cancelReason) {
         message = 'Error occured while sending Candel Order data for order number ' + order.orderNo + ' to Riskified. ' +
         '\n Error Message: ' + response.message, 'error', logLocation;
         RCLogger.logMessage(message);
-        CONotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
         return response;
     }
     return response;
@@ -329,7 +329,7 @@ function sendDecision(orderNo, decisionDetails) {
         message = 'Error occured while sending decision data for order number ' + orderNo + ' to Riskified. ' +
         '\n Error Message: ' + result.message, 'error', logLocation;
         RCLogger.logMessage(message);
-        CONotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
         return result;
     }
     return result;
@@ -364,7 +364,7 @@ function sendFulfillOrder(order, fulfillments) {
         message = 'Error occured while sending Fulfill Order data for order number ' + order.orderNo + ' to Riskified. ' +
         '\n Error Message: ' + response.message, 'error', logLocation
         RCLogger.logMessage(message);
-        CONotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
         return false;
     }
 
@@ -396,7 +396,7 @@ function sendUpdateOrder(orderNo, orderData) {
         message = 'Error occured while sending Update Order data for order number ' + orderNo + ' to Riskified. ' +
         '\n Error Message: ' + response.message, 'error', logLocation;
         RCLogger.logMessage(message);
-        CONotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
         return false;
     }
     return true;
@@ -445,14 +445,14 @@ function getSyncronousDecision(order) {
     if (empty(session.custom.paymentParams)) {
         message = 'Payment related information is lost, therefore cannot proceed further', 'error', logLocation;
         RCLogger.logMessage(message);
-        CONotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
         return false;
     }
 
     if (empty(session.custom.checkoutUUID)) {
         message = 'checkoutUUID is lost, therefore cannot proceed further', 'error', logLocation;
         RCLogger.logMessage(message);
-        CONotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
         return false;
     }
 
@@ -469,14 +469,14 @@ function getSyncronousDecision(order) {
     if (response.error) {
         message = 'Synchronous Decision Error. OrderNo: ' + order.orderNo + '. \n Error Message: ' + response.message, 'error', logLocation;
         RCLogger.logMessage(message);
-        CONotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
         return false;
     }
 
     if (response.order.status == 'declined') {
         message = 'Order is declined by Riskified. OrderNo: ' + order.orderNo + '. \n Error Message: ' + response.message, 'error', logLocation;
         RCLogger.logMessage(message);
-        CONotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
         return false;
     }
 
@@ -493,7 +493,7 @@ function decoIsEligible(orderNo) {
     if (!Site.getCurrent().getPreferences().custom.DECOEnable) {
         message = 'Deco features disabled, enable it to use this call', 'error', logLocation;
         RCLogger.logMessage(message);
-        CONotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
         return false;
     }
 
@@ -502,7 +502,7 @@ function decoIsEligible(orderNo) {
     try {
         decoResponse = DecoAPI.isEligible(logLocation, orderNo);
     } catch (error) {
-        CONotificationHelpers.sendErrorNotification(Constant.RISKIFIED, error.message, logLocation, error, error.lineNumber, error.stack);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, error.message, logLocation, error, error.lineNumber, error.stack);
         decoResponse = false;
     }
 
@@ -519,7 +519,7 @@ function decoOptIn(orderNo) {
     if (!Site.getCurrent().getPreferences().custom.DECOEnable) {
         message = 'Deco features disabled, enable it to use this call', 'error', logLocation;
         RCLogger.logMessage(message);
-        CONotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation);
         return false;
     }
 
@@ -528,7 +528,7 @@ function decoOptIn(orderNo) {
     try {
         decoResponse = DecoAPI.optIn(logLocation, orderNo);
     } catch (error) {
-        CONotificationHelpers.sendErrorNotification(Constant.RISKIFIED, error.message, logLocation, error.fileName, error.lineNumber, error.stack);
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, error.message, logLocation, error.fileName, error.lineNumber, error.stack);
         decoResponse = false;
     }
 
