@@ -47,6 +47,13 @@ header {
             
             .dropdown-menu {
                 margin-top: rem(0);
+
+                .dropdown-item {
+                    
+                    a {
+                        font-weight: 700;
+                    }
+                }
             }
 
             .nav-item {
