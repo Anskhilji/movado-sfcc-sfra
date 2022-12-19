@@ -19,7 +19,7 @@ var RCUtilities = require('*/cartridge/scripts/riskified/util/RCUtilities');
 var riskifiedResponseResult = require('*/cartridge/scripts/riskified/RiskifiedParseResponseResult');
 var decisionNotification = require('*/cartridge/scripts/helper/decisionNotification');
 var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
-var constants = require('app_custom_movado/cartridge/scripts/helpers/utils/NotificationConstant');
+var constants = require('*/cartridge/scripts/helpers/utils/NotificationConstant');
 
 
 
