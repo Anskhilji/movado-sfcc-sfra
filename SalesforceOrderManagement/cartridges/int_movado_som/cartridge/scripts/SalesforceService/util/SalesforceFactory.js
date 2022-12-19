@@ -38,7 +38,8 @@ var SalesforceFactory = {
         SAPORDERREFUND: '/services/apexrest/saporderrefund',
         WARRANTYCANCELLATION: '/services/apexrest/warrantycancellation',
         CUSTOMERORDERHISTORY: '/services/apexrest/orderhistory',
-        OPERATIONLOG: APIROOT + '/sobjects/Operation_Log__c'
+        OPERATIONLOG: APIROOT + '/sobjects/Operation_Log__c',
+        UPDATEBEAMORDER: APIROOT + 'sobjects/OrderSummary/OrderNumber/',
     },
 
     /**

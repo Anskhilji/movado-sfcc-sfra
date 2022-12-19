@@ -677,7 +677,7 @@ module.exports = function () {
         return false;
     });
 
-    $('body').on('click','.beam-widget-mini-cart', '.beam-widget-cart', function() {
+    $('body').on('click','.beam-widget-mini-cart', function() {
 
         var URL = $('.beam-widget-minicart').val();
         var chairtyId = $(this).attr('selectednonprofitid');

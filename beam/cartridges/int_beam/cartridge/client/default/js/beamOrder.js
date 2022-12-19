@@ -4,7 +4,7 @@
 document.addEventListener("beamnonprofitselect", (evt) => {
 
     var URL = $('.beam-container').val();
-    var chairtyId = evt.detail;
+    var charityId = evt.detail;
     $.spinner().start();
 
     $.ajax({
@@ -12,7 +12,7 @@ document.addEventListener("beamnonprofitselect", (evt) => {
         method: 'post',
         data: {
             orderId: $('.beam-container').data('order-number'),
-            chairtyId: chairtyId.selectedNonprofitId
+            charityId: charityId.selectedNonprofitId
         },
 
         success: function (data) {
