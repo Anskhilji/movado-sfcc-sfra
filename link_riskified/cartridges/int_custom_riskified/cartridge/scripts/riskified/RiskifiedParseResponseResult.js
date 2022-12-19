@@ -158,7 +158,7 @@ function parseRiskifiedResponse(order, reqBody) {
             COCustomHelpers.sendOrderConfirmationEmail(order, customerLocale);
         } catch (error) {
             checkoutLogger.error('RiskifiedParseResponseResult.js -> COCustomHelpers.sendOrderConfirmationEmail() -> throw error on sending confirmation email, Error: ' + error);
-            checkoutNotificationHelpers.sendErrorNotification(Constants.RISKIFIED, ex.message, 'RiskifiedParseResponseResult', ex.fileName, ex.lineNumber, ex.stack);
+            checkoutNotificationHelpers.sendErrorNotification(Constants.RISKIFIED, error.message, 'RiskifiedParseResponseResult', error.fileName, error.lineNumber, error.stack);
         }
         
         /* Accept in OMS */
