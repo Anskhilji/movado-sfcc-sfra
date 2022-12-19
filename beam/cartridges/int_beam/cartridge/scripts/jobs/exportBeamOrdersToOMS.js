@@ -20,7 +20,10 @@ function execute(args) {
               orderID: orderID
           }
           var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
-          SalesforceModel.updateBeamOrders(requestParams);
+          var result = SalesforceModel.updateBeamOrders(requestParams);
+          if (result) {
+            BeamCustomHelper.removeBeamObjs(BeamObj);
+          }
       }
     }
 

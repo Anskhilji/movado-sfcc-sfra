@@ -16,6 +16,21 @@ function getBeamObjs() {
 }
 
 /**
+ * Removes custom object from system
+ * @param {Object} backInStockNotificationObj - BackInStockNotification custom Object
+ */
+function removeBeamObjs(BeamObj) {
+    try {
+        Transaction.wrap(function () {
+            CustomObjectMgr.remove(BeamObj);
+        });
+    } catch (error) {
+        Logger.error('Error occured while removing BeamObj Object. \n  Object: {0} \n Error: {1} \n Stack Trace: {2}',
+            JSON.stringify(BeamObj), error.message, error.stack);
+    }
+}
+
+/**
  * Created new Beam Object
  * @param {Object} beamObject 
  * @returns {Boolean} success
@@ -43,5 +58,6 @@ function saveBeamObj(beamObject) {
 
 module.exports = {
     saveBeamObj: saveBeamObj,
-    getBeamObjs: getBeamObjs
+    getBeamObjs: getBeamObjs,
+    removeBeamObjs: removeBeamObjs
 }
