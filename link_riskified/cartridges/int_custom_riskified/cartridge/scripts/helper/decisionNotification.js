@@ -26,7 +26,7 @@ function saveDecisionNotification(OrderID, decisionNotificationObject) {
         return true;
     } catch (ex) {
         checkoutLogger.error('('+ex.FileName+') -> saveDecisionNotification: Error occured while saving decision notification object: Error is: ' + ex.toString() +'Line Number is: ' + ex.lineNumber);
-        coNotificationHelpers.sendErrorNotification(constants.RISKIFIED, ex.message, 'decisionNotification.js', ex, ex.lineNumber, ex.stack);
+        coNotificationHelpers.sendErrorNotification(constants.RISKIFIED, ex.message, 'decisionNotification.js', ex.fileName, ex.lineNumber, ex.stack);
         return false;
     }
 }

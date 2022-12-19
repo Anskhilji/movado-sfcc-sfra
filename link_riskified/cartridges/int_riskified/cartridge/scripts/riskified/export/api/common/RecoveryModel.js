@@ -39,7 +39,7 @@ function getDataObjects(callerModule) {
         dataObjsIterator = CustomObjectMgr.queryCustomObjects('RCDataObject', queryString, null, date);
     } catch (e) {
         RCLogger.logMessage('Some error occurred while retrieving RCDataObject : Exception is: ' + e, 'error', logLocation);
-        CONotificationHelpers.sendErrorNotification(Constants.RISKIFIED, e.message, logLocation, e, e.lineNumber, e.stack);
+        CONotificationHelpers.sendErrorNotification(Constants.RISKIFIED, e.message, logLocation, e.fileName, e.lineNumber, e.stack);
     }
 
     return dataObjsIterator;
@@ -101,7 +101,7 @@ function saveDataObject(callerModule, orderNo, checkoutDeniedParams) {
         });
     } catch (e) {
         RCLogger.logMessage('Exception occured while saving data in RCDataObject : ' + e, 'error', logLocation);
-        CONotificationHelpers.sendErrorNotification(Constants.RISKIFIED, e.message, logLocation, e, e.lineNumber, e.stack);
+        CONotificationHelpers.sendErrorNotification(Constants.RISKIFIED, e.message, logLocation, e.fileName, e.lineNumber, e.stack);
         return false;
     }
 
@@ -203,14 +203,14 @@ function retryExport(callerModule) {
                         '\n Error Message: ' + response.message +
                         '\n Exception is: ' + e
                     , 'error', logLocation);
-                CONotificationHelpers.sendErrorNotification(Constants.RISKIFIED, e.message, logLocation, e, e.lineNumber, e.stack);
+                CONotificationHelpers.sendErrorNotification(Constants.RISKIFIED, e.message, logLocation, e.fileName, e.lineNumber, e.stack);
 
                 handleRetryError(rcDataObject, retryLimit, logLocation);
             }
         } // end while
     } catch (e) {
         RCLogger.logMessage('Some error occurred while retrying export of order Information : Exception is: ' + e, 'error', logLocation);
-        CONotificationHelpers.sendErrorNotification(Constants.RISKIFIED, e.message, logLocation, e, e.lineNumber, e.stack);
+        CONotificationHelpers.sendErrorNotification(Constants.RISKIFIED, e.message, logLocation, e.fileName, e.lineNumber, e.stack);
         return false;
     }
 

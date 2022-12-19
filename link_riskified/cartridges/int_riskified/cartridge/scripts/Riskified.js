@@ -528,7 +528,7 @@ function decoOptIn(orderNo) {
     try {
         decoResponse = DecoAPI.optIn(logLocation, orderNo);
     } catch (error) {
-        CONotificationHelpers.sendErrorNotification(Constant.RISKIFIED, error.message, logLocation, error, error.lineNumber, error.stack);
+        CONotificationHelpers.sendErrorNotification(Constant.RISKIFIED, error.message, logLocation, error.fileName, error.lineNumber, error.stack);
         decoResponse = false;
     }
 

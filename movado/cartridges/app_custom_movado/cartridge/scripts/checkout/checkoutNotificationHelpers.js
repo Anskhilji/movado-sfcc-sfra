@@ -4,22 +4,21 @@ var Calendar = require('dw/util/Calendar');
 var Site = require('dw/system/Site');
 var StringUtils = require('dw/util/StringUtils');
 
-
 function sendEmail(emailObj, context) {
     var HashMap = require('dw/util/HashMap');
     var Mail = require('dw/net/Mail');
     var Template = require('dw/util/Template');
-    var template = new Template('email/checkoutNotification');
-
+    var template = new Template('checkout/confirmation/email/checkoutNotification');
     var map = new HashMap();
-    map.put('timeStamp', context.timeStamp);
-    map.put('sessionID', context.sessionID);
-    map.put('message', context.message);
-    map.put('details', context.details);
-    map.put('fileDetails', context.email);
-    map.put('lastClick', context.lastClick);
+    context.sessionID ? map.put('sessionID', context.sessionID) : '';
+    context.message ? map.put('message', context.message) : '';
+    context.fileDetails ? map.put('fileDetails', context.fileDetails) : '';
+    context.stackTrace ? map.put('stackTrace', context.stackTrace) : '';
+    context.details ? map.put('details', context.details) : '';
+    context.lineNumber ? map.put('lineNumber', context.lineNumber) : '';
+    context.lastClick ? map.put('lastClick', context.lastClick) : '';
+    context.timeStamp ? map.put('timeStamp', context.timeStamp) : '';
     var content = template.render(map);
-
     var mail = new Mail();
     mail.addTo(emailObj.to);
     mail.setFrom(emailObj.from);
@@ -34,7 +33,7 @@ function sendEmail(emailObj, context) {
  * @param {Object} currentBasket - the current shopping basket
  */
 function sendErrorNotification(integerationType, message, exception, logLocation, lineNumber, stack) {
-    var lastClickApi = require('dw/web/ClickStream').getLast();
+    var lastClickApi = session.getClickStream() ? (session.getClickStream().getLast() ? session.getClickStream().getLast().pipelineName : null) : null;;
     // var isEnableNotification = !empty(Site.current.preferences.custom.enableNotification) ? Site.current.preferences.custom.enableNotification : false;
 
     var emailContext = {
@@ -49,7 +48,7 @@ function sendErrorNotification(integerationType, message, exception, logLocation
         lastClick: lastClickApi
     }
     var emailObj = {
-        to: Site.current.preferences.custom.notificationEmailTo,
+        to: sendEmailTo(),
         subject: 'Critical Alert!' + integerationType,
         from: Site.current.preferences.custom.notificationEmailFrom || 'no-reply@salesforce.com',
         type: integerationType
@@ -64,7 +63,7 @@ function sendErrorNotification(integerationType, message, exception, logLocation
  * @param {Object} currentBasket - the current shopping basket
  */
 function sendDebugNotification(integerationType, message, logLocation) {
-    var lastClickApi = require('dw/web/ClickStream').getLast();
+    var lastClickApi = session.getClickStream() ? (session.getClickStream().getLast() ? session.getClickStream().getLast().pipelineName : null) : null;;
     var isEnableDebugNotification = !empty(Site.current.preferences.custom.enableDebugNotification) ? Site.current.preferences.custom.enableDebugNotification : false;
 
     var emailContext = {
@@ -72,11 +71,12 @@ function sendDebugNotification(integerationType, message, logLocation) {
         sessionID: session.getSessionID(),
         message: message,
         fileDetails: logLocation,
-        details: exception,
+        details: '',
         lastClick: lastClickApi
     }
+
     var emailObj = {
-        to: Site.current.preferences.custom.notificationEmailTo,
+        to: sendEmailTo(),
         subject: 'Debug' + integerationType,
         from: Site.current.preferences.custom.notificationEmailFrom || 'no-reply@salesforce.com',
         type: integerationType
@@ -93,7 +93,7 @@ function sendDebugNotification(integerationType, message, logLocation) {
  * @param {Object} currentBasket - the current shopping basket
  */
 function sendInfoNotification(integerationType, message, logLocation) {
-    var lastClickApi = require('dw/web/ClickStream').getLast();
+    var lastClickApi = session.getClickStream() ? (session.getClickStream().getLast() ? session.getClickStream().getLast().pipelineName : null) : null;;
     var isEnableInfoNotification = !empty(Site.current.preferences.custom.enableInfoNotification) ? Site.current.preferences.custom.enableInfoNotification : false;
 
     var emailContext = {
@@ -101,11 +101,12 @@ function sendInfoNotification(integerationType, message, logLocation) {
         sessionID: session.getSessionID(),
         message: message,
         fileDetails: logLocation,
-        details: exception,
+        details: '',
         lastClick: lastClickApi
     }
+
     var emailObj = {
-        to: Site.current.preferences.custom.notificationEmailTo,
+        to: sendEmailTo(),
         subject: 'Info' + integerationType,
         from: Site.current.preferences.custom.notificationEmailFrom || 'no-reply@salesforce.com',
         type: integerationType
@@ -116,6 +117,14 @@ function sendInfoNotification(integerationType, message, logLocation) {
     }
 }
 
+function sendEmailTo() {
+    var emailTo = Site.current.preferences.custom.notificationEmailTo;
+    var sendEmailTo = [];
+    for (var i = 0; i < emailTo.length; i++) {
+        sendEmailTo.push(emailTo[i]);
+    }
+    return sendEmailTo;
+}
 module.exports = {
     sendDebugNotification: sendDebugNotification,
     sendErrorNotification: sendErrorNotification,

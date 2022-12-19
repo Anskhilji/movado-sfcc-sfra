@@ -105,7 +105,7 @@ function parseRiskifiedResponse(order, reqBody) {
                 });
             } catch (ex) {
                 checkoutLogger.error('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Exception occurred while try to update order status to failed or cancel against order number: ' + order.orderNo + ' and exception is: ' + ex);
-                CONotificationHelpers.sendErrorNotification(Constants.RISKIFIED, ex.message, 'RiskifiedParseResponseResult', ex, ex.lineNumber, ex.stack);
+                CONotificationHelpers.sendErrorNotification(Constants.RISKIFIED, ex.message, 'RiskifiedParseResponseResult', ex.fileName, ex.lineNumber, ex.stack);
             }
         }
 
@@ -114,7 +114,7 @@ function parseRiskifiedResponse(order, reqBody) {
                 YotpoHelper.deleteOrder(order);
             } catch (ex) {
                 checkoutLogger.error('(RiskifiedParseResponseResult) -> parseRiskifiedResponse: Exception occurred while try to delete order from Yotpo against order number: ' + order.orderNo + ' and exception is: ' + ex);
-                CONotificationHelpers.sendErrorNotification(Constants.RISKIFIED, ex.message, 'RiskifiedParseResponseResult', ex, ex.lineNumber, ex.stack);
+                CONotificationHelpers.sendErrorNotification(Constants.RISKIFIED, ex.message, 'RiskifiedParseResponseResult', ex.fileName, ex.lineNumber, ex.stack);
             }
         }
         /* Send Cancellation Email*/
@@ -158,7 +158,7 @@ function parseRiskifiedResponse(order, reqBody) {
             COCustomHelpers.sendOrderConfirmationEmail(order, customerLocale);
         } catch (error) {
             checkoutLogger.error('RiskifiedParseResponseResult.js -> COCustomHelpers.sendOrderConfirmationEmail() -> throw error on sending confirmation email, Error: ' + error);
-            CONotificationHelpers.sendErrorNotification(Constants.RISKIFIED, ex.message, 'RiskifiedParseResponseResult', ex, ex.lineNumber, ex.stack);
+            CONotificationHelpers.sendErrorNotification(Constants.RISKIFIED, ex.message, 'RiskifiedParseResponseResult', ex.fileName, ex.lineNumber, ex.stack);
         }
         
         /* Accept in OMS */

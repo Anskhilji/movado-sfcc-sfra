@@ -74,7 +74,7 @@ function orderDeclined(order) {
         });
     } catch (ex) {
         checkoutLogger.error('(RiskifiedOrderDescion.js) -> orderDeclined: Exception occurred while try to update order status to failed or cancel against order number: ' + order.orderNo + ' and exception is: ' + ex);
-        CONotificationHelpers.sendErrorNotification(Constants.RISKIFIED, ex.message, 'RiskifiedOrderDescion.js', ex, ex.lineNumber, ex.stack);
+        CONotificationHelpers.sendErrorNotification(Constants.RISKIFIED, ex.message, 'RiskifiedOrderDescion.js', ex.fileName, ex.lineNumber, ex.stack);
     }
     
     return true;

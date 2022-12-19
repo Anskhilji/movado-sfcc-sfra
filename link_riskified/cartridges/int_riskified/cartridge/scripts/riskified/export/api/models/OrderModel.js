@@ -206,7 +206,7 @@ function updateOrderConfirmationStatus(order, orderConfirmationStatus, callerMod
         });
     } catch (e) {
         RCLogger.logMessage('Cannot update the order confirmation status\n Error is  ' + e, 'error', logLocation);
-        CONotificationHelpers.sendErrorNotification(Constants.RISKIFIED, e.message, e.stack, e, e.lineNumber);
+        CONotificationHelpers.sendErrorNotification(Constants.RISKIFIED, e.message, logLocation, e.fileName, e.lineNumber, e.stack);
         return false;
     }
 
@@ -249,7 +249,7 @@ function setOrderAnalysisStatus(order, status, callerModule) {
     } catch (e) {
         RCLogger.logMessage(
             'Error occurred while setting order analysis status error is ' + e, 'error', logLocation);
-        CONotificationHelpers.sendErrorNotification(Constants.RISKIFIED, e.message, e.stack, e, e.lineNumber);
+            CONotificationHelpers.sendErrorNotification(Constants.RISKIFIED, e.message, logLocation, e.fileName, e.lineNumber, e.stack);
         return false;
     }
 
@@ -301,7 +301,7 @@ function savePaymentInformationInOrder(order, orderParams, callerModule) {
         });
     } catch (e) {
         RCLogger.logMessage('Error occurred while saving data in custom attributes of order. Error is ' + e, 'error', logLocation);
-        CONotificationHelpers.sendErrorNotification(Constants.RISKIFIED, e.message, e.stack, e, e.lineNumber);
+        CONotificationHelpers.sendErrorNotification(Constants.RISKIFIED, e.message, logLocation, e.fileName, e.lineNumber, e.stack);
         return false;
     }
     return true;
