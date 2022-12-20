@@ -19,6 +19,8 @@ var userLoggedIn = require('*/cartridge/scripts/middleware/userLoggedIn');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 
 var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
+var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
+var Constants = require('*/cartridge/scripts/helpers/utils/NotificationConstant');
 
 var URLUtils = require('dw/web/URLUtils');
 var PaymentInstrument = require('dw/order/PaymentInstrument');
@@ -74,14 +76,17 @@ server.get('OptIn', function (req, res, next) {
         RiskifiedService,
         responseUtil,
         orderMgr;
+    var message;
     
     var HookMgr = require('dw/system/HookMgr');
     var BasketMgr = require('dw/order/BasketMgr');
     var currentBasket = BasketMgr.getCurrentBasket();
 
     if (!RCUtilities.isCartridgeEnabled()) {
-        RCLogger.logMessage('riskifiedCartridgeEnabled site preference is not enabled therefore cannot proceed further', 'debug', logLocation);
+        message = 'riskifiedCartridgeEnabled site preference is not enabled therefore cannot proceed further', 'debug', logLocation;
+        RCLogger.logMessage(message);
         reply.message = 'Deco Service Disabled in SitePreferences';
+        checkoutNotificationHelpers.sendDebugNotification(Constants.RISKIFIED, message, logLocation);
     }
 
     if (request.httpParameterMap.isParameterSubmitted('order_no') && request.httpParameterMap.isParameterSubmitted('checkout_id')) {

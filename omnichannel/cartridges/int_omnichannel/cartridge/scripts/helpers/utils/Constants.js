@@ -14,3 +14,5 @@ exports.ERRORS_TYPE = {
     ERROR: 'ERROR',
     LOCATION_NOT_EXIST: 'LocationDoesNotExist'
 }
+
+exports.US_COUNTRY_CODE='US';

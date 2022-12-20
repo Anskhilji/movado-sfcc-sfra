@@ -434,6 +434,8 @@ function attributeSelect(selectedValueUrl, $productContainer) {
                 updateOptions(data.product.options, $productContainer);
                 updateQuantities(data.product.quantities, $productContainer);
                 handleOptionsMessageErrors(data.validationErrorEmbossed, data.validationErrorEngraved, $productContainer, data.OptionsValidationError);
+                var listrakTracking = require('movado/listrakActivityTracking.js');
+                listrakTracking.listrackProductTracking(data.product.id);
                 $('body').trigger('product:afterAttributeSelect',
                     { data: data, container: $productContainer });
                 $.spinner().stop();
@@ -775,6 +777,7 @@ module.exports = {
                 });
                 pidsObj = JSON.stringify(setPids);
             }
+            var addToCartLocation = $(this).data('atc');
 
             pid = getPidValue($(this));
             if ($('.gift-allowed-checkbox').is(":checked")) {
@@ -791,6 +794,7 @@ module.exports = {
 
             var form = {
                 pid: pid,
+                addToCartLocation: addToCartLocation,
                 pidsObj: pidsObj,
                 childProducts: getChildProducts(),
                 quantity: getQuantitySelected($(this)),
@@ -802,6 +806,7 @@ module.exports = {
             if ($('.pdp-obuk')) {
                 form = {
                     pid: pid,
+                    addToCartLocation: addToCartLocation,
                     pidsObj: pidsObj,
                     childProducts: getChildProducts(),
                     quantity: 1,
@@ -834,6 +839,13 @@ module.exports = {
                 form.options = getOptions($productContainer);
             }
             form.currentPage = $('.page[data-action]').data('action') || '';
+
+            var personalize = $('.popup-tabs .personalize');
+            if (personalize.length && personalize.length > 0) {
+                var personalizationType = personalize.val();
+                form.personalizationType = personalizationType; 
+            }
+
             $(this).trigger('updateAddToCartFormData', form);
             if (addToCartUrl) {
                 $.ajax({
@@ -1049,6 +1061,7 @@ module.exports = {
             var setPids;
             var $this = $(this);
 
+            var addToCartLocation = $(this).data('atc');
             $('body').trigger('product:beforeAddToCart', this);
 
             addToCartUrl = getAddToCartUrl();
@@ -1069,6 +1082,7 @@ module.exports = {
 
             var form = {
                 pid: pid,
+                addToCartLocation: addToCartLocation,
                 pidsObj: pidsObj,
                 childProducts: getChildProducts(),
                 quantity: 1

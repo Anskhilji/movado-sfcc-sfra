@@ -374,6 +374,14 @@ function maskEmail(email) {
     return maskedEmail;
 }
 
+function removeGiftMessageLineItem(currentBasket) {
+    var prodLineItems = currentBasket.productLineItems;
+
+    for each (var lineItem in prodLineItems) {
+        lineItem.custom.GiftWrapMessage = '';
+    }
+}
+
 module.exports = {
     sendConfirmationEmail: sendConfirmationEmail,
     sendOrderConfirmationEmail: sendOrderConfirmationEmail,
@@ -383,5 +391,6 @@ module.exports = {
     failOrderRisifiedCall: failOrderRisifiedCall,
     isRiskified: isRiskified,
     declineOrder: declineOrder,
+    removeGiftMessageLineItem: removeGiftMessageLineItem,
     maskEmail: maskEmail
 };

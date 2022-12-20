@@ -139,6 +139,7 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 				shippingAddress.setAddress2(session.privacy.storeAddress2 || '');
 				shippingAddress.setPostalCode(session.privacy.extendedZipCode || '');
 				shippingAddress.setStateCode(session.privacy.stateCode || '');
+				COCustomHelpers.removeGiftMessageLineItem(currentBasket);
 		    });
 		}
 

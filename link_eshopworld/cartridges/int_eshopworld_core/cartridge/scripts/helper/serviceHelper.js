@@ -7,7 +7,7 @@ var Site = require('dw/system/Site').getCurrent();
 
 var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
 var BasketMgr = require('dw/order/BasketMgr');
-
+var URLUtils = require('dw/web/URLUtils');
 /**
  * forEach method for dw.util.Collection subclass instances
  * @param {dw.util.Collection} collection - Collection subclass instance to map over
@@ -181,7 +181,24 @@ function getCartItemsV2() {
         // Custom Start: Adding custom dynamic image code
         var tile = !empty(Site.getCustomPreferenceValue('preOrderImageType')) ? Site.getCustomPreferenceValue('preOrderImageType') : 'tile256';
         ImageModel = new ImageModel(item.product, { types: [tile], quantity: 'single' });
-        imageUrl = empty(ImageModel[tile][0].url) ? '' : ImageModel[tile][0].url.toString();
+        var siteId = Site.current.ID ;
+        var siteLogo = '';
+
+        if (empty(ImageModel[tile][0])) {
+            if (siteId === 'MovadoUS') {
+                siteLogo = URLUtils.staticURL('/images/movado-logo.svg').toString();
+            } else if (siteId === 'MVMTUS' || siteId === 'MVMTEU') {
+                siteLogo = URLUtils.staticURL('/images/mvmt-logo.svg').toString();
+            } else if (siteId === 'OliviaBurtonUS' || siteId === 'OliviaBurtonUK') {
+                siteLogo = URLUtils.staticURL('/images/olivia-burton-logo.svg').toString();
+            } else if (siteId === 'EbelUS') {
+                siteLogo = URLUtils.staticURL('/images/ebel-logo.jpg').toString();
+            } else if (siteId === 'ConcordUS') {
+                siteLogo = URLUtils.staticURL('/images/concord-logo.png').toString();
+            }
+        }
+
+        imageUrl = !empty(ImageModel[tile]) && !empty(ImageModel[tile][0]) ? ImageModel[tile][0].url.toString() : siteLogo;
         //Custom End
         discountAmount = (beforeDiscount - price).toFixed(2);
         remainingDiscount -= (priceAfterProductPromos - price) * item.quantity.value;
