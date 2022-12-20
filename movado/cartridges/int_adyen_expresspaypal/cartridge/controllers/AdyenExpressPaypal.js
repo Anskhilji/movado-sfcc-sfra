@@ -13,6 +13,7 @@ var adyenLogger = require('dw/system/Logger').getLogger('Adyen', 'adyen');
 var PAYPAL = 'PayPal';
 var CANCELLED = 'CANCELLED';
 var LIVE = 'LIVE';
+var checkoutCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
 
 /* Express Checkout From Cart */
 server.get('ExpressCheckoutFromCart', server.middleware.https, function (req, res, next) {

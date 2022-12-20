@@ -19,6 +19,7 @@ var Transaction = require('dw/system/Transaction');
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 var orderCustomHelpers = require('*/cartridge/scripts/helpers/orderCustomHelper');
+var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 
 /**
  * Handle successful response from Affirm
@@ -112,6 +113,12 @@ server.replace(
             SmartGiftHelper.sendSmartGiftDetails(currentBasket.custom.smartGiftTrackingCode, order.orderNo);
         }
         
+        var email = order.customerEmail;
+        if (!empty(email)) {
+            var maskedEmail = COCustomHelpers.maskEmail(email);
+            checkoutLogger.info('(Affirm) -> Success: Step-3: Customer Email is ' + maskedEmail);
+        }
+    
         //set custom attirbute in session to avoid order confirmation page reload
         session.custom.orderJustPlaced = true;
         var URLUtils = require('dw/web/URLUtils');
