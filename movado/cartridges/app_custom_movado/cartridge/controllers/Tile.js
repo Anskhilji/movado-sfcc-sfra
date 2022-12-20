@@ -55,9 +55,7 @@ server.get('Show', cache.applyPromotionSensitiveCache, function (req, res, next)
         };
         showProductPageHelperResult = productHelper.showProductPage(requestQuerystring, req.pageMetaData);
     }
-if(product.id == '28000040'){
-    product;
-}
+
     var showProductPageHelperResult = productHelper.showProductPage(requestQuerystring, req.pageMetaData);
 
     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
