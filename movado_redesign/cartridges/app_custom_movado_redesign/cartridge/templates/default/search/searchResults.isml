@@ -129,7 +129,7 @@
                                     </div>                                    
                                 </div>
                                 <div class="side-fliter">
-                                    <div class="refinement-bar-sidebar refinement-bar-redesign-sidebar col">
+                                    <div class="refinement-bar refinement-bar-redesign col">
                                         <isinclude url="${pdict.refineurl}" />
                                     </div>                                    
                                 </div>
