@@ -506,27 +506,20 @@
               &:last-child {
                 margin-right: 0;
               }
-              &.swatchs-box-four {
-                @include media-breakpoint-down(sm) {
-                  display: none;
-                }
-              }
-              &-desktop {
-                display: block;
-
-                @include media-breakpoint-down(sm) {
-                  display: none;
-                }
-              }
-
-              &-mobile {
-                display: none;
-
-                @include media-breakpoint-down(sm) {
-                  display: block;
-                }
-              }
             }
+        }
+        .swatches-watches-desktop {
+            display: inline-flex;
+          @include media-breakpoint-down(sm) {
+            display: none;
+          }
+        }
+
+        .swatches-watches-mobile {
+            display: none;
+          @include media-breakpoint-down(sm) {
+            display: inline-flex;
+          }
         }
       }
       // Custome:MSS-2091 end
