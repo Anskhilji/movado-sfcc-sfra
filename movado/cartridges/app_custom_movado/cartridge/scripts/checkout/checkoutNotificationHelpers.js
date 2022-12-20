@@ -5,7 +5,6 @@ var Site = require('dw/system/Site');
 var StringUtils = require('dw/util/StringUtils');
 
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
-var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
 
 function sendEmail(emailObj, context) {
     try {
