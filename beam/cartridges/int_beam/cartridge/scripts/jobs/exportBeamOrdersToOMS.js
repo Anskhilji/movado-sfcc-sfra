@@ -21,7 +21,7 @@ function execute(args) {
           }
           var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
           var result = SalesforceModel.updateBeamOrders(requestParams);
-          if (result) {
+          if (result.ok) {
             BeamCustomHelper.removeBeamObjs(BeamObj);
           }
       }
