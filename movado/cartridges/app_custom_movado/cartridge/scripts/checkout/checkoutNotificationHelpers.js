@@ -4,27 +4,33 @@ var Calendar = require('dw/util/Calendar');
 var Site = require('dw/system/Site');
 var StringUtils = require('dw/util/StringUtils');
 
+var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
+
 function sendEmail(emailObj, context) {
-    var HashMap = require('dw/util/HashMap');
-    var Mail = require('dw/net/Mail');
-    var Template = require('dw/util/Template');
-    var template = new Template('checkout/confirmation/email/checkoutNotification');
-    var map = new HashMap();
-    context.sessionID ? map.put('sessionID', context.sessionID) : '';
-    context.message ? map.put('message', context.message) : '';
-    context.fileDetails ? map.put('fileDetails', context.fileDetails) : '';
-    context.stackTrace ? map.put('stackTrace', context.stackTrace) : '';
-    context.details ? map.put('details', context.details) : '';
-    context.lineNumber ? map.put('lineNumber', context.lineNumber) : '';
-    context.lastClick ? map.put('lastClick', context.lastClick) : '';
-    context.timeStamp ? map.put('timeStamp', context.timeStamp) : '';
-    var content = template.render(map);
-    var mail = new Mail();
-    mail.addTo(emailObj.to);
-    mail.setFrom(emailObj.from);
-    mail.setSubject(emailObj.subject);
-    mail.setContent(content);
-    mail.send();
+    try {
+        var HashMap = require('dw/util/HashMap');
+        var Mail = require('dw/net/Mail');
+        var Template = require('dw/util/Template');
+        var template = new Template('checkout/confirmation/email/checkoutNotification');
+        var map = new HashMap();
+        context.sessionID ? map.put('sessionID', context.sessionID) : '';
+        context.message ? map.put('message', context.message) : '';
+        context.fileDetails ? map.put('fileDetails', context.fileDetails) : '';
+        context.stackTrace ? map.put('stackTrace', context.stackTrace) : '';
+        context.details ? map.put('details', context.details) : '';
+        context.lineNumber ? map.put('lineNumber', context.lineNumber) : '';
+        context.lastClick ? map.put('lastClick', context.lastClick) : '';
+        context.timeStamp ? map.put('timeStamp', context.timeStamp) : '';
+        var content = template.render(map);
+        var mail = new Mail();
+        mail.addTo(emailObj.to);
+        mail.setFrom(emailObj.from);
+        mail.setSubject(emailObj.subject);
+        mail.setContent(content);
+        mail.send();
+    } catch (error) {
+        checkoutLogger.error('(checkoutNotificationHelpers.js) -> sendEmailTo: Exception occurred while sending the email : and exception is: ' + error);
+    }
 }
 
 /**
@@ -120,12 +126,16 @@ function sendInfoNotification(integerationType, message, logLocation) {
 }
 
 function sendEmailTo() {
-    var emailTo = Site.current.preferences.custom.notificationEmailTo;
-    var sendEmailTo = [];
-    for (var i = 0; i < emailTo.length; i++) {
-        sendEmailTo.push(emailTo[i]);
+    try {
+        var emailTo = Site.current.preferences.custom.notificationEmailTo;
+        var sendEmailTo = [];
+        for (var i = 0; i < emailTo.length; i++) {
+            sendEmailTo.push(emailTo[i]);
+        }
+        return sendEmailTo;
+    } catch (error) {
+        checkoutLogger.error('(checkoutNotificationHelpers.js) -> sendEmailTo: Exception occurred while getting the email : and exception is: ' + ex);
     }
-    return sendEmailTo;
 }
 module.exports = {
     sendDebugNotification: sendDebugNotification,
