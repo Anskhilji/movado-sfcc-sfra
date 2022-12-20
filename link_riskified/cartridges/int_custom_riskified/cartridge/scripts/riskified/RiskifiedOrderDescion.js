@@ -14,6 +14,8 @@
  var Site = require('dw/system/Site');
 
  var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
+ var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
+ var Constants = require('*/cartridge/scripts/helpers/utils/NotificationConstant');
  var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 
 function orderDeclined(order) {
@@ -23,12 +25,16 @@ function orderDeclined(order) {
     var responseObject;
     session.custom.currencyCode = order.currencyCode;
 
-    checkoutLogger.info('(RiskifiedOrderDescion.js) -> orderDeclined: Riskified status is declined and going to check the payment and order statuses and order number is: ' + order.orderNo);
+    var message = '(RiskifiedOrderDescion.js) -> orderDeclined: Riskified status is declined and going to check the payment and order statuses and order number is: ' + order.orderNo;
+    checkoutLogger.info(message);
+    checkoutNotificationHelpers.sendInfoNotification(Constants.RISKIFIED, message, 'RiskifiedOrderDescion.js');
     // void or reverse the payment if card payment or not paid
     // (Order.PAYMENT_STATUS_NOTPAID) else refund the payment if already
     // captured and send mail to customer
     if (order.getPaymentStatus() == Order.PAYMENT_STATUS_NOTPAID || (paymentMethod.ID == 'CREDIT_CARD' && order.getPaymentStatus() == Order.PAYMENT_STATUS_NOTPAID)) {
-        checkoutLogger.info('(RiskifiedOrderDescion.js) -> orderDeclined: Riskified status is declined and going to get the responseObject from hooksHelper with paymentReversal param and order number is: ' + order.orderNo);
+        message = '(RiskifiedOrderDescion.js) -> orderDeclined: Riskified status is declined and going to get the responseObject from hooksHelper with paymentReversal param and order number is: ' + order.orderNo;
+        checkoutLogger.info(message);
+        checkoutNotificationHelpers.sendInfoNotification(Constants.RISKIFIED, message, 'RiskifiedOrderDescion.js');
         responseObject = hooksHelper(
                 'app.riskified.paymentreversal',
                 'paymentReversal',
@@ -37,7 +43,9 @@ function orderDeclined(order) {
                 false,
                 require('*/cartridge/scripts/hooks/paymentProcessHook').paymentReversal);
     } else {
-        checkoutLogger.info('(RiskifiedOrderDescion.js) -> orderDeclined: Riskified status is declined and going to get the responseObject from hooksHelper with paymentRefund param and order number is: ' + order.orderNo);
+        message = '(RiskifiedOrderDescion.js) -> orderDeclined: Riskified status is declined and going to get the responseObject from hooksHelper with paymentRefund param and order number is: ' + order.orderNo;
+        checkoutLogger.info(message);
+        checkoutNotificationHelpers.sendInfoNotification(Constants.RISKIFIED, message, 'RiskifiedOrderDescion.js');
         responseObject = hooksHelper(
                 'app.riskified.paymentrefund',
                 'paymentRefund',
@@ -51,23 +59,29 @@ function orderDeclined(order) {
         Transaction.wrap(function () {
             //if order status is CREATED
           if (order.getStatus() == Order.ORDER_STATUS_CREATED){
-              checkoutLogger.error('(RiskifiedOrderDescion.js) -> orderDeclined: Riskified status is declined and riskified failed the order and order status is created and order number is: ' + order.orderNo);
+              message = '(RiskifiedOrderDescion.js) -> orderDeclined: Riskified status is declined and riskified failed the order and order status is created and order number is: ' + order.orderNo;
+              checkoutLogger.error(message);
+              checkoutNotificationHelpers.sendErrorNotification(Constants.RISKIFIED, message, 'RiskifiedOrderDescion.js');
               OrderMgr.failOrder(order, true);  //Order must be in status CREATED
               order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
           } else { //Only orders in status OPEN, NEW, or COMPLETED can be cancelled.
-              checkoutLogger.error('(RiskifiedOrderDescion.js) -> orderDeclined: Riskified status is declined and riskified cancelled the order and order status is OPEN, NEW, or COMPLETED can be cancelled and order number is: ' + order.orderNo);
+              message = '(RiskifiedOrderDescion.js) -> orderDeclined: Riskified status is declined and riskified cancelled the order and order status is OPEN, NEW, or COMPLETED can be cancelled and order number is: ' + order.orderNo;
+              checkoutLogger.error(message);
+              checkoutNotificationHelpers.sendErrorNotification(Constants.RISKIFIED, message, 'RiskifiedOrderDescion.js');
               OrderMgr.cancelOrder(order);
               order.setConfirmationStatus(Order.CONFIRMATION_STATUS_NOTCONFIRMED);
           }
         });
     } catch (ex) {
         checkoutLogger.error('(RiskifiedOrderDescion.js) -> orderDeclined: Exception occurred while try to update order status to failed or cancel against order number: ' + order.orderNo + ' and exception is: ' + ex);
+        checkoutNotificationHelpers.sendErrorNotification(Constants.RISKIFIED, ex.message, 'RiskifiedOrderDescion.js', ex.fileName, ex.lineNumber, ex.stack);
     }
     
     return true;
 }
 
 function orderApproved(order) {
+    var message;
     if (Site.getCurrent().preferences.custom.yotpoSwellLoyaltyEnabled) {
         var SwellExporter = require('int_yotpo/cartridge/scripts/yotpo/swell/export/SwellExporter');
         SwellExporter.exportOrder({
@@ -78,7 +92,9 @@ function orderApproved(order) {
 
     //[MSS-1257] Removed 3DS order check as we are not holding 3DS status any more and calling the Riskified order creation API after customer redirects back from 3DS
     // riskifiedStatus as approved then mark as confirmed
-    checkoutLogger.info('(RiskifiedOrderDescion.js) -> orderApproved: Riskified status is approved and riskified mark the order as confirmed and order number is: ' + order.orderNo);
+    message = '(RiskifiedOrderDescion.js) -> orderApproved: Riskified status is approved and riskified mark the order as confirmed and order number is: ' + order.orderNo;
+    checkoutLogger.info(message);
+    checkoutNotificationHelpers.sendInfoNotification(Constants.RISKIFIED, message, 'RiskifiedOrderDescion.js');
     if (order.getConfirmationStatus() == Order.CONFIRMATION_STATUS_NOTCONFIRMED) {
         Transaction.wrap(function () {
             order.setConfirmationStatus(Order.CONFIRMATION_STATUS_CONFIRMED);
@@ -90,6 +106,7 @@ function orderApproved(order) {
         COCustomHelpers.sendOrderConfirmationEmail(order, customerLocale);
     } catch (error) {
         checkoutLogger.error('RiskifiedOrderDescion.js -> COCustomHelpers.sendOrderConfirmationEmail() -> throw error on sending confirmation email, Error: ' + error);
+        checkoutNotificationHelpers.sendErrorNotification(Constants.RISKIFIED, error.message, 'RiskifiedOrderDescion.js',  error, error.lineNumber, error.stack);
     }
 
     // Salesforce Order Management attributes
