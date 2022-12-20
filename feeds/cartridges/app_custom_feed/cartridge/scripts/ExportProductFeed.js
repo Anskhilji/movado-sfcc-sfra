@@ -283,12 +283,16 @@ function exportFeed(feedColumns, fileArgs, feedParameters) {
                 }
 
                 writeCSVLine(productAttributes, categoriesPath, feedColumns, fileArgs);
-                if (product.master) {
-                    var isVariant = true;
-                    var productVariants = getProductVariants(product.getVariants(), productAttributes, isVariant, feedParameters, feedColumns);
-                    productVariants.forEach(function (product) {
-                        writeCSVLine(product.product, categoriesPath, feedColumns, fileArgs);
-                    });
+                try {
+                    if (product.master) {
+                        var isVariant = true;
+                        var productVariants = getProductVariants(product.getVariants(), productAttributes, isVariant, feedParameters, feedColumns);
+                        productVariants.forEach(function (product) {
+                            writeCSVLine(product.product, categoriesPath, feedColumns, fileArgs);
+                        });
+                    }
+                } catch (error) {
+                    Logger.error('Error occurred while adding product variants into feed. Product {0}: \n Error: {1} \n Message: {2} \n', product, e.stack, e.message);
                 }
 
             } catch (e) {
@@ -1206,134 +1210,138 @@ function writeCSVLine(product, categoriesPath, feedColumns, fileArgs) {
 }
 
 function getProductAttributes(product, feedParameters, feedColumns) {
-    var productPrice = product.getPriceModel().getPrice() ? product.getPriceModel().getPrice().value : "";
-    if (product.getPriceModel().getPrice()) {
-        if (product.getPriceModel().getPrice().decimalValue) {
-            var productDecimalPrice = product.getPriceModel().getPrice().decimalValue.toString()
+    try {
+        var productPrice = product.getPriceModel().getPrice() ? product.getPriceModel().getPrice().value : "";
+        if (product.getPriceModel().getPrice()) {
+            if (product.getPriceModel().getPrice().decimalValue) {
+                var productDecimalPrice = product.getPriceModel().getPrice().decimalValue.toString()
+            }
         }
-    }
-    var saleEffectiveDate = '';
-    if (!empty(getProductPromoAndSalePrice(product).storefrontPromo)) {
-        saleEffectiveDate = getProductPromoAndSalePrice(product).salePriceEffectiveDate;
-    }
-    var productSalePriceCurrencyCode = getProductPromoAndSalePrice(product).salePrice != "" ? product.getPriceModel().getPrice().currencyCode : "";
-    var productCurrencyCode = product.getPriceModel().getPrice() != null ? product.getPriceModel().getPrice().currencyCode : "";
-    var productImages = getProductImageURL(product);
-    var jewelryStyle = product.custom.jewelryStyle ? product.custom.jewelryStyle : "";
-    var jewelryType = product.custom.jewelryType ? product.custom.jewelryType : "";
-    var productAttributes = {
-        ID: product.ID,
-        title: product.name,
-        metaTitle: product.pageTitle,
-        imageurl: productImages.firstImageLink,
-        additionalImageLink: productImages.additionalImageLink ? productImages.additionalImageLink : "",
-        producturl: URLUtils.url('Product-Show', 'pid', product.ID).abs().toString(),
-        description: product.getShortDescription(),
-        decimalPrice: productDecimalPrice + " " + productCurrencyCode,
-        label: product.custom.label ? product.custom.label : "",
-        price: productPrice + " " + productCurrencyCode,
-        salePrice: getProductPromoAndSalePrice(product).salePrice ? getProductPromoAndSalePrice(product).salePrice + " " + productSalePriceCurrencyCode : "",
-        salePriceEffectiveDate: saleEffectiveDate,
-        instock: product.onlineFlag,
-        brand: product.brand ? product.brand : "",
-        color: product.custom.color ? product.custom.color : "",
-        dialStyle: product.custom.dialStyle ? product.custom.dialStyle : "",
-        familyName: buildStringAttributes(product.custom.familyName, feedParameters),
-        gtin: product.custom.gtins ? product.custom.gtins : "",
-        jewelryType: jewelryType,
-        masterProductID: product.ID,
-        productType: false,
-        longDescription: product.getLongDescription(),
-        gender: product.custom.watchGender ? buildStringAttributes(product.custom.watchGender, feedParameters) : "",
-        width: product.custom.width ? product.custom.width : "",
-        isMasterProduct: product.master ? true : false,
-        jewelryStyle: jewelryStyle,
-        googleCategoryPath: Constants.GOOGLE_CATEGORY_PATH + jewelryStyle,
-        categoryPath: Constants.GOOGLE_CATEGORY_PATH + jewelryType,
-        isWristedImage: productImages.isWristedImage ? "Wrist-Shot" : "Non Wrist-Shot",
-        smartGiftImageURL: productImages.firstImageLinkSmartGift,
-        availability: product.availabilityModel.availabilityStatus,
-        caseDiameter: product.custom.caseDiameter ? product.custom.caseDiameter : "",
-        pageDescription: product.pageDescription,
-        link_CA: URLUtils.url('Product-Show', 'pid', product.ID, 'country', Constants.COUNTRY_CA).abs().toString(),
-        link_FR: URLUtils.url('Product-Show', 'pid', product.ID, 'country', Constants.COUNTRY_FR).abs().toString(),
-    };
-
-    //Custom Columns for MovadoUS and OBUK
-    if (!empty(feedColumns['price_CA'])) {
-        productAttributes.price_CA = getProductPriceByCurrencyCode(product, Constants.CURRENCY_CAD) + " " + Constants.CURRENCY_CAD;
-    }
-    if (!empty(feedColumns['price_GBP'])) {
-        productAttributes.price_GBP = getProductPriceByCurrencyCode(product, Constants.CURRENCY_GBP) + " " + Constants.CURRENCY_GBP;
-    }
-    if (!empty(feedColumns['price_EUR'])) {
-        productAttributes.price_EUR = getProductPriceByCurrencyCode(product, Constants.CURRENCY_EUR) + " " + Constants.CURRENCY_EUR;
-    }
-    if (!empty(feedColumns['price_MXN'])) {
-        productAttributes.price_MXN = getProductPriceByCurrencyCode(product, Constants.CURRENCY_MXN) + " " + Constants.CURRENCY_MXN;
-    }
-    if (!empty(feedColumns['price_SGD'])) {
-        productAttributes.price_SGD = getProductPriceByCurrencyCode(product, Constants.CURRENCY_SGD) + " " + Constants.CURRENCY_SGD;
-    }
-    if (!empty(feedColumns['price_MYR'])) {
-        productAttributes.price_MYR = getProductPriceByCurrencyCode(product, Constants.CURRENCY_MYR) + " " + Constants.CURRENCY_MYR;
-    }
-    if (!empty(feedColumns['price_CHF'])) {
-        productAttributes.price_CHF = getProductPriceByCurrencyCode(product, Constants.CURRENCY_CHF) + " " + Constants.CURRENCY_CHF;
-    }
-    if (!empty(feedColumns['price_HKD'])) {
-        productAttributes.price_HKD = getProductPriceByCurrencyCode(product, Constants.CURRENCY_HKD) + " " + Constants.CURRENCY_HKD;
-    }
-    if (!empty(feedColumns['salePrice_CA'])) {
-        productAttributes.salePrice_CA = getPromotionalPricePerPriceBook(Constants.CURRENCY_CAD, product, true).productDecimalPrice;
-    }
-    if (!empty(feedColumns['sale_price_effective_date_CA'])) {
-        productAttributes.sale_price_effective_date_CA = getPromotionalPricePerPriceBook(Constants.CURRENCY_CAD, product, true).salePriceEffectiveDate;
-    }
-    if (!empty(feedColumns['salePrice_GBP'])) {
-        productAttributes.salePrice_GBP = getPromotionalPricePerPriceBook(Constants.CURRENCY_GBP, product, true).productDecimalPrice;
-    }
-
-    if (!empty(feedColumns['salePrice_EUR'])) {
-        productAttributes.salePrice_EUR = getPromotionalPricePerPriceBook(Constants.CURRENCY_EUR, product, true).productDecimalPrice;
-    }
-    if (!empty(feedColumns['sale_price_effective_date_UK'])) {
-        productAttributes.sale_price_effective_date_UK = getPromotionalPricePerPriceBook(Constants.CURRENCY_GBP, product, true).salePriceEffectiveDate;
-    }
-    if (!empty(feedColumns['availability_CA'])) {
-        productAttributes.availability_CA = getProductAvailability(product, Constants.COUNTRY_CA);
-    }
-    if (!empty(feedColumns['price_FR'])) {
-        productAttributes.price_FR = getProductPriceByCurrencyCode(product, Constants.CURRENCY_EUR) + " " + Constants.CURRENCY_EUR;
-    }
-    if (!empty(feedColumns['salePrice_FR'])) {
-        productAttributes.salePrice_FR = getPromotionalPricePerPriceBook(Constants.CURRENCY_EUR, product, true).productDecimalPrice;
-    }
-    if (!empty(feedColumns['sale_price_effective_date_FR'])) {
-        productAttributes.sale_price_effective_date_FR = getPromotionalPricePerPriceBook(Constants.CURRENCY_EUR, product, true).salePriceEffectiveDate;
-    }
-    if (!empty(feedColumns['availability_FR'])) {
-        productAttributes.availability_FR = getProductAvailability(product, Constants.COUNTRY_FR);
-    }
-    //End Custom Columns for MovadoUS and OBUK
+        var saleEffectiveDate = '';
+        if (!empty(getProductPromoAndSalePrice(product).storefrontPromo)) {
+            saleEffectiveDate = getProductPromoAndSalePrice(product).salePriceEffectiveDate;
+        }
+        var productSalePriceCurrencyCode = getProductPromoAndSalePrice(product).salePrice != "" ? product.getPriceModel().getPrice().currencyCode : "";
+        var productCurrencyCode = product.getPriceModel().getPrice() != null ? product.getPriceModel().getPrice().currencyCode : "";
+        var productImages = getProductImageURL(product);
+        var jewelryStyle = product.custom.jewelryStyle ? product.custom.jewelryStyle : "";
+        var jewelryType = product.custom.jewelryType ? product.custom.jewelryType : "";
+        var productAttributes = {
+            ID: product.ID,
+            title: product.name,
+            metaTitle: product.pageTitle,
+            imageurl: productImages.firstImageLink,
+            additionalImageLink: productImages.additionalImageLink ? productImages.additionalImageLink : "",
+            producturl: URLUtils.url('Product-Show', 'pid', product.ID).abs().toString(),
+            description: product.getShortDescription(),
+            decimalPrice: productDecimalPrice + " " + productCurrencyCode,
+            label: product.custom.label ? product.custom.label : "",
+            price: productPrice + " " + productCurrencyCode,
+            salePrice: getProductPromoAndSalePrice(product).salePrice ? getProductPromoAndSalePrice(product).salePrice + " " + productSalePriceCurrencyCode : "",
+            salePriceEffectiveDate: saleEffectiveDate,
+            instock: product.onlineFlag,
+            brand: product.brand ? product.brand : "",
+            color: product.custom.color ? product.custom.color : "",
+            dialStyle: product.custom.dialStyle ? product.custom.dialStyle : "",
+            familyName: buildStringAttributes(product.custom.familyName, feedParameters),
+            gtin: product.custom.gtins ? product.custom.gtins : "",
+            jewelryType: jewelryType,
+            masterProductID: product.ID,
+            productType: false,
+            longDescription: product.getLongDescription(),
+            gender: product.custom.watchGender ? buildStringAttributes(product.custom.watchGender, feedParameters) : "",
+            width: product.custom.width ? product.custom.width : "",
+            isMasterProduct: product.master ? true : false,
+            jewelryStyle: jewelryStyle,
+            googleCategoryPath: Constants.GOOGLE_CATEGORY_PATH + jewelryStyle,
+            categoryPath: Constants.GOOGLE_CATEGORY_PATH + jewelryType,
+            isWristedImage: productImages.isWristedImage ? "Wrist-Shot" : "Non Wrist-Shot",
+            smartGiftImageURL: productImages.firstImageLinkSmartGift,
+            availability: product.availabilityModel.availabilityStatus,
+            caseDiameter: product.custom.caseDiameter ? product.custom.caseDiameter : "",
+            pageDescription: product.pageDescription,
+            link_CA: URLUtils.url('Product-Show', 'pid', product.ID, 'country', Constants.COUNTRY_CA).abs().toString(),
+            link_FR: URLUtils.url('Product-Show', 'pid', product.ID, 'country', Constants.COUNTRY_FR).abs().toString(),
+        };
     
-    if (!empty(feedColumns['priceUSD'])) {
-        productAttributes.priceUSD = getPromotionalPricePerPriceBook(Constants.CURRENCY_USD, product).productDecimalPrice;
+        //Custom Columns for MovadoUS and OBUK
+        if (!empty(feedColumns['price_CA'])) {
+            productAttributes.price_CA = getProductPriceByCurrencyCode(product, Constants.CURRENCY_CAD) + " " + Constants.CURRENCY_CAD;
+        }
+        if (!empty(feedColumns['price_GBP'])) {
+            productAttributes.price_GBP = getProductPriceByCurrencyCode(product, Constants.CURRENCY_GBP) + " " + Constants.CURRENCY_GBP;
+        }
+        if (!empty(feedColumns['price_EUR'])) {
+            productAttributes.price_EUR = getProductPriceByCurrencyCode(product, Constants.CURRENCY_EUR) + " " + Constants.CURRENCY_EUR;
+        }
+        if (!empty(feedColumns['price_MXN'])) {
+            productAttributes.price_MXN = getProductPriceByCurrencyCode(product, Constants.CURRENCY_MXN) + " " + Constants.CURRENCY_MXN;
+        }
+        if (!empty(feedColumns['price_SGD'])) {
+            productAttributes.price_SGD = getProductPriceByCurrencyCode(product, Constants.CURRENCY_SGD) + " " + Constants.CURRENCY_SGD;
+        }
+        if (!empty(feedColumns['price_MYR'])) {
+            productAttributes.price_MYR = getProductPriceByCurrencyCode(product, Constants.CURRENCY_MYR) + " " + Constants.CURRENCY_MYR;
+        }
+        if (!empty(feedColumns['price_CHF'])) {
+            productAttributes.price_CHF = getProductPriceByCurrencyCode(product, Constants.CURRENCY_CHF) + " " + Constants.CURRENCY_CHF;
+        }
+        if (!empty(feedColumns['price_HKD'])) {
+            productAttributes.price_HKD = getProductPriceByCurrencyCode(product, Constants.CURRENCY_HKD) + " " + Constants.CURRENCY_HKD;
+        }
+        if (!empty(feedColumns['salePrice_CA'])) {
+            productAttributes.salePrice_CA = getPromotionalPricePerPriceBook(Constants.CURRENCY_CAD, product, true).productDecimalPrice;
+        }
+        if (!empty(feedColumns['sale_price_effective_date_CA'])) {
+            productAttributes.sale_price_effective_date_CA = getPromotionalPricePerPriceBook(Constants.CURRENCY_CAD, product, true).salePriceEffectiveDate;
+        }
+        if (!empty(feedColumns['salePrice_GBP'])) {
+            productAttributes.salePrice_GBP = getPromotionalPricePerPriceBook(Constants.CURRENCY_GBP, product, true).productDecimalPrice;
+        }
+    
+        if (!empty(feedColumns['salePrice_EUR'])) {
+            productAttributes.salePrice_EUR = getPromotionalPricePerPriceBook(Constants.CURRENCY_EUR, product, true).productDecimalPrice;
+        }
+        if (!empty(feedColumns['sale_price_effective_date_UK'])) {
+            productAttributes.sale_price_effective_date_UK = getPromotionalPricePerPriceBook(Constants.CURRENCY_GBP, product, true).salePriceEffectiveDate;
+        }
+        if (!empty(feedColumns['availability_CA'])) {
+            productAttributes.availability_CA = getProductAvailability(product, Constants.COUNTRY_CA);
+        }
+        if (!empty(feedColumns['price_FR'])) {
+            productAttributes.price_FR = getProductPriceByCurrencyCode(product, Constants.CURRENCY_EUR) + " " + Constants.CURRENCY_EUR;
+        }
+        if (!empty(feedColumns['salePrice_FR'])) {
+            productAttributes.salePrice_FR = getPromotionalPricePerPriceBook(Constants.CURRENCY_EUR, product, true).productDecimalPrice;
+        }
+        if (!empty(feedColumns['sale_price_effective_date_FR'])) {
+            productAttributes.sale_price_effective_date_FR = getPromotionalPricePerPriceBook(Constants.CURRENCY_EUR, product, true).salePriceEffectiveDate;
+        }
+        if (!empty(feedColumns['availability_FR'])) {
+            productAttributes.availability_FR = getProductAvailability(product, Constants.COUNTRY_FR);
+        }
+        //End Custom Columns for MovadoUS and OBUK
+        
+        if (!empty(feedColumns['priceUSD'])) {
+            productAttributes.priceUSD = getPromotionalPricePerPriceBook(Constants.CURRENCY_USD, product).productDecimalPrice;
+        }
+        if (!empty(feedColumns['priceGBP'])) {
+            productAttributes.priceGBP = getPromotionalPricePerPriceBook(Constants.CURRENCY_GBP, product).productDecimalPrice;
+        }
+        if (!empty(feedColumns['priceCAD'])) {
+            productAttributes.priceCAD = getPromotionalPricePerPriceBook(Constants.CURRENCY_CAD, product).productDecimalPrice;
+        }
+        if (!empty(feedColumns['priceEUR'])) {
+            productAttributes.priceEUR = getPromotionalPricePerPriceBook(Constants.CURRENCY_EUR, product).productDecimalPrice;
+        }
+        if (!empty(feedColumns['priceAUD'])) {
+            productAttributes.priceAUD = getPromotionalPricePerPriceBook(Constants.CURRENCY_AUD, product).productDecimalPrice;
+        }
+    
+        return productAttributes;
+    } catch (e) {
+        Logger.error('Error occurred while getting product attribute information . Product {0}: \n Error: {1} \n Message: {2} \n', product, e.stack, e.message);
     }
-    if (!empty(feedColumns['priceGBP'])) {
-        productAttributes.priceGBP = getPromotionalPricePerPriceBook(Constants.CURRENCY_GBP, product).productDecimalPrice;
-    }
-    if (!empty(feedColumns['priceCAD'])) {
-        productAttributes.priceCAD = getPromotionalPricePerPriceBook(Constants.CURRENCY_CAD, product).productDecimalPrice;
-    }
-    if (!empty(feedColumns['priceEUR'])) {
-        productAttributes.priceEUR = getPromotionalPricePerPriceBook(Constants.CURRENCY_EUR, product).productDecimalPrice;
-    }
-    if (!empty(feedColumns['priceAUD'])) {
-        productAttributes.priceAUD = getPromotionalPricePerPriceBook(Constants.CURRENCY_AUD, product).productDecimalPrice;
-    }
-
-    return productAttributes;
 }
 
 function getProductPriceByCurrencyCode(product, currencyCode) {
@@ -1389,27 +1397,35 @@ function getProductSetAvailability(product, country, productAvilibiltyModel) {
 
 
 function getProductVariants(products, masterProductAttributes, isVariant, feedParameters, feedColumns) {
-    var variants = new Array();
-    if (products.length !== 0) {
-        var productIt = products.iterator();
-        while (productIt.hasNext()) {
-            var product = productIt.next();
-            var variantJSON = {};
-            variantJSON.product = getProductAttributes(product, feedParameters, feedColumns);
-            variantJSON.product.masterProductID = masterProductAttributes.ID;
-            variantJSON.product.productType = true;
-            if (empty(variantJSON.product.description)) {
-                variantJSON.product.description = masterProductAttributes.description;
+    try {
+        var variants = new Array();
+        if (products.length !== 0) {
+            var productIt = products.iterator();
+            while (productIt.hasNext()) {
+                try {
+                    var product = productIt.next();
+                    var variantJSON = {};
+                    variantJSON.product = getProductAttributes(product, feedParameters, feedColumns);
+                    variantJSON.product.masterProductID = masterProductAttributes.ID;
+                    variantJSON.product.productType = true;
+                    if (empty(variantJSON) && !empty(variantJSON.product) && empty(variantJSON.product.description)) {
+                        variantJSON.product.description = masterProductAttributes.description;
+                    }
+        
+                    if (empty(variantJSON) && !empty(variantJSON.product) && !empty(variantJSON.product.name)) {
+                        variantJSON.product.name = masterProductAttributes.name;
+                    }
+        
+                    variants.push(variantJSON);   
+                } catch (e) {
+                    Logger.error('Error occurred while getting product variant information . Product {0}: \n Error: {1} \n Message: {2} \n', product, e.stack, e.message);
+                }
             }
-
-            if (empty(variantJSON.product.name)) {
-                variantJSON.product.name = masterProductAttributes.name;
-            }
-
-            variants.push(variantJSON);
         }
+        return variants;
+    } catch (e) {
+        Logger.error('Error occurred while getting product variants . Product {0}: \n Error: {1} \n Message: {2} \n', masterProductAttributes.ID, e.stack, e.message);
     }
-    return variants;
 }
 
 function getProductImageURL(product) {

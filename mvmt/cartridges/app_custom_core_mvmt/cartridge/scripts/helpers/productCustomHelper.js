@@ -96,7 +96,7 @@ function getProductAttributes(apiProduct) {
                             seeTheFitSpecs.push(attribute);
                         }
                     } catch (e) {
-                        Logger.error('(productCustomHelper.js -> getProductAttributes) Error occured while setting the attributes values in the object : ' + e);
+                        Logger.error('(productCustomHelper.js -> getProductAttributes) Error occured while setting the attributes values in the object . Product {0}: \n Error: {1} \n Message: {2} \n', apiProduct.ID, e.stack, e.message);
                     }
                 }
             }
@@ -228,7 +228,7 @@ function getCategoryConfig(apiProduct, categoriesConfig) {
                             }
                         }
                     } catch (e) {
-                        Logger.error('(productCustomHepler.js -> getPdpDetailAndSpecsAttributes) Error occured while setting the attributes values in the object : ' + e);
+                        Logger.error('(productCustomHepler.js -> getPdpDetailAndSpecsAttributes) Error occured while setting the attributes values in the object . Product {0}: \n Error: {1} \n Message: {2} \n', apiProduct.ID, e.stack, e.message);
                     }
                 }
             }
@@ -429,7 +429,7 @@ function getProductCategory(apiProduct, product) {
             }
         }
     } catch (error) {
-        Logger.error('(productCustomHelper.js -> getProductCategory) Error occured while getting category from apiProduct : ' + error.message);
+        Logger.error('(productCustomHelper.js -> getProductCategory) Error occured while getting category from apiProduct . Product {0}: \n Error: {1} \n Message: {2} \n', apiProduct.ID, e.stack, e.message);
         return;
     }
     return isCategory;
