@@ -506,9 +506,24 @@
               &:last-child {
                 margin-right: 0;
               }
-              &:nth-child(4) {
+              &.swatchs-box-four {
                 @include media-breakpoint-down(sm) {
                   display: none;
+                }
+              }
+              &-desktop {
+                display: block;
+
+                @include media-breakpoint-down(sm) {
+                  display: none;
+                }
+              }
+
+              &-mobile {
+                display: none;
+
+                @include media-breakpoint-down(sm) {
+                  display: block;
                 }
               }
             }
@@ -521,7 +536,7 @@
   .product-tile-redesign {
     height: 100%;
   }
-  
+
   .cart-icon {
     width: rem(17);
     height: rem(17);
@@ -981,7 +996,7 @@
 
               .plp-swatches-reserved {
                   width: auto;
-                  height: rem(26.54);
+                  min-height: rem(26.54);
               }
             }
           }
