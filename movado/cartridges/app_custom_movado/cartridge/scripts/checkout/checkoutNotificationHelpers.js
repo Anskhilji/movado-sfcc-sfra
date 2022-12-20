@@ -33,8 +33,7 @@ function sendEmail(emailObj, context) {
  * @param {Object} currentBasket - the current shopping basket
  */
 function sendErrorNotification(integerationType, message, exception, logLocation, lineNumber, stack) {
-    var lastClickApi = session.getClickStream() ? (session.getClickStream().getLast() ? session.getClickStream().getLast().pipelineName : null) : null;;
-    // var isEnableNotification = !empty(Site.current.preferences.custom.enableNotification) ? Site.current.preferences.custom.enableNotification : false;
+    var lastClickApi = session.getClickStream() ? (session.getClickStream().getLast() ? session.getClickStream().getLast().pipelineName : null) : null;
 
     var emailContext = {
         timeStamp: StringUtils.formatCalendar(new Calendar(), 'MM-dd-yyyy-h-mm-a'),
@@ -47,6 +46,7 @@ function sendErrorNotification(integerationType, message, exception, logLocation
         details: exception,
         lastClick: lastClickApi
     }
+
     var emailObj = {
         to: sendEmailTo(),
         subject: 'Critical Alert!' + integerationType,
@@ -65,6 +65,7 @@ function sendErrorNotification(integerationType, message, exception, logLocation
 function sendDebugNotification(integerationType, message, logLocation) {
     var lastClickApi = session.getClickStream() ? (session.getClickStream().getLast() ? session.getClickStream().getLast().pipelineName : null) : null;;
     var isEnableDebugNotification = !empty(Site.current.preferences.custom.enableDebugNotification) ? Site.current.preferences.custom.enableDebugNotification : false;
+    var isEnableNotification = !empty(Site.current.preferences.custom.enableNotification) ? Site.current.preferences.custom.enableNotification : false;
 
     var emailContext = {
         timeStamp: StringUtils.formatCalendar(new Calendar(), 'MM-dd-yyyy-h-mm-a'),
@@ -82,7 +83,7 @@ function sendDebugNotification(integerationType, message, logLocation) {
         type: integerationType
     };
 
-    if (isEnableDebugNotification) {
+    if (isEnableDebugNotification && isEnableNotification) {
         sendEmail(emailObj, emailContext);
     }
 }
@@ -95,6 +96,7 @@ function sendDebugNotification(integerationType, message, logLocation) {
 function sendInfoNotification(integerationType, message, logLocation) {
     var lastClickApi = session.getClickStream() ? (session.getClickStream().getLast() ? session.getClickStream().getLast().pipelineName : null) : null;;
     var isEnableInfoNotification = !empty(Site.current.preferences.custom.enableInfoNotification) ? Site.current.preferences.custom.enableInfoNotification : false;
+    var isEnableNotification = !empty(Site.current.preferences.custom.enableNotification) ? Site.current.preferences.custom.enableNotification : false;
 
     var emailContext = {
         timeStamp: StringUtils.formatCalendar(new Calendar(), 'MM-dd-yyyy-h-mm-a'),
@@ -112,7 +114,7 @@ function sendInfoNotification(integerationType, message, logLocation) {
         type: integerationType
     };
 
-    if (isEnableInfoNotification) {
+    if (isEnableInfoNotification && isEnableNotification) {
         sendEmail(emailObj, emailContext);
     }
 }
