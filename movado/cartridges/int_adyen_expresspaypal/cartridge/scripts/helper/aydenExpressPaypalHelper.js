@@ -244,7 +244,8 @@ function formsValidation(currentBasket, formData) {
         billingAddressState: billingAddressState,
         billingAddressCountry: billingAddressCountry,
         billingAddressStateOrProvince: billingAddressStateOrProvince,
-        paypalerror: false
+        paypalerror: false,
+        emailValue: emailValue
     };
     for (var prop in validatedFields) {
         if (validatedFields[prop] == true) {
