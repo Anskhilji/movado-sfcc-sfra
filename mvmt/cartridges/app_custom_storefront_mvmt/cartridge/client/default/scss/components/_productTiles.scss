@@ -448,6 +448,11 @@
 
           .swatch-plus-box {
             margin-right: rem(10);
+            @include media-breakpoint-down(sm) {
+              &:nth-child(n+3) {
+                display: none;
+              }
+            }
 
               .square-swatch {
                 cursor: pointer;
@@ -502,7 +507,7 @@
                 }
               }
               &-desktop {
-                display: block;
+                display: block !important;
 
                 @include media-breakpoint-down(sm) {
                   display: none;
