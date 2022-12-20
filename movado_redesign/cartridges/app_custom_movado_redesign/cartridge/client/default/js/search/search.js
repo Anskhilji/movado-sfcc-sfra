@@ -49,6 +49,7 @@ function parseResults(response) {
     [
         '.grid-header',
         '.refine-wrapper',
+        '.refine-wrapper-sidebar',
         '.header-bar',
         '.header.page-title',
         '.product-grid',
@@ -686,6 +687,7 @@ module.exports = {
                         $('.desktop-search-refine-bar-redesing').removeClass('active');
                         // $('.refine-wrapper-sidebar').removeClass('fillterslideinleft');
                         // Custom:MSS-2073 end
+                        $('.refinement-bar-redesign').removeClass('d-block');
                     },
                     error: function () {
                         $.spinner().stop();

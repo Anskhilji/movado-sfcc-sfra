@@ -75,7 +75,9 @@
 				<div class="refinement-bar col-md-3">
 					<isinclude template="search/searchRefineBarDesktop" />
 				</div>
-
+				<div class="refinement-bar col-md-3">
+					<isinclude template="search/searchRefineBar" />
+				</div>
 				<div class="col-sm-12 col-md-9">
 					<div class="container">
 						<!--- Selected filters bar --->
