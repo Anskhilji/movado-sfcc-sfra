@@ -1,4 +1,5 @@
 'use strict';
+var PromotionMgr = require('dw/campaign/PromotionMgr');
 var collections = require('*/cartridge/scripts/util/collections');
 var base = module.superModule;
 
@@ -64,7 +65,6 @@ function getVariationModel(product, productVariables, productType) {
  * If a product is master and only have one variant for a given attribute - auto select it
  * @param {dw.catalog.Product} apiProduct - Product from the API
  * @param {Object} params - Parameters passed by querystring
- *
  * @returns {Object} - Object with selected parameters
  */
 function normalizeSelectedAttributes(apiProduct, params) {
@@ -98,10 +98,11 @@ function normalizeSelectedAttributes(apiProduct, params) {
 function getConfig(apiProduct, params) {
     var variables = normalizeSelectedAttributes(apiProduct, params);
     var variationModel = getVariationModel(apiProduct, variables, base.getProductType(apiProduct));
+
     if (variationModel) {
         apiProduct = variationModel.selectedVariant || apiProduct; // eslint-disable-line
     }
-    var PromotionMgr = require('dw/campaign/PromotionMgr');
+
     var promotions = PromotionMgr.activeCustomerPromotions.getProductPromotions(apiProduct);
     var optionsModel = base.getCurrentOptionModel(apiProduct.optionModel, params.options);
     var options = {
