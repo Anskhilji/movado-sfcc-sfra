@@ -272,6 +272,14 @@ var SalesforceModel = ({
             }
         });
     },
+    sendErrorMail: function (req) {
+
+        return SalesforceModel.createSalesforceRestRequest({
+            url: SalesforceFactory.ENDPOINTS.ERROREMAIL,
+            requestMethod: 'POST',
+            requestData: req
+        });
+    }
 });
 
 module.exports = SalesforceModel;

@@ -161,12 +161,12 @@
         <isif condition="${pdict.productSearch !== null && pdict.productSearch.count == 0 && !pdict.productSearch.productIds.length}">
             <isslot id="cs-noresult-content" description="Content Slot on No Results Page" context="global" />
         </isif>
-			<!-- Start: Listrak persistent popup -->
-    <isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page" />
-    <isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled && pdict.popupID}">
-        <span class="listrak-persistent-url" data-listrak-url="${URLUtils.https('EmailPopUp-Show')}"></span>
-        <span class="listrak-popup-product-detail"></span>
-        <isslot id="cs-listrak-persistent-popup" description="Listrak persistent popup" context="global" />
-    </isif>
-    <!-- End: Listrak persistent popup -->
+		<!-- Start: Listrak persistent popup -->
+        <isset name="sitePref" value="${dw.system.Site.current.preferences.custom}" scope="page" />
+        <isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled && pdict.popupID}">
+            <span class="listrak-persistent-url" data-listrak-url="${URLUtils.https('EmailPopUp-Show')}"></span>
+            <span class="listrak-popup-product-detail"></span>
+            <isslot id="cs-listrak-persistent-popup" description="Listrak persistent popup" context="global" />
+        </isif>
+        <!-- End: Listrak persistent popup -->
 </isdecorate>

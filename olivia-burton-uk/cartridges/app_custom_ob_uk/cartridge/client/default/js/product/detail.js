@@ -152,23 +152,25 @@ $(document).ready(function () {
         var $stickyAddToCartObserver = document.querySelector('.add-to-cart-observer');
         var $stickyAddToCart = document.querySelector('.prices-add-to-cart-actions');
 
-        var $obsCallBack = function (entries, observer) {
-            var [$entry] = entries;
-            
-            if (!$entry.isIntersecting) {
-                $stickyAddToCart.classList.remove('d-none')
-                $stickyAddToCart.classList.add('d-block')
-            } else {
-                $stickyAddToCart.classList.add('d-none')
-                $stickyAddToCart.classList.remove('d-block')
-            }
-        };
-       
-        var $observer = new IntersectionObserver($obsCallBack, {
-            root: null,
-            threshold: 0.1
-        });
-        $observer.observe($stickyAddToCartObserver);
+        if ($stickyAddToCartObserver !== null && $stickyAddToCart !== null) {
+            var $obsCallBack = function (entries, observer) {
+                var [$entry] = entries;
+                
+                if (!$entry.isIntersecting) {
+                    $stickyAddToCart.classList.remove('d-none');
+                    $stickyAddToCart.classList.add('d-block');
+                } else {
+                    $stickyAddToCart.classList.add('d-none');
+                    $stickyAddToCart.classList.remove('d-block');
+                }
+            };
+           
+            var $observer = new IntersectionObserver($obsCallBack, {
+                root: null,
+                threshold: 0.1
+            });
+            $observer.observe($stickyAddToCartObserver);
+        }
     }
 });
 
@@ -254,3 +256,10 @@ window.onload = () => {
     }
 };
 // Custom End: Listrak persistent popup
+
+// custome GTM tag on appel pay
+$('body').on('click', '.apple-pay-pdp', function () {
+    var dataGtmObj = $('.add-to-cart-gtm').attr('data-atc');
+    $('body').trigger('addToCart:success', dataGtmObj);
+});
+//custome end

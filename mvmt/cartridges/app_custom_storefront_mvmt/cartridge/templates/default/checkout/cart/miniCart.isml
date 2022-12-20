@@ -3,7 +3,7 @@
 <isset name="itemsLength" value="${empty(pdict.items.length) ? 0 : pdict.items.length}" scope="page"/>
 <isset name="orderLevelDiscountTotal" value="${pdict.totals.orderLevelDiscountTotal.value}" scope="page">
 <isset name="enableGiftMessage" value="${dw.system.Site.getCurrent().preferences.custom.enableGiftMessage}" scope="page"/>
-
+<isset name="enableCartRecomendations" value="${dw.system.Site.getCurrent().preferences.custom.enableCartRecomendations}" scope="page"/>
 <isif condition="${!empty(pdict.reportingURLs)}">
     <isinclude template="reporting/reportingUrls" />
 </isif>
@@ -49,47 +49,40 @@
             </isif>
         </div>
     <isslot id="cs-mincart-top-slot" description="Static text slot on Mini Cart" context="global" />
-    <isif condition="${enableGiftMessage}">
-        <div class="gift-messages">
-            <div class="row gift-messages-wrapper">
-                <div class="col-12 d-flex pr-0  justify-content-center">
-                    <div class="custom-control custom-checkbox">
-                        <input name="giftMessageCheck" class="custom-control-input gift-messages-chekbox" id="gift-messages-route" type="checkbox">
-                        <label class="checkout-checkbox custom-control-label gift-messages-label" for="gift-messages-route">${Resource.msg('label.minicart.gift.message', 'cart', null)}</label>
-                    </div>
-                    <a class="gift-messages-tooltip">${Resource.msg('label.minicart.gift.detail', 'cart', null)}</a>
-                </div>
-            </div>
-            <div class="row gift-messages-model">
-                <div class="col-12">
-                    <div class="custom-tooltipsmart">
-                        <isslot id="gift-model-content-minicart" description="gift model content" context="global" />
-                    </div>
-                </div>
-            </div>
-        </div>
-    </isif>
+  
 
     <div class="product-summary">
-        <isloop items="${items}" var="lineItem" status="loopStatus">
-            <div class="row">
-               <isif condition="${lineItem.bonusProductLineItemUUID === 'bonus'}">
-                   <div class="card ${miniCart ? 'bonus-product-line-item' : ''} uuid-${lineItem.UUID}">
-                       <div class="card-body">
-                           <isinclude template="checkout/productCard/miniCartBonusProductCard" />
-                       </div>
-                   </div>
-               <iselse/>
-                   <div class="card uuid-${lineItem.UUID}">
-                       <div class="card-body">
-                           <isinclude template="checkout/productCard/miniCartProductCard" />
-                       </div>
-                   </div>
-               </isif>
+        <div class="mini-cart-product">
+            <isloop items="${items}" var="lineItem" status="loopStatus">
+                <div class="row" data-lineitem="${JSON.stringify(lineItem)}">
+                    <isif condition="${lineItem.bonusProductLineItemUUID === 'bonus'}">
+                        <div class="card ${miniCart ? 'bonus-product-line-item' : ''} uuid-${lineItem.UUID}">
+                            <div class="card-body">
+                                <isinclude template="checkout/productCard/miniCartBonusProductCard" />
+                            </div>
+                        </div>
+                    <iselseif condition="${!empty(lineItem.giftParentUUID)}" />
+                        <isnext />
+                    <iselse/>
+                        <div class="card uuid-${lineItem.UUID}">
+                            <div class="card-body">
+                                <isinclude template="checkout/productCard/miniCartProductCard" />
+                            </div>
+                        </div>
+                    </isif>
+                </div>
+            </isloop>
+        </div>
+        <iscomment>Custom Start: Recomendation Carousel </iscomment>
+        <isif condition="${enableCartRecomendations}">
+            <div class="recommendation-rail-wrapper">
+                <isslot id="cs_cart_recommendation_bottom_slot" context="global" description="Recommendation slot at the bottom of the product summary on cart"/>
             </div>
-        </isloop>
+        </isif>
+        <iscomment> Custom End </iscomment>
         <isinclude template="beamWidgetMiniCart" />
     </div>
+
     <div class="minicart-footer">
         <iscomment>Custom Start: Adding promo code template </iscomment>
         <isif condition="${itemsLength > 0}">
@@ -150,3 +143,11 @@
     <iscomment>Logged in Customer tracking for Yotpo Swell Loyalty</iscomment>
     <isinclude template="include/yotpofooter"/>
 </isif>
+
+<!-- Modal -->
+<div class="modal gift-box-container-modal fade" id="giftBoxModelPopUp" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered gift-box-container-modal-dialog" role="document">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>

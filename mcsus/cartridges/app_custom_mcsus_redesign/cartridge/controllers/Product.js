@@ -108,7 +108,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
    //Custom Start: Adding ESW variable to check eswModule enabled or disabled
    var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
    //Custom End
-
+   
    var listrakPersistentPopup = emailPopupHelper.listrakPersistentPopup(req);
    viewData = {
        isEmbossEnabled: isEmbossEnabled,
