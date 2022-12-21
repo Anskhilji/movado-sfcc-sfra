@@ -1063,13 +1063,20 @@
       padding: rem(10) rem(15) rem(0) rem(15);
       border-bottom: rem(1) solid $white-grey;
   
-      @include media-breakpoint-down(sm) {
-        top: rem(45);
+      @include custom-media-query-max($medium-screen-width) {
+        top: rem(61);
         left: 0;
         right: 0;
-        padding: rem(0) rem(10);
+        padding: rem(15) rem(10);
       }
-      }
+      
+      @include media-breakpoint-down(sm) {
+        background-color: $white;
+        border-bottom: rem(1) solid $white-grey;
+        top: rem(45);
+        padding: rem(10) rem(10);
+     }
+    }
 
     .result-count {
         @include media-breakpoint-down(sm) {

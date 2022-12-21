@@ -85,8 +85,8 @@
                                             <button class="filter-refinement-panel-btn" data-filter-category="${pdict.productSearch.category && !empty(pdict.productSearch.category) ? pdict.productSearch.category.id : ''}" >${Resource.msg('label.selectedfilter', 'search', null)}</button>
                                         </div>
                                         <iscomment> custom:MSS-1948 mobile filter button` </iscomment>
-                                        <div class="filter-box d-md-none w-100">
-                                            <div class="d-flex d-md-none justify-content-between align-items-start w-100 pb-2 mobile-filter-box">
+                                        <div class=" d-md-none w-100">
+                                            <div class="d-flex filter-box d-md-none justify-content-between align-items-start w-100 pb-2 mobile-filter-box">
                                                 <isif condition="${pdict.productSearch.productIds.length > 0}">
                                                     <div class="d-md-none filter-btn ctm-filter-btn">
                                                         <button type="button" class="filter-results filter-btn-mobile">
