@@ -197,7 +197,6 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
             popupID: listrakPersistentPopup
         });
     }
-    var tes = refineurl;
     var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
     var Resource = require('dw/web/Resource');
     if (productSearch.category) {

@@ -37,12 +37,11 @@ $(document).ready(function () {
     });
 });
 
-
 $('.search-results.plp-new-design .refinement-bar').keyup(function(event) {
     if (event.key === 'Escape') {
         $('.modal-background').fadeOut();
         $('body").removeClass("no-overflow');
-        $('.search-results.plp-new-design  .refinement-bar').removeClass('faster fadeInRight').addClass('fast fadeOutRight');
+        $('.search-results.plp-new-design .refinement-bar').removeClass('faster fadeInRight').addClass('fast fadeOutRight');
         setTimeout(function() {
             $('.modal-background').removeClass('d-block');
             $('.search-results.plp-new-design  .refinement-bar').removeClass('d-block');
@@ -55,11 +54,11 @@ $('.search-results.plp-new-design .refinement-bar').keyup(function(event) {
     }
 });
 
-$(document).on('click','.search-results.plp-new-design  .close-refinebar', function (e) {
+$(document).on('click','.search-results.plp-new-design .close-refinebar', function (e) {
     e.preventDefault();
     $('.modal-background').addClass('fadeOut');
     $('body').removeClass('no-overflow');
-    $('.search-results.plp-new-design  .refinement-bar').addClass('fadeOutRight');
+    $('.search-results.plp-new-design .refinement-bar').addClass('fadeOutRight');
 
     setTimeout(function(){
         $('.modal-background').removeClass('d-block');
@@ -72,7 +71,7 @@ $(document).mouseup(e => {
     && $filter.has(e.target).length === 0) // ... nor a descendant of the container
     {
         $('body').removeClass('no-overflow');
-        $('.search-results.plp-new-design  .refinement-bar').addClass('fadeOutRight');
+        $('.search-results.plp-new-design .refinement-bar').addClass('fadeOutRight');
 
         setTimeout(function(){
             $('.modal-background').addClass('fadeOut');
@@ -87,7 +86,7 @@ $('.plp-new-design .content-grid-header').keyup(function(event) {
     }
 });
 
-$('.search-results.plp-new-design  .mobile-menu .close-button').click(function(){
+$('.search-results.plp-new-design .mobile-menu .close-button').click(function(){
     $('.mobile-menu').addClass('animated fadeOut delay-point-three');
     $('.multilevel-dropdown .nav-item > a').removeClass('fadeInLeft fast animated').addClass('fadeOutLeft fast animated');
     $('.country-selector-mobile .html-slot-container, .mobile-login .nav-link').removeClass('fadeInLeft fast animated').addClass('fadeOutLeft fast animated');
