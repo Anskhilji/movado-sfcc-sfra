@@ -4,10 +4,10 @@ var Status = require('dw/system/Status');
 
 function execute(args) {
   try {
-    var beamCustomHelper = require('*/cartridge/scripts/helpers/beamCustomHelper');
+    var beamHelper = require('*/cartridge/scripts/helpers/beamHelper');
     var beamObj;
 
-    var beamObjs = beamCustomHelper.getBeamObjs();
+    var beamObjs = beamHelper.getBeamObjs();
 
     while (beamObjs.hasNext()) {
       beamObj = beamObjs.next();
@@ -22,14 +22,15 @@ function execute(args) {
           var salesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
           var result = salesforceModel.updateBeamOrders(requestParams);
           if (result.ok) {
-            beamCustomHelper.removeBeamObjs(beamObj);
+              Logger.info('(exportBeamOrdersToOMS Job) -> execute -> order has been submitted with order : ' + orderID + ' to OMS. Error:' + response.message);
+              beamHelper.removeBeamObjs(beamObj);
           }
       }
     }
 
   } catch (error) {
-    Logger.error("Error occured while executing notifySubscribers job. \n Step notifySubscribers. \n Error: {0} , Stack Trace: {1}",
-      error.message, error.stack);
+      Logger.error('Error occured while executing exportBeamOrdersToOMS job .\n Error: {0} \n Message: {1} \n lineNumber: {2} \n fileName: {3}', 
+          e.stack, e.message, e.lineNumber, e.fileName);
       return new Status(Status.ERROR, 'ERROR', error.message);
   }
 

@@ -5,14 +5,14 @@ var Transaction = require('dw/system/Transaction');
 var UUIDUtils = require('dw/util/UUIDUtils');
 var Logger = require('dw/system/Logger');
 
-var constants = require('~/cartridge/scripts/utils/Constants');
+var beamConstants = require('*/cartridge/scripts/utils/Constants');
 
 /**
  * Gets all Beam Objs
  * @returns {dw.util.SeekableIterator} Beam
  */
 function getBeamObjs() {
-    var beamObjs = customObjectMgr.getAllCustomObjects(constants.BEAM_ORDERS);
+    var beamObjs = customObjectMgr.getAllCustomObjects(beamConstants.BEAM_ORDERS);
     return beamObjs;
 }
 
@@ -42,7 +42,7 @@ function saveBeamObj(beamObject) {
     try {
         if (!empty(beamObject.charityId) && !empty(beamObject.orderId)) {
             Transaction.wrap( function() {
-                var beamObj = customObjectMgr.createCustomObject(constants.BEAM_ORDERS, UUID);
+                var beamObj = customObjectMgr.createCustomObject(beamConstants.BEAM_ORDERS, UUID);
                 beamObj.custom.charityId = beamObject.charityId;
                 beamObj.custom.orderId = beamObject.orderId;
                 success = true;

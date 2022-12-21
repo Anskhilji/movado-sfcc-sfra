@@ -15,12 +15,12 @@
               parentSelector: "#beam-container",
               apiKey: "${sitePref.beamApiKey}",
               storeId: ${sitePref.beamStoreId},
-              orderId: "${order.orderNumber}", // get from order
-              email: "${order.orderEmail}", // get from order
-              cartTotal: ${OrderTotal}, // get from order
-              currencyCode: "USD", // get from order
-              countryCode: "${order.billing.billingAddress.address.countryCode.value}", // get from order
-              postalCode: "${order.billing.billingAddress.address.postalCode}", // get from order
+              orderId: "${order.orderNumber}",
+              email: "${order.orderEmail}",
+              cartTotal: ${OrderTotal},
+              currencyCode: "${pdict.currencyCode}",
+              countryCode: "${order.billing.billingAddress.address.countryCode.value}",
+              postalCode: "${order.billing.billingAddress.address.postalCode}",
               baseUrl: "${sitePref.beamBaseURL}",
           });
           </script>

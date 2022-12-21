@@ -7,9 +7,9 @@ var Logger = require('dw/system/Logger');
 var OrderMgr = require('dw/order/OrderMgr');
 var Transaction = require('dw/system/Transaction');
 
-var beamCustomHelper = require('*/cartridge/scripts/helpers/beamCustomHelper');
+var beamHelper = require('*/cartridge/scripts/helpers/beamHelper');
 
-server.post('Order', function (req, res, next) {
+server.post('Order', server.middleware.https, function (req, res, next) {
 
     var beamObject = {
         charityId: req.form.charityId,
@@ -21,21 +21,24 @@ server.post('Order', function (req, res, next) {
     };
 
     try {
-        if (!empty(beamObject)) {
+        if (!empty(beamObject.charityId) && !empty(beamObject.orderId)) {
             var order = OrderMgr.getOrder(beamObject.orderId);
-            result.success = beamCustomHelper.saveBeamObj(beamObject);
-            if (result.success == true) {
-                Transaction.wrap( function() {
-                    order.custom.beamCharityId = !empty(beamObject.charityId) ? beamObject.charityId : '';
-                    order.custom.beamOrder = true;
-                });
+            if(!empty(order)) {
+                result.success = beamHelper.saveBeamObj(beamObject);
+                if (result.success) {
+                    Transaction.wrap( function() {
+                        order.custom.beamCharityId = !empty(beamObject.charityId) ? beamObject.charityId : '';
+                        order.custom.beamOrder = true;
+                    });
+                }
             }
         }
 
     } catch (error) {
         result.success = false;
-        Logger.error('Error occured while saving Beam Attribute On Order: {0} \n Error: {1} \n Stack Trace : {2}',
-            JSON.stringify(beamObject), error.message, error.stack);
+        Logger.error('Error occured while saving Beam Attribute On Order . beamObject {0}: \n Error: {1} \n Message: {2} \n lineNumber: {3} \n fileName: {4}', 
+            JSON.stringify(beamObject), e.stack, e.message, e.lineNumber, e.fileName);
+
     }
 
     res.json({
@@ -45,7 +48,7 @@ server.post('Order', function (req, res, next) {
     next();
 });
 
-server.post('Cart', function (req, res, next) {
+server.post('Cart', server.middleware.https, function (req, res, next) {
     var chairtyId = req.form.chairtyId;
     var currentBasket = BasketMgr.getCurrentBasket();
     var result = {
@@ -63,8 +66,8 @@ server.post('Cart', function (req, res, next) {
 
     } catch (error) {
         result.success = false;
-        Logger.error('Error occured while saving Beam Attributes on Basket: {0} \n Error: {1} \n Stack Trace : {2}',
-            JSON.stringify(result), error.message, error.stack);
+        Logger.error('Error occured while saving Beam Attributes on Basket . beamObject {0}: \n Error: {1} \n Message: {2} \n lineNumber: {3} \n fileName: {4}', 
+            JSON.stringify(beamObject), e.stack, e.message, e.lineNumber, e.fileName);
     }
 
     res.json({
