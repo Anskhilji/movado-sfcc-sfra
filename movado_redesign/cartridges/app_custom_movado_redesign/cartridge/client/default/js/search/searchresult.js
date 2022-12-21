@@ -1,11 +1,11 @@
 'use strict';
 
 $(document).ready(function () {
-    $(".search-results.plp-new-design .filter-btn,.more-filter-btn").click(function(){
-        $(".modal-background").removeClass("fadeOut").addClass("d-block fadeIn fast")
+    $('.search-results.plp-new-design .filter-btn,.more-filter-btn').click(function(){
+        $('.modal-background').removeClass('fadeOut').addClass('d-block fadeIn fast')
         $("body").addClass("no-overflow");
-        $(".search-results.plp-new-design .refinement-bar, .refine-wrapper-sidebar").removeClass("fadeOutRight").addClass("fast fadeInRight animated d-block");
-        $(".refine-wrapper-sidebar").addClass("fillterslideinleft");
+        $('.search-results.plp-new-design .refinement-bar, .refine-wrapper-sidebar').removeClass('fadeOutRight').addClass('fast fadeInRight animated d-block');
+        $('.refine-wrapper-sidebar').addClass('fillterslideinleft');
         $('.search-results.plp-new-design .custom-select__option').focus();
         // Custom:MSS-2073 start
         $(".close-refinebar .filter-more").removeClass("d-none").addClass("d-block");
@@ -62,25 +62,25 @@ $(document).ready(function () {
        $('.header-menu-wrapper').removeClass('header-active');
        $('.dk-fillter-check').unbind();
        $('.dk-fillter-m').removeClass('dk-fillter-check');
-       $(".search-results.plp-new-design  .refinement-bar, .refine-wrapper-sidebar").removeClass("fillterslideinleft");
+       $('.search-results.plp-new-design  .refinement-bar, .refine-wrapper-sidebar').removeClass('fillterslideinleft');
     });
 
     $(".mobile-fliter-sort-btn-click").click(function(){
         $(".modal-background").removeClass("fadeOut").addClass("d-block fadeIn fast modal-moblie")
         $("body").addClass("no-overflow");
         $(".search-results.plp-new-design .refinement-bar").removeClass("fadeOutRight").addClass("fast fadeInRight animated d-block");
-        $(".search-results.plp-new-design .refinements-sidebar").addClass("d-none");
-        $(".search-results.plp-new-design .refinements-sidebar").removeClass("d-block").addClass("d-none");
-        $(".refine-wrapper-sidebar .sort-order-mobile-menu").addClass("d-block");
+        $('.search-results.plp-new-design .refinements-sidebar').addClass('d-none');
+        $('.search-results.plp-new-design .refinements-sidebar').removeClass('d-block').addClass('d-none');
+        $('.refine-wrapper-sidebar .sort-order-mobile-menu').addClass('d-block');
         $(".close-refinebar .sort-by").removeClass("d-none").addClass("d-block");
         $(".close-refinebar .filter-more").removeClass("d-block").addClass("d-none");
         $('.search-results.plp-new-design .custom-select__option').focus(); 
     });
 
-    $(".search-results.plp-new-design .filter-btn").click(function(){
+    $('.search-results.plp-new-design .filter-btn').click(function(){
         // Custom:MSS-2073 start
-        $(".refine-wrapper-sidebar .movado-refinements-container").addClass("d-block");
-        $(".refine-wrapper-sidebar .sort-order-mobile-menu").removeClass("d-block").addClass("d-none");
+        $('.refine-wrapper-sidebar .movado-refinements-container').addClass('d-block');
+        $('.refine-wrapper-sidebar .sort-order-mobile-menu').removeClass('d-block').addClass('d-none');
         // Custom:MSS-2073 end
     });
 
@@ -92,17 +92,17 @@ $(".search-results.plp-new-design .refinement-bar").keyup(function(event) {
     if (event.key === 'Escape') {
         $(".modal-background").fadeOut();
         $("body").removeClass("no-overflow");
-        $(".search-results.plp-new-design  .refinement-bar, .refine-wrapper-sidebar").removeClass("faster fadeInRight fillterslideinleft").addClass("fast fadeOutRight");
+        $('.search-results.plp-new-design  .refinement-bar, .refine-wrapper-sidebar').removeClass('faster fadeInRight fillterslideinleft').addClass('fast fadeOutRight');
         setTimeout(function() {
             $(".modal-background").removeClass("d-block");
-            $(".search-results.plp-new-design  .refinement-bar, .refine-wrapper-sidebar").removeClass("d-block fillterslideinleft");
+            $('.search-results.plp-new-design .refinement-bar, .refine-wrapper-sidebar').removeClass('d-block fillterslideinleft');
             // Custom:MSS-2073 start
             $('.refinement-box-filter').removeClass('active');
             // Custom:MSS-2073 end
         },300);
 
         setTimeout(function() {
-            $(".refinement-bar,.refine-wrapper-sidebar").removeClass("animated fillterslideinleft");
+            $('.refinement-bar,.refine-wrapper-sidebar').removeClass('animated fillterslideinleft');
         }, 200);
         $(".search-results.plp-new-design .filter-btn > button").focus();
     }
@@ -115,11 +115,11 @@ $(document).on("click",".search-results.plp-new-design  .close-refinebar", funct
     $(".search-results.plp-new-design  .refinement-bar").addClass("fadeOutRight");
 
     setTimeout(function(){
-        $(".modal-background").removeClass("d-block");
+        $('.modal-background').removeClass('d-block');
     }, 300);
 });
 
-const $filter = $('.refinement-bar, .filter-btn, more-filter-btn, .search-icon, .desktop-search, .desktop-menu, .mobile-menu, .navbar-toggler-custom');
+const $filter = $('.refinement-bar, .filter-btn, .more-filter-btn, .search-icon, .desktop-search, .desktop-menu, .mobile-menu, .navbar-toggler-custom');
 $(document).mouseup(e => {
     if (!$filter.is(e.target) // if the target of the click isn't the container...
     && $filter.has(e.target).length === 0) // ... nor a descendant of the container

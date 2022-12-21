@@ -28,9 +28,6 @@ function handleRefinements($results) {
             .find('.' + $(this)[0].className.replace(/ /g, '.'))
             .addClass('active');
     });
-
-    // updateDom($results, '.refinements');
-    // updateDom($results, '.refinements-sidebar');
 }
 
 /**
@@ -63,34 +60,6 @@ function parseResults(response) {
         specialHandlers[selector]($results);
     });
 }
-
-// function parseResultsSimple(response) {
-//     var $results = $(response);
-//     var specialHandlers = {
-//         '.refinements': handleRefinements
-//     };
-
-//     // Update DOM elements that do not require special handling
-//     [
-//         '.refine-wrapper-simple'
-//     ].forEach(function (selector) {
-//         updateDom($results, selector);
-//     });
-// }
-
-// function parseResultsSideBar(response) {
-//     var $results = $(response);
-//     var specialHandlers = {
-//         '.refinements': handleRefinements
-//     };
-
-//     // Update DOM elements that do not require special handling
-//     [
-//         '.fillterslideinleft'
-//     ].forEach(function (selector) {
-//         updateDom($results, selector);
-//     });
-// }
 
 /**
  * This function retrieves another page of content to display in the content search grid
@@ -358,12 +327,12 @@ function refinementBoxFilterDesktop($refinementBox, $dkFilterCheck, $modelBackgr
 }
 function moreFilterBtn($moreFilterBtn) {
     $moreFilterBtn.click(function(){
-        $(".modal-background").removeClass("fadeOut").addClass("d-block fadeIn fast")
-        $("body").addClass("no-overflow");
-        $(".search-results.plp-new-design .refinement-bar").removeClass("fadeOutRight").addClass("fast fadeInRight animated d-block");
+        $('.modal-background').removeClass('fadeOut').addClass('d-block fadeIn fast')
+        $('body').addClass('no-overflow');
+        $('.search-results.plp-new-design .refinement-bar').removeClass('fadeOutRight').addClass('fast fadeInRight animated d-block');
         $('.search-results.plp-new-design .custom-select__option').focus();
-        $(".search-results.plp-new-design  .refinement-bar .refine-wrapper-sidebar").removeClass("fillterslideinleft");
-        $(".refine-wrapper-sidebar").addClass("fillterslideinleft");
+        $('.search-results.plp-new-design  .refinement-bar .refine-wrapper-sidebar').removeClass('fillterslideinleft');
+        $('.refine-wrapper-sidebar').addClass('fillterslideinleft');
     });
 }
  // Custom:MSS-2073 end

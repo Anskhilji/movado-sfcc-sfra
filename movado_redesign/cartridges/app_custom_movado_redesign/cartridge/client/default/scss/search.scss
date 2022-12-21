@@ -1530,9 +1530,10 @@
       &.filter-box {
         border-bottom: rem(1) solid $white-grey;
         margin-bottom: rem(15);
-        @include custom-media-query-max($medium-screen-width) {
-          border-bottom: rem(0) solid $white-grey;
-        }
+        
+          @include custom-media-query-max($medium-screen-width) {
+            border-bottom: rem(0) solid $white-grey;
+          }
 
           &.filter-bar-sticky {
             position: fixed;
@@ -1550,7 +1551,7 @@
               right: 0;
               padding: rem(0) rem(10);
             }
-            }
+          }
 
           .result-count {
               @include media-breakpoint-down(sm) {
@@ -2166,7 +2167,7 @@
   
                       &::after { 
                           content: "\D7";
-                          font: normal normal normal  FontAwesome;
+                          font: normal normal normal FontAwesome;
                           text-rendering: auto;
                           font-size: rem(25);
                           font-weight: 500;

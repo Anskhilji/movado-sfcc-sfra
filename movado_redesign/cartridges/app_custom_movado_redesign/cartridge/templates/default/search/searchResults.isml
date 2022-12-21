@@ -122,7 +122,7 @@
                                 </div>
                             </div>
 
-                            <div class="">
+                            <div>
                                 <div class="dk-fillter-m d-md-flex align-items-cetner justify-content-between filter-box w-100">
                                     <div class="desktop-search-refine-bar-redesing w-100">
                                         <isinclude template="search/searchRefineBarDesktop" />
