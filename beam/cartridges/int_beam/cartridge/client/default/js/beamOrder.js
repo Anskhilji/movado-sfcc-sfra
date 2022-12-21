@@ -14,13 +14,11 @@ document.addEventListener("beamnonprofitselect", (evt) => {
             orderId: $('.beam-container').data('order-number'),
             charityId: charityId.selectedNonprofitId
         },
-
         success: function (data) {
             if (data) {
                 $.spinner().stop();
             }
         },
-
         error: function (err) {
             $.spinner().stop();
         }

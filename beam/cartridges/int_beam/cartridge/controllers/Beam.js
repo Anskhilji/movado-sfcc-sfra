@@ -1,12 +1,13 @@
 'use strict';
 
 var server = require('server');
-var Transaction = require('dw/system/Transaction');
-var BasketMgr = require('dw/order/BasketMgr');
-var OrderMgr = require('dw/order/OrderMgr');
-var BeamCustomHelper = require('*/cartridge/scripts/helpers/beamCustomHelper');
-var Logger = require('dw/system/Logger');
 
+var BasketMgr = require('dw/order/BasketMgr');
+var Logger = require('dw/system/Logger');
+var OrderMgr = require('dw/order/OrderMgr');
+var Transaction = require('dw/system/Transaction');
+
+var beamCustomHelper = require('*/cartridge/scripts/helpers/beamCustomHelper');
 
 server.post('Order', function (req, res, next) {
 
@@ -22,7 +23,7 @@ server.post('Order', function (req, res, next) {
     try {
         if (!empty(beamObject)) {
             var order = OrderMgr.getOrder(beamObject.orderId);
-            result.success = BeamCustomHelper.saveBeamObj(beamObject);
+            result.success = beamCustomHelper.saveBeamObj(beamObject);
             if (result.success == true) {
                 Transaction.wrap( function() {
                     order.custom.beamCharityId = !empty(beamObject.charityId) ? beamObject.charityId : '';

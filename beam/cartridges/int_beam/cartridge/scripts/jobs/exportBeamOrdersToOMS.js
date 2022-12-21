@@ -4,25 +4,25 @@ var Status = require('dw/system/Status');
 
 function execute(args) {
   try {
-    var BeamCustomHelper = require('*/cartridge/scripts/helpers/beamCustomHelper');
-    var BeamObj;
+    var beamCustomHelper = require('*/cartridge/scripts/helpers/beamCustomHelper');
+    var beamObj;
 
-    var BeamObjs = BeamCustomHelper.getBeamObjs();
+    var beamObjs = beamCustomHelper.getBeamObjs();
 
-    while (BeamObjs.hasNext()) {
-      BeamObj = BeamObjs.next();
+    while (beamObjs.hasNext()) {
+      beamObj = beamObjs.next();
       var requestParams = {}
-      var orderID = BeamObj.custom.orderId;
-      var charityId = BeamObj.custom.charityId;
+      var orderID = beamObj.custom.orderId;
+      var charityId = beamObj.custom.charityId;
       if (!empty(charityId) && !empty(orderID)) {
           requestParams = {
               charityId: charityId,
               orderID: orderID
           }
-          var SalesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
-          var result = SalesforceModel.updateBeamOrders(requestParams);
+          var salesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
+          var result = salesforceModel.updateBeamOrders(requestParams);
           if (result.ok) {
-            BeamCustomHelper.removeBeamObjs(BeamObj);
+            beamCustomHelper.removeBeamObjs(beamObj);
           }
       }
     }
