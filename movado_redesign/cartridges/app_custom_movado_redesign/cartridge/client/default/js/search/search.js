@@ -322,7 +322,7 @@ function refinementBoxFilterDesktop($refinementBox, $dkFilterCheck, $modelBackgr
         $('.header-menu-wrapper').removeClass('header-active');
         $('.dk-fillter-check').unbind();
         $('.dk-fillter-m').removeClass('dk-fillter-check');
-        $(".refine-wrapper-sidebar").removeClass("fillterslideinleft");
+        $('.refine-wrapper-sidebar').removeClass('fillterslideinleft');
     });
 }
 function moreFilterBtn($moreFilterBtn) {
@@ -564,7 +564,7 @@ module.exports = {
                     }
                 }
 
-                var moreFilters = $(".refinement-bar-redesign").hasClass("fillterslideinleft")
+                var moreFilters = $('.refinement-bar-redesign').hasClass('fillterslideinleft')
                 if(moreFilters) {
                     moreFiltersSideBar = true;
                 }
