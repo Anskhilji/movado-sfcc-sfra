@@ -5,17 +5,17 @@
         <div class="linked-head">
             <iscontentasset aid="style-with-text-configs" />
         </div>
-        <div class="${dw.campaign.ABTestMgr.isParticipant('OBRedesignPDPABTest','render-new-design') ? 'recomended-products-redesign' : 'recomended-products'}" data-recomendation="true">
+        <div class="recomended-products-redesign" data-recomendation="true">
             <isloop items="${pdict.explicitRecommendations}" var="recommendation">
                 <isif condition="${recommendation != null}">
                     <div class="upsell-wrapper">
                         <input type="hidden" class="add-to-cart-url" value="${URLUtils.url('Cart-AddProduct')}">
-                        <button class="upsell-input add-to-cart-recomendations" data-pid="${recommendation.id}"
+                        <button class="upsell-input add-to-cart-recomendations" data-pid="${recommendation.id}" data-atc="${Resource.msg('addtocart.recommendation.gtm.attr', 'common', null)}"
                             name="additionalProducts" value="${recommendation.id}">
                         </button>
                         <div class="upsell-wrapper-inner">
                            <div class="upsell-image-box">
-                                <img class="img-fluid upsell-image" alt="${recommendation.productName}" src="${dw.campaign.ABTestMgr.isParticipant('OBRedesignPDPABTest','render-new-design') ? recommendation.images.tile217[0].url : recommendation.images.tile150[0].url}" />
+                                <img class="img-fluid upsell-image" alt="${recommendation.productName}" src="${!empty(recommendation) && !empty(recommendation.images) && !empty(recommendation.images.tile217) && !empty(recommendation.images.tile217[0].url) ? recommendation.images.tile217[0].url : ''}" />
                            </div>
                             <p class="upsell-description">${recommendation.productName}</p>
                             <div class="upsell-meta">
@@ -37,11 +37,7 @@
                                 <iselse/>
                                     <isset name="addtoCart" value="${Resource.msg('button.addtobag', 'common', null)}" scope="page" /> 
                                 </isif>
-                                <isif condition="${dw.campaign.ABTestMgr.isParticipant('OBRedesignPDPABTest','render-new-design')}">
                                     ${addtoCart}</p>
-                                <iselse/>
-                                    ${addtoCart}</p>
-                                </isif>
                         </div>
                     </div>
                 </isif>

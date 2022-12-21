@@ -7,7 +7,6 @@
                 <iselse>
                     <i class="fa fa-circle-o selected check-o"></i>
                 </isif>
-
                 <span>
                     ${refinementValue.displayValue}
                 </span>

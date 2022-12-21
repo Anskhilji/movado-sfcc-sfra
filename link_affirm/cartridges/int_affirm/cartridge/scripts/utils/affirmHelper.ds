@@ -102,8 +102,9 @@ function checkCart(cart, sfraFlag) {
 }
 
 function postProcess(order){
-	var Site = require('dw/system/Site');
 	var logger = require('dw/system').Logger.getLogger('Affirm', '');
+	var Site = require('dw/system/Site');
+
 	if (affirm.data.getAffirmVCNStatus() != 'on'){
 		if (affirm.data.getAffirmPaymentAction() == 'CAPTURE'){
 			try {
@@ -111,8 +112,8 @@ function postProcess(order){
 					affirm.order.captureOrder(order.custom.AffirmExternalId, order.orderNo);
 					order.custom.AffirmStatus = 'CAPTURE';
 					if (!Site.current.preferences.custom.SOMIntegrationEnabled) {
-						order.setPaymentStatus(Order.PAYMENT_STATUS_PAID);
-						order.setStatus(Order.ORDER_STATUS_COMPLETED);
+					    order.setPaymentStatus(Order.PAYMENT_STATUS_PAID);
+					    order.setStatus(Order.ORDER_STATUS_COMPLETED);
 					}
 				});
 			} catch (e) {

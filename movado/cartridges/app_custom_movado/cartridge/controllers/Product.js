@@ -50,8 +50,9 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
     var smartGift = smartGiftHelper.getSmartGiftCardBasket(showProductPageHelperResult.product.id);
     var smartGiftAddToCartURL = Site.current.preferences.custom.smartGiftURL + showProductPageHelperResult.product.id;
-    var emailPopupHelper = require('*/cartridge/scripts/helpers/emailPopupHelper');
 
+    var emailPopupHelper = require('*/cartridge/scripts/helpers/emailPopupHelper');
+    
     var collectionContentList;
     var moreStyleGtmArray = [];
     var klarnaProductPrice = '0';
@@ -128,7 +129,9 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     //Custom Start: Adding ESW variable to check eswModule enabled or disabled
     var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
     //Custom End
+
     var listrakPersistentPopup = emailPopupHelper.listrakPersistentPopup(req);
+
     viewData = {
         isEmbossEnabled: isEmbossEnabled,
         isEngraveEnabled: isEngraveEnabled,
@@ -171,6 +174,12 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
     	};
     	pdpAnalyticsTrackingData.email = customer.isAuthenticated() && customer.getProfile() ? customer.getProfile().getEmail() : '';
         viewData.pdpAnalyticsTrackingData = JSON.stringify(pdpAnalyticsTrackingData);
+    }
+
+    if (!empty(req.querystring.lastNameError)) {
+        res.setViewData({ 
+            lastNameError: req.querystring.lastNameError
+        });
     }
 
     res.setViewData(viewData);
@@ -366,6 +375,7 @@ server.get('ShowCartButton', function (req, res, next) {
     var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
     var smartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
+    var addCartGtmArray = productCustomHelpers.getGtmObjForPdp(productMgr.getProduct(showProductPageHelperResult.product.id));
     var smartGift = smartGiftHelper.getSmartGiftCardBasket(showProductPageHelperResult.product.id);
     var smartGiftAddToCartURL = Site.current.preferences.custom.smartGiftURL + showProductPageHelperResult.product.id;
     res.setViewData(smartGift);
@@ -376,7 +386,8 @@ server.get('ShowCartButton', function (req, res, next) {
         loggedIn: req.currentCustomer.raw.authenticated,
         restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites,
         ecommerceFunctionalityEnabled : Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled,
-        smartGiftAddToCartURL : smartGiftAddToCartURL
+        smartGiftAddToCartURL : smartGiftAddToCartURL,
+        addCartGtmArray: addCartGtmArray
     });
     next();
 });

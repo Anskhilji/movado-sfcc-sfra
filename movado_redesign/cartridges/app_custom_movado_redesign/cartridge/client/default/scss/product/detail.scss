@@ -25,6 +25,10 @@ $arrow-height: 1.25em;
     padding-bottom: rem(16);
     margin: 0;
 
+    .gpay-error {
+        background-color: $white;
+    }
+
     .dw-apple-pay-button {
         &.apple-pay-pdp {
             margin-top: rem(5);
@@ -150,6 +154,7 @@ $arrow-height: 1.25em;
             margin-top: rem(20);
         }
     }
+
     .clyde-widget {
         max-width: rem(319);
 
@@ -427,7 +432,6 @@ $arrow-height: 1.25em;
             color: $storm-gray;
             padding: rem(3) rem(8);
             margin: 0;
-            line-height: rem(13);
         }
     }
 

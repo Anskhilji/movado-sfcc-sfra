@@ -297,9 +297,9 @@ function getOCIPreOrderParameters(apiProduct) {
         var ociPreOrderObject = {};
         if (!empty(apiProduct)) {
             var productAvailabilityModel = apiProduct.getAvailabilityModel();
-            ociPreOrderObject.ociPreOrderProductAllocation = !empty(productAvailabilityModel.inventoryRecord.allocation.value) ? productAvailabilityModel.inventoryRecord.allocation.value : null;
-            ociPreOrderObject.ociPreOrderProductATO = !empty(productAvailabilityModel.inventoryRecord.ATS.value) ? productAvailabilityModel.inventoryRecord.ATS.value : null;
-            ociPreOrderObject.ociPreOrderProductFuture = !empty(productAvailabilityModel.inventoryRecord.backorderable) ? productAvailabilityModel.inventoryRecord.backorderable : null;
+            ociPreOrderObject.ociPreOrderProductAllocation = !empty(productAvailabilityModel) && !empty(productAvailabilityModel.inventoryRecord) && !empty(productAvailabilityModel.inventoryRecord.allocation) && !empty(productAvailabilityModel.inventoryRecord.allocation.value) ? productAvailabilityModel.inventoryRecord.allocation.value : null;
+            ociPreOrderObject.ociPreOrderProductATO = !empty(productAvailabilityModel) && !empty(productAvailabilityModel.inventoryRecord) && !empty(productAvailabilityModel.inventoryRecord.ATS) && !empty(productAvailabilityModel.inventoryRecord.ATS.value) ? productAvailabilityModel.inventoryRecord.ATS.value : null;
+            ociPreOrderObject.ociPreOrderProductFuture = !empty(productAvailabilityModel) && !empty(productAvailabilityModel.inventoryRecord) && !empty(productAvailabilityModel.inventoryRecord.backorderable) ? productAvailabilityModel.inventoryRecord.backorderable : null;
         }
         return ociPreOrderObject;
     } catch (e) {
@@ -308,12 +308,14 @@ function getOCIPreOrderParameters(apiProduct) {
     }
 }
 
-function getYotpoReviewsCustomAttribute(apiProduct) {
-    var yotpoReviews = '';
-    if (!empty(apiProduct) && !empty(apiProduct.custom.yotpoStarRattings)) {
-        yotpoReviews = apiProduct.custom.yotpoStarRattings;
-    }
-    return yotpoReviews;
+/**
+ * Function return running AB test segments
+ * @returns segmentsArray 
+ */
+ function getRunningABTestSegments() {
+    var ABTestMgr = require('dw/campaign/ABTestMgr');
+    var abTestSegment = ABTestMgr.getAssignedTestSegments();
+    return abTestSegment.length > 0 ? abTestSegment[0].ABTest.ID + '+' + abTestSegment[0].ID : '';
 }
 
 module.exports = {
@@ -322,12 +324,12 @@ module.exports = {
     getSaveMessage: getSaveMessage,
     getPdpVideoConfigs: getPdpVideoConfigs,
     getPDPMarketingContentAssetHTML: getPDPMarketingContentAssetHTML,
-    getYotpoReviewsCustomAttribute: getYotpoReviewsCustomAttribute,
     getCurrentCountry: getCurrentCountry,
     getPDPContentAssetHTML: getPDPContentAssetHTML,
     getPLPCustomURL: getPLPCustomURL,
     getOCIPreOrderParameters: getOCIPreOrderParameters,
     getProductCategory: getProductCategory,
     isGiftBoxAllowed: isGiftBoxAllowed,
-    getGiftBoxSKU: getGiftBoxSKU
+    getGiftBoxSKU: getGiftBoxSKU,
+    getRunningABTestSegments: getRunningABTestSegments
 };

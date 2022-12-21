@@ -155,14 +155,6 @@ module.exports = {
                 }
             }
         });
-
-        // added active class & scroll down on reviews widget
-        $('.ratings > .yotpoBottomLine').on('click',function () {
-            var $mainWidget = $('.main-widget > .yotpo-display-wrapper');
-            $('html, body').animate({
-            scrollTop: $($mainWidget).offset().top
-            }, 10);
-        });
     },
 
     gallerySlider: function () {
@@ -658,7 +650,6 @@ $(document).on('click','.listrak-popup', function(e) {
         });
     }
 });
-
 $(document).on('click','.close-icon-popup', function(e) {
     e.preventDefault();
     e.stopPropagation();
@@ -670,14 +661,11 @@ $(document).on('click','.close-icon-popup', function(e) {
         isContainListrakPopup.remove();
     }
 });
-
 window.onload = () => {
     var listrakPopup = document.querySelector('.listrak-popup');
     var listrakPopupSearchResult = document.querySelector('.listrak-popup-search-result');
     var listrakPopupProductDetail = document.querySelector('.listrak-popup-product-detail');
     var data = sessionStorage.getItem("listrakPersistenPopup");
-    console.log(data);
-    console.log(listrakPopupSearchResult);
     if (data == null) {
         var isListrakPopupContain = listrakPopup.classList.contains('listrak-persistent-popup');
     

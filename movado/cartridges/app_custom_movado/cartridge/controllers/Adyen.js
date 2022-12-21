@@ -46,6 +46,13 @@ server.replace('Redirect', server.middleware.https, function (req, res, next) {
             order.orderNo,
             order.paymentInstrument,
             require('*/cartridge/scripts/hooks/fraudDetectionHook').checkoutCreate);
+
+            var email = order.customerEmail;
+            if (!empty(email)) {
+                var maskedEmail = checkoutCustomHelpers.maskEmail(email);
+                checkoutLogger.info('(Adyen) -> SubmitPayment: Step-2: Customer Email is ' + maskedEmail);
+            }
+
         if (!riskifiedCheckoutCreateResponse) {
             checkoutLogger.error('Riskified API Call failed for order number: ' + order.orderNo);
             res.render('error', {
@@ -175,8 +182,8 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
                 }
             }
             order.custom.Adyen_eventCode = (klarnaPaymentMethod && klarnaPaymentMethod.search(constants.KLARNA_PAYMENT_METHOD_TEXT) > -1)
-            ? klarnaPaymentStatus.toUpperCase()
-            : constants.PAYMENT_STATUS_CAPTURE;
+                ? klarnaPaymentStatus.toUpperCase()
+                : constants.PAYMENT_STATUS_CAPTURE;
             order.custom.Adyen_value = order.totalGrossPrice.value;
             if ('pspReference' in req.querystring && req.querystring.pspReference) {
                 checkoutLogger.debug('(Adyen) -> ShowConfirmation: Going to set the pspReference in the order and order number is: ' + orderNumber);
@@ -195,6 +202,7 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
                 checkoutLogger.debug('(Adyen) -> ShowConfirmation: Going to set the klarnaPaymentMethod in the order and order number is: ' + orderNumber);
                 order.custom.Adyen_paymentMethod = detailReulstVerification.paymentVarificationResult.paymentMethod
             }
+
             var checkoutDecisionStatus;
             var RiskifiedOrderDescion = require('*/cartridge/scripts/riskified/RiskifiedOrderDescion');
             if (empty(session.custom.klarnaRiskifiedFlag)) {
@@ -276,6 +284,13 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
 
         checkoutLogger.debug('(Adyen) -> ShowConfirmation: Going to send the order confirmation email to the user and order number is: ' + orderNumber);
         COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
+
+        var email = order.customerEmail;
+        if (!empty(email)) {
+            var maskedEmail = COCustomHelpers.maskEmail(email);
+            checkoutLogger.info('(Adyen) -> PlaceOrder: Step-3: Customer Email is ' + maskedEmail);
+        }
+
         checkoutLogger.debug('(Adyen) -> ShowConfirmation: Going to the order confirmation page and order number is: ' + orderNumber);
         res.redirect(URLUtils.url('Order-Confirm', 'ID', order.orderNo, 'token', order.orderToken).toString());
         session.custom.klarnaRiskifiedFlag = '';

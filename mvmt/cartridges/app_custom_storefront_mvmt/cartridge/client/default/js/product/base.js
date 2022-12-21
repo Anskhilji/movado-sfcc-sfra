@@ -827,28 +827,13 @@ function handleVariantResponse(response, $productContainer) {
 
     // Update primary images
     var primaryImageUrls = response.product.images;
-    primaryImageUrls.pdp600.forEach(function (imageUrl, idx) {
-        $productContainer.find('.primary-images .cs-carousel-wrapper').find('img').eq(idx)
-            .attr('src', imageUrl.url);
-        $productContainer.find('.primary-images .cs-carousel-wrapper').find('.carousel-tile').eq(idx)
-            .attr('data-thumb', imageUrl.url);
-        $productContainer.find('.primary-images .cs-carousel-wrapper').find('picture source:nth-child(1)').eq(idx)
-            .attr('srcset', imageUrl.url);
-        $productContainer.find('.primary-images .cs-carousel-wrapper').find('picture source:nth-child(2)').eq(idx)
-            .attr('srcset', imageUrl.url);
-    });
-
-    // Update gallery images Quadrant
-    primaryImageUrls.pdp453.forEach(function (imageUrl, idx) {
-        $productContainer.find('.primary-images .gallery-slider-quadrant').find('img').eq(idx)
-            .attr('src', imageUrl.url);
-        $productContainer.find('.primary-images .gallery-slider-quadrant').find('.carousel-tile').eq(idx)
-            .attr('data-thumb', imageUrl.url);
-        $productContainer.find('.primary-images .gallery-slider-quadrant').find('picture source:nth-child(1)').eq(idx)
-            .attr('srcset', imageUrl.url);
-        $productContainer.find('.primary-images .gallery-slider-quadrant').find('picture source:nth-child(2)').eq(idx)
-            .attr('srcset', imageUrl.url);
-    });
+    $('.quadrant-pdp-wrapper').remove();
+    $('.show-mobile-pdp').remove();
+    $('.zoom-modal-inner').remove();
+    $('.pdp-quadrant').prepend(response.productImages);
+    if ($(window).width() > 768) {
+        $('.show-mobile-pdp').remove();
+    }
 
     // pdp Video for variations
     var pdpVideoConfigs = response.product.pdpVideoConfigs;
@@ -939,13 +924,24 @@ function handleVariantResponse(response, $productContainer) {
    if (response.product.available) {
         var badges = response.badges;
 
+        // Update promotion badge on pdp after change variations
+        if (response.product.promotions && response.product.promotions.length > 0) {
+            var promotionBages = response.product.promotions;
+
+            promotionBages.forEach(function (badge) {
+                if (badge.promotionBadge == true && badge.promotionMsg !== '') {
+                    $exclusiveBadges.prepend('<span class="badge custom-promotion-badge badge-bg text-uppercase hide-plp">' + badge. promotionMsg + '</span>');
+                }
+            });
+        }
+
         if (badges.textBadges && badges.textBadges.length > 0) {
             badges.textBadges.forEach(function (badge) {
                 $exclusiveBadges.append('<span class="badge text-uppercase">' + badge.text + '</span>');
             });
         }
 
-    // Update image Badges
+        // Update image Badges
         if (badges.imageBadges && badges.imageBadges.length > 0) {
             badges.imageBadges.forEach(function (imageBadge, idx) {
                 if (idx === 0) {
@@ -1233,7 +1229,6 @@ function updateQuantities(quantities, $productContainer) {
  * @param {jQuery} $productContainer - DOM element for current product
  */
 function attributeSelect(selectedValueUrl, $productContainer) {
-    var isColorSwatch = $('.variationAttribute').find('.color-Attribute').hasClass('colorWatch');
     if (selectedValueUrl) {
 
         $('body').trigger('product:beforeAttributeSelect',
@@ -1247,10 +1242,8 @@ function attributeSelect(selectedValueUrl, $productContainer) {
                 updateOptions(data.product.options, $productContainer);
                 updateQuantities(data.product.quantities, $productContainer);
                 handleOptionsMessageErrors(data.validationErrorEmbossed, data.validationErrorEngraved, $productContainer);
-                if(isColorSwatch) {
-                    var listrakTracking = require('movado/listrakActivityTracking.js');
-                    listrakTracking.listrackProductTracking();
-                }
+                var listrakTracking = require('movado/listrakActivityTracking.js');
+                listrakTracking.listrackProductTracking(data.product.id);
                 $('body').trigger('product:afterAttributeSelect',
                     { data: data, container: $productContainer });
                 $.spinner().stop();
@@ -1342,7 +1335,7 @@ movadoBase.selectAttribute = function () {
 }
 
 movadoBase.colorAttribute = function () {
-    $(document).off('click', '[data-attr="color"] a, [data-attr="colorWatch"] a').on('click','[data-attr="color"] a, [data-attr="colorWatch"] a', function (e) {
+    $(document).off('click', '.color-Attribute[data-attr="color"] a, [data-attr="colorWatch"] a').on('click','.color-Attribute[data-attr="color"] a, [data-attr="colorWatch"] a', function (e) {
         e.preventDefault();
     
         if ($(this).attr('disabled') || $(this).hasClass('active')) {

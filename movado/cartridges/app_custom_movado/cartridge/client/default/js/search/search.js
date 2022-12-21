@@ -558,7 +558,6 @@ module.exports = {
             $('.show-more-content').remove();
         });
     },
-
     // Custom start: Listrak persistent popup
     listrakPersistentApply: function () {
         $(document).on('click','.listrak-popup', function(e) {
@@ -598,9 +597,7 @@ module.exports = {
             var isContainListrakPopup = e.target.closest('.listrak-popup');
             var targetEl = e.target;
             var isTargetContain = targetEl.classList.contains('close-icon-popup');
-            console.log(e.target);
             if (isContainListrakPopup && isTargetContain) {
-                alert('session set');
                 sessionStorage.setItem("listrakPersistenPopup", "false");
                 isContainListrakPopup.remove();
             }
@@ -613,8 +610,6 @@ module.exports = {
             var listrakPopupSearchResult = document.querySelector('.listrak-popup-search-result');
             var listrakPopupProductDetail = document.querySelector('.listrak-popup-product-detail');
             var data = sessionStorage.getItem("listrakPersistenPopup");
-            console.log(data);
-            console.log(listrakPopupSearchResult);
             if (data == null) {
                 var isListrakPopupContain = listrakPopup.classList.contains('listrak-persistent-popup');
             

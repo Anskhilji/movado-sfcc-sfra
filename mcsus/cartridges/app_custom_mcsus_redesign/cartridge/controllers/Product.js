@@ -108,6 +108,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
    //Custom Start: Adding ESW variable to check eswModule enabled or disabled
    var eswModuleEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
    //Custom End
+   
    var listrakPersistentPopup = emailPopupHelper.listrakPersistentPopup(req);
    viewData = {
        isEmbossEnabled: isEmbossEnabled,
@@ -153,6 +154,12 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
        viewData.pdpAnalyticsTrackingData = JSON.stringify(pdpAnalyticsTrackingData);
    }
 
+    if (!empty(req.querystring.lastNameError)) {
+        res.setViewData({
+            lastNameError: req.querystring.lastNameError
+        });
+    }
+
    res.setViewData(viewData);
    if (!showProductPageHelperResult.product.online && productType !== 'set' && productType !== 'bundle') {
     res.setStatusCode(404);
@@ -187,6 +194,24 @@ server.replace('ShowCartButton', function (req, res, next) {
         restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites,
         ecommerceFunctionalityEnabled : Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled,
         smartGiftAddToCartURL : smartGiftAddToCartURL
+    });
+    next();
+});
+
+server.get('ShowStickyATCButton', function (req, res, next) {
+    var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
+    var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
+    var product = showProductPageHelperResult.product;
+    var customURL = productCustomHelper.getPLPCustomURL(product);
+
+    res.render('product/components/stickyAddToCart', {
+        product: product,
+        addToCartUrl: showProductPageHelperResult.addToCartUrl,
+        isPLPProduct: req.querystring.isPLPProduct ? req.querystring.isPLPProduct : false,
+        loggedIn: req.currentCustomer.raw.authenticated,
+        restrictAnonymousUsersOnSalesSites: Site.getCurrent().preferences.custom.restrictAnonymousUsersOnSalesSites,
+        ecommerceFunctionalityEnabled: Site.getCurrent().preferences.custom.ecommerceFunctionalityEnabled,
+        customURL: customURL
     });
     next();
 });

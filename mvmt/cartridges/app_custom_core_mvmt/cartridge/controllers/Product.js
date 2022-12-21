@@ -23,7 +23,7 @@ var URLUtils = require('dw/web/URLUtils');
 
 server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
     var AdyenHelpers = require('int_adyen_overlay/cartridge/scripts/util/AdyenHelper');
-    var customCategoryHelpers = require('app_custom_movado/cartridge/scripts/helpers/customCategoryHelpers');
+    var customCategoryHelpers = require('*/cartridge/scripts/helpers/customCategoryHelpers');
     var SmartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
     var youMayLikeRecommendations = [];
     var moreStyleRecommendations = [];
@@ -35,9 +35,7 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
     var smartGift = smartGiftHelper.getSmartGiftCardBasket(showProductPageHelperResult.product.id);
     var smartGiftAddToCartURL = Site.current.preferences.custom.smartGiftURL + showProductPageHelperResult.product.id;
-    var ABTestMgr = require('dw/campaign/ABTestMgr');
     var emailPopupHelper = require('*/cartridge/scripts/helpers/emailPopupHelper');
-
     var collectionContentList;
     var moreStyleGtmArray = [];
     var klarnaProductPrice = '0';
@@ -142,19 +140,11 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var smartGift = SmartGiftHelper.getSmartGiftCardBasket(product.ID);
     res.setViewData(smartGift);
 
-        // Custom Comment Start: A/B testing for MVMT PDP
-        if (product.custom.renderingTemplate) {
-            template = showProductPageHelperResult.template;
-        } else {
-        if (ABTestMgr.isParticipant('MVMTRedesignPDPABTest','Control')) {
-            template = 'product/old/productDetails';
-        } else if (ABTestMgr.isParticipant('MVMTRedesignPDPABTest','render-new-design')) {
-            template = 'product/productDetails';
-        } else {
-            template = 'product/old/productDetails';
-        }
+    if (product.custom.renderingTemplate) {
+        template = showProductPageHelperResult.template;
+    } else {
+        template = 'product/productDetails';
     }
-        // Custom Comment End: A/B testing for MVMT PDP
 
     if (Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
     	var pdpAnalyticsTrackingData;
@@ -164,6 +154,12 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     	};
     	pdpAnalyticsTrackingData.email = customer.isAuthenticated() && customer.getProfile() ? customer.getProfile().getEmail() : '';
         viewData.pdpAnalyticsTrackingData = JSON.stringify(pdpAnalyticsTrackingData);
+    }
+
+    if (!empty(req.querystring.lastNameError)) {
+        res.setViewData({ 
+            lastNameError: req.querystring.lastNameError
+        });
     }
 
     res.setViewData(viewData);
@@ -236,13 +232,12 @@ server.append('Show', cache.applyPromotionSensitiveCache, consentTracking.consen
  * appends the base product route to save the personalization data in session variables
  */
 server.prepend('Variation', function (req, res, next) {
-    var ABTestMgr = require('dw/campaign/ABTestMgr');
-
+    var viewData = res.getViewData();
     var attributeContext;
-    var attributeTemplateLinked;
     var explicitRecommendations = [];
     var recommendedProductTemplate;
     var pid = req.querystring.pid;
+    var params = req.querystring;
     var isStrapAjax = req.querystring.isStrapAjax;
 
     var strapGuideContent = ContentMgr.getContent('strap-guide-text-configs');
@@ -259,14 +254,11 @@ server.prepend('Variation', function (req, res, next) {
         strapGuideText: strapGuideText
     };
 
-    if (ABTestMgr.isParticipant('MVMTRedesignPDPABTest','Control')) {
-        attributeTemplateLinked = 'product/components/old/recommendedProducts';
-    } else if (ABTestMgr.isParticipant('MVMTRedesignPDPABTest','render-new-design')) {
-        attributeTemplateLinked = 'product/components/recommendedProducts';
-    } else {
-        attributeTemplateLinked = 'product/components/old/recommendedProducts';
-    }
-    
+    var attributeTemplateLinked = 'product/components/recommendedProducts';
+    var pdpImagesTemplate = 'product/components/quadrantPDP';
+    var product = ProductFactory.get(params);
+    var productHTML = renderTemplateHelper.getRenderedHtml({product: product}, pdpImagesTemplate);
+    viewData.productImages = productHTML;
 
     recommendedProductTemplate = renderTemplateHelper.getRenderedHtml(
             attributeContext,

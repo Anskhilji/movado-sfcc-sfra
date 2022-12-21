@@ -40,19 +40,23 @@
                 }
 
                 .exclusive-product {
-                    border-radius: rem(3);
-                    background-color: $grey-light4;
+                    background-color: transparent;
                     font-size: rem(13);
+                    border-radius: rem(3);
                     @include font-medium;
                     font-style: oblique;
                     font-weight: 600;
                     letter-spacing: 0;
                     line-height: rem(14);
-                    color: $black;
-                    text-transform: capitalize;
+                    color: $beige4;
+                    text-transform: uppercase;
                     padding: rem(6) rem(13) rem(4.64) rem(11);
                     text-align: center;
-
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border: rem(1) solid $beige4;
+                
                     @include media-breakpoint-down(xs) {
                         padding: rem(2.56) rem(10) rem(2.28) rem(8);
                         font-size: rem(8);
@@ -287,7 +291,7 @@
                             text-align: center;
                             line-height: rem(14);
                             color: $black;
-                            background-color: $grey-light4;
+                            background-color: $beige4;
                             border: rem(1) solid $black;
                             padding: rem(6) rem(13);
                             border-radius: rem(3);
@@ -425,11 +429,12 @@
     outline: none;
 }
 
-// MSS-1859 New Carousel Template - Product & Recommender Type
-.mcs-product-carousel-redesign {
 
+// Custom Start: MSS-1859 New Carousel Template - Product & Recommender Type
+.mcs-product-carousel-redesign {
     width: 100%;
     overflow: hidden;
+    
     @include media-breakpoint-down(xs) {
         padding: 0 rem(4);
     }
@@ -438,7 +443,11 @@
 
         &-plp-container {
             @include media-breakpoint-up(lg) {
-                padding-bottom: rem(0) !important;
+                padding-bottom: rem(0);
+            }
+
+            .tile-body { 
+                position: static;
             }
 
             &:hover {
@@ -452,10 +461,7 @@
             }
 
             .tile-body {
-                // yotpo rating styling
-                position: static;
-                transform: translateY(0);
-
+    
                 .yotpo {
                     margin-bottom: rem(8);
                     width: 100%;
@@ -485,17 +491,10 @@
                     }
                 }
     
-                // price styling
                 .price-promotions {
-                    // promotions styling
-                    .promotions {
-                        width: auto;
 
-                        .promo-msg {
-                            &.callout {
-                                margin-bottom: rem(11);
-                            }
-                        }
+                    .promotions {
+                        width: auto;                    
                     }
                 }
     
@@ -596,7 +595,6 @@
 
                                 @include media-breakpoint-down(xs) {
                                     max-width: rem(227);
-                                    bottom: rem(-15);
                                 }
 
                                 li {
@@ -623,9 +621,8 @@
                                     }
 
                                     &.slick-active {
-
-                                        button {
-                                            background-color: $black;
+                                        @include media-breakpoint-down(xs) {
+                                            opacity: 0.46;
                                         }
                                     }
                                 }
@@ -637,3 +634,4 @@
         }
     }
 }
+// Custom End: MSS-1859 New Carousel Template - Product & Recommender Type

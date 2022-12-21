@@ -68,7 +68,7 @@
                         <div class="container-fluid mt-0">
                             <div class="row py-2 py-sm-3">
                                 <div class="col-12">
-                                    <div class="d-flex justify-content-between align-items-start search-result-counts">
+                                    <div class="d-flex justify-content-between align-items-start search-result-counts filter-and-count">
                                         <div id="product-search-results" class="d-none d-md-block">
                                             <isif condition="${pdict.productSearch.productIds.length > 0}">
                                                 <div class="row m-0 grid-header">
@@ -192,7 +192,7 @@
         </isif>
     </div>
     <div class="no-results-carousel plp-new-design">
-       <isif condition="${pdict.contentSearch && pdict.contentSearch.contentCount == 0 && pdict.productSearch.productIds.length == 0}">
+       <isif condition="${pdict.contentSearch && pdict.contentSearch.contentCount == 0}">
             <isslot id="cs-noresult-recommendations" description="Recommendations for no result search" context="global" />
        </isif>
        <isif condition="${pdict.productSearch !== null && pdict.productSearch.count == 0 && !pdict.productSearch.productIds.length}">
@@ -204,7 +204,7 @@
     <isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled && pdict.popupID}">
         <span class="listrak-persistent-url" data-listrak-url="${URLUtils.https('EmailPopUp-Show')}"></span>
         <span class="listrak-popup-search-result"></span>
-        <iscontentasset aid="listrak-persistent-popup"/>
+        <isslot id="cs-listrak-persistent-popup" description="Listrak persistent popup" context="global" />
     </isif>
     <!-- End: Listrak persistent popup -->
 </isdecorate>

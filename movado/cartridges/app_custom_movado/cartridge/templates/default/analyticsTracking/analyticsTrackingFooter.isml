@@ -20,7 +20,7 @@
             var categoryAnalyticsTrackingData = JSON.parse(JSON.stringify(<isinclude url="${URLUtils.url('Analytics-GetEmail', 'trackingData', pdict.categoryAnalyticsTrackingData)}"/>));
         </script>
     </isif>
-    <isif condition="${(pdict.action && pdict.action ==='Home-Show') || (!empty(pdict.homeFlag) && pdict.homeFlag)}">
+    <isif condition="${(pdict.action && pdict.action === 'Home-Show') || (!empty(pdict.homeFlag) && pdict.homeFlag)}">
         <script>
             var trackingObj = JSON.parse(JSON.stringify(<isinclude url="${URLUtils.url('Home-SetUserEmail')}"/>));
             if (trackingObj != 'null') {
@@ -112,17 +112,6 @@
         if (orderConfirmationTriggerEvent) {
             dataLayer.push({'event': orderConfirmationTriggerEvent, 'orderConfirmationObj': orderConfirmationObj});
             orderConfirmationTriggerEvent = null;
-        }
-
-        var orderDeclinedTriggerEvent;
-        var orderDeclinedObj = '';
-        if ('${pdict.orderDeclinedObj}' != 'null') {
-            orderDeclinedObj = JSON.parse('<isprint value="${pdict.orderDeclinedObj}" encoding="htmlsinglequote"/>');
-            orderDeclinedTriggerEvent = 'RiskifiedDecline';
-        }
-        if (orderDeclinedTriggerEvent) {
-            dataLayer.push({'event': orderDeclinedTriggerEvent, 'orderDeclinedObj': orderDeclinedObj});
-            orderDeclinedTriggerEvent = null;
         }
     </script>
 </isif>

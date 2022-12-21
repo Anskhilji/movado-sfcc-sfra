@@ -7,6 +7,9 @@ var clydeWidget;
 // v1 code to define Clyde
 var elem = document.querySelector('.product-number span');
 var productId = elem ? elem.textContent : null;
+var salePrice;
+var listPrice;
+var productData;
 if (document.querySelector('.product-number span')) {
     productId = document.querySelector('.product-number span').innerHTML || '';
 
@@ -29,7 +32,20 @@ if (window.ClydeSitePreferences && productId) {
             }, function () {
                 var clydeWidgetHandler = Clyde.getSettings();
                 if (clydeWidgetHandler.productPage === true) {
-                    Clyde.setActiveProduct(productId);
+                    // Custom start: Add code for product price with sku:
+                    salePrice = $('.prices .sale-price-mvmt span').attr('content');
+                    if (salePrice) {
+                        productData = { sku: productId, price: salePrice };
+                    } else {
+                        listPrice = $('.prices .price-pdp-mvmt .strike-through span').attr('price-value');
+                        if (listPrice) {
+                            productData = { sku: productId, price: listPrice };
+                        } else {
+                            productData = { sku: productId, price: '' };
+                        }
+                    }
+                    // Custom End
+                    Clyde.setActiveProduct(productData);
                 }
             });
         }

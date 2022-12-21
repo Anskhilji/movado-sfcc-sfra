@@ -769,6 +769,10 @@
                         &.product-detail {
                             margin-top: rem(23);
 
+                            .gpay-error {
+                                background-color: $white;
+                            }
+
                             // .product-breadcrumb-redesign
                             .paddind-sm-0 {
                                 @include media-breakpoint-down(sm) {
@@ -1135,8 +1139,9 @@
                                 }
 
                                 .badge {
-                                    background-color: $grey-light4;
-                                    color: $black;
+                                    background-color: transparent;
+                                    border: rem(1) solid $beige4;
+                                    color: $beige4;
                                     font-family: $futura-medium;
                                     font-weight: 600;
                                     font-style: italic;
@@ -1308,7 +1313,7 @@
                                         line-height: rem(27);
                                         border: rem(1) solid $black;
                                         border-radius: rem(3);
-                                        background-color: $grey-light4;
+                                        background-color: $beige4;
                                         color: $black;
                                         font-family: $futura-medium;
                                         font-style: italic;
@@ -2122,4 +2127,3 @@
     }
 }
 // CSS End: listrak persistent popup
-

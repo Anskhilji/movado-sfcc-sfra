@@ -213,4 +213,5 @@ $(window).on("load resize scroll", function(e) {
             $(".product-tile").css("min-height", "auto");
         });
      }
+     $('.filter-and-count').css('visibility','visible');
 });

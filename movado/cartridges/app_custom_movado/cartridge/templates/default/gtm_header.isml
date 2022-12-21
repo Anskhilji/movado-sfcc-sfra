@@ -24,8 +24,9 @@
         'googleAnalyticsParameters': '${pdict.gtm.googleAnalyticsParameters}',
         'departmentCategoryName': '',
         'customerIPAddressLocation': '${pdict.gtm.customerIPAddressLocation}',
-        'rakutenAllowedCountries': '${pdict.gtm.rakutenAllowedCountries}'
-        
+        'rakutenAllowedCountries': '${pdict.gtm.rakutenAllowedCountries}',
+        'runningABTest': '${pdict.gtm.runningABTests}'
+      
         // Custom: Added country dimension on the the base of ESW enabled
         
         <isif condition="${isEswEnabled}" > 
@@ -43,7 +44,7 @@
     
     <isif condition="${(pdict.gtm.pageType === 'Product Details Page' || pdict.gtm.pageName === 'quickview') && pdict.gtm.product}">
         dataLayer.push ({
-            'ecommerce':{ 
+            'ecommerce':{
             'detail': { "actionField": {"list": "detail"},
                 'products':[ {
                     'id': '${pdict.gtm.product.productID}',
@@ -55,9 +56,9 @@
                     'variant': '${pdict.gtm.product.productPersonalization}',
                     'list': '${pdict.gtm.product.list}',
                     'currency': '${pdict.gtm.product.currency}',
-                    'quantity': '${pdict.gtm.product.quantity}'
+                    'quantity': '${pdict.gtm.product.quantity}',
                 }]
-            }
+            },
         },
         "event": "productDetail"
         });

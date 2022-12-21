@@ -8,6 +8,7 @@ var Transaction = require('dw/system/Transaction');
 var ApplePayHookResult = require('dw/extensions/applepay/ApplePayHookResult');
 
 var checkoutAddressHelper = require('*/cartridge/scripts/helpers/checkoutAddressHelper');
+var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
 var collections = require('*/cartridge/scripts/util/collections');
 var RiskifiedService = require('int_riskified');
@@ -15,6 +16,8 @@ var Riskified = require('int_riskified/cartridge/scripts/Riskified');
 var Site = require('dw/system/Site');
 var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 var Constants = require('*/cartridge/utils/Constants');
+var checkoutCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
+var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
 
 var server = require('server');
 
@@ -68,6 +71,7 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     var orderNumber = order.orderNo;
     var paymentInstruments = order.getPaymentInstruments(
         PaymentInstrument.METHOD_DW_APPLE_PAY).toArray();
+    var currentCountry = productCustomHelper.getCurrentCountry();
     if (!paymentInstruments.length) {
         hooksHelper(
             'app.fraud.detection.checkoutdenied',
@@ -91,9 +95,15 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     }
 
     if (session.privacy.pickupFromStore) {
+        Transaction.wrap(function () {
+            COCustomHelpers.removeGiftMessageLineItem(order);
+        });
         session.custom.applePayCheckout = false;
     } else {
         session.custom.StorePickUp = false;
+        if (currentCountry == Constants.US_COUNTRY_CODE) {
+            session.custom.isEswShippingMethod = false;
+        }
     }
 
     var transactionID = payment.getPaymentTransaction().getTransactionID();
@@ -191,6 +201,12 @@ exports.afterAuthorization = function (order, payment, custom, status) {
                 Logger.error('Selected state is {0} which is restricted for order: {1}', billingStateCode, order.orderNo);
             }
         }
+
+        var email = order.customerEmail;
+        if (!empty(email)) {
+            var maskedEmail = checkoutCustomHelpers.maskEmail(email);
+            checkoutLogger.info('(applePay.js) -> SubmitPayment: Step-2: Customer Email is ' + maskedEmail);
+        }
     } catch (e) {
         Logger.error('(applePay.js) --> Exception occured while try to validate shipping & billing address for orderID: {0} and exception is: {1}', order.orderNo, e);
     }
@@ -201,20 +217,23 @@ exports.afterAuthorization = function (order, payment, custom, status) {
         order.orderNo,
         order.paymentInstrument,
         require('*/cartridge/scripts/hooks/fraudDetectionHook').create);
-
-    var RiskifiedOrderDescion = require('*/cartridge/scripts/riskified/RiskifiedOrderDescion');
-    if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'declined') {
-        // Riskified order declined response from decide API
-        riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order);
-        if (riskifiedOrderDeclined) {
-            var riskifiedError = new Status(Status.ERROR);
-            session.privacy.riskifiedDeclined = true;
-            return riskifiedError;
+    
+    if (!deliveryValidationFail) {
+        var RiskifiedOrderDescion = require('*/cartridge/scripts/riskified/RiskifiedOrderDescion');
+        if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'declined') {
+            // Riskified order declined response from decide API
+            riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order);
+            if (riskifiedOrderDeclined) {
+                var riskifiedError = new Status(Status.ERROR);
+                session.privacy.riskifiedDeclined = true;
+                return riskifiedError;
+            }
+        } else if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'approved') {
+            // Riskified order approved response from decide API
+            RiskifiedOrderDescion.orderApproved(order);
         }
-    } else if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'approved') {
-        // Riskified order approved response from decide API
-        RiskifiedOrderDescion.orderApproved(order);
     }
+    
     if (deliveryValidationFail) {
         var sendMail = true; // send email is set to true
         var isJob = false; // isJob is set to false because in case of job this hook is never called
@@ -249,6 +268,12 @@ exports.afterAuthorization = function (order, payment, custom, status) {
             somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
         }
     }
+
+    var email = order.customerEmail;
+    if (!empty(email)) {
+        var maskedEmail = checkoutCustomHelpers.maskEmail(email);
+        checkoutLogger.info('(applePay.js) -> PlaceOrder: Step-3: Customer Email is ' + maskedEmail);
+    }
     // End Salesforce Order Management
 
     // order.addNote('After Authorization for Payment completed','Proceed with completing the order');
@@ -269,7 +294,7 @@ exports.afterAuthorization = function (order, payment, custom, status) {
  * @param status
  * @returns status
  */
-exports.failOrder = function (order, status) {
+ exports.failOrder = function (order, status) {
     var URLUtils = require('dw/web/URLUtils');
 
     if (session.privacy.riskifiedDeclined) {
@@ -281,6 +306,8 @@ exports.failOrder = function (order, status) {
 };
 
 /**
+
+/**
  *	prepareBasket hook implementation for Apple pay updating the  personalization data in Basket from PDP and Quickview
  * @param order
  * @param payment
@@ -290,7 +317,7 @@ exports.failOrder = function (order, status) {
  */
 exports.prepareBasket = function (basket, parameters) {
     // get personalization data from session for PDP and Quickview
-
+    var currentCountry = productCustomHelper.getCurrentCountry();
 
     if (!empty(parameters.sku)) {
         if (!session.privacy.pickupFromStore) {
@@ -299,10 +326,16 @@ exports.prepareBasket = function (basket, parameters) {
         } else {
             session.custom.applePayCheckout = true;
             session.custom.StorePickUp = false;
+            if (currentCountry == Constants.US_COUNTRY_CODE) {
+                session.custom.isEswShippingMethod = false;
+            }
         }
     } else {
         if (!session.privacy.pickupFromStore) {
             session.custom.applePayCheckout = true;
+            if (currentCountry == Constants.US_COUNTRY_CODE) {
+                session.custom.isEswShippingMethod = false;
+            }
         } else {
             session.custom.StorePickUp = true;
         }
@@ -436,6 +469,12 @@ exports.beforeAuthorization = function (order, payment, custom) {
         Logger.error('Unable to find Apple Pay payment instrument for order.');
         checkoutLogger.error('(applePay) -> beforeAuthorization: Riskified checkout create call failed for order:' + order.orderNo);
         return new Status(Status.ERROR);
+    }
+
+    var email = order.customerEmail;
+    if (!empty(email)) {
+        var maskedEmail = checkoutCustomHelpers.maskEmail(email);
+        checkoutLogger.info('(applePay.js) -> SubmitShipping: Step-1: Customer Email is ' + maskedEmail);
     }
     return new Status(Status.OK);
 };

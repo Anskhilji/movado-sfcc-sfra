@@ -166,7 +166,8 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
                 reportingURLs: reportingURLs,
                 refineurl: refineurl,
                 categoryAnalyticsTrackingData: JSON.stringify(categoryAnalyticsTrackingData),
-                isNonWatchesTileEnable: isNonWatchesTileEnable
+                isNonWatchesTileEnable: isNonWatchesTileEnable,
+                popupID: listrakPersistentPopup
             });
         } else {
             res.render(categoryTemplate, {

@@ -613,13 +613,6 @@ module.exports = {
                     	var gtmFacetArray = $(response).find('.gtm-product').map(function () { return $(this).data('gtm-facets'); }).toArray();
                     	$('body').trigger('facet:success', [gtmFacetArray]);
                         parseResults(response);
-                        // if (moreFilters) {
-                        //     parseResultsSideBar(response);
-                        // } else {
-                        //     parseResultsSimple(response);
-                        // }
-                        // var refineWrapper = document.querySelector('.desktop-search-refine-bar-redesing .refine-wrapper')
-                        // edit start
                         updatePageURLForFacets(filtersURL);
                         var $selectedFiltersNav = $('.selected-filters-nav');
                         var $selectedFilterVal = '';
@@ -656,15 +649,6 @@ module.exports = {
                                 });
                             }
                         });
-
-                        console.log($selectedFiltersNav);
-                        // if (selectedFiltersNav.length > 0) {
-                        //     var selectedFiltersIndex = selectedFiltersNav;
-                        //     console.log(selectedFiltersIndex);
-                        //     if (selectedFiltersIndex.find('li')) {
-                        //         alert('ok');
-                        //     }
-                        // }
                         // edit end
                         $.spinner().stop();
                         $('.search-results.plp-new-design #sort-order').customSelect();
@@ -685,9 +669,37 @@ module.exports = {
                         moreFilterBtn($moreFilterBtn);
                         $('.modal-background').removeClass('d-block');
                         $('.desktop-search-refine-bar-redesing').removeClass('active');
-                        // $('.refine-wrapper-sidebar').removeClass('fillterslideinleft');
                         // Custom:MSS-2073 end
                         $('.refinement-bar-redesign').removeClass('d-block');
+                        $("body").removeClass("no-overflow-ctm");
+                        clickedFilterButton();
+                        filterApplyAddClassFilter();
+                        var $bannerCount = $('.banner-count .result-count');
+                        var $productSearchResult = $('.grid-header .result-count .category-name').data('result-counts');
+                        var $bannerSearchResultCountAppend = $('.banner-count .result-count .search-result-count');
+                        var $bannerSearchResultCount = $('.search-result-counts .result-count .search-result-count').data('result-counts');
+                        var filterBarLayout = $('.filter-bar-overlay');
+
+                        if (filterBarLayout.length > 0) {
+                            $('.modal-background').addClass('d-block');
+                        }
+
+                        if ($bannerSearchResultCount && $bannerSearchResultCount !== undefined) {
+                            $bannerSearchResultCountAppend.html($bannerSearchResultCount);
+                        } else if ($productSearchResult && $productSearchResult !== undefined) {
+                            var $html = '<span>(' + $productSearchResult + ')</span>';
+                            $bannerCount.html($html);
+                        } else {
+                            var $searchResultCountBanner = $('.search-result-count');
+                            if ($searchResultCountBanner.length > 0) {
+                                var $html = '<span class="make-bold">' + 0 + '</span> Results for';
+                                $bannerSearchResultCountAppend.html($html);
+                            } else {
+                                var $html = '<span>(' + 0 + ' items)</span>';
+                                $bannerCount.html($html);
+                            }
+                        }
+                        
                     },
                     error: function () {
                         $.spinner().stop();

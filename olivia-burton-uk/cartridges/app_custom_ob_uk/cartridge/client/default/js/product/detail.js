@@ -152,23 +152,25 @@ $(document).ready(function () {
         var $stickyAddToCartObserver = document.querySelector('.add-to-cart-observer');
         var $stickyAddToCart = document.querySelector('.prices-add-to-cart-actions');
 
-        var $obsCallBack = function (entries, observer) {
-            var [$entry] = entries;
-            
-            if (!$entry.isIntersecting) {
-                $stickyAddToCart.classList.remove('d-none')
-                $stickyAddToCart.classList.add('d-block')
-            } else {
-                $stickyAddToCart.classList.add('d-none')
-                $stickyAddToCart.classList.remove('d-block')
-            }
-        };
-       
-        var $observer = new IntersectionObserver($obsCallBack, {
-            root: null,
-            threshold: 0.1
-        });
-        $observer.observe($stickyAddToCartObserver);
+        if ($stickyAddToCartObserver !== null && $stickyAddToCart !== null) {
+            var $obsCallBack = function (entries, observer) {
+                var [$entry] = entries;
+                
+                if (!$entry.isIntersecting) {
+                    $stickyAddToCart.classList.remove('d-none');
+                    $stickyAddToCart.classList.add('d-block');
+                } else {
+                    $stickyAddToCart.classList.add('d-none');
+                    $stickyAddToCart.classList.remove('d-block');
+                }
+            };
+           
+            var $observer = new IntersectionObserver($obsCallBack, {
+                root: null,
+                threshold: 0.1
+            });
+            $observer.observe($stickyAddToCartObserver);
+        }
     }
 });
 
@@ -186,7 +188,7 @@ function refreshAffirmUI() {
     }
 };
 
-// Custom start: Listrak persistent popup
+// Custom start: Listrak persistent popupnpm
 $(document).on('click','.listrak-popup', function(e) {
     e.preventDefault();
     e.stopPropagation();
@@ -215,7 +217,6 @@ $(document).on('click','.listrak-popup', function(e) {
         });
     }
 });
-
 $(document).on('click','.close-icon-popup', function(e) {
     e.preventDefault();
     e.stopPropagation();
@@ -227,14 +228,11 @@ $(document).on('click','.close-icon-popup', function(e) {
         isContainListrakPopup.remove();
     }
 });
-
 window.onload = () => {
     var listrakPopup = document.querySelector('.listrak-popup');
     var listrakPopupSearchResult = document.querySelector('.listrak-popup-search-result');
     var listrakPopupProductDetail = document.querySelector('.listrak-popup-product-detail');
     var data = sessionStorage.getItem("listrakPersistenPopup");
-    console.log(data);
-    console.log(listrakPopupSearchResult);
     if (data == null) {
         var isListrakPopupContain = listrakPopup.classList.contains('listrak-persistent-popup');
     
@@ -259,3 +257,9 @@ window.onload = () => {
 };
 // Custom End: Listrak persistent popup
 
+// custome GTM tag on appel pay
+$('body').on('click', '.apple-pay-pdp', function () {
+    var dataGtmObj = $('.add-to-cart-gtm').attr('data-atc');
+    $('body').trigger('addToCart:success', dataGtmObj);
+});
+//custome end
