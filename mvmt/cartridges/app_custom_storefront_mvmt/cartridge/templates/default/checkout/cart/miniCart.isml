@@ -80,6 +80,7 @@
             </div>
         </isif>
         <iscomment> Custom End </iscomment>
+        <isinclude template="beamWidgetMiniCart" />
     </div>
 
     <div class="minicart-footer">

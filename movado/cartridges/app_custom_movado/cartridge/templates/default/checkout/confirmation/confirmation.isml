@@ -18,7 +18,7 @@
 
     <isslot id="cs-account-orderconfirmation-banner" description="orderconfirmation banner Image" context="global" />
 
-    <div class="container receipt mt-3 <isif condition="${pdict.order.shipping.length > 1}">multi-ship</isif>">
+    <div class="container receipt mt-3 <isif condition=${pdict.order.shipping.length > 1}>multi-ship</isif>">
 
         <div class="row flex-md-row-reverse">
 
@@ -26,6 +26,8 @@
 
                         <h2 class="order-thank-you-msg heading-two">${Resource.msg('msg.placed.order.thank.you','confirmation',null)}</h2>
                         <p class="order-thank-you-email-msg"><isprint value="${Resource.msgf('info.receive.email.confirmation', 'confirmation', null, pdict.order.orderEmail)}" encoding="htmlcontent" /></p>
+                        <isset name="order" value="${pdict.order}" scope="page" />
+                        <isinclude template="beamWidgetOrderConfirmation"/>
 
                         <isif condition="${pdict.returningCustomer === false}">
                         <div class="col-md-8  px-0">
