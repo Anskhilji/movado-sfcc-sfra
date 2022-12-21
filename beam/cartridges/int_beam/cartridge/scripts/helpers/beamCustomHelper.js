@@ -38,7 +38,6 @@ function removeBeamObjs(beamObj) {
  */
 function saveBeamObj(beamObject) {
     var success = false;
-
     var UUID = UUIDUtils.createUUID();
     try {
         if (!empty(beamObject.charityId) && !empty(beamObject.orderId)) {

@@ -19,7 +19,7 @@
               email: "${order.orderEmail}", // get from order
               cartTotal: ${OrderTotal}, // get from order
               currencyCode: "USD", // get from order
-              countryCode: "US", // get from order
+              countryCode: "${order.billing.billingAddress.address.countryCode.value}", // get from order
               postalCode: "${order.billing.billingAddress.address.postalCode}", // get from order
               baseUrl: "${sitePref.beamBaseURL}",
           });
