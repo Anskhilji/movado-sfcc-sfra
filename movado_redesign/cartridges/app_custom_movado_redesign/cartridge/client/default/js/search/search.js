@@ -300,6 +300,13 @@ function moveFocusToTop() {
     window.scrollTo({top: y, behavior: 'smooth'});
 }
  // Custom:MSS-2073 start
+function closeRefinementFilters() {
+    $('.refinement-box-filter-desktop, .desktop-search-refine-bar-redesing').removeClass('active');
+    $('.header-menu-wrapper').removeClass('header-active');
+    $('.dk-fillter-check').unbind();
+    $('.dk-fillter-m').removeClass('dk-fillter-check');
+    $('.refine-wrapper-sidebar').removeClass('fillterslideinleft');
+}
 function refinementBoxFilterDesktop($refinementBox, $dkFilterCheck, $modelBackground) {
     $refinementBox.on('click', function() {
         $('.refinement-box-filter-desktop').removeClass('active');
@@ -318,15 +325,12 @@ function refinementBoxFilterDesktop($refinementBox, $dkFilterCheck, $modelBackgr
     });
 
     $modelBackground.on('click', function(e){
-        $('.refinement-box-filter-desktop, .desktop-search-refine-bar-redesing').removeClass('active');
-        $('.header-menu-wrapper').removeClass('header-active');
-        $('.dk-fillter-check').unbind();
-        $('.dk-fillter-m').removeClass('dk-fillter-check');
-        $('.refine-wrapper-sidebar').removeClass('fillterslideinleft');
+        closeRefinementFilters();
     });
 }
 function moreFilterBtn($moreFilterBtn) {
     $moreFilterBtn.click(function(){
+        closeRefinementFilters(); // close refinement filter before opening of sidebar more filter
         $('.modal-background').removeClass('fadeOut').addClass('d-block fadeIn fast')
         $('body').addClass('no-overflow');
         $('.search-results.plp-new-design .refinement-bar').removeClass('fadeOutRight').addClass('fast fadeInRight animated d-block');
@@ -635,9 +639,8 @@ module.exports = {
                         // Custom:MSS-2073 end
                         $('.refinement-bar-redesign').removeClass('d-block');
                         $("body").removeClass("no-overflow-ctm");
-                        clickedFilterButton();
-                        filterApplyAddClassFilter();
                         var $bannerCount = $('.banner-count .result-count');
+                        var $sideBarCount = $('.show-bottom-btn .result-count');
                         var $productSearchResult = $('.grid-header .result-count .category-name').data('result-counts');
                         var $bannerSearchResultCountAppend = $('.banner-count .result-count .search-result-count');
                         var $bannerSearchResultCount = $('.search-result-counts .result-count .search-result-count').data('result-counts');
@@ -652,6 +655,10 @@ module.exports = {
                         } else if ($productSearchResult && $productSearchResult !== undefined) {
                             var $html = '<span>(' + $productSearchResult + ')</span>';
                             $bannerCount.html($html);
+                            if($sideBarCount && $sideBarCount.length){
+                                var $html = '<span>(' + $productSearchResult + ')</span>';
+                                $sideBarCount.html($html);
+                            }
                         } else {
                             var $searchResultCountBanner = $('.search-result-count');
                             if ($searchResultCountBanner.length > 0) {
@@ -660,6 +667,10 @@ module.exports = {
                             } else {
                                 var $html = '<span>(' + 0 + ' items)</span>';
                                 $bannerCount.html($html);
+                                if($sideBarCount && $sideBarCount.length){
+                                    var $html = '<span>(' + $productSearchResult + ')</span>';
+                                    $sideBarCount.html($html);
+                                }
                             }
                         }
                         
