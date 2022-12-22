@@ -1,5 +1,5 @@
 
-<div class="refine-wrapper refine-wrapper-simple  d-md-flex align-items-start justify-content-between">
+<div class="refine-wrapper refine-wrapper-simple  d-md-flex align-items-center justify-content-between">
     <div class="sort-order-menu-box order-md-1">
         <isif condition="${pdict.productSearch.productIds.length > 0}">
             <div class="mb-3 sort-col sort-open-state-modal position-relative sort-order-mobile-menu">

@@ -1596,11 +1596,11 @@
     }
 
     .refine-wrapper {
-      padding: rem(8) rem(0) rem(0) rem(0);
+      padding: rem(8) rem(0) rem(21) rem(0);
       position: relative;
 
       .refinements {
-        padding-top: rem(14);
+        padding-top: rem(8);
         display: flex;
         flex-wrap: nowrap;
         overflow-x: auto;
@@ -1628,6 +1628,8 @@
           cursor: pointer;
           min-width: rem(161.5);
 
+       
+
           img {
             margin-right: rem(20);
           }
@@ -1651,18 +1653,7 @@
             position: inherit;
             min-width: auto;
             border: none;
-
-            &::before {
-              content: "";
-              position: absolute;
-              right: rem(-25);
-              top: rem(-8);
-              width: rem(1);
-              height: rem(31);
-              background: $light-black5;
-      
-            }
-
+            
             .card-header {
               color: $black;
               font-family: $font-futura-demi;
@@ -1672,16 +1663,54 @@
               border: none;
               border-radius: rem(0);
               padding: rem(0) rem(0);
-              margin-right: rem(20);
+              margin-right: rem(42);
               background-color: transparent;
               outline: none;
               display: flex;
-              justify-content: space-between;;
+              justify-content: space-between;
               align-items: center;
               cursor: pointer;
               width: rem(110);
               position: relative;
               text-transform: capitalize;
+
+              @include media-breakpoint-down(lg) {
+                justify-content: inherit;
+                margin-right: rem(20);
+                
+              }
+
+              @include media-breakpoint-down(md) {
+                margin-right: rem(0);
+                width: rem(94);
+                
+              }
+              
+              &::before {
+                content: "";
+                position: absolute;
+                right: rem(-25);
+                top: rem(-8);
+                width: rem(1);
+                height: rem(31);
+                background: $light-black5;
+        
+              }
+              
+              @include media-breakpoint-down(lg) {
+                &::before {
+                  right: rem(20);
+                  top: rem(0);
+                  height: rem(23);
+                }
+              }
+
+              @include media-breakpoint-down(md) {
+                &::before {
+                  right: rem(8);
+                }
+              }
+
 
               &:focus {
                 outline: none;
@@ -1854,7 +1883,6 @@
         min-width: rem(200);
         width: rem(180);
         height: rem(30);
-        margin-bottom: rem(20);
 
         .sort-col {
           display: block;
