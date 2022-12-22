@@ -123,7 +123,7 @@ function getProductAttributes(apiProduct) {
 function getIsWatchTile(apiProduct) {
     try {
         if (!empty(apiProduct)) {
-        var isWatchTile = !empty(apiProduct.custom.isWatchTile) ? apiProduct.custom.isWatchTile : false;
+            var isWatchTile = !empty(apiProduct.custom.isWatchTile) ? apiProduct.custom.isWatchTile : false;
         }
         return isWatchTile;
         
