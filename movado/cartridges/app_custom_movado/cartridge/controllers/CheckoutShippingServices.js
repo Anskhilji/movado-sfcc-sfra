@@ -5,6 +5,7 @@ server.extend(module.superModule);
 
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
+var checkoutCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
 
 server.replace('UpdateShippingMethodsList', server.middleware.https, function (req, res, next) {
     var BasketMgr = require('dw/order/BasketMgr');
@@ -308,6 +309,12 @@ server.replace(
                     form: server.forms.getForm('shipping')
                 });
             });
+
+            var email = form.shippingAddress.addressFields.email.htmlValue;
+            if (!empty(email)) {
+                var maskedEmail = checkoutCustomHelpers.maskEmail(email);
+                checkoutLogger.info('(CheckoutShippingServices) -> SubmitShipping: Step-1: Customer Email is ' + maskedEmail);
+            }
         }
         return next();
     }

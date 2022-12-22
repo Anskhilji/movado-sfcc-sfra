@@ -482,6 +482,21 @@
             /* Hide scrollbar for IE and Edge */
             -ms-overflow-style: none;
             padding-top: rem(25);
+            
+            .mini-cart-fixed {
+                margin: 0 12px;    
+            }
+            
+            .row {
+
+                &:last-child {
+
+                    .card {
+                        border-bottom: none;
+                        margin-bottom: 0;
+                    }
+                }
+            }
 
             /* Hide scrollbar for Chrome, Safari and Opera */
             &::-webkit-scrollbar {
@@ -1971,7 +1986,7 @@
                         }
                         
                         .tile-inner-content {
-                            margin: rem(22.15) rem(0) rem(5) rem(0);    
+                            margin: rem(22.15) rem(0) rem(5) rem(0);
                             .product-brand-info {
                                 margin: 0;
                                 color: $light-gray2;

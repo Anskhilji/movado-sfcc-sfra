@@ -492,7 +492,6 @@ module.exports = {
             function (e) {
                 e.preventDefault();
                 e.stopPropagation();
-
                 //push data into datalayer for filters into gtm
                 var $filterType = $(this).parents('.card-body').siblings('.movado-refinements-type').text().trim();
                 dataLayer.push({

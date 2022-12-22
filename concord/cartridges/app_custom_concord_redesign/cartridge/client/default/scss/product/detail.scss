@@ -9,6 +9,7 @@
 
     .product-name {
         font-family: $font-raleway-book;
+        font-weight: 500;
     }
 
     .description {
@@ -17,6 +18,11 @@
 
     .price {
         font-family: $font-raleway-book;
+        font-weight: 400;
+    }
+    
+    .content {
+        font-weight: 400;
     }
 
     .affirm-as-low-as {
@@ -29,6 +35,7 @@
 
     .availability-msg {
         font-family: $font-raleway-book;
+        font-weight: 400;
     }
 
     .add-to-cart {
@@ -36,6 +43,7 @@
         background: $black;
         border-color: $black;
         color: $white;
+        font-weight: 400;
     }
 
     .engraving-btn, .debossing-btn {

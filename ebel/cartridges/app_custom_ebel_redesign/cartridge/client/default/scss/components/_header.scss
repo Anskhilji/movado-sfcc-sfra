@@ -94,7 +94,8 @@ header {
                     }
 
                     .header-menu-wrapper {
-
+                        z-index: 1024;
+                        
                         &.sticky-header {
 
                             .header-wrapper {

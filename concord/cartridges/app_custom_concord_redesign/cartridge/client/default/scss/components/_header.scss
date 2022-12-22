@@ -1,3 +1,21 @@
+.header-banner {
+    position: relative;
+    z-index: 999;
+  
+    .html-slot-container {
+      @include font-book;
+      font-size: rem(14);
+  
+      @include media-breakpoint-down(sm) {
+            font-size: rem(12);
+      }
+
+      @include media-breakpoint-down(xs) {
+            font-size: rem(10);
+      }
+    }
+}
+
 header {
 
     &.new-header {
@@ -25,6 +43,27 @@ header {
 
         }
 
+        .desktop-menu {
+            
+            .dropdown-menu {
+                margin-top: rem(0);
+
+                .dropdown-item {
+                    
+                    a {
+                        font-weight: 700;
+                    }
+                }
+            }
+
+            .nav-item {
+                
+                .nav-link {
+                    font-weight: 700;
+                }
+            }
+        }
+
         .header-search-field {
             font-family: $font-raleway-medium;
         }
@@ -38,6 +77,13 @@ header {
                     .btn {
                         font-family: $font-raleway-medium;
                     }
+                }
+            }
+
+            .popover {
+
+                a {
+                    font-family: $font-raleway-medium;
                 }
             }
         }
@@ -85,7 +131,7 @@ header {
                     .header-wrapper {
 
                         .header-container {
-                            height: rem(122);
+                            height: rem(125);
                         }
                     }
 
@@ -96,7 +142,7 @@ header {
                             .header-wrapper {
 
                                 .header-container {
-                                    height: rem(119);
+                                    height: rem(105);
                                 }
                             }
                         }
@@ -112,7 +158,7 @@ header {
                     &.sticky-header {
 
                         .overlay {
-                            height: rem(119);
+                            height: rem(105);
                         }
 
                         .logo-link {
@@ -129,7 +175,7 @@ header {
             &.new-header {
 
                 .overlay {
-                    height: rem(122);
+                    height: rem(125);
                 }
 
                 @include media-breakpoint-down(lg) {

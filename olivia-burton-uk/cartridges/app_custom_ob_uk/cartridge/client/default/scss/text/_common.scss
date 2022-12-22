@@ -39,27 +39,29 @@ body {
 }
 
 .btn-primary {
-  background: $gray;
-  border: rem(1) solid $gray;
-  color: $black;
+  background: $black;
+  border: rem(1) solid $black;
+  color: $white;
 
   &:hover {
-    background: $gray;
-    border: rem(1) solid $gray;
+    background: $white;
+    border: rem(1) solid $black;
     color: $black;
   }
   
   &-cta {
-    background: $gray;
-    border: rem(1) solid $gray;
-    color: $black;
+    background: $black;
+    border: rem(1) solid $black;
+    color: $white;
 
       &:hover {
-          background: $gray;
-          border: rem(1) solid $gray;
+          background: $white;
+          border: rem(1) solid $black;
+          color: $black;
       }
   }
 }
+
 
 .custom-select {
   color: $black;

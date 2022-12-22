@@ -120,10 +120,10 @@ function getProductAttributes(apiProduct) {
  * @returns {Boolean} isWatchTile - true if product belongs to watches
  */
 
- function getIsWatchTile(apiProduct) {
+function getIsWatchTile(apiProduct) {
     try {
         if (!empty(apiProduct)) {
-        var isWatchTile = !empty(apiProduct.custom.isWatchTile) ? apiProduct.custom.isWatchTile : false;
+            var isWatchTile = !empty(apiProduct.custom.isWatchTile) ? apiProduct.custom.isWatchTile : false;
         }
         return isWatchTile;
         
@@ -529,6 +529,7 @@ function getProductPromoAndSalePrice(product) {
 }
 
 movadoProductCustomHelper.getProductAttributes = getProductAttributes;
+movadoProductCustomHelper.getIsWatchTile = getIsWatchTile;
 movadoProductCustomHelper.getRefinementSwatches = getRefinementSwatches;
 movadoProductCustomHelper.getPdpDetailAndSpecsAttributes = getPdpDetailAndSpecsAttributes;
 movadoProductCustomHelper.getPdpCollectionContentAssetID = getPdpCollectionContentAssetID;
@@ -536,7 +537,6 @@ movadoProductCustomHelper.getCurrentCountry = getCurrentCountry;
 movadoProductCustomHelper.getGtmPromotionObject = getGtmPromotionObject;
 movadoProductCustomHelper.getCaseDiameter = getCaseDiameter;
 movadoProductCustomHelper.getColor = getColor;
-movadoProductCustomHelper.getIsWatchTile = getIsWatchTile;
 movadoProductCustomHelper.getProductCategory = getProductCategory;
 movadoProductCustomHelper.isGiftBoxAllowed = isGiftBoxAllowed;
 movadoProductCustomHelper.getGiftBoxSKU = getGiftBoxSKU;

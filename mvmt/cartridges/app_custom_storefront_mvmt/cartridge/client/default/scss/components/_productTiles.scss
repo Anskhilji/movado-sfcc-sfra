@@ -79,7 +79,7 @@
       }
   
       .product-badge {
-        display: block;
+        display: block;    
       }
     }
 
@@ -347,6 +347,16 @@
       }
     }
   
+    .promotion-badge-recommendation {
+
+      .product-tag-content { 
+
+        .hide-plp {
+          display: none;
+        }
+      }
+    }
+
     .product-tag-content {
       height: rem(18);
       margin-bottom: rem(15);
@@ -418,18 +428,16 @@
   
   .product-tile {
     width: auto;
-  
+
     .color-swatches {
       a {
         cursor: pointer;
         margin-right: 0.313em;
-  
         img {
           border: rem(1) solid $white;
           padding: rem(1);
           background: none !important;
           margin-right: 0;
-  
           &.swatch-circle.is-active {
             border: rem(1) solid $black;
             border-radius: rem(50);
@@ -437,13 +445,91 @@
         }
       }
     }
+
+      // Custome:MSS-2091 style
+      .swatches-watches-olny {
+        .swatches-watches {
+          max-width: rem(190);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0 auto;
+          margin-bottom: rem(10);
+
+          .swatch-plus-box {
+            margin-right: rem(10);
+
+              .square-swatch {
+                cursor: pointer;
+                margin-right: rem(0);
+                height: rem(30);
+                width: rem(30);
+                &:hover {
+                  text-decoration: none;
+                };
+
+                img {
+                  &.swatch-circle {
+                    box-sizing: border-box;
+                    height: rem(30);
+                    width: rem(30);
+                    border: rem(1) solid $transparent-black-light;
+                    border-radius: rem(1);
+                    background-color: $white;
+                    margin-right: rem(0);
+                  }
+          
+                  &.swatch-circle.is-active {
+                    border-color: $black;
+                  }
+                }
+          
+                .swatch-counter {
+                  box-sizing: border-box;
+                  height: rem(30);
+                  width: rem(30);
+                  border: rem(0.6) solid $transparent-black-light;
+                  border-radius: rem(1);
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  color: $transparent-black;
+                  font-family: $font-medium;
+                  font-size: rem(14);
+                  font-weight: 500;
+                  letter-spacing: rem(1.17);
+                  line-height: rem(18);
+                  text-align: center;
+                }
+              }
+
+              &:last-child {
+                margin-right: 0;
+              }
+            }
+        }
+        .swatches-watches-desktop {
+            display: inline-flex;
+          @include media-breakpoint-down(sm) {
+            display: none;
+          }
+        }
+
+        .swatches-watches-mobile {
+            display: none;
+          @include media-breakpoint-down(sm) {
+            display: inline-flex;
+          }
+        }
+      }
+      // Custome:MSS-2091 end
   }
   
   .product-tile,
   .product-tile-redesign {
     height: 100%;
   }
-  
+
   .cart-icon {
     width: rem(17);
     height: rem(17);
@@ -903,11 +989,68 @@
 
               .plp-swatches-reserved {
                   width: auto;
-                  height: rem(26.54);
+                  min-height: rem(26.54);
               }
             }
           }
         }
       }
     }
+  }
+
+  .cs-carousel-wrapper {
+
+      .custom-promotion-badge {
+          display: none;
+      }
+  }
+
+    .search-inner-content,.mobile-side-search {
+
+      .product-badge {
+        &-main {
+
+          .badge {
+            display: none;
+          }
+        }
+      }
+    }
+
+    .suggested-products-caresoul{
+
+      .image-container {
+  
+          .product-tag-content {
+      
+              .exclusive-badges {
+          
+                  .badge {
+              
+                      &.custom-promotion-badge {
+                          display: none;
+                      }
+                  }
+              }
+          }
+      }
+  }
+
+  .suggested-products-tiles {
+
+      .image-container {
+  
+          .product-tag-content {
+      
+              .exclusive-badges {
+          
+                  .badge {
+              
+                      &.custom-promotion-badge {
+                          display: none;
+                      }
+                  }
+              }
+          }
+      }
   }

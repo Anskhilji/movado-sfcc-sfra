@@ -10,6 +10,9 @@
 <iscomment> Yottaa Rapid Ctrl Script </iscomment>
 <isinclude template="common/yottaaRapidCtrlScript" sf-toolkit="off" />
 <iscomment> Custom End </iscomment>
+<iscomment> Custom Start: Beam donation script </iscomment>
+<isinclude template="beamIncludes" />
+<iscomment> Custom End </iscomment>
 <script>
     var dataLayer = undefined;
     var pageDataGTM = undefined;

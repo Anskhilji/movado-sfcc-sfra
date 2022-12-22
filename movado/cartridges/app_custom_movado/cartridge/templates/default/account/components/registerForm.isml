@@ -166,7 +166,12 @@
 
     <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
 
+    <input type="hidden" class="g-recaptcha-token" id="grecaptchatoken" name="${pdict.profileForm.customer.grecaptchatoken.htmlName}" 
+        <isprint value=${pdict.profileForm.customer.grecaptchatoken.attributes} encoding="off" />
+    >
+
     <button type="submit" class="btn btn-block btn-primary ${isGoogleRecaptchaEnabled ? 'd-none' : ''} form-submit">${Resource.msg('button.createaccount.registration', 'registration', null)}</button>
+    
     <isif condition="${isGoogleRecaptchaEnabled}">
         <button type="submit" class="btn btn-block btn-primary g-recaptcha" data-sitekey="${googeRecaptchaSiteKey}" data-callback='onSubmitCaptcha'>${Resource.msg('button.createaccount.registration', 'registration', null)}</button>
     </isif>
