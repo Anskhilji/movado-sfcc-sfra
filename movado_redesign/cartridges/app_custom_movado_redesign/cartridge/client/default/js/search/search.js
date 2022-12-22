@@ -552,7 +552,6 @@ module.exports = {
                 });
 
                 // Get currently selected sort option to retain sorting rules
-                var moreFiltersSideBar = false;
                 var urlparams = getUrlParamObj(document.location.href);
                 var filtersURL = e.currentTarget.href;
                 var currentSelectedSortId = '';
@@ -564,18 +563,13 @@ module.exports = {
                     }
                 }
 
-                var moreFilters = $('.refinement-bar-redesign').hasClass('fillterslideinleft')
-                if(moreFilters) {
-                    moreFiltersSideBar = true;
-                }
                 $.spinner().start();
                 $(this).trigger('search:filter', e);
                 $.ajax({
                     url: filtersURL,
                     data: {
                         page: $('.grid-footer').data('page-number'),
-                        selectedUrl: filtersURL,
-                        moreFiltersSideBar: moreFiltersSideBar
+                        selectedUrl: filtersURL
                     },
                     method: 'GET',
                     success: function (response) {

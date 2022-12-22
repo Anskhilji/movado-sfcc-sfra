@@ -1606,7 +1606,6 @@
         overflow-x: auto;
         max-width: calc(100% - 220px);
         white-space: nowrap;
-        gap: rem(42);
         @include scrollBar;
 
         .filter-btn-ctm {
@@ -1649,7 +1648,7 @@
             padding-bottom: rem(0);
             margin-bottom: rem(0);
             border-color: $gray94;
-            position: relative;
+            position: inherit;
             min-width: auto;
             border: none;
 
@@ -1673,10 +1672,11 @@
               border: none;
               border-radius: rem(0);
               padding: rem(0) rem(0);
+              margin-right: rem(20);
               background-color: transparent;
               outline: none;
               display: flex;
-              justify-content: space-between;
+              justify-content: space-between;;
               align-items: center;
               cursor: pointer;
               width: rem(110);

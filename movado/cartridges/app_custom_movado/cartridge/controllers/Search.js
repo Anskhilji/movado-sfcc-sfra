@@ -41,14 +41,11 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     /**
      * Custom Start: Added logic for OB Redesign.
      */
-    var isFilterSideBar  = req.querystring;
+
     if (viewData.resultsTemplate && !empty(viewData.resultsTemplate )) {
         resultsTemplate = viewData.resultsTemplate;
     }
 
-    if (isFilterSideBar.moreFiltersSideBar == 'true') {
-        resultsTemplate = 'search/searchResultsNoDecoratorSideBar';
-    }
     /**
      * Custom End:
      */
