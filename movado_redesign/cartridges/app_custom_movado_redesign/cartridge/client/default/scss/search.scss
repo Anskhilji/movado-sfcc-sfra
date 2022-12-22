@@ -1139,7 +1139,7 @@
     }
 
     @include media-breakpoint-down(lg) {
-      top: 87%;
+      top: 94%;
       transform: translate(-50%, -87%);
     }
     .result-count {
@@ -1676,13 +1676,13 @@
 
               @include media-breakpoint-down(lg) {
                 justify-content: inherit;
-                margin-right: rem(20);
+                margin-right: rem(17);
                 
               }
 
               @include media-breakpoint-down(md) {
                 margin-right: rem(0);
-                width: rem(94);
+                width: rem(84);
                 
               }
               
@@ -1696,7 +1696,7 @@
                 background: $light-black5;
         
               }
-              
+
               @include media-breakpoint-down(lg) {
                 &::before {
                   right: rem(20);
