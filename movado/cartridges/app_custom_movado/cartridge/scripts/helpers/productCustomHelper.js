@@ -318,6 +318,25 @@ function getOCIPreOrderParameters(apiProduct) {
     return abTestSegment.length > 0 ? abTestSegment[0].ABTest.ID + '+' + abTestSegment[0].ID : '';
 }
 
+/**
+ * Method used to check if current product belongs to watches category
+ * @param {Object} apiProduct - apiProduct is from ProductMgr
+ * @returns {Boolean} isWatchTile - true if product belongs to watches
+ */
+
+function getIsWatchTile(apiProduct) {
+    try {
+        if (!empty(apiProduct)) {
+            var isWatchTile = !empty(apiProduct.custom.isWatchTile) ? apiProduct.custom.isWatchTile : false;
+        }
+        return isWatchTile;
+        
+    } catch (e) {
+        Logger.error('(productCustomHelper.js -> getIsWatchTile) Error occured while checking is it watch tile: ' + e.stack, e.message, apiProduct.ID);
+        return false;
+    }
+}
+
 module.exports = {
     getExplicitRecommendations: getExplicitRecommendations,
     getCollectionName: getCollectionName,
@@ -331,5 +350,6 @@ module.exports = {
     getProductCategory: getProductCategory,
     isGiftBoxAllowed: isGiftBoxAllowed,
     getGiftBoxSKU: getGiftBoxSKU,
-    getRunningABTestSegments: getRunningABTestSegments
+    getRunningABTestSegments: getRunningABTestSegments,
+    getIsWatchTile: getIsWatchTile
 };
