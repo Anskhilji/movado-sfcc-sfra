@@ -432,7 +432,7 @@ function getProductCategory(apiProduct, product) {
         }
     } catch (error) {
         Logger.error('(productCustomHelper.js -> getProductCategory) Error occured while getting category from apiProduct  . ProductId {0}: \n Error: {1} \n Message: {2} \n lineNumber: {3} \n fileName: {4} \n', 
-        apiProduct.ID, e.stack, e.message, e.lineNumber, e.fileName);
+        apiProduct.ID, error.stack, error.message, error.lineNumber, error.fileName);
         return;
     }
     return isCategory;
