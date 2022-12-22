@@ -15,8 +15,6 @@ var ABTestMgr = require('dw/campaign/ABTestMgr');
 var stringUtils = require('*/cartridge/scripts/helpers/stringUtils');
 var URLUtils = require('dw/web/URLUtils');
 
-var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
-
 server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.consent, function (req, res, next) {
     var ProductSearchModel = require('dw/catalog/ProductSearchModel');
     var URLUtils = require('dw/web/URLUtils');
