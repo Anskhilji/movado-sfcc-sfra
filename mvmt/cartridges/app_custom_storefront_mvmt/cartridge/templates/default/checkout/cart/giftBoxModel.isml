@@ -11,7 +11,7 @@
 <!-- Modal Body -->
 <div class="modal-body gift-box-container-modal-body disable-gift-box-model">
     <div class="gift-box-container-modal-body-item-image">
-        <img class="product-image" src="${pdict.image.url}" alt="${pdict.image.alt}" title="${pdict.image.title}">
+        <img class="product-image" src="${pdict.lineItem.images.tile150[0].url}" alt="${pdict.lineItem.images.tile150[0].alt}" title="${pdict.lineItem.images.tile150[0].title}">
     </div>
     <form class="gift-box-container-modal-body-form" action="#">
         <label class="radio-container gift-box-none-button active"> ${Resource.msg('label.minicart.giftbox.modal.labelone', 'cart', null)}

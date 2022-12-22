@@ -74,7 +74,8 @@ server.get('ShowGiftBoxModal', server.middleware.https, csrfProtection.generateT
         isCartPage: params.isCartPage,
         itemLevelGiftMessage: itemLevelGiftMessage,
         basketModel: basketModel,
-        ProductLineItemUUID: ProductLineItemUUID
+        ProductLineItemUUID: ProductLineItemUUID,
+        lineItem: lineItem
     };
 
     var template = 'checkout/cart/giftBoxModel';
