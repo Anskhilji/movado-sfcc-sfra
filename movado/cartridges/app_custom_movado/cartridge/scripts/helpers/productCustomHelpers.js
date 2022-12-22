@@ -1090,7 +1090,8 @@ function setProductAvailability(product) {
                             }
                         }
                     } catch (e) {
-                        Logger.error('productCustomHepler.js -> getPdpDetailAndSpecsAttributes) Error occured while setting the attributes values in the object . Product {0}: \n Error: {1} \n Message: {2} \n', apiProduct.ID, e.stack, e.message);
+                        Logger.error('productCustomHepler.js -> getPdpDetailAndSpecsAttributes) Error occured while setting the attributes values in the object  . ProductId {0}: \n Error: {1} \n Message: {2} \n lineNumber: {3} \n fileName: {4} \n', 
+                        apiProduct.ID, e.stack, e.message, e.lineNumber, e.fileName);
                     }
                 }
             }

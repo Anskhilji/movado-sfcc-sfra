@@ -292,11 +292,13 @@ function exportFeed(feedColumns, fileArgs, feedParameters) {
                         });
                     }
                 } catch (error) {
-                    Logger.error('Error occurred while adding product variants into feed. Product {0}: \n Error: {1} \n Message: {2} \n', product, e.stack, e.message);
+                    Logger.error('Error occurred while adding product variants into feed . ProductId {0}: \n Error: {1} \n Message: {2} \n lineNumber: {3} \n fileName: {4} \n', 
+                    product.ID, e.stack, e.message, e.lineNumber, e.fileName);
                 }
 
             } catch (e) {
-                Logger.error('Error occurred while adding product into feed. Product {0}: \n Error: {1} \n Message: {2} \n', product, e.stack, e.message);
+                Logger.error('Error occurred while adding product into feed . ProductId {0}: \n Error: {1} \n Message: {2} \n lineNumber: {3} \n fileName: {4} \n', 
+                product.ID, e.stack, e.message, e.lineNumber, e.fileName);
             }
 
         }
@@ -1340,7 +1342,8 @@ function getProductAttributes(product, feedParameters, feedColumns) {
     
         return productAttributes;
     } catch (e) {
-        Logger.error('Error occurred while getting product attribute information . Product {0}: \n Error: {1} \n Message: {2} \n', product, e.stack, e.message);
+        Logger.error('Error occurred while getting product attribute information . ProductId {0}: \n Error: {1} \n Message: {2} \n lineNumber: {3} \n fileName: {4} \n', 
+        product.ID, e.stack, e.message, e.lineNumber, e.fileName);
     }
 }
 
@@ -1418,13 +1421,15 @@ function getProductVariants(products, masterProductAttributes, isVariant, feedPa
         
                     variants.push(variantJSON);   
                 } catch (e) {
-                    Logger.error('Error occurred while getting product variant information . Product {0}: \n Error: {1} \n Message: {2} \n', product, e.stack, e.message);
+                    Logger.error('Error occurred while getting product variant information . ProductId {0}: \n Error: {1} \n Message: {2} \n lineNumber: {3} \n fileName: {4} \n', 
+                    product.ID, e.stack, e.message, e.lineNumber, e.fileName);
                 }
             }
         }
         return variants;
     } catch (e) {
-        Logger.error('Error occurred while getting product variants . Product {0}: \n Error: {1} \n Message: {2} \n', masterProductAttributes.ID, e.stack, e.message);
+        Logger.error('Error occurred while getting product variants. ProductId {0}: \n Error: {1} \n Message: {2} \n lineNumber: {3} \n fileName: {4} \n', 
+        masterProductAttributes.ID, e.stack, e.message, e.lineNumber, e.fileName);
     }
 }
 
