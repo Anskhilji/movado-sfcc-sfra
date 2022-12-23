@@ -680,8 +680,6 @@ module.exports = function () {
 
         var URL = $('.beam-widget-minicart').val();
         var chairtyId = $(this).attr('selectednonprofitid');
-        
-        $.spinner().start();
     
         $.ajax({
             url: URL,
@@ -692,12 +690,12 @@ module.exports = function () {
     
             success: function (data) {
                 if (data) {
-                    $.spinner().stop();
+                    console.log(data);
                 }
             },
     
             error: function (err) {
-                $.spinner().stop();
+                console.log(err);
             }
         });
     });
