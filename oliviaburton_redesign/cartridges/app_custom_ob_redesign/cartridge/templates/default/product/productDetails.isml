@@ -90,6 +90,13 @@
                                 fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
                         </div>
 
+                        <div>
+                            <!-- Applicable Promotions -->
+                            <div class="promotions">
+                                <isinclude template="product/components/promotions" />
+                            </div>
+                        </div>
+
                         <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
                         <isif condition="${isEswEnabled}" >
                             <isset name="klarnaAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
