@@ -1685,32 +1685,6 @@
                 width: rem(84);
                 
               }
-              
-              &::before {
-                content: "";
-                position: absolute;
-                right: rem(-25);
-                top: rem(-8);
-                width: rem(1);
-                height: rem(31);
-                background: $light-black5;
-        
-              }
-
-              @include media-breakpoint-down(lg) {
-                &::before {
-                  right: rem(20);
-                  top: rem(0);
-                  height: rem(23);
-                }
-              }
-
-              @include media-breakpoint-down(md) {
-                &::before {
-                  right: rem(8);
-                }
-              }
-
 
               &:focus {
                 outline: none;
@@ -1848,12 +1822,17 @@
           background-color: transparent;
           outline: none;
           display: flex;
-          justify-content: flex-start;
+          justify-content: space-between;
           align-items: center;
           cursor: pointer;
           width: rem(110);
           height: rem(24);
           position: relative;
+
+          @include media-breakpoint-down(lg) {
+           justify-content: inherit;
+            
+          }
 
           &:focus {
             outline: none;
@@ -2000,6 +1979,7 @@
               &::before {
                 content: 'Sort By:';
                 margin-right: rem(2);
+                opacity: 50%;
               }
             }
 
@@ -2219,6 +2199,7 @@
               bottom: rem(0);
               right: 0;
               left: 0;
+              display: none;
   
               .result-count {
                 background: $black;
