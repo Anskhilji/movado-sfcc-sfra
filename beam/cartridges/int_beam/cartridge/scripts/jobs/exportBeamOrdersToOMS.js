@@ -22,16 +22,16 @@ function execute(args) {
           var salesforceModel = require('*/cartridge/scripts/SalesforceService/models/SalesforceModel');
           var result = salesforceModel.updateBeamOrders(requestParams);
           if (result.ok) {
-              Logger.info('(exportBeamOrdersToOMS Job) -> execute -> order has been submitted with order : ' + orderID + ' to OMS. Error:' + response.message);
+              Logger.info('(exportBeamOrdersToOMS Job) -> execute -> order has been submitted with order : ' + orderID + ' to OMS. Error:' + response);
               beamHelper.removeBeamObjs(beamObj);
           }
       }
     }
 
-  } catch (error) {
+  } catch (e) {
       Logger.error('Error occured while executing exportBeamOrdersToOMS job .\n Error: {0} \n Message: {1} \n lineNumber: {2} \n fileName: {3}', 
           e.stack, e.message, e.lineNumber, e.fileName);
-      return new Status(Status.ERROR, 'ERROR', error.message);
+      return new Status(Status.ERROR, 'ERROR', e.message);
   }
 
 }
