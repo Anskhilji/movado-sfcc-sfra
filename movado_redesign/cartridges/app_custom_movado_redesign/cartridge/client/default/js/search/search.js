@@ -634,10 +634,12 @@ module.exports = {
                         var $moreFilterBtn = $('.more-filter-btn');
                         refinementBoxFilterDesktop($refinementBox, $dkFilterCheck, $modelBackground);
                         moreFilterBtn($moreFilterBtn);
-                        $('.modal-background').removeClass('d-block');
                         $('.desktop-search-refine-bar-redesing').removeClass('active');
                         // Custom:MSS-2073 end
-                        $('.refinement-bar-redesign').removeClass('d-block');
+                        if (!$('.refinement-bar-redesign').hasClass('d-block')) { // do not close sidebar filter on selection
+                            $('.modal-background').removeClass('d-block');
+                            $('.refinement-bar-redesign').removeClass('d-block');
+                        }
                         $("body").removeClass("no-overflow-ctm");
                         var $bannerCount = $('.banner-count .result-count');
                         var $sideBarCount = $('.show-bottom-btn .result-count');
@@ -699,11 +701,12 @@ module.exports = {
 
     // start: append value to plp sort by from select option
     selectedFiltervalueAppendToPlpSortBy: function () {
-        $('.sort-order-mobile-menu').on('click', '.custom-select__dropdown', function (e) {
+        $('.sort-order-mobile-menu, .refinement-bar-redesign').on('click', '.custom-select__dropdown', function (e) {
             var $mobileFilterBtn = $('.mobile-fliter-sort-button');
             var $selectedValue = e.target.innerText;
             var $html = 'Sort by: ' + $selectedValue;
             $mobileFilterBtn.html($html);
+            $('.close-refinebar').trigger('click');
         });
     },
 };
