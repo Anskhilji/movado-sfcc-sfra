@@ -11,6 +11,7 @@ var checkoutFieldsRegex = require('*/cartridge/utils/ExpressCheckoutRegexUtils')
 var Constants = require('*/cartridge/utils/Constants');
 var checkoutAddressHelper = require('*/cartridge/scripts/helpers/checkoutAddressHelper');
 var fedExAPI = require('*/cartridge/scripts/api/fedExAPI');
+var checkoutCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
 
 /**
  * Splits the string into multiple based on the passed limit.
@@ -243,7 +244,8 @@ function formsValidation(currentBasket, formData) {
         billingAddressState: billingAddressState,
         billingAddressCountry: billingAddressCountry,
         billingAddressStateOrProvince: billingAddressStateOrProvince,
-        paypalerror: false
+        paypalerror: false,
+        emailValue: emailValue
     };
     //FEDEX CALL
     var shippingStreetLines = fetchFromMap(formData, 'deliveryAddress.street');
@@ -257,6 +259,12 @@ function formsValidation(currentBasket, formData) {
         if (validatedFields[prop] == true) {
             validatedFields['paypalerror'] = true;
         }
+    }
+
+    if (!empty(emailValue)) {
+        var email = emailValue;
+        var maskedEmail = checkoutCustomHelpers.maskEmail(email);
+        adyenLogger.info('(AdyenExpressPaypal) -> SubmitShipping: Step-1: Customer Email is ' + maskedEmail);
     }
     
     if (validatedFields.paypalerror == false && Site.current.preferences.custom.isAddressValidationEnable == true) {

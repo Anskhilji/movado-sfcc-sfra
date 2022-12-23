@@ -1,5 +1,5 @@
 <iscomment> Custom: HTML structure changed</iscomment>
-<div class="filter-header">
+<div class="filter-header filter-bar-overlay">
     <div class="header-bar clearfix">
         <button class="close-refinebar pull-left" data-filter-category="${pdict.productSearch.category && !empty(pdict.productSearch.category) ? pdict.productSearch.category.id : ''}" aria-label="close filter">${Resource.msg('label.selectedfilter', 'search', null)}</button>
         <isif condition="${pdict.productSearch.productIds.length > 0}">

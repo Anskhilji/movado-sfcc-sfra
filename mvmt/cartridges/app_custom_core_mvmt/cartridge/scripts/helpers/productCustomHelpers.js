@@ -24,7 +24,6 @@ function getProductGtmObj(product, categoryName, position) {
         var watchGender = '';
         var familyName: '';
         var productColor = '';
-        var abTestParticipationSegments = getRunningAbTestSegments();
         var productObj = ProductMgr.getProduct(product.id);
         var productObjDefaultVariant = productObj.variationModel ? productObj.variationModel.defaultVariant : null;
         if (productObjDefaultVariant) {
@@ -73,8 +72,7 @@ function getProductGtmObj(product, categoryName, position) {
                 position: position,
                 familyName: familyName,
                 productColor: productColor,
-                currentCategory: stringUtils.removeSingleQuotes(escapeQuotes(categoryName)),
-                runningAbTest: abTestParticipationSegments 
+                currentCategory: stringUtils.removeSingleQuotes(escapeQuotes(categoryName))
             });
         } else {
             var productObj = ProductMgr.getProduct(product.id);
@@ -97,8 +95,7 @@ function getProductGtmObj(product, categoryName, position) {
                 position: position,
                 familyName: familyName,
                 productColor: productColor,
-                currentCategory: stringUtils.removeSingleQuotes(escapeQuotes(categoryName)),
-                runningAbTest: abTestParticipationSegments
+                currentCategory: stringUtils.removeSingleQuotes(escapeQuotes(categoryName))
             });
         }
 
@@ -107,24 +104,6 @@ function getProductGtmObj(product, categoryName, position) {
         Logger.error('Error Occured while getting product impressions tags for gtm. Error: {0} \n Stack: {1} \n', ex.message, ex.stack);
         return '';
     }
-}
-
-/**
- * Function return running AB test segments
- * @returns segmentsArray 
- */
- function getRunningAbTestSegments() {
-    var ABTestMgr = require('dw/campaign/ABTestMgr');
-    var assignedTestSegmentsIterator = ABTestMgr.getAssignedTestSegments().iterator();
-    var abTestParticipationSegments = [];
-
-    while (assignedTestSegmentsIterator.hasNext()) {
-        abTestSegment = assignedTestSegmentsIterator.next();
-        abTestParticipationSegments.push({
-            runningAbTest: abTestSegment.ABTest.ID + '+' + abTestSegment.ID
-        });
-    }
-    return abTestParticipationSegments;
 }
 
 function getVariantSize(apiProduct) {
@@ -167,7 +146,6 @@ function getGtmProductClickObj(product, categoryName, position) {
     var familyName = '';
     var productColor = '';
     var productClickGtmObj = [];
-    var abTestParticipationSegments = getRunningAbTestSegments();
     var productObj = ProductMgr.getProduct(product.id);
 
     if (!empty(productObj.custom.familyName)) {
@@ -191,8 +169,7 @@ function getGtmProductClickObj(product, categoryName, position) {
             familyName: familyName,
             productColor: productColor,
             variant: productObj.master || productObj.variant ? getVariantSize(productObj) : '',
-            list: 'PLP',
-            runningAbTest: abTestParticipationSegments
+            list: 'PLP'
         });
     }	else {
         var category = escapeQuotes(productObj != null ? (productObj.variant ? ((productObj.masterProduct != null && productObj.masterProduct.primaryCategory != null) ? stringUtils.removeSingleQuotes(productObj.masterProduct.primaryCategory.ID)
@@ -212,8 +189,7 @@ function getGtmProductClickObj(product, categoryName, position) {
             variant: productObj.master || productObj.variant ? getVariantSize(productObj) : '',
             familyName: familyName,
             productColor: productColor,
-            list: 'Search Results',
-            runningAbTest: abTestParticipationSegments
+            list: 'Search Results'
         });
     }
 

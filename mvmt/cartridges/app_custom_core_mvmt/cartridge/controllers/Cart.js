@@ -38,6 +38,7 @@ server.replace('MiniCart', server.middleware.include, function (req, res, next) 
 * Opens the Modal and populates it with GiftBox and Gift Message.
 */
 server.get('ShowGiftBoxModal', server.middleware.https, csrfProtection.generateToken, function (req, res, next) {
+    var renderTemplateHelper = require('*/cartridge/scripts/renderTemplateHelper');
     var viewData;
     var params = {
         pid: req.querystring.pid,
@@ -59,8 +60,8 @@ server.get('ShowGiftBoxModal', server.middleware.https, csrfProtection.generateT
 
     for (var i = 0; i < basketModel.items.length; i++) {
         var lineItem = basketModel.items[i];
-        itemLevelGiftMessage = (!empty(lineItem.customAttributes) && !empty(lineItem.customAttributes.itemLevelGiftMessage)) ? lineItem.customAttributes.itemLevelGiftMessage.msgLine1 : '';
         if (lineItem.id == params.pid) {
+            itemLevelGiftMessage = (!empty(lineItem.customAttributes) && !empty(lineItem.customAttributes.itemLevelGiftMessage)) ? lineItem.customAttributes.itemLevelGiftMessage.msgLine1 : '';
             var ProductLineItemUUID = lineItem.UUID;
         }
     }
@@ -73,11 +74,20 @@ server.get('ShowGiftBoxModal', server.middleware.https, csrfProtection.generateT
         isCartPage: params.isCartPage,
         itemLevelGiftMessage: itemLevelGiftMessage,
         basketModel: basketModel,
-        ProductLineItemUUID: ProductLineItemUUID
+        ProductLineItemUUID: ProductLineItemUUID,
+        lineItem: lineItem
     };
 
+    var template = 'checkout/cart/giftBoxModel';
+    var giftModelTemplate = renderTemplateHelper.getRenderedHtml(viewData, template);
+
     res.setViewData(viewData);
-    res.render('checkout/cart/giftBoxModel');
+
+    res.json({
+        template : giftModelTemplate,
+        itemLevelGiftMessage : itemLevelGiftMessage
+    });
+
     next();
 });
 

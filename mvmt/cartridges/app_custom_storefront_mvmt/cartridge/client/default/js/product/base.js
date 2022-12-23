@@ -827,17 +827,12 @@ function handleVariantResponse(response, $productContainer) {
 
     // Update primary images
     var primaryImageUrls = response.product.images;
-    if (response.isNewDesign) {
-        $('.quadrant-pdp-wrapper').remove();
+    $('.quadrant-pdp-wrapper').remove();
+    $('.show-mobile-pdp').remove();
+    $('.zoom-modal-inner').remove();
+    $('.pdp-quadrant').prepend(response.productImages);
+    if ($(window).width() > 768) {
         $('.show-mobile-pdp').remove();
-        $('.zoom-modal-inner').remove();
-        $('.pdp-quadrant').prepend(response.productImages);
-        if ($(window).width() > 768) {
-            $('.show-mobile-pdp').remove();
-        }
-    } else {
-        $('.image-carousel-pdp-old').remove();
-        $('.image-carousel-pdp').prepend(response.productImages);
     }
 
     // pdp Video for variations
@@ -929,13 +924,24 @@ function handleVariantResponse(response, $productContainer) {
    if (response.product.available) {
         var badges = response.badges;
 
+        // Update promotion badge on pdp after change variations
+        if (response.product.promotions && response.product.promotions.length > 0) {
+            var promotionBages = response.product.promotions;
+
+            promotionBages.forEach(function (badge) {
+                if (badge.promotionBadge == true && badge.promotionMsg !== '') {
+                    $exclusiveBadges.prepend('<span class="badge custom-promotion-badge badge-bg text-uppercase hide-plp">' + badge. promotionMsg + '</span>');
+                }
+            });
+        }
+
         if (badges.textBadges && badges.textBadges.length > 0) {
             badges.textBadges.forEach(function (badge) {
                 $exclusiveBadges.append('<span class="badge text-uppercase">' + badge.text + '</span>');
             });
         }
 
-    // Update image Badges
+        // Update image Badges
         if (badges.imageBadges && badges.imageBadges.length > 0) {
             badges.imageBadges.forEach(function (imageBadge, idx) {
                 if (idx === 0) {

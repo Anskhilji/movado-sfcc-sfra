@@ -281,7 +281,6 @@ var onLoadProductTile = function () {
     updateDataLayer('productImpressions');
     var $currentTarget = $('.gtm-product');
     var dataLayerObj = [];
-    var abTestDataLayer = [];
     var currency = '';
     $.each($currentTarget, function () {
         var gtmTrackingData = $(this).data('gtm-facets');
@@ -300,11 +299,7 @@ var onLoadProductTile = function () {
             currency = gtmTrackingData.currency;
         }
     });
-    var gtmTrackingDataAb = $currentTarget.data('gtm-facets');
-    if (gtmTrackingDataAb) {
-        abTestDataLayer.push(gtmTrackingDataAb.runningAbTest)
-    }
-    sliceProductImpressionArray(dataLayerObj, currency, abTestDataLayer);
+    sliceProductImpressionArray(dataLayerObj, currency);
 };
 
 /**
@@ -353,11 +348,9 @@ var onLoadProductTile = function () {
  * Custom Start: update function updated: sliceProductImpressionArray change data layer structre accoridng to mvmt
  **/
 
-var sliceProductImpressionArray = function (e, currency, runningAbTest) {
-    var abTestSegment = runningAbTest && runningAbTest[0] ? runningAbTest[0] : '';
-
+var sliceProductImpressionArray = function (e, currency) {
     if ($('.slick-slider').length) {
-        showProductImpressionCaraousel(e, currency, runningAbTest);
+        showProductImpressionCaraousel(e, currency);
     } else {
         var maxProducts = 10;
         updateDataLayer('productImpressions');
@@ -368,8 +361,7 @@ var sliceProductImpressionArray = function (e, currency, runningAbTest) {
                     event: 'productImpressions',
                     ecommerce: {
                         impressions: {
-                            products: productObj,
-                            runningAbTests: abTestSegment
+                            products: productObj
                         }
                     }
                 });
@@ -382,19 +374,16 @@ var sliceProductImpressionArray = function (e, currency, runningAbTest) {
  * Custom Start: update function updated: showProductImpressionCaraousel change data layer structre accoridng to mvmt
  **/
 
-var showProductImpressionCaraousel = function (e, currency, runningAbTest) {
+var showProductImpressionCaraousel = function (e, currency) {
     var dataProductImpression = {};
-    var abTestSegment = runningAbTest && runningAbTest[0] ? runningAbTest[0] : '';
-
     updateDataLayer('productImpressions');
     var productObj = e.splice(0, 7);
     dataLayer.push({
         event: 'productImpressions',
         ecommerce: {
             impressions: {
-                products: productObj,
-                runningAbTests: abTestSegment
-            } 
+                products: productObj
+            }
         }
     });
 };
@@ -516,8 +505,7 @@ var updateCheckoutStage = function () {
              var productObj = dataLayerCheckout.splice(0, maxProducts);
              dataLayer.push({ ecommerce: { checkout: {
                  actionField: { step: checkoutStep },
-                 products: productObj,
-                 runningAbTest: abTestDataLayer 
+                 products: productObj 
                 }
              },
                  event: 'checkout' });

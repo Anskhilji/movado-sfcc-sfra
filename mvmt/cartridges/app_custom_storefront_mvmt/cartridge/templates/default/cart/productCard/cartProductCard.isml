@@ -79,7 +79,7 @@
                                 data-name="${lineItem.productName}"
                                 data-action="${pdict.actionUrls.removeProductLineItemUrl}"
                                 data-uuid="${lineItem.UUID}"
-                                aria-label="remove" data-gtm-cart="${JSON.stringify(pdict.cartItemObj[loopStatus.index])}">
+                                aria-label="remove" data-gtm-cart="${pdict.cartItemObj ? JSON.stringify(pdict.cartItemObj[loopStatus.index]) : ''}">
                             <span>${Resource.msg('label.cart.remove', 'cart', null)}</span>
                         </button>
                     </div>
@@ -104,7 +104,7 @@
                             data-name="${lineItem.productName}"
                             data-action="${pdict.actionUrls.removeProductLineItemUrl}"
                             data-uuid="${lineItem.UUID}"
-                            aria-label="remove" data-gtm-cart="${JSON.stringify(pdict.cartItemObj[loopStatus.index])}">
+                            aria-label="remove" data-gtm-cart="${pdict.cartItemObj ? JSON.stringify(pdict.cartItemObj[loopStatus.index]) : ''}">
                         <span class="hidden-sm-down">${Resource.msg('label.cart.remove', 'cart', null)}</span>
                         <span class="hidden-md-up"><img src="${URLUtils.staticURL('/images/cartCross.svg')}"/></span>
                     </button>
@@ -128,52 +128,41 @@
     <isset name="giftPid" value="${lineItem.UUID}" scope="page" />
     <isset name="lineItemId" value="${lineItem.id}" scope="page" />
     <isset name="itemLevelGiftMessage" value="${lineItem.customAttributes['itemLevelGiftMessage'] ? lineItem.customAttributes['itemLevelGiftMessage'].msgLine1 : ''}" scope="page" />
+    <isset name="parentLineItemId" value="${lineItem}" scope="page" />
     <isloop items="${pdict.items}" var="childlineItem" status="loopStatus">
         <isif condition="${childlineItem.giftParentUUID == giftPid}">
             <isinclude template="cart/productCard/cartGiftProduct" />
         </isif>
     </isloop>
-    <isset name="itemLevelGiftMessage" value="${lineItem.customAttributes['itemLevelGiftMessage'] ? lineItem.customAttributes['itemLevelGiftMessage'].msgLine1 : ''}" scope="page" />
+    <isset name="itemLevelGiftMessage" value="${parentLineItemId.customAttributes['itemLevelGiftMessage'] ? parentLineItemId.customAttributes['itemLevelGiftMessage'].msgLine1 : ''}" scope="page" />
     <isset name="isCartPage" value="${true}" scope="page" />
-    <div class="gift-box-container w-100 align-items-start justify-content-start full-cart-continaer">
-        <img class="gift-icon" alt="gift box icon" src="${URLUtils.staticURL('/images/giftbox-icon.svg')}" />
-        <isif condition="${!empty(itemLevelGiftMessage)}">
-            <div class="gift-message-box text-left">
-                <div class="gift-box-container-label gift-box-container-label-defualt-${!empty(lineItem.giftParentUUID) ? lineItem.giftParentUUID : lineItem.UUID}">${Resource.msg('label.minicart.giftbox.heading', 'cart', null)}</div>
-                <div class="gift-msg-text text-truncate gift-lineitem-message-${lineItem.UUID} gift-lineitem-message-gift-${!empty(lineItem.giftParentUUID) ? lineItem.giftParentUUID : ''}">
-                    <isif condition="${itemLevelGiftMessage ? itemLevelGiftMessage : false}">
-                        "${itemLevelGiftMessage ? itemLevelGiftMessage : ''}"
-                    </isif>
+    <isif condition="${!empty(itemLevelGiftMessage) || !empty(parentLineItemId.giftPid)}">
+        <div class="gift-box-container w-100 align-items-start justify-content-start full-cart-continaer">
+            <img class="gift-icon" alt="gift box icon" src="${URLUtils.staticURL('/images/giftbox-icon.svg')}" />
+            <div class="gift-message-box gift-message-box-${!empty(lineItem.giftParentUUID) ? lineItem.giftParentUUID : parentLineItemId.UUID} text-left">
+                <div class="gift-box-container-label gift-message-label-${!empty(lineItem.giftParentUUID) ? lineItem.giftParentUUID : parentLineItemId.UUID}">${Resource.msg('label.minicart.giftbox.heading', 'cart', null)}</div>
+                <div class="gift-msg-text text-truncate gift-lineitem-message-${parentLineItemId.UUID}">
+                        <isif condition="${parentLineItemId.customAttributes['itemLevelGiftMessage'] ? parentLineItemId.customAttributes['itemLevelGiftMessage'].msgLine1 : false}">
+                            "${parentLineItemId.customAttributes['itemLevelGiftMessage'] ? parentLineItemId.customAttributes['itemLevelGiftMessage'].msgLine1 : ''}"
+                        </isif>
                 </div>
             </div>
-            <a href="${URLUtils.https('Cart-ShowGiftBoxModal', 'pid', lineItemId, 'uuid', lineItem.UUID, 'itemLevelGiftMessage', itemLevelGiftMessage, 'isCartPage', isCartPage)}"  class="btn gift-box-container-link gift-box-container-link-${!empty(lineItem.giftParentUUID) ? lineItem.giftParentUUID : lineItem.UUID}" data-toggle="modal" data-target="#giftBoxModelPopUp">${Resource.msg('label.minicart.giftbox.link.edit', 'cart', null)}</a>
-        <iselse/>
-            <div class="gift-message-box text-left">
-                <div class="gift-box-container-label gift-box-container-label-defualt-${!empty(lineItem.giftParentUUID) ? lineItem.giftParentUUID : lineItem.UUID}">${Resource.msg('label.minicart.giftbox.heading', 'cart', null)}</div>
-                <div class="gift-msg-text text-truncate gift-lineitem-message-${lineItem.UUID} gift-lineitem-message-gift-${!empty(lineItem.giftParentUUID) ? lineItem.giftParentUUID : ''}">
-                    <isif condition="${itemLevelGiftMessage ? itemLevelGiftMessage : false}">
-                        "${itemLevelGiftMessage ? itemLevelGiftMessage : ''}"
-                    </isif>
-                </div>
-            </div>
-            <a href="${URLUtils.https('Cart-ShowGiftBoxModal', 'pid', lineItemId, 'uuid', lineItem.UUID, 'isCartPage', isCartPage, 'itemLevelGiftMessage', itemLevelGiftMessage)}"  class="btn gift-box-container-link gift-box-container-link-${!empty(lineItem.giftParentUUID) ? lineItem.giftParentUUID : lineItem.UUID} gift-message-btn-${!empty(lineItem.giftParentUUID) ? lineItem.giftParentUUID : lineItem.UUID}" data-toggle="modal" data-target="#giftBoxModelPopUp">
-                <isif condition="${!empty(lineItem.giftParentUUID)}">
-                    ${Resource.msg('label.minicart.giftbox.link.edit', 'cart', null)}
-                <iselse/>
-                    ${Resource.msg('label.minicart.giftbox.link', 'cart', null)}
-                </isif>
-            </a>
-        </isif>
-        <div class="gift-message-box text-left">
-            <div class="gift-box-container-label gift-box-container-label-edit gift-message-label-${!empty(lineItem.giftParentUUID) ? lineItem.giftParentUUID : lineItem.UUID} d-none">${Resource.msg('label.minicart.giftbox.heading', 'cart', null)}</div>
-            <div class="gift-msg-text text-truncate gift-msg-text-edit d-none gift-lineitem-message-${lineItem.UUID} gift-lineitem-message-gift-${!empty(lineItem.giftParentUUID) ? lineItem.giftParentUUID : ''}">
-                    <isif condition="${lineItem.customAttributes['itemLevelGiftMessage'] ? lineItem.customAttributes['itemLevelGiftMessage'].msgLine1 : false}">
-                        "${lineItem.customAttributes['itemLevelGiftMessage'] ? lineItem.customAttributes['itemLevelGiftMessage'].msgLine1 : ''}"
-                    </isif>
-            </div>
+            <a href="${URLUtils.https('Cart-ShowGiftBoxModal', 'pid', parentLineItemId.id, 'uuid', parentLineItemId.UUID, 'itemLevelGiftMessage', itemLevelGiftMessage ? itemLevelGiftMessage  : '', 'isCartPage', isCartPage)}"  class="btn gift-box-container-link gift-message-btn-${!empty(lineItem.giftParentUUID) ? lineItem.giftParentUUID : parentLineItemId.UUID}" data-toggle="modal" data-target="#giftBoxModelPopUp">${Resource.msg('label.minicart.giftbox.link.edit', 'cart', null)}</a>
         </div>
-        <a href="${URLUtils.https('Cart-ShowGiftBoxModal', 'pid', lineItemId, 'uuid', lineItem.UUID, 'itemLevelGiftMessage', itemLevelGiftMessage ? itemLevelGiftMessage  : '', 'isCartPage', isCartPage)}"  class="btn gift-box-container-link gift-box-container-link-edit d-none edit-gift-message-btn-${!empty(lineItem.giftParentUUID) ? lineItem.giftParentUUID : lineItem.UUID}" data-toggle="modal" data-target="#giftBoxModelPopUp">${Resource.msg('label.minicart.giftbox.link.edit', 'cart', null)}</a>
-    </div>
+    <iselse/>
+        <div class="gift-box-container w-100 align-items-start justify-content-start full-cart-continaer">
+            <img class="gift-icon" alt="gift box icon" src="${URLUtils.staticURL('/images/giftbox-icon.svg')}" />
+            <div class="gift-message-box gift-message-box-${!empty(lineItem.giftParentUUID) ? lineItem.giftParentUUID : parentLineItemId.UUID} text-left">
+                <div class="gift-box-container-label gift-message-label-${!empty(lineItem.giftParentUUID) ? lineItem.giftParentUUID : parentLineItemId.UUID}">${Resource.msg('label.minicart.giftbox.heading', 'cart', null)}</div>
+                <div class="gift-msg-text text-truncate gift-lineitem-message-${parentLineItemId.UUID}">
+                        <isif condition="${parentLineItemId.customAttributes['itemLevelGiftMessage'] ? parentLineItemId.customAttributes['itemLevelGiftMessage'].msgLine1 : false}">
+                            "${parentLineItemId.customAttributes['itemLevelGiftMessage'] ? parentLineItemId.customAttributes['itemLevelGiftMessage'].msgLine1 : ''}"
+                        </isif>
+                </div>
+            </div>
+            <a href="${URLUtils.https('Cart-ShowGiftBoxModal', 'pid', parentLineItemId.id, 'uuid', parentLineItemId.UUID, 'itemLevelGiftMessage', itemLevelGiftMessage ? itemLevelGiftMessage  : '', 'isCartPage', isCartPage)}"  class="btn gift-box-container-link gift-message-btn-${!empty(lineItem.giftParentUUID) ? lineItem.giftParentUUID : parentLineItemId.UUID}" data-toggle="modal" data-target="#giftBoxModelPopUp">${Resource.msg('label.minicart.giftbox.link', 'cart', null)}</a>
+        </div>
+    </isif>
     <isif condition="${lineItem.bonusProductLineItemUUID === 'bonus'}">
         <isinclude template="cart/productCard/cartEmbeddedBonusProducts" />
     </isif>
