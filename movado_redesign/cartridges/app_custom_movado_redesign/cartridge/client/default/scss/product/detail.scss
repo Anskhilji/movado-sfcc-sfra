@@ -307,6 +307,26 @@ $arrow-height: 1.25em;
             }
         }
 
+        .cs-carousel-wrapper {
+
+            .main-carousel {
+
+                .slick-next {
+                        
+                    @include media-breakpoint-down(sm) {
+                        display: none !important;
+                    }
+                }
+
+                .slick-prev {
+
+                    @include media-breakpoint-down(sm) {
+                        display: none !important;
+                    }
+                }
+            }
+        }
+
         .main-carousel {
 
             .slick-slide {
@@ -803,10 +823,10 @@ $arrow-height: 1.25em;
     }
 
     .slick-dots {
-
+    
         li {
-            width: 4%;
-            height: rem(2);
+            width: 15%;
+            height: rem(2.5);
             background: $gray-x11;
             margin: 0;
 
@@ -1380,7 +1400,12 @@ $arrow-height: 1.25em;
                 margin: 0 auto;
                 justify-content: center;
                 display: flex;
+
+                @include media-breakpoint-down(sm) {
+                    display: none;
+                }
             }
+    
         }
 
         .carousel-title {
