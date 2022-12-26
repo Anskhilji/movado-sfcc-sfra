@@ -34,7 +34,7 @@
                 </div>
             </div>
 
-            <isif condition="${counter > 5}">
+            <isif condition="${counter > 4}">
                 <div class="more-filter-btn">
                     ${Resource.msg('label.moreFilters', 'search', null)}
                     <span>${Resource.msg('label.plus', 'search', null)}</span>
