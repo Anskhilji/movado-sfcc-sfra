@@ -43,15 +43,11 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
         : null;
     var categoryAnalyticsTrackingData;
     var userTracking;
-    var refineurl = URLUtils.url('Search-RefinebarNew');
+    var refineurl = URLUtils.url('Search-Refinebar');
 
     if (searchRedirect) {
         res.redirect(searchRedirect.getLocation());
         return next();
-    }
-
-    if (session.custom.showMoreEndpoint) {
-        delete session.custom.showMoreEndpoint;
     }
 
     apiProductSearch = searchHelper.setupSearch(apiProductSearch, req.querystring);
@@ -67,7 +63,6 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
 
     if (categoryTemplate && (categoryTemplate.indexOf('searchResults') > 0)) {
         categoryTemplate = 'search/searchResults';
-        session.custom.showMoreEndpoint = 'Search-UpdateGridNew';
     }
 
     productSearch = new ProductSearch(
@@ -225,38 +220,7 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     return next();
 }, pageMetaData.computedPageMetaData);
 
-/**
- * Add a new endpoint for refinebar to apply A/B test
- */
- server.get('RefinebarNew', cache.applyShortPromotionSensitiveCache, function (req, res, next) {
-    var CatalogMgr = require('dw/catalog/CatalogMgr');
-    var ProductSearchModel = require('dw/catalog/ProductSearchModel');
-    var ProductSearch = require('*/cartridge/models/search/productSearch');
-    var searchHelper = require('*/cartridge/scripts/helpers/searchHelpers');
-
-    var apiProductSearch = new ProductSearchModel();
-    apiProductSearch = searchHelper.setupSearch(apiProductSearch, req.querystring);
-    apiProductSearch.search();
-    var productSearch = new ProductSearch(
-        apiProductSearch,
-        req.querystring,
-        req.querystring.srule,
-        CatalogMgr.getSortingOptions(),
-        CatalogMgr.getSiteCatalog().getRoot()
-    );
-
-    var refineBarTemplate = 'search/searchRefineBar';
-
-    res.render(refineBarTemplate, {
-        productSearch: productSearch,
-        querystring: req.querystring
-    });
-
-    next();
-});
-
-
-server.get('UpdateGridNew', cache.applyShortPromotionSensitiveCache, function (req, res, next) {
+server.replace('UpdateGrid', cache.applyShortPromotionSensitiveCache, function (req, res, next) {
     var ProductMgr = require('dw/catalog/ProductMgr');
     var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
     var apiProduct;
