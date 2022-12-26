@@ -133,10 +133,10 @@
         }
         .slick-arrow {
             &.slick-prev {
-                left: rem(-25);
+                left: rem(-64);
             }
             &.slick-next {
-                right: rem(-25);
+                right: rem(-64);
             }
         }
     }
@@ -150,4 +150,82 @@
         font-size: rem(30);
         }
     }
+}
+// 2074 carousel update
+.cs-carousel-update {
+
+    .cs-carousel {
+
+        .carousel-tile {
+            transition: .5s ease-in;
+
+            &:hover {
+                .product-tile {
+
+                    .tile-body {
+                        height: rem(140);
+
+                        .promotions {
+                            
+                            .callout {
+                                display: block;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .product-tile {
+
+                .new-product {
+                    background-color: $grey9;
+                }
+
+                .tile-body {
+                    height: 4.1875rem;
+                    position: absolute;
+                    width: 100%;
+                    bottom: 0;
+                    background-color: hsla(0,0%,95%,.89);
+                    transition: .5s ease-in;
+                    overflow: hidden;
+                    padding: rem(10) rem(15);
+
+                    .price {
+
+                        .price-pdp-mvmt {
+                            font-weight: 300;
+                        }
+                    }
+
+                    .promotions {
+                        margin-top: rem(14);
+                        margin-bottom: rem(0);
+
+                        .callout {
+                            font-size: rem(15);
+                            text-align: inherit;
+                            display: -webkit-box;
+                            -webkit-line-clamp: 3;
+                            max-height: rem(48);
+                            overflow: hidden;
+                            color: $grey8;
+                            display: none;
+                            animation: fadeIn 2s;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@keyframes fadeIn {
+
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+    
 }
