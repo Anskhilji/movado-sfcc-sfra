@@ -1434,6 +1434,12 @@ header {
     height: 100%;
 }
 
+.gpay-button-fill-new-style > {
+    .gpay-button.black {
+        border-radius: rem(0.125) !important;
+    }
+}
+
 :focus {
     outline: none;
     box-shadow: none;
