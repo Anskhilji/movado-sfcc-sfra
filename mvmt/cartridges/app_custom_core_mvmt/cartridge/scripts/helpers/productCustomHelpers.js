@@ -72,7 +72,7 @@ function getProductGtmObj(product, categoryName, position) {
                 position: position,
                 familyName: familyName,
                 productColor: productColor,
-                currentCategory: stringUtils.removeSingleQuotes(escapeQuotes(categoryName))    
+                currentCategory: stringUtils.removeSingleQuotes(escapeQuotes(categoryName))
             });
         } else {
             var productObj = ProductMgr.getProduct(product.id);
@@ -95,7 +95,7 @@ function getProductGtmObj(product, categoryName, position) {
                 position: position,
                 familyName: familyName,
                 productColor: productColor,
-                currentCategory: stringUtils.removeSingleQuotes(escapeQuotes(categoryName)) 
+                currentCategory: stringUtils.removeSingleQuotes(escapeQuotes(categoryName))
             });
         }
 
