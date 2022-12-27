@@ -50,7 +50,10 @@ $negative-spacer: -0.625rem;
 .checkout-continue {
     .google-pay-container {
        .gpay-button.black.short {
-         border-radius: rem(0);
+          border-radius: rem(0);
+       }
+       .gpay-button.black {
+          border-radius: rem(0);
        }
     } 
 

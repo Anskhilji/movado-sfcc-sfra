@@ -1626,6 +1626,16 @@
     display: flex;
 }
 
+#google-pay-container-mini-cart {
+
+    .gpay-button-fill-new-style {
+        
+        .gpay-button {
+            border-radius: 4px;
+        }
+    }
+}
+
 .gift-box-container {
     text-align: center;
     display: flex;
