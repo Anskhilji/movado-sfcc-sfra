@@ -80,7 +80,7 @@
         <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
 		<input type="hidden" class="g-recaptcha-token" name="${pdict.contactUsForm.grecaptchatoken.htmlName}" 
 		    <isprint value="${pdict.contactUsForm.grecaptchatoken}"/>
-		>
+		/>
         <iscomment>Custom start:ADDED Custom class in button</iscomment>
         <div class="row">
             <div class="col-md-6 pt-2">
