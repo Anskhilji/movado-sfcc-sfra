@@ -1,0 +1,7 @@
+<button type="button" class="remove-clyde-product btn btn-light" data-toggle="modal"
+    data-target=".cart.cart-page #removeClydeProductModal" data-pid="${lineItem.id}"
+    data-name="${lineItem.options.length > 0 ? lineItem.options[0].lineItemText : null}" data-action="${URLUtils.url("Cart-RemoveClydeProduct")}" data-uuid="${lineItem.UUID}" aria-label="remove"
+    data-gtm-cart="${JSON.stringify(pdict.cartItemObj[loopStatus.index])}">
+    <span aria-hidden="true">&times;</span>
+</button>
+<isinclude template="cart/cartRemoveClydeProductModal"/>

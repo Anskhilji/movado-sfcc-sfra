@@ -17,6 +17,8 @@ var orderCustomHelpers = require('*/cartridge/scripts/helpers/orderCustomHelper'
 var sitePreferences = require('dw/system/Site').getCurrent().getPreferences().getCustom();
 
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
+var checkoutLogger = require('*/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
+var checkoutCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
 
 function resRedirecter(res, msg) {
     res.redirect(URLUtils.url('Cart-Show', 'amzError', true, 'errorMessage', msg).toString());
@@ -519,6 +521,12 @@ server.get('OneReview', server.middleware.https, function (req, res, next) {
     COHelpers.copyCustomerAddressToBilling(data.billingAddress);
     COHelpers.recalculateBasket(currentBasket);
 
+    var email = data.email;
+    if (!empty(email)) {
+        var maskedEmail = checkoutCustomHelpers.maskEmail(email);
+        checkoutLogger.info('(AmazonPay) -> SubmitShipping: Step-1: Customer Email is ' + maskedEmail);
+    }
+
     Transaction.wrap(function () {
         currentBasket.setCustomerEmail(data.email);
     });
@@ -560,6 +568,12 @@ server.get('OneReview', server.middleware.https, function (req, res, next) {
         Transaction.wrap(function () {
             currentBasket.custom.amzPayRedirectURL = checkoutSession.webCheckoutDetail.amazonPayRedirectUrl;
         });
+
+        if (!empty(email)) {
+            var maskedEmail = checkoutCustomHelpers.maskEmail(email);
+            checkoutLogger.info('(AmazonPay) -> SubmitPayment: Step-2: Customer Email is ' + maskedEmail);
+        }
+        
     } catch (error) {
         Logger.getLogger('AmazonPay', 'AmazonPay-CheckoutSession').error(error.toString());
     }
@@ -876,6 +890,12 @@ server.get('Result', server.middleware.https, function (req, res, next) {
             // Custom Start: Change email helper to trigger confirmation email
             COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
 
+            var email = order.customerEmail;
+            if (!empty(email)) {
+                var maskedEmail = checkoutCustomHelpers.maskEmail(email);
+                checkoutLogger.info('(AmazonPay) -> PlaceOrder: Step-3: Customer Email is ' + maskedEmail);
+            }
+
             // Custom Start: set to true to trigger Purchase tag on confirmation page
             session.custom.orderJustPlaced = true;
 
@@ -937,6 +957,12 @@ server.get('Result', server.middleware.https, function (req, res, next) {
                 });
             }
             // Custom End 
+
+            var email = order.customerEmail;
+            if (!empty(email)) {
+                var maskedEmail = checkoutCustomHelpers.maskEmail(email);
+                checkoutLogger.info('(AmazonPay) -> PlaceOrder: Step-3: Customer Email is ' + maskedEmail);
+            }
 
             session.custom.orderNumber = order.orderNo;
 

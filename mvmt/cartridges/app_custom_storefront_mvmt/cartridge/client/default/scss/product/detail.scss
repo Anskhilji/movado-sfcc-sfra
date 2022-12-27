@@ -768,7 +768,6 @@
             display: block;
         }
     }
-
     .rating-box-container {
         @include media-breakpoint-down(sm) {
             display: none;
@@ -1728,6 +1727,12 @@
 
                 @include media-breakpoint-down(sm) {
                     margin-left: rem(10);
+                }
+
+                &.custom-promotion-badge {
+                    background: $white;
+                    border-color: $red2;
+                    color: $red2;
                 }
             }
         }
