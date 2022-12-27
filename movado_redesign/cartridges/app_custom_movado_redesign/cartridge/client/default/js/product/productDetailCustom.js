@@ -382,6 +382,7 @@ function ratingRedesign() {
     }
 }
 
+// Custom Start: [MSS-2079] Hide Star Ratings and Write a Review Section when 0 Reviews on a Product
 function removeRatings() {
     var $ratings = $('.ratings');
     var $wrapper = $('.yotpo-display-wrapper')
@@ -406,3 +407,4 @@ function removeRatings() {
 setInterval(function () {
     removeRatings();
 }, 0);
+// Custom End
