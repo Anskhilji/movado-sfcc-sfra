@@ -381,3 +381,28 @@ function ratingRedesign() {
         }
     }
 }
+
+function removeRatings() {
+    var $ratings = $('.ratings');
+    var $wrapper = $('.yotpo-display-wrapper')
+    var $noReviews = $('.yotpo-no-reviews');
+    var $yotpoWrapper = $('.yotpo.bottomLine');
+    var $reviewsSection = $('#yotpo-reviews-top-div');
+    
+    if ($noReviews.length > 0) {
+        $ratings.css('opacity', 0);
+        $wrapper.css('display', 'none');
+        $reviewsSection.css('display', 'none');
+        $noReviews.hide();
+        $yotpoWrapper.hide();
+        $reviewsSection.hide();
+    } else {
+        setInterval(function () {
+            removeRatings();
+        }, 0);
+    }
+}
+
+setInterval(function () {
+    removeRatings();
+}, 0);
