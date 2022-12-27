@@ -1626,9 +1626,13 @@
     display: flex;
 }
 
-.gpay-button-fill-new-style {
-    .gpay-button .black {
-        border-radius: 4px !important;
+#google-pay-container-mini-cart {
+
+    .gpay-button-fill-new-style {
+        
+        .gpay-button {
+            border-radius: 4px;
+        }
     }
 }
 
