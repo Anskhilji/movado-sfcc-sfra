@@ -63,7 +63,7 @@ function calculateTax(basket) {
       sendFalureEmail(statusMessage);
       sabrixTaxHelper.clearSabrixLineTaxAttributes(taxService);
       Transaction.wrap(function () {
-        basket.custom.sabrixTaxError = true; //[MSS-1345] if service returns error we need to call it again just before Amazon Update Checkout
+        basket.custom.sabrixTaxError = true;
       });
       return new Status(Status.ERROR);
     } else if (result.status == 'SERVICE_UNAVAILABLE') {
@@ -72,7 +72,7 @@ function calculateTax(basket) {
       sabrixTaxHelper.clearSabrixLineTaxAttributes(taxService);
       HookMgr.callHook('dw.order.calculateSfraTax', 'calculateTax', basket);
       Transaction.wrap(function () {
-        basket.custom.sabrixTaxError = true; //[MSS-1345] if service returns error we need to call it again just before Amazon Update Checkout
+        basket.custom.sabrixTaxError = true; 
       });
       return new Status(Status.ERROR);
     } else if (result.status == 'ERROR') {
@@ -81,7 +81,7 @@ function calculateTax(basket) {
       sabrixTaxHelper.clearSabrixLineTaxAttributes(taxService);
       HookMgr.callHook('dw.order.calculateSfraTax', 'calculateTax', basket);
       Transaction.wrap(function () {
-        basket.custom.sabrixTaxError = true; //[MSS-1345] if service returns error we need to call it again just before Amazon Update Checkout
+        basket.custom.sabrixTaxError = true;
       });
       return new Status(Status.ERROR);
     }
@@ -90,7 +90,7 @@ function calculateTax(basket) {
       sabrixTaxHelper.populateTaxBreakupInSFCC(responseWrapper);
       Logger.getLogger('SabrixTaxHelper').debug('Tax successfully updated in basket : ');
       Transaction.wrap(function () {
-        basket.custom.sabrixTaxError = false; //[MSS-1345] if service returns error we need to call it again just before Amazon Update Checkout
+        basket.custom.sabrixTaxError = false;
       });
       return new Status(Status.OK);
     } catch (e) {
@@ -100,7 +100,7 @@ function calculateTax(basket) {
       sendFalureEmail(exception);
       Logger.getLogger('SabrixTaxHelper').error(exception);
       Transaction.wrap(function () {
-        basket.custom.sabrixTaxError = true; //[MSS-1345] if service returns error we need to call it again just before Amazon Update Checkout
+        basket.custom.sabrixTaxError = true;
       });
       return new Status(Status.ERROR);
     }
