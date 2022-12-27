@@ -3835,6 +3835,13 @@
     .gpay-button {
         padding: rem(8) 15% !important;
     }
+    
+    .gpay-button-fill-new-style {
+        
+        .gpay-button {
+            border-radius: 4px;
+        }
+    }
 }
 
 .gift-box-wrapper-pdp {
