@@ -16,6 +16,8 @@ var OrderModel = require('~/cartridge/scripts/riskified/export/api/models/OrderM
 var Constants = require('~/cartridge/scripts/riskified/util/Constants');
 var RCLogger = require('~/cartridge/scripts/riskified/util/RCLogger');
 var RCUtilities = require('~/cartridge/scripts/riskified/util/RCUtilities');
+var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
+var Constant = require('*/cartridge/scripts/helpers/utils/NotificationConstant');
 
 /**
  * This function parses analysis response.
@@ -29,8 +31,11 @@ function parseOrderAnalysisResponse(orderAnalysisStatus, callerModule) {
     var logLocation = callerModule + '~' + _moduleName + '.parseOrderAnalysisResponse()';
     var orderAnalaysisStatus;
     var status = true;
+    var message;
 
-    RCLogger.logMessage('ParseOrderAnalysisResponse: Riskified order analysis status: ' + orderAnalysisStatus, 'debug', logLocation);
+    message = 'ParseOrderAnalysisResponse: Riskified order analysis status: ' + orderAnalysisStatus, 'debug', logLocation;
+    RCLogger.logMessage(message);
+    checkoutNotificationHelpers.sendDebugNotification(Constant.RISKIFIED, message, logLocation);
 
     if ('approved'.equals(orderAnalysisStatus)) {
         orderAnalaysisStatus = Constants.ORDER_REVIEW_APPROVED_STATUS;
@@ -59,13 +64,16 @@ function handle(callerModule) {
     var logLocation = callerModule + '~' + _moduleName + '.handle()';
     var response;
     var riskifiedAuthCode = Site.getCurrent().preferences.custom.riskifiedAuthCode;
+    var message;
 
     if (empty(riskifiedAuthCode)) {
-        RCLogger.logMessage('Riskified Authentication Code site preference is not set, therefore cannot proceed further.', 'error', logLocation);
+        message = 'Riskified Authentication Code site preference is not set, therefore cannot proceed further.', 'error', logLocation;
+        RCLogger.logMessage(message);
         response = {
             error   : true,
             message : 'riskifiedAuthCode site preference not set in cartridge'
         };
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, message, logLocation, response.message);
 
         return response;
     }
@@ -77,6 +85,7 @@ function handle(callerModule) {
             error   : true,
             message : 'Header HMAC missing'
         };
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, response.message, logLocation);
 
         return response;
     }
@@ -89,7 +98,7 @@ function handle(callerModule) {
             error   : true,
             message : 'Authentication error, calculated HashMAC not similar to request header'
         };
-
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, response.message, logLocation);
         return response;
     }
 
@@ -102,7 +111,7 @@ function handle(callerModule) {
             error   : true,
             message : 'Order ID is missing'
         };
-
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, response.message, logLocation);
         return response;
     }
 
@@ -112,7 +121,7 @@ function handle(callerModule) {
             error   : true,
             message : 'Order not found with order ID ' + orderId
         };
-
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, response.message, logLocation);
         return response;
     }
 
@@ -123,7 +132,7 @@ function handle(callerModule) {
             error   : true,
             message : 'Unknown Order Analysis Status'
         };
-
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, response.message, logLocation);
         return response;
     }
 
@@ -134,7 +143,7 @@ function handle(callerModule) {
             error   : true,
             message : "Order review status couldn't be udpated."
         };
-
+        checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, response.message, logLocation);
         return response;
     }
 
@@ -146,7 +155,7 @@ function handle(callerModule) {
                 error   : true,
                 message : "Order review status couldn't be udpated."
             };
-
+            checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, response.message, logLocation);
             return response;
         }
     }
@@ -155,7 +164,7 @@ function handle(callerModule) {
         error   : false,
         message : 'Order review status udpated successfully.'
     };
-
+    checkoutNotificationHelpers.sendErrorNotification(Constant.RISKIFIED, response.message, logLocation);
     return response;
 }
 

@@ -107,7 +107,7 @@
                             </isif>
                             <hr />
                         </div>
-                        <isif condition="${product.options && product.options.length > 0 && !(option.id == "clydeWarranty") && dw.system.Site.current.preferences.custom.isClydeEnabled}">
+                        <isif condition="${product.options && product.options.length > 0}">
                             <isinclude template="product/components/options" />
                         </isif>
                         <div class="col-md-10 col-12">
@@ -186,7 +186,6 @@
                 </div>
             </div>
         </div>
-
         <div class="container">
             <isinclude template="product/components/descriptionAndDetails" />
         </div>
@@ -210,13 +209,12 @@
             </div>
         </div>
         <!-- The Modal: Ends-->
-                <!-- Start: Listrak persistent popup -->
+        <!-- Start: Listrak persistent popup -->
         <isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled && pdict.popupID}">
             <span class="listrak-persistent-url" data-listrak-url="${URLUtils.https('EmailPopUp-Show')}"></span>
             <span class="listrak-popup-product-detail"></span>
             <isslot id="cs-listrak-persistent-popup" description="Listrak persistent popup" context="global" />
         </isif>
         <!-- End: Listrak persistent popup -->
-
     </isobject>
 </isdecorate>

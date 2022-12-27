@@ -96,7 +96,8 @@ function getProductAttributes(apiProduct) {
                             seeTheFitSpecs.push(attribute);
                         }
                     } catch (e) {
-                        Logger.error('(productCustomHelper.js -> getProductAttributes) Error occured while setting the attributes values in the object : ' + e);
+                        Logger.error('(productCustomHelper.js -> getProductAttributes) Error occured while setting the attributes values in the object  . ProductId {0}: \n Error: {1} \n Message: {2} \n lineNumber: {3} \n fileName: {4} \n', 
+                        apiProduct.ID, e.stack, e.message, e.lineNumber, e.fileName);
                     }
                 }
             }
@@ -120,10 +121,10 @@ function getProductAttributes(apiProduct) {
  * @returns {Boolean} isWatchTile - true if product belongs to watches
  */
 
- function getIsWatchTile(apiProduct) {
+function getIsWatchTile(apiProduct) {
     try {
         if (!empty(apiProduct)) {
-        var isWatchTile = !empty(apiProduct.custom.isWatchTile) ? apiProduct.custom.isWatchTile : false;
+            var isWatchTile = !empty(apiProduct.custom.isWatchTile) ? apiProduct.custom.isWatchTile : false;
         }
         return isWatchTile;
         
@@ -228,7 +229,8 @@ function getCategoryConfig(apiProduct, categoriesConfig) {
                             }
                         }
                     } catch (e) {
-                        Logger.error('(productCustomHepler.js -> getPdpDetailAndSpecsAttributes) Error occured while setting the attributes values in the object : ' + e);
+                        Logger.error('(productCustomHepler.js -> getPdpDetailAndSpecsAttributes) Error occured while setting the attributes values in the object  . ProductId {0}: \n Error: {1} \n Message: {2} \n lineNumber: {3} \n fileName: {4} \n', 
+                        apiProduct.ID, e.stack, e.message, e.lineNumber, e.fileName);
                     }
                 }
             }
@@ -429,7 +431,8 @@ function getProductCategory(apiProduct, product) {
             }
         }
     } catch (error) {
-        Logger.error('(productCustomHelper.js -> getProductCategory) Error occured while getting category from apiProduct : ' + error.message);
+        Logger.error('(productCustomHelper.js -> getProductCategory) Error occured while getting category from apiProduct  . ProductId {0}: \n Error: {1} \n Message: {2} \n lineNumber: {3} \n fileName: {4} \n', 
+        apiProduct.ID, error.stack, error.message, error.lineNumber, error.fileName);
         return;
     }
     return isCategory;
@@ -529,6 +532,7 @@ function getProductPromoAndSalePrice(product) {
 }
 
 movadoProductCustomHelper.getProductAttributes = getProductAttributes;
+movadoProductCustomHelper.getIsWatchTile = getIsWatchTile;
 movadoProductCustomHelper.getRefinementSwatches = getRefinementSwatches;
 movadoProductCustomHelper.getPdpDetailAndSpecsAttributes = getPdpDetailAndSpecsAttributes;
 movadoProductCustomHelper.getPdpCollectionContentAssetID = getPdpCollectionContentAssetID;
@@ -536,7 +540,6 @@ movadoProductCustomHelper.getCurrentCountry = getCurrentCountry;
 movadoProductCustomHelper.getGtmPromotionObject = getGtmPromotionObject;
 movadoProductCustomHelper.getCaseDiameter = getCaseDiameter;
 movadoProductCustomHelper.getColor = getColor;
-movadoProductCustomHelper.getIsWatchTile = getIsWatchTile;
 movadoProductCustomHelper.getProductCategory = getProductCategory;
 movadoProductCustomHelper.isGiftBoxAllowed = isGiftBoxAllowed;
 movadoProductCustomHelper.getGiftBoxSKU = getGiftBoxSKU;

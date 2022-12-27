@@ -1,0 +1,30 @@
+<iscomment>Updated the bootstrap classes, new classes added</iscomment>
+<div class="row">
+    <iscomment> <div class="col-12 col-sm-4">
+        <label class="availability">
+            ${Resource.msg('label.availability', 'common', null)}:
+        </label>
+    </div> </iscomment>
+    <div class="col-12">
+        <ul class="list-unstyled availability-msg">
+            <li class="text-capitalize">
+                <isif condition="${!product.readyToOrder}">
+                    ${Resource.msg('info.selectforstock', 'product', 'Select Styles for Availability')}
+                <iselse>
+                    <isloop items="${product.availability.messages}" var="message">
+                        <span class="availability-msg-text">${message}</span> 
+                    </isloop>
+                    <iscomment> MSS-1713 Not need in Ebel redesign therefore commented this line of code
+                        <isif condition="${product.available && product.readyToOrder}">
+                            <span class="availability-msg-text">| ${Resource.msgf('label.product.detail.shipping2', 'product', null)} </span>
+                        </isif>
+                    </iscomment>
+                    <isif condition="${product.availability.messages[0] === Resource.msg('info.product.availability.preorder', 'common', null)}">
+                        <isset name="availabilityDate" value="${dw.util.StringUtils.formatCalendar(new dw.util.Calendar(product.availability.inStockDate), 'MM/dd/yyyy')}" scope="page" />
+                        |  ${Resource.msgf('info.presale.order.shipment.by.date', 'common', null, availabilityDate)}
+                    </isif>
+                </isif>
+            </li>
+        </ul>
+    </div>
+</div>

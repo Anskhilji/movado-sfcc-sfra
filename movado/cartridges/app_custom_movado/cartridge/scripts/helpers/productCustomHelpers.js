@@ -1090,7 +1090,8 @@ function setProductAvailability(product) {
                             }
                         }
                     } catch (e) {
-                        Logger.error('(productCustomHepler.js -> getPdpDetailAndSpecsAttributes) Error occured while setting the attributes values in the object : ' + e);
+                        Logger.error('productCustomHepler.js -> getPdpDetailAndSpecsAttributes) Error occured while setting the attributes values in the object  . ProductId {0}: \n Error: {1} \n Message: {2} \n lineNumber: {3} \n fileName: {4} \n', 
+                        apiProduct.ID, e.stack, e.message, e.lineNumber, e.fileName);
                     }
                 }
             }
@@ -1177,6 +1178,20 @@ function productSetStockAvailability(productType, apiProduct) {
     }
 }
 
+function getGtmObjForPdp(product) {
+    return {
+        id: product.ID,
+        addToCartLocation: Resource.msg('gtm.list.pdp.express.value', 'cart', null),
+        name: product.name ? product.name : '',
+        brand: product.brand ? product.brand : '',
+        category: product.variant && product.masterProduct.primaryCategory ? product.masterProduct.primaryCategory.ID : (product.primaryCategory ? product.primaryCategory.ID : ''),
+        variant: '',
+        price: product.priceModel.price.decimalValue ? product.priceModel.price.decimalValue.toString() : '0.0',
+        currency: product.priceModel && product.priceModel.price ? product.priceModel.price.currencyCode : '',
+        list: Resource.msg('gtm.list.pdp.value', 'cart', null)
+    }
+}
+
 module.exports = {
     getBadges: getBadges,
     getPdpAttributes: getPdpAttributes,
@@ -1205,6 +1220,6 @@ module.exports = {
     getMarketingProducts : getMarketingProducts,
     isOnlyRedesignedBadge: isOnlyRedesignedBadge,
     setProductAvailability: setProductAvailability,
-    productSetStockAvailability: productSetStockAvailability
-
+    productSetStockAvailability: productSetStockAvailability,
+    getGtmObjForPdp: getGtmObjForPdp
 };
