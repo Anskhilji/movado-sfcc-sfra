@@ -16,10 +16,7 @@
                 </div>
                 <div class="modal-body fedex-popup-body text-center fedex-address fedex-recommended-address"
                     data-fedex-address=''>
-                    <h3 class="fedex-popup-body-heading">${Resource.msg('popup.label.heading', 'checkout', null)}</h3>
-                    <p class="fedex-popup-body-label">${Resource.msg('popup.label.content', 'checkout', null)} <span class="fedex-popup-body-label-sub d-block-mobile-label">${Resource.msg('popup.label.content.sub', 'checkout', null)}</span></p>
-                    <p class="fedex-popup-body-label-sub d-block-desktop-label">${Resource.msg('popup.label.content.sub', 'checkout', null)}</p>
-
+                    <iscontentasset aid="checkout-address-validation"/>
                     <!-- 2nd & 5th for no recommendations -->
                     <div class="fedex-popup-body-container">
                         <div class="fedex-popup-body-container-box-one recommended-address-wrapper">

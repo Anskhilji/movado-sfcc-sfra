@@ -235,7 +235,7 @@ require('./fedexAddressValidate');
                           success: function (data) {
                               shippingHelpers.methods.shippingFormResponse(defer, data);
                               if (!data.error) {
-                                $('.fedex-btn-popup-call').attr('data-fedex', 'true');
+                                $('.fedex-btn-popup-call').attr('data-fedex', 'false');
                                 var scrollUtil = require('../utilities/scrollUtil');
                                 scrollUtil.scrollPaymentSection('.payment-form', 65);
 
