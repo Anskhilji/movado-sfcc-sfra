@@ -50,7 +50,7 @@ server.post(
 			if (empty(googleRecaptchaToken)) {
 				res.json({
 					success: false,
-					error: Resource.msg('error.contact.us.form', common, null)
+					error: Resource.msg('error.contact.us.form', 'common', null)
 				});
 				return next(); 
 			}
@@ -59,7 +59,7 @@ server.post(
 			if ((result.success == false) || ((result.success == true) && (result.score == undefined || result.score <= googleRecaptchaScore))) {
 				res.json({
 					success: false,
-					error: Resource.msg('error.contact.us.form', common, null)
+					error: Resource.msg('error.contact.us.form', 'common', null)
 				});
 				return next(); 
 			}
