@@ -56,7 +56,7 @@ server.post(
 			}
 
 			var result = googleRecaptchaAPI.googleRecaptcha(googleRecaptchaToken);
-			if ((result.success == false) || ((result.success == true) && (result.score == undefined || result.score <= googleRecaptchaScore))) {
+            if ((result.success == false) || ((result.success == true) && (result.score == undefined || result.score < googleRecaptchaScore))) {
 				res.json({
 					success: false,
 					error: Resource.msg('error.contact.us.form', 'common', null)
