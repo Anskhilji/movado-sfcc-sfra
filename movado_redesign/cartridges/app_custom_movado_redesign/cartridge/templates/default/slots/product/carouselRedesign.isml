@@ -1,4 +1,4 @@
-<div>
+<div class="container">
     <isif condition="${slotcontent && !!slotcontent.content.length}">
         <div class="container">
             <div class="row">

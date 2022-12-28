@@ -139,10 +139,10 @@
         }
         .slick-arrow {
             &.slick-prev {
-                left: rem(-64);
+                left: rem(-25);
             }
             &.slick-next {
-                right: rem(-64);
+                right: rem(-25);
             }
         }
     }
@@ -150,7 +150,7 @@
 
 @include media-breakpoint-down (lg) {
 
-    .cs-carousel-wrapper {
+    .cs-carousel-update {
         .slick-arrow {
             &.slick-prev {
                 left: rem(-48);
@@ -164,7 +164,7 @@
 }
 
 @include custom-media-query-max($medium-screen-width) {
-    .cs-carousel-wrapper {
+    .cs-carousel-update {
         .slick-arrow {
             &.slick-prev {
                 left: rem(-32);
@@ -194,44 +194,6 @@
         .carousel-tile {
             transition: .5s ease-in;
 
-            &:hover {
-
-                .product-tile {
-
-                    .tile-body {
-                        height: rem(140);
-
-                        .promotions {
-                            
-                            .callout {
-                                display: block;
-                            }
-                        }
-                    }
-                }
-            }
-
-            @include media-breakpoint-down(sm) {
-                &:hover {
-
-                    .product-tile {
-    
-                        .tile-body {
-                         height: rem(67);
-    
-                            .promotions {
-                                
-                                .callout {
-                                    display: block;
-                                }
-                            }
-                        }
-                    }
-                }
-
-
-            }
-
             .product-tile {
 
                 .new-product {
@@ -240,19 +202,22 @@
 
                 .tile-body {
                     height: rem(67);
-                    position: absolute;
                     width: 100%;
+                    text-align: left;
+                    position: absolute;
                     bottom: 0;
-                    background-color: hsla(0,0%,95%,.89);
                     transition: .5s ease-in;
                     overflow: hidden;
                     padding: rem(10) rem(15);
 
                     .price {
-
+                        padding: 0;
                         .price-pdp-mvmt {
                             font-weight: 300;
                         }
+                    }
+                    .product-name {
+                        font-weight: 600;
                     }
 
                     .promotions {
@@ -273,6 +238,18 @@
                     }
                 }
             }
+        }
+
+        .image-container {
+            padding-bottom: 54px;
+        }
+    }
+    .slick-arrow {
+        &.slick-prev {
+            left: rem(-64);
+        }
+        &.slick-next {
+            right: rem(-64);
         }
     }
 }
