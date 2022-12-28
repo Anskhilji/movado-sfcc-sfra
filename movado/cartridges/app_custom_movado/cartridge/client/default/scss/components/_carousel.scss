@@ -35,7 +35,7 @@
         display: flex;
         justify-content: center;
         position: absolute;
-        bottom: rem(62);
+        bottom: 0;
         width: 100%;
         margin: 0;
         left: 0;
@@ -91,6 +91,13 @@
                 float: none;
             }
         }
+    }
+}
+
+.primary-images {
+
+    .slick-dots {
+        bottom: rem(62);
     }
 }
 

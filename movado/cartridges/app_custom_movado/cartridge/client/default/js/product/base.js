@@ -43,7 +43,7 @@ function getQuantitySelector($el) {
         slidesToShow: 1,
         slidesToScroll: 1,
         asNavFor: '.carousel-nav',
-        dots: false,
+        dots: false, 
         arrows:true,
         focusOnSelect: true,
         fade: true,
