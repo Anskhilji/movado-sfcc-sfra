@@ -45,24 +45,24 @@ server.post(
         var isGoogleRecaptchaEnabled = !empty(Site.current.preferences.custom.googleRecaptchaEnabled) ? Site.current.preferences.custom.googleRecaptchaEnabled : false;
 
         if (isGoogleRecaptchaEnabled) {
-			var googleRecaptchaScore = !empty(Site.current.preferences.custom.googleRecaptchaScore) ? Site.current.preferences.custom.googleRecaptchaScore : 0;
-			var googleRecaptchaToken = contactUsForm.grecaptchatoken.value;
-			if (empty(googleRecaptchaToken)) {
-				res.json({
-					success: false,
-					error: Resource.msg('error.contact.us.form', 'common', null)
-				});
-				return next(); 
-			}
+            var googleRecaptchaScore = !empty(Site.current.preferences.custom.googleRecaptchaScore) ? Site.current.preferences.custom.googleRecaptchaScore : 0;
+            var googleRecaptchaToken = contactUsForm.grecaptchatoken.value;
+            if (empty(googleRecaptchaToken)) {
+	            res.json({
+                    success: false,
+                    error: Resource.msg('error.contact.us.form', 'common', null)
+                });
+                return next(); 
+		    }
 
             var result = googleRecaptchaAPI.googleRecaptcha(googleRecaptchaToken);
             if ((result.success == false) || ((result.success == true) && (result.score == undefined || result.score < googleRecaptchaScore))) {
-				res.json({
-					success: false,
-					error: Resource.msg('error.contact.us.form', 'common', null)
-				});
-				return next(); 
-			}
+		        res.json({
+			        success: false,
+			        error: Resource.msg('error.contact.us.form', 'common', null)
+                });
+                return next(); 
+		    }
 		}
         
         if (contactUsForm.valid) {
