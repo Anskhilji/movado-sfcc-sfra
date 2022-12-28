@@ -55,7 +55,7 @@ server.post(
 				return next(); 
 			}
 
-			var result = googleRecaptchaAPI.googleRecaptcha(googleRecaptchaToken);
+            var result = googleRecaptchaAPI.googleRecaptcha(googleRecaptchaToken);
             if ((result.success == false) || ((result.success == true) && (result.score == undefined || result.score < googleRecaptchaScore))) {
 				res.json({
 					success: false,
