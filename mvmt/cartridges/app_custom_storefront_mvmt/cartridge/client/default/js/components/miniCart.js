@@ -358,7 +358,9 @@ module.exports = function () {
             }
             else if (colSize == 6 && applePayLength == 0){
                 $('.shipping-paypal-btn img').css('height', '30px');
-                $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "30px" });
+                setTimeout(function () {
+                    $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "30px" });
+                }, 1000);
             }else if (colSize == 6) {
                 $('.shipping-paypal-btn img').css('height', '24px');
                 $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "24px" });
