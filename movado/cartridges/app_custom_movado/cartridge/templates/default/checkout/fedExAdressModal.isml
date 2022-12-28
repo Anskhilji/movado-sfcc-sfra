@@ -10,7 +10,7 @@
             <div class="modal-content fedex-popup-content">
                 <div class="modal-header fedex-popup-header">
                     <h5 class="modal-title" id="exampleModalCenterTitle"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close fedex-continue-btn user-recommend">
                         <img src="${URLUtils.staticURL('/images/cross-icon.svg')}" alt="" />
                     </button>
                 </div>
