@@ -367,7 +367,8 @@ module.exports = function () {
                             loadGpayWidth();
                         }, 1000);
                     }
-                }
+                };
+                loadGpayWidth();
             }else if (colSize == 6) {
                 $('.shipping-paypal-btn img').css('height', '24px');
                 $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "24px" });
