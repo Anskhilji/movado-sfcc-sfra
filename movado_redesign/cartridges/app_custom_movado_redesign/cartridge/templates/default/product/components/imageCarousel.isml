@@ -8,9 +8,24 @@
     var primaryImageCarouselConfig = {
       "slidesToShow": 1,
       "slidesToScroll": 1,
-      "dots": true,
+      "dots": false,
       "centerMode": true,
-      asNavFor: '.carousel-nav'
+      asNavFor: '.carousel-nav',
+      responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            infinite: true,
+            dots: false,
+            arrows: false,
+            "centerMode": false,
+            asNavFor: '.carousel-nav'
+        }
+        },
+      ]
+
     }
     <!-- primaryImageCarouselConfig = primaryImageCarouselConfig.replace(/[\n\s]/gi, ''); -->
   </isscript>

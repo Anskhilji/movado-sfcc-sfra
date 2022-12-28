@@ -234,6 +234,18 @@ $(document).ready(function() {
       dots: false,
       centerMode: true,
       focusOnSelect: true,
+
+      responsive: [
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: false,
+            dots:true
+          }
+        },
+    ]
   });
 
   $('.zoom-carousel').slick({
