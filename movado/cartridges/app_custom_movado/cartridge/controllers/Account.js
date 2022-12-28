@@ -164,7 +164,7 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
         }
 
         var result = googleRecaptchaAPI.googleRecaptcha(googleRecaptchaToken);
-        if ((result.success == false) || ((result.success == true) && (result.score == undefined || result.score <= googleRecaptchaScore))) {
+        if ((result.success == false) || ((result.success == true) && (result.score == undefined || result.score < googleRecaptchaScore))) {
             res.json({
                 success: false,
                 errorMessage: Resource.msg('error.message.unable.to.create.account', 'login', null)
@@ -187,8 +187,6 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
             if ((!empty(registrationForm.customer.hpemail.htmlValue)) ||
                 (!empty(registrationForm.customer.hpemailconfirm.htmlValue))) {
                     registrationForm.valid = false;
-            } else {
-                registrationForm.valid = true;
             }
         }
         // Custom End
@@ -346,7 +344,7 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
                     fields: formErrors.getFormErrors(registrationForm)
                 });
             }
-            if (!empty(authenticatedCustomer && authenticatedCustomer.profile.custom.customerCurrentCountry)) {
+            if (!empty(authenticatedCustomer) && !empty(authenticatedCustomer.profile.custom.customerCurrentCountry)) {
                 // Custom Start: Yotpo Swell Integration 
                 if (isYotpoSwellLoyaltyEnabled && authenticatedCustomer.profile.custom.customerCurrentCountry.equalsIgnoreCase('US')) {
                     var viewData = res.getViewData();

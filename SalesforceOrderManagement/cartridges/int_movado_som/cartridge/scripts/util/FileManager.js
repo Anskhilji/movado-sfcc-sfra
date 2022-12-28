@@ -340,6 +340,7 @@ FileManager.prototype.removeFiles = function (path, regex) {
 };
 
 exports.FileManager = FileManager;
+exports.MoveFileToErrored = MoveFileToErrored;
 
 function getFileNameBase(file) {
     var fileNameBase = "";
@@ -517,3 +518,18 @@ function timeStampFile(file) {
 
     return [success, dir];
 }
+
+function MoveFileToErrored(file,errorFolder) {
+    checkFolderExists(errorFolder);
+    if (
+        moveFileToFolder(
+            file,
+            errorFolder,
+            null,
+            null
+        ) == 1
+    ) {
+        return true;
+    }
+    return false;
+};

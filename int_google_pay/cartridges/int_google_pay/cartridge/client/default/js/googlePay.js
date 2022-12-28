@@ -388,11 +388,17 @@ function addGooglePayButton() {
             googlePayContainer.append(button);
         });
     } else {
-        var $googlePayButton = $('#google-pay-container-mini-cart > .gpay-button-fill');
+        var $googlePayButton = $('#google-pay-container-mini-cart > .gpay-button-fill-new-style');
         if ($googlePayButton.length === 0) {
             button = paymentsClient.createButton(buttonConfigs);
             document.getElementById('google-pay-container-mini-cart').appendChild(button);
         }
+    }
+}
+
+function handlePostCartAdd(response) {
+    if (response && response.addCartGtmArray !== undefined) {
+        $('body').trigger('addToCart:success', JSON.stringify(response.addCartGtmArray));
     }
 }
 
@@ -409,6 +415,7 @@ function getGoogleTransactionInfo(includeShippingDetails, selectedShippingMethod
         var data = {
             googlePayEntryPoint: $selector.data('entry-point'),
             pid: $selector.data('pid') ? $selector.data('pid') : false,
+            addToCartLocation: $selector.data('atc') ? $selector.data('atc') : '',
             selectedShippingMethod: selectedShippingMethod,
             includeShippingDetails: includeShippingDetails,
             shippingAddress: shippingAddress ? JSON.stringify(shippingAddress) : shippingAddress
@@ -427,6 +434,7 @@ function getGoogleTransactionInfo(includeShippingDetails, selectedShippingMethod
             method: 'POST',
             data: data,
             success: function (data) {
+                handlePostCartAdd(data);
                 resolve(data) // Resolve promise and go to then()
             },
             error: function (err) {

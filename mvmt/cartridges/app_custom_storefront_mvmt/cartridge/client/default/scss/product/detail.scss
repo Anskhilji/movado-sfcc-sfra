@@ -768,7 +768,6 @@
             display: block;
         }
     }
-
     .rating-box-container {
         @include media-breakpoint-down(sm) {
             display: none;
@@ -1728,6 +1727,12 @@
 
                 @include media-breakpoint-down(sm) {
                     margin-left: rem(10);
+                }
+
+                &.custom-promotion-badge {
+                    background: $white;
+                    border-color: $red2;
+                    color: $red2;
                 }
             }
         }
@@ -3829,6 +3834,13 @@
 .google-pay-container {
     .gpay-button {
         padding: rem(8) 15% !important;
+    }
+    
+    .gpay-button-fill-new-style {
+        
+        .gpay-button {
+            border-radius: 4px;
+        }
     }
 }
 

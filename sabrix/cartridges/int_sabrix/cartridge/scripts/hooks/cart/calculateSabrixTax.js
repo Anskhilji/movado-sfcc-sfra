@@ -8,6 +8,7 @@ var HookMgr = require('dw/system/HookMgr');
 var Mail = require('dw/net/Mail');
 var Resource = require('dw/web/Resource');
 var Logger = require('dw/system/Logger');
+var Transaction = require('dw/system/Transaction');
 
 /**
  * for Send email notification service failure to support team
@@ -61,28 +62,36 @@ function calculateTax(basket) {
       statusMessage = 'service resulted in empty response';
       sendFalureEmail(statusMessage);
       sabrixTaxHelper.clearSabrixLineTaxAttributes(taxService);
-      session.privacy.taxError = true; //[MSS-1345] if service returns error we need to call it again just before Amazon Update Checkout
+      Transaction.wrap(function () {
+        basket.custom.AmzPaySabrixTaxError = true;
+      });
       return new Status(Status.ERROR);
     } else if (result.status == 'SERVICE_UNAVAILABLE') {
       statusMessage = result.errorMessage;
       sendFalureEmail(statusMessage);
       sabrixTaxHelper.clearSabrixLineTaxAttributes(taxService);
       HookMgr.callHook('dw.order.calculateSfraTax', 'calculateTax', basket);
-      session.privacy.taxError = true;
+      Transaction.wrap(function () {
+        basket.custom.AmzPaySabrixTaxError = true; 
+      });
       return new Status(Status.ERROR);
     } else if (result.status == 'ERROR') {
       statusMessage = result.errorMessage;
       sendFalureEmail(statusMessage);
       sabrixTaxHelper.clearSabrixLineTaxAttributes(taxService);
       HookMgr.callHook('dw.order.calculateSfraTax', 'calculateTax', basket);
-      session.privacy.taxError = true;
+      Transaction.wrap(function () {
+        basket.custom.AmzPaySabrixTaxError = true;
+      });
       return new Status(Status.ERROR);
     }
     try {
       var responseWrapper = sabrixTaxHelper.updateLineItemSabrixTax(result, taxService);
       sabrixTaxHelper.populateTaxBreakupInSFCC(responseWrapper);
       Logger.getLogger('SabrixTaxHelper').debug('Tax successfully updated in basket : ');
-      delete session.privacy.taxError;
+      Transaction.wrap(function () {
+        basket.custom.AmzPaySabrixTaxError = false;
+      });
       return new Status(Status.OK);
     } catch (e) {
 			/* clear line tax attributes as service resulted in error */
@@ -90,7 +99,9 @@ function calculateTax(basket) {
       var exception = 'Error occured while updating tax in order with error on LineNumber: '+ e.lineNumber +' and FileName: '+ e.fileName+' and log : ' + e.toString();
       sendFalureEmail(exception);
       Logger.getLogger('SabrixTaxHelper').error(exception);
-      session.privacy.taxError = true;
+      Transaction.wrap(function () {
+        basket.custom.AmzPaySabrixTaxError = true;
+      });
       return new Status(Status.ERROR);
     }
   }

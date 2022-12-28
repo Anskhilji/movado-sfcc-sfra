@@ -65,7 +65,7 @@ function getModel(req) {
  */
 function isValidatebirthDay(bithdate, birthmonth) {
     var result = true;
-    var ListofDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    var ListofDays = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     if (bithdate > ListofDays[birthmonth - 1]) {
         result = false;
     }

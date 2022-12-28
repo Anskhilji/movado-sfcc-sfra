@@ -1683,10 +1683,15 @@ function mobileFilterSelect(currentElement) {
     checkClearAllBtn();
 }
 }
-
 // Added container-fluid class alongside container
 
 module.exports = {
+
+    load: function() {
+        $(window).load('load', function(e) {
+            $('.filter-and-count').css('visibility','visible');
+        }); 
+    },
 
     filter: function () {
         // Display refinements bar when Menu icon clicked
