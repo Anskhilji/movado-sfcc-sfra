@@ -13,12 +13,15 @@ var rakutenCookiesHelper = require('*/cartridge/scripts/helpers/rakutenHelpers')
  * @returns {Object} resources : An objects key key-value pairs holding the resources
  */
 function getResources(pageContext) {
+    var ContentMgr = require('dw/content/ContentMgr');
     var Resource = require('dw/web/Resource');
     var Site = require('dw/system/Site');
     var URLUtils = require('dw/web/URLUtils');
     var ArrayList = require('dw/util/ArrayList');
     var autoComplete = new ArrayList(Site.current.preferences.custom.autoCompleteAllowedCountries).toArray();
     var allowedCountryCodes = new ArrayList(Site.current.preferences.custom.googlePayShippingAllowedCountryCodes).toArray();
+    var fedexAddressNoRecommendation =  ContentMgr.getContent('checkout-address-validation-no-recommendation');
+    fedexAddressNoRecommendation = fedexAddressNoRecommendation && fedexAddressNoRecommendation.custom.body ? fedexAddressNoRecommendation.custom.body.source : '';
 
     var resources = {
         KLARNA_SLICE_IT_PAYMENT_METHOD_BRAND_CODE: Resource.msg('checkout.payment.method.klarna.slice.it.brand.code', 'checkout', null),
@@ -66,7 +69,7 @@ function getResources(pageContext) {
         PHONE_NUMBER_INVALID: Resource.msg('listrak.invalid.phone', 'product', null),
         PHONE_NUMBER_REQUIRED: Resource.msg('listrak.required.phone', 'product', null),
         LISTRAK_SUCCESS_MESSAGE: Resource.msg('listrak.success.message', 'product', null),
-        FEDEX_USER_ADDRESS_MESSAGE: Resource.msg('popup.label.content.single-content', 'checkout', null),
+        FEDEX_USER_ADDRESS_MESSAGE: fedexAddressNoRecommendation,
         FEDEX_RECOMMENDED_ADDRESS_MESSAGE: Resource.msg('popup.label.content.sub', 'checkout', null),
         INVALID_STATE: Resource.msg('invalid.state.error', 'forms', null)
     };
