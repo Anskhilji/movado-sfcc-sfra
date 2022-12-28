@@ -52,8 +52,8 @@ server.post(
                     success: false,
                     error: Resource.msg('error.contact.us.form', 'common', null)
                 });
-                return next(); 
-		    }
+                return next();
+            }
 
             var result = googleRecaptchaAPI.googleRecaptcha(googleRecaptchaToken);
             if ((result.success == false) || ((result.success == true) && (result.score == undefined || result.score < googleRecaptchaScore))) {
@@ -61,8 +61,8 @@ server.post(
 			        success: false,
 			        error: Resource.msg('error.contact.us.form', 'common', null)
                 });
-                return next(); 
-		    }
+                return next();
+            }
 		}
         
         if (contactUsForm.valid) {
