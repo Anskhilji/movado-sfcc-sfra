@@ -48,7 +48,7 @@ server.post(
             var googleRecaptchaScore = !empty(Site.current.preferences.custom.googleRecaptchaScore) ? Site.current.preferences.custom.googleRecaptchaScore : 0;
             var googleRecaptchaToken = contactUsForm.grecaptchatoken.value;
             if (empty(googleRecaptchaToken)) {
-	            res.json({
+                res.json({
                     success: false,
                     error: Resource.msg('error.contact.us.form', 'common', null)
                 });
@@ -57,13 +57,13 @@ server.post(
 
             var result = googleRecaptchaAPI.googleRecaptcha(googleRecaptchaToken);
             if ((result.success == false) || ((result.success == true) && (result.score == undefined || result.score < googleRecaptchaScore))) {
-		        res.json({
-			        success: false,
-			        error: Resource.msg('error.contact.us.form', 'common', null)
+                res.json({
+                    success: false,
+                    error: Resource.msg('error.contact.us.form', 'common', null)
                 });
                 return next();
             }
-		}
+        }
         
         if (contactUsForm.valid) {
             var result = {
