@@ -1371,9 +1371,9 @@ server.get('UpdateAmazonPayCheckout', function (req, res, next) {
         Transaction.wrap(function () {
             
             if (currentBasket) {
-                if (session.privacy.taxError) { //if sabrix call fails
+                if (currentBasket.custom.sabrixTaxError) { //if sabrix call fails
                     HookMgr.callHook('dw.order.calculateTax', 'calculateTax', currentBasket);
-                    delete session.privacy.taxError;
+                    currentBasket.custom.sabrixTaxError = false;
                 }
             }
 
