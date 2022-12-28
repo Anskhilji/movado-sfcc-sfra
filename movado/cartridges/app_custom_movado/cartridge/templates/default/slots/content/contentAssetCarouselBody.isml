@@ -2,7 +2,7 @@
   <div class="container full-width-max-1300">
     <div class="row">
       <div class="col-12">
-        <div class="cs-carousel-wrapper cs-carousel-progress">
+        <div class="cs-carousel-wrapper">
           <isif condition="${slotcontent.custom.carouselTitle}">
               <h3 class="carousel-title">${slotcontent.custom.carouselTitle}</h3>
             </isif>
