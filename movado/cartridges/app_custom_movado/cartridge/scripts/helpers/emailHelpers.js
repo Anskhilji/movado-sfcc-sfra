@@ -20,12 +20,16 @@ function send(emailObj, template, context) {
     var messageContext = '';
     var messageId = '';
     var zeroAmount = '';
+    var productLevelDiscount = 0;
+    var productLevelTotalDiscount = 0;
+    var totalDiscount = '';
     var requestParams = {
     };
     var listrakTransactionalSwitch = !empty(Site.current.preferences.custom.transactionalSwitch.value) ? Site.current.preferences.custom.transactionalSwitch.value.toString() : '';
     var listrakEnabled = !empty(Site.current.preferences.custom.Listrak_Cartridge_Enabled) ? Site.current.preferences.custom.Listrak_Cartridge_Enabled : false;
     var Constants = require('*/cartridge/scripts/utils/ListrakConstants');
 
+    
     if (context && context.order && context.order.currencyCode) {
         zeroAmount = Currency.getCurrency(context.order.currencyCode).symbol + '0.00';
     }
@@ -90,6 +94,20 @@ function send(emailObj, template, context) {
                 requestParams.paymentMethod = context.order.billing.payment.selectedPaymentInstruments[0].paymentMethod;
                 requestParams.email = context.order.orderEmail;
                 requestParams.productLayout = productLayout(context);
+                if (!empty(context.order) && !empty(context.order.items) && !empty(context.order.items.totalQuantity > 0)) {
+                    for (var i = 0; i < context.order.items.totalQuantity; i++) {
+                    productLevelDiscount = context.order.items.items[i].priceTotal.savingPrice.value;
+                    productLevelTotalDiscount = productLevelTotalDiscount + productLevelDiscount;
+                    }
+                    if (productLevelTotalDiscount > 0) {
+                        totalDiscount = productLevelTotalDiscount + context.order.totals.orderLevelDiscountTotal.value;
+                        totalDiscount = totalDiscount.toFixed(2);
+                        totalDiscount = Currency.getCurrency(context.cuurentOrder.currencyCode).symbol + totalDiscount;
+                    } else {
+                        totalDiscount = context.order.totals.orderLevelDiscountTotal.formatted;
+                    }
+                    requestParams.discount = !empty(totalDiscount) ? totalDiscount : zeroAmount;
+                }
                 break;
             case 5:
                 requestParams.messageContext = Constants.LTK_ACCOUNT_CONTEXT;

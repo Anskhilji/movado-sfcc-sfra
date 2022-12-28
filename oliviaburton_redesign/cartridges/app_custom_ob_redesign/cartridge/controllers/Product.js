@@ -35,23 +35,23 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
     var smartGiftAddToCartURL = Site.current.preferences.custom.smartGiftURL + showProductPageHelperResult.product.id;
     var emailPopupHelper = require('*/cartridge/scripts/helpers/emailPopupHelper');
 
-    var collectionContentList;
-    var moreStyleGtmArray = [];
-    var klarnaProductPrice = '0';
-    var isEmbossEnabled;
-    var isEngraveEnabled;
-    var isGiftWrapEnabled;
-    var collectionName;
+   var collectionContentList;
+   var moreStyleGtmArray = [];
+   var klarnaProductPrice = '0';
+   var isEmbossEnabled;
+   var isEngraveEnabled;
+   var isGiftWrapEnabled;
+   var collectionName;
 
-    var productDecimalPrice = 0.0;
+   var productDecimalPrice = 0.0;
 
-    var strapGuideContent = ContentMgr.getContent('strap-guide-text-configs');
-    var strapGuideText = strapGuideContent && strapGuideContent.custom.body ? strapGuideContent.custom.body : '';
+   var strapGuideContent = ContentMgr.getContent('strap-guide-text-configs');
+   var strapGuideText = strapGuideContent && strapGuideContent.custom.body ? strapGuideContent.custom.body : '';
 
-    var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
-    var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
-    var productType = showProductPageHelperResult.product.productType;
-    var template =  showProductPageHelperResult.template;
+   var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
+   var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
+   var productType = showProductPageHelperResult.product.productType;
+   var template =  showProductPageHelperResult.template;
 
     var viewData = res.getViewData();
     var product = showProductPageHelperResult.product;
@@ -198,7 +198,6 @@ server.replace('Show', cache.applyPromotionSensitiveCache, consentTracking.conse
 }, pageMetaData.computedPageMetaData);
 
 server.replace('ShowAvailability', function (req, res, next) {
-    var ABTestMgr = require('dw/campaign/ABTestMgr');
 
     var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
     var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);

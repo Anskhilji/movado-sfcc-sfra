@@ -530,7 +530,7 @@ module.exports = {
                         $.spinner().stop();
                         moveFocusToTop();
                         swatches.showSwatchImages();
-
+                        $('.filter-and-count').addClass('filter-count-visible');
                         $('.sort-dropdown-list, .sort-dropdown-toggle').removeClass('active');
                         $('.sort-dropdown-menu').hide();
                     },
@@ -583,6 +583,7 @@ module.exports = {
                         // edit start
                         updatePageURLForFacets(filtersURL);
                         // edit end
+                        $('.filter-and-count').addClass('filter-count-visible');
                         $.spinner().stop();
                         moveFocusToTop();
                         swatches.showSwatchImages();
@@ -698,7 +699,6 @@ module.exports = {
             $('.modal-background').removeClass('d-block');
         });
     },
-
     // Custom start: Listrak persistent popup
     listrakPersistentApply: function () {
         $(document).on('click','.listrak-popup', function(e) {
@@ -730,7 +730,6 @@ module.exports = {
             }
         });
     },
-
     listrakPersistentClose: function () {
         $(document).on('click','.close-icon-popup', function(e) {
             e.preventDefault();
@@ -744,7 +743,7 @@ module.exports = {
             }
         });
     },
-
+    
     listrakPersistentCheckLoad: function () {
         window.onload = () => {
             var listrakPopup = document.querySelector('.listrak-popup');
@@ -776,3 +775,7 @@ module.exports = {
     }
     // Custom End: Listrak persistent popup
 };
+
+$(window).on('load', function(e) {
+    $('.filter-and-count').css('visibility','visible');
+});

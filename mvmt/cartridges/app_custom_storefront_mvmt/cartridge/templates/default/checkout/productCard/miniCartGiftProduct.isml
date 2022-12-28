@@ -1,6 +1,6 @@
         <isset name="lineItem" value="${childlineItem}" scope="page" />
         
-        <div class="gift-lineitem-container gift-item-total-${lineItem.UUID} align-items-center product-line-item-details item-info d-flex flex-row">
+        <div class="gift-lineitem-container gift-lineitem-container-${lineItem.UUID} gift-item-total-${lineItem.UUID} align-items-center product-line-item-details item-info d-flex flex-row">
             <div class="item-image">
                 <img class="product-image"
                     src="${lineItem.images.tile150[0].url}"
@@ -82,6 +82,7 @@
                             data-name="${lineItem.productName}"
                             data-action="${pdict.removeProductLineItemUrl}"
                             data-gift="true"
+                            data-parent-pid="${lineItem.giftParentUUID}"
                             data-uuid="${lineItem.UUID}"
                             data-gtm-cart="${JSON.stringify(pdict.cartItemObj[loopStatus.index])}"
                             aria-label="remove">

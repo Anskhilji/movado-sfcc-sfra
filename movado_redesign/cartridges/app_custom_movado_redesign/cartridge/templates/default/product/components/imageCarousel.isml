@@ -8,7 +8,7 @@
     var primaryImageCarouselConfig = {
       "slidesToShow": 1,
       "slidesToScroll": 1,
-      "dots": false,
+      "dots": true,
       "centerMode": true,
       asNavFor: '.carousel-nav'
     }

@@ -1,4 +1,4 @@
-<div class="product-tile product-tile-plp-container" data-loggedin-status-url="${URLUtils.url('Account-LoggedInStatus')}" itemscope itemtype="http://schema.org/Product">
+<div class="product-tile product-tile-plp-container ${isTileHeightDisable ? 'pb-0' : ''}" data-loggedin-status-url="${URLUtils.url('Account-LoggedInStatus')}" itemscope itemtype="http://schema.org/Product">
     <!-- dwMarker="product" dwContentID="${product.uuid}" -->
 
     <isloop items="${product.availability.messages}" var="message">
@@ -15,13 +15,11 @@
     <isinclude template="product/components/productTileImage" />
 
     <div class="tile-body">
-        <isif condition="${pdict.display.swatches !== false}">
-            <isinclude template="product/components/productTileSwatch" />
-        </isif>
-    
         <div class="row m-0">
             <div class="col d-flex w-100 p-0 star-rating-plp">
-                <isinclude template="product/components/ratings" />
+                <a href="${pdict.urls.product}#yotpo-reviews-top-div">
+                    <isinclude template="product/components/ratings" />
+                </a>
             </div>
         </div>
         <div class="product-family-name-plp text-left">
@@ -73,7 +71,6 @@
                 </div>
             </isif>
         </div>
-        
         <iscomment> new add to card button template addded </iscomment>
         <isinclude template="product/components/addToCartPLP.isml" sf-toolkit="on" />
 

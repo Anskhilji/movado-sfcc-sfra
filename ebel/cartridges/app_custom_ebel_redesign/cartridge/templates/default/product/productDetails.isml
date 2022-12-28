@@ -1,6 +1,8 @@
 <iscomment> Custom: divs repositioned </iscomment>
 <isdecorate template="common/layout/page">
+
 <isinclude template="/components/modules" sf-toolkit="off" />
+
     <isscript>
         var assets = require('*/cartridge/scripts/assets');
         assets.addJs('/lib/pinchzoom/pinch-zoom.umd.js');
@@ -146,7 +148,7 @@
                             </isif>
                             <iscomment> Custom End: </iscomment>
 
-	                        <isif condition="${product.options && product.options.length > 0 && !(option.id == "clydeWarranty") && dw.system.Site.current.preferences.custom.isClydeEnabled}">
+	                        <isif condition="${product.options && product.options.length > 0}">
 	                            <isinclude template="product/components/options" />
 	                        </isif>
 
@@ -277,11 +279,12 @@
             </div>
         </div>
         <!-- The Modal: Ends-->
+
         <!-- Start: Listrak persistent popup -->
-        <isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled  && pdict.popupID}">
+        <isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled && && pdict.popupID}">
             <span class="listrak-persistent-url" data-listrak-url="${URLUtils.https('EmailPopUp-Show')}"></span>
             <span class="listrak-popup-product-detail"></span>
-            <iscontentasset aid="listrak-persistent-popup"/>
+            <isslot id="cs-listrak-persistent-popup" description="Listrak persistent popup" context="global" />
         </isif>
         <!-- End: Listrak persistent popup -->
     </isobject>

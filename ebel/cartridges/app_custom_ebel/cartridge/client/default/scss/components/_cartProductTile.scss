@@ -41,10 +41,11 @@
           }
           .personalize-msg, .personalize-price {
               font-family: $font-HelveticaNeueLT-book;
-              font-weight: 300;
+              font-weight: 500;
               font-size: rem(14);
-              letter-spacing: rem(1);
+              letter-spacing: rem(1.75);
               line-height: rem(20);
+              color: $grey4;
           }
           .personalize-msg {
               color: $grey4;
@@ -52,6 +53,11 @@
           .out-of-stock {
               color:  $danger;
           }
+          .option-wrapper {
+            font-size: rem(12);
+            font-weight: 500;
+            letter-spacing: rem(0.7);
+          } 
       }
   }
 

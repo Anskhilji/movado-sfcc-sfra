@@ -10,6 +10,7 @@ var Site = require('dw/system/Site');
 
 var adyenHelpers = require('*/cartridge/scripts/checkout/adyenHelpers');
 var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
+var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
 var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
 var COCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
 var checkoutLogger = require('app_custom_movado/cartridge/scripts/helpers/customCheckoutLogger').getLogger();
@@ -24,10 +25,16 @@ server.post('GetTransactionInfo',
     server.middleware.https,
     function (req, res, next) {
         var currentBasket = BasketMgr.getCurrentOrNewBasket();
+        var form = req.form;
+        var productId = form && form.pid ? form.pid : '';
+        var embossedMessage = req.form.EmbossedMessage;
+        var engravedMessage = req.form.EngravedMessage;
         if (!empty(currentBasket)) {
             var transactionInfo = googlePayHelper.getTransactionInfo(req);
+            var addCartGtmArray = customCartHelpers.createAddtoCartProdObj(currentBasket, productId, embossedMessage, engravedMessage, form);
             res.json({
                 transactionInfo: transactionInfo,
+                addCartGtmArray: addCartGtmArray,
                 error: false
             });
         } else {
@@ -110,6 +117,12 @@ server.post('ProcessPayments',
             return;
         }
 
+        if (session.privacy.pickupFromStore) {
+            Transaction.wrap(function () {
+                COCustomHelpers.removeGiftMessageLineItem(currentBasket);
+            });
+        }
+
          // Added Smart Gift Logic
          if (currentBasket && !empty(currentBasket.custom.smartGiftTrackingCode)) {
              session.custom.trackingCode = currentBasket.custom.smartGiftTrackingCode;
@@ -165,6 +178,12 @@ server.post('ProcessPayments',
                     return next();
     
                 }
+            }
+
+            var email = googlePayResponse.email;
+            if (!empty(email)) {
+                var maskedEmail = COCustomHelpers.maskEmail(email);
+                checkoutLogger.info('(GooglePay) -> SubmitShipping: Step-1: Customer Email is ' + maskedEmail);
             }
         }
 
@@ -248,6 +267,12 @@ server.post('ProcessPayments',
             cvvResultCode: 'M', // CVV2 Match
             paymentMethod: 'Google_Pay'
         });
+
+        var email = order.customerEmail;
+        if (!empty(email)) {
+            var maskedEmail = COCustomHelpers.maskEmail(email);
+            checkoutLogger.info('(GooglePay) -> SubmitPayment: Step-2: Customer Email is ' + maskedEmail);
+        }
     
         if (riskifiedCheckoutCreateResponse && riskifiedCheckoutCreateResponse.error) {
             hooksHelper(
@@ -293,22 +318,21 @@ server.post('ProcessPayments',
             res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
             return next();
         } else {
-                var RiskifiedOrderDescion = require('*/cartridge/scripts/riskified/RiskifiedOrderDescion');
-                if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'declined') {
-                        // Riskified order declined response from decide API
-                        riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order);
-                        if (riskifiedOrderDeclined) {
-                            res.json({
-                                error: false,
-                                orderID: orderNumber,
-                                redirectUrl: URLUtils.url('Checkout-Declined').toString()
-                            });
-                            return next();
-                        }
-                } else if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'approved') {
-                    // Riskified order approved response from decide API
-                    RiskifiedOrderDescion.orderApproved(order);
-                }
+            var RiskifiedOrderDescion = require('*/cartridge/scripts/riskified/RiskifiedOrderDescion');
+            if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'declined') {
+                    // Riskified order declined response from decide API
+                    riskifiedOrderDeclined = RiskifiedOrderDescion.orderDeclined(order);
+                    if (riskifiedOrderDeclined) {
+                        res.json({
+                            error: false,
+                            redirectUrl: URLUtils.url('Checkout-Declined').toString()
+                        });
+                        return next();
+                    }
+            } else if (checkoutDecisionStatus.response && checkoutDecisionStatus.response.order.status === 'approved') {
+                // Riskified order approved response from decide API
+                RiskifiedOrderDescion.orderApproved(order);
+            }
         }
 
          // Calling fraud detection hook
@@ -440,6 +464,12 @@ server.post('ProcessPayments',
             error: false,
             redirectUrl: URLUtils.abs('Order-Confirm', 'ID', order.orderNo, 'token', order.orderToken).toString()
         });
+        
+        var email = order.customerEmail;
+        if (!empty(email)) {
+            var maskedEmail = COCustomHelpers.maskEmail(email);
+            checkoutLogger.info('(GooglePay) -> PlaceOrder: Step-3: Customer Email is ' + maskedEmail);
+        }
 
         return next();
     }

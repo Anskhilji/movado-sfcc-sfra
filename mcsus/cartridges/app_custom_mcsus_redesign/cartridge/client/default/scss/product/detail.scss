@@ -1139,8 +1139,9 @@
                                 }
 
                                 .badge {
-                                    background-color: $grey-light4;
-                                    color: $black;
+                                    background-color: transparent;
+                                    border: rem(1) solid $beige4;
+                                    color: $beige4;
                                     font-family: $futura-medium;
                                     font-weight: 600;
                                     font-style: italic;
@@ -1312,7 +1313,7 @@
                                         line-height: rem(27);
                                         border: rem(1) solid $black;
                                         border-radius: rem(3);
-                                        background-color: $grey-light4;
+                                        background-color: $beige4;
                                         color: $black;
                                         font-family: $futura-medium;
                                         font-style: italic;
@@ -1424,7 +1425,6 @@
 
                                         .google-pay-container {
                                             width: 100%;
-                                            height: rem(50);
                                             border-radius: rem(3);
                                             background-color: $black;
                                             display: flex;
@@ -1439,9 +1439,7 @@
                                                 }
                                             }
 
-                                            .gpay-button-fill {
-                                                padding: rem(5px) rem(0);
-
+                                            .gpay-button-fill-new-style {
                                                 button {
                                                     height: rem(40);
                                                 }
@@ -2126,4 +2124,3 @@
     }
 }
 // CSS End: listrak persistent popup
-

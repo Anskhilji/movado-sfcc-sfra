@@ -4,6 +4,7 @@ var Site = require('dw/system/Site');
 
 var productDecorators = require('*/cartridge/models/product/decorators/index');
 var productLineItemDecorators = require('*/cartridge/models/productLineItem/decorators/index');
+var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
 
 var isClydeEnabled = !empty(Site.current.preferences.custom.isClydeEnabled) ? Site.current.preferences.custom.isClydeEnabled : false;
 
@@ -46,6 +47,8 @@ module.exports = function productLineItem(product, apiProduct, options) {
     productLineItemDecorators.discountBonusLineItems(product, options.lineItem.UUID);
     productLineItemDecorators.mgProductLineItemCutomAttr(product, options.lineItem);
 
+    var isWatchTile = productCustomHelper.getIsWatchTile(apiProduct);
+
     /**
      * Custom Start:  Clyde Integration
      */
@@ -75,6 +78,18 @@ module.exports = function productLineItem(product, apiProduct, options) {
         enumerable: true,
         value: options.lineItem.custom.giftParentUUID ? options.lineItem.custom.giftParentUUID : ''
     });
+
+    Object.defineProperty(product, 'familyName', {
+        enumerable: true,
+        value: !empty(apiProduct.custom.familyName) ? apiProduct.custom.familyName[0] : ''
+    });
+
+    if (!empty(isWatchTile)) {
+        Object.defineProperty(product, 'isWatchTile', {
+            enumerable: true,
+            value: isWatchTile
+        });
+    }
     
     return product;
 };

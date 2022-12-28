@@ -33,11 +33,11 @@ function productSync() {
     var lastExport = new ltkExportInfo('lastProductExportDate');
 
     var subCategoryLevels = dw.system.Site.current.preferences.custom.Listrak_SubcategoryLevels;
-	// If maxRelated = 0, related products won't be exported
+    // If maxRelated = 0, related products won't be exported
     var maxRelated = dw.system.Site.current.preferences.custom.Listrak_MaxRecommendedProductExport;
     var categoryLevelAttributes = Site.getCurrent().getCustomPreferenceValue('Listrak_CategoryLevelAttributes');
-    var productFeedJewelryJson = Site.getCurrent().getCustomPreferenceValue('Listrak_ProductFeedJewelryAttribute');
     var getAssignedCategories = Site.getCurrent().getCustomPreferenceValue('Listrak_ConfiguredCategories');
+    var productFeedJewelryJson = Site.getCurrent().getCustomPreferenceValue('Listrak_ProductFeedJewelryAttribute');
     if (subCategoryLevels <= 0) {
         subCategoryLevels = 1;
     } // if not set, use default of 1
@@ -48,7 +48,7 @@ function productSync() {
         try {
             var productFile = new ExportFile('products_DW.txt');
 
-			// //////// Write header row //////////
+            // //////// Write header row //////////
             productFile.AddRowItem('Sku');
             productFile.AddRowItem('Variant');
             productFile.AddRowItem('Title');
@@ -120,15 +120,14 @@ function productSync() {
                 productFile.AddRowItem('Meta5');
             }
             // Custom End:
-
             productFile.WriteRow();
 
-			// //////// Write product rows //////////
+            // //////// Write product rows //////////
             for (idx = 0; idx < prods.getCount(); idx++)			{
                 if (prods.hasNext()) { var product = prods.next(); } else { break; }
                 var rpSkus = [];
                 if (maxRelated > 0)					{ var relatedProducts = product.getOrderableRecommendations(); }
-				// Modification D. Gomez 8/29/2017 v16.4 fix offlineproducts check
+                // Modification D. Gomez 8/29/2017 v16.4 fix offlineproducts check
 
                 var prd = new ltkProduct();
                 prd.LoadProduct(product);
@@ -138,7 +137,7 @@ function productSync() {
                         continue;
                     }
                 }
-				// grab recommended products
+                // grab recommended products
                 var numRelated = 0;
                 if (maxRelated > 0 && !relatedProducts.empty) {
                     numRelated = Math.min(maxRelated, relatedProducts.length);
@@ -151,31 +150,31 @@ function productSync() {
                 }
 
 
-				// Sku
+                // Sku
                 productFile.AddRowItem(prd.sku, true);
 
-				// Variant
+                // Variant
                 productFile.AddRowItem(prd.variant, true);
 
-				// Title
+                // Title
                 productFile.AddRowItem(prd.title, true);
 
-				// Image URL
+                // Image URL
                 productFile.AddRowItem(prd.imageURL, true);
 
-				// Link URL
+                // Link URL
                 productFile.AddRowItem(prd.linkURL, true);
 
-				// Description
+                // Description
                 productFile.AddRowItem(prd.description, true);
 
-				// Price
+                // Price
                 productFile.AddRowItem(prd.price == null ? 0.00 : prd.price, true);
 
-				// Brand
+                // Brand
                 productFile.AddRowItem(prd.brand, true);
 
-				// Category
+                // Category
                 productFile.AddRowItem(prd.categories[0], true); // Category
                 if (!empty(productFeedJewelryJson)) {
                     productFile.AddRowItem(prd.jewelryType, true); // Jewelry Type
@@ -185,10 +184,10 @@ function productSync() {
                         productFile.AddRowItem(prd.categories[i], true);
                     }
                 }
-				// CategoryTree
+                // CategoryTree
                 var tree = '';
                 var index = 0;
-				// for each(category in prd.categories) {
+                // for each(category in prd.categories) {
                 for (i = 0; i < prd.categories.length; i++) {
                     var category = prd.categories[i];
                     if (index === 0) {
@@ -200,22 +199,22 @@ function productSync() {
                 }
                 productFile.AddRowItem(tree, true);
 
-				// Quantity On Hand
+                // Quantity On Hand
                 productFile.AddRowItem(prd.QOH, true);
 
-				// InStock
+                // InStock
                 productFile.AddRowItem(prd.inStock, true);
 
-				// system in stock
+                // system in stock
                 productFile.AddRowItem(prd.SystemInStock, true);
 
-				// MasterSku
+                // MasterSku
                 productFile.AddRowItem(prd.masterSku, true);
 
-				// ProductReviewID
+                // ProductReviewID
                 productFile.AddRowItem(prd.reviewProductID, true);
 
-				// Additional Attributes
+                // Additional Attributes
                 for (i = 0; i < additionalAttributes.length; i++) {
                     var attr = additionalAttributes[i];
                     if (prd.additionalAttributeValues.containsKey(attr)) {
@@ -223,14 +222,14 @@ function productSync() {
                     } else { productFile.AddRowItem('', true); }
                 }
 
-				// Related Products
+                // Related Products
                 for (x = 0; x < maxRelated; x++) {
                     if (numRelated > x) { // this product has related product in this index
                         productFile.AddRowItem(rpSkus[x].sku);
                         productFile.AddRowItem(rpSkus[x].type);
                         productFile.AddRowItem(x + 1);
                     } else {
-						// send empty columns
+                        // send empty columns
                         productFile.AddRowItem();
                         productFile.AddRowItem();
                         productFile.AddRowItem();
@@ -255,7 +254,6 @@ function productSync() {
                 }
                 // Custom End
 
-                
                 // Custom Start: [MSS-1697 Add Collection URL, Strap Width, Case Diameter, Family Name to Listrak MVMT Product Feed]
                 if (categoryLevelAttributes) {
                     productFile.AddRowItem(prd.reviewURL, true);

@@ -165,7 +165,6 @@ function listrakPersistentPopup(req) {
             }
         }
     }
-
     return popupID;
 }
 

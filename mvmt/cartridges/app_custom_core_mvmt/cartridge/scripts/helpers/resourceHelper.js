@@ -45,6 +45,7 @@ function getResources(pageContext) {
         MVMT_EMAIL_PHONE_ERROR_INVALID: Resource.msg('newsletter.email.phone.error.invalid', 'common', null),
         OUT_OF_STOCK_LABEL: Resource.msg('label.out.of.stock', 'common', null),
         ADD_TO_CART_LABEL: Resource.msg('label.add.to.cart', 'common', null),
+        ADD_TO_CART_RECOMMENDATION_RAIL_LABEL: Resource.msg('button.addtocart.cart.recommendation', 'common', null),
         SLICK_BUTTON_MORE: Resource.msg('label.button.more', 'common', null),
         EMAIL_SUBSCRIPTION_SUCCESS: Resource.msg('newsletter.signup.success', 'common', null),
         SLICK_BUTTON_MORE_STYLE: Resource.msg('label.button.more.style', 'common', null),
@@ -76,7 +77,8 @@ function getResources(pageContext) {
         PHONE_NUMBER_REQUIRED: Resource.msg('listrak.required.phone', 'product', null),
         LISTRAK_SUCCESS_MESSAGE: Resource.msg('listrak.success.message', 'product', null),
         FEDEX_USER_ADDRESS_MESSAGE: Resource.msg('popup.label.content.single-content', 'checkout', null),
-        FEDEX_RECOMMENDED_ADDRESS_MESSAGE: Resource.msg('popup.label.content.sub', 'checkout', null)
+        FEDEX_RECOMMENDED_ADDRESS_MESSAGE: Resource.msg('popup.label.content.sub', 'checkout', null),
+        INVALID_STATE: Resource.msg('invalid.state.error', 'forms', null)
     };
     return resources;
 }

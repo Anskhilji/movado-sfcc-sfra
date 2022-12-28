@@ -189,6 +189,13 @@ ltkProduct.prototype.LoadProduct = function (product) {
         }
     }
     // Custom End
+
+    // Custom Start: [MSS-1987 Movado - Listrak Product Feed Change]
+    var productFeedJewelryType = Site.getCurrent().getCustomPreferenceValue('Listrak_ProductFeedJewelryAttribute');
+    if (!empty(productFeedJewelryType)) {
+        this.jewelryType = this.getJewelryType(product);
+    }
+    // Custom End
 };
 // MOD 16.3 Extra Prod Attributes
 ltkProduct.prototype.getAttributes = function (product) {
@@ -561,4 +568,27 @@ ltkProduct.prototype.getProductCurrentCategory = function (product) {
         return specifiedCategories;
     }
 }
+// Custom End
+
+// Custom Start: [MSS-1987 Movado - Listrak Product Feed Change]
+ltkProduct.prototype.getJewelryType = function (product) {
+    var jewelry = '';
+    var productFeedJewelryJson = Site.getCurrent().getCustomPreferenceValue('Listrak_ProductFeedJewelryAttribute');
+
+    try {
+        productFeedJewelryJson = JSON.parse(productFeedJewelryJson);
+        var JewelryAttr = product.custom.jewelryType;
+        if (!empty(JewelryAttr)) {
+            var JewelryArr = JewelryAttr.split(',');
+        }
+        if (!empty(productFeedJewelryJson) && !empty(JewelryArr[0])) {
+            jewelry = productFeedJewelryJson[JewelryArr[0]];
+        }
+
+        return jewelry;
+    } catch (error) {
+        Logger.error('Listrak Product Processing Failed for Product: {0}, Error: {1}', product.ID, error);
+        return jewelry;
+    }
+};
 // Custom End

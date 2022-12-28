@@ -192,8 +192,9 @@ function getProductCategory(apiProduct) {
                 }
             }
         }
-    } catch (error) {
-        Logger.error('(productCustomHelper.js -> getProductCategory) Error occured while getting category from apiProduct : ' + error.message);
+    } catch (e) {
+        Logger.error('productCustomHelper.js -> getProductCategory) Error occured while getting category from apiProduct  . ProductId {0}: \n Error: {1} \n Message: {2} \n lineNumber: {3} \n fileName: {4} \n', 
+        apiProduct.ID, e.stack, e.message, e.lineNumber, e.fileName);
         return;
     }
     return currentPrimaryCategory;
@@ -297,9 +298,9 @@ function getOCIPreOrderParameters(apiProduct) {
         var ociPreOrderObject = {};
         if (!empty(apiProduct)) {
             var productAvailabilityModel = apiProduct.getAvailabilityModel();
-            ociPreOrderObject.ociPreOrderProductAllocation = !empty(productAvailabilityModel.inventoryRecord.allocation.value) ? productAvailabilityModel.inventoryRecord.allocation.value : null;
-            ociPreOrderObject.ociPreOrderProductATO = !empty(productAvailabilityModel.inventoryRecord.ATS.value) ? productAvailabilityModel.inventoryRecord.ATS.value : null;
-            ociPreOrderObject.ociPreOrderProductFuture = !empty(productAvailabilityModel.inventoryRecord.backorderable) ? productAvailabilityModel.inventoryRecord.backorderable : null;
+            ociPreOrderObject.ociPreOrderProductAllocation = !empty(productAvailabilityModel) && !empty(productAvailabilityModel.inventoryRecord) && !empty(productAvailabilityModel.inventoryRecord.allocation) && !empty(productAvailabilityModel.inventoryRecord.allocation.value) ? productAvailabilityModel.inventoryRecord.allocation.value : null;
+            ociPreOrderObject.ociPreOrderProductATO = !empty(productAvailabilityModel) && !empty(productAvailabilityModel.inventoryRecord) && !empty(productAvailabilityModel.inventoryRecord.ATS) && !empty(productAvailabilityModel.inventoryRecord.ATS.value) ? productAvailabilityModel.inventoryRecord.ATS.value : null;
+            ociPreOrderObject.ociPreOrderProductFuture = !empty(productAvailabilityModel) && !empty(productAvailabilityModel.inventoryRecord) && !empty(productAvailabilityModel.inventoryRecord.backorderable) ? productAvailabilityModel.inventoryRecord.backorderable : null;
         }
         return ociPreOrderObject;
     } catch (e) {
@@ -308,12 +309,33 @@ function getOCIPreOrderParameters(apiProduct) {
     }
 }
 
-function getYotpoReviewsCustomAttribute(apiProduct) {
-    var yotpoReviews = '';
-    if (!empty(apiProduct) && !empty(apiProduct.custom.yotpoStarRattings)) {
-        yotpoReviews = apiProduct.custom.yotpoStarRattings;
+/**
+ * Function return running AB test segments
+ * @returns segmentsArray 
+ */
+ function getRunningABTestSegments() {
+    var ABTestMgr = require('dw/campaign/ABTestMgr');
+    var abTestSegment = ABTestMgr.getAssignedTestSegments();
+    return abTestSegment.length > 0 ? abTestSegment[0].ABTest.ID + '+' + abTestSegment[0].ID : '';
+}
+
+/**
+ * Method used to check if current product belongs to watches category
+ * @param {Object} apiProduct - apiProduct is from ProductMgr
+ * @returns {Boolean} isWatchTile - true if product belongs to watches
+ */
+
+function getIsWatchTile(apiProduct) {
+    try {
+        if (!empty(apiProduct)) {
+            var isWatchTile = !empty(apiProduct.custom.isWatchTile) ? apiProduct.custom.isWatchTile : false;
+        }
+        return isWatchTile;
+        
+    } catch (e) {
+        Logger.error('(productCustomHelper.js -> getIsWatchTile) Error occured while checking is it watch tile: ' + e.stack, e.message, apiProduct.ID);
+        return false;
     }
-    return yotpoReviews;
 }
 
 module.exports = {
@@ -322,12 +344,13 @@ module.exports = {
     getSaveMessage: getSaveMessage,
     getPdpVideoConfigs: getPdpVideoConfigs,
     getPDPMarketingContentAssetHTML: getPDPMarketingContentAssetHTML,
-    getYotpoReviewsCustomAttribute: getYotpoReviewsCustomAttribute,
     getCurrentCountry: getCurrentCountry,
     getPDPContentAssetHTML: getPDPContentAssetHTML,
     getPLPCustomURL: getPLPCustomURL,
     getOCIPreOrderParameters: getOCIPreOrderParameters,
     getProductCategory: getProductCategory,
     isGiftBoxAllowed: isGiftBoxAllowed,
-    getGiftBoxSKU: getGiftBoxSKU
+    getGiftBoxSKU: getGiftBoxSKU,
+    getRunningABTestSegments: getRunningABTestSegments,
+    getIsWatchTile: getIsWatchTile
 };

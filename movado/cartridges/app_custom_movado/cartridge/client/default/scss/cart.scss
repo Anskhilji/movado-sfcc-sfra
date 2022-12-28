@@ -50,7 +50,10 @@ $negative-spacer: -0.625rem;
 .checkout-continue {
     .google-pay-container {
        .gpay-button.black.short {
-         border-radius: rem(0);
+          border-radius: rem(0);
+       }
+       .gpay-button.black {
+          border-radius: rem(0);
        }
     } 
 
@@ -83,6 +86,24 @@ $negative-spacer: -0.625rem;
 .item-attributes {
   display: inline-block;
   vertical-align: top;
+
+  @include media-breakpoint-down(sm) {
+    padding-right: rem(22);
+  }
+
+  .remove-clyde-product {
+    color: $grey4;
+    font-size: rem(26);
+    position: absolute;
+    padding: 0;
+    top: rem(-10);
+    right: rem(19);
+    border: none;
+    background-color: transparent;
+    &:focus,&:active {
+        background: none;
+    }
+  }
 }
 
 .line-item-divider {

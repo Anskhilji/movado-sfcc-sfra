@@ -558,7 +558,6 @@ module.exports = {
             $('.show-more-content').remove();
         });
     },
-
     // Custom start: Listrak persistent popup
     listrakPersistentApply: function () {
         $(document).on('click','.listrak-popup', function(e) {

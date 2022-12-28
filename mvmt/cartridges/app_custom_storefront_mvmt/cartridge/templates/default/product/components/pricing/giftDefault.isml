@@ -6,7 +6,7 @@
     <isif condition="${isEswEnabled}">
         <isset name="eswHelper" value="${require('*/cartridge/scripts/helper/eswHelper').getEswHelper()}" scope="page" />
         <isif condition="${empty(pdict.product)}">
-            <isset name="matchingLineItem" value="${typeof childlineItem != 'undefined' ? eswHelper.getMatchingLineItem(childlineItem) : ''}" scope="page" />
+            <isset name="matchingLineItem" value="${typeof lineItem != 'undefined' ? eswHelper.getMatchingLineItem(lineItem) : ''}" scope="page" />
         <iselse/>
             <isset name="matchingLineItem" value="${eswHelper.getMatchingLineItem(pdict.product)}" scope="page" />
         </isif>
@@ -40,7 +40,7 @@
     </isif>
 
     <isif condition="${isEswEnabled}">
-        <span class="sales sale-price-mvmt sale-gift-price-mvmt">
+        <span class="sales sale-price-mvmt sale-gift-price-mvmt-${lineItem.UUID}">
             <isif condition="${isLowPrice == 'range-low'}">
                 <span class="value" itemprop="lowprice" content="${finalOrigPrice ? finalOrigPrice.sales.value : ''}">
             </isif>
@@ -53,7 +53,7 @@
             <isinclude template="/product/components/pricing/formatted" />
         </span>
     <iselse/>
-        <span class="sales sale-price-mvmt sale-gift-price-mvmt">
+        <span class="sales sale-price-mvmt sale-gift-price-mvmt-${lineItem.UUID}">
             <isif condition="${isLowPrice == 'range-low'}">
                 <span class="value" itemprop="lowprice" content="${price instanceof dw.value.Money ? price.decimalValue : price.decimalPrice}">
             </isif>

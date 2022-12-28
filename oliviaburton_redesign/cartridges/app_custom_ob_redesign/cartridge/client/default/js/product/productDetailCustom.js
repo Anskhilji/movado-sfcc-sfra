@@ -29,6 +29,28 @@ module.exports = {
                 $('.debossing-form').removeClass('submitted');
             }
 
+            var standard = $('.debossing-tabs.standard');
+            var script = $('.debossing-tabs.script');
+            var horizontal= $('.debossing-tabs.horizontal');
+            var vertical = $('.debossing-tabs.vertical');
+            var personalize = $('.popup-tabs .personalize');
+
+            if (standard  || script || horizontal || vertical) {
+                if (standard.hasClass('active')) {
+                    var personalization = standard.data('personalize');
+                    personalize.val(personalization);
+                } else if (script.hasClass('active')) {
+                    var personalization = script.data('personalize');
+                    personalize.val(personalization);
+                } else if (horizontal.hasClass('active')) {
+                    var personalization = horizontal.data('personalize');
+                    personalize.val(personalization);
+                } else if (vertical.hasClass('active')) {
+                    var personalization = vertical.data('personalize');
+                    personalize.val(personalization);
+                }
+            }
+    
             setTimeout(function() {
                 var debossingtext=$.trim($('.pdp-v-one .debossing-form .text-area .debossing-input.valid').val());
                 var debossingtextEdit=$.trim($('.pdp-v-one .debossing-form .text-area .debossing-input').val());
@@ -113,7 +135,6 @@ module.exports = {
     
     primarySlider: function () {
 
-        
         $('.primary-images .main-ob-carousel').slick({
             lazyLoad: 'ondemand',
             slidesToShow: 1,
@@ -124,14 +145,6 @@ module.exports = {
                 var thumb = $(slick.$slides[index]).find('.carousel-tile').attr('data-thumb');
                 return '<button class="tab"> <img  src="'+ thumb +'" /> </button>';
             },
-        });
-
-        $(document).on('beforeChange', '.primary-images .main-ob-carousel', function (event, slick, currentSlide, nextSlide) {
-            var nextSlide = slick.$slides.get(nextSlide);
-            var $slideSourceSets = $(nextSlide).find('source');
-            $($slideSourceSets).each(function () {
-                $(this).attr('srcset', $(this).data('lazy'));
-            });
         });
 
     },
@@ -260,7 +273,6 @@ module.exports = {
         }
     },
     // Custom End
-
     // Custom start: Listrak persistent popup
     listrakPersistentApply: function () {
         $(document).on('click','.listrak-popup', function(e) {
@@ -292,7 +304,6 @@ module.exports = {
             }
         });
     },
-
     listrakPersistentClose: function () {
         $(document).on('click','.close-icon-popup', function(e) {
             e.preventDefault();
@@ -306,7 +317,6 @@ module.exports = {
             }
         });
     },
-
     listrakPersistentCheckLoad: function () {
         window.onload = () => {
             var listrakPopup = document.querySelector('.listrak-popup');

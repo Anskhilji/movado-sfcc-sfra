@@ -39,9 +39,11 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
     /**
      * Custom Start: Added logic for OB Redesign.
      */
+
     if (viewData.resultsTemplate && !empty(viewData.resultsTemplate )) {
         resultsTemplate = viewData.resultsTemplate;
     }
+
     /**
      * Custom End:
      */
@@ -159,7 +161,8 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
                 reportingURLs: reportingURLs,
                 refineurl: refineurl,
                 categoryAnalyticsTrackingData: JSON.stringify(categoryAnalyticsTrackingData),
-                isNonWatchesTileEnable: isNonWatchesTileEnable
+                isNonWatchesTileEnable: isNonWatchesTileEnable,
+                popupID: listrakPersistentPopup
             });
         } else {
             res.render(categoryTemplate, {
@@ -189,7 +192,6 @@ server.replace('Show', cache.applyShortPromotionSensitiveCache, consentTracking.
             popupID: listrakPersistentPopup
         });
     }
-
     var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
     var Resource = require('dw/web/Resource');
     if (productSearch.category) {

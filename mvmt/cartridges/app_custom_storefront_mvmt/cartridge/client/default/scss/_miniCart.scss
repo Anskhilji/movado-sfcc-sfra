@@ -482,7 +482,12 @@
             /* Hide scrollbar for IE and Edge */
             -ms-overflow-style: none;
             padding-top: rem(25);
-
+            
+            .mini-cart-fixed {
+                margin: 0 rem(12) rem(12) rem(12);
+                padding-bottom: rem(20);
+            }
+            
             .row {
 
                 &:last-child {
@@ -1621,6 +1626,16 @@
     display: flex;
 }
 
+#google-pay-container-mini-cart {
+
+    .gpay-button-fill-new-style {
+        
+        .gpay-button {
+            border-radius: 4px;
+        }
+    }
+}
+
 .gift-box-container {
     text-align: center;
     display: flex;
@@ -1899,7 +1914,12 @@
     }
 }
 
-.gift-product-row {
+.disable-gift-box-model {
+    pointer-events: none;
+    cursor: no-drop;
+}
+
+.border-gift {
     border-top: 1px solid $gray14;
     margin-top: rem(20);
     padding-top: rem(20);
@@ -1941,6 +1961,19 @@
 
 
 // minicart-recommendation-rail
+.cart-message {
+    
+    p {
+        font-family: $font-book;
+        font-size: rem(11);
+        text-transform: none;
+    }
+}
+
+.recommendation-rail-wrapper {
+    padding-top: rem(10);
+}
+
 .product-slot-slider {
     &.recommendation-slider {
         
@@ -1964,14 +1997,20 @@
                         }
                         
                         .tile-inner-content {
-            
+                            margin: rem(22.15) rem(0) rem(5) rem(0);
                             .product-brand-info {
-                                display: none;
+                                margin: 0;
+                                color: $light-gray2;
+                                font-family: $font-medium;
+                                font-size: rem(11);
+                                font-weight: 500;
+                                letter-spacing: 0;
+                                line-height: rem(12);
+                                text-align: center;
                             }
             
                             .pdp-link {
-                                margin: rem(22.15) rem(0) rem(5) rem(0);
-
+                                margin: rem(5) rem(0) rem(5) rem(0);
                                 .product-name {
                                     margin: 0;
                                     color: $light-gray2;
@@ -2039,10 +2078,29 @@
                                 &:hover {
                                     background: $white-gray;
                                 }
-                                &::before {
-                                    content: '+';
-                                    display: inline-block;
-                                    color: $black;
+                            }
+
+                            .recommendation-rail-add-to-cart  {
+                                color: $black;
+                                font-family: $font-futura-pt;
+                                font-size: rem(11);
+                                font-weight: 500;
+                                letter-spacing: rem(1);
+                                line-height: rem(10);
+                                text-align: center;
+                                height: rem(24.88);
+                                width: 100%;
+                                border: none;
+                                background: $white-gray;
+                                padding: 0;
+                                min-height: unset;
+                                @include media-breakpoint-up(lg) {
+                                    opacity: 1;
+                                    bottom: 0;
+                                }
+                                
+                                &:hover {
+                                    background: $white-gray;
                                 }
                             }
                         }

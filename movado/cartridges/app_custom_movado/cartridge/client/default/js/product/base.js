@@ -503,37 +503,41 @@ function handleOptionsMessageErrors(embossedMessageError, engravedMessageError, 
  * MCS redesign sticky functionality on pdp
  */
  $(document).ready(function () {
-     var $divOffsetTop = $('.prices-add-to-cart-redesign .cta-add-to-cart').offset().top;
-     if (!$('.prices-add-to-cart-redesign .cta-add-to-cart').isOnScreen()) { // if on load ATC button is not in viewPort show ATC at bottom
-         if ($(window).scrollTop() > $divOffsetTop) {
-             $('.top-sticky-card').removeClass('scroll-hidden').addClass('scroll-top');
-             $('.bottom-sticky-card').addClass('scroll-hidden');
-         } else {
-             $('.top-sticky-card').addClass('scroll-hidden');
-             $('.bottom-sticky-card').removeClass('scroll-hidden').addClass('scroll-bottom');
-         }
-     }
-     $(window).scroll(function () {
-         if ($(window).width() > 543) {
-             var $scrollDistance = $(window).scrollTop();
-             var $addToCatViewPort = $('.prices-add-to-cart-redesign .cta-add-to-cart').isOnScreen();
-
-             if ($addToCatViewPort) { // check if  button is on screen
-                 $('.bottom-sticky-card, .top-sticky-card').addClass('scroll-hidden');// both bottom and top will hidde
+     var $addToCartBtn = $('.prices-add-to-cart-redesign .cta-add-to-cart');
+     if ($addToCartBtn.length > 0) {
+         var $divOffsetTop = $addToCartBtn.offset().top;
+         if (!$('.prices-add-to-cart-redesign .cta-add-to-cart').isOnScreen()) { // if on load ATC button is not in viewPort show ATC at bottom
+             if ($(window).scrollTop() > $divOffsetTop) {
+                 $('.top-sticky-card').removeClass('scroll-hidden').addClass('scroll-top');
+                 $('.bottom-sticky-card').addClass('scroll-hidden');
              } else {
-                 if ($scrollDistance > $divOffsetTop) { // top sticky will be active
-                     $('.top-sticky-card').removeClass('scroll-hidden').addClass('scroll-top');
-                     $('.bottom-sticky-card').addClass('scroll-hidden');
-                 } else { // bottom sticky will be active
-                     $('.bottom-sticky-card').removeClass('scroll-hidden').addClass('scroll-bottom');
-                     $('.top-sticky-card').addClass('scroll-hidden');
-                 }
+                 $('.top-sticky-card').addClass('scroll-hidden');
+                 $('.bottom-sticky-card').removeClass('scroll-hidden').addClass('scroll-bottom');
              }
-         } else { // mobile case
-            $('.top-sticky-card').addClass('scroll-hidden')//top scroll button  will forever hide in mobile case
-             $('.prices-add-to-cart-redesign .cta-add-to-cart').isOnScreen() ? $('.bottom-sticky-card').addClass('scroll-hidden') : $('.bottom-sticky-card').removeClass('scroll-hidden').addClass('scroll-bottom');
          }
-     });
+         $(window).scroll(function () {
+             if ($(window).width() > 543) {
+                 var $scrollDistance = $(window).scrollTop();
+                 var $addToCatViewPort = $('.prices-add-to-cart-redesign .cta-add-to-cart').isOnScreen();
+
+                 if ($addToCatViewPort) { // check if  button is on screen
+                     $('.bottom-sticky-card, .top-sticky-card').addClass('scroll-hidden'); // both bottom and top will hidde
+                 } else {
+                     if ($scrollDistance > $divOffsetTop) { // top sticky will be active
+                         $('.top-sticky-card').removeClass('scroll-hidden').addClass('scroll-top');
+                         $('.bottom-sticky-card').addClass('scroll-hidden');
+                     } else { // bottom sticky will be active
+                         $('.bottom-sticky-card').removeClass('scroll-hidden').addClass('scroll-bottom');
+                         $('.top-sticky-card').addClass('scroll-hidden');
+                     }
+                 }
+             } else { // mobile case
+                 $('.top-sticky-card').addClass('scroll-hidden') //top scroll button  will forever hide in mobile case
+                 $('.prices-add-to-cart-redesign .cta-add-to-cart').isOnScreen() ? $('.bottom-sticky-card').addClass('scroll-hidden') : $('.bottom-sticky-card').removeClass('scroll-hidden').addClass('scroll-bottom');
+             }
+         });
+     }
+
  });
 
 $.fn.isOnScreen = function () {
@@ -859,7 +863,7 @@ function attributeSelect(selectedValueUrl, $productContainer) {
                 updateQuantities(data.product.quantities, $productContainer);
                 handleOptionsMessageErrors(data.validationErrorEmbossed, data.validationErrorEngraved, $productContainer);
                 var listrakTracking = require('movado/listrakActivityTracking.js');
-                listrakTracking.listrackProductTracking();
+                listrakTracking.listrackProductTracking(data.product.id);
                 $('body').trigger('product:afterAttributeSelect',
                     { data: data, container: $productContainer });
                 $.spinner().stop();
@@ -1094,7 +1098,7 @@ module.exports = {
         }
     },
     colorAttribute: function () {
-        $(document).on('click', '[data-attr="color"] a', function (e) {
+        $(document).off('click', '.main-variation-attribute[data-attr="color"] a').on('click', '.main-variation-attribute[data-attr="color"] a', function (e) {
             e.preventDefault();
 
             if ($(this).attr('disabled')) {

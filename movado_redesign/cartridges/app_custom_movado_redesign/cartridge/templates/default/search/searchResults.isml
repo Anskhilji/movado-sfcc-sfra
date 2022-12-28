@@ -68,7 +68,7 @@
                         <div class="container-fluid mt-0">
                             <div class="row py-2 py-sm-3">
                                 <div class="col-12">
-                                    <div class="d-flex justify-content-between align-items-start search-result-counts">
+                                    <div class="d-flex justify-content-between align-items-start search-result-counts filter-and-count">
                                         <div id="product-search-results" class="d-none d-md-block">
                                             <isif condition="${pdict.productSearch.productIds.length > 0}">
                                                 <div class="row m-0 grid-header">
@@ -85,44 +85,61 @@
                                             <button class="filter-refinement-panel-btn" data-filter-category="${pdict.productSearch.category && !empty(pdict.productSearch.category) ? pdict.productSearch.category.id : ''}" >${Resource.msg('label.selectedfilter', 'search', null)}</button>
                                         </div>
                                         <iscomment> custom:MSS-1948 mobile filter button` </iscomment>
-                                        <div class="d-flex d-md-none justify-content-between align-items-start w-100 filter-box">
-                                            <isif condition="${pdict.productSearch.productIds.length > 0}">
-                                                <div class="d-md-none filter-btn ctm-filter-btn">
-                                                    <button type="button" class="filter-results filter-btn-mobile">
-                                                        <img src="${URLUtils.staticURL('/images/bytesize_filter.svg')}" alt="">
-                                                        <span class="filter-content-label">${Resource.msg('button.filterby', 'search', null)}</span>
+                                        <div class=" d-md-none w-100">
+                                            <div class="d-flex filter-box d-md-none justify-content-between align-items-start w-100 pb-2 mobile-filter-box">
+                                                <isif condition="${pdict.productSearch.productIds.length > 0}">
+                                                    <div class="d-md-none filter-btn ctm-filter-btn">
+                                                        <button type="button" class="filter-results filter-btn-mobile">
+                                                            <img src="${URLUtils.staticURL('/images/bytesize_filter.svg')}" alt="">
+                                                            <span class="filter-content-label">${Resource.msg('button.filterby', 'search', null)}</span>
+                                                        </button>
+                                                    </div>
+                                                </isif>
+                                                <iscomment> sort button for mobile     </iscomment>
+                                                <div class="d-md-none ctm-filter-btn">
+                                                    <button type="button" class=" filter-btn-mobile mobile-fliter-sort-btn-click">
+                                                        <img src="${URLUtils.staticURL('/images/icon-park_setting-config.svg')}" alt="">
+                                                        <span class="mobile-fliter-sort-button">
+                                                            <isif condition="${pdict.productSearch.productIds.length > 0 && pdict.productSearch.productSort.ruleId !== Resource.msg('label.relevance', 'search', null) && pdict.productSearch.productSort.ruleId !== Resource.msg('label.featured', 'search', null)}">
+                                                                <isloop items="${pdict.productSearch.productSort.options}" var="option">
+                                                                    ${pdict.productSearch.productSort.ruleId === option.id ? Resource.msg('label.sortbycol', 'search', null) + option.displayName : '' }
+                                                                </isloop>
+                                                                <iselse>
+                                                                    ${Resource.msg('label.sortby-bestsellers', 'search', null)}
+                                                            </isif>
+                                                        </span>
                                                     </button>
                                                 </div>
-                                            </isif>
-                                            <iscomment> sort button for mobile     </iscomment>
-                                            <div class="d-md-none ctm-filter-btn">
-                                            <button type="button" class=" filter-btn-mobile mobile-fliter-sort-btn-click">
-                                                    <img src="${URLUtils.staticURL('/images/icon-park_setting-config.svg')}" alt="">
-                                                    <span class="mobile-fliter-sort-button">
-                                                        <isif condition="${pdict.productSearch.productIds.length > 0 && pdict.productSearch.productSort.ruleId !== Resource.msg('label.relevance', 'search', null) && pdict.productSearch.productSort.ruleId !== Resource.msg('label.featured', 'search', null)}">
-                                                            <isloop items="${pdict.productSearch.productSort.options}" var="option">
-                                                                ${pdict.productSearch.productSort.ruleId === option.id ? Resource.msg('label.sortbycol', 'search', null) + option.displayName : '' }
-                                                            </isloop>
-                                                            <iselse>
-                                                                ${Resource.msg('label.sortby-bestsellers', 'search', null)}
-                                                        </isif>
-                                                    </span>
-                                                </button>
+                                            </div>
+                                            <div class="filter-bar m-0">
+                                                <isif condition="${pdict.productSearch.selectedFilters.length > 0}">
+                                                    <span class="d-none d-sm-block d-md-none label-container">${Resource.msg('label.selectedfilter', 'search', null)}:</span>
+                                                </isif>
+                                                <isinclude template="search/filterBar" />
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                                <div class="d-md-flex align-items-cetner justify-content-between inner-filter-box-relative filter-box">
+
+                            <div>
+                                <div class="dk-fillter-m d-md-flex align-items-cetner justify-content-between filter-box w-100">
+                                    <div class="desktop-search-refine-bar-redesing w-100">
+                                        <isinclude template="search/searchRefineBarDesktop" />
+                                    </div>                                    
+                                </div>
+                                <div class="side-fliter">
                                     <div class="refinement-bar refinement-bar-redesign col">
                                         <isinclude url="${pdict.refineurl}" />
                                     </div>                                    
                                 </div>
-                            <div class="row filter-bar m-0">
-                                <isif condition="${pdict.productSearch.selectedFilters.length > 0}">
-                                    <span class="d-none d-sm-block d-md-none label-container">${Resource.msg('label.selectedfilter', 'search', null)}:</span>
-                                </isif>
-                                <isinclude template="search/filterBar" />
+                                
+                                <div class="row filter-bar m-0 d-none d-md-block">
+                                    <isif condition="${pdict.productSearch.selectedFilters.length > 0}">
+                                        <span class="d-none d-sm-block d-md-none label-container">${Resource.msg('label.selectedfilter', 'search', null)}:</span>
+                                    </isif>
+                                    <isinclude template="search/filterBar" />
+                                </div>
                             </div>
 
                             <div class="row product-grid" itemtype="http://schema.org/SomeProducts" itemid="#product">
@@ -175,7 +192,7 @@
         </isif>
     </div>
     <div class="no-results-carousel plp-new-design">
-       <isif condition="${pdict.contentSearch && pdict.contentSearch.contentCount == 0 && pdict.productSearch.productIds.length == 0}">
+       <isif condition="${pdict.contentSearch && pdict.contentSearch.contentCount == 0}">
             <isslot id="cs-noresult-recommendations" description="Recommendations for no result search" context="global" />
        </isif>
        <isif condition="${pdict.productSearch !== null && pdict.productSearch.count == 0 && !pdict.productSearch.productIds.length}">
@@ -187,7 +204,7 @@
     <isif condition="${sitePref.emailPopupEnabled && sitePref.Listrak_Cartridge_Enabled && pdict.popupID}">
         <span class="listrak-persistent-url" data-listrak-url="${URLUtils.https('EmailPopUp-Show')}"></span>
         <span class="listrak-popup-search-result"></span>
-        <iscontentasset aid="listrak-persistent-popup"/>
+        <isslot id="cs-listrak-persistent-popup" description="Listrak persistent popup" context="global" />
     </isif>
     <!-- End: Listrak persistent popup -->
 </isdecorate>
