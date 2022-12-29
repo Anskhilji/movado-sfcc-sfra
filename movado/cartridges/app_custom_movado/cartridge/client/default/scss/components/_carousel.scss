@@ -248,8 +248,7 @@
                     display: block !important;
                     letter-spacing: normal;
                     padding: rem(2) rem(7);
-                    font-family: "lato", "FuturaStd-Bold", sans-serif, Arial;
-                    font-display:auto;font-style:normal;font-weight:700;
+                    @include font-lato-bold;
                     text-transform: capitalize;
                     border-radius: rem(10);
                     z-index: 99;
@@ -298,7 +297,7 @@
                     .product-name {
                         font-weight: 600;
                         font-size: rem(15);
-                        font-family: "lato", "FuturaStd-Bold", sans-serif, Arial;
+                        font-family: $font-lato;
                         letter-spacing: normal;
                         text-transform: capitalize;
                     }
