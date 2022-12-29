@@ -398,13 +398,13 @@ function removeRatings() {
         $yotpoWrapper.hide();
         $reviewsSection.hide();
     } else {
-        setInterval(function () {
+        setTimeout(function () {
             removeRatings();
-        }, 0);
+        }, 100);
     }
 }
 
-setInterval(function () {
+setTimeout(function () {
     removeRatings();
-}, 0);
+}, 100);
 // Custom End
