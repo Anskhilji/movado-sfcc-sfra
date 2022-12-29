@@ -617,7 +617,7 @@ module.exports = {
                                 });
                             }
                         });
-                        $(".close-refinebar .filter-more").removeClass("d-none").addClass("d-block");
+                        $('.close-refinebar .filter-more').removeClass('d-none').addClass('d-block');
                         // edit end
                         $.spinner().stop();
                         $('.search-results.plp-new-design #sort-order').customSelect();
