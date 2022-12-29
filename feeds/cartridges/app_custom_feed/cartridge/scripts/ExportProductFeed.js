@@ -8,14 +8,14 @@ var File = require('dw/io/File');
 var FileWriter = require('dw/io/FileWriter');
 var Logger = require('dw/system/Logger');
 var Money = require('dw/value/Money');
+var ProductMgr = require('dw/catalog/ProductMgr');
 var Promotion = require('dw/campaign/Promotion');
 var PromotionMgr = require('dw/campaign/PromotionMgr');
 var Site = require('dw/system/Site');
 var StringUtils = require('dw/util/StringUtils');
 var URLUtils = require('dw/web/URLUtils');
-var ProductMgr = require('dw/catalog/ProductMgr');
-var collections = require('*/cartridge/scripts/util/collections');
 
+var collections = require('*/cartridge/scripts/util/collections');
 var Constants = require('~/cartridge/scripts/utils/Constants');
 var commonUtils = require('./utils/commonUtils');
 
