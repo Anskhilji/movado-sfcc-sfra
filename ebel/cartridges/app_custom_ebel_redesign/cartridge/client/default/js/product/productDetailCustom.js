@@ -41,7 +41,6 @@ $(function() {
         var a = $.trim($('.pdp-v-one .debossing-input.valid').val());
         setTimeout(function() {
             var debossingtext=$.trim($('.pdp-v-one .debossing-form .text-area .debossing-input.valid').val());
-            console.log(debossingtext);
             if(debossingtext == undefined || debossingtext == "") {
                 $('.pdp-v-one .debossing-text').text("");
             } else {
