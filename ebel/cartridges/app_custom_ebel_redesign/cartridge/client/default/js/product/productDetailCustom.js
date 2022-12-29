@@ -38,7 +38,6 @@ $(function() {
     });
 
     $('.pdp-v-one .debossing-form .popup-action-btns .save').on('click', function() {
-        var a = $.trim($('.pdp-v-one .debossing-input.valid').val());
         setTimeout(function() {
             var debossingtext=$.trim($('.pdp-v-one .debossing-form .text-area .debossing-input.valid').val());
             if(debossingtext == undefined || debossingtext == "") {
