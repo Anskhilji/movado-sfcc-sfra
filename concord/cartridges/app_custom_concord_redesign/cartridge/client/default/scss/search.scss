@@ -173,3 +173,17 @@
         font-family: $font-raleway-medium;
     }
 }
+
+.refinements {
+
+    .card-body {
+
+        .innter-filter-heading {
+            display: none;
+
+            &.filter-menu-title {
+                display: none !important;
+            }
+        }
+    }
+}

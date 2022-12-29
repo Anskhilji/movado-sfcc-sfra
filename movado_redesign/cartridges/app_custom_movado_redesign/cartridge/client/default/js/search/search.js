@@ -619,8 +619,6 @@ module.exports = {
                             }
                         });
                         $(".close-refinebar .filter-more").removeClass("d-none").addClass("d-block");
-
-                        // $('.close-refinebar').trigger('click');
                         // edit end
                         $.spinner().stop();
                         $('.search-results.plp-new-design #sort-order').customSelect();

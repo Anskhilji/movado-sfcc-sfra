@@ -709,6 +709,10 @@ header.new-header {
         position: fixed;
         z-index: 99999;
       }
+
+      .sticky-bar-index {
+        z-index: 999;
+      }
     }
 
 
