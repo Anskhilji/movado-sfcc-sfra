@@ -307,26 +307,6 @@ $arrow-height: 1.25em;
             }
         }
 
-        .cs-carousel-wrapper {
-
-            .main-carousel {
-
-                .slick-next {
-                        
-                    @include media-breakpoint-down(sm) {
-                        display: none !important;
-                    }
-                }
-
-                .slick-prev {
-
-                    @include media-breakpoint-down(sm) {
-                        display: none !important;
-                    }
-                }
-            }
-        }
-
         .main-carousel {
 
             .slick-slide {
@@ -825,11 +805,11 @@ $arrow-height: 1.25em;
     .slick-dots {
     
         li {
-            width: 15%;
-            height: rem(2.5);
+            width: 4%;
+            height: rem(2);
             background: $gray-x11;
             margin: 0;
-
+           
             button {
                 height: 100%;
                 width: 100%;
@@ -844,6 +824,20 @@ $arrow-height: 1.25em;
             }
         }
     }
+    
+    .primary-images{
+
+        .slick-dots {
+            
+            li {
+                width: 100%;
+                height: rem(2);
+                background: $border-color;
+                max-width: rem(73);
+            }
+        }
+    }
+    
 
     .prices-add-to-cart-actions {
         padding: 0;
@@ -1400,10 +1394,6 @@ $arrow-height: 1.25em;
                 margin: 0 auto;
                 justify-content: center;
                 display: flex;
-
-                @include media-breakpoint-down(sm) {
-                    display: none;
-                }
             }
     
         }

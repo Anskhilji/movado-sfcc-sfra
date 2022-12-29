@@ -40,12 +40,7 @@
         margin: 0;
         left: 0;
         padding: 0;
-        opacity: 0;
-        
-        @include media-breakpoint-down(sm)  {
-            opacity: 1;
-        }
-
+       
         li {
             list-style: none;
             margin-right: rem(5);
@@ -96,6 +91,13 @@
                 float: none;
             }
         }
+    }
+}
+
+.primary-images {
+
+    .slick-dots {
+        bottom: rem(62);
     }
 }
 
