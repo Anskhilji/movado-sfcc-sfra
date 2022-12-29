@@ -3,6 +3,7 @@
 var server = require('server');
 
 var BasketMgr = require('dw/order/BasketMgr');
+var CustomObjectMgr = require('dw/object/CustomObjectMgr');
 var Resource = require('dw/web/Resource');
 var Transaction = require('dw/system/Transaction');
 var URLUtils = require('dw/web/URLUtils');
@@ -434,6 +435,11 @@ server.post('ProcessPayments',
                 }
             });
         }
+
+        Transaction.wrap(function () {
+            var currentSessionPaymentParams = CustomObjectMgr.getCustomObject('RiskifiedPaymentParams', session.custom.checkoutUUID);
+            CustomObjectMgr.remove(currentSessionPaymentParams);
+        });
 
         res.json({
             error: false,
