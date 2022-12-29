@@ -162,10 +162,11 @@
             min-width: rem(293);
             margin-inline: auto;
             display: block;
-            height: rem(1);
+            height: rem(2.5);
             background-color: $border-color;
             margin-top: rem(17.6);
             margin-bottom: rem(10);
+            opacity: 0.36;
 
             li {
                 top: rem(-16);
@@ -174,9 +175,10 @@
 
                 &.slick-active {
                     max-width: rem(0.73);
-                    height: rem(1);
+                    height: rem(2.5);
                     width: 100%;
                     background-color: $black;
+                    opacity: 1;
                 }
 
                 button {
@@ -209,7 +211,8 @@
             padding-bottom: rem(10);
 
             .slick-dots {
-                margin-top: rem(10);
+                margin-top: rem(6);
+                margin-bottom: rem(20);
             }
         }
     }
