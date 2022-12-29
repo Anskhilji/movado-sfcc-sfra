@@ -352,7 +352,6 @@ $(window).scroll(function() {
     }
 
     if (scroll > screenWidth) {
-        // alert($('.side-fliter .refinement-bar-redesign').hasClass('fadeOutRight'));
         $('.filter-box').addClass('filter-bar-sticky');
         
     } else {
