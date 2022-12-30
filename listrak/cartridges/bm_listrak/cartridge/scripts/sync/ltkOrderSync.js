@@ -74,6 +74,7 @@ function orderSync(args) {
         orderfile.AddRowItem('InternalStatus');
         orderfile.AddRowItem('Meta 1');
         orderfile.AddRowItem('DiscountAmount'); // Added Discount for [MSS-1473]
+        orderfile.AddRowItem('CurrencyCode'); // Added USD currency Code [MSS-2017]
         orderfile.WriteRow();
 
         // item header row
@@ -85,6 +86,7 @@ function orderSync(args) {
         itemfile.AddRowItem('ItemTotal');
         itemfile.AddRowItem('Meta 1'); // [MSS-1474] Column for local price
         itemfile.AddRowItem('DiscountAmount'); // Added Discount for [MSS-1473]
+        itemfile.AddRowItem('CurrencyCode'); // Added USD currency Code [MSS-2017]
 
         itemfile.WriteRow();
 
@@ -121,10 +123,10 @@ function orderSync(args) {
                 orderfile.AddRowItem(decodeURI(o.Order.EmailAddress), true);
                 orderfile.AddRowItem(o.Order.OrderNumber, true);
                 orderfile.AddRowItemAsDate(o.Order.OrderDate);
-                orderfile.AddRowItem(o.orderTotal().toFixed(2));
-                orderfile.AddRowItem(o.lineItemTotal(order).toFixed(2));
-                orderfile.AddRowItem(o.Order.TaxTotal.toFixed(2));
-                orderfile.AddRowItem(o.Order.ShipTotal.toFixed(2));
+                orderfile.AddRowItem(o.orderTotal());
+                orderfile.AddRowItem(o.lineItemTotal(order));
+                orderfile.AddRowItem(o.Order.TaxTotalUSD);
+                orderfile.AddRowItem(o.Order.ShipTotalUSD);
 
                 var status = 'NotSet';
                 switch (o.Order.Status) {
@@ -154,6 +156,7 @@ function orderSync(args) {
                 orderfile.AddRowItem(o.Order.Status, true);
                 orderfile.AddRowItem(o.Order.localPrice);
                 orderfile.AddRowItem(o.Order.OrderDiscount); // Added order discount for [MSS-1473]
+                orderfile.AddRowItem(o.Order.CurrencyCodeUSD); // Added USD currency Code [MSS-2017]
 
                 orderfile.WriteRow();
 
@@ -168,6 +171,7 @@ function orderSync(args) {
                     itemfile.AddRowItem(item.DiscountedPrice);
                     itemfile.AddRowItem(item.localPrice); //[MSS-1474] Get Local Price for product
                     itemfile.AddRowItem(item.ItemDiscount); // Added item discount for [MSS-1473]
+                    itemfile.AddRowItem(item.CurrencyCode); // Added USD currency Code [MSS-2017]
                     itemfile.WriteRow();
 
                     if (item.Product != null) { products.push(item.Product); }

@@ -38,7 +38,6 @@ $(function() {
     });
 
     $('.pdp-v-one .debossing-form .popup-action-btns .save').on('click', function() {
-        var a = $.trim($('.pdp-v-one .debossing-input.valid').val());
         setTimeout(function() {
             var debossingtext=$.trim($('.pdp-v-one .debossing-form .text-area .debossing-input.valid').val());
             console.log(debossingtext);
@@ -234,6 +233,18 @@ $(document).ready(function() {
       dots: false,
       centerMode: true,
       focusOnSelect: true,
+
+      responsive: [
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: false,
+            dots:true
+          }
+        },
+    ]
   });
 
   $('.zoom-carousel').slick({
@@ -381,3 +392,30 @@ function ratingRedesign() {
         }
     }
 }
+
+// Custom Start: [MSS-2079] Hide Star Ratings and Write a Review Section when 0 Reviews on a Product
+function removeRatings() {
+    var $ratings = $('.ratings');
+    var $wrapper = $('.yotpo-display-wrapper')
+    var $noReviews = $('.yotpo-no-reviews');
+    var $yotpoWrapper = $('.yotpo.bottomLine');
+    var $reviewsSection = $('#yotpo-reviews-top-div');
+    
+    if ($noReviews.length > 0) {
+        $ratings.css('opacity', 0);
+        $wrapper.css('display', 'none');
+        $reviewsSection.css('display', 'none');
+        $noReviews.hide();
+        $yotpoWrapper.hide();
+        $reviewsSection.hide();
+    } else {
+        setTimeout(function () {
+            removeRatings();
+        }, 100);
+    }
+}
+
+setTimeout(function () {
+    removeRatings();
+}, 100);
+// Custom End

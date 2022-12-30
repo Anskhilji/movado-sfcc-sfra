@@ -56,6 +56,8 @@
                 <isloop items="${pdict.items}" var="lineItem" status="loopStatus">
                     <isif condition="${lineItem.productType === 'bundle'}">
                         <isinclude template="cart/productCard/cartBundleCard" />
+                    <iselseif condition="${!empty(lineItem.giftParentUUID)}"/>
+                        <isnext />
                     <iselse/>
                         <isinclude template="cart/productCard/cartProductCard" />
                     </isif>
@@ -118,6 +120,14 @@
                         <iscomment> Custom End </iscomment>
                     </div>
                 </isif>
+                <iscomment> include in header  </iscomment>
+
+                <iscomment> Custom Start: Beam donation Cart Widget </iscomment>
+                <isif condition="${dw.system.Site.current.preferences.custom.enableBeam}">
+                    <isinclude template="beamWidgetCart" />
+                </isif>
+                <iscomment> Custom End </iscomment>
+
                 <div class="no-gutters row cart-order-outer-box">
                     <div class="cart-order-box">
                         <h1 class="page-title cart-header hidden-md-down">${Resource.msg('title2.cart', 'cart', null)}</h1>
@@ -140,6 +150,13 @@
                 <div class="container">
                     <isprint value="${pdict.assets.needHelp}" encoding="off" />
                 </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal gift-box-container-modal fade" id="giftBoxModelPopUp" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered gift-box-container-modal-dialog" role="document">
+            <div class="modal-content">
             </div>
         </div>
     </div>

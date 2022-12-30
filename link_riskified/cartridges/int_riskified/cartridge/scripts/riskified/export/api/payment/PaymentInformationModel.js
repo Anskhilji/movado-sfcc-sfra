@@ -7,9 +7,13 @@
  */
 
 /* API Includes */
+var CustomObjectMgr = require('dw/object/CustomObjectMgr');
 var PaymentInstrument = require('dw/order/PaymentInstrument');
+var Transaction = require('dw/system/Transaction');
 var UUIDUtils = require('dw/util/UUIDUtils');
 var RCLogger = require('int_riskified/cartridge/scripts/riskified/util/RCLogger');
+var checkoutNotificationHelpers = require('*/cartridge/scripts/checkout/checkoutNotificationHelpers');
+var Constants = require('*/cartridge/scripts/helpers/utils/NotificationConstant');
 
 /**
  * This method generates checkout ID and saves it in session. It also extracts cardIIN
@@ -44,14 +48,21 @@ function savePaymentDetailsSFRA(cardNumber){
  */
 function savePaymentAuthorizationDetails(paymentParams, callerModule) {
     var logLocation = callerModule + '~PaymentInformationModel.savePaymentAuthorizationDetails()';
+    var message;
 
     if (empty(paymentParams)) {
-        RCLogger.logMessage('Payment parameters or payment method is empty', 'error', logLocation);
+        message = 'Payment parameters or payment method is empty', 'error', logLocation;
+        RCLogger.logMessage(message);
+        checkoutNotificationHelpers.sendErrorNotification(Constants.RISKIFIED, message, logLocation);
     } else {
         if (paymentParams.paymentMethod == 'Card') {
             paymentParams.cardIIN = session.custom.cardIIN;
         }
-        session.custom.paymentParams = paymentParams;
+        var sessionUUID = session.custom.checkoutUUID;
+        Transaction.wrap(function () {
+            var riskifiedPaymentParams = CustomObjectMgr.createCustomObject('RiskifiedPaymentParams', sessionUUID);
+            riskifiedPaymentParams.custom.paymentParams = JSON.stringify(paymentParams);
+        });
     }
 }
 

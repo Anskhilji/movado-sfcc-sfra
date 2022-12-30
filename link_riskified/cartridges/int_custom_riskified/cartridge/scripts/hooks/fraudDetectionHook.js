@@ -1,11 +1,16 @@
 'use strict';
 
 var server = require('server');
+var Site = require('dw/system/Site');
+var Transaction = require('dw/system/Transaction');
 var RiskifiedService = require('int_riskified');
 var Resource = require('dw/web/Resource');
 var OrderModelRiskified = require('int_riskified/cartridge/scripts/riskified/export/api/models/OrderModel');
 var OrderMgr = require('dw/order/OrderMgr');
 var PaymentMgr = require('dw/order/PaymentMgr');
+var Constants = require('int_riskified/cartridge/scripts/riskified/util/Constants');
+var attemptCounter = 0;
+var maxAttempted = !empty(Site.current.preferences.custom.riskifiedTimeoutOrderTriesNo) ? Site.current.preferences.custom.riskifiedTimeoutOrderTriesNo : '';
 
 function checkoutCreate(orderNumber, paymentInstrument) {
     var order = OrderMgr.getOrder(orderNumber);
@@ -61,15 +66,33 @@ function create(orderNumber, paymentInstrument) {
     var order = OrderMgr.getOrder(orderNumber);
     var paymentMethod = PaymentMgr.getPaymentMethod(paymentInstrument.getPaymentMethod());
     var isRiskifiedflag = paymentMethod.custom.isRiskifiedEnable;
-    var result = {status : 'success'};
-    if (isRiskifiedflag) {
-        var serviceResult = RiskifiedService.sendCreateOrder(order);
-        result.response = serviceResult
-        if (serviceResult.error) {
-            result.status = 'fail';   
-            result.response = serviceResult;    
+    var isRiskifiedSyncIntegerationEnabled = !empty(Site.current.preferences.custom.isRiskifiedSyncIntegerationEnabled) ? Site.current.preferences.custom.isRiskifiedSyncIntegerationEnabled : false;
+    var result = { status: 'success' };
+        if (isRiskifiedflag) {
+            var serviceResult = RiskifiedService.sendCreateOrder(order);
+            result.response = serviceResult;
+            if (serviceResult.error) {
+                if (isRiskifiedSyncIntegerationEnabled) {
+                    if (attemptCounter < maxAttempted) {
+                        attemptCounter++;
+                        return create(orderNumber, paymentInstrument);
+                    } else { // Send success status
+                        result.status = 'pass';
+                        result.response = {
+                            order: {
+                                status: 'approved'
+                            }
+                        };
+                        Transaction.wrap(function () {
+                            order.custom.riskifiedOrderAnalysis = Constants.ORDER_REVIEW_APPROVED_STATUS;
+                        });
+                    }
+                } else {
+                    result.status = 'fail';
+                    result.response = serviceResult;
+                }
+            }
         }
-    }
     return result;
 }
 

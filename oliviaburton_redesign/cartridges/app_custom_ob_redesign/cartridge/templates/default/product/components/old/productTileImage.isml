@@ -24,6 +24,7 @@
     <isinclude url="${URLUtils.https('Wishlist-ShowIcon','gtmObj',JSON.stringify(pdict.wishlistGtmObj), 'page', 'tile')}"/>
     <isif condition="${pdict.display.showQuickView !== false}">
         <isif condition="${!('display' in pdict && 'quickView' in pdict.display && pdict.display.quickView == false)}">
+            <isif condition="${!(product.productType === 'set')}">
             <a class="quickview hidden-xs-down" href="${pdict.urls.quickView}" data-gtm-qv='${JSON.stringify(pdict.qvGtmObj)}'>
                 <span class="fa-stack fa-lg">
                     <i class="fa fa-circle fa-inverse fa-stack-2x"></i>
@@ -31,6 +32,7 @@
                 </span>
                 <span class="sr-only">${Resource.msg('button.quickview', 'common', null)} ${product.productName} ${product.id}</span>
             </a>
+            </isif>
         </isif>
     </isif>
 </div>

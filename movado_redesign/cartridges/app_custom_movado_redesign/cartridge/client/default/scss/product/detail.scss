@@ -803,13 +803,13 @@ $arrow-height: 1.25em;
     }
 
     .slick-dots {
-
+    
         li {
             width: 4%;
             height: rem(2);
             background: $gray-x11;
             margin: 0;
-
+           
             button {
                 height: 100%;
                 width: 100%;
@@ -824,6 +824,20 @@ $arrow-height: 1.25em;
             }
         }
     }
+    
+    .primary-images{
+
+        .slick-dots {
+            
+            li {
+                width: 100%;
+                height: rem(2);
+                background: $border-color;
+                max-width: rem(73);
+            }
+        }
+    }
+    
 
     .prices-add-to-cart-actions {
         padding: 0;
@@ -1381,6 +1395,7 @@ $arrow-height: 1.25em;
                 justify-content: center;
                 display: flex;
             }
+    
         }
 
         .carousel-title {

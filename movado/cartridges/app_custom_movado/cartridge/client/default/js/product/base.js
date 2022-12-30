@@ -43,12 +43,24 @@ function getQuantitySelector($el) {
         slidesToShow: 1,
         slidesToScroll: 1,
         asNavFor: '.carousel-nav',
-        dots: false,
+        dots: false, 
         arrows:true,
         focusOnSelect: true,
         fade: true,
         prevArrow:"<button class='slick-prev slick-arrow' aria-label='Previous' type='button' style=''>Previous</button>",
         nextArrow:"<button class='slick-next slick-arrow' aria-label='Next' type='button' style=''>Next</button>", 
+    
+        responsive: [
+            {
+                breakpoint: 768,
+                settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                arrows: false
+                }
+            },
+        ]
+    
     });
 }
 
@@ -64,6 +76,18 @@ function getQuantitySelector($el) {
         arrows:true,
         centerMode: true,
         focusOnSelect: true,
+
+        responsive: [
+            {
+                breakpoint: 768,
+                settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                arrows: false,
+                dots:true
+                }
+            },
+        ]
     });
 }
 
@@ -862,7 +886,8 @@ function attributeSelect(selectedValueUrl, $productContainer) {
                 updateOptions(data.product.options, $productContainer);
                 updateQuantities(data.product.quantities, $productContainer);
                 handleOptionsMessageErrors(data.validationErrorEmbossed, data.validationErrorEngraved, $productContainer);
-
+                var listrakTracking = require('movado/listrakActivityTracking.js');
+                listrakTracking.listrackProductTracking(data.product.id);
                 $('body').trigger('product:afterAttributeSelect',
                     { data: data, container: $productContainer });
                 $.spinner().stop();
@@ -1097,7 +1122,7 @@ module.exports = {
         }
     },
     colorAttribute: function () {
-        $(document).on('click', '[data-attr="color"] a', function (e) {
+        $(document).off('click', '.main-variation-attribute[data-attr="color"] a').on('click', '.main-variation-attribute[data-attr="color"] a', function (e) {
             e.preventDefault();
 
             if ($(this).attr('disabled')) {

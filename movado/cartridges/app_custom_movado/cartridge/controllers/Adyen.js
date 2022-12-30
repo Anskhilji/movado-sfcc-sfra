@@ -3,6 +3,7 @@
 var server = require('server');
 server.extend(module.superModule);
 
+var CustomObjectMgr = require('dw/object/CustomObjectMgr');
 var URLUtils = require('dw/web/URLUtils');
 var Transaction = require('dw/system/Transaction');
 var checkoutCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
@@ -46,6 +47,13 @@ server.replace('Redirect', server.middleware.https, function (req, res, next) {
             order.orderNo,
             order.paymentInstrument,
             require('*/cartridge/scripts/hooks/fraudDetectionHook').checkoutCreate);
+
+            var email = order.customerEmail;
+            if (!empty(email)) {
+                var maskedEmail = checkoutCustomHelpers.maskEmail(email);
+                checkoutLogger.info('(Adyen) -> SubmitPayment: Step-2: Customer Email is ' + maskedEmail);
+            }
+
         if (!riskifiedCheckoutCreateResponse) {
             checkoutLogger.error('Riskified API Call failed for order number: ' + order.orderNo);
             res.render('error', {
@@ -277,9 +285,20 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
 
         checkoutLogger.debug('(Adyen) -> ShowConfirmation: Going to send the order confirmation email to the user and order number is: ' + orderNumber);
         COCustomHelpers.sendConfirmationEmail(order, req.locale.id);
+
+        var email = order.customerEmail;
+        if (!empty(email)) {
+            var maskedEmail = COCustomHelpers.maskEmail(email);
+            checkoutLogger.info('(Adyen) -> PlaceOrder: Step-3: Customer Email is ' + maskedEmail);
+        }
+
         checkoutLogger.debug('(Adyen) -> ShowConfirmation: Going to the order confirmation page and order number is: ' + orderNumber);
         res.redirect(URLUtils.url('Order-Confirm', 'ID', order.orderNo, 'token', order.orderToken).toString());
         session.custom.klarnaRiskifiedFlag = '';
+        Transaction.wrap(function () {
+            var currentSessionPaymentParams = CustomObjectMgr.getCustomObject('RiskifiedPaymentParams', session.custom.checkoutUUID);
+            CustomObjectMgr.remove(currentSessionPaymentParams);
+        });
         return next();
     }
     // Adding hook for technical cancel
