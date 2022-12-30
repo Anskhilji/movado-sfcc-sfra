@@ -1,3 +1,11 @@
 <div class="line-item-name">
-    <span>${lineItem.familyName}</span>
+    <isif condition="${lineItem.isWatchTile}">
+        <isif condition="${lineItem.productType === 'variant'}">
+            <a href="${URLUtils.https('Product-Show', 'pid', lineItem.id)}"><span>${lineItem.familyName}</span></a>
+        <iselse/>
+            <a href="${URLUtils.https('Product-Show', 'pid', lineItem.id)}"><span>${lineItem.productName}</span></a>
+        </isif>
+    <iselse/>
+        <a href="${URLUtils.https('Product-Show', 'pid', lineItem.id)}"><span>${lineItem.productName}</span></a>
+    </isif>
 </div>

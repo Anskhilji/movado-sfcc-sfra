@@ -6,6 +6,10 @@
 
     .filter-bar {
 
+        ul {
+            padding-top: rem(15);
+        }
+
         .filter-value {
 
             a {
@@ -140,6 +144,14 @@
                 font-family: $font-HelveticaNeueLT-book;
                 max-height: rem(36);
             }
+        }
+    }
+
+    .filter-box {
+
+        &.filter-bar-sticky {
+            top: rem(98);
+            z-index: 800;
         }
     }
 }

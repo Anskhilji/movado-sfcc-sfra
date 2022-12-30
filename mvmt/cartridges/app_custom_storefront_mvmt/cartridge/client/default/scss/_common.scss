@@ -669,7 +669,8 @@ div {
                     letter-spacing: rem(0.77);
                     line-height: rem(24);
                     text-transform: capitalize;
-                    margin-left: rem(10);
+                    margin-right: rem(10);
+                    display: none;
                 }
 
                 .coupon-code {

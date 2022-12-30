@@ -5,12 +5,23 @@ footer {
     padding-bottom: 1.25em;
     color:$light-black;
     line-height: rem(25);
+    
+    &.footer-redesign {
+        
+        .copyright {
+            font-weight: 400;
+        }
+    }
 
     h3 {
         font-size: rem(14);
         margin-bottom: 0;
         line-height: 2.5em; /* 40/16 */
         font-family: $font-raleway-book;
+
+        a {
+            font-weight: 500;
+        }
     }
 
     ul {

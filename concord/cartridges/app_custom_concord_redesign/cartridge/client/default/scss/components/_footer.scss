@@ -7,6 +7,10 @@
             
             h3 {
                 font-family: $font-raleway-book;
+
+                a {
+                    font-weight: 500;
+                }
             }
 
             @include media-breakpoint-down(xs) {

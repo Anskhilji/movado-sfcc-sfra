@@ -388,7 +388,7 @@ function addGooglePayButton() {
             googlePayContainer.append(button);
         });
     } else {
-        var $googlePayButton = $('#google-pay-container-mini-cart > .gpay-button-fill');
+        var $googlePayButton = $('#google-pay-container-mini-cart > .gpay-button-fill-new-style');
         if ($googlePayButton.length === 0) {
             button = paymentsClient.createButton(buttonConfigs);
             document.getElementById('google-pay-container-mini-cart').appendChild(button);

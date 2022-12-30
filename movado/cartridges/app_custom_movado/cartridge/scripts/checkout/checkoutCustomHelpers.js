@@ -357,6 +357,23 @@ function declineOrder(order) {
 
 }
 
+function maskEmail(email) {
+    var prefix = email.substring(0, email.lastIndexOf('@'));
+    var postfix = email.substring(email.lastIndexOf('@'));
+    var maskedEmail = '';
+
+    for (var i = 0; i < prefix.length; i++) {
+        if (i === 0 || i === prefix.length - 1) {
+            maskedEmail = maskedEmail + prefix[i].toString();
+        }
+        else {
+            maskedEmail = maskedEmail + '.';
+        }
+    }
+    maskedEmail = maskedEmail + postfix;
+    return maskedEmail;
+}
+
 function removeGiftMessageLineItem(currentBasket) {
     var prodLineItems = currentBasket.productLineItems;
 
@@ -374,5 +391,6 @@ module.exports = {
     failOrderRisifiedCall: failOrderRisifiedCall,
     isRiskified: isRiskified,
     declineOrder: declineOrder,
-    removeGiftMessageLineItem: removeGiftMessageLineItem
+    removeGiftMessageLineItem: removeGiftMessageLineItem,
+    maskEmail: maskEmail
 };

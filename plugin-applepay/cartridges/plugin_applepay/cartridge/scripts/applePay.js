@@ -16,6 +16,7 @@ var Riskified = require('int_riskified/cartridge/scripts/Riskified');
 var Site = require('dw/system/Site');
 var hooksHelper = require('*/cartridge/scripts/helpers/hooks');
 var Constants = require('*/cartridge/utils/Constants');
+var checkoutCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
 var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
 
 var server = require('server');
@@ -200,6 +201,12 @@ exports.afterAuthorization = function (order, payment, custom, status) {
                 Logger.error('Selected state is {0} which is restricted for order: {1}', billingStateCode, order.orderNo);
             }
         }
+
+        var email = order.customerEmail;
+        if (!empty(email)) {
+            var maskedEmail = checkoutCustomHelpers.maskEmail(email);
+            checkoutLogger.info('(applePay.js) -> SubmitPayment: Step-2: Customer Email is ' + maskedEmail);
+        }
     } catch (e) {
         Logger.error('(applePay.js) --> Exception occured while try to validate shipping & billing address for orderID: {0} and exception is: {1}', order.orderNo, e);
     }
@@ -260,6 +267,12 @@ exports.afterAuthorization = function (order, payment, custom, status) {
         } catch (exSOM) {
             somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
         }
+    }
+
+    var email = order.customerEmail;
+    if (!empty(email)) {
+        var maskedEmail = checkoutCustomHelpers.maskEmail(email);
+        checkoutLogger.info('(applePay.js) -> PlaceOrder: Step-3: Customer Email is ' + maskedEmail);
     }
     // End Salesforce Order Management
 
@@ -456,6 +469,12 @@ exports.beforeAuthorization = function (order, payment, custom) {
         Logger.error('Unable to find Apple Pay payment instrument for order.');
         checkoutLogger.error('(applePay) -> beforeAuthorization: Riskified checkout create call failed for order:' + order.orderNo);
         return new Status(Status.ERROR);
+    }
+
+    var email = order.customerEmail;
+    if (!empty(email)) {
+        var maskedEmail = checkoutCustomHelpers.maskEmail(email);
+        checkoutLogger.info('(applePay.js) -> SubmitShipping: Step-1: Customer Email is ' + maskedEmail);
     }
     return new Status(Status.OK);
 };

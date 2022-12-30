@@ -246,13 +246,15 @@
         </isif>
     </div>
     <isif condition="${product.promotions && !empty(product.promotions)}">
+    <div class="promotion-badge-box">
         <isloop items="${product.promotions}" var="promotion">
-            <isif condition="${promotion.promotionClass === dw.campaign.Promotion.PROMOTION_CLASS_PRODUCT && promotion.promotionBadge &&  promotion.promotionMsg &&  promotion.promotionMsg !== ''}">
+            <isif condition="${promotion.promotionClass === dw.campaign.Promotion.PROMOTION_CLASS_PRODUCT && promotion.promotionBadge &&  !empty(promotion.promotionMsg)}">
                 <div class="product-badge-main">
-                    <span class="badge text-uppercase">${promotion.promotionMsg}</span>
+                    <span class="badge custom-promotion-badge text-uppercase">${promotion.promotionMsg}</span>
                 </div>
             </isif>
         </isloop>
+    </div>
     </isif>
     <isif condition="${!empty(product.saveMessage)}">
         <div class="product-tag-content">

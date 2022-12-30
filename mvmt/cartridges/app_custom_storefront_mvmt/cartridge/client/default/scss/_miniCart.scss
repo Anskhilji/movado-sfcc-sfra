@@ -482,6 +482,22 @@
             /* Hide scrollbar for IE and Edge */
             -ms-overflow-style: none;
             padding-top: rem(25);
+            
+            .mini-cart-fixed {
+                margin: 0 rem(12) rem(12) rem(12);
+                padding-bottom: rem(20);
+            }
+            
+            .row {
+
+                &:last-child {
+
+                    .card {
+                        border-bottom: none;
+                        margin-bottom: 0;
+                    }
+                }
+            }
 
             /* Hide scrollbar for Chrome, Safari and Opera */
             &::-webkit-scrollbar {
@@ -1608,6 +1624,16 @@
 
 .amazon-mini-button {
     display: flex;
+}
+
+#google-pay-container-mini-cart {
+
+    .gpay-button-fill-new-style {
+        
+        .gpay-button {
+            border-radius: 4px;
+        }
+    }
 }
 
 .gift-box-container {

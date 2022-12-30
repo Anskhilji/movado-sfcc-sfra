@@ -11,6 +11,7 @@ var StringUtils = require('dw/util/StringUtils');
 var JXON = require('*/cartridge/scripts/util/JXON');
 var Logger = require('dw/system/Logger').getLogger('SOM', 'parseOrderStatus');
 var _ = require('*/cartridge/scripts/libs/underscore');
+var local_fm = require("~/cartridge/scripts/util/FileManager");
 
 var OrderStatusCapture = require('*/cartridge/scripts/jobs/orderStatusCapture');
 var OrderStatusVoid = require('*/cartridge/scripts/jobs/orderStatusVoid');
@@ -31,6 +32,7 @@ function parseOrderStatus(args) {
     var status = new Status();
     var filesToParse;
     var filesWithError = [];
+    var TASK_ERRORED = "Errored";
 
     if (args.isDisabled !== null && args.isDisabled === true) {
         return new Status(Status.OK, 'OK', 'Step disabled, skipped');
@@ -47,6 +49,9 @@ function parseOrderStatus(args) {
     if (!filesToParse || filesToParse.length === 0) {
         return new Status(Status.ERROR, 'ERROR', 'Error loading files: no files found');
     }
+
+    var errorFolder = 'IMPEX' + File.SEPARATOR + args.SourceFolder + File.SEPARATOR + TASK_ERRORED;
+    var isRecordProcessedSuccessfully = true;
 
     for (var fileCount = 0; fileCount < filesToParse.length; fileCount++) {
         try {
@@ -79,6 +84,7 @@ function parseOrderStatus(args) {
                             var resultOrderStatus = processStatusOrder(nodeStatus.EcommerceOrderStatus);
                             if (resultOrderStatus.error) {
                                 status.addItem(new StatusItem(Status.ERROR, 'ERROR', resultOrderStatus.message));
+                                isRecordProcessedSuccessfully = false;
                             }
                         } else {
                             if (tempLocalName !== 'root') {
@@ -90,11 +96,16 @@ function parseOrderStatus(args) {
                 catch (e) {
                     errorMessage  = 'Error encountered ' + e.stack +' '+ 'Error Message '+ e.message + ',';
                     errorMessageList.push(errorMessage);
+                    isRecordProcessedSuccessfully = false;
                 }
             }
 
             xmlReader.close();
             fileReader.close();
+
+            if (!isRecordProcessedSuccessfully) {
+                local_fm.MoveFileToErrored(file,errorFolder);
+            }
         }
         catch (e) {
             errorMessage  = 'Error encountered ' + e.stack +' '+ 'Error Message '+ e.message + ',';

@@ -337,7 +337,7 @@ module.exports = function () {
                 if(applePayLength == 1){
                     $('.shipping-paypal-btn img').css('height', '19px');
                     $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "28.5px","vertical-align":"middle" });
-                    $(".gpay-button-fill > .gpay-button.white, .gpay-button-fill > .gpay-button.black").css({"padding":"6px 15% 6px","margin-left":"-8px"});
+                    $(".gpay-button-fill-new-style > .gpay-button.white, .gpay-button-fill-new-style > .gpay-button.black").css({"padding":"6px 15% 6px","margin-left":"-8px"});
                }
                 $('.dw-apple-pay-button').css({ "margin-left": "0", "height": "20px" });
             } else if(colSize == 4){
@@ -349,7 +349,7 @@ module.exports = function () {
                 }
                 
                 $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "29px","vertical-align":"middle" });
-                $(".gpay-button-fill > .gpay-button.white, .gpay-button-fill > .gpay-button.black").css({"padding":"8px 15% 8px"});
+                $(".gpay-button-fill-new-style > .gpay-button.white, .gpay-button-fill-new-style > .gpay-button.black").css({"padding":"8px 15% 8px"});
             }else if (colSize == 6 && $(window).width() <= 742) {
                 $('.shipping-paypal-btn img').css('height', '18px');
                 $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "20px" });
@@ -781,6 +781,30 @@ module.exports = function () {
             }
         });
         return false;
+    });
+
+    $('body').on('click','.beam-widget-mini-cart', function() {
+
+        var URL = $('.beam-widget-minicart').val();
+        var chairtyId = $(this).attr('selectednonprofitid');
+    
+        $.ajax({
+            url: URL,
+            method: 'post',
+            data: {
+                chairtyId: chairtyId
+            },
+    
+            success: function (data) {
+                if (data) {
+                    console.log(data);
+                }
+            },
+    
+            error: function (err) {
+                console.log(err);
+            }
+        });
     });
 
     $('.mini-cart-data').on('submit', 'form.reset-password-form', function (e) {

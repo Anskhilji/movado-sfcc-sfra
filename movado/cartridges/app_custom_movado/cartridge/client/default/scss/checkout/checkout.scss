@@ -1434,6 +1434,16 @@ header {
     height: 100%;
 }
 
+#google-pay-container {
+
+    .gpay-button-fill-new-style {
+        
+        .gpay-button {
+            border-radius: rem(0.125);
+        }
+    }
+}
+
 :focus {
     outline: none;
     box-shadow: none;
