@@ -353,6 +353,7 @@ $(window).scroll(function() {
 
     if (scroll > screenWidth) {
         $('.filter-box').addClass('filter-bar-sticky');
+        
     } else {
         $('.filter-box').removeClass('filter-bar-sticky');
     }
@@ -616,6 +617,7 @@ module.exports = {
                                 });
                             }
                         });
+                        $('.close-refinebar .filter-more').removeClass('d-none').addClass('d-block');
                         // edit end
                         $.spinner().stop();
                         $('.search-results.plp-new-design #sort-order').customSelect();

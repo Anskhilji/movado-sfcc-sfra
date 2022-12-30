@@ -15,7 +15,7 @@
                     ${refinement.displayName}
                 </button>
                 <div class="card-body" role="tabpanel"  aria-labelledby="${refinement.displayName}Heading">
-                    <div class="innter-filter-heading d-none d-md-block">
+                    <div class="innter-filter-heading d-none d-md-block filter-menu-title">
                         ${refinement.displayName}
                     </div>
                     
@@ -34,7 +34,7 @@
                 </div>
             </div>
 
-            <isif condition="${counter > 5}">
+            <isif condition="${counter > 4}">
                 <div class="more-filter-btn">
                     ${Resource.msg('label.moreFilters', 'search', null)}
                     <span>${Resource.msg('label.plus', 'search', null)}</span>

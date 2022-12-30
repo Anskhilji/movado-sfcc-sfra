@@ -1237,7 +1237,7 @@
 
         .refinement-bar {
             &-redesign {
-                top: rem(78);
+                top: rem(0);
                 width: 100%;
                 box-shadow: 0 rem(5) rem(15) $grey-transparent-2;
                 
@@ -1404,10 +1404,6 @@
                                 right: rem(0);
                                 top: rem(4);
                             }
-
-                            span {
-                                display: none;
-                            }
                         }
                     }
                 }
@@ -1420,7 +1416,7 @@
                     bottom: rem(75);
                     right: 0;
                     left: 0;
-
+                  
                     .result-count {
                       background: $black;
                       height: rem(40);
@@ -1479,6 +1475,11 @@
                 .mobile-fliter-sort-button {
                     transform: translateY(1px);
                     display: inline-block;
+
+                    &::before {
+                      content: "Sort by:";
+                      opacity: 50%;
+                    }
                 }
 
                 .filter-content-label {
@@ -1674,18 +1675,6 @@
               position: relative;
               text-transform: capitalize;
 
-              @include media-breakpoint-down(lg) {
-                justify-content: inherit;
-                margin-right: rem(17);
-                
-              }
-
-              @include media-breakpoint-down(md) {
-                margin-right: rem(0);
-                width: rem(84);
-                
-              }
-
               &:focus {
                 outline: none;
               }
@@ -1825,14 +1814,9 @@
           justify-content: space-between;
           align-items: center;
           cursor: pointer;
-          width: rem(110);
+          min-width: rem(110);
           height: rem(24);
           position: relative;
-
-          @include media-breakpoint-down(lg) {
-           justify-content: inherit;
-            
-          }
 
           &:focus {
             outline: none;
@@ -2011,7 +1995,7 @@
       &-redesign {        
         padding: 0;
         @include custom-media-query-max($medium-screen-width) {
-          height: calc(100% - 78px);
+          height: 100%;
         }
           //  remove outline for buttons
           button {
@@ -2026,7 +2010,10 @@
             padding-top: 0;
             overflow: hidden;
             overflow-y: auto;
-            max-height: calc(100vh - 167px);
+
+            @include custom-media-query-max($medium-screen-width) {
+              max-height: calc(100vh - 167px);
+            }
 
             .card {
                 padding: 0;
@@ -2183,10 +2170,6 @@
                           right: rem(0);
                           top: rem(4);
                       }
-  
-                      span {
-                          display: none;
-                      }
                   }
               }
           }
@@ -2200,6 +2183,10 @@
               right: 0;
               left: 0;
               display: none;
+
+              @include custom-media-query-max($medium-screen-width) {
+                  display: block;
+              }
   
               .result-count {
                 background: $black;
