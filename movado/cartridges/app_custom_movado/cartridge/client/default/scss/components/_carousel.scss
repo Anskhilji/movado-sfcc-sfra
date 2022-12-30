@@ -163,22 +163,28 @@
             margin-inline: auto;
             display: block;
             height: rem(2.5);
-            background-color: $border-color;
+            background-color: $dots-gray;
             margin-top: rem(17.6);
             margin-bottom: rem(10);
-            opacity: 0.36;
+
+            @include media-breakpoint-up(md) {
+                margin-left: rem(5.92);            
+            }
 
             li {
                 top: rem(-16);
                 margin: 0;
                 padding: 0 rem(48.8);
 
+                @include media-breakpoint-up(md) {
+                    top: rem(-13.92);
+                }
+
                 &.slick-active {
                     max-width: rem(0.73);
                     height: rem(2.5);
                     width: 100%;
                     background-color: $black;
-                    opacity: 1;
                 }
 
                 button {
