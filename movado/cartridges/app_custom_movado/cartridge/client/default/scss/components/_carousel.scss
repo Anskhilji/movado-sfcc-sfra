@@ -168,17 +168,13 @@
             margin-bottom: rem(10);
 
             @include media-breakpoint-up(md) {
-                margin-left: rem(5.92);            
+                margin-left: rem(421.92);            
             }
 
             li {
                 top: rem(-16);
                 margin: 0;
                 padding: 0 rem(48.8);
-
-                @include media-breakpoint-up(md) {
-                    top: rem(-13.92);
-                }
 
                 &.slick-active {
                     max-width: rem(0.73);
