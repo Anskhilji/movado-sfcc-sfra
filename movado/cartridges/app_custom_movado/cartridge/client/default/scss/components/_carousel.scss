@@ -216,6 +216,9 @@
 // 2074 carousel update
 .cs-carousel-update {
 
+    margin-top: rem(32);
+    margin-bottom: rem(32);
+
     .cs-carousel {
 
         .carousel-tile {
@@ -332,6 +335,7 @@
 
                     .price {
                         padding: 0;
+                        color: $grey8;
                         white-space: nowrap;
                         @include font-light;
                         font-size: rem(15);
