@@ -8,13 +8,14 @@ var File = require('dw/io/File');
 var FileWriter = require('dw/io/FileWriter');
 var Logger = require('dw/system/Logger');
 var Money = require('dw/value/Money');
-var ProductSearchModel = require('dw/catalog/ProductSearchModel');
+var ProductMgr = require('dw/catalog/ProductMgr');
 var Promotion = require('dw/campaign/Promotion');
 var PromotionMgr = require('dw/campaign/PromotionMgr');
 var Site = require('dw/system/Site');
 var StringUtils = require('dw/util/StringUtils');
 var URLUtils = require('dw/web/URLUtils');
 
+var collections = require('*/cartridge/scripts/util/collections');
 var Constants = require('~/cartridge/scripts/utils/Constants');
 var commonUtils = require('./utils/commonUtils');
 
@@ -245,12 +246,11 @@ function exportDataFeedWatch(args) {
 function exportFeed(feedColumns, fileArgs, feedParameters) {
     try {
         fileArgs.csvStreamWriter.writeNext(buildCsvHeader(feedColumns));
-        var productSearchHitsItr = getProductSearchHitIt();
-        while (productSearchHitsItr.hasNext()) {
+        var productSearchHitsItr = ProductMgr.queryAllSiteProducts().asList();
+        collections.forEach(productSearchHitsItr, function (product) {
             try {
-                var product = productSearchHitsItr.next().product;
                 if (product.variant) {
-                    continue;
+                    return;
                 }
 
                 var productAttributes = getProductAttributes(product, feedParameters, feedColumns);
@@ -301,7 +301,7 @@ function exportFeed(feedColumns, fileArgs, feedParameters) {
                 product.ID, e.stack, e.message, e.lineNumber, e.fileName);
             }
 
-        }
+        });
     } catch (e) {
         Logger.error('Error occurred while generating csv file for product feed. Error: {0} \n Message: {1} \n', e.stack, e.message);
     }
@@ -310,15 +310,6 @@ function exportFeed(feedColumns, fileArgs, feedParameters) {
         fileArgs.fileWriter.close();
     }
     Logger.info('Product feed generated successfully with file name: ' + fileArgs.fileName);
-}
-
-function getProductSearchHitIt() {
-    var productSearchModel = new ProductSearchModel();
-    productSearchModel.setCategoryID('root');
-    productSearchModel.setRecursiveCategorySearch(true);
-    productSearchModel.search();
-    var productSearchHitsItr = productSearchModel.getProductSearchHits();
-    return productSearchHitsItr;
 }
 
 function buildCsvHeader(feedColumns) {
