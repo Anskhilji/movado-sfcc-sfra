@@ -701,17 +701,17 @@ header.new-header {
 }
 
 @include media-breakpoint-up(lg) {
-  
+
   header.new-header {
 
     .fixed-header {
       .header-menu-wrapper {
-        position: fixed;
-        z-index: 99999;
+          position: fixed;
+          z-index: 99999;
       }
 
       .sticky-bar-index {
-        z-index: 999;
+          z-index: 999;
       }
     }
 
