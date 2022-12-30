@@ -1477,7 +1477,7 @@
                     display: inline-block;
 
                     &::before {
-                      content:"Sort by:";
+                      content: "Sort by:";
                       opacity: 50%;
                     }
                 }
@@ -2185,7 +2185,7 @@
               display: none;
 
               @include custom-media-query-max($medium-screen-width) {
-                display: block;
+                  display: block;
               }
   
               .result-count {
