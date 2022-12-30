@@ -222,7 +222,20 @@
 // 2074 carousel update
 .cs-carousel-update {
 
+    margin-top: rem(32);
+    margin-bottom: rem(32);
+
     .cs-carousel {
+
+        .slick-arrow {
+            &.slick-prev {
+                left: rem(-64);
+            }
+    
+            &.slick-next {
+                right: rem(-64);
+            }
+        }
 
         .carousel-tile {
             transition: .5s ease-in;
@@ -338,6 +351,7 @@
 
                     .price {
                         padding: 0;
+                        color: $grey8;
                         white-space: nowrap;
                         @include font-light;
                         font-size: rem(15);
@@ -559,15 +573,6 @@
                     }
                 }
             }
-        }
-    }
-    .slick-arrow {
-        &.slick-prev {
-            left: rem(-64);
-        }
-
-        &.slick-next {
-            right: rem(-64);
         }
     }
 }
