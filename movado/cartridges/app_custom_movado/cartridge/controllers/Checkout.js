@@ -134,7 +134,21 @@ server.append(
                 defaultShipment: true,
             }
         );
-        
+
+    var productLineItem;
+    var Transaction = require('dw/system/Transaction');
+    var orderLineItems = currentBasket.getAllProductLineItems();
+    var orderLineItemsIterator = orderLineItems.iterator();
+    
+    while (orderLineItemsIterator.hasNext()) {
+        productLineItem = orderLineItemsIterator.next();
+        Transaction.wrap(function () {
+            if (productLineItem instanceof dw.order.ProductLineItem &&
+            !productLineItem.bonusProductLineItem && !productLineItem.optionID) {
+                productLineItem.custom.ClydeProductUnitPrice = productLineItem.adjustedPrice.getDecimalValue().get() ? productLineItem.adjustedPrice.getDecimalValue().get().toFixed(2) : '';
+        }
+        });
+        }
         // Custom Start: Add email for Amazon Pay
         res.setViewData({
             order: orderModel,
