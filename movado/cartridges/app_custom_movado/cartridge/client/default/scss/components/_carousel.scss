@@ -221,6 +221,16 @@
 
     .cs-carousel {
 
+        .slick-arrow {
+            &.slick-prev {
+                left: rem(-64);
+            }
+    
+            &.slick-next {
+                right: rem(-64);
+            }
+        }
+
         .carousel-tile {
             transition: .5s ease-in;
 
@@ -518,15 +528,6 @@
         }
     }
 
-    .slick-arrow {
-        &.slick-prev {
-            left: rem(-64);
-        }
-
-        &.slick-next {
-            right: rem(-64);
-        }
-    }
 }
 
 @keyframes fadeIn {
