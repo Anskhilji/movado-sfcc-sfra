@@ -347,7 +347,7 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
       Transaction.wrap(function () {
           var currentSessionPaymentParams = CustomObjectMgr.getCustomObject('RiskifiedPaymentParams', session.custom.checkoutUUID);
           CustomObjectMgr.remove(currentSessionPaymentParams);
-	  });
+      });
 	  session.custom.cardIIN = '';
 	  session.custom.checkoutUUID = '';
 
