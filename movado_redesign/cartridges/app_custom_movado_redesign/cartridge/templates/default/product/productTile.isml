@@ -42,16 +42,16 @@
                     </div>
                 </isif>
                 <isif condition="${!pdict.display.isPLP && product.promotions}">
-                <div class="promotions">
-                    <isloop items="${product.promotions}" var="promotion" status ="promoStatus">
-                        <isif condition="${promotion.plpCalloutMsg !== ''}">
-                            <div class="callout promo-msg">
-                                <isprint value="${promotion.plpCalloutMsg}" encoding="off">
-                            </div>
-                        </isif>
-                    </isloop>
-                </div>
-        </isif>
+                    <div class="promotions">
+                        <isloop items="${product.promotions}" var="promotion" status ="promoStatus">
+                            <isif condition="${promotion.plpCalloutMsg !== ''}">
+                                <div class="callout promo-msg">
+                                    <isprint value="${promotion.plpCalloutMsg}" encoding="off">
+                                </div>
+                            </isif>
+                        </isloop>
+                    </div>
+                </isif>
             </isif>
         </div>
         <isinclude template="product/components/productTileName" />
