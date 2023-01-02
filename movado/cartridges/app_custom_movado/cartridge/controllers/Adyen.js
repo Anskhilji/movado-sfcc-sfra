@@ -283,7 +283,9 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
         session.custom.klarnaRiskifiedFlag = '';
         Transaction.wrap(function () {
             var currentSessionPaymentParams = CustomObjectMgr.getCustomObject('RiskifiedPaymentParams', session.custom.checkoutUUID);
-            CustomObjectMgr.remove(currentSessionPaymentParams);
+            if (currentSessionPaymentParams) {
+                CustomObjectMgr.remove(currentSessionPaymentParams);
+            }
         });
         return next();
     }

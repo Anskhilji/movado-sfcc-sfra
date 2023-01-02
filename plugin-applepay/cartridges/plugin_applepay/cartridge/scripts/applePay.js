@@ -266,7 +266,9 @@ exports.afterAuthorization = function (order, payment, custom, status) {
 
     Transaction.wrap(function () {
         var currentSessionPaymentParams = CustomObjectMgr.getCustomObject('RiskifiedPaymentParams', session.custom.checkoutUUID);
-        CustomObjectMgr.remove(currentSessionPaymentParams);
+        if (currentSessionPaymentParams) {
+            CustomObjectMgr.remove(currentSessionPaymentParams);
+        }
     });
 
     return status;

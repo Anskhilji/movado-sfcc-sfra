@@ -150,6 +150,15 @@ server.append(
 });
 
 server.get('Declined', function (req, res, next) {
+    var CustomObjectMgr = require('dw/object/CustomObjectMgr');
+    var Transaction = require('dw/system/Transaction');
+
+    Transaction.wrap(function () {
+        var currentSessionPaymentParams = CustomObjectMgr.getCustomObject('RiskifiedPaymentParams', session.custom.checkoutUUID);
+        if (currentSessionPaymentParams) {
+            CustomObjectMgr.remove(currentSessionPaymentParams);
+        }
+    });
 
     res.render('checkout/declinedOrder');
     next();
