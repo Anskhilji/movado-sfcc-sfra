@@ -193,6 +193,19 @@ $arrow-height: 1.25em;
         }
     }
 
+    .main-carousel-movado {
+
+        .slick-active {  
+
+            img {
+
+                &:hover {
+                    cursor: zoom-in;
+                }
+            }
+        }
+    }
+
     .edit-popup {
         display: none;
     }
@@ -803,7 +816,7 @@ $arrow-height: 1.25em;
     }
 
     .slick-dots {
-    
+        
         li {
             width: 4%;
             height: rem(2);
@@ -828,12 +841,14 @@ $arrow-height: 1.25em;
     .primary-images{
 
         .slick-dots {
-            
+            max-width: rem(293);
+            margin: 0 auto;
+            right: 0;
+
             li {
                 width: 100%;
                 height: rem(2);
                 background: $border-color;
-                max-width: rem(73);
             }
         }
     }
