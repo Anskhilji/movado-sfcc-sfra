@@ -560,10 +560,15 @@
     }
 }
 .container-fluid {
+
     &.pdp-v-one {
+
         .cs-carousel-update {
+
             .cs-carousel {
+
                 .slick-dots {
+                    
                     li {
                         width: 100%;
                     }
@@ -667,7 +672,7 @@ header {
 .static-content-wrapper {
 
     .cs-carousel-wrapper {
-        
+
         &.cs-carousel-update {
             margin-bottom: rem(40);
         }
