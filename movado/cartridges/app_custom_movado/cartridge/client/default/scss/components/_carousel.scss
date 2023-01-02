@@ -230,6 +230,10 @@
 
     .cs-carousel {
 
+        .slick-list {
+            margin: 0;
+        }
+
         .slick-arrow {
             top: 50%;
             transform: translateY(-50%);
@@ -555,6 +559,19 @@
         }
     }
 }
+.container-fluid {
+    &.pdp-v-one {
+        .cs-carousel-update {
+            .cs-carousel {
+                .slick-dots {
+                    li {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}
 // MSS-2072
 .cs-carousel-progress {
   
@@ -628,7 +645,7 @@ header {
                         }
 
                         .promo-msg {
-                            font-size: rem(9);
+                            font-size: rem(11);
                             margin-left: rem(12);
                             overflow: hidden;
                             text-overflow: ellipsis;
@@ -648,6 +665,11 @@ header {
 }
 
 .static-content-wrapper {
+    .cs-carousel-wrapper {
+        &.cs-carousel-update {
+            margin-bottom: rem(40);
+        }
+    }
 
     .full-width-max-1300 {
 
@@ -670,3 +692,4 @@ header {
         }
     }
 }
+
