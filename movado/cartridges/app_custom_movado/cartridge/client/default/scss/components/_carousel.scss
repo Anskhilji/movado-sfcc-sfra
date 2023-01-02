@@ -532,6 +532,7 @@
             right: 0;
 
             li {
+                width: 100%;
                 height: rem(2.5);
                 background: $gray-x11;
                 margin: 0;
@@ -625,7 +626,7 @@ header {
                         }
 
                         .promo-msg {
-                            font-size: rem(15);
+                            font-size: rem(9);
                             margin-left: rem(12);
                             overflow: hidden;
                             text-overflow: ellipsis;
