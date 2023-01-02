@@ -21,7 +21,7 @@
             dots: false,
             arrows: false,
             "centerMode": false,
-            asNavFor: ''
+            asNavFor: '.carousel-nav'
         }
         },
       ]

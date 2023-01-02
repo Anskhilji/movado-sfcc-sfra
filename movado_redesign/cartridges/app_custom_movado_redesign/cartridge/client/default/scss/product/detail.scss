@@ -858,18 +858,6 @@ $arrow-height: 1.25em;
         #zoomProduct {
             z-index: 99999;
         }
-
-        .primary-images{
-    
-            .mvd-carousel-wrapper {
-                
-                .carousel-nav {
-                    @include media-breakpoint-down(sm) {
-                        display: none;
-                    }
-                }
-            }
-        }
     }
     
 
@@ -2216,5 +2204,30 @@ body {
 .button-floting {
     &.button-product-detail {
         bottom: rem(160);
+    }
+}
+
+
+.container-fluid {
+
+    &.pdp-v-one {
+
+        .primary-images {
+
+            .cs-carousel-wrapper {
+
+                &.mvd-carousel-wrapper {
+
+                    .carousel-nav {
+
+                        .draggable {
+                            @include media-breakpoint-down(sm) {
+                                opacity: 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
