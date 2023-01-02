@@ -532,7 +532,7 @@
             right: 0;
 
             li {
-                width: 100%;
+                width: auto !important;
                 height: rem(2.5);
                 background: $gray-x11;
                 margin: 0;
