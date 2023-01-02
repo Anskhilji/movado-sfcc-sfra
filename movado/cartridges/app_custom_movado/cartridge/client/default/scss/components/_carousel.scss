@@ -221,22 +221,29 @@
 
 // 2074 carousel update
 .cs-carousel-update {
-
     margin-top: rem(32);
     margin-bottom: rem(40);
 
+    @include media-breakpoint-down(sm) {
+        margin-inline: rem(-15);
+    }
+
     .cs-carousel {
+
+        .slick-list {
+            margin: 0;
+        }
 
         .slick-arrow {
             top: 50%;
             transform: translateY(-50%);
 
             &.slick-prev {
-                left: rem(-96);
+                left: rem(-64);
             }
 
             &.slick-next {
-                right: rem(-96);
+                right: rem(-64);
             }
 
             @include media-breakpoint-down(lg) {
@@ -262,7 +269,7 @@
                 margin-bottom: rem(15);
 
                 .image-container {
-                    padding-bottom: rem(65);
+                    padding-bottom: rem(128);
                     background: $white-smoke;
                     border: none;
                     min-width: rem(125);
@@ -380,7 +387,6 @@
                         font-size: rem(15);
 
                         span:nth-child(1) {
-                            display: flex;
 
                             @include media-breakpoint-up(lg) {
                                 font-size: rem(15);
@@ -532,6 +538,7 @@
             right: 0;
 
             li {
+                width: 100%;
                 height: rem(2.5);
                 background: $gray-x11;
                 margin: 0;
@@ -547,6 +554,25 @@
 
                 &.slick-active {
                     background: $black;
+                }
+            }
+        }
+    }
+}
+
+.container-fluid {
+
+    &.pdp-v-one {
+
+        .cs-carousel-update {
+
+            .cs-carousel {
+
+                .slick-dots {
+
+                    li {
+                        width: 100%;
+                    }
                 }
             }
         }
@@ -625,7 +651,7 @@ header {
                         }
 
                         .promo-msg {
-                            font-size: rem(15);
+                            font-size: rem(11);
                             margin-left: rem(12);
                             overflow: hidden;
                             text-overflow: ellipsis;
@@ -645,6 +671,13 @@ header {
 }
 
 .static-content-wrapper {
+
+    .cs-carousel-wrapper {
+
+        &.cs-carousel-update {
+            margin-bottom: rem(40);
+        }
+    }
 
     .full-width-max-1300 {
 
