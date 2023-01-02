@@ -193,6 +193,19 @@ $arrow-height: 1.25em;
         }
     }
 
+    .main-carousel-movado {
+
+        .slick-active {  
+
+            img {
+
+                &:hover {
+                    cursor: zoom-in;
+                }
+            }
+        }
+    }
+
     .edit-popup {
         display: none;
     }
@@ -303,26 +316,6 @@ $arrow-height: 1.25em;
 
                 @include media-breakpoint-down(sm) {
                     background-size: rem(15);
-                }
-            }
-        }
-
-        .cs-carousel-wrapper {
-
-            .main-carousel {
-
-                .slick-next {
-                        
-                    @include media-breakpoint-down(sm) {
-                        display: none !important;
-                    }
-                }
-
-                .slick-prev {
-
-                    @include media-breakpoint-down(sm) {
-                        display: none !important;
-                    }
                 }
             }
         }
@@ -823,13 +816,13 @@ $arrow-height: 1.25em;
     }
 
     .slick-dots {
-    
+        
         li {
-            width: 15%;
-            height: rem(2.5);
+            width: 4%;
+            height: rem(2);
             background: $gray-x11;
             margin: 0;
-
+           
             button {
                 height: 100%;
                 width: 100%;
@@ -844,6 +837,22 @@ $arrow-height: 1.25em;
             }
         }
     }
+    
+    .primary-images{
+
+        .slick-dots {
+            max-width: rem(293);
+            margin: 0 auto;
+            right: 0;
+
+            li {
+                width: 100%;
+                height: rem(2);
+                background: $border-color;
+            }
+        }
+    }
+    
 
     .prices-add-to-cart-actions {
         padding: 0;
@@ -1400,10 +1409,6 @@ $arrow-height: 1.25em;
                 margin: 0 auto;
                 justify-content: center;
                 display: flex;
-
-                @include media-breakpoint-down(sm) {
-                    display: none;
-                }
             }
     
         }

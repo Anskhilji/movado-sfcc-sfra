@@ -49,7 +49,6 @@
         margin: 0;
         left: 0;
         padding: 0;
-        opacity: 0;
 
         @include media-breakpoint-down(sm) {
             opacity: 1;
@@ -73,7 +72,7 @@
 
         .slick-active {
             button {
-                background-color: $grey14;
+                background-color: $black;
             }
         }
     }
@@ -113,6 +112,13 @@
                 float: none;
             }
         }
+    }
+}
+
+.primary-images {
+
+    .slick-dots {
+        bottom: rem(62);
     }
 }
 
@@ -546,7 +552,61 @@
             }
         }
     }
+}
+// MSS-2072
+.cs-carousel-progress {
+  
+    .cs-carousel {
 
+        .slick-dots {
+            all: unset;
+            max-width: rem(293);
+            min-width: rem(293);
+            margin-inline: auto;
+            display: block;
+            height: rem(2.5);
+            background-color: $dots-gray;
+            margin-top: rem(17.6);
+            margin-bottom: rem(10);
+            overflow: hidden;
+
+            @include media-breakpoint-up(md) {
+                margin-left: rem(421.92);            
+            }
+
+            li {
+                top: rem(-16);
+                margin: 0;
+                padding: 0 rem(48.8);
+
+                &.slick-active {
+                    max-width: rem(0.73);
+                    height: rem(2.5);
+                    width: 100%;
+                    background-color: $black;
+
+                    button {
+
+                        &::before {
+                           background-color: $black;
+                        }
+                    }
+                }
+
+                button {
+                    height: unset;
+                    width: unset;
+                    border-radius: unset;
+                    background-color: $black;
+
+                    &:before {
+                        content: '';
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
 }
 
 header {
@@ -580,6 +640,30 @@ header {
                         }
                     }
                 }
+            }
+        }
+    }
+}
+
+.static-content-wrapper {
+
+    .full-width-max-1300 {
+
+        .cs-carousel-progress {
+             margin-bottom: 0;
+        }
+    }
+}
+
+@include media-breakpoint-down(sm) {
+    .cs-carousel-progress {
+
+        .cs-carousel {
+            padding-bottom: rem(10);
+
+            .slick-dots {
+                margin-top: rem(6);
+                margin-bottom: rem(20);
             }
         }
     }

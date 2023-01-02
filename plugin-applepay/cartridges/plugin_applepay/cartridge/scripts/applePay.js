@@ -1,4 +1,5 @@
 var BasketMgr = require('dw/order/BasketMgr');
+var CustomObjectMgr = require('dw/object/CustomObjectMgr');
 var Status = require('dw/system/Status');
 var PaymentInstrument = require('dw/order/PaymentInstrument');
 var Logger = require('dw/system/Logger');
@@ -284,6 +285,13 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     session.custom.appleEmbossOptionId = '';
     session.custom.appleEmbossedMessage = '';
     session.custom.appleEngravedMessage = '';
+
+    Transaction.wrap(function () {
+        var currentSessionPaymentParams = CustomObjectMgr.getCustomObject('RiskifiedPaymentParams', session.custom.checkoutUUID);
+        if (currentSessionPaymentParams) {
+            CustomObjectMgr.remove(currentSessionPaymentParams);
+        }
+    });
 
     return status;
 };

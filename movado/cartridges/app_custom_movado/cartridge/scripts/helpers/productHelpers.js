@@ -41,7 +41,7 @@ function getCurrentOptionModel(optionModel, selectedOptions) {
  * @return {dw.catalog.ProductVarationModel} Normalized variation model
  */
 function getVariationModel(product, productVariables, productType) {
-    var variationModel = productType == 'variant' ? product.masterProduct.variationModel : product.variationModel;
+    var variationModel = product.variationModel;
     if (!variationModel.master && !variationModel.selectedVariant) {
         variationModel = null;
     } else if (productVariables) {
@@ -53,6 +53,7 @@ function getVariationModel(product, productVariables, productType) {
                 var dwAttrValue = collections.find(variationModel.getAllValues(dwAttr),
                     function (item) { return item.value === productVariables[attr].value; });
                 if (dwAttr && dwAttrValue) {
+                    variationModel = productType == 'variant' ? product.masterProduct.variationModel : product.variationModel;
                     variationModel.setSelectedAttributeValue(dwAttr.ID, dwAttrValue.ID);
                 }
             }

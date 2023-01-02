@@ -2,6 +2,9 @@ var formHelpers = require('base/checkout/formErrors');
 var fedexHelpers = require('../utilities/fedexHelpers');
 
 $(document).ready(function () {
+    $('.shippingAddressOne,.shippingAddressCity,.shippingZipCode,.shippingState').on('change', function () {
+        $('.fedex-btn-popup-call').attr('data-fedex', 'true');
+    });
     $('.submit-shipping').on('click', function (e) {
         formHelpers.clearPreviousErrors('.shipping-form');
         var fedexBtnPopupCall = $('.fedex-btn-popup-call');
