@@ -221,9 +221,12 @@
 
 // 2074 carousel update
 .cs-carousel-update {
-
     margin-top: rem(32);
     margin-bottom: rem(40);
+
+    @include media-breakpoint-down(sm) {
+        margin-inline: rem(-15);
+    }
 
     .cs-carousel {
 
@@ -232,11 +235,11 @@
             transform: translateY(-50%);
 
             &.slick-prev {
-                left: rem(-96);
+                left: rem(-64);
             }
 
             &.slick-next {
-                right: rem(-96);
+                right: rem(-64);
             }
 
             @include media-breakpoint-down(lg) {
@@ -262,7 +265,7 @@
                 margin-bottom: rem(15);
 
                 .image-container {
-                    padding-bottom: rem(65);
+                    padding-bottom: rem(128);
                     background: $white-smoke;
                     border: none;
                     min-width: rem(125);
@@ -380,7 +383,6 @@
                         font-size: rem(15);
 
                         span:nth-child(1) {
-                            display: flex;
 
                             @include media-breakpoint-up(lg) {
                                 font-size: rem(15);
