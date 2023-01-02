@@ -193,6 +193,19 @@ $arrow-height: 1.25em;
         }
     }
 
+    .main-carousel-movado {
+
+        .slick-active {  
+
+            img {
+
+                &:hover {
+                    cursor: zoom-in;
+                }
+            }
+        }
+    }
+
     .edit-popup {
         display: none;
     }
