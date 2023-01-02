@@ -21,7 +21,7 @@
             dots: false,
             arrows: false,
             "centerMode": false,
-            asNavFor: '.carousel-nav'
+            asNavFor: ''
         }
         },
       ]
@@ -29,7 +29,7 @@
     }
     <!-- primaryImageCarouselConfig = primaryImageCarouselConfig.replace(/[\n\s]/gi, ''); -->
   </isscript>
-  <div class="cs-carousel-wrapper">
+  <div class="cs-carousel-wrapper mvd-carousel-wrapper">
       <div class="js-carousel main-carousel main-carousel-movado traditional-main-carousel cs-carousel" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
           <isset name="pdpVideoConfigs" value="${product.pdpVideoConfigs}" scope="page" />
           <isloop items="${product.images['pdp600']}" var="image" status="loopStatus">

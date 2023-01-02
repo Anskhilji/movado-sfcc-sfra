@@ -852,6 +852,25 @@ $arrow-height: 1.25em;
             }
         }
     }
+
+    .movado-pdp-row {
+        
+        #zoomProduct {
+            z-index: 99999;
+        }
+
+        .primary-images{
+    
+            .mvd-carousel-wrapper {
+                
+                .carousel-nav {
+                    @include media-breakpoint-down(sm) {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
     
 
     .prices-add-to-cart-actions {
