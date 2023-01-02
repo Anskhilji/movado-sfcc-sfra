@@ -1455,3 +1455,11 @@ module.exports = {
     getPidValue: getPidValue,
     getQuantitySelected: getQuantitySelected
 };
+
+// MSS-2074
+$( document ).ready(function() {
+    var pdpLink = $('.pdp-link');
+    if (pdpLink.length > 0) {
+        pdpLink.css({'-webkit-box-orient': 'vertical','display':'-webkit-box'});
+    }
+});
