@@ -158,7 +158,7 @@
         }
 
         .slick-slide {
-            margin: 0 rem(29);
+            margin: 0 rem(8);
         }
 
         .slick-list {
@@ -223,17 +223,35 @@
 .cs-carousel-update {
 
     margin-top: rem(32);
-    margin-bottom: rem(32);
+    margin-bottom: rem(40);
 
     .cs-carousel {
 
         .slick-arrow {
+            top: 50%;
+            transform: translateY(-50%);
+
             &.slick-prev {
-                left: rem(-64);
+                left: rem(-96);
             }
-    
+
             &.slick-next {
-                right: rem(-64);
+                right: rem(-96);
+            }
+
+            @include media-breakpoint-down(lg) {
+
+                &.slick-prev {
+                    left: rem(-48);
+                }
+
+                &.slick-next {
+                    right: rem(-48);
+                }
+            }
+
+            @include custom-media-query-max($medium-screen-width) {
+                display: none !important;
             }
         }
 
@@ -241,6 +259,7 @@
             transition: .5s ease-in;
 
             .product-tile {
+                margin-bottom: rem(15);
 
                 .image-container {
                     padding-bottom: rem(65);
@@ -341,13 +360,17 @@
                     text-align: left;
                     padding: rem(10) rem(15);
                     transition: 0.5s;
-                    height: rem(67);
+                    height: auto;
                     position: absolute;
                     width: 100%;
                     bottom: rem(0);
                     background: $gray-overlay;
                     transition: 0.4s ease-out;
                     overflow: hidden;
+
+                    @include media-breakpoint-down(xs) {
+                        padding: rem(10);
+                    }
 
                     .price {
                         padding: 0;
@@ -491,29 +514,24 @@
                     min-height: unset;
                 }
 
-                @media only screen and (min-width: $medium-screen-width800) {
-                    .pdp-link {
-                        display: flex;
-                        align-items: center;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-
-                        .product-name {
-                            flex: 1;
-                            white-space: nowrap;
-                            overflow: hidden;
-                            text-overflow: ellipsis;
-                        }
-                    }
+                .pdp-link {
+                    display: -webkit-box;
+                    overflow: hidden;
+                    height: rem(63);
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 3;
                 }
             }
         }
 
         .slick-dots {
             opacity: 1;
+            max-width: rem(360);
+            margin: 0 auto;
+            left: 0;
+            right: 0;
 
             li {
-                width: 15%;
                 height: rem(2.5);
                 background: $gray-x11;
                 margin: 0;
@@ -590,16 +608,40 @@
     }
 }
 
-@keyframes fadeIn {
+header {
 
-    0% {
-        opacity: 0;
-    }
+    &.new-header {
 
-    100% {
-        opacity: 1;
+        .top-search-update {
+
+            .product {
+
+                &.delay-point-three {
+
+                    .product-tile {
+
+                        .tile-body {
+                            overflow: inherit;
+                        }
+
+                        .promo-msg {
+                            font-size: rem(15);
+                            margin-left: rem(12);
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                            text-align: left;
+                            padding-top: 0;
+                            letter-spacing: normal;
+                            @include font-medium;
+                            color: $dark-blue2;
+                            width: 50%;
+                        }
+                    }
+                }
+            }
+        }
     }
-    
 }
 
 .static-content-wrapper {
