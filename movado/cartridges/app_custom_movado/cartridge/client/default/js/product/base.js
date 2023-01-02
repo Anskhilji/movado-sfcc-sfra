@@ -1460,6 +1460,6 @@ module.exports = {
 $( document ).ready(function() {
     var pdpLink = $('.pdp-link');
     if (pdpLink.length > 0) {
-        pdpLink.css({'-webkit-box-orient': 'vertical','display':'-webkit-box'});
+        pdpLink.css('-webkit-box-orient', 'vertical');
     }
 });
