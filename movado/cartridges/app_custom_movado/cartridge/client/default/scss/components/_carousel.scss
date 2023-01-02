@@ -387,6 +387,8 @@
                         font-size: rem(15);
 
                         span:nth-child(1) {
+                            flex-wrap: wrap;
+                            display: flex;
 
                             @include media-breakpoint-up(lg) {
                                 font-size: rem(15);
