@@ -549,6 +549,7 @@
             background-color: $dots-gray;
             margin-top: rem(17.6);
             margin-bottom: rem(10);
+            overflow: hidden;
 
             @include media-breakpoint-up(md) {
                 margin-left: rem(421.92);            
@@ -564,6 +565,13 @@
                     height: rem(2.5);
                     width: 100%;
                     background-color: $black;
+
+                    button {
+
+                        &::before {
+                           background-color: $black;
+                        }
+                    }
                 }
 
                 button {
@@ -574,6 +582,7 @@
 
                     &:before {
                         content: '';
+                        width: 100%;
                     }
                 }
             }
