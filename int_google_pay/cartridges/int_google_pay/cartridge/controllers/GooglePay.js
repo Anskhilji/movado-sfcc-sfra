@@ -463,7 +463,9 @@ server.post('ProcessPayments',
 
         Transaction.wrap(function () {
             var currentSessionPaymentParams = CustomObjectMgr.getCustomObject('RiskifiedPaymentParams', session.custom.checkoutUUID);
-            CustomObjectMgr.remove(currentSessionPaymentParams);
+            if(currentSessionPaymentParams) {
+                CustomObjectMgr.remove(currentSessionPaymentParams);
+            }
         });
 
         res.json({

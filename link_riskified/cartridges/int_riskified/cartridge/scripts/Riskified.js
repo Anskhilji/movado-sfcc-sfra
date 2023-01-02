@@ -376,7 +376,9 @@ function sendFulfillOrder(order, fulfillments) {
     }
     Transaction.wrap(function() {
         var currentSessionPaymentParams = CustomObjectMgr.getCustomObject('RiskifiedPaymentParams', session.custom.checkoutUUID);
-        CustomObjectMgr.remove(currentSessionPaymentParams);
+        if(currentSessionPaymentParams) {
+            CustomObjectMgr.remove(currentSessionPaymentParams);
+        }
     });
 
     delete session.custom.checkoutUUID;
