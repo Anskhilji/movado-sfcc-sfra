@@ -85,7 +85,7 @@ server.replace(
                     !productLineItem.bonusProductLineItem && !productLineItem.optionID) {
                     productLineItem.custom.ClydeProductUnitPrice = productLineItem.adjustedPrice.getDecimalValue().get() ? productLineItem.adjustedPrice.getDecimalValue().get().toFixed(2) : '';
                 }
-        });
+            });
         }
 
         // Custom Start: Save values in order custom attributes
