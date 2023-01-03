@@ -331,7 +331,8 @@ function refinementBoxFilterDesktop($refinementBox, $dkFilterCheck, $modelBackgr
 function moreFilterBtn($moreFilterBtn) {
     $moreFilterBtn.click(function(){
         closeRefinementFilters(); // close refinement filter before opening of sidebar more filter
-        $('.modal-background').removeClass('fadeOut').addClass('d-block fadeIn fast')
+        $('.modal-background').removeClass('fadeOut').addClass('d-block fadeIn fast').css('z-index', 9999);
+        $('.header-menu-wrapper').addClass('sticky-bar-index');
         $('body').addClass('no-overflow');
         $('.search-results.plp-new-design .refinement-bar').removeClass('fadeOutRight').addClass('fast fadeInRight animated d-block');
         $('.search-results.plp-new-design .custom-select__option').focus();
@@ -618,6 +619,7 @@ module.exports = {
                             }
                         });
                         $('.close-refinebar .filter-more').removeClass('d-none').addClass('d-block');
+                        // $('.modal-background').removeClass('d-block');
                         // edit end
                         $.spinner().stop();
                         $('.search-results.plp-new-design #sort-order').customSelect();
