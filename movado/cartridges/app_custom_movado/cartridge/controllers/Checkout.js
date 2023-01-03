@@ -6,6 +6,7 @@ var URLUtils = require('dw/web/URLUtils');
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
+var Transaction = require('dw/system/Transaction');
 
 var page = module.superModule;
 server.extend(page);
@@ -145,7 +146,20 @@ server.append(
                 defaultShipment: true,
             }
         );
-        
+
+    var productLineItem;
+    var orderLineItems = currentBasket.getAllProductLineItems();
+    var orderLineItemsIterator = orderLineItems.iterator();
+    
+    while (orderLineItemsIterator.hasNext()) {
+        productLineItem = orderLineItemsIterator.next();
+        Transaction.wrap(function () {
+            if (productLineItem instanceof dw.order.ProductLineItem &&
+                !productLineItem.bonusProductLineItem && !productLineItem.optionID) {
+                productLineItem.custom.ClydeProductUnitPrice = productLineItem.adjustedPrice.getDecimalValue().get() ? productLineItem.adjustedPrice.getDecimalValue().get().toFixed(2) : '';
+            }
+        });
+    }
         // Custom Start: Add email for Amazon Pay
         res.setViewData({
             order: orderModel,
