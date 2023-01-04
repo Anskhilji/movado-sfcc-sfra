@@ -9,6 +9,7 @@ function closeRefinementFilters() {
     $('.header-menu-wrapper').removeClass('sticky-bar-index');
     $('.modal-background').css('z-index', '');
     $('.refinement-bar-redesign').removeClass('d-block');
+    $('.refinement-bar').removeClass('d-block');
 
 }
 

@@ -372,6 +372,7 @@ module.exports = {
         // Refinements close button
         $('.container, .container-fluid').on('click', '.refinement-bar button.close, .modal-background', function () {
             $('.refinement-bar, .modal-background').hide();
+            // $('.refinement-bar').removeClass('d-block');
         });
     },
 
@@ -640,7 +641,7 @@ module.exports = {
                         moreFilterBtn($moreFilterBtn);
                         $('.desktop-search-refine-bar-redesing').removeClass('active');
                         // Custom:MSS-2073 end
-                        if (!$('.refinement-bar-redesign').hasClass('d-block')) { // do not close sidebar filter on selection
+                        if (!$('.refinement-bar-redesign, .refinement-bar').hasClass('d-block')) { // do not close sidebar filter on selection, .refinement-bar is for concord
                             $('.modal-background').removeClass('d-block');
                             $('.refinement-bar-redesign').removeClass('d-block');
                         }
@@ -653,7 +654,7 @@ module.exports = {
                         var filterBarLayout = $('.filter-bar-overlay');
 
                         if (filterBarLayout.length > 0) {
-                            $('.modal-background').addClass('d-block');
+                           // $('.modal-background').addClass('d-block');
                         }
 
                         if ($bannerSearchResultCount && $bannerSearchResultCount !== undefined) {
@@ -703,6 +704,31 @@ module.exports = {
         });
     },
 
+                
+    // Current filter active mobile
+    selectedFilterActiveMobile: function () {
+        $('.refine-wrapper-sidebar').on('click', '.sort-order-mobile-menu', function (e) {
+            var $winWidth = $(window).width();
+            var $mediumBreakPoint = 992;
+
+            if ($winWidth < $mediumBreakPoint) {
+                var clicked = e.target.closest('.custom-select__option');
+                var filterAll = document.querySelectorAll('.custom-select__option');
+                
+                if (!clicked) return;
+                if (clicked) {
+                    filterAll.forEach(function (e) {
+                        var isContain = e.classList.contains('active');
+                        if (isContain) {
+                            e.classList.remove('active');
+                        }
+                    });
+                    clicked.classList.add('active');
+                }
+            }
+        });
+    },
+
     // start: append value to plp sort by from select option
     selectedFiltervalueAppendToPlpSortBy: function () {
         $('.sort-order-mobile-menu, .refinement-bar-redesign').on('click', '.custom-select__dropdown', function (e) {
@@ -710,7 +736,6 @@ module.exports = {
             var $selectedValue = e.target.innerText;
             var $html = 'Sort by: ' + $selectedValue;
             $mobileFilterBtn.html($html);
-            $('.close-refinebar').trigger('click');
         });
     },
 };
