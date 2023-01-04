@@ -35,7 +35,7 @@ Template Notes:
             <!-- Circular Color  Attribute Values -->
             <isloop items="${attr.values}" var="attrValue">
                 <isif condition="${!(isBundle && product.productType === 'variant' && !attrValue.selected) }">
-                    <a  href="${attrValue.url}"
+                    <a  href="${attrValue.url+'&isPdp=true'}"
                         class=" product-size-options color-variation swatchs-redesign
                                 ${attrValue.selected ? 'active' : ''}
                                 ${!attrValue.selectable ? 'disabled' : ''} "
