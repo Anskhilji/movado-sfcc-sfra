@@ -372,7 +372,6 @@ module.exports = {
         // Refinements close button
         $('.container, .container-fluid').on('click', '.refinement-bar button.close, .modal-background', function () {
             $('.refinement-bar, .modal-background').hide();
-            // $('.refinement-bar').removeClass('d-block');
         });
     },
 
@@ -620,7 +619,6 @@ module.exports = {
                             }
                         });
                         $('.close-refinebar .filter-more').removeClass('d-none').addClass('d-block');
-                        // $('.modal-background').removeClass('d-block');
                         // edit end
                         $.spinner().stop();
                         $('.search-results.plp-new-design #sort-order').customSelect();
@@ -652,10 +650,6 @@ module.exports = {
                         var $bannerSearchResultCountAppend = $('.banner-count .result-count .search-result-count');
                         var $bannerSearchResultCount = $('.search-result-counts .result-count .search-result-count').data('result-counts');
                         var filterBarLayout = $('.filter-bar-overlay');
-
-                        if (filterBarLayout.length > 0) {
-                           // $('.modal-background').addClass('d-block');
-                        }
 
                         if ($bannerSearchResultCount && $bannerSearchResultCount !== undefined) {
                             $bannerSearchResultCountAppend.html($bannerSearchResultCount);
