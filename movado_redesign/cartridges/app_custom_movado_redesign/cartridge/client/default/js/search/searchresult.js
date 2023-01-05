@@ -132,9 +132,6 @@ $(document).on('click', '.search-results.plp-new-design  .close-refinebar', func
     $('.header-menu-wrapper').removeClass('sticky-bar-index');
     $('.refinement-bar-redesign').removeClass('d-block');
     $('.modal-background').removeClass('d-block');
-    setTimeout(function () {
-        $('.modal-background').removeClass('d-block');
-    }, 300);
 });
 
 const $filter = $('.refinement-bar, .filter-btn, .more-filter-btn, .search-icon, .desktop-search, .desktop-menu, .mobile-menu, .navbar-toggler-custom');
