@@ -1,7 +1,7 @@
 <div class="col-md-10 col-12 variationAttribute">
     <isset name="isBundle" value="${false}" scope="page" />
     <isloop items="${product.variationAttributes}" var="attr" status="attributeStatus">
-        <div data-attr="${attr.id}">
+        <div class="main-variation-attribute" data-attr="${attr.id}"><div data-attr="${attr.id}">
             <isif condition="${attributeStatus.last && !isBundle && product.options.length === 0}">
                 <!-- Quantity Drop Down Menu -->
                 <div class="quantity col-sm-6">
