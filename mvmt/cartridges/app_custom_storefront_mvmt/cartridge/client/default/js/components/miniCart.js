@@ -13,6 +13,7 @@ function setMiniCartProductSummaryHeight () {
     if ($('.mini-cart-header').is(':visible')) {
         $miniCartHeaderHeight = parseInt($('.mini-cart-data .popover .mini-cart-header').outerHeight(true)) + $miniCartHeaderTitle + $miniCartCountrySelector;
     }
+    var $miniCartGiftBoxHeight = isNaN(parseInt($('.mini-cart-data .gift-messages').outerHeight(true))) ? 0 : parseInt($('.mini-cart-data .gift-messages').outerHeight(true));
     var $miniCartFooterHeight = isNaN(parseInt($('.mini-cart-data .minicart-footer').outerHeight(true))) ? 166 : parseInt($('.mini-cart-data .minicart-footer').outerHeight(true));
     $miniCartHeaderHeight = isNaN($miniCartHeaderHeight) ? 97 : $miniCartHeaderHeight;
     var $productSummaryHeight = $miniCartFooterHeight + $miniCartHeaderHeight;
@@ -23,9 +24,9 @@ function setMiniCartProductSummaryHeight () {
     // check screen size for mobile and desktop
     if (screenSize != null) {
         if (screenSize <= mediumScreenSize) {
-            $('.mini-cart-data .product-summary').css('padding-bottom', $miniCartFooterHeight);
+            $('.mini-cart-data .product-summary').css('padding-bottom', $miniCartFooterHeight + $miniCartGiftBoxHeight - 25);
         } else {
-            $('.mini-cart-data .product-summary').css('padding-bottom', $productSummaryHeight);
+            $('.mini-cart-data .product-summary').css('padding-bottom', $productSummaryHeight + $miniCartGiftBoxHeight);
         }
     }
 }
