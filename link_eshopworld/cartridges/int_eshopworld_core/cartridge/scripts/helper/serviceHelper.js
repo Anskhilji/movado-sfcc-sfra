@@ -51,6 +51,7 @@ function preparePreOrderV2() {
             'DeliveryOptions': getShippingRates()
         };
     }
+    delete session.custom.isEswShippingMethod;
     return requestObj;
 }
 
@@ -444,6 +445,7 @@ function getContactDetails() {
  * Function to get shipping rates
  */
 function getShippingRates() {
+    session.custom.isEswShippingMethod = true;
     var cart = BasketMgr.getCurrentOrNewBasket(),
         isOverrideCountry = JSON.parse(eswHelper.getOverrideShipping()).filter(function (item) {
             return item.countryCode == eswHelper.getAvailableCountry();
