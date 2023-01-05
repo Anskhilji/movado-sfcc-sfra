@@ -93,9 +93,14 @@ function gtmModel(req) {
     // tenant
     var tenant = getTenant(language); 
 
+    var productObj;
+
     if (pid != null) {
         var ProductMgr = require('dw/catalog/ProductMgr');
         productObj = ProductMgr.getProduct(formatProductId(pid));
+    }
+
+    if (!empty(productObj)) {
         productBreadcrumbs = getProductBreadcrumb(productObj);
         var primarySiteSection = escapeQuotes(productBreadcrumbs.primaryCategory);
         var secoundarySiteSection = escapeQuotes(productBreadcrumbs.secondaryCategory);
