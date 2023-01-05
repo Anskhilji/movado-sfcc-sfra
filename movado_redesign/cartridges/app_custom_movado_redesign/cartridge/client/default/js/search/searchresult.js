@@ -131,6 +131,7 @@ $(document).on('click', '.search-results.plp-new-design  .close-refinebar', func
     $('.search-results.plp-new-design  .refinement-bar').addClass('fadeOutRight');
     $('.header-menu-wrapper').removeClass('sticky-bar-index');
     $('.refinement-bar-redesign').removeClass('d-block');
+    $('.modal-background').removeClass('d-block');
     setTimeout(function () {
         $('.modal-background').removeClass('d-block');
     }, 300);
