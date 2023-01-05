@@ -8,6 +8,8 @@ function closeRefinementFilters() {
     $('.search-results.plp-new-design  .refinement-bar, .refine-wrapper-sidebar').removeClass('fillterslideinleft');
     $('.header-menu-wrapper').removeClass('sticky-bar-index');
     $('.modal-background').css('z-index', '');
+    $('.refinement-bar-redesign').removeClass('d-block');
+    $('.refinement-bar').removeClass('d-block');
 
 }
 

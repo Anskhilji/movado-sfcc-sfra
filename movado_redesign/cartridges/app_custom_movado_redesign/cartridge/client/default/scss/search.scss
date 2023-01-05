@@ -1478,7 +1478,7 @@
 
                     &::before {
                       content: "Sort by:";
-                      opacity: 50%;
+                      display: none;
                     }
                 }
 
@@ -1963,7 +1963,7 @@
               &::before {
                 content: 'Sort By:';
                 margin-right: rem(2);
-                opacity: 50%;
+                opacity: 0.5;
               }
             }
 

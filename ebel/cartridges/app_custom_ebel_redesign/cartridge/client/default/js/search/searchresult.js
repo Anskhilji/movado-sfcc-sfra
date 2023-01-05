@@ -2,7 +2,7 @@
 
 $(document).ready(function () {
     $('.search-results.plp-new-design .filter-btn').click(function(){
-        $('.modal-background").removeClass("fadeOut').addClass('d-block fadeIn fast')
+        $('.modal-background').removeClass('fadeOut').addClass('d-block fadeIn fast')
         $('body').addClass('no-overflow');
         $('.search-results.plp-new-design .refinement-bar').removeClass('fadeOutRight').addClass('fast fadeInRight animated d-block');
         $('.search-results.plp-new-design .custom-select__option').focus();

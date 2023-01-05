@@ -8,8 +8,8 @@
         </isif>
     </div>  
     <div class="refinements movado-refinements-container">
-        <isset name="counter" value="${1}" scope="page">
         <isloop iterator="${pdict.productSearch.refinements}" var="refinement" status="status">
+           <isif condition="${status.index <= 4}">
             <div class="card selected-refinement refinement-box-filter refinement-box-filter-desktop refinement refinement-${refinement.displayName.toLowerCase().replace(/ /g, '-')}">
                 <button class="card-header refinement-btn refinement-btn-clicked movado-refinements-type text-left" role="tab" data-filter-category="${pdict.productSearch.category && !empty(pdict.productSearch.category) ? pdict.productSearch.category.id : ''}" aria-expanded="false" id="${refinement.displayName}Heading" >
                     ${refinement.displayName}
@@ -33,15 +33,15 @@
                     </isif>
                 </div>
             </div>
+           </isif>
 
-            <isif condition="${counter > 4}">
+            <isif condition="${status.index > 4}">
                 <div class="more-filter-btn">
                     ${Resource.msg('label.moreFilters', 'search', null)}
                     <span>${Resource.msg('label.plus', 'search', null)}</span>
                 </div>
                 <isbreak/>
             </isif>
-            <isset name="counter" value="${counter + 1}" scope="page">
         </isloop>
     </div>
 </div>
