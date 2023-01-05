@@ -130,9 +130,8 @@ $(document).on('click', '.search-results.plp-new-design  .close-refinebar', func
     $('body').removeClass('no-overflow');
     $('.search-results.plp-new-design  .refinement-bar').addClass('fadeOutRight');
     $('.header-menu-wrapper').removeClass('sticky-bar-index');
-    setTimeout(function () {
-        $('.modal-background').removeClass('d-block');
-    }, 300);
+    $('.refinement-bar-redesign').removeClass('d-block');
+    $('.modal-background').removeClass('d-block');
 });
 
 const $filter = $('.refinement-bar, .filter-btn, .more-filter-btn, .search-icon, .desktop-search, .desktop-menu, .mobile-menu, .navbar-toggler-custom');
