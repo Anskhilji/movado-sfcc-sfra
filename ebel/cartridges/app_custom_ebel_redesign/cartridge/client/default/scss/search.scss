@@ -152,6 +152,9 @@
         &.filter-bar-sticky {
             top: rem(98);
             z-index: 800;
+            @include media-breakpoint-down(md) {
+                top: rem(60); 
+            }
         }
     }
 }

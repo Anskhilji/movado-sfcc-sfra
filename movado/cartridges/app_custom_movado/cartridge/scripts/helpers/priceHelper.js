@@ -8,7 +8,7 @@ function getsavingsPrice(baseprice, adjustedprice) {
     var Money = require('dw/value/Money');
 
     if (baseprice != undefined && adjustedprice != undefined) {
-    	var savingsPrice = baseprice.value - adjustedprice.value;
+    	var savingsPrice = Math.abs(baseprice.value - adjustedprice.value);
         var savings = new Money(savingsPrice, baseprice.currencyCode);
         return savings;
     }

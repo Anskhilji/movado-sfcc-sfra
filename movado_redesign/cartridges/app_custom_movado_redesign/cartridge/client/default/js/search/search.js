@@ -331,7 +331,8 @@ function refinementBoxFilterDesktop($refinementBox, $dkFilterCheck, $modelBackgr
 function moreFilterBtn($moreFilterBtn) {
     $moreFilterBtn.click(function(){
         closeRefinementFilters(); // close refinement filter before opening of sidebar more filter
-        $('.modal-background').removeClass('fadeOut').addClass('d-block fadeIn fast')
+        $('.modal-background').removeClass('fadeOut').addClass('d-block fadeIn fast').css('z-index', 9999);
+        $('.header-menu-wrapper').addClass('sticky-bar-index');
         $('body').addClass('no-overflow');
         $('.search-results.plp-new-design .refinement-bar').removeClass('fadeOutRight').addClass('fast fadeInRight animated d-block');
         $('.search-results.plp-new-design .custom-select__option').focus();
@@ -638,7 +639,7 @@ module.exports = {
                         moreFilterBtn($moreFilterBtn);
                         $('.desktop-search-refine-bar-redesing').removeClass('active');
                         // Custom:MSS-2073 end
-                        if (!$('.refinement-bar-redesign').hasClass('d-block')) { // do not close sidebar filter on selection
+                        if (!$('.refinement-bar-redesign, .refinement-bar').hasClass('d-block')) { // do not close sidebar filter on selection, .refinement-bar is for concord
                             $('.modal-background').removeClass('d-block');
                             $('.refinement-bar-redesign').removeClass('d-block');
                         }
@@ -649,10 +650,6 @@ module.exports = {
                         var $bannerSearchResultCountAppend = $('.banner-count .result-count .search-result-count');
                         var $bannerSearchResultCount = $('.search-result-counts .result-count .search-result-count').data('result-counts');
                         var filterBarLayout = $('.filter-bar-overlay');
-
-                        if (filterBarLayout.length > 0) {
-                            $('.modal-background').addClass('d-block');
-                        }
 
                         if ($bannerSearchResultCount && $bannerSearchResultCount !== undefined) {
                             $bannerSearchResultCountAppend.html($bannerSearchResultCount);
@@ -701,6 +698,31 @@ module.exports = {
         });
     },
 
+                
+    // Current filter active mobile
+    selectedFilterActiveMobile: function () {
+        $('.refine-wrapper-sidebar').on('click', '.sort-order-mobile-menu', function (e) {
+            var $winWidth = $(window).width();
+            var $mediumBreakPoint = 992;
+
+            if ($winWidth < $mediumBreakPoint) {
+                var clicked = e.target.closest('.custom-select__option');
+                var filterAll = document.querySelectorAll('.custom-select__option');
+                
+                if (!clicked) return;
+                if (clicked) {
+                    filterAll.forEach(function (e) {
+                        var isContain = e.classList.contains('active');
+                        if (isContain) {
+                            e.classList.remove('active');
+                        }
+                    });
+                    clicked.classList.add('active');
+                }
+            }
+        });
+    },
+
     // start: append value to plp sort by from select option
     selectedFiltervalueAppendToPlpSortBy: function () {
         $('.sort-order-mobile-menu, .refinement-bar-redesign').on('click', '.custom-select__dropdown', function (e) {
@@ -708,7 +730,6 @@ module.exports = {
             var $selectedValue = e.target.innerText;
             var $html = 'Sort by: ' + $selectedValue;
             $mobileFilterBtn.html($html);
-            $('.close-refinebar').trigger('click');
         });
     },
 };

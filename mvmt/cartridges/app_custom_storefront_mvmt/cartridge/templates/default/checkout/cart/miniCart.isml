@@ -4,6 +4,7 @@
 <isset name="orderLevelDiscountTotal" value="${pdict.totals.orderLevelDiscountTotal.value}" scope="page">
 <isset name="enableGiftMessage" value="${dw.system.Site.getCurrent().preferences.custom.enableGiftMessage}" scope="page"/>
 <isset name="enableCartRecomendations" value="${dw.system.Site.getCurrent().preferences.custom.enableCartRecomendations}" scope="page"/>
+<isset name="domesticAllowedCountry" value="${require('*/cartridge/scripts/helpers/eswCustomHelper').isCurrentDomesticAllowedCountry()}" scope="page" />
 <isif condition="${!empty(pdict.reportingURLs)}">
     <isinclude template="reporting/reportingUrls" />
 </isif>
@@ -82,7 +83,7 @@
         <iscomment> Custom End </iscomment>
 
         <iscomment> Custom Start: Beam donation miniCart Widget </iscomment>
-        <isif condition="${dw.system.Site.current.preferences.custom.enableBeam}">
+        <isif condition="${dw.system.Site.current.preferences.custom.enableBeam && domesticAllowedCountry}">
             <isinclude template="beamWidgetMiniCart" />
         </isif>
         <iscomment> Custom End </iscomment>

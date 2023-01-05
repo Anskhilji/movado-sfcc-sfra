@@ -187,3 +187,13 @@
         }
     }
 }
+
+.filter-box {
+
+    &.filter-bar-sticky {
+        top: rem(105);
+        @include media-breakpoint-down(md) {
+            top: rem(60); 
+        }
+    }
+}
