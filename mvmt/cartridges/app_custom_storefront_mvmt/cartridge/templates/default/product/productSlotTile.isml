@@ -37,7 +37,7 @@
                         <div class="plp-swatches ${product.variationsAttributes && product.variationsAttributes[0] && product.variationsAttributes[0].values && product.variationsAttributes[0].values.length > 0 ? '':'0-opacity'}">
                             <isif condition="${pdict.display.isEyewearTile}">
                                 <isinclude template="product/components/productTileEyewearSwatch" />
-                            <iselse>
+                            <iselseif condition="${!product.isWatchTile}" />
                                 <isinclude template="product/components/productTileSwatch" />
                             </isif>
                         </div>
@@ -48,14 +48,18 @@
                 <isif condition="${pdict.display.showAddToCart}">
                     <div class="product-brand-info">
                     <isif condition="${product.isWatchTile}">
-                        <isif condition="${!empty(product.defaultVariantCollectionName) || !empty(product.collectionName)}">
+                        <isif condition="${(product.productType != 'master' || !product.defaultVariant)}">
+                            <span class="collection-name">${!empty(product.collectionName) ? product.collectionName : ''}</span>
+                        <iselse/>
                             <span class="collection-name">${!empty(product.defaultVariantCollectionName) ? product.defaultVariantCollectionName : product.collectionName}</span>
                         </isif>
                     <iselse>
                         <span class="collection-name">${!empty(product.productName) ? product.productName : ''}</span>
                     </isif>
-                        <isif condition="${!empty(product.caseDiameterRedesigned) || !empty(product.defaultVariantcaseDiameterRedesigned)}">
-                            <span class="case-diameter">${!empty(product.defaultVariantcaseDiameterRedesigned) ? product.defaultVariantcaseDiameterRedesigned : product.caseDiameterRedesigned}</span>
+                        <isif condition="${(product.productType != 'master' || !product.defaultVariant)}">
+                            <span class="case-diameter">${!empty(product.caseDiameterRedesigned) ? product.caseDiameterRedesigned : ''}</span>
+                        <iselse/>
+                            <span class="case-diameter">${!empty(product.defaultVariantCaseDiameterRedesigned) ? product.defaultVariantCaseDiameterRedesigned : product.caseDiameterRedesigned}</span>
                         </isif>
                     </div>
                 </isif>
