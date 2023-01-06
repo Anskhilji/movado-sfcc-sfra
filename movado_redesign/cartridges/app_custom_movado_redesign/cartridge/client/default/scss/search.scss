@@ -2169,6 +2169,13 @@
                           position: absolute;
                           right: rem(0);
                           top: rem(4);
+                          display: none;
+                      }
+
+                      &.close-icon-sort {
+                          &::after { 
+                              display: block;
+                          }
                       }
                   }
               }
