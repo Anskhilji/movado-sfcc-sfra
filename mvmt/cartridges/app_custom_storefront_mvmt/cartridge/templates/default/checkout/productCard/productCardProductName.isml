@@ -1,5 +1,4 @@
 <div class="line-item-name">
-    <iscomment>Custom Start: Added anchor tag to navigate user to PDP after clicking product name </iscomment>
     <isif condition="${lineItem.isWatchTile}">
         <isif condition="${lineItem.productType === 'variant'}">
             <a href="${URLUtils.https('Product-Show', 'pid', lineItem.id)}"><span>${lineItem.familyName}</span></a>
@@ -8,6 +7,5 @@
         </isif>
     <iselse/>
         <a href="${URLUtils.https('Product-Show', 'pid', lineItem.id)}"><span>${lineItem.productName}</span></a>
-    </isif>
-    <iscomment>Custom End: Added anchor tag to navigate user to PDP after clicking product name </iscomment>
+    </isif> 
 </div>
