@@ -86,12 +86,16 @@ $(document).ready(function () {
         $('.close-refinebar .sort-by').removeClass('d-none').addClass('d-block');
         $('.close-refinebar .filter-more').removeClass('d-block').addClass('d-none');
         $('.search-results.plp-new-design .custom-select__option').focus(); 
+        $('.reset-button-mt').removeClass('d-inline-block').addClass('d-none');
+        $('.close-refinebar').addClass('close-icon-sort');
     });
 
     $('.search-results.plp-new-design .filter-btn').click(function(){
         // Custom:MSS-2073 start
         $('.refine-wrapper-sidebar .movado-refinements-container').addClass('d-block');
         $('.refine-wrapper-sidebar .sort-order-mobile-menu').removeClass('d-block').addClass('d-none');
+        $('.reset-button-mt').removeClass('d-none').addClass('d-inline-block');
+        $('.close-refinebar').removeClass('close-icon-sort');
         // Custom:MSS-2073 end
     });
 
