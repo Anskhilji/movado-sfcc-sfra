@@ -1551,6 +1551,7 @@
               left: 0;
               right: 0;
               padding: rem(0) rem(10);
+              z-index: 999;
             }
           }
 
@@ -2176,6 +2177,12 @@
                           &::after { 
                               display: block;
                           }
+                      }
+
+                      .filter-more {
+                          background: url("../images/left-arrow.svg") left -4px center no-repeat;
+                          padding-left: rem(15);
+                          background-size: rem(15);
                       }
                   }
               }
