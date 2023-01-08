@@ -1,4 +1,4 @@
-<div class="product-tile product-tile-plp-container" data-loggedin-status-url="${URLUtils.url('Account-LoggedInStatus')}" itemscope itemtype="http://schema.org/Product">
+<div class="product-tile product-tile-plp-container ${isTileHeightDisable ? 'pb-0' : ''}" data-loggedin-status-url="${URLUtils.url('Account-LoggedInStatus')}" itemscope itemtype="http://schema.org/Product">
     <!-- dwMarker="product" dwContentID="${product.uuid}" -->
 
     <isloop items="${product.availability.messages}" var="message">
