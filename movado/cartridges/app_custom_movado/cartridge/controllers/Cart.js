@@ -471,6 +471,7 @@ server.replace(
         var CartModel = require('*/cartridge/models/cart');
         var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
         var Site = require('dw/system/Site');
+        var couponErrorMessages = !empty(Site.current.preferences.custom.couponErrorMessages) ? Site.current.preferences.custom.couponErrorMessages : false;
 
         var currentBasket = BasketMgr.getCurrentBasket();
 
@@ -500,13 +501,11 @@ server.replace(
         } catch (e) {
             error = true;
             // Custom Start: if custom preference 'couponErrorMessages' in strofront group is not empty and have promotion error messages json 
-            var couponErrorMessages = !empty(Site.current.preferences.custom.couponErrorMessages) ? Site.current.preferences.custom.couponErrorMessages : false;
 
             if (couponErrorMessages) {
                 var errorCodes = JSON.parse(couponErrorMessages);
                 var localeErrorCodes = errorCodes[req.locale.id] || errorCodes['default'];
-                var errorMessageKey = localeErrorCodes[e.errorCode] || localeErrorCodes.DEFAULT;
-                errorMessage = Resource.msg(errorMessageKey, 'cart', null);
+                var errorMessage = localeErrorCodes[e.errorCode] || localeErrorCodes.DEFAULT;
                 // Custom End
             } else {
                 var errorCodes = {
@@ -526,6 +525,34 @@ server.replace(
             }
         }
 
+        Transaction.wrap(function () {
+            basketCalculationHelpers.calculateTotals(currentBasket);
+        });
+
+        var basketModel = new CartModel(currentBasket);
+
+        if (!empty(basketModel) && !empty(basketModel.couponLineItems)) {
+            var couponLineItems = basketModel.couponLineItems;
+            for (var i = 0; i < couponLineItems.length; i++) {
+                var couponLineItem = couponLineItems[i];
+
+                if (couponLineItem && couponLineItem.applied === false) { 
+                    error = true;
+    
+                    Transaction.wrap(function () {
+                        var currentBasket = BasketMgr.getCurrentBasket();
+                        currentBasket.removeCouponLineItem(couponLineItem);
+                    });
+        
+                    if (couponErrorMessages) {
+                        var errorCodes = JSON.parse(couponErrorMessages);
+                        var localeErrorCodes = errorCodes[req.locale.id] || errorCodes['default'];
+                        var errorMessage = localeErrorCodes.COUPON_NOT_APPLIED || localeErrorCodes.DEFAULT;
+                    }
+                }
+            }
+        }
+
         if (error) {
             res.json({
                 error: error,
@@ -534,11 +561,6 @@ server.replace(
             return next();
         }
 
-        Transaction.wrap(function () {
-            basketCalculationHelpers.calculateTotals(currentBasket);
-        });
-
-        var basketModel = new CartModel(currentBasket);
 
         res.json(basketModel);
         return next();
