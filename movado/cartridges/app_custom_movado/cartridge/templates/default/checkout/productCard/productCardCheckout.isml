@@ -36,34 +36,14 @@
                     <p class="line-item-attributes">${attribute.displayName}: ${attribute.displayValue}</p>
                 </isloop>
 
-                <div class="item-options">
-                    <isloop items="${lineItem.options}" var="option">
-                        <isif condition="${option.optionId != lineItem.resources.Engraved &&
-                        	option.optionId != lineItem.resources.Embossed &&
-                        	option.optionId != lineItem.resources.GiftWrapped}">
-                        	<isif condition="${lineItem.customAttributes['emboss']}">
-                        		<div class="line-item-option">${Resource.msg('label.personalization.debossed', 'confirmation', null)}</div>
-                        	<iselseif condition="${option.optionId != lineItem.resources.Engraved &&
-                        		option.optionId != lineItem.resources.GiftWrapped}" >
-                        		<div class="line-item-option">${Resource.msg('label.personalization.debossed.off', 'confirmation', null)}</div>
-                        	<iselse>
-                        		<div class="line-item-option">${option.displayName}</div>
-                        	</isif>
-                        </isif>
-                        <isif condition="${!empty(option.displayName) && !(option.optionId === 'clydeWarranty')}">
-                             <div class="line-item-option">${option.displayName}</div>
-                        </isif>
-                    </isloop>
-                </div>
-
-                <div class="item-model model-name">
+                <div class="item-model model-name mb-2">
                 	${lineItem.resources.Model} ${lineItem.id}
                 </div>
 
                 <div class="item-personalization">
                 	<isif condition="${lineItem.customAttributes['engrave']}">
                 		<div class="line-item-option mb-2">
-                			<div class="personalize-price">${Resource.msgf('label.personalization.engrave', 'confirmation', null, lineItem.customAttributes['engrave'].price)}</div>
+                			<div class="personalize-price text-uppercase">${Resource.msgf('label.personalization.engrave', 'confirmation', null, lineItem.customAttributes['engrave'].price)}</div>
                 			<div class="personalize-msg">${lineItem.customAttributes['engrave'].msgLine1}
                                 <isif condition="${lineItem.customAttributes['engrave'].msgLine2}">
                                     <br/>
@@ -75,26 +55,26 @@
 
                 	<isif condition="${lineItem.customAttributes['emboss']}">
                 		<div class="line-item-option mb-2">
-	                		<div class="personalize-price">${Resource.msgf('label.personalization.deboss', 'confirmation', null, lineItem.customAttributes['emboss'].price)} <span class="personalize-msg">${lineItem.customAttributes['emboss'].msgLine1}</span></div>
+	                		<div class="personalize-price text-uppercase">${Resource.msgf('label.personalization.deboss', 'confirmation', null, lineItem.customAttributes['emboss'].price)} <span class="personalize-msg">${lineItem.customAttributes['emboss'].msgLine1}</span></div>
 	                	</div>
                 	</isif>
 
                 	<isif condition="${lineItem.customAttributes['giftWrap']}">
                 		<div class="line-item-option mb-2">
-                            <div class="personalize-price">${Resource.msgf('label.personalization.giftWrap', 'confirmation', null, lineItem.customAttributes['giftWrap'].price)}</div>
+                            <div class="personalize-price text-uppercase">${Resource.msgf('label.personalization.giftWrap', 'confirmation', null, lineItem.customAttributes['giftWrap'].price)}</div>
                 		</div>
                 	</isif>
 
                 	<isif condition="${lineItem.customAttributes['itemLevelGiftMessage']}">
                 		<div class="line-item-option mb-2">
-                            <div class="personalize-price">${Resource.msgf('label.personalization.giftMessage', 'confirmation', null)}</div>
+                            <div class="personalize-price text-uppercase">${Resource.msgf('label.personalization.giftMessage', 'confirmation', null)}</div>
                 			<div class="personalize-msg">${lineItem.customAttributes['itemLevelGiftMessage'].msgLine1}</div>
                 		</div>
                 	</isif>
 
                 	<isif condition="${lineItem.customAttributes['giftMessage']}">
                 		<div class="line-item-option">
-                			<div class="personalize-price">${Resource.msgf('label.personalization.giftMessage', 'confirmation', null)}</div>>
+                			<div class="personalize-price text-uppercase">${Resource.msgf('label.personalization.giftMessage', 'confirmation', null)}</div>>
                 			<div class="personalize-msg">${lineItem.customAttributes['giftMessage']}</div>
                 		</div>
                 	</isif>
