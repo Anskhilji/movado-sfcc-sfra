@@ -18,6 +18,7 @@ server.append(
     function (req, res, next) {
         var BasketMgr = require('dw/order/BasketMgr');
         var Site = require('dw/system/Site');
+        var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
         var currentBasket = BasketMgr.getCurrentBasket();
         currentBasket.startCheckout();
 
@@ -32,6 +33,10 @@ server.append(
                 return next();
             }    
         }
+        var runningABTest = productCustomHelper.getRunningABTestSegments();
+        res.setViewData({
+            runningABTest: runningABTest
+        });
         // Custom End
 
         if (currentBasket && !req.currentCustomer.profile) {
