@@ -30,7 +30,7 @@
                 <isif condition="${!empty(matchingLineItem)}">
                     ${formatMoney(eswHelper.getSubtotalObject(matchingLineItem, false))}
                 <iselse/>
-                    ${lineItem.priceTotal.saleFormattedPrice}
+                    ${lineItem.priceTotal && lineItem.priceTotal.saleFormattedPrice ? lineItem.priceTotal.saleFormattedPrice : 0}
                 </isif>
             <iselse/>
                 ${lineItem.priceTotal.price}
@@ -43,7 +43,7 @@
             <div class="line-item-total-price-amount item-total-${lineItem.UUID} mb-2 total-amount">${formatMoney(eswHelper.getSubtotalObject(matchingLineItem, false))}</div>
         <iselse/>
             <div class="line-item-total-price-amount item-total-${lineItem.UUID} mb-2 total-amount">
-                ${lineItem.priceTotal.saleFormattedPrice}
+                ${lineItem.priceTotal && lineItem.priceTotal.saleFormattedPrice ? lineItem.priceTotal.saleFormattedPrice : 0}
             </div>
         </isif>
     <iselse/>
