@@ -326,6 +326,11 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                     value: priceFactory.getPrice(apiProduct.variationModel.defaultVariant, null, false, options.promotions, options.optionModel)
                 });
 
+                Object.defineProperty(product, 'defaultVariantID', {
+                    enumerable: true,
+                    value: apiProduct.variationModel.defaultVariant.ID ? apiProduct.variationModel.defaultVariant.ID : apiProduct.ID
+                });
+
                 Object.defineProperty(product, 'defaultVariantBadges', {
                     enumerable: true,
                     value: productCustomHelpers.getBadges(apiProduct.variationModel.defaultVariant)
