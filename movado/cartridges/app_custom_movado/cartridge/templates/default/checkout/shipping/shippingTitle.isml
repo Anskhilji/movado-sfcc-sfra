@@ -1,7 +1,6 @@
-<isset name="isPickupStoreEnabled" value="${!empty(dw.system.Site.current.preferences.custom.isPickupStoreEnabled) ? dw.system.Site.current.preferences.custom.isPickupStoreEnabled : false}" scope="page" />
 <isset name="currentBasket" value="${require('dw/order/BasketMgr').getCurrentBasket()}" scope="page" />
 
-<isif condition="${isPickupStoreEnabled && currentBasket && currentBasket.custom.storePickUp === true ? true : isBOPISOrder}">
+<isif condition="${currentBasket && currentBasket.custom.storePickUp === true ? true : isBOPISOrder}">
     <p class="summary-section-label shipping-addr-label billing-details-label">${Resource.msg('label.order.your.detail', 'storePickUp', null)}:</p>
 <iselse/>
     <p class="summary-section-label shipping-addr-label">${Resource.msg('label.order.shipping.address', 'confirmation', null)}</p>

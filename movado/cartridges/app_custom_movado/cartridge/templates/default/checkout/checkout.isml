@@ -1,7 +1,6 @@
 <isdecorate template="common/layout/checkout">
     <isset name="sitePreferences" value="${require('dw/system/Site').getCurrent().getPreferences().getCustom()}" scope="page" />
     <isset name="enableAutoComplete" value="${!empty(dw.system.Site.current.preferences.custom.enableAutoComplete) ? dw.system.Site.current.preferences.custom.enableAutoComplete : false}" scope="page" />
-    <isset name="isPickupStoreEnabled" value="${!empty(dw.system.Site.current.preferences.custom.isPickupStoreEnabled) ? dw.system.Site.current.preferences.custom.isPickupStoreEnabled : false}" scope="page" />
     <isset name="currentBasket" value="${require('dw/order/BasketMgr').getCurrentBasket()}" scope="page" />
 
     <!----------------------------------------------------------------------------------->
@@ -63,7 +62,7 @@
                         <div class="col-12 col-space-wrapper">
                             <div class="card shipping-summary">
                                 <div class="card-header flex justify-content-between align-items-center">
-                                <isif condition="${isPickupStoreEnabled && currentBasket && currentBasket.custom.storePickUp === true}">
+                                <isif condition="${currentBasket && currentBasket.custom.storePickUp === true}">
                                     <h4 class="pull-left store-label-details">${Resource.msg('heading.checkout.store.pickup.detail', 'storePickUp', null)}</h4>
                                 <iselse/>
                                     <h4 class="pull-left">${Resource.msg('heading.checkout.shipping', 'checkout', null)}</h4>

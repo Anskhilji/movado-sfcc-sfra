@@ -66,15 +66,12 @@ function selectBOPISShippingMethod(shippingMethods, shipment) {
     // Filter out whatever the method associated with in store pickup
     var filteredMethods = [];
     collections.forEach(shippingMethods, function (shippingMethod) {
-        // if (currentBasket && currentBasket.custom.storePickUp) {
             if (shippingMethod.custom.storePickupEnabled) {
                 filteredMethods.push(new ShippingMethodModel(shippingMethod, shipment));
             }
-        // } else {
             if (!shippingMethod.custom.storePickupEnabled) {
                 filteredMethods.push(new ShippingMethodModel(shippingMethod, shipment));
             }
-        // }
     });
 
     return filteredMethods;

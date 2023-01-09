@@ -338,12 +338,6 @@ server.append('Confirm', function (req, res, next) {
         couponCode: discountCode,
         orderLineItemArray: orderLineItemArray
     };
-
-    if(order.custom.storePickUp) {
-        Transaction.wrap(function () {
-            order.custom.storePickUp = false;
-        });
-    }
     
     res.setViewData({
         orderConfirmationObj: JSON.stringify(orderConfirmationObj)

@@ -1,5 +1,4 @@
 <isinclude template="/components/modules" sf-toolkit="off" />
-<isset name="isPickupStoreEnabled" value="${!empty(dw.system.Site.current.preferences.custom.isPickupStoreEnabled) ? dw.system.Site.current.preferences.custom.isPickupStoreEnabled : false}" scope="page" />
 <isset name="addressFields" value="${pdict.forms.shippingForm.shippingAddress.addressFields}" scope="page"/>
 <isset name="sitePref" value="${dw.system.Site.current.preferences}" scope="page"/>
 <isset name="countryCode" value="${pdict.countryCode}" scope="page"/>
@@ -38,7 +37,7 @@
     </div>
 </div>
 
-<isif condition="${isPickupStoreEnabled && currentBasket && currentBasket.custom.storePickUp === true}">
+<isif condition="${currentBasket && currentBasket.custom.storePickUp === true}">
     <div class="row">
     <div class="col-sm-6 mx-field-wrapper">
         <div class="form-group
@@ -77,7 +76,7 @@
         </div>
     </div>
     <div class="${sitePref.custom.Auto_Optin_Checkout && countryCode === usCountryCode ? 'd-none' : ''}">
-        <div class="form-group col-12 checkbox-email-wrapper ${isPickupStoreEnabled && currentBasket && currentBasket.custom.storePickUp === true ? 'd-none' : 'd-flex'} ${pdict.forms.billingForm.subscribetomovado.htmlName}">
+        <div class="form-group col-12 checkbox-email-wrapper ${currentBasket && currentBasket.custom.storePickUp === true ? 'd-none' : 'd-flex'} ${pdict.forms.billingForm.subscribetomovado.htmlName}">
             <input autofocus type="checkbox" class="subscribeToMovado mr-2" id="subscribeToMovado"
             <isprint value="${addressFields.subscribetomovado.attributes}" encoding="off" />> 
             <label class="form-control-label text-transform-reset" for="subscribeToMovado">
@@ -91,7 +90,7 @@
 </div>
 
 
-<div class="row ${isPickupStoreEnabled && currentBasket && currentBasket.custom.storePickUp === true ? 'd-none' : ''}">
+<div class="row ${currentBasket && currentBasket.custom.storePickUp === true ? 'd-none' : ''}">
     <div class="col-sm-12 mx-field-wrapper">
         <!-- companyName -->
         <div class="form-group
@@ -107,7 +106,7 @@
         </div>
     </div>
 </div>
-<div class="row ${isPickupStoreEnabled && currentBasket && currentBasket.custom.storePickUp === true ? 'd-none' : ''}">
+<div class="row ${currentBasket && currentBasket.custom.storePickUp === true ? 'd-none' : ''}">
     <div class="col-sm-12 mx-field-wrapper">
         <div class="form-group
             ${addressFields.address1.mandatory === true ? 'required' : ''}
@@ -116,7 +115,7 @@
                 <iscontentasset aid="calloutMsgAddress1"/>
             </isif>
             <span><input <isif condition="${isAmazonPay}">readonly</isif> type="text" class="form-control input-wrapper-checkout shippingAddressOne" id="shippingAddressOne" <isif condition="${enableAutoComplete}">placeholder=""</isif>
-                value="${isPickupStoreEnabled && currentBasket && currentBasket.custom.storePickUp === true ? session.privacy.storeAddress || '' : shippingAddress.address1||''}" <isprint value="${addressFields.address1.attributes}" encoding="off"/>
+                value="${currentBasket && currentBasket.custom.storePickUp === true ? session.privacy.storeAddress || '' : shippingAddress.address1||''}" <isprint value="${addressFields.address1.attributes}" encoding="off"/>
                 autocomplete="shipping address-line1">
             <label class="form-control-label field-label-wrapper" for="shippingAddressOne"><isprint value="${addressFields.address1.label}" encoding="htmlcontent" /></label>
                 <div class="invalid-feedback"><isprint value="${addressFields.address1.error}" ></div>
@@ -125,7 +124,7 @@
     </div>
  </div>
 
-<div class="row ${isPickupStoreEnabled && currentBasket && currentBasket.custom.storePickUp === true ? 'd-none' : ''}">
+<div class="row ${currentBasket && currentBasket.custom.storePickUp === true ? 'd-none' : ''}">
     <div class="col-sm-12 mx-field-wrapper">
         <div class="form-group
             ${addressFields.address2.mandatory === true ? 'required' : ''}
@@ -134,7 +133,7 @@
                 <iscontentasset aid="calloutMsgAddress2"/>
             </isif>
             <input <isif condition="${isAmazonPay}">readonly</isif> type="text" class="form-control input-wrapper-checkout shippingAddressTwo" id="shippingAddressTwo"
-                value="${isPickupStoreEnabled && currentBasket && currentBasket.custom.storePickUp === true ? session.privacy.storeAddress2 || '' : shippingAddress.address2||''}" <isprint value="${addressFields.address2.attributes}" encoding="off"/>
+                value="${currentBasket && currentBasket.custom.storePickUp === true ? session.privacy.storeAddress2 || '' : shippingAddress.address2||''}" <isprint value="${addressFields.address2.attributes}" encoding="off"/>
                 autocomplete="shipping address-line2">
             <label class="form-control-label field-label-wrapper" for="shippingAddressTwo">
                 <isprint value="${addressFields.address2.label}" encoding="htmlcontent" />
@@ -145,7 +144,7 @@
 </div>
 
 <!--- make drop down--->
-<div class="row ${isPickupStoreEnabled && currentBasket && currentBasket.custom.storePickUp === true ? 'd-none' : ''}">
+<div class="row ${currentBasket && currentBasket.custom.storePickUp === true ? 'd-none' : ''}">
     <div class="col-sm-6 mx-field-wrapper field-left">
         <div class="form-group
             ${addressFields.country.mandatory === true ? 'required' : ''}
@@ -157,7 +156,7 @@
                     <isloop items=${addressFields.country.options} var="country">
                         <option id="${country.id}" value="${country.htmlValue}" ${shippingAddress.countryCode && country.id === shippingAddress.countryCode.value ? 'selected' : ''}>${country.label}</option>
                     </isloop>
-                     <isif condition="${isPickupStoreEnabled && currentBasket && currentBasket.custom.storePickUp === true}">
+                     <isif condition="${currentBasket && currentBasket.custom.storePickUp === true}">
                         <option id="${session.privacy.storeCountryCode}" value="${session.privacy.storeCountryCode}" selected>
                             ${session.privacy.storeCountryCode || ' '}</option>
                     </isif>
@@ -177,7 +176,7 @@
                 <isloop items=${addressFields.states.stateCode.options} var="state">
                     <option id="${state.id}" value="${state.htmlValue}" ${state.id===shippingAddress.stateCode ? 'selected' : ''}>${state.label || ' '}</option>
                 </isloop>
-                <isif condition="${isPickupStoreEnabled && currentBasket && currentBasket.custom.storePickUp === true}">
+                <isif condition="${currentBasket && currentBasket.custom.storePickUp === true}">
                     <option id="${session.privacy.stateCode}" value="${session.privacy.stateCode}" selected>${session.privacy.stateCode || ' '}</option>
                 </isif>
             </select>
@@ -187,13 +186,13 @@
     </div>
 </div>
 
-<div class="row ${isPickupStoreEnabled && currentBasket && currentBasket.custom.storePickUp === true ? 'd-none' : ''}">
+<div class="row ${currentBasket && currentBasket.custom.storePickUp === true ? 'd-none' : ''}">
     <div class="col-sm-6 mx-field-wrapper field-left">
         <div class="form-group
             ${addressFields.city.mandatory === true ? 'required' : ''}
             ${addressFields.city.htmlName}">
             <input <isif condition="${isAmazonPay}">readonly</isif> type="text" class="form-control input-wrapper-checkout shippingAddressCity" id="shippingAddressCity"
-                value="${isPickupStoreEnabled && currentBasket && currentBasket.custom.storePickUp === true ? session.privacy.storeCity || '' : shippingAddress.city||''}" <isprint value="${addressFields.city.attributes}" encoding="off"/>
+                value="${currentBasket && currentBasket.custom.storePickUp === true ? session.privacy.storeCity || '' : shippingAddress.city||''}" <isprint value="${addressFields.city.attributes}" encoding="off"/>
                 autocomplete="shipping address-level2">
             <label class="form-control-label field-label-wrapper" for="shippingAddressCity"><isprint value="${addressFields.city.label}" encoding="htmlcontent" /></label>
             <div class="invalid-feedback"><isprint value="${addressFields.city.error}" ></div>
@@ -207,14 +206,14 @@
                 <iscontentasset aid="calloutMsgPostalCode"/>
             </isif>
             <input <isif condition="${isAmazonPay}">readonly</isif> type="text" class="form-control input-wrapper-checkout shippingZipCode" id="shippingZipCode"
-                value="${isPickupStoreEnabled && currentBasket && currentBasket.custom.storePickUp === true ? session.privacy.storePostalCode || '' : shippingAddress.postalCode ||''}" <isprint value="${addressFields.postalCode.attributes}" encoding="off"/>
+                value="${currentBasket && currentBasket.custom.storePickUp === true ? session.privacy.storePostalCode || '' : shippingAddress.postalCode ||''}" <isprint value="${addressFields.postalCode.attributes}" encoding="off"/>
                 autocomplete="shipping postal-code">
             <label class="form-control-label field-label-wrapper" for="shippingZipCode"><isprint value="${addressFields.postalCode.label}" encoding="htmlcontent" /></label>
             <div class="invalid-feedback"><isprint value="${addressFields.postalCode.error}" ></div>
         </div>
     </div>
 </div>
-<isif condition="${isPickupStoreEnabled && currentBasket && currentBasket.custom.storePickUp !== true}">
+<isif condition="${currentBasket && currentBasket.custom.storePickUp !== true}">
 <div class="row">
     <div class="col-sm-12 mx-field-wrapper">
         <div class="form-group
@@ -233,7 +232,7 @@
 </div>
 </isif>
 <isif condition="${pdict.customer.registeredUser}">
-    <div class="row ${isPickupStoreEnabled && currentBasket && currentBasket.custom.storePickUp === true ? 'd-none' : ''}">
+    <div class="row ${currentBasket && currentBasket.custom.storePickUp === true ? 'd-none' : ''}">
         <div class="col checkbox-email-wrapper">
             <div class="form-group
                 ${addressFields.saveShippingAddress.mandatory === true ? 'required' : ''}

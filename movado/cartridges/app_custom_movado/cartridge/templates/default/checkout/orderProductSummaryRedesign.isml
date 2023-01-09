@@ -1,5 +1,4 @@
 <isset name="miniCart" value="${false}" scope="page" />
-<isset name="isPickupStoreEnabled" value="${!empty(dw.system.Site.current.preferences.custom.isPickupStoreEnabled) ? dw.system.Site.current.preferences.custom.isPickupStoreEnabled : false}" scope="page" />
 <isset name="currentBasket" value="${require('dw/order/BasketMgr').getCurrentBasket()}" scope="page" />
 
 <div class="order-product-summary">
@@ -13,7 +12,7 @@
                 </div>
             </div> 
         </iscomment>
-        <isif condition="${isPickupStoreEnabled && currentBasket && currentBasket.custom.storePickUp === true}">
+        <isif condition="${currentBasket && currentBasket.custom.storePickUp === true}">
             <div class="checkout-pickup-items checkout-pickup-items-container d-none">${Resource.msgf('store.pickup.checkout.items', 'storePickUp', null,  pdict.order.items.totalQuantity)}</div>
         </isif>
         <div class="product-summary-block">
