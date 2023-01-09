@@ -10,26 +10,11 @@
       "slidesToScroll": 1,
       "dots": false,
       "centerMode": true,
-      asNavFor: '.carousel-nav',
-      responsive: [
-        {
-            breakpoint: 768,
-            settings: {
-                slidesToShow: 1,
-                slidesToScroll: 1,
-                infinite: true,
-                dots: false,
-                arrows: false,
-                "centerMode": false,
-                asNavFor: '.carousel-nav'
-            }
-        },
-      ]
-
+      asNavFor: '.carousel-nav'
     }
     <!-- primaryImageCarouselConfig = primaryImageCarouselConfig.replace(/[\n\s]/gi, ''); -->
   </isscript>
-  <div class="cs-carousel-wrapper mvd-carousel-wrapper">
+  <div class="cs-carousel-wrapper">
       <div class="js-carousel main-carousel main-carousel-movado traditional-main-carousel cs-carousel" data-carousel-config='${JSON.stringify(primaryImageCarouselConfig)}'>
           <isset name="pdpVideoConfigs" value="${product.pdpVideoConfigs}" scope="page" />
           <isloop items="${product.images['pdp600']}" var="image" status="loopStatus">
