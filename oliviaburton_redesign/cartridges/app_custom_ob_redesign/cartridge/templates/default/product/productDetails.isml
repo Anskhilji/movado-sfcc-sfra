@@ -90,13 +90,11 @@
                                 fpname="${require('int_affirm/cartridge/scripts/utils/affirmUtils').getFPNameForPDP(product)}" />
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-10 col-12">
-                                <!-- Applicable Promotions -->
-                                <div class="promotions">
-                                    <isinclude template="product/components/promotions" />
-                                </div>
-                            <div>
+                        <div>
+                            <!-- Applicable Promotions -->
+                            <div class="promotions">
+                                <isinclude template="product/components/promotions" />
+                            </div>
                         </div>
 
                         <isset name="isEswEnabled" value="${!empty(dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled) ? dw.system.Site.current.preferences.custom.eswEshopworldModuleEnabled : false}" scope="page" />
@@ -154,6 +152,58 @@
                                 <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
                             </div>
 
+                            <iscomment> Custom Start: [MSS-1954] Added A/B Test for ATC Button Variation </iscomment>
+                            <isif condition="${dw.campaign.ABTestMgr.isParticipant('OBPdpCTATest','Control')}" > 
+                                <div class="${product.available ? "add-to-cart-actions " : ""}">
+                                    <!-- Cart and [Optionally] Apple Pay -->
+                                    <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
+                                </div>
+                                <div class="col-12 prices-add-to-cart-actions cart-sticky-wrapper-btn">
+                                    <!-- Prices -->
+                                    <div class="prices d-lg-none">
+                                        <isset name="price" value="${product.price}" scope="page" />
+                                        <isinclude template="product/components/pricing/main" />
+                                    </div>
+                                    <!-- Cart and [Optionally] Apple Pay -->
+                                    <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
+                                </div>
+                            <iselseif condition="${dw.campaign.ABTestMgr.isParticipant('OBPdpCTATest','render-sticky-cta')}" />
+                                <div class="${product.available ? "add-to-cart-actions d-none d-sm-block" : ""}">
+                                    <!-- Cart and [Optionally] Apple Pay -->
+                                    <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
+                                </div>
+                                <div class="col-12 prices-add-to-cart-actions cart-sticky-wrapper-btn">
+                                    <!-- Prices -->
+                                    <div class="prices d-lg-none">
+                                        <isset name="price" value="${product.price}" scope="page" />
+                                        <isinclude template="product/components/pricing/main" />
+                                    </div>
+                                    <!-- Cart and [Optionally] Apple Pay -->
+                                    <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
+                                </div>
+                            <iselseif condition="${dw.campaign.ABTestMgr.isParticipant('OBPdpCTATest','render-static-cta')}" /> 
+                                <div class="${product.available ? "add-to-cart-actions " : ""}">
+                                    <!-- Cart and [Optionally] Apple Pay -->
+                                    <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
+                                </div>
+                            <iselse/>
+                                <div class="${product.available ? "add-to-cart-actions " : ""}">
+                                    <!-- Cart and [Optionally] Apple Pay -->
+                                    <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
+                                </div>
+                                <div class="col-12 prices-add-to-cart-actions cart-sticky-wrapper-btn">
+                                    <!-- Prices -->
+                                    <div class="prices d-lg-none">
+                                        <isset name="price" value="${product.price}" scope="page" />
+                                        <isinclude template="product/components/pricing/main" />
+                                    </div>
+                                    <!-- Cart and [Optionally] Apple Pay -->
+                                    <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
+                                </div>
+                            </isif>
+                            <iscomment> Custom End </iscomment>
+
+
                             <isset name="giftBoxMessage" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxMessage) ? dw.system.Site.current.preferences.custom.giftBoxMessage : ''}" scope="page" />
                             <isset name="giftBoxEnabled" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxEnabled) ? dw.system.Site.current.preferences.custom.giftBoxEnabled : false}" scope="page" />
                             <isif condition="${!empty(product.isGiftBoxAllowed) && product.isGiftBoxAllowed && product.giftBoxSKUData.giftBoxSKUAvailability && giftBoxEnabled}">
@@ -198,17 +248,6 @@
                                     </div>
                                 </isif>
                                 <iscomment> Custom End </iscomment>
-                        </div>
-
-                            <iscomment> Sticky-add to cart button PDP </iscomment>
-                            <div class="col-12 prices-add-to-cart-actions cart-sticky-wrapper-btn">
-                            <!-- Prices -->
-                            <div class="prices d-lg-none">
-                                <isset name="price" value="${product.price}" scope="page" />
-                                <isinclude template="product/components/pricing/main" />
-                            </div>
-                            <!-- Cart and [Optionally] Apple Pay -->
-                            <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
                         </div>
                     </div>
                 </div>
