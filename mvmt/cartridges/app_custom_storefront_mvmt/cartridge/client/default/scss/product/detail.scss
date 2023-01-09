@@ -1729,6 +1729,12 @@
                 @include media-breakpoint-down(sm) {
                     margin-left: rem(10);
                 }
+
+                &.custom-promotion-badge {
+                    background: $white;
+                    border-color: $red2;
+                    color: $red2;
+                }
             }
         }
         .ratings {
