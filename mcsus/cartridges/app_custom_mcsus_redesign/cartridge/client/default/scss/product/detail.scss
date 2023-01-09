@@ -2013,6 +2013,10 @@
             }
         }
 
+        .pdp-store-pickup-display-inline-block {
+            position: relative;
+        }
+
         .pdp-store-pickup-inventory {
             order: 1;
             display: flex;
@@ -2079,6 +2083,39 @@
                     }
                 }
             }
+
+            .info-icon {
+
+                &.info-icon-bopis {
+                    position: absolute;
+                    right: rem(-12);
+                    top: rem(-10);
+
+                    @include custom-media-query-max($medium-screen-width) {
+                        top: rem(-2);
+                    }
+
+                    @include media-breakpoint-down(xs) {
+                        top: rem(-10);
+                    }
+                    
+                    .icon {
+                        background-image: url("../../images/info-icon.svg");
+                        background-repeat: no-repeat;
+                        background-size: cover;
+                        width: rem(15);
+                        height: rem(15);
+                        background-color: transparent;
+                    }
+    
+                    .tooltip {
+    
+                        @include media-breakpoint-down(sm) {
+                            display: none;
+                        }
+                    }
+                } 
+            } 
         }
         
         .pick-up-store-available-for-store {
@@ -2090,6 +2127,7 @@
             line-height: rem(12);
             font-weight: 400;
             margin-bottom: 0;
+            padding-right: rem(10);
         }
 
         .pick-up-store-available-pickup-stores {
