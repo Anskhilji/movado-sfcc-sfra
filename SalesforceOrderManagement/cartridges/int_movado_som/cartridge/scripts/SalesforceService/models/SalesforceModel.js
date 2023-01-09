@@ -262,6 +262,13 @@ var SalesforceModel = ({
             requestData: requestData
         });
     },
+    sendErrorMail: function (req) {
+        return SalesforceModel.createSalesforceRestRequest({
+            url: SalesforceFactory.ENDPOINTS.ERROREMAIL,
+            requestMethod: 'POST',
+            requestData: req
+        });
+    },
     updateBeamOrders: function (req) {
         return SalesforceModel.createSalesforceRestRequest({
             url: SalesforceFactory.ENDPOINTS.UPDATEBEAMORDER + req.orderID,
