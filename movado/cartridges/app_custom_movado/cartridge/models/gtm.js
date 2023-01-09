@@ -11,6 +11,7 @@ var googleAnalyticsHelpers = require('*/cartridge/scripts/helpers/googleAnalytic
 var URLUtils = require('dw/web/URLUtils');
 var Constants = require('*/cartridge/scripts/helpers/utils/Constants');
 var searchCustomHelper = require('*/cartridge/scripts/helpers/searchCustomHelper');
+var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
 
 var ArrayList = require('dw/util/ArrayList');
 
@@ -43,6 +44,7 @@ function gtmModel(req) {
     this.googleAnalyticsParameters = '';
     this.customerIPAddressLocation = '';
     this.rakutenAllowedCountries =  [];
+    this.runningABTests = '';
 
     if (req.querystring != undefined) {
         var queryString = req.querystring.urlQueryString;
@@ -146,6 +148,8 @@ function gtmModel(req) {
     var customerIPAddressLocation = !empty(request.geolocation.countryCode) ? request.geolocation.countryCode : '';
     var isRakutenEnabled = !empty(Site.current.preferences.custom.isRakutenEnable) ? Site.current.preferences.custom.isRakutenEnable : false;
     this.rakutenAllowedCountries = new ArrayList(!empty(Site.current.preferences.custom.rakutenAllowedCountries) ? Site.current.preferences.custom.rakutenAllowedCountries : '').toArray();
+
+    var runningABTests = productCustomHelper.getRunningABTestSegments();
    
     this.rakutenAllowedCountries = isRakutenEnabled ? this.rakutenAllowedCountries.toString() : '';
     this.pageUrl = pageUrl != null ? pageUrl : '';
@@ -158,6 +162,7 @@ function gtmModel(req) {
     this.searchCount = (searchCount != null && searchCount != undefined) ? searchCount : '';
     this.googleAnalyticsParameters = googleAnalyticsParameters != null ? googleAnalyticsParameters : '';
     this.customerIPAddressLocation = customerIPAddressLocation || '';
+    this.runningABTests = runningABTests || '';
 }
 
 

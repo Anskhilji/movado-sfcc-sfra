@@ -327,6 +327,16 @@ function getIsWatchTile(apiProduct) {
     }
 }
 
+/**
+ * Function return running AB test segments
+ * @returns segmentsArray 
+ */
+function getRunningABTestSegments() {
+    var ABTestMgr = require('dw/campaign/ABTestMgr');
+    var abTestSegment = ABTestMgr.getAssignedTestSegments();
+    return abTestSegment.length > 0 ? abTestSegment[0].ABTest.ID + '+' + abTestSegment[0].ID : '';
+}
+
 module.exports = {
     getExplicitRecommendations: getExplicitRecommendations,
     getCollectionName: getCollectionName,
@@ -340,5 +350,6 @@ module.exports = {
     getProductCategory: getProductCategory,
     isGiftBoxAllowed: isGiftBoxAllowed,
     getGiftBoxSKU: getGiftBoxSKU,
-    getIsWatchTile: getIsWatchTile
+    getIsWatchTile: getIsWatchTile,
+    getRunningABTestSegments: getRunningABTestSegments
 };
