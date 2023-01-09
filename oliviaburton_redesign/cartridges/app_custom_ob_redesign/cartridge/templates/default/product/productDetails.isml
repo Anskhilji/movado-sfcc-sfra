@@ -147,10 +147,6 @@
                                     <isinclude url="${URLUtils.https('Product-ShowAvailability', 'pid', product.id)}"/>
                                 </div>
                             </div>
-                            <div class="${product.available ? "add-to-cart-actions " : ""}">
-                                <!-- Cart and [Optionally] Apple Pay -->
-                                <isinclude url="${URLUtils.https('Product-ShowCartButton', 'pid', product.id)}"/>
-                            </div>
 
                             <iscomment> Custom Start: [MSS-1954] Added A/B Test for ATC Button Variation </iscomment>
                             <isif condition="${dw.campaign.ABTestMgr.isParticipant('OBPdpCTATest','Control')}" > 
