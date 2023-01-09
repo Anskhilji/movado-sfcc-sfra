@@ -62,11 +62,6 @@
                         </isloop>
                         <isinclude template="cart/productCard/cartProductCardAvailability" />
 
-                        <isif condition="${lineItem.productType && lineItem.productType === Resource.msg('product.variant','product',null)}" >
-                            <div class="product-edit">
-                                <a href="${URLUtils.url('Cart-GetProduct', 'uuid', lineItem.UUID)}" class="edit" title="${Resource.msg('link.edit.item', 'cart',null)}">${Resource.msg('link.edit.item', 'cart', null)}</a>
-                            </div>
-                        </isif>
                         <isset name="product" value="${dw.catalog.ProductMgr.getProduct(lineItem.id)}" scope="page" />
                         <isset name="isGiftBoxAllowed" value="${require('*/cartridge/scripts/helpers/productCustomHelper').isGiftBoxAllowed(product)}" scope="page" />
                         <isset name="giftBoxEnabled" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxEnabled) ? dw.system.Site.current.preferences.custom.giftBoxEnabled : false}" scope="page" />
