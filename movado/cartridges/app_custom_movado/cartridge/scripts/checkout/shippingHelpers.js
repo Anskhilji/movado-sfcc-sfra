@@ -49,9 +49,6 @@ function selectBOPISShippingMethod(shippingMethods, shipment) {
  * @returns {dw.util.Collection} an array of ShippingModels
  */
  function getApplicableShippingMethods(shipment, address) {
-    // var OrderMgr = require('dw/order/OrderMgr');
-    // var currentBasket = require('dw/order/BasketMgr').getCurrentBasket();
-
     if (!shipment) return null;
 
     var shipmentShippingModel = ShippingMgr.getShipmentShippingModel(shipment);
@@ -66,12 +63,12 @@ function selectBOPISShippingMethod(shippingMethods, shipment) {
     // Filter out whatever the method associated with in store pickup
     var filteredMethods = [];
     collections.forEach(shippingMethods, function (shippingMethod) {
-            if (shippingMethod.custom.storePickupEnabled) {
-                filteredMethods.push(new ShippingMethodModel(shippingMethod, shipment));
-            }
-            if (!shippingMethod.custom.storePickupEnabled) {
-                filteredMethods.push(new ShippingMethodModel(shippingMethod, shipment));
-            }
+        if (shippingMethod.custom.storePickupEnabled) {
+            filteredMethods.push(new ShippingMethodModel(shippingMethod, shipment));
+        }
+        if (!shippingMethod.custom.storePickupEnabled) {
+            filteredMethods.push(new ShippingMethodModel(shippingMethod, shipment));
+        }
     });
 
     return filteredMethods;

@@ -85,25 +85,23 @@ function updateBOPISShippingMethods(data, $pickupFromStore) {
 }
 
 function handleAvailabilityOnStore(data) {
-    // if (data && data.items) {
-        data.items.forEach(function (item) {
-            var $pickUpStoreAvailableIcon = $('.pickup-store-inventory-seperator .availabe-icon' + item.id);
-            var $pickUpStoreAvailableText = $('.pickup-store-inventory-seperator .availabe-msg' + item.id);
-            var $pickUpStoreUnavailableIcon = $('.pickup-store-inventory-seperator .unavailable-icon' + item.id);
-            var $pickUpStoreUnavailableText = $('.pickup-store-inventory-seperator .unavailable-msg' + item.id);
-            if (item.storePickupAvailable) {
-                $pickUpStoreAvailableIcon.removeClass('d-none');
-                $pickUpStoreAvailableText.removeClass('d-none');
-                $pickUpStoreUnavailableIcon.addClass('d-none');
-                $pickUpStoreUnavailableText.addClass('d-none');
-            } else {
-                $pickUpStoreUnavailableIcon.removeClass('d-none');
-                $pickUpStoreUnavailableText.removeClass('d-none');
-                $pickUpStoreAvailableIcon.addClass('d-none');
-                $pickUpStoreAvailableText.addClass('d-none');
-            }
-        });
-    // }
+    data.items.forEach(function (item) {
+        var $pickUpStoreAvailableIcon = $('.pickup-store-inventory-seperator .availabe-icon' + item.id);
+        var $pickUpStoreAvailableText = $('.pickup-store-inventory-seperator .availabe-msg' + item.id);
+        var $pickUpStoreUnavailableIcon = $('.pickup-store-inventory-seperator .unavailable-icon' + item.id);
+        var $pickUpStoreUnavailableText = $('.pickup-store-inventory-seperator .unavailable-msg' + item.id);
+        if (item.storePickupAvailable) {
+            $pickUpStoreAvailableIcon.removeClass('d-none');
+            $pickUpStoreAvailableText.removeClass('d-none');
+            $pickUpStoreUnavailableIcon.addClass('d-none');
+            $pickUpStoreUnavailableText.addClass('d-none');
+        } else {
+            $pickUpStoreUnavailableIcon.removeClass('d-none');
+            $pickUpStoreUnavailableText.removeClass('d-none');
+            $pickUpStoreAvailableIcon.addClass('d-none');
+            $pickUpStoreAvailableText.addClass('d-none');
+        }
+    });
 }
 
 function updateStorePickupProductAvailability(data) {
