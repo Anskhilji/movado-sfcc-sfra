@@ -169,7 +169,7 @@ function getShippingMethods(currentBasket, selectedShippingMethod, shippingAddre
         var shippingMethod = applicableShippingMethodsOnCart[index];
         var shippingOption;
         if (shippingMethod.custom.storePickupEnabled) {
-            if (session.privacy.pickupFromStore) { 
+            if (currentBasket.custom.storePickUp) { 
                 shippingOption = {
                     id: shippingMethod.ID,
                     label: shippingMethod.displayName ? shippingMethod.displayName : '' ,
@@ -300,14 +300,14 @@ function getTransactionInfo(req) {
     var options = [];
     form.options = [];
 
-    if (session.privacy.pickupFromStore) {
+    if (currentBasket.custom.storePickUp) {
         session.custom.applePayCheckout = false;
     }
 
     switch (req.form.googlePayEntryPoint) {
         case 'Product-Show':
             addProductToCart(currentBasket, productId, quantity, childProducts, options, form);
-            if (session.privacy.pickupFromStore) {
+            if (currentBasket.custom.storePickUp) {
                 session.custom.applePayCheckout = true;
                 Transaction.wrap(function () {
                     ShippingHelper.selectShippingMethod(currentBasket.defaultShipment);

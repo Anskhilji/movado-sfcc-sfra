@@ -194,6 +194,7 @@ server.append('Confirm', function (req, res, next) {
     var couponLineItemsItr = order.getCouponLineItems().iterator();
     var checkoutAddrHelper = require('*/cartridge/scripts/helpers/checkoutAddressHelper');
     var orderCustomHelper = require('*/cartridge/scripts/helpers/orderCustomHelper');
+    var Transaction = require('dw/system/Transaction');
     if (!empty(viewData.order)) {
         checkoutAddrHelper.saveCheckoutShipAddress(viewData.order);
     }
@@ -338,8 +339,10 @@ server.append('Confirm', function (req, res, next) {
         orderLineItemArray: orderLineItemArray
     };
 
-    if(session.privacy.pickupFromStore) {
-        session.privacy.pickupFromStore = false;
+    if(order.custom.storePickUp) {
+        Transaction.wrap(function () {
+            order.custom.storePickUp = false;
+        });
     }
     
     res.setViewData({

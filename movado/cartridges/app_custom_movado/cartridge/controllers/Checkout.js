@@ -72,7 +72,7 @@ server.append(
         var currentBasket = BasketMgr.getCurrentBasket();
         var countryCode = orderCustomHelper.getCountryCode(req);
 
-        if (session.privacy.pickupFromStore) {
+        if (currentBasket.custom.storePickUp) {
             session.custom.applePayCheckout = false;
         } else {
             session.custom.StorePickUp = false;

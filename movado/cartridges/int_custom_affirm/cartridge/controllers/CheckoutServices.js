@@ -125,7 +125,7 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
 	    return next();
 	  }
 		
-		if (session.privacy.pickupFromStore) {
+		if (currentBasket.custom.storePickUp) {
 			Transaction.wrap(function () {
 				var shippingAddress = currentBasket.defaultShipment.shippingAddress;
 				shippingAddress.setAddress1(session.privacy.storeAddress || '');

@@ -1,3 +1,6 @@
+<isset name="isPickupStoreEnabled" value="${!empty(dw.system.Site.current.preferences.custom.isPickupStoreEnabled) ? dw.system.Site.current.preferences.custom.isPickupStoreEnabled : false}" scope="page" />
+<isset name="currentBasket" value="${require('dw/order/BasketMgr').getCurrentBasket()}" scope="page" />
+
 <iscomment> Custom Start: Amazon Pay Integeration </iscomment>
 <isif condition="${sitePreferences.amzPayEnabled && !pdict.order.amzPayRedirectURL}">
     <div class="shipping-express-checkout">
@@ -19,7 +22,7 @@
                     <div class="card-header card-border-none card-bottom-space">
                         <iscomment> Custom Start: Add Amazon Pay Integeration</iscomment>
                         <isif condition="${pdict.order.amzPayRedirectURL}">
-                            <isif condition="${session.privacy.pickupFromStore}">
+                            <isif condition="${isPickupStoreEnabled && currentBasket && currentBasket.custom.storePickUp === true}">
                                 <h4 class="pull-left store-label-details">${Resource.msg('heading.checkout.store.pickup', 'storePickUp', null)}</h4>
                             <iselse/>
                                 <h4 class="pull-left">${Resource.msg('heading.checkout.shipping', 'checkout', null)}</h4>
@@ -27,7 +30,7 @@
                         
                             <span class="edit-shipping-first pull-right text_underline">${Resource.msg('action.edit.step', 'checkout', null)}</span>
                             <iselse>
-                                <isif condition="${session.privacy.pickupFromStore}">
+                                <isif condition="${isPickupStoreEnabled && currentBasket && currentBasket.custom.storePickUp === true}">
                                     <h4 class="pull-left store-label-details store-label-details-main">${Resource.msg('heading.checkout.store.pickup', 'storePickUp', null)}</h4>
                                 <iselse/>
                                     <h4 class="pull-left heading-content-label">${Resource.msg('heading.checkout.shipping', 'checkout', null)}</h4>
