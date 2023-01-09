@@ -167,9 +167,4 @@
     <isif condition="${lineItem.bonusProductLineItemUUID === 'bonus'}">
         <isinclude template="cart/productCard/cartEmbeddedBonusProducts" />
     </isif>
-    <isif condition="${enableGiftMessage}">
-        <isif condition="${!lineItem.isBonusProductLineItem}"> 
-            <isinclude template="cart/productCard/cartGiftMessaging" />
-        </isif>
-    </isif>
 </div>

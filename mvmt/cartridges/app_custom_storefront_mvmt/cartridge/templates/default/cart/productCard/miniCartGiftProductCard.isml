@@ -1,4 +1,5 @@
 <isinclude template="/components/modules" sf-toolkit="off" />
+<isset name="items" value="${pdict.items}" scope="page"/>
 <isloop items="${items}" var="lineItem" status="loopStatus">
     <isif condition="${!empty(lineItem)} ">
         <div class="row">

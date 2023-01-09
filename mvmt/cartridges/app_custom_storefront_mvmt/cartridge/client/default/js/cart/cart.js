@@ -85,14 +85,14 @@ function updateMiniCartTotals(data, $giftProduct, $uuid, $dataParentUUID) {
     }
     var $fullCart = $('.main-cart-block');
     var $miniCartSelector = $('.mini-cart-data .product-summary').length > 0 ? $('.mini-cart-data') : $fullCart;
-    var $noOfItems = $miniCartSelector.find('.mini-cart-data .number-of-items');
+    var $noOfItems = $miniCartSelector.find('.mini-cart-data .number-of-items'); 
     var $shippingCostSelector = $miniCartSelector.find('.shipping-cost');
     var $totalTaxSelector = $miniCartSelector.find('.tax-total');
     var $grandTotalSelector = $miniCartSelector.find('.grand-total, .cart-total, .minicart-footer .subtotal-payment-summary .grand-total-sum');
     var $subTotalSelector = $miniCartSelector.find('.sub-total');
     var $affirmPriceSelector = $miniCartSelector.find('.affirm-as-low-as');
     var $orderDiscountSelector = $miniCartSelector.find('.order-discount');
-    
+
     if ($noOfItems.length > 0) {
         $noOfItems.empty().append(data.resources.numberOfItems);
     }
@@ -103,9 +103,9 @@ function updateMiniCartTotals(data, $giftProduct, $uuid, $dataParentUUID) {
         $totalTaxSelector.empty().append(data.totals.totalTax);
     }
     if ($grandTotalSelector.length > 0) {
-         $grandTotalSelector.each(function () {
+        $grandTotalSelector.each(function () {
             $(this).empty().append(data.totals.subTotaladjustedNetPrice);
-         });
+        });
     }
     if ($subTotalSelector.length > 0) {
         $subTotalSelector.empty().append(data.totals.subTotal);
@@ -157,6 +157,21 @@ function updateMiniCartTotals(data, $giftProduct, $uuid, $dataParentUUID) {
         }
         $miniCartSelector.find('.item-total-' + item.UUID + ' .product-line-item-details  .sales').empty().append(item.priceTotal.price);
 
+        // Custom Start: Updated selector and rendered HTML as per full cart/shoping bag MVMT site
+        if (item.price.list) {
+            $fullCart.find('.item-total-' + item.UUID + ' .price .strike-through').remove();
+            $fullCart.find('.item-total-' + item.UUID + ' .price').prepend('<span class="strike-through list">' +
+                '<span class="value" content="' + item.priceTotal.nonAdjustedFormattedPrice + '">' +
+                '<span class="sr-only">label.price.reduced.from</span>' +
+                '<span class="eswListPrice">' + item.priceTotal.nonAdjustedFormattedPrice + '</span>' +
+                '<span class="sr-only">label.price.to</span></span></span>');
+        } else {
+            $fullCart.find('.item-total-' + item.UUID + ' .price .strike-through').remove();
+        }
+        $fullCart.find('.item-total-' + item.UUID + ' .sales').empty().append(item.priceTotal.price);
+        // Custom End
+    
+        
         if (item.giftPid !== undefined && item.giftPid !== '') {
             data.items.forEach(function (childitem) {
                 if (childitem.id == item.giftPid) {
@@ -167,10 +182,10 @@ function updateMiniCartTotals(data, $giftProduct, $uuid, $dataParentUUID) {
                     if (childitem.price.list == null) {
                         giftLineItemContainer.remove();
                     }
+
                 }
             });
         }
-
         if ($giftProduct !== undefined && $giftProduct == true && $uuid !== undefined) {
             $('.gift-lineitem-container-'+ $uuid).remove();
         }
@@ -185,28 +200,16 @@ function updateMiniCartTotals(data, $giftProduct, $uuid, $dataParentUUID) {
             $('.gift-product-chlid-uuid-' + $uuid).text('Edit');
         }
 
-        // Custom Start: Updated selector and rendered HTML as per full cart/shoping bag MVMT site
-        if (item.price.list) {
-            $fullCart.find('.item-total-' + item.UUID + ' .price .strike-through').remove();
-            $fullCart.find('.item-total-' + item.UUID + ' .price').prepend('<span class="strike-through list">' +
-                '<span class="value" content="' + item.priceTotal.nonAdjustedFormattedPrice + '">' +
-                '<span class="sr-only">label.price.reduced.from</span>' +
-                '<span class="eswListPrice">' + item.priceTotal.nonAdjustedFormattedPrice + '</span>' +
-                '<span class="sr-only">label.price.to</span></span></span>');
-        } else {
-            $fullCart.find('.item-total-' + item.UUID + ' .price .strike-through').remove();
-        }
-        $fullCart.find('.item-total-' + item.UUID + ' .sales').empty().append(item.priceTotal.price);
     });
     // Custom End
 
     // Custom Start: remove gift product from cart
     if ($giftProduct !== undefined && $giftProduct == true) {
-        $('.gift-lineitem-container-'+ $uuid).empty();
+        $('.gift-lineitem-container-'+ $uuid).empty(); 
     }
     // Custom End
-    
 }
+
 
 function updateCartTotals(data, $giftProduct, $uuid, $dataParentUUID) {
     if (typeof data.totals.deliveryTime != 'undefined' && typeof data.totals.deliveryTime.isExpress != 'undefined' && data.totals.deliveryTime.isExpress) {
@@ -237,7 +240,6 @@ function updateCartTotals(data, $giftProduct, $uuid, $dataParentUUID) {
             $(this).empty().append(data.totals.subTotaladjustedNetPrice);
         });
     }
-
     if (data.totals.orderLevelDiscountTotal.value > 0) {
         $('.order-discount').removeClass('hide-order-discount');
         $('.order-discount-total').empty()
@@ -245,6 +247,7 @@ function updateCartTotals(data, $giftProduct, $uuid, $dataParentUUID) {
     } else {
         $('.order-discount').addClass('hide-order-discount');
     }
+
     if (data.totals.shippingLevelDiscountTotal.value > 0) {
         $('.shipping-discount').removeClass('hide-shipping-discount');
         $('.shipping-discount-total').empty().append('- ' +
@@ -252,6 +255,7 @@ function updateCartTotals(data, $giftProduct, $uuid, $dataParentUUID) {
     } else {
         $('.shipping-discount').addClass('hide-shipping-discount');
     }
+
     if ($('.cart.cart-page').length > 0) {
         data.items.forEach(function (item) {
             // Custom Start: Updated selector and rendered HTML as per MVMT site
@@ -266,7 +270,6 @@ function updateCartTotals(data, $giftProduct, $uuid, $dataParentUUID) {
                 $('.card.product-info').find('.item-total-' + item.UUID + ' .price .price-pdp-mvmt .strike-through').remove();
             }
             $('.card.product-info').find('.item-total-' + item.UUID + ' .price-pdp-mvmt .sales').empty().append(item.priceTotal.price);
-
             if (item.giftPid !== undefined && item.giftPid !== '') {
                 data.items.forEach(function (childitem) {
                     if (childitem.id == item.giftPid) {
@@ -274,7 +277,6 @@ function updateCartTotals(data, $giftProduct, $uuid, $dataParentUUID) {
                     }
                 });
             }
-
             if ($giftProduct !== undefined && $giftProduct == true && $uuid !== undefined) {
                 $('.gift-product-remove-'+ $uuid).remove();
             }
@@ -286,7 +288,6 @@ function updateCartTotals(data, $giftProduct, $uuid, $dataParentUUID) {
             if (item.customAttributes.itemLevelGiftMessage && item.customAttributes.itemLevelGiftMessage.msgLine1) {
                 var $itemLevelGiftMessage = item.customAttributes.itemLevelGiftMessage.msgLine1;
             }
-
             if ($itemLevelGiftMessage !== undefined && $itemLevelGiftMessage !== '') {
                 $('.gift-product-chlid-uuid-' + $uuid).text('Edit');
             }
@@ -303,10 +304,11 @@ function updateCartTotals(data, $giftProduct, $uuid, $dataParentUUID) {
     // Custom Start: remove gift product from cart
     if ($giftProduct !== undefined && $giftProduct == true) {
         $('.gift-lineitem-container').empty();
-        $('.gift-product-remove-'+ $uuid).empty();     
+        $('.gift-product-remove-'+ $uuid).empty();       
     }
     // Custom End
 }
+
 
 /**
  * re-renders the order totals and the number of items in the cart
@@ -504,7 +506,7 @@ function updateCartQuantity(quantitySelector, isKeyEvent) {
             $(quantitySelector).data('pre-select-qty', $quantity);
             $.spinner().stop();
             //Custom Start: [MSS-1451] Listrak SendSCA on Cart Quantity Update
-            if(window.Resources.LISTRAK_ENABLED) {
+            if (window.Resources.LISTRAK_ENABLED) {
                 var ltkSendSCA = require('listrak_custom/ltkSendSCA');
                 ltkSendSCA.renderSCA(data.SCACart, data.listrakCountryCode);
             }
@@ -597,7 +599,6 @@ module.exports = function () {
                     if (item.customAttributes.itemLevelGiftMessage && item.customAttributes.itemLevelGiftMessage.msgLine1) {
                         var $itemLevelGiftMessage = item.customAttributes.itemLevelGiftMessage.msgLine1;
                     }
-
                     if ($itemLevelGiftMessage !== undefined && $itemLevelGiftMessage !== '') {
                         $('.gift-box-container-modal .gift-text').text($itemLevelGiftMessage);
                         $('.gift-message-btn-' + item.UUID).attr('data-gift-message', $itemLevelGiftMessage);
@@ -674,7 +675,6 @@ module.exports = function () {
         var $quantitySelector = '.' + $(this).data('pid');
         increaseQuantity($quantitySelector, $pid);
     });
-
 
     $('body').on('click','.beam-widget-cart', function() {
         var URL = $('.beam-widget-minicart').val();
@@ -763,7 +763,7 @@ module.exports = function () {
                     // Custom End
                     $('.mini-cart-data .popover').empty();
                     var $miniCartSelector = $('.mini-cart-data .mini-cart-header');
-                    $miniCartSelector.length > 0 ? updateMiniCartTotals(data.basket, $giftProduct, $uuid) : updateCartTotals(data.basket, $giftProduct, $uuid);
+                    $miniCartSelector.length > 0 ? updateMiniCartTotals(data.basket) : updateCartTotals(data.basket);
                     $('.mini-cart-data .popover').append($cartContainer);
                     var $cartIcon = $('.cart-icon');
                     if (typeof $cartIcon !== 'undefined' && ($cartIcon !== '' || $cartIcon.length > 0)) {
@@ -781,7 +781,7 @@ module.exports = function () {
                     }
                     $('.coupons-and-promos').children('.coupons-and-promos-wrapper').empty().append(data.basket.totals.discountsHtml);
                     var $miniCartSelector = $('.mini-cart-data .mini-cart-header');
-                    $miniCartSelector.length > 0 ? updateMiniCartTotals(data.basket, $giftProduct, $dataParentUUID) : updateCartTotals(data.basket, $giftProduct, $uuid, $dataParentUUID);
+                    $miniCartSelector.length > 0 ? updateMiniCartTotals(data.basket, $giftProduct, $uuid, $dataParentUUID) : updateCartTotals(data.basket, $giftProduct, $uuid, $dataParentUUID);
                     updateApproachingDiscounts(data.basket.approachingDiscounts);
                     $('body').trigger('setShippingMethodSelection', data.basket);
                     validateBasket(data.basket);
@@ -819,8 +819,8 @@ module.exports = function () {
         var $actionUrl = $(this).data('action');
         var $productID = $(this).data('pid');
         var $productName = $(this).data('name');
-        var $uuid = $(this).data('uuid');
         var $dataParentUUID = $(this).data('parent-pid');
+        var $uuid = $(this).data('uuid');
         var $gtmProdObj = $(this).data('gtm-cart');
         var $giftProduct = $(this).data('gift');
         var $urlParams = {
@@ -881,7 +881,7 @@ module.exports = function () {
                     if (data.cartAnalyticsTrackingData && typeof setAnalyticsTrackingByAJAX != 'undefined') {
                         setAnalyticsTrackingByAJAX.cartAnalyticsTrackingData = data.cartAnalyticsTrackingData;
                         window.dispatchEvent(setAnalyticsTrackingByAJAX);
-                    } 
+                    }
                 } else {
                     if (data.toBeDeletedUUIDs && data.toBeDeletedUUIDs.length > 0) {
                         for (var i = 0; i < data.toBeDeletedUUIDs.length; i++) {
@@ -894,7 +894,7 @@ module.exports = function () {
                     }
                     $('.coupons-and-promos').children('.coupons-and-promos-wrapper').empty().append(data.basket.totals.discountsHtml);
                     var $miniCartSelector = $('.mini-cart-data .mini-cart-header');
-                    $miniCartSelector.length > 0 ? updateMiniCartTotals(data.basket, $giftProduct, $uuid, $dataParentUUID) : updateCartTotals(data.basket, $giftProduct, $uuid, $dataParentUUID);
+                    $miniCartSelector.length > 0 ? updateMiniCartTotals(data.basket, $giftProduct, $dataParentUUID) : updateCartTotals(data.basket, $giftProduct, $uuid, $dataParentUUID);
                     updateApproachingDiscounts(data.basket.approachingDiscounts);
                     $('body').trigger('setShippingMethodSelection', data.basket);
                     validateBasket(data.basket);
@@ -1074,6 +1074,7 @@ module.exports = function () {
         });
     });
 
+
     $('body').on('click', '.gift-box-container-link', function (evt) {
         evt.preventDefault();
         $('#giftBoxModelPopUp').find('.modal-content').empty();
@@ -1090,6 +1091,7 @@ module.exports = function () {
                 } else {
                     $('.gift-box-container-modal .gift-text').text('');
                 }
+
                 var giftBoxContainerModel = $('.gift-box-container-modal-body');
                 function refreshGiftMessage() {
                     if(response.basketModel.items.length && giftBoxContainerModel) {
@@ -1108,7 +1110,7 @@ module.exports = function () {
                 refreshGiftMessage();
                 $.spinner().stop();
             },
-
+            
             error: function () {
                 $.spinner().stop();
             },
@@ -1120,6 +1122,8 @@ module.exports = function () {
             }
         });
     });
+
+
 
     $('body').on('click', '.gift-message-box-input', function () {
         $('.gift-message-box').removeClass('hide-box');
