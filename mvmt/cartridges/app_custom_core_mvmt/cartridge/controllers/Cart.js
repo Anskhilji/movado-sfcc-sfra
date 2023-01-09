@@ -264,6 +264,8 @@ server.prepend('RemoveProductLineItem', function (req, res, next) {
     var Transaction = require('dw/system/Transaction');
     var currentBasket = BasketMgr.getCurrentBasket();
     var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
+    var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
+
     Transaction.wrap(function () {
         if (req.querystring.pid && req.querystring.uuid) {
             var productId = req.querystring.pid;
@@ -274,7 +276,7 @@ server.prepend('RemoveProductLineItem', function (req, res, next) {
                     var giftProductLineItems = currentBasket.getAllProductLineItems(item.custom.giftPid);
                     for (var i = 0; i < giftProductLineItems.length; i++) {
                         var childGiftitem = giftProductLineItems[i];
-                        if (childGiftitem.productID == item.custom.giftPid) {
+                        if (childGiftitem.custom.giftParentUUID == item.UUID) {
                             currentBasket.removeProductLineItem(childGiftitem);
                         }
                     }
@@ -283,6 +285,16 @@ server.prepend('RemoveProductLineItem', function (req, res, next) {
             basketCalculationHelpers.calculateTotals(currentBasket);
         }
     });
+
+    var deletedGiftPid = req.querystring.uuid;
+
+    // Custom Start MSS-1935 Gift Box Implementation
+    var giftsParentUUID = currentBasket.allProductLineItems.toArray().filter(function(product) {
+        return product.UUID == deletedGiftPid;
+    });
+    customCartHelpers.getGiftTransactionATC(currentBasket, giftsParentUUID);
+    // Custom End
+
     next();
 });
 
