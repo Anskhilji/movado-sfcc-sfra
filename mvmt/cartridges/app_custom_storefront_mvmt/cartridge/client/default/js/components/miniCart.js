@@ -780,6 +780,28 @@ module.exports = function () {
         return false;
     });
 
+
+    $('body').on('click','.beam-widget-mini-cart', function() {
+        var URL = $('.beam-widget-minicart').val();
+        var chairtyId = $(this).attr('selectednonprofitid');
+    
+        $.ajax({
+            url: URL,
+            method: 'post',
+            data: {
+                chairtyId: chairtyId
+            },
+    
+            success: function (data) {
+                if (data) {
+                }
+            },
+    
+            error: function (err) {
+            }
+        });
+    });
+
     $('.mini-cart-data').on('submit', 'form.reset-password-form', function (e) {
         var form = $(this);
         e.preventDefault();

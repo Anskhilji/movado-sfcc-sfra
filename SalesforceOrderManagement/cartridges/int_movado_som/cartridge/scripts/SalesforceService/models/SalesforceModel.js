@@ -261,6 +261,16 @@ var SalesforceModel = ({
             requestMethod: 'POST',
             requestData: requestData
         });
+    },
+    updateBeamOrders: function (req) {
+        return SalesforceModel.createSalesforceRestRequest({
+            url: SalesforceFactory.ENDPOINTS.UPDATEBEAMORDER + req.orderID,
+            requestMethod: 'PATCH',
+            requestData: {
+                beamCharityId__c: req.charityId,
+                beamOrder__c: true,
+            }
+        });
     }
 });
 
