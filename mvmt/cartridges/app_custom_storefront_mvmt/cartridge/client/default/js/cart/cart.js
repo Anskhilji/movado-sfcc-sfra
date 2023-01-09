@@ -677,11 +677,8 @@ module.exports = function () {
     });
 
     $('body').on('click','.beam-widget-cart', function() {
-
         var URL = $('.beam-widget-minicart').val();
         var chairtyId = $(this).attr('selectednonprofitid');
-        
-        $.spinner().start();
     
         $.ajax({
             url: URL,
@@ -692,12 +689,10 @@ module.exports = function () {
     
             success: function (data) {
                 if (data) {
-                    $.spinner().stop();
                 }
             },
     
             error: function (err) {
-                $.spinner().stop();
             }
         });
     });
