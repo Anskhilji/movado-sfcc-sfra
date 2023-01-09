@@ -1424,7 +1424,6 @@
 
                                         .google-pay-container {
                                             width: 100%;
-                                            height: rem(50);
                                             border-radius: rem(3);
                                             background-color: $black;
                                             display: flex;
@@ -1439,9 +1438,7 @@
                                                 }
                                             }
 
-                                            .gpay-button-fill {
-                                                padding: rem(5px) rem(0);
-
+                                            .gpay-button-fill-new-style {
                                                 button {
                                                     height: rem(40);
                                                 }
