@@ -675,6 +675,28 @@ module.exports = function () {
         increaseQuantity($quantitySelector, $pid);
     });
 
+
+    $('body').on('click','.beam-widget-cart', function() {
+        var URL = $('.beam-widget-minicart').val();
+        var chairtyId = $(this).attr('selectednonprofitid');
+    
+        $.ajax({
+            url: URL,
+            method: 'post',
+            data: {
+                chairtyId: chairtyId
+            },
+    
+            success: function (data) {
+                if (data) {
+                }
+            },
+    
+            error: function (err) {
+            }
+        });
+    });
+
     /**
      * This is override click event function on the remove button from mini-cart.
      * It is used to remove the product from the cart and if product is 

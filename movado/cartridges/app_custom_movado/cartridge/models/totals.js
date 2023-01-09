@@ -145,7 +145,8 @@ function totals(lineItemContainer) {
             discounts: discountArray,
             discountsHtml: getDiscountsHtml(discountArray),
             deliveryDate : deliveryDate,
-            deliveryTime : deliveryTime
+            deliveryTime : deliveryTime,
+            beamGrandTotal : lineItemContainer.totalGrossPrice.decimalValue
 	    });
     }
 
