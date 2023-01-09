@@ -1,7 +1,7 @@
 <iscomment> HTML structure changed according to design requirments </iscomment>
 <isset name="refinements" value="${pdict.productSearch.refinements}" scope="page" />
 
-<div class="plp-filter-mobile">
+<div class="plp-filter-mobile filter-and-count-margin">
     <div class="refinement-bar">
         <div class="filter-header">
             <div class="header-bar clearfix">
@@ -57,7 +57,7 @@
             </div>
         </div>   
     </div> 
-    <div class="plp-filter-mobile-row row justify-content-between">
+    <div class="plp-filter-mobile-row row justify-content-between filter-and-count">
         <div class="result-count">
             <isinclude template="search/resultsCount" />
         </div>
