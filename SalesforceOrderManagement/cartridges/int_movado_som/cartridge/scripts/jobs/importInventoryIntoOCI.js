@@ -166,6 +166,12 @@ function importInventoryIntoOCI(args) {
 					onHandQuantity
                 );
 
+                var externalRefId = StringUtils.format(
+                    "{0}_{1}",
+                    recordNode.record['@product-id'],
+                    new Date().toISOString().replace(/[^0-9]/g, "")
+                )
+
                 var futureExpectedDate = recordNode.record.futureexpectedtimestamp;
                 var ociFutureStock = null;
                 if(futureExpectedDate != null) {
@@ -183,6 +189,7 @@ function importInventoryIntoOCI(args) {
                     recordNode.record['@product-id'].toUpperCase(), // sku - Stock Keeping Unit
                     headerNode.header['@list-id'], // location - Inventory Location External Reference Id
                     uniqueRecordId, // id - UniqueId to identify OCI transaction
+                    externalRefId, // externalRefId - UniqueId with SKU and timestamp
                     new Date().toISOString(), // effectiveDate - Inventory Effective Date
                     onHandQuantity // onHand - Stock Level OnHand
                 );
