@@ -337,7 +337,7 @@ module.exports = function () {
                 if(applePayLength == 1){
                     $('.shipping-paypal-btn img').css('height', '19px');
                     $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "28.5px","vertical-align":"middle" });
-                    $(".gpay-button-fill > .gpay-button.white, .gpay-button-fill > .gpay-button.black").css({"padding":"6px 15% 6px","margin-left":"-8px"});
+                    $(".gpay-button-fill-new-style > .gpay-button.white, .gpay-button-fill-new-style > .gpay-button.black").css({"padding":"6px 15% 6px","margin-left":"-8px"});
                }
                 $('.dw-apple-pay-button').css({ "margin-left": "0", "height": "20px" });
             } else if(colSize == 4){
@@ -349,7 +349,7 @@ module.exports = function () {
                 }
                 
                 $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "29px","vertical-align":"middle" });
-                $(".gpay-button-fill > .gpay-button.white, .gpay-button-fill > .gpay-button.black").css({"padding":"8px 15% 8px"});
+                $(".gpay-button-fill-new-style > .gpay-button.white, .gpay-button-fill-new-style > .gpay-button.black").css({"padding":"8px 15% 8px"});
             }else if (colSize == 6 && $(window).width() <= 742) {
                 $('.shipping-paypal-btn img').css('height', '18px');
                 $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "20px" });
@@ -359,6 +359,19 @@ module.exports = function () {
             else if (colSize == 6 && applePayLength == 0){
                 $('.shipping-paypal-btn img').css('height', '30px');
                 $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "30px" });
+                function loadGpayWidth() {
+                    if (document.readyState === 'complete') {
+                        var $gpayBtn = $('#google-pay-container-mini-cart .gpay-button');
+                        if ($gpayBtn.length > 0) {
+                            $gpayBtn.css({ "min-width": "0", "min-height": "30px" });
+                        } 
+                    } else {
+                        setTimeout(function () {
+                            loadGpayWidth();
+                        }, 1000);
+                    }
+                };
+                loadGpayWidth();
             }else if (colSize == 6) {
                 $('.shipping-paypal-btn img').css('height', '24px');
                 $('#google-pay-container-mini-cart .gpay-button').css({ "min-width": "0", "min-height": "24px" });
