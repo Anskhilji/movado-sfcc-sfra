@@ -145,7 +145,7 @@ function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engr
                         "currency" : pli.product.priceModel.price.currencyCode,
                         "quantity" : pli.quantity && pli.quantity.value ? pli.quantity.value: pli.quantity,
                         "deparmentIncludedCategoryName": primarySiteSection + secoundarySiteSection,
-                        "discountPrice": pli.basePrice.value - pli.adjustedGrossPrice.value,
+                        "discountPrice": pli.basePrice.value - pli.adjustedGrossPrice.value > 0 ? pli.adjustedGrossPrice.value: '',
                         "list" : Resource.msg('gtm.list.pdp.value','cart',null)
                     };
                 }
