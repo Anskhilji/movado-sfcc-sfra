@@ -1,0 +1,49 @@
+<iscomment>Updated the boostrap columns classes and added 3 bottom blocks</iscomment>
+<div class="d-block d-sm-none col-sm-12 bottom-detail bottom-detail-mobile mb-4">
+    <isprint value="${product.shortDescription}" encoding="off" />
+</div>
+<h2 class="col-sm-12  mb-4">
+    <!-- TODO: Title BM Configurable -->
+    <div class="title text-capitalize p-0 shadow-none text-unset-wrapper">${Resource.msg('label.product.detail.highlights2', 'product', null)}</div>
+</h2>
+<isif condition="${product.longDescription}">
+    <div class="col-sm-12 bottom-detail product-bottom-detail mb-4">
+        <isprint value="${product.longDescription}" encoding="off"/>
+    </div>
+<iselse>
+    <div class="col-sm-12 bottom-detail product-bottom-detail mb-4">
+        <isprint value="${product.shortDescription}" encoding="off" />
+    </div>
+</isif>
+
+<div class="detail-bottom-blocks col-sm-12">
+    <isif condition="${pdict.productDetailAttribute1}"> 
+        <div class="bottom-block product-detail-attribute-1 product-placeholder-block">
+            <isprint value="${pdict.productDetailAttribute1}" encoding="off" />
+        </div>
+    <iselse>
+        <div class="bottom-block free-shipping-block">
+            <p>${Resource.msg('label.product.detail.shipping', 'product', null)}</p>
+        </div>
+    </isif>
+    
+    <isif condition="${pdict.productDetailAttribute2}"> 
+        <div class="bottom-block product-detail-attribute-2 product-placeholder-block">
+            <isprint value="${pdict.productDetailAttribute2}" encoding="off" />
+        </div>
+    <iselse>
+        <div class="bottom-block swiss-movement-block">
+            <p>${Resource.msg('label.product.detail.swiss', 'product', 'null')}</p>
+        </div>
+    </isif>
+    
+    <isif condition="${pdict.productDetailAttribute3}">
+        <div class="bottom-block product-detail-attribute-3 product-placeholder-block">
+            <isprint value="${pdict.productDetailAttribute3}" encoding="off" />
+        </div>
+     <iselse>
+         <div class="bottom-block warranty-block">
+             <p>${Resource.msg('label.product.detail.warranty', 'product', 'null')}</p>
+         </div>
+    </isif>
+</div>
