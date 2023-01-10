@@ -315,11 +315,6 @@ function processSwatchValues(attr, $productContainer) {
         } else {
             $swatchAnchor.removeAttr('href');
         }
-
-        // Disable if not selectable
-        $attrValue.removeClass('selectable unselectable');
-
-        $attrValue.addClass(attrValue.selectable ? 'selectable' : 'unselectable');
     });
 }
 
@@ -346,10 +341,6 @@ function processNonSwatchValues(attr, $productContainer) {
             .find($attr + ' [data-attr-value="' + attrValue.value + '"]');
         $attrValue.attr('value', attrValue.url)
             .removeAttr('disabled');
-
-        if (!attrValue.selectable) {
-            $attrValue.attr('disabled', true);
-        }
     });
 }
 
