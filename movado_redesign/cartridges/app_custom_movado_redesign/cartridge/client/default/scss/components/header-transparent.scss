@@ -1,0 +1,86 @@
+@import '~movado/variables';
+
+header {
+    &.new-header {
+
+        &.transparent-header {
+
+            &.home-header-transparent {
+
+                // Custom:MSS-2083 text white class
+                &.header-white-text{
+                    .sticky-header-wrapper {
+                        .header-menu-wrapper {
+                            &.non-sticky{
+                                filter: brightness(0.5) invert(1);
+                                -webkit-filter: brightness(0.5) invert(1);
+    
+                                &.sticky-header {
+                                    &:hover {
+                                        background-color: $white;
+                                        filter: unset;
+                                        -webkit-filter: unset;
+                                    }
+                                }
+                            }
+                           
+                        }
+                    }
+                }
+
+                // Custom:MSS-2083 text black class
+                &.header-black-text{
+
+                    .sticky-header-wrapper {
+
+                        .header-menu-wrapper {
+                            &.non-sticky{
+                                filter: unset;
+                                -webkit-filter: unset;
+                            }
+                        }
+                    }
+                }
+
+                .sticky-header-wrapper {
+
+                    .header-menu-wrapper {
+
+                        &.non-sticky{
+                            background-color: transparent;
+                            position: absolute;
+                            width: 100%;
+                            filter: brightness(0.5) invert(1);
+                            -webkit-filter: brightness(0.5) invert(1);
+
+                            &:hover {
+                                background-color: $white;
+                                filter: unset;
+                                -webkit-filter: unset;
+                            }
+
+                            &.sticky-header {
+                                position: fixed;
+                                background-color: transparent;
+                                &:hover {
+                                    background-color: $white;
+                                    filter: unset;
+                                    -webkit-filter: unset;
+                                }
+                            }
+
+                            .header-wrapper {
+                               background-color: transparent;
+
+                                .header-container {
+                                    box-shadow: none;
+                                }
+                            }
+                        }
+                       
+                    }
+                }
+            }
+        }
+    }
+}
