@@ -65,6 +65,10 @@ $(document).on('click', '.store-pickup-select', function () {
             $('.pdp-store-pickup-store-icon').addClass('pdp-store-pickup-store-icon-available');
             $('.pdp-icon-box').addClass('pdp-store-pickup-display-inline-block-inventory-icon');
             $('.pdp-icon-box').removeClass('pdp-store-pickup-display-inline-block-store-icon'); 
+        } else if (storePickup.inventory === undefined || storePickup.inventory[0].records[0].ato === 0) {
+            $('.pdp-icon-box').removeClass('pdp-store-pickup-display-inline-block-store-icon'); 
+            $('.pdp-icon-box').removeClass('pdp-store-pickup-display-inline-block-inventory-icon');
+            $('.pdp-icon-box').addClass('pickup-store-inventory-status-icon-unavailable'); 
         } else {
             $('.pdp-icon-box').addClass('pdp-store-pickup-display-inline-block-store-icon'); 
         }
