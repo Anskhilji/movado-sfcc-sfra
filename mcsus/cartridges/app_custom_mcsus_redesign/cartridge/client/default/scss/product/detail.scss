@@ -2087,18 +2087,7 @@
             .info-icon {
 
                 &.info-icon-bopis {
-                    position: absolute;
-                    right: rem(-12);
-                    top: rem(-10);
-
-                    @include custom-media-query-max($medium-screen-width) {
-                        top: rem(-2);
-                    }
-
-                    @include media-breakpoint-down(xs) {
-                        top: rem(-10);
-                    }
-                    
+                    margin-left: rem(8);   
                     .icon {
                         background-image: url("../../images/info-icon.svg");
                         background-repeat: no-repeat;
@@ -2110,7 +2099,7 @@
     
                     .tooltip {
     
-                        @include media-breakpoint-down(sm) {
+                        @include media-breakpoint-down(xs) {
                             display: none;
                         }
                     }
@@ -2127,7 +2116,6 @@
             line-height: rem(12);
             font-weight: 400;
             margin-bottom: 0;
-            padding-right: rem(10);
         }
 
         .pick-up-store-available-pickup-stores {
