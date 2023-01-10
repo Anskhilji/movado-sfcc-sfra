@@ -396,7 +396,6 @@ function escapeQuotes(value) {
     return value;
 }
 
-
 module.exports = {
     updateOptionLineItem: updateOptionLineItem,
     updateOption: updateOption,
