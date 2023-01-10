@@ -41,6 +41,42 @@ module.exports = function () {
         });
         return false;
     });
+
+
+    $('form.eswCouponValidation').off('submit').on('submit', function (e) {
+        var form = $(this);
+        e.preventDefault();
+        var url = form.attr('action');
+        form.spinner().start();
+        $('form.eswCouponValidation').trigger('eswCouponValidation:submit', e);
+        $.ajax({
+            url: url,
+            type: 'get',
+            dataType: 'json',
+            data: form.serialize(),
+            success: function (data) {
+                form.spinner().stop();
+                if (!data.success) {
+                    $(".email-validation").addClass("border-danger");
+                    $(".auauthanicated-error").text(data.error);
+                    $('form.eswCouponValidation').trigger('eswCouponValidation:error', data);
+                } else {
+                    $('form.eswCouponValidation').trigger('eswCouponValidation:success', data);
+                    location.href = data.redirectUrl;
+                }
+            },
+            error: function (data) {
+                if (data.responseJSON.redirectUrl) {
+                    window.location.href = data.responseJSON.redirectUrl;
+                } else {
+                    $(".email-validation").addClass("border-danger");
+                    $('form.eswCouponValidation').trigger('eswCouponValidation:error', data);
+                    form.spinner().stop();
+                }
+            }
+        });
+        return false;
+    });
     
 
     $('.reset-password-form').off('submit').on('submit', function (e) {
