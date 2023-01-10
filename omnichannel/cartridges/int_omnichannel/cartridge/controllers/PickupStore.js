@@ -104,7 +104,7 @@ server.get('GetPreferredStore', function (req, res, next) {
     var productInventoryInStock = 0;
     var productInventoryInCurrentStore;
     var bopisContentAsset = ContentMgr.getContent('bopis-pdp-tool-tip');
-    var bopisInfoText = bopisContentAsset.custom && bopisContentAsset.custom.body ? bopisContentAsset.custom.body.markup : '';
+    var bopisInfoText = bopisContentAsset && bopisContentAsset.custom && bopisContentAsset.custom.body ? bopisContentAsset.custom.body.markup : '';
 
     if (session.privacy.pickupStoreID) {
         preferedPickupStore = StoreMgr.getStore(session.privacy.pickupStoreID);
