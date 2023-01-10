@@ -170,6 +170,7 @@ var onPDPAddProductClickEvent = function () {
                             variant: addtoCartData.variant,
                             currency: addtoCartData.currency,
                             brand: addtoCartData.brand,
+                            quantity: addtoCartData.quantity,
                             deparmentIncludedSubCategory: addtoCartData.deparmentIncludedCategoryName,
                             discountPrice: addtoCartData.discountPrice,
                             addToCartLocation: addtoCartData.addToCartLocation
