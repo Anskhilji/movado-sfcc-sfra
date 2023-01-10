@@ -365,6 +365,40 @@ function Request(request, customer, session) {
                         session.privacy.countryCode = countryCode;
                     }
                 }
+
+                var PriceBookMgr = require('dw/catalog/PriceBookMgr');
+                var salePriceBooks = JSON.parse(dw.system.Site.getCurrent().getCustomPreferenceValue('promotionalPriceBookConverstion'));
+                var localizePriceBooks;
+                var applicablePricebooks;
+                var filterPriceBooks;
+                salePriceBooks.forEach(function (localizeObj) {
+                    localizeSalePriceBooks = localizeObj.promotionalConversion.sale_pricebook;
+                    localizeBasePriceBooks = localizeObj.promotionalConversion.base_pricebook;
+                });
+
+                if (!empty(localizeSalePriceBooks) || !empty(localizeBasePriceBooks)) {
+                    var salePriceBooks = PriceBookMgr.getPriceBook(localizePriceBooks);
+                    var productShow = "/on/demandware.store/Sites-MVMTUS-Site/en_US/Search-Show";
+                    var updateGrid = "/on/demandware.store/Sites-MVMTUS-Site/en_US/Search-UpdateGrid";
+                    if (request.httpPath == productShow || request.httpPath == updateGrid) {
+                        applicablePricebooks = PriceBookMgr.applicablePriceBooks.toArray();
+                        filterPriceBooks = applicablePricebooks.filter(function(data) {
+                            return data.ID == 'ECOM_USD_RP_SALE';
+                        });
+                        if (!filterPriceBooks) {
+                            PriceBookMgr.setApplicablePriceBooks(localizeSalePriceBooks);
+                        }
+                    } else {
+                        applicablePricebooks = PriceBookMgr.applicablePriceBooks.toArray();
+                        filterPriceBooks = applicablePricebooks.filter(function(data) {
+                            return data.ID !== 'ECOM_USD_RP_SALE';
+                        });
+
+                        PriceBookMgr.setApplicablePriceBooks(filterPriceBooks);
+                    }
+                     
+                }
+
             } catch (e) {
                 Logger.error('(request.js -> Request) Error occured while getting the country object from getCustomCountryByCountryCode method : ' + e);
                 setCurrency(request, session);

@@ -51,11 +51,6 @@ function convertedSalePrice(product,localizeObj) {
         priceBook = product.priceModel.priceInfo.priceBook.ID;
     }
 
-    if (priceBook == localizeObj.promotionalConversion.sale_pricebook) {
-        var basePriceBook = PriceBookMgr.getPriceBook(localizeObj.promotionalConversion.base_pricebook);
-        PriceBookMgr.setApplicablePriceBooks(basePriceBook);
-    }
-
     PromotionIt = PromotionMgr.activePromotions.getProductPromotions(product).iterator();
 
     if(PromotionIt){
