@@ -187,8 +187,6 @@ server.replace('SubmitRegistration', server.middleware.https, csrfProtection.val
             if ((!empty(registrationForm.customer.hpemail.htmlValue)) ||
                 (!empty(registrationForm.customer.hpemailconfirm.htmlValue))) {
                     registrationForm.valid = false;
-            } else {
-                registrationForm.valid = true;
             }
         }
         // Custom End
