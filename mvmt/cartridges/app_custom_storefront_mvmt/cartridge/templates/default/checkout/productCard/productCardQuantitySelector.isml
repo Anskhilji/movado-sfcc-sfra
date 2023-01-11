@@ -1,11 +1,11 @@
 <iscomment> Custom Start: Removed the unnecessary classes and div's and replace the select to input field and also added the new increase and decrease quantity button. </iscomment>
 <div class="quantity-form">
-    <button type="button" class="quantity-btn hidden-sm-down decreased-btn" ${lineItem.quantity > 1 ? '' : 'disabled'} data-pid="pid-${lineItem.id}" id="decreased-${lineItem.id}">
+    <button type="button" class="quantity-btn hidden-sm-down decreased-btn" ${lineItem.quantity > 1 ? '' : 'disabled'} data-pid="pid-${lineItem.id+lineItem.UUID}" id="decreased-${lineItem.id}">
         <svg class="svg-icon" viewBox="0 0 8 16"><g stroke="none" stroke-width="1" fill-rule="evenodd"><polygon points="0 7 0 9 8 9 8 7"></polygon></g></svg>
     </button>
     <iscomment> create div quantity-field </iscomment>
     <div class="quantity-field">
-        <input class="form-control quantity quantity-select custom-select pid-${lineItem.id}"
+        <input class="form-control quantity quantity-select custom-select pid-${lineItem.id+lineItem.UUID}"
         data-uuid="${lineItem.UUID}"
         data-pid="${lineItem.id}"
         data-action="${pdict.actionUrls.updateQuantityUrl}"
@@ -16,21 +16,21 @@
 
     <div class="quantity-btn-group">
         <button type="button" class="quantity-btn-up increased-btn"
-            data-pid="pid-${lineItem.id}" id="${lineItem.id}">
+            data-pid="pid-${lineItem.id+lineItem.UUID}" id="${lineItem.id}">
             <svg class="svg-icon" viewBox="0 0 213.333 213.333" x="0px" y="0px">
             <g><polygon points="106.667,53.333 0,160 213.333,160"></polygon></g>
             </svg>
         </button>
             
         <button type="button" class="quantity-btn-down decreased-btn"
-            ${lineItem.quantity > 1 ? '' : 'disabled'} data-pid="pid-${lineItem.id}" id="decreased-${lineItem.id}">
+            ${lineItem.quantity > 1 ? '' : 'disabled'} data-pid="pid-${lineItem.id+lineItem.UUID}" id="decreased-${lineItem.id}">
             <svg class="svg-icon" viewBox="0 0 213.333 213.333">
             <g><polygon points="0,53.333 106.667,160 213.333,53.333"></polygon></g>
             </svg>
         </button>
     </div>
 
-    <button type="button" class="quantity-btn hidden-sm-down increased-btn" data-pid="pid-${lineItem.id}" id="${lineItem.id}">
+    <button type="button" class="quantity-btn hidden-sm-down increased-btn" data-pid="pid-${lineItem.id+lineItem.UUID}" id="${lineItem.id}">
             <svg class="svg-icon" viewBox="0 0 12 16"><g stroke="none" stroke-width="1" fill-rule="evenodd"><polygon points="12 9 7 9 7 14 5 14 5 9 0 9 0 7 5 7 5 2 7 2 7 7 12 7"></polygon></g></svg>
     </button>
 </div>
