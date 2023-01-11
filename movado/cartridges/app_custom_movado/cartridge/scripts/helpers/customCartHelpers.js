@@ -116,10 +116,10 @@ function getCartAssets(){
 }
 
 function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engravedMessage){
-	var productGtmArray={};
-	var variant;
+    var productGtmArray = {};
+    var variant;
     var searchCustomHelper = require('*/cartridge/scripts/helpers/searchCustomHelper');
-	collections.forEach(lineItemCtnr.productLineItems, function (pli) {
+    collections.forEach(lineItemCtnr.productLineItems, function (pli) {
 
         if (pli.UUID == productUUID) {
             var productID = pli.product.ID;
@@ -131,7 +131,7 @@ function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engr
             var categoryHierarchy = searchCustomHelper.getCategoryBreadcrumb(category);
             var primarySiteSection = escapeQuotes(categoryHierarchy.primaryCategory);
             var secoundarySiteSection = escapeQuotes(categoryHierarchy.secondaryCategory);
-            secoundarySiteSection = (!empty(secoundarySiteSection)) ? '|' + secoundarySiteSection : '';
+            secoundarySiteSection = !empty(secoundarySiteSection) ? '|' + secoundarySiteSection : '';
 
             variant=getProductOptions(embossedMessage,engravedMessage)
                     productGtmArray={
@@ -144,7 +144,7 @@ function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engr
                         "price" : productPrice,
                         "currency" : pli.product.priceModel.price.currencyCode,
                         "quantity" : pli.quantity && pli.quantity.value ? pli.quantity.value: pli.quantity,
-                        "deparmentIncludedCategoryName": primarySiteSection + secoundarySiteSection,
+                        "deparmentIncludedCategoryName": !empty(primarySiteSection) && !empty(secoundarySiteSection) ? primarySiteSection + secoundarySiteSection : '',
                         "discountPrice": pli.basePrice.value - pli.adjustedGrossPrice.value > 0 ? pli.adjustedGrossPrice.value: '',
                         "list" : Resource.msg('gtm.list.pdp.value','cart',null)
                     };
