@@ -58,6 +58,8 @@ $(".search-icon").click(function(e){
     $(".modal-background").addClass("show-overlay").fadeIn();
     $(".desktop-search input").focus();
     e.preventDefault();
+    // Custom:MSS-2083 
+    $(".home-header-transparent").addClass("solid-header");    
 });
 
 function remove_grayout (){
@@ -77,6 +79,11 @@ function remove_grayout (){
     setTimeout(function(){
         $(".mobile-menu").removeClass("animated");
     },200);
+    
+    // Custom:MSS-2083 
+    setTimeout(function(){
+        $(".home-header-transparent").removeClass("solid-header"); 
+    },400);
 }
 $(".search-close").click(function(){
     remove_grayout();

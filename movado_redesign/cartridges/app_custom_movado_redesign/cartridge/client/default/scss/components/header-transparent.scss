@@ -1,10 +1,13 @@
 @import '~movado/variables';
+@import "variables";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins/breakpoints";
 
 header {
     &.new-header {
 
         &.transparent-header {
-
+            // Custom:MSS-2083  this style only works when the header transparent
             &.home-header-transparent {
 
                 // Custom:MSS-2083 text white class
@@ -14,7 +17,7 @@ header {
                             &.non-sticky{
                                 filter: brightness(0.5) invert(1);
                                 -webkit-filter: brightness(0.5) invert(1);
-    
+
                                 &.sticky-header {
                                     &:hover {
                                         background-color: $white;
@@ -23,7 +26,6 @@ header {
                                     }
                                 }
                             }
-                           
                         }
                     }
                 }
@@ -42,6 +44,40 @@ header {
                     }
                 }
 
+                // Custom:MSS-2083 when search open than the header solid
+                &.solid-header {
+                    .sticky-header-wrapper {
+
+                        .header-menu-wrapper {
+    
+                            &.non-sticky{
+                                background-color: $white;
+                                position: fixed;
+                                filter: unset;
+                                -webkit-filter: unset;
+    
+                                &.sticky-header {
+                                    background-color: $white;
+                                }
+    
+                                .header-wrapper {
+                                   background-color: $white;
+    
+                                    .header-container {
+                                        box-shadow: none;
+                                    }
+                                }
+
+                                // .desktop-search {
+                                //     position: absolute;
+                                // }
+                            }
+                           
+                        }
+                    }
+                }
+
+                // Custom:MSS-2083 when header transparent active
                 .sticky-header-wrapper {
 
                     .header-menu-wrapper {
@@ -52,6 +88,7 @@ header {
                             width: 100%;
                             filter: brightness(0.5) invert(1);
                             -webkit-filter: brightness(0.5) invert(1);
+                            z-index: 1005;
 
                             &:hover {
                                 background-color: $white;
