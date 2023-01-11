@@ -52,6 +52,9 @@ $negative-spacer: -0.625rem;
        .gpay-button.black.short {
          border-radius: rem(0);
        }
+       .gpay-button.black {
+        border-radius: rem(0);
+      }
     } 
 
 }
