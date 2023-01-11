@@ -151,6 +151,12 @@ function importStoreInventoryIntoOCI(args) {
 					onHandQuantity
                 );
 
+                var externalRefId = StringUtils.format(
+                    "{0}_{1}",
+                    line.item_cd,
+                    new Date().toISOString().replace(/[^0-9]/g, "")
+                )
+
                 var feDate = line.future_expected_timestamp;
                 var ociFutureStock = null;
                 if(feDate != null) {
@@ -168,6 +174,7 @@ function importStoreInventoryIntoOCI(args) {
                     line.item_cd.toUpperCase(), // sku - Stock Keeping Unit
                     line.store_no, // location - Inventory Location External Reference Id
                     uniqueRecordId, // id - UniqueId to identify OCI transaction
+                    externalRefId, // externalRefId - UniqueId with SKU and timestamp
                     new Date().toISOString(), // effectiveDate - Inventory Effective Date
                     onHandQuantity, // onHand - Stock Level OnHand
                     safetyStockCount // safetyStockCount - Global SafetyStock Value

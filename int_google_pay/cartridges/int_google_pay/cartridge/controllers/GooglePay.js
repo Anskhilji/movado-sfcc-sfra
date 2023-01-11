@@ -110,6 +110,12 @@ server.post('ProcessPayments',
             return;
         }
 
+        if (session.privacy.pickupFromStore) {
+            Transaction.wrap(function () {
+                COCustomHelpers.removeGiftMessageLineItem(currentBasket);
+            });
+        }
+
          // Added Smart Gift Logic
          if (currentBasket && !empty(currentBasket.custom.smartGiftTrackingCode)) {
              session.custom.trackingCode = currentBasket.custom.smartGiftTrackingCode;
@@ -165,6 +171,12 @@ server.post('ProcessPayments',
                     return next();
     
                 }
+            }
+
+            var email = googlePayResponse.email;
+            if (!empty(email)) {
+                var maskedEmail = COCustomHelpers.maskEmail(email);
+                checkoutLogger.info('(GooglePay) -> SubmitShipping: Step-1: Customer Email is ' + maskedEmail);
             }
         }
 
@@ -248,6 +260,12 @@ server.post('ProcessPayments',
             cvvResultCode: 'M', // CVV2 Match
             paymentMethod: 'Google_Pay'
         });
+
+        var email = order.customerEmail;
+        if (!empty(email)) {
+            var maskedEmail = COCustomHelpers.maskEmail(email);
+            checkoutLogger.info('(GooglePay) -> SubmitPayment: Step-2: Customer Email is ' + maskedEmail);
+        }
     
         if (riskifiedCheckoutCreateResponse && riskifiedCheckoutCreateResponse.error) {
             hooksHelper(
@@ -439,6 +457,12 @@ server.post('ProcessPayments',
             error: false,
             redirectUrl: URLUtils.abs('Order-Confirm', 'ID', order.orderNo, 'token', order.orderToken).toString()
         });
+
+        var email = order.customerEmail;
+        if (!empty(email)) {
+            var maskedEmail = COCustomHelpers.maskEmail(email);
+            checkoutLogger.info('(GooglePay) -> PlaceOrder: Step-3: Customer Email is ' + maskedEmail);
+        }
 
         return next();
     }

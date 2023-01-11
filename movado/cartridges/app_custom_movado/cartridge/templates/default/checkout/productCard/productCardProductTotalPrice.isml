@@ -30,7 +30,7 @@
                 <isif condition="${!empty(matchingLineItem)}">
                     ${formatMoney(eswHelper.getSubtotalObject(matchingLineItem, false))}
                 <iselse/>
-                    ${lineItem.priceTotal.saleFormattedPrice}
+                    ${lineItem.priceTotal && lineItem.priceTotal.saleFormattedPrice ? lineItem.priceTotal.saleFormattedPrice : 0}
                 </isif>
             <iselse/>
                 ${lineItem.priceTotal.price}
@@ -40,14 +40,14 @@
 <iselse/>
     <isif condition="${isEswEnabled}" >
         <isif condition="${!empty(matchingLineItem)}">
-            <div class="line-item-total-price-amount item-total-${lineItem.UUID} mb-2 total-amount" price-value="${lineItem.price.sales.value}">${formatMoney(eswHelper.getSubtotalObject(matchingLineItem, false))}</div>
+            <div class="line-item-total-price-amount item-total-${lineItem.UUID} mb-2 total-amount">${formatMoney(eswHelper.getSubtotalObject(matchingLineItem, false))}</div>
         <iselse/>
-            <div class="line-item-total-price-amount item-total-${lineItem.UUID} mb-2 total-amount" price-value="${lineItem.price.sales.value}">
-                ${lineItem.priceTotal.saleFormattedPrice}
+            <div class="line-item-total-price-amount item-total-${lineItem.UUID} mb-2 total-amount">
+                ${lineItem.priceTotal && lineItem.priceTotal.saleFormattedPrice ? lineItem.priceTotal.saleFormattedPrice : 0}
             </div>
         </isif>
     <iselse/>
-        <div class="line-item-total-price-amount item-total-${lineItem.UUID} mb-2 total-amount" price-value="${lineItem.price.sales.value}">${lineItem.priceTotal.price}</div>
+        <div class="line-item-total-price-amount item-total-${lineItem.UUID} mb-2 total-amount">${lineItem.priceTotal.price}</div>
     </isif>
 </isif>
 <iscomment> Custom End </iscomment>

@@ -1,0 +1,12 @@
+<isset value="${dw.system.Site.current.preferences.custom}" name="sitePref" scope="page" />
+<isscript>
+var widgetType = dw.system.Site.current.preferences.custom.beamSdkUrl.replace('{widgetType}', dw.system.Site.current.preferences.custom.beamWidgetType.value);
+</isscript>
+ <isif condition="${sitePref.enableBeam}">
+  <script
+    type="module"
+    async
+    crossorigin
+    src="${widgetType}"
+  ></script>
+</isif>
