@@ -659,7 +659,7 @@ function getNonGiftCertificateAmount(cart) {
 /*
  * Function to create order from cart with Created state
  */
-function createOrder() {
+function createOrder(eswEmail) {
     var cart = BasketMgr.getCurrentOrNewBasket(),
         Transaction = require('dw/system/Transaction'),
         logger = require('dw/system/Logger'),
@@ -696,14 +696,19 @@ function createOrder() {
         billingAddress.firstName = 'eswUser';
         billingAddress.lastName = 'eswUser';
         dw.system.HookMgr.callHook('dw.order.calculate', 'calculate', cart);
-
+        var email;
         var paymentInstrument = cart.createPaymentInstrument('ESW_PAYMENT', getNonGiftCertificateAmount(cart));
-        var email = (customer.authenticated && customer.profile.email !== null) ? customer.profile.email : 'eswUser@gmail.com';
+        if (eswEmail) {
+            email = eswEmail ? eswEmail : 'eswUser@gmail.com';
+        } else {
+            email = (customer.authenticated && customer.profile.email !== null) ? customer.profile.email : 'eswUser@gmail.com';
+        }
         cart.setCustomerEmail(email);
     });
     try {
         order = Transaction.wrap(function () {
-            return OrderMgr.createOrder(cart);
+            var basket = BasketMgr.getCurrentBasket();
+            return OrderMgr.createOrder(basket);
         });
         //order = cart.createOrder();
         session.privacy.orderNo = order.orderNo;

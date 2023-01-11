@@ -140,42 +140,42 @@ server.get('EswCouponValidation', function (req, res, next) {
     var BasketMgr = require('dw/order/BasketMgr');
     var CouponMgr = require('dw/campaign/CouponMgr');
     var collections = require('*/cartridge/scripts/util/collections');
+    var eswServiceHelper = require('*/cartridge/scripts/helper/serviceHelper');
 
         var currentBasket = BasketMgr.getCurrentBasket();
         var couponLineItems = currentBasket.couponLineItems;
-        var email = "yasirrana9002131@gmail.com";
-
+        var EswGuestemail = "ahmadusman890@gmail.com";
+        var filterRedemptions = false;
+        
         for(var i = 0; i < couponLineItems.length; i++) {
             var couponLineItem = couponLineItems[i];
             var couponCodeValue = couponLineItem.couponCode;
             if (!empty(couponCodeValue)) {
                 var couponCode = CouponMgr.getCouponByCode(couponCodeValue);
                 var getRedemptions = CouponMgr.getRedemptions(couponCode.ID, couponCodeValue);
-                var filterRedemptions = false;
 
                 collections.forEach(getRedemptions, function (item) {
                     var redemptionEmail = item.customerEmail;
-                    if (redemptionEmail == email) {
+                    if (redemptionEmail == EswGuestemail) {
                         filterRedemptions = true;
                         return;
                     }
                 });
-
-                if (filterRedemptions) {
-                    res.json({
-                        success: false,
-                        error: true,
-                        redirectUrl : URLUtils.url('Cart-Show').toString()
-                    });
-                    res.redirect(URLUtils.https('Cart-Show').toString());
-                } else {
-                    res.json({
-                        success: true,
-                        error: false,
-                        redirectUrl : URLUtils.url('Account-Show').toString()
-                    });
-                }
             }
+        }
+
+        if (filterRedemptions) {
+            res.json({
+                success: false,
+                error: true,
+                redirectUrl : URLUtils.url('Cart-Show').toString()
+            });
+        } else {
+            res.json({
+                success: true,
+                error: false,
+                redirectUrl : URLUtils.url('Checkout-Begin', 'eswEmail', EswGuestemail).toString()
+            });
         }
 
         return next();

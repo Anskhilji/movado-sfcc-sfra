@@ -60,14 +60,15 @@ module.exports = function () {
                     $(".email-validation").addClass("border-danger");
                     $(".auauthanicated-error").text(data.error);
                     $('form.eswCouponValidation').trigger('eswCouponValidation:error', data);
+                    location.href = data.redirectUrl;
                 } else {
                     $('form.eswCouponValidation').trigger('eswCouponValidation:success', data);
                     location.href = data.redirectUrl;
                 }
             },
             error: function (data) {
-                if (data.responseJSON.redirectUrl) {
-                    window.location.href = data.responseJSON.redirectUrl;
+                if (data.redirectUrl) {
+                    window.location.href = data.redirectUrl;
                 } else {
                     $(".email-validation").addClass("border-danger");
                     $('form.eswCouponValidation').trigger('eswCouponValidation:error', data);
