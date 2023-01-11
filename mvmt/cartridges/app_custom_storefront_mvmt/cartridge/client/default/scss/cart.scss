@@ -153,6 +153,10 @@
             }
         }
 
+        .mini-cart-fixed {
+            margin: 0 0 rem(12) 0;
+        }
+
         .cart-order-outer-box {
             border-radius: rem(6);
 
@@ -280,7 +284,7 @@
 
                     p {
                         font-family: $font-book;
-                        font-size: rem(14);
+                        font-size: rem(11);
                         text-transform: none;
                     }
                 }
@@ -383,7 +387,7 @@
     .product-info {
         padding: 0;
         border: rem(1) solid $light-gray4;
-        padding: rem(15);
+        padding: rem(20);
         margin-bottom: rem(10);
 
         .bonus-product-button {
@@ -733,6 +737,10 @@
             @include media-breakpoint-up(lg) {
                 width: 70%;
                 margin: 0 auto;
+            }
+            // custom:MSS-1999
+            .gift-box-container-label {
+                font-size: rem(14);
             }
         }
 

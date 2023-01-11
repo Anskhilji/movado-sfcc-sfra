@@ -41,13 +41,18 @@ server.get('ShowAddProductButton',
     server.middleware.include,
     cache.applyDefaultCache,
     function (req, res, next) {
+        var Site = require('dw/system/Site');
+        var smartGiftHelper = require('*/cartridge/scripts/helper/SmartGiftHelper.js');
         var showProductPageHelperResult = productHelper.showProductPage(req.querystring, req.pageMetaData);
+        var smartGift = smartGiftHelper.getSmartGiftCardBasket(showProductPageHelperResult.product.id);
+        var smartGiftAddToCartURL = Site.current.preferences.custom.smartGiftURL + showProductPageHelperResult.product.id;
         var productId = req.querystring.pid;
-
+        res.setViewData(smartGift);
         res.render('product/components/addToCartPDP', {
             product: showProductPageHelperResult.product,
             addToCartUrl: showProductPageHelperResult.addToCartUrl,
-            productId: productId
+            productId: productId,
+            smartGiftAddToCartURL: smartGiftAddToCartURL
         });
 
     next();
@@ -169,12 +174,6 @@ server.append('AddProduct', function (req, res, next) {
             recommendedProductCardHtml = renderTemplateHelper.getRenderedHtml(basketModel, 'cart/productCard/recommendationProductCard');
         }
 
-        if (req.form.isGiftItem && !empty(req.form.isGiftItem)) {
-            basketModel.removeProductLineItemUrl = basketModel.actionUrls.removeProductLineItemUrl;
-            var template = isCartPage ? 'cart/productCard/cartGiftProductCard' : 'cart/productCard/miniCartGiftProductCard';
-            giftProductCardHtml = renderTemplateHelper.getRenderedHtml(basketModel, template);
-        }
-
         var addCartGtmArray = customCartHelpers.createAddtoCartProdObj(currentBasket, viewData.pliUUID, embossedMessage, engravedMessage);
         viewData.addCartGtmArray = addCartGtmArray;
 
@@ -249,6 +248,18 @@ server.append('AddProduct', function (req, res, next) {
             }
         }
         // Custom End
+
+        if (req.form.isGiftItem && !empty(req.form.isGiftItem)) {
+            basketModel = new CartModel(currentBasket);
+            basketModel.removeProductLineItemUrl = basketModel.actionUrls.removeProductLineItemUrl;
+            var template;
+            if (isCartPage === 'true') {
+                template = 'cart/productCard/cartGiftProductCard';
+            } else {
+                template = 'cart/productCard/miniCartGiftProductCard';
+            }
+            giftProductCardHtml = renderTemplateHelper.getRenderedHtml(basketModel, template);
+        }
 
         res.setViewData({
             quantityTotal: quantityTotal,
@@ -331,13 +342,17 @@ server.append(
         var CartModel = require('*/cartridge/models/cart');
         var Site = require('dw/system/Site');
         var aydenExpressPaypalHelper = require('*/cartridge/scripts/helper/aydenExpressPaypalHelper');
+        var Constants = require('*/cartridge/scripts/util/Constants');
+        var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
+        var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
+
         var currentBasket = BasketMgr.getCurrentOrNewBasket();
         var basketModel = new CartModel(currentBasket);
-        var cartItems = customCartHelpers.removeFromCartGTMObj(currentBasket.productLineItems);
-        var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
-        var wishlistGTMObj = customCartHelpers.getWishlistGtmObj(currentBasket.productLineItems);
         var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
+        var cartItems = customCartHelpers.removeFromCartGTMObj(currentBasket.productLineItems);
+        var wishlistGTMObj = customCartHelpers.getWishlistGtmObj(currentBasket.productLineItems);
         var productLineItems = currentBasket.productLineItems.iterator();
+        var currentCountry = productCustomHelper.getCurrentCountry();
         var marketingProductsData = [];
 
         
@@ -380,6 +395,9 @@ server.append(
             session.custom.applePayCheckout = false;
         } else {
             session.custom.StorePickUp = false;
+            if (currentCountry == Constants.US_COUNTRY_CODE) {
+                session.custom.isEswShippingMethod = false;
+            }
         }
 
         if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
@@ -459,6 +477,7 @@ server.replace(
         var CartModel = require('*/cartridge/models/cart');
         var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
         var Site = require('dw/system/Site');
+        var couponErrorMessages = !empty(Site.current.preferences.custom.couponErrorMessages) ? Site.current.preferences.custom.couponErrorMessages : false;
 
         var currentBasket = BasketMgr.getCurrentBasket();
 
@@ -488,13 +507,11 @@ server.replace(
         } catch (e) {
             error = true;
             // Custom Start: if custom preference 'couponErrorMessages' in strofront group is not empty and have promotion error messages json 
-            var couponErrorMessages = !empty(Site.current.preferences.custom.couponErrorMessages) ? Site.current.preferences.custom.couponErrorMessages : false;
 
             if (couponErrorMessages) {
                 var errorCodes = JSON.parse(couponErrorMessages);
                 var localeErrorCodes = errorCodes[req.locale.id] || errorCodes['default'];
-                var errorMessageKey = localeErrorCodes[e.errorCode] || localeErrorCodes.DEFAULT;
-                errorMessage = Resource.msg(errorMessageKey, 'cart', null);
+                var errorMessage = localeErrorCodes[e.errorCode] || localeErrorCodes.DEFAULT;
                 // Custom End
             } else {
                 var errorCodes = {
@@ -514,6 +531,34 @@ server.replace(
             }
         }
 
+        Transaction.wrap(function () {
+            basketCalculationHelpers.calculateTotals(currentBasket);
+        });
+
+        var basketModel = new CartModel(currentBasket);
+
+        if (!empty(basketModel) && !empty(basketModel.couponLineItems)) {
+            var couponLineItems = basketModel.couponLineItems;
+            for (var i = 0; i < couponLineItems.length; i++) {
+                var couponLineItem = couponLineItems[i];
+
+                if (couponLineItem && couponLineItem.applied === false) { 
+                    error = true;
+    
+                    Transaction.wrap(function () {
+                        var currentBasket = BasketMgr.getCurrentBasket();
+                        currentBasket.removeCouponLineItem(couponLineItem);
+                    });
+        
+                    if (couponErrorMessages) {
+                        var errorCodes = JSON.parse(couponErrorMessages);
+                        var localeErrorCodes = errorCodes[req.locale.id] || errorCodes['default'];
+                        var errorMessage = localeErrorCodes.COUPON_NOT_APPLIED || localeErrorCodes.DEFAULT;
+                    }
+                }
+            }
+        }
+
         if (error) {
             res.json({
                 error: error,
@@ -522,11 +567,6 @@ server.replace(
             return next();
         }
 
-        Transaction.wrap(function () {
-            basketCalculationHelpers.calculateTotals(currentBasket);
-        });
-
-        var basketModel = new CartModel(currentBasket);
 
         res.json(basketModel);
         return next();

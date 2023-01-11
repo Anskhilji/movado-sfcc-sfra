@@ -13,6 +13,7 @@ var adyenLogger = require('dw/system/Logger').getLogger('Adyen', 'adyen');
 var PAYPAL = 'PayPal';
 var CANCELLED = 'CANCELLED';
 var LIVE = 'LIVE';
+var checkoutCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
 
 /* Express Checkout From Cart */
 server.get('ExpressCheckoutFromCart', server.middleware.https, function (req, res, next) {
@@ -130,6 +131,12 @@ server.post('RedirectFromExpressPay', server.middleware.https, function (req, re
         res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'payment', 'paymentError', Resource.msg('error.payment.not.valid', 'checkout', null)));
     } else {
         res.redirect(URLUtils.url('Checkout-Begin', 'stage', 'placeOrder'));
+
+        var email = shippingFormValidationFailed.emailValue; 
+        if (!empty(email)) {
+            var maskedEmail = checkoutCustomHelpers.maskEmail(email);
+            adyenLogger.info('(AdyenExpressPaypal) -> SubmitPayment: Step-2: Customer Email is ' + maskedEmail);
+        } 
     }
 
     return next();
