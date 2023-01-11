@@ -32,6 +32,7 @@ server.replace(
         var order = OrderMgr.getOrder(req.querystring.ID);
         var token = req.querystring.token ? req.querystring.token : null;
         var userIPAddress = request.httpRemoteAddress || '';
+        var currencyCode = order.getCurrencyCode();
 
         if (!order
             || !token
@@ -124,7 +125,8 @@ server.replace(
                 passwordForm: passwordForm,
                 reportingURLs: reportingURLs,
                 yotpoConversionTrackingData: yotpoConversionTrackingData,
-                orderObj: order
+                orderObj: order,
+                currencyCode: currencyCode
             });
         } else {
             res.render('checkout/confirmation/confirmation', {
@@ -132,7 +134,8 @@ server.replace(
                 returningCustomer: true,
                 reportingURLs: reportingURLs,
                 yotpoConversionTrackingData: yotpoConversionTrackingData,
-                orderObj: order
+                orderObj: order,
+                currencyCode: currencyCode
             });
         }
         req.session.raw.custom.orderID = req.querystring.ID; // eslint-disable-line no-param-reassign

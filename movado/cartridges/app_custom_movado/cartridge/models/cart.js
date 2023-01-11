@@ -180,6 +180,7 @@ function CartModel(basket) {
       lineItemOptions: lineItemOptionModel,
       giftMessaging: giftMessaging,
       lineItemGiftMessage: getLineItemGiftMessage(basket),
+      couponLineItems: basket.couponLineItems,
       totalTaxVal : totalTaxVal,
       resources: {
         toBeDeclared: Resource.msg('tax.tbd', 'cart', null),

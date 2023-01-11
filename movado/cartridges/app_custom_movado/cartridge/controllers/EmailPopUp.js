@@ -57,7 +57,8 @@ server.get('Show', function (req, res, next) {
         }
     }
     
-    var isAjax = Object.hasOwnProperty.call(request.httpHeaders, 'x-requested-with');
+    var isAjax = Object.hasOwnProperty.call(request.httpHeaders, 'x-requested-with')
+        && request.httpHeaders['x-requested-with'] === 'XMLHttpRequest';
     if(isAjax){
         res.json({
             success: true,

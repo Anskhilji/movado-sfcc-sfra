@@ -15,7 +15,7 @@ var NEWLINE = '\n';
  * @param persoonalizationtype
  * @returns
  */
-function updateOptionLineItem(lineItemCtnr, productUUID, embossedMessage, engravedMessage, orientation, font) {
+function updateOptionLineItem(lineItemCtnr, productUUID, embossedMessage, engravedMessage, orientation, font, personalizationType) {
     collections.forEach(lineItemCtnr.productLineItems, function (pli) {
         if (pli.UUID == productUUID) {
             if (pli.optionProductLineItems) {
@@ -29,6 +29,9 @@ function updateOptionLineItem(lineItemCtnr, productUUID, embossedMessage, engrav
                             if(font) {
                                 pli.custom.fontName = font;
                             }
+                        }
+                        if (personalizationType) {
+                            pli.custom.personalizationType = personalizationType;
                         }
                     });
                 });
