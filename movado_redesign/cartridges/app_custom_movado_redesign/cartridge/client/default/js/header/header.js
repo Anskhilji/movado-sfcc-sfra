@@ -10,7 +10,6 @@ $(document).ready(function() {
 
     // Custom:MSS-2083 Header tranparent
     var $divOffsetTop = $('.banner-view-port').offset().top;
-    
 
     if (!$('.banner-view-port').isOnScreen()) { // if on load banner is not in viewPort show 
         if ($(window).scrollTop() > $divOffsetTop) {
@@ -58,7 +57,7 @@ $(".search-icon").click(function(e){
     $(".modal-background").addClass("show-overlay").fadeIn();
     $(".desktop-search input").focus();
     e.preventDefault();
-    // Custom:MSS-2083 
+    // Custom:MSS-2083 add class when open search
     $(".home-header-transparent").addClass("solid-header");    
 });
 

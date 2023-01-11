@@ -12,7 +12,9 @@ header {
 
                 // Custom:MSS-2083 text white class
                 &.header-white-text{
+
                     .sticky-header-wrapper {
+
                         .header-menu-wrapper {
                             &.non-sticky{
                                 filter: brightness(0.5) invert(1);
@@ -46,10 +48,10 @@ header {
 
                 // Custom:MSS-2083 when search open than the header solid
                 &.solid-header {
+
                     .sticky-header-wrapper {
 
                         .header-menu-wrapper {
-    
                             &.non-sticky{
                                 background-color: $white;
                                 position: fixed;
@@ -67,12 +69,7 @@ header {
                                         box-shadow: none;
                                     }
                                 }
-
-                                // .desktop-search {
-                                //     position: absolute;
-                                // }
                             }
-                           
                         }
                     }
                 }
@@ -114,7 +111,6 @@ header {
                                 }
                             }
                         }
-                       
                     }
                 }
             }
