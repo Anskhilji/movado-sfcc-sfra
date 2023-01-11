@@ -182,7 +182,9 @@
                                 <!-- Cart and [Optionally] Apple Pay -->
                             <div class="cart-wishlist ${product.available && product.readyToOrder ? '' : 'cart-wishlist-out-of-stock'}">
                                 <iscomment> Custom Start: Adding Esw updated cartridge code for add to cart button and applepay </iscomment>
-                                <isinclude url="${URLUtils.https('Cart-ShowAddProductButton', 'pid', product.id)}"/>
+                                <isif condition="${product.available}">
+                                    <isinclude url="${URLUtils.https('Cart-ShowAddProductButton', 'pid', product.id)}"/>
+                                </isif>
                                 <isif condition="${pdict.ecommerceFunctionalityEnabled == true}">
                                     <div class="traditional-wishlist-row wishlist-row">
                                         <isinclude url="${URLUtils.https('Wishlist-ShowIcon', 'gtmObj',JSON.stringify(pdict.wishlistGtmObj))}"/>
