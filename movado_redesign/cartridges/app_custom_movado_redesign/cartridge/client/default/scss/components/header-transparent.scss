@@ -5,11 +5,9 @@
 
 header {
     &.new-header {
-
         &.transparent-header {
             // Custom:MSS-2083  this style only works when the header transparent
             &.home-header-transparent {
-
                 // Custom:MSS-2083 text white class
                 &.header-white-text{
 
@@ -78,7 +76,6 @@ header {
                 .sticky-header-wrapper {
 
                     .header-menu-wrapper {
-
                         &.non-sticky{
                             background-color: transparent;
                             position: absolute;

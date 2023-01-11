@@ -6,8 +6,7 @@
         <isinclude url="${URLUtils.url('EShopWorld-GetEswLandingPage', 'countryCode', 
         !empty(request.httpParameterMap.get('country').value) ? request.httpParameterMap.get('country').value : '' )}"/>
     </isif>
-    <iscomment> SlotConfiguration.isHeaderTransparent
-    SlotConfiguration.navigationColor </iscomment>
+
     <iscomment> Custom End </iscomment>
     <nav>
         <div class="sticky-header-wrapper">
