@@ -115,18 +115,11 @@ function getCartAssets(){
 	return emptyCartDom;
 }
 
-<<<<<<< HEAD
-function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engravedMessage, form){
-	var productGtmArray={};
-	var variant;
-	collections.forEach(lineItemCtnr.productLineItems, function (pli) {
-=======
 function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engravedMessage){
     var productGtmArray = {};
     var variant;
     var searchCustomHelper = require('*/cartridge/scripts/helpers/searchCustomHelper');
     collections.forEach(lineItemCtnr.productLineItems, function (pli) {
->>>>>>> feature/MSS-2116-movado-mcs-obus-obuk---add-to-cart
 
         if (pli.product.ID == productUUID || pli.UUID == productUUID) {
             var productID = pli.product.ID;
