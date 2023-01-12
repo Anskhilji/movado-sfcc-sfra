@@ -97,7 +97,41 @@
 											<isslot id="cs-category-fifth-tile" context="category" description="5th slot on PLP" context-object="${pdict.productSearch.category.raw}"/>
 										</div>
 									</isif>
-
+									<isscript>
+									var sitePreferences =  require('dw/system/Site').getCurrent().getPreferences().getCustom();
+										var plpTileSlotPosition = JSON.parse(sitePreferences.plpTileSlotPosition);
+										var contentSlotName = '';
+											plpTileSlotPosition.filter( function (productSlot) {
+											if(productSlot.index == prodStatus.index){
+												return contentSlotName = productSlot.slotName;
+											}
+										});
+									</isscript>
+									<isif condition="${contentSlotName == 'cs_plp_marketing_tile_slot'}">
+										<div class="col-6 col-sm-4">
+											<isslot id="cs_plp_marketing_tile_slot" context="category" description="dynamic content slot tile" context-object="${pdict.productSearch.category.raw}"/>
+										</div>
+									</isif>
+									<isif condition="${contentSlotName == 'cs_plp_marketing_tile_slot_2nd'}">
+										<div class="col-6 col-sm-4">
+											<isslot id="cs_plp_marketing_tile_slot_2nd" context="category" description="dynamic content slot tile" context-object="${pdict.productSearch.category.raw}"/>
+										</div>
+									</isif>
+									<isif condition="${contentSlotName == 'cs_plp_marketing_tile_slot_3rd'}">
+										<div class="col-6 col-sm-4">
+											<isslot id="cs_plp_marketing_tile_slot_3rd" context="category" description="dynamic content slot tile" context-object="${pdict.productSearch.category.raw}"/>
+										</div>
+									</isif>
+									<isif condition="${contentSlotName == 'cs_plp_marketing_tile_slot_4th'}">
+										<div class="col-6 col-sm-4">
+											<isslot id="cs_plp_marketing_tile_slot_4th" context="category" description="dynamic content slot tile" context-object="${pdict.productSearch.category.raw}"/>
+										</div>
+									</isif>
+									<isif condition="${contentSlotName == 'cs_plp_marketing_tile_slot_5th'}">
+										<div class="col-6 col-sm-4">
+											<isslot id="cs_plp_marketing_tile_slot_5th" context="category" description="dynamic content slot tile" context-object="${pdict.productSearch.category.raw}"/>
+										</div>
+									</isif>
 									<isif condition="${pdict.productSearch.enableGridSlot && pdict.productSearch.pageNumber == 0 && prodStatus.index === (pdict.productSearch.defaultPageSize-1)}">
 									<iselse>
 										<div class="col-6 col-sm-4 col-lg-3 custom-col" data-gtm-refinements='${product.productSearchHit.productID}'>
@@ -139,6 +173,8 @@
 		<isif condition="${pdict.productSearch.category}">
 			<isslot id="cs_plp_bottom_slot" context="category" description="Recommendation content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
 			<isslot id="cs_plp_seo_bottom_slot" context="category" description="SEO content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
+			<isslot id="cs_plp_marketing_bottom_slot" context="category" description="Marketing content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
+			<isslot id="cs_plp_marketing_bottom_slot_desktop" context="category" description="Marketing content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
 		</isif>
 	</isif>
 
