@@ -1139,8 +1139,9 @@
                                 }
 
                                 .badge {
-                                    background-color: $grey-light4;
-                                    color: $black;
+                                    background-color: transparent;
+                                    border: rem(1) solid $beige4;
+                                    color: $beige4;
                                     font-family: $futura-medium;
                                     font-weight: 600;
                                     font-style: italic;
@@ -1312,7 +1313,7 @@
                                         line-height: rem(27);
                                         border: rem(1) solid $black;
                                         border-radius: rem(3);
-                                        background-color: $grey-light4;
+                                        background-color: $beige4;
                                         color: $black;
                                         font-family: $futura-medium;
                                         font-style: italic;
@@ -2010,6 +2011,10 @@
             }
         }
 
+        .pdp-store-pickup-display-inline-block {
+            position: relative;
+        }
+
         .pdp-store-pickup-inventory {
             order: 1;
             display: flex;
@@ -2076,6 +2081,28 @@
                     }
                 }
             }
+
+            .info-icon {
+
+                &.info-icon-bopis {
+                    margin-left: rem(8);   
+                    .icon {
+                        background-image: url("../../images/info-icon.svg");
+                        background-repeat: no-repeat;
+                        background-size: cover;
+                        width: rem(15);
+                        height: rem(15);
+                        background-color: transparent;
+                    }
+    
+                    .tooltip {
+    
+                        @include media-breakpoint-down(xs) {
+                            display: none;
+                        }
+                    }
+                } 
+            } 
         }
         
         .pick-up-store-available-for-store {

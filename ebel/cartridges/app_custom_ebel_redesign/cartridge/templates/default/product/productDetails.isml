@@ -287,6 +287,5 @@
             <isslot id="cs-listrak-persistent-popup" description="Listrak persistent popup" context="global" />
         </isif>
         <!-- End: Listrak persistent popup -->
-
     </isobject>
 </isdecorate>

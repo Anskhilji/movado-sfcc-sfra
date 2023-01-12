@@ -17,7 +17,6 @@ var COHelpers = require('*/cartridge/scripts/checkout/checkoutHelpers');
 var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
 var ShippingHelper = require('*/cartridge/scripts/checkout/shippingHelpers');
 
-
 /**
  * Checks if google pay is enabled
  * @returns {Boolean}
@@ -104,7 +103,6 @@ function addProductToCart(currentBasket, productId, quantity, childProducts, opt
     return false;
 
 }
-
 
 function removeAllProductLineItemsFromBasket(currentBasket) {
     Transaction.wrap(function () {

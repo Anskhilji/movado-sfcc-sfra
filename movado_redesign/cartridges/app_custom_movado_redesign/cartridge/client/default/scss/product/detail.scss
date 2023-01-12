@@ -816,13 +816,13 @@ $arrow-height: 1.25em;
     }
 
     .slick-dots {
-
+        
         li {
             width: 4%;
             height: rem(2);
             background: $gray-x11;
             margin: 0;
-
+           
             button {
                 height: 100%;
                 width: 100%;
@@ -837,6 +837,29 @@ $arrow-height: 1.25em;
             }
         }
     }
+    
+    .primary-images{
+
+        .slick-dots {
+            max-width: rem(293);
+            margin: 0 auto;
+            right: 0;
+
+            li {
+                width: 100%;
+                height: rem(2);
+                background: $border-color;
+            }
+        }
+    }
+
+    .movado-pdp-row {
+        
+        #zoomProduct {
+            z-index: 99999;
+        }
+    }
+    
 
     .primary-images{
 
@@ -1416,6 +1439,7 @@ $arrow-height: 1.25em;
                 justify-content: center;
                 display: flex;
             }
+    
         }
 
         .carousel-title {

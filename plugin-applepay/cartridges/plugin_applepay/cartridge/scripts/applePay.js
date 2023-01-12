@@ -1,4 +1,5 @@
 var BasketMgr = require('dw/order/BasketMgr');
+var CustomObjectMgr = require('dw/object/CustomObjectMgr');
 var Status = require('dw/system/Status');
 var PaymentInstrument = require('dw/order/PaymentInstrument');
 var Logger = require('dw/system/Logger');
@@ -268,6 +269,12 @@ exports.afterAuthorization = function (order, payment, custom, status) {
             somLog.error('SOM attribute process failed: ' + exSOM.message + ',exSOM: ' + JSON.stringify(exSOM));
         }
     }
+
+    var email = order.customerEmail;
+    if (!empty(email)) {
+        var maskedEmail = checkoutCustomHelpers.maskEmail(email);
+        checkoutLogger.info('(applePay.js) -> PlaceOrder: Step-3: Customer Email is ' + maskedEmail);
+    }
     // End Salesforce Order Management
 
     var email = order.customerEmail;
@@ -284,6 +291,13 @@ exports.afterAuthorization = function (order, payment, custom, status) {
     session.custom.appleEmbossOptionId = '';
     session.custom.appleEmbossedMessage = '';
     session.custom.appleEngravedMessage = '';
+
+    Transaction.wrap(function () {
+        var currentSessionPaymentParams = CustomObjectMgr.getCustomObject('RiskifiedPaymentParams', session.custom.checkoutUUID);
+        if (currentSessionPaymentParams) {
+            CustomObjectMgr.remove(currentSessionPaymentParams);
+        }
+    });
 
     return status;
 };
@@ -317,7 +331,6 @@ exports.afterAuthorization = function (order, payment, custom, status) {
  */
 exports.prepareBasket = function (basket, parameters) {
     // get personalization data from session for PDP and Quickview
-
     var currentCountry = productCustomHelper.getCurrentCountry();
 
     if (!empty(parameters.sku)) {

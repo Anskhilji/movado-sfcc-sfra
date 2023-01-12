@@ -51,7 +51,6 @@
         </div>
     <isslot id="cs-mincart-top-slot" description="Static text slot on Mini Cart" context="global" />
 
-
     <div class="product-summary">
         <div class="mini-cart-product">
             <isloop items="${items}" var="lineItem" status="loopStatus">
@@ -74,7 +73,6 @@
                 </div>
             </isloop>
         </div>
-
         <iscomment>Custom Start: Recomendation Carousel </iscomment>
         <isif condition="${enableCartRecomendations}">
             <div class="recommendation-rail-wrapper">
@@ -88,6 +86,7 @@
         </isif>
         <iscomment> Custom End </iscomment>
     </div>
+
     <div class="minicart-footer">
         <iscomment>Custom Start: Adding promo code template </iscomment>
         <isif condition="${itemsLength > 0}">

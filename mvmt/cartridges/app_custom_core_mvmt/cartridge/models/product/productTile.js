@@ -79,7 +79,7 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                             if (colorVariations.values[key]) {
                                 colorVariations.values[key].swatchesURL = URLUtils.url(
                                         'Product-Variation',
-                                        'dwvar_' + product.id + '_color',
+                                        'dwvar_' + product.id + '_colorWatch',
                                         colorVariations.values[key].id,
                                         'pid',
                                         product.id,
@@ -330,7 +330,6 @@ module.exports = function productTile(product, apiProduct, productType, params) 
                     enumerable: true,
                     value: apiProduct.variationModel.defaultVariant.ID ? apiProduct.variationModel.defaultVariant.ID : apiProduct.ID
                 });
-
                 Object.defineProperty(product, 'defaultVariantBadges', {
                     enumerable: true,
                     value: productCustomHelpers.getBadges(apiProduct.variationModel.defaultVariant)

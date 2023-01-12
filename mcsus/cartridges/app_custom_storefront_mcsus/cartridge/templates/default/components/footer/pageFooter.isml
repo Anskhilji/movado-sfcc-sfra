@@ -5,6 +5,11 @@
         <div class="container">
             <form role="form" name="newsletterSubscribe" id="newsletterSubscribe" action="${URLUtils.url('Newsletter-Subscribe')}" method="POST">
                 <div class="row">
+                    <div class="col-sm-7 email-description">
+                        <iscomment> Custom Start:  Email footer description </iscomment>
+                        <iscontentasset aid="email-signup-footer-description" />
+                        <iscomment> Custom End </iscomment>
+                    </div>
                     <div class="col-sm-5">
                         <div class="input-group">
                             <input type="text" class="form-control" id="hpEmailSignUp" name="hpEmailSignUp" placeholder="${Resource.msg('placeholdertext.form.emailsignup', 'homePage', null)}">
@@ -19,11 +24,6 @@
                         <div class="submission-status d-none" data-errormsg="${Resource.msg('newsletter.email.error', 'common', null)}">
                           <div>${Resource.msg('newsletter.email.error', 'common', null)}</div>
                         </div>
-                    </div>
-                    <div class="col-sm-7 email-description">
-                    <iscomment> Custom Start:  Email footer description </iscomment>
-                        <iscontentasset aid="email-signup-footer-description" />
-                    <iscomment> Custom End </iscomment>
                     </div>
                 </div>
             </form>

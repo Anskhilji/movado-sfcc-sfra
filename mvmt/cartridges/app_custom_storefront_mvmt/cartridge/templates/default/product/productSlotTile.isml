@@ -32,7 +32,7 @@
 
         <div class="tile-body">
             <div class="tile-badges">
-                <isif condition="${pdict.display.swatches !== false && product.productType == 'master'}">
+                <isif condition="${pdict.display.swatches !== false  && product.productType == 'master'}">
                     <isif condition="${product.colorVariationsValues.values}">
                         <div class="plp-swatches ${product.variationsAttributes && product.variationsAttributes[0] && product.variationsAttributes[0].values && product.variationsAttributes[0].values.length > 0 ? '':'0-opacity'}">
                             <isif condition="${pdict.display.isEyewearTile}">
@@ -65,6 +65,11 @@
                                 <span class="case-diameter">${!empty(product.defaultVariantCaseDiameterRedesigned) ? product.defaultVariantCaseDiameterRedesigned : product.caseDiameterRedesigned}</span>
                             </isif>
                         </isif>
+                    <iselse/>
+                        <isif condition="${product.isWatchTile}">
+                            <span class="case-diameter">${!empty(product.defaultVariantCaseDiameterRedesigned) ? product.defaultVariantCaseDiameterRedesigned : product.caseDiameterRedesigned}</span>
+                        </isif>
+                    </isif>
                     </div>
                 </isif>
      

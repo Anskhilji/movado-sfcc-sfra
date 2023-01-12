@@ -10,6 +10,7 @@ var collections = require('*/cartridge/scripts/util/collections');
 var customCartHelpers = require('*/cartridge/scripts/helpers/customCartHelpers');
 var productHelper = require('*/cartridge/scripts/helpers/productHelpers');
 
+
 var page = module.superModule;
 server.extend(page);
 
@@ -341,11 +342,11 @@ server.append(
         var BasketMgr = require('dw/order/BasketMgr');
         var CartModel = require('*/cartridge/models/cart');
         var Site = require('dw/system/Site');
+
         var aydenExpressPaypalHelper = require('*/cartridge/scripts/helper/aydenExpressPaypalHelper');
         var Constants = require('*/cartridge/scripts/util/Constants');
         var productCustomHelpers = require('*/cartridge/scripts/helpers/productCustomHelpers');
         var productCustomHelper = require('*/cartridge/scripts/helpers/productCustomHelper');
-
         var currentBasket = BasketMgr.getCurrentOrNewBasket();
         var basketModel = new CartModel(currentBasket);
         var isEswEnabled = !empty(Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled')) ? Site.current.getCustomPreferenceValue('eswEshopworldModuleEnabled') : false;
@@ -507,7 +508,6 @@ server.replace(
         } catch (e) {
             error = true;
             // Custom Start: if custom preference 'couponErrorMessages' in strofront group is not empty and have promotion error messages json 
-
             if (couponErrorMessages) {
                 var errorCodes = JSON.parse(couponErrorMessages);
                 var localeErrorCodes = errorCodes[req.locale.id] || errorCodes['default'];
@@ -566,7 +566,6 @@ server.replace(
             });
             return next();
         }
-
 
         res.json(basketModel);
         return next();
@@ -762,6 +761,46 @@ server.append(
     res.setViewData({
         couponLineItems: BasketMgr.currentBasket.couponLineItems,
         couponLineItemsLength : BasketMgr.currentBasket.couponLineItems.length,
+    });
+    next();
+});
+
+server.post('RemoveClydeProduct', function (req, res, next) {
+    var BasketMgr = require('dw/order/BasketMgr');
+    var CartModel = require('*/cartridge/models/cart');
+    var basketCalculationHelpers = require('*/cartridge/scripts/helpers/basketCalculationHelpers');
+    var currentBasket = BasketMgr.getCurrentBasket();
+    var productLineItem = null;
+    var basketModel = null;
+    var optionProductLineItem = null;
+    var lineItems = currentBasket.productLineItems.iterator();
+    var productUUID = req.querystring.uuid;
+    while (lineItems.hasNext()) {
+        var item = lineItems.next();
+        if (item.UUID === productUUID) {
+            productLineItem = item;
+            break;
+        }
+    }
+    if (productLineItem) {
+        var optionLineItems = productLineItem.optionProductLineItems.iterator();
+        var Transaction = require('dw/system/Transaction');
+        Transaction.wrap(function () {
+            while (optionLineItems.hasNext()) {
+                var optionLineItem = optionLineItems.next();
+                if (optionLineItem) {
+                    optionProductLineItem = optionLineItem;
+                    currentBasket.removeProductLineItem(optionProductLineItem);
+                    basketCalculationHelpers.calculateTotals(currentBasket);
+                    break;
+                }
+            }
+        });
+        basketModel = new CartModel(currentBasket);
+    } res.json({
+        success: optionProductLineItem || false,
+        deleteUuid: productUUID,
+        basket: basketModel
     });
     next();
 });

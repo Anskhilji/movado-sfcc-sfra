@@ -75,6 +75,19 @@ server.replace(
                 abTestParticipationSegments = abTestParticipationSegments + ', ' + abTestSegment.ABTest.ID + '-' + abTestSegment.ID;
             }
         }
+        var productLineItem;
+        var orderLineItems = order.getAllProductLineItems();
+        var orderLineItemsIterator = orderLineItems.iterator();
+
+        while (orderLineItemsIterator.hasNext()) {
+            productLineItem = orderLineItemsIterator.next();
+            Transaction.wrap(function () {
+                if (productLineItem instanceof dw.order.ProductLineItem &&
+                    !productLineItem.bonusProductLineItem && !productLineItem.optionID) {
+                    productLineItem.custom.ClydeProductUnitPrice = productLineItem.adjustedPrice.getDecimalValue().get() ? productLineItem.adjustedPrice.getDecimalValue().get().toFixed(2) : '';
+                }
+            });
+        }
 
         // Custom Start: Save values in order custom attributes
         Transaction.wrap(function() {

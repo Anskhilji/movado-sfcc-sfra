@@ -67,32 +67,32 @@ function create(orderNumber, paymentInstrument) {
     var paymentMethod = PaymentMgr.getPaymentMethod(paymentInstrument.getPaymentMethod());
     var isRiskifiedflag = paymentMethod.custom.isRiskifiedEnable;
     var isRiskifiedSyncIntegerationEnabled = !empty(Site.current.preferences.custom.isRiskifiedSyncIntegerationEnabled) ? Site.current.preferences.custom.isRiskifiedSyncIntegerationEnabled : false;
-    var result = {status: 'success'};
-    if (isRiskifiedflag) {
-        var serviceResult = RiskifiedService.sendCreateOrder(order);
-        result.response = serviceResult;
-        if (serviceResult.error) {
-            if (isRiskifiedSyncIntegerationEnabled) {
-                if (attemptCounter < maxAttempted) {
-                    attemptCounter++;
-                    return create(orderNumber, paymentInstrument);
-                } else { // Send success status
-                    result.status = 'pass';
-                    result.response = {
-                        order: {
-                            status: 'approved'
-                        }
-                    };
-                    Transaction.wrap(function () {
-                        order.custom.riskifiedOrderAnalysis = Constants.ORDER_REVIEW_APPROVED_STATUS;
-                    });
+    var result = { status: 'success' };
+        if (isRiskifiedflag) {
+            var serviceResult = RiskifiedService.sendCreateOrder(order);
+            result.response = serviceResult;
+            if (serviceResult.error) {
+                if (isRiskifiedSyncIntegerationEnabled) {
+                    if (attemptCounter < maxAttempted) {
+                        attemptCounter++;
+                        return create(orderNumber, paymentInstrument);
+                    } else { // Send success status
+                        result.status = 'pass';
+                        result.response = {
+                            order: {
+                                status: 'approved'
+                            }
+                        };
+                        Transaction.wrap(function () {
+                            order.custom.riskifiedOrderAnalysis = Constants.ORDER_REVIEW_APPROVED_STATUS;
+                        });
+                    }
+                } else {
+                    result.status = 'fail';
+                    result.response = serviceResult;
                 }
-            } else {
-                result.status = 'fail';
-                result.response = serviceResult;
-            }    
+            }
         }
-    }
     return result;
 }
 

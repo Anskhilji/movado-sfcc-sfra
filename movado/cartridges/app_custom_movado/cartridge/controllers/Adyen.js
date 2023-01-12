@@ -3,6 +3,7 @@
 var server = require('server');
 server.extend(module.superModule);
 
+var CustomObjectMgr = require('dw/object/CustomObjectMgr');
 var URLUtils = require('dw/web/URLUtils');
 var Transaction = require('dw/system/Transaction');
 var checkoutCustomHelpers = require('*/cartridge/scripts/checkout/checkoutCustomHelpers');
@@ -294,6 +295,12 @@ server.replace('ShowConfirmation', server.middleware.https, function (req, res, 
         checkoutLogger.debug('(Adyen) -> ShowConfirmation: Going to the order confirmation page and order number is: ' + orderNumber);
         res.redirect(URLUtils.url('Order-Confirm', 'ID', order.orderNo, 'token', order.orderToken).toString());
         session.custom.klarnaRiskifiedFlag = '';
+        Transaction.wrap(function () {
+            var currentSessionPaymentParams = CustomObjectMgr.getCustomObject('RiskifiedPaymentParams', session.custom.checkoutUUID);
+            if (currentSessionPaymentParams) {
+                CustomObjectMgr.remove(currentSessionPaymentParams);
+            }
+        });
         return next();
     }
     // Adding hook for technical cancel

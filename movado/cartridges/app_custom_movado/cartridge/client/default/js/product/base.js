@@ -43,7 +43,7 @@ function getQuantitySelector($el) {
         slidesToShow: 1,
         slidesToScroll: 1,
         asNavFor: '.carousel-nav',
-        dots: false,
+        dots: false, 
         arrows:true,
         focusOnSelect: true,
         fade: true,
@@ -312,11 +312,6 @@ function processSwatchValues(attr, $productContainer) {
         } else {
             $swatchAnchor.removeAttr('href');
         }
-
-        // Disable if not selectable
-        $attrValue.removeClass('selectable unselectable');
-
-        $attrValue.addClass(attrValue.selectable ? 'selectable' : 'unselectable');
     });
 }
 
@@ -343,10 +338,6 @@ function processNonSwatchValues(attr, $productContainer) {
             .find($attr + ' [data-attr-value="' + attrValue.value + '"]');
         $attrValue.attr('value', attrValue.url)
             .removeAttr('disabled');
-
-        if (!attrValue.selectable) {
-            $attrValue.attr('disabled', true);
-        }
     });
 }
 
@@ -883,10 +874,8 @@ function attributeSelect(selectedValueUrl, $productContainer) {
                 updateOptions(data.product.options, $productContainer);
                 updateQuantities(data.product.quantities, $productContainer);
                 handleOptionsMessageErrors(data.validationErrorEmbossed, data.validationErrorEngraved, $productContainer);
-
                 var listrakTracking = require('movado/listrakActivityTracking.js');
                 listrakTracking.listrackProductTracking(data.product.id);
-
                 $('body').trigger('product:afterAttributeSelect',
                     { data: data, container: $productContainer });
                 $.spinner().stop();
@@ -1478,3 +1467,11 @@ module.exports = {
     getPidValue: getPidValue,
     getQuantitySelected: getQuantitySelected
 };
+
+// MSS-2074
+$( document ).ready(function() {
+    var pdpLink = $('.pdp-link');
+    if (pdpLink.length > 0) {
+        pdpLink.css('-webkit-box-orient', 'vertical');
+    }
+});

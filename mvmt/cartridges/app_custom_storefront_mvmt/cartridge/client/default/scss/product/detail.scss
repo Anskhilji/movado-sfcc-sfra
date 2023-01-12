@@ -768,7 +768,6 @@
             display: block;
         }
     }
-
     .rating-box-container {
         @include media-breakpoint-down(sm) {
             display: none;
@@ -3836,7 +3835,6 @@
     .gpay-button {
         padding: rem(8) 15% !important;
     }
-
     .gpay-button-fill-new-style {
         
         .gpay-button {

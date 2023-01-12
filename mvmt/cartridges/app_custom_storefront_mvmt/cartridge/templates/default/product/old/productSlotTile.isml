@@ -37,8 +37,8 @@
 
                     <isinclude template="product/components/badges" />
                 </div>
-                <isif condition="${pdict.display.swatches !== false && product.productType == 'master'}">
-                    <isif condition="${product.colorVariationsValues.values}">
+                <isif condition="${pdict.display.swatches !== false  && product.productType == 'master'}">
+                    <isif condition="${(!empty(product.colorVariationsValues)) && (!empty(product.colorVariationsValues.values)) ? product.colorVariationsValues.values : ''}">
                         <div class="plp-swatches ${product.variationsAttributes && product.variationsAttributes[0] && product.variationsAttributes[0].values && product.variationsAttributes[0].values.length > 0 ? 'plp-swatches-reserved' : '0-opacity'}">
                             <isif condition="${!product.isWatchTile}">
                                 <isinclude template="product/components/productTileSwatch" />
@@ -73,7 +73,7 @@
                         </isif>
                         <isif condition="${(product.productType != 'master' || !product.defaultVariant)}">
                             <isif condition="${product.isWatchTile}">
-                                <span class="case-diameter">${!empty(product.caseDiameterRedesigned) ? product.caseDiameterRedesigned : ''}</span>n
+                                <span class="case-diameter">${!empty(product.caseDiameterRedesigned) ? product.caseDiameterRedesigned : ''}</span>
                             </isif>
                         <iselse/>
                             <isif condition="${product.isWatchTile}">

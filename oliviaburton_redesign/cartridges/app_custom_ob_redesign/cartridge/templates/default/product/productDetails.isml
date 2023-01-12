@@ -135,6 +135,7 @@
                                     <isinclude template="product/components/description" />
                                 </div>
                             </isif>
+
                             <iscomment> Custom End </iscomment>
                             <isif condition="${product.options && product.options.length > 0}">
                                 <isinclude template="product/components/options" />
@@ -198,7 +199,6 @@
                                 </div>
                             </isif>
                             <iscomment> Custom End </iscomment>
-
 
                             <isset name="giftBoxMessage" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxMessage) ? dw.system.Site.current.preferences.custom.giftBoxMessage : ''}" scope="page" />
                             <isset name="giftBoxEnabled" value="${!empty(dw.system.Site.current.preferences.custom.giftBoxEnabled) ? dw.system.Site.current.preferences.custom.giftBoxEnabled : false}" scope="page" />
