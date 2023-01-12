@@ -368,7 +368,6 @@ function Request(request, customer, session) {
 
                 var PriceBookMgr = require('dw/catalog/PriceBookMgr');
                 var salePriceBooks = JSON.parse(dw.system.Site.getCurrent().getCustomPreferenceValue('promotionalPriceBookConverstion'));
-                var localizePriceBooks;
                 var applicablePricebooks;
                 var filterPriceBooks;
                 salePriceBooks.forEach(function (localizeObj) {
@@ -377,7 +376,6 @@ function Request(request, customer, session) {
                 });
 
                 if (!empty(localizeSalePriceBooks) || !empty(localizeBasePriceBooks)) {
-                    var salePriceBooks = PriceBookMgr.getPriceBook(localizePriceBooks);
                     var productShow = "/on/demandware.store/Sites-MVMTUS-Site/en_US/Search-Show";
                     var updateGrid = "/on/demandware.store/Sites-MVMTUS-Site/en_US/Search-UpdateGrid";
                     if (request.httpPath == productShow || request.httpPath == updateGrid) {

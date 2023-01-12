@@ -51,6 +51,21 @@
             <isif condition="${isLowPrice == null}">
                 <span class="value" itemprop="price" content="${finalOrigPrice ? finalOrigPrice.sales.value : ''}">
             </isif>
+            <isif condition="${finalOrigPrice && finalOrigPrice.list == null && product && !empty(product.productBasePrice)}">
+                <del>
+                    <span class="strike-through list">
+                        <span class="value" content="${price}">
+                            <span class="sr-only">
+                                ${Resource.msg('label.price.reduced.from', 'pricing', null)}
+                            </span>
+                            ${product.productBasePrice}
+                            <span class="sr-only">
+                                ${Resource.msg('label.price.to', 'pricing', null)}
+                            </span>
+                        </span>
+                    </span>
+                </del>
+            </isif>
             <isinclude template="/product/components/pricing/formatted" />
         </span>
     <iselse>
@@ -63,6 +78,21 @@
             </isif>
             <isif condition="${isLowPrice == null}">
                 <span class="value" itemprop="price" content="${price instanceof dw.value.Money ? price.decimalValue : price.decimalPrice}">
+            </isif>
+            <isif condition="${finalOrigPrice && finalOrigPrice.list == null && product && !empty(product.productBasePrice)}">
+                <del>
+                    <span class="strike-through list">
+                        <span class="value" content="${price}">
+                            <span class="sr-only">
+                                ${Resource.msg('label.price.reduced.from', 'pricing', null)}
+                            </span>
+                            ${product.productBasePrice}
+                            <span class="sr-only">
+                                ${Resource.msg('label.price.to', 'pricing', null)}
+                            </span>
+                        </span>
+                    </span>
+                </del>
             </isif>
             <isinclude template="/product/components/pricing/formatted" />
         </span>

@@ -18,6 +18,14 @@
                 }
               ]
               }
+          },
+          {
+            "@type-id": "custom.removeProductBasePrice",
+            "timeout-in-seconds": "180000",
+            "description": "This job used to remove product the base price custom attribute which is 'productBasePrice'.",
+            "module": "app_custom_movado/cartridge/scripts/jobs/GenerateSalePricing.js",
+            "transactional": "true",
+            "function": "removeProductBasePrice"
           }
       ]
   }

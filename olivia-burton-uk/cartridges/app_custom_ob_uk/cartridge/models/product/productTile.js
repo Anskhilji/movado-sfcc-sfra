@@ -119,5 +119,12 @@ module.exports = function productTile(product, apiProduct, productType, params, 
         });
     }
 
+    if (!empty(apiProduct)) {
+        Object.defineProperty(product, 'productBasePrice', {
+            enumerable: true,
+            value: apiProduct.custom.productBasePrice ? apiProduct.custom.productBasePrice : ''
+        });
+    }
+
     return product;
 };
