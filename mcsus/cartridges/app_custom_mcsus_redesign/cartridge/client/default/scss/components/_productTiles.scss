@@ -636,35 +636,32 @@
 }
 // Custom End: MSS-1859 New Carousel Template - Product & Recommender Type
 // 2089 full width carousel on HP
-.mcs-homepage-wrapper {
+.mcs-product-carousel-redesign {
 
-    .mcs-product-carousel-redesign {
+    .mcs-product-carousel-container {
+        max-width: inherit;
 
-        .mcs-product-carousel-container {
-            max-width: inherit;
+        .mcs-product-carousel-row {
 
-            .mcs-product-carousel-row {
+            .mcs-product-carousel-column {
 
-                .mcs-product-carousel-column {
+                .cs-carousel-wrapper {
 
-                    .cs-carousel-wrapper {
+                    .cs-carousel {
 
-                        .cs-carousel {
+                        .slick-prev {
+                            left: rem(-50);
 
-                            .slick-prev {
-                                left: rem(-50);
-
-                                @include media-breakpoint-down (lg) {
-                                    left: rem(5);
-                                }
+                            @include media-breakpoint-down (lg) {
+                                left: rem(5);
                             }
+                        }
 
-                            .slick-next {
-                                right: rem(-50);
+                        .slick-next {
+                            right: rem(-50);
 
-                                @include media-breakpoint-down (lg) {
-                                    right: rem(5);
-                                }
+                            @include media-breakpoint-down (lg) {
+                                right: rem(5);
                             }
                         }
                     }
