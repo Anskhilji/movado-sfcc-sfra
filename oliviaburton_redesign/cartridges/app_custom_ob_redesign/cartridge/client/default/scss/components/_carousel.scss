@@ -448,7 +448,7 @@
                                 line-height: rem(18);
                                 text-align: center;
 
-                                .strike-throug , .sale-price-mvmt {
+                                .strike-through , .sale-price-mvmt {
                                     @include media-breakpoint-down(sm) {
                                         margin-right: rem(10);
                                     }
