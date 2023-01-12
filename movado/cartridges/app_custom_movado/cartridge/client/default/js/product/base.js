@@ -817,6 +817,19 @@ function handleVariantResponse(response, $productContainer) {
         initializeZoomSlickDots();
         initializeZoomModelCarousel();
         $('.main-carousel .slick-active').addClass('slick-center');
+
+    $(document).ready(function () {
+        var $availabilityWrapper = $('.product-availability .availability-msg').text();
+        var $cartWrapper = $('.cart-and-ipay');
+        
+        if ($availabilityWrapper !== '' || $availabilityWrapper !== undefined || $availabilityWrapper !== null) {
+            if (($availabilityWrapper === 'out of stock') || ($availabilityWrapper === 'Out of Stock')) {
+                $cartWrapper.addClass('d-none');
+            } else {
+                $cartWrapper.removeClass('d-none');
+            }
+        }
+    });
 }
 
 /**
