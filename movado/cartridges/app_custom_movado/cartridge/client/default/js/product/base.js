@@ -799,12 +799,14 @@ function handleVariantResponse(response, $productContainer) {
 
     $(document).ready(function () {
         var $availabilityWrapper = $('.product-availability .availability-msg').text();
-        var $cartwrapper = $('.cart-and-ipay');
-    
-        if (($availabilityWrapper === 'out of stock') || ($availabilityWrapper === 'Out of Stock')) {
-            $cartwrapper.addClass('d-none');
-        } else {
-            $cartwrapper.removeClass('d-none');
+        var $cartWrapper = $('.cart-and-ipay');
+        
+        if ($availabilityWrapper !== '' || $availabilityWrapper !== undefined || $availabilityWrapper !== null) {
+            if (($availabilityWrapper === 'out of stock') || ($availabilityWrapper === 'Out of Stock')) {
+                $cartWrapper.addClass('d-none');
+            } else {
+                $cartWrapper.removeClass('d-none');
+            }
         }
     });
 }
