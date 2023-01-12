@@ -796,6 +796,17 @@ function handleVariantResponse(response, $productContainer) {
         initializeZoomSlickDots();
         initializeZoomModelCarousel();
         $('.main-carousel .slick-active').addClass('slick-center');
+
+    $(document).ready(function () {
+        var $availabilityWrapper = $('.product-availability .availability-msg').text();
+        var $cartwrapper = $('.cart-and-ipay');
+    
+        if (($availabilityWrapper === 'out of stock') || ($availabilityWrapper === 'Out of Stock')) {
+            $cartwrapper.addClass('d-none');
+        } else {
+            $cartwrapper.removeClass('d-none');
+        }
+    });
 }
 
 /**

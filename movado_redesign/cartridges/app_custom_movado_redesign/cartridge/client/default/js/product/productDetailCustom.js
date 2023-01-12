@@ -381,3 +381,15 @@ function ratingRedesign() {
         }
     }
 }
+
+$(document).ready(function () {
+    var $productWrapper = $('.product-availability .availability-msg-text').text();
+    var $cartwrapper = $('.cart-and-ipay');
+    if ($productWrapper !== '' || $productWrapper !== undefined || $productWrapper !== null) {
+        if (($productWrapper === 'out of stock') || ($productWrapper === 'Out of Stock')) {
+            if (!($cartwrapper.hasClass('d-none'))) {
+                $cartwrapper.addClass('d-none');
+            }
+        }
+    }
+});
