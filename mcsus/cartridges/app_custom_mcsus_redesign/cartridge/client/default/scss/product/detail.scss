@@ -2069,11 +2069,11 @@
                                             background-image: url(../../images/map-pin.svg);
                                             padding: rem(15);
                                             margin-right: rem(5);
-                                            transform: translate(-2px , 7px);
+                                            transform: translate(-2px, 7px);
 
                                             @include media-breakpoint-down(xs) {
                                                 background-image: url(../../images/map-pin-mobile.svg);
-                                                transform: translate(-8px , 7px);
+                                                transform: translate(-8px, 7px);
                                             }
                                         }
                                     }
