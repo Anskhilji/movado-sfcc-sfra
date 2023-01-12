@@ -2067,11 +2067,11 @@
                                             background-image: url(../../images/map-pin.svg);
                                             padding: rem(15);
                                             margin-right: rem(5);
-                                            transform: translateX(-2px);
+                                            transform: translate(-2px, 7px);
 
                                             @include media-breakpoint-down(xs) {
                                                 background-image: url(../../images/map-pin-mobile.svg);
-                                                transform: translateX(-8px);
+                                                transform: translate(-8px, 7px);
                                             }
                                         }
                                     }
@@ -2080,6 +2080,14 @@
                         }
                     }
                 }
+            }
+
+            .InStock-icon-times {
+                transform: translateY(5px);
+            }
+            
+            .unavailable-icon-block {
+                transform: translateY(5px);
             }
 
             .info-icon {
