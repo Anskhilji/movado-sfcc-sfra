@@ -317,12 +317,6 @@ server.replace(
             }
         }
 
-            var email = form.shippingAddress.addressFields.email.htmlValue;
-            if (!empty(email)) {
-                var maskedEmail = checkoutCustomHelpers.maskEmail(email);
-                checkoutLogger.info('(CheckoutShippingServices) -> SubmitShipping: Step-1: Customer Email is ' + maskedEmail);
-            }
-        }
         return next();
     }
 );
