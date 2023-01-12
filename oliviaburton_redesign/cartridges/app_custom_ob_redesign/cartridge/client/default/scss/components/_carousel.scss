@@ -281,7 +281,7 @@
                         letter-spacing: rem(0);
                         line-height: rem(20);
                         margin-bottom: rem(5);
-                        
+
                         @include media-breakpoint-down(sm-custom) {
                             font-size: rem(12);
                         }
@@ -380,7 +380,7 @@
                     background-size: unset;
                     border-radius: 100%;
                     background-color: transparent;
-                    box-shadow: 0 3px 8px 0 $transparent-gray-2;
+                    box-shadow: 0 3px 8px 0 $transparent-gray-3;
         
                     &.slick-next {
                         right: rem(13);
