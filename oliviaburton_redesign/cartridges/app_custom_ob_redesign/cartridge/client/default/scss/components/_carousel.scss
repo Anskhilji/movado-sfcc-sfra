@@ -1,0 +1,471 @@
+@import "~movado/components/carousel";
+
+// Recommendation Carousel css
+.cs-carousel-wrapper {
+    &.pdp-carousel {
+        max-width: rem(750);
+        margin: 0 auto;
+
+        .slick-dots  {
+
+            button {
+                box-sizing: border-box;
+                height: rem(1);
+                width: rem(85);
+                background-color: $dark-grey2;
+                cursor: pointer;
+                margin-right: rem(-5);
+            }
+
+            .slick-active {
+
+                button {
+                    box-sizing: border-box;
+                    height: rem(1);
+                    border: rem(1) solid $black;
+                    width: rem(133.33);
+                    
+                    &:focus {
+                        background-color: $black;
+                        outline: none;
+                    }
+                }
+            }
+        }
+
+        .slick-list {
+            margin: 0 rem(-25);
+
+            .slick-slide {
+                @include media-breakpoint-up(lg) {
+                    margin: 0 rem(25);
+                    transform: translateX(-20px);
+                }
+            }
+        }
+
+        .carousel-title {
+            margin-right: rem(25);
+            color: $black;
+            font-family: $gill-sans-font-stack;
+            font-size: rem(28);
+            font-weight: 600;
+            letter-spacing: 0;
+            line-height: rem(40);
+            text-align: center;
+            text-transform: capitalize;
+        }
+    }
+
+    &.recommendation-carousel-pdp {
+        width: 100%;
+        margin: auto;
+        overflow-x: hidden;
+
+        .cs-carousel {
+            padding-bottom: rem(0);
+
+            .slick-track {
+                margin-bottom: rem(35);
+            }
+        }
+
+        .carousel-title {
+            color: $black;
+            font-size: rem(28);
+            font-weight: 600;
+            line-height: rem(40);
+            font-family: $font-gill-std-semibold;
+            margin-bottom: rem(30);
+            letter-spacing: 0;
+
+            @include media-breakpoint-down(sm-custom) {
+                font-size: rem(20);
+                margin-bottom: rem(20);
+                line-height: rem(35);
+                color: $gray20;
+            }
+        }
+
+        .slick-slide {
+            margin: 0 rem(12.5);
+
+            @include media-breakpoint-down(sm-custom) {
+                margin: 0 rem(8);
+            }
+        }
+
+        .slick-dots {
+            width: 20%;
+            margin: auto;
+            justify-content: center;
+            align-items: center;
+            left: 0;
+            right: 0;
+            margin-top: rem(30);
+
+            li {
+                width: 100%;
+                margin-right: rem(0);
+
+                @include media-breakpoint-down(sm-custom) {
+                    width: rem(20);
+                }
+
+            }
+
+            button {
+                border-radius: rem(0);
+                width: 100%;
+                height: rem(2);
+                outline: none;
+                background-color: $gainsboro;
+
+                @include media-breakpoint-down(sm-custom) {
+                    width: rem(20);
+                }
+            }
+
+            .slick-active {
+
+                button {
+                    background-color: $black;
+                }
+            }
+        }
+
+        .product {
+            &-tile {
+
+                .image-container {
+                    border: none;
+
+                    .tile-picture-hidden {
+                        display: none;
+                    }
+
+                    .product-badge {
+                        &.redesigned {
+                            left: auto;
+                            right: rem(10);
+                            top: rem(10);
+
+                            @include media-breakpoint-up(xl) {
+                                left: auto;
+                                right: rem(20);
+                                top: rem(20);
+                            }
+
+                            img {
+                                width: rem(35);
+                                height: rem(35);
+
+                                @include media-breakpoint-up(xs) {
+                                    width: rem(32);
+                                    height: rem(32);
+                                    position: relative;
+                                    left: rem(8);
+                                    top: rem(-8);
+                                }
+                                
+                                @include media-breakpoint-down(md) {    
+                                    left: rem(6);
+                                    top: rem(-6);
+                                }
+
+                                @include media-breakpoint-up(xl) {
+                                    width: rem(48);
+                                    height: rem(48);
+                                    position: relative;
+                                    left: rem(15);
+                                    top: rem(-15);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .tile-body {
+                padding: rem(15) rem(20);
+
+                @include media-breakpoint-down(sm-custom) {
+                    padding: rem(10);
+                }
+
+                .pdp-link {
+                    text-align: left;
+                    margin-bottom: rem(5);
+                    height: rem(40);
+                    overflow: hidden;
+
+                    a {
+                        font-size: rem(15);
+                        font-family: $font-gills-light;
+                        text-transform: capitalize;
+                        color: $gray20;
+                        font-weight: 300;
+                        letter-spacing: rem(0);
+                        line-height: rem(20);
+                        
+                        @include media-breakpoint-down(sm-custom) {
+                            font-size: rem(12);
+                        }
+                    }
+                }
+
+                .pricing-save {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    height: rem(24);
+                    text-align: left;
+
+                    .price {
+                        padding-left: rem(4);
+                        font-size: rem(13);
+                        font-family: $font-gill-std-semibold;
+                        color: $gray20;
+
+                        .value {
+                            font-size: rem(13);
+                            font-family: $font-gills-light;
+                            font-weight: 300;
+                            font-style: normal;
+                            color: $gray20;
+                            letter-spacing: rem(0);
+                            line-height: rem(18);
+                        }
+
+                        .sale-price-mvmt {
+                            font-weight: 600;
+                            
+                            .value {
+                                font-weight: 600;
+                            }
+                        }
+                    }
+
+                    .save-value {
+                        font-family: $font-gill-std-semibold;
+                        font-size: rem(12);
+                        color: $white;
+                        font-weight: 600;
+                        font-style: normal;
+                        letter-spacing: 0.5px;
+                        padding: rem(3) rem(5);
+                        background-color: $gray-dark;
+                        border-radius: rem(5);
+                        min-width: rem(67);
+                        text-align: center;
+                    }
+                }
+
+                .add-to-cart-plp-redesign {
+                    display: none;
+                }
+
+                .product-family {
+                    cursor: unset;
+
+                    &:hover {
+                        text-decoration: none;
+                    }
+
+                    h3 {
+                        text-align: left;
+                        color: $gray20;
+                        font-family: $font-gill-std-bold;
+                        font-size: rem(15);
+                        font-weight: 600;
+                        letter-spacing: rem(0);
+                        line-height: rem(20);
+                        margin-bottom: rem(5);
+
+                        @include media-breakpoint-down(sm-custom) {
+                            font-size: rem(12);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.pdp-bottom-carousel-redesign {
+    &.container-fluid {
+
+        .col-12 {
+            padding: 0 rem(6.5);
+        }
+    }
+
+    .carousel-container-wrapper {
+        overflow: unset;
+    }
+    
+    .cs-carousel-wrapper {
+
+        .slick-list {
+            margin: 0;
+        }
+    }   
+}
+
+// Custom:MSS-2053 Recommendation
+.new-rec-carosel {
+
+    .cta-add-to-cart {
+        display: none;
+    }
+
+    .cs-carousel-wrapper {
+
+        &.recommendation-carousel-pdp {
+            width: unset;
+            margin: rem(0) rem(10) rem(0) rem(11);
+
+            @include media-breakpoint-down(sm) {
+                margin: rem(0) rem(5) rem(0) rem(4);
+            }
+
+            .carousel-title {
+                margin-bottom: rem(30);
+
+                @include custom-media-query-max($medium-screen-width)  {
+                    margin-bottom: rem(40);
+                }
+
+                @include media-breakpoint-down(xs) {
+                    margin-bottom: rem(40);
+                }
+            }
+
+            .cs-carousel {
+                margin-bottom: rem(16);
+
+                .slick-dots {
+                    max-width: rem(250);
+
+                    li {
+                        
+                        button {
+                            height: rem(3);
+                            background-color: $transparent-gray-4;
+                        }
+
+                        &.slick-active {
+
+                            button {
+                                background-color: $gray20;
+                            }
+                        }
+                    }
+
+                }
+
+                .slick-list {
+                    margin: 0;
+                }
+        
+                .slick-slide {
+                    margin: 0 rem(10);
+        
+                    @include custom-media-query-max($medium-screen-width) {
+                        margin: 0 rem(5.5);
+                    }
+                }
+        
+                .slick-arrow {
+                    background-size: unset;
+                    border-radius: 100%;
+                    background-color: transparent;
+                    box-shadow: 0 3px 8px 0 $transparent-gray-3;
+        
+                    &.slick-next {
+                        right: rem(13);
+                        background-image: url(../../images/arrow-right-circle.svg);
+        
+                        &:focus {
+                            outline: 0;
+                        }
+                    }
+        
+                    &.slick-prev {
+                        left: rem(10);
+                        background-image: url(../../images/arrow-left-circle.svg);
+        
+                        &:focus {
+                            outline: 0;
+                        }
+                    }
+                }
+                
+                .product-tile {
+    
+                    .tile-body {
+                        padding: rem(18) rem(20) rem(20) rem(20);
+    
+                        @include custom-media-query-max($medium-screen-width) {
+                            padding: rem(20) rem(10) rem(30) rem(10);
+                        }
+
+                        .product-family {
+
+                            h3 {
+                                text-align: center;
+                            }
+                        }
+    
+                        .pdp-link {
+                            margin-bottom: rem(10);
+                            min-height: rem(50);
+                            text-align: center;
+    
+                            a {
+                                color: $gray20;
+                                font-size: rem(16);
+                                letter-spacing: 0;
+                                line-height: rem(24);
+                                text-align: center;
+                                font-weight: 400;
+                              
+                            }
+                        }
+    
+                        .pricing-save {
+                            justify-content: center;
+                            gap: rem(10);
+                            @include media-breakpoint-down(sm) {
+                                gap: unset;
+                            }
+
+                            .price {
+                                color: $gray20;
+                                font-size: rem(18);
+                                font-weight: 300;
+                                letter-spacing: 0;
+                                line-height: rem(18);
+                                text-align: center;
+
+                                .strike-through , .sale-price-mvmt {
+                                    @include media-breakpoint-down(sm) {
+                                        margin-right: rem(10);
+                                    }
+                                }
+
+                                .value {
+                                    font-size: rem(18);
+
+                                    @include media-breakpoint-down(sm) {
+                                        font-size: rem(18);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
