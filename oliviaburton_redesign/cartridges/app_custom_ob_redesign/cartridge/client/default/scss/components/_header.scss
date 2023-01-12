@@ -20,16 +20,16 @@
     }
 
     .mobile-search {
-        background: url("../images/round-search-24px.png") center center no-repeat;
+        background: url("../images/Icons_Search.png") center center no-repeat;
         border: none;
-        width: rem(20);
-        height: rem(20);
+        width: rem(15);
+        height: rem(15);
         margin-left: rem(10);
         padding: 0;
     }
 
     .header-wrapper {
-        background-color: $gray-light2;
+        background-color: $gray-light-1;
         
         @include media-breakpoint-down(md) {
             border-bottom: rem(1) solid $transparent-gray-2;
@@ -73,9 +73,9 @@
                     right: rem(10);
                     font-size: rem(0);
                     transform: translateY(-50%);
-                    width: rem(15);
-                    height: rem(15);
-                    background: url("../images/round-search-24px.svg") center center no-repeat;
+                    width: rem(20);
+                    height: rem(20);
+                    background: url("../images/Icons_Search.png") center center no-repeat;
                     background-size: contain;
                 }
             }
@@ -162,7 +162,7 @@
 
     .header-menu-wrapper {
         padding: 0;
-        background-color: $gray-light2;
+        background-color: $gray-light-1;
     }
 
     .left {
