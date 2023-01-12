@@ -44,21 +44,30 @@ module.exports = function () {
 
 
     $('form.eswCouponValidation').off('submit').on('submit', function (e) {
-        var form = $(this);
+        var currentForm = $(this);
+        var customerEmail = $("#esw-coupon-validation-form").val();
+        var form = {
+            customerEmail : customerEmail
+        };
         e.preventDefault();
-        var url = form.attr('action');
-        form.spinner().start();
+        var url = currentForm.attr('action');
+        $.spinner().start();
         $('form.eswCouponValidation').trigger('eswCouponValidation:submit', e);
         $.ajax({
             url: url,
-            type: 'get',
+            type: 'post',
             dataType: 'json',
-            data: form.serialize(),
+            data: form,
             success: function (data) {
-                form.spinner().stop();
-                if (!data.success) {
-                    $(".email-validation").addClass("border-danger");
-                    $(".auauthanicated-error").text(data.error);
+                $.spinner().stop();
+                if (!data.success && data.errorMessage !== undefined && data.errorMessage !== '') {
+                    $(".esw-invalid-feedback").css('display', 'block');
+                    $(".esw-invalid-feedback").text(data.errorMessage);
+                    $(".esw-email-validation").addClass("border-danger");
+                    $('form.eswCouponValidation').trigger('eswCouponValidation:error', data);
+                    $.spinner().stop();
+                } else if (!data.success) {
+                    $(".esw-email-validation").addClass("border-danger");
                     $('form.eswCouponValidation').trigger('eswCouponValidation:error', data);
                     location.href = data.redirectUrl;
                 } else {
@@ -70,14 +79,15 @@ module.exports = function () {
                 if (data.redirectUrl) {
                     window.location.href = data.redirectUrl;
                 } else {
-                    $(".email-validation").addClass("border-danger");
+                    $(".esw-invalid-feedback").text(data.errorMessage);
+                    $(".esw-email-validation").addClass("border-danger");
                     $('form.eswCouponValidation').trigger('eswCouponValidation:error', data);
-                    form.spinner().stop();
+                    $.spinner().stop();
                 }
             }
         });
         return false;
-    });
+    }); 
     
 
     $('.reset-password-form').off('submit').on('submit', function (e) {

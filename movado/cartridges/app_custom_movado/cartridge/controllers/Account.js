@@ -836,4 +836,59 @@ server.prepend('Header', server.middleware.include, function (req, res, next) {
     next();
 });
 
+server.post('EswCouponValidation', function (req, res, next) {
+    var BasketMgr = require('dw/order/BasketMgr');
+    var CouponMgr = require('dw/campaign/CouponMgr');
+    var collections = require('*/cartridge/scripts/util/collections');
+    var eswServiceHelper = require('*/cartridge/scripts/helper/serviceHelper');
+
+
+    var currentBasket = BasketMgr.getCurrentBasket();
+    var couponLineItems = currentBasket.couponLineItems;
+    var EswGuestemail = req.form.customerEmail;
+    var filterRedemptions = false;
+    
+    if (!empty(EswGuestemail)) {
+        for(var i = 0; i < couponLineItems.length; i++) {
+            var couponLineItem = couponLineItems[i];
+            var couponCodeValue = couponLineItem.couponCode;
+            if (!empty(couponCodeValue)) {
+                var couponCode = CouponMgr.getCouponByCode(couponCodeValue);
+                var getRedemptions = CouponMgr.getRedemptions(couponCode.ID, couponCodeValue);
+    
+                collections.forEach(getRedemptions, function (item) {
+                    var redemptionEmail = item.customerEmail;
+                    if (redemptionEmail == EswGuestemail) {
+                        filterRedemptions = true;
+                        return;
+                    }
+                });
+            }
+        }
+    
+        if (filterRedemptions) {
+            res.json({
+                success: false,
+                error: true,
+                redirectUrl : URLUtils.url('Cart-Show', 'eswfail', true).toString()
+            });
+        } else {
+            res.json({
+                success: true,
+                error: false,
+                redirectUrl : URLUtils.url('Checkout-Begin', 'eswEmail', EswGuestemail).toString()
+            });
+        }
+    } else {
+        res.json({
+            success: false,
+            error: true,
+            errorMessage : Resource.msg('esw.guest.email.required', 'account', null)
+        }); 
+    }
+
+    return next();
+    }
+);
+
 module.exports = server.exports();

@@ -136,52 +136,6 @@ server.append(
     }
 );
 
-server.get('EswCouponValidation', function (req, res, next) {
-    var BasketMgr = require('dw/order/BasketMgr');
-    var CouponMgr = require('dw/campaign/CouponMgr');
-    var collections = require('*/cartridge/scripts/util/collections');
-    var eswServiceHelper = require('*/cartridge/scripts/helper/serviceHelper');
-
-        var currentBasket = BasketMgr.getCurrentBasket();
-        var couponLineItems = currentBasket.couponLineItems;
-        var EswGuestemail = "ahmadusman890@gmail.com";
-        var filterRedemptions = false;
-        
-        for(var i = 0; i < couponLineItems.length; i++) {
-            var couponLineItem = couponLineItems[i];
-            var couponCodeValue = couponLineItem.couponCode;
-            if (!empty(couponCodeValue)) {
-                var couponCode = CouponMgr.getCouponByCode(couponCodeValue);
-                var getRedemptions = CouponMgr.getRedemptions(couponCode.ID, couponCodeValue);
-
-                collections.forEach(getRedemptions, function (item) {
-                    var redemptionEmail = item.customerEmail;
-                    if (redemptionEmail == EswGuestemail) {
-                        filterRedemptions = true;
-                        return;
-                    }
-                });
-            }
-        }
-
-        if (filterRedemptions) {
-            res.json({
-                success: false,
-                error: true,
-                redirectUrl : URLUtils.url('Cart-Show').toString()
-            });
-        } else {
-            res.json({
-                success: true,
-                error: false,
-                redirectUrl : URLUtils.url('Checkout-Begin', 'eswEmail', EswGuestemail).toString()
-            });
-        }
-
-        return next();
-    }
-);
-
 server.get('LegacyCustomerPasswordReset', server.middleware.https, function (req, res, next) {
     var accountHelpers = require('*/cartridge/scripts/helpers/accountHelpers');
 

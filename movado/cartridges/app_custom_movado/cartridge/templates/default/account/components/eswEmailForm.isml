@@ -4,14 +4,15 @@
         <label class="form-control-label" for="login-form-email">
             ${Resource.msg('label.input.login.email', 'login', null)}
         </label>
-        <input type="email" placeholder="${Resource.msg('form.placeholder.email', 'account', null)}" id="login-form-email" class="form-control" name="loginEmail" value="${pdict.userName}">
-        <div class="invalid-feedback"></div>
+        <input type="email" placeholder="${Resource.msg('form.placeholder.email', 'account', null)}" id="esw-coupon-validation-form" class="form-control esw-email-validation" name="eswCouponValidation" value="${pdict.userName}">
+        <div class="esw-invalid-feedback invalid-feedback"></div>
+        <div class="auauthanicated-error text-danger"></div>
     </div>
 
 
     <div class="submit-form-section text-left">
         <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
-        <button type="submit" class="btn btn-block btn-primary">${Resource.msg('link.text.sign.in', 'cart', null)}</button>
+        <button type="submit" class="btn btn-block btn-primary">${Resource.msg('link.text.sign.in', 'account', null)}</button>
     </div>
 </form>
 <iscomment> Custom End </iscomment>

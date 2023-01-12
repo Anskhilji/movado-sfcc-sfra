@@ -698,7 +698,7 @@ function createOrder(eswEmail) {
         dw.system.HookMgr.callHook('dw.order.calculate', 'calculate', cart);
         var email;
         var paymentInstrument = cart.createPaymentInstrument('ESW_PAYMENT', getNonGiftCertificateAmount(cart));
-        if (eswEmail) {
+        if (!customer.authenticated && customer.profile.email == null && eswEmail) {
             email = eswEmail ? eswEmail : 'eswUser@gmail.com';
         } else {
             email = (customer.authenticated && customer.profile.email !== null) ? customer.profile.email : 'eswUser@gmail.com';
