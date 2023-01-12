@@ -98,6 +98,18 @@
                 position: relative;
             }
         }
+
+        .search-mobile {
+            .site-search {
+                .fa-search {
+                    transform: translateY(-50%);
+                    width: rem(17);
+                    height: rem(18);
+                    background: url("../images/Icons_Search.png") center center no-repeat;
+                    background-size: contain;
+                }
+            }
+        }
     }
 
     .minicart {
@@ -222,4 +234,13 @@
 
 .cart-country-selector {
     padding-top: rem(20);
+}
+
+.site-search {
+    .fa-search {
+        width: rem(17);
+        height: rem(18);
+        background: url("../images/Icons_Search.png") center center no-repeat;
+        background-size: contain;
+    }
 }
