@@ -115,7 +115,7 @@ function getCartAssets(){
 	return emptyCartDom;
 }
 
-function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engravedMessage){
+function createAddtoCartProdObj(lineItemCtnr, productUUID, embossedMessage, engravedMessage, form){
     var productGtmArray = {};
     var variant;
     var searchCustomHelper = require('*/cartridge/scripts/helpers/searchCustomHelper');

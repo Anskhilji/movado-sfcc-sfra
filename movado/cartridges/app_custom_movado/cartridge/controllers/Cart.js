@@ -175,7 +175,7 @@ server.append('AddProduct', function (req, res, next) {
             recommendedProductCardHtml = renderTemplateHelper.getRenderedHtml(basketModel, 'cart/productCard/recommendationProductCard');
         }
 
-        var addCartGtmArray = customCartHelpers.createAddtoCartProdObj(currentBasket, viewData.pliUUID, embossedMessage, engravedMessage);
+        var addCartGtmArray = customCartHelpers.createAddtoCartProdObj(currentBasket, viewData.pliUUID, embossedMessage, engravedMessage, req.form);
         viewData.addCartGtmArray = addCartGtmArray;
 
         if(Site.current.getCustomPreferenceValue('analyticsTrackingEnabled')) {
