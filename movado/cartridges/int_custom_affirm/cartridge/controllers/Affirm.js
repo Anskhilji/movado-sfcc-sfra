@@ -36,7 +36,7 @@ server.replace(
             return next();
         }
 
-        if (session.privacy.pickupFromStore) {
+        if (currentBasket.custom.storePickUp) {
             Transaction.wrap(function () {
                 COCustomHelpers.removeGiftMessageLineItem(currentBasket);
             });

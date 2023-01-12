@@ -118,7 +118,7 @@ server.post('ProcessPayments',
             return;
         }
 
-        if (session.privacy.pickupFromStore) {
+        if (currentBasket.custom.storePickUp) {
             Transaction.wrap(function () {
                 COCustomHelpers.removeGiftMessageLineItem(currentBasket);
             });
