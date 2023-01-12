@@ -219,7 +219,7 @@ exports.afterAuthorization = function (order, payment, custom, status) {
             if (!emailValidate) {
                 addressError.addDetail(ApplePayHookResult.STATUS_REASON_DETAIL_KEY, ApplePayHookResult.REASON_SHIPPING_CONTACT);
                 deliveryValidationFail = true;
-                Logger.error('Invalid Email {0}', email);
+                Logger.error('Invalid email address for order {0}', order.orderNo);
             } else {
                 var maskedEmail = checkoutCustomHelpers.maskEmail(email);
                 checkoutLogger.info('(applePay.js) -> SubmitPayment: Step-2: Customer Email is ' + maskedEmail);
