@@ -197,7 +197,6 @@ server.append('Confirm', function (req, res, next) {
     var couponLineItemsItr = order.getCouponLineItems().iterator();
     var checkoutAddrHelper = require('*/cartridge/scripts/helpers/checkoutAddressHelper');
     var orderCustomHelper = require('*/cartridge/scripts/helpers/orderCustomHelper');
-    var Transaction = require('dw/system/Transaction');
     if (!empty(viewData.order)) {
         checkoutAddrHelper.saveCheckoutShipAddress(viewData.order);
     }
