@@ -6,7 +6,6 @@
         </label>
         <input type="email" placeholder="${Resource.msg('form.placeholder.email', 'account', null)}" id="esw-coupon-validation-form" class="form-control esw-email-validation" name="eswCouponValidation" value="${pdict.userName}">
         <div class="esw-invalid-feedback invalid-feedback"></div>
-        <div class="auauthanicated-error text-danger"></div>
     </div>
 
     <div class="submit-form-section text-left">
