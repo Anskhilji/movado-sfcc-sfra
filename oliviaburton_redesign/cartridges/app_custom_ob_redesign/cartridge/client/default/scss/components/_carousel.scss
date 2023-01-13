@@ -323,10 +323,10 @@
 
         &.recommendation-carousel-pdp {
             width: unset;
-            margin: rem(0) rem(10) rem(0) rem(11);
+            margin: rem(0) rem(10) rem(0) rem(10);
 
-            @include media-breakpoint-down(sm) {
-                margin: rem(0) rem(5) rem(0) rem(4);
+            @include media-breakpoint-down(xs) {
+                margin: rem(0) rem(6) rem(0) rem(4);
             }
 
             .carousel-title {
@@ -334,6 +334,7 @@
 
                 @include custom-media-query-max($medium-screen-width)  {
                     margin-bottom: rem(40);
+                    color: $black;
                 }
 
                 @include media-breakpoint-down(xs) {
@@ -346,6 +347,10 @@
 
                 .slick-dots {
                     max-width: rem(250);
+
+                    @include custom-media-query-max($medium-screen-width) {
+                       bottom: rem(9);
+                    }
 
                     li {
                         
@@ -414,6 +419,7 @@
 
                             h3 {
                                 text-align: center;
+                                min-height: rem(20);
                             }
                         }
     
@@ -435,11 +441,7 @@
     
                         .pricing-save {
                             justify-content: center;
-                            gap: rem(10);
-                            @include media-breakpoint-down(sm) {
-                                gap: unset;
-                            }
-
+                           
                             .price {
                                 color: $gray20;
                                 font-size: rem(18);
@@ -462,10 +464,24 @@
                                     }
                                 }
                             }
+
+                            .save-value {
+                                margin-left: rem(10);
+
+                                @include media-breakpoint-down(sm) {
+                                    margin-left: unset;
+                                }
+                            }
                         }
                     }
                 }
             }
         }
+    }
+}
+
+.cs-carousel {
+    .tile-picture-hidden {
+        display: none;
     }
 }
