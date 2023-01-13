@@ -38,7 +38,7 @@ server.prepend(
     function (req, res, next) {
         var eswHelper = require('*/cartridge/scripts/helper/eswHelper').getEswHelper();
         var session = req.session.raw;
-        var eswEmail = req.querystring.eswEmail;
+        var eswEmail = req.querystring.eswEmail ? req.querystring.eswEmail : '';
         if (eswHelper.getEShopWorldModuleEnabled()) {
             var eswServiceHelper = require('*/cartridge/scripts/helper/serviceHelper');
             if (session.privacy.orderNo && !empty(session.privacy.orderNo)) {
