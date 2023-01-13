@@ -15,9 +15,9 @@
 			}
 		});
 	</isscript>
-	<isif condition="${contentSlotName == 'cs_plp_marketing_tile_slot'}">
+	<isif condition="${contentSlotName == 'cs_plp_marketing_tile_slot_1st'}">
 		<div class="col-6 col-sm-4">
-			<isslot id="cs_plp_marketing_tile_slot" context="category" description="dynamic content slot tile" context-object="${pdict.productSearch.category.raw}"/>
+			<isslot id="cs_plp_marketing_tile_slot_1st" context="category" description="dynamic content slot tile" context-object="${pdict.productSearch.category.raw}"/>
 		</div>
 	</isif>
 	<isif condition="${contentSlotName == 'cs_plp_marketing_tile_slot_2nd'}">
