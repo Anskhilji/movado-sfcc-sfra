@@ -110,15 +110,15 @@
                                     </isif>
                                     <isset name="prductCount" value="${prodStatus.index + 1}" scope="page">
                                         <isscript>
-                                                                        var sitePreferences =  require('dw/system/Site').getCurrent().getPreferences().getCustom();
-                                                                        var plpTileSlotPosition = JSON.parse(sitePreferences.plpTileSlotPosition);
-                                                                        var contentSlotName = '';
-                                                                            plpTileSlotPosition.filter( function (productSlot) {
-                                                                            if(productSlot.index == prductCount){
-                                                                                return contentSlotName = productSlot.slotName;
-                                                                            }
-                                                                        });
-                                                                    </isscript>
+                                            var sitePreferences =  require('dw/system/Site').getCurrent().getPreferences().getCustom();
+                                            var plpTileSlotPosition = JSON.parse(sitePreferences.plpTileSlotPosition);
+                                            var contentSlotName = '';
+                                                plpTileSlotPosition.filter( function (productSlot) {
+                                                if(productSlot.index == prductCount){
+                                                    return contentSlotName = productSlot.slotName;
+                                                }
+                                            });
+                                        </isscript>
                                         <isif condition="${contentSlotName == Resource.msg('plp.tile.slot.1st', 'search', null)}">
                                             <div class="col-6 col-sm-4">
                                                 <isslot id="cs_plp_marketing_tile_slot_1st" context="category" description="dynamic content slot tile"
@@ -196,7 +196,7 @@
             <isslot id="cs_plp_bottom_slot" context="category" description="Content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
             <isslot id="cs_plp_seo_bottom_slot" context="category" description="SEO content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
             <isslot id="cs_plp_marketing_bottom_slot" context="category" description="Marketing content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
-			<isslot id="cs_plp_marketing_bottom_slot_desktop" context="category" description="Marketing content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
+            <isslot id="cs_plp_marketing_bottom_slot_desktop" context="category" description="Marketing content slot at the bottom of the PLP" context-object="${dw.catalog.CatalogMgr.getCategory(pdict.productSearch.category.id)}"/>
         </isif>
     </div>
     <div class="no-results-carousel plp-new-design">
