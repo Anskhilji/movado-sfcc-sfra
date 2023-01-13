@@ -9,7 +9,7 @@
 			</div>
 		</isif>
     
-<isset name="prductCount" value="${pdict.productSearch.pageSize + prodStatus.index + 1}" scope="page">
+ 	<isset name="prductCount" value="${pdict.productSearch.pageSize + prodStatus.index + 1}" scope="page">
 	<isscript>
 		var sitePreferences =  require('dw/system/Site').getCurrent().getPreferences().getCustom();
 		var plpTileSlotPosition = JSON.parse(sitePreferences.plpTileSlotPosition);
