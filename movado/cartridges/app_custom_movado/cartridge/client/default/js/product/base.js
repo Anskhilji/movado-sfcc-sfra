@@ -821,12 +821,15 @@ function handleVariantResponse(response, $productContainer) {
     $(document).ready(function () {
         var $availabilityWrapper = $('.product-availability .availability-msg').text();
         var $cartWrapper = $('.cart-and-ipay');
-        
+        var $stickyWrapper = $('.cart-sticky-wrapper-btn');
+
         if ($availabilityWrapper !== '' || $availabilityWrapper !== undefined || $availabilityWrapper !== null) {
-            if (($availabilityWrapper === 'out of stock') || ($availabilityWrapper === 'Out of Stock')) {
+            if (($availabilityWrapper === 'out of stock') || ($availabilityWrapper === 'Out of Stock') || ($availabilityWrapper === 'Select Styles for Availability')) {
                 $cartWrapper.addClass('d-none');
+                $stickyWrapper.addClass('d-none');
             } else {
                 $cartWrapper.removeClass('d-none');
+                $stickyWrapper.removeClass('d-none');
             }
         }
     });
