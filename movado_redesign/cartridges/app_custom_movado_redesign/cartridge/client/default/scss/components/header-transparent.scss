@@ -97,6 +97,10 @@ header {
                                     background-color: $white;
                                     filter: unset;
                                     -webkit-filter: unset;
+                                    
+                                    .header-wrapper { 
+                                        background-color: $white;
+                                    }
                                 }
                             }
 
