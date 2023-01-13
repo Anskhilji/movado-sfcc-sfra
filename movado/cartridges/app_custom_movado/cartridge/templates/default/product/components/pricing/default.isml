@@ -22,7 +22,7 @@
     
         <del>
             <span class="strike-through list">
-                <span class="value" content="${price}">
+                <span class="value" content="${price}">fffffffffff
                     <span class="sr-only">
                         ${Resource.msg('label.price.reduced.from', 'pricing', null)}
                     </span>
@@ -58,7 +58,7 @@
                             <span class="sr-only">
                                 ${Resource.msg('label.price.reduced.from', 'pricing', null)}
                             </span>
-                            ${product.productBasePrice}
+                            ${product.productBasePrice}bbbbbbbbbbbb
                             <span class="sr-only">
                                 ${Resource.msg('label.price.to', 'pricing', null)}
                             </span>
@@ -86,7 +86,7 @@
                             <span class="sr-only">
                                 ${Resource.msg('label.price.reduced.from', 'pricing', null)}
                             </span>
-                            ${product.productBasePrice}
+                            ${product.productBasePrice}aaaaaaa
                             <span class="sr-only">
                                 ${Resource.msg('label.price.to', 'pricing', null)}
                             </span>
